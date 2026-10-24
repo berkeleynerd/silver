@@ -327,3 +327,265 @@ The single process-wide `e <= 2`, two save-entering callbacks and three saves
 are unchanged. Physical resource premises, current language admission, Oracle
 and source/tool pins are unchanged. This bounded result does not complete
 #202 or #119, adopt #206 or start production #88–#94.
+
+## Source-attached clone frontier — continuation after the accepted bridge
+
+This continuation discharges the inherited-map coverage/capture obligation
+above for the **current ordinary-Main clone origins and the retained fixed
+import clone origins**. It does not establish that property for arbitrary
+WhyML modules. The bridge and #211 repair remain unchanged; the new
+[clone-caller packet](../evidence/retained-main-construction-demand-20261024/clone-callers/README.md)
+adds source attachment and direct caller recurrences. Complete native bytes,
+other typing work and kode/SP/WP demand remain open.
+
+### Which original declarations can be cloned
+
+Reuse the accepted 21-file import graph, not a new source/version search.
+Its 205 explicit clone declarations name 64 distinct original modules. The
+ordinary Integer/Boolean/Character/String frontier additionally permits
+`ada__model.Static_Discrete`, `Dynamic_Discrete`, `Rep_Proj_Int`,
+`Constr_Array`, `Unconstr_Array` and `_gnatprove_standard.Array__1`.
+Dynamic_Discrete is already in the fixed set, giving 69 distinct origins.
+These choices follow the accepted Main type construction together with
+`why-gen-scalars.adb:757–824,1291–1338` and
+`why-gen-arrays.adb:1055–1059,2538–2539,2666–2667`. Rank is one and the other
+numeric representation alternatives are outside that Main frontier. Scalar
+and array helper modules emit references and symbol substitutions; they do
+not make an arbitrary Main program module a clone origin.
+
+In particular, `Array_Type_Is_Clone` exports an existing type module and may
+add an alias (`why-gen-arrays.adb:1534–1567`). This is a **use**, not another
+clone execution. `Include_Decl.mk_include_variant` maps even an include tagged
+`Clone_default` to `Use_import`, and `mk_include_declaration` builds only
+use declarations (`gnat_ast_to_ptree.ml:125–173`). The separate
+`Clone_declaration` branch builds genuine clones (`:1240–1280`). Its
+substitutions are type/function/predicate symbols, never program variables or
+routine refinements. The accepted Image-model templates do not add another
+program-module clone family.
+
+All retained library module headers lack an implementation interface, and the
+accepted current native Main Modules entries have interface `None`.
+`Typing.open_module/close_module` therefore never reaches
+`mod_impl_register` (`typing.ml:1808–1825,1900–1931`). The implementation-copy
+`impl_cl`/`mod_table` traversal is not an additional clone caller here.
+
+The new inventory checks complete retained bytes for the 69 origins. It
+enumerates every val/let head with comment/string-aware tokens. Logical
+`constant`, `function` and `predicate` declarations produce logical routine
+representatives, not global pvsymbols (`parser_common.mly:903–907`,
+`expr.ml:112–153`). Ordinary top-level functions have parameters. Every
+remaining plain nullary let candidate in these origins has its own lexical
+`in` before another binding/declaration; they are local terms or the local
+allocation in `set.SetImp.singleton`. There is no top-level LDvar, no
+top-level RKlocal definition, no program `let rec`, and no type invariant in
+these original modules. There is also no `by` token, excluding explicit type
+witnesses independently of the invariant check. Copied declarations from an earlier clone satisfy
+the same property by induction over the accepted acyclic clone graph.
+In particular `Dexpr.let_defn:1801–1841` makes parameterized declarations
+LDsym, wraps nullary RKfunc/RKpred declarations in Cfun/LDsym, and rejects
+top-level RKlocal. Its only accepted top-level LDvar row is an unqualified
+nullary declaration, precisely the source category excluded above.
+
+Across the whole 21-file corpus the four plain nullary val objects are
+`_gnatprove_standard.Main.__HEAP`, its `no__return` and attribute-bearing
+`spark__branch`, and
+`mach.int.Random63.s`. Neither defining module is a clone origin.
+Random63 is outside the origins' use/clone dependency closure. Three origins
+use standard Main—Discrete_Base, Fixed_Point_Base and Floating_Point_Base—
+for types and stateless symbols. No other module in the complete origins'
+dependency closure refers to `__HEAP`, `no__return` or `spark__branch`, and
+those names occur
+in standard Main itself only at their
+declarations, so there is no hidden state-reading callable from that module.
+Use retains the imported namespace/declarations; it does not copy its
+program variables into the clone map. Consequently no reached cloned
+contract/body has a foreign program-variable dependency. Unchanged foreign
+types and logical symbols remain ordinary references and introduce no free
+term variable. This conclusion is tied to the checked source graph, not an
+assumption that every imported module is stateless.
+
+This corpus fact is joined to the **origin boundary**, not generalized to
+Main's generated body. The only source-dependent clone origins are the six
+selected retained module names above; the generated Main module and its
+instrumented expressions are never originals passed to `clone_export`.
+The converter supplies CStsym/CSfsym/CSpsym, and
+`Typing.type_inst:1593–1642` places the latter two solely in `mi_ls`.
+Its `mi_pv`/`mi_rs` rows require CSvsym, which this converter does not emit.
+Replacing a logical symbol does not inline the target's definition or
+introduce its program reads. Thus a variable synthesized in ordinary Main
+JSON/Ptree generation, including a possible `spark__branch` instrumentation
+reference, cannot enter these original clone terms by that route.
+
+The fixed originals are parsed from the retained WhyML files. Their parser
+if-rules only construct Eif (`parser_common.mly:1029–1033`);
+`Typing` maps its three children to DEif (`typing.ml:1112–1116`), and
+`Dexpr`/`Expr.e_if` compose exactly those children and their effects
+(`dexpr.ml:1588–1589`, `expr.ml:975–987`). They inject no foreign branch
+variable. The remaining helper-created variables are fresh lexical proxies
+(`expr.ml:859–900`), formal/result/oldie variables, local routine variables
+or pattern binders, all covered by the scope induction below. Callable
+lemma generation derives its formals/posts from the closed input formula
+(`typing.ml:1560–1580`, `expr.ml:781–833`) and emits a separate LDsym.
+This excludes hidden parser/type helper state for the cloned origins; it
+does not claim that ordinary Main itself has no external state.
+
+### The whole map history at actual use cuts
+
+Fix one `clone_export` invocation. Its original module is already fully
+constructed before `cl_init`, so every variable identity in its stored terms,
+including old keys/images and pattern binders, precedes this invocation's
+fresh allocation history. The transported Ident guard remains required.
+
+`cl_init` calls `empty_clones`, whose `pv_table` is empty; it validates
+instantiations but never seeds pv_table with caller-chosen replacements
+(`pmodule.ml:586–600,696–725`). At each declaration boundary in this frontier,
+`cl.pv_table` is still empty. Here is the complete induction:
+
+- Pure/type declarations do not write pv_table. The invariant/witness term
+  clone branches are absent for these origins. Namespace uses and clone
+  metadata do not execute an origin's declarations or write pv_table.
+- Every top-level ordinary program declaration is LDsym. Its representative
+  is RLnone, RLls or RLlemma, so `sm_save_rs` changes the routine/logical maps
+  and leaves `sm_pv`/`sm_vs` unchanged. Top-level LDvar/RKlocal/LDrec are absent
+  by the source classification above, including generated callable lemmas
+  and nullary constant wrappers.
+- Thus the ordinary PDlet row writes an empty `sm.sm_pv` back to pv_table
+  (`:1448–1465`). The three fixed `val eq` refinement rows use `cl_save_rs`,
+  which likewise does not seed a program-variable substitution (`:838–849`).
+  Their constructed contracts are still visited and counted below.
+
+Therefore `sm_of_cl`'s inherited `sm_vs` is empty at every top-level contract
+use in this frontier. This is a derived property of the complete declaration
+history, not an assumption that fresh current formals somehow sanitize an
+unknown inherited map. It directly answers the #211 counterexample at the
+actual source boundary.
+
+Within a declaration, maintain the following lexical induction: sm contains
+a distinct new pvsymbol for every original program variable in the current
+source scope that can occur freely in a cloned term; every target was
+allocated after this clone invocation began. Logical binders are left to the
+accepted generic mapper. Source typing resolves a free program occurrence
+through this lexical scope, with no foreign program variable by the corpus
+lemma. The saved-support invariant extends that coverage to every old image.
+
+The native extension rows establish this induction as follows.
+
+| Native site | Coverage and identity argument |
+| --- | --- |
+| `clone_cty:902–915` | `clone_pv` allocates each argument separately, then `sm_save_pv` installs it before mapping preconditions. Oldies are cloned separately before normal/exceptional postconditions. Post-result variables are epsilon bound and handled by the mapper. |
+| `clone_cexp Cfun:1042–1047` | `sm_save_args` and `sm_save_olds` reuse precisely the fresh arguments/oldies just constructed for that Cfun. The body therefore receives both maps. `Cany` has no body. |
+| `clone_let_defn LDvar:1051–1056` | Clone the initializer in the old scope; `let_var` registers a fresh symbol; install it only for the subsequent body. Local proxy/sequence bindings obey the same rule. The declaration's outer map is persistent. |
+| `sm_save_rs:879–883` | A local RKlocal routine gets an RLpv from `create_rsymbol`'s fresh `create_pvsymbol` (`expr.ml:120–137`). Install that target only after cloning the definition. Other routine kinds add no variable mapping. No arbitrary external routine target is introduced into this lexical map. |
+| `clone_ppat:970–982` | The source pattern's distinct variable names receive fresh pvsymbols from `create_prog_pattern`. Its per-pattern name table reuses a variable across an or-pattern, and native pattern constructors reject duplicate distinct bindings. `sm_save_vs` extends the branch scope only. |
+| Exception/for binders:1002–1005,1010–1017 | Each original carried/index variable gets a fresh clone; the equal external/internal index case reuses one target deliberately for the same original key. Branch/body scopes receive the extension. |
+
+The last two rows explain the native lexical rule without expanding the
+admitted Main grammar. The inventoried origins have no program loops,
+exception handlers or recursive program definitions; pure logical cases can
+still occur and remain in the generic mapper's separate context domain.
+
+Oldies require one additional source fact. `Dexpr.find_old` memoizes by the
+original current pvsymbol in one label table and creates a fresh old pvsymbol
+only on its first use (`dexpr.ml:1141–1170`). `get_oldies` reverses that table
+(`:1193–1194`); `create_cty` may restrict it but does not merge different
+entries. `cty_of_spec:1309–1324` and `lambda:1773–1789` each supply their
+single fresh `old_label` table to that operation. Original Cfun/Cany
+specifications therefore have at most one oldie
+for each current variable. Because the clone's current-variable map is
+injective, the reverse map in `sm_save_olds:965–968` cannot collapse two
+different entries. It recovers the exact new oldie already allocated by
+`clone_cty`. Applied Capp contracts may alias actual arguments, but those are
+rebuilt by `c_app`; they are not the original Cfun/Cany oldie maps to which
+this argument is applied. Clone-created Cfun/Cany records retain this
+property inductively: their oldie keys are fresh and their current-variable
+images are injective. Before `create_cty` can restrict the map, `clone_cty`
+adds all fresh oldies to its reads (`:919`), so the subsequent
+`sm_save_olds` does not lose a body-only oldie.
+
+All inherited lexical targets are newer than the entire original module;
+new extensions remain distinct and have the same property. Type projection
+commutes with the clone type constructors: `ty_of_ity (clone_ity cl ity)` is
+`clone_ty cl (ty_of_ity ity)`. `ity.ml:182–185` erases region metadata and
+projects only the type-symbol arguments. The variable/app cases follow the
+same `ty_table`/`ts_table` substitutions in `pmodule.ml:604–638`, with
+`ity_full_inst`/`its_match_regs` projecting to the same `ty_inst` formal
+substitution. The Ityreg case follows `clone_reg:641–649`; a symbol in
+`ty_table` is pure by `:1240–1248`, so cannot be the mutable symbol of an
+Ityreg. Cloned aliases preserve their defining projections. Thus
+`create_pvsymbol` (`ity.ml:745–756`) gives `clone_pv` the required type
+compatibility. Local routine targets project the same argument/result
+mapping type; pattern targets are checked against cloned constructor
+arguments. Together, the scope, oldie and freshness
+inductions establish the accepted bridge's sufficient coverage/injection/
+all-stored-identities disjointness premise at every reached `clone_term`
+contract/body call. No weaker ad hoc map premise or caller-supplied
+certificate is needed for this source frontier.
+
+Pure `clone_fmla` calls use the empty map on closed definition axioms,
+inductive cases and propositions. Their source declaration constructors close
+the logical formals; source typing rejects a genuinely unbound variable.
+Generated callable lemmas are separate LDsym declarations handled above.
+Hence the empty map satisfies coverage for these roots, including formulas
+with logical cases or saved images.
+
+### Finite direct caller multiplicities
+
+The accepted #185 declaration fold constructs the actual ordered program and
+pure declaration records from source, including implicit posts, callable
+lemmas and generated type declarations. Evaluate the following recurrence on
+those records, **not on a supplied size certificate**. It does not need to
+recover saved-map histories from the opened terms merely to count roots.
+Let `Q(c)=|pre|+|post|+sum_x |xpost[x]|` for the stored original contract.
+
+| Reached clone constructor | Direct `clone_term` roots and other entries |
+| --- | --- |
+| Cany | Q(c); one `clone_cty` |
+| Cfun e | Q(c) plus the expression recurrence for e; one `clone_cty` |
+| Capp | One direct `c_app`, whose nontrivial contract substitution is the accepted bridge's separate stage-4 row; no direct `clone_term` |
+| Cpur | No direct `clone_term`; its typed constructor work is separate |
+| LDvar / LDsym | Initializer-expression / cexp recurrence, respectively |
+| Elet, Eif, Ematch | Sum over exactly the visited declaration and child/branch expressions |
+| Eassert / Epure | One root |
+| Other leaf expressions | Zero roots; this does not make their constructors allocation-free |
+| Dlogic group | One root per definition axiom, including substituted definitions constructed only for equality checking |
+| Dind group | One root per inductive case formula, including substituted comparison cases |
+| Dprop | Zero when the source guard skips it, otherwise one |
+| Program-val refinement | Q(c), one `clone_cty` and one direct `c_app` (`pmodule.ml:1385,1390`) before creating the refinement function/VC; subsequent VC construction is separate |
+| Uuse / Uclone metadata / meta | Zero direct roots; no recursive traversal of the referenced module at this point |
+| Uscope | Sum in native child order |
+
+For completeness the native loop row would add the invariant and variant
+roots to its child expression recurrences, and a recursive-definition member
+would add `Q(rec_cty)-1+|variants|` plus its body, with one `clone_cty`.
+The source inventory makes those rows zero in this frontier. It is therefore
+unnecessary to assume a bound on `let_rec`'s effect fixed point here.
+
+The recurrence is additive over the **actual ordered input units at each
+clone boundary**. Define `Build(m)` by the accepted declaration fold in source
+order: local declarations append their typed records; a clone directive
+appends the output records of cloning `Build(origin)` with that directive's
+substitution; use edges append references. The accepted acyclic origin graph
+makes this a finite construction. Evaluate the table on `Build(origin)` with
+the current clone's substitutions to obtain its direct caller counts.
+Do not sum the numerical caller weights of unchanged ancestor origins:
+earlier clones can omit substituted definitions, change proposition kinds,
+or generate refinement declarations. In particular a comparison attempt
+consumes its formula root even when its output contains no corresponding
+definition for a later clone to visit. Input work and emitted records remain
+separate. The packet's simple weighted DAG diagram checks only the
+unchanged-weight special case; it is not the actual declaration fold.
+
+Each source-generated Main clone has a selected origin and substitutions in
+this construction. Fixed comparison/discard decisions can be retained
+exactly or overcounted by keeping their attempted input roots. A failure
+stops a finite list/structural traversal at a prefix; no already constructed
+root is refunded. No retry edge returns to an earlier clone root, and nested
+Uclone metadata does not initiate another clone execution. Unknown source
+declaration families are not zero-cost cases.
+
+This closes source attachment of the **direct clone root/contract entry
+counts**, including discarded comparison attempts. It does not count every
+internal term/type/effect operation in `create_cty`, `c_app`, declaration
+construction or namespace merging. Apply the accepted bridge separately to
+each actual stored root, then price the still-open native consumers. The
+distinction preserves the original #202 construction-demand boundary.

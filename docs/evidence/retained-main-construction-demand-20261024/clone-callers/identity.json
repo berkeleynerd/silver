@@ -1,0 +1,715 @@
+{
+  "why3_revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "spark_revision": "42554fc241fcd1fdf08d3a2feccb3f86912acbc0",
+  "source_behavior_premise": "Retained source behavior and installed library bytes; no new historical binary-source identity claim.",
+  "accepted_bridge_commit": "3f4f6143c206518bf257d3d9b63cee2a08d14bcd",
+  "accepted_bridge_review": "536c35cd2c",
+  "providers": [
+    {
+      "path": "docs/evidence/retained-producer-import-context-20261018/check.py",
+      "sha256": "d7ee80ebd3c636c6a55b8d902ef03570618534ffdb4afa7789f127ab2ec688b7"
+    },
+    {
+      "path": "docs/evidence/retained-producer-import-context-20261018/result.json",
+      "sha256": "294936a42d259f65692e2760158fdd7a4651b511b9e1ad8f934380d43108da9b"
+    },
+    {
+      "path": "docs/evidence/retained-producer-import-context-20261018/identity.json",
+      "sha256": "ca060dd622a8cc118bbc0b77b661d98195108ca8f9710e5f133efc3516a04f3f"
+    },
+    {
+      "path": "docs/research/retained-main-vc-composition.md",
+      "sha256": "a380b9b6c63df9b165dbcb3b841dc03c066f7501c064f133535c5282df5bf27b"
+    },
+    {
+      "path": "docs/research/retained-producer-main-types.md",
+      "sha256": "b0c799ad269b20509491f9d57708fc789985a85613dfd3e919bc8c068d7514fc"
+    },
+    {
+      "path": "docs/research/retained-producer-capacity.md",
+      "sha256": "78a2f84607ce9ac116a9fb6e59a67774d55aefbd5e42fecfdf9b5e8383a06d78"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/bridge.py",
+      "sha256": "3e76672713a8a0e4e5aac78681155fe3c61e32b2195a2637863fbdd9c8e2d1ac"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/identity.json",
+      "sha256": "762e5898b7dd016cec04955f5b124056abf169efadee4bb52b660c53d39653cf"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/result.json",
+      "sha256": "c64e9d51d0f26f79d3a1fec65ae42c9a80bfbf506b654701c164f29286e92d3d"
+    }
+  ],
+  "archives": [
+    {
+      "path": "docs/evidence/retained-producer-prefix-composition-20261018/sources.tar.gz",
+      "sha256": "e90b4625cd14f94fa7e594711225dd357b29769031811d3eb4d65a1edefeb15a",
+      "files": [
+        {
+          "path": "src/mlw/pmodule.ml",
+          "sha256": "0bbebf874d1fe1ed216efd07a76f6e51d9fd96c5910ea9c1fac2f5864db29344",
+          "spans": [
+            {
+              "first": 573,
+              "last": 600,
+              "sha256": "c627a773922f2e77750674a50638b8562151ce9e68766e27afb0cc8c9b7a3e7f",
+              "anchors": [
+                "pv_table = Mvs.empty"
+              ]
+            },
+            {
+              "first": 604,
+              "last": 678,
+              "sha256": "b06238c733c0832c6ff9068dc641fd4e63d6b72b728cb23a7726c7bd89bf0d5e",
+              "anchors": [
+                "let rec sm_trans_ty",
+                "let rec clone_ity",
+                "and clone_reg",
+                "let clone_fmla"
+              ]
+            },
+            {
+              "first": 696,
+              "last": 725,
+              "sha256": "642917e67e6ca4f187b5ac0fca5cbe69f3e120892e5291ec02628b9ca142928d",
+              "anchors": [
+                "let cl_init",
+                "inst.mi_pv"
+              ]
+            },
+            {
+              "first": 739,
+              "last": 833,
+              "sha256": "5d0468f2bec00f9c94ec37ec5883f919e691079996697d4144c506d945afdf49",
+              "anchors": [
+                "clone_fmla cl (ls_defn_axiom ld)",
+                "clone_fmla cl f",
+                "if skip then uc"
+              ]
+            },
+            {
+              "first": 838,
+              "last": 915,
+              "sha256": "efb34fd88c1a52465676f5c4784c8851db473bbf00b452a67a44862f5abe321d",
+              "anchors": [
+                "let cl_save_rs",
+                "let sm_of_cl",
+                "let sm_save_vs",
+                "let sm_save_pv",
+                "let sm_save_rs",
+                "let clone_cty"
+              ]
+            },
+            {
+              "first": 916,
+              "last": 982,
+              "sha256": "93d70c037774d8c50e40b0cb36fd10c82470fda2e44e6992d8c0593c445a9ab7",
+              "anchors": [
+                "Mpv.domain olds",
+                "let sm_save_args",
+                "let sm_save_olds",
+                "let clone_ppat"
+              ]
+            },
+            {
+              "first": 984,
+              "last": 1082,
+              "sha256": "1d3465aa1d64b3f47f282a71ee1684ca7641f616d40cf112cb76abb48daf49e4",
+              "anchors": [
+                "let rec clone_expr",
+                "and clone_cexp",
+                "and clone_let_defn"
+              ]
+            },
+            {
+              "first": 1214,
+              "last": 1248,
+              "sha256": "7e1a5571aaf18cf139e875415894172afde20deb41784821966dc063f77cf9e7",
+              "anchors": [
+                "Alias ty",
+                "its_pure s && ity.ity_pure",
+                "cl.ty_table <-"
+              ]
+            },
+            {
+              "first": 1365,
+              "last": 1485,
+              "sha256": "f2c37185677f5477c3c77109c51ff2516be6b36b6c4ebb43f98d862a0f364f88",
+              "anchors": [
+                "| PDlet (LDsym",
+                "c_app rs'",
+                "cl.pv_table <- sm.sm_pv"
+              ]
+            },
+            {
+              "first": 1586,
+              "last": 1640,
+              "sha256": "3a03b44ebccd912522395952413ca5625fc099a053c03739a8e5a3f06e352b80",
+              "anchors": [
+                "let clone_export'",
+                "| Uclone mi",
+                "| Uscope",
+                "let clone_export ?loc",
+                "let mod_impl_register"
+              ]
+            }
+          ]
+        },
+        {
+          "path": "src/mlw/expr.ml",
+          "sha256": "73ebf5c02e0821dd7b19992a120390f5aa28824acdff7b3153676d8fdc56064f",
+          "spans": [
+            {
+              "first": 112,
+              "last": 153,
+              "sha256": "8b8b8428a9cf547a23b8f7fe2afe90918779278dd17c1790d8cbdffd3fffa342",
+              "anchors": [
+                "| RKlocal",
+                "create_pvsymbol",
+                "| RKfunc"
+              ]
+            },
+            {
+              "first": 254,
+              "last": 296,
+              "sha256": "26be2b33bf987d6e52f92c1c0dc015eef9e393fd259c0ab2c1fe7c0f9eeb4b6a",
+              "anchors": [
+                "let create_prog_pattern",
+                "let hv",
+                "pat_or"
+              ]
+            },
+            {
+              "first": 721,
+              "last": 729,
+              "sha256": "9675dea3e8f7b590ca763a5d04ac31c63b81c1ade7221985e097c561e4120b1c",
+              "anchors": [
+                "let let_var",
+                "let let_sym"
+              ]
+            },
+            {
+              "first": 781,
+              "last": 833,
+              "sha256": "c92655e25c895f2e087e9ff69eae2757428bcd48da75222307b51ac95fb659f6",
+              "anchors": [
+                "let cty_from_formula",
+                "create_vsymbol",
+                "create_post"
+              ]
+            },
+            {
+              "first": 859,
+              "last": 900,
+              "sha256": "9f2cc01193d915f52ed72da4afd25fc7e2d056aa86502466eaead06e303dbd8c",
+              "anchors": [
+                "let mk_proxy_decl",
+                "let mk_proxy",
+                "let_head"
+              ]
+            },
+            {
+              "first": 975,
+              "last": 987,
+              "sha256": "9aeca973d10bb3207f14a840a1e406e1e3e9a7a040e07698503504f3da60637d",
+              "anchors": [
+                "let e_if",
+                "mk_expr (Eif"
+              ]
+            }
+          ]
+        },
+        {
+          "path": "src/mlw/ity.ml",
+          "sha256": "036cd1bac384c017b15ffae7e8f0c466cb50005d5905c83524679439dec66a49",
+          "spans": [
+            {
+              "first": 175,
+              "last": 185,
+              "sha256": "77b38fe4b3bc3e9239387aaac2ba33af20e8cd4a6e35d918353e344857443814",
+              "anchors": [
+                "let its_pure",
+                "let rec ty_of_ity"
+              ]
+            },
+            {
+              "first": 411,
+              "last": 417,
+              "sha256": "7a4dbab83731e0c51759fcffec73ca40ab0d40e0ec33784b14c898a5fe17d5b6",
+              "anchors": [
+                "let ity_full_inst"
+              ]
+            },
+            {
+              "first": 492,
+              "last": 500,
+              "sha256": "eaebec1dadc3f37a0688d3fd473f8afb6b64f6ae21318cab11f6bf5e74872352",
+              "anchors": [
+                "let its_match_args",
+                "let its_match_regs"
+              ]
+            },
+            {
+              "first": 745,
+              "last": 756,
+              "sha256": "8dc7a9a1c50ff51aad585c5cfa87b40ae9d8af26fd534ecda0b4e04f16136536",
+              "anchors": [
+                "create_vsymbol id (ty_of_ity ity)"
+              ]
+            },
+            {
+              "first": 1359,
+              "last": 1386,
+              "sha256": "ba589c6181a9d248abdcf69080c27700bfcd423e131c64b9afb4decd71748dc7",
+              "anchors": [
+                "let create_cty",
+                "Mpv.set_inter oldies",
+                "Mpv.set_disjoint"
+              ]
+            }
+          ]
+        },
+        {
+          "path": "src/mlw/dexpr.ml",
+          "sha256": "da655ebaf0266564bf84acc7cd30f2b673219557e2439a4079af526f1925e1e9",
+          "spans": [
+            {
+              "first": 1141,
+              "last": 1194,
+              "sha256": "39ee52a2e626e26b9e96b44ada58a1382bfbeadca4a3f490dc26c8fcbb5ef2cb",
+              "anchors": [
+                "let find_old",
+                "MMpv.find_opt old v",
+                "let get_oldies"
+              ]
+            },
+            {
+              "first": 1309,
+              "last": 1324,
+              "sha256": "24a1b910d6416f08b2e4aa2f4dceb4222cc6764c8ce1ad620201b0de9dfcdcb2",
+              "anchors": [
+                "let cty_of_spec",
+                "get_oldies old"
+              ]
+            },
+            {
+              "first": 1773,
+              "last": 1789,
+              "sha256": "21a980cb74a9d7729443a718b303b41a6bf3edcda155b607bcba5e927e9de78b",
+              "anchors": [
+                "and lambda",
+                "get_oldies old"
+              ]
+            },
+            {
+              "first": 1801,
+              "last": 1841,
+              "sha256": "cd2395bcdc731a63d7d21fcb6d4fb05d298bbc24ef57a3d43e84bccd1950a974",
+              "anchors": [
+                "let let_defn",
+                "| (RKfunc | RKpred)",
+                "| RKnone",
+                "| RKlocal"
+              ]
+            },
+            {
+              "first": 1588,
+              "last": 1589,
+              "sha256": "f76405d21ca214e54b9ed1a5ef3802ee6a286abc3f53c30113e1af51dc97900a",
+              "anchors": [
+                "DEif",
+                "e_if"
+              ]
+            }
+          ]
+        },
+        {
+          "path": "src/mlw/pdecl.ml",
+          "sha256": "74f46fe481ca7a8f531466754ccb463a57f324e22f6527f7527955a3f12b1ea6",
+          "spans": [
+            {
+              "first": 531,
+              "last": 550,
+              "sha256": "493747d97bec218ca0c5cc77264ac60dfdf2e69fd03bd2bd7907980a304f1e10",
+              "anchors": [
+                "let create_let_decl",
+                "t_forall_close"
+              ]
+            },
+            {
+              "first": 620,
+              "last": 638,
+              "sha256": "043ca4670cf516feba774388e63684122686af8c0a7c6d552f898940bdde644b",
+              "anchors": [
+                "| LDsym",
+                "PDlet ld"
+              ]
+            }
+          ]
+        },
+        {
+          "path": "src/parser/parser_common.mly",
+          "sha256": "98fb9a2693a4d7507c6c2477d1b25ce19f549563e6d49abd9590be5295b58a24",
+          "spans": [
+            {
+              "first": 868,
+              "last": 907,
+              "sha256": "a84b7357f31e50aa08361d40b7688021f7af542880e6f9b458836fbc2a39737e",
+              "anchors": [
+                "%public prog_decl",
+                "Expr.RKnone",
+                "Expr.RKfunc"
+              ]
+            },
+            {
+              "first": 1029,
+              "last": 1033,
+              "sha256": "637eb2bbfe4d1f8370ee4f7bbbac53f374d68f7c20c45c53127b45a3ca6e73b3",
+              "anchors": [
+                "Eif"
+              ]
+            }
+          ]
+        },
+        {
+          "path": "src/parser/typing.ml",
+          "sha256": "74b8ea5dcfbf4102952e80281cbea149261386270679ff4d79425e74fd67c572",
+          "spans": [
+            {
+              "first": 877,
+              "last": 880,
+              "sha256": "3acbfcd8b533ef2ec7d60e906b9225c7118a001047e86200dea00061486c3d57",
+              "anchors": [
+                "let local_kind"
+              ]
+            },
+            {
+              "first": 1702,
+              "last": 1738,
+              "sha256": "acb04d44fa22c4a8d7c42f1cf274bf9ea4db068501c1a2b2279842ce913fd9a9",
+              "anchors": [
+                "Ptree.Dlet",
+                "clone_export"
+              ]
+            },
+            {
+              "first": 1808,
+              "last": 1825,
+              "sha256": "c1a764e300ba4b8dd5a2476c58c9dc52d14a3010a1d8a9193c42e1511fab9676",
+              "anchors": [
+                "let open_module ?intf",
+                "| None"
+              ]
+            },
+            {
+              "first": 1895,
+              "last": 1934,
+              "sha256": "66f94d397f1857ee7db128e7c724dd39c694985df81770358c0623db019ee1bc",
+              "anchors": [
+                "let close_module loc",
+                "mod_impl_register"
+              ]
+            },
+            {
+              "first": 1112,
+              "last": 1116,
+              "sha256": "2a7692e77193376bb8aa84cf909ede54e73c051c81652eaaf395970617acc3e3",
+              "anchors": [
+                "DEif"
+              ]
+            },
+            {
+              "first": 1560,
+              "last": 1580,
+              "sha256": "1ad7c71959c661f959d9d3e536c911da12dbc0a547ed7badd15b4b587722b5d4",
+              "anchors": [
+                "Expr.cty_from_formula",
+                "let_sym",
+                "type_fmla_pure"
+              ]
+            },
+            {
+              "first": 1593,
+              "last": 1642,
+              "sha256": "520b41746a7c8de3ac5c8dac458acbb7bd144c1d856c646cecee8fca9908258b",
+              "anchors": [
+                "CSfsym",
+                "CSpsym",
+                "CSvsym",
+                "s.mi_ls",
+                "s.mi_rs",
+                "s.mi_pv"
+              ]
+            }
+          ]
+        },
+        {
+          "path": "plugins/gnat_json/gnat_ast_to_ptree.ml",
+          "sha256": "0cdda4d48f37fa27f4d70912881a5c64cbfbccaf2b1864d1098ccc870b62af35",
+          "spans": [
+            {
+              "first": 125,
+              "last": 173,
+              "sha256": "7218501310ee257ea89f0822cb413194935a1fc9cf07f77ef86e41eb26ea63b6",
+              "anchors": [
+                "Use_import",
+                "mk_useimport"
+              ]
+            },
+            {
+              "first": 1240,
+              "last": 1280,
+              "sha256": "3ce44594866fe622669bba47d2d96d4d18e23ce2a0c92206e22a542b6ce3505b",
+              "anchors": [
+                "Clone_declaration"
+              ]
+            }
+          ]
+        },
+        {
+          "path": "src/core/ident.ml",
+          "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db",
+          "spans": [
+            {
+              "first": 187,
+              "last": 214,
+              "sha256": "45a8bb5981048ae03d936e9eff63e1008b5d2f9c9323e89dccede45189800b58",
+              "anchors": [
+                "let id_register",
+                "let id_clone"
+              ]
+            }
+          ]
+        },
+        {
+          "path": "src/core/term.ml",
+          "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343",
+          "spans": [
+            {
+              "first": 36,
+              "last": 39,
+              "sha256": "6c329b825d645fec67d9fde07a92bb8ce81d6aad15703b8703f08fbe3b0c11af",
+              "anchors": [
+                "let create_vsymbol",
+                "id_register"
+              ]
+            },
+            {
+              "first": 112,
+              "last": 181,
+              "sha256": "87ae39aab4aa378f5a1fec00c4987dd1ff370024aa95f00b00cffb85ba1337c8",
+              "anchors": [
+                "let pat_as",
+                "let pat_or",
+                "let pat_app"
+              ]
+            }
+          ]
+        },
+        {
+          "path": "src/core/decl.ml",
+          "sha256": "818779e8554f896417bc722056b55a568787c7da178a356e820d9c8f4846fdfc",
+          "spans": [
+            {
+              "first": 29,
+              "last": 60,
+              "sha256": "d700ff3c8d79d893b88ab35b325959ab42cde37e39d25c7d149a82ac1a0ab3b4",
+              "anchors": [
+                "let check_fvs",
+                "let make_ls_defn"
+              ]
+            },
+            {
+              "first": 564,
+              "last": 610,
+              "sha256": "484868748d8565ff0e5ba5a45e5c1de3b7f281f265c93175a29dd1cda7ae5507",
+              "anchors": [
+                "let create_ind_decl",
+                "let create_prop_decl"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-producer-import-context-20261018/sources.tar.gz",
+      "sha256": "73c394cf6faa83fd4ff3f2a5a8d561a571300b5a439225e5df59c807ceea53a1",
+      "files": [
+        {
+          "path": "installed/share/spark/theories/_gnatprove_standard.mlw",
+          "sha256": "918b73544c7e499c2aa11c10c497924ff141e2321aa96cf6d16038dce72f6235",
+          "spans": []
+        },
+        {
+          "path": "installed/share/spark/theories/_gnatprove_standard_th.why",
+          "sha256": "5dfb0b132c3d2fecc2adbe6fdc6e3b75d9063cc5622ce8d0a72ea789682f7ed6",
+          "spans": []
+        },
+        {
+          "path": "installed/share/spark/theories/ada__model.mlw",
+          "sha256": "bb27b8013711690d9ee00e32aa6b37a66294a10b2b55ecdf0626b3a049577657",
+          "spans": []
+        },
+        {
+          "path": "installed/share/spark/theories/ada__model_th.why",
+          "sha256": "dcded522609422e0c9087750e504a6fe120fe44dd71f266983580a7e1f7047a2",
+          "spans": []
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/theories/algebra.mlw",
+          "sha256": "39d64b3f351a3a08a391d6d26467e427d9ad61799a0ea93ad9cf85d0acbc4fb4",
+          "spans": []
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/theories/bool.mlw",
+          "sha256": "b7072fdd8dd5004d0627b82a66b054518ee54eb4dd66f0883988e363bed251fa",
+          "spans": []
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/theories/bv.mlw",
+          "sha256": "00e72b4c0ec8b49bca2f5796e636eae47667d6544e439f7d8e771e771a529cb3",
+          "spans": []
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/theories/floating_point.mlw",
+          "sha256": "0fc1c5bcdb2812e9fd173199de8f767b8a27f5dbcc8072ca4fd543b04071aa8f",
+          "spans": []
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/theories/for_drivers.mlw",
+          "sha256": "e892ad394b50de0da1a2ed0e514d82632f3d79e57ac61294ad2d586b68883179",
+          "spans": []
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/theories/ieee_float.mlw",
+          "sha256": "e034c7f5cfb3fff284a668dcd2aa08536fdaac499dbd5d91a7147383448e0393",
+          "spans": []
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/theories/int.mlw",
+          "sha256": "6c3de03d3327ec7a2cffad038d67db17873695ddface1a11ccdad874865bca2c",
+          "spans": []
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/theories/list.mlw",
+          "sha256": "efd520bab75e5b9325ac369d7cb3675aecd1c2db859bbc0098c74b4b58585de5",
+          "spans": []
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/theories/mach/int.mlw",
+          "sha256": "62fa88a9c2202486efa5b42bd483e459c224c75b4dacae0a9126f6d22e5b7095",
+          "spans": []
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/theories/map.mlw",
+          "sha256": "11ff3c53a1e1d40dea77d55a3424ed309237fe4900b3370fbc14b0102b18114e",
+          "spans": []
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/theories/number.mlw",
+          "sha256": "4d0d83a9718774a342234ff8ef67e4545840629ffb0ee508f900d8fd67f83911",
+          "spans": []
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/theories/option.mlw",
+          "sha256": "ba5607ebfa8fb060cede3798d21241b43de090046724084a3efc1f90a308a6df",
+          "spans": []
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/theories/real.mlw",
+          "sha256": "de458986ac8cf2da145dafdb412509f0bb2fc0538468e91ee5dcfbee73be694a",
+          "spans": []
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/theories/ref.mlw",
+          "sha256": "f54413bf62b69bbfb996bd7d6a8098c18e4663f95f788623f729dd8eb5a60bea",
+          "spans": []
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/theories/relations.mlw",
+          "sha256": "0a367aecd2cd627de87d5f4011ddbf930bf49283e0b94b792a338faf921b2cae",
+          "spans": []
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/theories/set.mlw",
+          "sha256": "7bb4c9fffa2b24efd0372f5eb6d253d69b1d0f296d0622847dfd724b2b6ac709",
+          "spans": []
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/theories/string.mlw",
+          "sha256": "ea9e41823b857ebbe08fe5ba71687f3894946efd21748703d89a83df6b99e3ec",
+          "spans": []
+        }
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-producer-main-types-20261018/sources.tar.gz",
+      "sha256": "194168fcfc9ebabae3702bb0782f49634d0c73eb808215482ae8a86823e57910",
+      "files": [
+        {
+          "path": "spark/src/why/why-gen-scalars.adb",
+          "sha256": "8140ebf17a3f1f406c28a9759c768a830c0320da618c25cfe51b7b53325da07d",
+          "spans": [
+            {
+              "first": 757,
+              "last": 824,
+              "sha256": "67c82460ba75e8dc63435c389c51aadc90edbfa6c4f79929c4294c62090bc1b9",
+              "anchors": []
+            },
+            {
+              "first": 1291,
+              "last": 1338,
+              "sha256": "d205625df4ad32c4e466eb4ffc636a2d965ae9a0bd770ce1250fd5dca303fcbb",
+              "anchors": []
+            }
+          ]
+        },
+        {
+          "path": "spark/src/why/why-gen-arrays.adb",
+          "sha256": "e8175f36c1f3f440041b95be50e721ed335167b2977496c2f3eb4e1dd2570c2a",
+          "spans": [
+            {
+              "first": 1055,
+              "last": 1059,
+              "sha256": "a9daecf6eb2f9373a700bb5c6a6b1ba80c7ddb5c6b9818524b57962444417b6d",
+              "anchors": []
+            },
+            {
+              "first": 1534,
+              "last": 1567,
+              "sha256": "e379b85461e6f13dd7b8cd8bb77dbf870710b79467e030e00f3ab0b02c55ab53",
+              "anchors": [
+                "Array_Type_Is_Clone"
+              ]
+            },
+            {
+              "first": 2538,
+              "last": 2539,
+              "sha256": "b19a508b6961bcfb4db3690cbbf09acdad74238415bc802c09cf2c9f980d79a9",
+              "anchors": []
+            },
+            {
+              "first": 2666,
+              "last": 2667,
+              "sha256": "471776bf5fbc2e90af2111c3a8cc6abae2233db0bf1d8964575bde0ce23626e0",
+              "anchors": []
+            }
+          ]
+        },
+        {
+          "path": "spark/src/why/gnat2why-types.adb",
+          "sha256": "3b4b21d00eb4d14a4f7966c097f215217ea54183be4048a5d9bbd98ccdb3663d",
+          "spans": []
+        },
+        {
+          "path": "silver/src/silver_image_model_templates.adb",
+          "sha256": "c17ac93034127b56efdf69654753296d132c729b5aaca4f013e6be86dce8a47b",
+          "spans": []
+        }
+      ]
+    }
+  ]
+}

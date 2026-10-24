@@ -1,0 +1,95 @@
+{
+  "issue": 202,
+  "parent_issue": 119,
+  "role": "bounded author continuation",
+  "accepted_bridge_commit": "3f4f6143c206518bf257d3d9b63cee2a08d14bcd",
+  "accepted_bridge_review": "536c35cd2c",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "started_utc": "2026-10-24 04:34:46 UTC",
+  "author_checkpoint_utc": "2026-10-24 05:08:01 UTC",
+  "elapsed_to_checkpoint_seconds": 1995,
+  "elapsed_scope": "Excludes final commit and handoff work",
+  "intended_result": "Source-attach whole inherited clone map coverage/capture safety and finite direct caller multiplicities for actual ordinary Main/fixed origins",
+  "achieved_result": "69-origin/97-dependency inventory; empty declaration-boundary pv_table induction; lexical and oldie freshness/coverage/injection; type projection; actual-record direct clone root/contract/application recurrence",
+  "material_findings": [
+    "Complete attribute-aware inventory includes spark__branch: four corpus globals, none supplying free variables to reached clone roots",
+    "Three val eq substitutions are routine refinements rather than global val declarations",
+    "Program-val refinement makes a direct c_app as well as clone_cty",
+    "Earlier clone work cannot be reused as a later clone numeric weight: count transformed stored declaration records",
+    "Separate type-witness and module-interface exclusions close additional clone traversal branches",
+    "Main instrumentation is excluded at the origin and CSvsym substitution gates; fixed parser/typing branch construction adds no foreign variable"
+  ],
+  "validation": {
+    "failed_new_checker_attempts": 2,
+    "failure_dispositions": [
+      "Classified val eq = targets as routine refinements",
+      "Expanded expected global inventory and no-reference check to attribute-bearing spark__branch"
+    ],
+    "focused_failure_diagnostics": 1,
+    "successful_new_checker_runs": [
+      {
+        "assertions": 644,
+        "elapsed_seconds": 1.0197191939951153,
+        "reason": "First passing complete inventory/history/caller diagrams after classification repairs"
+      },
+      {
+        "assertions": 645,
+        "elapsed_seconds": 0.9781620869980543,
+        "reason": "Added independently checked type-witness exclusion"
+      },
+      {
+        "assertions": 674,
+        "elapsed_seconds": 1.2836436549987411,
+        "reason": "Added source gates requested for synthesized Main and parser/typing state"
+      }
+    ],
+    "final_host": "Linux-7.0.14-x86_64-with-glibc2.43",
+    "native_runs": 0,
+    "predecessor_checker_main_runs": 0,
+    "source_to_native_historical_identity_claim": false
+  },
+  "review_inputs": [
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/clone-callers/callers.py",
+      "sha256": "f34cb43230a4cae26277660f5c6b56906f094de20ad5232537a5fbd4bb544d7a"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/clone-callers/inventory.py",
+      "sha256": "f357cea514b24b7633f74c06d3b934021a425b56a753095166a4d4f478ae044d"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/clone-callers/check.py",
+      "sha256": "d3f33514b85196860ceb17ffb6a4a557c3d3f149875e95a5de55510dc5862642"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/clone-callers/identity.json",
+      "sha256": "71ec0a052e1e9e3c52d9e83cb825d24ecbfe57c24e7eb2794250566f380bcc7a"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/clone-callers/inventory.json",
+      "sha256": "ba8e9f8eb98462d177495d72f3b50579dc6669272aa820aab602b4ba67a96af5"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/clone-callers/result.json",
+      "sha256": "60922df04521dec500e3c7eeebfb64648453e7d369b77372440a4a898f890ce5"
+    },
+    {
+      "path": "docs/research/retained-main-construction-demand.md",
+      "sha256": "765a85d0f20ecdd35f71d37a01f9f12efc035c08247d4945308427541d796b6a"
+    }
+  ],
+  "independent_review_status": "pending; parent owns review/integration/publication",
+  "complete_source_to_initial_vc_storage": false,
+  "complete_native_bytes": false,
+  "kode_spwp_construction_closed": false,
+  "global_process_e_limit": 2,
+  "save_entering_callbacks": 2,
+  "saves": 3,
+  "tokens": null,
+  "cost": null,
+  "cli_memory_updated": false,
+  "subthread_harness_goal": null
+}
