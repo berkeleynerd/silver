@@ -204,7 +204,16 @@ occurrence/type/capture/backing counts and later native phases remain open.
 R91 also transports actual populated Ident/Hsty/Hsity counters and Weak geometry
 from pre-JSON C to entry before Typing.type_mlw_file's body under the exact R78
 relation. Auxiliary Hsattr/FileTags/location/call-ID/parser/numeric demand and
-all later typing/import/clone/builder requests remain explicit #202 work.
+all later typing/import/clone/builder requests remained explicit #202 work.
+The accepted [R92 checkpoint](docs/evidence/retained-providers-auxiliaries-round92-20261024/README.md)
+closes those C-to-T auxiliaries and parser/numeric/private-formatter consumers,
+completing the conditional representation join to typing entry. T-to-builder
+and later kode/SPWP/storage/failure work remains open. R92 also attaches the
+arbitrary finite hereditary native-lower-one provider family after #218's
+frontend/native bridge and scalar/copy/debug accounting repair. General
+input-low nested providers, executable/check/pointer construction, metadata,
+global backing and downstream native joins remain #201 work. #218 is In review
+pending delivery; source/native and physical premises are retained.
 The remaining [fixed-report composition #212](https://github.com/berkeleynerd/silver/issues/212)
 is now explicit and In progress under the same #119 authorization. Its
 [input inventory](docs/research/retained-fixed-report-composition.md) separates
@@ -228,11 +237,14 @@ additional RTS switch/search/descriptor/native-storage delta with #216's
 corrected macro spelling: top-level 168 versus child 169 bytes, added ALI row 172,
 map 489/reader 506 and source-bound GPR syntax/list/name deltas. P=188 is unchanged.
 Both #216 and #217 are In review pending delivery. The producer GPR baseline
-Project_Nodes, String_Elements, Name_Lists and GPR.Names counts, traversal
-multiplicities, remaining GPR/Gprconfig containers and parent allocations are
-explicit #212 obligations under #119. The accepted orchestration provides
-text/readers only; sufficient source/configuration bounds can close this work
-without historical exact AST recovery or a new capture. It is distinct from
+Project_Nodes, String_Elements and Name_Lists counts, traversal multiplicities
+and four parser-local backings are accepted in R92, including #219's corrected
+seven baseline/nine prospective Reference_Prefix reset events. #219 is In review
+pending delivery. Nonparsed global GPR.Names, remaining startup containers,
+KB XML/DOM/regexp, separate Gprconfig discovery/candidate-output/generation,
+GNATprove GPR2 and later per-unit/ALI/report joins remain explicit #212
+obligations under #119. Sufficient source/configuration bounds close this work
+without historical exact AST recovery or a new capture. This is distinct from
 #201's direct native graph. Actual launcher realization stays with #88/#89;
 actual complete attachment remains null. These are conditional regions, not
 adopted path limits. Native warning/counter/header/source-span/private-fix

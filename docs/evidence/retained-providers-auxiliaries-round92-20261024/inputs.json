@@ -1,0 +1,893 @@
+{
+  "components": [
+    {
+      "name": "Native hereditary provider author and #218 repair",
+      "freeze": "56fe7bbb442d191dca5ad9b0dcc5f22823713a07",
+      "paths": [
+        "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/README.md",
+        "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/check.py",
+        "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/current.json",
+        "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/extra-sources.tar.gz",
+        "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/grammar.json",
+        "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/inputs.json",
+        "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/ledger.json",
+        "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/packet-manifest.json",
+        "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/rank.json",
+        "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/remaining.json",
+        "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-218/README.md",
+        "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-218/check.py",
+        "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-218/current.json",
+        "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-218/effective.json",
+        "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-218/inputs.json",
+        "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-218/manifest.json",
+        "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-218/sources.json",
+        "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/source-manifest.json",
+        "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/source-witnesses.json",
+        "docs/research/retained-general-native-capacity.md"
+      ]
+    },
+    {
+      "name": "Native provider independent initial and repair reviews",
+      "freeze": "882ea2c1b82f52774ccdb02637a58a400391965a",
+      "paths": [
+        "docs/evidence/review-provider-attachment-20261024/README.md",
+        "docs/evidence/review-provider-attachment-20261024/audit.py",
+        "docs/evidence/review-provider-attachment-20261024/current.json",
+        "docs/evidence/review-provider-attachment-20261024/frontend-sources.json",
+        "docs/evidence/review-provider-attachment-20261024/frontend-sources.tar.gz",
+        "docs/evidence/review-provider-attachment-20261024/manifest.json",
+        "docs/evidence/review-provider-attachment-20261024/repair-218/README.md",
+        "docs/evidence/review-provider-attachment-20261024/repair-218/audit.py",
+        "docs/evidence/review-provider-attachment-20261024/repair-218/current.json",
+        "docs/evidence/review-provider-attachment-20261024/repair-218/manifest.json",
+        "docs/reviews/review-provider-attachment-20261024.md",
+        "docs/reviews/review-provider-attachment-repair-218-20261024.md"
+      ]
+    },
+    {
+      "name": "Main prefix auxiliary and consumer authors",
+      "freeze": "17b1b2b35e81b6244077de982331111b5f387e87",
+      "paths": [
+        "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/README.md",
+        "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/auxiliary.py",
+        "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/check-initial.py",
+        "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/check.py",
+        "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/checkpoint.md",
+        "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/exports.json",
+        "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/initial-check-failure.json",
+        "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/inputs.json",
+        "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/prepare.py",
+        "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/result-before-body-byte-attachment.json",
+        "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/result.json",
+        "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/round.json",
+        "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/source-caps.json",
+        "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/source-witnesses.json",
+        "docs/evidence/retained-main-construction-demand-20261024/prefix-consumers/README.md",
+        "docs/evidence/retained-main-construction-demand-20261024/prefix-consumers/binary-version-path.json",
+        "docs/evidence/retained-main-construction-demand-20261024/prefix-consumers/check-before-formatter-controls.py",
+        "docs/evidence/retained-main-construction-demand-20261024/prefix-consumers/check.py",
+        "docs/evidence/retained-main-construction-demand-20261024/prefix-consumers/checkpoint.md",
+        "docs/evidence/retained-main-construction-demand-20261024/prefix-consumers/consumers.py",
+        "docs/evidence/retained-main-construction-demand-20261024/prefix-consumers/exports.json",
+        "docs/evidence/retained-main-construction-demand-20261024/prefix-consumers/inputs.json",
+        "docs/evidence/retained-main-construction-demand-20261024/prefix-consumers/numeric-origins.json",
+        "docs/evidence/retained-main-construction-demand-20261024/prefix-consumers/prepare.py",
+        "docs/evidence/retained-main-construction-demand-20261024/prefix-consumers/result-before-formatter-controls.json",
+        "docs/evidence/retained-main-construction-demand-20261024/prefix-consumers/result.json",
+        "docs/evidence/retained-main-construction-demand-20261024/prefix-consumers/retrieval.json",
+        "docs/evidence/retained-main-construction-demand-20261024/prefix-consumers/round.json",
+        "docs/evidence/retained-main-construction-demand-20261024/prefix-consumers/source-witnesses.json",
+        "docs/evidence/retained-main-construction-demand-20261024/prefix-consumers/yojson-3.0.0.tar.gz",
+        "docs/research/retained-main-construction-demand.md"
+      ]
+    },
+    {
+      "name": "Main prefix auxiliary independent review",
+      "freeze": "bee34a8db1a84991cbf7491343223c5d71735afd",
+      "paths": [
+        "docs/evidence/review-main-prefix-auxiliary-20261024/audit.py",
+        "docs/evidence/review-main-prefix-auxiliary-20261024/result.json",
+        "docs/evidence/review-main-prefix-auxiliary-20261024/round.json",
+        "docs/reviews/review-main-prefix-auxiliary-20261024.md"
+      ]
+    },
+    {
+      "name": "Main prefix consumer independent review",
+      "freeze": "56e1249cde477d63eae76dc260e8dd442b8ab53a",
+      "paths": [
+        "docs/evidence/review-main-prefix-consumers-20261024/audit.py",
+        "docs/evidence/review-main-prefix-consumers-20261024/result.json",
+        "docs/evidence/review-main-prefix-consumers-20261024/round.json",
+        "docs/reviews/review-main-prefix-consumers-20261024.md"
+      ]
+    },
+    {
+      "name": "Parsed GPR and auxiliary table baseline author with #219 repair",
+      "freeze": "c7f0191bb8de07a1ebe2988c35f5a8f66ef89f58",
+      "paths": [
+        "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/README.md",
+        "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/boundary-result.json",
+        "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/boundary.stderr",
+        "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/boundary.stdout",
+        "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/capacity.py",
+        "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/check-boundary.py",
+        "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/check.py",
+        "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/check.stderr",
+        "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/check.stdout",
+        "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/handoff.json",
+        "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/inputs/datarep-before-extra-clauses.gpr",
+        "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/inputs/phase1-before-extra-clauses.gpr",
+        "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/inputs/program.gpr",
+        "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/inputs/translation-before-extra-clauses.gpr",
+        "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/repair-f1/README.md",
+        "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/repair-f1/capacity.py",
+        "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/repair-f1/check.py",
+        "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/repair-f1/check.stderr",
+        "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/repair-f1/check.stdout",
+        "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/repair-f1/handoff.json",
+        "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/repair-f1/result.json",
+        "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/repair-f1/round.json",
+        "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/repair-f1/source-manifest.json",
+        "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/result.json",
+        "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/round.json",
+        "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/source-manifest.json",
+        "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/source-sites.json",
+        "docs/research/retained-fixed-report-composition.md"
+      ]
+    },
+    {
+      "name": "Parsed GPR initial and repair independent review",
+      "freeze": "7431f0087b546477ea5a0f84c9e2905356429082",
+      "paths": [
+        "docs/evidence/review-gpr-baseline-20261024/audit.py",
+        "docs/evidence/review-gpr-baseline-20261024/audit.stderr",
+        "docs/evidence/review-gpr-baseline-20261024/audit.stdout",
+        "docs/evidence/review-gpr-baseline-20261024/result.json",
+        "docs/evidence/review-gpr-baseline-20261024/round.json",
+        "docs/evidence/review-gpr-reset-repair-20261024/audit.py",
+        "docs/evidence/review-gpr-reset-repair-20261024/audit.stderr",
+        "docs/evidence/review-gpr-reset-repair-20261024/audit.stdout",
+        "docs/evidence/review-gpr-reset-repair-20261024/result.json",
+        "docs/evidence/review-gpr-reset-repair-20261024/round.json",
+        "docs/reviews/review-gpr-baseline-20261024.md",
+        "docs/reviews/review-gpr-reset-repair-20261024.md"
+      ]
+    }
+  ],
+  "bindings": [
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/inputs.json",
+      "keys": [
+        "acceptance"
+      ],
+      "kind": "single",
+      "commit": "793a9738ed8f02e5d84e54a9a687894195f36f94"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/inputs.json",
+      "keys": [
+        "repair_acceptance"
+      ],
+      "kind": "single"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/inputs.json",
+      "keys": [
+        "frozen_repair_files"
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/inputs.json",
+      "keys": [
+        "files"
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/packet-manifest.json",
+      "keys": [
+        "files"
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/inputs.json",
+      "keys": [
+        "providers"
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/inputs.json",
+      "keys": [
+        "immutable_earlier_packets"
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/round.json",
+      "keys": [
+        "review_inputs"
+      ],
+      "commit": "ae53fcef513b322bdc67f91aee998d1a8c356a22"
+    },
+    {
+      "path": "docs/evidence/review-main-prefix-auxiliary-20261024/result.json",
+      "keys": [
+        "review_inputs"
+      ],
+      "commit": "ae53fcef513b322bdc67f91aee998d1a8c356a22"
+    },
+    {
+      "path": "docs/evidence/review-main-prefix-auxiliary-20261024/round.json",
+      "keys": [
+        "artifacts"
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-consumers/inputs.json",
+      "keys": [
+        "providers"
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-consumers/inputs.json",
+      "keys": [
+        "immutable_prior_packets"
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-consumers/result.json",
+      "keys": [
+        "local_inputs"
+      ],
+      "kind": "map_records",
+      "base": "docs/evidence/retained-main-construction-demand-20261024/prefix-consumers/"
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/source-manifest.json",
+      "keys": [
+        "providers"
+      ],
+      "kind": "map"
+    },
+    {
+      "path": "docs/evidence/review-provider-attachment-20261024/manifest.json",
+      "keys": [
+        "files"
+      ]
+    },
+    {
+      "path": "docs/evidence/review-provider-attachment-20261024/current.json",
+      "keys": [
+        "target_files"
+      ],
+      "commit": "e363118b9343dbae72127411f9bc21cc199e2070"
+    },
+    {
+      "path": "docs/evidence/review-provider-attachment-20261024/current.json",
+      "keys": [
+        "accepted_reviews",
+        0
+      ],
+      "kind": "single",
+      "commit": "793a9738ed8f02e5d84e54a9a687894195f36f94"
+    },
+    {
+      "path": "docs/evidence/review-provider-attachment-20261024/current.json",
+      "keys": [
+        "accepted_reviews",
+        1
+      ],
+      "kind": "single",
+      "commit": "10a9004c0f6115fd26c574fc9ca13e903338ece2"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-218/inputs.json",
+      "keys": [
+        "immutable_files"
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-218/inputs.json",
+      "keys": [
+        "review_blobs"
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-218/inputs.json",
+      "keys": [
+        "original_research_append"
+      ],
+      "kind": "single",
+      "commit": "e363118b9343dbae72127411f9bc21cc199e2070"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-218/sources.json",
+      "keys": [
+        "archives"
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-218/manifest.json",
+      "keys": [
+        "files"
+      ]
+    },
+    {
+      "path": "docs/evidence/review-provider-attachment-20261024/repair-218/manifest.json",
+      "keys": [
+        "files"
+      ]
+    },
+    {
+      "path": "docs/evidence/review-provider-attachment-20261024/repair-218/current.json",
+      "keys": [
+        "target_files"
+      ],
+      "commit": "56fe7bbb442d191dca5ad9b0dcc5f22823713a07"
+    },
+    {
+      "path": "docs/evidence/review-main-prefix-consumers-20261024/result.json",
+      "keys": [
+        "review_inputs"
+      ],
+      "commit": "17b1b2b35e81b6244077de982331111b5f387e87"
+    },
+    {
+      "path": "docs/evidence/review-main-prefix-consumers-20261024/round.json",
+      "keys": [
+        "artifacts"
+      ]
+    },
+    {
+      "path": "docs/evidence/review-gpr-baseline-20261024/result.json",
+      "keys": [
+        "input_sha256"
+      ],
+      "kind": "map",
+      "commit": "17569ceaa8daf41892852cc4ab8b423b28d9091e"
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/repair-f1/source-manifest.json",
+      "keys": [
+        "providers"
+      ],
+      "kind": "map"
+    },
+    {
+      "path": "docs/evidence/review-gpr-reset-repair-20261024/result.json",
+      "keys": [
+        "input_sha256"
+      ],
+      "kind": "map",
+      "commit": "c7f0191bb8de07a1ebe2988c35f5a8f66ef89f58"
+    },
+    {
+      "path": "docs/evidence/review-gpr-reset-repair-20261024/result.json",
+      "keys": [
+        "preserved_original_files_sha256"
+      ],
+      "kind": "map"
+    }
+  ],
+  "expectations": [
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/remaining.json",
+      "keys": [
+        "complete_native_capacity_result"
+      ],
+      "value": false
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/result.json",
+      "keys": [
+        "status"
+      ],
+      "value": "passed"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/result.json",
+      "keys": [
+        "auxiliary_owner_guards_under_attached_source_fold"
+      ],
+      "value": true
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/result.json",
+      "keys": [
+        "largest_combined_auxiliary_request_upper"
+      ],
+      "value": 3298534880256
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/result.json",
+      "keys": [
+        "full_parser_converter_representation_closed"
+      ],
+      "value": false
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/result.json",
+      "keys": [
+        "T_to_builder_transport_closed"
+      ],
+      "value": false
+    },
+    {
+      "path": "docs/evidence/review-main-prefix-auxiliary-20261024/result.json",
+      "keys": [
+        "status"
+      ],
+      "value": "passed"
+    },
+    {
+      "path": "docs/evidence/review-main-prefix-auxiliary-20261024/round.json",
+      "keys": [
+        "material_findings"
+      ],
+      "value": []
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-consumers/result.json",
+      "keys": [
+        "status"
+      ],
+      "value": "passed"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-consumers/exports.json",
+      "keys": [
+        "producer_maximum",
+        "first_or_default",
+        "complete_C_to_T_representation_when_joined_to_accepted_prefix_and_auxiliary"
+      ],
+      "value": true
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-consumers/exports.json",
+      "keys": [
+        "producer_maximum",
+        "first_or_default",
+        "T_to_builder_transport"
+      ],
+      "value": false
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-consumers/exports.json",
+      "keys": [
+        "producer_maximum",
+        "input_is_valid",
+        "complete_C_to_T_representation_when_joined_to_accepted_prefix_and_auxiliary"
+      ],
+      "value": true
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-consumers/exports.json",
+      "keys": [
+        "producer_maximum",
+        "input_is_valid",
+        "T_to_builder_transport"
+      ],
+      "value": false
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-consumers/exports.json",
+      "keys": [
+        "producer_maximum",
+        "is_message",
+        "complete_C_to_T_representation_when_joined_to_accepted_prefix_and_auxiliary"
+      ],
+      "value": true
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-consumers/exports.json",
+      "keys": [
+        "producer_maximum",
+        "is_message",
+        "T_to_builder_transport"
+      ],
+      "value": false
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-consumers/exports.json",
+      "keys": [
+        "producer_maximum",
+        "put",
+        "complete_C_to_T_representation_when_joined_to_accepted_prefix_and_auxiliary"
+      ],
+      "value": true
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-consumers/exports.json",
+      "keys": [
+        "producer_maximum",
+        "put",
+        "T_to_builder_transport"
+      ],
+      "value": false
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-consumers/exports.json",
+      "keys": [
+        "producer_maximum",
+        "put_line",
+        "complete_C_to_T_representation_when_joined_to_accepted_prefix_and_auxiliary"
+      ],
+      "value": true
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-consumers/exports.json",
+      "keys": [
+        "producer_maximum",
+        "put_line",
+        "T_to_builder_transport"
+      ],
+      "value": false
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/result.json",
+      "keys": [
+        "parser_shared_table_baseline_closed"
+      ],
+      "value": true
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/result.json",
+      "keys": [
+        "three_RTS_shared_table_deltas_attached"
+      ],
+      "value": true
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/result.json",
+      "keys": [
+        "complete_GPR_Name_baseline_closed"
+      ],
+      "value": false
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/result.json",
+      "keys": [
+        "complete_producer_configuration_capacity_closed"
+      ],
+      "value": false
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/boundary-result.json",
+      "keys": [
+        "passed"
+      ],
+      "value": true
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/boundary-result.json",
+      "keys": [
+        "all_four_Name_operands_required"
+      ],
+      "value": true
+    },
+    {
+      "path": "docs/evidence/review-provider-attachment-20261024/repair-218/current.json",
+      "keys": [
+        "status"
+      ],
+      "value": "independent #218 repair audit passed"
+    },
+    {
+      "path": "docs/evidence/review-provider-attachment-20261024/repair-218/current.json",
+      "keys": [
+        "complete_native_capacity_result"
+      ],
+      "value": false
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-218/effective.json",
+      "keys": [
+        "scalar_and_index_debug_coarse_per_C"
+      ],
+      "value": 23536
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-218/effective.json",
+      "keys": [
+        "complete_native_capacity_result"
+      ],
+      "value": false
+    },
+    {
+      "path": "docs/evidence/review-main-prefix-consumers-20261024/result.json",
+      "keys": [
+        "status"
+      ],
+      "value": "passed"
+    },
+    {
+      "path": "docs/evidence/review-main-prefix-consumers-20261024/result.json",
+      "keys": [
+        "conditional_C_to_T_representation_join_accepted"
+      ],
+      "value": true
+    },
+    {
+      "path": "docs/evidence/review-main-prefix-consumers-20261024/round.json",
+      "keys": [
+        "material_findings"
+      ],
+      "value": []
+    },
+    {
+      "path": "docs/evidence/review-main-prefix-consumers-20261024/round.json",
+      "keys": [
+        "whole_pipeline_capacity_closed"
+      ],
+      "value": false
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/repair-f1/result.json",
+      "keys": [
+        "passed"
+      ],
+      "value": true
+    },
+    {
+      "path": "docs/evidence/review-gpr-reset-repair-20261024/result.json",
+      "keys": [
+        "disposition"
+      ],
+      "value": "accept_F1_219_repair"
+    },
+    {
+      "path": "docs/evidence/review-gpr-reset-repair-20261024/result.json",
+      "keys": [
+        "material_findings"
+      ],
+      "value": []
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/repair-f1/handoff.json",
+      "keys": [
+        "effective_exports",
+        "datarep",
+        "baseline_reset_events_upper"
+      ],
+      "value": 7
+    },
+    {
+      "path": "docs/evidence/review-gpr-reset-repair-20261024/result.json",
+      "keys": [
+        "phases",
+        "datarep",
+        "effective_events",
+        "baseline_reset_events_upper"
+      ],
+      "value": 7
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/repair-f1/handoff.json",
+      "keys": [
+        "effective_exports",
+        "datarep",
+        "prospective_reset_events_upper"
+      ],
+      "value": 9
+    },
+    {
+      "path": "docs/evidence/review-gpr-reset-repair-20261024/result.json",
+      "keys": [
+        "phases",
+        "datarep",
+        "effective_events",
+        "prospective_reset_events_upper"
+      ],
+      "value": 9
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/repair-f1/handoff.json",
+      "keys": [
+        "effective_exports",
+        "datarep",
+        "selected_peak_entries"
+      ],
+      "value": 1
+    },
+    {
+      "path": "docs/evidence/review-gpr-reset-repair-20261024/result.json",
+      "keys": [
+        "phases",
+        "datarep",
+        "effective_events",
+        "selected_peak_entries"
+      ],
+      "value": 1
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/repair-f1/handoff.json",
+      "keys": [
+        "effective_exports",
+        "datarep",
+        "backing_bytes"
+      ],
+      "value": 672
+    },
+    {
+      "path": "docs/evidence/review-gpr-reset-repair-20261024/result.json",
+      "keys": [
+        "phases",
+        "datarep",
+        "effective_events",
+        "backing_bytes"
+      ],
+      "value": 672
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/repair-f1/handoff.json",
+      "keys": [
+        "effective_exports",
+        "phase1",
+        "baseline_reset_events_upper"
+      ],
+      "value": 7
+    },
+    {
+      "path": "docs/evidence/review-gpr-reset-repair-20261024/result.json",
+      "keys": [
+        "phases",
+        "phase1",
+        "effective_events",
+        "baseline_reset_events_upper"
+      ],
+      "value": 7
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/repair-f1/handoff.json",
+      "keys": [
+        "effective_exports",
+        "phase1",
+        "prospective_reset_events_upper"
+      ],
+      "value": 9
+    },
+    {
+      "path": "docs/evidence/review-gpr-reset-repair-20261024/result.json",
+      "keys": [
+        "phases",
+        "phase1",
+        "effective_events",
+        "prospective_reset_events_upper"
+      ],
+      "value": 9
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/repair-f1/handoff.json",
+      "keys": [
+        "effective_exports",
+        "phase1",
+        "selected_peak_entries"
+      ],
+      "value": 1
+    },
+    {
+      "path": "docs/evidence/review-gpr-reset-repair-20261024/result.json",
+      "keys": [
+        "phases",
+        "phase1",
+        "effective_events",
+        "selected_peak_entries"
+      ],
+      "value": 1
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/repair-f1/handoff.json",
+      "keys": [
+        "effective_exports",
+        "phase1",
+        "backing_bytes"
+      ],
+      "value": 672
+    },
+    {
+      "path": "docs/evidence/review-gpr-reset-repair-20261024/result.json",
+      "keys": [
+        "phases",
+        "phase1",
+        "effective_events",
+        "backing_bytes"
+      ],
+      "value": 672
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/repair-f1/handoff.json",
+      "keys": [
+        "effective_exports",
+        "translation",
+        "baseline_reset_events_upper"
+      ],
+      "value": 7
+    },
+    {
+      "path": "docs/evidence/review-gpr-reset-repair-20261024/result.json",
+      "keys": [
+        "phases",
+        "translation",
+        "effective_events",
+        "baseline_reset_events_upper"
+      ],
+      "value": 7
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/repair-f1/handoff.json",
+      "keys": [
+        "effective_exports",
+        "translation",
+        "prospective_reset_events_upper"
+      ],
+      "value": 9
+    },
+    {
+      "path": "docs/evidence/review-gpr-reset-repair-20261024/result.json",
+      "keys": [
+        "phases",
+        "translation",
+        "effective_events",
+        "prospective_reset_events_upper"
+      ],
+      "value": 9
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/repair-f1/handoff.json",
+      "keys": [
+        "effective_exports",
+        "translation",
+        "selected_peak_entries"
+      ],
+      "value": 1
+    },
+    {
+      "path": "docs/evidence/review-gpr-reset-repair-20261024/result.json",
+      "keys": [
+        "phases",
+        "translation",
+        "effective_events",
+        "selected_peak_entries"
+      ],
+      "value": 1
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/repair-f1/handoff.json",
+      "keys": [
+        "effective_exports",
+        "translation",
+        "backing_bytes"
+      ],
+      "value": 672
+    },
+    {
+      "path": "docs/evidence/review-gpr-reset-repair-20261024/result.json",
+      "keys": [
+        "phases",
+        "translation",
+        "effective_events",
+        "backing_bytes"
+      ],
+      "value": 672
+    }
+  ],
+  "prefixes": [
+    {
+      "manifest": "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/inputs.json",
+      "keys": [
+        "research_prefix"
+      ]
+    },
+    {
+      "manifest": "docs/evidence/retained-main-construction-demand-20261024/prefix-consumers/inputs.json",
+      "keys": [
+        "research_prefix"
+      ]
+    },
+    {
+      "manifest": "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/source-manifest.json",
+      "keys": [
+        "accepted_research_prefix"
+      ],
+      "path": "docs/research/retained-fixed-report-composition.md"
+    }
+  ]
+}
