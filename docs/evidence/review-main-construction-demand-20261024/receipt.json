@@ -1,52 +1,93 @@
 {
-  "reviewed_commit": "5d9ed9375c4db7fd92b8c7317402754c8fede354",
-  "status": "author_repair_required_before_final_audit",
+  "reviewed_commit": "3f4f6143c206518bf257d3d9b63cee2a08d14bcd",
+  "original_author_commit": "5d9ed9375c4db7fd92b8c7317402754c8fede354",
+  "provisional_review_commit": "62dee518226c221e3e396a76ee5693272ee01f23",
+  "status": "accepted_bounded_repaired_theorem",
+  "finding_211": "repaired: capture-compatible premise explicit; actual clone closure remains open",
   "selected_model": "GPT-6 Astra",
   "selected_effort": "Extra High",
   "runtime_model_confirmation": null,
   "runtime_effort_confirmation": null,
-  "first_recorded_clock_utc": "2026-10-24 04:18:05 UTC",
-  "source_review_checkpoint_utc": "2026-10-24 04:20:31 UTC",
-  "measured_source_review_interval_seconds": 146,
-  "elapsed_scope": "Excludes initial worktree/setup and subsequent report/commit work.",
+  "final_review_first_recorded_clock_utc": "2026-10-24 04:28:30 UTC",
+  "final_review_audit_checkpoint_utc": "2026-10-24 04:31:28 UTC",
+  "final_review_measured_interval_seconds": 178,
+  "final_review_elapsed_scope": "Repair diff/source inspection and independent audit; excludes later report and commit work.",
+  "audit_elapsed_seconds": 0.7630007170009776,
+  "audit_tool_wall_seconds": 0.835741231,
+  "assertions": 1446,
+  "new_final_audits": 1,
+  "failed_final_audits": 0,
+  "native_runs": 0,
+  "author_or_predecessor_checker_replays": 0,
   "tokens": null,
   "cost": null,
   "host": "Linux-7.0.14-x86_64-with-glibc2.43",
   "harness_goal": null,
-  "new_final_audits": 0,
-  "narrow_diagnostic_probes": 1,
-  "native_runs": 0,
-  "predecessor_checker_replays": 0,
   "cli_memory_updated": false,
-  "finding": "R1: injective/type-compatible mapping does not exclude binder capture",
-  "inputs": [
-    {
-      "path": "docs/research/retained-main-construction-demand.md",
-      "sha256": "ebf044dadd68bbad34d2c484e92d02b1f944eaab584f1663e34b48a25b579e09"
-    },
-    {
-      "path": "docs/evidence/retained-main-construction-demand-20261024/bridge.py",
-      "sha256": "8b02064b1e06609b85b565ab4d4b2f4593743a4aba62683517449d7726d33663"
-    },
-    {
-      "path": "docs/evidence/retained-main-construction-demand-20261024/check.py",
-      "sha256": "ed64b5ffad9e92f016d7e20148864f04b51848ed3058e7c1515b93dcb0c42f66"
-    },
-    {
-      "path": "docs/evidence/retained-main-construction-demand-20261024/identity.json",
-      "sha256": "9e3757c9d823fc0eb2eeecc852a60429c1eb4ff1062ff010b8edd3ab87d19714"
-    },
-    {
-      "path": "docs/evidence/retained-main-construction-demand-20261024/result.json",
-      "sha256": "a606a505c002afbd3e42ee22b2d14d8b47163cb5af3f328496ab6af936a6d763"
-    },
-    {
-      "path": "docs/evidence/retained-main-why-storage-20261024/kernel.py",
-      "sha256": "35b41283e3deffe4ec6152bca5d24a79ce9650710681206871a20a66d5319f42"
-    },
-    {
-      "path": "docs/evidence/retained-producer-prefix-composition-20261018/sources.tar.gz",
-      "sha256": "e90b4625cd14f94fa7e594711225dd357b29769031811d3eb4d65a1edefeb15a"
-    }
-  ]
+  "actual_clone_map_attachment": false,
+  "complete_source_to_vc_storage": false,
+  "complete_native_mapper_byte_bound": false,
+  "exact_final_inputs": {
+    "docs/evidence/retained-main-construction-demand-20261024/README.md": "a3b53797591f47b1b8c905fae7c80992835bf5ff41b952cb29caa98fac50ac17",
+    "docs/evidence/retained-main-construction-demand-20261024/bridge.py": "3e76672713a8a0e4e5aac78681155fe3c61e32b2195a2637863fbdd9c8e2d1ac",
+    "docs/evidence/retained-main-construction-demand-20261024/check.py": "debd9e6c19325401c69f60615aff0a83c6f31f6acb4a00dd33e122b12d889ab5",
+    "docs/evidence/retained-main-construction-demand-20261024/checkpoint.md": "a4540622910c49ffb322836b9088256c5e9d153a79e75272dd1831272596db33",
+    "docs/evidence/retained-main-construction-demand-20261024/identity.json": "762e5898b7dd016cec04955f5b124056abf169efadee4bb52b660c53d39653cf",
+    "docs/evidence/retained-main-construction-demand-20261024/result-before-211.json": "a606a505c002afbd3e42ee22b2d14d8b47163cb5af3f328496ab6af936a6d763",
+    "docs/evidence/retained-main-construction-demand-20261024/result.json": "c64e9d51d0f26f79d3a1fec65ae42c9a80bfbf506b654701c164f29286e92d3d",
+    "docs/evidence/retained-main-construction-demand-20261024/round.json": "23618bbc0a532059ee9352c09eab12c2f8a4a6597cda63d54282f80706e88283",
+    "docs/research/retained-main-construction-demand.md": "40dbc1746750ecc45b5cf9237b4e9b2b941fb6e1d8f06560890b9e7545da3334"
+  },
+  "initial_review": {
+    "reviewed_commit": "5d9ed9375c4db7fd92b8c7317402754c8fede354",
+    "status": "author_repair_required_before_final_audit",
+    "selected_model": "GPT-6 Astra",
+    "selected_effort": "Extra High",
+    "runtime_model_confirmation": null,
+    "runtime_effort_confirmation": null,
+    "first_recorded_clock_utc": "2026-10-24 04:18:05 UTC",
+    "source_review_checkpoint_utc": "2026-10-24 04:20:31 UTC",
+    "measured_source_review_interval_seconds": 146,
+    "elapsed_scope": "Excludes initial worktree/setup and subsequent report/commit work.",
+    "tokens": null,
+    "cost": null,
+    "host": "Linux-7.0.14-x86_64-with-glibc2.43",
+    "harness_goal": null,
+    "new_final_audits": 0,
+    "narrow_diagnostic_probes": 1,
+    "native_runs": 0,
+    "predecessor_checker_replays": 0,
+    "cli_memory_updated": false,
+    "finding": "R1: injective/type-compatible mapping does not exclude binder capture",
+    "inputs": [
+      {
+        "path": "docs/research/retained-main-construction-demand.md",
+        "sha256": "ebf044dadd68bbad34d2c484e92d02b1f944eaab584f1663e34b48a25b579e09"
+      },
+      {
+        "path": "docs/evidence/retained-main-construction-demand-20261024/bridge.py",
+        "sha256": "8b02064b1e06609b85b565ab4d4b2f4593743a4aba62683517449d7726d33663"
+      },
+      {
+        "path": "docs/evidence/retained-main-construction-demand-20261024/check.py",
+        "sha256": "ed64b5ffad9e92f016d7e20148864f04b51848ed3058e7c1515b93dcb0c42f66"
+      },
+      {
+        "path": "docs/evidence/retained-main-construction-demand-20261024/identity.json",
+        "sha256": "9e3757c9d823fc0eb2eeecc852a60429c1eb4ff1062ff010b8edd3ab87d19714"
+      },
+      {
+        "path": "docs/evidence/retained-main-construction-demand-20261024/result.json",
+        "sha256": "a606a505c002afbd3e42ee22b2d14d8b47163cb5af3f328496ab6af936a6d763"
+      },
+      {
+        "path": "docs/evidence/retained-main-why-storage-20261024/kernel.py",
+        "sha256": "35b41283e3deffe4ec6152bca5d24a79ce9650710681206871a20a66d5319f42"
+      },
+      {
+        "path": "docs/evidence/retained-producer-prefix-composition-20261018/sources.tar.gz",
+        "sha256": "e90b4625cd14f94fa7e594711225dd357b29769031811d3eb4d65a1edefeb15a"
+      }
+    ]
+  }
 }
