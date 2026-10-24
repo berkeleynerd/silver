@@ -1,0 +1,326 @@
+{
+  "status": "pass",
+  "reviewed_commit": "e45ee72a42d6cc669e95b80c2c991cbc65fe4e73",
+  "started_utc": "2026-10-24T03:49:28.474040+00:00",
+  "completed_utc": "2026-10-24T03:49:29.424041+00:00",
+  "elapsed_seconds": 0.9500060259961174,
+  "checker_elapsed_seconds": 0.8097521939998842,
+  "platform": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "machine": "x86_64",
+  "reviewer_model_selected": "GPT-6 Astra",
+  "reviewer_effort_selected": "Extra High",
+  "runtime_model_confirmation": null,
+  "token_usage": null,
+  "monetary_cost": null,
+  "frozen_author_files": [
+    {
+      "path": "docs/evidence/retained-main-entry-capacity-20261024/README.md",
+      "bytes": 2930,
+      "sha256": "27d5f2b327849b19ace10338df8a92e7046f6278f265f62dc98eaf6e445e17ca"
+    },
+    {
+      "path": "docs/evidence/retained-main-entry-capacity-20261024/check.py",
+      "bytes": 12163,
+      "sha256": "dabb5837e824299b726824d6ce73364b37182b830453746b5c142da19c859287"
+    },
+    {
+      "path": "docs/evidence/retained-main-entry-capacity-20261024/checkpoint.md",
+      "bytes": 5110,
+      "sha256": "92ae753ecb2d208246ecc0b2fd3eadfd4bbc02e6c70ee7cd7a857789899afd7d"
+    },
+    {
+      "path": "docs/evidence/retained-main-entry-capacity-20261024/identity.json",
+      "bytes": 21515,
+      "sha256": "5870e7ef8c4b8609c6fb0f1261fb29d2ee44e24af30e7c0ff679613c6af7e914"
+    },
+    {
+      "path": "docs/evidence/retained-main-entry-capacity-20261024/prepare.py",
+      "bytes": 5587,
+      "sha256": "90ee2a2c3e341b49593a9132f516b9a1f682f21b1cea7fa8e7bd2b59f5e19d08"
+    },
+    {
+      "path": "docs/evidence/retained-main-entry-capacity-20261024/result.json",
+      "bytes": 41675,
+      "sha256": "87c6e6d34ae9dc5f7e766c987bb183c579b7e2bae24a929f52c1314ea2e3705f"
+    },
+    {
+      "path": "docs/evidence/retained-main-entry-capacity-20261024/round.json",
+      "bytes": 3544,
+      "sha256": "a434b475aea5a05e3f8bd3d72af106c10d7fe5e16070c3daf4dadd2a8f6172b1"
+    },
+    {
+      "path": "docs/evidence/retained-main-entry-capacity-20261024/transfer.py",
+      "bytes": 5257,
+      "sha256": "12988cda534c3986987121d071bb1a2fec919ba9d915585df93203e37c9f247e"
+    },
+    {
+      "path": "docs/research/retained-main-entry-capacity.md",
+      "bytes": 19106,
+      "sha256": "a573e245cd6cee13d10fd8860b771c87b29ac8bc4cb7a235cf8e559f28fbdc3f"
+    }
+  ],
+  "checker_invocations": 1,
+  "assertions": 362,
+  "families": {
+    "Hcpt initial one retained": 1,
+    "Hcpt initialization and fresh callers": 1,
+    "Ident increment precedes its allocation": 1,
+    "JSON reader after add_file": 1,
+    "accepted current recipe credits unchanged": 1,
+    "accepted provider identity": 32,
+    "all configured drivers before return": 1,
+    "all-major history includes its own startup promotion": 5,
+    "allocation-free Introduction owner distinguished": 1,
+    "complete archive Hashcons owner inventory": 1,
+    "complete retained member identity": 27,
+    "controller cut source": 1,
+    "current carrier no endpoint subtraction": 5,
+    "current repair credit and prospective scope": 1,
+    "current repaired configuration selected": 1,
+    "cut owner and native capacity guards": 5,
+    "exact charge quotient": 40,
+    "extra allocation-free pool separately scoped": 5,
+    "filename classification only before C": 1,
+    "historical W is sum of charged allocation deltas": 1,
+    "historical carrier kept in its original scope": 1,
+    "maximal role dominates five rows": 3,
+    "minimum owner charge correspondence": 8,
+    "named native allocation body": 9,
+    "new maximal current history and carrier": 1,
+    "new maximal current history operands": 1,
+    "nonnegative cumulative prefix restriction": 11,
+    "one unchanged process budget": 5,
+    "owner initialized counter transport": 40,
+    "positive native per-call minor charge": 9,
+    "positive-charge restriction monotonicity": 44,
+    "program type owner included": 1,
+    "remaining Main and config work explicit": 5,
+    "retained archive identity": 3,
+    "retained source native span identity": 41,
+    "save handler installed after controller initialization": 1,
+    "six pool common initialization": 1,
+    "unadopted delta not silently enabled": 1,
+    "unattached launch layout not enabled": 1,
+    "unchanged loaded image memory allowance": 1,
+    "upper envelope not an invented exact state": 40,
+    "useful explicit Ident headroom": 1,
+    "weak max sentinel only at exhausted growth": 1,
+    "weak populated state fields": 1
+  },
+  "identities": {
+    "archives": 3,
+    "members": 27,
+    "spans": 41,
+    "providers": 32
+  },
+  "export_matches_author_except_elapsed": true,
+  "checked_export_sha256": "ae67aa0a12932ffaf9894096c77a057e4c29a3f65f0c03f2ead149c895d7606c",
+  "maximal_role": "put_line",
+  "maximal_entry_envelope": {
+    "role": "put_line",
+    "configuration": "r78_repaired_quiet_timeless_j12_logging",
+    "cut": "after create_controller, before add_file",
+    "minor_history_words_upper": 135521724,
+    "all_major_history_words_upper": 8526217,
+    "protected_managed_history_words_upper": 144047941,
+    "managed_static_carrier_words_upper": 146200712,
+    "one_byte_payload_upper": 1169605696,
+    "owners": {
+      "Ident": {
+        "initial": 0,
+        "minimum_minor_words": 5,
+        "kind": "ident",
+        "completed_requests_upper": 27104344,
+        "counter_value_upper": 27104344,
+        "exact_populated_counter_known": false
+      },
+      "Ident.Hsattr": {
+        "initial": 0,
+        "minimum_minor_words": 3,
+        "kind": "weak",
+        "completed_requests_upper": 45173908,
+        "counter_value_upper": 45173908,
+        "exact_populated_counter_known": false,
+        "backing": {
+          "creation_outer_length": 5003,
+          "creation_allocated_bucket_slots": 0,
+          "outer_length_upper": 146200712,
+          "bucket_length_upper": 146200712,
+          "allocated_bucket_slots_upper": 146200712,
+          "live_entries_upper": 45173908,
+          "limit": 7,
+          "oversize_upper": 146200712,
+          "rover_strict_upper": 146200712,
+          "cache_hash_arrays_same_lengths": true,
+          "current_state_is_creation_state": false
+        }
+      },
+      "Ty.Hsty": {
+        "initial": 0,
+        "minimum_minor_words": 3,
+        "kind": "weak",
+        "completed_requests_upper": 45173908,
+        "counter_value_upper": 45173908,
+        "exact_populated_counter_known": false,
+        "backing": {
+          "creation_outer_length": 5003,
+          "creation_allocated_bucket_slots": 0,
+          "outer_length_upper": 146200712,
+          "bucket_length_upper": 146200712,
+          "allocated_bucket_slots_upper": 146200712,
+          "live_entries_upper": 45173908,
+          "limit": 7,
+          "oversize_upper": 146200712,
+          "rover_strict_upper": 146200712,
+          "cache_hash_arrays_same_lengths": true,
+          "current_state_is_creation_state": false
+        }
+      },
+      "Ity.Hsity": {
+        "initial": 0,
+        "minimum_minor_words": 4,
+        "kind": "weak",
+        "completed_requests_upper": 33880431,
+        "counter_value_upper": 33880431,
+        "exact_populated_counter_known": false,
+        "backing": {
+          "creation_outer_length": 5003,
+          "creation_allocated_bucket_slots": 0,
+          "outer_length_upper": 146200712,
+          "bucket_length_upper": 146200712,
+          "allocated_bucket_slots_upper": 146200712,
+          "live_entries_upper": 33880431,
+          "limit": 7,
+          "oversize_upper": 146200712,
+          "rover_strict_upper": 146200712,
+          "cache_hash_arrays_same_lengths": true,
+          "current_state_is_creation_state": false
+        }
+      },
+      "Decl.Hsdecl": {
+        "initial": 0,
+        "minimum_minor_words": 4,
+        "kind": "weak",
+        "completed_requests_upper": 33880431,
+        "counter_value_upper": 33880431,
+        "exact_populated_counter_known": false,
+        "backing": {
+          "creation_outer_length": 5003,
+          "creation_allocated_bucket_slots": 0,
+          "outer_length_upper": 146200712,
+          "bucket_length_upper": 146200712,
+          "allocated_bucket_slots_upper": 146200712,
+          "live_entries_upper": 33880431,
+          "limit": 7,
+          "oversize_upper": 146200712,
+          "rover_strict_upper": 146200712,
+          "cache_hash_arrays_same_lengths": true,
+          "current_state_is_creation_state": false
+        }
+      },
+      "Theory.Hstdecl": {
+        "initial": 0,
+        "minimum_minor_words": 3,
+        "kind": "weak",
+        "completed_requests_upper": 45173908,
+        "counter_value_upper": 45173908,
+        "exact_populated_counter_known": false,
+        "backing": {
+          "creation_outer_length": 5003,
+          "creation_allocated_bucket_slots": 0,
+          "outer_length_upper": 146200712,
+          "bucket_length_upper": 146200712,
+          "allocated_bucket_slots_upper": 146200712,
+          "live_entries_upper": 45173908,
+          "limit": 7,
+          "oversize_upper": 146200712,
+          "rover_strict_upper": 146200712,
+          "cache_hash_arrays_same_lengths": true,
+          "current_state_is_creation_state": false
+        }
+      },
+      "Task.Hstask": {
+        "initial": 0,
+        "minimum_minor_words": 7,
+        "kind": "weak",
+        "completed_requests_upper": 19360246,
+        "counter_value_upper": 19360246,
+        "exact_populated_counter_known": false,
+        "backing": {
+          "creation_outer_length": 5003,
+          "creation_allocated_bucket_slots": 0,
+          "outer_length_upper": 146200712,
+          "bucket_length_upper": 146200712,
+          "allocated_bucket_slots_upper": 146200712,
+          "live_entries_upper": 19360246,
+          "limit": 7,
+          "oversize_upper": 146200712,
+          "rover_strict_upper": 146200712,
+          "cache_hash_arrays_same_lengths": true,
+          "current_state_is_creation_state": false
+        }
+      },
+      "Task.Stdecl.Hcpt": {
+        "initial": 1,
+        "minimum_minor_words": 4,
+        "kind": "ephemeron",
+        "completed_requests_upper": 33880431,
+        "counter_value_upper": 33880432,
+        "exact_populated_counter_known": false,
+        "backing": {
+          "initial_size": 8192,
+          "seed": 0,
+          "outer_length_upper": 146200712,
+          "stored_bucket_cells_upper": 33880431,
+          "size_upper": 33880431,
+          "power_of_two": true,
+          "current_state_is_creation_state": false
+        }
+      }
+    },
+    "Introduction.Hsdecl": {
+      "next_tag": 0,
+      "outer_length": 5003,
+      "allocated_bucket_slots": 0,
+      "limit": 7,
+      "oversize": 0,
+      "rover": 0,
+      "calls_before_C": 0
+    },
+    "other_reachable_managed_memos": {
+      "physical_backing_words_upper": 146200712,
+      "individual_array_slots_upper": 146200712,
+      "physical_list_map_bucket_cells_upper": 146200712,
+      "logical_unfolded_occurrence_bound_claimed": false,
+      "future_lookup_or_value_semantics_supplied": false,
+      "foreign_native_backings_included": false
+    },
+    "guards": {
+      "all_named_counters": true,
+      "weak_growth_operands": true,
+      "weak_max_size_unreached": true,
+      "ordinary_array_max_unreached": true,
+      "map_and_container_arithmetic": true,
+      "paired_byte_arithmetic": true,
+      "minor_prefix_margin": true,
+      "major_arena_margin": true,
+      "remembered_entry_margin": true,
+      "ephemeron_entry_margin": true,
+      "custom_entry_margin": true,
+      "minor_custom_resource_margin": true,
+      "major_custom_resource_margin": true
+    },
+    "full_Main_storage_closed": false,
+    "configuration_206_extension_available": false,
+    "process_budget": {
+      "escaping_save_exceptions": 2,
+      "save_entering_callbacks": 2,
+      "saves": 3
+    }
+  },
+  "native_compiler_prover_Lean_solver_capture_disassembler_runs": 0,
+  "predecessor_checker_replays": 0,
+  "source_argument_machine_proved": false,
+  "configuration_206_adopted": false,
+  "full_Main_storage_closed": false
+}
