@@ -98,7 +98,8 @@ with a represented but unallocated N demonstrates why byte/type bounds alone
 do not prove safe entity access. It is a countermodel to that implication;
 it has not been shown to be a byte trace of the selected writers. No newly
 implemented validator or hostile-input premise is asserted. The reviewed [actual writer relation](retained-response-provenance.md), with
-its [conditional review](../reviews/review-producer-report-capacity-20261024.md),
+its [conditional review](../reviews/review-producer-report-capacity-20261024.md)
+(frozen provenance disposition5072ad3ebb, with separately pinned audit),
 closes this identifier question under the prospective Why-only SIGINT mask,
 fresh quiet channels, external proof-server destination, immutable normal
 record and selected primitive writer-error alphabet. It proves that a parsed
@@ -348,12 +349,18 @@ These calls use Present Uint inputs: the guarded Get_Fix Lo/Hi alternatives,
 typed integer literals and Character literal values. No_Uint is **not** covered:
 Image_Out appends its No_Uint text before resetting UI_Image_Length. There are
 no selected real literals. Image_Out marks at entry and releases on return.
-Its possibly cold `2**16` cache is evaluated before other temporaries; every
-power through65536 is directly represented, and its minimum-table watermark
-can reach only the entry mark. Quotient/remainder UI_From_Int values are
-direct. Thus no later cache insertion pins image temporaries, and this suffix
-uses a peak addition, without multiplying it by proof-row count. Repeated
-calls retain allocated capacity but do not raise their live high-water mark.
+For a negative Input, Image_Out first allocates Ainput=-Input
+(`uintp.adb:424`), then Better_In_Hex evaluates its possibly cold `2**16` cache
+at302. Every cached power through65536 is directly represented, but UI_Expon
+still advances Uints_Min/Udigits_Min to the current table positions
+(`:1395–1404`); the first negative Ainput can therefore be pinned. Charge one
+additional retained descriptor and `ceil(k/15)+1` retained digits globally,
+beside the per-call temporary peak. The cache has only this one cold event;
+it is not renewed per proof row. Better_In_Hex's own absolute value and later
+quotient/remainder results follow the cache update, and no subsequent image
+cache call pins them. Repeated calls retain backing capacity but add no
+further live cache debt. An already-warm cache can omit this conservative
+process-wide addition only with a separate prefix proof.
 
 `failed_fix_strings` bounds returned Get_Fix text by its checked1326 literal
 bytes plus the maximum of four actual string-construction alternatives:

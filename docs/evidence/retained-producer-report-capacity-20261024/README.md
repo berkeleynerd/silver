@@ -23,7 +23,9 @@ This packet does not claim completion of #193 or #119.
   s-wchcnv.adb also matches the selected installed Linux producer runtime.
 - `inputs.json`: exact predecessor/provider, invocation and current Silver
   projection bytes, reviewed incoming and fixed GCC transfers, and accepted
-  conditional interrupted-writer provenance with its frozen review. The null packet supplies writer/runtime method and layout
+  conditional interrupted-writer provenance with its frozen audit. The exact
+  provenance review is commit5072ad3ebb; the living review note is deliberately
+  not a hashed input, because subsequent integrated review extends it. The null packet supplies writer/runtime method and layout
   facts, never arbitrary-Main size constants.
 - `check.py` / `result.json`: focused source-order/frontier, schema recurrence,
   sparse occurrence, growth/column, complete continuation/Text_IO inventories,

@@ -36,6 +36,12 @@
       "purpose": "Repair independent integrated review finding in generic Uint workspace",
       "result": "Reviewer supplied q2 all-ones carry followed by Algorithm_D counterexample to q+1 local workspace. Split returned descriptor allowanceq+1 from local normalization allowanceq+2. Selected CP550/15581 and report text unaffected; focused checker rerun because algebra changed.",
       "elapsed_seconds": 6.079955
+    },
+    {
+      "purpose": "Repair independent review finding in cold Uint image cache lifetime",
+      "result": "Image_Out creates negative Ainput before cold Better_In_Hex2**16 cache updates minima. Added one process-wide retained descriptor and descriptor_digits alongside per-call peak; no row multiplier. Corrected source-order narrative. Image/CP byte bounds unchanged. Replaced living reviewer-note hash dependency with frozen provenance audit plus exact review commit, so integrated review does not invalidate its own inputs.",
+      "elapsed_seconds": 5.083103,
+      "final_input_check_seconds": 5.824228
     }
   ],
   "open_attachments": [
@@ -43,5 +49,6 @@
     "Concrete pathname and clock/duration configuration refinement",
     "Independent integrated freeze review"
   ],
-  "checkpoint_utc": "2026-10-24T01:48:36.179865+00:00"
+  "checkpoint_utc": "2026-10-24T01:51:10.048180+00:00",
+  "provenance_review_commit": "5072ad3ebb1515f99be738394e1b84a513e493f3"
 }

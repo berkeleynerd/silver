@@ -277,6 +277,8 @@ assert not c.compiler_abort(error_bytes=32767, path_bytes=20,
 assert c.compiler_abort(error_bytes=33227168, error_tail_bytes=0, path_bytes=128, version_bytes=40, target_bytes=40)['guards']['output_explicit_eol']
 assert not c.brief_output(message_bytes=32767, path_bytes=1,
                            output_calls=1)['guards']['explicit_eol']
+assert c.uint_image_storage(radix_digits=18, prefix_entries=0, prefix_digits=0, table_index_room=c.I)['retained_cache_entries'] == 1
+assert c.uint_image_storage(radix_digits=18, prefix_entries=0, prefix_digits=0, table_index_room=c.I)['retained_cache_digits'] == 19
 assert c.uint_image_storage(radix_digits=2, prefix_entries=0, prefix_digits=0, table_index_room=c.I)['local_vector_digits'] == 4
 assert c.uint_image_storage(radix_digits=33, prefix_entries=0, prefix_digits=0,
                             table_index_room=c.I)['guards']['no_abbreviation']
@@ -319,6 +321,7 @@ result = {
                'writer growth, terminal column and cumulative-line failures',
                'exact bugbox recipe application', 'Uint abbreviation guard boundary',
                'Uint carry plus Algorithm_D local normalization digit',
+               'one process-wide cold-cache retained negative descriptor',
                'incoming source equations and whole-lifetime third-pool composition',
                'six local incoming source identities', 'full continuation append inventory',
                'printed CP and private Get_Fix bounds remain separate',
