@@ -53,32 +53,35 @@ no new blanket exception exclusion is introduced.
 
 ## Candidate small regexp
 
-The initial candidate `^` normally matches at offset zero but introduces the
-engine's unanchored search prefix. A begin-of-string pattern (Emacs backslash
-followed by backtick) appears to give a smaller invariant: the reference
-`Ast.anchored` recognizes it, so `Compile.compile` constructs only its enclosing
-group. Confirm the selected installed parser/translation dispatch before
-adopting this spelling; the retained R72 native bodies permit that check.
+The candidate now uses the supported search-start pattern, a backslash
+followed by equals. The initial begin-of-string draft is withdrawn: native
+`Str.compile_regexp` calls `Emacs.re_no_emacs`, whose false flag skips the
+backslash-backtick BOS case and treats the backtick as a literal. The reference
+source lacks that gate. Native inspection found the search-start case ungated,
+returning `Start`; its translation uses `After(search_boundary=32)`. The
+selected `search_forward` always starts at zero. No native engine was executed.
 
-Reference `Group(Beg_of_str)` translates into one `After(inexistant)`, two
-marks and two sequences. There are no sets, repetitions or named groups.
-Colour construction has a single ordinary colour. At start offset zero the
-initial category is `search_boundary|inexistant=33`. The first derivative
-immediately produces one match; an empty input's final-boundary derivative
-does the same. The proposed small-owner invariant is:
+The source `Ast.anchored` recognizes Start, avoiding the unanchored search
+prefix. `Group(Start)` translates into one `After(search_boundary)`, two marks
+and two sequences. There are no sets, repetitions or named groups. Colour
+construction has one ordinary colour. Initial category is
+`search_boundary|inexistant=33`. The first derivative immediately produces one
+match; an empty input's final-boundary derivative does the same. The proposed
+small-owner invariant is:
 
 - One initial category and at most two normal state-table keys; interrupted
   insert counts need a separate e<=2 charge, with no table resize.
-- The two marks are assigned to index zero. The working bitvector is reset
-  before index choice; new pre-index marks have no nonnegative used index.
-  Prove this against the installed three-field working area and positions hint.
+- New pre-index marks have no nonnegative used index. Index choice is zero;
+  native inspection gives hint zero and a fresh positions array of length one.
+  The working bitvector stays zero without growth.
 - Initial-state, transition and final-cache publication stores only completely
   constructed immutable records. Re-entry after an interrupted publication
   finds the existing key or reconstructs that same bounded state.
-- The packed duplicate-removal owner sees the immediate match branch; confirm
-  its actual native clear/add behavior instead of assuming the reference layout.
-- Each call has a fresh positions owner. The shared `Str.state` is overwritten
-  by search and never read by zero-unit conversion, which calls no matched-group
+- Native duplicate removal takes the singleton-match branch and never calls
+  Hash_set.add; its optional scratch remains None. The actual body/operand
+  attachment is being retained by the native subthread.
+- Each call has a fresh positions owner. Shared `Str.state` is overwritten by
+  search and never read by zero-unit conversion, which calls no matched-group
   accessor. A cached lazy exception stays attached to its own regexp.
 
 These bullets are proof obligations, not accepted bounds. R71/R72's fresh
@@ -120,7 +123,7 @@ states. The primary timing search is forced later, at the first result.
 Original prefix credits cannot be reused without a new additive or restrictive
 source argument. No observed final heap can supply this delta.
 
-The three begin-of-string directives can share one physical line. Their exact
+The three search-start directives can share one physical line. Their exact
 escaped bytes and any byte-offset delta still need to be frozen. Preserve
 following token line/column identities, selected driver keys/commands, private
 import resolution and all required semantic request/cache relations. Do not
