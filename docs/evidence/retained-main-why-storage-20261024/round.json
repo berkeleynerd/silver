@@ -1,0 +1,65 @@
+{
+  "date_utc": "2026-10-24",
+  "issue": 202,
+  "parent_issue": 119,
+  "base_commit": "3276f0de3d",
+  "selected_author_model": "GPT-6 Astra",
+  "selected_author_effort": "Extra High",
+  "runtime_confirmed_model_effort": null,
+  "token_use": null,
+  "monetary_cost": null,
+  "total_author_elapsed_seconds": null,
+  "live_harness_goal": null,
+  "authorization": "Owner PR160 continuation under #119; parent accepted this sharply bounded first202 kernel/gate unit, with full source caller and entry-state attachment left open.",
+  "rounds": [
+    {
+      "intended_result": "Native stored-term request/counter transfer, including dead and nonleaf saved images and discarded VC candidates.",
+      "achieved_result": "Case-free kernel and candidate gate; exact integer operands; separate direct-map/local-byte bounds and Ident increment transport.",
+      "focused_check_seconds": 1.235200501003419,
+      "assertions": 3821,
+      "receipt": "result-initial.json",
+      "material_findings": [
+        "Term constructors are ordinary records despite their section heading.",
+        "Repeated leaf renaming can grow dead saved-map history at fixed opened formula size.",
+        "Triviality and annotation checking can each open the same binder before dropping its candidate."
+      ]
+    },
+    {
+      "intended_result": "Attach retained native frame ceiling and entry-cut source bytes; verify leaf-only storage corollary and arithmetic boundary guards.",
+      "achieved_result": "15 complete source files,23 spans,12 provider inputs; closed local kernel/gate statement, explicit unresolved whole-Main linkage.",
+      "focused_check_seconds": 1.4974530239996966,
+      "assertions": 4481,
+      "rerun_reason": "New leaf-transfer assertions, source-cut/provider identities and constant-header envelope; no repeated unchanged-input expensive success.",
+      "material_rework": "Manifest preparation initially named Yojson.Basic; exact source uses Yojson.Safe. Corrected before final manifest/check. No native behavior claim depended on the mistaken name.",
+      "receipt_note": "Observed successful summary retained here; superseded result.json was replaced by the final changed-input check."
+    },
+    {
+      "intended_result": "Keep close strictly aligned to native unannotated closing constructors.",
+      "achieved_result": "Removed unused fixture-only attrs parameter; final kernel API and check agree.",
+      "focused_check_seconds": 2.0556372789942543,
+      "assertions": 4481,
+      "rerun_reason": "Small changed-input verification after the constructor signature correction; no expensive replay.",
+      "receipt_note": "Observed successful summary retained here; final receipt includes the subsequent option-count repair."
+    },
+    {
+      "intended_result": "Complete selected constructor category counters during final source review.",
+      "achieved_result": "Epsilon close now also charges the Some type option created by the checked t_eps alias; direct-byte bound was already sufficient.",
+      "focused_check_seconds": 2.100503656998626,
+      "assertions": 4482,
+      "receipt": "result.json",
+      "rerun_reason": "Specific new source-count repair and one discriminating assertion; no native or predecessor replay."
+    }
+  ],
+  "review_status": "Author freeze pending independent exact-freeze review by parent.",
+  "read_only_entry_inquiry": {
+    "selected_model": "GPT-6 Astra",
+    "selected_effort": "Extra High",
+    "runtime_confirmation": null,
+    "elapsed_seconds": null,
+    "result": "C after create_controller/before add_file; no inspected populated source-independent owner vector. Fresh ledger or separately proved monotone prefix-restriction lemma required."
+  },
+  "native_compiler_prover_solver_runs": 0,
+  "predecessor_checker_replays": 0,
+  "full_source_to_initial_vc_storage_closed": false,
+  "cli_memory_updated": false
+}

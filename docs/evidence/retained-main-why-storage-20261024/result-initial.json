@@ -1,0 +1,270 @@
+{
+  "status": "pass",
+  "platform": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "scope": "case-free Term substitution/opening and VC selection gate only",
+  "assertions": 3821,
+  "families": {
+    "Ident exact boundary fits": 1,
+    "Ident next increment fails": 1,
+    "all candidate openings share Ident owner": 1,
+    "annotation in definition retains trivial let": 1,
+    "annotation shortcut still pays prior opening": 1,
+    "annotation transported through saved image": 1,
+    "archive identity": 2,
+    "complete source identity": 11,
+    "count product fits": 1,
+    "count product overflow identified": 1,
+    "count sum exact boundary fits": 1,
+    "count sum overflow identified": 1,
+    "dead saved history accumulates": 1,
+    "deferred cache equals eager counts": 2272,
+    "discarded triggers still constructed": 1,
+    "lazy/eager substitution diagram": 360,
+    "map conservative boundary exceeds": 1,
+    "map conservative boundary fits": 1,
+    "mathematical bytes are not native counter": 1,
+    "native multiply is recorded": 1,
+    "native short circuit avoids later branch and attribute pass": 1,
+    "native t_vars equals independent free occurrence count": 360,
+    "nonleaf substitution count product": 1,
+    "old nonleaf image traversed": 1,
+    "one live free key despite history": 1,
+    "opened skeleton remains three nodes": 1,
+    "provider identity": 10,
+    "source branch anchor": 41,
+    "source span identity": 18,
+    "stored occurrences grow": 1,
+    "substitution guards": 360,
+    "substitution has zero Ident increments": 1,
+    "trivial candidates discarded": 1,
+    "triviality eager diagram": 360,
+    "unattached Ident input rejected": 1,
+    "unsupported case is explicit": 1,
+    "wrong image type rejected": 1
+  },
+  "source_files": 11,
+  "source_spans": 18,
+  "provider_inputs": 10,
+  "fixed_fixtures": {
+    "fixed_size_history": {
+      "iterations": 12,
+      "opened_terms": 3,
+      "stored_terms_before": 3,
+      "stored_terms_after": 15,
+      "saved_keys_after": 12,
+      "ledger": {
+        "ident_entry": 100,
+        "ident_increments": 0,
+        "ident_exit_upper": 100,
+        "other_owner_requests": {
+          "Hsdecl": 0,
+          "Hsty": 0,
+          "Hstdecl": 0,
+          "Hstask": 0,
+          "Hcpt": 0,
+          "Hsattr": 0
+        },
+        "other_owner_increments": {
+          "Hsdecl": 0,
+          "Hsty": 0,
+          "Hstdecl": 0,
+          "Hstask": 0,
+          "Hcpt": 0,
+          "Hsattr": 0
+        },
+        "local_bytes_upper": 786432,
+        "map_bytes_upper": 65642496,
+        "direct_bytes_upper": 66428928,
+        "calls": {
+          "bv_subst_unsafe": 12,
+          "map.attribute_union": 78,
+          "map.fold2_inter": 12,
+          "map.iter_type_check": 12,
+          "map.map_saved": 12,
+          "map.set_diff": 12,
+          "map.set_disjoint": 12,
+          "map.set_inter": 12,
+          "map.set_union_saved": 12,
+          "map.singleton": 12,
+          "map.vars_union": 12,
+          "t_attr_copy": 78,
+          "t_subst_entry": 12,
+          "t_subst_visit": 78,
+          "t_vars": 12
+        },
+        "candidate_records_upper": {
+          "bind_info": 12,
+          "binder_tuple": 12,
+          "term": 90,
+          "variant": 12
+        },
+        "map_domain_upper": 12,
+        "maximum_occurrence_count": 1,
+        "guard_results": {
+          "entry_ident_nonnegative": true,
+          "ident_endpoint": true,
+          "occurrence_sums_and_products": true,
+          "map_height_arithmetic": true,
+          "fixed_block_headers": true
+        },
+        "complete_main_caller_attachment": false
+      }
+    },
+    "two_discarded_candidates": {
+      "decisions": [
+        {
+          "trivial": true,
+          "annotated_if_tested": false,
+          "keep": false
+        },
+        {
+          "trivial": true,
+          "annotated_if_tested": false,
+          "keep": false
+        }
+      ],
+      "ledger": {
+        "ident_entry": 100,
+        "ident_increments": 8,
+        "ident_exit_upper": 108,
+        "other_owner_requests": {
+          "Hsdecl": 0,
+          "Hsty": 0,
+          "Hstdecl": 0,
+          "Hstask": 0,
+          "Hcpt": 0,
+          "Hsattr": 0
+        },
+        "other_owner_increments": {
+          "Hsdecl": 0,
+          "Hsty": 0,
+          "Hstdecl": 0,
+          "Hstask": 0,
+          "Hcpt": 0,
+          "Hsattr": 0
+        },
+        "local_bytes_upper": 352256,
+        "map_bytes_upper": 671744,
+        "direct_bytes_upper": 1024000,
+        "calls": {
+          "add_vc_decl_gate": 2,
+          "fresh_vsymbol": 8,
+          "has_attr": 8,
+          "is_trivial_vc": 4,
+          "map.add_opening": 8,
+          "map.attribute_mem": 8,
+          "map.attribute_union": 8,
+          "map.id_clone_attribute_union": 8,
+          "t_attr_copy": 8,
+          "t_attr_copy_same": 4,
+          "t_open_quant": 4,
+          "t_subst_visit": 12,
+          "t_var_fresh": 8
+        },
+        "candidate_records_upper": {
+          "ident": 8,
+          "list_cons": 28,
+          "option": 8,
+          "preid": 8,
+          "term": 20,
+          "variant": 12,
+          "vsymbol": 8
+        },
+        "map_domain_upper": 2,
+        "maximum_occurrence_count": 0,
+        "guard_results": {
+          "entry_ident_nonnegative": true,
+          "ident_endpoint": true,
+          "occurrence_sums_and_products": true,
+          "map_height_arithmetic": true,
+          "fixed_block_headers": true
+        },
+        "complete_main_caller_attachment": false
+      }
+    },
+    "nonleaf_image": {
+      "ident_entry": 100,
+      "ident_increments": 0,
+      "ident_exit_upper": 100,
+      "other_owner_requests": {
+        "Hsdecl": 0,
+        "Hsty": 0,
+        "Hstdecl": 0,
+        "Hstask": 0,
+        "Hcpt": 0,
+        "Hsattr": 0
+      },
+      "other_owner_increments": {
+        "Hsdecl": 0,
+        "Hsty": 0,
+        "Hstdecl": 0,
+        "Hstask": 0,
+        "Hcpt": 0,
+        "Hsattr": 0
+      },
+      "local_bytes_upper": 57344,
+      "map_bytes_upper": 765952,
+      "direct_bytes_upper": 823296,
+      "calls": {
+        "bv_subst_unsafe": 1,
+        "map.attribute_union": 4,
+        "map.fold2_inter": 1,
+        "map.iter_type_check": 1,
+        "map.map_saved": 1,
+        "map.map_scale": 1,
+        "map.set_diff": 1,
+        "map.set_disjoint": 1,
+        "map.set_inter": 1,
+        "map.set_union_saved": 1,
+        "map.singleton": 1,
+        "map.vars_union": 2,
+        "t_attr_copy": 4,
+        "t_subst_entry": 1,
+        "t_subst_visit": 4,
+        "t_vars": 2
+      },
+      "candidate_records_upper": {
+        "bind_info": 1,
+        "binder_tuple": 1,
+        "list_cons": 2,
+        "term": 6,
+        "variant": 2
+      },
+      "map_domain_upper": 2,
+      "maximum_occurrence_count": 4,
+      "guard_results": {
+        "entry_ident_nonnegative": true,
+        "ident_endpoint": true,
+        "occurrence_sums_and_products": true,
+        "map_height_arithmetic": true,
+        "fixed_block_headers": true
+      },
+      "complete_main_caller_attachment": false
+    }
+  },
+  "randomized_fixtures": {
+    "substitutions": 360,
+    "calls": {
+      "bv_subst_unsafe": 584,
+      "map.attribute_union": 5201,
+      "map.fold2_inter": 584,
+      "map.iter_type_check": 360,
+      "map.map_saved": 584,
+      "map.map_scale": 202,
+      "map.set_diff": 584,
+      "map.set_disjoint": 1039,
+      "map.set_inter": 584,
+      "map.set_union_saved": 584,
+      "map.singleton": 1429,
+      "map.vars_union": 2445,
+      "t_attr_copy": 5201,
+      "t_attr_copy_same": 306,
+      "t_subst_entry": 360,
+      "t_subst_visit": 5507,
+      "t_vars": 2445
+    }
+  },
+  "native_or_predecessor_runs": 0,
+  "full_source_to_initial_vc_storage_closed": false,
+  "elapsed_seconds": 1.235200501003419
+}
