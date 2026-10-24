@@ -1,0 +1,48 @@
+{
+  "objective": "Derive sufficient parsed GPR table/context baseline and traversal counts, preserving concrete remaining startup/Names obligations",
+  "authorization": "Parent-assigned owner-authorized #212 under #119; parent requested four auxiliary parser backings in this same freeze",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_confirmed": false,
+  "token_usage": null,
+  "cost": null,
+  "started_utc": "2026-10-24T08:33:21+00:00",
+  "completed_utc": "2026-10-24T09:06:55.146003+00:00",
+  "elapsed_wall_seconds": 2014.146003,
+  "base_commit": "30ef5c9c05",
+  "check_history": [
+    {
+      "script": "check.py",
+      "result": "result.json",
+      "seconds": 0.177625,
+      "scope": "Original parsed/configuration shared-table baseline; retained without replay"
+    },
+    {
+      "script": "check-boundary.py",
+      "result": "boundary-result.json",
+      "seconds": 0.125175,
+      "scope": "Four newly joined parser backings and explicit Names callable boundary only"
+    }
+  ],
+  "significant_findings": [
+    "One user and one configuration parse/evaluation plus one Apply_Config/naming traversal per selected GPRbuild process; no retry/runtime-project/naming-file parse.",
+    "Linear-reference expressions support gross list-cell bounds and sufficient 34-site monotone-token syntax-node charge.",
+    "Three accepted RTS table deltas now attach to numerical source/configuration baselines.",
+    "Four auxiliary parser backings joined by a distinct new-obligation check after the initial successful baseline check.",
+    "Names contributions and XML inventory are partial evidence, not complete process allocation providers; concrete startup/KB/Gprconfig residuals retained."
+  ],
+  "independent_review": "Pending on this author freeze; accepted preceding review integrated, not replayed",
+  "native_executions": 0,
+  "predecessor_checkers_executed": 0,
+  "identical_success_replays": 0,
+  "new_captures": 0,
+  "runtime_corpus_rescans": 0,
+  "GitHub_writes": 0,
+  "subagents": 0,
+  "CLI_memory_updated": false,
+  "live_harness_goal": null,
+  "actual_host": "Linux x86_64",
+  "production_or_admission_changed": false,
+  "governing_resource_premises_unchanged": true,
+  "final_packaging_checks": "Accepted research prefix and retained receipt hashes unchanged; JSON and Python syntax valid; git diff --check passed before staging."
+}

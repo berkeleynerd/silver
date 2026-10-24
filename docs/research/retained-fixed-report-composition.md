@@ -351,3 +351,57 @@ observation was repeated. Selected author setting was GPT-6 Astra / Extra High;
 runtime confirmation and token/cost telemetry are unavailable. No production
 or admission behavior changes, and #212/#119 remain open for the named joins
 and independent review.
+
+## GPR parsed-table baseline, 2026-10-24
+
+The [GPR baseline packet](../evidence/retained-fixed-report-composition-20261024/gpr-baseline/README.md)
+replaces the three conditional parsed/shared-table baseline operands with
+sufficient source/configuration bounds. It reuses accepted author
+`4aab5b0e9cc931965c68bf2450473d3b63f7841a` and review
+`cd21bcc14f7b561cf58a999e435153f734e6e761`, without altering their evidence.
+Each selected datarep, phase1 and translation GPRbuild process parses and
+evaluates one user project and one configuration project, applies the
+configuration once, and performs one user-project/Ada-language naming
+traversal. Explicit target and fixed syntax exclude retry, imports, extensions,
+aggregates, runtime-project parsing and generated naming-file parsing. The
+Gprconfig child and GNATprove GPR2 processing remain separate boundaries.
+
+A pinned 541-byte generated project and three reconstructed configuration
+syntax inputs support a monotone-token node bound and linear-reference list
+bounds. Each RHS contains at most one reference; the evidence reader rejects
+unsupported constructs. Gross cells retain obsolete values and both reset
+Dot_String_List events. The accepted RTS additions now give final node demands
+28,240 / 28,784 / 29,124, String_Element demands 46,056 / 47,812 / 48,890, and
+Name_List demands 16,389 / 17,121 / 17,493. The largest separate backing objects
+are 20,503,648 / 7,822,480 / 1,119,584 bytes respectively. Supporting tables,
+216 predefined attributes and 19 predefined packages are also bounded. The
+four parser-local Withs, Project_Stack, Extended_Projects and Next_End_Nodes
+backings are joined at 1,680 / 1,344 / 672 / 336 bytes; zero import/extension
+demand still receives an initial-backing allowance. These are individual object
+bounds, not aggregate RAM or cumulative allocation totals.
+
+The known GPR.Names request contributions are only 2,405 / 2,443 / 2,467.
+Command/environment/PATH/path/naming/prior-capacity and later process/ALI
+requests remain unjoined. Structural inventory of 65 XML inputs and 9,492
+elements supplies starting operands, not XML/Ada DOM/input/entity or regexp
+allocation bounds. Remaining startup/hash/set/list/comment objects, KB target/
+fallback containers, separate Gprconfig full KB/directory/candidate-output/
+generation allocations, GNATprove GPR2 and later producer/report joins remain
+concrete #212 obligations under #119. Neither freed DOMs nor popped/reset
+scratch entries erase cumulative allocator events. No exact historical AST
+reconstruction or fresh capture is imposed as a prerequisite.
+
+The new baseline source/data/arithmetic check passed first attempt in
+0.177625 seconds over 11 provider files and 26 selected complete GPR sources.
+A focused additional check for the four parser backings and explicit future
+Names arguments passed first attempt in 0.125175 seconds; the successful
+baseline was not replayed. Its retained result is scoped to the enumerated
+tables; complete process and producer configuration capacity remain false.
+No native/compiler/prover/Lean/service execution, predecessor checker, capture
+or runtime-corpus rescan ran. Selected author setting was GPT-6 Astra / Extra
+High; runtime confirmation and token/cost telemetry are unavailable. The
+[handoff](../evidence/retained-fixed-report-composition-20261024/gpr-baseline/handoff.json)
+exports exact coordinates and remaining obligations for independent review and
+continued baseline work after integration. Source admission, physical premises,
+P188, e <= 2, two save-entering callbacks and three saves are unchanged;
+#212/#119 remain open.
