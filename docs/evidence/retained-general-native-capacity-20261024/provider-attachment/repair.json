@@ -1,0 +1,34 @@
+{
+  "target": "302b32d15c293c9f8cf352f80ee9b7b4b068eee0",
+  "finding": "gigi conditional C0/U0/B1/T1 misses unary in signed MAX followed by unsigned widening",
+  "old_conditional_CUBT": [
+    0,
+    0,
+    1,
+    1
+  ],
+  "reachable_MAX_CUBT": [
+    0,
+    1,
+    1,
+    0
+  ],
+  "replacement_conditional_CUBT": [
+    2,
+    2,
+    2,
+    2
+  ],
+  "corrected_original_CUBT": [
+    184,
+    126,
+    138,
+    112
+  ],
+  "corrected_original_layout_bytes": 22288,
+  "corrected_original_operand_slots": 738,
+  "original_annotation_bytes_unchanged": 167328,
+  "corrected_original_combined_bytes": 189616,
+  "old_files_immutable": true,
+  "independent_repair_review": "pending"
+}

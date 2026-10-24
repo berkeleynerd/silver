@@ -1,0 +1,111 @@
+{
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "complete_source_manifest": "../concat-selectors/source-manifest.json",
+  "witnesses": [
+    {
+      "id": "original_high_and_nullable",
+      "source": "gcc/ada/exp_ch4.adb",
+      "first_lf_line": 3237,
+      "last_lf_line": 3332,
+      "sha256": "934bc00eb7ccbe56d4f01de107cdef9999792de2b648c14d8bb4f2eec11d7137"
+    },
+    {
+      "id": "aggregate_capture",
+      "source": "gcc/ada/exp_ch4.adb",
+      "first_lf_line": 3050,
+      "last_lf_line": 3102,
+      "sha256": "51dd97fa26be9bbb82fba2127d986c6fb5c46e04a1802e66f0eaa1953a5d1262"
+    },
+    {
+      "id": "original_empty_tail",
+      "source": "gcc/ada/exp_ch4.adb",
+      "first_lf_line": 2861,
+      "last_lf_line": 2898,
+      "sha256": "2552527289829639c447eb7b1c9fbe24bfbb2320d66f20edabd1d5445a9835c3"
+    },
+    {
+      "id": "range_superflat",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 7049,
+      "last_lf_line": 7098,
+      "sha256": "616502294d48dc522e484d0707f0931a0c9d73b5f59960d23f37f43a4a5aa99a"
+    },
+    {
+      "id": "original_queries_and_conditional",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 2667,
+      "last_lf_line": 2823,
+      "sha256": "bbd781d13b788ff877ec53fcc26c138ff736c5c86541d3ec58026b11d0b25ac1"
+    },
+    {
+      "id": "maximum_leaf_cuts",
+      "source": "gcc/ada/gcc-interface/utils.cc",
+      "first_lf_line": 4095,
+      "last_lf_line": 4180,
+      "sha256": "cf458a590769a98bf9bccb1926467c29bf1395a53ae10bff11ae500d0c7ba856"
+    },
+    {
+      "id": "gigi_conditional",
+      "source": "gcc/ada/gcc-interface/utils2.cc",
+      "first_lf_line": 1892,
+      "last_lf_line": 1943,
+      "sha256": "bc356d50533552ea3486f6039095b9402f1d9d27fcc82ea2d47dcca0495ca230"
+    },
+    {
+      "id": "constant_equality",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 3214,
+      "last_lf_line": 3330,
+      "sha256": "c458af03906060426ee91a2868cbc7754dbb139583f85a0bbc0c8fe72bacd2f5"
+    },
+    {
+      "id": "comparison_equality",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 4372,
+      "last_lf_line": 4409,
+      "sha256": "f90d57385b45c2e027ce8929d885ce9545b74ce33d08777743d4241200ee5d09"
+    },
+    {
+      "id": "signed_MAX",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 6053,
+      "last_lf_line": 6254,
+      "sha256": "e2d34913aecc218b6f43ae33de829fd6feaa41e68b9183b71988b38ec6a60a86"
+    },
+    {
+      "id": "conditional_dispatch",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 12999,
+      "last_lf_line": 13045,
+      "sha256": "7c86ca873596fdf411a3dbd9cf6bcca2fc5115c1c492634833057a9b09cd0c53"
+    },
+    {
+      "id": "integral_conversion",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 2630,
+      "last_lf_line": 2680,
+      "sha256": "e6ce8d4a473362ca9bc3515150fbddac4aa3d91c7a03a5b5da762a80eaeebf1c"
+    },
+    {
+      "id": "positive_comparison",
+      "source": "gcc/match.pd",
+      "first_lf_line": 7373,
+      "last_lf_line": 7385,
+      "sha256": "8ce169a75595aea1206a34281b87cfb325b5191a6cbd941411702667d435269f"
+    },
+    {
+      "id": "annotation_MAX",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 9400,
+      "last_lf_line": 9501,
+      "sha256": "9c0590d8299bce5ed4eb2435c94cb8d25e81a686ee9be5bfdf9d34dc690ce851"
+    },
+    {
+      "id": "bit_conversion_barrier",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 6583,
+      "last_lf_line": 6701,
+      "sha256": "7dc87e3008a8ac2e9c6a461cb5eeb8ca09178d9de2fb650f5d76ed92c5af280d"
+    }
+  ]
+}
