@@ -1,0 +1,89 @@
+{
+  "scope": "Incoming and GCC source review inputs; no reviewer checker/native run",
+  "reviewed_gcc_draft_sha256": "002777d2dcc06cce6d6a5cdf20eda6baf1439d7e2c9ecbc74522d1a3211b5204",
+  "commits": [
+    {
+      "commit": "5db5a90c49cb6930bbeee5afeb4d1db90a637934",
+      "files": [
+        {
+          "path": "docs/evidence/retained-producer-report-incoming-20261024/README.md",
+          "sha256": "b4b3079d061bbe74e682fac0e6e155ba7132b4bf879ba4435593975a578c4320"
+        },
+        {
+          "path": "docs/evidence/retained-producer-report-incoming-20261024/check.py",
+          "sha256": "1f9f78067b8ef0971a3e1eec71c9db4b9a017abddacd26df7e09fbd89db149ff"
+        },
+        {
+          "path": "docs/evidence/retained-producer-report-incoming-20261024/gcc-sources.tar.gz",
+          "sha256": "68fc881e76d836d3b7dd426ffb5987707275df9ae3c1232fe580427335e6444b"
+        },
+        {
+          "path": "docs/evidence/retained-producer-report-incoming-20261024/identity.json",
+          "sha256": "ef75b6889e3adaa6d6cbee8a56f5a0a3d3dc7dd0fbb50341b97c52cebb13a1b2"
+        },
+        {
+          "path": "docs/evidence/retained-producer-report-incoming-20261024/result.json",
+          "sha256": "ec49ef0f0b4ee211439faad6333187137a25dd57d6e1aa2521981ede509e8f61"
+        },
+        {
+          "path": "docs/evidence/retained-producer-report-incoming-20261024/source-excerpts.md",
+          "sha256": "babcea9a6f2a7f9b36dd4df3e61e393071d6fb482b510d3d165bfafe4d2e20ba"
+        },
+        {
+          "path": "docs/research/retained-producer-report-incoming.md",
+          "sha256": "9b20414283019a0790df257d27711c8836c0f536cffe288071a9ce6872098dca"
+        }
+      ]
+    },
+    {
+      "commit": "f0901e440c6f9af381551a2bac63591798b0e722",
+      "files": [
+        {
+          "path": "docs/research/retained-producer-report-incoming.md",
+          "sha256": "95e1ca60d516f91e61e3b6717b40cfd6f92c03ae5a1c7607ebca93965b52e8ec"
+        }
+      ]
+    },
+    {
+      "commit": "b6744d46658ae62f221aa49e818d7501c93b8493",
+      "files": [
+        {
+          "path": "docs/evidence/retained-producer-frontend-diagnostics-20261024/README.md",
+          "sha256": "076930f66c4fc08d1e37ee9bddf1f0df332d87837d728135b656accb869db43e"
+        },
+        {
+          "path": "docs/evidence/retained-producer-frontend-diagnostics-20261024/check.py",
+          "sha256": "c999650dc3227685492bf1c345135e449ae106a4c7bedecd1be47519787ee2aa"
+        },
+        {
+          "path": "docs/evidence/retained-producer-frontend-diagnostics-20261024/gcc-sources.tar.gz",
+          "sha256": "555d6f89e8415fbb059d06b0842b071cfa05f731c289ef609225c4c4356b761d"
+        },
+        {
+          "path": "docs/evidence/retained-producer-frontend-diagnostics-20261024/identity.json",
+          "sha256": "79ca394b0553d5348bb870cd7b88fcec4ef922dafa0eb73d2bfb5fd0c9b14bbf"
+        },
+        {
+          "path": "docs/evidence/retained-producer-frontend-diagnostics-20261024/inventory.py",
+          "sha256": "7e03fde4c42d2244db16702dc01e2fa55f148eec71bbda3ac13b1e00327d1bcf"
+        },
+        {
+          "path": "docs/evidence/retained-producer-frontend-diagnostics-20261024/raw-argument-inventory.json",
+          "sha256": "a0921454a373ce5d84c1fef27d76566335fec20396f2cf4a60d15d792e46e663"
+        },
+        {
+          "path": "docs/evidence/retained-producer-frontend-diagnostics-20261024/result.json",
+          "sha256": "3132bcf721d530d74e66d27383d1738e3fc76b34cea350659a90e00ca90e06e3"
+        },
+        {
+          "path": "docs/evidence/retained-producer-frontend-diagnostics-20261024/source-excerpts.md",
+          "sha256": "71ab2c5915ea303cce9bae6dac2334528f5a86f25f0969d87882259127601f9b"
+        },
+        {
+          "path": "docs/research/retained-producer-frontend-diagnostics.md",
+          "sha256": "1b89e27d269ef400db0a77528e8e106fa96da61f9390268ccd383fb87268d130"
+        }
+      ]
+    }
+  ]
+}

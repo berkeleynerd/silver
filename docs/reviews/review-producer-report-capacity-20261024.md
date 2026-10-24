@@ -72,12 +72,51 @@ is unavailable. The intervening 43m16s includes incoming-state and printer
 source challenges and author coordination, so it is not a timing measurement
 of this checker or this component alone.
 
+## Incoming state and fixed GCC prerequisite: accepted in scope
+
+The incoming source derivation is `5db5a90c49`, with the final Brief/All
+wording at `f0901e440c`. Its graph/object/init/trace and complete emitter
+accounting received a scoped no-undercount-found review. Material challenges
+were incorporated: proof-reference constants remain in the entity domain;
+trace writes precede deduplication; warning display suppression does not erase
+JSON records; all `@` substitutions must be charged; and warning exclusions
+use actual No_Return, local-inlining, precondition and configuration gates.
+The reviewed raw-message constants are C=5288 and Q_at=2, not earlier draft
+values. The final option tuple is Brief/All; Report_Fail suppression is not
+used to reduce message counts.
+
+The fixed GCC prerequisite is frozen at `b6744d4665`. I reviewed draft
+SHA-256 `002777d2dcc06cce6d6a5cdf20eda6baf1439d7e2c9ecbc74522d1a3211b5204`
+and checked the final disposition/inventory additions. No blocker was found
+in its stated fixed-source reduction. The complete earlier capture totals
+0/12/7/0/0 conservatively bound the earlier GCC subsets; they are not claims
+that GCC emitted twelve or seven warnings. Main's variable diagnostic term
+is preserved independently.
+
+I checked GCC's Warning_Mode/Warn_Err read frontier and the frontend
+Finalize/Compilation_Errors gate. Normal and Treat_As_Error retain the same
+selected semantic attempts; their differences classify/count/render records.
+The completed Treat_As_Error prefix excludes surviving ordinary warnings,
+while the separate native Info exclusions remain necessary. The full fixed
+dependency/runtime closure, disabled warning flags, no-inlining gates and
+the accepted coherent cache/root reduction are essential premises.
+
+The large raw-history envelope is supported by its manual recipe partition,
+not by summing compiler source bytes alone. Checked dynamic recipes include
+one fresh Adjust_Message prefix per conjunct, nonexpanding Fix_Error,
+Compile_Time_Constraint_Error's at-most-three controls, and separate messages
+per quantified subexpression. Raw history, retained formatted strings and
+actual displayed lines have distinct bounds. In particular the broad raw
+envelope is not assigned to the native output line buffer.
+
+These reviews used source and existing evidence only; I did not rerun their
+checkers, captures or native tools. Exact frozen input hashes are retained in
+[the input record](../evidence/review-producer-report-capacity-20261024/incoming-gcc-inputs.json).
+
 ## Integrated review still pending
 
-The incoming flow/warning/string/counter source derivation has received a
-scoped no-undercount-found disposition, including the explicit warning gates.
-The complete #193 writer, native frontend prerequisite, third-pool lifetime,
-printed-expression bounds and final option tuple still require their coherent
-freeze and integrated review. The preserved global allowances remain `e<=2`,
+The complete #193 writer, third-pool lifetime, printed-expression bounds and
+useful composed guards still require their coherent freeze and integrated
+review. The preserved global allowances remain `e<=2`,
 two save-entering callbacks and three saves; downstream collector/Silver-reader
 work remains #194.
