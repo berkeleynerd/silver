@@ -1,0 +1,153 @@
+{
+  "components": [
+    {
+      "name": "Image author",
+      "freeze": "0ed7c10db8e806c4ee05c3c56fa6dfe54f0d132e",
+      "paths": [
+        "docs/evidence/retained-general-native-capacity-20261024/fold-envelope/README.md",
+        "docs/evidence/retained-general-native-capacity-20261024/fold-envelope/check.py",
+        "docs/evidence/retained-general-native-capacity-20261024/fold-envelope/current.json",
+        "docs/evidence/retained-general-native-capacity-20261024/fold-envelope/extra-sources.tar.gz",
+        "docs/evidence/retained-general-native-capacity-20261024/fold-envelope/inputs.json",
+        "docs/evidence/retained-general-native-capacity-20261024/fold-envelope/matcher-audit.json",
+        "docs/evidence/retained-general-native-capacity-20261024/fold-envelope/matcher.py",
+        "docs/evidence/retained-general-native-capacity-20261024/fold-envelope/packet-manifest.json",
+        "docs/evidence/retained-general-native-capacity-20261024/fold-envelope/rank.json",
+        "docs/evidence/retained-general-native-capacity-20261024/fold-envelope/source-manifest.json",
+        "docs/evidence/retained-general-native-capacity-20261024/fold-envelope/source-witnesses.json",
+        "docs/research/retained-general-native-capacity.md"
+      ]
+    },
+    {
+      "name": "Image review",
+      "freeze": "ce73d07d201646f488b44e965d632747e5028e60",
+      "paths": [
+        "docs/evidence/review-native-image-envelope-20261024/README.md",
+        "docs/evidence/review-native-image-envelope-20261024/audit.py",
+        "docs/evidence/review-native-image-envelope-20261024/current.json",
+        "docs/evidence/review-native-image-envelope-20261024/extra-source.json",
+        "docs/evidence/review-native-image-envelope-20261024/extra-source.tar.gz",
+        "docs/evidence/review-native-image-envelope-20261024/receipt-manifest.json",
+        "docs/reviews/review-native-image-envelope-20261024.md"
+      ]
+    },
+    {
+      "name": "Clone caller author",
+      "freeze": "b5cfa9c1a501eefdd5db89670ca60ccbc399e036",
+      "paths": [
+        "docs/evidence/retained-main-construction-demand-20261024/clone-callers/README.md",
+        "docs/evidence/retained-main-construction-demand-20261024/clone-callers/callers.py",
+        "docs/evidence/retained-main-construction-demand-20261024/clone-callers/check.py",
+        "docs/evidence/retained-main-construction-demand-20261024/clone-callers/checkpoint.md",
+        "docs/evidence/retained-main-construction-demand-20261024/clone-callers/identity.json",
+        "docs/evidence/retained-main-construction-demand-20261024/clone-callers/inventory.json",
+        "docs/evidence/retained-main-construction-demand-20261024/clone-callers/inventory.py",
+        "docs/evidence/retained-main-construction-demand-20261024/clone-callers/result.json",
+        "docs/evidence/retained-main-construction-demand-20261024/clone-callers/round.json",
+        "docs/research/retained-main-construction-demand.md"
+      ]
+    },
+    {
+      "name": "Fixed report author",
+      "freeze": "057d60cb8e1ff4938bf01667f643d35fc4eb7f0f",
+      "paths": [
+        "docs/evidence/retained-fixed-report-composition-20261024/README.md",
+        "docs/evidence/retained-fixed-report-composition-20261024/capacity.py",
+        "docs/evidence/retained-fixed-report-composition-20261024/check.py",
+        "docs/evidence/retained-fixed-report-composition-20261024/result.json",
+        "docs/evidence/retained-fixed-report-composition-20261024/round.json",
+        "docs/evidence/retained-fixed-report-composition-20261024/source-manifest.json",
+        "docs/research/retained-fixed-report-composition.md"
+      ]
+    },
+    {
+      "name": "Fixed report review",
+      "freeze": "7e6879b320f31d25f29a94067e9cabda07bc568b",
+      "paths": [
+        "docs/evidence/review-fixed-report-composition-20261024/README.md",
+        "docs/evidence/review-fixed-report-composition-20261024/audit.py",
+        "docs/evidence/review-fixed-report-composition-20261024/result.json",
+        "docs/evidence/review-fixed-report-composition-20261024/round.json",
+        "docs/reviews/review-fixed-report-composition-20261024.md"
+      ]
+    },
+    {
+      "name": "Clone caller review",
+      "freeze": "600455e678775d3ae84d22040e972dc0425bb5f2",
+      "paths": [
+        "docs/evidence/review-main-clone-callers-20261024/README.md",
+        "docs/evidence/review-main-clone-callers-20261024/audit-result.json",
+        "docs/evidence/review-main-clone-callers-20261024/audit.py",
+        "docs/evidence/review-main-clone-callers-20261024/receipt.json",
+        "docs/reviews/review-main-clone-callers-20261024.md"
+      ]
+    }
+  ],
+  "bindings": [
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/fold-envelope/inputs.json",
+      "keys": [
+        "files"
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/fold-envelope/source-manifest.json",
+      "keys": [
+        "archives"
+      ],
+      "base": "docs/evidence/retained-general-native-capacity-20261024/fold-envelope"
+    },
+    {
+      "path": "docs/evidence/review-native-image-envelope-20261024/current.json",
+      "keys": [
+        "bound_inputs"
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/clone-callers/identity.json",
+      "keys": [
+        "providers"
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/clone-callers/identity.json",
+      "keys": [
+        "archives"
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/clone-callers/round.json",
+      "keys": [
+        "review_inputs"
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/source-manifest.json",
+      "keys": [
+        "repository_files"
+      ],
+      "kind": "map"
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/source-manifest.json",
+      "keys": [
+        "archive"
+      ],
+      "kind": "single"
+    },
+    {
+      "path": "docs/evidence/review-fixed-report-composition-20261024/result.json",
+      "keys": [
+        "exact_inputs"
+      ],
+      "kind": "map"
+    },
+    {
+      "path": "docs/evidence/review-main-clone-callers-20261024/receipt.json",
+      "keys": [
+        "inputs"
+      ],
+      "kind": "map"
+    }
+  ]
+}

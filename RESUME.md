@@ -118,15 +118,22 @@ and later storage/failure composition. The accepted
 [R85 transfers](docs/evidence/retained-construction-round85-20261024/README.md)
 now supply saved-image/type mapping with the #211 capture-premise repair, and
 native annotation work from a certified acyclic operand height. #211 is
-In review pending delivery. Source-derived dynamic folding/height and the
-actual inherited clone-map/caller history remain open; these conditional
-transfers do not close either work package.
+In review pending delivery. Those transfers required source-family attachment.
+The accepted [R86 checkpoint](docs/evidence/retained-source-attachments-round86-20261024/README.md)
+now derives Image's actual native fold/annotation envelope and attaches the
+capture-safe mapping to the inherited clone-map history and direct caller
+recurrences. Other dynamic String roots, full native workspace/backing and
+Main internal construction/kode/SPWP lifetimes remain open; #201/#202 are
+unfinished.
 The remaining [fixed-report composition #212](https://github.com/berkeleynerd/silver/issues/212)
 is now explicit and In progress under the same #119 authorization. Its
 [input inventory](docs/research/retained-fixed-report-composition.md) separates
-accepted operands from missing body-specific graph/name/location/path bounds
-and the prospective #88 argv binding. It can proceed from #193/#194/#206 in
-parallel with #201/#202; its Main instance retains #202's prerequisites.
+accepted operands from missing body-specific graph/name/location/path bounds.
+R86 independently accepts the two specification report domains and conditional
+writer/reader region, plus the prospective #88 argv overlay. IO/Arguments body
+composition, concrete paths/services and the full collector join remain open.
+It proceeds from #193/#194/#206 alongside #201/#202; its Main instance retains
+#202's prerequisites.
 Complete these source/provider joins before the final whole-rule comparison
 and review. No existing conditional interface or production status changes.
 General native compilation beyond the literal family is tracked in
