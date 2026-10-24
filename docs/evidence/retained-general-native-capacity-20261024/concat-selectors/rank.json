@@ -1,0 +1,98 @@
+{
+  "source_get_known_bound_remaining_operand": "NN-J strictly decreases",
+  "native_selector_operand_translation": "proper source subtree; no capture initializer replay",
+  "maximum_primary": "number of non-condition occurrence nodes in the query tree",
+  "reconstruction_secondary": "constant fold or extremum order then absorption; never visits the condition",
+  "meaning": "States below rank same-size calls and candidate construction. They do not assert general GCC folder termination.",
+  "rank": {
+    "high_minus": 100,
+    "high_const_left": 100,
+    "high_dynamic_order": 100,
+    "high_assoc": 80,
+    "high_pair_terminal": 60,
+    "high_no_fold_outer": 40,
+    "selector_unordered": 100,
+    "selector_ordered": 70,
+    "invert_comparison": 50,
+    "maximum_reconstruct_unordered": 90,
+    "maximum_reconstruct_ordered": 60,
+    "constant_fold": 30,
+    "absorb_extremum": 30,
+    "return_existing": 0,
+    "construct_terminal": 0
+  },
+  "edges": [
+    [
+      "high_minus",
+      "constant_fold"
+    ],
+    [
+      "high_minus",
+      "high_pair_terminal"
+    ],
+    [
+      "high_const_left",
+      "high_assoc"
+    ],
+    [
+      "high_dynamic_order",
+      "high_assoc"
+    ],
+    [
+      "high_assoc",
+      "high_pair_terminal"
+    ],
+    [
+      "high_assoc",
+      "high_no_fold_outer"
+    ],
+    [
+      "high_pair_terminal",
+      "construct_terminal"
+    ],
+    [
+      "high_no_fold_outer",
+      "construct_terminal"
+    ],
+    [
+      "selector_unordered",
+      "invert_comparison"
+    ],
+    [
+      "selector_unordered",
+      "selector_ordered"
+    ],
+    [
+      "selector_ordered",
+      "return_existing"
+    ],
+    [
+      "selector_ordered",
+      "construct_terminal"
+    ],
+    [
+      "invert_comparison",
+      "construct_terminal"
+    ],
+    [
+      "maximum_reconstruct_unordered",
+      "maximum_reconstruct_ordered"
+    ],
+    [
+      "maximum_reconstruct_ordered",
+      "constant_fold"
+    ],
+    [
+      "maximum_reconstruct_ordered",
+      "absorb_extremum"
+    ],
+    [
+      "constant_fold",
+      "return_existing"
+    ],
+    [
+      "absorb_extremum",
+      "return_existing"
+    ]
+  ]
+}

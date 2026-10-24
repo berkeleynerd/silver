@@ -1,0 +1,37 @@
+{
+  "parameters": {
+    "s": "source selected-low IF count; <=NN-1",
+    "m": "selected-low capture indicator; 0 or1",
+    "r": "Result_May_Be_Null indicator; 0 or1",
+    "J": "translated integer-literal occurrences in the selected scalar subcall; <=2s+4+5r"
+  },
+  "scalar": {
+    "constants": "13J+4+2r",
+    "unary": "2+r+m",
+    "binary": "2s+4r+3",
+    "ternary": "s+2r",
+    "var_decl": "m",
+    "raw_bytes": "520J+128s+368r+288m+344"
+  },
+  "one_bound_query_pair": {
+    "constants": "2s+11",
+    "unary": 4,
+    "raw_bytes": "80s+568"
+  },
+  "raw_bytes": {
+    "constants": 40,
+    "unary": 32,
+    "binary": 40,
+    "ternary": 48,
+    "var_decl": 256
+  },
+  "exclusions": [
+    "endpoint/length provider initialization",
+    "aggregate object and length construction",
+    "declaration names/bindings/statement metadata",
+    "scalar copies and query invocation multiplicity outside the selected source event",
+    "conversion/layout/annotation of final paired bounds",
+    "allocator/cache/hash/table/GGC backing and native workspace"
+  ],
+  "complete_native_capacity_result": false
+}
