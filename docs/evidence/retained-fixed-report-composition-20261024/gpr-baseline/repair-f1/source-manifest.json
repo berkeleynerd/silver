@@ -1,0 +1,32 @@
+{
+  "original_author": "17569ceaa8daf41892852cc4ab8b423b28d9091e",
+  "review": "ad92df5c3658b7495f1747226cde54a0dadc3f20",
+  "local_review_integration": "c1097ef6f1263f7bfaeafbe4c6d61701b088ffe1",
+  "providers": {
+    "docs/evidence/retained-producer-gpr-descriptor-20261018/gprbuild-v26.0.0.tar.gz": "876400a11e27cc1c1c9c7affc568808e3987e867e84afe88a1dcdcc6431b1844",
+    "docs/evidence/retained-producer-gpr-descriptor-20261018/installed-configs.tar.gz": "9480af24749a6dfa8da3b16d32de6756cc9f651dd9e327fd6ca6f112ee163ab3",
+    "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/capacity.py": "f36eaabc6e2c8a3914d0959afd673f6ad13924b4724854f16ca5a3f5e476afa7",
+    "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/result.json": "bd83852e0536ce1710fa5b8263a57ce11c8161cb929e4cf5cca978f66b2bc874",
+    "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/boundary-result.json": "addb3ff9b934ec4ec457d33d19e7e6206e4e5bd76f4ec8fb2795606810bab212",
+    "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/source-manifest.json": "503d77cdc04b73e7ef15900397aa5e3fc58ab1aa50b29cacc8a0252b2f0734b7",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/result.json": "e74edc8422c8939c173b49abe9efad64d23897d5651cc02bf453b34d509cd112",
+    "docs/evidence/review-gpr-baseline-20261024/result.json": "7f8e858c505892c19439ef0e9b294f952252188023a1fb2d64e138616b77f14d",
+    "docs/reviews/review-gpr-baseline-20261024.md": "19ffea10f211a1ad0cb4e81b39e29590f0bb59ee6619b3df02abc22466ee7f05",
+    "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/inputs/datarep-before-extra-clauses.gpr": "487616235de4a6ebdd9bfccc845ec6938e2ffe09c1ddd55d09e4ef7149dff0d3",
+    "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/inputs/phase1-before-extra-clauses.gpr": "f235a60ff6654bc80f8574d35ceef0139c3b23135c4c1bdb0200e618aa7dd8ed",
+    "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/inputs/program.gpr": "3e99dd2e5c909ebfba6a7d8554d034bcc497b32f275e9a9aad3bd290221725ff",
+    "docs/evidence/retained-fixed-report-composition-20261024/gpr-baseline/inputs/translation-before-extra-clauses.gpr": "7b346e7fbfd28120726335bd8d6ce2093a9ef83356d9120d64ea52f8fb2e2652"
+  },
+  "gpr_archive": "docs/evidence/retained-producer-gpr-descriptor-20261018/gprbuild-v26.0.0.tar.gz",
+  "config_archive": "docs/evidence/retained-producer-gpr-descriptor-20261018/installed-configs.tar.gz",
+  "selected_sources": {
+    "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-dect.adb": {
+      "bytes": 71147,
+      "sha256": "b0ed95defc86ce9890b136c5806dc91ee5e5cf409528e2473695b85b640609a1"
+    },
+    "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-strt.adb": {
+      "bytes": 60762,
+      "sha256": "ca6c8558ffcd2587d29bdd6ce4d377603bace6a6f775613b806fc73732a6c185"
+    }
+  }
+}
