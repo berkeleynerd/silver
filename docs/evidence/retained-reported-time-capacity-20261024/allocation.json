@@ -5,8 +5,9 @@
   "global_allowance_renewed": false,
   "largest_added_managed_payload_words_upper": 256,
   "later_GC_copying_and_runtime_owners_included": false,
-  "later_owned_words": "512*o + 266*q + 7*T; o<=9 and q<=3*T",
-  "later_result_count_T": "all ProverFinished result deliveries, including empty-filename queued cancellations",
+  "later_controller_count_f": "entries to ProverFinished arm before smoothing, including queued cancellations and interrupted bodies",
+  "later_owned_words": "512*o + 266*q + 7*f; o<=9 and q<=3*p; p=parse entries, f=controller arm entries",
+  "later_parse_count_p": "entries to authentic Finished parsing, including abandoned or interrupted calls",
   "lexer_words_per_common_parse": 121699,
   "lexical": {
     "comment_nesting": 1,

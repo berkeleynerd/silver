@@ -107,13 +107,15 @@ def all_envelopes():
             for role, base in sorted(inputs["envelopes"].items())}
 
 
-def later_owned_words(*, finished_results, attempted_searches, owners=9):
+def later_owned_words(*, parse_entries, finished_results, attempted_searches, owners=9):
     """Additional post-C allocations, with existing result/runtime owners outside.
 
-    finished_results counts all ProverFinished result deliveries, including
-    empty-filename queued cancellations. Each can cause at most one additional
-    fuzzy result copy, even when no regexp search was attempted for that result.
-    The ordinary-file subset performs at most three searches per result.
+    parse_entries counts entry to selected authentic Finished-result parsing,
+    including abandoned or interrupted calls. Each entry attempts at most three
+    timing searches. finished_results independently counts entry to the controller
+    ProverFinished arm before smoothing, including queued cancellations and
+    interrupted bodies. Each arm entry can cause at most one fuzzy result copy.
+    No relation between the two counts, or successful completion, is assumed.
 
     512 per forced Start owner, 256 per attempted native search, 10 per grep_time
     wrapper, and 7 per possible additional fuzzy result copy. No callback budget
@@ -121,9 +123,9 @@ def later_owned_words(*, finished_results, attempted_searches, owners=9):
     composed by their existing whole-process providers, not counted as words
     newly owned by these source constructors.
     """
-    values = (finished_results, attempted_searches, owners)
+    values = (parse_entries, finished_results, attempted_searches, owners)
     if any(type(v) is not int or v < 0 for v in values):
         raise ValueError("nonnegative integral counts required")
-    if owners > 9 or attempted_searches > 3 * finished_results:
+    if owners > 9 or attempted_searches > 3 * parse_entries:
         raise ValueError("the three selected independent triplets and search bound are required")
     return 512 * owners + 266 * attempted_searches + 7 * finished_results

@@ -1,37 +1,53 @@
 {
   "cases": [
     {
-      "expected_words": 0,
       "name": "no_results",
-      "ordinary_file_results": 0,
-      "queued_cancellations": 0,
+      "parse_entries": 0,
+      "finished_results": 0,
       "attempted_searches": 0,
-      "owners": 0
+      "owners": 0,
+      "expected_words": 0
     },
     {
-      "expected_words": 7,
       "name": "queued_only_with_possible_old_result",
-      "ordinary_file_results": 0,
-      "queued_cancellations": 1,
+      "parse_entries": 1,
+      "finished_results": 1,
       "attempted_searches": 0,
-      "owners": 0
+      "owners": 0,
+      "expected_words": 7
     },
     {
-      "expected_words": 1317,
       "name": "one_ordinary_result_with_three_searches",
-      "ordinary_file_results": 1,
-      "queued_cancellations": 0,
+      "parse_entries": 1,
+      "finished_results": 1,
       "attempted_searches": 3,
-      "owners": 1
+      "owners": 1,
+      "expected_words": 1317
     },
     {
-      "expected_words": 1331,
       "name": "one_ordinary_result_and_two_queued_cancellations",
-      "ordinary_file_results": 1,
-      "queued_cancellations": 2,
+      "parse_entries": 3,
+      "finished_results": 3,
       "attempted_searches": 3,
-      "owners": 1
+      "owners": 1,
+      "expected_words": 1331
+    },
+    {
+      "name": "interrupted_parse_before_delivery",
+      "parse_entries": 1,
+      "finished_results": 0,
+      "attempted_searches": 3,
+      "owners": 0,
+      "expected_words": 798
+    },
+    {
+      "name": "interrupted_controller_arm_before_Done",
+      "parse_entries": 0,
+      "finished_results": 1,
+      "attempted_searches": 0,
+      "owners": 0,
+      "expected_words": 7
     }
   ],
-  "scope": "Arithmetic interface fixtures; source review establishes the result and search count join. Queued cases conservatively permit an old proof result."
+  "scope": "Arithmetic interface fixtures. Source review attaches independent entry counts; successful parse/delivery/Done is not required. Counts may bound separate continuation prefixes."
 }
