@@ -1,0 +1,176 @@
+{
+  "components": [
+    {
+      "name": "Native helper author",
+      "freeze": "99734327fd77d426fead054d7ba0e12999b00d8a",
+      "paths": [
+        "docs/evidence/retained-general-native-capacity-20261024/README.md",
+        "docs/evidence/retained-general-native-capacity-20261024/helper-joins/README.md",
+        "docs/evidence/retained-general-native-capacity-20261024/helper-joins/check.py",
+        "docs/evidence/retained-general-native-capacity-20261024/helper-joins/current.json",
+        "docs/evidence/retained-general-native-capacity-20261024/helper-joins/inputs.json",
+        "docs/evidence/retained-general-native-capacity-20261024/helper-joins/source-manifest.json",
+        "docs/evidence/retained-general-native-capacity-20261024/helper-joins/source-witnesses.json",
+        "docs/evidence/retained-general-native-capacity-20261024/helper-joins/sources.tar.gz",
+        "docs/research/retained-general-native-capacity.md"
+      ]
+    },
+    {
+      "name": "Native helper review",
+      "freeze": "fed70c5b5d55c2c00a034db6947a0c29425d20ae",
+      "paths": [
+        "docs/evidence/review-native-helper-joins-20261024/README.md",
+        "docs/evidence/review-native-helper-joins-20261024/audit.py",
+        "docs/evidence/review-native-helper-joins-20261024/result.json",
+        "docs/reviews/review-native-helper-joins-20261024.md"
+      ]
+    },
+    {
+      "name": "Main entry author",
+      "freeze": "e45ee72a42d6cc669e95b80c2c991cbc65fe4e73",
+      "paths": [
+        "docs/evidence/retained-main-entry-capacity-20261024/README.md",
+        "docs/evidence/retained-main-entry-capacity-20261024/check.py",
+        "docs/evidence/retained-main-entry-capacity-20261024/checkpoint.md",
+        "docs/evidence/retained-main-entry-capacity-20261024/identity.json",
+        "docs/evidence/retained-main-entry-capacity-20261024/prepare.py",
+        "docs/evidence/retained-main-entry-capacity-20261024/result.json",
+        "docs/evidence/retained-main-entry-capacity-20261024/round.json",
+        "docs/evidence/retained-main-entry-capacity-20261024/transfer.py",
+        "docs/research/retained-main-entry-capacity.md"
+      ]
+    },
+    {
+      "name": "Main entry review",
+      "freeze": "0116f0bee53911fc297d7b7ef62aa4ca23184733",
+      "paths": [
+        "docs/evidence/review-main-entry-capacity-20261024/README.md",
+        "docs/evidence/review-main-entry-capacity-20261024/audit.py",
+        "docs/evidence/review-main-entry-capacity-20261024/result.json",
+        "docs/reviews/review-main-entry-capacity-20261024.md"
+      ]
+    },
+    {
+      "name": "Timing native author",
+      "freeze": "6cc4c72f63f94574a6f0c000a768c8193b35f642",
+      "paths": [
+        "docs/evidence/retained-reported-time-native-20261024/README.md",
+        "docs/evidence/retained-reported-time-native-20261024/camlCamlinternalLazy__force_lazy_block_362.txt",
+        "docs/evidence/retained-reported-time-native-20261024/camlCamlinternalLazy__fun_468.txt",
+        "docs/evidence/retained-reported-time-native-20261024/camlRe__Ast__anchored_1569.txt",
+        "docs/evidence/retained-reported-time-native-20261024/camlRe__Ast__colorize_1542.txt",
+        "docs/evidence/retained-reported-time-native-20261024/camlRe__Automata__add_match_1615.txt",
+        "docs/evidence/retained-reported-time-native-20261024/camlRe__Automata__arg_2261.txt",
+        "docs/evidence/retained-reported-time-native-20261024/camlRe__Automata__f_1596.txt",
+        "docs/evidence/retained-reported-time-native-20261024/camlRe__Automata__first_match_1568.txt",
+        "docs/evidence/retained-reported-time-native-20261024/camlRe__Automata__fun_2774.txt",
+        "docs/evidence/retained-reported-time-native-20261024/camlRe__Automata__fun_2987.txt",
+        "docs/evidence/retained-reported-time-native-20261024/camlRe__Automata__fun_3099.txt",
+        "docs/evidence/retained-reported-time-native-20261024/camlRe__Automata__fun_3340.txt",
+        "docs/evidence/retained-reported-time-native-20261024/camlRe__Automata__fun_3343.txt",
+        "docs/evidence/retained-reported-time-native-20261024/camlRe__Automata__hash_1353.txt",
+        "docs/evidence/retained-reported-time-native-20261024/camlRe__Automata__hash_1487.txt",
+        "docs/evidence/retained-reported-time-native-20261024/camlRe__Automata__hash_1695.txt",
+        "docs/evidence/retained-reported-time-native-20261024/camlRe__Automata__iter_marks_1540.txt",
+        "docs/evidence/retained-reported-time-native-20261024/camlRe__Automata__marks_set_idx_1397.txt",
+        "docs/evidence/retained-reported-time-native-20261024/camlRe__Automata__remove_matches_1572.txt",
+        "docs/evidence/retained-reported-time-native-20261024/camlRe__Automata__set_mark_1412.txt",
+        "docs/evidence/retained-reported-time-native-20261024/camlRe__Automata__split_at_match_rec_1577.txt",
+        "docs/evidence/retained-reported-time-native-20261024/camlRe__Mark_infos__offset_455.txt",
+        "docs/evidence/retained-reported-time-native-20261024/camlStdlib__Hashtbl__add_1032.txt",
+        "docs/evidence/retained-reported-time-native-20261024/camlStdlib__Hashtbl__create_inner_1743.txt",
+        "docs/evidence/retained-reported-time-native-20261024/camlStdlib__Option__map_292.txt",
+        "docs/evidence/retained-reported-time-native-20261024/check.py",
+        "docs/evidence/retained-reported-time-native-20261024/inputs.json",
+        "docs/evidence/retained-reported-time-native-20261024/native-supplement.json",
+        "docs/evidence/retained-reported-time-native-20261024/new-extraction.json",
+        "docs/evidence/retained-reported-time-native-20261024/placeholder/README.md",
+        "docs/evidence/retained-reported-time-native-20261024/placeholder/camlRe__Color_map__fun_655.txt",
+        "docs/evidence/retained-reported-time-native-20261024/placeholder/camlRe__Color_map__fun_666.txt",
+        "docs/evidence/retained-reported-time-native-20261024/placeholder/camlRe__Color_map__split_629.txt",
+        "docs/evidence/retained-reported-time-native-20261024/placeholder/camlRe__Color_map__translate_colors_609.txt",
+        "docs/evidence/retained-reported-time-native-20261024/placeholder/camlRe__Cset__fold_right_1173.txt",
+        "docs/evidence/retained-reported-time-native-20261024/placeholder/camlRe__Cset__mem_523.txt",
+        "docs/evidence/retained-reported-time-native-20261024/placeholder/camlRe__Cset__one_char_945.txt",
+        "docs/evidence/retained-reported-time-native-20261024/placeholder/camlRe__Cset__seq_505.txt",
+        "docs/evidence/retained-reported-time-native-20261024/placeholder/camlRe__Cset__union_465.txt",
+        "docs/evidence/retained-reported-time-native-20261024/placeholder/camlStdlib__Map__add_428.txt",
+        "docs/evidence/retained-reported-time-native-20261024/placeholder/camlStdlib__Map__bal_398.txt",
+        "docs/evidence/retained-reported-time-native-20261024/placeholder/check.py",
+        "docs/evidence/retained-reported-time-native-20261024/placeholder/inputs.json",
+        "docs/evidence/retained-reported-time-native-20261024/placeholder/native.json",
+        "docs/evidence/retained-reported-time-native-20261024/placeholder/result.json",
+        "docs/evidence/retained-reported-time-native-20261024/placeholder/round.json",
+        "docs/evidence/retained-reported-time-native-20261024/result.json",
+        "docs/evidence/retained-reported-time-native-20261024/round.json",
+        "docs/research/retained-reported-time-native.md"
+      ]
+    },
+    {
+      "name": "Timing native review",
+      "freeze": "35a5bea549a4837e0f5c22eb919dd9b0c117b762",
+      "paths": [
+        "docs/evidence/review-reported-time-native-20261024/README.md",
+        "docs/evidence/review-reported-time-native-20261024/audit.py",
+        "docs/evidence/review-reported-time-native-20261024/result.json",
+        "docs/reviews/review-reported-time-native-20261024.md"
+      ]
+    },
+    {
+      "name": "Timing composition author",
+      "freeze": "fd19cd4c3c4847795b04a2a194bf49ce52eacfc5",
+      "paths": [
+        "docs/evidence/retained-reported-time-capacity-20261024/MenhirLib__Convert.txt",
+        "docs/evidence/retained-reported-time-capacity-20261024/MenhirLib__Engine.txt",
+        "docs/evidence/retained-reported-time-capacity-20261024/MenhirLib__PackedIntArray.txt",
+        "docs/evidence/retained-reported-time-capacity-20261024/MenhirLib__RowDisplacementDecode.txt",
+        "docs/evidence/retained-reported-time-capacity-20261024/MenhirLib__TableInterpreter.txt",
+        "docs/evidence/retained-reported-time-capacity-20261024/README.md",
+        "docs/evidence/retained-reported-time-capacity-20261024/Why3__Driver_parser.txt",
+        "docs/evidence/retained-reported-time-capacity-20261024/allocation.json",
+        "docs/evidence/retained-reported-time-capacity-20261024/allocation.md",
+        "docs/evidence/retained-reported-time-capacity-20261024/baseline-entry-projection.json",
+        "docs/evidence/retained-reported-time-capacity-20261024/camlRe__Str__global_substitute_1081.txt",
+        "docs/evidence/retained-reported-time-capacity-20261024/camlRe__Str__replace_1086.txt",
+        "docs/evidence/retained-reported-time-capacity-20261024/camlStdlib__Array__iteri_357.txt",
+        "docs/evidence/retained-reported-time-capacity-20261024/camlStdlib__List__rev_append_308.txt",
+        "docs/evidence/retained-reported-time-capacity-20261024/camlStdlib__String__concat_419.txt",
+        "docs/evidence/retained-reported-time-capacity-20261024/camlWhy3__Call_provers__grep_time_1197.txt",
+        "docs/evidence/retained-reported-time-capacity-20261024/camlWhy3__Call_provers__timeregexp_1069.txt",
+        "docs/evidence/retained-reported-time-capacity-20261024/camlWhy3__Controller_itp__fuzzy_proof_time_2136.txt",
+        "docs/evidence/retained-reported-time-capacity-20261024/check-result.json",
+        "docs/evidence/retained-reported-time-capacity-20261024/check.py",
+        "docs/evidence/retained-reported-time-capacity-20261024/configuration/overlay/alt_ergo_silvercap_smt2.drv",
+        "docs/evidence/retained-reported-time-capacity-20261024/configuration/overlay/cvc5_silvercap.drv",
+        "docs/evidence/retained-reported-time-capacity-20261024/configuration/overlay/silver_cvc5_no_steps.gen",
+        "docs/evidence/retained-reported-time-capacity-20261024/configuration/overlay/slv-libv2.gen",
+        "docs/evidence/retained-reported-time-capacity-20261024/configuration/overlay/why3.conf",
+        "docs/evidence/retained-reported-time-capacity-20261024/configuration/overlay/z3_silvercap.drv",
+        "docs/evidence/retained-reported-time-capacity-20261024/configuration/why3.conf",
+        "docs/evidence/retained-reported-time-capacity-20261024/entry-extension.json",
+        "docs/evidence/retained-reported-time-capacity-20261024/inputs.json",
+        "docs/evidence/retained-reported-time-capacity-20261024/later-allocation-cases.json",
+        "docs/evidence/retained-reported-time-capacity-20261024/native-providers.json",
+        "docs/evidence/retained-reported-time-capacity-20261024/parser-native.json",
+        "docs/evidence/retained-reported-time-capacity-20261024/recipe.json",
+        "docs/evidence/retained-reported-time-capacity-20261024/result.json",
+        "docs/evidence/retained-reported-time-capacity-20261024/round.json",
+        "docs/evidence/retained-reported-time-capacity-20261024/source-witnesses.json",
+        "docs/evidence/retained-reported-time-capacity-20261024/time-origin-census.json",
+        "docs/evidence/retained-reported-time-capacity-20261024/transfer.py",
+        "docs/research/retained-reported-time-capacity.md"
+      ]
+    },
+    {
+      "name": "Timing composition review",
+      "freeze": "dccef750527ab6779841b472c31fca4ebcb21ec5",
+      "paths": [
+        "docs/evidence/review-reported-time-capacity-20261024/README.md",
+        "docs/evidence/review-reported-time-capacity-20261024/audit.py",
+        "docs/evidence/review-reported-time-capacity-20261024/checkpoint.json",
+        "docs/evidence/review-reported-time-capacity-20261024/result.json",
+        "docs/reviews/review-reported-time-capacity-20261024.md"
+      ]
+    }
+  ]
+}

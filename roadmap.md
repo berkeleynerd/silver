@@ -156,10 +156,21 @@ adds #201's local native type kernel and #202's case-free stored-term and
 candidate-gate kernel. #207's missed static String-layout Uint arithmetic is
 repaired and independently reviewed; its current overlay supersedes the affected
 historical export. #207 is In review pending delivery. #201/#202 remain
-In progress: native helper/caller/downstream joins, complete Main construction
-counts and domain attachment, populated shared entry state and later lifetimes
-are still required. #206's three independent timing records remain an unadopted
-candidate pending complete source/native/configuration and startup accounting.
+In progress. The subsequent R84 result supplies the populated entry state,
+constant helper joins and timing provider; the remaining dynamic/native and
+Main construction/lifetime obligations are still required.
+The accepted [R84 checkpoint](docs/evidence/retained-entry-time-round84-20261024/README.md)
+completes #206's bounded symbolic reported-time provider and repairs
+#208–#210. These four issues are In review pending delivery. The exact private
+recipe normalizes timing metadata without imposing a finite proof duration;
+its source/native startup delta and executable populated-entry extension are
+reviewed. Actual configuration/launcher realization remains #88 work, with
+parent/provider composition still required. #201 gains reviewed constant
+helper/annotation and descriptor joins, including the #209 predicate charge.
+Its dynamic folding/annotation, imports, executable families and downstream
+phases remain open. #202 still needs complete source caller counts, construction
+and later storage/failure composition. Its new saved-image/type bridge is not
+accepted; #211 records a capture-compatibility premise repair under review.
 The remaining derivations are now explicit parallel work packages:
 [#201](https://github.com/berkeleynerd/silver/issues/201) extends the accepted
 literal-native result to the intended current grammar, and
@@ -169,11 +180,10 @@ are In progress under #119's existing authorization. Finish these derivations be
 comparison and final independent review. The issue scopes retain the exact
 remaining owners and completion criteria; no new language surface or owner
 decision is introduced by this split.
-[#206](https://github.com/berkeleynerd/silver/issues/206) closes the
-remaining reported-time representation provider required by #193/#194, without
-assuming a finite proof duration. This bounded configuration derivation runs
-alongside #201/#202 before whole-rule composition; supported time-pattern
-normalization is a candidate, not an adopted invocation or production change.
+[#206](https://github.com/berkeleynerd/silver/issues/206) is technically
+complete at its bounded provider scope in R84. Its prospective supported
+configuration is not installed or adopted by production. Actual provider joins
+and the #88 refinement remain required before relying on it end to end.
 Whole-process headroom and #119 are unfinished.
 The Round 47 [stop report](docs/research/retained-tool-capacity-stop.md) and
 [independent review](docs/reviews/review-cvc5-output-closure-20261020.md) preserve
