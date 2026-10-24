@@ -1,0 +1,390 @@
+{
+  "files": {
+    "docs/evidence/retained-re-native-correspondence-20261023/native.json": {
+      "bytes": 172361,
+      "sha256": "0d09fcfb1954fe433cf5c567b945232f758733a5ed4989cb3140cf8fd7b3e6ab"
+    },
+    "docs/evidence/retained-reported-time-native-20261024/native-supplement.json": {
+      "bytes": 30498,
+      "sha256": "14dd4eb09a42a1f39c51a899dc092801a372996b5d0c63e175338a39f17c187c"
+    },
+    "docs/evidence/retained-reported-time-native-20261024/placeholder/native.json": {
+      "bytes": 15742,
+      "sha256": "d8b1ab9355b7bdc68f43903f2b3e411d3f703d3869d9f2126f29a5b275c01d7d"
+    },
+    "docs/evidence/retained-reported-time-native-20261024/result.json": {
+      "bytes": 918,
+      "sha256": "dc68548ae827916401707190ee24ba01323b1cf97f6a142ef81c58f939fe2b0d"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/ast.ml": {
+      "bytes": 10952,
+      "sha256": "68a1355dfa1edec2c10cd06a31b97204ffa4c8dcf30869d0822748dcbd9c6f87"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/automata.ml": {
+      "bytes": 18814,
+      "sha256": "26f75ca50dde631920b634dcde10bf9e64450ea7b2e738a5a2978a8f2ab140ce"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/bit_vector.ml": {
+      "bytes": 911,
+      "sha256": "c40f76799c77e22be390e924a5a495c7854c1db6e3a5a84180e4f832e9fc6eee"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/color_map.ml": {
+      "bytes": 1435,
+      "sha256": "814d23fcb1de62269420349df3c6c26274634ba0a5d10ad4fc74f0c5ec4c7835"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/compile.ml": {
+      "bytes": 16802,
+      "sha256": "b71c2f607e2155ad540c584bc3e83906fe48c0f0706b935c0c4b13f07d9b279c"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/cset.ml": {
+      "bytes": 5675,
+      "sha256": "9491bff983086c8d4f8e7762049b0c5dd0b474a5fd4ba93f5292daae328cb655"
+    },
+    "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/core.ml": {
+      "bytes": 5474,
+      "sha256": "ff6aa9f8b4148aa211432ce1972e327cf4bc765dc8e35885ef5b24159c2e1ebe"
+    },
+    "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/emacs.ml": {
+      "bytes": 3566,
+      "sha256": "fcfa87379076e24cc85bdab25db4092df53fb0cc1da8a57133ec12a4f68d10a9"
+    },
+    "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/str.ml": {
+      "bytes": 8302,
+      "sha256": "d14ec1d86d805760a72bcc61f9ffbc7e564cdc444676c10bb3c2772445bf6101"
+    },
+    "docs/evidence/retained-why-canonical-parser-capacity-20261023/re-source/category.ml": {
+      "bytes": 609,
+      "sha256": "b874e748ce9ad840a3586e0dfd6af3b7667266cc86bdb2a1654961a7b72cc59d"
+    },
+    "docs/evidence/retained-why-canonical-parser-capacity-20261023/re-source/group.ml": {
+      "bytes": 1426,
+      "sha256": "def56afa24a7486dea803b0791532a10fafe2ecff4916777560899c03e7161ce"
+    },
+    "docs/evidence/retained-why-canonical-parser-capacity-20261023/re-source/mark_infos.ml": {
+      "bytes": 735,
+      "sha256": "2593d7aed95086077d90c1c28d4ae9707d7017e44665b08166faa1daeb7b1850"
+    },
+    "docs/evidence/retained-why-library-probe-paths-20261023/elf_reader.py": {
+      "bytes": 2107,
+      "sha256": "30dcbf8b6a37c53979667d604e442ba8a5a06549fbe4129131d8a487a8d42085"
+    }
+  },
+  "native_selections": {
+    "docs/evidence/retained-re-native-correspondence-20261023/native.json": [
+      "camlRe__Ast__colorize_1537",
+      "camlRe__Ast__handle_case_1186",
+      "camlRe__Ast__seq_1210",
+      "camlRe__Automata__after_1178",
+      "camlRe__Automata__create_1983",
+      "camlRe__Automata__delta_2076",
+      "camlRe__Automata__delta_desc_2058",
+      "camlRe__Automata__delta_e_2057",
+      "camlRe__Automata__delta_expr_2010",
+      "camlRe__Automata__delta_seq_2013",
+      "camlRe__Automata__find_free_1995",
+      "camlRe__Automata__free_index_1999",
+      "camlRe__Automata__initial_1612",
+      "camlRe__Automata__loop_1628",
+      "camlRe__Automata__mark_1161",
+      "camlRe__Automata__mark_used_indices_1989",
+      "camlRe__Automata__mk_1700",
+      "camlRe__Automata__seq_1187",
+      "camlRe__Automata__set_idx_1597",
+      "camlRe__Automata__status_1584",
+      "camlRe__Automata__status_no_mutex_1716",
+      "camlRe__Automata__tseq_1528",
+      "camlRe__Bit_vector__create_zero_449",
+      "camlRe__Bit_vector__reset_zero_446",
+      "camlRe__Color_map__flatten_622",
+      "camlRe__Compile__compile_1_2084",
+      "camlRe__Compile__compile_2099",
+      "camlRe__Compile__enforce_kind_1848",
+      "camlRe__Compile__final_1379",
+      "camlRe__Compile__final_boundary_check_1496",
+      "camlRe__Compile__find_initial_state_1450",
+      "camlRe__Compile__find_state_1246",
+      "camlRe__Compile__loop_1358",
+      "camlRe__Compile__make_1214",
+      "camlRe__Compile__make_733",
+      "camlRe__Compile__make_match_str_1508",
+      "camlRe__Compile__match_str_1830",
+      "camlRe__Compile__match_str_no_bounds_1793",
+      "camlRe__Compile__mk_re_1838",
+      "camlRe__Compile__scan_str_1486",
+      "camlRe__Compile__translate_1981",
+      "camlRe__Compile__validate_1261",
+      "camlRe__Core__exec_594",
+      "camlRe__Core__exec_internal_inner_1338",
+      "camlRe__Emacs__atom_361",
+      "camlRe__Emacs__branch$27_359",
+      "camlRe__Emacs__parse_319",
+      "camlRe__Emacs__piece_360",
+      "camlRe__Emacs__re_no_emacs_605",
+      "camlRe__Emacs__regexp$27_357",
+      "camlRe__Group__offset_531",
+      "camlRe__Group__offset_opt_503",
+      "camlRe__Hash_set__clear_526",
+      "camlRe__Mark_infos__make_310",
+      "camlRe__Mark_infos__set_428",
+      "camlRe__Str__compile_regexp_445",
+      "camlRe__Str__fun_1286",
+      "camlRe__Str__search_forward_689",
+      "camlRe__Group__fun_1088",
+      "camlRe__Automata__rep_1155",
+      "camlRe__Automata__cst_1148",
+      "camlRe__Automata__add_eps_1619",
+      "camlRe__Automata__delta_rep_2011",
+      "camlRe__Compile__trans_set_1965",
+      "camlRe__Compile__trans_seq_1982",
+      "camlRe__Compile__iter_309",
+      "camlRe__Ast__repn_1326",
+      "camlRe__Ast__handle_case_cset_1175",
+      "camlRe__Dense_map__fun_353",
+      "camlRe__Hash_set__init_508",
+      "camlRe__Hash_set__add_590",
+      "camlRe__Hash_set__add_530",
+      "camlRe__Hash_set__mem_599",
+      "camlRe__Hash_set__resize_582"
+    ],
+    "docs/evidence/retained-reported-time-native-20261024/native-supplement.json": [
+      "camlRe__Automata__add_match_1615",
+      "camlRe__Automata__arg_2261",
+      "camlRe__Automata__f_1596",
+      "camlRe__Automata__first_match_1568",
+      "camlRe__Automata__fun_2774",
+      "camlRe__Automata__fun_2987",
+      "camlRe__Automata__fun_3099",
+      "camlRe__Automata__fun_3340",
+      "camlRe__Automata__fun_3343",
+      "camlRe__Automata__hash_1353",
+      "camlRe__Automata__hash_1487",
+      "camlRe__Automata__hash_1695",
+      "camlRe__Automata__iter_marks_1540",
+      "camlRe__Automata__marks_set_idx_1397",
+      "camlRe__Automata__remove_matches_1572",
+      "camlRe__Automata__set_mark_1412",
+      "camlRe__Automata__split_at_match_rec_1577",
+      "camlStdlib__Hashtbl__add_1032",
+      "camlStdlib__Hashtbl__create_inner_1743"
+    ],
+    "docs/evidence/retained-reported-time-native-20261024/placeholder/native.json": [
+      "camlRe__Color_map__fun_655",
+      "camlRe__Color_map__fun_666",
+      "camlRe__Color_map__split_629",
+      "camlRe__Color_map__translate_colors_609",
+      "camlRe__Cset__fold_right_1173",
+      "camlRe__Cset__mem_523",
+      "camlRe__Cset__one_char_945",
+      "camlRe__Cset__seq_505",
+      "camlRe__Cset__union_465",
+      "camlStdlib__Map__add_428",
+      "camlStdlib__Map__bal_398"
+    ]
+  },
+  "reference_commit": "f09672608781dc05172ad980a6e9a483c3b9d534",
+  "witnesses": [
+    {
+      "address": 9540659,
+      "file": "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__delta_expr_2010.txt",
+      "hex": "488b0c24",
+      "instruction": "mov    (%rsp),%rcx",
+      "line": "  919433:\t48 8b 0c 24          \tmov    (%rsp),%rcx"
+    },
+    {
+      "address": 9540987,
+      "file": "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__delta_rep_2011.txt",
+      "hex": "e8e0fdffff",
+      "instruction": "call   919360 <camlRe__Automata__delta_expr_2010>",
+      "line": "  91957b:\te8 e0 fd ff ff       \tcall   919360 <camlRe__Automata__delta_expr_2010>"
+    },
+    {
+      "address": 9540997,
+      "file": "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__delta_rep_2011.txt",
+      "hex": "e856f0ffff",
+      "instruction": "call   9185e0 <camlRe__Automata__first_match_1568>",
+      "line": "  919585:\te8 56 f0 ff ff       \tcall   9185e0 <camlRe__Automata__first_match_1568>"
+    },
+    {
+      "address": 9541109,
+      "file": "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__delta_rep_2011.txt",
+      "hex": "e8f6f4ffff",
+      "instruction": "call   918af0 <camlRe__Automata__add_match_1615>",
+      "line": "  9195f5:\te8 f6 f4 ff ff       \tcall   918af0 <camlRe__Automata__add_match_1615>"
+    },
+    {
+      "address": 9541132,
+      "file": "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__delta_rep_2011.txt",
+      "hex": "4883c438",
+      "instruction": "add    $0x38,%rsp",
+      "line": "  91960c:\t48 83 c4 38          \tadd    $0x38,%rsp"
+    },
+    {
+      "address": 9541475,
+      "file": "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__delta_seq_2013.txt",
+      "hex": "e8f8fbffff",
+      "instruction": "call   919360 <camlRe__Automata__delta_expr_2010>",
+      "line": "  919763:\te8 f8 fb ff ff       \tcall   919360 <camlRe__Automata__delta_expr_2010>"
+    },
+    {
+      "address": 9541575,
+      "file": "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__delta_seq_2013.txt",
+      "hex": "e994fbffff",
+      "instruction": "jmp    919360 <camlRe__Automata__delta_expr_2010>",
+      "line": "  9197c7:\te9 94 fb ff ff       \tjmp    919360 <camlRe__Automata__delta_expr_2010>"
+    },
+    {
+      "address": 9538583,
+      "file": "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__loop_1628.txt",
+      "hex": "e8a4ffffff",
+      "instruction": "call   918bc0 <camlRe__Automata__loop_1628>",
+      "line": "  918c17:\te8 a4 ff ff ff       \tcall   918bc0 <camlRe__Automata__loop_1628>"
+    },
+    {
+      "address": 9538815,
+      "file": "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__loop_1628.txt",
+      "hex": "e88cbaffff",
+      "instruction": "call   914790 <camlRe__Hash_set__mem_599>",
+      "line": "  918cff:\te8 8c ba ff ff       \tcall   914790 <camlRe__Hash_set__mem_599>"
+    },
+    {
+      "address": 9538860,
+      "file": "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__loop_1628.txt",
+      "hex": "e84fb9ffff",
+      "instruction": "call   914680 <camlRe__Hash_set__add_590>",
+      "line": "  918d2c:\te8 4f b9 ff ff       \tcall   914680 <camlRe__Hash_set__add_590>"
+    },
+    {
+      "address": 9577365,
+      "file": "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Compile__trans_set_1965.txt",
+      "hex": "e8e687ffff",
+      "instruction": "call   91ab80 <camlRe__Color_map__translate_colors_609>",
+      "line": "  922395:\te8 e6 87 ff ff       \tcall   91ab80 <camlRe__Color_map__translate_colors_609>"
+    },
+    {
+      "address": 9577408,
+      "file": "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Compile__trans_set_1965.txt",
+      "hex": "e8bbf60300",
+      "instruction": "call   961a80 <camlStdlib__Map__add_428>",
+      "line": "  9223c0:\te8 bb f6 03 00       \tcall   961a80 <camlStdlib__Map__add_428>"
+    },
+    {
+      "address": 9577516,
+      "file": "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Compile__trans_set_1965.txt",
+      "hex": "e9eff8feff",
+      "instruction": "jmp    911d20 <camlRe__Dense_map__fun_353>",
+      "line": "  92242c:\te9 ef f8 fe ff       \tjmp    911d20 <camlRe__Dense_map__fun_353>"
+    },
+    {
+      "address": 9520369,
+      "file": "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Hash_set__add_530.txt",
+      "hex": "4889143e",
+      "instruction": "mov    %rdx,(%rsi,%rdi,1)",
+      "line": "  9144f1:\t48 89 14 3e          \tmov    %rdx,(%rsi,%rdi,1)"
+    },
+    {
+      "address": 9520396,
+      "file": "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Hash_set__add_530.txt",
+      "hex": "4883c002",
+      "instruction": "add    $0x2,%rax",
+      "line": "  91450c:\t48 83 c0 02          \tadd    $0x2,%rax"
+    },
+    {
+      "address": 9520860,
+      "file": "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Hash_set__add_590.txt",
+      "hex": "7e3e",
+      "instruction": "jle    91471c <camlRe__Hash_set__add_590+0x9c>",
+      "line": "  9146dc:\t7e 3e                \tjle    91471c <camlRe__Hash_set__add_590+0x9c>"
+    },
+    {
+      "address": 9520935,
+      "file": "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Hash_set__add_590.txt",
+      "hex": "e814feffff",
+      "instruction": "call   914540 <camlRe__Hash_set__resize_582>",
+      "line": "  914727:\te8 14 fe ff ff       \tcall   914540 <camlRe__Hash_set__resize_582>"
+    },
+    {
+      "address": 9520067,
+      "file": "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Hash_set__clear_526.txt",
+      "hex": "48c74008010000",
+      "instruction": "movq   $0x1,0x8(%rax)",
+      "line": "  9143c3:\t48 c7 40 08 01 00 00 \tmovq   $0x1,0x8(%rax)"
+    },
+    {
+      "address": 9519478,
+      "file": "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Hash_set__init_508.txt",
+      "hex": "bf01000000",
+      "instruction": "mov    $0x1,%edi",
+      "line": "  914176:\tbf 01 00 00 00       \tmov    $0x1,%edi"
+    },
+    {
+      "address": 9519661,
+      "file": "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Hash_set__init_508.txt",
+      "hex": "4983ef28",
+      "instruction": "sub    $0x28,%r15",
+      "line": "  91422d:\t49 83 ef 28          \tsub    $0x28,%r15"
+    },
+    {
+      "address": 9520527,
+      "file": "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Hash_set__resize_582.txt",
+      "hex": "b803000000",
+      "instruction": "mov    $0x3,%eax",
+      "line": "  91458f:\tb8 03 00 00 00       \tmov    $0x3,%eax"
+    },
+    {
+      "address": 9520554,
+      "file": "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Hash_set__resize_582.txt",
+      "hex": "e8318f0300",
+      "instruction": "call   94d4e0 <camlStdlib__Bytes__make_279>",
+      "line": "  9145aa:\te8 31 8f 03 00       \tcall   94d4e0 <camlStdlib__Bytes__make_279>"
+    },
+    {
+      "address": 9546792,
+      "file": "docs/evidence/retained-reported-time-native-20261024/placeholder/camlRe__Color_map__fun_655.txt",
+      "hex": "e8537affff",
+      "instruction": "call   912680 <camlRe__Cset__seq_505>",
+      "line": "  91ac28:\te8 53 7a ff ff       \tcall   912680 <camlRe__Cset__seq_505>"
+    },
+    {
+      "address": 9546805,
+      "file": "docs/evidence/retained-reported-time-native-20261024/placeholder/camlRe__Color_map__fun_655.txt",
+      "hex": "e90675ffff",
+      "instruction": "jmp    912140 <camlRe__Cset__union_465>",
+      "line": "  91ac35:\te9 06 75 ff ff       \tjmp    912140 <camlRe__Cset__union_465>"
+    },
+    {
+      "address": 9547364,
+      "file": "docs/evidence/retained-reported-time-native-20261024/placeholder/camlRe__Color_map__split_629.txt",
+      "hex": "4983ef28",
+      "instruction": "sub    $0x28,%r15",
+      "line": "  91ae64:\t49 83 ef 28          \tsub    $0x28,%r15"
+    },
+    {
+      "address": 9546628,
+      "file": "docs/evidence/retained-reported-time-native-20261024/placeholder/camlRe__Color_map__translate_colors_609.txt",
+      "hex": "4983ef28",
+      "instruction": "sub    $0x28,%r15",
+      "line": "  91ab84:\t49 83 ef 28          \tsub    $0x28,%r15"
+    },
+    {
+      "address": 9837194,
+      "file": "docs/evidence/retained-reported-time-native-20261024/placeholder/camlStdlib__Map__add_428.txt",
+      "hex": "4983ef30",
+      "instruction": "sub    $0x30,%r15",
+      "line": "  961a8a:\t49 83 ef 30          \tsub    $0x30,%r15"
+    },
+    {
+      "address": 9836542,
+      "file": "docs/evidence/retained-reported-time-native-20261024/placeholder/camlStdlib__Map__bal_398.txt",
+      "hex": "0f8e08010000",
+      "instruction": "jle    96190c <camlStdlib__Map__bal_398+0x14c>",
+      "line": "  9617fe:\t0f 8e 08 01 00 00    \tjle    96190c <camlStdlib__Map__bal_398+0x14c>"
+    },
+    {
+      "address": 9837120,
+      "file": "docs/evidence/retained-reported-time-native-20261024/placeholder/camlStdlib__Map__bal_398.txt",
+      "hex": "48c740f8001400",
+      "instruction": "movq   $0x1400,-0x8(%rax)",
+      "line": "  961a40:\t48 c7 40 f8 00 14 00 \tmovq   $0x1400,-0x8(%rax)"
+    }
+  ]
+}

@@ -1,0 +1,138 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+0000000000912140 <camlRe__Cset__union_465>:
+  912140:	48 83 ec 18          	sub    $0x18,%rsp
+  912144:	f6 c3 01             	test   $0x1,%bl
+  912147:	74 07                	je     912150 <camlRe__Cset__union_465+0x10>
+  912149:	48 83 c4 18          	add    $0x18,%rsp
+  91214d:	c3                   	ret
+  91214e:	66 90                	xchg   %ax,%ax
+  912150:	a8 01                	test   $0x1,%al
+  912152:	74 08                	je     91215c <camlRe__Cset__union_465+0x1c>
+  912154:	48 89 d8             	mov    %rbx,%rax
+  912157:	48 83 c4 18          	add    $0x18,%rsp
+  91215b:	c3                   	ret
+  91215c:	48 8b 4b 08          	mov    0x8(%rbx),%rcx
+  912160:	48 8b 3b             	mov    (%rbx),%rdi
+  912163:	48 8b 77 08          	mov    0x8(%rdi),%rsi
+  912167:	4c 8b 07             	mov    (%rdi),%r8
+  91216a:	48 8b 50 08          	mov    0x8(%rax),%rdx
+  91216e:	4c 8b 08             	mov    (%rax),%r9
+  912171:	49 8b 79 08          	mov    0x8(%r9),%rdi
+  912175:	4d 8b 09             	mov    (%r9),%r9
+  912178:	49 89 fc             	mov    %rdi,%r12
+  91217b:	49 83 c4 02          	add    $0x2,%r12
+  91217f:	4d 39 c4             	cmp    %r8,%r12
+  912182:	7d 5c                	jge    9121e0 <camlRe__Cset__union_465+0xa0>
+  912184:	4c 89 0c 24          	mov    %r9,(%rsp)
+  912188:	48 89 7c 24 08       	mov    %rdi,0x8(%rsp)
+  91218d:	48 89 d0             	mov    %rdx,%rax
+  912190:	e8 ab ff ff ff       	call   912140 <camlRe__Cset__union_465>
+  912195:	49 83 ef 30          	sub    $0x30,%r15
+  912199:	4d 3b 3e             	cmp    (%r14),%r15
+  91219c:	0f 82 4c 01 00 00    	jb     9122ee <camlRe__Cset__union_465+0x1ae>
+  9121a2:	49 8d 5f 08          	lea    0x8(%r15),%rbx
+  9121a6:	48 83 c3 18          	add    $0x18,%rbx
+  9121aa:	48 c7 43 f8 00 08 00 	movq   $0x800,-0x8(%rbx)
+  9121b1:	00 
+  9121b2:	48 8b 3c 24          	mov    (%rsp),%rdi
+  9121b6:	48 89 3b             	mov    %rdi,(%rbx)
+  9121b9:	48 8b 7c 24 08       	mov    0x8(%rsp),%rdi
+  9121be:	48 89 7b 08          	mov    %rdi,0x8(%rbx)
+  9121c2:	48 8d 7b e8          	lea    -0x18(%rbx),%rdi
+  9121c6:	48 c7 47 f8 00 08 00 	movq   $0x800,-0x8(%rdi)
+  9121cd:	00 
+  9121ce:	48 89 1f             	mov    %rbx,(%rdi)
+  9121d1:	48 89 47 08          	mov    %rax,0x8(%rdi)
+  9121d5:	48 89 f8             	mov    %rdi,%rax
+  9121d8:	48 83 c4 18          	add    $0x18,%rsp
+  9121dc:	c3                   	ret
+  9121dd:	0f 1f 00             	nopl   (%rax)
+  9121e0:	48 89 f3             	mov    %rsi,%rbx
+  9121e3:	48 83 c3 02          	add    $0x2,%rbx
+  9121e7:	4c 39 cb             	cmp    %r9,%rbx
+  9121ea:	7d 5c                	jge    912248 <camlRe__Cset__union_465+0x108>
+  9121ec:	4c 89 04 24          	mov    %r8,(%rsp)
+  9121f0:	48 89 74 24 08       	mov    %rsi,0x8(%rsp)
+  9121f5:	48 89 cb             	mov    %rcx,%rbx
+  9121f8:	e8 43 ff ff ff       	call   912140 <camlRe__Cset__union_465>
+  9121fd:	49 83 ef 30          	sub    $0x30,%r15
+  912201:	4d 3b 3e             	cmp    (%r14),%r15
+  912204:	0f 82 da 00 00 00    	jb     9122e4 <camlRe__Cset__union_465+0x1a4>
+  91220a:	49 8d 5f 08          	lea    0x8(%r15),%rbx
+  91220e:	48 83 c3 18          	add    $0x18,%rbx
+  912212:	48 c7 43 f8 00 08 00 	movq   $0x800,-0x8(%rbx)
+  912219:	00 
+  91221a:	48 8b 3c 24          	mov    (%rsp),%rdi
+  91221e:	48 89 3b             	mov    %rdi,(%rbx)
+  912221:	48 8b 7c 24 08       	mov    0x8(%rsp),%rdi
+  912226:	48 89 7b 08          	mov    %rdi,0x8(%rbx)
+  91222a:	48 8d 7b e8          	lea    -0x18(%rbx),%rdi
+  91222e:	48 c7 47 f8 00 08 00 	movq   $0x800,-0x8(%rdi)
+  912235:	00 
+  912236:	48 89 1f             	mov    %rbx,(%rdi)
+  912239:	48 89 47 08          	mov    %rax,0x8(%rdi)
+  91223d:	48 89 f8             	mov    %rdi,%rax
+  912240:	48 83 c4 18          	add    $0x18,%rsp
+  912244:	c3                   	ret
+  912245:	0f 1f 00             	nopl   (%rax)
+  912248:	48 39 f7             	cmp    %rsi,%rdi
+  91224b:	7d 43                	jge    912290 <camlRe__Cset__union_465+0x150>
+  91224d:	4d 39 c1             	cmp    %r8,%r9
+  912250:	7f 03                	jg     912255 <camlRe__Cset__union_465+0x115>
+  912252:	4d 89 c8             	mov    %r9,%r8
+  912255:	49 83 ef 30          	sub    $0x30,%r15
+  912259:	4d 3b 3e             	cmp    (%r14),%r15
+  91225c:	72 7c                	jb     9122da <camlRe__Cset__union_465+0x19a>
+  91225e:	49 8d 47 08          	lea    0x8(%r15),%rax
+  912262:	48 83 c0 18          	add    $0x18,%rax
+  912266:	48 c7 40 f8 00 08 00 	movq   $0x800,-0x8(%rax)
+  91226d:	00 
+  91226e:	4c 89 00             	mov    %r8,(%rax)
+  912271:	48 89 70 08          	mov    %rsi,0x8(%rax)
+  912275:	48 8d 58 e8          	lea    -0x18(%rax),%rbx
+  912279:	48 c7 43 f8 00 08 00 	movq   $0x800,-0x8(%rbx)
+  912280:	00 
+  912281:	48 89 03             	mov    %rax,(%rbx)
+  912284:	48 89 4b 08          	mov    %rcx,0x8(%rbx)
+  912288:	48 89 d0             	mov    %rdx,%rax
+  91228b:	e9 b4 fe ff ff       	jmp    912144 <camlRe__Cset__union_465+0x4>
+  912290:	4d 39 c1             	cmp    %r8,%r9
+  912293:	7f 03                	jg     912298 <camlRe__Cset__union_465+0x158>
+  912295:	4d 89 c8             	mov    %r9,%r8
+  912298:	49 83 ef 30          	sub    $0x30,%r15
+  91229c:	4d 3b 3e             	cmp    (%r14),%r15
+  91229f:	72 32                	jb     9122d3 <camlRe__Cset__union_465+0x193>
+  9122a1:	49 8d 5f 08          	lea    0x8(%r15),%rbx
+  9122a5:	48 83 c3 18          	add    $0x18,%rbx
+  9122a9:	48 c7 43 f8 00 08 00 	movq   $0x800,-0x8(%rbx)
+  9122b0:	00 
+  9122b1:	4c 89 03             	mov    %r8,(%rbx)
+  9122b4:	48 89 7b 08          	mov    %rdi,0x8(%rbx)
+  9122b8:	48 8d 43 e8          	lea    -0x18(%rbx),%rax
+  9122bc:	48 c7 40 f8 00 08 00 	movq   $0x800,-0x8(%rax)
+  9122c3:	00 
+  9122c4:	48 89 18             	mov    %rbx,(%rax)
+  9122c7:	48 89 50 08          	mov    %rdx,0x8(%rax)
+  9122cb:	48 89 cb             	mov    %rcx,%rbx
+  9122ce:	e9 71 fe ff ff       	jmp    912144 <camlRe__Cset__union_465+0x4>
+  9122d3:	e8 54 1b 0d 00       	call   9e3e2c <caml_call_gc>
+  9122d8:	eb c7                	jmp    9122a1 <camlRe__Cset__union_465+0x161>
+  9122da:	e8 4d 1b 0d 00       	call   9e3e2c <caml_call_gc>
+  9122df:	e9 7a ff ff ff       	jmp    91225e <camlRe__Cset__union_465+0x11e>
+  9122e4:	e8 43 1b 0d 00       	call   9e3e2c <caml_call_gc>
+  9122e9:	e9 1c ff ff ff       	jmp    91220a <camlRe__Cset__union_465+0xca>
+  9122ee:	e8 39 1b 0d 00       	call   9e3e2c <caml_call_gc>
+  9122f3:	e9 aa fe ff ff       	jmp    9121a2 <camlRe__Cset__union_465+0x62>
+
+Disassembly of section .fini:

@@ -1,0 +1,38 @@
+{
+  "colors": 5,
+  "compilation_credit_words": 2048,
+  "delta_invocations": 3,
+  "derivative_credit_words": 512,
+  "elapsed_seconds": 0.4295898429991212,
+  "engine_executions": 0,
+  "exported_owned_credit_words": 4096,
+  "expressions": {
+    "Cst": 3,
+    "Mark": 4,
+    "Rep": 1,
+    "Seq": 6
+  },
+  "fixed_inputs": 17,
+  "input_hex": "5c3d",
+  "native_bodies": 104,
+  "nine_placeholder_credit_words": 36864,
+  "other_search_credit_words": 128,
+  "packed_backing_bytes": 8,
+  "packed_backing_requests": [
+    8
+  ],
+  "packed_capacity_slots": 1,
+  "packed_size_peak": 1,
+  "parse_credit_words": 128,
+  "placeholder_hex": "255c282e5c29",
+  "positions_length": 1,
+  "scope": "Fixed successful-startup placeholder construction/force/failed search; excludes caller substitution wrappers and common runtime owners.",
+  "state_table_buckets": 128,
+  "state_table_keys": 2,
+  "target_executions": 0,
+  "total_expressions": 14,
+  "total_stage_credit_words": 3840,
+  "witnesses": 29,
+  "working_bits": 1,
+  "working_hint": 0
+}

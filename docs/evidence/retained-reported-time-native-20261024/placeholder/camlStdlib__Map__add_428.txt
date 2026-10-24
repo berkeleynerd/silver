@@ -1,0 +1,120 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+0000000000961a80 <camlStdlib__Map__add_428>:
+  961a80:	48 83 ec 48          	sub    $0x48,%rsp
+  961a84:	40 f6 c7 01          	test   $0x1,%dil
+  961a88:	74 42                	je     961acc <camlStdlib__Map__add_428+0x4c>
+  961a8a:	49 83 ef 30          	sub    $0x30,%r15
+  961a8e:	4d 3b 3e             	cmp    (%r14),%r15
+  961a91:	0f 82 83 01 00 00    	jb     961c1a <camlStdlib__Map__add_428+0x19a>
+  961a97:	49 8d 7f 08          	lea    0x8(%r15),%rdi
+  961a9b:	48 c7 47 f8 00 14 00 	movq   $0x1400,-0x8(%rdi)
+  961aa2:	00 
+  961aa3:	48 c7 07 01 00 00 00 	movq   $0x1,(%rdi)
+  961aaa:	48 89 47 08          	mov    %rax,0x8(%rdi)
+  961aae:	48 89 5f 10          	mov    %rbx,0x10(%rdi)
+  961ab2:	48 c7 47 18 01 00 00 	movq   $0x1,0x18(%rdi)
+  961ab9:	00 
+  961aba:	48 c7 47 20 03 00 00 	movq   $0x3,0x20(%rdi)
+  961ac1:	00 
+  961ac2:	48 89 f8             	mov    %rdi,%rax
+  961ac5:	48 83 c4 48          	add    $0x48,%rsp
+  961ac9:	c3                   	ret
+  961aca:	66 90                	xchg   %ax,%ax
+  961acc:	48 89 34 24          	mov    %rsi,(%rsp)
+  961ad0:	48 89 7c 24 38       	mov    %rdi,0x38(%rsp)
+  961ad5:	48 89 5c 24 18       	mov    %rbx,0x18(%rsp)
+  961ada:	48 89 44 24 28       	mov    %rax,0x28(%rsp)
+  961adf:	48 8b 5f 18          	mov    0x18(%rdi),%rbx
+  961ae3:	48 89 5c 24 30       	mov    %rbx,0x30(%rsp)
+  961ae8:	48 8b 5f 10          	mov    0x10(%rdi),%rbx
+  961aec:	48 89 5c 24 10       	mov    %rbx,0x10(%rsp)
+  961af1:	48 8b 5f 08          	mov    0x8(%rdi),%rbx
+  961af5:	48 89 5c 24 08       	mov    %rbx,0x8(%rsp)
+  961afa:	48 8b 3f             	mov    (%rdi),%rdi
+  961afd:	48 89 7c 24 20       	mov    %rdi,0x20(%rsp)
+  961b02:	48 8b 7e 20          	mov    0x20(%rsi),%rdi
+  961b06:	48 8b 3f             	mov    (%rdi),%rdi
+  961b09:	e8 d2 b4 bc ff       	call   52cfe0 <caml_apply2>
+  961b0e:	48 83 f8 01          	cmp    $0x1,%rax
+  961b12:	75 68                	jne    961b7c <camlStdlib__Map__add_428+0xfc>
+  961b14:	48 8b 44 24 10       	mov    0x10(%rsp),%rax
+  961b19:	48 8b 5c 24 18       	mov    0x18(%rsp),%rbx
+  961b1e:	48 39 d8             	cmp    %rbx,%rax
+  961b21:	75 0d                	jne    961b30 <camlStdlib__Map__add_428+0xb0>
+  961b23:	48 8b 44 24 38       	mov    0x38(%rsp),%rax
+  961b28:	48 83 c4 48          	add    $0x48,%rsp
+  961b2c:	c3                   	ret
+  961b2d:	0f 1f 00             	nopl   (%rax)
+  961b30:	49 83 ef 30          	sub    $0x30,%r15
+  961b34:	4d 3b 3e             	cmp    (%r14),%r15
+  961b37:	0f 82 d3 00 00 00    	jb     961c10 <camlStdlib__Map__add_428+0x190>
+  961b3d:	49 8d 47 08          	lea    0x8(%r15),%rax
+  961b41:	48 c7 40 f8 00 14 00 	movq   $0x1400,-0x8(%rax)
+  961b48:	00 
+  961b49:	48 8b 7c 24 20       	mov    0x20(%rsp),%rdi
+  961b4e:	48 89 38             	mov    %rdi,(%rax)
+  961b51:	48 8b 7c 24 28       	mov    0x28(%rsp),%rdi
+  961b56:	48 89 78 08          	mov    %rdi,0x8(%rax)
+  961b5a:	48 89 58 10          	mov    %rbx,0x10(%rax)
+  961b5e:	48 8b 5c 24 30       	mov    0x30(%rsp),%rbx
+  961b63:	48 89 58 18          	mov    %rbx,0x18(%rax)
+  961b67:	48 8b 5c 24 38       	mov    0x38(%rsp),%rbx
+  961b6c:	48 8b 5b 20          	mov    0x20(%rbx),%rbx
+  961b70:	48 89 58 20          	mov    %rbx,0x20(%rax)
+  961b74:	48 83 c4 48          	add    $0x48,%rsp
+  961b78:	c3                   	ret
+  961b79:	0f 1f 00             	nopl   (%rax)
+  961b7c:	48 83 f8 01          	cmp    $0x1,%rax
+  961b80:	7d 46                	jge    961bc8 <camlStdlib__Map__add_428+0x148>
+  961b82:	48 8b 44 24 28       	mov    0x28(%rsp),%rax
+  961b87:	48 8b 5c 24 18       	mov    0x18(%rsp),%rbx
+  961b8c:	48 8b 7c 24 20       	mov    0x20(%rsp),%rdi
+  961b91:	48 8b 34 24          	mov    (%rsp),%rsi
+  961b95:	e8 e6 fe ff ff       	call   961a80 <camlStdlib__Map__add_428>
+  961b9a:	48 8b 5c 24 20       	mov    0x20(%rsp),%rbx
+  961b9f:	48 39 c3             	cmp    %rax,%rbx
+  961ba2:	75 0c                	jne    961bb0 <camlStdlib__Map__add_428+0x130>
+  961ba4:	48 8b 44 24 38       	mov    0x38(%rsp),%rax
+  961ba9:	48 83 c4 48          	add    $0x48,%rsp
+  961bad:	c3                   	ret
+  961bae:	66 90                	xchg   %ax,%ax
+  961bb0:	48 8b 5c 24 08       	mov    0x8(%rsp),%rbx
+  961bb5:	48 8b 7c 24 10       	mov    0x10(%rsp),%rdi
+  961bba:	48 8b 74 24 30       	mov    0x30(%rsp),%rsi
+  961bbf:	48 83 c4 48          	add    $0x48,%rsp
+  961bc3:	e9 f8 fb ff ff       	jmp    9617c0 <camlStdlib__Map__bal_398>
+  961bc8:	48 8b 44 24 28       	mov    0x28(%rsp),%rax
+  961bcd:	48 8b 5c 24 18       	mov    0x18(%rsp),%rbx
+  961bd2:	48 8b 7c 24 30       	mov    0x30(%rsp),%rdi
+  961bd7:	48 8b 34 24          	mov    (%rsp),%rsi
+  961bdb:	e8 a0 fe ff ff       	call   961a80 <camlStdlib__Map__add_428>
+  961be0:	48 89 c6             	mov    %rax,%rsi
+  961be3:	48 8b 44 24 30       	mov    0x30(%rsp),%rax
+  961be8:	48 39 f0             	cmp    %rsi,%rax
+  961beb:	75 0b                	jne    961bf8 <camlStdlib__Map__add_428+0x178>
+  961bed:	48 8b 44 24 38       	mov    0x38(%rsp),%rax
+  961bf2:	48 83 c4 48          	add    $0x48,%rsp
+  961bf6:	c3                   	ret
+  961bf7:	90                   	nop
+  961bf8:	48 8b 44 24 20       	mov    0x20(%rsp),%rax
+  961bfd:	48 8b 5c 24 08       	mov    0x8(%rsp),%rbx
+  961c02:	48 8b 7c 24 10       	mov    0x10(%rsp),%rdi
+  961c07:	48 83 c4 48          	add    $0x48,%rsp
+  961c0b:	e9 b0 fb ff ff       	jmp    9617c0 <camlStdlib__Map__bal_398>
+  961c10:	e8 17 22 08 00       	call   9e3e2c <caml_call_gc>
+  961c15:	e9 23 ff ff ff       	jmp    961b3d <camlStdlib__Map__add_428+0xbd>
+  961c1a:	e8 0d 22 08 00       	call   9e3e2c <caml_call_gc>
+  961c1f:	e9 73 fe ff ff       	jmp    961a97 <camlStdlib__Map__add_428+0x17>
+
+Disassembly of section .fini:
