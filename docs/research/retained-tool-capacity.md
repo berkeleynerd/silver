@@ -86,15 +86,21 @@ actual parser configuration and installed-tool behavior still need attachment.
 The accepted [R80 inputs](../evidence/retained-report-inputs-round80-20261024/README.md)
 add incoming flow/message/counter bounds, fixed proof-mode frontend diagnostic
 carry and conditional identifier preservation across interrupted responses.
-[#193](https://github.com/berkeleynerd/silver/issues/193) remains In progress:
-complete the combined result/pool/metadata/report writer and useful native
-diagnostic guards, including the pre-normal error-payload bound. The prospective
-diagnostic option is brief output with report-all retained; report-fail was
-withdrawn because it can change claims. [#194](https://github.com/berkeleynerd/silver/issues/194)
-follows with required GNATprove collection and Silver readers/audits.
-General native compilation beyond the literal family, arbitrary-Main Why
-representation lifetimes, checked whole-rule composition/correspondence,
-useful-domain comparison and final review remain #119 obligations.
+The accepted [R81 completion](../evidence/retained-report-completion-round81-20261024/README.md)
+closes [#193](https://github.com/berkeleynerd/silver/issues/193) at its
+conditional per-unit report/consumer-function and selected fixed-process
+terminal-error scope. It is In review pending delivery, with #195–#200 repaired
+and independently reviewed. Generic Main diagnostic usefulness remains with
+[#202](https://github.com/berkeleynerd/silver/issues/202); concrete configuration
+and launcher refinements remain parent/#88/#89 obligations. Prospective brief
+output retains report-all. [#194](https://github.com/berkeleynerd/silver/issues/194)
+is In progress, under independent review of required GNATprove collection,
+unconditional SARIF and Silver readers/audits.
+General native compilation beyond the literal family is tracked in
+[#201](https://github.com/berkeleynerd/silver/issues/201), arbitrary-Main Why
+representation/failure lifetimes in #202. Both are In progress. Checked
+whole-rule composition/correspondence, useful-domain comparison and final
+review remain #119 obligations after those derivations and #194.
 The Round 47
 [stop report](retained-tool-capacity-stop.md) and
 [independent review](../reviews/review-cvc5-output-closure-20261020.md) retain

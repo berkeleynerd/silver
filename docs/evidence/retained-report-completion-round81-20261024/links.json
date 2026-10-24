@@ -1,0 +1,14 @@
+{
+  "local_file_links_checked": 753,
+  "files": [
+    "roadmap.md",
+    "RESUME.md",
+    "docs/research/retained-tool-capacity.md",
+    "docs/evidence/retained-report-completion-round81-20261024/README.md",
+    "docs/research/retained-producer-report-capacity.md",
+    "docs/research/retained-producer-error-payload.md",
+    "docs/reviews/review-producer-report-capacity-20261024.md"
+  ],
+  "missing": [],
+  "scope": "Markdown file destinations only; external links and fragment anchors not checked; code excluded"
+}

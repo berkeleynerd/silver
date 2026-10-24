@@ -1,0 +1,56 @@
+{
+  "components": [
+    {
+      "name": "report",
+      "freeze": "df1972ae382fc70473b1076963f330e3a36530d2",
+      "paths": [
+        "docs/evidence/retained-producer-report-capacity-20261024/README.md",
+        "docs/evidence/retained-producer-report-capacity-20261024/additional-source-manifest.json",
+        "docs/evidence/retained-producer-report-capacity-20261024/additional-sources.tar.gz",
+        "docs/evidence/retained-producer-report-capacity-20261024/capacity.py",
+        "docs/evidence/retained-producer-report-capacity-20261024/check.py",
+        "docs/evidence/retained-producer-report-capacity-20261024/comperr-recipe-applied.adb",
+        "docs/evidence/retained-producer-report-capacity-20261024/inputs.json",
+        "docs/evidence/retained-producer-report-capacity-20261024/result.json",
+        "docs/evidence/retained-producer-report-capacity-20261024/round.json",
+        "docs/evidence/retained-producer-report-capacity-20261024/source-manifest.json",
+        "docs/research/retained-producer-report-capacity.md"
+      ]
+    },
+    {
+      "name": "terminal",
+      "freeze": "3be4ca682e9ff7389b01a1817d641e8b88740a71",
+      "paths": [
+        "docs/evidence/retained-producer-error-payload-20261024/README.md",
+        "docs/evidence/retained-producer-error-payload-20261024/capacity.py",
+        "docs/evidence/retained-producer-error-payload-20261024/check.py",
+        "docs/evidence/retained-producer-error-payload-20261024/inputs.json",
+        "docs/evidence/retained-producer-error-payload-20261024/result.json",
+        "docs/evidence/retained-producer-error-payload-20261024/round.json",
+        "docs/evidence/retained-producer-error-payload-20261024/source-manifest.json",
+        "docs/evidence/retained-producer-error-payload-20261024/source-witnesses.json",
+        "docs/evidence/retained-producer-error-payload-20261024/sources.tar.gz",
+        "docs/research/retained-producer-error-payload.md"
+      ]
+    },
+    {
+      "name": "review",
+      "freeze": "d568c0a38aa60655322fc313758ee1348f428a26",
+      "paths": [
+        "docs/evidence/review-producer-report-capacity-20261024/incoming-gcc-inputs.json",
+        "docs/evidence/review-producer-report-capacity-20261024/integrated-audit.json",
+        "docs/evidence/review-producer-report-capacity-20261024/integrated-check-result.json",
+        "docs/evidence/review-producer-report-capacity-20261024/integrated-final-inputs.json",
+        "docs/evidence/review-producer-report-capacity-20261024/integrated-repair.diff.gz",
+        "docs/evidence/review-producer-report-capacity-20261024/projection-correction.json",
+        "docs/evidence/review-producer-report-capacity-20261024/provenance-audit.json",
+        "docs/evidence/review-producer-report-capacity-20261024/statistics-correction.json",
+        "docs/evidence/review-producer-report-capacity-20261024/terminal-payload-audit.json",
+        "docs/evidence/review-producer-report-capacity-20261024/terminal-payload-check-result.json",
+        "docs/evidence/review-producer-report-capacity-20261024/terminal-payload-final-inputs.json",
+        "docs/evidence/review-producer-report-capacity-20261024/terminal-payload-repair.diff.gz",
+        "docs/reviews/review-producer-report-capacity-20261024.md"
+      ]
+    }
+  ]
+}
