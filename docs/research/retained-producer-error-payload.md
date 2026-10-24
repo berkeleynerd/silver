@@ -75,7 +75,9 @@ handles only Dynlink.Error, and the accepted Sexplib automatic-default
 exclusion applies. For a Why wrapper the adapter either returns its one
 registered rendering or rejects before its child. For Dynlink itself the
 direct Why Plugin match completes, so no outer Printexc fallback/quoted
-Dynlink callback follows it. These cases use the retained complete callback
+Dynlink callback follows that **direct Why call**. The runtime's separate raw
+fallback starts at Printexc and can select the quoted Dynlink callback; its
+distinct bound is below. These cases use the retained complete callback
 frontier, not just the visible four recursive wrapper branches.
 
 For recursive wrappers, the precise placement of possible rejection matters:
@@ -234,9 +236,34 @@ fallback unchanged after their primary publication attempt.
 There is one important alternative: an original exception before main can
 reach the custom uncaught handler directly. If that handler's output fails,
 the raw fallback prints the **original** exception once more. Charge this
-using Qearly, not512. Its second conversion is the handler's secondary error.
+using Qearly, not 512. Its second conversion is the handler's secondary error.
 The fallback cannot restart the custom handler. This distinction is necessary
 even though every intact main/custom message ends with LF.
+
+In particular, a before-main original Dynlink.Error can take its registered
+Printexc callback in the raw fallback, independently of the successful direct
+Why Plugin branch in the custom handler. No callback-order assertion excludes
+this case. Its inner selected loader/initializer scalar strings have the fixed
+printable-ASCII or TAB/LF/CR alphabet: recorded plugin/loader paths are printable,
+the resident literal interface includes only those three named controls, and
+the arbitrary-byte cwd transport belongs to connection, not Dynlink. OCaml
+`%S` therefore costs at most `2s+2` at **each** of the two nested quotations.
+This claim does not include arbitrary control bytes such as FF (`\012`).
+Using 32 bytes for inner constructor punctuation and 128 for the outer quoted
+Dynlink construction gives these complete raw Printexc ceilings:
+
+| Raw Dynlink inner origin | Complete quoted outer result |
+| --- | --- |
+| Loader Failure | `2*(2*(P+512)+32)+128 = 4P+2240` |
+| Fixed primitive/default initializer | `2*(467+2*467+3*68+32)+128 = 3402` |
+| Unix initializer scalar | `2*(2*(P+467)+96)+128 = 4P+2188` |
+
+Other selected Sys_error/opaque/default initializer cases are smaller. The
+fixed initializers register extensions/printers and do not supply another
+Dynlink-loading chain. Each row is at most L(P), including before-main raw
+fallback. A Why adapter selected first can return the smaller unquoted branch;
+both possibilities fit, without assuming registry order. Thus Qearly covers
+the reused original raw exception as well as its custom-handler message.
 
 ## Malformed publication and the consumer
 
