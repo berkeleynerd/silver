@@ -1,0 +1,31 @@
+{
+  "reviewed_author": "bba92a0c0685cffdf8c9e179f6b36aafea81c4be",
+  "verdict": "provisional: F1 P2 reusable-lemma purity repair required; attached pure scalar partition unaffected",
+  "files": [
+    {
+      "path": "docs/reviews/review-concat-selectors-20261024.md",
+      "bytes": 11871,
+      "sha256": "28ca80ceb2d3e38247e4ac55072d2d614f04fae7779834e560cdf77b2f27b84c"
+    },
+    {
+      "path": "docs/evidence/review-concat-selectors-20261024/README.md",
+      "bytes": 2647,
+      "sha256": "d4eb22d01a8cbbecf269f405cc65f8711bcd1801acd5b0e16f2fb750819b448c"
+    },
+    {
+      "path": "docs/evidence/review-concat-selectors-20261024/audit.py",
+      "bytes": 12195,
+      "sha256": "fe4cddade0925fdbb5522a565cd9d92cbaa2487220b8114153997655422b59c2"
+    },
+    {
+      "path": "docs/evidence/review-concat-selectors-20261024/current.json",
+      "bytes": 18577,
+      "sha256": "59d75a2a7c6fdb126e963ac36f945c5c52c3c2fe77240b0a80273d0b87e31ae2"
+    },
+    {
+      "path": "docs/evidence/review-concat-selectors-20261024/finding-F1.json",
+      "bytes": 3865,
+      "sha256": "568dac9e8fe493374cfbf3addd1432ba85cdb94a0f82a8e449e205ae496587fd"
+    }
+  ]
+}
