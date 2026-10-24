@@ -1,0 +1,52 @@
+{
+  "reviewed_commit": "5d9ed9375c4db7fd92b8c7317402754c8fede354",
+  "status": "author_repair_required_before_final_audit",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "first_recorded_clock_utc": "2026-10-24 04:18:05 UTC",
+  "source_review_checkpoint_utc": "2026-10-24 04:20:31 UTC",
+  "measured_source_review_interval_seconds": 146,
+  "elapsed_scope": "Excludes initial worktree/setup and subsequent report/commit work.",
+  "tokens": null,
+  "cost": null,
+  "host": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "harness_goal": null,
+  "new_final_audits": 0,
+  "narrow_diagnostic_probes": 1,
+  "native_runs": 0,
+  "predecessor_checker_replays": 0,
+  "cli_memory_updated": false,
+  "finding": "R1: injective/type-compatible mapping does not exclude binder capture",
+  "inputs": [
+    {
+      "path": "docs/research/retained-main-construction-demand.md",
+      "sha256": "ebf044dadd68bbad34d2c484e92d02b1f944eaab584f1663e34b48a25b579e09"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/bridge.py",
+      "sha256": "8b02064b1e06609b85b565ab4d4b2f4593743a4aba62683517449d7726d33663"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/check.py",
+      "sha256": "ed64b5ffad9e92f016d7e20148864f04b51848ed3058e7c1515b93dcb0c42f66"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/identity.json",
+      "sha256": "9e3757c9d823fc0eb2eeecc852a60429c1eb4ff1062ff010b8edd3ab87d19714"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/result.json",
+      "sha256": "a606a505c002afbd3e42ee22b2d14d8b47163cb5af3f328496ab6af936a6d763"
+    },
+    {
+      "path": "docs/evidence/retained-main-why-storage-20261024/kernel.py",
+      "sha256": "35b41283e3deffe4ec6152bca5d24a79ce9650710681206871a20a66d5319f42"
+    },
+    {
+      "path": "docs/evidence/retained-producer-prefix-composition-20261018/sources.tar.gz",
+      "sha256": "e90b4625cd14f94fa7e594711225dd357b29769031811d3eb4d65a1edefeb15a"
+    }
+  ]
+}
