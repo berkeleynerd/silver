@@ -1,0 +1,71 @@
+{
+  "elf_reader": "docs/evidence/retained-why-library-probe-paths-20261023/elf_reader.py",
+  "repository": [
+    {
+      "path": "docs/evidence/retained-why-library-probe-paths-20261023/elf_reader.py",
+      "sha256": "30dcbf8b6a37c53979667d604e442ba8a5a06549fbe4129131d8a487a8d42085"
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/capacity.py",
+      "sha256": "71a12047addf6d06b688494c15acc2c8e83244de6abdb3acba7197a6ed7f5656"
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/result.json",
+      "sha256": "8ee71a7fd90ab80591133667f10a948f2085e38bd5c3f07604551aa95519ff00"
+    },
+    {
+      "path": "docs/evidence/retained-required-report-consumers-20261024/capacity.py",
+      "sha256": "57104877def11f05692a6eea15fc668624921089dda2807169339c463fc620a2"
+    }
+  ],
+  "targets": [
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/bin/gnatprove",
+      "bytes": 70178624,
+      "sha256": "544e6da2eedc24ce87d9200d44f61e8e789726466e81e68bf8935489d7f5323e",
+      "role": "parent"
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_report",
+      "bytes": 13211504,
+      "sha256": "2c9d18384bd6fdd4ec5f52a1985aa5f62e8acd224db7f290bbd7bc851ebd9e14",
+      "role": "reporter"
+    }
+  ],
+  "archives": [
+    {
+      "path": "docs/evidence/retained-fixed-report-native-inputs-20261024/new-sources.tar.gz",
+      "sha256": "962d9701da8f308ca8cab8e29f4bf110717afbf412b7c70b9971273a33c7cb18",
+      "members": {
+        "gcc/ada/adaint.c": "4cc1ffe9386f4164bd613a356a096340463e9f2d26a6e70dbfc9632968b2318c"
+      }
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+      "sha256": "f2e7dd7bbef086a36ddf97f9bd3bd669ca895fcc28e3ac23ffe0c9f85fc5d952",
+      "members": {
+        "spark-source/spark2014vsn.ads": "6190d5760f2a8ff9d52e6941e91e37d2cb0e318874a09017b511489558ebb8f7",
+        "spark-source/spark2014vsn.adb": "afa1729a4a91e7349d5cff9ecf3bab1ab82b789a4cb6ced26246dc1438345c1b"
+      }
+    },
+    {
+      "path": "docs/evidence/retained-required-report-consumers-20261024/sources.tar.gz",
+      "sha256": "60af2ad6b5526544a1ebbe19d6575defa335ed4ac853f64574b2279dc94b6609",
+      "members": {
+        "spark-source/src/gnatprove/spark_report.adb": "aba5b5c86e109a2bf10598b44c497118a8ee2904e64e90efdc9162e2349d1482",
+        "spark-source/src/gnatprove/spark_report-generate_sarif_report.adb": "73e204769fdb453153c8069f9e213412151dce6ff129150ec09f442d079ce232"
+      }
+    },
+    {
+      "path": "docs/evidence/retained-response-parser-capacity-20261023/sources.tar.gz",
+      "sha256": "6ea8d125de6b1696779d031174087e50e54f920aa688d9bf3b8460ec8d65f418",
+      "members": {
+        "runtime/s-os_lib.adb": "9aed35c4ec6eaeacab780262f2c1528c95fb4f263f2f966f8526d0f4e080b201",
+        "gnatcoll/core/src/gnatcoll-mmap-system__unix.adb": "a2a04e3dd7388f84bea474a540fc489934bab0fda4a45ac405c7b80127822755"
+      }
+    }
+  ],
+  "gcc_revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "spark_behavior_revision": "42554fc241fcd1fdf08d3a2feccb3f86912acbc0",
+  "new_source_url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/adaint.c"
+}

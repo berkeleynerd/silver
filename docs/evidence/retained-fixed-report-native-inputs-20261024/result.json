@@ -1,0 +1,63 @@
+{
+  "status": "pass",
+  "native": [
+    {
+      "target": {
+        "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/bin/gnatprove",
+        "bytes": 70178624,
+        "sha256": "544e6da2eedc24ce87d9200d44f61e8e789726466e81e68bf8935489d7f5323e",
+        "role": "parent"
+      },
+      "version_function_address": 3166128,
+      "version_function_hex": "4883ec08be04000000bf14000000e84d12b30048ba010000000a00000048b94653462031362e31488910ba2e30000066895010488d50084889480848924883c408c3",
+      "version_bounds": [
+        1,
+        10
+      ],
+      "version_bytes": 10,
+      "version_text": "FSF 16.1.0",
+      "version_return_allocation_bytes": 20,
+      "version_return_alignment": 4,
+      "max_path_address": 21556212,
+      "max_path_bytes_hex": "00100000",
+      "native_max_path": 4096
+    },
+    {
+      "target": {
+        "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_report",
+        "bytes": 13211504,
+        "sha256": "2c9d18384bd6fdd4ec5f52a1985aa5f62e8acd224db7f290bbd7bc851ebd9e14",
+        "role": "reporter"
+      },
+      "version_function_address": 1076096,
+      "version_function_hex": "4883ec08be04000000bf14000000e85d981d0048ba010000000a00000048b94653462031362e31488910ba2e30000066895010488d50084889480848924883c408c3",
+      "version_bounds": [
+        1,
+        10
+      ],
+      "version_bytes": 10,
+      "version_text": "FSF 16.1.0",
+      "version_return_allocation_bytes": 20,
+      "version_return_alignment": 4,
+      "max_path_address": 4763924,
+      "max_path_bytes_hex": "00100000",
+      "native_max_path": 4096,
+      "page_function_hex": "4883ec08e82703deff85c0780789c04883c408c3e887faffff",
+      "page_import": "getpagesize"
+    }
+  ],
+  "source_files": 7,
+  "observed_page_size": 4096,
+  "version_bytes": 10,
+  "native_max_path": 4096,
+  "selected_host": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "page_service": "getpagesize",
+  "source_version_literal_is_installed_value": false,
+  "complete_path_join": false,
+  "complete_fixed_report_composition": false,
+  "target_binary_executions": 0,
+  "compiler_prover_runs": 0,
+  "predecessor_checker_replays": 0,
+  "libc_service_queries": 1,
+  "elapsed_seconds": 1.3546346239963896
+}
