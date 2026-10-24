@@ -1,0 +1,49 @@
+{
+  "accepted_io_and_native_configuration_review": "d39dc7cff5985a24b81345f23e645e2a237c2a6d",
+  "achieved_result": "Arguments graph/reference/name/schema composition and conditional P<=395 writer/reader interval; P396 fails only sufficient writer alignment guard",
+  "base_commit": "0f39a36c1458f7af4f216fce3f9bcde8d8aab123",
+  "cost_measurements": null,
+  "exact_review_inputs": {
+    "README.md": "e259a192a350f3e4724356abc520308ff29de982284ace9f52ea51abb3a0a111",
+    "capacity.py": "daf7589877f488fa78ebf22eda87e371a992be192f79f7e5b95be8e516ca9ca9",
+    "check.py": "7f900f36ac5b0d3d044d41e593eee0eea043396a10d3cf64c6b39e8c637e0b6a",
+    "message-census.json": "764d2fbbf642b203ef10a72dcf4498fae471af35094730d063660755cdf74827",
+    "result.json": "051bb7b3217742e6dac19d3e2086e821a8e3def4af74fcf7a2dbf56f26cd7dca",
+    "source-manifest.json": "9427397075d7958e5ed9be9ee1a98ba2957ba7ee45cfe2654a9a72f260a32d64"
+  },
+  "goal_mutated": false,
+  "harness_goal_observed": null,
+  "independent_review": "pending exact-freeze review",
+  "intended_result": "Useful source-driven Arguments report function before complete path/storage/five-report joins",
+  "issue_complete": false,
+  "native_host": "Linux 7.0.14 x86_64; inherited first-packet observation, not re-probed",
+  "native_owner_provider_imported": false,
+  "objective": "Owner-authorized #212 actual Arguments source report composition under #119",
+  "recorded_packet_clock_utc": "2026-10-24 06:10:23",
+  "runtime_model_confirmed": false,
+  "selected_author_effort": "Extra High",
+  "selected_author_model": "GPT-6 Astra",
+  "significant_findings": [
+    "Expression-function lowering creates one simple-return body; extended returns visit their objects once and create implicit return vertices",
+    "Normal-use graph roots and eight report identities remain separate from frontend/proof allocation domain19921",
+    "Full Why allocation warning allowance13070 retained; expanded diagnostic literal/marker census stays within accepted IO maxima",
+    "Possible String-result capture uses GNATprove copy route rather than the ordinary access-type expansion"
+  ],
+  "task_start_time_available": false,
+  "token_measurements": null,
+  "verification": {
+    "changed_input_checks_run": 1,
+    "command": "python3 docs/evidence/retained-fixed-report-composition-20261024/arguments/check.py --gcc-source /tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada",
+    "native_runs": 0,
+    "outcome": "passed first run",
+    "predecessor_checkers_run": 0,
+    "source_inputs": {
+      "complete_tool_source_files": 35,
+      "elapsed_seconds": 0.832,
+      "native_compiler_solver_capture_runs": 0,
+      "predecessor_checkers_run": 0,
+      "repository_files": 31
+    },
+    "successful_elapsed_seconds": 0.832
+  }
+}

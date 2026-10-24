@@ -168,3 +168,33 @@ and private-fix storage, and complete five-report/Main composition. The lead's
 separate native-input packet is neither imported nor reviewed by this freeze.
 No global escape/callback/save allowance is renewed; physical resources remain
 separate. #212 and #119 are not complete.
+
+## Arguments continuation, 2026-10-24
+
+The [Arguments packet](../evidence/retained-fixed-report-composition-20261024/arguments/README.md)
+adds the actual five-graph source composition. Is_Message lowers to one return
+body; each extended return processes its object once and adds one implicit
+return. Explicit allowances cover array actual subtypes, scalar bound captures,
+one possible captured String result and abandoned/nonflow construction.
+A_frontend/E_frontend remain 19,921. Normal-use F bounds are 11/13/31/3/1,
+eligible V bounds 75/99/246/41/22, and eight source report identities are kept
+separate. Full Why warning funding remains 13,070; total warnings are 13,395
+and flow attempts 58,687, including 644 outside-graph attempts.
+
+The expanded diagnostic census leaves the accepted IO text/schema maxima
+unchanged; the relative Arguments trace filename needs 40 bytes. The canonical
+proof counts R/G/A/J=11/39/95/3 and printed CP/text bounds 15581/31439 compose
+with these rows. Full pretty bytes are **564,586,270 + 2,193,744P**; projected
+pretty bytes are **564,143,292 + 2,193,744P**. Writer and reader guards pass
+through **P=395**, conditional on max-path<=4096 and page-size<=65536. At
+P=396 only the sufficient writer alignment guard fails. No actual common P
+has been attached and no path cap has been adopted.
+
+The one focused changed-input check passed on its first run in 0.832 seconds,
+checking 31 repository inputs and 35 complete tool source files. It ran no
+predecessor checker, compiler, prover, capture or native service probe. Earlier
+specification and IO packets remain unchanged. Independent review of the exact
+Arguments freeze is pending. The lead's separate native-owner packets are not
+imported by this author freeze. Common paths/configuration, native warning and
+storage/source-span/private-fix joins, and five-report/Main composition remain
+open; #212/#119 and whole-process capacity are not complete.

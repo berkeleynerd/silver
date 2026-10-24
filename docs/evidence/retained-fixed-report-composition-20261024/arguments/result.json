@@ -1,0 +1,449 @@
+{
+  "actual_source_census": {
+    "First_Or_Default": {
+      "conditions": 5,
+      "extended_returns": 2,
+      "objects": 3,
+      "pure_calls": 6,
+      "simple_returns": 2,
+      "statement_calls": 0
+    },
+    "Input_Is_Valid": {
+      "conditions": 2,
+      "extended_returns": 0,
+      "objects": 0,
+      "pure_calls": 4,
+      "simple_returns": 3,
+      "statement_calls": 0
+    },
+    "Is_Message": {
+      "conditions": 0,
+      "extended_returns": 0,
+      "objects": 0,
+      "pure_calls": 0,
+      "simple_returns": 1,
+      "statement_calls": 0
+    },
+    "Reject": {
+      "conditions": 0,
+      "extended_returns": 0,
+      "objects": 0,
+      "pure_calls": 0,
+      "simple_returns": 0,
+      "statement_calls": 1
+    }
+  },
+  "budget_renewed": false,
+  "checks": {
+    "complete_tool_source_files": 35,
+    "elapsed_seconds": 0.832,
+    "native_compiler_solver_capture_runs": 0,
+    "predecessor_checkers_run": 0,
+    "repository_files": 31
+  },
+  "claim_domain": {
+    "claims": 40,
+    "edges": 448
+  },
+  "concrete_path_and_native_inputs_bound": false,
+  "endpoint_flow_brief": {
+    "guards": {
+      "explicit_eol": true,
+      "msg_buffer": true,
+      "string_loop_spare": true
+    },
+    "maximum_line": 6292,
+    "offered_bytes": 1107951873
+  },
+  "endpoint_reader": {
+    "all_guards": true,
+    "guards": {
+      "consumer_json_aliases": true,
+      "consumer_xstring_aliases": true,
+      "file_and_scanner_spare": true,
+      "json_references": true,
+      "key_builder": true,
+      "map_length": true,
+      "mapping_round": true,
+      "numeric_scale": true,
+      "object_request": true,
+      "parser_stack": true,
+      "path_builder": true,
+      "path_scratch": true,
+      "token_endpoint": true,
+      "vector_length": true,
+      "xstring_product": true,
+      "xstring_references": true,
+      "xstring_round": true
+    },
+    "input": {
+      "B": 1431115151,
+      "array": 58687,
+      "containers": 289317,
+      "decoded": 377268,
+      "depth": 7,
+      "fields": 1043331,
+      "key": 356,
+      "object": 101,
+      "token": 2263610,
+      "values": 1115971
+    },
+    "operands": {
+      "json_counter": 128,
+      "key_builder_backing": 512,
+      "normalized_path_majorant": 4492,
+      "parser_state_backing": 32,
+      "path_builder_backing": 8192,
+      "per_object_bytes": 1431180687,
+      "vector_backing": 65536,
+      "xstring_backing": 569344,
+      "xstring_counter": 16,
+      "xstring_growth_current": 377267,
+      "xstring_product": 1131801,
+      "xstring_round_input": 565900
+    }
+  },
+  "endpoint_writer": {
+    "guards": {
+      "array_geometric_capacity": true,
+      "escape_lookahead": true,
+      "escape_string_length": true,
+      "filename_compose": true,
+      "indent_add_and_double": true,
+      "individual_64bit_allocation": true,
+      "new_xstring_backing": true,
+      "ordered_map_length": true,
+      "string_and_text_io_column": true,
+      "unbounded_alignment_intermediates": true
+    },
+    "json_write_string": 1431115150,
+    "native_inputs_bound": false,
+    "shape": {
+      "array_max": 58687,
+      "arrays": 88,
+      "compact": 1420223744,
+      "depth": 7,
+      "fields": 1043331,
+      "key_max": 59,
+      "object_max": 101,
+      "objects": 289229,
+      "pretty": 1431115150,
+      "slope": 2810574,
+      "string_max": 377268,
+      "strings": 564024,
+      "values": 1115971
+    },
+    "spark_file": 1431115151,
+    "sufficient": true,
+    "unbounded_allocation": 2146672917
+  },
+  "first_failing_successor": {
+    "failed_reader_guards": [],
+    "failed_writer_guards": [
+      "unbounded_alignment_intermediates"
+    ],
+    "path_bytes": 396
+  },
+  "frontend_entities": 19921,
+  "full_name_bytes": 34,
+  "global_escape_budget": 2,
+  "graphs": {
+    "First_Or_Default": {
+      "call_frontier": 16,
+      "constraint_roots": 24,
+      "constructor_vertices": 20167,
+      "eligible_vertices": 246,
+      "extra_warning_records": 208,
+      "flow_ids": 31,
+      "flow_records": 44380,
+      "trace_attempts": 15498,
+      "vertex_terms": {
+        "blocks": 8,
+        "calls": 0,
+        "conditions": 15,
+        "contracts": 2,
+        "extended_returns": 8,
+        "initial_final": 62,
+        "joins": 27,
+        "object_declarations": 60,
+        "scaffolding": 10,
+        "simple_returns": 6,
+        "type_declarations": 48
+      }
+    },
+    "Input_Is_Valid": {
+      "call_frontier": 8,
+      "constraint_roots": 8,
+      "constructor_vertices": 20020,
+      "eligible_vertices": 99,
+      "extra_warning_records": 104,
+      "flow_ids": 13,
+      "flow_records": 7993,
+      "trace_attempts": 2673,
+      "vertex_terms": {
+        "blocks": 4,
+        "calls": 0,
+        "conditions": 6,
+        "contracts": 2,
+        "extended_returns": 0,
+        "initial_final": 26,
+        "joins": 11,
+        "object_declarations": 15,
+        "scaffolding": 10,
+        "simple_returns": 9,
+        "type_declarations": 16
+      }
+    },
+    "Is_Message": {
+      "call_frontier": 0,
+      "constraint_roots": 8,
+      "constructor_vertices": 19996,
+      "eligible_vertices": 75,
+      "extra_warning_records": 0,
+      "flow_ids": 11,
+      "flow_records": 4651,
+      "trace_attempts": 1725,
+      "vertex_terms": {
+        "blocks": 4,
+        "calls": 0,
+        "conditions": 0,
+        "contracts": 2,
+        "extended_returns": 0,
+        "initial_final": 22,
+        "joins": 8,
+        "object_declarations": 10,
+        "scaffolding": 10,
+        "simple_returns": 3,
+        "type_declarations": 16
+      }
+    },
+    "Reject": {
+      "call_frontier": 1,
+      "constraint_roots": 0,
+      "constructor_vertices": 19962,
+      "eligible_vertices": 41,
+      "extra_warning_records": 13,
+      "flow_ids": 3,
+      "flow_records": 875,
+      "trace_attempts": 287,
+      "vertex_terms": {
+        "blocks": 4,
+        "calls": 15,
+        "conditions": 0,
+        "contracts": 0,
+        "extended_returns": 0,
+        "initial_final": 6,
+        "joins": 6,
+        "object_declarations": 0,
+        "scaffolding": 10,
+        "simple_returns": 0,
+        "type_declarations": 0
+      }
+    },
+    "Silver_Arguments": {
+      "call_frontier": 0,
+      "constraint_roots": 0,
+      "constructor_vertices": 19943,
+      "eligible_vertices": 22,
+      "extra_warning_records": 0,
+      "flow_ids": 1,
+      "flow_records": 144,
+      "trace_attempts": 66,
+      "vertex_terms": {
+        "blocks": 4,
+        "initial_final": 2,
+        "joins": 6,
+        "scaffolding": 10
+      }
+    }
+  },
+  "incoming": {
+    "flow_name_bytes": 760,
+    "flow_records": 58687,
+    "frontend_entities": 19921,
+    "frontend_nodes": 19921,
+    "graph_count": 5,
+    "graphs": {
+      "First_Or_Default": {
+        "call_frontier": 16,
+        "constraint_roots": 24,
+        "constructor_vertices": 20167,
+        "eligible_vertices": 246,
+        "extra_warning_records": 208,
+        "flow_ids": 31,
+        "flow_records": 44380,
+        "trace_attempts": 15498,
+        "vertex_terms": {
+          "blocks": 8,
+          "calls": 0,
+          "conditions": 15,
+          "contracts": 2,
+          "extended_returns": 8,
+          "initial_final": 62,
+          "joins": 27,
+          "object_declarations": 60,
+          "scaffolding": 10,
+          "simple_returns": 6,
+          "type_declarations": 48
+        }
+      },
+      "Input_Is_Valid": {
+        "call_frontier": 8,
+        "constraint_roots": 8,
+        "constructor_vertices": 20020,
+        "eligible_vertices": 99,
+        "extra_warning_records": 104,
+        "flow_ids": 13,
+        "flow_records": 7993,
+        "trace_attempts": 2673,
+        "vertex_terms": {
+          "blocks": 4,
+          "calls": 0,
+          "conditions": 6,
+          "contracts": 2,
+          "extended_returns": 0,
+          "initial_final": 26,
+          "joins": 11,
+          "object_declarations": 15,
+          "scaffolding": 10,
+          "simple_returns": 9,
+          "type_declarations": 16
+        }
+      },
+      "Is_Message": {
+        "call_frontier": 0,
+        "constraint_roots": 8,
+        "constructor_vertices": 19996,
+        "eligible_vertices": 75,
+        "extra_warning_records": 0,
+        "flow_ids": 11,
+        "flow_records": 4651,
+        "trace_attempts": 1725,
+        "vertex_terms": {
+          "blocks": 4,
+          "calls": 0,
+          "conditions": 0,
+          "contracts": 2,
+          "extended_returns": 0,
+          "initial_final": 22,
+          "joins": 8,
+          "object_declarations": 10,
+          "scaffolding": 10,
+          "simple_returns": 3,
+          "type_declarations": 16
+        }
+      },
+      "Reject": {
+        "call_frontier": 1,
+        "constraint_roots": 0,
+        "constructor_vertices": 19962,
+        "eligible_vertices": 41,
+        "extra_warning_records": 13,
+        "flow_ids": 3,
+        "flow_records": 875,
+        "trace_attempts": 287,
+        "vertex_terms": {
+          "blocks": 4,
+          "calls": 15,
+          "conditions": 0,
+          "contracts": 0,
+          "extended_returns": 0,
+          "initial_final": 6,
+          "joins": 6,
+          "object_declarations": 0,
+          "scaffolding": 10,
+          "simple_returns": 0,
+          "type_declarations": 0
+        }
+      },
+      "Silver_Arguments": {
+        "call_frontier": 0,
+        "constraint_roots": 0,
+        "constructor_vertices": 19943,
+        "eligible_vertices": 22,
+        "extra_warning_records": 0,
+        "flow_ids": 1,
+        "flow_records": 144,
+        "trace_attempts": 66,
+        "vertex_terms": {
+          "blocks": 4,
+          "initial_final": 2,
+          "joins": 6,
+          "scaffolding": 10
+        }
+      }
+    },
+    "guards": {
+      "constructed_vertex_index": true,
+      "flow_array": true,
+      "flow_set": true,
+      "graph_variables": true,
+      "trace_column": true,
+      "trace_counter": true,
+      "trace_lines": true,
+      "warning_array": true
+    },
+    "message_bytes": 5793,
+    "message_ids": 58687,
+    "native_print_calls": 202851,
+    "outside_flow_records": 644,
+    "raw_name_bytes": 128,
+    "sarif_message_bytes": 5843,
+    "trace_attempts": 20249,
+    "trace_counter": 20249,
+    "trace_filename_bytes": 40,
+    "trace_line_bytes": 407,
+    "trace_lines_per_file": 246,
+    "warning_message_bytes": 192,
+    "warning_records": 13395
+  },
+  "interval": {
+    "concrete_attachment_complete": false,
+    "native_max_path_upper": 4096,
+    "native_page_size_upper": 65536,
+    "path_bytes_upper": 395
+  },
+  "metadata_location_depth": 1,
+  "native_warning_location_join_complete": false,
+  "pretty_affine": {
+    "full": {
+      "constant": 564586270,
+      "path_coefficient": 2193744
+    },
+    "projected": {
+      "constant": 564143292,
+      "path_coefficient": 2193744
+    }
+  },
+  "proof": {
+    "attempts": 95,
+    "goals": 39,
+    "message_bytes": 31439,
+    "printed_cp_bytes": 15581,
+    "records": 11,
+    "responses": 3,
+    "source_span_allocation_join_complete": false
+  },
+  "report_entities": 8,
+  "report_entity_names": [
+    "Silver_Arguments",
+    "Silver_Arguments.Is_Message",
+    "Silver_Arguments.Input_Is_Valid",
+    "Silver_Arguments.First_Or_Default",
+    "Silver_Arguments.Reject",
+    "Silver_Runtime.Argument_Count",
+    "Silver_Runtime.Argument",
+    "Silver_Output_Libc.Set_Exit_Status"
+  ],
+  "save_entering_callbacks": 2,
+  "saves_upper": 3,
+  "source_counts_bound": true,
+  "status": "Arguments report source composition checked; #212 incomplete",
+  "third_pool": {
+    "entity_requests": 59296,
+    "find_calls": 118592,
+    "guard": true
+  },
+  "whole_fixed_report_composition_complete": false,
+  "whole_process_capacity_bound": false
+}
