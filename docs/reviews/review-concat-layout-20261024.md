@@ -177,3 +177,123 @@ Oracle guarantees, tool pins, admission and production behavior are unchanged.
 The e≤2, two save-entering callbacks and three saves remain a single allowance
 per Why process. No PR #121 merge, GitHub/goal/memory write or publication was
 performed by this reviewer. The parent owns integration and issue disposition.
+
+## #217 repair review — 2026-10-24
+
+**#217 is confirmed and repaired at the original local scope.** Accept repair
+`df7c4491200dbb56642c56b28f9f8341189f967d`. The earlier acceptance above missed
+the signed-MAX continuation and its unary conversion; its numerical layout
+totals are superseded by this disposition. The original report bytes and all
+original review evidence remain preserved as history. This addendum does not
+claim that the earlier U=0 conditional allowance was valid.
+
+The exact review input consists only of the seven new
+`provider-attachment/repair*` files at that commit, including the
+[repair argument](../evidence/retained-general-native-capacity-20261024/provider-attachment/repair-original-layout.md).
+Broader provider work is not an input. Prior reviewer context remained
+available. Selected reviewer remains **GPT-6 Astra / Extra High**; runtime
+confirmation, tokens and monetary cost remain unavailable. The actual host is
+Linux x86_64. First repair-review clock: 2026-10-24 08:26:03 UTC. The
+[independent repair receipt](../evidence/review-concat-layout-20261024/repair-217/current.json)
+records completion at 08:32:12.652401 UTC, **0.376414 seconds** of focused
+check time and **369.652401 seconds** since the first repair-review clock.
+Report finalization followed. No compiler,
+prover, Lean, generated matcher, native target/service or author/predecessor
+checker was executed.
+
+### Reachability and the missed constructor
+
+A precise source witness uses a named dynamic Image result:
+
+```ada
+Saved : constant String := Integer'Image (I);
+Result : constant String := Saved & "";
+```
+
+Here I is a nonstatic mutable Integer, and Saved retains the already accepted
+dynamic Image bounds. This is a source-derived applicability witness, not a
+newly compiled specimen or an assertion about every constant-folded Image.
+The concat operand Saved is an identifier. It misses the **slice-only**
+finite-maximum rule at `exp_ch4.adb:3020–3033`, so its Max_Length is
+Too_Large_Length_For_Array. The trailing empty literal is retained and adds
+zero to Max_Aggr_Length while creating fresh base-Integer G
+(`2870–2905,3054–3100`). The strict maximum test at `3302–3304` therefore
+prevents static allocation-high replacement. No fixed positive operand clears
+Result_May_Be_Null. Equal low arms contract to1 and the high
+`G=0 ? 0 : G` contracts to G. The original range flag remains false, and G's
+base Integer type does not supply Image V's Natural-subtype non-superflat
+argument.
+
+This named spelling matters: a **direct** Image expression rewrites to a
+slice of fixed `Snn(1..11)` (`exp_imgv.adb:1418–1429`) and can take the finite
+maximum branch, placing its allocation in the constant family and leaving a
+different returned-slice obligation. The repair's “can leave” example is
+accepted with this named/provenance-preserving interpretation; no accounting
+change or author addendum is required merely to make that distinction.
+
+For the retained original pair A=1/B=G, the GE(G,1) request canonicalizes to
+GT(G,0) through `match.pd:7374–7382`. In the conditional
+`GT_s32(G,0) ? U(G) : 0_u64`, `operand_equal_for_comparison_p` recognizes G
+beneath the outer widening. Its second equality also succeeds: integer
+constant value equality is checked **before** precision/signedness rejection
+at `fold-const.cc:3248–3255`. Thus signed32 zero and unsigned64 zero are equal
+for this predicate. The comparison helper constructs `MAX_s32(G,0)` and
+then fold-converts it to u64 (`6186–6238`). The latter requests a NOP unary
+node for the nonconstant widened result (`2633–2667`). The old C0/U0/B1/T1
+row consequently fails regardless of slack in unrelated rows.
+
+### Domination and unchanged owners
+
+The replacement **C2/U2/B2/T2** dominates the newly reachable C0/U1/B1/T0
+path and the earlier fallback/order-inversion alternatives. This is a bound
+on requests, not only on the smaller final graph. The comparison helper's
+success returns immediately (`13013–13039`), so it does not then execute the
+opposite-arm helper or allocate a fallback COND. The helper's failed
+endpoint-equality paths allocate neither MAX nor conversion before returning
+NULL. Exact-type arm conversions remain identities. One possible comparison
+inversion and the retained conditional are already within the revised row.
+
+This does not introduce an unbounded family of MAX attempts: retained paired
+selectors still fail armwise-conversion equality; mixed declaration/selector
+cases retain the shifted other endpoint; declaration pairs have U(L)-1;
+constant-low retained-selector C is not a simple comparison root. The new
+successful case is the depth-zero declaration-high/zero-other-arm case,
+including fresh debug cuts. G remains distinct from incoming captures.
+Purity excludes unused-capture COMPOUND preservation. The MAX replacement
+uses each retained capture once and introduces no type factory or recursive
+conditional distribution.
+
+The new final bit root is at most `8*W(U(MAX_s32(G,0)))`, with H4/O7/Q7;
+allowing a redundant same-width view gives H5/O8/Q8. Subsequent low-one
+subtraction/add-one cancel in wrapping sizetype arithmetic within the
+existing size-operation envelopes. MAX is an ordinary annotation binary
+opcode; no converted-inner PLUS/MULT retry is introduced. The factor-eight
+round-up argument and the old H≤9/O≤59/Q≤63 envelope therefore remain valid.
+The original signed index high is G, not the MAX created later during size
+layout. Its maximum-query initializer cut and scalar-event owner are unchanged.
+
+Replacing just the old row adds C2/U2/B1/T1, or **232 raw bytes and seven
+operand slots per Ka**. The corrected exports are:
+
+| Export | Corrected coefficient per Ka |
+| --- | ---: |
+| C/U/B/T requests | 184 / 126 / 138 / 112 |
+| Layout raw bytes | 22,288 |
+| Layout operand slots | 738 |
+| Annotation raw bytes | 167,328 |
+| Layout plus annotation raw bytes | **189,616** |
+
+The independent check binds the seven repair files, verifies the preserved
+report prefix and original evidence, checks seven relevant complete source
+files and eighteen spans, corroborates cross-width conditional/MAX semantics
+on 258 signed values, and checks the request/graph arithmetic. These checks
+do not execute GCC or close universal provider attachment. Earlier prefix
+allocations retain their true non-superflat flag; input allocations retain
+two full-base endpoints; the specialized Image allocation retains its Natural
+subtype justification. Their distinct source paths are unaffected by this
+repair.
+
+All broader open joins and the preceding physical-stack clarification remain
+in force. `complete_native_capacity_result=false`; no cumulative compiler
+RAM/stack gate, Oracle/admission/tool-pin change or per-Why-process allowance
+change is introduced. Root owns #217 disposition, integration and publication.
