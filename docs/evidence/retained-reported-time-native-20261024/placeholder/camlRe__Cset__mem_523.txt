@@ -1,0 +1,39 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+0000000000912820 <camlRe__Cset__mem_523>:
+  912820:	48 83 ec 08          	sub    $0x8,%rsp
+  912824:	4d 3b 3e             	cmp    (%r14),%r15
+  912827:	76 39                	jbe    912862 <camlRe__Cset__mem_523+0x42>
+  912829:	f6 c3 01             	test   $0x1,%bl
+  91282c:	74 0a                	je     912838 <camlRe__Cset__mem_523+0x18>
+  91282e:	b8 01 00 00 00       	mov    $0x1,%eax
+  912833:	48 83 c4 08          	add    $0x8,%rsp
+  912837:	c3                   	ret
+  912838:	48 8b 3b             	mov    (%rbx),%rdi
+  91283b:	48 8b 77 08          	mov    0x8(%rdi),%rsi
+  91283f:	48 39 f0             	cmp    %rsi,%rax
+  912842:	7f 18                	jg     91285c <camlRe__Cset__mem_523+0x3c>
+  912844:	48 8b 1f             	mov    (%rdi),%rbx
+  912847:	48 39 d8             	cmp    %rbx,%rax
+  91284a:	0f 9d c0             	setge  %al
+  91284d:	48 0f b6 c0          	movzbq %al,%rax
+  912851:	48 8d 44 00 01       	lea    0x1(%rax,%rax,1),%rax
+  912856:	48 83 c4 08          	add    $0x8,%rsp
+  91285a:	c3                   	ret
+  91285b:	90                   	nop
+  91285c:	48 8b 5b 08          	mov    0x8(%rbx),%rbx
+  912860:	eb c2                	jmp    912824 <camlRe__Cset__mem_523+0x4>
+  912862:	e8 c5 15 0d 00       	call   9e3e2c <caml_call_gc>
+  912867:	eb c0                	jmp    912829 <camlRe__Cset__mem_523+0x9>
+
+Disassembly of section .fini:

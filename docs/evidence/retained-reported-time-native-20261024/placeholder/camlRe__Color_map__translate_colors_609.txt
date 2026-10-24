@@ -1,0 +1,37 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+000000000091ab80 <camlRe__Color_map__translate_colors_609>:
+  91ab80:	48 83 ec 08          	sub    $0x8,%rsp
+  91ab84:	49 83 ef 28          	sub    $0x28,%r15
+  91ab88:	4d 3b 3e             	cmp    (%r14),%r15
+  91ab8b:	72 47                	jb     91abd4 <camlRe__Color_map__translate_colors_609+0x54>
+  91ab8d:	49 8d 7f 08          	lea    0x8(%r15),%rdi
+  91ab91:	48 c7 47 f8 f7 10 00 	movq   $0x10f7,-0x8(%rdi)
+  91ab98:	00 
+  91ab99:	48 8d 35 30 06 c1 ff 	lea    -0x3ef9d0(%rip),%rsi        # 52b1d0 <caml_curry3>
+  91aba0:	48 89 37             	mov    %rsi,(%rdi)
+  91aba3:	48 be 07 00 00 00 00 	movabs $0x300000000000007,%rsi
+  91abaa:	00 00 03 
+  91abad:	48 89 77 08          	mov    %rsi,0x8(%rdi)
+  91abb1:	48 8d 35 28 00 00 00 	lea    0x28(%rip),%rsi        # 91abe0 <camlRe__Color_map__fun_655>
+  91abb8:	48 89 77 10          	mov    %rsi,0x10(%rdi)
+  91abbc:	48 89 47 18          	mov    %rax,0x18(%rdi)
+  91abc0:	be 01 00 00 00       	mov    $0x1,%esi
+  91abc5:	48 89 d8             	mov    %rbx,%rax
+  91abc8:	48 89 f3             	mov    %rsi,%rbx
+  91abcb:	48 83 c4 08          	add    $0x8,%rsp
+  91abcf:	e9 ac 80 ff ff       	jmp    912c80 <camlRe__Cset__fold_right_1173>
+  91abd4:	e8 53 92 0c 00       	call   9e3e2c <caml_call_gc>
+  91abd9:	eb b2                	jmp    91ab8d <camlRe__Color_map__translate_colors_609+0xd>
+
+Disassembly of section .fini:

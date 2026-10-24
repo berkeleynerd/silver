@@ -1,0 +1,33 @@
+{
+  "achieved": "14-expression/5-color shape; two equal residual character derivatives plus empty final derivative; one-slot packed scratch; fixed4096-word per-placeholder export; focused static check.",
+  "base_kernel_commit": "aaac68339f",
+  "cost": null,
+  "date": "2026-10-24",
+  "engine_executions": 0,
+  "focused_check_seconds": 0.4295898429991212,
+  "instruction_witnesses": 29,
+  "issues": [
+    206,
+    208
+  ],
+  "native_bodies_checked": 104,
+  "native_extraction_seconds": 1.7416822660088656,
+  "objective": "Close required fixed placeholder Re.Str construction/force/failing-search startup cost over exactly5c3d, without native target/engine execution.",
+  "precheck_authoring_corrections": [
+    "A patch context did not match and made no edits; retried correctly.",
+    "Corrected draft derivative-family sum371\u2192271, maximum expression visits7\u21928 and spare54 before running the focused checker. Conservative512 derivativecredit unchanged."
+  ],
+  "predecessor_replays": 0,
+  "review": "Awaiting root independent review and parent configuration/prefix integration.",
+  "runtime_confirmation": null,
+  "selected_effort": "Extra High",
+  "selected_model": "GPT-6 Astra",
+  "significant_findings": [
+    "Selected input never reaches captured notnl suffix: only transientMark0 is created.",
+    "Packed hashset historical-size issue does not grow this owner: one repeatID perclear epoch, sole0\u21921slot growth.",
+    "Start optional-offset-wrapper correction is separately frozen in aaac68339f and tracked by#208; this follow-on does not change Start kernel bytes."
+  ],
+  "source_native_inputs": 17,
+  "target_executions": 0,
+  "tokens": null
+}

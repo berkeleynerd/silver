@@ -1,0 +1,309 @@
+{
+  "functions": {
+    "camlRe__Color_map__fun_655": {
+      "address": 9546720,
+      "bytes": 100,
+      "disassembly": "camlRe__Color_map__fun_655.txt",
+      "disassembly_identity": {
+        "bytes": 1796,
+        "sha256": "04e40c42c7895b41d24faa1eeb1083556e5e92e273dbae5f750c202c0ac9ebc9"
+      },
+      "hex": "4883ec0848893c24488b7e1848d1f8488b77f848c1ee0a488d34f5ffffffff480fb614374829d64839c67633480fb60407488d44000148d1fb4839de761c480fb61c1f488d5c1b01e8537affff488b1c244883c408e90675ffffe82d950c00e828950c00",
+      "identity": {
+        "bytes": 100,
+        "sha256": "23a85a3320eb279dc888a6beb037ef91625e15def5a48db2b38fadda4f843275"
+      },
+      "info": 18,
+      "section_index": 15
+    },
+    "camlRe__Color_map__fun_666": {
+      "address": 9547456,
+      "bytes": 113,
+      "disassembly": "camlRe__Color_map__fun_666.txt",
+      "disassembly_identity": {
+        "bytes": 1944,
+        "sha256": "d98cccef982fd79c180cc925dcb0a84eba51bf60293e53a72f24a15c9046155b"
+      },
+      "hex": "4883ec0848d1f8488b7f18488b77f848c1ee0a488d34f5ffffffff480fb614374829d64839c67644be01000000408834074883c30248d1fb488b47f848c1e80a488d04c5ffffffff480fb634074829f04839d87612b80100000088041fb8010000004883c408c3e840920c00e83b920c00",
+      "identity": {
+        "bytes": 113,
+        "sha256": "e513490961e3f4efc92a1d93c01e50cbdbcbc368ca43db81ca99885206d873da"
+      },
+      "info": 18,
+      "section_index": 15
+    },
+    "camlRe__Color_map__split_629": {
+      "address": 9547360,
+      "bytes": 86,
+      "disassembly": "camlRe__Color_map__split_629.txt",
+      "disassembly_identity": {
+        "bytes": 1586,
+        "sha256": "5bbe88ca0f397187f85a4a17f90fbec9843047ab304b989c8ab21d430b2cdb1d"
+      },
+      "hex": "4883ec084983ef284d3b3e7242498d7f0848c747f8f7100000488d356004c1ff48893748be070000000000000248897708488d352800000048897710488947184889d84889fb4883c408e9a17cffffe8788f0c00ebb7",
+      "identity": {
+        "bytes": 86,
+        "sha256": "e9eb325596f760d0315a40c809fcfb31acfa004a8dd3b18a8435b786bb646dc2"
+      },
+      "info": 18,
+      "section_index": 15
+    },
+    "camlRe__Color_map__translate_colors_609": {
+      "address": 9546624,
+      "bytes": 91,
+      "disassembly": "camlRe__Color_map__translate_colors_609.txt",
+      "disassembly_identity": {
+        "bytes": 1675,
+        "sha256": "9767d9f43451c34efd664f63dd64e768639118c2578a41cca2b1bc2d4749104f"
+      },
+      "hex": "4883ec084983ef284d3b3e7247498d7f0848c747f8f7100000488d353006c1ff48893748be070000000000000348897708488d35280000004889771048894718be010000004889d84889f34883c408e9ac80ffffe853920c00ebb2",
+      "identity": {
+        "bytes": 91,
+        "sha256": "17ea5c483b2d29d0d4582cdae9b42392706a05319125771e6511ab012dfd7dd3"
+      },
+      "info": 18,
+      "section_index": 15
+    },
+    "camlRe__Cset__fold_right_1173": {
+      "address": 9514112,
+      "bytes": 92,
+      "disassembly": "camlRe__Cset__fold_right_1173.txt",
+      "disassembly_identity": {
+        "bytes": 1695,
+        "sha256": "1e2923be9096778d4aca1bc434d450ed13caf1de789bc122855b0dd445fa59af"
+      },
+      "hex": "4883ec084889c64889da4983ef284d3b3e7242498d470848c740f8f7100000488d1d3a86c1ff48891848bb070000000000000248895808488d1d92ffffff48895810488978184889f34889d74883c408e93b650300e852110d00ebb7",
+      "identity": {
+        "bytes": 92,
+        "sha256": "df532f4331371e252380e4e1a41b120d833e035a4e5e04b86091c8e84a9a26aa"
+      },
+      "info": 18,
+      "section_index": 15
+    },
+    "camlRe__Cset__mem_523": {
+      "address": 9512992,
+      "bytes": 73,
+      "disassembly": "camlRe__Cset__mem_523.txt",
+      "disassembly_identity": {
+        "bytes": 1670,
+        "sha256": "998d389d1ef50b4b4d36bbfee0e521794f8f302a5d47328cf30d7990e7198806"
+      },
+      "hex": "4883ec084d3b3e7639f6c301740ab8010000004883c408c3488b3b488b77084839f07f18488b1f4839d80f9dc0480fb6c0488d4400014883c408c390488b5b08ebc2e8c5150d00ebc0",
+      "identity": {
+        "bytes": 73,
+        "sha256": "2ef7edbd0f591a1bf0c56ab093ec55256a0b3a4739bcb29d30f91a51f4655948"
+      },
+      "info": 18,
+      "section_index": 15
+    },
+    "camlRe__Cset__one_char_945": {
+      "address": 9513888,
+      "bytes": 81,
+      "disassembly": "camlRe__Cset__one_char_945.txt",
+      "disassembly_identity": {
+        "bytes": 1785,
+        "sha256": "a8a3efa8c516c66731af7ea12a7f6d14687d5c9eb0e1af0ce78ba62c752c4581"
+      },
+      "hex": "4883ec08a8017538488b5808f6c301742f488b00488b18488b40084839c375204983ef104d3b3e7221498d470848c740f8000400004889184883c408c30f1f00b8010000004883c408c3e83d120d00ebd8",
+      "identity": {
+        "bytes": 81,
+        "sha256": "6e15bda889e772657a89a4e48ddcb6472cafff7b5060a4a22f0f30e7b96c45dd"
+      },
+      "info": 18,
+      "section_index": 15
+    },
+    "camlRe__Cset__seq_505": {
+      "address": 9512576,
+      "bytes": 202,
+      "disassembly": "camlRe__Cset__seq_505.txt",
+      "disassembly_identity": {
+        "bytes": 3060,
+        "sha256": "3d8ad65edcf22579f503cf1786a02dddfef4944321b7c578674854259d1a12b6"
+      },
+      "hex": "4883ec184889042448895c24084889c74889de488d05b6720b00e809190d004d8b7e084883f801744b4983ef304d3b3e0f828a000000498d5f084883c31848c743f800080000488b0424488903488b44240848894308488d43e848c740f80008000048891848c74008010000004883c418c366904983ef304d3b3e723c498d5f084883c31848c743f800080000488b442408488903488b042448894308488d43e848c740f80008000048891848c74008010000004883c418c3e8ee160d00ebbde8e7160d00e96cffffff",
+      "identity": {
+        "bytes": 202,
+        "sha256": "37608ae0686fb4eda80ffa045a974219be9ce3326dc91eac20a445200ae068bd"
+      },
+      "info": 18,
+      "section_index": 15
+    },
+    "camlRe__Cset__union_465": {
+      "address": 9511232,
+      "bytes": 440,
+      "disassembly": "camlRe__Cset__union_465.txt",
+      "disassembly_identity": {
+        "bytes": 6864,
+        "sha256": "179d3dcc08a1d0d624164ec7a93fdee8eeaaca8c692d0646e79a25cdc93893fe"
+      },
+      "hex": "4883ec18f6c30174074883c418c36690a80174084889d84883c418c3488b4b08488b3b488b77084c8b07488b50084c8b08498b79084d8b094989fc4983c4024d39c47d5c4c890c2448897c24084889d0e8abffffff4983ef304d3b3e0f824c010000498d5f084883c31848c743f800080000488b3c2448893b488b7c240848897b08488d7be848c747f80008000048891f488947084889f84883c418c30f1f004889f34883c3024c39cb7d5c4c89042448897424084889cbe843ffffff4983ef304d3b3e0f82da000000498d5f084883c31848c743f800080000488b3c2448893b488b7c240848897b08488d7be848c747f80008000048891f488947084889f84883c418c30f1f004839f77d434d39c17f034d89c84983ef304d3b3e727c498d47084883c01848c740f8000800004c890048897008488d58e848c743f80008000048890348894b084889d0e9b4feffff4d39c17f034d89c84983ef304d3b3e7232498d5f084883c31848c743f8000800004c890348897b08488d43e848c740f800080000488918488950084889cbe971feffffe8541b0d00ebc7e84d1b0d00e97affffffe8431b0d00e91cffffffe8391b0d00e9aafeffff",
+      "identity": {
+        "bytes": 440,
+        "sha256": "a62e12c107bc3cf92ccd5e30aa341da96ffeed6f2839d3318b6c424db1424e81"
+      },
+      "info": 18,
+      "section_index": 15
+    },
+    "camlStdlib__Map__add_428": {
+      "address": 9837184,
+      "bytes": 420,
+      "disassembly": "camlStdlib__Map__add_428.txt",
+      "disassembly_identity": {
+        "bytes": 6027,
+        "sha256": "888974dc23eefb7a1e0ad511fbfe3e3cc49c24e9bb0b4d2c47473e37118769e8"
+      },
+      "hex": "4883ec4840f6c70174424983ef304d3b3e0f8283010000498d7f0848c747f80014000048c707010000004889470848895f1048c747180100000048c74720030000004889f84883c448c366904889342448897c243848895c24184889442428488b5f1848895c2430488b5f1048895c2410488b5f0848895c2408488b3f48897c2420488b7e20488b3fe8d2b4bcff4883f8017568488b442410488b5c24184839d8750d488b4424384883c448c30f1f004983ef304d3b3e0f82d3000000498d470848c740f800140000488b7c2420488938488b7c24284889780848895810488b5c243048895818488b5c2438488b5b20488958204883c448c30f1f004883f8017d46488b442428488b5c2418488b7c2420488b3424e8e6feffff488b5c24204839c3750c488b4424384883c448c36690488b5c2408488b7c2410488b7424304883c448e9f8fbffff488b442428488b5c2418488b7c2430488b3424e8a0feffff4889c6488b4424304839f0750b488b4424384883c448c390488b442420488b5c2408488b7c24104883c448e9b0fbffffe817220800e923ffffffe80d220800e973feffff",
+      "identity": {
+        "bytes": 420,
+        "sha256": "718f4290cebe0cf594f0ec6105d556ca9af65d6d45701de5d0a42281e864da32"
+      },
+      "info": 18,
+      "section_index": 15
+    },
+    "camlStdlib__Map__bal_398": {
+      "address": 9836480,
+      "bytes": 679,
+      "disassembly": "camlStdlib__Map__bal_398.txt",
+      "disassembly_identity": {
+        "bytes": 10627,
+        "sha256": "a26a7e065b310e0235ae7708bdc41c68f332c16d71d93767df26402eeef8bb06"
+      },
+      "hex": "4883ec384889c24989d84989f9f6c201740ab8010000004889c3eb04488b5a2040f6c601740ab801000000eb070f1f00488b46204889c74883c7044839fb0f8e08010000f6c2017413488d05285860004883c438e9c7e8fdff0f1f00488b4218488b5a10488b7a08488b12a8017409b901000000eb066690488b4820f6c201740b41bc01000000eb070f1f004c8b62204939cc7c37488954241848897c242048895c24284c89c34c89cfe881feffff4889c6488b442418488b5c2420488b7c24284883c438e966feffff6690a8017410488d05a15760004883c438e940e8fdff488954241848897c242048895c242848890424488b40184c89c34c89cfe82efeffff4889442410488b1c24488b43104889442408488b430848890424488b33488b442418488b5c2420488b7c2428e8fdfdffff488b1c24488b7c2408488b7424104883c438e9e6fdffff66904889df4883c7044839f80f8e0401000040f6c6017412488d050f5760004883c438e9aee7fdff6690488b4e18488b7e10488b5e08488b3640f6c6017407b801000000eb04488b4620f6c101740b41bc01000000eb070f1f004c8b61204939c47c3348891c2448897c240848894c24104889d04c89c34c89cfe867fdffff488b1c24488b7c2408488b7424104883c438e950fdffff40f6c6017412488d058b5660004883c438e92ae7fdff6690488934244c894c24184c894424104889542408488b46184889cee819fdffff4889442428488b1c24488b43104889442420488b430848890424488b33488b442408488b5c2410488b7c2418e8e8fcffff488b1c24488b7c2420488b7424284883c438e9d1fcffff904839c37c074883c302eb08904883c0024889c34983ef304d3b3e7224498d470848c740f8001400004889104c8940084c89481048897018488958204883c438c3e8c7230800ebd5",
+      "identity": {
+        "bytes": 679,
+        "sha256": "7f9384e036bd1453565c960f530802dc1327d5213793457ce4173402d17eda8a"
+      },
+      "info": 18,
+      "section_index": 15
+    }
+  },
+  "inspections": [
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--disassemble=camlRe__Color_map__translate_colors_609",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3"
+      ],
+      "elapsed_seconds": 0.11922445500385948,
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--disassemble=camlRe__Color_map__split_629",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3"
+      ],
+      "elapsed_seconds": 0.1838641229987843,
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--disassemble=camlRe__Color_map__fun_666",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3"
+      ],
+      "elapsed_seconds": 0.21853817900409922,
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--disassemble=camlRe__Color_map__fun_655",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3"
+      ],
+      "elapsed_seconds": 0.1293421570007922,
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--disassemble=camlRe__Cset__union_465",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3"
+      ],
+      "elapsed_seconds": 0.16042631700111087,
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--disassemble=camlRe__Cset__seq_505",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3"
+      ],
+      "elapsed_seconds": 0.052396520994079765,
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--disassemble=camlRe__Cset__one_char_945",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3"
+      ],
+      "elapsed_seconds": 0.21479456500674132,
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--disassemble=camlRe__Cset__fold_right_1173",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3"
+      ],
+      "elapsed_seconds": 0.1658043879942852,
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--disassemble=camlStdlib__Map__add_428",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3"
+      ],
+      "elapsed_seconds": 0.1387390370000503,
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--disassemble=camlStdlib__Map__bal_398",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3"
+      ],
+      "elapsed_seconds": 0.2338781979997293,
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--disassemble=camlRe__Cset__mem_523",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3"
+      ],
+      "elapsed_seconds": 0.12467432600533357,
+      "exit_code": 0,
+      "stderr": ""
+    }
+  ],
+  "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+  "target_executions": 0,
+  "target_identity": {
+    "bytes": 24561432,
+    "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+  }
+}
