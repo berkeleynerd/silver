@@ -1,0 +1,49 @@
+{
+  "selected_reviewer_model": "gpt-6-astra",
+  "selected_reasoning_effort": "xhigh",
+  "selected_by": "delegating lead",
+  "runtime_setting_confirmation": null,
+  "tokens": null,
+  "cost": null,
+  "tracked_start_utc": "2026-10-24T00:02:46+00:00",
+  "tracked_end_utc": "2026-10-24T00:16:19.991611+00:00",
+  "tracked_elapsed_seconds": 813.991611,
+  "timing_scope": "First recorded review clock through final report/evidence; includes independent source review, author repair wait and packet preparation; not model-only latency.",
+  "intended_outcome": "Independent review of #186 response-parser capacity through Read_File return/failure propagation",
+  "achieved_result": "Accept exact corrected author 6fa482f6266d60256300849adf0a657d1df521bc under named premises; no unresolved scoped finding",
+  "reviewed_commit": "6fa482f6266d60256300849adf0a657d1df521bc",
+  "earlier_rejected_freeze": "e87701a25b2c1a953c9313a4f0e35505c6ba57a7",
+  "findings": [
+    {
+      "issue": 187,
+      "disposition": "Confirmed pinned candidate offset-Next stream counterexample; accepted whole-file read/mmap guard with spare, no installed-native defect claim"
+    },
+    {
+      "issue": 188,
+      "disposition": "Found stdout-only frozen response-file omission; independently verified Err_To_Out mapping and additive stderr text/layout/direct-fallback repair"
+    },
+    {
+      "issue": null,
+      "disposition": "Early review requested explicit max-boxes ellipsis exclusion; resolved before original freeze"
+    }
+  ],
+  "check_attempts": 1,
+  "checks": 374,
+  "check_elapsed_seconds": 1.6117481520050205,
+  "source_origin_counts": {
+    "candidate_files": 24,
+    "installed_runtime_source_files": 25
+  },
+  "host": {
+    "system": "Linux",
+    "machine": "x86_64",
+    "release": "7.0.14"
+  },
+  "author_check_replays": 0,
+  "provider_check_replays": 0,
+  "native_runs": 0,
+  "subthread_goal": null,
+  "actual_configuration_attached": false,
+  "whole_119_complete": false,
+  "production_changes": false
+}

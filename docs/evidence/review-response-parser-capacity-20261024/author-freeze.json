@@ -1,0 +1,67 @@
+{
+  "commit": "6fa482f6266d60256300849adf0a657d1df521bc",
+  "earlier_rejected_freeze": "e87701a25b2c1a953c9313a4f0e35505c6ba57a7",
+  "review_start_utc": "2026-10-24 00:02:46 UTC",
+  "files": [
+    {
+      "path": "docs/evidence/retained-response-parser-capacity-20261023/README.md",
+      "sha256": "64f2698f3964ddce2d4def2156cf6f0a117a05e063f8d0239c317f8253adafc4",
+      "bytes": 4658
+    },
+    {
+      "path": "docs/evidence/retained-response-parser-capacity-20261023/capacity.py",
+      "sha256": "c8925ae1d74a086dcf3b3fb307b8ef7b8cc8ce5e519f0fd41976550142b184f7",
+      "bytes": 5404
+    },
+    {
+      "path": "docs/evidence/retained-response-parser-capacity-20261023/check.py",
+      "sha256": "c4e013ea6057bb680af687c4a2c56501c084eeb8f283a94c91cbcf840bb2fcd3",
+      "bytes": 12640
+    },
+    {
+      "path": "docs/evidence/retained-response-parser-capacity-20261023/inputs.json",
+      "sha256": "605a2946fe075dce92120053a13bfc34f10058f0d5b67115446229719b42510e",
+      "bytes": 5185
+    },
+    {
+      "path": "docs/evidence/retained-response-parser-capacity-20261023/merged-source-witnesses.json",
+      "sha256": "e2888bdd4a7e441272e00d79f580d7d19a680dee1eb74464ad662be4953a254f",
+      "bytes": 10179
+    },
+    {
+      "path": "docs/evidence/retained-response-parser-capacity-20261023/result.json",
+      "sha256": "18f164467ae406dbac9d523d5c9c8264a4d0c8252a8234025ed863c607b20f06",
+      "bytes": 40962
+    },
+    {
+      "path": "docs/evidence/retained-response-parser-capacity-20261023/review-repair.json",
+      "sha256": "546149e8cc5f9fb8b7ad38a9c86eed850ce2c3588d54aff37cc5982d2fdc0b18",
+      "bytes": 1660
+    },
+    {
+      "path": "docs/evidence/retained-response-parser-capacity-20261023/round.json",
+      "sha256": "450cfeb28465cf00d9df58f8ee4f571ba0232ecdeacbe84d6dc9424938ce0dd0",
+      "bytes": 3192
+    },
+    {
+      "path": "docs/evidence/retained-response-parser-capacity-20261023/source-manifest.json",
+      "sha256": "6e841bf8b3092332aa920d84dbc2a3ff65c47a350e7a4172cce21385531c4c5d",
+      "bytes": 19124
+    },
+    {
+      "path": "docs/evidence/retained-response-parser-capacity-20261023/source-witnesses.json",
+      "sha256": "e3cfa1a4d48a944ba3b262eea9584c1a55d9ecbf8837f9a04b89a7232b71e603",
+      "bytes": 5192
+    },
+    {
+      "path": "docs/evidence/retained-response-parser-capacity-20261023/sources.tar.gz",
+      "sha256": "6ea8d125de6b1696779d031174087e50e54f920aa688d9bf3b8460ec8d65f418",
+      "bytes": 143833
+    },
+    {
+      "path": "docs/research/retained-response-parser-capacity.md",
+      "sha256": "01fc2af8076389e91036397cf7890e8732be7c54a8d8f881c6391736d79f010d",
+      "bytes": 30713
+    }
+  ]
+}

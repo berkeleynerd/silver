@@ -1,0 +1,158 @@
+{
+  "status": "pass",
+  "checks": 374,
+  "reviewed_commit": "6fa482f6266d60256300849adf0a657d1df521bc",
+  "earlier_rejected_freeze": "e87701a25b2c1a953c9313a4f0e35505c6ba57a7",
+  "elapsed_seconds": 1.6117481520050205,
+  "host": {
+    "system": "Linux",
+    "machine": "x86_64",
+    "release": "7.0.14"
+  },
+  "new_source_files": 49,
+  "provider_pins": 27,
+  "original_source_comparison": {
+    "candidate_files": 24,
+    "installed_runtime_source_files": 25
+  },
+  "additional_source_inputs": [
+    {
+      "path": "docs/evidence/retained-why-save-artifact-dependency-20261020/source-excerpts.json",
+      "sha256": "d6d62d9f096707ab575bf6aaef9a10d4bf32da3c0b55045efcfc252674343a31",
+      "bytes": 100777
+    },
+    {
+      "path": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749",
+      "bytes": 1372815
+    },
+    {
+      "path": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7",
+      "bytes": 5510610
+    }
+  ],
+  "postcut_rows": [
+    {
+      "case": "put_line",
+      "merged_bytes": 688428436
+    },
+    {
+      "case": "put",
+      "merged_bytes": 617768695
+    },
+    {
+      "case": "first_or_default",
+      "merged_bytes": 536360275
+    },
+    {
+      "case": "is_message",
+      "merged_bytes": 169403332
+    },
+    {
+      "case": "input_is_valid",
+      "merged_bytes": 217572550
+    }
+  ],
+  "precut_rows": [
+    {
+      "P": 180,
+      "merged_bytes": 271693521
+    },
+    {
+      "P": 416,
+      "merged_bytes": 344742129
+    },
+    {
+      "P": 1927,
+      "merged_bytes": 812438937
+    }
+  ],
+  "boundary_rows": [
+    {
+      "bytes": 0,
+      "all_guards": true
+    },
+    {
+      "bytes": 1,
+      "all_guards": true
+    },
+    {
+      "bytes": 23,
+      "all_guards": true
+    },
+    {
+      "bytes": 24,
+      "all_guards": true
+    },
+    {
+      "bytes": 31,
+      "all_guards": true
+    },
+    {
+      "bytes": 32,
+      "all_guards": true
+    },
+    {
+      "bytes": 33,
+      "all_guards": true
+    },
+    {
+      "bytes": 63,
+      "all_guards": true
+    },
+    {
+      "bytes": 64,
+      "all_guards": true
+    },
+    {
+      "bytes": 65,
+      "all_guards": true
+    },
+    {
+      "bytes": 4095,
+      "all_guards": true
+    },
+    {
+      "bytes": 4096,
+      "all_guards": true
+    },
+    {
+      "bytes": 4097,
+      "all_guards": true
+    },
+    {
+      "bytes": 8191,
+      "all_guards": true
+    },
+    {
+      "bytes": 8192,
+      "all_guards": true
+    },
+    {
+      "bytes": 8193,
+      "all_guards": true
+    },
+    {
+      "bytes": 536870911,
+      "all_guards": true
+    },
+    {
+      "bytes": 536870912,
+      "all_guards": true
+    },
+    {
+      "bytes": 1073741823,
+      "all_guards": true
+    },
+    {
+      "bytes": 1073741824,
+      "all_guards": false
+    }
+  ],
+  "author_check_replayed": false,
+  "predecessor_checks_replayed": false,
+  "native_runs": 0,
+  "actual_configuration_attached": false,
+  "whole_119_complete": false
+}
