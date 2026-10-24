@@ -165,3 +165,54 @@ save-entering callbacks, three saves and physical-resource premises remain
 unchanged. Production #88–#94 stays unstarted and PR #121 stays draft/unmerged.
 CLI memory was not updated. Parent integration, issue filing and publication
 are separate from this unpublished review freeze.
+
+## F1 / #215 repair disposition, 2026-10-24
+
+**F1 is resolved. Accept repair
+`649d8293c74c56cccadcec74dec5a4bb96e7e335`.** The preceding original review and
+its evidence remain historical and unchanged; this appended disposition
+supersedes only F1's open status. The repair was cherry-picked alone onto the
+clean original review branch, without its parent history. This review examines
+the exact six-file repair, not a new whole-configuration claim.
+
+The predicate now builds `allowed | {p+'/' for p in allowed}` and compares
+each decoded entry directly with that finite set. It returns the original
+values. There is no separator stripping, canonicalization, or altered string
+forwarded after checking a different spelling. Consequently, every accepted
+directory spelling is the documented base or that base plus one slash;
+multiple trailing slashes and embedded NUL cannot equal a member. The prior
+source argument covers each remaining accepted spelling. Ordering and
+multiplicity are preserved and keep their separate storage obligations.
+
+The [narrow independent audit](../evidence/review-prospective-configuration-20261024/repair-f1/result.json)
+reproduces F1 using the original Git leaf predicate and confirms rejection
+after repair. It accepts 16 cases covering every source/object spelling and
+ordered sequences with duplicates, and rejects 101 cases covering repeated
+slashes, dot/foreign/control/Unicode suffixes, malformed framing and wrong
+directory families. It executes only `workspace` and `pathfile_entries`, with
+independently supplied constants. No provider or author/predecessor checker
+is imported or replayed.
+
+The audit binds all six repair files to the exact repair commit. The AST
+outside `pathfile_entries` is unchanged; the nine unmodified original author
+artifacts are byte-identical, the author README/research additions preserve
+their original prefixes, and all five original review artifacts are preserved
+(this report by its original byte prefix). Thus P=188, argv/configuration
+coefficients, retained runtime corpus, original author observations and
+validation history are reused without recomputation. The repair's own
+78-assertion, 0.110041-second receipt was inspected, not rerun.
+
+This independent audit passed on its first attempt in **0.223757 seconds**.
+The reviewer setting remains selected **GPT-6 Astra / Extra High**; runtime
+confirmation and token/cost measurements remain unavailable. The separate
+[repair round](../evidence/review-prospective-configuration-20261024/repair-f1/round.json)
+records the measured review window. No fixture, native target, compiler,
+prover, Lean, installation query, service query, GitHub or goal write occurred.
+
+No further finding was identified in this narrow repair. Actual complete
+common path bytes remain null; the complete effective-child/source relation,
+physical stability, native storage, private protocol/time and five-report
+obligations remain as previously stated. Global e<=2, two save-entering
+callbacks and three saves are unchanged. Production #88–#94 and PR #121 retain
+their unstarted and draft/unmerged status respectively. Parent issue closure,
+integration and publication remain separate; CLI memory was not updated.
