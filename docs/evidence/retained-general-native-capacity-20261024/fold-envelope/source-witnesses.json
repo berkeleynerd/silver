@@ -1,0 +1,382 @@
+{
+  "witnesses": [
+    {
+      "id": "image-natural-position",
+      "source": "gcc/ada/exp_imgv.adb",
+      "first_lf_line": 1295,
+      "last_lf_line": 1330,
+      "sha256": "0ef5c63b2aaefa7889ff303056537c317ee645a4bf09b6a6d9e89e1b41dcd822"
+    },
+    {
+      "id": "image-suppressed-slice",
+      "source": "gcc/ada/exp_imgv.adb",
+      "first_lf_line": 1410,
+      "last_lf_line": 1437,
+      "sha256": "facc49ab298a2f6ab7b32c0a8c159530cc8e9c0ea50620a521160aa830a5b387"
+    },
+    {
+      "id": "capture-existing-type",
+      "source": "gcc/ada/exp_util.adb",
+      "first_lf_line": 12678,
+      "last_lf_line": 12688,
+      "sha256": "0c418a3ddbe32a07395ae6acbba0d8b5b5f8d2350d3515df7e9d3b9cb5eef23f"
+    },
+    {
+      "id": "capture-scalar",
+      "source": "gcc/ada/exp_util.adb",
+      "first_lf_line": 12765,
+      "last_lf_line": 12825,
+      "sha256": "a56668c700334d8d73e8b757a368bd30489e08e25adf3d472fac521a6166dc87"
+    },
+    {
+      "id": "capture-resolve",
+      "source": "gcc/ada/exp_util.adb",
+      "first_lf_line": 13098,
+      "last_lf_line": 13116,
+      "sha256": "2501590fa524ad525f2e240035864981fbb1bbdcd765002928140b311c18f1a9"
+    },
+    {
+      "id": "slice-force-copy",
+      "source": "gcc/ada/sem_res.adb",
+      "first_lf_line": 13117,
+      "last_lf_line": 13165,
+      "sha256": "7f5fc5cb1861feeffc2af13dfe03b973af1e56e875f0467ec2eebd43dbfa95b6"
+    },
+    {
+      "id": "natural",
+      "source": "gcc/ada/cstand.adb",
+      "first_lf_line": 1017,
+      "last_lf_line": 1028,
+      "sha256": "6f12c5ca01de800e5c5eea5e5a173653638f93747b77f62a894de5097498dfb5"
+    },
+    {
+      "id": "signed-bound-lowering",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 1901,
+      "last_lf_line": 1995,
+      "sha256": "5d4a6cfc8f28cbacfc74e8740f4990276ac18129a06faf8a5c5d95c1176c0b7f"
+    },
+    {
+      "id": "array-endpoint-max",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 2623,
+      "last_lf_line": 2740,
+      "sha256": "a925fb6c52582c466c4ebb0564a08920f1ff1657cc547abb0b557805e2cf5a77"
+    },
+    {
+      "id": "array-superflat",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 2741,
+      "last_lf_line": 2823,
+      "sha256": "8b0c4a5c07bd72a44dcb904600987d4aa2c6cef7f863010d27e69c871e3c2b48"
+    },
+    {
+      "id": "array-complete",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 2870,
+      "last_lf_line": 2979,
+      "sha256": "643bf27ecc863550d98ad01dd7986a998f38c2a0c265696f0d426141ccd0d8a6"
+    },
+    {
+      "id": "superflat-predicate",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 7049,
+      "last_lf_line": 7095,
+      "sha256": "a9d825df5d235db0641e134532e69e86b3f0271e2b2f1244f62393f799f49211"
+    },
+    {
+      "id": "fixed-max-elements",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 7169,
+      "last_lf_line": 7197,
+      "sha256": "d3b0f8280d7358fc854d4de00b74db4b488c077275526b10b1f1b7e7e8daaff5"
+    },
+    {
+      "id": "elaborate-bound",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 7534,
+      "last_lf_line": 7657,
+      "sha256": "e0921dcc90ae7165bb6155b45d10056cfdf32cd0adccee418a718a6b85a7bb4f"
+    },
+    {
+      "id": "capture-not-constant",
+      "source": "gcc/ada/gcc-interface/utils.cc",
+      "first_lf_line": 3018,
+      "last_lf_line": 3090,
+      "sha256": "a7f5e528cfef9e425d5c23f3a2490e2b251467b3c83c56ee3fb1b41bfc8e20a4"
+    },
+    {
+      "id": "capture-declare",
+      "source": "gcc/ada/gcc-interface/utils.cc",
+      "first_lf_line": 3091,
+      "last_lf_line": 3170,
+      "sha256": "fb6e9748ac483d35b8b9b0bac4fcaf0405cd2b78e89aa287451222bf7311ac47"
+    },
+    {
+      "id": "max-value-cuts",
+      "source": "gcc/ada/gcc-interface/utils.cc",
+      "first_lf_line": 4095,
+      "last_lf_line": 4177,
+      "sha256": "eeaada9cc388c8eecfd129ef7fcefdab1689b5277af61ff08e907f4ad1a01791"
+    },
+    {
+      "id": "gigi-discrete-convert",
+      "source": "gcc/ada/gcc-interface/utils.cc",
+      "first_lf_line": 5450,
+      "last_lf_line": 5491,
+      "sha256": "de24a2fc6e96fb6d1a006ddcdca9cbffdb40681a4c0dfe520580ee1600860f5f"
+    },
+    {
+      "id": "identifier-substitution",
+      "source": "gcc/ada/gcc-interface/trans.cc",
+      "first_lf_line": 1187,
+      "last_lf_line": 1390,
+      "sha256": "27c26aff101e8e3c1840da6aa8d6e7ee12a8d37e6edfde038ecaa47e474de9c0"
+    },
+    {
+      "id": "decl-expression",
+      "source": "gcc/ada/gcc-interface/trans.cc",
+      "first_lf_line": 9104,
+      "last_lf_line": 9180,
+      "sha256": "97b879409e57e42586fe92bd2110344f12ace0f1a48962f208f703a88aeea2f3"
+    },
+    {
+      "id": "nondecreasing-conversion",
+      "source": "gcc/convert.cc",
+      "first_lf_line": 670,
+      "last_lf_line": 706,
+      "sha256": "060a78532d167915ede8159c972e3f88b9864493f38c75add25fa08d6dbc33de"
+    },
+    {
+      "id": "range-bound-conversion",
+      "source": "gcc/tree.cc",
+      "first_lf_line": 7460,
+      "last_lf_line": 7484,
+      "sha256": "d2c021de553f5b43743d7708c9cd729fd546b418e3951d108723d605f9280587"
+    },
+    {
+      "id": "save-simple-arithmetic",
+      "source": "gcc/tree.cc",
+      "first_lf_line": 4172,
+      "last_lf_line": 4245,
+      "sha256": "204ca618d41cda10df626721a7bd8ef9dd41a9529b86a4945c7f7084d26cc1c7"
+    },
+    {
+      "id": "tree-raw-storage",
+      "source": "gcc/tree.cc",
+      "first_lf_line": 1090,
+      "last_lf_line": 1128,
+      "sha256": "fc8f4a25ad6816c37cf26e5ff9c963fff6cdaefc10513f64002e2c6a8df95769"
+    },
+    {
+      "id": "declaration-storage",
+      "source": "gcc/tree-core.h",
+      "first_lf_line": 1889,
+      "last_lf_line": 2047,
+      "sha256": "c0649b795d853f13f23795020abd8bd8b75a52b5fdd879a26c027d56d56c92c3"
+    },
+    {
+      "id": "array-layout",
+      "source": "gcc/stor-layout.cc",
+      "first_lf_line": 2662,
+      "last_lf_line": 2730,
+      "sha256": "0ec6f8cae44467e340b0813f2b63ec87da60b8892c30f857c5ced403a0f4b665"
+    },
+    {
+      "id": "array-finalize",
+      "source": "gcc/stor-layout.cc",
+      "first_lf_line": 1962,
+      "last_lf_line": 2020,
+      "sha256": "4a41ac5f1672cb31f10744cf29cb0bb85f8f9c3608f92d80561452dbca6636ed"
+    },
+    {
+      "id": "bits-conversion",
+      "source": "gcc/stor-layout.cc",
+      "first_lf_line": 913,
+      "last_lf_line": 929,
+      "sha256": "80ab64995ac735337c57482422d57e2b3eb00f7b5b66c071564ca38390eeb980"
+    },
+    {
+      "id": "size-binary",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 2092,
+      "last_lf_line": 2155,
+      "sha256": "c73862b8ff5ffab2e6e61eec4b0cfa98a6cf1a518e7a8a3a97bb7f89cf5a6760"
+    },
+    {
+      "id": "fold-conversion",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 2633,
+      "last_lf_line": 2670,
+      "sha256": "ef301421ad250ca01abb62f5f7466cf02c9633b2ca6b4bf80bcad2039ba2e5ee"
+    },
+    {
+      "id": "non-lvalue",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 2800,
+      "last_lf_line": 2874,
+      "sha256": "e21518966d35f467fa84f1faf76a954870262925d9b4c8393814cbeda970b3c3"
+    },
+    {
+      "id": "binary-entry",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 10985,
+      "last_lf_line": 11146,
+      "sha256": "f8ac3e914360bedb6083d703db3aff691d49fe2182d3dbfdae60f4386eba7db4"
+    },
+    {
+      "id": "unary-entry",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 9210,
+      "last_lf_line": 9343,
+      "sha256": "623295f5265ab5ac1055ec60cdf278dbc8612559a178f2830f1c55d14b74fc18"
+    },
+    {
+      "id": "binary-association",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 11437,
+      "last_lf_line": 11674,
+      "sha256": "0805f2d552f5e73a4c31947fd70bf4ec63b90717b62982382fa9128fba928cd5"
+    },
+    {
+      "id": "multiply-candidate",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 11773,
+      "last_lf_line": 11860,
+      "sha256": "3855793b210d8e78d41dd2a482c29a0d40fafa24a05532e5fd32335a60814445"
+    },
+    {
+      "id": "extract-candidate",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 6583,
+      "last_lf_line": 6701,
+      "sha256": "7dc87e3008a8ac2e9c6a461cb5eeb8ca09178d9de2fb650f5d76ed92c5af280d"
+    },
+    {
+      "id": "split-overflow-candidate",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 901,
+      "last_lf_line": 1004,
+      "sha256": "e952e01821c709429072f4e0e5a108b0eaae58bc68fc5311c7c684b3c9e94b7d"
+    },
+    {
+      "id": "multiple-eight",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 14230,
+      "last_lf_line": 14273,
+      "sha256": "68e1c9eefb0e5c591c6ee1de05685b2af233ee5a0e0b4163a9f2e7049921eedf"
+    },
+    {
+      "id": "round-eight",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 16379,
+      "last_lf_line": 16400,
+      "sha256": "f878fab1ed0c2377a597a045a941ce80b6140626c68993e1d517030bc499b14a"
+    },
+    {
+      "id": "known-bits",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 16715,
+      "last_lf_line": 16796,
+      "sha256": "1bcc6d43a4337b2ee5fe7059e1d7b2ed677b8247e7c41c03768b769a70407cb6"
+    },
+    {
+      "id": "fold-build-candidate",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 13886,
+      "last_lf_line": 13965,
+      "sha256": "0d8df7639781d1f091d17c08f87517b03fed6b7ec982545e125893a742bd42e0"
+    },
+    {
+      "id": "minus-plus-rule",
+      "source": "gcc/match.pd",
+      "first_lf_line": 2198,
+      "last_lf_line": 2203,
+      "sha256": "3c06a2c6f446611dd3dd47380704856087074411c39b7fb078b0ade0a9a58a1a"
+    },
+    {
+      "id": "constant-association-rule",
+      "source": "gcc/match.pd",
+      "first_lf_line": 4401,
+      "last_lf_line": 4444,
+      "sha256": "cea498d854359919665731d6d952a2e6589f3df39f7fce39158b3737fee55133"
+    },
+    {
+      "id": "conversion-rules",
+      "source": "gcc/match.pd",
+      "first_lf_line": 5720,
+      "last_lf_line": 5725,
+      "sha256": "191cd8a8895be565b731e1fd03bcbc1cf7e6dddf39f1e70f49193b5dcbf86785"
+    },
+    {
+      "id": "double-conversion-rules",
+      "source": "gcc/match.pd",
+      "first_lf_line": 5803,
+      "last_lf_line": 5920,
+      "sha256": "46be2be69f5114293829ee21cf03dcc841ead1d8d62e1c8c10e1f24d7379defd"
+    },
+    {
+      "id": "capture-unsharing",
+      "source": "gcc/genmatch.cc",
+      "first_lf_line": 3580,
+      "last_lf_line": 3606,
+      "sha256": "3f47ab9db05949e0df6c51d0e3b6fec3ca2a4422dcfe720adca4cf3e8cfe887f"
+    },
+    {
+      "id": "save-expression",
+      "source": "gcc/tree.cc",
+      "first_lf_line": 4132,
+      "last_lf_line": 4166,
+      "sha256": "ff8b43dc4d5ff2d959712a378d091db213fe49bc1d8fefa5b7daca35fc28dad9"
+    },
+    {
+      "id": "tree-base-storage",
+      "source": "gcc/tree-core.h",
+      "first_lf_line": 1138,
+      "last_lf_line": 1246,
+      "sha256": "7e00cf3badad3ddc4c77e4787ea3690a4133c7f839ca476a8efc1df7afdd0582"
+    },
+    {
+      "id": "tree-common-storage",
+      "source": "gcc/tree-core.h",
+      "first_lf_line": 1564,
+      "last_lf_line": 1574,
+      "sha256": "58bd49c3907066c2bb74582cec87b9086199de9d01739ac30704ce32bd43c95d"
+    },
+    {
+      "id": "variable-size",
+      "source": "gcc/stor-layout.cc",
+      "first_lf_line": 67,
+      "last_lf_line": 88,
+      "sha256": "bae843a76208e2d2066c4314508e1b9f5a3f4f7dcb262bbec87b5d54b2d7670c"
+    },
+    {
+      "id": "constant-decl-substitution",
+      "source": "gcc/ada/gcc-interface/trans.cc",
+      "first_lf_line": 1047,
+      "last_lf_line": 1063,
+      "sha256": "3c616411b2c68ea6d0f06d18702a5a094b5f19be2f2af62bebf90a4103ab9b2b"
+    },
+    {
+      "id": "debug-var-construction",
+      "source": "gcc/tree.cc",
+      "first_lf_line": 5567,
+      "last_lf_line": 5586,
+      "sha256": "835790156db7265ac7dbfeed5aa60e93ecaa1561cec50e3935244befae0b5935"
+    },
+    {
+      "id": "debug-var-layout",
+      "source": "gcc/stor-layout.cc",
+      "first_lf_line": 661,
+      "last_lf_line": 710,
+      "sha256": "0a3249d130b4984ccb4c7e3a80e91d78a487d3eb8c7640eae77190f5da744a9f"
+    },
+    {
+      "id": "debug-var-size",
+      "source": "gcc/stor-layout.cc",
+      "first_lf_line": 805,
+      "last_lf_line": 835,
+      "sha256": "69cb559b69fd9dc755594535a6432c30eb6ba572ddcd846a7ee60bc838cfc5a7"
+    }
+  ]
+}

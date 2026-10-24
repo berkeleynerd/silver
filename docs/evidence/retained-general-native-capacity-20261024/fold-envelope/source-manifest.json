@@ -1,0 +1,178 @@
+{
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "archives": [
+    {
+      "path": "../helper-joins/sources.tar.gz",
+      "sha256": "8e995d6a92274a914448c01e279668cc6211a580c9d7e1ff5a3fe61fa9c20ee1"
+    },
+    {
+      "path": "extra-sources.tar.gz",
+      "sha256": "591471b7052b22fe33e2bad01cdc17f471a9adc205355cddb3409076dec0fea9"
+    }
+  ],
+  "files": [
+    {
+      "path": "gcc/ada/gcc-interface/decl.cc",
+      "bytes": 414991,
+      "sha256": "6ce439aeba6128f4e8334ae8011d1d1c36b141de76e01d9942114cae73923ad2",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "../helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/utils.cc",
+      "bytes": 266602,
+      "sha256": "e08be507b8d165f18eabd76c897b42726aca63fcc3a48d6e45040cb38c68414d",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "../helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/utils2.cc",
+      "bytes": 122255,
+      "sha256": "c8292ebae64848cb3005523afe82d1dabd1c25422c96fb4421c3b27da6b429af",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "../helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/cuintp.cc",
+      "bytes": 8340,
+      "sha256": "5c16ed8da2e5d261090e1d0a1f9a98eb68fa3d9e50e53f59623d32325faae7b9",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "../helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "bytes": 406631,
+      "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "../helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/ada-tree.h",
+      "bytes": 28538,
+      "sha256": "83a639f787e2624214569abfe563b2887d6604a2d62d6d0e89e1017cde33d835",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "../helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/gigi.h",
+      "bytes": 56241,
+      "sha256": "6e2940a89abb01b7218eff64e13b3aabbc7a9970870670816160dc5991ba48e2",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "../helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/tree.cc",
+      "bytes": 484431,
+      "sha256": "275abbcfa647cc6c122b11aaf03582a674e499452ad56a5b574d1808c8bc9c6d",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "../helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/tree-core.h",
+      "bytes": 73833,
+      "sha256": "332d9a25c22adfd1e82ee5b676681cb4ca1de8c266fa9d0d5dd594e2266ada71",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "../helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/tree.h",
+      "bytes": 281689,
+      "sha256": "65c8b4d692804d7cc2d5883f7f919eb027c739c35ca48b984c239c8926f80b6c",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "../helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/vec.h",
+      "bytes": 74232,
+      "sha256": "b45091891c9e04b65eb6f980b08f957735d430f84a5b4a42c1143c74f1be0fc1",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "../helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/vec.cc",
+      "bytes": 22283,
+      "sha256": "d77ac9b92c78db0dd8f07ccdc71fc610663a1d74d78ac408b7c1d143e92c8afd",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "../helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/stor-layout.cc",
+      "bytes": 109787,
+      "sha256": "2258a4ff462a69fae8c44f78c8014d8159a20013148de1c211c16b3f1a119872",
+      "retained_identity": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json",
+      "archive": "../helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/fold-const.cc",
+      "bytes": 560244,
+      "sha256": "cb432059353fdc19e32f1f0ff5a6230f9a6ce41ea41af621791e1a1fc47cc506",
+      "retained_identity": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json",
+      "archive": "../helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/match.pd",
+      "bytes": 435179,
+      "sha256": "276afc08e0347348f040a4402127484adedbff56d017cdaebbb14654d797f35e",
+      "retained_identity": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json",
+      "archive": "../helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/genmatch.cc",
+      "bytes": 179025,
+      "sha256": "945485502f2a1f25150da0cac471428817b6f231af16cdccff85960272aee08c",
+      "retained_identity": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json",
+      "archive": "../helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/varasm.cc",
+      "bytes": 271386,
+      "sha256": "14e84127bd18f6f31ec3d186a1eb7dfdb951e7c14c261156975290ece0cabb9e",
+      "retained_identity": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json",
+      "archive": "../helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/sort.cc",
+      "bytes": 9896,
+      "sha256": "c7d3068301225f78c505d882ec9e8b11082946ca4201eee0b4849b2e527795b3",
+      "retained_identity": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/rtl-setup-source-identity.json",
+      "archive": "../helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/convert.cc",
+      "bytes": 39639,
+      "sha256": "1bcdcae7e6521a706b557af80d0af5250bf10cd7f840cfabc77ee96eecc1f2ef",
+      "retained_identity": "docs/evidence/retained-native-ingress-bound-20261018/source-manifest.json",
+      "archive": "extra-sources.tar.gz"
+    },
+    {
+      "path": "gcc/ada/sem_res.adb",
+      "bytes": 559989,
+      "sha256": "6437a0b918e71a33a6dbdcc8d2d885069acac86ab9379f1daeb08591dcafb7c8",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "extra-sources.tar.gz"
+    },
+    {
+      "path": "gcc/ada/cstand.adb",
+      "bytes": 85030,
+      "sha256": "681b8e7cca1844ce7364fc34e780e53aa7e9c725d2d5b0a3075a30229e6d4737",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "extra-sources.tar.gz"
+    },
+    {
+      "path": "gcc/ada/exp_imgv.adb",
+      "bytes": 95290,
+      "sha256": "c9b2130f6c8dd9f42d48709e165ad190a570e01bd7960aabc04a6e600fa54de1",
+      "retained_identity": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json",
+      "archive": "extra-sources.tar.gz",
+      "source_sha256_key": "exp_imgv.adb"
+    },
+    {
+      "path": "gcc/ada/exp_util.adb",
+      "bytes": 533310,
+      "sha256": "6fcf1cceaa505992e83e8f122eadc87f54b489a4208f55af14178ef04595b6a1",
+      "retained_identity": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json",
+      "archive": "extra-sources.tar.gz",
+      "source_sha256_key": "exp_util.adb"
+    }
+  ]
+}

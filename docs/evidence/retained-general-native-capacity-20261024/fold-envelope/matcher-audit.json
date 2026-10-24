@@ -1,0 +1,1952 @@
+{
+  "binary": {
+    "simplify_forms_in_both_preprocessor_branches": 882,
+    "root_forms": 151,
+    "root_patterns": [
+      {
+        "line": 237,
+        "pattern": "(op @0 integer_zerop)",
+        "resolved_possible_root_operators": [
+          "bit_ior",
+          "bit_xor",
+          "minus",
+          "plus",
+          "pointer_plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n    (op @0 integer_zerop)\n    (non_lvalue @0))",
+        "disposition": "reachable; see README rewrite and construction rows"
+      },
+      {
+        "line": 253,
+        "pattern": "(plus:c @0 real_zerop@1)",
+        "resolved_possible_root_operators": [
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (plus:c @0 real_zerop@1)\n (if (fold_real_zero_addition_p (type, @0, @1, 0))\n  (non_lvalue @0)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 259,
+        "pattern": "(minus @0 real_zerop@1)",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (minus @0 real_zerop@1)\n (if (fold_real_zero_addition_p (type, @0, @1, 1))\n  (non_lvalue @0)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 272,
+        "pattern": "(outer_op (inner_op@3 @0 REAL_CST@1) REAL_CST@2)",
+        "resolved_possible_root_operators": [
+          "minus",
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n   (outer_op (inner_op@3 @0 REAL_CST@1) REAL_CST@2)\n    (if (real_zerop (@1)\n\t && real_zerop (@2)\n\t && !HONOR_SIGN_DEPENDENT_ROUNDING (type))\n     (with { bool inner_plus = ((inner_op == PLUS_EXPR)\n\t\t\t\t^ REAL_VALUE_MINUS_ZERO (TREE_REAL_CST (@1)));\n\t     bool outer_plus\n\t       = ((outer_op == PLUS_EXPR)\n\t\t  ^ REAL_VALUE_MINUS_ZERO (TREE_REAL_CST (@2))); }\n      (if (outer_plus && !inner_plus)\n       (outer_op @0 @2)\n       @3))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 292,
+        "pattern": "(minus @0 @0)",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (minus @0 @0)\n (if (!FLOAT_TYPE_P (type)\n      || (!tree_expr_maybe_nan_p (@0)\n\t  && !tree_expr_maybe_infinite_p (@0)\n\t  && (!HONOR_SIGN_DEPENDENT_ROUNDING (type)\n\t      || !HONOR_SIGNED_ZEROS (type))))\n  { build_zero_cst (type); }))",
+        "disposition": "requires equal dynamic and literal operands"
+      },
+      {
+        "line": 304,
+        "pattern": "(mult @0 integer_zerop@1)",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (mult @0 integer_zerop@1)\n @1)",
+        "disposition": "requires absent zero, all-ones or minus-one operand position"
+      },
+      {
+        "line": 318,
+        "pattern": "(mult:c (convert? (neeq (bit_ior:c @0 @1) integer_zerop@2)) @0)",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (mult:c (convert? (neeq (bit_ior:c @0 @1) integer_zerop@2)) @0)\n  (if (neeq == EQ_EXPR)\n   { build_zero_cst (type); }\n   @0))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 338,
+        "pattern": "(mult @0 real_zerop@1)",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (mult @0 real_zerop@1)\n (if (!tree_expr_maybe_nan_p (@0)\n      && (!HONOR_NANS (type) || !tree_expr_maybe_infinite_p (@0))\n      && (!HONOR_SIGNED_ZEROS (type) || tree_expr_nonnegative_p (@0)))\n  @1))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 347,
+        "pattern": "(mult @0 real_onep)",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (mult @0 real_onep)\n (if (!tree_expr_maybe_signaling_nan_p (@0)\n      && (!HONOR_SIGNED_ZEROS (type)\n          || !COMPLEX_FLOAT_TYPE_P (type)))\n  (non_lvalue @0)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 355,
+        "pattern": "(mult @0 real_minus_onep)",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (mult @0 real_minus_onep)\n  (if (!tree_expr_maybe_signaling_nan_p (@0)\n       && (!HONOR_SIGNED_ZEROS (type)\n           || !COMPLEX_FLOAT_TYPE_P (type)))\n   (negate @0)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 364,
+        "pattern": "(mult @0 VECTOR_CST@1)",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (mult @0 VECTOR_CST@1)\n (if (initializer_each_zero_or_onep (@1)\n      && !HONOR_SNANS (type)\n      && !HONOR_SIGNED_ZEROS (type))\n  (with { tree itype = FLOAT_TYPE_P (type) ? unsigned_type_for (type) : type; }\n   (if (itype\n\t&& (!VECTOR_MODE_P (TYPE_MODE (type))\n\t    || (VECTOR_MODE_P (TYPE_MODE (itype))\n\t\t&& optab_handler (and_optab,\n\t\t\t\t  TYPE_MODE (itype)) != CODE_FOR_nothing)))\n    (view_convert (bit_and:itype (view_convert @0)\n\t\t\t\t (ne @1 { build_zero_cst (type); })))))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 382,
+        "pattern": "(mult (bit_and (rshift @0 uniform_integer_cst_p@1)\n\t    uniform_integer_cst_p@2)\n    uniform_integer_cst_p@3)",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (mult (bit_and (rshift @0 uniform_integer_cst_p@1)\n\t    uniform_integer_cst_p@2)\n    uniform_integer_cst_p@3)\n (with {\n   tree rshift_cst = uniform_integer_cst_p (@1);\n   tree bit_and_cst = uniform_integer_cst_p (@2);\n   tree mult_cst = uniform_integer_cst_p (@3);\n  }\n  /* Make sure we're working with vectors and uniform vector constants.  */\n  (if (VECTOR_TYPE_P (type)\n       && tree_fits_uhwi_p (rshift_cst)\n       && tree_fits_uhwi_p (mult_cst)\n       && tree_fits_uhwi_p (bit_and_cst))\n   /* Compute what constants would be needed for this to represent a packed\n      comparison based on the shift amount denoted by RSHIFT_CST.  */\n   (with {\n     HOST_WIDE_INT vec_elem_bits = vector_element_bits (type);\n     poly_int64 vec_nelts = TYPE_VECTOR_SUBPARTS (type);\n     poly_int64 vec_bits = vec_elem_bits * vec_nelts;\n     unsigned HOST_WIDE_INT cmp_bits_i, bit_and_i, mult_i;\n     unsigned HOST_WIDE_INT target_mult_i, target_bit_and_i;\n     cmp_bits_i = tree_to_uhwi (rshift_cst) + 1;\n     mult_i = tree_to_uhwi (mult_cst);\n     target_mult_i = (HOST_WIDE_INT_1U << cmp_bits_i) - 1;\n     bit_and_i = tree_to_uhwi (bit_and_cst);\n     target_bit_and_i = 0;\n\n     /* The bit pattern in BIT_AND_I should be a mask for the least\n\tsignificant bit of each packed element that is CMP_BITS wide.  */\n     for (unsigned i = 0; i < vec_elem_bits / cmp_bits_i; i++)\n       target_bit_and_i = (target_bit_and_i << cmp_bits_i) | 1U;\n    }\n    (if ((exact_log2 (cmp_bits_i)) >= 0\n\t && cmp_bits_i < HOST_BITS_PER_WIDE_INT\n\t && multiple_p (vec_bits, cmp_bits_i)\n\t && vec_elem_bits <= HOST_BITS_PER_WIDE_INT\n\t && target_mult_i == mult_i\n\t && target_bit_and_i == bit_and_i)\n     /* Compute the vector shape for the comparison and check if the target is\n\table to expand the comparison with that type.  */\n     (with {\n       /* We're doing a signed comparison.  */\n       tree cmp_type = build_nonstandard_integer_type (cmp_bits_i, 0);\n       poly_int64 vector_type_nelts = exact_div (vec_bits, cmp_bits_i);\n       tree vec_cmp_type = build_vector_type (cmp_type, vector_type_nelts);\n       tree vec_truth_type = truth_type_for (vec_cmp_type);\n       tree zeros = build_zero_cst (vec_cmp_type);\n       tree ones = build_all_ones_cst (vec_cmp_type);\n      }\n      (if (expand_vec_cmp_expr_p (vec_cmp_type, vec_truth_type, LT_EXPR)\n\t   && expand_vec_cond_expr_p (vec_cmp_type, vec_truth_type))\n       (view_convert:type (vec_cond (lt:vec_truth_type\n\t\t\t\t     (view_convert:vec_cmp_type @0)\n\t\t\t\t     { zeros; })\n\t\t\t   { ones; } { zeros; })))))))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 446,
+        "pattern": "(mult:c @0 (cond (cmp @0 real_zerop) real_onep@1 real_minus_onep))",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {
+          "outp": [
+            "convert",
+            "negate"
+          ],
+          "outn": [
+            "convert",
+            "negate"
+          ]
+        },
+        "source": "(simplify\n  (mult:c @0 (cond (cmp @0 real_zerop) real_onep@1 real_minus_onep))\n  (if (!tree_expr_maybe_nan_p (@0) && !HONOR_SIGNED_ZEROS (type))\n   (outp (abs @0))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 454,
+        "pattern": "(mult:c @0 (cond (cmp @0 real_zerop) real_minus_onep real_onep@1))",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {
+          "outp": [
+            "convert",
+            "negate"
+          ],
+          "outn": [
+            "convert",
+            "negate"
+          ]
+        },
+        "source": "(simplify\n  (mult:c @0 (cond (cmp @0 real_zerop) real_minus_onep real_onep@1))\n  (if (!tree_expr_maybe_nan_p (@0) && !HONOR_SIGNED_ZEROS (type))\n   (outn (abs @0))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 460,
+        "pattern": "(mult:c @0 (COPYSIGN_ALL real_onep @0))",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (mult:c @0 (COPYSIGN_ALL real_onep @0))\n (if (!tree_expr_maybe_nan_p (@0) && !HONOR_SIGNED_ZEROS (type))\n  (abs @0)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 466,
+        "pattern": "(mult:c @0 (COPYSIGN_ALL real_onep (negate @0)))",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (mult:c @0 (COPYSIGN_ALL real_onep (negate @0)))\n (if (!tree_expr_maybe_nan_p (@0) && !HONOR_SIGNED_ZEROS (type))\n  (negate (abs @0))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 492,
+        "pattern": "(plus:c (max @0 integer_zerop) (max (negate @0) integer_zerop))",
+        "resolved_possible_root_operators": [
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (plus:c (max @0 integer_zerop) (max (negate @0) integer_zerop))\n (if (ANY_INTEGRAL_TYPE_P (type) && TYPE_OVERFLOW_UNDEFINED (type))\n  (abs @0)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 499,
+        "pattern": "(op @0 integer_onep)",
+        "resolved_possible_root_operators": [
+          "ceil_div",
+          "exact_div",
+          "floor_div",
+          "mult",
+          "round_div",
+          "trunc_div"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n    (op @0 integer_onep)\n    (non_lvalue @0))",
+        "disposition": "reachable; see README rewrite and construction rows"
+      },
+      {
+        "line": 638,
+        "pattern": "(mult (mult @0 INTEGER_CST@1) INTEGER_CST@2)",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (mult (mult @0 INTEGER_CST@1) INTEGER_CST@2)\n (with {\n   wi::overflow_type overflow;\n   wide_int mul = wi::mul (wi::to_wide (@1), wi::to_wide (@2),\n\t\t\t   TYPE_SIGN (type), &overflow);\n  }\n  /* Skip folding on overflow: the only special case is @1 * @2 == -INT_MIN,\n     otherwise undefined overflow implies that @0 must be zero.  */\n  (if (!overflow || TYPE_OVERFLOW_WRAPS (type))\n   (mult @0 { wide_int_to_tree (type, mul); }))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 652,
+        "pattern": "(mult (plus:s@5 (mult:s@4 @0 INTEGER_CST@1) INTEGER_CST@2) INTEGER_CST@3)",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (mult (plus:s@5 (mult:s@4 @0 INTEGER_CST@1) INTEGER_CST@2) INTEGER_CST@3)\n (with {\n   bool overflowed = true;\n   wi::overflow_type ovf1, ovf2;\n   wide_int mul = wi::mul (wi::to_wide (@1), wi::to_wide (@3),\n\t\t\t   TYPE_SIGN (type), &ovf1);\n   wide_int add = wi::mul (wi::to_wide (@2), wi::to_wide (@3),\n\t\t\t   TYPE_SIGN (type), &ovf2);\n  if (TYPE_OVERFLOW_UNDEFINED (type))\n    {\n#if GIMPLE\n      int_range_max vr0;\n      if (ovf1 == wi::OVF_NONE && ovf2 == wi::OVF_NONE\n\t  && gimple_match_range_of_expr (vr0, @4, @5)\n\t  && !vr0.varying_p ())\n\t{\n\t  wide_int wmin0 = vr0.lower_bound ();\n\t  wide_int wmax0 = vr0.upper_bound ();\n\t  wmin0 = wi::mul (wmin0, wi::to_wide (@3), TYPE_SIGN (type), &ovf1);\n\t  wmax0 = wi::mul (wmax0, wi::to_wide (@3), TYPE_SIGN (type), &ovf2);\n\t  if (ovf1 == wi::OVF_NONE && ovf2 == wi::OVF_NONE)\n\t    {\n\t      wi::add (wmin0, add, TYPE_SIGN (type), &ovf1);\n\t      wi::add (wmax0, add, TYPE_SIGN (type), &ovf2);\n\t      if (ovf1 == wi::OVF_NONE && ovf2 == wi::OVF_NONE)\n\t\toverflowed = false;\n\t    }\n\t}\n#endif\n    }\n  else\n   overflowed = false;\n }\n  /* Skip folding on overflow.  */\n  (if (!overflowed)\n   (plus (mult @0 { wide_int_to_tree (type, mul); })\n\t { wide_int_to_tree (type, add); }))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 692,
+        "pattern": "(plus (mult:s (plus:s@4 @0 INTEGER_CST@1) INTEGER_CST@2) INTEGER_CST@3)",
+        "resolved_possible_root_operators": [
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (plus (mult:s (plus:s@4 @0 INTEGER_CST@1) INTEGER_CST@2) INTEGER_CST@3)\n (with {\n   bool overflowed = true;\n   wi::overflow_type ovf1;\n   wi::overflow_type ovf2;\n   wide_int mul = wi::mul (wi::to_wide (@1), wi::to_wide (@2),\n\t\t\t   TYPE_SIGN (type), &ovf1);\n   wide_int add = wi::add (mul, wi::to_wide (@3),\n\t\t\t   TYPE_SIGN (type), &ovf2);\n  if (TYPE_OVERFLOW_UNDEFINED (type))\n    {\n#if GIMPLE\n      int_range_max vr0;\n      if (ovf1 == wi::OVF_NONE && ovf2 == wi::OVF_NONE\n\t  && gimple_match_range_of_expr (vr0, @0, @4)\n\t  && !vr0.varying_p ())\n\t{\n\t  wide_int wmin0 = vr0.lower_bound ();\n\t  wide_int wmax0 = vr0.upper_bound ();\n\t  wmin0 = wi::mul (wmin0, wi::to_wide (@2), TYPE_SIGN (type), &ovf1);\n\t  wmax0 = wi::mul (wmax0, wi::to_wide (@2), TYPE_SIGN (type), &ovf2);\n\t  if (ovf1 == wi::OVF_NONE && ovf2 == wi::OVF_NONE)\n\t    {\n\t      wi::add (wmin0, mul, TYPE_SIGN (type), &ovf1);\n\t      wi::add (wmax0, mul, TYPE_SIGN (type), &ovf2);\n\t      if (ovf1 == wi::OVF_NONE && ovf2 == wi::OVF_NONE)\n\t\toverflowed = false;\n\t    }\n\t}\n#endif\n    }\n  else\n   overflowed = false;\n }\n  /* Skip folding on overflow.  */\n  (if (!overflowed)\n   (plus (mult @0 @2) { wide_int_to_tree (type, add); }))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 938,
+        "pattern": "(minus (convert1? @0) (convert2? (mult:c (trunc_div @@0 @@1) @1)))",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (minus (convert1? @0) (convert2? (mult:c (trunc_div @@0 @@1) @1)))\n (if (INTEGRAL_TYPE_P (type)\n      || (VECTOR_INTEGER_TYPE_P (type)\n\t  && ((optimize_vectors_before_lowering_p ()\n\t       && TREE_CODE (TYPE_SIZE (type)) == INTEGER_CST)\n\t      || target_supports_op_p (type, TRUNC_MOD_EXPR,\n\t\t\t\t       optab_vector))))\n  (convert (trunc_mod @0 @1))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 949,
+        "pattern": "(minus (mult:cs @0 (plus:s (trunc_div:s @1 @0) integer_onep)) @1)",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (minus (mult:cs @0 (plus:s (trunc_div:s @1 @0) integer_onep)) @1)\n (if (INTEGRAL_TYPE_P (type))\n  (minus @0 (trunc_mod @1 @0))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 1003,
+        "pattern": "(mult (trunc_div @0 integer_pow2p@1) @1)",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (mult (trunc_div @0 integer_pow2p@1) @1)\n (if (INTEGRAL_TYPE_P (TREE_TYPE (@0)) && TYPE_UNSIGNED (TREE_TYPE (@0)))\n  (bit_and @0 (negate @1))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 1199,
+        "pattern": "(mult (abs@1 @0) @1)",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (mult (abs@1 @0) @1)\n (mult @0 @0))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 1204,
+        "pattern": "(mult (absu@1 @0) @1)",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (mult (absu@1 @0) @1)\n (mult (convert@2 @0) @2))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 1274,
+        "pattern": "(mult (copysigns@2 @0 @1) @2)",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (mult (copysigns@2 @0 @1) @2)\n  (mult @0 @0))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 1292,
+        "pattern": "(mult:c @0 (convert? (lshift integer_onep@1 @2)))",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (mult:c @0 (convert? (lshift integer_onep@1 @2)))\n  (if (! FLOAT_TYPE_P (type)\n       && tree_nop_conversion_p (type, TREE_TYPE (@1)))\n   (lshift @0 @2)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 1299,
+        "pattern": "(mult:c @0 (convert? (eq @0 integer_zerop)))",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (mult:c @0 (convert? (eq @0 integer_zerop)))\n  { build_zero_cst (type); })",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 1302,
+        "pattern": "(mult:c @0 (vec_cond (eq @0 integer_zerop) @1 integer_zerop))",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (mult:c @0 (vec_cond (eq @0 integer_zerop) @1 integer_zerop))\n  { build_zero_cst (type); })",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 1305,
+        "pattern": "(mult:c @0 (vec_cond (ne @0 integer_zerop) integer_zerop @1))",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (mult:c @0 (vec_cond (ne @0 integer_zerop) integer_zerop @1))\n  { build_zero_cst (type); })",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 1326,
+        "pattern": "(op (lshift:s @0 @1) (lshift:s @2 @1))",
+        "resolved_possible_root_operators": [
+          "minus",
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n    (op (lshift:s @0 @1) (lshift:s @2 @1))\n    (if (INTEGRAL_TYPE_P (type)\n\t && TYPE_OVERFLOW_WRAPS (type)\n\t && !TYPE_SATURATING (type))\n      (lshift (op @0 @2) @1)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 1434,
+        "pattern": "(mult (rdiv@3 REAL_CST@0 @1) REAL_CST@2)",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (mult (rdiv@3 REAL_CST@0 @1) REAL_CST@2)\n  (if (flag_associative_math\n       && single_use (@3))\n   (with\n    { tree tem = const_binop (MULT_EXPR, type, @0, @2); }\n    (if (tem)\n     (rdiv { tem; } @1)))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 1479,
+        "pattern": "(minus (bit_and:cs @0 (bit_not @1)) (bit_and:cs @0 @1))",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (minus (bit_and:cs @0 (bit_not @1)) (bit_and:cs @0 @1))\n  (minus (bit_xor @0 @1) @1))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 1482,
+        "pattern": "(minus (bit_and:s @0 INTEGER_CST@2) (bit_and:s @0 INTEGER_CST@1))",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (minus (bit_and:s @0 INTEGER_CST@2) (bit_and:s @0 INTEGER_CST@1))\n (if (~wi::to_wide (@2) == wi::to_wide (@1))\n  (minus (bit_xor @0 @1) @1)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 1488,
+        "pattern": "(minus (bit_and:cs @0 @1) (bit_and:cs @0 (bit_not @1)))",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (minus (bit_and:cs @0 @1) (bit_and:cs @0 (bit_not @1)))\n  (minus @1 (bit_xor @0 @1)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 1494,
+        "pattern": "(op (bit_and:c @0 @2) (bit_and:c @3 @1))",
+        "resolved_possible_root_operators": [
+          "bit_ior",
+          "bit_xor",
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (op (bit_and:c @0 @2) (bit_and:c @3 @1))\n  (with { bool wascmp0, wascmp1; }\n   (if (bitwise_inverted_equal_p (@2, @1, wascmp0)\n        && bitwise_inverted_equal_p (@0, @3, wascmp1)\n\t&& ((!wascmp0 && !wascmp1)\n\t    || element_precision (type) == 1))\n   (bit_xor @0 @1))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 1787,
+        "pattern": "(minus (bit_not @0) (bit_not @1))",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (minus (bit_not @0) (bit_not @1))\n  (if (!TYPE_OVERFLOW_SANITIZED (type))\n   (with { tree utype = unsigned_type_for (type); }\n    (convert (minus (convert:utype @1) (convert:utype @0))))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 1807,
+        "pattern": "(plus:c (bit_not @0) @1)",
+        "resolved_possible_root_operators": [
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (plus:c (bit_not @0) @1)\n  (if (ANY_INTEGRAL_TYPE_P (type)\n       && TYPE_OVERFLOW_WRAPS (type)\n       /* -1 - X is folded to ~X, so we'd recurse endlessly.  */\n       && !integer_all_onesp (@1))\n   (plus (minus @1 @0) { build_minus_one_cst (type); })\n   (if (INTEGRAL_TYPE_P (type)\n\t&& TREE_CODE (@1) == INTEGER_CST\n\t&& wi::to_wide (@1) != wi::min_value (TYPE_PRECISION (type),\n\t\t\t\t\t      SIGNED))\n    (minus (plus @1 { build_minus_one_cst (type); }) @0))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 1835,
+        "pattern": "(plus:c @0 (bit_and:s @0 integer_onep@1))",
+        "resolved_possible_root_operators": [
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (plus:c @0 (bit_and:s @0 integer_onep@1))\n (bit_and (plus @0 @1) (bit_not @1)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 1885,
+        "pattern": "(op:c (bit_and @0 @1) (bit_xor @0 @1))",
+        "resolved_possible_root_operators": [
+          "bit_ior",
+          "bit_xor",
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (op:c (bit_and @0 @1) (bit_xor @0 @1))\n  (bit_ior @0 @1))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 1890,
+        "pattern": "(plus:c (bit_and @0 @1) (bit_ior @0 @1))",
+        "resolved_possible_root_operators": [
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (plus:c (bit_and @0 @1) (bit_ior @0 @1))\n (plus @0 @1))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 1895,
+        "pattern": "(minus (plus @0 @1) (bit_ior @0 @1))",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (minus (plus @0 @1) (bit_ior @0 @1))\n (if (!TYPE_OVERFLOW_SANITIZED (type) && !TYPE_OVERFLOW_TRAPS (type)\n      && !TYPE_SATURATING (type))\n  (bit_and @0 @1)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 1902,
+        "pattern": "(minus (plus @0 @1) (bit_and @0 @1))",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (minus (plus @0 @1) (bit_and @0 @1))\n (if (!TYPE_OVERFLOW_SANITIZED (type) && !TYPE_OVERFLOW_TRAPS (type)\n      && !TYPE_SATURATING (type))\n  (bit_ior @0 @1)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 1909,
+        "pattern": "(minus (bit_ior:cs @0 @1) @1)",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (minus (bit_ior:cs @0 @1) @1)\n (bit_and @0 (bit_not @1)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 1914,
+        "pattern": "(minus (bit_ior @0 @1) (bit_xor @0 @1))",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (minus (bit_ior @0 @1) (bit_xor @0 @1))\n (bit_and @0 @1))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 1919,
+        "pattern": "(minus (bit_ior @0 @1) (bit_and @0 @1))",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (minus (bit_ior @0 @1) (bit_and @0 @1))\n (bit_xor @0 @1))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 1947,
+        "pattern": "(plus (nop_convert1? (minus@2 (nop_convert2? (bit_and:c @0 @1))\n                              (nop_convert2? (bit_ior @0 @1))))\n       integer_all_onesp)",
+        "resolved_possible_root_operators": [
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (plus (nop_convert1? (minus@2 (nop_convert2? (bit_and:c @0 @1))\n                              (nop_convert2? (bit_ior @0 @1))))\n       integer_all_onesp)\n (if (!TYPE_OVERFLOW_SANITIZED (type) && !TYPE_OVERFLOW_TRAPS (type)\n      && !TYPE_SATURATING (type) && !TYPE_OVERFLOW_SANITIZED (TREE_TYPE (@2))\n      && !TYPE_OVERFLOW_TRAPS (TREE_TYPE (@2))\n      && !TYPE_SATURATING (TREE_TYPE (@2)))\n (bit_not (convert (bit_xor @0 @1)))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 1956,
+        "pattern": "(minus (nop_convert1? (plus@2 (nop_convert2? (bit_and:c @0 @1))\n                               integer_all_onesp))\n       (nop_convert3? (bit_ior @0 @1)))",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (minus (nop_convert1? (plus@2 (nop_convert2? (bit_and:c @0 @1))\n                               integer_all_onesp))\n       (nop_convert3? (bit_ior @0 @1)))\n (if (!TYPE_OVERFLOW_SANITIZED (type) && !TYPE_OVERFLOW_TRAPS (type)\n      && !TYPE_SATURATING (type) && !TYPE_OVERFLOW_SANITIZED (TREE_TYPE (@2))\n      && !TYPE_OVERFLOW_TRAPS (TREE_TYPE (@2))\n      && !TYPE_SATURATING (TREE_TYPE (@2)))\n (bit_not (convert (bit_xor @0 @1)))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 1965,
+        "pattern": "(minus (nop_convert1? (bit_and @0 @1))\n       (nop_convert2? (plus@2 (nop_convert3? (bit_ior:c @0 @1))\n                               integer_onep)))",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (minus (nop_convert1? (bit_and @0 @1))\n       (nop_convert2? (plus@2 (nop_convert3? (bit_ior:c @0 @1))\n                               integer_onep)))\n (if (!TYPE_OVERFLOW_SANITIZED (type) && !TYPE_OVERFLOW_TRAPS (type)\n      && !TYPE_SATURATING (type) && !TYPE_OVERFLOW_SANITIZED (TREE_TYPE (@2))\n      && !TYPE_OVERFLOW_TRAPS (TREE_TYPE (@2))\n      && !TYPE_SATURATING (TREE_TYPE (@2)))\n (bit_not (convert (bit_xor @0 @1)))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 1990,
+        "pattern": "(op (convert1? (bit_and@4 @0 INTEGER_CST@1))\n      (convert2? (bit_and@5 @2 INTEGER_CST@3)))",
+        "resolved_possible_root_operators": [
+          "bit_xor",
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (op (convert1? (bit_and@4 @0 INTEGER_CST@1))\n      (convert2? (bit_and@5 @2 INTEGER_CST@3)))\n  (if (tree_nop_conversion_p (type, TREE_TYPE (@0))\n       && tree_nop_conversion_p (type, TREE_TYPE (@2))\n       && (wi::to_wide (@1) & wi::to_wide (@3)) == 0)\n   (bit_ior (convert @4) (convert @5))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 2129,
+        "pattern": "(mult:c (nop_convert1?\n\t  (bit_ior (nop_convert2? (negate (convert? (lt @0 integer_zerop))))\n\t\t    integer_onep))\n\t (nop_convert3? @0))",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (mult:c (nop_convert1?\n\t  (bit_ior (nop_convert2? (negate (convert? (lt @0 integer_zerop))))\n\t\t    integer_onep))\n\t (nop_convert3? @0))\n (if (INTEGRAL_TYPE_P (type)\n      && INTEGRAL_TYPE_P (TREE_TYPE (@0))\n      && !TYPE_UNSIGNED (TREE_TYPE (@0)))\n  (if (TYPE_UNSIGNED (type))\n   (absu @0)\n   (abs @0)\n  )\n )\n)",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 2172,
+        "pattern": "(mult:c (convert1? (negate @0)) (convert2? negate_expr_p@1))",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (mult:c (convert1? (negate @0)) (convert2? negate_expr_p@1))\n  (if (tree_nop_conversion_p (type, TREE_TYPE (@0))\n       && tree_nop_conversion_p (type, TREE_TYPE (@1)))\n   (mult (convert @0) (convert (negate @1)))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 2200,
+        "pattern": "(minus @0 negate_expr_p@1)",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (minus @0 negate_expr_p@1)\n (if (!FIXED_POINT_TYPE_P (type))\n (plus @0 (negate @1))))",
+        "disposition": "reachable; see README rewrite and construction rows"
+      },
+      {
+        "line": 2210,
+        "pattern": "(minus integer_onep@0 SSA_NAME@1)",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (minus integer_onep@0 SSA_NAME@1)\n  (if (INTEGRAL_TYPE_P (type)\n       && ssa_name_has_boolean_range (@1))\n   (bit_xor @1 @0)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 2496,
+        "pattern": "(mult zero_one_valued_p@0 zero_one_valued_p@1)",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (mult zero_one_valued_p@0 zero_one_valued_p@1)\n (if (INTEGRAL_TYPE_P (type))\n  (bit_and @0 @1)))",
+        "disposition": "multiplier eight is not zero-one-valued; multiplier one returns at identity rule"
+      },
+      {
+        "line": 2505,
+        "pattern": "(op:c\n    (cnd:s @0 @00 integer_zerop)\n    (cnd:s @0 integer_zerop @01))",
+        "resolved_possible_root_operators": [
+          "bit_ior",
+          "bit_xor",
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n   (op:c\n    (cnd:s @0 @00 integer_zerop)\n    (cnd:s @0 integer_zerop @01))\n   (cnd @0 @00 @01))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 2531,
+        "pattern": "(op\n    (cond (cmp@0  @01 @02) @3 zerop)\n    (cond (icmp@4 @01 @02) @5 zerop))",
+        "resolved_possible_root_operators": [
+          "bit_ior",
+          "bit_xor",
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n   (op\n    (cond (cmp@0  @01 @02) @3 zerop)\n    (cond (icmp@4 @01 @02) @5 zerop))\n     (if (INTEGRAL_TYPE_P (type)\n\t  && invert_tree_comparison (cmp, HONOR_NANS (@01)) == icmp\n\t  /* The scalar version has to be canonicalized after vectorization\n\t     because it makes unconditional loads conditional ones, which\n\t     means we lose vectorization because the loads may trap.  */\n\t  && canonicalize_math_after_vectorization_p ())\n     (cond @0 @3 @5)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 2568,
+        "pattern": "(op\n    (vec_cond:s (cmp@0 @4 @5) @2 integer_zerop)\n    (vec_cond:s (icmp@1 @4 @5) @3 integer_zerop))",
+        "resolved_possible_root_operators": [
+          "bit_ior",
+          "bit_xor",
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n   (op\n    (vec_cond:s (cmp@0 @4 @5) @2 integer_zerop)\n    (vec_cond:s (icmp@1 @4 @5) @3 integer_zerop))\n   (if (invert_tree_comparison (cmp, HONOR_NANS (@4)) == icmp)\n    (vec_cond @0 @2 @3)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 2686,
+        "pattern": "(minus (convert1? @0) (convert2?:s (bit_and:cs @@0 @1)))",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (minus (convert1? @0) (convert2?:s (bit_and:cs @@0 @1)))\n (if (tree_nop_conversion_p (type, TREE_TYPE (@0))\n      && tree_nop_conversion_p (type, TREE_TYPE (@1)))\n  (convert (bit_and (bit_not @1) @0))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 2695,
+        "pattern": "(mult:c (convert (cmp@0 @1 @2)) @3)",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n   (mult:c (convert (cmp@0 @1 @2)) @3)\n   (if (INTEGRAL_TYPE_P (type)\n\t&& INTEGRAL_TYPE_P (TREE_TYPE (@0)))\n     (cond @0 @3 { build_zero_cst (type); })))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 2878,
+        "pattern": "(op (plus:c @0 @2) (plus:c @1 @2))",
+        "resolved_possible_root_operators": [
+          "eq",
+          "minus",
+          "ne"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (op (plus:c @0 @2) (plus:c @1 @2))\n  (if (ANY_INTEGRAL_TYPE_P (TREE_TYPE (@0))\n       && (TYPE_OVERFLOW_UNDEFINED (TREE_TYPE (@0))\n\t   || TYPE_OVERFLOW_WRAPS (TREE_TYPE (@0))))\n   (op @0 @1)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 2906,
+        "pattern": "(op (minus @0 @2) (minus @1 @2))",
+        "resolved_possible_root_operators": [
+          "eq",
+          "minus",
+          "ne"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (op (minus @0 @2) (minus @1 @2))\n  (if (ANY_INTEGRAL_TYPE_P (TREE_TYPE (@0))\n       && (TYPE_OVERFLOW_UNDEFINED (TREE_TYPE (@0))\n\t   || TYPE_OVERFLOW_WRAPS (TREE_TYPE (@0))))\n   (op @0 @1)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 2918,
+        "pattern": "(minus (pointer_diff@3 @0 @2) (pointer_diff @1 @2))",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (minus (pointer_diff@3 @0 @2) (pointer_diff @1 @2))\n (if (TYPE_OVERFLOW_UNDEFINED (TREE_TYPE (@3))\n      && !TYPE_OVERFLOW_SANITIZED (TREE_TYPE (@2)))\n  (pointer_diff @0 @1)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 2933,
+        "pattern": "(op (minus @2 @0) (minus @2 @1))",
+        "resolved_possible_root_operators": [
+          "eq",
+          "minus",
+          "ne"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (op (minus @2 @0) (minus @2 @1))\n  (if (ANY_INTEGRAL_TYPE_P (TREE_TYPE (@0))\n       && (TYPE_OVERFLOW_UNDEFINED (TREE_TYPE (@0))\n\t   || TYPE_OVERFLOW_WRAPS (TREE_TYPE (@0))))\n   (op @1 @0)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 2945,
+        "pattern": "(minus (pointer_diff@3 @2 @0) (pointer_diff @2 @1))",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (minus (pointer_diff@3 @2 @0) (pointer_diff @2 @1))\n (if (TYPE_OVERFLOW_UNDEFINED (TREE_TYPE (@3))\n      && !TYPE_OVERFLOW_SANITIZED (TREE_TYPE (@2)))\n  (pointer_diff @1 @0)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 3202,
+        "pattern": "(minus (convert ADDR_EXPR@0) (convert (pointer_plus @1 @2)))",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (minus (convert ADDR_EXPR@0) (convert (pointer_plus @1 @2)))\n (if (tree_nop_conversion_p (type, TREE_TYPE (@0)))\n  (with { poly_int64 diff; }\n   (if (ptr_difference_const (@0, @1, &diff))\n    (minus { build_int_cst_type (type, diff); } (convert @2))))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 3208,
+        "pattern": "(minus (convert (pointer_plus @0 @2)) (convert ADDR_EXPR@1))",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (minus (convert (pointer_plus @0 @2)) (convert ADDR_EXPR@1))\n (if (tree_nop_conversion_p (type, TREE_TYPE (@0)))\n  (with { poly_int64 diff; }\n   (if (ptr_difference_const (@0, @1, &diff))\n    (plus (convert @2) { build_int_cst_type (type, diff); })))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 3214,
+        "pattern": "(minus (convert ADDR_EXPR@0) (convert @1))",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (minus (convert ADDR_EXPR@0) (convert @1))\n (if (tree_nop_conversion_p (type, TREE_TYPE (@0)))\n  (with { poly_int64 diff; }\n   (if (ptr_difference_const (@0, @1, &diff))\n    { build_int_cst_type (type, diff); }))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 3220,
+        "pattern": "(minus (convert @0) (convert ADDR_EXPR@1))",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (minus (convert @0) (convert ADDR_EXPR@1))\n (if (tree_nop_conversion_p (type, TREE_TYPE (@0)))\n  (with { poly_int64 diff; }\n   (if (ptr_difference_const (@0, @1, &diff))\n    { build_int_cst_type (type, diff); }))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 4299,
+        "pattern": "(plus:c @0 (convert? (negate @1)))",
+        "resolved_possible_root_operators": [
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (plus:c @0 (convert? (negate @1)))\n  /* Apply STRIP_NOPS on the negate.  */\n  (if (tree_nop_conversion_p (type, TREE_TYPE (@1))\n       && !TYPE_OVERFLOW_SANITIZED (type))\n   (with\n    {\n     tree t1 = type;\n     if (INTEGRAL_TYPE_P (type)\n\t && TYPE_OVERFLOW_WRAPS (type) != TYPE_OVERFLOW_WRAPS (TREE_TYPE (@1)))\n       t1 = TYPE_OVERFLOW_WRAPS (type) ? type : TREE_TYPE (@1);\n    }\n    (convert (minus (convert:t1 @0) (convert:t1 @1))))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 4313,
+        "pattern": "(minus @0 (convert? (negate @1)))",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (minus @0 (convert? (negate @1)))\n  (if (tree_nop_conversion_p (type, TREE_TYPE (@1))\n       && !TYPE_OVERFLOW_SANITIZED (type))\n   (with\n    {\n     tree t1 = type;\n     if (INTEGRAL_TYPE_P (type)\n\t && TYPE_OVERFLOW_WRAPS (type) != TYPE_OVERFLOW_WRAPS (TREE_TYPE (@1)))\n       t1 = TYPE_OVERFLOW_WRAPS (type) ? type : TREE_TYPE (@1);\n    }\n    (convert (plus (convert:t1 @0) (convert:t1 @1))))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 4362,
+        "pattern": "(minus (nop_convert1? (plus:c (nop_convert2? @0) @1)) @0)",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n   (minus (nop_convert1? (plus:c (nop_convert2? @0) @1)) @0)\n   (view_convert @1))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 4365,
+        "pattern": "(minus (nop_convert1? (minus (nop_convert2? @0) @1)) @0)",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n   (minus (nop_convert1? (minus (nop_convert2? @0) @1)) @0)\n   (if (!ANY_INTEGRAL_TYPE_P (type)\n\t|| TYPE_OVERFLOW_WRAPS (type))\n   (negate (view_convert @1))\n   (view_convert (negate @1))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 4371,
+        "pattern": "(plus:c (nop_convert1? (minus @0 (nop_convert2? @1))) @1)",
+        "resolved_possible_root_operators": [
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n   (plus:c (nop_convert1? (minus @0 (nop_convert2? @1))) @1)\n   (view_convert @0))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 4374,
+        "pattern": "(minus @0 (nop_convert1? (plus:c (nop_convert2? @0) @1)))",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n   (minus @0 (nop_convert1? (plus:c (nop_convert2? @0) @1)))\n    (if (!ANY_INTEGRAL_TYPE_P (type)\n\t || TYPE_OVERFLOW_WRAPS (type))\n     (negate (view_convert @1))\n     (view_convert (negate @1))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 4380,
+        "pattern": "(minus @0 (nop_convert1? (minus (nop_convert2? @0) @1)))",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n   (minus @0 (nop_convert1? (minus (nop_convert2? @0) @1)))\n   (view_convert @1))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 4386,
+        "pattern": "(plus:c (plus:c @0 @1) (minus @2 @0))",
+        "resolved_possible_root_operators": [
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n   (plus:c (plus:c @0 @1) (minus @2 @0))\n   (plus @2 @1))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 4389,
+        "pattern": "(plus:c (minus @0 @1) (minus @2 @0))",
+        "resolved_possible_root_operators": [
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n   (plus:c (minus @0 @1) (minus @2 @0))\n   (minus @2 @1))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 4392,
+        "pattern": "(plus:c (pointer_diff @0 @1) (pointer_diff @2 @0))",
+        "resolved_possible_root_operators": [
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n   (plus:c (pointer_diff @0 @1) (pointer_diff @2 @0))\n   (if (TYPE_OVERFLOW_UNDEFINED (type)\n\t&& !TYPE_OVERFLOW_SANITIZED (TREE_TYPE (@0)))\n    (pointer_diff @2 @1)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 4397,
+        "pattern": "(minus (plus:c @0 @1) (minus @0 @2))",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n   (minus (plus:c @0 @1) (minus @0 @2))\n   (plus @1 @2))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 4407,
+        "pattern": "(outer_op (nop_convert? (inner_op @0 CONSTANT_CLASS_P@1))\n\t       CONSTANT_CLASS_P@2)",
+        "resolved_possible_root_operators": [
+          "minus",
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n     (outer_op (nop_convert? (inner_op @0 CONSTANT_CLASS_P@1))\n\t       CONSTANT_CLASS_P@2)\n     /* If one of the types wraps, use that one.  */\n     (if (!ANY_INTEGRAL_TYPE_P (type) || TYPE_OVERFLOW_WRAPS (type))\n      /* If all 3 captures are CONSTANT_CLASS_P, punt, as we might recurse\n\t forever if something doesn't simplify into a constant.  */\n      (if (!CONSTANT_CLASS_P (@0))\n       (if (outer_op == PLUS_EXPR)\n\t(plus (view_convert @0) (inner_op! @2 (view_convert @1)))\n\t(minus (view_convert @0) (neg_inner_op! @2 (view_convert @1)))))\n      (if (!ANY_INTEGRAL_TYPE_P (TREE_TYPE (@0))\n\t   || TYPE_OVERFLOW_WRAPS (TREE_TYPE (@0)))\n       (if (outer_op == PLUS_EXPR)\n\t(view_convert (plus @0 (inner_op! (view_convert @2) @1)))\n\t(view_convert (minus @0 (neg_inner_op! (view_convert @2) @1))))\n       /* If the constant operation overflows we cannot do the transform\n\t  directly as we would introduce undefined overflow, for example\n\t  with (a - 1) + INT_MIN.  */\n       (if (types_match (type, @0) && !TYPE_OVERFLOW_SANITIZED (type))\n\t(with { tree cst = const_binop (outer_op == inner_op\n\t\t\t\t\t? PLUS_EXPR : MINUS_EXPR,\n\t\t\t\t\ttype, @1, @2); }\n\t (if (cst)\n\t  (if (INTEGRAL_TYPE_P (type) && !TREE_OVERFLOW (cst))\n\t   (inner_op @0 { cst; } )\n\t   /* X+INT_MAX+1 is X-INT_MIN.  */\n\t   (if (INTEGRAL_TYPE_P (type)\n\t        && wi::to_wide (cst) == wi::min_value (type))\n\t    (neg_inner_op @0 { wide_int_to_tree (type, wi::to_wide (cst)); })\n\t    /* Last resort, use some unsigned type.  */\n\t    (with { tree utype = unsigned_type_for (type); }\n\t     (if (utype)\n\t      (view_convert (inner_op\n\t\t\t     (view_convert:utype @0)\n\t\t\t     (view_convert:utype\n\t\t\t      { TREE_OVERFLOW (cst)\n\t\t\t        ? drop_tree_overflow (cst) : cst; })))))))))))))",
+        "disposition": "reachable; see README rewrite and construction rows"
+      },
+      {
+        "line": 4448,
+        "pattern": "(outer_op (nop_convert? (minus CONSTANT_CLASS_P@1 @0)) CONSTANT_CLASS_P@2)",
+        "resolved_possible_root_operators": [
+          "minus",
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n    (outer_op (nop_convert? (minus CONSTANT_CLASS_P@1 @0)) CONSTANT_CLASS_P@2)\n    /* If one of the types wraps, use that one.  */\n    (if (!ANY_INTEGRAL_TYPE_P (type) || TYPE_OVERFLOW_WRAPS (type))\n     /* If all 3 captures are CONSTANT_CLASS_P, punt, as we might recurse\n\tforever if something doesn't simplify into a constant.  */\n     (if (!CONSTANT_CLASS_P (@0))\n      (minus (outer_op! (view_convert @1) @2) (view_convert @0)))\n     (if (!ANY_INTEGRAL_TYPE_P (TREE_TYPE (@0))\n\t  || TYPE_OVERFLOW_WRAPS (TREE_TYPE (@0)))\n      (view_convert (minus (outer_op! @1 (view_convert @2)) @0))\n      (if (types_match (type, @0) && !TYPE_OVERFLOW_SANITIZED (type))\n       (with { tree cst = const_binop (outer_op, type, @1, @2); }\n\t(if (cst && !TREE_OVERFLOW (cst))\n\t (minus { cst; } @0)))))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 4467,
+        "pattern": "(minus CONSTANT_CLASS_P@1 (nop_convert? (minus CONSTANT_CLASS_P@2 @0)))",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n   (minus CONSTANT_CLASS_P@1 (nop_convert? (minus CONSTANT_CLASS_P@2 @0)))\n   /* If one of the types wraps, use that one.  */\n   (if (!ANY_INTEGRAL_TYPE_P (type) || TYPE_OVERFLOW_WRAPS (type))\n    /* If all 3 captures are CONSTANT_CLASS_P, punt, as we might recurse\n      forever if something doesn't simplify into a constant.  */\n    (if (!CONSTANT_CLASS_P (@0))\n     (plus (view_convert @0) (minus! @1 (view_convert @2))))\n    (if (!ANY_INTEGRAL_TYPE_P (TREE_TYPE (@0))\n\t || TYPE_OVERFLOW_WRAPS (TREE_TYPE (@0)))\n     (view_convert (plus @0 (minus! (view_convert @1) @2)))\n     (if (types_match (type, @0) && !TYPE_OVERFLOW_SANITIZED (type))\n      (with { tree cst = const_binop (MINUS_EXPR, type, @1, @2); }\n       (if (cst && !TREE_OVERFLOW (cst))\n\t(plus { cst; } @0)))))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 4485,
+        "pattern": "(plus (convert:s@2 SSA_NAME@0) INTEGER_CST@1)",
+        "resolved_possible_root_operators": [
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n   (plus (convert:s@2 SSA_NAME@0) INTEGER_CST@1)\n    (if (TREE_CODE (TREE_TYPE (@0)) == INTEGER_TYPE\n         && TREE_CODE (type) == INTEGER_TYPE\n         && TYPE_PRECISION (type) > TYPE_PRECISION (TREE_TYPE (@0))\n         && int_fits_type_p (@1, TREE_TYPE (@0)))\n     /* Perform binary operation inside the cast if the constant fits\n        and (A + CST)'s range does not overflow.  */\n     (with\n      {\n\twi::overflow_type min_ovf = wi::OVF_OVERFLOW,\n\t\t\t  max_ovf = wi::OVF_OVERFLOW;\n        tree inner_type = TREE_TYPE (@0);\n\n\twide_int w1\n\t  = wide_int::from (wi::to_wide (@1), TYPE_PRECISION (inner_type),\n\t\t\t    TYPE_SIGN (inner_type));\n\n\tint_range_max vr;\n\tif (gimple_match_range_of_expr (vr, @0, @2) && !vr.varying_p ())\n          {\n\t    wide_int wmin0 = vr.lower_bound ();\n\t    wide_int wmax0 = vr.upper_bound ();\n            wi::add (wmin0, w1, TYPE_SIGN (inner_type), &min_ovf);\n            wi::add (wmax0, w1, TYPE_SIGN (inner_type), &max_ovf);\n          }\n      }\n     (if (min_ovf == wi::OVF_NONE && max_ovf == wi::OVF_NONE)\n      (convert (plus @0 { wide_int_to_tree (TREE_TYPE (@0), w1); } )))\n     )))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 4520,
+        "pattern": "(plus (convert:s (op:s @0 INTEGER_CST@1)) INTEGER_CST@2)",
+        "resolved_possible_root_operators": [
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n    (plus (convert:s (op:s @0 INTEGER_CST@1)) INTEGER_CST@2)\n     (if (TREE_CODE (TREE_TYPE (@0)) == INTEGER_TYPE\n\t  && TREE_CODE (type) == INTEGER_TYPE\n\t  && TYPE_PRECISION (type) > TYPE_PRECISION (TREE_TYPE (@0))\n\t  && TYPE_OVERFLOW_UNDEFINED (TREE_TYPE (@0))\n\t  && !TYPE_OVERFLOW_SANITIZED (TREE_TYPE (@0))\n\t  && TYPE_OVERFLOW_WRAPS (type))\n       (plus (convert @0) (op @2 (convert @1)))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 4534,
+        "pattern": "(op (convert @0) (convert @1))",
+        "resolved_possible_root_operators": [
+          "minus",
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n    (op (convert @0) (convert @1))\n     (if (INTEGRAL_TYPE_P (type)\n\t  && INTEGRAL_TYPE_P (TREE_TYPE (@0))\n\t  && TYPE_PRECISION (type) <= TYPE_PRECISION (TREE_TYPE (@0))\n\t  && types_match (TREE_TYPE (@0), TREE_TYPE (@1))\n\t  && !TYPE_OVERFLOW_TRAPS (type)\n\t  && !TYPE_OVERFLOW_SANITIZED (type))\n      (convert (op! @0 @1))))",
+        "disposition": "requires two conversion operands; right literal has no conversion node"
+      },
+      {
+        "line": 4545,
+        "pattern": "(plus:c (convert? (bit_not @0)) (convert? @0))",
+        "resolved_possible_root_operators": [
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n   (plus:c (convert? (bit_not @0)) (convert? @0))\n   (if (!TYPE_OVERFLOW_TRAPS (type))\n    (convert { build_all_ones_cst (TREE_TYPE (@0)); })))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 4551,
+        "pattern": "(plus (convert? (bit_not @0)) integer_each_onep)",
+        "resolved_possible_root_operators": [
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n   (plus (convert? (bit_not @0)) integer_each_onep)\n   (if (tree_nop_conversion_p (type, TREE_TYPE (@0)))\n    (negate (convert @0))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 4557,
+        "pattern": "(minus (convert? (negate @0)) integer_each_onep)",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n   (minus (convert? (negate @0)) integer_each_onep)\n   (if (!TYPE_OVERFLOW_TRAPS (type)\n\t&& TREE_CODE (type) != COMPLEX_TYPE\n\t&& tree_nop_conversion_p (type, TREE_TYPE (@0)))\n    (bit_not (convert @0))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 4565,
+        "pattern": "(minus integer_all_onesp @0)",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n   (minus integer_all_onesp @0)\n   (if (TREE_CODE (type) != COMPLEX_TYPE)\n    (bit_not @0)))",
+        "disposition": "requires absent zero, all-ones or minus-one operand position"
+      },
+      {
+        "line": 4571,
+        "pattern": "(minus (convert (plus:c @@0 @1))\n    (convert? @0))",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n   (minus (convert (plus:c @@0 @1))\n    (convert? @0))\n   (if (element_precision (type) <= element_precision (TREE_TYPE (@1))\n\t/* For integer types, if A has a smaller type\n\t   than T the result depends on the possible\n\t   overflow in P + A.\n\t   E.g. T=size_t, A=(unsigned)429497295, P>0.\n\t   However, if an overflow in P + A would cause\n\t   undefined behavior, we can assume that there\n\t   is no overflow.  */\n\t|| (INTEGRAL_TYPE_P (TREE_TYPE (@1))\n\t    && TYPE_OVERFLOW_UNDEFINED (TREE_TYPE (@1))))\n    (convert @1)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 4585,
+        "pattern": "(minus (convert (pointer_plus @@0 @1))\n    (convert @0))",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n   (minus (convert (pointer_plus @@0 @1))\n    (convert @0))\n   (if (element_precision (type) <= element_precision (TREE_TYPE (@1))\n\t/* For pointer types, if the conversion of A to the\n\t   final type requires a sign- or zero-extension,\n\t   then we have to punt - it is not defined which\n\t   one is correct.  */\n\t|| (POINTER_TYPE_P (TREE_TYPE (@0))\n\t    && TREE_CODE (@1) == INTEGER_CST\n\t    && tree_int_cst_sign_bit (@1) == 0))\n    (convert @1)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 4608,
+        "pattern": "(minus (convert? @0)\n    (convert (plus:c @@0 @1)))",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n   (minus (convert? @0)\n    (convert (plus:c @@0 @1)))\n   (if (INTEGRAL_TYPE_P (type)\n\t&& TYPE_OVERFLOW_UNDEFINED (type)\n\t/* For integer literals, using an intermediate unsigned type to avoid\n\t   an overflow at run time is counter-productive because it introduces\n\t   spurious overflows at compile time, in the form of TREE_OVERFLOW on\n\t   the result, which may be problematic in GENERIC for some front-ends:\n\t     (T)P - (T)(P + 4) -> (T)(-(U)4) -> (T)(4294967292) -> -4(OVF)\n\t   so we use the direct path for them.  */\n\t&& TREE_CODE (@1) != INTEGER_CST\n\t&& element_precision (type) <= element_precision (TREE_TYPE (@1)))\n    (with { tree utype = unsigned_type_for (type); }\n     (convert (negate (convert:utype @1))))\n    (if (element_precision (type) <= element_precision (TREE_TYPE (@1))\n\t /* For integer types, if A has a smaller type\n\t    than T the result depends on the possible\n\t    overflow in P + A.\n\t    E.g. T=size_t, A=(unsigned)429497295, P>0.\n\t    However, if an overflow in P + A would cause\n\t    undefined behavior, we can assume that there\n\t    is no overflow.  */\n\t || (INTEGRAL_TYPE_P (TREE_TYPE (@1))\n\t     && TYPE_OVERFLOW_UNDEFINED (TREE_TYPE (@1))))\n     (negate (convert @1)))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 4634,
+        "pattern": "(minus (convert @0)\n    (convert (pointer_plus @@0 @1)))",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n   (minus (convert @0)\n    (convert (pointer_plus @@0 @1)))\n   (if (INTEGRAL_TYPE_P (type)\n\t&& TYPE_OVERFLOW_UNDEFINED (type)\n\t/* See above the rationale for this condition.  */\n\t&& TREE_CODE (@1) != INTEGER_CST\n\t&& element_precision (type) <= element_precision (TREE_TYPE (@1)))\n    (with { tree utype = unsigned_type_for (type); }\n     (convert (negate (convert:utype @1))))\n    (if (element_precision (type) <= element_precision (TREE_TYPE (@1))\n\t /* For pointer types, if the conversion of A to the\n\t    final type requires a sign- or zero-extension,\n\t    then we have to punt - it is not defined which\n\t    one is correct.  */\n\t || (POINTER_TYPE_P (TREE_TYPE (@0))\n\t     && TREE_CODE (@1) == INTEGER_CST\n\t     && tree_int_cst_sign_bit (@1) == 0))\n     (negate (convert @1)))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 4664,
+        "pattern": "(minus (convert (plus:c @@0 @1))\n    (convert (plus:c @0 @2)))",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n   (minus (convert (plus:c @@0 @1))\n    (convert (plus:c @0 @2)))\n   (if (INTEGRAL_TYPE_P (type)\n\t&& TYPE_OVERFLOW_UNDEFINED (type)\n\t&& element_precision (type) <= element_precision (TREE_TYPE (@1))\n\t&& element_precision (type) <= element_precision (TREE_TYPE (@2)))\n    (with { tree utype = unsigned_type_for (type); }\n     (convert (minus (convert:utype @1) (convert:utype @2))))\n    (if (((element_precision (type) <= element_precision (TREE_TYPE (@1)))\n\t  == (element_precision (type) <= element_precision (TREE_TYPE (@2))))\n\t && (element_precision (type) <= element_precision (TREE_TYPE (@1))\n\t     /* For integer types, if A has a smaller type\n\t\tthan T the result depends on the possible\n\t\toverflow in P + A.\n\t\tE.g. T=size_t, A=(unsigned)429497295, P>0.\n\t\tHowever, if an overflow in P + A would cause\n\t\tundefined behavior, we can assume that there\n\t\tis no overflow.  */\n\t     || (INTEGRAL_TYPE_P (TREE_TYPE (@1))\n\t\t && INTEGRAL_TYPE_P (TREE_TYPE (@2))\n\t\t && TYPE_OVERFLOW_UNDEFINED (TREE_TYPE (@1))\n\t\t && TYPE_OVERFLOW_UNDEFINED (TREE_TYPE (@2)))))\n     (minus (convert @1) (convert @2)))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 4688,
+        "pattern": "(minus (convert (pointer_plus @@0 @1))\n    (convert (pointer_plus @0 @2)))",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n   (minus (convert (pointer_plus @@0 @1))\n    (convert (pointer_plus @0 @2)))\n   (if (INTEGRAL_TYPE_P (type)\n\t&& TYPE_OVERFLOW_UNDEFINED (type)\n\t&& element_precision (type) <= element_precision (TREE_TYPE (@1)))\n    (with { tree utype = unsigned_type_for (type); }\n     (convert (minus (convert:utype @1) (convert:utype @2))))\n    (if (element_precision (type) <= element_precision (TREE_TYPE (@1))\n\t /* For pointer types, if the conversion of A to the\n\t    final type requires a sign- or zero-extension,\n\t    then we have to punt - it is not defined which\n\t    one is correct.  */\n\t || (POINTER_TYPE_P (TREE_TYPE (@0))\n\t     && TREE_CODE (@1) == INTEGER_CST\n\t     && tree_int_cst_sign_bit (@1) == 0\n\t     && TREE_CODE (@2) == INTEGER_CST\n\t     && tree_int_cst_sign_bit (@2) == 0))\n     (minus (convert @1) (convert @2)))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 4723,
+        "pattern": "(plusminus (mult:cs@3 @0 @1) (mult:cs@4 @0 @2))",
+        "resolved_possible_root_operators": [
+          "minus",
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n   (plusminus (mult:cs@3 @0 @1) (mult:cs@4 @0 @2))\n   (if (!ANY_INTEGRAL_TYPE_P (type)\n\t|| TYPE_OVERFLOW_WRAPS (type)\n\t|| (INTEGRAL_TYPE_P (type)\n\t    && tree_expr_nonzero_p (@0)\n\t    && expr_not_equal_to (@0, wi::minus_one (TYPE_PRECISION (type)),\n\t\t\t\t  gimple_match_ctx (@3))))\n    (if (single_use (@3) || single_use (@4))\n     /* If @1 +- @2 is constant require a hard single-use on either\n\toriginal operand (but not on both).  */\n     (mult (plusminus @1 @2) @0)\n     (mult! (plusminus @1 @2) @0)\n  )))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 4739,
+        "pattern": "(plusminus @0 (mult:c@3 @0 @2))",
+        "resolved_possible_root_operators": [
+          "minus",
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n    (plusminus @0 (mult:c@3 @0 @2))\n    (if ((!ANY_INTEGRAL_TYPE_P (type)\n\t  || TYPE_OVERFLOW_WRAPS (type)\n\t  /* For @0 + @0*@2 this transformation would introduce UB\n\t     (where there was none before) for @0 in [-1,0] and @2 max.\n\t     For @0 - @0*@2 this transformation would introduce UB\n\t     for @0 0 and @2 in [min,min+1] or @0 -1 and @2 min+1.  */\n\t  || (INTEGRAL_TYPE_P (type)\n\t      && ((tree_expr_nonzero_p (@0)\n\t\t   && expr_not_equal_to (@0,\n\t\t\t\twi::minus_one (TYPE_PRECISION (type)),\n\t\t\t\tgimple_match_ctx (@3)))\n\t\t  || (plusminus == PLUS_EXPR\n\t\t      ? expr_not_equal_to (@2,\n\t\t\t    wi::max_value (TYPE_PRECISION (type), SIGNED),\n\t\t\t    gimple_match_ctx (@3))\n\t\t      /* Let's ignore the @0 -1 and @2 min case.  */\n\t\t      : (expr_not_equal_to (@2,\n\t\t\t    wi::min_value (TYPE_PRECISION (type), SIGNED),\n\t\t\t    gimple_match_ctx (@3))\n\t\t\t && expr_not_equal_to (@2,\n\t\t\t\twi::min_value (TYPE_PRECISION (type), SIGNED)\n\t\t\t\t+ 1, gimple_match_ctx (@3)))))))\n\t && single_use (@3))\n     (mult (plusminus { build_one_cst (type); } @2) @0)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 4765,
+        "pattern": "(plusminus (mult:c@3 @0 @2) @0)",
+        "resolved_possible_root_operators": [
+          "minus",
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n    (plusminus (mult:c@3 @0 @2) @0)\n    (if ((!ANY_INTEGRAL_TYPE_P (type)\n\t  || TYPE_OVERFLOW_WRAPS (type)\n\t  /* For @0*@2 + @0 this transformation would introduce UB\n\t     (where there was none before) for @0 in [-1,0] and @2 max.\n\t     For @0*@2 - @0 this transformation would introduce UB\n\t     for @0 0 and @2 min.  */\n\t  || (INTEGRAL_TYPE_P (type)\n\t      && ((tree_expr_nonzero_p (@0)\n\t\t   && (plusminus == MINUS_EXPR\n\t\t       || expr_not_equal_to (@0,\n\t\t\t\twi::minus_one (TYPE_PRECISION (type)),\n\t\t\t\tgimple_match_ctx (@3))))\n\t\t  || expr_not_equal_to (@2,\n\t\t\t(plusminus == PLUS_EXPR\n\t\t\t ? wi::max_value (TYPE_PRECISION (type), SIGNED)\n\t\t\t : wi::min_value (TYPE_PRECISION (type), SIGNED)),\n\t\t\tgimple_match_ctx (@3)))))\n\t && single_use (@3))\n      (mult (plusminus @2 { build_one_cst (type); }) @0)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 4788,
+        "pattern": "(plus (mult:cs integer_nonzerop@0 @1) INTEGER_CST@2)",
+        "resolved_possible_root_operators": [
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n    (plus (mult:cs integer_nonzerop@0 @1) INTEGER_CST@2)\n    /* Exclude the case that @2 == min to prevent UB when calculating abs\n       and (B - C/A).  */\n    (if (TREE_CODE (type) == INTEGER_TYPE\n\t&& wi::neg_p (wi::to_wide (@2))\n\t&& wi::to_wide (@2) != wi::min_value (TYPE_PRECISION (type), SIGNED))\n      (with {\n\twide_int c0 = wi::to_wide (@0);\n\twide_int c2 = wi::to_wide (@2);\n\twide_int c2_abs = wi::abs (c2); }\n      (if (wi::multiple_of_p (c2_abs, c0, TYPE_SIGN (type)))\n\t(with {\n\t  /* Calculate @2 / @0 in order to factorize the expression.  */\n\t  wide_int div_res = wi::sdiv_trunc (c2, c0);\n\t  tree div_cst = wide_int_to_tree (type, div_res); }\n\t(mult (plus @1 { div_cst; }) @0))))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 4809,
+        "pattern": "(plus:c @0 (lshift:s @0 INTEGER_CST@1))",
+        "resolved_possible_root_operators": [
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (plus:c @0 (lshift:s @0 INTEGER_CST@1))\n  (if (ANY_INTEGRAL_TYPE_P (TREE_TYPE (@0))\n       && tree_fits_uhwi_p (@1)\n       && tree_to_uhwi (@1) < element_precision (type)\n       && (INTEGRAL_TYPE_P (TREE_TYPE (@0))\n\t   || optab_handler (smul_optab,\n\t\t\t     TYPE_MODE (type)) != CODE_FOR_nothing))\n   (with { tree t = type;\n\t   if (!TYPE_OVERFLOW_WRAPS (t)) t = unsigned_type_for (t);\n\t   wide_int w = wi::set_bit_in_zero (tree_to_uhwi (@1),\n\t\t\t\t\t     element_precision (type));\n\t   w += 1;\n\t   tree cst = wide_int_to_tree (VECTOR_TYPE_P (t) ? TREE_TYPE (t)\n\t\t\t\t\t: t, w);\n\t   cst = build_uniform_cst (t, cst); }\n    (convert (mult (convert:t @0) { cst; })))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 4826,
+        "pattern": "(plus (lshift:s @0 INTEGER_CST@1) (lshift:s @0 INTEGER_CST@2))",
+        "resolved_possible_root_operators": [
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (plus (lshift:s @0 INTEGER_CST@1) (lshift:s @0 INTEGER_CST@2))\n  (if (ANY_INTEGRAL_TYPE_P (TREE_TYPE (@0))\n       && tree_fits_uhwi_p (@1)\n       && tree_to_uhwi (@1) < element_precision (type)\n       && tree_fits_uhwi_p (@2)\n       && tree_to_uhwi (@2) < element_precision (type)\n       && (INTEGRAL_TYPE_P (TREE_TYPE (@0))\n\t   || optab_handler (smul_optab,\n\t\t\t     TYPE_MODE (type)) != CODE_FOR_nothing))\n   (with { tree t = type;\n\t   if (!TYPE_OVERFLOW_WRAPS (t)) t = unsigned_type_for (t);\n\t   unsigned int prec = element_precision (type);\n\t   wide_int w = wi::set_bit_in_zero (tree_to_uhwi (@1), prec);\n\t   w += wi::set_bit_in_zero (tree_to_uhwi (@2), prec);\n\t   tree cst = wide_int_to_tree (VECTOR_TYPE_P (t) ? TREE_TYPE (t)\n\t\t\t\t\t: t, w);\n\t   cst = build_uniform_cst (t, cst); }\n    (convert (mult (convert:t @0) { cst; })))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 4993,
+        "pattern": "(op:c (min:c @0 @1) (max @0 @1))",
+        "resolved_possible_root_operators": [
+          "bit_and",
+          "bit_ior",
+          "bit_xor",
+          "eq",
+          "max",
+          "min",
+          "mult",
+          "ne",
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (op:c (min:c @0 @1) (max @0 @1))\n   (if (!HONOR_NANS (@0))\n    (op @0 @1)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 5143,
+        "pattern": "(plus:c @0 (mult:c (minus @1 @0) zero_one_valued_p@2))",
+        "resolved_possible_root_operators": [
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (plus:c @0 (mult:c (minus @1 @0) zero_one_valued_p@2))\n (if (INTEGRAL_TYPE_P (type)\n      && (GIMPLE || !TREE_SIDE_EFFECTS (@1)))\n  (cond (convert:boolean_type_node @2) @1 @0)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 5149,
+        "pattern": "(minus @0 (mult:c (minus @0 @1) zero_one_valued_p@2))",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (minus @0 (mult:c (minus @0 @1) zero_one_valued_p@2))\n (if (INTEGRAL_TYPE_P (type)\n      && (GIMPLE || !TREE_SIDE_EFFECTS (@1)))\n  (cond (convert:boolean_type_node @2) @1 @0)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 5303,
+        "pattern": "(mult (convert? (rshift with_possible_nonzero_bits@0 INTEGER_CST@1))\n       poly_int_tree_p@2)",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (mult (convert? (rshift with_possible_nonzero_bits@0 INTEGER_CST@1))\n       poly_int_tree_p@2)\n (with { poly_widest_int factor; }\n  (if (INTEGRAL_TYPE_P (type)\n       && wi::ltu_p (wi::to_wide (@1), element_precision (type))\n       && wi::to_widest (@1) <= wi::ctz (get_nonzero_bits (@0))\n       && multiple_p (wi::to_poly_widest (@2),\n\t\t      widest_int (1) << tree_to_uhwi (@1),\n\t\t      &factor))\n   (mult (convert @0) { wide_int_to_tree (type, factor); }))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 5649,
+        "pattern": "(mult (convert? (bit_and (convert? (rshift @0 INTEGER_CST@1)) INTEGER_CST@2))\n       INTEGER_CST@3)",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (mult (convert? (bit_and (convert? (rshift @0 INTEGER_CST@1)) INTEGER_CST@2))\n       INTEGER_CST@3)\n (if (tree_nop_conversion_p (type, TREE_TYPE (@0))\n      && wi::ltu_p (wi::to_widest (@1), TYPE_PRECISION (type)))\n  (with { unsigned int shift = tree_to_uhwi (@1);\n\t  unsigned int prec = TYPE_PRECISION (type); }\n   (if ((prec <= TYPE_PRECISION (TREE_TYPE (@2)) + shift\n\t || tree_int_cst_sgn (@2) >= 0)\n\t&& wi::to_wide (@3) == wi::set_bit_in_zero (shift, prec))\n    (with { auto mask = wide_int::from (wi::to_wide (@2), prec, UNSIGNED); }\n     (bit_and (convert @0) { wide_int_to_tree (type, mask << shift); }))))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 5959,
+        "pattern": "(mult (convert1? (exact_div @0 @@1)) (convert2? @1))",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (mult (convert1? (exact_div @0 @@1)) (convert2? @1))\n  (convert @0))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 5964,
+        "pattern": "(mult (convert? (exact_div @0 INTEGER_CST@1)) poly_int_tree_p@2)",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (mult (convert? (exact_div @0 INTEGER_CST@1)) poly_int_tree_p@2)\n (with { poly_widest_int factor; }\n  (if (multiple_p (wi::to_poly_widest (@2), wi::to_widest (@1), &factor))\n   (mult (convert @0) { wide_int_to_tree (type, factor); }))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 5973,
+        "pattern": "(plus:c (mult:c (div @0 @1) @1) (mod @0 @1))",
+        "resolved_possible_root_operators": [
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n   (plus:c (mult:c (div @0 @1) @1) (mod @0 @1))\n   @0)",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 5990,
+        "pattern": "(mult (convert1? (op (convert2? (exact_div @0 INTEGER_CST@1))\n\t\t       poly_int_tree_p@2))\n\tpoly_int_tree_p@3)",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (mult (convert1? (op (convert2? (exact_div @0 INTEGER_CST@1))\n\t\t       poly_int_tree_p@2))\n\tpoly_int_tree_p@3)\n  (with { poly_widest_int factor; }\n   (if (tree_nop_conversion_p (type, TREE_TYPE (@2))\n\t&& tree_nop_conversion_p (TREE_TYPE (@0), TREE_TYPE (@2))\n\t&& multiple_p (wi::to_poly_widest (@3), wi::to_widest (@1), &factor))\n    (with\n      {\n\twi::overflow_type overflow;\n        wide_int mul;\n      }\n     (if (types_match (type, TREE_TYPE (@2))\n\t  && types_match (TREE_TYPE (@0), TREE_TYPE (@2))\n\t  && TREE_CODE (@2) == INTEGER_CST\n\t  && TREE_CODE (@3) == INTEGER_CST\n\t  && (mul = wi::mul (wi::to_wide (@2), wi::to_wide (@3),\n\t\t\t     TYPE_SIGN (type), &overflow),\n\t      !overflow)\n\t  && (TYPE_UNSIGNED (type)\n\t      /* Not using unsigned arithmetics is unsafe if factor\n\t\t isn't 1 and if for op plus @0 and @2 could have different\n\t\t sign or for op minus @0 and @2 could have the same sign.  */\n\t      || known_eq (factor, 1)\n\t      || (get_range_pos_neg (@0)\n\t\t  | (((op == PLUS_EXPR) ^ (tree_int_cst_sgn (@2) < 0))\n\t\t     ? 1 : 2)) != 3))\n      (op (mult @0 { wide_int_to_tree (type, factor); })\n\t  { wide_int_to_tree (type, mul); })\n      (with { tree utype = unsigned_type_for (type); }\n       (convert (op (mult (convert:utype @0)\n\t\t\t  { wide_int_to_tree (utype, factor); })\n\t\t    (mult (convert:utype @3) (convert:utype @2))))))))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 6028,
+        "pattern": "(plus @0 REAL_CST@1)",
+        "resolved_possible_root_operators": [
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (plus @0 REAL_CST@1)\n (if (REAL_VALUE_NEGATIVE (TREE_REAL_CST (@1)))\n  (with { tree tem = const_unop (NEGATE_EXPR, type, @1); }\n   (if (!TREE_OVERFLOW (tem) || !flag_trapping_math)\n    (minus @0 { tem; })))))",
+        "disposition": "requires REAL_CST; input is integral"
+      },
+      {
+        "line": 6036,
+        "pattern": "(plus @0 @0)",
+        "resolved_possible_root_operators": [
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (plus @0 @0)\n (if (SCALAR_FLOAT_TYPE_P (type))\n  (mult @0 { build_real (type, dconst2); })\n  (if (INTEGRAL_TYPE_P (type))\n   (mult @0 { build_int_cst (type, 2); }))))",
+        "disposition": "requires equal dynamic and literal operands"
+      },
+      {
+        "line": 6044,
+        "pattern": "(minus integer_zerop @1)",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (minus integer_zerop @1)\n (negate @1))",
+        "disposition": "requires absent zero, all-ones or minus-one operand position"
+      },
+      {
+        "line": 6054,
+        "pattern": "(minus real_zerop@0 @1)",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (minus real_zerop@0 @1)\n (if (fold_real_zero_addition_p (type, @1, @0, 0))\n  (negate @1)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 6060,
+        "pattern": "(mult @0 integer_minus_onep)",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (mult @0 integer_minus_onep)\n (negate @0))",
+        "disposition": "requires absent zero, all-ones or minus-one operand position"
+      },
+      {
+        "line": 6066,
+        "pattern": "(mult:c (mult:s@3 @0 INTEGER_CST@1) @2)",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (mult:c (mult:s@3 @0 INTEGER_CST@1) @2)\n (if (TREE_CODE (@2) != INTEGER_CST\n      && single_use (@3)\n      && !integer_zerop (@1) && !integer_minus_onep (@1))\n  (mult (mult @0 @2) @1)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 6277,
+        "pattern": "(op (vec_cond:s @0 @1 @2) (vec_cond:s @0 @3 @4))",
+        "resolved_possible_root_operators": [
+          "bit_and",
+          "bit_ior",
+          "bit_xor",
+          "ceil_div",
+          "ceil_mod",
+          "eq",
+          "exact_div",
+          "floor_div",
+          "floor_mod",
+          "ge",
+          "gt",
+          "le",
+          "lshift",
+          "lt",
+          "ltgt",
+          "max",
+          "min",
+          "minus",
+          "mult",
+          "ne",
+          "ordered",
+          "plus",
+          "rdiv",
+          "round_div",
+          "round_mod",
+          "rshift",
+          "trunc_div",
+          "trunc_mod",
+          "uneq",
+          "unge",
+          "ungt",
+          "unle",
+          "unlt",
+          "unordered"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (op (vec_cond:s @0 @1 @2) (vec_cond:s @0 @3 @4))\n  (if (VECTOR_TYPE_P (type)\n       && (TREE_CODE_CLASS (op) != tcc_comparison\n\t   || types_match (type, TREE_TYPE (@1))\n\t   || expand_vec_cond_expr_p (type, TREE_TYPE (@0))\n\t   || (optimize_vectors_before_lowering_p ()\n\t       /* The following is optimistic on the side of non-support, we are\n\t\t  missing the legacy vcond{,u,eq} cases.  Do this only when\n\t\t  lowering will be able to fixup..  */\n\t       && !expand_vec_cond_expr_p (TREE_TYPE (@1), TREE_TYPE (@0)))))\n   (vec_cond @0 (op!:type @1 @3) (op!:type @2 @4))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 6300,
+        "pattern": "(op (vec_cond:s @0 @1 @2) @3)",
+        "resolved_possible_root_operators": [
+          "bit_and",
+          "bit_ior",
+          "bit_xor",
+          "ceil_div",
+          "ceil_mod",
+          "eq",
+          "exact_div",
+          "floor_div",
+          "floor_mod",
+          "ge",
+          "gt",
+          "le",
+          "lshift",
+          "lt",
+          "ltgt",
+          "max",
+          "min",
+          "minus",
+          "mult",
+          "ne",
+          "ordered",
+          "plus",
+          "rdiv",
+          "round_div",
+          "round_mod",
+          "rshift",
+          "trunc_div",
+          "trunc_mod",
+          "uneq",
+          "unge",
+          "ungt",
+          "unle",
+          "unlt",
+          "unordered"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (op (vec_cond:s @0 @1 @2) @3)\n  (if (VECTOR_TYPE_P (type)\n       && (TREE_CODE_CLASS (op) != tcc_comparison\n\t   || types_match (type, TREE_TYPE (@1))\n\t   || expand_vec_cond_expr_p (type, TREE_TYPE (@0))\n\t   || (optimize_vectors_before_lowering_p ()\n\t       && !expand_vec_cond_expr_p (TREE_TYPE (@1), TREE_TYPE (@0)))))\n   (vec_cond @0 (op!:type @1 @3) (op!:type @2 @3))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 6309,
+        "pattern": "(op @3 (vec_cond:s @0 @1 @2))",
+        "resolved_possible_root_operators": [
+          "bit_and",
+          "bit_ior",
+          "bit_xor",
+          "ceil_div",
+          "ceil_mod",
+          "eq",
+          "exact_div",
+          "floor_div",
+          "floor_mod",
+          "ge",
+          "gt",
+          "le",
+          "lshift",
+          "lt",
+          "ltgt",
+          "max",
+          "min",
+          "minus",
+          "mult",
+          "ne",
+          "ordered",
+          "plus",
+          "rdiv",
+          "round_div",
+          "round_mod",
+          "rshift",
+          "trunc_div",
+          "trunc_mod",
+          "uneq",
+          "unge",
+          "ungt",
+          "unle",
+          "unlt",
+          "unordered"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (op @3 (vec_cond:s @0 @1 @2))\n  (if (VECTOR_TYPE_P (type)\n       && (TREE_CODE_CLASS (op) != tcc_comparison\n\t   || types_match (type, TREE_TYPE (@1))\n\t   || expand_vec_cond_expr_p (type, TREE_TYPE (@0))\n\t   || (optimize_vectors_before_lowering_p ()\n\t       && !expand_vec_cond_expr_p (TREE_TYPE (@1), TREE_TYPE (@0)))))\n   (vec_cond @0 (op!:type @3 @1) (op!:type @3 @2))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 7339,
+        "pattern": "(plus:c @3 (view_convert? (vec_cond:s @0 integer_each_onep@1 integer_zerop@2)))",
+        "resolved_possible_root_operators": [
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (plus:c @3 (view_convert? (vec_cond:s @0 integer_each_onep@1 integer_zerop@2)))\n (if (VECTOR_TYPE_P (type)\n      && known_eq (TYPE_VECTOR_SUBPARTS (type),\n\t\t   TYPE_VECTOR_SUBPARTS (TREE_TYPE (@1)))\n      && (TYPE_MODE (TREE_TYPE (type))\n          == TYPE_MODE (TREE_TYPE (TREE_TYPE (@1)))))\n  (minus @3 (view_convert (vec_cond @0 (negate @1) @2)))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 7349,
+        "pattern": "(minus @3 (view_convert? (vec_cond:s @0 integer_each_onep@1 integer_zerop@2)))",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (minus @3 (view_convert? (vec_cond:s @0 integer_each_onep@1 integer_zerop@2)))\n (if (VECTOR_TYPE_P (type)\n      && known_eq (TYPE_VECTOR_SUBPARTS (type),\n\t\t   TYPE_VECTOR_SUBPARTS (TREE_TYPE (@1)))\n      && (TYPE_MODE (TREE_TYPE (type))\n          == TYPE_MODE (TREE_TYPE (TREE_TYPE (@1)))))\n  (plus @3 (view_convert (vec_cond @0 (negate @1) @2)))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 7419,
+        "pattern": "(plus (convert? (cmp@2 @0 @1)) integer_minus_onep)",
+        "resolved_possible_root_operators": [
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (plus (convert? (cmp@2 @0 @1)) integer_minus_onep)\n  (if (TYPE_PRECISION (type) > 1\n       && INTEGRAL_TYPE_P (TREE_TYPE (@2)) && TYPE_PRECISION (TREE_TYPE (@2)) == 1)\n   /* Comparison inversion may be impossible for trapping math,\n      invert_tree_comparison will tell us.  But we can't use\n      a computed operator in the replacement tree thus we have\n      to play the trick below.  */\n   (with { enum tree_code ic = invert_tree_comparison\n             (cmp, HONOR_NANS (@0));\n           tree cmptype = TREE_TYPE (@2); }\n    (if (ic == icmp)\n     (negate (convert (icmp:cmptype @0 @1)))\n     (if (ic == ncmp)\n      (negate (convert (ncmp:cmptype @0 @1))))))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 8678,
+        "pattern": "(op (cond @0 @1 @2) @3)",
+        "resolved_possible_root_operators": [
+          "bit_and",
+          "bit_ior",
+          "bit_xor",
+          "ceil_div",
+          "ceil_mod",
+          "exact_div",
+          "floor_div",
+          "floor_mod",
+          "lrotate",
+          "lshift",
+          "max",
+          "min",
+          "minus",
+          "mult",
+          "mult_highpart",
+          "plus",
+          "pointer_diff",
+          "rdiv",
+          "round_div",
+          "round_mod",
+          "rrotate",
+          "rshift",
+          "trunc_div",
+          "trunc_mod"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (op (cond @0 @1 @2) @3)\n  (cond @0 (op!:type @1 @3) (op!:type @2 @3)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 8684,
+        "pattern": "(op @3 (cond @0 @1 @2))",
+        "resolved_possible_root_operators": [
+          "bit_and",
+          "bit_ior",
+          "bit_xor",
+          "ceil_div",
+          "ceil_mod",
+          "exact_div",
+          "floor_div",
+          "floor_mod",
+          "lrotate",
+          "lshift",
+          "max",
+          "min",
+          "minus",
+          "mult",
+          "mult_highpart",
+          "plus",
+          "pointer_diff",
+          "rdiv",
+          "round_div",
+          "round_mod",
+          "rrotate",
+          "rshift",
+          "trunc_div",
+          "trunc_mod"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (op @3 (cond @0 @1 @2))\n  (cond @0 (op!:type @3 @1) (op!:type @3 @2)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 8873,
+        "pattern": "(mult (SQRT_ALL@1 @0) @1)",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (mult (SQRT_ALL@1 @0) @1)\n  (if (!tree_expr_maybe_signaling_nan_p (@0))\n   @0))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 8880,
+        "pattern": "(op (rdiv @0 @1)\n       (rdiv @2 @1))",
+        "resolved_possible_root_operators": [
+          "minus",
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n   (op (rdiv @0 @1)\n       (rdiv @2 @1))\n   (rdiv (op @0 @2) @1))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 8903,
+        "pattern": "(mult (root:s @0) (root:s @1))",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n   (mult (root:s @0) (root:s @1))\n    (root (mult @0 @1)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 8909,
+        "pattern": "(mult (exps:s @0) (exps:s @1))",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n   (mult (exps:s @0) (exps:s @1))\n    (exps (plus @0 @1)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 8956,
+        "pattern": "(plus (logs:s @0) (logs:s @1))",
+        "resolved_possible_root_operators": [
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n    (plus (logs:s @0) (logs:s @1))\n     (logs (mult @0 @1)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 8961,
+        "pattern": "(minus (logs:s @0) (logs:s @1))",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n    (minus (logs:s @0) (logs:s @1))\n     (logs (rdiv @0 @1)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 9098,
+        "pattern": "(mult:c (pows:s REAL_CST@0 @1) (exps:s @2))",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n   (mult:c (pows:s REAL_CST@0 @1) (exps:s @2))\n   (if (real_compare (GT_EXPR, TREE_REAL_CST_PTR (@0), &dconst0)\n\t&& real_isfinite (TREE_REAL_CST_PTR (@0)))\n    (exps (plus (mult (logs @0) @1) @2))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 9115,
+        "pattern": "(mult:c REAL_CST@0 (LDEXP @1 @2))",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (mult:c REAL_CST@0 (LDEXP @1 @2))\n  (with { HOST_WIDE_INT tmp = 0; }\n   (if (real_isinteger (&TREE_REAL_CST (@0), &tmp)\n\t&& tmp > 0 && pow2p_hwi (tmp))\n    (LDEXP @1 (plus {build_int_cst (integer_type_node,\n\t     exact_log2 (tmp)); } @2)))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 9124,
+        "pattern": "(mult:c @0 (LDEXP REAL_CST@1 @2))",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (mult:c @0 (LDEXP REAL_CST@1 @2))\n  (if (real_equal (TREE_REAL_CST_PTR (@1), &dconst1))\n   (LDEXP @0 @2)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 9282,
+        "pattern": "(mult:c (TAN:s @0) (COS:s @0))",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (mult:c (TAN:s @0) (COS:s @0))\n   (SIN @0))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 9287,
+        "pattern": "(mult:c @0 (POW:s @0 REAL_CST@1))",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (mult:c @0 (POW:s @0 REAL_CST@1))\n  (if (!TREE_OVERFLOW (@1))\n   (POW @0 (plus @1 { build_one_cst (type); }))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 9327,
+        "pattern": "(mult (POW:s @0 @1) (POW:s @0 @2))",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (mult (POW:s @0 @1) (POW:s @0 @2))\n   (POW @0 (plus @1 @2)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 9332,
+        "pattern": "(mult (POW:s @0 @1) (POW:s @2 @1))",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (mult (POW:s @0 @1) (POW:s @2 @1))\n   (POW (mult @0 @2) @1))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 9350,
+        "pattern": "(mult (POWI:s @0 @1) (POWI:s @2 @1))",
+        "resolved_possible_root_operators": [
+          "mult"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (mult (POWI:s @0 @1) (POWI:s @2 @1))\n   (POWI (mult @0 @2) @1))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 10600,
+        "pattern": "(plus (POPCOUNT:s @0) (POPCOUNT:s @1))",
+        "resolved_possible_root_operators": [
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (plus (POPCOUNT:s @0) (POPCOUNT:s @1))\n  (if (INTEGRAL_TYPE_P (type)\n       && (wi::bit_and (widest_int::from (tree_nonzero_bits (@0), UNSIGNED),\n\t\t\twidest_int::from (tree_nonzero_bits (@1), UNSIGNED))\n\t   == 0))\n   (with { tree utype = TREE_TYPE (@0);\n\t   if (TYPE_PRECISION (utype) < TYPE_PRECISION (TREE_TYPE (@1)))\n\t     utype = TREE_TYPE (@1); }\n    (POPCOUNT (bit_ior (convert:utype @0) (convert:utype @1))))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 10655,
+        "pattern": "(plus:c (POPCOUNT:s (bit_and:s @0 @1)) (POPCOUNT:s (bit_ior:cs @0 @1)))",
+        "resolved_possible_root_operators": [
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (plus:c (POPCOUNT:s (bit_and:s @0 @1)) (POPCOUNT:s (bit_ior:cs @0 @1)))\n  (plus (POPCOUNT:type @0) (POPCOUNT:type @1)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 10664,
+        "pattern": "(minus (plus:s (popcount:s @0) (popcount:s @1))\n\t     (popcount:s (log1:cs @0 @1)))",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n      (minus (plus:s (popcount:s @0) (popcount:s @1))\n\t     (popcount:s (log1:cs @0 @1)))\n      (popcount (log2 @0 @1)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 10668,
+        "pattern": "(plus:c (minus:s (popcount:s @0) (popcount:s (log1:cs @0 @1)))\n\t      (popcount:s @1))",
+        "resolved_possible_root_operators": [
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n      (plus:c (minus:s (popcount:s @0) (popcount:s (log1:cs @0 @1)))\n\t      (popcount:s @1))\n      (popcount (log2 @0 @1)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 11722,
+        "pattern": "(plus:c (vec_perm:s (mult:c@0 @1 vec_same_elem_p@2) @0 @3) @4)",
+        "resolved_possible_root_operators": [
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (plus:c (vec_perm:s (mult:c@0 @1 vec_same_elem_p@2) @0 @3) @4)\n (if (TREE_CODE (@0) == SSA_NAME && num_imm_uses (@0) == 2)\n  (plus (mult (vec_perm @1 @1 @3) @2) @4)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 11726,
+        "pattern": "(minus (vec_perm:s (mult:c@0 @1 vec_same_elem_p@2) @0 @3) @4)",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (minus (vec_perm:s (mult:c@0 @1 vec_same_elem_p@2) @0 @3) @4)\n (if (TREE_CODE (@0) == SSA_NAME && num_imm_uses (@0) == 2)\n  (minus (mult (vec_perm @1 @1 @3) @2) @4)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 12068,
+        "pattern": "(minus @0 (bit_and (max @0 INTEGER_CST@1) INTEGER_CST@2))",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (minus @0 (bit_and (max @0 INTEGER_CST@1) INTEGER_CST@2))\n  (with { auto i = wi::neg (wi::to_wide (@2)); }\n  /* Check if -C2 is a power of 2 and C1 = -C2 - 1.  */\n    (if (wi::popcount (i) == 1\n         && (wi::to_wide (@1)) == (i - 1))\n      (if (TYPE_UNSIGNED (TREE_TYPE (@0)))\n        (bit_and @0 @1)\n      (cond (le @0 @1) @0 (bit_and @0 @1))))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 12106,
+        "pattern": "(op (vec_perm @0 @0 @2) (vec_perm @1 @1 @2))",
+        "resolved_possible_root_operators": [
+          "bit_and",
+          "bit_ior",
+          "bit_xor",
+          "lshift",
+          "minus",
+          "mult",
+          "plus",
+          "rshift"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (op (vec_perm @0 @0 @2) (vec_perm @1 @1 @2))\n   (if (VECTOR_INTEGER_TYPE_P (type))\n    (vec_perm (op@3 @0 @1) @3 @2)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 12114,
+        "pattern": "(op (vec_perm @0 @0 VECTOR_CST@2) (vec_perm @1 @1 VECTOR_CST@2))",
+        "resolved_possible_root_operators": [
+          "minus",
+          "mult",
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (op (vec_perm @0 @0 VECTOR_CST@2) (vec_perm @1 @1 VECTOR_CST@2))\n   (if (VECTOR_FLOAT_TYPE_P (type)\n\t&& TYPE_VECTOR_SUBPARTS (type).is_constant ())\n    (with\n     {\n       tree perm_cst = @2;\n       vec_perm_builder builder;\n       bool full_perm_p = false;\n       if (tree_to_vec_perm_builder (&builder, perm_cst))\n\t {\n\t   unsigned HOST_WIDE_INT nelts;\n\n\t   nelts = TYPE_VECTOR_SUBPARTS (type).to_constant ();\n\t   /* Create a vec_perm_indices for the VECTOR_CST.  */\n\t   vec_perm_indices sel (builder, 1, nelts);\n\n\t   /* Check if perm indices covers all vector elements.  */\n\t   if (sel.encoding ().encoded_full_vector_p ())\n\t     {\n\t       auto_sbitmap seen (nelts);\n\t       bitmap_clear (seen);\n\n\t       unsigned HOST_WIDE_INT count = 0, i;\n\n\t       for (i = 0; i < nelts; i++)\n\t\t {\n\t\t   if (!bitmap_set_bit (seen, sel[i].to_constant ()))\n\t\t    break;\n\t\t   count++;\n\t\t }\n\t       full_perm_p = count == nelts;\n\t     }\n\t }\n      }\n      (if (full_perm_p)\n\t(vec_perm (op@3 @0 @1) @3 @2)))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 12209,
+        "pattern": "(plus:c\n    (plus (rshift @0 integer_onep@1) (rshift @2 @1))\n    (bit_and (bit_ior @0 @2) integer_onep@3))",
+        "resolved_possible_root_operators": [
+          "plus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (plus:c\n    (plus (rshift @0 integer_onep@1) (rshift @2 @1))\n    (bit_and (bit_ior @0 @2) integer_onep@3))\n  (if (fold_before_rtl_expansion_p ()\n      && VECTOR_TYPE_P (type)\n      && direct_internal_fn_supported_p (IFN_AVG_CEIL, type, OPTIMIZE_FOR_BOTH))\n      (IFN_AVG_CEIL @0 @2)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 12218,
+        "pattern": "(minus\n    (bit_ior @0 @2)\n    (rshift (bit_xor @0 @2) integer_onep@1))",
+        "resolved_possible_root_operators": [
+          "minus"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (minus\n    (bit_ior @0 @2)\n    (rshift (bit_xor @0 @2) integer_onep@1))\n  (if (fold_before_rtl_expansion_p ()\n      && VECTOR_TYPE_P (type)\n      && direct_internal_fn_supported_p (IFN_AVG_CEIL, type, OPTIMIZE_FOR_BOTH))\n      (IFN_AVG_CEIL @0 @2)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      }
+    ]
+  },
+  "conversion": {
+    "simplify_forms_in_both_preprocessor_branches": 882,
+    "root_forms": 19,
+    "root_patterns": [
+      {
+        "line": 1156,
+        "pattern": "(convert (negate:s@1 (convert:s @0)))",
+        "resolved_possible_root_operators": [
+          "convert"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (convert (negate:s@1 (convert:s @0)))\n (if (INTEGRAL_TYPE_P (type)\n      && tree_nop_conversion_p (type, TREE_TYPE (@1))\n      && (TYPE_PRECISION (type) > TYPE_PRECISION (TREE_TYPE (@0))\n\t  || TYPE_UNSIGNED (type))\n      && TREE_CODE (type) != BOOLEAN_TYPE)\n    (negate (convert @0))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 2308,
+        "pattern": "(convert (bitop:cs@2 (nop_convert:s @0) @1))",
+        "resolved_possible_root_operators": [
+          "convert"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (convert (bitop:cs@2 (nop_convert:s @0) @1))\n  (if (GIMPLE\n       && TREE_CODE (@1) != INTEGER_CST\n       && tree_nop_conversion_p (type, TREE_TYPE (@2))\n       && types_match (type, @0)\n       && !POINTER_TYPE_P (TREE_TYPE (@0))\n       && TREE_CODE (TREE_TYPE (@0)) != OFFSET_TYPE)\n   (bitop @0 (convert @1))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 2318,
+        "pattern": "(convert (bitop:cs@2 (convert:s @0) @1))",
+        "resolved_possible_root_operators": [
+          "convert"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (convert (bitop:cs@2 (convert:s @0) @1))\n   (if (GIMPLE\n\t&& INTEGRAL_TYPE_P (type)\n\t&& INTEGRAL_TYPE_P (TREE_TYPE (@0))\n\t&& TREE_CODE (@1) != INTEGER_CST\n\t&& tree_nop_conversion_p (type, TREE_TYPE (@2))\n\t&& TYPE_PRECISION (TREE_TYPE (@0)) > TYPE_PRECISION (type))\n   (bitop:type (convert @0) (convert @1))\n   /* Similar as above, but the outer and inner most types match\n       and it was widening cast; replacing 2 casts with only one.  */\n   (if (GIMPLE\n        && INTEGRAL_TYPE_P (type)\n        && types_match (type, TREE_TYPE (@0))\n        && TYPE_PRECISION (TREE_TYPE (@2)) > TYPE_PRECISION (type))\n    (bitop:type @0 (convert @1)))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 2590,
+        "pattern": "(convert (mult@0 zero_one_valued_p@1 INTEGER_CST@2))",
+        "resolved_possible_root_operators": [
+          "convert"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (convert (mult@0 zero_one_valued_p@1 INTEGER_CST@2))\n (if (INTEGRAL_TYPE_P (type)\n      && INTEGRAL_TYPE_P (TREE_TYPE (@0))\n      && TYPE_PRECISION (type) < TYPE_PRECISION (TREE_TYPE (@0))\n      && (TYPE_UNSIGNED (type) || TYPE_PRECISION (type) > 1))\n  (mult (convert @1) (convert @2))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 3260,
+        "pattern": "(convert (pointer_diff @0 INTEGER_CST@1))",
+        "resolved_possible_root_operators": [
+          "convert"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (convert (pointer_diff @0 INTEGER_CST@1))\n (if (POINTER_TYPE_P (type))\n  { build_fold_addr_expr_with_type\n      (build2 (MEM_REF, char_type_node, @0,\n\t       wide_int_to_tree (ptr_type_node, wi::neg (wi::to_wide (@1)))),\n\t       type); }))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 4253,
+        "pattern": "(convert (eqne zero_one_valued_p@0 INTEGER_CST@1))",
+        "resolved_possible_root_operators": [
+          "convert"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (convert (eqne zero_one_valued_p@0 INTEGER_CST@1))\n  (if ((integer_zerop (@1) || integer_onep (@1)))\n   (if ((eqne == EQ_EXPR) ^ integer_zerop (@1))\n    (convert @0)\n    /* Only do this if the types match as (type)(a == 0) is\n       canonical form normally, while `a ^ 1` is canonical when\n       there is no type change. */\n    (if (types_match (type, TREE_TYPE (@0)))\n     (bit_xor @0 { build_one_cst (type); } )))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 5025,
+        "pattern": "(convert (minmax@0 (convert @1) INTEGER_CST@2))",
+        "resolved_possible_root_operators": [
+          "convert"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (convert (minmax@0 (convert @1) INTEGER_CST@2))\n  (if (INTEGRAL_TYPE_P (type)\n       && types_match (@1, type) && int_fits_type_p (@2, type)\n       && TYPE_SIGN (TREE_TYPE (@0)) == TYPE_SIGN (type)\n       && TYPE_PRECISION (TREE_TYPE (@0)) > TYPE_PRECISION (type))\n   (minmax @1 (convert @2))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 5705,
+        "pattern": "(convert (lshift:s@0 @1 INTEGER_CST@2))",
+        "resolved_possible_root_operators": [
+          "convert"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (convert (lshift:s@0 @1 INTEGER_CST@2))\n (if (INTEGRAL_TYPE_P (type)\n      && INTEGRAL_TYPE_P (TREE_TYPE (@0))\n      && !integer_zerop (@2)\n      && TYPE_PRECISION (type) <= TYPE_PRECISION (TREE_TYPE (@0)))\n  (if (TYPE_PRECISION (type) == TYPE_PRECISION (TREE_TYPE (@0))\n       || wi::ltu_p (wi::to_wide (@2), TYPE_PRECISION (type)))\n   (lshift (convert @1) @2)\n   (if (wi::ltu_p (wi::to_wide (@2), TYPE_PRECISION (TREE_TYPE (@0))))\n    { build_zero_cst (type); }))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 5721,
+        "pattern": "(cvt @0)",
+        "resolved_possible_root_operators": [
+          "convert",
+          "fix_trunc",
+          "float",
+          "view_convert"
+        ],
+        "enclosing_conversion_aliases": {
+          "cvt": [
+            "convert",
+            "fix_trunc",
+            "float",
+            "view_convert"
+          ]
+        },
+        "source": "(simplify\n  (cvt @0)\n  (if ((GIMPLE && useless_type_conversion_p (type, TREE_TYPE (@0)))\n       || (GENERIC && type == TREE_TYPE (@0)))\n   @0))",
+        "disposition": "reachable; see README rewrite and construction rows"
+      },
+      {
+        "line": 5806,
+        "pattern": "(ocvt (icvt@1 @0))",
+        "resolved_possible_root_operators": [
+          "convert",
+          "fix_trunc",
+          "float"
+        ],
+        "enclosing_conversion_aliases": {
+          "ocvt": [
+            "convert",
+            "fix_trunc",
+            "float"
+          ],
+          "icvt": [
+            "convert",
+            "float"
+          ]
+        },
+        "source": "(simplify\n   (ocvt (icvt@1 @0))\n   (with\n    {\n      tree inside_type = TREE_TYPE (@0);\n      tree inter_type = TREE_TYPE (@1);\n      int inside_int = INTEGRAL_TYPE_P (inside_type);\n      int inside_ptr = POINTER_TYPE_P (inside_type);\n      int inside_float = FLOAT_TYPE_P (inside_type);\n      int inside_vec = VECTOR_TYPE_P (inside_type);\n      unsigned int inside_prec = element_precision (inside_type);\n      int inside_unsignedp = TYPE_UNSIGNED (inside_type);\n      int inter_int = INTEGRAL_TYPE_P (inter_type);\n      int inter_ptr = POINTER_TYPE_P (inter_type);\n      int inter_float = FLOAT_TYPE_P (inter_type);\n      int inter_vec = VECTOR_TYPE_P (inter_type);\n      unsigned int inter_prec = element_precision (inter_type);\n      int inter_unsignedp = TYPE_UNSIGNED (inter_type);\n      int final_int = INTEGRAL_TYPE_P (type);\n      int final_ptr = POINTER_TYPE_P (type);\n      int final_float = FLOAT_TYPE_P (type);\n      int final_vec = VECTOR_TYPE_P (type);\n      unsigned int final_prec = element_precision (type);\n      int final_unsignedp = TYPE_UNSIGNED (type);\n    }\n   (switch\n    /* In addition to the cases of two conversions in a row\n       handled below, if we are converting something to its own\n       type via an object of identical or wider precision, neither\n       conversion is needed.  */\n    (if (((GIMPLE && useless_type_conversion_p (type, inside_type))\n\t  || (GENERIC\n\t      && TYPE_MAIN_VARIANT (type) == TYPE_MAIN_VARIANT (inside_type)))\n\t && (((inter_int || inter_ptr) && final_int)\n\t     || (inter_float && final_float))\n\t && inter_prec >= final_prec)\n     (ocvt @0))\n\n    /* Likewise, if the intermediate and initial types are either both\n       float or both integer, we don't need the middle conversion if the\n       former is wider than the latter and doesn't change the signedness\n       (for integers).  Avoid this if the final type is a pointer since\n       then we sometimes need the middle conversion.  */\n    (if (((inter_int && inside_int) || (inter_float && inside_float))\n\t && (final_int || final_float)\n\t && inter_prec >= inside_prec\n\t && (inter_float || inter_unsignedp == inside_unsignedp))\n     (ocvt @0))\n\n    /* If we have a sign-extension of a zero-extended value, we can\n       replace that by a single zero-extension.  Likewise if the\n       final conversion does not change precision we can drop the\n       intermediate conversion.  Similarly truncation of a sign-extension\n       can be replaced by a single sign-extension.  */\n    (if (inside_int && inter_int && final_int\n\t && ((inside_prec < inter_prec && inter_prec < final_prec\n\t      && inside_unsignedp && !inter_unsignedp)\n\t     || final_prec == inter_prec\n\t     || (inside_prec < inter_prec && inter_prec > final_prec\n\t\t && !inside_unsignedp && inter_unsignedp)))\n     (ocvt @0))\n\n    /* Two conversions in a row are not needed unless:\n\t- some conversion is floating-point (overstrict for now), or\n\t- some conversion is a vector (overstrict for now), or\n\t- the intermediate type is narrower than both initial and\n\t  final, or\n\t- the intermediate type and innermost type differ in signedness,\n\t  and the outermost type is wider than the intermediate, or\n\t- the initial type is a pointer type and the precisions of the\n\t  intermediate and final types differ, or\n\t- the final type is a pointer type and the precisions of the\n\t  initial and intermediate types differ.  */\n    (if (! inside_float && ! inter_float && ! final_float\n\t && ! inside_vec && ! inter_vec && ! final_vec\n\t && (inter_prec >= inside_prec || inter_prec >= final_prec)\n\t && ! (inside_int && inter_int\n\t       && inter_unsignedp != inside_unsignedp\n\t       && inter_prec < final_prec)\n\t && ((inter_unsignedp && inter_prec > inside_prec)\n\t     == (final_unsignedp && final_prec > inter_prec))\n\t && ! (inside_ptr && inter_prec != final_prec)\n\t && ! (final_ptr && inside_prec != inter_prec))\n     (ocvt @0))\n\n   /* `(outer:M)(inter:N) a:O`\n      can be converted to `(outer:M) a`\n      if M <= O && N >= O. No matter what signedness of the casts,\n      as the final is either a truncation from the original or just\n      a sign change of the type. */\n   (if (inside_int && inter_int && final_int\n        && final_prec <= inside_prec\n\t&& inter_prec >= inside_prec)\n    (convert @0))\n\n    /* A truncation to an unsigned type (a zero-extension) should be\n       canonicalized as bitwise and of a mask.  */\n    (if (GIMPLE /* PR70366: doing this in GENERIC breaks -Wconversion.  */\n\t && final_int && inter_int && inside_int\n\t && final_prec >= inside_prec\n\t && inside_prec > inter_prec\n\t && inter_unsignedp)\n     (convert (bit_and @0 { wide_int_to_tree\n\t                      (inside_type,\n\t\t\t       wi::mask (inter_prec, false,\n\t\t\t\t\t TYPE_PRECISION (inside_type))); })))\n\n    /* If we are converting an integer to a floating-point that can\n       represent it exactly and back to an integer, we can skip the\n       floating-point conversion.  */\n    (if (GIMPLE /* PR66211 */\n\t && inside_int && inter_float && final_int &&\n\t (unsigned) significand_size (TYPE_MODE (inter_type))\n\t >= inside_prec - !inside_unsignedp)\n     (convert @0)))))",
+        "disposition": "reachable; see README rewrite and construction rows"
+      },
+      {
+        "line": 5939,
+        "pattern": "(convert (bit_and @0 INTEGER_CST@1))",
+        "resolved_possible_root_operators": [
+          "convert"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (convert (bit_and @0 INTEGER_CST@1))\n  (if (INTEGRAL_TYPE_P (type)\n       && INTEGRAL_TYPE_P (TREE_TYPE (@0))\n       && TYPE_PRECISION (type) <= TYPE_PRECISION (TREE_TYPE (@0))\n       && operand_equal_p (@1, build_low_bits_mask (TREE_TYPE (@1),\n\t\t\t\t\t\t    TYPE_PRECISION (type)), 0))\n   (convert @0)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 6253,
+        "pattern": "(convert (vec_cond:s @0 @1 @2))",
+        "resolved_possible_root_operators": [
+          "convert"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (convert (vec_cond:s @0 @1 @2))\n (if (VECTOR_TYPE_P (type)\n      && types_match (TREE_TYPE (@0), truth_type_for (type))\n      && (expand_vec_cond_expr_p (type, TREE_TYPE (@0))\n\t  || !expand_vec_cond_expr_p (TREE_TYPE (@1), TREE_TYPE (@0))))\n  (vec_cond @0 (convert! @1) (convert! @2))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 6682,
+        "pattern": "(convert (cond@0 @1 INTEGER_CST@2 INTEGER_CST@3))",
+        "resolved_possible_root_operators": [
+          "convert"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (convert (cond@0 @1 INTEGER_CST@2 INTEGER_CST@3))\n (if (INTEGRAL_TYPE_P (type)\n      && INTEGRAL_TYPE_P (TREE_TYPE (@0)))\n  (cond @1 (convert @2) (convert @3))))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 9500,
+        "pattern": "(convert (froms (convert float16_value_p@0)))",
+        "resolved_possible_root_operators": [
+          "convert"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n   (convert (froms (convert float16_value_p@0)))\n     (if (optimize\n\t  && types_match (type, TREE_TYPE (@0))\n\t  && direct_internal_fn_supported_p (as_internal_fn (tos),\n\t\t\t\t\t     type, OPTIMIZE_FOR_BOTH))\n       (tos @0)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 9511,
+        "pattern": "(convert (copysigns (convert@2 @0) (convert @1)))",
+        "resolved_possible_root_operators": [
+          "convert"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (convert (copysigns (convert@2 @0) (convert @1)))\n   (if (optimize\n       && !HONOR_SNANS (@2)\n       && types_match (type, TREE_TYPE (@0))\n       && types_match (type, TREE_TYPE (@1))\n       && TYPE_PRECISION (type) < TYPE_PRECISION (TREE_TYPE (@2))\n       && direct_internal_fn_supported_p (IFN_COPYSIGN,\n\t\t\t\t\t  type, OPTIMIZE_FOR_BOTH))\n    (IFN_COPYSIGN @0 @1)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 9524,
+        "pattern": "(convert (froms (convert@3 @0) (convert @1) (convert @2)))",
+        "resolved_possible_root_operators": [
+          "convert"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (convert (froms (convert@3 @0) (convert @1) (convert @2)))\n   (if (flag_unsafe_math_optimizations\n       && optimize\n       && FLOAT_TYPE_P (type)\n       && FLOAT_TYPE_P (TREE_TYPE (@3))\n       && types_match (type, TREE_TYPE (@0))\n       && types_match (type, TREE_TYPE (@1))\n       && types_match (type, TREE_TYPE (@2))\n       && TYPE_PRECISION (type) < TYPE_PRECISION (TREE_TYPE (@3))\n       && direct_internal_fn_supported_p (as_internal_fn (tos),\n\t\t\t\t\t  type, OPTIMIZE_FOR_BOTH))\n    (tos @0 @1 @2)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 9539,
+        "pattern": "(convert (maxmin (convert@2 @0) (convert @1)))",
+        "resolved_possible_root_operators": [
+          "convert"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n  (convert (maxmin (convert@2 @0) (convert @1)))\n   (if (optimize\n       && FLOAT_TYPE_P (type)\n       && FLOAT_TYPE_P (TREE_TYPE (@2))\n       && types_match (type, TREE_TYPE (@0))\n       && types_match (type, TREE_TYPE (@1))\n       && element_precision (type) < element_precision (TREE_TYPE (@2)))\n    (maxmin @0 @1)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 9687,
+        "pattern": "(convert (op:s@0 (convert1?@3 @1) (convert2?@4 @2)))",
+        "resolved_possible_root_operators": [
+          "convert"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n   (convert (op:s@0 (convert1?@3 @1) (convert2?@4 @2)))\n   /* If we have a narrowing conversion of an arithmetic operation where\n      both operands are widening conversions from the same type as the outer\n      narrowing conversion.  Then convert the innermost operands to a\n      suitable unsigned type (to avoid introducing undefined behavior),\n      perform the operation and convert the result to the desired type.  */\n   (if (INTEGRAL_TYPE_P (type)\n\t&& op != MULT_EXPR\n\t&& op != RDIV_EXPR\n\t/* We check for type compatibility between @0 and @1 below,\n\t   so there's no need to check that @2/@4 are integral types.  */\n\t&& INTEGRAL_TYPE_P (TREE_TYPE (@1))\n\t&& INTEGRAL_TYPE_P (TREE_TYPE (@3))\n\t/* The precision of the type of each operand must match the\n\t   precision of the mode of each operand, similarly for the\n\t   result.  */\n\t&& type_has_mode_precision_p (TREE_TYPE (@1))\n\t&& type_has_mode_precision_p (TREE_TYPE (@2))\n\t&& type_has_mode_precision_p (type)\n\t/* The inner conversion must be a widening conversion.  */\n\t&& TYPE_PRECISION (TREE_TYPE (@3)) > TYPE_PRECISION (TREE_TYPE (@1))\n\t&& types_match (@1, type)\n\t&& (types_match (@1, @2)\n\t    /* Or the second operand is const integer or converted const\n\t       integer from valueize.  */\n\t    || poly_int_tree_p (@4)))\n     (if (TYPE_OVERFLOW_WRAPS (TREE_TYPE (@1)))\n       (op @1 (convert @2))\n       (with { tree utype = unsigned_type_for (TREE_TYPE (@1)); }\n\t(convert (op (convert:utype @1)\n\t\t     (convert:utype @2)))))\n     (if (FLOAT_TYPE_P (type)\n\t  && DECIMAL_FLOAT_TYPE_P (TREE_TYPE (@0))\n\t       == DECIMAL_FLOAT_TYPE_P (type))\n      (with { tree arg0 = strip_float_extensions (@1);\n\t      tree arg1 = strip_float_extensions (@2);\n\t      tree itype = TREE_TYPE (@0);\n\t      tree ty1 = TREE_TYPE (arg0);\n\t      tree ty2 = TREE_TYPE (arg1);\n\t      enum tree_code code = TREE_CODE (itype); }\n\t(if (FLOAT_TYPE_P (ty1)\n\t     && FLOAT_TYPE_P (ty2))\n\t (with { tree newtype = type;\n\t\t if (TYPE_MODE (ty1) == SDmode\n\t\t     || TYPE_MODE (ty2) == SDmode\n\t\t     || TYPE_MODE (type) == SDmode)\n\t\t   newtype = dfloat32_type_node;\n\t\t if (TYPE_MODE (ty1) == DDmode\n\t\t     || TYPE_MODE (ty2) == DDmode\n\t\t     || TYPE_MODE (type) == DDmode)\n\t\t   newtype = dfloat64_type_node;\n\t\t if (TYPE_MODE (ty1) == TDmode\n\t\t     || TYPE_MODE (ty2) == TDmode\n\t\t     || TYPE_MODE (type) == TDmode)\n\t\t   newtype = dfloat128_type_node; }\n\t  (if ((newtype == dfloat32_type_node\n\t\t|| newtype == dfloat64_type_node\n\t\t|| newtype == dfloat128_type_node)\n\t      && newtype == type\n\t      && types_match (newtype, type))\n\t    (op (convert:newtype @1) (convert:newtype @2))\n\t    (with { if (element_precision (ty1) > element_precision (newtype))\n\t\t      newtype = ty1;\n\t\t    if (element_precision (ty2) > element_precision (newtype))\n\t\t      newtype = ty2; }\n\t       /* Sometimes this transformation is safe (cannot\n\t\t  change results through affecting double rounding\n\t\t  cases) and sometimes it is not.  If NEWTYPE is\n\t\t  wider than TYPE, e.g. (float)((long double)double\n\t\t  + (long double)double) converted to\n\t\t  (float)(double + double), the transformation is\n\t\t  unsafe regardless of the details of the types\n\t\t  involved; double rounding can arise if the result\n\t\t  of NEWTYPE arithmetic is a NEWTYPE value half way\n\t\t  between two representable TYPE values but the\n\t\t  exact value is sufficiently different (in the\n\t\t  right direction) for this difference to be\n\t\t  visible in ITYPE arithmetic.  If NEWTYPE is the\n\t\t  same as TYPE, however, the transformation may be\n\t\t  safe depending on the types involved: it is safe\n\t\t  if the ITYPE has strictly more than twice as many\n\t\t  mantissa bits as TYPE, can represent infinities\n\t\t  and NaNs if the TYPE can, and has sufficient\n\t\t  exponent range for the product or ratio of two\n\t\t  values representable in the TYPE to be within the\n\t\t  range of normal values of ITYPE.  */\n\t      (if (element_precision (newtype) < element_precision (itype)\n\t\t   && (!VECTOR_MODE_P (TYPE_MODE (newtype))\n\t\t       || target_supports_op_p (newtype, op, optab_default))\n\t\t   && (flag_unsafe_math_optimizations\n\t\t       || (element_precision (newtype) == element_precision (type)\n\t\t\t   && real_can_shorten_arithmetic (element_mode (itype),\n\t\t\t\t\t\t\t   element_mode (type))\n\t\t\t   && !excess_precision_type (newtype)))\n\t\t   && !types_match (itype, newtype))\n\t\t (convert:type (op (convert:newtype @1)\n\t\t\t\t   (convert:newtype @2)))\n\t )))) )\n   ))\n))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      },
+      {
+        "line": 12089,
+        "pattern": "(convert? (negate @0))",
+        "resolved_possible_root_operators": [
+          "convert",
+          "negate"
+        ],
+        "enclosing_conversion_aliases": {},
+        "source": "(simplify\n (convert? (negate @0))\n (if (INTEGRAL_TYPE_P (type)\n      && TYPE_PRECISION (type) == 1\n      && !TYPE_OVERFLOW_SANITIZED (TREE_TYPE (@0)))\n  (convert @0)))",
+        "disposition": "requires absent operand structure or type; compare displayed pattern with the closed grammar"
+      }
+    ]
+  }
+}
