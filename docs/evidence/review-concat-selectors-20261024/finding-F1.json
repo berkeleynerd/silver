@@ -1,0 +1,81 @@
+{
+  "status": "confirmed_source_counterexample",
+  "recorded_utc": "2026-10-24T06:48:41.014853+00:00",
+  "reviewed_author": "bba92a0c0685cffdf8c9e179f6b36aafea81c4be",
+  "finding": "F1",
+  "severity": "P2",
+  "source_spans": [
+    {
+      "path": "gcc/genmatch.cc",
+      "source_sha256": "945485502f2a1f25150da0cac471428817b6f231af16cdccff85960272aee08c",
+      "first_lf_line": 2908,
+      "last_lf_line": 2914,
+      "sha256": "92dfaee2121bf4991b41ae941780e83b3caa6e240f2cc466e5d595216f84f1b6"
+    },
+    {
+      "path": "gcc/genmatch.cc",
+      "source_sha256": "945485502f2a1f25150da0cac471428817b6f231af16cdccff85960272aee08c",
+      "first_lf_line": 2961,
+      "last_lf_line": 2991,
+      "sha256": "ecf5ea635cce7db50f405d90aefaa14cec63379c1a153192b46adb0b72ae39e7"
+    },
+    {
+      "path": "gcc/genmatch.cc",
+      "source_sha256": "945485502f2a1f25150da0cac471428817b6f231af16cdccff85960272aee08c",
+      "first_lf_line": 4359,
+      "last_lf_line": 4400,
+      "sha256": "1735b95f65f5752e6eeac266b2a43da730b1cad98b6201cf67333c436bfb7c1b"
+    },
+    {
+      "path": "gcc/genmatch.cc",
+      "source_sha256": "945485502f2a1f25150da0cac471428817b6f231af16cdccff85960272aee08c",
+      "first_lf_line": 4666,
+      "last_lf_line": 4688,
+      "sha256": "83ba10a512641ec838828d3fae0dafd4157ae183b4fdc79434ef2973c5520511"
+    },
+    {
+      "path": "gcc/fold-const.cc",
+      "source_sha256": "cb432059353fdc19e32f1f0ff5a6230f9a6ce41ea41af621791e1a1fc47cc506",
+      "first_lf_line": 16323,
+      "last_lf_line": 16374,
+      "sha256": "a7c33270b9dd6f279c32794c00e0d8b227d6f87d4eecb4b666461696dab278c4"
+    },
+    {
+      "path": "gcc/tree.cc",
+      "source_sha256": "275abbcfa647cc6c122b11aaf03582a674e499452ad56a5b574d1808c8bc9c6d",
+      "first_lf_line": 5350,
+      "last_lf_line": 5390,
+      "sha256": "8958387cf62f0a31ceffa704a3e1eb1560ef26c6a2ab9d12836d3e9fbf27212f"
+    }
+  ],
+  "native_run": false,
+  "compiled_matcher_run": false,
+  "source_argument_machine_proved": false,
+  "grammar": {
+    "type": "base signed Integer32",
+    "E": "INT_MAX",
+    "D": "nonvolatile VAR_DECL of T with full T extrema",
+    "P": "already constructed side-effecting Boolean CALL_EXPR",
+    "Q": "pure completed Boolean condition",
+    "C": "COND_T(P, literal_T(1), literal_T(7))",
+    "X": "COND_T(Q, D, C)"
+  },
+  "trace": [
+    "max_value(C,true) returns C unchanged because both literal arm pointers are unchanged.",
+    "max_value(D,true) returns E through the exact-type extrema conversion.",
+    "max_value(X,true) calls fold_build2(MAX_EXPR,T,E,C), which commutes to MAX(C,E).",
+    "match.pd:4961 selects E; its unused @0 captures the side-effecting C.",
+    "genmatch.cc:4668-4685 preserves that unused capture with build2_loc(COMPOUND_EXPR,T,fold_ignored_result(C),E).",
+    "fold_ignored_result(C) follows its pure literal arms to P; at least the COMPOUND_EXPR binary request remains.",
+    "Result is COMPOUND(P,E), not E; any later declaration-query fallback does not undo the allocation."
+  ],
+  "contradicted_claims": [
+    "arbitrary conditions in README:181-185",
+    "no unary/binary/ternary request in README:190-191",
+    "declaration-containing subtree returns E immediately in README:199-205",
+    "constructor-free MIN/MAX dispositions at matcher-audit lines4950/4961"
+  ],
+  "attached_partition_affected": false,
+  "attached_partition_reason": "Its conditions are EQ/NE of fresh nonvolatile base-Integer declarations and literal zero; nested selectors and arithmetic are side-effect-free and end at completed declarations. TREE_SIDE_EFFECTS is false, excluding the generated omission branch.",
+  "disposition": "Require explicit side-effect-free selector/condition premise and generator correspondence for the reusable lemma; retain existing admitted language and local scalar/query coefficients. No author repair performed by reviewer."
+}

@@ -1,0 +1,465 @@
+{
+  "status": "pass",
+  "completed_utc": "2026-10-24T06:45:53.213433+00:00",
+  "elapsed_seconds": 1.9953544550007791,
+  "platform": "Linux x86_64",
+  "reviewed_author": "bba92a0c0685cffdf8c9e179f6b36aafea81c4be",
+  "accepted_author": "fd44328b98f1a977d0cfdbb01aa161940124edcb",
+  "accepted_review": "000656e773c6eae24a673afeb5af05f200dc6723",
+  "exact_author_files": [
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/README.md",
+      "bytes": 18389,
+      "sha256": "d45e6f308390ec5d17e0c2e171de9b42c417febb88634c1037c612f5178ea532"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/check.py",
+      "bytes": 11187,
+      "sha256": "757f11c9149afad0df8d87e0fe607f6936cc0a1234d4a66b63a81049b39ba0ae"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/current.json",
+      "bytes": 1361,
+      "sha256": "95c6a412668370ee2b9beabe4b26eaaf17066aa0a0285446de9afa9176a407b0"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/inputs.json",
+      "bytes": 4761,
+      "sha256": "f92a109f662d13d46550a79a9f53031da0d6a0babb453e63b706e89cf89bf9ca"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/ledger.json",
+      "bytes": 1095,
+      "sha256": "bbf52bac0eab035db59129035ec91b233c7aff84367aec8d3c882a438b1e7534"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/matcher-audit.json",
+      "bytes": 349372,
+      "sha256": "ff4b1d48d7443914d92572091d2470745bc631f3e330d5b51522856988b20b39"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/packet-manifest.json",
+      "bytes": 2202,
+      "sha256": "05600d4049903322f4f5a33cca5f320f24e6f23722e63ac3aa200614dc8baeab"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/rank.json",
+      "bytes": 2139,
+      "sha256": "b3537a01a7ef551f7855bdf54b8f1e065e0bfb11179cee0adda17606107c7d27"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/remaining.json",
+      "bytes": 1308,
+      "sha256": "3a90f4e986472f2b0b77d4ee1cbccc61c4463f8f919922785301375a1027ed3d"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/source-manifest.json",
+      "bytes": 8958,
+      "sha256": "23477b80b813288daa62a87e63d331b46d9f1eafa714f29c8cd254aa1fee6a2b"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/source-witnesses.json",
+      "bytes": 8550,
+      "sha256": "36ea8d641d0235df00acffbe45b0843c9a970ed81166c622947ac4a4fbbe0579"
+    },
+    {
+      "path": "docs/research/retained-general-native-capacity.md",
+      "bytes": 35773,
+      "sha256": "e8a29b6ebc77ef13d0fefbfdb5c0f0539e4a691c70616abe152bc9692f23cce9"
+    }
+  ],
+  "accepted_anchors": [
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-prefix/README.md",
+      "bytes": 21433,
+      "sha256": "2d3c3f055c1e03579a498a78e9ced5d969e2d56dfc701155928bff9f3722e073"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-prefix/check.py",
+      "bytes": 15074,
+      "sha256": "6aae2f47a4bafc29780a5cd580cff69ea7bcc37623c5f641eff442fc9b019d00"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-prefix/current.json",
+      "bytes": 3939,
+      "sha256": "7260e1f5c37e561b800be241a0ca7ec8bbcfa904f82888be2e6a74f9e763aad6"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-prefix/extra-sources.tar.gz",
+      "bytes": 391339,
+      "sha256": "07c57605fc7024dd125f817ba2ef4911332501d4ddf2d234aabb490dae2bbd81"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-prefix/inputs.json",
+      "bytes": 4111,
+      "sha256": "d1d91398a8ba460e3765440720c6560295bf937ee601dbc1182780bb93e28c8b"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-prefix/ledger.json",
+      "bytes": 1822,
+      "sha256": "1b27564e9a21ae3ef995a3cc5b354236f3665bd0bcc8da465ce8f1bf15a6e482"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-prefix/matcher-audit.json",
+      "bytes": 144429,
+      "sha256": "9fa945b007fe7044670ecc9c4a34c1f0305875a24cd04cc970e3e96249b98963"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-prefix/packet-manifest.json",
+      "bytes": 2175,
+      "sha256": "ff0e6a2c2fa6489da3bbdbb40cbd6235e02a26b90e1375d85c12332fd5887ac5"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-prefix/rank.json",
+      "bytes": 3623,
+      "sha256": "3babbde2b87e484b587677acff7386a8159e935f8b947535d8a753c2e81fc76d"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-prefix/remaining.json",
+      "bytes": 5570,
+      "sha256": "64f2338cf52f20460dd31a87692222825147dc1b6be85bdd96c64c5769eea678"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-prefix/source-manifest.json",
+      "bytes": 8890,
+      "sha256": "1c8ae0191f30399d6ee1ce4e6f7fd570e5e8ad991e0b9fbee0a78cf12adf931c"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-prefix/source-witnesses.json",
+      "bytes": 8663,
+      "sha256": "ea02a31621b658e9374a1737c6356d1fe0a6f02f934136065f945598c3d89b2d"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/dynamic-helpers/current.json",
+      "bytes": 2241,
+      "sha256": "4898d94bd261f2345405133e198477379eb1669773acd31e93ac278866762179"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/fold-envelope/README.md",
+      "bytes": 17821,
+      "sha256": "5b3c6cbf43a0242a5c5dfff0e37030f55c87f524a5a7f885ee04cddb32624967"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/fold-envelope/current.json",
+      "bytes": 2492,
+      "sha256": "17cc7906552e15c2827717c0044e1cb46f0e2864387b820c93c8ec0dc367bd4c"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/fold-envelope/matcher.py",
+      "bytes": 5406,
+      "sha256": "5189cce5b04f0a25e8f6dd627846340ca42c7164c18408ff61c5f0cd3c8635fe"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/helper-joins/current.json",
+      "bytes": 4979,
+      "sha256": "55996c6c37ab8e2b8d4043249eff9699d97126ba3ff761e3f9f89d9585d1ebb9"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/input-fold/README.md",
+      "bytes": 23405,
+      "sha256": "92a5b7e37fec46166838c089f9f6810cafc0fdc06119f112b59b4548ba74ee1c"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/input-fold/current.json",
+      "bytes": 3376,
+      "sha256": "46ad9629c9456cf7d46338b46784e79905b8473c825294dc69178b9441648581"
+    },
+    {
+      "path": "language.md",
+      "bytes": 49447,
+      "sha256": "4d5f26013750deb93103e817ecaf19aac9001439fe651a5067c36b45304f76a0"
+    },
+    {
+      "path": "samples/path_guards.adb",
+      "bytes": 616,
+      "sha256": "cbddd2adf13dd05047efa5a374ccd18d525bc012b497cc780bfefc5dc2d2a263"
+    }
+  ],
+  "unchanged_previous_packet_files": 60,
+  "accepted_review_receipt": {
+    "path": "000656e773c6eae24a673afeb5af05f200dc6723:docs/reviews/review-concat-prefix-20261024.md",
+    "bytes": 12266,
+    "sha256": "09fe42a2889bcae34a02817a3f5939bc2510c8b14e7dfce0f7cd8766b0aec638"
+  },
+  "source_files": [
+    {
+      "path": "gcc/ada/gcc-interface/decl.cc",
+      "bytes": 414991,
+      "sha256": "6ce439aeba6128f4e8334ae8011d1d1c36b141de76e01d9942114cae73923ad2",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "../helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/utils.cc",
+      "bytes": 266602,
+      "sha256": "e08be507b8d165f18eabd76c897b42726aca63fcc3a48d6e45040cb38c68414d",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "../helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/utils2.cc",
+      "bytes": 122255,
+      "sha256": "c8292ebae64848cb3005523afe82d1dabd1c25422c96fb4421c3b27da6b429af",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "../helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/cuintp.cc",
+      "bytes": 8340,
+      "sha256": "5c16ed8da2e5d261090e1d0a1f9a98eb68fa3d9e50e53f59623d32325faae7b9",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "../helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "bytes": 406631,
+      "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "../helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/ada-tree.h",
+      "bytes": 28538,
+      "sha256": "83a639f787e2624214569abfe563b2887d6604a2d62d6d0e89e1017cde33d835",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "../helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/gigi.h",
+      "bytes": 56241,
+      "sha256": "6e2940a89abb01b7218eff64e13b3aabbc7a9970870670816160dc5991ba48e2",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "../helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/tree.cc",
+      "bytes": 484431,
+      "sha256": "275abbcfa647cc6c122b11aaf03582a674e499452ad56a5b574d1808c8bc9c6d",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "../helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/tree-core.h",
+      "bytes": 73833,
+      "sha256": "332d9a25c22adfd1e82ee5b676681cb4ca1de8c266fa9d0d5dd594e2266ada71",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "../helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/tree.h",
+      "bytes": 281689,
+      "sha256": "65c8b4d692804d7cc2d5883f7f919eb027c739c35ca48b984c239c8926f80b6c",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "../helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/vec.h",
+      "bytes": 74232,
+      "sha256": "b45091891c9e04b65eb6f980b08f957735d430f84a5b4a42c1143c74f1be0fc1",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "../helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/vec.cc",
+      "bytes": 22283,
+      "sha256": "d77ac9b92c78db0dd8f07ccdc71fc610663a1d74d78ac408b7c1d143e92c8afd",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "../helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/stor-layout.cc",
+      "bytes": 109787,
+      "sha256": "2258a4ff462a69fae8c44f78c8014d8159a20013148de1c211c16b3f1a119872",
+      "retained_identity": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json",
+      "archive": "../helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/fold-const.cc",
+      "bytes": 560244,
+      "sha256": "cb432059353fdc19e32f1f0ff5a6230f9a6ce41ea41af621791e1a1fc47cc506",
+      "retained_identity": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json",
+      "archive": "../helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/match.pd",
+      "bytes": 435179,
+      "sha256": "276afc08e0347348f040a4402127484adedbff56d017cdaebbb14654d797f35e",
+      "retained_identity": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json",
+      "archive": "../helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/genmatch.cc",
+      "bytes": 179025,
+      "sha256": "945485502f2a1f25150da0cac471428817b6f231af16cdccff85960272aee08c",
+      "retained_identity": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json",
+      "archive": "../helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/varasm.cc",
+      "bytes": 271386,
+      "sha256": "14e84127bd18f6f31ec3d186a1eb7dfdb951e7c14c261156975290ece0cabb9e",
+      "retained_identity": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json",
+      "archive": "../helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/sort.cc",
+      "bytes": 9896,
+      "sha256": "c7d3068301225f78c505d882ec9e8b11082946ca4201eee0b4849b2e527795b3",
+      "retained_identity": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/rtl-setup-source-identity.json",
+      "archive": "../helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/convert.cc",
+      "bytes": 39639,
+      "sha256": "1bcdcae7e6521a706b557af80d0af5250bf10cd7f840cfabc77ee96eecc1f2ef",
+      "retained_identity": "docs/evidence/retained-native-ingress-bound-20261018/source-manifest.json",
+      "archive": "../fold-envelope/extra-sources.tar.gz"
+    },
+    {
+      "path": "gcc/ada/sem_res.adb",
+      "bytes": 559989,
+      "sha256": "6437a0b918e71a33a6dbdcc8d2d885069acac86ab9379f1daeb08591dcafb7c8",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "../fold-envelope/extra-sources.tar.gz"
+    },
+    {
+      "path": "gcc/ada/cstand.adb",
+      "bytes": 85030,
+      "sha256": "681b8e7cca1844ce7364fc34e780e53aa7e9c725d2d5b0a3075a30229e6d4737",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "../fold-envelope/extra-sources.tar.gz"
+    },
+    {
+      "path": "gcc/ada/exp_imgv.adb",
+      "bytes": 95290,
+      "sha256": "c9b2130f6c8dd9f42d48709e165ad190a570e01bd7960aabc04a6e600fa54de1",
+      "retained_identity": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json",
+      "archive": "../fold-envelope/extra-sources.tar.gz",
+      "source_sha256_key": "exp_imgv.adb"
+    },
+    {
+      "path": "gcc/ada/exp_util.adb",
+      "bytes": 533310,
+      "sha256": "6fcf1cceaa505992e83e8f122eadc87f54b489a4208f55af14178ef04595b6a1",
+      "retained_identity": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json",
+      "archive": "../fold-envelope/extra-sources.tar.gz",
+      "source_sha256_key": "exp_util.adb"
+    },
+    {
+      "path": "gcc/ada/exp_ch4.adb",
+      "bytes": 574199,
+      "sha256": "f18358be377c888d5f7f6e810bce48981b006358858985457c2b35d182fe5669",
+      "retained_identity": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json",
+      "source_sha256_key": "exp_ch4.adb",
+      "archive": "../concat-prefix/extra-sources.tar.gz"
+    },
+    {
+      "path": "gcc/ada/sem_ch3.adb",
+      "bytes": 916035,
+      "sha256": "198190171bcd99d293c3ec86a2ffe4ffb4a29276bfd205ebc4b9f0aea87d263f",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "../concat-prefix/extra-sources.tar.gz"
+    },
+    {
+      "path": "gcc/ada/sem_ch4.adb",
+      "bytes": 412458,
+      "sha256": "19e5386e0a2535c501d41c1d2338760fb4b3c7acaecef614e9bdd4a0cf2fb555",
+      "retained_identity": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json",
+      "archive": "../concat-prefix/extra-sources.tar.gz",
+      "source_sha256_key": "sem_ch4.adb"
+    }
+  ],
+  "source_witnesses": 36,
+  "additional_source_spans": [
+    {
+      "source": "gcc/match.pd",
+      "first_lf_line": 6859,
+      "last_lf_line": 6962,
+      "sha256": "2a5b0cf1c4f8d7f9861f1c1dbd2d4a978e577ab2bb63cac5e7bf320b41a0a2ad"
+    },
+    {
+      "source": "gcc/match.pd",
+      "first_lf_line": 7180,
+      "last_lf_line": 7231,
+      "sha256": "e727daa9fc1a805dadf4a5228fc76c36bd18f0f2ef3c97af6f4d7580cbc663b0"
+    },
+    {
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 13077,
+      "last_lf_line": 13230,
+      "sha256": "d96d43403e3d2af7d822f12b4a3b45f1637ea2ce64ca9468cdcc7e5ced590219"
+    },
+    {
+      "source": "gcc/genmatch.cc",
+      "first_lf_line": 3573,
+      "last_lf_line": 3604,
+      "sha256": "88d34b8108e164df529bfa575ff6765e0bf47c1cdb8b5a0e79d9d98ca3fa5d0b"
+    },
+    {
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 7534,
+      "last_lf_line": 7657,
+      "sha256": "e0921dcc90ae7165bb6155b45d10056cfdf32cd0adccee418a718a6b85a7bb4f"
+    }
+  ],
+  "lexical_forms_bound_to_source": {
+    "binary": 151,
+    "conversion": 19,
+    "conditional": 65,
+    "comparison": 109,
+    "extremum": 20,
+    "truth_inverse": 0
+  },
+  "rank_states": 15,
+  "rank_edges": 18,
+  "selector_summary_cases": 256,
+  "selector_chains": [
+    {
+      "selectors": 1,
+      "visits": 3,
+      "constant_bound": 2
+    },
+    {
+      "selectors": 2,
+      "visits": 5,
+      "constant_bound": 3
+    },
+    {
+      "selectors": 17,
+      "visits": 35,
+      "constant_bound": 23
+    },
+    {
+      "selectors": 257,
+      "visits": 515,
+      "constant_bound": 343
+    },
+    {
+      "selectors": 4097,
+      "visits": 8195,
+      "constant_bound": 5463
+    }
+  ],
+  "literal_extremum_absorption_cases": 65856,
+  "source_cardinality_cases": 6810,
+  "largest_finite_literal_example": {
+    "operands": "IIIIAE",
+    "s": 5,
+    "r": 1,
+    "m": 1,
+    "literal_occurrences": 16
+  },
+  "high_algebra_cases": 4160,
+  "coefficient_cases": 72,
+  "separate_condition_polarity_cases": 144,
+  "selected_reviewer_model": "GPT-6 Astra",
+  "selected_reviewer_effort": "Extra High",
+  "runtime_model_and_effort": null,
+  "tokens": null,
+  "cost": null,
+  "author_checker_runs": 0,
+  "predecessor_checker_runs": 0,
+  "native_compiler_prover_Lean_runs": 0,
+  "semantic_source_argument_machine_proved": false,
+  "complete_native_capacity_result": false
+}
