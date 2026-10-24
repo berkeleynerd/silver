@@ -1,0 +1,64 @@
+{
+  "date": "2026-10-24",
+  "reviewed_utc": "2026-10-24T02:10:27.774774+00:00",
+  "issue": 199,
+  "severity": "medium",
+  "status": "repaired; delta accepted",
+  "selected_reviewer_model": "gpt-6-astra",
+  "selected_reviewer_effort": "xhigh",
+  "runtime_model_confirmation": null,
+  "token_usage": null,
+  "cost": null,
+  "base_author_commit": "97ee9e21d711d276f5f450dcd4573d733de0d0ff",
+  "target_author_commit": "df1972ae382fc70473b1076963f330e3a36530d2",
+  "frozen_changed_files": [
+    {
+      "path": "docs/evidence/retained-producer-report-capacity-20261024/capacity.py",
+      "bytes": 34055,
+      "sha256": "af793f67bd37aa151ed3d8910c8ba133048f76eb37102ea8367073622b89997b"
+    },
+    {
+      "path": "docs/evidence/retained-producer-report-capacity-20261024/check.py",
+      "bytes": 20779,
+      "sha256": "c22aac78120954472335364f793b2d7a0de23f6516a96d3229e87718d7443c24"
+    },
+    {
+      "path": "docs/evidence/retained-producer-report-capacity-20261024/result.json",
+      "bytes": 33354,
+      "sha256": "ae43731050b943d61c45a1c2d22dd5c424cadfbbafa2df8f8ad53a5dc3f0cbe7"
+    },
+    {
+      "path": "docs/evidence/retained-producer-report-capacity-20261024/round.json",
+      "bytes": 4794,
+      "sha256": "94e1e46c2b46ee0241df7a939ad4cc80e4b28771ca1c47aaf58e1e8805a6ca75"
+    },
+    {
+      "path": "docs/research/retained-producer-report-capacity.md",
+      "bytes": 51083,
+      "sha256": "26ddcbbba2a288d0f32374bb9fdff69f70454666208f4ef5321951d19288fcd2"
+    }
+  ],
+  "source_provider": {
+    "path": "docs/research/retained-producer-response.md",
+    "sha256": "6726e87d941735b0765f57396fbb04403242f82412438f47bfb84b1898454847",
+    "claim": "S<=5R; selected real provers plus Trivial and Checker; keys at most7 bytes"
+  },
+  "source_anchors": [
+    "gnat_checks.ml:774-870 find_successful_proof synthetic Trivial fallback",
+    "gnat_report.ml:142-156 synthetic Checker statistics"
+  ],
+  "retracted_claim": "selected_report may bound statistics by the three configured real prover names alone.",
+  "accepted_claim": "Charge five statistics entries per proof row; both full and projected shape constructors consume the same corrected row.",
+  "effects": [
+    "full and projected byte/occurrence bounds increase",
+    "maximum key length7 remains sufficient",
+    "native CP/proof text, third-pool request counts and full-writer recurrence unchanged"
+  ],
+  "reviewer_execution": "Source/delta/identity review only; no checker, native, provider or predecessor replay.",
+  "retained_author_result": {
+    "elapsed_seconds": 4.934213,
+    "complete_selected_files": 78,
+    "spark_ada_frontier": 279
+  },
+  "scope": "Schema input correction for #193/#194; no production change and no full #119 completion"
+}

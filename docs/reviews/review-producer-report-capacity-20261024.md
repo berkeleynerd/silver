@@ -254,3 +254,27 @@ and retained-whitespace witness. The author's focused result reports 78 source
 files, the 279-file Ada frontier and 6.560541 seconds. I did not rerun a checker
 or native tool for this delta. Exact identities, source anchors and disposition
 are in the [correction record](../evidence/review-producer-report-capacity-20261024/projection-correction.json).
+
+## Statistics-domain correction: #199
+
+The bounded correction at author `df1972ae382fc70473b1076963f330e3a36530d2`
+is accepted. The initial selected_report row charged only three statistics
+keys, missing the accepted response provider's `S<=5R` domain: the three real
+provers plus synthetic Trivial and Checker. Downstream #194 tracing found this
+medium-severity undercount, which the original integrated review had missed.
+The three-key attachment is retracted. This correction follows #198's retained
+whitespace repair; it does not restore a compact-output claim.
+
+The source routes are find_successful_proof's synthetic Trivial fallback
+(`gnat_checks.ml:774–870`) and the synthetic Checker statistics
+(`gnat_report.ml:142–156`). Both the full and projected constructors consume
+the corrected five-entry row, so byte and occurrence bounds increase together.
+The seven-byte key bound still covers the actual selected real names and both
+synthetic names. No stronger exclusion of Checker is needed. Native proof/CP
+text, third-pool requests and the full-writer recurrence remain unchanged.
+
+I checked all five changed files against the exact freeze and reviewed the
+source/provider/delta correspondence. The retained author result reports 78
+source files, the 279-file Ada frontier and 4.934213 seconds; no reviewer
+checker, native or predecessor run was performed. Exact identities and the
+disposition are in the [statistics correction record](../evidence/review-producer-report-capacity-20261024/statistics-correction.json).
