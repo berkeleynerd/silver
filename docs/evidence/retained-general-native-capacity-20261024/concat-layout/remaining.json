@@ -1,0 +1,27 @@
+{
+  "closed": [
+    "original completed-seed concat endpoint conversions including paired and mixed selector alternatives",
+    "superflat retained size grammar, failed conditional candidates and wider conversion pull-out",
+    "local cumulative layout constructor projection and source-derived H<=9/O<=59/Q<=63 per finishing root",
+    "guarded widened shared-addend cancellation and converted-inner zero-sum annotation return",
+    "readonly SAVE and simple operand-walk/round-up bounds"
+  ],
+  "open": [
+    "nested concat providers and their capture/type provenance",
+    "static allocation-high replacement, dynamic result slices and generated assignment slices",
+    "action-bearing or unconstrained/volatile/non-seed providers, without admission restriction",
+    "full source object/Length/aggregate executable construction and metadata",
+    "global occurrence and type-copy attachment of scalar events, queries, Ka and debug captures",
+    "pointer/address/P_ARRAY and enclosing fat-pointer conversion",
+    "shared equality/hash/marking invocation multiplicities, type/metadata traversal, native frame bytes and backing",
+    "fixed/import incoming states and full later GCC/assembler/linker/ALI/binder/process composition",
+    "separate prospective explicit same-runtime --RTS GPR descriptor/search/argv configuration-storage delta; proof-production process differs from #89 direct build graph"
+  ],
+  "unchanged_process_allowances": {
+    "e_max": 2,
+    "save_entering_callbacks": 2,
+    "saves": 3,
+    "scope": "once per Why process"
+  },
+  "complete_native_capacity_result": false
+}

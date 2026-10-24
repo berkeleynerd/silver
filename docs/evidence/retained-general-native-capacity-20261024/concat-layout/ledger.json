@@ -1,0 +1,75 @@
+{
+  "meaning": "Authored cumulative source envelopes. Arithmetic checks do not prove source correspondence.",
+  "rows": [
+    {
+      "entry": "direct_integral_convert",
+      "entries": 7,
+      "per_entry": {
+        "constants": 2,
+        "unary": 4,
+        "binary": 2,
+        "ternary": 2
+      }
+    },
+    {
+      "entry": "range_layout_fold_convert",
+      "entries": 6,
+      "per_entry": {
+        "constants": 4,
+        "unary": 4,
+        "binary": 2,
+        "ternary": 4
+      }
+    },
+    {
+      "entry": "size_binop",
+      "entries": 17,
+      "per_entry": {
+        "constants": 8,
+        "unary": 4,
+        "binary": 6,
+        "ternary": 4
+      }
+    },
+    {
+      "entry": "gigi_GE",
+      "entries": 1,
+      "per_entry": {
+        "constants": 8,
+        "unary": 4,
+        "binary": 8,
+        "ternary": 4
+      }
+    },
+    {
+      "entry": "gigi_COND",
+      "entries": 1,
+      "per_entry": {
+        "constants": 0,
+        "unary": 0,
+        "binary": 1,
+        "ternary": 1
+      }
+    }
+  ],
+  "raw_bytes": {
+    "constants": 40,
+    "unary": 32,
+    "binary": 40,
+    "ternary": 48,
+    "var_decl": 256,
+    "maps": 16
+  },
+  "separate_owners": {
+    "scalar_event": "520J+128s+368r+288m+344",
+    "query_pair": "80s+568",
+    "debug_declarations_per_index": 576,
+    "kernel_predicate_constants_per_array": 27
+  },
+  "annotation": {
+    "height": 9,
+    "ordinary_occurrences": 59,
+    "charge_per_root": 63,
+    "root_occurrences_per_array": 2
+  }
+}

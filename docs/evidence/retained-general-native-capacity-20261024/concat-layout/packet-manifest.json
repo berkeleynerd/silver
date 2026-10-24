@@ -1,0 +1,45 @@
+{
+  "meaning": "Exact author packet inputs; receipt current.json is produced after this manifest. Freeze commit identifies the research-note append separately.",
+  "files": [
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-layout/README.md",
+      "bytes": 24981,
+      "sha256": "8117cf2fa69dafd1e0d1fbb7b31d6743dacb0cab388260480f5702e2ac8a4223"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-layout/check.py",
+      "bytes": 16966,
+      "sha256": "9ea97495423b15e96281b5eb6d634e1b1a2717d30a226a4f5ce6d262b2631e61"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-layout/inputs.json",
+      "bytes": 2805,
+      "sha256": "e8220d33d26a973aafe621be4d2c009719cbdecdfa662fea0e0421f9d1074f3d"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-layout/ledger.json",
+      "bytes": 1497,
+      "sha256": "1a975ecde123e22a4eb5fa403e888867b1c65b2eea78cddc99191287c2f8c2fe"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-layout/matcher-audit.json",
+      "bytes": 372969,
+      "sha256": "235d4f9275d71d9ce5bca2680ae875cf73560cf26da808a244e2022eb685661a"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-layout/rank.json",
+      "bytes": 5637,
+      "sha256": "bf595b6d1509614015237732b1f890a8bec8c508745e8affb7f91b5a69c9c20f"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-layout/remaining.json",
+      "bytes": 1601,
+      "sha256": "fb98062ae4a2161fd5f62eaeb3ee790be7f037ded458c999d6833a0ddcc3f008"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-layout/source-witnesses.json",
+      "bytes": 12165,
+      "sha256": "037b7218ffe82dfebd8ae594aded68ba068d92ba2dd6cf08a498d048c29a8453"
+    }
+  ]
+}

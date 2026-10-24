@@ -574,3 +574,41 @@ admission remain unchanged. Selected author remains Astra Extra High; runtime
 confirmation and tokens/cost are unavailable. Only the focused repair check
 ran; its host/time is retained separately. Exact narrow review is pending.
 All size/layout and downstream obligations remain open.
+
+Original concat layout continuation, 2026-10-24: the F1 repair at
+de0d23d2fa was accepted by 1cd353c241 before this round. The
+[concat-layout packet](../evidence/retained-general-native-capacity-20261024/concat-layout/README.md)
+extends the completed seed-provider scalar grammar through original bound
+conversion and superflat layout. It covers paired selectors, mixed
+declaration/selector endpoints, constant-low Image selectors and debug cuts;
+it preserves the explicit false side-effect premise. GENERIC rejects paired
+COND distribution before arm construction, while mixed cases can allocate
+and discard both arm candidates. Wider conversion pull-out allocates plain
+nodes after provisional candidates. The separate undefined-overflow widened
+shared-addend cancellation is retained and exposes a converted-inner PLUS
+annotation path. Its -1/+1 constants take the zero-sum early return, so that
+case does not retry a failed child. Widening alone does not exclude the fold.
+
+The local export is H<=9, at most59 ordinary operand occurrences and
+retry-aware Q<=63 per finishing root, hence Q<=126Ka for the two root
+occurrences of each newly classified receiving array identity. Layout helper
+construction contributes22056Ka raw caller bytes and731Ka operand slots;
+layout plus annotation contributes189384Ka raw bytes. Scalar source events,
+maximum-query pairs, debug declarations and existing kernel/backing terms
+keep their separate owners. No global Ka-from-syntax attachment or complete
+workspace/frame/backing conclusion is claimed. Nested providers, replacement
+and generated slices, pointer adaptation and all downstream composition
+remain open, as does #119's complete-current-grammar capacity rule.
+
+Selected author remains GPT-6 Astra / Extra High; runtime confirmation and
+token/cost measurements are unavailable. The focused source/math check
+passed on Linux x86_64, checking26 complete source files,51 source spans,
+304 graph variants, the distribution guards, signed endpoint arithmetic and
+cumulative coefficients. Its receipt records actual elapsed time from the
+first author clock and check time. The final focused rerun follows explicit
+rank-path and zero-sum annotation corrections; it preserves the numerical
+exports. Source/math evidence is distinct from
+compiler/prover execution; no compiler, prover, Lean, generated matcher or
+predecessor checker ran. Independent review is pending at this author freeze.
+Physical-resource premises, admission, tool pins and the single per-Why-process
+e<=2/two-callback/three-save allowance are unchanged.
