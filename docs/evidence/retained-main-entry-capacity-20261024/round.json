@@ -1,0 +1,63 @@
+{
+  "date_utc": "2026-10-24",
+  "issue": 202,
+  "parent_issue": 119,
+  "base_commit": "b334e2eb5759f70818fcbe592c0ffd11f5df616b",
+  "selected_author_model": "GPT-6 Astra",
+  "selected_author_effort": "Extra High",
+  "runtime_confirmed_model_effort": null,
+  "token_usage": null,
+  "monetary_cost": null,
+  "live_harness_goal": null,
+  "first_clock_utc": "2026-10-24 03:26:08 UTC",
+  "documentation_checkpoint_utc": "2026-10-24 03:42:33 UTC",
+  "measured_checkpoint_interval_seconds": 985,
+  "measurement_scope": "First recorded clock through documentation checkpoint; excludes later commit work and earlier setup before that clock.",
+  "intended_result": "Prove a source-independent populated owner entry envelope at C by restriction of matching accepted cumulative allocation evidence.",
+  "achieved_result": "Original W restriction explained at its actual scope; current R56/R78 configuration supplies five concrete envelopes, eight active owner counter/request bounds, Introduction empty-pool exception, and all reachable managed backing carrier bounds.",
+  "material_findings": [
+    "Original W=86632681 cannot be reused unchanged across the current configuration; accepted current maximum history is144047941 words.",
+    "Ident increments before allocation; imported pending-client/service closure is indispensable to excluding an orphan increment that reaches C.",
+    "Ity.Hsity is a separate active owner; Introduction.Hsdecl has allocation-free tagging and is separately proved uncalled before C.",
+    "Prospective206 timing rules require a complete additive delta; baseline export rejects that unsupported configuration."
+  ],
+  "validation": {
+    "new_focused_checker_invocations": 1,
+    "assertions": 362,
+    "elapsed_seconds": 0.7784511230056523,
+    "archives": 3,
+    "complete_source_native_members": 27,
+    "spans": 41,
+    "providers": 32,
+    "receipt": "result.json",
+    "native_capture_compiler_prover_Lean_solver_runs": 0,
+    "predecessor_checker_replays": 0
+  },
+  "preparation_rework": [
+    {
+      "kind": "manifest span endpoint",
+      "attempt": "attribute-static.txt88-107 exceeded the retained103lines",
+      "resolution": "Bound the exact native body by88-103, then rebuilt manifest. No source/native behavior claim or retained input changed."
+    },
+    {
+      "kind": "source manifest completion",
+      "resolution": "Added the already-retained JSON plugin reader member before the final checker;26\u219227members and40\u219241spans."
+    }
+  ],
+  "full_Main_storage_closed": false,
+  "configuration_206_extension_available": false,
+  "review_status": "Author freeze pending independent review; root handles exact-freeze reviewer and integration.",
+  "process_budget": {
+    "escaping_save_exceptions": 2,
+    "save_entering_callbacks": 2,
+    "saves": 3
+  },
+  "cli_memory_updated": false,
+  "author_input_sha256": {
+    "docs/evidence/retained-main-entry-capacity-20261024/prepare.py": "90ee2a2c3e341b49593a9132f516b9a1f682f21b1cea7fa8e7bd2b59f5e19d08",
+    "docs/evidence/retained-main-entry-capacity-20261024/transfer.py": "12988cda534c3986987121d071bb1a2fec919ba9d915585df93203e37c9f247e",
+    "docs/evidence/retained-main-entry-capacity-20261024/check.py": "dabb5837e824299b726824d6ce73364b37182b830453746b5c142da19c859287",
+    "docs/evidence/retained-main-entry-capacity-20261024/identity.json": "5870e7ef8c4b8609c6fb0f1261fb29d2ee44e24af30e7c0ff679613c6af7e914",
+    "docs/research/retained-main-entry-capacity.md": "a573e245cd6cee13d10fd8860b771c87b29ac8bc4cb7a235cf8e559f28fbdc3f"
+  }
+}
