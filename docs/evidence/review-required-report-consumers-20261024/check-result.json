@@ -1,0 +1,785 @@
+{
+  "status": "focused source/shape/arithmetic checks passed; source bindings remain conditional",
+  "complete_source_files": 76,
+  "new_layout_bytes": {
+    "result": 13536,
+    "location": 13088,
+    "logicalLocation": 1152,
+    "suppression": 13952
+  },
+  "imported_fixed_layouts": {
+    "reportingDescriptor": 4368,
+    "invocation": 12640,
+    "run": 44256
+  },
+  "scalar_handle_leaves": [
+    "any_object",
+    "attachment_vector",
+    "boolean",
+    "codeflow_vector",
+    "enum.optional_result_baselinestate",
+    "enum.optional_result_kind",
+    "enum.optional_result_level",
+    "enum.optional_suppression_status",
+    "enum.suppression_kind",
+    "fix_vector",
+    "float",
+    "graph_vector",
+    "graphtraversal_vector",
+    "integer",
+    "location_vector",
+    "locationrelationship_vector",
+    "logicallocation_vector",
+    "physicallocation_vector",
+    "region_vector",
+    "reportingdescriptorreference_vector",
+    "stack_vector",
+    "suppression_vector",
+    "vss.string_vectors.virtual_string_vector",
+    "vss.strings.virtual_string"
+  ],
+  "configuration_cases": [
+    {
+      "output": false,
+      "brief": false,
+      "argv_count": 17,
+      "joined_constant": 213,
+      "config_constant": 349
+    },
+    {
+      "output": true,
+      "brief": false,
+      "argv_count": 17,
+      "joined_constant": 216,
+      "config_constant": 352
+    },
+    {
+      "output": false,
+      "brief": true,
+      "argv_count": 18,
+      "joined_constant": 228,
+      "config_constant": 366
+    },
+    {
+      "output": true,
+      "brief": true,
+      "argv_count": 18,
+      "joined_constant": 231,
+      "config_constant": 369
+    }
+  ],
+  "orientation_example": {
+    "required": [
+      "main~1.spark",
+      "silver_io.spark",
+      "silver_output_libc.spark",
+      "silver_arguments.spark",
+      "silver_runtime.spark"
+    ],
+    "config": {
+      "argv": [
+        "gnatprove",
+        "-P",
+        null,
+        "-U",
+        "--mode=all",
+        "--report=all",
+        "--warnings=continue",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--steps=100000",
+        "--timeout=0",
+        "--memlimit=1000",
+        "-j0",
+        "--no-loop-unrolling",
+        "--output=brief",
+        "-cargs",
+        "-Wno-free-nonheap-object"
+      ],
+      "argv_count": 18,
+      "joined_command_bytes": 647,
+      "shape": {
+        "pretty": 5489,
+        "slope": 58,
+        "compact": 5360,
+        "values": 26,
+        "objects": 2,
+        "arrays": 2,
+        "fields": 6,
+        "strings": 20,
+        "depth": 2,
+        "array_max": 18,
+        "object_max": 6,
+        "string_max": 416,
+        "key_max": 14
+      },
+      "config_file_bytes": 5361,
+      "assumptions": false,
+      "output_header": false,
+      "quiet": false,
+      "parent_summary_lines": 1,
+      "parent_summary_line_characters": 456,
+      "parent_summary_output_characters": 457,
+      "parent_summary_output_bytes": 913,
+      "parent_counter_join_required": true
+    },
+    "configuration": {
+      "parser": {
+        "input": {
+          "B": 5361,
+          "token": 2498,
+          "key": 86,
+          "decoded": 416,
+          "depth": 2,
+          "array": 18,
+          "object": 6,
+          "containers": 4,
+          "values": 26,
+          "fields": 6
+        },
+        "operands": {
+          "parser_state_backing": 32,
+          "key_builder_backing": 128,
+          "normalized_path_majorant": 4609,
+          "path_builder_backing": 8192,
+          "xstring_growth_current": 415,
+          "xstring_product": 1245,
+          "xstring_round_input": 622,
+          "xstring_backing": 622,
+          "vector_backing": 32,
+          "json_counter": 128,
+          "xstring_counter": 16,
+          "per_object_bytes": 9457
+        },
+        "guards": {
+          "file_and_scanner_spare": true,
+          "token_endpoint": true,
+          "parser_stack": true,
+          "key_builder": true,
+          "path_scratch": true,
+          "path_builder": true,
+          "xstring_product": true,
+          "xstring_round": true,
+          "numeric_scale": true,
+          "vector_length": true,
+          "map_length": true,
+          "json_references": true,
+          "xstring_references": true,
+          "mapping_round": true,
+          "object_request": true,
+          "consumer_json_aliases": true,
+          "consumer_xstring_aliases": true
+        },
+        "all_guards": true
+      },
+      "writer": {
+        "shape": {
+          "pretty": 5489,
+          "slope": 58,
+          "compact": 5360,
+          "values": 26,
+          "objects": 2,
+          "arrays": 2,
+          "fields": 6,
+          "strings": 20,
+          "depth": 2,
+          "array_max": 18,
+          "object_max": 6,
+          "string_max": 416,
+          "key_max": 14
+        },
+        "json_write_string": 5489,
+        "spark_file": 5490,
+        "unbounded_allocation": 8425,
+        "guards": {
+          "string_and_text_io_column": true,
+          "indent_add_and_double": true,
+          "array_geometric_capacity": true,
+          "ordered_map_length": true,
+          "escape_lookahead": true,
+          "escape_string_length": true,
+          "new_xstring_backing": true,
+          "unbounded_alignment_intermediates": true,
+          "individual_64bit_allocation": true,
+          "filename_compose": true
+        },
+        "sufficient": true,
+        "native_inputs_bound": false
+      },
+      "joined_backing": 1162,
+      "guards": {
+        "joined_string": true,
+        "joined_backing": true,
+        "command_json_aliases": true,
+        "config_path": true
+      },
+      "all_guards": true
+    },
+    "collector": {
+      "report_count": 5,
+      "parse_passes": 2,
+      "report_parsers": [
+        {
+          "input": {
+            "B": 3896,
+            "token": 386,
+            "key": 356,
+            "decoded": 64,
+            "depth": 3,
+            "array": 0,
+            "object": 12,
+            "containers": 12,
+            "values": 21,
+            "fields": 20
+          },
+          "operands": {
+            "parser_state_backing": 32,
+            "key_builder_backing": 512,
+            "normalized_path_majorant": 4609,
+            "path_builder_backing": 8192,
+            "xstring_growth_current": 63,
+            "xstring_product": 189,
+            "xstring_round_input": 94,
+            "xstring_backing": 94,
+            "vector_backing": 1,
+            "json_counter": 128,
+            "xstring_counter": 16,
+            "per_object_bytes": 8708
+          },
+          "guards": {
+            "file_and_scanner_spare": true,
+            "token_endpoint": true,
+            "parser_stack": true,
+            "key_builder": true,
+            "path_scratch": true,
+            "path_builder": true,
+            "xstring_product": true,
+            "xstring_round": true,
+            "numeric_scale": true,
+            "vector_length": true,
+            "map_length": true,
+            "json_references": true,
+            "xstring_references": true,
+            "mapping_round": true,
+            "object_request": true,
+            "consumer_json_aliases": true,
+            "consumer_xstring_aliases": true
+          },
+          "all_guards": true
+        },
+        {
+          "input": {
+            "B": 3896,
+            "token": 386,
+            "key": 356,
+            "decoded": 64,
+            "depth": 3,
+            "array": 0,
+            "object": 12,
+            "containers": 12,
+            "values": 21,
+            "fields": 20
+          },
+          "operands": {
+            "parser_state_backing": 32,
+            "key_builder_backing": 512,
+            "normalized_path_majorant": 4609,
+            "path_builder_backing": 8192,
+            "xstring_growth_current": 63,
+            "xstring_product": 189,
+            "xstring_round_input": 94,
+            "xstring_backing": 94,
+            "vector_backing": 1,
+            "json_counter": 128,
+            "xstring_counter": 16,
+            "per_object_bytes": 8708
+          },
+          "guards": {
+            "file_and_scanner_spare": true,
+            "token_endpoint": true,
+            "parser_stack": true,
+            "key_builder": true,
+            "path_scratch": true,
+            "path_builder": true,
+            "xstring_product": true,
+            "xstring_round": true,
+            "numeric_scale": true,
+            "vector_length": true,
+            "map_length": true,
+            "json_references": true,
+            "xstring_references": true,
+            "mapping_round": true,
+            "object_request": true,
+            "consumer_json_aliases": true,
+            "consumer_xstring_aliases": true
+          },
+          "all_guards": true
+        },
+        {
+          "input": {
+            "B": 3896,
+            "token": 386,
+            "key": 356,
+            "decoded": 64,
+            "depth": 3,
+            "array": 0,
+            "object": 12,
+            "containers": 12,
+            "values": 21,
+            "fields": 20
+          },
+          "operands": {
+            "parser_state_backing": 32,
+            "key_builder_backing": 512,
+            "normalized_path_majorant": 4609,
+            "path_builder_backing": 8192,
+            "xstring_growth_current": 63,
+            "xstring_product": 189,
+            "xstring_round_input": 94,
+            "xstring_backing": 94,
+            "vector_backing": 1,
+            "json_counter": 128,
+            "xstring_counter": 16,
+            "per_object_bytes": 8708
+          },
+          "guards": {
+            "file_and_scanner_spare": true,
+            "token_endpoint": true,
+            "parser_stack": true,
+            "key_builder": true,
+            "path_scratch": true,
+            "path_builder": true,
+            "xstring_product": true,
+            "xstring_round": true,
+            "numeric_scale": true,
+            "vector_length": true,
+            "map_length": true,
+            "json_references": true,
+            "xstring_references": true,
+            "mapping_round": true,
+            "object_request": true,
+            "consumer_json_aliases": true,
+            "consumer_xstring_aliases": true
+          },
+          "all_guards": true
+        },
+        {
+          "input": {
+            "B": 3896,
+            "token": 386,
+            "key": 356,
+            "decoded": 64,
+            "depth": 3,
+            "array": 0,
+            "object": 12,
+            "containers": 12,
+            "values": 21,
+            "fields": 20
+          },
+          "operands": {
+            "parser_state_backing": 32,
+            "key_builder_backing": 512,
+            "normalized_path_majorant": 4609,
+            "path_builder_backing": 8192,
+            "xstring_growth_current": 63,
+            "xstring_product": 189,
+            "xstring_round_input": 94,
+            "xstring_backing": 94,
+            "vector_backing": 1,
+            "json_counter": 128,
+            "xstring_counter": 16,
+            "per_object_bytes": 8708
+          },
+          "guards": {
+            "file_and_scanner_spare": true,
+            "token_endpoint": true,
+            "parser_stack": true,
+            "key_builder": true,
+            "path_scratch": true,
+            "path_builder": true,
+            "xstring_product": true,
+            "xstring_round": true,
+            "numeric_scale": true,
+            "vector_length": true,
+            "map_length": true,
+            "json_references": true,
+            "xstring_references": true,
+            "mapping_round": true,
+            "object_request": true,
+            "consumer_json_aliases": true,
+            "consumer_xstring_aliases": true
+          },
+          "all_guards": true
+        },
+        {
+          "input": {
+            "B": 3896,
+            "token": 386,
+            "key": 356,
+            "decoded": 64,
+            "depth": 3,
+            "array": 0,
+            "object": 12,
+            "containers": 12,
+            "values": 21,
+            "fields": 20
+          },
+          "operands": {
+            "parser_state_backing": 32,
+            "key_builder_backing": 512,
+            "normalized_path_majorant": 4609,
+            "path_builder_backing": 8192,
+            "xstring_growth_current": 63,
+            "xstring_product": 189,
+            "xstring_round_input": 94,
+            "xstring_backing": 94,
+            "vector_backing": 1,
+            "json_counter": 128,
+            "xstring_counter": 16,
+            "per_object_bytes": 8708
+          },
+          "guards": {
+            "file_and_scanner_spare": true,
+            "token_endpoint": true,
+            "parser_stack": true,
+            "key_builder": true,
+            "path_scratch": true,
+            "path_builder": true,
+            "xstring_product": true,
+            "xstring_round": true,
+            "numeric_scale": true,
+            "vector_length": true,
+            "map_length": true,
+            "json_references": true,
+            "xstring_references": true,
+            "mapping_round": true,
+            "object_request": true,
+            "consumer_json_aliases": true,
+            "consumer_xstring_aliases": true
+          },
+          "all_guards": true
+        }
+      ],
+      "entities": 0,
+      "location_occurrences": 0,
+      "symbol_pool": {
+        "distinct_strings": 5,
+        "subprogram_records": 0,
+        "location_list": 1,
+        "guards": {
+          "lifetime_calls": true,
+          "symbols_hash": true,
+          "subprogram_hash": true,
+          "subprogram_vector": true,
+          "location_list": true,
+          "copied_string": true
+        }
+      },
+      "find_calls": 5,
+      "diagnostic_rows": 0,
+      "check_rows": 0,
+      "statistic_count": 0,
+      "prover_names": 5,
+      "db_max_unit_subps": 0,
+      "difficult_transient": 11,
+      "difficult_retained": 10,
+      "summary_rows": 12,
+      "summary_columns": 6,
+      "prover_cell_bytes": 82,
+      "text_line_characters": 896,
+      "text_explicit_lines": 158,
+      "text_output_characters": 141726,
+      "text_output_bytes": 283452,
+      "failure_explicit_lines": 28,
+      "no_check_output_characters": 186,
+      "failure_output_characters": 14611,
+      "failure_output_bytes": 29222,
+      "success_stdout_characters": 129,
+      "success_stdout_bytes": 258,
+      "sarif_file_bytes": 1976365,
+      "sarif_depth": 8,
+      "text_unbounded_backing": 1536,
+      "sarif_vectors": {
+        "result": {
+          "length": 0,
+          "capacity": 0,
+          "growth_copies": 0,
+          "multiply": 0,
+          "allocation": 0,
+          "guards": {
+            "length": true,
+            "growth": true,
+            "allocation": true
+          }
+        },
+        "location": {
+          "length": 0,
+          "capacity": 0,
+          "growth_copies": 0,
+          "multiply": 0,
+          "allocation": 0,
+          "guards": {
+            "length": true,
+            "growth": true,
+            "allocation": true
+          }
+        },
+        "logicalLocation": {
+          "length": 0,
+          "capacity": 0,
+          "growth_copies": 0,
+          "multiply": 0,
+          "allocation": 0,
+          "guards": {
+            "length": true,
+            "growth": true,
+            "allocation": true
+          }
+        },
+        "suppression": {
+          "length": 0,
+          "capacity": 0,
+          "growth_copies": 0,
+          "multiply": 0,
+          "allocation": 0,
+          "guards": {
+            "length": true,
+            "growth": true,
+            "allocation": true
+          }
+        },
+        "reportingDescriptor": {
+          "length": 167,
+          "capacity": 211,
+          "growth_copies": 12,
+          "multiply": 423,
+          "allocation": 921680,
+          "guards": {
+            "length": true,
+            "growth": true,
+            "allocation": true
+          }
+        },
+        "invocation": {
+          "length": 1,
+          "capacity": 2,
+          "growth_copies": 0,
+          "multiply": 0,
+          "allocation": 25312,
+          "guards": {
+            "length": true,
+            "growth": true,
+            "allocation": true
+          }
+        },
+        "run": {
+          "length": 1,
+          "capacity": 2,
+          "growth_copies": 0,
+          "multiply": 0,
+          "allocation": 88544,
+          "guards": {
+            "length": true,
+            "growth": true,
+            "allocation": true
+          }
+        }
+      },
+      "sarif_string_bytes": 647,
+      "sarif_string_allocation": 776,
+      "vss_aliases": 704,
+      "argument_vector_allocation": 8256,
+      "sarif_output_character_allocation": 64,
+      "guards": {
+        "wildcard_match_counter": true,
+        "db_hash_domain": true,
+        "list_counts": true,
+        "summary_checks": true,
+        "summary_stats": true,
+        "percent_multiplication": true,
+        "post_percent_merge": true,
+        "table_cell": true,
+        "textio_column": true,
+        "textio_line": true,
+        "stderr_line": true,
+        "ordinary_file_offset": true,
+        "unit_path_domain": true,
+        "sarif_file_offset": true,
+        "text_backing": true,
+        "float_to_integer": true,
+        "vss_character_count": true,
+        "vss_alignment": true,
+        "vss_allocation": true,
+        "vss_refcount": true,
+        "native_record_request": true,
+        "path_compose": true
+      },
+      "all_guards": true
+    },
+    "silver": {
+      "main~1.spark": {
+        "kind": "main",
+        "raw_bytes": 3896,
+        "retained_bytes": 3896,
+        "current_guard_bytes": 16777216,
+        "native_read_buffer_bytes": 16777216,
+        "c_path_bytes": 513,
+        "raw_native_byte_counter": false,
+        "ghost_histories_erased": true,
+        "guards": {
+          "current_buffer": true,
+          "current_path": true,
+          "c_path_terminator": true,
+          "cursor_spare": true,
+          "raw_projection_depth": true,
+          "audit_depth": true,
+          "padded_reference": true
+        },
+        "current_sufficient": true,
+        "scalable_required": {
+          "retained_capacity": 3896,
+          "raw_nesting": 3,
+          "audit_nesting": 3,
+          "cursor_max": 3898,
+          "largest_audit_copy": 3897,
+          "whole_file_copies": 0
+        }
+      },
+      "silver_io.spark": {
+        "kind": "runtime",
+        "raw_bytes": 3896,
+        "retained_bytes": 3896,
+        "current_guard_bytes": 262144,
+        "native_read_buffer_bytes": 262144,
+        "c_path_bytes": 513,
+        "raw_native_byte_counter": false,
+        "ghost_histories_erased": true,
+        "guards": {
+          "current_buffer": true,
+          "current_path": true,
+          "c_path_terminator": true,
+          "cursor_spare": true,
+          "raw_projection_depth": true,
+          "audit_depth": true,
+          "padded_reference": true
+        },
+        "current_sufficient": true,
+        "scalable_required": {
+          "retained_capacity": 3896,
+          "raw_nesting": 3,
+          "audit_nesting": 3,
+          "cursor_max": 3898,
+          "largest_audit_copy": 3897,
+          "whole_file_copies": 0
+        }
+      },
+      "silver_output_libc.spark": {
+        "kind": "runtime",
+        "raw_bytes": 3896,
+        "retained_bytes": 3896,
+        "current_guard_bytes": 262144,
+        "native_read_buffer_bytes": 262144,
+        "c_path_bytes": 513,
+        "raw_native_byte_counter": false,
+        "ghost_histories_erased": true,
+        "guards": {
+          "current_buffer": true,
+          "current_path": true,
+          "c_path_terminator": true,
+          "cursor_spare": true,
+          "raw_projection_depth": true,
+          "audit_depth": true,
+          "padded_reference": true
+        },
+        "current_sufficient": true,
+        "scalable_required": {
+          "retained_capacity": 3896,
+          "raw_nesting": 3,
+          "audit_nesting": 3,
+          "cursor_max": 3898,
+          "largest_audit_copy": 3897,
+          "whole_file_copies": 0
+        }
+      },
+      "silver_arguments.spark": {
+        "kind": "runtime",
+        "raw_bytes": 3896,
+        "retained_bytes": 3896,
+        "current_guard_bytes": 262144,
+        "native_read_buffer_bytes": 262144,
+        "c_path_bytes": 513,
+        "raw_native_byte_counter": false,
+        "ghost_histories_erased": true,
+        "guards": {
+          "current_buffer": true,
+          "current_path": true,
+          "c_path_terminator": true,
+          "cursor_spare": true,
+          "raw_projection_depth": true,
+          "audit_depth": true,
+          "padded_reference": true
+        },
+        "current_sufficient": true,
+        "scalable_required": {
+          "retained_capacity": 3896,
+          "raw_nesting": 3,
+          "audit_nesting": 3,
+          "cursor_max": 3898,
+          "largest_audit_copy": 3897,
+          "whole_file_copies": 0
+        }
+      },
+      "silver_runtime.spark": {
+        "kind": "runtime",
+        "raw_bytes": 3896,
+        "retained_bytes": 3896,
+        "current_guard_bytes": 262144,
+        "native_read_buffer_bytes": 262144,
+        "c_path_bytes": 513,
+        "raw_native_byte_counter": false,
+        "ghost_histories_erased": true,
+        "guards": {
+          "current_buffer": true,
+          "current_path": true,
+          "c_path_terminator": true,
+          "cursor_spare": true,
+          "raw_projection_depth": true,
+          "audit_depth": true,
+          "padded_reference": true
+        },
+        "current_sufficient": true,
+        "scalable_required": {
+          "retained_capacity": 3896,
+          "raw_nesting": 3,
+          "audit_nesting": 3,
+          "cursor_max": 3898,
+          "largest_audit_copy": 3897,
+          "whole_file_copies": 0
+        }
+      }
+    },
+    "path_demands": {
+      "project_argument": 416,
+      "initial_and_saved_cwd": 128,
+      "object_directory": 416,
+      "config_file": 432,
+      "ordinary_summary": 430,
+      "sarif_file": 432,
+      "spark_files": 441,
+      "unit_source_paths": 416
+    },
+    "common_path_bytes": 512,
+    "path_domain_join": true,
+    "consumer_native_guards": true,
+    "current_silver_guards": true,
+    "source_inputs_bound": false,
+    "physical_resources_assumed": true,
+    "admission_decision": false
+  },
+  "compiler_runs": 0,
+  "prover_runs": 0,
+  "solver_runs": 0,
+  "predecessor_checker_replays": 0,
+  "elapsed_seconds": 0.401562
+}

@@ -1,0 +1,111 @@
+{
+  "date": "2026-10-24",
+  "frozen_author_commit": "10604f4d219df703499abf7049aa35a91657ec1a",
+  "reviewer_selected_model": "gpt-6-astra",
+  "reviewer_selected_effort": "xhigh",
+  "runtime_model_confirmation": null,
+  "token_usage": null,
+  "cost": null,
+  "host": "Linux x86_64",
+  "first_recorded_review_utc": "2026-10-24T02:24:53+00:00",
+  "audit_started_utc": "2026-10-24T02:37:38.108203+00:00",
+  "audit_finished_utc": "2026-10-24T02:37:38.681433+00:00",
+  "invocation_elapsed_seconds": 0.573198,
+  "checker_runs": 1,
+  "native_runs": 0,
+  "predecessor_checker_replays": 0,
+  "output_mode": "Original checker executed in isolated byte-matched temporary tree; author packet unchanged",
+  "frozen_files": [
+    {
+      "path": "docs/evidence/retained-required-report-consumers-20261024/README.md",
+      "bytes": 3034,
+      "sha256": "c01421b5b2d7d0c71bb6ee2e7176cc8397ea47fb190d31805d8a3594d2e81784"
+    },
+    {
+      "path": "docs/evidence/retained-required-report-consumers-20261024/capacity.py",
+      "bytes": 18413,
+      "sha256": "57104877def11f05692a6eea15fc668624921089dda2807169339c463fc620a2"
+    },
+    {
+      "path": "docs/evidence/retained-required-report-consumers-20261024/check.py",
+      "bytes": 13187,
+      "sha256": "83ed05e5e48da18ebd2d7370e6de025c2c978f72353b5073e03d2906a66a851f"
+    },
+    {
+      "path": "docs/evidence/retained-required-report-consumers-20261024/inputs.json",
+      "bytes": 1639,
+      "sha256": "d70009159836605b4be9baa5dfee98fad210bd3428fe90e70d6c9ffe48a65eb2"
+    },
+    {
+      "path": "docs/evidence/retained-required-report-consumers-20261024/result.json",
+      "bytes": 22457,
+      "sha256": "f2fc9ada02c944d12e570dab8022a8cd0352f03aec13dd09762c1dc8af9767ef"
+    },
+    {
+      "path": "docs/evidence/retained-required-report-consumers-20261024/round.json",
+      "bytes": 3446,
+      "sha256": "6c63e0d61df2b6cbaf67154a2a7cce8babf62489d2502d9bc4f747a0d70ec6b6"
+    },
+    {
+      "path": "docs/evidence/retained-required-report-consumers-20261024/source-manifest.json",
+      "bytes": 30898,
+      "sha256": "4099bd25b6c8a58247591523de2e9a89c6d9c36d9e17f9a1ac46f394032349d8"
+    },
+    {
+      "path": "docs/evidence/retained-required-report-consumers-20261024/sources.tar.gz",
+      "bytes": 274152,
+      "sha256": "60af2ad6b5526544a1ebbe19d6575defa335ed4ac853f64574b2279dc94b6609"
+    },
+    {
+      "path": "docs/research/retained-required-report-consumers.md",
+      "bytes": 24962,
+      "sha256": "7698615e6c0222d4869f31e86bf5a2c531344e920a50a19c7dba25fe08d495b2"
+    }
+  ],
+  "pinned_inputs": {
+    "files": [
+      {
+        "path": "docs/evidence/retained-producer-report-capacity-20261024/capacity.py",
+        "sha256": "af793f67bd37aa151ed3d8910c8ba133048f76eb37102ea8367073622b89997b"
+      },
+      {
+        "path": "docs/evidence/retained-response-parser-capacity-20261023/capacity.py",
+        "sha256": "c8925ae1d74a086dcf3b3fb307b8ef7b8cc8ce5e519f0fd41976550142b184f7"
+      },
+      {
+        "path": "docs/research/retained-producer-orchestration.md",
+        "sha256": "b3346ad1afadfa8d2c889f2a3685b6927e586591fded64f8ac9c3d9ea8630b44"
+      },
+      {
+        "path": "docs/research/retained-producer-tail.md",
+        "sha256": "df9b0e7aab72837b42176d245d0b22646fdde4ed1c81bef50d0ad27e55c4a993"
+      },
+      {
+        "path": "docs/research/retained-producer-response.md",
+        "sha256": "6726e87d941735b0765f57396fbb04403242f82412438f47bfb84b1898454847"
+      },
+      {
+        "path": "docs/research/retained-tool-source-identity.md",
+        "sha256": "0f3e412d639dadb0f6b0aa4448fe4179f6e92e6e48c3496d086709b46f3cd0ad"
+      },
+      {
+        "path": "docs/research/retained-response-provenance.md",
+        "sha256": "c1fe62c004c7bc5ce0352b71bb54584d0f9d7f7886dd90a052d9bbbfa4eef9ea"
+      },
+      {
+        "path": "docs/evidence/retained-producer-sarif-capacity-20261018/check-results.json",
+        "sha256": "11675e8c739010aaf8842caadcb9cedb177936645f8484d144cc9152faae496c"
+      }
+    ],
+    "producer_projection_repair": "97ee9e21d711d276f5f450dcd4573d733de0d0ff",
+    "producer_statistics_repair": "df1972ae382fc70473b1076963f330e3a36530d2",
+    "source_scope": "Retained exact behavior candidates plus installed runtime source; same external source/native relation"
+  },
+  "returncode": 0,
+  "stdout": "{\"status\": \"focused source/shape/arithmetic checks passed; source bindings remain conditional\", \"complete_source_files\": 76, \"elapsed_seconds\": 0.401562}\n",
+  "stderr": "",
+  "matches_author_result_except_elapsed": true,
+  "result_sha256": "df64257ddfbe33660e4f163cb53168e0370612c943402e92faad10ba91e8a7c8",
+  "complete_source_files": 76,
+  "repository_sources": 23
+}
