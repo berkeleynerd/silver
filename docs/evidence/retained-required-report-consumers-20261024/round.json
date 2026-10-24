@@ -31,6 +31,11 @@
       "purpose": "Repair independent reviewer findings203\u2013205",
       "result": "Separated Text_IO descriptor characters/native String storage from twofold encoded file bytes; retained ASCII serializer distinction. Charged three no-check stderr lines and fixed text plus success stdout delta. Explicit initial/save cwd, project/object/config/report/SARIF and per-unit path inequalities reject inconsistent common-P inputs. Added six complete reused source witnesses including pinned GPR2 default iteration declarations. No demonstrated native overflow; no native or predecessor replay.",
       "elapsed_seconds": 0.310447
+    },
+    {
+      "purpose": "Clarify controlled alias stages during final review",
+      "result": "Eight-stage allowance denotes controlled vector/leaf adjustment stages, not literal optional-record or JSON field depth. Reviewer found no numerical undercount. No code/source/arithmetic changed; successful focused evidence reused.",
+      "elapsed_seconds": null
     }
   ],
   "review_status": "Scoped repairs203\u2013205 prepared for exact reviewer audit",

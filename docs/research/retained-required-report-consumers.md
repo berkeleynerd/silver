@@ -306,8 +306,13 @@ this note does not relax the file/audit failure behavior.
 
 For a particular heap string or argument backing, every result field starts
 fresh; separate messages do not share newly constructed backing. Count up to
-32 caller constructor/aggregate/return boundaries, at most8 generated nested
-record/vector adjustment edges, and two temporary copies per boundary. The
+32 caller constructor/aggregate/return boundaries, at most8 controlled
+adjustment/copy stages along a path, and two temporary copies per boundary.
+The eight-stage allowance covers controlled vectors (runs/results/locations/
+logicalLocations or the rules/invocations path), the message-argument vector
+and leaf adjustment. It is not a count of literal JSON field/record edges:
+ordinary optional record wrappers forward adjustment of their controlled
+components and do not independently multiply leaf holders. The
 conservative512 (=32*8*2) initial-holder allowance, plus16 for each result/rule growth
 copy step, bounds references even without credit for prior finalization.
 Append growth happens before My_Run/Root copies; later output retains constant
