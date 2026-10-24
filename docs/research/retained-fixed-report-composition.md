@@ -301,3 +301,53 @@ values, order and multiplicity. P=188 and the selected configuration remain
 unchanged; original evidence is retained. The narrow regression passed;
 independent repair review is pending. This does not change source admission or
 complete the outstanding configuration/native storage and five-report joins.
+
+## Prospective RTS producer/native storage, 2026-10-24
+
+The [new storage packet](../evidence/retained-fixed-report-composition-20261024/prospective-native/README.md)
+composes the additional switch/search/argv and indexed-null ALI objects, with
+configuration-sized transfer functions for fixed libraries and Main. Source
+branches give source/library search demands 4/4 for phase1/datarep and 4/5 for
+translation. The exact seven-record map has 489 bytes and a 506-byte reader
+object; retaining the old 499-byte null object would be insufficient. The
+light frontend has 19 argv entries including executable, switch counts 11/10,
+and recomposed switch/search/Fmap/Name table guards. Native datarep's actual
+24-entry descriptor fits its accepted 24/48 envelope at the unchanged P188;
+this does not cover the direct #201/#89 native build graph.
+
+The source join corrects an earlier exported child-switch width, tracked in
+[#216](https://github.com/berkeleynerd/silver/issues/216). GPR applies
+Name_As_Directory to the runtime macro, so raw top-level `--RTS=R` is 168 bytes
+but the compiler and binder receive `--RTS=R/`, 169 bytes. Stored payload sums
+are 246/239; the new ALI row is 172 bytes. Indexed-null Args is 21, its complete
+ALI bound 29,622,976 bytes and reader bound 29,622,977. All 63 XML files were
+evaluated across all packages: 19 selected fragments become 20 by adding only
+gnat.xml[13]. Existing linker.xml[82] remains selected, with its runtime macro
+plus literal `/adalib` yielding R//adalib. The top-level command/configuration
+bounds, report P188, physical premises and global e <= 2 / two save-entering
+callbacks / three saves remain unchanged. Earlier packets remain preserved;
+this new packet supersedes their raw-as-child RTS width exports.
+
+The two added GPR clauses produce 20 syntax nodes and seven evaluated list
+cells, reuse existing array/index entries, and preserve 8,192-byte aligned
+configuration buffers at text bounds 7,505 / 7,715 / 7,779. The packet evaluates
+the relevant actual table arithmetic over explicit context operands. The
+accepted orchestration provider supplies configuration bytes and source-reader
+allowances but no numerical Project_Nodes, String_Elements, Name_Lists or
+GPR.Names baseline. A sufficient source/configuration bound for those baselines,
+capacities, traversal counts and the other producer GPR parent objects remains
+a concrete #212 residual under #119. An arbitrary callable input is not complete
+configuration capacity, and no exact historical AST reconstruction or native
+capture prerequisite is introduced. Main/five-report and native warning/header/
+source-span/private-fix joins retain their existing owners.
+
+The first new check passed in 0.327739 seconds. A local GPR-name correction
+retains its failed handwritten width expectation and the 0.006875-second
+corrected result. The final changed-input check, including the parent-identified
+runtime-macro correction and exact map object, passed in 0.435197 seconds over
+52 complete sources and 20 accepted provider files. No predecessor checker,
+native/compiler/prover/Lean/service run or complete corpus/configuration
+observation was repeated. Selected author setting was GPT-6 Astra / Extra High;
+runtime confirmation and token/cost telemetry are unavailable. No production
+or admission behavior changes, and #212/#119 remain open for the named joins
+and independent review.

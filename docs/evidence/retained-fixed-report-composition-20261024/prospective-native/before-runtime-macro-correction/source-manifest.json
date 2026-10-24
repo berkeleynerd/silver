@@ -1,0 +1,483 @@
+{
+  "accepted_research_prefix": {
+    "bytes": 19959,
+    "sha256": "97d4aec4c2bd308d8e0c806f50a374fa04637af444a3dfe9c6d834c44ded072c"
+  },
+  "base_commit": "5f4f585056",
+  "providers": {
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective/recipe.py": "3d4f22b9409e326ac01a8659a6fce50b1b0e2f48bdad6ba43e3871b7294e9678",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective/repair-f1/result.json": "1c272a5b7efdffd9d01823562b49245b6e3adfecd5fe6f7dc897c2471d98f68b",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective/result.json": "f8d3af64643cf2ffd73361f1cc727c0f127fc3f192e82f8c0b1696fd540335a2",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective/runtime-selection.json": "7e88535d5b12c36410b9d8755bda54eed9169bdd012be1d8d7b2e0dc58952318",
+    "docs/evidence/retained-main-semantics-20261018/library-capture/inputs.json": "445e5e07dd314ddea904a34fa5555cba15c11d8621dcb6cc03a5fa0cf824ca9a",
+    "docs/evidence/retained-main-semantics-20261018/library-capture/summary.json": "c51ef7647b3433e1a4b9eb277b07f65f8d399597d72abf9a370c96fa9b2c5328",
+    "docs/evidence/retained-native-driver-20261018/sources.json": "7f5227da0c6ea32d7380b15240e66fa505d01b538d91cb80f3b361263ed330f7",
+    "docs/evidence/retained-native-driver-20261018/sources.tar.gz": "2d2d805d07034276fd1ed2f3cd949cf553c17be6144a8e4aa19fe518a3954188",
+    "docs/evidence/retained-producer-datarep-null-20261018/compose.py": "48aa87e584972c557b55df7d0ff6104ed47ecf79892d99298debd64cc166ba14",
+    "docs/evidence/retained-producer-datarep-null-20261018/result.json": "cc004f1ab09c04a3620c03abdcf92b9bcc326285008b24fc35079dfab07ca0ba",
+    "docs/evidence/retained-producer-gpr-descriptor-20261018/gprbuild-v26.0.0.tar.gz": "876400a11e27cc1c1c9c7affc568808e3987e867e84afe88a1dcdcc6431b1844",
+    "docs/evidence/retained-producer-gpr-descriptor-20261018/installed-configs.tar.gz": "9480af24749a6dfa8da3b16d32de6756cc9f651dd9e327fd6ca6f112ee163ab3",
+    "docs/evidence/retained-producer-gpr-descriptor-20261018/result.json": "5daab8a1bf1b91cc7ffc037cd1247be8762d737b9f88f3c48d49542ddbbced9b",
+    "docs/evidence/retained-producer-null-frontend-20261018/compose.py": "5b42dd4a1e10f4b9b8de8edad41f46a0edb151ec734127374e8dba06d15b2529",
+    "docs/evidence/retained-producer-null-frontend-20261018/result.json": "746cb2babbf2f529bbf7a1cecb7be7be406f8251a6aa840b4dede22c49506eb7",
+    "docs/evidence/retained-producer-orchestration-20261018/observations.tar.gz": "3817a283f87ad2dfa236ece92edba89d926abfa7de096ce74c1429fc42ab09eb",
+    "docs/evidence/retained-producer-orchestration-20261018/result.json": "aa82f548f1b7009132794dbc925731fd0e3920019bee2eb7ac370acf32acbb52",
+    "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json": "f0425c46cd96b9348767de5456e4e0fb1efd818ca811e244a150811b353e223c",
+    "docs/evidence/unbounded-programs/retained-native-expansion-20261017/derive.py": "dc7b362649dfb8693e79248a1d9c965283bc9b54643bbf124b3de2a6f350b897"
+  },
+  "runtime_corpus_evidence_reused": {
+    "complete_files": 1575,
+    "manifest_sha256": "76a5413f5083da098347755f795a1d1d84804c9984ffc97da8199b0c3e77014c",
+    "rescanned": false
+  },
+  "source_archive_sha256": "f278c2496dc1c71ada65945e2a10dc34114492f564d4f0f48c46675adc26f0d4",
+  "sources": {
+    "gcc/ada/adabkend.adb": {
+      "bytes": 10685,
+      "origin": {
+        "manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+        "path": "adabkend.adb",
+        "revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
+      },
+      "sha256": "8d7240315b13acfb2d73db2aafd43ad59c57b4ded759b631f3e829e2f5458407"
+    },
+    "gcc/ada/ali.adb": {
+      "bytes": 105321,
+      "origin": {
+        "manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+        "path": "ali.adb",
+        "revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
+      },
+      "sha256": "a3af929177f6dcbc32b66768cad43a8466d12d030cf3360d7147455ea396f5a0"
+    },
+    "gcc/ada/ali.ads": {
+      "bytes": 56611,
+      "origin": {
+        "manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+        "path": "ali.ads",
+        "revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
+      },
+      "sha256": "ed344d8db777f70fe46b3464a1ef238823ded6ee8c9e50b564e799621236f09b"
+    },
+    "gcc/ada/back_end.adb": {
+      "bytes": 14372,
+      "origin": {
+        "manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+        "path": "back_end.adb",
+        "revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
+      },
+      "sha256": "57d045dc782b4c11830c46828f834a954219406847a888a2b0cff06e787759f8"
+    },
+    "gcc/ada/back_end.ads": {
+      "bytes": 4565,
+      "origin": {
+        "manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+        "path": "back_end.ads",
+        "revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
+      },
+      "sha256": "b00265b89d00c5ae54cbbea5026c8ba3ebe949d9f7f11856f3f55fd31bf980ac"
+    },
+    "gcc/ada/fmap.adb": {
+      "bytes": 15474,
+      "origin": {
+        "manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+        "path": "fmap.adb",
+        "revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
+      },
+      "sha256": "831a3334022631e111510e14d27b9ac35f9667490e3c2a5688303c01ee53ac17"
+    },
+    "gcc/ada/gcc-interface/lang-specs.h": {
+      "bytes": 3476,
+      "origin": {
+        "archive": "docs/evidence/retained-native-driver-20261018/sources.tar.gz",
+        "member": "gcc/ada/gcc-interface/lang-specs.h"
+      },
+      "sha256": "9f3336a58e69cc491be8db6694e121024aadf4dc461965a8bede3e1f7050cc2b"
+    },
+    "gcc/ada/gcc-interface/lang.opt": {
+      "bytes": 2437,
+      "origin": {
+        "manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+        "path": "gcc-interface/lang.opt",
+        "revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
+      },
+      "sha256": "40c10a4f73836eae3799297449a07a0d2e4bd30a57f75e1b0f0b204ce0158063"
+    },
+    "gcc/ada/gcc-interface/misc.cc": {
+      "bytes": 47742,
+      "origin": {
+        "manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+        "path": "gcc-interface/misc.cc",
+        "revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
+      },
+      "sha256": "c68c47f29db2af78232c1525302a255ec3213a58ef9e4f6e478e912fb0fdee45"
+    },
+    "gcc/ada/gnat1drv.adb": {
+      "bytes": 60186,
+      "origin": {
+        "manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+        "path": "gnat1drv.adb",
+        "revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
+      },
+      "sha256": "93a5498d9816931f50c3169c5e623bd9cc1d6664f393c797f21dc67e9e84a173"
+    },
+    "gcc/ada/gnatbind.adb": {
+      "bytes": 29989,
+      "origin": {
+        "manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+        "path": "gnatbind.adb",
+        "revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
+      },
+      "sha256": "d5bb79bcf0186aad36eb4e1d2714087497e8a0e4a0544b3ebca70af96cca9f06"
+    },
+    "gcc/ada/gnatlink.adb": {
+      "bytes": 75107,
+      "origin": {
+        "manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+        "path": "gnatlink.adb",
+        "revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
+      },
+      "sha256": "8646478f29255794e55e1ed73f1d116eeeb4335e0d4032c10d516d624087bfe4"
+    },
+    "gcc/ada/gnatls.adb": {
+      "bytes": 68898,
+      "origin": {
+        "manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+        "path": "gnatls.adb",
+        "revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
+      },
+      "sha256": "cdc334f578882519cb0e2482b0274cede750d09c31515332cdb9d4e58ec87418"
+    },
+    "gcc/ada/lib-writ.adb": {
+      "bytes": 61061,
+      "origin": {
+        "manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+        "path": "lib-writ.adb",
+        "revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
+      },
+      "sha256": "57fe2cca04d7c0aaf756169e324b481189998137f78c0d508ba6b0077099e342"
+    },
+    "gcc/ada/lib.adb": {
+      "bytes": 40494,
+      "origin": {
+        "manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+        "path": "lib.adb",
+        "revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
+      },
+      "sha256": "4f6445b906baac8dcbf7caeedd5c5ad57f1fcd9022dd985a1894b3fa4e26db3e"
+    },
+    "gcc/ada/lib.ads": {
+      "bytes": 51050,
+      "origin": {
+        "manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+        "path": "lib.ads",
+        "revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
+      },
+      "sha256": "a3ea0db298bf364eab4eff983ffaae3ff66063e4f9d17ad0eb864579a1ed53f4"
+    },
+    "gcc/ada/libgnat/a-coinve.adb": {
+      "bytes": 128046,
+      "origin": {
+        "manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+        "path": "libgnat/a-coinve.adb",
+        "revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
+      },
+      "sha256": "e40edc72e3c80e5672e9c0a67bbe5e81aa0497fb6676d4895e80573d2f4b7bce"
+    },
+    "gcc/ada/libgnat/a-coinve.ads": {
+      "bytes": 17893,
+      "origin": {
+        "manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+        "path": "libgnat/a-coinve.ads",
+        "revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
+      },
+      "sha256": "b3456d7f29d01ba13e5b83cf9c9ceffbb8f4d570e6947788a019c193cee29edb"
+    },
+    "gcc/ada/libgnat/g-dyntab.adb": {
+      "bytes": 15566,
+      "origin": {
+        "manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+        "path": "libgnat/g-dyntab.adb",
+        "revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
+      },
+      "sha256": "ae4c7d63c71f4c863eaf375b81c65822ecf08f38321c02e247c0d5692986faf6"
+    },
+    "gcc/ada/libgnat/g-dyntab.ads": {
+      "bytes": 13857,
+      "origin": {
+        "manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+        "path": "libgnat/g-dyntab.ads",
+        "revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
+      },
+      "sha256": "9679446a2e77d227ca3339d93f8fcb7ad479a7768ddd337dca5dfe02b4935aae"
+    },
+    "gcc/ada/libgnat/g-table.adb": {
+      "bytes": 5600,
+      "origin": {
+        "manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+        "path": "libgnat/g-table.adb",
+        "revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
+      },
+      "sha256": "9746442a0aa3547bb66f449cdd16d1d81d69c5bebcb434fb61980269ab59cb47"
+    },
+    "gcc/ada/libgnat/s-os_lib.adb": {
+      "bytes": 90264,
+      "origin": {
+        "manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+        "path": "libgnat/s-os_lib.adb",
+        "revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
+      },
+      "sha256": "9aed35c4ec6eaeacab780262f2c1528c95fb4f263f2f966f8526d0f4e080b201"
+    },
+    "gcc/ada/make.adb": {
+      "bytes": 164435,
+      "origin": {
+        "manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+        "path": "make.adb",
+        "revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
+      },
+      "sha256": "7f6932fcfb2596e28cc650235d467ac11bc5b9f1cd575e8c261bbab52adb135a"
+    },
+    "gcc/ada/namet.adb": {
+      "bytes": 48624,
+      "origin": {
+        "manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+        "path": "namet.adb",
+        "revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
+      },
+      "sha256": "ffd2d9fc1f44e1b816ccf99189333a90674c6c95a2a0d850d83fd99b7ce0dcdc"
+    },
+    "gcc/ada/namet.ads": {
+      "bytes": 29827,
+      "origin": {
+        "manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+        "path": "namet.ads",
+        "revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
+      },
+      "sha256": "129dcfd8cf6688ead4f5af052f80f8a86ad31f13ce36eb29d57c547d7b51efd8"
+    },
+    "gcc/ada/opt.ads": {
+      "bytes": 93026,
+      "origin": {
+        "manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+        "path": "opt.ads",
+        "revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
+      },
+      "sha256": "21cc41bac03f052f73218f4d1d38f5cd27b0be7c55d3a8bddb4b173a6ce3192e"
+    },
+    "gcc/ada/osint.adb": {
+      "bytes": 105542,
+      "origin": {
+        "manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+        "path": "osint.adb",
+        "revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
+      },
+      "sha256": "432c6fb6324140ba2e25ab1a6c79ca306e7a662970ed268009cb962263e89e69"
+    },
+    "gcc/ada/osint.ads": {
+      "bytes": 38709,
+      "origin": {
+        "manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+        "path": "osint.ads",
+        "revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
+      },
+      "sha256": "f3c98d4108e17a7e7716dcde0603e5a557f55cccca82f9448c2c3bf119f19993"
+    },
+    "gcc/ada/switch-b.adb": {
+      "bytes": 21420,
+      "origin": {
+        "manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+        "path": "switch-b.adb",
+        "revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
+      },
+      "sha256": "9c2efb6a4e613c222a54ce61bb80062465ba6664e64fb008f73ea7548d60e10f"
+    },
+    "gcc/ada/switch-c.adb": {
+      "bytes": 59201,
+      "origin": {
+        "manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+        "path": "switch-c.adb",
+        "revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
+      },
+      "sha256": "dbb1b360a6a58368d21cdf71cc3cf55c2803741f4dcf97aaf45b71e13d170c58"
+    },
+    "gcc/ada/table.adb": {
+      "bytes": 13959,
+      "origin": {
+        "manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+        "path": "table.adb",
+        "revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
+      },
+      "sha256": "8642d6f329e7a80130ac9bf9fee1e1a52cf333db20b81052b987e5d923865aa4"
+    },
+    "gcc/ada/table.ads": {
+      "bytes": 12010,
+      "origin": {
+        "manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+        "path": "table.ads",
+        "revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea"
+      },
+      "sha256": "e82f128c9e68d286d433c8848d81b00eb9b01f1fd75f3e5cee018223b9c4e5db"
+    },
+    "gcc/opts-common.cc": {
+      "bytes": 64082,
+      "origin": {
+        "archive": "docs/evidence/retained-native-driver-20261018/sources.tar.gz",
+        "member": "gcc/opts-common.cc"
+      },
+      "sha256": "9b08d0eab835c3720cb37120282ed10b270f881d37acd40733a8d12c6abb448a"
+    },
+    "gpr/gpr-conf.adb": {
+      "bytes": 97869,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-gpr-descriptor-20261018/gprbuild-v26.0.0.tar.gz",
+        "member": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-conf.adb"
+      },
+      "sha256": "6928e3f989efe3b38d6d1de0633041aea4de0c98ba704f46b183a2c0f7a7ba9b"
+    },
+    "gpr/gpr-dect.adb": {
+      "bytes": 71147,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-gpr-descriptor-20261018/gprbuild-v26.0.0.tar.gz",
+        "member": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-dect.adb"
+      },
+      "sha256": "b0ed95defc86ce9890b136c5806dc91ee5e5cf409528e2473695b85b640609a1"
+    },
+    "gpr/gpr-env.adb": {
+      "bytes": 73199,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-gpr-descriptor-20261018/gprbuild-v26.0.0.tar.gz",
+        "member": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-env.adb"
+      },
+      "sha256": "54e255a868b23fc04ce4f587fab0c2981214a331335a7cbb83e18ad355c730ad"
+    },
+    "gpr/gpr-env.ads": {
+      "bytes": 12956,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-gpr-descriptor-20261018/gprbuild-v26.0.0.tar.gz",
+        "member": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-env.ads"
+      },
+      "sha256": "756c98ba0247d23aa606d4133b65530b5315b2259b8ae0e24bf1addb2e5721ab"
+    },
+    "gpr/gpr-knowledge.adb": {
+      "bytes": 176698,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-gpr-descriptor-20261018/gprbuild-v26.0.0.tar.gz",
+        "member": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-knowledge.adb"
+      },
+      "sha256": "782b985b1206213d273674c67543743db2d7263a8d76779e20305f516cd8c158"
+    },
+    "gpr/gpr-names.adb": {
+      "bytes": 20318,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-gpr-descriptor-20261018/gprbuild-v26.0.0.tar.gz",
+        "member": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-names.adb"
+      },
+      "sha256": "659c231b025a5bc7c7e52e9a4ad36e5741eef9c6342826346b10251da182ed1c"
+    },
+    "gpr/gpr-names.ads": {
+      "bytes": 9967,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-gpr-descriptor-20261018/gprbuild-v26.0.0.tar.gz",
+        "member": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-names.ads"
+      },
+      "sha256": "2beba90411ea03b2cf43b4010835533a94713ec453ec6c1be633e422ed7fc41e"
+    },
+    "gpr/gpr-nmsc.adb": {
+      "bytes": 351928,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-gpr-descriptor-20261018/gprbuild-v26.0.0.tar.gz",
+        "member": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb"
+      },
+      "sha256": "2d0ad863a31167033790d21008a81bbce73d26a737c37a8ed8f6d32a5ddfb094"
+    },
+    "gpr/gpr-part.adb": {
+      "bytes": 82098,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-gpr-descriptor-20261018/gprbuild-v26.0.0.tar.gz",
+        "member": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-part.adb"
+      },
+      "sha256": "08f730f8c484b8a8e34a4fb16e19ba68dccee8bb42a0f9de6b46553251848fec"
+    },
+    "gpr/gpr-proc.adb": {
+      "bytes": 131899,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-gpr-descriptor-20261018/gprbuild-v26.0.0.tar.gz",
+        "member": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-proc.adb"
+      },
+      "sha256": "a5dcb0e4674d41088733d11dd6858a5953e059b90912fea37c5c9582e2459196"
+    },
+    "gpr/gpr-strt.adb": {
+      "bytes": 60762,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-gpr-descriptor-20261018/gprbuild-v26.0.0.tar.gz",
+        "member": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-strt.adb"
+      },
+      "sha256": "ca6c8558ffcd2587d29bdd6ce4d377603bace6a6f775613b806fc73732a6c185"
+    },
+    "gpr/gpr-tree.adb": {
+      "bytes": 92988,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-gpr-descriptor-20261018/gprbuild-v26.0.0.tar.gz",
+        "member": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-tree.adb"
+      },
+      "sha256": "93b624297357cae93be3cab1738fe5bb990c5c684c295af4ba8b493348016544"
+    },
+    "gpr/gpr-tree.ads": {
+      "bytes": 42669,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-gpr-descriptor-20261018/gprbuild-v26.0.0.tar.gz",
+        "member": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-tree.ads"
+      },
+      "sha256": "7c2ed7225ba8a1a0e9883050a44676e4a6c9d688f5c08eee6e6c6720ad3a0b38"
+    },
+    "gpr/gpr-util.adb": {
+      "bytes": 200047,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-gpr-descriptor-20261018/gprbuild-v26.0.0.tar.gz",
+        "member": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-util.adb"
+      },
+      "sha256": "ea41517db36fa2cb3a09bfcf6f2827d5d7d1fbaf3dbafd9f3ded491196821ca1"
+    },
+    "gpr/gpr-util.ads": {
+      "bytes": 40562,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-gpr-descriptor-20261018/gprbuild-v26.0.0.tar.gz",
+        "member": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-util.ads"
+      },
+      "sha256": "6b0960e8cb073ed5046084655c2c3bdb4f0f5249feb147ae4ed98a05cd1dbd88"
+    },
+    "gpr/gpr.adb": {
+      "bytes": 71838,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-gpr-descriptor-20261018/gprbuild-v26.0.0.tar.gz",
+        "member": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr.adb"
+      },
+      "sha256": "81ee58400cd270a4046da8d72b0668a1481f7dc30ba7ad4e78321e9f325afd49"
+    },
+    "gpr/gpr.ads": {
+      "bytes": 122737,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-gpr-descriptor-20261018/gprbuild-v26.0.0.tar.gz",
+        "member": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr.ads"
+      },
+      "sha256": "375cae80791bdbea2ee55253de326ab2e25a83acc23b11a74b6c471008286f1b"
+    },
+    "gpr/gpr_build_util.adb": {
+      "bytes": 97750,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-gpr-descriptor-20261018/gprbuild-v26.0.0.tar.gz",
+        "member": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr_build_util.adb"
+      },
+      "sha256": "c40e59bc6a1057a4aa2f6061bff83c30f662a94883ea3d3f24d95f4ba893f484"
+    },
+    "gpr/gprbuild-compile.adb": {
+      "bytes": 138514,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-gpr-descriptor-20261018/gprbuild-v26.0.0.tar.gz",
+        "member": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprbuild-compile.adb"
+      },
+      "sha256": "6a0a2bb3cad840f8d5330b829e4b83e4ff0a0f8d08fe15b36b034d8c6bbffcad"
+    }
+  }
+}
