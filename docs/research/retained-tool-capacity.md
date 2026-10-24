@@ -132,9 +132,14 @@ recurrences. The accepted [R87 checkpoint](../evidence/retained-input-io-round87
 now adds signed input-bound folding/annotation and the dynamic bounds-template
 subcall. The accepted [R88 checkpoint](../evidence/retained-builder-arguments-round88-20261024/README.md)
 adds the source-defined literal-prefixed concat partition and Main contract-
-builder requests, with #213's failed-candidate allocation repair. General
-concat/slice and pointer conversion, new helper/native bytes and backing, and
-Main kode/SPWP/storage/failure lifetimes remain open; #201/#202 are unfinished.
+builder requests, with #213's failed-candidate allocation repair. The accepted
+[R89 checkpoint](../evidence/retained-selectors-paths-round89-20261024/README.md)
+adds scalar concat selectors/maximum queries after #214's explicit purity repair,
+and Main's finite local traversal and fixed request/header safety. Cumulative
+local frame/closure byte totals are not required under existing physical-resource
+premises. Paired concat size/layout/annotation, slices and pointer conversion,
+shared services and source multiplicities, and Main kode/SPWP/storage/failure
+lifetimes remain open; #201/#202 are unfinished. #214 is In review pending delivery.
 The remaining [fixed-report composition #212](https://github.com/berkeleynerd/silver/issues/212)
 is now explicit and In progress under the same #119 authorization. Its
 [input inventory](retained-fixed-report-composition.md) separates
@@ -144,9 +149,15 @@ writer/reader region, plus the prospective #88 argv overlay. R87 adds IO's
 source report domains and conditional P<=607 region, and selected parent/
 reporter version/path/page operands. R88 adds Arguments' source report domains
 and sufficient P<=395 region, plus GNAT2Why's separate native configuration
-owners. These are conditional regions, not adopted path limits. Actual common
-paths, native warning/counter/header/source-span/private-fix storage and the
-full five-report collector composition remain open.
+owners. R89 derives conditional P=188 from actual source path constructors and
+all 1,575 runtime files; all four fixed report interfaces and the prospective
+18-argument configuration fit. Actual complete configuration attachment remains
+null. #88/#89 must implement/check the selected environment, physical roots and
+final normalized GPR child/config paths; historical reconstruction is unnecessary.
+A separate prospective configuration will preserve the Image adapter route and
+explicitly select the same runtime. These are conditional regions, not adopted
+path limits. Native warning/counter/header/source-span/private-fix storage and
+the full five-report collector composition remain open.
 It proceeds from #193/#194/#206 alongside #201/#202; its Main instance retains
 #202's prerequisites.
 Complete these source/provider joins before the final whole-rule comparison
