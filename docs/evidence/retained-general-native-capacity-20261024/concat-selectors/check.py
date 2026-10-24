@@ -27,6 +27,18 @@ def sha(data):
     return hashlib.sha256(data).hexdigest()
 
 
+class Condition:
+    """Explicit model witness for a completed native condition's effects flag.
+
+    This is an input premise, not an inference that arbitrary conditions are
+    pure. Actual seed correspondence is established from retained GCC source.
+    """
+    def __init__(self, tag, *, side_effects):
+        if type(side_effects) is not bool:
+            raise ValueError('condition side_effects must be an explicit bool')
+        self.tag, self.side_effects = tag, side_effects
+
+
 class Node:
     """Object identity is deliberate: max_value tests unchanged arm pointers."""
     def __init__(self, code, *args):
@@ -34,6 +46,11 @@ class Node:
 
 
 def maximum(node, direction, stats, bounds):
+    """Model the corrected pure selector lemma, rejecting unsupported tests.
+
+    Literal/var tags denote the lemma's pure scalar leaves. A condition must
+    be explicit even though max_value itself does not recursively visit it.
+    """
     stats['activations'] += 1
     if node.code == 'literal':
         return node
@@ -41,7 +58,11 @@ def maximum(node, direction, stats, bounds):
         stats['constant_requests'] += 1  # conservative fold_convert request
         return bounds[direction]
     assert node.code == 'cond'
-    _, left, right = node.args
+    condition, left, right = node.args
+    if not isinstance(condition, Condition):
+        raise ValueError('explicit condition purity witness required')
+    if condition.side_effects:
+        raise ValueError('effect-bearing condition is outside pure selector lemma')
     a = maximum(left, direction, stats, bounds)
     b = maximum(right, direction, stats, bounds)
     if a is left and b is right:
@@ -56,7 +77,8 @@ def maximum(node, direction, stats, bounds):
         return bounds[direction]
     # This branch represents the exact extremum-absorption rule, before
     # conditional distribution. It does not recursively visit a condition
-    # or construct arithmetic/conditional candidates.
+    # or construct arithmetic/conditional candidates. The generated unused-
+    # capture COMPOUND branch is excluded by the checked purity premise.
     assert a is bounds[direction] or b is bounds[direction]
     stats['extremum_absorptions'] += 1
     return bounds[direction]
@@ -105,7 +127,7 @@ def scalar_export(s, r, m, literals):
 
 def check():
     start = time.perf_counter()
-    for name in ('inputs.json', 'packet-manifest.json'):
+    for name in ('inputs.json', 'packet-manifest-f1.json'):
         for row in read(HERE/name)['files']:
             b = (ROOT/row['path']).read_bytes()
             assert len(b) == row['bytes'] and sha(b) == row['sha256'], row['path']
@@ -169,11 +191,11 @@ def check():
     for leaves in itertools.product(alphabet, repeat=8):
         level = list(leaves)
         while len(level) > 1:
-            level = [Node('cond', object(), level[i], level[i+1])
+            level = [Node('cond', Condition(object(), side_effects=False), level[i], level[i+1])
                      for i in range(0, len(level), 2)]
         queries += verify_query(level[0], bounds)
-    unchanged = Node('cond', object(), Node('literal', 3), Node('literal', 7))
-    mixed = Node('cond', object(), Node('var', 'D'), unchanged)
+    unchanged = Node('cond', Condition(object(), side_effects=False), Node('literal', 3), Node('literal', 7))
+    mixed = Node('cond', Condition(object(), side_effects=False), Node('var', 'D'), unchanged)
     for direction in (False, True):
         stats = dict(activations=0, constant_requests=0, unchanged_selectors=0,
                      minmax_calls=0, extremum_absorptions=0)
@@ -187,7 +209,7 @@ def check():
     for n in (1, 2, 16, 256, 4096):
         node = Node('literal', 1)
         for j in range(n):
-            node = Node('cond', ('fresh_length', j),
+            node = Node('cond', Condition(('fresh_length', j), side_effects=False),
                         alphabet[j % len(alphabet)], node)
         queries += verify_query(node, bounds)
         chains.append(dict(selectors=n, query_activation_bound=2*n+1))
@@ -246,5 +268,5 @@ if __name__ == '__main__':
     args = parser.parse_args()
     result = check()
     if args.write:
-        (HERE/'current.json').write_text(json.dumps(result,indent=2)+'\n')
+        (HERE/'current-pure.json').write_text(json.dumps(result,indent=2)+'\n')
     print(json.dumps(result,indent=2))

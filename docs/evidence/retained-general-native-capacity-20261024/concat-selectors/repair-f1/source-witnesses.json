@@ -1,0 +1,67 @@
+{
+  "witnesses": [
+    {
+      "id": "generic_effect_preservation_contract",
+      "source": "gcc/genmatch.cc",
+      "first_lf_line": 2908,
+      "last_lf_line": 2914,
+      "sha256": "92dfaee2121bf4991b41ae941780e83b3caa6e240f2cc466e5d595216f84f1b6"
+    },
+    {
+      "id": "top_level_capture_not_conditional_arm",
+      "source": "gcc/genmatch.cc",
+      "first_lf_line": 2961,
+      "last_lf_line": 2991,
+      "sha256": "ecf5ea635cce7db50f405d90aefaa14cec63379c1a153192b46adb0b72ae39e7"
+    },
+    {
+      "id": "generic_early_out_conditions",
+      "source": "gcc/genmatch.cc",
+      "first_lf_line": 4359,
+      "last_lf_line": 4400,
+      "sha256": "1735b95f65f5752e6eeac266b2a43da730b1cad98b6201cf67333c436bfb7c1b"
+    },
+    {
+      "id": "unused_capture_compound_constructor",
+      "source": "gcc/genmatch.cc",
+      "first_lf_line": 4666,
+      "last_lf_line": 4688,
+      "sha256": "83ba10a512641ec838828d3fae0dafd4157ae183b4fdc79434ef2973c5520511"
+    },
+    {
+      "id": "ignored_selector_result_keeps_condition",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 16323,
+      "last_lf_line": 16374,
+      "sha256": "a7c33270b9dd6f279c32794c00e0d8b227d6f87d4eecb4b666461696dab278c4"
+    },
+    {
+      "id": "unary_effect_flag",
+      "source": "gcc/tree.cc",
+      "first_lf_line": 5194,
+      "last_lf_line": 5223,
+      "sha256": "9ce3551aab90c6dc57488d6e9e261120a57541df6dcea872a7a46e3592e78892"
+    },
+    {
+      "id": "operand_effect_accumulator",
+      "source": "gcc/tree.cc",
+      "first_lf_line": 5257,
+      "last_lf_line": 5274,
+      "sha256": "d680a148456588e18941d228324922c1d11c3a6a394e48ce759225c4a02f84a4"
+    },
+    {
+      "id": "binary_comparison_effect_flag",
+      "source": "gcc/tree.cc",
+      "first_lf_line": 5295,
+      "last_lf_line": 5333,
+      "sha256": "3bd64a138bcdb621df518014b819f6f30fa8b2f38bd97e0547476c936eedd950"
+    },
+    {
+      "id": "conditional_effect_flag",
+      "source": "gcc/tree.cc",
+      "first_lf_line": 5350,
+      "last_lf_line": 5390,
+      "sha256": "8958387cf62f0a31ceffa704a3e1eb1560ef26c6a2ab9d12836d3e9fbf27212f"
+    }
+  ]
+}
