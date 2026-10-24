@@ -1,0 +1,102 @@
+{
+  "issue": 202,
+  "parent_issue": 119,
+  "role": "bounded author continuation",
+  "accepted_clone_caller_commit": "b5cfa9c1a501eefdd5db89670ca60ccbc399e036",
+  "accepted_clone_caller_review": "600455e678775d3ae84d22040e972dc0425bb5f2",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "started_utc": "2026-10-24 05:22:14 UTC",
+  "author_checkpoint_utc": "2026-10-24 05:53:45 UTC",
+  "elapsed_to_checkpoint_seconds": 1891,
+  "elapsed_scope": "Excludes final round bookkeeping, commit and handoff work",
+  "intended_result": "Source-derived internal construction requests for a closed actual Main create_cty/c_app partition, retaining intermediate work and shared owner histories",
+  "achieved_result": "Flat monomorphic create_cty; saturated closed snapshot cty_apply/c_app with external effects; ordinary Unit replacement; eleven Main clone ancestors and four executable origin definitions; exact site table and finite residual inventory",
+  "material_findings": [
+    "check_post projects the result even when the post list is empty",
+    "Ground pure matches preserve canonical type identity; reference matches do not justify the same-type gate",
+    "Type closure traverses all saved images, including dead saved keys; context cases are inspected without broadening case-free substitution",
+    "Actual aliases retain distinct formal map entries and add cached variable coefficients",
+    "Ordinary RLls record constructors with ls_constr=1 still probe the tuple table",
+    "Unit replacement retains the prior application prefix and discarded rho preid, then requests two Hsty, one Hsity and one Ident",
+    "New Ity helper/frame, hashcons backing/callback and lookup bytes remain unpriced; no generic 4096-byte coefficient was introduced"
+  ],
+  "validation": {
+    "failed_new_checker_attempts": 0,
+    "successful_new_checker_runs": [
+      {
+        "assertions": 270,
+        "elapsed_seconds": 0.9260712439936469,
+        "reason": "First passing complete source partition and internal request diagrams"
+      },
+      {
+        "assertions": 276,
+        "elapsed_seconds": 1.1577097109984607,
+        "reason": "New source-accounting questions added: ordinary-record tuple-table lookup, Unit discarded rho preid and application-prefix tuples"
+      }
+    ],
+    "final_host": "Linux-7.0.14-x86_64-with-glibc2.43",
+    "native_runs": 0,
+    "predecessor_checker_main_runs": 0,
+    "source_to_native_historical_identity_claim": false,
+    "unrelated_work_preserved": true,
+    "research_note_prior_prefix_preserved": true,
+    "non_validation_tool_failure": "One apply_patch attempt used a mistaken path, failed atomically before edits, and was corrected"
+  },
+  "review_inputs": [
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/contract-builders/builders.py",
+      "sha256": "f0787ab933dbc979130cdafece1395ff1edcb71dc19a785299aaed7414d0585e"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/contract-builders/sites.py",
+      "sha256": "a82da9859313ecf0918602dddddd346376de59e926864d3b6c2186e8782a8211"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/contract-builders/check.py",
+      "sha256": "62aebb22ed156c9860b9b5a697cb470725221ecfcfbf3c9e334eb2702e933c4a"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/contract-builders/identity.json",
+      "sha256": "02669f0ed5b8d434d65d699276d9b3335f410773156d9d4f23d808fef0b41809"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/contract-builders/sites.json",
+      "sha256": "3fb93ac5ad366908aff07e778cc89cd44b89d4ab9dfff6f5fc81286fb72c7eae"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/contract-builders/exports.json",
+      "sha256": "29e81a3b34c55df7f4f1793026011f30ea59a1e06b6b88156d9ae096c443972e"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/contract-builders/result.json",
+      "sha256": "35e0d20e32a8a84a0d2f644888e1b6ac2a2a3847725b8381602428bde6e48c66"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/contract-builders/README.md",
+      "sha256": "d2be7aea38a570c590a192d1ccc840633e6ace0722002885f23de9f65091ddf5"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/contract-builders/checkpoint.md",
+      "sha256": "754b668b069750f7548f96745d2bf26b99dbbccf29aedb50982b200d6cb765f1"
+    },
+    {
+      "path": "docs/research/retained-main-construction-demand.md",
+      "sha256": "b85b27b4623a61d59d40a16a865b5c36d3fa76be74b2c7ebc76114c2ecdef0c7"
+    }
+  ],
+  "independent_review_status": "pending; parent owns review/integration/publication",
+  "complete_source_to_initial_vc_storage": false,
+  "complete_main_builder_classification": false,
+  "complete_native_bytes": false,
+  "kode_spwp_construction_closed": false,
+  "global_process_e_limit": 2,
+  "save_entering_callbacks": 2,
+  "saves": 3,
+  "tokens": null,
+  "cost": null,
+  "cli_memory_updated": false,
+  "subthread_harness_goal": null
+}

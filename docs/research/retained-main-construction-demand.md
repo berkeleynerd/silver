@@ -589,3 +589,231 @@ internal term/type/effect operation in `create_cty`, `c_app`, declaration
 construction or namespace merging. Apply the accepted bridge separately to
 each actual stored root, then price the still-open native consumers. The
 distinction preserves the original #202 construction-demand boundary.
+
+## Contract-builder internals — first Main partition
+
+The accepted clone-caller result is followed by the
+[contract-builder packet](../evidence/retained-main-construction-demand-20261024/contract-builders/README.md).
+It replaces `create_cty` and selected `c_app` entry tokens by computable
+internal term/map/type requests on their **actual stored input records**.
+It preserves external read/write effects and counts intermediate construction.
+The new result closes these request families for the source partitions below;
+it does not supply all native bytes for the new Ity helper frames or their
+shared hashcons backing, nor finish source-to-VC construction.
+
+### Actual sites and source conditions
+
+Reuse the accepted current Main type, typed-call and declaration folds.
+Their types are closed monomorphic pure snapshots, plus one-field mutable
+references with one own region and no nested region or type arguments.
+Snapshot field types are pure. The initial program declarations have no
+old-value references or exceptional posts; the ordinary Main/internal Cfun
+closure supplies the latter property even though Exit/Return handlers occur
+inside Main. This is the complete escaping-exception argument in
+`retained-main-callers-profile.md`, not an inference from source handler syntax.
+The eleven-key output-state family from `retained-main-typed-profile.md`
+remains present in the effect records.
+
+A separate new inventory follows **clone edges** from Main's six possible
+origins. It reaches exactly eleven originals: Array__1, Array__Index,
+Constr_Array, Discrete_Base, Dynamic_Discrete, Index_Type, Rep_Proj_Base,
+Rep_Proj_Int, Static_Discrete, Static_Discrete_Base and Unconstr_Array, qualified
+as recorded in `sites.json`. Complete retained tokens contain no type-variable,
+old/at, raises/exception or ghost syntax in these originals. Their only
+explicit executable definitions are Index_Type.first/last and
+Unconstr_Array.to_array/of_array: projections and construction of immutable
+bounds/String snapshots. All other explicit program declarations are abstract
+vals or the already classified constant wrappers. Clone ancestry preserves
+these properties; accepted Main substitutions replace their nullary abstract
+types by the same closed flat type frontier. Generated callable lemmas are
+separate ghost Cany declarations with pure formals and closed posts, and do
+not add executable calls. WellFounded's separately reviewed builtin contains
+closed pure declarations, not program contract constructors.
+
+The following is a partition of the named current operations, **not a new
+admission check**. Entries outside this first partition remain required work.
+
+| Actual current site/family | This packet's disposition |
+| --- | --- |
+| `Dexpr.cty_of_spec:1309–1324`, reached from generated ordinary vals and Cany | Flat `create_cty` fold, including defensive effect adjustment. |
+| `Expr.c_fun:827–835`, for Main, internal ignored Cfun and nullary Pterm wrappers | Flat `create_cty` fold after the actual body/effect is constructed. Its upstream body construction is not charged again here. |
+| `Expr.create_constructor:193–211`, for current immutable records and one-field references | Flat `create_cty`, including a reference result's reset/escape region. |
+| `Expr.rs_of_ls:213–221` / `c_pur:846–854`, when creating a closed current Main contract | Flat `create_cty`; surrounding symbol/result-post builders remain separate callers. The generic polymorphic builtin signatures are not relabelled monomorphic. |
+| `Pmodule.clone_cty:959` for the eleven Main-origin originals, and their generated callable lemmas | Flat `create_cty`, after its already-counted term mapping and type/effect cloning. `clone_cty`'s earlier work remains separate. |
+| The five current public API calls: Input_Is_Valid, First_Or_Default, Reject, Put, Put_Line | Saturated snapshot `c_app` row below. Their existing external effect sets remain intact. |
+| Current monomorphic snapshot arithmetic, Int comparisons, overflow/range checks, Integer.length, array concat/equality, String conversions/accessors and Image/to_string calls | Saturated snapshot `c_app`; use the actual symbol/signature selected by the accepted Main caller fold. Int relations with polymorphic equality machinery require the distinct row below if the routine signature itself still contains type variables. |
+| Boolean True/False applications | Nullary original-contract return, then one Capp/cexp wrapper; no contract substitution. |
+| Unit applications | Nullary original-contract return, then the separately charged `cty_tuple []` replacement. |
+| Calls inside Index_Type.first/last and Unconstr_Array.to_array/of_array | Saturated immutable-record projection/construction and I1.mk; same snapshot `c_app` row. |
+| Mutable-reference projections/constructors, polymorphic equality/application candidates | Required residual `cty_apply` type/region-instantiation rows. Monomorphism alone does not remove region changes. |
+| Other fixed clone origins and their copied/generated contracts | The other 58 origins are explicitly retained in `sites.json`; no generic pure/flat/no-oldie conclusion is asserted for them. |
+
+The no-promotion condition for the selected ordinary runtime calls follows
+from the actual program-expression constructors: the converter's parameter
+and field ghosts are false (`:1022–1035,1165–1173`); its expression let
+constructor uses `Elet(...,false,RKnone,...)`
+(`ptree_constructors.ml:123–124`). It emits neither an Eghost nor an Epure
+expression constructor. Selected runtime values use program representatives;
+logical assertions/specifications use the term converter. Regular variables,
+literals, the selected visible-result callables, records, ifs and lets preserve
+visible values. With the initially regular function environment this keeps
+`eval_args`'s promotion test false and `proxy_args` regular
+(`dexpr.ml:1409–1444`). A logical-only symbol cannot silently provide a regular
+runtime operand: `c_pur:1450–1454` rejects it outside a ghost/allowed context.
+The four explicit origin functions above have no ghost qualifier or ghost
+operand. Generated ghost callable lemmas have Cany bodies, not these runtime
+applications. Thus these selected calls satisfy
+`existing_eff_ghost || not(actual_ghost && not formal_ghost)` at every argument.
+A different ghost context is an explicitly retained residual, not a zero row.
+
+Ground pure type matching supplies the other important gate. With no Tyvar
+or Ityreg, `ity_match:426–446` only recursively compares equal constructor
+symbols and their type arguments. A successful match therefore gives equal
+canonical types; live source type identities and the transported unwrapped
+owner histories justify physical equality. Saturation leaves no formals for
+`cut`, and the resolved pure result has the same property. Consequently the
+selected successful applications take `same=true`, never call `eff_inst`,
+and retain the old freeze/effect metadata before adding actual reads.
+An overload candidate that mismatches fails at matching before the effect
+stage; its preceding requests still count. This argument deliberately does
+not apply to a reference: two distinct Ityreg identities can match.
+
+### Flat `create_cty` request fold
+
+`builders.create_cty` follows `ity.ml:1359–1431`, with empty oldies and xposts,
+visible/ghost scalar masks, and the actual flat effect maps. It performs these
+source operations in their dependency order:
+
+1. Check pre/post shapes and mask, create the argument set, and project the
+   result's program type. **`check_post` computes `ty_of_ity result` even when
+   the post list is empty.** Each projected Tyapp occurrence requests Hsty;
+   record fields are not extra type arguments.
+2. Compute pre/post free-program-variable sets using native `t_vars`' stored
+   caches, restore each variable through `Ity.vs_to_pv`, and update the actual
+   running sets. This charges each root's traversal and every map insertion,
+   including repeated variables across different roots.
+3. Perform post read checks, the oldie intersection/disjoint operations (their
+   operands are empty where justified), read unions and formal subtraction.
+   Flat types have no frozen nested region; a stale own-region check still
+   compares the actual reset/cover sets. A failing diagnostic's preceding
+   work is retained.
+4. Freeze external reads. A pure closed type is traversed without a type-map
+   write. Each flat reference performs native reg_match/Mreg.change; repeated
+   occurrences retain their lookup/callback work even if the binding exists.
+   The output freeze carries exactly those region identities, not their count.
+5. Check type-variable closure. `t_gen_fold:1177–1196` visits the stored body,
+   every trigger and **every saved image**, plus explicit quantifier-variable
+   types. It does not merely scan the opened term or `bv_vars`. All reached
+   types are closed, so the resulting type-variable sets are empty, while the
+   traversals remain charged.
+   Context cases retain the subject, each pattern's types, branch body and
+   saved images; their free-variable pass uses cached branch support. This
+   read-only extension does not broaden the accepted case-free substitution
+   kernel or its byte coefficient.
+6. Keep exception-filter work as an empty-map operation. The singleton-post
+   test's `open_post` is unreachable only because the actual xpost map is
+   empty; this packet does not generalize that exclusion to fixed contracts.
+7. Intersect writes/taints with covers; derive reachable own regions from
+   reads/result; filter writes/covers/resets; then reset taints using actual
+   visible fields and non-ghost read variables. This can allocate intermediate
+   effect records even when the final set is unchanged or empty.
+8. Construct the escape-type set from result and written fields. Each field
+   still invokes `its_match_regs` and `ity_full_inst`; a pure closed field
+   returns unchanged after its `ity_closed` walk, with no Hsity request.
+   Apply the empty type-variable spoil intersection, defensive reset union
+   if selected, final read update and `cty_unsafe` record.
+
+For a valid entry let `P(result)` be the number of applications in its logical
+type projection, counting repeated arguments. This partition exports exactly
+`P(result)` Hsty requests for a completed projection, and at most that many
+for an abandoned prefix; it adds zero Hsity requests and zero Ident
+registrations from `create_cty` itself. It also exports the new builder map
+operation/cardinality sequence, the accepted term callbacks' own ledger
+totals, Wvs restore lookups, source helper visits and ordinary
+record/list candidates. The exception value formed at function entry is
+counted even on a successful return. No callback/table is assumed fresh
+merely because another contract begins.
+
+### Saturated application and Unit replacement
+
+For a selected non-nullary application let n be its formal/actual arity,
+d the number of nonidentity formal-to-actual entries, and
+`r=|pre|+|post|`. Native `cty_apply` still matches all n program types before
+using `same`. It adds the d entries, maps **all d** to fresh Tvar records,
+constructs the actual-read set, applies `eff_read_pre` and maps all r contract
+roots. Actual aliases are allowed: two distinct formal keys mapping to one
+actual retain both occurrences and their cache coefficient sum.
+
+The accepted ordinary substitution kernel supplies the stored results and
+term/map demand for those roots; no new generic type-map table is needed in
+this row. Its source wrapper additionally accounts for the rebuilt pre/post
+lists and final cty record. The result does not open its post binders. Thus
+this row adds no Ident/Hsty/Hsity requests. External effect reads/writes,
+resets, covers and frozen regions survive as source records; only the read
+union changes. A nonempty taint set is still checked against the supplied
+pure actuals, for which the visible-region walk immediately stops.
+The apply/cut/oldie result tuples are retained as constructor candidates.
+`is_rs_tuple` probes `fs_tuple_ids` for every RLls with `ls_constr=1`, including
+a non-tuple record constructor; this lookup is counted separately from the
+decision to construct a tuple contract.
+
+If n=0, the native early return occurs **after** the empty cut/oldie/map
+prefix. It returns the old contract and does not map its specifications.
+`Expr.c_app` then creates its Capp/cexp wrappers unless it first takes the
+tuple replacement. For ordinary Unit, that replacement is `cty_tuple []`:
+
+- Two `ty_tuple []` calls request Hsty, including the one inside `t_tuple []`.
+- `ity_tuple []` requests Hsity once. The arity-zero tuple-symbol memos are
+  already populated by `ity.ml:794–798` and `expr.ml:948–951`; their reads
+  remain counted, and no cold arbitrary-arity constructor is assumed.
+  Its `ity_app` also forms an unused `id_fresh "rho"` preid before selecting
+  the pure result (`ity.ml:531–534`); that discarded preid is counted, without
+  inventing an Ident registration for it.
+- One fresh result vsymbol registers one Ident. The tuple application,
+  result variable, equality, epsilon post, argument/post lists and cty are
+  constructed even if a surrounding expression later discards the value.
+  Equality's two polymorphic `ty_match` map updates are included; they do not
+  request Hsty.
+
+The preceding `cty_apply` is never skipped. In this arity-zero row it returned
+an existing contract; a nonzero tuple can instead discard a newly built one.
+Nonzero tuple calls remain in the finite residual inventory, with that
+already-spent construction explicitly owed.
+
+### Export, cumulative ownership and remaining joins
+
+`builders.Demand.export()` returns the term/map byte subtotal from the
+accepted kernels, the map operation stream, new helper visits and ordinary
+record/list candidates, Wvs/tuple-memo reads, and Ident/Hsty/Hsity requests.
+The Extmap cubic bound is extended to set-submap's own temporary nodes:
+`extmap.ml:459–470` splits the same disjoint key-pair rectangles as the
+accepted disjoint proof. At most n*m root pairs are compared and one temporary
+node is formed at each unequal pair; `4096*(n+m+1)^3` covers this operation
+and its fixed set wrapper. It does not pay for a nontrivial client callback.
+
+Add outputs for **every source-derived entry**, including candidate prefixes
+and repeated clone occurrences, to the existing owner histories. Hsty/Hsity
+requests are not distinct-result counts and receive no cache-hit discount.
+Their increments are bounded by those requests; Ident's fresh result uses the
+same incoming counter as the accepted term kernel. A second call continues
+that counter and table state. This creates no extra exceptional/save allowance.
+
+The new helper visits and record candidates are not assigned an arbitrary
+4,096-byte price. That allowance belongs only to the previously reviewed term
+helpers and the Extmap lemma. A complete native-byte result still needs the
+new Ity local-frame/closure request correspondence and the shared Hsty/Hsity
+backing/equality/hash callbacks; the export marks both joins incomplete.
+The current packet therefore improves the cumulative **internal request
+vector**, not a whole-builder byte bound.
+
+The exact residual site/branch inventory is retained in `sites.json`:
+reference/type-variable/partial or promoting cty_apply rows; nonzero tuples;
+fixed origins outside the eleven-module Main clone closure; nonempty oldies,
+xposts, tuple masks or nested type regions there; clone_cty's preceding
+clone_ity/effect builders; surrounding create_rsymbol/c_cty_enrich/c_pur/post
+construction; and parser/proxy/overload-attempt multiplicities not already
+supplied by accepted folds. The known direct clone counts now consume this
+partition where its source conditions hold; other entries remain visibly
+unpriced. Kode/SP/WP, later printing and failure continuation retain their
+separate obligations. #202 and #119 remain open; Oracle/admission/tool pins,
+`e <= 2`, two save-entering callbacks and three saves are unchanged.

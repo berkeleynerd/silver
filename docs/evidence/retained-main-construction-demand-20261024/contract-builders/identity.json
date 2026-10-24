@@ -1,0 +1,580 @@
+{
+  "why3_revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "source_behavior_premise": "Reuse retained source/native relation; no new installed-binary or native allocation-site capture.",
+  "accepted_clone_commit": "b5cfa9c1a501eefdd5db89670ca60ccbc399e036",
+  "accepted_clone_review": "600455e678775d3ae84d22040e972dc0425bb5f2",
+  "providers": [
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/bridge.py",
+      "sha256": "3e76672713a8a0e4e5aac78681155fe3c61e32b2195a2637863fbdd9c8e2d1ac"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/clone-callers/inventory.py",
+      "sha256": "f357cea514b24b7633f74c06d3b934021a425b56a753095166a4d4f478ae044d"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/clone-callers/inventory.json",
+      "sha256": "ba8e9f8eb98462d177495d72f3b50579dc6669272aa820aab602b4ba67a96af5"
+    },
+    {
+      "path": "docs/evidence/retained-main-why-storage-20261024/kernel.py",
+      "sha256": "35b41283e3deffe4ec6152bca5d24a79ce9650710681206871a20a66d5319f42"
+    },
+    {
+      "path": "docs/evidence/retained-producer-import-context-20261018/check.py",
+      "sha256": "d7ee80ebd3c636c6a55b8d902ef03570618534ffdb4afa7789f127ab2ec688b7"
+    },
+    {
+      "path": "docs/evidence/retained-producer-import-context-20261018/result.json",
+      "sha256": "294936a42d259f65692e2760158fdd7a4651b511b9e1ad8f934380d43108da9b"
+    },
+    {
+      "path": "docs/research/retained-producer-main-types.md",
+      "sha256": "b0c799ad269b20509491f9d57708fc789985a85613dfd3e919bc8c068d7514fc"
+    },
+    {
+      "path": "docs/research/retained-main-callers-profile.md",
+      "sha256": "4e3fa65dbbe366359d43563fc195e32e713152ee9d0a2f52af6c73eaa249d13a"
+    },
+    {
+      "path": "docs/research/retained-main-typed-profile.md",
+      "sha256": "d1f1ea5254301ce89adedc2eab4e33820c1298962e9b4931d899a49cf9dd6336"
+    },
+    {
+      "path": "docs/research/retained-main-vc-composition.md",
+      "sha256": "a380b9b6c63df9b165dbcb3b841dc03c066f7501c064f133535c5282df5bf27b"
+    },
+    {
+      "path": "docs/research/retained-main-why-storage.md",
+      "sha256": "f4b19fa4ecc8b15a889ac8bfeda851adb3ad64439bfc72a2bc50f28a753787ee"
+    },
+    {
+      "path": "docs/research/retained-main-entry-capacity.md",
+      "sha256": "a573e245cd6cee13d10fd8860b771c87b29ac8bc4cb7a235cf8e559f28fbdc3f"
+    },
+    {
+      "path": "docs/research/retained-why-save-shape-builder-allocation.md",
+      "sha256": "69d0b68f23699fbcb0e59e535acacad2acba02a6bec7a102c6be9ece5497ad89"
+    }
+  ],
+  "archives": [
+    {
+      "path": "docs/evidence/retained-producer-prefix-composition-20261018/sources.tar.gz",
+      "sha256": "e90b4625cd14f94fa7e594711225dd357b29769031811d3eb4d65a1edefeb15a",
+      "files": [
+        {
+          "path": "src/mlw/ity.ml",
+          "sha256": "036cd1bac384c017b15ffae7e8f0c466cb50005d5905c83524679439dec66a49",
+          "spans": [
+            {
+              "first": 125,
+              "last": 185,
+              "sha256": "3acbdff2baa4093831e1474e8699d9913e6022163c96f636c6d0ee2ee25eea90",
+              "anchors": [
+                "module Hsity",
+                "let rec ity_purify",
+                "let rec ty_of_ity"
+              ]
+            },
+            {
+              "first": 189,
+              "last": 305,
+              "sha256": "c5c3c2ed4cd9aa0332d7d7e284c7af11fa12e4f52aef98a5761e5238d6742ad5",
+              "anchors": [
+                "let ity_freevars",
+                "let rec ity_exp_fold",
+                "let rec ity_rch_vars"
+              ]
+            },
+            {
+              "first": 309,
+              "last": 331,
+              "sha256": "7be4f6beeaa3468766d9a0c007645a59450597e67e4e50c3846067d5356ce29f",
+              "anchors": [
+                "let fold_on_frz",
+                "let rec ity_frz_regs"
+              ]
+            },
+            {
+              "first": 426,
+              "last": 455,
+              "sha256": "cc441b67e9a9c11326a80f3d2af3e8fba935ee6122719fd1fb9dcf0be4559070",
+              "anchors": [
+                "let rec ity_match",
+                "and reg_match",
+                "let ity_freeze"
+              ]
+            },
+            {
+              "first": 492,
+              "last": 500,
+              "sha256": "eaebec1dadc3f37a0688d3fd473f8afb6b64f6ae21318cab11f6bf5e74872352",
+              "anchors": [
+                "let its_match_args",
+                "let its_match_regs"
+              ]
+            },
+            {
+              "first": 745,
+              "last": 764,
+              "sha256": "715624cf4c317878161335ecccf47809bc656509358e0f736d3ae49d5b173e89",
+              "anchors": [
+                "let create_pvsymbol",
+                "let t_freepvs"
+              ]
+            },
+            {
+              "first": 790,
+              "last": 823,
+              "sha256": "d0a2f80fa82e46204fd1a57eb805558097d00fed8f9e3b6abe99d7748a2bd254",
+              "anchors": [
+                "let its_tuple",
+                "let ity_tuple",
+                "let rec mask_reduce",
+                "let rec mask_check"
+              ]
+            },
+            {
+              "first": 940,
+              "last": 1010,
+              "sha256": "27cda60ad7139da70253600bd6ddf245d5f87f64486c4e37359570bcccce46a2",
+              "anchors": [
+                "let check_writes",
+                "let check_covers",
+                "let check_taints",
+                "let reset_taints",
+                "let eff_read_pre",
+                "let eff_read_post",
+                "let eff_bind"
+              ]
+            },
+            {
+              "first": 1020,
+              "last": 1021,
+              "sha256": "41fc95166791fc8dfad0b3a89e65a00977f648229ffde49dae3b3db7f752a77d",
+              "anchors": [
+                "let read_regs"
+              ]
+            },
+            {
+              "first": 1237,
+              "last": 1249,
+              "sha256": "88d044ccd3b0532b0029a7d2eec27d88a197c0400ee76b6b8d44846949d476e6",
+              "anchors": [
+                "let mask_adjust",
+                "let eff_escape"
+              ]
+            },
+            {
+              "first": 1264,
+              "last": 1275,
+              "sha256": "76e41d8ab8710f6a1df31296974f8bdd5272f6120a46e94ab0a552ce87aa26b0",
+              "anchors": [
+                "let create_post",
+                "let open_post"
+              ]
+            },
+            {
+              "first": 1305,
+              "last": 1348,
+              "sha256": "b6a156da1ac55fd1d1eb7242081feb6dfc7feba15a5609126a9cd2e32fc428dc",
+              "anchors": [
+                "let cty_unsafe",
+                "let spec_t_fold",
+                "let check_tvs"
+              ]
+            },
+            {
+              "first": 1350,
+              "last": 1431,
+              "sha256": "c7d6a3f2dd78d380bcb96b6f846cecbf8cb50ad87b80c0e003c7be39a7c7af55",
+              "anchors": [
+                "let check_post",
+                "let create_cty",
+                "let is_false",
+                "reset_taints",
+                "cty_unsafe"
+              ]
+            },
+            {
+              "first": 1436,
+              "last": 1501,
+              "sha256": "a80daf58b0f7260184866f60b783c47d2433e30c9bb11c24fae84c574052f4ce",
+              "anchors": [
+                "let cty_apply",
+                "if same && vl = []",
+                "let eff = if same",
+                "let cty_tuple",
+                "t_tuple tl"
+              ]
+            },
+            {
+              "first": 522,
+              "last": 539,
+              "sha256": "0ac1b70636f14e1cc220d3c35c01ab59359a67532b9f7d219393d00a074d47e7",
+              "anchors": [
+                "let ity_app s tl rl",
+                "id_fresh \"rho\"",
+                "let ity_app_pure"
+              ]
+            }
+          ]
+        },
+        {
+          "path": "src/mlw/expr.ml",
+          "sha256": "73ebf5c02e0821dd7b19992a120390f5aa28824acdff7b3153676d8fdc56064f",
+          "spans": [
+            {
+              "first": 193,
+              "last": 221,
+              "sha256": "de9d9b4f363913a24c8e3d7cc407de5b4e68cfe90fb7fd321db8bd27a8787b8d",
+              "anchors": [
+                "let create_constructor",
+                "let rs_of_ls",
+                "create_cty"
+              ]
+            },
+            {
+              "first": 495,
+              "last": 519,
+              "sha256": "d1915b77612f23be57094923899e81c4da3badafffa5ae1b8f9de5b87d0e88b1",
+              "anchors": [
+                "let mk_cexp",
+                "let e_ghostify"
+              ]
+            },
+            {
+              "first": 827,
+              "last": 854,
+              "sha256": "39bdd8bc0327ab46c001f66e99b6a53a87bf08d7f9d64cc1bfd65b381240f616",
+              "anchors": [
+                "let c_fun",
+                "let c_app",
+                "cty_tuple vl",
+                "let c_pur"
+              ]
+            },
+            {
+              "first": 859,
+              "last": 914,
+              "sha256": "4715ddeb02a8a736be1953094f8457859d8566ab075cc95f31bbdacd4ebe6400",
+              "anchors": [
+                "let mk_proxy_decl",
+                "let mk_proxy",
+                "let e_app"
+              ]
+            },
+            {
+              "first": 938,
+              "last": 951,
+              "sha256": "0822975cd27a5f5aaf8c3ece57d76bda892235e70142363c89c8650dc90d2302",
+              "anchors": [
+                "let rs_tuple",
+                "let rs_void",
+                "let fs_void",
+                "let e_void"
+              ]
+            }
+          ]
+        },
+        {
+          "path": "src/mlw/dexpr.ml",
+          "sha256": "da655ebaf0266564bf84acc7cd30f2b673219557e2439a4079af526f1925e1e9",
+          "spans": [
+            {
+              "first": 1117,
+              "last": 1137,
+              "sha256": "835169650a4b5223949529bd4e4d4bed0e80843f97dac321e7f5da59687eb7b7",
+              "anchors": [
+                "ghs : bool",
+                "ghs = false"
+              ]
+            },
+            {
+              "first": 1309,
+              "last": 1324,
+              "sha256": "24a1b910d6416f08b2e4aa2f4dceb4222cc6764c8ce1ad620201b0de9dfcdcb2",
+              "anchors": [
+                "let cty_of_spec",
+                "create_cty_defensive"
+              ]
+            },
+            {
+              "first": 1409,
+              "last": 1454,
+              "sha256": "3622c213422e7a7bb326ce541e08c706a78cbe927748876d3b3f752071ba39a4",
+              "anchors": [
+                "let rec eval_args",
+                "let rec proxy_args",
+                "let c_app",
+                "let c_pur"
+              ]
+            },
+            {
+              "first": 1773,
+              "last": 1789,
+              "sha256": "21a980cb74a9d7729443a718b303b41a6bf3edcda155b607bcba5e927e9de78b",
+              "anchors": [
+                "and lambda",
+                "get_oldies old"
+              ]
+            }
+          ]
+        },
+        {
+          "path": "src/mlw/pmodule.ml",
+          "sha256": "0bbebf874d1fe1ed216efd07a76f6e51d9fd96c5910ea9c1fac2f5864db29344",
+          "spans": [
+            {
+              "first": 902,
+              "last": 960,
+              "sha256": "91d84961297967e4d47e415aeed496f2ae78f0d1e53e81c18b41a80363ec98a2",
+              "anchors": [
+                "let clone_cty",
+                "create_cty_defensive"
+              ]
+            },
+            {
+              "first": 380,
+              "last": 470,
+              "sha256": "d4a705418edf2aa2329d73c2ff3592da58fbd455c5c5b78bb54fc78b5cb9e363",
+              "anchors": []
+            }
+          ]
+        },
+        {
+          "path": "src/core/term.ml",
+          "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343",
+          "spans": [
+            {
+              "first": 590,
+              "last": 624,
+              "sha256": "8dd95a4abb02b8773e467a38f69038525a5e42caecbf9d1ebf31f03abb8b9787",
+              "anchors": [
+                "let bnd_fold",
+                "let rec t_vars"
+              ]
+            },
+            {
+              "first": 780,
+              "last": 795,
+              "sha256": "e1f98e284d5b093ac2600afeef5ba5b1350fe9fb463a105ee1f27430f249ec05",
+              "anchors": [
+                "let t_close_bound",
+                "let t_close_quant"
+              ]
+            },
+            {
+              "first": 874,
+              "last": 894,
+              "sha256": "5489882036bce0e74bd256db604fbbfd3d2a42eb64cdcd824eec5823a0bd69ae",
+              "anchors": [
+                "let ls_arg_inst",
+                "let ls_app_inst",
+                "let fs_app"
+              ]
+            },
+            {
+              "first": 1012,
+              "last": 1020,
+              "sha256": "6f829d30b78ee992f8c8c327deae7f93a199a1087e80b727c0a2f18506c5955a",
+              "anchors": [
+                "let ps_equ",
+                "let t_equ"
+              ]
+            },
+            {
+              "first": 1037,
+              "last": 1057,
+              "sha256": "06b3e199805fc95403ecde0a163bcf7eeeadb5cac61222e6c86e804fafc776eb",
+              "anchors": [
+                "let fs_tuple",
+                "let is_fs_tuple",
+                "let t_tuple"
+              ]
+            },
+            {
+              "first": 1177,
+              "last": 1209,
+              "sha256": "7e4d4438a3f8b51e786a5df0c0d88a3cef8b0789c4f3c8d0ac28ebcd3b2a3ce9",
+              "anchors": [
+                "let rec t_gen_fold",
+                "pat_gen_fold",
+                "let t_ty_freevars"
+              ]
+            }
+          ]
+        },
+        {
+          "path": "src/core/ty.ml",
+          "sha256": "7030198a5c63e91210b3a28e5c42f2dd561eec94e785c3842e6d44b2222cf27e",
+          "spans": [
+            {
+              "first": 163,
+              "last": 171,
+              "sha256": "863df9f2aadcdb4087440d06df62b4422d32f8d3dca839d0dd5273fb26a7d74d",
+              "anchors": [
+                "let rec ty_v_fold",
+                "let ty_freevars"
+              ]
+            },
+            {
+              "first": 211,
+              "last": 217,
+              "sha256": "9101114a26755e9d2ee0b910cf5b1d3db83dae465cd9b615e440a0b5e2f5030d",
+              "anchors": [
+                "let ty_app"
+              ]
+            },
+            {
+              "first": 238,
+              "last": 248,
+              "sha256": "aac05fb7aa006efcc08a948f48ceaf2c2e7df1358ecad0c37b92674e4f7538d0",
+              "anchors": [
+                "let rec ty_match",
+                "Mtv.change"
+              ]
+            },
+            {
+              "first": 278,
+              "last": 289,
+              "sha256": "cb568b430871bf11165611ceb5bb9ea6a9654032c301773cbdfc2661da32e964",
+              "anchors": [
+                "let ts_tuple",
+                "let ty_tuple"
+              ]
+            }
+          ]
+        },
+        {
+          "path": "src/core/ident.ml",
+          "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db",
+          "spans": [
+            {
+              "first": 187,
+              "last": 214,
+              "sha256": "45a8bb5981048ae03d936e9eff63e1008b5d2f9c9323e89dccede45189800b58",
+              "anchors": [
+                "let id_register",
+                "let id_fresh",
+                "let id_clone"
+              ]
+            }
+          ]
+        },
+        {
+          "path": "src/util/extmap.ml",
+          "sha256": "af5523e85a6714c04cbb2faed6a33b7560af63bbf185acde33f7d0a9500ee875",
+          "spans": [
+            {
+              "first": 459,
+              "last": 491,
+              "sha256": "e1d37903744737869ae19be663ca60cefcbbccaec7520e294f6e48a56360347d",
+              "anchors": [
+                "let rec submap",
+                "let rec disjoint",
+                "let set_submap"
+              ]
+            }
+          ]
+        },
+        {
+          "path": "src/util/extset.ml",
+          "sha256": "2c337c684be329b8e219de744bc0a5ff27b1bf4ca0f2f7dba00b5313a141084c",
+          "spans": [
+            {
+              "first": 67,
+              "last": 101,
+              "sha256": "98f2d63c6126eeded55aa113b2f39d610274cc36fc5f1d2781adf7494ee66274",
+              "anchors": [
+                "let subset",
+                "let of_list"
+              ]
+            }
+          ]
+        },
+        {
+          "path": "plugins/gnat_json/gnat_ast_to_ptree.ml",
+          "sha256": "0cdda4d48f37fa27f4d70912881a5c64cbfbccaf2b1864d1098ccc870b62af35",
+          "spans": [
+            {
+              "first": 600,
+              "last": 615,
+              "sha256": "93303877167b1a57f54159b7d6cd3ae647286dece4edec6ea83d9f198202af02",
+              "anchors": [
+                "E.mk_let"
+              ]
+            },
+            {
+              "first": 1022,
+              "last": 1035,
+              "sha256": "1cf0a45dc5829ff2cee7bacff84646c552dd87333c71b39c4844382551ab8c84",
+              "anchors": [
+                "false",
+                "let binders"
+              ]
+            },
+            {
+              "first": 1165,
+              "last": 1173,
+              "sha256": "b3379baebb32a324d12b14b6dba69abf786056eb14dc00b0d293ce2787ca7d32",
+              "anchors": [
+                "f_ghost = false"
+              ]
+            }
+          ]
+        },
+        {
+          "path": "plugins/gnat_json/ptree_constructors.ml",
+          "sha256": "cb8c9fa19ba7f8229fb89d10eb53e87a44c45fccd82c8c4751cf2fc580f53c0c",
+          "spans": [
+            {
+              "first": 99,
+              "last": 137,
+              "sha256": "c967304f74b2403c84e123a0990669a2a1d1246dcc4e39401e8c01400acc4879",
+              "anchors": [
+                "Elet (id, false, Expr.RKnone",
+                "let mk_fun"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-producer-import-context-20261018/sources.tar.gz",
+      "sha256": "73c394cf6faa83fd4ff3f2a5a8d561a571300b5a439225e5df59c807ceea53a1",
+      "files": [
+        {
+          "path": "installed/share/spark/theories/ada__model.mlw",
+          "sha256": "bb27b8013711690d9ee00e32aa6b37a66294a10b2b55ecdf0626b3a049577657",
+          "spans": [
+            {
+              "first": 1231,
+              "last": 1256,
+              "sha256": "6356f38a5081b9744fec85fc5cb29e763ee9b0a43668469b49c4cc64cc7624c4",
+              "anchors": [
+                "let function first",
+                "let function last"
+              ]
+            },
+            {
+              "first": 1592,
+              "last": 1632,
+              "sha256": "5d24227dfe81576d1dd2f7419ece5107e0afeea58ec82c7a569e37576ac6c1cf",
+              "anchors": [
+                "let function to_array",
+                "let function of_array"
+              ]
+            }
+          ]
+        },
+        {
+          "path": "installed/share/spark/theories/_gnatprove_standard.mlw",
+          "sha256": "918b73544c7e499c2aa11c10c497924ff141e2321aa96cf6d16038dce72f6235",
+          "spans": []
+        }
+      ]
+    }
+  ]
+}

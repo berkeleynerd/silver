@@ -1,0 +1,237 @@
+{
+  "main_origins": [
+    "_gnatprove_standard.Array__1",
+    "ada__model.Constr_Array",
+    "ada__model.Dynamic_Discrete",
+    "ada__model.Rep_Proj_Int",
+    "ada__model.Static_Discrete",
+    "ada__model.Unconstr_Array"
+  ],
+  "main_clone_ancestor_inventory": {
+    "_gnatprove_standard.Array__1": {
+      "path": "installed/share/spark/theories/_gnatprove_standard.mlw",
+      "first": 1873,
+      "last": 2131,
+      "explicit_executable_definitions": [],
+      "typevar_old_exception_ghost_tokens": 0
+    },
+    "_gnatprove_standard.Array__Index": {
+      "path": "installed/share/spark/theories/_gnatprove_standard.mlw",
+      "first": 1860,
+      "last": 1872,
+      "explicit_executable_definitions": [],
+      "typevar_old_exception_ghost_tokens": 0
+    },
+    "ada__model.Constr_Array": {
+      "path": "installed/share/spark/theories/ada__model.mlw",
+      "first": 2282,
+      "last": 2341,
+      "explicit_executable_definitions": [],
+      "typevar_old_exception_ghost_tokens": 0
+    },
+    "ada__model.Discrete_Base": {
+      "path": "installed/share/spark/theories/ada__model.mlw",
+      "first": 29,
+      "last": 62,
+      "explicit_executable_definitions": [],
+      "typevar_old_exception_ghost_tokens": 0
+    },
+    "ada__model.Dynamic_Discrete": {
+      "path": "installed/share/spark/theories/ada__model.mlw",
+      "first": 435,
+      "last": 471,
+      "explicit_executable_definitions": [],
+      "typevar_old_exception_ghost_tokens": 0
+    },
+    "ada__model.Index_Type": {
+      "path": "installed/share/spark/theories/ada__model.mlw",
+      "first": 1231,
+      "last": 1272,
+      "explicit_executable_definitions": [
+        {
+          "name": "first",
+          "line": 1251
+        },
+        {
+          "name": "last",
+          "line": 1253
+        }
+      ],
+      "typevar_old_exception_ghost_tokens": 0
+    },
+    "ada__model.Rep_Proj_Base": {
+      "path": "installed/share/spark/theories/ada__model.mlw",
+      "first": 1,
+      "last": 28,
+      "explicit_executable_definitions": [],
+      "typevar_old_exception_ghost_tokens": 0
+    },
+    "ada__model.Rep_Proj_Int": {
+      "path": "installed/share/spark/theories/ada__model.mlw",
+      "first": 101,
+      "last": 112,
+      "explicit_executable_definitions": [],
+      "typevar_old_exception_ghost_tokens": 0
+    },
+    "ada__model.Static_Discrete": {
+      "path": "installed/share/spark/theories/ada__model.mlw",
+      "first": 94,
+      "last": 100,
+      "explicit_executable_definitions": [],
+      "typevar_old_exception_ghost_tokens": 0
+    },
+    "ada__model.Static_Discrete_Base": {
+      "path": "installed/share/spark/theories/ada__model.mlw",
+      "first": 63,
+      "last": 93,
+      "explicit_executable_definitions": [],
+      "typevar_old_exception_ghost_tokens": 0
+    },
+    "ada__model.Unconstr_Array": {
+      "path": "installed/share/spark/theories/ada__model.mlw",
+      "first": 1592,
+      "last": 1698,
+      "explicit_executable_definitions": [
+        {
+          "name": "to_array",
+          "line": 1629
+        },
+        {
+          "name": "of_array",
+          "line": 1631
+        }
+      ],
+      "typevar_old_exception_ghost_tokens": 0
+    }
+  },
+  "other_fixed_clone_origins_remaining": [
+    "_gnatprove_standard.BVAda",
+    "_gnatprove_standard.Floating",
+    "_gnatprove_standard.Floating_next_prev",
+    "_gnatprove_standard.Floating_operations",
+    "_gnatprove_standard.Floating_power",
+    "_gnatprove_standard_th.Floating_Func",
+    "ada__model.Array_Comparison_Axiom",
+    "ada__model.Array_Generic_Op_Axiom",
+    "ada__model.Array_Logical_Op_Generic_Axioms",
+    "ada__model.Fixed_Point_Base",
+    "ada__model.Floating_Point_Base",
+    "ada__model.Rep_Proj_BVGen",
+    "ada__model.Rep_Proj_ltBVGen",
+    "ada__model.Static_Floating_Point",
+    "ada__model.Static_Modular_Base",
+    "algebra.AC",
+    "algebra.Assoc",
+    "algebra.Comm",
+    "algebra.CommutativeGroup",
+    "algebra.CommutativeRing",
+    "algebra.Field",
+    "algebra.Group",
+    "algebra.Monoid",
+    "algebra.OrderedField",
+    "algebra.OrderedUnitaryCommutativeRing",
+    "algebra.Ring",
+    "algebra.UnitaryCommutativeRing",
+    "bv.BVConverter_Gen",
+    "bv.BV_Gen",
+    "floating_point.GenFloat",
+    "floating_point.GenFloatFull",
+    "floating_point.GenFloatSpecFull",
+    "floating_point.GenFloatSpecMultiRounding",
+    "floating_point.GenFloatSpecStrict",
+    "ieee_float.FloatConverter",
+    "ieee_float.Float_BV_Converter",
+    "ieee_float.GenericFloat",
+    "int.Exponentiation",
+    "list.Sorted",
+    "mach.int.Bounded_int",
+    "mach.int.Unsigned",
+    "mach.int.UnsignedGMP",
+    "relations.Antisymmetric",
+    "relations.Asymmetric",
+    "relations.EndoRelation",
+    "relations.Lex",
+    "relations.MinMax",
+    "relations.PartialOrder",
+    "relations.PartialStrictOrder",
+    "relations.PreOrder",
+    "relations.Reflexive",
+    "relations.Symmetric",
+    "relations.Total",
+    "relations.TotalOrder",
+    "relations.Transitive",
+    "set.SetApp",
+    "set.SetImp",
+    "string.String"
+  ],
+  "covered_create_cty_sites": [
+    "Dexpr.cty_of_spec:1324 (current Main vals/Cany)",
+    "Expr.c_fun:831 (Main/internal/nullary wrappers)",
+    "Expr.create_constructor:210 (current snapshot/reference records)",
+    "Expr.rs_of_ls:220 and c_pur:853 (closed current Main contract entries only)",
+    "Pmodule.clone_cty:959 (eleven Main-origin closure and its generated lemmas)"
+  ],
+  "covered_snapshot_c_app_families": [
+    "Input_Is_Valid",
+    "First_Or_Default",
+    "Reject",
+    "Put",
+    "Put_Line",
+    "monomorphic snapshot arithmetic/Int relations/overflow and range checks",
+    "Integer.length, array concat/equality, String conversion/accessors, Image/to_string",
+    "Boolean True/False",
+    "Unit (additional cty_tuple [] replacement)",
+    "Index_Type.first/last, Unconstr_Array.to_array/of_array body calls"
+  ],
+  "remaining_native_site_branches": [
+    {
+      "site": "Ity.cty_apply:1436-1489",
+      "rows": [
+        "reference parameter/result instantiation including current reference projection/constructor calls",
+        "type-variable signatures including polymorphic equality candidates",
+        "partial application fresh formals",
+        "oldie rebuilding",
+        "ghost promotion where not excluded by current source gate",
+        "eff_inst and type-changing t_ty_subst rows"
+      ]
+    },
+    {
+      "site": "Ity.create_cty:1359-1431",
+      "rows": [
+        "fixed-origin polymorphic/nested types",
+        "nonempty oldies",
+        "nonempty xposts and their singleton open_post",
+        "MaskTuple inputs",
+        "nonempty spoils/raises outside closed Main frontier"
+      ]
+    },
+    {
+      "site": "Expr.c_app:843 / Ity.cty_tuple:1491-1501",
+      "rows": [
+        "nonzero tuples and discarded previously built cty_apply output"
+      ]
+    },
+    {
+      "site": "Pmodule.clone_cty:902-958",
+      "rows": [
+        "preceding clone_ity/clone_reg, formals and oldies, effect reconstruction; accepted term roots remain composed separately"
+      ]
+    },
+    {
+      "site": "Expr.create_rsymbol/c_cty_enrich/c_pur and Dexpr frontend",
+      "rows": [
+        "surrounding symbol/post/proxy/overload construction and incomplete multiplicities"
+      ]
+    },
+    {
+      "site": "native runtime consumer",
+      "rows": [
+        "new Ity helper local closures/frames",
+        "shared Hsty/Hsity backing, hash and collision callbacks",
+        "Wvs/strong memo lookup local services"
+      ]
+    }
+  ],
+  "wellfounded_builtin": "accepted review600455e678: closed pure declarations, no program contract-builder entry",
+  "predecessor_main_runs": 0
+}
