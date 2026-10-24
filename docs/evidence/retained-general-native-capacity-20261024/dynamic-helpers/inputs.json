@@ -1,0 +1,45 @@
+{
+  "author_input": "99734327fd77d426fead054d7ba0e12999b00d8a",
+  "files": [
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/helper-joins/current.json",
+      "bytes": 4979,
+      "sha256": "55996c6c37ab8e2b8d4043249eff9699d97126ba3ff761e3f9f89d9585d1ebb9"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/helper-joins/README.md",
+      "bytes": 21078,
+      "sha256": "71370e5140df65de672cb45f1b451b59ab412ffe01341d7b9753a94702c20002"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/helper-joins/source-manifest.json",
+      "bytes": 4921,
+      "sha256": "877710728e4bb6d61d116a6bb91a337a675d450b6121767e16a08b23a43d914b"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/string-pack-current.json",
+      "bytes": 20003,
+      "sha256": "47c323a5c1e210129910b812e6b0b3e4fe6f81239e47774c463ac8d921451cbe"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/check-result.json",
+      "bytes": 6368,
+      "sha256": "f463953cbfeb6945b5a914dad91d485c4ec224d92081ef1768d972142892e76e"
+    },
+    {
+      "path": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json",
+      "bytes": 38353,
+      "sha256": "a3857f1c88b37a617411164bc0a0b492e78805abf0d46c4222d3a1f491883b1f"
+    },
+    {
+      "path": "docs/evidence/retained-backend-capacity-20261018/selected-auto-host.h",
+      "bytes": 62999,
+      "sha256": "c3c1d68e912dbb4d6f1b005d4b01c4735a82b2234d3b74eec4722202da337e14"
+    },
+    {
+      "path": "docs/research/retained-backend-capacity.md",
+      "bytes": 117197,
+      "sha256": "76c0ff20d335ed613b91969fce1405dd078903595a6804186aca283db83f0013"
+    }
+  ]
+}

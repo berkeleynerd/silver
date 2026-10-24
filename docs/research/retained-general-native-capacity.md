@@ -26,6 +26,16 @@ direct String call-adaptation roots. Its
 is separate from the mandatory #207 frontend Uint export. Dynamic F/Q, general
 imported-entry costs and whole native capacity remain open.
 
+The [dynamic annotation continuation](../evidence/retained-general-native-capacity-20261024/dynamic-helpers/README.md)
+closes a further conditional transfer: an acyclic native annotation operand
+graph of certified height h has charge `Q<=2*3^h-1`, including failed retries,
+and at most h+2 active annotation frames. It supplies mixed allocation/callback
+coefficients and a capped arithmetic evaluator. This removes the need for an
+exact final size grammar, but **does not supply a source-derived h or close
+dynamic F/Q for the current language**. Its explicit remaining FoldEnvelope
+lemma covers ranked recursive folding, discarded candidates and the source
+attachment of the native graph bound. The old checked exports are unchanged.
+
 The first result is a source-to-layout lemma and a cumulative allocation kernel
 for Main's local types. It removes the padding-record alternatives for those
 types, supplies explicit type/declaration/vector/constant coefficients, and
@@ -327,7 +337,8 @@ Let Q be the sum of the accepted structural annotation weight over this root
 multiset, including the failed inner-left retry rule in
 [native backannotation](retained-backend-capacity.md#native-backannotation-returns-costs-to-ada-tables).
 This attaches the **number and identity of roots** to the local family counts;
-Q itself still requires the post-folder size shape. No `Q=2(Ta+Tl)` or
+Q itself still requires a post-folder shape or a certified native operand-
+height/vertex bound using the dynamic continuation above. No `Q=2(Ta+Tl)` or
 `Q=V_Main` substitution is justified for dynamic sizes. Then add
 
 ```text
@@ -409,6 +420,23 @@ conversions still separate. The linked continuation identifies the reachable
 recursive matcher edges and the type-bound shape/rank argument required for
 dynamic F/Q; neither a sixteen-node Ada endpoint nor a SAVE wrapper supplies
 that missing proof. Independent review of this new unit remains pending.
+
+Dynamic continuation, 2026-10-24: the #209/constant helper unit at author freeze
+99734327fd was independently accepted in review report fed70c5b5d before this
+next round. The new annotation
+height transfer bounds the accepted retry-aware charge by `B(h)=2*3^h-1` and
+terminates by an explicit original/synthetic-node rank. For
+`Qc=2(Sa+Sl)` and dynamic charge `Qd<=2((Ta-Sa)+(Tl-Sl))*B(H)`, its direct GCC
+caller-byte export is `1240Qc+1328Qd`, with Uint entries `Qc+3Qd+T`, digits
+`5Qc+11Qd+3T` and Rep_Table/map/serial additions at most Qd. Shared backing,
+native frames and incoming guards remain separate. The actual MINUS-to-PLUS
+matcher edge preserves operand height/node count, so those quantities alone
+cannot supply a strictly decreasing fold rank. The exact missing producer
+lemma and a checked capped evaluator are retained in the linked packet.
+Selected author setting remains GPT-6 Astra / Extra High; runtime confirmation,
+total author elapsed time, tokens and cost are unavailable. Native execution
+time is zero. Independent review of this conditional annotation transfer is
+pending; source-derived dynamic F/Q and #201/#119 remain open.
 
 Historical first-kernel round record, 2026-10-24: selected author setting GPT-6 Astra / Extra High;
 runtime model/effort confirmation unavailable. Intended outcome: replace an
