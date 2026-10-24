@@ -1,0 +1,222 @@
+{
+  "actual_complete_common_path_bytes": null,
+  "actual_configuration_or_whole_process_capacity_complete": false,
+  "adversarial_operand_scenarios": {
+    "mapped_reference_expansion": {
+      "admission_decision": false,
+      "common_path_bytes": 601,
+      "sufficient_arguments_interval": false
+    },
+    "normalized_temporary_expansion": {
+      "admission_decision": false,
+      "common_path_bytes": 437,
+      "sufficient_arguments_interval": false
+    },
+    "physical_workspace_expansion": {
+      "admission_decision": false,
+      "common_path_bytes": 323,
+      "sufficient_arguments_interval": true
+    },
+    "saved_cwd_expansion": {
+      "admission_decision": false,
+      "common_path_bytes": 501,
+      "sufficient_arguments_interval": false
+    },
+    "utf8_workspace_bytes": {
+      "admission_decision": false,
+      "common_path_bytes": 273,
+      "sufficient_arguments_interval": true
+    }
+  },
+  "author_commit": "bc889215882ea5e3725e593fd092d058504746b5",
+  "author_or_predecessor_checker_runs": 0,
+  "canonical_directory": null,
+  "complete_tool_sources": 24,
+  "conditional_hull": {
+    "actual_configuration_relation_established": false,
+    "admission_decision": false,
+    "common_path_bytes": 188,
+    "consumer_demands": {
+      "config_file": 113,
+      "initial_and_saved_cwd": 97,
+      "object_directory": 97,
+      "ordinary_summary": 111,
+      "project_argument": 94,
+      "sarif_file": 113,
+      "spark_files": 122,
+      "unit_source_paths": 188
+    },
+    "frozen_arguments_interval_fits": true,
+    "initial_cwd_bytes": 97,
+    "object_dir_bytes": 97,
+    "path_demands": {
+      "absolute_trace": 139,
+      "additional_source_and_config": 0,
+      "config_file": 112,
+      "copied_source_and_sloc": 105,
+      "gnat2why_options": 109,
+      "gpr_configuration_and_naming": 40,
+      "initial_and_saved_cwd": 77,
+      "object_directory": 97,
+      "ordinary_summary": 110,
+      "producer_and_reporter_object_cwd": 97,
+      "project_argument": 94,
+      "relative_trace": 42,
+      "runtime_source_and_reference": 188,
+      "sarif_file": 112,
+      "spark_files": 121,
+      "workspace_directory": 82
+    },
+    "project_path_bytes": 94,
+    "source_path_bytes": 188
+  },
+  "elapsed_seconds": 2.9872522020014003,
+  "exact_target_inputs": {
+    "docs/evidence/retained-fixed-report-composition-20261024/paths/README.md": {
+      "bytes": 15277,
+      "sha256": "19edfea83232a8a2096eb54b10ef08b82654c7e25351babbc18577e202572dc3"
+    },
+    "docs/evidence/retained-fixed-report-composition-20261024/paths/capacity.py": {
+      "bytes": 5719,
+      "sha256": "d4250a2175724d843adfcd2e9871d7f27b15dd3dc031b4be594cb8a390748057"
+    },
+    "docs/evidence/retained-fixed-report-composition-20261024/paths/check.py": {
+      "bytes": 13639,
+      "sha256": "086410cfcbdb6dfbe88538e470f1f910a1a88773cfb58d3ada16923ed15ad7cb"
+    },
+    "docs/evidence/retained-fixed-report-composition-20261024/paths/configuration-snapshot.json": {
+      "bytes": 2740,
+      "sha256": "5e38e0241f124ac45c88d0d4dafeb3fefa9e658b7e869f2a501c3c0a6d7f327e"
+    },
+    "docs/evidence/retained-fixed-report-composition-20261024/paths/result.json": {
+      "bytes": 8267,
+      "sha256": "ed7fe89133479ab3de3993165b0f183929a2ec8ec9c6ed437481284cfcf9d188"
+    },
+    "docs/evidence/retained-fixed-report-composition-20261024/paths/round.json": {
+      "bytes": 2706,
+      "sha256": "4bef7a623d6235eee12526003b21e86fdfaa280124528fb3e3ddb95c1da38ead"
+    },
+    "docs/evidence/retained-fixed-report-composition-20261024/paths/source-manifest.json": {
+      "bytes": 11034,
+      "sha256": "d9385a1215dbf725ab2bef67bb3330d100aa9f116bfe9b325c9167669877bd92"
+    },
+    "docs/research/retained-fixed-report-composition.md": {
+      "bytes": 16292,
+      "sha256": "6e30535dd1a6a3ab937768597e52575dd6b6a57fc982a082bb159cc84fe1eeb5"
+    }
+  },
+  "fixed_report_interfaces": [
+    {
+      "configuration_attached": false,
+      "full_pretty_bytes": 216990962,
+      "unit": "Silver_Output_Libc",
+      "writer_reader_incoming_brief_and_pool_guards": true
+    },
+    {
+      "configuration_attached": false,
+      "full_pretty_bytes": 295151978,
+      "unit": "Silver_Runtime",
+      "writer_reader_incoming_brief_and_pool_guards": true
+    },
+    {
+      "configuration_attached": false,
+      "full_pretty_bytes": 773102165,
+      "unit": "Silver_IO",
+      "writer_reader_incoming_brief_and_pool_guards": true
+    },
+    {
+      "configuration_attached": false,
+      "full_pretty_bytes": 977010142,
+      "unit": "Silver_Arguments",
+      "writer_reader_incoming_brief_and_pool_guards": true
+    }
+  ],
+  "global_e_upper": 2,
+  "historical_environment_reconstruction_required": false,
+  "historical_recorded_inputs": [
+    {
+      "archive": "docs/evidence/retained-main-semantics-20261018/library-capture/captures.tar.gz",
+      "effective_environment_complete": false,
+      "physical_cwd_attached": false,
+      "recorded_operand_max": 173,
+      "unit": "silver_arguments"
+    },
+    {
+      "archive": "docs/evidence/retained-main-semantics-20261018/library-capture/captures.tar.gz",
+      "effective_environment_complete": false,
+      "physical_cwd_attached": false,
+      "recorded_operand_max": 173,
+      "unit": "silver_io"
+    },
+    {
+      "archive": "docs/evidence/retained-main-semantics-20261018/library-capture/captures.tar.gz",
+      "effective_environment_complete": false,
+      "physical_cwd_attached": false,
+      "recorded_operand_max": 173,
+      "unit": "silver_output_libc"
+    },
+    {
+      "archive": "docs/evidence/retained-main-semantics-20261018/library-capture/captures.tar.gz",
+      "effective_environment_complete": false,
+      "physical_cwd_attached": false,
+      "recorded_operand_max": 173,
+      "unit": "silver_runtime"
+    },
+    {
+      "archive": "docs/evidence/retained-producer-bodies-20261018/inputs-and-outputs.tar.gz",
+      "effective_environment_complete": false,
+      "physical_cwd_attached": false,
+      "recorded_operand_max": 173,
+      "unit": "silver_arguments"
+    },
+    {
+      "archive": "docs/evidence/retained-producer-bodies-20261018/inputs-and-outputs.tar.gz",
+      "effective_environment_complete": false,
+      "physical_cwd_attached": false,
+      "recorded_operand_max": 173,
+      "unit": "silver_io"
+    },
+    {
+      "archive": "docs/evidence/retained-producer-bodies-20261018/inputs-and-outputs.tar.gz",
+      "effective_environment_complete": false,
+      "physical_cwd_attached": false,
+      "recorded_operand_max": 173,
+      "unit": "silver_output_libc"
+    },
+    {
+      "archive": "docs/evidence/retained-producer-bodies-20261018/inputs-and-outputs.tar.gz",
+      "effective_environment_complete": false,
+      "physical_cwd_attached": false,
+      "recorded_operand_max": 173,
+      "unit": "silver_runtime"
+    }
+  ],
+  "physical_premises_unchanged": true,
+  "prospective_configurations": [
+    {
+      "argv_count": 18,
+      "config_file_bytes": 1519,
+      "joined_command_bytes": 329,
+      "worker_digits": 1
+    },
+    {
+      "argv_count": 18,
+      "config_file_bytes": 1528,
+      "joined_command_bytes": 338,
+      "worker_digits": 10
+    }
+  ],
+  "repository_inputs": 27,
+  "runtime_corpus": {
+    "files": 1575,
+    "manifest_sha256": "76a5413f5083da098347755f795a1d1d84804c9984ffc97da8199b0c3e77014c",
+    "max_relative_bytes": 14,
+    "root_bytes": 173,
+    "source_reference_pragmas": []
+  },
+  "save_entering_callbacks_upper": 2,
+  "saves_upper": 3,
+  "status": "pass",
+  "target_compiler_prover_Lean_capture_service_runs": 0,
+  "why_client_cwd": null
+}
