@@ -14,9 +14,32 @@ next capability while retaining full assurance for the current language.
 
 ## Current development sequence
 
+**Sequence since 2026-10-24.** Language development resumes first, following the
+[Rosetta progression](rosetta/progression.md) at the current 4,096-byte strict
+language: stage [#9](https://github.com/berkeleynerd/silver/issues/9), then the
+next construct stage after its own scope and authorization. The strict/loose
+assurance-modes milestone (#88–#94 in the order below) follows on the owner's
+later instruction when the current bounds bind a needed program, and the
+deferred #119 strict-mode rule on its recorded trigger. See the
+[decision](docs/session-memory.md#2026-10-24--capacity-derivation-119-deferred-language-development-resumes).
+
 ### Unbounded programs
 
-**Retained-tool direction adopted; capacity design paused for assessment.** The owner
+**Capacity derivation deferred 2026-10-24; language development resumes.** The
+owner approved deferring the full #119 derivation after an
+[independent assessment](docs/evidence/119-sequencing-assessment-20261024/README.md)
+put it at about 50% complete (range 40–65%) against its self-reported 85%, with
+the remaining half estimated at 200–415M tokens before any production package.
+Accepted #119 evidence is frozen at the R92 checkpoint `f1920759b1` in draft
+PR #121 (tag `evidence/119-r92-accepted-f1920759b1`); #119, its children and the
+open findings are deferred in Backlog, and PR #121 stays unmerged. #88–#94 keep
+their conditional authorization but form the later assurance-modes milestone
+(loose mode with a crude sound envelope for the silent hard limits; strict mode
+stays at 4,096 bytes until #119's rule exists). The paragraphs below record the
+2026-10-17 direction and its production order as history; the decision entry
+records the re-sequencing, the resume trigger and what is not authorized.
+
+**Retained-tool direction adopted; capacity design resumed.** The owner
 [selected](docs/session-memory.md#2026-10-17--retained-tool-capacity-direction-adopted)
 keeping the existing GNAT/GNATprove toolchain, accepting explicit tool-imposed
 representation boundaries and removing unnecessary Silver limits within a
@@ -60,8 +83,8 @@ all compositions. No numerical aggregate cap or larger admission domain is selec
 The selected literal-output native-build increment
 [#145](https://github.com/berkeleynerd/silver/issues/145) is technically complete
 and In review through [draft PR #121](https://github.com/berkeleynerd/silver/pull/121).
-**#119 remains paused in Backlog.** The owner authorized only the
-[checkpoint-review maintenance](docs/session-memory.md#2026-10-19--limited-checkpoint-review-maintenance-119-remains-paused).
+**#119 is In progress** under the [2026-10-20 resumption](docs/session-memory.md#2026-10-20--capacity-goal-119-resumed-after-review-maintenance),
+following the completed checkpoint-review maintenance.
 The [review disposition](docs/review-a3af180047-disposition.md) enumerates the
 remaining #119 obligations, shape-dependent accepted region, configuration
 premises and deferred findings. The approximate 80% estimate is a subjective
@@ -73,8 +96,10 @@ runs GPRbuild over a seven-unit project and is outside that researched invocatio
 **#89 must adopt the exact researched graph, options, materialization, environment
 and fixed-input contracts with Bronze/Silver and Lean source correspondence,
 coordinated with #88, or rederive capacity for the alternative graph.** This is
-a future production obligation; the checkpoint does not discharge it. No new
-work package starts during the pause.
+a future production obligation; the checkpoint does not discharge it. Continue
+#119's producer/Why3 and fixed-dependency coverage, then current-grammar and
+whole-rule composition/comparison, reusing accepted native evidence. Relevant
+#150 review follow-ups are reconciled at bounded checkpoints.
 
 Capacity restrictions must be established before admission. An admitted program
 hitting a build or proof-essential representation limit remains a defect,

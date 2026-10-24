@@ -1,5 +1,295 @@
 # Session memory
 
+## 2026-10-24 — Capacity derivation #119 deferred; language development resumes
+
+The owner asked whether completing the full scope of
+[#119](https://github.com/berkeleynerd/silver/issues/119) is worth doing before
+resuming development of the language, noting that at the independent estimate
+it "will take several more weeks of full token budget consumption" under the
+OpenAI plan. After the assessment below, the owner said **"I approve this
+change. Please proceed."** This supersedes the 2026-10-19 sequencing ("We will
+pause build until 119 completes") and the owner-directed #119 continuation
+recorded through [PR #160](https://github.com/berkeleynerd/silver/pull/160).
+The Oracle, installed tools/pins and current admission are unchanged.
+
+**Assessment** (planning agent, 2026-10-24; evidence in
+[docs/evidence/119-sequencing-assessment-20261024](evidence/119-sequencing-assessment-20261024/README.md)):
+#119 is approximately 50% complete toward its stated completion criteria
+(range 40–65%; four independent lenses 43/57/51/60%; 135 fact-checked claims,
+none refuted), against the repository's self-reported "approximately 85%, low
+confidence", which had not moved for 24 rounds while nine child packages and 50
+findings were created. The harness's own `tokensUsed` counters measure 72M
+tokens over about 21 of about 69 active hours; the all-in estimate through R92
+is 200–280M, and the remaining half of #119 is estimated at 200–415M before any
+production package. At least five assured language increments landed in the
+three days before #119 began; none in the seven days since.
+
+**Decision.**
+
+1. **Language development resumes now**, at the current 4,096-byte strict
+   language, following the [Rosetta progression](../rosetta/progression.md).
+   Stage issue [#9](https://github.com/berkeleynerd/silver/issues/9) (samples
+   needing no new construct) is the first authorized item once this entry is on
+   `main`; the next construct stage
+   ([#11](https://github.com/berkeleynerd/silver/issues/11), remaining
+   constructs) is scoped for the owner's separate authorization under
+   [planning.md](planning.md). Feature work and capacity work do not run
+   concurrently; one agent writes a host's proof workspace at a time.
+2. **#119 is deferred, not completed.** Its completion criteria are unchanged;
+   it defines the future strict-mode rule and is no longer a prerequisite for
+   language development. Accepted evidence is the published R92 checkpoint
+   `f1920759b17dd328e1b8c71293002be9390d7d53` in draft
+   [PR #121](https://github.com/berkeleynerd/silver/pull/121), frozen and tagged
+   `evidence/119-r92-accepted-f1920759b1`. The harness's pause record
+   (`1c058a85f6`) with one unreviewed author packet is preserved on branch
+   `research/119-pause-20261024` (tag `evidence/119-pause-20261024`); the four
+   paused author branches `research/general-native-capacity-20261024`,
+   `research/main-construction-demand-20261024`,
+   `research/fixed-report-composition-20261024` and
+   `research/fixed-report-source-joins-20261024` are pushed as unreviewed author
+   work, and uncommitted worktree state remains in the host's
+   `tmp/paused-backups/` archive. The
+   [restart inventory](evidence/119-sequencing-assessment-20261024/restart-inventory-20261024.md)
+   is copied into the evidence record. #119, in-progress children #201, #202 and
+   #212, the technically complete children #145, #153, #155, #178, #185, #186,
+   #193, #194 and #206, and the 73 open findings are deferred with #119 and
+   return to Backlog; none is delivered to `main`. PR #121 stays draft and
+   unmerged; its merge is not authorized. The only #119 work still authorized is
+   one bounded R93 cleanup session on the owner's harness, at the owner's
+   discretion and under an explicit token cap: finish the four pending
+   independent reviews, integrate what is accepted, publish. Skipping it is
+   acceptable; the policy's review tier is not lowered to finish it here.
+3. **Production #88–#94 keep their conditional authorization but are
+   re-sequenced** as the strict/loose assurance-modes milestone adopted in
+   principle on 2026-10-19 (draft [PR #147](https://github.com/berkeleynerd/silver/pull/147)).
+   It starts on a later owner instruction when the 4,096-byte source bound or the
+   4,096 value/argument/output caps bind a needed program, in this order: #88
+   resource outcomes, uncapped prover configuration and mode gating; #89
+   input-scaled storage and recognizer complexity; #90 parameterized Lean models
+   and the strict predicate's correspondence; then a crude, sound envelope for the
+   silent hard limits under #91, derived once against the production
+   configuration under stated premises, with a token budget and dated stop; mode
+   reporting, catalogue and language records; and the Oracle amendment, merged
+   only after the owner answers PR #147's four open questions. #93's
+   value/argument/output cap removal stays out of the first increment unless
+   separately costed. Strict mode remains the uniform 4,096-byte bound until
+   #119's rule exists. #88–#94 return to Backlog until that instruction.
+4. **Resume trigger for #119:** the first needed program that returns a
+   resource outcome or is rejected by the loose-mode envelope, or a later owner
+   selection. Dense programs beyond the measured prover reach (a dense 8 KB
+   probe exceeded a 14 GiB guard) are not shippable under either route until
+   #119 plus #90/#91 complete; the deferral does not change that.
+
+Not authorized by this entry: starting #88–#94, merging PR #121 or PR #147,
+any change to admission or the current language, or a new harness goal for
+#119. The live harness remains paused. The planning agent (Claude Fable 5.1,
+Anthropic) drafted this record; its assessment agents ran on Anthropic models,
+separately from the OpenAI plan the counters above measure. CLI memory was
+updated.
+
+## 2026-10-23 — Owner continuation after the printer-entry pause
+
+The owner instructed **“Please continue.”** This supersedes the night pause
+recorded through [PR #159](https://github.com/berkeleynerd/silver/pull/159) and
+authorizes continued work toward the complete
+[#119](https://github.com/berkeleynerd/silver/issues/119) capacity rule. #119 and
+unfinished scoped child
+[#153](https://github.com/berkeleynerd/silver/issues/153) return to In progress.
+The live harness still reports paused pending its UI/system control; project
+work is authorized by the owner's continuation independently of that status.
+No new harness goal is created and no reactivation is claimed.
+
+Resume from the accepted Round 61
+[checkpoint and restart inventory](https://github.com/berkeleynerd/silver/blob/8ab048af2bcb654ee2ead354d8737c7279b76856/docs/evidence/retained-printer-pause-round61-20261023/README.md)
+in [draft PR #121](https://github.com/berkeleynerd/silver/pull/121). Reuse its
+reviewed bounded preparation through printer entry and partial shared-demand
+composition at their stated scopes. Continue the preserved local
+[library-constructor work](https://github.com/berkeleynerd/silver/blob/8ab048af2bcb654ee2ead354d8737c7279b76856/docs/evidence/retained-printer-pause-round61-20261023/wip-checkpoints.json)
+from its recorded unfinished checkpoint; it remains unreviewed author work.
+
+The full objective remains a computable, source/configuration-decidable,
+source-sensitive capacity rule for the current Silver grammar, with complete
+compiler, producer, required-consumer and fixed-dependency coverage, checked
+accounting, relevant actual source correspondence, whole-rule composition,
+useful-domain comparison and final independent review. Complete remaining
+library/printer/callback demands and meaningful output/startup/failure
+interfaces. Neither the bounded accepted results nor this continuation completes
+either issue or changes the objective.
+
+Oracle, installed tools/pins and current admission remain unchanged. Production
+#88–#94 retains its conditional authorization but remains unstarted with its
+capacity prerequisite unsatisfied. PR #121 stays draft/unmerged; its merge is
+not authorized. Routine isolated research, focused validation, review, tracking,
+commits and publication within #119 remain authorized. CLI memory is unavailable
+and was not updated.
+
+## 2026-10-23 — Night pause after the reviewed printer-entry checkpoint
+
+The owner requested: **“Let's pause at the next convenience checkpoint for the
+night and assess where we are in the process of delivering 119.”** Finish the
+already active narrow printer-entry review and integration, preserve unfinished
+author work, then pause [#119](https://github.com/berkeleynerd/silver/issues/119)
+and its unfinished scoped child
+[#153](https://github.com/berkeleynerd/silver/issues/153). Both return to Backlog;
+the live harness is paused with its complete-rule objective unchanged. Resume
+technical work only on a later owner instruction. This supersedes today's
+resumption; retain the earlier decisions as history.
+
+Accepted results now include the right-only split, six-owner partial
+state/demand join and the reviewed bounded preparation through printer entry.
+These do not establish actual whole-process headroom. The partial library
+constructor work is preserved as unfinished local author work; Ident/Hsty/
+Hstdecl and lower memos remain incomplete. Exact freezes, checks, review
+attribution and restart steps belong in the research branch's round records and
+#119/#153 handoffs, linked from
+[draft PR #121](https://github.com/berkeleynerd/silver/pull/121).
+
+The estimate remains 80–85%, low confidence and not a remaining-time forecast.
+The authorized objective remains a computable, source/configuration-decidable,
+source-sensitive capacity rule for the current Silver grammar. Remaining work
+includes complete library/printer/callback demands; meaningful output and
+startup/failure interfaces; complete compiler, producer, required-consumer and
+fixed-dependency coverage; checked accounting, relevant actual source
+correspondence, whole-rule composition, useful-domain comparison and final
+independent review. Accepted bounded results are retained at their stated scopes;
+neither issue is complete.
+
+Oracle, installed tools/pins and current admission remain unchanged. Existing
+ordinary allocator/OS behavior and sufficient physical stack/memory/disk remain
+trusted; no aggregate RAM gate is added. The process-global two save-entering
+callbacks, three saves and e<=2 allowance is never renewed per stage. Production
+#88–#94 remains authorized but unstarted with its capacity prerequisite
+unsatisfied. PR #121 stays draft/unmerged; merging it is not authorized. Routine
+pause records and publication are authorized. CLI memory is unavailable and was
+not updated.
+
+## 2026-10-23 — Resume the complete capacity-rule objective for #119
+
+The owner reactivated the existing harness goal and directly instructed continued
+work toward the complete [#119](https://github.com/berkeleynerd/silver/issues/119)
+capacity rule. This supersedes the 2026-10-21 night pause recorded through
+[PR #157](https://github.com/berkeleynerd/silver/pull/157); retain that pause as
+history. The lead confirms the live harness is active with its full objective
+unchanged. #119 and unfinished scoped child
+[#153](https://github.com/berkeleynerd/silver/issues/153) return to In progress.
+
+Resume from accepted Round 59 integration `2dc54cc451e3f36438dc26dde186978ca7ccc61c`
+in [draft PR #121](https://github.com/berkeleynerd/silver/pull/121). Its
+[checkpoint and restart inventory](https://github.com/berkeleynerd/silver/blob/2dc54cc451e3f36438dc26dde186978ca7ccc61c/docs/evidence/retained-collision-pause-round59-20261021/README.md)
+preserve reviewed comparator closure, earlier accepted evidence and separately
+identified unfinished, unreviewed printer-entry/shared-demand work. Reuse accepted
+results at their stated scopes; this checkpoint does not complete either issue.
+
+The authorized result remains a computable, source/configuration-decidable,
+source-sensitive capacity rule for the current Silver grammar, with complete
+compiler, producer, required-consumer and fixed-dependency coverage, relevant
+actual source correspondence, whole-rule composition, useful-domain comparison
+and final independent review. Finish the remaining transformations through
+printer entry and establish actual process/owner/cut transport before joining
+shared state with complete demand. Ordinary unresolved obligations remain work
+to finish, not a substitute completion or research-stop outcome.
+
+Oracle, installed tools/pins and current admission remain unchanged. Production
+#88–#94 retains its conditional authorization but remains unstarted with its
+capacity prerequisite unsatisfied. PR #121 stays draft/unmerged; its merge is
+not authorized. Routine isolated research, focused validation, review, tracking,
+commits and publication within #119 remain authorized. CLI memory is unavailable
+and was not updated.
+
+## 2026-10-21 — Night pause at the reviewed comparison checkpoint
+
+The owner requested: **“Let's pause at the next convenience checkpoint for the
+night and assess where we are in the process of delivering 119.”** Finish the
+already active comparison review and integration, retain the unfinished author
+work, then pause #119 and its scoped unfinished child #153. Return both board
+items to Backlog; the live harness is paused with its complete-rule objective
+unchanged. Resume technical work only on a later owner instruction.
+
+The accepted R58 preparation/libc result and the next original-context
+comparison result remain in [draft PR #121](https://github.com/berkeleynerd/silver/pull/121).
+The latter establishes zero comparator Ident/hash-tag increments and bounded
+local arithmetic, including the direct R58 original-context attachment. It
+completes neither generated-formula coverage nor shared caller counters.
+The preparation-to-printer-entry and shared-demand author work is preserved as
+explicitly unfinished, unreviewed checkpoints; it is not completion evidence.
+Detailed freezes, checks, pause state and restart steps live in the research
+branch's round record and #119/#153 handoffs.
+
+The estimate remains 80–85%, low confidence and not a remaining-time forecast.
+Remaining work includes the later preparation/generated-key families and
+printing; initial shared state plus complete demand; meaningful output and
+startup/failure interfaces; complete compiler/producer/required-consumer/fixed-
+dependency/current-grammar coverage; computable checked accounting, relevant
+source correspondence, whole-rule composition, useful-domain comparison and
+final independent review. Ordinary numerical work counts need not all fit
+OCaml integers; actual correctness-relevant counter/index/request arithmetic
+must satisfy its representation conditions.
+
+Oracle, installed tools/pins and current admission stay unchanged. Existing
+ordinary allocator/OS behavior and sufficient physical stack/memory/disk
+remain trusted; no aggregate RAM gate is added. The process-global two
+save-entering callbacks, three saves and e<=2 allowance is never renewed per
+stage. Production #88–#94 remains authorized but unstarted until its capacity
+prerequisite is justified. PR #121 stays draft/unmerged; merging that research
+PR remains unauthorized. CLI memory is unavailable and was not updated.
+
+## 2026-10-20 — Continue the complete capacity-rule objective for #119
+
+After the lead acknowledged that treating the research stop as completion was
+premature, the owner instructed **“Please continue.”** Resume
+[#119](https://github.com/berkeleynerd/silver/issues/119) In progress toward the
+complete capacity rule. [#153](https://github.com/berkeleynerd/silver/issues/153)
+remains an unfinished scoped child. The restarted live harness targets that
+complete-rule objective. The Round 47
+[stop report](https://github.com/berkeleynerd/silver/blob/651fa8e1a7c7c88dd27828ad8e2219f69b4f9f50/docs/research/retained-tool-capacity-stop.md) and
+[review](https://github.com/berkeleynerd/silver/blob/d15b2d54523904546c80049c344264686d64ae31/docs/reviews/review-cvc5-output-closure-20261020.md) remain interim evidence;
+their accepted findings do not complete #119. This supersedes the completion
+disposition recorded in the research branch; accepted technical findings remain unchanged.
+
+The next technical checkpoint assesses the complete supported quiet-option
+invocation/response route and independently classifies solver output as
+proof-essential or observation-only, toward complete per-file q. Neither
+assessment is assumed to close that bound or the parent objective. Preserve the
+original requirement matrix, required producer/Why3 and fixed-dependency paths,
+current-grammar coverage, decidable checked accounting, whole-rule source
+correspondence/composition, useful-domain comparison and independent final review.
+Reuse accepted evidence; #89's exact-invocation adoption or alternative
+rederivation obligation remains required.
+
+Oracle, installed tools/pins and current admission remain unchanged. Production
+#88–#94 remains authorized but unstarted with its capacity prerequisite
+unsatisfied. PR #121 stays draft; merging it is not authorized. The original
+Round 47 commit `b377b6f53c` is preserved as tag
+`evidence/retained-tool-round47-stop-b377b6f53c`; message-only amendment
+`421486c4e3` removes the premature `Fixes #119` keyword with an identical tree.
+CLI memory remains unavailable and was not updated by this record correction.
+
+## 2026-10-20 — Capacity goal #119 resumed after review maintenance
+
+The owner set the existing harness goal to **active** and instructed continued
+work toward its complete #119 objective. This revokes the prior assessment pause
+and the temporary records-only restriction; it does not replace the objective
+or select its alternative research-stop outcome. #119 returns to In progress.
+
+Resume from research integration `19b26ac8a1` and the review dispositions
+published through [PR #151](https://github.com/berkeleynerd/silver/pull/151).
+Retain accepted native evidence and continue the required producer/Why3 and
+fixed-dependency paths, current-grammar coverage, decidable checked accounting,
+whole-rule correspondence/composition, useful-domain comparison and final review.
+Address relevant #150 follow-ups at bounded checkpoints; do not repeat accepted
+broad validation without a named missing question. The selected native result
+remains In review through draft PR #121. Resumption does not itself authorize
+merging that research PR.
+
+Keep the current Oracle, admission and installed tools/pins unchanged. Draft
+PR #147's assurance-mode proposal is not merged and does not govern this work.
+Production #88–#94 retains its recorded conditional authorization but remains
+outside the present goal until the capacity prerequisite is justified. In
+particular #89's exact-invocation adoption or alternative rederivation obligation
+remains required. Routine isolated research, focused validation, review and
+publication within #119 are authorized. The live harness now confirms active;
+CLI memory remains unavailable.
+
 ## 2026-10-19 — Limited checkpoint-review maintenance; #119 remains paused
 
 After the independent [review of a3af180047](reviews/review-a3af180047.md),
