@@ -5,12 +5,12 @@
 the full #119 derivation after an
 [independent assessment](evidence/119-sequencing-assessment-20261024/README.md);
 language development resumes at the current 4,096-byte strict language, and
-#88–#94 are re-sequenced as the later strict/loose
+#88–#94 are re-sequenced as the later strict/extended
 [assurance-modes](https://github.com/berkeleynerd/silver/pull/147) milestone.
 Accepted #119 evidence is frozen at R92 (`f1920759b1`, draft PR #121, unmerged).
 The design below remains the production design for the compiler, confirmation
 and outcomes; its statements that #119 must complete before expanded admission
-describe strict mode, whose rule #119 still defines, not the loose-mode route.
+describe strict mode, whose rule #119 still defines, not the extended-mode route.
 
 **Revised direction adopted 2026-10-17; capacity design in progress.** Retain
 the existing GNAT/GNATprove toolchain and remove unnecessary Silver limits
@@ -38,6 +38,14 @@ is superseded by the [disposition below](#frontend-representation-result-and-own
 The [original review](reviews/review-ec82b4e5f2.md) and
 [planning repair record](review-ec82b4e5f2-repairs.md) remain historical records.
 Neither research closure nor this direction change establishes a larger language.
+
+**Assurance modes (2026-10-19).** The owner adopted in principle a strict/extended
+split (the owner's working term was "loose"), recorded in [assurance-modes.md](assurance-modes.md) with its proposed
+Oracle amendment: strict programs prove by construction under the derived
+capacity rules; extended programs beyond them compile only when their own proof run
+succeeds. This scope's design sections remain the production design for the
+compiler, confirmation and outcomes; the modes record states which of the limits
+below extended mode may raise and which are hard in both modes.
 
 ## Goal and owner direction
 
