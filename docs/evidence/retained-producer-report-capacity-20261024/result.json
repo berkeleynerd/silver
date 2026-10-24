@@ -1,0 +1,1247 @@
+{
+  "status": "focused checks passed; source attachments remain open",
+  "native_execution": false,
+  "predecessor_checker_replay": false,
+  "provider_archives": 5,
+  "complete_selected_files": 78,
+  "spark_ada_frontier": 279,
+  "assumption_callers": [
+    {
+      "member": "spark-source/src/flow/flow-analysis-assumptions.adb",
+      "line": 56
+    },
+    {
+      "member": "spark-source/src/spark/spark_definition.adb",
+      "line": 2339
+    },
+    {
+      "member": "spark-source/src/spark/spark_definition.adb",
+      "line": 2376
+    },
+    {
+      "member": "spark-source/src/utils/errout_wrapper.adb",
+      "line": 138
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-assumptions.adb",
+      "line": 78
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-driver.adb",
+      "line": 567
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-driver.adb",
+      "line": 1127
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-driver.adb",
+      "line": 1142
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-error_messages.adb",
+      "line": 1155
+    }
+  ],
+  "option_uses": [
+    {
+      "member": "spark-source/src/counterexamples/ce_display.adb",
+      "line": 130,
+      "name": "Output_Mode"
+    },
+    {
+      "member": "spark-source/src/flow/flow_error_messages.adb",
+      "line": 414,
+      "name": "Report_Mode"
+    },
+    {
+      "member": "spark-source/src/flow/flow_error_messages.adb",
+      "line": 431,
+      "name": "Report_Mode"
+    },
+    {
+      "member": "spark-source/src/flow/flow_error_messages.adb",
+      "line": 785,
+      "name": "Report_Mode"
+    },
+    {
+      "member": "spark-source/src/flow/flow_error_messages.adb",
+      "line": 815,
+      "name": "Report_Mode"
+    },
+    {
+      "member": "spark-source/src/flow/flow_error_messages.adb",
+      "line": 938,
+      "name": "Report_Mode"
+    },
+    {
+      "member": "spark-source/src/flow/flow_error_messages.adb",
+      "line": 947,
+      "name": "Output_Mode"
+    },
+    {
+      "member": "spark-source/src/flow/flow_error_messages.adb",
+      "line": 969,
+      "name": "Output_Mode"
+    },
+    {
+      "member": "spark-source/src/flow/flow_error_messages.adb",
+      "line": 993,
+      "name": "Report_Mode"
+    },
+    {
+      "member": "spark-source/src/flow/flow_error_messages.adb",
+      "line": 2106,
+      "name": "Output_Mode"
+    },
+    {
+      "member": "spark-source/src/flow/flow_error_messages.adb",
+      "line": 3986,
+      "name": "Output_Mode"
+    },
+    {
+      "member": "spark-source/src/spark/gnat2why_opts-reading.adb",
+      "line": 91,
+      "name": "Output_Mode"
+    },
+    {
+      "member": "spark-source/src/spark/gnat2why_opts-reading.adb",
+      "line": 114,
+      "name": "Report_Mode"
+    },
+    {
+      "member": "spark-source/src/spark/gnat2why_opts-reading.ads",
+      "line": 87,
+      "name": "Output_Mode"
+    },
+    {
+      "member": "spark-source/src/spark/gnat2why_opts-reading.ads",
+      "line": 91,
+      "name": "Report_Mode"
+    },
+    {
+      "member": "spark-source/src/utils/errout_wrapper.adb",
+      "line": 267,
+      "name": "Output_Mode"
+    },
+    {
+      "member": "spark-source/src/why/back_end.adb",
+      "line": 147,
+      "name": "Output_Mode"
+    },
+    {
+      "member": "spark-source/src/why/back_end.adb",
+      "line": 154,
+      "name": "Output_Mode"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-subprograms.adb",
+      "line": 655,
+      "name": "Output_Mode"
+    }
+  ],
+  "continuation_append_sites": [
+    {
+      "member": "spark-source/src/why/gnat2why-error_messages.adb",
+      "line": 1087,
+      "spelling": "Check_Info.Continuation.Append"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr-aggregates.adb",
+      "line": 1022,
+      "spelling": "Init_Check_Info.Continuation.Append"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr-aggregates.adb",
+      "line": 1028,
+      "spelling": "Init_Check_Info.Continuation.Append"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr-aggregates.adb",
+      "line": 1054,
+      "spelling": "Preserv_Check_Info.Continuation.Append"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr-aggregates.adb",
+      "line": 1060,
+      "spelling": "Preserv_Check_Info.Continuation.Append"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr-aggregates.adb",
+      "line": 1120,
+      "spelling": "Continuation_Stack.Append"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr-aggregates.adb",
+      "line": 2364,
+      "spelling": "Continuation_Stack.Append"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr-aggregates.adb",
+      "line": 2722,
+      "spelling": "Check_Info.Continuation.Append"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr-aggregates.adb",
+      "line": 2740,
+      "spelling": "Check_Info.Continuation.Append"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr-aggregates.adb",
+      "line": 2751,
+      "spelling": "Check_Info.Continuation.Append"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr.adb",
+      "line": 3146,
+      "spelling": "Check_Info.Continuation.Append"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr.adb",
+      "line": 3577,
+      "spelling": "Check_Info.Continuation.Append"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr.adb",
+      "line": 4243,
+      "spelling": "Continuation_Stack.Append"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr.adb",
+      "line": 5221,
+      "spelling": "Continuation_Stack.Append"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr.adb",
+      "line": 5327,
+      "spelling": "Continuation_Stack.Append"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr.adb",
+      "line": 5448,
+      "spelling": "Continuation_Stack.Append"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr.adb",
+      "line": 7634,
+      "spelling": "Continuation_Stack.Append"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr.adb",
+      "line": 8314,
+      "spelling": "Continuation_Stack.Append"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr.adb",
+      "line": 9788,
+      "spelling": "Continuation_Stack.Append"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr.adb",
+      "line": 11422,
+      "spelling": "Continuation_Stack.Append"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr.adb",
+      "line": 13260,
+      "spelling": "Check_Info.Continuation.Append"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr.adb",
+      "line": 14636,
+      "spelling": "Check_Info.Continuation.Append"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr.adb",
+      "line": 14648,
+      "spelling": "Check_Info.Continuation.Append"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr.adb",
+      "line": 16695,
+      "spelling": "Continuation_Stack.Append"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr.adb",
+      "line": 21361,
+      "spelling": "Continuation_Stack.Append"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-subprograms.adb",
+      "line": 890,
+      "spelling": "Check_Info.Continuation.Append"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-subprograms.adb",
+      "line": 2807,
+      "spelling": "Check_Info.Continuation.Append"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-subprograms.adb",
+      "line": 3033,
+      "spelling": "Check_Info.Continuation.Append"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-subprograms.adb",
+      "line": 4971,
+      "spelling": "Continuation_Stack.Append"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-subprograms.adb",
+      "line": 5649,
+      "spelling": "Continuation_Stack.Append"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-subprograms.adb",
+      "line": 5927,
+      "spelling": "Continuation_Stack.Append"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-subprograms.adb",
+      "line": 6045,
+      "spelling": "Check_Info.Continuation.Append"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-types.adb",
+      "line": 1224,
+      "spelling": "Continuation_Stack.Append"
+    },
+    {
+      "member": "spark-source/src/why/why-gen-init.adb",
+      "line": 472,
+      "spelling": "Continuation_Stack.Append"
+    },
+    {
+      "member": "spark-source/src/why/why-gen-records.adb",
+      "line": 4471,
+      "spelling": "Continuation_Stack.Append"
+    }
+  ],
+  "producer_text_io_sites": [
+    {
+      "member": "spark-source/src/common/call.adb",
+      "line": 41,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/common/call.adb",
+      "line": 86,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/common/call.adb",
+      "line": 92,
+      "spelling": "Ada.Text_IO.New_Line"
+    },
+    {
+      "member": "spark-source/src/common/call.adb",
+      "line": 119,
+      "spelling": "Ada.Text_IO.Put"
+    },
+    {
+      "member": "spark-source/src/common/call.adb",
+      "line": 122,
+      "spelling": "Ada.Text_IO.Put"
+    },
+    {
+      "member": "spark-source/src/common/call.adb",
+      "line": 123,
+      "spelling": "Ada.Text_IO.Put"
+    },
+    {
+      "member": "spark-source/src/counterexamples/ce_rac.adb",
+      "line": 2775,
+      "spelling": "Put_Line"
+    },
+    {
+      "member": "spark-source/src/flow/flow.adb",
+      "line": 264,
+      "spelling": "Ada.Text_IO.Put"
+    },
+    {
+      "member": "spark-source/src/flow/flow_error_messages.adb",
+      "line": 554,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/flow/flow_generated_globals-partial.adb",
+      "line": 954,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/flow/flow_generated_globals-partial.adb",
+      "line": 1303,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/flow/flow_generated_globals-partial.adb",
+      "line": 1405,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/flow/flow_generated_globals-partial.adb",
+      "line": 1433,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/flow/flow_generated_globals-partial.adb",
+      "line": 1448,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/flow/flow_generated_globals-partial.adb",
+      "line": 1497,
+      "spelling": "Ada.Text_IO.Put"
+    },
+    {
+      "member": "spark-source/src/flow/flow_generated_globals-partial.adb",
+      "line": 1504,
+      "spelling": "Ada.Text_IO.Put"
+    },
+    {
+      "member": "spark-source/src/flow/flow_generated_globals-partial.adb",
+      "line": 1515,
+      "spelling": "Ada.Text_IO.Put"
+    },
+    {
+      "member": "spark-source/src/flow/flow_generated_globals-partial.adb",
+      "line": 1517,
+      "spelling": "Ada.Text_IO.Put"
+    },
+    {
+      "member": "spark-source/src/flow/flow_generated_globals-partial.adb",
+      "line": 1518,
+      "spelling": "Ada.Text_IO.Put"
+    },
+    {
+      "member": "spark-source/src/flow/flow_generated_globals-partial.adb",
+      "line": 1528,
+      "spelling": "Ada.Text_IO.Put"
+    },
+    {
+      "member": "spark-source/src/flow/flow_generated_globals-partial.adb",
+      "line": 1532,
+      "spelling": "Ada.Text_IO.New_Line"
+    },
+    {
+      "member": "spark-source/src/flow/flow_generated_globals-partial.adb",
+      "line": 1541,
+      "spelling": "Ada.Text_IO.New_Line"
+    },
+    {
+      "member": "spark-source/src/flow/flow_generated_globals-partial.adb",
+      "line": 2006,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/flow/flow_generated_globals-partial.adb",
+      "line": 2119,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/flow/flow_generated_globals-phase_2-traversal.adb",
+      "line": 45,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/flow/flow_generated_globals-phase_2-visibility.adb",
+      "line": 609,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/flow/flow_generated_globals-phase_2-visibility.adb",
+      "line": 435,
+      "spelling": "Put"
+    },
+    {
+      "member": "spark-source/src/flow/flow_generated_globals-phase_2-visibility.adb",
+      "line": 437,
+      "spelling": "Put"
+    },
+    {
+      "member": "spark-source/src/flow/flow_generated_globals-phase_2-visibility.adb",
+      "line": 439,
+      "spelling": "Put"
+    },
+    {
+      "member": "spark-source/src/flow/flow_generated_globals-phase_2-visibility.adb",
+      "line": 441,
+      "spelling": "New_Line"
+    },
+    {
+      "member": "spark-source/src/flow/flow_generated_globals-phase_2.adb",
+      "line": 644,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/flow/flow_generated_globals-phase_2.adb",
+      "line": 2146,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/flow/flow_generated_globals-phase_2.adb",
+      "line": 2153,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/flow/flow_generated_globals-phase_2.adb",
+      "line": 2180,
+      "spelling": "Ada.Text_IO.Put"
+    },
+    {
+      "member": "spark-source/src/flow/flow_generated_globals-phase_2.adb",
+      "line": 2182,
+      "spelling": "Ada.Text_IO.Put"
+    },
+    {
+      "member": "spark-source/src/flow/flow_generated_globals-phase_2.adb",
+      "line": 2188,
+      "spelling": "Ada.Text_IO.Put"
+    },
+    {
+      "member": "spark-source/src/flow/flow_generated_globals-phase_2.adb",
+      "line": 2194,
+      "spelling": "Ada.Text_IO.Put"
+    },
+    {
+      "member": "spark-source/src/flow/flow_generated_globals-phase_2.adb",
+      "line": 2205,
+      "spelling": "Ada.Text_IO.New_Line"
+    },
+    {
+      "member": "spark-source/src/flow/flow_generated_globals-phase_2.adb",
+      "line": 2215,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/flow/flow_generated_globals-phase_2.adb",
+      "line": 2228,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/flow/flow_generated_globals-phase_2.adb",
+      "line": 2252,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/flow/flow_generated_globals-phase_2.adb",
+      "line": 2300,
+      "spelling": "Ada.Text_IO.New_Line"
+    },
+    {
+      "member": "spark-source/src/flow/flow_generated_globals-traversal.adb",
+      "line": 114,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/flow/flow_generated_globals-traversal.adb",
+      "line": 207,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/flow/flow_generated_globals.adb",
+      "line": 42,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/flow/flow_visibility.adb",
+      "line": 827,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/flow/flow_visibility.adb",
+      "line": 835,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/flow/graphs.adb",
+      "line": 1676,
+      "spelling": "Put"
+    },
+    {
+      "member": "spark-source/src/flow/graphs.adb",
+      "line": 1677,
+      "spelling": "Put_Line"
+    },
+    {
+      "member": "spark-source/src/flow/graphs.adb",
+      "line": 1679,
+      "spelling": "Put_Line"
+    },
+    {
+      "member": "spark-source/src/flow/graphs.adb",
+      "line": 1680,
+      "spelling": "Put_Line"
+    },
+    {
+      "member": "spark-source/src/flow/graphs.adb",
+      "line": 1681,
+      "spelling": "Put_Line"
+    },
+    {
+      "member": "spark-source/src/flow/graphs.adb",
+      "line": 1685,
+      "spelling": "Put"
+    },
+    {
+      "member": "spark-source/src/flow/graphs.adb",
+      "line": 1686,
+      "spelling": "Put"
+    },
+    {
+      "member": "spark-source/src/flow/graphs.adb",
+      "line": 1687,
+      "spelling": "Put_Line"
+    },
+    {
+      "member": "spark-source/src/flow/graphs.adb",
+      "line": 1688,
+      "spelling": "Put_Line"
+    },
+    {
+      "member": "spark-source/src/flow/graphs.adb",
+      "line": 1689,
+      "spelling": "Put_Line"
+    },
+    {
+      "member": "spark-source/src/flow/graphs.adb",
+      "line": 1690,
+      "spelling": "Put_Line"
+    },
+    {
+      "member": "spark-source/src/flow/graphs.adb",
+      "line": 1697,
+      "spelling": "Put"
+    },
+    {
+      "member": "spark-source/src/flow/graphs.adb",
+      "line": 1698,
+      "spelling": "Put"
+    },
+    {
+      "member": "spark-source/src/flow/graphs.adb",
+      "line": 1699,
+      "spelling": "Put"
+    },
+    {
+      "member": "spark-source/src/flow/graphs.adb",
+      "line": 1700,
+      "spelling": "Put"
+    },
+    {
+      "member": "spark-source/src/flow/graphs.adb",
+      "line": 1701,
+      "spelling": "Put"
+    },
+    {
+      "member": "spark-source/src/flow/graphs.adb",
+      "line": 1707,
+      "spelling": "Put"
+    },
+    {
+      "member": "spark-source/src/flow/graphs.adb",
+      "line": 1710,
+      "spelling": "Put"
+    },
+    {
+      "member": "spark-source/src/flow/graphs.adb",
+      "line": 1713,
+      "spelling": "Put"
+    },
+    {
+      "member": "spark-source/src/flow/graphs.adb",
+      "line": 1716,
+      "spelling": "Put"
+    },
+    {
+      "member": "spark-source/src/flow/graphs.adb",
+      "line": 1720,
+      "spelling": "Put"
+    },
+    {
+      "member": "spark-source/src/flow/graphs.adb",
+      "line": 1726,
+      "spelling": "Put"
+    },
+    {
+      "member": "spark-source/src/flow/graphs.adb",
+      "line": 1727,
+      "spelling": "New_Line"
+    },
+    {
+      "member": "spark-source/src/flow/graphs.adb",
+      "line": 1732,
+      "spelling": "Put_Line"
+    },
+    {
+      "member": "spark-source/src/flow/graphs.adb",
+      "line": 1734,
+      "spelling": "New_Line"
+    },
+    {
+      "member": "spark-source/src/flow/graphs.adb",
+      "line": 1746,
+      "spelling": "Put"
+    },
+    {
+      "member": "spark-source/src/flow/graphs.adb",
+      "line": 1747,
+      "spelling": "Put"
+    },
+    {
+      "member": "spark-source/src/flow/graphs.adb",
+      "line": 1748,
+      "spelling": "Put"
+    },
+    {
+      "member": "spark-source/src/flow/graphs.adb",
+      "line": 1749,
+      "spelling": "Put"
+    },
+    {
+      "member": "spark-source/src/flow/graphs.adb",
+      "line": 1750,
+      "spelling": "Put"
+    },
+    {
+      "member": "spark-source/src/flow/graphs.adb",
+      "line": 1753,
+      "spelling": "Put"
+    },
+    {
+      "member": "spark-source/src/flow/graphs.adb",
+      "line": 1756,
+      "spelling": "Put"
+    },
+    {
+      "member": "spark-source/src/flow/graphs.adb",
+      "line": 1757,
+      "spelling": "Put"
+    },
+    {
+      "member": "spark-source/src/flow/graphs.adb",
+      "line": 1761,
+      "spelling": "Put"
+    },
+    {
+      "member": "spark-source/src/flow/graphs.adb",
+      "line": 1763,
+      "spelling": "Put"
+    },
+    {
+      "member": "spark-source/src/flow/graphs.adb",
+      "line": 1764,
+      "spelling": "Put"
+    },
+    {
+      "member": "spark-source/src/flow/graphs.adb",
+      "line": 1765,
+      "spelling": "New_Line"
+    },
+    {
+      "member": "spark-source/src/flow/graphs.adb",
+      "line": 1771,
+      "spelling": "Put_Line"
+    },
+    {
+      "member": "spark-source/src/spark/spark_definition.adb",
+      "line": 11996,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/spark/spark_frame_conditions.adb",
+      "line": 110,
+      "spelling": "Put"
+    },
+    {
+      "member": "spark-source/src/spark/spark_frame_conditions.adb",
+      "line": 120,
+      "spelling": "Put_Line"
+    },
+    {
+      "member": "spark-source/src/spark/spark_frame_conditions.adb",
+      "line": 124,
+      "spelling": "Put_Line"
+    },
+    {
+      "member": "spark-source/src/spark/spark_frame_conditions.adb",
+      "line": 136,
+      "spelling": "Put"
+    },
+    {
+      "member": "spark-source/src/spark/spark_frame_conditions.adb",
+      "line": 138,
+      "spelling": "New_Line"
+    },
+    {
+      "member": "spark-source/src/spark/spark_frame_conditions.adb",
+      "line": 146,
+      "spelling": "New_Line"
+    },
+    {
+      "member": "spark-source/src/spark/spark_frame_conditions.adb",
+      "line": 148,
+      "spelling": "New_Line"
+    },
+    {
+      "member": "spark-source/src/spark/spark_util.adb",
+      "line": 5677,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/utils/debug-timing.adb",
+      "line": 58,
+      "spelling": "Put"
+    },
+    {
+      "member": "spark-source/src/utils/debug-timing.adb",
+      "line": 59,
+      "spelling": "Put"
+    },
+    {
+      "member": "spark-source/src/utils/debug-timing.adb",
+      "line": 64,
+      "spelling": "Put_Line"
+    },
+    {
+      "member": "spark-source/src/utils/outputs.adb",
+      "line": 51,
+      "spelling": "Put"
+    },
+    {
+      "member": "spark-source/src/utils/outputs.adb",
+      "line": 63,
+      "spelling": "New_Line"
+    },
+    {
+      "member": "spark-source/src/utils/outputs.adb",
+      "line": 85,
+      "spelling": "Put"
+    },
+    {
+      "member": "spark-source/src/utils/outputs.adb",
+      "line": 115,
+      "spelling": "Put"
+    },
+    {
+      "member": "spark-source/src/utils/outputs.adb",
+      "line": 118,
+      "spelling": "Put"
+    },
+    {
+      "member": "spark-source/src/utils/outputs.adb",
+      "line": 129,
+      "spelling": "Put_Line"
+    },
+    {
+      "member": "spark-source/src/utils/outputs.ads",
+      "line": 78,
+      "spelling": "New_Line"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-data_decomposition.adb",
+      "line": 253,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-data_decomposition.adb",
+      "line": 258,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-data_decomposition.adb",
+      "line": 261,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-driver.adb",
+      "line": 381,
+      "spelling": "Ada.Text_IO.Put"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-driver.adb",
+      "line": 400,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-driver.adb",
+      "line": 456,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-driver.adb",
+      "line": 1257,
+      "spelling": "Ada.Text_IO.Put"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-driver.adb",
+      "line": 1258,
+      "spelling": "Ada.Text_IO.Put"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-driver.adb",
+      "line": 1260,
+      "spelling": "Ada.Text_IO.New_Line"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-driver.adb",
+      "line": 973,
+      "spelling": "Put_Line"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-driver.adb",
+      "line": 974,
+      "spelling": "Put_Line"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-driver.adb",
+      "line": 987,
+      "spelling": "Put_Line"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-error_messages.adb",
+      "line": 447,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-error_messages.adb",
+      "line": 449,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-error_messages.adb",
+      "line": 646,
+      "spelling": "Ada.Text_IO.Put"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-error_messages.adb",
+      "line": 647,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-error_messages.adb",
+      "line": 1309,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr-aggregates.adb",
+      "line": 731,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr-aggregates.adb",
+      "line": 733,
+      "spelling": "Ada.Text_IO.Put"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr-aggregates.adb",
+      "line": 735,
+      "spelling": "Ada.Text_IO.Put"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr-aggregates.adb",
+      "line": 737,
+      "spelling": "Ada.Text_IO.Put"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr-aggregates.adb",
+      "line": 739,
+      "spelling": "Ada.Text_IO.Put"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr-aggregates.adb",
+      "line": 742,
+      "spelling": "Ada.Text_IO.Put"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr-aggregates.adb",
+      "line": 746,
+      "spelling": "Ada.Text_IO.Put"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr-aggregates.adb",
+      "line": 750,
+      "spelling": "Ada.Text_IO.Put"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr-aggregates.adb",
+      "line": 754,
+      "spelling": "Ada.Text_IO.Put"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr-aggregates.adb",
+      "line": 757,
+      "spelling": "Ada.Text_IO.Put"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr-aggregates.adb",
+      "line": 759,
+      "spelling": "Ada.Text_IO.Put"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr-aggregates.adb",
+      "line": 760,
+      "spelling": "Ada.Text_IO.Put"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr-aggregates.adb",
+      "line": 763,
+      "spelling": "Ada.Text_IO.New_Line"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr-aggregates.adb",
+      "line": 769,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr-aggregates.adb",
+      "line": 771,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr-aggregates.adb",
+      "line": 781,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr-loops-inv.adb",
+      "line": 1140,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr-loops-inv.adb",
+      "line": 2015,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr-loops-inv.adb",
+      "line": 2657,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr.adb",
+      "line": 4179,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr.adb",
+      "line": 9404,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr.adb",
+      "line": 9449,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr.adb",
+      "line": 12784,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr.adb",
+      "line": 13103,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr.adb",
+      "line": 14090,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr.adb",
+      "line": 14536,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr.adb",
+      "line": 15410,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr.adb",
+      "line": 20995,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr.adb",
+      "line": 23076,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr.adb",
+      "line": 23167,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr.adb",
+      "line": 25490,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr.adb",
+      "line": 27128,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr.adb",
+      "line": 30057,
+      "spelling": "Ada.Text_IO.Put_Line"
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-types.adb",
+      "line": 1615,
+      "spelling": "Ada.Text_IO.Put_Line"
+    }
+  ],
+  "ada_integer_field_setters": [],
+  "incoming_local_sources_checked": {
+    "src/silver_arguments.adb": "74271048db16452bb5b6329f44c70151f73afdfebb089fe4a2a99e66e3b45918",
+    "src/silver_arguments.ads": "5991cb89d0af92506704109882e6f464edda3f781713e9a38a33829b97d78032",
+    "src/silver_io.adb": "e82a62f420651e7ad9de80ffe485e929ac9b5d48348f97d6b766440357dda358",
+    "src/silver_io.ads": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c",
+    "src/silver_output_libc.ads": "7c595fa7d94c4b21d39b271ba6df51ebed440a6342314c503fbf91319cd10229",
+    "src/silver_runtime.ads": "53f6791b0e7484703639eece0f87acb680c1d4f12b06e044f69244f0ce1b6ea7"
+  },
+  "literal_budgets": {
+    "fix": {
+      "lines": [
+        1620,
+        3816
+      ],
+      "count": 110,
+      "decoded_sum": 1326,
+      "maximum": 51
+    },
+    "details": {
+      "lines": [
+        1025,
+        1462
+      ],
+      "count": 91,
+      "decoded_sum": 2291,
+      "maximum": 54
+    },
+    "explanation": {
+      "lines": [
+        1466,
+        1598
+      ],
+      "count": 25,
+      "decoded_sum": 705,
+      "maximum": 61
+    },
+    "not_proved": {
+      "lines": [
+        4122,
+        4430
+      ],
+      "count": 86,
+      "decoded_sum": 2847,
+      "maximum": 62,
+      "max_return_literal_sum": 110,
+      "all_local_string_literal_sum": 109
+    },
+    "vc_message": {
+      "lines": [
+        4717,
+        5007
+      ],
+      "count": 89,
+      "decoded_sum": 2194,
+      "maximum": 56,
+      "max_return_literal_sum": 101,
+      "all_local_string_literal_sum": 25
+    },
+    "regular": {
+      "lines": [
+        3960,
+        4116
+      ],
+      "count": 32,
+      "decoded_sum": 178,
+      "maximum": 24
+    }
+  },
+  "recipe_applied_comperr_sha256": "9e91665d1cdf08e6d60e46ec55804ab07c00c7e9761ff0e72aa602ed4a584a4b",
+  "checks": [
+    "provider and input identity",
+    "result declaration/side-effect order",
+    "complete third-pool call frontier",
+    "prospective brief/all option path",
+    "literal budget derivation",
+    "exact pretty/compact recurrence witnesses",
+    "empty groups do not affect maxima",
+    "additive global R/G/A occurrences",
+    "check-tree projection preserves other schema",
+    "arbitrary-depth quadratic envelope",
+    "writer growth, terminal column and cumulative-line failures",
+    "exact bugbox recipe application",
+    "Uint abbreviation guard boundary",
+    "incoming source equations and whole-lifetime third-pool composition",
+    "six local incoming source identities",
+    "full continuation append inventory",
+    "printed CP and private Get_Fix bounds remain separate",
+    "fixed GCC prefix transfer and native name suffix",
+    "producer Text_IO caller inventory and no standard-state setters"
+  ],
+  "illustration_not_program_bound": {
+    "full_pretty": 211640,
+    "projected_compact": 182801,
+    "full_shape": {
+      "pretty": 211640,
+      "slope": 1406,
+      "compact": 205650,
+      "values": 485,
+      "objects": 161,
+      "arrays": 58,
+      "fields": 403,
+      "strings": 113,
+      "depth": 7,
+      "array_max": 40,
+      "object_max": 30,
+      "string_max": 24576,
+      "key_max": 32
+    },
+    "writer": {
+      "shape": {
+        "pretty": 211640,
+        "slope": 1406,
+        "compact": 205650,
+        "values": 485,
+        "objects": 161,
+        "arrays": 58,
+        "fields": 403,
+        "strings": 113,
+        "depth": 7,
+        "array_max": 40,
+        "object_max": 30,
+        "string_max": 24576,
+        "key_max": 32
+      },
+      "json_write_string": 211640,
+      "spark_file": 211641,
+      "unbounded_allocation": 317652,
+      "guards": {
+        "string_and_text_io_column": true,
+        "indent_add_and_double": true,
+        "array_geometric_capacity": true,
+        "ordered_map_length": true,
+        "escape_lookahead": true,
+        "escape_string_length": true,
+        "new_xstring_backing": true,
+        "unbounded_alignment_intermediates": true,
+        "individual_64bit_allocation": true,
+        "filename_compose": true
+      },
+      "sufficient": true,
+      "native_inputs_bound": false
+    }
+  },
+  "open_attachments": [
+    "full terminal failure-payload to native Output join",
+    "concrete path and clock/duration configuration joins",
+    "independent integrated freeze review"
+  ],
+  "elapsed_seconds": 5.119979
+}
