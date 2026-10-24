@@ -1,0 +1,207 @@
+{
+  "actual_complete_common_path_bytes": null,
+  "author_or_predecessor_checker_runs": 0,
+  "configuration_widths": [
+    {
+      "command_bytes": 435,
+      "config_bytes": 609,
+      "entries": 19,
+      "workers": 3
+    },
+    {
+      "command_bytes": 436,
+      "config_bytes": 610,
+      "entries": 19,
+      "workers": 10
+    },
+    {
+      "command_bytes": 437,
+      "config_bytes": 611,
+      "entries": 19,
+      "workers": 100
+    },
+    {
+      "command_bytes": 438,
+      "config_bytes": 612,
+      "entries": 19,
+      "workers": 1000
+    },
+    {
+      "command_bytes": 439,
+      "config_bytes": 613,
+      "entries": 19,
+      "workers": 10000
+    },
+    {
+      "command_bytes": 440,
+      "config_bytes": 614,
+      "entries": 19,
+      "workers": 100000
+    },
+    {
+      "command_bytes": 441,
+      "config_bytes": 615,
+      "entries": 19,
+      "workers": 1000000
+    },
+    {
+      "command_bytes": 442,
+      "config_bytes": 616,
+      "entries": 19,
+      "workers": 10000000
+    },
+    {
+      "command_bytes": 443,
+      "config_bytes": 617,
+      "entries": 19,
+      "workers": 100000000
+    },
+    {
+      "command_bytes": 444,
+      "config_bytes": 618,
+      "entries": 19,
+      "workers": 1000000000
+    },
+    {
+      "command_bytes": 444,
+      "config_bytes": 618,
+      "entries": 19,
+      "workers": 2147483647
+    }
+  ],
+  "cost": null,
+  "counterexample": {
+    "advertised_common_P": 188,
+    "checker_accepts": true,
+    "frozen_arguments_sufficient_endpoint": 395,
+    "full_name_bytes": 439,
+    "id": "F1",
+    "input_kind": "source pathfile",
+    "input_utf8": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////\n",
+    "location": "prospective/recipe.py:132",
+    "native_source_derived_full_name_utf8": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////system.ads",
+    "production_counterexample": false,
+    "raw_directory_bytes": 429,
+    "required_correction": "Compare raw entries with each allowed spelling or spelling plus one slash; preserve source-generated sequence and cardinality duties.",
+    "selected_GPR_route_shown_to_emit_this": false,
+    "source_loci": [
+      "gcc/osint.adb:403-428",
+      "gcc/osint.adb:654-656",
+      "gcc/osint.adb:2123-2148",
+      "gcc/osint.adb:1887-1918"
+    ],
+    "trailing_slashes": 256,
+    "violates_prose_optional_single_slash": true
+  },
+  "elapsed_seconds": 0.32288909099588636,
+  "fixture_runs": 0,
+  "global_e_upper": 2,
+  "independent_path_demands": {
+    "fixed_source": 42,
+    "object_with_slash": 34,
+    "phase_cwd": 53,
+    "project": 31,
+    "runtime": 162,
+    "runtime_object": 169,
+    "runtime_source_file": 188,
+    "temporary_file": 59,
+    "temporary_root": 23,
+    "why_json": 98,
+    "workspace": 19
+  },
+  "live_installation_rescans": 0,
+  "native_storage_composition_deferred": true,
+  "native_target_compiler_prover_lean_runs": 0,
+  "old_report_joins_and_runtime_corpus_reused": true,
+  "physical_resources_assumed": true,
+  "platform": {
+    "machine": "x86_64",
+    "release": "7.0.14",
+    "system": "Linux"
+  },
+  "production_configuration_executed": false,
+  "repository_input_count": 42,
+  "reviewed_commit": "9432b9d69498cce7e2474d7a96c4adc37f97b7ae",
+  "runtime_changes": [
+    {
+      "after": true,
+      "before": false,
+      "file": "db/gnat.xml",
+      "fragment": "\n   package Compiler is\n      for Leading_Required_Switches (\"Ada\") use\n        Compiler'Leading_Required_Switches (\"Ada\") & (\"--RTS=${RUNTIME_DIR(ada)}\");\n   end Compiler;\n\n   package Binder is\n      for Required_Switches (\"Ada\") use\n        Binder'Required_Switches (\"Ada\") & (\"--RTS=${RUNTIME_DIR(ada)}\");\n   end Binder;\n   ",
+      "index": 13
+    }
+  ],
+  "runtime_model_confirmed": false,
+  "save_entering_callbacks_upper": 2,
+  "saves_upper": 3,
+  "selected_effort": "Extra High",
+  "selected_model": "GPT-6 Astra",
+  "service_queries": 0,
+  "source_anchors": {
+    "gcc/lib.adb": [
+      "Compilation_Switches.Increment_Last;",
+      "new String'(Switch);"
+    ],
+    "gcc/osint.adb": [
+      "Read_Default_Search_Dirs (Norm_Search_Dir, Search_File, null)",
+      "Result := new String'(Directory);",
+      "Dir_Name.all & Name & ASCII.NUL;",
+      "Name_Find (Full_Name (Full_Name'First .. Full_Name'Last - 1))"
+    ],
+    "gcc/switch-c.adb": [
+      "Opt.No_Stdinc := True;",
+      "Opt.RTS_Switch := True;",
+      "Store_Compilation_Switch (Switch_Chars);"
+    ],
+    "gnatcoll/gnatcoll-utils.adb": [
+      "Resolve_Links => True",
+      "Path_Last - 3"
+    ],
+    "gpr/gpr/src/gpr-conf.adb": [
+      "RTS_Dir := new String'(Normalize_Pathname (Runtime_Dir));",
+      "Set_Runtime_For (Name_Ada, RTS_Dir.all);",
+      "& Runtime_Name_For (Name) &"
+    ],
+    "gpr/gpr/src/gpr-env.adb": [
+      "Get_Name_String (Source.Display_File);",
+      "Get_Name_String (Source.Path.Display_Name);",
+      "Name_Buffer (Name_Len) := ASCII.LF;"
+    ],
+    "gpr/gpr/src/gpr-tempdir.adb": [
+      "Normalize_Pathname (Dir.all)",
+      "Directory & Directory_Separator & File_Name.all"
+    ],
+    "spark/gnatprove/configuration.adb": [
+      "Proj_Opt.Add_Switch (Options.RTS, CL_Switches.RTS.all);"
+    ],
+    "spark/gnatprove/configuration.ads": [
+      "Prefix                    : constant String := Executable_Location;",
+      "Ada.Environment_Variables.Exists (\"GNSA_ROOT\")"
+    ],
+    "spark/gnatprove/gnatprove.adb": [
+      "Args.Append (\"--RTS=\" & CL_Switches.RTS.all);",
+      "Create (Ada.Directories.Simple_Name (Command_Name))",
+      "Gpr_Val & Path_Separator & Libgnat & Path_Separator & Sharegpr"
+    ]
+  },
+  "source_archive_count": 18,
+  "source_identity_premise_unchanged": true,
+  "status": "completed_with_one_interface_finding",
+  "supplemental_complete_source_sha256": "782b985b1206213d273674c67543743db2d7263a8d76779e20305f516cd8c158",
+  "target_sha256": {
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective/README.md": "f872bb297e20d6d9cb3d05fb65bb8d495b4c0bb36ccb1c140debd1e616d5e3f2",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective/check.py": "2e5892001a26c3e1fa963a42ad89b2901298048b388464210fee5f073b1c4d7e",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective/first-check-failure.txt": "94b526f92d7db5ed531e09c06139555ba8fadce9eac171f0c4186510cf3b75b8",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective/handoff.json": "471cd3ebd97f9b48faf7932f1138967f68548a1147de312e87c8c7c122b1d011",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective/recipe.py": "c74ca85d10f32d62e8b7f73052a0b9ac0f592d4a595bc6579fa2fa92af6575e8",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective/result.json": "f8d3af64643cf2ffd73361f1cc727c0f127fc3f192e82f8c0b1696fd540335a2",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective/round.json": "732395c62c4443a4290e0d65ce5df8389f0b24516781c274ad1b9f8eefc16181",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective/runtime-selection.json": "7e88535d5b12c36410b9d8755bda54eed9169bdd012be1d8d7b2e0dc58952318",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective/runtime-selection.py": "7c231b8fedae474a298f13c47dba8ca0ce5a1b94263284d3d7d0f56c9b1a6d5a",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective/source-manifest.json": "01181de936fd40d59a4c0c84236f7967e47882a95fa1690cc90f92db598d4b86",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective/sources.tar.gz": "080f659698bd4dba0ccf0c636390ba686148d97831ff1b2629d69ffeaad4e812",
+    "docs/research/retained-fixed-report-composition.md": "6cb3c9565113347cda6fc331cf4061ea9782a7ca5ed8b764479c5fbb2b59b359"
+  },
+  "token_usage": null,
+  "xml_files": 63
+}

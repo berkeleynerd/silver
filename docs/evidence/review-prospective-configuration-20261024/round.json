@@ -1,0 +1,63 @@
+{
+  "achieved_result": "Conditional source-selected design reviewed; F1 confirms the exported pathfile checker accepts repeated trailing slashes beyond its single-slash contract. Original author unchanged; review frozen before repair.",
+  "actual_complete_common_path_bytes": null,
+  "audit": {
+    "attempts": [
+      {
+        "diagnostic": "first-audit-failure.txt",
+        "elapsed_seconds_tool": 0.118770578,
+        "reason": "Reviewer counted two overlay XML files with the63 base db XML files; corrected set to db/*.xml.",
+        "status": "failed"
+      },
+      {
+        "elapsed_seconds_internal": 0.32288909099588636,
+        "elapsed_seconds_tool": 0.347018017,
+        "status": "completed_with_one_interface_finding"
+      }
+    ],
+    "author_or_predecessor_replays": 0,
+    "base_xml_files": 63,
+    "command": "PYTHONDONTWRITEBYTECODE=1 python3 docs/evidence/review-prospective-configuration-20261024/audit.py",
+    "editorial_metadata_after_success": "Corrected finding location from recipe.py:130 to recipe.py:132 in script/receipt; no computed value changed and no identical-success rerun.",
+    "fixture_runs": 0,
+    "live_installation_rescans": 0,
+    "native_target_compiler_prover_lean_runs": 0,
+    "repository_inputs": 42,
+    "service_queries": 0,
+    "source_archive_files": 18,
+    "supplemental_full_source_files": 1,
+    "target_changed_files": 12
+  },
+  "cli_memory_updated": false,
+  "cost": null,
+  "elapsed_scope_note": "Measured window starts at first clock observation. Earlier initial reads and worktree setup occurred but their total elapsed time was not captured.",
+  "finding_disposition": {
+    "F1": "Open for parent correction/disposition; no selected-GPR production counterexample claimed."
+  },
+  "finding_ids": [
+    "F1"
+  ],
+  "finding_severity": {
+    "F1": "P2"
+  },
+  "freeze_preparation_utc": "2026-10-24T07:27:44.046438+00:00",
+  "github_writes": 0,
+  "global_e_upper": 2,
+  "goal_read_result": null,
+  "goal_writes": 0,
+  "measured_review_window_seconds": 454.046438,
+  "measured_review_window_start_utc": "2026-10-24T07:20:10+00:00",
+  "objective": "Independent exact-freeze review of the constructive prospective #212/#119 configuration, with source-derived implementability and no production execution.",
+  "pending": "Parent integrates review, files/disposes genuine finding and arranges narrow correction. Production #88-#94 unstarted; PR #121 draft/unmerged.",
+  "physical_resources_assumed": true,
+  "production_implemented": false,
+  "published": false,
+  "reviewed_commit": "9432b9d69498cce7e2474d7a96c4adc37f97b7ae",
+  "runtime_model_confirmed": false,
+  "save_entering_callbacks_upper": 2,
+  "saves_upper": 3,
+  "selected_effort": "Extra High",
+  "selected_model": "GPT-6 Astra",
+  "token_usage": null,
+  "total_review_elapsed_seconds": null
+}
