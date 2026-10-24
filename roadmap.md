@@ -14,7 +14,30 @@ next capability while retaining full assurance for the current language.
 
 ## Current development sequence
 
+**Sequence since 2026-10-24.** Language development resumes first, following the
+[Rosetta progression](rosetta/progression.md) at the current 4,096-byte strict
+language: stage [#9](https://github.com/berkeleynerd/silver/issues/9), then the
+next construct stage after its own scope and authorization. The strict/loose
+assurance-modes milestone (#88–#94 in the order below) follows on the owner's
+later instruction when the current bounds bind a needed program, and the
+deferred #119 strict-mode rule on its recorded trigger. See the
+[decision](docs/session-memory.md#2026-10-24--capacity-derivation-119-deferred-language-development-resumes).
+
 ### Unbounded programs
+
+**Capacity derivation deferred 2026-10-24; language development resumes.** The
+owner approved deferring the full #119 derivation after an
+[independent assessment](docs/evidence/119-sequencing-assessment-20261024/README.md)
+put it at about 50% complete (range 40–65%) against its self-reported 85%, with
+the remaining half estimated at 200–415M tokens before any production package.
+Accepted #119 evidence is frozen at the R92 checkpoint `f1920759b1` in draft
+PR #121 (tag `evidence/119-r92-accepted-f1920759b1`); #119, its children and the
+open findings are deferred in Backlog, and PR #121 stays unmerged. #88–#94 keep
+their conditional authorization but form the later assurance-modes milestone
+(loose mode with a crude sound envelope for the silent hard limits; strict mode
+stays at 4,096 bytes until #119's rule exists). The paragraphs below record the
+2026-10-17 direction and its production order as history; the decision entry
+records the re-sequencing, the resume trigger and what is not authorized.
 
 **Retained-tool direction adopted; capacity design resumed.** The owner
 [selected](docs/session-memory.md#2026-10-17--retained-tool-capacity-direction-adopted)

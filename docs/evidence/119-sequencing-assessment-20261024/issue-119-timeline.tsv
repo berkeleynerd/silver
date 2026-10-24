@@ -1,0 +1,106 @@
+idx	createdAt	rounds	estimates	lead
+1	2026-10-17T22:37:42Z			Owner direction is recorded on main through PR #118, merge `f0cccffefe`, authorization commit `9d2a059788`. Claiming the direction reconciliation and first capa
+2	2026-10-17T22:47:04Z			Direction #117 is delivered through PR #120, merge `b5667af6a991fce7da1c13e3edc0b874d0d4adbc` (delivery `30f6aa2e66`). The owner explicitly authorized dependent
+3	2026-10-17T23:12:46Z			Capacity derivation is continuing in draft PR #121, currently `933d650a7e`, workspace `tmp/retained-tool-capacity`, branch `research/retained-tool-capacity`.  T
+4	2026-10-17T23:31:38Z			Capacity derivation continues in `research/retained-tool-capacity`, draft PR #121; integrated checkpoint `2e20ca0d8d`.  New work includes Main light-expansion e
+5	2026-10-17T23:56:24Z			Continuing #119 in draft PR #121, integrated and published checkpoint `868d53f841` on `research/retained-tool-capacity`.  The index `docs/research/retained-tool
+6	2026-10-18T00:34:23Z			Continuing #119 in draft PR #121, published checkpoint `fb18861af9` on `research/retained-tool-capacity`.  The producer's ordinary Main costs are now assembled 
+7	2026-10-18T01:17:57Z			Technical checkpoint published in draft PR #121 at `88e0f0a0c7`.  - Main's parser and conditional GNATprove light-mode node-identity bound are now connected, in
+8	2026-10-18T01:37:50Z			Capacity checkpoint at `946d93870b`, still In progress in draft PR #121.  Closed the fixed imported-dependency allocation component with five isolated current-s
+9	2026-10-18T02:06:09Z			Capacity checkpoint at `0855306004` in draft PR #121; #119 remains In progress.  Integrated source bounds for ordinary native String copies and concat invocatio
+10	2026-10-18T02:35:46Z			Checkpoint pushed to draft PR #121 at `a7a7bf19a5`. The source-derived ordinary Common-pool bound is now `71831 + E_total + 13 E_Main`; the Main serialized nume
+11	2026-10-18T03:38:06Z			Checkpoint pushed to draft PR #121 at `1c6723a9eb`. Fixed Main light lifetime counts and four separate fixed-library frontend domains are integrated and reconci
+12	2026-10-18T03:58:09Z			Technical checkpoint published through `48bfb5f0d1` in draft PR #121. #119 remains In progress; production #88–#94 remains authorized and unstarted pending the 
+13	2026-10-18T04:35:41Z			Integrated checkpoint `2411ba3c85` is published in draft PR #121. #119 remains In progress; #88–#94 remain authorized and unstarted pending the justified capaci
+14	2026-10-18T05:02:05Z			Integrated checkpoint `6d7d021637` is published in draft PR #121. #119 remains In progress; production #88–#94 remains authorized and unstarted pending a justif
+15	2026-10-18T05:27:25Z			Published the next technical checkpoint in draft PR #121 at `70f58d6901`.  - Five real-source calculations now pass the composed partial native predicate: core/
+16	2026-10-18T06:02:15Z			Published the next technical checkpoint in draft PR #121 at `7367cec988`.  - Five real-source calculations pass nine composed native component groups, now inclu
+17	2026-10-18T06:29:01Z			Published the next capacity checkpoint in draft PR #121 at `fe56318f90`.  - Closed source-to-task bounds for all five fixed library inputs: G≤2981 and R≤51 in t
+18	2026-10-18T07:02:13Z			Capacity checkpoint: the null native path now includes the exact incoming symbol graph, fixed semantic startup projection/no-GGC argument, separate floating cal
+19	2026-10-18T07:28:06Z			Published capacity checkpoint `0bb863b495` in draft PR #121. Integrated the single fixed GCC startup event witness, null final RTL/CFI/shortening transfer, indi
+20	2026-10-18T07:52:24Z			Published checkpoint `3c555d3184` in draft PR #121. Added the first-RTL lifetime witness and cold-cache allowance; selected GAS encoding/fragment bounds; fixed 
+21	2026-10-18T08:15:13Z			Published checkpoint `ac39467484` in draft PR #121. The [component index](https://github.com/berkeleynerd/silver/blob/ac3946748429d97d309b5ca5f6579aa088213061/d
+22	2026-10-18T08:33:29Z			Published checkpoint `b2256d1907` in draft PR #121.  Integrated reviewed real-function startup, frame/RTL and non-chain CFI storage, plus complete null unit emi
+23	2026-10-18T08:51:14Z			Published research checkpoint through `d03a3019b2` in PR #121: selected GAS symbols/fixups/common backing and complete null Main ELF object sizing; SSA/ranger/C
+24	2026-10-18T08:52:27Z			Immediate source-review correction at `624dbd12d5`: GAS string-hash startup also allocates through the shared notes obstack. The prior 2,248-byte request maximu
+25	2026-10-18T09:11:13Z			Published research checkpoint `36a32b9e24` in draft PR #121. The fixed GAS hash inventory closes the previously explicit missing H input: H=65,528 bytes. The or
+26	2026-10-18T09:35:50Z			Capacity checkpoint at 8dfdcf3058, published in draft PR #121. #119 remains In progress; the complete predicate is not yet established.  PR #124 delivered #123 
+27	2026-10-18T09:57:57Z			Published reviewed checkpoint `aedbc08b16` in draft PR #121.  Integrated the binder source projection, indexed assembler invocation/relaxation, and null gigi st
+28	2026-10-18T10:29:47Z			Published checkpoint cf1d7de982 in draft PR #121. Integrated and replayed selected GAS parser/writer allocation coverage, binder Namet/path and nonlocal-name jo
+29	2026-10-18T10:47:38Z			Published capacity checkpoint `4d382c4c39` in draft PR #121. Added reviewed null cgraph/source-location joins, binder generation/argument buffers, Main/binder W
+30	2026-10-18T11:49:29Z			Published checkpoint at 1e3184b6ae in draft PR #121. The selected binder object-shape transfer now supplies the linker join; GPR ALI/argument/text/path interfac
+31	2026-10-18T12:11:50Z			Published `8930a10cde` in draft PR #121. Reviewed alignment/convergence, fixed binder compiler lifetime, native pass-registry and scoped linker auxiliary bounds
+32	2026-10-18T12:45:05Z			Published `92ce058fec` in draft PR #121. Integrated and parent-replayed the actual-byte native-null predicates, selected null-link representation composition, f
+33	2026-10-18T15:08:39Z			Published reviewed integration `c9b8bed781` in draft PR #121. The conditional null-pipeline evaluator now joins 15 named conditions from common actual inputs; a
+34	2026-10-18T17:26:51Z			Owner-authorized model/workflow guidance is implemented and merged through PR #127 (`2c9018a31a`). The repository now carries portable model/effort and focused-
+35	2026-10-18T17:47:53Z			Resumed the owner-authorized plan after the Oracle/alignment checkpoint. Integration remains on `research/retained-tool-capacity` in `tmp/retained-tool-capacity
+36	2026-10-18T18:25:08Z			Published reviewed checkpoint `aa81311992` in draft PR #121. The literal aggregate now binds source-selected zero Main Why3 checks, native pool/symbol and graph
+37	2026-10-18T18:54:20Z	4		Published checkpoint: [54a5c273d5](https://github.com/berkeleynerd/silver/commit/54a5c273d5).  Round 4 checkpoint; #119 remains incomplete. Reviewed technical i
+38	2026-10-18T19:37:09Z	5		Published Round 5 checkpoint `3867149311` in draft PR #121. #119 remains incomplete.  Reviewed joins attach the ALI consumers and conditional GPR DW reader, rep
+39	2026-10-18T20:06:02Z	6		Published reviewed Round 6 checkpoint `3323db9252` in draft PR #121. #119 remains incomplete.  The aggregate now attaches actual-source Main constructor and nam
+40	2026-10-18T20:13:48Z			Owner steering: “Let's consider 119 the present goal.” The live harness now targets this issue's existing completion criteria; later production #88–#94 is exclu
+41	2026-10-18T20:42:33Z	7		Published reviewed Round 7 checkpoint `28697404fa` in draft PR #121. #119 remains the active goal and is not close to completion merely from its component count
+42	2026-10-18T21:34:39Z	8		Published reviewed Round 8 at `ac18b3531478457609b07349af7f367034f9ca06` in draft [PR #121](https://github.com/berkeleynerd/silver/pull/121). #119 remains activ
+43	2026-10-18T22:03:36Z	9		Published reviewed source checkpoint `bebb5994e7` in draft [PR #121](https://github.com/berkeleynerd/silver/pull/121). #119 remains active and unfinished.  - Co
+44	2026-10-18T22:21:35Z	10		Published Round 10 at `5f32a8fbeed844aa4db00ec55a166bafc007bae0` in draft PR #121.  - Reviewed Main context bound I<=114 and exact String216/helper94/Main/synth
+45	2026-10-18T22:52:00Z	11		Published Round 11 in draft PR #121 at `e67e2a9a267220e9ef87e4ffee2028839a9ed598`. #119 remains active and incomplete; no research stop is selected.  Accepted i
+46	2026-10-18T23:10:18Z	12		Round 12 published in draft PR #121 at `1d5bcbe446`.  - Accepted shared-storage/linker aggregate attachment: source `99b7247d18`, review `b04b32a184`. Hello add
+47	2026-10-18T23:27:28Z	13		Round 13 published at `44a8d1cc04` in draft PR #121.  - Integrated the independently accepted selected native-route/numeric attachment (`64e347db16`, review `91
+48	2026-10-18T23:47:35Z	14		Round 14 is published at `b68a197d1b` in draft PR #121. The [round record](https://github.com/berkeleynerd/silver/blob/b68a197d1b/docs/evidence/retained-tool-ro
+49	2026-10-19T00:08:34Z	15		Round 15 is published at `e967d061ca` in draft PR #121. [Round record](https://github.com/berkeleynerd/silver/blob/e967d061ca/docs/evidence/retained-tool-rounds
+50	2026-10-19T01:04:52Z	16		Published Round 16 at `7434271343` in draft PR #121. The reviewed map/shared attachment preserves all 69 conditions. Selected map, RTL cache, alias and shared-q
+51	2026-10-19T01:24:55Z	17		Published Round 17 at `97b387d541` in draft PR #121. Independently accepted and integrated:  - #142 linked Location/Color formatter repair; merge-closing refere
+52	2026-10-19T01:43:01Z	18		Published Round 18 at `8e1f69e315` in draft PR #121. Independently accepted and integrated:  - Shared bitmap/pool source result `86d50fa7ec`, finalizer/depth `2
+53	2026-10-19T01:54:53Z			Evening pause checkpoint published at **ba82867962** in draft PR #121. Owner pause decision is on main at **36a5b7f729**; #119 is open and moved to Backlog unde
+54	2026-10-19T11:20:00Z			Owner explicitly resumed #119. Decision recorded on main at `620807834c`; returning this issue to In progress. Continue from accepted/published `ba82867962` in 
+55	2026-10-19T11:49:25Z	20		Resumed reviewed checkpoint published as `800fa74b04` in draft PR #121. #119 remains In progress under the owner resumption recorded on main at `620807834c`; Or
+56	2026-10-19T12:24:54Z	21		Published resumed checkpoint `8af6e536d8` in draft PR #121. #119 remains open and In progress; the complete capacity rule and production #88–#94 are still unfin
+57	2026-10-19T12:58:19Z	22		Published Round 22 checkpoint `ddc7316bf5` in draft PR #121. #119 remains In progress and unfinished.  - IRA numeric source `9ed466e07f` / review `7b702023dc`, 
+58	2026-10-19T13:39:41Z	23	75%|70%|65–80%	Paused at the owner's requested substantial checkpoint. The decision is recorded on main at [ed9101c984](https://github.com/berkeleynerd/silver/commit/ed9101c98
+59	2026-10-19T13:59:07Z			Owner resumed work with “Proceed”; decision and scope are on main at 44936e7216. Claiming #145 within #119 from reviewed checkpoint e27e588768, integration bran
+60	2026-10-19T15:30:10Z	24	75%|80%	Owner-requested assessment checkpoint reached and published in draft PR #121 at `a3af18004743d36328a499760699305357389fb8`. #145 is technically complete and In 
+61	2026-10-19T19:19:58Z			Planning note (no status change): the owner adopted in principle a strict/loose assurance-mode split on 2026-10-19 and asked for the Oracle amendment and its re
+62	2026-10-19T21:29:41Z			Limited review maintenance completed through PR #151 on main (`b9ea11964adf6f0b6adc1622782243c925de9f57`), with research-record integration `19b26ac8a1` in draf
+63	2026-10-20T07:06:24Z			Resumption is recorded on main through PR #152 (`e2ab57fcac02c2ac275f0fe5b3fd3afbb9207fea`); the live harness now confirms active. Claiming #119 in research/ret
+64	2026-10-20T07:53:04Z	25	80%	Published checkpoint `b1c0d89f7b` in draft PR #121. #119 remains **active / In progress** and incomplete.  - All seven #150 review follow-ups have documented re
+65	2026-10-20T08:25:50Z	26	80%	Published reviewed #153 progress at `3ac38d79ee53ac3e1bd1892ee343810f9ef819fd` in draft PR #121: [Round 26](https://github.com/berkeleynerd/silver/blob/3ac38d79
+66	2026-10-20T08:56:04Z	27		Published reviewed Round 27 at `22c5d9274ac7fe6ab7797aef378a3bcb4b4afafe` in draft PR #121: [record](https://github.com/berkeleynerd/silver/blob/22c5d9274ac7fe6
+67	2026-10-20T09:37:18Z	28	80–85%|82%	Published reviewed Round 28 at `466c44c54b6ec777829400108c2f53920827bcc0` in draft PR #121. #119/#153 remain active and In progress; this is a component checkpo
+68	2026-10-20T10:11:11Z	29	82%|80–85%	Reviewed Round 29 is published at `0937ca4a44` in draft PR #121. [Round record](https://github.com/berkeleynerd/silver/blob/0937ca4a44d012893c7c95517e990f019d14
+69	2026-10-20T10:41:06Z	30	80–85%|82%	Published reviewed Round 30 at `87874f41b44f7abb2d3c4848405b3474a09f51b4` in draft PR #121. Exact review target: `8f17435e429ae145dc5aeae50926452100034dba`; rev
+70	2026-10-20T11:13:34Z	31	80–85%|82%	Published reviewed Round 31 at `2866d4642c43444abd18e0b6e9600edaa216b99b` in draft PR #121.  [Round 31](https://github.com/berkeleynerd/silver/blob/2866d4642c43
+71	2026-10-20T11:43:12Z	32	82%|80–85%	Published reviewed Round 32 at `2cb11d8b5dcb7146694103616d1abea13ab8808d` in draft PR #121.  [Round 32](https://github.com/berkeleynerd/silver/blob/2cb11d8b5dcb
+72	2026-10-20T12:09:17Z	33	82%|80–85%	Round 33 reviewed checkpoint published at `79301d13cfac0dafccf9e53b5da17345266d4eca` in draft PR #121.  [Round 33](https://github.com/berkeleynerd/silver/blob/7
+73	2026-10-20T12:35:50Z	34	82%|80–85%	Round 34 published at `6cf8d322090303cbb47528fb151aa51615884d6e` in draft PR #121.  [Round 34](https://github.com/berkeleynerd/silver/blob/6cf8d322090303cbb4752
+74	2026-10-20T13:22:25Z	35	82%|80–85%	Round 35 published at `aeafcd179791afc238344cc305e17e8ebb91bfc8` in draft PR #121.  [Round 35](https://github.com/berkeleynerd/silver/blob/aeafcd179791afc238344
+75	2026-10-20T13:59:38Z	36	82%|80–85%	Published reviewed Round 36 at `3d08f05cdc2b4aac98523148acd410899b234590` in draft PR #121.  [Round 36](https://github.com/berkeleynerd/silver/blob/3d08f05cdc2b
+76	2026-10-20T18:55:30Z			Published the technically complete **reviewed research-stop alternative** for #119; issue remains In review pending draft PR #121.  Closing/publication commit `
+77	2026-10-20T19:24:07Z	47		Owner-directed continuation recorded on main through PR #156, merge31036b9f61309c62d47ff49f2551bec687950037. Root claims resumed full #119 derivation in tmp/ret
+78	2026-10-21T00:09:15Z			Paused at the owner's night checkpoint, recorded on main by PR #157 (`6b788350b5`). Reviewed research is published at `2dc54cc451e3f36438dc26dde186978ca7ccc61c`
+79	2026-10-23T13:15:35Z	59		Owner reactivation is recorded on main through [PR #158](https://github.com/berkeleynerd/silver/pull/158), author `7e77e1da8a3befe37ac9024f0eff7baff9e3e4ac`, me
+80	2026-10-23T13:56:30Z	60		Round 60 published at `0e17e4a87440fc6d5b4d87fb5fe384ce6ae3f1ae`: [reviewed integration](https://github.com/berkeleynerd/silver/blob/0e17e4a87440fc6d5b4d87fb5fe
+81	2026-10-23T14:40:15Z	61		Owner-requested night pause recorded on main through [PR #159](https://github.com/berkeleynerd/silver/pull/159), merge `7dfd01afef1e12bd57e2fd132f2a7e9d14d9bb4b
+82	2026-10-23T14:54:50Z	61	80–85%	Owner continuation is recorded on main in [PR #160](https://github.com/berkeleynerd/silver/pull/160), merge `7719f7b38fb717f180094e3c4adc0ea51354723d`. #119/#15
+83	2026-10-23T15:30:51Z	62		R62 published in draft PR #121 at `26c0188cadd6513b485a70a3c96cfc0765d20446`. [Accepted printer-demand checkpoint](https://github.com/berkeleynerd/silver/blob/2
+84	2026-10-23T17:17:55Z	65		R65 accepted and published at `5a3869c76a6ae13db8781172c688df19475be25f` in draft PR #121. [Checkpoint](https://github.com/berkeleynerd/silver/blob/5a3869c76a6a
+85	2026-10-23T17:31:19Z	65,66		R66 accepted and published at `7d507503b9af867a08215c3ef11f226400ee3b51` in draft PR #121. [Checkpoint](https://github.com/berkeleynerd/silver/blob/7d507503b9af
+86	2026-10-23T17:59:33Z	65,66,67	80–85%	R67 published at `eafa0fb593ebe2ca155f9b58a9758ddbd937f8a6`: Latest accepted research is **R67**, published at `eafa0fb593ebe2ca155f9b58a9758ddbd937f8a6` on `re
+87	2026-10-23T18:54:41Z	68		R68 is independently accepted and published at `0934a69b14971b39a819582191feec532bb860c4` in draft PR #121. [Checkpoint](https://github.com/berkeleynerd/silver/
+88	2026-10-23T19:27:48Z	69	85%	R69 independently accepted and published at `71b88c7959483839a1d9ae0e6d388a5df6754237`. [Checkpoint](https://github.com/berkeleynerd/silver/blob/71b88c795948383
+89	2026-10-23T20:58:38Z	72		R72 published at `4137b0dbd50d193f58e654f715eb785605a77ff1`; [integration and residual scope](https://github.com/berkeleynerd/silver/blob/4137b0dbd50d193f58e654
+90	2026-10-23T21:22:18Z	73		R73 published at `32576dd5d6b195f7e69669a63248ac30e6e9e333`; [integration and remaining scope](https://github.com/berkeleynerd/silver/blob/32576dd5d6b195f7e6966
+91	2026-10-23T21:46:09Z	74	85%	R74 published at `a07c225eb4987708db46d9439fce1fcdd152b166` in draft PR #121. [Exact checkpoint and review links](https://github.com/berkeleynerd/silver/blob/a0
+92	2026-10-23T22:22:01Z	75	85%	R75 published at `fedd6e86c63b880b2a627d0f14a86d1b15568f4a` in draft PR #121. [Checkpoint and exact review links](https://github.com/berkeleynerd/silver/blob/fe
+93	2026-10-23T23:34:42Z	76,77		Published R76/R77 at `c5062a4452a196ce9b63bd06c4ac58b844d06d5a` in draft PR #121. [Latest checkpoint and exact review links](https://github.com/berkeleynerd/sil
+94	2026-10-23T23:51:13Z	78		R78 published at `fd3253d080cb65308124ff01b3a29795be00d386` in draft PR #121. [Checkpoint and exact review links](https://github.com/berkeleynerd/silver/blob/fd
+95	2026-10-24T00:27:18Z	79	85%	**CURRENT — R79, complete-rule work continues (2026-10-24).** #119 remains OPEN / In progress. Owner continuation is recorded on main through PR #160 (`7719f7b3
+96	2026-10-24T04:26:40Z	84		R84 published at `870a769e887b39c33856538f402ae1f52b658501`: [integration and exact evidence](https://github.com/berkeleynerd/silver/blob/870a769e887b39c3385653
+97	2026-10-24T04:37:40Z	85		Published `553cab1d0b1eb71330e0d77b126e8fe96c9a4796`: [R85 evidence and scope](https://github.com/berkeleynerd/silver/blob/553cab1d0b1eb71330e0d77b126e8fe96c9a4
+98	2026-10-24T04:51:24Z			Remaining fixed-report source/configuration composition is now tracked as child #212, In progress in parallel with #201/#202. [Inventory and exact remaining inp
+99	2026-10-24T05:24:04Z	86	85%	Published [R86 at ae82b22d41](https://github.com/berkeleynerd/silver/blob/ae82b22d4160104064f53a7768e733a6f8c6ef50/docs/evidence/retained-source-attachments-rou
+100	2026-10-24T06:03:04Z	86,87	85%	Published [R87 at 0c8df3dbe5](https://github.com/berkeleynerd/silver/blob/0c8df3dbe5aff531781defd568bf894cc39dc8fb/docs/evidence/retained-input-io-round87-20261
+101	2026-10-24T06:23:46Z	88	85%	**CURRENT — R88, complete-rule work continues (2026-10-24).** #119 remains OPEN / In progress. Owner continuation is recorded on main through PR #160; the harne
+102	2026-10-24T07:12:26Z	89	85%	**CURRENT — R89, complete-rule work continues (2026-10-24).** #119 remains OPEN / In progress. Owner continuation is recorded on main through PR #160; the harne
+103	2026-10-24T07:40:37Z	77,79,90	85%	**CURRENT — R90, complete-rule work continues (2026-10-24).** #119 remains OPEN / In progress. Owner continuation is recorded on main through PR #160; the harne
+104	2026-10-24T08:35:37Z	78,91	85%	**CURRENT — R91, complete-rule work continues (2026-10-24).** #119 remains OPEN / In progress. Owner continuation is recorded on main through PR #160; the harne
+105	2026-10-24T09:34:51Z	92	85%	**CURRENT — R92, complete-rule work continues (2026-10-24).** #119 remains OPEN / In progress. Owner continuation is recorded on main through PR #160; the harne

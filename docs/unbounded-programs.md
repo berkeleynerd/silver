@@ -1,5 +1,17 @@
 # Unbounded programs
 
+**Capacity derivation deferred 2026-10-24.** The owner
+[deferred](session-memory.md#2026-10-24--capacity-derivation-119-deferred-language-development-resumes)
+the full #119 derivation after an
+[independent assessment](evidence/119-sequencing-assessment-20261024/README.md);
+language development resumes at the current 4,096-byte strict language, and
+#88–#94 are re-sequenced as the later strict/loose
+[assurance-modes](https://github.com/berkeleynerd/silver/pull/147) milestone.
+Accepted #119 evidence is frozen at R92 (`f1920759b1`, draft PR #121, unmerged).
+The design below remains the production design for the compiler, confirmation
+and outcomes; its statements that #119 must complete before expanded admission
+describe strict mode, whose rule #119 still defines, not the loose-mode route.
+
 **Revised direction adopted 2026-10-17; capacity design in progress.** Retain
 the existing GNAT/GNATprove toolchain and remove unnecessary Silver limits
 within explicit, justified tool-capacity rules. The owner's

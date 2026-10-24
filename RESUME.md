@@ -5,6 +5,15 @@ handoffs. Current authorization lives in [session memory](docs/session-memory.md
 direction in [roadmap.md](roadmap.md), and live status in the
 [Silver issues](https://github.com/berkeleynerd/silver/issues) and board.
 
+**2026-10-24: #119 deferred; language development resumes.** Read the
+[decision](docs/session-memory.md#2026-10-24--capacity-derivation-119-deferred-language-development-resumes)
+first. Accepted #119 evidence is frozen at R92 (`f1920759b1`, tag
+`evidence/119-r92-accepted-f1920759b1`); the pause record and unreviewed author
+branches are listed there with the
+[restart inventory](docs/evidence/119-sequencing-assessment-20261024/restart-inventory-20261024.md).
+Do not resume #119 or start #88–#94 without a later owner instruction. The
+paragraphs below that call #119 the current package are historical.
+
 The owner selected the **unchanged GNAT/GNATprove toolchain** route with
 “Let's implement this”, recorded on `main` through
 [PR #118](https://github.com/berkeleynerd/silver/pull/118). Read the newest

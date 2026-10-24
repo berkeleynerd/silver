@@ -1,5 +1,92 @@
 # Session memory
 
+## 2026-10-24 — Capacity derivation #119 deferred; language development resumes
+
+The owner asked whether completing the full scope of
+[#119](https://github.com/berkeleynerd/silver/issues/119) is worth doing before
+resuming development of the language, noting that at the independent estimate
+it "will take several more weeks of full token budget consumption" under the
+OpenAI plan. After the assessment below, the owner said **"I approve this
+change. Please proceed."** This supersedes the 2026-10-19 sequencing ("We will
+pause build until 119 completes") and the owner-directed #119 continuation
+recorded through [PR #160](https://github.com/berkeleynerd/silver/pull/160).
+The Oracle, installed tools/pins and current admission are unchanged.
+
+**Assessment** (planning agent, 2026-10-24; evidence in
+[docs/evidence/119-sequencing-assessment-20261024](evidence/119-sequencing-assessment-20261024/README.md)):
+#119 is approximately 50% complete toward its stated completion criteria
+(range 40–65%; four independent lenses 43/57/51/60%; 135 fact-checked claims,
+none refuted), against the repository's self-reported "approximately 85%, low
+confidence", which had not moved for 24 rounds while nine child packages and 50
+findings were created. The harness's own `tokensUsed` counters measure 72M
+tokens over about 21 of about 69 active hours; the all-in estimate through R92
+is 200–280M, and the remaining half of #119 is estimated at 200–415M before any
+production package. At least five assured language increments landed in the
+three days before #119 began; none in the seven days since.
+
+**Decision.**
+
+1. **Language development resumes now**, at the current 4,096-byte strict
+   language, following the [Rosetta progression](../rosetta/progression.md).
+   Stage issue [#9](https://github.com/berkeleynerd/silver/issues/9) (samples
+   needing no new construct) is the first authorized item once this entry is on
+   `main`; the next construct stage
+   ([#11](https://github.com/berkeleynerd/silver/issues/11), remaining
+   constructs) is scoped for the owner's separate authorization under
+   [planning.md](planning.md). Feature work and capacity work do not run
+   concurrently; one agent writes a host's proof workspace at a time.
+2. **#119 is deferred, not completed.** Its completion criteria are unchanged;
+   it defines the future strict-mode rule and is no longer a prerequisite for
+   language development. Accepted evidence is the published R92 checkpoint
+   `f1920759b17dd328e1b8c71293002be9390d7d53` in draft
+   [PR #121](https://github.com/berkeleynerd/silver/pull/121), frozen and tagged
+   `evidence/119-r92-accepted-f1920759b1`. The harness's pause record
+   (`1c058a85f6`) with one unreviewed author packet is preserved on branch
+   `research/119-pause-20261024` (tag `evidence/119-pause-20261024`); the four
+   paused author branches `research/general-native-capacity-20261024`,
+   `research/main-construction-demand-20261024`,
+   `research/fixed-report-composition-20261024` and
+   `research/fixed-report-source-joins-20261024` are pushed as unreviewed author
+   work, and uncommitted worktree state remains in the host's
+   `tmp/paused-backups/` archive. The
+   [restart inventory](evidence/119-sequencing-assessment-20261024/restart-inventory-20261024.md)
+   is copied into the evidence record. #119, in-progress children #201, #202 and
+   #212, the technically complete children #145, #153, #155, #178, #185, #186,
+   #193, #194 and #206, and the 73 open findings are deferred with #119 and
+   return to Backlog; none is delivered to `main`. PR #121 stays draft and
+   unmerged; its merge is not authorized. The only #119 work still authorized is
+   one bounded R93 cleanup session on the owner's harness, at the owner's
+   discretion and under an explicit token cap: finish the four pending
+   independent reviews, integrate what is accepted, publish. Skipping it is
+   acceptable; the policy's review tier is not lowered to finish it here.
+3. **Production #88–#94 keep their conditional authorization but are
+   re-sequenced** as the strict/loose assurance-modes milestone adopted in
+   principle on 2026-10-19 (draft [PR #147](https://github.com/berkeleynerd/silver/pull/147)).
+   It starts on a later owner instruction when the 4,096-byte source bound or the
+   4,096 value/argument/output caps bind a needed program, in this order: #88
+   resource outcomes, uncapped prover configuration and mode gating; #89
+   input-scaled storage and recognizer complexity; #90 parameterized Lean models
+   and the strict predicate's correspondence; then a crude, sound envelope for the
+   silent hard limits under #91, derived once against the production
+   configuration under stated premises, with a token budget and dated stop; mode
+   reporting, catalogue and language records; and the Oracle amendment, merged
+   only after the owner answers PR #147's four open questions. #93's
+   value/argument/output cap removal stays out of the first increment unless
+   separately costed. Strict mode remains the uniform 4,096-byte bound until
+   #119's rule exists. #88–#94 return to Backlog until that instruction.
+4. **Resume trigger for #119:** the first needed program that returns a
+   resource outcome or is rejected by the loose-mode envelope, or a later owner
+   selection. Dense programs beyond the measured prover reach (a dense 8 KB
+   probe exceeded a 14 GiB guard) are not shippable under either route until
+   #119 plus #90/#91 complete; the deferral does not change that.
+
+Not authorized by this entry: starting #88–#94, merging PR #121 or PR #147,
+any change to admission or the current language, or a new harness goal for
+#119. The live harness remains paused. The planning agent (Claude Fable 5.1,
+Anthropic) drafted this record; its assessment agents ran on Anthropic models,
+separately from the OpenAI plan the counters above measure. CLI memory was
+updated.
+
 ## 2026-10-23 — Owner continuation after the printer-entry pause
 
 The owner instructed **“Please continue.”** This supersedes the night pause
