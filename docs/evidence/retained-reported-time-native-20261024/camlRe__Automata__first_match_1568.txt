@@ -1,0 +1,45 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+00000000009185e0 <camlRe__Automata__first_match_1568>:
+  9185e0:	48 83 ec 08          	sub    $0x8,%rsp
+  9185e4:	4d 3b 3e             	cmp    (%r14),%r15
+  9185e7:	76 4c                	jbe    918635 <camlRe__Automata__first_match_1568+0x55>
+  9185e9:	a8 01                	test   $0x1,%al
+  9185eb:	74 0b                	je     9185f8 <camlRe__Automata__first_match_1568+0x18>
+  9185ed:	b8 01 00 00 00       	mov    $0x1,%eax
+  9185f2:	48 83 c4 08          	add    $0x8,%rsp
+  9185f6:	c3                   	ret
+  9185f7:	90                   	nop
+  9185f8:	48 8b 18             	mov    (%rax),%rbx
+  9185fb:	48 0f b6 7b f8       	movzbq -0x8(%rbx),%rdi
+  918600:	48 83 ff 02          	cmp    $0x2,%rdi
+  918604:	7c 22                	jl     918628 <camlRe__Automata__first_match_1568+0x48>
+  918606:	49 83 ef 10          	sub    $0x10,%r15
+  91860a:	4d 3b 3e             	cmp    (%r14),%r15
+  91860d:	72 1f                	jb     91862e <camlRe__Automata__first_match_1568+0x4e>
+  91860f:	49 8d 47 08          	lea    0x8(%r15),%rax
+  918613:	48 c7 40 f8 00 04 00 	movq   $0x400,-0x8(%rax)
+  91861a:	00 
+  91861b:	48 8b 1b             	mov    (%rbx),%rbx
+  91861e:	48 89 18             	mov    %rbx,(%rax)
+  918621:	48 83 c4 08          	add    $0x8,%rsp
+  918625:	c3                   	ret
+  918626:	66 90                	xchg   %ax,%ax
+  918628:	48 8b 40 08          	mov    0x8(%rax),%rax
+  91862c:	eb b6                	jmp    9185e4 <camlRe__Automata__first_match_1568+0x4>
+  91862e:	e8 f9 b7 0c 00       	call   9e3e2c <caml_call_gc>
+  918633:	eb da                	jmp    91860f <camlRe__Automata__first_match_1568+0x2f>
+  918635:	e8 f2 b7 0c 00       	call   9e3e2c <caml_call_gc>
+  91863a:	eb ad                	jmp    9185e9 <camlRe__Automata__first_match_1568+0x9>
+
+Disassembly of section .fini:

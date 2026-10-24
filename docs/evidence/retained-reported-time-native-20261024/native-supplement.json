@@ -1,0 +1,644 @@
+{
+  "data": {
+    "colorize_block_dispatch": {
+      "address": 10412980,
+      "bytes": 40,
+      "hex": "88fdf2ff98fdf2ffacfdf2ffbcfdf2ffd4fdf2ffdcfdf2ffdcfdf2ffd4fdf2ffe4fdf2ffe4fdf2ff",
+      "targets": [
+        9560380,
+        9560396,
+        9560416,
+        9560432,
+        9560456,
+        9560464,
+        9560464,
+        9560456,
+        9560472,
+        9560472
+      ]
+    },
+    "colorize_immediate_dispatch": {
+      "address": 10412940,
+      "bytes": 40,
+      "hex": "18fef2ff18fef2ff34fef2ff34fef2ff34fef2fff0fdf2fff0fdf2ff80fdf2fff0fdf2fff0fdf2ff",
+      "targets": [
+        9560484,
+        9560484,
+        9560512,
+        9560512,
+        9560512,
+        9560444,
+        9560444,
+        9560332,
+        9560444,
+        9560444
+      ]
+    }
+  },
+  "functions": {
+    "camlCamlinternalLazy__force_lazy_block_362": {
+      "address": 9712880,
+      "bytes": 294,
+      "disassembly": "camlCamlinternalLazy__force_lazy_block_362.txt",
+      "disassembly_identity": {
+        "bytes": 4808,
+        "sha256": "d5e1cc3fe9e2d1429a30ded73810a9f18ef138715c47d0bae42ba9281934be43"
+      },
+      "hex": "4883ec184889442408480fb658f84881fbfe0000007405488b18eb214983ef104d3b3e0f82f3000000498d5f0848c743f8fd040000f20f1000f20f1103488d3d0cc76000488b7728480fb678f84881fffe000000740a4889c7e802410800eb08f20f1006f20f11004c8d1d3d000000415341ff761049896610b801000000488b3bffd74889442410488b7c24184889c6488d05c94d0900e81c0a0a004d8b7e08418f46104883c408eb6266904889c34983ef204d3b3e725d498d770848c746f8f70c0000488d056500000048890648b805000000000000014889460848895e10488b7c2408480fb647f8483dfe000000740ae869400800eb0b0f1f00f20f1006f20f11074889d8e85c0a0a00488b04244883c418c3e822080a00eb9ce81b080a00e903ffffff",
+      "identity": {
+        "bytes": 294,
+        "sha256": "87bb5cf7bffd8d35f3da4e45ac04c6bdfea45edea82b357224ef6d3ab362da64"
+      },
+      "info": 18,
+      "section_index": 15
+    },
+    "camlCamlinternalLazy__fun_468": {
+      "address": 9713184,
+      "bytes": 13,
+      "disassembly": "camlCamlinternalLazy__fun_468.txt",
+      "disassembly_identity": {
+        "bytes": 548,
+        "sha256": "d1cc272524cdf574af39b61c0675798f5659c65225e02cfabd0522e3aa14eaf4"
+      },
+      "hex": "4883ec08488b4310e82b0a0a00",
+      "identity": {
+        "bytes": 13,
+        "sha256": "94e9b7029bd0309b2c4c99efe1b43a0d1f4afd951b693eacc075697b5a7efdc3"
+      },
+      "info": 18,
+      "section_index": 15
+    },
+    "camlRe__Ast__anchored_1569": {
+      "address": 9560640,
+      "bytes": 176,
+      "disassembly": "camlRe__Ast__anchored_1569.txt",
+      "disassembly_identity": {
+        "bytes": 3370,
+        "sha256": "5af09b5728bd96b96cdd2f2d6015189c161a7c70245c799bebdc0b44513ad8b4"
+      },
+      "hex": "4883ec084889c74d3b3e0f869600000040f6c701741248d1ff4883ff05747d4883ff08756beb7590480fb647f8488d1568010d00486304824801c2ffe20f1f004883c3e8488b074883c408e960ffffff488b3f4889d84889fb4883c408e94eb302006690488b47084883f8017e06488b07eb9190b8010000004883c408c36690488b4708eb056690488b07e974ffffffb8010000004883c408c36690b8030000004883c408c3e8415b0c00e960ffffff",
+      "identity": {
+        "bytes": 176,
+        "sha256": "3dc61eaa2ee8ab5b2459749564d627a18aca04f879ef2eda1d401c761976aa7b"
+      },
+      "info": 18,
+      "section_index": 15
+    },
+    "camlRe__Ast__colorize_1542": {
+      "address": 9560288,
+      "bytes": 270,
+      "disassembly": "camlRe__Ast__colorize_1542.txt",
+      "disassembly_identity": {
+        "bytes": 4463,
+        "sha256": "38567648ca61134a754ee57e25edbf332767be244e7f184474330dbb050285f4"
+      },
+      "hex": "4883ec084889c64889df4d3b3e0f86f100000040f6c601742b48d1fe488d0589020d00486314b04801d0ffe0488b471848c70003000000b8010000004883c408c30f1f00480fb646f8488d1584020d00486304824801c2ffe20f1f00488b1e488b47104883c408e914cdffff488b06488b184889f84883c408e992af02006690488b1e4889f84883c408e981af020090488b064889fbe969ffffff90b8010000004883c408c36690488b4608eb4e6690488b06eb470f1f00488b46084889fbe940ffffff488d05a5376000488b98b8000000488b47104883c408e9a1ccffff90488d0589376000488b98a0000000488b47104883c408e985ccffff904889fbe900ffffffe8435c0c00e905ffffff",
+      "identity": {
+        "bytes": 270,
+        "sha256": "7ab5f3228e7ff16eadebb4a1442b95646b016bf8af90d1de0181a80427232f0a"
+      },
+      "info": 18,
+      "section_index": 15
+    },
+    "camlRe__Automata__add_match_1615": {
+      "address": 9538288,
+      "bytes": 66,
+      "disassembly": "camlRe__Automata__add_match_1615.txt",
+      "disassembly_identity": {
+        "bytes": 1358,
+        "sha256": "246c3b63e5ef7f010dbdc0ffb324c3526c9bfb3ac635538a32b32c4b0ddb1fa4"
+      },
+      "hex": "4883ec084983ef284d3b3e722e498d7f084883c71848c747f80204000048891f488d5fe848c743f80008000048893b488943084889d84883c408c3e8fcb20c00ebcb",
+      "identity": {
+        "bytes": 66,
+        "sha256": "a32121f2c8e8babe3e3cf6f7dc0bcfbec68eff3aa4663f36b116c986977f16bc"
+      },
+      "info": 18,
+      "section_index": 15
+    },
+    "camlRe__Automata__arg_2261": {
+      "address": 9540048,
+      "bytes": 98,
+      "disassembly": "camlRe__Automata__arg_2261.txt",
+      "disassembly_identity": {
+        "bytes": 1754,
+        "sha256": "63a0bb777d08b7afefd8faa396e11a802d00e0827019dcd31f05daa952b06ded"
+      },
+      "hex": "4883ec084983ef304d3b3e724e498d7f0848c747f8f7140000488d357021c1ff48893748be07000000000000fe48897708488d353800000048897710488b731048897718488b5b1848895f20488b184889f84883c408e9c5fe0200e8fcab0c00ebab",
+      "identity": {
+        "bytes": 98,
+        "sha256": "00fd24669885bb9fde7c892e63ec432b0f0c706f39e7b6c3aeb49b13092e9f72"
+      },
+      "info": 18,
+      "section_index": 15
+    },
+    "camlRe__Automata__f_1596": {
+      "address": 9537536,
+      "bytes": 239,
+      "disassembly": "camlRe__Automata__f_1596.txt",
+      "disassembly_identity": {
+        "bytes": 3921,
+        "sha256": "586c6ae0e3468a26ac3e98185148f54e88f728f4e9ac375e890720d65cd97d80"
+      },
+      "hex": "4883ec184889c648891c24480fb643f84883f801745a0f8790000000488b431048894424084883c720488b5b084889f0e8bb0000004983ef204d3b3e0f82a3000000498d5f0848c743f8000c0000488b3c24488b3f48893b48894308488b442408488943104889d84883c418c30f1f00488b430848890424488b034889f3e8ededffff4983ef184d3b3e7252498d5f0848c743f801080000488903488b0424488943084889d84883c418c390488b034889f3e8b9edffff4983ef104d3b3e7217498d5f0848c743f8020400004889034889d84883c418c3e850b50c00ebe2e849b50c00eba7e842b50c00e953ffffff",
+      "identity": {
+        "bytes": 239,
+        "sha256": "48e7e49ac7c1e72c5aa6e2bfefe7b883bda0fed4068a918bbc39c817aab5f37d"
+      },
+      "info": 18,
+      "section_index": 15
+    },
+    "camlRe__Automata__first_match_1568": {
+      "address": 9536992,
+      "bytes": 92,
+      "disassembly": "camlRe__Automata__first_match_1568.txt",
+      "disassembly_identity": {
+        "bytes": 2109,
+        "sha256": "7ef5ebd4aaae1234ce67dcef24d50328b4df5d7a1cf281f1160c08493fd42543"
+      },
+      "hex": "4883ec084d3b3e764ca801740bb8010000004883c408c390488b18480fb67bf84883ff027c224983ef104d3b3e721f498d470848c740f800040000488b1b4889184883c408c36690488b4008ebb6e8f9b70c00ebdae8f2b70c00ebad",
+      "identity": {
+        "bytes": 92,
+        "sha256": "7f8b82cb3fca099649247f6598ddc4b4dde3b3f1fe04a1c86d91a602d0efec1d"
+      },
+      "info": 18,
+      "section_index": 15
+    },
+    "camlRe__Automata__fun_2774": {
+      "address": 9533040,
+      "bytes": 73,
+      "disassembly": "camlRe__Automata__fun_2774.txt",
+      "disassembly_identity": {
+        "bytes": 1503,
+        "sha256": "2390ea8058b61469c6bcd35a7a86ef8b7f0007e2e4c2b38befd2a54069b6e98b"
+      },
+      "hex": "4883ec08488b780848893c24488b384889d84889fbe856ffffff4983ef184d3b3e721f498d5f0848c743f800080000488903488b0424488943084889d84883c408c3e875c70c00ebda",
+      "identity": {
+        "bytes": 73,
+        "sha256": "87ce3321af5134d38632408b89723400177cb4d69f6ac4f00d291afba490d0a1"
+      },
+      "info": 18,
+      "section_index": 15
+    },
+    "camlRe__Automata__fun_2987": {
+      "address": 9535952,
+      "bytes": 67,
+      "disassembly": "camlRe__Automata__fun_2987.txt",
+      "disassembly_identity": {
+        "bytes": 1513,
+        "sha256": "1cc764685f9d13a19b2fb8ce5ba0ea98c6618f598138cad9fbf07b2d29430f56"
+      },
+      "hex": "4883ec084d3b3e7633480fb678f84885ff7519488b7318488b4008488b7b104889f34883c408e985ffffff90488b5b18488b00488b3b4883c408ffe7e81bbc0c00ebc6",
+      "identity": {
+        "bytes": 67,
+        "sha256": "1d68fbaab83daadca5d423d1c098fee312c671009451915c52b5a5a4cd1a2d2f"
+      },
+      "info": 18,
+      "section_index": 15
+    },
+    "camlRe__Automata__fun_3099": {
+      "address": 9537856,
+      "bytes": 19,
+      "disassembly": "camlRe__Automata__fun_3099.txt",
+      "disassembly_identity": {
+        "bytes": 659,
+        "sha256": "c17dcbe62c61fc01e4b5f294578846baa312eb3f28b1c2ed2254ce75cdef402e"
+      },
+      "hex": "4889c6488b4310488b7b184889f3e9adfeffff",
+      "identity": {
+        "bytes": 19,
+        "sha256": "3b06f562818fb07f501f53a118a5c62b3836c1286c3a84dc238dc7b3f2cb7b1a"
+      },
+      "info": 18,
+      "section_index": 15
+    },
+    "camlRe__Automata__fun_3340": {
+      "address": 9540160,
+      "bytes": 30,
+      "disassembly": "camlRe__Automata__fun_3340.txt",
+      "disassembly_identity": {
+        "bytes": 857,
+        "sha256": "0d59d7b0304b2e4207eceb323feee1d2eb08dd6fe45e5e158540c922c23c0f83"
+      },
+      "hex": "4883fb017c12be03000000488b47204889f7e9f981ffff90b801000000c3",
+      "identity": {
+        "bytes": 30,
+        "sha256": "b18a0291b97b05135888c9c416e9e9f6f9ca98f7c036006aeeec352f625c32ed"
+      },
+      "info": 18,
+      "section_index": 15
+    },
+    "camlRe__Automata__fun_3343": {
+      "address": 9540032,
+      "bytes": 16,
+      "disassembly": "camlRe__Automata__fun_3343.txt",
+      "disassembly_identity": {
+        "bytes": 619,
+        "sha256": "95f94abd863834b4a80217e04f8da77ca7bffeed3747416ca1d6b38f74c86ad2"
+      },
+      "hex": "488b7318488b7b104889f3e9b0efffff",
+      "identity": {
+        "bytes": 16,
+        "sha256": "2160d37b2692d0b8b589761859848ad06a0f6e1e2e6d57d4cc0415ae99823f7c"
+      },
+      "info": 18,
+      "section_index": 15
+    },
+    "camlRe__Automata__hash_1353": {
+      "address": 9532816,
+      "bytes": 78,
+      "disassembly": "camlRe__Automata__hash_1353.txt",
+      "disassembly_identity": {
+        "bytes": 1261,
+        "sha256": "8cef3f373f7d1f4ef37972cefcd57b6a47c461461ad57c0f4a0c4823a224f68a"
+      },
+      "hex": "4883ec084989c4498b4c2408ba01000000bec9000000bf15000000e890c90b004869db3f000100488d9c03c1fffeff498b3c24488d0526df6000488b8008030000488b40184883c408e9e21b0300",
+      "identity": {
+        "bytes": 78,
+        "sha256": "49b0fd3c2dabdb4db4757c1e19850158bcf48fb1ac6033699f56314a1e3857d8"
+      },
+      "info": 18,
+      "section_index": 15
+    },
+    "camlRe__Automata__hash_1487": {
+      "address": 9534496,
+      "bytes": 162,
+      "disassembly": "camlRe__Automata__hash_1487.txt",
+      "disassembly_identity": {
+        "bytes": 2449,
+        "sha256": "fae446418320646808d992058a842a049c182917d4b26fd999f2ea6905715184"
+      },
+      "hex": "4883ec084889c648893424480fb646f84883f801743e7770488b7f20488b4608e89b53c1ff488b1c24488b5b10488b1b4869c03f000100488d8418c1fffeff4869c03f00010048055e37532e4883c408c30f1f00488b06e814f9ffff488b1c24488b5b08488b1b4869c03f000100488d8418c1fffeff4869c03f0001004805b01a97564883c408c3488b06e8e0f8ffff4869c03f00010048056cb53f384883c408c3",
+      "identity": {
+        "bytes": 162,
+        "sha256": "afda155d8b9fcf0921719f50f71ce0563dabd16d67b9763482df73b984319825"
+      },
+      "info": 18,
+      "section_index": 15
+    },
+    "camlRe__Automata__hash_1695": {
+      "address": 9539152,
+      "bytes": 57,
+      "disassembly": "camlRe__Automata__hash_1695.txt",
+      "disassembly_identity": {
+        "bytes": 1047,
+        "sha256": "af862237a3e7c91ca88e0a3905d4f45da9e45dd63ab206894048f5f5628628d4"
+      },
+      "hex": "4883ec084869db3f000100488d9c03c1fffeff488d0586c66000488b8008010000488b4040488b4018e8420303004825ffffff7f4883c408c3",
+      "identity": {
+        "bytes": 57,
+        "sha256": "572b6ab4823365ec8acd7a8d2b5335f481213eb8d2ced13a81bf1db71887e243"
+      },
+      "info": 18,
+      "section_index": 15
+    },
+    "camlRe__Automata__iter_marks_1540": {
+      "address": 9535872,
+      "bytes": 79,
+      "disassembly": "camlRe__Automata__iter_marks_1540.txt",
+      "disassembly_identity": {
+        "bytes": 1516,
+        "sha256": "84bc2ba9800e8b4baa13fd1c425ca2ad03e28b7e256179b527e83242372a8b70"
+      },
+      "hex": "4883ec084889c64983ef284d3b3e7238498d470848c740f8f7100000488d152d00000048891048ba05000000000000014889500848897810488958184889f34883c408e9280f0300e85fbc0c00ebc1",
+      "identity": {
+        "bytes": 79,
+        "sha256": "26002bad07bc7cb8bc8244a327b23aab07140b6cf446b2c6a44ba0e9460e46dc"
+      },
+      "info": 18,
+      "section_index": 15
+    },
+    "camlRe__Automata__marks_set_idx_1397": {
+      "address": 9532896,
+      "bytes": 139,
+      "disassembly": "camlRe__Automata__marks_set_idx_1397.txt",
+      "disassembly_identity": {
+        "bytes": 2577,
+        "sha256": "95f13469ea72f85002a8317255e3b720ad0255950cca9aed01af06f2b2197deb"
+      },
+      "hex": "4883ec18f6c301740bb8010000004883c418c390488b3b488b77084883feff755b48893c244889442408488b5b08e8cdffffff4983ef304d3b3e7248498d5f084883c31848c743f800080000488b3c24488b3f48893b488b7c240848897b08488d7be848c747f80008000048891f488947084889f84883c418c366904889d84883c418c3e8c3c70c00ebb1",
+      "identity": {
+        "bytes": 139,
+        "sha256": "e59c7d883131bef713044c0d7bcffe5dfa226b936734289c797ebe1e9f81719b"
+      },
+      "info": 18,
+      "section_index": 15
+    },
+    "camlRe__Automata__remove_matches_1572": {
+      "address": 9537088,
+      "bytes": 48,
+      "disassembly": "camlRe__Automata__remove_matches_1572.txt",
+      "disassembly_identity": {
+        "bytes": 1205,
+        "sha256": "f572af837d605bd6acc1fc32131a72c2a4f56ec4a5f4365668e725cf9f8e2cf6"
+      },
+      "hex": "4883ec084d3b3e762048890424488d054cc56000e8671603004889c3488b3b488b04244883c408ffe7e8beb70c00ebd9",
+      "identity": {
+        "bytes": 48,
+        "sha256": "b1a9fdfe86e9a4dfe1451595601f3c277397c7449e56481a9b053df20b187863"
+      },
+      "info": 18,
+      "section_index": 15
+    },
+    "camlRe__Automata__set_mark_1412": {
+      "address": 9533344,
+      "bytes": 126,
+      "disassembly": "camlRe__Automata__set_mark_1412.txt",
+      "disassembly_identity": {
+        "bytes": 2119,
+        "sha256": "32064e922c52f8bcf5c83573f7356dce8ce40c1c9955709820c50f1476bbbb90"
+      },
+      "hex": "4883ec1848891c24488b780848897c2408488b384889d84889fbe8512303004983ef484d3b3e724f498d5f084883c33048c743f800080000488b3c2448893b48c74308ffffffff488d7be848c747f80008000048891f48894708488d47e848c740f800080000488938488b5c2408488958084883c418c3e810c60c00ebaa",
+      "identity": {
+        "bytes": 126,
+        "sha256": "5aaf1bee69266548f2b30a3eb657f17b2e6778c1c6c737e7d8b258d6f57400fd"
+      },
+      "info": 18,
+      "section_index": 15
+    },
+    "camlRe__Automata__split_at_match_rec_1577": {
+      "address": 9537168,
+      "bytes": 224,
+      "disassembly": "camlRe__Automata__split_at_match_rec_1577.txt",
+      "disassembly_identity": {
+        "bytes": 3807,
+        "sha256": "707a9cb24221519a97da60431624c380248aefeaa103bc0497e0f32c13ca6da1"
+      },
+      "hex": "4883ec18f6c301743f4983ef184d3b3e0f82c0000000498d470848c740f800080000488d1d473b1d00488918488d1d5dd560004889580849c786f000000000000000e881b90c0090488b3b480fb677f84883fe027c4a48890424488b4308e84dffffff4889442408bb01000000488b0424e80a0603004983ef184d3b3e7250498d5f0848c743f800080000488903488b442408488943084889d84883c418c3904983ef184d3b3e721f498d770848c746f80008000048893e48894608488b5b084889f0e93cffffffe8cfb60c00ebdae8c8b60c00eba9e8c1b60c00e936ffffff",
+      "identity": {
+        "bytes": 224,
+        "sha256": "ad9a82ff8159a37e4f9f194e1907811c865f3933edb48020ba3ef8cfadcaf6e8"
+      },
+      "info": 18,
+      "section_index": 15
+    },
+    "camlStdlib__Hashtbl__add_1032": {
+      "address": 9971648,
+      "bytes": 193,
+      "disassembly": "camlStdlib__Hashtbl__add_1032.txt",
+      "disassembly_identity": {
+        "bytes": 3030,
+        "sha256": "185dd80856f60e54948afc651b5ec196c1624ab3f67adc5b74c6d4050eceeef0"
+      },
+      "hex": "4883ec28488944241048891c2448897c24084889742418488b7e18e8a0ffffff4983ef204d3b3e0f8285000000498d770848c746f8000c0000488b1c2448891e488b5c240848895e08488b5c2410488b7b08488b57f848c1ea094839c2765d488b5487fc48895610488d7c87fce81e4e040048830302488b4308488b40f848c1e8094883c801488d4400ff488b3b4839c77e15488b442418488b40184883c428e94befffff0f1f00b8010000004883c428c3e8b5150600e971ffffffe8eb180600",
+      "identity": {
+        "bytes": 193,
+        "sha256": "1bfd5b25d8e57f4fbdba7dabf4c44759effdd9c8a0a16e888d798b1598b97619"
+      },
+      "info": 18,
+      "section_index": 15
+    },
+    "camlStdlib__Hashtbl__create_inner_1743": {
+      "address": 9965920,
+      "bytes": 203,
+      "disassembly": "camlStdlib__Hashtbl__create_inner_1743.txt",
+      "disassembly_identity": {
+        "bytes": 3597,
+        "sha256": "7a599a9a3b8829f4d48863fa14a5ab484b8cddb6942fa8ce0cb89a9d4ec7a740"
+      },
+      "hex": "4883ec1848890424b821000000e8aeffffff4889442408488b04244883f8017447488d05104e6000488b8018010000a8017405eb270f1f00480fb658f84881fbf6000000740e4881fbfa000000750d488b00eb08e83723fcffeb0190e8ffefffff48890424eb0a90b80100000048890424be01000000488b7c2408488d056ec90400e8c12d06004d8b7e084983ef284d3b3e7230498d5f0848c743f80010000048c7030100000048894308488b042448894310488b442408488943184889d84883c418c3e8032c0600ebc9",
+      "identity": {
+        "bytes": 203,
+        "sha256": "1da46c29c56d3f7ebbec488d38672afa58ba474d4e1e7a495c35c1dc32745198"
+      },
+      "info": 18,
+      "section_index": 15
+    }
+  },
+  "inspections": [
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--disassemble=camlRe__Ast__colorize_1542",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3"
+      ],
+      "elapsed_seconds": 0.18818455500149867,
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--disassemble=camlRe__Automata__set_mark_1412",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3"
+      ],
+      "elapsed_seconds": 0.18979502400179626,
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--disassemble=camlRe__Automata__add_match_1615",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3"
+      ],
+      "elapsed_seconds": 0.12438797899812926,
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--disassemble=camlRe__Automata__first_match_1568",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3"
+      ],
+      "elapsed_seconds": 0.11587379200500436,
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--disassemble=camlRe__Automata__split_at_match_rec_1577",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3"
+      ],
+      "elapsed_seconds": 0.1426121280019288,
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--disassemble=camlRe__Automata__fun_3099",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3"
+      ],
+      "elapsed_seconds": 0.11444375599967316,
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--disassemble=camlRe__Automata__arg_2261",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3"
+      ],
+      "elapsed_seconds": 0.16791861999809043,
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--disassemble=camlRe__Automata__fun_3343",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3"
+      ],
+      "elapsed_seconds": 0.13196198100195033,
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--disassemble=camlRe__Automata__hash_1695",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3"
+      ],
+      "elapsed_seconds": 0.1168148669967195,
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--disassemble=camlCamlinternalLazy__force_lazy_block_362",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3"
+      ],
+      "elapsed_seconds": 0.12782920400059083,
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--disassemble=camlRe__Automata__f_1596",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3"
+      ],
+      "elapsed_seconds": 0.14634100499824854,
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--disassemble=camlRe__Automata__marks_set_idx_1397",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3"
+      ],
+      "elapsed_seconds": 0.1542908859992167,
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--disassemble=camlRe__Automata__fun_3340",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3"
+      ],
+      "elapsed_seconds": 0.16808301599667175,
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--disassemble=camlRe__Automata__iter_marks_1540",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3"
+      ],
+      "elapsed_seconds": 0.15275338000355987,
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--disassemble=camlRe__Automata__hash_1487",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3"
+      ],
+      "elapsed_seconds": 0.23712570299539948,
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--disassemble=camlRe__Automata__hash_1353",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3"
+      ],
+      "elapsed_seconds": 0.14243201100180158,
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--disassemble=camlRe__Automata__remove_matches_1572",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3"
+      ],
+      "elapsed_seconds": 0.1518104470014805,
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--disassemble=camlCamlinternalLazy__fun_468",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3"
+      ],
+      "elapsed_seconds": 0.13773020100052236,
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--disassemble=camlStdlib__Hashtbl__add_1032",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3"
+      ],
+      "elapsed_seconds": 0.1693572709991713,
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--disassemble=camlStdlib__Hashtbl__create_inner_1743",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3"
+      ],
+      "elapsed_seconds": 0.19157633099530358,
+      "exit_code": 0,
+      "stderr": ""
+    }
+  ],
+  "recovery": {
+    "failed_batch_wall_seconds": 0.672865268,
+    "functions": [
+      "camlRe__Automata__fun_2774",
+      "camlRe__Automata__fun_2987"
+    ],
+    "reason": "Two successful body extractions preceded a wrong ELF helper-method name for data extraction. Outputs recovered without rerunning disassembly. Individual extraction times not retained."
+  },
+  "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+  "target_executions": 0,
+  "target_identity": {
+    "bytes": 24561432,
+    "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+  }
+}

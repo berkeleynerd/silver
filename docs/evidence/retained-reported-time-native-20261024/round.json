@@ -1,0 +1,41 @@
+{
+  "achieved": "Recognized Start native correspondence, fixed shape/cache/index invariant, interruption-safe reused owner isolation, owned-word coefficients, focused static validation.",
+  "base_commit": "4cd7d06d00",
+  "checks": [
+    {
+      "reason": "Arithmetic assertion used431 instead of331 for the written first-force summands; the512 credit was unchanged.",
+      "status": "failed",
+      "wall_seconds": 0.518712222
+    },
+    {
+      "elapsed_seconds": 0.41586143799941055,
+      "status": "passed"
+    }
+  ],
+  "cost": null,
+  "date": "2026-10-24",
+  "issue": 206,
+  "new_disassembly_seconds_recorded": 3.2500940179961617,
+  "objective": "Installed Start private-owner lifecycle and owned allocation kernel; preserve global e<=2 across nine owners.",
+  "predecessor_replays": 0,
+  "review": "Awaiting parent integration/independent review; this is not issue closure.",
+  "runtime_model_confirmation": null,
+  "scope_remaining": "Parent source/configuration/prefix composition and separate fixed placeholder-regexp startup cost.",
+  "selected_effort": "Extra High",
+  "selected_model": "GPT-6 Astra",
+  "significant_findings": [
+    "Rejected reference-only BOS candidate because installed Re.Str no-emacs gate makes backslash-backtick literal. Selected backslash-equals Start instead.",
+    "Fresh positions length1 and unchanged hint0 are tighter than the initial hypothesis.",
+    "Native Hashtbl publishes its cell before size increment: interrupted prefix can undercount, never needs table growth here."
+  ],
+  "target_executions": 0,
+  "tokens": null,
+  "two_helper_recovery": {
+    "failed_batch_wall_seconds": 0.672865268,
+    "functions": [
+      "camlRe__Automata__fun_2774",
+      "camlRe__Automata__fun_2987"
+    ],
+    "reason": "Two successful body extractions preceded a wrong ELF helper-method name for data extraction. Outputs recovered without rerunning disassembly. Individual extraction times not retained."
+  }
+}

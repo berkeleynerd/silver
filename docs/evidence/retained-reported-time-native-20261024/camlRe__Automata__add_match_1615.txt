@@ -1,0 +1,34 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+0000000000918af0 <camlRe__Automata__add_match_1615>:
+  918af0:	48 83 ec 08          	sub    $0x8,%rsp
+  918af4:	49 83 ef 28          	sub    $0x28,%r15
+  918af8:	4d 3b 3e             	cmp    (%r14),%r15
+  918afb:	72 2e                	jb     918b2b <camlRe__Automata__add_match_1615+0x3b>
+  918afd:	49 8d 7f 08          	lea    0x8(%r15),%rdi
+  918b01:	48 83 c7 18          	add    $0x18,%rdi
+  918b05:	48 c7 47 f8 02 04 00 	movq   $0x402,-0x8(%rdi)
+  918b0c:	00 
+  918b0d:	48 89 1f             	mov    %rbx,(%rdi)
+  918b10:	48 8d 5f e8          	lea    -0x18(%rdi),%rbx
+  918b14:	48 c7 43 f8 00 08 00 	movq   $0x800,-0x8(%rbx)
+  918b1b:	00 
+  918b1c:	48 89 3b             	mov    %rdi,(%rbx)
+  918b1f:	48 89 43 08          	mov    %rax,0x8(%rbx)
+  918b23:	48 89 d8             	mov    %rbx,%rax
+  918b26:	48 83 c4 08          	add    $0x8,%rsp
+  918b2a:	c3                   	ret
+  918b2b:	e8 fc b2 0c 00       	call   9e3e2c <caml_call_gc>
+  918b30:	eb cb                	jmp    918afd <camlRe__Automata__add_match_1615+0xd>
+
+Disassembly of section .fini:

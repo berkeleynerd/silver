@@ -1,0 +1,88 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+00000000009434f0 <camlCamlinternalLazy__force_lazy_block_362>:
+  9434f0:	48 83 ec 18          	sub    $0x18,%rsp
+  9434f4:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+  9434f9:	48 0f b6 58 f8       	movzbq -0x8(%rax),%rbx
+  9434fe:	48 81 fb fe 00 00 00 	cmp    $0xfe,%rbx
+  943505:	74 05                	je     94350c <camlCamlinternalLazy__force_lazy_block_362+0x1c>
+  943507:	48 8b 18             	mov    (%rax),%rbx
+  94350a:	eb 21                	jmp    94352d <camlCamlinternalLazy__force_lazy_block_362+0x3d>
+  94350c:	49 83 ef 10          	sub    $0x10,%r15
+  943510:	4d 3b 3e             	cmp    (%r14),%r15
+  943513:	0f 82 f3 00 00 00    	jb     94360c <camlCamlinternalLazy__force_lazy_block_362+0x11c>
+  943519:	49 8d 5f 08          	lea    0x8(%r15),%rbx
+  94351d:	48 c7 43 f8 fd 04 00 	movq   $0x4fd,-0x8(%rbx)
+  943524:	00 
+  943525:	f2 0f 10 00          	movsd  (%rax),%xmm0
+  943529:	f2 0f 11 03          	movsd  %xmm0,(%rbx)
+  94352d:	48 8d 3d 0c c7 60 00 	lea    0x60c70c(%rip),%rdi        # f4fc40 <camlCamlinternalLazy>
+  943534:	48 8b 77 28          	mov    0x28(%rdi),%rsi
+  943538:	48 0f b6 78 f8       	movzbq -0x8(%rax),%rdi
+  94353d:	48 81 ff fe 00 00 00 	cmp    $0xfe,%rdi
+  943544:	74 0a                	je     943550 <camlCamlinternalLazy__force_lazy_block_362+0x60>
+  943546:	48 89 c7             	mov    %rax,%rdi
+  943549:	e8 02 41 08 00       	call   9c7650 <caml_modify>
+  94354e:	eb 08                	jmp    943558 <camlCamlinternalLazy__force_lazy_block_362+0x68>
+  943550:	f2 0f 10 06          	movsd  (%rsi),%xmm0
+  943554:	f2 0f 11 00          	movsd  %xmm0,(%rax)
+  943558:	4c 8d 1d 3d 00 00 00 	lea    0x3d(%rip),%r11        # 94359c <camlCamlinternalLazy__force_lazy_block_362+0xac>
+  94355f:	41 53                	push   %r11
+  943561:	41 ff 76 10          	push   0x10(%r14)
+  943565:	49 89 66 10          	mov    %rsp,0x10(%r14)
+  943569:	b8 01 00 00 00       	mov    $0x1,%eax
+  94356e:	48 8b 3b             	mov    (%rbx),%rdi
+  943571:	ff d7                	call   *%rdi
+  943573:	48 89 44 24 10       	mov    %rax,0x10(%rsp)
+  943578:	48 8b 7c 24 18       	mov    0x18(%rsp),%rdi
+  94357d:	48 89 c6             	mov    %rax,%rsi
+  943580:	48 8d 05 c9 4d 09 00 	lea    0x94dc9(%rip),%rax        # 9d8350 <caml_obj_make_forward>
+  943587:	e8 1c 0a 0a 00       	call   9e3fa8 <caml_c_call>
+  94358c:	4d 8b 7e 08          	mov    0x8(%r14),%r15
+  943590:	41 8f 46 10          	pop    0x10(%r14)
+  943594:	48 83 c4 08          	add    $0x8,%rsp
+  943598:	eb 62                	jmp    9435fc <camlCamlinternalLazy__force_lazy_block_362+0x10c>
+  94359a:	66 90                	xchg   %ax,%ax
+  94359c:	48 89 c3             	mov    %rax,%rbx
+  94359f:	49 83 ef 20          	sub    $0x20,%r15
+  9435a3:	4d 3b 3e             	cmp    (%r14),%r15
+  9435a6:	72 5d                	jb     943605 <camlCamlinternalLazy__force_lazy_block_362+0x115>
+  9435a8:	49 8d 77 08          	lea    0x8(%r15),%rsi
+  9435ac:	48 c7 46 f8 f7 0c 00 	movq   $0xcf7,-0x8(%rsi)
+  9435b3:	00 
+  9435b4:	48 8d 05 65 00 00 00 	lea    0x65(%rip),%rax        # 943620 <camlCamlinternalLazy__fun_468>
+  9435bb:	48 89 06             	mov    %rax,(%rsi)
+  9435be:	48 b8 05 00 00 00 00 	movabs $0x100000000000005,%rax
+  9435c5:	00 00 01 
+  9435c8:	48 89 46 08          	mov    %rax,0x8(%rsi)
+  9435cc:	48 89 5e 10          	mov    %rbx,0x10(%rsi)
+  9435d0:	48 8b 7c 24 08       	mov    0x8(%rsp),%rdi
+  9435d5:	48 0f b6 47 f8       	movzbq -0x8(%rdi),%rax
+  9435da:	48 3d fe 00 00 00    	cmp    $0xfe,%rax
+  9435e0:	74 0a                	je     9435ec <camlCamlinternalLazy__force_lazy_block_362+0xfc>
+  9435e2:	e8 69 40 08 00       	call   9c7650 <caml_modify>
+  9435e7:	eb 0b                	jmp    9435f4 <camlCamlinternalLazy__force_lazy_block_362+0x104>
+  9435e9:	0f 1f 00             	nopl   (%rax)
+  9435ec:	f2 0f 10 06          	movsd  (%rsi),%xmm0
+  9435f0:	f2 0f 11 07          	movsd  %xmm0,(%rdi)
+  9435f4:	48 89 d8             	mov    %rbx,%rax
+  9435f7:	e8 5c 0a 0a 00       	call   9e4058 <caml_raise_exn>
+  9435fc:	48 8b 04 24          	mov    (%rsp),%rax
+  943600:	48 83 c4 18          	add    $0x18,%rsp
+  943604:	c3                   	ret
+  943605:	e8 22 08 0a 00       	call   9e3e2c <caml_call_gc>
+  94360a:	eb 9c                	jmp    9435a8 <camlCamlinternalLazy__force_lazy_block_362+0xb8>
+  94360c:	e8 1b 08 0a 00       	call   9e3e2c <caml_call_gc>
+  943611:	e9 03 ff ff ff       	jmp    943519 <camlCamlinternalLazy__force_lazy_block_362+0x29>
+
+Disassembly of section .fini:

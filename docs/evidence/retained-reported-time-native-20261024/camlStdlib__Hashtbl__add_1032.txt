@@ -1,0 +1,62 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+00000000009827c0 <camlStdlib__Hashtbl__add_1032>:
+  9827c0:	48 83 ec 28          	sub    $0x28,%rsp
+  9827c4:	48 89 44 24 10       	mov    %rax,0x10(%rsp)
+  9827c9:	48 89 1c 24          	mov    %rbx,(%rsp)
+  9827cd:	48 89 7c 24 08       	mov    %rdi,0x8(%rsp)
+  9827d2:	48 89 74 24 18       	mov    %rsi,0x18(%rsp)
+  9827d7:	48 8b 7e 18          	mov    0x18(%rsi),%rdi
+  9827db:	e8 a0 ff ff ff       	call   982780 <camlStdlib__Hashtbl__key_index_1028>
+  9827e0:	49 83 ef 20          	sub    $0x20,%r15
+  9827e4:	4d 3b 3e             	cmp    (%r14),%r15
+  9827e7:	0f 82 85 00 00 00    	jb     982872 <camlStdlib__Hashtbl__add_1032+0xb2>
+  9827ed:	49 8d 77 08          	lea    0x8(%r15),%rsi
+  9827f1:	48 c7 46 f8 00 0c 00 	movq   $0xc00,-0x8(%rsi)
+  9827f8:	00 
+  9827f9:	48 8b 1c 24          	mov    (%rsp),%rbx
+  9827fd:	48 89 1e             	mov    %rbx,(%rsi)
+  982800:	48 8b 5c 24 08       	mov    0x8(%rsp),%rbx
+  982805:	48 89 5e 08          	mov    %rbx,0x8(%rsi)
+  982809:	48 8b 5c 24 10       	mov    0x10(%rsp),%rbx
+  98280e:	48 8b 7b 08          	mov    0x8(%rbx),%rdi
+  982812:	48 8b 57 f8          	mov    -0x8(%rdi),%rdx
+  982816:	48 c1 ea 09          	shr    $0x9,%rdx
+  98281a:	48 39 c2             	cmp    %rax,%rdx
+  98281d:	76 5d                	jbe    98287c <camlStdlib__Hashtbl__add_1032+0xbc>
+  98281f:	48 8b 54 87 fc       	mov    -0x4(%rdi,%rax,4),%rdx
+  982824:	48 89 56 10          	mov    %rdx,0x10(%rsi)
+  982828:	48 8d 7c 87 fc       	lea    -0x4(%rdi,%rax,4),%rdi
+  98282d:	e8 1e 4e 04 00       	call   9c7650 <caml_modify>
+  982832:	48 83 03 02          	addq   $0x2,(%rbx)
+  982836:	48 8b 43 08          	mov    0x8(%rbx),%rax
+  98283a:	48 8b 40 f8          	mov    -0x8(%rax),%rax
+  98283e:	48 c1 e8 09          	shr    $0x9,%rax
+  982842:	48 83 c8 01          	or     $0x1,%rax
+  982846:	48 8d 44 00 ff       	lea    -0x1(%rax,%rax,1),%rax
+  98284b:	48 8b 3b             	mov    (%rbx),%rdi
+  98284e:	48 39 c7             	cmp    %rax,%rdi
+  982851:	7e 15                	jle    982868 <camlStdlib__Hashtbl__add_1032+0xa8>
+  982853:	48 8b 44 24 18       	mov    0x18(%rsp),%rax
+  982858:	48 8b 40 18          	mov    0x18(%rax),%rax
+  98285c:	48 83 c4 28          	add    $0x28,%rsp
+  982860:	e9 4b ef ff ff       	jmp    9817b0 <camlStdlib__Hashtbl__resize_721>
+  982865:	0f 1f 00             	nopl   (%rax)
+  982868:	b8 01 00 00 00       	mov    $0x1,%eax
+  98286d:	48 83 c4 28          	add    $0x28,%rsp
+  982871:	c3                   	ret
+  982872:	e8 b5 15 06 00       	call   9e3e2c <caml_call_gc>
+  982877:	e9 71 ff ff ff       	jmp    9827ed <camlStdlib__Hashtbl__add_1032+0x2d>
+  98287c:	e8 eb 18 06 00       	call   9e416c <caml_ml_array_bound_error>
+
+Disassembly of section .fini:
