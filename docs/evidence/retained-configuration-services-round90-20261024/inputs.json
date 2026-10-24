@@ -1,0 +1,344 @@
+{
+  "components": [
+    {
+      "name": "Prospective configuration and F1 repair",
+      "freeze": "649d8293c74c56cccadcec74dec5a4bb96e7e335",
+      "paths": [
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective/README.md",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective/check.py",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective/first-check-failure.txt",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective/handoff.json",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective/recipe.py",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective/repair-f1/README.md",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective/repair-f1/check.py",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective/repair-f1/result.json",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective/result.json",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective/round.json",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective/runtime-selection.json",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective/runtime-selection.py",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective/source-manifest.json",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective/sources.tar.gz",
+        "docs/research/retained-fixed-report-composition.md"
+      ]
+    },
+    {
+      "name": "Prospective configuration review and repair disposition",
+      "freeze": "242abddc574a87d146f865ebd7f85e3c0ef55c55",
+      "paths": [
+        "docs/evidence/review-prospective-configuration-20261024/audit.py",
+        "docs/evidence/review-prospective-configuration-20261024/first-audit-failure.txt",
+        "docs/evidence/review-prospective-configuration-20261024/repair-f1/audit.py",
+        "docs/evidence/review-prospective-configuration-20261024/repair-f1/result.json",
+        "docs/evidence/review-prospective-configuration-20261024/repair-f1/round.json",
+        "docs/evidence/review-prospective-configuration-20261024/result.json",
+        "docs/evidence/review-prospective-configuration-20261024/round.json",
+        "docs/reviews/review-prospective-configuration-20261024.md"
+      ]
+    },
+    {
+      "name": "Main shared-services author",
+      "freeze": "22cdc0d78c850525c78f8c3bda05424462324f84",
+      "paths": [
+        "docs/evidence/retained-main-construction-demand-20261024/shared-services/README.md",
+        "docs/evidence/retained-main-construction-demand-20261024/shared-services/check-initial.py",
+        "docs/evidence/retained-main-construction-demand-20261024/shared-services/check.py",
+        "docs/evidence/retained-main-construction-demand-20261024/shared-services/checkpoint.md",
+        "docs/evidence/retained-main-construction-demand-20261024/shared-services/diagram-result.json",
+        "docs/evidence/retained-main-construction-demand-20261024/shared-services/exports.json",
+        "docs/evidence/retained-main-construction-demand-20261024/shared-services/final-checks-initial.json",
+        "docs/evidence/retained-main-construction-demand-20261024/shared-services/final-checks.json",
+        "docs/evidence/retained-main-construction-demand-20261024/shared-services/final-checks.py",
+        "docs/evidence/retained-main-construction-demand-20261024/shared-services/freeze.py",
+        "docs/evidence/retained-main-construction-demand-20261024/shared-services/initial-failure.txt",
+        "docs/evidence/retained-main-construction-demand-20261024/shared-services/inputs.json",
+        "docs/evidence/retained-main-construction-demand-20261024/shared-services/native-bodies.json",
+        "docs/evidence/retained-main-construction-demand-20261024/shared-services/native-boundary.json",
+        "docs/evidence/retained-main-construction-demand-20261024/shared-services/native-census.json",
+        "docs/evidence/retained-main-construction-demand-20261024/shared-services/native-witnesses.json",
+        "docs/evidence/retained-main-construction-demand-20261024/shared-services/round.json",
+        "docs/evidence/retained-main-construction-demand-20261024/shared-services/shared.py",
+        "docs/evidence/retained-main-construction-demand-20261024/shared-services/source-joins.json",
+        "docs/evidence/retained-main-construction-demand-20261024/shared-services/source-supplement-result.json",
+        "docs/evidence/retained-main-construction-demand-20261024/shared-services/source-witnesses.json",
+        "docs/research/retained-main-construction-demand.md"
+      ]
+    },
+    {
+      "name": "Main shared-services independent review",
+      "freeze": "7f3357b0289ff57fbd8303ca024534b209868234",
+      "paths": [
+        "docs/evidence/review-main-shared-services-20261024/audit.py",
+        "docs/evidence/review-main-shared-services-20261024/math-result.json",
+        "docs/evidence/review-main-shared-services-20261024/round.json",
+        "docs/evidence/review-main-shared-services-20261024/source-elf-result.json",
+        "docs/evidence/review-main-shared-services-20261024/source-supplements.json",
+        "docs/reviews/review-main-shared-services-20261024.md"
+      ]
+    }
+  ],
+  "bindings": [
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/prospective/source-manifest.json",
+      "keys": [
+        "repository_files"
+      ],
+      "kind": "map"
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/prospective/result.json",
+      "keys": [
+        "discovered_executables"
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/prospective/repair-f1/result.json",
+      "keys": [
+        "unchanged_author_inputs"
+      ],
+      "kind": "map"
+    },
+    {
+      "path": "docs/evidence/review-prospective-configuration-20261024/result.json",
+      "keys": [
+        "target_sha256"
+      ],
+      "kind": "map",
+      "commit": "9432b9d69498cce7e2474d7a96c4adc37f97b7ae"
+    },
+    {
+      "path": "docs/evidence/review-prospective-configuration-20261024/repair-f1/result.json",
+      "keys": [
+        "repair_input_sha256"
+      ],
+      "kind": "map"
+    },
+    {
+      "path": "docs/evidence/review-prospective-configuration-20261024/repair-f1/result.json",
+      "keys": [
+        "unchanged_author_artifacts"
+      ],
+      "kind": "map"
+    },
+    {
+      "path": "docs/evidence/review-prospective-configuration-20261024/repair-f1/result.json",
+      "keys": [
+        "preserved_original_review"
+      ],
+      "kind": "map",
+      "commit": "3d0912369432c6aae081d3489b5178aa9ac3732a"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/shared-services/inputs.json",
+      "keys": [
+        "providers"
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/shared-services/round.json",
+      "keys": [
+        "review_inputs"
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/shared-services/native-witnesses.json",
+      "keys": [
+        "executable"
+      ],
+      "kind": "identity"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/shared-services/native-witnesses.json",
+      "keys": [
+        "existing_disassembly"
+      ],
+      "kind": "single"
+    },
+    {
+      "path": "docs/evidence/review-main-shared-services-20261024/source-elf-result.json",
+      "keys": [
+        "details",
+        "inputs"
+      ]
+    },
+    {
+      "path": "docs/evidence/review-main-shared-services-20261024/round.json",
+      "keys": [
+        "research_input"
+      ],
+      "kind": "single"
+    },
+    {
+      "path": "docs/evidence/review-main-shared-services-20261024/round.json",
+      "keys": [
+        "review_report"
+      ],
+      "kind": "single"
+    }
+  ],
+  "expectations": [
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/prospective/result.json",
+      "keys": [
+        "status"
+      ],
+      "value": "pass"
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/prospective/runtime-selection.json",
+      "keys": [
+        "status"
+      ],
+      "value": "pass"
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/prospective/repair-f1/result.json",
+      "keys": [
+        "status"
+      ],
+      "value": "pass"
+    },
+    {
+      "path": "docs/evidence/review-prospective-configuration-20261024/result.json",
+      "keys": [
+        "status"
+      ],
+      "value": "completed_with_one_interface_finding"
+    },
+    {
+      "path": "docs/evidence/review-prospective-configuration-20261024/repair-f1/result.json",
+      "keys": [
+        "status"
+      ],
+      "value": "pass_F1_resolved"
+    },
+    {
+      "path": "docs/evidence/review-prospective-configuration-20261024/repair-f1/result.json",
+      "keys": [
+        "original_counterexample_rejected_after_repair"
+      ],
+      "value": true
+    },
+    {
+      "path": "docs/evidence/review-prospective-configuration-20261024/repair-f1/result.json",
+      "keys": [
+        "outside_pathfile_entries_AST_unchanged"
+      ],
+      "value": true
+    },
+    {
+      "path": "docs/evidence/review-prospective-configuration-20261024/repair-f1/result.json",
+      "keys": [
+        "worker_argv_and_configuration_coefficients_unchanged"
+      ],
+      "value": true
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/prospective/result.json",
+      "keys": [
+        "actual_complete_common_path_bytes"
+      ],
+      "value": null
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/prospective/result.json",
+      "keys": [
+        "complete_five_report_collector"
+      ],
+      "value": false
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/prospective/result.json",
+      "keys": [
+        "complete_private_why_recipe"
+      ],
+      "value": false
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/prospective/result.json",
+      "keys": [
+        "selected_image_adapter",
+        "current_routing_preserved"
+      ],
+      "value": true
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/prospective/result.json",
+      "keys": [
+        "rts_delta",
+        "complete_native_storage_recomposition"
+      ],
+      "value": false
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/shared-services/round.json",
+      "keys": [
+        "complete_source_entry_and_candidate_multiplicities"
+      ],
+      "value": false
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/shared-services/round.json",
+      "keys": [
+        "complete_source_to_initial_vc_storage"
+      ],
+      "value": false
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/shared-services/diagram-result.json",
+      "keys": [
+        "status"
+      ],
+      "value": "passed"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/shared-services/final-checks.json",
+      "keys": [
+        "status"
+      ],
+      "value": "passed"
+    },
+    {
+      "path": "docs/evidence/review-main-shared-services-20261024/source-elf-result.json",
+      "keys": [
+        "status"
+      ],
+      "value": "passed"
+    },
+    {
+      "path": "docs/evidence/review-main-shared-services-20261024/math-result.json",
+      "keys": [
+        "status"
+      ],
+      "value": "passed"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/shared-services/native-census.json",
+      "keys": [
+        "maximum_own_heap_reservation_bytes"
+      ],
+      "value": 152
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/shared-services/native-census.json",
+      "keys": [
+        "aggregate_bytes_or_stack_gate"
+      ],
+      "value": false
+    },
+    {
+      "path": "docs/evidence/review-main-shared-services-20261024/round.json",
+      "keys": [
+        "material_findings"
+      ],
+      "value": []
+    }
+  ],
+  "prefixes": [
+    {
+      "manifest": "docs/evidence/retained-fixed-report-composition-20261024/prospective/source-manifest.json",
+      "keys": [
+        "accepted_research_prefix"
+      ]
+    }
+  ]
+}

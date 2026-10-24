@@ -140,6 +140,13 @@ local frame/closure byte totals are not required under existing physical-resourc
 premises. Paired concat size/layout/annotation, slices and pointer conversion,
 shared services and source multiplicities, and Main kode/SPWP/storage/failure
 lifetimes remain open; #201/#202 are unfinished. #214 is In review pending delivery.
+The accepted [R90 checkpoint](../evidence/retained-configuration-services-round90-20261024/README.md)
+now attaches the accepted Main builder request stream to Hsty/Hsity counters/
+Weak backing and Wvs/warm strong-memo lookup. Its conditional interface preserves
+one cumulative cut and cannot certify the missing actual Main history. Next,
+transport the accepted populated pre-JSON state through all intervening source
+parser/typing/proxy/overload/builder requests, reusing R77/R79; no fresh startup
+capture or cumulative local RAM/stack price is needed.
 The remaining [fixed-report composition #212](https://github.com/berkeleynerd/silver/issues/212)
 is now explicit and In progress under the same #119 authorization. Its
 [input inventory](retained-fixed-report-composition.md) separates
@@ -154,10 +161,16 @@ all 1,575 runtime files; all four fixed report interfaces and the prospective
 18-argument configuration fit. Actual complete configuration attachment remains
 null. #88/#89 must implement/check the selected environment, physical roots and
 final normalized GPR child/config paths; historical reconstruction is unnecessary.
-A separate prospective configuration will preserve the Image adapter route and
-explicitly select the same runtime. These are conditional regions, not adopted
-path limits. Native warning/counter/header/source-span/private-fix storage and
-the full five-report collector composition remain open.
+R90 supplies that constructive future configuration: exact empty-derived
+environment, fresh physical workspace/temp relations, copied Image-overlay
+GNATprove preserving the adapter route and explicit same-runtime selection.
+Its 19-entry argv/configuration guards pass; #215's raw-pathfile spelling repair
+is independently accepted and In review pending delivery. The additional RTS
+switch/search/descriptor/native storage join remains required and is active.
+Actual launcher realization stays with #88/#89; actual complete attachment
+remains null. These are conditional regions, not adopted path limits. Native
+warning/counter/header/source-span/private-fix storage and the full five-report
+collector composition remain open.
 It proceeds from #193/#194/#206 alongside #201/#202; its Main instance retains
 #202's prerequisites.
 Complete these source/provider joins before the final whole-rule comparison
