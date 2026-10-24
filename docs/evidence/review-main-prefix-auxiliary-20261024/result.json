@@ -1,0 +1,653 @@
+{
+  "status": "passed",
+  "author_commit": "ae53fcef513b322bdc67f91aee998d1a8c356a22",
+  "assertions": 319,
+  "groups": {
+    "author changes confined to owned packet and research append": 1,
+    "exact author input": 15,
+    "frozen provider or prior packet identity": 108,
+    "exact research prefix retained": 1,
+    "complete archived source identity": 12,
+    "exact archived source excerpt": 48,
+    "actual save handler installation follows initialization": 1,
+    "two variant conversions and per-binder label conversion": 1,
+    "eager candidates and once-converted loop bodies retained": 1,
+    "private forward allocation precedes completed FileTags increment": 1,
+    "strong table source doubles at strict twice-capacity threshold": 1,
+    "all serialized kinds assigned exactly once": 1,
+    "charge coefficients leave ticket slack": 1,
+    "accepted complete fixed provider has zero variants and loops": 1,
+    "ordinary Main variant-free attachment is source induction": 1,
+    "body byte convention inherited from producer": 1,
+    "independent recursive occurrence fold": 13,
+    "combined events use full weighted potential": 13,
+    "plain byte charging including Unicode and duplicate keys": 13,
+    "conditional linear fold control": 10,
+    "cross-products replay multiplicatively": 1,
+    "no deduplication or overbroad shortcut": 1,
+    "only one final LF removed from body count": 1,
+    "public demand interface has no numeric certificate parameter": 1,
+    "maximum conditional demand arithmetic": 1,
+    "frozen exports equal callable mathematics": 5,
+    "Hsattr arithmetic retains all populated C geometry": 5,
+    "FileTags native injection and strong geometry arithmetic": 5,
+    "independently recomputed representation guards": 5,
+    "body file location call-ID and individual-string operands": 5,
+    "unchanged control budget and residual consumer boundaries": 5,
+    "strong growth threshold arithmetic controls": 40
+  },
+  "elapsed_seconds": 1.0052052739920327,
+  "host": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "source_files": 12,
+  "schema_kinds": 63,
+  "fold_controls": {
+    "duplicate_objects": {
+      "serialized_bytes": 21,
+      "producer_json_body_bytes": 21,
+      "terminating_lf_bytes": 0,
+      "plain": {
+        "values": 9,
+        "list_cells": 6,
+        "string_bytes": 2
+      },
+      "weighted": {
+        "values": 9,
+        "list_cells": 6,
+        "string_bytes": 2,
+        "binder_label_pairs": 0
+      },
+      "kind_occurrences": {},
+      "maximum_label_set_length": 0,
+      "maximum_variant_expr_replay_depth": 0,
+      "unknown_node_shapes": [],
+      "potential": 17,
+      "combined_auxiliary_event_upper": 2176,
+      "plain_component_byte_guards": {
+        "values": true,
+        "list_cells": true,
+        "string_bytes": true
+      },
+      "ordinary_linear_envelope_applies": true,
+      "linear_potential_upper": 252,
+      "is_native_parser_or_complete_schema_validator": false,
+      "producer_source_relation_required": true
+    },
+    "escaped_unicode": {
+      "serialized_bytes": 36,
+      "producer_json_body_bytes": 36,
+      "terminating_lf_bytes": 0,
+      "plain": {
+        "values": 3,
+        "list_cells": 1,
+        "string_bytes": 10
+      },
+      "weighted": {
+        "values": 3,
+        "list_cells": 1,
+        "string_bytes": 10,
+        "binder_label_pairs": 0
+      },
+      "kind_occurrences": {},
+      "maximum_label_set_length": 0,
+      "maximum_variant_expr_replay_depth": 0,
+      "unknown_node_shapes": [],
+      "potential": 14,
+      "combined_auxiliary_event_upper": 1792,
+      "plain_component_byte_guards": {
+        "values": true,
+        "list_cells": true,
+        "string_bytes": true
+      },
+      "ordinary_linear_envelope_applies": true,
+      "linear_potential_upper": 432,
+      "is_native_parser_or_complete_schema_validator": false,
+      "producer_source_relation_required": true
+    },
+    "literal_utf8": {
+      "serialized_bytes": 14,
+      "producer_json_body_bytes": 14,
+      "terminating_lf_bytes": 0,
+      "plain": {
+        "values": 3,
+        "list_cells": 1,
+        "string_bytes": 7
+      },
+      "weighted": {
+        "values": 3,
+        "list_cells": 1,
+        "string_bytes": 7,
+        "binder_label_pairs": 0
+      },
+      "kind_occurrences": {},
+      "maximum_label_set_length": 0,
+      "maximum_variant_expr_replay_depth": 0,
+      "unknown_node_shapes": [],
+      "potential": 11,
+      "combined_auxiliary_event_upper": 1408,
+      "plain_component_byte_guards": {
+        "values": true,
+        "list_cells": true,
+        "string_bytes": true
+      },
+      "ordinary_linear_envelope_applies": true,
+      "linear_potential_upper": 168,
+      "is_native_parser_or_complete_schema_validator": false,
+      "producer_source_relation_required": true
+    },
+    "space_split": {
+      "serialized_bytes": 41,
+      "producer_json_body_bytes": 41,
+      "terminating_lf_bytes": 0,
+      "plain": {
+        "values": 8,
+        "list_cells": 7,
+        "string_bytes": 17
+      },
+      "weighted": {
+        "values": 8,
+        "list_cells": 7,
+        "string_bytes": 17,
+        "binder_label_pairs": 0
+      },
+      "kind_occurrences": {
+        "W_NAME": 1
+      },
+      "maximum_label_set_length": 0,
+      "maximum_variant_expr_replay_depth": 0,
+      "unknown_node_shapes": [],
+      "potential": 32,
+      "combined_auxiliary_event_upper": 4096,
+      "plain_component_byte_guards": {
+        "values": true,
+        "list_cells": true,
+        "string_bytes": true
+      },
+      "ordinary_linear_envelope_applies": true,
+      "linear_potential_upper": 492,
+      "is_native_parser_or_complete_schema_validator": false,
+      "producer_source_relation_required": true
+    },
+    "same_ids": {
+      "serialized_bytes": 76,
+      "producer_json_body_bytes": 76,
+      "terminating_lf_bytes": 0,
+      "plain": {
+        "values": 19,
+        "list_cells": 18,
+        "string_bytes": 27
+      },
+      "weighted": {
+        "values": 19,
+        "list_cells": 18,
+        "string_bytes": 27,
+        "binder_label_pairs": 0
+      },
+      "kind_occurrences": {
+        "W_LITERAL": 3
+      },
+      "maximum_label_set_length": 0,
+      "maximum_variant_expr_replay_depth": 0,
+      "unknown_node_shapes": [],
+      "potential": 64,
+      "combined_auxiliary_event_upper": 8192,
+      "plain_component_byte_guards": {
+        "values": true,
+        "list_cells": true,
+        "string_bytes": true
+      },
+      "ordinary_linear_envelope_applies": true,
+      "linear_potential_upper": 912,
+      "is_native_parser_or_complete_schema_validator": false,
+      "producer_source_relation_required": true
+    },
+    "binder_product": {
+      "serialized_bytes": 205,
+      "producer_json_body_bytes": 205,
+      "terminating_lf_bytes": 0,
+      "plain": {
+        "values": 45,
+        "list_cells": 44,
+        "string_bytes": 73
+      },
+      "weighted": {
+        "values": 45,
+        "list_cells": 44,
+        "string_bytes": 73,
+        "binder_label_pairs": 15
+      },
+      "kind_occurrences": {
+        "W_BINDER": 5,
+        "W_EXISTENTIAL_QUANTIF": 1,
+        "W_LITERAL": 1
+      },
+      "maximum_label_set_length": 3,
+      "maximum_variant_expr_replay_depth": 0,
+      "unknown_node_shapes": [],
+      "potential": 177,
+      "combined_auxiliary_event_upper": 22656,
+      "plain_component_byte_guards": {
+        "values": true,
+        "list_cells": true,
+        "string_bytes": true
+      },
+      "ordinary_linear_envelope_applies": true,
+      "linear_potential_upper": 2460,
+      "is_native_parser_or_complete_schema_validator": false,
+      "producer_source_relation_required": true
+    },
+    "one_replay": {
+      "serialized_bytes": 231,
+      "producer_json_body_bytes": 231,
+      "terminating_lf_bytes": 0,
+      "plain": {
+        "values": 51,
+        "list_cells": 50,
+        "string_bytes": 82
+      },
+      "weighted": {
+        "values": 96,
+        "list_cells": 94,
+        "string_bytes": 155,
+        "binder_label_pairs": 30
+      },
+      "kind_occurrences": {
+        "W_BINDER": 5,
+        "W_EXISTENTIAL_QUANTIF": 1,
+        "W_LITERAL": 1,
+        "W_VARIANT": 1
+      },
+      "maximum_label_set_length": 3,
+      "maximum_variant_expr_replay_depth": 1,
+      "unknown_node_shapes": [],
+      "potential": 375,
+      "combined_auxiliary_event_upper": 48000,
+      "plain_component_byte_guards": {
+        "values": true,
+        "list_cells": true,
+        "string_bytes": true
+      },
+      "ordinary_linear_envelope_applies": true,
+      "linear_potential_upper": 2772,
+      "is_native_parser_or_complete_schema_validator": false,
+      "producer_source_relation_required": true
+    },
+    "nested_replay": {
+      "serialized_bytes": 257,
+      "producer_json_body_bytes": 257,
+      "terminating_lf_bytes": 0,
+      "plain": {
+        "values": 57,
+        "list_cells": 56,
+        "string_bytes": 91
+      },
+      "weighted": {
+        "values": 198,
+        "list_cells": 194,
+        "string_bytes": 319,
+        "binder_label_pairs": 60
+      },
+      "kind_occurrences": {
+        "W_BINDER": 5,
+        "W_EXISTENTIAL_QUANTIF": 1,
+        "W_LITERAL": 1,
+        "W_VARIANT": 2
+      },
+      "maximum_label_set_length": 3,
+      "maximum_variant_expr_replay_depth": 2,
+      "unknown_node_shapes": [],
+      "potential": 771,
+      "combined_auxiliary_event_upper": 98688,
+      "plain_component_byte_guards": {
+        "values": true,
+        "list_cells": true,
+        "string_bytes": true
+      },
+      "ordinary_linear_envelope_applies": false,
+      "linear_potential_upper": 3084,
+      "is_native_parser_or_complete_schema_validator": false,
+      "producer_source_relation_required": true
+    },
+    "large_labels": {
+      "serialized_bytes": 318,
+      "producer_json_body_bytes": 318,
+      "terminating_lf_bytes": 0,
+      "plain": {
+        "values": 72,
+        "list_cells": 71,
+        "string_bytes": 101
+      },
+      "weighted": {
+        "values": 72,
+        "list_cells": 71,
+        "string_bytes": 101,
+        "binder_label_pairs": 119
+      },
+      "kind_occurrences": {
+        "W_BINDER": 7,
+        "W_LITERAL": 1,
+        "W_UNIVERSAL_QUANTIF": 1
+      },
+      "maximum_label_set_length": 17,
+      "maximum_variant_expr_replay_depth": 0,
+      "unknown_node_shapes": [],
+      "potential": 363,
+      "combined_auxiliary_event_upper": 46464,
+      "plain_component_byte_guards": {
+        "values": true,
+        "list_cells": true,
+        "string_bytes": true
+      },
+      "ordinary_linear_envelope_applies": false,
+      "linear_potential_upper": 3816,
+      "is_native_parser_or_complete_schema_validator": false,
+      "producer_source_relation_required": true
+    },
+    "all_kind_shapes": {
+      "serialized_bytes": 2287,
+      "producer_json_body_bytes": 2287,
+      "terminating_lf_bytes": 0,
+      "plain": {
+        "values": 430,
+        "list_cells": 429,
+        "string_bytes": 834
+      },
+      "weighted": {
+        "values": 431,
+        "list_cells": 429,
+        "string_bytes": 834,
+        "binder_label_pairs": 0
+      },
+      "kind_occurrences": {
+        "W_ABSTRACT_EXPR": 1,
+        "W_ANY_EXPR": 1,
+        "W_ASSERT": 1,
+        "W_ASSIGNMENT": 1,
+        "W_AXIOM": 1,
+        "W_AXIOM_DEP": 1,
+        "W_BINDER": 1,
+        "W_BINDING": 1,
+        "W_BINDING_REF": 1,
+        "W_CALL": 1,
+        "W_CLONE_DECLARATION": 1,
+        "W_CLONE_SUBSTITUTION": 1,
+        "W_COMMENT": 1,
+        "W_CONDITIONAL": 1,
+        "W_CONNECTION": 1,
+        "W_DEREF": 1,
+        "W_EFFECTS": 1,
+        "W_ELSIF": 1,
+        "W_EPSILON": 1,
+        "W_EXCEPTION_DECLARATION": 1,
+        "W_EXISTENTIAL_QUANTIF": 1,
+        "W_FIELD_ASSOCIATION": 1,
+        "W_FIXED_CONSTANT": 1,
+        "W_FLOAT_CONSTANT": 1,
+        "W_FUNCTION_DECL": 1,
+        "W_GLOBAL_REF_DECLARATION": 1,
+        "W_GOAL": 1,
+        "W_HANDLER": 1,
+        "W_IDENTIFIER": 1,
+        "W_INCLUDE_DECLARATION": 1,
+        "W_INTEGER_CONSTANT": 1,
+        "W_LABEL": 1,
+        "W_LITERAL": 1,
+        "W_LOC_LABEL": 1,
+        "W_LOOP": 1,
+        "W_META_DECLARATION": 1,
+        "W_MODULAR_CONSTANT": 1,
+        "W_MODULE": 1,
+        "W_NAME": 1,
+        "W_NAMESPACE_DECLARATION": 1,
+        "W_NOT": 1,
+        "W_RAISE": 1,
+        "W_RAISE_EFFECT": 1,
+        "W_RANGE_CONSTANT": 1,
+        "W_RANGE_TYPE_DEFINITION": 1,
+        "W_REAL_CONSTANT": 1,
+        "W_RECORD_ACCESS": 1,
+        "W_RECORD_AGGREGATE": 1,
+        "W_RECORD_BINDER": 1,
+        "W_RECORD_DEFINITION": 1,
+        "W_RECORD_UPDATE": 1,
+        "W_STATEMENT_SEQUENCE": 1,
+        "W_TAGGED": 1,
+        "W_THEORY_DECLARATION": 1,
+        "W_TRANSPARENT_TYPE_DEFINITION": 1,
+        "W_TRIGGER": 1,
+        "W_TRIGGERS": 1,
+        "W_TRY_BLOCK": 1,
+        "W_TYPE": 1,
+        "W_TYPE_DECL": 1,
+        "W_UNIVERSAL_QUANTIF": 1,
+        "W_VARIANT": 1,
+        "W_VARIANTS": 1
+      },
+      "maximum_label_set_length": 0,
+      "maximum_variant_expr_replay_depth": 1,
+      "unknown_node_shapes": [],
+      "potential": 1694,
+      "combined_auxiliary_event_upper": 216832,
+      "plain_component_byte_guards": {
+        "values": true,
+        "list_cells": true,
+        "string_bytes": true
+      },
+      "ordinary_linear_envelope_applies": true,
+      "linear_potential_upper": 27444,
+      "is_native_parser_or_complete_schema_validator": false,
+      "producer_source_relation_required": true
+    },
+    "unknown_shape": {
+      "serialized_bytes": 226,
+      "producer_json_body_bytes": 226,
+      "terminating_lf_bytes": 0,
+      "plain": {
+        "values": 49,
+        "list_cells": 48,
+        "string_bytes": 85
+      },
+      "weighted": {
+        "values": 49,
+        "list_cells": 48,
+        "string_bytes": 85,
+        "binder_label_pairs": 15
+      },
+      "kind_occurrences": {
+        "W_BINDER": 5,
+        "W_EXISTENTIAL_QUANTIF": 1,
+        "W_LITERAL": 1
+      },
+      "maximum_label_set_length": 3,
+      "maximum_variant_expr_replay_depth": 0,
+      "unknown_node_shapes": [
+        "W_NOT_A_KIND"
+      ],
+      "potential": 197,
+      "combined_auxiliary_event_upper": 25216,
+      "plain_component_byte_guards": {
+        "values": true,
+        "list_cells": true,
+        "string_bytes": true
+      },
+      "ordinary_linear_envelope_applies": false,
+      "linear_potential_upper": 2712,
+      "is_native_parser_or_complete_schema_validator": false,
+      "producer_source_relation_required": true
+    },
+    "body_with_LF": {
+      "serialized_bytes": 232,
+      "producer_json_body_bytes": 231,
+      "terminating_lf_bytes": 1,
+      "plain": {
+        "values": 51,
+        "list_cells": 50,
+        "string_bytes": 82
+      },
+      "weighted": {
+        "values": 96,
+        "list_cells": 94,
+        "string_bytes": 155,
+        "binder_label_pairs": 30
+      },
+      "kind_occurrences": {
+        "W_BINDER": 5,
+        "W_EXISTENTIAL_QUANTIF": 1,
+        "W_LITERAL": 1,
+        "W_VARIANT": 1
+      },
+      "maximum_label_set_length": 3,
+      "maximum_variant_expr_replay_depth": 1,
+      "unknown_node_shapes": [],
+      "potential": 375,
+      "combined_auxiliary_event_upper": 48000,
+      "plain_component_byte_guards": {
+        "values": true,
+        "list_cells": true,
+        "string_bytes": true
+      },
+      "ordinary_linear_envelope_applies": true,
+      "linear_potential_upper": 2772,
+      "is_native_parser_or_complete_schema_validator": false,
+      "producer_source_relation_required": true
+    },
+    "two_LFs": {
+      "serialized_bytes": 233,
+      "producer_json_body_bytes": 232,
+      "terminating_lf_bytes": 1,
+      "plain": {
+        "values": 51,
+        "list_cells": 50,
+        "string_bytes": 82
+      },
+      "weighted": {
+        "values": 96,
+        "list_cells": 94,
+        "string_bytes": 155,
+        "binder_label_pairs": 30
+      },
+      "kind_occurrences": {
+        "W_BINDER": 5,
+        "W_EXISTENTIAL_QUANTIF": 1,
+        "W_LITERAL": 1,
+        "W_VARIANT": 1
+      },
+      "maximum_label_set_length": 3,
+      "maximum_variant_expr_replay_depth": 1,
+      "unknown_node_shapes": [],
+      "potential": 375,
+      "combined_auxiliary_event_upper": 48000,
+      "plain_component_byte_guards": {
+        "values": true,
+        "list_cells": true,
+        "string_bytes": true
+      },
+      "ordinary_linear_envelope_applies": true,
+      "linear_potential_upper": 2784,
+      "is_native_parser_or_complete_schema_validator": false,
+      "producer_source_relation_required": true
+    }
+  },
+  "review_inputs": [
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/README.md",
+      "bytes": 4733,
+      "sha256": "ed5cffda6cd5abf4ae0d21cfedf26f140fce28a66e14c3726c327862e72cb14b"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/auxiliary.py",
+      "bytes": 12889,
+      "sha256": "51f255336e9546f59023a392d80670beac53db97d837ccdf944974a49e172532"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/check-initial.py",
+      "bytes": 12062,
+      "sha256": "a1fbcc4ba9c5e6b1056e76e4ddda8a5292b60efadeb9af0a18e3d84bc268245c"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/check.py",
+      "bytes": 13284,
+      "sha256": "2df43b0f3f86c3a96eae1ad7bf9fcd906a6e784915e9e212a7f493264e440455"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/checkpoint.md",
+      "bytes": 4654,
+      "sha256": "5a12f48bd18d51ed5c153c1b4265d4ad851c3dd97d24684fc09926bda4b61a80"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/exports.json",
+      "bytes": 53856,
+      "sha256": "5ae0a63c51cf6815d50a1eba2a2a558856078708e53f5b2722a121e474c88664"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/initial-check-failure.json",
+      "bytes": 846,
+      "sha256": "2ac74b8e0dbaaed10c9fc4997813099a1fd13f366f957d2d2838f91542fd3500"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/inputs.json",
+      "bytes": 23748,
+      "sha256": "6520c94c89090c41c39a312f8d454d817525a18c5b1a4c1bed524d9fad5948fa"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/prepare.py",
+      "bytes": 5385,
+      "sha256": "4ffb7aebc186a0b617c1c3f36e156a4bb616d25430d97f3d8b98a78c82b05a81"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/result-before-body-byte-attachment.json",
+      "bytes": 2820,
+      "sha256": "4834823a58106a4c343c78ec909c890e50f52f2a080bb770909435d4b4a420f1"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/result.json",
+      "bytes": 3067,
+      "sha256": "d7d154e535bf3681c593b34afc50218fa3d5ac9441f18d6d11bf6b2a808df742"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/round.json",
+      "bytes": 10833,
+      "sha256": "b0834dfe9c3deb1d0a2955bf5430551ce5a2789dcace8498026b079f54900f66"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/source-caps.json",
+      "bytes": 10722,
+      "sha256": "7ae2cbaaae211df2b0be3f25cd72ad8cef20fdb5de4db2036e88fdcb21b31de9"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/source-witnesses.json",
+      "bytes": 93941,
+      "sha256": "6cf324f75bc80a556a4455cbff8f3d07abf91c8c54b3023a166c0d6eca158ebe"
+    },
+    {
+      "path": "docs/research/retained-main-construction-demand.md",
+      "bytes": 102795,
+      "sha256": "75e5eee2a2309b8aac881b4ddd2a5b98d1cf95b117a2e09e8f79386254c13e51"
+    }
+  ],
+  "author_changed_files": [
+    "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/README.md",
+    "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/auxiliary.py",
+    "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/check-initial.py",
+    "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/check.py",
+    "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/checkpoint.md",
+    "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/exports.json",
+    "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/initial-check-failure.json",
+    "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/inputs.json",
+    "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/prepare.py",
+    "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/result-before-body-byte-attachment.json",
+    "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/result.json",
+    "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/round.json",
+    "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/source-caps.json",
+    "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/source-witnesses.json",
+    "docs/research/retained-main-construction-demand.md"
+  ],
+  "audit_identity": {
+    "bytes": 15353,
+    "sha256": "1dbceee8a8f4ab2cae80ec94cbbbf7e8c7a7c3c49f88ff6f2cbec250a9d4b871"
+  },
+  "source_amortization_machine_proved": false,
+  "native_target_capture_compiler_prover_Lean_disassembler_service_runs": 0,
+  "author_or_predecessor_checker_extractor_runs": 0,
+  "full_parser_converter_representation_closed": false,
+  "T_to_builder_transport_closed": false
+}
