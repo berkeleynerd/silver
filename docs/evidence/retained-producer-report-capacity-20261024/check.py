@@ -236,7 +236,7 @@ assert c.array(0, c.string(999)).pretty == 3
 assert c.array(0, c.string(999)).string_max == 0
 
 row_parameters = dict(path_bytes=128, text_bytes=2048, rule_bytes=64,
-                      stats_count=3, stats_key_bytes=7)
+                      stats_count=5, stats_key_bytes=7)
 p1 = c.canonical_proof(records=1, goals=3, attempts=5, answer_bytes=736,
                        row_parameters=row_parameters)
 p2 = c.canonical_proof(records=100, goals=3, attempts=5, answer_bytes=736,
@@ -247,6 +247,15 @@ p00 = c.canonical_proof(records=100, goals=0, attempts=0, answer_bytes=736,
                         row_parameters=row_parameters)
 assert p2['full'].pretty-p00['full'].pretty == p1['full'].pretty-p0['full'].pretty
 assert p1['projected'] == p0['projected']
+# Five source-domain statistics keys; three configured executables do not
+# exclude the synthetic Trivial and Checker records.
+row_three = dict(row_parameters, stats_count=3)
+p_three = c.canonical_proof(records=1, goals=0, attempts=0, answer_bytes=736,
+                            row_parameters=row_three)
+assert p0['full'].values > p_three['full'].values
+assert p0['full'].pretty > p_three['full'].pretty
+assert p0['projected'].pretty > p_three['projected'].pretty
+assert 'stats_count=5, stats_key_bytes=7' in (Path(__file__).resolve().parent/'capacity.py').read_text()
 # Current projection keeps outside whitespace. Exercise a complete pretty
 # root with one actual check_tree replacement, retaining the final file LF.
 projection_source = (ROOT/'src/silver_report_projection.adb').read_text()
