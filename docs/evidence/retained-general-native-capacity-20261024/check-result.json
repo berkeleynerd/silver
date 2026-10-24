@@ -1,0 +1,271 @@
+{
+  "status": "pass",
+  "checked_at_utc": "2026-10-24T02:50:29.342513+00:00",
+  "native_platform": "Linux x86_64",
+  "offline_elapsed_seconds": 0.5287502380015212,
+  "source_files": 22,
+  "source_witnesses": 50,
+  "predecessor_inputs": 7,
+  "coarse_projection_assignments_checked": 4096,
+  "family_order": [
+    "Ts",
+    "Ta",
+    "Tl",
+    "Tp"
+  ],
+  "direct_kernel_coefficients": {
+    "type_nodes": [
+      3,
+      5,
+      6,
+      6
+    ],
+    "type_declarations": [
+      3,
+      4,
+      3,
+      2
+    ],
+    "rm_vectors_3": [
+      1,
+      0,
+      1,
+      0
+    ],
+    "lang_type_payloads": [
+      1,
+      2,
+      2,
+      1
+    ],
+    "direct_constant_requests": [
+      9,
+      56,
+      42,
+      12
+    ],
+    "direct_unary_nodes_and_slots": [
+      1,
+      6,
+      6,
+      1
+    ],
+    "alloca_request_count": [
+      0,
+      2,
+      0,
+      0
+    ],
+    "alloca_logical_payload_bytes": [
+      0,
+      9,
+      0,
+      0
+    ]
+  },
+  "open_weighted_root_multiplicities": {
+    "bound_translation_and_elaboration": [
+      2,
+      0,
+      0,
+      0
+    ],
+    "literal_lower_translation": [
+      0,
+      0,
+      1,
+      0
+    ],
+    "convert": [
+      0,
+      7,
+      4,
+      0
+    ],
+    "fold_convert": [
+      0,
+      6,
+      8,
+      0
+    ],
+    "size_binop": [
+      0,
+      17,
+      12,
+      0
+    ],
+    "fold_build2": [
+      0,
+      3,
+      2,
+      0
+    ],
+    "gigi_binary": [
+      0,
+      1,
+      1,
+      0
+    ],
+    "gigi_conditional": [
+      0,
+      1,
+      0,
+      0
+    ],
+    "max_value": [
+      0,
+      2,
+      0,
+      0
+    ],
+    "multiple_of_p": [
+      0,
+      2,
+      2,
+      0
+    ],
+    "save_predicate_work": [
+      0,
+      4,
+      4,
+      0
+    ]
+  },
+  "max_string_bits": 17179869176,
+  "descriptor_vector": {
+    "elements": 2,
+    "first_raw_reserve_bytes": 72,
+    "allocator_caller_bytes_upper": 504,
+    "rounded_bytes_upper": 512,
+    "allocations": 1
+  },
+  "program_projections": [
+    {
+      "source": "samples/null.adb",
+      "sha256": "7b448e583d98d9f037b90d1379fe6afa1a16a93be16a7270c85aed30161a5021",
+      "A_Main": 38,
+      "E_Main": 1,
+      "H_store": 0,
+      "V_Main": 70,
+      "coarse_direct_kernel_projection": {
+        "type_nodes": 6,
+        "type_declarations": 4,
+        "rm_vectors_3": 1,
+        "lang_type_payloads": 2,
+        "direct_constant_requests": 56,
+        "direct_unary_nodes_and_slots": 6,
+        "alloca_request_count": 2,
+        "alloca_logical_payload_bytes": 9,
+        "selected_caller_byte_projection": 3856
+      },
+      "actual_family_counts_supplied": false,
+      "symbolic_helper_cost_supplied": false,
+      "annotation_Q_supplied": false,
+      "complete_native_capacity_result": false
+    },
+    {
+      "source": "samples/hello_world.adb",
+      "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+      "A_Main": 58,
+      "E_Main": 3,
+      "H_store": 0,
+      "V_Main": 154,
+      "coarse_direct_kernel_projection": {
+        "type_nodes": 18,
+        "type_declarations": 12,
+        "rm_vectors_3": 3,
+        "lang_type_payloads": 6,
+        "direct_constant_requests": 168,
+        "direct_unary_nodes_and_slots": 18,
+        "alloca_request_count": 6,
+        "alloca_logical_payload_bytes": 27,
+        "selected_caller_byte_projection": 11568
+      },
+      "actual_family_counts_supplied": false,
+      "symbolic_helper_cost_supplied": false,
+      "annotation_Q_supplied": false,
+      "complete_native_capacity_result": false
+    },
+    {
+      "source": "samples/for_loop_step.adb",
+      "sha256": "dc8f33010a2b0a1bb77afc55a184a1f6b4e73d7bed1ca6e94ab0880c984a7e6c",
+      "A_Main": 4276,
+      "E_Main": 17,
+      "H_store": 1,
+      "V_Main": 4823,
+      "coarse_direct_kernel_projection": {
+        "type_nodes": 102,
+        "type_declarations": 68,
+        "rm_vectors_3": 17,
+        "lang_type_payloads": 34,
+        "direct_constant_requests": 952,
+        "direct_unary_nodes_and_slots": 102,
+        "alloca_request_count": 34,
+        "alloca_logical_payload_bytes": 153,
+        "selected_caller_byte_projection": 65552
+      },
+      "actual_family_counts_supplied": false,
+      "symbolic_helper_cost_supplied": false,
+      "annotation_Q_supplied": false,
+      "complete_native_capacity_result": false
+    },
+    {
+      "source": "samples/command_line_greeting.adb",
+      "sha256": "bde96907d4d27894bb3d116b482720f800f23a4e582b774672825cc18a949d27",
+      "A_Main": 744318,
+      "E_Main": 194,
+      "H_store": 0,
+      "V_Main": 750526,
+      "coarse_direct_kernel_projection": {
+        "type_nodes": 1164,
+        "type_declarations": 776,
+        "rm_vectors_3": 194,
+        "lang_type_payloads": 388,
+        "direct_constant_requests": 10864,
+        "direct_unary_nodes_and_slots": 1164,
+        "alloca_request_count": 388,
+        "alloca_logical_payload_bytes": 1746,
+        "selected_caller_byte_projection": 748064
+      },
+      "actual_family_counts_supplied": false,
+      "symbolic_helper_cost_supplied": false,
+      "annotation_Q_supplied": false,
+      "complete_native_capacity_result": false
+    },
+    {
+      "source": "samples/find_square_difference.adb",
+      "sha256": "7321d8b442fcc5d122bdfd4dc175417fc688df2639111783bb895288a8fe747c",
+      "A_Main": 27373,
+      "E_Main": 23,
+      "H_store": 2,
+      "V_Main": 28115,
+      "coarse_direct_kernel_projection": {
+        "type_nodes": 138,
+        "type_declarations": 92,
+        "rm_vectors_3": 23,
+        "lang_type_payloads": 46,
+        "direct_constant_requests": 1288,
+        "direct_unary_nodes_and_slots": 138,
+        "alloca_request_count": 46,
+        "alloca_logical_payload_bytes": 207,
+        "selected_caller_byte_projection": 88688
+      },
+      "actual_family_counts_supplied": false,
+      "symbolic_helper_cost_supplied": false,
+      "annotation_Q_supplied": false,
+      "complete_native_capacity_result": false
+    }
+  ],
+  "native_compiler_runs": 0,
+  "prover_runs": 0,
+  "predecessor_replays": 0,
+  "complete_native_capacity_result": false,
+  "semantic_source_argument_machine_proved": false,
+  "independent_review": "pending",
+  "selected_author_model": "GPT-6 Astra",
+  "selected_author_effort": "Extra High",
+  "runtime_model_and_effort": "unavailable",
+  "total_author_elapsed_seconds": null,
+  "tokens": null,
+  "cost": null
+}
