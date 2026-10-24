@@ -1,0 +1,1088 @@
+{
+  "archive": "docs/evidence/retained-producer-numerics-20261018/inputs-fields-and-runs.tar.gz",
+  "accepted_decoded_fields_reused_without_predecessor_replay": true,
+  "snapshots": [
+    {
+      "path": "probe/first_or_default/numeric-after_standard.json",
+      "bytes": 21960,
+      "sha256": "0a9f45037e0e53c79f9cbfc37179397d91d8e32f658e2cb9491bdf3cb079fbd6",
+      "phase": "after_standard",
+      "ureal_fields": 8,
+      "values": [
+        {
+          "ureal_code": -599999962,
+          "tuple": [
+            16777215,
+            -26,
+            16,
+            0
+          ]
+        },
+        {
+          "ureal_code": -599999961,
+          "tuple": [
+            16777215,
+            -26,
+            16,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999958,
+          "tuple": [
+            18446744073709551615,
+            -4080,
+            16,
+            0
+          ]
+        },
+        {
+          "ureal_code": -599999957,
+          "tuple": [
+            18446744073709551615,
+            -4080,
+            16,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999942,
+          "tuple": [
+            16777215,
+            -104,
+            2,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999939,
+          "tuple": [
+            16777215,
+            -104,
+            2,
+            0
+          ]
+        },
+        {
+          "ureal_code": -599999935,
+          "tuple": [
+            9007199254740991,
+            -971,
+            2,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999932,
+          "tuple": [
+            9007199254740991,
+            -971,
+            2,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "path": "probe/first_or_default/numeric-before_standard.json",
+      "bytes": 3784,
+      "sha256": "ae5fc80e76555e0d7a73b6afd645c503320cedaf6ff5902931ed68eefa1fddcd",
+      "phase": "before_standard",
+      "ureal_fields": 0,
+      "values": []
+    },
+    {
+      "path": "probe/first_or_default/numeric-before_symbol_free.json",
+      "bytes": 28077,
+      "sha256": "a3e4fb4f4d36f7d15404d9c4765684ade69b9a87893a8f07dee4e8381885ccfd",
+      "phase": "before_symbol_free",
+      "ureal_fields": 8,
+      "values": [
+        {
+          "ureal_code": -599999962,
+          "tuple": [
+            16777215,
+            -26,
+            16,
+            0
+          ]
+        },
+        {
+          "ureal_code": -599999961,
+          "tuple": [
+            16777215,
+            -26,
+            16,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999958,
+          "tuple": [
+            18446744073709551615,
+            -4080,
+            16,
+            0
+          ]
+        },
+        {
+          "ureal_code": -599999957,
+          "tuple": [
+            18446744073709551615,
+            -4080,
+            16,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999942,
+          "tuple": [
+            16777215,
+            -104,
+            2,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999939,
+          "tuple": [
+            16777215,
+            -104,
+            2,
+            0
+          ]
+        },
+        {
+          "ureal_code": -599999935,
+          "tuple": [
+            9007199254740991,
+            -971,
+            2,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999932,
+          "tuple": [
+            9007199254740991,
+            -971,
+            2,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "path": "probe/input_is_valid/numeric-after_standard.json",
+      "bytes": 21960,
+      "sha256": "b959eef97ecbb3932cc4a9bcf1fd61244bfc3b7316d3cedc789baac7b18368bf",
+      "phase": "after_standard",
+      "ureal_fields": 8,
+      "values": [
+        {
+          "ureal_code": -599999962,
+          "tuple": [
+            16777215,
+            -26,
+            16,
+            0
+          ]
+        },
+        {
+          "ureal_code": -599999961,
+          "tuple": [
+            16777215,
+            -26,
+            16,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999958,
+          "tuple": [
+            18446744073709551615,
+            -4080,
+            16,
+            0
+          ]
+        },
+        {
+          "ureal_code": -599999957,
+          "tuple": [
+            18446744073709551615,
+            -4080,
+            16,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999942,
+          "tuple": [
+            16777215,
+            -104,
+            2,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999939,
+          "tuple": [
+            16777215,
+            -104,
+            2,
+            0
+          ]
+        },
+        {
+          "ureal_code": -599999935,
+          "tuple": [
+            9007199254740991,
+            -971,
+            2,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999932,
+          "tuple": [
+            9007199254740991,
+            -971,
+            2,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "path": "probe/input_is_valid/numeric-before_standard.json",
+      "bytes": 3784,
+      "sha256": "7173fe3a23bff2b3fdbf6e1564d6e60c67e8e4ef983971ebe92a97b201cf715d",
+      "phase": "before_standard",
+      "ureal_fields": 0,
+      "values": []
+    },
+    {
+      "path": "probe/input_is_valid/numeric-before_symbol_free.json",
+      "bytes": 24045,
+      "sha256": "78c993c360d886e2e54936156e8e472076f519079bed132a84f091c3bbc6b5c3",
+      "phase": "before_symbol_free",
+      "ureal_fields": 8,
+      "values": [
+        {
+          "ureal_code": -599999962,
+          "tuple": [
+            16777215,
+            -26,
+            16,
+            0
+          ]
+        },
+        {
+          "ureal_code": -599999961,
+          "tuple": [
+            16777215,
+            -26,
+            16,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999958,
+          "tuple": [
+            18446744073709551615,
+            -4080,
+            16,
+            0
+          ]
+        },
+        {
+          "ureal_code": -599999957,
+          "tuple": [
+            18446744073709551615,
+            -4080,
+            16,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999942,
+          "tuple": [
+            16777215,
+            -104,
+            2,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999939,
+          "tuple": [
+            16777215,
+            -104,
+            2,
+            0
+          ]
+        },
+        {
+          "ureal_code": -599999935,
+          "tuple": [
+            9007199254740991,
+            -971,
+            2,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999932,
+          "tuple": [
+            9007199254740991,
+            -971,
+            2,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "path": "probe/null/numeric-after_standard.json",
+      "bytes": 21856,
+      "sha256": "4bee3b2415ce8a67e3273f8e8ddd879c95feb2fc524659fbe84b78fa0c5e297e",
+      "phase": "after_standard",
+      "ureal_fields": 8,
+      "values": [
+        {
+          "ureal_code": -599999964,
+          "tuple": [
+            16777215,
+            -26,
+            16,
+            0
+          ]
+        },
+        {
+          "ureal_code": -599999963,
+          "tuple": [
+            16777215,
+            -26,
+            16,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999962,
+          "tuple": [
+            16777215,
+            -26,
+            16,
+            0
+          ]
+        },
+        {
+          "ureal_code": -599999961,
+          "tuple": [
+            16777215,
+            -26,
+            16,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999960,
+          "tuple": [
+            72057594037927928,
+            -242,
+            16,
+            0
+          ]
+        },
+        {
+          "ureal_code": -599999959,
+          "tuple": [
+            72057594037927928,
+            -242,
+            16,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999958,
+          "tuple": [
+            18446744073709551615,
+            -4080,
+            16,
+            0
+          ]
+        },
+        {
+          "ureal_code": -599999957,
+          "tuple": [
+            18446744073709551615,
+            -4080,
+            16,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "path": "probe/null/numeric-before_standard.json",
+      "bytes": 3784,
+      "sha256": "36c972e27417cb84e05921646c32b75245232b225cf6b62304c947dc67acdf2b",
+      "phase": "before_standard",
+      "ureal_fields": 0,
+      "values": []
+    },
+    {
+      "path": "probe/null/numeric-before_symbol_free.json",
+      "bytes": 23941,
+      "sha256": "93143daf1fa9eb4bc6337dc514bc980a571d18be9f35e0249e451dc834d94e53",
+      "phase": "before_symbol_free",
+      "ureal_fields": 8,
+      "values": [
+        {
+          "ureal_code": -599999964,
+          "tuple": [
+            16777215,
+            -26,
+            16,
+            0
+          ]
+        },
+        {
+          "ureal_code": -599999963,
+          "tuple": [
+            16777215,
+            -26,
+            16,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999962,
+          "tuple": [
+            16777215,
+            -26,
+            16,
+            0
+          ]
+        },
+        {
+          "ureal_code": -599999961,
+          "tuple": [
+            16777215,
+            -26,
+            16,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999960,
+          "tuple": [
+            72057594037927928,
+            -242,
+            16,
+            0
+          ]
+        },
+        {
+          "ureal_code": -599999959,
+          "tuple": [
+            72057594037927928,
+            -242,
+            16,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999958,
+          "tuple": [
+            18446744073709551615,
+            -4080,
+            16,
+            0
+          ]
+        },
+        {
+          "ureal_code": -599999957,
+          "tuple": [
+            18446744073709551615,
+            -4080,
+            16,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "path": "probe/put/numeric-after_standard.json",
+      "bytes": 21960,
+      "sha256": "9b8e5b8ee50d6a6bb2e15fbe5e15a6096e88c23f7ecc4e8cbb1a12666ef4eb94",
+      "phase": "after_standard",
+      "ureal_fields": 8,
+      "values": [
+        {
+          "ureal_code": -599999962,
+          "tuple": [
+            16777215,
+            -26,
+            16,
+            0
+          ]
+        },
+        {
+          "ureal_code": -599999961,
+          "tuple": [
+            16777215,
+            -26,
+            16,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999958,
+          "tuple": [
+            18446744073709551615,
+            -4080,
+            16,
+            0
+          ]
+        },
+        {
+          "ureal_code": -599999957,
+          "tuple": [
+            18446744073709551615,
+            -4080,
+            16,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999942,
+          "tuple": [
+            16777215,
+            -104,
+            2,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999939,
+          "tuple": [
+            16777215,
+            -104,
+            2,
+            0
+          ]
+        },
+        {
+          "ureal_code": -599999935,
+          "tuple": [
+            9007199254740991,
+            -971,
+            2,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999932,
+          "tuple": [
+            9007199254740991,
+            -971,
+            2,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "path": "probe/put/numeric-before_standard.json",
+      "bytes": 3784,
+      "sha256": "8374c7526d74eab5ddc5614cea1803523b3369bf2f3e8cb9830278fe2619e5ae",
+      "phase": "before_standard",
+      "ureal_fields": 0,
+      "values": []
+    },
+    {
+      "path": "probe/put/numeric-before_symbol_free.json",
+      "bytes": 27867,
+      "sha256": "acee012dfeda24fcd9d6f44bd810e3e374d5414ab33e4713406a2244cd624617",
+      "phase": "before_symbol_free",
+      "ureal_fields": 8,
+      "values": [
+        {
+          "ureal_code": -599999962,
+          "tuple": [
+            16777215,
+            -26,
+            16,
+            0
+          ]
+        },
+        {
+          "ureal_code": -599999961,
+          "tuple": [
+            16777215,
+            -26,
+            16,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999958,
+          "tuple": [
+            18446744073709551615,
+            -4080,
+            16,
+            0
+          ]
+        },
+        {
+          "ureal_code": -599999957,
+          "tuple": [
+            18446744073709551615,
+            -4080,
+            16,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999942,
+          "tuple": [
+            16777215,
+            -104,
+            2,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999939,
+          "tuple": [
+            16777215,
+            -104,
+            2,
+            0
+          ]
+        },
+        {
+          "ureal_code": -599999935,
+          "tuple": [
+            9007199254740991,
+            -971,
+            2,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999932,
+          "tuple": [
+            9007199254740991,
+            -971,
+            2,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "path": "probe/put_line/numeric-after_standard.json",
+      "bytes": 21960,
+      "sha256": "86a9280b663e0124cfc2a955ec10c0fc9d1550aab7c5e1ba555683ca1bde8a53",
+      "phase": "after_standard",
+      "ureal_fields": 8,
+      "values": [
+        {
+          "ureal_code": -599999962,
+          "tuple": [
+            16777215,
+            -26,
+            16,
+            0
+          ]
+        },
+        {
+          "ureal_code": -599999961,
+          "tuple": [
+            16777215,
+            -26,
+            16,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999958,
+          "tuple": [
+            18446744073709551615,
+            -4080,
+            16,
+            0
+          ]
+        },
+        {
+          "ureal_code": -599999957,
+          "tuple": [
+            18446744073709551615,
+            -4080,
+            16,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999942,
+          "tuple": [
+            16777215,
+            -104,
+            2,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999939,
+          "tuple": [
+            16777215,
+            -104,
+            2,
+            0
+          ]
+        },
+        {
+          "ureal_code": -599999935,
+          "tuple": [
+            9007199254740991,
+            -971,
+            2,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999932,
+          "tuple": [
+            9007199254740991,
+            -971,
+            2,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "path": "probe/put_line/numeric-before_standard.json",
+      "bytes": 3784,
+      "sha256": "cfa6d8a6fd2e49e0c7a041a8269efd5c01b43e342136a8335f785d2d678543bd",
+      "phase": "before_standard",
+      "ureal_fields": 0,
+      "values": []
+    },
+    {
+      "path": "probe/put_line/numeric-before_symbol_free.json",
+      "bytes": 28223,
+      "sha256": "e4da5b09131f5a0f22253f0b20d5e430aef0549777ac064058503bf4742015ff",
+      "phase": "before_symbol_free",
+      "ureal_fields": 8,
+      "values": [
+        {
+          "ureal_code": -599999962,
+          "tuple": [
+            16777215,
+            -26,
+            16,
+            0
+          ]
+        },
+        {
+          "ureal_code": -599999961,
+          "tuple": [
+            16777215,
+            -26,
+            16,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999958,
+          "tuple": [
+            18446744073709551615,
+            -4080,
+            16,
+            0
+          ]
+        },
+        {
+          "ureal_code": -599999957,
+          "tuple": [
+            18446744073709551615,
+            -4080,
+            16,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999942,
+          "tuple": [
+            16777215,
+            -104,
+            2,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999939,
+          "tuple": [
+            16777215,
+            -104,
+            2,
+            0
+          ]
+        },
+        {
+          "ureal_code": -599999935,
+          "tuple": [
+            9007199254740991,
+            -971,
+            2,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999932,
+          "tuple": [
+            9007199254740991,
+            -971,
+            2,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "path": "probe/reject/numeric-after_standard.json",
+      "bytes": 21960,
+      "sha256": "a385a22615ec87f5a342e10cc3e5844ef009b6bc059bb1f533161773bcd1b14a",
+      "phase": "after_standard",
+      "ureal_fields": 8,
+      "values": [
+        {
+          "ureal_code": -599999962,
+          "tuple": [
+            16777215,
+            -26,
+            16,
+            0
+          ]
+        },
+        {
+          "ureal_code": -599999961,
+          "tuple": [
+            16777215,
+            -26,
+            16,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999958,
+          "tuple": [
+            18446744073709551615,
+            -4080,
+            16,
+            0
+          ]
+        },
+        {
+          "ureal_code": -599999957,
+          "tuple": [
+            18446744073709551615,
+            -4080,
+            16,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999942,
+          "tuple": [
+            16777215,
+            -104,
+            2,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999939,
+          "tuple": [
+            16777215,
+            -104,
+            2,
+            0
+          ]
+        },
+        {
+          "ureal_code": -599999935,
+          "tuple": [
+            9007199254740991,
+            -971,
+            2,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999932,
+          "tuple": [
+            9007199254740991,
+            -971,
+            2,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "path": "probe/reject/numeric-before_standard.json",
+      "bytes": 3784,
+      "sha256": "53ca7c2803dc9b690f895d3fc03925e25105e1e3ceafd1bbd0335893bb8ccb09",
+      "phase": "before_standard",
+      "ureal_fields": 0,
+      "values": []
+    },
+    {
+      "path": "probe/reject/numeric-before_symbol_free.json",
+      "bytes": 24045,
+      "sha256": "6eeb28890c7ae12040878f50bbbed9af1fe2e17f76d9d8ea8a70bd8bea540fae",
+      "phase": "before_symbol_free",
+      "ureal_fields": 8,
+      "values": [
+        {
+          "ureal_code": -599999962,
+          "tuple": [
+            16777215,
+            -26,
+            16,
+            0
+          ]
+        },
+        {
+          "ureal_code": -599999961,
+          "tuple": [
+            16777215,
+            -26,
+            16,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999958,
+          "tuple": [
+            18446744073709551615,
+            -4080,
+            16,
+            0
+          ]
+        },
+        {
+          "ureal_code": -599999957,
+          "tuple": [
+            18446744073709551615,
+            -4080,
+            16,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999942,
+          "tuple": [
+            16777215,
+            -104,
+            2,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999939,
+          "tuple": [
+            16777215,
+            -104,
+            2,
+            0
+          ]
+        },
+        {
+          "ureal_code": -599999935,
+          "tuple": [
+            9007199254740991,
+            -971,
+            2,
+            1
+          ]
+        },
+        {
+          "ureal_code": -599999932,
+          "tuple": [
+            9007199254740991,
+            -971,
+            2,
+            0
+          ]
+        }
+      ]
+    }
+  ],
+  "distinct_tuples": [
+    [
+      16777215,
+      -104,
+      2,
+      0
+    ],
+    [
+      16777215,
+      -104,
+      2,
+      1
+    ],
+    [
+      16777215,
+      -26,
+      16,
+      0
+    ],
+    [
+      16777215,
+      -26,
+      16,
+      1
+    ],
+    [
+      9007199254740991,
+      -971,
+      2,
+      0
+    ],
+    [
+      9007199254740991,
+      -971,
+      2,
+      1
+    ],
+    [
+      72057594037927928,
+      -242,
+      16,
+      0
+    ],
+    [
+      72057594037927928,
+      -242,
+      16,
+      1
+    ],
+    [
+      18446744073709551615,
+      -4080,
+      16,
+      0
+    ],
+    [
+      18446744073709551615,
+      -4080,
+      16,
+      1
+    ]
+  ]
+}

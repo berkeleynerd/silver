@@ -1,0 +1,14 @@
+{
+  "accepted_binary": {
+    "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+    "identity": {
+      "bytes": 24561432,
+      "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+    }
+  },
+  "needle": "/home/runner/work/why3/why3/_opam/.opam-switch/build/yojson.3.0.0/_build/default",
+  "offsets": [
+    19528602
+  ],
+  "interpretation": "Corroborates selected Yojson3.0.0 family only. Exact historical source/native correspondence remains the inherited external behavior relation; no independent provenance theorem or binary-attestation gate."
+}

@@ -1,0 +1,57 @@
+{
+  "status": "passed",
+  "assertions": 944,
+  "elapsed_seconds": 1.69747672000085,
+  "utc": "2026-10-24T09:12:59.095848+00:00",
+  "platform": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "base_commit": "d3f8e84cc8",
+  "new_source_files": 24,
+  "source_excerpts": 72,
+  "immutable_prior_packet_files": 96,
+  "numeric_controls": 28,
+  "local_inputs": {
+    "consumers.py": {
+      "bytes": 7218,
+      "sha256": "5e4864d3e68d505f9de2d15a2f429bfe0e87c2a98344b283589c17f089a5a1dd"
+    },
+    "prepare.py": {
+      "bytes": 6934,
+      "sha256": "e3ad2dc28dcc3688bcfe7b9e457efa9cceb93015e74f0dd1fd15fac61a252385"
+    },
+    "check.py": {
+      "bytes": 11478,
+      "sha256": "9d5fddee8363f19bf3d408439fd2e89e9531cb6787239494d46dbf505d0cbc59"
+    },
+    "inputs.json": {
+      "bytes": 25967,
+      "sha256": "17cbb549fd94a32cab8dbeb5f031fe03f9b99d77407d26f1f48be9e8fa0991cf"
+    },
+    "source-witnesses.json": {
+      "bytes": 115941,
+      "sha256": "f3960a27a84da4e559a290b57c4fc5982e3bc19ed2ce9f6655c289a841750427"
+    },
+    "numeric-origins.json": {
+      "bytes": 21403,
+      "sha256": "835db0ea5f40e65bbf4bc8f957884f3c8d43890b62878bf9cb4632f6728f6329"
+    },
+    "binary-version-path.json": {
+      "bytes": 676,
+      "sha256": "6e99485ce794613960a820ec68efd2f64dadacfa79ca1426563e74bee6442d81"
+    },
+    "retrieval.json": {
+      "bytes": 397,
+      "sha256": "2e4a9b9d928936afc346f9281004c6a4b954126a949e123980e50da7d554c6c3"
+    },
+    "yojson-3.0.0.tar.gz": {
+      "bytes": 56689,
+      "sha256": "03676bd68a7ccc9e4aeb954930a401cf9389ba86e6cf4a61ad768cb3fac23856"
+    },
+    "exports.json": {
+      "bytes": 28661,
+      "sha256": "ccfd8502920a074a49e0a24266f2f08d25d47981a8663a161b29ab90cc7362ff"
+    }
+  },
+  "native_target_capture_disassembler_compiler_prover_Lean_service_runs": 0,
+  "predecessor_checker_runs": 0,
+  "claim": "C->T individual representation interface, conditional on exact accepted source/producer/primitive/physical premises; no T->builder or aggregate physical bound"
+}

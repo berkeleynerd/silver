@@ -1555,3 +1555,237 @@ run occurred. Selected settings are Astra / Extra High; runtime confirmation
 and token/cost telemetry are unavailable. The warranted final source-provider/
 LF recheck passed 290 assertions in 0.946089499 seconds. This unit awaits
 independent review.
+
+## Source-derived prefix consumer representation
+
+The new [consumer packet](../evidence/retained-main-construction-demand-20261024/prefix-consumers/README.md)
+continues auxiliary author `ae53fcef513b322bdc67f91aee998d1a8c356a22`, accepted
+without findings by review `bee34a8db1a84991cbf7491343223c5d71735afd`.
+It closes the three remaining individual representation interfaces on the
+actual **C→T** route: after controller creation and before add_file, through
+Yojson/Gnat decoding and Ptree conversion, stopping before the first
+`Typing.type_mlw_file` body. Earlier packets remain immutable. The join is
+conditional on their source/producer/runtime and physical-resource premises;
+it is not a new admission rule, a proof of every OCaml library, or T→builder
+transport. Errors retain their existing stopping outcome.
+
+As before B is the producer JSON **body**, B≤2^31−2, and N=B+1 includes
+Outputs.Close's final LF. The source relation includes the ordinary Main
+numeric induction, complete fixed producer reduction, existing d=40 and
+label/replay bounds. A byte-length bound alone does not establish these facts.
+The callable accepts the exact launch role/configuration and actual producer
+bytes, or the explicitly conditional producer maximum. It accepts no supplied
+counter, exponent or successful-tree certificate and is not a schema checker.
+
+### Yojson input, lexer and containers
+
+The already-pinned gnatwhy3 bytes contain the build path
+`yojson.3.0.0/_build/default`. The packet retains its exact offset and byte
+identity, official Yojson3.0.0 source archive, retrieval identity, complete
+source hashes and excerpts. This corroborates the selected source family;
+it does **not** independently prove historical source provenance. The existing
+external source/tool behavior relation supplies correspondence, including
+ocamllex's generated fixed tables and constructors. No new binary-attestation
+condition or tool pin is introduced, and no lexer generator/native target was
+run. The old Json_base output escaper is not used as a parser provider.
+
+Yojson's `safe.cppo.ml` selects INT/INTLIT/FLOAT/STRING and includes the reader.
+`read.mll:892–898` constructs a fresh `Lexing.from_channel`, fresh lexer state
+and `from_lexbuf`; it supplies no buf/fname/lnum override. `from_lexbuf` reads
+one value and `finish` consumes trailing whitespace/EOF. The actual producer
+emits only objects, arrays, strings, booleans, null and bounded unquoted
+integers. Uint/Ureal magnitudes are **quoted strings**. Node IDs, locations,
+enums and selected Ureal bases fit the producer Int/Natural operands, at most
+2^31−1. Thus `extract_positive_int`/`extract_negative_int` decimal prefixes
+and their multiplication/addition fit the 63-bit OCaml int without entering
+Intlit or float conversion. This is a source-domain exclusion; arbitrary JSON
+containing floating tokens is outside this callable's producer relation.
+
+`Lexing.from_function` (`lexing.ml:147–165`) creates a **512-byte** refill
+array and **1024-byte** lexbuf. `lex_refill` either retains the backing,
+compacts the live suffix, or doubles it. Each growth occurs with old capacity
+less than live-suffix-plus-read≤N; the new capacity is therefore at most
+`max(1024,2N)`. Every read is at most512. The accepted successful-file relation
+returns only those N bytes, including the final LF. Offsets, remaining suffix
+lengths, blit extents and positive lex positions are at most N, with negative
+sentinels permitted. The largest conservative addition/doubling operand is
+4N+2048. Absolute positions and lineno are respectively at most N and N+1 on
+the ordinary reader; error coordinate calculations are bounded in absolute
+value by4N+8, including −1 offsets and the long-error helper's saved positions.
+All these quantities fit the native/tagged/index domains. `runtime/lexing.c`
+uses `Long_val` for input indexing and advances tagged positions by2; its C
+`int` state/base fields index source-fixed DFA tables, not an input-sized
+state array. The old/new engine and memory-slot tables retain their generated
+source-fixed extent contract.
+
+The fresh string accumulator starts at256 (`common.ml:29–31`). A plain byte
+copies once; an escape emits at most its source width, including at most
+three UTF-8 bytes for six-byte `\\uXXXX` and four for a surrogate pair.
+Therefore each decoded string and each accumulated prefix has at most N
+bytes. Clear resets position, not capacity, so all strings together still
+leave backing at most `max(256,2N)`. `Buffer.contents` copies the used prefix.
+The codec arithmetic uses at most21 bits. Buffer growth, trailing string
+length byte, payload header, `position+more`, byte requests and blit ranges
+are separately bounded; no total-memory estimate is substituted.
+
+`read_json` constructs JSON wrappers, object pairs, refs and list cells with
+fixed arities; object/array completion reverses an existing finite list. There
+is no input-sized JSON array allocation or aggregate list-length counter on
+this entrypoint. The separate `read_array` helper is not called. Duplicates
+and discarded prefixes remain constructed; this closure never refunds them.
+Finite input gives finite token actions, container traversal and list reversal
+under the inherited physical stack/resource premise.
+
+Parser errors use `custom_error`, `lexer_error` or `long_error`. The first
+has fname=None here. A lexeme is at most N bytes. The latter adds a **32-byte**
+junk buffer and reads at most33 characters (the last may be consumed without
+being stored); it then raises. Restoring its old position fields is used
+only for bounded error coordinates, not a resumed parse or blit. Fixed error
+descriptions, at most three bounded decimal coordinates and constant syntax
+give each error/result/temporary string at most **N+256** bytes. Blank-input
+and fixed runtime exception messages are smaller. Printf's allocation path is
+closed with the formatting mechanics below. Ordinary actual producer syntax
+need not fail for these stopping prefixes to have represented requests.
+
+### Actual numeric origins and intermediate operands
+
+The accepted ordinary Main induction in
+[producer numerics](retained-producer-numerics.md) emits **no Ureal**, and its
+Uint values have magnitude at most2^31. Fixed numeric nodes are immutable;
+the accepted complete Standard/dependency reduction and all allocated numeric
+fields, including unprinted/discarded nodes, are covered by the retained
+18-snapshot provider. Imports add module references, not numeric values.
+The new [projection](../evidence/retained-main-construction-demand-20261024/prefix-consumers/numeric-origins.json)
+extracts a previously unused operand: every referenced raw Ureal tuple. It
+reuses the accepted decoded fields and their exact archived member identities,
+without rerunning the predecessor checker or producing new captures.
+
+Across that **complete provider**, the unsigned (numerator, denominator, base)
+triples are the following; both signs occur for each:
+
+| Numerator | Stored denominator | Base |
+| ---: | ---: | ---: |
+| 16777215 | −104 | 2 |
+| 16777215 | −26 | 16 |
+| 9007199254740991 | −971 | 2 |
+| 72057594037927928 | −242 | 16 |
+| 18446744073709551615 | −4080 | 16 |
+
+Their observed maximum becomes applicable through the complete fixed-source
+reduction plus Main's no-Ureal induction, not by treating examples as universal.
+For nonzero base the denominator is a stored **exponent**. Converter422–451
+parses numerator/denominator, applies sign, negates the denominator and, only
+for base16, multiplies that exponent by4. It passes the result to
+`Constant.real_const`→`Number.real_value`. Bases2/16 therefore give initial
+exponent magnitude≤16320 and numerator magnitude<2^64. Neither this route nor
+ordinary Uint/range conversion calls a radix power or shift. `real_literal`'s
+base-zero route is unselected by the complete origin relation. In particular
+no serialized exponent reaches `int_of_string` there. The commented-out
+rational fallback is not code. A future base-zero or other-origin extension
+must re-establish this join; the later five-atom contract is not imported.
+
+The independent d=40 fact supplies only decimal input length. `BigInt.of_string`
+for integers and Ureal fields delegates to `Z.of_substring_base` with offset0
+and length≤40. Its digit scratch is at most41 bytes, and its provisional
+custom allocation is `1+floor(j/16)≤3` limbs. Successful decimal values have
+magnitude<10^40<2^133. Prefix scanning/indexing and each native multiplication
+in the small-int path fit that path's own digit threshold; larger values use
+limbs. Negation retains the limb count. Constant/range wrappers have fixed
+arity and do not normalize ordinary integers.
+
+`Number.normalize` deserves a separate bound because it **does square** its
+trial divisor. For nonzero signed v, each recursive call is made only after
+a division by p≥2 has zero remainder. Consequently p≤|v|≤2^64−1 whenever
+`p*p` is computed; that new p is below2^128. The recursive argument's magnitude
+strictly decreases, while trial p squares. On return the second division
+again decreases magnitude if exact. The returned valuation is at most63 for
+prime2, and at most63 is a conservative bound for prime5. Exponent additions
+therefore stay at most16384 in magnitude. Zero would bypass both normalizers.
+This induction covers all intermediate divisors, including the final failed
+trial; final normalized magnitude alone would not suffice.
+
+`BigInt.computer_div_mod` calls `Z.ediv_rem` and may undo its signed Euclidean
+adjustment. Those intermediate remainders/quotient corrections are charged:
+with |v|<2^64 and p<2^128 their magnitudes stay below2^129. Thus every selected
+arithmetic operand needs at most **three limbs**. Source `ml_z_addsub` uses at
+most max(a,b)+1≤4 provisional limbs; multiply at most a+b≤6; truncated division
+at most a−b+1≤3 and b≤3; negation/correction/succ/pred at most4. Six limbs
+conservatively bounds every custom request. `ml_z_alloc` requests one size/sign
+word plus limbs; OCaml custom allocation adds its operations pointer and the
+block header, giving at most **eight payload words /72 total bytes**.
+The fixed pair/record/exception constructors remain fixed requests.
+
+The packet checks an exact mathematical trace of the source normalizer for all
+ten tuples and boundary controls, including negative corrections and maximal
+power-of-two/five divisibility. The **induction**, not those controls, supplies
+the general intermediate bound. As in the accepted numeric providers, faithful
+Zarith/GMP numeric and ordinary bounded-operand allocation semantics remain
+external primitive premises. The new result closes their reached operand
+sizes; it is not a new proof of GMP or allocator internals, and it does not
+invent an aggregate GMP scratch bill.
+
+### Private Format, Printf and Buffer mechanics
+
+All Format string construction actually executed before T is at converter335,
+372,393,395 and the `find_path` failure at1354, with `pp_path` at1337–1343.
+The debug AST printer is disabled by the exact R78 configuration. The mlw/sexp
+printer closure is constructed but executes only after typing starts. Registered
+exception printers describe later reporting, not a call made while constructing
+the pre-T exception payload. Their shared outer failure/reporting services and
+post-T printers are not silently folded into this private-formatter result.
+
+Each selected `Format.sprintf`/`ksprintf`/`kasprintf` constructs a fresh512-byte
+buffer and fresh formatter. `Printf.sprintf` in Yojson creates a fresh64-byte
+buffer. No argument supplies a user format, padding width or precision. The
+formats contain only constant text, `%s`, represented `%d`/`%i`, and the
+source-fixed `%a` path printer. `%s` is identity; signed integer formatting
+has at most20 output characters and fixed format scratch. Each accumulator
+node/closure has a fixed arity. A path of at most B indices emits at most
+12B+64 bytes by the accepted path argument, retaining all occurrences.
+
+Let **L=max(64B+128,N+256)**. This preserves the accepted converter bound and
+also covers parser errors at small B. Each private buffer's used prefix is
+at most L, so its backing is at most `max(512,2L)`; `contents` adds a separate
+string of at most L. Repeated conversion calls start fresh. They do not add
+to an old shared formatter's lifetime counters. These buffers and parser
+buffers have no published aliases; the already accepted C→T control/service
+relation excludes a save callback that mutates them during resize. This adds
+no exception or interruption allowance.
+
+The selected formats add no boxes, tags, breaks, tabs or magic sizes. The
+formatter retains only its source-initialized system box (depth1), sentinel
+and fixed stacks. Text-token lengths are nonnegative. Ordinary left/right
+totals start at1 and are at most L+1; path rendering uses at most4B+64 queue
+insertions in one formatter, including fixed wrappers, so Queue.length and
+its increment fit. Queue/Stack cells and tokens have fixed arities. Advancing
+removes a finite prefix; the first unknown system box becomes known/forced
+once enough text arrives. Remaining tokens are known text. At flush,
+right_total is assigned **1000000010**, then the queue drains and reinitializes.
+This sentinel is not a maximum accepted output length. Even when L exceeds
+it, all text tokens are known and the system box has already been forced;
+no overflowing counter or stuck unknown box follows. Absolute differences,
+negative text space_left, width and flush arithmetic fit
+`2L+2*1000000010+256`. No user box introduces another unbounded offset.
+The ordinary source-fixed output callbacks append only the token's validated
+substring; there is no input-sized indentation/space allocation on this route.
+
+At the maximum producer body, N=2147483647,
+L=137438953472 and maximum formatting backing=274877906944. These are individual
+representable lengths, far below the retained `Sys.max_string_length`; the
+packet checks each rounded payload/header and unsigned byte request as well
+as tagged arithmetic. It claims no total RAM or stack limit. Finite repeated
+calls are covered by the input/source fold and inherited physical premise.
+
+### Join and remaining work
+
+For all five roles, these consumer guards combine with the accepted populated
+Hsattr/FileTags transfer, unchanged Ident/Hsty/Hsity projection, synthetic
+location/call-ID guards, fixed Gnat/Ptree constructors and Connection array
+bounds. The resulting **C→T representation interface is closed under the
+stated premises**. Source closure and these per-request checks remain required;
+healthy physical resources alone never substitute for them. No source or
+semantic guarantee in the Oracle, language admission or tool pins changes.
+One process-global e≤2, two save-entering callbacks and three saves remain
+unchanged. Whole-pipeline capacity and T→builder transport remain false:
+imports/clones/typing/proxies/candidates, including failed/discarded work,
+still require the subsequent source-demand join.

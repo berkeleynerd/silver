@@ -1,0 +1,810 @@
+{
+  "producer_maximum": {
+    "first_or_default": {
+      "role": "first_or_default",
+      "configuration": "r78_repaired_quiet_timeless_j12_logging",
+      "producer_body_bytes_upper": 2147483646,
+      "consumer_scope": "Actual producer serialization to first Typing.type_mlw_file entry, before its body; failures stop with their existing outcome.",
+      "source_provider_relation_required": true,
+      "Yojson": {
+        "file_bytes_including_Close_LF": 2147483647,
+        "lexbuf_capacity_upper": 4294967294,
+        "decoded_string_buffer_capacity_upper": 4294967294,
+        "lexbuf_or_buffer_addition_absolute_upper": 8589936636,
+        "position_or_error_coordinate_absolute_upper": 8589934596,
+        "line_number_upper": 2147483648,
+        "unquoted_integer_magnitude_upper": 2147483647,
+        "error_result_string_upper": 2147483903,
+        "error_junk_buffer_bytes": 32,
+        "JSON_list_cells_per_list_upper": 2147483646,
+        "JSON_containers_are_fixed_arity_blocks_and_lists": true,
+        "read_array_helper_selected": false,
+        "float_or_intlit_branch_selected": false,
+        "generated_lexer_tables_have_source_fixed_extents": true
+      },
+      "Number_BigInt": {
+        "serialized_signed_decimal_characters": 40,
+        "parsed_magnitude_strict_upper": 10000000000000000000000000000000000000000,
+        "parsed_bits_upper": 133,
+        "parse_digit_malloc_bytes_upper": 41,
+        "parse_custom_limbs_upper": 3,
+        "ureal_numerator_upper": 18446744073709551615,
+        "ureal_denominator_absolute_upper": 4080,
+        "selected_ureal_bases": [
+          2,
+          16
+        ],
+        "constructor_exponent_absolute_upper": 16320,
+        "normalization_factor_strict_upper": 340282366920938463463374607431768211456,
+        "normalized_exponent_absolute_upper": 16384,
+        "all_arithmetic_operand_limbs_upper": 3,
+        "each_custom_request_limbs_upper": 6,
+        "each_custom_payload_words_upper": 8,
+        "each_custom_total_bytes_upper": 72,
+        "radix_power_or_shift_calls_before_T": 0,
+        "ordinary_Main_ureal_occurrences": 0,
+        "real_literal_base_zero_path_selected": false,
+        "later_five_atom_contract_used": false,
+        "GMP_primitive_contract": "Inherited faithful bounded-operand numeric/allocation contract; not a proof of GMP internals."
+      },
+      "Format_Printf_Buffer": {
+        "per_call_output_bytes_upper": 137438953472,
+        "private_buffer_capacity_upper": 274877906944,
+        "queue_length_upper": 8589934648,
+        "normal_left_right_total_upper": 137438953473,
+        "flush_right_total": 1000000010,
+        "arithmetic_absolute_upper": 276877907220,
+        "maximum_box_depth": 1,
+        "formatter_initial_buffer": 512,
+        "Printf_initial_buffer": 64,
+        "format_accumulators_have_source_fixed_arity": true,
+        "dynamic_width_precision_or_user_format": false,
+        "same_private_formatter_reused_across_conversion_calls": false,
+        "outer_failure_report_and_post_T_printers_included": false
+      },
+      "individual_strings": {
+        "input_auxiliary": {
+          "length": 512,
+          "payload_words": 65,
+          "request_bytes": 528
+        },
+        "lexbuf": {
+          "length": 4294967294,
+          "payload_words": 536870912,
+          "request_bytes": 4294967304
+        },
+        "decoded_string_buffer": {
+          "length": 4294967294,
+          "payload_words": 536870912,
+          "request_bytes": 4294967304
+        },
+        "decoded_or_lexeme_string": {
+          "length": 2147483647,
+          "payload_words": 268435456,
+          "request_bytes": 2147483656
+        },
+        "parser_error": {
+          "length": 2147483903,
+          "payload_words": 268435488,
+          "request_bytes": 2147483912
+        },
+        "format_buffer": {
+          "length": 274877906944,
+          "payload_words": 34359738369,
+          "request_bytes": 274877906960
+        },
+        "format_result": {
+          "length": 137438953472,
+          "payload_words": 17179869185,
+          "request_bytes": 137438953488
+        }
+      },
+      "guards": {
+        "each_string_length": true,
+        "each_string_header": true,
+        "each_unsigned_byte_request": true,
+        "parser_arithmetic": true,
+        "formatter_arithmetic": true,
+        "numeric_header_and_request": true
+      },
+      "consumer_representation_closed_under_inherited_premises": true,
+      "accepted_auxiliary_owner_projection_reused": true,
+      "complete_C_to_T_representation_when_joined_to_accepted_prefix_and_auxiliary": true,
+      "T_to_builder_transport": false,
+      "cumulative_physical_bytes_or_stack_bound_claimed": false,
+      "process_global_exception_allowance": 2,
+      "save_entering_callbacks": 2,
+      "save_calls": 3
+    },
+    "input_is_valid": {
+      "role": "input_is_valid",
+      "configuration": "r78_repaired_quiet_timeless_j12_logging",
+      "producer_body_bytes_upper": 2147483646,
+      "consumer_scope": "Actual producer serialization to first Typing.type_mlw_file entry, before its body; failures stop with their existing outcome.",
+      "source_provider_relation_required": true,
+      "Yojson": {
+        "file_bytes_including_Close_LF": 2147483647,
+        "lexbuf_capacity_upper": 4294967294,
+        "decoded_string_buffer_capacity_upper": 4294967294,
+        "lexbuf_or_buffer_addition_absolute_upper": 8589936636,
+        "position_or_error_coordinate_absolute_upper": 8589934596,
+        "line_number_upper": 2147483648,
+        "unquoted_integer_magnitude_upper": 2147483647,
+        "error_result_string_upper": 2147483903,
+        "error_junk_buffer_bytes": 32,
+        "JSON_list_cells_per_list_upper": 2147483646,
+        "JSON_containers_are_fixed_arity_blocks_and_lists": true,
+        "read_array_helper_selected": false,
+        "float_or_intlit_branch_selected": false,
+        "generated_lexer_tables_have_source_fixed_extents": true
+      },
+      "Number_BigInt": {
+        "serialized_signed_decimal_characters": 40,
+        "parsed_magnitude_strict_upper": 10000000000000000000000000000000000000000,
+        "parsed_bits_upper": 133,
+        "parse_digit_malloc_bytes_upper": 41,
+        "parse_custom_limbs_upper": 3,
+        "ureal_numerator_upper": 18446744073709551615,
+        "ureal_denominator_absolute_upper": 4080,
+        "selected_ureal_bases": [
+          2,
+          16
+        ],
+        "constructor_exponent_absolute_upper": 16320,
+        "normalization_factor_strict_upper": 340282366920938463463374607431768211456,
+        "normalized_exponent_absolute_upper": 16384,
+        "all_arithmetic_operand_limbs_upper": 3,
+        "each_custom_request_limbs_upper": 6,
+        "each_custom_payload_words_upper": 8,
+        "each_custom_total_bytes_upper": 72,
+        "radix_power_or_shift_calls_before_T": 0,
+        "ordinary_Main_ureal_occurrences": 0,
+        "real_literal_base_zero_path_selected": false,
+        "later_five_atom_contract_used": false,
+        "GMP_primitive_contract": "Inherited faithful bounded-operand numeric/allocation contract; not a proof of GMP internals."
+      },
+      "Format_Printf_Buffer": {
+        "per_call_output_bytes_upper": 137438953472,
+        "private_buffer_capacity_upper": 274877906944,
+        "queue_length_upper": 8589934648,
+        "normal_left_right_total_upper": 137438953473,
+        "flush_right_total": 1000000010,
+        "arithmetic_absolute_upper": 276877907220,
+        "maximum_box_depth": 1,
+        "formatter_initial_buffer": 512,
+        "Printf_initial_buffer": 64,
+        "format_accumulators_have_source_fixed_arity": true,
+        "dynamic_width_precision_or_user_format": false,
+        "same_private_formatter_reused_across_conversion_calls": false,
+        "outer_failure_report_and_post_T_printers_included": false
+      },
+      "individual_strings": {
+        "input_auxiliary": {
+          "length": 512,
+          "payload_words": 65,
+          "request_bytes": 528
+        },
+        "lexbuf": {
+          "length": 4294967294,
+          "payload_words": 536870912,
+          "request_bytes": 4294967304
+        },
+        "decoded_string_buffer": {
+          "length": 4294967294,
+          "payload_words": 536870912,
+          "request_bytes": 4294967304
+        },
+        "decoded_or_lexeme_string": {
+          "length": 2147483647,
+          "payload_words": 268435456,
+          "request_bytes": 2147483656
+        },
+        "parser_error": {
+          "length": 2147483903,
+          "payload_words": 268435488,
+          "request_bytes": 2147483912
+        },
+        "format_buffer": {
+          "length": 274877906944,
+          "payload_words": 34359738369,
+          "request_bytes": 274877906960
+        },
+        "format_result": {
+          "length": 137438953472,
+          "payload_words": 17179869185,
+          "request_bytes": 137438953488
+        }
+      },
+      "guards": {
+        "each_string_length": true,
+        "each_string_header": true,
+        "each_unsigned_byte_request": true,
+        "parser_arithmetic": true,
+        "formatter_arithmetic": true,
+        "numeric_header_and_request": true
+      },
+      "consumer_representation_closed_under_inherited_premises": true,
+      "accepted_auxiliary_owner_projection_reused": true,
+      "complete_C_to_T_representation_when_joined_to_accepted_prefix_and_auxiliary": true,
+      "T_to_builder_transport": false,
+      "cumulative_physical_bytes_or_stack_bound_claimed": false,
+      "process_global_exception_allowance": 2,
+      "save_entering_callbacks": 2,
+      "save_calls": 3
+    },
+    "is_message": {
+      "role": "is_message",
+      "configuration": "r78_repaired_quiet_timeless_j12_logging",
+      "producer_body_bytes_upper": 2147483646,
+      "consumer_scope": "Actual producer serialization to first Typing.type_mlw_file entry, before its body; failures stop with their existing outcome.",
+      "source_provider_relation_required": true,
+      "Yojson": {
+        "file_bytes_including_Close_LF": 2147483647,
+        "lexbuf_capacity_upper": 4294967294,
+        "decoded_string_buffer_capacity_upper": 4294967294,
+        "lexbuf_or_buffer_addition_absolute_upper": 8589936636,
+        "position_or_error_coordinate_absolute_upper": 8589934596,
+        "line_number_upper": 2147483648,
+        "unquoted_integer_magnitude_upper": 2147483647,
+        "error_result_string_upper": 2147483903,
+        "error_junk_buffer_bytes": 32,
+        "JSON_list_cells_per_list_upper": 2147483646,
+        "JSON_containers_are_fixed_arity_blocks_and_lists": true,
+        "read_array_helper_selected": false,
+        "float_or_intlit_branch_selected": false,
+        "generated_lexer_tables_have_source_fixed_extents": true
+      },
+      "Number_BigInt": {
+        "serialized_signed_decimal_characters": 40,
+        "parsed_magnitude_strict_upper": 10000000000000000000000000000000000000000,
+        "parsed_bits_upper": 133,
+        "parse_digit_malloc_bytes_upper": 41,
+        "parse_custom_limbs_upper": 3,
+        "ureal_numerator_upper": 18446744073709551615,
+        "ureal_denominator_absolute_upper": 4080,
+        "selected_ureal_bases": [
+          2,
+          16
+        ],
+        "constructor_exponent_absolute_upper": 16320,
+        "normalization_factor_strict_upper": 340282366920938463463374607431768211456,
+        "normalized_exponent_absolute_upper": 16384,
+        "all_arithmetic_operand_limbs_upper": 3,
+        "each_custom_request_limbs_upper": 6,
+        "each_custom_payload_words_upper": 8,
+        "each_custom_total_bytes_upper": 72,
+        "radix_power_or_shift_calls_before_T": 0,
+        "ordinary_Main_ureal_occurrences": 0,
+        "real_literal_base_zero_path_selected": false,
+        "later_five_atom_contract_used": false,
+        "GMP_primitive_contract": "Inherited faithful bounded-operand numeric/allocation contract; not a proof of GMP internals."
+      },
+      "Format_Printf_Buffer": {
+        "per_call_output_bytes_upper": 137438953472,
+        "private_buffer_capacity_upper": 274877906944,
+        "queue_length_upper": 8589934648,
+        "normal_left_right_total_upper": 137438953473,
+        "flush_right_total": 1000000010,
+        "arithmetic_absolute_upper": 276877907220,
+        "maximum_box_depth": 1,
+        "formatter_initial_buffer": 512,
+        "Printf_initial_buffer": 64,
+        "format_accumulators_have_source_fixed_arity": true,
+        "dynamic_width_precision_or_user_format": false,
+        "same_private_formatter_reused_across_conversion_calls": false,
+        "outer_failure_report_and_post_T_printers_included": false
+      },
+      "individual_strings": {
+        "input_auxiliary": {
+          "length": 512,
+          "payload_words": 65,
+          "request_bytes": 528
+        },
+        "lexbuf": {
+          "length": 4294967294,
+          "payload_words": 536870912,
+          "request_bytes": 4294967304
+        },
+        "decoded_string_buffer": {
+          "length": 4294967294,
+          "payload_words": 536870912,
+          "request_bytes": 4294967304
+        },
+        "decoded_or_lexeme_string": {
+          "length": 2147483647,
+          "payload_words": 268435456,
+          "request_bytes": 2147483656
+        },
+        "parser_error": {
+          "length": 2147483903,
+          "payload_words": 268435488,
+          "request_bytes": 2147483912
+        },
+        "format_buffer": {
+          "length": 274877906944,
+          "payload_words": 34359738369,
+          "request_bytes": 274877906960
+        },
+        "format_result": {
+          "length": 137438953472,
+          "payload_words": 17179869185,
+          "request_bytes": 137438953488
+        }
+      },
+      "guards": {
+        "each_string_length": true,
+        "each_string_header": true,
+        "each_unsigned_byte_request": true,
+        "parser_arithmetic": true,
+        "formatter_arithmetic": true,
+        "numeric_header_and_request": true
+      },
+      "consumer_representation_closed_under_inherited_premises": true,
+      "accepted_auxiliary_owner_projection_reused": true,
+      "complete_C_to_T_representation_when_joined_to_accepted_prefix_and_auxiliary": true,
+      "T_to_builder_transport": false,
+      "cumulative_physical_bytes_or_stack_bound_claimed": false,
+      "process_global_exception_allowance": 2,
+      "save_entering_callbacks": 2,
+      "save_calls": 3
+    },
+    "put": {
+      "role": "put",
+      "configuration": "r78_repaired_quiet_timeless_j12_logging",
+      "producer_body_bytes_upper": 2147483646,
+      "consumer_scope": "Actual producer serialization to first Typing.type_mlw_file entry, before its body; failures stop with their existing outcome.",
+      "source_provider_relation_required": true,
+      "Yojson": {
+        "file_bytes_including_Close_LF": 2147483647,
+        "lexbuf_capacity_upper": 4294967294,
+        "decoded_string_buffer_capacity_upper": 4294967294,
+        "lexbuf_or_buffer_addition_absolute_upper": 8589936636,
+        "position_or_error_coordinate_absolute_upper": 8589934596,
+        "line_number_upper": 2147483648,
+        "unquoted_integer_magnitude_upper": 2147483647,
+        "error_result_string_upper": 2147483903,
+        "error_junk_buffer_bytes": 32,
+        "JSON_list_cells_per_list_upper": 2147483646,
+        "JSON_containers_are_fixed_arity_blocks_and_lists": true,
+        "read_array_helper_selected": false,
+        "float_or_intlit_branch_selected": false,
+        "generated_lexer_tables_have_source_fixed_extents": true
+      },
+      "Number_BigInt": {
+        "serialized_signed_decimal_characters": 40,
+        "parsed_magnitude_strict_upper": 10000000000000000000000000000000000000000,
+        "parsed_bits_upper": 133,
+        "parse_digit_malloc_bytes_upper": 41,
+        "parse_custom_limbs_upper": 3,
+        "ureal_numerator_upper": 18446744073709551615,
+        "ureal_denominator_absolute_upper": 4080,
+        "selected_ureal_bases": [
+          2,
+          16
+        ],
+        "constructor_exponent_absolute_upper": 16320,
+        "normalization_factor_strict_upper": 340282366920938463463374607431768211456,
+        "normalized_exponent_absolute_upper": 16384,
+        "all_arithmetic_operand_limbs_upper": 3,
+        "each_custom_request_limbs_upper": 6,
+        "each_custom_payload_words_upper": 8,
+        "each_custom_total_bytes_upper": 72,
+        "radix_power_or_shift_calls_before_T": 0,
+        "ordinary_Main_ureal_occurrences": 0,
+        "real_literal_base_zero_path_selected": false,
+        "later_five_atom_contract_used": false,
+        "GMP_primitive_contract": "Inherited faithful bounded-operand numeric/allocation contract; not a proof of GMP internals."
+      },
+      "Format_Printf_Buffer": {
+        "per_call_output_bytes_upper": 137438953472,
+        "private_buffer_capacity_upper": 274877906944,
+        "queue_length_upper": 8589934648,
+        "normal_left_right_total_upper": 137438953473,
+        "flush_right_total": 1000000010,
+        "arithmetic_absolute_upper": 276877907220,
+        "maximum_box_depth": 1,
+        "formatter_initial_buffer": 512,
+        "Printf_initial_buffer": 64,
+        "format_accumulators_have_source_fixed_arity": true,
+        "dynamic_width_precision_or_user_format": false,
+        "same_private_formatter_reused_across_conversion_calls": false,
+        "outer_failure_report_and_post_T_printers_included": false
+      },
+      "individual_strings": {
+        "input_auxiliary": {
+          "length": 512,
+          "payload_words": 65,
+          "request_bytes": 528
+        },
+        "lexbuf": {
+          "length": 4294967294,
+          "payload_words": 536870912,
+          "request_bytes": 4294967304
+        },
+        "decoded_string_buffer": {
+          "length": 4294967294,
+          "payload_words": 536870912,
+          "request_bytes": 4294967304
+        },
+        "decoded_or_lexeme_string": {
+          "length": 2147483647,
+          "payload_words": 268435456,
+          "request_bytes": 2147483656
+        },
+        "parser_error": {
+          "length": 2147483903,
+          "payload_words": 268435488,
+          "request_bytes": 2147483912
+        },
+        "format_buffer": {
+          "length": 274877906944,
+          "payload_words": 34359738369,
+          "request_bytes": 274877906960
+        },
+        "format_result": {
+          "length": 137438953472,
+          "payload_words": 17179869185,
+          "request_bytes": 137438953488
+        }
+      },
+      "guards": {
+        "each_string_length": true,
+        "each_string_header": true,
+        "each_unsigned_byte_request": true,
+        "parser_arithmetic": true,
+        "formatter_arithmetic": true,
+        "numeric_header_and_request": true
+      },
+      "consumer_representation_closed_under_inherited_premises": true,
+      "accepted_auxiliary_owner_projection_reused": true,
+      "complete_C_to_T_representation_when_joined_to_accepted_prefix_and_auxiliary": true,
+      "T_to_builder_transport": false,
+      "cumulative_physical_bytes_or_stack_bound_claimed": false,
+      "process_global_exception_allowance": 2,
+      "save_entering_callbacks": 2,
+      "save_calls": 3
+    },
+    "put_line": {
+      "role": "put_line",
+      "configuration": "r78_repaired_quiet_timeless_j12_logging",
+      "producer_body_bytes_upper": 2147483646,
+      "consumer_scope": "Actual producer serialization to first Typing.type_mlw_file entry, before its body; failures stop with their existing outcome.",
+      "source_provider_relation_required": true,
+      "Yojson": {
+        "file_bytes_including_Close_LF": 2147483647,
+        "lexbuf_capacity_upper": 4294967294,
+        "decoded_string_buffer_capacity_upper": 4294967294,
+        "lexbuf_or_buffer_addition_absolute_upper": 8589936636,
+        "position_or_error_coordinate_absolute_upper": 8589934596,
+        "line_number_upper": 2147483648,
+        "unquoted_integer_magnitude_upper": 2147483647,
+        "error_result_string_upper": 2147483903,
+        "error_junk_buffer_bytes": 32,
+        "JSON_list_cells_per_list_upper": 2147483646,
+        "JSON_containers_are_fixed_arity_blocks_and_lists": true,
+        "read_array_helper_selected": false,
+        "float_or_intlit_branch_selected": false,
+        "generated_lexer_tables_have_source_fixed_extents": true
+      },
+      "Number_BigInt": {
+        "serialized_signed_decimal_characters": 40,
+        "parsed_magnitude_strict_upper": 10000000000000000000000000000000000000000,
+        "parsed_bits_upper": 133,
+        "parse_digit_malloc_bytes_upper": 41,
+        "parse_custom_limbs_upper": 3,
+        "ureal_numerator_upper": 18446744073709551615,
+        "ureal_denominator_absolute_upper": 4080,
+        "selected_ureal_bases": [
+          2,
+          16
+        ],
+        "constructor_exponent_absolute_upper": 16320,
+        "normalization_factor_strict_upper": 340282366920938463463374607431768211456,
+        "normalized_exponent_absolute_upper": 16384,
+        "all_arithmetic_operand_limbs_upper": 3,
+        "each_custom_request_limbs_upper": 6,
+        "each_custom_payload_words_upper": 8,
+        "each_custom_total_bytes_upper": 72,
+        "radix_power_or_shift_calls_before_T": 0,
+        "ordinary_Main_ureal_occurrences": 0,
+        "real_literal_base_zero_path_selected": false,
+        "later_five_atom_contract_used": false,
+        "GMP_primitive_contract": "Inherited faithful bounded-operand numeric/allocation contract; not a proof of GMP internals."
+      },
+      "Format_Printf_Buffer": {
+        "per_call_output_bytes_upper": 137438953472,
+        "private_buffer_capacity_upper": 274877906944,
+        "queue_length_upper": 8589934648,
+        "normal_left_right_total_upper": 137438953473,
+        "flush_right_total": 1000000010,
+        "arithmetic_absolute_upper": 276877907220,
+        "maximum_box_depth": 1,
+        "formatter_initial_buffer": 512,
+        "Printf_initial_buffer": 64,
+        "format_accumulators_have_source_fixed_arity": true,
+        "dynamic_width_precision_or_user_format": false,
+        "same_private_formatter_reused_across_conversion_calls": false,
+        "outer_failure_report_and_post_T_printers_included": false
+      },
+      "individual_strings": {
+        "input_auxiliary": {
+          "length": 512,
+          "payload_words": 65,
+          "request_bytes": 528
+        },
+        "lexbuf": {
+          "length": 4294967294,
+          "payload_words": 536870912,
+          "request_bytes": 4294967304
+        },
+        "decoded_string_buffer": {
+          "length": 4294967294,
+          "payload_words": 536870912,
+          "request_bytes": 4294967304
+        },
+        "decoded_or_lexeme_string": {
+          "length": 2147483647,
+          "payload_words": 268435456,
+          "request_bytes": 2147483656
+        },
+        "parser_error": {
+          "length": 2147483903,
+          "payload_words": 268435488,
+          "request_bytes": 2147483912
+        },
+        "format_buffer": {
+          "length": 274877906944,
+          "payload_words": 34359738369,
+          "request_bytes": 274877906960
+        },
+        "format_result": {
+          "length": 137438953472,
+          "payload_words": 17179869185,
+          "request_bytes": 137438953488
+        }
+      },
+      "guards": {
+        "each_string_length": true,
+        "each_string_header": true,
+        "each_unsigned_byte_request": true,
+        "parser_arithmetic": true,
+        "formatter_arithmetic": true,
+        "numeric_header_and_request": true
+      },
+      "consumer_representation_closed_under_inherited_premises": true,
+      "accepted_auxiliary_owner_projection_reused": true,
+      "complete_C_to_T_representation_when_joined_to_accepted_prefix_and_auxiliary": true,
+      "T_to_builder_transport": false,
+      "cumulative_physical_bytes_or_stack_bound_claimed": false,
+      "process_global_exception_allowance": 2,
+      "save_entering_callbacks": 2,
+      "save_calls": 3
+    }
+  },
+  "normalization_controls": [
+    {
+      "input": -18446744073709551615,
+      "prime": 2,
+      "value": -18446744073709551615,
+      "valuation": 0,
+      "max_depth": 1,
+      "max_trial_divisor": 2
+    },
+    {
+      "input": -18446744073709551615,
+      "prime": 5,
+      "value": -3689348814741910323,
+      "valuation": 1,
+      "max_depth": 2,
+      "max_trial_divisor": 25
+    },
+    {
+      "input": -9223372036854775808,
+      "prime": 2,
+      "value": -1,
+      "valuation": 63,
+      "max_depth": 7,
+      "max_trial_divisor": 18446744073709551616
+    },
+    {
+      "input": -9223372036854775808,
+      "prime": 5,
+      "value": -9223372036854775808,
+      "valuation": 0,
+      "max_depth": 1,
+      "max_trial_divisor": 5
+    },
+    {
+      "input": -7450580596923828125,
+      "prime": 2,
+      "value": -7450580596923828125,
+      "valuation": 0,
+      "max_depth": 1,
+      "max_trial_divisor": 2
+    },
+    {
+      "input": -7450580596923828125,
+      "prime": 5,
+      "value": -1,
+      "valuation": 27,
+      "max_depth": 5,
+      "max_trial_divisor": 152587890625
+    },
+    {
+      "input": -72057594037927928,
+      "prime": 2,
+      "value": -9007199254740991,
+      "valuation": 3,
+      "max_depth": 3,
+      "max_trial_divisor": 16
+    },
+    {
+      "input": -72057594037927928,
+      "prime": 5,
+      "value": -72057594037927928,
+      "valuation": 0,
+      "max_depth": 1,
+      "max_trial_divisor": 5
+    },
+    {
+      "input": -9007199254740991,
+      "prime": 2,
+      "value": -9007199254740991,
+      "valuation": 0,
+      "max_depth": 1,
+      "max_trial_divisor": 2
+    },
+    {
+      "input": -9007199254740991,
+      "prime": 5,
+      "value": -9007199254740991,
+      "valuation": 0,
+      "max_depth": 1,
+      "max_trial_divisor": 5
+    },
+    {
+      "input": -16777215,
+      "prime": 2,
+      "value": -16777215,
+      "valuation": 0,
+      "max_depth": 1,
+      "max_trial_divisor": 2
+    },
+    {
+      "input": -16777215,
+      "prime": 5,
+      "value": -3355443,
+      "valuation": 1,
+      "max_depth": 2,
+      "max_trial_divisor": 25
+    },
+    {
+      "input": -1,
+      "prime": 2,
+      "value": -1,
+      "valuation": 0,
+      "max_depth": 1,
+      "max_trial_divisor": 2
+    },
+    {
+      "input": -1,
+      "prime": 5,
+      "value": -1,
+      "valuation": 0,
+      "max_depth": 1,
+      "max_trial_divisor": 5
+    },
+    {
+      "input": 1,
+      "prime": 2,
+      "value": 1,
+      "valuation": 0,
+      "max_depth": 1,
+      "max_trial_divisor": 2
+    },
+    {
+      "input": 1,
+      "prime": 5,
+      "value": 1,
+      "valuation": 0,
+      "max_depth": 1,
+      "max_trial_divisor": 5
+    },
+    {
+      "input": 16777215,
+      "prime": 2,
+      "value": 16777215,
+      "valuation": 0,
+      "max_depth": 1,
+      "max_trial_divisor": 2
+    },
+    {
+      "input": 16777215,
+      "prime": 5,
+      "value": 3355443,
+      "valuation": 1,
+      "max_depth": 2,
+      "max_trial_divisor": 25
+    },
+    {
+      "input": 9007199254740991,
+      "prime": 2,
+      "value": 9007199254740991,
+      "valuation": 0,
+      "max_depth": 1,
+      "max_trial_divisor": 2
+    },
+    {
+      "input": 9007199254740991,
+      "prime": 5,
+      "value": 9007199254740991,
+      "valuation": 0,
+      "max_depth": 1,
+      "max_trial_divisor": 5
+    },
+    {
+      "input": 72057594037927928,
+      "prime": 2,
+      "value": 9007199254740991,
+      "valuation": 3,
+      "max_depth": 3,
+      "max_trial_divisor": 16
+    },
+    {
+      "input": 72057594037927928,
+      "prime": 5,
+      "value": 72057594037927928,
+      "valuation": 0,
+      "max_depth": 1,
+      "max_trial_divisor": 5
+    },
+    {
+      "input": 7450580596923828125,
+      "prime": 2,
+      "value": 7450580596923828125,
+      "valuation": 0,
+      "max_depth": 1,
+      "max_trial_divisor": 2
+    },
+    {
+      "input": 7450580596923828125,
+      "prime": 5,
+      "value": 1,
+      "valuation": 27,
+      "max_depth": 5,
+      "max_trial_divisor": 152587890625
+    },
+    {
+      "input": 9223372036854775808,
+      "prime": 2,
+      "value": 1,
+      "valuation": 63,
+      "max_depth": 7,
+      "max_trial_divisor": 18446744073709551616
+    },
+    {
+      "input": 9223372036854775808,
+      "prime": 5,
+      "value": 9223372036854775808,
+      "valuation": 0,
+      "max_depth": 1,
+      "max_trial_divisor": 5
+    },
+    {
+      "input": 18446744073709551615,
+      "prime": 2,
+      "value": 18446744073709551615,
+      "valuation": 0,
+      "max_depth": 1,
+      "max_trial_divisor": 2
+    },
+    {
+      "input": 18446744073709551615,
+      "prime": 5,
+      "value": 3689348814741910323,
+      "valuation": 1,
+      "max_depth": 2,
+      "max_trial_divisor": 25
+    }
+  ]
+}
