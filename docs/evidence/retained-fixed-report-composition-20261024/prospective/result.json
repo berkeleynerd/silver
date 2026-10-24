@@ -1,0 +1,462 @@
+{
+  "actual_complete_common_path_bytes": null,
+  "admission_changed": false,
+  "compiler_database": {
+    "additional_configuration": [
+      [
+        "db/gnat.xml",
+        13
+      ]
+    ],
+    "runtime": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0",
+    "selected_Ada_Compiler_configurations": [
+      [
+        "db/0_default.xml",
+        0
+      ],
+      [
+        "db/gnat.xml",
+        0
+      ],
+      [
+        "db/gnat.xml",
+        8
+      ],
+      [
+        "db/gnat.xml",
+        11
+      ],
+      [
+        "db/gnat.xml",
+        13
+      ]
+    ],
+    "xml_files": 63
+  },
+  "compiler_prover_native_runs": 0,
+  "complete_five_report_collector": false,
+  "complete_fixed_report_capacity": false,
+  "complete_private_why_recipe": false,
+  "configuration_widths": [
+    {
+      "argv": [
+        "gnatprove",
+        "-P",
+        "/tmp/program-1a4206/program.gpr",
+        "-U",
+        "--mode=all",
+        "--report=all",
+        "--warnings=continue",
+        "--checks-as-errors=on",
+        "--prover=cvc5,z3,altergo",
+        "--steps=0",
+        "--timeout=0",
+        "--memlimit=0",
+        "--counterexamples=off",
+        "-j3",
+        "--no-loop-unrolling",
+        "--output=brief",
+        "--RTS=/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0",
+        "-cargs",
+        "-Wno-free-nonheap-object"
+      ],
+      "argv_count": 19,
+      "config_file_bytes_upper": 609,
+      "configuration_reader_guards": true,
+      "fixture_json_bytes": 609,
+      "joined_command_bytes": 435,
+      "worker_width": 1
+    },
+    {
+      "argv": [
+        "gnatprove",
+        "-P",
+        "/tmp/program-1a4206/program.gpr",
+        "-U",
+        "--mode=all",
+        "--report=all",
+        "--warnings=continue",
+        "--checks-as-errors=on",
+        "--prover=cvc5,z3,altergo",
+        "--steps=0",
+        "--timeout=0",
+        "--memlimit=0",
+        "--counterexamples=off",
+        "-j2147483647",
+        "--no-loop-unrolling",
+        "--output=brief",
+        "--RTS=/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0",
+        "-cargs",
+        "-Wno-free-nonheap-object"
+      ],
+      "argv_count": 19,
+      "config_file_bytes_upper": 618,
+      "configuration_reader_guards": true,
+      "fixture_json_bytes": 618,
+      "joined_command_bytes": 444,
+      "worker_width": 10
+    }
+  ],
+  "discovered_executables": [
+    {
+      "bytes": 70178624,
+      "name": "gnatprove",
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/bin/gnatprove",
+      "realpath": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/bin/gnatprove",
+      "sha256": "544e6da2eedc24ce87d9200d44f61e8e789726466e81e68bf8935489d7f5323e"
+    },
+    {
+      "bytes": 17601800,
+      "name": "gprbuild",
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/bin/gprbuild",
+      "realpath": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gprbuild",
+      "sha256": "cd133732f57935f6fb3c394b0ea03a3e4d7b9792df2eca21d0470ebb42cf76c3"
+    },
+    {
+      "bytes": 13651896,
+      "name": "gprconfig",
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/bin/gprconfig",
+      "realpath": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gprconfig",
+      "sha256": "59e0b6f8a2820f6721e8a64bf61b143a22aba04d5ae9d27ea6ea56dbea972db2"
+    },
+    {
+      "bytes": 2455824,
+      "name": "gcc",
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/bin/gcc",
+      "realpath": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gcc",
+      "sha256": "238f4adafcb1425c84da6519068fdfcf33e57e406fc793e2958a9238789900de"
+    },
+    {
+      "bytes": 107177112,
+      "name": "gnat2why",
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/bin/gnat2why",
+      "realpath": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnat2why",
+      "sha256": "343682de485bb151e1817615acebab5b185504efdf2b082f1647cd41a14241f1"
+    },
+    {
+      "bytes": 13211504,
+      "name": "spark_report",
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/bin/spark_report",
+      "realpath": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_report",
+      "sha256": "2c9d18384bd6fdd4ec5f52a1985aa5f62e8acd224db7f290bbd7bc851ebd9e14"
+    },
+    {
+      "bytes": 3242616,
+      "name": "gnatls",
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/bin/gnatls",
+      "realpath": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatls",
+      "sha256": "cdd3e2c74ca7d1f1e395d25523c3e233b206a880e4064e822f8015044d1715e2"
+    },
+    {
+      "bytes": 2014344,
+      "name": "gnatwhy3",
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/bin/gnatwhy3",
+      "realpath": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/compiler/bin/silver_image_adapter",
+      "sha256": "11422b910810004e5612c9230a4e20d039addb8635c6d8523d5a682f27a3c789"
+    }
+  ],
+  "effective_native_child_inputs_observed": false,
+  "elapsed_seconds": 1.7027464349957881,
+  "fixed_report_joins_reused": [
+    {
+      "actual_configuration_relation_established": false,
+      "common_path_bytes": 188,
+      "full_pretty_bytes": 216990962,
+      "reader_sufficient": true,
+      "unit": "Silver_Output_Libc",
+      "writer_sufficient": true
+    },
+    {
+      "actual_configuration_relation_established": false,
+      "common_path_bytes": 188,
+      "full_pretty_bytes": 295151978,
+      "reader_sufficient": true,
+      "unit": "Silver_Runtime",
+      "writer_sufficient": true
+    },
+    {
+      "actual_configuration_relation_established": false,
+      "common_path_bytes": 188,
+      "full_pretty_bytes": 773102165,
+      "reader_sufficient": true,
+      "unit": "Silver_IO",
+      "writer_sufficient": true
+    },
+    {
+      "actual_configuration_relation_established": false,
+      "common_path_bytes": 188,
+      "full_pretty_bytes": 977010142,
+      "reader_sufficient": true,
+      "unit": "Silver_Arguments",
+      "writer_sufficient": true
+    }
+  ],
+  "fixture": {
+    "foreign_mapping_path_and_symlink_cases_rejected": true,
+    "generated_input_origin": "hand-prepared prospective fixture, not GPR output",
+    "initial_environment": {
+      "LC_ALL": "C",
+      "PATH": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/bin:/usr/bin:/bin",
+      "TMPDIR": "/tmp/program-1a4206/tmp"
+    },
+    "mapping_triples": [
+      [
+        "main%b",
+        "main.adb",
+        "/tmp/program-1a4206/main.adb"
+      ],
+      [
+        "silver_io%s",
+        "silver_io.ads",
+        "/tmp/program-1a4206/silver_io.ads"
+      ],
+      [
+        "silver_io%b",
+        "silver_io.adb",
+        "/tmp/program-1a4206/silver_io.adb"
+      ],
+      [
+        "silver_output_libc%s",
+        "silver_output_libc.ads",
+        "/tmp/program-1a4206/silver_output_libc.ads"
+      ],
+      [
+        "silver_arguments%s",
+        "silver_arguments.ads",
+        "/tmp/program-1a4206/silver_arguments.ads"
+      ],
+      [
+        "silver_arguments%b",
+        "silver_arguments.adb",
+        "/tmp/program-1a4206/silver_arguments.adb"
+      ],
+      [
+        "silver_runtime%s",
+        "silver_runtime.ads",
+        "/tmp/program-1a4206/silver_runtime.ads"
+      ]
+    ],
+    "naming_bytes": 327,
+    "object_pathfile_utf8": "/tmp/program-1a4206/obj/gnatprove/phase1\n/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib\n",
+    "parent_environment_before_service_operands": {
+      "GPR_PROJECT_PATH": ":/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/lib/gnat:/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/share/gpr",
+      "GPR_TOOL": "gnatprove",
+      "LC_ALL": "C",
+      "PATH": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/bin:/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/bin:/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/bin:/usr/bin:/bin",
+      "TMPDIR": "/tmp/program-1a4206/tmp"
+    },
+    "physical_cwds": [
+      "/tmp/program-1a4206",
+      "/tmp/program-1a4206/tmp",
+      "/tmp/program-1a4206/obj",
+      "/tmp/program-1a4206/obj/gnatprove",
+      "/tmp/program-1a4206/obj/gnatprove/phase1",
+      "/tmp/program-1a4206/obj/gnatprove/data_representation"
+    ],
+    "project_bytes": 541,
+    "project_sha256": "3e99dd2e5c909ebfba6a7d8554d034bcc497b32f275e9a9aad3bd290221725ff",
+    "removed_after_check": true,
+    "source_files": [
+      "main.adb",
+      "silver_io.ads",
+      "silver_io.adb",
+      "silver_output_libc.ads",
+      "silver_arguments.ads",
+      "silver_arguments.adb",
+      "silver_runtime.ads"
+    ],
+    "source_pathfile_utf8": "/tmp/program-1a4206\n",
+    "target_executed": false,
+    "temporary_files": [
+      {
+        "bytes": 489,
+        "path": "/tmp/program-1a4206/tmp/GPR.2147483647/GNAT-TEMP-000001.TMP",
+        "realpath": "/tmp/program-1a4206/tmp/GPR.2147483647/GNAT-TEMP-000001.TMP",
+        "sha256": "0914c4ffa7eb6f6956878f6e1254ebb60d8f82dd43facab56bfbd445a0f0db64",
+        "utf8_bytes": 59
+      },
+      {
+        "bytes": 327,
+        "path": "/tmp/program-1a4206/tmp/GPR.2147483647/GNAT-TEMP-000002.TMP",
+        "realpath": "/tmp/program-1a4206/tmp/GPR.2147483647/GNAT-TEMP-000002.TMP",
+        "sha256": "46f3acf27365a700a8dbebdd40ad92eb76e2f43091b056a1bb7e0d494045b6e8",
+        "utf8_bytes": 59
+      },
+      {
+        "bytes": 20,
+        "path": "/tmp/program-1a4206/tmp/GPR.2147483647/GNAT-TEMP-000003.TMP",
+        "realpath": "/tmp/program-1a4206/tmp/GPR.2147483647/GNAT-TEMP-000003.TMP",
+        "sha256": "89e0fe2317f10234d05f099403c37e07073c35e7a1ee7fdfb730abb0445eb699",
+        "utf8_bytes": 59
+      },
+      {
+        "bytes": 211,
+        "path": "/tmp/program-1a4206/tmp/GPR.2147483647/GNAT-TEMP-000004.TMP",
+        "realpath": "/tmp/program-1a4206/tmp/GPR.2147483647/GNAT-TEMP-000004.TMP",
+        "sha256": "fa360e99196f464126ffe8b7214798a758aec95d32bc6bf88f15be64c1ee26ff",
+        "utf8_bytes": 59
+      }
+    ],
+    "workspace": "/tmp/program-1a4206"
+  },
+  "global_e_upper": 2,
+  "installed_configuration_files_compared": 73,
+  "installed_configuration_manifest_sha256": "143a3ff457d47f6558e137844bb7e3eb8cfd4724046aa4e963ef8aaa65a65ce5",
+  "installed_configuration_max_physical_path_bytes": 177,
+  "physical_installation_observation": [
+    {
+      "path": "/tmp",
+      "realpath": "/tmp",
+      "utf8_bytes": 4
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools",
+      "realpath": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools",
+      "utf8_bytes": 79
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/bin/gnatprove",
+      "realpath": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/bin/gnatprove",
+      "utf8_bytes": 93
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef",
+      "realpath": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef",
+      "utf8_bytes": 113
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0",
+      "realpath": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0",
+      "utf8_bytes": 162
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude",
+      "realpath": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude",
+      "utf8_bytes": 173
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib",
+      "realpath": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adalib",
+      "utf8_bytes": 169
+    },
+    {
+      "absent_including_dangling_symlink": true,
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/ada_source_path"
+    },
+    {
+      "absent_including_dangling_symlink": true,
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/ada_object_path"
+    }
+  ],
+  "physical_resources_assumed": true,
+  "platform": {
+    "machine": "x86_64",
+    "system": "Linux"
+  },
+  "predecessor_checker_replays": 0,
+  "prospective_hull": {
+    "actual_complete_common_path_bytes": null,
+    "actual_configuration_relation_established": false,
+    "admission_decision": false,
+    "common_path_bytes": 188,
+    "consumer_demands": {
+      "config_file": 50,
+      "initial_and_saved_cwd": 53,
+      "object_directory": 34,
+      "ordinary_summary": 48,
+      "project_argument": 31,
+      "sarif_file": 50,
+      "spark_files": 59,
+      "unit_source_paths": 188
+    },
+    "frozen_arguments_interval_fits": true,
+    "initial_cwd_bytes": 53,
+    "object_dir_bytes": 34,
+    "path_demands": {
+      "absolute_trace": 76,
+      "additional_source_and_config": 169,
+      "config_file": 49,
+      "copied_source_and_sloc": 42,
+      "gnat2why_options": 46,
+      "gpr_configuration_and_naming": 59,
+      "initial_and_saved_cwd": 53,
+      "object_directory": 34,
+      "ordinary_summary": 47,
+      "producer_and_reporter_object_cwd": 34,
+      "project_argument": 31,
+      "relative_trace": 42,
+      "runtime_source_and_reference": 188,
+      "sarif_file": 49,
+      "spark_files": 58,
+      "workspace_directory": 19
+    },
+    "project_path_bytes": 31,
+    "prospective_contract_common_path_bytes": 188,
+    "source_path_bytes": 188
+  },
+  "prospective_launcher_implemented": false,
+  "repository_inputs": 42,
+  "rts_delta": {
+    "Atree_creation_by_switch_storage": 0,
+    "compiler_argv_entries": 1,
+    "complete_native_storage_recomposition": false,
+    "null_ALI_bytes_upper": 29622975,
+    "null_ALI_extra_bytes": 171,
+    "null_ALI_lines_upper": 77552,
+    "null_phase1_A_payload": 245,
+    "null_phase1_A_rows": 11,
+    "null_phase2_A_payload_if_enabled": 238,
+    "null_phase2_A_rows_if_enabled": 10,
+    "stored_switch_entries_upper": 1,
+    "stored_switch_payload_bytes_upper": 168,
+    "switch_utf8_bytes": 168
+  },
+  "runtime_corpus_evidence_reused": {
+    "files": 1575,
+    "full_path_bytes": 188,
+    "manifest_sha256": "76a5413f5083da098347755f795a1d1d84804c9984ffc97da8199b0c3e77014c",
+    "max_relative_bytes": 14,
+    "max_relative_name": "standard.ads.h",
+    "runtime_root_bytes": 173,
+    "source_reference_pragmas": []
+  },
+  "save_entering_callbacks_upper": 2,
+  "saves_upper": 3,
+  "scope": "prospective environment/path/configuration contract and filesystem inhabitant",
+  "selected_image_adapter": {
+    "current_routing_preserved": true,
+    "future_private_protocol_refinement_established": false,
+    "generated_config_path": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/generated/silver_image_config.ads",
+    "generated_config_sha256": "adb7b70f94cb5865b811aaaf387ab700e98c3b2f01567a74a0588b152e01eb7c",
+    "path": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/compiler/bin/silver_image_adapter"
+  },
+  "selected_prover_server_discovery": [
+    {
+      "content_identity_rechecked": false,
+      "name": "cvc5",
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/bin/cvc5",
+      "realpath": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/cvc5"
+    },
+    {
+      "content_identity_rechecked": false,
+      "name": "z3",
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/bin/z3",
+      "realpath": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/z3"
+    },
+    {
+      "content_identity_rechecked": false,
+      "name": "alt-ergo",
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/bin/alt-ergo",
+      "realpath": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/alt-ergo"
+    },
+    {
+      "content_identity_rechecked": false,
+      "name": "why3server",
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/bin/why3server",
+      "realpath": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server"
+    }
+  ],
+  "service_queries": 0,
+  "source_config_files": 18,
+  "status": "pass"
+}
