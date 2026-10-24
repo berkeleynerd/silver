@@ -1,0 +1,78 @@
+{
+  "docs/evidence/retained-fixed-failure-composition-20261023/paths.json": {
+    "bytes": 808716,
+    "sha256": "fc4415ef89220aaca935eef97ecb6b306dbe6cd58cbb9ccdce58035820147080"
+  },
+  "docs/evidence/retained-fixed-ptree-capture-20261023/archive-manifest.json": {
+    "bytes": 10388,
+    "sha256": "53e2e7d7e38addfeabb10d2e45c846a531b22678228b9ffd3550be402bac44de"
+  },
+  "docs/evidence/retained-fixed-ptree-capture-20261023/capture.tar.gz": {
+    "bytes": 968347,
+    "sha256": "416f0d717351d0ca306269bdbe5308714961ffc162ee49058d439796be975970"
+  },
+  "docs/evidence/retained-precut-failure-capacity-20261023/source-witnesses.json": {
+    "bytes": 105726,
+    "sha256": "52f93140fced60c66116b0f313c0c11a46046f6dd145777fa2789c0379ad6033"
+  },
+  "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+    "bytes": 5510610,
+    "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+  },
+  "docs/evidence/retained-why-session-exception-prefix-20261019/why-printer-inventory.json": {
+    "bytes": 46714,
+    "sha256": "f040f30bfde2b6a563dc064e57fbac2ae535cd43cd876d9d985f939ec9d912f8"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/source-identities.json": {
+    "bytes": 169096,
+    "sha256": "9692cbea1c0e2306340799cbc1c1a609ce4e55423c4d1e55d337c0e93e3d8d1d"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+    "bytes": 1372815,
+    "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+  },
+  "docs/research/retained-fixed-failure-composition.md": {
+    "bytes": 26061,
+    "sha256": "730171cc1895d45e28453770eb13dfc87e0c8c0ace4069f2ebc00e7ec4313729"
+  },
+  "docs/research/retained-precut-failure-capacity.md": {
+    "bytes": 24338,
+    "sha256": "137798517c86a0a4f5ca5f9fede87b25432993c94a93525d10102d12a1d54a87"
+  },
+  "docs/research/retained-response-parser-capacity.md": {
+    "bytes": 30713,
+    "sha256": "01fc2af8076389e91036397cf7890e8732be7c54a8d8f881c6391736d79f010d"
+  },
+  "docs/research/retained-response-provenance.md": {
+    "bytes": 12808,
+    "sha256": "c1fe62c004c7bc5ce0352b71bb54584d0f9d7f7886dd90a052d9bbbfa4eef9ea"
+  },
+  "docs/research/retained-why-session-exception-prefix.md": {
+    "bytes": 14032,
+    "sha256": "68f29c5526f89b57a0921adb06ff1c479a0fbcba4b8267f1a3f6f205ac0236e8"
+  },
+  "docs/research/retained-why-sexplib-converter-prefix.md": {
+    "bytes": 13161,
+    "sha256": "2ff1302b3e71e272e224ca3b8babc1cc9fefdeaace17f682bf4c1ceeb1703bc8"
+  },
+  "docs/research/retained-why-standard-formatter-core.md": {
+    "bytes": 16197,
+    "sha256": "8c90bcf86495d9abebba0f443601abdc01078a504222263a79cf27257f18d2b4"
+  },
+  "docs/research/retained-why-terminal-diagnostic-bytes.md": {
+    "bytes": 19314,
+    "sha256": "8cdc2511a3b47f2654dd5ceafe827d1d30c550be24535d70175f1f05805ef045"
+  },
+  "git:a09e2be03b:docs/evidence/retained-producer-report-capacity-20261024/additional-source-manifest.json": {
+    "bytes": 11264,
+    "sha256": "20468b79e616af1c8b66d51f89de7ee9eb5cab9c9341d8b8719f1a7f7a918026"
+  },
+  "git:a09e2be03b:docs/evidence/retained-producer-report-capacity-20261024/additional-sources.tar.gz": {
+    "bytes": 763570,
+    "sha256": "c74648389426cbda3edb3fe36ffd225e9c53322a471f1199ae72f47cfc1eacd9"
+  },
+  "git:a09e2be03b:docs/evidence/retained-producer-report-capacity-20261024/comperr-recipe-applied.adb": {
+    "bytes": 17875,
+    "sha256": "9e91665d1cdf08e6d60e46ec55804ab07c00c7e9761ff0e72aa602ed4a584a4b"
+  }
+}

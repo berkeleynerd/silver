@@ -1,0 +1,626 @@
+{
+  "gcc/ada/comperr.adb": {
+    "identity": {
+      "bytes": 17488,
+      "sha256": "c5e9239f20703e03072422fbe97849c8808feeabed6cbbde1d082d1f543db567"
+    },
+    "origin_archive": "git:a09e2be03b:docs/evidence/retained-producer-report-capacity-20261024/additional-sources.tar.gz",
+    "origin_member": "gcc/ada/comperr.adb"
+  },
+  "gcc/ada/hostparm.ads": {
+    "identity": {
+      "bytes": 3615,
+      "sha256": "b2196c2e037f2f07f1cc885bef246c3f2b63cab5c6b908b3fe17c9f4a4031895"
+    },
+    "origin_archive": "git:a09e2be03b:docs/evidence/retained-producer-report-capacity-20261024/additional-sources.tar.gz",
+    "origin_member": "gcc/ada/hostparm.ads"
+  },
+  "gcc/ada/output.adb": {
+    "identity": {
+      "bytes": 14658,
+      "sha256": "11bd6d34393cd24f56f00e5fa56bafdc0bad140f30f83e6124a94de23a467c2b"
+    },
+    "origin_archive": "git:a09e2be03b:docs/evidence/retained-producer-report-capacity-20261024/additional-sources.tar.gz",
+    "origin_member": "gcc/ada/output.adb"
+  },
+  "gcc/ada/output.ads": {
+    "identity": {
+      "bytes": 9639,
+      "sha256": "3213e4db907c7e66caea78acc8df3b5888f801ff1ac024f5110a7fd4a1c53285"
+    },
+    "origin_archive": "git:a09e2be03b:docs/evidence/retained-producer-report-capacity-20261024/additional-sources.tar.gz",
+    "origin_member": "gcc/ada/output.ads"
+  },
+  "gcc/ada/types.ads": {
+    "identity": {
+      "bytes": 46466,
+      "sha256": "70948582972ea423cd57897a06bf1a2b8888f7b1b96d7c2bf9a611601d3899d5"
+    },
+    "origin_archive": "git:a09e2be03b:docs/evidence/retained-producer-report-capacity-20261024/additional-sources.tar.gz",
+    "origin_member": "gcc/ada/types.ads"
+  },
+  "ocaml/otherlibs/dynlink/dynlink_types.ml": {
+    "identity": {
+      "bytes": 5068,
+      "sha256": "37bc9929fa6400fc9d5f558992e4a7da140721daa397fa73b82d50d3014c669f"
+    },
+    "origin_archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "origin_member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/dynlink/dynlink_types.ml"
+  },
+  "ocaml/otherlibs/unix/unix.ml": {
+    "identity": {
+      "bytes": 34582,
+      "sha256": "700eb5a655076e69d09f935399eca4677601dde1b4db74c03c8e67beb977e346"
+    },
+    "origin_archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "origin_member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/unix.ml"
+  },
+  "ocaml/runtime/sys.c": {
+    "identity": {
+      "bytes": 18281,
+      "sha256": "53bbb6d3bec16a3b8c9f4a5bc0509fa82ab2322a915146ecc7ed8770a77b28aa"
+    },
+    "origin_archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "origin_member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/sys.c"
+  },
+  "ocaml/runtime/unix.c": {
+    "identity": {
+      "bytes": 10755,
+      "sha256": "9a814299dfd0fca01b340e2d52577b07885fcf3504646190781d57ebc8e87529"
+    },
+    "origin_archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "origin_member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/unix.c"
+  },
+  "ocaml/stdlib/buffer.ml": {
+    "identity": {
+      "bytes": 13460,
+      "sha256": "9da7808058e1229c35911f3311e97d642b31f3e4fe7904f4d12445e065a82691"
+    },
+    "origin_archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "origin_member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/buffer.ml"
+  },
+  "ocaml/stdlib/bytes.ml": {
+    "identity": {
+      "bytes": 26210,
+      "sha256": "0adb009a09f6ff3e3934f06b2a1fc9cdd3433f55eb7b271fd4afc90d4b442937"
+    },
+    "origin_archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "origin_member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/bytes.ml"
+  },
+  "ocaml/stdlib/camlinternalFormat.ml": {
+    "identity": {
+      "bytes": 124679,
+      "sha256": "4a73b844a57ff493673dc4dae6b8c5b3e511de217225953c85267920587ea0ad"
+    },
+    "origin_archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "origin_member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/camlinternalFormat.ml"
+  },
+  "ocaml/stdlib/format.ml": {
+    "identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "origin_archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "origin_member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml"
+  },
+  "ocaml/stdlib/fun.ml": {
+    "identity": {
+      "bytes": 1788,
+      "sha256": "153414360c64163c6ca739d5c2138ab8f39b3bf0e280cfdfba6b8994c0bb1eca"
+    },
+    "origin_archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "origin_member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/fun.ml"
+  },
+  "ocaml/stdlib/printexc.ml": {
+    "identity": {
+      "bytes": 11746,
+      "sha256": "d223f7a5b590d7e271f8d3860a19b99d037ffe8d0c19607994eac604d092eea0"
+    },
+    "origin_archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "origin_member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.ml"
+  },
+  "ocaml/stdlib/stdlib.ml": {
+    "identity": {
+      "bytes": 21993,
+      "sha256": "9858c8a89aa73e5fbe5a15b9b21b1fd59d429e93615f447d13ceecbe41daaa14"
+    },
+    "origin_archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "origin_member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/stdlib.ml"
+  },
+  "why3/plugins/ada_terms/ada_lexer.mll": {
+    "identity": {
+      "bytes": 8249,
+      "sha256": "9c3ee736cb95f0869e4b462f3f5b59955081a604da6111917c7d29bf19e3e69c"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/plugins/ada_terms/ada_lexer.mll"
+  },
+  "why3/plugins/ada_terms/ada_parser.mly": {
+    "identity": {
+      "bytes": 20743,
+      "sha256": "0c2402934d997c7f94fd72d063acba2723d03be70551674ea983d6150ed219ae"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/plugins/ada_terms/ada_parser.mly"
+  },
+  "why3/plugins/cfg/cfg_lexer.mll": {
+    "identity": {
+      "bytes": 8468,
+      "sha256": "729d6793538eb691da3651f4ce4032af4399aa5a39bb597833995e1067e6b3b0"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/plugins/cfg/cfg_lexer.mll"
+  },
+  "why3/plugins/cfg/cfg_paths.ml": {
+    "identity": {
+      "bytes": 8134,
+      "sha256": "3c50b1917287388b9d9a1450bb5fe0c0dbb882c7edf83a636d2b6bfffd167d37"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/plugins/cfg/cfg_paths.ml"
+  },
+  "why3/plugins/cfg/cfg_stackify.ml": {
+    "identity": {
+      "bytes": 7960,
+      "sha256": "e678ead84e903637c0dc88e2c0213259b45c88a7e85c5d3a0306a0434b624007"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/plugins/cfg/cfg_stackify.ml"
+  },
+  "why3/plugins/cfg/stackify.ml": {
+    "identity": {
+      "bytes": 5482,
+      "sha256": "5c1645a6184eb258017992ef2f4bd5a0cec0c0174d7c7952361bc86374f9985a"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/plugins/cfg/stackify.ml"
+  },
+  "why3/plugins/coma/coma_lexer.mll": {
+    "identity": {
+      "bytes": 9730,
+      "sha256": "21f646158bc2db6b7fb5ae879e64245512d418cbdff91798c8900f68377b2dab"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/plugins/coma/coma_lexer.mll"
+  },
+  "why3/plugins/coma/coma_logic.ml": {
+    "identity": {
+      "bytes": 34870,
+      "sha256": "a530c6c00714d5ab61916fef79f59532a8fddc6a609e8d2c5bfb751f6956f422"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/plugins/coma/coma_logic.ml"
+  },
+  "why3/plugins/gnat_json/gnat_ast_to_ptree.ml": {
+    "identity": {
+      "bytes": 57834,
+      "sha256": "0cdda4d48f37fa27f4d70912881a5c64cbfbccaf2b1864d1098ccc870b62af35"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/plugins/gnat_json/gnat_ast_to_ptree.ml"
+  },
+  "why3/plugins/microc/mc_lexer.mll": {
+    "identity": {
+      "bytes": 5158,
+      "sha256": "fb80c6ac94b67acd8b18fb258f6b1a82b7180140881cd80ca6d1b1ca9b9056ff"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/plugins/microc/mc_lexer.mll"
+  },
+  "why3/plugins/microc/mc_parser.mly": {
+    "identity": {
+      "bytes": 13821,
+      "sha256": "1a95bf39f5c528c02f0e212ffb6fab1802e255389831e5a1dc0488b8c4f02ca2"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/plugins/microc/mc_parser.mly"
+  },
+  "why3/plugins/parser/dimacs.mll": {
+    "identity": {
+      "bytes": 4803,
+      "sha256": "46f90ca5c4065392becd3c0b2f4e9f3e14a60e173064e4adf3b66405e1d1d7ae"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/plugins/parser/dimacs.mll"
+  },
+  "why3/plugins/python/py_lexer.mll": {
+    "identity": {
+      "bytes": 5609,
+      "sha256": "4dc3b33d3c8586ab660b0ee45ac7291e48929f5c0ecc6a0405a82fe76aa9af03"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/plugins/python/py_lexer.mll"
+  },
+  "why3/plugins/python/py_parser.mly": {
+    "identity": {
+      "bytes": 15339,
+      "sha256": "8ee66c9f2a9307f96424800e35053a33d692151881a9a0df46a54dddb6caacd7"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/plugins/python/py_parser.mly"
+  },
+  "why3/plugins/tptp/tptp_lexer.mll": {
+    "identity": {
+      "bytes": 7507,
+      "sha256": "3b77b1b8e249e70a4fef64a6a7399f72c83ebbdb5df2227254636474e1a5b9ad"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/plugins/tptp/tptp_lexer.mll"
+  },
+  "why3/plugins/tptp/tptp_parser.mly": {
+    "identity": {
+      "bytes": 7806,
+      "sha256": "32ff16d5c298ad9b19f04345a063e302cfcfadfecb6d13b3d11de67d415d7985"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/plugins/tptp/tptp_parser.mly"
+  },
+  "why3/plugins/tptp/tptp_typing.ml": {
+    "identity": {
+      "bytes": 25673,
+      "sha256": "cc3b45a1a6c2419194d3ec81ddae66f72bbd9e9968bb518d21e04750d6e7493c"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/plugins/tptp/tptp_typing.ml"
+  },
+  "why3/src/core/coercion.ml": {
+    "identity": {
+      "bytes": 5552,
+      "sha256": "ad08b3b58a7a32dd321c1cf59d95bd6c2a671125b703ad605fcf63e40877a3a1"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/core/coercion.ml"
+  },
+  "why3/src/core/dterm.ml": {
+    "identity": {
+      "bytes": 25080,
+      "sha256": "47b8f2d97aa10a03d38ee84c9af107f6739ef245feccefda2ed9f4e8f0344e67"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/core/dterm.ml"
+  },
+  "why3/src/core/env.ml": {
+    "identity": {
+      "bytes": 8690,
+      "sha256": "0164457ed8f719547b3de999838e1f17069177f4463777beab49b28b277738a1"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/core/env.ml"
+  },
+  "why3/src/core/ident.ml": {
+    "identity": {
+      "bytes": 17596,
+      "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/core/ident.ml"
+  },
+  "why3/src/core/pretty.ml": {
+    "identity": {
+      "bytes": 45299,
+      "sha256": "95d650950230f1e734475b9497f5e7d88ef7ac2fcc00b11cc8b268a1cdb9a707"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/core/pretty.ml"
+  },
+  "why3/src/core/printer.ml": {
+    "identity": {
+      "bytes": 21006,
+      "sha256": "d003303693eb1f04847d79296b5ee106b9ad81fbb8b1eeb1ab01b7ee7cf1ac20"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/core/printer.ml"
+  },
+  "why3/src/core/task.ml": {
+    "identity": {
+      "bytes": 11462,
+      "sha256": "103b9c924e980df2feefdb96a5cd2779abe7de9300ea6bca9aa797ad4b6694e6"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/core/task.ml"
+  },
+  "why3/src/core/trans.ml": {
+    "identity": {
+      "bytes": 17424,
+      "sha256": "b9721c6d1648668ef4050acada4bca5a900524a1d8ca3a5d9078a8db17799523"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/core/trans.ml"
+  },
+  "why3/src/driver/driver.ml": {
+    "identity": {
+      "bytes": 18796,
+      "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/driver/driver.ml"
+  },
+  "why3/src/driver/driver_parser.mly": {
+    "identity": {
+      "bytes": 7375,
+      "sha256": "130de5b0bcdfd1253dee01618143e1f4f94ba25874c4de7c40f91d1f95006140"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/driver/driver_parser.mly"
+  },
+  "why3/src/driver/prove_client.ml": {
+    "identity": {
+      "bytes": 9236,
+      "sha256": "7560bcc0e58c5d145edc6222fa6284f0c5beb25db5db84971062403325a62260"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/driver/prove_client.ml"
+  },
+  "why3/src/driver/smtv2_model_parser.ml": {
+    "identity": {
+      "bytes": 66034,
+      "sha256": "73bd96206522b5ae370ce82e98c5803c5b45ffd4cc8c78e3d2d3d3a86e85aab9"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/driver/smtv2_model_parser.ml"
+  },
+  "why3/src/driver/whyconf.ml": {
+    "identity": {
+      "bytes": 42944,
+      "sha256": "0dc45ce830fd04d93129bdd6f27bcdfc1995a6a5558fb413ac7a58718dd2a7e6"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/driver/whyconf.ml"
+  },
+  "why3/src/extract/java.ml": {
+    "identity": {
+      "bytes": 97965,
+      "sha256": "5bd0800b320f2a1a4bdfcc1ba31ad50f7c248b83ace0122ba8e7653295d55018"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/extract/java.ml"
+  },
+  "why3/src/extract/pdriver.ml": {
+    "identity": {
+      "bytes": 12876,
+      "sha256": "1116452f80ae2836e062c23d032be37a474c2fb4347766a5da8132098c216096"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/extract/pdriver.ml"
+  },
+  "why3/src/gnat/gnat_checks.ml": {
+    "identity": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/gnat/gnat_checks.ml"
+  },
+  "why3/src/gnat/gnat_config.ml": {
+    "identity": {
+      "bytes": 25991,
+      "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/gnat/gnat_config.ml"
+  },
+  "why3/src/gnat/gnat_expl.ml": {
+    "identity": {
+      "bytes": 26556,
+      "sha256": "70c99f52a065eddc635bc2c99f8a6b1c023a603b7612d74a108e2ac75b119225"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/gnat/gnat_expl.ml"
+  },
+  "why3/src/gnat/gnat_loc.ml": {
+    "identity": {
+      "bytes": 4264,
+      "sha256": "eccc4623173e48f6ed6f3ef77e22e9f0a4b223a9eab9da88b268348ef9e0ea7c"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/gnat/gnat_loc.ml"
+  },
+  "why3/src/gnat/gnat_main.ml": {
+    "identity": {
+      "bytes": 14829,
+      "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/gnat/gnat_main.ml"
+  },
+  "why3/src/gnat/gnat_util.ml": {
+    "identity": {
+      "bytes": 5980,
+      "sha256": "228b76866becd25fc34bb4a9649add29b7c79f7ade5d6e5fef150435799f17d4"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/gnat/gnat_util.ml"
+  },
+  "why3/src/mlw/dexpr.ml": {
+    "identity": {
+      "bytes": 72915,
+      "sha256": "da655ebaf0266564bf84acc7cd30f2b673219557e2439a4079af526f1925e1e9"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/mlw/dexpr.ml"
+  },
+  "why3/src/mlw/expr.ml": {
+    "identity": {
+      "bytes": 62189,
+      "sha256": "73ebf5c02e0821dd7b19992a120390f5aa28824acdff7b3153676d8fdc56064f"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/mlw/expr.ml"
+  },
+  "why3/src/mlw/ity.ml": {
+    "identity": {
+      "bytes": 70996,
+      "sha256": "036cd1bac384c017b15ffae7e8f0c466cb50005d5905c83524679439dec66a49"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/mlw/ity.ml"
+  },
+  "why3/src/mlw/pmodule.ml": {
+    "identity": {
+      "bytes": 69178,
+      "sha256": "0bbebf874d1fe1ed216efd07a76f6e51d9fd96c5910ea9c1fac2f5864db29344"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/mlw/pmodule.ml"
+  },
+  "why3/src/parser/lexer.mll": {
+    "identity": {
+      "bytes": 9094,
+      "sha256": "f464fc08195ff31387cbb062134d86dd667232af733c92c53f8f52b88d28ac96"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/parser/lexer.mll"
+  },
+  "why3/src/parser/parser_common.mly": {
+    "identity": {
+      "bytes": 60043,
+      "sha256": "98fb9a2693a4d7507c6c2477d1b25ce19f549563e6d49abd9590be5295b58a24"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/parser/parser_common.mly"
+  },
+  "why3/src/parser/typing.ml": {
+    "identity": {
+      "bytes": 77035,
+      "sha256": "74b8ea5dcfbf4102952e80281cbea149261386270679ff4d79425e74fd67c572"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/parser/typing.ml"
+  },
+  "why3/src/session/session_itp.ml": {
+    "identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/session/session_itp.ml"
+  },
+  "why3/src/session/strategy.ml": {
+    "identity": {
+      "bytes": 2940,
+      "sha256": "9bdbddcfab7d0d0e7755b29d826b5e2f4d49afa25b6c91327bfa649e1172b42b"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/session/strategy.ml"
+  },
+  "why3/src/tools/why3extract.ml": {
+    "identity": {
+      "bytes": 18433,
+      "sha256": "c7de52dd4a509ca786410fba585a6cc45dc5aa9cc974e4d2543cd0c80ec2f2aa"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/tools/why3extract.ml"
+  },
+  "why3/src/transform/args_wrapper.ml": {
+    "identity": {
+      "bytes": 28069,
+      "sha256": "22ebf7d3af481dbd909e40f372caa24ecd5bc729a0dbab439dd6c2046c05376b"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/transform/args_wrapper.ml"
+  },
+  "why3/src/util/cmdline.ml": {
+    "identity": {
+      "bytes": 3206,
+      "sha256": "e1f66e91bd58dea5dd3573887d4f05f5e2629147e7760012631be41448f5319d"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/util/cmdline.ml"
+  },
+  "why3/src/util/debug.ml": {
+    "identity": {
+      "bytes": 6900,
+      "sha256": "38ec7370a02da7d9630745e28bd6efcdec29d3cf6894d0dacaa38df8f7e5a8a1"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/util/debug.ml"
+  },
+  "why3/src/util/exn_printer.ml": {
+    "identity": {
+      "bytes": 1599,
+      "sha256": "ccaecea24fece683c74855baa1fe8a8bc7e87ae6bb360afddeeaff7f3fdb4948"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/util/exn_printer.ml"
+  },
+  "why3/src/util/json_base.ml": {
+    "identity": {
+      "bytes": 4113,
+      "sha256": "e2db4aa354a0f1d67941529ab652b4ed18189487b986c711b2c4f469788ec970"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/util/json_base.ml"
+  },
+  "why3/src/util/lexlib.mll": {
+    "identity": {
+      "bytes": 6587,
+      "sha256": "f7e5acf02b1aadfdaa3478bee724f2063f83e7c8c11ac3a1458b2eb022d6ad20"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/util/lexlib.mll"
+  },
+  "why3/src/util/loc.ml": {
+    "identity": {
+      "bytes": 10669,
+      "sha256": "710a4cef49726280333cecb975ab32cde2ef489b282928f0327ff0b58b2d93f5"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/util/loc.ml"
+  },
+  "why3/src/util/mysexplib-dummy.ml": {
+    "identity": {
+      "bytes": 1200,
+      "sha256": "ef0a4c597d92cc410f0a5a2b2767af60b6af0a8f80397a19de1f3f7b70ec3f66"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/util/mysexplib-dummy.ml"
+  },
+  "why3/src/util/mysexplib-real.ml": {
+    "identity": {
+      "bytes": 2350,
+      "sha256": "d1cc307908231e2ba5dcbfc1eeab07aed7df57c409455c25f0360c21584f890f"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/util/mysexplib-real.ml"
+  },
+  "why3/src/util/number.ml": {
+    "identity": {
+      "bytes": 19428,
+      "sha256": "e8d7fc14619b572a662cb9bc8b36dd0d6c4fe31ff1227f601fd6de5265c6b8a4"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/util/number.ml"
+  },
+  "why3/src/util/plugin.ml": {
+    "identity": {
+      "bytes": 2202,
+      "sha256": "f780c5ad03979936b54d3690a485172a48e6c3a196ed6adfc81d7ea9e9e04978"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/util/plugin.ml"
+  },
+  "why3/src/util/pp.ml": {
+    "identity": {
+      "bytes": 6788,
+      "sha256": "57b22ec4cf345fc41215cf6518a033fee6c1096abc3a381526a3c401168bcd1f"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/util/pp.ml"
+  },
+  "why3/src/util/rc.mll": {
+    "identity": {
+      "bytes": 12571,
+      "sha256": "4889618aea6a1bdfec16e77cc6689e27daeb5b81d31722521fcfa6e99192a0ed"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/util/rc.mll"
+  },
+  "why3/src/util/sysutil.ml": {
+    "identity": {
+      "bytes": 8096,
+      "sha256": "5f63166b3310d115fb01b2ddef9282ea2470269b05296262728b457b18a24fdb"
+    },
+    "origin_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "origin_member": "why3/src/util/sysutil.ml"
+  }
+}
