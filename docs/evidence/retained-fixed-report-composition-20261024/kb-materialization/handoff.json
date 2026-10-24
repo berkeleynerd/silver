@@ -1,0 +1,88 @@
+{
+  "P": 188,
+  "allowed_phases": [
+    "datarep",
+    "phase1",
+    "translation"
+  ],
+  "base_commit": "10c46aa5628ee0ad1e0aa7dc610d16151308fa9f",
+  "closed_scope": "Enumerated KB initialization target/fallback/regexp compilation/file set/directory list/file buffers and predefined ordered sets only",
+  "complete_producer_capacity_closed": false,
+  "discovery": {
+    "candidate_description_name_pairs": 14,
+    "candidate_descriptions": 10,
+    "candidate_names": [
+      "gcc",
+      "gnatls",
+      "x86_64-pc-linux-gnu-g++",
+      "x86_64-pc-linux-gnu-gcc"
+    ],
+    "command_output_bound": null,
+    "first_directory_entries": 59,
+    "prospective_exact_directory_membership_required": true,
+    "runtime_traversal_bound": null,
+    "stop_before_later_PATH_directories_proved": false
+  },
+  "e_upper": 2,
+  "issue": 212,
+  "metaschema": {
+    "added_to_grammar_with_validation_disabled": true,
+    "attributes": 884,
+    "bytes": 32248,
+    "complete_parser_grammar_allocation_bound": null,
+    "elements": 685,
+    "sha256": "6b2890d5aa3e01027bcf36c6be7d488111e683e1cd071db334284004903c2683"
+  },
+  "monitoring": {
+    "author_pre_freeze_UTC": "2026-10-24 10:00:31 UTC",
+    "elapsed_scope_note": "Approximately 30 minutes from source investigation through successful focused check; not a causal model-quality comparison.",
+    "runtime_setting_confirmation": null,
+    "selected_effort": "Extra High",
+    "selected_model": "GPT-6 Astra",
+    "token_cost_telemetry": null,
+    "unit_started_UTC": "2026-10-24 09:30:28 UTC"
+  },
+  "not_an_incremental_Name_request_delta": "The canonical 104 requests already appear in accepted baseline totals",
+  "numerical_summary": {
+    "File_Input_String_object": 60298,
+    "RTS_list_backing": 80,
+    "fallback_list_gross_node_events_upper": 48,
+    "fallback_vector_backing": 400,
+    "predefined_attribute_nodes": 216,
+    "predefined_package_nodes": 19,
+    "regexp_dummy_object": 1112,
+    "regexp_matcher_object": 3312,
+    "sorted_file_String_object": 193,
+    "sorted_file_node_object": 80,
+    "target_list_gross_node_events_upper": 2322,
+    "target_vector_backing": 14352
+  },
+  "parent_issue": 119,
+  "process_counting": "Each process separately; no aggregate RAM or stack gate",
+  "prospective_configuration_duties": [
+    "Preserve exact existing first-directory membership and five effective path resolutions from the narrow metadata evidence.",
+    "Use the exact accepted KB corpus and one selected extra directory; bind effective child configuration before native use."
+  ],
+  "provider": "capacity.initialization(phase)",
+  "residuals": [
+    "XML/Ada complete DOM/SAX/schema/metaschema/NFA/symbol/input/entity and id/namespace allocations.",
+    "Later target lookups, returned controlled list copies, unknown-target insertions and regexp matching storage.",
+    "Nonparsed GPR.Names command/environment/path/naming/prior-capacity and later process/ALI requests.",
+    "Remaining GPR startup/hash/set/list/comment and OS-directory enumeration objects.",
+    "Gprconfig full compiler/configuration KB structures, candidate query output, finite relative runtime traversal, successful stop before later PATH directories, selection/substitution/merge/generation.",
+    "Separate GNATprove GPR2 startup/project/runtime discovery.",
+    "Other-owner native/source/fixed/Main/report joins."
+  ],
+  "review_status": "Independent review of author freeze pending",
+  "save_entering_callbacks_upper": 2,
+  "saves_upper": 3,
+  "source_admission_changed": false,
+  "validation": {
+    "first_attempt": "Failed handwritten 15-pair expectation; actual fixed inventory 14. Retained under first-check.",
+    "focused_check_seconds": 0.403203,
+    "narrow_read_only_metadata_inventory": true,
+    "native_executions": 0,
+    "new_native_captures": 0,
+    "successful_predecessor_replays": 0
+  }
+}

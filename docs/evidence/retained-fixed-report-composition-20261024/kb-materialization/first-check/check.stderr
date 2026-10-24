@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/canto/src/github.com/berkeleynerd/silver/tmp/fixed-report-composition-20261024/docs/evidence/retained-fixed-report-composition-20261024/kb-materialization/check.py", line 221, in <module>
+    main()
+    ~~~~^^
+  File "/home/canto/src/github.com/berkeleynerd/silver/tmp/fixed-report-composition-20261024/docs/evidence/retained-fixed-report-composition-20261024/kb-materialization/check.py", line 163, in main
+    assert len(candidates) == 10 and sum(len(r['matches']) for r in candidates) == 15
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

@@ -1,0 +1,930 @@
+{
+  "targetsets": [
+    {
+      "file": "db/targetset.xml",
+      "canonical": "x86-elinos",
+      "patterns": [
+        "x86-elinos",
+        "x86-elinos-linux",
+        "i686-elinos-linux"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "ppc-elinos",
+      "patterns": [
+        "ppc-elinos",
+        "ppc-elinos-linux",
+        "powerpc-elinos-linux"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "e500v2-wrslinux",
+      "patterns": [
+        "e500v2-wrslinux",
+        "e500v2-wrs-linux",
+        "e500v2-wrs-linux"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "ppc-wrslinux",
+      "patterns": [
+        "ppc-wrslinux",
+        "ppc-wrs-linux",
+        "powerpc-wrs-linux"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "aarch64-linux",
+      "patterns": [
+        "aarch64-linux",
+        "aarch64-linux-gnu",
+        "aarch64-unknown-linux-gnu"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "arm-linux",
+      "patterns": [
+        "arm-linux",
+        "arm-linux-gnueabi"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "armhf-linux",
+      "patterns": [
+        "armhf-linux",
+        "arm-linux-gnueabihf"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "e500v2-linux",
+      "patterns": [
+        "e500v2-linux",
+        "e500v2-gnu-linux"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "ppc-linux",
+      "patterns": [
+        "ppc-linux",
+        "powerpc-generic-linux-gnu"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "ppc64-linux",
+      "patterns": [
+        "ppc64-linux",
+        "powerpc64-generic-linux-gnu"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "x86-linux",
+      "patterns": [
+        "x86-linux",
+        "x86_32-linux",
+        "i.86-.*linux.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "x86_64-linux",
+      "patterns": [
+        "x86_64-linux",
+        "x86_64-.*linux.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "ia64-linux",
+      "patterns": [
+        "ia64-linux",
+        "ia64-hp_linux",
+        "ia64-sgi_linux",
+        "ia64-.*linux.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "sparc-solaris",
+      "patterns": [
+        "sparc-solaris",
+        "sparc-.*solaris.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "sparc64-solaris",
+      "patterns": [
+        "sparc64-solaris",
+        "sparc64-.*solaris.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "x86-solaris",
+      "patterns": [
+        "x86-solaris",
+        "i.86-(pc-)?solaris.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "x86-windows",
+      "patterns": [
+        "x86-windows",
+        "x86_32-windows",
+        "mingw32",
+        "i.86-.*mingw32.*",
+        "pentium-.*mingw32.*",
+        "i.86-.*windows.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "x86_64-windows",
+      "patterns": [
+        "x86_64-windows",
+        "x86_64-.*mingw32.*",
+        "x86_64-.*windows-gnu"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "aarch64-darwin",
+      "patterns": [
+        "aarch64-ios",
+        "aarch64-darwin",
+        "aarch64.*-darwin.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "arm-darwin",
+      "patterns": [
+        "arm-ios",
+        "arm-darwin",
+        "arm.*-darwin.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "ppc-darwin",
+      "patterns": [
+        "ppc-darwin",
+        "powerpc.*darwin.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "x86-darwin",
+      "patterns": [
+        "x86-darwin",
+        "x86_32-darwin",
+        "i.86-.*-darwin.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "x86_64-darwin",
+      "patterns": [
+        "x86_64-darwin",
+        "x86_64-.*-darwin.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "pa-hpux",
+      "patterns": [
+        "pa-hpux",
+        "hppa.*-hpux.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "ia64-hpux",
+      "patterns": [
+        "ia64-hpux",
+        "ia64-.*hpux.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "alpha-tru64",
+      "patterns": [
+        "alpha-tru64",
+        "alpha.*osf.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "alpha-openvms",
+      "patterns": [
+        "alpha-openvms",
+        "alpha64-dec-openvms.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "mips-irix",
+      "patterns": [
+        "mips-irix",
+        "mips-.*irix.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "ppc-aix",
+      "patterns": [
+        "ppc-aix",
+        "powerpc.*-aix.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "ppc-linux",
+      "patterns": [
+        "ppc-linux",
+        "powerpc-.*-linux.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "x86-lynx",
+      "patterns": [
+        "x86-lynx",
+        "i.86-.*-lynxos"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "x86-cygwin",
+      "patterns": [
+        "i.*-cygwin.*",
+        "pent.*-cygwin.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "aarch64-freebsd",
+      "patterns": [
+        "aarch64-freebsd",
+        "aarch64-.*freebsd.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "x86-freebsd",
+      "patterns": [
+        "x86-freebsd",
+        "x86_32-freebsd",
+        "i.86-.*freebsd.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "x86_64-freebsd",
+      "patterns": [
+        "x86_64-freebsd",
+        "x86_64-.*freebsd.*",
+        "amd64-.*freebsd.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "x86-netbsd",
+      "patterns": [
+        "x86-netbsd",
+        "x86_32-netbsd",
+        "i.86-.*netbsd.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "x86_64-netbsd",
+      "patterns": [
+        "x86_64-netbsd",
+        "x86_64-.*netbsd.*",
+        "amd64-.*netbsd.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "aarch64-netbsd",
+      "patterns": [
+        "aarch64-netbsd",
+        "aarch64-.*netbsd.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "arm7-netbsd",
+      "patterns": [
+        "arm7-netbsd",
+        "arm7-.*netbsd.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "arm7eb-netbsd",
+      "patterns": [
+        "arm7eb-netbsd",
+        "arm7eb-.*netbsd.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "aarch64-netbsd",
+      "patterns": [
+        "arm*-.*netbsd.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "riscv32-netbsd",
+      "patterns": [
+        "riscv32-netbsd",
+        "riscv32-.*netbsd.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "riscv64-netbsd",
+      "patterns": [
+        "riscv64-netbsd",
+        "riscv64-.*netbsd.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "x86_64-dragonfly",
+      "patterns": [
+        "x86_64-dragonfly",
+        "x86_64-.*dragonlfy.*",
+        "amd64-.*dragonfly.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "aamp",
+      "patterns": [
+        "aamp",
+        ".*aamp.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "aarch64-lynx178",
+      "patterns": [
+        "aarch64-lynx178",
+        "aarch64-lynx-lynxos178"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "ppc-lynx178elf",
+      "patterns": [
+        "ppc-lynx178elf",
+        "powerpc-elf-lynxos178e"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "ppc-lynx5",
+      "patterns": [
+        "ppc-lynx5",
+        "ppc-lynx5.*",
+        "powerpc-elf-lynxos5.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "ppc-lynx",
+      "patterns": [
+        "ppc-lynx",
+        "ppc-lynx-solaris",
+        "ppc-lynx-.*",
+        "powerpc-elf-lynxos.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "ppc-lynx178",
+      "patterns": [
+        "ppc-lynx178",
+        "ppc-xcoff-lynxos",
+        "ppc-xcoff-lynxos178.*",
+        "powerpc-xcoff-lynxos178.*",
+        "powerpc-unknown-lynxos178-xcoff"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "x86-lynx178elf",
+      "patterns": [
+        "x86-lynx178elf",
+        "i586-elf-lynxos178e"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "x86-lynx178v111",
+      "patterns": [
+        "x86-lynx178v111",
+        "i586-elf-lynxos178v111"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "x86-lynx5",
+      "patterns": [
+        "x86-lynx5",
+        "x86-lynx5.*",
+        "i386-elf-lynxos5.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "arm-vx7",
+      "patterns": [
+        "arm-vx7",
+        "arm-wrs-vxworks7"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "arm-vx7r2",
+      "patterns": [
+        "arm-vx7r2",
+        "arm-vx7r2cert",
+        "arm-wrs-vxworks7r2"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "e500v2-vx7",
+      "patterns": [
+        "e500v2-vx7",
+        "e500v2-wrs-vxworks7"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "e500v2-vx7r2",
+      "patterns": [
+        "e500v2-vx7r2",
+        "e500v2-vx7r2cert",
+        "e500v2-wrs-vxworks7r2"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "ppc-vx7",
+      "patterns": [
+        "ppc-vx7",
+        "powerpc-wrs-vxworks7"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "ppc-vx7r2",
+      "patterns": [
+        "ppc-vx7r2",
+        "ppc-vx7r2cert",
+        "powerpc-wrs-vxworks7r2"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "ppc64-vx7",
+      "patterns": [
+        "ppc64-vx7",
+        "powerpc64-wrs-vxworks7"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "ppc64-vx7r2",
+      "patterns": [
+        "ppc64-vx7r2",
+        "ppc64-vx7r2cert",
+        "powerpc64-wrs-vxworks7r2"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "x86-vx7",
+      "patterns": [
+        "x86-vx7",
+        "x86-wrs-vxworks7",
+        "i.86-wrs-vxworks7"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "x86-vx7r2",
+      "patterns": [
+        "x86-vx7r2",
+        "x86-vx7r2cert",
+        "x86-wrs-vxworks7r2",
+        "i.86-wrs-vxworks7r2"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "x86_64-vx7",
+      "patterns": [
+        "x86_64-wrs-vxworks7",
+        "x86_64-vx7"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "x86_64-vx7r2",
+      "patterns": [
+        "x86_64-vx7r2",
+        "x86_64-vx7r2cert",
+        "x86_64-wrs-vxworks7r2"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "arm-vx6",
+      "patterns": [
+        "arm-vx6",
+        "arm-wrs-vxworks"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "x86-vx6",
+      "patterns": [
+        "x86-vx6",
+        "x86-wrs-vxworks",
+        "x86-vx6-windows",
+        "x86-vx6-linux",
+        "i.86-wrs-vxworks"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "ppc-vx6",
+      "patterns": [
+        "powerpc-wrs-vxworks",
+        "ppc-vxw",
+        "ppc-vxw-solaris",
+        "ppc-vxw-windows",
+        "ppc-vx178b",
+        "ppc-vx178b-solaris",
+        "ppc-vx178b-windows",
+        "ppc-vx6",
+        "ppc-vx6-solaris",
+        "ppc-vx6-windows",
+        "ppc-vx6-linux"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "e500v2-vx6",
+      "patterns": [
+        "e500v2-vx6",
+        "e500v2-wrs-vxworks",
+        "e500v2-vx6-solaris",
+        "e500v2-vx6-windows",
+        "e500v2-vx6-linux"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "ppc-vx653",
+      "patterns": [
+        "ppc-vx653",
+        "ppc-vx653-solaris",
+        "ppc-vx653-windows",
+        "powerpc-wrs-vxworksae"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "e500v2-vx653",
+      "patterns": [
+        "e500v2-vx653",
+        "e500v2-vx653-windows",
+        "e500v2-wrs-vxworksae"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "aarch64-fastos",
+      "patterns": [
+        "aarch64-fastos",
+        "aarch64-thales-fastos"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "aarch64-qnx",
+      "patterns": [
+        "aarch64-qnx",
+        "aarch64-nto-qnx"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "arm-qnx",
+      "patterns": [
+        "arm-qnx",
+        "arm-nto-qnx"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "aarch64-vx7",
+      "patterns": [
+        "aarch64-vx7",
+        "aarch64-wrs-vxworks7"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "aarch64-vx7r2",
+      "patterns": [
+        "aarch64-vx7r2",
+        "aarch64-vx7r2cert",
+        "aarch64-wrs-vxworks7r2"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "morello-vx7r2",
+      "patterns": [
+        "morello-vx7r2",
+        "morello-vx7r2cert",
+        "morello-wrs-vxworks7r2"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "morello-freebsd",
+      "patterns": [
+        "morello-freebsd",
+        "morello-.*freebsd.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "ppc-elf",
+      "patterns": [
+        "ppc-elf",
+        "ppc-elf-solaris",
+        "ppc-elf-windows",
+        "powerpc-elf"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "p55-elf",
+      "patterns": [
+        "p55-elf",
+        "p55-elf-windows",
+        "powerpc-eabispe"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "erc32-elf",
+      "patterns": [
+        "erc32-elf",
+        "erc32-elf-solaris",
+        "erc32-elf-linux",
+        "erc32-elf.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "leon-elf",
+      "patterns": [
+        "leon-elf",
+        "leon-elf-solaris",
+        "leon-elf-linux",
+        "leon-elf.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "leon3-elf",
+      "patterns": [
+        "leon3-elf",
+        "leon3-elf-linux",
+        "leon3-elf.*"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "arm-elf",
+      "patterns": [
+        "arm-elf",
+        "arm-elf-linux",
+        "arm-eabi",
+        "arm-none-eabi",
+        "arm-freertos"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "aarch64-elf",
+      "patterns": [
+        "aarch64-elf",
+        "aarch64-unknown-unknown-elf"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "morello-elf",
+      "patterns": [
+        "morello-elf",
+        "morello-none-elf",
+        "morello-unknown-elf",
+        "morello-unknown-unknown-elf"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "r7-elf",
+      "patterns": [
+        "r7-elf",
+        "r7-none-elf",
+        "r7-unknown-elf"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "riscv32-elf",
+      "patterns": [
+        "riscv32-elf",
+        "riscv32-none-elf",
+        "riscv32-unknown-elf"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "riscv64-elf",
+      "patterns": [
+        "riscv64-elf",
+        "riscv64-none-elf",
+        "riscv64-unknown-elf"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "x86-elf",
+      "patterns": [
+        "x86-elf",
+        "i686-elf"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "avr-elf",
+      "patterns": [
+        "avr-elf",
+        "avr-elf-windows",
+        "avr"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "ia64-openvms",
+      "patterns": [
+        "ia64-openvms",
+        "ia64-.*-openvms"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "arm-android",
+      "patterns": [
+        "arm-android",
+        "arm-linux-androideabi"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "aarch64-android",
+      "patterns": [
+        "aarch64-android",
+        "aarch64-linux-android"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "aarch64-pikeos5",
+      "patterns": [
+        "aarch64-pikeos5",
+        "aarch64-.*-pikeos5"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "arm-pikeos",
+      "patterns": [
+        "arm-pikeos",
+        "arm-.*-pikeos"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "arm-pikeos4.2",
+      "patterns": [
+        "arm-pikeos4.2",
+        "arm-.*-pikeos4"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "arm-pikeos5",
+      "patterns": [
+        "arm-pikeos5",
+        "arm-.*-pikeos5"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "ppc-pikeos",
+      "patterns": [
+        "ppc-pikeos",
+        "powerpc-.*-pikeos"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "ppc-pikeos5",
+      "patterns": [
+        "ppc-pikeos5",
+        "powerpc-.*-pikeos5"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "x86-pikeos",
+      "patterns": [
+        "x86-pikeos",
+        "i.86-.*-pikeos"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "c",
+      "patterns": [
+        "c",
+        "ccg"
+      ]
+    },
+    {
+      "file": "db/targetset.xml",
+      "canonical": "codepeer",
+      "patterns": [
+        "gnatsas",
+        "codepeer"
+      ]
+    },
+    {
+      "file": "db/tricore-target.xml",
+      "canonical": "tricore",
+      "patterns": [
+        "tricore"
+      ]
+    }
+  ],
+  "fallbacks": [
+    {
+      "file": "db/fallback_targets.xml",
+      "values": [
+        "x86-windows",
+        "x86_64-windows"
+      ]
+    },
+    {
+      "file": "db/fallback_targets.xml",
+      "values": [
+        "x86-linux",
+        "x86_64-linux"
+      ]
+    },
+    {
+      "file": "db/fallback_targets.xml",
+      "values": [
+        "x86_64-darwin",
+        "aarch64-darwin"
+      ]
+    }
+  ]
+}

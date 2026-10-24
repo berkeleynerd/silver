@@ -1,0 +1,96 @@
+[
+  {
+    "description": "G++_Pro",
+    "file": "db/compilers.xml",
+    "pattern": "(.*-elf-.*|.*-eabi-.*|.*-wrs-.*|.*-fastos.*|.*-freebsd.*|.*-linux-gnu.*-|.*-linux-android.*|.*-rtems.*)?g\\+\\+",
+    "matches": [
+      "x86_64-pc-linux-gnu-g++"
+    ],
+    "xml": "<compiler_description>\n    <name>G++_Pro</name>\n    <executable prefix=\"1\">(.*-elf-.*|.*-eabi-.*|.*-wrs-.*|.*-fastos.*|.*-freebsd.*|.*-linux-gnu.*-|.*-linux-android.*|.*-rtems.*)?g\\+\\+</executable>\n    <version>\n      <external>${PREFIX}g++ -v</external>\n\n      \n      <grep regexp=\"^gcc \\S+ (\\S+) \\d+ \\(?for GNAT Pro\" group=\"1\" />\n    </version>\n    <languages>C++</languages>\n    <target>\n      <external>${PREFIX}g++ -dumpmachine</external>\n      <grep regexp=\"[^\\r\\n]+\" />\n    </target>\n  </compiler_description>\n\n  \n  "
+  },
+  {
+    "description": "GCC",
+    "file": "db/compilers.xml",
+    "pattern": "(.*-wrs-.*|.*-sysgo.*|.*-elf-.*|.*-eabi-.*|.*-eabispe-.*|avr-.*|.*-elinos-linux.*|.*-linux-gnu-|.*mingw32.*|.*-xcoff-.*|.*linux-android.*|arm-linux-gnueabi-|arm-linux-gnueabihf-|e500v2-gnu-linux-|powerpc-.*-linux.*-|.*-darwin.*-|.*-freebsd.*)?gcc(-\\d+)?",
+    "matches": [
+      "gcc",
+      "x86_64-pc-linux-gnu-gcc"
+    ],
+    "xml": "<compiler_description>\n    <name>GCC</name>\n    <executable prefix=\"1\">(.*-wrs-.*|.*-sysgo.*|.*-elf-.*|.*-eabi-.*|.*-eabispe-.*|avr-.*|.*-elinos-linux.*|.*-linux-gnu-|.*mingw32.*|.*-xcoff-.*|.*linux-android.*|arm-linux-gnueabi-|arm-linux-gnueabihf-|e500v2-gnu-linux-|powerpc-.*-linux.*-|.*-darwin.*-|.*-freebsd.*)?gcc(-\\d+)?</executable>\n    <version>\n      <external>$EXEC -v</external>\n      <nogrep regexp=\"for GNAT Pro\" />\n      <grep regexp=\"^gcc \\S+ (\\S+)\" group=\"1\" />\n    </version>\n    <languages>C</languages>\n    <target>\n      <external>$EXEC -dumpmachine</external>\n      <grep regexp=\"[^\\r\\n]+\" />\n    </target>\n  </compiler_description>\n\n  \n  "
+  },
+  {
+    "description": "GCC-28",
+    "file": "db/compilers.xml",
+    "pattern": "gcc",
+    "matches": [
+      "gcc"
+    ],
+    "xml": "<compiler_description>\n    <name>GCC-28</name>\n    <executable>gcc</executable>\n    <version>\n      <external>gcc -v</external>\n      <grep regexp=\"^gcc \\S+ (\\S+)\" group=\"1\" />\n      <must_match>2\\.8\\.</must_match>\n    </version>\n    <languages>C</languages>\n    <target>\n      <external>gcc -dumpmachine</external>\n      <grep regexp=\"[^\\r\\n]+\" />\n    </target>\n  </compiler_description>\n\n  \n  "
+  },
+  {
+    "description": "GCC-ASM",
+    "file": "db/compilers.xml",
+    "pattern": "(.*-wrs-.*|.*-sysgo.*|.*-elf-.*|.*-eabi-.*|.*-eabispe-.*|avr-.*|.*-elinos-linux.*|.*-linux-gnu-|.*mingw32.*|.*-xcoff-.*|.*linux-android.*|arm-linux-gnueabi-|arm-linux-gnueabihf-|e500v2-gnu-linux-|powerpc-.*-linux.*-|.*-darwin.*-|.*-fastos.*|.*-freebsd.*|.*-qnx.*|.*-rtems.*|.*-lynxos178.*)?gcc(-\\d+)?",
+    "matches": [
+      "gcc",
+      "x86_64-pc-linux-gnu-gcc"
+    ],
+    "xml": "<compiler_description>\n    <name>GCC-ASM</name>\n    <executable prefix=\"1\">(.*-wrs-.*|.*-sysgo.*|.*-elf-.*|.*-eabi-.*|.*-eabispe-.*|avr-.*|.*-elinos-linux.*|.*-linux-gnu-|.*mingw32.*|.*-xcoff-.*|.*linux-android.*|arm-linux-gnueabi-|arm-linux-gnueabihf-|e500v2-gnu-linux-|powerpc-.*-linux.*-|.*-darwin.*-|.*-fastos.*|.*-freebsd.*|.*-qnx.*|.*-rtems.*|.*-lynxos178.*)?gcc(-\\d+)?</executable>\n    <version>\n      <external>$EXEC -v</external>\n      <nogrep regexp=\"for GNAT Pro\" />\n      <grep regexp=\"^gcc \\S+ (\\S+)\" group=\"1\" />\n    </version>\n    <languages>Asm,Asm_Cpp,Asm2</languages>\n    <target>\n      <external>$EXEC -dumpmachine</external>\n      <grep regexp=\"[^\\r\\n]+\" />\n    </target>\n  </compiler_description>\n\n  \n  "
+  },
+  {
+    "description": "GCC-ASM_Pro",
+    "file": "db/compilers.xml",
+    "pattern": "(.*-wrs-.*|.*-sysgo.*|.*-elf-.*|.*-eabi-.*|.*-eabispe-.*|avr-.*|.*-elinos-linux.*|.*-linux-gnu-|.*mingw32.*|.*-xcoff-.*|.*linux-android.*|arm-linux-gnueabi-|arm-linux-gnueabihf-|e500v2-gnu-linux-|powerpc-.*-linux.*-|.*-darwin.*-|.*-.*fastos.*|.*-freebsd.*|.*-qnx.*|.*-rtems.*|.*-lynxos178.*)?gcc",
+    "matches": [
+      "gcc",
+      "x86_64-pc-linux-gnu-gcc"
+    ],
+    "xml": "<compiler_description>\n    <name>GCC-ASM_Pro</name>\n    <executable prefix=\"1\">(.*-wrs-.*|.*-sysgo.*|.*-elf-.*|.*-eabi-.*|.*-eabispe-.*|avr-.*|.*-elinos-linux.*|.*-linux-gnu-|.*mingw32.*|.*-xcoff-.*|.*linux-android.*|arm-linux-gnueabi-|arm-linux-gnueabihf-|e500v2-gnu-linux-|powerpc-.*-linux.*-|.*-darwin.*-|.*-.*fastos.*|.*-freebsd.*|.*-qnx.*|.*-rtems.*|.*-lynxos178.*)?gcc</executable>\n    <version>\n      <external>${PREFIX}gcc -v</external>\n      <grep regexp=\"^gcc \\S+ (\\S+) \\d+ (\\(prerelease\\) )?\\(?for GNAT Pro\" group=\"1\" />\n    </version>\n    <languages>Asm,Asm_Cpp,Asm2</languages>\n    <target>\n      <external>${PREFIX}gcc -dumpmachine</external>\n      <grep regexp=\"[^\\r\\n]+\" />\n    </target>\n  </compiler_description>\n\n  \n  "
+  },
+  {
+    "description": "GCC-CYGMING",
+    "file": "db/compilers.xml",
+    "pattern": "gcc",
+    "matches": [
+      "gcc"
+    ],
+    "xml": "<compiler_description>\n    <name>GCC-CYGMING</name>\n    <executable>gcc</executable>\n    <version>\n      <external>gcc --version</external>\n      <grep regexp=\"\\(GCC\\) (\\S+).*\\(cygming special\\)\" group=\"1\" />\n    </version>\n    <languages>C,C++,Fortran</languages>\n    <target>\n      <external>gcc -mno-cygwin -dumpmachine</external>\n      <grep regexp=\"[^\\r\\n]+\" />\n    </target>\n  </compiler_description>\n\n  "
+  },
+  {
+    "description": "GCC-MINGW32",
+    "file": "db/compilers.xml",
+    "pattern": "gcc(-sjlj|)",
+    "matches": [
+      "gcc"
+    ],
+    "xml": "<compiler_description>\n    <name>GCC-MINGW32</name>\n    <executable prefix=\"1\">gcc(-sjlj|)</executable>\n    <version>\n      <external>gcc${PREFIX} --version</external>\n      <grep regexp=\"\\(GCC\\) (\\S+).*\\(mingw32.*\\)\" group=\"1\" />\n    </version>\n    <languages>C,C++,Fortran</languages>\n    <target>\n      <external>gcc${PREFIX} -dumpmachine</external>\n      <grep regexp=\"[^\\r\\n]+\" />\n    </target>\n  </compiler_description>\n\n  \n  "
+  },
+  {
+    "description": "GCC_Pro",
+    "file": "db/compilers.xml",
+    "pattern": "(.*-wrs-.*|.*-sysgo.*|.*-elf-.*|.*-eabi-.*|.*-eabispe-.*|avr-.*|.*-elinos-linux.*|.*-linux-gnu-|.*mingw32.*|.*-xcoff-.*|.*linux-android.*|arm-linux-gnueabi-|arm-linux-gnueabihf-|e500v2-gnu-linux-|powerpc-.*-linux.*-|.*-darwin.*-|.*-fastos.*|.*-freebsd.*|.*-qnx.*|.*-rtems.*|.*-lynxos178.*)?gcc",
+    "matches": [
+      "gcc",
+      "x86_64-pc-linux-gnu-gcc"
+    ],
+    "xml": "<compiler_description>\n    <name>GCC_Pro</name>\n    <executable prefix=\"1\">(.*-wrs-.*|.*-sysgo.*|.*-elf-.*|.*-eabi-.*|.*-eabispe-.*|avr-.*|.*-elinos-linux.*|.*-linux-gnu-|.*mingw32.*|.*-xcoff-.*|.*linux-android.*|arm-linux-gnueabi-|arm-linux-gnueabihf-|e500v2-gnu-linux-|powerpc-.*-linux.*-|.*-darwin.*-|.*-fastos.*|.*-freebsd.*|.*-qnx.*|.*-rtems.*|.*-lynxos178.*)?gcc</executable>\n    <version>\n      <external>${PREFIX}gcc -v</external>\n\n      \n      <grep regexp=\"^gcc \\S+ (\\S+) \\d+ (\\(prerelease\\) )?\\(?for GNAT Pro\" group=\"1\" />\n    </version>\n    <languages>C</languages>\n    <target>\n      <external>${PREFIX}gcc -dumpmachine</external>\n      <grep regexp=\"[^\\r\\n]+\" />\n    </target>\n  </compiler_description>\n\n  \n\n  "
+  },
+  {
+    "description": "GNAT",
+    "file": "db/compilers.xml",
+    "pattern": "(.*-wrs-.*|.*-sysgo.*|.*-elf-.*|.*-eabi-.*|.*-eabispe-.*|avr-.*|.*-elinos-linux.*|.*-linux-gnu-|.*mingw32.*|.*-xcoff-.*|.*linux-android.*|arm-linux-gnueabi-|arm-linux-gnueabihf-|e500v2-gnu-linux-|powerpc-.*-linux.*-|.*-darwin.*-|.*-fastos.*|.*-freebsd.*|.*-qnx.*|.*-rtems.*|.*-lynxos178.*)?gnatls",
+    "matches": [
+      "gnatls"
+    ],
+    "xml": "<compiler_description>\n    <name>GNAT</name>\n    <executable prefix=\"1\">(.*-wrs-.*|.*-sysgo.*|.*-elf-.*|.*-eabi-.*|.*-eabispe-.*|avr-.*|.*-elinos-linux.*|.*-linux-gnu-|.*mingw32.*|.*-xcoff-.*|.*linux-android.*|arm-linux-gnueabi-|arm-linux-gnueabihf-|e500v2-gnu-linux-|powerpc-.*-linux.*-|.*-darwin.*-|.*-fastos.*|.*-freebsd.*|.*-qnx.*|.*-rtems.*|.*-lynxos178.*)?gnatls</executable>\n    <version>\n      <external>${PREFIX}gnatls -v --version</external>\n      <grep regexp=\"^GNATLS.+?(\\d+(\\.\\d+)?)\" group=\"1\" />\n    </version>\n    <languages>Ada</languages>\n    <variable name=\"gcc_version\">\n      <external>${PREFIX}gcc -v</external>\n      <grep regexp=\"^[-\\w]*gcc \\S+ (\\S+)\" group=\"1\" />\n    </variable>\n    <variable name=\"gcc_version_major\">\n      <external>${PREFIX}gcc -v</external>\n      <grep regexp=\"^[-\\w]*gcc \\S+ (\\d+)\\.\\d+\\.\\d+\" group=\"1\" />\n    </variable>\n    <runtimes default=\"default,kernel,native\">\n       <directory group=\"default\">\\.\\./lib(32|64)?/gcc(-lib)?/$TARGET/($gcc_version|$gcc_version_major)/adalib/</directory>\n       <directory group=\"default\" contents=\"^rts-\">\\.\\./lib(32|64)?/gcc(-lib)?/$TARGET/($gcc_version|$gcc_version_major)/ada_object_path</directory>\n       <directory group=\"4\">\\.\\./lib(32|64)?/gcc(-lib)?/$TARGET/($gcc_version|$gcc_version_major)/rts-(.*)/adalib/</directory>\n       <directory group=\"2\">\\.\\./$TARGET/lib(32|64)?/gnat/(.*)/adalib/</directory>\n    </runtimes>\n    <target>\n      <external>${PREFIX}gcc -dumpmachine</external>\n      <grep regexp=\"[^\\r\\n]+\" />\n    </target>\n  </compiler_description>\n\n  \n\n  "
+  },
+  {
+    "description": "LYNXWORKS-C",
+    "file": "db/compilers.xml",
+    "pattern": "gcc",
+    "matches": [
+      "gcc"
+    ],
+    "xml": "<compiler_description>\n    <name>LYNXWORKS-C</name>\n    <executable>gcc</executable>\n    <version>\n      <external>gcc -v</external>\n      <grep regexp=\"^gcc version (\\S+)\" group=\"1\" />\n    </version>\n    <languages>C</languages>\n    <target>\n      <external>gcc -dumpmachine</external>\n      <grep regexp=\"[^\\r\\n]+\" />\n      <must_match>.*xcoff-lynxos.*</must_match>\n    </target>\n  </compiler_description>\n\n  \n  "
+  }
+]

@@ -428,3 +428,59 @@ unavailable. Independent repair verification is pending. #212/#119 and the
 concrete nonparsed Names/startup/KB/Gprconfig/GPR2 and later producer joins
 remain open; physical premises, P188 and e <= 2 / two callbacks / three saves
 are unchanged.
+
+## Fixed KB materialization and predefined sets, 2026-10-24
+
+The [KB materialization packet](../evidence/retained-fixed-report-composition-20261024/kb-materialization/README.md)
+adds numerical source/configuration bounds for the selected KB initialization
+objects. The 104 target sets and 279 patterns give a target vector of capacity
+128 and a 14,352-byte backing. Three fallback sets give capacity four and a
+400-byte backing. The list accounting includes controlled temporary and growth
+copies: at most 2,322 target node allocations and 48 fallback node/String
+allocations, with separate 48-byte node and 30-byte fallback String bounds.
+Finalization and freed old backings do not subtract gross allocation events.
+The already-counted 104 canonical GPR.Names requests are not added again.
+
+Anchored target regexps have at most 33 input bytes. The complete source
+emission argument gives at most 3,200 bytecode bytes, 3,312 bytes per matcher
+and 1,112 bytes for Compile's fixed dummy. This covers compilation objects,
+not later matching/backtracking or Get_Targets_Set/Normalized_Target copies
+and unknown-target insertion. Those consumer joins remain explicit.
+
+The sorted input-file sets have 63/64/64 gross nodes and separate Strings by
+phase, each at most 80/193 bytes, with a per-directory peak of 63 nodes. Exact
+effective KB paths have maximum 177 bytes under unchanged P188. RTS_List has
+one 80-byte initial backing and one/two/two directory Strings of at most
+159 bytes. The fixed XML/entity file buffers have maximum 60,298 bytes;
+151 external expansions plus 63/64/64 top-level opens give gross bounds
+214/215/215 for these buffers. The two predefined ordered sets now have
+216/19 gross node bounds, each node 80 bytes and each set header 128 bytes.
+These are individual objects in one process, not an aggregate RAM/stack gate.
+
+Complete KB parser capacity remains open. The newly pinned XML/Ada 26.0.0
+sources show that Initialize_Grammar executes before the validation-feature
+test and parses an embedded metaschema even when schema validation is off.
+The exact literal has 32,248 bytes, 685 elements and 884 attributes. Its nested
+parser, symbols, schema/NFA/DOM/SAX tables and objects need their own numerical
+bounds. Disabling validation cannot justify omitting them.
+
+The parent-authorized narrow metadata inventory preserves 59 entries in the
+private first compiler directory and five resolved executable/KB paths. The
+prospective configuration must retain this exact membership/resolution under
+the existing overlay constructor. Ten compiler descriptions match 14
+description/filename pairs. Candidate output, relative runtime-directory
+traversal and the successful GNAT batch callback before later PATH directories
+remain concrete obligations; explicit RTS does not bypass preceding queries.
+No native execution, full corpus capture or large vendor download is required
+by this packet. Remaining nonparsed Names/startup objects, complete Gprconfig,
+separate GNATprove GPR2 and later producer/report joins stay open under #212/#119.
+
+The first new check caught only a handwritten candidate-pair count of 15
+instead of 14; its failed receipts are preserved. The corrected focused check
+passed in 0.403203 seconds over ten provider files and 35 complete selected
+sources. No successful predecessor checker, selector, target/compiler/prover/
+Lean/service or runtime-corpus scan was replayed. Selected author setting was
+GPT-6 Astra / Extra High; runtime confirmation and token/cost telemetry are
+unavailable. Independent exact-freeze review is pending. Prior accepted
+packets, child RTS spelling, physical premises and the global e <= 2 / two
+callbacks / three saves remain unchanged.

@@ -1,0 +1,419 @@
+{
+  "directory": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/bin",
+  "scope": "Narrow current metadata inventory, not native execution or complete source/runtime corpus capture",
+  "entries": [
+    {
+      "name": "Microsoft.Z3.deps.json",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/Microsoft.Z3.deps.json",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "Microsoft.Z3.dll",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/Microsoft.Z3.dll",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "Microsoft.Z3.xml",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/Microsoft.Z3.xml",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "alt-ergo",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/alt-ergo",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "com.microsoft.z3.jar",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/com.microsoft.z3.jar",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "cpp",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/cpp",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "cvc5",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/cvc5",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "gcc",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gcc",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "gcc-ar",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gcc-ar",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "gcc-nm",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gcc-nm",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "gcc-ranlib",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gcc-ranlib",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "gcore",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gcore",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "gnat2why",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnat2why",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "gnatbind",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatbind",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "gnatls",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatls",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "gnatwhy3",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/compiler/bin/silver_image_adapter",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "gp-archive",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gp-archive",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "gp-collect-app",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gp-collect-app",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "gp-display-html",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gp-display-html",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "gp-display-src",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gp-display-src",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "gp-display-text",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gp-display-text",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "gprbuild",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gprbuild",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "gprclean",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gprclean",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "gprconfig",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gprconfig",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "gprinstall",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gprinstall",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "gprls",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gprls",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "gprname",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gprname",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "gprof",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gprof",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "gprofng",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gprofng",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "gprofng-archive",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gprofng-archive",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "gprofng-collect-app",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gprofng-collect-app",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "gprofng-display-html",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gprofng-display-html",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "gprofng-display-src",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gprofng-display-src",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "gprofng-display-text",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gprofng-display-text",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "gprofng-gmon",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gprofng-gmon",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "gstack",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gstack",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "libz3.a",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/libz3.a",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "libz3.so",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/libz3.so",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "libz3java.so",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/libz3java.so",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "objcopy",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/objcopy",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "python",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/python",
+      "file": false,
+      "directory": true
+    },
+    {
+      "name": "spark_memcached_wrapper",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_memcached_wrapper",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "spark_report",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_report",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "spark_semaphore_wrapper",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/spark_semaphore_wrapper",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "target.atp",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/target.atp",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "why3",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "why3config.cmxs",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3config.cmxs",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "why3cpulimit",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3cpulimit",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "why3realize.cmxs",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3realize.cmxs",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "why3server",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "why3session.cmxs",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3session.cmxs",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "x86_64-pc-linux-gnu-c++",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/x86_64-pc-linux-gnu-c++",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "x86_64-pc-linux-gnu-g++",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/x86_64-pc-linux-gnu-g++",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "x86_64-pc-linux-gnu-gcc",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/x86_64-pc-linux-gnu-gcc",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "x86_64-pc-linux-gnu-gcc-16.1.0",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/x86_64-pc-linux-gnu-gcc-16.1.0",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "x86_64-pc-linux-gnu-gcc-ar",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/x86_64-pc-linux-gnu-gcc-ar",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "x86_64-pc-linux-gnu-gcc-nm",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/x86_64-pc-linux-gnu-gcc-nm",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "x86_64-pc-linux-gnu-gcc-ranlib",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/x86_64-pc-linux-gnu-gcc-ranlib",
+      "file": true,
+      "directory": false
+    },
+    {
+      "name": "z3",
+      "symlink": true,
+      "target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/z3",
+      "file": true,
+      "directory": false
+    }
+  ]
+}

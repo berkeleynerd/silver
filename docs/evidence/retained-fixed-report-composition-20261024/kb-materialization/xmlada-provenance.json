@@ -1,0 +1,16 @@
+{
+  "tag_reference": {
+    "ref": "refs/tags/v26.0.0",
+    "node_id": "MDM6UmVmNTYwNzgwNzc6cmVmcy90YWdzL3YyNi4wLjA=",
+    "url": "https://api.github.com/repos/AdaCore/xmlada/git/refs/tags/v26.0.0",
+    "object": {
+      "sha": "f94c6f6ae8184c251529d1fd9c1b4583aff46b85",
+      "type": "tag",
+      "url": "https://api.github.com/repos/AdaCore/xmlada/git/tags/f94c6f6ae8184c251529d1fd9c1b4583aff46b85"
+    }
+  },
+  "revision": "5e5b761eb827f458efd2043a5e9ab03e1a614720",
+  "url": "https://codeload.github.com/AdaCore/xmlada/tar.gz/5e5b761eb827f458efd2043a5e9ab03e1a614720",
+  "bytes": 1084228,
+  "sha256": "a202f1c9955d26973d30e6d0357ba83f4031bc218006d620fa916420316a4f24"
+}

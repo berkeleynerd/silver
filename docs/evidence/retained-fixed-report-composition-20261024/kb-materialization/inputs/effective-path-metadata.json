@@ -1,0 +1,25 @@
+{
+  "scope": "Narrow read-only path resolution; no directory or corpus scan and no native execution",
+  "entries": [
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/bin/gprbuild",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gprbuild"
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/bin/gprconfig",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gprconfig"
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/libexec/spark/share/gprconfig",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/gprconfig"
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/share/spark/config/frames",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/share/spark/config/frames"
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/share/spark/config/gnat2why",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/share/spark/config/gnat2why"
+    }
+  ]
+}
