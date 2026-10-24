@@ -1,0 +1,74 @@
+{
+  "scope": "#212 prospective RTS producer/native storage under #119; #216 raw child width correction",
+  "concrete_exports": {
+    "child_RTS_bytes": 169,
+    "top_level_RTS_bytes": 168,
+    "light_argc_including_executable": 19,
+    "phase1_stored_switches": 11,
+    "phase2_stored_switches": 10,
+    "phase_payloads": [
+      246,
+      239
+    ],
+    "source_library_search_demands": {
+      "phase1": [
+        4,
+        4
+      ],
+      "translation": [
+        4,
+        5
+      ],
+      "datarep": [
+        4,
+        4
+      ]
+    },
+    "map_bytes": 489,
+    "map_reader_bytes": 506,
+    "null_ALI_Args": 21,
+    "null_ALI_file_bytes": 29622976,
+    "null_ALI_reader_bytes": 29622977,
+    "ALI_added_row_bytes": 172,
+    "ALI_added_lines": 1,
+    "GPR_new_nodes_per_parse": 20,
+    "GPR_new_String_Elements_per_evaluation": 7,
+    "GPR_full_Name_List_copy_cells_per_conversion": 7,
+    "GPR_config_text_bounds": [
+      7505,
+      7715,
+      7779
+    ],
+    "GPR_config_aligned_source_bytes": 8192,
+    "datarep_child_argc": 24,
+    "datarep_canonical_envelope": 48,
+    "report_P": 188,
+    "actual_complete_P": null
+  },
+  "provider_join": "source-manifest.json; result.json; README.md source argument",
+  "supersedes": {
+    "prior_packet": "prospective/result.json and prospective/handoff.json at9432b9d69498cce7e2474d7a96c4adc37f97b7ae",
+    "fields": "child RTS168 ->169; stored payload245/238 ->246/239; ALI row171 ->172; null file29622975 ->29622976; reader29622976 ->29622977",
+    "unchanged": "top-level168,19 command entries,435\u2013444 command/609\u2013618 config bytes,P188,source-search spellings"
+  },
+  "residuals": {
+    "#212_under_#119": [
+      "Source-derived sufficient baseline and existing capacities for producer GPR Project_Nodes, String_Elements, Name_Lists and GPR.Names; relevant traversal multiplicities.",
+      "Other producer GPR/Gprconfig container and parent allocation joins; current accepted orchestration provides text/source-reader data only.",
+      "Join configuration-sized fixed/Main coordinates to each existing source/semantic/path-name provider; raw fixed-coordinate examples do not replace complete vectors."
+    ],
+    "existing_other_owners": [
+      "Full Main/five-report collector/SARIF and native warning-chain, initial-counter, header, source-span/private-fix storage.",
+      "Direct native #201/#89 build descriptor and capacities; datarep envelope is a different graph.",
+      "Future #88/#89 implementation refinements in prior prospective handoff, including physical stability and actual effective configuration."
+    ]
+  },
+  "e_upper": 2,
+  "save_entering_callbacks_upper": 2,
+  "saves_upper": 3,
+  "physical_premises_unchanged": true,
+  "no_native_or_predecessor_execution": true,
+  "whole_configuration_capacity_established": false,
+  "production_implemented": false,
+  "independent_review_pending": true
+}

@@ -1,0 +1,1608 @@
+{
+  "GPR": {
+    "String_Elements_per_configuration_evaluation": 7,
+    "added_array_element_entries": 0,
+    "added_array_entries": 0,
+    "added_chunk_bytes": 534,
+    "changed_literal_spellings_upper": 3,
+    "complete_parent_capacity_established": false,
+    "configurations": {
+      "12-GNAT-TEMP-000001.TMP": {
+        "aligned_bytes": 8192,
+        "old_runtime_bytes": 129,
+        "previous_bytes": 6951,
+        "runtime_occurrences": 2,
+        "upper_bytes": 7715
+      },
+      "2-GNAT-TEMP-000001.TMP": {
+        "aligned_bytes": 8192,
+        "old_runtime_bytes": 129,
+        "previous_bytes": 6741,
+        "runtime_occurrences": 2,
+        "upper_bytes": 7505
+      },
+      "22-GNAT-TEMP-000001.TMP": {
+        "aligned_bytes": 8192,
+        "old_runtime_bytes": 129,
+        "previous_bytes": 7015,
+        "runtime_occurrences": 2,
+        "upper_bytes": 7779
+      }
+    },
+    "context_transfer": {
+      "endpoint_arithmetic": {
+        "Name_Vector": {
+          "capacity_upper": 99999998,
+          "length": 49999999,
+          "longest_new_element_bytes": 234,
+          "passed": true,
+          "pointer_array_bytes": 1599999984
+        },
+        "passed": true,
+        "tables": {
+          "Name_Lists": {
+            "bytes": 68719476704,
+            "capacity": 2147483646,
+            "component_bytes": 32,
+            "demand": 1073741823,
+            "growth": 100,
+            "guards": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ],
+            "initial": 10,
+            "low": 1,
+            "passed": true
+          },
+          "Project_Nodes": {
+            "bytes": 35199999648,
+            "capacity": 99999998,
+            "component_bytes": 352,
+            "demand": 49999999,
+            "growth": 100,
+            "guards": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ],
+            "initial": 1000,
+            "low": 1,
+            "passed": true
+          },
+          "String_Elements": {
+            "bytes": 171798691760,
+            "capacity": 2147483646,
+            "component_bytes": 80,
+            "demand": 1073741823,
+            "growth": 100,
+            "guards": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ],
+            "initial": 200,
+            "low": 1,
+            "passed": true
+          }
+        }
+      },
+      "observed_or_established_actual_context_counts": false,
+      "per_traversal_sufficient_baseline_limits": {
+        "Name_Lists": 1073741816,
+        "Name_Vector_capacity": 99999998,
+        "Name_Vector_length": 49999996,
+        "Project_Nodes": 49999979,
+        "String_Elements": 1073741816
+      }
+    },
+    "full_Name_List_cells_per_language_conversion": 7,
+    "longest_changed_literal_bytes": 186,
+    "longest_new_Name_Entry_object_bytes": 234,
+    "ordinary_AST_nodes_per_configuration_parse": 20,
+    "package_map_keys_added": 0,
+    "runtime_macro_and_full_fragment_selection": {
+      "Runtime_Dir_substitution_bytes": 163,
+      "Runtime_raw_bytes": 162,
+      "added": [
+        [
+          "db/gnat.xml",
+          13
+        ]
+      ],
+      "all_xml_files": 63,
+      "compiler_and_binder_RTS_bytes": 169,
+      "default_all_selected": [
+        [
+          "db/0_default.xml",
+          0
+        ],
+        [
+          "db/clean.xml",
+          0
+        ],
+        [
+          "db/cross.xml",
+          15
+        ],
+        [
+          "db/gnat.xml",
+          0
+        ],
+        [
+          "db/gnat.xml",
+          8
+        ],
+        [
+          "db/gnat.xml",
+          11
+        ],
+        [
+          "db/gnat.xml",
+          12
+        ],
+        [
+          "db/linker.xml",
+          5
+        ],
+        [
+          "db/linker.xml",
+          66
+        ],
+        [
+          "db/linker.xml",
+          70
+        ],
+        [
+          "db/linker.xml",
+          76
+        ],
+        [
+          "db/linker.xml",
+          80
+        ],
+        [
+          "db/linker.xml",
+          82
+        ],
+        [
+          "db/linker.xml",
+          84
+        ],
+        [
+          "db/linker.xml",
+          85
+        ],
+        [
+          "db/linker.xml",
+          101
+        ],
+        [
+          "db/linker.xml",
+          109
+        ],
+        [
+          "db/linker.xml",
+          113
+        ],
+        [
+          "db/vxworks.xml",
+          0
+        ]
+      ],
+      "linker_fragment": [
+        "db/linker.xml",
+        82
+      ],
+      "linker_selection_changed": false,
+      "prospective_all_selected": [
+        [
+          "db/0_default.xml",
+          0
+        ],
+        [
+          "db/clean.xml",
+          0
+        ],
+        [
+          "db/cross.xml",
+          15
+        ],
+        [
+          "db/gnat.xml",
+          0
+        ],
+        [
+          "db/gnat.xml",
+          8
+        ],
+        [
+          "db/gnat.xml",
+          11
+        ],
+        [
+          "db/gnat.xml",
+          12
+        ],
+        [
+          "db/gnat.xml",
+          13
+        ],
+        [
+          "db/linker.xml",
+          5
+        ],
+        [
+          "db/linker.xml",
+          66
+        ],
+        [
+          "db/linker.xml",
+          70
+        ],
+        [
+          "db/linker.xml",
+          76
+        ],
+        [
+          "db/linker.xml",
+          80
+        ],
+        [
+          "db/linker.xml",
+          82
+        ],
+        [
+          "db/linker.xml",
+          84
+        ],
+        [
+          "db/linker.xml",
+          85
+        ],
+        [
+          "db/linker.xml",
+          101
+        ],
+        [
+          "db/linker.xml",
+          109
+        ],
+        [
+          "db/linker.xml",
+          113
+        ],
+        [
+          "db/vxworks.xml",
+          0
+        ]
+      ],
+      "removed": [],
+      "source_loci": [
+        "gpr-knowledge.adb:465-475,1410-1411,3968-3973,4638-4645",
+        "gnat.xml configuration13",
+        "linker.xml existing rpath-link clause"
+      ],
+      "top_level_RTS_bytes": 168
+    },
+    "single_name_prefix_temporary_table": {
+      "bytes": 672,
+      "capacity": 20,
+      "component_bytes": 32,
+      "demand": 1,
+      "growth": 100,
+      "guards": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "initial": 10,
+      "low": 1,
+      "passed": true
+    }
+  },
+  "RTS_objects": {
+    "Normalize_Pathname_native_max_path": 4096,
+    "Read_Default_Search_Dirs_C_buffer": 179,
+    "individual_String_bytes": {
+      "RTS_Specified": 185,
+      "Runtime_Dir": 178,
+      "include_default": 189,
+      "include_local_root": 179,
+      "include_suffix": 26,
+      "object_default": 185,
+      "object_local_root": 179,
+      "object_normalized": 186,
+      "object_path_token": 185,
+      "object_suffix": 22,
+      "source_normalized": 190,
+      "source_path_token": 189,
+      "stored_switch": 185
+    },
+    "inherited_pathfile_bytes": 0,
+    "passed": true,
+    "payload_bytes": {
+      "RTS_Specified": 169,
+      "Runtime_Dir": 162,
+      "include_default": 173,
+      "include_local_root": 163,
+      "include_suffix": 10,
+      "object_default": 169,
+      "object_local_root": 163,
+      "object_normalized": 170,
+      "object_path_token": 169,
+      "object_suffix": 6,
+      "source_normalized": 174,
+      "source_path_token": 173,
+      "stored_switch": 169
+    },
+    "runtime_pathfile_branch": "both absent; no file-length allocation"
+  },
+  "actual_complete_common_path_bytes": null,
+  "aggregate_RAM_gate": false,
+  "all_changed_concrete_checks_pass": true,
+  "datarep": {
+    "accepted_ALI_component_reused": true,
+    "accepted_P": 512,
+    "accepted_command_component_reused": true,
+    "canonical_envelope": 48,
+    "direct_native_build_89_covered": false,
+    "driver_argc_excluding_executable": 20,
+    "gnat1_argc_including_executable": 24,
+    "prospective_P": 188
+  },
+  "e_upper": 2,
+  "elapsed_seconds": 0.435197,
+  "fixed_library_configuration_coordinates": {
+    "silver_arguments": {
+      "coordinates": {
+        "ALI_Args": {
+          "bytes": 32016,
+          "capacity": 2000,
+          "component_bytes": 16,
+          "demand": 930,
+          "growth": 100,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 1000,
+          "low": 1,
+          "passed": true
+        },
+        "Compilation_Switches": {
+          "bytes": 976,
+          "capacity": 60,
+          "component_bytes": 16,
+          "demand": 11,
+          "growth": 100,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 30,
+          "low": 1,
+          "passed": true
+        },
+        "File_Mapping": {
+          "bytes": 88008,
+          "capacity": 11000,
+          "component_bytes": 8,
+          "demand": 29,
+          "growth": 1000,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 1000,
+          "low": 1,
+          "passed": true
+        },
+        "Library_Search": {
+          "bytes": 336,
+          "capacity": 20,
+          "component_bytes": 16,
+          "demand": 5,
+          "growth": 100,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 10,
+          "low": 0,
+          "passed": true
+        },
+        "Name_Chars": {
+          "bytes": 263071505,
+          "capacity": 263071504,
+          "component_bytes": 1,
+          "demand": 131535752,
+          "growth": 100,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 50000,
+          "low": 0,
+          "passed": true
+        },
+        "Name_Entries": {
+          "bytes": 192016,
+          "capacity": 12000,
+          "component_bytes": 16,
+          "demand": 4014,
+          "growth": 100,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 6000,
+          "low": -399999997,
+          "passed": true
+        },
+        "Path_Mapping": {
+          "bytes": 88008,
+          "capacity": 11000,
+          "component_bytes": 8,
+          "demand": 29,
+          "growth": 1000,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 1000,
+          "low": 1,
+          "passed": true
+        },
+        "Source_Search": {
+          "bytes": 336,
+          "capacity": 20,
+          "component_bytes": 16,
+          "demand": 4,
+          "growth": 100,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 10,
+          "low": 0,
+          "passed": true
+        }
+      },
+      "names_basis": "raw retained coordinate plus mapping delta; retain owner path/name adjustments",
+      "semantic_vector_replaced": false
+    },
+    "silver_io": {
+      "coordinates": {
+        "ALI_Args": {
+          "bytes": 32016,
+          "capacity": 2000,
+          "component_bytes": 16,
+          "demand": 904,
+          "growth": 100,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 1000,
+          "low": 1,
+          "passed": true
+        },
+        "Compilation_Switches": {
+          "bytes": 976,
+          "capacity": 60,
+          "component_bytes": 16,
+          "demand": 11,
+          "growth": 100,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 30,
+          "low": 1,
+          "passed": true
+        },
+        "File_Mapping": {
+          "bytes": 88008,
+          "capacity": 11000,
+          "component_bytes": 8,
+          "demand": 26,
+          "growth": 1000,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 1000,
+          "low": 1,
+          "passed": true
+        },
+        "Library_Search": {
+          "bytes": 336,
+          "capacity": 20,
+          "component_bytes": 16,
+          "demand": 5,
+          "growth": 100,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 10,
+          "low": 0,
+          "passed": true
+        },
+        "Name_Chars": {
+          "bytes": 259991313,
+          "capacity": 259991312,
+          "component_bytes": 1,
+          "demand": 129995656,
+          "growth": 100,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 50000,
+          "low": 0,
+          "passed": true
+        },
+        "Name_Entries": {
+          "bytes": 192016,
+          "capacity": 12000,
+          "component_bytes": 16,
+          "demand": 3967,
+          "growth": 100,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 6000,
+          "low": -399999997,
+          "passed": true
+        },
+        "Path_Mapping": {
+          "bytes": 88008,
+          "capacity": 11000,
+          "component_bytes": 8,
+          "demand": 26,
+          "growth": 1000,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 1000,
+          "low": 1,
+          "passed": true
+        },
+        "Source_Search": {
+          "bytes": 336,
+          "capacity": 20,
+          "component_bytes": 16,
+          "demand": 4,
+          "growth": 100,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 10,
+          "low": 0,
+          "passed": true
+        }
+      },
+      "names_basis": "raw retained coordinate plus mapping delta; retain owner path/name adjustments",
+      "semantic_vector_replaced": false
+    },
+    "silver_output_libc": {
+      "coordinates": {
+        "ALI_Args": {
+          "bytes": 32016,
+          "capacity": 2000,
+          "component_bytes": 16,
+          "demand": 896,
+          "growth": 100,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 1000,
+          "low": 1,
+          "passed": true
+        },
+        "Compilation_Switches": {
+          "bytes": 976,
+          "capacity": 60,
+          "component_bytes": 16,
+          "demand": 11,
+          "growth": 100,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 30,
+          "low": 1,
+          "passed": true
+        },
+        "File_Mapping": {
+          "bytes": 88008,
+          "capacity": 11000,
+          "component_bytes": 8,
+          "demand": 24,
+          "growth": 1000,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 1000,
+          "low": 1,
+          "passed": true
+        },
+        "Library_Search": {
+          "bytes": 336,
+          "capacity": 20,
+          "component_bytes": 16,
+          "demand": 5,
+          "growth": 100,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 10,
+          "low": 0,
+          "passed": true
+        },
+        "Name_Chars": {
+          "bytes": 256583441,
+          "capacity": 256583440,
+          "component_bytes": 1,
+          "demand": 128291720,
+          "growth": 100,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 50000,
+          "low": 0,
+          "passed": true
+        },
+        "Name_Entries": {
+          "bytes": 192016,
+          "capacity": 12000,
+          "component_bytes": 16,
+          "demand": 3915,
+          "growth": 100,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 6000,
+          "low": -399999997,
+          "passed": true
+        },
+        "Path_Mapping": {
+          "bytes": 88008,
+          "capacity": 11000,
+          "component_bytes": 8,
+          "demand": 24,
+          "growth": 1000,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 1000,
+          "low": 1,
+          "passed": true
+        },
+        "Source_Search": {
+          "bytes": 336,
+          "capacity": 20,
+          "component_bytes": 16,
+          "demand": 4,
+          "growth": 100,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 10,
+          "low": 0,
+          "passed": true
+        }
+      },
+      "names_basis": "raw retained coordinate plus mapping delta; retain owner path/name adjustments",
+      "semantic_vector_replaced": false
+    },
+    "silver_runtime": {
+      "coordinates": {
+        "ALI_Args": {
+          "bytes": 32016,
+          "capacity": 2000,
+          "component_bytes": 16,
+          "demand": 705,
+          "growth": 100,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 1000,
+          "low": 1,
+          "passed": true
+        },
+        "Compilation_Switches": {
+          "bytes": 976,
+          "capacity": 60,
+          "component_bytes": 16,
+          "demand": 11,
+          "growth": 100,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 30,
+          "low": 1,
+          "passed": true
+        },
+        "File_Mapping": {
+          "bytes": 88008,
+          "capacity": 11000,
+          "component_bytes": 8,
+          "demand": 11,
+          "growth": 1000,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 1000,
+          "low": 1,
+          "passed": true
+        },
+        "Library_Search": {
+          "bytes": 336,
+          "capacity": 20,
+          "component_bytes": 16,
+          "demand": 5,
+          "growth": 100,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 10,
+          "low": 0,
+          "passed": true
+        },
+        "Name_Chars": {
+          "bytes": 197273361,
+          "capacity": 197273360,
+          "component_bytes": 1,
+          "demand": 98636680,
+          "growth": 100,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 50000,
+          "low": 0,
+          "passed": true
+        },
+        "Name_Entries": {
+          "bytes": 192016,
+          "capacity": 12000,
+          "component_bytes": 16,
+          "demand": 3010,
+          "growth": 100,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 6000,
+          "low": -399999997,
+          "passed": true
+        },
+        "Path_Mapping": {
+          "bytes": 88008,
+          "capacity": 11000,
+          "component_bytes": 8,
+          "demand": 11,
+          "growth": 1000,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 1000,
+          "low": 1,
+          "passed": true
+        },
+        "Source_Search": {
+          "bytes": 336,
+          "capacity": 20,
+          "component_bytes": 16,
+          "demand": 4,
+          "growth": 100,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 10,
+          "low": 0,
+          "passed": true
+        }
+      },
+      "names_basis": "raw retained coordinate plus mapping delta; retain owner path/name adjustments",
+      "semantic_vector_replaced": false
+    }
+  },
+  "generated_ALI_transfer": {
+    "GG_reader_extra_lines": 1,
+    "GPR_DW_W_reader_Args": 0,
+    "at_most_project_sources": 7,
+    "historical_descriptor_conservative_replacement_A_rows_per_file": 11,
+    "historical_descriptor_extra_bytes_per_file": 1892,
+    "reader_Args_additive_allowance": 77,
+    "same_prior_descriptor_extra_bytes": 172,
+    "same_prior_descriptor_extra_lines": 1,
+    "unchanged_installed_runtime_ALIs": true
+  },
+  "indexed_null_ALI": {
+    "Args": {
+      "bytes": 32016,
+      "capacity": 2000,
+      "component_bytes": 16,
+      "demand": 21,
+      "growth": 100,
+      "guards": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "initial": 1000,
+      "low": 1,
+      "passed": true
+    },
+    "Main_A": 11,
+    "System_A": 10,
+    "extra_row_bytes": 172,
+    "file_bytes": 29622976,
+    "lines": 77552,
+    "max_record": 789,
+    "reader_bytes": 29622977
+  },
+  "light_phases": {
+    "phase1": {
+      "argv": {
+        "argc_including_executable": 19,
+        "canonical": 38,
+        "individual_objects": {
+          "Ada_String": 212,
+          "Ada_pointers": 624,
+          "C_String": 197,
+          "C_argv": 160,
+          "GPR_String_vector": 624,
+          "canonical_C_argv": 312,
+          "decoded": 1824,
+          "obstack": 4096
+        },
+        "longest_argument": 196,
+        "passed": true
+      },
+      "argv_excluding_executable": [
+        "-c",
+        "-x",
+        "ada",
+        "-gnatA",
+        "--RTS=/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/",
+        "-gnat2022",
+        "-gnata",
+        "-gnato",
+        "-Wno-free-nonheap-object",
+        "-gnatc",
+        "-gnates=<options>",
+        "-gnatis",
+        "-gnatec=<config>",
+        "-gnatem=<map>",
+        "<main>",
+        "-o",
+        "main~1.ali",
+        "-gnateI1"
+      ],
+      "library_search": {
+        "bytes": 336,
+        "capacity": 20,
+        "component_bytes": 16,
+        "demand": 4,
+        "growth": 100,
+        "guards": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "initial": 10,
+        "low": 0,
+        "passed": true
+      },
+      "other_accepted_source_semantic_coordinates_retained": true,
+      "recomposed_null_configuration_tables": {
+        "ALI_Args": {
+          "bytes": 32016,
+          "capacity": 2000,
+          "component_bytes": 16,
+          "demand": 21,
+          "growth": 100,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 1000,
+          "low": 1,
+          "passed": true
+        },
+        "Compilation_Switches": {
+          "bytes": 976,
+          "capacity": 60,
+          "component_bytes": 16,
+          "demand": 11,
+          "growth": 100,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 30,
+          "low": 1,
+          "passed": true
+        },
+        "File_Mapping": {
+          "bytes": 88008,
+          "capacity": 11000,
+          "component_bytes": 8,
+          "demand": 9,
+          "growth": 1000,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 1000,
+          "low": 1,
+          "passed": true
+        },
+        "Library_Search": {
+          "bytes": 336,
+          "capacity": 20,
+          "component_bytes": 16,
+          "demand": 5,
+          "growth": 100,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 10,
+          "low": 0,
+          "passed": true
+        },
+        "Name_Chars": {
+          "bytes": 115353361,
+          "capacity": 115353360,
+          "component_bytes": 1,
+          "demand": 57676680,
+          "growth": 100,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 50000,
+          "low": 0,
+          "passed": true
+        },
+        "Name_Entries": {
+          "bytes": 192016,
+          "capacity": 12000,
+          "component_bytes": 16,
+          "demand": 1760,
+          "growth": 100,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 6000,
+          "low": -399999997,
+          "passed": true
+        },
+        "Path_Mapping": {
+          "bytes": 88008,
+          "capacity": 11000,
+          "component_bytes": 8,
+          "demand": 9,
+          "growth": 1000,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 1000,
+          "low": 1,
+          "passed": true
+        },
+        "Source_Search": {
+          "bytes": 336,
+          "capacity": 20,
+          "component_bytes": 16,
+          "demand": 4,
+          "growth": 100,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 10,
+          "low": 0,
+          "passed": true
+        }
+      },
+      "source_search": {
+        "bytes": 336,
+        "capacity": 20,
+        "component_bytes": 16,
+        "demand": 4,
+        "growth": 100,
+        "guards": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "initial": 10,
+        "low": 0,
+        "passed": true
+      },
+      "stored_switches": [
+        "-x",
+        "ada",
+        "-gnatA",
+        "-gnat2022",
+        "-gnata",
+        "-gnato",
+        "-gnatc",
+        "-gnatis",
+        "-gnateI1",
+        "-Wno-free-nonheap-object",
+        "--RTS=/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/"
+      ],
+      "switch_count": 11,
+      "switch_max": 169,
+      "switch_payload": 246,
+      "switches": {
+        "bytes": 976,
+        "capacity": 60,
+        "component_bytes": 16,
+        "demand": 11,
+        "growth": 100,
+        "guards": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "initial": 30,
+        "low": 1,
+        "passed": true
+      }
+    },
+    "phase2": {
+      "argv": {
+        "argc_including_executable": 19,
+        "canonical": 38,
+        "individual_objects": {
+          "Ada_String": 212,
+          "Ada_pointers": 624,
+          "C_String": 197,
+          "C_argv": 160,
+          "GPR_String_vector": 624,
+          "canonical_C_argv": 312,
+          "decoded": 1824,
+          "obstack": 4096
+        },
+        "longest_argument": 196,
+        "passed": true
+      },
+      "argv_excluding_executable": [
+        "-c",
+        "-x",
+        "ada",
+        "-gnatA",
+        "--RTS=/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/",
+        "-gnat2022",
+        "-gnata",
+        "-gnato",
+        "-Wno-free-nonheap-object",
+        "-gnatc",
+        "-gnates=<options>",
+        "-gnatec=<config>",
+        "-gnatem=<map>",
+        "<main>",
+        "-o",
+        "main~1.spark",
+        "-gnateI1",
+        "-gnateO=<objects>"
+      ],
+      "library_search": {
+        "bytes": 336,
+        "capacity": 20,
+        "component_bytes": 16,
+        "demand": 5,
+        "growth": 100,
+        "guards": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "initial": 10,
+        "low": 0,
+        "passed": true
+      },
+      "other_accepted_source_semantic_coordinates_retained": true,
+      "recomposed_null_configuration_tables": {
+        "ALI_Args": {
+          "bytes": 32016,
+          "capacity": 2000,
+          "component_bytes": 16,
+          "demand": 21,
+          "growth": 100,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 1000,
+          "low": 1,
+          "passed": true
+        },
+        "Compilation_Switches": {
+          "bytes": 976,
+          "capacity": 60,
+          "component_bytes": 16,
+          "demand": 11,
+          "growth": 100,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 30,
+          "low": 1,
+          "passed": true
+        },
+        "File_Mapping": {
+          "bytes": 88008,
+          "capacity": 11000,
+          "component_bytes": 8,
+          "demand": 9,
+          "growth": 1000,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 1000,
+          "low": 1,
+          "passed": true
+        },
+        "Library_Search": {
+          "bytes": 336,
+          "capacity": 20,
+          "component_bytes": 16,
+          "demand": 5,
+          "growth": 100,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 10,
+          "low": 0,
+          "passed": true
+        },
+        "Name_Chars": {
+          "bytes": 119547665,
+          "capacity": 119547664,
+          "component_bytes": 1,
+          "demand": 59773832,
+          "growth": 100,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 50000,
+          "low": 0,
+          "passed": true
+        },
+        "Name_Entries": {
+          "bytes": 192016,
+          "capacity": 12000,
+          "component_bytes": 16,
+          "demand": 1824,
+          "growth": 100,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 6000,
+          "low": -399999997,
+          "passed": true
+        },
+        "Path_Mapping": {
+          "bytes": 88008,
+          "capacity": 11000,
+          "component_bytes": 8,
+          "demand": 9,
+          "growth": 1000,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 1000,
+          "low": 1,
+          "passed": true
+        },
+        "Source_Search": {
+          "bytes": 336,
+          "capacity": 20,
+          "component_bytes": 16,
+          "demand": 4,
+          "growth": 100,
+          "guards": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "initial": 10,
+          "low": 0,
+          "passed": true
+        }
+      },
+      "source_search": {
+        "bytes": 336,
+        "capacity": 20,
+        "component_bytes": 16,
+        "demand": 4,
+        "growth": 100,
+        "guards": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "initial": 10,
+        "low": 0,
+        "passed": true
+      },
+      "stored_switches": [
+        "-x",
+        "ada",
+        "-gnatA",
+        "-gnat2022",
+        "-gnata",
+        "-gnato",
+        "-gnatc",
+        "-gnateI1",
+        "-Wno-free-nonheap-object",
+        "--RTS=/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/"
+      ],
+      "switch_count": 10,
+      "switch_max": 169,
+      "switch_payload": 239,
+      "switches": {
+        "bytes": 976,
+        "capacity": 60,
+        "component_bytes": 16,
+        "demand": 10,
+        "growth": 100,
+        "guards": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "initial": 30,
+        "low": 1,
+        "passed": true
+      }
+    }
+  },
+  "mapping_objects": {
+    "bytes": 489,
+    "object_path_reader_bytes": 52,
+    "object_pathfile_bytes": 35,
+    "passed": true,
+    "reader_bytes": 506,
+    "records": 7,
+    "source_names": [
+      "main.adb",
+      "silver_io.ads",
+      "silver_io.adb",
+      "silver_output_libc.ads",
+      "silver_arguments.ads",
+      "silver_arguments.adb",
+      "silver_runtime.ads"
+    ]
+  },
+  "native_executions": 0,
+  "platform": "Linux x86_64",
+  "predecessor_checkers_executed": 0,
+  "production_implemented": false,
+  "report_P": 188,
+  "runtime_corpus_rescanned": false,
+  "save_entering_callbacks_upper": 2,
+  "saves_upper": 3,
+  "scope": "Additional prospective RTS producer/native storage join under #212/#119",
+  "semantic_source_counts_relabelled": false,
+  "verified_complete_sources": 52,
+  "verified_provider_files": 20,
+  "whole_toolchain_capacity_established": false
+}

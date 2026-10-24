@@ -1,0 +1,32 @@
+[
+  {
+    "path": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-env.adb",
+    "line": 1304,
+    "text": "--  ??? Set_Ada_Paths has a different behavior for library project"
+  },
+  {
+    "path": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-env.adb",
+    "line": 1639,
+    "text": "-- Set_Ada_Paths --"
+  },
+  {
+    "path": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-env.adb",
+    "line": 1642,
+    "text": "procedure Set_Ada_Paths"
+  },
+  {
+    "path": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-env.adb",
+    "line": 1720,
+    "text": "--  Start of processing for Set_Ada_Paths"
+  },
+  {
+    "path": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-env.adb",
+    "line": 1857,
+    "text": "end Set_Ada_Paths;"
+  },
+  {
+    "path": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-env.ads",
+    "line": 96,
+    "text": "procedure Set_Ada_Paths"
+  }
+]

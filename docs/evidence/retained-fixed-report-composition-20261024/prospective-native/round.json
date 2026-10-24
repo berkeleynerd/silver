@@ -1,0 +1,53 @@
+{
+  "objective": "Close the added prospective RTS producer/native storage join and expose the concrete missing GPR context baseline",
+  "authorization": "Parent-assigned owner-authorized #212 under #119; correction #216; no production implementation",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_confirmed": false,
+  "token_usage": null,
+  "cost": null,
+  "started_utc": "2026-10-24T07:32:11+00:00",
+  "completed_utc": "2026-10-24T08:08:18.813717+00:00",
+  "elapsed_wall_seconds": 2167.813717,
+  "base_commit": "5f4f585056",
+  "check_history": [
+    {
+      "script": "first-check/check.py",
+      "outcome": "pass, superseded",
+      "seconds": 0.327739
+    },
+    {
+      "script": "name-correction-failed/check-name-correction.py",
+      "outcome": "failed handwritten185 expectation; exact stderr retained",
+      "seconds": null
+    },
+    {
+      "script": "before-runtime-macro-correction/check-name-correction.py",
+      "outcome": "pass, superseded by final macro-corrected packet",
+      "seconds": 0.006875
+    },
+    {
+      "script": "check.py",
+      "stdout": "check-final.stdout",
+      "outcome": "pass",
+      "seconds": 0.435197
+    }
+  ],
+  "significant_findings": [
+    "GPR RUNTIME_DIR adds trailing slash: child RTS169, top-level168; #216 supersedes prior child width exports.",
+    "Linker literal is186 bytes; Name_Entry object234. First narrow test expectation185 failed and was corrected.",
+    "All-package XML selection adds only gnat.xml[13]; linker.xml[82] selection unchanged.",
+    "Seven-map489 payload requires506 reader bytes instead of old null499.",
+    "Accepted producer orchestration does not supply GPR table/vector baseline counts; that remains #212 under #119."
+  ],
+  "independent_review": "Pending on this frozen unit; no reviewer model selected in this subthread",
+  "native_executions": 0,
+  "predecessor_checkers_executed": 0,
+  "identical_success_replays": 0,
+  "source_corpus_rescans": 0,
+  "GitHub_writes": 0,
+  "subagents": 0,
+  "CLI_memory_updated": false,
+  "governing_resource_premises_unchanged": true,
+  "production_or_admission_changed": false
+}

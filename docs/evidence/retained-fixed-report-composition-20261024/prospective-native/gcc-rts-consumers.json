@@ -1,0 +1,304 @@
+[
+  {
+    "path": "adabkend.adb",
+    "sha256": "8d7240315b13acfb2d73db2aafd43ad59c57b4ded759b631f3e829e2f5458407",
+    "matches": [
+      {
+        "line": 271,
+        "text": "Opt.No_Stdinc := True;"
+      }
+    ]
+  },
+  {
+    "path": "back_end.adb",
+    "sha256": "57d045dc782b4c11830c46828f834a954219406847a888a2b0cff06e787759f8",
+    "matches": [
+      {
+        "line": 355,
+        "text": "Opt.No_Stdinc := True;"
+      }
+    ]
+  },
+  {
+    "path": "back_end.ads",
+    "sha256": "b00265b89d00c5ae54cbbea5026c8ba3ebe949d9f7f11856f3f55fd31bf980ac",
+    "matches": [
+      {
+        "line": 75,
+        "text": "--    Opt.No_Stdinc"
+      }
+    ]
+  },
+  {
+    "path": "gnatbind.adb",
+    "sha256": "d5bb79bcf0186aad36eb4e1d2714087497e8a0e4a0544b3ebca70af96cca9f06",
+    "matches": [
+      {
+        "line": 472,
+        "text": "Opt.No_Stdinc := True;"
+      }
+    ]
+  },
+  {
+    "path": "gnatlink.adb",
+    "sha256": "8646478f29255794e55e1ed73f1d116eeeb4335e0d4032c10d516d624087bfe4",
+    "matches": [
+      {
+        "line": 1594,
+        "text": "Opt.RTS_Src_Path_Name :="
+      },
+      {
+        "line": 1598,
+        "text": "Opt.RTS_Lib_Path_Name :="
+      }
+    ]
+  },
+  {
+    "path": "gnatls.adb",
+    "sha256": "cdc334f578882519cb0e2482b0274cede750d09c31515332cdb9d4e58ec87418",
+    "matches": [
+      {
+        "line": 133,
+        "text": "RTS_Specified : String_Access := null;"
+      },
+      {
+        "line": 1766,
+        "text": "Opt.No_Stdinc := True;"
+      },
+      {
+        "line": 1849,
+        "text": "if RTS_Specified = null then"
+      },
+      {
+        "line": 1850,
+        "text": "RTS_Specified := new String'(Argv (7 .. Argv'Last));"
+      },
+      {
+        "line": 1852,
+        "text": "elsif RTS_Specified.all /= Argv (7 .. Argv'Last) then"
+      },
+      {
+        "line": 1858,
+        "text": "Opt.No_Stdinc := True;"
+      },
+      {
+        "line": 1859,
+        "text": "Opt.RTS_Switch := True;"
+      },
+      {
+        "line": 2029,
+        "text": "if RTS_Specified /= null then"
+      },
+      {
+        "line": 2030,
+        "text": "Search_RTS (RTS_Specified.all);"
+      },
+      {
+        "line": 2052,
+        "text": "if RTS_Specified = null then"
+      }
+    ]
+  },
+  {
+    "path": "make.adb",
+    "sha256": "7f6932fcfb2596e28cc650235d467ac11bc5b9f1cd575e8c261bbab52adb135a",
+    "matches": [
+      {
+        "line": 138,
+        "text": "RTS_Specified : String_Access := null;"
+      },
+      {
+        "line": 1862,
+        "text": "if RTS_Switch then"
+      },
+      {
+        "line": 3685,
+        "text": "RTS_Specified := null;"
+      },
+      {
+        "line": 3835,
+        "text": "if N_M_Switch > 0 and RTS_Specified = null then"
+      },
+      {
+        "line": 4157,
+        "text": "pragma Assert (N_M_Switch > 0 and RTS_Specified = null);"
+      },
+      {
+        "line": 4466,
+        "text": "if RTS_Specified = null then"
+      },
+      {
+        "line": 4467,
+        "text": "RTS_Specified := new String'(Argv (7 .. Argv'Last));"
+      },
+      {
+        "line": 4469,
+        "text": "elsif RTS_Specified.all /= Argv (7 .. Argv'Last) then"
+      },
+      {
+        "line": 4475,
+        "text": "No_Stdinc := True;"
+      },
+      {
+        "line": 4477,
+        "text": "RTS_Switch := True;"
+      },
+      {
+        "line": 4497,
+        "text": "RTS_Src_Path_Name := Src_Path_Name;"
+      },
+      {
+        "line": 4498,
+        "text": "RTS_Lib_Path_Name := Lib_Path_Name;"
+      },
+      {
+        "line": 4782,
+        "text": "No_Stdinc := True;"
+      }
+    ]
+  },
+  {
+    "path": "opt.ads",
+    "sha256": "21cc41bac03f052f73218f4d1d38f5cd27b0be7c55d3a8bddb4b173a6ce3192e",
+    "matches": [
+      {
+        "line": 1148,
+        "text": "No_Stdinc : Boolean := False;"
+      },
+      {
+        "line": 1366,
+        "text": "RTS_Lib_Path_Name : String_Ptr := null;"
+      },
+      {
+        "line": 1367,
+        "text": "RTS_Src_Path_Name : String_Ptr := null;"
+      },
+      {
+        "line": 1372,
+        "text": "RTS_Switch : Boolean := False;"
+      }
+    ]
+  },
+  {
+    "path": "osint.adb",
+    "sha256": "432c6fb6324140ba2e25ab1a6c79ca306e7a662970ed268009cb962263e89e69",
+    "matches": [
+      {
+        "line": 509,
+        "text": "if RTS_Src_Path_Name /= null and then RTS_Lib_Path_Name /= null then"
+      },
+      {
+        "line": 510,
+        "text": "Add_Search_Dirs (RTS_Src_Path_Name, Include);"
+      },
+      {
+        "line": 511,
+        "text": "Add_Search_Dirs (RTS_Lib_Path_Name, Objects);"
+      },
+      {
+        "line": 514,
+        "text": "if not Opt.No_Stdinc then"
+      },
+      {
+        "line": 550,
+        "text": "if not Opt.RTS_Switch then"
+      }
+    ]
+  },
+  {
+    "path": "switch-b.adb",
+    "sha256": "9c2efb6a4e613c222a54ce61bb80062465ba6664e64fb008f73ea7548d60e10f",
+    "matches": [
+      {
+        "line": 671,
+        "text": "Opt.No_Stdinc := True;"
+      },
+      {
+        "line": 672,
+        "text": "Opt.RTS_Switch := True;"
+      },
+      {
+        "line": 694,
+        "text": "RTS_Src_Path_Name := Src_Path_Name;"
+      },
+      {
+        "line": 695,
+        "text": "RTS_Lib_Path_Name := Lib_Path_Name;"
+      }
+    ]
+  },
+  {
+    "path": "switch-c.adb",
+    "sha256": "dbb1b360a6a58368d21cdf71cc3cf55c2803741f4dcf97aaf45b71e13d170c58",
+    "matches": [
+      {
+        "line": 47,
+        "text": "RTS_Specified : String_Access := null;"
+      },
+      {
+        "line": 236,
+        "text": "Opt.No_Stdinc := True;"
+      },
+      {
+        "line": 237,
+        "text": "Opt.RTS_Switch := True;"
+      },
+      {
+        "line": 239,
+        "text": "RTS_Src_Path_Name :="
+      },
+      {
+        "line": 242,
+        "text": "RTS_Lib_Path_Name :="
+      },
+      {
+        "line": 245,
+        "text": "if RTS_Specified /= null then"
+      },
+      {
+        "line": 246,
+        "text": "if RTS_Src_Path_Name = null"
+      },
+      {
+        "line": 247,
+        "text": "or else RTS_Lib_Path_Name = null"
+      },
+      {
+        "line": 250,
+        "text": "(RTS_Specified.all) /="
+      },
+      {
+        "line": 252,
+        "text": "(RTS_Lib_Path_Name.all)"
+      },
+      {
+        "line": 258,
+        "text": "elsif RTS_Src_Path_Name /= null"
+      },
+      {
+        "line": 259,
+        "text": "and then RTS_Lib_Path_Name /= null"
+      },
+      {
+        "line": 265,
+        "text": "RTS_Specified := new String'(RTS_Lib_Path_Name.all);"
+      },
+      {
+        "line": 267,
+        "text": "elsif RTS_Src_Path_Name = null"
+      },
+      {
+        "line": 268,
+        "text": "and then RTS_Lib_Path_Name = null"
+      },
+      {
+        "line": 273,
+        "text": "elsif RTS_Src_Path_Name = null then"
+      },
+      {
+        "line": 277,
+        "text": "else pragma Assert (RTS_Lib_Path_Name = null);"
+      }
+    ]
+  }
+]
