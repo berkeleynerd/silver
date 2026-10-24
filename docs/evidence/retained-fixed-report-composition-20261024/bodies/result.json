@@ -1,0 +1,335 @@
+{
+  "actual_source_census": {
+    "Put": {
+      "conditions": 3,
+      "ordinary_assignments": 8,
+      "procedure_calls": 3,
+      "returns": 3,
+      "side_effect_assignments": 2
+    },
+    "Put_Line": {
+      "conditions": 4,
+      "ordinary_assignments": 10,
+      "procedure_calls": 4,
+      "returns": 4,
+      "side_effect_assignments": 3
+    }
+  },
+  "budget_renewed": false,
+  "checks": {
+    "complete_tool_source_files": 32,
+    "elapsed_seconds": 0.696,
+    "native_compiler_solver_capture_runs": 0,
+    "predecessor_checkers_run": 0,
+    "repository_files": 24
+  },
+  "concrete_path_and_native_inputs_bound": false,
+  "endpoint_flow_brief": {
+    "guards": {
+      "explicit_eol": true,
+      "msg_buffer": true,
+      "string_loop_spare": true
+    },
+    "maximum_line": 7564,
+    "offered_bytes": 923936145
+  },
+  "endpoint_reader": {
+    "all_guards": true,
+    "guards": {
+      "consumer_json_aliases": true,
+      "consumer_xstring_aliases": true,
+      "file_and_scanner_spare": true,
+      "json_references": true,
+      "key_builder": true,
+      "map_length": true,
+      "mapping_round": true,
+      "numeric_scale": true,
+      "object_request": true,
+      "parser_stack": true,
+      "path_builder": true,
+      "path_scratch": true,
+      "token_endpoint": true,
+      "vector_length": true,
+      "xstring_product": true,
+      "xstring_references": true,
+      "xstring_round": true
+    },
+    "input": {
+      "B": 1430193888,
+      "array": 40711,
+      "containers": 231236,
+      "decoded": 377268,
+      "depth": 7,
+      "fields": 815523,
+      "key": 356,
+      "object": 309,
+      "token": 2263610,
+      "values": 873251
+    },
+    "operands": {
+      "json_counter": 128,
+      "key_builder_backing": 512,
+      "normalized_path_majorant": 4704,
+      "parser_state_backing": 32,
+      "path_builder_backing": 8192,
+      "per_object_bytes": 1430259424,
+      "vector_backing": 65536,
+      "xstring_backing": 569344,
+      "xstring_counter": 16,
+      "xstring_growth_current": 377267,
+      "xstring_product": 1131801,
+      "xstring_round_input": 565900
+    }
+  },
+  "endpoint_writer": {
+    "guards": {
+      "array_geometric_capacity": true,
+      "escape_lookahead": true,
+      "escape_string_length": true,
+      "filename_compose": true,
+      "indent_add_and_double": true,
+      "individual_64bit_allocation": true,
+      "new_xstring_backing": true,
+      "ordered_map_length": true,
+      "string_and_text_io_column": true,
+      "unbounded_alignment_intermediates": true
+    },
+    "json_write_string": 1430193887,
+    "native_inputs_bound": false,
+    "shape": {
+      "array_max": 40711,
+      "arrays": 163,
+      "compact": 1421627456,
+      "depth": 7,
+      "fields": 815523,
+      "key_max": 59,
+      "object_max": 309,
+      "objects": 231073,
+      "pretty": 1430193887,
+      "slope": 2208972,
+      "string_max": 377268,
+      "strings": 443836,
+      "values": 873251
+    },
+    "spark_file": 1430193888,
+    "sufficient": true,
+    "unbounded_allocation": 2145291022
+  },
+  "frontend_entities": 19837,
+  "full_name_bytes": 34,
+  "full_pretty_affine": {
+    "constant": 478273421,
+    "path_coefficient": 1568238
+  },
+  "global_escape_budget": 2,
+  "graphs": {
+    "Put": {
+      "call_nodes": 5,
+      "constraint_roots": 8,
+      "constructor_vertices": 20078,
+      "eligible_vertices": 241,
+      "extra_warning_records": 82,
+      "flow_ids": 17,
+      "flow_records": 17503,
+      "trace_attempts": 8435,
+      "vertex_terms": {
+        "assignments": 40,
+        "block_overhead": 4,
+        "calls": 75,
+        "conditions": 9,
+        "initial_final": 34,
+        "invariants": 2,
+        "joins": 15,
+        "object_declarations": 25,
+        "postconditions": 2,
+        "range_loop": 6,
+        "returns": 3,
+        "scaffolding": 10,
+        "type_declarations": 16
+      }
+    },
+    "Put_Line": {
+      "call_nodes": 7,
+      "constraint_roots": 8,
+      "constructor_vertices": 20123,
+      "eligible_vertices": 286,
+      "extra_warning_records": 112,
+      "flow_ids": 17,
+      "flow_records": 20724,
+      "trace_attempts": 10010,
+      "vertex_terms": {
+        "assignments": 50,
+        "block_overhead": 4,
+        "calls": 105,
+        "conditions": 12,
+        "initial_final": 34,
+        "invariants": 2,
+        "joins": 16,
+        "object_declarations": 25,
+        "postconditions": 2,
+        "range_loop": 6,
+        "returns": 4,
+        "scaffolding": 10,
+        "type_declarations": 16
+      }
+    },
+    "Silver_IO": {
+      "call_nodes": 0,
+      "constraint_roots": 4,
+      "constructor_vertices": 19912,
+      "eligible_vertices": 75,
+      "extra_warning_records": 0,
+      "flow_ids": 7,
+      "flow_records": 2338,
+      "trace_attempts": 1125,
+      "vertex_terms": {
+        "block_overhead": 4,
+        "initial_final": 14,
+        "joins": 6,
+        "object_declarations": 25,
+        "scaffolding": 10,
+        "type_declarations": 16
+      }
+    }
+  },
+  "incoming": {
+    "flow_name_bytes": 760,
+    "flow_records": 40711,
+    "frontend_entities": 19837,
+    "frontend_nodes": 19837,
+    "graph_count": 3,
+    "graphs": {
+      "Put": {
+        "call_nodes": 5,
+        "constraint_roots": 8,
+        "constructor_vertices": 20078,
+        "eligible_vertices": 241,
+        "extra_warning_records": 82,
+        "flow_ids": 17,
+        "flow_records": 17503,
+        "trace_attempts": 8435,
+        "vertex_terms": {
+          "assignments": 40,
+          "block_overhead": 4,
+          "calls": 75,
+          "conditions": 9,
+          "initial_final": 34,
+          "invariants": 2,
+          "joins": 15,
+          "object_declarations": 25,
+          "postconditions": 2,
+          "range_loop": 6,
+          "returns": 3,
+          "scaffolding": 10,
+          "type_declarations": 16
+        }
+      },
+      "Put_Line": {
+        "call_nodes": 7,
+        "constraint_roots": 8,
+        "constructor_vertices": 20123,
+        "eligible_vertices": 286,
+        "extra_warning_records": 112,
+        "flow_ids": 17,
+        "flow_records": 20724,
+        "trace_attempts": 10010,
+        "vertex_terms": {
+          "assignments": 50,
+          "block_overhead": 4,
+          "calls": 105,
+          "conditions": 12,
+          "initial_final": 34,
+          "invariants": 2,
+          "joins": 16,
+          "object_declarations": 25,
+          "postconditions": 2,
+          "range_loop": 6,
+          "returns": 4,
+          "scaffolding": 10,
+          "type_declarations": 16
+        }
+      },
+      "Silver_IO": {
+        "call_nodes": 0,
+        "constraint_roots": 4,
+        "constructor_vertices": 19912,
+        "eligible_vertices": 75,
+        "extra_warning_records": 0,
+        "flow_ids": 7,
+        "flow_records": 2338,
+        "trace_attempts": 1125,
+        "vertex_terms": {
+          "block_overhead": 4,
+          "initial_final": 14,
+          "joins": 6,
+          "object_declarations": 25,
+          "scaffolding": 10,
+          "type_declarations": 16
+        }
+      }
+    },
+    "guards": {
+      "constructed_vertex_index": true,
+      "flow_array": true,
+      "flow_set": true,
+      "graph_variables": true,
+      "trace_column": true,
+      "trace_counter": true,
+      "trace_lines": true,
+      "warning_array": true
+    },
+    "message_bytes": 6853,
+    "message_ids": 40711,
+    "native_print_calls": 155615,
+    "outside_flow_records": 146,
+    "raw_name_bytes": 64,
+    "sarif_message_bytes": 6903,
+    "trace_attempts": 19570,
+    "trace_counter": 19570,
+    "trace_line_bytes": 619,
+    "trace_lines_per_file": 286,
+    "warning_message_bytes": 192,
+    "warning_records": 16741
+  },
+  "interval": {
+    "concrete_attachment_complete": false,
+    "native_max_path_upper": 4096,
+    "native_page_size_upper": 65536,
+    "path_bytes_upper": 607
+  },
+  "metadata_location_depth": 1,
+  "native_warning_location_join_complete": false,
+  "projected_pretty_affine": {
+    "constant": 476833631,
+    "path_coefficient": 1568238
+  },
+  "proof": {
+    "attempts": 309,
+    "goals": 117,
+    "message_bytes": 31439,
+    "printed_cp_bytes": 15581,
+    "records": 40,
+    "responses": 2,
+    "source_span_allocation_join_complete": false
+  },
+  "report_entities": 6,
+  "report_entity_names": [
+    "Silver_IO",
+    "Silver_IO.Put_Line",
+    "Silver_IO.Put",
+    "Silver_Output_Libc.Put_Byte",
+    "Silver_Output_Libc.Flush",
+    "Silver_Output_Libc.Set_Exit_Status"
+  ],
+  "save_entering_callbacks": 2,
+  "saves_upper": 3,
+  "source_counts_bound": true,
+  "status": "IO report source composition checked; #212 incomplete",
+  "third_pool": {
+    "entity_requests": 40899,
+    "find_calls": 81798,
+    "guard": true
+  },
+  "whole_fixed_report_composition_complete": false,
+  "whole_process_capacity_bound": false
+}
