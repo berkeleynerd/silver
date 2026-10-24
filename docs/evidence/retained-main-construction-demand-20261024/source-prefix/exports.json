@@ -1,0 +1,832 @@
+{
+  "first_or_default": {
+    "role": "first_or_default",
+    "configuration": "r78_repaired_quiet_timeless_j12_logging",
+    "provider_commit": "e45ee72a42d6cc669e95b80c2c991cbc65fe4e73",
+    "start_cut_C": "after Controller_itp.create_controller, before Controller_itp.add_file; gnat_checks.ml:396-399",
+    "end_cut_T": "entry, before body, of Typing.type_mlw_file at gnat_ast_to_ptree.ml:1410",
+    "failure_scope": "reader/converter execution before return or unwind; caller catch, post-read registration and later diagnostics are outside this cut",
+    "owners": {
+      "Ident": {
+        "provider_owner": "Ident",
+        "counter_upper_at_C": 19103990,
+        "counter_upper_at_T": 19103990,
+        "actual_counter_equal_at_C_and_T": true,
+        "exact_actual_counter_known": false,
+        "new_constructor_requests": 0,
+        "new_counter_increments": 0
+      },
+      "Hsty": {
+        "provider_owner": "Ty.Hsty",
+        "counter_upper_at_C": 31839984,
+        "counter_upper_at_T": 31839984,
+        "actual_counter_equal_at_C_and_T": true,
+        "exact_actual_counter_known": false,
+        "new_constructor_requests": 0,
+        "new_counter_increments": 0,
+        "same_backing_geometry_upper_at_C_and_T": {
+          "outer_length": 106017567,
+          "bucket_max": 106017567,
+          "allocated_slots": 106017567
+        },
+        "actual_outer_and_bucket_lengths_unchanged": true,
+        "weak_clearing_allowed": true,
+        "live_contents_or_occupancy_claimed_unchanged": false
+      },
+      "Hsity": {
+        "provider_owner": "Ity.Hsity",
+        "counter_upper_at_C": 23879988,
+        "counter_upper_at_T": 23879988,
+        "actual_counter_equal_at_C_and_T": true,
+        "exact_actual_counter_known": false,
+        "new_constructor_requests": 0,
+        "new_counter_increments": 0,
+        "same_backing_geometry_upper_at_C_and_T": {
+          "outer_length": 106017567,
+          "bucket_max": 106017567,
+          "allocated_slots": 106017567
+        },
+        "actual_outer_and_bucket_lengths_unchanged": true,
+        "weak_clearing_allowed": true,
+        "live_contents_or_occupancy_claimed_unchanged": false
+      }
+    },
+    "source_entry_multiplicities_on_path_reaching_T": {
+      "Controller_itp.add_file_outer": 1,
+      "Controller_itp.add_file_inner": 1,
+      "Session_itp.read_file": 1,
+      "Env.read_file": 1,
+      "Env.read_lib_file": 1,
+      "gnat_json.read_channel": 1,
+      "Yojson.Safe.from_channel": 1,
+      "Gnat_ast.From_json.file_from_json": 1,
+      "Gnat_ast_to_ptree.mlw_file": 1,
+      "Typing.type_mlw_file_entry": 1,
+      "Typing.type_mlw_file_body": 0,
+      "imported_library_parser_entries": 0,
+      "typed_contract_builder_entries": 0,
+      "typing_proxy_or_overload_candidates": 0,
+      "Session_itp.post_read_identifier_registrations": 0,
+      "Env.post_parser_store": 0
+    },
+    "constructor_orphan_increment_allowance_added": 0,
+    "source_selected_partial_prefix_three_owner_requests": {
+      "Ident": 0,
+      "Hsty": 0,
+      "Hsity": 0
+    },
+    "state_bounds_usable_at_T": {
+      "counter_upper": {
+        "Ident": 19103990,
+        "Hsty": 31839984,
+        "Hsity": 23879988
+      },
+      "table_upper_envelopes": {
+        "Hsty": {
+          "outer_length": 106017567,
+          "bucket_max": 106017567,
+          "allocated_slots": 106017567
+        },
+        "Hsity": {
+          "outer_length": 106017567,
+          "bucket_max": 106017567,
+          "allocated_slots": 106017567
+        }
+      },
+      "bounds_denote_populated_actual_state": true,
+      "can_skip_T_to_builder_transport": false,
+      "reason": "Typing.open_file, module imports/clones/declarations and every earlier typing/proxy/candidate request still precede a selected builder entry."
+    },
+    "auxiliary_prefix_interfaces": {
+      "Ident.Hsattr": {
+        "counter_upper_at_C": 31839984,
+        "backing_at_C": {
+          "creation_outer_length": 5003,
+          "creation_allocated_bucket_slots": 0,
+          "outer_length_upper": 106017567,
+          "bucket_length_upper": 106017567,
+          "allocated_bucket_slots_upper": 106017567,
+          "live_entries_upper": 31839984,
+          "limit": 7,
+          "oversize_upper": 106017567,
+          "rover_strict_upper": 106017567,
+          "cache_hash_arrays_same_lengths": true,
+          "current_state_is_creation_state": false
+        },
+        "new_external_hashcons_attempts_upper": null,
+        "required_source_demand": "A: every create_attribute attempt from converter labels, comments, call-id labels, fixed attribute constructors and named terms (including pre/post, assertions and loop invariants), including discarded results",
+        "counter_endpoint_interface": "C_Hsattr + A",
+        "backing_provider": "accepted weak_transfer(L_C,B_C,S_C,A); do not use three-owner zero increment result for Hsattr",
+        "argument_and_string_representation_closed": false
+      },
+      "Loc.FileTags": {
+        "current_counter_upper_at_C": null,
+        "current_geometry_upper_at_C": 106017567,
+        "new_get_file_tag_attempts_upper": null,
+        "required_source_demand": "F: all Loc.user_position calls on <dummy>, raw filenames and marker-prefixed filenames; partial/caught work is retained",
+        "required_transport": "attach completed C counter/domain and strong-table stored sizes, then all prefix find/add requests; R71 fixed post-registration D0 membership and numerical bounds do not apply to fresh Main metadata",
+        "representation_closed": false
+      },
+      "Ptree_constructors.loc_counter": {
+        "source_initializer": 0,
+        "initialization_get_pos_calls": 1,
+        "counter_at_C": 1,
+        "new_increments_upper": null,
+        "required_source_demand": "G: each get_pos None attempt, including eager argument constructions and Ptree nodes later discarded by simplification",
+        "endpoint_interface": "1 + G",
+        "required_guard": "1 + G <= 2^47 - 1 before Loc.user_position line packing; OCaml increment must also remain representable",
+        "representation_closed": false
+      },
+      "Gnat_ast_to_ptree.next_call_id": {
+        "counter_at_C": 0,
+        "new_increments_upper": null,
+        "required_source_demand": "R: every selected mk_call_id_str request, including term calls and abandoned conversion results; R77 successful typed application count is not substituted",
+        "endpoint_interface": "R",
+        "required_guard": "R <= 2^62 - 1; decimal formatting and resulting attribute-string requests remain attached separately",
+        "representation_closed": false
+      },
+      "parser_converter_storage_and_arithmetic": {
+        "required_source_demand": "actual serialized Main JSON and occurrence graph from accepted producer, through Yojson/From_json, synthetic Ptree construction, string/number helpers and balanced Connection arrays",
+        "accepted_input_provider": "retained-producer-composition.md exact serialization/byte recurrence; R77 source/typed and R79 VC outputs are later structural providers, not parsing allocation histories",
+        "representation_closed": false
+      }
+    },
+    "actual_populated_three_owner_transport_to_T_established": true,
+    "complete_parser_converter_representation_closed": false,
+    "actual_selected_builder_entry_attachment_established": false,
+    "complete_Main_source_candidate_multiplicities": false,
+    "complete_source_to_initial_vc_storage": false,
+    "process_budget": {
+      "escaping_save_exceptions": 2,
+      "save_entering_callbacks": 2,
+      "saves": 3
+    },
+    "new_callback_or_save_allowance": 0,
+    "aggregate_physical_memory_or_stack_gate": false,
+    "C_carrier_is_not_an_exit_heap_or_new_JSON_storage_bound": true
+  },
+  "input_is_valid": {
+    "role": "input_is_valid",
+    "configuration": "r78_repaired_quiet_timeless_j12_logging",
+    "provider_commit": "e45ee72a42d6cc669e95b80c2c991cbc65fe4e73",
+    "start_cut_C": "after Controller_itp.create_controller, before Controller_itp.add_file; gnat_checks.ml:396-399",
+    "end_cut_T": "entry, before body, of Typing.type_mlw_file at gnat_ast_to_ptree.ml:1410",
+    "failure_scope": "reader/converter execution before return or unwind; caller catch, post-read registration and later diagnostics are outside this cut",
+    "owners": {
+      "Ident": {
+        "provider_owner": "Ident",
+        "counter_upper_at_C": 17268805,
+        "counter_upper_at_T": 17268805,
+        "actual_counter_equal_at_C_and_T": true,
+        "exact_actual_counter_known": false,
+        "new_constructor_requests": 0,
+        "new_counter_increments": 0
+      },
+      "Hsty": {
+        "provider_owner": "Ty.Hsty",
+        "counter_upper_at_C": 28781342,
+        "counter_upper_at_T": 28781342,
+        "actual_counter_equal_at_C_and_T": true,
+        "exact_actual_counter_known": false,
+        "new_constructor_requests": 0,
+        "new_counter_increments": 0,
+        "same_backing_geometry_upper_at_C_and_T": {
+          "outer_length": 96707853,
+          "bucket_max": 96707853,
+          "allocated_slots": 96707853
+        },
+        "actual_outer_and_bucket_lengths_unchanged": true,
+        "weak_clearing_allowed": true,
+        "live_contents_or_occupancy_claimed_unchanged": false
+      },
+      "Hsity": {
+        "provider_owner": "Ity.Hsity",
+        "counter_upper_at_C": 21586006,
+        "counter_upper_at_T": 21586006,
+        "actual_counter_equal_at_C_and_T": true,
+        "exact_actual_counter_known": false,
+        "new_constructor_requests": 0,
+        "new_counter_increments": 0,
+        "same_backing_geometry_upper_at_C_and_T": {
+          "outer_length": 96707853,
+          "bucket_max": 96707853,
+          "allocated_slots": 96707853
+        },
+        "actual_outer_and_bucket_lengths_unchanged": true,
+        "weak_clearing_allowed": true,
+        "live_contents_or_occupancy_claimed_unchanged": false
+      }
+    },
+    "source_entry_multiplicities_on_path_reaching_T": {
+      "Controller_itp.add_file_outer": 1,
+      "Controller_itp.add_file_inner": 1,
+      "Session_itp.read_file": 1,
+      "Env.read_file": 1,
+      "Env.read_lib_file": 1,
+      "gnat_json.read_channel": 1,
+      "Yojson.Safe.from_channel": 1,
+      "Gnat_ast.From_json.file_from_json": 1,
+      "Gnat_ast_to_ptree.mlw_file": 1,
+      "Typing.type_mlw_file_entry": 1,
+      "Typing.type_mlw_file_body": 0,
+      "imported_library_parser_entries": 0,
+      "typed_contract_builder_entries": 0,
+      "typing_proxy_or_overload_candidates": 0,
+      "Session_itp.post_read_identifier_registrations": 0,
+      "Env.post_parser_store": 0
+    },
+    "constructor_orphan_increment_allowance_added": 0,
+    "source_selected_partial_prefix_three_owner_requests": {
+      "Ident": 0,
+      "Hsty": 0,
+      "Hsity": 0
+    },
+    "state_bounds_usable_at_T": {
+      "counter_upper": {
+        "Ident": 17268805,
+        "Hsty": 28781342,
+        "Hsity": 21586006
+      },
+      "table_upper_envelopes": {
+        "Hsty": {
+          "outer_length": 96707853,
+          "bucket_max": 96707853,
+          "allocated_slots": 96707853
+        },
+        "Hsity": {
+          "outer_length": 96707853,
+          "bucket_max": 96707853,
+          "allocated_slots": 96707853
+        }
+      },
+      "bounds_denote_populated_actual_state": true,
+      "can_skip_T_to_builder_transport": false,
+      "reason": "Typing.open_file, module imports/clones/declarations and every earlier typing/proxy/candidate request still precede a selected builder entry."
+    },
+    "auxiliary_prefix_interfaces": {
+      "Ident.Hsattr": {
+        "counter_upper_at_C": 28781342,
+        "backing_at_C": {
+          "creation_outer_length": 5003,
+          "creation_allocated_bucket_slots": 0,
+          "outer_length_upper": 96707853,
+          "bucket_length_upper": 96707853,
+          "allocated_bucket_slots_upper": 96707853,
+          "live_entries_upper": 28781342,
+          "limit": 7,
+          "oversize_upper": 96707853,
+          "rover_strict_upper": 96707853,
+          "cache_hash_arrays_same_lengths": true,
+          "current_state_is_creation_state": false
+        },
+        "new_external_hashcons_attempts_upper": null,
+        "required_source_demand": "A: every create_attribute attempt from converter labels, comments, call-id labels, fixed attribute constructors and named terms (including pre/post, assertions and loop invariants), including discarded results",
+        "counter_endpoint_interface": "C_Hsattr + A",
+        "backing_provider": "accepted weak_transfer(L_C,B_C,S_C,A); do not use three-owner zero increment result for Hsattr",
+        "argument_and_string_representation_closed": false
+      },
+      "Loc.FileTags": {
+        "current_counter_upper_at_C": null,
+        "current_geometry_upper_at_C": 96707853,
+        "new_get_file_tag_attempts_upper": null,
+        "required_source_demand": "F: all Loc.user_position calls on <dummy>, raw filenames and marker-prefixed filenames; partial/caught work is retained",
+        "required_transport": "attach completed C counter/domain and strong-table stored sizes, then all prefix find/add requests; R71 fixed post-registration D0 membership and numerical bounds do not apply to fresh Main metadata",
+        "representation_closed": false
+      },
+      "Ptree_constructors.loc_counter": {
+        "source_initializer": 0,
+        "initialization_get_pos_calls": 1,
+        "counter_at_C": 1,
+        "new_increments_upper": null,
+        "required_source_demand": "G: each get_pos None attempt, including eager argument constructions and Ptree nodes later discarded by simplification",
+        "endpoint_interface": "1 + G",
+        "required_guard": "1 + G <= 2^47 - 1 before Loc.user_position line packing; OCaml increment must also remain representable",
+        "representation_closed": false
+      },
+      "Gnat_ast_to_ptree.next_call_id": {
+        "counter_at_C": 0,
+        "new_increments_upper": null,
+        "required_source_demand": "R: every selected mk_call_id_str request, including term calls and abandoned conversion results; R77 successful typed application count is not substituted",
+        "endpoint_interface": "R",
+        "required_guard": "R <= 2^62 - 1; decimal formatting and resulting attribute-string requests remain attached separately",
+        "representation_closed": false
+      },
+      "parser_converter_storage_and_arithmetic": {
+        "required_source_demand": "actual serialized Main JSON and occurrence graph from accepted producer, through Yojson/From_json, synthetic Ptree construction, string/number helpers and balanced Connection arrays",
+        "accepted_input_provider": "retained-producer-composition.md exact serialization/byte recurrence; R77 source/typed and R79 VC outputs are later structural providers, not parsing allocation histories",
+        "representation_closed": false
+      }
+    },
+    "actual_populated_three_owner_transport_to_T_established": true,
+    "complete_parser_converter_representation_closed": false,
+    "actual_selected_builder_entry_attachment_established": false,
+    "complete_Main_source_candidate_multiplicities": false,
+    "complete_source_to_initial_vc_storage": false,
+    "process_budget": {
+      "escaping_save_exceptions": 2,
+      "save_entering_callbacks": 2,
+      "saves": 3
+    },
+    "new_callback_or_save_allowance": 0,
+    "aggregate_physical_memory_or_stack_gate": false,
+    "C_carrier_is_not_an_exit_heap_or_new_JSON_storage_bound": true
+  },
+  "is_message": {
+    "role": "is_message",
+    "configuration": "r78_repaired_quiet_timeless_j12_logging",
+    "provider_commit": "e45ee72a42d6cc669e95b80c2c991cbc65fe4e73",
+    "start_cut_C": "after Controller_itp.create_controller, before Controller_itp.add_file; gnat_checks.ml:396-399",
+    "end_cut_T": "entry, before body, of Typing.type_mlw_file at gnat_ast_to_ptree.ml:1410",
+    "failure_scope": "reader/converter execution before return or unwind; caller catch, post-read registration and later diagnostics are outside this cut",
+    "owners": {
+      "Ident": {
+        "provider_owner": "Ident",
+        "counter_upper_at_C": 17071707,
+        "counter_upper_at_T": 17071707,
+        "actual_counter_equal_at_C_and_T": true,
+        "exact_actual_counter_known": false,
+        "new_constructor_requests": 0,
+        "new_counter_increments": 0
+      },
+      "Hsty": {
+        "provider_owner": "Ty.Hsty",
+        "counter_upper_at_C": 28452845,
+        "counter_upper_at_T": 28452845,
+        "actual_counter_equal_at_C_and_T": true,
+        "exact_actual_counter_known": false,
+        "new_constructor_requests": 0,
+        "new_counter_increments": 0,
+        "same_backing_geometry_upper_at_C_and_T": {
+          "outer_length": 95715532,
+          "bucket_max": 95715532,
+          "allocated_slots": 95715532
+        },
+        "actual_outer_and_bucket_lengths_unchanged": true,
+        "weak_clearing_allowed": true,
+        "live_contents_or_occupancy_claimed_unchanged": false
+      },
+      "Hsity": {
+        "provider_owner": "Ity.Hsity",
+        "counter_upper_at_C": 21339634,
+        "counter_upper_at_T": 21339634,
+        "actual_counter_equal_at_C_and_T": true,
+        "exact_actual_counter_known": false,
+        "new_constructor_requests": 0,
+        "new_counter_increments": 0,
+        "same_backing_geometry_upper_at_C_and_T": {
+          "outer_length": 95715532,
+          "bucket_max": 95715532,
+          "allocated_slots": 95715532
+        },
+        "actual_outer_and_bucket_lengths_unchanged": true,
+        "weak_clearing_allowed": true,
+        "live_contents_or_occupancy_claimed_unchanged": false
+      }
+    },
+    "source_entry_multiplicities_on_path_reaching_T": {
+      "Controller_itp.add_file_outer": 1,
+      "Controller_itp.add_file_inner": 1,
+      "Session_itp.read_file": 1,
+      "Env.read_file": 1,
+      "Env.read_lib_file": 1,
+      "gnat_json.read_channel": 1,
+      "Yojson.Safe.from_channel": 1,
+      "Gnat_ast.From_json.file_from_json": 1,
+      "Gnat_ast_to_ptree.mlw_file": 1,
+      "Typing.type_mlw_file_entry": 1,
+      "Typing.type_mlw_file_body": 0,
+      "imported_library_parser_entries": 0,
+      "typed_contract_builder_entries": 0,
+      "typing_proxy_or_overload_candidates": 0,
+      "Session_itp.post_read_identifier_registrations": 0,
+      "Env.post_parser_store": 0
+    },
+    "constructor_orphan_increment_allowance_added": 0,
+    "source_selected_partial_prefix_three_owner_requests": {
+      "Ident": 0,
+      "Hsty": 0,
+      "Hsity": 0
+    },
+    "state_bounds_usable_at_T": {
+      "counter_upper": {
+        "Ident": 17071707,
+        "Hsty": 28452845,
+        "Hsity": 21339634
+      },
+      "table_upper_envelopes": {
+        "Hsty": {
+          "outer_length": 95715532,
+          "bucket_max": 95715532,
+          "allocated_slots": 95715532
+        },
+        "Hsity": {
+          "outer_length": 95715532,
+          "bucket_max": 95715532,
+          "allocated_slots": 95715532
+        }
+      },
+      "bounds_denote_populated_actual_state": true,
+      "can_skip_T_to_builder_transport": false,
+      "reason": "Typing.open_file, module imports/clones/declarations and every earlier typing/proxy/candidate request still precede a selected builder entry."
+    },
+    "auxiliary_prefix_interfaces": {
+      "Ident.Hsattr": {
+        "counter_upper_at_C": 28452845,
+        "backing_at_C": {
+          "creation_outer_length": 5003,
+          "creation_allocated_bucket_slots": 0,
+          "outer_length_upper": 95715532,
+          "bucket_length_upper": 95715532,
+          "allocated_bucket_slots_upper": 95715532,
+          "live_entries_upper": 28452845,
+          "limit": 7,
+          "oversize_upper": 95715532,
+          "rover_strict_upper": 95715532,
+          "cache_hash_arrays_same_lengths": true,
+          "current_state_is_creation_state": false
+        },
+        "new_external_hashcons_attempts_upper": null,
+        "required_source_demand": "A: every create_attribute attempt from converter labels, comments, call-id labels, fixed attribute constructors and named terms (including pre/post, assertions and loop invariants), including discarded results",
+        "counter_endpoint_interface": "C_Hsattr + A",
+        "backing_provider": "accepted weak_transfer(L_C,B_C,S_C,A); do not use three-owner zero increment result for Hsattr",
+        "argument_and_string_representation_closed": false
+      },
+      "Loc.FileTags": {
+        "current_counter_upper_at_C": null,
+        "current_geometry_upper_at_C": 95715532,
+        "new_get_file_tag_attempts_upper": null,
+        "required_source_demand": "F: all Loc.user_position calls on <dummy>, raw filenames and marker-prefixed filenames; partial/caught work is retained",
+        "required_transport": "attach completed C counter/domain and strong-table stored sizes, then all prefix find/add requests; R71 fixed post-registration D0 membership and numerical bounds do not apply to fresh Main metadata",
+        "representation_closed": false
+      },
+      "Ptree_constructors.loc_counter": {
+        "source_initializer": 0,
+        "initialization_get_pos_calls": 1,
+        "counter_at_C": 1,
+        "new_increments_upper": null,
+        "required_source_demand": "G: each get_pos None attempt, including eager argument constructions and Ptree nodes later discarded by simplification",
+        "endpoint_interface": "1 + G",
+        "required_guard": "1 + G <= 2^47 - 1 before Loc.user_position line packing; OCaml increment must also remain representable",
+        "representation_closed": false
+      },
+      "Gnat_ast_to_ptree.next_call_id": {
+        "counter_at_C": 0,
+        "new_increments_upper": null,
+        "required_source_demand": "R: every selected mk_call_id_str request, including term calls and abandoned conversion results; R77 successful typed application count is not substituted",
+        "endpoint_interface": "R",
+        "required_guard": "R <= 2^62 - 1; decimal formatting and resulting attribute-string requests remain attached separately",
+        "representation_closed": false
+      },
+      "parser_converter_storage_and_arithmetic": {
+        "required_source_demand": "actual serialized Main JSON and occurrence graph from accepted producer, through Yojson/From_json, synthetic Ptree construction, string/number helpers and balanced Connection arrays",
+        "accepted_input_provider": "retained-producer-composition.md exact serialization/byte recurrence; R77 source/typed and R79 VC outputs are later structural providers, not parsing allocation histories",
+        "representation_closed": false
+      }
+    },
+    "actual_populated_three_owner_transport_to_T_established": true,
+    "complete_parser_converter_representation_closed": false,
+    "actual_selected_builder_entry_attachment_established": false,
+    "complete_Main_source_candidate_multiplicities": false,
+    "complete_source_to_initial_vc_storage": false,
+    "process_budget": {
+      "escaping_save_exceptions": 2,
+      "save_entering_callbacks": 2,
+      "saves": 3
+    },
+    "new_callback_or_save_allowance": 0,
+    "aggregate_physical_memory_or_stack_gate": false,
+    "C_carrier_is_not_an_exit_heap_or_new_JSON_storage_bound": true
+  },
+  "put": {
+    "role": "put",
+    "configuration": "r78_repaired_quiet_timeless_j12_logging",
+    "provider_commit": "e45ee72a42d6cc669e95b80c2c991cbc65fe4e73",
+    "start_cut_C": "after Controller_itp.create_controller, before Controller_itp.add_file; gnat_checks.ml:396-399",
+    "end_cut_T": "entry, before body, of Typing.type_mlw_file at gnat_ast_to_ptree.ml:1410",
+    "failure_scope": "reader/converter execution before return or unwind; caller catch, post-read registration and later diagnostics are outside this cut",
+    "owners": {
+      "Ident": {
+        "provider_owner": "Ident",
+        "counter_upper_at_C": 24848687,
+        "counter_upper_at_T": 24848687,
+        "actual_counter_equal_at_C_and_T": true,
+        "exact_actual_counter_known": false,
+        "new_constructor_requests": 0,
+        "new_counter_increments": 0
+      },
+      "Hsty": {
+        "provider_owner": "Ty.Hsty",
+        "counter_upper_at_C": 41414478,
+        "counter_upper_at_T": 41414478,
+        "actual_counter_equal_at_C_and_T": true,
+        "exact_actual_counter_known": false,
+        "new_constructor_requests": 0,
+        "new_counter_increments": 0,
+        "same_backing_geometry_upper_at_C_and_T": {
+          "outer_length": 134867029,
+          "bucket_max": 134867029,
+          "allocated_slots": 134867029
+        },
+        "actual_outer_and_bucket_lengths_unchanged": true,
+        "weak_clearing_allowed": true,
+        "live_contents_or_occupancy_claimed_unchanged": false
+      },
+      "Hsity": {
+        "provider_owner": "Ity.Hsity",
+        "counter_upper_at_C": 31060859,
+        "counter_upper_at_T": 31060859,
+        "actual_counter_equal_at_C_and_T": true,
+        "exact_actual_counter_known": false,
+        "new_constructor_requests": 0,
+        "new_counter_increments": 0,
+        "same_backing_geometry_upper_at_C_and_T": {
+          "outer_length": 134867029,
+          "bucket_max": 134867029,
+          "allocated_slots": 134867029
+        },
+        "actual_outer_and_bucket_lengths_unchanged": true,
+        "weak_clearing_allowed": true,
+        "live_contents_or_occupancy_claimed_unchanged": false
+      }
+    },
+    "source_entry_multiplicities_on_path_reaching_T": {
+      "Controller_itp.add_file_outer": 1,
+      "Controller_itp.add_file_inner": 1,
+      "Session_itp.read_file": 1,
+      "Env.read_file": 1,
+      "Env.read_lib_file": 1,
+      "gnat_json.read_channel": 1,
+      "Yojson.Safe.from_channel": 1,
+      "Gnat_ast.From_json.file_from_json": 1,
+      "Gnat_ast_to_ptree.mlw_file": 1,
+      "Typing.type_mlw_file_entry": 1,
+      "Typing.type_mlw_file_body": 0,
+      "imported_library_parser_entries": 0,
+      "typed_contract_builder_entries": 0,
+      "typing_proxy_or_overload_candidates": 0,
+      "Session_itp.post_read_identifier_registrations": 0,
+      "Env.post_parser_store": 0
+    },
+    "constructor_orphan_increment_allowance_added": 0,
+    "source_selected_partial_prefix_three_owner_requests": {
+      "Ident": 0,
+      "Hsty": 0,
+      "Hsity": 0
+    },
+    "state_bounds_usable_at_T": {
+      "counter_upper": {
+        "Ident": 24848687,
+        "Hsty": 41414478,
+        "Hsity": 31060859
+      },
+      "table_upper_envelopes": {
+        "Hsty": {
+          "outer_length": 134867029,
+          "bucket_max": 134867029,
+          "allocated_slots": 134867029
+        },
+        "Hsity": {
+          "outer_length": 134867029,
+          "bucket_max": 134867029,
+          "allocated_slots": 134867029
+        }
+      },
+      "bounds_denote_populated_actual_state": true,
+      "can_skip_T_to_builder_transport": false,
+      "reason": "Typing.open_file, module imports/clones/declarations and every earlier typing/proxy/candidate request still precede a selected builder entry."
+    },
+    "auxiliary_prefix_interfaces": {
+      "Ident.Hsattr": {
+        "counter_upper_at_C": 41414478,
+        "backing_at_C": {
+          "creation_outer_length": 5003,
+          "creation_allocated_bucket_slots": 0,
+          "outer_length_upper": 134867029,
+          "bucket_length_upper": 134867029,
+          "allocated_bucket_slots_upper": 134867029,
+          "live_entries_upper": 41414478,
+          "limit": 7,
+          "oversize_upper": 134867029,
+          "rover_strict_upper": 134867029,
+          "cache_hash_arrays_same_lengths": true,
+          "current_state_is_creation_state": false
+        },
+        "new_external_hashcons_attempts_upper": null,
+        "required_source_demand": "A: every create_attribute attempt from converter labels, comments, call-id labels, fixed attribute constructors and named terms (including pre/post, assertions and loop invariants), including discarded results",
+        "counter_endpoint_interface": "C_Hsattr + A",
+        "backing_provider": "accepted weak_transfer(L_C,B_C,S_C,A); do not use three-owner zero increment result for Hsattr",
+        "argument_and_string_representation_closed": false
+      },
+      "Loc.FileTags": {
+        "current_counter_upper_at_C": null,
+        "current_geometry_upper_at_C": 134867029,
+        "new_get_file_tag_attempts_upper": null,
+        "required_source_demand": "F: all Loc.user_position calls on <dummy>, raw filenames and marker-prefixed filenames; partial/caught work is retained",
+        "required_transport": "attach completed C counter/domain and strong-table stored sizes, then all prefix find/add requests; R71 fixed post-registration D0 membership and numerical bounds do not apply to fresh Main metadata",
+        "representation_closed": false
+      },
+      "Ptree_constructors.loc_counter": {
+        "source_initializer": 0,
+        "initialization_get_pos_calls": 1,
+        "counter_at_C": 1,
+        "new_increments_upper": null,
+        "required_source_demand": "G: each get_pos None attempt, including eager argument constructions and Ptree nodes later discarded by simplification",
+        "endpoint_interface": "1 + G",
+        "required_guard": "1 + G <= 2^47 - 1 before Loc.user_position line packing; OCaml increment must also remain representable",
+        "representation_closed": false
+      },
+      "Gnat_ast_to_ptree.next_call_id": {
+        "counter_at_C": 0,
+        "new_increments_upper": null,
+        "required_source_demand": "R: every selected mk_call_id_str request, including term calls and abandoned conversion results; R77 successful typed application count is not substituted",
+        "endpoint_interface": "R",
+        "required_guard": "R <= 2^62 - 1; decimal formatting and resulting attribute-string requests remain attached separately",
+        "representation_closed": false
+      },
+      "parser_converter_storage_and_arithmetic": {
+        "required_source_demand": "actual serialized Main JSON and occurrence graph from accepted producer, through Yojson/From_json, synthetic Ptree construction, string/number helpers and balanced Connection arrays",
+        "accepted_input_provider": "retained-producer-composition.md exact serialization/byte recurrence; R77 source/typed and R79 VC outputs are later structural providers, not parsing allocation histories",
+        "representation_closed": false
+      }
+    },
+    "actual_populated_three_owner_transport_to_T_established": true,
+    "complete_parser_converter_representation_closed": false,
+    "actual_selected_builder_entry_attachment_established": false,
+    "complete_Main_source_candidate_multiplicities": false,
+    "complete_source_to_initial_vc_storage": false,
+    "process_budget": {
+      "escaping_save_exceptions": 2,
+      "save_entering_callbacks": 2,
+      "saves": 3
+    },
+    "new_callback_or_save_allowance": 0,
+    "aggregate_physical_memory_or_stack_gate": false,
+    "C_carrier_is_not_an_exit_heap_or_new_JSON_storage_bound": true
+  },
+  "put_line": {
+    "role": "put_line",
+    "configuration": "r78_repaired_quiet_timeless_j12_logging",
+    "provider_commit": "e45ee72a42d6cc669e95b80c2c991cbc65fe4e73",
+    "start_cut_C": "after Controller_itp.create_controller, before Controller_itp.add_file; gnat_checks.ml:396-399",
+    "end_cut_T": "entry, before body, of Typing.type_mlw_file at gnat_ast_to_ptree.ml:1410",
+    "failure_scope": "reader/converter execution before return or unwind; caller catch, post-read registration and later diagnostics are outside this cut",
+    "owners": {
+      "Ident": {
+        "provider_owner": "Ident",
+        "counter_upper_at_C": 27104344,
+        "counter_upper_at_T": 27104344,
+        "actual_counter_equal_at_C_and_T": true,
+        "exact_actual_counter_known": false,
+        "new_constructor_requests": 0,
+        "new_counter_increments": 0
+      },
+      "Hsty": {
+        "provider_owner": "Ty.Hsty",
+        "counter_upper_at_C": 45173908,
+        "counter_upper_at_T": 45173908,
+        "actual_counter_equal_at_C_and_T": true,
+        "exact_actual_counter_known": false,
+        "new_constructor_requests": 0,
+        "new_counter_increments": 0,
+        "same_backing_geometry_upper_at_C_and_T": {
+          "outer_length": 146200712,
+          "bucket_max": 146200712,
+          "allocated_slots": 146200712
+        },
+        "actual_outer_and_bucket_lengths_unchanged": true,
+        "weak_clearing_allowed": true,
+        "live_contents_or_occupancy_claimed_unchanged": false
+      },
+      "Hsity": {
+        "provider_owner": "Ity.Hsity",
+        "counter_upper_at_C": 33880431,
+        "counter_upper_at_T": 33880431,
+        "actual_counter_equal_at_C_and_T": true,
+        "exact_actual_counter_known": false,
+        "new_constructor_requests": 0,
+        "new_counter_increments": 0,
+        "same_backing_geometry_upper_at_C_and_T": {
+          "outer_length": 146200712,
+          "bucket_max": 146200712,
+          "allocated_slots": 146200712
+        },
+        "actual_outer_and_bucket_lengths_unchanged": true,
+        "weak_clearing_allowed": true,
+        "live_contents_or_occupancy_claimed_unchanged": false
+      }
+    },
+    "source_entry_multiplicities_on_path_reaching_T": {
+      "Controller_itp.add_file_outer": 1,
+      "Controller_itp.add_file_inner": 1,
+      "Session_itp.read_file": 1,
+      "Env.read_file": 1,
+      "Env.read_lib_file": 1,
+      "gnat_json.read_channel": 1,
+      "Yojson.Safe.from_channel": 1,
+      "Gnat_ast.From_json.file_from_json": 1,
+      "Gnat_ast_to_ptree.mlw_file": 1,
+      "Typing.type_mlw_file_entry": 1,
+      "Typing.type_mlw_file_body": 0,
+      "imported_library_parser_entries": 0,
+      "typed_contract_builder_entries": 0,
+      "typing_proxy_or_overload_candidates": 0,
+      "Session_itp.post_read_identifier_registrations": 0,
+      "Env.post_parser_store": 0
+    },
+    "constructor_orphan_increment_allowance_added": 0,
+    "source_selected_partial_prefix_three_owner_requests": {
+      "Ident": 0,
+      "Hsty": 0,
+      "Hsity": 0
+    },
+    "state_bounds_usable_at_T": {
+      "counter_upper": {
+        "Ident": 27104344,
+        "Hsty": 45173908,
+        "Hsity": 33880431
+      },
+      "table_upper_envelopes": {
+        "Hsty": {
+          "outer_length": 146200712,
+          "bucket_max": 146200712,
+          "allocated_slots": 146200712
+        },
+        "Hsity": {
+          "outer_length": 146200712,
+          "bucket_max": 146200712,
+          "allocated_slots": 146200712
+        }
+      },
+      "bounds_denote_populated_actual_state": true,
+      "can_skip_T_to_builder_transport": false,
+      "reason": "Typing.open_file, module imports/clones/declarations and every earlier typing/proxy/candidate request still precede a selected builder entry."
+    },
+    "auxiliary_prefix_interfaces": {
+      "Ident.Hsattr": {
+        "counter_upper_at_C": 45173908,
+        "backing_at_C": {
+          "creation_outer_length": 5003,
+          "creation_allocated_bucket_slots": 0,
+          "outer_length_upper": 146200712,
+          "bucket_length_upper": 146200712,
+          "allocated_bucket_slots_upper": 146200712,
+          "live_entries_upper": 45173908,
+          "limit": 7,
+          "oversize_upper": 146200712,
+          "rover_strict_upper": 146200712,
+          "cache_hash_arrays_same_lengths": true,
+          "current_state_is_creation_state": false
+        },
+        "new_external_hashcons_attempts_upper": null,
+        "required_source_demand": "A: every create_attribute attempt from converter labels, comments, call-id labels, fixed attribute constructors and named terms (including pre/post, assertions and loop invariants), including discarded results",
+        "counter_endpoint_interface": "C_Hsattr + A",
+        "backing_provider": "accepted weak_transfer(L_C,B_C,S_C,A); do not use three-owner zero increment result for Hsattr",
+        "argument_and_string_representation_closed": false
+      },
+      "Loc.FileTags": {
+        "current_counter_upper_at_C": null,
+        "current_geometry_upper_at_C": 146200712,
+        "new_get_file_tag_attempts_upper": null,
+        "required_source_demand": "F: all Loc.user_position calls on <dummy>, raw filenames and marker-prefixed filenames; partial/caught work is retained",
+        "required_transport": "attach completed C counter/domain and strong-table stored sizes, then all prefix find/add requests; R71 fixed post-registration D0 membership and numerical bounds do not apply to fresh Main metadata",
+        "representation_closed": false
+      },
+      "Ptree_constructors.loc_counter": {
+        "source_initializer": 0,
+        "initialization_get_pos_calls": 1,
+        "counter_at_C": 1,
+        "new_increments_upper": null,
+        "required_source_demand": "G: each get_pos None attempt, including eager argument constructions and Ptree nodes later discarded by simplification",
+        "endpoint_interface": "1 + G",
+        "required_guard": "1 + G <= 2^47 - 1 before Loc.user_position line packing; OCaml increment must also remain representable",
+        "representation_closed": false
+      },
+      "Gnat_ast_to_ptree.next_call_id": {
+        "counter_at_C": 0,
+        "new_increments_upper": null,
+        "required_source_demand": "R: every selected mk_call_id_str request, including term calls and abandoned conversion results; R77 successful typed application count is not substituted",
+        "endpoint_interface": "R",
+        "required_guard": "R <= 2^62 - 1; decimal formatting and resulting attribute-string requests remain attached separately",
+        "representation_closed": false
+      },
+      "parser_converter_storage_and_arithmetic": {
+        "required_source_demand": "actual serialized Main JSON and occurrence graph from accepted producer, through Yojson/From_json, synthetic Ptree construction, string/number helpers and balanced Connection arrays",
+        "accepted_input_provider": "retained-producer-composition.md exact serialization/byte recurrence; R77 source/typed and R79 VC outputs are later structural providers, not parsing allocation histories",
+        "representation_closed": false
+      }
+    },
+    "actual_populated_three_owner_transport_to_T_established": true,
+    "complete_parser_converter_representation_closed": false,
+    "actual_selected_builder_entry_attachment_established": false,
+    "complete_Main_source_candidate_multiplicities": false,
+    "complete_source_to_initial_vc_storage": false,
+    "process_budget": {
+      "escaping_save_exceptions": 2,
+      "save_entering_callbacks": 2,
+      "saves": 3
+    },
+    "new_callback_or_save_allowance": 0,
+    "aggregate_physical_memory_or_stack_gate": false,
+    "C_carrier_is_not_an_exit_heap_or_new_JSON_storage_bound": true
+  }
+}

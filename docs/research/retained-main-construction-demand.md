@@ -1162,3 +1162,163 @@ their explicit residual obligations. #202/#119 remain open; production
 #88–#94 is untouched. Oracle/admission/tool pins and one process-global
 `e <= 2`, two save-entering callbacks and three saves are unchanged. Neither
 hashcons comparisons nor Wvs/strong lookups renew that allowance.
+
+## Populated source prefix to typing entry
+
+2026-10-24 UTC; source-prefix author continuation for #202 under #119.
+**The actual populated Ident, Hsty and Hsity state transports unchanged from
+C to the first typing entry T.** Here C is the accepted cut after
+`Controller_itp.create_controller`, before `Controller_itp.add_file`
+(`gnat_checks.ml:396–399`), and T is entry **before executing the body** of
+`Typing.type_mlw_file` at `gnat_ast_to_ptree.ml:1410`. This is a concrete
+source-call boundary, not a selected builder entry or the end of Main
+construction. The [source-prefix packet](../evidence/retained-main-construction-demand-20261024/source-prefix/README.md)
+binds the call closure and exports all five actual-role envelopes.
+
+The input is the accepted
+[populated C provider](retained-main-entry-capacity.md), author
+`e45ee72a42d6cc669e95b80c2c991cbc65fe4e73`, accepted at
+`bd5025636d85bcc58da8d716ef03860cf828c951`. Its exact
+`r78_repaired_quiet_timeless_j12_logging` configuration, launch-role filename,
+path/environment and native/service relation are retained. Only Main file
+contents are replaced as that provider permits. No R90/#206 configuration
+delta or unrelated fixed-library owner observation is substituted.
+The accepted shared-service author `22cdc0d78c850525c78f8c3bda05424462324f84`
+and review `7f3357b0289ff57fbd8303ca024534b209868234` remain unchanged.
+
+### Source-call closure at the cut
+
+On a path reaching T the outer and inner `Controller_itp.add_file` each run
+once. The inner reader calls `Session_itp.read_file`, `Env.read_file`,
+`Env.read_lib_file` and the registered Gnat JSON parser once, without a retry.
+`get_format` and `get_parser` use filename strings and fixed string maps.
+`Env.register_format` wraps the parser in `store ... (fp ...)`; both that
+store and parent-language stores execute only after `fp` returns. Session's
+`Ident.id_register` at `session_itp.ml:1853` is likewise after the reader
+returns. Controller file-section creation and caller diagnostics are later
+continuations. An early reader error does not resume at T; the theorem does
+not cover the entire failed `add_file` completion.
+
+The plugin performs `Yojson.Safe.from_channel`,
+`Gnat_ast.From_json.file_from_json` and `mlw_file` conversion before T. The
+`gnat_ast` debug flag is absent in the selected configuration. Creation of
+the `print_mlw_file` closure does not run its body: Mlw/S-expression printing
+is invoked only after typing returns or throws. No import parser, typed
+contract builder, typing proxy or overload candidate has entered before T.
+Syntax `use`, `clone`, type and function declarations built by the converter
+are ordinary Ptree variants; interpreting them is later typing work.
+
+The complete archived decoder, converter and Ptree-constructor files are
+bound, with exact supporting excerpts and a qualified-reference/open
+inventory. The source argument resolves their reached helpers as follows:
+
+- `Gnat_ast` coercions and `From_json` decode scalar/list/variant data. Their
+  external qualified references are only four List operations. Decoder and
+  coercion callbacks are defined in that source; JSON supplies data, not an
+  executable callback.
+- The converter opens `Ptree_constructors` after `Why3`. Its `Ty`, `E`, `T`,
+  `P` and `D` names therefore construct Ptree syntax, not registered logical
+  types, symbols or contracts. First-class `E_or_T` is instantiated only by
+  these E/T modules, including the direct `process_call (module T)` for loop
+  variants. Recursion passes the same selected module. `Expr.RKnone`,
+  `Ity.MaskVisible`, Dterm connectives and Decl proposition kinds are variant
+  constants, not calls into those logical owners.
+- List/Option folds, notation functions, error printers and the local
+  Connection-tree mapper use source-selected callbacks. `Include_type_set`
+  compares Ptree qualified-name **strings**, not Ident tags. The unqualified
+  constructor functions resolve to the bound local definitions; no arbitrary
+  caller function enters this closure.
+- `Ident.create_attribute` reaches the distinct Hsattr instance. Its
+  hash/equality/tag callbacks use strings and attribute records; they do not
+  call `id_register` or either logical-type owner. `Ident.op_infix/prefix`
+  concatenate strings. `Loc.user_position` reaches FileTags' private
+  string/int tables and counter. Selected source/synthetic location columns
+  are all zero, so warning-printer branches are absent; a line-range error
+  formats integers and raises. These auxiliary mutations are retained below.
+- Constant/Number/BigInt helpers create numeric data and call `Big_int_Z`;
+  suffix/string/formatting helpers and the JSON parser have no supplied Why
+  logical-constructor callback. Their actual storage/arithmetic obligations
+  remain explicit. This uses the accepted source/compiler/runtime/library
+  relation and ordinary service semantics; it is not a new verified compiler,
+  parser or foreign-library proof.
+
+Thus neither `Ident.id_register`, `Ty.Hsty.hashcons` nor `Ity.Hsity.hashcons`
+is reached, and no public alternate/reset mutation for these owners is in
+the closure. There is no suspended insertion at C. Hsattr is a separate
+Hashcons instance, not an alias for either logical-type table. Induction on
+the source-selected converter/decoder recursion and its finite list/option
+callbacks preserves the three-owner projection, including temporary,
+discarded and partial reader work before return/unwind. The static inventory
+helps check the human closure argument; it is not a machine-checked call graph.
+
+### Actual populated envelopes at T
+
+For each owner X in Ident/Hsty/Hsity, the actual counter at T equals its
+actual counter at C, so the accepted upper bound is unchanged. No new
+constructor request, tag increment or orphan-increment allowance is added.
+For Hsty/Hsity, outer-array length, bucket lengths and total allocated bucket
+slots also remain unchanged. GC may clear weak referents under the inherited
+runtime relation; equality of live contents or occupancy is not claimed.
+Clearing does not resize the untouched backing arrays.
+
+| Role | Ident upper at T | Hsty upper at T | Hsity upper at T | Each incoming table geometry upper S |
+| --- | ---: | ---: | ---: | ---: |
+| First_Or_Default | 19,103,990 | 31,839,984 | 23,879,988 | 106,017,567 |
+| Input_Is_Valid | 17,268,805 | 28,781,342 | 21,586,006 | 96,707,853 |
+| Is_Message | 17,071,707 | 28,452,845 | 21,339,634 | 95,715,532 |
+| Put | 24,848,687 | 41,414,478 | 31,060,859 | 134,867,029 |
+| Put_Line | 27,104,344 | 45,173,908 | 33,880,431 | 146,200,712 |
+
+S bounds each of outer length, maximum bucket length and **all allocated
+bucket slots**, including empty slots, from the actual populated C provider.
+It is not the tables' creation state `(5003,0)`, a new snapshot, an aggregate
+allocation total, the T heap, or a bound on newly decoded JSON/Ptree objects.
+The callable `prefix.typing_entry(role, configuration=...)` accepts only the
+five existing role descriptors and that configuration. It does not accept
+an arbitrary counter vector, table profile or demand certificate. The numeric
+output can seed a subsequent T-based transfer, but every request between T
+and a selected builder entry still has to be transported.
+
+### Auxiliary demands and remaining continuation
+
+The zero-three-owner result deliberately does not close the reader's complete
+representation obligation. Its explicit auxiliary interfaces are:
+
+| Owner/work | Attached initial state and required further demand |
+| --- | --- |
+| Hsattr | Actual populated C counter/backing are retained. Count every create_attribute attempt A from labels, comments, call IDs, fixed strings and named terms, including pre/post, assertions and loop invariants. Use `C_Hsattr+A` and the accepted Weak transfer on that initial backing. Strings and source A remain unresolved. |
+| FileTags | C's carrier bounds existing backing geometry. Its C scalar/domain/stored-size attachment and all new find/add attempts F remain required. Filenames include `<dummy>`, raw source names and marker-prefixed names. R71's fixed post-registration numerical/domain theorem is not a Main C→T theorem. |
+| Synthetic location counter | Source initializer0 plus the sole eager `result_ident = mk_ident [] "result"` initialization gives counter1 at C; fixed pre-C library reads do not run the registered converter. Count every later `get_pos None` attempt G and check `1+G <= 2^47-1` for the location packing guard, as well as representable increment. |
+| Call-ID counter | Source closure `ref 0` is not invoked during initialization or pre-C driver/library reads. Count every later `mk_call_id_str` request R, including Any/Abstract and term calls, and check `R <= 2^62-1`; formatting/attribute storage is separate. |
+| Parser/converter storage and arithmetic | Attach actual producer serialization/occurrences to Yojson, decoded Gnat data, synthetic Ptree, strings/numbers and Connection arrays/midpoint arithmetic. The existing producer byte interface is not a proof of all these consumers. No later five-atom numeric bound is applied to arbitrary Main numerals. |
+
+These source demands count attempts and evaluated operands. For example,
+`Option.value ~default:(mk_ident [] "???") id` at converter1071 evaluates the
+default even when `id` is Some. The logical-declaration candidate and location
+at1036–1039 are built before the domain branch, even if that candidate is
+unused. Expression simplification and record-field selection can discard
+already constructed syntax. None of these effects can be refunded by counting
+only surviving R77 typed nodes or R79 VC occurrences. The producer's occurrence
+recurrence counts repeated serialized children; a shared source node is not
+silently memoized into one consumer occurrence.
+
+The result therefore sets actual three-owner transport **to T** true while
+complete parser representation, actual selected-builder entry attachment,
+complete Main source/candidate multiplicities and source-to-initial-VC storage
+remain false. `Typing.open_file`, imports/clones/declarations, symbol and
+proxy construction, failed overload candidates and every earlier builder
+must precede any use of the accepted shared-service transfer at a real
+builder cut. R1's `formal_actual_add` failed-current-pair charge remains in
+the immutable earlier packet. Other builders, kode/SP/WP and later
+continuation retain their existing residuals.
+
+Validation is one focused new identity/source/transport check: 456 assertions
+passed in 0.478859196 seconds on Linux x86-64. No predecessor checker or
+native/capture/disassembler/compiler/prover/Lean run occurred.
+The selected author settings are GPT-6 Astra / Extra High; runtime
+confirmation and token/cost telemetry are unavailable. The round record
+retains measured checker time separately from author elapsed time.
+Independent review is pending. #202/#119 remain open; production #88–#94,
+Oracle, admission and tool pins are untouched. There is no aggregate RAM/stack
+gate or cumulative local byte obligation, and no renewal of the one global
+`e <= 2`, two save-entering callbacks and three saves.

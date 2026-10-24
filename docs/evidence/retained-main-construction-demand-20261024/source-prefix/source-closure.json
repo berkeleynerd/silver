@@ -1,0 +1,85 @@
+{
+  "claim": "No Ident registration or Ty.Hsty/Ity.Hsity request between actual C and first typing-entry T on a path reaching T, under the accepted source/native/configuration/service relation",
+  "method": "Human source-call closure plus complete file identity and reference-inventory checks; reference scanning is not a verified OCaml call graph",
+  "roots": [
+    {"source": "src/gnat/gnat_checks.ml:396-399", "disposition": "Accepted fresh-session branch enters add_file exactly once after C"},
+    {"source": "src/session/controller_itp.ml:271-285", "disposition": "Outer enters inner once; reader evaluated before relativize_filename/add_file_section; no retry"},
+    {"source": "src/session/session_itp.ml:1843-1863", "disposition": "Env.read_file first; theory Ident.id_register only after return; error branch does not resume at T"},
+    {"source": "src/core/env.ml:94-119,133-166", "disposition": "Fixed registered parser selected by string maps; wrapping store runs only after plugin return, including parent-language wrappers"},
+    {"source": "plugins/gnat_json/gnat_ast_to_ptree.ml:1382-1410", "disposition": "One Yojson read, From_json decode, mlw_file conversion, suffix strings, closure allocation, then T; no execution of deferred printer"}
+  ],
+  "families": [
+    {"source": "plugins/gnat_json/gnat_ast.ml:1-2511", "disposition": "Gnat datatypes and coercion copies, list_of_nonempty, From_json scalar/list/constructor recursion; callbacks are named local decoders/coercions, and no input supplies executable callbacks"},
+    {"source": "plugins/gnat_json/gnat_ast_to_ptree.ml:1-1333", "disposition": "Names, metadata, include deduplication, expression/term recursion, declarations, effects and module assembly construct Ptree; full code identity is bound, including discarded and eager work"},
+    {"source": "plugins/gnat_json/ptree_constructors.ml:1-258", "disposition": "Local Ty/E/T/P/D construct syntax records/variants; get_pos and create_attribute are separate auxiliary services"},
+    {"source": "plugins/gnat_json/gnat_ast_to_ptree.ml:337-395,824,952-956", "disposition": "E_or_T first-class modules are only local E/T, passed recursively or process_call(module T) for variants; no runtime Expr.create_cty/c_app, Ty.ty_app or Ity.ity_app callback"},
+    {"source": "plugins/gnat_json/gnat_ast_to_ptree.ml:125-176,495-537", "disposition": "Set.Make comparator examines Ptree name strings; local M.map receives converter callbacks and Ptree binops; imported stdlib iteration cannot introduce unbound application functions"},
+    {"source": "plugins/gnat_json/gnat_ast_to_ptree.ml:1337-1359,1386-1388", "disposition": "Decode failure find_path and fixed Format callbacks do not call logical owners; unwinding exits this prefix, with no retry"},
+    {"source": "src/core/ident.ml:16-39,75-78", "disposition": "create_attribute uses distinct Hsattr string hash/equality and fresh attr tag copy; notation helpers concatenate strings, with no id_register"},
+    {"source": "src/util/loc.ml:42-64,254-282; src/util/wstdlib.ml:11-30", "disposition": "Only FileTags string/int strong-table requests; every selected column argument is zero so warning-printer branches are not entered; line-range errors only format integers then raise"},
+    {"source": "src/util/constant.ml:33-43; src/util/number.ml:76-165; src/util/bigInt.ml:11-70", "disposition": "Numeric records, string parsing and Big_int_Z arithmetic; no logical owner callback. Numeric allocation/range obligations remain unresolved; no later five-atom bound is transplanted"},
+    {"source": "src/util/strings.ml:76-90", "disposition": "Fixed filename suffix matching/subtraction only; no logical owner service"}
+  ],
+  "reference_classes": {
+    "Array": "stdlib_storage_residual",
+    "BigInt": "numeric_service_residual",
+    "Constant": "numeric_service_residual",
+    "Curr": "local_metadata_auxiliary",
+    "D": "local_Ptree_constructor",
+    "Debug": "pre_C_flag_registration",
+    "Decl": "variant_constant_only",
+    "Dterm": "variant_constant_only",
+    "E": "local_Ptree_constructor",
+    "Expr": "variant_constant_only",
+    "Format": "fixed_scalar_or_error_callback",
+    "Ident": "Hsattr_or_notation_only",
+    "Include_Decl": "local_include_string_comparison",
+    "Include_type_set": "local_include_string_comparison",
+    "Ity": "variant_constant_only",
+    "List": "stdlib_or_local_list_helpers_with_source_selected_callbacks",
+    "Loc": "FileTags_location_auxiliary",
+    "M": "local_connection_tree",
+    "Number": "numeric_service_residual",
+    "Opt": "local_option_helper",
+    "Option": "stdlib_option_with_source_selected_callbacks",
+    "P": "local_Ptree_constructor",
+    "Ptree": "variant_constant_only",
+    "Set": "local_include_string_comparison",
+    "Stdlib": "string_comparison",
+    "String": "stdlib_storage_residual",
+    "T": "local_Ptree_constructor",
+    "Ty": "local_Ptree_constructor",
+    "Why3": "Ptree_variant_constant_only"
+  },
+  "open_classes": {
+    "Why3": "External namespace; every reached helper resolved in families, and other unqualified functions are Ptree/Gnat/local/stdlib",
+    "Ptree": "Syntax datatypes/variants",
+    "Gnat_ast": "Decoded datatypes, list_of_nonempty and source coercions",
+    "Ptree_constructors": "Shadows Why3.Ty with local Ptree Ty; E/T/P/D likewise syntax constructors",
+    "E_or_T": "Only local E/T instantiations",
+    "E": "Local expression syntax constructors",
+    "Option": "Stdlib option combinators with source-selected callbacks"
+  },
+  "library_boundary": {
+    "Yojson.Safe.from_channel": "Data-only channel-to-JSON parser, no Why application callback argument; reused selected native/library relation. Buffer/token/JSON allocation safety remains a named residual",
+    "stdlib_io_collections_format": "Strings, arrays, lists, options, finite string sets/maps, scalar formatting and channel services; selected callback functions are listed in source families",
+    "Big_int_Z": "Number operations with no application callback; arbitrary Main numeric representation remains residual",
+    "runtime": "Retain accepted runtime/native-service control relation; GC may clear weak referents but does not grow untouched weak arrays or invoke a new source-selected logical constructor"
+  },
+  "auxiliary_initializers": {
+    "loc_counter_at_C": 1,
+    "next_call_id_at_C": 0,
+    "source": "Ptree_constructors loc_counter=ref 0; the sole eager get_pos is result_ident=mk_ident [] result at251. Converter next_call_id=ref 0 closure at330-332 is not invoked during initialization. Fixed pre-C library/driver readers do not use this registered Gnat JSON parser; accepted C source closure excludes earlier Main read",
+    "not_a_new_capture": true
+  },
+  "excluded_before_T": {
+    "gnat_ast_pretty": "debug gnat_ast absent in exact R78 configuration",
+    "Mlw_printer_and_sexp": "Closure created before T but invoked only after typing success/debug or typing exception",
+    "typing_imports_clones_and_builders": "Inside Typing.type_mlw_file body; imported library parser routes begin later",
+    "caller_error_registration_and_diagnostics": "After reader return/unwind, outside this successful-cut theorem"
+  },
+  "failure_and_discard_policy": "No demand refund for eager defaults, abandoned declarations, conversion simplification or caught work. Zero three-owner result is only within the selected reader/converter prefix. No claim for the entire failed add_file continuation",
+  "source_argument_machine_proved": false,
+  "full_parser_representation_closed": false,
+  "full_builder_entry_attachment_closed": false
+}
