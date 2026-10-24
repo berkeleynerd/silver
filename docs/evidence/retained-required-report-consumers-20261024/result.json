@@ -1,6 +1,6 @@
 {
   "status": "focused source/shape/arithmetic checks passed; source bindings remain conditional",
-  "complete_source_files": 70,
+  "complete_source_files": 76,
   "new_layout_bytes": {
     "result": 13536,
     "location": 13088,
@@ -138,7 +138,7 @@
         "operands": {
           "parser_state_backing": 32,
           "key_builder_backing": 128,
-          "normalized_path_majorant": 4513,
+          "normalized_path_majorant": 4609,
           "path_builder_backing": 8192,
           "xstring_growth_current": 415,
           "xstring_product": 1245,
@@ -233,7 +233,7 @@
           "operands": {
             "parser_state_backing": 32,
             "key_builder_backing": 512,
-            "normalized_path_majorant": 4513,
+            "normalized_path_majorant": 4609,
             "path_builder_backing": 8192,
             "xstring_growth_current": 63,
             "xstring_product": 189,
@@ -242,7 +242,7 @@
             "vector_backing": 1,
             "json_counter": 128,
             "xstring_counter": 16,
-            "per_object_bytes": 8612
+            "per_object_bytes": 8708
           },
           "guards": {
             "file_and_scanner_spare": true,
@@ -281,7 +281,7 @@
           "operands": {
             "parser_state_backing": 32,
             "key_builder_backing": 512,
-            "normalized_path_majorant": 4513,
+            "normalized_path_majorant": 4609,
             "path_builder_backing": 8192,
             "xstring_growth_current": 63,
             "xstring_product": 189,
@@ -290,7 +290,7 @@
             "vector_backing": 1,
             "json_counter": 128,
             "xstring_counter": 16,
-            "per_object_bytes": 8612
+            "per_object_bytes": 8708
           },
           "guards": {
             "file_and_scanner_spare": true,
@@ -329,7 +329,7 @@
           "operands": {
             "parser_state_backing": 32,
             "key_builder_backing": 512,
-            "normalized_path_majorant": 4513,
+            "normalized_path_majorant": 4609,
             "path_builder_backing": 8192,
             "xstring_growth_current": 63,
             "xstring_product": 189,
@@ -338,7 +338,7 @@
             "vector_backing": 1,
             "json_counter": 128,
             "xstring_counter": 16,
-            "per_object_bytes": 8612
+            "per_object_bytes": 8708
           },
           "guards": {
             "file_and_scanner_spare": true,
@@ -377,7 +377,7 @@
           "operands": {
             "parser_state_backing": 32,
             "key_builder_backing": 512,
-            "normalized_path_majorant": 4513,
+            "normalized_path_majorant": 4609,
             "path_builder_backing": 8192,
             "xstring_growth_current": 63,
             "xstring_product": 189,
@@ -386,7 +386,7 @@
             "vector_backing": 1,
             "json_counter": 128,
             "xstring_counter": 16,
-            "per_object_bytes": 8612
+            "per_object_bytes": 8708
           },
           "guards": {
             "file_and_scanner_spare": true,
@@ -425,7 +425,7 @@
           "operands": {
             "parser_state_backing": 32,
             "key_builder_backing": 512,
-            "normalized_path_majorant": 4513,
+            "normalized_path_majorant": 4609,
             "path_builder_backing": 8192,
             "xstring_growth_current": 63,
             "xstring_product": 189,
@@ -434,7 +434,7 @@
             "vector_backing": 1,
             "json_counter": 128,
             "xstring_counter": 16,
-            "per_object_bytes": 8612
+            "per_object_bytes": 8708
           },
           "guards": {
             "file_and_scanner_spare": true,
@@ -484,13 +484,19 @@
       "summary_rows": 12,
       "summary_columns": 6,
       "prover_cell_bytes": 82,
-      "text_line_bytes": 800,
+      "text_line_characters": 896,
       "text_explicit_lines": 158,
-      "text_output_bytes": 126558,
-      "failure_output_bytes": 12025,
+      "text_output_characters": 141726,
+      "text_output_bytes": 283452,
+      "failure_explicit_lines": 28,
+      "no_check_output_characters": 186,
+      "failure_output_characters": 14611,
+      "failure_output_bytes": 29222,
+      "success_stdout_characters": 129,
+      "success_stdout_bytes": 258,
       "sarif_file_bytes": 1976365,
       "sarif_depth": 8,
-      "text_unbounded_backing": 1392,
+      "text_unbounded_backing": 1536,
       "sarif_vectors": {
         "result": {
           "length": 0,
@@ -594,6 +600,8 @@
         "textio_column": true,
         "textio_line": true,
         "stderr_line": true,
+        "ordinary_file_offset": true,
+        "unit_path_domain": true,
         "sarif_file_offset": true,
         "text_backing": true,
         "float_to_integer": true,
@@ -613,7 +621,7 @@
         "retained_bytes": 3896,
         "current_guard_bytes": 16777216,
         "native_read_buffer_bytes": 16777216,
-        "c_path_bytes": 417,
+        "c_path_bytes": 513,
         "raw_native_byte_counter": false,
         "ghost_histories_erased": true,
         "guards": {
@@ -641,7 +649,7 @@
         "retained_bytes": 3896,
         "current_guard_bytes": 262144,
         "native_read_buffer_bytes": 262144,
-        "c_path_bytes": 417,
+        "c_path_bytes": 513,
         "raw_native_byte_counter": false,
         "ghost_histories_erased": true,
         "guards": {
@@ -669,7 +677,7 @@
         "retained_bytes": 3896,
         "current_guard_bytes": 262144,
         "native_read_buffer_bytes": 262144,
-        "c_path_bytes": 417,
+        "c_path_bytes": 513,
         "raw_native_byte_counter": false,
         "ghost_histories_erased": true,
         "guards": {
@@ -697,7 +705,7 @@
         "retained_bytes": 3896,
         "current_guard_bytes": 262144,
         "native_read_buffer_bytes": 262144,
-        "c_path_bytes": 417,
+        "c_path_bytes": 513,
         "raw_native_byte_counter": false,
         "ghost_histories_erased": true,
         "guards": {
@@ -725,7 +733,7 @@
         "retained_bytes": 3896,
         "current_guard_bytes": 262144,
         "native_read_buffer_bytes": 262144,
-        "c_path_bytes": 417,
+        "c_path_bytes": 513,
         "raw_native_byte_counter": false,
         "ghost_histories_erased": true,
         "guards": {
@@ -748,6 +756,18 @@
         }
       }
     },
+    "path_demands": {
+      "project_argument": 416,
+      "initial_and_saved_cwd": 128,
+      "object_directory": 416,
+      "config_file": 432,
+      "ordinary_summary": 430,
+      "sarif_file": 432,
+      "spark_files": 441,
+      "unit_source_paths": 416
+    },
+    "common_path_bytes": 512,
+    "path_domain_join": true,
     "consumer_native_guards": true,
     "current_silver_guards": true,
     "source_inputs_bound": false,
@@ -758,5 +778,5 @@
   "prover_runs": 0,
   "solver_runs": 0,
   "predecessor_checker_replays": 0,
-  "elapsed_seconds": 0.326315
+  "elapsed_seconds": 0.310447
 }

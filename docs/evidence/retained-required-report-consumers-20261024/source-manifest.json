@@ -537,6 +537,54 @@
       "sha256": "8a33d93c63e9b30247173dee1658fb7aad59caacdde1a760195e0ede3a39dc87",
       "repository_path": "src/silver_platform.adb",
       "source_commit": "ff941b589f"
+    },
+    {
+      "path": "installed-runtime/a-textio.adb",
+      "bytes": 61105,
+      "sha256": "4edbb70efef55003ccac05d7e6f75eb7f16b371e0d216fab5fb706c23480c671",
+      "provider_archive": "docs/evidence/retained-producer-null-tail-20261018/runtime-sources.tar.gz",
+      "provider_archive_sha256": "f7709011db297a3173b624c93e53f67fe5169c5f2d8f430eb15c7943cddc184d",
+      "member": "installed-runtime/a-textio.adb"
+    },
+    {
+      "path": "gcc/ada/libgnat/s-wchcnv.adb",
+      "bytes": 16648,
+      "sha256": "632bfd078227f278d667efac954d0423809f16a7066ec89bd5c533758515f602",
+      "provider_archive": "docs/evidence/retained-producer-report-capacity-20261024/additional-sources.tar.gz",
+      "provider_archive_sha256": "c74648389426cbda3edb3fe36ffd225e9c53322a471f1199ae72f47cfc1eacd9",
+      "member": "gcc/ada/libgnat/s-wchcnv.adb"
+    },
+    {
+      "path": "gnatcoll/core/src/gnatcoll-json-utility.adb",
+      "bytes": 8919,
+      "sha256": "6217658e47a8a2a0bb6e32eaa24928852d311b8aa129b437db5336b7491ac6ae",
+      "provider_archive": "docs/evidence/retained-response-parser-capacity-20261023/sources.tar.gz",
+      "provider_archive_sha256": "6ea8d125de6b1696779d031174087e50e54f920aa688d9bf3b8460ec8d65f418",
+      "member": "gnatcoll/core/src/gnatcoll-json-utility.adb"
+    },
+    {
+      "path": "spark-source/src/gnatprove/configuration.adb",
+      "bytes": 118436,
+      "sha256": "8ebece58c5f04d0a1cd16db5945a0acb432419235fc1564cd683e162e12f1697",
+      "provider_archive": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+      "provider_archive_sha256": "f2e7dd7bbef086a36ddf97f9bd3bd669ca895fcc28e3ac23ffe0c9f85fc5d952",
+      "member": "spark-source/src/gnatprove/configuration.adb"
+    },
+    {
+      "path": "gpr2/src/lib/gpr2-project.ads",
+      "bytes": 5227,
+      "sha256": "1943c5fe8702d6d0fcbe76c91d2ecc0acb614c7078fc94ccbae15632e3b12897",
+      "provider_archive": "docs/evidence/cr-comment-gpr2-20261018/gpr-96e4283834e3c56d51f986c059770be48efaf22a.tar.gz",
+      "provider_archive_sha256": "7fd2540c0303082490c74963f9b6752a092fdc61421cf53654a0ad785e9de4e5",
+      "member": "gpr-96e4283834e3c56d51f986c059770be48efaf22a/src/lib/gpr2-project.ads"
+    },
+    {
+      "path": "gpr2/src/lib/gpr2-project-tree.ads",
+      "bytes": 25751,
+      "sha256": "8a5197d251e9568508617898e5c41083e5836be52e6c3713942f1c1fa82e2ddf",
+      "provider_archive": "docs/evidence/cr-comment-gpr2-20261018/gpr-96e4283834e3c56d51f986c059770be48efaf22a.tar.gz",
+      "provider_archive_sha256": "7fd2540c0303082490c74963f9b6752a092fdc61421cf53654a0ad785e9de4e5",
+      "member": "gpr-96e4283834e3c56d51f986c059770be48efaf22a/src/lib/gpr2-project-tree.ads"
     }
   ]
 }
