@@ -1,0 +1,58 @@
+{
+  "author": "bba92a0c0685cffdf8c9e179f6b36aafea81c4be",
+  "review": "8ce1291b7a7cf9739666562f81cac09b73d8ad5f",
+  "issue": 214,
+  "anchors": [
+    {
+      "commit": "8ce1291b7a7cf9739666562f81cac09b73d8ad5f",
+      "path": "docs/reviews/review-concat-selectors-20261024.md",
+      "retained_file": "review.original.md",
+      "bytes": 11871,
+      "sha256": "28ca80ceb2d3e38247e4ac55072d2d614f04fae7779834e560cdf77b2f27b84c"
+    },
+    {
+      "commit": "8ce1291b7a7cf9739666562f81cac09b73d8ad5f",
+      "path": "docs/evidence/review-concat-selectors-20261024/finding-F1.json",
+      "retained_file": "finding-F1.original.json",
+      "bytes": 3865,
+      "sha256": "568dac9e8fe493374cfbf3addd1432ba85cdb94a0f82a8e449e205ae496587fd"
+    }
+  ],
+  "unchanged_receipts": [
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/current.json",
+      "bytes": 1361,
+      "sha256": "95c6a412668370ee2b9beabe4b26eaaf17066aa0a0285446de9afa9176a407b0"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/packet-manifest.json",
+      "bytes": 2202,
+      "sha256": "05600d4049903322f4f5a33cca5f320f24e6f23722e63ac3aa200614dc8baeab"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/inputs.json",
+      "bytes": 4761,
+      "sha256": "f92a109f662d13d46550a79a9f53031da0d6a0babb453e63b706e89cf89bf9ca"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/source-manifest.json",
+      "bytes": 8958,
+      "sha256": "23477b80b813288daa62a87e63d331b46d9f1eafa714f29c8cd254aa1fee6a2b"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/source-witnesses.json",
+      "bytes": 8550,
+      "sha256": "36ea8d641d0235df00acffbe45b0843c9a970ed81166c622947ac4a4fbbe0579"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/ledger.json",
+      "bytes": 1095,
+      "sha256": "bbf52bac0eab035db59129035ec91b233c7aff84367aec8d3c882a438b1e7534"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/rank.json",
+      "bytes": 2139,
+      "sha256": "b3537a01a7ef551f7855bdf54b8f1e065e0bfb11179cee0adda17606107c7d27"
+    }
+  ]
+}

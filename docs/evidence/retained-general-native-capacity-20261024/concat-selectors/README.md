@@ -13,7 +13,9 @@ measurements are unavailable. The first recorded round clock was 06:21:15 UTC;
 `current.json` records focused-check completion and elapsed time. No compiler,
 prover, native target, Lean or predecessor checker ran. The source and lexical
 parser are reused; the new checker does not invoke the predecessor checkers.
-Independent review of this freeze is pending.
+The original freeze received provisional review F1/P2. The active lemma
+includes the [#214 purity repair](repair-f1/README.md); its exact narrow
+independent review is pending. Original check receipts remain historical.
 
 ## Scope and dispatch
 
@@ -178,11 +180,15 @@ is addressed by the earlier MIN/MAX return below.
 
 ## Maximum queries: unchanged arms and extremum absorption
 
-The following lemma applies to **any finite native selector tree** of one
-integral type T with nonoverflowed literal leaves and VAR_DECL leaves whose
-existing extrema are the full extrema of that same T. It is not a claim that
-every such tree is currently source-reachable. Conditions may be arbitrary
-already completed expressions; max_value never visits them.
+The following lemma applies to **finite side-effect-free native selector
+trees** of one integral type T with nonoverflowed literal leaves and nonvolatile
+VAR_DECL leaves whose existing extrema are the full extrema of that same T.
+Every condition is already completed and explicitly has TREE_SIDE_EFFECTS
+false; all scalar arms and selectors also have TREE_SIDE_EFFECTS false. It is
+not a claim that every such tree is currently source-reachable. max_value does
+not recursively visit conditions, but their purity is essential to the folder
+used for reconstruction. Effect-bearing or unspecified conditions are outside
+this lemma; excluding that helper domain does not restrict source admission.
 
 For s selector occurrences and d declaration-leaf occurrences, a call of
 max_value in direction p visits exactly 2s+1 non-condition nodes before
@@ -201,10 +207,35 @@ this exact-type grammar. More precisely:
   unchanged all-literal selector. Two constants fold before generic_simplify,
   costing at most one constant request. For E versus an unchanged selector,
   commutation places E second and match.pd:4950/4961 returns E immediately.
-  This precedes handwritten conditional distribution, so it constructs no
-  symbolic MIN/MAX, child arithmetic candidate or replacement COND.
+  This precedes handwritten conditional distribution. GENERIC's generated
+  unused-capture handling still matters: genmatch.cc:4668–4685 would preserve
+  effects of the discarded selector with fold_ignored_result and a new
+  COMPOUND_EXPR. Our explicit TREE_SIDE_EFFECTS-false premise makes that
+  branch false, so no symbolic MIN/MAX, COMPOUND, child arithmetic candidate
+  or replacement COND is constructed.
 
-This covers unchanged-arm behavior rather than silently excluding it. It
+For the attached source grammar the purity premise follows from fresh
+nonvolatile captured Integer references and literal zero in EQ/NE tests, and
+literal/declaration arms. A declaration reference does not evaluate its
+initializer. Inverse comparisons remain pure. tree.cc:5194–5223,5257–5274,
+5295–5333,5350–5390 propagates operand TREE_SIDE_EFFECTS through the applicable
+unary, binary/comparison and COND constructors; these ordinary integer codes
+do not add effects. Thus each nested selector has TREE_SIDE_EFFECTS false.
+Readonly alone is not being used as a purity premise. Frontend scalar purity
+and absence of inserted branch actions were established above.
+
+The MIN/MAX @0 capture is an ordinary top-level operand; capture analysis at
+genmatch.cc:2961–2991 does not treat it as a conditionally captured COND arm.
+The early-out rules at4359–4400 therefore do not by themselves exclude an
+effectful selector. The explicit omission code at4668–4685 is the required
+join. The preserved F1 counterexample has an effectful condition in an
+unchanged literal-only subtree: reconstruction returns COMPOUND(P,E), not E,
+and a later caller fallback cannot refund that binary allocation. See the
+[exact original finding](repair-f1/finding-F1.original.json). No current-Main
+reachability claim is made for that synthetic helper.
+
+Within the pure domain this covers unchanged-arm behavior rather than
+silently excluding it. It
 also explains why a literal-only helper example is not an actual-Main
 reachability argument. Do not apply the extremum lemma to a constrained
 subtype leaf whose extrema differ from T, a SAVE/COMPOUND/call leaf or a

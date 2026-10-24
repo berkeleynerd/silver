@@ -1,0 +1,95 @@
+{
+  "repair": "F1/#214",
+  "files": [
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/README.md",
+      "bytes": 20528,
+      "sha256": "fc6eb7f57086be19efeba17fde85f072350485ba905909860c27922a370524b9"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/check.py",
+      "bytes": 12379,
+      "sha256": "e52855c733001530ca78fe793f55f3f73e1cca489515f7998934c35b59ddcf9e"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/current.json",
+      "bytes": 1361,
+      "sha256": "95c6a412668370ee2b9beabe4b26eaaf17066aa0a0285446de9afa9176a407b0"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/inputs.json",
+      "bytes": 4761,
+      "sha256": "f92a109f662d13d46550a79a9f53031da0d6a0babb453e63b706e89cf89bf9ca"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/ledger.json",
+      "bytes": 1095,
+      "sha256": "bbf52bac0eab035db59129035ec91b233c7aff84367aec8d3c882a438b1e7534"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/matcher-audit.json",
+      "bytes": 350737,
+      "sha256": "1c60d276039d19d4dca8473ff0dca045a2e0bc6567ea8fa48ed8bf2770fae376"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/packet-manifest.json",
+      "bytes": 2202,
+      "sha256": "05600d4049903322f4f5a33cca5f320f24e6f23722e63ac3aa200614dc8baeab"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/rank.json",
+      "bytes": 2139,
+      "sha256": "b3537a01a7ef551f7855bdf54b8f1e065e0bfb11179cee0adda17606107c7d27"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/remaining.json",
+      "bytes": 1439,
+      "sha256": "2e544a5a8f3950fe0aa51ba2c7521284c914a8ced8462ab8997ed222943a9498"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/repair-f1/README.md",
+      "bytes": 4832,
+      "sha256": "7e3a5240a8516453b7ac74f41942a1a3dfb754b96e567e967944fae12ce33d88"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/repair-f1/check.py",
+      "bytes": 7350,
+      "sha256": "10d55eed3d7f68d63e78dc01e12caf9f75d61db873378cbeceeb8f4843e7d0ce"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/repair-f1/finding-F1.original.json",
+      "bytes": 3865,
+      "sha256": "568dac9e8fe493374cfbf3addd1432ba85cdb94a0f82a8e449e205ae496587fd"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/repair-f1/inputs.json",
+      "bytes": 2337,
+      "sha256": "f64c2cdfdf057205e5252fb56d42220829372857f916f9392890ea2c9156af45"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/repair-f1/review.original.md",
+      "bytes": 11871,
+      "sha256": "28ca80ceb2d3e38247e4ac55072d2d614f04fae7779834e560cdf77b2f27b84c"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/repair-f1/source-witnesses.json",
+      "bytes": 2118,
+      "sha256": "ef4e7fcf7974502b045f3ab9274533628df6a526a8e0e2e102da4d470320646d"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/source-manifest.json",
+      "bytes": 8958,
+      "sha256": "23477b80b813288daa62a87e63d331b46d9f1eafa714f29c8cd254aa1fee6a2b"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/source-witnesses.json",
+      "bytes": 8550,
+      "sha256": "36ea8d641d0235df00acffbe45b0843c9a970ed81166c622947ac4a4fbbe0579"
+    },
+    {
+      "path": "docs/research/retained-general-native-capacity.md",
+      "bytes": 36848,
+      "sha256": "ca3816c4c45e76cca961649eb78e97a2f30635167a1cdec627535a00438ef0b8"
+    }
+  ]
+}
