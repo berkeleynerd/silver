@@ -288,13 +288,18 @@ ephemeron/custom/dependent or resource-fraction demand. No extra file/channel
 or foreign-buffer owner is introduced; the existing open/lexbuf construction
 is outside this additional-work cut.
 
-The primary timing searches perform at most `q<=3T` calls for T ordinary
-file results, with `o<=9` lifetime owners. Later deltas also include the
-`grep_time` ref/closure/Some allocations and any additional smoothing copies
-caused by normalization. The concrete extra post-cut allocation is
-`512*o + 266*q + 7*T` words. `transfer.py` exports this function separately
-from the startup delta. Its runtime/GC/remembered-write owners remain under
-the existing general providers; startup's zero-remembered result does not
+Let T count all `ProverFinished` result deliveries, including ordinary
+nonempty-file results and empty-filename queued cancellations, with `o<=9`
+lifetime owners. Primary timing searches perform at most three calls per
+ordinary-file result and none per cancellation, so `q<=3T`. Later deltas also
+include the `grep_time` ref/closure/Some allocations and any additional
+smoothing copies caused by normalization. The controller can call
+`fuzzy_proof_time` once per delivered result, including queued cancellations,
+so at most T additional seven-word result copies are charged without assuming
+that an old proof result is absent. The concrete extra post-cut allocation is
+`512*o + 266*q + 7*T` words. `transfer.py` exports this function with keyword
+`finished_results` separately from the startup delta. Its runtime/GC/remembered-write
+owners remain under the existing general providers; startup's zero-remembered result does not
 extend to later promoted owners. The result record's answer/status/output/model
 fields have the same shape, but a changed conditional path cannot be declared
 allocation-free merely because its eventual value has that shape. The raw

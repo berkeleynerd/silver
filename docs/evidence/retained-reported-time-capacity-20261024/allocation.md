@@ -238,13 +238,25 @@ attempt or incomplete obligation into success, and no save allowance renews.
 
 ## Later calls
 
-For T ordinary file results, q<=3T attempted searches and o<=9 owners, the
-additional post-C source-owned allocation is
+Let T count all `ProverFinished` result deliveries, including ordinary
+nonempty-file results and empty-filename queued cancellations. Each result in
+the ordinary-file subset performs at most three timing searches; cancellations
+perform none, so the total attempted-search count satisfies q<=3T. The
+`timeout_handler` `ProverFinished` branch calls `Opt.fold fuzzy_proof_time`
+at most once per delivery before `Done`, regardless of its output filename
+(`controller_itp.ml:468-473` in `source-witnesses.json`). Thus at most T
+additional seven-word result copies are possible. This argument does not
+assume that queued cancellations lack an old result or charge their copies
+to an earlier ordinary result.
+
+For o<=9 owners the additional post-C source-owned allocation is
 `512*o + (256+10)*q + 7*T`. The first two native terms come from the reviewed
 Start provider; the ten-word grep wrapper and seven-word possible fuzzy copy
-are attached to their installed bodies. A failed/cached lazy can be retried
-without another signal, but q counts that call. The nine construction and
-placeholder charges were already included once in D_start.
+are attached to their installed bodies. `transfer.py` names the total count
+`finished_results`; `later-allocation-cases.json` includes a queued-only case
+with T=1, q=0 and o=0 that still requires seven words. A failed/cached lazy can
+be retried without another signal, but q counts that call. The nine construction
+and placeholder charges were already included once in D_start.
 
 After C, lazy/cache/table/global stores may target promoted owners. The zero
 new-remembered-entry startup result is not reused there. The existing general

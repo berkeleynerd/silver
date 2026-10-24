@@ -299,6 +299,7 @@ def derive():
                   "startup_dependent_bytes": 0, "new_native_buffer_or_descriptor_owners": 0,
                   "largest_added_managed_payload_words_upper": 256,
                   "later_owned_words": "512*o + 266*q + 7*T; o<=9 and q<=3*T",
+                  "later_result_count_T": "all ProverFinished result deliveries, including empty-filename queued cancellations",
                   "later_GC_copying_and_runtime_owners_included": False,
                   "global_allowance_renewed": False}
     # Maxima and copy operations preserve a closed set; this finite calculation
@@ -358,6 +359,16 @@ def main():
     baseline_functions = runpy.run_path(str(dependency))
     assert baseline_functions["all_envelopes"]() == baseline["envelopes"]
     extension = runpy.run_path(str(HERE / "transfer.py"))
+    later_cases = json.loads((HERE / "later-allocation-cases.json").read_text())["cases"]
+    assert any(case["ordinary_file_results"] == 0 and case["queued_cancellations"] > 0
+               and case["attempted_searches"] == case["owners"] == 0
+               and case["expected_words"] > 0 for case in later_cases)
+    for case in later_cases:
+        finished_results = case["ordinary_file_results"] + case["queued_cancellations"]
+        assert case["attempted_searches"] <= 3 * case["ordinary_file_results"], case["name"]
+        assert extension["later_owned_words"](
+            finished_results=finished_results, attempted_searches=case["attempted_searches"],
+            owners=case["owners"]) == case["expected_words"], case["name"]
     extended = extension["all_envelopes"]()
     assert max(v["minor_history_words_upper"] for v in extended.values()) == 227274405
     assert max(v["managed_static_carrier_words_upper"] for v in extended.values()) == 237953393
@@ -369,7 +380,8 @@ def main():
         (HERE / "entry-extension.json").write_bytes(extension_raw)
     else:
         assert (HERE / "entry-extension.json").read_bytes() == extension_raw
-    for name in ("baseline-entry-projection.json", "transfer.py", "native-providers.json"):
+    for name in ("baseline-entry-projection.json", "transfer.py", "native-providers.json",
+                 "later-allocation-cases.json"):
         dependencies.add((HERE / name).relative_to(ROOT).as_posix())
     provider_records = json.loads((HERE / "native-providers.json").read_text())
     for name, expected in provider_records["files"].items():
@@ -382,6 +394,7 @@ def main():
         assert json.loads((HERE / "inputs.json").read_text()) == inputs
     print(json.dumps({"status": "pass", "checked_outputs": len(outputs) + 1,
                       "input_files": len(dependencies), "target_runs": 0,
+                      "later_allocation_cases": len(later_cases),
                       "prior_checker_replays": 0, "elapsed_seconds": time.monotonic() - started,
                       "baseline_provider_identity": baseline["source_identity"],
                       "external_provider_root": str(args.baseline_root),
