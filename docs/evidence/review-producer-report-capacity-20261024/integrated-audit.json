@@ -1,0 +1,78 @@
+{
+  "date": "2026-10-24",
+  "frozen_author_commit": "1a127446cec75141c3c2fdea26d40b9483680d34",
+  "base_author_commit": "a09e2be03b5e71e01e6f1c4ed1f153f5b9e23de5",
+  "reviewer_selected_model": "gpt-6-astra",
+  "reviewer_selected_effort": "xhigh",
+  "runtime_model_confirmation": null,
+  "token_usage": null,
+  "cost": null,
+  "started_utc": "2026-10-24T01:46:48.657746+00:00",
+  "finished_utc": "2026-10-24T01:46:54.760340+00:00",
+  "invocation_elapsed_seconds": 6.051087,
+  "native_execution": false,
+  "predecessor_checker_replay": false,
+  "checker_runs": 1,
+  "isolated_result_output": true,
+  "frozen_files": [
+    {
+      "path": "docs/evidence/retained-producer-report-capacity-20261024/README.md",
+      "bytes": 2879,
+      "sha256": "63a2672a9186cc7a25f72c0fa9095a6d4d76a6f0fe6b43be208054d9de2fb0ac"
+    },
+    {
+      "path": "docs/evidence/retained-producer-report-capacity-20261024/additional-source-manifest.json",
+      "bytes": 11264,
+      "sha256": "20468b79e616af1c8b66d51f89de7ee9eb5cab9c9341d8b8719f1a7f7a918026"
+    },
+    {
+      "path": "docs/evidence/retained-producer-report-capacity-20261024/additional-sources.tar.gz",
+      "bytes": 763570,
+      "sha256": "c74648389426cbda3edb3fe36ffd225e9c53322a471f1199ae72f47cfc1eacd9"
+    },
+    {
+      "path": "docs/evidence/retained-producer-report-capacity-20261024/capacity.py",
+      "bytes": 33359,
+      "sha256": "8c2ecff59d533ec276477fb844273878ed0eddee9a453d9323fb46460a9a4945"
+    },
+    {
+      "path": "docs/evidence/retained-producer-report-capacity-20261024/check.py",
+      "bytes": 18622,
+      "sha256": "548a5d462f54bc7d33f69a44bb45601d942fd0c392a2e4ae1503fbe23cff89f0"
+    },
+    {
+      "path": "docs/evidence/retained-producer-report-capacity-20261024/comperr-recipe-applied.adb",
+      "bytes": 17875,
+      "sha256": "9e91665d1cdf08e6d60e46ec55804ab07c00c7e9761ff0e72aa602ed4a584a4b"
+    },
+    {
+      "path": "docs/evidence/retained-producer-report-capacity-20261024/inputs.json",
+      "bytes": 5071,
+      "sha256": "4d3ed41696b43810a586ce0c0a827ec4d53c5a5cad72b13ed8a880e39607acd8"
+    },
+    {
+      "path": "docs/evidence/retained-producer-report-capacity-20261024/result.json",
+      "bytes": 33111,
+      "sha256": "cf9728ca0ef1cd96312daf186421802b15f7310f4835d5df7ac958228a10c5c1"
+    },
+    {
+      "path": "docs/evidence/retained-producer-report-capacity-20261024/round.json",
+      "bytes": 2673,
+      "sha256": "497c0a3de110439d9546ac304ffc10a6c6e4feb61c42d7e317eb8dc2fdd60034"
+    },
+    {
+      "path": "docs/evidence/retained-producer-report-capacity-20261024/source-manifest.json",
+      "bytes": 9034,
+      "sha256": "5d37d7a739dd8e100459189f33eb354f51465adcab6bc4a5d99fbbaf65354c3f"
+    },
+    {
+      "path": "docs/research/retained-producer-report-capacity.md",
+      "bytes": 49423,
+      "sha256": "1169ba3ee2e926395c5300aff3d92a74ac9bece40d81a5ae1f643a22d6eb92fe"
+    }
+  ],
+  "returncode": 0,
+  "stdout": "{\"status\": \"focused checks passed; source attachments remain open\", \"complete_selected_files\": 78, \"spark_ada_frontier\": 279, \"elapsed_seconds\": 5.799557}\n",
+  "stderr": "",
+  "result_sha256": "ff1a568d35afd54da04ebd0d4cca4dc59c7a8a48aa04fdda785d9026c353ea61"
+}
