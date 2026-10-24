@@ -1,0 +1,50 @@
+{
+  "achieved_result": "Conditional P188 from complete selected runtime corpus and source-generated configuration paths; four fixed report interfaces and prospective argv fit; historical/current effective configuration attachment correctly remains null",
+  "admission_changed": false,
+  "author_start_note": "Not instrumented; first explicit clock checkpoint during this continuation was 2026-10-24 06:32:11 UTC.",
+  "author_start_utc": null,
+  "check": {
+    "attempts": 1,
+    "command": "python3 docs/evidence/retained-fixed-report-composition-20261024/paths/check.py",
+    "complete_tool_source_files": 24,
+    "elapsed_seconds": 2.993711306997284,
+    "repository_inputs": 27,
+    "runtime_corpus_files": 1575,
+    "status": "pass"
+  },
+  "checkpoint_utc": "2026-10-24 06:32:11 UTC",
+  "cli_memory_updated": false,
+  "cost": null,
+  "freeze_preparation_utc": "2026-10-24T06:40:04.956815+00:00",
+  "global_e_upper": 2,
+  "independent_review": "pending exact author freeze",
+  "intended_result": "Source/configuration-derived report pathname hull with actual retained operands and explicit prospective attachment predicates",
+  "native_capture_runs": 0,
+  "native_compiler_prover_lean_runs": 0,
+  "objective": "Owner-authorized #212 common path/configuration domain and #194 join under #119",
+  "physical_resources_assumed": true,
+  "predecessor_checker_replays": 0,
+  "preparatory_reads": "Read existing sources/configuration and one complete runtime inventory to identify filename/reference origins; no predecessor program executed.",
+  "residuals": [
+    "Actual effective environment, source/search/mapping and physical-directory configuration relation",
+    "Historical Why-client cwd and canonical directory",
+    "Native warning chain, initial counters, header lifetime, source-span/private-fix storage",
+    "Full Main/five-report collector and SARIF composition",
+    "Production launcher/configuration refinement and complete #212/#119"
+  ],
+  "runtime_model_confirmed": false,
+  "save_entering_callbacks_upper": 2,
+  "saves_upper": 3,
+  "selected_effort": "Extra High",
+  "selected_host": "Linux x86_64; scripts/dev.py paths reports linux-x86_64 for the isolated author checkout",
+  "selected_model": "GPT-6 Astra",
+  "service_queries": 0,
+  "significant_findings": [
+    "Historical frontend runner inherits os.environ; its recorded environment overrides are not complete.",
+    "GPR2 lexical normalization and link-resolving temp/cwd normalization require distinct inputs.",
+    "R69 request/P_diag domains must not be substituted for #194 report P.",
+    "Original user filename remains outside the copied proof-project path domain."
+  ],
+  "target_executions": 0,
+  "token_usage": null
+}

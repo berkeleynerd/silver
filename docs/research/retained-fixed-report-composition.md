@@ -198,3 +198,51 @@ Arguments freeze is pending. The lead's separate native-owner packets are not
 imported by this author freeze. Common paths/configuration, native warning and
 storage/source-span/private-fix joins, and five-report/Main composition remain
 open; #212/#119 and whole-process capacity are not complete.
+
+## Source-derived path/configuration continuation, 2026-10-24
+
+The [path packet](../evidence/retained-fixed-report-composition-20261024/paths/README.md)
+constructs the common #212/#194 pathname hull from the actual source producers:
+fresh workspace and fixed project/source names, GPR2's object subdirectory,
+parent/producer/reporter save/change/restore points, options/config/report/
+summary/SARIF/trace constructors, and GNAT's separate requested, full and
+reference filenames. It imports the accepted native max-path/page operands
+without changing the frozen report providers.
+
+For the existing generated installation spelling and the explicitly stated
+physical-cwd, effective-path and selected-source configuration predicates,
+**P=188**. The complete selected 1,575-file runtime corpus matches the accepted
+manifest; its longest relative name is14 bytes under the173-byte producer
+runtime root and it has no Source_Reference pragma. The configured project
+argument is94 bytes, the object-directory bound97 (including a possible
+trailing slash), and the longest absolute trace139. The four fixed report
+writer/reader interfaces and prospective18-argument configuration fit this
+conditional bound; configuration joined-command bytes are329–338 across
+represented worker widths. No worker was reserved or process run.
+
+**Actual complete configuration attachment remains open.** The retained fixed
+producer archives record cwd and selected environment overrides, while the
+frontend runner inherits `os.environ`. Neither these records nor the current
+generated bootstrap constants establish every effective child path or physical
+cwd. The packet therefore retains `actual_complete_common_path_bytes=null`.
+It identifies #88/#89's concrete obligations: bind effective include/object
+paths and ADA_PRJ_INCLUDE_FILE/ADA_PRJ_OBJECTS_FILE contents, selected mapping/
+naming/default runtime inputs, TMPDIR/TEMP/TMP selection and normalized root,
+and physical cwd at each source save/change point. These are representation
+configuration obligations; a failed sufficient region permits refinement,
+not rejection of otherwise valid Silver source or its original user filename.
+The next prospective step is to select and attach a concrete effective
+configuration satisfying those predicates. Reconstructing the unrecorded
+historical environment is not a prerequisite for that design.
+
+R69's filename180 and R70's raw-probe167 are preserved in their own Why-client
+domains; request775–853 and canonical R+24 do not become the report hull.
+The historical Why-client cwd and actual canonical directory remain unbound.
+Native warning-chain/initial-counter/header/source-span/private-fix storage
+and full Main/five-report collector/SARIF composition remain separate owners.
+One focused changed-input check passed in **2.993711 seconds**, verifying24
+complete tool sources,27 repository inputs and the complete runtime corpus.
+No successful predecessor checker, target, compiler, prover, Lean, capture run
+or service query was replayed. Selected author setting was Astra/Extra High;
+runtime confirmation and token/cost telemetry are unavailable. The global
+e<=2/two save-entering callbacks/three saves and physical premises are unchanged.

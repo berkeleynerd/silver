@@ -1,0 +1,129 @@
+{
+  "accepted_arguments_native_review": "b3f6b4591eab2bb8604be528dcbd697c70899b7d",
+  "accepted_research_prefix": {
+    "bytes": 13065,
+    "path": "docs/research/retained-fixed-report-composition.md",
+    "sha256": "2114fbad5754184f65a3d03ce5d7eb4d0f5d8a91a61400ed862a1ab7e8c82142"
+  },
+  "archives": {
+    "docs/evidence/cr-comment-gpr2-20261018/gpr-96e4283834e3c56d51f986c059770be48efaf22a.tar.gz": {
+      "members": {
+        "gpr-96e4283834e3c56d51f986c059770be48efaf22a/src/lib/gpr2-path_name.adb": "9083842ba09328d9284f37c310e7f26d971383f1e3c1dc0ffa83299cff1744fc",
+        "gpr-96e4283834e3c56d51f986c059770be48efaf22a/src/lib/gpr2-project-view.adb": "25f2890dec7ded31710d4436f942df0469259fbdbafe2ae5bdb269f013570daa"
+      },
+      "sha256": "7fd2540c0303082490c74963f9b6752a092fdc61421cf53654a0ad785e9de4e5"
+    },
+    "docs/evidence/retained-main-semantics-20261018/library-capture/captures.tar.gz": {
+      "members": {
+        "run_case.py": "9fae85e9ac5f2c38189815f27a1182940743175130dc0ec9049b1cc371766c52",
+        "silver_arguments/invocation.json": "b0b1f04cd838272f3f34ada26f4f7a8980dc5a31dbdd414ed92c627be8e07a56",
+        "silver_arguments/object-paths.txt": "6cd63f33594ec9ad25d3cb31b256dfe2bd136521aca026935450368d41a017a6",
+        "silver_arguments/options.json": "0d9f2b85ff919dcf5837f2cea4afadd172f5adeb805490a25fd3540f761ce29e",
+        "silver_io/invocation.json": "0d170333ffb88c6eea64ad894c7d97344a62a21389650df36d73692f4c451e9b",
+        "silver_io/object-paths.txt": "6283d616943b1a24cbb870a7a35146c8cb2a0670523fc13bf46ed0ffc3febc16",
+        "silver_io/options.json": "1c8a45a76e2059094e46d0f883174bcc110a313b77710e6e8a5efa9b2e0fe6ed",
+        "silver_output_libc/invocation.json": "9b882d444efba2d6b6382f407997bbfd12ba56736969a22d519fe894e9eba168",
+        "silver_output_libc/object-paths.txt": "09b43892c792c6c33ac74979ed31ecf747209a41ff417f6d770cc749223a43c5",
+        "silver_output_libc/options.json": "8af91cb8dc95380eecbe36186844a92e5a5d1c24a523048d69b5f8b4a07e4735",
+        "silver_runtime/invocation.json": "df85f8c6ff5b98570a424746c8c599a682e8ef3e4bec49bf87e9e0e2f7ae92f7",
+        "silver_runtime/object-paths.txt": "0c74fee5837ed31baf70887440f192ad96598d50fe10be6706fd2cfce209d387",
+        "silver_runtime/options.json": "f19e35d027746eb5e789d1c723d1141c3f8ee5e4023fe5209cbff69f20bfc93b"
+      },
+      "sha256": "4f01d00788ccf489ce458ffa563fef0bb1ea43a6781b6c6cb5c3e6bf6eed2d18"
+    },
+    "docs/evidence/retained-producer-bodies-20261018/inputs-and-outputs.tar.gz": {
+      "members": {
+        "silver_arguments/invocation.json": "f729a1f6a43440b64fa683fd6795d25dc02dde3934f1f1075a2ff466fa90a529",
+        "silver_arguments/object-paths.txt": "e1ac193bc974e1dbdbce639edffa149ca0703102282809e6ec914be0cfa46038",
+        "silver_arguments/options.json": "813d77809ae277ae7fa9e18e3b46ae692e3b8cac26f85898e104cab6cbc9dd6e",
+        "silver_io/invocation.json": "c5b4773bfbf3fc942944cc7a9adf1e228a67d97384ed421b8f688632ea57cc57",
+        "silver_io/object-paths.txt": "2f58956f8d91366c6a55333c738c18d865278fe0b84d2b18b69f2e9fe0b8e2a3",
+        "silver_io/options.json": "5e4d793e5a5a9e5df3d58281ef8dd84719a69b1fe1e52fd4d9e05b224d20c1eb",
+        "silver_output_libc/invocation.json": "f9952fe5241c2c1c4999950eb49c6b231cb10897f7c54672ea7c1cafb3dc5095",
+        "silver_output_libc/object-paths.txt": "6fa4a99378d17c7384b65459b1bc532772abb8d8419aa7dcd6d998f057ef49e7",
+        "silver_output_libc/options.json": "524b37e7c96d56d3fd6d5475d9c72e093bef6820f1f7c9e19b3d5d9c2c1f5cb4",
+        "silver_runtime/invocation.json": "08697207bc1092b60938628720976f6515fa782a45625e93811c3ab2fd2b2921",
+        "silver_runtime/object-paths.txt": "6be094a90a21dd8a839441863ccd1872b87a9f56bc9964039c8abbacfea683db",
+        "silver_runtime/options.json": "8c950100b2b5320c05a89b72541901e78585c727beae021ab8f45a9d908ac27f"
+      },
+      "sha256": "bde678ccd1116e041ec8756ecd44d3e2374461335aa59752165322084378c19f"
+    },
+    "docs/evidence/retained-producer-orchestration-20261018/sources.tar.gz": {
+      "members": {
+        "gpr/gpr/src/gpr-tempdir.adb": "5583152f80a95f0de5989522c9ccd9debc5c0bd04c412e2a8d0bb0675c363d03",
+        "gpr/src/gprbuild-compile.adb": "6a0a2bb3cad840f8d5330b829e4b83e4ff0a0f8d08fe15b36b034d8c6bbffcad"
+      },
+      "sha256": "f3389abd7b406ab41f2037c4e89d62f54ee7d44e3b6e70feef3a80c16d7cf9d8"
+    },
+    "docs/evidence/retained-required-report-consumers-20261024/sources.tar.gz": {
+      "members": {
+        "spark-source/src/gnatprove/spark_report-generate_sarif_report.adb": "73e204769fdb453153c8069f9e213412151dce6ff129150ec09f442d079ce232",
+        "spark-source/src/gnatprove/spark_report.adb": "aba5b5c86e109a2bf10598b44c497118a8ee2904e64e90efdc9162e2349d1482"
+      },
+      "sha256": "60af2ad6b5526544a1ebbe19d6575defa335ed4ac853f64574b2279dc94b6609"
+    },
+    "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz": {
+      "members": {
+        "spark-source/src/common/call.adb": "c6765bb07449656310fb5c44b839241898e16f25b3c933fc1c6bc33d3c68e076",
+        "spark-source/src/flow/flow_error_messages.adb": "b4ac784251b8cd4ea82dddabbc5e75edb2d0c2e838a7e4fc838461f23b06b7b9",
+        "spark-source/src/gnatprove/configuration.adb": "8ebece58c5f04d0a1cd16db5945a0acb432419235fc1564cd683e162e12f1697",
+        "spark-source/src/gnatprove/configuration.ads": "393a63a635809761614c707ee8d08e4e14b43013e5f51ff69fb83af1be349422",
+        "spark-source/src/gnatprove/gnat2why_opts-writing.adb": "138bf61c0b7fde13243d549124873de81ee0419b45bd414284d85160ed45d1a7",
+        "spark-source/src/gnatprove/gnatprove.adb": "80becb96eeb45a6ef4cc096d1c8896c5cf53cf6f59a635483f3ced3447731590",
+        "spark-source/src/spark/spark_util.adb": "8e129c4260aa5b46eb74d8368c024b71a43cb7dc6a511f55c8e4b72db9801800",
+        "spark-source/src/spark/spark_util.ads": "e80839ab6bf142e6e8e28529f176745147d9722e17689508eb3262a25fc3c443",
+        "spark-source/src/utils/errout_wrapper.adb": "d117c09ba360c274d453dbfb90c6cc61b5ff6c008b75f97abddab15442579a20",
+        "spark-source/src/why/gnat2why-driver.adb": "b3a37440a935dd9e4c8840c41807b0894a4ad710c63ceb9d344a3db804ebe304"
+      },
+      "sha256": "f2e7dd7bbef086a36ddf97f9bd3bd669ca895fcc28e3ac23ffe0c9f85fc5d952"
+    }
+  },
+  "base_commit": "c05fcf382f",
+  "gcc_source": {
+    "default_root": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada",
+    "files": {
+      "erroutc-pretty_emitter.adb": "32a9b85715cd0de6e4882897a604d9f90fd824c507b0e1ea838243ee11dafc44",
+      "erroutc.adb": "72bf325572a614f1074c90302b3cd487ff56035c30c531fcba88351329f1a901",
+      "libgnat/s-os_lib.adb": "9aed35c4ec6eaeacab780262f2c1528c95fb4f263f2f966f8526d0f4e080b201",
+      "osint.adb": "432c6fb6324140ba2e25ab1a6c79ca306e7a662970ed268009cb962263e89e69",
+      "osint.ads": "f3c98d4108e17a7e7716dcde0603e5a557f55cccca82f9448c2c3bf119f19993",
+      "sinput-l.adb": "ecafb23271ccde16bdfc282afb4a8787f4d04a736154e2e83c27acfb3c4a01fd",
+      "sinput.adb": "0f91bb7890e87f6d23bfa97375a0b36e37cd2c38921f93bc2fec2daeb39243e8",
+      "sinput.ads": "48657f3ca583b754d10f2798fb61c54d85b556c2cd6f10036acff685d57a682b"
+    },
+    "manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json"
+  },
+  "repository_files": {
+    "docs/evidence/retained-fixed-report-composition-20261024/arguments/capacity.py": "daf7589877f488fa78ebf22eda87e371a992be192f79f7e5b95be8e516ca9ca9",
+    "docs/evidence/retained-fixed-report-composition-20261024/arguments/result.json": "051bb7b3217742e6dac19d3e2086e821a8e3def4af74fcf7a2dbf56f26cd7dca",
+    "docs/evidence/retained-fixed-report-composition-20261024/bodies/capacity.py": "27ffd4139970149b055ebdc66e26634ea35db8b677592de193a0c560e8a714b9",
+    "docs/evidence/retained-fixed-report-composition-20261024/bodies/result.json": "1665f9b28a94a75fc19cc3f5d1318ae1f589dcb64f45010384a3bf031b2235b2",
+    "docs/evidence/retained-fixed-report-composition-20261024/capacity.py": "71a12047addf6d06b688494c15acc2c8e83244de6abdb3acba7197a6ed7f5656",
+    "docs/evidence/retained-fixed-report-composition-20261024/result.json": "8ee71a7fd90ab80591133667f10a948f2085e38bd5c3f07604551aa95519ff00",
+    "docs/evidence/retained-fixed-report-native-inputs-20261024/gnat2why/result.json": "3c311f3f2a048e9b4c143614b7c1963f5182b4b97aad8de51100ac15b8d3a6b0",
+    "docs/evidence/retained-fixed-report-native-inputs-20261024/result.json": "ea65aeb9ebb60c88420fd62895aa37f94c1ff3837e0d7eab23aa9787856d7837",
+    "docs/evidence/retained-producer-report-capacity-20261024/capacity.py": "af793f67bd37aa151ed3d8910c8ba133048f76eb37102ea8367073622b89997b",
+    "docs/evidence/retained-required-report-consumers-20261024/capacity.py": "57104877def11f05692a6eea15fc668624921089dda2807169339c463fc620a2",
+    "docs/evidence/retained-response-parser-capacity-20261023/capacity.py": "c8925ae1d74a086dcf3b3fb307b8ef7b8cc8ce5e519f0fd41976550142b184f7",
+    "docs/evidence/retained-why-library-probe-paths-20261023/projection.json": "ff218b360ebe92735dda15a69bf0800f8ac487bd0c7cf7bc15205ba9f830f720",
+    "docs/evidence/retained-why-report-path-inputs-20261023/projection.json": "a6677bcaa790fafcf32be69f22fdbe3ba067f4bf84d46c324286a33ad3ef2a9b",
+    "docs/evidence/unbounded-programs/retained-source-closure-20261017/collect.py": "026e7bc6bc120cf59774acd9b87397687334831c5f14c1f309932edbf6a4ed3c",
+    "docs/evidence/unbounded-programs/retained-source-closure-20261017/source-inventory.json": "55abe673a81fde61a72d4552f7ff1d27461ccc9cbea45299a60d2620754e34ee",
+    "scripts/bootstrap.py": "415b31960868345b9e81cba9e9ef4cc84c25b9904e707328eefa31d46e9ab3da",
+    "scripts/platforms.py": "01e673a58c8aa2158e8314f5005af30292d3f0e95d6dcedb071e9ecf7a62bfc5",
+    "src/silver.adb": "5b52e3225f359740f04f4dbdf2c85ba2c204916fb0b5092fe983f62e9c30e70f",
+    "src/silver_arguments.adb": "74271048db16452bb5b6329f44c70151f73afdfebb089fe4a2a99e66e3b45918",
+    "src/silver_arguments.ads": "5991cb89d0af92506704109882e6f464edda3f781713e9a38a33829b97d78032",
+    "src/silver_io.adb": "e82a62f420651e7ad9de80ffe485e929ac9b5d48348f97d6b766440357dda358",
+    "src/silver_io.ads": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c",
+    "src/silver_libraries.adb": "1f5e1fe3517466c7bd158d017194a7e31f0dfa8b0cd7c1202b67ab65cc3499ea",
+    "src/silver_output_libc.ads": "7c595fa7d94c4b21d39b271ba6df51ebed440a6342314c503fbf91319cd10229",
+    "src/silver_platform.adb": "8a33d93c63e9b30247173dee1658fb7aad59caacdde1a760195e0ede3a39dc87",
+    "src/silver_platform.ads": "404a30302d0fd869f73be72f446d32c761eede3523e8bcaf1eb5efc440f8e891",
+    "src/silver_runtime.ads": "53f6791b0e7484703639eece0f87acb680c1d4f12b06e044f69244f0ce1b6ea7"
+  },
+  "runtime_corpus": {
+    "accepted_manifest_sha256": "76a5413f5083da098347755f795a1d1d84804c9984ffc97da8199b0c3e77014c",
+    "root": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude"
+  }
+}

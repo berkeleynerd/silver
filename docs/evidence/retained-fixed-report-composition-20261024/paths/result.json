@@ -1,0 +1,236 @@
+{
+  "actual_complete_common_path_bytes": null,
+  "admission_changed": false,
+  "canonical_directory": null,
+  "compiler_prover_runs": 0,
+  "complete_five_report_collector": false,
+  "complete_fixed_report_capacity": false,
+  "conditional_installed_configuration": {
+    "actual_configuration_relation_established": false,
+    "admission_decision": false,
+    "common_path_bytes": 188,
+    "consumer_demands": {
+      "config_file": 113,
+      "initial_and_saved_cwd": 97,
+      "object_directory": 97,
+      "ordinary_summary": 111,
+      "project_argument": 94,
+      "sarif_file": 113,
+      "spark_files": 122,
+      "unit_source_paths": 188
+    },
+    "frozen_arguments_interval_fits": true,
+    "initial_cwd_bytes": 97,
+    "object_dir_bytes": 97,
+    "path_demands": {
+      "absolute_trace": 139,
+      "additional_source_and_config": 0,
+      "config_file": 112,
+      "copied_source_and_sloc": 105,
+      "gnat2why_options": 109,
+      "gpr_configuration_and_naming": 40,
+      "initial_and_saved_cwd": 77,
+      "object_directory": 97,
+      "ordinary_summary": 110,
+      "producer_and_reporter_object_cwd": 97,
+      "project_argument": 94,
+      "relative_trace": 42,
+      "runtime_source_and_reference": 188,
+      "sarif_file": 112,
+      "spark_files": 121,
+      "workspace_directory": 82
+    },
+    "project_path_bytes": 94,
+    "source_path_bytes": 188
+  },
+  "elapsed_seconds": 2.993711306997284,
+  "fixed_report_joins": [
+    {
+      "actual_configuration_relation_established": false,
+      "common_path_bytes": 188,
+      "full_pretty_bytes": 216990962,
+      "reader_sufficient": true,
+      "unit": "Silver_Output_Libc",
+      "writer_sufficient": true
+    },
+    {
+      "actual_configuration_relation_established": false,
+      "common_path_bytes": 188,
+      "full_pretty_bytes": 295151978,
+      "reader_sufficient": true,
+      "unit": "Silver_Runtime",
+      "writer_sufficient": true
+    },
+    {
+      "actual_configuration_relation_established": false,
+      "common_path_bytes": 188,
+      "full_pretty_bytes": 773102165,
+      "reader_sufficient": true,
+      "unit": "Silver_IO",
+      "writer_sufficient": true
+    },
+    {
+      "actual_configuration_relation_established": false,
+      "common_path_bytes": 188,
+      "full_pretty_bytes": 977010142,
+      "reader_sufficient": true,
+      "unit": "Silver_Arguments",
+      "writer_sufficient": true
+    }
+  ],
+  "global_e_upper": 2,
+  "native_max_path": 4096,
+  "native_warning_storage_join_complete": false,
+  "page_size": 4096,
+  "physical_resources_assumed": true,
+  "predecessor_checker_replays": 0,
+  "prospective_configuration_joins": [
+    {
+      "all_guards": true,
+      "argv_count": 18,
+      "config_file_bytes": 1519,
+      "joined_command_bytes": 329,
+      "worker_width": 1
+    },
+    {
+      "all_guards": true,
+      "argv_count": 18,
+      "config_file_bytes": 1528,
+      "joined_command_bytes": 338,
+      "worker_width": 10
+    }
+  ],
+  "recorded_invocations": [
+    {
+      "archive": "docs/evidence/retained-main-semantics-20261018/library-capture/captures.tar.gz",
+      "cwd": "/tmp/silver-fixed-library-frontend-20261018/silver_io/obj",
+      "effective_environment_complete": false,
+      "historical_physical_cwd_bound": false,
+      "recorded_path_operand_max": 173,
+      "unit": "silver_io",
+      "why3_dir": "/tmp/silver-fixed-library-frontend-20261018/silver_io/obj/",
+      "with_selected_runtime_corpus": 188
+    },
+    {
+      "archive": "docs/evidence/retained-main-semantics-20261018/library-capture/captures.tar.gz",
+      "cwd": "/tmp/silver-fixed-library-frontend-20261018/silver_arguments/obj",
+      "effective_environment_complete": false,
+      "historical_physical_cwd_bound": false,
+      "recorded_path_operand_max": 173,
+      "unit": "silver_arguments",
+      "why3_dir": "/tmp/silver-fixed-library-frontend-20261018/silver_arguments/obj/",
+      "with_selected_runtime_corpus": 188
+    },
+    {
+      "archive": "docs/evidence/retained-main-semantics-20261018/library-capture/captures.tar.gz",
+      "cwd": "/tmp/silver-fixed-library-frontend-20261018/silver_output_libc/obj",
+      "effective_environment_complete": false,
+      "historical_physical_cwd_bound": false,
+      "recorded_path_operand_max": 173,
+      "unit": "silver_output_libc",
+      "why3_dir": "/tmp/silver-fixed-library-frontend-20261018/silver_output_libc/obj/",
+      "with_selected_runtime_corpus": 188
+    },
+    {
+      "archive": "docs/evidence/retained-main-semantics-20261018/library-capture/captures.tar.gz",
+      "cwd": "/tmp/silver-fixed-library-frontend-20261018/silver_runtime/obj",
+      "effective_environment_complete": false,
+      "historical_physical_cwd_bound": false,
+      "recorded_path_operand_max": 173,
+      "unit": "silver_runtime",
+      "why3_dir": "/tmp/silver-fixed-library-frontend-20261018/silver_runtime/obj/",
+      "with_selected_runtime_corpus": 188
+    },
+    {
+      "archive": "docs/evidence/retained-producer-bodies-20261018/inputs-and-outputs.tar.gz",
+      "cwd": "/tmp/silver-producer-fixed-bodies-20261018/silver_io/obj",
+      "effective_environment_complete": false,
+      "historical_physical_cwd_bound": false,
+      "recorded_path_operand_max": 173,
+      "unit": "silver_io",
+      "why3_dir": "/tmp/silver-producer-fixed-bodies-20261018/silver_io/obj/",
+      "with_selected_runtime_corpus": 188
+    },
+    {
+      "archive": "docs/evidence/retained-producer-bodies-20261018/inputs-and-outputs.tar.gz",
+      "cwd": "/tmp/silver-producer-fixed-bodies-20261018/silver_arguments/obj",
+      "effective_environment_complete": false,
+      "historical_physical_cwd_bound": false,
+      "recorded_path_operand_max": 173,
+      "unit": "silver_arguments",
+      "why3_dir": "/tmp/silver-producer-fixed-bodies-20261018/silver_arguments/obj/",
+      "with_selected_runtime_corpus": 188
+    },
+    {
+      "archive": "docs/evidence/retained-producer-bodies-20261018/inputs-and-outputs.tar.gz",
+      "cwd": "/tmp/silver-producer-fixed-bodies-20261018/silver_output_libc/obj",
+      "effective_environment_complete": false,
+      "historical_physical_cwd_bound": false,
+      "recorded_path_operand_max": 173,
+      "unit": "silver_output_libc",
+      "why3_dir": "/tmp/silver-producer-fixed-bodies-20261018/silver_output_libc/obj/",
+      "with_selected_runtime_corpus": 188
+    },
+    {
+      "archive": "docs/evidence/retained-producer-bodies-20261018/inputs-and-outputs.tar.gz",
+      "cwd": "/tmp/silver-producer-fixed-bodies-20261018/silver_runtime/obj",
+      "effective_environment_complete": false,
+      "historical_physical_cwd_bound": false,
+      "recorded_path_operand_max": 173,
+      "unit": "silver_runtime",
+      "why3_dir": "/tmp/silver-producer-fixed-bodies-20261018/silver_runtime/obj/",
+      "with_selected_runtime_corpus": 188
+    }
+  ],
+  "repository_inputs": 27,
+  "runtime_corpus": {
+    "files": 1575,
+    "full_path_bytes": 188,
+    "manifest_sha256": "76a5413f5083da098347755f795a1d1d84804c9984ffc97da8199b0c3e77014c",
+    "max_relative_bytes": 14,
+    "max_relative_name": "standard.ads.h",
+    "runtime_root_bytes": 173,
+    "source_reference_pragmas": []
+  },
+  "save_entering_callbacks_upper": 2,
+  "saves_upper": 3,
+  "scope": "conditional report pathname hull and exact recorded operands; no complete effective configuration attachment",
+  "service_queries": 0,
+  "source_configuration_predicates_required": true,
+  "source_files": 24,
+  "status": "pass",
+  "target_executions": 0,
+  "why_client_cwd": null,
+  "why_client_exports": {
+    "first_or_default": {
+      "P_diag": "max(F, R+24)",
+      "canonical_path": "R+24",
+      "request_F": 841,
+      "response_frame": "R+72"
+    },
+    "input_is_valid": {
+      "P_diag": "max(F, R+24)",
+      "canonical_path": "R+24",
+      "request_F": 829,
+      "response_frame": "R+72"
+    },
+    "is_message": {
+      "P_diag": "max(F, R+24)",
+      "canonical_path": "R+24",
+      "request_F": 853,
+      "response_frame": "R+72"
+    },
+    "put": {
+      "P_diag": "max(F, R+24)",
+      "canonical_path": "R+24",
+      "request_F": 802,
+      "response_frame": "R+72"
+    },
+    "put_line": {
+      "P_diag": "max(F, R+24)",
+      "canonical_path": "R+24",
+      "request_F": 775,
+      "response_frame": "R+72"
+    }
+  }
+}
