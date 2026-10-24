@@ -1,0 +1,129 @@
+{
+  "author_checker_runs": 0,
+  "elapsed_seconds": 0.497,
+  "endpoint_conditions": {
+    "max_path_upper": 4096,
+    "page_size_upper": 65536,
+    "path_bytes_upper": 4096
+  },
+  "exact_inputs": {
+    "docs/evidence/retained-fixed-report-composition-20261024/README.md": "70c988659b691b2ebb678b6aa288924c39d118c983d52dbeaf973322003cc093",
+    "docs/evidence/retained-fixed-report-composition-20261024/capacity.py": "71a12047addf6d06b688494c15acc2c8e83244de6abdb3acba7197a6ed7f5656",
+    "docs/evidence/retained-fixed-report-composition-20261024/check.py": "83a02515dd73b282a12c1b1bb06b95fc67bddce813fe651686cdd12df999a838",
+    "docs/evidence/retained-fixed-report-composition-20261024/result.json": "8ee71a7fd90ab80591133667f10a948f2085e38bd5c3f07604551aa95519ff00",
+    "docs/evidence/retained-fixed-report-composition-20261024/round.json": "271f59b8392caaef866740dfe7fda021d3e8a537a46cbc17833161e7b0c611bf",
+    "docs/evidence/retained-fixed-report-composition-20261024/source-manifest.json": "167f75115d5641ae8b0c6918f82e9ed77b4ec14bbb517161c836579e029785ae",
+    "docs/research/retained-fixed-report-composition.md": "457359be3445883537d07287b3d94f9a8c30e90f30da6fe0661cc3f8652334a3"
+  },
+  "host": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "manifest_archive_members": 15,
+  "manifest_repository_files": 15,
+  "native_or_prover_runs": 0,
+  "predecessor_checker_runs": 0,
+  "reviewed_commit": "057d60cb8e1ff4938bf01667f643d35fc4eb7f0f",
+  "source_reachability": "manual review; lexical census is corroboration only",
+  "specification_processes": {
+    "Silver_Output_Libc": {
+      "eligible_vertices": 6,
+      "endpoint_pretty": 965966978,
+      "endpoint_reader_guards": {
+        "consumer_json_aliases": true,
+        "consumer_xstring_aliases": true,
+        "file_and_scanner_spare": true,
+        "json_references": true,
+        "key_builder": true,
+        "map_length": true,
+        "mapping_round": true,
+        "numeric_scale": true,
+        "object_request": true,
+        "parser_stack": true,
+        "path_builder": true,
+        "path_scratch": true,
+        "token_endpoint": true,
+        "vector_length": true,
+        "xstring_product": true,
+        "xstring_references": true,
+        "xstring_round": true
+      },
+      "endpoint_writer_allocation": 1448950659,
+      "endpoint_writer_guards": {
+        "array_geometric_capacity": true,
+        "escape_lookahead": true,
+        "escape_string_length": true,
+        "filename_compose": true,
+        "indent_add_and_double": true,
+        "individual_64bit_allocation": true,
+        "new_xstring_backing": true,
+        "ordered_map_length": true,
+        "string_and_text_io_column": true,
+        "unbounded_alignment_intermediates": true
+      },
+      "flow": 84,
+      "frontend": 18575,
+      "names": [
+        "Silver_Output_Libc",
+        "Silver_Output_Libc.Put_Byte",
+        "Silver_Output_Libc.Flush",
+        "Silver_Output_Libc.Set_Exit_Status"
+      ],
+      "objects": 1,
+      "pretty_affine": {
+        "constant": 180960386,
+        "path_coefficient": 191652
+      },
+      "warnings": 8714
+    },
+    "Silver_Runtime": {
+      "eligible_vertices": 8,
+      "endpoint_pretty": 1207255730,
+      "endpoint_reader_guards": {
+        "consumer_json_aliases": true,
+        "consumer_xstring_aliases": true,
+        "file_and_scanner_spare": true,
+        "json_references": true,
+        "key_builder": true,
+        "map_length": true,
+        "mapping_round": true,
+        "numeric_scale": true,
+        "object_request": true,
+        "parser_stack": true,
+        "path_builder": true,
+        "path_scratch": true,
+        "token_endpoint": true,
+        "vector_length": true,
+        "xstring_product": true,
+        "xstring_references": true,
+        "xstring_round": true
+      },
+      "endpoint_writer_allocation": 1810883787,
+      "endpoint_writer_guards": {
+        "array_geometric_capacity": true,
+        "escape_lookahead": true,
+        "escape_string_length": true,
+        "filename_compose": true,
+        "indent_add_and_double": true,
+        "individual_64bit_allocation": true,
+        "new_xstring_backing": true,
+        "ordered_map_length": true,
+        "string_and_text_io_column": true,
+        "unbounded_alignment_intermediates": true
+      },
+      "flow": 243,
+      "frontend": 1510,
+      "names": [
+        "Silver_Runtime",
+        "Silver_Runtime.Argument_Count",
+        "Silver_Runtime.Argument",
+        "Silver_Runtime.Set_Exit_Status"
+      ],
+      "objects": 3,
+      "pretty_affine": {
+        "constant": 251273906,
+        "path_coefficient": 233394
+      },
+      "warnings": 7376
+    }
+  },
+  "status": "PASS: frozen inputs, arithmetic, endpoint guards and argv differential",
+  "utc": "2026-10-24T05:12:29.613765+00:00"
+}
