@@ -92,10 +92,6 @@
     "sha256": "c1fe62c004c7bc5ce0352b71bb54584d0f9d7f7886dd90a052d9bbbfa4eef9ea"
   },
   {
-    "path": "docs/reviews/review-producer-report-capacity-20261024.md",
-    "sha256": "c97a54a859adbca5e1afe1756f324cc2403ad9649039c0c85577843f83bd3918"
-  },
-  {
     "path": "docs/evidence/review-producer-report-capacity-20261024/provenance-audit.json",
     "sha256": "4bec78300206312872c1b7a7c5fd4df73af3ff892acca3a3c975f55d4a4b731b"
   },

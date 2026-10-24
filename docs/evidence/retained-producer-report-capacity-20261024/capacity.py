@@ -489,9 +489,10 @@ def uint_image_storage(*, radix_digits, prefix_entries, prefix_digits,
     """Present Uint inputs only; no exponent abbreviation branch is needed.
 
     Existing frontend magnitudes use base32768 digits, not bits. Image_Out
-    restores its mark; its small power cache uses direct values before any
-    image temporaries, so these are peak suffix additions, not lifetime/row
-    products. Generic native table offsets remain in table_index_room.
+    restores its mark subject to the cache watermark. A cold 2**16 cache
+    can pin the first negative Ainput, allocated before Better_In_Hex; charge
+    one process-wide retained descriptor plus each call's temporary peak.
+    Generic native table offsets remain in table_index_room.
     """
     natural(radix_digits, prefix_entries, prefix_digits, table_index_room)
     bits = max(1, 15*radix_digits)
@@ -503,10 +504,13 @@ def uint_image_storage(*, radix_digits, prefix_entries, prefix_digits,
     local_digits = descriptor_digits+1
     digits = entries*descriptor_digits
     length = 2*bits+10
-    u_capacity = 2*max(5000, prefix_entries+entries)+10
-    d_capacity = 2*max(10000, prefix_digits+digits)+10
+    retained_entries = 1
+    retained_digits = descriptor_digits
+    u_capacity = 2*max(5000, prefix_entries+retained_entries+entries)+10
+    d_capacity = 2*max(10000, prefix_digits+retained_digits+digits)+10
     return dict(magnitude_bits=bits, image_bytes=length,
                 temporary_entries=entries, temporary_digits=digits,
+                retained_cache_entries=retained_entries, retained_cache_digits=retained_digits,
                 descriptor_digits=descriptor_digits, local_vector_digits=local_digits,
                 guards=dict(no_abbreviation=length <= 1018,
                             uint_table=u_capacity < table_index_room,
