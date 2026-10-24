@@ -1,0 +1,734 @@
+{
+  "plugins/gnat_json/gnat_ast.ml": {
+    "qualified_references": {
+      "List.map": [
+        1363,
+        1367,
+        2133,
+        2134,
+        2145,
+        2146
+      ],
+      "List.length": [
+        2506
+      ],
+      "List.mem_assoc": [
+        2506
+      ],
+      "List.assoc": [
+        2507
+      ]
+    },
+    "opens": []
+  },
+  "plugins/gnat_json/gnat_ast_to_ptree.ml": {
+    "qualified_references": {
+      "Debug.register_info_flag": [
+        6
+      ],
+      "Opt.force": [
+        43,
+        109,
+        459,
+        776,
+        1168,
+        1228,
+        1231
+      ],
+      "BigInt.of_string": [
+        51
+      ],
+      "Ident.create_attribute": [
+        58
+      ],
+      "Loc.user_position": [
+        62
+      ],
+      "Option.value": [
+        67,
+        108,
+        478,
+        1071
+      ],
+      "List.map_and_last": [
+        68
+      ],
+      "Option.": [
+        85,
+        256,
+        524,
+        534,
+        751,
+        1018,
+        1026,
+        1057,
+        1107,
+        1140,
+        1214,
+        1312
+      ],
+      "Option.to_list": [
+        97,
+        98,
+        1320
+      ],
+      "List.map_last": [
+        115,
+        710,
+        763,
+        779,
+        1218
+      ],
+      "List.get_last": [
+        120,
+        343,
+        355,
+        363
+      ],
+      "Stdlib.compare": [
+        133
+      ],
+      "D.mk_useexport": [
+        162
+      ],
+      "D.mk_useimport": [
+        163
+      ],
+      "Set.Make": [
+        176
+      ],
+      "Ty.mk_idapp": [
+        180,
+        697,
+        700,
+        1220
+      ],
+      "Option.map": [
+        200,
+        478,
+        923,
+        937,
+        1006,
+        1021,
+        1043,
+        1073,
+        1104,
+        1126
+      ],
+      "List.rev": [
+        209,
+        218,
+        414,
+        416
+      ],
+      "List.exists": [
+        212,
+        221
+      ],
+      "String.contains": [
+        212,
+        221
+      ],
+      "List.for_all": [
+        281,
+        287,
+        289,
+        292,
+        308,
+        309
+      ],
+      "Expr.": [
+        318
+      ],
+      "Expr.Assume": [
+        319,
+        913
+      ],
+      "Format.sprintf": [
+        335,
+        393,
+        395
+      ],
+      "Ident.op_infix": [
+        344,
+        364,
+        378,
+        825,
+        1050,
+        1081,
+        1246,
+        1251
+      ],
+      "Ident.op_prefix": [
+        356,
+        377
+      ],
+      "Format.ksprintf": [
+        372
+      ],
+      "String.concat": [
+        373,
+        1236
+      ],
+      "List.length": [
+        376
+      ],
+      "List.fold_left": [
+        383,
+        564,
+        842,
+        1085,
+        1156,
+        1324
+      ],
+      "List.filter_map": [
+        407,
+        460,
+        540,
+        743,
+        761,
+        827,
+        1017,
+        1169,
+        1180,
+        1213
+      ],
+      "List.filter": [
+        412
+      ],
+      "E.mk_tuple": [
+        415,
+        634,
+        706,
+        850
+      ],
+      "List.fold_right": [
+        417,
+        839,
+        848,
+        855,
+        857
+      ],
+      "E.mk_seq": [
+        417,
+        848,
+        876
+      ],
+      "E.mk_attr": [
+        421,
+        1121
+      ],
+      "Constant.ConstReal": [
+        426
+      ],
+      "BigInt.": [
+        427,
+        443
+      ],
+      "Number.real_literal": [
+        429
+      ],
+      "BigInt.minus": [
+        442
+      ],
+      "Constant.real_const": [
+        446,
+        448,
+        451
+      ],
+      "BigInt.zero": [
+        446,
+        451
+      ],
+      "BigInt.mul_int": [
+        450
+      ],
+      "Curr.mk_attrs": [
+        455,
+        547,
+        740,
+        746,
+        915,
+        1052,
+        1096,
+        1102
+      ],
+      "List.map": [
+        471,
+        474,
+        476,
+        485,
+        591,
+        721,
+        726,
+        849,
+        887,
+        939,
+        1008,
+        1031,
+        1035,
+        1084,
+        1196,
+        1269,
+        1279,
+        1306,
+        1322,
+        1329,
+        1333
+      ],
+      "T.mk_quant": [
+        480,
+        488
+      ],
+      "Dterm.DTforall": [
+        480
+      ],
+      "Dterm.DTexists": [
+        488
+      ],
+      "Array.of_list": [
+        507
+      ],
+      "Array.length": [
+        515
+      ],
+      "E.mk_binop": [
+        523,
+        525,
+        526
+      ],
+      "M.map": [
+        526,
+        536
+      ],
+      "M.mk_tree": [
+        527,
+        537
+      ],
+      "T.mk_binnop": [
+        533,
+        535,
+        536
+      ],
+      "Curr.with_": [
+        545,
+        1092
+      ],
+      "String.index_opt": [
+        555
+      ],
+      "String.split_on_char": [
+        556,
+        1235
+      ],
+      "List.": [
+        563,
+        808,
+        886,
+        987,
+        991,
+        1184
+      ],
+      "E.": [
+        570,
+        892,
+        917
+      ],
+      "T.mk_at": [
+        588
+      ],
+      "E.mk_let": [
+        611,
+        842,
+        860
+      ],
+      "T.mk_let": [
+        615
+      ],
+      "T.mk_eps": [
+        627
+      ],
+      "T.mk_truth": [
+        635
+      ],
+      "Constant.int_const": [
+        653,
+        658,
+        663,
+        674
+      ],
+      "Ty.mk_atomic_type": [
+        654,
+        668,
+        675,
+        1148
+      ],
+      "T.mk_attrs": [
+        743,
+        749,
+        827,
+        1099,
+        1105
+      ],
+      "Expr.RKnone": [
+        753,
+        1058,
+        1065,
+        1088,
+        1089,
+        1114,
+        1124,
+        1130,
+        1160,
+        1161,
+        1224,
+        1225
+      ],
+      "P.": [
+        753
+      ],
+      "Ity.MaskVisible": [
+        753,
+        905,
+        1058,
+        1065,
+        1088,
+        1114,
+        1122,
+        1130,
+        1160,
+        1224,
+        1313
+      ],
+      "E.mk_var": [
+        806
+      ],
+      "T.mk_var": [
+        807,
+        822,
+        823,
+        991
+      ],
+      "T.name_term": [
+        808
+      ],
+      "T.mk_binop": [
+        828,
+        831
+      ],
+      "T.mk_infix": [
+        831
+      ],
+      "E.mk_assert": [
+        841
+      ],
+      "Expr.Assert": [
+        841,
+        911
+      ],
+      "E.mk_while": [
+        875
+      ],
+      "P.mk_wild": [
+        897,
+        1056,
+        1063,
+        1076,
+        1113,
+        1117,
+        1130,
+        1147,
+        1222
+      ],
+      "Expr.Check": [
+        912
+      ],
+      "T.": [
+        916,
+        1049,
+        1071,
+        1080,
+        1135,
+        1152
+      ],
+      "E.mk_raise": [
+        921
+      ],
+      "E.mk_cast": [
+        928
+      ],
+      "E.mk_match": [
+        940
+      ],
+      "D.mk_logic": [
+        1043,
+        1073,
+        1143
+      ],
+      "E.mk_any": [
+        1058,
+        1065,
+        1088,
+        1114,
+        1130,
+        1160,
+        1224
+      ],
+      "D.mk_let": [
+        1059,
+        1066,
+        1089,
+        1124,
+        1131,
+        1161,
+        1225
+      ],
+      "Expr.RKfunc": [
+        1059,
+        1066
+      ],
+      "E.mk_fun": [
+        1122
+      ],
+      "Expr.RKpred": [
+        1131
+      ],
+      "T.mk_attr": [
+        1141
+      ],
+      "List.map2": [
+        1155
+      ],
+      "Ptree.Abstract": [
+        1188
+      ],
+      "Ptree.Public": [
+        1202
+      ],
+      "D.mk_type": [
+        1203
+      ],
+      "D.mk_meta": [
+        1239,
+        1296
+      ],
+      "Decl.Paxiom": [
+        1268,
+        1278,
+        1299
+      ],
+      "D.mk_cloneexport": [
+        1270
+      ],
+      "D.mk_cloneimport": [
+        1280
+      ],
+      "Why3.Ptree.Mfs": [
+        1294
+      ],
+      "Why3.Ptree.Mps": [
+        1295
+      ],
+      "Why3.Ptree.Max": [
+        1297
+      ],
+      "D.mk_prop": [
+        1299,
+        1303
+      ],
+      "Decl.Pgoal": [
+        1303
+      ],
+      "List.concat": [
+        1306,
+        1329,
+        1333
+      ],
+      "D.mk_scope": [
+        1307
+      ],
+      "Ty.mk_tuple": [
+        1312
+      ],
+      "D.mk_exn": [
+        1313
+      ],
+      "Include_Decl.mk_include_variant": [
+        1322
+      ],
+      "Include_type_set.mem": [
+        1325
+      ],
+      "Include_Decl.mk_include_declaration": [
+        1326
+      ],
+      "Include_type_set.add": [
+        1326
+      ],
+      "Include_type_set.empty": [
+        1327
+      ],
+      "List.rev_append": [
+        1330
+      ]
+    },
+    "opens": [
+      {
+        "module": "Why3",
+        "line": 1
+      },
+      {
+        "module": "Ptree",
+        "line": 2
+      },
+      {
+        "module": "Gnat_ast",
+        "line": 3
+      },
+      {
+        "module": "Ptree_constructors",
+        "line": 4
+      },
+      {
+        "module": "E_or_T",
+        "line": 340
+      },
+      {
+        "module": "E_or_T",
+        "line": 389
+      },
+      {
+        "module": "Option",
+        "line": 632
+      },
+      {
+        "module": "E",
+        "line": 733
+      },
+      {
+        "module": "Option",
+        "line": 738
+      },
+      {
+        "module": "E",
+        "line": 760
+      },
+      {
+        "module": "E",
+        "line": 769
+      },
+      {
+        "module": "Option",
+        "line": 1095
+      },
+      {
+        "module": "Option",
+        "line": 1101
+      }
+    ]
+  },
+  "plugins/gnat_json/ptree_constructors.ml": {
+    "qualified_references": {
+      "Loc.user_position": [
+        14
+      ],
+      "List.rev": [
+        29
+      ],
+      "List.map": [
+        32
+      ],
+      "Loc.position": [
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85
+      ],
+      "Constant.constant": [
+        67
+      ],
+      "Expr.RKnone": [
+        124
+      ],
+      "List.fold_right": [
+        133,
+        198
+      ],
+      "Option.iter": [
+        145,
+        213
+      ],
+      "Format.fprintf": [
+        145,
+        213
+      ],
+      "Format.kasprintf": [
+        146,
+        214
+      ],
+      "Dterm.DTand_asym": [
+        154
+      ],
+      "Dterm.DTor_asym": [
+        155
+      ],
+      "Dterm.DTand": [
+        156
+      ],
+      "Dterm.DTor": [
+        157
+      ],
+      "Dterm.DTimplies": [
+        158
+      ],
+      "Dterm.DTiff": [
+        159
+      ],
+      "Dterm.DTby": [
+        160
+      ],
+      "Dterm.DTso": [
+        161
+      ],
+      "List.find": [
+        170
+      ],
+      "Ident.create_attribute": [
+        207,
+        249
+      ],
+      "T.name_term": [
+        254,
+        258
+      ],
+      "P.mk_var": [
+        258
+      ]
+    },
+    "opens": [
+      {
+        "module": "Why3",
+        "line": 1
+      },
+      {
+        "module": "Ptree",
+        "line": 2
+      }
+    ]
+  }
+}

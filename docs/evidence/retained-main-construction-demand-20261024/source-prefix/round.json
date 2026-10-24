@@ -1,0 +1,189 @@
+{
+  "issues": [
+    202,
+    119
+  ],
+  "role": "source-prefix C-to-T author",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "started_utc": "2026-10-24 07:34:48 UTC",
+  "author_checkpoint_utc": "2026-10-24 07:56:16 UTC",
+  "elapsed_to_checkpoint_seconds": 1288.679981,
+  "elapsed_scope": "Source investigation, context handoff, artifact construction and focused checker; final staging/commit/handoff excluded",
+  "intended_result": "Transport actual populated Ident/Hsty/Hsity state from accepted C to first Typing entry T; explicitly carry auxiliary residuals",
+  "achieved_result": "Exact five-role R78 populated state projection to concrete pre-body typing boundary, zero three-owner requests, complete bound source-call families and named auxiliary/T-to-builder residuals",
+  "material_findings": [
+    "Session identifier registration and Env.store occur after parser returns; typed imports/builders begin only inside T body",
+    "Ptree constructor Ty/E/T/P/D namespaces and source-selected first-class E/T callbacks do not reach logical owners",
+    "Hsattr/FileTags, eager/default and discarded candidate locations and call-ID work remain explicit; successful typed syntax cannot refund attempts",
+    "C synthetic counters derive from one eager result_ident initialization and a never-invoked call-ID closure; no prior selected Gnat JSON read",
+    "Extraction provider path typo fixed before checking; first focused checker invocation passed"
+  ],
+  "validation": {
+    "status": "passed",
+    "assertions": 456,
+    "groups": {
+      "provider/immutable identity": 91,
+      "research prefix preserved": 1,
+      "new argument appended": 1,
+      "all source files bound": 1,
+      "full source identity and exact excerpts": 18,
+      "complete reference/open inventory": 1,
+      "reference family classified": 140,
+      "open namespace classified": 15,
+      "decoder external family closed": 1,
+      "Ident uses only auxiliary attributes/notation": 2,
+      "Ity is variant constant only": 2,
+      "Ty resolves to local syntax constructor family": 2,
+      "source semantic anchor: fresh session add_file after C": 1,
+      "source semantic anchor: parser evaluated before store": 1,
+      "source semantic anchor: one reader invocation": 1,
+      "source semantic anchor: parent language forwards parser unchanged": 1,
+      "source semantic anchor: parser exact registration": 1,
+      "source semantic anchor: constructor namespace shadows Why3": 1,
+      "source semantic anchor: E instantiation": 1,
+      "source semantic anchor: T instantiation": 1,
+      "source semantic anchor: variant direct T instantiation": 1,
+      "source semantic anchor: attribute owner distinct": 1,
+      "source semantic anchor: file tag separate counter": 1,
+      "source semantic anchor: location source initializer": 1,
+      "source semantic anchor: location eager initialization": 1,
+      "source semantic anchor: call-ID source initializer": 1,
+      "source semantic anchor: eager default is charged": 1,
+      "source semantic anchor: unused declaration still constructed": 1,
+      "source semantic anchor: connection array arithmetic residual": 1,
+      "source semantic anchor: all source location columns zero": 1,
+      "source semantic anchor: synthetic location columns zero": 1,
+      "entry sequence and deferred printer": 1,
+      "session registration follows parser return": 1,
+      "human theorem and scope explicit": 1,
+      "exact five-role domain": 1,
+      "exact accepted R78 configuration": 1,
+      "no arbitrary state or certificate API": 1,
+      "actual populated counter bound transported": 15,
+      "bound is not invented exact value": 15,
+      "zero new three-owner requests": 15,
+      "populated backing provider used": 10,
+      "full actual backing envelope preserved": 10,
+      "weak clearing distinguished from geometry": 10,
+      "exact single pre-T source spine": 5,
+      "post-T work not prepaid": 5,
+      "actual T state does not certify builder entry": 5,
+      "all surrounding closure flags remain false": 5,
+      "Hsattr retains populated initial state": 5,
+      "Hsattr source demand unresolved": 5,
+      "FileTags residual is not old fixed-domain instantiation": 5,
+      "source synthetic initializers attached": 5,
+      "auxiliary representation remains explicit": 20,
+      "single global callback/save budget": 5,
+      "no new allowance or aggregate gate": 5,
+      "unsupported role rejected": 7,
+      "unsupported configuration rejected": 3,
+      "arbitrary state argument rejected": 1
+    },
+    "elapsed_seconds": 0.47885919599502813,
+    "host": "Linux-7.0.14-x86_64-with-glibc2.43",
+    "source_files": 18,
+    "reference_inventory_is_verified_call_graph": false,
+    "actual_populated_three_owner_transport_to_T": true,
+    "full_parser_representation_closed": false,
+    "actual_builder_entry_attachment_closed": false,
+    "configuration": "r78_repaired_quiet_timeless_j12_logging",
+    "role_exports": [
+      "first_or_default",
+      "input_is_valid",
+      "is_message",
+      "put",
+      "put_line"
+    ],
+    "native_capture_target_disassembler_compiler_prover_Lean_runs": 0,
+    "predecessor_checker_replays": 0
+  },
+  "new_checker_invocations": 1,
+  "source_native_correspondence": "Accepted source/compiler/runtime/plugin/native-service relation reused; no fresh native proof or observation",
+  "actual_populated_three_owner_transport_to_T_established": true,
+  "complete_parser_representation_closed": false,
+  "actual_selected_builder_entry_attachment_established": false,
+  "complete_Main_source_candidate_multiplicities": false,
+  "complete_source_to_initial_vc_storage": false,
+  "aggregate_memory_or_stack_gate": false,
+  "local_cumulative_bytes_required": false,
+  "global_process_e_upper": 2,
+  "save_entering_callbacks": 2,
+  "saves": 3,
+  "new_allowance": 0,
+  "tokens": null,
+  "cost": null,
+  "subthread_harness_goal": null,
+  "cli_memory_updated": false,
+  "independent_review": "Pending; parent owns review, integration/publication and issue/memory updates",
+  "review_inputs": [
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/source-prefix/README.md",
+      "bytes": 3844,
+      "sha256": "cd722af8430175322558391a2a85b2a4c4d3d0ae25e1418c2513e138267a8c7f"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/source-prefix/check.py",
+      "bytes": 12045,
+      "sha256": "e4a81b9efa6191ca93e9d77699f083db402f3ec7d7bd76a443dbf8dd116dded9"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/source-prefix/checkpoint.md",
+      "bytes": 3036,
+      "sha256": "f12aab74068dbe9d037adee0990d9a1288ffa5e83886e9d951ab271e3737e0c6"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/source-prefix/exports.json",
+      "bytes": 38704,
+      "sha256": "5daa012ac4d07ca1e81618ca424fd5dcfe07bb7f66065326802ce7db1ab0d9d6"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/source-prefix/freeze.py",
+      "bytes": 4008,
+      "sha256": "8511888df062a4ce7673cf459adc7cdfff48752896cc621ba8c84ede5f32f51c"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/source-prefix/inputs.json",
+      "bytes": 20625,
+      "sha256": "4e9d0549693a5ebff23c7ecf688f815ed32c5f5fb4fd4b1aef4bda6c722bd54c"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/source-prefix/prefix.py",
+      "bytes": 8611,
+      "sha256": "f0831593b7c7827752114fa2f18a02230dff2a26874c1e55047bb71b90d65bb8"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/source-prefix/reference-inventory.json",
+      "bytes": 10758,
+      "sha256": "678c76888cbf1487e4f763bd26d5366a855b823545593ecb6ed78503f3077724"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/source-prefix/result.json",
+      "bytes": 3576,
+      "sha256": "8d3fc44464595265899585517effac8537456dde0e34d624801104a638934742"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/source-prefix/source-closure.json",
+      "bytes": 7586,
+      "sha256": "2379f1c7db537967c8dd7cf45ab5efda509ab04f1f4b9cf0cfad3cd7a739197d"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/source-prefix/source-witnesses.json",
+      "bytes": 62485,
+      "sha256": "d4d869d2e8125dc6ef6cf169e0d5a8240f2756aa8aa3ac443d459585478e48c3"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/source-prefix/source.py",
+      "bytes": 4455,
+      "sha256": "62ffa9563ac0558b8a694ac0e90be585f864c698771fad521e61e174512b2eaf"
+    },
+    {
+      "path": "docs/research/retained-main-construction-demand.md",
+      "bytes": 88441,
+      "sha256": "dd0629eae5d38f32d5027bd88b50f64cbe74314e519f553c51a82e0031c64d31"
+    }
+  ]
+}

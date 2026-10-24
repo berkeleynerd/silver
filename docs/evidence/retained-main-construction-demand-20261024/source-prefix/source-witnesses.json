@@ -1,0 +1,356 @@
+[
+  {
+    "path": "src/gnat/gnat_checks.ml",
+    "bytes": 48146,
+    "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1",
+    "spans": [
+      {
+        "first": 380,
+        "last": 412,
+        "sha256": "56585245c700b77969cbd910a969944bad648b1309c5ef0e7533b89966cfe567",
+        "text": "let init_cont () =\n  let session_dir = Gnat_config.session_dir in\n  (* Shape version is only used for pairing of goals in session_itp.ml\n     (nothing else). *)\n  let is_new_session, session =\n    if not Gnat_config.force && Sys.file_exists session_dir then\n      try false, Session_itp.load_session session_dir\n      with _ ->\n        Gnat_util.abort_with_message ~internal:false\n        (Pp.sprintf \"error loading session located in %s, please delete the session and try again\"\n         session_dir)\n    else begin\n      if not (Sys.file_exists session_dir) then Unix.mkdir session_dir 0o700;\n      true, Session_itp.empty_session session_dir\n    end\n  in\n  let c = Controller_itp.create_controller Gnat_config.config Gnat_config.env session in\n  if is_new_session || not (has_file session) then begin\n    try\n      Controller_itp.add_file c Gnat_config.filename\n    with\n    | Controller_itp.Errors_list l ->\n      List.iter (fun exn ->\n        match exn with\n          | Out_of_memory | Loc.Located (_, Out_of_memory) ->\n            raise Out_of_memory\n          | _ -> ())\n      l;\n        Gnat_util.abort_with_message ~internal:true\n          (Pp.sprintf \"could not add file %s to the session: %a\"\n             Gnat_config.filename (Pp.print_list Pp.space Exn_printer.exn_printer) l)\n  end;\n\n"
+      }
+    ]
+  },
+  {
+    "path": "src/session/controller_itp.ml",
+    "bytes": 56291,
+    "sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27",
+    "spans": [
+      {
+        "first": 271,
+        "last": 285,
+        "sha256": "b2508fff92e9b14c366874c431ce4cef8e5c5595a0a0992743b6732b32b81e62",
+        "text": "let add_file c ?format fname =\n  let format = Env.get_format ?format fname in\n  let file_is_detached,(theories,format),errors =\n    try false,(Session_itp.read_file c.controller_env ~format fname), None\n    with e -> true,([], format), Some e\n  in\n  let fp = Sysutil.relativize_filename (get_dir c.controller_session) fname in\n  let (_ : file) = add_file_section c.controller_session fp ~file_is_detached theories format in\n  errors\n\nlet add_file c ?format fname =\n  let errors = add_file c ?format fname in\n  match errors with\n  | None -> ()\n  | Some error -> raise (Errors_list [error])\n"
+      }
+    ]
+  },
+  {
+    "path": "src/session/session_itp.ml",
+    "bytes": 81245,
+    "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9",
+    "spans": [
+      {
+        "first": 1843,
+        "last": 1863,
+        "sha256": "11103f38ef5c16aa2acaa6abdf104cbfa61ea5eb1fa2d9b21ecf8ed916d126aa",
+        "text": "let read_file env ?format fn =\n  match Env.read_file Env.base_language env ?format fn with\n  | exception Sys_error msg -> (* File not found and other problems opening the file *)\n    raise (Loc.Located (Loc.user_position fn 0 0 0 0, Loc.Message msg))\n  | theories, format ->\n    let ltheories =\n      Mstr.fold\n        (fun name th acc ->\n          (* Hack : with WP [name] and [th.Theory.th_name.Ident.id_string] *)\n          let th_name =\n            Ident.id_register (Ident.id_derive name th.Theory.th_name) in\n          match th.Theory.th_name.Ident.id_loc with\n            | Some l -> (l,th_name,th)::acc\n            | None   -> (Loc.dummy_position,th_name,th)::acc)\n        theories []\n    in\n    let th =  List.sort\n        (fun (l1,_,_) (l2,_,_) -> Loc.compare l1 l2)\n        ltheories\n    in\n    (List.map (fun (_,_,a) -> a) th), format\n"
+      }
+    ]
+  },
+  {
+    "path": "src/core/env.ml",
+    "bytes": 8690,
+    "sha256": "0164457ed8f719547b3de999838e1f17069177f4463777beab49b28b277738a1",
+    "spans": [
+      {
+        "first": 66,
+        "last": 119,
+        "sha256": "b163009ad4cc68d8ebf205160bcfb912048196fd77779365dfab8dea16ddd5b0",
+        "text": "  mutable bins : (env -> pathname -> unit) list;\n  mutable info : format_info list;\n}\n\nlet base_language = {\n  memo = Wenv.create 3;\n  push = (fun _ _ _ -> ());\n  regf = (fun _ _ -> ());\n  regb = (fun _ -> ());\n  fmts = Mstr.empty;\n  bins = [];\n  info = [];\n}\n\nexception LibraryConflict of pathname\n\nlet store lang env path c =\n  let ht = try Wenv.find lang.memo env with Not_found ->\n    let ht = Hpath.create 17 in Wenv.set lang.memo env ht; ht in\n  match path with\n  | \"why3\" :: _ ->\n      begin try\n        if Hpath.find ht path != c then raise (LibraryConflict path)\n      with Not_found -> lang.push env path c; Hpath.add ht path c end\n  | _ ->\n      assert (path = [] || not (Hpath.mem ht path));\n      lang.push env path c; Hpath.add ht path c\n\nlet register_format lang (ff,_,_ as inf) fp =\n  lang.regf inf fp;\n  lang.fmts <- Mstr.add_new (KnownFormat ff) ff fp lang.fmts;\n  lang.info <- inf :: lang.info\n\nlet add_builtin lang bp =\n  lang.regb bp;\n  lang.bins <- bp :: lang.bins\n\nlet register_language parent convert = {\n  memo = Wenv.create 3;\n  push = (fun env path c -> store parent env path (convert c));\n  regf = (fun inf fp -> register_format parent inf fp);\n  regb = (fun bp -> add_builtin parent bp);\n  fmts = Mstr.empty;\n  bins = [];\n  info = [];\n}\n\nlet extension_table = ref Mstr.empty\n\nlet register_format ~desc lang ff extl fp =\n  let fp env path fn ch = store lang env path (fp env path fn ch) in\n  register_format lang (ff,extl,desc) fp;\n  let add_ext m e = Mstr.add e ff m in\n  extension_table := List.fold_left add_ext !extension_table extl\n"
+      },
+      {
+        "first": 133,
+        "last": 166,
+        "sha256": "e17f914798929a48b4356b4ee9c483910853da7379904b848eb4a24c4fb512bc",
+        "text": "let get_extension file =\n  let s = try Filename.chop_extension file\n    with Invalid_argument _ -> raise UnspecifiedFormat in\n  let n = String.length s + 1 in\n  String.sub file n (String.length file - n)\n\nlet get_format ?format file = match format with\n  | Some ff -> ff\n  | None ->\n      let ext = get_extension file in\n      Mstr.find_exn (UnknownExtension ext) ext !extension_table\n\nlet get_parser lang ff =\n  try Mstr.find ff lang.fmts\n  with Not_found ->\n    if Mstr.mem ff base_language.fmts\n      then raise (InvalidFormat ff)\n      else raise (UnknownFormat ff)\n\nlet read_channel ?format lang env file ch =\n  let ff = get_format ?format file in\n  get_parser lang ff env [] file ch;\n  Hpath.find (Wenv.find lang.memo env) []\n\nlet read_lib_file ?format lang env path file =\n  let ff = get_format ?format file in\n  let fp = get_parser lang ff in\n  let ch = open_in file in\n  try fp env path file ch; close_in ch; ff\n  with exn -> close_in ch; raise exn\n\nlet read_file ?format lang env file =\n  let format = read_lib_file ?format lang env [] file in\n  (Hpath.find (Wenv.find lang.memo env) []), format\n"
+      },
+      {
+        "first": 191,
+        "last": 228,
+        "sha256": "98a3e1be8b7aab6a94133db92f91394836e0c964da30d7b0f746687fb8e2e1ea",
+        "text": "let read_library lang env = function\n  | \"why3\" :: path ->\n      let read bp = try bp env path with Not_found -> () in\n      List.iter read lang.bins\n  | path ->\n      let file = locate_library env path in\n      let (_: fformat) = read_lib_file lang env path file in ()\n\nlet libstack = Hpath.create 17\n\nlet read_library lang env path =\n  if Hpath.mem libstack path then\n    raise (CircularDependency path);\n  try\n    Hpath.add libstack path ();\n    read_library lang env path;\n    Hpath.remove libstack path\n  with exn ->\n    Hpath.remove libstack path;\n    raise exn\n\nlet read_library lang env path =\n  let path = if path = [] then [\"why3\"] else path in\n  try Hpath.find (Wenv.find lang.memo env) path with Not_found ->\n  read_library lang env path;\n  try Hpath.find (Wenv.find lang.memo env) path with Not_found ->\n  raise (LibraryNotFound path)\n\nlet read_theory env path s =\n  let path = if path = [] then [\"why3\"; s] else path in\n  let mt = read_library base_language env path in\n  Mstr.find_exn (TheoryNotFound (path,s)) s mt\n\n(* Builtin theories *)\n\nopen Ident\nopen Theory\n\n"
+      }
+    ]
+  },
+  {
+    "path": "plugins/gnat_json/gnat_ast.ml",
+    "bytes": 107935,
+    "sha256": "f97b55166ba583cd97bbb0c73dd4ae96241e63091853d7a3f0e3b1f6f5d998ca",
+    "spans": [
+      {
+        "first": 1306,
+        "last": 1397,
+        "sha256": "4d71eef1c6ecf57124efc4324af85cc77587669cab30d8cf1847e7c2a6862f23",
+        "text": "module From_json = struct\n\n  type t = [\n    | `Null\n    | `Bool of bool\n    | `Int of int\n    | `Intlit of string\n    | `Float of float\n    | `String of string\n    | `Assoc of (string * t) list\n    | `List of t list\n    | `Tuple of t list\n    | `Variant of string * t option\n  ]\n\n  type 'a from_json = t -> 'a\n\n  exception Unexpected_Json of string * t\n\n  let unexpected_json type_str json =\n    raise (Unexpected_Json (type_str, json))\n\n  let boolean_from_json : bool from_json = function\n    | `Bool b -> b\n    | json -> unexpected_json \"bool\" json\n\n  let int_from_json : int from_json = function\n    | `Int i -> i\n    | json -> unexpected_json \"int\" json\n\n  let uint_from_json : uint from_json = function\n    | `String s -> Uint s\n    | json -> unexpected_json \"uint\" json\n\n  let ureal_from_json : ureal from_json = function\n    | `List [numerator; denominator; base; negative] ->\n      Ureal {\n        numerator = uint_from_json numerator;\n        denominator = uint_from_json denominator;\n        base = int_from_json base;\n        negative = boolean_from_json negative;\n      }\n    | json ->\n      unexpected_json \"ureal\" json\n\n  let source_ptr_from_json : source_ptr from_json = function\n    | `Null -> No_location\n    | `List [`String filename; `Int line] ->\n      Source_ptr {filename; line}\n    | json -> unexpected_json \"source_ptr\" json\n\n  let symbol_from_json : symbol from_json = function\n    | `String \"\" -> No_symbol\n    | `String s -> Symbol s\n    | json -> unexpected_json \"symbol\" json\n\n  let symbol_set_from_json : symbol_set from_json = function\n    | `List l -> List.map symbol_from_json l\n    | json -> unexpected_json \"symbol_set\" json\n\n  let string_sets_set_from_json : string_sets_set from_json = function\n    | `List l -> List.map symbol_from_json l\n    | json -> unexpected_json \"string_sets_set\" json\n\n  (* Why.Sinfo *)\n\n  let domain_from_json : domain from_json = function\n    | `Int 1 -> Term\n    | `Int 2 -> Pterm\n    | `Int 3 -> Pred\n    | `Int 4 -> Prog\n    | json -> unexpected_json \"domain\" json\n\n  let type_from_json : type_ from_json = function\n    | `Int 0 -> Builtin\n    | `Int 1 -> Split\n    | `Int 2 -> Abstract\n    | json -> unexpected_json \"type_\" json\n\n  let literal_from_json : literal from_json = function\n    | `Int 0 -> True\n    | `Int 1 -> False\n    | json -> unexpected_json \"literal\" json\n\n  let theory_type_from_json : theory_type from_json = function\n    | `Int 0 -> Theory\n    | `Int 1 -> Module\n    | json -> unexpected_json \"theory_type\" json\n\n  let clone_type_from_json : clone_type from_json = function\n    | `Int 0 -> Import\n    | `Int 1 -> Export\n"
+      },
+      {
+        "first": 2504,
+        "last": 2511,
+        "sha256": "5cd8d2c87fc846cd7c37fc0d9a05836b370325f641696cf9795eda5385cc74b0",
+        "text": "  let file_from_json : file from_json = function\n    | `Assoc fields when\n        List.length fields = 1 && List.mem_assoc \"theory_declarations\" fields  ->\n      let ast_json = List.assoc \"theory_declarations\" fields in\n      let theory_declarations = theory_declaration_opaque_olist_from_json ast_json in\n      { theory_declarations }\n    | json -> unexpected_json \"file_from_json\" json\nend"
+      }
+    ]
+  },
+  {
+    "path": "plugins/gnat_json/gnat_ast_to_ptree.ml",
+    "bytes": 57834,
+    "sha256": "0cdda4d48f37fa27f4d70912881a5c64cbfbccaf2b1864d1098ccc870b62af35",
+    "spans": [
+      {
+        "first": 1,
+        "last": 46,
+        "sha256": "45b2886238fcfa16b3caa8561e286703b632ee1247a74915cdc8da44cb12c285",
+        "text": "open Why3\nopen Ptree\nopen Gnat_ast\nopen Ptree_constructors\n\nlet debug = Debug.register_info_flag \"gnat_ast\" ~desc:\"Output@ mlw@ file\"\n\n[@@@warning \"-42\"]\n\nexception Conversion_error of {node_id: int; message: string}\n\nlet conversion_error node_id message () = raise (Conversion_error {node_id; message})\n\n(** {1 Auxiliaries for conversion} *)\n\nmodule Opt = struct\n  let force err = function\n    | Some x -> x\n    | None -> err ()\nend\n\nmodule List = struct\n  include List\n\n  let rec map_and_last for_not_last for_last l =\n    match l with\n    | [] -> []\n    | [x] -> [for_last x]\n    | x :: xs -> for_not_last x :: map_and_last for_not_last for_last xs\n\n  let rec map_last for_last l =\n    match l with\n    | [] -> []\n    | [x] -> [for_last x]\n    | x :: xs -> x :: map_last for_last xs\n\n  let rec get_last err = function\n    | [x] -> x\n    | _ :: xs -> get_last err xs\n    | [] -> err ()\n\n  let filter_map f l =\n    map (Opt.force (fun () -> assert false))\n      (filter ((<>) None)\n         (map f l))\nend\n"
+      },
+      {
+        "first": 50,
+        "last": 70,
+        "sha256": "2b5134d7ceef9d54210201e528c5963f373154d5b21273dc26ab27ff3a192bdb",
+        "text": "let bigint_of_uint (Uint str) =\n  BigInt.of_string str\n\nlet ident_add_suffix suffix id =\n  {id with id_str=id.id_str^suffix}\n\nlet mk_label = function\n  | No_symbol -> None\n  | Symbol s -> Some (ATstr (Ident.create_attribute s))\n\nlet mk_location = function\n  | Source_ptr r ->\n      let loc = Loc.user_position r.filename r.line 0 r.line 0 in\n      Some (mk_pos loc)\n  | No_location -> None\n\nlet mk_idents ~notation attrs =\n  let f = Option.value ~default:(fun s -> s) notation in\n  List.map_and_last\n    (mk_ident [])\n    (fun s -> mk_ident attrs (f s))\n"
+      },
+      {
+        "first": 125,
+        "last": 180,
+        "sha256": "7c4d31d773dd2acfe6bb76097bbe22b18cbda56a897a5300baca54b8b9982ba6",
+        "text": "module Include_Decl = struct\n  (* The purpose of this model is to allow suppression of duplicate imports in\n     Why3 theories. This requires a canonical representation of typical\n     imports, and a compare function for this type, so that we can use OCaml\n     sets to remove duplicates.\n     *)\n  type t = Use_export of qualid | Use_import of qualid * ident option\n\n  let ident_compare a b = Stdlib.compare a.id_str b.id_str\n\n  let ident_opt_compare a b =\n      match a, b with\n      | None, Some _ -> -1\n      | Some _, None -> 1\n      | Some ia, Some ib -> ident_compare ia ib\n      | None, None -> 0\n\n  let rec qualid_compare a b =\n    match a, b with\n    | Qident _ , Qdot _ -> -1\n    | Qdot _ , Qident _ -> 1\n    | Qident ia, Qident ib -> ident_compare ia ib\n    | Qdot (qa, ia), Qdot (qb, ib) ->\n      let c = qualid_compare qa qb in\n      if c <> 0 then c else ident_compare ia ib\n\n  let compare a b =\n    match a, b with\n    | Use_export _ , Use_import _ -> -1\n    | Use_import _ , Use_export _ -> 1\n    | Use_export qa, Use_export qb -> qualid_compare qa qb\n    | Use_import (qa, ioa), Use_import (qb, iob) ->\n      let c = qualid_compare qa qb in\n      if c <> 0 then c else ident_opt_compare ioa iob\n\n  let mk_include_declaration d =\n    match d with\n    | Use_export qid -> D.mk_useexport qid\n    | Use_import (qid, oi) -> D.mk_useimport false [qid, oi]\n\n  let mk_include_variant (node : include_declaration_id) =\n    let Include_declaration r = node.desc in\n    let qid = mk_module_qident r.module_ in\n    match r.use_kind with\n    | Import -> Use_import (qid, None)\n    | Export -> Use_export qid\n    | Clone_default ->\n        let Module m = r.module_.desc in\n        Use_import (qid, Some (mk_ident_of_symbol node.info.id ~notation:None [] m.name))\nend\n\nmodule Include_type_set = Set.Make (Include_Decl)\n\n\nlet mk_pty_of_type (node : type_id) =\n  Ty.mk_idapp (mk_qualid (mk_idents_of_type node)) []\n"
+      },
+      {
+        "first": 225,
+        "last": 256,
+        "sha256": "735b633a26f06ef0b645e91fdf36c1257cc238d9b0705d31ec06d8b92af52120",
+        "text": "let mk_comment_attr = function\n  | No_symbol -> None\n  | Symbol s -> Some (mk_str (\"GNAT-comment:\"^s))\n\nmodule Curr = struct\n\n  let loc_ref = ref No_location\n  let marker_ref = ref No_symbol\n\n  let with_ curr f =\n    let push (loc, marker) =\n      loc_ref := loc;\n      marker_ref := marker in\n    let pop () =\n      let loc, marker = No_location, No_symbol in\n      loc_ref := loc;\n      marker_ref := marker in\n    push curr;\n    let res = f () in\n    pop ();\n    res\n\n  let mk_attrs () =\n    match !loc_ref with\n    | No_location ->\n        []\n    | Source_ptr r ->\n        let filename =\n          match !marker_ref with\n          | No_symbol -> r.filename\n          | Symbol s -> \"'@\"^s^\"@'\"^r.filename in\n        Option.(to_list (mk_location (Source_ptr {r with filename})))\n"
+      },
+      {
+        "first": 330,
+        "last": 395,
+        "sha256": "25a8601051867a2cee3526ebaab96d63f94f32c8c0e0bf8f40c827b9c389444e",
+        "text": "let next_call_id =\n  let counter = ref 0 in\n  fun () -> incr counter; !counter\n\nlet mk_call_id_str () =\n  mk_str (Format.sprintf \"rac:call_id:%d\" (next_call_id ()))\n\nlet process_call : 'a . (module E_or_T with type t = 'a) -> 'b why_node_id -> identifier_id -> 'a list  -> 'a =\n  fun (type t) (module E_or_T : E_or_T with type t = t) (node : 'b why_node_id) id args : t ->\n  (* Convert unquantified op1 operations (=, <, etc.) to innfix, binary only *)\n  let open E_or_T in\n  if is_infix_identifier id && is_op1 id then begin\n    let op =\n      List.get_last (conversion_error node.info.id \"empty operator name\")\n        (mk_idents_of_identifier ~notation:(Some Ident.op_infix) [] id) in\n    match args with\n    | [arg0;arg1] -> mk_innfix arg0 op arg1\n    | _ -> conversion_error node.info.id \"op1 operations must be binary\" ()\n  end\n  (* Convert unqualified op234 prefix operations (/, *, !, etc.) *)\n  else if is_infix_identifier id && is_op234 id then begin\n    match args with\n    | [_] ->\n      let qid =\n        let ident =\n          List.get_last (conversion_error node.info.id \"empty operator name\")\n            (mk_idents_of_identifier ~notation:(Some Ident.op_prefix) [] id) in\n        mk_qualid [ident] in\n      mk_attr (mk_call_id_str ())\n        (mk_idapp qid args)\n    | [_;_] ->\n    let qid =\n      let ident =\n        List.get_last (conversion_error node.info.id \"empty operator name\")\n          (mk_idents_of_identifier ~notation:(Some Ident.op_infix) [] id) in\n      mk_qualid [ident] in\n      mk_attr (mk_call_id_str ())\n        (mk_idapp qid args)\n    | _ ->\n        conversion_error node.info.id \"operations with op234 operators must be unary or binary\" ()\n  end else (begin\n    if is_infix_identifier id then\n      Format.ksprintf (conversion_error node.info.id) \"infix identifier %s must be op1 or op234\"\n        (String.concat \".\" (strings_of_name (name_of_identifier id))) ();\n    let notation =\n      if is_op1 id || is_op234 id then\n        match List.length args with\n        | 1 -> Some Ident.op_prefix\n        | 2 -> Some Ident.op_infix\n        | _ -> conversion_error node.info.id \"operations with op234 operators must be unary or binary\" ()\n      else None in\n    let f = mk_var (mk_qualid (mk_idents_of_identifier ~notation [] id)) in\n    mk_attr (mk_call_id_str ())\n      (List.fold_left (mk_apply ?loc:None) f args)\n  end)\n\nlet rec mk_of_expr : 'a . (module E_or_T with type t = 'a) -> expr_id -> 'a =\n  (* Signature type ^^^^^ variable ['a] required to make [mk_of_expr] strongly polymorphic *)\n  fun (type t) (module E_or_T : E_or_T with type t = t) (node: expr_id) : t ->\n  let open E_or_T in\n  let mk_of_expr (node : expr_id) = (* Shortcut for direct recursive call *)\n    mk_of_expr (module E_or_T: E_or_T with type t = t) node in\n  let expr_only cat expr = (* Shortcut for nodes that can only translated to a expression *)\n    expr_or_term ~info:(Format.sprintf \"(%s with ID %d)\" cat node.info.id) ~expr:(fun () -> expr) () in\n  let term_only cat term = (* Shortcut for nodes that can only translated to a expression *)\n    expr_or_term ~info:(Format.sprintf \"(%s with ID %d)\" cat node.info.id) ~term:(fun () -> term) () in\n"
+      },
+      {
+        "first": 422,
+        "last": 451,
+        "sha256": "0081eb9de2a7792945c3697a4d6a83f5e336a7423218dfacb0ba916a8f41000b",
+        "text": "  let mk_const_of_ureal id (Ureal r) =\n    (* gnat/ureal.ads *)\n    if r.base = 0 then\n      let Uint numerator = r.numerator in\n      let mk_const r = mk_const (Constant.ConstReal r) in\n      if BigInt.(eq one (bigint_of_uint r.denominator)) then\n        mk_const\n          (Number.real_literal ~radix:10 ~neg:r.negative ~int:numerator ~frac:\"0\" ~exp:None)\n      else\n        conversion_error id \"ureal with base = 0 and denominator /= 1\" ()\n        (* (\\* Which operator /. for reals? *\\)\n          * let Uint denominator = r.denominator in\n          * mk_idapp\n          *   (mk_qualid [mk_ident [] (Ident.op_infix \"/.\")])\n          *   (List.map mk_const\n          *      [Number.real_literal ~radix:10 ~neg:r.negative ~int:numerator ~frac:\"0\" ~exp:None;\n          *       Number.real_literal ~radix:10 ~neg:false ~int:denominator ~frac:\"0\" ~exp:None]) *)\n    else\n      let int =\n        let int = bigint_of_uint r.numerator in\n        if r.negative then BigInt.minus int else int in\n      let exp = BigInt.(minus (bigint_of_uint r.denominator)) in\n      match r.base with\n      | 2 ->\n          mk_const (Constant.real_const ~pow2:exp ~pow5:BigInt.zero int)\n      | 10 ->\n          mk_const (Constant.real_const ~pow2:exp ~pow5:exp int)\n      | 16 ->\n          let pow2 = BigInt.mul_int 4 exp in\n          mk_const (Constant.real_const ~pow2 ~pow5:BigInt.zero int)\n"
+      },
+      {
+        "first": 495,
+        "last": 537,
+        "sha256": "8921ec61330ed9896f9826034038be88a9a59d04e69b6e3d12d1b19ce011d91e",
+        "text": "    | Connection r ->\n        let module M = struct\n          type 'a tree = Node of 'a | Binop of 'a tree * 'a tree\n          let rec map node binop = function\n            | Node x -> node x\n            | Binop (t1, t2) ->\n                let x1 = map node binop t1 in\n                let x2 = map node binop t2 in\n                binop x1 x2\n          let mk_tree = function\n            | [] -> None\n            | exprs ->\n                let a = Array.of_list exprs in\n                let rec aux from to_ =\n                  assert (to_ - from > 0);\n                  if to_ - from = 1 then\n                    Node a.(from)\n                  else\n                    let mid = (from + to_ + 1) / 2 in\n                    Binop (aux from mid, aux mid to_) in\n                Some (aux 0 (Array.length a))\n        end in\n        expr_or_term\n          ~expr:(fun () ->\n              let op = expr_connector node.info.id r.op in\n              let e1 =\n                let left = mk_expr_of_expr r.left in\n                let right = mk_expr_of_expr r.right in\n                E.mk_binop left op right in\n              Option.(value ~default:e1\n                     (map (E.mk_binop e1 op)\n                        (map (M.map mk_expr_of_expr (fun e -> E.mk_binop e op))\n                           (M.mk_tree r.more_right)))))\n          ~term:(fun () ->\n              let op = term_connector r.op in\n              let t1 =\n                let left = mk_term_of_expr r.left in\n                let right = mk_term_of_expr r.right in\n                T.mk_binnop left op right in\n              Option.(value ~default:t1\n                     (map (T.mk_binnop t1 op)\n                        (map (M.map mk_term_of_expr (fun t -> T.mk_binnop t op))\n                           (M.mk_tree r.more_right))))) ()\n"
+      },
+      {
+        "first": 817,
+        "last": 842,
+        "sha256": "1a5e04aece23d9a72912a16960e0719163a4835e52ebcd4883d1383d65a82f5b",
+        "text": "                The accumulator contains the check coditions if this variant\n                doesn't progress (stays the same). *)\n              let Variant r = v.desc in\n              let new_expr = mk_expr_of_term r.expr in\n              let new_var = mk_variant_ident ~old:false v in\n              let new_var_term = T.mk_var (mk_qualid [new_var]) in\n              let old = T.mk_var (mk_qualid [mk_variant_ident ~old:true v]) in\n              let expr = process_call (module T) v r.cmp_op [new_var_term;old] in\n              let eq = mk_ident [] (Ident.op_infix \"=\") in\n              let res =\n                T.mk_attrs (List.filter_map mk_label r.labels)\n                  (T.mk_binop\n                    expr\n                    `Or_asym\n                    (T.mk_binop (T.mk_infix new_var_term eq old) `And_asym pred)) in\n              (new_var, new_expr) :: vardefs, res\n            in\n           (* checking all variants of a given Variants node is just a fold\n              which starts at the end, starting with the false condition. *)\n           let check_variants (v : variants_id) =\n              let Variants v = v.desc in\n              let vardefs, pred =\n                List.fold_right check_variant (v.variants.elt0 :: v.variants.elts)\n                  ([], false_pred) in\n              let assert_ = E.mk_assert Expr.Assert pred in\n              List.fold_left (fun acc (v, def) -> E.mk_let v def acc) assert_ vardefs\n"
+      },
+      {
+        "first": 950,
+        "last": 1009,
+        "sha256": "6e07c62ffb5cfd5a93dfc8c3db4571e5e5f7bd26f30116dadfd34b3e9d69c691",
+        "text": "(* Instantiate [MkOfExpr] for terms and expressions and tie the knot with the other specialized functions *)\n\nand mk_expr_of_expr (node : expr_id) : expr =\n  mk_of_expr (module E) node\n\nand mk_term_of_expr (node : expr_id) : term =\n  mk_of_expr (module T) node\n\nand mk_expr_of_term (node : term_id) : expr =\n  match node.desc with\n | Label _ | Loc_label _ | Identifier _ | Tagged _ | Call _ | Literal _\n | Binding _ | Elsif _ | Epsilon _ | Conditional _ | Integer_constant _\n | Range_constant _ | Modular_constant _ | Fixed_constant _ | Real_constant _\n | Float_constant _ | Comment _ | Deref _ | Record_access _\n | Record_update _ | Record_aggregate _ as desc ->\n      mk_expr_of_expr {node with desc}\n\nand mk_expr_of_prog (node : prog_id) =\n  match node.desc with\n  | Not _ | Connection _ | Label _ | Loc_label _ | Identifier _ | Tagged _ | Call _\n  | Literal _ | Binding _ | Elsif _ | Epsilon _ | Conditional _ | Integer_constant _\n  | Range_constant _ | Modular_constant _ | Fixed_constant _ | Real_constant _\n  | Float_constant _ | Comment _ | Deref _ | Record_access _ | Record_update _\n  | Record_aggregate _ | Any_expr _ | Assignment _ | Binding_ref _ | Loop _\n  | Statement_sequence _ | Abstract_expr _ | Assert _ | Raise _ | Try_block _ as desc ->\n      mk_expr_of_expr {node with desc}\n\nand mk_term_of_pred (node : pred_id) : term =\n  match node.desc with\n  | Universal_quantif _ | Existential_quantif _ | Not _ | Connection _\n  | Label _ | Loc_label _ | Identifier _ | Tagged _ | Call _ | Literal _\n  | Binding _ | Elsif _ | Epsilon _ | Conditional _ as desc ->\n      mk_term_of_expr {node with desc}\n\nand mk_effects (effects: effects_id) =\n  let Effects r = effects.desc in\n  let reads =\n    List.(map mk_qualid\n            (map (mk_idents_of_identifier ~notation:None [])\n               r.reads)) in\n  let writes =\n    List.(map (T.mk_var ?loc:None)\n            (map mk_qualid\n               (map (mk_idents_of_identifier ~notation:None [])\n                  r.writes))) in\n  let xpost =\n    if r.raises = []\n    then []\n    else\n      let aux re =\n        match re.desc with\n\t  | Raise_effect re_desc ->\n            let pat = match re_desc.arg_id with\n\t      | Some v_id -> mk_pattern_of_ident v_id\n\t      | None -> mk_pat (Ptuple []) in\n            (mk_qualid (mk_idents_of_name ~notation:None [] re_desc.name),\n            Option.map (fun post -> (pat, mk_term_of_pred post)) re_desc.post)\n\t  | _ -> conversion_error re.info.id \"ill-formed raises effect\" () in\n      [ get_pos (), List.map aux r.raises ] in\n  reads, writes, xpost\n"
+      },
+      {
+        "first": 1011,
+        "last": 1073,
+        "sha256": "94adbca27839fc26912a92bd2820af7f2a2cd40c4983d1e4684bf2dbd91ad2a4",
+        "text": "let mk_function_decl (node: function_decl_id) =\n  let Function_decl r = node.desc in\n  let ident =\n    force_one\n      (conversion_error r.name.info.id \"quantified or empty function name\")\n      (mk_idents_of_identifier ~notation:None\n         (List.filter_map mk_label r.labels @\n          Option.(to_list (mk_location r.location)))\n         r.name) in\n  let res_pty =\n    Option.map mk_pty_of_type r.return_type in\n  let params =\n    let aux (node: binder_id) : param =\n      let Binder r = node.desc in\n      get_pos (),\n      Option.(map (force_one (conversion_error node.info.id \"qualified or empty parameter name\"))\n             (map (mk_idents_of_identifier ~notation:None [])\n                r.name)),\n      false,\n      mk_pty_of_type r.arg_type in\n    List.map aux r.binders in\n  let binders =\n    let aux (loc, id, gh, pty) : binder =\n      loc, id, gh, Some pty in\n    List.map aux params in\n  let decl = {\n    ld_ident = ident; ld_params = params; ld_type = res_pty;\n    ld_loc = get_pos (); ld_def = None;\n  } in\n  match node.info.domain with\n  | Term ->\n      (* function <id> <params> : <res_ty> <*)\n      [D.mk_logic [{decl with ld_def = Option.map mk_term_of_expr r.def}]]\n  | Pterm ->\n      if params = [] then\n        (* val constant <id> : <res_ty> [ensures {result = <def>}] *)\n        let mk_post def =\n          ensures\n            T.(let left = mk_var (Qident result_ident) in\n               let op = mk_ident [] (Ident.op_infix \"=\") in\n               let right =\n                 let curr_attrs = Curr.mk_attrs () in\n                 mk_attrs curr_attrs (mk_term_of_expr def) in\n               mk_infix left op right) in\n        let value =\n          let pat = P.mk_wild () in\n          let spec = mk_spec ~post:Option.(to_list (map mk_post r.def)) () in\n          E.mk_any [] Expr.RKnone res_pty pat Ity.MaskVisible spec in\n        [D.mk_let ident false Expr.RKfunc value]\n      else if r.def = None then\n        (* val function <id> <params> : <res_ty> *)\n        let value =\n          let pat = P.mk_wild () in\n          let spec = mk_spec () in\n          E.mk_any params Expr.RKnone res_pty pat Ity.MaskVisible spec in\n        [D.mk_let ident false Expr.RKfunc value]\n      else\n        (* function <id> <params> : <res_ty> = <def>\n           val <id> <params> : <res_typ> ensures { result = <id> <params> }*)\n        let arg_for_param (_, id, _, pty) =\n          T.(mk_cast (mk_var (Qident (Option.value ~default:(mk_ident [] \"???\") id))) pty) in\n        let logic_decl =\n          D.mk_logic [{decl with ld_def=Option.map mk_term_of_expr r.def}] in\n"
+      },
+      {
+        "first": 1315,
+        "last": 1333,
+        "sha256": "a909523dccf79216df706bcc426c9bd50f988dba5690e2b1dae4ed4aff4013da",
+        "text": "let mk_theory_declaration (node : theory_declaration_id) =\n  match node.desc with\n  | Theory_declaration r ->\n      (* Ignore [r.kind], because theory and module is the same *)\n      let name =\n        let curr_attrs = Option.to_list (mk_comment_attr r.comment) in\n        mk_ident_of_symbol node.info.id ~notation:None curr_attrs r.name in\n      let include_vars = List.map Include_Decl.mk_include_variant r.includes in\n      let includes, _ =\n        List.fold_left (fun (l, seen) x ->\n          if Include_type_set.mem x seen then l, seen\n          else ((Include_Decl.mk_include_declaration x)::l, Include_type_set.add x seen))\n        ([],Include_type_set.empty)\n        include_vars in\n      let declarations = List.concat (List.map mk_declaration r.declarations) in\n      [name, List.rev_append includes declarations]\n\nlet mlw_file nodes =\n  Modules (List.concat (List.map mk_theory_declaration nodes))\n"
+      },
+      {
+        "first": 1337,
+        "last": 1359,
+        "sha256": "0e4620d6c3aacd1bb99be3e648662c3fe82bad8d54258cb1db86c1d1b9c1ebbc",
+        "text": "(** Pretty-print a JSON path *)\nlet pp_path fmt =\n  let open Format in\n  let pp_sep _ () = () in\n  let pp fmt d = fprintf fmt \"[%d]\" d in\n  fprintf fmt \".%a\" (pp_print_list ~pp_sep pp)\n\n(** Recursively find the path to a JSON element *)\nlet find_path needle node =\n  let exception Found of int list in\n  let rec aux path node =\n    if node == needle then\n      raise (Found (List.rev path))\n    else\n      match node with\n      | `Null | `String _ | `Int _ | `Bool _ -> ()\n      | `List l -> List.iteri (fun i -> aux (i :: path)) l\n      | _ -> Format.kasprintf failwith \"find_path: %a\" pp_path (List.rev path) in\n  try\n    aux [] node;\n    raise Not_found\n  with Found path ->\n    path\n"
+      },
+      {
+        "first": 1373,
+        "last": 1446,
+        "sha256": "e2b6ba2f16fef21ed5e6edf16ab48ff5ded6103aac86ba1c5a65fd591449ee3f",
+        "text": "let gnat_json_format : Env.fformat = \"gnat-json\"\nlet gnat_json_file_ext : string = \"gnat-json\"\n\nlet save_mlw_as_sexp mlw fn =\n  let sexp = Ptree.sexp_of_mlw_file mlw in\n  let out_channel = open_out fn in\n  output_string out_channel (Sexplib.Sexp.to_string sexp);\n  close_out out_channel\n\nlet read_channel env path filename c =\n  let json = Yojson.Safe.from_channel c in\n  let gnat_file =\n    let open Gnat_ast in\n    try From_json.file_from_json json\n    with From_json.Unexpected_Json (s, node) ->\n      raise (Unexpected_json (s, find_path node json)) in\n  (* Debug printing of intermediate GNAT ast *)\n  if Debug.test_flag debug then begin\n      let out = open_out (filename^\".gnat_ast\") in\n      Format.fprintf (Format.formatter_of_out_channel out) \"%a@.\"\n        Gnat_ast_pretty.pp_file gnat_file\n  end;\n  let mlw_file = mlw_file gnat_file.theory_declarations in\n  let basename = Strings.remove_suffix ~suffix:(\".\"^gnat_json_file_ext) filename in\n  let mlw_filename = basename ^\".mlw\" in\n  let sexp_filename = basename ^\".sexp\" in\n  (* Defer printing of mlw file until after the typing, to set the marker of located\n     exceptions *)\n  let print_mlw_file ?mark () =\n    let pp = Mlw_printer.pp_mlw_file ~attr:true in\n    let pp = match mark with\n      | None -> pp\n      | Some (msg, pos) -> Mlw_printer.with_marker ~msg pos pp in\n    save_mlw_as_sexp mlw_file sexp_filename;\n    let out = open_out mlw_filename in\n    Format.fprintf (Format.formatter_of_out_channel out) \"%a@.\" pp mlw_file;\n    close_out out in\n  match Typing.type_mlw_file env path filename mlw_file with\n  | res ->\n      if Debug.test_flag debug then\n        print_mlw_file ();\n      res\n  | exception Loc.Located (pos, e) ->\n      (* The positions in the generated ptree are useless - we set the marker for\n         printing the mlw file and report that. *)\n      let msg = Format.asprintf \" ERROR %a: @?\" Exn_printer.exn_printer e in\n      print_mlw_file ~mark:(msg, pos) ();\n      raise (Located_by_marker (mlw_filename, e))\n  | exception e ->\n      print_mlw_file ();\n      raise e\n\nlet () =\n  Env.register_format ~desc:\"Gnat@ AST@ in@ JSON@ format\"\n    Pmodule.mlw_language gnat_json_format [gnat_json_file_ext] read_channel\n\nlet () =\n  Exn_printer.register\n    (fun fmt exn -> match exn with\n       | Unexpected_json (s, path) ->\n           (* Errors in the conversion from JSON to Gnat_ast are reported with their path,\n              because the id is not guaranteed to be available. *)\n           Format.fprintf fmt \"Unexpected Json for %s at path %a@.\"\n             s pp_path path\n       | Conversion_error r ->\n           (* Errors in the conversion from Gnat_ast to Why3 Ptree are reported with their\n              id. *)\n           Format.fprintf fmt \"Conversion error for node with ID %d: %s\" r.node_id r.message\n       | Located_by_marker (filename, e) ->\n           (* Located errors (i.e. typing errors) are reported with an hint on the marker, which\n              is inserted into the mlw file by the mlw-printer. *)\n           Format.fprintf fmt \"File %s, marked by (* ERROR: *)(...):@\\n%a\"\n             filename Exn_printer.exn_printer e\n       | _ -> raise exn)\n"
+      }
+    ]
+  },
+  {
+    "path": "plugins/gnat_json/ptree_constructors.ml",
+    "bytes": 8974,
+    "sha256": "cb8c9fa19ba7f8229fb89d10eb53e87a44c45fccd82c8c4751cf2fc580f53c0c",
+    "spans": [
+      {
+        "first": 1,
+        "last": 61,
+        "sha256": "5f8b4706cd8b50c89c92afe6823db64f79bd955d66ee1317e19cf87c2dd6c089",
+        "text": "open Why3\nopen Ptree\n\n(** Smart constructors for [Ptree] nodes *)\n\nlet loc_counter = ref 0\n\nlet get_pos ?loc () = match loc with\n  | Some loc ->\n      loc\n  | None ->\n      incr loc_counter;\n      let line = !loc_counter in\n      Loc.user_position \"<dummy>\" line 0 line 0\n\nlet mk_ident attrs s = {\n  id_str = s;\n  id_ats = attrs;\n  id_loc = get_pos ();\n}\n\nlet mk_qualid l =\n  let rec aux l =\n    match l with\n    | [] -> failwith \"mk_qualid\"\n    | [x] -> Qident x\n    | x::r -> Qdot (aux r, x)\n  in\n  aux (List.rev l)\n\nlet mk_qualid' l =\n  mk_qualid (List.map (mk_ident []) l)\n\nlet mk_expr ?loc e =\n  { expr_desc = e; expr_loc = get_pos ?loc () }\n\nlet mk_term ?loc t =\n  { term_desc = t; term_loc = get_pos ?loc () }\n\nlet mk_pat ?loc p =\n  { pat_desc = p; pat_loc = get_pos ?loc () }\n\nlet rec qualid_equal a b =\n  match a, b with\n  | Qident a, Qident b -> a.id_str = b.id_str\n  | Qdot (a_prefix, a_id), Qdot (b_prefix, b_id) ->\n      qualid_equal a_prefix b_prefix && a_id.id_str = b_id.id_str\n  | _ -> false\n\nmodule Ty = struct\n  type t = pty\n  let mk_var id = PTtyvar id\n  let mk_idapp qid args = PTtyapp (qid, args)\n  let mk_atomic_type l = PTtyapp (mk_qualid' l, [])\n  let mk_tuple args = PTtuple args\n  let mk_ref args = PTref args\n  let mk_arrow t1 t2 = PTarrow (t1, t2)\n  let mk_scope qid t = PTscope (qid, t)\n  let mk_paren t = PTparen t\n  let mk_pure t = PTpure t\nend\n"
+      },
+      {
+        "first": 89,
+        "last": 258,
+        "sha256": "114d5daa5124a20aef9c143a9e34b0b862a7e24f047606ff2d52985ba2a986bf",
+        "text": "module P = struct\n  let mk = mk_pat\n  let mk_wild ?loc () = mk ?loc Pwild\n  let mk_var ?loc id = mk ?loc (Pvar id)\nend\n\nmodule E = struct\n  type t = expr\n  let target = `Expr\n  let mk = mk_expr\n  let mk_assert ?loc kind t =\n    mk ?loc (Eassert (kind, t))\n  let mk_const ?loc i = mk ?loc (Econst i)\n  let mk_idapp ?loc f li = mk ?loc (Eidapp (f, li))\n  let mk_apply ?loc e1 e2 = mk ?loc (Eapply (e1, e2))\n  let mk_var ?loc x = mk ?loc (Eident x)\n  let mk_cast ?loc e pty = mk ?loc (Ecast (e, pty))\n  let mk_tuple ?loc es = mk ?loc (Etuple es)\n  let mk_case ?loc e cases = mk ?loc (Ematch (e, cases, []))\n  let mk_record ?loc fields = mk ?loc (Erecord fields)\n  let mk_update ?loc e fields = mk ?loc (Eupdate (e, fields))\n  let mk_not ?loc e = mk ?loc (Enot e)\n  let mk_if ?loc e1 e2 e3 = mk ?loc (Eif (e1, e2, e3))\n  let mk_binop ?loc e1 op e2 =\n    mk ?loc\n      (match op with\n        | `And_asym -> Eand (e1, e2)\n        | `Or_asym -> Eor (e1, e2))\n  let mk_seq ?loc e1 e2 =\n    mk ?loc (Esequence (e1, e2))\n  let mk_infix ?loc e1 op e2 =\n    mk ?loc (Einfix (e1, op, e2))\n  let mk_innfix ?loc e1 op e2 =\n    mk ?loc (Einnfix (e1, op, e2))\n  let mk_let ?loc id e1 e2 =\n    mk ?loc (Elet (id, false, Expr.RKnone, e1, e2))\n  let mk_scope ?loc qid e =\n    mk ?loc (Escope (qid, e))\n  let mk_any ?loc params kind res_pty pat mask spec =\n    mk ?loc (Eany (params, kind, res_pty, pat, mask, spec))\n  let mk_fun ?loc binders res_pty pat mask spec expr =\n    mk ?loc (Efun (binders, res_pty, pat, mask, spec, expr))\n  let mk_truth ?loc b = mk ?loc (if b then Etrue else Efalse)\n  let mk_attr ?loc a e = mk ?loc (Eattr (a, e))\n  let mk_attrs ?loc = List.fold_right (mk_attr ?loc)\n  let mk_match ?loc e regs exns = mk ?loc (Ematch (e, regs, exns))\n  let mk_raise ?loc qid opt_e = mk ?loc (Eraise (qid, opt_e))\n  let mk_while ?loc cond inv var body = mk ?loc (Ewhile (cond, inv, var, body))\n  let mk_assign ?loc e1 qid_opt e2 =\n    mk ?loc (Eassign [e1, qid_opt, e2])\n  let mk_absurd ?loc () =\n    mk ?loc Eabsurd\n  let expr_or_term ?info ?(expr:(unit -> expr) option) ?term:(_:(unit -> term) option) () : expr =\n    match expr with\n    | Some e -> e ()\n    | None ->\n        let pp_info fmt = Option.iter (Format.fprintf fmt \" %s\") info in\n        Format.kasprintf failwith \"No translation from Gnat JSON node%t to Why3 expression\" pp_info\nend\n\nmodule T = struct\n  type t = term\n  let target = `Term\n\n  let operator = function\n    | `And_asym -> Dterm.DTand_asym\n    | `Or_asym -> Dterm.DTor_asym\n    | `And -> Dterm.DTand\n    | `Or -> Dterm.DTor\n    | `Implies -> Dterm.DTimplies\n    | `Iff -> Dterm.DTiff\n    | `By -> Dterm.DTby\n    | `So -> Dterm.DTso\n  let mk = mk_term\n  let mk_truth ?loc b = mk ?loc (if b then Ttrue else Tfalse)\n  let mk_const ?loc i = mk ?loc (Tconst i)\n\n  let mk_idapp ?loc f li =\n    match li with\n    | [ { term_desc = Trecord l } ] ->\n      begin try\n        let _, t = List.find (fun (k, _) -> qualid_equal k f) l in\n        t\n      with Not_found -> mk ?loc (Tidapp (f, li)) end\n    | _ -> mk ?loc (Tidapp (f, li))\n\n  let mk_apply ?loc t1 t2 = mk ?loc (Tapply (t1, t2))\n  let mk_var ?loc x = mk ?loc (Tident x)\n  let mk_cast ?loc t pty = mk ?loc (Tcast (t, pty))\n  let mk_tuple ?loc ts = mk ?loc (Ttuple ts)\n  let mk_case ?loc t cases = mk ?loc (Tcase (t, cases))\n  let mk_record ?loc fields = mk ?loc (Trecord fields)\n  let mk_update ?loc t fields = mk ?loc (Tupdate (t, fields))\n  let mk_not ?loc t = mk ?loc (Tnot t)\n  let mk_if ?loc e1 e2 e3 = mk ?loc (Tif (e1, e2, e3))\n  let mk_binop ?loc t1 op t2 =\n    mk ?loc (Tbinop (t1, operator op, t2))\n  let mk_binnop ?loc t1 op t2 =\n    mk ?loc (Tbinnop (t1, operator op, t2))\n  let mk_infix ?loc t1 op t2 =\n    mk ?loc (Tinfix (t1, op, t2))\n  let mk_innfix ?loc t1 op t2 =\n    mk ?loc (Tinnfix (t1, op, t2))\n  let mk_let ?loc id t1 t2 =\n    mk ?loc (Tlet (id, t1, t2))\n  let mk_scope ?loc qid e =\n    mk ?loc (Tscope (qid, e))\n  let mk_attr ?loc a t =\n    mk ?loc (Tattr (a, t))\n  let mk_attrs ?loc = List.fold_right (mk_attr ?loc)\n  let mk_at ?loc t id =\n    mk ?loc (Tat (t, id))\n  let mk_eps ?loc id pty t =\n    mk ?loc (Teps (id, pty, t))\n  let mk_quant ?loc quant binders triggers term =\n    mk ?loc (Tquant (quant, binders, triggers, term))\n  let name_term name t =\n    mk_attr\n      (ATstr (Ident.create_attribute (\"hyp_name:\"^name)))\n      t\n  let expr_or_term ?info ?expr:(_:(unit -> expr) option) ?(term:(unit -> term) option) () : term =\n    match term with\n    | Some t -> t ()\n    | None ->\n        let pp_info fmt = Option.iter (Format.fprintf fmt \" %s\") info in\n        Format.kasprintf failwith \"No translation from Gnat JSON node%t to Why3 term\" pp_info\nend\n\nmodule D = struct\n  type t = decl\n  let mk_type decls = Dtype decls\n  let mk_logic decls = Dlogic decls\n  let mk_ind sign decls = Dind (sign, decls)\n  let mk_prop kind ident term = Dprop (kind, ident, term)\n  let mk_let ident ghost kind expr = Dlet (ident, ghost, kind, expr)\n  let mk_rec defs = Drec defs\n  let mk_exn id pty mask = Dexn (id, pty, mask)\n  let mk_meta ident args = Dmeta (ident, args)\n  let mk_cloneexport qid substs = Dcloneexport (get_pos (), qid, substs)\n  let mk_useexport ?loc qid = Duseexport (get_pos ?loc (), qid)\n  let mk_cloneimport ?loc export qid opt_id substs =\n    Dcloneimport (get_pos ?loc (), export, qid, opt_id, substs)\n  let mk_useimport ?loc export renames =\n    Duseimport (get_pos ?loc (), export, renames)\n  let mk_import qid = Dimport qid\n  let mk_scope ?loc export id decls =\n    Dscope (get_pos ?loc (), export, id, decls)\nend\n\nlet mk_spec ?(pre=[]) ?(post=[]) ?(xpost=[]) ?(reads=[]) ?(writes=[]) ?(alias=[]) ?(variant=[])\n    ?checkrw ?(diverge=false) ?(partial=false) () =\n  let checkrw = match checkrw with Some x -> x | None -> reads <> [] || writes <> [] || alias <> [] in\n  {sp_pre = pre; sp_post = post; sp_xpost = xpost;\n   sp_reads = reads; sp_writes = writes; sp_alias = alias; sp_variant = variant;\n   sp_checkrw = checkrw; sp_diverge = diverge; sp_partial = partial}\n\nlet mk_pos loc =\n  ATpos loc\n\nlet mk_str s =\n  ATstr (Ident.create_attribute s)\n\nlet result_ident = mk_ident [] \"result\"\n\nlet requires t =\n  T.name_term \"Requires\" t\n\nlet ensures ?loc t =\n  let result = mk_ident [] \"result\" in\n  get_pos ?loc (), [P.mk_var result, T.name_term \"Ensures\" t]\n"
+      }
+    ]
+  },
+  {
+    "path": "src/core/ident.ml",
+    "bytes": 17596,
+    "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db",
+    "spans": [
+      {
+        "first": 16,
+        "last": 39,
+        "sha256": "ec466b795ed2f372a2f802910a83caa163a73fcc94e02d60d1a1afff3ffcbda8",
+        "text": "type attribute = {\n  attr_string : string;\n  attr_tag    : int;\n}\n\nmodule Attr = MakeMSH (struct\n  type t = attribute\n  let tag a = a.attr_tag\nend)\n\nmodule Sattr = Attr.S\nmodule Mattr = Attr.M\n\nmodule Hsattr = Hashcons.Make (struct\n  type t = attribute\n  let equal a1 a2 = a1.attr_string = a2.attr_string\n  let hash a = Hashtbl.hash a.attr_string\n  let tag n a = { a with attr_tag = n }\nend)\n\nlet create_attribute s = Hsattr.hashcons {\n  attr_string = s;\n  attr_tag    = -1\n}\n"
+      },
+      {
+        "first": 75,
+        "last": 78,
+        "sha256": "4bff4b9310473f74672e7253cdbff8887de6b1c68d0751981ea886f282401cac",
+        "text": "(* current encoding *)\n\nlet op_infix  s = \"infix \" ^ s\nlet op_prefix s = \"prefix \" ^ s\n"
+      },
+      {
+        "first": 187,
+        "last": 192,
+        "sha256": "5ec01126a9d495427eee867e93b31eda8b29c76d6faf44a0158905a5158776eb",
+        "text": "let id_register = let r = ref 0 in fun id -> {\n  id_string = id.pre_name;\n  id_attrs  = id.pre_attrs;\n  id_loc    = id.pre_loc;\n  id_tag    = (incr r; Weakhtbl.create_tag !r);\n}\n"
+      }
+    ]
+  },
+  {
+    "path": "src/core/ty.ml",
+    "bytes": 8518,
+    "sha256": "7030198a5c63e91210b3a28e5c42f2dd561eec94e785c3842e6d44b2222cf27e",
+    "spans": [
+      {
+        "first": 90,
+        "last": 122,
+        "sha256": "22cee9c9744cbc299d7e05f74fde8c38748d9fdc9b11e97def8b870b97749997",
+        "text": "module Hsty = Hashcons.Make (struct\n  type t = ty\n\n  let equal ty1 ty2 = match ty1.ty_node, ty2.ty_node with\n    | Tyvar n1, Tyvar n2 -> tv_equal n1 n2\n    | Tyapp (s1,l1), Tyapp (s2,l2) ->\n        ts_equal s1 s2 && List.for_all2 ty_equal l1 l2\n    | _ -> false\n\n  let hash ty = match ty.ty_node with\n    | Tyvar v -> tv_hash v\n    | Tyapp (s,tl) -> Hashcons.combine_list ty_hash (ts_hash s) tl\n\n  let tag n ty = { ty with ty_tag = Weakhtbl.create_tag n }\nend)\n\nmodule Ty = MakeMSHW (struct\n  type t = ty\n  let tag ty = ty.ty_tag\nend)\n\nmodule Sty = Ty.S\nmodule Mty = Ty.M\nmodule Hty = Ty.H\nmodule Wty = Ty.W\n\nlet mk_ty n = {\n  ty_node = n;\n  ty_tag  = Weakhtbl.dummy_tag;\n}\n\nlet ty_var n = Hsty.hashcons (mk_ty (Tyvar n))\nlet ty_app s tl = Hsty.hashcons (mk_ty (Tyapp (s, tl)))\n"
+      }
+    ]
+  },
+  {
+    "path": "src/mlw/ity.ml",
+    "bytes": 70996,
+    "sha256": "036cd1bac384c017b15ffae7e8f0c466cb50005d5905c83524679439dec66a49",
+    "spans": [
+      {
+        "first": 125,
+        "last": 160,
+        "sha256": "04d95e8ec21236ecec786ad8505b6e3a9169f7a9e2a99fdaf09791a9afcc57ad",
+        "text": "module Hsity = Hashcons.Make (struct\n  type t = ity\n\n  let equal ity1 ity2 = match ity1.ity_node, ity2.ity_node with\n    | Ityvar v1, Ityvar v2 -> tv_equal v1 v2\n    | Ityreg r1, Ityreg r2 -> reg_equal r1 r2\n    | Ityapp (s1,l1,r1), Ityapp (s2,l2,r2) ->\n        its_equal s1 s2 &&\n        List.for_all2 ity_equal l1 l2 &&\n        List.for_all2 ity_equal r1 r2\n    | _ -> false\n\n  let hash ity = match ity.ity_node with\n    | Ityvar v -> tv_hash v\n    | Ityreg r -> reg_hash r\n    | Ityapp (s,tl,rl) ->\n        Hashcons.combine_list ity_hash\n          (Hashcons.combine_list ity_hash (its_hash s) tl) rl\n\n  let pure ity = match ity.ity_node with\n    | Ityvar _ -> true\n    | Ityreg _ -> false\n    | Ityapp (_,tl,rl) ->\n        let pure ity = ity.ity_pure in\n        List.for_all pure tl && List.for_all pure rl\n\n  let tag n ity = { ity with\n    ity_pure = pure ity;\n    ity_tag = Weakhtbl.create_tag n }\nend)\n\nlet mk_ity node = {\n  ity_node = node;\n  ity_pure = true;\n  ity_tag  = Weakhtbl.dummy_tag;\n}\n"
+      }
+    ]
+  },
+  {
+    "path": "src/util/loc.ml",
+    "bytes": 10669,
+    "sha256": "710a4cef49726280333cecb975ab32cde2ef489b282928f0327ff0b58b2d93f5",
+    "spans": [
+      {
+        "first": 26,
+        "last": 70,
+        "sha256": "e30e58bfa6c0265a0f0db8cf8e15d7f4842a509fc01b6af8870982380952ffe2",
+        "text": "(*\n\nTo reduce memory consumption, a pair (line,col) is stored in a single\n   int using\n\n     (line << bits) | col\n\n  On 32-bits architecture, bits is 12. This will thus support column\n   numbers up to 4095 and line numbers up to 2^19\n\n  On 64-bits architecture, bits is 16. This will thus support column\n   numbers up to 65535 and line numbers up to 2^47\n\n  The file names are also hashed to ensure an optimal sharing\n*)\n\nmodule FileTags = struct\n\n  open Wstdlib\n\n  let tag_counter = ref 0\n\n  let file_tags = Hstr.create 7\n  let tag_to_file = Hint.create 7\n\n  let get_file_tag file =\n    try\n      Hstr.find file_tags file\n    with Not_found ->\n      let n = !tag_counter in\n      Hstr.add file_tags file n;\n      Hint.add tag_to_file n file;\n      incr tag_counter;\n      n\n\n  let tag_to_file tag =\n    Hint.find tag_to_file tag\n\nend\n\n\ntype position = {\n    pos_file_tag : int;\n    pos_start : int (* compressed line/col *);\n    pos_end : int (* compressed line/col *);\n"
+      },
+      {
+        "first": 75,
+        "last": 84,
+        "sha256": "dd521507b00378f5565d4e1829e57a92d17d82497c6ed733445b2974f20cb772",
+        "text": "  if Sys.word_size = 64 then 16 else\n    failwith \"word size should be 32 or 64\"\n\nlet mask_col = (1 lsl bits_col) - 1\n\nlet max_line = (1 lsl (Sys.word_size - bits_col - 1)) - 1\n\nlet get p =\n  let f = FileTags.tag_to_file p.pos_file_tag in\n  let b = p.pos_start in\n"
+      },
+      {
+        "first": 254,
+        "last": 282,
+        "sha256": "86b69c71d14515468b5ed18439fc050bccd181d5ea091d4874744ef4d478005e",
+        "text": "let user_position f bl bc el ec =\n  if bl < 0 || bl > max_line then\n    failwith (\"Loc.user_position: start line number `\" ^\n                string_of_int bl ^ \"` out of bounds\");\n  if bc < 0 then\n    failwith (\"Loc.user_position: start char number `\" ^\n                string_of_int bc ^ \"` out of bounds\");\n  (* bc >= mask_col may happen with SPARK, but we do not want to display it *)\n  if bc > mask_col && not !warning_emitted then\n    begin\n      warning warn_start_overflow \"Loc.user_position: start char number `%d` overflows on next line\" bc;\n      warning_emitted := true;\n    end;\n  if el < 0 || el > max_line then\n    failwith (\"Loc.user_position: end line number `\" ^\n                string_of_int el ^ \"` out of bounds\");\n  if ec < 0 then\n    failwith (\"Loc.user_position: end char number `\" ^\n                string_of_int ec ^ \"` out of bounds\");\n  (* ec >= mask_col may happen with SPARK, but we do not want to display it *)\n  if ec >= mask_col  && not !warning_emitted then\n    begin\n      warning warn_end_overflow \"Loc.user_position: end char number `%d` overflows on next line\" ec;\n      warning_emitted := true;\n    end;\n  let tag = FileTags.get_file_tag f in\n  { pos_file_tag = tag;\n    pos_start = (bl lsl bits_col) lor bc;\n    pos_end = (el lsl bits_col) lor ec }\n"
+      }
+    ]
+  },
+  {
+    "path": "src/util/constant.ml",
+    "bytes": 2699,
+    "sha256": "bd642ab91c9bafffc057a02a940ad90729255773b97ef8a0f91f3d03e539f532",
+    "spans": [
+      {
+        "first": 33,
+        "last": 43,
+        "sha256": "a0ebd09b41baa9fc05f96b727ec12bebd644e9c1ce4dc7ec43d7629f3e5961fc",
+        "text": "let int_const ?(il_kind=ILitUnk) n =\n  ConstInt { il_kind; il_int = n }\n\nlet int_const_of_int n =\n  int_const (BigInt.of_int n)\n\nlet real_const ?(pow2 = BigInt.zero) ?(pow5 = BigInt.zero) i =\n  ConstReal { rl_kind = RLitUnk; rl_real = real_value ~pow2 ~pow5 i }\n\nlet real_const_from_string ~radix ~neg ~int ~frac ~exp =\n  ConstReal (real_literal ~radix ~neg ~int ~frac ~exp)\n"
+      }
+    ]
+  },
+  {
+    "path": "src/util/number.ml",
+    "bytes": 19428,
+    "sha256": "e8d7fc14619b572a662cb9bc8b36dd0d6c4fe31ff1227f601fd6de5265c6b8a4",
+    "spans": [
+      {
+        "first": 76,
+        "last": 165,
+        "sha256": "18e9e7d141e95a866b006647b6b443687ccda4473aa50a3658d296f86d70d784",
+        "text": "  { rl_kind; rl_real = { r with rv_sig = BigInt.abs r.rv_sig } }\n\nexception InvalidConstantLiteral of int * string\nlet invalid_constant_literal n s = raise (InvalidConstantLiteral(n,s))\n\nlet check_integer_literal n f s =\n  let l = String.length s in\n  if l = 0 then invalid_constant_literal n s;\n  for i = 0 to l-1 do\n    if not (f s.[i]) then invalid_constant_literal n s;\n  done\n\nlet is_hex = function '0'..'9' | 'A'..'F' | 'a'..'f' -> true | _ -> false\nlet is_dec = function '0'..'9' -> true | _ -> false\n\nlet rec normalize v p e =\n  let (d,m) = BigInt.computer_div_mod v p in\n  if BigInt.eq m BigInt.zero then\n    let e2 = BigInt.add e e in\n    let (v,f) = normalize d (BigInt.mul p p) e2 in\n    let (d,m) = BigInt.computer_div_mod v p in\n    if BigInt.eq m BigInt.zero then (d, BigInt.add f e2) else (v, BigInt.add f e)\n  else (v, BigInt.zero)\n\nlet normalize v p =\n  normalize v (BigInt.of_int p) BigInt.one\n\nlet real_value ?(pow2 = BigInt.zero) ?(pow5 = BigInt.zero) i =\n  if BigInt.eq i BigInt.zero then { rv_sig = i; rv_pow2 = i; rv_pow5 = i }\n  else\n    let (i, p2) = normalize i 2 in\n    let (i, p5) = normalize i 5 in\n    { rv_sig = i; rv_pow2 = BigInt.add pow2 p2; rv_pow5 = BigInt.add pow5 p5 }\n\n(** Parsing *)\n\nlet parse_in_base radix s =\n  let n = String.length s in\n  let rec aux acc i =\n    if i = n then\n      acc\n    else begin\n      let v = match s.[i] with\n        | '0'..'9' as c -> Char.code c - Char.code '0'\n        | 'A'..'Z' as c -> 10 + Char.code c - Char.code 'A'\n        | 'a'..'z' as c -> 10 + Char.code c - Char.code 'a'\n        | _ -> invalid_constant_literal radix s in\n      if v >= radix then invalid_constant_literal radix s;\n      aux (BigInt.add_int v (BigInt.mul_int radix acc)) (i + 1)\n    end in\n  aux BigInt.zero 0\n\nlet int_literal k ~neg s =\n  let i =\n    match k with\n    | ILitUnk -> assert false\n    | ILitBin -> parse_in_base 2 s\n    | ILitOct -> parse_in_base 8 s\n    | ILitDec -> parse_in_base 10 s\n    | ILitHex -> parse_in_base 16 s in\n  let i = if neg then BigInt.minus i else i in\n  { il_kind = k; il_int = i }\n\nlet check_exp e =\n  let e = if e.[0] = '-' then String.sub e 1 (String.length e - 1) else e in\n  check_integer_literal 10 is_dec e\n\nlet real_literal ~radix ~neg ~int ~frac ~exp =\n  let e =\n    match exp with\n    | Some e -> check_exp e; int_of_string e\n    | None -> 0 in\n  let k, check =\n    match radix with\n    | 10 -> RLitDec e, is_dec\n    | 16 -> RLitHex e, is_hex\n    | _ -> assert false in\n  if int  <> \"\" then check_integer_literal radix check int;\n  if frac <> \"\" then check_integer_literal radix check frac;\n  let s = parse_in_base radix (int ^ frac) in\n  let s = if neg then BigInt.minus s else s in\n  let f = BigInt.of_int (- String.length frac) in\n  let f = if radix = 16 then BigInt.mul_int 4 f else f in\n  let e = BigInt.add_int e f in\n  let r =\n    match radix with\n    | 10 -> real_value ~pow2:e ~pow5:e s\n    | 16 -> real_value ~pow2:e ~pow5:BigInt.zero s\n    | _ -> assert false in\n  { rl_kind = k; rl_real = r }\n"
+      }
+    ]
+  },
+  {
+    "path": "src/util/bigInt.ml",
+    "bytes": 2000,
+    "sha256": "484a5e6d14a0764ccf0ab84cc475f855aa7909560d4132aac71fc935183da885",
+    "spans": [
+      {
+        "first": 11,
+        "last": 70,
+        "sha256": "47a5474d91dfbc01b688a89a854c89847f08959fb9a1c4cee64b31ab955902c5",
+        "text": "open Mysexplib.Std_big_int [@@warning \"-33\"]\nopen Big_int_Z\n\ntype t = big_int\n[@@deriving sexp]\nlet compare = compare_big_int\n\nlet zero = zero_big_int\nlet one = unit_big_int\nlet of_int = big_int_of_int\n\nlet succ = succ_big_int\nlet pred = pred_big_int\n\nlet add_int = add_int_big_int\nlet mul_int = mult_int_big_int\n\nlet add = add_big_int\nlet sub = sub_big_int\nlet mul = mult_big_int\nlet minus = minus_big_int\n\nlet sign = sign_big_int\n\nlet eq = eq_big_int\nlet lt = lt_big_int\nlet gt = gt_big_int\nlet le = le_big_int\nlet ge = ge_big_int\n\nlet euclidean_div_mod x y = quomod_big_int x y\n\nlet euclidean_div x y = fst (euclidean_div_mod x y)\nlet euclidean_mod x y = snd (euclidean_div_mod x y)\n\nlet computer_div_mod x y =\n  let (q,r) as qr = euclidean_div_mod x y in\n  (* when y <> 0, we have x = q*y + r with 0 <= r < |y| *)\n  if sign x >= 0 || sign r = 0 then qr\n  else\n    if sign y < 0\n    then (pred q, add r y)\n    else (succ q, sub r y)\n\nlet computer_div x y = fst (computer_div_mod x y)\nlet computer_mod x y = snd (computer_div_mod x y)\n\nlet min = min_big_int\nlet max = max_big_int\nlet abs = abs_big_int\n\nlet num_digits = num_digits_big_int\n\nlet pow_int_pos = power_int_positive_int\nlet pow_int_pos_bigint = power_int_positive_big_int\n\nlet to_string = string_of_big_int\nlet of_string = big_int_of_string\nlet to_int = int_of_big_int\nlet is_int = is_int_big_int\n"
+      }
+    ]
+  },
+  {
+    "path": "src/util/strings.ml",
+    "bytes": 2793,
+    "sha256": "6f0270e20667cdf3b55cdc59c2a388d57586f9029f9adff309b1fe17e7af2432",
+    "spans": [
+      {
+        "first": 76,
+        "last": 90,
+        "sha256": "0a1ea1be7cfd9e350c2067fe746fc70496473fa747b2a851db5ee154697cf3d5",
+        "text": "let has_suffix ~suffix s =\n  let sl = String.length s in\n  let l = String.length suffix in\n  let rec aux i =\n    i >= l || (s.[sl - l + i] = suffix.[i] && aux (i+1)) in\n  sl >= l && aux 0\n\nlet remove_suffix ~suffix s =\n  let sl = String.length s in\n  let l = String.length suffix in\n  if sl < l then raise Not_found else\n  for i = 0 to l - 1 do\n    if s.[sl - l + i] <> suffix.[i] then raise Not_found\n  done;\n  String.sub s 0 (sl - l)\n"
+      }
+    ]
+  },
+  {
+    "path": "src/util/hashcons.ml",
+    "bytes": 1865,
+    "sha256": "cb9322afc79d8f8f0169f6292833bb028953fd401d8076dc75309ae4d360bafe",
+    "spans": [
+      {
+        "first": 31,
+        "last": 55,
+        "sha256": "7e5f7202b7a6ce02a8247d8875a32072fca2712690d199376f6573a6f3db09b6",
+        "text": "module Make(H : HashedType) : (S with type t = H.t) =\nstruct\n  type t = H.t\n\n  module WH = Weak.Make (H)\n\n  let next_tag = ref 0\n\n  let htable = WH.create 5003\n\n  let hashcons d =\n    let d = H.tag !next_tag d in\n    let o = WH.merge htable d in\n    if o == d then incr next_tag;\n    o\n\n  let unique d =\n    let d = H.tag !next_tag d in\n    incr next_tag;\n    d\n\n  let iter f = WH.iter f htable\n\n  let stats () = WH.stats htable\nend\n"
+      }
+    ]
+  },
+  {
+    "path": "src/util/wstdlib.ml",
+    "bytes": 3813,
+    "sha256": "0c2ad64b5b12528542686e3627d415e34f5cbb88b5c837dfddc3e33617420705",
+    "spans": [
+      {
+        "first": 11,
+        "last": 30,
+        "sha256": "5a4c85ce677bbbbb98be4a55941e4e9d220d3b28d62f31663c15eeb8036debbe",
+        "text": "(* Set, Map, Hashtbl on ints and strings *)\n\nmodule Int = struct\n  type t = int\n  let compare (x : int) y = Stdlib.compare x y\n  let equal (x : int) y = x = y\n  let hash  (x : int) = x\nend\n\nmodule Mint = Extmap.Make(Int)\nmodule Sint = Extset.MakeOfMap(Mint)\nmodule Hint = Exthtbl.Make(Int)\n\nmodule Mstr = Extmap.Make(String)\nmodule Sstr = Extset.MakeOfMap(Mstr)\nmodule Hstr = Exthtbl.Make(struct\n  type t    = String.t\n  let hash  = (Hashtbl.hash : string -> int)\n  let equal = ((=) : string -> string -> bool)\nend)\n"
+      }
+    ]
+  },
+  {
+    "path": "src/util/exthtbl.ml",
+    "bytes": 1984,
+    "sha256": "cd1dcb30d2eeff86cf554973c6714f595acbf73dda4d4d7a444015338c5555a2",
+    "spans": [
+      {
+        "first": 11,
+        "last": 60,
+        "sha256": "1c80420e3777d7ed581aeed2939a81218ae2c8450f2e25b4cd56a692873a97f6",
+        "text": "module type S =\nsig\n  include Hashtbl.S\n  val find_def : 'a t -> 'a -> key -> 'a\n  val find_opt : 'a t -> key -> 'a option\n  val find_exn : 'a t -> exn -> key -> 'a\n  val map : (key -> 'a -> 'b) -> 'a t -> 'b t\n  val memo : int -> (key -> 'a) -> key -> 'a\n  val is_empty : 'a t -> bool\nend\n\nmodule type Private =\nsig\n  type 'a t\n  type key\n  val find : 'a t -> key -> 'a\n  val find_def : 'a t -> 'a -> key -> 'a\n  val find_opt : 'a t -> key -> 'a option\n  val find_exn : 'a t -> exn -> key -> 'a\n  val map : (key -> 'a -> 'b) -> 'a t -> 'b t\n  val iter : (key -> 'a -> unit) -> 'a t -> unit\n  val fold : (key -> 'a -> 'acc -> 'acc) -> 'a t -> 'acc -> 'acc\n  val mem : 'a t -> key -> bool\n  val length : 'a t -> int\n  val is_empty : 'a t -> bool\nend\n\nlet hash = Hashtbl.hash\n\nmodule Make (X:Hashtbl.HashedType) : S with type key = X.t =\nstruct\n  module M = Hashtbl.Make(X)\n  include M\n\n  let memo size f =\n    let h = create size in\n    fun x -> try find h x\n      with Not_found -> let y = f x in add h x y; y\n\n  let find_def h d k =\n    try find h k with Not_found -> d\n\n  let find_exn h e k =\n    try find h k with Not_found -> raise e\n\n  let find_opt h k =\n    try Some (find h k) with Not_found -> None\n\n  let map f h =\n    let h' = create (length h) in\n"
+      }
+    ]
+  }
+]
