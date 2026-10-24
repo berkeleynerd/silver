@@ -1,0 +1,90 @@
+{
+  "status": "pass; material finding R1 reproduced",
+  "author_commit": "49c18b7ef37967c8b6f486721fd006d61857a8fb",
+  "assertions": 2711,
+  "families": {
+    "exact author freeze": 11,
+    "provider identity": 13,
+    "archive identity": 2,
+    "complete source identity": 13,
+    "source span identity": 45,
+    "source anchor": 115,
+    "eleven-module clone ancestry": 1,
+    "all remaining origins explicit": 1,
+    "whole-origin exclusion tokens": 11,
+    "only explicit function definitions": 4,
+    "four origin executable definitions": 1,
+    "empty-post occurrence projection": 4,
+    "create has no Hsity or Ident": 4,
+    "empty contract result": 4,
+    "external read/write/covers survive flat create": 12,
+    "freeze preserves actual region identities": 12,
+    "actual read added without losing external state": 12,
+    "same application retains write/freeze maps": 12,
+    "same application adds no type owner request": 12,
+    "stored body trigger and dead image traversal": 1,
+    "explicit unused quantifier type traversal": 1,
+    "cumulative Unit owners": 24,
+    "Unit discarded application remains before replacement": 24,
+    "discarded rho and tuple lookup": 24,
+    "ordinary record probes tuple memo": 1,
+    "R1 first mismatch exports zero map work": 1,
+    "R1 source arguments have no sequential let": 1,
+    "R1 candidate add constructs nonidentity map": 1,
+    "R1 overload mismatch continues later candidates": 1,
+    "submap logical result": 529,
+    "submap temporary-node product bound": 529,
+    "submap disjoint comparison rectangles": 1285
+  },
+  "elapsed_seconds": 1.608728721999796,
+  "host": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "inputs": {
+    "docs/evidence/retained-main-construction-demand-20261024/contract-builders/README.md": "d2be7aea38a570c590a192d1ccc840633e6ace0722002885f23de9f65091ddf5",
+    "docs/evidence/retained-main-construction-demand-20261024/contract-builders/builders.py": "f0787ab933dbc979130cdafece1395ff1edcb71dc19a785299aaed7414d0585e",
+    "docs/evidence/retained-main-construction-demand-20261024/contract-builders/check.py": "62aebb22ed156c9860b9b5a697cb470725221ecfcfbf3c9e334eb2702e933c4a",
+    "docs/evidence/retained-main-construction-demand-20261024/contract-builders/checkpoint.md": "754b668b069750f7548f96745d2bf26b99dbbccf29aedb50982b200d6cb765f1",
+    "docs/evidence/retained-main-construction-demand-20261024/contract-builders/exports.json": "29e81a3b34c55df7f4f1793026011f30ea59a1e06b6b88156d9ae096c443972e",
+    "docs/evidence/retained-main-construction-demand-20261024/contract-builders/identity.json": "02669f0ed5b8d434d65d699276d9b3335f410773156d9d4f23d808fef0b41809",
+    "docs/evidence/retained-main-construction-demand-20261024/contract-builders/result.json": "35e0d20e32a8a84a0d2f644888e1b6ac2a2a3847725b8381602428bde6e48c66",
+    "docs/evidence/retained-main-construction-demand-20261024/contract-builders/round.json": "4b81b36a27bef49f16b8ace824bf0e7248217026d53dd29d99fc5bf324bc1511",
+    "docs/evidence/retained-main-construction-demand-20261024/contract-builders/sites.json": "3fb93ac5ad366908aff07e778cc89cd44b89d4ab9dfff6f5fc81286fb72c7eae",
+    "docs/evidence/retained-main-construction-demand-20261024/contract-builders/sites.py": "a82da9859313ecf0918602dddddd346376de59e926864d3b6c2186e8782a8211",
+    "docs/research/retained-main-construction-demand.md": "b85b27b4623a61d59d40a16a865b5c36d3fa76be74b2c7ebc76114c2ecdef0c7"
+  },
+  "inventory": {
+    "ancestors": 11,
+    "remaining_origins": 58,
+    "definitions": [
+      [
+        "ada__model.Index_Type",
+        "first"
+      ],
+      [
+        "ada__model.Index_Type",
+        "last"
+      ],
+      [
+        "ada__model.Unconstr_Array",
+        "of_array"
+      ],
+      [
+        "ada__model.Unconstr_Array",
+        "to_array"
+      ]
+    ]
+  },
+  "diagrams": {
+    "unit_entries": 24,
+    "external_state_diagrams": 12,
+    "submap_cases": 529,
+    "R1": {
+      "model_first_mismatch_map_events": [],
+      "model_map_bytes_upper": 0,
+      "source_possible_prior_nonidentity_Mvs_add": 1,
+      "native_evaluation_order_executed": false
+    }
+  },
+  "native_runs": 0,
+  "author_checker_runs": 0,
+  "predecessor_checker_runs": 0
+}
