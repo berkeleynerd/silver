@@ -127,6 +127,14 @@ native annotation work from a certified acyclic operand height. #211 is
 In review pending delivery. Source-derived dynamic folding/height and the
 actual inherited clone-map/caller history remain open; these conditional
 transfers do not close either work package.
+The remaining [fixed-report composition #212](https://github.com/berkeleynerd/silver/issues/212)
+is now explicit and In progress under the same #119 authorization. Its
+[input inventory](retained-fixed-report-composition.md) separates
+accepted operands from missing body-specific graph/name/location/path bounds
+and the prospective #88 argv binding. It can proceed from #193/#194/#206 in
+parallel with #201/#202; its Main instance retains #202's prerequisites.
+Complete these source/provider joins before the final whole-rule comparison
+and review. No existing conditional interface or production status changes.
 General native compilation beyond the literal family is tracked in
 [#201](https://github.com/berkeleynerd/silver/issues/201), arbitrary-Main Why
 representation/failure lifetimes in #202. Both are In progress. Checked
