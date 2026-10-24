@@ -579,7 +579,7 @@
       },
       "sarif_string_bytes": 647,
       "sarif_string_allocation": 776,
-      "vss_aliases": 448,
+      "vss_aliases": 704,
       "argument_vector_allocation": 8256,
       "sarif_output_character_allocation": 64,
       "guards": {
@@ -758,5 +758,5 @@
   "prover_runs": 0,
   "solver_runs": 0,
   "predecessor_checker_replays": 0,
-  "elapsed_seconds": 0.268979
+  "elapsed_seconds": 0.326315
 }
