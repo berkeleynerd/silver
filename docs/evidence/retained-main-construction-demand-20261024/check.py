@@ -256,13 +256,58 @@ def edge_diagrams():
     return dict(capture_ident_increments=out.ident_increments, cty_ident_increments=ctyd.kernel.ident_increments)
 
 
+def clone_premise_diagrams():
+    """#211: preserve the native counterexample and reject the proof entry."""
+    it = b.Ty('int')
+    x, v, z = (k.Var(i,it) for i in (1,2,3))
+    d = b.Demand(k.Ledger(100))
+    t = k.close('forall',(v,),k.node('app',k.var(x),k.var(v),symbol='R'),d.kernel)
+    raw = b._gen_map(t,{x:v},lambda ty:ty,lambda ls:ls,d)
+    opened = canonical(semantics(raw))
+    check(opened[-1][-1][0][0] == 'bound' and opened[-1][-1][1][0] == 'bound',
+          'raw native mapper captures with injective incompatible map')
+    check(b.stored_closed(raw) and raw.binding.free == {v:1},
+          'saved support alone cannot establish cache correctness')
+    reject(lambda:b.gen_map(t,{x:v},lambda ty:ty,lambda ls:ls,d),
+           'proof wrapper rejects reviewer capture counterexample')
+    reject(lambda:b.gen_map(t,{},lambda ty:ty,lambda ls:ls,d),
+           'proof wrapper requires cached support coverage')
+    good = b.gen_map(t,{x:z},lambda ty:ty,lambda ls:ls,d)
+    check(canonical(semantics(good)) == canonical(eager(semantics(t),{}, {x.tag:k.var(z)})),
+          'fresh external clone target preserves free and bound roles')
+    check(good.binding.variables == (v,) and good.binding.free == {z:1},
+          'repair retains native unchanged bound variable')
+
+    # Freshly added formals do not repair an incompatible inherited entry.
+    formal = k.Var(4,it)
+    fresh_formal = k.Var(5,it)
+    inherited = {x:v}
+    extended = inherited | {formal:fresh_formal}
+    reject(lambda:b.gen_map(t,extended,lambda ty:ty,lambda ls:ls,d),
+           'fresh formals do not sanitize inherited clone-map capture')
+
+    # Check the source graph, not just currently visible binders: a saved
+    # image has a local binder whose identity must also be protected.
+    hidden = k.close('eps',(v,),k.node('app',k.var(v),symbol='P'),d.kernel)
+    saved = k.close('forall',(formal,),k.node('app',k.var(x),symbol='P'),d.kernel)
+    saved = k.subst({x:hidden},saved,d.kernel)
+    check(v in b.stored_variables(saved) and not k.t_vars(saved,d.kernel),
+          'capture premise inspects identities in saved images')
+    reject(lambda:b.gen_map(saved,{z:v},lambda ty:ty,lambda ls:ls,d),
+           'proof wrapper protects saved-image binder identities')
+    return {'raw_counterexample_preserved':True,'proof_entry_rejects_capture':True,
+            'actual_inherited_clone_map_attachment':'conditional; not discharged'}
+
+
 def main():
     started = time.monotonic()
     identities()
     totals = generated_diagrams()
     edges = edge_diagrams()
+    clone_premises = clone_premise_diagrams()
     result = dict(status='pass', assertions=sum(CHECKS.values()), families=dict(CHECKS),
                   generated_diagrams=100, aggregate_new_diagram_demand=dict(totals), edges=edges,
+                  clone_premise_repair=clone_premises,
                   elapsed_seconds=time.monotonic()-started, host=platform.platform(),
                   native_runs=0, predecessor_checker_replays=0, complete_source_to_vc_storage=False)
     (HERE/'result.json').write_text(json.dumps(result,indent=2)+'\n')

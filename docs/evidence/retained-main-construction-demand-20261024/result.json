@@ -1,12 +1,12 @@
 {
   "status": "pass",
-  "assertions": 1092,
+  "assertions": 1110,
   "families": {
     "provider identity": 4,
     "retained archive identity": 1,
     "complete retained source identity": 8,
-    "source span identity": 17,
-    "source branch anchor": 42,
+    "source span identity": 19,
+    "source branch anchor": 49,
     "constructor support and positive caches": 100,
     "substitution preserves stored support": 300,
     "instantiation preserves stored support": 100,
@@ -34,7 +34,16 @@
     "uncached callback request bound includes repeated old type": 1,
     "generic wrapper covers repeated term type callbacks": 1,
     "cty all pre post xpost roots": 1,
-    "same-type cty bypasses generic mapper": 1
+    "same-type cty bypasses generic mapper": 1,
+    "raw native mapper captures with injective incompatible map": 1,
+    "saved support alone cannot establish cache correctness": 1,
+    "proof wrapper rejects reviewer capture counterexample": 1,
+    "proof wrapper requires cached support coverage": 1,
+    "fresh external clone target preserves free and bound roles": 1,
+    "repair retains native unchanged bound variable": 1,
+    "fresh formals do not sanitize inherited clone-map capture": 1,
+    "capture premise inspects identities in saved images": 1,
+    "proof wrapper protects saved-image binder identities": 1
   },
   "generated_diagrams": 100,
   "aggregate_new_diagram_demand": {
@@ -47,7 +56,12 @@
     "capture_ident_increments": 3,
     "cty_ident_increments": 7
   },
-  "elapsed_seconds": 0.6491927450042567,
+  "clone_premise_repair": {
+    "raw_counterexample_preserved": true,
+    "proof_entry_rejects_capture": true,
+    "actual_inherited_clone_map_attachment": "conditional; not discharged"
+  },
+  "elapsed_seconds": 0.6530244599998696,
   "host": "Linux-7.0.14-x86_64-with-glibc2.43",
   "native_runs": 0,
   "predecessor_checker_replays": 0,

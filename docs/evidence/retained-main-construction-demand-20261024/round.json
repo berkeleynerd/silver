@@ -11,10 +11,10 @@
   "author_checkpoint_utc": "2026-10-24 04:15:59 UTC",
   "elapsed_to_checkpoint_seconds": 1385,
   "intended_result": "Attach source/type/kode/SPWP construction demand to the accepted stored-Term kernel and populated cut-C provider",
-  "achieved_result": "Saved-image support and positive-cache invariant; capture-sensitive generic mapper and type-instantiation seam; exact visit/freshening/type-callback recurrences; cty stage-4 and clone-term attachment; concrete remaining caller ledger",
+  "achieved_result": "Saved-support and type-instantiation bridge under corrected coverage/capture premises, constructively supplied by t_subst_types; generic clone dispatch and conditional preservation rule; actual inherited clone-map attachment remains open",
   "complete_source_to_initial_vc_storage": false,
   "complete_native_byte_bound_for_generic_mapper": false,
-  "independent_review_status": "not yet reviewed",
+  "independent_review_status": "Review62dee518 found material capture-premise gap #211; bounded author repair complete, final independent repair review pending",
   "material_findings": [
     "Opened term size cannot recover saved-map histories or caller multiplicities",
     "The original outer variable map, not the progressively extended saved-key map, must interpret saved images",
@@ -23,14 +23,49 @@
     "Resolved typed-call counts omit earlier overload candidate attempts and failures"
   ],
   "new_checks": [
-    {"assertions": 1075, "elapsed_seconds": 0.5749343830029829, "reason": "first new bridge diagrams and source identity check"},
-    {"assertions": 1080, "elapsed_seconds": 0.6698226730004535, "reason": "added nested type/Hsty and repeated callback questions"},
-    {"assertions": 1092, "elapsed_seconds": 0.6491927450042567, "reason": "added image-domain, empty-case, noninjective-map and caller source correspondence checks"}
+    {
+      "assertions": 1075,
+      "elapsed_seconds": 0.5749343830029829,
+      "reason": "first new bridge diagrams and source identity check"
+    },
+    {
+      "assertions": 1080,
+      "elapsed_seconds": 0.6698226730004535,
+      "reason": "added nested type/Hsty and repeated callback questions"
+    },
+    {
+      "assertions": 1092,
+      "elapsed_seconds": 0.6491927450042567,
+      "reason": "added image-domain, empty-case, noninjective-map and caller source correspondence checks"
+    }
   ],
   "failed_author_checks": 0,
   "native_runs": 0,
   "predecessor_checker_replays": 0,
   "tokens": null,
   "cost": null,
-  "cli_memory_updated": false
+  "cli_memory_updated": false,
+  "original_achieved_result_as_claimed": "Saved-image support and positive-cache invariant; capture-sensitive generic mapper and type-instantiation seam; exact visit/freshening/type-callback recurrences; cty stage-4 and clone-term attachment; concrete remaining caller ledger",
+  "repair_211": {
+    "original_author_freeze": "5d9ed9375c4db7fd92b8c7317402754c8fede354",
+    "provisional_review_commit": "62dee518226c221e3e396a76ee5693272ee01f23",
+    "selected_model": "GPT-6 Astra",
+    "selected_effort": "Extra High",
+    "runtime_model_confirmation": null,
+    "runtime_effort_confirmation": null,
+    "first_recorded_clock_utc": "2026-10-24 04:22:15 UTC",
+    "author_checkpoint_utc": "2026-10-24 04:27:29 UTC",
+    "recorded_elapsed_seconds": 314,
+    "elapsed_scope": "Excludes subsequent commit and final handoff work",
+    "finding": "Injection/type compatibility alone allow capture by an unchanged binder; saved support does not establish cache correctness",
+    "disposition": "Explicit coverage/capture premise with preservation proof; constructive t_subst_types guarantee retained; inherited clone-map attachment explicitly conditional; native raw counterexample retained and proof wrapper rejects it",
+    "changed_input_checks": 1,
+    "assertions": 1110,
+    "check_elapsed_seconds": 0.6530244599998696,
+    "native_runs": 0,
+    "predecessor_checker_replays": 0,
+    "tokens": null,
+    "cost": null,
+    "final_review_status": "pending"
+  }
 }

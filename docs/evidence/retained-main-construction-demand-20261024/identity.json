@@ -128,6 +128,27 @@
               "sm_args",
               "sm_olds"
             ]
+          },
+          {
+            "first": 851,
+            "last": 883,
+            "sha256": "6e183d6c08bd6b50a0270e98637b754141eb11ccf2171ccd7b17927c4443bdb7",
+            "anchors": [
+              "let sm_of_cl",
+              "cl.pv_table",
+              "let sm_save_vs",
+              "let sm_save_pv",
+              "RLpv"
+            ]
+          },
+          {
+            "first": 1458,
+            "last": 1466,
+            "sha256": "1d23d09fe6073129c16402f8d0aa761f719a788b2b9c08d5d1ce00d44b6fd741",
+            "anchors": [
+              "clone_let_defn loc cl (sm_of_cl cl)",
+              "cl.pv_table <- sm.sm_pv"
+            ]
           }
         ]
       },
@@ -232,5 +253,7 @@
       "path": "docs/research/retained-main-entry-capacity.md",
       "sha256": "a573e245cd6cee13d10fd8860b771c87b29ac8bc4cb7a235cf8e559f28fbdc3f"
     }
-  ]
+  ],
+  "repair_review_commit": "62dee518226c221e3e396a76ee5693272ee01f23",
+  "repair_issue": 211
 }
