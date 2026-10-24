@@ -1,10 +1,14 @@
 {
   "status": "pass",
-  "checks": 1560,
+  "checks": 1623,
   "scope": "Conditional response parser representation through Read_File return/propagation",
   "platform": "Linux x86_64 source/configuration model; offline Python checks",
   "source_files": 49,
-  "provider_files": 20,
+  "provider_files": 27,
+  "merged_source_ranges": 9,
+  "original_freeze": "e87701a25b2c1a953c9313a4f0e35505c6ba57a7",
+  "reviewed_seam_repair_issue": 188,
+  "stderr_merged_into_response_file": true,
   "stream_source_counterexample": {
     "initial_last": 0,
     "initial_current": 0,
@@ -72,17 +76,21 @@
         "response_path_bytes": 416,
         "runtime_max_path": 4096,
         "runtime_page_size": 4096,
-        "malformed_stdout_bytes": 683528842,
+        "stdout_only_component_bytes": 683528842,
+        "stderr_diagnostic_attempts": 155,
+        "merged_text_bytes": 683537173,
+        "direct_stderr_bytes": 4878755,
+        "malformed_merged_file_bytes": 688428436,
         "malformed_guard": {
           "operands": {
             "parser_state_backing": 1073741824,
             "key_builder_backing": 1073741824,
             "normalized_path_majorant": 4513,
             "path_builder_backing": 8192,
-            "xstring_growth_current": 683528841,
-            "xstring_product": 2050586523,
-            "xstring_round_input": 1025293261,
-            "xstring_backing": 1025294336,
+            "xstring_growth_current": 688428435,
+            "xstring_product": 2065285305,
+            "xstring_round_input": 1032642652,
+            "xstring_backing": 1032646656,
             "vector_backing": 1073741824,
             "json_counter": 3221225504,
             "xstring_counter": 16,
@@ -180,17 +188,21 @@
         "response_path_bytes": 416,
         "runtime_max_path": 4096,
         "runtime_page_size": 4096,
-        "malformed_stdout_bytes": 612872719,
+        "stdout_only_component_bytes": 612872719,
+        "stderr_diagnostic_attempts": 128,
+        "merged_text_bytes": 612879322,
+        "direct_stderr_bytes": 4878755,
+        "malformed_merged_file_bytes": 617768695,
         "malformed_guard": {
           "operands": {
             "parser_state_backing": 1073741824,
             "key_builder_backing": 1073741824,
             "normalized_path_majorant": 4513,
             "path_builder_backing": 8192,
-            "xstring_growth_current": 612872718,
-            "xstring_product": 1838618154,
-            "xstring_round_input": 919309077,
-            "xstring_backing": 919310336,
+            "xstring_growth_current": 617768694,
+            "xstring_product": 1853306082,
+            "xstring_round_input": 926653041,
+            "xstring_backing": 926654464,
             "vector_backing": 1073741824,
             "json_counter": 3221225504,
             "xstring_counter": 16,
@@ -288,17 +300,21 @@
         "response_path_bytes": 416,
         "runtime_max_path": 4096,
         "runtime_page_size": 4096,
-        "malformed_stdout_bytes": 531472339,
+        "stdout_only_component_bytes": 531472339,
+        "stderr_diagnostic_attempts": 68,
+        "merged_text_bytes": 531475102,
+        "direct_stderr_bytes": 4878755,
+        "malformed_merged_file_bytes": 536360275,
         "malformed_guard": {
           "operands": {
             "parser_state_backing": 536870912,
             "key_builder_backing": 536870912,
             "normalized_path_majorant": 4513,
             "path_builder_backing": 8192,
-            "xstring_growth_current": 531472338,
-            "xstring_product": 1594417014,
-            "xstring_round_input": 797208507,
-            "xstring_backing": 797208576,
+            "xstring_growth_current": 536360274,
+            "xstring_product": 1609080822,
+            "xstring_round_input": 804540411,
+            "xstring_backing": 804540416,
             "vector_backing": 536870912,
             "json_counter": 1610612768,
             "xstring_counter": 16,
@@ -396,17 +412,21 @@
         "response_path_bytes": 416,
         "runtime_max_path": 4096,
         "runtime_page_size": 4096,
-        "malformed_stdout_bytes": 164523436,
+        "stdout_only_component_bytes": 164523436,
+        "stderr_diagnostic_attempts": 8,
+        "merged_text_bytes": 164522359,
+        "direct_stderr_bytes": 4878755,
+        "malformed_merged_file_bytes": 169403332,
         "malformed_guard": {
           "operands": {
             "parser_state_backing": 268435456,
             "key_builder_backing": 268435456,
             "normalized_path_majorant": 4513,
             "path_builder_backing": 8192,
-            "xstring_growth_current": 164523435,
-            "xstring_product": 493570305,
-            "xstring_round_input": 246785152,
-            "xstring_backing": 246788096,
+            "xstring_growth_current": 169403331,
+            "xstring_product": 508209993,
+            "xstring_round_input": 254104996,
+            "xstring_backing": 254107648,
             "vector_backing": 268435456,
             "json_counter": 805306400,
             "xstring_counter": 16,
@@ -504,17 +524,21 @@
         "response_path_bytes": 416,
         "runtime_max_path": 4096,
         "runtime_page_size": 4096,
-        "malformed_stdout_bytes": 212693056,
+        "stdout_only_component_bytes": 212693056,
+        "stderr_diagnostic_attempts": 5,
+        "merged_text_bytes": 212691787,
+        "direct_stderr_bytes": 4878755,
+        "malformed_merged_file_bytes": 217572550,
         "malformed_guard": {
           "operands": {
             "parser_state_backing": 268435456,
             "key_builder_backing": 268435456,
             "normalized_path_majorant": 4513,
             "path_builder_backing": 8192,
-            "xstring_growth_current": 212693055,
-            "xstring_product": 638079165,
-            "xstring_round_input": 319039582,
-            "xstring_backing": 319041536,
+            "xstring_growth_current": 217572549,
+            "xstring_product": 652717647,
+            "xstring_round_input": 326358823,
+            "xstring_backing": 326361088,
             "vector_backing": 268435456,
             "json_counter": 805306400,
             "xstring_counter": 16,
@@ -567,22 +591,24 @@
         "R4": 10448488,
         "X": 41798768,
         "text": 250793184,
-        "stdout": 250796153
+        "stdout_component": 250796153,
+        "direct_stderr": 20897229,
+        "merged_file": 271693521
       },
       "guard": {
         "operands": {
-          "parser_state_backing": 268435456,
-          "key_builder_backing": 268435456,
+          "parser_state_backing": 536870912,
+          "key_builder_backing": 536870912,
           "normalized_path_majorant": 4513,
           "path_builder_backing": 8192,
-          "xstring_growth_current": 250796152,
-          "xstring_product": 752388456,
-          "xstring_round_input": 376194228,
-          "xstring_backing": 376197120,
-          "vector_backing": 268435456,
-          "json_counter": 805306400,
+          "xstring_growth_current": 271693520,
+          "xstring_product": 815080560,
+          "xstring_round_input": 407540280,
+          "xstring_backing": 407543808,
+          "vector_backing": 536870912,
+          "json_counter": 1610612768,
           "xstring_counter": 16,
-          "per_object_bytes": 68719476992
+          "per_object_bytes": 137438953728
         },
         "guards": {
           "file_and_scanner_spare": true,
@@ -615,22 +641,24 @@
         "R4": 10448488,
         "X": 41798768,
         "text": 250793184,
-        "stdout": 250796153
+        "stdout_component": 250796153,
+        "direct_stderr": 20897229,
+        "merged_file": 271693521
       },
       "guard": {
         "operands": {
-          "parser_state_backing": 268435456,
-          "key_builder_backing": 268435456,
+          "parser_state_backing": 536870912,
+          "key_builder_backing": 536870912,
           "normalized_path_majorant": 4513,
           "path_builder_backing": 8192,
-          "xstring_growth_current": 250796152,
-          "xstring_product": 752388456,
-          "xstring_round_input": 376194228,
-          "xstring_backing": 376197120,
-          "vector_backing": 268435456,
-          "json_counter": 805306400,
+          "xstring_growth_current": 271693520,
+          "xstring_product": 815080560,
+          "xstring_round_input": 407540280,
+          "xstring_backing": 407543808,
+          "vector_backing": 536870912,
+          "json_counter": 1610612768,
           "xstring_counter": 16,
-          "per_object_bytes": 68719476992
+          "per_object_bytes": 137438953728
         },
         "guards": {
           "file_and_scanner_spare": true,
@@ -663,7 +691,9 @@
         "R4": 13257832,
         "X": 53037088,
         "text": 318223104,
-        "stdout": 318226073
+        "stdout_component": 318226073,
+        "direct_stderr": 26515917,
+        "merged_file": 344742129
       },
       "guard": {
         "operands": {
@@ -671,10 +701,10 @@
           "key_builder_backing": 536870912,
           "normalized_path_majorant": 4513,
           "path_builder_backing": 8192,
-          "xstring_growth_current": 318226072,
-          "xstring_product": 954678216,
-          "xstring_round_input": 477339108,
-          "xstring_backing": 477339648,
+          "xstring_growth_current": 344742128,
+          "xstring_product": 1034226384,
+          "xstring_round_input": 517113192,
+          "xstring_backing": 517115904,
           "vector_backing": 536870912,
           "json_counter": 1610612768,
           "xstring_counter": 16,
@@ -711,22 +741,24 @@
         "R4": 10448488,
         "X": 41798768,
         "text": 250793184,
-        "stdout": 250796153
+        "stdout_component": 250796153,
+        "direct_stderr": 20897229,
+        "merged_file": 271693521
       },
       "guard": {
         "operands": {
-          "parser_state_backing": 268435456,
-          "key_builder_backing": 268435456,
+          "parser_state_backing": 536870912,
+          "key_builder_backing": 536870912,
           "normalized_path_majorant": 4513,
           "path_builder_backing": 8192,
-          "xstring_growth_current": 250796152,
-          "xstring_product": 752388456,
-          "xstring_round_input": 376194228,
-          "xstring_backing": 376197120,
-          "vector_backing": 268435456,
-          "json_counter": 805306400,
+          "xstring_growth_current": 271693520,
+          "xstring_product": 815080560,
+          "xstring_round_input": 407540280,
+          "xstring_backing": 407543808,
+          "vector_backing": 536870912,
+          "json_counter": 1610612768,
           "xstring_counter": 16,
-          "per_object_bytes": 68719476992
+          "per_object_bytes": 137438953728
         },
         "guards": {
           "file_and_scanner_spare": true,
@@ -759,22 +791,24 @@
         "R4": 10448488,
         "X": 41798768,
         "text": 250793184,
-        "stdout": 250796153
+        "stdout_component": 250796153,
+        "direct_stderr": 20897229,
+        "merged_file": 271693521
       },
       "guard": {
         "operands": {
-          "parser_state_backing": 268435456,
-          "key_builder_backing": 268435456,
+          "parser_state_backing": 536870912,
+          "key_builder_backing": 536870912,
           "normalized_path_majorant": 4513,
           "path_builder_backing": 8192,
-          "xstring_growth_current": 250796152,
-          "xstring_product": 752388456,
-          "xstring_round_input": 376194228,
-          "xstring_backing": 376197120,
-          "vector_backing": 268435456,
-          "json_counter": 805306400,
+          "xstring_growth_current": 271693520,
+          "xstring_product": 815080560,
+          "xstring_round_input": 407540280,
+          "xstring_backing": 407543808,
+          "vector_backing": 536870912,
+          "json_counter": 1610612768,
           "xstring_counter": 16,
-          "per_object_bytes": 68719476992
+          "per_object_bytes": 137438953728
         },
         "guards": {
           "file_and_scanner_spare": true,
@@ -807,7 +841,9 @@
         "R4": 13257832,
         "X": 53037088,
         "text": 318223104,
-        "stdout": 318226073
+        "stdout_component": 318226073,
+        "direct_stderr": 26515917,
+        "merged_file": 344742129
       },
       "guard": {
         "operands": {
@@ -815,10 +851,10 @@
           "key_builder_backing": 536870912,
           "normalized_path_majorant": 4513,
           "path_builder_backing": 8192,
-          "xstring_growth_current": 318226072,
-          "xstring_product": 954678216,
-          "xstring_round_input": 477339108,
-          "xstring_backing": 477339648,
+          "xstring_growth_current": 344742128,
+          "xstring_product": 1034226384,
+          "xstring_round_input": 517113192,
+          "xstring_backing": 517115904,
           "vector_backing": 536870912,
           "json_counter": 1610612768,
           "xstring_counter": 16,
@@ -855,22 +891,24 @@
         "R4": 10448488,
         "X": 41798768,
         "text": 250793184,
-        "stdout": 250796153
+        "stdout_component": 250796153,
+        "direct_stderr": 20897229,
+        "merged_file": 271693521
       },
       "guard": {
         "operands": {
-          "parser_state_backing": 268435456,
-          "key_builder_backing": 268435456,
+          "parser_state_backing": 536870912,
+          "key_builder_backing": 536870912,
           "normalized_path_majorant": 4513,
           "path_builder_backing": 8192,
-          "xstring_growth_current": 250796152,
-          "xstring_product": 752388456,
-          "xstring_round_input": 376194228,
-          "xstring_backing": 376197120,
-          "vector_backing": 268435456,
-          "json_counter": 805306400,
+          "xstring_growth_current": 271693520,
+          "xstring_product": 815080560,
+          "xstring_round_input": 407540280,
+          "xstring_backing": 407543808,
+          "vector_backing": 536870912,
+          "json_counter": 1610612768,
           "xstring_counter": 16,
-          "per_object_bytes": 68719476992
+          "per_object_bytes": 137438953728
         },
         "guards": {
           "file_and_scanner_spare": true,
@@ -903,22 +941,24 @@
         "R4": 10448488,
         "X": 41798768,
         "text": 250793184,
-        "stdout": 250796153
+        "stdout_component": 250796153,
+        "direct_stderr": 20897229,
+        "merged_file": 271693521
       },
       "guard": {
         "operands": {
-          "parser_state_backing": 268435456,
-          "key_builder_backing": 268435456,
+          "parser_state_backing": 536870912,
+          "key_builder_backing": 536870912,
           "normalized_path_majorant": 4513,
           "path_builder_backing": 8192,
-          "xstring_growth_current": 250796152,
-          "xstring_product": 752388456,
-          "xstring_round_input": 376194228,
-          "xstring_backing": 376197120,
-          "vector_backing": 268435456,
-          "json_counter": 805306400,
+          "xstring_growth_current": 271693520,
+          "xstring_product": 815080560,
+          "xstring_round_input": 407540280,
+          "xstring_backing": 407543808,
+          "vector_backing": 536870912,
+          "json_counter": 1610612768,
           "xstring_counter": 16,
-          "per_object_bytes": 68719476992
+          "per_object_bytes": 137438953728
         },
         "guards": {
           "file_and_scanner_spare": true,
@@ -951,7 +991,9 @@
         "R4": 13257832,
         "X": 53037088,
         "text": 318223104,
-        "stdout": 318226073
+        "stdout_component": 318226073,
+        "direct_stderr": 26515917,
+        "merged_file": 344742129
       },
       "guard": {
         "operands": {
@@ -959,10 +1001,10 @@
           "key_builder_backing": 536870912,
           "normalized_path_majorant": 4513,
           "path_builder_backing": 8192,
-          "xstring_growth_current": 318226072,
-          "xstring_product": 954678216,
-          "xstring_round_input": 477339108,
-          "xstring_backing": 477339648,
+          "xstring_growth_current": 344742128,
+          "xstring_product": 1034226384,
+          "xstring_round_input": 517113192,
+          "xstring_backing": 517115904,
           "vector_backing": 536870912,
           "json_counter": 1610612768,
           "xstring_counter": 16,
@@ -999,22 +1041,24 @@
         "R4": 10448488,
         "X": 41798768,
         "text": 250793184,
-        "stdout": 250796153
+        "stdout_component": 250796153,
+        "direct_stderr": 20897229,
+        "merged_file": 271693521
       },
       "guard": {
         "operands": {
-          "parser_state_backing": 268435456,
-          "key_builder_backing": 268435456,
+          "parser_state_backing": 536870912,
+          "key_builder_backing": 536870912,
           "normalized_path_majorant": 4513,
           "path_builder_backing": 8192,
-          "xstring_growth_current": 250796152,
-          "xstring_product": 752388456,
-          "xstring_round_input": 376194228,
-          "xstring_backing": 376197120,
-          "vector_backing": 268435456,
-          "json_counter": 805306400,
+          "xstring_growth_current": 271693520,
+          "xstring_product": 815080560,
+          "xstring_round_input": 407540280,
+          "xstring_backing": 407543808,
+          "vector_backing": 536870912,
+          "json_counter": 1610612768,
           "xstring_counter": 16,
-          "per_object_bytes": 68719476992
+          "per_object_bytes": 137438953728
         },
         "guards": {
           "file_and_scanner_spare": true,
@@ -1047,22 +1091,24 @@
         "R4": 10448488,
         "X": 41798768,
         "text": 250793184,
-        "stdout": 250796153
+        "stdout_component": 250796153,
+        "direct_stderr": 20897229,
+        "merged_file": 271693521
       },
       "guard": {
         "operands": {
-          "parser_state_backing": 268435456,
-          "key_builder_backing": 268435456,
+          "parser_state_backing": 536870912,
+          "key_builder_backing": 536870912,
           "normalized_path_majorant": 4513,
           "path_builder_backing": 8192,
-          "xstring_growth_current": 250796152,
-          "xstring_product": 752388456,
-          "xstring_round_input": 376194228,
-          "xstring_backing": 376197120,
-          "vector_backing": 268435456,
-          "json_counter": 805306400,
+          "xstring_growth_current": 271693520,
+          "xstring_product": 815080560,
+          "xstring_round_input": 407540280,
+          "xstring_backing": 407543808,
+          "vector_backing": 536870912,
+          "json_counter": 1610612768,
           "xstring_counter": 16,
-          "per_object_bytes": 68719476992
+          "per_object_bytes": 137438953728
         },
         "guards": {
           "file_and_scanner_spare": true,
@@ -1095,7 +1141,9 @@
         "R4": 13257832,
         "X": 53037088,
         "text": 318223104,
-        "stdout": 318226073
+        "stdout_component": 318226073,
+        "direct_stderr": 26515917,
+        "merged_file": 344742129
       },
       "guard": {
         "operands": {
@@ -1103,10 +1151,10 @@
           "key_builder_backing": 536870912,
           "normalized_path_majorant": 4513,
           "path_builder_backing": 8192,
-          "xstring_growth_current": 318226072,
-          "xstring_product": 954678216,
-          "xstring_round_input": 477339108,
-          "xstring_backing": 477339648,
+          "xstring_growth_current": 344742128,
+          "xstring_product": 1034226384,
+          "xstring_round_input": 517113192,
+          "xstring_backing": 517115904,
           "vector_backing": 536870912,
           "json_counter": 1610612768,
           "xstring_counter": 16,
@@ -1143,22 +1191,24 @@
         "R4": 10448488,
         "X": 41798768,
         "text": 250793184,
-        "stdout": 250796153
+        "stdout_component": 250796153,
+        "direct_stderr": 20897229,
+        "merged_file": 271693521
       },
       "guard": {
         "operands": {
-          "parser_state_backing": 268435456,
-          "key_builder_backing": 268435456,
+          "parser_state_backing": 536870912,
+          "key_builder_backing": 536870912,
           "normalized_path_majorant": 4513,
           "path_builder_backing": 8192,
-          "xstring_growth_current": 250796152,
-          "xstring_product": 752388456,
-          "xstring_round_input": 376194228,
-          "xstring_backing": 376197120,
-          "vector_backing": 268435456,
-          "json_counter": 805306400,
+          "xstring_growth_current": 271693520,
+          "xstring_product": 815080560,
+          "xstring_round_input": 407540280,
+          "xstring_backing": 407543808,
+          "vector_backing": 536870912,
+          "json_counter": 1610612768,
           "xstring_counter": 16,
-          "per_object_bytes": 68719476992
+          "per_object_bytes": 137438953728
         },
         "guards": {
           "file_and_scanner_spare": true,
@@ -1191,22 +1241,24 @@
         "R4": 10448488,
         "X": 41798768,
         "text": 250793184,
-        "stdout": 250796153
+        "stdout_component": 250796153,
+        "direct_stderr": 20897229,
+        "merged_file": 271693521
       },
       "guard": {
         "operands": {
-          "parser_state_backing": 268435456,
-          "key_builder_backing": 268435456,
+          "parser_state_backing": 536870912,
+          "key_builder_backing": 536870912,
           "normalized_path_majorant": 4513,
           "path_builder_backing": 8192,
-          "xstring_growth_current": 250796152,
-          "xstring_product": 752388456,
-          "xstring_round_input": 376194228,
-          "xstring_backing": 376197120,
-          "vector_backing": 268435456,
-          "json_counter": 805306400,
+          "xstring_growth_current": 271693520,
+          "xstring_product": 815080560,
+          "xstring_round_input": 407540280,
+          "xstring_backing": 407543808,
+          "vector_backing": 536870912,
+          "json_counter": 1610612768,
           "xstring_counter": 16,
-          "per_object_bytes": 68719476992
+          "per_object_bytes": 137438953728
         },
         "guards": {
           "file_and_scanner_spare": true,
@@ -1239,7 +1291,9 @@
         "R4": 13257832,
         "X": 53037088,
         "text": 318223104,
-        "stdout": 318226073
+        "stdout_component": 318226073,
+        "direct_stderr": 26515917,
+        "merged_file": 344742129
       },
       "guard": {
         "operands": {
@@ -1247,10 +1301,10 @@
           "key_builder_backing": 536870912,
           "normalized_path_majorant": 4513,
           "path_builder_backing": 8192,
-          "xstring_growth_current": 318226072,
-          "xstring_product": 954678216,
-          "xstring_round_input": 477339108,
-          "xstring_backing": 477339648,
+          "xstring_growth_current": 344742128,
+          "xstring_product": 1034226384,
+          "xstring_round_input": 517113192,
+          "xstring_backing": 517115904,
           "vector_backing": 536870912,
           "json_counter": 1610612768,
           "xstring_counter": 16,
@@ -1278,7 +1332,7 @@
       "actual_config_attached": false
     }
   ],
-  "precut_parser_guard_P_upper_only": 3060,
+  "precut_parser_guard_P_upper_only": 2771,
   "composed_with_provider_P_upper": 1927,
   "malformed_maximum_byte_bound_under_guard": 1073741823,
   "actual_configuration_guards": null,
@@ -1294,5 +1348,5 @@
   "whole_119_complete": false,
   "production_changes": false,
   "independent_review_required": true,
-  "elapsed_seconds": 0.09045908199914265
+  "elapsed_seconds": 1.409773558996676
 }

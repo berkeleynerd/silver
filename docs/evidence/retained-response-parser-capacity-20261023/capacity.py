@@ -52,6 +52,16 @@ def stdout_offer(text_bytes, abort_attempts):
     return text_bytes + 69*(10*abort_attempts+3)+2
 
 
+def merged_offer(text_bytes, abort_attempts, diagnostics, direct_stderr):
+    """Both redirected cores: diagnostics each have one @. flush/reset.
+
+    text_bytes already includes stdout JSON and 64 bytes per stderr diagnostic.
+    The two exit flushes are shared globally. Direct writes add no Format event.
+    """
+    return (text_bytes + 69*(10*abort_attempts+diagnostics+4)
+            + diagnostics+2 + direct_stderr)
+
+
 def arbitrary_stream(b):
     """Any at-most-b byte file, including malformed/spliced report prefixes."""
     return dict(B=b, token=b, key=b, decoded=b, depth=b,
@@ -112,4 +122,6 @@ def precut(P,U_label):
     X=4*(R4+P+1024)
     # Provider's B_std also includes stderr text; safe for stdout.
     return dict(P=P,S=S,C=C,R4=R4,X=X,text=6*X+576,
-                stdout=stdout_offer(6*X+576,4))
+                stdout_component=stdout_offer(6*X+576,4),
+                direct_stderr=2*R4+253,
+                merged_file=merged_offer(6*X+576,4,1,2*R4+253))

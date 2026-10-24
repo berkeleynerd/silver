@@ -3,7 +3,8 @@
   "issue": 186,
   "related": [
     119,
-    187
+    187,
+    188
   ],
   "selected_model": "gpt-6-astra",
   "selected_reasoning_effort": "xhigh",
@@ -38,5 +39,23 @@
     "docs/research/retained-response-parser-capacity.md",
     "docs/evidence/retained-response-parser-capacity-20261023/"
   ],
-  "early_review_feedback": "Independent reviewer requested explicit exclusion of max-box ellipsis; added bound5a+1<=21 below selected default max_boxes. Remaining review pending."
+  "early_review_feedback": "Independent reviewer requested explicit exclusion of max-box ellipsis; added bound5a+1<=21 below selected default max_boxes. Remaining review pending.",
+  "original_author_freeze": "e87701a25b2c1a953c9313a4f0e35505c6ba57a7",
+  "repair_round": {
+    "selected_model": "gpt-6-astra",
+    "selected_reasoning_effort": "xhigh",
+    "runtime_confirmed_model": null,
+    "runtime_confirmed_effort": null,
+    "tokens": null,
+    "cost": null,
+    "total_elapsed_seconds": null,
+    "tracked_elapsed_seconds": 140.007156,
+    "check_elapsed_seconds": 1.409773558996676,
+    "native_elapsed_seconds": 0,
+    "intended_outcome": "Repair reviewed writer-to-consumer seam: stderr is merged into the parsed tempfile",
+    "achieved_result": "Merged core and direct-write bounds retain all5 suffix orientations and15 precut examples; parser-only P2771 intersects accepted provider P1927",
+    "significant_review_finding": "Independent reviewer found Err_To_Out=>True; original stdout-only join superseded, no new framing assumption",
+    "changed_seam_review": "pending exact final commit; preliminary source census accepted",
+    "original_result_preserved_in_commit": "e87701a25b2c1a953c9313a4f0e35505c6ba57a7"
+  }
 }

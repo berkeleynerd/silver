@@ -9,7 +9,7 @@ import tarfile
 import time
 import sys
 sys.dont_write_bytecode = True
-from capacity import I, U, LL, SZ, power2, round_x, normal, terminal, stdout_offer, arbitrary_stream, guard, precut
+from capacity import I, U, LL, SZ, power2, round_x, normal, terminal, stdout_offer, merged_offer, arbitrary_stream, guard, precut
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
@@ -140,6 +140,32 @@ slice_temp=list(old)
 require(sum(v==100 for arr in (old,new,slice_temp) for v in arr)==3)
 require(active==6 and sum(v is not None for v in slots)==7)
 
+# New writer-to-consumer source attachment. The read file merges both channels.
+merged_witnesses=json.loads((HERE/'merged-source-witnesses.json').read_text())
+archives={}
+for witness in merged_witnesses:
+    path=witness['archive']
+    if path not in archives:
+        with tarfile.open(fileobj=io.BytesIO(load_provider(path))) as t:
+            wanted={x['member'] for x in merged_witnesses if x['archive']==path}
+            archives[path]={m:t.extractfile(m).read() for m in wanted}
+    data=archives[path][witness['member']]
+    require(sha(data)==witness['member_sha256'])
+    text=''.join(data.decode().splitlines(keepends=True)[witness['first']-1:witness['last']])
+    require(text==witness['text'] and sha(text.encode())==witness['sha256'])
+texts={x['role']:x['text'] for x in merged_witnesses}
+require('Err_To_Out             => True' in texts['producer_spawn'])
+require('Output_File_Map.Insert (Pid, Name)' in texts['producer_spawn'])
+require('Output_File_Map (Pid)' in texts['producer_collect'])
+require('Parse_Why3_Results (Fn, Timing)' in texts['producer_collect'])
+require('bad argument for int_of_string: %s@.' in texts['stderr diagnostic text and one @.'])
+require('pp_flush_queue state true' in texts['print_newline is one core flush'])
+require('Flush_newline             -> pp_print_newline ppf ()' in texts['Flush_newline dispatch'])
+require('let eprintf fmt = fprintf err_formatter fmt' in texts['eprintf no extra core flush'])
+terminal_input=json.loads(load_provider('docs/evidence/retained-why-terminal-diagnostic-bytes-20261023/result.json'))
+terminal_orientation=terminal_input['configuration_range_example_only']
+printer_input=json.loads(load_provider('docs/evidence/retained-printer-output-round66-20261023/integration-result.json'))
+printer_rows={x['case'].replace('-','_'):x for x in printer_input['cases']}
 j=json.loads(load_provider('docs/evidence/retained-why-canonical-json-input-20261023/result.json'))
 r=json.loads(load_provider('docs/evidence/retained-reporting-composition-20261023/result.json'))
 report={x['case']:x for x in r['cases']}
@@ -152,7 +178,16 @@ for x in j['cases']:
     intact=guard(p,416,4096,4096)
     require(intact['all_guards'])
     X=y['orientation_only']['X']
-    b=stdout_offer(base+6*X,2)
+    stdout_component=stdout_offer(base+6*X,2)
+    Q=y['scheduling_Q']
+    require(printer_rows[x['case']]['shared_stderr_fragment_once']['process_text_bytes_upper']==64*Q)
+    require(X==terminal_orientation['X_abort_payload_sum'])
+    direct=terminal_orientation['direct_terminal_stderr_bytes']+2*59
+    require(direct==2*terminal_orientation['Y_single_dispatch']+371)
+    merged_text=base+6*X+64*Q
+    b=merged_offer(merged_text,2,Q,direct)
+    require(b>stdout_component)
+    require(merged_text==y['orientation_only']['B'])
     malformed=guard(arbitrary_stream(b),416,4096,4096)
     require(malformed['all_guards'])
     one=terminal(X//2)
@@ -160,7 +195,10 @@ for x in j['cases']:
     rows.append(dict(case=x['case'],normal=p,normal_guard=intact,
                      orientation_only=dict(P=416,M=444,X=X,response_path_bytes=416,
                                            runtime_max_path=4096,runtime_page_size=4096,
-                                           malformed_stdout_bytes=b,malformed_guard=malformed,
+                                           stdout_only_component_bytes=stdout_component,
+                                           stderr_diagnostic_attempts=Q,merged_text_bytes=merged_text,
+                                           direct_stderr_bytes=direct,malformed_merged_file_bytes=b,
+                                           malformed_guard=malformed,
                                            terminal=one),actual_config_attached=False))
 fixed=json.loads(load_provider('docs/evidence/retained-fixed-failure-composition-20261023/result.json'))
 pre=[]
@@ -170,14 +208,14 @@ for x in fixed['cases']:
         a=precut(P,x['raw_label_U'])
         require(a['X']==example['scalar']['X'])
         require(a['text']==example['scalar']['standard']['B'])
-        g=guard(arbitrary_stream(a['stdout']),416,4096,4096)
+        g=guard(arbitrary_stream(a['merged_file']),416,4096,4096)
         require(g['all_guards'])
         pre.append(dict(case=x['case'],cwd_bytes_example=example['cwd_bytes_example'],
                         derived=a,guard=g,actual_config_attached=False))
 # Largest source-config P for our sufficient malformed capacity interface;
 # separate from the provider's whole scalar formatter sufficient region1927.
 def fits(P):
-    return guard(arbitrary_stream(precut(P,189)['stdout']),416,4096,4096)['all_guards']
+    return guard(arbitrary_stream(precut(P,189)['merged_file']),416,4096,4096)['all_guards']
 lo,hi=180,100000
 while lo+1<hi:
     mid=(lo+hi)//2
@@ -187,6 +225,9 @@ require(fits(lo) and not fits(hi))
 result=dict(status='pass',checks=checks,scope='Conditional response parser representation through Read_File return/propagation',
             platform='Linux x86_64 source/configuration model; offline Python checks',
             source_files=len(sources),provider_files=len(inputs['providers']),
+            merged_source_ranges=len(merged_witnesses),
+            original_freeze='e87701a25b2c1a953c9313a4f0e35505c6ba57a7',
+            reviewed_seam_repair_issue=188,stderr_merged_into_response_file=True,
             stream_source_counterexample=stream_model,
             normal_and_postcut=rows,precut=pre,
             precut_parser_guard_P_upper_only=lo,

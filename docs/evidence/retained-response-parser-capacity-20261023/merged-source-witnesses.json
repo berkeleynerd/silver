@@ -1,0 +1,92 @@
+[
+  {
+    "archive": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+    "member": "spark-source/src/why/gnat2why-driver.adb",
+    "member_sha256": "b3a37440a935dd9e4c8840c41807b0894a4ad710c63ceb9d344a3db804ebe304",
+    "first": 243,
+    "last": 255,
+    "role": "producer_collect",
+    "text": "   procedure Collect_One_Result is\n      Pid     : Process_Id;\n      Success : Boolean;\n      pragma Warnings (Off, Success); --  modified but then not referenced\n   begin\n      Wait_Process (Pid, Success);\n      pragma Assert (Pid /= Invalid_Pid);\n      declare\n         Fn : constant String := Get_Name_String (Output_File_Map (Pid));\n      begin\n         Parse_Why3_Results (Fn, Timing);\n         Delete_File (Fn, Success);\n         Output_File_Map.Delete (Pid);\n",
+    "sha256": "55fec03700a3ecb98d481643c6ae4ee428bb91d142140d1b9333825784825efa"
+  },
+  {
+    "archive": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+    "member": "spark-source/src/why/gnat2why-driver.adb",
+    "member_sha256": "b3a37440a935dd9e4c8840c41807b0894a4ad710c63ceb9d344a3db804ebe304",
+    "first": 1219,
+    "last": 1300,
+    "role": "producer_spawn",
+    "text": "   procedure Run_Gnatwhy3 (E : Entity_Id; Filename : String) is\n      use Ada.Directories;\n      use Ada.Containers;\n      Fn        : constant String := Compose (Current_Directory, Filename);\n      Old_Dir   : constant String := Current_Directory;\n      Why3_Args : String_Lists.List := Gnat2Why_Args.Why3_Args;\n      Command   : GNAT.OS_Lib.String_Access :=\n        GNAT.OS_Lib.Locate_Exec_On_Path (Why3_Args.First_Element);\n   begin\n      --  Exit gently if gnat2why3 can't be located, for whatever reason,\n      --  e.g. when the PATH is wrong in developer setup.\n\n      if Command = null then\n         raise Program_Error with \"can't locate gnatwhy3\";\n      end if;\n\n      --  If the maximum is reached, or we are not allowed to run gnatwhy3 in\n      --  parallel, we wait for one process to finish first.\n\n      if Output_File_Map.Length = Max_Subprocesses\n        or else\n          (not Output_File_Map.Is_Empty\n           and then not Gnat2Why_Args.Parallel_Why3)\n      then\n         Collect_One_Result;\n      end if;\n\n      Why3_Args.Append (\"--entity\");\n      Why3_Args.Append (Img (E));\n      --  Modifying the command line and printing it for debug purposes. We\n      --  need to append the file first, then print the debug output, because\n      --  this corresponds to the actual command line run, and finally remove\n      --  the first argument, which is the executable name.\n\n      Why3_Args.Append (Fn);\n\n      if Gnat2Why_Args.Debug_Mode then\n         for Elt of Why3_Args loop\n            Ada.Text_IO.Put (Elt);\n            Ada.Text_IO.Put (\" \");\n         end loop;\n         Ada.Text_IO.New_Line;\n      end if;\n\n      Why3_Args.Delete_First (1);\n\n      Set_Directory (To_String (Gnat2Why_Args.Why3_Dir));\n\n      --  We need to capture stderr of gnatwhy3 output in case of Out_Of_Memory\n      --  messages.\n\n      declare\n         Args : Argument_List := Call.Argument_List_Of_String_List (Why3_Args);\n         Fd   : File_Descriptor;\n         Name : Path_Name_Type;\n         Pid  : Process_Id;\n\n      begin\n         Create_Temp_File (Fd, Name);\n         pragma Assert (Fd /= Invalid_FD);\n         Pid :=\n           GNAT.OS_Lib.Non_Blocking_Spawn\n             (Program_Name           => Command.all,\n              Args                   => Args,\n              Output_File_Descriptor => Fd,\n              Err_To_Out             => True);\n\n         --  If spawning fails, for whatever reason, then simply crash\n\n         if Pid = Invalid_Pid then\n            raise Program_Error with \"can't spawn gnatwhy3\";\n         end if;\n\n         Output_File_Map.Insert (Pid, Name);\n         Close (Fd);\n\n         for Arg of Args loop\n            Free (Arg);\n         end loop;\n      end;\n      Set_Directory (Old_Dir);\n      Free (Command);\n",
+    "sha256": "1c35d57ac6f8b013d982be10806d1ff4cea7fcde8560dae91204e6f5a8172e37"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4",
+    "first": 610,
+    "last": 626,
+    "role": "flush/reset/optional newline",
+    "text": "let pp_flush_queue state b =\n  clear_tag_stack state;\n  while state.pp_curr_depth > 1 do\n    pp_close_box state ()\n  done;\n  state.pp_right_total <- pp_infinity;\n  advance_left state;\n  if b then pp_output_newline state;\n  pp_rinit state\n\n(*\n\n  Procedures to format values and use boxes.\n\n*)\n\n(* To format a string. *)\n",
+    "sha256": "f67fd5e9de89a29ccb733a3f85c252e765f43300ef4fbb055fd789ab08598cff"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4",
+    "first": 670,
+    "last": 677,
+    "role": "print_newline is one core flush",
+    "text": "\n   [pp_print_newline] behaves as [pp_print_flush] after printing an additional\n   new line. *)\nlet pp_print_newline state () =\n  pp_flush_queue state true; state.pp_out_flush ()\nand pp_print_flush state () =\n  pp_flush_queue state false; state.pp_out_flush ()\n\n",
+    "sha256": "380cfd5a37376f4bc72634c0d2c6952e89e9cf8a362dbde274e2b0ba1b0213e8"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4",
+    "first": 1267,
+    "last": 1278,
+    "role": "Flush_newline dispatch",
+    "text": "\n(* Interpret a formatting entity on a formatter. *)\nlet output_formatting_lit ppf fmting_lit = match fmting_lit with\n  | Close_box                 -> pp_close_box ppf ()\n  | Close_tag                 -> pp_close_tag ppf ()\n  | Break (_, width, offset)  -> pp_print_break ppf width offset\n  | FFlush                    -> pp_print_flush ppf ()\n  | Force_newline             -> pp_force_newline ppf ()\n  | Flush_newline             -> pp_print_newline ppf ()\n  | Magic_size (_, _)         -> ()\n  | Escaped_at                -> pp_print_char ppf '@'\n  | Escaped_percent           -> pp_print_char ppf '%'\n",
+    "sha256": "bad87af1342c9ca27cd4c8dbe43c5d50078ef500f0239bf3eabf680077dce994"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4",
+    "first": 1356,
+    "last": 1369,
+    "role": "eprintf no extra core flush",
+    "text": "    (fun acc -> output_acc ppf acc; k ppf)\n    End_of_acc fmt\n\nand ikfprintf k ppf (Format (fmt, _)) =\n  make_iprintf k ppf fmt\n\nlet ifprintf _ppf (Format (fmt, _)) =\n  make_iprintf ignore () fmt\n\nlet fprintf ppf = kfprintf ignore ppf\nlet printf fmt = fprintf std_formatter fmt\nlet eprintf fmt = fprintf err_formatter fmt\n\nlet kdprintf k (Format (fmt, _)) =\n",
+    "sha256": "324bb4b30eef71e39d92b98312536120c41a530d9be70b00b0dcafaebe16865e"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/camlinternalFormat.ml",
+    "member_sha256": "4a73b844a57ff493673dc4dae6b8c5b3e511de217225953c85267920587ea0ad",
+    "first": 2608,
+    "last": 2624,
+    "role": "@. mapping",
+    "text": "        let Fmt_EBB fmt_rest = parse (str_ind + 1) end_ind in\n        Fmt_EBB (Formatting_lit (Break (\"@ \", 1, 0), fmt_rest))\n      | ';' ->\n        parse_good_break (str_ind + 1) end_ind\n      | '?' ->\n        let Fmt_EBB fmt_rest = parse (str_ind + 1) end_ind in\n        Fmt_EBB (Formatting_lit (FFlush, fmt_rest))\n      | '\\n' ->\n        let Fmt_EBB fmt_rest = parse (str_ind + 1) end_ind in\n        Fmt_EBB (Formatting_lit (Force_newline, fmt_rest))\n      | '.' ->\n        let Fmt_EBB fmt_rest = parse (str_ind + 1) end_ind in\n        Fmt_EBB (Formatting_lit (Flush_newline, fmt_rest))\n      | '<' ->\n        parse_magic_size (str_ind + 1) end_ind\n      | '@' ->\n        let Fmt_EBB fmt_rest = parse (str_ind + 1) end_ind in\n",
+    "sha256": "7a63972dca93d862159e556945224b133603372679977a1154b9efd216165709"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/printer.ml",
+    "member_sha256": "d003303693eb1f04847d79296b5ee106b9ad81fbb8b1eeb1ab01b7ee7cf1ac20",
+    "first": 224,
+    "last": 228,
+    "role": "stderr diagnostic text and one @.",
+    "text": "let int_of_string s =\n  try int_of_string s\n  with _ ->\n    Format.eprintf \"bad argument for int_of_string: %s@.\" s;\n    assert false\n",
+    "sha256": "7c6a222a9c3f05b805ccb4a57de78b8e31d4acc3203554d7452f61924a210266"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/debug.ml",
+    "member_sha256": "38ec7370a02da7d9630745e28bd6efcdec29d3cf6894d0dacaa38df8f7e5a8a1",
+    "first": 65,
+    "last": 75,
+    "role": "stderr newline wrapper flushes channel only",
+    "text": "let set_debug_formatter f =\n  (* enable the usual behavior of stderr: flush at every new line *)\n  let o = Format.pp_get_formatter_out_functions f () in\n  Format.pp_set_formatter_out_functions f\n    { o with Format.out_newline =\n        (fun () -> o.Format.out_newline (); o.Format.out_flush ()) };\n  formatter := f\n\nlet get_debug_formatter () = !formatter\n\nlet () = set_debug_formatter Format.err_formatter\n",
+    "sha256": "fc56cab2a55061b5475d95e7493a9638b6f5a9998cfb48509602719f0fb8d069"
+  }
+]

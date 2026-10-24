@@ -104,7 +104,20 @@ key<=10, encoded token<=`max(6x+2,10)` and decoded string<=`max(2x,8)`.
 Its prospective text bytes are <=`42+6x`; boxed layout is charged next.
 A terminal error remains an error. None of this treats it as a successful proof.
 
-## Offered stdout bytes even after failed output
+## Offered bytes in the actual merged response file
+
+The retained caller does not give the parser a stdout-only file.
+`gnat2why-driver.adb:1219–1300` creates a temporary file and invokes
+Non_Blocking_Spawn with `Output_File_Descriptor=>Fd, Err_To_Out=>True`,
+then records its name in Output_File_Map. Collect_One_Result (`:243–255`)
+passes that same name to Parse_Why3_Results. The new
+[merged-source witnesses](../evidence/retained-response-parser-capacity-20261023/merged-source-witnesses.json)
+verify both excerpts against the complete retained SPARK archive. The original
+freeze `e87701a25b2c1a953c9313a4f0e35505c6ba57a7` incorrectly used its stdout
+component as the complete file bound. Independent review found this material
+seam gap, tracked as [#188](https://github.com/berkeleynerd/silver/issues/188);
+the corrected composition below includes both channels. No new #88 channel
+separation or framing contract is assumed.
 
 Do not assume failed reporting leaves an isolated valid JSON document. The
 accepted channel contract commits prefixes of each successful write; Format's
@@ -131,7 +144,8 @@ program. Therefore
 Y_stdout(T,a) = T + 69*(10a+3) + 2
 ```
 
-bounds bytes offered to stdout when T bounds all its prospective text and a
+is a **stdout component lemma**, bounding bytes offered there when T bounds
+all its prospective text and a
 bounds attempted abort invocations. Using a both-root text bound for T is safe;
 using both roots' generic layout allowance is unnecessary. Dirty boxes need
 not be balanced: the inherited core theorem still bounds each processed
@@ -139,13 +153,54 @@ begin/break's layout, its queue-cell multiplicity, and default indent setting.
 No fresh core, successful flush, contiguous offered document, eventual output
 success or renewed exceptional allowance is assumed. Positive committed byte
 counts plus retained channel debt are bounded by offered bytes. For the
-selected new response file/pipe there is no unrelated initial stdout content;
-the parent's descriptor ownership/publication relation remains required.
+selected newly created response file there is no unrelated initial content;
+the parent's source/native descriptor ownership/publication relation remains
+required. This stdout component alone does not bound that merged file.
 
-For the post-cut alternative use the current reporting provider's
-`T = B_n+84+6X`, `a=2`, where X sums its at-most-two terminal payloads. Its
-standard-core arithmetic and source/service conditions must also hold.
-The sharper stdout-only argument does not weaken those conditions.
+For both roots together, let q_diag count attempted Printer.int_of_string
+diagnostics. Its exact source (`printer.ml:224–228`) calls
+`Format.eprintf "bad argument for int_of_string: %s@." s`: two text pieces,
+no box/break, and one `@.`. CamlinternalFormat maps `@.` to Flush_newline;
+Format dispatches that to pp_print_newline, which calls pp_flush_queue true
+once, then a channel flush. It contributes at most one core reset and one
+final newline. Debug's stderr newline wrapper adds a **channel** flush, not
+a recursively invoked Format-core flush. Eprintf itself adds no extra flush.
+These source mappings are retained with the merged-source witnesses.
+
+Across both roots, total core flush attempts are at most `q_diag+2`, using
+the same two once-gated global exit flushes. Initial system begins number two,
+reset begins at most `q_diag+2`, and abort opens/breaks at most10a. Each begin/
+break still offers at most69 bytes under the dirty-state theorem. Final
+newlines are at most `q_diag+2` (conservative: plain exit flush uses false).
+If T bounds **both roots' text** and D bounds direct stderr bytes outside
+Format, the complete merged offer is therefore
+
+```
+Y_merged(T,a,q_diag,D) = T + 69*(10a+q_diag+4) + q_diag+2 + D.
+```
+
+Direct terminal/warning writes do not enter E, create reset boxes, or renew
+e/callback/save allowances. Successful write-prefix accounting bounds the
+file extent by this combined offered count regardless of channel interleaving,
+abandoned debt or partial output. Both channels target the same newly created
+file under the retained spawn/descriptor service relation. The generic
+`B+70(E+2)` remains valid but unnecessarily charges payload character events
+as potential layout events; this new source census sharpens that step only.
+
+For the post-cut alternative, Q is the existing scheduling-owner bound and
+Y_terminal/X are the accepted terminal exports. Use
+
+```
+T_post = B_n+84+6X+64Q; a_post=2; q_diag_post=Q
+D_post = 2*Y_terminal+371.
+```
+
+The `64Q` diagnostic text is charged once per process, not per driver. The
+253 bytes already inside the terminal export pay its fixed fallback/OOM and
+raw-backtrace terms; `371=253+2*59` additionally pays the two warning-owner
+raw-backtrace prints. JSON-embedded copies are distinct source writes and
+stay in X. The reporting provider's standard-core guards and every original
+source/service condition remain necessary; no fresh roots are assumed.
 
 For fixed pre-cut failures import author `62cb8175ab11041a8f8396eac699f722cb616675`,
 reviewed at `33b2eb6f8780133eac5385c4d59f4869dbef55de`. In that alternative
@@ -155,16 +210,19 @@ reviewed at `33b2eb6f8780133eac5385c4d59f4869dbef55de`. In that alternative
 S0=max(467,U_label+256,4*PrecutP+2048)
 C0=8*(723+12*S0)+65536; R4=31*C0
 X_pre=4*(R4+PrecutP+1024)
-T_pre=6*X_pre+576; a_pre=4.
+T_pre=6*X_pre+576; a_pre=4; q_diag_pre=1
+D_pre=2*R4+253.
 ```
 
-T_pre conservatively includes the provider's stderr text. The earlier initial
+T_pre already includes the one initial driver diagnostic's64 text bytes;
+do not add them again. D_pre is the accepted direct fallback, whose empty
+backtraces and bounded attempt count apply from startup. The earlier initial
 standard-prefix/failed-startup attachment is required: no unclassified stdout
 writer is introduced here. Normal continuation and abandoned pre-cut failure
 are alternatives, not additive budgets. The same global e<=2, two save-entering
 callbacks, three saves and once-gated exit hooks are retained throughout.
 
-For any possibly malformed offered stream bounded by b=Y_stdout, use the
+For any possibly malformed merged file bounded by the applicable b=Y_merged, use the
 separate conservative profile
 
 ```
@@ -431,15 +489,16 @@ representations, not a new admission policy or physical memory threshold.
 
 All five current normal-response bounds pass at the declared path/page
 orientation. At post-cut `P=416,M=444`, including interrupted normal/abort
-output, the maximum malformed stdout bound is683,528,842 bytes (Put_Line).
-The fixed pre-cut `PrecutP=180` bound is250,796,153 bytes; at416 it is318,226,073.
+output, the maximum malformed merged-file bound is688,428,436 bytes (Put_Line).
+The fixed pre-cut `PrecutP=180` bound is271,693,521 bytes; at416 it is344,742,129.
 All 15 retained pre-cut examples pass. For the fixed label envelope<=189 the
-parser's sufficient PrecutP range extends to3060; intersecting with the already
+parser's sufficient PrecutP range extends to2771; intersecting with the already
 accepted scalar/reporting provider's1927 leaves1927. These are source-function
 calculations, not measured cwd/path/file maxima or completed deployments.
 The packet retains actual configuration guard status as **unknown**.
 
-The critical review targets are the offset-Next counterexample, failed-output
+The critical review targets are the offset-Next counterexample, the corrected
+merged-channel writer-to-parser seam (#188), failed-output
 layout refinement, complete decoded-growth endpoints, stale-slot and transient
 ownership census, and the numeric/error alternatives. A successful offline
 check is not independent review. Parent #119 must attach actual configuration

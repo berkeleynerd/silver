@@ -82,11 +82,40 @@
       "path": "docs/evidence/retained-fixed-failure-composition-20261023/result.json",
       "commit": "62cb8175ab11041a8f8396eac699f722cb616675",
       "sha256": "45afa48592da5d5b21a72b472cd3d976e7d521d487bcc9a097e825a6682c44f7"
+    },
+    {
+      "path": "docs/evidence/retained-why-save-artifact-dependency-20261020/source-excerpts.json",
+      "sha256": "d6d62d9f096707ab575bf6aaef9a10d4bf32da3c0b55045efcfc252674343a31"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+      "sha256": "f2e7dd7bbef086a36ddf97f9bd3bd669ca895fcc28e3ac23ffe0c9f85fc5d952"
+    },
+    {
+      "path": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    {
+      "path": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    {
+      "path": "docs/evidence/retained-printer-output-round66-20261023/integration-result.json",
+      "sha256": "8826213f9684647f8b8ac906d14624e496aba545ff6c4fecfbb2e30ab546073c"
+    },
+    {
+      "path": "docs/research/retained-why-printer-output.md",
+      "sha256": "603f0b779b2a58cf752b68355f99be8bfbab451c50ec73c415aa5f73260e7708"
+    },
+    {
+      "path": "docs/research/retained-precut-failure-capacity.md",
+      "sha256": "137798517c86a0a4f5ca5f9fede87b25432993c94a93525d10102d12a1d54a87"
     }
   ],
   "selected_model": "gpt-6-astra",
   "selected_reasoning_effort": "xhigh",
   "runtime_setting_confirmation": "Parent-selected launch settings; independent runtime telemetry unavailable",
   "tokens": null,
-  "cost": null
+  "cost": null,
+  "original_author_freeze": "e87701a25b2c1a953c9313a4f0e35505c6ba57a7"
 }
