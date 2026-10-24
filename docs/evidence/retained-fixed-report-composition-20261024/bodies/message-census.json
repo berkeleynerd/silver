@@ -1,0 +1,152 @@
+[
+  {
+    "name": "Check_Expressions",
+    "file": "flow/flow-analysis-sanity.adb",
+    "begin": 113,
+    "end": 1507,
+    "literal_bytes": 1189,
+    "ampersands": 14,
+    "hashes": 0,
+    "ats": 0
+  },
+  {
+    "name": "Illegal_Writes",
+    "file": "flow/flow-analysis-sanity.adb",
+    "begin": 1513,
+    "end": 1839,
+    "literal_bytes": 357,
+    "ampersands": 10,
+    "hashes": 0,
+    "ats": 2
+  },
+  {
+    "name": "Generated_Globals",
+    "file": "flow/flow-analysis-sanity.adb",
+    "begin": 1845,
+    "end": 2083,
+    "literal_bytes": 204,
+    "ampersands": 14,
+    "hashes": 0,
+    "ats": 0
+  },
+  {
+    "name": "Unwritten",
+    "file": "flow/flow-analysis.adb",
+    "begin": 795,
+    "end": 1037,
+    "literal_bytes": 171,
+    "ampersands": 4,
+    "hashes": 0,
+    "ats": 0
+  },
+  {
+    "name": "Ineffective_Imports",
+    "file": "flow/flow-analysis.adb",
+    "begin": 1043,
+    "end": 1564,
+    "literal_bytes": 116,
+    "ampersands": 6,
+    "hashes": 0,
+    "ats": 0
+  },
+  {
+    "name": "Ineffective_Statements",
+    "file": "flow/flow-analysis.adb",
+    "begin": 1570,
+    "end": 2062,
+    "literal_bytes": 114,
+    "ampersands": 3,
+    "hashes": 0,
+    "ats": 0
+  },
+  {
+    "name": "Dead_Code",
+    "file": "flow/flow-analysis.adb",
+    "begin": 2068,
+    "end": 2097,
+    "literal_bytes": 31,
+    "ampersands": 0,
+    "hashes": 0,
+    "ats": 0
+  },
+  {
+    "name": "Initialization",
+    "file": "flow/flow-analysis.adb",
+    "begin": 2103,
+    "end": 3397,
+    "literal_bytes": 860,
+    "ampersands": 14,
+    "hashes": 1,
+    "ats": 1
+  },
+  {
+    "name": "Assertion_Inputs",
+    "file": "flow/flow-analysis.adb",
+    "begin": 3520,
+    "end": 3636,
+    "literal_bytes": 62,
+    "ampersands": 1,
+    "hashes": 0,
+    "ats": 0
+  },
+  {
+    "name": "Constant_Global",
+    "file": "flow/flow-analysis.adb",
+    "begin": 6836,
+    "end": 6891,
+    "literal_bytes": 36,
+    "ampersands": 2,
+    "hashes": 0,
+    "ats": 0
+  },
+  {
+    "name": "Required_Contracts",
+    "file": "flow/flow-analysis.adb",
+    "begin": 6897,
+    "end": 7077,
+    "literal_bytes": 73,
+    "ampersands": 2,
+    "hashes": 0,
+    "ats": 0
+  },
+  {
+    "name": "Antialiasing",
+    "file": "flow/flow-analysis-antialiasing.adb",
+    "begin": 1,
+    "end": 1253,
+    "literal_bytes": 1169,
+    "ampersands": 10,
+    "hashes": 0,
+    "ats": 0
+  },
+  {
+    "name": "CFG",
+    "file": "flow/flow-control_flow_graph.adb",
+    "begin": 1,
+    "end": 9287,
+    "literal_bytes": 99,
+    "ampersands": 2,
+    "hashes": 0,
+    "ats": 0
+  },
+  {
+    "name": "Incomplete_Globals",
+    "file": "flow/flow_sanity.adb",
+    "begin": 1,
+    "end": 269,
+    "literal_bytes": 278,
+    "ampersands": 5,
+    "hashes": 0,
+    "ats": 0
+  },
+  {
+    "name": "Dependency_Status",
+    "file": "flow/flow.adb",
+    "begin": 1869,
+    "end": 1908,
+    "literal_bytes": 72,
+    "ampersands": 0,
+    "hashes": 0,
+    "ats": 0
+  }
+]

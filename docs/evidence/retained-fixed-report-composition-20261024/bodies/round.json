@@ -1,0 +1,48 @@
+{
+  "achieved_result": "IO count/name/serialization source inputs and conditional P<=607 writer/reader interval; Arguments and full #212 residual",
+  "base_commit": "057d60cb8e1ff4938bf01667f643d35fc4eb7f0f",
+  "cost_measurements": null,
+  "exact_review_inputs": {
+    "README.md": "5a12f85d6d5c3d6f59afd4b951240c7240c4c45f7951b215f10d9f5d5cc27bcd",
+    "capacity.py": "27ffd4139970149b055ebdc66e26634ea35db8b677592de193a0c560e8a714b9",
+    "check.py": "31b8b3266d16a76c39c518719b99b0e7495363a42d16efbda53c08d611b92cac",
+    "message-census.json": "05c6fe415bd2ebab8076218997756b4e72778a7038dfcb1e90ce7a394d980c0d",
+    "result.json": "1665f9b28a94a75fc19cc3f5d1318ae1f589dcb64f45010384a3bf031b2235b2",
+    "source-manifest.json": "3bbac439a0de598acb5b3457b8a451f6fc664cb8927eecf22875a20143b7171b"
+  },
+  "goal_mutated": false,
+  "harness_goal_observed": null,
+  "independent_review": "pending exact-freeze review",
+  "intended_result": "Useful actual-source IO count/name/schema composition, preserving independent frontend and storage owners",
+  "issue_complete": false,
+  "native_host": "Linux 7.0.14 x86_64; inherited first-packet observation, not re-probed",
+  "objective": "Owner-authorized #212 actual IO source report composition under #119",
+  "recorded_packet_clock_utc": "2026-10-24 05:45:21",
+  "runtime_model_confirmed": false,
+  "selected_author_effort": "Extra High",
+  "selected_author_model": "GPT-6 Astra",
+  "significant_findings": [
+    "Procedure graph object sets exclude quantified binders and constants without variable input; broader frontend/proof-reference domains remain 19837",
+    "Actual flow/warning constructors omit response-only fields; mixed escaping avoids an ASCII-path premise",
+    "The initial expected vertex totals contained an arithmetic error: listed terms sum to 286/241 rather than 386/341. The focused checker detected it; only expectations/explanatory totals changed",
+    "Full Why-allocation warning allowance retained"
+  ],
+  "task_start_time_available": false,
+  "token_measurements": null,
+  "verification": {
+    "changed_input_attempts": 2,
+    "first_attempt": "failed expected vertex-total assertion before report/interval checks",
+    "focused_checker": "python3 docs/evidence/retained-fixed-report-composition-20261024/bodies/check.py --gcc-source /tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada",
+    "native_runs": 0,
+    "predecessor_checkers_run": 0,
+    "second_attempt": "passed after correcting expected totals and derived flow totals",
+    "source_inputs": {
+      "complete_tool_source_files": 32,
+      "elapsed_seconds": 0.696,
+      "native_compiler_solver_capture_runs": 0,
+      "predecessor_checkers_run": 0,
+      "repository_files": 24
+    },
+    "successful_elapsed_seconds": 0.696
+  }
+}
