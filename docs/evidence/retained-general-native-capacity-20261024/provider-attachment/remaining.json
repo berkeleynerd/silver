@@ -1,0 +1,25 @@
+{
+  "complete_native_capacity_result": false,
+  "closed": [
+    "source producer classification and actual relaxed Force_Evaluation/capture cuts",
+    "hereditary literal-lower-one nested high selector spine for arbitrary finite source C",
+    "static-max allocation versus returned-slice identity and flag distinction",
+    "generated assignment-slice scalar bounds, local layout and annotation in hereditary partition",
+    "Length initializer and max-query revisit distinction",
+    "direct allocation/result/assignment/source-alias native array occurrence attachment"
+  ],
+  "open": [
+    "general input-low nested selector/arithmetic folding and Length construction",
+    "full object, generated checks, executable/call and pointer/fatpointer construction",
+    "complete metadata/type-variant and global current-grammar attachment",
+    "GGC/table/allocator backing and fixed/import incoming states",
+    "later compiler/assembler/linker/binder/process composition"
+  ],
+  "frame_boundary": "Fixed representable compiler helper frames plus finite traversal rely on physical-stack premise; no cumulative compiler stack byte gate. Dynamic requests and generated-program frames/encoding remain.",
+  "process_allowances": {
+    "e": 2,
+    "save_entering_callbacks": 2,
+    "saves": 3,
+    "scope": "once per Why process"
+  }
+}

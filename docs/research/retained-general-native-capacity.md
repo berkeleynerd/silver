@@ -612,3 +612,64 @@ compiler/prover execution; no compiler, prover, Lean, generated matcher or
 predecessor checker ran. Independent review is pending at this author freeze.
 Physical-resource premises, admission, tool pins and the single per-Why-process
 e<=2/two-callback/three-save allowance are unchanged.
+
+Provider attachment continuation, 2026-10-24: original layout author
+302b32d15c was accepted by 793a9738ed. The subsequent narrow #217 repair,
+author df7c449120 accepted by review 10a9004c0f, supersedes only its conditional
+constructor row and layout totals: C184/U126/B138/T112, 22288 raw layout bytes,
+738 operand slots and 189616 combined layout/annotation bytes per original
+receiving identity. The old annotation bound remains unchanged. A named
+dynamic Image result followed by an empty concat tail supplies the precise
+source-derived original-allocation witness; direct Image can instead select
+static allocation-high replacement. Historical packets and repair receipts
+remain immutable.
+
+The [provider-attachment packet](../evidence/retained-general-native-capacity-20261024/provider-attachment/README.md)
+classifies nested concat/result/assignment producers and establishes direct
+receiving subtype occurrence bounds. For C source concat operators, E expansion
+events, R real allocations, M successful static-max replacements, A actual
+generated assignment slices and D ordinary completed-provider declarations,
+E<=C, sum(n_e)<=C+E, and direct array identities<=R+M+A+D<=4C+D;
+direct concat signed-index identities<=4C. These are constructor-site identities,
+not all internal native type/metadata variants. Relaxed Force_Evaluation and
+readonly SAVE are not assumed to cut every nested bound.
+
+The closed recursive native partition has actual frontend-known lower 1
+provenance at every provider. Its high is a one-armed selector spine with
+source-derived depth t<=C, including original allocations, dynamic returned
+slices, earlier completed aliases and optional capture cuts. Static-max
+allocation types and dynamic returned slice types remain distinct. Per such
+dynamic receiver, layout is bounded by 22288(t+1) raw bytes and 738(t+1) operand
+slots; its two finishing roots have Q<=26t+24. Generated assignment slices
+from this partition have Q<=38 and 72752 combined raw layout/annotation bytes;
+their scalar bound translation has its separate 3368-byte allowance. Signed
+Length initializers retain possible NON_LVALUE wrappers and contribute
+2720(t+1) raw bytes, with final H<=t+3/O<=13t+8. Maximum-query visits stop at
+aggregate declaration leaves, but the first assignment high can expose its
+Length initializer; the explicit query allowance is 80u+320 raw bytes for its
+source-derived depth u. Separate scalar-event, debug, constant/kernel and
+metadata/backing owners are retained. These formulas use arbitrary finite C;
+the current 63-operator rule is only a comparison case.
+
+The next indispensable provider family is general input-low nesting: incoming
+low/high selectors can remain exposed, making a later high's arithmetic contain
+a selector low. Its cumulative folding, Length and annotation transfers are
+not established by the lower 1 partition. Full executable/call/check construction,
+pointer adaptation, metadata/type variants, global syntax attachment, dynamic
+backing and downstream process composition also remain open. This continuation
+does not complete #201/#119 and adds no admission cap or cumulative compiler
+RAM/stack gate. Fixed representable helper frames and finite traversal use the
+retained physical-stack premise; dynamic backing and generated-program frame
+and encoding obligations remain.
+
+Selected author: GPT-6 Astra / Extra High; runtime confirmation and token/cost
+measurements are unavailable. The single focused broader source/math check
+passed on Linux x86_64 at 08:34:29.427030 UTC, checking 29 complete source files,
+59 LF spans, 516 spine/polarity profiles through depth 128 and 2056 small concat
+trees. Check time was 4.069516 seconds; elapsed since the first recorded author
+clock was 2536.427030 seconds. The signed-Length wrapper correction and generalized
+constant-low MAX assignment path were included before that check. No compiler,
+prover, Lean, native target, generated matcher or predecessor checker ran.
+Exact independent review of this broader author freeze is pending. The Oracle,
+physical-resource premises and single per-Why-process e<=2/two-callback/three-save
+allowances are unchanged.

@@ -1,0 +1,58 @@
+{
+  "meaning": "Lexicographic remaining selector depth, phase. Every recursive arm has strictly smaller selector depth; plain pull-out returns without refolding.",
+  "phase": {
+    "minus_dispatch": 90,
+    "plus_dispatch": 80,
+    "distribution": 70,
+    "arm_canonicalization": 60,
+    "offset_or_conversion_removal": 50,
+    "constant_association": 40,
+    "conditional_completion": 30,
+    "conditional_order": 20,
+    "plain_return": 10,
+    "terminal": 0
+  },
+  "same_depth_edges": [
+    [
+      "minus_dispatch",
+      "plus_dispatch"
+    ],
+    [
+      "plus_dispatch",
+      "distribution"
+    ],
+    [
+      "distribution",
+      "arm_canonicalization"
+    ],
+    [
+      "arm_canonicalization",
+      "offset_or_conversion_removal"
+    ],
+    [
+      "arm_canonicalization",
+      "constant_association"
+    ],
+    [
+      "constant_association",
+      "conditional_completion"
+    ],
+    [
+      "conditional_completion",
+      "conditional_order"
+    ],
+    [
+      "conditional_order",
+      "terminal"
+    ],
+    [
+      "conditional_completion",
+      "plain_return"
+    ],
+    [
+      "plain_return",
+      "terminal"
+    ]
+  ],
+  "depth_edges": "distribution at d to arm request at d-1; unary conversion likewise"
+}
