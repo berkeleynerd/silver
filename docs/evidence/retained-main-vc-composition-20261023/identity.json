@@ -1,0 +1,656 @@
+{
+  "why3_revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "spark_revision": "42554fc241fcd1fdf08d3a2feccb3f86912acbc0",
+  "source_behavior_premise": "Same accepted candidate-source and selected dependency/configuration correspondence; no new installed-binary identity claim.",
+  "archives": [
+    {
+      "path": "docs/evidence/retained-producer-main-types-20261018/sources.tar.gz",
+      "sha256": "194168fcfc9ebabae3702bb0782f49634d0c73eb808215482ae8a86823e57910",
+      "selected_files": [
+        {
+          "path": "why3/src/mlw/vc.ml",
+          "bytes": 76631,
+          "sha256": "277ed0e5526fb188849c47b3f11a1412e104769d04baaf2144e2fc7719e81da1"
+        },
+        {
+          "path": "why3/src/mlw/expr.ml",
+          "bytes": 62189,
+          "sha256": "73ebf5c02e0821dd7b19992a120390f5aa28824acdff7b3153676d8fdc56064f"
+        },
+        {
+          "path": "why3/src/mlw/pdecl.ml",
+          "bytes": 35645,
+          "sha256": "74f46fe481ca7a8f531466754ccb463a57f324e22f6527f7527955a3f12b1ea6"
+        },
+        {
+          "path": "why3/src/mlw/eval_match.ml",
+          "bytes": 8322,
+          "sha256": "794bed299489c440853eb5e89ceb283a28de88bbc4db702794c7388f48a6f4ea"
+        },
+        {
+          "path": "spark/src/why/why-gen-scalars.adb",
+          "bytes": 60293,
+          "sha256": "8140ebf17a3f1f406c28a9759c768a830c0320da618c25cfe51b7b53325da07d"
+        }
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-producer-firstsplit-20261018/sources.tar.gz",
+      "sha256": "fe0199cb55c13dd36c8ba585869dc0ceaedc5d6df8031ddbc1f505fa25865ad3",
+      "selected_files": [
+        {
+          "path": "src/transform/split_goal.ml",
+          "bytes": 23450,
+          "sha256": "142dfbfef8cff67bbc396bbc986a91b36d527a58ee96316601cc317a2ef7f28f"
+        }
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-producer-postsplit-20261018/sources.tar.gz",
+      "sha256": "4f56faf31f0988eb48b0e8d626f0aa078aa8c59970281dad758b10f5cc15e3f1",
+      "selected_files": [
+        {
+          "path": "src/transform/gnat_split_conj.ml",
+          "bytes": 11171,
+          "sha256": "dcbe7341850e8b50d53c9ede7fbc61bb331ebf57d70720363bf741856ef180ee"
+        }
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz",
+      "sha256": "bb96c9680211b3904549a3b6885a934b6bb4d2065c15226210aeb301775b19ed",
+      "selected_files": [
+        {
+          "path": "why3/src/mlw/pmodule.ml",
+          "bytes": 69178,
+          "sha256": "0bbebf874d1fe1ed216efd07a76f6e51d9fd96c5910ea9c1fac2f5864db29344"
+        },
+        {
+          "path": "why3/plugins/gnat_json/gnat_ast_to_ptree.ml",
+          "bytes": 57834,
+          "sha256": "0cdda4d48f37fa27f4d70912881a5c64cbfbccaf2b1864d1098ccc870b62af35"
+        }
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-producer-import-context-20261018/sources.tar.gz",
+      "sha256": "73c394cf6faa83fd4ff3f2a5a8d561a571300b5a439225e5df59c807ceea53a1",
+      "selected_files": [
+        {
+          "path": "why3/src/core/theory.ml",
+          "bytes": 35066,
+          "sha256": "8c74f413c20df4d6933dbfac1a172d5e706a0d4b6f5a78665f1c6075b52c2d7a"
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/theories/algebra.mlw",
+          "bytes": 4910,
+          "sha256": "39d64b3f351a3a08a391d6d26467e427d9ad61799a0ea93ad9cf85d0acbc4fb4"
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/theories/bool.mlw",
+          "bytes": 819,
+          "sha256": "b7072fdd8dd5004d0627b82a66b054518ee54eb4dd66f0883988e363bed251fa"
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/theories/bv.mlw",
+          "bytes": 35807,
+          "sha256": "00e72b4c0ec8b49bca2f5796e636eae47667d6544e439f7d8e771e771a529cb3"
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/theories/floating_point.mlw",
+          "bytes": 21961,
+          "sha256": "0fc1c5bcdb2812e9fd173199de8f767b8a27f5dbcc8072ca4fd543b04071aa8f"
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/theories/for_drivers.mlw",
+          "bytes": 704,
+          "sha256": "e892ad394b50de0da1a2ed0e514d82632f3d79e57ac61294ad2d586b68883179"
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/theories/ieee_float.mlw",
+          "bytes": 44520,
+          "sha256": "e034c7f5cfb3fff284a668dcd2aa08536fdaac499dbd5d91a7147383448e0393"
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/theories/int.mlw",
+          "bytes": 18687,
+          "sha256": "6c3de03d3327ec7a2cffad038d67db17873695ddface1a11ccdad874865bca2c"
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/theories/list.mlw",
+          "bytes": 12228,
+          "sha256": "efd520bab75e5b9325ac369d7cb3675aecd1c2db859bbc0098c74b4b58585de5"
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/theories/mach/int.mlw",
+          "bytes": 18305,
+          "sha256": "62fa88a9c2202486efa5b42bd483e459c224c75b4dacae0a9126f6d22e5b7095"
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/theories/map.mlw",
+          "bytes": 9694,
+          "sha256": "11ff3c53a1e1d40dea77d55a3424ed309237fe4900b3370fbc14b0102b18114e"
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/theories/number.mlw",
+          "bytes": 5466,
+          "sha256": "4d0d83a9718774a342234ff8ef67e4545840629ffb0ee508f900d8fd67f83911"
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/theories/option.mlw",
+          "bytes": 351,
+          "sha256": "ba5607ebfa8fb060cede3798d21241b43de090046724084a3efc1f90a308a6df"
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/theories/real.mlw",
+          "bytes": 11048,
+          "sha256": "de458986ac8cf2da145dafdb412509f0bb2fc0538468e91ee5dcfbee73be694a"
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/theories/ref.mlw",
+          "bytes": 908,
+          "sha256": "f54413bf62b69bbfb996bd7d6a8098c18e4663f95f788623f729dd8eb5a60bea"
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/theories/relations.mlw",
+          "bytes": 4033,
+          "sha256": "0a367aecd2cd627de87d5f4011ddbf930bf49283e0b94b792a338faf921b2cae"
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/theories/set.mlw",
+          "bytes": 19900,
+          "sha256": "7bb4c9fffa2b24efd0372f5eb6d253d69b1d0f296d0622847dfd724b2b6ac709"
+        },
+        {
+          "path": "installed/libexec/spark/share/why3/theories/string.mlw",
+          "bytes": 17684,
+          "sha256": "ea9e41823b857ebbe08fe5ba71687f3894946efd21748703d89a83df6b99e3ec"
+        },
+        {
+          "path": "installed/share/spark/theories/_gnatprove_standard.mlw",
+          "bytes": 104227,
+          "sha256": "918b73544c7e499c2aa11c10c497924ff141e2321aa96cf6d16038dce72f6235"
+        },
+        {
+          "path": "installed/share/spark/theories/_gnatprove_standard_th.why",
+          "bytes": 3777,
+          "sha256": "5dfb0b132c3d2fecc2adbe6fdc6e3b75d9063cc5622ce8d0a72ea789682f7ed6"
+        },
+        {
+          "path": "installed/share/spark/theories/ada__model.mlw",
+          "bytes": 84712,
+          "sha256": "bb27b8013711690d9ee00e32aa6b37a66294a10b2b55ecdf0626b3a049577657"
+        },
+        {
+          "path": "installed/share/spark/theories/ada__model_th.why",
+          "bytes": 165,
+          "sha256": "dcded522609422e0c9087750e504a6fe120fe44dd71f266983580a7e1f7047a2"
+        }
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-producer-fixed-tail-20261018/sources.tar.gz",
+      "sha256": "fa7ecddc4f24efe601a1fc81c47582d4eb4e85c13499fc5a4b50254041cff3c4",
+      "selected_files": [
+        {
+          "path": "src/core/task.ml",
+          "bytes": 11462,
+          "sha256": "103b9c924e980df2feefdb96a5cd2779abe7de9300ea6bca9aa797ad4b6694e6"
+        }
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-main-callers-profile-20261023/sources.tar.gz",
+      "sha256": "a6395f2fda9e78ec519487f3cb24e5d5364260f86f5b3b72da4efac278f61bfa",
+      "selected_files": [
+        {
+          "path": "spark-source/src/why/why-gen-progs.adb",
+          "bytes": 12033,
+          "sha256": "f891be5611f061675183dcf3a0a219247ba2937c23130aa3156d49b80792599d"
+        },
+        {
+          "path": "src/mlw/dexpr.ml",
+          "bytes": 72915,
+          "sha256": "da655ebaf0266564bf84acc7cd30f2b673219557e2439a4079af526f1925e1e9"
+        }
+      ]
+    }
+  ],
+  "providers": [
+    {
+      "path": "docs/research/retained-main-callers-profile.md",
+      "bytes": 26779,
+      "sha256": "4e3fa65dbbe366359d43563fc195e32e713152ee9d0a2f52af6c73eaa249d13a"
+    },
+    {
+      "path": "docs/reviews/review-main-callers-4a4d15cd02.md",
+      "bytes": 13108,
+      "sha256": "6843eb5747941fe7d0e07d4f2c2941a482ae26cd99a8c8d1a4b1bcd243086530"
+    },
+    {
+      "path": "docs/research/retained-producer-kode.md",
+      "bytes": 15342,
+      "sha256": "0c7d44bade0a089aecd679e7348a1cd6d68366ed9d7ec47e9cfd1b16b3ceceef"
+    },
+    {
+      "path": "docs/research/retained-producer-spwp.md",
+      "bytes": 10624,
+      "sha256": "065558e87d14d59037be3b10f44b73baac2f7cdc9a26125e8ced59c51f27d402"
+    },
+    {
+      "path": "docs/research/retained-producer-match-unfold.md",
+      "bytes": 11410,
+      "sha256": "9a017a03e3f123f17b46d3a292f886c7a3efde2cddc73c067c7b1fac5d6a0bbb"
+    },
+    {
+      "path": "docs/research/retained-producer-formula-refinements.md",
+      "bytes": 8039,
+      "sha256": "ec629b7f16b39eb3e4aae373d90a17aba297096de23bf3ffd7528570b7ff82ec"
+    },
+    {
+      "path": "docs/research/retained-producer-import-context.md",
+      "bytes": 9361,
+      "sha256": "dc6c423b4ba34ac29a78f54265c876ca000d11af8eef4b4ac8f89f8f21ffea99"
+    },
+    {
+      "path": "docs/research/retained-producer-main-types.md",
+      "bytes": 11816,
+      "sha256": "b0c799ad269b20509491f9d57708fc789985a85613dfd3e919bc8c068d7514fc"
+    },
+    {
+      "path": "docs/research/retained-producer-fixed-context.md",
+      "bytes": 19023,
+      "sha256": "f2c09d5727677768f2ca5766145cd446d67f3cc618aa72434d0d9e7be2453e90"
+    },
+    {
+      "path": "docs/evidence/retained-main-callers-profile-20261023/profiles.json.gz",
+      "bytes": 734004,
+      "sha256": "3f302757242e3ede61c03b2641ad5c96e2b267b444630a87d05451f3a4a68458"
+    },
+    {
+      "path": "docs/evidence/retained-main-callers-profile-20261023/result.json",
+      "bytes": 318,
+      "sha256": "1d19d11878302867b543275b377e4d7d56a67075768d851f090eacfaefa76fba"
+    },
+    {
+      "path": "docs/evidence/retained-main-callers-profile-20261023/typed.py",
+      "bytes": 12365,
+      "sha256": "8caabebd6855775ed0a903ce8fa11d5db36db8bda8f22c33d19cb6717534bd95"
+    },
+    {
+      "path": "docs/evidence/retained-main-callers-profile-20261023/source.py",
+      "bytes": 21551,
+      "sha256": "ac8df169d0b669442372c31246056ebdd77ea7dd42b0591cb8dfa17a17a3b06f"
+    },
+    {
+      "path": "docs/evidence/retained-main-typed-profile-20261023/selected-contracts.json",
+      "bytes": 85357,
+      "sha256": "2fa2b15728bdd4864e76ed73e9af6a835075e950e839d1772e46862445fecb96"
+    }
+  ],
+  "spans": [
+    {
+      "archive": "docs/evidence/retained-producer-main-types-20261018/sources.tar.gz",
+      "path": "why3/src/mlw/vc.ml",
+      "first": 503,
+      "last": 542,
+      "sha256": "ca8b91c91178e13051395029a61d7af544311761b10680b1f736db44c9446757",
+      "contains": [
+        "let term_of_kode",
+        "let f = if t_closed f then f else",
+        "None when t_v_occurs v t > 0"
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-producer-main-types-20261018/sources.tar.gz",
+      "path": "why3/src/mlw/vc.ml",
+      "first": 599,
+      "last": 748,
+      "sha256": "63715d0a576518cccf7c4d0cd481b1bdd261a8d23e8dfdf72f96b90b3145a3f6",
+      "contains": [
+        "var_or_proxy_case",
+        "when Sattr.mem wb_attr e.e_attrs",
+        "Cfun e -> Kpar (k_fun"
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-producer-main-types-20261018/sources.tar.gz",
+      "path": "why3/src/mlw/vc.ml",
+      "first": 834,
+      "last": 921,
+      "sha256": "4a3fe13064bac107a7b55bba3c92e6e2ea2b3748fdbbc9ec9e1d44a6e6e6d10b",
+      "contains": [
+        "let t1, f1, k1 = term_of_kode",
+        "let i = new_exn env",
+        "Eassert (Check, f)"
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-producer-main-types-20261018/sources.tar.gz",
+      "path": "why3/src/mlw/vc.ml",
+      "first": 930,
+      "last": 1040,
+      "sha256": "a6d3ce73d6061f2069a74ddfbdd198f641950186182a04942db5c06de6c4a840",
+      "contains": [
+        "Ewhile",
+        "is_e_true e0",
+        "and k_fun",
+        "let k = Kseq (k, 0, add_qinv res q)"
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-producer-main-types-20261018/sources.tar.gz",
+      "path": "why3/src/mlw/vc.ml",
+      "first": 1065,
+      "last": 1173,
+      "sha256": "0a8196fbb7120bfce66309458e9888e01c4512392e28ad107a897ca3d7135c5b",
+      "contains": [
+        "let reflow",
+        "Mint.map Util.ffalse out",
+        "Mint.remove i q"
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-producer-main-types-20261018/sources.tar.gz",
+      "path": "why3/src/mlw/vc.ml",
+      "first": 1420,
+      "last": 1491,
+      "sha256": "272ebc29818e8cc26e488999a139577cf0be66d1c9a7955a3250325335566aea",
+      "contains": [
+        "Kseq (Klet",
+        "let sp0, wr0 = Mint.find i sp1",
+        "sp_combine_map sp1 sp2"
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-producer-main-types-20261018/sources.tar.gz",
+      "path": "why3/src/mlw/vc.ml",
+      "first": 1492,
+      "last": 1646,
+      "sha256": "9cf6f813cac08b58f46d0867cca41bf6bc9994359dff31d52638f25193950e97",
+      "contains": [
+        "sp_complete sp1 wr1 wr2",
+        "and wp_expr",
+        "Ktag (SP, k)"
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-producer-main-types-20261018/sources.tar.gz",
+      "path": "why3/src/mlw/vc.ml",
+      "first": 1649,
+      "last": 1710,
+      "sha256": "5ba266c378de8c87f3e6212d9c2e73daa7b31ae10245cf6f18cfda77df1ab52b",
+      "contains": [
+        "let rec simp_cast_projections",
+        "let f = wp_forall",
+        "Eval_match.eval_match",
+        "let f = simp_cast_projections env f"
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-producer-main-types-20261018/sources.tar.gz",
+      "path": "why3/src/mlw/eval_match.ml",
+      "first": 53,
+      "last": 92,
+      "sha256": "23a6800e60e89d441fecc99a36404cafed52d69a407e9546649311120fa18443",
+      "contains": [
+        "let find_inlineable",
+        "ls.ls_args",
+        "unfold_inlineable",
+        "ty_match mt x.vs_ty"
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-producer-main-types-20261018/sources.tar.gz",
+      "path": "spark/src/why/why-gen-scalars.adb",
+      "first": 542,
+      "last": 751,
+      "sha256": "80e909720a163235cb8e61399e37ca9b56e0f92f692970adb4be1b71609ac088",
+      "contains": [
+        "procedure Generate_Range_Predicate",
+        "GP_Inline_Marker",
+        "Pretty => True"
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-producer-postsplit-20261018/sources.tar.gz",
+      "path": "src/transform/gnat_split_conj.ml",
+      "first": 201,
+      "last": 294,
+      "sha256": "13efcdf0a3f81c38d30ae0d822afb82c63560b967d478479cd3c9e3bae7903e5",
+      "contains": [
+        "let rec has_pretty_labels",
+        "let extract_def env lhs rhs",
+        "let fold env d",
+        "match_forall"
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-producer-postsplit-20261018/sources.tar.gz",
+      "path": "src/transform/gnat_split_conj.ml",
+      "first": 298,
+      "last": 325,
+      "sha256": "af0cc8b41ea547310ab5a16cb35b4f76b4649e5c0db96d564f10221d2cce5d97",
+      "contains": [
+        "task_fold fold Mls.empty task",
+        "Split_goal.split_goal_right",
+        "Gnat_rewrite.elim_to_of_array"
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz",
+      "path": "why3/plugins/gnat_json/gnat_ast_to_ptree.ml",
+      "first": 326,
+      "last": 338,
+      "sha256": "af040bab1a097b13d9e9eea5c89b0d88c7b4eb9f1a68b84ec3fdf8e27679b39b",
+      "contains": [
+        "rac:call_id:%d"
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz",
+      "path": "why3/plugins/gnat_json/gnat_ast_to_ptree.ml",
+      "first": 889,
+      "last": 905,
+      "sha256": "fb1b1d2e190f309b1fae7ac59c6e4b6e8640559e185a56beef4b061814380efd",
+      "contains": [
+        "Abstract_expr r",
+        "mk_fun [] None",
+        "mk_attr (mk_call_id_str ())"
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz",
+      "path": "why3/plugins/gnat_json/gnat_ast_to_ptree.ml",
+      "first": 1011,
+      "last": 1169,
+      "sha256": "84fefd782b17cdc8b8dbb4a70ef9246404b80330cb7f2a711cf01cda37adb5ba",
+      "contains": [
+        "let mk_function_decl",
+        "if params = [] then",
+        "logic_decl; let_decl",
+        "vc:divergent"
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz",
+      "path": "why3/plugins/gnat_json/gnat_ast_to_ptree.ml",
+      "first": 1170,
+      "last": 1335,
+      "sha256": "4541cdc1eaa451e3096c804c364ae760a4ff2ee6d21823c7356266f49dd93e47",
+      "contains": [
+        "let rec mk_declaration",
+        "Clone_declaration",
+        "Meta_declaration",
+        "Exception_declaration",
+        "Goal r"
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz",
+      "path": "why3/src/mlw/pmodule.ml",
+      "first": 540,
+      "last": 555,
+      "sha256": "a88207055ae611dceaecfe20feae4654225a921fa2c021b001b0ed63cac407ce",
+      "contains": [
+        "add_use uc d.pd_syms",
+        "mk_vc uc d",
+        "add_pdecl_raw ~warn (List.fold_left add uc dl) d"
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz",
+      "path": "why3/src/mlw/pmodule.ml",
+      "first": 1590,
+      "last": 1634,
+      "sha256": "9c97fdac3806eed8fb4b8734b69436972142292211e36a2130549fbddd6ea70c",
+      "contains": [
+        "let clone_export",
+        "Uuse m -> use_export uc m",
+        "Uclone mi"
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-producer-fixed-tail-20261018/sources.tar.gz",
+      "path": "src/core/task.ml",
+      "first": 180,
+      "last": 229,
+      "sha256": "5343cc824ebc94284edb92e5d75cfe87167d0cd0fbe293d8d56bbc4536246bd2",
+      "contains": [
+        "Plemma",
+        "Paxiom",
+        "Pgoal",
+        "task_fold fn (fn acc task.task_decl) task.task_prev"
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-producer-firstsplit-20261018/sources.tar.gz",
+      "path": "src/transform/split_goal.ml",
+      "first": 516,
+      "last": 565,
+      "sha256": "913cafc4a75e5321162b4785e0fb272862096ce21c13eae619f68b06bc2362b0",
+      "contains": [
+        "Trans.goal_l",
+        "let split_goal_right"
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-producer-import-context-20261018/sources.tar.gz",
+      "path": "why3/src/core/theory.ml",
+      "first": 688,
+      "last": 700,
+      "sha256": "2ce10cb0fecabef9de9c7dbcda8d2d01f9640d51fa0ab1f10218be9bb2f1142f",
+      "contains": [
+        "id_clone ls.ls_name",
+        "cl_find_ls"
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-main-callers-profile-20261023/sources.tar.gz",
+      "path": "spark-source/src/why/why-gen-progs.adb",
+      "first": 199,
+      "last": 215,
+      "sha256": "0a5a72c4e900673219fb2f536b17da09f5f82accf776bd8e655d8b072a37459d",
+      "contains": [
+        "function New_Ignore",
+        "New_Abstract_Expr (Expr => Call, Post => True_Pred)"
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-producer-main-types-20261018/sources.tar.gz",
+      "path": "why3/src/mlw/vc.ml",
+      "first": 1714,
+      "last": 1789,
+      "sha256": "c7a5a466263038a3e8661079e3916dfaf42d586916023ca5adc187bf397644db",
+      "contains": [
+        "PDlet (LDvar (_, {e_node = Eexec ({c_node = Cany},_)}))",
+        "None, [] -> vcl"
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-producer-main-types-20261018/sources.tar.gz",
+      "path": "why3/src/mlw/expr.ml",
+      "first": 112,
+      "last": 147,
+      "sha256": "5b0dea5fe539d7764c238fa5edeaaf18606897e4fc5d75ec5466c251edafc053",
+      "contains": [
+        "RKfunc",
+        "RKpred",
+        "add_post c"
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-producer-main-types-20261018/sources.tar.gz",
+      "path": "why3/src/mlw/expr.ml",
+      "first": 726,
+      "last": 729,
+      "sha256": "a0d840eb499abea9502acbdc784145027519ca68916903995d25c006913bd50d",
+      "contains": [
+        "let let_sym",
+        "LDsym (s,c), s"
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-producer-main-types-20261018/sources.tar.gz",
+      "path": "why3/src/mlw/pdecl.ml",
+      "first": 531,
+      "last": 640,
+      "sha256": "40c091b8dce35d2f2c5a1fce8c33404154d8788696ec3739d15ceba5af009e75",
+      "contains": [
+        "let create_let_decl",
+        "term_of_expr",
+        "post_of_expr",
+        "mk_decl_meta metas (PDlet ld)"
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz",
+      "path": "why3/src/mlw/pmodule.ml",
+      "first": 1230,
+      "last": 1240,
+      "sha256": "951192b299315a3d753277ae62fa817470d454cb1ca9ba685d05b0d473196376",
+      "contains": [
+        "if d.itd_invariant <> []",
+        "vcs :="
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz",
+      "path": "why3/src/mlw/pmodule.ml",
+      "first": 1364,
+      "last": 1385,
+      "sha256": "e2feb2adddfe32cb8203aadc18ae90d01f6521126bd5eacbb941b4a6102ff56b",
+      "contains": [
+        "Mrs.mem rs inst.mi_rs",
+        "clone_type_decl"
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz",
+      "path": "why3/src/mlw/pmodule.ml",
+      "first": 1450,
+      "last": 1476,
+      "sha256": "9046bf66010009cdadac9e6896867ba1e11ae107877acb68f1c5d6a82dbc1aec",
+      "contains": [
+        "vc:false",
+        "clone_let_defn"
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-main-callers-profile-20261023/sources.tar.gz",
+      "path": "src/mlw/dexpr.ml",
+      "first": 1800,
+      "last": 1841,
+      "sha256": "bec79c38b5823c33ae98067285dc6f8e5d76ef739f12cf9574ca1e37e4ff025e",
+      "contains": [
+        "(RKfunc | RKpred), ([], _)",
+        "c_fun [] [] [] Mxs.empty Mpv.empty e",
+        "fst (let_sym id ~ghost ~kind c)"
+      ]
+    }
+  ],
+  "spark_inventory": {
+    "path": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+    "sha256": "f2e7dd7bbef086a36ddf97f9bd3bd669ca895fcc28e3ac23ffe0c9f85fc5d952"
+  }
+}

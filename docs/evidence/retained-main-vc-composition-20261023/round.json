@@ -1,0 +1,76 @@
+{
+  "date": "2026-10-23",
+  "issue": 185,
+  "parent_issue": 119,
+  "base_commit": "c5062a4452a196ce9b63bd06c4ac58b844d06d5a",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_confirmation": null,
+  "tokens": null,
+  "cost": null,
+  "native_platform": "Linux x86_64",
+  "native_executions": 0,
+  "predecessor_checker_executions": 0,
+  "intended_outcome": "Close all ordinary Main source-dependent declaration/body-to-terminal-goal mathematical edges, preserving exact terms, outcomes and actual D/I maps.",
+  "achieved": "Construction/induction and focused evidence complete for exact-freeze independent review; parent #119 native/allocation/consumer domains remain separate.",
+  "review_status": "Early independent feedback integrated; exact-freeze acceptance pending.",
+  "material_rework": [
+    "task_fold is newest-first: earliest accepted source declaration wins duplicate map keys.",
+    "has_pretty_labels skips quantifier triggers and application arguments; is_true ignores attributes.",
+    "Known_j is prior to adding original pdecl; Task snapshots per-goal prefix and translates imported lemmas to axioms while omitting imported goals.",
+    "find_inlineable tests declared ls_args before occurrence-level type instantiation.",
+    "Nullary RKfunc/RKpred Eany wraps in Cfun: include all source-dependent candidate VCs before actual triviality filtering and export their separate U/B/Delta contributions.",
+    "Source declaration dispatch now includes Goal/Exception and explicit source-dependent type/clone VC absence; whole context allocations remain parent."
+  ],
+  "runs": [
+    {
+      "receipt": "result-initial.json",
+      "reason": "Initial focused composition check after early D-fold/label guard corrections; no provider replay.",
+      "checks": 32253,
+      "elapsed_seconds": 1.8384036839997862,
+      "checker_sha256": "0654594eb154d68bf32dd33a2a258d9dd18f5ca9b9c91f1cac05abaef16680ab",
+      "model_sha256": "18ad2ebd24ec78b7c0595e9299b26a9d5a8a48ef62e2cdae5f460199dbdec1ac",
+      "identity_sha256": "107bb7e84add60c7eba1fd5f38e36b044eb38ba7c7fc1b5b9db662fd5a9ca0a6"
+    },
+    {
+      "receipt": "result-context-fixtures.json",
+      "reason": "Changed inputs: added explicit task-prefix/import/known-map fixtures, declared-Tyvar exclusion and discriminating repeated-formal weights.",
+      "checks": 32257,
+      "elapsed_seconds": 1.9288599560022703,
+      "checker_sha256": "f0a1ee2b3052aed6ad326cb89f171e1e6d0f5695fa7a7623f0811cbc97bed5dd",
+      "model_sha256": "01e06e5dbe8aca9381574de7140db8154d0751f009331ee8f68aa2317614a757",
+      "identity_sha256": "107bb7e84add60c7eba1fd5f38e36b044eb38ba7c7fc1b5b9db662fd5a9ca0a6"
+    },
+    {
+      "receipt": "result-before-wrapper-closure.json",
+      "reason": "Changed fixture terms to keep repeated-use values typed as values; separated nonunit unknown-definition and Unit cases.",
+      "checks": 32257,
+      "elapsed_seconds": 1.8617355530004716,
+      "checker_sha256": "4eed54e1f6a696fa6c44f4ef5344f8cfed0a49fe121b56b380a399e513f8ab51",
+      "model_sha256": "01e06e5dbe8aca9381574de7140db8154d0751f009331ee8f68aa2317614a757",
+      "identity_sha256": "107bb7e84add60c7eba1fd5f38e36b044eb38ba7c7fc1b5b9db662fd5a9ca0a6"
+    },
+    {
+      "receipt": "result.json",
+      "reason": "Changed scope: added all source-dependent nullary RKfunc/RKpred wrapper candidates and per-candidate constructor exports; pinned dexpr/expr/pdecl dispatch and full no-Goal-emitter inventory.",
+      "checks": 32574,
+      "elapsed_seconds": 3.5007728100026725,
+      "checker_sha256": "c4a66f03c0de701b8e08831510192c81484149ccc5039188ee8d462c67246d33",
+      "model_sha256": "01e06e5dbe8aca9381574de7140db8154d0751f009331ee8f68aa2317614a757",
+      "identity_sha256": "4cc5f689f6e7c9b4e23be7e8479fb278c8f410caf8762426b8aae70ff6320ec0"
+    }
+  ],
+  "failed_check": {
+    "stage": "New wrapper-coverage source inventory before final run",
+    "reason": "A substring W_Goal scan also matched EW_Goal and incorrectly expected only the xgen file; the node-kind declaration in why-sinfo.ads was missing from the expected inventory.",
+    "repair": "Use identifier boundaries, include both schema and node-kind declaration, and check New_Goal case-insensitively over all 279 source files.",
+    "result_written": false,
+    "check_elapsed_seconds": null
+  },
+  "successful_evidence_reuse": "All unchanged accepted provider data and source bytes retained; no broad validation replay.",
+  "live_harness_read": "No active goal returned; no writes.",
+  "cli_memory_updated": false,
+  "remaining": "Independent exact-freeze review and root integration/tracking; no #119 completion claim.",
+  "review_freeze_date": "2026-10-24",
+  "total_author_elapsed_seconds": null
+}
