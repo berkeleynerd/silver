@@ -1,0 +1,483 @@
+{
+  "complete_source_files": 78,
+  "cwd_ascii_assumed": false,
+  "examples": [
+    {
+      "P": 180,
+      "active_normal_suffix_bytes": 5067,
+      "assumptions_are_attached_by_this_function": false,
+      "before_main_merged": 24073,
+      "canonical_response_line_ceiling": 228,
+      "compiler_abort_tail_guard": true,
+      "decoded_error_bytes": 28065,
+      "early_primary": 5632,
+      "error_tail_bytes": 28065,
+      "inside_main_merged": 28065,
+      "leaf": 4096,
+      "merged_bytes": 28065,
+      "post_cut_merged": 20371,
+      "post_primary": 7348,
+      "primary": 10188
+    },
+    {
+      "P": 416,
+      "active_normal_suffix_bytes": 5067,
+      "assumptions_are_attached_by_this_function": false,
+      "before_main_merged": 25993,
+      "canonical_response_line_ceiling": 464,
+      "compiler_abort_tail_guard": true,
+      "decoded_error_bytes": 30761,
+      "early_primary": 6272,
+      "error_tail_bytes": 30761,
+      "inside_main_merged": 30761,
+      "leaf": 4736,
+      "merged_bytes": 30761,
+      "post_cut_merged": 24011,
+      "post_primary": 8224,
+      "primary": 11536
+    },
+    {
+      "P": 558,
+      "active_normal_suffix_bytes": 5067,
+      "assumptions_are_attached_by_this_function": false,
+      "before_main_merged": 27697,
+      "canonical_response_line_ceiling": 606,
+      "compiler_abort_tail_guard": true,
+      "decoded_error_bytes": 32749,
+      "early_primary": 6840,
+      "error_tail_bytes": 32749,
+      "inside_main_merged": 32749,
+      "leaf": 5304,
+      "merged_bytes": 32749,
+      "post_cut_merged": 26567,
+      "post_primary": 8934,
+      "primary": 12530
+    },
+    {
+      "P": 559,
+      "active_normal_suffix_bytes": 5067,
+      "assumptions_are_attached_by_this_function": false,
+      "before_main_merged": 27709,
+      "canonical_response_line_ceiling": 607,
+      "compiler_abort_tail_guard": false,
+      "decoded_error_bytes": 32763,
+      "early_primary": 6844,
+      "error_tail_bytes": 32763,
+      "inside_main_merged": 32763,
+      "leaf": 5308,
+      "merged_bytes": 32763,
+      "post_cut_merged": 26585,
+      "post_primary": 8939,
+      "primary": 12537
+    },
+    {
+      "P": 1927,
+      "active_normal_suffix_bytes": 5067,
+      "assumptions_are_attached_by_this_function": false,
+      "before_main_merged": 44125,
+      "canonical_response_line_ceiling": 1975,
+      "compiler_abort_tail_guard": false,
+      "decoded_error_bytes": 51915,
+      "early_primary": 12316,
+      "error_tail_bytes": 51915,
+      "inside_main_merged": 51915,
+      "leaf": 10780,
+      "merged_bytes": 51915,
+      "post_cut_merged": 51209,
+      "post_primary": 15779,
+      "primary": 22113
+    }
+  ],
+  "historical_manifest_recovery": false,
+  "input_files": 19,
+  "native_inputs": [
+    {
+      "all_printable_ascii": true,
+      "identity": {
+        "bytes": 286340,
+        "sha256": "193b4f7eff977fdb858330dbf143d3b068cfbd93d66548c30d4d69d6fa39868e"
+      },
+      "member": "first_or_default/silver_arguments__first_or_default.gnat-json",
+      "strings": 14199
+    },
+    {
+      "all_printable_ascii": true,
+      "identity": {
+        "bytes": 121828,
+        "sha256": "d146b75d28832260c49de3d8eb5f816c8481595127dc56dfaf3512cbdb6a4b2d"
+      },
+      "member": "input_is_valid/silver_arguments__input_is_valid.gnat-json",
+      "strings": 6106
+    },
+    {
+      "all_printable_ascii": true,
+      "identity": {
+        "bytes": 85809,
+        "sha256": "b9f9361dd5df2c6b1322bea6e5c795470f9424db961d526d3ecb061ee448e378"
+      },
+      "member": "is_message/silver_arguments__is_message.gnat-json",
+      "strings": 4261
+    },
+    {
+      "all_printable_ascii": true,
+      "identity": {
+        "bytes": 274756,
+        "sha256": "1c423282581111931998030d1c21252316eda436e099665675dc32b9886651ff"
+      },
+      "member": "put/silver_io__put.gnat-json",
+      "strings": 13569
+    },
+    {
+      "all_printable_ascii": true,
+      "identity": {
+        "bytes": 288617,
+        "sha256": "736ccd08de9f7e9965f2bee00088ec617fdd40bf4d0b7b76dc4286298aa65390"
+      },
+      "member": "put_line/silver_io__put_line.gnat-json",
+      "strings": 14543
+    }
+  ],
+  "native_runs": 0,
+  "post_cut_raw_path_ascii_assumed": false,
+  "recorded_path_strings_checked": 7224,
+  "registry_callbacks": 55,
+  "registry_projection": [
+    {
+      "fallback": "| _ -> raise exn",
+      "file": "why3/plugins/ada_terms/ada_lexer.mll",
+      "index": 0,
+      "start": 219
+    },
+    {
+      "fallback": "| _ -> raise exn",
+      "file": "why3/plugins/ada_terms/ada_parser.mly",
+      "index": 1,
+      "start": 67
+    },
+    {
+      "fallback": "| _ -> raise exn",
+      "file": "why3/plugins/cfg/cfg_lexer.mll",
+      "index": 2,
+      "start": 292
+    },
+    {
+      "fallback": "| _ -> raise exn",
+      "file": "why3/plugins/cfg/cfg_paths.ml",
+      "index": 3,
+      "start": 59
+    },
+    {
+      "fallback": "| _ -> raise exn",
+      "file": "why3/plugins/cfg/cfg_stackify.ml",
+      "index": 4,
+      "start": 59
+    },
+    {
+      "fallback": "| _ -> raise exn",
+      "file": "why3/plugins/cfg/stackify.ml",
+      "index": 5,
+      "start": 70
+    },
+    {
+      "fallback": "| _ -> raise exn",
+      "file": "why3/plugins/coma/coma_lexer.mll",
+      "index": 6,
+      "start": 317
+    },
+    {
+      "fallback": "| exn -> raise exn",
+      "file": "why3/plugins/coma/coma_logic.ml",
+      "index": 7,
+      "start": 955
+    },
+    {
+      "fallback": "| _ -> raise exn",
+      "file": "why3/plugins/gnat_json/gnat_ast_to_ptree.ml",
+      "index": 8,
+      "start": 1430
+    },
+    {
+      "fallback": "| _ -> raise exn",
+      "file": "why3/plugins/microc/mc_lexer.mll",
+      "index": 9,
+      "start": 18
+    },
+    {
+      "fallback": "| _ -> raise exn",
+      "file": "why3/plugins/microc/mc_parser.mly",
+      "index": 10,
+      "start": 18
+    },
+    {
+      "fallback": "| _ -> raise e",
+      "file": "why3/plugins/parser/dimacs.mll",
+      "index": 11,
+      "start": 57
+    },
+    {
+      "fallback": "| _ -> raise exn",
+      "file": "why3/plugins/python/py_lexer.mll",
+      "index": 12,
+      "start": 18
+    },
+    {
+      "fallback": "| _ -> raise exn",
+      "file": "why3/plugins/python/py_parser.mly",
+      "index": 13,
+      "start": 16
+    },
+    {
+      "fallback": "| _ -> raise e",
+      "file": "why3/plugins/tptp/tptp_lexer.mll",
+      "index": 14,
+      "start": 26
+    },
+    {
+      "fallback": "| _ -> raise exn",
+      "file": "why3/plugins/tptp/tptp_parser.mly",
+      "index": 15,
+      "start": 20
+    },
+    {
+      "fallback": "| _ -> raise e",
+      "file": "why3/plugins/tptp/tptp_typing.ml",
+      "index": 16,
+      "start": 35
+    },
+    {
+      "fallback": "| _ -> raise exn",
+      "file": "why3/src/core/coercion.ml",
+      "index": 17,
+      "start": 147
+    },
+    {
+      "fallback": "| _ -> raise e",
+      "file": "why3/src/core/dterm.ml",
+      "index": 18,
+      "start": 724
+    },
+    {
+      "fallback": "| _ -> raise exn",
+      "file": "why3/src/core/env.ml",
+      "index": 19,
+      "start": 250
+    },
+    {
+      "fallback": "| _ -> raise exn",
+      "file": "why3/src/core/pretty.ml",
+      "index": 20,
+      "start": 806
+    },
+    {
+      "fallback": "| e -> raise e",
+      "file": "why3/src/core/printer.ml",
+      "index": 21,
+      "start": 620
+    },
+    {
+      "fallback": "| _ -> raise exn",
+      "file": "why3/src/core/task.ml",
+      "index": 22,
+      "start": 364
+    },
+    {
+      "fallback": "| e -> raise e",
+      "file": "why3/src/core/trans.ml",
+      "index": 23,
+      "start": 547
+    },
+    {
+      "fallback": "| e -> raise e",
+      "file": "why3/src/driver/driver.ml",
+      "index": 24,
+      "start": 501
+    },
+    {
+      "fallback": "| _ -> raise exn",
+      "file": "why3/src/driver/driver_parser.mly",
+      "index": 25,
+      "start": 14
+    },
+    {
+      "fallback": "| _ -> raise exn",
+      "file": "why3/src/driver/prove_client.ml",
+      "index": 26,
+      "start": 252
+    },
+    {
+      "fallback": "| _ -> raise exn",
+      "file": "why3/src/driver/smtv2_model_parser.ml",
+      "index": 27,
+      "start": 1606
+    },
+    {
+      "fallback": "| _ -> raise e",
+      "file": "why3/src/driver/whyconf.ml",
+      "index": 28,
+      "start": 1085
+    },
+    {
+      "fallback": "| _ -> raise e",
+      "file": "why3/src/extract/java.ml",
+      "index": 29,
+      "start": 32
+    },
+    {
+      "fallback": "| e -> raise e",
+      "file": "why3/src/extract/pdriver.ml",
+      "index": 30,
+      "start": 347
+    },
+    {
+      "fallback": "| _ -> raise e",
+      "file": "why3/src/mlw/dexpr.ml",
+      "index": 31,
+      "start": 1847
+    },
+    {
+      "fallback": "| _ -> raise e",
+      "file": "why3/src/mlw/expr.ml",
+      "index": 32,
+      "start": 1606
+    },
+    {
+      "fallback": "| _ -> raise e",
+      "file": "why3/src/mlw/ity.ml",
+      "index": 33,
+      "start": 1773
+    },
+    {
+      "fallback": "| _ -> raise e",
+      "file": "why3/src/mlw/pmodule.ml",
+      "index": 34,
+      "start": 1734
+    },
+    {
+      "fallback": "| _ -> raise exn",
+      "file": "why3/src/parser/lexer.mll",
+      "index": 35,
+      "start": 207
+    },
+    {
+      "fallback": "| _ -> raise exn",
+      "file": "why3/src/parser/parser_common.mly",
+      "index": 36,
+      "start": 167
+    },
+    {
+      "fallback": "| _ -> raise e",
+      "file": "why3/src/parser/typing.ml",
+      "index": 37,
+      "start": 1970
+    },
+    {
+      "fallback": "| _ -> raise e",
+      "file": "why3/src/session/session_itp.ml",
+      "index": 38,
+      "start": 1566
+    },
+    {
+      "fallback": "| _ -> raise e",
+      "file": "why3/src/session/strategy.ml",
+      "index": 39,
+      "start": 29
+    },
+    {
+      "fallback": "| _ -> raise e",
+      "file": "why3/src/tools/why3extract.ml",
+      "index": 40,
+      "start": 243
+    },
+    {
+      "fallback": "| _ -> raise e",
+      "file": "why3/src/transform/args_wrapper.ml",
+      "index": 41,
+      "start": 27
+    },
+    {
+      "fallback": "| e -> raise e",
+      "file": "why3/src/transform/args_wrapper.ml",
+      "index": 42,
+      "start": 278
+    },
+    {
+      "fallback": "| _ -> raise e",
+      "file": "why3/src/util/cmdline.ml",
+      "index": 43,
+      "start": 91
+    },
+    {
+      "fallback": "| _ -> raise e",
+      "file": "why3/src/util/debug.ml",
+      "index": 44,
+      "start": 53
+    },
+    {
+      "fallback": "| _ -> raise e",
+      "file": "why3/src/util/lexlib.mll",
+      "index": 45,
+      "start": 18
+    },
+    {
+      "fallback": "| _ -> raise e",
+      "file": "why3/src/util/lexlib.mll",
+      "index": 46,
+      "start": 134
+    },
+    {
+      "fallback": "| _ ->\n        raise exn",
+      "file": "why3/src/util/loc.ml",
+      "index": 47,
+      "start": 343
+    },
+    {
+      "fallback": "| _ -> raise exn",
+      "file": "why3/src/util/mysexplib-dummy.ml",
+      "index": 48,
+      "start": 18
+    },
+    {
+      "fallback": "| _ -> raise exn",
+      "file": "why3/src/util/mysexplib-real.ml",
+      "index": 49,
+      "start": 32
+    },
+    {
+      "fallback": "| _ -> raise exn",
+      "file": "why3/src/util/number.ml",
+      "index": 50,
+      "start": 571
+    },
+    {
+      "fallback": "| _ -> raise exn",
+      "file": "why3/src/util/plugin.ml",
+      "index": 51,
+      "start": 60
+    },
+    {
+      "fallback": "| e -> raise e",
+      "file": "why3/src/util/rc.mll",
+      "index": 52,
+      "start": 89
+    },
+    {
+      "fallback": "| _ -> raise e",
+      "file": "why3/src/util/rc.mll",
+      "index": 53,
+      "start": 413
+    },
+    {
+      "fallback": "| e -> raise e",
+      "file": "why3/src/util/sysutil.ml",
+      "index": 54,
+      "start": 287
+    }
+  ],
+  "scope": "offline identities, exact fixed-byte projections and conditional arithmetic; semantic control proof requires review",
+  "source_witnesses": 53,
+  "status": "pass",
+  "sufficient_P_interval": [
+    180,
+    558
+  ]
+}

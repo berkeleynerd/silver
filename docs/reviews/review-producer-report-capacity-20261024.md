@@ -278,3 +278,139 @@ source/provider/delta correspondence. The retained author result reports 78
 source files, the 279-file Ada frontier and 4.934213 seconds; no reviewer
 checker, native or predecessor run was performed. Exact identities and the
 disposition are in the [statistics correction record](../evidence/review-producer-report-capacity-20261024/statistics-correction.json).
+
+## Terminal error payload: accepted after #200 repair, conditionally
+
+Final author target: `3be4ca682e9ff7389b01a1817d641e8b88740a71`.
+The selected fixed-process terminal-error attachment is accepted after the
+medium-severity TEP-1/#200 repair below. No remaining scoped correctness
+blocker was found. This closes the terminal-family review obligation left by
+the initial integrated review; actual path/configuration joins and arbitrary
+Main failure-provider joins remain separate. Exact final file identities and
+the repair delta are retained in the
+[final input record](../evidence/review-producer-report-capacity-20261024/terminal-payload-final-inputs.json).
+
+The refinement keeps the broad private/event/storage bounds and dirty-core
+guards. Its smaller quantity is the message that survives into the response.
+Under the retained representation, resource, one-worker and signal premises,
+`formatter_of_buffer` has no failing file service after rendering its child.
+Loc and BadI lookup/decoding rejection precedes the child; TransFailure,
+Located_by_marker and Finally retain one child result. Failed private Why
+adapter output is discarded. A pre-child rejection may retain its own prefix
+plus the opaque default of the wrapper, whose child is not traversed. Thus the
+returned message has one surviving child chain. Typing, registration and
+startup/plugin alternatives retain their distinct wrapper ceilings and are
+not summed as successive phases. Valid inputs alone do not establish this
+claim: the accepted scalar-origin and complete callback-frontier arguments
+remain necessary.
+
+All 55 rejecting shells remain charged in the broad private bounds. Their
+begins are not intrinsically output-free: Format may insert a line when its
+insertion point exceeds 68. A successful newline restores the point to at
+most 68, and begin/end tokens cannot increase it. Hence a consecutive shell
+run causes at most one such newline before another text/break event. Charging
+70 bytes per credit covers a same-line unit break plus the next LF/indent;
+a break that itself starts a line prevents that extra begin-induced line.
+The inspected source counts give 64 text/break credits plus two entry credits.
+The separate location, BadI helper, scalar and outer-dispatch counts include
+helper-owned events. This amortization does not erase the shells or assume
+that every rejected candidate succeeds.
+
+**TEP-1/#200: early raw Dynlink callback omission (medium, repaired).** The
+original argument excluded a quoted Dynlink callback after a successful direct
+Why Plugin match. That establishes only the direct custom-handler call. If
+that handler fails, `Printexc.handle_uncaught_exception'` calls
+`to_string(original_exn)` again. This independent raw call can select the
+registered quoted Dynlink callback; the provider establishes no callback
+order. The relevant archived sources are `ocaml/stdlib/printexc.ml:337–354`,
+`ocaml/otherlibs/dynlink/dynlink_types.ml` and
+`why3/src/util/plugin.ml:60–68`.
+
+The repair covers both orders. For the selected printable-ASCII/TAB/LF/CR
+loader and initializer alphabet, each OCaml quotation costs at most `2s+2`.
+The complete raw Dynlink cases are loader `4P+2240`, fixed primitive/default
+initializer 3402, and Unix initializer `4P+2188`; all fit
+`L(P)=max(4096,4P+3072)`. Fixed initializers do not recursively load plugins.
+Arbitrary cwd bytes belong to the separate connection origin, and FF is not
+misclassified as a two-byte OCaml escape. Therefore existing numerical
+ceilings remain safe, though the missing reachable branch invalidated their
+previous justification. No production source or numerical bound changed.
+
+The phase split also matters for secondary errors. Main's handler lies outside
+its own try, so failure of its abort reaches the custom handler as a new
+NO_ARG channel error. Before main, the custom handler can instead receive the
+original exception directly, and raw fallback may reuse that original.
+`Qearly` pays that additional copy. The pre-cut ceiling retains four abort
+attempts; subsequent payloads have the separate 512-byte ceiling. Private
+exit-hook buffers, external-server selection and NO_ARG channel flushes do
+not introduce a fresh pathname or recursively embed the original message.
+Global allowances remain `e<=2`, two save-entering callbacks and three saves.
+
+With `P=PrecutP=max(180,|initial_cwd|+10)`, the accepted equations are
+`Q=L+3P+5552`, `Qearly=L+1536`, `Hinside=2Q+7689` and
+`Hearly=3Qearly+7177`. Post-cut, `P=max(PrecutP,Ppost)` and the separately
+provided canonical proxy relation gives `M=P+48`; then
+`Qpost=L+P+3072` and `Hpost=2Qpost+4(M+P)+4043`. The extra `4(M+P)` retains
+the sixfold charge for arbitrary proxy/FileTags bytes. Pre-cut and post-cut
+are alternatives within one lifetime. Their common maximum is at most 32,760
+for the nonempty sufficient region `180<=P<=558`; it is 32,749 at P=558 and
+32,763 at P=559. This is a conditional region, not a measured historical cwd,
+a relocation authorization, or a transfer to arbitrary Main.
+
+Interrupted normal publication needs its own argument because the whole
+mixed file can exceed H. The accepted FIFO/token relation places all normal
+channel debt before the abort suffix and stops further normal calls at the
+failed active token. Active-write errors are the primitive NO_ARG family;
+the entire later suffix has ceiling 5,067. A root `error` value cannot begin
+in the normal prefix, whose immutable root has no such key. A partial key
+may straddle the boundary, but any resulting error value starts in the suffix
+and is bounded by 5,067. This neither asserts that such a hybrid key is
+reachable nor limits earlier normal strings. Raw fallback is terminal.
+After normal serialization completes, ending/putenv may instead raise
+Unix_error; any committed suffix then violates the parser's EOF check.
+That phase is not assigned the active-write primitive alphabet.
+
+At the GCC endpoint, Write_Char checks the 32,767-byte buffer before even
+handling LF, whereas direct Write_Eol has no corresponding precheck.
+Compiler_Abort's first slice is at most 70 bytes; the remaining line starts
+with the five-byte `|    ` and ends with `|` plus direct LF. The ceiling
+`H<=32760` leaves all seven bytes. Embedded LF resets the buffer earlier.
+The report can attach `error_tail_bytes=H` while retaining broad total/private
+allocation bounds. Prior Errout flushes, source-name dumps and version/target
+operands remain separately owned.
+
+I ran exactly one new independent read-only audit at author
+`5674751f05f98abba29974250a19386e39861cb7`. It passed 19 inputs, 78 complete
+source files, 53 witnesses, all 55 callback correspondences, the fixed five
+native-input character/path projection and the `[180,558]` sufficient region.
+Invocation elapsed time was 7.615937 seconds, from 02:11:40.196667 to
+02:11:47.813234 UTC. The
+[audit](../evidence/review-producer-report-capacity-20261024/terminal-payload-audit.json)
+and [result](../evidence/review-producer-report-capacity-20261024/terminal-payload-check-result.json)
+retain these exact inputs. The final narrow #200 note/assertion delta received
+source and arithmetic review only; all ten final author files were matched,
+and seven input/algebra/result/source files were unchanged. No checker replay,
+compiler, prover, provider or native run followed the repair. A separate total
+terminal-review elapsed measurement is unavailable. Selected reviewer setting
+remained GPT-6 Astra / Extra High; runtime confirmation and token/cost telemetry
+are unavailable.
+
+This acceptance retains the exec-time Why SIGINT mask, classified nonraising
+Thread/SIGVTALRM clients, immutable fixed inputs, source/native correspondence,
+represented arithmetic and adequate physical memory/stack. It does not replace
+these premises, the broad private/file owners, or the concrete invocation and
+configuration refinements. General Main and downstream collector/reader #194
+remain distinct work; complete #119 assurance is not established here.
+
+For the resulting #193 boundary, no uncovered consumer-local owner was found
+once its stated providers and representation guards are supplied. The accepted
+result is complete conditional per-unit result/report consumer functions plus
+the selected fixed-process terminal attachment. This judgment rests on the
+source/owner census, control arguments and recurrences, not the arithmetic
+examples. A generic Main error may still use the parser's #186 byte bound b;
+that gives a conservative operand but does not by itself make Compiler_Abort's
+explicit-line guard satisfiable for every admitted Main. Tightening that
+arbitrary-Main Why failure provider remains parent work. Actual pathname,
+clock/duration, configuration and source-behavior refinements remain under the
+parent and #88/#89. With those boundaries explicit, scoped #193 is ready for
+In review; this is not a whole-invocation completion claim or a #194 review.
