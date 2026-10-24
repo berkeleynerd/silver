@@ -9,8 +9,8 @@
       "sha256": "0d09fcfb1954fe433cf5c567b945232f758733a5ed4989cb3140cf8fd7b3e6ab"
     },
     "docs/evidence/retained-reported-time-native-20261024/native-supplement.json": {
-      "bytes": 28093,
-      "sha256": "ecaf8d53d72c4690663e4c425646200440515d1b3839fdc8ea9ed04a9af28724"
+      "bytes": 30498,
+      "sha256": "14dd4eb09a42a1f39c51a899dc092801a372996b5d0c63e175338a39f17c187c"
     },
     "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/ast.ml": {
       "bytes": 10952,
@@ -320,6 +320,34 @@
       "hex": "7447",
       "instruction": "je     9811c8 <camlStdlib__Hashtbl__create_inner_1743+0x68>",
       "line": "  98117f:\t74 47                \tje     9811c8 <camlStdlib__Hashtbl__create_inner_1743+0x68>"
+    },
+    {
+      "address": 9523254,
+      "file": "docs/evidence/retained-reported-time-native-20261024/camlRe__Mark_infos__offset_455.txt",
+      "hex": "4983ef28",
+      "instruction": "sub    $0x28,%r15",
+      "line": "  915036:\t49 83 ef 28          \tsub    $0x28,%r15"
+    },
+    {
+      "address": 9730067,
+      "file": "docs/evidence/retained-reported-time-native-20261024/camlStdlib__Option__map_292.txt",
+      "hex": "4983ef10",
+      "instruction": "sub    $0x10,%r15",
+      "line": "  947813:\t49 83 ef 10          \tsub    $0x10,%r15"
+    },
+    {
+      "address": 9566292,
+      "file": "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Group__offset_opt_503.txt",
+      "hex": "4983ef28",
+      "instruction": "sub    $0x28,%r15",
+      "line": "  91f854:\t49 83 ef 28          \tsub    $0x28,%r15"
+    },
+    {
+      "address": 9566414,
+      "file": "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Group__fun_1088.txt",
+      "hex": "4983ef18",
+      "instruction": "sub    $0x18,%r15",
+      "line": "  91f8ce:\t49 83 ef 18          \tsub    $0x18,%r15"
     }
   ],
   "reference_commit": "f09672608781dc05172ad980a6e9a483c3b9d534",
@@ -381,6 +409,7 @@
     "camlRe__Mark_infos__set_428",
     "camlRe__Str__compile_regexp_445",
     "camlRe__Str__fun_1286",
-    "camlRe__Str__search_forward_689"
+    "camlRe__Str__search_forward_689",
+    "camlRe__Group__fun_1088"
   ]
 }

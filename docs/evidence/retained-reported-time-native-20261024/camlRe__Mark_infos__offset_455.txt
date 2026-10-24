@@ -1,0 +1,60 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+0000000000914fe0 <camlRe__Mark_infos__offset_455>:
+  914fe0:	48 83 ec 08          	sub    $0x8,%rsp
+  914fe4:	48 8d 5c 1b ff       	lea    -0x1(%rbx,%rbx,1),%rbx
+  914fe9:	48 89 df             	mov    %rbx,%rdi
+  914fec:	48 83 c7 02          	add    $0x2,%rdi
+  914ff0:	48 8b 70 f8          	mov    -0x8(%rax),%rsi
+  914ff4:	48 c1 ee 09          	shr    $0x9,%rsi
+  914ff8:	48 89 f2             	mov    %rsi,%rdx
+  914ffb:	48 83 ca 01          	or     $0x1,%rdx
+  914fff:	48 39 d7             	cmp    %rdx,%rdi
+  915002:	7c 0c                	jl     915010 <camlRe__Mark_infos__offset_455+0x30>
+  915004:	b8 01 00 00 00       	mov    $0x1,%eax
+  915009:	48 83 c4 08          	add    $0x8,%rsp
+  91500d:	c3                   	ret
+  91500e:	66 90                	xchg   %ax,%ax
+  915010:	48 39 de             	cmp    %rbx,%rsi
+  915013:	76 61                	jbe    915076 <camlRe__Mark_infos__offset_455+0x96>
+  915015:	48 8b 5c 98 fc       	mov    -0x4(%rax,%rbx,4),%rbx
+  91501a:	48 83 fb ff          	cmp    $0xffffffffffffffff,%rbx
+  91501e:	75 0c                	jne    91502c <camlRe__Mark_infos__offset_455+0x4c>
+  915020:	b8 01 00 00 00       	mov    $0x1,%eax
+  915025:	48 83 c4 08          	add    $0x8,%rsp
+  915029:	c3                   	ret
+  91502a:	66 90                	xchg   %ax,%ax
+  91502c:	48 39 fe             	cmp    %rdi,%rsi
+  91502f:	76 40                	jbe    915071 <camlRe__Mark_infos__offset_455+0x91>
+  915031:	48 8b 44 b8 fc       	mov    -0x4(%rax,%rdi,4),%rax
+  915036:	49 83 ef 28          	sub    $0x28,%r15
+  91503a:	4d 3b 3e             	cmp    (%r14),%r15
+  91503d:	72 2b                	jb     91506a <camlRe__Mark_infos__offset_455+0x8a>
+  91503f:	49 8d 7f 08          	lea    0x8(%r15),%rdi
+  915043:	48 83 c7 10          	add    $0x10,%rdi
+  915047:	48 c7 47 f8 00 08 00 	movq   $0x800,-0x8(%rdi)
+  91504e:	00 
+  91504f:	48 89 1f             	mov    %rbx,(%rdi)
+  915052:	48 89 47 08          	mov    %rax,0x8(%rdi)
+  915056:	48 8d 47 f0          	lea    -0x10(%rdi),%rax
+  91505a:	48 c7 40 f8 00 04 00 	movq   $0x400,-0x8(%rax)
+  915061:	00 
+  915062:	48 89 38             	mov    %rdi,(%rax)
+  915065:	48 83 c4 08          	add    $0x8,%rsp
+  915069:	c3                   	ret
+  91506a:	e8 bd ed 0c 00       	call   9e3e2c <caml_call_gc>
+  91506f:	eb ce                	jmp    91503f <camlRe__Mark_infos__offset_455+0x5f>
+  915071:	e8 f6 f0 0c 00       	call   9e416c <caml_ml_array_bound_error>
+  915076:	e8 f1 f0 0c 00       	call   9e416c <caml_ml_array_bound_error>
+
+Disassembly of section .fini:

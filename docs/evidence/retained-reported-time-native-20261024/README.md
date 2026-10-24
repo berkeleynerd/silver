@@ -5,8 +5,8 @@ for #206. The selected pattern is `5c3d` (backslash-equals, Start). Native
 inspection rejected the earlier `5c60` candidate: the installed Str dialect
 disables its BOS interpretation and treats the backtick as a literal.
 
-The focused check passed in0.415861 seconds: 15 fixed inputs, 81 whole native
-bodies (58 reused from R72, 23 newly retained), 37 instruction witnesses,
+The focused check passed after review repair in0.335628 seconds: 15 fixed inputs, 84 whole native
+bodies (59 reused from R72, 25 newly retained), 41 instruction witnesses,
 four selected dispatch entries, 66 abstract publication states and91 possible
 assignments of the one global at-most-two-event allowance to nine owners.
 The semantic proof is the accompanying note. The finite model checks its
@@ -42,7 +42,7 @@ Files:
 * `inputs.json` fixes reference sources and providers, selects reused native
   bodies and exact instruction lines. The reference commit is
   `f09672608781dc05172ad980a6e9a483c3b9d534`, not an installed-version claim.
-* `native-supplement.json` binds23 new full named bodies and two colorize
+* `native-supplement.json` binds25 new full named bodies and two colorize
   dispatch tables to the unchanged installed ELF. Raw `.txt` files preserve
   objdump output. The separate `new-extraction.json` retains the first anchored
   extraction. New extraction only addressed missing selected joins; R72's
@@ -52,5 +52,10 @@ Files:
 
 ELF identity:24,561,432 bytes, SHA256
 `7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368`.
+The original successful Start check at b4c00b1c04 is retained in Git history.
+Independent review corrected the detailed offset-chain cost from3 to15 words;
+the per-call subtotal is214 and the exported256 credit is unchanged.
+The current focused rerun adds those native bodies and witnesses.
+
 No native target, compiler, solver, prover or Re engine ran. No Oracle,
 language, production-tool, configuration or GitHub change occurred here.
