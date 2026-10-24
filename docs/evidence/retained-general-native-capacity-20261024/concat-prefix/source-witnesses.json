@@ -1,0 +1,263 @@
+{
+  "witnesses": [
+    {
+      "id": "concat-types-and-captures",
+      "source": "gcc/ada/exp_ch4.adb",
+      "first_lf_line": 2553,
+      "last_lf_line": 2667,
+      "sha256": "26dd3fb4bed4b6954c240d4500af7eca07b37140ec6d8cd7b619f211246d9376"
+    },
+    {
+      "id": "concat-conversions",
+      "source": "gcc/ada/exp_ch4.adb",
+      "first_lf_line": 2727,
+      "last_lf_line": 2761,
+      "sha256": "3302934847753bade453656ba8436d11c09bdc2bef13f54bd5bd05607b0389c6"
+    },
+    {
+      "id": "concat-arithmetic-type",
+      "source": "gcc/ada/exp_ch4.adb",
+      "first_lf_line": 2795,
+      "last_lf_line": 2824,
+      "sha256": "ba32c544d82ed2e7c79dfaafbffd70a36c1fd84661926f173df30a1e1a112924"
+    },
+    {
+      "id": "concat-fixed-prefix",
+      "source": "gcc/ada/exp_ch4.adb",
+      "first_lf_line": 2851,
+      "last_lf_line": 2910,
+      "sha256": "553ddcb93f1204dc41ffb739d6a4fa1fbb71abe0bdff7e56047f633e594b3a2c"
+    },
+    {
+      "id": "concat-dynamic-lengths",
+      "source": "gcc/ada/exp_ch4.adb",
+      "first_lf_line": 2957,
+      "last_lf_line": 3046,
+      "sha256": "503e46ea1fa91e8333aed7abcf2b3108782eb0fd98a5dfb5133070d3a65989e4"
+    },
+    {
+      "id": "concat-aggregate-captures",
+      "source": "gcc/ada/exp_ch4.adb",
+      "first_lf_line": 3050,
+      "last_lf_line": 3118,
+      "sha256": "0270d902994087240f595364c6dc3bdcdf5c8241fd6bd967d072a47ad2fb32a0"
+    },
+    {
+      "id": "concat-selected-low",
+      "source": "gcc/ada/exp_ch4.adb",
+      "first_lf_line": 3125,
+      "last_lf_line": 3228,
+      "sha256": "42423e2c240b7cb7b8b319cc98bbeba7c7f3e6c49a2322abb95c1d5de7e2b25c"
+    },
+    {
+      "id": "concat-high-null-and-allocation",
+      "source": "gcc/ada/exp_ch4.adb",
+      "first_lf_line": 3230,
+      "last_lf_line": 3340,
+      "sha256": "631b77f6cbd111a5ffd2eb47f60351d2dfccc23eb4099a715f247b5502a9df72"
+    },
+    {
+      "id": "concat-secondary-subtype",
+      "source": "gcc/ada/exp_ch4.adb",
+      "first_lf_line": 3347,
+      "last_lf_line": 3390,
+      "sha256": "90da91fc9ad677ae362be0809aa2f67d0e60ecfa31e2969a5345f81904d6c476"
+    },
+    {
+      "id": "concat-assignment-ranges",
+      "source": "gcc/ada/exp_ch4.adb",
+      "first_lf_line": 3550,
+      "last_lf_line": 3573,
+      "sha256": "5a6b4bbf3709cf26e971b9759615f82f3812e2ec9804c585c5c615fd27f61e5e"
+    },
+    {
+      "id": "native-length",
+      "source": "gcc/ada/gcc-interface/trans.cc",
+      "first_lf_line": 1703,
+      "last_lf_line": 1736,
+      "sha256": "63985939d6654d903c113ba8cf73dd608ba3995d7f7a18f5a8e648c9da658b02"
+    },
+    {
+      "id": "ordinary-binary-high",
+      "source": "gcc/ada/gcc-interface/trans.cc",
+      "first_lf_line": 7421,
+      "last_lf_line": 7603,
+      "sha256": "f4feae1b4a4dedb1f66d2d7f0566c72d6eb254e1a271d91dd83d7155dbb2823e"
+    },
+    {
+      "id": "native-if",
+      "source": "gcc/ada/gcc-interface/trans.cc",
+      "first_lf_line": 7605,
+      "last_lf_line": 7619,
+      "sha256": "b72fdedd35df560083b90b65d8d5189c2e1bf8a57c0687e7f97bdf50c9d15614"
+    },
+    {
+      "id": "same-type-nonlvalue-strip",
+      "source": "gcc/ada/gcc-interface/trans.cc",
+      "first_lf_line": 8950,
+      "last_lf_line": 8964,
+      "sha256": "3a98b09fc55d84a786ac934723e6edce9d6c732095d1fe837a510b7d0f3ea5a7"
+    },
+    {
+      "id": "binary-conversion-gates",
+      "source": "gcc/ada/gcc-interface/utils2.cc",
+      "first_lf_line": 1425,
+      "last_lf_line": 1521,
+      "sha256": "0a424910c563c7535010c01f979f240b34ca2c170921a3edced65cb34b6bfdcd"
+    },
+    {
+      "id": "constant-object-state",
+      "source": "gcc/ada/gcc-interface/utils.cc",
+      "first_lf_line": 3018,
+      "last_lf_line": 3090,
+      "sha256": "a7f5e528cfef9e425d5c23f3a2490e2b251467b3c83c56ee3fb1b41bfc8e20a4"
+    },
+    {
+      "id": "maximum-declaration-cut",
+      "source": "gcc/ada/gcc-interface/utils.cc",
+      "first_lf_line": 4095,
+      "last_lf_line": 4178,
+      "sha256": "dbfd423e59d3d2f959c93edd1210043c73b81f450adc9301b5119ed8ef50aecb"
+    },
+    {
+      "id": "maximum-query-fallback",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 2670,
+      "last_lf_line": 2712,
+      "sha256": "b41fdc23740a3c2b617bdf26002509849dcef7395f6f6e8295c66372ba0744ac"
+    },
+    {
+      "id": "source-non-superflat-flag",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 2774,
+      "last_lf_line": 2785,
+      "sha256": "f1ab76bf0238dc429a95f7c9521e87772b28542c1ac5aabffd6a13308f76d4ae"
+    },
+    {
+      "id": "range-non-superflat-shortcut",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 7049,
+      "last_lf_line": 7065,
+      "sha256": "f6fff2ea2fc2126b8441831a673b70b16226b5762d09efcf5f44b5e21a721b44"
+    },
+    {
+      "id": "bound-elaboration",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 7534,
+      "last_lf_line": 7657,
+      "sha256": "e0921dcc90ae7165bb6155b45d10056cfdf32cd0adccee418a718a6b85a7bb4f"
+    },
+    {
+      "id": "source-constant-entities",
+      "source": "gcc/ada/exp_util.adb",
+      "first_lf_line": 14425,
+      "last_lf_line": 14465,
+      "sha256": "05c80b6f60159ba14ef2e54071d7dcfb7c384405e9655dd55b08bbd9b56b57b6"
+    },
+    {
+      "id": "max-plus-common",
+      "source": "gcc/ada/gcc-interface/utils2.cc",
+      "first_lf_line": 1442,
+      "last_lf_line": 1467,
+      "sha256": "4edbede1a6be7c97019b9d5b0a1ee5d81214d4da0ac40032f515edfff4ec6331"
+    },
+    {
+      "id": "non-lvalue-identity",
+      "source": "gcc/match.pd",
+      "first_lf_line": 229,
+      "last_lf_line": 243,
+      "sha256": "d1a0b874d93e44d07c046e2d71d243981ad06425baa3460e8ac3f8f84b402264"
+    },
+    {
+      "id": "shift-negation",
+      "source": "gcc/match.pd",
+      "first_lf_line": 2195,
+      "last_lf_line": 2205,
+      "sha256": "17aeed058a856839a55dbf767ff830f789040ed863604e71cea6fcbec7372bc2"
+    },
+    {
+      "id": "constant-association",
+      "source": "gcc/match.pd",
+      "first_lf_line": 4399,
+      "last_lf_line": 4443,
+      "sha256": "ae4a51e258b8fd5f018ac8e62809181434ef71e3e284a528cd5f4df9dc68d964"
+    },
+    {
+      "id": "equal-plus-captures",
+      "source": "gcc/match.pd",
+      "first_lf_line": 6033,
+      "last_lf_line": 6043,
+      "sha256": "7e45dab2a3deb8fa59ef0258fb5f771e62a28009b57a6edd90184ca3fa73d13d"
+    },
+    {
+      "id": "non-lvalue-constructor",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 2811,
+      "last_lf_line": 2871,
+      "sha256": "d2fd6e3b0a0d14a204d1692cbf56d5e3ae2d56f952ac1a00d5ed88a0f6642afa"
+    },
+    {
+      "id": "constant-fold-before-matcher",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 11000,
+      "last_lf_line": 11050,
+      "sha256": "89872641277f82d9a93deec8c7d6a06cd553c4f5cebeec30ef898ffdf6fb6f4e"
+    },
+    {
+      "id": "descriptor-values",
+      "source": "gcc/ada/gcc-interface/utils.cc",
+      "first_lf_line": 4401,
+      "last_lf_line": 4460,
+      "sha256": "70b5522a51286475713606eab48d1e46ae39e3b6e239c6d9bb10eb8b731206df"
+    },
+    {
+      "id": "descriptor-flags",
+      "source": "gcc/ada/gcc-interface/utils2.cc",
+      "first_lf_line": 2166,
+      "last_lf_line": 2220,
+      "sha256": "81c2632c001570096df6400b6ec2059a400c5ed3da51e483081ded6ffb7bbf0d"
+    },
+    {
+      "id": "array-original-constraint",
+      "source": "gcc/ada/sem_ch3.adb",
+      "first_lf_line": 14380,
+      "last_lf_line": 14450,
+      "sha256": "5051fd024accee25a6b11b377e41c2627365202178caef0e95ab621ffe3660cc"
+    },
+    {
+      "id": "index-range-identity",
+      "source": "gcc/ada/sem_ch3.adb",
+      "first_lf_line": 15316,
+      "last_lf_line": 15474,
+      "sha256": "55c3dc9a57c6941f06d363d6cd4980acd5750befd6a1f229874560db3ecd8fb6"
+    },
+    {
+      "id": "range-checks-preserve-root",
+      "source": "gcc/ada/sem_ch3.adb",
+      "first_lf_line": 22588,
+      "last_lf_line": 22834,
+      "sha256": "c21c2c3e4cdedff209278512301da3b9bd609a705961259dd7fb138ba7d88722"
+    },
+    {
+      "id": "analyze-range-preserves-root",
+      "source": "gcc/ada/sem_ch4.adb",
+      "first_lf_line": 4818,
+      "last_lf_line": 4930,
+      "sha256": "b81aa42f7fc6373a61da4d16cb341d20669f6497f52c8f71dd1f689c61e2e1f4"
+    },
+    {
+      "id": "resolve-range-preserves-root",
+      "source": "gcc/ada/sem_res.adb",
+      "first_lf_line": 11161,
+      "last_lf_line": 11289,
+      "sha256": "2a1e4489c71bd67ca932a58bf70ba2e1f4863372e796d991641a3f3e90a790ca"
+    },
+    {
+      "id": "gigi-original-range-index",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 2613,
+      "last_lf_line": 2636,
+      "sha256": "6e1d943725515fa5c7bcde721673568590a97150bcd62c5c25592f7fecb90e3b"
+    }
+  ]
+}

@@ -62,6 +62,21 @@ keeps concat initializer arithmetic, enclosing pointer/address adaptation,
 metadata/backing and full native capacity open. Neither an internal constant
 alone nor a call to save_expr establishes this classification or its bound.
 
+The [literal-prefixed concat continuation](../evidence/retained-general-native-capacity-20261024/concat-prefix/README.md)
+closes a source-defined nonnull allocation partition: low literal1, an
+aggregate-length capture G, accepted input/Image operand providers, and the
+producer's preserved Cannot_Be_Superflat flag. Its signed high1+(G-1)
+normalizes to G, while max_value examines at most the aggregate's two
+immediate scalar operands and never follows their initializers. For distinct
+Cs/Ca index/array identities it gives H<=3, Q_ConcatPrefix<=10Ca and
+combined raw helper/annotation bytes 2152Cs+16496Ca. Mixed1/G templates add
+168Dg raw bytes, with Dg<=8Pg<=8V_Main. The
+[new export](../evidence/retained-general-native-capacity-20261024/concat-prefix/current.json)
+and [remaining producer inventory](../evidence/retained-general-native-capacity-20261024/concat-prefix/remaining.json)
+keep selected-low/null-selector initializers, returned/assignment slices,
+unclosed incoming concat providers and pointer/address adaptation explicit.
+These proof partitions do not narrow admission or finish #201.
+
 The first result is a source-to-layout lemma and a cumulative allocation kernel
 for Main's local types. It removes the padding-record alternatives for those
 types, supplies explicit type/declaration/vector/constant coefficients, and
@@ -492,6 +507,21 @@ its actual host and elapsed time in the new export. Independent review is
 pending; full helper workspace and #201/#119 remain open. The global e<=2,
 two save-entering callbacks and three saves are still once per Why process,
 not per stage or a new GCC-producer charge.
+
+Concat producer continuation, 2026-10-24: input author freeze 4f518ea315 was
+independently accepted in review a33e3ef26a before this round. The new
+concat-prefix unit supplies explicit frontend dispatch, a three-constant
+immediate aggregate maximum-query lemma, signed high normalization and
+cumulative constructor/annotation coefficients. Its concrete applicability
+witness is command_line_greeting.adb's literal-prefixed input concat; no
+sample substitutes for the source argument. A discarded NON_LVALUE candidate
+is charged, and max_value's unchanged-conditional-arm return is retained as
+a specific next obligation. Selected author remains GPT-6 Astra / Extra High;
+runtime confirmation, total author elapsed time, tokens and cost are
+unavailable. Only the focused source/certificate/arithmetic checker ran, with
+actual host/time retained in the new export; no compiler, prover, native
+target or predecessor checker ran. Independent review is pending. Full
+concat, workspace/backing and downstream #201/#119 obligations remain open.
 
 Historical first-kernel round record, 2026-10-24: selected author setting GPT-6 Astra / Extra High;
 runtime model/effort confirmation unavailable. Intended outcome: replace an

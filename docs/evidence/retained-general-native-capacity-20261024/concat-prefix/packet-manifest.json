@@ -1,0 +1,54 @@
+{
+  "files": [
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-prefix/README.md",
+      "bytes": 21433,
+      "sha256": "2d3c3f055c1e03579a498a78e9ced5d969e2d56dfc701155928bff9f3722e073"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-prefix/check.py",
+      "bytes": 15074,
+      "sha256": "6aae2f47a4bafc29780a5cd580cff69ea7bcc37623c5f641eff442fc9b019d00"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-prefix/rank.json",
+      "bytes": 3623,
+      "sha256": "3babbde2b87e484b587677acff7386a8159e935f8b947535d8a753c2e81fc76d"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-prefix/ledger.json",
+      "bytes": 1822,
+      "sha256": "1b27564e9a21ae3ef995a3cc5b354236f3665bd0bcc8da465ce8f1bf15a6e482"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-prefix/remaining.json",
+      "bytes": 5570,
+      "sha256": "64f2338cf52f20460dd31a87692222825147dc1b6be85bdd96c64c5769eea678"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-prefix/matcher-audit.json",
+      "bytes": 144429,
+      "sha256": "9fa945b007fe7044670ecc9c4a34c1f0305875a24cd04cc970e3e96249b98963"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-prefix/source-manifest.json",
+      "bytes": 8890,
+      "sha256": "1c8ae0191f30399d6ee1ce4e6f7fd570e5e8ad991e0b9fbee0a78cf12adf931c"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-prefix/source-witnesses.json",
+      "bytes": 8663,
+      "sha256": "ea02a31621b658e9374a1737c6356d1fe0a6f02f934136065f945598c3d89b2d"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-prefix/inputs.json",
+      "bytes": 4111,
+      "sha256": "d1d91398a8ba460e3765440720c6560295bf937ee601dbc1182780bb93e28c8b"
+    },
+    {
+      "path": "docs/research/retained-general-native-capacity.md",
+      "bytes": 34203,
+      "sha256": "8bd7590edde282a78dd1c8180d2f1530eed2b40ebc798500fa8d4c33c703d874"
+    }
+  ]
+}
