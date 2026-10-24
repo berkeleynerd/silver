@@ -1,0 +1,25 @@
+{
+  "reviewed_author_commit": "26bd01de61242d49f4680d609b38d09e3a51925f",
+  "files": [
+    {
+      "path": "docs/reviews/review-native-dynamic-helpers-20261024.md",
+      "bytes": 9963,
+      "sha256": "53e1e13892b6eb5255b5d3f2f6ec2da72a366676b54e5400deacd72e5ea6fadd"
+    },
+    {
+      "path": "docs/evidence/review-native-dynamic-helpers-20261024/README.md",
+      "bytes": 3224,
+      "sha256": "cd27e58812530c9e6288bfe9151b1f59d7d5173668985d264b59031b89598769"
+    },
+    {
+      "path": "docs/evidence/review-native-dynamic-helpers-20261024/audit.py",
+      "bytes": 12174,
+      "sha256": "5b854528bf57387e108921f554f15eca136a21fcf82153ee262057c31fad2792"
+    },
+    {
+      "path": "docs/evidence/review-native-dynamic-helpers-20261024/current.json",
+      "bytes": 5763,
+      "sha256": "e1fac072081161780f558f5ceea46e52a1d388346ebc2a40bbab6591de48c5ad"
+    }
+  ]
+}

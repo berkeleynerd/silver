@@ -1,0 +1,144 @@
+{
+  "status": "pass",
+  "reviewed_commit": "26bd01de61242d49f4680d609b38d09e3a51925f",
+  "accepted_predecessor_author_commit": "99734327fd77d426fead054d7ba0e12999b00d8a",
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "platform": "Linux x86_64",
+  "completed_at_utc": "2026-10-24T04:32:25.591155+00:00",
+  "audit_elapsed_seconds": 0.4024971219987492,
+  "review_start_clock_utc": "2026-10-24T04:28:19+00:00",
+  "review_through_audit_seconds": 246.591155,
+  "bound_inputs": [
+    {
+      "path": "docs/evidence/retained-backend-capacity-20261018/selected-auto-host.h",
+      "bytes": 62999,
+      "sha256": "c3c1d68e912dbb4d6f1b005d4b01c4735a82b2234d3b74eec4722202da337e14"
+    },
+    {
+      "path": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json",
+      "bytes": 38353,
+      "sha256": "a3857f1c88b37a617411164bc0a0b492e78805abf0d46c4222d3a1f491883b1f"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/check-result.json",
+      "bytes": 6368,
+      "sha256": "f463953cbfeb6945b5a914dad91d485c4ec224d92081ef1768d972142892e76e"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/dynamic-helpers/README.md",
+      "bytes": 15075,
+      "sha256": "1b2a895859c9c26ca315d61b64ff21988ba151e598d6f780d3c6733ce4d81c12"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/dynamic-helpers/check.py",
+      "bytes": 14415,
+      "sha256": "e52fb4bf770e1e02079a6e23fcd4a16c99de4fb1d33558120dbaddb507fd2f26"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/dynamic-helpers/current.json",
+      "bytes": 2241,
+      "sha256": "4898d94bd261f2345405133e198477379eb1669773acd31e93ac278866762179"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/dynamic-helpers/extra-sources.tar.gz",
+      "bytes": 22094,
+      "sha256": "3a631da1823eb73fd033607b6378ebeb175b2a62671944b90376c20655310ee9"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/dynamic-helpers/inputs.json",
+      "bytes": 1749,
+      "sha256": "f2492b449909408d7e633128d4a35d4887d6c23102fe489a5f9f56d1824d6616"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/dynamic-helpers/packet-manifest.json",
+      "bytes": 1539,
+      "sha256": "c293a45bbdb416c43ccb19d36592f93b7d38ecee8c45299ef306793819b8f260"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/dynamic-helpers/source-manifest.json",
+      "bytes": 6307,
+      "sha256": "4f6aaea2c189cdfde708085016540b459a91f23a92e63700a056149da6e9f305"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/dynamic-helpers/source-witnesses.json",
+      "bytes": 4624,
+      "sha256": "cc2b607c493ef0943a3f09ad97a7060591386dfc6d501c0b68f829af2b4110c6"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/helper-joins/README.md",
+      "bytes": 21078,
+      "sha256": "71370e5140df65de672cb45f1b451b59ab412ffe01341d7b9753a94702c20002"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/helper-joins/current.json",
+      "bytes": 4979,
+      "sha256": "55996c6c37ab8e2b8d4043249eff9699d97126ba3ff761e3f9f89d9585d1ebb9"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/helper-joins/source-manifest.json",
+      "bytes": 4921,
+      "sha256": "877710728e4bb6d61d116a6bb91a337a675d450b6121767e16a08b23a43d914b"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/string-pack-current.json",
+      "bytes": 20003,
+      "sha256": "47c323a5c1e210129910b812e6b0b3e4fe6f81239e47774c463ac8d921451cbe"
+    },
+    {
+      "path": "docs/research/retained-backend-capacity.md",
+      "bytes": 117197,
+      "sha256": "76c0ff20d335ed613b91969fce1405dd078903595a6804186aca283db83f0013"
+    },
+    {
+      "path": "docs/research/retained-general-native-capacity.md",
+      "bytes": 28269,
+      "sha256": "c5c16b7a75c0c4d4c76571ca3595a7486457ec6a63cb8859b21bc2ee591cd6ba"
+    }
+  ],
+  "source_files": 19,
+  "author_LF_witnesses": 20,
+  "additional_review_LF_spans": [
+    {
+      "source": "gcc/tree.cc",
+      "first_lf_line": 5194,
+      "last_lf_line": 5255,
+      "sha256": "cf249e6e2f7f3031914a7d989f5f6a6f37d6eb3e289177531a960b9f37c86b0f"
+    },
+    {
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 11117,
+      "last_lf_line": 11138,
+      "sha256": "ddd9aac7865ddafd8994041eb4160606c01dcea15614621c7add795cdf4a1a4a"
+    },
+    {
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 9317,
+      "last_lf_line": 9521,
+      "sha256": "af3136907ea829378c6473437c5354de14402cd5123be77da8887cbb7554c685"
+    }
+  ],
+  "handled_codes": 31,
+  "preserved_exports_and_argument": [
+    "docs/evidence/retained-general-native-capacity-20261024/check-result.json",
+    "docs/evidence/retained-general-native-capacity-20261024/string-pack-current.json",
+    "docs/evidence/retained-general-native-capacity-20261024/helper-joins/current.json",
+    "docs/evidence/retained-general-native-capacity-20261024/helper-joins/README.md"
+  ],
+  "saturation_comparisons": 3049,
+  "huge_height_comparisons": 18,
+  "family_sum_comparisons": 1000,
+  "synthetic_DAG_nodes": 416,
+  "branch_trace_cases": 832,
+  "max_observed_trace_calls": 316,
+  "max_observed_trace_depth": 19,
+  "coefficient_cases": 125,
+  "author_checker_replays": 0,
+  "predecessor_checker_replays": 0,
+  "native_compiler_prover_runs": 0,
+  "semantic_proof_machine_checked": false,
+  "selected_reviewer_model": "GPT-6 Astra",
+  "selected_reviewer_effort": "Extra High",
+  "runtime_model_and_effort": null,
+  "tokens": null,
+  "cost": null
+}
