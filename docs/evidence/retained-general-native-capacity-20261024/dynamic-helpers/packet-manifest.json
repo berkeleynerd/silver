@@ -1,0 +1,39 @@
+{
+  "files": [
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/dynamic-helpers/README.md",
+      "bytes": 15075,
+      "sha256": "1b2a895859c9c26ca315d61b64ff21988ba151e598d6f780d3c6733ce4d81c12"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/dynamic-helpers/check.py",
+      "bytes": 14415,
+      "sha256": "e52fb4bf770e1e02079a6e23fcd4a16c99de4fb1d33558120dbaddb507fd2f26"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/dynamic-helpers/source-manifest.json",
+      "bytes": 6307,
+      "sha256": "4f6aaea2c189cdfde708085016540b459a91f23a92e63700a056149da6e9f305"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/dynamic-helpers/source-witnesses.json",
+      "bytes": 4624,
+      "sha256": "cc2b607c493ef0943a3f09ad97a7060591386dfc6d501c0b68f829af2b4110c6"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/dynamic-helpers/inputs.json",
+      "bytes": 1749,
+      "sha256": "f2492b449909408d7e633128d4a35d4887d6c23102fe489a5f9f56d1824d6616"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/dynamic-helpers/extra-sources.tar.gz",
+      "bytes": 22094,
+      "sha256": "3a631da1823eb73fd033607b6378ebeb175b2a62671944b90376c20655310ee9"
+    },
+    {
+      "path": "docs/research/retained-general-native-capacity.md",
+      "bytes": 28269,
+      "sha256": "c5c16b7a75c0c4d4c76571ca3595a7486457ec6a63cb8859b21bc2ee591cd6ba"
+    }
+  ]
+}

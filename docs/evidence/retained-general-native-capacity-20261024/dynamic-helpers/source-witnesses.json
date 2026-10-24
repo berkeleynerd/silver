@@ -1,0 +1,145 @@
+{
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "witnesses": [
+    {
+      "id": "annotation_complete",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 9322,
+      "last_lf_line": 9520,
+      "sha256": "49e570bc3392b0d7c5601aa46701d3fe147bf0e010632ad3e2c5931307e1981e"
+    },
+    {
+      "id": "annotation_roots",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 4669,
+      "last_lf_line": 4744,
+      "sha256": "13e0013e0af807072c6d88ccb774b9071b9cb019252d854bc7c27f6eb0aa25ab"
+    },
+    {
+      "id": "array_rm_identity",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 11233,
+      "last_lf_line": 11260,
+      "sha256": "9ffce689001909cca79ed95688ca161e7a46c8b4d1c82de5bc8b1b02dc5f8c56"
+    },
+    {
+      "id": "dynamic_bound_root",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 2771,
+      "last_lf_line": 2813,
+      "sha256": "de17843301ad8d17ecea73f8f64c9a08eefccd7de4a80905b6d85317d888b4a2"
+    },
+    {
+      "id": "fold_integral_convert",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 2633,
+      "last_lf_line": 2668,
+      "sha256": "9bd713228e0e1baa47e8ea13eef3c5d3ce211f3addae9cab381b6185dcd89510"
+    },
+    {
+      "id": "conversion_conditional_roundtrip",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 9260,
+      "last_lf_line": 9308,
+      "sha256": "98bf4adc8701e2ff1a3c5fd5bcfcd103daa0a4908731a48cbf8c966b9349e6ec"
+    },
+    {
+      "id": "binary_fold_dispatch",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 11041,
+      "last_lf_line": 11138,
+      "sha256": "86ce09eece4793db0fdde7324151399b4b028d9321e61e8d07b096822abc4e87"
+    },
+    {
+      "id": "conditional_discarded_candidates",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 7019,
+      "last_lf_line": 7103,
+      "sha256": "cf133e1cc81ebbb86603b1d09c80bb5f4df4b498c454f833953fc1964d139399"
+    },
+    {
+      "id": "generated_recursive_builders",
+      "source": "gcc/genmatch.cc",
+      "first_lf_line": 3450,
+      "last_lf_line": 3485,
+      "sha256": "a5d0e5aff63cfc090af73f8951679ea19b8ec96fbd0aa74c54ee532c62c080dc"
+    },
+    {
+      "id": "repeated_capture_unshare",
+      "source": "gcc/genmatch.cc",
+      "first_lf_line": 3590,
+      "last_lf_line": 3602,
+      "sha256": "ee0cc2e018dc33633ab74bbe814547145281b925a9e4fd60fd2255c4f5c4e4d5"
+    },
+    {
+      "id": "minus_to_plus",
+      "source": "gcc/match.pd",
+      "first_lf_line": 2199,
+      "last_lf_line": 2203,
+      "sha256": "81ee9366c4be48b24c754524ce99d2c462ba78a37e39bd6559e1b8a3a4d7577e"
+    },
+    {
+      "id": "association_candidates",
+      "source": "gcc/match.pd",
+      "first_lf_line": 4407,
+      "last_lf_line": 4444,
+      "sha256": "80295f38aa141e8857cd3390e839f72957509486727628342513e12ca28ffd26"
+    },
+    {
+      "id": "save_and_skip",
+      "source": "gcc/tree.cc",
+      "first_lf_line": 4132,
+      "last_lf_line": 4213,
+      "sha256": "d00f1a0eff06640fe163ddf981c1e0faf146e27458ce72a45ab479565a9fbcdb"
+    },
+    {
+      "id": "unary_plain_allocation",
+      "source": "gcc/tree.cc",
+      "first_lf_line": 5194,
+      "last_lf_line": 5214,
+      "sha256": "0d6769f802c8f7014aa10e876714c43c334917f0db0f90461b682f1d38ac6847"
+    },
+    {
+      "id": "tree_exp_layout",
+      "source": "gcc/tree-core.h",
+      "first_lf_line": 1696,
+      "last_lf_line": 1701,
+      "sha256": "05b1d3480875d4a59790ac129f0fe8c4f894180b1c1df64c6f60c28f2ca370f3"
+    },
+    {
+      "id": "tree_int_map_layout",
+      "source": "gcc/tree-core.h",
+      "first_lf_line": 2336,
+      "last_lf_line": 2358,
+      "sha256": "1fdea812b4d9ed1b825ffc0e2cb4162ffae70861c4f3c44d32329fe65cb31e0d"
+    },
+    {
+      "id": "numerical_callback",
+      "source": "gcc/ada/gcc-interface/cuintp.cc",
+      "first_lf_line": 171,
+      "last_lf_line": 213,
+      "sha256": "1c9e05f80083fdd65866c00e67434e880c6db8ef19192764b908453a6c2db65e"
+    },
+    {
+      "id": "CASE_CONVERT_definition",
+      "source": "gcc/tree.h",
+      "first_lf_line": 554,
+      "last_lf_line": 565,
+      "sha256": "3aa6a523ee8b8387c1f98b87d7193979347dbe2d7957b86e7a17f45c21db339a"
+    },
+    {
+      "id": "conditional_arity",
+      "source": "gcc/tree.def",
+      "first_lf_line": 558,
+      "last_lf_line": 566,
+      "sha256": "65081da8b493b731ea2bf578a3a88f21d67a134e9dac98233bc8640bc8b69cec"
+    },
+    {
+      "id": "binary_unary_arities",
+      "source": "gcc/tree.def",
+      "first_lf_line": 720,
+      "last_lf_line": 908,
+      "sha256": "1cee2ac2af6513849e7f9030765dd112b0974fd6970e7ad398db1f87395d8885"
+    }
+  ]
+}
