@@ -1,0 +1,587 @@
+{
+  "scope": "#212 under #119: per-process parsed GPR shared-table baseline and four auxiliary parser backings",
+  "accepted_preceding_author": "4aab5b0e9cc931965c68bf2450473d3b63f7841a",
+  "accepted_preceding_review": "cd21bcc14f7b561cf58a999e435153f734e6e761",
+  "base_commit": "30ef5c9c05",
+  "phase_exports": {
+    "datarep": {
+      "baseline_shared_table_demands": {
+        "Array_Elements": 180,
+        "Arrays": 180,
+        "Case_Choices": 1,
+        "Case_Stack": 1,
+        "Name_Lists": 16382,
+        "Number_Lists": 1,
+        "Packages": 12,
+        "Project_Nodes": 28220,
+        "Reference_Prefix": 1,
+        "String_Elements": 46049,
+        "Variable_Elements": 2034
+      },
+      "RTS_attached_shared_tables": {
+        "Name_Lists": {
+          "bytes": 1048928,
+          "capacity": 32778,
+          "component_bytes": 32,
+          "demand": 16389,
+          "growth": 100,
+          "guards": {
+            "backing": true,
+            "bytes": true,
+            "growth": true,
+            "index": true,
+            "initial": true,
+            "length": true,
+            "low": true
+          },
+          "initial": 10,
+          "low": 1,
+          "passed": true
+        },
+        "Project_Nodes": {
+          "bytes": 19881312,
+          "capacity": 56480,
+          "component_bytes": 352,
+          "demand": 28240,
+          "growth": 100,
+          "guards": {
+            "backing": true,
+            "bytes": true,
+            "growth": true,
+            "index": true,
+            "initial": true,
+            "length": true,
+            "low": true
+          },
+          "initial": 1000,
+          "low": 1,
+          "passed": true
+        },
+        "String_Elements": {
+          "bytes": 7369040,
+          "capacity": 92112,
+          "component_bytes": 80,
+          "demand": 46056,
+          "growth": 100,
+          "guards": {
+            "backing": true,
+            "bytes": true,
+            "growth": true,
+            "index": true,
+            "initial": true,
+            "length": true,
+            "low": true
+          },
+          "initial": 200,
+          "low": 1,
+          "passed": true
+        }
+      },
+      "traversal_multiplicities": {
+        "Apply_Config": 1,
+        "configuration_evaluation": 1,
+        "configuration_parse": 1,
+        "generated_naming_project_parses": 0,
+        "naming_language_conversion": 1,
+        "runtime_project_parses": 0,
+        "shared_resets": 2,
+        "user_AST_parses_in_Gprconfig": 0,
+        "user_evaluation": 1,
+        "user_parse": 1
+      },
+      "partial_Name_requests": {
+        "complete_process_baseline": false,
+        "parser_expression": 1999,
+        "predefined": 302,
+        "target_KB": 104,
+        "total": 2405
+      },
+      "auxiliary_parser_tables": {
+        "tables": {
+          "Withs": {
+            "demand": 0,
+            "initial": 10,
+            "growth": 100,
+            "low": 1,
+            "component_bytes": 80,
+            "capacity": 20,
+            "bytes": 1680,
+            "guards": {
+              "initial": true,
+              "growth": true,
+              "length": true,
+              "low": true,
+              "backing": true,
+              "index": true,
+              "bytes": true
+            },
+            "passed": true
+          },
+          "Project_Stack": {
+            "demand": 2,
+            "initial": 10,
+            "growth": 100,
+            "low": 1,
+            "component_bytes": 64,
+            "capacity": 20,
+            "bytes": 1344,
+            "guards": {
+              "initial": true,
+              "growth": true,
+              "length": true,
+              "low": true,
+              "backing": true,
+              "index": true,
+              "bytes": true
+            },
+            "passed": true
+          },
+          "Extended_Projects": {
+            "demand": 0,
+            "initial": 10,
+            "growth": 100,
+            "low": 1,
+            "component_bytes": 32,
+            "capacity": 20,
+            "bytes": 672,
+            "guards": {
+              "initial": true,
+              "growth": true,
+              "length": true,
+              "low": true,
+              "backing": true,
+              "index": true,
+              "bytes": true
+            },
+            "passed": true
+          },
+          "Next_End_Nodes": {
+            "demand": 10,
+            "initial": 10,
+            "growth": 100,
+            "low": 1,
+            "component_bytes": 16,
+            "capacity": 20,
+            "bytes": 336,
+            "guards": {
+              "initial": true,
+              "growth": true,
+              "length": true,
+              "low": true,
+              "backing": true,
+              "index": true,
+              "bytes": true
+            },
+            "passed": true
+          }
+        },
+        "Project_Stack_Init_calls": 2,
+        "Project_Stack_gross_pushes": 2,
+        "Project_Stack_peak_selected_depth": 1,
+        "Next_End_Nodes_gross_pushes": 10,
+        "resets_or_pops_do_not_erase_gross_events": true,
+        "additional_RTS_pushes": 0,
+        "all_four_backings_closed": true,
+        "complete_parser_or_process_allocation_closed": false
+      }
+    },
+    "phase1": {
+      "baseline_shared_table_demands": {
+        "Array_Elements": 184,
+        "Arrays": 184,
+        "Case_Choices": 1,
+        "Case_Stack": 1,
+        "Name_Lists": 17114,
+        "Number_Lists": 1,
+        "Packages": 12,
+        "Project_Nodes": 28764,
+        "Reference_Prefix": 1,
+        "String_Elements": 47805,
+        "Variable_Elements": 2036
+      },
+      "RTS_attached_shared_tables": {
+        "Name_Lists": {
+          "bytes": 1095776,
+          "capacity": 34242,
+          "component_bytes": 32,
+          "demand": 17121,
+          "growth": 100,
+          "guards": {
+            "backing": true,
+            "bytes": true,
+            "growth": true,
+            "index": true,
+            "initial": true,
+            "length": true,
+            "low": true
+          },
+          "initial": 10,
+          "low": 1,
+          "passed": true
+        },
+        "Project_Nodes": {
+          "bytes": 20264288,
+          "capacity": 57568,
+          "component_bytes": 352,
+          "demand": 28784,
+          "growth": 100,
+          "guards": {
+            "backing": true,
+            "bytes": true,
+            "growth": true,
+            "index": true,
+            "initial": true,
+            "length": true,
+            "low": true
+          },
+          "initial": 1000,
+          "low": 1,
+          "passed": true
+        },
+        "String_Elements": {
+          "bytes": 7650000,
+          "capacity": 95624,
+          "component_bytes": 80,
+          "demand": 47812,
+          "growth": 100,
+          "guards": {
+            "backing": true,
+            "bytes": true,
+            "growth": true,
+            "index": true,
+            "initial": true,
+            "length": true,
+            "low": true
+          },
+          "initial": 200,
+          "low": 1,
+          "passed": true
+        }
+      },
+      "traversal_multiplicities": {
+        "Apply_Config": 1,
+        "configuration_evaluation": 1,
+        "configuration_parse": 1,
+        "generated_naming_project_parses": 0,
+        "naming_language_conversion": 1,
+        "runtime_project_parses": 0,
+        "shared_resets": 2,
+        "user_AST_parses_in_Gprconfig": 0,
+        "user_evaluation": 1,
+        "user_parse": 1
+      },
+      "partial_Name_requests": {
+        "complete_process_baseline": false,
+        "parser_expression": 2037,
+        "predefined": 302,
+        "target_KB": 104,
+        "total": 2443
+      },
+      "auxiliary_parser_tables": {
+        "tables": {
+          "Withs": {
+            "demand": 0,
+            "initial": 10,
+            "growth": 100,
+            "low": 1,
+            "component_bytes": 80,
+            "capacity": 20,
+            "bytes": 1680,
+            "guards": {
+              "initial": true,
+              "growth": true,
+              "length": true,
+              "low": true,
+              "backing": true,
+              "index": true,
+              "bytes": true
+            },
+            "passed": true
+          },
+          "Project_Stack": {
+            "demand": 2,
+            "initial": 10,
+            "growth": 100,
+            "low": 1,
+            "component_bytes": 64,
+            "capacity": 20,
+            "bytes": 1344,
+            "guards": {
+              "initial": true,
+              "growth": true,
+              "length": true,
+              "low": true,
+              "backing": true,
+              "index": true,
+              "bytes": true
+            },
+            "passed": true
+          },
+          "Extended_Projects": {
+            "demand": 0,
+            "initial": 10,
+            "growth": 100,
+            "low": 1,
+            "component_bytes": 32,
+            "capacity": 20,
+            "bytes": 672,
+            "guards": {
+              "initial": true,
+              "growth": true,
+              "length": true,
+              "low": true,
+              "backing": true,
+              "index": true,
+              "bytes": true
+            },
+            "passed": true
+          },
+          "Next_End_Nodes": {
+            "demand": 10,
+            "initial": 10,
+            "growth": 100,
+            "low": 1,
+            "component_bytes": 16,
+            "capacity": 20,
+            "bytes": 336,
+            "guards": {
+              "initial": true,
+              "growth": true,
+              "length": true,
+              "low": true,
+              "backing": true,
+              "index": true,
+              "bytes": true
+            },
+            "passed": true
+          }
+        },
+        "Project_Stack_Init_calls": 2,
+        "Project_Stack_gross_pushes": 2,
+        "Project_Stack_peak_selected_depth": 1,
+        "Next_End_Nodes_gross_pushes": 10,
+        "resets_or_pops_do_not_erase_gross_events": true,
+        "additional_RTS_pushes": 0,
+        "all_four_backings_closed": true,
+        "complete_parser_or_process_allocation_closed": false
+      }
+    },
+    "translation": {
+      "baseline_shared_table_demands": {
+        "Array_Elements": 186,
+        "Arrays": 186,
+        "Case_Choices": 1,
+        "Case_Stack": 1,
+        "Name_Lists": 17486,
+        "Number_Lists": 1,
+        "Packages": 12,
+        "Project_Nodes": 29104,
+        "Reference_Prefix": 1,
+        "String_Elements": 48883,
+        "Variable_Elements": 2037
+      },
+      "RTS_attached_shared_tables": {
+        "Name_Lists": {
+          "bytes": 1119584,
+          "capacity": 34986,
+          "component_bytes": 32,
+          "demand": 17493,
+          "growth": 100,
+          "guards": {
+            "backing": true,
+            "bytes": true,
+            "growth": true,
+            "index": true,
+            "initial": true,
+            "length": true,
+            "low": true
+          },
+          "initial": 10,
+          "low": 1,
+          "passed": true
+        },
+        "Project_Nodes": {
+          "bytes": 20503648,
+          "capacity": 58248,
+          "component_bytes": 352,
+          "demand": 29124,
+          "growth": 100,
+          "guards": {
+            "backing": true,
+            "bytes": true,
+            "growth": true,
+            "index": true,
+            "initial": true,
+            "length": true,
+            "low": true
+          },
+          "initial": 1000,
+          "low": 1,
+          "passed": true
+        },
+        "String_Elements": {
+          "bytes": 7822480,
+          "capacity": 97780,
+          "component_bytes": 80,
+          "demand": 48890,
+          "growth": 100,
+          "guards": {
+            "backing": true,
+            "bytes": true,
+            "growth": true,
+            "index": true,
+            "initial": true,
+            "length": true,
+            "low": true
+          },
+          "initial": 200,
+          "low": 1,
+          "passed": true
+        }
+      },
+      "traversal_multiplicities": {
+        "Apply_Config": 1,
+        "configuration_evaluation": 1,
+        "configuration_parse": 1,
+        "generated_naming_project_parses": 0,
+        "naming_language_conversion": 1,
+        "runtime_project_parses": 0,
+        "shared_resets": 2,
+        "user_AST_parses_in_Gprconfig": 0,
+        "user_evaluation": 1,
+        "user_parse": 1
+      },
+      "partial_Name_requests": {
+        "complete_process_baseline": false,
+        "parser_expression": 2061,
+        "predefined": 302,
+        "target_KB": 104,
+        "total": 2467
+      },
+      "auxiliary_parser_tables": {
+        "tables": {
+          "Withs": {
+            "demand": 0,
+            "initial": 10,
+            "growth": 100,
+            "low": 1,
+            "component_bytes": 80,
+            "capacity": 20,
+            "bytes": 1680,
+            "guards": {
+              "initial": true,
+              "growth": true,
+              "length": true,
+              "low": true,
+              "backing": true,
+              "index": true,
+              "bytes": true
+            },
+            "passed": true
+          },
+          "Project_Stack": {
+            "demand": 2,
+            "initial": 10,
+            "growth": 100,
+            "low": 1,
+            "component_bytes": 64,
+            "capacity": 20,
+            "bytes": 1344,
+            "guards": {
+              "initial": true,
+              "growth": true,
+              "length": true,
+              "low": true,
+              "backing": true,
+              "index": true,
+              "bytes": true
+            },
+            "passed": true
+          },
+          "Extended_Projects": {
+            "demand": 0,
+            "initial": 10,
+            "growth": 100,
+            "low": 1,
+            "component_bytes": 32,
+            "capacity": 20,
+            "bytes": 672,
+            "guards": {
+              "initial": true,
+              "growth": true,
+              "length": true,
+              "low": true,
+              "backing": true,
+              "index": true,
+              "bytes": true
+            },
+            "passed": true
+          },
+          "Next_End_Nodes": {
+            "demand": 10,
+            "initial": 10,
+            "growth": 100,
+            "low": 1,
+            "component_bytes": 16,
+            "capacity": 20,
+            "bytes": 336,
+            "guards": {
+              "initial": true,
+              "growth": true,
+              "length": true,
+              "low": true,
+              "backing": true,
+              "index": true,
+              "bytes": true
+            },
+            "passed": true
+          }
+        },
+        "Project_Stack_Init_calls": 2,
+        "Project_Stack_gross_pushes": 2,
+        "Project_Stack_peak_selected_depth": 1,
+        "Next_End_Nodes_gross_pushes": 10,
+        "resets_or_pops_do_not_erase_gross_events": true,
+        "additional_RTS_pushes": 0,
+        "all_four_backings_closed": true,
+        "complete_parser_or_process_allocation_closed": false
+      }
+    }
+  },
+  "source_correspondence": "source-manifest.json, source-sites.json, pinned inputs, README.md manual source argument",
+  "successful_checks": [
+    {
+      "script": "check.py",
+      "result": "result.json",
+      "seconds": 0.177625,
+      "scope": "Original parsed/configuration shared-table baseline; retained without replay"
+    },
+    {
+      "script": "check-boundary.py",
+      "result": "boundary-result.json",
+      "seconds": 0.125175,
+      "scope": "Four newly joined parser backings and explicit Names callable boundary only"
+    }
+  ],
+  "residuals_owned_by_212_under_119": [
+    "Complete process GPR.Names contributions: command/environment/PATH/path/naming, prior vector capacity, and later ALI/process requests and entry widths.",
+    "Remaining project/tree/environment/hash/set/list/comment and command/OS objects; cumulative allocator/reset/growth events. Four auxiliary parser backings are now joined.",
+    "GPRbuild KB XML/Ada DOM/input/entities, regexp compilation, directory/file sets, target/fallback containers, RTS_List and startup allocations.",
+    "Separate Gprconfig full KB/compiler/configuration containers, directory enumeration, candidate execution/output and selection/substitution/merge/generation allocations.",
+    "Separate GNATprove GPR2 startup/project/runtime-discovery allocations.",
+    "Composition with later source-dependent fixed/Main semantic, ALI, process and report providers retained with existing owners."
+  ],
+  "recommended_next_step": "Integrate and independently review this coherent parsed/table freeze, then continue the explicit nonparsed Names/KB/Gprconfig startup baseline in the next owned increment.",
+  "complete_GPR_Name_baseline_closed": false,
+  "complete_GPR_process_capacity_closed": false,
+  "complete_producer_configuration_capacity_closed": false,
+  "e_upper": 2,
+  "save_entering_callbacks_upper": 2,
+  "saves_upper": 3,
+  "physical_premises_unchanged": true,
+  "aggregate_RAM_or_stack_gate": false,
+  "production_or_admission_changed": false,
+  "independent_review_pending": true,
+  "GitHub_writes": 0,
+  "CLI_memory_updated": false
+}

@@ -1,0 +1,129 @@
+{
+  "accepted_author": "4aab5b0e9cc931965c68bf2450473d3b63f7841a",
+  "accepted_research_prefix": {
+    "bytes": 23353,
+    "sha256": "4f56d2a431a4a17df9b161657de428112d02b5417e3f0a46e2e29e1422586472"
+  },
+  "accepted_review": "cd21bcc14f7b561cf58a999e435153f734e6e761",
+  "base_commit": "30ef5c9c05",
+  "providers": {
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/capacity.py": "46b6fbd7b546255f7901ed73b34635385cd26dd41f07f2cd7d6597a9c9e09c1f",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/result.json": "e74edc8422c8939c173b49abe9efad64d23897d5651cc02bf453b34d509cd112",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/source-manifest.json": "9e9f7df86b45440b710912e8331b3088d26b54b02a0f7afccaf690e6109397ce",
+    "docs/evidence/retained-producer-gpr-descriptor-20261018/gprbuild-v26.0.0.tar.gz": "876400a11e27cc1c1c9c7affc568808e3987e867e84afe88a1dcdcc6431b1844",
+    "docs/evidence/retained-producer-gpr-descriptor-20261018/installed-configs.tar.gz": "9480af24749a6dfa8da3b16d32de6756cc9f651dd9e327fd6ca6f112ee163ab3",
+    "docs/evidence/retained-producer-orchestration-20261018/observations.tar.gz": "3817a283f87ad2dfa236ece92edba89d926abfa7de096ce74c1429fc42ab09eb",
+    "docs/evidence/retained-producer-orchestration-20261018/result.json": "aa82f548f1b7009132794dbc925731fd0e3920019bee2eb7ac370acf32acbb52",
+    "docs/evidence/retained-producer-orchestration-20261018/sources.tar.gz": "f3389abd7b406ab41f2037c4e89d62f54ee7d44e3b6e70feef3a80c16d7cf9d8",
+    "docs/evidence/review-prospective-native-20261024/result.json": "a04fef81a5bdf3123e5e9a1925ed6b39cbd48bb50266b413369328026b98c676",
+    "docs/reviews/review-prospective-native-20261024.md": "11a0c0c3b86a94e8c492dbf377fcc0a6ceb96bf45c701c1721b0b9157110c517",
+    "src/silver.adb": "5b52e3225f359740f04f4dbdf2c85ba2c204916fb0b5092fe983f62e9c30e70f"
+  },
+  "source_inventory_sha256": "2973d812932a257767a5b3d82fd3e3b5a03e0b68a52bfb99cf31e7c1f35a6dcf",
+  "source_members": {
+    "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-attr.adb": {
+      "bytes": 57171,
+      "sha256": "a64f8059d783947f722b605d3bfc2286115851c3303aa116f0f87b850fa3c05c"
+    },
+    "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-attr.ads": {
+      "bytes": 14792,
+      "sha256": "1229edf5b61323d73ecdc993fa1ea4bfae1fe7fb59f69d8583a5ec3d5c261ffc"
+    },
+    "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-conf.adb": {
+      "bytes": 97869,
+      "sha256": "6928e3f989efe3b38d6d1de0633041aea4de0c98ba704f46b183a2c0f7a7ba9b"
+    },
+    "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-dect.adb": {
+      "bytes": 71147,
+      "sha256": "b0ed95defc86ce9890b136c5806dc91ee5e5cf409528e2473695b85b640609a1"
+    },
+    "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-env.adb": {
+      "bytes": 73199,
+      "sha256": "54e255a868b23fc04ce4f587fab0c2981214a331335a7cbb83e18ad355c730ad"
+    },
+    "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-err-scanner.adb": {
+      "bytes": 86476,
+      "sha256": "e8a78516d52bc3671cd60f45507b2501c6962021ee3cbb248ad4778d6241d6c2"
+    },
+    "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-knowledge.adb": {
+      "bytes": 176698,
+      "sha256": "782b985b1206213d273674c67543743db2d7263a8d76779e20305f516cd8c158"
+    },
+    "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-knowledge.ads": {
+      "bytes": 23179,
+      "sha256": "86ce9ed74dddc371bfde540a2137ac777feef942ac205d2e19044b001e089ab2"
+    },
+    "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-names.adb": {
+      "bytes": 20318,
+      "sha256": "659c231b025a5bc7c7e52e9a4ad36e5741eef9c6342826346b10251da182ed1c"
+    },
+    "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-names.ads": {
+      "bytes": 9967,
+      "sha256": "2beba90411ea03b2cf43b4010835533a94713ec453ec6c1be633e422ed7fc41e"
+    },
+    "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb": {
+      "bytes": 351928,
+      "sha256": "2d0ad863a31167033790d21008a81bbce73d26a737c37a8ed8f6d32a5ddfb094"
+    },
+    "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-part.adb": {
+      "bytes": 82098,
+      "sha256": "08f730f8c484b8a8e34a4fb16e19ba68dccee8bb42a0f9de6b46553251848fec"
+    },
+    "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-proc.adb": {
+      "bytes": 131899,
+      "sha256": "a5dcb0e4674d41088733d11dd6858a5953e059b90912fea37c5c9582e2459196"
+    },
+    "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-sinput.adb": {
+      "bytes": 22873,
+      "sha256": "6edc1791ef4423d45221353893849f59f3f6c4f49d11eae7e2a0f1c8d4dab427"
+    },
+    "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-snames.adb": {
+      "bytes": 12643,
+      "sha256": "6329d54bc34ee991d86ad83e5950a0bd6ac86393f869d776ddae24162a84874e"
+    },
+    "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-snames.ads": {
+      "bytes": 26644,
+      "sha256": "fbdaefc5b33f50cac41fdee74dd42b2e7728745bbd39ea08eb49109ff7027a87"
+    },
+    "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-strt.adb": {
+      "bytes": 60762,
+      "sha256": "ca6c8558ffcd2587d29bdd6ce4d377603bace6a6f775613b806fc73732a6c185"
+    },
+    "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-tree.adb": {
+      "bytes": 92988,
+      "sha256": "93b624297357cae93be3cab1738fe5bb990c5c684c295af4ba8b493348016544"
+    },
+    "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-tree.ads": {
+      "bytes": 42669,
+      "sha256": "7c2ed7225ba8a1a0e9883050a44676e4a6c9d688f5c08eee6e6c6720ad3a0b38"
+    },
+    "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-util-knowledge.adb": {
+      "bytes": 3433,
+      "sha256": "c391f71f73152ca6ed65313b7f6156ee756351236dfbef49dd8e334fa5df9684"
+    },
+    "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-util.adb": {
+      "bytes": 200047,
+      "sha256": "ea41517db36fa2cb3a09bfcf6f2827d5d7d1fbaf3dbafd9f3ded491196821ca1"
+    },
+    "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr.adb": {
+      "bytes": 71838,
+      "sha256": "81ee58400cd270a4046da8d72b0668a1481f7dc30ba7ad4e78321e9f325afd49"
+    },
+    "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr.ads": {
+      "bytes": 122737,
+      "sha256": "375cae80791bdbea2ee55253de326ab2e25a83acc23b11a74b6c471008286f1b"
+    },
+    "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprbuild-compile.adb": {
+      "bytes": 138514,
+      "sha256": "6a0a2bb3cad840f8d5330b829e4b83e4ff0a0f8d08fe15b36b034d8c6bbffcad"
+    },
+    "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprbuild-main.adb": {
+      "bytes": 91326,
+      "sha256": "080a437b127db61c26abba5d1b60aad97b228ee31ea8196f88974332df1f95c4"
+    },
+    "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprconfig-main.adb": {
+      "bytes": 22207,
+      "sha256": "b606512cb94551529ff42fb9ab480aa6930aab0726a3755bfce4ba811b90724c"
+    }
+  }
+}

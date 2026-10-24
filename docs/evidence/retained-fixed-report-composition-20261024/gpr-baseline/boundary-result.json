@@ -1,0 +1,277 @@
+{
+  "scope": "Four auxiliary parser backings, explicit Names arguments and enumerated-table scope; no baseline replay",
+  "capacity_sha256": "f36eaabc6e2c8a3914d0959afd673f6ad13924b4724854f16ca5a3f5e476afa7",
+  "retained_baseline_result_sha256": "bd83852e0536ce1710fa5b8263a57ce11c8161cb929e4cf5cca978f66b2bc874",
+  "selected_complete_sources_checked": 3,
+  "auxiliary_parser_tables": {
+    "datarep": {
+      "tables": {
+        "Withs": {
+          "demand": 0,
+          "initial": 10,
+          "growth": 100,
+          "low": 1,
+          "component_bytes": 80,
+          "capacity": 20,
+          "bytes": 1680,
+          "guards": {
+            "initial": true,
+            "growth": true,
+            "length": true,
+            "low": true,
+            "backing": true,
+            "index": true,
+            "bytes": true
+          },
+          "passed": true
+        },
+        "Project_Stack": {
+          "demand": 2,
+          "initial": 10,
+          "growth": 100,
+          "low": 1,
+          "component_bytes": 64,
+          "capacity": 20,
+          "bytes": 1344,
+          "guards": {
+            "initial": true,
+            "growth": true,
+            "length": true,
+            "low": true,
+            "backing": true,
+            "index": true,
+            "bytes": true
+          },
+          "passed": true
+        },
+        "Extended_Projects": {
+          "demand": 0,
+          "initial": 10,
+          "growth": 100,
+          "low": 1,
+          "component_bytes": 32,
+          "capacity": 20,
+          "bytes": 672,
+          "guards": {
+            "initial": true,
+            "growth": true,
+            "length": true,
+            "low": true,
+            "backing": true,
+            "index": true,
+            "bytes": true
+          },
+          "passed": true
+        },
+        "Next_End_Nodes": {
+          "demand": 10,
+          "initial": 10,
+          "growth": 100,
+          "low": 1,
+          "component_bytes": 16,
+          "capacity": 20,
+          "bytes": 336,
+          "guards": {
+            "initial": true,
+            "growth": true,
+            "length": true,
+            "low": true,
+            "backing": true,
+            "index": true,
+            "bytes": true
+          },
+          "passed": true
+        }
+      },
+      "Project_Stack_Init_calls": 2,
+      "Project_Stack_gross_pushes": 2,
+      "Project_Stack_peak_selected_depth": 1,
+      "Next_End_Nodes_gross_pushes": 10,
+      "resets_or_pops_do_not_erase_gross_events": true,
+      "additional_RTS_pushes": 0,
+      "all_four_backings_closed": true,
+      "complete_parser_or_process_allocation_closed": false
+    },
+    "phase1": {
+      "tables": {
+        "Withs": {
+          "demand": 0,
+          "initial": 10,
+          "growth": 100,
+          "low": 1,
+          "component_bytes": 80,
+          "capacity": 20,
+          "bytes": 1680,
+          "guards": {
+            "initial": true,
+            "growth": true,
+            "length": true,
+            "low": true,
+            "backing": true,
+            "index": true,
+            "bytes": true
+          },
+          "passed": true
+        },
+        "Project_Stack": {
+          "demand": 2,
+          "initial": 10,
+          "growth": 100,
+          "low": 1,
+          "component_bytes": 64,
+          "capacity": 20,
+          "bytes": 1344,
+          "guards": {
+            "initial": true,
+            "growth": true,
+            "length": true,
+            "low": true,
+            "backing": true,
+            "index": true,
+            "bytes": true
+          },
+          "passed": true
+        },
+        "Extended_Projects": {
+          "demand": 0,
+          "initial": 10,
+          "growth": 100,
+          "low": 1,
+          "component_bytes": 32,
+          "capacity": 20,
+          "bytes": 672,
+          "guards": {
+            "initial": true,
+            "growth": true,
+            "length": true,
+            "low": true,
+            "backing": true,
+            "index": true,
+            "bytes": true
+          },
+          "passed": true
+        },
+        "Next_End_Nodes": {
+          "demand": 10,
+          "initial": 10,
+          "growth": 100,
+          "low": 1,
+          "component_bytes": 16,
+          "capacity": 20,
+          "bytes": 336,
+          "guards": {
+            "initial": true,
+            "growth": true,
+            "length": true,
+            "low": true,
+            "backing": true,
+            "index": true,
+            "bytes": true
+          },
+          "passed": true
+        }
+      },
+      "Project_Stack_Init_calls": 2,
+      "Project_Stack_gross_pushes": 2,
+      "Project_Stack_peak_selected_depth": 1,
+      "Next_End_Nodes_gross_pushes": 10,
+      "resets_or_pops_do_not_erase_gross_events": true,
+      "additional_RTS_pushes": 0,
+      "all_four_backings_closed": true,
+      "complete_parser_or_process_allocation_closed": false
+    },
+    "translation": {
+      "tables": {
+        "Withs": {
+          "demand": 0,
+          "initial": 10,
+          "growth": 100,
+          "low": 1,
+          "component_bytes": 80,
+          "capacity": 20,
+          "bytes": 1680,
+          "guards": {
+            "initial": true,
+            "growth": true,
+            "length": true,
+            "low": true,
+            "backing": true,
+            "index": true,
+            "bytes": true
+          },
+          "passed": true
+        },
+        "Project_Stack": {
+          "demand": 2,
+          "initial": 10,
+          "growth": 100,
+          "low": 1,
+          "component_bytes": 64,
+          "capacity": 20,
+          "bytes": 1344,
+          "guards": {
+            "initial": true,
+            "growth": true,
+            "length": true,
+            "low": true,
+            "backing": true,
+            "index": true,
+            "bytes": true
+          },
+          "passed": true
+        },
+        "Extended_Projects": {
+          "demand": 0,
+          "initial": 10,
+          "growth": 100,
+          "low": 1,
+          "component_bytes": 32,
+          "capacity": 20,
+          "bytes": 672,
+          "guards": {
+            "initial": true,
+            "growth": true,
+            "length": true,
+            "low": true,
+            "backing": true,
+            "index": true,
+            "bytes": true
+          },
+          "passed": true
+        },
+        "Next_End_Nodes": {
+          "demand": 10,
+          "initial": 10,
+          "growth": 100,
+          "low": 1,
+          "component_bytes": 16,
+          "capacity": 20,
+          "bytes": 336,
+          "guards": {
+            "initial": true,
+            "growth": true,
+            "length": true,
+            "low": true,
+            "backing": true,
+            "index": true,
+            "bytes": true
+          },
+          "passed": true
+        }
+      },
+      "Project_Stack_Init_calls": 2,
+      "Project_Stack_gross_pushes": 2,
+      "Project_Stack_peak_selected_depth": 1,
+      "Next_End_Nodes_gross_pushes": 10,
+      "resets_or_pops_do_not_erase_gross_events": true,
+      "additional_RTS_pushes": 0,
+      "all_four_backings_closed": true,
+      "complete_parser_or_process_allocation_closed": false
+    }
+  },
+  "all_four_Name_operands_required": true,
+  "arithmetic_never_attaches_missing_provider": true,
+  "enumerated_table_scope_explicit": true,
+  "passed": true,
+  "elapsed_seconds": 0.125175
+}

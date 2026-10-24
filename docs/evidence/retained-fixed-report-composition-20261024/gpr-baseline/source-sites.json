@@ -1,0 +1,1815 @@
+{
+  "name_request_boundary": [
+    {
+      "line": 324,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-ali.adb",
+      "text": "return Name_Find;"
+    },
+    {
+      "line": 419,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-ali.adb",
+      "text": "return Name_Find;"
+    },
+    {
+      "line": 764,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-ali.adb",
+      "text": "ALIs.Table (Id).GNAT_Version := Name_Find;"
+    },
+    {
+      "line": 1392,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-ali.adb",
+      "text": "--  Set the (sub)unit name. Note that we use Name_Find rather"
+    },
+    {
+      "line": 1393,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-ali.adb",
+      "text": "--  than Name_Enter here as the subunit name may already"
+    },
+    {
+      "line": 1399,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-ali.adb",
+      "text": "Sdep.Table (Sdep.Last).Subunit_Name := Name_Find;"
+    },
+    {
+      "line": 1402,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-ali.adb",
+      "text": "Sdep.Table (Sdep.Last).Unit_Name := Name_Find;"
+    },
+    {
+      "line": 1420,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-ali.adb",
+      "text": "Sdep.Table (Sdep.Last).Rfile := File_Name_Type (Name_Enter);"
+    },
+    {
+      "line": 749,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-compilation-slave.adb",
+      "text": "Lang_Id : constant Name_Id := Get_Name_Id (Language);"
+    },
+    {
+      "line": 729,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-conf.adb",
+      "text": "Lang := Name_Find;"
+    },
+    {
+      "line": 1337,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-conf.adb",
+      "text": "Lang := Name_Find;"
+    },
+    {
+      "line": 1358,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-conf.adb",
+      "text": "Lang := Name_Find;"
+    },
+    {
+      "line": 2564,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-conf.adb",
+      "text": "RTS_Languages.Include (Language, Name_Find);"
+    },
+    {
+      "line": 2593,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-conf.adb",
+      "text": "Toolchain_Languages.Include (Language, Name_Find);"
+    },
+    {
+      "line": 496,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-dect.adb",
+      "text": "Set_Associative_Array_Index_Of (Attribute, In_Tree, Name_Find);"
+    },
+    {
+      "line": 1515,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-dect.adb",
+      "text": "Project_Name := Get_Name_Id (Buffer (1 .. Last_Dot_Index - 1));"
+    },
+    {
+      "line": 873,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-env.adb",
+      "text": "Unit := Name_Find;"
+    },
+    {
+      "line": 1074,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-env.adb",
+      "text": "The_Original_Name := Name_Find;"
+    },
+    {
+      "line": 1090,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-env.adb",
+      "text": "The_Spec_Name := Name_Find;"
+    },
+    {
+      "line": 1095,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-env.adb",
+      "text": "The_Body_Name := Name_Find;"
+    },
+    {
+      "line": 1102,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-env.adb",
+      "text": "The_Spec_Name := Name_Find;"
+    },
+    {
+      "line": 1566,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-env.adb",
+      "text": "The_Original_Name := Name_Find;"
+    },
+    {
+      "line": 1582,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-env.adb",
+      "text": "The_Spec_Name := Name_Find;"
+    },
+    {
+      "line": 1587,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-env.adb",
+      "text": "The_Body_Name := Name_Find;"
+    },
+    {
+      "line": 354,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-err-scanner.adb",
+      "text": "return Name_Find;"
+    },
+    {
+      "line": 1331,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-err-scanner.adb",
+      "text": "Comment_Id := Name_Find;"
+    },
+    {
+      "line": 2107,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-err-scanner.adb",
+      "text": "Token_Name := Name_Find;"
+    },
+    {
+      "line": 110,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-ext.adb",
+      "text": "Key := Name_Find;"
+    },
+    {
+      "line": 139,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-ext.adb",
+      "text": "Value  => Name_Find,"
+    },
+    {
+      "line": 210,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-ext.adb",
+      "text": "Value := Name_To_Name_HTable.Get (Self.Refs.all, Get_Name_Id (Name));"
+    },
+    {
+      "line": 225,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-ext.adb",
+      "text": "Val := Get_Name_Id (Env_Value.all);"
+    },
+    {
+      "line": 360,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-ext.adb",
+      "text": "Self.Context.Include (Get_Name_Id (Name), Default);"
+    },
+    {
+      "line": 170,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-knowledge.adb",
+      "text": "function Get_String_Or_No_Name (Str : String) return Name_Id;"
+    },
+    {
+      "line": 171,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-knowledge.adb",
+      "text": "--  Same as Name_Find, but does not require the user to modify"
+    },
+    {
+      "line": 932,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-knowledge.adb",
+      "text": "(Name          => Get_String_Or_No_Name (Name),"
+    },
+    {
+      "line": 934,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-knowledge.adb",
+      "text": "Version       => Get_String_Or_No_Name (Version),"
+    },
+    {
+      "line": 936,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-knowledge.adb",
+      "text": "Runtime       => Get_String_Or_No_Name (Runtime),"
+    },
+    {
+      "line": 938,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-knowledge.adb",
+      "text": "Language_LC   => Get_String_Or_No_Name"
+    },
+    {
+      "line": 1560,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-knowledge.adb",
+      "text": "Idx  : constant Name_Id := Get_String_Or_No_Name (To_Lower (Index));"
+    },
+    {
+      "line": 3797,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-knowledge.adb",
+      "text": "return Name_Find;"
+    },
+    {
+      "line": 3827,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-knowledge.adb",
+      "text": "return Name_Find;"
+    },
+    {
+      "line": 3831,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-knowledge.adb",
+      "text": "-- Get_String_Or_No_Name --"
+    },
+    {
+      "line": 3834,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-knowledge.adb",
+      "text": "function Get_String_Or_No_Name (Str : String) return Name_Id is"
+    },
+    {
+      "line": 3841,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-knowledge.adb",
+      "text": "return Name_Find;"
+    },
+    {
+      "line": 3843,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-knowledge.adb",
+      "text": "end Get_String_Or_No_Name;"
+    },
+    {
+      "line": 4616,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-knowledge.adb",
+      "text": "Get_String_Or_No_Name (String_Lists.Element (C));"
+    },
+    {
+      "line": 4617,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-knowledge.adb",
+      "text": "Compiler.Language_LC   := Get_String_Or_No_Name (LC);"
+    },
+    {
+      "line": 4632,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-knowledge.adb",
+      "text": "Get_String_Or_No_Name (String_Lists.Element (C));"
+    },
+    {
+      "line": 4645,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-knowledge.adb",
+      "text": "Compiler.Runtime := Get_String_Or_No_Name (Rts);"
+    },
+    {
+      "line": 4650,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-knowledge.adb",
+      "text": "Compiler.Path := Get_String_Or_No_Name"
+    },
+    {
+      "line": 4690,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-knowledge.adb",
+      "text": "Compiler.Name := Get_String_Or_No_Name"
+    },
+    {
+      "line": 157,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-names.adb",
+      "text": "return Name_Find;"
+    },
+    {
+      "line": 161,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-names.adb",
+      "text": "-- Get_Name_Id --"
+    },
+    {
+      "line": 164,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-names.adb",
+      "text": "function Get_Name_Id (Name : String) return Name_Id is"
+    },
+    {
+      "line": 167,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-names.adb",
+      "text": "return Name_Find;"
+    },
+    {
+      "line": 168,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-names.adb",
+      "text": "end Get_Name_Id;"
+    },
+    {
+      "line": 392,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-names.adb",
+      "text": "-- Name_Enter --"
+    },
+    {
+      "line": 395,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-names.adb",
+      "text": "function Name_Enter return Name_Id is"
+    },
+    {
+      "line": 406,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-names.adb",
+      "text": "\" (Name_Enter) >>>>\");"
+    },
+    {
+      "line": 410,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-names.adb",
+      "text": "end Name_Enter;"
+    },
+    {
+      "line": 413,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-names.adb",
+      "text": "-- Name_Find --"
+    },
+    {
+      "line": 416,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-names.adb",
+      "text": "function Name_Find return Name_Id is"
+    },
+    {
+      "line": 439,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-names.adb",
+      "text": "& Name_Buffer (1 .. Name_Len) & \"' (Name_Find) >>>>\");"
+    },
+    {
+      "line": 469,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-names.adb",
+      "text": "\" (Name_Find) >>>>\");"
+    },
+    {
+      "line": 473,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-names.adb",
+      "text": "end Name_Find;"
+    },
+    {
+      "line": 475,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-names.adb",
+      "text": "function Name_Find return Unit_Name_Type is"
+    },
+    {
+      "line": 478,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-names.adb",
+      "text": "Id := Name_Find;"
+    },
+    {
+      "line": 480,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-names.adb",
+      "text": "end Name_Find;"
+    },
+    {
+      "line": 482,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-names.adb",
+      "text": "function Name_Find return File_Name_Type is"
+    },
+    {
+      "line": 485,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-names.adb",
+      "text": "Id := Name_Find;"
+    },
+    {
+      "line": 487,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-names.adb",
+      "text": "end Name_Find;"
+    },
+    {
+      "line": 489,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-names.adb",
+      "text": "function Name_Find return Path_Name_Type is"
+    },
+    {
+      "line": 492,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-names.adb",
+      "text": "Id := Name_Find;"
+    },
+    {
+      "line": 494,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-names.adb",
+      "text": "end Name_Find;"
+    },
+    {
+      "line": 52,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-names.ads",
+      "text": "function Get_Name_Id (Name : String) return Name_Id;"
+    },
+    {
+      "line": 81,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-names.ads",
+      "text": "function Name_Find return Name_Id;"
+    },
+    {
+      "line": 82,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-names.ads",
+      "text": "function Name_Find return Unit_Name_Type;"
+    },
+    {
+      "line": 83,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-names.ads",
+      "text": "function Name_Find return File_Name_Type;"
+    },
+    {
+      "line": 84,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-names.ads",
+      "text": "function Name_Find return Path_Name_Type;"
+    },
+    {
+      "line": 86,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-names.ads",
+      "text": "function Name_Enter return Name_Id;"
+    },
+    {
+      "line": 208,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-names.ads",
+      "text": "is (Path_Name_Type (Get_Name_Id (Name)));"
+    },
+    {
+      "line": 211,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-names.ads",
+      "text": "is (File_Name_Type (Get_Name_Id (Name)));"
+    },
+    {
+      "line": 1017,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb",
+      "text": "return Name_Find;"
+    },
+    {
+      "line": 1988,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb",
+      "text": "Separate_Suffix := Name_Find;"
+    },
+    {
+      "line": 2057,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb",
+      "text": "Name_Find;"
+    },
+    {
+      "line": 2070,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb",
+      "text": "Name_Find;"
+    },
+    {
+      "line": 2951,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb",
+      "text": "New_Val => (Name_Find, No_Name_List));"
+    },
+    {
+      "line": 2974,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb",
+      "text": "New_Val => (Get_Name_Id"
+    },
+    {
+      "line": 3046,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb",
+      "text": "Version := Name_Find;"
+    },
+    {
+      "line": 4704,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb",
+      "text": "Error_Msg_Name_1 := Name_Find;"
+    },
+    {
+      "line": 5399,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb",
+      "text": "Display_Name => Name_Find);"
+    },
+    {
+      "line": 5798,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb",
+      "text": "Project.Symbol_Data.Symbol_File := Name_Find;"
+    },
+    {
+      "line": 5861,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb",
+      "text": "return Is_Reserved (Get_Name_Id (S));"
+    },
+    {
+      "line": 5886,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb",
+      "text": "Real_Name := Name_Find;"
+    },
+    {
+      "line": 6105,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb",
+      "text": "Name_Find,"
+    },
+    {
+      "line": 6638,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb",
+      "text": "Source_Name := Name_Find;"
+    },
+    {
+      "line": 6859,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb",
+      "text": "Unit := Name_Find;"
+    },
+    {
+      "line": 7055,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb",
+      "text": "The_Name := Name_Find;"
+    },
+    {
+      "line": 7078,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb",
+      "text": "Full_Name := Name_Find;"
+    },
+    {
+      "line": 7185,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb",
+      "text": "Path.Display_Name := Name_Find;"
+    },
+    {
+      "line": 7194,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb",
+      "text": "Path.Name := Name_Find;"
+    },
+    {
+      "line": 7338,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb",
+      "text": "Name := Name_Find;"
+    },
+    {
+      "line": 8203,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb",
+      "text": "Found.Display_Name := Name_Find;"
+    },
+    {
+      "line": 8205,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb",
+      "text": "Found.Name := Name_Find;"
+    },
+    {
+      "line": 8300,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb",
+      "text": "Path2.Name := Name_Find;"
+    },
+    {
+      "line": 8395,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb",
+      "text": "Dir := Name_Find;"
+    },
+    {
+      "line": 8553,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb",
+      "text": "Display_File_Name := Name_Find;"
+    },
+    {
+      "line": 8560,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb",
+      "text": "File_Name := Name_Find;"
+    },
+    {
+      "line": 8586,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb",
+      "text": "Path := Name_Find;"
+    },
+    {
+      "line": 8590,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb",
+      "text": "Path := Name_Find;"
+    },
+    {
+      "line": 8627,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb",
+      "text": "Display_Path      => Name_Find,"
+    },
+    {
+      "line": 157,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-osint.adb",
+      "text": "return Name_Find;"
+    },
+    {
+      "line": 328,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-osint.adb",
+      "text": "return Name_Find;"
+    },
+    {
+      "line": 335,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-osint.adb",
+      "text": "return Name_Find;"
+    },
+    {
+      "line": 569,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-osint.adb",
+      "text": "return File_Name_Type (Name_Enter);"
+    },
+    {
+      "line": 393,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-part.adb",
+      "text": "Virtual_Path_Id := Name_Find;"
+    },
+    {
+      "line": 399,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-part.adb",
+      "text": "Virtual_Name_Id := Name_Find;"
+    },
+    {
+      "line": 1026,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-part.adb",
+      "text": "Canonical_Path_Name := Name_Find;"
+    },
+    {
+      "line": 1092,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-part.adb",
+      "text": "Set_Path_Name_Of (Current_Project, In_Tree, Name_Find);"
+    },
+    {
+      "line": 1381,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-part.adb",
+      "text": "Normed_Path_Name := Name_Find;"
+    },
+    {
+      "line": 1384,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-part.adb",
+      "text": "Canonical_Path_Name := Name_Find;"
+    },
+    {
+      "line": 1651,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-part.adb",
+      "text": "Name_Of_Project := Name_Find;"
+    },
+    {
+      "line": 1665,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-part.adb",
+      "text": "Expected_Name : constant Name_Id := Name_Find;"
+    },
+    {
+      "line": 1704,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-part.adb",
+      "text": "Set_Display_Name_Of (Project, In_Tree, Name_Find);"
+    },
+    {
+      "line": 1936,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-part.adb",
+      "text": "Parent_Name   : constant Name_Id := Name_Find;"
+    },
+    {
+      "line": 2161,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-part.adb",
+      "text": "In_Tree.Project_Nodes.Table (Project).Directory := Name_Find;"
+    },
+    {
+      "line": 2285,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-part.adb",
+      "text": "return Name_Find;"
+    },
+    {
+      "line": 193,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-proc.adb",
+      "text": "To_Exp := Name_Find;"
+    },
+    {
+      "line": 485,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-proc.adb",
+      "text": "return Name_Find;"
+    },
+    {
+      "line": 1049,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-proc.adb",
+      "text": "The_Variable.Value := Get_Name_Id"
+    },
+    {
+      "line": 1055,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-proc.adb",
+      "text": "The_Variable.Value := Get_Name_Id"
+    },
+    {
+      "line": 1065,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-proc.adb",
+      "text": "CL := Runtime_Defaults.Find (Name_Find);"
+    },
+    {
+      "line": 1103,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-proc.adb",
+      "text": "The_Variable.Value := Get_Name_Id"
+    },
+    {
+      "line": 1114,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-proc.adb",
+      "text": "The_Variable.Value := Get_Name_Id"
+    },
+    {
+      "line": 1271,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-proc.adb",
+      "text": "Name     : constant Name_Id   := Name_Find;"
+    },
+    {
+      "line": 1484,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-proc.adb",
+      "text": "Value := Get_Name_Id (Str_List (Ind).all);"
+    },
+    {
+      "line": 3315,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-proc.adb",
+      "text": "Project.Path.Name := Name_Find;"
+    },
+    {
+      "line": 3324,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-proc.adb",
+      "text": "Project.Directory.Name := Name_Find;"
+    },
+    {
+      "line": 3465,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-proc.adb",
+      "text": "Runtime_Defaults.Include (Language, Name_Find);"
+    },
+    {
+      "line": 547,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-sinput.adb",
+      "text": "File_Id := Name_Find;"
+    },
+    {
+      "line": 40,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-snames.adb",
+      "text": "if Get_Name_Id (S) /= Sequence then"
+    },
+    {
+      "line": 976,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-strt.adb",
+      "text": "Short_Project := Name_Find;"
+    },
+    {
+      "line": 988,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-strt.adb",
+      "text": "Long_Project := Name_Find;"
+    },
+    {
+      "line": 1174,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-strt.adb",
+      "text": "Short_Project := Name_Find;"
+    },
+    {
+      "line": 1184,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-strt.adb",
+      "text": "Long_Project := Name_Find;"
+    },
+    {
+      "line": 173,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-tempdir.adb",
+      "text": "Name := Name_Find;"
+    },
+    {
+      "line": 3126,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-tree.adb",
+      "text": "N := Name_Find;"
+    },
+    {
+      "line": 201,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-util-aux.adb",
+      "text": "Export_File_Name := Name_Find;"
+    },
+    {
+      "line": 751,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-util.adb",
+      "text": "(Name                    => Name_Find,"
+    },
+    {
+      "line": 802,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-util.adb",
+      "text": "return Add_Suffix (Name_Find);"
+    },
+    {
+      "line": 1601,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-util.adb",
+      "text": "The_File_Names.Append (Name_Find);"
+    },
+    {
+      "line": 1893,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-util.adb",
+      "text": "(Name                    => Get_Name_Id (Name (1 .. Last)),"
+    },
+    {
+      "line": 1907,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-util.adb",
+      "text": "(Get_Name_Id (Name (1 .. Last) & \"ali\"),"
+    },
+    {
+      "line": 2510,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-util.adb",
+      "text": "Value := Name_Find;"
+    },
+    {
+      "line": 2626,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-util.adb",
+      "text": "Proj := Name_Find;"
+    },
+    {
+      "line": 2638,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-util.adb",
+      "text": "Info.Info.Language := Name_Find;"
+    },
+    {
+      "line": 2656,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-util.adb",
+      "text": "Info.Info.Display_Path_Name := Name_Find;"
+    },
+    {
+      "line": 2680,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-util.adb",
+      "text": "Info.Info.Path_Name := Name_Find;"
+    },
+    {
+      "line": 2686,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-util.adb",
+      "text": "Info.Info.Unit_Name := Name_Find;"
+    },
+    {
+      "line": 2842,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-util.adb",
+      "text": "List.Append (Get_Name_Id (S));"
+    },
+    {
+      "line": 2947,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-util.adb",
+      "text": "Real_Index := Name_Find;"
+    },
+    {
+      "line": 2994,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-util.adb",
+      "text": "Real_Index_1 := Name_Find;"
+    },
+    {
+      "line": 3006,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-util.adb",
+      "text": "Real_Index_2 := Name_Find;"
+    },
+    {
+      "line": 5168,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-util.adb",
+      "text": "Path := Name_Find;"
+    },
+    {
+      "line": 6111,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-util.adb",
+      "text": "Command_Line_Arguments.Append (Name_Find);"
+    },
+    {
+      "line": 6137,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-util.adb",
+      "text": "Command_Line_Arguments.Append (Name_Find);"
+    },
+    {
+      "line": 6172,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-util.adb",
+      "text": "Executable_Extension_On_Target := Name_Enter;"
+    },
+    {
+      "line": 440,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-util.ads",
+      "text": "renames Names.Get_Name_Id;"
+    },
+    {
+      "line": 501,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr.adb",
+      "text": "return Name_Find;"
+    },
+    {
+      "line": 1343,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr.adb",
+      "text": "return Name_Find;"
+    },
+    {
+      "line": 2284,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr.adb",
+      "text": "return Name_Find;"
+    },
+    {
+      "line": 186,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr_build_util.adb",
+      "text": "Result := Name_Find;"
+    },
+    {
+      "line": 211,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr_build_util.adb",
+      "text": "Unit_Name := Name_Find;"
+    },
+    {
+      "line": 231,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr_build_util.adb",
+      "text": "Unit_Name := Name_Find;"
+    },
+    {
+      "line": 400,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr_build_util.adb",
+      "text": "ALI_Unit := Name_Find;"
+    },
+    {
+      "line": 415,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr_build_util.adb",
+      "text": "ALI_Unit := Name_Find;"
+    },
+    {
+      "line": 454,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr_build_util.adb",
+      "text": "ALI_Path := Name_Find;"
+    },
+    {
+      "line": 856,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr_build_util.adb",
+      "text": "return Name_Find;"
+    },
+    {
+      "line": 893,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr_build_util.adb",
+      "text": "Canonical_Name := Name_Find;"
+    },
+    {
+      "line": 918,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr_build_util.adb",
+      "text": "Names.Append ((Name_Find, Index, Location, No_Source,"
+    },
+    {
+      "line": 1944,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr_build_util.adb",
+      "text": "Unit_Name := Name_Find;"
+    },
+    {
+      "line": 2808,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr_build_util.adb",
+      "text": "Index := Name_Find;"
+    },
+    {
+      "line": 2455,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprbuild-compile.adb",
+      "text": "Id.Object_Path := Name_Find;"
+    },
+    {
+      "line": 2462,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprbuild-compile.adb",
+      "text": "Id.Dep_Path := Name_Find;"
+    },
+    {
+      "line": 2469,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprbuild-compile.adb",
+      "text": "Id.Switches_Path := Name_Find;"
+    },
+    {
+      "line": 603,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprbuild-link.adb",
+      "text": "Object_Path := Name_Find;"
+    },
+    {
+      "line": 1712,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprbuild-link.adb",
+      "text": "Exec_Name := Name_Find;"
+    },
+    {
+      "line": 1732,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprbuild-link.adb",
+      "text": "Exec_Path_Name := Name_Find;"
+    },
+    {
+      "line": 2576,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprbuild-link.adb",
+      "text": "Obj_Path_Name := Name_Find;"
+    },
+    {
+      "line": 2674,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprbuild-link.adb",
+      "text": "Lib_Dir_Name := Name_Find;"
+    },
+    {
+      "line": 370,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprbuild-main.adb",
+      "text": "Value : constant Name_Id := Get_Name_Id (Key);"
+    },
+    {
+      "line": 373,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprbuild-main.adb",
+      "text": "Cmd_Line_Adc_Files.Include (Get_Name_Id (Key), Value);"
+    },
+    {
+      "line": 396,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprbuild-main.adb",
+      "text": "Value : constant Name_Id := Get_Name_Id (Key);"
+    },
+    {
+      "line": 400,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprbuild-main.adb",
+      "text": "(Get_Name_Id (Key), Value);"
+    },
+    {
+      "line": 627,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprbuild-main.adb",
+      "text": "Add_Db_Switch_Arg (Get_Name_Id (Arg));"
+    },
+    {
+      "line": 903,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprbuild-main.adb",
+      "text": "(Get_Lower_Name_Id (Lang), Get_Name_Id (Comp));"
+    },
+    {
+      "line": 1804,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprbuild-main.adb",
+      "text": "Dash_L := Get_Name_Id (\"-L\");"
+    },
+    {
+      "line": 776,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprbuild-post_compile.adb",
+      "text": "ALI_Unit := Name_Find;"
+    },
+    {
+      "line": 791,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprbuild-post_compile.adb",
+      "text": "ALI_Unit := Name_Find;"
+    },
+    {
+      "line": 850,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprbuild-post_compile.adb",
+      "text": "ALI_Path := Name_Find;"
+    },
+    {
+      "line": 2950,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprbuild-post_compile.adb",
+      "text": "Object_Path := Name_Find;"
+    },
+    {
+      "line": 4071,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprbuild-post_compile.adb",
+      "text": "Project_Path := Name_Find;"
+    },
+    {
+      "line": 4268,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprbuild-post_compile.adb",
+      "text": "Dep_Path := Name_Find;"
+    },
+    {
+      "line": 4302,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprbuild-post_compile.adb",
+      "text": "Dep_Path := Name_Find;"
+    },
+    {
+      "line": 180,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprclean-main.adb",
+      "text": "Add_Db_Switch_Arg (Name_Find);"
+    },
+    {
+      "line": 456,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprclean-main.adb",
+      "text": "Language_Name := Name_Find;"
+    },
+    {
+      "line": 158,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprclean.adb",
+      "text": "File_Name := Name_Find;"
+    },
+    {
+      "line": 435,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprinstall-install.adb",
+      "text": "Res := Name_Find;"
+    },
+    {
+      "line": 654,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprinstall-install.adb",
+      "text": "return Name_Find;"
+    },
+    {
+      "line": 752,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprinstall-install.adb",
+      "text": "S := Name_Find;"
+    },
+    {
+      "line": 217,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprlib-build_shared_lib.adb",
+      "text": "Path   => Name_Find);"
+    },
+    {
+      "line": 639,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprlib.adb",
+      "text": "Lib_File := Name_Find;"
+    },
+    {
+      "line": 973,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprlib.adb",
+      "text": "First_ALI := Name_Find;"
+    },
+    {
+      "line": 1477,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprlib.adb",
+      "text": "Record_Temp_File (Shared => null, Path => Name_Find);"
+    },
+    {
+      "line": 1643,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprlib.adb",
+      "text": "Record_Temp_File (Shared => null, Path => Name_Find);"
+    },
+    {
+      "line": 1937,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprlib.adb",
+      "text": "Lib_File := Name_Find;"
+    },
+    {
+      "line": 2197,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprlib.adb",
+      "text": "Driver_Name := Name_Find;"
+    },
+    {
+      "line": 2248,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprlib.adb",
+      "text": "Current_Language := Name_Find;"
+    },
+    {
+      "line": 2261,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprlib.adb",
+      "text": "Current_Language := Name_Find;"
+    },
+    {
+      "line": 2562,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprlib.adb",
+      "text": "S_Osinte_Ads := Name_Find;"
+    },
+    {
+      "line": 560,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprls-main.adb",
+      "text": "Dep_Path := Name_Find;"
+    },
+    {
+      "line": 999,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprls.adb",
+      "text": "Sfile := Name_Find;"
+    },
+    {
+      "line": 576,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname-main.adb",
+      "text": "Foreign_Language := Name_Find;"
+    },
+    {
+      "line": 440,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Set_String_Value_Of (With_Clause, Tree, To => Name_Find);"
+    },
+    {
+      "line": 643,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Set_String_Value_Of (Value, Tree, To => Name_Find);"
+    },
+    {
+      "line": 702,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Set_String_Value_Of (Value, Tree, To => Name_Find);"
+    },
+    {
+      "line": 1292,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Output_Name_Id := Get_Name_Id (Output_Name (1 .. Output_Name_Last));"
+    },
+    {
+      "line": 1307,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Get_Name_Id (Project_Naming_File_Name (1 .. Project_Naming_Last));"
+    },
+    {
+      "line": 1452,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "File_Name_Id := Name_Find;"
+    },
+    {
+      "line": 1621,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "(Unit_Name  => Name_Find,"
+    },
+    {
+      "line": 1725,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "((File_Name => Name_Find,"
+    }
+  ],
+  "project_parse_boundary": [
+    {
+      "line": 1669,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-conf.adb",
+      "text": "Part.Parse"
+    },
+    {
+      "line": 1876,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-conf.adb",
+      "text": "GPR.Part.Parse"
+    },
+    {
+      "line": 211,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-part.adb",
+      "text": "procedure Parse_Single_Project"
+    },
+    {
+      "line": 401,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-part.adb",
+      "text": "Virtual_Project := Create_Project"
+    },
+    {
+      "line": 631,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-part.adb",
+      "text": "Parse_Single_Project"
+    },
+    {
+      "line": 1045,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-part.adb",
+      "text": "Parse_Single_Project"
+    },
+    {
+      "line": 1315,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-part.adb",
+      "text": "procedure Parse_Single_Project"
+    },
+    {
+      "line": 1846,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-part.adb",
+      "text": "Parse_Single_Project"
+    },
+    {
+      "line": 3043,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-proc.adb",
+      "text": "GPR.Part.Parse"
+    },
+    {
+      "line": 2962,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-tree.adb",
+      "text": "function Create_Project"
+    },
+    {
+      "line": 615,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-tree.ads",
+      "text": "function Create_Project"
+    },
+    {
+      "line": 236,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprinstall-install.adb",
+      "text": "procedure Create_Project (Project : Project_Id);"
+    },
+    {
+      "line": 1651,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprinstall-install.adb",
+      "text": "procedure Create_Project (Project : Project_Id) is"
+    },
+    {
+      "line": 3235,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprinstall-install.adb",
+      "text": "Create_Project (Project);"
+    },
+    {
+      "line": 1149,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Part.Parse"
+    }
+  ],
+  "shared_list_write": [
+    {
+      "line": 268,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-conf.adb",
+      "text": "String_Element_Table.Increment_Last"
+    },
+    {
+      "line": 299,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-conf.adb",
+      "text": "String_Element_Table.Increment_Last"
+    },
+    {
+      "line": 386,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-conf.adb",
+      "text": "String_Element_Table.Increment_Last"
+    },
+    {
+      "line": 2832,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb",
+      "text": "Name_List_Table.Append"
+    },
+    {
+      "line": 2852,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb",
+      "text": "Name_List_Table.Append"
+    },
+    {
+      "line": 2870,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb",
+      "text": "Name_List_Table.Append"
+    },
+    {
+      "line": 2889,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb",
+      "text": "Name_List_Table.Append"
+    },
+    {
+      "line": 2949,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb",
+      "text": "Name_List_Table.Append"
+    },
+    {
+      "line": 2972,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb",
+      "text": "Name_List_Table.Append"
+    },
+    {
+      "line": 3426,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb",
+      "text": "String_Element_Table.Increment_Last (Shared.String_Elements);"
+    },
+    {
+      "line": 6244,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-nmsc.adb",
+      "text": "String_Element_Table.Increment_Last (Shared.String_Elements);"
+    },
+    {
+      "line": 566,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-proc.adb",
+      "text": "String_Element_Table.Increment_Last"
+    },
+    {
+      "line": 630,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-proc.adb",
+      "text": "String_Element_Table.Increment_Last"
+    },
+    {
+      "line": 696,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-proc.adb",
+      "text": "String_Element_Table.Increment_Last"
+    },
+    {
+      "line": 746,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-proc.adb",
+      "text": "String_Element_Table.Increment_Last"
+    },
+    {
+      "line": 1181,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-proc.adb",
+      "text": "String_Element_Table.Increment_Last"
+    },
+    {
+      "line": 1220,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-proc.adb",
+      "text": "String_Element_Table.Increment_Last"
+    },
+    {
+      "line": 1465,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-proc.adb",
+      "text": "String_Element_Table.Increment_Last"
+    },
+    {
+      "line": 1496,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-proc.adb",
+      "text": "String_Element_Table.Increment_Last"
+    },
+    {
+      "line": 580,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-util.adb",
+      "text": "Name_List_Table.Increment_Last (Shared.Name_Lists);"
+    },
+    {
+      "line": 590,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-util.adb",
+      "text": "Name_List_Table.Increment_Last (Shared.Name_Lists);"
+    },
+    {
+      "line": 2513,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-util.adb",
+      "text": "Name_List_Table.Append"
+    },
+    {
+      "line": 1664,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr.adb",
+      "text": "String_Element_Table.Init   (Tree.Shared.String_Elements);"
+    },
+    {
+      "line": 1677,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr.adb",
+      "text": "String_Element_Table.Append"
+    }
+  ],
+  "syntax_constructor": [
+    {
+      "line": 162,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-dect.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 546,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-dect.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 875,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-dect.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 942,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-dect.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 950,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-dect.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 1232,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-dect.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 1238,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-dect.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 1276,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-dect.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 1652,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-dect.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 1754,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-dect.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 309,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-part.adb",
+      "text": "Default_Project_Node (In_Tree, N_With_Clause);"
+    },
+    {
+      "line": 360,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-part.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 364,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-part.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 367,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-part.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 370,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-part.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 373,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-part.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 376,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-part.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 815,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-part.adb",
+      "text": "Default_Project_Node (Of_Kind => N_With_Clause, In_Tree => In_Tree);"
+    },
+    {
+      "line": 873,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-part.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 880,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-part.adb",
+      "text": "Default_Project_Node (In_Tree, Of_Kind => N_With_Clause);"
+    },
+    {
+      "line": 1566,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-part.adb",
+      "text": "Project := Default_Project_Node"
+    },
+    {
+      "line": 187,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-strt.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 439,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-strt.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 477,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-strt.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 557,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-strt.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 625,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-strt.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 658,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-strt.adb",
+      "text": "Default_Project_Node (Of_Kind => N_Expression, In_Tree => In_Tree);"
+    },
+    {
+      "line": 693,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-strt.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 756,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-strt.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 809,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-strt.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 1085,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-strt.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 1441,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-strt.adb",
+      "text": "Term := Default_Project_Node (Of_Kind => N_Term, In_Tree => In_Tree);"
+    },
+    {
+      "line": 1471,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-strt.adb",
+      "text": "Term_Id := Default_Project_Node"
+    },
+    {
+      "line": 1548,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-strt.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 362,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-tree.adb",
+      "text": "function Default_Project_Node"
+    },
+    {
+      "line": 2971,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-tree.adb",
+      "text": "Project := Default_Project_Node (In_Tree, N_Project);"
+    },
+    {
+      "line": 2981,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-tree.adb",
+      "text": "Default_Project_Node (In_Tree, N_Project_Declaration));"
+    },
+    {
+      "line": 3020,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-tree.adb",
+      "text": "New_Decl := Default_Project_Node (Tree, N_Declarative_Item);"
+    },
+    {
+      "line": 3084,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-tree.adb",
+      "text": "Node := Default_Project_Node (Tree, N_Literal_String, GPR.Single);"
+    },
+    {
+      "line": 3101,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-tree.adb",
+      "text": "Expr := Default_Project_Node (Tree, N_Expression, Single);"
+    },
+    {
+      "line": 3103,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-tree.adb",
+      "text": "(Expr, Tree, Default_Project_Node (Tree, N_Term, Single));"
+    },
+    {
+      "line": 3141,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-tree.adb",
+      "text": "Pack := Default_Project_Node (Tree, N_Package_Declaration);"
+    },
+    {
+      "line": 3174,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-tree.adb",
+      "text": "Default_Project_Node (Tree, N_Attribute_Declaration, Kind);"
+    },
+    {
+      "line": 92,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-tree.ads",
+      "text": "function Default_Project_Node"
+    },
+    {
+      "line": 261,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 266,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 277,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node (Of_Kind => N_Project, In_Tree => Tree);"
+    },
+    {
+      "line": 281,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "To => Default_Project_Node"
+    },
+    {
+      "line": 353,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node (Of_Kind => N_Project, In_Tree => Tree);"
+    },
+    {
+      "line": 356,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 361,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 371,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 375,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 381,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 387,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 393,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 423,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "With_Clause := Default_Project_Node"
+    },
+    {
+      "line": 475,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 480,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 486,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 492,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 507,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 525,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 531,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 537,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 563,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 568,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 574,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 580,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 595,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 613,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 619,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 625,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 652,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 657,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 678,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 686,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 692,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 737,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 742,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 748,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 754,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 781,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 793,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 812,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 818,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Value := Default_Project_Node"
+    },
+    {
+      "line": 864,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 869,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 874,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 880,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    },
+    {
+      "line": 886,
+      "source": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/src/gprname.adb",
+      "text": "Default_Project_Node"
+    }
+  ]
+}
