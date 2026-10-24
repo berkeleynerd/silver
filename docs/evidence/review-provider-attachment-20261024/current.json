@@ -1,0 +1,123 @@
+{
+  "status": "independent audit passed; F1 source-closure finding confirmed",
+  "reviewed_author": "e363118b9343dbae72127411f9bc21cc199e2070",
+  "complete_native_capacity_result": false,
+  "selected_reviewer_model": "GPT-6 Astra",
+  "selected_reviewer_effort": "Extra High",
+  "runtime_confirmation": null,
+  "tokens": null,
+  "monetary_cost": null,
+  "first_review_clock_utc": "2026-10-24T08:36:30+00:00",
+  "completed_utc": "2026-10-24T08:51:01.855672+00:00",
+  "audit_elapsed_seconds": 1.768407,
+  "elapsed_since_first_review_clock_seconds": 871.855672,
+  "host": {
+    "system": "Linux",
+    "machine": "x86_64",
+    "node": "codex-silver"
+  },
+  "native_execution_seconds": 0,
+  "author_or_predecessor_checkers_run": false,
+  "audit_development": "An initial source-token check matched Attribute_First_Bit as Attribute_First; corrected to exact token boundaries before the successful audit. No author/source change or successful-check replay.",
+  "target_files": [
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/README.md",
+      "bytes": 30120,
+      "sha256": "376851b5d0ccec14e6846bb08799252ade3979fdd5bd67f727518e24bb61e6e1"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/check.py",
+      "bytes": 12172,
+      "sha256": "9b081c15f323a0d036816a1d1e1ffc7590c16a6ecfc6eeb56646d708ef2ae7db"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/current.json",
+      "bytes": 1699,
+      "sha256": "ef4c19b745669ae0f0aa3838ac2f74c1dbde4cfc01b024bc356773e59e38a998"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/extra-sources.tar.gz",
+      "bytes": 357478,
+      "sha256": "15eec6c150dad5f79255ab5a7c15588ea0942794ffa2c843062a5303ae064a76"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/grammar.json",
+      "bytes": 787,
+      "sha256": "74780ac9cbefbf12eafaf38b7c659670107c832d8e9166bab8437c284380aca1"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/inputs.json",
+      "bytes": 6709,
+      "sha256": "f5d221f89d42892175fb3eef1d0d28c9a3e928bc4b1d77f6e75ad99d25c93567"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/ledger.json",
+      "bytes": 1395,
+      "sha256": "4cf7265e88502af43068c9d7c73cbb9158eb0573dd2481d61a86b59c04738ba4"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/packet-manifest.json",
+      "bytes": 2490,
+      "sha256": "bed43833c5e90bba6a1aec5ba74b585881fa83ef978f483d6beb3f0388e2f62f"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/rank.json",
+      "bytes": 1234,
+      "sha256": "7a88063ff76f22a37ab2d501673e757cdf288004726b7247c6a1200b4e6770e2"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/remaining.json",
+      "bytes": 1330,
+      "sha256": "5537536c2fa3469f9f4bc12253d0342920791b6a696aefc2ccc92fa2faf18644"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/source-manifest.json",
+      "bytes": 10081,
+      "sha256": "c2f49ffd8e9a0a7276fe17ef23f292e20a6d6dfbb28854decc1b18db0bbe6a53"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/source-witnesses.json",
+      "bytes": 13524,
+      "sha256": "000cc9e2ff38ccc27865f350b4ba0e9a09bc9c3af5dc91df01376961ad451901"
+    },
+    {
+      "path": "docs/research/retained-general-native-capacity.md",
+      "bytes": 43573,
+      "sha256": "dc69266e455fde912225570d3a945552f120591c712ae5beaab8b8ca9ce5a1e8"
+    }
+  ],
+  "accepted_reviews": [
+    {
+      "commit": "793a9738ed8f02e5d84e54a9a687894195f36f94",
+      "path": "docs/reviews/review-concat-layout-20261024.md",
+      "sha256": "64618e0c8ab67ce900a55c7d111e8c234e6e0c509c4cb32d46af4f912aa7d4b7"
+    },
+    {
+      "commit": "10a9004c0f6115fd26c574fc9ca13e903338ece2",
+      "path": "docs/reviews/review-concat-layout-20261024.md",
+      "sha256": "3f2d15da5c4735fd4356d939d211786d99127aa9df070f919dc5e9f62515a61f"
+    }
+  ],
+  "preserved_repair_files": 7,
+  "source_files": 31,
+  "source_spans": 64,
+  "finding_witness": {
+    "inner_frontend_low_kind": "if",
+    "inner_frontend_low_compile_time_known": false,
+    "later_native_equal_arm_result": 1,
+    "outer_first_fallback": true,
+    "outer_selected_low_s": 1,
+    "outer_selected_low_m": 1,
+    "model_is_GCC_execution": false
+  },
+  "arithmetic_only": {
+    "layout_CUBT": [
+      184,
+      126,
+      138,
+      112
+    ],
+    "layout_bytes_per_t_plus_one": 22288,
+    "layout_slots_per_t_plus_one": 738
+  }
+}
