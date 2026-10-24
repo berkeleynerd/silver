@@ -311,7 +311,9 @@ Better_In_Hex and recursive Image_Uint make at most `5k+6` small-divisor
 UI_Div_Rem calls; each returns at most two descriptors, with at most three
 additional sign/absolute-value/add-one results. Charge `10k+15` descriptors,
 each of at most `ceil(k/15)+1` digits, including carry and the two-digit65536
-divisor. Largest local vectors obey that same digit bound. The image is at
+divisor. Better_In_Hex can first add one, and UI_Div_Rem Algorithm_D
+allocates a further normalization digit beyond its dividend length. Therefore
+local vectors need `ceil(k/15)+2` digits, separately from returned descriptors. The image is at
 most `2k+10` bytes; require this <=1018 to exclude the abbreviation branch
 entirely. This avoids assuming that Image_Exponent's unguarded final digits
 fit merely because Image_Char reserved six positions. The predicate can fail
@@ -334,7 +336,8 @@ could install report-time scratch magnitudes into those fields. Ureal query
 numerators and unrelated native arithmetic retain their earlier owners.
 
 Consequently the image-specific radix bound is q=ceil(256/15)=18; the helper's
-conservative k=15q=270 yields image550 and temporary-vector19 digits. With
+conservative k=15q=270 yields image550, descriptor19 digits and the generic
+local-vector20-digit allowance (overcharging the stored256-bit field slack). With
 name/string/attribute components at most550, W550 gives H_CP15581 and the
 source-shaped proof text bound31439. At P128 and zero instantiation edges,
 `brief_output` gives31655 before LF, satisfying its explicit-EOL guard.

@@ -31,6 +31,11 @@
       "purpose": "Integrate reviewed incoming/provenance/GCC owners and specialize printed expression and native output bounds",
       "result": "78 complete selected files,279 Ada frontier and six local identities checked;78 includes34 newly retained GCC files. Printed CP reset targets and typed Uint fields independently reviewed; CP15581 and proof text31439 useful line illustration. Prefix/stdout census, native name transfer and exact literal helper added. Corrected GCC Write_Char embedded-LF handling and split total error bytes from final segment. General terminal payload remains with parent specialist; integrated review pending.",
       "elapsed_seconds": 5.119979
+    },
+    {
+      "purpose": "Repair independent integrated review finding in generic Uint workspace",
+      "result": "Reviewer supplied q2 all-ones carry followed by Algorithm_D counterexample to q+1 local workspace. Split returned descriptor allowanceq+1 from local normalization allowanceq+2. Selected CP550/15581 and report text unaffected; focused checker rerun because algebra changed.",
+      "elapsed_seconds": 6.079955
     }
   ],
   "open_attachments": [
@@ -38,5 +43,5 @@
     "Concrete pathname and clock/duration configuration refinement",
     "Independent integrated freeze review"
   ],
-  "checkpoint_utc": "2026-10-24T01:44:27.129282+00:00"
+  "checkpoint_utc": "2026-10-24T01:48:36.179865+00:00"
 }

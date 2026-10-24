@@ -277,6 +277,7 @@ assert not c.compiler_abort(error_bytes=32767, path_bytes=20,
 assert c.compiler_abort(error_bytes=33227168, error_tail_bytes=0, path_bytes=128, version_bytes=40, target_bytes=40)['guards']['output_explicit_eol']
 assert not c.brief_output(message_bytes=32767, path_bytes=1,
                            output_calls=1)['guards']['explicit_eol']
+assert c.uint_image_storage(radix_digits=2, prefix_entries=0, prefix_digits=0, table_index_room=c.I)['local_vector_digits'] == 4
 assert c.uint_image_storage(radix_digits=33, prefix_entries=0, prefix_digits=0,
                             table_index_room=c.I)['guards']['no_abbreviation']
 assert not c.uint_image_storage(radix_digits=34, prefix_entries=0, prefix_digits=0,
@@ -317,6 +318,7 @@ result = {
                'check-tree projection preserves other schema', 'arbitrary-depth quadratic envelope',
                'writer growth, terminal column and cumulative-line failures',
                'exact bugbox recipe application', 'Uint abbreviation guard boundary',
+               'Uint carry plus Algorithm_D local normalization digit',
                'incoming source equations and whole-lifetime third-pool composition',
                'six local incoming source identities', 'full continuation append inventory',
                'printed CP and private Get_Fix bounds remain separate',
