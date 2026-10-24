@@ -1,0 +1,54 @@
+{
+  "accepted_author": "0d64f5f7d18b77632146174f1777be238cc43f60",
+  "accepted_review": "9e876592a9e1a78b124294c72ab8848423c54625",
+  "providers": [
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/builder-locals/local.py",
+      "sha256": "a0ffb55674832e2e00b9f3f09f4dcb46c99947ab1d7ad0d4b6d15151d95968a7"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/builder-locals/native-census.json",
+      "sha256": "7d64cea6a0767ae6ad0374705b81673c3527f1ec21a362786e2127d697c61714"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/builder-locals/result.json",
+      "sha256": "26a0d2b9cb45186bfb747a190dc79bae978dfa0c6ce73b7a9be4ef499903d636"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/contract-builders/builders.py",
+      "sha256": "cb7f1233cb6033f0b7c07de81c82a4071d04aaadac27a2a38eb86500558d3778"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/contract-builders/exports-r1.json",
+      "sha256": "5adfa0f9a8b5387650c9e5933f1cc17e258ba43a0a664b3f6454ee3c88bd473d"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/contract-builders/sites.json",
+      "sha256": "3fb93ac5ad366908aff07e778cc89cd44b89d4ab9dfff6f5fc81286fb72c7eae"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/bridge.py",
+      "sha256": "3e76672713a8a0e4e5aac78681155fe3c61e32b2195a2637863fbdd9c8e2d1ac"
+    },
+    {
+      "path": "docs/evidence/retained-main-why-storage-20261024/kernel.py",
+      "sha256": "35b41283e3deffe4ec6152bca5d24a79ce9650710681206871a20a66d5319f42"
+    },
+    {
+      "path": "docs/evidence/retained-why-inline-operations-20261018/compose.py",
+      "sha256": "f0ded559bca6819a91028bf0b6d8e8a63e625cfa846058c5593bc9a608f42ac6"
+    },
+    {
+      "path": "docs/evidence/retained-why-shared-demand-20261020/compose.py",
+      "sha256": "229466dda5d6949c121a6c9bf8e42a943788b70efc1338075cb95318eab6502f"
+    },
+    {
+      "path": "docs/evidence/retained-why-session-save-outcomes-20261019/runtime-limits.json",
+      "sha256": "706d86785c2eeaac3836a2fcb6ad25e46566cf4fff1f5021ef6fef2787370fce"
+    },
+    {
+      "path": "docs/evidence/retained-why-native-effect-completeness-20261019/interface-summary.json",
+      "sha256": "a882d4afb25bae93b9e90cca3fda985f5fb9483d08fe653de2429ee8494b0a40"
+    }
+  ]
+}

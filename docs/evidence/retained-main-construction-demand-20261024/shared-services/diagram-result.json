@@ -1,0 +1,31 @@
+{
+  "status": "passed",
+  "assertions": 20,
+  "groups": {
+    "actual projection source fold supplies requests": 1,
+    "closed supplied projection diagram": 1,
+    "numeric states do not certify Main attachment": 1,
+    "repeated builders retain cumulative Hsty history": 1,
+    "repeated Unit shares Hsity and Ident owners": 1,
+    "warm memo multiplicity attached to Unit source fold": 1,
+    "no renewed callback/save allowance": 1,
+    "absent inherited backing does not close arithmetic": 1,
+    "actual free-variable restoration supplies Wvs read": 1,
+    "Wvs read has no fictitious growth charge": 1,
+    "R1 current failed-pair map remains charged": 1,
+    "failed application adds no fictitious hashcons request": 1,
+    "owner overflow rejects conditional closure": 1,
+    "exact final owner maximum accepted": 1,
+    "unrepresentable inherited-demand backing rejected": 1,
+    "unsupported local source domain cannot close shared interface": 1,
+    "invalid numeric state rejected": 3,
+    "partial owner state rejected": 1
+  },
+  "elapsed_seconds": 0.050557645998196676,
+  "host": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "native_census": null,
+  "native_target_runs": 0,
+  "new_disassembler_runs": 0,
+  "compiler_prover_Lean_runs": 0,
+  "predecessor_checker_runs": 0
+}

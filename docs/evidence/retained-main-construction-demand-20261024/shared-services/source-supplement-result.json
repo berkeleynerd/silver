@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "complete_source_identities": [
+    "stdlib/list.ml",
+    "src/mlw/expr.ml"
+  ],
+  "reason": "Add exact is_rs_tuple dispatch and List.for_all context; existing native/diagram success is unchanged",
+  "elapsed_seconds": 0.7838568150036735,
+  "native_recheck": false,
+  "followup_elapsed_seconds": 0.1242185610026354,
+  "followup_reason": "Why archive path is unprefixed; complete the second selected excerpt"
+}

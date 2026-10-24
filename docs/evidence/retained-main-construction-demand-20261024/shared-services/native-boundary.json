@@ -1,0 +1,131 @@
+{
+  "direct_code_edges": [
+    {
+      "target": "camlStdlib__Array__blit_323",
+      "category": "accepted backing transfer and runtime interface",
+      "reason": "Weak transfer bounds actual array/key lengths and index/growth arithmetic; arrays/weak buckets have exported per-request payload and byte bounds"
+    },
+    {
+      "target": "camlStdlib__Array__iteri_357",
+      "category": "accepted backing transfer and runtime interface",
+      "reason": "Weak transfer bounds actual array/key lengths and index/growth arithmetic; arrays/weak buckets have exported per-request payload and byte bounds"
+    },
+    {
+      "target": "camlStdlib__Array__sub_312",
+      "category": "accepted backing transfer and runtime interface",
+      "reason": "Weak transfer bounds actual array/key lengths and index/growth arithmetic; arrays/weak buckets have exported per-request payload and byte bounds"
+    },
+    {
+      "target": "camlStdlib__Hashtbl__add_1032",
+      "category": "excluded cold strong memo miss",
+      "reason": "arity-zero memo populated by module initialization; this add belongs to Exthtbl.memo miss arm"
+    },
+    {
+      "target": "camlStdlib__Obj__get_key_516",
+      "category": "accepted weak/ephemeron runtime interface",
+      "reason": "valid bounded key index; get_key/data are references, get_copy has two/three-word top-level record payload; option wrappers are fixed"
+    },
+    {
+      "target": "camlStdlib__failwith_7",
+      "category": "excluded representation error arm",
+      "reason": "valid input/table, source arity and exported strict growth/length/index guards exclude invalid offset and full-bucket saturation"
+    },
+    {
+      "target": "camlStdlib__invalid_arg_10",
+      "category": "excluded representation error arm",
+      "reason": "valid input/table, source arity and exported strict growth/length/index guards exclude invalid offset and full-bucket saturation"
+    },
+    {
+      "target": "caml_apply2",
+      "category": "accepted fixed adapter",
+      "reason": "builder-locals accepted byte census and fixed request argument; callbacks selected by source-joins.json"
+    },
+    {
+      "target": "caml_apply3",
+      "category": "accepted fixed adapter",
+      "reason": "builder-locals accepted byte census and fixed request argument; callbacks selected by source-joins.json"
+    },
+    {
+      "target": "caml_c_call",
+      "category": "existing runtime/physical premise",
+      "reason": "allocation/collector/write barrier or exception dispatch; no new Why callback or aggregate resource gate"
+    },
+    {
+      "target": "caml_call_gc",
+      "category": "existing runtime/physical premise",
+      "reason": "allocation/collector/write barrier or exception dispatch; no new Why callback or aggregate resource gate"
+    },
+    {
+      "target": "caml_curry2",
+      "category": "accepted fixed adapter",
+      "reason": "builder-locals accepted byte census and fixed request argument; callbacks selected by source-joins.json"
+    },
+    {
+      "target": "caml_curry3",
+      "category": "accepted fixed adapter",
+      "reason": "builder-locals accepted byte census and fixed request argument; callbacks selected by source-joins.json"
+    },
+    {
+      "target": "caml_ephe_get_data",
+      "category": "accepted weak/ephemeron runtime interface",
+      "reason": "valid bounded key index; get_key/data are references, get_copy has two/three-word top-level record payload; option wrappers are fixed"
+    },
+    {
+      "target": "caml_ephe_set_key",
+      "category": "accepted weak/ephemeron runtime interface",
+      "reason": "valid bounded key index; get_key/data are references, get_copy has two/three-word top-level record payload; option wrappers are fixed"
+    },
+    {
+      "target": "caml_ephe_unset_key",
+      "category": "accepted weak/ephemeron runtime interface",
+      "reason": "valid bounded key index; get_key/data are references, get_copy has two/three-word top-level record payload; option wrappers are fixed"
+    },
+    {
+      "target": "caml_make_vect",
+      "category": "accepted backing transfer and runtime interface",
+      "reason": "Weak transfer bounds actual array/key lengths and index/growth arithmetic; arrays/weak buckets have exported per-request payload and byte bounds"
+    },
+    {
+      "target": "caml_ml_array_bound_error",
+      "category": "excluded representation error arm",
+      "reason": "valid input/table, source arity and exported strict growth/length/index guards exclude invalid offset and full-bucket saturation"
+    },
+    {
+      "target": "caml_modify",
+      "category": "existing runtime/physical premise",
+      "reason": "allocation/collector/write barrier or exception dispatch; no new Why callback or aggregate resource gate"
+    },
+    {
+      "target": "caml_raise_exn",
+      "category": "existing runtime/physical premise",
+      "reason": "allocation/collector/write barrier or exception dispatch; no new Why callback or aggregate resource gate"
+    },
+    {
+      "target": "caml_weak_blit",
+      "category": "accepted backing transfer and runtime interface",
+      "reason": "Weak transfer bounds actual array/key lengths and index/growth arithmetic; arrays/weak buckets have exported per-request payload and byte bounds"
+    },
+    {
+      "target": "caml_weak_check",
+      "category": "accepted weak/ephemeron runtime interface",
+      "reason": "valid bounded key index; get_key/data are references, get_copy has two/three-word top-level record payload; option wrappers are fixed"
+    },
+    {
+      "target": "caml_weak_create",
+      "category": "accepted backing transfer and runtime interface",
+      "reason": "Weak transfer bounds actual array/key lengths and index/growth arithmetic; arrays/weak buckets have exported per-request payload and byte bounds"
+    },
+    {
+      "target": "caml_weak_get",
+      "category": "accepted weak/ephemeron runtime interface",
+      "reason": "valid bounded key index; get_key/data are references, get_copy has two/three-word top-level record payload; option wrappers are fixed"
+    },
+    {
+      "target": "caml_weak_get_copy",
+      "category": "accepted weak/ephemeron runtime interface",
+      "reason": "valid bounded key index; get_key/data are references, get_copy has two/three-word top-level record payload; option wrappers are fixed"
+    }
+  ],
+  "indirect_callback_argument_sources": "source-joins.json",
+  "complete_generic_indirect_call_graph": false
+}

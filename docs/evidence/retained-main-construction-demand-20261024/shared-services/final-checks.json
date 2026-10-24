@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "checks": [
+    "supplemented complete source identity: src/mlw/expr.ml",
+    "supplemented source excerpt: src/mlw/expr.ml:837",
+    "supplemented source excerpt: src/mlw/expr.ml:938",
+    "supplemented complete source identity: ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/list.ml",
+    "supplemented source excerpt: ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/list.ml:117",
+    "supplemented source excerpt: ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/list.ml:160",
+    "same accepted native limit executable",
+    "accepted max-wosize instruction decoding",
+    "imported ordinary-header maximum",
+    "research continuation preserves accepted prefix",
+    "earlier tracked packets unchanged"
+  ],
+  "assertions": 11,
+  "elapsed_seconds": 0.8152571300015552,
+  "source_native_previous_success_reused": true,
+  "native_target_disassembler_compiler_prover_Lean_runs": 0
+}

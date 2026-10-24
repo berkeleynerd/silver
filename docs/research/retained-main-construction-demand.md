@@ -978,3 +978,187 @@ later kode/SP/WP and continuation construction. Their actual representation
 obligations are not relabelled physical-resource assumptions. #202/#119 remain
 open. Oracle/admission/tool pins, one process-global `e <= 2`, two save-entering
 callbacks and three saves are unchanged.
+
+## Shared-service representation joins
+
+The [shared-service packet](../evidence/retained-main-construction-demand-20261024/shared-services/README.md)
+continues local author `0d64f5f7d18b77632146174f1777be238cc43f60`, accepted by
+independent review `9e876592a9e1a78b124294c72ab8848423c54625`. It attaches the
+actual Hsty/Hsity hashcons calls and Wvs/strong memo reads of the same flat
+contract-builder partition. It closes their **conditional service transfer**,
+including callback and per-request representation obligations. The complete
+Main history needed to instantiate every incoming owner/table state and every
+source entry multiplicity remains an explicit missing attachment. This is not
+an unconditional whole-builder or source-to-VC capacity result.
+
+### Exact callback and lookup attachment
+
+`ty_of_ity` sends each visited projected type node to `Ty.ty_app`
+(`ity.ml:182–185`). The accepted builder fold therefore supplies one Hsty
+request per projection occurrence. Ordinary Unit replacement adds two Hsty
+requests and one Hsity request. Successful same-type nonzero application and
+its failed argument prefixes add neither. These are requests, not distinct
+results, and the repaired possible map allocation at the current failed pair
+remains in the earlier vector. Discarding the resulting contract does not
+refund its requests.
+
+`Hashcons.Make.hashcons` first invokes the instance's `tag`, then `Weak.merge`,
+then increments `next_tag` only if the returned representative is physically
+the tagged candidate (`hashcons.ml:31–45`). Hsty tagging allocates a fresh
+two-field `ty`; Hsity tagging allocates a fresh three-field `ity` after computing
+purity (`ty.ml:103`, `ity.ml:144–153`). Both source/native copies are fixed,
+respectively 24 and 32 bytes including the header. There is at most one owner
+increment per request, even on a collision or after weak clearing. Unique
+construction is not reached by this builder partition.
+
+`Weak.find_or` hashes the candidate once, reads cached bucket hashes, and
+passes a shallow old copy as the **left** equality operand and the candidate
+as the right (`weak.ml:272–294`). The callbacks are precisely:
+
+| Service | Hash/tag operands | Equality and representative result |
+| --- | --- | --- |
+| Hsty | Existing head Ident tag and direct child `ty_tag` values, mixed by `Hashcons.combine_list`; selected arity at most two. | Check physical type-symbol identity before paired physical child identity. A valid old type with that same symbol has the same arity. At most two child tests; successful return preserves the candidate's physical head and children. |
+| Hsity | This partition supplies only `Ityapp(its_unit,[],[])`; both child hashes and purity traversals have empty lists. | Check physical `its_unit` identity before both empty paired lists. A valid old Unit type has empty argument/region lists and true purity; successful return preserves that representation. |
+
+Hash mixing is intentionally modular OCaml integer arithmetic. Its result is
+a hash, not a unique owner identifier; requiring nonwrapping multiplication
+by 65599 would be incorrect. Weak indexing masks that result with `max_int`
+before modulo a positive represented outer length. Hash/equality callbacks
+only read existing tags, pointers and list cells: they neither register an
+identifier nor request another hashcons operation. The validity premise covers
+registered child/symbol tags, well-formed old immutable type records and source
+arity; it does not assume old term graphs have the candidate's size.
+
+`Weak.get_copy` copies only the top-level old `ty`/`ity` record, of two/three
+payload words, plus its fixed option wrapper. It does not copy child graphs.
+During table resize, `add_weak` reads the **stored integer hash** and blits the
+weak entry (`weak.ml:213–228`); no old-object hash, equality, purity or tag
+callback is invoked. Thus arbitrary inherited type arities add no missing
+recursive rehash construction. Bucket scans, rehash arrays and shrinking
+retain the existing Weak transfer's finite traversal and arithmetic argument.
+
+The remaining shared services are read-only in this source partition:
+
+- `Ity.restore_pv` is `Wvs.find` on its private `vs_to_pv` table
+  (`ity.ml:751–764`). `Term.Wvs` instantiates `Weakhtbl.Make` and then
+  `Ephemeron.K1.Make`; hashing/equality read `vs_name.id_tag`
+  (`term.ml:22–30`, `weakhtbl.ml:66–85`). `find` traverses a finite stored
+  chain, including dead keys, without cleaning, resizing or changing the
+  stored size (`ephemeron.ml:241–268`). K1's key/data reads return references
+  in fixed option wrappers, not copied variable/pvsymbol payloads. Registered
+  nonwrapping keys and the accepted source registry correspondence remain
+  the premises for a successful restore. A miss raises the existing fixed
+  `Not_found`; it does not create a growing request.
+- `ts_tuple`, `fs_tuple` and `its_tuple` are private strong `Hint.memo` tables.
+  The selected calls have key zero. Ity's module initialization populates
+  `ts_unit`/`its_unit` and Expr's `rs_void`/`fs_void` initializes `fs_tuple 0`
+  (`ity.ml:790–798`, `expr.ml:941–951`). `Exthtbl.memo` retains those entries
+  strongly and exposes no clear operation (`exthtbl.ml:45–48`), so the calls
+  are hits. Their integer equality/hash callbacks are fixed and never enter
+  the cold tuple-symbol constructors. Each Unit replacement retains the
+  accepted two/one/one lookup counts.
+- `is_fs_tuple` probes strong `fs_tuple_ids` for every `ls_constr=1`, including
+  non-tuple record constructors. `Hid.mem` compares existing Ident tags and
+  consumes a finite chain; both lookup outcomes have zero table writes.
+  No tuple-constructor callback is involved in this membership query.
+
+These lookup indices are `hash land (array_length-1)` for valid power-of-two
+arrays. There is no chain-length accumulator or new backing request. A valid
+inherited table already has representable array/header/size fields; a lookup
+does not introduce a further bound on its population. The constructors that
+originally populate Wvs or cold tuples belong to their separate source owners
+and remain outside this partition. Their populations are not silently asserted
+to be zero or newly certified by a lookup proof.
+
+### Reused backing and cumulative owner transfer
+
+The callable imports only the unchanged `natural`, `counter_transfer` and
+`weak_transfer` definitions from the accepted
+[shared-state transfer](retained-why-inline-operations.md). It does not replay
+that packet's compose/check functions. For each of the two distinct hashcons
+instances, let `(L,B,S)` be its inherited outer length, maximum bucket length
+and **all allocated bucket slots**, including empty slots, at the same cut
+as its incoming next-tag value `c`. Let `q` be the cumulative accepted builder
+request count since that cut. The existing transfer gives
+
+```text
+N = S + q
+A = max(L, floor(3*L/2)+3, 3*N+3)
+K = max(B, floor(3*N/2)+3)
+next_tag <= c + q.
+```
+
+There is no cache-hit discount. The accepted conservative guards are retained:
+`c+q <= 2^62-1`, `3*max(A,K)+6 <= 2^62-1`, `A <= 2^54-1`, and
+`K+2 <= (2^54-1)-2`. They cover pre-saturation multiply/shrink arithmetic,
+rover/oversize, indexing, and the Weak/Ephemeron payload limit. In particular,
+the bucket bound stays strictly below the growth cap; `min` is not used to
+excuse an already-overflowing multiplication or a saturated full bucket.
+The chosen ordinary-header limits reuse the retained Linux native limit
+witness and the accepted six-owner composition, without a new runtime probe.
+
+Each outer array has at most `8*(A+1)` requested bytes including its header;
+each hash bucket has at most `8*(K+1)`; each weak bucket, with two extra runtime
+fields, has at most `8*(K+3)`. These are **individual requests**, not aggregate
+backing or physical-memory totals. Weak's outer arrays contain weak buckets
+or ordinary hash arrays, and its hash buckets contain immediate integers;
+the float-array specialization is not selected. Their header and unsigned native byte-size
+guards are exported separately. Every own heap reservation in the selected
+native helper set is fixed and at most 152 bytes, bounding each constituent
+block by 18 payload words. Dynamic arrays use the preceding reused envelope.
+Finite table/list traversal and ordinary RAM/stack sufficiency complete this
+service obligation; no additional aggregate frame/closure price is needed.
+
+The source/native witness reconciles 65 complete labelled bodies and 8,576
+instruction bytes to executable ELF segments, plus the exact constant purity
+closure header/extent/code pointer. It retains the generic hashcons dispatch,
+actual Ty/Ity callbacks, weak operations, Wvs ephemeron dispatch and warm
+strong lookup bodies. Source-selected higher-order arguments in
+`source-joins.json` supply the indirect connections. Existing fixed adapters,
+array/weak runtime interfaces and allocation/exception services have explicit
+boundary dispositions. The source/compiler/runtime relation remains trusted;
+this is not a machine-checked compiler or allocator proof.
+
+### Callable input status and precise residuals
+
+`shared.Demand` extends the accepted local ledger; `create_cty` and `c_app`
+are the same accepted wrappers. `d.shared_export(table_states=None)` reads
+their actual accumulated request stream, preserves the earlier vector and
+checks its endpoints with the imported transfer. Supplied table states have
+exactly Hsty and Hsity entries, each containing `outer_length`, `bucket_max`
+and `allocated_slots`. Missing states, overflow, malformed state numbers or
+an unsupported local source domain cannot export a true conditional closure.
+Continuing the same ledger against the same original table cut charges every
+later source entry and failed candidate. This API creates no arbitrary demand
+certificate and adds no new admission input.
+
+Every inherited-state/caller-count input is classified in the export:
+
+| Input | Provider or remaining attachment |
+| --- | --- |
+| New Hsty/Hsity/Ident requests | Accepted builder `Demand` and term kernel, through the local wrappers; R1's failed-pair map charge is unchanged. |
+| Actual entry/candidate repetition | Accepted clone-fold/site inventory where applicable; the complete generated-Main/parser/proxy/overload attempt fold remains required. |
+| Incoming Ident | Accepted kernel's transported process owner; its complete Main prefix must still be supplied. |
+| Incoming Hsty/Hsity and backing | Each actual Hashcons instance initializes at next-tag zero, outer length 5003 and zero bucket slots (`hashcons.ml:37–39`, `weak.ml:119–128`). Transport through **all** preceding process requests is still required at a builder cut. The unrelated fixed-library six-owner captures do not instantiate Main or Hsity. |
+| Wvs/strong lookup tables | Source-created private tables with valid finite represented chains; no new size parameter or growth allowance is needed by the selected reads. Their earlier population remains with pvsymbol/cold-tuple construction owners. |
+
+Accordingly `conditional_shared_representation_interface_applies` evaluates
+the supplied diagram's source-domain, endpoint and backing predicates, while
+`actual_Main_initial_process_attachment_established` and complete source-entry
+multiplicity flags remain false. The diagram numbers are explicitly not Main
+observations. The closed result is the actual partition's shared service
+transfer and callback/request-size proof; remaining numeric instantiation is
+precisely the complete process history and source multiplicity obligation,
+not an unspecified service audit or an aggregate RAM/stack quota.
+
+The first new check completed source/native verification and then stopped on
+a test-selector typo (`apply_vsb_add` instead of the existing
+`formal_actual_add`). Correcting only that assertion gave 20 passing focused
+diagram checks; successful native evidence was reused. No predecessor,
+target, compiler, prover, Lean or new disassembler run occurred.
+Independent review remains pending. Other builder families, surrounding
+symbol/proxy/clone construction, kode/SP/WP and later continuation retain
+their explicit residual obligations. #202/#119 remain open; production
+#88–#94 is untouched. Oracle/admission/tool pins and one process-global
+`e <= 2`, two save-entering callbacks and three saves are unchanged. Neither
+hashcons comparisons nor Wvs/strong lookups renew that allowance.

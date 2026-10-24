@@ -1,0 +1,193 @@
+{
+  "issue": 202,
+  "parent_issue": 119,
+  "role": "source-attached shared representation author",
+  "accepted_author": "0d64f5f7d18b77632146174f1777be238cc43f60",
+  "accepted_review": "9e876592a9e1a78b124294c72ab8848423c54625",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "started_utc": "2026-10-24 07:08:26 UTC",
+  "author_checkpoint_utc": "2026-10-24 07:22:43 UTC",
+  "elapsed_to_checkpoint_seconds": 857,
+  "elapsed_scope": "Through derivation, focused native/source/math checks and drafted documentation; final receipt/commit/handoff excluded",
+  "intended_result": "Close actual Hsty/Hsity representation callbacks/backing transfer and attached Wvs/strong memo services for accepted builders",
+  "achieved_result": "Source-attached conditional shared representation interface; all callbacks and per-request sizes accounted, actual Main prefix/entry attachment explicitly residual",
+  "material_findings": [
+    "Weak.resize reuses cached integer hashes and weak blits, so no inherited recursive type hash or tag callback is reached",
+    "Hsty candidate arity <=2 and Hsity Unit empty child/region lists bound equality/hash/purity callbacks",
+    "Wvs find is read-only including dead-key traversal; Unit strong memos are source-warm and private, and constructor membership queries have no miss constructor",
+    "No unrelated fixed-process owner observation is used to instantiate Main/Hsity; numeric diagrams cannot certify actual source/initial state attachment",
+    "Three extraction symbol suffix typos corrected; initial diagram assertion used wrong existing map-event name, corrected without rerunning successful native phase"
+  ],
+  "validation": {
+    "initial_focused_command_wall_seconds": 6.730929548,
+    "initial_native_source_phase_completed": true,
+    "initial_assertion_total_recorded": false,
+    "initial_check_script": "check-initial.py",
+    "initial_failure": "initial-failure.txt",
+    "corrected_diagrams": {
+      "status": "passed",
+      "assertions": 20,
+      "groups": {
+        "actual projection source fold supplies requests": 1,
+        "closed supplied projection diagram": 1,
+        "numeric states do not certify Main attachment": 1,
+        "repeated builders retain cumulative Hsty history": 1,
+        "repeated Unit shares Hsity and Ident owners": 1,
+        "warm memo multiplicity attached to Unit source fold": 1,
+        "no renewed callback/save allowance": 1,
+        "absent inherited backing does not close arithmetic": 1,
+        "actual free-variable restoration supplies Wvs read": 1,
+        "Wvs read has no fictitious growth charge": 1,
+        "R1 current failed-pair map remains charged": 1,
+        "failed application adds no fictitious hashcons request": 1,
+        "owner overflow rejects conditional closure": 1,
+        "exact final owner maximum accepted": 1,
+        "unrepresentable inherited-demand backing rejected": 1,
+        "unsupported local source domain cannot close shared interface": 1,
+        "invalid numeric state rejected": 3,
+        "partial owner state rejected": 1
+      },
+      "elapsed_seconds": 0.050557645998196676,
+      "host": "Linux-7.0.14-x86_64-with-glibc2.43",
+      "native_census": null,
+      "native_target_runs": 0,
+      "new_disassembler_runs": 0,
+      "compiler_prover_Lean_runs": 0,
+      "predecessor_checker_runs": 0
+    },
+    "final_metadata_scope": {
+      "status": "passed",
+      "checks": [
+        "supplemented complete source identity: src/mlw/expr.ml",
+        "supplemented source excerpt: src/mlw/expr.ml:837",
+        "supplemented source excerpt: src/mlw/expr.ml:938",
+        "supplemented complete source identity: ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/list.ml",
+        "supplemented source excerpt: ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/list.ml:117",
+        "supplemented source excerpt: ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/list.ml:160",
+        "same accepted native limit executable",
+        "accepted max-wosize instruction decoding",
+        "imported ordinary-header maximum",
+        "research continuation preserves accepted prefix",
+        "earlier tracked packets unchanged"
+      ],
+      "assertions": 11,
+      "elapsed_seconds": 0.8152571300015552,
+      "source_native_previous_success_reused": true,
+      "native_target_disassembler_compiler_prover_Lean_runs": 0
+    },
+    "selected_native_bodies": 65,
+    "instruction_bytes": 8576,
+    "constant_closures": 1,
+    "max_own_heap_reservation_bytes": 152,
+    "successful_native_phase_replayed": false,
+    "full_combined_green_run": false,
+    "native_target_runs": 0,
+    "new_disassembler_runs": 0,
+    "compiler_prover_Lean_runs": 0,
+    "predecessor_checker_runs": 0
+  },
+  "conditional_service_transfer_closed": true,
+  "actual_Main_initial_process_attachment_established": false,
+  "complete_source_entry_and_candidate_multiplicities": false,
+  "complete_source_to_initial_vc_storage": false,
+  "aggregate_memory_or_stack_gate": false,
+  "local_cumulative_bytes_required": false,
+  "global_process_e_upper": 2,
+  "save_entering_callbacks": 2,
+  "saves": 3,
+  "new_allowance": 0,
+  "tokens": null,
+  "cost": null,
+  "subthread_harness_goal": null,
+  "cli_memory_updated": false,
+  "independent_review": "pending; root owns review, integration/publication and issue/memory updates",
+  "review_inputs": [
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/shared-services/README.md",
+      "sha256": "70dae4b5293b2172b95dd81d9739a15ad5c4071d96434b532f87dbd270ba0639"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/shared-services/check-initial.py",
+      "sha256": "9d8320807033f668ca936ed420226b87b0add10ec4cd6aef7500235c10817e76"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/shared-services/check.py",
+      "sha256": "1d1607432176ee89bf43adaf6ecbc82da0f494af7e40e6bf8e72717fb8ef4db8"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/shared-services/checkpoint.md",
+      "sha256": "e7c903a6a0d2d207013633740b726ed70cd082bedf966714f9d3e646eddf1fbb"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/shared-services/diagram-result.json",
+      "sha256": "35832a7383545607af0a565954768da343f469b795915429f22a88f67bb5ed4b"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/shared-services/exports.json",
+      "sha256": "f05b087bd12354a74064ac11481004494f7c58a6e984b680570df433e4265400"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/shared-services/final-checks-initial.json",
+      "sha256": "014f77135c15ca820684e92c539a919b681410ebc00dedfcb2d6e5552c89c6a2"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/shared-services/final-checks.json",
+      "sha256": "6ed3c3b688a0709b059f0f20bb24eeb64c63baf27562dace456ba05ccbfc3a09"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/shared-services/final-checks.py",
+      "sha256": "239cac288e8685f39a2cff38191e3c46bf955d1a66c8e21d34ca2202922eebbf"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/shared-services/freeze.py",
+      "sha256": "4e6396f927582ae14644df2a339f9c02d124e73a218201510b4ee1d19e664fe0"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/shared-services/initial-failure.txt",
+      "sha256": "b8d2a9f5d836b377efafff75a5b01728f674a01b304b6459eb40206f4036c540"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/shared-services/inputs.json",
+      "sha256": "d4fda907ed53a9cd6bc63948ef70a19b74e63c931768ea8ecc818afd86d0018b"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/shared-services/native-bodies.json",
+      "sha256": "e2c441dfeb6d1d477e9cc3bb900cb7f726a1496ee9d5ff6927073516089a8859"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/shared-services/native-boundary.json",
+      "sha256": "d413ced54acb86fc42b99ebe4a7673fc0ec4feafd29afa531954148bf60156eb"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/shared-services/native-census.json",
+      "sha256": "6cd10b0d97b9daff114c8b884c0cc3094f9c955bcee01879c52efd5e898f7eac"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/shared-services/native-witnesses.json",
+      "sha256": "e7df2c8bb904c7be4f8e895bd4014b8aa1111fe337677de2afb1ac5ac0895c26"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/shared-services/shared.py",
+      "sha256": "51c9c9c91bdbc7d4d0eb831f3a25b5114d63aaf60dddad0b4abd1a850b09c495"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/shared-services/source-joins.json",
+      "sha256": "0ec5c1a22835996b51ea446475294a4f6ba73b7507b240883d6006ffd2a5c1a9"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/shared-services/source-supplement-result.json",
+      "sha256": "4fd2c6f85fb9b107387aae76795eebd6afa3cdd0109f5a120c4d599f13ca8874"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/shared-services/source-witnesses.json",
+      "sha256": "cc17e68518bdef5562fd20a9d0a2f9907c02b4d430e8da09e7cc3a52692dbfc6"
+    },
+    {
+      "path": "docs/research/retained-main-construction-demand.md",
+      "sha256": "fc144855cff801944a7f31530c7f66bb67e3fce3afd176d18debef1fb58cf95a"
+    }
+  ]
+}
