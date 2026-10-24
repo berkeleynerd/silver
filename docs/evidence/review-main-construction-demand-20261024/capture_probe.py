@@ -13,7 +13,8 @@ it = b.Ty('int')
 x, v = k.Var(1, it), k.Var(2, it)
 d = b.Demand(k.Ledger(100))
 t = k.close('forall', (v,), k.node('app', k.var(x), k.var(v), symbol='R'), d.kernel)
-m = b.gen_map(t, {x:v}, lambda ty:ty, lambda s:s, d)
+raw_mapper = getattr(b, '_gen_map', b.gen_map)
+m = raw_mapper(t, {x:v}, lambda ty:ty, lambda s:s, d)
 result = {
     'input': repr(canonical(semantics(t))),
     'output': repr(canonical(semantics(m))),
