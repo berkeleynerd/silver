@@ -1,0 +1,36 @@
+{
+  "issue": 202,
+  "parent_issue": 119,
+  "base_commit": "bd5025636d",
+  "role": "bounded author",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "started_utc": "2026-10-24 03:52:54 UTC",
+  "author_checkpoint_utc": "2026-10-24 04:15:59 UTC",
+  "elapsed_to_checkpoint_seconds": 1385,
+  "intended_result": "Attach source/type/kode/SPWP construction demand to the accepted stored-Term kernel and populated cut-C provider",
+  "achieved_result": "Saved-image support and positive-cache invariant; capture-sensitive generic mapper and type-instantiation seam; exact visit/freshening/type-callback recurrences; cty stage-4 and clone-term attachment; concrete remaining caller ledger",
+  "complete_source_to_initial_vc_storage": false,
+  "complete_native_byte_bound_for_generic_mapper": false,
+  "independent_review_status": "not yet reviewed",
+  "material_findings": [
+    "Opened term size cannot recover saved-map histories or caller multiplicities",
+    "The original outer variable map, not the progressively extended saved-key map, must interpret saved images",
+    "Positive bv_vars coefficients supply the missing support invariant for type instantiation",
+    "Case-bearing imported context remains distinct from the accepted case-free substitution/gate domain",
+    "Resolved typed-call counts omit earlier overload candidate attempts and failures"
+  ],
+  "new_checks": [
+    {"assertions": 1075, "elapsed_seconds": 0.5749343830029829, "reason": "first new bridge diagrams and source identity check"},
+    {"assertions": 1080, "elapsed_seconds": 0.6698226730004535, "reason": "added nested type/Hsty and repeated callback questions"},
+    {"assertions": 1092, "elapsed_seconds": 0.6491927450042567, "reason": "added image-domain, empty-case, noninjective-map and caller source correspondence checks"}
+  ],
+  "failed_author_checks": 0,
+  "native_runs": 0,
+  "predecessor_checker_replays": 0,
+  "tokens": null,
+  "cost": null,
+  "cli_memory_updated": false
+}
