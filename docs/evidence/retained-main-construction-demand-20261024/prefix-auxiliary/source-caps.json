@@ -1,0 +1,101 @@
+{
+  "event_vector": ["A: create_attribute attempt", "F: FileTags.get_file_tag attempt", "G: get_pos None increment attempt", "R: next_call_id increment attempt"],
+  "event_policy": "Bound their combined sum, so each component is also bounded. get_pos None pays both G and F; mk_call_id_str pays R and A; no cache-hit, eager-default, simplification or failed-prefix refund.",
+  "local_ticket_allowance": 128,
+  "counting_convention": "Erase recursive conversion of serialized children and input-sized list/string loops from a branch. Expand its source-selected, nonrecursive Ptree/metadata helpers. The row bounds the remaining combined A+F+G+R per branch and per erased list/string item. Every branch has its serialized value ticket; every list iteration has a serialized list-cell ticket, and identifier splitting has a decoded-byte ticket. Multiple fixed traversals of one field are included in the local cap. All full source files are inherited byte-for-byte from the accepted source-prefix packet.",
+  "families": [
+    {
+      "name": "metadata and syntax leaves",
+      "kinds": ["W_TYPE", "W_NAME", "W_MODULE", "W_BINDER", "W_RECORD_BINDER", "W_TRANSPARENT_TYPE_DEFINITION", "W_RECORD_DEFINITION", "W_RANGE_TYPE_DEFINITION", "W_TRIGGERS", "W_TRIGGER", "W_AXIOM_DEP", "W_HANDLER", "W_FIELD_ASSOCIATION", "W_EFFECTS", "W_RAISE_EFFECT"],
+      "source": [[50, 123], [179, 180], [984, 1009], [1022, 1035], [1165, 1173]],
+      "own_event_cap": 64,
+      "per_list_item_cap": 64,
+      "reason": "Qualified names have at most module/namespace/symbol components, so an identifier/type expansion has <=3 synthetic positions. Name/type/field/effect wrappers use a fixed number of these plus at most one position per tuple/pattern. Attribute-list iterations are charged per item. Metadata requested by another branch is already covered in that branch's fixed/item cap; charging this node as well only overcounts. Coercions and record copies add no auxiliary requests."
+    },
+    {
+      "name": "quantifiers",
+      "kinds": ["W_UNIVERSAL_QUANTIF", "W_EXISTENTIAL_QUANTIF"],
+      "source": [[400, 407], [455, 488]],
+      "own_event_cap": 16,
+      "per_list_item_cap": 32,
+      "extra_event_cap_per_binder_label_pair": 1,
+      "reason": "Each binder builds <=3 name identifiers and <=3 type identifiers plus one binder position (14 G/F events). The r.labels create_attribute list is repeated per binder; its full product is an explicit potential term, not assumed constant by the actual-JSON fold. Triggers and body recurse once. Quantifier construction adds one term position; Curr supplies at most one source FileTags request."
+    },
+    {
+      "name": "ordinary expression recursion",
+      "kinds": ["W_NOT", "W_CONNECTION", "W_LABEL", "W_LOC_LABEL", "W_TAGGED", "W_CALL", "W_LITERAL", "W_BINDING", "W_ELSIF", "W_EPSILON", "W_CONDITIONAL", "W_DEREF", "W_RECORD_ACCESS", "W_RECORD_UPDATE", "W_RECORD_AGGREGATE"],
+      "source": [[330, 395], [492, 549], [568, 648], [709, 727]],
+      "own_event_cap": 64,
+      "per_list_item_cap": 32,
+      "reason": "Each source child converts at most once in the selected expression/term arm. process_call has <=3 name positions, one variable, one attribute and one call ID, plus one apply per argument. Connection produces <=one binop per input operand; binary-tree nodes are bounded by operand list cells. Eager conditional defaults are included. Labels pay A per item and mk_attrs pays G/F per emitted attribute. Curr adds at most fixed source positions per expression, including Loc_label."
+    },
+    {
+      "name": "identifier and constants",
+      "kinds": ["W_IDENTIFIER", "W_INTEGER_CONSTANT", "W_RANGE_CONSTANT", "W_MODULAR_CONSTANT", "W_FIXED_CONSTANT", "W_REAL_CONSTANT", "W_FLOAT_CONSTANT", "W_COMMENT"],
+      "source": [[422, 451], [553, 576], [652, 707]],
+      "own_event_cap": 64,
+      "per_list_item_cap": 16,
+      "per_decoded_string_byte_cap": 8,
+      "reason": "Numeric arithmetic itself has zero auxiliary requests; const/cast/name wrappers use a fixed number of positions. Identifier space splitting creates one identifier/variable/apply per fragment, at most bytes+1 fragments; the constant term pays the +1. No_vcs/is_true and string scans do not call auxiliary owners."
+    },
+    {
+      "name": "program syntax and handlers",
+      "kinds": ["W_ANY_EXPR", "W_ASSIGNMENT", "W_BINDING_REF", "W_STATEMENT_SEQUENCE", "W_ABSTRACT_EXPR", "W_ASSERT", "W_RAISE", "W_TRY_BLOCK"],
+      "source": [[731, 785], [878, 948]],
+      "own_event_cap": 64,
+      "per_list_item_cap": 32,
+      "reason": "Pre/post names, patterns, synthetic binders and call-ID attributes are fixed per wrapper; requires pays A+G+F, ensures pays one A and four G/F pairs. Sequence flattening can revisit list structure but creates no auxiliary event until the one conversion of each flattened statement and one sequence per item. Handler names/patterns have fixed metadata work. Both successful and discarded Abstract/Binding candidates are overcounted."
+    },
+    {
+      "name": "loops and variants",
+      "kinds": ["W_LOOP", "W_VARIANT", "W_VARIANTS"],
+      "source": [[786, 876]],
+      "own_event_cap": 64,
+      "per_list_item_cap": 64,
+      "reason": "Loop wrapper has fixed true/false variables, three comment attributes, while/sequence positions. Each variant constructs new/old variables, comparison call, equality and two binops, labels and old/new lets; even charging G and F separately stays below64 excluding recursive Expr. Variant Expr is converted in check_variant and again in intro_vars; the entire serialized Expr subtree gets weight2, recursively, rather than being assumed shared or surviving once. Code_before/code_after convert once even when their resulting Ptree is reused."
+    },
+    {
+      "name": "function declarations",
+      "kinds": ["W_FUNCTION_DECL"],
+      "source": [[1011, 1163]],
+      "own_event_cap": 64,
+      "per_list_item_cap": 64,
+      "reason": "Name/return-type metadata and the eager ld_loc candidate are paid before branch selection. Term/Pterm/Prog/Pred branches each fit64 combined events outside child conversion and parameter lists. A parameter pays <=14 name/type/binder G/F events plus <=8 synthetic post-application events, including eager ??? default, below64. Def is converted once in its selected branch; generated ensures reuses its already-built identifiers/results. Pre/post/effects child conversions are separate serialized children."
+    },
+    {
+      "name": "other declarations and substitutions",
+      "kinds": ["W_AXIOM", "W_GOAL", "W_TYPE_DECL", "W_GLOBAL_REF_DECLARATION", "W_NAMESPACE_DECLARATION", "W_EXCEPTION_DECLARATION", "W_META_DECLARATION", "W_CLONE_DECLARATION", "W_CLONE_SUBSTITUTION"],
+      "source": [[1175, 1313]],
+      "own_event_cap": 64,
+      "per_list_item_cap": 32,
+      "reason": "Type/record fields and clone substitutions have bounded name/type metadata per list entry; a substitution has two <=3-component names. Meta string splitting/rejoining adds no per-character auxiliary call. Axiom dependencies, exception defaults, declaration scopes and fixed useraxiom attributes are included. Namespace declarations recurse into each serialized child once."
+    },
+    {
+      "name": "module and include assembly",
+      "kinds": ["W_INCLUDE_DECLARATION", "W_THEORY_DECLARATION"],
+      "source": [[125, 176], [1315, 1333]],
+      "own_event_cap": 16,
+      "per_list_item_cap": 16,
+      "reason": "Each include makes <=two module-name identifiers, optional rename and one declaration location; duplicate-filtered includes are still charged. Set comparison is string-only and has no auxiliary requests. Theory names/comments are fixed; all declaration children recurse once."
+    }
+  ],
+  "higher_order_and_failure_closure": "Reuse accepted source-prefix E/T selection and helper closure. Format/error construction, data decoding, qualifier comparisons, no_vcs traversal and bigint operations do not add auxiliary events. Local record-field Not_found catches do not retry conversion. Other semantic failures leave the converter; full-potential bounds dominate every already-evaluated prefix, regardless of OCaml argument order.",
+  "linear_shortcut": {
+    "plain": "V=all JSON values (including object keys); E=all array elements/object members; S=decoded string UTF-8 bytes, including keys. Each is <=serialized B.",
+    "weighted": "Multiply the whole Expr field of each W_VARIANT by2, including nested repeats. Add P=sum(weight*number_of_binders*number_of_labels) for both quantifier kinds. W=weighted(V+E+S)+P.",
+    "source_side_conditions": "Existing producer JSON body B<=2^31-2; Outputs.Close adds one LF outside B. Label sets<=3 from producer composition h=3. Current Main has no variants: R77 source loop induction keeps user variant lists empty; accepted producer-composition fixed_kind_occurrences has W_VARIANT=W_VARIANTS=W_LOOP=0; the import allowance adds only W_INCLUDE_DECLARATION/W_MODULE. Thus the at-most-one replay bound is conservative. The actual-JSON fold computes all repeats/products even outside this shortcut and does not accept these quantities as certificates.",
+    "derivation": "Under these source conditions weights<=2 and P<=3*weighted(E), so W<=2V+8E+2S<=12B. Q=128W bounds combined A+F+G+R. Representation guards use Q, never successful typed-node counts."
+  },
+  "fixed_string_bounds": {
+    "result": "Every content-derived converter/error result string <=64B+128 bytes. The fixed filename .mlw/.sexp replacements shorten the incoming .gnat-json name; they and old incoming strings are <=8S_C from the C carrier. Thus every old/new string <=max(8S_C,64B+128).",
+    "origins": [
+      "raw symbols/filenames and Uint/Ureal strings are substrings/decoded fields, <=B",
+      "notation/suffix/hyp_name/comment/variant-name fixed affixes cost <=128 additional bytes; integer formatting uses at most20 characters for a represented OCaml integer",
+      "Curr's marker filename concatenates two raw fields plus four delimiter bytes; it does not recursively feed the constructed filename back to loc_ref",
+      "String.split_on_char then concat does not duplicate input fragments; qualified-name join adds at most bounded separators",
+      "find_path carries at most B indices, each <=B; decimal path formatting uses at most12B+64 bytes under B<=2^31-2; the 64B+128 envelope covers fixed error text as well"
+    ],
+    "not_claimed": "This bounds result-string and concatenation arithmetic operands; Yojson buffering and general Format queue/Buffer storage still need their exact consumer interfaces."
+  },
+  "proof_status": "Human source amortization with identity/source/case-coverage checks, not a machine-verified OCaml interpreter"
+}

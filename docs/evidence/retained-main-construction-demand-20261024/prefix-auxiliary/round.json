@@ -1,0 +1,208 @@
+{
+  "issues": [
+    202,
+    119
+  ],
+  "role": "C-to-T auxiliary owner author",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "started_utc": "2026-10-24 08:09:13 UTC",
+  "author_checkpoint_utc": "2026-10-24 08:44:52 UTC",
+  "elapsed_to_checkpoint_seconds": 2139.729366,
+  "elapsed_scope": "Accepted review integration, source derivation, implementation, initial assertion repair, successful draft audit and warranted final source-provider/body-vs-file byte recheck; final staging/commit/handoff excluded",
+  "accepted_source_prefix_author": "a75ca51a31e2b50357032b5d7fe0155eeda434b0",
+  "accepted_source_prefix_review": "948869ace9fdc65ea8fb1ff17cda17809e502bc5",
+  "intended_result": "Attach actual serialized-input auxiliary requests and populated C state to Hsattr/FileTags/location/call-ID representation; close coherent fixed syntax operands and name remaining consumers",
+  "achieved_result": "63-kind human source amortization with data-derived replay/cross-product fold; all five role owner/table/string/Connection guards pass under existing producer specialization; precise Yojson, Number/Big_int_Z and Format/Buffer boundary remains",
+  "material_findings": [
+    "init_cont encompasses C-to-T and returns before installation of the save signal handler, enabling ordinary FileTags growth with fresh keys",
+    "FileTags completed C state attaches from four-word native forward cells and the accepted minor history; old fixed D0 membership is unnecessary and not imported",
+    "Variant expressions convert twice and quantifier labels once per binder; both are explicit data-derived potential terms",
+    "Eager defaults, unused declarations, include deduplication and simplification do not refund attempts",
+    "Fixed Gnat/Ptree requests and finite traversals need no cumulative byte bill; Connection extents/midpoint and include-set heights derive from B",
+    "Initial checker source-anchor matched Signal_ignore in a function definition; exact Signal_handle installation selector repaired, source theorem unchanged",
+    "Replay shortcut attaches directly to R77 ordinary Main empty variant lists, accepted fixed F_VARIANT=F_VARIANTS=F_LOOP=0, and Include/Module-only imports; ordinary Main loops remain permitted",
+    "Producer T_file excludes one Outputs.Close LF; actual file count is B+1 while value/list/string demand uses body B. Callable and residual Yojson operands now distinguish both without changing the established Q maximum",
+    "Numeric future review must derive actual Ureal denominator/exponent and normalization origins: d40 bounds serialized digits only, not exponent/shift magnitude or intermediate allocation"
+  ],
+  "validation": {
+    "status": "passed",
+    "assertions": 290,
+    "groups": {
+      "immutable provider/earlier packet": 108,
+      "research prefix preserved": 1,
+      "new argument appended": 1,
+      "full source identity": 12,
+      "exact source excerpt": 48,
+      "all 63 serialized kinds have one source charge family": 1,
+      "callable uses audited local ticket allowance": 1,
+      "accepted fixed occurrence provider adds no variant replay": 1,
+      "R77 source induction supplies empty ordinary variant lists": 1,
+      "producer byte convention excludes final LF": 1,
+      "family caps within allowance": 20,
+      "save handler installed only after prefix": 1,
+      "both variant expression conversions retained": 1,
+      "quantifier cross-product source attachment": 1,
+      "eager and discarded declaration work retained": 1,
+      "loop body conversion sites bound": 1,
+      "location columns stay zero": 1,
+      "forward cell precedes FileTags increment": 1,
+      "FileTags private source initialization": 1,
+      "single filename lookup service": 1,
+      "include set fixed node and height arithmetic bound": 1,
+      "three plain metrics bounded by serialized bytes": 7,
+      "source-derived combined event envelope": 7,
+      "linear inequality for eligible actual fold": 5,
+      "equal children/IDs not memoized": 1,
+      "all binder-label pairs counted": 1,
+      "replayed subtree includes its cross-product": 1,
+      "single full-subtree replay": 1,
+      "nested replay charged without claiming linear shortcut": 1,
+      "large label product charged from data": 1,
+      "object pairs are not overwritten by host JSON decoder": 1,
+      "largest existing producer byte envelope": 5,
+      "all owner/table/string guards pass": 5,
+      "actual populated C FileTags minor injection": 5,
+      "actual populated Hsattr backing retained": 5,
+      "fresh Main filename domain allowed": 5,
+      "strong backing bounded by total completed insertions": 5,
+      "one unchanged global process budget": 5,
+      "remaining consumer operands and scope explicit": 5,
+      "fixed syntax requests and Connection operands attached": 5,
+      "accepted three-owner transport unchanged": 5,
+      "actual bytes directly feed owner guards": 1,
+      "Close LF is consumed but adds no source demand": 1,
+      "public API accepts no arbitrary counter/demand vector": 1,
+      "unsupported API inputs rejected": 5,
+      "accepted native string/array limits reused": 1
+    },
+    "elapsed_seconds": 0.9460894990043016,
+    "host": "Linux-7.0.14-x86_64-with-glibc2.43",
+    "source_files": 12,
+    "source_kinds": 63,
+    "source_case_argument_machine_proved": false,
+    "largest_combined_auxiliary_request_upper": 3298534880256,
+    "largest_Hsattr_counter_upper": 3298580054164,
+    "largest_FileTags_counter_upper": 3298568760687,
+    "largest_synthetic_location_counter_upper": 3298534880257,
+    "auxiliary_owner_guards_under_attached_source_fold": true,
+    "full_parser_converter_representation_closed": false,
+    "T_to_builder_transport_closed": false,
+    "native_capture_target_disassembler_compiler_prover_Lean_service_runs": 0,
+    "predecessor_checker_replays": 0
+  },
+  "audit_attempts": [
+    {
+      "script": "check-initial.py",
+      "status": "failed new source-anchor assertion",
+      "command_wall_seconds": 1.091102493,
+      "receipt": "initial-check-failure.json"
+    },
+    {
+      "script": "check.py",
+      "status": "passed",
+      "assertions": 285,
+      "checker_elapsed_seconds": 1.2355490699992515,
+      "command_wall_seconds": 1.167314182,
+      "receipt": "result-before-body-byte-attachment.json"
+    },
+    {
+      "script": "check.py",
+      "status": "passed after changed source-provider/LF attachment",
+      "assertions": 290,
+      "checker_elapsed_seconds": 0.9460894990043016,
+      "prepare_and_check_combined_command_wall_seconds": 2.490304318,
+      "reason": "Explicit accepted fixed variant-free source envelope and correct producer-body versus actual file final-LF convention; preserves the earlier success as draft history"
+    }
+  ],
+  "timing_note": "Checker elapsed is its own monotonic measurement; command wall is the tool receipt, recorded separately without reconciling clock/accounting differences.",
+  "native_capture_target_disassembler_compiler_prover_Lean_service_runs": 0,
+  "predecessor_checker_replays": 0,
+  "source_argument_machine_proved": false,
+  "full_parser_converter_representation_closed": false,
+  "T_to_builder_transport_closed": false,
+  "no_new_aggregate_RAM_stack_or_cumulative_local_byte_obligation": true,
+  "global_process_e_upper": 2,
+  "save_entering_callbacks": 2,
+  "saves": 3,
+  "new_allowance": 0,
+  "tokens": null,
+  "cost": null,
+  "subthread_harness_goal": null,
+  "cli_memory_updated": false,
+  "independent_review": "Pending; root owns independent review, integration/publication and issue/memory updates",
+  "review_inputs": [
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/README.md",
+      "bytes": 4733,
+      "sha256": "ed5cffda6cd5abf4ae0d21cfedf26f140fce28a66e14c3726c327862e72cb14b"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/auxiliary.py",
+      "bytes": 12889,
+      "sha256": "51f255336e9546f59023a392d80670beac53db97d837ccdf944974a49e172532"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/check-initial.py",
+      "bytes": 12062,
+      "sha256": "a1fbcc4ba9c5e6b1056e76e4ddda8a5292b60efadeb9af0a18e3d84bc268245c"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/check.py",
+      "bytes": 13284,
+      "sha256": "2df43b0f3f86c3a96eae1ad7bf9fcd906a6e784915e9e212a7f493264e440455"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/checkpoint.md",
+      "bytes": 4654,
+      "sha256": "5a12f48bd18d51ed5c153c1b4265d4ad851c3dd97d24684fc09926bda4b61a80"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/exports.json",
+      "bytes": 53856,
+      "sha256": "5ae0a63c51cf6815d50a1eba2a2a558856078708e53f5b2722a121e474c88664"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/initial-check-failure.json",
+      "bytes": 846,
+      "sha256": "2ac74b8e0dbaaed10c9fc4997813099a1fd13f366f957d2d2838f91542fd3500"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/inputs.json",
+      "bytes": 23748,
+      "sha256": "6520c94c89090c41c39a312f8d454d817525a18c5b1a4c1bed524d9fad5948fa"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/prepare.py",
+      "bytes": 5385,
+      "sha256": "4ffb7aebc186a0b617c1c3f36e156a4bb616d25430d97f3d8b98a78c82b05a81"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/result-before-body-byte-attachment.json",
+      "bytes": 2820,
+      "sha256": "4834823a58106a4c343c78ec909c890e50f52f2a080bb770909435d4b4a420f1"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/result.json",
+      "bytes": 3067,
+      "sha256": "d7d154e535bf3681c593b34afc50218fa3d5ac9441f18d6d11bf6b2a808df742"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/source-caps.json",
+      "bytes": 10722,
+      "sha256": "7ae2cbaaae211df2b0be3f25cd72ad8cef20fdb5de4db2036e88fdcb21b31de9"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/prefix-auxiliary/source-witnesses.json",
+      "bytes": 93941,
+      "sha256": "6cf324f75bc80a556a4455cbff8f3d07abf91c8c54b3023a166c0d6eca158ebe"
+    },
+    {
+      "path": "docs/research/retained-main-construction-demand.md",
+      "bytes": 102795,
+      "sha256": "75e5eee2a2309b8aac881b4ddd2a5b98d1cf95b117a2e09e8f79386254c13e51"
+    }
+  ]
+}

@@ -1322,3 +1322,236 @@ Independent review is pending. #202/#119 remain open; production #88–#94,
 Oracle, admission and tool pins are untouched. There is no aggregate RAM/stack
 gate or cumulative local byte obligation, and no renewal of the one global
 `e <= 2`, two save-entering callbacks and three saves.
+
+## Source-derived prefix auxiliary owners
+
+2026-10-24 UTC; author continuation of #202/#119 after source-prefix
+`a75ca51a31e2b50357032b5d7fe0155eeda434b0`, independently accepted without
+finding at `948869ace9fdc65ea8fb1ff17cda17809e502bc5`.
+**Actual serialized JSON now supplies the missing Hsattr, FileTags, synthetic
+location and call-ID request envelope between C and T.** The
+[prefix-auxiliary packet](../evidence/retained-main-construction-demand-20261024/prefix-auxiliary/README.md)
+joins that source fold to the populated C state and auxiliary counter/table
+representation guards. Complete parser representation and T→builder transport
+remain outside this result. Earlier packets are unchanged.
+
+### Demand from serialized occurrences
+
+The public function `from_serialized_json(role, data, configuration=...)`
+accepts actual serialized bytes under the existing producer/input-file relation
+and the exact R78 configuration. It does not accept caller-supplied numbers,
+a typed graph, cache state or a demand certificate. This evidence function is
+not a replacement producer/parser or a new admission rule. Actual source
+attachment is the accepted producer's serialization theorem, including every
+repeated serialized child; equality of JSON values or node IDs never merges
+occurrences in this fold.
+
+Let B be the JSON body byte count in the producer's T_file convention:
+Outputs.Close's final LF is outside it, so the actual file read by Yojson has
+B+1 bytes. The actual-data fold reports both counts and removes only that
+one terminal LF from its body bound; it still parses the supplied whole file.
+Let V count JSON values, including object keys; E count array elements and
+object-member cells; and S count decoded string bytes, including keys. For a
+B-byte ordinary JSON stream each of V, E and S is at most B. Preserve duplicate
+object keys when computing these counts rather than letting the host JSON
+library silently overwrite them. Gnat decoding must finish before conversion
+starts; an earlier decode failure has no auxiliary constructor requests.
+
+The conversion fold modifies these basic weights in exactly two ways:
+
+1. Double the complete `Expr` subtree of every `W_VARIANT`, recursively.
+   `check_variant` converts it through `mk_expr_of_term` at converter820,
+   and `intro_vars` converts it again at859. The resulting Ptree is not used
+   as a cache for the second conversion. A nested replay, if supplied, is
+   charged multiplicatively by the actual-data fold.
+2. Add `weight * binders * labels` at each universal/existential quantifier.
+   `List.map (mk_binder r.labels)` at476/485 reexecutes `mk_label` for every
+   binder-label pair. Charging only each serialized label once would miss
+   Hsattr attempts. Both list lengths come from the actual serialized node.
+
+Write W for the resulting weighted V+E+S plus that cross-product sum. The
+source case partition covers all **63** serialized kinds. Its finite local
+charge calculation gives
+
+```text
+A + F + G + R <= Q = 128 W,
+```
+
+where A counts create_attribute attempts, F FileTags.get_file_tag attempts,
+G get_pos(None) increment attempts, and R next_call_id increments. Counting
+the combined sum is conservative: each synthetic position pays both G and F,
+and each call-ID attribute pays both R and A. These are mathematical counts,
+not additional native accumulators that themselves must fit a machine int.
+
+For the local calculation, remove recursive child conversions and input-sized
+loops from a converter branch, then expand its fixed Ptree/name/location
+helpers. Each branch fits 64 combined events, each list item fits 64, and an
+identifier-splitting byte fits eight; allowance128 covers each distinct value,
+cell or byte ticket. For example a name/type has at most three identifier
+components. A binder's name, type and location use at most seven synthetic
+positions (14 G/F events), with labels charged by the explicit product. A
+function parameter uses at most14 such events plus eight for generated
+post-application syntax, including the eager `???` default. A variant's
+old/new variables, comparison, equality/binops, labels and let wrappers fit64
+outside its two separately charged recursive expression conversions.
+`requires` costs one A and one G/F pair; `ensures` costs one A and four G/F
+pairs. The exact per-family source ranges and expansion rationale are in
+`source-caps.json`; this is a human source amortization, not a verified OCaml
+interpreter or a proof obtained merely by counting regex hits.
+
+The closure also covers ignored/discarded work. Include deduplication still
+pays the constructed include metadata. Declaration candidates are charged
+before domain selection, eager Option defaults before Option selection,
+and expression/record-field simplifications after their operands have already
+been constructed. `no_vcs_no_side_effects`, structural/string comparisons and
+numeric helpers add no auxiliary owner requests. Sequence flattening may
+revisit data structure, but requests auxiliary objects only when it converts
+each flattened statement and constructs its sequence wrapper. The selected
+E/T module supplies one arm of `expr_or_term`; eager `expr_only`/`term_only`
+operands are included. An ordinary error exits conversion, and the full
+potential dominates every evaluated prefix, independently of argument order.
+
+There is a useful linear source specialization. The existing producer has
+label sets of at most three and requires B≤2^31−2. Ordinary Main loops have
+empty user variant lists, as R77's **source** loop argument establishes. The
+accepted producer-composition `fixed_kind_occurrences` vector has zero
+W_VARIANT, W_VARIANTS and W_LOOP entries; it supplies the complete fixed
+occurrence envelope, rather than a new Main artifact observation. Added
+imports have only Include/Module nodes. Ordinary Main can have loops while
+its fixed component has none; neither component creates variants. Thus there
+is actually no variant replay in this source specialization, and the generic
+at-most-one-layer bound is conservative. Under
+these source facts, weighted values/cells/bytes are each at most twice their
+plain count, and the quantifier product is at most three times weighted E:
+
+```text
+W <= 2V + 8E + 2S <= 12B
+Q <= 128 * 12 * (2^31 - 2) = 3,298,534,880,256.
+```
+
+`producer_envelope(role)` exports this conditional source specialization.
+It does not assert that arbitrary JSON has those semantic facts. The actual
+JSON fold computes every replay/product without relying on the shortcut and
+reports whether the structural shortcut applies. Neither function invents a
+new admission ceiling; B's existing producer representation obligation still
+has to be discharged by its accepted source interface. R77/R79 successful
+typed/VC occurrence totals do not supply W and are not replayed.
+
+### Populated Hsattr and fresh FileTags domain
+
+For Hsattr use its actual C counter/backing envelope from the accepted entry
+provider, then apply the accepted R65/Weak transfer with q=Q. This permits
+hashcons hits, weak clearing and reinsertion. Its string hash/equality/tag
+callbacks do not recurse into another auxiliary or logical owner. Inherited
+outer length, largest bucket and **all allocated slots** are retained; no
+empty-table initialization or later fixed-library numerical vector is used.
+The final counter is at most C_Hsattr+Q. Guard the same outer/bucket growth,
+shrink/index, header and unsigned allocation-byte operands as before.
+
+FileTags can be attached more precisely at this cut than in the later R71
+suffix. Its counter begins at zero, and every completed increment follows a
+fresh forward strong-table Cons allocation of four words. The accepted C
+minor history M therefore gives N_C≤floor(M/4). The pre-C source/native
+completion argument excludes abandoned/resumed mutation at C. R71's private
+table/source and native publication facts then give completed inverse maps,
+both stored sizes equal to N_C, and power-of-two extent B_C starting at16
+with B_C≤max(16,N_C). These are facts about the actual populated maps, with
+unknown exact N_C, not a fresh observation or a borrowed old D0 domain.
+
+The control interval matters: `gnat_main.ml:332` calls `init_cont`; only after
+that returns does335 install the SIGINT save handler. T lies inside this
+initialization. The inherited runtime/service relation supplies no other
+application callback that can abandon and resume a FileTags mutation before
+T. Physical-resource/native failures retain their failure outcomes; they do
+not provide an arbitrary resumed mutation under the positive resource premise.
+Consequently no save-origin false miss or interrupted strong resize belongs
+to this interval. This spends no new e allowance and changes no signal policy.
+
+Fresh filenames may be absent from the initial domain. Each of the F≤Q
+lookups enters the insertion handler at most once and then performs at most
+one add in each table and one counter increment. Normal growth at stored
+size2B+1 doubles B, hence at every continuing prefix
+
+```text
+counter, each size, each chain's distinct cells <= N_C + Q
+each backing / resize-tail extent <= max(16, N_C + Q).
+```
+
+The complete/disjoint chain invariant is retained by each completed resize;
+there is no need for R71's interrupted shared-tail recovery in this earlier
+interval. Both doubled extent and threshold2B are bounded by twice the
+displayed extent. Masked hash indexing, +1 size/counter increments, per-array
+header and `8*(extent+1)` byte requests fit the inherited Linux limits. The
+carrier and injection bounds apply at C; no T heap or total physical memory
+bound is inferred.
+
+The synthetic location counter is at most1+Q, below2^47−1, so its increment
+and packed-line guard fit. Raw Source_ptr lines are checked by user_position
+before FileTags; a range error exits, and its prior attempts stay charged.
+The call-ID counter is at most Q, below2^62−1. Each selected location column
+remains zero. The unchanged Ident/Hsty/Hsity projection from the accepted
+source-prefix packet is carried alongside these auxiliary results.
+
+### Strings, exact remaining operands and scope
+
+Each content-derived converter/error result string has length at most
+64B+128. Raw fields are at most B; notation/name/comment suffixes are fixed;
+call IDs and represented node integers need at most20 decimal characters.
+Curr combines a raw marker and filename with fixed delimiters and does not
+feed the constructed name back into its source refs. Split-and-rejoin does
+not duplicate input fragments. `find_path` has at most B indices of at most
+B, so its decimal path output is at most12B+64 under the existing byte cap.
+The chosen bound also covers fixed error text. The fixed `.mlw`/`.sexp`
+filename replacements are shorter than the incoming `.gnat-json` name.
+That filename and incoming Hsattr/FileTags key strings are at most8S_C from
+the C carrier. Thus
+`max(8S_C,64B+128)` bounds each old/new string and the relevant string-length,
+concatenation and index operands, far below the retained native string limit.
+Attribute/tag copies have two payload words, FileTags Cons/positions three;
+these are per-object representations, not cumulative RAM prices.
+
+Gnat decoding and Ptree construction have source-fixed record/variant, tuple,
+list-cell and closure-environment arities; values retained in those fields do
+not enlarge the individual request. Their fixed requests use the inherited
+source/compiler/runtime constructor correspondence, without a new native byte
+census. The generated Gnat record maximum is obtained from the bound schema.
+Ptree child lists and source-selected traversals remain finite even when
+syntax shares a child; there is no aggregate occurrence accumulator in those
+recursive traversals. The selected List.length operands are input-derived
+lists of length≤B. Include_type_set is built by at most B additions and has
+height≤B, so its height+1 and balancing arithmetic are represented. The one
+variable-extent constructor here, Connection's Array.of_list, receives at
+most B operands. Its midpoint numerator is at most2B+1, and its array request
+at most8(B+1) bytes; both fit. Those are closed per-request/finite-traversal
+obligations under the ordinary physical-resource premise.
+
+The remaining consumer interfaces are now specific: Yojson's input-buffer,
+token/lexbuf, JSON-container and error requests for B+1 input bytes including
+Close's final LF; Number/Big_int_Z
+decimal parsing and normalization intermediates (the accepted producer d=40
+is only a serialized digit-length bound: selected Ureal denominator/exponent
+and normalization origins must still bound any power/shift or intermediate
+allocation; the later five-atom native contract is not substituted);
+and Format/Buffer/queue mechanics for the bounded converter/error outputs.
+The existing Why3.Json_base **output** escaper is not a Yojson input-parser
+provider. There is no cumulative local byte or aggregate RAM/stack obligation.
+
+The exported auxiliary guard conjunction is true for all five retained roles
+at the source specialization's maximum byte bound. It establishes the
+source-attached auxiliary-owner representation interface with represented
+input strings and the inherited physical/service premises. It does not prove
+the outstanding parser/consumer representation assumptions or claim that all
+Main construction is closed. T→builder imports, clones, typing/proxy attempts
+and failed candidates remain subsequent. Full parser and builder-transport
+flags stay false. The one global e≤2, two save-entering callbacks and three
+saves remains unchanged; Oracle/admission/tool pins and production are
+untouched. The first corrected focused audit passed 285 assertions in 1.235549070
+seconds on Linux x86-64; that receipt is retained before the final-LF and
+direct fixed-provider attachment. Its initial source-anchor assertion matched a signal
+operation inside a function definition; matching the exact installation site
+repaired the assertion without changing the source theorem. No native,
+capture, disassembler, compiler, prover, Lean, service or predecessor checker
+run occurred. Selected settings are Astra / Extra High; runtime confirmation
+and token/cost telemetry are unavailable. The warranted final source-provider/
+LF recheck passed 290 assertions in 0.946089499 seconds. This unit awaits
+independent review.

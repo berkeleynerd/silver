@@ -1,0 +1,12 @@
+{
+  "status": "failed assertion in new checker",
+  "script": "check-initial.py",
+  "assertion": "save handler installed only after prefix",
+  "command_wall_seconds": 1.091102493,
+  "cause": "Whole-file index of Sys.set_signal Sys.sigint selected line304 inside the save_session_and_exit function definition (Signal_ignore), rather than line335 Signal_handle installation after init_cont.",
+  "source_fact": "The earlier body is not executed by defining that function. Exact installation at335 still follows init_cont at332. No source or theorem correction was required.",
+  "repair": "Use the exact Signal_handle(save_session_and_exit c) installation string in the source-anchor assertion.",
+  "prior_provider_identity_and_source_excerpt_checks_completed": true,
+  "completed_assertion_total_recorded": false,
+  "native_or_predecessor_runs": 0
+}

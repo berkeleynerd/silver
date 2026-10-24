@@ -1,0 +1,1226 @@
+{
+  "producer_maximum": {
+    "first_or_default": {
+      "role": "first_or_default",
+      "configuration": "r78_repaired_quiet_timeless_j12_logging",
+      "C_to_T": "after Controller_itp.create_controller, before Controller_itp.add_file; gnat_checks.ml:396-399 -> entry, before body, of Typing.type_mlw_file at gnat_ast_to_ptree.ml:1410",
+      "combined_auxiliary_event_upper": 3298534880256,
+      "producer_json_body_bytes_upper": 2147483646,
+      "native_input_file_bytes_upper_including_Close_LF": 2147483647,
+      "each_A_F_G_R_upper": 3298534880256,
+      "Hsattr": {
+        "counter_upper_at_C": 31839984,
+        "counter_upper_at_T": 3298566720240,
+        "actual_populated_backing_at_C": {
+          "creation_outer_length": 5003,
+          "creation_allocated_bucket_slots": 0,
+          "outer_length_upper": 106017567,
+          "bucket_length_upper": 106017567,
+          "allocated_bucket_slots_upper": 106017567,
+          "live_entries_upper": 31839984,
+          "limit": 7,
+          "oversize_upper": 106017567,
+          "rover_strict_upper": 106017567,
+          "cache_hash_arrays_same_lengths": true,
+          "current_state_is_creation_state": false
+        },
+        "weak_transfer": {
+          "live_entries_upper": 3298640897823,
+          "individual_outer_array_length_upper": 9895922693472,
+          "individual_bucket_length_upper": 4947961346737,
+          "outer_growth_multiply_upper": 29687768080416,
+          "bucket_growth_multiply_upper": 14843884040211,
+          "shrink_multiply_plus_two_absolute_upper": 9895922693480,
+          "oversize_and_rover_upper": 9895922693472,
+          "find_or_equality_calls_per_request_upper": 4947961346737,
+          "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+        },
+        "per_outer_array_bytes": 79167381547784,
+        "per_hash_bucket_bytes": 39583690773904,
+        "per_weak_bucket_bytes": 39583690773920
+      },
+      "FileTags": {
+        "counter_and_each_size_upper_at_C": 23879988,
+        "actual_initial_counter_not_known": true,
+        "counter_and_each_size_upper_at_T": 3298558760244,
+        "each_backing_or_tail_extent_upper": 3298558760244,
+        "each_backing_or_tail_bytes_upper": 26388470081960,
+        "each_chain_cells_upper": 3298558760244,
+        "fresh_filenames_allowed": true,
+        "old_R71_D0_membership_used": false,
+        "completed_C_maps_are_inverse": true,
+        "no_source_selected_interrupted_mutation_before_T": true
+      },
+      "synthetic_location_counter_upper_at_T": 3298534880257,
+      "call_id_counter_upper_at_T": 3298534880256,
+      "new_content_derived_string_length_upper": 137438953472,
+      "new_converter_string_length_upper": 137438953472,
+      "old_or_new_string_length_upper": 137438953472,
+      "fixed_payload_words": {
+        "attribute": 2,
+        "attribute_tag_copy": 2,
+        "FileTags_bucket_cell": 3,
+        "position": 3,
+        "include_Set_node": 4
+      },
+      "fixed_Gnat_Ptree_requests_and_Connection": {
+        "source_fixed_record_tuple_list_and_closure_arities": true,
+        "maximum_serialized_Gnat_record_fields": 9,
+        "Connection_array_length_upper": 2147483646,
+        "Connection_midpoint_numerator_upper": 4294967293,
+        "Connection_array_bytes_upper": 17179869176,
+        "List_length_and_include_set_height_upper": 2147483647,
+        "finite_traversal_under_physical_premise": true,
+        "closed_under_inherited_fixed_constructor_correspondence": true,
+        "new_native_fixed_byte_census_claimed": false
+      },
+      "guards": {
+        "Hsattr_counter": true,
+        "weak_growth_shrink": true,
+        "weak_outer_array": true,
+        "weak_bucket": true,
+        "FileTags_counter_and_sizes": true,
+        "FileTags_doubling_and_threshold": true,
+        "FileTags_arrays": true,
+        "synthetic_increment_and_line": true,
+        "call_id_increment": true,
+        "individual_string_length": true,
+        "string_size_and_index_arithmetic": true,
+        "individual_native_array_byte_request": true,
+        "Connection_array_payload": true,
+        "Connection_midpoint_and_index": true,
+        "Connection_array_bytes": true
+      },
+      "auxiliary_owner_representation_guards_hold": true,
+      "inherited_three_owner_projection": {
+        "Ident": {
+          "provider_owner": "Ident",
+          "counter_upper_at_C": 19103990,
+          "counter_upper_at_T": 19103990,
+          "actual_counter_equal_at_C_and_T": true,
+          "exact_actual_counter_known": false,
+          "new_constructor_requests": 0,
+          "new_counter_increments": 0
+        },
+        "Hsty": {
+          "provider_owner": "Ty.Hsty",
+          "counter_upper_at_C": 31839984,
+          "counter_upper_at_T": 31839984,
+          "actual_counter_equal_at_C_and_T": true,
+          "exact_actual_counter_known": false,
+          "new_constructor_requests": 0,
+          "new_counter_increments": 0,
+          "same_backing_geometry_upper_at_C_and_T": {
+            "outer_length": 106017567,
+            "bucket_max": 106017567,
+            "allocated_slots": 106017567
+          },
+          "actual_outer_and_bucket_lengths_unchanged": true,
+          "weak_clearing_allowed": true,
+          "live_contents_or_occupancy_claimed_unchanged": false
+        },
+        "Hsity": {
+          "provider_owner": "Ity.Hsity",
+          "counter_upper_at_C": 23879988,
+          "counter_upper_at_T": 23879988,
+          "actual_counter_equal_at_C_and_T": true,
+          "exact_actual_counter_known": false,
+          "new_constructor_requests": 0,
+          "new_counter_increments": 0,
+          "same_backing_geometry_upper_at_C_and_T": {
+            "outer_length": 106017567,
+            "bucket_max": 106017567,
+            "allocated_slots": 106017567
+          },
+          "actual_outer_and_bucket_lengths_unchanged": true,
+          "weak_clearing_allowed": true,
+          "live_contents_or_occupancy_claimed_unchanged": false
+        }
+      },
+      "genuine_remaining_operands": {
+        "Yojson.Safe.from_channel": "Input buffer/token/lexbuf/JSON container and exception construction requests for B+1 file bytes, including Outputs.Close LF; existing Json_base output escaper is not this parser",
+        "Big_int_Z_and_Number": "Actual Uint/Ureal decimal strings plus selected denominator/exponent and Number.real_literal/real_value/normalize origins; d=40 bounds serialized digits only, not a numeric exponent/shift or intermediate allocation. Derive those operands before pricing powers; later five-atom contract is not substituted",
+        "Format_and_error_buffers": "Format.sprintf/ksprintf/kasprintf storage mechanics for bounded scalar/string/path outputs; bound on result string is not a complete buffer/queue proof"
+      },
+      "full_parser_converter_representation_closed": false,
+      "T_to_builder_transport_closed": false,
+      "process_budget": {
+        "escaping_save_exceptions": 2,
+        "save_entering_callbacks": 2,
+        "saves": 3
+      },
+      "save_origin_callbacks_before_T": 0,
+      "new_callback_or_save_allowance": 0,
+      "aggregate_RAM_stack_or_cumulative_local_bytes": false,
+      "source_attachment": "Conditional on the existing producer JSON body B<=2^31-2 (file B+1 with Close LF), <=3 labels and at most one Variant.expr replay layer. Current Main actually has zero variants: R77 source loop induction plus accepted fixed F_VARIANT=F_VARIANTS=0 and Include/Module-only imports. No new admission bound. Actual-JSON fold does not need the linear shortcut.",
+      "source_fold_or_linear_source_proof_required": true
+    },
+    "input_is_valid": {
+      "role": "input_is_valid",
+      "configuration": "r78_repaired_quiet_timeless_j12_logging",
+      "C_to_T": "after Controller_itp.create_controller, before Controller_itp.add_file; gnat_checks.ml:396-399 -> entry, before body, of Typing.type_mlw_file at gnat_ast_to_ptree.ml:1410",
+      "combined_auxiliary_event_upper": 3298534880256,
+      "producer_json_body_bytes_upper": 2147483646,
+      "native_input_file_bytes_upper_including_Close_LF": 2147483647,
+      "each_A_F_G_R_upper": 3298534880256,
+      "Hsattr": {
+        "counter_upper_at_C": 28781342,
+        "counter_upper_at_T": 3298563661598,
+        "actual_populated_backing_at_C": {
+          "creation_outer_length": 5003,
+          "creation_allocated_bucket_slots": 0,
+          "outer_length_upper": 96707853,
+          "bucket_length_upper": 96707853,
+          "allocated_bucket_slots_upper": 96707853,
+          "live_entries_upper": 28781342,
+          "limit": 7,
+          "oversize_upper": 96707853,
+          "rover_strict_upper": 96707853,
+          "cache_hash_arrays_same_lengths": true,
+          "current_state_is_creation_state": false
+        },
+        "weak_transfer": {
+          "live_entries_upper": 3298631588109,
+          "individual_outer_array_length_upper": 9895894764330,
+          "individual_bucket_length_upper": 4947947382166,
+          "outer_growth_multiply_upper": 29687684292990,
+          "bucket_growth_multiply_upper": 14843842146498,
+          "shrink_multiply_plus_two_absolute_upper": 9895894764338,
+          "oversize_and_rover_upper": 9895894764330,
+          "find_or_equality_calls_per_request_upper": 4947947382166,
+          "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+        },
+        "per_outer_array_bytes": 79167158114648,
+        "per_hash_bucket_bytes": 39583579057336,
+        "per_weak_bucket_bytes": 39583579057352
+      },
+      "FileTags": {
+        "counter_and_each_size_upper_at_C": 21586006,
+        "actual_initial_counter_not_known": true,
+        "counter_and_each_size_upper_at_T": 3298556466262,
+        "each_backing_or_tail_extent_upper": 3298556466262,
+        "each_backing_or_tail_bytes_upper": 26388451730104,
+        "each_chain_cells_upper": 3298556466262,
+        "fresh_filenames_allowed": true,
+        "old_R71_D0_membership_used": false,
+        "completed_C_maps_are_inverse": true,
+        "no_source_selected_interrupted_mutation_before_T": true
+      },
+      "synthetic_location_counter_upper_at_T": 3298534880257,
+      "call_id_counter_upper_at_T": 3298534880256,
+      "new_content_derived_string_length_upper": 137438953472,
+      "new_converter_string_length_upper": 137438953472,
+      "old_or_new_string_length_upper": 137438953472,
+      "fixed_payload_words": {
+        "attribute": 2,
+        "attribute_tag_copy": 2,
+        "FileTags_bucket_cell": 3,
+        "position": 3,
+        "include_Set_node": 4
+      },
+      "fixed_Gnat_Ptree_requests_and_Connection": {
+        "source_fixed_record_tuple_list_and_closure_arities": true,
+        "maximum_serialized_Gnat_record_fields": 9,
+        "Connection_array_length_upper": 2147483646,
+        "Connection_midpoint_numerator_upper": 4294967293,
+        "Connection_array_bytes_upper": 17179869176,
+        "List_length_and_include_set_height_upper": 2147483647,
+        "finite_traversal_under_physical_premise": true,
+        "closed_under_inherited_fixed_constructor_correspondence": true,
+        "new_native_fixed_byte_census_claimed": false
+      },
+      "guards": {
+        "Hsattr_counter": true,
+        "weak_growth_shrink": true,
+        "weak_outer_array": true,
+        "weak_bucket": true,
+        "FileTags_counter_and_sizes": true,
+        "FileTags_doubling_and_threshold": true,
+        "FileTags_arrays": true,
+        "synthetic_increment_and_line": true,
+        "call_id_increment": true,
+        "individual_string_length": true,
+        "string_size_and_index_arithmetic": true,
+        "individual_native_array_byte_request": true,
+        "Connection_array_payload": true,
+        "Connection_midpoint_and_index": true,
+        "Connection_array_bytes": true
+      },
+      "auxiliary_owner_representation_guards_hold": true,
+      "inherited_three_owner_projection": {
+        "Ident": {
+          "provider_owner": "Ident",
+          "counter_upper_at_C": 17268805,
+          "counter_upper_at_T": 17268805,
+          "actual_counter_equal_at_C_and_T": true,
+          "exact_actual_counter_known": false,
+          "new_constructor_requests": 0,
+          "new_counter_increments": 0
+        },
+        "Hsty": {
+          "provider_owner": "Ty.Hsty",
+          "counter_upper_at_C": 28781342,
+          "counter_upper_at_T": 28781342,
+          "actual_counter_equal_at_C_and_T": true,
+          "exact_actual_counter_known": false,
+          "new_constructor_requests": 0,
+          "new_counter_increments": 0,
+          "same_backing_geometry_upper_at_C_and_T": {
+            "outer_length": 96707853,
+            "bucket_max": 96707853,
+            "allocated_slots": 96707853
+          },
+          "actual_outer_and_bucket_lengths_unchanged": true,
+          "weak_clearing_allowed": true,
+          "live_contents_or_occupancy_claimed_unchanged": false
+        },
+        "Hsity": {
+          "provider_owner": "Ity.Hsity",
+          "counter_upper_at_C": 21586006,
+          "counter_upper_at_T": 21586006,
+          "actual_counter_equal_at_C_and_T": true,
+          "exact_actual_counter_known": false,
+          "new_constructor_requests": 0,
+          "new_counter_increments": 0,
+          "same_backing_geometry_upper_at_C_and_T": {
+            "outer_length": 96707853,
+            "bucket_max": 96707853,
+            "allocated_slots": 96707853
+          },
+          "actual_outer_and_bucket_lengths_unchanged": true,
+          "weak_clearing_allowed": true,
+          "live_contents_or_occupancy_claimed_unchanged": false
+        }
+      },
+      "genuine_remaining_operands": {
+        "Yojson.Safe.from_channel": "Input buffer/token/lexbuf/JSON container and exception construction requests for B+1 file bytes, including Outputs.Close LF; existing Json_base output escaper is not this parser",
+        "Big_int_Z_and_Number": "Actual Uint/Ureal decimal strings plus selected denominator/exponent and Number.real_literal/real_value/normalize origins; d=40 bounds serialized digits only, not a numeric exponent/shift or intermediate allocation. Derive those operands before pricing powers; later five-atom contract is not substituted",
+        "Format_and_error_buffers": "Format.sprintf/ksprintf/kasprintf storage mechanics for bounded scalar/string/path outputs; bound on result string is not a complete buffer/queue proof"
+      },
+      "full_parser_converter_representation_closed": false,
+      "T_to_builder_transport_closed": false,
+      "process_budget": {
+        "escaping_save_exceptions": 2,
+        "save_entering_callbacks": 2,
+        "saves": 3
+      },
+      "save_origin_callbacks_before_T": 0,
+      "new_callback_or_save_allowance": 0,
+      "aggregate_RAM_stack_or_cumulative_local_bytes": false,
+      "source_attachment": "Conditional on the existing producer JSON body B<=2^31-2 (file B+1 with Close LF), <=3 labels and at most one Variant.expr replay layer. Current Main actually has zero variants: R77 source loop induction plus accepted fixed F_VARIANT=F_VARIANTS=0 and Include/Module-only imports. No new admission bound. Actual-JSON fold does not need the linear shortcut.",
+      "source_fold_or_linear_source_proof_required": true
+    },
+    "is_message": {
+      "role": "is_message",
+      "configuration": "r78_repaired_quiet_timeless_j12_logging",
+      "C_to_T": "after Controller_itp.create_controller, before Controller_itp.add_file; gnat_checks.ml:396-399 -> entry, before body, of Typing.type_mlw_file at gnat_ast_to_ptree.ml:1410",
+      "combined_auxiliary_event_upper": 3298534880256,
+      "producer_json_body_bytes_upper": 2147483646,
+      "native_input_file_bytes_upper_including_Close_LF": 2147483647,
+      "each_A_F_G_R_upper": 3298534880256,
+      "Hsattr": {
+        "counter_upper_at_C": 28452845,
+        "counter_upper_at_T": 3298563333101,
+        "actual_populated_backing_at_C": {
+          "creation_outer_length": 5003,
+          "creation_allocated_bucket_slots": 0,
+          "outer_length_upper": 95715532,
+          "bucket_length_upper": 95715532,
+          "allocated_bucket_slots_upper": 95715532,
+          "live_entries_upper": 28452845,
+          "limit": 7,
+          "oversize_upper": 95715532,
+          "rover_strict_upper": 95715532,
+          "cache_hash_arrays_same_lengths": true,
+          "current_state_is_creation_state": false
+        },
+        "weak_transfer": {
+          "live_entries_upper": 3298630595788,
+          "individual_outer_array_length_upper": 9895891787367,
+          "individual_bucket_length_upper": 4947945893685,
+          "outer_growth_multiply_upper": 29687675362101,
+          "bucket_growth_multiply_upper": 14843837681055,
+          "shrink_multiply_plus_two_absolute_upper": 9895891787376,
+          "oversize_and_rover_upper": 9895891787367,
+          "find_or_equality_calls_per_request_upper": 4947945893685,
+          "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+        },
+        "per_outer_array_bytes": 79167134298944,
+        "per_hash_bucket_bytes": 39583567149488,
+        "per_weak_bucket_bytes": 39583567149504
+      },
+      "FileTags": {
+        "counter_and_each_size_upper_at_C": 21339634,
+        "actual_initial_counter_not_known": true,
+        "counter_and_each_size_upper_at_T": 3298556219890,
+        "each_backing_or_tail_extent_upper": 3298556219890,
+        "each_backing_or_tail_bytes_upper": 26388449759128,
+        "each_chain_cells_upper": 3298556219890,
+        "fresh_filenames_allowed": true,
+        "old_R71_D0_membership_used": false,
+        "completed_C_maps_are_inverse": true,
+        "no_source_selected_interrupted_mutation_before_T": true
+      },
+      "synthetic_location_counter_upper_at_T": 3298534880257,
+      "call_id_counter_upper_at_T": 3298534880256,
+      "new_content_derived_string_length_upper": 137438953472,
+      "new_converter_string_length_upper": 137438953472,
+      "old_or_new_string_length_upper": 137438953472,
+      "fixed_payload_words": {
+        "attribute": 2,
+        "attribute_tag_copy": 2,
+        "FileTags_bucket_cell": 3,
+        "position": 3,
+        "include_Set_node": 4
+      },
+      "fixed_Gnat_Ptree_requests_and_Connection": {
+        "source_fixed_record_tuple_list_and_closure_arities": true,
+        "maximum_serialized_Gnat_record_fields": 9,
+        "Connection_array_length_upper": 2147483646,
+        "Connection_midpoint_numerator_upper": 4294967293,
+        "Connection_array_bytes_upper": 17179869176,
+        "List_length_and_include_set_height_upper": 2147483647,
+        "finite_traversal_under_physical_premise": true,
+        "closed_under_inherited_fixed_constructor_correspondence": true,
+        "new_native_fixed_byte_census_claimed": false
+      },
+      "guards": {
+        "Hsattr_counter": true,
+        "weak_growth_shrink": true,
+        "weak_outer_array": true,
+        "weak_bucket": true,
+        "FileTags_counter_and_sizes": true,
+        "FileTags_doubling_and_threshold": true,
+        "FileTags_arrays": true,
+        "synthetic_increment_and_line": true,
+        "call_id_increment": true,
+        "individual_string_length": true,
+        "string_size_and_index_arithmetic": true,
+        "individual_native_array_byte_request": true,
+        "Connection_array_payload": true,
+        "Connection_midpoint_and_index": true,
+        "Connection_array_bytes": true
+      },
+      "auxiliary_owner_representation_guards_hold": true,
+      "inherited_three_owner_projection": {
+        "Ident": {
+          "provider_owner": "Ident",
+          "counter_upper_at_C": 17071707,
+          "counter_upper_at_T": 17071707,
+          "actual_counter_equal_at_C_and_T": true,
+          "exact_actual_counter_known": false,
+          "new_constructor_requests": 0,
+          "new_counter_increments": 0
+        },
+        "Hsty": {
+          "provider_owner": "Ty.Hsty",
+          "counter_upper_at_C": 28452845,
+          "counter_upper_at_T": 28452845,
+          "actual_counter_equal_at_C_and_T": true,
+          "exact_actual_counter_known": false,
+          "new_constructor_requests": 0,
+          "new_counter_increments": 0,
+          "same_backing_geometry_upper_at_C_and_T": {
+            "outer_length": 95715532,
+            "bucket_max": 95715532,
+            "allocated_slots": 95715532
+          },
+          "actual_outer_and_bucket_lengths_unchanged": true,
+          "weak_clearing_allowed": true,
+          "live_contents_or_occupancy_claimed_unchanged": false
+        },
+        "Hsity": {
+          "provider_owner": "Ity.Hsity",
+          "counter_upper_at_C": 21339634,
+          "counter_upper_at_T": 21339634,
+          "actual_counter_equal_at_C_and_T": true,
+          "exact_actual_counter_known": false,
+          "new_constructor_requests": 0,
+          "new_counter_increments": 0,
+          "same_backing_geometry_upper_at_C_and_T": {
+            "outer_length": 95715532,
+            "bucket_max": 95715532,
+            "allocated_slots": 95715532
+          },
+          "actual_outer_and_bucket_lengths_unchanged": true,
+          "weak_clearing_allowed": true,
+          "live_contents_or_occupancy_claimed_unchanged": false
+        }
+      },
+      "genuine_remaining_operands": {
+        "Yojson.Safe.from_channel": "Input buffer/token/lexbuf/JSON container and exception construction requests for B+1 file bytes, including Outputs.Close LF; existing Json_base output escaper is not this parser",
+        "Big_int_Z_and_Number": "Actual Uint/Ureal decimal strings plus selected denominator/exponent and Number.real_literal/real_value/normalize origins; d=40 bounds serialized digits only, not a numeric exponent/shift or intermediate allocation. Derive those operands before pricing powers; later five-atom contract is not substituted",
+        "Format_and_error_buffers": "Format.sprintf/ksprintf/kasprintf storage mechanics for bounded scalar/string/path outputs; bound on result string is not a complete buffer/queue proof"
+      },
+      "full_parser_converter_representation_closed": false,
+      "T_to_builder_transport_closed": false,
+      "process_budget": {
+        "escaping_save_exceptions": 2,
+        "save_entering_callbacks": 2,
+        "saves": 3
+      },
+      "save_origin_callbacks_before_T": 0,
+      "new_callback_or_save_allowance": 0,
+      "aggregate_RAM_stack_or_cumulative_local_bytes": false,
+      "source_attachment": "Conditional on the existing producer JSON body B<=2^31-2 (file B+1 with Close LF), <=3 labels and at most one Variant.expr replay layer. Current Main actually has zero variants: R77 source loop induction plus accepted fixed F_VARIANT=F_VARIANTS=0 and Include/Module-only imports. No new admission bound. Actual-JSON fold does not need the linear shortcut.",
+      "source_fold_or_linear_source_proof_required": true
+    },
+    "put": {
+      "role": "put",
+      "configuration": "r78_repaired_quiet_timeless_j12_logging",
+      "C_to_T": "after Controller_itp.create_controller, before Controller_itp.add_file; gnat_checks.ml:396-399 -> entry, before body, of Typing.type_mlw_file at gnat_ast_to_ptree.ml:1410",
+      "combined_auxiliary_event_upper": 3298534880256,
+      "producer_json_body_bytes_upper": 2147483646,
+      "native_input_file_bytes_upper_including_Close_LF": 2147483647,
+      "each_A_F_G_R_upper": 3298534880256,
+      "Hsattr": {
+        "counter_upper_at_C": 41414478,
+        "counter_upper_at_T": 3298576294734,
+        "actual_populated_backing_at_C": {
+          "creation_outer_length": 5003,
+          "creation_allocated_bucket_slots": 0,
+          "outer_length_upper": 134867029,
+          "bucket_length_upper": 134867029,
+          "allocated_bucket_slots_upper": 134867029,
+          "live_entries_upper": 41414478,
+          "limit": 7,
+          "oversize_upper": 134867029,
+          "rover_strict_upper": 134867029,
+          "cache_hash_arrays_same_lengths": true,
+          "current_state_is_creation_state": false
+        },
+        "weak_transfer": {
+          "live_entries_upper": 3298669747285,
+          "individual_outer_array_length_upper": 9896009241858,
+          "individual_bucket_length_upper": 4948004620930,
+          "outer_growth_multiply_upper": 29688027725574,
+          "bucket_growth_multiply_upper": 14844013862790,
+          "shrink_multiply_plus_two_absolute_upper": 9896009241866,
+          "oversize_and_rover_upper": 9896009241858,
+          "find_or_equality_calls_per_request_upper": 4948004620930,
+          "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+        },
+        "per_outer_array_bytes": 79168073934872,
+        "per_hash_bucket_bytes": 39584036967448,
+        "per_weak_bucket_bytes": 39584036967464
+      },
+      "FileTags": {
+        "counter_and_each_size_upper_at_C": 31060859,
+        "actual_initial_counter_not_known": true,
+        "counter_and_each_size_upper_at_T": 3298565941115,
+        "each_backing_or_tail_extent_upper": 3298565941115,
+        "each_backing_or_tail_bytes_upper": 26388527528928,
+        "each_chain_cells_upper": 3298565941115,
+        "fresh_filenames_allowed": true,
+        "old_R71_D0_membership_used": false,
+        "completed_C_maps_are_inverse": true,
+        "no_source_selected_interrupted_mutation_before_T": true
+      },
+      "synthetic_location_counter_upper_at_T": 3298534880257,
+      "call_id_counter_upper_at_T": 3298534880256,
+      "new_content_derived_string_length_upper": 137438953472,
+      "new_converter_string_length_upper": 137438953472,
+      "old_or_new_string_length_upper": 137438953472,
+      "fixed_payload_words": {
+        "attribute": 2,
+        "attribute_tag_copy": 2,
+        "FileTags_bucket_cell": 3,
+        "position": 3,
+        "include_Set_node": 4
+      },
+      "fixed_Gnat_Ptree_requests_and_Connection": {
+        "source_fixed_record_tuple_list_and_closure_arities": true,
+        "maximum_serialized_Gnat_record_fields": 9,
+        "Connection_array_length_upper": 2147483646,
+        "Connection_midpoint_numerator_upper": 4294967293,
+        "Connection_array_bytes_upper": 17179869176,
+        "List_length_and_include_set_height_upper": 2147483647,
+        "finite_traversal_under_physical_premise": true,
+        "closed_under_inherited_fixed_constructor_correspondence": true,
+        "new_native_fixed_byte_census_claimed": false
+      },
+      "guards": {
+        "Hsattr_counter": true,
+        "weak_growth_shrink": true,
+        "weak_outer_array": true,
+        "weak_bucket": true,
+        "FileTags_counter_and_sizes": true,
+        "FileTags_doubling_and_threshold": true,
+        "FileTags_arrays": true,
+        "synthetic_increment_and_line": true,
+        "call_id_increment": true,
+        "individual_string_length": true,
+        "string_size_and_index_arithmetic": true,
+        "individual_native_array_byte_request": true,
+        "Connection_array_payload": true,
+        "Connection_midpoint_and_index": true,
+        "Connection_array_bytes": true
+      },
+      "auxiliary_owner_representation_guards_hold": true,
+      "inherited_three_owner_projection": {
+        "Ident": {
+          "provider_owner": "Ident",
+          "counter_upper_at_C": 24848687,
+          "counter_upper_at_T": 24848687,
+          "actual_counter_equal_at_C_and_T": true,
+          "exact_actual_counter_known": false,
+          "new_constructor_requests": 0,
+          "new_counter_increments": 0
+        },
+        "Hsty": {
+          "provider_owner": "Ty.Hsty",
+          "counter_upper_at_C": 41414478,
+          "counter_upper_at_T": 41414478,
+          "actual_counter_equal_at_C_and_T": true,
+          "exact_actual_counter_known": false,
+          "new_constructor_requests": 0,
+          "new_counter_increments": 0,
+          "same_backing_geometry_upper_at_C_and_T": {
+            "outer_length": 134867029,
+            "bucket_max": 134867029,
+            "allocated_slots": 134867029
+          },
+          "actual_outer_and_bucket_lengths_unchanged": true,
+          "weak_clearing_allowed": true,
+          "live_contents_or_occupancy_claimed_unchanged": false
+        },
+        "Hsity": {
+          "provider_owner": "Ity.Hsity",
+          "counter_upper_at_C": 31060859,
+          "counter_upper_at_T": 31060859,
+          "actual_counter_equal_at_C_and_T": true,
+          "exact_actual_counter_known": false,
+          "new_constructor_requests": 0,
+          "new_counter_increments": 0,
+          "same_backing_geometry_upper_at_C_and_T": {
+            "outer_length": 134867029,
+            "bucket_max": 134867029,
+            "allocated_slots": 134867029
+          },
+          "actual_outer_and_bucket_lengths_unchanged": true,
+          "weak_clearing_allowed": true,
+          "live_contents_or_occupancy_claimed_unchanged": false
+        }
+      },
+      "genuine_remaining_operands": {
+        "Yojson.Safe.from_channel": "Input buffer/token/lexbuf/JSON container and exception construction requests for B+1 file bytes, including Outputs.Close LF; existing Json_base output escaper is not this parser",
+        "Big_int_Z_and_Number": "Actual Uint/Ureal decimal strings plus selected denominator/exponent and Number.real_literal/real_value/normalize origins; d=40 bounds serialized digits only, not a numeric exponent/shift or intermediate allocation. Derive those operands before pricing powers; later five-atom contract is not substituted",
+        "Format_and_error_buffers": "Format.sprintf/ksprintf/kasprintf storage mechanics for bounded scalar/string/path outputs; bound on result string is not a complete buffer/queue proof"
+      },
+      "full_parser_converter_representation_closed": false,
+      "T_to_builder_transport_closed": false,
+      "process_budget": {
+        "escaping_save_exceptions": 2,
+        "save_entering_callbacks": 2,
+        "saves": 3
+      },
+      "save_origin_callbacks_before_T": 0,
+      "new_callback_or_save_allowance": 0,
+      "aggregate_RAM_stack_or_cumulative_local_bytes": false,
+      "source_attachment": "Conditional on the existing producer JSON body B<=2^31-2 (file B+1 with Close LF), <=3 labels and at most one Variant.expr replay layer. Current Main actually has zero variants: R77 source loop induction plus accepted fixed F_VARIANT=F_VARIANTS=0 and Include/Module-only imports. No new admission bound. Actual-JSON fold does not need the linear shortcut.",
+      "source_fold_or_linear_source_proof_required": true
+    },
+    "put_line": {
+      "role": "put_line",
+      "configuration": "r78_repaired_quiet_timeless_j12_logging",
+      "C_to_T": "after Controller_itp.create_controller, before Controller_itp.add_file; gnat_checks.ml:396-399 -> entry, before body, of Typing.type_mlw_file at gnat_ast_to_ptree.ml:1410",
+      "combined_auxiliary_event_upper": 3298534880256,
+      "producer_json_body_bytes_upper": 2147483646,
+      "native_input_file_bytes_upper_including_Close_LF": 2147483647,
+      "each_A_F_G_R_upper": 3298534880256,
+      "Hsattr": {
+        "counter_upper_at_C": 45173908,
+        "counter_upper_at_T": 3298580054164,
+        "actual_populated_backing_at_C": {
+          "creation_outer_length": 5003,
+          "creation_allocated_bucket_slots": 0,
+          "outer_length_upper": 146200712,
+          "bucket_length_upper": 146200712,
+          "allocated_bucket_slots_upper": 146200712,
+          "live_entries_upper": 45173908,
+          "limit": 7,
+          "oversize_upper": 146200712,
+          "rover_strict_upper": 146200712,
+          "cache_hash_arrays_same_lengths": true,
+          "current_state_is_creation_state": false
+        },
+        "weak_transfer": {
+          "live_entries_upper": 3298681080968,
+          "individual_outer_array_length_upper": 9896043242907,
+          "individual_bucket_length_upper": 4948021621455,
+          "outer_growth_multiply_upper": 29688129728721,
+          "bucket_growth_multiply_upper": 14844064864365,
+          "shrink_multiply_plus_two_absolute_upper": 9896043242916,
+          "oversize_and_rover_upper": 9896043242907,
+          "find_or_equality_calls_per_request_upper": 4948021621455,
+          "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+        },
+        "per_outer_array_bytes": 79168345943264,
+        "per_hash_bucket_bytes": 39584172971648,
+        "per_weak_bucket_bytes": 39584172971664
+      },
+      "FileTags": {
+        "counter_and_each_size_upper_at_C": 33880431,
+        "actual_initial_counter_not_known": true,
+        "counter_and_each_size_upper_at_T": 3298568760687,
+        "each_backing_or_tail_extent_upper": 3298568760687,
+        "each_backing_or_tail_bytes_upper": 26388550085504,
+        "each_chain_cells_upper": 3298568760687,
+        "fresh_filenames_allowed": true,
+        "old_R71_D0_membership_used": false,
+        "completed_C_maps_are_inverse": true,
+        "no_source_selected_interrupted_mutation_before_T": true
+      },
+      "synthetic_location_counter_upper_at_T": 3298534880257,
+      "call_id_counter_upper_at_T": 3298534880256,
+      "new_content_derived_string_length_upper": 137438953472,
+      "new_converter_string_length_upper": 137438953472,
+      "old_or_new_string_length_upper": 137438953472,
+      "fixed_payload_words": {
+        "attribute": 2,
+        "attribute_tag_copy": 2,
+        "FileTags_bucket_cell": 3,
+        "position": 3,
+        "include_Set_node": 4
+      },
+      "fixed_Gnat_Ptree_requests_and_Connection": {
+        "source_fixed_record_tuple_list_and_closure_arities": true,
+        "maximum_serialized_Gnat_record_fields": 9,
+        "Connection_array_length_upper": 2147483646,
+        "Connection_midpoint_numerator_upper": 4294967293,
+        "Connection_array_bytes_upper": 17179869176,
+        "List_length_and_include_set_height_upper": 2147483647,
+        "finite_traversal_under_physical_premise": true,
+        "closed_under_inherited_fixed_constructor_correspondence": true,
+        "new_native_fixed_byte_census_claimed": false
+      },
+      "guards": {
+        "Hsattr_counter": true,
+        "weak_growth_shrink": true,
+        "weak_outer_array": true,
+        "weak_bucket": true,
+        "FileTags_counter_and_sizes": true,
+        "FileTags_doubling_and_threshold": true,
+        "FileTags_arrays": true,
+        "synthetic_increment_and_line": true,
+        "call_id_increment": true,
+        "individual_string_length": true,
+        "string_size_and_index_arithmetic": true,
+        "individual_native_array_byte_request": true,
+        "Connection_array_payload": true,
+        "Connection_midpoint_and_index": true,
+        "Connection_array_bytes": true
+      },
+      "auxiliary_owner_representation_guards_hold": true,
+      "inherited_three_owner_projection": {
+        "Ident": {
+          "provider_owner": "Ident",
+          "counter_upper_at_C": 27104344,
+          "counter_upper_at_T": 27104344,
+          "actual_counter_equal_at_C_and_T": true,
+          "exact_actual_counter_known": false,
+          "new_constructor_requests": 0,
+          "new_counter_increments": 0
+        },
+        "Hsty": {
+          "provider_owner": "Ty.Hsty",
+          "counter_upper_at_C": 45173908,
+          "counter_upper_at_T": 45173908,
+          "actual_counter_equal_at_C_and_T": true,
+          "exact_actual_counter_known": false,
+          "new_constructor_requests": 0,
+          "new_counter_increments": 0,
+          "same_backing_geometry_upper_at_C_and_T": {
+            "outer_length": 146200712,
+            "bucket_max": 146200712,
+            "allocated_slots": 146200712
+          },
+          "actual_outer_and_bucket_lengths_unchanged": true,
+          "weak_clearing_allowed": true,
+          "live_contents_or_occupancy_claimed_unchanged": false
+        },
+        "Hsity": {
+          "provider_owner": "Ity.Hsity",
+          "counter_upper_at_C": 33880431,
+          "counter_upper_at_T": 33880431,
+          "actual_counter_equal_at_C_and_T": true,
+          "exact_actual_counter_known": false,
+          "new_constructor_requests": 0,
+          "new_counter_increments": 0,
+          "same_backing_geometry_upper_at_C_and_T": {
+            "outer_length": 146200712,
+            "bucket_max": 146200712,
+            "allocated_slots": 146200712
+          },
+          "actual_outer_and_bucket_lengths_unchanged": true,
+          "weak_clearing_allowed": true,
+          "live_contents_or_occupancy_claimed_unchanged": false
+        }
+      },
+      "genuine_remaining_operands": {
+        "Yojson.Safe.from_channel": "Input buffer/token/lexbuf/JSON container and exception construction requests for B+1 file bytes, including Outputs.Close LF; existing Json_base output escaper is not this parser",
+        "Big_int_Z_and_Number": "Actual Uint/Ureal decimal strings plus selected denominator/exponent and Number.real_literal/real_value/normalize origins; d=40 bounds serialized digits only, not a numeric exponent/shift or intermediate allocation. Derive those operands before pricing powers; later five-atom contract is not substituted",
+        "Format_and_error_buffers": "Format.sprintf/ksprintf/kasprintf storage mechanics for bounded scalar/string/path outputs; bound on result string is not a complete buffer/queue proof"
+      },
+      "full_parser_converter_representation_closed": false,
+      "T_to_builder_transport_closed": false,
+      "process_budget": {
+        "escaping_save_exceptions": 2,
+        "save_entering_callbacks": 2,
+        "saves": 3
+      },
+      "save_origin_callbacks_before_T": 0,
+      "new_callback_or_save_allowance": 0,
+      "aggregate_RAM_stack_or_cumulative_local_bytes": false,
+      "source_attachment": "Conditional on the existing producer JSON body B<=2^31-2 (file B+1 with Close LF), <=3 labels and at most one Variant.expr replay layer. Current Main actually has zero variants: R77 source loop induction plus accepted fixed F_VARIANT=F_VARIANTS=0 and Include/Module-only imports. No new admission bound. Actual-JSON fold does not need the linear shortcut.",
+      "source_fold_or_linear_source_proof_required": true
+    }
+  },
+  "source_diagrams": {
+    "empty_root": {
+      "serialized_bytes": 26,
+      "producer_json_body_bytes": 26,
+      "terminating_lf_bytes": 0,
+      "plain": {
+        "values": 3,
+        "list_cells": 1,
+        "string_bytes": 19
+      },
+      "weighted": {
+        "values": 3,
+        "list_cells": 1,
+        "string_bytes": 19,
+        "binder_label_pairs": 0
+      },
+      "kind_occurrences": {},
+      "maximum_label_set_length": 0,
+      "maximum_variant_expr_replay_depth": 0,
+      "unknown_node_shapes": [],
+      "potential": 23,
+      "combined_auxiliary_event_upper": 2944,
+      "plain_component_byte_guards": {
+        "values": true,
+        "list_cells": true,
+        "string_bytes": true
+      },
+      "ordinary_linear_envelope_applies": true,
+      "linear_potential_upper": 312,
+      "is_native_parser_or_complete_schema_validator": false,
+      "producer_source_relation_required": true
+    },
+    "repeated_serialized_children": {
+      "serialized_bytes": 75,
+      "producer_json_body_bytes": 75,
+      "terminating_lf_bytes": 0,
+      "plain": {
+        "values": 15,
+        "list_cells": 13,
+        "string_bytes": 37
+      },
+      "weighted": {
+        "values": 15,
+        "list_cells": 13,
+        "string_bytes": 37,
+        "binder_label_pairs": 0
+      },
+      "kind_occurrences": {
+        "W_LITERAL": 2
+      },
+      "maximum_label_set_length": 0,
+      "maximum_variant_expr_replay_depth": 0,
+      "unknown_node_shapes": [],
+      "potential": 65,
+      "combined_auxiliary_event_upper": 8320,
+      "plain_component_byte_guards": {
+        "values": true,
+        "list_cells": true,
+        "string_bytes": true
+      },
+      "ordinary_linear_envelope_applies": true,
+      "linear_potential_upper": 900,
+      "is_native_parser_or_complete_schema_validator": false,
+      "producer_source_relation_required": true
+    },
+    "binder_label_product": {
+      "serialized_bytes": 381,
+      "producer_json_body_bytes": 381,
+      "terminating_lf_bytes": 0,
+      "plain": {
+        "values": 85,
+        "list_cells": 83,
+        "string_bytes": 130
+      },
+      "weighted": {
+        "values": 85,
+        "list_cells": 83,
+        "string_bytes": 130,
+        "binder_label_pairs": 6
+      },
+      "kind_occurrences": {
+        "W_BINDER": 2,
+        "W_IDENTIFIER": 2,
+        "W_LITERAL": 1,
+        "W_NAME": 4,
+        "W_TYPE": 2,
+        "W_UNIVERSAL_QUANTIF": 1
+      },
+      "maximum_label_set_length": 3,
+      "maximum_variant_expr_replay_depth": 0,
+      "unknown_node_shapes": [],
+      "potential": 304,
+      "combined_auxiliary_event_upper": 38912,
+      "plain_component_byte_guards": {
+        "values": true,
+        "list_cells": true,
+        "string_bytes": true
+      },
+      "ordinary_linear_envelope_applies": true,
+      "linear_potential_upper": 4572,
+      "is_native_parser_or_complete_schema_validator": false,
+      "producer_source_relation_required": true
+    },
+    "variant_replay": {
+      "serialized_bytes": 464,
+      "producer_json_body_bytes": 464,
+      "terminating_lf_bytes": 0,
+      "plain": {
+        "values": 104,
+        "list_cells": 102,
+        "string_bytes": 158
+      },
+      "weighted": {
+        "values": 186,
+        "list_cells": 183,
+        "string_bytes": 269,
+        "binder_label_pairs": 12
+      },
+      "kind_occurrences": {
+        "W_BINDER": 2,
+        "W_IDENTIFIER": 3,
+        "W_LITERAL": 1,
+        "W_NAME": 5,
+        "W_TYPE": 2,
+        "W_UNIVERSAL_QUANTIF": 1,
+        "W_VARIANT": 1
+      },
+      "maximum_label_set_length": 3,
+      "maximum_variant_expr_replay_depth": 1,
+      "unknown_node_shapes": [],
+      "potential": 650,
+      "combined_auxiliary_event_upper": 83200,
+      "plain_component_byte_guards": {
+        "values": true,
+        "list_cells": true,
+        "string_bytes": true
+      },
+      "ordinary_linear_envelope_applies": true,
+      "linear_potential_upper": 5568,
+      "is_native_parser_or_complete_schema_validator": false,
+      "producer_source_relation_required": true
+    },
+    "nested_replay_outside_linear_shortcut": {
+      "serialized_bytes": 547,
+      "producer_json_body_bytes": 547,
+      "terminating_lf_bytes": 0,
+      "plain": {
+        "values": 123,
+        "list_cells": 121,
+        "string_bytes": 186
+      },
+      "weighted": {
+        "values": 388,
+        "list_cells": 383,
+        "string_bytes": 547,
+        "binder_label_pairs": 24
+      },
+      "kind_occurrences": {
+        "W_BINDER": 2,
+        "W_IDENTIFIER": 4,
+        "W_LITERAL": 1,
+        "W_NAME": 6,
+        "W_TYPE": 2,
+        "W_UNIVERSAL_QUANTIF": 1,
+        "W_VARIANT": 2
+      },
+      "maximum_label_set_length": 3,
+      "maximum_variant_expr_replay_depth": 2,
+      "unknown_node_shapes": [],
+      "potential": 1342,
+      "combined_auxiliary_event_upper": 171776,
+      "plain_component_byte_guards": {
+        "values": true,
+        "list_cells": true,
+        "string_bytes": true
+      },
+      "ordinary_linear_envelope_applies": false,
+      "linear_potential_upper": 6564,
+      "is_native_parser_or_complete_schema_validator": false,
+      "producer_source_relation_required": true
+    },
+    "beyond_three_labels_actual_fold": {
+      "serialized_bytes": 676,
+      "producer_json_body_bytes": 676,
+      "terminating_lf_bytes": 0,
+      "plain": {
+        "values": 154,
+        "list_cells": 152,
+        "string_bytes": 216
+      },
+      "weighted": {
+        "values": 154,
+        "list_cells": 152,
+        "string_bytes": 216,
+        "binder_label_pairs": 28
+      },
+      "kind_occurrences": {
+        "W_BINDER": 4,
+        "W_EXISTENTIAL_QUANTIF": 1,
+        "W_IDENTIFIER": 4,
+        "W_LITERAL": 1,
+        "W_NAME": 8,
+        "W_TYPE": 4
+      },
+      "maximum_label_set_length": 7,
+      "maximum_variant_expr_replay_depth": 0,
+      "unknown_node_shapes": [],
+      "potential": 550,
+      "combined_auxiliary_event_upper": 70400,
+      "plain_component_byte_guards": {
+        "values": true,
+        "list_cells": true,
+        "string_bytes": true
+      },
+      "ordinary_linear_envelope_applies": false,
+      "linear_potential_upper": 8112,
+      "is_native_parser_or_complete_schema_validator": false,
+      "producer_source_relation_required": true
+    },
+    "split_identifier_and_escaped_bytes": {
+      "serialized_bytes": 97,
+      "producer_json_body_bytes": 97,
+      "terminating_lf_bytes": 0,
+      "plain": {
+        "values": 17,
+        "list_cells": 15,
+        "string_bytes": 46
+      },
+      "weighted": {
+        "values": 17,
+        "list_cells": 15,
+        "string_bytes": 46,
+        "binder_label_pairs": 0
+      },
+      "kind_occurrences": {
+        "W_IDENTIFIER": 1,
+        "W_NAME": 1
+      },
+      "maximum_label_set_length": 0,
+      "maximum_variant_expr_replay_depth": 0,
+      "unknown_node_shapes": [],
+      "potential": 78,
+      "combined_auxiliary_event_upper": 9984,
+      "plain_component_byte_guards": {
+        "values": true,
+        "list_cells": true,
+        "string_bytes": true
+      },
+      "ordinary_linear_envelope_applies": true,
+      "linear_potential_upper": 1164,
+      "is_native_parser_or_complete_schema_validator": false,
+      "producer_source_relation_required": true
+    }
+  },
+  "actual_bytes_diagram": {
+    "role": "put_line",
+    "configuration": "r78_repaired_quiet_timeless_j12_logging",
+    "C_to_T": "after Controller_itp.create_controller, before Controller_itp.add_file; gnat_checks.ml:396-399 -> entry, before body, of Typing.type_mlw_file at gnat_ast_to_ptree.ml:1410",
+    "combined_auxiliary_event_upper": 83200,
+    "producer_json_body_bytes_upper": 464,
+    "native_input_file_bytes_upper_including_Close_LF": 465,
+    "each_A_F_G_R_upper": 83200,
+    "Hsattr": {
+      "counter_upper_at_C": 45173908,
+      "counter_upper_at_T": 45257108,
+      "actual_populated_backing_at_C": {
+        "creation_outer_length": 5003,
+        "creation_allocated_bucket_slots": 0,
+        "outer_length_upper": 146200712,
+        "bucket_length_upper": 146200712,
+        "allocated_bucket_slots_upper": 146200712,
+        "live_entries_upper": 45173908,
+        "limit": 7,
+        "oversize_upper": 146200712,
+        "rover_strict_upper": 146200712,
+        "cache_hash_arrays_same_lengths": true,
+        "current_state_is_creation_state": false
+      },
+      "weak_transfer": {
+        "live_entries_upper": 146283912,
+        "individual_outer_array_length_upper": 438851739,
+        "individual_bucket_length_upper": 219425871,
+        "outer_growth_multiply_upper": 1316555217,
+        "bucket_growth_multiply_upper": 658277613,
+        "shrink_multiply_plus_two_absolute_upper": 438851748,
+        "oversize_and_rover_upper": 438851739,
+        "find_or_equality_calls_per_request_upper": 219425871,
+        "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+      },
+      "per_outer_array_bytes": 3510813920,
+      "per_hash_bucket_bytes": 1755406976,
+      "per_weak_bucket_bytes": 1755406992
+    },
+    "FileTags": {
+      "counter_and_each_size_upper_at_C": 33880431,
+      "actual_initial_counter_not_known": true,
+      "counter_and_each_size_upper_at_T": 33963631,
+      "each_backing_or_tail_extent_upper": 33963631,
+      "each_backing_or_tail_bytes_upper": 271709056,
+      "each_chain_cells_upper": 33963631,
+      "fresh_filenames_allowed": true,
+      "old_R71_D0_membership_used": false,
+      "completed_C_maps_are_inverse": true,
+      "no_source_selected_interrupted_mutation_before_T": true
+    },
+    "synthetic_location_counter_upper_at_T": 83201,
+    "call_id_counter_upper_at_T": 83200,
+    "new_content_derived_string_length_upper": 29824,
+    "new_converter_string_length_upper": 1169605696,
+    "old_or_new_string_length_upper": 1169605696,
+    "fixed_payload_words": {
+      "attribute": 2,
+      "attribute_tag_copy": 2,
+      "FileTags_bucket_cell": 3,
+      "position": 3,
+      "include_Set_node": 4
+    },
+    "fixed_Gnat_Ptree_requests_and_Connection": {
+      "source_fixed_record_tuple_list_and_closure_arities": true,
+      "maximum_serialized_Gnat_record_fields": 9,
+      "Connection_array_length_upper": 464,
+      "Connection_midpoint_numerator_upper": 929,
+      "Connection_array_bytes_upper": 3720,
+      "List_length_and_include_set_height_upper": 465,
+      "finite_traversal_under_physical_premise": true,
+      "closed_under_inherited_fixed_constructor_correspondence": true,
+      "new_native_fixed_byte_census_claimed": false
+    },
+    "guards": {
+      "Hsattr_counter": true,
+      "weak_growth_shrink": true,
+      "weak_outer_array": true,
+      "weak_bucket": true,
+      "FileTags_counter_and_sizes": true,
+      "FileTags_doubling_and_threshold": true,
+      "FileTags_arrays": true,
+      "synthetic_increment_and_line": true,
+      "call_id_increment": true,
+      "individual_string_length": true,
+      "string_size_and_index_arithmetic": true,
+      "individual_native_array_byte_request": true,
+      "Connection_array_payload": true,
+      "Connection_midpoint_and_index": true,
+      "Connection_array_bytes": true
+    },
+    "auxiliary_owner_representation_guards_hold": true,
+    "inherited_three_owner_projection": {
+      "Ident": {
+        "provider_owner": "Ident",
+        "counter_upper_at_C": 27104344,
+        "counter_upper_at_T": 27104344,
+        "actual_counter_equal_at_C_and_T": true,
+        "exact_actual_counter_known": false,
+        "new_constructor_requests": 0,
+        "new_counter_increments": 0
+      },
+      "Hsty": {
+        "provider_owner": "Ty.Hsty",
+        "counter_upper_at_C": 45173908,
+        "counter_upper_at_T": 45173908,
+        "actual_counter_equal_at_C_and_T": true,
+        "exact_actual_counter_known": false,
+        "new_constructor_requests": 0,
+        "new_counter_increments": 0,
+        "same_backing_geometry_upper_at_C_and_T": {
+          "outer_length": 146200712,
+          "bucket_max": 146200712,
+          "allocated_slots": 146200712
+        },
+        "actual_outer_and_bucket_lengths_unchanged": true,
+        "weak_clearing_allowed": true,
+        "live_contents_or_occupancy_claimed_unchanged": false
+      },
+      "Hsity": {
+        "provider_owner": "Ity.Hsity",
+        "counter_upper_at_C": 33880431,
+        "counter_upper_at_T": 33880431,
+        "actual_counter_equal_at_C_and_T": true,
+        "exact_actual_counter_known": false,
+        "new_constructor_requests": 0,
+        "new_counter_increments": 0,
+        "same_backing_geometry_upper_at_C_and_T": {
+          "outer_length": 146200712,
+          "bucket_max": 146200712,
+          "allocated_slots": 146200712
+        },
+        "actual_outer_and_bucket_lengths_unchanged": true,
+        "weak_clearing_allowed": true,
+        "live_contents_or_occupancy_claimed_unchanged": false
+      }
+    },
+    "genuine_remaining_operands": {
+      "Yojson.Safe.from_channel": "Input buffer/token/lexbuf/JSON container and exception construction requests for B+1 file bytes, including Outputs.Close LF; existing Json_base output escaper is not this parser",
+      "Big_int_Z_and_Number": "Actual Uint/Ureal decimal strings plus selected denominator/exponent and Number.real_literal/real_value/normalize origins; d=40 bounds serialized digits only, not a numeric exponent/shift or intermediate allocation. Derive those operands before pricing powers; later five-atom contract is not substituted",
+      "Format_and_error_buffers": "Format.sprintf/ksprintf/kasprintf storage mechanics for bounded scalar/string/path outputs; bound on result string is not a complete buffer/queue proof"
+    },
+    "full_parser_converter_representation_closed": false,
+    "T_to_builder_transport_closed": false,
+    "process_budget": {
+      "escaping_save_exceptions": 2,
+      "save_entering_callbacks": 2,
+      "saves": 3
+    },
+    "save_origin_callbacks_before_T": 0,
+    "new_callback_or_save_allowance": 0,
+    "aggregate_RAM_stack_or_cumulative_local_bytes": false,
+    "source_fold": {
+      "serialized_bytes": 464,
+      "producer_json_body_bytes": 464,
+      "terminating_lf_bytes": 0,
+      "plain": {
+        "values": 104,
+        "list_cells": 102,
+        "string_bytes": 158
+      },
+      "weighted": {
+        "values": 186,
+        "list_cells": 183,
+        "string_bytes": 269,
+        "binder_label_pairs": 12
+      },
+      "kind_occurrences": {
+        "W_BINDER": 2,
+        "W_IDENTIFIER": 3,
+        "W_LITERAL": 1,
+        "W_NAME": 5,
+        "W_TYPE": 2,
+        "W_UNIVERSAL_QUANTIF": 1,
+        "W_VARIANT": 1
+      },
+      "maximum_label_set_length": 3,
+      "maximum_variant_expr_replay_depth": 1,
+      "unknown_node_shapes": [],
+      "potential": 650,
+      "combined_auxiliary_event_upper": 83200,
+      "plain_component_byte_guards": {
+        "values": true,
+        "list_cells": true,
+        "string_bytes": true
+      },
+      "ordinary_linear_envelope_applies": true,
+      "linear_potential_upper": 5568,
+      "is_native_parser_or_complete_schema_validator": false,
+      "producer_source_relation_required": true
+    },
+    "source_attachment": "Actual accepted producer serialization at the retained filename; not an arbitrary demand/counter certificate. The 63-kind source-demand proof applies to successful decoding and every earlier converter prefix."
+  }
+}
