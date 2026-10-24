@@ -1,0 +1,347 @@
+{
+  "witnesses": [
+    {
+      "id": "input-captures",
+      "source": "gcc/ada/exp_util.adb",
+      "first_lf_line": 10935,
+      "last_lf_line": 11003,
+      "sha256": "b63878239aafac28cc27af28738c87bf58940a7f54a9b2144f10d7a7cf4cefa1"
+    },
+    {
+      "id": "signed-type-bounds",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 1901,
+      "last_lf_line": 1995,
+      "sha256": "5d4a6cfc8f28cbacfc74e8740f4990276ac18129a06faf8a5c5d95c1176c0b7f"
+    },
+    {
+      "id": "maximum-queries",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 2670,
+      "last_lf_line": 2740,
+      "sha256": "1eb64194f95559df402d16f4d8388ea91116c501714ef9e36bbff2ad6a03e0c3"
+    },
+    {
+      "id": "superflat-conditional",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 2741,
+      "last_lf_line": 2823,
+      "sha256": "8b0c4a5c07bd72a44dcb904600987d4aa2c6cef7f863010d27e69c871e3c2b48"
+    },
+    {
+      "id": "superflat-predicate",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 7049,
+      "last_lf_line": 7095,
+      "sha256": "a9d825df5d235db0641e134532e69e86b3f0271e2b2f1244f62393f799f49211"
+    },
+    {
+      "id": "capture-object-conversion",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 1605,
+      "last_lf_line": 1640,
+      "sha256": "b44ab340f87a4090c3623f5b9b2fc8b51ea45b61d76178c963c702c13b436ef7"
+    },
+    {
+      "id": "native-attribute-capture",
+      "source": "gcc/ada/gcc-interface/trans.cc",
+      "first_lf_line": 2286,
+      "last_lf_line": 2344,
+      "sha256": "253d7e2586b8d4a668043f9d951213b996845de7a55a9b531f20c9eb07721989"
+    },
+    {
+      "id": "native-attribute-tail",
+      "source": "gcc/ada/gcc-interface/trans.cc",
+      "first_lf_line": 2672,
+      "last_lf_line": 2684,
+      "sha256": "21d1af7048e3a3a598ac00c3a188dc711016f89d70ee682e7e43fa2ade24b306"
+    },
+    {
+      "id": "native-final-conversion",
+      "source": "gcc/ada/gcc-interface/trans.cc",
+      "first_lf_line": 8930,
+      "last_lf_line": 8970,
+      "sha256": "4b136aab7329fc51c5a3549d5eeadef9574c73cd95ee6713e92e711321596ea9"
+    },
+    {
+      "id": "bound-elaboration",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 7534,
+      "last_lf_line": 7657,
+      "sha256": "e0921dcc90ae7165bb6155b45d10056cfdf32cd0adccee418a718a6b85a7bb4f"
+    },
+    {
+      "id": "constant-object-flags",
+      "source": "gcc/ada/gcc-interface/utils.cc",
+      "first_lf_line": 3018,
+      "last_lf_line": 3090,
+      "sha256": "a7f5e528cfef9e425d5c23f3a2490e2b251467b3c83c56ee3fb1b41bfc8e20a4"
+    },
+    {
+      "id": "maximum-value-switch",
+      "source": "gcc/ada/gcc-interface/utils.cc",
+      "first_lf_line": 4095,
+      "last_lf_line": 4177,
+      "sha256": "eeaada9cc388c8eecfd129ef7fcefdab1689b5277af61ff08e907f4ad1a01791"
+    },
+    {
+      "id": "array-layout",
+      "source": "gcc/stor-layout.cc",
+      "first_lf_line": 2662,
+      "last_lf_line": 2730,
+      "sha256": "0ec6f8cae44467e340b0813f2b63ec87da60b8892c30f857c5ced403a0f4b665"
+    },
+    {
+      "id": "finalize-layout",
+      "source": "gcc/stor-layout.cc",
+      "first_lf_line": 1962,
+      "last_lf_line": 2020,
+      "sha256": "4a41ac5f1672cb31f10744cf29cb0bb85f8f9c3608f92d80561452dbca6636ed"
+    },
+    {
+      "id": "scalar-gigi-compare",
+      "source": "gcc/ada/gcc-interface/utils2.cc",
+      "first_lf_line": 1225,
+      "last_lf_line": 1392,
+      "sha256": "2dfcd570f30339475486bdc2e8e88d04403fcaac2cfd6deb25291ed261cf3237"
+    },
+    {
+      "id": "gigi-binary-result",
+      "source": "gcc/ada/gcc-interface/utils2.cc",
+      "first_lf_line": 1470,
+      "last_lf_line": 1521,
+      "sha256": "7e92fa60cc2ebbce8d2a87853759543036f48ce42ace1bb7e450aad5eec26353"
+    },
+    {
+      "id": "gigi-conditional",
+      "source": "gcc/ada/gcc-interface/utils2.cc",
+      "first_lf_line": 1892,
+      "last_lf_line": 1943,
+      "sha256": "bc356d50533552ea3486f6039095b9402f1d9d27fcc82ea2d47dcca0495ca230"
+    },
+    {
+      "id": "binary-conditional-attempts",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 7017,
+      "last_lf_line": 7103,
+      "sha256": "21bf75f7de0471d602381258b65086b52301e89b3f23f05c4ff620769f34bbef"
+    },
+    {
+      "id": "unary-conditional-attempts",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 9210,
+      "last_lf_line": 9310,
+      "sha256": "0baab4714e92916a70cf6b9a557d9d4bd4082b635954bc9d35342f0c0d14b133"
+    },
+    {
+      "id": "conditional-folder",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 12899,
+      "last_lf_line": 13270,
+      "sha256": "41bb969e1f956a52d1c446be8076dc66a8139f4b005459c4794f5ce470169a24"
+    },
+    {
+      "id": "conditional-comparison-check",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 6053,
+      "last_lf_line": 6254,
+      "sha256": "e2d34913aecc218b6f43ae33de829fd6feaa41e68b9183b71988b38ec6a60a86"
+    },
+    {
+      "id": "comparison-canonicalization",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 9774,
+      "last_lf_line": 9884,
+      "sha256": "650366aeb7e720a8ff7837d331fca8e96d667b3e9524193655667c6448ef4662"
+    },
+    {
+      "id": "comparison-folder",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 9977,
+      "last_lf_line": 10403,
+      "sha256": "647ca50976f26ae92889ad8eb76111ce147623b4fe001f9676b29f6eb4ec21a1"
+    },
+    {
+      "id": "operand-order",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 7254,
+      "last_lf_line": 7302,
+      "sha256": "e9dff750f1c10fd4f7f3155cdcd0031a237eeffc10bdf6bdd64865d10ccb2746"
+    },
+    {
+      "id": "negation-domain",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 488,
+      "last_lf_line": 624,
+      "sha256": "b5ca0830a34a76108c88b3b4308557bd650acfc67c5a8e74feeb3aa68e275e49"
+    },
+    {
+      "id": "scalar-cancellation",
+      "source": "gcc/match.pd",
+      "first_lf_line": 4353,
+      "last_lf_line": 4376,
+      "sha256": "457c51565d317370c931687c05497d75c3df5b056f3a9c7ba2a895048f0e5f0a"
+    },
+    {
+      "id": "conversion-pair-width-guard",
+      "source": "gcc/match.pd",
+      "first_lf_line": 4531,
+      "last_lf_line": 4543,
+      "sha256": "dff665c0faeac78a126b93c754f9852f5d769ec65227935942a7e7b88e900683"
+    },
+    {
+      "id": "gimple-conditional-distribution",
+      "source": "gcc/match.pd",
+      "first_lf_line": 8655,
+      "last_lf_line": 8689,
+      "sha256": "348b53be8a1c8d7d82793846327ef4a1561f8462a4252fccf06920236bd0a139"
+    },
+    {
+      "id": "conditional-multiple",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 14230,
+      "last_lf_line": 14355,
+      "sha256": "42f134f9f367eaf61ed452692b589548926fab9f06b59d6fd4e0c542d9754fea"
+    },
+    {
+      "id": "readonly-unary",
+      "source": "gcc/tree.cc",
+      "first_lf_line": 5194,
+      "last_lf_line": 5223,
+      "sha256": "9ce3551aab90c6dc57488d6e9e261120a57541df6dcea872a7a46e3592e78892"
+    },
+    {
+      "id": "readonly-binary-conditional",
+      "source": "gcc/tree.cc",
+      "first_lf_line": 5295,
+      "last_lf_line": 5389,
+      "sha256": "605947e0238f4a83721290f0e29795dc4c4e90321c8409126c8479f1d76f81fe"
+    },
+    {
+      "id": "save-invariant-cut",
+      "source": "gcc/tree.cc",
+      "first_lf_line": 4078,
+      "last_lf_line": 4096,
+      "sha256": "2f51894388e40829b22a42b8fe7beaa3418cc9e72ae925e841bb694b5c6a5238"
+    },
+    {
+      "id": "save-construction",
+      "source": "gcc/tree.cc",
+      "first_lf_line": 4132,
+      "last_lf_line": 4166,
+      "sha256": "ff8b43dc4d5ff2d959712a378d091db213fe49bc1d8fefa5b7daca35fc28dad9"
+    },
+    {
+      "id": "template-helper",
+      "source": "gcc/ada/gcc-interface/utils.cc",
+      "first_lf_line": 4401,
+      "last_lf_line": 4460,
+      "sha256": "70b5522a51286475713606eab48d1e46ae39e3b6e239c6d9bb10eb8b731206df"
+    },
+    {
+      "id": "template-constructor-flags",
+      "source": "gcc/ada/gcc-interface/utils2.cc",
+      "first_lf_line": 2166,
+      "last_lf_line": 2220,
+      "sha256": "81c2632c001570096df6400b6ec2059a400c5ed3da51e483081ded6ffb7bbf0d"
+    },
+    {
+      "id": "fat-pointer-branch",
+      "source": "gcc/ada/gcc-interface/utils.cc",
+      "first_lf_line": 4794,
+      "last_lf_line": 4905,
+      "sha256": "d2f7f2500d9ec25eeb4ba53c9c4a1bd768d27ad31fbdf500d5789f38c52e92b7"
+    },
+    {
+      "id": "type-bound-macros",
+      "source": "gcc/ada/gcc-interface/ada-tree.h",
+      "first_lf_line": 286,
+      "last_lf_line": 327,
+      "sha256": "fe5634d3dc3bb5b577e587f846522c980859be7eeb06367965e0cb4308e2ea03"
+    },
+    {
+      "id": "range-base-conversions",
+      "source": "gcc/tree.cc",
+      "first_lf_line": 7460,
+      "last_lf_line": 7484,
+      "sha256": "d2c021de553f5b43743d7708c9cd729fd546b418e3951d108723d605f9280587"
+    },
+    {
+      "id": "max-constant-count",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 7169,
+      "last_lf_line": 7197,
+      "sha256": "d3b0f8280d7358fc854d4de00b74db4b488c077275526b10b1f1b7e7e8daaff5"
+    },
+    {
+      "id": "input-pointer-dereference",
+      "source": "gcc/ada/gcc-interface/trans.cc",
+      "first_lf_line": 2132,
+      "last_lf_line": 2220,
+      "sha256": "93620f4a662e2565534f004a7b4cb60184d9d152f3d204f19e496a2e40874e08"
+    },
+    {
+      "id": "logical-inversion-predicate",
+      "source": "gcc/match.pd",
+      "first_lf_line": 2406,
+      "last_lf_line": 2486,
+      "sha256": "2e87f923eebc4c45db5bac8adb14776f8c32cf1cc33f42b7209560effb22d32f"
+    },
+    {
+      "id": "conditional-special-patterns",
+      "source": "gcc/match.pd",
+      "first_lf_line": 7086,
+      "last_lf_line": 7192,
+      "sha256": "eaba8bab3ea972807929339f648bba93fc57de9be841adb93931bede4a34004d"
+    },
+    {
+      "id": "non-lvalue-result",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 2811,
+      "last_lf_line": 2873,
+      "sha256": "d76ef7f9eadf6df714e3425ae683e6b9b8b1a834aeffdcebeb3aaf441148fe93"
+    },
+    {
+      "id": "split-tree-allocation",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 901,
+      "last_lf_line": 1002,
+      "sha256": "1059ec8e5d02a0745a2b14061ed3f6ef5f2409c1d676bb27ec592b3aa9d9cb8a"
+    },
+    {
+      "id": "folder-distribution-dispatch",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 11023,
+      "last_lf_line": 11170,
+      "sha256": "7404475bab77c72b33666694618bc6dc2b69fea86017fb5e64ef315b88a3a188"
+    },
+    {
+      "id": "association-count",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 11444,
+      "last_lf_line": 11595,
+      "sha256": "b810054c9cfeb3b042578f1cd686db13b13fd7e526c3ff712719d17dbf3f7c55"
+    },
+    {
+      "id": "multiply-widening-barrier",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 6583,
+      "last_lf_line": 6701,
+      "sha256": "7dc87e3008a8ac2e9c6a461cb5eeb8ca09178d9de2fb650f5d76ed92c5af280d"
+    },
+    {
+      "id": "size-binop-dispatch",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 2087,
+      "last_lf_line": 2138,
+      "sha256": "2592c58373c5012b63f682e5418a6d02836f7dd53be1057012dae04fce96b778"
+    },
+    {
+      "id": "range-index-association",
+      "source": "gcc/ada/gcc-interface/utils.cc",
+      "first_lf_line": 2857,
+      "last_lf_line": 2871,
+      "sha256": "624e53d1a7f683ee242a15638f35205926500a615894eed6909f5ee4ab1f5063"
+    }
+  ]
+}

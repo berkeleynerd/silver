@@ -1,0 +1,93 @@
+{
+  "meaning": "Source-argued cumulative constructor allowances; checking arithmetic does not prove these allowances.",
+  "array_rows": [
+    {
+      "entry": "direct_integral_convert",
+      "entries_per_Ba": 7,
+      "per_entry": {
+        "constants": 1,
+        "unary": 1,
+        "binary": 0,
+        "ternary": 0
+      }
+    },
+    {
+      "entry": "range_layout_fold_convert",
+      "entries_per_Ba": 6,
+      "per_entry": {
+        "constants": 1,
+        "unary": 1,
+        "binary": 0,
+        "ternary": 1
+      }
+    },
+    {
+      "entry": "size_binop",
+      "entries_per_Ba": 17,
+      "per_entry": {
+        "constants": 2,
+        "unary": 1,
+        "binary": 1,
+        "ternary": 1
+      }
+    },
+    {
+      "entry": "maximum_query",
+      "entries_per_Ba": 2,
+      "per_entry": {
+        "constants": 1,
+        "unary": 2,
+        "binary": 0,
+        "ternary": 0
+      }
+    },
+    {
+      "entry": "gigi_GE",
+      "entries_per_Ba": 1,
+      "per_entry": {
+        "constants": 0,
+        "unary": 0,
+        "binary": 1,
+        "ternary": 0
+      }
+    },
+    {
+      "entry": "gigi_COND",
+      "entries_per_Ba": 1,
+      "per_entry": {
+        "constants": 0,
+        "unary": 0,
+        "binary": 0,
+        "ternary": 1
+      }
+    }
+  ],
+  "index_per_Bs": {
+    "constants": 0,
+    "unary": 2,
+    "binary": 0,
+    "ternary": 0,
+    "var_decl": 2
+  },
+  "raw_bytes": {
+    "constants": 40,
+    "unary": 32,
+    "binary": 40,
+    "ternary": 48,
+    "var_decl": 256,
+    "maps": 16
+  },
+  "template_per_Db": {
+    "constants": 0,
+    "unary": 2,
+    "constructor": 1,
+    "element_vector": 1,
+    "stored_elements": 2
+  },
+  "template_raw_bytes": {
+    "unary": 32,
+    "constructor": 24,
+    "element_vector": 72
+  },
+  "template_rounded_bytes_per_request": 512
+}

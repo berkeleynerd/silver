@@ -48,6 +48,20 @@ and full FoldEnvelope stay open. The
 [current specialization export](../evidence/retained-general-native-capacity-20261024/fold-envelope/current.json)
 does not replace the frozen earlier packets.
 
+The [captured input continuation](../evidence/retained-general-native-capacity-20261024/input-fold/README.md)
+derives a second dynamic producer shape. Its Base_Integer32 low/high captures
+retain a signed GE and a superflat conditional, giving H_Input<=6 and
+Q_Input<=30Ba for provenance-classified Bs index/Ba String type identities.
+The cumulative helper/annotation additions are1009Ba constants,2Bs+64Ba
+unary nodes,18Ba binary nodes,24Ba ternary nodes,2Bs extra VAR_DECLs and30Ba
+maps, with raw caller bytes576Bs+44760Ba. Each qualifying dynamic two-field
+bounds-template subcall adds at most160 bytes, with occurrence attachment
+Db<=8Pb<=8V_Main. Its
+[current export](../evidence/retained-general-native-capacity-20261024/input-fold/current.json)
+keeps concat initializer arithmetic, enclosing pointer/address adaptation,
+metadata/backing and full native capacity open. Neither an internal constant
+alone nor a call to save_expr establishes this classification or its bound.
+
 The first result is a source-to-layout lemma and a cumulative allocation kernel
 for Main's local types. It removes the padding-record alternatives for those
 types, supplies explicit type/declaration/vector/constant coefficients, and
@@ -461,6 +475,23 @@ Selected author remains GPT-6 Astra / Extra High; runtime confirmation, total
 author elapsed time, tokens and cost unavailable. No native/prover/predecessor
 replay occurred. Independent review of this new specialization is pending;
 full helper workspace, remaining producers and #201/#119 remain open.
+
+Input producer continuation, 2026-10-24: Image author freeze 0ed7c10db8 was
+independently accepted in review ce73d07d201 before this round. The input's
+two Base_Integer32 endpoint captures yield a conditional size whose false
+arm cancels to zero; the signed comparison and readonly propagation remain
+explicit. Source-derived H_Input<=6/Q_Input<=30Ba and cumulative helper/
+annotation additions576Bs+44760Ba raw bytes are retained in input-fold.
+Dynamic template values bypass constant validation/sorting and give160Db
+raw bytes for their bounded subcall. Concat maximum-query initializer
+arithmetic and the enclosing fat-pointer conversion remain named joins.
+Selected author remains GPT-6 Astra / Extra High; runtime confirmation,
+total author elapsed time, tokens and cost are unavailable. No native,
+prover or predecessor-checker replay occurred. The focused checker records
+its actual host and elapsed time in the new export. Independent review is
+pending; full helper workspace and #201/#119 remain open. The global e<=2,
+two save-entering callbacks and three saves are still once per Why process,
+not per stage or a new GCC-producer charge.
 
 Historical first-kernel round record, 2026-10-24: selected author setting GPT-6 Astra / Extra High;
 runtime model/effort confirmation unavailable. Intended outcome: replace an

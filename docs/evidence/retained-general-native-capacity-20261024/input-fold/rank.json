@@ -1,0 +1,208 @@
+{
+  "meaning": "Authored specialized call/terminal state DAG. Integer inequalities check this graph, not its source correspondence or global GCC termination.",
+  "rank": {
+    "binary_constant_left": 130,
+    "distribute_subtract": 120,
+    "distribute_plus": 120,
+    "distribute_multiply": 120,
+    "distribute_conversion": 120,
+    "maximum_nop_2": 110,
+    "maximum_nop_1": 100,
+    "conversion_chain_2": 90,
+    "conversion_chain_1": 80,
+    "shift_minus": 90,
+    "shift_plus": 70,
+    "false_arm_cancel": 70,
+    "difference_terminal": 70,
+    "plus_terminal": 70,
+    "multiply_terminal": 70,
+    "convert_arithmetic_arm": 70,
+    "maximum_return_conversion": 70,
+    "multiply_one": 70,
+    "conditional_complete": 60,
+    "comparison_terminal": 60,
+    "extract_widening_barrier": 40,
+    "exact_type_view": 30,
+    "constant_negate": 30,
+    "constant_binary": 30,
+    "constant_conversion": 30,
+    "overflow_clear": 30,
+    "maximum_decl_extremum": 40,
+    "maximum_save_cut": 0,
+    "terminal": 0
+  },
+  "edges": [
+    [
+      "binary_constant_left",
+      "distribute_plus"
+    ],
+    [
+      "binary_constant_left",
+      "distribute_multiply"
+    ],
+    [
+      "binary_constant_left",
+      "plus_terminal"
+    ],
+    [
+      "binary_constant_left",
+      "multiply_terminal"
+    ],
+    [
+      "binary_constant_left",
+      "multiply_one"
+    ],
+    [
+      "distribute_subtract",
+      "difference_terminal"
+    ],
+    [
+      "distribute_subtract",
+      "false_arm_cancel"
+    ],
+    [
+      "distribute_subtract",
+      "conditional_complete"
+    ],
+    [
+      "distribute_plus",
+      "plus_terminal"
+    ],
+    [
+      "distribute_plus",
+      "constant_binary"
+    ],
+    [
+      "distribute_plus",
+      "conditional_complete"
+    ],
+    [
+      "distribute_multiply",
+      "multiply_terminal"
+    ],
+    [
+      "distribute_multiply",
+      "constant_binary"
+    ],
+    [
+      "distribute_multiply",
+      "conditional_complete"
+    ],
+    [
+      "distribute_conversion",
+      "convert_arithmetic_arm"
+    ],
+    [
+      "distribute_conversion",
+      "constant_conversion"
+    ],
+    [
+      "distribute_conversion",
+      "conditional_complete"
+    ],
+    [
+      "shift_minus",
+      "constant_negate"
+    ],
+    [
+      "shift_minus",
+      "shift_plus"
+    ],
+    [
+      "shift_plus",
+      "overflow_clear"
+    ],
+    [
+      "false_arm_cancel",
+      "exact_type_view"
+    ],
+    [
+      "plus_terminal",
+      "overflow_clear"
+    ],
+    [
+      "multiply_terminal",
+      "extract_widening_barrier"
+    ],
+    [
+      "multiply_terminal",
+      "overflow_clear"
+    ],
+    [
+      "conversion_chain_2",
+      "conversion_chain_1"
+    ],
+    [
+      "conversion_chain_1",
+      "terminal"
+    ],
+    [
+      "maximum_nop_2",
+      "maximum_nop_1"
+    ],
+    [
+      "maximum_nop_2",
+      "maximum_return_conversion"
+    ],
+    [
+      "maximum_nop_1",
+      "maximum_save_cut"
+    ],
+    [
+      "maximum_nop_1",
+      "maximum_return_conversion"
+    ],
+    [
+      "maximum_return_conversion",
+      "terminal"
+    ],
+    [
+      "maximum_decl_extremum",
+      "constant_conversion"
+    ],
+    [
+      "difference_terminal",
+      "terminal"
+    ],
+    [
+      "convert_arithmetic_arm",
+      "terminal"
+    ],
+    [
+      "multiply_one",
+      "terminal"
+    ],
+    [
+      "conditional_complete",
+      "terminal"
+    ],
+    [
+      "comparison_terminal",
+      "terminal"
+    ],
+    [
+      "extract_widening_barrier",
+      "terminal"
+    ],
+    [
+      "exact_type_view",
+      "terminal"
+    ],
+    [
+      "constant_negate",
+      "terminal"
+    ],
+    [
+      "constant_binary",
+      "terminal"
+    ],
+    [
+      "constant_conversion",
+      "terminal"
+    ],
+    [
+      "overflow_clear",
+      "terminal"
+    ]
+  ]
+}
