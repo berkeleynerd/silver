@@ -497,14 +497,17 @@ def uint_image_storage(*, radix_digits, prefix_entries, prefix_digits,
     bits = max(1, 15*radix_digits)
     divides = 5*bits+6
     entries = 2*divides+3
-    local_digits = (bits+14)//15+1
-    digits = entries*local_digits
+    descriptor_digits = (bits+14)//15+1
+    # Better_In_Hex can carry into q+1 digits; Algorithm_D allocates one
+    # additional normalization digit in its local Dividend vector.
+    local_digits = descriptor_digits+1
+    digits = entries*descriptor_digits
     length = 2*bits+10
     u_capacity = 2*max(5000, prefix_entries+entries)+10
     d_capacity = 2*max(10000, prefix_digits+digits)+10
     return dict(magnitude_bits=bits, image_bytes=length,
                 temporary_entries=entries, temporary_digits=digits,
-                local_vector_digits=local_digits,
+                descriptor_digits=descriptor_digits, local_vector_digits=local_digits,
                 guards=dict(no_abbreviation=length <= 1018,
                             uint_table=u_capacity < table_index_room,
                             digit_table=d_capacity < I,
