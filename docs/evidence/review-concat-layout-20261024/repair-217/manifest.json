@@ -1,0 +1,28 @@
+{
+  "target": "df7c4491200dbb56642c56b28f9f8341189f967d",
+  "disposition": "#217 confirmed and repaired at original local scope",
+  "preserved_prior_report_bytes": 11280,
+  "preserved_prior_report_sha256": "64618e0c8ab67ce900a55c7d111e8c234e6e0c509c4cb32d46af4f912aa7d4b7",
+  "files": [
+    {
+      "path": "docs/evidence/review-concat-layout-20261024/repair-217/README.md",
+      "bytes": 1215,
+      "sha256": "1bd950a2933b19b833d453fc70d6ca2ab2bb2241b9d64d37fc4b6a0f6c723c72"
+    },
+    {
+      "path": "docs/evidence/review-concat-layout-20261024/repair-217/audit.py",
+      "bytes": 7690,
+      "sha256": "3010c1116eb15131ac04ae89f5e198b525bd1f131b82c0139d16e46be86187b4"
+    },
+    {
+      "path": "docs/evidence/review-concat-layout-20261024/repair-217/current.json",
+      "bytes": 4031,
+      "sha256": "6436b926b6d55f34f2e7cef1051cf7c6db32c21a5fe803d0e66d78fb0314a6ee"
+    },
+    {
+      "path": "docs/reviews/review-concat-layout-20261024.md",
+      "bytes": 18126,
+      "sha256": "3f2d15da5c4735fd4356d939d211786d99127aa9df070f919dc5e9f62515a61f"
+    }
+  ]
+}
