@@ -131,7 +131,32 @@ def diagrams():
     try:c_app(Contract((globals_[0],),(),(),Effect(),UNIT),(globals_[0],),UNIT,Demand())
     except ValueError:check(True,'reference application remains explicit residual')
     else:raise AssertionError('reference partition must not be priced as same pure types')
-    return {name:x.export() for name,x in [('api20',d),('empty_post',empty),('reference_constructor',constructor),('saved_image',saved),('context_case',cases),('aliased_actuals',alias),('unit2',unit),('record_call',record),('failed_stale',failure),('failed_result',mismatch)]}
+
+    # R1: match_v and vsb_add are sibling arguments at ity.ml:1445. Count
+    # the current candidate's add under either argument evaluation order.
+    bad=PV(k.Var(91,BOOL))
+    first_mismatch=Demand(10000,20000,30000)
+    later_mismatch=Demand(10000,20000,30000)
+    third=PV(k.Var(92,INT));third_actual=PV(k.Var(93,INT))
+    for name,ct,args,demand,expected in [
+        ('first',Contract((u,),(),(),Effect(),INT),(bad,),first_mismatch,
+         [('formal_actual_add',0,1)]),
+        ('later',Contract((u,v,third),(),(),Effect(),INT),(z,bad,third_actual),later_mismatch,
+         [('formal_actual_add',0,1),('formal_actual_add',1,1)]),
+    ]:
+        try:c_app(ct,args,INT,demand)
+        except SourceFailure as exc:check(str(exc)=='TypeMismatch',name+' argument mismatch fails at source match')
+        else:raise AssertionError(name+' argument mismatch must fail')
+        check(demand.map_events==expected,name+' mismatch includes current add and excludes later pairs')
+        check(demand.kernel.map_bytes_upper>0,name+' mismatch retains candidate map byte subtotal')
+        check(demand.calls['apply_pair']==len(expected) and not demand.calls['apply_end'],
+              name+' mismatch stops before recursive completion')
+        check(not demand.records['actual_tvar'] and not demand.records['cty']
+              and not demand.records['apply_result_tuple'] and not demand.records['cexp'],
+              name+' mismatch has no later term map or completed contract wrappers')
+        check(not demand.owner_requests and not demand.kernel.ident_increments,
+              name+' mismatch leaves owner histories unchanged')
+    return {name:x.export() for name,x in [('api20',d),('empty_post',empty),('reference_constructor',constructor),('saved_image',saved),('context_case',cases),('aliased_actuals',alias),('unit2',unit),('record_call',record),('failed_stale',failure),('failed_result',mismatch),('failed_first_argument',first_mismatch),('failed_later_argument',later_mismatch)]}
 
 
 def main():
@@ -139,14 +164,20 @@ def main():
     check(len(sites['main_clone_ancestor_inventory'])==11,'source-attached Main clone closure')
     check(len(sites['other_fixed_clone_origins_remaining'])==58,'finite other-origin residual inventory')
     output=diagrams()
-    (HERE/'sites.json').write_text(json.dumps(sites,indent=2)+'\n')
-    (HERE/'exports.json').write_text(json.dumps(output,indent=2)+'\n')
+    check(sites==json.loads((HERE/'sites.json').read_text()),'original source partition is unchanged by R1')
+    original=json.loads((HERE/'exports.json').read_text())
+    for name,expected in original.items():
+        check(json.loads(json.dumps(output[name]))==expected,'original '+name+' export is unchanged by R1')
+    repair={name:x for name,x in output.items() if name not in original}
+    (HERE/'exports-r1.json').write_text(json.dumps(repair,indent=2)+'\n')
     r={'status':'pass','assertions':sum(checks.values()),'families':dict(checks),
        'elapsed_seconds':time.monotonic()-start,'host':platform.platform(),
        'main_clone_ancestors':11,'remaining_fixed_origins':58,'exports':list(output),
+       'preserved_exports':'exports.json','repair_exports':'exports-r1.json',
+       'original_author_commit':'49c18b7ef37967c8b6f486721fd006d61857a8fb',
        'native_runs':0,'predecessor_checker_main_runs':0,
        'complete_native_bytes':False,'complete_main_builder_classification':False,
        'whole_source_to_initial_vc_storage':False}
-    (HERE/'result.json').write_text(json.dumps(r,indent=2)+'\n');print(json.dumps(r,indent=2))
+    (HERE/'result-r1.json').write_text(json.dumps(r,indent=2)+'\n');print(json.dumps(r,indent=2))
 
 if __name__=='__main__':main()

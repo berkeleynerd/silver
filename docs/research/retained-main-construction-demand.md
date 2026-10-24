@@ -757,6 +757,30 @@ The apply/cut/oldie result tuples are retained as constructor candidates.
 a non-tuple record constructor; this lookup is counted separately from the
 decision to construct a tuple contract.
 
+The failed-argument prefix uses an evaluation-order-independent envelope.
+At `ity.ml:1445`, `match_v isb u v` and `vsb_add vsb u v` are arguments of
+the same recursive call; source order does not sequence the match first.
+For the first mismatch at pair j, charge every earlier pair's spent work and
+the current pair's nonidentity `Mvs.add` before raising. This covers both an
+order that allocates the current map before failing and an order that fails
+before that allocation. The latter is conservatively overcounted; no claim
+about the target's particular argument evaluation order is required. The
+recursive callee is never entered for the failed pair, so pairs after j,
+the apply/cut result tuples, later `Mvs.map` Tvar construction and completed
+cty/Capp/cexp records are absent. Ident/Hsty/Hsity histories are unchanged.
+`Dexpr.c_oop:1486–1489` catches these candidate `TypeMismatch` failures and
+continues, so their spent requests remain owed even when a later candidate
+succeeds. Candidate multiplicities still require the separate source fold.
+
+Independent review R1 (#213) of author freeze
+`49c18b7ef37967c8b6f486721fd006d61857a8fb` found that the original Python
+fold checked the type before charging this possible current-pair add. The
+repair moves only that charge before the possible failure. First-pair and
+second-of-three mismatch diagrams in `contract-builders/exports-r1.json`
+retain respectively one and two adds, without invented later work. The
+original ten exports, source inventory and historical result/round receipts
+remain intact; the revised checker verifies their unchanged results.
+
 If n=0, the native early return occurs **after** the empty cut/oldie/map
 prefix. It returns the old contract and does not map its specifications.
 `Expr.c_app` then creates its Capp/cexp wrappers unless it first takes the

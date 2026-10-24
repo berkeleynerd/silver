@@ -41,12 +41,30 @@ Run only the new focused checker from the repository root:
 python3 docs/evidence/retained-main-construction-demand-20261024/contract-builders/check.py
 ```
 
-Final author result: **276 counted checks passed in 1.157710 seconds**, Linux
+Initial author result: **276 counted checks passed in 1.157710 seconds**, Linux
 x86_64. The earlier 270-check success preceded added source questions about
 ordinary-record tuple-table lookups and Unit's discarded rho preid. No native,
 compiler, prover, solver, Lean or predecessor-checker main was executed.
-Independent review is pending at this freeze. Model/effort, elapsed time and
+Model/effort, elapsed time and
 unavailable runtime/token/cost measurements are recorded in `round.json`.
+
+Independent review `7fe4a33a75b5ed9346ca5cff4f72b14aa8bcf511` found R1 (#213) in
+the initial freeze `49c18b7ef37967c8b6f486721fd006d61857a8fb`: a failed
+argument's map add was omitted even though sibling native arguments permit
+it to run before the type match fails. The repair charges the current
+nonidentity add before the possible failure, giving an upper envelope for
+either evaluation order. Earlier adds remain spent and later pairs, term-map
+Tvars and completed contracts remain absent.
+
+The first-pair regression failed against the original builder, as retained
+in `failure-before-r1.txt`. The repaired checker passed **299 counted checks
+in 1.224688 seconds**, Linux x86_64, including first-pair and second-of-three
+mismatches and exact comparison of all ten original exports. The original
+`exports.json`, `sites.json`, `result.json` and `round.json` are unchanged.
+The command above now writes the two new diagrams to `exports-r1.json` and
+its result to `result-r1.json`; `round-r1.json` records the repair inputs and
+timing. No native or predecessor-checker execution was added. Independent
+review of the repair remains pending.
 
 Oracle, admission, tool/source pins, process-wide `e <= 2`, two save-entering
 callbacks and three saves are unchanged. #202/#119 remain open; production

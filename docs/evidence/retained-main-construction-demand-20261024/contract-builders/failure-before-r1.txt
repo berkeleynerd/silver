@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/home/canto/src/github.com/berkeleynerd/silver/tmp/main-construction-demand-20261024/docs/evidence/retained-main-construction-demand-20261024/contract-builders/check.py", line 183, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/home/canto/src/github.com/berkeleynerd/silver/tmp/main-construction-demand-20261024/docs/evidence/retained-main-construction-demand-20261024/contract-builders/check.py", line 166, in main
+    output=diagrams()
+  File "/home/canto/src/github.com/berkeleynerd/silver/tmp/main-construction-demand-20261024/docs/evidence/retained-main-construction-demand-20261024/contract-builders/check.py", line 150, in diagrams
+    check(demand.map_events==expected,name+' mismatch includes current add and excludes later pairs')
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/canto/src/github.com/berkeleynerd/silver/tmp/main-construction-demand-20261024/docs/evidence/retained-main-construction-demand-20261024/contract-builders/check.py", line 19, in check
+    if not ok:raise AssertionError(name)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: first mismatch includes current add and excludes later pairs
