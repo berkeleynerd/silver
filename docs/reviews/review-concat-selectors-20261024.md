@@ -205,3 +205,83 @@ three saves remain once per Why process. No production #88–94, Oracle,
 admission, tool pin or PR #121 merge changed. Root owns issue disposition,
 author repair, integration and memory. This reviewer made no GitHub, goal,
 memory or author-source write and stops at this provisional checkpoint.
+
+## F1 / #214 repair disposition — 2026-10-24
+
+**Accepted at exact repair `de0d23d2faf996931861920d2dcd51d80995ad93`.
+F1 is resolved for the corrected pure-selector lemma and the attached bounded
+scalar transfer.** This supersedes the provisional disposition above while
+preserving the original finding and its exact evidence as history. Issue
+closure and integration remain root responsibilities; this is no claim of
+full #201/#119 completion.
+
+The repair explicitly requires TREE_SIDE_EFFECTS false on every condition,
+scalar arm and selector, together with nonvolatile full-base-type declaration
+leaves. It retains unchanged literal-only subtrees and the same-type full
+extremum premise. It excludes effect-bearing or unspecified conditions from
+this helper lemma without excluding any admitted Silver program. The active
+MIN/MAX dispositions, residual inventory and research continuation consistently
+use this corrected domain; the original broad statement is retained only as
+identified history or the preserved counterexample.
+
+The new source join is sufficient. Capture analysis does not treat MIN/MAX's
+top-level @0 as a conditional arm, and the early-out machinery alone does not
+establish purity. The generator's unused-capture test is still considered;
+the explicit false effect flag excludes its COMPOUND allocation. The original
+effectful example remains valid outside the lemma and remains byte-for-byte
+preserved. The repair does not reinterpret a later caller fallback as erasing
+that request.
+
+Actual source attachment is also supplied. EQ/NE tests use literal zero and
+completed nonvolatile Integer declarations, without evaluating initializers.
+The selected inverse-comparison, scalar-arithmetic, unary-conversion and
+COND constructors propagate operand effect flags. They add no effects in
+the already selected no-trapv/sanitizer, scalar-IF/no-actions context.
+tree.cc's special void COND with null branches is outside this scalar grammar.
+Thus the actual selectors satisfy the strengthened premise. Readonly is
+not substituted for the absence of side effects.
+
+The callable model now makes purity an explicit input witness. Its Condition
+constructor requires a Boolean field and rejects omitted/non-Boolean values;
+maximum checks each encountered condition, including nested literal-only
+selectors, and rejects effectful or opaque/unspecified condition inputs.
+Literal/var tags denote the separately stated pure leaf domain. These model
+witnesses do not infer actual native purity; the retained source argument
+provides that correspondence. The original F1 tree is rejected rather than
+silently interpreted as pure.
+
+One [independent repair audit](../evidence/review-concat-selectors-20261024/repair-f1/README.md)
+passed on Linux x86_64 in **0.370610 seconds**, completing at
+**07:00:49.322420 UTC**. It binds the thirteen exact repair files, verifies
+the five original reviewer evidence files and seven author receipts unchanged,
+checks both retained original review/finding copies, and validates three
+complete source identities and nine new spans. All lexical matcher data is
+unchanged; only nineteen MIN/MAX dispositions change.
+
+The audit extracts only the exact Condition, Node and maximum definitions
+from the repaired file's AST. It runs four pure calls, rejects twenty
+unsupported calls and seven omitted/non-Boolean constructors, and corroborates
+eight effect-propagation/omission combinations. It loads no module imports,
+matcher parser or author check entry point. No author/predecessor checker,
+native compiler, prover, Lean or generated matcher was replayed. The author's
+successful **0.244336-second** focused repair check is reused. Finite checks
+remain corroboration, not a machine proof of semantic source correspondence.
+
+First repair-review clock: **06:58:56 UTC**, or **113.322420 seconds** through
+the independent audit; report/commit preparation follows. Selected reviewer:
+**GPT-6 Astra / Extra High**, unchanged. Runtime model/effort, tokens and
+monetary cost are unavailable. Intended result was a narrow F1 disposition;
+achieved result is acceptance without further required author repair.
+
+The original report's first 11,871 bytes remain unchanged, as do its original
+audit, current receipt, finding and manifest. That original manifest continues
+to describe the provisional freeze; the repair receipt binds this appended
+disposition separately. No original successful corpus was rerun.
+
+Scalar `520J+128s+368r+288m+344` and query-pair `80s+568` coefficients are
+unchanged. All previously open size/layout, annotation H/Q, global occurrence,
+nested-provider, slice, forced-capture, pointer, backing/workspace and
+downstream obligations remain open. Physical-resource premises, Oracle,
+admission, production #88–94, tool pins and the once-per-Why-process
+e<=2/two-callback/three-save limits remain unchanged. Native capacity remains
+false. No GitHub, goal or memory write occurred; this reviewer stops here.
