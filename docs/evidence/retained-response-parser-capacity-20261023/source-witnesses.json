@@ -1,0 +1,170 @@
+[
+  {
+    "member": "gnatcoll/core/src/gnatcoll-buffer.ads",
+    "first": 163,
+    "last": 191,
+    "role": "Reader defaults",
+    "sha256": "cbd1cf74e0c1d0232b35e095157634b9cb13288fb265a3fd9c47f83e722fa04c"
+  },
+  {
+    "member": "gnatcoll/core/src/gnatcoll-buffer.adb",
+    "first": 227,
+    "last": 243,
+    "role": "offset Next does not refill",
+    "sha256": "35a905138942fe2590d59b85d824df9fc985b55b2d0c4beeb89c4dca1817a739"
+  },
+  {
+    "member": "gnatcoll/core/src/gnatcoll-buffer.adb",
+    "first": 298,
+    "last": 343,
+    "role": "file mode selection",
+    "sha256": "6ae0247ba9a8a41c517754d1f196406b4ae0dc75014a67d3a7b9a350d71cb8de"
+  },
+  {
+    "member": "gnatcoll/core/src/gnatcoll-buffer.adb",
+    "first": 63,
+    "last": 100,
+    "role": "error position scan",
+    "sha256": "a29b11d15d6520fc136dfc963458917eeb1b76882d5b6cdd18640c1b31272307"
+  },
+  {
+    "member": "gnatcoll/core/src/gnatcoll-buffer.adb",
+    "first": 367,
+    "last": 372,
+    "role": "FD-gated release",
+    "sha256": "ef53de4666426cb19ef022152cfbe550f5e5f731e65b60e7663bf87e314122cf"
+  },
+  {
+    "member": "gnatcoll/core/src/gnatcoll-buffer.adb",
+    "first": 388,
+    "last": 397,
+    "role": "token endpoint conversion",
+    "sha256": "133f3cb0db80e88d49706a19e096207889d4236f5613454b5ae75c0c8fbc55c6"
+  },
+  {
+    "member": "gnatcoll/core/src/gnatcoll-json.adb",
+    "first": 553,
+    "last": 709,
+    "role": "builder including error cleanup",
+    "sha256": "72bb39e1721016fdce1f7cb93d7910e0764fe7c057925b3f819bf81cc285ebbc"
+  },
+  {
+    "member": "gnatcoll/core/src/gnatcoll-json.adb",
+    "first": 715,
+    "last": 721,
+    "role": "Read_File route",
+    "sha256": "c329cdeb8a64577a14b4ee785699de1aae50acad8cafbc2e24dcd0626f0796df"
+  },
+  {
+    "member": "gnatcoll/core/src/gnatcoll-json.adb",
+    "first": 1011,
+    "last": 1029,
+    "role": "shallow JSON reference adjustment",
+    "sha256": "0347f379786eec6d2f3f3fa6f54271f40ae4d55f58797b519424b5b14b2d56b2"
+  },
+  {
+    "member": "gnatcoll/core/src/gnatcoll-json.adb",
+    "first": 1149,
+    "last": 1156,
+    "role": "fresh string internal",
+    "sha256": "c94709ffafde59a464ae901094739a0e3b4f325a8cffef7f856c7f82d7e7e581"
+  },
+  {
+    "member": "gnatcoll/core/src/gnatcoll-string_builders.adb",
+    "first": 39,
+    "last": 67,
+    "role": "key capacity doubling and NUL",
+    "sha256": "9106f44d79bdc4c1cf9f4e462293bcb71f8917657355ebe8ba2df7569e640cbe"
+  },
+  {
+    "member": "gnatcoll/core/src/gnatcoll-string_builders.adb",
+    "first": 228,
+    "last": 232,
+    "role": "Set resets key length",
+    "sha256": "7dac1277953cf73871407aed9f4823b75db3651bd9ff4c38f5007d4676d5f821"
+  },
+  {
+    "member": "gnatcoll/core/src/gnatcoll-strings_impl.adb",
+    "first": 43,
+    "last": 61,
+    "role": "unsigned32 growth before rounding",
+    "sha256": "49d9e34a86655b17a08a17deca116c02563b2bf9450c63f8cac20d9df25787d2"
+  },
+  {
+    "member": "gnatcoll/core/src/gnatcoll-strings_impl.adb",
+    "first": 347,
+    "last": 426,
+    "role": "only undersized capacity grows",
+    "sha256": "6ad0b13890a0ce5ec190a01de11085e644b8547d388bab0dd37b823cfd6c9321"
+  },
+  {
+    "member": "gnatcoll/core/src/gnatcoll-strings_impl.adb",
+    "first": 270,
+    "last": 284,
+    "role": "COW backing adjustment",
+    "sha256": "264105db657bdde6887d68cf364f9e0debefaeaa4d811852f7d2e6cd4b98cf86"
+  },
+  {
+    "member": "gnatcoll/core/src/gnatcoll-json-utility.adb",
+    "first": 152,
+    "last": 260,
+    "role": "complete decoder",
+    "sha256": "cce3f31990c05a7d56e884ea8a53fff6cb35e05895ec26aa83862e1a9065e6a2"
+  },
+  {
+    "member": "gnatcoll/core/src/os/gnatcoll-os-fs-open__unix.adb",
+    "first": 28,
+    "last": 85,
+    "role": "path NUL backing",
+    "sha256": "488951b354a6fc291f1f041d3a3a3dd6f1fcd9573699e75f555886c7289bac7e"
+  },
+  {
+    "member": "gnatcoll/core/src/os/gnatcoll-os-stat-stat__unix.adb",
+    "first": 31,
+    "last": 78,
+    "role": "normalization and path builder",
+    "sha256": "13be220470f54c136d6a3fa292719e3e18c2a9cd0668c467786b463c5c43db19"
+  },
+  {
+    "member": "runtime/a-convec.adb",
+    "first": 205,
+    "last": 231,
+    "role": "single-element append route",
+    "sha256": "fc7094be98e7677adabdcd70e0477145a7575feeea8c59a864a9fc6193497eb4"
+  },
+  {
+    "member": "runtime/a-coorma.adb",
+    "first": 684,
+    "last": 701,
+    "role": "insert or replace",
+    "sha256": "6949c9710ffbd2bc4d590fe501483a7f4eb5620c4b0f0ddc329be7ee8b43907f"
+  },
+  {
+    "member": "runtime/a-crbtgk.adb",
+    "first": 418,
+    "last": 467,
+    "role": "count endpoint",
+    "sha256": "a880ec8f8812f3bcfaf5e11533cf1c274c6efbbd0a8f94fc1a79ac1ccef356fb"
+  },
+  {
+    "member": "runtime/s-valuti.adb",
+    "first": 42,
+    "last": 54,
+    "role": "bounded error text",
+    "sha256": "d77b8e599d0e1765d87bb49b11a70d1e853a069fd786be812f38f1b0d4f90303"
+  },
+  {
+    "member": "runtime/s-valuti.adb",
+    "first": 107,
+    "last": 194,
+    "role": "saturating exponent",
+    "sha256": "52ff7482f35637029a3b485d3a3ad66f9a0bb616fb202daf9d531be64a8cb0fd"
+  },
+  {
+    "member": "runtime/s-valrea.adb",
+    "first": 467,
+    "last": 478,
+    "role": "fixed numeric state",
+    "sha256": "45f9cdc4419d2bf87e3cccde9c7fe8436bd13f35cdb5a7601208e4ecc4af727f"
+  }
+]

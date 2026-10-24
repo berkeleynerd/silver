@@ -1,0 +1,92 @@
+{
+  "base_commit": "c67389a018",
+  "providers": [
+    {
+      "path": "docs/research/retained-producer-response.md",
+      "sha256": "6726e87d941735b0765f57396fbb04403242f82412438f47bfb84b1898454847"
+    },
+    {
+      "path": "docs/evidence/retained-producer-response-20261018/identity.json",
+      "sha256": "d270de406db0b641dee37c84ff2ef458f9c5c53bcd5538df033715eebc0eb94a"
+    },
+    {
+      "path": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+      "sha256": "43f3b6a4b982ba68d41fcdcbc6b34833d188879bd218956a3603abc295b35538"
+    },
+    {
+      "path": "docs/research/retained-producer-tail.md",
+      "sha256": "df9b0e7aab72837b42176d245d0b22646fdde4ed1c81bef50d0ad27e55c4a993"
+    },
+    {
+      "path": "docs/research/retained-producer-null-tail.md",
+      "sha256": "7c6c0b18b741808bf7b80595ecac540272f93a8e65ab31519492cf75933666a1"
+    },
+    {
+      "path": "docs/evidence/retained-producer-null-tail-20261018/runtime-sources.tar.gz",
+      "sha256": "f7709011db297a3173b624c93e53f67fe5169c5f2d8f430eb15c7943cddc184d"
+    },
+    {
+      "path": "docs/research/retained-producer-diagnostic-strings.md",
+      "sha256": "82bad19d7d12200ce081fe41a10a3e43d711d8e7fc5338225491447cccfc7403"
+    },
+    {
+      "path": "docs/research/retained-why-canonical-json-input.md",
+      "sha256": "79b4937641a9fa4f3d310ee935ccf02cd406cda2ebfdf2761870b64233968ff5"
+    },
+    {
+      "path": "docs/evidence/retained-why-canonical-json-input-20261023/result.json",
+      "sha256": "c10844486a1441c1a933259729278b9a9fa5b5b4eff89953481e8be7cd7425a4"
+    },
+    {
+      "path": "docs/research/retained-why-diagnostic-warnings.md",
+      "sha256": "eec21471829e1349ff66df0d83289b040914c8bcb6657d984d05ba60ea4d2006"
+    },
+    {
+      "path": "docs/evidence/retained-why-diagnostic-warnings-20261023/check-result.json",
+      "sha256": "f09ec2342366bd0b6547762a575cee01b57d5d2654cb4d26855eda40a78fa2c2"
+    },
+    {
+      "path": "docs/research/retained-why-terminal-diagnostic-bytes.md",
+      "sha256": "8cdc2511a3b47f2654dd5ceafe827d1d30c550be24535d70175f1f05805ef045"
+    },
+    {
+      "path": "docs/evidence/retained-why-terminal-diagnostic-bytes-20261023/result.json",
+      "sha256": "0f0fefa7aaa9bba1c7e540a9b8126469ad7abd0e4b63e7855b5611761adc17b4"
+    },
+    {
+      "path": "docs/research/retained-why-reporting-composition.md",
+      "sha256": "92326e19333d4001f9f83a1a9a6f1ee8320451167bf84cd1457c05b0b367d1d9"
+    },
+    {
+      "path": "docs/evidence/retained-reporting-composition-20261023/result.json",
+      "sha256": "b12f80685ae685769cc0880d1d44c6287fd7fdd84d80575d0145c1e9743d956c"
+    },
+    {
+      "path": "docs/research/retained-why-standard-json-inputs.md",
+      "sha256": "d3fa1d0b29510c39b37a1cb7f20c261c4c895bf5f90c447b018bf0dd5c310e77"
+    },
+    {
+      "path": "docs/research/retained-why-standard-formatter-core.md",
+      "sha256": "8c90bcf86495d9abebba0f443601abdc01078a504222263a79cf27257f18d2b4"
+    },
+    {
+      "path": "docs/research/retained-why-standard-channel-capacity.md",
+      "sha256": "1ab19660d6e1d618b8a032a1efcfef7b0e29747c9350c974569435f2da9a3f76"
+    },
+    {
+      "path": "docs/research/retained-fixed-failure-composition.md",
+      "commit": "62cb8175ab11041a8f8396eac699f722cb616675",
+      "sha256": "730171cc1895d45e28453770eb13dfc87e0c8c0ace4069f2ebc00e7ec4313729"
+    },
+    {
+      "path": "docs/evidence/retained-fixed-failure-composition-20261023/result.json",
+      "commit": "62cb8175ab11041a8f8396eac699f722cb616675",
+      "sha256": "45afa48592da5d5b21a72b472cd3d976e7d521d487bcc9a097e825a6682c44f7"
+    }
+  ],
+  "selected_model": "gpt-6-astra",
+  "selected_reasoning_effort": "xhigh",
+  "runtime_setting_confirmation": "Parent-selected launch settings; independent runtime telemetry unavailable",
+  "tokens": null,
+  "cost": null
+}

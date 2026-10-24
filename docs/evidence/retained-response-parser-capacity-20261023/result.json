@@ -1,0 +1,1298 @@
+{
+  "status": "pass",
+  "checks": 1560,
+  "scope": "Conditional response parser representation through Read_File return/propagation",
+  "platform": "Linux x86_64 source/configuration model; offline Python checks",
+  "source_files": 49,
+  "provider_files": 20,
+  "stream_source_counterexample": {
+    "initial_last": 0,
+    "initial_current": 0,
+    "offset_next_refills": false,
+    "first_scan_eof": true,
+    "first_event": "DOC_END",
+    "initial_parser_state": "EXPECT_VALUE",
+    "outcome": "Invalid_JSON_Stream caught as Read_Result.Success=False"
+  },
+  "normal_and_postcut": [
+    {
+      "case": "put_line",
+      "normal": {
+        "B": 654244577,
+        "token": 237458,
+        "key": 61,
+        "decoded": 79152,
+        "depth": 7,
+        "array": 254970,
+        "object": 169,
+        "containers": 607,
+        "values": 256639,
+        "fields": 1582,
+        "warning_count": 254970,
+        "string_source_max": 39576
+      },
+      "normal_guard": {
+        "operands": {
+          "parser_state_backing": 32,
+          "key_builder_backing": 64,
+          "normalized_path_majorant": 4513,
+          "path_builder_backing": 8192,
+          "xstring_growth_current": 79151,
+          "xstring_product": 237453,
+          "xstring_round_input": 118726,
+          "xstring_backing": 118784,
+          "vector_backing": 262144,
+          "json_counter": 128,
+          "xstring_counter": 16,
+          "per_object_bytes": 654248673
+        },
+        "guards": {
+          "file_and_scanner_spare": true,
+          "token_endpoint": true,
+          "parser_stack": true,
+          "key_builder": true,
+          "path_scratch": true,
+          "path_builder": true,
+          "xstring_product": true,
+          "xstring_round": true,
+          "numeric_scale": true,
+          "vector_length": true,
+          "map_length": true,
+          "json_references": true,
+          "xstring_references": true,
+          "mapping_round": true,
+          "object_request": true
+        },
+        "all_guards": true
+      },
+      "orientation_only": {
+        "P": 416,
+        "M": 444,
+        "X": 4880432,
+        "response_path_bytes": 416,
+        "runtime_max_path": 4096,
+        "runtime_page_size": 4096,
+        "malformed_stdout_bytes": 683528842,
+        "malformed_guard": {
+          "operands": {
+            "parser_state_backing": 1073741824,
+            "key_builder_backing": 1073741824,
+            "normalized_path_majorant": 4513,
+            "path_builder_backing": 8192,
+            "xstring_growth_current": 683528841,
+            "xstring_product": 2050586523,
+            "xstring_round_input": 1025293261,
+            "xstring_backing": 1025294336,
+            "vector_backing": 1073741824,
+            "json_counter": 3221225504,
+            "xstring_counter": 16,
+            "per_object_bytes": 274877907200
+          },
+          "guards": {
+            "file_and_scanner_spare": true,
+            "token_endpoint": true,
+            "parser_stack": true,
+            "key_builder": true,
+            "path_scratch": true,
+            "path_builder": true,
+            "xstring_product": true,
+            "xstring_round": true,
+            "numeric_scale": true,
+            "vector_length": true,
+            "map_length": true,
+            "json_references": true,
+            "xstring_references": true,
+            "mapping_round": true,
+            "object_request": true
+          },
+          "all_guards": true
+        },
+        "terminal": {
+          "B": 14642237,
+          "token": 14641298,
+          "key": 10,
+          "decoded": 4880432,
+          "depth": 2,
+          "array": 0,
+          "object": 3,
+          "containers": 2,
+          "values": 4,
+          "fields": 3,
+          "string_source_max": 2440216
+        }
+      },
+      "actual_config_attached": false
+    },
+    {
+      "case": "put",
+      "normal": {
+        "B": 583588454,
+        "token": 237458,
+        "key": 61,
+        "decoded": 79152,
+        "depth": 7,
+        "array": 227621,
+        "object": 140,
+        "containers": 501,
+        "values": 229001,
+        "fields": 1308,
+        "warning_count": 227621,
+        "string_source_max": 39576
+      },
+      "normal_guard": {
+        "operands": {
+          "parser_state_backing": 32,
+          "key_builder_backing": 64,
+          "normalized_path_majorant": 4513,
+          "path_builder_backing": 8192,
+          "xstring_growth_current": 79151,
+          "xstring_product": 237453,
+          "xstring_round_input": 118726,
+          "xstring_backing": 118784,
+          "vector_backing": 262144,
+          "json_counter": 128,
+          "xstring_counter": 16,
+          "per_object_bytes": 583592550
+        },
+        "guards": {
+          "file_and_scanner_spare": true,
+          "token_endpoint": true,
+          "parser_stack": true,
+          "key_builder": true,
+          "path_scratch": true,
+          "path_builder": true,
+          "xstring_product": true,
+          "xstring_round": true,
+          "numeric_scale": true,
+          "vector_length": true,
+          "map_length": true,
+          "json_references": true,
+          "xstring_references": true,
+          "mapping_round": true,
+          "object_request": true
+        },
+        "all_guards": true
+      },
+      "orientation_only": {
+        "P": 416,
+        "M": 444,
+        "X": 4880432,
+        "response_path_bytes": 416,
+        "runtime_max_path": 4096,
+        "runtime_page_size": 4096,
+        "malformed_stdout_bytes": 612872719,
+        "malformed_guard": {
+          "operands": {
+            "parser_state_backing": 1073741824,
+            "key_builder_backing": 1073741824,
+            "normalized_path_majorant": 4513,
+            "path_builder_backing": 8192,
+            "xstring_growth_current": 612872718,
+            "xstring_product": 1838618154,
+            "xstring_round_input": 919309077,
+            "xstring_backing": 919310336,
+            "vector_backing": 1073741824,
+            "json_counter": 3221225504,
+            "xstring_counter": 16,
+            "per_object_bytes": 274877907200
+          },
+          "guards": {
+            "file_and_scanner_spare": true,
+            "token_endpoint": true,
+            "parser_stack": true,
+            "key_builder": true,
+            "path_scratch": true,
+            "path_builder": true,
+            "xstring_product": true,
+            "xstring_round": true,
+            "numeric_scale": true,
+            "vector_length": true,
+            "map_length": true,
+            "json_references": true,
+            "xstring_references": true,
+            "mapping_round": true,
+            "object_request": true
+          },
+          "all_guards": true
+        },
+        "terminal": {
+          "B": 14642237,
+          "token": 14641298,
+          "key": 10,
+          "decoded": 4880432,
+          "depth": 2,
+          "array": 0,
+          "object": 3,
+          "containers": 2,
+          "values": 4,
+          "fields": 3,
+          "string_source_max": 2440216
+        }
+      },
+      "actual_config_attached": false
+    },
+    {
+      "case": "first_or_default",
+      "normal": {
+        "B": 502188074,
+        "token": 237458,
+        "key": 61,
+        "decoded": 79152,
+        "depth": 7,
+        "array": 196630,
+        "object": 78,
+        "containers": 277,
+        "values": 197384,
+        "fields": 712,
+        "warning_count": 196630,
+        "string_source_max": 39576
+      },
+      "normal_guard": {
+        "operands": {
+          "parser_state_backing": 32,
+          "key_builder_backing": 64,
+          "normalized_path_majorant": 4513,
+          "path_builder_backing": 8192,
+          "xstring_growth_current": 79151,
+          "xstring_product": 237453,
+          "xstring_round_input": 118726,
+          "xstring_backing": 118784,
+          "vector_backing": 262144,
+          "json_counter": 128,
+          "xstring_counter": 16,
+          "per_object_bytes": 502192170
+        },
+        "guards": {
+          "file_and_scanner_spare": true,
+          "token_endpoint": true,
+          "parser_stack": true,
+          "key_builder": true,
+          "path_scratch": true,
+          "path_builder": true,
+          "xstring_product": true,
+          "xstring_round": true,
+          "numeric_scale": true,
+          "vector_length": true,
+          "map_length": true,
+          "json_references": true,
+          "xstring_references": true,
+          "mapping_round": true,
+          "object_request": true
+        },
+        "all_guards": true
+      },
+      "orientation_only": {
+        "P": 416,
+        "M": 444,
+        "X": 4880432,
+        "response_path_bytes": 416,
+        "runtime_max_path": 4096,
+        "runtime_page_size": 4096,
+        "malformed_stdout_bytes": 531472339,
+        "malformed_guard": {
+          "operands": {
+            "parser_state_backing": 536870912,
+            "key_builder_backing": 536870912,
+            "normalized_path_majorant": 4513,
+            "path_builder_backing": 8192,
+            "xstring_growth_current": 531472338,
+            "xstring_product": 1594417014,
+            "xstring_round_input": 797208507,
+            "xstring_backing": 797208576,
+            "vector_backing": 536870912,
+            "json_counter": 1610612768,
+            "xstring_counter": 16,
+            "per_object_bytes": 137438953728
+          },
+          "guards": {
+            "file_and_scanner_spare": true,
+            "token_endpoint": true,
+            "parser_stack": true,
+            "key_builder": true,
+            "path_scratch": true,
+            "path_builder": true,
+            "xstring_product": true,
+            "xstring_round": true,
+            "numeric_scale": true,
+            "vector_length": true,
+            "map_length": true,
+            "json_references": true,
+            "xstring_references": true,
+            "mapping_round": true,
+            "object_request": true
+          },
+          "all_guards": true
+        },
+        "terminal": {
+          "B": 14642237,
+          "token": 14641298,
+          "key": 10,
+          "decoded": 4880432,
+          "depth": 2,
+          "array": 0,
+          "object": 3,
+          "containers": 2,
+          "values": 4,
+          "fields": 3,
+          "string_source_max": 2440216
+        }
+      },
+      "actual_config_attached": false
+    },
+    {
+      "case": "is_message",
+      "normal": {
+        "B": 135239171,
+        "token": 237458,
+        "key": 61,
+        "decoded": 79152,
+        "depth": 7,
+        "array": 53119,
+        "object": 26,
+        "containers": 33,
+        "values": 53230,
+        "fields": 106,
+        "warning_count": 53119,
+        "string_source_max": 39576
+      },
+      "normal_guard": {
+        "operands": {
+          "parser_state_backing": 32,
+          "key_builder_backing": 64,
+          "normalized_path_majorant": 4513,
+          "path_builder_backing": 8192,
+          "xstring_growth_current": 79151,
+          "xstring_product": 237453,
+          "xstring_round_input": 118726,
+          "xstring_backing": 118784,
+          "vector_backing": 65536,
+          "json_counter": 128,
+          "xstring_counter": 16,
+          "per_object_bytes": 135243267
+        },
+        "guards": {
+          "file_and_scanner_spare": true,
+          "token_endpoint": true,
+          "parser_stack": true,
+          "key_builder": true,
+          "path_scratch": true,
+          "path_builder": true,
+          "xstring_product": true,
+          "xstring_round": true,
+          "numeric_scale": true,
+          "vector_length": true,
+          "map_length": true,
+          "json_references": true,
+          "xstring_references": true,
+          "mapping_round": true,
+          "object_request": true
+        },
+        "all_guards": true
+      },
+      "orientation_only": {
+        "P": 416,
+        "M": 444,
+        "X": 4880432,
+        "response_path_bytes": 416,
+        "runtime_max_path": 4096,
+        "runtime_page_size": 4096,
+        "malformed_stdout_bytes": 164523436,
+        "malformed_guard": {
+          "operands": {
+            "parser_state_backing": 268435456,
+            "key_builder_backing": 268435456,
+            "normalized_path_majorant": 4513,
+            "path_builder_backing": 8192,
+            "xstring_growth_current": 164523435,
+            "xstring_product": 493570305,
+            "xstring_round_input": 246785152,
+            "xstring_backing": 246788096,
+            "vector_backing": 268435456,
+            "json_counter": 805306400,
+            "xstring_counter": 16,
+            "per_object_bytes": 68719476992
+          },
+          "guards": {
+            "file_and_scanner_spare": true,
+            "token_endpoint": true,
+            "parser_stack": true,
+            "key_builder": true,
+            "path_scratch": true,
+            "path_builder": true,
+            "xstring_product": true,
+            "xstring_round": true,
+            "numeric_scale": true,
+            "vector_length": true,
+            "map_length": true,
+            "json_references": true,
+            "xstring_references": true,
+            "mapping_round": true,
+            "object_request": true
+          },
+          "all_guards": true
+        },
+        "terminal": {
+          "B": 14642237,
+          "token": 14641298,
+          "key": 10,
+          "decoded": 4880432,
+          "depth": 2,
+          "array": 0,
+          "object": 3,
+          "containers": 2,
+          "values": 4,
+          "fields": 3,
+          "string_source_max": 2440216
+        }
+      },
+      "actual_config_attached": false
+    },
+    {
+      "case": "input_is_valid",
+      "normal": {
+        "B": 183408791,
+        "token": 237458,
+        "key": 61,
+        "decoded": 79152,
+        "depth": 7,
+        "array": 72139,
+        "object": 26,
+        "containers": 35,
+        "values": 72249,
+        "fields": 104,
+        "warning_count": 72139,
+        "string_source_max": 39576
+      },
+      "normal_guard": {
+        "operands": {
+          "parser_state_backing": 32,
+          "key_builder_backing": 64,
+          "normalized_path_majorant": 4513,
+          "path_builder_backing": 8192,
+          "xstring_growth_current": 79151,
+          "xstring_product": 237453,
+          "xstring_round_input": 118726,
+          "xstring_backing": 118784,
+          "vector_backing": 131072,
+          "json_counter": 128,
+          "xstring_counter": 16,
+          "per_object_bytes": 183412887
+        },
+        "guards": {
+          "file_and_scanner_spare": true,
+          "token_endpoint": true,
+          "parser_stack": true,
+          "key_builder": true,
+          "path_scratch": true,
+          "path_builder": true,
+          "xstring_product": true,
+          "xstring_round": true,
+          "numeric_scale": true,
+          "vector_length": true,
+          "map_length": true,
+          "json_references": true,
+          "xstring_references": true,
+          "mapping_round": true,
+          "object_request": true
+        },
+        "all_guards": true
+      },
+      "orientation_only": {
+        "P": 416,
+        "M": 444,
+        "X": 4880432,
+        "response_path_bytes": 416,
+        "runtime_max_path": 4096,
+        "runtime_page_size": 4096,
+        "malformed_stdout_bytes": 212693056,
+        "malformed_guard": {
+          "operands": {
+            "parser_state_backing": 268435456,
+            "key_builder_backing": 268435456,
+            "normalized_path_majorant": 4513,
+            "path_builder_backing": 8192,
+            "xstring_growth_current": 212693055,
+            "xstring_product": 638079165,
+            "xstring_round_input": 319039582,
+            "xstring_backing": 319041536,
+            "vector_backing": 268435456,
+            "json_counter": 805306400,
+            "xstring_counter": 16,
+            "per_object_bytes": 68719476992
+          },
+          "guards": {
+            "file_and_scanner_spare": true,
+            "token_endpoint": true,
+            "parser_stack": true,
+            "key_builder": true,
+            "path_scratch": true,
+            "path_builder": true,
+            "xstring_product": true,
+            "xstring_round": true,
+            "numeric_scale": true,
+            "vector_length": true,
+            "map_length": true,
+            "json_references": true,
+            "xstring_references": true,
+            "mapping_round": true,
+            "object_request": true
+          },
+          "all_guards": true
+        },
+        "terminal": {
+          "B": 14642237,
+          "token": 14641298,
+          "key": 10,
+          "decoded": 4880432,
+          "depth": 2,
+          "array": 0,
+          "object": 3,
+          "containers": 2,
+          "values": 4,
+          "fields": 3,
+          "string_source_max": 2440216
+        }
+      },
+      "actual_config_attached": false
+    }
+  ],
+  "precut": [
+    {
+      "case": "first_or_default",
+      "cwd_bytes_example": 1,
+      "derived": {
+        "P": 180,
+        "S": 2768,
+        "C": 337048,
+        "R4": 10448488,
+        "X": 41798768,
+        "text": 250793184,
+        "stdout": 250796153
+      },
+      "guard": {
+        "operands": {
+          "parser_state_backing": 268435456,
+          "key_builder_backing": 268435456,
+          "normalized_path_majorant": 4513,
+          "path_builder_backing": 8192,
+          "xstring_growth_current": 250796152,
+          "xstring_product": 752388456,
+          "xstring_round_input": 376194228,
+          "xstring_backing": 376197120,
+          "vector_backing": 268435456,
+          "json_counter": 805306400,
+          "xstring_counter": 16,
+          "per_object_bytes": 68719476992
+        },
+        "guards": {
+          "file_and_scanner_spare": true,
+          "token_endpoint": true,
+          "parser_stack": true,
+          "key_builder": true,
+          "path_scratch": true,
+          "path_builder": true,
+          "xstring_product": true,
+          "xstring_round": true,
+          "numeric_scale": true,
+          "vector_length": true,
+          "map_length": true,
+          "json_references": true,
+          "xstring_references": true,
+          "mapping_round": true,
+          "object_request": true
+        },
+        "all_guards": true
+      },
+      "actual_config_attached": false
+    },
+    {
+      "case": "first_or_default",
+      "cwd_bytes_example": 170,
+      "derived": {
+        "P": 180,
+        "S": 2768,
+        "C": 337048,
+        "R4": 10448488,
+        "X": 41798768,
+        "text": 250793184,
+        "stdout": 250796153
+      },
+      "guard": {
+        "operands": {
+          "parser_state_backing": 268435456,
+          "key_builder_backing": 268435456,
+          "normalized_path_majorant": 4513,
+          "path_builder_backing": 8192,
+          "xstring_growth_current": 250796152,
+          "xstring_product": 752388456,
+          "xstring_round_input": 376194228,
+          "xstring_backing": 376197120,
+          "vector_backing": 268435456,
+          "json_counter": 805306400,
+          "xstring_counter": 16,
+          "per_object_bytes": 68719476992
+        },
+        "guards": {
+          "file_and_scanner_spare": true,
+          "token_endpoint": true,
+          "parser_stack": true,
+          "key_builder": true,
+          "path_scratch": true,
+          "path_builder": true,
+          "xstring_product": true,
+          "xstring_round": true,
+          "numeric_scale": true,
+          "vector_length": true,
+          "map_length": true,
+          "json_references": true,
+          "xstring_references": true,
+          "mapping_round": true,
+          "object_request": true
+        },
+        "all_guards": true
+      },
+      "actual_config_attached": false
+    },
+    {
+      "case": "first_or_default",
+      "cwd_bytes_example": 406,
+      "derived": {
+        "P": 416,
+        "S": 3712,
+        "C": 427672,
+        "R4": 13257832,
+        "X": 53037088,
+        "text": 318223104,
+        "stdout": 318226073
+      },
+      "guard": {
+        "operands": {
+          "parser_state_backing": 536870912,
+          "key_builder_backing": 536870912,
+          "normalized_path_majorant": 4513,
+          "path_builder_backing": 8192,
+          "xstring_growth_current": 318226072,
+          "xstring_product": 954678216,
+          "xstring_round_input": 477339108,
+          "xstring_backing": 477339648,
+          "vector_backing": 536870912,
+          "json_counter": 1610612768,
+          "xstring_counter": 16,
+          "per_object_bytes": 137438953728
+        },
+        "guards": {
+          "file_and_scanner_spare": true,
+          "token_endpoint": true,
+          "parser_stack": true,
+          "key_builder": true,
+          "path_scratch": true,
+          "path_builder": true,
+          "xstring_product": true,
+          "xstring_round": true,
+          "numeric_scale": true,
+          "vector_length": true,
+          "map_length": true,
+          "json_references": true,
+          "xstring_references": true,
+          "mapping_round": true,
+          "object_request": true
+        },
+        "all_guards": true
+      },
+      "actual_config_attached": false
+    },
+    {
+      "case": "input_is_valid",
+      "cwd_bytes_example": 1,
+      "derived": {
+        "P": 180,
+        "S": 2768,
+        "C": 337048,
+        "R4": 10448488,
+        "X": 41798768,
+        "text": 250793184,
+        "stdout": 250796153
+      },
+      "guard": {
+        "operands": {
+          "parser_state_backing": 268435456,
+          "key_builder_backing": 268435456,
+          "normalized_path_majorant": 4513,
+          "path_builder_backing": 8192,
+          "xstring_growth_current": 250796152,
+          "xstring_product": 752388456,
+          "xstring_round_input": 376194228,
+          "xstring_backing": 376197120,
+          "vector_backing": 268435456,
+          "json_counter": 805306400,
+          "xstring_counter": 16,
+          "per_object_bytes": 68719476992
+        },
+        "guards": {
+          "file_and_scanner_spare": true,
+          "token_endpoint": true,
+          "parser_stack": true,
+          "key_builder": true,
+          "path_scratch": true,
+          "path_builder": true,
+          "xstring_product": true,
+          "xstring_round": true,
+          "numeric_scale": true,
+          "vector_length": true,
+          "map_length": true,
+          "json_references": true,
+          "xstring_references": true,
+          "mapping_round": true,
+          "object_request": true
+        },
+        "all_guards": true
+      },
+      "actual_config_attached": false
+    },
+    {
+      "case": "input_is_valid",
+      "cwd_bytes_example": 170,
+      "derived": {
+        "P": 180,
+        "S": 2768,
+        "C": 337048,
+        "R4": 10448488,
+        "X": 41798768,
+        "text": 250793184,
+        "stdout": 250796153
+      },
+      "guard": {
+        "operands": {
+          "parser_state_backing": 268435456,
+          "key_builder_backing": 268435456,
+          "normalized_path_majorant": 4513,
+          "path_builder_backing": 8192,
+          "xstring_growth_current": 250796152,
+          "xstring_product": 752388456,
+          "xstring_round_input": 376194228,
+          "xstring_backing": 376197120,
+          "vector_backing": 268435456,
+          "json_counter": 805306400,
+          "xstring_counter": 16,
+          "per_object_bytes": 68719476992
+        },
+        "guards": {
+          "file_and_scanner_spare": true,
+          "token_endpoint": true,
+          "parser_stack": true,
+          "key_builder": true,
+          "path_scratch": true,
+          "path_builder": true,
+          "xstring_product": true,
+          "xstring_round": true,
+          "numeric_scale": true,
+          "vector_length": true,
+          "map_length": true,
+          "json_references": true,
+          "xstring_references": true,
+          "mapping_round": true,
+          "object_request": true
+        },
+        "all_guards": true
+      },
+      "actual_config_attached": false
+    },
+    {
+      "case": "input_is_valid",
+      "cwd_bytes_example": 406,
+      "derived": {
+        "P": 416,
+        "S": 3712,
+        "C": 427672,
+        "R4": 13257832,
+        "X": 53037088,
+        "text": 318223104,
+        "stdout": 318226073
+      },
+      "guard": {
+        "operands": {
+          "parser_state_backing": 536870912,
+          "key_builder_backing": 536870912,
+          "normalized_path_majorant": 4513,
+          "path_builder_backing": 8192,
+          "xstring_growth_current": 318226072,
+          "xstring_product": 954678216,
+          "xstring_round_input": 477339108,
+          "xstring_backing": 477339648,
+          "vector_backing": 536870912,
+          "json_counter": 1610612768,
+          "xstring_counter": 16,
+          "per_object_bytes": 137438953728
+        },
+        "guards": {
+          "file_and_scanner_spare": true,
+          "token_endpoint": true,
+          "parser_stack": true,
+          "key_builder": true,
+          "path_scratch": true,
+          "path_builder": true,
+          "xstring_product": true,
+          "xstring_round": true,
+          "numeric_scale": true,
+          "vector_length": true,
+          "map_length": true,
+          "json_references": true,
+          "xstring_references": true,
+          "mapping_round": true,
+          "object_request": true
+        },
+        "all_guards": true
+      },
+      "actual_config_attached": false
+    },
+    {
+      "case": "is_message",
+      "cwd_bytes_example": 1,
+      "derived": {
+        "P": 180,
+        "S": 2768,
+        "C": 337048,
+        "R4": 10448488,
+        "X": 41798768,
+        "text": 250793184,
+        "stdout": 250796153
+      },
+      "guard": {
+        "operands": {
+          "parser_state_backing": 268435456,
+          "key_builder_backing": 268435456,
+          "normalized_path_majorant": 4513,
+          "path_builder_backing": 8192,
+          "xstring_growth_current": 250796152,
+          "xstring_product": 752388456,
+          "xstring_round_input": 376194228,
+          "xstring_backing": 376197120,
+          "vector_backing": 268435456,
+          "json_counter": 805306400,
+          "xstring_counter": 16,
+          "per_object_bytes": 68719476992
+        },
+        "guards": {
+          "file_and_scanner_spare": true,
+          "token_endpoint": true,
+          "parser_stack": true,
+          "key_builder": true,
+          "path_scratch": true,
+          "path_builder": true,
+          "xstring_product": true,
+          "xstring_round": true,
+          "numeric_scale": true,
+          "vector_length": true,
+          "map_length": true,
+          "json_references": true,
+          "xstring_references": true,
+          "mapping_round": true,
+          "object_request": true
+        },
+        "all_guards": true
+      },
+      "actual_config_attached": false
+    },
+    {
+      "case": "is_message",
+      "cwd_bytes_example": 170,
+      "derived": {
+        "P": 180,
+        "S": 2768,
+        "C": 337048,
+        "R4": 10448488,
+        "X": 41798768,
+        "text": 250793184,
+        "stdout": 250796153
+      },
+      "guard": {
+        "operands": {
+          "parser_state_backing": 268435456,
+          "key_builder_backing": 268435456,
+          "normalized_path_majorant": 4513,
+          "path_builder_backing": 8192,
+          "xstring_growth_current": 250796152,
+          "xstring_product": 752388456,
+          "xstring_round_input": 376194228,
+          "xstring_backing": 376197120,
+          "vector_backing": 268435456,
+          "json_counter": 805306400,
+          "xstring_counter": 16,
+          "per_object_bytes": 68719476992
+        },
+        "guards": {
+          "file_and_scanner_spare": true,
+          "token_endpoint": true,
+          "parser_stack": true,
+          "key_builder": true,
+          "path_scratch": true,
+          "path_builder": true,
+          "xstring_product": true,
+          "xstring_round": true,
+          "numeric_scale": true,
+          "vector_length": true,
+          "map_length": true,
+          "json_references": true,
+          "xstring_references": true,
+          "mapping_round": true,
+          "object_request": true
+        },
+        "all_guards": true
+      },
+      "actual_config_attached": false
+    },
+    {
+      "case": "is_message",
+      "cwd_bytes_example": 406,
+      "derived": {
+        "P": 416,
+        "S": 3712,
+        "C": 427672,
+        "R4": 13257832,
+        "X": 53037088,
+        "text": 318223104,
+        "stdout": 318226073
+      },
+      "guard": {
+        "operands": {
+          "parser_state_backing": 536870912,
+          "key_builder_backing": 536870912,
+          "normalized_path_majorant": 4513,
+          "path_builder_backing": 8192,
+          "xstring_growth_current": 318226072,
+          "xstring_product": 954678216,
+          "xstring_round_input": 477339108,
+          "xstring_backing": 477339648,
+          "vector_backing": 536870912,
+          "json_counter": 1610612768,
+          "xstring_counter": 16,
+          "per_object_bytes": 137438953728
+        },
+        "guards": {
+          "file_and_scanner_spare": true,
+          "token_endpoint": true,
+          "parser_stack": true,
+          "key_builder": true,
+          "path_scratch": true,
+          "path_builder": true,
+          "xstring_product": true,
+          "xstring_round": true,
+          "numeric_scale": true,
+          "vector_length": true,
+          "map_length": true,
+          "json_references": true,
+          "xstring_references": true,
+          "mapping_round": true,
+          "object_request": true
+        },
+        "all_guards": true
+      },
+      "actual_config_attached": false
+    },
+    {
+      "case": "put",
+      "cwd_bytes_example": 1,
+      "derived": {
+        "P": 180,
+        "S": 2768,
+        "C": 337048,
+        "R4": 10448488,
+        "X": 41798768,
+        "text": 250793184,
+        "stdout": 250796153
+      },
+      "guard": {
+        "operands": {
+          "parser_state_backing": 268435456,
+          "key_builder_backing": 268435456,
+          "normalized_path_majorant": 4513,
+          "path_builder_backing": 8192,
+          "xstring_growth_current": 250796152,
+          "xstring_product": 752388456,
+          "xstring_round_input": 376194228,
+          "xstring_backing": 376197120,
+          "vector_backing": 268435456,
+          "json_counter": 805306400,
+          "xstring_counter": 16,
+          "per_object_bytes": 68719476992
+        },
+        "guards": {
+          "file_and_scanner_spare": true,
+          "token_endpoint": true,
+          "parser_stack": true,
+          "key_builder": true,
+          "path_scratch": true,
+          "path_builder": true,
+          "xstring_product": true,
+          "xstring_round": true,
+          "numeric_scale": true,
+          "vector_length": true,
+          "map_length": true,
+          "json_references": true,
+          "xstring_references": true,
+          "mapping_round": true,
+          "object_request": true
+        },
+        "all_guards": true
+      },
+      "actual_config_attached": false
+    },
+    {
+      "case": "put",
+      "cwd_bytes_example": 170,
+      "derived": {
+        "P": 180,
+        "S": 2768,
+        "C": 337048,
+        "R4": 10448488,
+        "X": 41798768,
+        "text": 250793184,
+        "stdout": 250796153
+      },
+      "guard": {
+        "operands": {
+          "parser_state_backing": 268435456,
+          "key_builder_backing": 268435456,
+          "normalized_path_majorant": 4513,
+          "path_builder_backing": 8192,
+          "xstring_growth_current": 250796152,
+          "xstring_product": 752388456,
+          "xstring_round_input": 376194228,
+          "xstring_backing": 376197120,
+          "vector_backing": 268435456,
+          "json_counter": 805306400,
+          "xstring_counter": 16,
+          "per_object_bytes": 68719476992
+        },
+        "guards": {
+          "file_and_scanner_spare": true,
+          "token_endpoint": true,
+          "parser_stack": true,
+          "key_builder": true,
+          "path_scratch": true,
+          "path_builder": true,
+          "xstring_product": true,
+          "xstring_round": true,
+          "numeric_scale": true,
+          "vector_length": true,
+          "map_length": true,
+          "json_references": true,
+          "xstring_references": true,
+          "mapping_round": true,
+          "object_request": true
+        },
+        "all_guards": true
+      },
+      "actual_config_attached": false
+    },
+    {
+      "case": "put",
+      "cwd_bytes_example": 406,
+      "derived": {
+        "P": 416,
+        "S": 3712,
+        "C": 427672,
+        "R4": 13257832,
+        "X": 53037088,
+        "text": 318223104,
+        "stdout": 318226073
+      },
+      "guard": {
+        "operands": {
+          "parser_state_backing": 536870912,
+          "key_builder_backing": 536870912,
+          "normalized_path_majorant": 4513,
+          "path_builder_backing": 8192,
+          "xstring_growth_current": 318226072,
+          "xstring_product": 954678216,
+          "xstring_round_input": 477339108,
+          "xstring_backing": 477339648,
+          "vector_backing": 536870912,
+          "json_counter": 1610612768,
+          "xstring_counter": 16,
+          "per_object_bytes": 137438953728
+        },
+        "guards": {
+          "file_and_scanner_spare": true,
+          "token_endpoint": true,
+          "parser_stack": true,
+          "key_builder": true,
+          "path_scratch": true,
+          "path_builder": true,
+          "xstring_product": true,
+          "xstring_round": true,
+          "numeric_scale": true,
+          "vector_length": true,
+          "map_length": true,
+          "json_references": true,
+          "xstring_references": true,
+          "mapping_round": true,
+          "object_request": true
+        },
+        "all_guards": true
+      },
+      "actual_config_attached": false
+    },
+    {
+      "case": "put_line",
+      "cwd_bytes_example": 1,
+      "derived": {
+        "P": 180,
+        "S": 2768,
+        "C": 337048,
+        "R4": 10448488,
+        "X": 41798768,
+        "text": 250793184,
+        "stdout": 250796153
+      },
+      "guard": {
+        "operands": {
+          "parser_state_backing": 268435456,
+          "key_builder_backing": 268435456,
+          "normalized_path_majorant": 4513,
+          "path_builder_backing": 8192,
+          "xstring_growth_current": 250796152,
+          "xstring_product": 752388456,
+          "xstring_round_input": 376194228,
+          "xstring_backing": 376197120,
+          "vector_backing": 268435456,
+          "json_counter": 805306400,
+          "xstring_counter": 16,
+          "per_object_bytes": 68719476992
+        },
+        "guards": {
+          "file_and_scanner_spare": true,
+          "token_endpoint": true,
+          "parser_stack": true,
+          "key_builder": true,
+          "path_scratch": true,
+          "path_builder": true,
+          "xstring_product": true,
+          "xstring_round": true,
+          "numeric_scale": true,
+          "vector_length": true,
+          "map_length": true,
+          "json_references": true,
+          "xstring_references": true,
+          "mapping_round": true,
+          "object_request": true
+        },
+        "all_guards": true
+      },
+      "actual_config_attached": false
+    },
+    {
+      "case": "put_line",
+      "cwd_bytes_example": 170,
+      "derived": {
+        "P": 180,
+        "S": 2768,
+        "C": 337048,
+        "R4": 10448488,
+        "X": 41798768,
+        "text": 250793184,
+        "stdout": 250796153
+      },
+      "guard": {
+        "operands": {
+          "parser_state_backing": 268435456,
+          "key_builder_backing": 268435456,
+          "normalized_path_majorant": 4513,
+          "path_builder_backing": 8192,
+          "xstring_growth_current": 250796152,
+          "xstring_product": 752388456,
+          "xstring_round_input": 376194228,
+          "xstring_backing": 376197120,
+          "vector_backing": 268435456,
+          "json_counter": 805306400,
+          "xstring_counter": 16,
+          "per_object_bytes": 68719476992
+        },
+        "guards": {
+          "file_and_scanner_spare": true,
+          "token_endpoint": true,
+          "parser_stack": true,
+          "key_builder": true,
+          "path_scratch": true,
+          "path_builder": true,
+          "xstring_product": true,
+          "xstring_round": true,
+          "numeric_scale": true,
+          "vector_length": true,
+          "map_length": true,
+          "json_references": true,
+          "xstring_references": true,
+          "mapping_round": true,
+          "object_request": true
+        },
+        "all_guards": true
+      },
+      "actual_config_attached": false
+    },
+    {
+      "case": "put_line",
+      "cwd_bytes_example": 406,
+      "derived": {
+        "P": 416,
+        "S": 3712,
+        "C": 427672,
+        "R4": 13257832,
+        "X": 53037088,
+        "text": 318223104,
+        "stdout": 318226073
+      },
+      "guard": {
+        "operands": {
+          "parser_state_backing": 536870912,
+          "key_builder_backing": 536870912,
+          "normalized_path_majorant": 4513,
+          "path_builder_backing": 8192,
+          "xstring_growth_current": 318226072,
+          "xstring_product": 954678216,
+          "xstring_round_input": 477339108,
+          "xstring_backing": 477339648,
+          "vector_backing": 536870912,
+          "json_counter": 1610612768,
+          "xstring_counter": 16,
+          "per_object_bytes": 137438953728
+        },
+        "guards": {
+          "file_and_scanner_spare": true,
+          "token_endpoint": true,
+          "parser_stack": true,
+          "key_builder": true,
+          "path_scratch": true,
+          "path_builder": true,
+          "xstring_product": true,
+          "xstring_round": true,
+          "numeric_scale": true,
+          "vector_length": true,
+          "map_length": true,
+          "json_references": true,
+          "xstring_references": true,
+          "mapping_round": true,
+          "object_request": true
+        },
+        "all_guards": true
+      },
+      "actual_config_attached": false
+    }
+  ],
+  "precut_parser_guard_P_upper_only": 3060,
+  "composed_with_provider_P_upper": 1927,
+  "malformed_maximum_byte_bound_under_guard": 1073741823,
+  "actual_configuration_guards": null,
+  "native_runs": 0,
+  "compiler_runs": 0,
+  "prover_runs": 0,
+  "predecessor_replays": 0,
+  "aggregate_RAM_or_stack_gate": false,
+  "global_e": 2,
+  "save_callbacks": 2,
+  "saves": 3,
+  "allowance_renewed": false,
+  "whole_119_complete": false,
+  "production_changes": false,
+  "independent_review_required": true,
+  "elapsed_seconds": 0.09045908199914265
+}
