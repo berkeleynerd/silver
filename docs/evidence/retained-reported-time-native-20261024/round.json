@@ -10,6 +10,11 @@
     {
       "elapsed_seconds": 0.41586143799941055,
       "status": "passed"
+    },
+    {
+      "elapsed_seconds": 0.33562807999987854,
+      "reason": "Focused rerun after native offset-chain repair and additional witness inputs.",
+      "status": "passed"
     }
   ],
   "cost": null,
@@ -18,7 +23,7 @@
   "new_disassembly_seconds_recorded": 3.2500940179961617,
   "objective": "Installed Start private-owner lifecycle and owned allocation kernel; preserve global e<=2 across nine owners.",
   "predecessor_replays": 0,
-  "review": "Awaiting parent integration/independent review; this is not issue closure.",
+  "review": "Root Astra/Extra High independent review in progress; allocation-chain finding repaired. Runtime reviewer confirmation unavailable.",
   "runtime_model_confirmation": null,
   "scope_remaining": "Parent source/configuration/prefix composition and separate fixed placeholder-regexp startup cost.",
   "selected_effort": "Extra High",
@@ -26,7 +31,8 @@
   "significant_findings": [
     "Rejected reference-only BOS candidate because installed Re.Str no-emacs gate makes backslash-backtick literal. Selected backslash-equals Start instead.",
     "Fresh positions length1 and unchanged hint0 are tighter than the initial hypothesis.",
-    "Native Hashtbl publishes its cell before size increment: interrupted prefix can undercount, never needs table growth here."
+    "Native Hashtbl publishes its cell before size increment: interrupted prefix can undercount, never needs table growth here.",
+    "Independent root review identified native Group.offset optional-wrapper allocations omitted from the detailed subtotal. Corrected offsetchain15, wrapperrow32, percallsubtotal214; exported256 unchanged."
   ],
   "target_executions": 0,
   "tokens": null,

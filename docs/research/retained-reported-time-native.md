@@ -173,8 +173,8 @@ inferred from this local table.
 | One initial-state miss including cache publication | 31 |
 | One derivative, including all ephemeral marks/splits/closures and new immutable state | 105; credit128 |
 | Match status, compiled break state/bucket, or empty final-cache result | at most23 |
-| Positions, Str argument/result wrappers, Group and offset pair | at most20 |
-| One search after charging first force separately | at most202 using derivative credit128; credit256 |
+| Positions, Str argument/result wrappers, Group and complete native offset chain | at most32 |
+| One search after charging first force separately | at most214 using derivative credit128; credit256 |
 
 The derivative sum is `4+21+15+4+6+3+21+25+6=105`: context; two mark
 updates including one remove_assq cons; three matches; two first_match options;
@@ -186,6 +186,15 @@ has255 iterations but allocates no block per iteration. Cache hits only remove
 these charges. Interrupted prefixes are charged the same whole-call credit;
 published partial work and abandoned candidates are included. Repeated cached
 lazy failures cost at most four owned words per force and fit the256 credit.
+
+The native offset chain costs15 words: `Mark_infos.offset_455` returns a pair
+and Some (5), `Group.offset_opt_503` allocates a closure (5), its
+`Group.fun_1088` callback allocates the positions pair (3), and
+`Stdlib.Option.map_292` allocates Some (2). Together with positions5, the Str
+argument Some2, Group/result8 and Str.state Some2, this gives the32-word row.
+Independent review found that the original20-word row counted only the final
+pair; this correction increases the detailed214-word sum but leaves the
+conservative256-word export unchanged.
 
 For `o<=9` constructed private owners and `q` attempted searches, the export is
 
