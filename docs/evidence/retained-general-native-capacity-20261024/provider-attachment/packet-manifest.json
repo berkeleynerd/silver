@@ -1,0 +1,55 @@
+{
+  "meaning": "Exact broader packet files; frozen repair inputs are separately identified in inputs.json and are never rewritten. current.json is the focused receipt. Research append is identified by the freeze commit.",
+  "files": [
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/README.md",
+      "bytes": 30120,
+      "sha256": "376851b5d0ccec14e6846bb08799252ade3979fdd5bd67f727518e24bb61e6e1"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/check.py",
+      "bytes": 12172,
+      "sha256": "9b081c15f323a0d036816a1d1e1ffc7590c16a6ecfc6eeb56646d708ef2ae7db"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/extra-sources.tar.gz",
+      "bytes": 357478,
+      "sha256": "15eec6c150dad5f79255ab5a7c15588ea0942794ffa2c843062a5303ae064a76"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/grammar.json",
+      "bytes": 787,
+      "sha256": "74780ac9cbefbf12eafaf38b7c659670107c832d8e9166bab8437c284380aca1"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/inputs.json",
+      "bytes": 6709,
+      "sha256": "f5d221f89d42892175fb3eef1d0d28c9a3e928bc4b1d77f6e75ad99d25c93567"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/ledger.json",
+      "bytes": 1395,
+      "sha256": "4cf7265e88502af43068c9d7c73cbb9158eb0573dd2481d61a86b59c04738ba4"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/rank.json",
+      "bytes": 1234,
+      "sha256": "7a88063ff76f22a37ab2d501673e757cdf288004726b7247c6a1200b4e6770e2"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/remaining.json",
+      "bytes": 1330,
+      "sha256": "5537536c2fa3469f9f4bc12253d0342920791b6a696aefc2ccc92fa2faf18644"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/source-manifest.json",
+      "bytes": 10081,
+      "sha256": "c2f49ffd8e9a0a7276fe17ef23f292e20a6d6dfbb28854decc1b18db0bbe6a53"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/source-witnesses.json",
+      "bytes": 13524,
+      "sha256": "000cc9e2ff38ccc27865f350b4ba0e9a09bc9c3af5dc91df01376961ad451901"
+    }
+  ]
+}

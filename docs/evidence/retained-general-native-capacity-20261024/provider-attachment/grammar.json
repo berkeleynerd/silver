@@ -1,0 +1,21 @@
+{
+  "meaning": "Authored producer recurrence, parameterized by arbitrary finite source concat count C.",
+  "provider_spine": {
+    "seed_depth": 0,
+    "alias": "preserve depth and actual completed index identity",
+    "nullable_real": "at most 1 + depth(last provider)",
+    "nonnull_or_empty_tail": "depth zero after actual contraction",
+    "debug_capture": "cuts the operand spine; initializer/query work retained",
+    "upper_bound": "t <= C"
+  },
+  "event_counts": {
+    "E": "<= C",
+    "sum_n": "<= C+E <= 2C",
+    "R": "<= E",
+    "M": "<= R",
+    "A": "<= sum_real n",
+    "direct_arrays": "<= R+M+A+D <= 4C+D",
+    "direct_indexes": "<= R+M+A <= 4C"
+  },
+  "not_closed": "General input-low nested provider native folding and complete metadata/backing/global grammar joins."
+}

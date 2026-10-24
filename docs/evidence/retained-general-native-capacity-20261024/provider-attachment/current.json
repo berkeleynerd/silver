@@ -1,0 +1,93 @@
+{
+  "status": "focused changed-unit check passed; independent review pending",
+  "complete_native_capacity_result": false,
+  "accepted_author": "302b32d15c293c9f8cf352f80ee9b7b4b068eee0",
+  "accepted_repair_author": "df7c4491200dbb56642c56b28f9f8341189f967d",
+  "accepted_repair_review": "10a9004c0f6115fd26c574fc9ca13e903338ece2",
+  "source_files": 29,
+  "source_spans": 59,
+  "spine_polarity_profiles": 516,
+  "maximum_tested_depth": 128,
+  "current_admission_comparison_depth": 63,
+  "current_depth_63_two_root_Q": 1662,
+  "original_layout_repair": {
+    "old_U_row_fails": true,
+    "layout_bytes": 22288,
+    "operand_slots": 738,
+    "combined_bytes": 189616
+  },
+  "assignment_profiles_h_O_Q": [
+    [
+      7,
+      19,
+      19
+    ],
+    [
+      5,
+      12,
+      12
+    ],
+    [
+      5,
+      9,
+      9
+    ],
+    [
+      5,
+      12,
+      13
+    ],
+    [
+      5,
+      9,
+      10
+    ],
+    [
+      5,
+      12,
+      13
+    ],
+    [
+      5,
+      9,
+      10
+    ],
+    [
+      5,
+      12,
+      13
+    ],
+    [
+      5,
+      9,
+      10
+    ],
+    [
+      5,
+      12,
+      13
+    ],
+    [
+      5,
+      9,
+      10
+    ]
+  ],
+  "small_concat_trees": 2056,
+  "generic_model_is_GCC_execution": false,
+  "selected_author_model": "GPT-6 Astra",
+  "selected_author_effort": "Extra High",
+  "runtime_confirmation": null,
+  "tokens": null,
+  "monetary_cost": null,
+  "native_execution_seconds": 0,
+  "predecessor_checkers_run": false,
+  "host": {
+    "system": "Linux",
+    "machine": "x86_64",
+    "node": "codex-silver"
+  },
+  "completed_utc": "2026-10-24T08:34:29.427030+00:00",
+  "check_elapsed_seconds": 4.069516,
+  "elapsed_since_first_recorded_clock_seconds": 2536.42703
+}

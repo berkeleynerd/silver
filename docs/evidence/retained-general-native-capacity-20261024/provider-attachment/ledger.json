@@ -1,0 +1,64 @@
+{
+  "raw_node_bytes": {
+    "C": 40,
+    "U": 32,
+    "B": 40,
+    "T": 48
+  },
+  "high_spine": {
+    "layout_CUBT_per_t_plus_one": [
+      184,
+      126,
+      138,
+      112
+    ],
+    "layout_bytes": "22288*(t+1)",
+    "operand_slots": "738*(t+1)",
+    "per_root_H": "t+5",
+    "per_root_O_Q": "13*t+12",
+    "two_root_Q": "26*t+24",
+    "annotation_bytes": "1328*(26*t+24)"
+  },
+  "length_initializer": {
+    "CUBT_per_t_plus_one": [
+      24,
+      12,
+      20,
+      12
+    ],
+    "raw_bytes": "2720*(t+1)",
+    "H": "t+3",
+    "O": "13*t+8",
+    "retained_wrapper": "NON_LVALUE at signed declaration leaves; transparent to max_value"
+  },
+  "assignment": {
+    "scalar_bound_CUBT": [
+      73,
+      4,
+      8,
+      0
+    ],
+    "scalar_bound_bytes": 3368,
+    "layout_bytes": 22288,
+    "per_root_H": 7,
+    "per_root_O_Q": 19,
+    "two_root_Q": 38,
+    "annotation_bytes": 50464,
+    "combined_bytes": 72752
+  },
+  "maximum_queries": {
+    "constants": "2*u+8",
+    "raw_bytes": "80*u+320"
+  },
+  "debug_declarations": {
+    "per_high_spine_index": 288,
+    "per_assignment_index": 576
+  },
+  "separate_owners": [
+    "source event 520n+368r+344 in hereditary low-one family",
+    "scalar declarations and initializer executable statements",
+    "existing constant/kernel owners",
+    "pointer and metadata type variants",
+    "allocator/GGC/table backing and full processes"
+  ]
+}
