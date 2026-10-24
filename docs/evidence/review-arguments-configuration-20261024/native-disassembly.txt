@@ -1,0 +1,39 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnat2why:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+00000000002891e0 <spark2014vsn__spark2014_version_string>:
+  2891e0:	48 83 ec 08          	sub    $0x8,%rsp
+  2891e4:	be 04 00 00 00       	mov    $0x4,%esi
+  2891e9:	bf 14 00 00 00       	mov    $0x14,%edi
+  2891ee:	e8 1d 5a e3 00       	call   10bec10 <system__secondary_stack__ss_allocate>
+  2891f3:	48 ba 01 00 00 00 0a 	movabs $0xa00000001,%rdx
+  2891fa:	00 00 00
+  2891fd:	48 b9 46 53 46 20 31 	movabs $0x312e363120465346,%rcx
+  289204:	36 2e 31
+  289207:	48 89 10             	mov    %rdx,(%rax)
+  28920a:	ba 2e 30 00 00       	mov    $0x302e,%edx
+  28920f:	66 89 50 10          	mov    %dx,0x10(%rax)
+  289213:	48 8d 50 08          	lea    0x8(%rax),%rdx
+  289217:	48 89 48 08          	mov    %rcx,0x8(%rax)
+  28921b:	48 92                	xchg   %rax,%rdx
+  28921d:	48 83 c4 08          	add    $0x8,%rsp
+  289221:	c3                   	ret
+
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnat2why:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+000000000102edf0 <gnatcoll__mmap__system__get_page_size>:
+ 102edf0:	48 83 ec 08          	sub    $0x8,%rsp
+ 102edf4:	e8 c7 2c 10 ff       	call   131ac0 <getpagesize@plt>
+ 102edf9:	85 c0                	test   %eax,%eax
+ 102edfb:	78 07                	js     102ee04 <gnatcoll__mmap__system__get_page_size+0x14>
+ 102edfd:	89 c0                	mov    %eax,%eax
+ 102edff:	48 83 c4 08          	add    $0x8,%rsp
+ 102ee03:	c3                   	ret
+ 102ee04:	e8 87 fa ff ff       	call   102e890 <gnatcoll__mmap__system__get_page_size.part.0>
