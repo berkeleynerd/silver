@@ -1,0 +1,25 @@
+{
+  "reviewed_author_commit": "4f518ea3151ad1d11c6c3654c84dd730bc4e2aff",
+  "files": [
+    {
+      "path": "docs/evidence/review-native-input-envelope-20261024/README.md",
+      "bytes": 2811,
+      "sha256": "64ce070b1d0c22d6fbaea96a5d2f8bb83b687a84f147cf7d2021b21858dd6ca2"
+    },
+    {
+      "path": "docs/evidence/review-native-input-envelope-20261024/audit.py",
+      "bytes": 11553,
+      "sha256": "cedabd4cf0278a56272bb38e920d50faa5157c99eaff9c898cf61350a838e6b6"
+    },
+    {
+      "path": "docs/evidence/review-native-input-envelope-20261024/current.json",
+      "bytes": 11068,
+      "sha256": "bb2cbd1aa0c546d99ec17bd7b3aaf48d1a0ff579525dd03986fc67a15f6fbb98"
+    },
+    {
+      "path": "docs/reviews/review-native-input-envelope-20261024.md",
+      "bytes": 12317,
+      "sha256": "201b9c9ed7dca0a3ef5f1b4518bd5141f6664665361e3e232d6a3adfedd6bd6f"
+    }
+  ]
+}
