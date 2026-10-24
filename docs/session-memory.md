@@ -1,5 +1,35 @@
 # Session memory
 
+## 2026-10-24 — Assurance-mode open questions answered
+
+The owner answered the four open questions of the
+[assurance modes record](assurance-modes.md) with **"1. Agree. 2. Agree. 3.
+Agree. 4. Agree."**, accepting the planning agent's recommendations:
+
+1. A definite non-proof of an extended program with resources remaining returns
+   a distinct status, **5: valid Silver, not proved**. Status 3 keeps its meaning
+   as Silver's own defect signal; 2 is never a proof outcome; 1 stays with the
+   application. The Lean outcome contract maps proved, inconclusive and unknown
+   to 0, 4 and 5.
+2. An extended compile retains the diagnostic bundle on every non-success, best
+   effort, as confirmation does; for status 5 it includes the unproved checks
+   with file, line, check kind and each prover's verdict, also summarized on the
+   terminal. A failure to write the bundle never changes the outcome; there is
+   no retention knob.
+3. The modes are named **strict** and **extended**. "Loose" was the owner's
+   working term and remains only in quotations and historical anchors.
+4. `silver check`, `compile` and `run` print every strict rule an extended
+   program exceeds, with the measured value and the strict bound; the catalogue
+   export carries the same list.
+
+The record and the Oracle amendment in draft
+[PR #147](https://github.com/berkeleynerd/silver/pull/147) are updated
+accordingly. The amendment still takes effect only when the owner merges that
+pull request, scheduled for the start of the assurance-modes milestone under the
+[2026-10-24 deferral decision](#2026-10-24--capacity-derivation-119-deferred-language-development-resumes).
+Not authorized by this entry: starting #88–#94, any admission or language
+change, or resuming #119.
+
 ## 2026-10-24 — Capacity derivation #119 deferred; language development resumes
 
 The owner asked whether completing the full scope of
