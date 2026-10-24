@@ -1,0 +1,197 @@
+{
+  "meaning": "Authored specialized call/construction/terminal states. Rank checks do not prove source correspondence or general folder termination.",
+  "rank": {
+    "source_constant_left": 120,
+    "source_association": 110,
+    "source_minus": 100,
+    "source_plus_terminal": 80,
+    "source_plus_zero_decl": 70,
+    "discard_non_lvalue": 50,
+    "layout_constant_left": 120,
+    "layout_association": 110,
+    "layout_minus": 100,
+    "layout_plus_terminal": 80,
+    "layout_plus_zero_nop": 70,
+    "multiply_constant_left": 100,
+    "multiply_terminal": 80,
+    "multiply_one": 70,
+    "conversion_chain_3": 70,
+    "conversion_chain_2": 60,
+    "conversion_chain_1": 50,
+    "maximum_initializer_plus": 100,
+    "maximum_decl": 60,
+    "maximum_literal": 60,
+    "maximum_constant_sum": 50,
+    "maximum_overflow_fallback": 40,
+    "extract_conversion": 40,
+    "extract_decl": 10,
+    "same_type_view": 30,
+    "constant_negate": 30,
+    "constant_conversion": 30,
+    "constant_binary": 30,
+    "overflow_clear": 30,
+    "terminal": 0
+  },
+  "edges": [
+    [
+      "source_constant_left",
+      "source_association"
+    ],
+    [
+      "source_association",
+      "constant_binary"
+    ],
+    [
+      "source_association",
+      "same_type_view"
+    ],
+    [
+      "source_association",
+      "source_plus_zero_decl"
+    ],
+    [
+      "source_minus",
+      "constant_negate"
+    ],
+    [
+      "source_minus",
+      "source_plus_terminal"
+    ],
+    [
+      "source_plus_terminal",
+      "overflow_clear"
+    ],
+    [
+      "source_plus_zero_decl",
+      "discard_non_lvalue"
+    ],
+    [
+      "discard_non_lvalue",
+      "terminal"
+    ],
+    [
+      "layout_constant_left",
+      "layout_association"
+    ],
+    [
+      "layout_association",
+      "constant_binary"
+    ],
+    [
+      "layout_association",
+      "same_type_view"
+    ],
+    [
+      "layout_association",
+      "layout_plus_zero_nop"
+    ],
+    [
+      "layout_minus",
+      "constant_negate"
+    ],
+    [
+      "layout_minus",
+      "layout_plus_terminal"
+    ],
+    [
+      "layout_plus_terminal",
+      "overflow_clear"
+    ],
+    [
+      "layout_plus_zero_nop",
+      "terminal"
+    ],
+    [
+      "multiply_constant_left",
+      "multiply_terminal"
+    ],
+    [
+      "multiply_terminal",
+      "extract_conversion"
+    ],
+    [
+      "multiply_terminal",
+      "overflow_clear"
+    ],
+    [
+      "extract_conversion",
+      "constant_conversion"
+    ],
+    [
+      "extract_conversion",
+      "extract_decl"
+    ],
+    [
+      "multiply_one",
+      "terminal"
+    ],
+    [
+      "conversion_chain_3",
+      "conversion_chain_2"
+    ],
+    [
+      "conversion_chain_2",
+      "conversion_chain_1"
+    ],
+    [
+      "conversion_chain_1",
+      "terminal"
+    ],
+    [
+      "maximum_initializer_plus",
+      "maximum_decl"
+    ],
+    [
+      "maximum_initializer_plus",
+      "maximum_literal"
+    ],
+    [
+      "maximum_initializer_plus",
+      "maximum_constant_sum"
+    ],
+    [
+      "maximum_decl",
+      "constant_conversion"
+    ],
+    [
+      "maximum_literal",
+      "terminal"
+    ],
+    [
+      "maximum_constant_sum",
+      "constant_binary"
+    ],
+    [
+      "maximum_constant_sum",
+      "maximum_overflow_fallback"
+    ],
+    [
+      "maximum_overflow_fallback",
+      "terminal"
+    ],
+    [
+      "extract_decl",
+      "terminal"
+    ],
+    [
+      "same_type_view",
+      "terminal"
+    ],
+    [
+      "constant_negate",
+      "terminal"
+    ],
+    [
+      "constant_conversion",
+      "terminal"
+    ],
+    [
+      "constant_binary",
+      "terminal"
+    ],
+    [
+      "overflow_clear",
+      "terminal"
+    ]
+  ]
+}

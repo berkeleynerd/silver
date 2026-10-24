@@ -1,0 +1,101 @@
+{
+  "author_input": "4f518ea3151ad1d11c6c3654c84dd730bc4e2aff",
+  "accepted_review": "a33e3ef26af3de8a8c105bc9137a79d7d6ee2438",
+  "files": [
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/input-fold/README.md",
+      "bytes": 23405,
+      "sha256": "92a5b7e37fec46166838c089f9f6810cafc0fdc06119f112b59b4548ba74ee1c"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/input-fold/current.json",
+      "bytes": 3376,
+      "sha256": "46ad9629c9456cf7d46338b46784e79905b8473c825294dc69178b9441648581"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/fold-envelope/README.md",
+      "bytes": 17821,
+      "sha256": "5b3c6cbf43a0242a5c5dfff0e37030f55c87f524a5a7f885ee04cddb32624967"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/fold-envelope/current.json",
+      "bytes": 2492,
+      "sha256": "17cc7906552e15c2827717c0044e1cb46f0e2864387b820c93c8ec0dc367bd4c"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/fold-envelope/matcher.py",
+      "bytes": 5406,
+      "sha256": "5189cce5b04f0a25e8f6dd627846340ca42c7164c18408ff61c5f0cd3c8635fe"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/helper-joins/README.md",
+      "bytes": 21078,
+      "sha256": "71370e5140df65de672cb45f1b451b59ab412ffe01341d7b9753a94702c20002"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/helper-joins/current.json",
+      "bytes": 4979,
+      "sha256": "55996c6c37ab8e2b8d4043249eff9699d97126ba3ff761e3f9f89d9585d1ebb9"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/dynamic-helpers/README.md",
+      "bytes": 15075,
+      "sha256": "1b2a895859c9c26ca315d61b64ff21988ba151e598d6f780d3c6733ce4d81c12"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/dynamic-helpers/current.json",
+      "bytes": 2241,
+      "sha256": "4898d94bd261f2345405133e198477379eb1669773acd31e93ac278866762179"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/string-pack-current.json",
+      "bytes": 20003,
+      "sha256": "47c323a5c1e210129910b812e6b0b3e4fe6f81239e47774c463ac8d921451cbe"
+    },
+    {
+      "path": "docs/research/retained-native-expansion.md",
+      "bytes": 784129,
+      "sha256": "be536798e028fd8f4ec8484d68f9dad9c69d77da248aaed2cb7d8b896baff434"
+    },
+    {
+      "path": "docs/research/retained-backend-gigi.md",
+      "bytes": 187178,
+      "sha256": "da9cdf3ddb6e2d6e02e2c173fe437a7cd70039e76adbb9d349e258fbd25644de"
+    },
+    {
+      "path": "docs/evidence/retained-backend-capacity-20261018/selected-auto-host.h",
+      "bytes": 62999,
+      "sha256": "c3c1d68e912dbb4d6f1b005d4b01c4735a82b2234d3b74eec4722202da337e14"
+    },
+    {
+      "path": "samples/command_line_greeting.adb",
+      "bytes": 355,
+      "sha256": "bde96907d4d27894bb3d116b482720f800f23a4e582b774672825cc18a949d27"
+    },
+    {
+      "path": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json",
+      "bytes": 38353,
+      "sha256": "a3857f1c88b37a617411164bc0a0b492e78805abf0d46c4222d3a1f491883b1f"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "bytes": 7560,
+      "sha256": "ebcb50b824cc7dc765988728a18d3c811322245c8c9f173254f290fafb18b5c8"
+    },
+    {
+      "path": "docs/evidence/retained-native-ingress-bound-20261018/source-manifest.json",
+      "bytes": 10880,
+      "sha256": "2346c508d0a94161667b9f7850705c17ed58ed80414c0b05cd96eb3dacf4d5b5"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json",
+      "bytes": 762445,
+      "sha256": "026a7d2f4ed5d677319306865830f2285f129908ba9052ead6591b0465e37879"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/rtl-setup-source-identity.json",
+      "bytes": 12725,
+      "sha256": "ec73bd4f5a2b0ad13491daef35019d2c0ef821edf09bebcc112d39da94415134"
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "status": "finite source dispatch and initializer inventory; not a completed #201 transfer",
+  "selected_predicates": [
+    "Standard.String real concat, NN>=2",
+    "first retained operand fixed positive length with literal low1",
+    "all dynamic operand providers accepted initial-input/Image families or exact aliases; at least one dynamic",
+    "no static maximum replacement for selected allocation type",
+    "original nonnull Subtyp_Rng, Cannot_Be_Superflat preserved",
+    "same G identity/base Integer type and local provenance on copies"
+  ],
+  "primary_dispatch": [
+    {
+      "id": "retained_operand",
+      "guard": "NN<=1, except singleton element allocation",
+      "source": "exp_ch4.adb:3107-3120",
+      "outcome": "existing producer; no new general concat allocation range"
+    },
+    {
+      "id": "constant_allocation",
+      "guard": "both final allocation endpoints static, including selected maximum-length replacement",
+      "source": "exp_ch4.adb:3234-3242,3300-3327",
+      "outcome": "accepted constant endpoint family under its existing scalar premises; emitted dynamic result slice separate"
+    },
+    {
+      "id": "prefix_current",
+      "guard": "all selected predicates",
+      "source": "exp_ch4.adb:3125-3340",
+      "outcome": "current Cs/Ca helper/annotation projection closed; object/backing/workspace charges separate"
+    },
+    {
+      "id": "nonnull_other_literal_low",
+      "guard": "nonnull result and known low k other than1, if reachable",
+      "source": "exp_ch4.adb:3142-3154,3244-3254",
+      "outcome": "retain k+(G-1); prove or exclude actual source case, signed widening/cancellation guards and max initializer transfer"
+    },
+    {
+      "id": "nonnull_dynamic_low",
+      "guard": "nonnull result and nonliteral low",
+      "source": "exp_ch4.adb:3156-3228,3244-3254",
+      "outcome": "operand First or selected-low capture; close its initializer, correlation with high, conversions and constructor rank"
+    },
+    {
+      "id": "nullable_result",
+      "guard": "Result_May_Be_Null=true",
+      "source": "exp_ch4.adb:3277-3296",
+      "outcome": "paired EQ(G,0) selectors: last low/high versus selected low and low+(G-1); include shared tests, captured actions and superflat layout"
+    },
+    {
+      "id": "unclosed_provider",
+      "guard": "otherwise matching low1 nonnull type with dynamic operands outside accepted seed providers",
+      "source": "exp_ch4.adb:2963-3099",
+      "outcome": "establish incoming bound/length-capture shape and no new initializer replay; then compose rather than assuming arbitrary internal constants qualify"
+    }
+  ],
+  "additional_range_producers": [
+    {
+      "id": "static_max_return_slice",
+      "source": "exp_ch4.adb:3314-3315",
+      "shape": "original low..dynamic high saved in Slice_Rng before allocation high replacement",
+      "obligation": "derive its own flag/provenance and native conditional layout; do not copy allocation non-superflat assumption"
+    },
+    {
+      "id": "assignment_slices",
+      "source": "exp_ch4.adb:3554-3569",
+      "shape": "low=L+previous aggregate; high=L+(aggregate-1)",
+      "obligation": "separate generated type identities, captures, native source shapes and constructor/annotation attachment"
+    }
+  ],
+  "initializer_inventory": [
+    {
+      "id": "operand_length",
+      "source": "exp_ch4.adb:3034-3045; trans.cc:1716-1735",
+      "shape": "Length(attribute) over completed incoming subtype",
+      "maximum_status": "original initializer may expose existing bound graphs and a signed conditional; not priced by the aggregate declaration cut"
+    },
+    {
+      "id": "aggregate_plus",
+      "source": "exp_ch4.adb:3088-3099",
+      "shape": "PLUS of literal/earlier length or aggregate capture; contractions to a leaf",
+      "maximum_status": "<=3 constants and <=3 activations when immediate leaves have completed base-Integer extrema; no earlier initializer is visited"
+    },
+    {
+      "id": "selected_low",
+      "source": "exp_ch4.adb:3176-3228",
+      "shape": "captured n-arm NE(length,0) conditional spine, or retained operand low",
+      "maximum_status": "prove surviving native selector grammar and unchanged-arm branch; do not replace every COND by constant MAX/MIN"
+    },
+    {
+      "id": "nonnull_high",
+      "source": "exp_ch4.adb:3244-3254",
+      "shape": "low+(aggregate-1)",
+      "maximum_status": "current low1 partition normalizes to G; other low producers remain open"
+    },
+    {
+      "id": "null_bound_selectors",
+      "source": "exp_ch4.adb:3277-3296",
+      "shape": "EQ(aggregate,0) ? last bound : nonnull bound",
+      "maximum_status": "conditions are not traversed by max_value, but both arms and possible MAX/MIN reconstruction are; unchanged arms retain original COND"
+    },
+    {
+      "id": "forced_actions",
+      "source": "retained-native-expansion.md:2850-2880",
+      "shape": "scalar capture may contain native action-bearing expression",
+      "maximum_status": "identify exact resulting SAVE/COMPOUND/BIND/other cut or recursion before charging; source name alone is insufficient"
+    }
+  ],
+  "downstream_open": [
+    "full incoming object/length/aggregate construction",
+    "enclosing pointer/address/P_ARRAY/fat-pointer constructor adaptation",
+    "shared allocator, hash, cache, table and GGC backing",
+    "native/helper frames and local workspace",
+    "fixed imported type/dummy/fixup entry states",
+    "all executable/object families and later GCC, assembler/linker, ALI/binder phases"
+  ],
+  "complete_native_capacity_result": false
+}

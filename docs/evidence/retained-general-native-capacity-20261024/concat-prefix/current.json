@@ -1,0 +1,149 @@
+{
+  "status": "pass",
+  "checked_at_utc": "2026-10-24T06:10:38.967561+00:00",
+  "offline_platform": "Linux x86_64",
+  "offline_elapsed_seconds": 0.8270694769962574,
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "source_files": 26,
+  "LF_witnesses": 37,
+  "matcher_binary_root_forms": 151,
+  "matcher_conversion_root_forms": 19,
+  "rank_states": 30,
+  "rank_edges": 40,
+  "signed_high_normalization_cases": 274,
+  "maximum_query_cases": 12,
+  "maximum_query_capture_chains": [
+    {
+      "operands": 2,
+      "requests": 2,
+      "activations": 3
+    },
+    {
+      "operands": 3,
+      "requests": 3,
+      "activations": 3
+    },
+    {
+      "operands": 7,
+      "requests": 3,
+      "activations": 3
+    },
+    {
+      "operands": 31,
+      "requests": 3,
+      "activations": 3
+    },
+    {
+      "operands": 1024,
+      "requests": 3,
+      "activations": 3
+    }
+  ],
+  "unchanged_conditional_helper_counterexample": true,
+  "counterexample_Main_reachability_claim": false,
+  "annotation_result_graph_cases": [
+    {
+      "conversions": 0,
+      "height": 1,
+      "Q": 3
+    },
+    {
+      "conversions": 1,
+      "height": 2,
+      "Q": 4
+    },
+    {
+      "conversions": 2,
+      "height": 3,
+      "Q": 5
+    }
+  ],
+  "coefficient_cases": 49,
+  "template_coefficient_cases": 7,
+  "source_classification": "Cs/Ca: selected nonnull low1 concat allocation identities with accepted seed providers and preserved frontend flag",
+  "H_ConcatPrefix_upper": 3,
+  "Q_per_ConcatPrefix_root_upper": 5,
+  "Q_ConcatPrefix": "10Ca",
+  "helper": {
+    "constants": "43Cs+53Ca",
+    "unary": "3Cs+13Ca",
+    "binary": "2Cs+17Ca",
+    "var_decl": "Cs",
+    "operand_slots": "7Cs+47Ca",
+    "raw_caller_bytes": "2152Cs+3216Ca"
+  },
+  "helper_plus_annotation": {
+    "constants": "43Cs+373Ca",
+    "unary": "3Cs+23Ca",
+    "binary": "2Cs+17Ca",
+    "var_decl": "Cs",
+    "maps": "10Ca",
+    "operand_slots": "7Cs+57Ca",
+    "raw_caller_bytes": "2152Cs+16496Ca"
+  },
+  "one_index_one_array_example": {
+    "helper": {
+      "constants": 96,
+      "unary": 16,
+      "binary": 19,
+      "var_decl": 1,
+      "operand_slots": 54,
+      "raw_caller_bytes": 5368
+    },
+    "combined": {
+      "constants": 416,
+      "unary": 26,
+      "binary": 19,
+      "var_decl": 1,
+      "maps": 10,
+      "operand_slots": 64,
+      "raw_caller_bytes": 18648
+    },
+    "Q_ConcatPrefix": 10,
+    "Uint_entries": 30,
+    "Uint_digits": 110,
+    "Rep_Table_additions": 10,
+    "serial_additions": 10,
+    "logical_callback_payload": 1000
+  },
+  "classified_kernel_constant_coefficients": {
+    "Cs": 52,
+    "Ca": 456
+  },
+  "mixed_template": {
+    "caller_attachment": "Dg<=8Pg<=8V_Main",
+    "one_invocation": {
+      "constants": 1,
+      "unary": 1,
+      "constructor": 1,
+      "element_vector": 1,
+      "stored_elements": 2,
+      "raw_caller_bytes": 168,
+      "rounded_request_bytes": 2048
+    },
+    "raw_caller_bytes": "168Dg",
+    "rounded_request_bytes": "2048Dg"
+  },
+  "source_applicability_example": "samples/command_line_greeting.adb:10; source argument only, not a universal test or native run",
+  "selected_constructor_projection_closed": true,
+  "immediate_aggregate_maximum_query_closed": true,
+  "selected_dynamic_annotation_height_source_derived": true,
+  "selected_bounds_template_subcall_closed": true,
+  "full_concat_family_closed": false,
+  "selected_low_null_selector_closed": false,
+  "full_helper_workspace_closed": false,
+  "enclosing_fat_pointer_closed": false,
+  "all_dynamic_F_Q_closed": false,
+  "complete_native_capacity_result": false,
+  "semantic_source_argument_machine_proved": false,
+  "compiler_prover_runs": 0,
+  "native_target_runs": 0,
+  "predecessor_checker_replays": 0,
+  "selected_author_model": "GPT-6 Astra",
+  "selected_author_effort": "Extra High",
+  "runtime_model_and_effort": null,
+  "total_author_elapsed_seconds": null,
+  "tokens": null,
+  "cost": null,
+  "independent_review": "pending"
+}
