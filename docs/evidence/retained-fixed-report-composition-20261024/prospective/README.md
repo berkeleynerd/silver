@@ -302,3 +302,12 @@ manifest. Full files, origins and hashes are in `sources.tar.gz` and
 `source-manifest.json`. The established relevant-behavior/source-identity
 premise is retained, including the historical SPARK source limitation; this
 packet does not claim a new installed source attestation.
+
+## F1 review repair: exact raw directory spellings
+
+The [#215 correction](repair-f1/README.md) narrows `pathfile_entries` to the
+documented exact directory or one trailing slash. The original implementation
+accepted arbitrary trailing slashes, which native normalization can preserve.
+The selected configuration and P=188 coefficients are unchanged. Original
+author evidence above remains historical; a separate focused repair check
+passed, with independent repair review pending.
