@@ -1,0 +1,52 @@
+{
+  "components": [
+    {
+      "name": "incoming",
+      "freeze": "f0901e440c6f9af381551a2bac63591798b0e722",
+      "paths": [
+        "docs/evidence/retained-producer-report-incoming-20261024/README.md",
+        "docs/evidence/retained-producer-report-incoming-20261024/check.py",
+        "docs/evidence/retained-producer-report-incoming-20261024/gcc-sources.tar.gz",
+        "docs/evidence/retained-producer-report-incoming-20261024/identity.json",
+        "docs/evidence/retained-producer-report-incoming-20261024/result.json",
+        "docs/evidence/retained-producer-report-incoming-20261024/source-excerpts.md",
+        "docs/research/retained-producer-report-incoming.md"
+      ]
+    },
+    {
+      "name": "fixed_gcc",
+      "freeze": "b6744d46658ae62f221aa49e818d7501c93b8493",
+      "paths": [
+        "docs/evidence/retained-producer-frontend-diagnostics-20261024/README.md",
+        "docs/evidence/retained-producer-frontend-diagnostics-20261024/check.py",
+        "docs/evidence/retained-producer-frontend-diagnostics-20261024/gcc-sources.tar.gz",
+        "docs/evidence/retained-producer-frontend-diagnostics-20261024/identity.json",
+        "docs/evidence/retained-producer-frontend-diagnostics-20261024/inventory.py",
+        "docs/evidence/retained-producer-frontend-diagnostics-20261024/raw-argument-inventory.json",
+        "docs/evidence/retained-producer-frontend-diagnostics-20261024/result.json",
+        "docs/evidence/retained-producer-frontend-diagnostics-20261024/source-excerpts.md",
+        "docs/research/retained-producer-frontend-diagnostics.md"
+      ]
+    },
+    {
+      "name": "provenance",
+      "freeze": "20c8f6b75a5761f87309afb3805c2167bf504a3b",
+      "paths": [
+        "docs/evidence/retained-response-provenance-20261024/README.md",
+        "docs/evidence/retained-response-provenance-20261024/check.py",
+        "docs/evidence/retained-response-provenance-20261024/result.json",
+        "docs/evidence/retained-response-provenance-20261024/source-witnesses.json",
+        "docs/research/retained-response-provenance.md"
+      ]
+    },
+    {
+      "name": "review",
+      "freeze": "f2305c9159e1fb861c83a1b1cba61fd0e50721fb",
+      "paths": [
+        "docs/evidence/review-producer-report-capacity-20261024/incoming-gcc-inputs.json",
+        "docs/evidence/review-producer-report-capacity-20261024/provenance-audit.json",
+        "docs/reviews/review-producer-report-capacity-20261024.md"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-24",
+  "issues": [
+    119,
+    193
+  ],
+  "selected_subthreads": "gpt-6-astra",
+  "selected_effort": "xhigh",
+  "runtime_confirmation": null,
+  "lead_setting_confirmation": null,
+  "whole_team_elapsed_seconds": null,
+  "tokens": null,
+  "cost": null,
+  "intended": "Integrate report incoming state and actual response identifier provenance before complete writer review",
+  "achieved": [
+    "incoming report state",
+    "fixed frontend diagnostic carry",
+    "conditional interrupted response identifier provenance"
+  ],
+  "frozen_files": 24,
+  "historical_review_pins": 17,
+  "retained_dependencies": 20,
+  "unchanged_native_source_pins": 94,
+  "integration_seconds": 0.3075685380026698,
+  "local_links_checked": 725,
+  "material_rework": [
+    "report-fail changed claim insertion; retain report-all with prospective brief output",
+    "separate private recursive expression image from printed diagnostic image",
+    "complete pre-normal error payload majorant still too broad for useful Output line guard"
+  ],
+  "next": "Finish #193 coherent writer/diagnostic interface and review; required collectors/readers #194 follows",
+  "component_replays_at_integration": 0,
+  "native_proof_runs": 0,
+  "whole_rule_complete": false
+}

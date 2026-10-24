@@ -83,9 +83,14 @@ and #186's conditional GNATCOLL response-parser capacity interface. Both are
 In review pending delivery. Review repairs #187–#192 are accepted. Native
 Main storage/counter lifetimes remain distinct from mathematical formula bounds;
 actual parser configuration and installed-tool behavior still need attachment.
-Next, [#193](https://github.com/berkeleynerd/silver/issues/193) composes parsed
-results, proof messages, lifetime assumption interning and metadata through
-final `.spark` emission. [#194](https://github.com/berkeleynerd/silver/issues/194)
+The accepted [R80 inputs](../evidence/retained-report-inputs-round80-20261024/README.md)
+add incoming flow/message/counter bounds, fixed proof-mode frontend diagnostic
+carry and conditional identifier preservation across interrupted responses.
+[#193](https://github.com/berkeleynerd/silver/issues/193) remains In progress:
+complete the combined result/pool/metadata/report writer and useful native
+diagnostic guards, including the pre-normal error-payload bound. The prospective
+diagnostic option is brief output with report-all retained; report-fail was
+withdrawn because it can change claims. [#194](https://github.com/berkeleynerd/silver/issues/194)
 follows with required GNATprove collection and Silver readers/audits.
 General native compilation beyond the literal family, arbitrary-Main Why
 representation lifetimes, checked whole-rule composition/correspondence,
