@@ -147,8 +147,9 @@ separate owners and guards.
 The schema recurrence matches GNATCOLL's pretty layout, including three-byte
 empty containers and indentation inherited by nested children. Global G/A
 occurrences are grafted at their actual depths rather than multiplied by R.
-The projected compact schema preserves all other report fields; it does not
-relax the native full-writer allocation or traversal. String escaping,
+The initial review incorrectly attached the compact projected schema to the
+current reader. That claim is retracted in the #198 correction below. The
+projection does not relax native full-writer allocation or traversal. String escaping,
 container growth, alignment intermediates, counters and per-allocation sizes
 remain separate from adequate physical resources. The JSON32 and XString16
 holder censuses use distinct nodes along writer recursion. Check_Info retains
@@ -226,3 +227,30 @@ and three saves. The terminal-error specialist's later refinement needs its
 own exact freeze and review. General Main source/lifetime joins and downstream
 collector/Silver-reader work remain separate; the latter is #194. Neither
 these conditional interfaces nor the arithmetic examples close #119.
+
+## Projection correction: #198
+
+The bounded correction at author `97ee9e21d711d276f5f450dcd4573d733de0d0ff`
+is accepted. The original claim that the current projection compacts
+whitespace, and hence that `projected.compact` bounds its actual output,
+was wrong. Downstream #194 source tracing found this medium-severity error;
+the integrated review above had missed it. Its other scoped conclusions are
+retained, with this explicit correction to the projected-byte transfer.
+
+`Silver_Report_Projection.Between` emits whitespace whenever Keeping is true
+(`src/silver_report_projection.adb:149–155`), and Emit stores that byte without
+filtering (`:18–27`). It retains whitespace outside removed check-tree values,
+including the final file LF. The actual bound is therefore
+**`projected.pretty+1`**. For a value at indent i, the reconstructed empty
+pretty object costs `3+2i` bytes; the actual replacement is only the two-byte
+`{}`. All surrounding native pretty layout is retained unchanged. This proves
+the overbound without assuming a whitespace-free reader. The compact algebra
+still describes a hypothetical compact serialization; the full producer
+bound, parser traversal and allocation guards are unchanged.
+
+The delta updates the note, helper export and focused evidence. I checked all
+six changed files against the exact freeze and reviewed the new source checks
+and retained-whitespace witness. The author's focused result reports 78 source
+files, the 279-file Ada frontier and 6.560541 seconds. I did not rerun a checker
+or native tool for this delta. Exact identities, source anchors and disposition
+are in the [correction record](../evidence/review-producer-report-capacity-20261024/projection-correction.json).

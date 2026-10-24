@@ -1,0 +1,66 @@
+{
+  "date": "2026-10-24",
+  "reviewed_utc": "2026-10-24T02:02:49.440463+00:00",
+  "issue": 198,
+  "severity": "medium",
+  "status": "repaired; delta accepted",
+  "selected_reviewer_model": "gpt-6-astra",
+  "selected_reviewer_effort": "xhigh",
+  "runtime_model_confirmation": null,
+  "token_usage": null,
+  "cost": null,
+  "base_author_commit": "de2650d87fb707371b64e2dcbf03eefc4a9b43ad",
+  "target_author_commit": "97ee9e21d711d276f5f450dcd4573d733de0d0ff",
+  "frozen_changed_files": [
+    {
+      "path": "docs/evidence/retained-producer-report-capacity-20261024/README.md",
+      "sha256": "48f1f06267229c9625c26e5223d775ddeb4dead688e34ee5c3571be2822951cc",
+      "bytes": 3107
+    },
+    {
+      "path": "docs/evidence/retained-producer-report-capacity-20261024/capacity.py",
+      "sha256": "afed1e98152369a83d1dc0aa4343bfbe507f53c4c1d0d509dd79955f4de0cc36",
+      "bytes": 33977
+    },
+    {
+      "path": "docs/evidence/retained-producer-report-capacity-20261024/check.py",
+      "sha256": "374d6a239efd620fdbcc20dd74f16899aa980a0e4ea1d12bfa4919528ec2497b",
+      "bytes": 20207
+    },
+    {
+      "path": "docs/evidence/retained-producer-report-capacity-20261024/result.json",
+      "sha256": "0cf8038735eb753bb264440578a5afdeeb8d2e0d67456a64746a5e42be44ee9a",
+      "bytes": 33354
+    },
+    {
+      "path": "docs/evidence/retained-producer-report-capacity-20261024/round.json",
+      "sha256": "01dee0d3002651a90aba1f493d0e589ab14dc05b834741ad2bc71fef367ab24b",
+      "bytes": 4350
+    },
+    {
+      "path": "docs/research/retained-producer-report-capacity.md",
+      "sha256": "14d06cf262e1de864c5efb3f97df60998eae2c4f5c658262f178ac2ba2b239bd",
+      "bytes": 50706
+    }
+  ],
+  "source": {
+    "path": "src/silver_report_projection.adb",
+    "sha256": "e59ccc345fa1f136f6af291418fde9c64db6905814f63c4f7bac5540b490e07c",
+    "lines": [
+      "18-27 Emit stores C unchanged",
+      "149-155 Between calls Emit for whitespace when Keeping"
+    ]
+  },
+  "retracted_claim": "Current projection removes whitespace and its actual output is bounded by projected.compact.",
+  "accepted_claim": "Current projection retains outside whitespace and final LF. Reconstructed projected.pretty+1 bounds it; empty pretty objects overcharge actual two-byte replacements.",
+  "reason": "Outside each replaced value the original GNATCOLL pretty layout is unchanged. At indent i, the reconstructed empty object contributes3+2i bytes while the actual replacement contributes2. All added schema overcharges are nonnegative.",
+  "full_producer_bound_changed": false,
+  "reviewer_execution": "Source/delta/identity review only; no checker, native, provider or predecessor replay.",
+  "retained_author_result": {
+    "elapsed_seconds": 6.560541,
+    "complete_selected_files": 78,
+    "spark_ada_frontier": 279,
+    "retained_whitespace_witness_bytes": 76
+  },
+  "scope": "Correct projected-byte transfer for #194. Does not close full #193/#119 or change current production projection."
+}
