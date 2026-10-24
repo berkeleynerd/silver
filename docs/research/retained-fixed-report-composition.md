@@ -3,8 +3,52 @@
 2026-10-24, #212 under the owner-authorized complete #119 objective. This is
 the next parent composition task after the conditional #193/#194 and #206
 providers. It starts no production work and changes no language, Oracle,
-toolchain or resource premise. The following is an input inventory, **not a
-completed source binding or useful report-capacity result**.
+toolchain or resource premise. The first
+[source specialization](../evidence/retained-fixed-report-composition-20261024/README.md)
+now supplies actual count/name domains for the two specification reports,
+a useful conditional writer/reader region and the prospective argv overlay.
+**#212 remains incomplete**: IO/Arguments body composition and concrete
+common-path/native-service attachment are outstanding. Independent review
+of this first specialization is pending.
+
+## First source-attached increment
+
+Specification-only does not mean graph-free. The package branch in
+`flow.adb:1561–1576` builds the Libc and Runtime elaboration graphs even though
+their three imported APIs have no analyzed bodies. The source-selected graph
+upper bounds for IO/Arguments/Libc/Runtime are respectively 3/5/1/1.
+This replaces E_frontend as the graph-count domain; it does not change the
+accepted allocation bounds or collapse metadata into the same entity domain.
+
+For the two specification graphs, nonflow pragmas and empty joins create
+vertices that are subsequently cleared before the retained graph copy.
+The [argument](../evidence/retained-fixed-report-composition-20261024/README.md#the-two-specification-graph-frontiers)
+separately charges all construction by A_frontend+12 and proves that the
+reporting loops have at most six/eight eligible vertices. The object domains
+are synthetic null plus the Runtime abstract state, not all frontend entities.
+The outside-contract checks are discharged against the exact imported
+signatures and Number/Argument_Count precondition. Keep the full accepted
+Why-allocation warning allowance rather than assuming warning arrays empty.
+
+| Specification process | Flow attempt upper bound | Warning upper bound | Report entity domain | Claim edges |
+| --- | ---: | ---: | ---: | ---: |
+| Silver_Output_Libc | 84 | 8,714 | 4 | 0 |
+| Silver_Runtime | 243 | 7,376 | 4 | 0 |
+
+The [callable overlay](../evidence/retained-fixed-report-composition-20261024/capacity.py)
+uses the accepted schema/representation functions unchanged and exports affine
+report-byte bounds in the remaining path operand P. Writer and reader guards
+have a useful region P<=4096, native max-path<=4096 and mmap page size<=65536.
+Those are conditions, not captured service values or a complete path join.
+Full_Source_Name is directly bound by the four source package/API names;
+metadata location depth is one. This does not claim depth one for every
+native warning in the imported translation prefix.
+
+The prospective argv overlay has 18 elements: no level flag, zero limits,
+counterexamples off, explicit represented workers>=3, and unchanged brief,
+report-all and compiler forwarding. It is an exact symbolic refinement for
+future #88 implementation; no current launcher was modified. The initial
+inventory below remains applicable to the unfinished body/configuration joins.
 
 ## Accepted operands available at R85
 

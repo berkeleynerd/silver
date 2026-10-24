@@ -1,0 +1,38 @@
+{
+  "objective": "Owner-authorized #212 fixed-source report/configuration composition under #119",
+  "base_commit": "7566e1511d",
+  "selected_author_model": "GPT-6 Astra",
+  "selected_author_effort": "Extra High",
+  "runtime_model_confirmed": false,
+  "first_recorded_packet_clock_utc": "2026-10-24 04:59:13",
+  "task_start_time_available": false,
+  "native_host_observed": "Linux 7.0.14 x86_64",
+  "intended_result": "Useful source-attached incoming/report bounds and prospective GNATprove configuration",
+  "achieved_result": "First partial freeze: source graph/callable census for four units; two actual specification report count/name domains, useful conditional writer/reader interval and exact prospective argv shape",
+  "significant_findings": [
+    "Specification-only packages still have analyzed elaboration graphs",
+    "Allocated frontend identities, constructed/cleared vertices, reporting-eligible vertices and report metadata identities require distinct domains",
+    "All constructed package vertices remain bounded by accepted A_frontend+12; cleared nonflow vertices do not fund reporting emitters",
+    "Native warning location chains remain separate from the four root metadata locations",
+    "Private Why recipes do not update the outer GNATprove argv"
+  ],
+  "verification": {
+    "changed_input_checks_run": 1,
+    "command": "python3 docs/evidence/retained-fixed-report-composition-20261024/check.py",
+    "outcome": "passed",
+    "checker_elapsed_seconds": 0.442,
+    "complete_source_correspondence_inputs": 30,
+    "native_or_prover_or_capture_runs": 0,
+    "predecessor_checkers_run": 0
+  },
+  "independent_review": "pending exact-freeze review",
+  "remaining": [
+    "IO and Arguments relevant-body graph/reference and report domains",
+    "All concrete path roles and native service values",
+    "Native warning location chains and complete frontend/header/storage joins",
+    "Complete five-report collector/SARIF composition and #119 integration"
+  ],
+  "token_measurements": null,
+  "cost_measurements": null,
+  "issue_complete": false
+}

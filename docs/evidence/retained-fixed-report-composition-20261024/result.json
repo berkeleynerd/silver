@@ -1,0 +1,372 @@
+{
+  "analyzed_graph_upper": {
+    "Silver_Arguments": 5,
+    "Silver_IO": 3,
+    "Silver_Output_Libc": 1,
+    "Silver_Runtime": 1
+  },
+  "callable_census": {
+    "Silver_Arguments": [
+      "Silver_Arguments",
+      "Is_Message",
+      "Input_Is_Valid",
+      "First_Or_Default",
+      "Reject"
+    ],
+    "Silver_IO": [
+      "Silver_IO",
+      "Put_Line",
+      "Put"
+    ],
+    "Silver_Output_Libc": [
+      "Silver_Output_Libc",
+      "Put_Byte",
+      "Flush",
+      "Set_Exit_Status"
+    ],
+    "Silver_Runtime": [
+      "Silver_Runtime",
+      "Argument_Count",
+      "Argument",
+      "Set_Exit_Status"
+    ]
+  },
+  "checks": {
+    "checker_elapsed_seconds": 0.442,
+    "native_runs": 0,
+    "predecessor_checkers_run": 0,
+    "source_correspondence_files": 30
+  },
+  "concrete_paths_and_native_services_bound": false,
+  "prospective_command": {
+    "argv": [
+      "gnatprove",
+      "-P",
+      null,
+      "-U",
+      "--mode=all",
+      "--report=all",
+      "--warnings=continue",
+      "--checks-as-errors=on",
+      "--prover=cvc5,z3,altergo",
+      "--steps=0",
+      "--timeout=0",
+      "--memlimit=0",
+      "--counterexamples=off",
+      "-j3",
+      "--no-loop-unrolling",
+      "--output=brief",
+      "-cargs",
+      "-Wno-free-nonheap-object"
+    ],
+    "argv_count": 18,
+    "concrete_paths_bound": false,
+    "joined_bytes": "project_path_bytes + decimal_digits(workers) + 234",
+    "launcher_implemented": false
+  },
+  "source_counts_bound": true,
+  "specification_processes": {
+    "Silver_Output_Libc": {
+      "full_name_bytes": 34,
+      "incoming": {
+        "abstract_states": 0,
+        "callable_count": 4,
+        "constructor_vertices": 18587,
+        "eligible_vertices": 6,
+        "expression_roots": 0,
+        "flow_ids": 1,
+        "flow_name_bytes": 760,
+        "flow_records": 84,
+        "frontend_entities": 18575,
+        "frontend_nodes": 18575,
+        "graph_count": 1,
+        "guards": {
+          "constructed_vertex_index": true,
+          "flow_array": true,
+          "flow_set": true,
+          "source_span_lists": true,
+          "trace_column": true,
+          "trace_counter": true,
+          "trace_lines": true,
+          "warning_array": true
+        },
+        "join_calls": 3,
+        "message_bytes": 28374,
+        "message_ids": 84,
+        "native_print_calls": 17680,
+        "outside_flow_records": 0,
+        "proof_records": 0,
+        "report_entities": 4,
+        "statement_list_visits": 1,
+        "third_pool_calls": 92,
+        "trace_attempts": 18,
+        "trace_counter": 18,
+        "trace_line_bytes": 4108,
+        "trace_lines_per_file": 6,
+        "warning_message_bytes": 192,
+        "warning_records": 8714
+      },
+      "interval_flow_brief": {
+        "guards": {
+          "explicit_eol": true,
+          "msg_buffer": true,
+          "string_loop_spare": true
+        },
+        "maximum_line": 32574,
+        "offered_bytes": 8208900
+      },
+      "interval_reader": {
+        "all_guards": true,
+        "guards": {
+          "consumer_json_aliases": true,
+          "consumer_xstring_aliases": true,
+          "file_and_scanner_spare": true,
+          "json_references": true,
+          "key_builder": true,
+          "map_length": true,
+          "mapping_round": true,
+          "numeric_scale": true,
+          "object_request": true,
+          "parser_stack": true,
+          "path_builder": true,
+          "path_scratch": true,
+          "token_endpoint": true,
+          "vector_length": true,
+          "xstring_product": true,
+          "xstring_references": true,
+          "xstring_round": true
+        },
+        "input": {
+          "B": 965966979,
+          "array": 8714,
+          "containers": 88068,
+          "decoded": 340488,
+          "depth": 7,
+          "fields": 299272,
+          "key": 356,
+          "object": 22,
+          "token": 2042930,
+          "values": 316893
+        },
+        "operands": {
+          "json_counter": 128,
+          "key_builder_backing": 512,
+          "normalized_path_majorant": 8193,
+          "parser_state_backing": 32,
+          "path_builder_backing": 16384,
+          "per_object_bytes": 966032515,
+          "vector_backing": 16384,
+          "xstring_backing": 512000,
+          "xstring_counter": 16,
+          "xstring_growth_current": 340487,
+          "xstring_product": 1021461,
+          "xstring_round_input": 510730
+        }
+      },
+      "interval_writer": {
+        "guards": {
+          "array_geometric_capacity": true,
+          "escape_lookahead": true,
+          "escape_string_length": true,
+          "filename_compose": true,
+          "indent_add_and_double": true,
+          "individual_64bit_allocation": true,
+          "new_xstring_backing": true,
+          "ordered_map_length": true,
+          "string_and_text_io_column": true,
+          "unbounded_alignment_intermediates": true
+        },
+        "json_write_string": 965966978,
+        "native_inputs_bound": false,
+        "shape": {
+          "array_max": 8714,
+          "arrays": 17627,
+          "compact": 962305180,
+          "depth": 7,
+          "fields": 299272,
+          "key_max": 59,
+          "object_max": 22,
+          "objects": 70441,
+          "pretty": 965966978,
+          "slope": 809920,
+          "string_max": 340488,
+          "strings": 123206,
+          "values": 316893
+        },
+        "spark_file": 965966979,
+        "sufficient": true,
+        "unbounded_allocation": 1448950659
+      },
+      "pretty_affine": {
+        "constant": 180960386,
+        "path_coefficient": 191652
+      },
+      "report_entity_names": [
+        "Silver_Output_Libc",
+        "Silver_Output_Libc.Put_Byte",
+        "Silver_Output_Libc.Flush",
+        "Silver_Output_Libc.Set_Exit_Status"
+      ],
+      "third_pool": {
+        "entity_requests": 120,
+        "find_calls": 240,
+        "guard": true
+      }
+    },
+    "Silver_Runtime": {
+      "full_name_bytes": 30,
+      "incoming": {
+        "abstract_states": 1,
+        "callable_count": 4,
+        "constructor_vertices": 1522,
+        "eligible_vertices": 8,
+        "expression_roots": 0,
+        "flow_ids": 3,
+        "flow_name_bytes": 760,
+        "flow_records": 243,
+        "frontend_entities": 1510,
+        "frontend_nodes": 1510,
+        "graph_count": 1,
+        "guards": {
+          "constructed_vertex_index": true,
+          "flow_array": true,
+          "flow_set": true,
+          "source_span_lists": true,
+          "trace_column": true,
+          "trace_counter": true,
+          "trace_lines": true,
+          "warning_array": true
+        },
+        "join_calls": 3,
+        "message_bytes": 28374,
+        "message_ids": 243,
+        "native_print_calls": 15481,
+        "outside_flow_records": 0,
+        "proof_records": 0,
+        "report_entities": 4,
+        "statement_list_visits": 1,
+        "third_pool_calls": 251,
+        "trace_attempts": 56,
+        "trace_counter": 56,
+        "trace_line_bytes": 4108,
+        "trace_lines_per_file": 8,
+        "warning_message_bytes": 192,
+        "warning_records": 7376
+      },
+      "interval_flow_brief": {
+        "guards": {
+          "explicit_eol": true,
+          "msg_buffer": true,
+          "string_loop_spare": true
+        },
+        "maximum_line": 32574,
+        "offered_bytes": 23747175
+      },
+      "interval_reader": {
+        "all_guards": true,
+        "guards": {
+          "consumer_json_aliases": true,
+          "consumer_xstring_aliases": true,
+          "file_and_scanner_spare": true,
+          "json_references": true,
+          "key_builder": true,
+          "map_length": true,
+          "mapping_round": true,
+          "numeric_scale": true,
+          "object_request": true,
+          "parser_stack": true,
+          "path_builder": true,
+          "path_scratch": true,
+          "token_endpoint": true,
+          "vector_length": true,
+          "xstring_product": true,
+          "xstring_references": true,
+          "xstring_round": true
+        },
+        "input": {
+          "B": 1207255731,
+          "array": 7376,
+          "containers": 76278,
+          "decoded": 340488,
+          "depth": 7,
+          "fields": 259186,
+          "key": 356,
+          "object": 22,
+          "token": 2042930,
+          "values": 274449
+        },
+        "operands": {
+          "json_counter": 128,
+          "key_builder_backing": 512,
+          "normalized_path_majorant": 8193,
+          "parser_state_backing": 32,
+          "path_builder_backing": 16384,
+          "per_object_bytes": 1207321267,
+          "vector_backing": 8192,
+          "xstring_backing": 512000,
+          "xstring_counter": 16,
+          "xstring_growth_current": 340487,
+          "xstring_product": 1021461,
+          "xstring_round_input": 510730
+        }
+      },
+      "interval_writer": {
+        "guards": {
+          "array_geometric_capacity": true,
+          "escape_lookahead": true,
+          "escape_string_length": true,
+          "filename_compose": true,
+          "indent_add_and_double": true,
+          "individual_64bit_allocation": true,
+          "new_xstring_backing": true,
+          "ordered_map_length": true,
+          "string_and_text_io_column": true,
+          "unbounded_alignment_intermediates": true
+        },
+        "json_write_string": 1207255730,
+        "native_inputs_bound": false,
+        "shape": {
+          "array_max": 7376,
+          "arrays": 15269,
+          "compact": 1204084396,
+          "depth": 7,
+          "fields": 259186,
+          "key_max": 59,
+          "object_max": 22,
+          "objects": 61009,
+          "pretty": 1207255730,
+          "slope": 701452,
+          "string_max": 340488,
+          "strings": 106700,
+          "values": 274449
+        },
+        "spark_file": 1207255731,
+        "sufficient": true,
+        "unbounded_allocation": 1810883787
+      },
+      "pretty_affine": {
+        "constant": 251273906,
+        "path_coefficient": 233394
+      },
+      "report_entity_names": [
+        "Silver_Runtime",
+        "Silver_Runtime.Argument_Count",
+        "Silver_Runtime.Argument",
+        "Silver_Runtime.Set_Exit_Status"
+      ],
+      "third_pool": {
+        "entity_requests": 279,
+        "find_calls": 558,
+        "guard": true
+      }
+    }
+  },
+  "status": "two specification report domains checked; #212 incomplete",
+  "useful_interval": {
+    "native_max_path_upper": 4096,
+    "native_page_size_upper": 65536,
+    "native_services_are_conditions_not_observations": true,
+    "path_bytes_upper": 4096
+  },
+  "whole_fixed_report_composition_complete": false
+}
