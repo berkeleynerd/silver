@@ -1,0 +1,359 @@
+{
+  "status": "independent #218 repair audit passed",
+  "disposition": "F1 repaired at stated hereditary native-lower-one scope; no further required repair",
+  "reviewed_author": "56fe7bbb442d191dca5ad9b0dcc5f22823713a07",
+  "complete_native_capacity_result": false,
+  "selected_reviewer_model": "GPT-6 Astra",
+  "selected_reviewer_effort": "Extra High",
+  "runtime_confirmation": null,
+  "tokens": null,
+  "monetary_cost": null,
+  "first_review_clock_utc": "2026-10-24T09:14:03+00:00",
+  "completed_utc": "2026-10-24T09:23:29.832551+00:00",
+  "audit_elapsed_seconds": 0.654867,
+  "elapsed_since_first_review_clock_seconds": 566.832551,
+  "host": {
+    "system": "Linux",
+    "machine": "x86_64",
+    "node": "codex-silver"
+  },
+  "native_execution_seconds": 0,
+  "author_predecessor_or_old_graph_checkers_replayed": false,
+  "target_files": [
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-218/README.md",
+      "bytes": 20060,
+      "sha256": "31f41f6b7d971d5e07d4ef9afd11223893763c210678819e090e4103351c8a1a"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-218/check.py",
+      "bytes": 14500,
+      "sha256": "79008d3d8ca5ffee5f92397fd64f90805107a048add7939316655e9d2f8e9ff8"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-218/current.json",
+      "bytes": 2285,
+      "sha256": "3a3182e97e59665868b33e2b9cf265268fb842206a0d343524b2230711a1691e"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-218/effective.json",
+      "bytes": 2928,
+      "sha256": "ec95d6e333a738532229334a377c3ee71373de5f87192b82d4e1807a042f48a5"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-218/inputs.json",
+      "bytes": 6411,
+      "sha256": "c0afcbc115e0b508f913ee786458c12faa2f813a05a97b1caaf3678e9f3c4b6e"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-218/manifest.json",
+      "bytes": 1335,
+      "sha256": "e41c806ce4e0b96cc9770e3bd1f04cd6e15345c58c0e35c691f808c4cde3098b"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-218/sources.json",
+      "bytes": 22937,
+      "sha256": "0f44f57884d9f759990f98a050749aa5a17f35ebfc4e749014ec1542b9bde5b8"
+    },
+    {
+      "path": "docs/research/retained-general-native-capacity.md",
+      "bytes": 46819,
+      "sha256": "0aae8182f5bcf4ca3b16b1045c2d71bed901fad133021c9d8dd56a417fe66dc8"
+    }
+  ],
+  "preserved_original_review_files": 7,
+  "source_files": 31,
+  "author_source_spans_bound": 46,
+  "independent_source_guards": [
+    {
+      "path": "gcc/ada/sem_ch3.adb",
+      "first_lf_line": 4413,
+      "last_lf_line": 4419,
+      "sha256": "f82702e163239ebde4c35660d7d2f765edba679ad729f8c2436da65bcd43213d"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 731,
+      "last_lf_line": 740,
+      "sha256": "a349315d1092bf8edb4a89d94a6ed20aecfe919b5e587d439d66ba8856d98877"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "first_lf_line": 6828,
+      "last_lf_line": 6878,
+      "sha256": "818cb182569f83190b9a67bbd42503956ba9df67816d2cd67009869d8f232d40"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/utils.cc",
+      "first_lf_line": 3033,
+      "last_lf_line": 3056,
+      "sha256": "b47d6596a9523c0e057ae9e057fb34691c411f22b0b093ec1c1e8714bb792848"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/utils.cc",
+      "first_lf_line": 3090,
+      "last_lf_line": 3110,
+      "sha256": "4051dae6b0c1bb3f734fa9f7806cde2370af10f59996a92220eeec43156f3b1e"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 1673,
+      "last_lf_line": 1690,
+      "sha256": "0090950e9b45390ffc70624ee55a08247b9517f52605ceb3b52bbc0923cef91c"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 403,
+      "last_lf_line": 446,
+      "sha256": "f52ffb71509a71d0536276ead8c977f4a3518c42784e3f945676908a4494cc5e"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 5023,
+      "last_lf_line": 5026,
+      "sha256": "9ad43789a53a500ad005d3bcc2311eef021341ef4db67729bf2f82ce3707eb76"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "first_lf_line": 853,
+      "last_lf_line": 974,
+      "sha256": "ffeea35e2231ea89ff1a633e93184f93d9bfffc6e0c772b8eeec86e21d9e8bf7"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "first_lf_line": 1328,
+      "last_lf_line": 1350,
+      "sha256": "3a61f122c45dea04333e15ba92bc9d3adc86eb8ada34411d1d653d13abeabf5d"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 7580,
+      "last_lf_line": 7657,
+      "sha256": "25d6ec3ad0cfa98aa7c2a823d1e2762d45b7a59072f2ad97163272ff24d9666f"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "first_lf_line": 9103,
+      "last_lf_line": 9177,
+      "sha256": "61678461012eab57243d52e9408be0e8ea58f7bd7f0b74a341d5cd198fc5b431"
+    },
+    {
+      "path": "gcc/ada/exp_ch4.adb",
+      "first_lf_line": 3552,
+      "last_lf_line": 3565,
+      "sha256": "3cf7ee99084af88b35d55551d2708a1e29b701272ef19f058b7e6788c41f9fb4"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "first_lf_line": 7086,
+      "last_lf_line": 7118,
+      "sha256": "bdb1af2c9b2783220323e12caa14698b94fbcceb4f0ccdeab7e140fe724016e7"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/ada-tree.h",
+      "first_lf_line": 315,
+      "last_lf_line": 326,
+      "sha256": "4d700161259e2e10dcdd638eea6d5360fc552e173f1563b521289285f799339c"
+    },
+    {
+      "path": "gcc/fold-const.cc",
+      "first_lf_line": 7070,
+      "last_lf_line": 7098,
+      "sha256": "a5a797cf4d8be8a30d9632c4c65d8f79b5b36eb2c9f850cd49aecdb0f2552dee"
+    },
+    {
+      "path": "gcc/fold-const.cc",
+      "first_lf_line": 9263,
+      "last_lf_line": 9308,
+      "sha256": "5ab35c71dc7727d8d4788baffae714c7d81f2455fa5c83d39f088e0cdb2f8c1c"
+    },
+    {
+      "path": "gcc/fold-const.cc",
+      "first_lf_line": 2810,
+      "last_lf_line": 2869,
+      "sha256": "7c5f159dc0b99cdd2190a690fdf43b77e21bcbb743f5d2815d7c41b06b1d713e"
+    }
+  ],
+  "declaration_context_cases": [
+    {
+      "debug": false,
+      "context": "range",
+      "substitutes_initializer": true
+    },
+    {
+      "debug": false,
+      "context": "arithmetic",
+      "substitutes_initializer": true
+    },
+    {
+      "debug": false,
+      "context": "if_arm",
+      "substitutes_initializer": true
+    },
+    {
+      "debug": false,
+      "context": "scalar_initializer",
+      "substitutes_initializer": true
+    },
+    {
+      "debug": false,
+      "context": "converted_range",
+      "substitutes_initializer": true
+    },
+    {
+      "debug": false,
+      "context": "reference",
+      "substitutes_initializer": true
+    },
+    {
+      "debug": false,
+      "context": "assignment_lhs",
+      "substitutes_initializer": true
+    },
+    {
+      "debug": false,
+      "context": "renaming",
+      "substitutes_initializer": true
+    },
+    {
+      "debug": true,
+      "context": "range",
+      "substitutes_initializer": true
+    },
+    {
+      "debug": true,
+      "context": "arithmetic",
+      "substitutes_initializer": true
+    },
+    {
+      "debug": true,
+      "context": "if_arm",
+      "substitutes_initializer": true
+    },
+    {
+      "debug": true,
+      "context": "scalar_initializer",
+      "substitutes_initializer": true
+    },
+    {
+      "debug": true,
+      "context": "converted_range",
+      "substitutes_initializer": true
+    },
+    {
+      "debug": true,
+      "context": "reference",
+      "substitutes_initializer": false
+    },
+    {
+      "debug": true,
+      "context": "assignment_lhs",
+      "substitutes_initializer": false
+    },
+    {
+      "debug": true,
+      "context": "renaming",
+      "substitutes_initializer": false
+    }
+  ],
+  "affine_selector_domination": {
+    "direct_integral_convert": [
+      [
+        2,
+        4,
+        2,
+        2
+      ],
+      [
+        0,
+        2,
+        1,
+        2
+      ]
+    ],
+    "range_layout_fold_convert": [
+      [
+        4,
+        4,
+        2,
+        4
+      ],
+      [
+        0,
+        2,
+        2,
+        4
+      ]
+    ],
+    "size_binop": [
+      [
+        8,
+        4,
+        6,
+        4
+      ],
+      [
+        4,
+        2,
+        4,
+        4
+      ]
+    ],
+    "gigi_GE": [
+      [
+        8,
+        4,
+        8,
+        4
+      ],
+      [
+        4,
+        2,
+        4,
+        4
+      ]
+    ],
+    "gigi_COND": [
+      [
+        2,
+        2,
+        2,
+        2
+      ],
+      [
+        0,
+        0,
+        2,
+        2
+      ]
+    ]
+  },
+  "length_affine_charge": {
+    "intercept": [
+      12,
+      6,
+      8,
+      2
+    ],
+    "slope": [
+      10,
+      6,
+      11,
+      8
+    ],
+    "budget_per_t_plus_one": [
+      24,
+      12,
+      20,
+      12
+    ]
+  },
+  "scalar_coefficients_s_r_m_E": [
+    1168,
+    2968,
+    576,
+    2424
+  ],
+  "scalar_and_index_debug_coarse_per_C": 23536,
+  "model_is_GCC_execution": false
+}
