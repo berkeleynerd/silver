@@ -1,0 +1,54 @@
+{
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "archive_sha256": "0a92ea2a55357d80565b3878003d304b017638f34e0d187bac571f28f4ad0d70",
+  "files": [
+    {
+      "path": "gcc/ada/sem_eval.adb",
+      "bytes": 273210,
+      "sha256": "0dfbf5f1bede0b9e011f21649c7f4d34851c6267cd72acebcb53e7a7fb4c7d30",
+      "archive": "frontend-sources.tar.gz",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/sem_eval.adb",
+      "retained_hash_source": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json"
+    },
+    {
+      "path": "gcc/ada/checks.adb",
+      "bytes": 408092,
+      "sha256": "0366f3cd7910b9e6692761100e1b13baae035b302bdb668c971bf67ae6142c1c",
+      "archive": "frontend-sources.tar.gz",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/checks.adb",
+      "retained_hash_source": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json"
+    }
+  ],
+  "witnesses": [
+    {
+      "path": "gcc/ada/sem_eval.adb",
+      "first_lf_line": 905,
+      "last_lf_line": 1230,
+      "sha256": "01fab8be3b5b77a33f69ec71f03d0547af338148b43034aba39148d07824e612"
+    },
+    {
+      "path": "gcc/ada/sem_eval.adb",
+      "first_lf_line": 1480,
+      "last_lf_line": 1580,
+      "sha256": "883738b257f6e6b78db91f24c3fafd0116de0b7afa3280c9fd6005005f2f7003"
+    },
+    {
+      "path": "gcc/ada/sem_eval.adb",
+      "first_lf_line": 1812,
+      "last_lf_line": 1918,
+      "sha256": "fb66c98a4ec5b1ce9c401a08ab9642355c5aefbe6c49f34656b2e3a572a12e85"
+    },
+    {
+      "path": "gcc/ada/sem_eval.adb",
+      "first_lf_line": 2534,
+      "last_lf_line": 2609,
+      "sha256": "1fb84f581531843bb15b8b925173998ee09232bcd5c722329068be0e3e7a9d5f"
+    },
+    {
+      "path": "gcc/ada/checks.adb",
+      "first_lf_line": 5071,
+      "last_lf_line": 5650,
+      "sha256": "006987e1de27acd215f68aa06b6fd114a6ce3b06a7e561eb803f7ec130e3f318"
+    }
+  ]
+}

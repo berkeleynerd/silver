@@ -1,0 +1,35 @@
+{
+  "reviewed_author": "e363118b9343dbae72127411f9bc21cc199e2070",
+  "files": [
+    {
+      "path": "docs/evidence/review-provider-attachment-20261024/README.md",
+      "bytes": 1603,
+      "sha256": "6e1861bb2a8864447a8e60f05513cd64432b3af259315b0bcd129f74cb8833b8"
+    },
+    {
+      "path": "docs/evidence/review-provider-attachment-20261024/audit.py",
+      "bytes": 8718,
+      "sha256": "b47b7b7f19a7d97f86c7faad6883ac63e9824b4071ca18aa8b254894bcc3aaf9"
+    },
+    {
+      "path": "docs/evidence/review-provider-attachment-20261024/current.json",
+      "bytes": 4875,
+      "sha256": "826c036e81d2deac47a46ec62f0b30a971dbbac6b09bd37bfedda35d6069cea6"
+    },
+    {
+      "path": "docs/evidence/review-provider-attachment-20261024/frontend-sources.json",
+      "bytes": 2035,
+      "sha256": "55e6df39d672a9738bbd6f07bfd7f244ae03923ebd882ca2f799f9a23e42cf6a"
+    },
+    {
+      "path": "docs/evidence/review-provider-attachment-20261024/frontend-sources.tar.gz",
+      "bytes": 143034,
+      "sha256": "0a92ea2a55357d80565b3878003d304b017638f34e0d187bac571f28f4ad0d70"
+    },
+    {
+      "path": "docs/reviews/review-provider-attachment-20261024.md",
+      "bytes": 11406,
+      "sha256": "24b8d025c5f8dfab83defeeaa97812a68685996cbe933bec5209e433a54f6d13"
+    }
+  ]
+}
