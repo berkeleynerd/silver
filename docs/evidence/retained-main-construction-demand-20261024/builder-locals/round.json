@@ -1,0 +1,142 @@
+{
+  "issue": 202,
+  "parent_issue": 119,
+  "role": "bounded local representation-safety author continuation",
+  "accepted_builder_commit": "93fdabb2232e0fc7fe2fd7c39f167c1985991f5a",
+  "accepted_builder_review": "ed10f9ba6201024b5053a84b6595bc770b2bcfeb",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "started_utc": "2026-10-24 06:14:05 UTC",
+  "author_checkpoint_utc": "2026-10-24 06:47:33 UTC",
+  "elapsed_to_checkpoint_seconds": 2008,
+  "elapsed_scope": "Through completed derivation, focused checks and documentation; excludes final receipt, commit and handoff",
+  "intended_result": "Close Ity local helper/frame/closure representation obligations for the accepted builder partition with exact source/native correspondence",
+  "achieved_result": "Finite source traversal and fixed per-request native allocation/header bounds; 104-byte local ceiling, actual arity operands, preserved accepted request/owner vector and explicit shared-service residuals",
+  "parent_scope_clarification": "Aggregate local RAM/stack volume stays a physical premise. Intentionally uncomputed cumulative local byte pricing is not a missing representation proof; per-request sizes, actual scalars and downstream owner requests are the stopping criterion.",
+  "material_findings": [
+    "Every new local heap reservation in 332 retained native bodies is constant; maximum 104 bytes, at most 12 payload words per enclosed block",
+    "Native constant closure labels have zero ELF st_size; the OCaml object header supplies the actual data extent and code-pointer slots",
+    "Curry adapter application-entry bodies require the _app variants as well as the ordinary stages; the final witness includes 120 adapter bodies",
+    "Empty trigger groups add list-spine traversal without adding accepted term/type visits; retain a separate finite structure witness",
+    "The parent caught an unconditional-looking draft closure flag; final flags require local header/arity/domain prerequisites and include negative-domain diagrams",
+    "A dead saved-image diagram was refined from a hypothetical function-typed literal to a nullary logical application; exported values were unchanged",
+    "Actual shared hashcons/backing/lookup and cumulative owner multiplicity obligations remain open; no allocator audit or aggregate memory gate was introduced"
+  ],
+  "validation": {
+    "full_focused_check": {
+      "assertions": 1466,
+      "elapsed_seconds": 1.7935090260070865,
+      "result": "result.json"
+    },
+    "final_fixture_only_check": {
+      "assertions": 16,
+      "elapsed_seconds": 0.015193207997072022,
+      "result": "fixture-check.json",
+      "reused_unchanged_native_source_identity_success": true
+    },
+    "failed_checker_runs": 0,
+    "read_only_native_witness_extraction_passes": 3,
+    "extraction_refinement_reasons": [
+      "Initial finite source-root set",
+      "Resolve zero-size ELF constant closures through headers and add explicit local callback helpers",
+      "Include curry application-entry _app bodies and exact source spans"
+    ],
+    "native_helper_bodies": 212,
+    "native_adapter_bodies": 120,
+    "constant_closures": 24,
+    "instruction_bytes": 38376,
+    "final_host": "Linux-7.0.14-x86_64-with-glibc2.43",
+    "native_target_runs": 0,
+    "new_disassembler_runs": 0,
+    "compiler_prover_lean_runs": 0,
+    "predecessor_checker_main_runs": 0,
+    "source_native_refinement_machine_proved": false,
+    "research_note_prior_prefix_preserved": true,
+    "frozen_contract_builder_files_unchanged": true
+  },
+  "review_inputs": [
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/builder-locals/README.md",
+      "sha256": "78a788c2a2bc40abaac010d98ab25480802d02092f9d1b732c2cf0ea8c7c1818"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/builder-locals/arity-frontier.json",
+      "sha256": "ce28de7b785f009b9ae0cc7a301bfd3b830f3ec842feebe1e124588be0e995d6"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/builder-locals/check.py",
+      "sha256": "303732ecadc06b18fccb77ebb0d061eea2ee419f3aa54335a97ff2b8366cc8a2"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/builder-locals/checkpoint.md",
+      "sha256": "305bfbc15921491c2a37fa3748d2d0ae72613d7656b3bfd25491f71857bbde73"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/builder-locals/exports.json",
+      "sha256": "d70ef685c007c3cbc43ef1b158a7a8fa8646f2ad8d3fa0b00115d477629901fc"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/builder-locals/fixture-check.json",
+      "sha256": "f2b179570af899b1ff6293ad78cf8cf24a21b255d03da5c57776466b426e0465"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/builder-locals/freeze.py",
+      "sha256": "953850e14cfa19d7f5d4f4e20eca618a48e85f53c89dd82cfa861798224fc159"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/builder-locals/inputs.json",
+      "sha256": "4c3d11da87426d11eb0d66f49c01b93cc4c9f10b230438887bce0907ff2514bd"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/builder-locals/local.py",
+      "sha256": "a0ffb55674832e2e00b9f3f09f4dcb46c99947ab1d7ad0d4b6d15151d95968a7"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/builder-locals/native-bodies.json",
+      "sha256": "b9805d251dbfd8bd64842b2b67bd5494b3e544474ff1a2c6ef9205eeeba5b2a9"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/builder-locals/native-boundary.json",
+      "sha256": "371426eb6a4c6a9842dda92a0c4339cf18efc63b1e1b3c8d6a58ce8be791c4bd"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/builder-locals/native-census.json",
+      "sha256": "7d64cea6a0767ae6ad0374705b81673c3527f1ec21a362786e2127d697c61714"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/builder-locals/native-witnesses.json",
+      "sha256": "703cebe60c86a0ea3efa976eca01e04d152e4f66719b0212a0d5c67fa6ef3e81"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/builder-locals/result.json",
+      "sha256": "26a0d2b9cb45186bfb747a190dc79bae978dfa0c6ce73b7a9be4ef499903d636"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/builder-locals/source-closure.json",
+      "sha256": "21c58be0f9d1d89c5a41e922df814d1f660f72a1a67423e89b622601a04d680f"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/builder-locals/source-witnesses.json",
+      "sha256": "042436e404bfd847a26c60417332fb9a030bc54ed9ee659181a65575f80960c6"
+    },
+    {
+      "path": "docs/research/retained-main-construction-demand.md",
+      "sha256": "9c2ee3e2bc097177706f9c53292c43beb8ce536047838affa1f4f5786c63ecde"
+    }
+  ],
+  "independent_review_status": "pending; parent owns review, issue/memory updates, integration and publication",
+  "local_representation_safety": "closed under the accepted source partition and explicitly recorded prerequisites",
+  "cumulative_local_byte_total_computed": false,
+  "cumulative_local_byte_total_required_for_representation_safety": false,
+  "complete_source_to_initial_vc_storage": false,
+  "shared_owner_service_obligations_closed": false,
+  "global_process_e_limit": 2,
+  "save_entering_callbacks": 2,
+  "saves": 3,
+  "tokens": null,
+  "cost": null,
+  "cli_memory_updated": false,
+  "subthread_harness_goal": null
+}

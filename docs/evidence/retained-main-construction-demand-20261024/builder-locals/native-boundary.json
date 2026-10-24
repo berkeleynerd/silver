@@ -1,0 +1,262 @@
+{
+  "direct_code_edges": [
+    {
+      "target": "camlStdlib__Ephemeron__find_730",
+      "category": "required shared service residual",
+      "reason": "Wvs/tuple memo or Hsty/Hsity backing, callback, request-size and owner histories remain required service joins."
+    },
+    {
+      "target": "camlStdlib__Hashtbl__mem_1114",
+      "category": "required shared service residual",
+      "reason": "Wvs/tuple memo or Hsty/Hsity backing, callback, request-size and owner histories remain required service joins."
+    },
+    {
+      "target": "camlStdlib__List__iter2_555",
+      "category": "source-excluded retained branch",
+      "reason": "Only non-scalar MaskTuple checking; selected create_cty masks are scalar."
+    },
+    {
+      "target": "camlStdlib__invalid_arg_10",
+      "category": "source-excluded retained branch",
+      "reason": "Malformed shape/arity branches; valid source records and saturated calls exclude them."
+    },
+    {
+      "target": "camlWhy3__Exthtbl__fun_917",
+      "category": "required shared service residual",
+      "reason": "Wvs/tuple memo or Hsty/Hsity backing, callback, request-size and owner histories remain required service joins."
+    },
+    {
+      "target": "camlWhy3__Extmap__add_397",
+      "category": "accepted persistent-map service",
+      "reason": "Accepted map request/height theorem; selected nontrivial builder callbacks are covered by this local packet, not absorbed into its old coefficient."
+    },
+    {
+      "target": "camlWhy3__Extmap__change_716",
+      "category": "accepted persistent-map service",
+      "reason": "Accepted map request/height theorem; selected nontrivial builder callbacks are covered by this local packet, not absorbed into its old coefficient."
+    },
+    {
+      "target": "camlWhy3__Extmap__diff_742",
+      "category": "accepted persistent-map service",
+      "reason": "Accepted map request/height theorem; selected nontrivial builder callbacks are covered by this local packet, not absorbed into its old coefficient."
+    },
+    {
+      "target": "camlWhy3__Extmap__find_def_833",
+      "category": "accepted persistent-map service",
+      "reason": "Accepted map request/height theorem; selected nontrivial builder callbacks are covered by this local packet, not absorbed into its old coefficient."
+    },
+    {
+      "target": "camlWhy3__Extmap__fold_489",
+      "category": "accepted persistent-map service",
+      "reason": "Accepted map request/height theorem; selected nontrivial builder callbacks are covered by this local packet, not absorbed into its old coefficient."
+    },
+    {
+      "target": "camlWhy3__Extmap__for_all_497",
+      "category": "accepted persistent-map service",
+      "reason": "Accepted map request/height theorem; selected nontrivial builder callbacks are covered by this local packet, not absorbed into its old coefficient."
+    },
+    {
+      "target": "camlWhy3__Extmap__iter_460",
+      "category": "accepted persistent-map service",
+      "reason": "Accepted map request/height theorem; selected nontrivial builder callbacks are covered by this local packet, not absorbed into its old coefficient."
+    },
+    {
+      "target": "camlWhy3__Extmap__map_467",
+      "category": "accepted persistent-map service",
+      "reason": "Accepted map request/height theorem; selected nontrivial builder callbacks are covered by this local packet, not absorbed into its old coefficient."
+    },
+    {
+      "target": "camlWhy3__Extmap__mem_417",
+      "category": "accepted persistent-map service",
+      "reason": "Accepted map request/height theorem; selected nontrivial builder callbacks are covered by this local packet, not absorbed into its old coefficient."
+    },
+    {
+      "target": "camlWhy3__Extmap__set_diff_800",
+      "category": "accepted persistent-map service",
+      "reason": "Accepted map request/height theorem; selected nontrivial builder callbacks are covered by this local packet, not absorbed into its old coefficient."
+    },
+    {
+      "target": "camlWhy3__Extmap__set_disjoint_814",
+      "category": "accepted persistent-map service",
+      "reason": "Accepted map request/height theorem; selected nontrivial builder callbacks are covered by this local packet, not absorbed into its old coefficient."
+    },
+    {
+      "target": "camlWhy3__Extmap__set_inter_793",
+      "category": "accepted persistent-map service",
+      "reason": "Accepted map request/height theorem; selected nontrivial builder callbacks are covered by this local packet, not absorbed into its old coefficient."
+    },
+    {
+      "target": "camlWhy3__Extmap__set_union_786",
+      "category": "accepted persistent-map service",
+      "reason": "Accepted map request/height theorem; selected nontrivial builder callbacks are covered by this local packet, not absorbed into its old coefficient."
+    },
+    {
+      "target": "camlWhy3__Extmap__singleton_363",
+      "category": "accepted persistent-map service",
+      "reason": "Accepted map request/height theorem; selected nontrivial builder callbacks are covered by this local packet, not absorbed into its old coefficient."
+    },
+    {
+      "target": "camlWhy3__Extmap__subdomain_1121",
+      "category": "accepted persistent-map service",
+      "reason": "Accepted map request/height theorem; selected nontrivial builder callbacks are covered by this local packet, not absorbed into its old coefficient."
+    },
+    {
+      "target": "camlWhy3__Extmap__union_590",
+      "category": "accepted persistent-map service",
+      "reason": "Accepted map request/height theorem; selected nontrivial builder callbacks are covered by this local packet, not absorbed into its old coefficient."
+    },
+    {
+      "target": "camlWhy3__Extset__exists_593",
+      "category": "accepted persistent-map service",
+      "reason": "Accepted map request/height theorem; selected nontrivial builder callbacks are covered by this local packet, not absorbed into its old coefficient."
+    },
+    {
+      "target": "camlWhy3__Extset__fold_580",
+      "category": "accepted persistent-map service",
+      "reason": "Accepted map request/height theorem; selected nontrivial builder callbacks are covered by this local packet, not absorbed into its old coefficient."
+    },
+    {
+      "target": "camlWhy3__Extset__fold_left_638",
+      "category": "accepted persistent-map service",
+      "reason": "Accepted map request/height theorem; selected nontrivial builder callbacks are covered by this local packet, not absorbed into its old coefficient."
+    },
+    {
+      "target": "camlWhy3__Extset__iter_574",
+      "category": "accepted persistent-map service",
+      "reason": "Accepted map request/height theorem; selected nontrivial builder callbacks are covered by this local packet, not absorbed into its old coefficient."
+    },
+    {
+      "target": "camlWhy3__Extset__of_list_684",
+      "category": "accepted persistent-map service",
+      "reason": "Accepted map request/height theorem; selected nontrivial builder callbacks are covered by this local packet, not absorbed into its old coefficient."
+    },
+    {
+      "target": "camlWhy3__Hashcons__hashcons_412",
+      "category": "required shared service residual",
+      "reason": "Wvs/tuple memo or Hsty/Hsity backing, callback, request-size and owner histories remain required service joins."
+    },
+    {
+      "target": "camlWhy3__Ident__id_clone_inner_6205",
+      "category": "source-excluded retained branch",
+      "reason": "Partial-formal/oldie rebuilding; saturation and empty oldies exclude both."
+    },
+    {
+      "target": "camlWhy3__Ity__clone_post_result_7249",
+      "category": "source-excluded retained branch",
+      "reason": "result_id with nonempty ql; Unit passes default ql=[]."
+    },
+    {
+      "target": "camlWhy3__Ity__create_pvsymbol_inner_16151",
+      "category": "source-excluded retained branch",
+      "reason": "Partial application and oldie rebuilding are residual, not selected."
+    },
+    {
+      "target": "camlWhy3__Ity__eff_inst_7053",
+      "category": "source-excluded retained branch",
+      "reason": "Successful closed pure matching has same=true; mismatches fail earlier."
+    },
+    {
+      "target": "camlWhy3__Ity__inst_4564",
+      "category": "source-excluded retained branch",
+      "reason": "ity_full_inst returns its pure closed field unchanged before inst."
+    },
+    {
+      "target": "camlWhy3__Ity__its_inst_regs_4754",
+      "category": "source-excluded retained branch",
+      "reason": "Unit its_match_smart has NoDef and no nested regions."
+    },
+    {
+      "target": "camlWhy3__Ity__ity_purify_3830",
+      "category": "source-excluded retained branch",
+      "reason": "Only oldie validation/rebuilding in these callers; oldies empty."
+    },
+    {
+      "target": "camlWhy3__Ity__ity_rch_fold_4322",
+      "category": "source-excluded retained branch",
+      "reason": "Frozen nested-region branch; pure snapshots stop and flat refs have no nested fields."
+    },
+    {
+      "target": "camlWhy3__Ity__ity_reg_3816",
+      "category": "source-excluded retained branch",
+      "reason": "Mutable/alias construction or checked-reg-match failure; Unit is pure NoDef and selected flat freeze matches itself."
+    },
+    {
+      "target": "camlWhy3__Ity__mk_reg_3810",
+      "category": "source-excluded retained branch",
+      "reason": "Only fresh mutable-region constructor branches; Unit NoDef is immutable."
+    },
+    {
+      "target": "camlWhy3__Ity__open_post_7240",
+      "category": "source-excluded retained branch",
+      "reason": "Singleton exceptional post filter; selected xpost map is empty."
+    },
+    {
+      "target": "camlWhy3__Loc__error_1606",
+      "category": "source-excluded retained branch",
+      "reason": "Malformed pre/post or unbound type variable; source well-typed closed contracts exclude these."
+    },
+    {
+      "target": "camlWhy3__Term__t_close_bound_5902",
+      "category": "accepted term kernel",
+      "reason": "Existing case-free closing/substitution request, arithmetic and owner argument; inspected inputs, no replay."
+    },
+    {
+      "target": "camlWhy3__Term__t_subst_types_6641",
+      "category": "source-excluded retained branch",
+      "reason": "Type-changing specification substitution; selected application keeps same=true."
+    },
+    {
+      "target": "camlWhy3__Term__t_subst_unsafe_5896",
+      "category": "accepted term kernel",
+      "reason": "Existing case-free closing/substitution request, arithmetic and owner argument; inspected inputs, no replay."
+    },
+    {
+      "target": "camlWhy3__Ty__is_ts_tuple_3375",
+      "category": "source-excluded retained branch",
+      "reason": "Non-scalar MaskTuple checking only; selected create_cty masks are scalar."
+    },
+    {
+      "target": "camlWhy3__Ty__ts_match_args_3235",
+      "category": "source-excluded retained branch",
+      "reason": "Logical alias ty_app branch; projected concrete Ity constructors are normalized, with no Alias node."
+    },
+    {
+      "target": "camlWhy3__Ty__ty_full_inst_2990",
+      "category": "source-excluded retained branch",
+      "reason": "Same excluded logical alias ty_app branch."
+    },
+    {
+      "target": "camlWhy3__Ty__ty_inst_3267",
+      "category": "source-excluded retained branch",
+      "reason": "Failing logical ty_match; Unit equality and tuple checks use fixed correct types."
+    },
+    {
+      "target": "camlWhy3__Ty__ty_var_2889",
+      "category": "source-excluded retained branch",
+      "reason": "Type projection of Ityvar; selected projected types are closed."
+    },
+    {
+      "target": "caml_c_call",
+      "category": "source-excluded retained branch",
+      "reason": "Only the same uninvoked mask_reduce equality callbacks in these bodies."
+    },
+    {
+      "target": "caml_call_gc",
+      "category": "existing runtime/physical premise",
+      "reason": "Collector/allocation-retry or exception-transfer service; no allocator audit and no aggregate physical-memory cap."
+    },
+    {
+      "target": "caml_equal",
+      "category": "source-excluded retained branch",
+      "reason": "Only mask_reduce equality callbacks; scalar masks stop and Unit MaskTuple [] invokes neither callback."
+    },
+    {
+      "target": "caml_raise_exn",
+      "category": "existing runtime/physical premise",
+      "reason": "Collector/allocation-retry or exception-transfer service; no allocator audit and no aggregate physical-memory cap."
+    }
+  ],
+  "complete_indirect_call_graph": false,
+  "indirect_callback_argument_sources": "source-closure.json",
+  "shared_services_are_required_representation_obligations": true
+}

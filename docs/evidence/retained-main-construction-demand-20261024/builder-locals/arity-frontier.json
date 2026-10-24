@@ -1,0 +1,60 @@
+{
+  "current_Main_type_arity_bound": 2,
+  "origins": [
+    {
+      "module": "_gnatprove_standard.Array__1",
+      "existential_sites": [
+        {
+          "line": 1904,
+          "source": "      exists i : I1.t. I1.le f i /\\ I1.le i l /\\ get a1 i <> get a2 i"
+        },
+        {
+          "line": 2003,
+          "source": "    (exists i : I1.t. I1.le f i /\\ I1.le i l /\\ get (slice a f l) i <> get (slice b f l) i)"
+        }
+      ]
+    },
+    {
+      "module": "_gnatprove_standard.Array__Index",
+      "existential_sites": []
+    },
+    {
+      "module": "ada__model.Constr_Array",
+      "existential_sites": []
+    },
+    {
+      "module": "ada__model.Discrete_Base",
+      "existential_sites": []
+    },
+    {
+      "module": "ada__model.Dynamic_Discrete",
+      "existential_sites": []
+    },
+    {
+      "module": "ada__model.Index_Type",
+      "existential_sites": []
+    },
+    {
+      "module": "ada__model.Rep_Proj_Base",
+      "existential_sites": []
+    },
+    {
+      "module": "ada__model.Rep_Proj_Int",
+      "existential_sites": []
+    },
+    {
+      "module": "ada__model.Static_Discrete",
+      "existential_sites": []
+    },
+    {
+      "module": "ada__model.Static_Discrete_Base",
+      "existential_sites": []
+    },
+    {
+      "module": "ada__model.Unconstr_Array",
+      "existential_sites": []
+    }
+  ],
+  "reason": "Accepted concrete type frontier is nullary snapshots/references, Unit and binary function types; these originals add no multiple-witness result tuple.",
+  "general_fixed_origin_arity_claim": false
+}

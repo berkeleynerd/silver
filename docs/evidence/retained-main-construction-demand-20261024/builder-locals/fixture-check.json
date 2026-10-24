@@ -1,0 +1,29 @@
+{
+  "status": "pass",
+  "assertions": 16,
+  "elapsed_seconds": 0.015193207997072022,
+  "host": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "families": {
+    "projection retains accepted owner requests": 1,
+    "binary function type uses representable arity operands": 1,
+    "empty trigger groups do not alter accepted constructor requests": 1,
+    "finite traversal witness retains empty trigger list spines": 1,
+    "dead saved image participates in finite traversal witness": 1,
+    "fixed local effect records preserve state and region identities": 1,
+    "freeze callback is local without a fictitious restore lookup": 1,
+    "context inspection has finite branch and pattern descent": 1,
+    "context traversal never opens a binder": 1,
+    "both failed prefixes retain adds without later term maps": 1,
+    "same owner histories continue through failures success and Unit": 1,
+    "local closure extension introduces no owner increment": 1,
+    "out-of-domain arity cannot export unconditional source closure": 1,
+    "rejected residual entry cannot export source closure": 1,
+    "no aggregate memory gate or cumulative local-byte obligation": 1
+  },
+  "additional_assertion": "All exported values remain byte-identical after the input-image refinement",
+  "reason": "Use a nullary logical application for the dead saved image with function type; avoid suggesting an arrow-typed literal is constructed by the native source",
+  "checker_sha256": "303732ecadc06b18fccb77ebb0d061eea2ee419f3aa54335a97ff2b8366cc8a2",
+  "reused_native_and_source_identity_result": "result.json",
+  "native_identity_inputs_changed": false,
+  "native_or_predecessor_replay": false
+}

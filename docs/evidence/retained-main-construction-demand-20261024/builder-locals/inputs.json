@@ -1,0 +1,54 @@
+{
+  "accepted_author_commit": "93fdabb2232e0fc7fe2fd7c39f167c1985991f5a",
+  "accepted_review_commit": "ed10f9ba6201024b5053a84b6595bc770b2bcfeb",
+  "providers": [
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/contract-builders/builders.py",
+      "sha256": "cb7f1233cb6033f0b7c07de81c82a4071d04aaadac27a2a38eb86500558d3778"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/contract-builders/identity.json",
+      "sha256": "02669f0ed5b8d434d65d699276d9b3335f410773156d9d4f23d808fef0b41809"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/contract-builders/sites.json",
+      "sha256": "3fb93ac5ad366908aff07e778cc89cd44b89d4ab9dfff6f5fc81286fb72c7eae"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/contract-builders/result-r1.json",
+      "sha256": "6d40dc61948a058a08bb5c9b88a9b43f8f5ab346a53cd0ff99db184abc8ed1e1"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/contract-builders/round-r1.json",
+      "sha256": "7416f82ddd84e6a11a65ea9aec6b3f220501ee45ab56d16fd7384e42c369a269"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/bridge.py",
+      "sha256": "3e76672713a8a0e4e5aac78681155fe3c61e32b2195a2637863fbdd9c8e2d1ac"
+    },
+    {
+      "path": "docs/evidence/retained-main-why-storage-20261024/kernel.py",
+      "sha256": "35b41283e3deffe4ec6152bca5d24a79ce9650710681206871a20a66d5319f42"
+    },
+    {
+      "path": "docs/research/retained-main-why-storage.md",
+      "sha256": "f4b19fa4ecc8b15a889ac8bfeda851adb3ad64439bfc72a2bc50f28a753787ee"
+    },
+    {
+      "path": "docs/research/retained-why-save-shape-builder-allocation.md",
+      "sha256": "69d0b68f23699fbcb0e59e535acacad2acba02a6bec7a102c6be9ece5497ad89"
+    },
+    {
+      "path": "docs/research/retained-producer-main-types.md",
+      "sha256": "b0c799ad269b20509491f9d57708fc789985a85613dfd3e919bc8c068d7514fc"
+    },
+    {
+      "path": "docs/research/retained-main-typed-profile.md",
+      "sha256": "d1f1ea5254301ce89adedc2eab4e33820c1298962e9b4931d899a49cf9dd6336"
+    },
+    {
+      "path": "docs/evidence/retained-why-save-shape-builder-allocation-20261020/native-witnesses.json",
+      "sha256": "9b4b9cbb2ef8e019f7ccf9eeead564c4415cd2f29176e8f1d48476b6ebf8da84"
+    }
+  ]
+}
