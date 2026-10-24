@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-23T23:48:17.992245+00:00",
+  "base_commit": "c5062a4452",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_confirmation": null,
+  "tokens": null,
+  "cost": null,
+  "phase": "early source review; exact freeze pending",
+  "review_clock_started_utc": "2026-10-23T23:47:04+00:00",
+  "earlier_review_elapsed": "not measured",
+  "inputs": {
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-quiet-route/tmp/quiet-source/why3/src/core/task.ml": {
+      "sha256": "103b9c924e980df2feefdb96a5cd2779abe7de9300ea6bca9aa797ad4b6694e6",
+      "bytes": 11462
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-quiet-route/tmp/quiet-source/why3/src/mlw/pmodule.ml": {
+      "sha256": "0bbebf874d1fe1ed216efd07a76f6e51d9fd96c5910ea9c1fac2f5864db29344",
+      "bytes": 69178
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-quiet-route/tmp/quiet-source/why3/src/mlw/vc.ml": {
+      "sha256": "277ed0e5526fb188849c47b3f11a1412e104769d04baaf2144e2fc7719e81da1",
+      "bytes": 76631
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-quiet-route/tmp/quiet-source/why3/src/mlw/eval_match.ml": {
+      "sha256": "794bed299489c440853eb5e89ceb283a28de88bbc4db702794c7388f48a6f4ea",
+      "bytes": 8322
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-quiet-route/tmp/quiet-source/why3/src/transform/gnat_split_conj.ml": {
+      "sha256": "dcbe7341850e8b50d53c9ede7fbc61bb331ebf57d70720363bf741856ef180ee",
+      "bytes": 11171
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/main-vc-composition-20261023/docs/research/retained-main-vc-composition.md": {
+      "sha256": "813588648a916ef37965722e74409495837336ae8a2423189843e393b4eff49c",
+      "bytes": 33501
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/main-vc-composition-20261023/docs/evidence/retained-main-vc-composition-20261023/model.py": {
+      "sha256": "4f1e5bad4eb4a8ff6194d7c116822db6fd699c546f032f534e9a3739990ed548",
+      "bytes": 18000
+    }
+  },
+  "findings": [
+    {
+      "id": "R1",
+      "status": "confirmed; author accepted repair",
+      "claim": "task_fold consumes newest-to-oldest; earliest accepted source declaration wins duplicate marked identities",
+      "source": "src/core/task.ml:225-226; src/transform/gnat_split_conj.ml:240-319",
+      "original_draft": "Forward ordered overwrite description and marked_map loop."
+    }
+  ],
+  "clarifications": [
+    "Actual mk_vc_decl postmatcher simp_cast_projections bridge.",
+    "Source guards excluding ordinary Main white_box and expression WP tags.",
+    "add_pdecl and flat_tdecl/use_export/split_theory goal-prefix ordering and imported lemma conversion.",
+    "Alias guard uses declared signature type before occurrence instantiation."
+  ],
+  "execution_scope": "read-only sources and issue; no native/compiler/prover/Lean/provider replay; independent checker not yet run"
+}

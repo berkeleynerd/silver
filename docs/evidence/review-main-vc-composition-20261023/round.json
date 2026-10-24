@@ -1,0 +1,94 @@
+{
+  "date": "2026-10-23\u201324",
+  "issue": 185,
+  "parent_issue": 119,
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_confirmation": null,
+  "tokens": null,
+  "cost": null,
+  "base_commit": "c5062a4452",
+  "accepted_author_commit": "59e4ff13433b6c3ee3b1dc3888896db416682b1d",
+  "reviewed_inputs": {
+    "docs/research/retained-main-vc-composition.md": "a380b9b6c63df9b165dbcb3b841dc03c066f7501c064f133535c5282df5bf27b",
+    "docs/evidence/retained-main-vc-composition-20261023/model.py": "01e06e5dbe8aca9381574de7140db8154d0751f009331ee8f68aa2317614a757",
+    "docs/evidence/retained-main-vc-composition-20261023/check.py": "c4a66f03c0de701b8e08831510192c81484149ccc5039188ee8d462c67246d33",
+    "docs/evidence/retained-main-vc-composition-20261023/identity.json": "4cc5f689f6e7c9b4e23be7e8479fb278c8f410caf8762426b8aae70ff6320ec0",
+    "docs/evidence/retained-main-vc-composition-20261023/result.json": "92dd90c8bc7df4dcbc794d6fd276a09e0c4e25de5b189eb372f03b605d53064d",
+    "docs/evidence/retained-main-vc-composition-20261023/README.md": "da2ede7ecec0ff79e21c4aa1ec0c4b79130539c0398899c2390966a82d006d0d",
+    "docs/evidence/retained-main-vc-composition-20261023/round.json": "8e042e032e9b8396cca1f4a744e023851e3f06b4705f7e5a0e9cab67d9cf85d1"
+  },
+  "audit_sha256": "6ad527ee05c0a1b110b73e8aa9652132d5b083a9d2eb21d645b81790e970fa17",
+  "intended_outcome": "Independently review ordinary Main typed/kode/formula and actual D/I composition, including every source-dependent declaration VC.",
+  "achieved": "Accepted exact author freeze; all four material early findings repaired, source-dependent helper candidates included, no unresolved increment finding.",
+  "findings": [
+    {
+      "id": "R1",
+      "topic": "Native reverse task_fold order",
+      "status": "repaired and independently verified"
+    },
+    {
+      "id": "R2",
+      "topic": "Pretty-label lookup ignores quantifier triggers",
+      "status": "repaired and independently verified"
+    },
+    {
+      "id": "R3",
+      "topic": "Boolean True recognition ignores attributes",
+      "status": "repaired and independently verified"
+    },
+    {
+      "id": "R4",
+      "topic": "Nullary RKfunc/RKpred wrappers construct source-dependent candidate VCs",
+      "status": "repaired and independently verified; all retained candidates included in j"
+    }
+  ],
+  "measured_review_interval": {
+    "start": "2026-10-23T23:47:04+00:00",
+    "end": "2026-10-24T00:04:54.752360+00:00",
+    "seconds": 1070.75236,
+    "scope": "Recorded early-review/final-audit interval; preceding early review time was not measured, so this is not total review elapsed."
+  },
+  "independent_audit": {
+    "checks": 1619,
+    "elapsed_seconds": 0.5561499210016336,
+    "complete_source_files": 10,
+    "source_guards": 22,
+    "result": "result.json"
+  },
+  "retained_author_result": {
+    "checks": 32574,
+    "elapsed_seconds": 3.5007728100026725
+  },
+  "reviewer_rework": {
+    "problem": "Initial synthetic random reflow fixtures violated native freshness/scope by reusing positive catch labels and allowing the handler to emit its own catching label.",
+    "failed_invocations": 2,
+    "first_tool_command_wall_seconds": 0.215983752,
+    "diagnostic_tool_command_wall_seconds": 0.340363705,
+    "audit_elapsed_for_failed_invocations": null,
+    "repair": "Every positive catch receives a fresh label, visible only to its protected child; handler receives the outer available-label set.",
+    "disposition": "Reviewer fixture issue, not an author finding; 700 well-scoped fixtures in both initial modes pass."
+  },
+  "native_platform": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "native_executions": 0,
+  "author_checker_replays": 0,
+  "predecessor_checker_replays": 0,
+  "publication": "Root-owned; this reviewer made no GitHub, shared memory, harness or CLI-memory writes.",
+  "remaining": "Root integration/publication/tracking; full #119 global producer/consumer/native-counter/useful-domain obligations and fixed-library #153 remain separate.",
+  "successful_check_runs": [
+    {
+      "receipt": "result-before-fixture-types.json",
+      "checks": 1619,
+      "elapsed_seconds": 0.5657137309972313,
+      "reason": "Initial successful exact-freeze independent audit after correcting handler-label generator scope."
+    },
+    {
+      "receipt": "result.json",
+      "checks": 1619,
+      "elapsed_seconds": 0.5561499210016336,
+      "reason": "Changed reviewer fixtures to keep Boolean axioms, quantified predicates and declared polymorphic/reference terms consistently typed; author freeze unchanged."
+    }
+  ],
+  "live_harness_at_handoff": "No active goal; read only.",
+  "cli_memory_updated": false
+}
