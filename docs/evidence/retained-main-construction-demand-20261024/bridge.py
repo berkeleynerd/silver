@@ -155,8 +155,60 @@ def gen_fresh(v, fnT, demand):
     return v if ty == v.ty else replace(demand.kernel.fresh(v), ty=ty)
 
 
+def stored_variables(t):
+    """All identities, including roles invisible in the opened formula."""
+    result = set()
+    children, binders = parts(t)
+    if isinstance(t, Case):
+        for pattern, _ in t.branches:
+            result.update(pattern.variables())
+    elif t.variable is not None:
+        result.add(t.variable)
+    for bb in binders:
+        result.update(bb.variables)
+        result.update(bb.free)
+        result.update(bb.saved)
+        children += (bb.body,) + tuple(x for g in bb.triggers for x in g) + tuple(bb.saved.values())
+    for child in children:
+        result.update(stored_variables(child))
+    return result
+
+
+def require_generic_map_premise(t, mapping):
+    """Sufficient proof-entry condition, not an additional native operation.
+
+    Native gen_fresh_vsymbol does NOT freshen an unchanged bound variable.
+    An injective map can consequently capture a free variable. The premise
+    below forbids nonidentity targets already present anywhere in the stored
+    input. It deliberately does not infer this property for an inherited
+    clone map. Cache correctness and a fresh, transported counter remain
+    separate input premises.
+    """
+    if not stored_closed(t):
+        raise ValueError('saved-image support and positive-cache premise required')
+    free = freevars(t, k.Ledger(0))
+    if not set(free) <= mapping.keys():
+        raise ValueError('generic map must cover root cached free-variable support')
+    if len(set(mapping.values())) != len(mapping):
+        raise ValueError('generic variable map must be injective')
+    old = stored_variables(t)
+    if any(v != target and target in old for v, target in mapping.items()):
+        raise ValueError('generic map nonidentity target may capture a stored variable')
+
+
 def gen_map(t, mapping, fnT, fnL, demand):
-    """term.ml:1085-1151, including the original-map saved-image rule."""
+    """Proof wrapper; actual clone callers must establish the checked premise."""
+    require_generic_map_premise(t, mapping)
+    return _gen_map(t, mapping, fnT, fnL, demand)
+
+
+def _gen_map(t, mapping, fnT, fnL, demand):
+    """Native recurrence, including its capture on incompatible maps.
+
+    This private raw recurrence deliberately retains unchanged binders. It
+    is used directly only by the negative regression, not by the theorem's
+    entry interface.
+    """
     if isinstance(t, Case):
         if not t.branches:
             raise ValueError('nonempty native case branches required')
@@ -187,7 +239,7 @@ def gen_map(t, mapping, fnT, fnL, demand):
             nh, v2 = rename(v, nh)
             demand.saved_image_inputs.append((v, image, dict(mapping)))
             # fnE was closed over the OUTER map at term.ml:1114.
-            mapped_image = gen_map(image, mapping, fnT, fnL, demand)
+            mapped_image = _gen_map(image, mapping, fnT, fnL, demand)
             out.map('gen_bnd_saved_add', len(saved), 1)
             saved[v2] = mapped_image
         return nh, free, saved
@@ -198,8 +250,8 @@ def gen_map(t, mapping, fnT, fnL, demand):
         for v in b.variables:
             inner, v2 = rename(v, inner)
             variables.append(v2)
-        body = gen_map(b.body, inner, fnT, fnL, demand)
-        triggers = tuple(tuple(gen_map(x, inner, fnT, fnL, demand) for x in g) for g in b.triggers)
+        body = _gen_map(b.body, inner, fnT, fnL, demand)
+        triggers = tuple(tuple(_gen_map(x, inner, fnT, fnL, demand) for x in g) for g in b.triggers)
         return k.Binding(tuple(variables), body, triggers, free, saved)
 
     def pat(p, m):
@@ -213,7 +265,7 @@ def gen_map(t, mapping, fnT, fnL, demand):
         return Pattern(p.op, ty, children, v, symbol)
 
     if isinstance(t, Case):
-        subject = gen_map(t.subject, mapping, fnT, fnL, demand)
+        subject = _gen_map(t.subject, mapping, fnT, fnL, demand)
         branches = []
         for p, b in t.branches:
             inner, free, saved = binding(b)
@@ -222,7 +274,7 @@ def gen_map(t, mapping, fnT, fnL, demand):
             p2 = pat(p, pm)
             out.map('gen_pat_union', len(inner), len(pm))
             inner.update(pm)
-            branches.append((p2, k.Binding(tuple(pm.values()), gen_map(b.body, inner, fnT, fnL, demand), (), free, saved)))
+            branches.append((p2, k.Binding(tuple(pm.values()), _gen_map(b.body, inner, fnT, fnL, demand), (), free, saved)))
         return Case(subject, tuple(branches), branches[0][1].body.ty, t.attrs)
     if t.op == 'var':
         out.map('gen_var_find_def', len(mapping))
@@ -236,11 +288,11 @@ def gen_map(t, mapping, fnT, fnL, demand):
         result = t
     elif t.binding is not None:
         b = ordinary_binding(t.binding)
-        args = tuple(gen_map(x, mapping, fnT, fnL, demand) for x in t.args)
+        args = tuple(_gen_map(x, mapping, fnT, fnL, demand) for x in t.args)
         ty = b.body.ty if t.op == 'let' else b.variables[0].ty if t.op == 'eps' else None
         result = replace(t, args=args, binding=b, ty=ty, attrs=frozenset())
     else:
-        args = tuple(gen_map(x, mapping, fnT, fnL, demand) for x in t.args)
+        args = tuple(_gen_map(x, mapping, fnT, fnL, demand) for x in t.args)
         ty = fnT(t.ty) if t.op == 'app' and t.ty is not None else (args[1].ty if t.op == 'if' else t.ty)
         result = replace(t, args=args, ty=ty, attrs=frozenset(), symbol=fnL(t.symbol) if t.op == 'app' else t.symbol)
     # These are inherited kernel-local charges, not a claim that every new

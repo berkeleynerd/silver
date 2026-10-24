@@ -50,3 +50,30 @@ has occurred yet. Root owns issue/planning/session-memory updates and the next
 source join. CLI memory was not updated by this bounded author. Preserve the
 accepted entry configuration; another stream is separately reviewing #206's
 extension and nothing here supplies that extension.
+
+## #211 bounded repair — 2026-10-24 04:27:29 UTC
+
+Read provisional independent review
+`62dee518226c221e3e396a76ee5693272ee01f23` and its direct capture probe.
+The review correctly rejected original freeze `5d9ed9375c`: injection and
+type compatibility permit `{x -> v}` to capture x under an unchanged binder v.
+
+Corrected the theorem with a sufficient root condition: cover all cached free
+variables, use an injective map, and let every nonidentity target lie outside
+all identities in the complete stored input. The note proves propagation
+through saved-key/binder extension and why native `t_subst_types` supplies it
+constructively. The proof wrapper checks the premise; the raw recurrence
+retains native unchanged-binder behavior and the negative counterexample.
+
+Actual clone preservation remains conditional, explicitly including inherited
+`sm.sm_vs` from `cl.pv_table`, prior `sm_save_*` updates and current formals/
+oldies. No completed inherited-map induction is claimed. Source dispatch and
+successful-call demand recurrences remain valid under the stated premises.
+
+One changed-input check: 1,110 assertions in 0.653024460 seconds. Original
+result retained in `result-before-211.json`. Selected repair setting remains
+GPT-6 Astra / Extra High; runtime confirmation, tokens and cost unavailable.
+Recorded repair interval 04:22:15–04:27:29 UTC (314 s), excluding later commit
+work. No native runs, predecessor replay, new subthreads or GitHub writes.
+The original author freeze is preserved; final independent repair review is
+pending. Root owns issue disposition and broader #202 integration.

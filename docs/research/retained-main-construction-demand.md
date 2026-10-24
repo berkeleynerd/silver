@@ -4,7 +4,9 @@ This #202 / #119 unit proves a stored-term invariant needed to connect native
 contract instantiation to the accepted
 [case-free substitution kernel](retained-main-why-storage.md). It gives the
 generic mapper's stored-node, type-callback and freshening recurrences and
-attaches them to `Ity.cty_apply` stage 4 and `Pmodule.clone_term`. **It does not
+attaches them to `Ity.cty_apply` stage 4. It identifies `Pmodule.clone_term`'s
+native dispatch, but that caller's preservation result remains conditional on
+the map coverage and capture premises below. **It does not
 close source-to-initial-VC storage demand.** The source-dependent typing,
 clone, kode, extraction, reflow and SP/WP caller construction still has the
 obligations listed below. In particular, no arbitrary typed-term fixture or
@@ -16,7 +18,8 @@ uses only retained sources at Why3
 files and exact relevant spans. It reuses the accepted kernel implementation
 without replaying its checker. Native execution, captures and compiler/prover
 runs are all zero. These are mathematical constructions and source arguments,
-not measured dynamic allocation counts.
+not measured dynamic allocation counts. The #211 repair corrects the original
+freeze's insufficient generic/clone premise; it is not a native Why3 change.
 
 ## Saved-image support, including capture
 
@@ -103,21 +106,78 @@ The critical `gen_bnd_rename` row (`:1103–1111`) is:
 4. Rename the frame's bound variables after the saved-key fold. Use this
    resulting map for body/triggers. A let's defining value still uses h.
 
-The support invariant makes this total on `t_subst_types` inputs. h covers
-every free variable in every saved image because it covers V. The freshening
-map is injective on those variables: unchanged types retain their old symbol;
-changed types get distinct fresh symbols, assuming the transported Ident
-counter does not wrap. Thus renaming V cannot collapse two positive counts.
-The mapped images' support is contained in the renamed V. Bound and saved
-key renaming is kept separate from free-variable renaming, even when an old
-identity occurs in more than one of those roles. Structural induction gives
-well-typed output and preserves saved support and positivity.
+### Coverage and capture compatibility — correction for #211
+
+Type compatibility and injection alone do **not** make this a
+capture-avoiding transformation. On `forall v:int. R(x,v)`, take the injective
+outer map `{x -> v}` and identity type/symbol maps. The native mapper retains
+the unchanged bound v and produces `forall v. R(v,v)`, while its mapped cache
+still contains `v:1`. Saved support can hold even when this cache is wrong.
+The independent review exposed this counterexample in original author freeze
+`5d9ed9375c4db7fd92b8c7317402754c8fede354`. The earlier unconditional
+capture-avoidance statement and clone attachment under mere injection/type
+compatibility were incorrect and are superseded here.
+
+Use the following **sufficient root premise**. Let `Ids(t)` include every
+variable identity in the input stored graph: free and bound variables,
+pattern variables, cached and saved keys, bodies, triggers and all saved
+images. For the initial map h require:
+
+```text
+FV(t) ⊆ dom(h);
+h is injective;
+h(v) = v or h(v) ∉ Ids(t), for each entry v in h.
+```
+
+Also retain correct positive caches, saved support, type/symbol-compatible
+callbacks, and a transported unwrapped Ident history covering every input and
+map symbol. All newly created symbols must be fresh relative to those inputs
+and each other. The disjointness condition is deliberately stronger than
+necessary; a map failing it is outside this bounded preservation theorem,
+not necessarily an invalid native call. In particular, an arbitrary inherited
+clone map is not assumed to satisfy it. The proof wrapper checks support,
+coverage, injection and disjointness without invoking the type callback; this
+check is mathematical input validation, not native construction demand.
+
+Here is how the premise propagates. At a binder, h covers V. Correctness of
+the input cache implies that every variable in its raw body/triggers is
+accounted for by V, that frame's bound variables or its saved keys: an
+unbound/unsubstituted occurrence would otherwise contribute positively to V.
+Saved support puts every image's free variables in V. Thus mapping each image
+with the original h is covered; extending h with every saved key and then
+every bound variable covers the body/triggers. The same argument applies to
+case patterns and their branch bodies.
+
+Extensions use either the variable's unchanged old identity or a new globally
+fresh symbol. A nonidentity image of a different incoming variable cannot
+collide with an unchanged binder/saved key because that key is in `Ids(t)`;
+it cannot collide with a newly freshened symbol because the owner history
+covers the incoming range. Distinct freshenings cannot collide. When the same
+old identity has both an outer free role and a local bound/saved-key role,
+mapping an image still uses the original outer h, while the body uses the
+local extension. Hence intentional shadowing follows the native frame
+semantics without capturing a *different* free variable. Induction over the
+stored graph preserves this separation, type compatibility, positive/correct
+caches and saved support. In particular, the mapped image's support lies in
+the renamed V and different cached free keys cannot collapse.
+
+`t_subst_types` **constructs** the sufficient premise: `gen_mapV` covers every
+root free variable, keeps the original symbol when its type is unchanged,
+and otherwise allocates a globally fresh symbol. It is injective and all
+nonidentity targets are outside `Ids(t)`. No external capture-freedom
+certificate is needed for this entry. The later term substitution remains
+the accepted capture-avoiding kernel operation. The packet preserves the raw
+native counterexample as a negative regression and rejects it at the proof
+wrapper; it does not change native behavior by freshening unchanged binders.
 
 All stored term occurrences are visited once, including triggers and every
 saved image. The generic mapper preserves term constructors and binder-map
 cardinalities; it does not open and flatten the binder. Its output denotes
 the ordinary capture-avoiding type/symbol transformation of its input.
 Term attribute copying is retained. Physical record reuse is not assumed.
+The denotation and cache-correctness claims in this paragraph require the
+coverage/capture premise just proved; constructor-shape preservation alone
+does not imply them.
 
 The same mapper has explicit `Tcase` and all five native pattern rows
 (`Pwild`, `Pvar`, `Papp`, `Por`, `Pas`). Each case branch applies the same
@@ -214,11 +274,30 @@ For context cloning, `clone_term` calls the generic mapper with `clone_ty`,
 `cl_find_ls` and the supplied variable map (`pmodule.ml:672–678`).
 `clone_cty` maps preconditions using `sm_args`, normal and exceptional
 postconditions using `sm_olds`, after cloning actual formal and old variables
-(`:893–915`). Apply the stored-support proof under the clone caller's
-type-compatible, injective free-variable map. This makes the mapper's demand
-and preservation rule available for both case-free contracts and case-bearing
-context. It does not yet price `clone_ty`, routine/type construction or the
-whole clone/declaration traversal.
+(`:893–915`). These are source dispatch facts, not yet a complete preservation
+attachment for clone callers.
+
+In particular, `sm_of_cl` obtains its initial `sm_vs` by mapping
+`cl.pv_table` (`pmodule.ml:851–862`). `sm_save_vs`, `sm_save_pv` and the RLpv
+row of `sm_save_rs` extend existing maps (`:864–883`); `clone_cty` retains this
+inherited map when adding fresh formals/oldies. Earlier declaration cloning
+also writes `sm.sm_pv` back to `cl.pv_table` (`:1465`). Fresh formals and oldies
+therefore do **not** establish a property of every inherited range entry.
+The negative test explicitly retains the capturing `{x -> v}` inherited
+entry while adding a fresh formal: the full map remains incompatible.
+
+The exact remaining clone obligation is to establish, at every reached
+`clone_term cl sm.sm_vs t`, type compatibility, coverage of the cached
+supports reached by `gen_bnd_rename` (the sufficient root condition above
+implies it), and capture compatibility of the **whole** inherited-and-extended
+map relative to t's stored bodies, patterns, keys and images. This requires an
+induction over initialization, prior declaration/lexical `sm_save_*` updates,
+unchanged foreign variables and the current formal/oldie additions. That
+induction is **not discharged in this unit**. The mapper's conditional
+preservation theorem and successful-call request recurrences are available
+once that obligation is proved; no claim that the actual clone maps satisfy
+it is made here. `clone_ty` demand, routine/type construction and the whole
+clone/declaration traversal also remain open as before.
 
 ## Remaining source-to-candidate joins
 
@@ -231,7 +310,7 @@ remaining rows within the assigned boundary:
 | Row | Required construction demand and domain attachment |
 | --- | --- |
 | Source/parser/type/declaration fold | Construct actual stored initial contracts through native closing, type inference, proxies, overload attempts and failures; account for types, symbols, attributes and strings. Separate fixed/imported case-bearing context from every contract actually passed into Main's VC construction. The invariant above supplies the saved-image part of the induction. |
-| Native clone fold | Count all reached ordered units and instantiated type/symbol/cty builders, including case-bearing context records, callback type demand and old-return representative histories. `clone_term` is now available as a precise suboperation. |
+| Native clone fold | Prove cached-support coverage and capture compatibility for the whole inherited `sm.sm_vs` history, then apply the conditional `clone_term` rule. Count all reached ordered units and instantiated type/symbol/cty builders, including case-bearing context records, callback type demand and old-return representative histories. |
 | Candidate enumeration | Keep Main and each generated nullary Pterm/undefined-Pred `LDsym Cfun` candidate. Internal ignored Cfun checks are Par children, not extra candidates. Count construction before the gate even when a candidate is discarded. |
 | k_expr / k_fun | Include pre/post opening, result/proxy allocation, implicit unit enrichment, invariant inspection, assignment maps, location/trace attributes and associated strings at their actual native sites. Accepted program-key U/H measures are not creation counts. |
 | term_of_kode | Retain both unwind outputs: value first, then the closedness test and possible predicate unwind. A later `Exit` keeps all earlier work. Returning the original kode on failure does not erase those requests. |
