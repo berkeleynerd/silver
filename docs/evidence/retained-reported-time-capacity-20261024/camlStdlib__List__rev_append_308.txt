@@ -1,0 +1,35 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+0000000000948d10 <camlStdlib__List__rev_append_308>:
+  948d10:	48 83 ec 08          	sub    $0x8,%rsp
+  948d14:	a8 01                	test   $0x1,%al
+  948d16:	74 08                	je     948d20 <camlStdlib__List__rev_append_308+0x10>
+  948d18:	48 89 d8             	mov    %rbx,%rax
+  948d1b:	48 83 c4 08          	add    $0x8,%rsp
+  948d1f:	c3                   	ret
+  948d20:	49 83 ef 18          	sub    $0x18,%r15
+  948d24:	4d 3b 3e             	cmp    (%r14),%r15
+  948d27:	72 1f                	jb     948d48 <camlStdlib__List__rev_append_308+0x38>
+  948d29:	49 8d 7f 08          	lea    0x8(%r15),%rdi
+  948d2d:	48 c7 47 f8 00 08 00 	movq   $0x800,-0x8(%rdi)
+  948d34:	00 
+  948d35:	48 8b 30             	mov    (%rax),%rsi
+  948d38:	48 89 37             	mov    %rsi,(%rdi)
+  948d3b:	48 89 5f 08          	mov    %rbx,0x8(%rdi)
+  948d3f:	48 8b 40 08          	mov    0x8(%rax),%rax
+  948d43:	48 89 fb             	mov    %rdi,%rbx
+  948d46:	eb cc                	jmp    948d14 <camlStdlib__List__rev_append_308+0x4>
+  948d48:	e8 df b0 09 00       	call   9e3e2c <caml_call_gc>
+  948d4d:	eb da                	jmp    948d29 <camlStdlib__List__rev_append_308+0x19>
+
+Disassembly of section .fini:

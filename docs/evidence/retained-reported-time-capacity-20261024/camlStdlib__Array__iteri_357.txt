@@ -1,0 +1,62 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+0000000000953ea0 <camlStdlib__Array__iteri_357>:
+  953ea0:	48 83 ec 28          	sub    $0x28,%rsp
+  953ea4:	48 89 c7             	mov    %rax,%rdi
+  953ea7:	b8 01 00 00 00       	mov    $0x1,%eax
+  953eac:	48 8b 73 f8          	mov    -0x8(%rbx),%rsi
+  953eb0:	48 c1 ee 09          	shr    $0x9,%rsi
+  953eb4:	48 83 ce 01          	or     $0x1,%rsi
+  953eb8:	48 83 c6 fe          	add    $0xfffffffffffffffe,%rsi
+  953ebc:	48 39 f0             	cmp    %rsi,%rax
+  953ebf:	7f 7a                	jg     953f3b <camlStdlib__Array__iteri_357+0x9b>
+  953ec1:	48 89 74 24 18       	mov    %rsi,0x18(%rsp)
+  953ec6:	48 89 44 24 10       	mov    %rax,0x10(%rsp)
+  953ecb:	48 89 1c 24          	mov    %rbx,(%rsp)
+  953ecf:	48 89 7c 24 08       	mov    %rdi,0x8(%rsp)
+  953ed4:	48 8b 3c 24          	mov    (%rsp),%rdi
+  953ed8:	48 0f b6 5f f8       	movzbq -0x8(%rdi),%rbx
+  953edd:	48 81 fb fe 00 00 00 	cmp    $0xfe,%rbx
+  953ee4:	74 0a                	je     953ef0 <camlStdlib__Array__iteri_357+0x50>
+  953ee6:	48 8b 5c 87 fc       	mov    -0x4(%rdi,%rax,4),%rbx
+  953eeb:	eb 22                	jmp    953f0f <camlStdlib__Array__iteri_357+0x6f>
+  953eed:	0f 1f 00             	nopl   (%rax)
+  953ef0:	49 83 ef 10          	sub    $0x10,%r15
+  953ef4:	4d 3b 3e             	cmp    (%r14),%r15
+  953ef7:	72 53                	jb     953f4c <camlStdlib__Array__iteri_357+0xac>
+  953ef9:	49 8d 5f 08          	lea    0x8(%r15),%rbx
+  953efd:	48 c7 43 f8 fd 04 00 	movq   $0x4fd,-0x8(%rbx)
+  953f04:	00 
+  953f05:	f2 0f 10 44 87 fc    	movsd  -0x4(%rdi,%rax,4),%xmm0
+  953f0b:	f2 0f 11 03          	movsd  %xmm0,(%rbx)
+  953f0f:	48 8b 7c 24 08       	mov    0x8(%rsp),%rdi
+  953f14:	e8 c7 90 bd ff       	call   52cfe0 <caml_apply2>
+  953f19:	48 8b 44 24 10       	mov    0x10(%rsp),%rax
+  953f1e:	48 89 c3             	mov    %rax,%rbx
+  953f21:	48 83 c0 02          	add    $0x2,%rax
+  953f25:	48 89 44 24 10       	mov    %rax,0x10(%rsp)
+  953f2a:	48 8b 7c 24 18       	mov    0x18(%rsp),%rdi
+  953f2f:	48 39 fb             	cmp    %rdi,%rbx
+  953f32:	74 07                	je     953f3b <camlStdlib__Array__iteri_357+0x9b>
+  953f34:	4d 3b 3e             	cmp    (%r14),%r15
+  953f37:	77 9b                	ja     953ed4 <camlStdlib__Array__iteri_357+0x34>
+  953f39:	eb 0a                	jmp    953f45 <camlStdlib__Array__iteri_357+0xa5>
+  953f3b:	b8 01 00 00 00       	mov    $0x1,%eax
+  953f40:	48 83 c4 28          	add    $0x28,%rsp
+  953f44:	c3                   	ret
+  953f45:	e8 e2 fe 08 00       	call   9e3e2c <caml_call_gc>
+  953f4a:	eb 88                	jmp    953ed4 <camlStdlib__Array__iteri_357+0x34>
+  953f4c:	e8 db fe 08 00       	call   9e3e2c <caml_call_gc>
+  953f51:	eb a6                	jmp    953ef9 <camlStdlib__Array__iteri_357+0x59>
+
+Disassembly of section .fini:

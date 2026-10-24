@@ -1,0 +1,147 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+0000000000928610 <camlRe__Str__replace_1086>:
+  928610:	48 83 ec 38          	sub    $0x38,%rsp
+  928614:	48 89 44 24 28       	mov    %rax,0x28(%rsp)
+  928619:	48 89 da             	mov    %rbx,%rdx
+  92861c:	48 83 ff 01          	cmp    $0x1,%rdi
+  928620:	74 0a                	je     92862c <camlRe__Str__replace_1086+0x1c>
+  928622:	48 89 d1             	mov    %rdx,%rcx
+  928625:	48 83 c1 02          	add    $0x2,%rcx
+  928629:	eb 04                	jmp    92862f <camlRe__Str__replace_1086+0x1f>
+  92862b:	90                   	nop
+  92862c:	48 89 d1             	mov    %rdx,%rcx
+  92862f:	48 8b 5e 28          	mov    0x28(%rsi),%rbx
+  928633:	48 8b 43 f8          	mov    -0x8(%rbx),%rax
+  928637:	48 c1 e8 0a          	shr    $0xa,%rax
+  92863b:	48 8d 3c c5 ff ff ff 	lea    -0x1(,%rax,8),%rdi
+  928642:	ff 
+  928643:	48 0f b6 04 3b       	movzbq (%rbx,%rdi,1),%rax
+  928648:	48 29 c7             	sub    %rax,%rdi
+  92864b:	48 8d 44 3f 01       	lea    0x1(%rdi,%rdi,1),%rax
+  928650:	48 39 c1             	cmp    %rax,%rcx
+  928653:	7e 43                	jle    928698 <camlRe__Str__replace_1086+0x88>
+  928655:	48 89 d8             	mov    %rbx,%rax
+  928658:	48 d1 e7             	shl    $1,%rdi
+  92865b:	48 29 d7             	sub    %rdx,%rdi
+  92865e:	48 83 c7 02          	add    $0x2,%rdi
+  928662:	48 89 d3             	mov    %rdx,%rbx
+  928665:	e8 e6 4f 02 00       	call   94d650 <camlStdlib__Bytes__sub_302>
+  92866a:	49 83 ef 18          	sub    $0x18,%r15
+  92866e:	4d 3b 3e             	cmp    (%r14),%r15
+  928671:	0f 82 8b 01 00 00    	jb     928802 <camlRe__Str__replace_1086+0x1f2>
+  928677:	49 8d 5f 08          	lea    0x8(%r15),%rbx
+  92867b:	48 c7 43 f8 00 08 00 	movq   $0x800,-0x8(%rbx)
+  928682:	00 
+  928683:	48 89 03             	mov    %rax,(%rbx)
+  928686:	48 8b 44 24 28       	mov    0x28(%rsp),%rax
+  92868b:	48 89 43 08          	mov    %rax,0x8(%rbx)
+  92868f:	48 89 d8             	mov    %rbx,%rax
+  928692:	48 83 c4 38          	add    $0x38,%rsp
+  928696:	c3                   	ret
+  928697:	90                   	nop
+  928698:	48 89 74 24 18       	mov    %rsi,0x18(%rsp)
+  92869d:	48 89 54 24 20       	mov    %rdx,0x20(%rsp)
+  9286a2:	4c 8d 1d 27 00 00 00 	lea    0x27(%rip),%r11        # 9286d0 <camlRe__Str__replace_1086+0xc0>
+  9286a9:	41 53                	push   %r11
+  9286ab:	41 ff 76 10          	push   0x10(%r14)
+  9286af:	49 89 66 10          	mov    %rsp,0x10(%r14)
+  9286b3:	48 8b 46 18          	mov    0x18(%rsi),%rax
+  9286b7:	48 89 cf             	mov    %rcx,%rdi
+  9286ba:	e8 41 f1 ff ff       	call   927800 <camlRe__Str__search_forward_689>
+  9286bf:	48 89 44 24 20       	mov    %rax,0x20(%rsp)
+  9286c4:	41 8f 46 10          	pop    0x10(%r14)
+  9286c8:	48 83 c4 08          	add    $0x8,%rsp
+  9286cc:	eb 7e                	jmp    92874c <camlRe__Str__replace_1086+0x13c>
+  9286ce:	66 90                	xchg   %ax,%ax
+  9286d0:	48 8d 1d c1 3e 62 00 	lea    0x623ec1(%rip),%rbx        # f4c598 <camlStdlib>
+  9286d7:	48 8b 5b 38          	mov    0x38(%rbx),%rbx
+  9286db:	48 39 d8             	cmp    %rbx,%rax
+  9286de:	75 64                	jne    928744 <camlRe__Str__replace_1086+0x134>
+  9286e0:	48 8b 44 24 18       	mov    0x18(%rsp),%rax
+  9286e5:	48 8b 40 28          	mov    0x28(%rax),%rax
+  9286e9:	48 8b 58 f8          	mov    -0x8(%rax),%rbx
+  9286ed:	48 c1 eb 0a          	shr    $0xa,%rbx
+  9286f1:	48 8d 3c dd ff ff ff 	lea    -0x1(,%rbx,8),%rdi
+  9286f8:	ff 
+  9286f9:	48 0f b6 1c 38       	movzbq (%rax,%rdi,1),%rbx
+  9286fe:	48 29 df             	sub    %rbx,%rdi
+  928701:	48 d1 e7             	shl    $1,%rdi
+  928704:	48 8b 5c 24 20       	mov    0x20(%rsp),%rbx
+  928709:	48 29 df             	sub    %rbx,%rdi
+  92870c:	48 83 c7 02          	add    $0x2,%rdi
+  928710:	e8 3b 4f 02 00       	call   94d650 <camlStdlib__Bytes__sub_302>
+  928715:	49 83 ef 18          	sub    $0x18,%r15
+  928719:	4d 3b 3e             	cmp    (%r14),%r15
+  92871c:	0f 82 d6 00 00 00    	jb     9287f8 <camlRe__Str__replace_1086+0x1e8>
+  928722:	49 8d 5f 08          	lea    0x8(%r15),%rbx
+  928726:	48 c7 43 f8 00 08 00 	movq   $0x800,-0x8(%rbx)
+  92872d:	00 
+  92872e:	48 89 03             	mov    %rax,(%rbx)
+  928731:	48 8b 44 24 28       	mov    0x28(%rsp),%rax
+  928736:	48 89 43 08          	mov    %rax,0x8(%rbx)
+  92873a:	48 89 d8             	mov    %rbx,%rax
+  92873d:	48 83 c4 38          	add    $0x38,%rsp
+  928741:	c3                   	ret
+  928742:	66 90                	xchg   %ax,%ax
+  928744:	e8 0f b9 0b 00       	call   9e4058 <caml_raise_exn>
+  928749:	0f 1f 00             	nopl   (%rax)
+  92874c:	b8 01 00 00 00       	mov    $0x1,%eax
+  928751:	e8 ea fb ff ff       	call   928340 <camlRe__Str__group_end_1052>
+  928756:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+  92875b:	48 8b 44 24 18       	mov    0x18(%rsp),%rax
+  928760:	48 8b 58 20          	mov    0x20(%rax),%rbx
+  928764:	48 8b 40 28          	mov    0x28(%rax),%rax
+  928768:	48 8b 3b             	mov    (%rbx),%rdi
+  92876b:	ff d7                	call   *%rdi
+  92876d:	48 89 04 24          	mov    %rax,(%rsp)
+  928771:	48 8b 7c 24 10       	mov    0x10(%rsp),%rdi
+  928776:	48 8b 5c 24 20       	mov    0x20(%rsp),%rbx
+  92877b:	48 29 df             	sub    %rbx,%rdi
+  92877e:	48 ff c7             	inc    %rdi
+  928781:	48 8b 44 24 18       	mov    0x18(%rsp),%rax
+  928786:	48 8b 40 28          	mov    0x28(%rax),%rax
+  92878a:	e8 c1 4e 02 00       	call   94d650 <camlStdlib__Bytes__sub_302>
+  92878f:	49 83 ef 30          	sub    $0x30,%r15
+  928793:	4d 3b 3e             	cmp    (%r14),%r15
+  928796:	72 59                	jb     9287f1 <camlRe__Str__replace_1086+0x1e1>
+  928798:	49 8d 5f 08          	lea    0x8(%r15),%rbx
+  92879c:	48 83 c3 18          	add    $0x18,%rbx
+  9287a0:	48 c7 43 f8 00 08 00 	movq   $0x800,-0x8(%rbx)
+  9287a7:	00 
+  9287a8:	48 89 03             	mov    %rax,(%rbx)
+  9287ab:	48 8b 44 24 28       	mov    0x28(%rsp),%rax
+  9287b0:	48 89 43 08          	mov    %rax,0x8(%rbx)
+  9287b4:	48 8d 73 e8          	lea    -0x18(%rbx),%rsi
+  9287b8:	48 c7 46 f8 00 08 00 	movq   $0x800,-0x8(%rsi)
+  9287bf:	00 
+  9287c0:	48 8b 04 24          	mov    (%rsp),%rax
+  9287c4:	48 89 06             	mov    %rax,(%rsi)
+  9287c7:	48 89 5e 08          	mov    %rbx,0x8(%rsi)
+  9287cb:	48 8b 5c 24 08       	mov    0x8(%rsp),%rbx
+  9287d0:	48 8b 44 24 10       	mov    0x10(%rsp),%rax
+  9287d5:	48 39 c3             	cmp    %rax,%rbx
+  9287d8:	0f 94 c0             	sete   %al
+  9287db:	48 0f b6 c0          	movzbq %al,%rax
+  9287df:	48 8d 7c 00 01       	lea    0x1(%rax,%rax,1),%rdi
+  9287e4:	48 89 f0             	mov    %rsi,%rax
+  9287e7:	48 8b 74 24 18       	mov    0x18(%rsp),%rsi
+  9287ec:	e9 23 fe ff ff       	jmp    928614 <camlRe__Str__replace_1086+0x4>
+  9287f1:	e8 36 b6 0b 00       	call   9e3e2c <caml_call_gc>
+  9287f6:	eb a0                	jmp    928798 <camlRe__Str__replace_1086+0x188>
+  9287f8:	e8 2f b6 0b 00       	call   9e3e2c <caml_call_gc>
+  9287fd:	e9 20 ff ff ff       	jmp    928722 <camlRe__Str__replace_1086+0x112>
+  928802:	e8 25 b6 0b 00       	call   9e3e2c <caml_call_gc>
+  928807:	e9 6b fe ff ff       	jmp    928677 <camlRe__Str__replace_1086+0x67>
+
+Disassembly of section .fini:

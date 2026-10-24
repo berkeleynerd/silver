@@ -1,0 +1,47 @@
+[
+  {
+    "line": 387,
+    "member": "why3/src/driver/call_provers.ml",
+    "text": "    pr_time   = time;"
+  },
+  {
+    "line": 397,
+    "member": "why3/src/driver/call_provers.ml",
+    "text": "      pr_time = time;"
+  },
+  {
+    "line": 571,
+    "member": "why3/src/driver/call_provers.ml",
+    "text": "  pr_time   = 0.0;"
+  },
+  {
+    "line": 253,
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "text": "    pr_time   = 0.0;"
+  },
+  {
+    "line": 354,
+    "member": "why3/src/session/controller_itp.ml",
+    "text": "             Call_provers.pr_time = t;"
+  },
+  {
+    "line": 408,
+    "member": "why3/src/session/controller_itp.ml",
+    "text": "  then { nres with Call_provers.pr_time = told }"
+  },
+  {
+    "line": 599,
+    "member": "why3/src/session/json_util.ml",
+    "text": "  let pr_time ="
+  },
+  {
+    "line": 614,
+    "member": "why3/src/session/json_util.ml",
+    "text": "    pr_time = pr_time;"
+  },
+  {
+    "line": 1044,
+    "member": "why3/src/session/session_itp.ml",
+    "text": "       Call_provers.pr_time = time;"
+  }
+]

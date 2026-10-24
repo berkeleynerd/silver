@@ -1,0 +1,46 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+0000000000951d10 <camlStdlib__String__concat_419>:
+  951d10:	48 83 ec 18          	sub    $0x18,%rsp
+  951d14:	48 89 df             	mov    %rbx,%rdi
+  951d17:	40 f6 c7 01          	test   $0x1,%dil
+  951d1b:	74 0f                	je     951d2c <camlStdlib__String__concat_419+0x1c>
+  951d1d:	48 8d 05 54 9b 60 00 	lea    0x609b54(%rip),%rax        # f5b878 <camlStdlib__String__1>
+  951d24:	48 83 c4 18          	add    $0x18,%rsp
+  951d28:	c3                   	ret
+  951d29:	0f 1f 00             	nopl   (%rax)
+  951d2c:	48 89 7c 24 10       	mov    %rdi,0x10(%rsp)
+  951d31:	48 89 04 24          	mov    %rax,(%rsp)
+  951d35:	48 8b 58 f8          	mov    -0x8(%rax),%rbx
+  951d39:	48 c1 eb 0a          	shr    $0xa,%rbx
+  951d3d:	48 8d 1c dd ff ff ff 	lea    -0x1(,%rbx,8),%rbx
+  951d44:	ff 
+  951d45:	48 0f b6 04 18       	movzbq (%rax,%rbx,1),%rax
+  951d4a:	48 29 c3             	sub    %rax,%rbx
+  951d4d:	48 8d 5c 1b 01       	lea    0x1(%rbx,%rbx,1),%rbx
+  951d52:	48 89 5c 24 08       	mov    %rbx,0x8(%rsp)
+  951d57:	b8 01 00 00 00       	mov    $0x1,%eax
+  951d5c:	e8 df fd ff ff       	call   951b40 <camlStdlib__String__sum_lengths_403>
+  951d61:	48 89 c7             	mov    %rax,%rdi
+  951d64:	48 8d 05 f5 ad 07 00 	lea    0x7adf5(%rip),%rax        # 9ccb60 <caml_create_bytes>
+  951d6b:	e8 38 22 09 00       	call   9e3fa8 <caml_c_call>
+  951d70:	4d 8b 7e 08          	mov    0x8(%r14),%r15
+  951d74:	bb 01 00 00 00       	mov    $0x1,%ebx
+  951d79:	48 8b 3c 24          	mov    (%rsp),%rdi
+  951d7d:	48 8b 74 24 08       	mov    0x8(%rsp),%rsi
+  951d82:	48 8b 54 24 10       	mov    0x10(%rsp),%rdx
+  951d87:	e8 54 fe ff ff       	call   951be0 <camlStdlib__String__unsafe_blits_410>
+  951d8c:	48 83 c4 18          	add    $0x18,%rsp
+  951d90:	c3                   	ret
+
+Disassembly of section .fini:

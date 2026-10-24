@@ -1,0 +1,56 @@
+{
+  "authorization": "Owner-requested continued research and commits/publication; no merge, tool/source edit, target execution or production feature change.",
+  "complete_119_resource_claim": false,
+  "configuration_adopted": false,
+  "cost": null,
+  "date_utc": "2026-10-24",
+  "dependencies": {
+    "entry_author": "e45ee72a42d6cc669e95b80c2c991cbc65fe4e73",
+    "entry_independent_review": "0116f0bee53911fc297d7b7ef62aa4ca23184733",
+    "native_author": "6cc4c72f63",
+    "native_independent_review": "35a5bea549"
+  },
+  "final_check_command": "python3 -B docs/evidence/retained-reported-time-capacity-20261024/check.py --baseline-root /home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity",
+  "final_check_elapsed_seconds": 1.21614043199952,
+  "independent_parent_composition_review": "pending",
+  "live_harness_goal": null,
+  "material_findings_or_rework": [
+    "Exact byte census corrected an initial manual offset estimate: old32/new33 bytes includingLF, so+1 rawoffset.",
+    "Freshness is the init_cont empty_session branch; no--replay by itself does not exclude loading an existing session.",
+    "Imported common file is a segment of one multifile parser stream; added right-recursive globals require extra final reductions at rootEOF.",
+    "Whole common-token-segment overcharge avoids a delicate per-byte delta. Native linked stack and individual-small-block proof permit minor-only charging.",
+    "Census honors Lexlib special(*) comment syntax; a preliminary scratch scanner without that rule was stopped and replaced before evidence freezing.",
+    "Native provider root review#208 corrected wrapper subtotal202to214; exported256 unchanged.",
+    "Source ownership respected; unrelated untrackedtmp preserved."
+  ],
+  "native_engine_executions": 0,
+  "objective": "#119/#206 exact private timing recipe, time-origin induction, source/native startup allocation closure and consumable #202 entry extension",
+  "observation_ended_utc": "2026-10-24 04:00:26 UTC",
+  "observation_scope": "Partial recorded wall-clock interval; actual task started earlier and completion bookkeeping continued afterward. Not total work or native execution time.",
+  "observation_seconds": 2026,
+  "observation_started_utc": "2026-10-24 03:26:40 UTC",
+  "prior_checker_replays": 0,
+  "production_88_94_started": false,
+  "result": {
+    "configuration": "Seven-file prospective recipe, one32-to33-byte common-file line edit; nine independent records",
+    "entry_extension": "Executable arithmetic consuming exact baseline envelope plus new configuration identity",
+    "maximum_candidate_minor_words": 227274405,
+    "maximum_cut_C_managed_static_words": 237953393,
+    "native_stack": "Existing sufficient-physical-stack/runtime premise, fixed new constructor chain, no new Main/output/T-dependent recursion; no numeric aggregate stack fit",
+    "startup_additional_major_words": 0,
+    "startup_additional_minor_words": 91752681,
+    "time_domain": "0 or binary64 mu0.000001; report Float max safely0..1"
+  },
+  "runtime_effort_confirmation": null,
+  "runtime_model_confirmation": null,
+  "selected_model": "GPT-6 Astra",
+  "selected_reasoning_effort": "Extra High",
+  "session_memory_and_issue_updates": "Lead-owned; no edits or messages made from this bounded subthread.",
+  "static_extraction_command_wall_seconds": [
+    0.691419966,
+    0.79033502,
+    1.601948768
+  ],
+  "target_runs": 0,
+  "token_usage": null
+}
