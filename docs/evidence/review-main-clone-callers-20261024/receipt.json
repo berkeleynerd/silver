@@ -1,0 +1,113 @@
+{
+  "reviewed_commit": "b5cfa9c1a501eefdd5db89670ca60ccbc399e036",
+  "accepted_bridge_commit": "3f4f6143c206518bf257d3d9b63cee2a08d14bcd",
+  "accepted_bridge_review": "536c35cd2c36ac43dee39e1d6d8a8321d60fc070",
+  "status": "accepted_bounded_clone_map_and_direct_caller_attachment",
+  "material_author_findings": [],
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "started_clock_utc": "2026-10-24 05:09:39 UTC",
+  "source_and_audit_checkpoint_utc": "2026-10-24 05:18:11 UTC",
+  "recorded_elapsed_seconds": 512,
+  "elapsed_scope": "Initial status/worktree setup, bounded source inspection and focused audit; excludes final report/commit work. Not whole-team time.",
+  "audit_attempts": [
+    {
+      "status": "failed",
+      "tool_wall_seconds": 0.309310613,
+      "cause": "Reviewer graph extractor treated explicit builtin why3.WellFounded.WellFounded as a corpus module.",
+      "disposition": "Classified the only absent corpus node explicitly; source pmodule.ml:412-473 constructs closed pure definitions."
+    },
+    {
+      "status": "failed",
+      "tool_wall_seconds": 0.61112428,
+      "cause": "Reviewer independent lexer treated WhyML multiplication operator (*) as an opening comment.",
+      "disposition": "Implemented lexer.mll:108-111 special operator case; no author change."
+    },
+    {
+      "status": "pass",
+      "tool_wall_seconds": 1.333076961,
+      "audit_elapsed_seconds": 1.3452682249990175,
+      "assertions": 2035
+    }
+  ],
+  "new_focused_audit_programs": 1,
+  "successful_audit_runs": 1,
+  "successful_checker_replays": 0,
+  "native_runs": 0,
+  "author_or_predecessor_checker_replays": 0,
+  "tokens": null,
+  "cost": null,
+  "host": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "harness_goal": null,
+  "cli_memory_updated": false,
+  "inputs": {
+    "docs/evidence/retained-main-construction-demand-20261024/clone-callers/README.md": "386fbcae53c0d0f57858c536ca3ae4a18ac8f017e368e06f9194f89db7661e8b",
+    "docs/evidence/retained-main-construction-demand-20261024/clone-callers/callers.py": "f34cb43230a4cae26277660f5c6b56906f094de20ad5232537a5fbd4bb544d7a",
+    "docs/evidence/retained-main-construction-demand-20261024/clone-callers/check.py": "d3f33514b85196860ceb17ffb6a4a557c3d3f149875e95a5de55510dc5862642",
+    "docs/evidence/retained-main-construction-demand-20261024/clone-callers/checkpoint.md": "b10757d97aa4c83821d52d8bdde72ec71d80a06080ae8b5244516d193aac13f0",
+    "docs/evidence/retained-main-construction-demand-20261024/clone-callers/identity.json": "71ec0a052e1e9e3c52d9e83cb825d24ecbfe57c24e7eb2794250566f380bcc7a",
+    "docs/evidence/retained-main-construction-demand-20261024/clone-callers/inventory.json": "ba8e9f8eb98462d177495d72f3b50579dc6669272aa820aab602b4ba67a96af5",
+    "docs/evidence/retained-main-construction-demand-20261024/clone-callers/inventory.py": "f357cea514b24b7633f74c06d3b934021a425b56a753095166a4d4f478ae044d",
+    "docs/evidence/retained-main-construction-demand-20261024/clone-callers/result.json": "60922df04521dec500e3c7eeebfb64648453e7d369b77372440a4a898f890ce5",
+    "docs/evidence/retained-main-construction-demand-20261024/clone-callers/round.json": "1b4a269b3f84c68ed97aef0ae3f01a47ed3a7c2c0864a4b196a0fce84dd6f67a",
+    "docs/research/retained-main-construction-demand.md": "765a85d0f20ecdd35f71d37a01f9f12efc035c08247d4945308427541d796b6a"
+  },
+  "additional_source_inputs": [
+    {
+      "path": "src/mlw/pmodule.ml",
+      "sha256": "0bbebf874d1fe1ed216efd07a76f6e51d9fd96c5910ea9c1fac2f5864db29344",
+      "spans": [
+        {
+          "first": 385,
+          "last": 473,
+          "sha256": "e76246237b0fd509a8187e9f3cc70caa23e1e5fb7eadb383f025450218b4b445"
+        },
+        {
+          "first": 1357,
+          "last": 1363,
+          "sha256": "228e96749033a255eba011e3ba27a8c709ee8a4011c82a429c3349c21513ca99"
+        }
+      ]
+    },
+    {
+      "path": "src/parser/lexer.mll",
+      "sha256": "f464fc08195ff31387cbb062134d86dd667232af733c92c53f8f52b88d28ac96",
+      "spans": [
+        {
+          "first": 108,
+          "last": 111,
+          "sha256": "b36a2f1787d53102d609c38acb5421c6fff47a57a004706d8b0f35ca06ccc507"
+        }
+      ]
+    },
+    {
+      "path": "src/mlw/ity.ml",
+      "sha256": "036cd1bac384c017b15ffae7e8f0c466cb50005d5905c83524679439dec66a49",
+      "spans": [
+        {
+          "first": 1386,
+          "last": 1431,
+          "sha256": "925a0c9436f64183004677342ca5db5fbc064eeb7c69bbf7ec8ab695a8c00518"
+        }
+      ]
+    },
+    {
+      "path": "src/parser/typing.ml",
+      "sha256": "74b8ea5dcfbf4102952e80281cbea149261386270679ff4d79425e74fd67c572",
+      "spans": [
+        {
+          "first": 1416,
+          "last": 1422,
+          "sha256": "5410dd0269ae283fddada5d967792e7b4dee905dedacb052932dd19edb8cd910"
+        }
+      ]
+    }
+  ],
+  "actual_frontier_clone_map_attachment": true,
+  "direct_clone_caller_recurrence": true,
+  "complete_native_bytes": false,
+  "complete_source_to_vc_storage": false,
+  "complete_119": false
+}

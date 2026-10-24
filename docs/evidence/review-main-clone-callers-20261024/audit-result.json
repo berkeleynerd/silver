@@ -1,0 +1,119 @@
+{
+  "status": "pass",
+  "reviewed_commit": "b5cfa9c1a501eefdd5db89670ca60ccbc399e036",
+  "assertions": 2035,
+  "families": {
+    "exact author freeze": 10,
+    "provider identity": 9,
+    "archive identity": 3,
+    "complete source identity": 36,
+    "source span identity": 50,
+    "source anchor": 112,
+    "only reviewed builtin is outside corpus": 1,
+    "origin set from accepted dependency graph": 1,
+    "independent origin equality": 1,
+    "independent dependency closure": 1,
+    "WellFounded source has closed pure declaration constructors": 1,
+    "module interface absent": 352,
+    "no unclassified reference declaration": 524,
+    "nullary let has its own lexical continuation": 26,
+    "val equality is clone refinement": 3,
+    "complete independent module inventory": 1,
+    "independent four-global classification": 1,
+    "independent three-refinement classification": 1,
+    "all origins lack top-level program objects": 1,
+    "random state excluded from dependency closure": 1,
+    "dependency has no foreign state reference": 95,
+    "standard state occurs only at declarations": 1,
+    "origin excludes recursive loop exception invariant witness syntax": 69,
+    "independent per-origin lexical let classification": 69,
+    "all 26 lexical candidates accounted for": 1,
+    "fresh lexical history satisfies accepted root premise": 300,
+    "all targets postdate complete origin": 300,
+    "inner lexical maps do not escape declarations": 30,
+    "oldie reversal recovers distinct allocated targets": 30,
+    "foreign free variable would violate empty inherited map": 1,
+    "direct source-site count including comparisons and refinement": 1,
+    "later clone counts transformed output records": 1,
+    "unknown caller family is not zero cost": 1,
+    "author inputs unchanged": 1
+  },
+  "independent_inventory": {
+    "origins": 69,
+    "dependency_modules": 97,
+    "lexical_candidates": 26,
+    "global_objects": {
+      "_gnatprove_standard.Main": [
+        {
+          "name": "__HEAP",
+          "line": 26
+        },
+        {
+          "name": "no__return",
+          "line": 39
+        },
+        {
+          "name": "spark__branch",
+          "line": 88
+        }
+      ],
+      "mach.int.Random63": [
+        {
+          "name": "s",
+          "line": 568
+        }
+      ]
+    },
+    "routine_refinements": {
+      "set.SetAppInt": [
+        {
+          "name": "eq",
+          "line": 607
+        }
+      ],
+      "set.SetAppString": [
+        {
+          "name": "eq",
+          "line": 663
+        }
+      ],
+      "set.SetImpInt": [
+        {
+          "name": "eq",
+          "line": 781
+        }
+      ]
+    },
+    "module_count": 352,
+    "extra_source_review": {
+      "path": "src/mlw/pmodule.ml",
+      "first": 412,
+      "last": 473,
+      "sha256": "501ab41d20cea69d7b3b581a9f265a2f107f8c5a24a10771bb21e18cc0689278",
+      "builtin": "why3.WellFounded.WellFounded"
+    }
+  },
+  "scope_histories": {
+    "root_premises": 300,
+    "fresh_targets": 240
+  },
+  "elapsed_seconds": 1.3452682249990175,
+  "host": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "author_or_predecessor_checker_replays": 0,
+  "native_runs": 0,
+  "machine_checked_universal_proof": false,
+  "complete_native_bytes": false,
+  "complete_source_to_vc_storage": false,
+  "inputs": {
+    "docs/evidence/retained-main-construction-demand-20261024/clone-callers/README.md": "386fbcae53c0d0f57858c536ca3ae4a18ac8f017e368e06f9194f89db7661e8b",
+    "docs/evidence/retained-main-construction-demand-20261024/clone-callers/callers.py": "f34cb43230a4cae26277660f5c6b56906f094de20ad5232537a5fbd4bb544d7a",
+    "docs/evidence/retained-main-construction-demand-20261024/clone-callers/check.py": "d3f33514b85196860ceb17ffb6a4a557c3d3f149875e95a5de55510dc5862642",
+    "docs/evidence/retained-main-construction-demand-20261024/clone-callers/checkpoint.md": "b10757d97aa4c83821d52d8bdde72ec71d80a06080ae8b5244516d193aac13f0",
+    "docs/evidence/retained-main-construction-demand-20261024/clone-callers/identity.json": "71ec0a052e1e9e3c52d9e83cb825d24ecbfe57c24e7eb2794250566f380bcc7a",
+    "docs/evidence/retained-main-construction-demand-20261024/clone-callers/inventory.json": "ba8e9f8eb98462d177495d72f3b50579dc6669272aa820aab602b4ba67a96af5",
+    "docs/evidence/retained-main-construction-demand-20261024/clone-callers/inventory.py": "f357cea514b24b7633f74c06d3b934021a425b56a753095166a4d4f478ae044d",
+    "docs/evidence/retained-main-construction-demand-20261024/clone-callers/result.json": "60922df04521dec500e3c7eeebfb64648453e7d369b77372440a4a898f890ce5",
+    "docs/evidence/retained-main-construction-demand-20261024/clone-callers/round.json": "1b4a269b3f84c68ed97aef0ae3f01a47ed3a7c2c0864a4b196a0fce84dd6f67a",
+    "docs/research/retained-main-construction-demand.md": "765a85d0f20ecdd35f71d37a01f9f12efc035c08247d4945308427541d796b6a"
+  }
+}
