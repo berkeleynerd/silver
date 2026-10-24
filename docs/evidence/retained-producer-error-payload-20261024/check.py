@@ -127,6 +127,14 @@ def audit():
         p, q, early, post, line = [row[k] for k in
             ("P", "primary", "early_primary", "post_primary", "canonical_response_line_ceiling")]
         leaf = max(4096, 4 * p + 3072)
+        # Raw fallback may start at the registered quoted Dynlink callback,
+        # independently of a direct Why Plugin match in the custom handler.
+        # The source note supplies the printable/TAB/LF/CR alphabet premise.
+        raw_dynlink = (2 * (2 * (p + 512) + 32) + 128,
+                       2 * (467 + 2 * 467 + 3 * 68 + 32) + 128,
+                       2 * (2 * (p + 467) + 96) + 128)
+        assert raw_dynlink == (4 * p + 2240, 3402, 4 * p + 2188)
+        assert max(raw_dynlink) <= leaf
         assert q == leaf + 2 * (p + 128) + 467 + 52 + 29 + p + 128 + 70 * 66
         assert row["inside_main_merged"] == merged(2 * (q + 3 * 512) + 4 * 42 + 64, 4, 1, 2 * 512 + 253)
         assert row["before_main_merged"] == merged(2 * (early + 3 * 512) + 4 * 42 + 64, 4, 1, early + 512 + 253)
