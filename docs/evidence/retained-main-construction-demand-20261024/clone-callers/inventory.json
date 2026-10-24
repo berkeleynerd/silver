@@ -1,0 +1,2746 @@
+{
+  "fixed_clone_origins": [
+    "_gnatprove_standard.Array__Index",
+    "_gnatprove_standard.BVAda",
+    "_gnatprove_standard.Floating",
+    "_gnatprove_standard.Floating_next_prev",
+    "_gnatprove_standard.Floating_operations",
+    "_gnatprove_standard.Floating_power",
+    "_gnatprove_standard_th.Floating_Func",
+    "ada__model.Array_Comparison_Axiom",
+    "ada__model.Array_Generic_Op_Axiom",
+    "ada__model.Array_Logical_Op_Generic_Axioms",
+    "ada__model.Discrete_Base",
+    "ada__model.Dynamic_Discrete",
+    "ada__model.Fixed_Point_Base",
+    "ada__model.Floating_Point_Base",
+    "ada__model.Index_Type",
+    "ada__model.Rep_Proj_BVGen",
+    "ada__model.Rep_Proj_Base",
+    "ada__model.Rep_Proj_ltBVGen",
+    "ada__model.Static_Discrete_Base",
+    "ada__model.Static_Floating_Point",
+    "ada__model.Static_Modular_Base",
+    "algebra.AC",
+    "algebra.Assoc",
+    "algebra.Comm",
+    "algebra.CommutativeGroup",
+    "algebra.CommutativeRing",
+    "algebra.Field",
+    "algebra.Group",
+    "algebra.Monoid",
+    "algebra.OrderedField",
+    "algebra.OrderedUnitaryCommutativeRing",
+    "algebra.Ring",
+    "algebra.UnitaryCommutativeRing",
+    "bv.BVConverter_Gen",
+    "bv.BV_Gen",
+    "floating_point.GenFloat",
+    "floating_point.GenFloatFull",
+    "floating_point.GenFloatSpecFull",
+    "floating_point.GenFloatSpecMultiRounding",
+    "floating_point.GenFloatSpecStrict",
+    "ieee_float.FloatConverter",
+    "ieee_float.Float_BV_Converter",
+    "ieee_float.GenericFloat",
+    "int.Exponentiation",
+    "list.Sorted",
+    "mach.int.Bounded_int",
+    "mach.int.Unsigned",
+    "mach.int.UnsignedGMP",
+    "relations.Antisymmetric",
+    "relations.Asymmetric",
+    "relations.EndoRelation",
+    "relations.Lex",
+    "relations.MinMax",
+    "relations.PartialOrder",
+    "relations.PartialStrictOrder",
+    "relations.PreOrder",
+    "relations.Reflexive",
+    "relations.Symmetric",
+    "relations.Total",
+    "relations.TotalOrder",
+    "relations.Transitive",
+    "set.SetApp",
+    "set.SetImp",
+    "string.String"
+  ],
+  "ordinary_main_origins": [
+    "_gnatprove_standard.Array__1",
+    "ada__model.Constr_Array",
+    "ada__model.Dynamic_Discrete",
+    "ada__model.Rep_Proj_Int",
+    "ada__model.Static_Discrete",
+    "ada__model.Unconstr_Array"
+  ],
+  "all_origins": [
+    "_gnatprove_standard.Array__1",
+    "_gnatprove_standard.Array__Index",
+    "_gnatprove_standard.BVAda",
+    "_gnatprove_standard.Floating",
+    "_gnatprove_standard.Floating_next_prev",
+    "_gnatprove_standard.Floating_operations",
+    "_gnatprove_standard.Floating_power",
+    "_gnatprove_standard_th.Floating_Func",
+    "ada__model.Array_Comparison_Axiom",
+    "ada__model.Array_Generic_Op_Axiom",
+    "ada__model.Array_Logical_Op_Generic_Axioms",
+    "ada__model.Constr_Array",
+    "ada__model.Discrete_Base",
+    "ada__model.Dynamic_Discrete",
+    "ada__model.Fixed_Point_Base",
+    "ada__model.Floating_Point_Base",
+    "ada__model.Index_Type",
+    "ada__model.Rep_Proj_BVGen",
+    "ada__model.Rep_Proj_Base",
+    "ada__model.Rep_Proj_Int",
+    "ada__model.Rep_Proj_ltBVGen",
+    "ada__model.Static_Discrete",
+    "ada__model.Static_Discrete_Base",
+    "ada__model.Static_Floating_Point",
+    "ada__model.Static_Modular_Base",
+    "ada__model.Unconstr_Array",
+    "algebra.AC",
+    "algebra.Assoc",
+    "algebra.Comm",
+    "algebra.CommutativeGroup",
+    "algebra.CommutativeRing",
+    "algebra.Field",
+    "algebra.Group",
+    "algebra.Monoid",
+    "algebra.OrderedField",
+    "algebra.OrderedUnitaryCommutativeRing",
+    "algebra.Ring",
+    "algebra.UnitaryCommutativeRing",
+    "bv.BVConverter_Gen",
+    "bv.BV_Gen",
+    "floating_point.GenFloat",
+    "floating_point.GenFloatFull",
+    "floating_point.GenFloatSpecFull",
+    "floating_point.GenFloatSpecMultiRounding",
+    "floating_point.GenFloatSpecStrict",
+    "ieee_float.FloatConverter",
+    "ieee_float.Float_BV_Converter",
+    "ieee_float.GenericFloat",
+    "int.Exponentiation",
+    "list.Sorted",
+    "mach.int.Bounded_int",
+    "mach.int.Unsigned",
+    "mach.int.UnsignedGMP",
+    "relations.Antisymmetric",
+    "relations.Asymmetric",
+    "relations.EndoRelation",
+    "relations.Lex",
+    "relations.MinMax",
+    "relations.PartialOrder",
+    "relations.PartialStrictOrder",
+    "relations.PreOrder",
+    "relations.Reflexive",
+    "relations.Symmetric",
+    "relations.Total",
+    "relations.TotalOrder",
+    "relations.Transitive",
+    "set.SetApp",
+    "set.SetImp",
+    "string.String"
+  ],
+  "dependency_closure": [
+    "_gnatprove_standard.Array__1",
+    "_gnatprove_standard.Array__Index",
+    "_gnatprove_standard.BVAda",
+    "_gnatprove_standard.Floating",
+    "_gnatprove_standard.Floating_next_prev",
+    "_gnatprove_standard.Floating_operations",
+    "_gnatprove_standard.Floating_power",
+    "_gnatprove_standard.Main",
+    "_gnatprove_standard_th.Floating_Func",
+    "_gnatprove_standard_th.Main_Main",
+    "ada__model.Array_Comparison_Axiom",
+    "ada__model.Array_Generic_Op_Axiom",
+    "ada__model.Array_Logical_Op_Generic_Axioms",
+    "ada__model.Constr_Array",
+    "ada__model.Discrete_Base",
+    "ada__model.Dynamic_Discrete",
+    "ada__model.Fixed_Point_Base",
+    "ada__model.Floating_Point_Base",
+    "ada__model.Index_Type",
+    "ada__model.Rep_Proj_BVGen",
+    "ada__model.Rep_Proj_Base",
+    "ada__model.Rep_Proj_Int",
+    "ada__model.Rep_Proj_ltBVGen",
+    "ada__model.Static_Discrete",
+    "ada__model.Static_Discrete_Base",
+    "ada__model.Static_Floating_Point",
+    "ada__model.Static_Modular_Base",
+    "ada__model.Unconstr_Array",
+    "algebra.AC",
+    "algebra.Assoc",
+    "algebra.Comm",
+    "algebra.CommutativeGroup",
+    "algebra.CommutativeRing",
+    "algebra.Field",
+    "algebra.Group",
+    "algebra.Monoid",
+    "algebra.OrderedField",
+    "algebra.OrderedUnitaryCommutativeRing",
+    "algebra.Ring",
+    "algebra.UnitaryCommutativeRing",
+    "bool.Bool",
+    "bv.BV16",
+    "bv.BV32",
+    "bv.BV64",
+    "bv.BV8",
+    "bv.BVConverter_Gen",
+    "bv.BV_Gen",
+    "bv.Pow2int",
+    "floating_point.GenFloat",
+    "floating_point.GenFloatFull",
+    "floating_point.GenFloatSpecFull",
+    "floating_point.GenFloatSpecMultiRounding",
+    "floating_point.GenFloatSpecStrict",
+    "floating_point.Rounding",
+    "floating_point.SpecialValues",
+    "ieee_float.FloatConverter",
+    "ieee_float.Float_BV_Converter",
+    "ieee_float.GenericFloat",
+    "ieee_float.RoundingMode",
+    "int.Abs",
+    "int.ComputerDivision",
+    "int.EuclideanDivision",
+    "int.Exponentiation",
+    "int.Int",
+    "int.MinMax",
+    "list.Append",
+    "list.Length",
+    "list.List",
+    "list.Mem",
+    "list.Sorted",
+    "mach.int.Bounded_int",
+    "mach.int.Unsigned",
+    "mach.int.UnsignedGMP",
+    "real.Abs",
+    "real.FromInt",
+    "real.Real",
+    "real.RealInfix",
+    "real.Square",
+    "real.Truncate",
+    "relations.Antisymmetric",
+    "relations.Asymmetric",
+    "relations.EndoRelation",
+    "relations.Lex",
+    "relations.MinMax",
+    "relations.PartialOrder",
+    "relations.PartialStrictOrder",
+    "relations.PreOrder",
+    "relations.Reflexive",
+    "relations.Symmetric",
+    "relations.Total",
+    "relations.TotalOrder",
+    "relations.Transitive",
+    "set.Fset",
+    "set.SetApp",
+    "set.SetImp",
+    "string.String",
+    "why3.WellFounded.WellFounded"
+  ],
+  "global_objects": {
+    "_gnatprove_standard.Main": [
+      {
+        "name": "__HEAP",
+        "line": 26
+      },
+      {
+        "name": "no__return",
+        "line": 39
+      },
+      {
+        "name": "spark__branch",
+        "line": 88
+      }
+    ],
+    "mach.int.Random63": [
+      {
+        "name": "s",
+        "line": 568
+      }
+    ]
+  },
+  "origin_inventory": {
+    "_gnatprove_standard.Array__1": {
+      "path": "installed/share/spark/theories/_gnatprove_standard.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 1885
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 1890
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 1909
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 1933
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 1972
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 2013
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 2041
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 2074
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 2100
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 2120
+        }
+      ],
+      "routine_refinements": []
+    },
+    "_gnatprove_standard.Array__Index": {
+      "path": "installed/share/spark/theories/_gnatprove_standard.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [],
+      "routine_refinements": []
+    },
+    "_gnatprove_standard.BVAda": {
+      "path": "installed/share/spark/theories/_gnatprove_standard.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [
+        {
+          "kind": "let",
+          "classification": "logical_or_recursive",
+          "line": 2581
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 2598
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 2600
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 2602
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 2604
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 2606
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 2608
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 2611
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 2619
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 2648
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 2650
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 2674
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 2679
+        }
+      ],
+      "routine_refinements": []
+    },
+    "_gnatprove_standard.Floating": {
+      "path": "installed/share/spark/theories/_gnatprove_standard.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 1019
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 1023
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 1027
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 1031
+        }
+      ],
+      "routine_refinements": []
+    },
+    "_gnatprove_standard.Floating_next_prev": {
+      "path": "installed/share/spark/theories/_gnatprove_standard.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 502
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 503
+        }
+      ],
+      "routine_refinements": []
+    },
+    "_gnatprove_standard.Floating_operations": {
+      "path": "installed/share/spark/theories/_gnatprove_standard.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 560
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 577
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 581
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 606
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 608
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 612
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 622
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 624
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 628
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 639
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 641
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 645
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 655
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 659
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 670
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 673
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 684
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 688
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 699
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 713
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 717
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 728
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 732
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 744
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 746
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 750
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 758
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 760
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 764
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 773
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 775
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 779
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 787
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 791
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 799
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 803
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 811
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 815
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 823
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 827
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 836
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 840
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 849
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 853
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 862
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 866
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 875
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 879
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 892
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 896
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 912
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 916
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 927
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 930
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 940
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 942
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 946
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 955
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 959
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 971
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 973
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 977
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 990
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 992
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 996
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 1003
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 1005
+        }
+      ],
+      "routine_refinements": []
+    },
+    "_gnatprove_standard.Floating_power": {
+      "path": "installed/share/spark/theories/_gnatprove_standard.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 457
+        }
+      ],
+      "routine_refinements": []
+    },
+    "_gnatprove_standard_th.Floating_Func": {
+      "path": "installed/share/spark/theories/_gnatprove_standard_th.why",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [],
+      "routine_refinements": []
+    },
+    "ada__model.Array_Comparison_Axiom": {
+      "path": "installed/share/spark/theories/ada__model.mlw",
+      "objects": [],
+      "plain_let_candidates": [
+        {
+          "name": "a_i",
+          "line": 1308,
+          "ends_at_in_before_new_binding_or_declaration": true,
+          "initializer_tokens": [
+            "lcp",
+            "a",
+            "a_first",
+            "a_last",
+            "b",
+            "b_first",
+            "b_last"
+          ],
+          "next_token": "in"
+        },
+        {
+          "name": "b_i",
+          "line": 1309,
+          "ends_at_in_before_new_binding_or_declaration": true,
+          "initializer_tokens": [
+            "lcp",
+            "b",
+            "b_first",
+            "b_last",
+            "a",
+            "a_first",
+            "a_last"
+          ],
+          "next_token": "in"
+        },
+        {
+          "name": "a_i",
+          "line": 1350,
+          "ends_at_in_before_new_binding_or_declaration": true,
+          "initializer_tokens": [
+            "lcp",
+            "a",
+            "a_first",
+            "a_last",
+            "b",
+            "b_first",
+            "b_last"
+          ],
+          "next_token": "in"
+        },
+        {
+          "name": "b_i",
+          "line": 1351,
+          "ends_at_in_before_new_binding_or_declaration": true,
+          "initializer_tokens": [
+            "lcp",
+            "b",
+            "b_first",
+            "b_last",
+            "a",
+            "a_first",
+            "a_last"
+          ],
+          "next_token": "in"
+        },
+        {
+          "name": "a_i",
+          "line": 1378,
+          "ends_at_in_before_new_binding_or_declaration": true,
+          "initializer_tokens": [
+            "lcp",
+            "a",
+            "a_first",
+            "a_last",
+            "b",
+            "b_first",
+            "b_last"
+          ],
+          "next_token": "in"
+        },
+        {
+          "name": "b_i",
+          "line": 1379,
+          "ends_at_in_before_new_binding_or_declaration": true,
+          "initializer_tokens": [
+            "lcp",
+            "b",
+            "b_first",
+            "b_last",
+            "a",
+            "a_first",
+            "a_last"
+          ],
+          "next_token": "in"
+        }
+      ],
+      "heads": [
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 1293
+        },
+        {
+          "kind": "let",
+          "classification": "ordinary",
+          "line": 1308
+        },
+        {
+          "kind": "let",
+          "classification": "ordinary",
+          "line": 1309
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 1326
+        },
+        {
+          "kind": "let",
+          "classification": "ordinary",
+          "line": 1350
+        },
+        {
+          "kind": "let",
+          "classification": "ordinary",
+          "line": 1351
+        },
+        {
+          "kind": "let",
+          "classification": "ordinary",
+          "line": 1378
+        },
+        {
+          "kind": "let",
+          "classification": "ordinary",
+          "line": 1379
+        }
+      ],
+      "routine_refinements": []
+    },
+    "ada__model.Array_Generic_Op_Axiom": {
+      "path": "installed/share/spark/theories/ada__model.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [],
+      "routine_refinements": []
+    },
+    "ada__model.Array_Logical_Op_Generic_Axioms": {
+      "path": "installed/share/spark/theories/ada__model.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 1551
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 1554
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 1557
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 1560
+        }
+      ],
+      "routine_refinements": []
+    },
+    "ada__model.Constr_Array": {
+      "path": "installed/share/spark/theories/ada__model.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 2297
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 2300
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 2302
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 2304
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 2306
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 2333
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 2339
+        }
+      ],
+      "routine_refinements": []
+    },
+    "ada__model.Discrete_Base": {
+      "path": "installed/share/spark/theories/ada__model.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 41
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 46
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 52
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 56
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 58
+        }
+      ],
+      "routine_refinements": []
+    },
+    "ada__model.Dynamic_Discrete": {
+      "path": "installed/share/spark/theories/ada__model.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 448
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 450
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 459
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 463
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 467
+        }
+      ],
+      "routine_refinements": []
+    },
+    "ada__model.Fixed_Point_Base": {
+      "path": "installed/share/spark/theories/ada__model.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 705
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 708
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 714
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 718
+        }
+      ],
+      "routine_refinements": []
+    },
+    "ada__model.Floating_Point_Base": {
+      "path": "installed/share/spark/theories/ada__model.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 1078
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 1083
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 1085
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 1091
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 1095
+        }
+      ],
+      "routine_refinements": []
+    },
+    "ada__model.Index_Type": {
+      "path": "installed/share/spark/theories/ada__model.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [
+        {
+          "kind": "let",
+          "classification": "logical_or_recursive",
+          "line": 1251
+        },
+        {
+          "kind": "let",
+          "classification": "logical_or_recursive",
+          "line": 1253
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 1256
+        }
+      ],
+      "routine_refinements": []
+    },
+    "ada__model.Rep_Proj_BVGen": {
+      "path": "installed/share/spark/theories/ada__model.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [],
+      "routine_refinements": []
+    },
+    "ada__model.Rep_Proj_Base": {
+      "path": "installed/share/spark/theories/ada__model.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 11
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 14
+        }
+      ],
+      "routine_refinements": []
+    },
+    "ada__model.Rep_Proj_Int": {
+      "path": "installed/share/spark/theories/ada__model.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [],
+      "routine_refinements": []
+    },
+    "ada__model.Rep_Proj_ltBVGen": {
+      "path": "installed/share/spark/theories/ada__model.mlw",
+      "objects": [],
+      "plain_let_candidates": [
+        {
+          "name": "y",
+          "line": 147,
+          "ends_at_in_before_new_binding_or_declaration": true,
+          "initializer_tokens": [
+            "urem",
+            "x",
+            "attr__ATTRIBUTE_MODULUS"
+          ],
+          "next_token": "in"
+        }
+      ],
+      "heads": [
+        {
+          "kind": "let",
+          "classification": "ordinary",
+          "line": 147
+        }
+      ],
+      "routine_refinements": []
+    },
+    "ada__model.Static_Discrete": {
+      "path": "installed/share/spark/theories/ada__model.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [],
+      "routine_refinements": []
+    },
+    "ada__model.Static_Discrete_Base": {
+      "path": "installed/share/spark/theories/ada__model.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 77
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 81
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 87
+        }
+      ],
+      "routine_refinements": []
+    },
+    "ada__model.Static_Floating_Point": {
+      "path": "installed/share/spark/theories/ada__model.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 1108
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 1112
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 1118
+        }
+      ],
+      "routine_refinements": []
+    },
+    "ada__model.Static_Modular_Base": {
+      "path": "installed/share/spark/theories/ada__model.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 124
+        }
+      ],
+      "routine_refinements": []
+    },
+    "ada__model.Unconstr_Array": {
+      "path": "installed/share/spark/theories/ada__model.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [
+        {
+          "kind": "let",
+          "classification": "logical_or_recursive",
+          "line": 1629
+        },
+        {
+          "kind": "let",
+          "classification": "logical_or_recursive",
+          "line": 1631
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 1637
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 1641
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 1647
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 1653
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 1655
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 1657
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 1659
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 1683
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 1693
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 1695
+        }
+      ],
+      "routine_refinements": []
+    },
+    "algebra.AC": {
+      "path": "installed/libexec/spark/share/why3/theories/algebra.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [],
+      "routine_refinements": []
+    },
+    "algebra.Assoc": {
+      "path": "installed/libexec/spark/share/why3/theories/algebra.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [],
+      "routine_refinements": []
+    },
+    "algebra.Comm": {
+      "path": "installed/libexec/spark/share/why3/theories/algebra.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [],
+      "routine_refinements": []
+    },
+    "algebra.CommutativeGroup": {
+      "path": "installed/libexec/spark/share/why3/theories/algebra.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [],
+      "routine_refinements": []
+    },
+    "algebra.CommutativeRing": {
+      "path": "installed/libexec/spark/share/why3/theories/algebra.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [],
+      "routine_refinements": []
+    },
+    "algebra.Field": {
+      "path": "installed/libexec/spark/share/why3/theories/algebra.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [],
+      "routine_refinements": []
+    },
+    "algebra.Group": {
+      "path": "installed/libexec/spark/share/why3/theories/algebra.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [],
+      "routine_refinements": []
+    },
+    "algebra.Monoid": {
+      "path": "installed/libexec/spark/share/why3/theories/algebra.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [],
+      "routine_refinements": []
+    },
+    "algebra.OrderedField": {
+      "path": "installed/libexec/spark/share/why3/theories/algebra.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [],
+      "routine_refinements": []
+    },
+    "algebra.OrderedUnitaryCommutativeRing": {
+      "path": "installed/libexec/spark/share/why3/theories/algebra.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [],
+      "routine_refinements": []
+    },
+    "algebra.Ring": {
+      "path": "installed/libexec/spark/share/why3/theories/algebra.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [],
+      "routine_refinements": []
+    },
+    "algebra.UnitaryCommutativeRing": {
+      "path": "installed/libexec/spark/share/why3/theories/algebra.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [],
+      "routine_refinements": []
+    },
+    "bv.BVConverter_Gen": {
+      "path": "installed/libexec/spark/share/why3/theories/bv.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 805
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 806
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 807
+        }
+      ],
+      "routine_refinements": []
+    },
+    "bv.BV_Gen": {
+      "path": "installed/libexec/spark/share/why3/theories/bv.mlw",
+      "objects": [],
+      "plain_let_candidates": [
+        {
+          "name": "mask",
+          "line": 570,
+          "ends_at_in_before_new_binding_or_declaration": true,
+          "initializer_tokens": [
+            "lsl_bv",
+            "(",
+            "sub",
+            "(",
+            "lsl_bv",
+            "one",
+            "n",
+            ")",
+            "one",
+            ")",
+            "i"
+          ],
+          "next_token": "in"
+        }
+      ],
+      "heads": [
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 188
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 209
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 215
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 221
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 227
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 242
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 257
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 272
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 322
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 323
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 327
+        },
+        {
+          "kind": "let",
+          "classification": "logical_or_recursive",
+          "line": 372
+        },
+        {
+          "kind": "let",
+          "classification": "logical_or_recursive",
+          "line": 380
+        },
+        {
+          "kind": "let",
+          "classification": "logical_or_recursive",
+          "line": 383
+        },
+        {
+          "kind": "let",
+          "classification": "logical_or_recursive",
+          "line": 390
+        },
+        {
+          "kind": "let",
+          "classification": "logical_or_recursive",
+          "line": 393
+        },
+        {
+          "kind": "let",
+          "classification": "logical_or_recursive",
+          "line": 400
+        },
+        {
+          "kind": "let",
+          "classification": "logical_or_recursive",
+          "line": 403
+        },
+        {
+          "kind": "let",
+          "classification": "logical_or_recursive",
+          "line": 410
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 420
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 435
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 450
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 459
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 469
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 474
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 479
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 489
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 497
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 510
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 518
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 532
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 534
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 546
+        },
+        {
+          "kind": "let",
+          "classification": "ordinary",
+          "line": 570
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 596
+        }
+      ],
+      "routine_refinements": []
+    },
+    "floating_point.GenFloat": {
+      "path": "installed/libexec/spark/share/why3/theories/floating_point.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [],
+      "routine_refinements": []
+    },
+    "floating_point.GenFloatFull": {
+      "path": "installed/libexec/spark/share/why3/theories/floating_point.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [],
+      "routine_refinements": []
+    },
+    "floating_point.GenFloatSpecFull": {
+      "path": "installed/libexec/spark/share/why3/theories/floating_point.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [],
+      "routine_refinements": []
+    },
+    "floating_point.GenFloatSpecMultiRounding": {
+      "path": "installed/libexec/spark/share/why3/theories/floating_point.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [],
+      "routine_refinements": []
+    },
+    "floating_point.GenFloatSpecStrict": {
+      "path": "installed/libexec/spark/share/why3/theories/floating_point.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [],
+      "routine_refinements": []
+    },
+    "ieee_float.FloatConverter": {
+      "path": "installed/libexec/spark/share/why3/theories/ieee_float.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [],
+      "routine_refinements": []
+    },
+    "ieee_float.Float_BV_Converter": {
+      "path": "installed/libexec/spark/share/why3/theories/ieee_float.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 846
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 847
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 848
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 849
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 852
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 853
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 854
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 855
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 858
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 859
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 860
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 861
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 864
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 865
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 866
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 867
+        }
+      ],
+      "routine_refinements": []
+    },
+    "ieee_float.GenericFloat": {
+      "path": "installed/libexec/spark/share/why3/theories/ieee_float.mlw",
+      "objects": [],
+      "plain_let_candidates": [
+        {
+          "name": "f",
+          "line": 302,
+          "ends_at_in_before_new_binding_or_declaration": true,
+          "initializer_tokens": [
+            "from_real",
+            "m",
+            "r"
+          ],
+          "next_token": "in"
+        },
+        {
+          "name": "f",
+          "line": 306,
+          "ends_at_in_before_new_binding_or_declaration": true,
+          "initializer_tokens": [
+            "from_real",
+            "m",
+            "r"
+          ],
+          "next_token": "in"
+        },
+        {
+          "name": "f",
+          "line": 310,
+          "ends_at_in_before_new_binding_or_declaration": true,
+          "initializer_tokens": [
+            "from_real",
+            "m",
+            "r"
+          ],
+          "next_token": "in"
+        },
+        {
+          "name": "r",
+          "line": 555,
+          "ends_at_in_before_new_binding_or_declaration": true,
+          "initializer_tokens": [
+            "add",
+            "m",
+            "x",
+            "y"
+          ],
+          "next_token": "in"
+        },
+        {
+          "name": "r",
+          "line": 574,
+          "ends_at_in_before_new_binding_or_declaration": true,
+          "initializer_tokens": [
+            "sub",
+            "m",
+            "x",
+            "y"
+          ],
+          "next_token": "in"
+        },
+        {
+          "name": "r",
+          "line": 593,
+          "ends_at_in_before_new_binding_or_declaration": true,
+          "initializer_tokens": [
+            "mul",
+            "m",
+            "x",
+            "y"
+          ],
+          "next_token": "in"
+        },
+        {
+          "name": "r",
+          "line": 607,
+          "ends_at_in_before_new_binding_or_declaration": true,
+          "initializer_tokens": [
+            "div",
+            "m",
+            "x",
+            "y"
+          ],
+          "next_token": "in"
+        },
+        {
+          "name": "r",
+          "line": 631,
+          "ends_at_in_before_new_binding_or_declaration": true,
+          "initializer_tokens": [
+            "fma",
+            "m",
+            "x",
+            "y",
+            "z"
+          ],
+          "next_token": "in"
+        },
+        {
+          "name": "r",
+          "line": 662,
+          "ends_at_in_before_new_binding_or_declaration": true,
+          "initializer_tokens": [
+            "sqrt",
+            "m",
+            "x"
+          ],
+          "next_token": "in"
+        }
+      ],
+      "heads": [
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 63
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 73
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 74
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 75
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 76
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 79
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 80
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 81
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 82
+        },
+        {
+          "kind": "let",
+          "classification": "logical_or_recursive",
+          "line": 84
+        },
+        {
+          "kind": "let",
+          "classification": "logical_or_recursive",
+          "line": 85
+        },
+        {
+          "kind": "let",
+          "classification": "logical_or_recursive",
+          "line": 86
+        },
+        {
+          "kind": "let",
+          "classification": "logical_or_recursive",
+          "line": 87
+        },
+        {
+          "kind": "let",
+          "classification": "logical_or_recursive",
+          "line": 88
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 91
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 113
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 114
+        },
+        {
+          "kind": "let",
+          "classification": "logical_or_recursive",
+          "line": 115
+        },
+        {
+          "kind": "let",
+          "classification": "logical_or_recursive",
+          "line": 116
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 117
+        },
+        {
+          "kind": "let",
+          "classification": "logical_or_recursive",
+          "line": 120
+        },
+        {
+          "kind": "let",
+          "classification": "logical_or_recursive",
+          "line": 121
+        },
+        {
+          "kind": "let",
+          "classification": "logical_or_recursive",
+          "line": 122
+        },
+        {
+          "kind": "let",
+          "classification": "logical_or_recursive",
+          "line": 123
+        },
+        {
+          "kind": "let",
+          "classification": "logical_or_recursive",
+          "line": 124
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 132
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 133
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 134
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 135
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 136
+        },
+        {
+          "kind": "let",
+          "classification": "ordinary",
+          "line": 302
+        },
+        {
+          "kind": "let",
+          "classification": "ordinary",
+          "line": 306
+        },
+        {
+          "kind": "let",
+          "classification": "ordinary",
+          "line": 310
+        },
+        {
+          "kind": "let",
+          "classification": "ordinary",
+          "line": 555
+        },
+        {
+          "kind": "let",
+          "classification": "ordinary",
+          "line": 574
+        },
+        {
+          "kind": "let",
+          "classification": "ordinary",
+          "line": 593
+        },
+        {
+          "kind": "let",
+          "classification": "ordinary",
+          "line": 607
+        },
+        {
+          "kind": "let",
+          "classification": "ordinary",
+          "line": 631
+        },
+        {
+          "kind": "let",
+          "classification": "ordinary",
+          "line": 662
+        }
+      ],
+      "routine_refinements": []
+    },
+    "int.Exponentiation": {
+      "path": "installed/libexec/spark/share/why3/theories/int.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [],
+      "routine_refinements": []
+    },
+    "list.Sorted": {
+      "path": "installed/libexec/spark/share/why3/theories/list.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [],
+      "routine_refinements": []
+    },
+    "mach.int.Bounded_int": {
+      "path": "installed/libexec/spark/share/why3/theories/mach/int.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 51
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 58
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 62
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 66
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 70
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 74
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 84
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 88
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 91
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 94
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 97
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 102
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 107
+        }
+      ],
+      "routine_refinements": []
+    },
+    "mach.int.Unsigned": {
+      "path": "installed/libexec/spark/share/why3/theories/mach/int.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [
+        {
+          "kind": "let",
+          "classification": "logical_or_recursive",
+          "line": 118
+        }
+      ],
+      "routine_refinements": []
+    },
+    "mach.int.UnsignedGMP": {
+      "path": "installed/libexec/spark/share/why3/theories/mach/int.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 164
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 167
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 175
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 180
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 185
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 190
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 193
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 201
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 207
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 212
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 217
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 223
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 226
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 231
+        }
+      ],
+      "routine_refinements": []
+    },
+    "relations.Antisymmetric": {
+      "path": "installed/libexec/spark/share/why3/theories/relations.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [],
+      "routine_refinements": []
+    },
+    "relations.Asymmetric": {
+      "path": "installed/libexec/spark/share/why3/theories/relations.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [],
+      "routine_refinements": []
+    },
+    "relations.EndoRelation": {
+      "path": "installed/libexec/spark/share/why3/theories/relations.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [],
+      "routine_refinements": []
+    },
+    "relations.Lex": {
+      "path": "installed/libexec/spark/share/why3/theories/relations.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [],
+      "routine_refinements": []
+    },
+    "relations.MinMax": {
+      "path": "installed/libexec/spark/share/why3/theories/relations.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [],
+      "routine_refinements": []
+    },
+    "relations.PartialOrder": {
+      "path": "installed/libexec/spark/share/why3/theories/relations.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [],
+      "routine_refinements": []
+    },
+    "relations.PartialStrictOrder": {
+      "path": "installed/libexec/spark/share/why3/theories/relations.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [],
+      "routine_refinements": []
+    },
+    "relations.PreOrder": {
+      "path": "installed/libexec/spark/share/why3/theories/relations.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [],
+      "routine_refinements": []
+    },
+    "relations.Reflexive": {
+      "path": "installed/libexec/spark/share/why3/theories/relations.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [],
+      "routine_refinements": []
+    },
+    "relations.Symmetric": {
+      "path": "installed/libexec/spark/share/why3/theories/relations.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [],
+      "routine_refinements": []
+    },
+    "relations.Total": {
+      "path": "installed/libexec/spark/share/why3/theories/relations.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [],
+      "routine_refinements": []
+    },
+    "relations.TotalOrder": {
+      "path": "installed/libexec/spark/share/why3/theories/relations.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [],
+      "routine_refinements": []
+    },
+    "relations.Transitive": {
+      "path": "installed/libexec/spark/share/why3/theories/relations.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [],
+      "routine_refinements": []
+    },
+    "set.SetApp": {
+      "path": "installed/libexec/spark/share/why3/theories/set.mlw",
+      "objects": [],
+      "plain_let_candidates": [],
+      "heads": [
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 537
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 545
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 548
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 551
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 554
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 557
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 561
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 564
+        },
+        {
+          "kind": "let",
+          "classification": "ordinary",
+          "line": 569
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 574
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 579
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 582
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 585
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 588
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 592
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 595
+        }
+      ],
+      "routine_refinements": []
+    },
+    "set.SetImp": {
+      "path": "installed/libexec/spark/share/why3/theories/set.mlw",
+      "objects": [],
+      "plain_let_candidates": [
+        {
+          "name": "s",
+          "line": 742,
+          "ends_at_in_before_new_binding_or_declaration": true,
+          "initializer_tokens": [
+            "empty",
+            "(",
+            ")"
+          ],
+          "next_token": "in"
+        }
+      ],
+      "heads": [
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 705
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 713
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 716
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 719
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 722
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 726
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 730
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 733
+        },
+        {
+          "kind": "let",
+          "classification": "ordinary",
+          "line": 739
+        },
+        {
+          "kind": "let",
+          "classification": "ordinary",
+          "line": 742
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 746
+        },
+        {
+          "kind": "val",
+          "classification": "logical_or_recursive",
+          "line": 752
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 756
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 763
+        },
+        {
+          "kind": "val",
+          "classification": "ordinary",
+          "line": 766
+        }
+      ],
+      "routine_refinements": []
+    },
+    "string.String": {
+      "path": "installed/libexec/spark/share/why3/theories/string.mlw",
+      "objects": [],
+      "plain_let_candidates": [
+        {
+          "name": "j",
+          "line": 145,
+          "ends_at_in_before_new_binding_or_declaration": true,
+          "initializer_tokens": [
+            "s_at",
+            "s",
+            "i"
+          ],
+          "next_token": "in"
+        },
+        {
+          "name": "s",
+          "line": 149,
+          "ends_at_in_before_new_binding_or_declaration": true,
+          "initializer_tokens": [
+            "concat",
+            "s1",
+            "s2"
+          ],
+          "next_token": "in"
+        },
+        {
+          "name": "j",
+          "line": 274,
+          "ends_at_in_before_new_binding_or_declaration": true,
+          "initializer_tokens": [
+            "indexof",
+            "\"\"",
+            "s",
+            "i"
+          ],
+          "next_token": "in"
+        },
+        {
+          "name": "j",
+          "line": 278,
+          "ends_at_in_before_new_binding_or_declaration": true,
+          "initializer_tokens": [
+            "indexof",
+            "s1",
+            "s2",
+            "0"
+          ],
+          "next_token": "in"
+        },
+        {
+          "name": "j",
+          "line": 289,
+          "ends_at_in_before_new_binding_or_declaration": true,
+          "initializer_tokens": [
+            "indexof",
+            "s1",
+            "s2",
+            "i"
+          ],
+          "next_token": "in"
+        },
+        {
+          "name": "j",
+          "line": 296,
+          "ends_at_in_before_new_binding_or_declaration": true,
+          "initializer_tokens": [
+            "indexof",
+            "s1",
+            "s2",
+            "i"
+          ],
+          "next_token": "in"
+        },
+        {
+          "name": "s4",
+          "line": 318,
+          "ends_at_in_before_new_binding_or_declaration": true,
+          "initializer_tokens": [
+            "replace",
+            "empty",
+            "s2",
+            "s3"
+          ],
+          "next_token": "in"
+        },
+        {
+          "name": "j",
+          "line": 322,
+          "ends_at_in_before_new_binding_or_declaration": true,
+          "initializer_tokens": [
+            "indexof",
+            "s1",
+            "s2",
+            "0"
+          ],
+          "next_token": "in"
+        }
+      ],
+      "heads": [
+        {
+          "kind": "let",
+          "classification": "ordinary",
+          "line": 145
+        },
+        {
+          "kind": "let",
+          "classification": "ordinary",
+          "line": 149
+        },
+        {
+          "kind": "let",
+          "classification": "ordinary",
+          "line": 274
+        },
+        {
+          "kind": "let",
+          "classification": "ordinary",
+          "line": 278
+        },
+        {
+          "kind": "let",
+          "classification": "ordinary",
+          "line": 289
+        },
+        {
+          "kind": "let",
+          "classification": "ordinary",
+          "line": 296
+        },
+        {
+          "kind": "let",
+          "classification": "ordinary",
+          "line": 318
+        },
+        {
+          "kind": "let",
+          "classification": "ordinary",
+          "line": 322
+        }
+      ],
+      "routine_refinements": []
+    }
+  },
+  "routine_refinements": {
+    "set.SetAppInt": [
+      {
+        "name": "eq",
+        "line": 607
+      }
+    ],
+    "set.SetAppString": [
+      {
+        "name": "eq",
+        "line": 663
+      }
+    ],
+    "set.SetImpInt": [
+      {
+        "name": "eq",
+        "line": 781
+      }
+    ]
+  },
+  "origin_plain_let_candidates": 26,
+  "no_origin_program_globals": true,
+  "no_foreign_state_reference": true,
+  "module_interface_headers": 0,
+  "program_recursive_loop_exception_or_invariant_tokens_in_origins": 0,
+  "type_witness_by_tokens_in_origins": 0,
+  "retained_import_checker_main_executed": false
+}

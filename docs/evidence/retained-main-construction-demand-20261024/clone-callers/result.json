@@ -1,0 +1,53 @@
+{
+  "status": "pass",
+  "assertions": 674,
+  "families": {
+    "provider identity": 9,
+    "archive identity": 3,
+    "complete source identity": 36,
+    "source span identity": 50,
+    "native branch anchor": 112,
+    "fixed origin source set": 1,
+    "ordinary Main plus fixed origin set": 1,
+    "source frontier excludes top program globals": 1,
+    "source frontier excludes foreign program-state reads": 1,
+    "source frontier excludes type-witness syntax": 1,
+    "per-origin no nullary program val": 69,
+    "per-candidate lexical let evidence": 26,
+    "formal oldie coverage without external map": 50,
+    "whole inherited lexical map injective": 50,
+    "source oldie reversal is injective": 50,
+    "sm_save_olds finds exact fresh oldie": 50,
+    "persistent branch scope does not escape": 50,
+    "local routine and binder targets postdate entire origin": 50,
+    "declaration history preserves empty inherited pv table": 50,
+    "complete ordered direct-caller recurrence": 1,
+    "discarded comparison and failed-prefix bound": 8,
+    "unchanged-weight clone DAG keeps occurrence multiplicity": 1,
+    "independent source clone requests accumulate": 1,
+    "metadata and use have no root replay": 1,
+    "later clone counts transformed stored records rather than origin work": 1,
+    "unreached recursion row is not silently erased": 1
+  },
+  "fixed_origins": 64,
+  "total_origins": 69,
+  "dependency_modules": 97,
+  "plain_let_candidates": 26,
+  "history_diagrams": {
+    "declarations": 50,
+    "fresh_targets": 400,
+    "clone_term_roots": 250
+  },
+  "caller_diagram": {
+    "direct_c_app": 3,
+    "clone_term": 27,
+    "clone_cty": 3
+  },
+  "elapsed_seconds": 1.2836436549987411,
+  "host": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "native_runs": 0,
+  "predecessor_checker_main_runs": 0,
+  "actual_frontier_clone_map_attachment": true,
+  "complete_source_to_initial_vc_storage": false,
+  "complete_native_bytes": false
+}
