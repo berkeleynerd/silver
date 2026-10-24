@@ -1,0 +1,117 @@
+{
+  "author_checker_runs": 0,
+  "compiler_prover_runs": 0,
+  "complete_common_path": false,
+  "complete_issue_119": false,
+  "complete_issue_212": false,
+  "elapsed_seconds": 1.524831,
+  "exact_inputs": {
+    "docs/evidence/retained-fixed-report-composition-20261024/bodies/README.md": {
+      "author_commit": "0f39a36c1458f7af4f216fce3f9bcde8d8aab123",
+      "sha256": "5a12f85d6d5c3d6f59afd4b951240c7240c4c45f7951b215f10d9f5d5cc27bcd"
+    },
+    "docs/evidence/retained-fixed-report-composition-20261024/bodies/capacity.py": {
+      "author_commit": "0f39a36c1458f7af4f216fce3f9bcde8d8aab123",
+      "sha256": "27ffd4139970149b055ebdc66e26634ea35db8b677592de193a0c560e8a714b9"
+    },
+    "docs/evidence/retained-fixed-report-composition-20261024/bodies/check.py": {
+      "author_commit": "0f39a36c1458f7af4f216fce3f9bcde8d8aab123",
+      "sha256": "31b8b3266d16a76c39c518719b99b0e7495363a42d16efbda53c08d611b92cac"
+    },
+    "docs/evidence/retained-fixed-report-composition-20261024/bodies/message-census.json": {
+      "author_commit": "0f39a36c1458f7af4f216fce3f9bcde8d8aab123",
+      "sha256": "05c6fe415bd2ebab8076218997756b4e72778a7038dfcb1e90ce7a394d980c0d"
+    },
+    "docs/evidence/retained-fixed-report-composition-20261024/bodies/result.json": {
+      "author_commit": "0f39a36c1458f7af4f216fce3f9bcde8d8aab123",
+      "sha256": "1665f9b28a94a75fc19cc3f5d1318ae1f589dcb64f45010384a3bf031b2235b2"
+    },
+    "docs/evidence/retained-fixed-report-composition-20261024/bodies/round.json": {
+      "author_commit": "0f39a36c1458f7af4f216fce3f9bcde8d8aab123",
+      "sha256": "99f90320fce3b44c04d569ae2da811a81bd8dfce2280c631945aed927df11b4d"
+    },
+    "docs/evidence/retained-fixed-report-composition-20261024/bodies/source-manifest.json": {
+      "author_commit": "0f39a36c1458f7af4f216fce3f9bcde8d8aab123",
+      "sha256": "3bbac439a0de598acb5b3457b8a451f6fc664cb8927eecf22875a20143b7171b"
+    },
+    "docs/evidence/retained-fixed-report-native-inputs-20261024/README.md": {
+      "author_commit": "9bb63660fd9e29c7b67b359f00acd844f19771cc",
+      "sha256": "1357593896cf47320a8e7cc7ca501266ff0b2f91a4911da7809889d37712ab5b"
+    },
+    "docs/evidence/retained-fixed-report-native-inputs-20261024/check.py": {
+      "author_commit": "9bb63660fd9e29c7b67b359f00acd844f19771cc",
+      "sha256": "a566eaef0d95014df6c6e05117c444c7d0b3195925c60ebf02b13fb6ec3c9913"
+    },
+    "docs/evidence/retained-fixed-report-native-inputs-20261024/inputs.json": {
+      "author_commit": "9bb63660fd9e29c7b67b359f00acd844f19771cc",
+      "sha256": "3edd7bfd6a3356f4a914101214a6c20d4c3947aaede82356a54c815167460b77"
+    },
+    "docs/evidence/retained-fixed-report-native-inputs-20261024/new-sources.tar.gz": {
+      "author_commit": "9bb63660fd9e29c7b67b359f00acd844f19771cc",
+      "sha256": "962d9701da8f308ca8cab8e29f4bf110717afbf412b7c70b9971273a33c7cb18"
+    },
+    "docs/evidence/retained-fixed-report-native-inputs-20261024/result.json": {
+      "author_commit": "9bb63660fd9e29c7b67b359f00acd844f19771cc",
+      "sha256": "ea65aeb9ebb60c88420fd62895aa37f94c1ff3837e0d7eab23aa9787856d7837"
+    },
+    "docs/research/retained-fixed-report-composition.md": {
+      "author_commit": "0f39a36c1458f7af4f216fce3f9bcde8d8aab123",
+      "sha256": "26fbef663c5f64a10316d2b76be6389051d83430d719de3a90b97e5028325286"
+    }
+  },
+  "gnat2why_owner_attachment": false,
+  "io_endpoints": {
+    "0": {
+      "failed_guards": [],
+      "pretty": 478273421,
+      "writer_backing": 717410323
+    },
+    "1": {
+      "failed_guards": [],
+      "pretty": 479841659,
+      "writer_backing": 719762680
+    },
+    "607": {
+      "failed_guards": [],
+      "pretty": 1430193887,
+      "writer_backing": 2145291022
+    },
+    "608": {
+      "failed_guards": [
+        "unbounded_alignment_intermediates"
+      ],
+      "pretty": 1431762125,
+      "writer_backing": 2147643379
+    }
+  },
+  "io_graph_flow_sums": {
+    "Put": 17503,
+    "Put_Line": 20724,
+    "Silver_IO": 2338
+  },
+  "libc_service_queries": 0,
+  "native": [
+    {
+      "attachment": "independent PT_LOAD-address mapping",
+      "max_path": 4096,
+      "role": "parent",
+      "target_sha256": "544e6da2eedc24ce87d9200d44f61e8e789726466e81e68bf8935489d7f5323e",
+      "version_length": 10,
+      "version_text": "FSF 16.1.0"
+    },
+    {
+      "attachment": "independent PT_LOAD-address mapping",
+      "max_path": 4096,
+      "page_import": "getpagesize",
+      "retained_host_service_observation": 4096,
+      "role": "reporter",
+      "target_sha256": "2c9d18384bd6fdd4ec5f52a1985aa5f62e8acd224db7f290bbd7bc851ebd9e14",
+      "version_length": 10,
+      "version_text": "FSF 16.1.0"
+    }
+  ],
+  "predecessor_checker_runs": 0,
+  "selected_host": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "selected_target_executions": 0,
+  "status": "PASS"
+}
