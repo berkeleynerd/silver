@@ -538,3 +538,24 @@ are retained separately; the old generator/output and original check result
 remain historical. The new checker passed16 source files,29 LF witnesses and
 3600 signed/boundary arithmetic pairs in0.491806 seconds, without native,
 prover or predecessor replay.
+
+Concat scalar-selector continuation, 2026-10-24: concat-prefix author
+fd44328b98 was accepted without repair by review000656e773 before this round.
+The [new scalar-selector packet](../evidence/retained-general-native-capacity-20261024/concat-selectors/README.md)
+closes selected-low construction, signed high candidate association, separately
+constructed nullable tests over shared G, and maximum-query behavior for its
+explicit completed-provider grammar. Literal-only selector arms can remain
+unchanged; a full-base declaration arm supplies an extremum that the earlier
+MIN/MAX rule absorbs without conditional distribution. The selected-low
+capture prevents replay inside high queries. Scalar source construction is
+520J+128s+368r+288m+344 raw caller bytes; one receiving low/high query pair adds
+80s+568. These are compositional subcall exports, not new globally attached
+Cs/Ca or annotation coefficients. Paired-bound conversion/superflat layout,
+nested providers, slices, forced captures, pointer adaptation and all backing,
+workspace/executable/downstream joins remain open. Current source attachments
+are path_guards.adb's selected-low and repeated-input concat expressions; no
+sample substitutes for the source argument. Selected author remains GPT-6
+Astra / Extra High; runtime confirmation and tokens/cost are unavailable.
+The focused checker records actual host/time; no compiler, prover, native
+run, Lean or predecessor checker replay occurred. Independent review is pending.
+The once-per-Why-process e<=2/two-callback/three-save allowances are unchanged.

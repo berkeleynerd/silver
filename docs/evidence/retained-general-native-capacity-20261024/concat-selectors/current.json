@@ -1,0 +1,64 @@
+{
+  "status": "pass",
+  "platform": "Linux",
+  "machine": "x86_64",
+  "elapsed_seconds": 2.2165717910029343,
+  "completed_utc": "2026-10-24T06:38:23.476127+00:00",
+  "complete_sources": 26,
+  "lf_witnesses": 36,
+  "matcher_forms": {
+    "binary": 151,
+    "conversion": 19,
+    "conditional": 65,
+    "comparison": 109,
+    "extremum": 20,
+    "truth_inverse": 0
+  },
+  "rank_states": 15,
+  "rank_edges": 18,
+  "selector_queries": 13132,
+  "extremum_absorption_witnesses": 2,
+  "long_chains": [
+    {
+      "selectors": 1,
+      "query_activation_bound": 3
+    },
+    {
+      "selectors": 2,
+      "query_activation_bound": 5
+    },
+    {
+      "selectors": 16,
+      "query_activation_bound": 33
+    },
+    {
+      "selectors": 256,
+      "query_activation_bound": 513
+    },
+    {
+      "selectors": 4096,
+      "query_activation_bound": 8193
+    }
+  ],
+  "high_arithmetic_cases": 64,
+  "paired_selector_cases": 144,
+  "coefficient_cases": 72,
+  "example_source_event": {
+    "scalar": {
+      "constants": 82,
+      "unary": 3,
+      "binary": 5,
+      "ternary": 1,
+      "var_decl": 1
+    },
+    "scalar_raw_bytes": 3880,
+    "query_pair": {
+      "constants": 13,
+      "unary": 4
+    },
+    "query_pair_raw_bytes": 648,
+    "combined_raw_bytes": 4528
+  },
+  "complete_native_capacity_result": false,
+  "native_compiler_prover_lean_predecessor_runs": 0
+}

@@ -1,0 +1,256 @@
+{
+  "witnesses": [
+    {
+      "id": "string_signed_arithmetic",
+      "source": "gcc/ada/exp_ch4.adb",
+      "first_lf_line": 2805,
+      "last_lf_line": 2823,
+      "sha256": "b6e8a6ebcb3845d19d50575a074f649cbc0ef5cc1b8c5cf1b6536f8c227351bb"
+    },
+    {
+      "id": "fixed_operands_and_null_tail",
+      "source": "gcc/ada/exp_ch4.adb",
+      "first_lf_line": 2851,
+      "last_lf_line": 2910,
+      "sha256": "553ddcb93f1204dc41ffb739d6a4fa1fbb71abe0bdff7e56047f633e594b3a2c"
+    },
+    {
+      "id": "dynamic_lower_last_and_length",
+      "source": "gcc/ada/exp_ch4.adb",
+      "first_lf_line": 2963,
+      "last_lf_line": 3045,
+      "sha256": "11a390c4144d2e6325abba4c04c78dd01b03ba7dec2abe8c66bd1b39346a95db"
+    },
+    {
+      "id": "aggregate_capture_and_exits",
+      "source": "gcc/ada/exp_ch4.adb",
+      "first_lf_line": 3050,
+      "last_lf_line": 3118,
+      "sha256": "0270d902994087240f595364c6dc3bdcdf5c8241fd6bd967d072a47ad2fb32a0"
+    },
+    {
+      "id": "selected_low_spine_and_cut",
+      "source": "gcc/ada/exp_ch4.adb",
+      "first_lf_line": 3125,
+      "last_lf_line": 3228,
+      "sha256": "42423e2c240b7cb7b8b319cc98bbeba7c7f3e6c49a2322abb95c1d5de7e2b25c"
+    },
+    {
+      "id": "high_and_paired_nullable_selectors",
+      "source": "gcc/ada/exp_ch4.adb",
+      "first_lf_line": 3234,
+      "last_lf_line": 3296,
+      "sha256": "269cb697e59c2531d1f137ef521f0dd09c85d2227c22cc14273a0c5e311d2aab"
+    },
+    {
+      "id": "static_replacement_and_range_flag",
+      "source": "gcc/ada/exp_ch4.adb",
+      "first_lf_line": 3299,
+      "last_lf_line": 3340,
+      "sha256": "1b3809f48567cbb1b2f48138c90423bcffbc950ea603d52483a434f4a1b07ff9"
+    },
+    {
+      "id": "scalar_copy_context",
+      "source": "gcc/ada/exp_ch4.adb",
+      "first_lf_line": 5755,
+      "last_lf_line": 5803,
+      "sha256": "d8cb6b4c5748a62d4bafa39df96adfd15d178ae8501756f14bc86d6846de43b0"
+    },
+    {
+      "id": "conditional_expansion_gates",
+      "source": "gcc/ada/exp_ch4.adb",
+      "first_lf_line": 5870,
+      "last_lf_line": 5941,
+      "sha256": "8232f3cc2d42180e0c28567029f350f98af1a2c847c54b2dda90dbbbc59d6104"
+    },
+    {
+      "id": "branch_action_gate",
+      "source": "gcc/ada/exp_ch4.adb",
+      "first_lf_line": 6503,
+      "last_lf_line": 6540,
+      "sha256": "b0bef131fdead94cf91ebe11ce47c7fef3768c5402b884fddf08b06d5bfc6abd"
+    },
+    {
+      "id": "coverage_and_no_action_return",
+      "source": "gcc/ada/exp_ch4.adb",
+      "first_lf_line": 6590,
+      "last_lf_line": 6640,
+      "sha256": "4b44fd43d1d498d62d5425d039c1f64dd1d161dbbb7790973a625187fefb8766"
+    },
+    {
+      "id": "relaxed_force_evaluation",
+      "source": "gcc/ada/exp_util.adb",
+      "first_lf_line": 7221,
+      "last_lf_line": 7243,
+      "sha256": "f0785f05d15c48612ee7ef1317bd7bbc5ca9689e824f951b6cdb00bf25df3446"
+    },
+    {
+      "id": "no_side_effect_no_capture",
+      "source": "gcc/ada/exp_util.adb",
+      "first_lf_line": 12695,
+      "last_lf_line": 12724,
+      "sha256": "f5e942add69e59b32f1496a1b333825989899d05d683ca560b688a1a9093fcb0"
+    },
+    {
+      "id": "entity_and_literal_purity",
+      "source": "gcc/ada/exp_util.adb",
+      "first_lf_line": 14408,
+      "last_lf_line": 14457,
+      "sha256": "5e4da873ad236aba7c610034e40ece1c25fbd2bd1ddedeb1428b98e1df886b76"
+    },
+    {
+      "id": "scalar_selector_purity",
+      "source": "gcc/ada/exp_util.adb",
+      "first_lf_line": 14519,
+      "last_lf_line": 14612,
+      "sha256": "0b5c63c723b51b7880880c04c21ca303af5d568dc3bb333bdf021e0bbd3f00c0"
+    },
+    {
+      "id": "original_endpoint_attribute",
+      "source": "gcc/ada/gcc-interface/trans.cc",
+      "first_lf_line": 2247,
+      "last_lf_line": 2341,
+      "sha256": "a9ef8c59bdfd7a14ed57d00511cd805c1080693165d3820453951a6ff08b5328"
+    },
+    {
+      "id": "native_if_translation",
+      "source": "gcc/ada/gcc-interface/trans.cc",
+      "first_lf_line": 7604,
+      "last_lf_line": 7616,
+      "sha256": "98975224222a1135e00f1ba29f544f08a9c9ffd0da637f353947e981425b8870"
+    },
+    {
+      "id": "same_type_wrapper_strip",
+      "source": "gcc/ada/gcc-interface/trans.cc",
+      "first_lf_line": 8950,
+      "last_lf_line": 8964,
+      "sha256": "3a98b09fc55d84a786ac934723e6edce9d6c732095d1fe837a510b7d0f3ea5a7"
+    },
+    {
+      "id": "conditional_helper_and_save_test",
+      "source": "gcc/ada/gcc-interface/utils2.cc",
+      "first_lf_line": 1892,
+      "last_lf_line": 1934,
+      "sha256": "3c242e71bbebf9e09c8439f0d3936cf1e016989ec6e4e7170e462e2f3b57b98e"
+    },
+    {
+      "id": "capture_flags_and_constant_gate",
+      "source": "gcc/ada/gcc-interface/utils.cc",
+      "first_lf_line": 3018,
+      "last_lf_line": 3110,
+      "sha256": "fe08c0ee86792503b0da2a8b0957e98c7ab000e7e4bdfaa4766584cd5691d4e1"
+    },
+    {
+      "id": "maximum_dispatch_and_pointer_identity",
+      "source": "gcc/ada/gcc-interface/utils.cc",
+      "first_lf_line": 4095,
+      "last_lf_line": 4178,
+      "sha256": "dbfd423e59d3d2f959c93edd1210043c73b81f450adc9301b5119ed8ef50aecb"
+    },
+    {
+      "id": "query_entry_and_fallback",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 2670,
+      "last_lf_line": 2712,
+      "sha256": "b41fdc23740a3c2b617bdf26002509849dcef7395f6f6e8295c66372ba0744ac"
+    },
+    {
+      "id": "split_and_nonfolding_association",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 901,
+      "last_lf_line": 1061,
+      "sha256": "0f068dc4e6f707facb9e385c8418db85fb7b9d12d810e245a0b86512d663d0d5"
+    },
+    {
+      "id": "comparison_inversion_constructor",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 4620,
+      "last_lf_line": 4655,
+      "sha256": "21a1d0251ec15b9d0de974f79c69fe49e33a579fede8b206064d694980e33fe3"
+    },
+    {
+      "id": "strict_operand_order",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 7254,
+      "last_lf_line": 7300,
+      "sha256": "957e22859a4613dce241aebe652f7a2a7763b1501c3b3dd2ec95ede2619079f5"
+    },
+    {
+      "id": "constant_before_match_and_swap",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 11000,
+      "last_lf_line": 11055,
+      "sha256": "cdd289d1deb3a591d197a7df371bca3bf4084f4535c586194baded0024efb050"
+    },
+    {
+      "id": "signed_association_guards_and_candidates",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 11458,
+      "last_lf_line": 11663,
+      "sha256": "5e4fb7e84a60b050acd251c50912326e88da3dc1b3a44a272b062f8ba7c268bd"
+    },
+    {
+      "id": "conditional_swap_and_comparison_helper",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 12900,
+      "last_lf_line": 13077,
+      "sha256": "84869ffeb30b9995b0ddf898eefb72527a187fec7d75220f926da19bdf17bcb2"
+    },
+    {
+      "id": "conditional_zero_and_equal_value_contraction",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 6053,
+      "last_lf_line": 6202,
+      "sha256": "9b60b36ba3e2a122b42e499662c16041ec0ad01b4a73935bba84fbabaeeec73c"
+    },
+    {
+      "id": "minus_phase",
+      "source": "gcc/match.pd",
+      "first_lf_line": 2199,
+      "last_lf_line": 2203,
+      "sha256": "81ee9366c4be48b24c754524ce99d2c462ba78a37e39bd6559e1b8a3a4d7577e"
+    },
+    {
+      "id": "constant_association",
+      "source": "gcc/match.pd",
+      "first_lf_line": 4400,
+      "last_lf_line": 4444,
+      "sha256": "0d63f22472e955592f5ebfde21a38e3bf74991383cbb1490d073d24d1b6579ec"
+    },
+    {
+      "id": "extremum_absorption_before_distribution",
+      "source": "gcc/match.pd",
+      "first_lf_line": 4912,
+      "last_lf_line": 4971,
+      "sha256": "175cfaacfb747cf550336971320fdcfcd91d7ce2821dbc8e1c1fd7d47452e419"
+    },
+    {
+      "id": "conditional_arithmetic_guards",
+      "source": "gcc/match.pd",
+      "first_lf_line": 5165,
+      "last_lf_line": 5256,
+      "sha256": "56697cca8efdb1a54a049410845ec3281e6c8b6c625b9fb5ddfbba7897d68769"
+    },
+    {
+      "id": "selector_contraction_rules",
+      "source": "gcc/match.pd",
+      "first_lf_line": 7155,
+      "last_lf_line": 7191,
+      "sha256": "173e8196b2b5da3c1648ff085d54f40367aab1c1788dddf086d9219258da6e8e"
+    },
+    {
+      "id": "constant_pair_gimple_gate",
+      "source": "gcc/match.pd",
+      "first_lf_line": 6485,
+      "last_lf_line": 6511,
+      "sha256": "fc84719a58dcdd4aa04aa71b60952b6c515ec372766effe24c5c32855051ec5d"
+    },
+    {
+      "id": "truth_value_requires_boolean_precision",
+      "source": "gcc/match.pd",
+      "first_lf_line": 2405,
+      "last_lf_line": 2426,
+      "sha256": "7d813af601f16837b8130fbe580a698e010c7d2adf89feb7bd3939be1fdee7ed"
+    }
+  ]
+}
