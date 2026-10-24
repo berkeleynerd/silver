@@ -75,6 +75,7 @@
     "selected_reasoning_effort": "Extra High",
     "selection_source": "Inherited original bounded-thread assignment; no live model change claimed.",
     "source_evidence": "source-witnesses.json: call_provers.ml:394-402 and controller_itp.ml:468-473",
+    "status": "Historical first repair, superseded by the independent parse/controller entry counts below.",
     "target_runs": 0,
     "token_usage": null,
     "unchanged_outputs": {
@@ -94,6 +95,44 @@
         "bytes": 4478,
         "sha256": "25c57f3962e821b628307f27c813d7701a7098a18cd3e3f3d143fd30b2401ce6"
       }
+    }
+  },
+  "review_repair_210_prefix": {
+    "author": "lead Codex agent",
+    "cost": null,
+    "disposition": "Independent p=parse-entry and f=controller-arm-entry counts; q<=3p and 512o+266q+7f. No count relationship or successful completion assumed.",
+    "finding": "#210",
+    "independent_final_audit": "pending exact freeze",
+    "production_or_configuration_adoption": false,
+    "reason": "Parsing and whole-batch mapping precede ProverFinished construction/buffering; interrupted prefixes can allocate searches without a delivered result. Controller entry can allocate before Done.",
+    "reviewed_initial_repair": "ea0896d220c6c67cc6f9c25696542ac5057efcb9",
+    "runtime_model_and_effort": null,
+    "source_spans": [
+      "call_provers.ml:478-559",
+      "controller_itp.ml:448-486"
+    ],
+    "startup_allocation_fields_unchanged": true,
+    "token_usage": null,
+    "unchanged_outputs_sha256": {
+      "baseline-entry-projection.json": "48794eed55111f91939962b810d1b1ec951c03788446cccf13170b7da9f085a3",
+      "entry-extension.json": "7df483fcbb2e534f6459fb0a2d9416952e841ca01ce5d140c876a77ce694bc89",
+      "recipe.json": "c793956a1b68191781869e48149dd8ca6918fd1e6c1c1257729228648c9206d3",
+      "result.json": "25c57f3962e821b628307f27c813d7701a7098a18cd3e3f3d143fd30b2401ce6"
+    },
+    "validation": {
+      "baseline_provider_identity": {
+        "bytes": 5257,
+        "sha256": "12988cda534c3986987121d071bb1a2fec919ba9d915585df93203e37c9f247e"
+      },
+      "checked_outputs": 13,
+      "complete_capacity_provider": false,
+      "elapsed_seconds": 1.1227148170000874,
+      "external_provider_root": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity",
+      "input_files": 35,
+      "later_allocation_cases": 6,
+      "prior_checker_replays": 0,
+      "status": "pass",
+      "target_runs": 0
     }
   },
   "runtime_effort_confirmation": null,

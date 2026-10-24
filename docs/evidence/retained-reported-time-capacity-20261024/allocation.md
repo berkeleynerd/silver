@@ -238,25 +238,31 @@ attempt or incomplete obligation into success, and no save allowance renews.
 
 ## Later calls
 
-Let T count all `ProverFinished` result deliveries, including ordinary
-nonempty-file results and empty-filename queued cancellations. Each result in
-the ordinary-file subset performs at most three timing searches; cancellations
-perform none, so the total attempted-search count satisfies q<=3T. The
-`timeout_handler` `ProverFinished` branch calls `Opt.fold fuzzy_proof_time`
-at most once per delivery before `Done`, regardless of its output filename
-(`controller_itp.ml:468-473` in `source-witnesses.json`). Thus at most T
-additional seven-word result copies are possible. This argument does not
-assume that queued cancellations lack an old result or charge their copies
-to an earlier ordinary result.
+Let p count entry to parsing an authentic server `Finished` record, including
+abandoned or interrupted calls. The ordinary-file branch performs at most three
+timing searches per entry; the empty-filename cancellation branch performs none.
+Thus q<=3p. Parsing precedes construction of `ProverFinished`, and a complete
+server batch is mapped before its results are buffered (`call_provers.ml:478-559`).
+An interrupted parse or batch may allocate searches without delivering a result;
+the previous q<=3T bound in terms of delivered results is superseded.
+
+Independently, let f count entry to the controller `ProverFinished` arm before
+`Opt.fold fuzzy_proof_time`, including queued cancellations and a body interrupted
+before `Done` (`controller_itp.ml:448-486`). Each arm entry calls smoothing at most
+once and can allocate at most one additional seven-word result copy. Neither
+successful delivery completion nor absence of an old result is assumed. No
+relation between p and f is required.
 
 For o<=9 owners the additional post-C source-owned allocation is
-`512*o + (256+10)*q + 7*T`. The first two native terms come from the reviewed
+`512*o + (256+10)*q + 7*f`. The first two native terms come from the reviewed
 Start provider; the ten-word grep wrapper and seven-word possible fuzzy copy
-are attached to their installed bodies. `transfer.py` names the total count
-`finished_results`; `later-allocation-cases.json` includes a queued-only case
-with T=1, q=0 and o=0 that still requires seven words. A failed/cached lazy can
-be retried without another signal, but q counts that call. The nine construction
-and placeholder charges were already included once in D_start.
+are attached to their installed bodies. `transfer.py` takes independent
+`parse_entries` and `finished_results` inputs. The latter means controller-arm
+entry, not completion. `later-allocation-cases.json` includes a queued-only
+p=1/f=1/q=0/o=0 case requiring seven words and an interrupted parsed prefix
+p=1/f=0/q=3/o=0 requiring798 words. A failed/cached lazy can be retried without
+another signal, but q counts that call. The nine construction and placeholder
+charges were already included once in D_start.
 
 After C, lazy/cache/table/global stores may target promoted owners. The zero
 new-remembered-entry startup result is not reused there. The existing general

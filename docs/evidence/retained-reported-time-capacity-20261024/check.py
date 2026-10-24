@@ -138,7 +138,7 @@ def check_native(dependencies):
 
 
 SPANS = {
-    "why3/src/driver/call_provers.ml": [(65, 115), (342, 408), (448, 458), (480, 497), (567, 583)],
+    "why3/src/driver/call_provers.ml": [(65, 115), (342, 408), (448, 458), (478, 559), (567, 583)],
     "why3/src/driver/driver.ml": [(104, 151), (247, 270)],
     "why3/src/driver/driver_lexer.mll": [(26, 42), (70, 78), (104, 145)],
     "why3/src/driver/driver_parser.mly": [(45, 194), (229, 229)],
@@ -298,8 +298,9 @@ def derive():
                   "startup_extra_minor_resources": 0, "startup_extra_major_resources": 0,
                   "startup_dependent_bytes": 0, "new_native_buffer_or_descriptor_owners": 0,
                   "largest_added_managed_payload_words_upper": 256,
-                  "later_owned_words": "512*o + 266*q + 7*T; o<=9 and q<=3*T",
-                  "later_result_count_T": "all ProverFinished result deliveries, including empty-filename queued cancellations",
+                  "later_owned_words": "512*o + 266*q + 7*f; o<=9 and q<=3*p; p=parse entries, f=controller arm entries",
+                  "later_parse_count_p": "entries to authentic Finished parsing, including abandoned or interrupted calls",
+                  "later_controller_count_f": "entries to ProverFinished arm before smoothing, including queued cancellations and interrupted bodies",
                   "later_GC_copying_and_runtime_owners_included": False,
                   "global_allowance_renewed": False}
     # Maxima and copy operations preserve a closed set; this finite calculation
@@ -360,15 +361,25 @@ def main():
     assert baseline_functions["all_envelopes"]() == baseline["envelopes"]
     extension = runpy.run_path(str(HERE / "transfer.py"))
     later_cases = json.loads((HERE / "later-allocation-cases.json").read_text())["cases"]
-    assert any(case["ordinary_file_results"] == 0 and case["queued_cancellations"] > 0
-               and case["attempted_searches"] == case["owners"] == 0
-               and case["expected_words"] > 0 for case in later_cases)
+    assert any(case["name"] == "queued_only_with_possible_old_result"
+               and case["expected_words"] == 7 for case in later_cases)
+    assert any(case["name"] == "interrupted_parse_before_delivery"
+               and case["finished_results"] == 0 and case["expected_words"] == 798
+               for case in later_cases)
     for case in later_cases:
-        finished_results = case["ordinary_file_results"] + case["queued_cancellations"]
-        assert case["attempted_searches"] <= 3 * case["ordinary_file_results"], case["name"]
         assert extension["later_owned_words"](
-            finished_results=finished_results, attempted_searches=case["attempted_searches"],
-            owners=case["owners"]) == case["expected_words"], case["name"]
+            parse_entries=case["parse_entries"], finished_results=case["finished_results"],
+            attempted_searches=case["attempted_searches"], owners=case["owners"]
+        ) == case["expected_words"], case["name"]
+    for bad in [dict(parse_entries=0, finished_results=1, attempted_searches=1, owners=0),
+                dict(parse_entries=1, finished_results=0, attempted_searches=4, owners=0),
+                dict(parse_entries=0, finished_results=-1, attempted_searches=0, owners=0)]:
+        try:
+            extension["later_owned_words"](**bad)
+        except ValueError:
+            pass
+        else:
+            raise AssertionError(bad)
     extended = extension["all_envelopes"]()
     assert max(v["minor_history_words_upper"] for v in extended.values()) == 227274405
     assert max(v["managed_static_carrier_words_upper"] for v in extended.values()) == 237953393

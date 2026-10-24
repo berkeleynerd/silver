@@ -288,17 +288,19 @@ ephemeron/custom/dependent or resource-fraction demand. No extra file/channel
 or foreign-buffer owner is introduced; the existing open/lexbuf construction
 is outside this additional-work cut.
 
-Let T count all `ProverFinished` result deliveries, including ordinary
-nonempty-file results and empty-filename queued cancellations, with `o<=9`
-lifetime owners. Primary timing searches perform at most three calls per
-ordinary-file result and none per cancellation, so `q<=3T`. Later deltas also
-include the `grep_time` ref/closure/Some allocations and any additional
-smoothing copies caused by normalization. The controller can call
-`fuzzy_proof_time` once per delivered result, including queued cancellations,
-so at most T additional seven-word result copies are charged without assuming
-that an old proof result is absent. The concrete extra post-cut allocation is
-`512*o + 266*q + 7*T` words. `transfer.py` exports this function with keyword
-`finished_results` separately from the startup delta. Its runtime/GC/remembered-write
+Let p count entry to authentic server `Finished` parsing, including abandoned
+or interrupted calls, and let f independently count entry to the controller
+`ProverFinished` arm before smoothing, including queued cancellations and bodies
+interrupted before `Done`. With `o<=9` lifetime owners, primary timing searches
+satisfy `q<=3p`. Parsing precedes delivery; a batch can fail after allocating
+searches but before buffering its results (`call_provers.ml:478-559`). Thus the
+former delivered-result search bound is superseded. The controller calls
+`fuzzy_proof_time` at most once per arm entry (`controller_itp.ml:448-486`), so
+at most f additional seven-word result copies are charged. No relation between
+p and f, successful completion, or absence of an old proof result is assumed.
+The concrete extra post-cut allocation is `512*o + 266*q + 7*f` words.
+`transfer.py` exports independent `parse_entries` and `finished_results` inputs
+separately from the startup delta. Its runtime/GC/remembered-write
 owners remain under the existing general providers; startup's zero-remembered result does not
 extend to later promoted owners. The result record's answer/status/output/model
 fields have the same shape, but a changed conditional path cannot be declared
