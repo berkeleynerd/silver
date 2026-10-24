@@ -1,5 +1,25 @@
 # Session memory
 
+## 2026-10-24 — Owner pauses #119 after the R92 checkpoint
+
+The owner instructed **“Let's pause our effort.”** All active research and
+review subthreads stopped, preserving unfinished author and review work. This
+supersedes the previous continuation authorization until the owner resumes.
+The harness already reports paused; no replacement goal or completion is claimed.
+
+The latest accepted and published result is the
+[R92 checkpoint](evidence/retained-providers-auxiliaries-round92-20261024/README.md)
+at `f1920759b17dd328e1b8c71293002be9390d7d53`. Later local source/string and KB
+author packets await completed independent reviews; native input-provider and
+Main typing-entry packets remain unfinished or unreviewed. None is promoted
+to accepted evidence by this pause. The detailed local restart inventory is
+preserved at `tmp/active-119-checkpoint.md` in the integration worktree.
+
+#119 remains incomplete; the approximately 85% estimate remains low confidence.
+Production #88–#94 remains unstarted and PR #121 remains draft and unmerged.
+Reuse accepted evidence after resumption and finish the pending bounded reviews
+before integration; the complete capacity rule and its final review remain due.
+
 ## 2026-10-23 — Owner continuation after the printer-entry pause
 
 The owner instructed **“Please continue.”** This supersedes the night pause
