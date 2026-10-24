@@ -1,0 +1,1403 @@
+{
+  "archive_sha256": "f2e7dd7bbef086a36ddf97f9bd3bd669ca895fcc28e3ac23ffe0c9f85fc5d952",
+  "callers": {
+    "Entity_To_Subp_Assumption": [
+      {
+        "file": "flow/flow-analysis-assumptions.adb",
+        "line": 56
+      },
+      {
+        "file": "spark/spark_definition.adb",
+        "line": 2339
+      },
+      {
+        "file": "spark/spark_definition.adb",
+        "line": 2376
+      },
+      {
+        "file": "utils/errout_wrapper.adb",
+        "line": 138
+      },
+      {
+        "file": "why/gnat2why-assumptions.adb",
+        "line": 78
+      },
+      {
+        "file": "why/gnat2why-driver.adb",
+        "line": 567
+      },
+      {
+        "file": "why/gnat2why-driver.adb",
+        "line": 1127
+      },
+      {
+        "file": "why/gnat2why-driver.adb",
+        "line": 1142
+      },
+      {
+        "file": "why/gnat2why-error_messages.adb",
+        "line": 1155
+      }
+    ],
+    "Error_Msg_Flow": [
+      {
+        "file": "flow/flow-analysis-antialiasing.adb",
+        "line": 908
+      },
+      {
+        "file": "flow/flow-analysis-antialiasing.adb",
+        "line": 1176
+      },
+      {
+        "file": "flow/flow-analysis-sanity.adb",
+        "line": 81
+      },
+      {
+        "file": "flow/flow-analysis-sanity.adb",
+        "line": 94
+      },
+      {
+        "file": "flow/flow-analysis-sanity.adb",
+        "line": 579
+      },
+      {
+        "file": "flow/flow-analysis-sanity.adb",
+        "line": 593
+      },
+      {
+        "file": "flow/flow-analysis-sanity.adb",
+        "line": 648
+      },
+      {
+        "file": "flow/flow-analysis-sanity.adb",
+        "line": 664
+      },
+      {
+        "file": "flow/flow-analysis-sanity.adb",
+        "line": 689
+      },
+      {
+        "file": "flow/flow-analysis-sanity.adb",
+        "line": 727
+      },
+      {
+        "file": "flow/flow-analysis-sanity.adb",
+        "line": 747
+      },
+      {
+        "file": "flow/flow-analysis-sanity.adb",
+        "line": 815
+      },
+      {
+        "file": "flow/flow-analysis-sanity.adb",
+        "line": 1430
+      },
+      {
+        "file": "flow/flow-analysis-sanity.adb",
+        "line": 1496
+      },
+      {
+        "file": "flow/flow-analysis-sanity.adb",
+        "line": 1656
+      },
+      {
+        "file": "flow/flow-analysis-sanity.adb",
+        "line": 1669
+      },
+      {
+        "file": "flow/flow-analysis-sanity.adb",
+        "line": 1690
+      },
+      {
+        "file": "flow/flow-analysis-sanity.adb",
+        "line": 1775
+      },
+      {
+        "file": "flow/flow-analysis-sanity.adb",
+        "line": 1911
+      },
+      {
+        "file": "flow/flow-analysis-sanity.adb",
+        "line": 2107
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 357
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 922
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 937
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 1009
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 1022
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 1312
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 1350
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 1407
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 1431
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 1972
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 1990
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 2032
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 2048
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 2087
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 2387
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 2576
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 2749
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 2786
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 3448
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 3624
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 3702
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 3828
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 4189
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 4212
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 4225
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 4240
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 4254
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 4284
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 4300
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 4324
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 4386
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 4454
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 4474
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 4523
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 4538
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 4551
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 4654
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 4671
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 4742
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 4937
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 5029
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 5054
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 5075
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 5093
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 5148
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 5179
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 5217
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 5350
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 5381
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 5395
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 5411
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 5428
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 5454
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 5476
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 5539
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 5660
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 5704
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 5809
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 5829
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 5913
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 6326
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 6421
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 6481
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 6509
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 6527
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 6552
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 6583
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 6616
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 6645
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 6676
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 6688
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 6713
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 6784
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 6801
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 6811
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 6855
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 7039
+      },
+      {
+        "file": "flow/flow-analysis.adb",
+        "line": 7068
+      },
+      {
+        "file": "flow/flow-control_flow_graph.adb",
+        "line": 6773
+      },
+      {
+        "file": "flow/flow-control_flow_graph.adb",
+        "line": 7860
+      },
+      {
+        "file": "flow/flow.adb",
+        "line": 1633
+      },
+      {
+        "file": "flow/flow.adb",
+        "line": 1839
+      },
+      {
+        "file": "flow/flow.adb",
+        "line": 1854
+      },
+      {
+        "file": "flow/flow.adb",
+        "line": 1876
+      },
+      {
+        "file": "flow/flow.adb",
+        "line": 1886
+      },
+      {
+        "file": "flow/flow.adb",
+        "line": 1898
+      },
+      {
+        "file": "flow/flow_classwide.adb",
+        "line": 150
+      },
+      {
+        "file": "flow/flow_classwide.adb",
+        "line": 169
+      },
+      {
+        "file": "flow/flow_classwide.adb",
+        "line": 192
+      },
+      {
+        "file": "flow/flow_classwide.adb",
+        "line": 234
+      },
+      {
+        "file": "flow/flow_classwide.adb",
+        "line": 412
+      },
+      {
+        "file": "flow/flow_error_messages.adb",
+        "line": 573
+      },
+      {
+        "file": "flow/flow_sanity.adb",
+        "line": 91
+      }
+    ],
+    "Error_Msg_N": [
+      {
+        "file": "flow/flow_utility.adb",
+        "line": 3369
+      },
+      {
+        "file": "flow/flow_utility.adb",
+        "line": 7703
+      },
+      {
+        "file": "flow/flow_utility.adb",
+        "line": 7730
+      },
+      {
+        "file": "spark/spark_definition-annotate.adb",
+        "line": 7237
+      },
+      {
+        "file": "spark/spark_definition-violations.adb",
+        "line": 283
+      },
+      {
+        "file": "spark/spark_definition-violations.adb",
+        "line": 337
+      },
+      {
+        "file": "spark/spark_definition-violations.adb",
+        "line": 369
+      },
+      {
+        "file": "spark/spark_definition-violations.adb",
+        "line": 401
+      },
+      {
+        "file": "spark/spark_definition-violations.adb",
+        "line": 407
+      },
+      {
+        "file": "spark/spark_definition.adb",
+        "line": 3836
+      },
+      {
+        "file": "spark/spark_definition.adb",
+        "line": 4423
+      },
+      {
+        "file": "spark/spark_definition.adb",
+        "line": 6943
+      },
+      {
+        "file": "spark/spark_util.adb",
+        "line": 935
+      },
+      {
+        "file": "spark/spark_util.adb",
+        "line": 942
+      },
+      {
+        "file": "utils/errout_wrapper.adb",
+        "line": 517
+      },
+      {
+        "file": "utils/errout_wrapper.adb",
+        "line": 894
+      },
+      {
+        "file": "why/gnat2why-borrow_checker.adb",
+        "line": 1336
+      },
+      {
+        "file": "why/gnat2why-driver.adb",
+        "line": 1360
+      },
+      {
+        "file": "why/gnat2why-expr.adb",
+        "line": 3520
+      },
+      {
+        "file": "why/gnat2why-expr.adb",
+        "line": 8956
+      },
+      {
+        "file": "why/gnat2why-subprograms.adb",
+        "line": 3228
+      },
+      {
+        "file": "why/gnat2why-subprograms.adb",
+        "line": 3244
+      },
+      {
+        "file": "why/why-gen-hardcoded.adb",
+        "line": 689
+      },
+      {
+        "file": "why/why-gen-hardcoded.adb",
+        "line": 1007
+      },
+      {
+        "file": "why/why-inter.adb",
+        "line": 523
+      }
+    ],
+    "Next_Message_Id": [
+      {
+        "file": "flow/flow_error_messages.adb",
+        "line": 3962
+      }
+    ],
+    "Warning_Msg_N": [
+      {
+        "file": "flow/flow-analysis-antialiasing.adb",
+        "line": 738
+      },
+      {
+        "file": "flow/flow-control_flow_graph.adb",
+        "line": 3661
+      },
+      {
+        "file": "flow/flow-control_flow_graph.adb",
+        "line": 3663
+      },
+      {
+        "file": "spark/spark_definition-annotate.adb",
+        "line": 6572
+      },
+      {
+        "file": "spark/spark_definition-annotate.adb",
+        "line": 6614
+      },
+      {
+        "file": "spark/spark_definition-annotate.adb",
+        "line": 7289
+      },
+      {
+        "file": "spark/spark_definition.adb",
+        "line": 1138
+      },
+      {
+        "file": "spark/spark_definition.adb",
+        "line": 4912
+      },
+      {
+        "file": "spark/spark_definition.adb",
+        "line": 5041
+      },
+      {
+        "file": "spark/spark_definition.adb",
+        "line": 5063
+      },
+      {
+        "file": "spark/spark_definition.adb",
+        "line": 5110
+      },
+      {
+        "file": "spark/spark_definition.adb",
+        "line": 5444
+      },
+      {
+        "file": "spark/spark_definition.adb",
+        "line": 5549
+      },
+      {
+        "file": "spark/spark_definition.adb",
+        "line": 6066
+      },
+      {
+        "file": "spark/spark_definition.adb",
+        "line": 6077
+      },
+      {
+        "file": "spark/spark_definition.adb",
+        "line": 6088
+      },
+      {
+        "file": "spark/spark_definition.adb",
+        "line": 6099
+      },
+      {
+        "file": "spark/spark_definition.adb",
+        "line": 6563
+      },
+      {
+        "file": "spark/spark_definition.adb",
+        "line": 6576
+      },
+      {
+        "file": "spark/spark_definition.adb",
+        "line": 6615
+      },
+      {
+        "file": "spark/spark_definition.adb",
+        "line": 7123
+      },
+      {
+        "file": "spark/spark_definition.adb",
+        "line": 7631
+      },
+      {
+        "file": "spark/spark_definition.adb",
+        "line": 7649
+      },
+      {
+        "file": "spark/spark_definition.adb",
+        "line": 7724
+      },
+      {
+        "file": "spark/spark_definition.adb",
+        "line": 7742
+      },
+      {
+        "file": "spark/spark_definition.adb",
+        "line": 8614
+      },
+      {
+        "file": "spark/spark_definition.adb",
+        "line": 9805
+      },
+      {
+        "file": "spark/spark_definition.adb",
+        "line": 9823
+      },
+      {
+        "file": "spark/spark_definition.adb",
+        "line": 11802
+      },
+      {
+        "file": "spark/spark_definition.adb",
+        "line": 13258
+      },
+      {
+        "file": "spark/spark_definition.adb",
+        "line": 13301
+      },
+      {
+        "file": "spark/spark_definition.adb",
+        "line": 13600
+      },
+      {
+        "file": "spark/spark_definition.adb",
+        "line": 14015
+      },
+      {
+        "file": "spark/spark_definition.adb",
+        "line": 14019
+      },
+      {
+        "file": "utils/errout_wrapper.adb",
+        "line": 862
+      },
+      {
+        "file": "why/gnat2why-decls.adb",
+        "line": 362
+      },
+      {
+        "file": "why/gnat2why-decls.adb",
+        "line": 617
+      },
+      {
+        "file": "why/gnat2why-driver.adb",
+        "line": 743
+      },
+      {
+        "file": "why/gnat2why-driver.adb",
+        "line": 847
+      },
+      {
+        "file": "why/gnat2why-expr.adb",
+        "line": 4482
+      },
+      {
+        "file": "why/gnat2why-expr.adb",
+        "line": 6345
+      },
+      {
+        "file": "why/gnat2why-expr.adb",
+        "line": 7744
+      },
+      {
+        "file": "why/gnat2why-expr.adb",
+        "line": 20291
+      },
+      {
+        "file": "why/gnat2why-expr.adb",
+        "line": 20348
+      },
+      {
+        "file": "why/gnat2why-expr.adb",
+        "line": 20378
+      },
+      {
+        "file": "why/gnat2why-expr.adb",
+        "line": 20437
+      },
+      {
+        "file": "why/gnat2why-expr.adb",
+        "line": 20586
+      },
+      {
+        "file": "why/gnat2why-expr.adb",
+        "line": 20652
+      },
+      {
+        "file": "why/gnat2why-expr.adb",
+        "line": 20731
+      },
+      {
+        "file": "why/gnat2why-expr.adb",
+        "line": 20772
+      },
+      {
+        "file": "why/gnat2why-expr.adb",
+        "line": 20799
+      },
+      {
+        "file": "why/gnat2why-expr.adb",
+        "line": 20826
+      },
+      {
+        "file": "why/gnat2why-expr.adb",
+        "line": 26476
+      },
+      {
+        "file": "why/gnat2why-expr.adb",
+        "line": 26866
+      },
+      {
+        "file": "why/gnat2why-subprograms.adb",
+        "line": 486
+      },
+      {
+        "file": "why/gnat2why-subprograms.adb",
+        "line": 3385
+      },
+      {
+        "file": "why/gnat2why-subprograms.adb",
+        "line": 5674
+      },
+      {
+        "file": "why/gnat2why-subprograms.adb",
+        "line": 5800
+      },
+      {
+        "file": "why/gnat2why-subprograms.adb",
+        "line": 6714
+      },
+      {
+        "file": "why/gnat2why-subprograms.adb",
+        "line": 9036
+      }
+    ]
+  },
+  "candidate_source_revision": "42554fc241fcd1fdf08d3a2feccb3f86912acbc0",
+  "gcc_revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "literal_envelope": {
+    "all_modules_at_count": 8,
+    "all_modules_sum": 52020,
+    "cwe_id_max": 4,
+    "cwe_wrapper_literals": 7,
+    "files": {
+      "common/vc_kinds.adb": {
+        "literal_at_characters": 3,
+        "literal_bytes": 29909
+      },
+      "flow/flow-analysis-antialiasing.adb": {
+        "literal_at_characters": 0,
+        "literal_bytes": 1169
+      },
+      "flow/flow-analysis-sanity.adb": {
+        "literal_at_characters": 2,
+        "literal_bytes": 1944
+      },
+      "flow/flow-analysis.adb": {
+        "literal_at_characters": 1,
+        "literal_bytes": 5265
+      },
+      "flow/flow-control_flow_graph.adb": {
+        "literal_at_characters": 0,
+        "literal_bytes": 99
+      },
+      "flow/flow.adb": {
+        "literal_at_characters": 0,
+        "literal_bytes": 1976
+      },
+      "flow/flow_classwide.adb": {
+        "literal_at_characters": 0,
+        "literal_bytes": 451
+      },
+      "flow/flow_error_messages.adb": {
+        "literal_at_characters": 1,
+        "literal_bytes": 10033
+      },
+      "flow/flow_sanity.adb": {
+        "literal_at_characters": 0,
+        "literal_bytes": 278
+      },
+      "flow/flow_types.adb": {
+        "literal_at_characters": 0,
+        "literal_bytes": 244
+      },
+      "utils/errout_wrapper.adb": {
+        "literal_at_characters": 1,
+        "literal_bytes": 652
+      }
+    },
+    "flow_caller_module_max": 5265,
+    "flow_message_C": 5288,
+    "flow_message_at_count": 2,
+    "flow_wrapper_literals": 12,
+    "warning_raw_text_max": 192
+  },
+  "native_column_last": 32767,
+  "native_message_buffer": 66558,
+  "not_established_by_script": [
+    "Ada reachability and source-domain classification",
+    "Installed binary correspondence",
+    "An ordinary program's complete #119 predicate membership",
+    "Host RAM, stack, disk or external progress"
+  ],
+  "orientation_only": {
+    "null_generic_orientation": {
+      "A": 39,
+      "E": 1,
+      "F": 15,
+      "G": 6,
+      "L": 39,
+      "V": 1169,
+      "flow_attempts": 174876,
+      "graph_warning_attempts": 2028,
+      "trace_attempts": 36239,
+      "trace_lines_each": 1169
+    },
+    "symbolic_small_orientation": {
+      "A": 100,
+      "E": 10,
+      "F": 33,
+      "G": 6,
+      "L": 30,
+      "V": 2904,
+      "flow_attempts": 981152,
+      "graph_warning_attempts": 11300,
+      "trace_attempts": 194568,
+      "trace_lines_each": 2904
+    }
+  },
+  "scope": "Offline source census and integer transfer checks; no native/proof run",
+  "sources": {
+    "common/vc_kinds.adb": {
+      "bytes": 101197,
+      "ranges": [
+        [
+          167,
+          235
+        ],
+        [
+          1889,
+          1919
+        ],
+        [
+          2205,
+          2212
+        ]
+      ],
+      "sha256": "8a532e5528c36837e9a63eb41985644c74a3b83084155a1356b42638eef28b1e"
+    },
+    "common/vc_kinds.ads": {
+      "bytes": 69292,
+      "ranges": [
+        [
+          673,
+          680
+        ],
+        [
+          770,
+          784
+        ],
+        [
+          810,
+          814
+        ]
+      ],
+      "sha256": "f800fc13119dbdf9634d3d7972dc21fb9e97d50fd4bbf5cc0f6eafda204debec"
+    },
+    "flow/flow-analysis-antialiasing.adb": {
+      "bytes": 45127,
+      "ranges": [
+        [
+          666,
+          744
+        ],
+        [
+          933,
+          1197
+        ]
+      ],
+      "sha256": "e0bbc64f956766827515f309e6b83997d5b9203d361de6d5e614b493a4fd00a1"
+    },
+    "flow/flow-analysis.adb": {
+      "bytes": 274855,
+      "ranges": [
+        [
+          1831,
+          1850
+        ],
+        [
+          1960,
+          2058
+        ],
+        [
+          2370,
+          2402
+        ],
+        [
+          2550,
+          2603
+        ],
+        [
+          2630,
+          2737
+        ],
+        [
+          3107,
+          3134
+        ],
+        [
+          3160,
+          3228
+        ],
+        [
+          3376,
+          3399
+        ],
+        [
+          4125,
+          4138
+        ],
+        [
+          4963,
+          4975
+        ]
+      ],
+      "sha256": "10dab62c866ca03c5fd9dfefc2f70ea348797f18fb4703ffa69be1ceb9ff9c94"
+    },
+    "flow/flow-control_flow_graph.adb": {
+      "bytes": 340037,
+      "ranges": [
+        [
+          1242,
+          1290
+        ],
+        [
+          1357,
+          1395
+        ],
+        [
+          1506,
+          1706
+        ],
+        [
+          2009,
+          2039
+        ],
+        [
+          2440,
+          2532
+        ],
+        [
+          2591,
+          2705
+        ],
+        [
+          3397,
+          3454
+        ],
+        [
+          3609,
+          3666
+        ],
+        [
+          4007,
+          4118
+        ],
+        [
+          4205,
+          4222
+        ],
+        [
+          4306,
+          4353
+        ],
+        [
+          4878,
+          4902
+        ],
+        [
+          4993,
+          5034
+        ],
+        [
+          5150,
+          5208
+        ],
+        [
+          6048,
+          6052
+        ],
+        [
+          6102,
+          6119
+        ],
+        [
+          6238,
+          6258
+        ],
+        [
+          6278,
+          6294
+        ],
+        [
+          6318,
+          6339
+        ],
+        [
+          6393,
+          6433
+        ],
+        [
+          6442,
+          6539
+        ],
+        [
+          6556,
+          6625
+        ],
+        [
+          6688,
+          6735
+        ],
+        [
+          6863,
+          7087
+        ],
+        [
+          7186,
+          7215
+        ],
+        [
+          7339,
+          7385
+        ],
+        [
+          7849,
+          7874
+        ],
+        [
+          8441,
+          8474
+        ],
+        [
+          8490,
+          8530
+        ],
+        [
+          8742,
+          8843
+        ],
+        [
+          9180,
+          9258
+        ]
+      ],
+      "sha256": "d6d903a8f15e645e1de51c2b74c8b61288885b34c88e9b2ac1f5469a801684b7"
+    },
+    "flow/flow.adb": {
+      "bytes": 71861,
+      "ranges": [
+        [
+          1538,
+          1593
+        ],
+        [
+          1655,
+          1778
+        ],
+        [
+          1869,
+          1918
+        ]
+      ],
+      "sha256": "599a3320977ab9ed7ea36e9d2566810d9e0d377879b20c83e82facf964636e37"
+    },
+    "flow/flow_error_messages.adb": {
+      "bytes": 194323,
+      "ranges": [
+        [
+          192,
+          253
+        ],
+        [
+          303,
+          499
+        ],
+        [
+          501,
+          608
+        ],
+        [
+          1013,
+          1018
+        ],
+        [
+          3960,
+          4116
+        ],
+        [
+          4446,
+          4688
+        ],
+        [
+          5013,
+          5029
+        ]
+      ],
+      "sha256": "b4ac784251b8cd4ea82dddabbc5e75edb2d0c2e838a7e4fc838461f23b06b7b9"
+    },
+    "flow/flow_generated_globals-phase_2.adb": {
+      "bytes": 175085,
+      "ranges": [
+        [
+          2402,
+          2513
+        ],
+        [
+          2536,
+          2633
+        ],
+        [
+          2974,
+          3015
+        ],
+        [
+          4134,
+          4301
+        ],
+        [
+          4535,
+          4537
+        ]
+      ],
+      "sha256": "b4ac652e535a98d65f558cfb2d362a7b2a86478fba9012e7ae8c63b1679bf5bb"
+    },
+    "flow/flow_types.ads": {
+      "bytes": 34495,
+      "ranges": [
+        [
+          97,
+          184
+        ],
+        [
+          859,
+          859
+        ]
+      ],
+      "sha256": "93e58772bb49cf2a71152a3e67b6a301a8c490600889d29b05d0eadd4b15cded"
+    },
+    "flow/flow_utility.adb": {
+      "bytes": 309882,
+      "ranges": [
+        [
+          1020,
+          1106
+        ],
+        [
+          1233,
+          1301
+        ]
+      ],
+      "sha256": "822c171fc085df6148d2bb6cb73fb7b412265e4c5d275a9aa13c747522251dcc"
+    },
+    "spark/spark_definition.adb": {
+      "bytes": 601572,
+      "ranges": [
+        [
+          2313,
+          2389
+        ],
+        [
+          4289,
+          4308
+        ],
+        [
+          6543,
+          6582
+        ],
+        [
+          11834,
+          11852
+        ],
+        [
+          12208,
+          12249
+        ],
+        [
+          12873,
+          12892
+        ],
+        [
+          5667,
+          5683
+        ],
+        [
+          8607,
+          8618
+        ],
+        [
+          13244,
+          13259
+        ],
+        [
+          14000,
+          14025
+        ]
+      ],
+      "sha256": "d8d9203d847f4673be7be8bef8f006d90e5d0da9365e30e2eed311540bda934e"
+    },
+    "spark/spark_util-subprograms.adb": {
+      "bytes": 74490,
+      "ranges": [
+        [
+          786,
+          861
+        ]
+      ],
+      "sha256": "71997913be88d419f583db2c8b51fdc8f38b0285f9c9234cade9033296ac17d6"
+    },
+    "spark/spark_util.adb": {
+      "bytes": 273220,
+      "ranges": [
+        [
+          1917,
+          1951
+        ],
+        [
+          4817,
+          4852
+        ]
+      ],
+      "sha256": "8e129c4260aa5b46eb74d8368c024b71a43cb7dc6a511f55c8e4b72db9801800"
+    },
+    "utils/errout_wrapper.adb": {
+      "bytes": 30046,
+      "ranges": [
+        [
+          17,
+          17
+        ],
+        [
+          76,
+          190
+        ],
+        [
+          399,
+          530
+        ],
+        [
+          599,
+          669
+        ],
+        [
+          852,
+          918
+        ]
+      ],
+      "sha256": "d117c09ba360c274d453dbfb90c6cc61b5ff6c008b75f97abddab15442579a20"
+    },
+    "why/gnat2why-driver.adb": {
+      "bytes": 60922,
+      "ranges": [
+        [
+          348,
+          384
+        ],
+        [
+          554,
+          569
+        ],
+        [
+          790,
+          831
+        ],
+        [
+          1121,
+          1145
+        ]
+      ],
+      "sha256": "b3a37440a935dd9e4c8840c41807b0894a4ad710c63ceb9d344a3db804ebe304"
+    },
+    "why/gnat2why-expr.adb": {
+      "bytes": 1222932,
+      "ranges": [
+        [
+          20258,
+          20296
+        ]
+      ],
+      "sha256": "750ed73091af62c0b522077c2e59e10f496b91a4bee323b3b822fba15094dd14"
+    }
+  }
+}
