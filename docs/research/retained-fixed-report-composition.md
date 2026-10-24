@@ -132,3 +132,39 @@ inequality. No capacity checker, compiler, prover or native target was run.
 Runtime confirmation, extraction elapsed time and token/cost measurements are
 unavailable. Subsequent source derivation and independent review require their
 own evidence; the inventory alone establishes neither.
+
+## IO continuation, 2026-10-24
+
+The accepted first freeze remains unchanged. The new
+[IO packet](../evidence/retained-fixed-report-composition-20261024/bodies/README.md)
+specializes the three actual IO graphs, retaining A_frontend/E_frontend=19,837
+separately from F=17/17/7 and six reporting identities. Source constructors
+give eligible-vertex bounds 286/241/75; allocated null markers remain covered
+by A_frontend+V per graph. The flow-attempt bound is 40,711, including 146
+outside-graph attempts. Warnings remain 16,741, including the entire 16,547
+Why-allocation allowance. No imported constant/proof-reference allocation
+domain was replaced by the small graph object domain.
+
+The actual flow/warning constructors permit narrower JSON schemas. Fixed
+template/name text is escaped at factor two, path bytes at factor six, and
+residual SARIF markers retain an explicit expansion allowance. The existing
+proof schema, R/G/A/J=40/117/309/2, CP 15581, text 31439, thirty-claim and
+forty-two-edge allowances compose with those incoming rows. Full IO pretty
+bytes are bounded by **478,273,421 + 1,568,238P**. The writer and required-report
+reader guards pass over **0<=P<=607**, conditional on native max-path<=4096
+and mmap page size<=65536. This is a sufficient interval, not a concrete path
+attachment or an observed report size.
+
+One focused new checker was run, failed on an arithmetic total copied into
+the tentative expectations, and passed after correcting those expectations
+and the explanatory table. The constructor terms were unchanged; their sum
+is 286/241, not the tentative 386/341. The successful run took 0.696 seconds.
+No predecessor checker, compiler, prover, capture or native service probe ran.
+The packet records exact complete-source inputs and needs independent review.
+
+Arguments and common configuration/path attachment remain open, as do native
+warning-location/initial-counter storage, syntax-header lifetime, source-span
+and private-fix storage, and complete five-report/Main composition. The lead's
+separate native-input packet is neither imported nor reviewed by this freeze.
+No global escape/callback/save allowance is renewed; physical resources remain
+separate. #212 and #119 are not complete.
