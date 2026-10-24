@@ -122,16 +122,20 @@ In review pending delivery. Those transfers required source-family attachment.
 The accepted [R86 checkpoint](docs/evidence/retained-source-attachments-round86-20261024/README.md)
 now derives Image's actual native fold/annotation envelope and attaches the
 capture-safe mapping to the inherited clone-map history and direct caller
-recurrences. Other dynamic String roots, full native workspace/backing and
-Main internal construction/kode/SPWP lifetimes remain open; #201/#202 are
-unfinished.
+recurrences. The accepted [R87 checkpoint](docs/evidence/retained-input-io-round87-20261024/README.md)
+now adds signed input-bound folding/annotation and the dynamic bounds-template
+subcall. Concat, enclosing pointer conversion, full native workspace/backing
+and Main internal construction/kode/SPWP lifetimes remain open; #201/#202
+are unfinished.
 The remaining [fixed-report composition #212](https://github.com/berkeleynerd/silver/issues/212)
 is now explicit and In progress under the same #119 authorization. Its
 [input inventory](docs/research/retained-fixed-report-composition.md) separates
 accepted operands from missing body-specific graph/name/location/path bounds.
 R86 independently accepts the two specification report domains and conditional
-writer/reader region, plus the prospective #88 argv overlay. IO/Arguments body
-composition, concrete paths/services and the full collector join remain open.
+writer/reader region, plus the prospective #88 argv overlay. R87 adds IO's
+source report domains and conditional P<=607 region, and selected parent/
+reporter version/path/page operands. Arguments, actual common paths, remaining
+native owner/storage joins and the full collector composition remain open.
 It proceeds from #193/#194/#206 alongside #201/#202; its Main instance retains
 #202's prerequisites.
 Complete these source/provider joins before the final whole-rule comparison

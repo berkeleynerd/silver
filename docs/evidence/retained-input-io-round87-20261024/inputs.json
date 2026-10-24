@@ -1,0 +1,144 @@
+{
+  "components": [
+    {
+      "name": "Input envelope author",
+      "freeze": "4f518ea3151ad1d11c6c3654c84dd730bc4e2aff",
+      "paths": [
+        "docs/evidence/retained-general-native-capacity-20261024/input-fold/README.md",
+        "docs/evidence/retained-general-native-capacity-20261024/input-fold/check.py",
+        "docs/evidence/retained-general-native-capacity-20261024/input-fold/current.json",
+        "docs/evidence/retained-general-native-capacity-20261024/input-fold/inputs.json",
+        "docs/evidence/retained-general-native-capacity-20261024/input-fold/ledger.json",
+        "docs/evidence/retained-general-native-capacity-20261024/input-fold/matcher-audit.json",
+        "docs/evidence/retained-general-native-capacity-20261024/input-fold/packet-manifest.json",
+        "docs/evidence/retained-general-native-capacity-20261024/input-fold/rank.json",
+        "docs/evidence/retained-general-native-capacity-20261024/input-fold/source-manifest.json",
+        "docs/evidence/retained-general-native-capacity-20261024/input-fold/source-witnesses.json",
+        "docs/research/retained-general-native-capacity.md"
+      ]
+    },
+    {
+      "name": "Input envelope review",
+      "freeze": "a33e3ef26af3de8a8c105bc9137a79d7d6ee2438",
+      "paths": [
+        "docs/evidence/review-native-input-envelope-20261024/README.md",
+        "docs/evidence/review-native-input-envelope-20261024/audit.py",
+        "docs/evidence/review-native-input-envelope-20261024/current.json",
+        "docs/evidence/review-native-input-envelope-20261024/manifest.json",
+        "docs/reviews/review-native-input-envelope-20261024.md"
+      ]
+    },
+    {
+      "name": "Native configuration author",
+      "freeze": "9bb63660fd9e29c7b67b359f00acd844f19771cc",
+      "paths": [
+        "docs/evidence/retained-fixed-report-native-inputs-20261024/README.md",
+        "docs/evidence/retained-fixed-report-native-inputs-20261024/check.py",
+        "docs/evidence/retained-fixed-report-native-inputs-20261024/inputs.json",
+        "docs/evidence/retained-fixed-report-native-inputs-20261024/new-sources.tar.gz",
+        "docs/evidence/retained-fixed-report-native-inputs-20261024/result.json"
+      ]
+    },
+    {
+      "name": "IO report author",
+      "freeze": "0f39a36c1458f7af4f216fce3f9bcde8d8aab123",
+      "paths": [
+        "docs/evidence/retained-fixed-report-composition-20261024/bodies/README.md",
+        "docs/evidence/retained-fixed-report-composition-20261024/bodies/capacity.py",
+        "docs/evidence/retained-fixed-report-composition-20261024/bodies/check.py",
+        "docs/evidence/retained-fixed-report-composition-20261024/bodies/message-census.json",
+        "docs/evidence/retained-fixed-report-composition-20261024/bodies/result.json",
+        "docs/evidence/retained-fixed-report-composition-20261024/bodies/round.json",
+        "docs/evidence/retained-fixed-report-composition-20261024/bodies/source-manifest.json",
+        "docs/research/retained-fixed-report-composition.md"
+      ]
+    },
+    {
+      "name": "IO/configuration review",
+      "freeze": "d39dc7cff5985a24b81345f23e645e2a237c2a6d",
+      "paths": [
+        "docs/evidence/review-fixed-io-configuration-20261024/README.md",
+        "docs/evidence/review-fixed-io-configuration-20261024/audit.py",
+        "docs/evidence/review-fixed-io-configuration-20261024/result.json",
+        "docs/evidence/review-fixed-io-configuration-20261024/round.json",
+        "docs/reviews/review-fixed-io-configuration-20261024.md"
+      ]
+    }
+  ],
+  "bindings": [
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/input-fold/inputs.json",
+      "keys": [
+        "files"
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/input-fold/source-manifest.json",
+      "keys": [
+        "archives"
+      ],
+      "base": "docs/evidence/retained-general-native-capacity-20261024/input-fold"
+    },
+    {
+      "path": "docs/evidence/review-native-input-envelope-20261024/current.json",
+      "keys": [
+        "bound_inputs"
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-native-inputs-20261024/inputs.json",
+      "keys": [
+        "repository"
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-native-inputs-20261024/inputs.json",
+      "keys": [
+        "archives"
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-native-inputs-20261024/inputs.json",
+      "keys": [
+        "targets"
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/bodies/source-manifest.json",
+      "keys": [
+        "repository_files"
+      ],
+      "kind": "map"
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/bodies/source-manifest.json",
+      "keys": [
+        "archive"
+      ],
+      "kind": "single"
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/bodies/source-manifest.json",
+      "keys": [
+        "gnatcoll"
+      ],
+      "kind": "single"
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/bodies/source-manifest.json",
+      "keys": [
+        "gcc_source",
+        "files"
+      ],
+      "kind": "map",
+      "base": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada"
+    },
+    {
+      "path": "docs/evidence/review-fixed-io-configuration-20261024/result.json",
+      "keys": [
+        "exact_inputs"
+      ],
+      "kind": "map_records"
+    }
+  ]
+}
