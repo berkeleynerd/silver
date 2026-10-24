@@ -170,11 +170,14 @@ def main():
     parse = 52 + 3 + 3 + 15
     compile_words = 3 + 3 + (34 + 7 + 34 + 34 + 2 + 3) + 17 + 35 + 13 + 134 + 12
     delta = 4 + 21 + 15 + 4 + 6 + 3 + 21 + 25 + 6
-    call = 31 + 128 + 23 + 20
+    offset_chain = 5 + 5 + 3 + 2
+    wrappers = 5 + 2 + 8 + 2 + offset_chain
+    call = 31 + 128 + 23 + wrappers
     assert parse == 73 <= 128
     assert compile_words == 331 and compile_words + 4 <= 512
     assert delta == 105 <= 128
-    assert call == 202 <= 256
+    assert offset_chain == 15 and wrappers == 32
+    assert call == 214 <= 256
     result = {
         "candidate_hex": "5c3d", "rejected_candidate_hex": "5c60",
         "native_bodies_checked": native_count,

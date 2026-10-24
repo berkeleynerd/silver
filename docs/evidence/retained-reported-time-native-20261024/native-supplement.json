@@ -372,6 +372,22 @@
       "info": 18,
       "section_index": 15
     },
+    "camlRe__Mark_infos__offset_455": {
+      "address": 9523168,
+      "bytes": 155,
+      "disassembly": "camlRe__Mark_infos__offset_455.txt",
+      "disassembly_identity": {
+        "bytes": 2847,
+        "sha256": "9a72657e8746fc61ff3db970587b77375cf943ce016c04eedaa3780261ea4e47"
+      },
+      "hex": "4883ec08488d5c1bff4889df4883c702488b70f848c1ee094889f24883ca014839d77c0cb8010000004883c408c366904839de7661488b5c98fc4883fbff750cb8010000004883c408c366904839fe7640488b44b8fc4983ef284d3b3e722b498d7f084883c71048c747f80008000048891f48894708488d47f048c740f8000400004889384883c408c3e8bded0c00ebcee8f6f00c00e8f1f00c00",
+      "identity": {
+        "bytes": 155,
+        "sha256": "c188f7cae876037684f9cac5b53ed26be85bd3e1b7b44c5e7ee0739b66071d6b"
+      },
+      "info": 18,
+      "section_index": 15
+    },
     "camlStdlib__Hashtbl__add_1032": {
       "address": 9971648,
       "bytes": 193,
@@ -400,6 +416,22 @@
       "identity": {
         "bytes": 203,
         "sha256": "1da46c29c56d3f7ebbec488d38672afa58ba474d4e1e7a495c35c1dc32745198"
+      },
+      "info": 18,
+      "section_index": 15
+    },
+    "camlStdlib__Option__map_292": {
+      "address": 9730032,
+      "bytes": 74,
+      "disassembly": "camlStdlib__Option__map_292.txt",
+      "disassembly_identity": {
+        "bytes": 1617,
+        "sha256": "05d267a176325b622cd2dc1303e9cc9e5b23342d5c4c34ef069df54e9200ecbe"
+      },
+      "hex": "4883ec084889c7f6c301740cb8010000004883c408c36690488b03488b374889fbffd64983ef104d3b3e7217498d5f0848c743f8000400004889034889d84883c408c3e8f4c50900ebe2",
+      "identity": {
+        "bytes": 74,
+        "sha256": "dda3530e68f800dfdd43ff452a457cbdbba212ce64ce25e2cbbac5ee37e37c3c"
       },
       "info": 18,
       "section_index": 15
@@ -623,6 +655,28 @@
         "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3"
       ],
       "elapsed_seconds": 0.19157633099530358,
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--disassemble=camlRe__Mark_infos__offset_455",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3"
+      ],
+      "elapsed_seconds": 0.10656435800046893,
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+        "-d",
+        "--disassemble=camlStdlib__Option__map_292",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3"
+      ],
+      "elapsed_seconds": 0.15188586600561393,
       "exit_code": 0,
       "stderr": ""
     }
