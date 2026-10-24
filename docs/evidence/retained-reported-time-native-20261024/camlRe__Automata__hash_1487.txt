@@ -1,0 +1,54 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+0000000000917c20 <camlRe__Automata__hash_1487>:
+  917c20:	48 83 ec 08          	sub    $0x8,%rsp
+  917c24:	48 89 c6             	mov    %rax,%rsi
+  917c27:	48 89 34 24          	mov    %rsi,(%rsp)
+  917c2b:	48 0f b6 46 f8       	movzbq -0x8(%rsi),%rax
+  917c30:	48 83 f8 01          	cmp    $0x1,%rax
+  917c34:	74 3e                	je     917c74 <camlRe__Automata__hash_1487+0x54>
+  917c36:	77 70                	ja     917ca8 <camlRe__Automata__hash_1487+0x88>
+  917c38:	48 8b 7f 20          	mov    0x20(%rdi),%rdi
+  917c3c:	48 8b 46 08          	mov    0x8(%rsi),%rax
+  917c40:	e8 9b 53 c1 ff       	call   52cfe0 <caml_apply2>
+  917c45:	48 8b 1c 24          	mov    (%rsp),%rbx
+  917c49:	48 8b 5b 10          	mov    0x10(%rbx),%rbx
+  917c4d:	48 8b 1b             	mov    (%rbx),%rbx
+  917c50:	48 69 c0 3f 00 01 00 	imul   $0x1003f,%rax,%rax
+  917c57:	48 8d 84 18 c1 ff fe 	lea    -0x1003f(%rax,%rbx,1),%rax
+  917c5e:	ff 
+  917c5f:	48 69 c0 3f 00 01 00 	imul   $0x1003f,%rax,%rax
+  917c66:	48 05 5e 37 53 2e    	add    $0x2e53375e,%rax
+  917c6c:	48 83 c4 08          	add    $0x8,%rsp
+  917c70:	c3                   	ret
+  917c71:	0f 1f 00             	nopl   (%rax)
+  917c74:	48 8b 06             	mov    (%rsi),%rax
+  917c77:	e8 14 f9 ff ff       	call   917590 <camlRe__Automata__hash_1353>
+  917c7c:	48 8b 1c 24          	mov    (%rsp),%rbx
+  917c80:	48 8b 5b 08          	mov    0x8(%rbx),%rbx
+  917c84:	48 8b 1b             	mov    (%rbx),%rbx
+  917c87:	48 69 c0 3f 00 01 00 	imul   $0x1003f,%rax,%rax
+  917c8e:	48 8d 84 18 c1 ff fe 	lea    -0x1003f(%rax,%rbx,1),%rax
+  917c95:	ff 
+  917c96:	48 69 c0 3f 00 01 00 	imul   $0x1003f,%rax,%rax
+  917c9d:	48 05 b0 1a 97 56    	add    $0x56971ab0,%rax
+  917ca3:	48 83 c4 08          	add    $0x8,%rsp
+  917ca7:	c3                   	ret
+  917ca8:	48 8b 06             	mov    (%rsi),%rax
+  917cab:	e8 e0 f8 ff ff       	call   917590 <camlRe__Automata__hash_1353>
+  917cb0:	48 69 c0 3f 00 01 00 	imul   $0x1003f,%rax,%rax
+  917cb7:	48 05 6c b5 3f 38    	add    $0x383fb56c,%rax
+  917cbd:	48 83 c4 08          	add    $0x8,%rsp
+  917cc1:	c3                   	ret
+
+Disassembly of section .fini:

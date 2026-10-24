@@ -1,0 +1,67 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+0000000000981160 <camlStdlib__Hashtbl__create_inner_1743>:
+  981160:	48 83 ec 18          	sub    $0x18,%rsp
+  981164:	48 89 04 24          	mov    %rax,(%rsp)
+  981168:	b8 21 00 00 00       	mov    $0x21,%eax
+  98116d:	e8 ae ff ff ff       	call   981120 <camlStdlib__Hashtbl__power_2_above_598>
+  981172:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+  981177:	48 8b 04 24          	mov    (%rsp),%rax
+  98117b:	48 83 f8 01          	cmp    $0x1,%rax
+  98117f:	74 47                	je     9811c8 <camlStdlib__Hashtbl__create_inner_1743+0x68>
+  981181:	48 8d 05 10 4e 60 00 	lea    0x604e10(%rip),%rax        # f85f98 <camlStdlib__Hashtbl>
+  981188:	48 8b 80 18 01 00 00 	mov    0x118(%rax),%rax
+  98118f:	a8 01                	test   $0x1,%al
+  981191:	74 05                	je     981198 <camlStdlib__Hashtbl__create_inner_1743+0x38>
+  981193:	eb 27                	jmp    9811bc <camlStdlib__Hashtbl__create_inner_1743+0x5c>
+  981195:	0f 1f 00             	nopl   (%rax)
+  981198:	48 0f b6 58 f8       	movzbq -0x8(%rax),%rbx
+  98119d:	48 81 fb f6 00 00 00 	cmp    $0xf6,%rbx
+  9811a4:	74 0e                	je     9811b4 <camlStdlib__Hashtbl__create_inner_1743+0x54>
+  9811a6:	48 81 fb fa 00 00 00 	cmp    $0xfa,%rbx
+  9811ad:	75 0d                	jne    9811bc <camlStdlib__Hashtbl__create_inner_1743+0x5c>
+  9811af:	48 8b 00             	mov    (%rax),%rax
+  9811b2:	eb 08                	jmp    9811bc <camlStdlib__Hashtbl__create_inner_1743+0x5c>
+  9811b4:	e8 37 23 fc ff       	call   9434f0 <camlCamlinternalLazy__force_lazy_block_362>
+  9811b9:	eb 01                	jmp    9811bc <camlStdlib__Hashtbl__create_inner_1743+0x5c>
+  9811bb:	90                   	nop
+  9811bc:	e8 ff ef ff ff       	call   9801c0 <camlStdlib__Random__bits_484>
+  9811c1:	48 89 04 24          	mov    %rax,(%rsp)
+  9811c5:	eb 0a                	jmp    9811d1 <camlStdlib__Hashtbl__create_inner_1743+0x71>
+  9811c7:	90                   	nop
+  9811c8:	b8 01 00 00 00       	mov    $0x1,%eax
+  9811cd:	48 89 04 24          	mov    %rax,(%rsp)
+  9811d1:	be 01 00 00 00       	mov    $0x1,%esi
+  9811d6:	48 8b 7c 24 08       	mov    0x8(%rsp),%rdi
+  9811db:	48 8d 05 6e c9 04 00 	lea    0x4c96e(%rip),%rax        # 9cdb50 <caml_make_vect>
+  9811e2:	e8 c1 2d 06 00       	call   9e3fa8 <caml_c_call>
+  9811e7:	4d 8b 7e 08          	mov    0x8(%r14),%r15
+  9811eb:	49 83 ef 28          	sub    $0x28,%r15
+  9811ef:	4d 3b 3e             	cmp    (%r14),%r15
+  9811f2:	72 30                	jb     981224 <camlStdlib__Hashtbl__create_inner_1743+0xc4>
+  9811f4:	49 8d 5f 08          	lea    0x8(%r15),%rbx
+  9811f8:	48 c7 43 f8 00 10 00 	movq   $0x1000,-0x8(%rbx)
+  9811ff:	00 
+  981200:	48 c7 03 01 00 00 00 	movq   $0x1,(%rbx)
+  981207:	48 89 43 08          	mov    %rax,0x8(%rbx)
+  98120b:	48 8b 04 24          	mov    (%rsp),%rax
+  98120f:	48 89 43 10          	mov    %rax,0x10(%rbx)
+  981213:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  981218:	48 89 43 18          	mov    %rax,0x18(%rbx)
+  98121c:	48 89 d8             	mov    %rbx,%rax
+  98121f:	48 83 c4 18          	add    $0x18,%rsp
+  981223:	c3                   	ret
+  981224:	e8 03 2c 06 00       	call   9e3e2c <caml_call_gc>
+  981229:	eb c9                	jmp    9811f4 <camlStdlib__Hashtbl__create_inner_1743+0x94>
+
+Disassembly of section .fini:

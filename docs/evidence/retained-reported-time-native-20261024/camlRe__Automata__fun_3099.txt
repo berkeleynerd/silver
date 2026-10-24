@@ -1,0 +1,20 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+0000000000918940 <camlRe__Automata__fun_3099>:
+  918940:	48 89 c6             	mov    %rax,%rsi
+  918943:	48 8b 43 10          	mov    0x10(%rbx),%rax
+  918947:	48 8b 7b 18          	mov    0x18(%rbx),%rdi
+  91894b:	48 89 f3             	mov    %rsi,%rbx
+  91894e:	e9 ad fe ff ff       	jmp    918800 <camlRe__Automata__f_1596>
+
+Disassembly of section .fini:

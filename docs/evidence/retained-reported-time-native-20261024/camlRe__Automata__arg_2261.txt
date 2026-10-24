@@ -1,0 +1,39 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+00000000009191d0 <camlRe__Automata__arg_2261>:
+  9191d0:	48 83 ec 08          	sub    $0x8,%rsp
+  9191d4:	49 83 ef 30          	sub    $0x30,%r15
+  9191d8:	4d 3b 3e             	cmp    (%r14),%r15
+  9191db:	72 4e                	jb     91922b <camlRe__Automata__arg_2261+0x5b>
+  9191dd:	49 8d 7f 08          	lea    0x8(%r15),%rdi
+  9191e1:	48 c7 47 f8 f7 14 00 	movq   $0x14f7,-0x8(%rdi)
+  9191e8:	00 
+  9191e9:	48 8d 35 70 21 c1 ff 	lea    -0x3ede90(%rip),%rsi        # 52b360 <caml_tuplify2>
+  9191f0:	48 89 37             	mov    %rsi,(%rdi)
+  9191f3:	48 be 07 00 00 00 00 	movabs $0xfe00000000000007,%rsi
+  9191fa:	00 00 fe 
+  9191fd:	48 89 77 08          	mov    %rsi,0x8(%rdi)
+  919201:	48 8d 35 38 00 00 00 	lea    0x38(%rip),%rsi        # 919240 <camlRe__Automata__fun_3340>
+  919208:	48 89 77 10          	mov    %rsi,0x10(%rdi)
+  91920c:	48 8b 73 10          	mov    0x10(%rbx),%rsi
+  919210:	48 89 77 18          	mov    %rsi,0x18(%rdi)
+  919214:	48 8b 5b 18          	mov    0x18(%rbx),%rbx
+  919218:	48 89 5f 20          	mov    %rbx,0x20(%rdi)
+  91921c:	48 8b 18             	mov    (%rax),%rbx
+  91921f:	48 89 f8             	mov    %rdi,%rax
+  919222:	48 83 c4 08          	add    $0x8,%rsp
+  919226:	e9 c5 fe 02 00       	jmp    9490f0 <camlStdlib__List__iter_507>
+  91922b:	e8 fc ab 0c 00       	call   9e3e2c <caml_call_gc>
+  919230:	eb ab                	jmp    9191dd <camlRe__Automata__arg_2261+0xd>
+
+Disassembly of section .fini:
