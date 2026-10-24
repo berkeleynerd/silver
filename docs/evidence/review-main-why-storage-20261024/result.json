@@ -1,0 +1,97 @@
+{
+  "status": "pass",
+  "reviewed_commit": "3a9be892c22061dddac367eb2d5d636405207525",
+  "platform": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "assertions": 1272,
+  "families": {
+    "archive identity": 2,
+    "attribute-aware lazy/eager substitution": 300,
+    "author packet unmodified": 1,
+    "complete gate decision": 300,
+    "complete source identity": 15,
+    "constructive DAG actual multiplication": 2,
+    "constructive DAG actual overflowing addition": 1,
+    "constructive DAG addition guard": 1,
+    "constructive DAG exact max_int cache": 1,
+    "constructive DAG multiplication guard": 2,
+    "constructive DAG output coefficient": 2,
+    "dead unsupported image rejected structurally": 1,
+    "discarded candidate Ident count": 1,
+    "eager fresh-identifier prediction": 300,
+    "every supported constructor exercised": 1,
+    "gate exact Ident endpoint": 1,
+    "nonleaf duplicate image rewritten before union": 1,
+    "one shared batch counter": 1,
+    "operand DAG construction safe": 2,
+    "provider identity": 12,
+    "review frozen commit": 1,
+    "saved union keeps rewritten old duplicate": 1,
+    "small constructive gate guards": 300,
+    "source span identity": 23
+  },
+  "identities": {
+    "archives": 2,
+    "sources": 15,
+    "spans": 23,
+    "providers": 12
+  },
+  "gate_diagrams": {
+    "diagrams": 300,
+    "supported_nodes": [
+      "and",
+      "app",
+      "const",
+      "eps",
+      "exists",
+      "false",
+      "forall",
+      "if",
+      "iff",
+      "implies",
+      "let",
+      "not",
+      "or",
+      "true",
+      "var"
+    ],
+    "batch_ident_increments": 186
+  },
+  "constructive_arithmetic": {
+    "products": [
+      {
+        "left": 1073741824,
+        "right": 2147483648,
+        "product": 2305843009213693952,
+        "safe": true
+      },
+      {
+        "left": 2147483648,
+        "right": 2147483648,
+        "product": 4611686018427387904,
+        "safe": false
+      }
+    ],
+    "exact_safe_cache": 4611686018427387903,
+    "overflowing_sum": [
+      4611686018427387903,
+      1,
+      4611686018427387904
+    ]
+  },
+  "author_inputs_sha256": {
+    "docs/evidence/retained-main-why-storage-20261024/README.md": "b85ea382d184cdc972f5f7e51bd72afda03209686c0629db1b9a313c2e0d1c8a",
+    "docs/evidence/retained-main-why-storage-20261024/check.py": "6eb0ffa3fbc6e10533283b3dab2a9a7ec0a2fe73a769afd9f59d039e83e98618",
+    "docs/evidence/retained-main-why-storage-20261024/checkpoint.md": "787a893a658705d948ca54881d068ea9a185b548d72398117b5f36d78fb5e02b",
+    "docs/evidence/retained-main-why-storage-20261024/identity.json": "18744d2ed974c73599baff460b95c031130a1f60f46d12770b1be7a053956600",
+    "docs/evidence/retained-main-why-storage-20261024/kernel.py": "35b41283e3deffe4ec6152bca5d24a79ce9650710681206871a20a66d5319f42",
+    "docs/evidence/retained-main-why-storage-20261024/result-initial.json": "ad728b39e25f52c08d624dee0a3a36efd3d3eef2e4150efbb7f06d36723cdf99",
+    "docs/evidence/retained-main-why-storage-20261024/result.json": "a488523f5a844a2933aef42924cc59f0779730e86102e866b4f2dbf3b62e0570",
+    "docs/evidence/retained-main-why-storage-20261024/round.json": "57b5ac5df122d2e7f3109160d0051409665039698f007b4ba1610f65edbda507",
+    "docs/research/retained-main-why-storage.md": "f4b19fa4ecc8b15a889ac8bfeda851adb3ad64439bfc72a2bc50f28a753787ee"
+  },
+  "audit_sha256": "5fe0b727f26f6fe83edf7476f7267a2c35c343dc44f6ea9ef35ed015672b1d72",
+  "elapsed_seconds": 0.8955824769946048,
+  "native_runs": 0,
+  "author_or_predecessor_checker_replays": 0,
+  "full_main_attachment_claimed": false
+}
