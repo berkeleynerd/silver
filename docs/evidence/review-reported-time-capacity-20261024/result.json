@@ -1,0 +1,223 @@
+{
+  "abandoned_parse_words": 798,
+  "accepted_native_provider_files": {
+    "docs/evidence/retained-reported-time-native-20261024/placeholder/README.md": {
+      "bytes": 10186,
+      "sha256": "c76952ec70e1f6715d5b5695ffb7c1269028883745649314cfc1f75170b0c113"
+    },
+    "docs/evidence/retained-reported-time-native-20261024/placeholder/result.json": {
+      "bytes": 1019,
+      "sha256": "c3ffce2835b148428006a8368f2653401c8c967016036c53a81b1660841bad8b"
+    },
+    "docs/evidence/retained-reported-time-native-20261024/result.json": {
+      "bytes": 918,
+      "sha256": "dc68548ae827916401707190ee24ba01323b1cf97f6a142ef81c58f939fe2b0d"
+    },
+    "docs/research/retained-reported-time-native.md": {
+      "bytes": 13077,
+      "sha256": "f783c790260367e57191d7f142b2340c31297bf21196359e2a91a3e89f50810b"
+    }
+  },
+  "all_module_direct_bump_words": 1629,
+  "audit_sha256": "ede88021f840f476a63d1e02b41f6d50f36a1bd537cf542c9f0781c80ff48ef6",
+  "author_checker_runs": 0,
+  "capture_or_disassembler_runs": 0,
+  "configuration_files": 7,
+  "cost": null,
+  "elapsed_seconds": 1.2340371329992195,
+  "ended_utc": "2026-10-24T04:20:24.581266+00:00",
+  "entry_baseline_identity": {
+    "bytes": 5257,
+    "sha256": "12988cda534c3986987121d071bb1a2fec919ba9d915585df93203e37c9f247e"
+  },
+  "external_provider_root": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity",
+  "fixed_input_files": 35,
+  "frozen_author_files": {
+    "docs/evidence/retained-reported-time-capacity-20261024/MenhirLib__Convert.txt": {
+      "bytes": 14603,
+      "sha256": "b53f487785bb3fbe772c8774759bc605e8a1731de1902581767e67a186a1ff39"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/MenhirLib__Engine.txt": {
+      "bytes": 106891,
+      "sha256": "41ce9e6efe643ef3a6db070f8b44534f15da348dca701a5be4870cbdda71ee7c"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/MenhirLib__PackedIntArray.txt": {
+      "bytes": 27291,
+      "sha256": "b96bfe2919414c49e350108198b975d6c6c8b159ac79e4915c34e493df9a244b"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/MenhirLib__RowDisplacementDecode.txt": {
+      "bytes": 3650,
+      "sha256": "3834257238c3dab905177958807391dadaed2caaecd8e1dfb3b748431578c5e3"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/MenhirLib__TableInterpreter.txt": {
+      "bytes": 58932,
+      "sha256": "bd12aafb521b880183c89e19fe5fe7e5c8498fce37eb7e4b58fd93137264c9a4"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/README.md": {
+      "bytes": 3438,
+      "sha256": "42e40befdc4252ab4966dd84cb36f2fefe2d31afd11152c180df2cf815b67f80"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/Why3__Driver_parser.txt": {
+      "bytes": 280129,
+      "sha256": "f7ab4fc3755eb60142275b6a53db8bed5747079649273f88480ceb31372fc2d3"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/allocation.json": {
+      "bytes": 8663,
+      "sha256": "df3b38e636b419feef7283f9931a2d013400e51d7bc88874ab2865c0f9caa67c"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/allocation.md": {
+      "bytes": 17397,
+      "sha256": "5947e2abd2839b57d00fb2f0279d4d93d6fe31d5e701027c0899227f37abc756"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/baseline-entry-projection.json": {
+      "bytes": 37656,
+      "sha256": "48794eed55111f91939962b810d1b1ec951c03788446cccf13170b7da9f085a3"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/camlRe__Str__global_substitute_1081.txt": {
+      "bytes": 2118,
+      "sha256": "0cab85f271bc2b12e17b2b89ceabfa5b603aff4c077e3cbe26ec17e958b658db"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/camlRe__Str__replace_1086.txt": {
+      "bytes": 7520,
+      "sha256": "9920c1a1089d18f1ae67eaf95977077e1dfbe192b367864bbdfc280ad81b18be"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/camlStdlib__Array__iteri_357.txt": {
+      "bytes": 3086,
+      "sha256": "16b93fa035ee71ab938ff9b2877693c8cc6b16e4aaefe4a1ef95da2c0bd60f84"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/camlStdlib__List__rev_append_308.txt": {
+      "bytes": 1504,
+      "sha256": "8d8100e95b9c96aa3b35d3b9a7334b4874ab83f71148f02bf829c317a1469e44"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/camlStdlib__String__concat_419.txt": {
+      "bytes": 2119,
+      "sha256": "9bccc3581d50177271b083150d083b1e542e2e71c045d268d9c654cb090c606c"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/camlWhy3__Call_provers__grep_time_1197.txt": {
+      "bytes": 4703,
+      "sha256": "0fa1d1d90b07131ccedf365cd7e3555e842e2f0517b1ef3880f95ebac162ac0d"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/camlWhy3__Call_provers__timeregexp_1069.txt": {
+      "bytes": 4874,
+      "sha256": "974b150bf6392b2d05431fdbc1b424aae9a262476ed62277a16074a943026982"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/camlWhy3__Controller_itp__fuzzy_proof_time_2136.txt": {
+      "bytes": 4248,
+      "sha256": "ed2854f3a1d598bf4454873190c83dbfd576d5b7696dd7320ff71e44d4e75286"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/check-result.json": {
+      "bytes": 440,
+      "sha256": "f72a71d68b9b42b428bd4fb0f905c83c80cfe0936764745e5c11856f4cc8a4e8"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/check.py": {
+      "bytes": 22046,
+      "sha256": "a992f04a7a4148d21583f7f3fa36cb3be2c58b840beb274ccd083ac9f97cab2c"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/configuration/overlay/alt_ergo_silvercap_smt2.drv": {
+      "bytes": 2461,
+      "sha256": "bb44bdcc8fef6dffc7cca63987a44071e38f514328a83942b74390958001d6cb"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/configuration/overlay/cvc5_silvercap.drv": {
+      "bytes": 2181,
+      "sha256": "3762cfe06d4c30310e1eb616d45297307a09078e0f81bc0763b62020cadf512e"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/configuration/overlay/silver_cvc5_no_steps.gen": {
+      "bytes": 1779,
+      "sha256": "9929f5cbef55ac75cf4bf09748656b8bd489a43a77fa5008fb0290a7d077fb11"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/configuration/overlay/slv-libv2.gen": {
+      "bytes": 4018,
+      "sha256": "7242ded64782a2cfdd2961bf5f90f93595ee7b9f90913c74c7ec9d47cdd05bd4"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/configuration/overlay/why3.conf": {
+      "bytes": 18,
+      "sha256": "25ddc07c274efd06de243a94fd0bc259f55d7bcb687f184c6ef89b94ed13bf48"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/configuration/overlay/z3_silvercap.drv": {
+      "bytes": 2092,
+      "sha256": "3d4a36a238761940ef27efd4c9df2977fbb2083cb76919be95eba1ccec017939"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/configuration/why3.conf": {
+      "bytes": 2069,
+      "sha256": "3e2166ad000eda727751ae03e4324ba12b04e48a80b4099a4f04eeb1061b230a"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/entry-extension.json": {
+      "bytes": 42285,
+      "sha256": "7df483fcbb2e534f6459fb0a2d9416952e841ca01ce5d140c876a77ce694bc89"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/inputs.json": {
+      "bytes": 7204,
+      "sha256": "9d8c364bd4fba1b4276a4fcede2488cd28ebf65f8073b4ae20581cb577f375e8"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/later-allocation-cases.json": {
+      "bytes": 1395,
+      "sha256": "923bc92f28960306bbf64f963b2144e622a23fc0f1e283c8ff20de8d26e65993"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/native-providers.json": {
+      "bytes": 957,
+      "sha256": "0f32a0a39e7419dd89b36962ce2f841c745acdb751ae99967fc8c91cad6614d7"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/parser-native.json": {
+      "bytes": 22978,
+      "sha256": "57b13964d2ac1f6ee2ac45c85819a5e6dd1a995dc3fa0386822fec5a8b7ac75f"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/recipe.json": {
+      "bytes": 5630,
+      "sha256": "c793956a1b68191781869e48149dd8ca6918fd1e6c1c1257729228648c9206d3"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/result.json": {
+      "bytes": 4478,
+      "sha256": "25c57f3962e821b628307f27c813d7701a7098a18cd3e3f3d143fd30b2401ce6"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/round.json": {
+      "bytes": 8172,
+      "sha256": "ffe0dbe5d8e649b69b86a2e4de259fa50250121b64b1d517b66d271292956def"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/source-witnesses.json": {
+      "bytes": 62986,
+      "sha256": "6fdc5e1c44a5e787485c713f8fcf273034295bda7f3ca984639043ee64768ed8"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/time-origin-census.json": {
+      "bytes": 1051,
+      "sha256": "6d79061edfbbe9536926271647e1566eb1232a3333704632d6c3fa16ce9bfa84"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/transfer.py": {
+      "bytes": 7079,
+      "sha256": "9c2c5c9c55d64231b3829907881f7d90dba580c0f98ca4cf52fb432b04ed5bdc"
+    },
+    "docs/research/retained-reported-time-capacity.md": {
+      "bytes": 24738,
+      "sha256": "a3e24b72d6a74b67598869c1a421e92ed5f2efe34fc9ba8dc91d86b5d7a81592"
+    }
+  },
+  "host": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "independent_later_cases": 6,
+  "initial_reviewed_commit": "ae33d531d9259c1ee8896a475b78742d51922917",
+  "interface_negative_controls": 7,
+  "launch_layouts": 5,
+  "maximum_managed_static_carrier_words": 237953393,
+  "maximum_minor_words": 227274405,
+  "native_caller_wrappers": 8,
+  "native_parser_modules": 6,
+  "native_target_identity": {
+    "bytes": 24561432,
+    "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+  },
+  "native_target_runs": 0,
+  "new_timing_records": 9,
+  "predecessor_checker_runs": 0,
+  "queued_only_words": 7,
+  "reviewed_commit": "fd19cd4c3c4847795b04a2a194bf49ce52eacfc5",
+  "runtime_effort_confirmation": null,
+  "runtime_model_confirmation": null,
+  "selected_model": "GPT-6 Astra",
+  "selected_reasoning_effort": "Extra High",
+  "source_archives": 3,
+  "source_members": 20,
+  "source_spans": 49,
+  "started_utc": "2026-10-24T04:20:23.350716+00:00",
+  "startup_minor_words_added": 91752681,
+  "status": "pass",
+  "time_assignment_census_entries": 9,
+  "token_usage": null
+}

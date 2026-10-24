@@ -1,0 +1,56 @@
+{
+  "status": "awaiting bounded author repair; no final acceptance or audit",
+  "reviewed_initial_freeze": "ae33d531d9259c1ee8896a475b78742d51922917",
+  "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-reported-time-capacity-20261024",
+  "branch": "review/reported-time-capacity-20261024",
+  "selected_model": "GPT-6 Astra",
+  "selected_reasoning_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "first_recorded_clock_utc": "2026-10-24 04:05:05 UTC",
+  "checkpoint_clock_utc": "2026-10-24 04:09:57 UTC",
+  "recorded_interval_seconds": 292,
+  "interval_scope": "Source/configuration review through checkpoint; initial worktree creation preceded the first clock, final repair review/audit/report remain.",
+  "token_usage": null,
+  "cost": null,
+  "host": "Linux 7.0.14 x86_64",
+  "live_harness_goal": null,
+  "source_review_completed": [
+    "Read AGENTS.md, Oracle, development review bookkeeping, agent workflow, source research note and entire README/allocation argument.",
+    "Checked retained driver grammar, lexer and multifile source: imported common file is one parser stream; three pending global cells preserve tail transitions and add final reductions.",
+    "Read selected native Engine/TableInterpreter dispatch, checkpoint loops and semantic actions; linked stack and bounded dispatch support the 4096-word elementary-pass credit.",
+    "Reviewed all retained time-origin/transport witnesses and independently searched every pr_time occurrence in the Why source archive, including bisection consumer excluded by automatic GNAT route.",
+    "Checked fresh-session init_cont branch, empty queued cancellation sender, zero-limit ordinary parse, Trivial/Checker, smoothing copies, report maxima and GNATCOLL Float conversion.",
+    "Reviewed exact seven-file configuration, one 32-to-33-byte edit, selected import membership, nine records, wrappers' native bumps (grep 10, fuzzy copy 7, timeregexp17).",
+    "Read accepted native/placeholder argument and review, reusing accepted kernel rather than replaying it; #208 corrected214 fits256.",
+    "Read exact accepted entry transfer and review in retained-tool-capacity and compared new transfer: full baseline object/fingerprint validation, enlarged counter/carrier guards, unchanged nonminor components and global allowance."
+  ],
+  "interim_findings": [
+    {
+      "summary": "Later fuzzy-copy allocation denominator omits queued-cancellation result deliveries.",
+      "status": "Bounded count join missing in current argument; conservative repair requested. No demonstrated production defect or startup-bound failure.",
+      "source": "controller_itp.ml:469-474 applies fuzzy_proof_time to every ProverFinished res, including the empty-filename queued-cancellation result from call_provers.ml:392-400; fuzzy_proof_time may allocate a seven-word result copy.",
+      "affected_claims": [
+        "docs/research/retained-reported-time-capacity.md:292-295",
+        "docs/evidence/retained-reported-time-capacity-20261024/allocation.md:241-245",
+        "docs/evidence/retained-reported-time-capacity-20261024/transfer.py:110-124"
+      ],
+      "repair": "Conservatively define the result denominator as all processed ProverFinished results, including queued cancellations; q<=3T and7T remain sufficient. Update exported argument naming/docs/derived fixtures. No new at-most-once scheduling or amortization proof is needed.",
+      "lead_disposition": "Lead requested release of the fourth slot so author can make this bounded repair, then resume reviewer on exact new freeze."
+    }
+  ],
+  "next_steps": [
+    "Read bounded author repair and exact new freeze; preserve old freeze as initial reviewed input.",
+    "Run one focused final-freeze independent static audit after repair, with accepted dependency root /home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity.",
+    "Bind all reviewed author packet files/source note and accepted dependency identities; independently check source witnesses, allocation arithmetic, five entry envelopes and malformed-envelope/recipe rejection.",
+    "Write final scoped report and receipt in owned paths, commit with #206/#119 references, and return commit to lead; no adoption or issue closure by reviewer."
+  ],
+  "final_audit_runs": 0,
+  "target_runs": 0,
+  "native_engine_runs": 0,
+  "predecessor_checker_replays": 0,
+  "author_checker_runs": 0,
+  "capture_or_disassembler_runs": 0,
+  "source_files_modified": false,
+  "publication_or_issue_writes": false
+}
