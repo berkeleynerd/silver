@@ -1,0 +1,39 @@
+{
+  "files": [
+    {
+      "path": "docs/evidence/retained-producer-report-capacity-20261024/capacity.py",
+      "sha256": "af793f67bd37aa151ed3d8910c8ba133048f76eb37102ea8367073622b89997b"
+    },
+    {
+      "path": "docs/evidence/retained-response-parser-capacity-20261023/capacity.py",
+      "sha256": "c8925ae1d74a086dcf3b3fb307b8ef7b8cc8ce5e519f0fd41976550142b184f7"
+    },
+    {
+      "path": "docs/research/retained-producer-orchestration.md",
+      "sha256": "b3346ad1afadfa8d2c889f2a3685b6927e586591fded64f8ac9c3d9ea8630b44"
+    },
+    {
+      "path": "docs/research/retained-producer-tail.md",
+      "sha256": "df9b0e7aab72837b42176d245d0b22646fdde4ed1c81bef50d0ad27e55c4a993"
+    },
+    {
+      "path": "docs/research/retained-producer-response.md",
+      "sha256": "6726e87d941735b0765f57396fbb04403242f82412438f47bfb84b1898454847"
+    },
+    {
+      "path": "docs/research/retained-tool-source-identity.md",
+      "sha256": "0f3e412d639dadb0f6b0aa4448fe4179f6e92e6e48c3496d086709b46f3cd0ad"
+    },
+    {
+      "path": "docs/research/retained-response-provenance.md",
+      "sha256": "c1fe62c004c7bc5ce0352b71bb54584d0f9d7f7886dd90a052d9bbbfa4eef9ea"
+    },
+    {
+      "path": "docs/evidence/retained-producer-sarif-capacity-20261018/check-results.json",
+      "sha256": "11675e8c739010aaf8842caadcb9cedb177936645f8484d144cc9152faae496c"
+    }
+  ],
+  "producer_projection_repair": "97ee9e21d711d276f5f450dcd4573d733de0d0ff",
+  "producer_statistics_repair": "df1972ae382fc70473b1076963f330e3a36530d2",
+  "source_scope": "Retained exact behavior candidates plus installed runtime source; same external source/native relation"
+}
