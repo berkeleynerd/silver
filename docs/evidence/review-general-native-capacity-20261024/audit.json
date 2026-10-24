@@ -1,0 +1,107 @@
+{
+  "status": "pass",
+  "reviewed_kernel_commit": "36d478da0cb3261920fd595ba4a9bdcde54b0cb5",
+  "reviewed_repair_commit": "1604467b0f2892d3f92f4f40caaabcc05be52271",
+  "selected_reviewer_model": "GPT-6 Astra",
+  "selected_reviewer_effort": "Extra High",
+  "runtime_model_confirmation": "unavailable",
+  "tokens": null,
+  "cost": null,
+  "native_platform": "Linux x86_64",
+  "review_started_utc": "2026-10-24T03:11:24Z",
+  "audit_started_utc": "2026-10-24T03:16:14.598015+00:00",
+  "audit_finished_utc": "2026-10-24T03:16:15.800505+00:00",
+  "audit_elapsed_seconds": 1.2022571039997274,
+  "focused_repair_checker_invocation_seconds": 0.5639190010042512,
+  "focused_repair_checker_internal_seconds": 0.5630997429980198,
+  "frozen_inputs": [
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/README.md",
+      "sha256": "c690374e6133db4d982fa1a340e4e26436467ad8627589cd3ef232c072f22f81",
+      "bytes": 5247
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/check-result.json",
+      "sha256": "f463953cbfeb6945b5a914dad91d485c4ec224d92081ef1768d972142892e76e",
+      "bytes": 6368
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/check.py",
+      "sha256": "d78798508082165769a6fa65a3741f7750f9ca6c1295181435df9e4269022159",
+      "bytes": 8685
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/inputs.json",
+      "sha256": "aaf402fb3510d8ecf5c2c8b9961ff305f502fbc876c7598a9e9295c8a4807c3f",
+      "bytes": 1296
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/repair-string-pack.py",
+      "sha256": "21b5060d77e171711690becefce8f4fa88dd340948e688d7d790ca0bc67d7ba6",
+      "bytes": 10719
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "sha256": "ebcb50b824cc7dc765988728a18d3c811322245c8c9f173254f290fafb18b5c8",
+      "bytes": 7560
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/source-witnesses.json",
+      "sha256": "9fa3c791b5fede590113264d8336e330fe19c2a313f7ed40c3e11c6389ba18f8",
+      "bytes": 128230
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/string-pack-current.json",
+      "sha256": "47c323a5c1e210129910b812e6b0b3e4fe6f81239e47774c463ac8d921451cbe",
+      "bytes": 20003
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/string-pack-repair.md",
+      "sha256": "6f3d3a03dcf63ab0a25ee574840de3f7cfbc41b2a08708afbb43fca3e39b21c0",
+      "bytes": 13523
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/string-pack-source-manifest.json",
+      "sha256": "07ea72f7a35619491cfa3db1850ddfde3d6ef568ebad8a9005c34caa972b4a49",
+      "bytes": 48997
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/string-pack-sources.tar.gz",
+      "sha256": "85d2d32e8cdcd5ecc5643736e234b0a9d59c685befc014d772ef8a0e368efc41",
+      "bytes": 1112760
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/type-kernel-sources.tar.gz",
+      "sha256": "b711ac5315f68761f6fdeeda8fac557e2aec01f81f941edb7c82add9b02a85f2",
+      "bytes": 1302609
+    },
+    {
+      "path": "docs/research/retained-general-native-capacity.md",
+      "sha256": "caef5151813b6709ad84580dbe4a589d3d191bbaabe5f477f59d7ceac9b4fb88",
+      "bytes": 23923
+    },
+    {
+      "path": "docs/research/retained-native-expansion.md",
+      "sha256": "be536798e028fd8f4ec8484d68f9dad9c69d77da248aaed2cb7d8b896baff434",
+      "bytes": 784129
+    }
+  ],
+  "kernel_complete_sources_verified": 22,
+  "kernel_LF_witnesses_verified": 50,
+  "historical_kernel_inputs_verified_at_exact_kernel_commit": 7,
+  "retained_kernel_coefficients_and_five_projections_checked": true,
+  "retained_4096_assignment_success_reused_without_replay": true,
+  "repair_complete_sources_verified": 16,
+  "repair_LF_witnesses_verified": 29,
+  "repair_historical_inputs_verified": 3,
+  "repair_boundary_pairs_checked": 3600,
+  "current_export_matches_author_except_elapsed": true,
+  "matching_source_callsite_inventory_rechecked": 10,
+  "full_negative_inventory_replayed": false,
+  "native_compiler_runs": 0,
+  "prover_runs": 0,
+  "predecessor_checker_runs": 0,
+  "independent_focused_checker_invocations": 1,
+  "complete_native_capacity_result": false,
+  "semantic_branch_coverage_machine_proved": false
+}

@@ -1,0 +1,574 @@
+{
+  "status": "pass",
+  "issue": 207,
+  "supersedes_for_current_frontend_numeric_exports": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json",
+  "original_generator_and_evidence_preserved": true,
+  "source_files_verified": 16,
+  "LF_witnesses_verified": 29,
+  "historical_inputs_verified": 3,
+  "author_complete_body_inventory_count": 1041,
+  "matching_file_callsite_occurrences_rechecked": 10,
+  "full_negative_scan_repeated": false,
+  "signed_and_boundary_pairs_checked": 3600,
+  "local_counterexample": {
+    "Lo": 1,
+    "Hi": 200000000,
+    "mandatory_general_conversion_results": [
+      1600000000,
+      1600000007,
+      1600000000
+    ],
+    "Uint_entries": 3,
+    "Uint_digits": 9,
+    "admitted_program_claim": false,
+    "aggregate_overflow_claim": false
+  },
+  "current_local_transfers": {
+    "ordinary_String_pair_first_layout_Uint_entries_upper": 7,
+    "ordinary_String_pair_first_layout_digit_words": "7*digits_32768(8*(2H+1)+7)",
+    "separately_needed_first_size_entries_upper": 4,
+    "first_size_plus_first_layout_entries_upper": 11,
+    "immediate_slice_resolution_uint": 4,
+    "slice_resolution_plus_first_layout_reservation_uint": 11,
+    "explicit_storage_plain_uint": "596*A+526",
+    "explicit_storage_secondary_uint": "80*A+166",
+    "enabled_final_slice_with_layout_reservation_uint": "596*A+431",
+    "literal_subtype_layout_extra_entries": 0,
+    "repeat_freeze_extra_entries": 0
+  },
+  "current_Main_overlay_required": true,
+  "global_and_per_site_repairs_are_alternatives_not_additive": true,
+  "programs": [
+    {
+      "source": "samples/null.adb",
+      "sha256": "7b448e583d98d9f037b90d1379fe6afa1a16a93be16a7270c85aed30161a5021",
+      "repair_applied_once": true,
+      "current_Main_constructor_total": {
+        "ordinary": 10,
+        "growth": 0,
+        "lists": 10,
+        "entities_and_names": 0,
+        "name_characters": 0,
+        "uint": 7,
+        "string_descriptors": 0,
+        "string_characters": 0,
+        "pending_elist_headers": 0,
+        "pending_elist_elements": 0,
+        "hash_wrappers": 0,
+        "positive_xref_increments": 0,
+        "Name_Qualify_Units_appends": 0,
+        "generated_name_entries": 0,
+        "node_identities": 38,
+        "entity_identities": 1,
+        "dynamic_slots": 403,
+        "syntax_list_headers": 14,
+        "retained_digit_words": 133
+      },
+      "current_tables": {
+        "node_identities": 41254,
+        "dynamic_slots": 442212,
+        "syntax_list_headers": 6545,
+        "Elist_headers": 2356,
+        "Elist_elements": 1596806,
+        "Uint_entries": 24331,
+        "Uint_digits": 75091,
+        "Ureal_entries": 60,
+        "String_descriptors": 211,
+        "String_characters": 7279,
+        "Name_entries": 6340,
+        "Name_characters": 1353236,
+        "All_Interp_entries": 867,
+        "Name_Qualify_Units_entries": 138,
+        "Xrefs_entries": 82308,
+        "Drefs_entries": 0,
+        "node_list_link_entries": 41256
+      },
+      "String_layout_repair": {
+        "layout_entry_allowance": 1,
+        "layout_result_digit_bound": 19,
+        "additional_Uint_entries": 7,
+        "additional_Uint_digits": 133,
+        "additional_UI_Ints_wrapper_allowance": 7,
+        "current_Uint_entries": 24331,
+        "current_Uint_digits": 75091,
+        "current_common_Uint_digit_bound": 19,
+        "current_local_numeric_vector": {
+          "largest_owner_words": 20,
+          "simultaneous_owner_words": 98,
+          "owner_and_borrowed_views": 6,
+          "descriptor_and_bound_record_bytes_per_view_upper": 32,
+          "descriptor_and_bound_record_bytes_upper": 192,
+          "largest_owner_plus_descriptor_bytes": 112,
+          "physical_native_frame_bound": false,
+          "checks": {
+            "dimension_additions": true,
+            "owner_word_sum": true,
+            "individual_object_bytes": true
+          }
+        }
+      },
+      "fresh_changed_table_checks": {
+        "Uints": {
+          "demand": 24331,
+          "capacity_upper": 48662,
+          "bytes_with_sentinel": 389304,
+          "checks": {
+            "initial_product": true,
+            "growth_product": true,
+            "backing_length_plus_one": true,
+            "empty_index": true,
+            "backing_index_sentinel": true,
+            "logical_nominal_index": true,
+            "individual_backing_bytes": true
+          },
+          "all_selected_checks_pass": true
+        },
+        "Udigits": {
+          "demand": 75091,
+          "capacity_upper": 150182,
+          "bytes_with_sentinel": 600732,
+          "checks": {
+            "initial_product": true,
+            "growth_product": true,
+            "backing_length_plus_one": true,
+            "empty_index": true,
+            "backing_index_sentinel": true,
+            "logical_nominal_index": true,
+            "individual_backing_bytes": true
+          },
+          "all_selected_checks_pass": true
+        }
+      },
+      "historical_changed_table_verdict_reused": false,
+      "all_other_historical_fields_are_unchanged_subtotals": true,
+      "complete_native_capacity_result": false
+    },
+    {
+      "source": "samples/hello_world.adb",
+      "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7",
+      "repair_applied_once": true,
+      "current_Main_constructor_total": {
+        "ordinary": 20,
+        "growth": 5,
+        "lists": 18,
+        "entities_and_names": 2,
+        "name_characters": 70,
+        "uint": 28,
+        "string_descriptors": 0,
+        "string_characters": 0,
+        "pending_elist_headers": 0,
+        "pending_elist_elements": 0,
+        "hash_wrappers": 0,
+        "positive_xref_increments": 0,
+        "Name_Qualify_Units_appends": 1,
+        "generated_name_entries": 4,
+        "node_identities": 60,
+        "entity_identities": 3,
+        "dynamic_slots": 759,
+        "syntax_list_headers": 23,
+        "retained_digit_words": 460
+      },
+      "current_tables": {
+        "node_identities": 41276,
+        "dynamic_slots": 442568,
+        "syntax_list_headers": 6554,
+        "Elist_headers": 2356,
+        "Elist_elements": 1596884,
+        "Uint_entries": 24352,
+        "Uint_digits": 75418,
+        "Ureal_entries": 60,
+        "String_descriptors": 213,
+        "String_characters": 7305,
+        "Name_entries": 6349,
+        "Name_characters": 1353449,
+        "All_Interp_entries": 876,
+        "Name_Qualify_Units_entries": 139,
+        "Xrefs_entries": 82360,
+        "Drefs_entries": 0,
+        "node_list_link_entries": 41278
+      },
+      "String_layout_repair": {
+        "layout_entry_allowance": 3,
+        "layout_result_digit_bound": 19,
+        "additional_Uint_entries": 21,
+        "additional_Uint_digits": 399,
+        "additional_UI_Ints_wrapper_allowance": 21,
+        "current_Uint_entries": 24352,
+        "current_Uint_digits": 75418,
+        "current_common_Uint_digit_bound": 19,
+        "current_local_numeric_vector": {
+          "largest_owner_words": 20,
+          "simultaneous_owner_words": 98,
+          "owner_and_borrowed_views": 6,
+          "descriptor_and_bound_record_bytes_per_view_upper": 32,
+          "descriptor_and_bound_record_bytes_upper": 192,
+          "largest_owner_plus_descriptor_bytes": 112,
+          "physical_native_frame_bound": false,
+          "checks": {
+            "dimension_additions": true,
+            "owner_word_sum": true,
+            "individual_object_bytes": true
+          }
+        }
+      },
+      "fresh_changed_table_checks": {
+        "Uints": {
+          "demand": 24352,
+          "capacity_upper": 48704,
+          "bytes_with_sentinel": 389640,
+          "checks": {
+            "initial_product": true,
+            "growth_product": true,
+            "backing_length_plus_one": true,
+            "empty_index": true,
+            "backing_index_sentinel": true,
+            "logical_nominal_index": true,
+            "individual_backing_bytes": true
+          },
+          "all_selected_checks_pass": true
+        },
+        "Udigits": {
+          "demand": 75418,
+          "capacity_upper": 150836,
+          "bytes_with_sentinel": 603348,
+          "checks": {
+            "initial_product": true,
+            "growth_product": true,
+            "backing_length_plus_one": true,
+            "empty_index": true,
+            "backing_index_sentinel": true,
+            "logical_nominal_index": true,
+            "individual_backing_bytes": true
+          },
+          "all_selected_checks_pass": true
+        }
+      },
+      "historical_changed_table_verdict_reused": false,
+      "all_other_historical_fields_are_unchanged_subtotals": true,
+      "complete_native_capacity_result": false
+    },
+    {
+      "source": "samples/for_loop_step.adb",
+      "sha256": "dc8f33010a2b0a1bb77afc55a184a1f6b4e73d7bed1ca6e94ab0880c984a7e6c",
+      "repair_applied_once": true,
+      "current_Main_constructor_total": {
+        "ordinary": 4197,
+        "growth": 59,
+        "lists": 57,
+        "entities_and_names": 13,
+        "name_characters": 220,
+        "uint": 18201,
+        "string_descriptors": 0,
+        "string_characters": 0,
+        "pending_elist_headers": 0,
+        "pending_elist_elements": 0,
+        "hash_wrappers": 0,
+        "positive_xref_increments": 3,
+        "Name_Qualify_Units_appends": 1,
+        "generated_name_entries": 15,
+        "node_identities": 4289,
+        "entity_identities": 17,
+        "dynamic_slots": 40052,
+        "syntax_list_headers": 64,
+        "retained_digit_words": 370445
+      },
+      "current_tables": {
+        "node_identities": 45505,
+        "dynamic_slots": 481861,
+        "syntax_list_headers": 6595,
+        "Elist_headers": 2356,
+        "Elist_elements": 1597432,
+        "Uint_entries": 42525,
+        "Uint_digits": 445403,
+        "Ureal_entries": 60,
+        "String_descriptors": 211,
+        "String_characters": 7279,
+        "Name_entries": 6388,
+        "Name_characters": 1354616,
+        "All_Interp_entries": 915,
+        "Name_Qualify_Units_entries": 139,
+        "Xrefs_entries": 82599,
+        "Drefs_entries": 0,
+        "node_list_link_entries": 45507
+      },
+      "String_layout_repair": {
+        "layout_entry_allowance": 17,
+        "layout_result_digit_bound": 36,
+        "additional_Uint_entries": 119,
+        "additional_Uint_digits": 4284,
+        "additional_UI_Ints_wrapper_allowance": 119,
+        "current_Uint_entries": 42525,
+        "current_Uint_digits": 445403,
+        "current_common_Uint_digit_bound": 36,
+        "current_local_numeric_vector": {
+          "largest_owner_words": 37,
+          "simultaneous_owner_words": 183,
+          "owner_and_borrowed_views": 6,
+          "descriptor_and_bound_record_bytes_per_view_upper": 32,
+          "descriptor_and_bound_record_bytes_upper": 192,
+          "largest_owner_plus_descriptor_bytes": 180,
+          "physical_native_frame_bound": false,
+          "checks": {
+            "dimension_additions": true,
+            "owner_word_sum": true,
+            "individual_object_bytes": true
+          }
+        }
+      },
+      "fresh_changed_table_checks": {
+        "Uints": {
+          "demand": 42525,
+          "capacity_upper": 85050,
+          "bytes_with_sentinel": 680408,
+          "checks": {
+            "initial_product": true,
+            "growth_product": true,
+            "backing_length_plus_one": true,
+            "empty_index": true,
+            "backing_index_sentinel": true,
+            "logical_nominal_index": true,
+            "individual_backing_bytes": true
+          },
+          "all_selected_checks_pass": true
+        },
+        "Udigits": {
+          "demand": 445403,
+          "capacity_upper": 890806,
+          "bytes_with_sentinel": 3563228,
+          "checks": {
+            "initial_product": true,
+            "growth_product": true,
+            "backing_length_plus_one": true,
+            "empty_index": true,
+            "backing_index_sentinel": true,
+            "logical_nominal_index": true,
+            "individual_backing_bytes": true
+          },
+          "all_selected_checks_pass": true
+        }
+      },
+      "historical_changed_table_verdict_reused": false,
+      "all_other_historical_fields_are_unchanged_subtotals": true,
+      "complete_native_capacity_result": false
+    },
+    {
+      "source": "samples/command_line_greeting.adb",
+      "sha256": "bde96907d4d27894bb3d116b482720f800f23a4e582b774672825cc18a949d27",
+      "repair_applied_once": true,
+      "current_Main_constructor_total": {
+        "ordinary": 744219,
+        "growth": 817,
+        "lists": 547,
+        "entities_and_names": 192,
+        "name_characters": 2566,
+        "uint": 3171311,
+        "string_descriptors": 2,
+        "string_characters": 8191,
+        "pending_elist_headers": 62,
+        "pending_elist_elements": 120,
+        "hash_wrappers": 180,
+        "positive_xref_increments": 4,
+        "Name_Qualify_Units_appends": 1,
+        "generated_name_entries": 194,
+        "node_identities": 744510,
+        "entity_identities": 194,
+        "dynamic_slots": 6718067,
+        "syntax_list_headers": 556,
+        "retained_digit_words": 33905813
+      },
+      "current_tables": {
+        "node_identities": 785726,
+        "dynamic_slots": 7159876,
+        "syntax_list_headers": 7087,
+        "Elist_headers": 2418,
+        "Elist_elements": 1604453,
+        "Uint_entries": 3195635,
+        "Uint_digits": 33980771,
+        "Ureal_entries": 60,
+        "String_descriptors": 219,
+        "String_characters": 15496,
+        "Name_entries": 6751,
+        "Name_characters": 1372282,
+        "All_Interp_entries": 948,
+        "Name_Qualify_Units_entries": 139,
+        "Xrefs_entries": 83082,
+        "Drefs_entries": 0,
+        "node_list_link_entries": 785728
+      },
+      "String_layout_repair": {
+        "layout_entry_allowance": 194,
+        "layout_result_digit_bound": 19,
+        "additional_Uint_entries": 1358,
+        "additional_Uint_digits": 25802,
+        "additional_UI_Ints_wrapper_allowance": 1358,
+        "current_Uint_entries": 3195635,
+        "current_Uint_digits": 33980771,
+        "current_common_Uint_digit_bound": 19,
+        "current_local_numeric_vector": {
+          "largest_owner_words": 20,
+          "simultaneous_owner_words": 98,
+          "owner_and_borrowed_views": 6,
+          "descriptor_and_bound_record_bytes_per_view_upper": 32,
+          "descriptor_and_bound_record_bytes_upper": 192,
+          "largest_owner_plus_descriptor_bytes": 112,
+          "physical_native_frame_bound": false,
+          "checks": {
+            "dimension_additions": true,
+            "owner_word_sum": true,
+            "individual_object_bytes": true
+          }
+        }
+      },
+      "fresh_changed_table_checks": {
+        "Uints": {
+          "demand": 3195635,
+          "capacity_upper": 6391270,
+          "bytes_with_sentinel": 51130168,
+          "checks": {
+            "initial_product": true,
+            "growth_product": true,
+            "backing_length_plus_one": true,
+            "empty_index": true,
+            "backing_index_sentinel": true,
+            "logical_nominal_index": true,
+            "individual_backing_bytes": true
+          },
+          "all_selected_checks_pass": true
+        },
+        "Udigits": {
+          "demand": 33980771,
+          "capacity_upper": 67961542,
+          "bytes_with_sentinel": 271846172,
+          "checks": {
+            "initial_product": true,
+            "growth_product": true,
+            "backing_length_plus_one": true,
+            "empty_index": true,
+            "backing_index_sentinel": true,
+            "logical_nominal_index": true,
+            "individual_backing_bytes": true
+          },
+          "all_selected_checks_pass": true
+        }
+      },
+      "historical_changed_table_verdict_reused": false,
+      "all_other_historical_fields_are_unchanged_subtotals": true,
+      "complete_native_capacity_result": false
+    },
+    {
+      "source": "samples/find_square_difference.adb",
+      "sha256": "7321d8b442fcc5d122bdfd4dc175417fc688df2639111783bb895288a8fe747c",
+      "repair_applied_once": true,
+      "current_Main_constructor_total": {
+        "ordinary": 27246,
+        "growth": 174,
+        "lists": 88,
+        "entities_and_names": 19,
+        "name_characters": 294,
+        "uint": 118155,
+        "string_descriptors": 0,
+        "string_characters": 0,
+        "pending_elist_headers": 0,
+        "pending_elist_elements": 0,
+        "hash_wrappers": 0,
+        "positive_xref_increments": 3,
+        "Name_Qualify_Units_appends": 1,
+        "generated_name_entries": 21,
+        "node_identities": 27392,
+        "entity_identities": 23,
+        "dynamic_slots": 249326,
+        "syntax_list_headers": 98,
+        "retained_digit_words": 11392759
+      },
+      "current_tables": {
+        "node_identities": 68608,
+        "dynamic_slots": 691135,
+        "syntax_list_headers": 6629,
+        "Elist_headers": 2356,
+        "Elist_elements": 1597666,
+        "Uint_entries": 142479,
+        "Uint_digits": 11467717,
+        "Ureal_entries": 60,
+        "String_descriptors": 211,
+        "String_characters": 7279,
+        "Name_entries": 6412,
+        "Name_characters": 1355765,
+        "All_Interp_entries": 952,
+        "Name_Qualify_Units_entries": 139,
+        "Xrefs_entries": 82803,
+        "Drefs_entries": 0,
+        "node_list_link_entries": 68610
+      },
+      "String_layout_repair": {
+        "layout_entry_allowance": 23,
+        "layout_result_digit_bound": 106,
+        "additional_Uint_entries": 161,
+        "additional_Uint_digits": 17066,
+        "additional_UI_Ints_wrapper_allowance": 161,
+        "current_Uint_entries": 142479,
+        "current_Uint_digits": 11467717,
+        "current_common_Uint_digit_bound": 106,
+        "current_local_numeric_vector": {
+          "largest_owner_words": 107,
+          "simultaneous_owner_words": 533,
+          "owner_and_borrowed_views": 6,
+          "descriptor_and_bound_record_bytes_per_view_upper": 32,
+          "descriptor_and_bound_record_bytes_upper": 192,
+          "largest_owner_plus_descriptor_bytes": 460,
+          "physical_native_frame_bound": false,
+          "checks": {
+            "dimension_additions": true,
+            "owner_word_sum": true,
+            "individual_object_bytes": true
+          }
+        }
+      },
+      "fresh_changed_table_checks": {
+        "Uints": {
+          "demand": 142479,
+          "capacity_upper": 284958,
+          "bytes_with_sentinel": 2279672,
+          "checks": {
+            "initial_product": true,
+            "growth_product": true,
+            "backing_length_plus_one": true,
+            "empty_index": true,
+            "backing_index_sentinel": true,
+            "logical_nominal_index": true,
+            "individual_backing_bytes": true
+          },
+          "all_selected_checks_pass": true
+        },
+        "Udigits": {
+          "demand": 11467717,
+          "capacity_upper": 22935434,
+          "bytes_with_sentinel": 91741740,
+          "checks": {
+            "initial_product": true,
+            "growth_product": true,
+            "backing_length_plus_one": true,
+            "empty_index": true,
+            "backing_index_sentinel": true,
+            "logical_nominal_index": true,
+            "individual_backing_bytes": true
+          },
+          "all_selected_checks_pass": true
+        }
+      },
+      "historical_changed_table_verdict_reused": false,
+      "all_other_historical_fields_are_unchanged_subtotals": true,
+      "complete_native_capacity_result": false
+    }
+  ],
+  "selected_author_model": "GPT-6 Astra",
+  "selected_author_effort": "Extra High",
+  "runtime_model_and_effort": "unavailable",
+  "native_platform": "Linux x86_64",
+  "offline_elapsed_seconds": 0.5630997429980198,
+  "native_compiler_runs": 0,
+  "prover_runs": 0,
+  "predecessor_replays": 0,
+  "independent_review": "pending",
+  "complete_native_capacity_result": false,
+  "total_author_time_tokens_cost": "unavailable"
+}
