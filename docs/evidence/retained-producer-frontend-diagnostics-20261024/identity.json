@@ -1,0 +1,20 @@
+{
+  "base_commit": "f0901e440c",
+  "gcc_archive_sha256": "555d6f89e8415fbb059d06b0842b071cfa05f731c289ef609225c4c4356b761d",
+  "prior_artifacts": {
+    "docs/evidence/retained-main-semantics-20261018/fixed-capture/address-coverage.json": "c7a0512a9a3daeab11dc96e6406c8d8f653a112e9b4cbc48d5e88b958971d628",
+    "docs/evidence/retained-main-semantics-20261018/fixed-capture/decrease-hooks.json": "47c5a394c8036936b515ab8f7751ed92a9b90270071d74543969e39a600d2e89",
+    "docs/evidence/retained-main-semantics-20261018/fixed-capture/excluded-positive-stores.json": "7c8aa3c4d806c58ab0b37d7b9163d80578ae1dddf8779be176a8f6243a44846e",
+    "docs/evidence/retained-main-semantics-20261018/fixed-capture/inputs.json": "588913f6ad5ced8f2f828ebda45a007af97fe998eb507ebacb2638b9843f137e",
+    "docs/evidence/retained-main-semantics-20261018/fixed-capture/invocation.json": "58aaee60f05c086a2d5df468c0411bca1991f30a806635473683fb25d4ef23a3",
+    "docs/evidence/retained-main-semantics-20261018/fixed-capture/options.json": "883680a37fc6c49c6a46a9007ed0e67dc7f8b7559c615129b8e9af521e8c32b4",
+    "docs/evidence/retained-main-semantics-20261018/fixed-capture/pool-counters.json": "d7b87994d043e04a02d892c1963ed93015276e21677c38c3bbc12aeaa868f3e9",
+    "docs/evidence/retained-main-semantics-20261018/fixed-capture/static-all-tables.json": "b4f35a96b3c10e69d2b1fa0ec8224c33eb2a96eb851746c8f4c7a39350b1c9b1",
+    "docs/evidence/retained-main-semantics-20261018/library-capture/archive-manifest.json": "0038e54bbb4f4e32c8a83fe4e244045f6581b56626ad6a9e937f26e672706c1f",
+    "docs/evidence/retained-main-semantics-20261018/library-capture/captures.tar.gz": "4f01d00788ccf489ce458ffa563fef0bb1ea43a6781b6c6cb5c3e6bf6eed2d18",
+    "docs/evidence/retained-main-semantics-20261018/library-capture/inputs.json": "445e5e07dd314ddea904a34fa5555cba15c11d8621dcb6cc03a5fa0cf824ca9a",
+    "docs/evidence/retained-main-semantics-20261018/library-capture/summary.json": "c51ef7647b3433e1a4b9eb277b07f65f8d399597d72abf9a370c96fa9b2c5328",
+    "docs/evidence/retained-main-semantics-20261018/library-capture/tool-identities.json": "ed9790648453fb11ac33e727dcaabc3181c82bf23c9fa75f0e0d10bc4cfc730d",
+    "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json": "f0425c46cd96b9348767de5456e4e0fb1efd818ca811e244a150811b353e223c"
+  }
+}
