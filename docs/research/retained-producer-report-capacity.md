@@ -668,8 +668,34 @@ is needed. Ordinary line/page lengths are zero; File.Col advances once per
 input Character even when its encoding expands, and only explicit New_Line
 advances File.Line. Embedded LF is not counted as New_Line. The per-line and
 cumulative descriptor guards include the **incoming** Line and Col;
-`terminal_warnings` exposes them rather than resetting standard output. Their
-whole-invocation prefix still requires the caller-state join below.
+`terminal_warnings` exposes them rather than resetting standard output. The
+initial standard state and caller partition give the complete join below.
+
+The producer standard-output census retains qualified Text_IO operations and
+unqualified uses in the source frontier, including the inherited Outputs body.
+Ordinary report processing reaches the response-warning loop; debug/timing
+output requires disabled Debug_Mode/Flow_Advanced_Debug or constant-false XXX,
+RAC output requires excluded side effects, and GNATtest-input messages require
+its selected-empty option. Display_Maps, Print_Path and Print_Writes are debug
+helpers without a selected caller. Outputs' ordinary pretty writer uses its
+separate Current_File; its Stdout specialization is the generated debug tree
+printer. Flow trace, graph and report writes have explicit separate handles.
+The unsupported-node/error prints in translation immediately raise; under the
+accepted current typed/translation frontier they cannot precede a collected
+response. Fatal_Error uses Standard_Error, and common Call_With_Status and
+Print_Command_Line are not called by gnat2why. The standard setters have no
+producer caller. This classification is source reasoning; the lexical census
+alone does not prove reachability.
+
+At fresh Text_IO elaboration, Line=Col=1 and Line_Length=Page_Length=0
+(`a-textio.ads:682–685`). Before response j's warning loop, Col=1 and
+Line=1+sum of previous response warning counts. Use the whole-invocation
+sum W_total and maximum decoded warning length in `terminal_warnings` with
+initial_line=initial_column=1; do not reset per response. The accepted generic
+response-byte totals bound both counts and decoded sums for altered warnings.
+A terminal noninternal error adds its one final Put_Line and its `gnatprove: `
+prefix to this same standard descriptor before exiting; its payload binding
+belongs to the terminal error attachment.
 
 Handle_Error with Internal=False offers `11+|Msg|+1` source bytes then exits
 E_Fatal. Internal=True calls Compiler_Abort with From_GCC=True after setting
