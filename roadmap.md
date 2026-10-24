@@ -179,9 +179,11 @@ now derives Image's actual native fold/annotation envelope and attaches the
 capture-safe mapping to the inherited clone-map history and direct caller
 recurrences. The accepted [R87 checkpoint](docs/evidence/retained-input-io-round87-20261024/README.md)
 now adds signed input-bound folding/annotation and the dynamic bounds-template
-subcall. Concat, enclosing pointer conversion, full native workspace/backing
-and Main internal construction/kode/SPWP lifetimes remain open; #201/#202
-are unfinished.
+subcall. The accepted [R88 checkpoint](docs/evidence/retained-builder-arguments-round88-20261024/README.md)
+adds the source-defined literal-prefixed concat partition and Main contract-
+builder requests, with #213's failed-candidate allocation repair. General
+concat/slice and pointer conversion, new helper/native bytes and backing, and
+Main kode/SPWP/storage/failure lifetimes remain open; #201/#202 are unfinished.
 The remaining [fixed-report composition #212](https://github.com/berkeleynerd/silver/issues/212)
 is now explicit and In progress under the same #119 authorization. Its
 [input inventory](docs/research/retained-fixed-report-composition.md) separates
@@ -189,8 +191,11 @@ accepted operands from missing body-specific graph/name/location/path bounds.
 R86 independently accepts the two specification report domains and conditional
 writer/reader region, plus the prospective #88 argv overlay. R87 adds IO's
 source report domains and conditional P<=607 region, and selected parent/
-reporter version/path/page operands. Arguments, actual common paths, remaining
-native owner/storage joins and the full collector composition remain open.
+reporter version/path/page operands. R88 adds Arguments' source report domains
+and sufficient P<=395 region, plus GNAT2Why's separate native configuration
+owners. These are conditional regions, not adopted path limits. Actual common
+paths, native warning/counter/header/source-span/private-fix storage and the
+full five-report collector composition remain open.
 It proceeds from #193/#194/#206 alongside #201/#202; its Main instance retains
 #202's prerequisites.
 Complete these source/provider joins before the final whole-rule comparison
