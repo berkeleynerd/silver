@@ -169,8 +169,13 @@ parent/provider composition still required. #201 gains reviewed constant
 helper/annotation and descriptor joins, including the #209 predicate charge.
 Its dynamic folding/annotation, imports, executable families and downstream
 phases remain open. #202 still needs complete source caller counts, construction
-and later storage/failure composition. Its new saved-image/type bridge is not
-accepted; #211 records a capture-compatibility premise repair under review.
+and later storage/failure composition. The accepted
+[R85 transfers](docs/evidence/retained-construction-round85-20261024/README.md)
+now supply saved-image/type mapping with the #211 capture-premise repair, and
+native annotation work from a certified acyclic operand height. #211 is
+In review pending delivery. Source-derived dynamic folding/height and the
+actual inherited clone-map/caller history remain open; these conditional
+transfers do not close either work package.
 The remaining derivations are now explicit parallel work packages:
 [#201](https://github.com/berkeleynerd/silver/issues/201) extends the accepted
 literal-native result to the intended current grammar, and

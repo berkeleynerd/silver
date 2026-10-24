@@ -1,0 +1,57 @@
+{
+  "components": [
+    {
+      "name": "Main bridge author",
+      "freeze": "3f4f6143c206518bf257d3d9b63cee2a08d14bcd",
+      "paths": [
+        "docs/evidence/retained-main-construction-demand-20261024/README.md",
+        "docs/evidence/retained-main-construction-demand-20261024/bridge.py",
+        "docs/evidence/retained-main-construction-demand-20261024/check.py",
+        "docs/evidence/retained-main-construction-demand-20261024/checkpoint.md",
+        "docs/evidence/retained-main-construction-demand-20261024/identity.json",
+        "docs/evidence/retained-main-construction-demand-20261024/result-before-211.json",
+        "docs/evidence/retained-main-construction-demand-20261024/result.json",
+        "docs/evidence/retained-main-construction-demand-20261024/round.json",
+        "docs/research/retained-main-construction-demand.md"
+      ]
+    },
+    {
+      "name": "Native annotation author",
+      "freeze": "26bd01de61242d49f4680d609b38d09e3a51925f",
+      "paths": [
+        "docs/evidence/retained-general-native-capacity-20261024/dynamic-helpers/README.md",
+        "docs/evidence/retained-general-native-capacity-20261024/dynamic-helpers/check.py",
+        "docs/evidence/retained-general-native-capacity-20261024/dynamic-helpers/current.json",
+        "docs/evidence/retained-general-native-capacity-20261024/dynamic-helpers/extra-sources.tar.gz",
+        "docs/evidence/retained-general-native-capacity-20261024/dynamic-helpers/inputs.json",
+        "docs/evidence/retained-general-native-capacity-20261024/dynamic-helpers/packet-manifest.json",
+        "docs/evidence/retained-general-native-capacity-20261024/dynamic-helpers/source-manifest.json",
+        "docs/evidence/retained-general-native-capacity-20261024/dynamic-helpers/source-witnesses.json",
+        "docs/research/retained-general-native-capacity.md"
+      ]
+    },
+    {
+      "name": "Main bridge review",
+      "freeze": "536c35cd2c36ac43dee39e1d6d8a8321d60fc070",
+      "paths": [
+        "docs/evidence/review-main-construction-demand-20261024/audit-result.json",
+        "docs/evidence/review-main-construction-demand-20261024/audit.py",
+        "docs/evidence/review-main-construction-demand-20261024/capture_probe.py",
+        "docs/evidence/review-main-construction-demand-20261024/checkpoint.md",
+        "docs/evidence/review-main-construction-demand-20261024/receipt.json",
+        "docs/reviews/review-main-construction-demand-20261024.md"
+      ]
+    },
+    {
+      "name": "Native annotation review",
+      "freeze": "4d23e53e9c78a991815e2e4b9b205ff75676bff2",
+      "paths": [
+        "docs/evidence/review-native-dynamic-helpers-20261024/README.md",
+        "docs/evidence/review-native-dynamic-helpers-20261024/audit.py",
+        "docs/evidence/review-native-dynamic-helpers-20261024/current.json",
+        "docs/evidence/review-native-dynamic-helpers-20261024/receipt-manifest.json",
+        "docs/reviews/review-native-dynamic-helpers-20261024.md"
+      ]
+    }
+  ]
+}
