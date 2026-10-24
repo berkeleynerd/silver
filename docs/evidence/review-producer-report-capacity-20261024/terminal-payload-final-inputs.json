@@ -1,0 +1,96 @@
+{
+  "date": "2026-10-24",
+  "reviewed_utc": "2026-10-24T02:18:58.700604+00:00",
+  "final_author_commit": "3be4ca682e9ff7389b01a1817d641e8b88740a71",
+  "reviewer_checker_commit": "5674751f05f98abba29974250a19386e39861cb7",
+  "reviewer_checker_runs_after_repair": 0,
+  "final_files": [
+    {
+      "path": "docs/evidence/retained-producer-error-payload-20261024/README.md",
+      "bytes": 2640,
+      "sha256": "d2db2fbc75bb5b084dd504a33e0a5488a8072973aeef2272e50393e52feae570"
+    },
+    {
+      "path": "docs/evidence/retained-producer-error-payload-20261024/capacity.py",
+      "bytes": 1448,
+      "sha256": "db237e4201842a24bb5bfae89a839e01a6368d9757bfe167acccb6b9f78297b7"
+    },
+    {
+      "path": "docs/evidence/retained-producer-error-payload-20261024/check.py",
+      "bytes": 9358,
+      "sha256": "e510636087ccbc6a6000ee07a250f299096ddba1a71905dfb14b5b646dd16f5b"
+    },
+    {
+      "path": "docs/evidence/retained-producer-error-payload-20261024/inputs.json",
+      "bytes": 3489,
+      "sha256": "2780a78529d57db3c3519445ff10238d02ac5f3639a1636cc2c217a9874c0d87"
+    },
+    {
+      "path": "docs/evidence/retained-producer-error-payload-20261024/result.json",
+      "bytes": 11871,
+      "sha256": "622d38d434765257e4f2648173bf610afdd90dd94da571b7ebd0aa7c9a2382fc"
+    },
+    {
+      "path": "docs/evidence/retained-producer-error-payload-20261024/round.json",
+      "bytes": 1775,
+      "sha256": "11e8dc22bdd19a3ac32438bb097958785a7d73aa1d0c02ec926309dd0b4317da"
+    },
+    {
+      "path": "docs/evidence/retained-producer-error-payload-20261024/source-manifest.json",
+      "bytes": 25420,
+      "sha256": "6a40c628dff527175e74ef0e8f925a5d0c142bd81df704a5f8d68739c2792334"
+    },
+    {
+      "path": "docs/evidence/retained-producer-error-payload-20261024/source-witnesses.json",
+      "bytes": 75611,
+      "sha256": "b42971cba2746f61264f7fd8e0aea7dc18ca897cd1bc03f8d5b8f8ad9fb3f520"
+    },
+    {
+      "path": "docs/evidence/retained-producer-error-payload-20261024/sources.tar.gz",
+      "bytes": 431481,
+      "sha256": "24038b90a2e0d99fc6b1fdfd6beb9502651ca2a817a50aee35d915b81f33e062"
+    },
+    {
+      "path": "docs/research/retained-producer-error-payload.md",
+      "bytes": 24388,
+      "sha256": "718735717403a0272d9ea66147037688e69d6b045bfed817b030fb09bd90dfa8"
+    }
+  ],
+  "unchanged_inputs_algebra_results_sources": [
+    "docs/evidence/retained-producer-error-payload-20261024/capacity.py",
+    "docs/evidence/retained-producer-error-payload-20261024/inputs.json",
+    "docs/evidence/retained-producer-error-payload-20261024/result.json",
+    "docs/evidence/retained-producer-error-payload-20261024/source-manifest.json",
+    "docs/evidence/retained-producer-error-payload-20261024/source-witnesses.json",
+    "docs/evidence/retained-producer-error-payload-20261024/sources.tar.gz",
+    "docs/evidence/retained-producer-error-payload-20261024/README.md"
+  ],
+  "repair_diff_sha256": "bf145be55639a5c25af6a67f5ea8c23bcc5d6ec220511e78442a18511497d74c",
+  "repair_diff_archive_sha256": "ff7794b7af8ef6deb7209daeee9ea7e6a7d0313e6b7c3cbd174bdd6a167f6d9f",
+  "finding": {
+    "id": "TEP-1",
+    "severity": "medium",
+    "status": "repaired",
+    "title": "Early raw Dynlink fallback can enter the quoted callback independently",
+    "source": [
+      "ocaml/stdlib/printexc.ml:337-354 raw to_string(exn)",
+      "ocaml/otherlibs/dynlink/dynlink_types.ml registered Cannot_open_dynamic_library and Library's_module_initializers_failed branches",
+      "why3/src/util/plugin.ml:60-68 direct Why branch"
+    ],
+    "missing_argument": "Successful direct Why Plugin dispatch in the custom handler does not exclude the separate raw fallback selecting the registered quoted Dynlink callback; callback order was not established.",
+    "repair": "Order-independent raw bounds under printable/TAB/LF/CR alphabet: loader4P+2240, primitive3402, Unix4P+2188, each at most L=max(4096,4P+3072). Arbitrary cwd is a separate connection origin; raw FF is not given a two-byte OCaml quote.",
+    "numerical_bounds_changed": false,
+    "production_change": false,
+    "issue": 200,
+    "issue_url": "https://github.com/berkeleynerd/silver/issues/200",
+    "source_member_confirmed": "ocaml/otherlibs/dynlink/dynlink_types.ml"
+  },
+  "disposition": "Conditional selected fixed-process terminal error operand accepted after repair. Existing private capacities, source/control/resource premises and actual configuration joins remain required. Arbitrary Main and full #193/#119 completion remain separate.",
+  "validation": "One full independent offline audit at base; final narrow note/assertion delta manually reviewed, all ten frozen identities matched. No native/proof/provider/predecessor replay.",
+  "final_193_scope": {
+    "accepted": "Complete conditional per-unit result/report consumer functions plus selected fixed-process terminal attachment; no uncovered consumer-local owner found under the stated providers and representation guards.",
+    "generic_main": "Parser #186 b remains a conservative error-byte operand. Satisfiability of the explicit-line endpoint guard for every admitted Main needs the parent arbitrary-Main Why failure provider.",
+    "parent_obligations": "Actual path, clock/duration, configuration and source-behavior refinements remain parent/#88/#89; #194 has not been reviewed by this terminal disposition.",
+    "board_readiness": "Scoped #193 can move In review. No complete #119/whole-invocation assurance claim."
+  }
+}

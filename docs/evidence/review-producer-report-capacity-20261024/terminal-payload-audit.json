@@ -1,0 +1,72 @@
+{
+  "date": "2026-10-24",
+  "frozen_author_commit": "5674751f05f98abba29974250a19386e39861cb7",
+  "reviewer_selected_model": "gpt-6-astra",
+  "reviewer_selected_effort": "xhigh",
+  "runtime_model_confirmation": null,
+  "token_usage": null,
+  "cost": null,
+  "started_utc": "2026-10-24T02:11:40.196667+00:00",
+  "finished_utc": "2026-10-24T02:11:47.813234+00:00",
+  "invocation_elapsed_seconds": 7.615937,
+  "checker_runs": 1,
+  "native_execution": false,
+  "predecessor_checker_replay": false,
+  "result_output_mode": "Read-only deterministic comparison; bytecode writing disabled",
+  "frozen_files": [
+    {
+      "path": "docs/evidence/retained-producer-error-payload-20261024/README.md",
+      "bytes": 2640,
+      "sha256": "d2db2fbc75bb5b084dd504a33e0a5488a8072973aeef2272e50393e52feae570"
+    },
+    {
+      "path": "docs/evidence/retained-producer-error-payload-20261024/capacity.py",
+      "bytes": 1448,
+      "sha256": "db237e4201842a24bb5bfae89a839e01a6368d9757bfe167acccb6b9f78297b7"
+    },
+    {
+      "path": "docs/evidence/retained-producer-error-payload-20261024/check.py",
+      "bytes": 8850,
+      "sha256": "69681e17a2971c08e54037986864cf67dcd4c1a2466f57135d7942fafcbf6746"
+    },
+    {
+      "path": "docs/evidence/retained-producer-error-payload-20261024/inputs.json",
+      "bytes": 3489,
+      "sha256": "2780a78529d57db3c3519445ff10238d02ac5f3639a1636cc2c217a9874c0d87"
+    },
+    {
+      "path": "docs/evidence/retained-producer-error-payload-20261024/result.json",
+      "bytes": 11871,
+      "sha256": "622d38d434765257e4f2648173bf610afdd90dd94da571b7ebd0aa7c9a2382fc"
+    },
+    {
+      "path": "docs/evidence/retained-producer-error-payload-20261024/round.json",
+      "bytes": 1584,
+      "sha256": "4182ebeec45f635f8e6b4c5ee899da520180e14b011999fb7349d4d2607076ff"
+    },
+    {
+      "path": "docs/evidence/retained-producer-error-payload-20261024/source-manifest.json",
+      "bytes": 25420,
+      "sha256": "6a40c628dff527175e74ef0e8f925a5d0c142bd81df704a5f8d68739c2792334"
+    },
+    {
+      "path": "docs/evidence/retained-producer-error-payload-20261024/source-witnesses.json",
+      "bytes": 75611,
+      "sha256": "b42971cba2746f61264f7fd8e0aea7dc18ca897cd1bc03f8d5b8f8ad9fb3f520"
+    },
+    {
+      "path": "docs/evidence/retained-producer-error-payload-20261024/sources.tar.gz",
+      "bytes": 431481,
+      "sha256": "24038b90a2e0d99fc6b1fdfd6beb9502651ca2a817a50aee35d915b81f33e062"
+    },
+    {
+      "path": "docs/research/retained-producer-error-payload.md",
+      "bytes": 22674,
+      "sha256": "628bcd007b3e26fda44e7f712f56159ea66a8f3d9c45a2918f91bcdb10b31ddc"
+    }
+  ],
+  "returncode": 0,
+  "stdout": "{\"status\": \"pass\", \"input_files\": 19, \"complete_source_files\": 78, \"source_witnesses\": 53, \"sufficient_P_interval\": [180, 558]}\n",
+  "stderr": "",
+  "result_sha256": "622d38d434765257e4f2648173bf610afdd90dd94da571b7ebd0aa7c9a2382fc"
+}
