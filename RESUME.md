@@ -88,13 +88,19 @@ and independently reviewed. Generic Main diagnostic usefulness remains with
 [#202](https://github.com/berkeleynerd/silver/issues/202); concrete configuration
 and launcher refinements remain parent/#88/#89 obligations. Prospective brief
 output retains report-all. [#194](https://github.com/berkeleynerd/silver/issues/194)
-is In progress, under independent review of required GNATprove collection,
-unconditional SARIF and Silver readers/audits.
+is now technically complete at its conditional interface scope and In review
+pending delivery: [R82](docs/evidence/retained-consumers-round82-20261024/README.md)
+integrates required GNATprove collection, unconditional SARIF and Silver's
+complete readers/audits, with #203–#205 repaired and independently reviewed.
+Actual provider joins and fixed-source fits remain explicit. The reported-time
+representation provider is tracked in
+[#206](https://github.com/berkeleynerd/silver/issues/206), alongside #201/#202,
+before whole-rule composition. No finite proof-duration limit is assumed.
 General native compilation beyond the literal family is tracked in
 [#201](https://github.com/berkeleynerd/silver/issues/201), arbitrary-Main Why
 representation/failure lifetimes in #202. Both are In progress. Checked
 whole-rule composition/correspondence, useful-domain comparison and final
-review remain #119 obligations after those derivations and #194.
+review remain #119 obligations after those derivations and #206.
 Retain the separate inherited-server-stream destination and other control/failure
 obligations. Whole-process headroom,
 full current-grammar coverage, checked composition/correspondence, useful-domain

@@ -143,18 +143,28 @@ and independently reviewed. Generic Main diagnostic usefulness remains with
 [#202](https://github.com/berkeleynerd/silver/issues/202); concrete configuration
 and launcher refinements remain parent/#88/#89 obligations. Prospective brief
 output retains report-all. [#194](https://github.com/berkeleynerd/silver/issues/194)
-is In progress, under independent review of required GNATprove collection,
-unconditional SARIF and Silver readers/audits.
+is now technically complete at its conditional interface scope and In review
+pending delivery: [R82](docs/evidence/retained-consumers-round82-20261024/README.md)
+integrates required GNATprove collection, unconditional SARIF and Silver's
+complete readers/audits, with #203–#205 repaired and independently reviewed.
+Actual provider joins and fixed-source fits remain explicit. The reported-time
+representation provider is tracked in
+[#206](https://github.com/berkeleynerd/silver/issues/206), alongside #201/#202,
+before whole-rule composition. No finite proof-duration limit is assumed.
 The remaining derivations are now explicit parallel work packages:
 [#201](https://github.com/berkeleynerd/silver/issues/201) extends the accepted
 literal-native result to the intended current grammar, and
 [#202](https://github.com/berkeleynerd/silver/issues/202) attaches ordinary Main's
 mathematical profiles to complete Why storage/counter/failure lifetimes. Both
-are In progress under #119's existing authorization. Finish #194 and these two
-derivations before checked whole-rule composition/correspondence, useful-domain
+are In progress under #119's existing authorization. Finish these derivations before checked whole-rule composition/correspondence, useful-domain
 comparison and final independent review. The issue scopes retain the exact
 remaining owners and completion criteria; no new language surface or owner
 decision is introduced by this split.
+[#206](https://github.com/berkeleynerd/silver/issues/206) closes the
+remaining reported-time representation provider required by #193/#194, without
+assuming a finite proof duration. This bounded configuration derivation runs
+alongside #201/#202 before whole-rule composition; supported time-pattern
+normalization is a candidate, not an adopted invocation or production change.
 Whole-process headroom and #119 are unfinished.
 The Round 47 [stop report](docs/research/retained-tool-capacity-stop.md) and
 [independent review](docs/reviews/review-cvc5-output-closure-20261020.md) preserve

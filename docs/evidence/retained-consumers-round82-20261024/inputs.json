@@ -1,0 +1,30 @@
+{
+  "components": [
+    {
+      "name": "author",
+      "freeze": "10604f4d219df703499abf7049aa35a91657ec1a",
+      "paths": [
+        "docs/evidence/retained-required-report-consumers-20261024/README.md",
+        "docs/evidence/retained-required-report-consumers-20261024/capacity.py",
+        "docs/evidence/retained-required-report-consumers-20261024/check.py",
+        "docs/evidence/retained-required-report-consumers-20261024/inputs.json",
+        "docs/evidence/retained-required-report-consumers-20261024/result.json",
+        "docs/evidence/retained-required-report-consumers-20261024/round.json",
+        "docs/evidence/retained-required-report-consumers-20261024/source-manifest.json",
+        "docs/evidence/retained-required-report-consumers-20261024/sources.tar.gz",
+        "docs/research/retained-required-report-consumers.md"
+      ]
+    },
+    {
+      "name": "review",
+      "freeze": "02a49ade468dfabe15c212ea8b955451311191fe",
+      "paths": [
+        "docs/evidence/review-required-report-consumers-20261024/audit.json",
+        "docs/evidence/review-required-report-consumers-20261024/check-result.json",
+        "docs/evidence/review-required-report-consumers-20261024/review.json",
+        "docs/evidence/review-required-report-consumers-20261024/reviewed-repairs.diff.gz",
+        "docs/reviews/review-required-report-consumers-20261024.md"
+      ]
+    }
+  ]
+}

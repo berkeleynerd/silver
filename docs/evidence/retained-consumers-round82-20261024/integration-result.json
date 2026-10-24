@@ -1,0 +1,28 @@
+{
+  "status": "pass",
+  "frozen_files": {
+    "docs/evidence/retained-required-report-consumers-20261024/README.md": "c01421b5b2d7d0c71bb6ee2e7176cc8397ea47fb190d31805d8a3594d2e81784",
+    "docs/evidence/retained-required-report-consumers-20261024/capacity.py": "57104877def11f05692a6eea15fc668624921089dda2807169339c463fc620a2",
+    "docs/evidence/retained-required-report-consumers-20261024/check.py": "83ed05e5e48da18ebd2d7370e6de025c2c978f72353b5073e03d2906a66a851f",
+    "docs/evidence/retained-required-report-consumers-20261024/inputs.json": "d70009159836605b4be9baa5dfee98fad210bd3428fe90e70d6c9ffe48a65eb2",
+    "docs/evidence/retained-required-report-consumers-20261024/result.json": "f2fc9ada02c944d12e570dab8022a8cd0352f03aec13dd09762c1dc8af9767ef",
+    "docs/evidence/retained-required-report-consumers-20261024/round.json": "6c63e0d61df2b6cbaf67154a2a7cce8babf62489d2502d9bc4f747a0d70ec6b6",
+    "docs/evidence/retained-required-report-consumers-20261024/source-manifest.json": "4099bd25b6c8a58247591523de2e9a89c6d9c36d9e17f9a1ac46f394032349d8",
+    "docs/evidence/retained-required-report-consumers-20261024/sources.tar.gz": "60af2ad6b5526544a1ebbe19d6575defa335ed4ac853f64574b2279dc94b6609",
+    "docs/research/retained-required-report-consumers.md": "7698615e6c0222d4869f31e86bf5a2c531344e920a50a19c7dba25fe08d495b2",
+    "docs/evidence/review-required-report-consumers-20261024/audit.json": "7ca488d80586e641544e71b4c63c98f35af8cde68442883c59403cea5a451559",
+    "docs/evidence/review-required-report-consumers-20261024/check-result.json": "df64257ddfbe33660e4f163cb53168e0370612c943402e92faad10ba91e8a7c8",
+    "docs/evidence/review-required-report-consumers-20261024/review.json": "5b0a6151a004288f62b7eb7fc76e763cc89651c063a212c34d95121e9e7b5863",
+    "docs/evidence/review-required-report-consumers-20261024/reviewed-repairs.diff.gz": "c373da644824ef2b5852d89fa25dcc87ef1150ef5e65fb0e951e5173137b7525",
+    "docs/reviews/review-required-report-consumers-20261024.md": "4b6e5e92d9ebb6156fb0f3a46c039254b3b07201dca9e2416929b1ad67aefa04"
+  },
+  "provider_inputs": 8,
+  "current_silver_snapshots": 23,
+  "unchanged_native_source_pins": 94,
+  "author_review_results_equal_except_elapsed": true,
+  "issue194_conditional_scope_accepted": true,
+  "complete_issue119": false,
+  "component_checker_replays": 0,
+  "native_compiler_prover_runs": 0,
+  "elapsed_seconds": 0.1305797840032028
+}
