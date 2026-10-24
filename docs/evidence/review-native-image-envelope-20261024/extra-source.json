@@ -1,0 +1,9 @@
+{
+  "path": "gcc/ada/exp_put_image.adb",
+  "bytes": 57957,
+  "sha256": "c4b107bceb34e8d30d09d9b4474068d621b54f11787d4aa26e74d142d9d0be09",
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "archive": "extra-source.tar.gz",
+  "archive_sha256": "9feda47498a76f91168366ff71b579f8f973bd3bbe1f3f382ee27f139528a8ea",
+  "retained_identity": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json"
+}

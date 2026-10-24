@@ -1,0 +1,35 @@
+{
+  "reviewed_author_commit": "0ed7c10db8e806c4ee05c3c56fa6dfe54f0d132e",
+  "files": [
+    {
+      "path": "docs/reviews/review-native-image-envelope-20261024.md",
+      "bytes": 11295,
+      "sha256": "43793eff7c0e710399df2d02c77d7794b266d171ce3a398c297e5553697d6bb2"
+    },
+    {
+      "path": "docs/evidence/review-native-image-envelope-20261024/README.md",
+      "bytes": 3105,
+      "sha256": "2e6c50d2b3226eae6e694693a1b39db0b4d7ffa7d112cd3edcd5b025e470d418"
+    },
+    {
+      "path": "docs/evidence/review-native-image-envelope-20261024/audit.py",
+      "bytes": 10353,
+      "sha256": "76bb059645d0ce32fa3bdc30e9c4d5f02178e97a9d78eddae72ffc69de7748aa"
+    },
+    {
+      "path": "docs/evidence/review-native-image-envelope-20261024/current.json",
+      "bytes": 8836,
+      "sha256": "634162b9409087349c550bec2ee3cbfcc7809928f73973e1fd21a1a8c2419697"
+    },
+    {
+      "path": "docs/evidence/review-native-image-envelope-20261024/extra-source.json",
+      "bytes": 438,
+      "sha256": "1f688d432fababbf144ba1d09d044373efead2dddaf74f0471fa2316a994abc6"
+    },
+    {
+      "path": "docs/evidence/review-native-image-envelope-20261024/extra-source.tar.gz",
+      "bytes": 12163,
+      "sha256": "9feda47498a76f91168366ff71b579f8f973bd3bbe1f3f382ee27f139528a8ea"
+    }
+  ]
+}
