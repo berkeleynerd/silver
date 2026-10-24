@@ -326,8 +326,9 @@ def selected_report(*, frontend_nodes, entities, list_headers, why_allocations,
     # Proved <=101+25+6. CP adds a prefix and escaped bound prefix, then CWE.
     proof_text = 219+15+2*(16+expression_bytes)+11
     proof_text += instantiation_edges*(path_bytes+38)
+    # Accepted response provider: real provers plus Trivial/Checker, S <= 5R.
     row = dict(path_bytes=path_bytes, text_bytes=proof_text, rule_bytes=64,
-               stats_count=3, stats_key_bytes=7, aux_bytes=path_bytes+24)
+               stats_count=5, stats_key_bytes=7, aux_bytes=path_bytes+24)
     proofs = canonical_proof(records=records, goals=goals, attempts=attempts,
                              answer_bytes=736, row_parameters=row)
     flow_row = add_json_message(path_bytes=path_bytes, text_bytes=inc['message_bytes'],

@@ -1188,18 +1188,18 @@
     "producer Text_IO caller inventory and no standard-state setters"
   ],
   "illustration_not_program_bound": {
-    "full_pretty": 211640,
-    "silver_projected_file": 188225,
-    "hypothetical_projected_compact": 182801,
+    "full_pretty": 212016,
+    "silver_projected_file": 188601,
+    "hypothetical_projected_compact": 183067,
     "retained_whitespace_witness_bytes": 76,
     "full_shape": {
-      "pretty": 211640,
-      "slope": 1406,
-      "compact": 205650,
-      "values": 485,
-      "objects": 161,
+      "pretty": 212016,
+      "slope": 1426,
+      "compact": 205916,
+      "values": 493,
+      "objects": 163,
       "arrays": 58,
-      "fields": 403,
+      "fields": 411,
       "strings": 113,
       "depth": 7,
       "array_max": 40,
@@ -1209,13 +1209,13 @@
     },
     "writer": {
       "shape": {
-        "pretty": 211640,
-        "slope": 1406,
-        "compact": 205650,
-        "values": 485,
-        "objects": 161,
+        "pretty": 212016,
+        "slope": 1426,
+        "compact": 205916,
+        "values": 493,
+        "objects": 163,
         "arrays": 58,
-        "fields": 403,
+        "fields": 411,
         "strings": 113,
         "depth": 7,
         "array_max": 40,
@@ -1223,9 +1223,9 @@
         "string_max": 24576,
         "key_max": 32
       },
-      "json_write_string": 211640,
-      "spark_file": 211641,
-      "unbounded_allocation": 317652,
+      "json_write_string": 212016,
+      "spark_file": 212017,
+      "unbounded_allocation": 318216,
       "guards": {
         "string_and_text_io_column": true,
         "indent_add_and_double": true,
@@ -1247,5 +1247,5 @@
     "concrete path and clock/duration configuration joins",
     "independent integrated freeze review"
   ],
-  "elapsed_seconds": 6.560541
+  "elapsed_seconds": 4.934213
 }

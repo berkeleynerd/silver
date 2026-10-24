@@ -487,6 +487,12 @@ constructors may have one. Check_Info.Subject's only nonempty source caller
 is the priority-check helper; the current Main and fixed nonconcurrent bodies
 exclude it. This does not bound other diagnostic components by itself.
 
+`selected_report` charges five statistics keys per proof row, following the
+accepted response provider S<=5R: the three real provers do not exclude the
+synthetic Trivial and Checker domains. The earlier three-key setting was an
+undercount found while attaching #194 and is superseded; full/projected
+bytes and occurrence counts both use five. No stronger exclusion is needed.
+
 `canonical_proof` keeps the global R/G/A counts additive. It first charges R
 message rows with empty check-tree arrays, grafts G goal objects at their
 actual depth, then grafts A attempt objects at theirs. Each goal contains
