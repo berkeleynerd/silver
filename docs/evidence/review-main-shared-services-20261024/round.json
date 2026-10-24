@@ -1,0 +1,60 @@
+{
+  "reviewed_author": "22cdc0d78c850525c78f8c3bda05424462324f84",
+  "accepted_local_author": "0d64f5f7d18b77632146174f1777be238cc43f60",
+  "accepted_local_review": "9e876592a9e1a78b124294c72ab8848423c54625",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "started_utc": "2026-10-24 07:24:45 UTC",
+  "observation_checkpoint_utc": "2026-10-24 07:31:24 UTC",
+  "observation_elapsed_seconds": 399,
+  "observation_scope": "Setup, inspection, source/ELF and mathematical checks; subsequent report/commit preparation excluded",
+  "tokens": null,
+  "cost": null,
+  "host": "Linux x86_64",
+  "result": "accepted conditional service transfer",
+  "material_findings": [],
+  "reviewer_rework": false,
+  "validation": [
+    {
+      "phase": "source-elf",
+      "assertions": 555,
+      "elapsed_seconds": 2.195048424997367,
+      "first_attempt_passed": true
+    },
+    {
+      "phase": "math",
+      "assertions": 40,
+      "elapsed_seconds": 0.08390246599446982,
+      "first_attempt_passed": true
+    }
+  ],
+  "whole_Main_attachment_established": false,
+  "complete_202_or_119": false,
+  "source_prefix_next_provider": "accepted e45ee72a42d6cc669e95b80c2c991cbc65fe4e73 populated pre-JSON owners/backing, transported through all subsequent source-derived add_file/parser/typing/proxy/overload/builder requests",
+  "reused_source_profile_providers": {
+    "R77": "ebe36e4b9c9a12cc6a5ad4fd4269f2faafeec58c",
+    "R79": "59e4ff13433b6c3ee3b1dc3888896db416682b1d"
+  },
+  "research_input": {
+    "path": "docs/research/retained-main-construction-demand.md",
+    "sha256": "fc144855cff801944a7f31530c7f66bb67e3fce3afd176d18debef1fb58cf95a"
+  },
+  "review_report": {
+    "path": "docs/reviews/review-main-shared-services-20261024.md",
+    "sha256": "747680d0c5ce66adf04a41724b0a38562bc74b1e2aebf5db515e5da64f8a1c75"
+  },
+  "audit_script_sha256": "1f49140bca2df0d45e7f08dafa7ab8b979ff08abfbd3a4fdbeca5e3b655a1d8e",
+  "native_target_compiler_prover_Lean_disassembler_service_runs": 0,
+  "author_or_predecessor_checker_runs": 0,
+  "GitHub_writes": 0,
+  "goal_writes": 0,
+  "CLI_memory_updated": false,
+  "harness_goal": null,
+  "global_e_upper": 2,
+  "save_entering_callbacks": 2,
+  "saves": 3,
+  "new_allowance": 0,
+  "publication": "not performed; root owns integration/publication"
+}

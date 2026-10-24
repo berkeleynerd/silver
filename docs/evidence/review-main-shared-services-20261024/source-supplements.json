@@ -1,0 +1,29 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "path": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/weak.c",
+    "complete_sha256": "2c3021db49410b55411dec21082b065d39b230c307ee9edc7075163e6ebc486c",
+    "first": 399,
+    "last": 485,
+    "sha256": "7a6ae3c856b204257c57e6207c903caaa54d92539ee8a550328a454bfd4efb81",
+    "source": "static void copy_value(value src, value dst)\n{\n  mlsize_t sz, i;\n  sz = Wosize_val(src);\n  if (Tag_val (src) >= No_scan_tag) {\n    /* Direct copy */\n    memcpy (Bp_val (dst), Bp_val (src), Bsize_wsize (sz));\n    return;\n  }\n  i = 0;\n  if (Tag_val (src) == Closure_tag) {\n    /* Direct copy of the code pointers and closure info fields */\n    i = Start_env_closinfo(Closinfo_val(src));\n    memcpy (Bp_val (dst), Bp_val (src), Bsize_wsize (i));\n  }\n  /* Field-by-field copy and darkening of the remaining fields */\n  for (/*nothing*/; i < sz; i++){\n    value f = Field (src, i);\n    if (caml_gc_phase == Phase_mark && Must_be_Marked_during_mark(f)){\n      caml_darken (f, NULL);\n    }\n    caml_modify (&Field (dst, i), f);\n  }\n}\n\nCAMLexport int caml_ephemeron_get_key_copy(value ar, mlsize_t offset,\n                                           value *key)\n{\n  mlsize_t loop = 0, infix_offs;\n  CAMLparam1(ar);\n  value elt = Val_unit, v; /* Caution: they are NOT local roots. */\n  CAMLassert_valid_offset(ar, offset);\n\n  offset += CAML_EPHE_FIRST_KEY;\n\n  while(1) {\n    if(is_ephe_key_none(ar, offset)) CAMLreturn(0);\n    v = Field (ar, offset);\n    /** Don't copy custom_block #7279 */\n    if(!(Is_block (v) && Is_in_value_area(v) && Tag_val(v) != Custom_tag)) {\n      if ( caml_gc_phase == Phase_mark && Must_be_Marked_during_mark(v) ){\n        caml_darken (v, NULL);\n      };\n      *key = v;\n      CAMLreturn(1);\n    }\n    infix_offs = Tag_val(v) == Infix_tag ? Infix_offset_val(v) : 0;\n    v -= infix_offs;\n    if (elt != Val_unit &&\n        Wosize_val(v) == Wosize_val(elt) && Tag_val(v) == Tag_val(elt)) {\n      /* The allocation may trigger a finaliser that change the tag\n         and size of the block. Therefore, in addition to checking\n         that the pointer is still alive, we have to check that it\n         still has the same tag and size.\n       */\n      CAMLassert_not_dead_value(v);\n      copy_value(v, elt);\n      *key = elt + infix_offs;\n      CAMLreturn(1);\n    }\n\n    CAMLassert(loop < 10);\n    if(8 == loop){ /** One minor gc must be enough */\n      elt = Val_unit;\n      CAML_EV_COUNTER (EV_C_FORCE_MINOR_WEAK, 1);\n      caml_minor_collection ();\n    } else {\n      /* cases where loop is between 0 to 7 and where loop is equal to 9 */\n      elt = caml_alloc (Wosize_val (v), Tag_val (v));\n      /* The GC may erase, move or even change v during this call to\n         caml_alloc. */\n    }\n    ++loop;\n  }\n}\n\nCAMLprim value caml_ephe_get_key_copy (value ar, value n)\n{\n  value key;\n  int status = caml_ephemeron_get_key_copy(ar, Long_val(n), &key);\n  return optionalize(status, &key);\n}\n\nCAMLprim value caml_weak_get_copy (value ar, value n)\n{\n  return caml_ephe_get_key_copy(ar, n);\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "path": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/array.ml",
+    "complete_sha256": "723a7b54f50bbd9a751d5f89eefb1600c3187d1c9fe5a548d4c9035ade8418cb",
+    "first": 78,
+    "last": 95,
+    "sha256": "72050583a93d921c0bde6bcfcccf337951017419231bf3c733fb1412a6f15bab",
+    "source": "let sub a ofs len =\n  if ofs < 0 || len < 0 || ofs > length a - len\n  then invalid_arg \"Array.sub\"\n  else unsafe_sub a ofs len\n\nlet fill a ofs len v =\n  if ofs < 0 || len < 0 || ofs > length a - len\n  then invalid_arg \"Array.fill\"\n  else unsafe_fill a ofs len v\n\nlet blit a1 ofs1 a2 ofs2 len =\n  if len < 0 || ofs1 < 0 || ofs1 > length a1 - len\n             || ofs2 < 0 || ofs2 > length a2 - len\n  then invalid_arg \"Array.blit\"\n  else unsafe_blit a1 ofs1 a2 ofs2 len\n\nlet iter f a =\n  for i = 0 to length a - 1 do f(unsafe_get a i) done\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "path": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/array.ml",
+    "complete_sha256": "723a7b54f50bbd9a751d5f89eefb1600c3187d1c9fe5a548d4c9035ade8418cb",
+    "first": 128,
+    "last": 129,
+    "sha256": "2bbc80b690d7285e723b4d5cc975af65e8da2b19665cf4fa5cbcf1652a4fd680",
+    "source": "let iteri f a =\n  for i = 0 to length a - 1 do f i (unsafe_get a i) done\n"
+  }
+]
