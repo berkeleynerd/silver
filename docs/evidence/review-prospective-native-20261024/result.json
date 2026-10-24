@@ -1,0 +1,289 @@
+{
+  "GPR_chunk_bytes": 534,
+  "GPR_clause_allocation_trace": [
+    [
+      "declarative_item",
+      "gpr-dect.adb:1230-1239"
+    ],
+    [
+      "attribute",
+      "gpr-dect.adb:544-548"
+    ],
+    [
+      "outer_expression",
+      "gpr-strt.adb:657-658"
+    ],
+    [
+      "reference_term",
+      "gpr-strt.adb:1441"
+    ],
+    [
+      "attribute_reference",
+      "gpr-strt.adb:186-188"
+    ],
+    [
+      "list_term",
+      "gpr-strt.adb:1441"
+    ],
+    [
+      "literal_list",
+      "gpr-strt.adb:1471-1474"
+    ],
+    [
+      "inner_expression",
+      "gpr-strt.adb:1493-1499,657-658"
+    ],
+    [
+      "literal_term",
+      "gpr-strt.adb:1441"
+    ],
+    [
+      "literal",
+      "gpr-strt.adb:1547-1549"
+    ]
+  ],
+  "GPR_text_bounds": {
+    "12-GNAT-TEMP-000001.TMP": 7715,
+    "2-GNAT-TEMP-000001.TMP": 7505,
+    "22-GNAT-TEMP-000001.TMP": 7779
+  },
+  "actual_complete_common_path_bytes": null,
+  "author_or_predecessor_checker_runs": 0,
+  "base_xml_files": 63,
+  "compiler_RTS_bytes": 169,
+  "complete_sources": 52,
+  "conditional_GPR_context_baseline_still_open": true,
+  "cost": null,
+  "elapsed_seconds": 0.4018869269930292,
+  "fixture_runs": 0,
+  "indexed_null_ALI_bytes": 29622976,
+  "linker_literal_bytes": 186,
+  "map_bytes": 489,
+  "map_reader_bytes": 506,
+  "native_target_compiler_prover_lean_runs": 0,
+  "platform": "Linux x86_64",
+  "provider_count": 20,
+  "report_P_conditional": 188,
+  "reviewed_commit": "4aab5b0e9cc931965c68bf2450473d3b63f7841a",
+  "runtime_corpus_rescans": 0,
+  "runtime_macro_sites": {
+    "('db/gnat.xml', 0)": 1,
+    "('db/gnat.xml', 13)": 2,
+    "('db/linker.xml', 82)": 1
+  },
+  "runtime_model_confirmed": false,
+  "selected_effort": "Extra High",
+  "selected_fragments": {
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0": [
+      [
+        "db/0_default.xml",
+        0
+      ],
+      [
+        "db/clean.xml",
+        0
+      ],
+      [
+        "db/cross.xml",
+        15
+      ],
+      [
+        "db/gnat.xml",
+        0
+      ],
+      [
+        "db/gnat.xml",
+        8
+      ],
+      [
+        "db/gnat.xml",
+        11
+      ],
+      [
+        "db/gnat.xml",
+        12
+      ],
+      [
+        "db/gnat.xml",
+        13
+      ],
+      [
+        "db/linker.xml",
+        5
+      ],
+      [
+        "db/linker.xml",
+        66
+      ],
+      [
+        "db/linker.xml",
+        70
+      ],
+      [
+        "db/linker.xml",
+        76
+      ],
+      [
+        "db/linker.xml",
+        80
+      ],
+      [
+        "db/linker.xml",
+        82
+      ],
+      [
+        "db/linker.xml",
+        84
+      ],
+      [
+        "db/linker.xml",
+        85
+      ],
+      [
+        "db/linker.xml",
+        101
+      ],
+      [
+        "db/linker.xml",
+        109
+      ],
+      [
+        "db/linker.xml",
+        113
+      ],
+      [
+        "db/vxworks.xml",
+        0
+      ]
+    ],
+    "default": [
+      [
+        "db/0_default.xml",
+        0
+      ],
+      [
+        "db/clean.xml",
+        0
+      ],
+      [
+        "db/cross.xml",
+        15
+      ],
+      [
+        "db/gnat.xml",
+        0
+      ],
+      [
+        "db/gnat.xml",
+        8
+      ],
+      [
+        "db/gnat.xml",
+        11
+      ],
+      [
+        "db/gnat.xml",
+        12
+      ],
+      [
+        "db/linker.xml",
+        5
+      ],
+      [
+        "db/linker.xml",
+        66
+      ],
+      [
+        "db/linker.xml",
+        70
+      ],
+      [
+        "db/linker.xml",
+        76
+      ],
+      [
+        "db/linker.xml",
+        80
+      ],
+      [
+        "db/linker.xml",
+        82
+      ],
+      [
+        "db/linker.xml",
+        84
+      ],
+      [
+        "db/linker.xml",
+        85
+      ],
+      [
+        "db/linker.xml",
+        101
+      ],
+      [
+        "db/linker.xml",
+        109
+      ],
+      [
+        "db/linker.xml",
+        113
+      ],
+      [
+        "db/vxworks.xml",
+        0
+      ]
+    ]
+  },
+  "selected_model": "GPT-6 Astra",
+  "service_queries": 0,
+  "source_identity_and_physical_premises_unchanged": true,
+  "status": "pass_no_new_material_finding",
+  "supplementary_sources": {
+    "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-err-scanner.adb": {
+      "bytes": 86476,
+      "sha256": "e8a78516d52bc3671cd60f45507b2501c6962021ee3cbb248ad4778d6241d6c2"
+    },
+    "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-opt.ads": {
+      "bytes": 13222,
+      "sha256": "cc1bbe85525f51f0556b0da441342377d77f384540ad09b84d2b955ceb521443"
+    }
+  },
+  "target_sha256": {
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/README.md": "867b2cecfaf7e4678b1fb72aae0652ec4982adf4cf563307c1275f34d1b8f4eb",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/before-runtime-macro-correction/capacity.py": "0d64bc8078117566497d8af3b9e134cbfeb6db21cf952d7f1379a70ad336f780",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/before-runtime-macro-correction/check-name-correction.py": "7db4670f5f2fb74273fe75c774a733e6e134246f6d234f14aae6469bbbec11bc",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/before-runtime-macro-correction/check-name-correction.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/before-runtime-macro-correction/check-name-correction.stdout": "c2f0cf77a35584bac4e68078bc22dbfcac35611dee7848e5ab4c1f1da40b4518",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/before-runtime-macro-correction/check.py": "4d6c4f3ab1467db641c91b62af1300619a2f8913ea9f22a30fcb3e215044ef43",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/before-runtime-macro-correction/result.json": "a946a94806bf684d63ecabd1a6cfdee00373d1bc0b0350f86cee1a7685ed0647",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/before-runtime-macro-correction/source-manifest.json": "42b5a1efc43a90e34492772ad86e758a3fb192643c2577eed1a5596f8b9cfce1",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/capacity.py": "46b6fbd7b546255f7901ed73b34635385cd26dd41f07f2cd7d6597a9c9e09c1f",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/check-final.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/check-final.stdout": "a934699d71cb2c9d4a0812fef6342ba9f4a6dfd8015cf2d3b40ac82220e5dea2",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/check-name-correction.py": "7db4670f5f2fb74273fe75c774a733e6e134246f6d234f14aae6469bbbec11bc",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/check-name-correction.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/check-name-correction.stdout": "c2f0cf77a35584bac4e68078bc22dbfcac35611dee7848e5ab4c1f1da40b4518",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/check.py": "3f14fc54efafd2423db4c2fa3708ae042a1d86f10edc9fdccf85177e9ab3a4a1",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/check.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/check.stdout": "1614ef37a7f54b5950787afa55493c9ce1bd3a62900b117efe78ad236fd1be1c",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/first-check/capacity.py": "2f6061f50d24eb8a41baa539092865a4939b8f35038ea1a269b44af21ad2213e",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/first-check/check.py": "4d6c4f3ab1467db641c91b62af1300619a2f8913ea9f22a30fcb3e215044ef43",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/first-check/check.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/first-check/check.stdout": "1614ef37a7f54b5950787afa55493c9ce1bd3a62900b117efe78ad236fd1be1c",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/first-check/result.json": "4c61b8bb67e8445ee5b93070d3a99b025a95f2431ca5fd4be2f3c58016345aa0",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/gcc-rts-consumers.json": "21711ac2d76295a3782af304fc57965b9a5472b76ff5085125474524a0f32a67",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/gpr-set-ada-paths-inventory.json": "2897afcb93c3bb90c6c88b64760000f0317951df0f4cac1560780fa0cd47d0dd",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/handoff.json": "46bfbdda3aba7420bb15f2e65f459a385b397061168ce81edbb40f29a3f584c3",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/name-correction-failed/check-name-correction.py": "7463c1eefd19d89ca87f314e4fd4b1b2a4ad1348f58ee17cee5db6898916ace5",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/name-correction-failed/check-name-correction.stderr": "5d678da2c045c90859260d72261686c13902de71b3a87bcfc33f885228ea890f",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/name-correction-failed/check-name-correction.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/result.json": "e74edc8422c8939c173b49abe9efad64d23897d5651cc02bf453b34d509cd112",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/round.json": "6e2d6f61eb9fe7aaab166fe275cf0ec0ec86a9a1bffb19c9cea481df4cd1e535",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/source-manifest.json": "9e9f7df86b45440b710912e8331b3088d26b54b02a0f7afccaf690e6109397ce",
+    "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/sources.tar.gz": "f278c2496dc1c71ada65945e2a10dc34114492f564d4f0f48c46675adc26f0d4",
+    "docs/research/retained-fixed-report-composition.md": "4f56d2a431a4a17df9b161657de428112d02b5417e3f0a46e2e29e1422586472"
+  },
+  "token_usage": null,
+  "top_level_RTS_bytes": 168
+}
