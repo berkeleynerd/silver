@@ -51,7 +51,11 @@ def configuration(*, project_path_bytes, object_dir_bytes, output_mode=True,
     return dict(argv=args, argv_count=len(args), joined_command_bytes=cmd,
                 shape=shape, config_file_bytes=shape.compact+1,
                 assumptions=False, output_header=False, quiet=False,
-                parent_summary_lines=1, parent_summary_line_bytes=object_dir_bytes+40)
+                parent_summary_lines=1,
+                parent_summary_line_characters=object_dir_bytes+40,
+                parent_summary_output_characters=object_dir_bytes+41,
+                parent_summary_output_bytes=2*(object_dir_bytes+40)+1,
+                parent_counter_join_required=True)
 
 
 def parser_input(shape, *, compact=False):

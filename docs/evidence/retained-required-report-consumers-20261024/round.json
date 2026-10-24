@@ -36,6 +36,11 @@
       "purpose": "Clarify controlled alias stages during final review",
       "result": "Eight-stage allowance denotes controlled vector/leaf adjustment stages, not literal optional-record or JSON field depth. Reviewer found no numerical undercount. No code/source/arithmetic changed; successful focused evidence reused.",
       "elapsed_seconds": null
+    },
+    {
+      "purpose": "Complete203 encoding distinction at parent summary export",
+      "result": "Replaced misleading parent_summary_line_bytes with explicit character/encoded-byte deltas and retained parent_counter_join_required; no reset of parent descriptor implied.",
+      "elapsed_seconds": 0.35201
     }
   ],
   "review_status": "Scoped repairs203\u2013205 prepared for exact reviewer audit",
