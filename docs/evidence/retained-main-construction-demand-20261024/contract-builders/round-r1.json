@@ -1,0 +1,121 @@
+{
+  "finding_issue": 213,
+  "issue": 202,
+  "parent_issue": 119,
+  "role": "narrow author repair for independently confirmed R1",
+  "original_author_commit": "49c18b7ef37967c8b6f486721fd006d61857a8fb",
+  "provisional_review_commit": "7fe4a33a75b5ed9346ca5cff4f72b14aa8bcf511",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "started_utc": "2026-10-24 06:03:59 UTC",
+  "author_checkpoint_utc": "2026-10-24 06:06:17 UTC",
+  "elapsed_to_checkpoint_seconds": 138,
+  "elapsed_scope": "Through repaired focused check and documentation, excluding final round metadata, commit and handoff",
+  "intended_result": "Retain the current failing argument candidate map add independently of OCaml argument evaluation order, excluding later pairs and post-apply work",
+  "achieved_result": "Current nonidentity formal_actual_add precedes possible match failure in the upper envelope; first-pair and second-of-three diagrams retain one/two adds, no term map or completed cty, and unchanged owner endpoints",
+  "material_findings": [
+    "Confirmed independently reported R1 against retained ity.ml:1437-1445 and dexpr.ml:1486-1489",
+    "No target evaluation-order assumption is needed; current add may conservatively overcount when match runs first",
+    "All ten original diagram exports and the source inventory remain identical"
+  ],
+  "validation": {
+    "command": "python3 docs/evidence/retained-main-construction-demand-20261024/contract-builders/check.py",
+    "expected_pre_fix_failure": {
+      "attempts": 1,
+      "artifact": "docs/evidence/retained-main-construction-demand-20261024/contract-builders/failure-before-r1.txt",
+      "assertion": "first mismatch includes current add and excludes later pairs",
+      "builder_commit": "49c18b7ef37967c8b6f486721fd006d61857a8fb",
+      "builder_sha256": "f0787ab933dbc979130cdafece1395ff1edcb71dc19a785299aaed7414d0585e",
+      "checker_sha256": "be0e556180d5710b27fe44f69cf5cc9ef6fa174ce1d5740b3dfa238a611de3ed",
+      "exec_wall_seconds": 1.181122803
+    },
+    "successful_repaired_checker_runs": [
+      {
+        "assertions": 299,
+        "elapsed_seconds": 1.224688096997852,
+        "reason": "Verify narrow R1 reorder and both new mismatch prefixes; compare original outputs unchanged"
+      }
+    ],
+    "unexpected_failed_checker_runs": 0,
+    "final_host": "Linux-7.0.14-x86_64-with-glibc2.43",
+    "native_runs": 0,
+    "predecessor_checker_main_runs": 0,
+    "source_to_native_historical_identity_claim": false,
+    "original_files_verified_byte_identical": [
+      "exports.json",
+      "sites.json",
+      "sites.py",
+      "result.json",
+      "identity.json",
+      "round.json"
+    ]
+  },
+  "review_inputs": [
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/contract-builders/builders.py",
+      "sha256": "cb7f1233cb6033f0b7c07de81c82a4071d04aaadac27a2a38eb86500558d3778"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/contract-builders/check.py",
+      "sha256": "be0e556180d5710b27fe44f69cf5cc9ef6fa174ce1d5740b3dfa238a611de3ed"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/contract-builders/sites.py",
+      "sha256": "a82da9859313ecf0918602dddddd346376de59e926864d3b6c2186e8782a8211"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/contract-builders/identity.json",
+      "sha256": "02669f0ed5b8d434d65d699276d9b3335f410773156d9d4f23d808fef0b41809"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/contract-builders/sites.json",
+      "sha256": "3fb93ac5ad366908aff07e778cc89cd44b89d4ab9dfff6f5fc81286fb72c7eae"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/contract-builders/exports.json",
+      "sha256": "29e81a3b34c55df7f4f1793026011f30ea59a1e06b6b88156d9ae096c443972e"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/contract-builders/exports-r1.json",
+      "sha256": "5adfa0f9a8b5387650c9e5933f1cc17e258ba43a0a664b3f6454ee3c88bd473d"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/contract-builders/result.json",
+      "sha256": "35e0d20e32a8a84a0d2f644888e1b6ac2a2a3847725b8381602428bde6e48c66"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/contract-builders/result-r1.json",
+      "sha256": "6d40dc61948a058a08bb5c9b88a9b43f8f5ab346a53cd0ff99db184abc8ed1e1"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/contract-builders/failure-before-r1.txt",
+      "sha256": "cefa11fb3ee4e4745232555fe1268aa2535618066dc513f6244b6179b6c34de3"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/contract-builders/README.md",
+      "sha256": "bfd1c6850efc97a927b679754b1533c52942ff9a1b6f21a21a060cf25c68bb38"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/contract-builders/checkpoint.md",
+      "sha256": "672728553c22f0a1d4cdef2a353f8936c4f3366eed8904c212789698190d150b"
+    },
+    {
+      "path": "docs/research/retained-main-construction-demand.md",
+      "sha256": "2bfaa0f476b4e29ec64a4e59a13ce9565dae1845a05cf8103a7918fd8cb13c85"
+    }
+  ],
+  "independent_review_status": "pending; parent owns exact repair review/integration/publication",
+  "complete_source_to_initial_vc_storage": false,
+  "complete_main_builder_classification": false,
+  "complete_native_bytes": false,
+  "kode_spwp_construction_closed": false,
+  "global_process_e_limit": 2,
+  "save_entering_callbacks": 2,
+  "saves": 3,
+  "tokens": null,
+  "cost": null,
+  "cli_memory_updated": false,
+  "subthread_harness_goal": null
+}

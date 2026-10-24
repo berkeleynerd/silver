@@ -403,10 +403,14 @@ def apply_same(c,actuals,result,d):
         d.visit('apply_pair')
         if v.ghost and not u.ghost and not c.effect.ghost:
             raise ValueError('ghost-promotion source gate required')
-        ty_walk(u.var.ty,d,'ity_match')
-        if u.var.ty!=v.var.ty:d.fail('TypeMismatch')
+        # ity.ml:1445 passes match_v and vsb_add as sibling arguments.
+        # Charge the current add before a possible match failure, covering
+        # either evaluation order without claiming it ran in every failure.
+        # Earlier pairs remain spent; later pairs are never visited on failure.
         if u.var!=v.var:
             d.map('formal_actual_add',len(vsb),1);vsb[u.var]=v
+        ty_walk(u.var.ty,d,'ity_match')
+        if u.var.ty!=v.var.ty:d.fail('TypeMismatch')
     d.visit('apply_end');d.visit('cut_empty')
     d.records.update(apply_result_tuple=1,cut_result_tuple=1,oldie_result_pair=1)
     if vsb:d.map('oldie_rebuild_fold',0)

@@ -52,3 +52,28 @@ shared hashcons backing/callbacks and remaining site families stay open.
 No generic 4,096-byte charge was invented for them. Parent owns independent
 review, integration, issue/memory updates and publication. CLI memory was not
 updated; this subthread's live harness goal was null on inspection.
+
+## R1 repair checkpoint
+
+Parent authorized only the narrow failed-argument-prefix repair after
+provisional independent review 7fe4a33a75b5ed9346ca5cff4f72b14aa8bcf511.
+The initial 49c18b7ef37967c8b6f486721fd006d61857a8fb freeze remains history;
+its result, exports, inventory, identity and round receipt are unchanged.
+Selected GPT-6 Astra / Extra High; runtime settings/tokens/cost unavailable.
+Repair start clock 2026-10-24 06:03:59 UTC; live harness goal was null.
+
+Confirmed source issue: at ity.ml:1445, match_v and vsb_add are sibling
+recursive-call arguments. Either may run first. Charge the current pair's
+nonidentity map add before the possible type failure; retain earlier pairs
+and stop before later pairs or post-apply construction. Dexpr:1486–1489 catches
+TypeMismatch and continues candidates, so a failed prefix remains required.
+
+New first-pair regression failed once against original builders.py, as
+expected; its traceback is retained. After the narrow reorder, the sole
+focused rerun passed 299 checks in 1.224688096997852 seconds on Linux x86_64.
+First-pair and second-of-three mismatches retain one/two map adds and no term
+map, completed contract/wrapper or owner increments. All ten historical
+exports and the full source inventory match exactly. New results use -r1
+filenames. No native/predecessor run, broader unit or GitHub write occurred.
+Complete native bytes and remaining builder families stay open. Parent owns
+independent review and finding/integration/publication; CLI memory untouched.
