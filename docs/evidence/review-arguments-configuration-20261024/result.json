@@ -1,0 +1,323 @@
+{
+  "author_inputs": {
+    "docs/evidence/retained-fixed-report-composition-20261024/arguments/README.md": {
+      "bytes": 18027,
+      "commit": "6a29a2b8c241924f842fc1d6afeb2e1617c2d3f8",
+      "sha256": "e259a192a350f3e4724356abc520308ff29de982284ace9f52ea51abb3a0a111"
+    },
+    "docs/evidence/retained-fixed-report-composition-20261024/arguments/capacity.py": {
+      "bytes": 7853,
+      "commit": "6a29a2b8c241924f842fc1d6afeb2e1617c2d3f8",
+      "sha256": "daf7589877f488fa78ebf22eda87e371a992be192f79f7e5b95be8e516ca9ca9"
+    },
+    "docs/evidence/retained-fixed-report-composition-20261024/arguments/check.py": {
+      "bytes": 10681,
+      "commit": "6a29a2b8c241924f842fc1d6afeb2e1617c2d3f8",
+      "sha256": "7f900f36ac5b0d3d044d41e593eee0eea043396a10d3cf64c6b39e8c637e0b6a"
+    },
+    "docs/evidence/retained-fixed-report-composition-20261024/arguments/message-census.json": {
+      "bytes": 3664,
+      "commit": "6a29a2b8c241924f842fc1d6afeb2e1617c2d3f8",
+      "sha256": "764d2fbbf642b203ef10a72dcf4498fae471af35094730d063660755cdf74827"
+    },
+    "docs/evidence/retained-fixed-report-composition-20261024/arguments/result.json": {
+      "bytes": 11668,
+      "commit": "6a29a2b8c241924f842fc1d6afeb2e1617c2d3f8",
+      "sha256": "051bb7b3217742e6dac19d3e2086e821a8e3def4af74fcf7a2dbf56f26cd7dca"
+    },
+    "docs/evidence/retained-fixed-report-composition-20261024/arguments/round.json": {
+      "bytes": 2778,
+      "commit": "6a29a2b8c241924f842fc1d6afeb2e1617c2d3f8",
+      "sha256": "f7b532a7716139704bfbcd3593d935bf6d03c7db750318591224e0e334575857"
+    },
+    "docs/evidence/retained-fixed-report-composition-20261024/arguments/source-manifest.json": {
+      "bytes": 9257,
+      "commit": "6a29a2b8c241924f842fc1d6afeb2e1617c2d3f8",
+      "sha256": "9427397075d7958e5ed9be9ee1a98ba2957ba7ee45cfe2654a9a72f260a32d64"
+    },
+    "docs/evidence/retained-fixed-report-native-inputs-20261024/gnat2why/README.md": {
+      "bytes": 2559,
+      "commit": "260af764d5",
+      "sha256": "bf2623e68130b06e746588f03986d9e1fc5563b3688dc767e4b7937ad18d8abf"
+    },
+    "docs/evidence/retained-fixed-report-native-inputs-20261024/gnat2why/check.py": {
+      "bytes": 4592,
+      "commit": "260af764d5",
+      "sha256": "b2553bea33f966f247e5c999928288142045925dbd93e5fd54d3f40ad2c64af6"
+    },
+    "docs/evidence/retained-fixed-report-native-inputs-20261024/gnat2why/inputs.json": {
+      "bytes": 1512,
+      "commit": "260af764d5",
+      "sha256": "db930f77ccbfe9d79fd85a78d4b6e3370c03631713e2904a45106d60a3e6e1c5"
+    },
+    "docs/evidence/retained-fixed-report-native-inputs-20261024/gnat2why/result.json": {
+      "bytes": 1281,
+      "commit": "260af764d5",
+      "sha256": "3c311f3f2a048e9b4c143614b7c1963f5182b4b97aad8de51100ac15b8d3a6b0"
+    },
+    "docs/research/retained-fixed-report-composition.md": {
+      "bytes": 13065,
+      "commit": "6a29a2b8c241924f842fc1d6afeb2e1617c2d3f8",
+      "sha256": "2114fbad5754184f65a3d03ce5d7eb4d0f5d8a91a61400ed862a1ab7e8c82142"
+    }
+  },
+  "author_or_predecessor_checker_executions": 0,
+  "budget_renewed": false,
+  "common_path_closed": false,
+  "compiler_prover_Lean_runs": 0,
+  "elapsed_seconds": 2.5620288610007265,
+  "flow_attempts": 58687,
+  "global_escape_budget": 2,
+  "graphs": {
+    "First_Or_Default": {
+      "C": 16,
+      "F": 31,
+      "Q": 24,
+      "V": 246,
+      "attempts": 44380
+    },
+    "Input_Is_Valid": {
+      "C": 8,
+      "F": 13,
+      "Q": 8,
+      "V": 99,
+      "attempts": 7993
+    },
+    "Is_Message": {
+      "C": 0,
+      "F": 11,
+      "Q": 8,
+      "V": 75,
+      "attempts": 4651
+    },
+    "Reject": {
+      "C": 1,
+      "F": 3,
+      "Q": 0,
+      "V": 41,
+      "attempts": 875
+    },
+    "Silver_Arguments": {
+      "C": 0,
+      "F": 1,
+      "Q": 0,
+      "V": 22,
+      "attempts": 144
+    }
+  },
+  "inherited_native_inputs": {
+    "docs/evidence/retained-fixed-report-native-inputs-20261024/inputs.json": {
+      "commit": "9bb63660fd9e29c7b67b359f00acd844f19771cc",
+      "sha256": "3edd7bfd6a3356f4a914101214a6c20d4c3947aaede82356a54c815167460b77"
+    },
+    "docs/evidence/retained-fixed-report-native-inputs-20261024/result.json": {
+      "commit": "9bb63660fd9e29c7b67b359f00acd844f19771cc",
+      "sha256": "ea65aeb9ebb60c88420fd62895aa37f94c1ff3837e0d7eab23aa9787856d7837"
+    },
+    "docs/evidence/retained-response-parser-capacity-20261023/capacity.py": {
+      "commit": "9bb63660fd9e29c7b67b359f00acd844f19771cc",
+      "sha256": "c8925ae1d74a086dcf3b3fb307b8ef7b8cc8ce5e519f0fd41976550142b184f7"
+    },
+    "docs/evidence/retained-why-library-probe-paths-20261023/elf_reader.py": {
+      "commit": "9bb63660fd9e29c7b67b359f00acd844f19771cc",
+      "sha256": "30dcbf8b6a37c53979667d604e442ba8a5a06549fbe4129131d8a487a8d42085"
+    },
+    "docs/evidence/review-fixed-io-configuration-20261024/result.json": {
+      "commit": "d39dc7cff5985a24b81345f23e645e2a237c2a6d",
+      "sha256": "862276a36b83eff9cfca794930126d64fdfccb02073dcf63debafe6a00015162"
+    }
+  },
+  "libc_service_queries": 0,
+  "native": {
+    "alignment": 4,
+    "allocation_bytes": 20,
+    "allocator_address": 17558544,
+    "max_path": 4096,
+    "negative_branch_symbols": [
+      "gnatcoll__mmap__system__get_page_size.part.0"
+    ],
+    "page_got": 23508232,
+    "page_hex": "4883ec08e8c72c10ff85c0780789c04883c408c3e887faffff",
+    "page_import": "getpagesize",
+    "page_plt": 1252032,
+    "retained_service_value": 4096,
+    "service_query_repeated": false,
+    "target": {
+      "bytes": 107177112,
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnat2why",
+      "role": "producer",
+      "sha256": "343682de485bb151e1817615acebab5b185504efdf2b082f1647cd41a14241f1"
+    },
+    "version_bytes": 10,
+    "version_hex": "4883ec08be04000000bf14000000e81d5ae30048ba010000000a00000048b94653462031362e31488910ba2e30000066895010488d50084889480848924883c408c3",
+    "version_text": "FSF 16.1.0"
+  },
+  "points": [
+    {
+      "P": 0,
+      "all_pass": true,
+      "failed_reader": [],
+      "failed_writer_and_incoming": [],
+      "shapes": {
+        "full": {
+          "array_max": 58687,
+          "arrays": 88,
+          "compact": 553694864,
+          "depth": 7,
+          "fields": 1043331,
+          "key_max": 59,
+          "object_max": 101,
+          "objects": 289229,
+          "pretty": 564586270,
+          "slope": 2810574,
+          "string_max": 377268,
+          "strings": 564024,
+          "values": 1115971
+        },
+        "projected": {
+          "array_max": 58687,
+          "arrays": 77,
+          "compact": 553261507,
+          "depth": 7,
+          "fields": 1042873,
+          "key_max": 59,
+          "object_max": 101,
+          "objects": 289028,
+          "pretty": 564143292,
+          "slope": 2809156,
+          "string_max": 377268,
+          "strings": 563929,
+          "values": 1115474
+        }
+      }
+    },
+    {
+      "P": 1,
+      "all_pass": true,
+      "failed_reader": [],
+      "failed_writer_and_incoming": [],
+      "shapes": {
+        "full": {
+          "array_max": 58687,
+          "arrays": 88,
+          "compact": 555888608,
+          "depth": 7,
+          "fields": 1043331,
+          "key_max": 59,
+          "object_max": 101,
+          "objects": 289229,
+          "pretty": 566780014,
+          "slope": 2810574,
+          "string_max": 377268,
+          "strings": 564024,
+          "values": 1115971
+        },
+        "projected": {
+          "array_max": 58687,
+          "arrays": 77,
+          "compact": 555455251,
+          "depth": 7,
+          "fields": 1042873,
+          "key_max": 59,
+          "object_max": 101,
+          "objects": 289028,
+          "pretty": 566337036,
+          "slope": 2809156,
+          "string_max": 377268,
+          "strings": 563929,
+          "values": 1115474
+        }
+      }
+    },
+    {
+      "P": 395,
+      "all_pass": true,
+      "failed_reader": [],
+      "failed_writer_and_incoming": [],
+      "shapes": {
+        "full": {
+          "array_max": 58687,
+          "arrays": 88,
+          "compact": 1420223744,
+          "depth": 7,
+          "fields": 1043331,
+          "key_max": 59,
+          "object_max": 101,
+          "objects": 289229,
+          "pretty": 1431115150,
+          "slope": 2810574,
+          "string_max": 377268,
+          "strings": 564024,
+          "values": 1115971
+        },
+        "projected": {
+          "array_max": 58687,
+          "arrays": 77,
+          "compact": 1419790387,
+          "depth": 7,
+          "fields": 1042873,
+          "key_max": 59,
+          "object_max": 101,
+          "objects": 289028,
+          "pretty": 1430672172,
+          "slope": 2809156,
+          "string_max": 377268,
+          "strings": 563929,
+          "values": 1115474
+        }
+      }
+    },
+    {
+      "P": 396,
+      "all_pass": false,
+      "failed_reader": [],
+      "failed_writer_and_incoming": [
+        "unbounded_alignment_intermediates"
+      ],
+      "shapes": {
+        "full": {
+          "array_max": 58687,
+          "arrays": 88,
+          "compact": 1422417488,
+          "depth": 7,
+          "fields": 1043331,
+          "key_max": 59,
+          "object_max": 101,
+          "objects": 289229,
+          "pretty": 1433308894,
+          "slope": 2810574,
+          "string_max": 377268,
+          "strings": 564024,
+          "values": 1115971
+        },
+        "projected": {
+          "array_max": 58687,
+          "arrays": 77,
+          "compact": 1421984131,
+          "depth": 7,
+          "fields": 1042873,
+          "key_max": 59,
+          "object_max": 101,
+          "objects": 289028,
+          "pretty": 1432865916,
+          "slope": 2809156,
+          "string_max": 377268,
+          "strings": 563929,
+          "values": 1115474
+        }
+      }
+    }
+  ],
+  "save_entering_callbacks": 2,
+  "saves_upper": 3,
+  "source_identity": {
+    "complete_arguments_tool_files": 35,
+    "native_interface_files": 7,
+    "repository_files": 31
+  },
+  "status": "pass",
+  "target_binary_executions": 0,
+  "trace_attempts": 20249,
+  "warning_attempts": 13395,
+  "whole_process_capacity_closed": false
+}
