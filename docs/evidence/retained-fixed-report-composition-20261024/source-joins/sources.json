@@ -1,0 +1,255 @@
+{
+  "gcc_revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "spark_revision": "42554fc241fcd1fdf08d3a2feccb3f86912acbc0",
+  "archives": [
+    {
+      "path": "docs/evidence/retained-producer-report-capacity-20261024/additional-sources.tar.gz",
+      "sha256": "c74648389426cbda3edb3fe36ffd225e9c53322a471f1199ae72f47cfc1eacd9",
+      "files": [
+        {
+          "member": "gcc/ada/pprint.adb",
+          "bytes": 32605,
+          "sha256": "cf99d7964e3d7e33e7b0532708426cbd5553ee85cc5901acb6218dee06aee2cf",
+          "spans": [
+            {
+              "first_lf_line": 772,
+              "last_lf_line": 914,
+              "sha256": "a0ea278179910f4c699fbc15238726ec542f20d9508b0752cf887db891635e68"
+            }
+          ]
+        },
+        {
+          "member": "gcc/ada/errout.adb",
+          "bytes": 147124,
+          "sha256": "ba9c6654fed11edaa6b8c2e5a0eab6cfa1f91ef2a60d31d2ba3875ef93ea93b2",
+          "spans": [
+            {
+              "first_lf_line": 1930,
+              "last_lf_line": 2217,
+              "sha256": "691b261c42be2fb33517e4d8e7b0803dc989285a893702a7034053dd9d06c4bb"
+            },
+            {
+              "first_lf_line": 2327,
+              "last_lf_line": 2570,
+              "sha256": "5c399c4bbbd7e000d45242d5faac0aa8c4dc62586421e2a46c5399fe3d3503cc"
+            }
+          ]
+        },
+        {
+          "member": "gcc/ada/osint.adb",
+          "bytes": 105542,
+          "sha256": "432c6fb6324140ba2e25ab1a6c79ca306e7a662970ed268009cb962263e89e69",
+          "spans": [
+            {
+              "first_lf_line": 2709,
+              "last_lf_line": 2749,
+              "sha256": "0b4f23398a31a3ab94d84f54f89bf85c898bc13eb242e188eb54939f053b2192"
+            }
+          ]
+        },
+        {
+          "member": "gcc/ada/sinput-l.adb",
+          "bytes": 30951,
+          "sha256": "ecafb23271ccde16bdfc282afb4a8787f4d04a736154e2e83c27acfb3c4a01fd",
+          "spans": [
+            {
+              "first_lf_line": 224,
+              "last_lf_line": 251,
+              "sha256": "403223707e15d72179e44461b5d9455f24d24c3426dd1651919c2b2e7c400d02"
+            },
+            {
+              "first_lf_line": 369,
+              "last_lf_line": 421,
+              "sha256": "ff527733d08a6f220512b3f2d89f82f86c8e273408be1a8050c6b66f464d326a"
+            }
+          ]
+        },
+        {
+          "member": "gcc/ada/atree.adb",
+          "bytes": 103427,
+          "sha256": "cb7804d95e680be6391cc1f2b4a22cb09de8eb7141d9084493e6c182e5c19e4f",
+          "spans": [
+            {
+              "first_lf_line": 1840,
+              "last_lf_line": 1930,
+              "sha256": "6fe288451bffac63c052804705f367ce7ec9d3cb91c1d19c8d5763997d58a861"
+            }
+          ]
+        },
+        {
+          "member": "gcc/ada/types.ads",
+          "bytes": 46466,
+          "sha256": "70948582972ea423cd57897a06bf1a2b8888f7b1b96d7c2bf9a611601d3899d5",
+          "spans": [
+            {
+              "first_lf_line": 175,
+              "last_lf_line": 205,
+              "sha256": "e7212e0441744c936f32c24507c366e797f1834fd79d06ebc94596fca3810ca3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+      "sha256": "f2e7dd7bbef086a36ddf97f9bd3bd669ca895fcc28e3ac23ffe0c9f85fc5d952",
+      "files": [
+        {
+          "member": "spark-source/src/flow/flow_error_messages.adb",
+          "bytes": 194323,
+          "sha256": "b4ac784251b8cd4ea82dddabbc5e75edb2d0c2e838a7e4fc838461f23b06b7b9",
+          "spans": [
+            {
+              "first_lf_line": 1466,
+              "last_lf_line": 1598,
+              "sha256": "be5c4383d3452d1b9819e11b966e1d733a1a11491596ffe69db36fa3833d0f8a"
+            },
+            {
+              "first_lf_line": 1757,
+              "last_lf_line": 2057,
+              "sha256": "9a5f59c10969fcf655732d60c4d078ea18a4884e6423b581dfdfb946874d4eef"
+            },
+            {
+              "first_lf_line": 2094,
+              "last_lf_line": 2125,
+              "sha256": "4afd77ab98fb8df996709b12e028b0014ee4b75c3264ddb6c94fe240ac3ec5e1"
+            },
+            {
+              "first_lf_line": 2959,
+              "last_lf_line": 3240,
+              "sha256": "a25e34c641b2208c5cf663a77af9ca9207111ee5aa3ea75cd81af131d7645789"
+            },
+            {
+              "first_lf_line": 3440,
+              "last_lf_line": 3476,
+              "sha256": "f6285179ab5d15a57b257280e1d15f2f4abf245880beecb209037f807871a7d7"
+            },
+            {
+              "first_lf_line": 3720,
+              "last_lf_line": 3816,
+              "sha256": "2f8450bd76f00c88a10b3fa3d8fe16afbae9ad7bc8c5a2caa688bb610b03c6fa"
+            },
+            {
+              "first_lf_line": 633,
+              "last_lf_line": 689,
+              "sha256": "521812ff71d1cd6ee2adf9b941b07b5209ebfe965e9fffbcf4a715a82c57821b"
+            },
+            {
+              "first_lf_line": 969,
+              "last_lf_line": 1007,
+              "sha256": "78860d48ada706523251be239e73a48b479ed33b1d03a38c4ce8fea06813b92a"
+            },
+            {
+              "first_lf_line": 3987,
+              "last_lf_line": 3997,
+              "sha256": "54e8d38d632845b2de75c548bdf6d4a99f39d99c116032433aba78bf91a79060"
+            }
+          ]
+        },
+        {
+          "member": "spark-source/src/flow/flow_types.adb",
+          "bytes": 38243,
+          "sha256": "8e123ecb1fe31bed685cc087caa458876f60ee6c6c5cdcc529bdd55fd9ec0cf9",
+          "spans": [
+            {
+              "first_lf_line": 888,
+              "last_lf_line": 1088,
+              "sha256": "6985dba7d7ec59807e795a418b04676e328ab07f4c0286621cebf1e787040139"
+            }
+          ]
+        },
+        {
+          "member": "spark-source/src/spark/spark_util.adb",
+          "bytes": 273220,
+          "sha256": "8e129c4260aa5b46eb74d8368c024b71a43cb7dc6a511f55c8e4b72db9801800",
+          "spans": [
+            {
+              "first_lf_line": 6675,
+              "last_lf_line": 6810,
+              "sha256": "bd972dc6a19efa1667f11f865b70bf0cceea3189f02c5378e39bd5b4e7627647"
+            },
+            {
+              "first_lf_line": 6857,
+              "last_lf_line": 6872,
+              "sha256": "5e129732486d9f09d9bc5636e4de1a4aabbacea2d855b6fae96ef2bc82f07e39"
+            },
+            {
+              "first_lf_line": 7352,
+              "last_lf_line": 7406,
+              "sha256": "69b9414e35177a8dedda69a9556cc3748afc0a1c4600901aee731decfe47f01d"
+            }
+          ]
+        },
+        {
+          "member": "spark-source/src/utils/errout_wrapper.adb",
+          "bytes": 30046,
+          "sha256": "d117c09ba360c274d453dbfb90c6cc61b5ff6c008b75f97abddab15442579a20",
+          "spans": [
+            {
+              "first_lf_line": 68,
+              "last_lf_line": 190,
+              "sha256": "5a79394449fe4158abc3f7bab7d9bc76bd6f30c4cd62c56ef4a3039c18677fd0"
+            },
+            {
+              "first_lf_line": 529,
+              "last_lf_line": 545,
+              "sha256": "8632179e1ee0ce4ec5e294f9118df5a9cdf9509dc9c5de6eb6b48cff629417b9"
+            }
+          ]
+        },
+        {
+          "member": "spark-source/src/why/gnat2why-error_messages.adb",
+          "bytes": 52157,
+          "sha256": "838d3b49cf776926bc8c966e6fa9846dfce7cde1da756382b7fdb0d90b3db6d1",
+          "spans": [
+            {
+              "first_lf_line": 340,
+              "last_lf_line": 390,
+              "sha256": "2ac1a7d394cc3921e731e1f55a97308fc6f870e17420c31072965f025887c9ad"
+            },
+            {
+              "first_lf_line": 1105,
+              "last_lf_line": 1135,
+              "sha256": "e11d8455cbe66d0ca69d333f47c5880b4434f082af8fafdcf9c6dea5ef304c9b"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-producer-null-tail-20261018/runtime-sources.tar.gz",
+      "sha256": "f7709011db297a3173b624c93e53f67fe5169c5f2d8f430eb15c7943cddc184d",
+      "files": [
+        {
+          "member": "installed-runtime/a-strunb.adb",
+          "bytes": 61218,
+          "sha256": "119656b840260d852f6e3ab16f96aadb09960d8580c64014410b19f793877001",
+          "spans": [
+            {
+              "first_lf_line": 503,
+              "last_lf_line": 551,
+              "sha256": "3430744d677c1df3dfed11d572505559158c145e99256a60bb6bfdc4ca7d733e"
+            },
+            {
+              "first_lf_line": 1237,
+              "last_lf_line": 1294,
+              "sha256": "9eddfbdc879e3f29639aaf3ccd0193dcc0096b571ea9d97e10d2735eb6eda16e"
+            }
+          ]
+        },
+        {
+          "member": "installed-runtime/a-strunb.ads",
+          "bytes": 56689,
+          "sha256": "0351b5c5fe0f57547f113bb31bbaec40daf1757c3f298aa673a32ab2ac58a941",
+          "spans": [
+            {
+              "first_lf_line": 1573,
+              "last_lf_line": 1581,
+              "sha256": "873130f0447784a6b58069259877709e70516c231e8ba3de41b8db52579b978e"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

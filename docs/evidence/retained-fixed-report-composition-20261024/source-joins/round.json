@@ -1,0 +1,45 @@
+{
+  "issues": [
+    119,
+    212
+  ],
+  "role": "primary-session source/string attachment author",
+  "author_model": null,
+  "author_effort": null,
+  "policy_baseline": "GPT-6 Astra / Extra High; live setting not verified",
+  "runtime_model_effort_confirmation": null,
+  "token_usage": null,
+  "cost": null,
+  "first_retained_clock_utc": "2026-10-24 09:46:22 UTC",
+  "freeze_preparation_clock_utc": "2026-10-24 09:53:43 UTC",
+  "observed_window_seconds": 441,
+  "elapsed_scope": "Clock observations only; source inspection began before first retained clock; final preparation/commit excluded",
+  "objective": "Bind fixed source-copy length and private diagnostic String/backing inputs using accepted report equations",
+  "achieved": "New attachment passes focused check; exact independent review required; whole report capacity false",
+  "check": {
+    "attempts": 1,
+    "checks": 117,
+    "seconds": 0.5107515450072242,
+    "provider_files": 26,
+    "complete_sources": 13,
+    "source_spans": 28
+  },
+  "preparation_notes": [
+    "Initial source-manifest endpoint requested Pprint line931 beyond914; corrected before focused check.",
+    "Default GCC a-strunb inspected but not used as selected runtime; retained installed shared runtime provider is used."
+  ],
+  "independent_review_pending": true,
+  "predecessor_checker_replays": 0,
+  "native_compiler_prover_Lean_capture_service_runs": 0,
+  "runtime_corpus_rescans": 0,
+  "source_argument_machine_proved": false,
+  "complete_fixed_report_capacity": false,
+  "oracle_tool_pins_admission_changed": false,
+  "aggregate_RAM_stack_gate_added": false,
+  "process_e_upper": 2,
+  "save_entering_callbacks_upper": 2,
+  "saves_upper": 3,
+  "allowance_renewed": false,
+  "publication": "Author local freeze; parent integrates only after independent review",
+  "cli_memory_updated": false
+}
