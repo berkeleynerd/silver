@@ -2,8 +2,9 @@
 
 2026-10-24 UTC, independent review for #193 under #119. Selected reviewer:
 GPT-6 Astra / Extra High; runtime confirmation and token/cost telemetry are
-unavailable. This record separates completed component review from the still
-pending integrated producer/report freeze. It does not close #193 or #119.
+unavailable. This record separates accepted conditional producer/report
+interfaces from the remaining whole-invocation attachments. It does not close
+#193 or #119.
 
 ## Interrupted response provenance: accepted conditionally
 
@@ -113,10 +114,115 @@ These reviews used source and existing evidence only; I did not rerun their
 checkers, captures or native tools. Exact frozen input hashes are retained in
 [the input record](../evidence/review-producer-report-capacity-20261024/incoming-gcc-inputs.json).
 
-## Integrated review still pending
+## Integrated producer/report review: accepted after repairs, conditionally
 
-The complete #193 writer, third-pool lifetime, printed-expression bounds and
-useful composed guards still require their coherent freeze and integrated
-review. The preserved global allowances remain `e<=2`,
-two save-entering callbacks and three saves; downstream collector/Silver-reader
-work remains #194.
+Final author target: `de2650d87fb707371b64e2dcbf03eefc4a9b43ad`, comprising
+the initial packet `a09e2be03b`, standard-output supplement `1a127446ce`,
+and Uint repairs `4511e24abd` / `de2650d87f`. Exact files and the reviewed
+repair delta are retained in the
+[final input record](../evidence/review-producer-report-capacity-20261024/integrated-final-inputs.json).
+No remaining correctness blocker was found in the stated conditional
+interfaces. The terminal failure-family attachment and concrete pathname and
+clock/duration joins remain open; this is not completion of #193.
+
+The review checked result-conversion order and failure alternatives, all nine
+third-pool caller sites, claim/edge serialization, additive report schema,
+controlled aliases, diagnostic construction and display, native Uint
+temporaries, and both output implementations. It reused the accepted incoming,
+GCC and response-provenance components above. The parser's arbitrary-file
+countermodel remains distinct from reachable writer traces. Changed warning
+suffixes retain the generic response-byte bounds even when native identifiers
+are preserved. Empty counterexamples still incur their eager conversion and
+Fuel construction; Brief still constructs private Get_Fix/Get_Explanation
+strings. Failure is not promoted to proof success or a completed report.
+
+The complete Assumption_Types sum includes earlier flow and timing requests,
+not merely response rows or distinct symbols. Mk_Subp performs Find before
+hash-consing. Five claim kinds and at most seven edges per caller/callee pair
+give the composed `(h_edges+2)*(9E+7E²+26J+B_flow+R)` bound. The location
+parameter conversion counts records plus the separate name request. The
+native name-table suffix, Common-pool failed-fix requests and third pool keep
+separate owners and guards.
+
+The schema recurrence matches GNATCOLL's pretty layout, including three-byte
+empty containers and indentation inherited by nested children. Global G/A
+occurrences are grafted at their actual depths rather than multiplied by R.
+The projected compact schema preserves all other report fields; it does not
+relax the native full-writer allocation or traversal. String escaping,
+container growth, alignment intermediates, counters and per-allocation sizes
+remain separate from adequate physical resources. The JSON32 and XString16
+holder censuses use distinct nodes along writer recursion. Check_Info retains
+at most one copy of a given fresh continuation backing per VC row, plus the
+stale global slot and sixteen suffix temporaries: `B_N+17`, not a bound based
+on the global stack's logical length. Translation and vector growth have
+finished before this suffix; the earlier prefix keeps its own obligations.
+
+The selected CP reset-target proof supports H_CP directly: source-loop-bound
+captures return through source-copy printing, while generated Item'First/Last
+targets are fixed leaves. Original_Node alone does not establish source
+origin. Private Get_Fix retains the larger reset-rank bound and full source
+span allocation. The stored-field UInt bound is 256 bits, conservatively q=18
+radix digits; it does not reuse the larger Determine_Range scratch domain or
+mistake a radix count for bits. With W=550, the checked equations yield
+H_CP=15,581, proof text 31,439 and the P=128, zero-instantiation native line 31,655.
+These illustrate a useful sufficient guard, not a universal concrete-input
+attachment or a new source limit.
+
+Two medium-severity research correctness findings were repaired:
+
+1. **Generic Uint local-vector undercount (PRC-1).** For q=2 and
+   Input=`2^30-1`, Better_In_Hex adds one, producing three radix digits.
+   Division by 65536 reaches Algorithm_D, whose local Dividend has
+   `L_Length+1=4` entries. The old generic helper returned three. This follows
+   from `uintp.adb:317,1030,1158` and the direct threshold at
+   `uintp.ads:475`; it is a source counterexample, not a native rerun.
+   The repair separates descriptor digits q+1 from local-vector digits q+2.
+   Actual stored 256-bit fields have slack within q=18, so the selected image
+   and CP bounds were unaffected; that did not excuse the generic error.
+2. **Cold Uint cache lifetime (PRC-2).** Image_Out assigns `Ainput=-Input`
+   before entering Better_In_Hex. For a negative non-direct magnitude, a
+   cold `2**16` cache can therefore advance Uints_Min/Udigits_Min past that
+   descriptor even though the cached powers themselves are direct.
+   `uintp.adb:424,302,1395–1404,2151–2180` establish the path. The repair
+   charges one process-wide retained descriptor and q+1 digits alongside
+   each call's temporary peak. Later calls do not repeat the cold event.
+   Assignment, declaration and loop sequencing establish this argument;
+   it does not rely on Ada's argument evaluation order. No row multiplier
+   or renewed global allowance is introduced.
+
+A low-severity reproducibility finding (PRC-3) was also repaired: the checker
+no longer pins this evolving review note. It retains the immutable provenance
+audit and exact earlier review commit instead. Final source/input identities
+were checked after the repair; every one of the eleven packet files and all
+31 remaining pinned inputs matched.
+
+The standard-output supplement supplies the missing caller-state argument.
+Selected ordinary Text_IO output reaches the response-warning loop; other
+sites use separate files/Standard_Error, excluded debug/RAC/GNATtest modes,
+or terminal translation failures. There are no selected standard descriptor
+setters. Thus successful warning loops accumulate Line across all responses
+from 1 and restore Col to 1. The encoding bound is two output bytes per input
+Character, with Line/Col guards based on decoded characters. This Text_IO
+state is distinct from GCC Output's raw descriptor writes. The latter handles
+embedded LF after Write_Char's precheck, while direct Write_Eol lacks that
+precheck. Compiler_Abort therefore needs an actual final-segment bound; its
+large total-payload majorant alone cannot establish a useful endpoint guard.
+
+I ran the focused checker exactly once, on the byte-matched `1a127446ce`
+snapshot in an isolated temporary tree. It passed 78 selected source files,
+the 279-file Ada frontier and six local source identities in 5.799557 seconds;
+invocation wall time was 6.051087 seconds. The
+[audit](../evidence/review-producer-report-capacity-20261024/integrated-audit.json)
+and [result](../evidence/review-producer-report-capacity-20261024/integrated-check-result.json)
+preserve that exact input distinction. The two later Uint deltas received
+manual source and arithmetic review, without another reviewer checker run.
+The author's final focused result at `de2650d87f` reports 5.824228 seconds;
+it is retained author evidence, not a reviewer execution. No compiler,
+prover, provider, capture or predecessor checker was rerun. A separate full
+integrated-review elapsed measurement is unavailable.
+
+The preserved global allowances remain `e<=2`, two save-entering callbacks
+and three saves. The terminal-error specialist's later refinement needs its
+own exact freeze and review. General Main source/lifetime joins and downstream
+collector/Silver-reader work remain separate; the latter is #194. Neither
+these conditional interfaces nor the arithmetic examples close #119.

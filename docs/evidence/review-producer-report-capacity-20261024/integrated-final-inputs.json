@@ -1,0 +1,109 @@
+{
+  "reviewed_utc": "2026-10-24T01:52:14.093491+00:00",
+  "final_author_commit": "de2650d87fb707371b64e2dcbf03eefc4a9b43ad",
+  "earlier_reviewer_checker_commit": "1a127446cec75141c3c2fdea26d40b9483680d34",
+  "delta_commits": [
+    "4511e24abdadf1c123e670fcc8e4bffc34e27452",
+    "de2650d87fb707371b64e2dcbf03eefc4a9b43ad"
+  ],
+  "reviewer_checker_runs_after_repairs": 0,
+  "validation": "Manual source/delta review, all eleven frozen file identities and all remaining input identities matched; author focused result retained, no reviewer replay.",
+  "final_files": [
+    {
+      "path": "docs/evidence/retained-producer-report-capacity-20261024/README.md",
+      "bytes": 3039,
+      "sha256": "fb631d0c0b8960f2aaafbd7dbec7990c747c914ebc0eb816e7939acddf6e3c0e"
+    },
+    {
+      "path": "docs/evidence/retained-producer-report-capacity-20261024/additional-source-manifest.json",
+      "bytes": 11264,
+      "sha256": "20468b79e616af1c8b66d51f89de7ee9eb5cab9c9341d8b8719f1a7f7a918026"
+    },
+    {
+      "path": "docs/evidence/retained-producer-report-capacity-20261024/additional-sources.tar.gz",
+      "bytes": 763570,
+      "sha256": "c74648389426cbda3edb3fe36ffd225e9c53322a471f1199ae72f47cfc1eacd9"
+    },
+    {
+      "path": "docs/evidence/retained-producer-report-capacity-20261024/capacity.py",
+      "bytes": 33843,
+      "sha256": "920866d2595302dd08f786944076b2fab9995f991ac58ab05178f2c5544cbf74"
+    },
+    {
+      "path": "docs/evidence/retained-producer-report-capacity-20261024/check.py",
+      "bytes": 19164,
+      "sha256": "f32fce9a6bbe2b59710051e4fd4a19a98d21700c4acde9f2b7cf9c518fcf9130"
+    },
+    {
+      "path": "docs/evidence/retained-producer-report-capacity-20261024/comperr-recipe-applied.adb",
+      "bytes": 17875,
+      "sha256": "9e91665d1cdf08e6d60e46ec55804ab07c00c7e9761ff0e72aa602ed4a584a4b"
+    },
+    {
+      "path": "docs/evidence/retained-producer-report-capacity-20261024/inputs.json",
+      "bytes": 4909,
+      "sha256": "23590d53dea534bb3bf0e87cad806cc5c900b54922c14eb03cd2e64d41d626a5"
+    },
+    {
+      "path": "docs/evidence/retained-producer-report-capacity-20261024/result.json",
+      "bytes": 33236,
+      "sha256": "856e530f599499c71ea4960d7d40f762eaafd803a8256c6a7bc7766306a4c8e8"
+    },
+    {
+      "path": "docs/evidence/retained-producer-report-capacity-20261024/round.json",
+      "bytes": 3796,
+      "sha256": "08a118b256c5345e9899c834f9eb821a9a331e6857a7d3132599a4239b42ead7"
+    },
+    {
+      "path": "docs/evidence/retained-producer-report-capacity-20261024/source-manifest.json",
+      "bytes": 9034,
+      "sha256": "5d37d7a739dd8e100459189f33eb354f51465adcab6bc4a5d99fbbaf65354c3f"
+    },
+    {
+      "path": "docs/research/retained-producer-report-capacity.md",
+      "bytes": 50167,
+      "sha256": "47e2d5289975c2e5b2ffe3d8473f2b8a863836a4556587d37b6746b7f7b62f1d"
+    }
+  ],
+  "remaining_input_count": 31,
+  "repair_diff_sha256": "5b4e9bd985bb8134d5aa291361b25ef567c3762b95bef8fb3ca8ab65a8497758",
+  "author_final_check": {
+    "status": "focused checks passed; source attachments remain open",
+    "complete_selected_files": 78,
+    "spark_ada_frontier": 279,
+    "elapsed_seconds": 5.824228
+  },
+  "findings": [
+    {
+      "id": "PRC-1",
+      "severity": "medium",
+      "status": "repaired",
+      "title": "Generic Uint local normalization vector undercount",
+      "source": "GCC 6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea uintp.adb:317,1030,1158 and uintp.ads:475",
+      "witness": "q=2, Input=2^30-1 is above Max_Direct=(32768-1)^2; Better_In_Hex increments to 2^30, three radix digits; mod 65536 enters Algorithm_D and declares Dividend of L_Length+1=4. Old helper returned q+1=3.",
+      "repair": "Separate descriptor_digits=q+1 from local_vector_digits=q+2. Selected q=18 now conservatively exports 19 descriptor/20 local digits; image/CP bounds unchanged.",
+      "production_change": false
+    },
+    {
+      "id": "PRC-2",
+      "severity": "medium",
+      "status": "repaired",
+      "title": "Cold Uint cache can retain an earlier negative-input descriptor",
+      "source": "GCC 6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea uintp.adb:302,424,1395-1404,2151-2180",
+      "witness": "Image_Out assigns Ainput=-Input before entering Better_In_Hex. With a cold 2**16 cache and a negative non-direct value whose positive magnitude is also non-direct, UI_Expon advances Uints_Min/Udigits_Min past this descriptor. Release cannot remove it.",
+      "repair": "Charge one process-wide retained descriptor and descriptor_digits alongside per-call peak. Sequential assignment/declaration/loop ordering establishes this without relying on Ada argument evaluation order; no proof-row multiplier.",
+      "production_change": false
+    },
+    {
+      "id": "PRC-3",
+      "severity": "low",
+      "status": "repaired",
+      "title": "Living reviewer report pinned as a reproducibility input",
+      "witness": "Extending the owned review note changes a file that check.py hashed as a predecessor input.",
+      "repair": "Remove living-note hash; retain immutable provenance audit and exact review commit 5072ad3ebb1515f99be738394e1b84a513e493f3."
+    }
+  ],
+  "disposition": "accepted conditional interfaces after repairs; no remaining blocker found in stated scoped lemmas; full terminal failure attachment and concrete configuration joins remain open, so #193/#119 not complete",
+  "repair_diff_path": "integrated-repair.diff.gz",
+  "repair_diff_archive_sha256": "130fe1e00c35b9e668c76dfb1a2228f7bf506cc15606efa96ac6273b949126cb"
+}
