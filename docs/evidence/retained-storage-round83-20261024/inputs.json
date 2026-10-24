@@ -1,0 +1,60 @@
+{
+  "components": [
+    {
+      "name": "native author and repair",
+      "freeze": "1604467b0f2892d3f92f4f40caaabcc05be52271",
+      "paths": [
+        "docs/evidence/retained-general-native-capacity-20261024/README.md",
+        "docs/evidence/retained-general-native-capacity-20261024/check-result.json",
+        "docs/evidence/retained-general-native-capacity-20261024/check.py",
+        "docs/evidence/retained-general-native-capacity-20261024/inputs.json",
+        "docs/evidence/retained-general-native-capacity-20261024/repair-string-pack.py",
+        "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+        "docs/evidence/retained-general-native-capacity-20261024/source-witnesses.json",
+        "docs/evidence/retained-general-native-capacity-20261024/string-pack-current.json",
+        "docs/evidence/retained-general-native-capacity-20261024/string-pack-repair.md",
+        "docs/evidence/retained-general-native-capacity-20261024/string-pack-source-manifest.json",
+        "docs/evidence/retained-general-native-capacity-20261024/string-pack-sources.tar.gz",
+        "docs/evidence/retained-general-native-capacity-20261024/type-kernel-sources.tar.gz",
+        "docs/research/retained-general-native-capacity.md",
+        "docs/research/retained-native-expansion.md"
+      ]
+    },
+    {
+      "name": "native review",
+      "freeze": "ebeca8fcc8e7e0300620b74a2df2c136632e9ce5",
+      "paths": [
+        "docs/evidence/review-general-native-capacity-20261024/README.md",
+        "docs/evidence/review-general-native-capacity-20261024/audit.json",
+        "docs/evidence/review-general-native-capacity-20261024/audit.py",
+        "docs/evidence/review-general-native-capacity-20261024/repair-check-result.json",
+        "docs/reviews/review-general-native-capacity-20261024.md"
+      ]
+    },
+    {
+      "name": "Main author",
+      "freeze": "3a9be892c22061dddac367eb2d5d636405207525",
+      "paths": [
+        "docs/evidence/retained-main-why-storage-20261024/README.md",
+        "docs/evidence/retained-main-why-storage-20261024/check.py",
+        "docs/evidence/retained-main-why-storage-20261024/checkpoint.md",
+        "docs/evidence/retained-main-why-storage-20261024/identity.json",
+        "docs/evidence/retained-main-why-storage-20261024/kernel.py",
+        "docs/evidence/retained-main-why-storage-20261024/result-initial.json",
+        "docs/evidence/retained-main-why-storage-20261024/result.json",
+        "docs/evidence/retained-main-why-storage-20261024/round.json",
+        "docs/research/retained-main-why-storage.md"
+      ]
+    },
+    {
+      "name": "Main review",
+      "freeze": "e3604dcd8af17cb03c13b89ddcb1b6c6f93bf48b",
+      "paths": [
+        "docs/evidence/review-main-why-storage-20261024/README.md",
+        "docs/evidence/review-main-why-storage-20261024/audit.py",
+        "docs/evidence/review-main-why-storage-20261024/result.json",
+        "docs/reviews/review-main-why-storage-20261024.md"
+      ]
+    }
+  ]
+}

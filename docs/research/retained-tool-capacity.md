@@ -102,6 +102,15 @@ Actual provider joins and fixed-source fits remain explicit. The reported-time
 representation provider is tracked in
 [#206](https://github.com/berkeleynerd/silver/issues/206), alongside #201/#202,
 before whole-rule composition. No finite proof-duration limit is assumed.
+The accepted [R83 checkpoint](../evidence/retained-storage-round83-20261024/README.md)
+adds #201's local native type kernel and #202's case-free stored-term and
+candidate-gate kernel. #207's missed static String-layout Uint arithmetic is
+repaired and independently reviewed; its current overlay supersedes the affected
+historical export. #207 is In review pending delivery. #201/#202 remain
+In progress: native helper/caller/downstream joins, complete Main construction
+counts and domain attachment, populated shared entry state and later lifetimes
+are still required. #206's three independent timing records remain an unadopted
+candidate pending complete source/native/configuration and startup accounting.
 General native compilation beyond the literal family is tracked in
 [#201](https://github.com/berkeleynerd/silver/issues/201), arbitrary-Main Why
 representation/failure lifetimes in #202. Both are In progress. Checked
