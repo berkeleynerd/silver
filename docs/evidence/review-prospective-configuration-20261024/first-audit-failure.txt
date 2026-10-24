@@ -1,0 +1,13 @@
+Command: PYTHONDONTWRITEBYTECODE=1 python3 docs/evidence/review-prospective-configuration-20261024/audit.py
+Exit code: 1
+Tool-reported elapsed seconds: 0.118770578
+
+Traceback (most recent call last):
+  File "docs/evidence/review-prospective-configuration-20261024/audit.py", line 162, in <module>
+    assert len(xml_names) == 63
+AssertionError
+
+Review-script bookkeeping: the 63-file base XML set needs the db/ prefix.
+The initial selector also counted the separate frames/gnat2why XML overlays.
+Corrected only the reviewed XML-name set to db/*.xml. No author input, target,
+fixture, predecessor checker or production code changed or ran.
