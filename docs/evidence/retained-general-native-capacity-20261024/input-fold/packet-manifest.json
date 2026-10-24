@@ -1,0 +1,49 @@
+{
+  "files": [
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/input-fold/README.md",
+      "bytes": 23405,
+      "sha256": "92a5b7e37fec46166838c089f9f6810cafc0fdc06119f112b59b4548ba74ee1c"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/input-fold/check.py",
+      "bytes": 14237,
+      "sha256": "afddde273ed384cd1ed186d57091d8880d0a11ef4f5e1bf93452dd65088b606b"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/input-fold/rank.json",
+      "bytes": 3773,
+      "sha256": "35714a3b0105185047da8637b65d3d94e00bf5a68de3940456ccd22e47bdd6fa"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/input-fold/ledger.json",
+      "bytes": 1799,
+      "sha256": "c6e156c90d95667fd146ef6c7c797ff3c9a8e3dc5b4687e4e15362f7d50be531"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/input-fold/matcher-audit.json",
+      "bytes": 263582,
+      "sha256": "387bd217f96252f9c076045532dbe4d27062d52cb5890554cbe30618fdbcada8"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/input-fold/source-manifest.json",
+      "bytes": 7738,
+      "sha256": "e60d2f7f855c71e0ee82b98188919eb03d07a222e06522c9f96b67f06a07dba1"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/input-fold/source-witnesses.json",
+      "bytes": 11354,
+      "sha256": "695b16c208b1ca7e1ca42c5bcfbefda64663f5edfce679f05bce59022b0e562b"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/input-fold/inputs.json",
+      "bytes": 3779,
+      "sha256": "bdb322fe83107c1bbb712369e14a6e21fc37c5bb71761316c846275e4e5ea573"
+    },
+    {
+      "path": "docs/research/retained-general-native-capacity.md",
+      "bytes": 32061,
+      "sha256": "b7dd72e6f516b31b25f5d3e7d92f4a608fe96008335222cc33a0fec2125c4d5b"
+    }
+  ]
+}

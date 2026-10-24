@@ -1,0 +1,126 @@
+{
+  "status": "pass",
+  "checked_at_utc": "2026-10-24T05:32:09.906356+00:00",
+  "offline_platform": "Linux x86_64",
+  "offline_elapsed_seconds": 1.2424345359977451,
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "source_files": 23,
+  "LF_witnesses": 49,
+  "matcher_root_forms": {
+    "binary": 151,
+    "conversion": 19,
+    "conditional": 65,
+    "comparison": 52
+  },
+  "rank_states": 29,
+  "rank_edges": 43,
+  "reduced_signed_exhaustive_cases": 65536,
+  "signed32_boundary_cases": 361,
+  "annotation_result_graph_cases": [
+    {
+      "conditional": false,
+      "height": 5,
+      "Q": 10,
+      "distinct_vertices": 10,
+      "annotation_active_depth": 6,
+      "converted_inner_retries": 0
+    },
+    {
+      "conditional": true,
+      "height": 6,
+      "Q": 15,
+      "distinct_vertices": 13,
+      "annotation_active_depth": 7,
+      "converted_inner_retries": 0
+    }
+  ],
+  "coefficient_cases": 49,
+  "template_coefficient_cases": 7,
+  "source_classification": "Bs/Ba: initial-input or exact-provenance-preserving type identities",
+  "H_Input_upper": 6,
+  "Q_per_Input_root_upper": 15,
+  "Q_Input": "30Ba",
+  "helper": {
+    "constants": "49Ba",
+    "unary": "2Bs+34Ba",
+    "binary": "18Ba",
+    "ternary": "24Ba",
+    "var_decl": "2Bs",
+    "operand_slots": "2Bs+142Ba",
+    "raw_caller_bytes": "576Bs+4920Ba"
+  },
+  "helper_plus_annotation": {
+    "constants": "1009Ba",
+    "unary": "2Bs+64Ba",
+    "binary": "18Ba",
+    "ternary": "24Ba",
+    "var_decl": "2Bs",
+    "maps": "30Ba",
+    "operand_slots": "2Bs+172Ba",
+    "raw_caller_bytes": "576Bs+44760Ba"
+  },
+  "one_index_one_array_example": {
+    "helper": {
+      "constants": 49,
+      "unary": 36,
+      "binary": 18,
+      "ternary": 24,
+      "var_decl": 2,
+      "operand_slots": 144,
+      "raw_caller_bytes": 5496
+    },
+    "combined": {
+      "constants": 1009,
+      "unary": 66,
+      "binary": 18,
+      "ternary": 24,
+      "var_decl": 2,
+      "maps": 30,
+      "operand_slots": 174,
+      "raw_caller_bytes": 45336
+    },
+    "Q_Input": 30,
+    "Uint_entries": 90,
+    "Uint_digits": 330,
+    "Rep_Table_additions": 30,
+    "serial_additions": 30,
+    "logical_callback_payload": 3000
+  },
+  "classified_kernel_constant_coefficients": {
+    "Bs": 9,
+    "Ba": 1092
+  },
+  "dynamic_template": {
+    "caller_attachment": "Db<=8Pb<=8V_Main",
+    "one_invocation": {
+      "constants": 0,
+      "unary": 2,
+      "constructor": 1,
+      "element_vector": 1,
+      "stored_elements": 2,
+      "raw_caller_bytes": 160,
+      "rounded_request_bytes": 2048
+    },
+    "raw_caller_bytes": "160Db",
+    "rounded_request_bytes": "2048Db"
+  },
+  "selected_constructor_projection_closed": true,
+  "selected_dynamic_annotation_height_source_derived": true,
+  "selected_bounds_template_subcall_closed": true,
+  "full_helper_workspace_closed": false,
+  "enclosing_fat_pointer_closed": false,
+  "concat_initializer_transfer_closed": false,
+  "all_dynamic_F_Q_closed": false,
+  "complete_native_capacity_result": false,
+  "semantic_source_argument_machine_proved": false,
+  "compiler_prover_runs": 0,
+  "native_target_runs": 0,
+  "predecessor_checker_replays": 0,
+  "selected_author_model": "GPT-6 Astra",
+  "selected_author_effort": "Extra High",
+  "runtime_model_and_effort": null,
+  "total_author_elapsed_seconds": null,
+  "tokens": null,
+  "cost": null,
+  "independent_review": "pending"
+}
