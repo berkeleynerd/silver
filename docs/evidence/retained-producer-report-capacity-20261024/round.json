@@ -47,6 +47,11 @@
       "purpose": "Correct actual Silver projected byte export discovered while tracing #194 consumers",
       "result": "Source Between preserves outside whitespace; original compaction claim was incorrect. Actual projected-file bound is reconstructed projected.pretty+1, with empty pretty objects conservatively covering literal{} and finalLF. Full producer algebra unchanged. Added exact source checks and retained-whitespace witness. Parent authorized bounded repair; reviewer independently confirmed.",
       "elapsed_seconds": 6.560541
+    },
+    {
+      "purpose": "Correct statistics key domain found while attaching #194 consumers",
+      "result": "Replaced unsupported three-key envelope with accepted S<=5R provider, retaining real provers plus Trivial/Checker. Both full and projected shape dimensions increase. Focused schema regression distinguishes three and five; predecessor/native checks not replayed. Exact scoped review pending.",
+      "elapsed_seconds": 4.934213
     }
   ],
   "open_attachments": [
