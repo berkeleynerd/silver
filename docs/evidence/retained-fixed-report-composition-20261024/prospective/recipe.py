@@ -121,6 +121,7 @@ def pathfile_entries(data, work, kind):
 
     This checks pathname provenance, not file length/cardinality capacity.
     GPR supplies ordering/multiplicity; their storage owner must retain both.
+    Match raw bytes: native directory normalization preserves trailing slashes.
     """
     workspace(work)
     obj = work+'/obj/gnatprove'
@@ -129,7 +130,8 @@ def pathfile_entries(data, work, kind):
     if kind not in ('source', 'object') or not data.endswith(b'\n'):
         raise ValueError('LF-terminated source/object pathfile required')
     values = data.decode('utf-8').split('\n')[:-1]
-    if not values or any(v.rstrip('/') not in allowed or '\x00' in v for v in values):
+    allowed_spellings = allowed | {p+'/' for p in allowed}
+    if not values or any(v not in allowed_spellings for v in values):
         raise ValueError('effective pathfile escapes the selected directory family')
     return values
 

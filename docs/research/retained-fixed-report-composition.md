@@ -289,3 +289,15 @@ confirmation and token/cost telemetry are unavailable. Prior frozen files,
 source identities, global e<=2/two save-entering callbacks/three saves and
 physical premises remain unchanged. Production, admission, #212 and #119 are
 not completed by this prospective design packet; exact-freeze review follows.
+
+### Prospective pathfile review repair, #215
+
+Independent review identified a callable-boundary mismatch: `rstrip('/')`
+allowed arbitrary trailing slashes although the source contract permits at
+most one. Native directory normalization can preserve those raw bytes. The
+[focused repair](../evidence/retained-fixed-report-composition-20261024/prospective/repair-f1/README.md)
+checks exact raw membership in the allowed spellings and preserves return
+values, order and multiplicity. P=188 and the selected configuration remain
+unchanged; original evidence is retained. The narrow regression passed;
+independent repair review is pending. This does not change source admission or
+complete the outstanding configuration/native storage and five-report joins.
