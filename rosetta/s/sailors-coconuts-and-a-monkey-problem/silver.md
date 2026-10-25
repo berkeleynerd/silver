@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer arithmetic in procedures with explicit limit guards, so no annotation is needed, but the loop-carried pile, division by a variable and the subtract-after-test pattern make discharge depend on careful typing and guards.
 
-Position 245 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 244 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

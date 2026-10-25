@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check can be discharged by guards placed just before the operation and by static array bounds, with no annotations needed. However, the parser has many loop-carried counters and accumulators, and the '::' expansion uses index arithmetic, so discharge depends on careful program shape. That makes the outlook plausible rather than likely.
 
-Position 1022 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 1021 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

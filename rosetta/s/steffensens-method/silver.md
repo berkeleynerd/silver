@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded floating-point arithmetic in a procedure-driven loop with explicit guards for the Aitken denominator and divergence, so no annotation is needed, but proving float overflow and division freedom through the loop-carried iterate depends on careful guard placement and float provers.
 
-Position 1094 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1093 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

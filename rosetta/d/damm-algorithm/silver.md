@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the 0..9 subtype of both the state and the table entries plus a per-character digit guard, so no loop invariant is needed; the only new surface is a 2D constant table, string indexing and a for loop in a procedure.
 
-Position 960 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 959 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

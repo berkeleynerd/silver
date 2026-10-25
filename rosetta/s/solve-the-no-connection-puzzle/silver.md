@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from Peg/Node types, for-loop indexes over their own ranges and a single-step abs on values bounded to 1..8, with no loop-carried value needing an invariant. The nested loops terminate by construction, so no variant is needed and the whole search lives in a procedure.
 
-Position 533 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 532 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

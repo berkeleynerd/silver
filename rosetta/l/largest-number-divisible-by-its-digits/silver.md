@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from a bounded for loop, ranged subtypes, a 0..9 array indexed by mod 10 and an explicit nonzero-digit guard before each mod, so no annotation is needed and no while loop or function loop termination is involved. The hexadecimal stretch goal is optional and omitted.
 
-Position 503 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 502 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

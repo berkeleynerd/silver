@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every component is a static one-bit modular value assigned from literals in an aggregate, so the only checks are routine initialization and range checks that follow from the declarations. The open question is admitting representation clauses in Silver, not provability.
 
-Position 1261 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1260 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

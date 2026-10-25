@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from small constant tables, range subtypes and division/mod on a bounded k, but the carried counters and the 10-million-iteration scan need careful guard placement without invariants, so discharge depends on program shape.
 
-Position 847 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 846 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

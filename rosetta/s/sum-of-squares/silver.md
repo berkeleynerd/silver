@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Element squares are bounded by the declared element subtype and indexes by Count's range, and the only loop-carried value (the sum) is protected by one guard just before the addition, so everything discharges without annotations. Integers stand in for the numeric vector, avoiding floating-point proof difficulty.
 
-Position 49 in the [progression](../../progression.md#stage-3), in stage 3.
+Position 50 in the [progression](../../progression.md#stage-3), in stage 3.
 
 ## Approach
 

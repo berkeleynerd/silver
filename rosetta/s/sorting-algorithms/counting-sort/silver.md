@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from declared subtypes and short guards, but the loop-carried write position and the count increments need a guard each, so the proof depends on careful program shape rather than being fully routine.
 
-Position 75 in the [progression](../../../progression.md#stage-4), in stage 4.
+Position 76 in the [progression](../../../progression.md#stage-4), in stage 4.
 
 ## Approach
 

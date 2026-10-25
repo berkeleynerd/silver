@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from subtype ranges, for-loop bounds and a few guards, but the float midpoint range proof and the bit-accumulation shape need care without invariants, so discharge is plausible rather than certain.
 
-Position 865 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 864 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

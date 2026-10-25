@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Fixed-length 9-character strings, small ranged integers and a for loop of eight steps make every index, range and overflow check follow from types and guards just before use, with invalid characters given a visible not-valid outcome.
 
-Position 512 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 511 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

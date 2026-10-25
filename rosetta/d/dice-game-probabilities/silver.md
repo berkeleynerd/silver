@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Exact integer DP replaces the Monte Carlo of the existing solution, so there is no randomness or floating point, and all arithmetic stays well under 64 bits with guards just before each operation; the only non-routine parts are the loop-carried count accumulations and decimal formatting.
 
-Position 924 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 923 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

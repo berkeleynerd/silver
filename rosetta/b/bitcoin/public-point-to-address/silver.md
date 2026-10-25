@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every hash operation uses modular arithmetic that cannot overflow, and every index comes from a for-loop range or a constant table with a ranged element type. The only non-routine check is the Base-58 division bound, which follows from the declared 0..57 remainder subtype. No annotation is needed.
 
-Position 1290 in the [progression](../../../progression.md#stage-21), in stage 21.
+Position 1289 in the [progression](../../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

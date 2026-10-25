@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is a bounded-grid index or bounded-counter range check that an explicit guard just before the operation discharges, and the only loop is a while loop in a procedure, so no annotation is needed. The task needs stdin line reading and string-command parsing that Silver lacks today, but nothing conflicts with the Oracle.
 
-Position 1239 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1238 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Failure paths to test
 

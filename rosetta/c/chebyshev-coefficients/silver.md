@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indices and loop bounds are static, so only the float accumulator in the nested loop and the Cos contract are non-routine, making discharge plausible with careful range subtypes and guards but no annotations.
 
-Position 1046 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1045 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All array indices and divisions follow from declared lengths and guards, but the floating-point updates to loop-carried coefficients need explicit magnitude guards with a visible rejection, so discharge depends on careful program shape.
 
-Position 1088 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1087 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

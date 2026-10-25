@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every bound is statically derivable from small ranged subtypes and constant tables, and all loops are for loops in the main procedure, so no invariant or variant is needed; only the nonlinear power and the accumulator need careful guards.
 
-Position 1505 in the [progression](../../progression.md#stage-29), in stage 29.
+Position 1504 in the [progression](../../progression.md#stage-29), in stage 29.
 
 ## Approach
 

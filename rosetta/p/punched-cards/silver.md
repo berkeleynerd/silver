@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from fixed array bounds, for loops over bounded ranges, a length guard before indexing and case-range-bounded row arithmetic, with no loop-carried values and no function loops. The only new surface is arrays, string indexing, case statements and a procedure, all within the usual routine proofs.
 
-Position 989 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 988 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

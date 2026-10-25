@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the for-loop index range over the string, a counter subtype bounded by the documented maximum length, and a length guard on the input, with no loop invariants needed.
 
-Position 759 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 758 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

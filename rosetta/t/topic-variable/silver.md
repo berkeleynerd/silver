@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Unlike an ordinary variable named It, @ has predefined language meaning that abbreviates the current target; the task's optional square/root example is unnecessary. This is a future explicit Silver admission of inherited Ada syntax, with negation safe over symmetric bounded ranges and no need for scalar guard refinement.
 
-Position 1574 in the [progression](../../progression.md#stage-41), in stage 41, which adds assignment target name.
+Position 1574 in the [progression](../../progression.md#stage-42), in stage 42, which adds assignment target name.
 
 ## Approach
 

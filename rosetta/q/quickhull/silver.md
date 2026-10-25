@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The recursive algorithm can be turned into an iterative worklist in a procedure using bounded arrays and exact integer visibility tests, so only the final area sum uses floating point on bounded values. It is plausible rather than likely because many loop-carried indices and counters each need a guard and the program is large.
 
-Position 1114 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1113 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every loop is a for loop over static ranges with array indices bounded by declared subtypes, so the only non-routine obligation is the bounded nonlinear product I * J in the sieve. No annotations or termination variants are needed, and there are no conflicts.
 
-Position 158 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 156 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

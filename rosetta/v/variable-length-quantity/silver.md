@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is on small bounded subtypes with fixed-trip for loops and an explicit pre-multiply guard in decoding, so every check follows from types and guards without invariants.
 
-Position 1503 in the [progression](../../progression.md#stage-29), in stage 29.
+Position 1502 in the [progression](../../progression.md#stage-29), in stage 29.
 
 ## Approach
 

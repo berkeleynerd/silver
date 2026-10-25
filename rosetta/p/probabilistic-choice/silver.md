@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Replacing floating point with exact integer fractions over 27720 and a deterministic bounded LCG makes every check follow from subtypes and for-loop bounds, with only the loop-carried counters needing careful guards.
 
-Position 1177 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1176 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

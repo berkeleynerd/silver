@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The iterative table-based dynamic program uses only for-loop indexes, subtype-bounded indices and guards, so checks should discharge without annotations, but loop-carried counters in the traceback require careful guards.
 
-Position 681 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 680 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

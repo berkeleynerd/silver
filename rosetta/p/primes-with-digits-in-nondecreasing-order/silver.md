@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All values are bounded by the declared 2..999 range and every loop is a for loop over a static range, so the division, range and overflow checks follow from types and no annotation is needed.
 
-Position 120 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 118 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

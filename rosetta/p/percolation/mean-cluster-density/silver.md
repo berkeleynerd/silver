@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from subtype ranges and explicit bounds guards before each neighbour access, and the only unbounded loop is a while loop in a procedure, so no annotation is needed; the main care is shaping the stack and counter ranges and avoiding floating point by using scaled integers.
 
-Position 734 in the [progression](../../../progression.md#stage-12), in stage 12.
+Position 733 in the [progression](../../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

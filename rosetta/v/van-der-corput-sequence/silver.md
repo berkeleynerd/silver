@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is bounded integer arithmetic with static ranges, no recursion or while loops in functions, and no floating point, so every check follows from types and guards just before the operations.
 
-Position 445 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 444 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

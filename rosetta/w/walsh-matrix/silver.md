@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The Kronecker doubling is nested for-loops over bounded indexes with a constant power table, so every index and negation check follows from declared ranges and for-loop bounds with no loop-carried invariants.
 
-Position 662 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 661 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

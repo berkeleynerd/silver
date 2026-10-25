@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Only a few integer multiplications and sign comparisons are needed, and ranged input subtypes make every overflow check follow from types, so proofs should discharge without annotations.
 
-Position 67 in the [progression](../../progression.md#stage-4), in stage 4.
+Position 68 in the [progression](../../progression.md#stage-4), in stage 4.
 
 ## Approach
 

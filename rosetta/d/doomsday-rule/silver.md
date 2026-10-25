@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is small bounded integer mod arithmetic on subtyped values with constant embedded inputs, and there are no while loops, recursion or functions needing variants, so every check follows from types and static bounds.
 
-Position 782 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 781 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

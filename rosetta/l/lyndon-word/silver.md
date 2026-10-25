@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Duval's algorithm needs only bounded arrays, a small alphabet and loop-carried lengths, all of which can be given range types and explicit guards, so no annotation is needed. It is plausible rather than likely because the loop-carried length, the mod index and the successor step depend on careful guard placement.
 
-Position 1000 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 999 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

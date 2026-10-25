@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is a fixed two-equation linear solve done as straight-line integer arithmetic, so all checks follow from bounded types and one divisor guard. No loops, recursion or annotations are needed.
 
-Position 127 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 125 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

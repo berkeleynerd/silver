@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The loop index has static bounds 0 .. 49, so the closed-form expressions are bounded by at most 1,500,625 and cannot overflow, and no loop-carried accumulator exists that would need an invariant. The only new surface is integer arithmetic, a for loop and Integer'Image, so the proofs should discharge automatically.
 
-Position 99 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 97 in the [progression](../../progression.md#stage-6), in stage 6, which adds integer division.
 
 ## Approach
 

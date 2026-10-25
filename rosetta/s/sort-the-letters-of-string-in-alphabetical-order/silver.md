@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index is a for-loop variable over the string's own static bounds (the outer loop stops at S'Last - 1 and the inner loop starts at I + 1), and Character comparison and swap cannot fail a check, so all obligations follow from declarations and loop ranges.
 
-Position 1524 in the [progression](../../progression.md#stage-31), in stage 31, which adds block statements.
+Position 1523 in the [progression](../../progression.md#stage-31), in stage 31, which adds block statements.
 
 ## Approach
 

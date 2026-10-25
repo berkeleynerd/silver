@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from a fixed-size sieve array and bounded six-digit numbers, but the sieve stepping index and the reversal accumulator are loop-carried values that need explicit guards, so discharge depends on careful program shape rather than annotations.
 
-Position 1121 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1120 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Failure paths to test
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from declared ranges and for-loop indexes over the array's own range, with no loop-carried values beyond the bounded depth, so no annotations are needed. The task accepts any friendly text output, so an embedded indented tree is faithful.
 
-Position 509 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 508 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program only branches on a constant of an enumeration type and prints literal strings, so it has no run-time check that could fail beyond what types and static case coverage already settle. The task's "select" demonstration needs tasking, which the task does not require, so it is left out.
 
-Position 1153 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1152 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

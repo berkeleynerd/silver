@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Only a bounded accumulator multiplication and mod are involved, with for loops that terminate by themselves, so overflow and division checks discharge from the explicit guard and constant divisors in 1..20.
 
-Position 118 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 116 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

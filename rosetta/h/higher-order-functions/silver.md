@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program has no loops, recursion or heap use, and its only arithmetic is a multiplication that the parameter's declared range bounds, so every check follows from types and should discharge automatically. One open question is whether a generic formal subprogram counts as faithfully passing a function as an argument. If a run-time access-to-subprogram value is required instead, SPARK still supports that without annotations, but access-types would join the surface.
 
-Position 1515 in the [progression](../../progression.md#stage-30), in stage 30.
+Position 1514 in the [progression](../../progression.md#stage-30), in stage 30.
 
 ## Approach
 

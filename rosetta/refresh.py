@@ -318,6 +318,8 @@ def choose(found: dict) -> list[str]:
 SURFACE_LABELS = {"integer-for-loops": "Integer range for loops",
                   "immutable-integers": "immutable Integer arithmetic",
                   "bounded-mutable-integers": "bounded mutable Integer objects",
+                  "interval-integer-division": "interval-checked Integer division",
+                  "integer-object-size-read": "Integer object Size attribute reads",
                   "integer-image": "Integer image", "booleans": "Boolean objects",
                   "multidim-arrays": "multidimensional arrays",
                   "scalar-image": "'Image of scalars", "float-image": "floating-point images",
@@ -345,6 +347,7 @@ ADMISSION = {
     "unicode-identifiers": "Which Unicode identifier repertoire and source encoding are admitted, and how do lexer identity, Ada case folding, byte limits and frontend source correspondence agree?",
     "scalar-guard-refinement": "Which comparisons refine scalar intervals on each branch, and how do assignments, joins and loops preserve soundness and automatic discharge?",
     "assignment-target-name": "How is @ resolved and bounded as the current assignment target, restricted to assignment right-hand sides and composed with existing scalar-expression rules without changing evaluation order?",
+    "integer-object-size-read": "Which Integer object Size attribute reads are admitted, what range and staticness do their results have, and how do pinned-target representation correspondence and composition with Integer expressions preserve automatic discharge?",
     "integer-object-size-clause": "Which object Size clauses are guaranteed supported by the pinned targets, and how are legality, freezing, initialization and representation correspondence established without unsafe operations?",
     "static-integer-types": "Which static signed integer type ranges and object initializer forms are admitted, and how are nominal type identity, base-range versus first-subtype meaning, range checks and automatic discharge established?",
     "bounded-mutable-integers": "Which initialized Integer objects and static object-local ranges "
@@ -358,6 +361,7 @@ ADMISSION = {
                      "with bounded String expressions and every length check?",
     "integers": "Which integer types, literals and operators are admitted, and which range or guard rule makes "
                 "every +, - and * provably free of overflow?",
+    "interval-integer-division": "Which fully grouped Integer /, mod and rem expressions have nonempty incoming operand intervals excluding zero divisors and the selected conservative Integer-minimum/-1 case, and how do operator-specific Ada-sign interval bounds, exact singleton initialization, shared operator budgets and complete producer/source-correspondence arguments establish automatic discharge without scalar guard or update refinement?",
     "integer-division": "What must precede every /, mod and rem so that division by zero and the overflow of "
                         "the most negative value divided by -1 are provably excluded?",
     "exponentiation": "Which base and exponent bounds make every ** provably free of overflow?",

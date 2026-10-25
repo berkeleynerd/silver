@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged types, 64-bit intermediates and guards before divisions and narrowing, with no recursion (GCD is a bounded for loop) and no annotations, but the accumulated Rational sum across loop iterations requires careful range guarding.
 
-Position 1467 in the [progression](../../../progression.md#stage-27), in stage 27.
+Position 1466 in the [progression](../../../progression.md#stage-27), in stage 27.
 
 ## Approach
 

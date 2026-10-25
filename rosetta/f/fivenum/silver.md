@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check reduces to array indices guarded by Count and bounded float values, and the sort uses only for loops over static ranges, so no invariant is needed, but float arithmetic and float formatting make it depend on careful shape.
 
-Position 1181 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1180 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

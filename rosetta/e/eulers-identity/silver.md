@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs only straight-line floating-point arithmetic on constant operands with bounded types, so no annotations are required, but the proofs depend on admitted elementary functions with verified contracts and on float formatting.
 
-Position 1036 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1035 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

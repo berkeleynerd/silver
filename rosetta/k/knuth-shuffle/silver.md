@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from declared ranges, for-loop indexes over the array's own range and a mod by a positive divisor, so no annotation is needed, and the only slightly non-routine step is bounding j within 0..i.
 
-Position 137 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 135 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

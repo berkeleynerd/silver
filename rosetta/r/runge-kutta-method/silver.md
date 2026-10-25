@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs only a bounded for-loop over 100 steps, so termination is easy, but proving the Sqrt precondition and absence of float overflow on the loop-carried y depends on guards before each stage and on float prover strength, with no invariant available.
 
-Position 1067 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1066 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

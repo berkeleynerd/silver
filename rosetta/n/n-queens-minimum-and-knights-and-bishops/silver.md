@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged subtypes, fixed 10x10 bounds and guards before each stack or board access, and all unbounded looping sits in procedures, so no annotation should be needed, though several loop-carried counters and indices demand careful guard placement.
 
-Position 1190 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1189 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

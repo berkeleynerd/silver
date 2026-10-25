@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** "Every check follows from the bounded order subtype and static loop ranges, and the 10^10 search fits in 64-bit integers, so no invariant is needed."
 
-Position 1501 in the [progression](../../progression.md#stage-29), in stage 29.
+Position 1500 in the [progression](../../progression.md#stage-29), in stage 29.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from ranged subtypes, constant loop bounds and constant-divisor arithmetic, and the task needs no recursion, while loops, input, or exceptions, so only the String slice index bounds need careful shaping. The optional Julian-to-Gregorian transition and arbitrary page widths are left out, with the 80-column device chosen.
 
-Position 790 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 789 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

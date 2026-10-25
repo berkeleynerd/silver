@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks reduce to a bounded Len subtype with an explicit guard before each append, so no annotation is needed, but the loop-carried index and the unconstrained String parameter and slices make it depend on careful program shape rather than being routine.
 
-Position 993 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 992 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every operand is bounded by the loop range, so the square cannot overflow, the modulus is a nonzero constant, and the for loop carries no values between iterations that need an invariant. Only integer arithmetic, 'Image output and a for loop are new.
 
-Position 128 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 126 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

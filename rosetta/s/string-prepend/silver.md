@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is one prepend and one print on embedded literal data, so every length and index check follows from constants and a single guard before the copy. Silver already has bounded concatenation, so only a buffer with a computed length and slice printing are missing.
 
-Position 58 in the [progression](../../progression.md#stage-4), in stage 4.
+Position 59 in the [progression](../../progression.md#stage-4), in stage 4.
 
 ## Approach
 

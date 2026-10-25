@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded iteration over fixed-size arrays with guards just before each index or append, so no annotation is needed, though loop-carried turtle position and buffer length need careful guard placement.
 
-Position 822 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 821 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All values for eight elements stay below about 70000 so a fixed sieve and a 256-entry subset-sum table suffice, and every check follows from range subtypes and guards before use, though the loop-carried table indices and sums need careful guarding. The ten-element stretch is optional and skipped since its sums reach tens of millions.
 
-Position 272 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 271 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

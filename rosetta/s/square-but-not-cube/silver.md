@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic sits in small constant for-loop ranges and the only loop-carried counter is guarded before its increment, so every check follows from types and guards. No while loops, functions or recursion are involved, so there are no termination obligations.
 
-Position 76 in the [progression](../../progression.md#stage-5), in stage 5, which adds Boolean objects.
+Position 77 in the [progression](../../progression.md#stage-5), in stage 5, which adds Boolean objects.
 
 ## Approach
 

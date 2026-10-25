@@ -1,19 +1,21 @@
 # Variable size/Get
 
-**Candidate: proofs likely to discharge automatically.** The program is straight-line code over static constants, so every check follows from static values and nothing needs an annotation. The only new needs are the 'Size attribute, integer division by a literal and 'Image output.
+**Candidate: proofs likely to discharge automatically.** The straight-line plan needs an Integer object Size-attribute read, integer division by a literal and Image output. Its attribute value, Integer range and target interpretation still need an admission rule; Size-clause support would not by itself admit this read.
 
-Position 97 in the [progression](../../../progression.md#stage-6), in stage 6, which adds integer division.
+Position 1572 in the [progression](../../../progression.md#stage-40), in stage 40, which adds Integer object Size attribute reads.
 
 ## Approach
 
-Declare an Integer variable and constants holding X'Size (bits) and that value divided by the storage unit of 8 (bytes). Print both through 'Image text with Put_Line. There are no loops, and the only guard is that the divisor is a static nonzero literal. About 10 lines.
+Declare an initialized Integer variable X and Integer constants holding X'Size in bits and that value divided by 8 in bytes on the pinned eight-bit-storage-unit targets. Print both through Integer'Image with Put_Line. X'Size reads the representation attribute of an object; it is a different construct from a Size representation clause that requests a representation. There are no loops, and division uses a static nonzero literal. About 10 lines.
 
 ## Language surface recorded by this assessment
 
-Integers, integer division and 'Image of scalars.
+Integers, integer division, 'Image of scalars and Integer object Size attribute reads.
 
 ## External effects
 
 - **console output** (allowed): Prints the variable's size in bits and bytes with Silver_IO.Put_Line.
 
-Assessed on 2026-10-15 against page revision 414570 of the [task](https://rosettacode.org/wiki/Variable_size/Get) by claude-sonnet-5-5 at medium effort; confidence high. The inclusion policy is in `rosetta/coverage.json`.
+Initially assessed on 2026-10-15 against page revision 414570 of the [task](https://rosettacode.org/wiki/Variable_size/Get) by claude-sonnet-5-5 at medium effort; current confidence high. The inclusion policy is in `rosetta/coverage.json`.
+
+Revised on 2026-10-25 by Codex through targeted source review; see the [review record](../../../assessment-division-20261025.md).

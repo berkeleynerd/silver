@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every index, length and counter is bounded by declared subtypes and explicit guards before use, with the only loop being a procedure-level while that needs no termination proof, so no annotation is needed but the bounded-table and file-input library behavior must be carefully shaped.
 
-Position 1324 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1323 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Failure paths to test
 

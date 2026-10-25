@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** This future library candidate performs replacement in an existing template using a standard Ada operation, with fixed valid positions and a statically bounded result. It neither claims native interpolation syntax nor treats plain concatenation as interpolation; admission still requires the operation's complete contract and source-correspondence justification.
 
-Position 1573 in the [progression](../../progression.md#stage-40), in stage 40, which adds fixed string replacement.
+Position 1573 in the [progression](../../progression.md#stage-41), in stage 41, which adds fixed string replacement.
 
 ## Approach
 

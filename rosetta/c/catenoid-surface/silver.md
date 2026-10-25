@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task asks only to draw a catenoid and the text-art rendering meets it, so there is no Oracle conflict. The floating-point trigonometry and hyperbolic functions are the only non-routine proof burden, which a range-limited library or series keeps dischargeable without annotations.
 
-Position 869 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 868 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

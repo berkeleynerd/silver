@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is one in-place append of a literal followed by one print, so every index and length check follows from a fixed buffer capacity and a guard just before the copy. Today's Silver only has fixed-length strings with bounded concatenation, so a bounded string buffer with an in-place append is the only missing piece.
 
-Position 57 in the [progression](../../progression.md#stage-4), in stage 4, which adds string building.
+Position 58 in the [progression](../../progression.md#stage-4), in stage 4, which adds string building.
 
 ## Approach
 

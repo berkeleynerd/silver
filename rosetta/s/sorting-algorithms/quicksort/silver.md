@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Quicksort restructured as an iterative, explicit-stack procedure over a fixed integer array has only range-typed indices and guarded loop-carried counters, so no annotation is needed, but the many loop-carried indices make discharge depend on careful guard placement.
 
-Position 236 in the [progression](../../../progression.md#stage-7), in stage 7.
+Position 235 in the [progression](../../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

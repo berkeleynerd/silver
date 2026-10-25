@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from declared ranges plus explicit guards before each buffer write and grid move, and all loops sit in procedures, so no annotation is needed, but the loop-carried turtle position and expansion lengths demand careful guard placement.
 
-Position 1541 in the [progression](../../progression.md#stage-32), in stage 32.
+Position 1540 in the [progression](../../progression.md#stage-32), in stage 32.
 
 ## Approach
 
