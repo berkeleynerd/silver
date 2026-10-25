@@ -108,12 +108,21 @@ execution of every case.
 
 ## Integrated delivery checkpoint
 
-Implementation target: `14b9302a97` (arithmetic/native core `16d0f0cfaa`, merged
-planning base `ca4242ff5a`). The [source-bridge integration review](reviews/review-integer-division-integration-14b9302a97.md)
+Implementation/source integration: `14b9302a97` (arithmetic/native core
+`16d0f0cfaa`, merged planning base `ca4242ff5a`), with the proof-script-only
+repair `92a3791e22` described below. The [source-bridge integration review](reviews/review-integer-division-integration-14b9302a97.md)
 reports no findings for that exact target. Full validation must identify the
 actual final source inputs before closing #232/#233/#229. Linux
 is the selected native platform; no new macOS or hosted-CI evidence is claimed.
 The lead coordinates the managed workspaces and native worker allocations.
+
+The first complete Lean build reached the expanded scalar source checks and
+could not synthesize a decision procedure for their combined expression/header
+conjunctions. Commit `92a3791e22` splits those conjunctions into individual
+kernel-checked obligations, preserving every statement and the existing proof
+limits. The active run retains independent completed certificates; the repaired
+target and subsequent complete audit remain pending. This is a proof-script
+integration failure, not a successful complete validation result.
 
 | Required evidence | Current result and exact remaining field |
 | --- | --- |
