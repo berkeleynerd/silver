@@ -221,15 +221,24 @@ def workTail (text : Source) (position remaining : Nat) : Bool :=
       workTail text quoted.after remaining
     else false
   else if afterName ≠ 0 then
-    if _advancing : text.length + 1 - afterName < text.length + 1 - position then
+    if Named.nameIs text first afterName ("mod".toList.map Char.toNat) || Named.nameIs text first afterName ("rem".toList.map Char.toNat) then
+      if remaining = 0 then false
+      else if _advancing : text.length + 1 - afterName < text.length + 1 - position then
+        workTail text afterName (remaining - 1)
+      else false
+    else if _advancing : text.length + 1 - afterName < text.length + 1 - position then
       workTail text afterName remaining
     else false
   else if number.after ≠ 0 then
     if _advancing : text.length + 1 - number.after < text.length + 1 - position then
       workTail text number.after remaining
     else false
+  else if Cursor.byteAt text first = 47 ∧ first < text.length ∧ Cursor.byteAt text (first + 1) = 61 then
+    if _advancing : text.length + 1 - (first + 2) < text.length + 1 - position then
+      workTail text (first + 2) remaining
+    else false
   else if Cursor.byteAt text first = 38 ∨ Cursor.byteAt text first = 43 ∨
-      Cursor.byteAt text first = 45 ∨ Cursor.byteAt text first = 42 then
+      Cursor.byteAt text first = 45 ∨ Cursor.byteAt text first = 42 ∨ Cursor.byteAt text first = 47 then
     if remaining = 0 then false
     else if _advancing : text.length + 1 - (first + 1) < text.length + 1 - position then
       workTail text (first + 1) (remaining - 1)

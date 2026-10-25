@@ -36,6 +36,9 @@ def binaryEquation (calls : Calls) (left right : Result) (operator : Nat) : Resu
   let checked := if operator = 43 then calls.scalars.add left.bounds right.bounds
     else if operator = 45 then calls.scalars.subtract left.bounds right.bounds
     else if operator = 42 then calls.scalars.multiply left.bounds right.bounds
+    else if operator = 47 then calls.scalars.divide left.bounds right.bounds
+    else if operator = 109 then calls.scalars.modulo left.bounds right.bounds
+    else if operator = 114 then calls.scalars.remainder left.bounds right.bounds
     else ⟨false, Integer.Interval.empty⟩
   if left.after = 0 ∨ right.after = 0 ∨ checked.safe = false ∨ left.operands > maxOperands - right.operands
   then invalid else ⟨right.after, checked.bounds, left.operands + right.operands, left.isStatic && right.isStatic⟩
@@ -67,15 +70,25 @@ def unaryReadEquation (calls : Calls) (text : Source) (position : Nat) (names : 
   calls.closeResult text (if number.after ≠ 0 then calls.literalResult number (Cursor.byteAt text position == 45)
     else calls.unaryResult (calls.readExpression text next names maskFirst maskAfter false) (Cursor.byteAt text position == 45))
 
+def binaryAfterEquation (calls : Calls) (text : Source) (position : Nat) : Nat :=
+  let after := calls.nameAfter text position
+  if position = 0 ∨ position > text.length then 0
+  else if Cursor.byteAt text position = 43 ∨ Cursor.byteAt text position = 45 ∨
+      Cursor.byteAt text position = 42 then position + 1
+  else if Cursor.byteAt text position = 47 then
+    if position < text.length ∧ Cursor.byteAt text (position + 1) = 61 then 0 else position + 1
+  else if after ≠ 0 ∧ (calls.nameIs text position after ("mod".toList.map Char.toNat) = true ∨
+      calls.nameIs text position after ("rem".toList.map Char.toNat) = true) then after else 0
+
 def compoundEquation (calls : Calls) (text : Source) (names : Environment)
     (left : Result) (maskFirst maskAfter : Nat) : Result :=
   let next := calls.skip text left.after
+  let after := calls.binaryAfter text next
   if next = 0 ∨ next > text.length then invalid
   else if Cursor.byteAt text next = 41 then {left with after := next + 1}
-  else if Cursor.byteAt text next ≠ 43 ∧ Cursor.byteAt text next ≠ 45 ∧ Cursor.byteAt text next ≠ 42
-  then invalid
-  else calls.closeResult text (calls.binaryResult left (calls.readExpression text (next + 1) names maskFirst maskAfter false)
-    (Cursor.byteAt text next))
+  else if after = 0 then invalid
+  else calls.closeResult text (calls.binaryResult left (calls.readExpression text after names maskFirst maskAfter false)
+    (calls.lowercase (Cursor.byteAt text next)))
 
 def groupEquation (calls : Calls) (text : Source) (position : Nat) (names : Environment)
     (maskFirst maskAfter : Nat) : Result :=
@@ -91,6 +104,11 @@ def expressionEquation (calls : Calls) (text : Source) (position : Nat) (names :
   if first = 0 ∨ first > text.length then invalid
   else if Cursor.byteAt text first = 40 then calls.readGroup text first names maskFirst maskAfter
   else calls.readAtom text first names maskFirst maskAfter allowSign
+
+theorem binaryAfter_denotation (calls : Calls) (text : Source) (position : Nat) :
+    binaryAfterBody.eval calls ({text,position} : Context).locals = binaryAfterEquation calls text position := by
+  dsimp +instances only [binaryAfterBody, Expr.eval, Context.locals, Calls.get, apply4, apply3, apply2, Locals.set]
+  simp [binaryAfterEquation, Bool.or_eq_true, Bool.and_eq_true]
 
 theorem lookup_denotation (calls : Calls) (text : Source) (names : Environment) (first after index : Nat) :
     lookupBody.eval calls ({text,names,first,after,index} : Context).locals = lookupEquation calls text names first after index := by

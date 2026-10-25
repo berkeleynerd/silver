@@ -82,6 +82,9 @@ theorem binary_result_type {left right : Result} (_a : ResultType left) (b : Res
   have bounds : (if operator = 43 then Integer.checkedAdd left.bounds right.bounds
       else if operator = 45 then Integer.checkedSubtract left.bounds right.bounds
       else if operator = 42 then Integer.checkedMultiply left.bounds right.bounds
+    else if operator = 47 then Integer.checkedDivide left.bounds right.bounds
+    else if operator = 109 then Integer.checkedModulo left.bounds right.bounds
+    else if operator = 114 then Integer.checkedRemainder left.bounds right.bounds
       else ⟨false, Integer.Interval.empty⟩).bounds.Bounded := by
     split
     · exact Integer.checkedAdd_bounded ..
@@ -89,12 +92,21 @@ theorem binary_result_type {left right : Result} (_a : ResultType left) (b : Res
       · exact Integer.checkedSubtract_bounded ..
       · split
         · exact Integer.checkedMultiply_bounded ..
-        · exact Integer.Interval.empty_bounded
+        · split
+          · exact Integer.checkedDivide_bounded ..
+          · split
+            · exact Integer.checkedModulo_bounded ..
+            · split
+              · exact Integer.checkedRemainder_bounded ..
+              · exact Integer.Interval.empty_bounded
   unfold binaryResult
   dsimp only
   generalize checked : (if operator = 43 then Integer.checkedAdd left.bounds right.bounds
       else if operator = 45 then Integer.checkedSubtract left.bounds right.bounds
       else if operator = 42 then Integer.checkedMultiply left.bounds right.bounds
+    else if operator = 47 then Integer.checkedDivide left.bounds right.bounds
+    else if operator = 109 then Integer.checkedModulo left.bounds right.bounds
+    else if operator = 114 then Integer.checkedRemainder left.bounds right.bounds
       else ⟨false, Integer.Interval.empty⟩) = result at bounds ⊢
   split
   · exact invalid_type
@@ -110,6 +122,9 @@ theorem binary_result_after (left right : Result) (operator : Nat) :
   generalize checked : (if operator = 43 then Integer.checkedAdd left.bounds right.bounds
       else if operator = 45 then Integer.checkedSubtract left.bounds right.bounds
       else if operator = 42 then Integer.checkedMultiply left.bounds right.bounds
+    else if operator = 47 then Integer.checkedDivide left.bounds right.bounds
+    else if operator = 109 then Integer.checkedModulo left.bounds right.bounds
+    else if operator = 114 then Integer.checkedRemainder left.bounds right.bounds
       else ⟨false, Integer.Interval.empty⟩) = result
   split <;> simp [invalid]
 

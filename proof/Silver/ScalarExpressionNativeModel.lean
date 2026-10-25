@@ -23,6 +23,9 @@ def binaryResult (left right : Result) (operator : Nat) : Result :=
   let checked := if operator = 43 then Integer.checkedAdd left.bounds right.bounds
     else if operator = 45 then Integer.checkedSubtract left.bounds right.bounds
     else if operator = 42 then Integer.checkedMultiply left.bounds right.bounds
+    else if operator = 47 then Integer.checkedDivide left.bounds right.bounds
+    else if operator = 109 then Integer.checkedModulo left.bounds right.bounds
+    else if operator = 114 then Integer.checkedRemainder left.bounds right.bounds
     else ⟨false, Integer.Interval.empty⟩
   if left.after = 0 ∨ right.after = 0 ∨ checked.safe = false ∨ left.operands > maxOperands - right.operands
   then invalid else ⟨right.after, checked.bounds, left.operands + right.operands, left.isStatic && right.isStatic⟩
@@ -61,10 +64,9 @@ def compoundStep (recurse : Reader) (text : Source) (names : Environment)
   let next := skip text left.after
   if next = 0 ∨ next > text.length then invalid
   else if Cursor.byteAt text next = 41 then {left with after := next + 1}
-  else if Cursor.byteAt text next ≠ 43 ∧ Cursor.byteAt text next ≠ 45 ∧ Cursor.byteAt text next ≠ 42
-  then invalid
-  else closeResult text (binaryResult left (recurse text (next + 1) names maskFirst maskAfter false)
-    (Cursor.byteAt text next))
+  else if binaryAfter text next = 0 then invalid
+  else closeResult text (binaryResult left (recurse text (binaryAfter text next) names maskFirst maskAfter false)
+    (Silver.lowercase (Cursor.byteAt text next)))
 
 def groupStep (recurse : Reader) (text : Source) (position : Nat) (names : Environment)
     (maskFirst maskAfter : Nat) : Result :=
@@ -91,6 +93,9 @@ structure ScalarCalls where
   add : Integer.Interval → Integer.Interval → Integer.CheckResult
   subtract : Integer.Interval → Integer.Interval → Integer.CheckResult
   multiply : Integer.Interval → Integer.Interval → Integer.CheckResult
+  divide : Integer.Interval → Integer.Interval → Integer.CheckResult
+  modulo : Integer.Interval → Integer.Interval → Integer.CheckResult
+  remainder : Integer.Interval → Integer.Interval → Integer.CheckResult
   normalize : Integer.Interval → Integer.Interval
 
 def scalarModel : ScalarCalls where
@@ -99,6 +104,9 @@ def scalarModel : ScalarCalls where
   add := Integer.checkedAdd
   subtract := Integer.checkedSubtract
   multiply := Integer.checkedMultiply
+  divide := Integer.checkedDivide
+  modulo := Integer.checkedModulo
+  remainder := Integer.checkedRemainder
   normalize := Integer.Interval.normalize
 
 structure Calls where
@@ -107,6 +115,7 @@ structure Calls where
   skip : Source → Nat → Nat
   symbol : Source → Nat → Nat → Nat
   nameAfter : Source → Nat → Nat
+  binaryAfter : Source → Nat → Nat
   literalResult : ScalarLiteral.Result → Bool → Result
   unaryResult : Result → Bool → Result
   binaryResult : Result → Result → Nat → Result
@@ -121,6 +130,8 @@ structure Calls where
   trivia : Source → Nat → Nat
   identifier : Source → Nat → Nat
   equalName : Source → Nat → Nat → Nat → Nat → Bool
+  nameIs : Source → Nat → Nat → Source → Bool
+  lowercase : Nat → Nat
 
 def modelCalls : Calls where
   lookupModel := lookupFrom
@@ -128,6 +139,7 @@ def modelCalls : Calls where
   skip := ScalarExpression.skip
   symbol := ScalarExpression.symbol
   nameAfter := ScalarExpression.nameAfter
+  binaryAfter := ScalarExpression.binaryAfter
   literalResult := Native.literalResult
   unaryResult := Native.unaryResult
   binaryResult := Native.binaryResult
@@ -142,6 +154,8 @@ def modelCalls : Calls where
   trivia := Cursor.triviaPosition
   identifier := Named.identifierEnd
   equalName := Named.equalName
+  nameIs := Named.nameIs
+  lowercase := Silver.lowercase
 
 theorem literal_correspondence (names : Environment) (number : ScalarLiteral.Result) (negative : Bool) :
     literalResult number negative = summarize names (literal number negative) := by

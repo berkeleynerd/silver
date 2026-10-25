@@ -49,13 +49,56 @@ theorem close_result {text : Source} {parsed : Option Parsed} {value : Parsed}
 theorem binary_result {left right value : Parsed} {operator : Nat}
     (found : binary left right operator = some value) : value.after = right.after := by
   unfold binary at found
-  split at found
-  · cases found; rfl
-  · split at found
-    · cases found; rfl
-    · split at found
-      · cases found; rfl
-      · cases found
+  repeat' first | split at found | (cases found <;> rfl)
+
+/-- A successful complete operator token strictly advances the source cursor. -/
+theorem binaryAfter_bounds {text : Source} {position : Nat}
+    (success : binaryAfter text position ≠ 0) :
+    position < binaryAfter text position ∧ binaryAfter text position ≤ text.length + 1 := by
+  unfold binaryAfter at success ⊢
+  dsimp only at success ⊢
+  split
+  · simp_all
+  · split
+    · omega
+    · split
+      · split <;> simp_all <;> omega
+      · split
+        · rename_i named
+          have nonzero : nameAfter text position ≠ 0 := named.1
+          have pos : position ≠ 0 := by omega
+          simpa only [nameAfter, pos, ↓reduceIte] using
+            Named.identifierEnd_bounds text position (by simpa [nameAfter, pos] using nonzero)
+        · simp_all
+
+theorem binaryAfter_byte_bound {text : Source} {position : Nat}
+    (success : binaryAfter text position ≠ 0) : Cursor.byteAt text position ≤ 255 := by
+  unfold binaryAfter at success
+  dsimp only at success
+  split at success
+  · contradiction
+  · split at success
+    · omega
+    · split at success
+      · omega
+      · split at success
+        · rename_i named
+          rcases named.2 with mod | rem
+          · simp only [Named.nameIs, Bool.and_eq_true, decide_eq_true_eq] at mod
+            have first := mod.2 ⟨0, by decide⟩
+            change lowercase (Cursor.byteAt text (position + 0)) = 109 at first
+            simp only [Nat.add_zero, lowercase] at first
+            split at first <;> omega
+          · simp only [Named.nameIs, Bool.and_eq_true, decide_eq_true_eq] at rem
+            have first := rem.2 ⟨0, by decide⟩
+            change lowercase (Cursor.byteAt text (position + 0)) = 114 at first
+            simp only [Nat.add_zero, lowercase] at first
+            split at first <;> omega
+        · contradiction
+
+theorem lowercase_byte_bound {byte : Nat} (bound : byte ≤ 255) : lowercase byte ≤ 255 := by
+  unfold lowercase
+  split <;> omega
 
 theorem atom_bounds {text : Source} {position maskFirst maskAfter : Nat} {names : Environment}
     {allowSign : Bool} {value : Parsed} (bound : position ≤ text.length + 1)
@@ -148,10 +191,12 @@ theorem parseFuel_bounds {fuel : Nat} {text : Source} {position maskFirst maskAf
                   exact ⟨by omega, by omega⟩
                 · split at found
                   · cases found
-                  · change (Option.bind _ _) = some value at found
+                  · rename_i operator
+                    have operatorBounds := binaryAfter_bounds operator
+                    change (Option.bind _ _) = some value at found
                     simp only [Option.bind_eq_some_iff] at found
                     obtain ⟨right, rightFound, found⟩ := found
-                    have rightBounds := ih (show skip text left.after + 1 ≤ text.length + 1 by omega) rightFound
+                    have rightBounds := ih operatorBounds.2 rightFound
                     obtain ⟨original, originalFound, closeGood, rfl⟩ := close_result found
                     have same := binary_result originalFound
                     have closing := symbol_bounds (by omega : original.after ≤ text.length + 1) closeGood

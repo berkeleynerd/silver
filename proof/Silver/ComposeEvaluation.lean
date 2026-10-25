@@ -92,7 +92,7 @@ def Expr.Legal (calls : Calls) (locals : Locals) : Expr ty → Prop
   | .someForm source => source.Legal calls locals
   | .firstForm _ source => source.Legal calls locals
   | .operation _ => True
-  | .number n => True
+  | .number n | .character n => True
   | .word _ => True
   | .truth b => True
   | .variable name => True
@@ -735,6 +735,7 @@ theorem Expr.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning cal
 
   | .operation _, _ => rfl
   | .number n, _ => rfl
+  | .character n, _ => rfl
   | .word _, _ => rfl
   | .truth b, _ => rfl
   | .variable name, _ => rfl

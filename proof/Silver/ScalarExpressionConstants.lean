@@ -125,6 +125,37 @@ private theorem infer_singleton {ranges : Integer.Ranges} {expression : Integer.
         Int.min_self, Int.max_self] at checked
       have same := checked_singleton checked
       simp [same, Integer.Interval.singleton]
+  | divide left right il ir | modulo left right il ir | remainder left right il ir =>
+      simp only [Integer.Expr.infer, Option.bind_eq_some_iff] at found
+      obtain ⟨a, leftFound, b, rightFound, checked⟩ := found
+      have leftEqual := il leftFound
+      have rightEqual := ir rightFound
+      have leftSingleton : a = .singleton a.lower := by
+        cases a with
+        | mk lower upper =>
+            change lower = upper at leftEqual
+            cases leftEqual
+            rfl
+      have rightSingleton : b = .singleton b.lower := by
+        cases b with
+        | mk lower upper =>
+            change lower = upper at rightEqual
+            cases rightEqual
+            rfl
+      rw [leftSingleton, rightSingleton] at checked
+      have safe := ((Integer.accepted_iff _ _).mp checked).1
+      have nonzero : b.lower ≠ 0 := by
+        intro zero
+        first
+        | exact (Integer.checkedDivide_excludes_zero safe) (by simp [Integer.Interval.Contains, Integer.Interval.singleton, zero])
+        | exact (Integer.checkedModulo_excludes_zero safe) (by simp [Integer.Interval.Contains, Integer.Interval.singleton, zero])
+        | exact (Integer.checkedRemainder_excludes_zero safe) (by simp [Integer.Interval.Contains, Integer.Interval.singleton, zero])
+      first
+      | rw [Integer.checkedDivide_singleton nonzero] at checked
+      | rw [Integer.checkedModulo_singleton nonzero] at checked
+      | rw [Integer.checkedRemainder_singleton nonzero] at checked
+      have same := checked_singleton checked
+      simp [same, Integer.Interval.singleton]
 
 theorem static_inference {names : Environment} {expression : Integer.Expr}
     {bounds : Integer.Interval} (static : StaticEnvironment names)

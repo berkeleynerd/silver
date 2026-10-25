@@ -59,12 +59,13 @@ theorem parseFuel_sound {fuel : Nat} {text : Source} {position maskFirst maskAft
                 · split at found
                   · cases found
                   · rename_i operator
+                    have operatorBounds := binaryAfter_bounds operator
                     change (Option.bind _ _) = some value at found
                     simp only [Option.bind_eq_some_iff] at found
                     obtain ⟨right, rightFound, found⟩ := found
                     obtain ⟨combined, combinedFound, closeGood, rfl⟩ := close_result found
                     exact .binary opened notSign (ih inside.2 leftFound) (by omega) (by omega)
-                      (by omega) (ih (by omega) rightFound) combinedFound
+                      (binaryAfter_sound operator) (ih operatorBounds.2 rightFound) combinedFound
                       (symbolAt_iff.mpr ⟨rfl, closeGood⟩)
 
 theorem opens_bounds {text : Source} {position : Nat}
@@ -113,10 +114,11 @@ theorem syntax_bounds {text : Source} {names : Environment} {position maskFirst 
       have finish := symbol_bounds child.2.2 (show symbol text value.after 41 ≠ 0 by rw [closeEquation.1]; exact closeEquation.2)
       rw [closeEquation.1] at finish
       exact ⟨start.1, by dsimp only; omega, finish.2⟩
-  | @binary position closed allowSign leftValue rightValue combinedValue opened _ _ _ within _ _ combined closing ihl ihr =>
+  | @binary position closed operatorEnd allowSign leftValue rightValue combinedValue opened _ _ _ within operator _ combined closing ihl ihr =>
       have start := opens_bounds bound opened
       have left := ihl (by omega)
       have next := skip_bounds text leftValue.after left.2.2
+      have operatorBounds := binaryToken_bounds operator
       have right := ihr (by omega)
       have same := binary_result combined
       have closeEquation := symbolAt_iff.mp closing
@@ -182,25 +184,26 @@ theorem parseFuel_complete {text : Source} {names : Environment} {position maskF
           simp [parseFuel, nonzero, Nat.not_lt.mpr within, opening,
             Nat.not_lt.mpr innerWithin, notSign, childEquation,
             closeNonzero, Nat.not_lt.mpr closeWithin, closeByte]
-  | @binary position closed allowSign leftValue rightValue combinedValue opened notSign left nextNonzero nextWithin operator right combined closing ihl ihr =>
+  | @binary position closed operatorEnd allowSign leftValue rightValue combinedValue opened notSign left nextNonzero nextWithin operator right combined closing ihl ihr =>
       cases fuel with
       | zero => omega
       | succ fuel =>
           have start := opens_bounds bound opened
           have leftBounds := syntax_bounds (by omega) left
           have next := skip_bounds text leftValue.after leftBounds.2.2
+          have operatorBounds := binaryToken_bounds operator
+          have operatorEquation := binaryAfter_complete operator
           have leftEquation := ihl fuel (by omega) (by omega)
           have rightEquation := ihr fuel (by omega) (by omega)
           have closeEquation := symbolAt_iff.mp closing
-          have notClose : Cursor.byteAt text (skip text leftValue.after) ≠ 41 := by omega
-          have notInvalid : ¬ (Cursor.byteAt text (skip text leftValue.after) ≠ 43 ∧
-            Cursor.byteAt text (skip text leftValue.after) ≠ 45 ∧ Cursor.byteAt text (skip text leftValue.after) ≠ 42) := by omega
+          have notClose := binaryToken_not_close operator
+          have notInvalid : operatorEnd ≠ 0 := by omega
           rcases opened with ⟨nonzero, within, opening, innerWithin⟩
           unfold inner at notSign leftEquation innerWithin
           unfold Sign at notSign
           simp [parseFuel, nonzero, Nat.not_lt.mpr within, opening,
             Nat.not_lt.mpr innerWithin, notSign, leftEquation, nextNonzero,
-            Nat.not_lt.mpr nextWithin, notClose, notInvalid, rightEquation,
+            Nat.not_lt.mpr nextWithin, notClose, notInvalid, operatorEquation, rightEquation,
             combined, close, closeEquation.1, closeEquation.2]
 
 end Silver.ScalarExpression

@@ -1,6 +1,7 @@
 module
 
 public import Silver.IntegerComparisons
+public import Silver.IntegerDivision
 
 @[expose] public section
 
@@ -19,6 +20,7 @@ inductive Function
   | isEmpty | contains | singleton | normalize | join | intersect
   | compare | complement | swap | below | above | refineTrue | refine
   | inRange | checked | add | subtract | negate | productMinimum | productMaximum | multiply
+  | quotientMinimum | quotientMaximum | divide | modulo | remainderLimit | remainder
   deriving DecidableEq
 
 def Function.name : Function → String
@@ -29,6 +31,8 @@ def Function.name : Function → String
   | .inRange => "in_range" | .checked => "checked" | .add => "add" | .subtract => "subtract"
   | .negate => "negate" | .productMinimum => "product_minimum"
   | .productMaximum => "product_maximum" | .multiply => "multiply"
+  | .quotientMinimum => "quotient_minimum" | .quotientMaximum => "quotient_maximum"
+  | .divide => "divide" | .modulo => "modulo" | .remainderLimit => "remainder_limit" | .remainder => "remainder"
 
 def Function.type : Function → Ty
   | .isEmpty => .arrow .interval .truth
@@ -43,9 +47,10 @@ def Function.type : Function → Ty
   | .refine => .arrow .interval (.arrow .comparison (.arrow .number (.arrow .truth .interval)))
   | .inRange => .arrow .number .truth
   | .checked => .arrow .number (.arrow .number .result)
-  | .add | .subtract | .multiply => .arrow .interval (.arrow .interval .result)
+  | .add | .subtract | .multiply | .divide | .modulo | .remainder => .arrow .interval (.arrow .interval .result)
   | .negate => .arrow .interval .result
-  | .productMinimum | .productMaximum => .arrow .interval (.arrow .interval .number)
+  | .remainderLimit => .arrow .interval .number
+  | .productMinimum | .productMaximum | .quotientMinimum | .quotientMaximum => .arrow .interval (.arrow .interval .number)
 
 def Function.eval : (fn : Function) → fn.type.meaning
   | .isEmpty => Interval.isEmpty | .contains => fun a n => decide (a.Contains n)
@@ -58,6 +63,10 @@ def Function.eval : (fn : Function) → fn.type.meaning
   | .add => checkedAdd | .subtract => checkedSubtract | .negate => checkedNegate
   | .productMinimum => fun a b => (a.multiply b).lower
   | .productMaximum => fun a b => (a.multiply b).upper | .multiply => checkedMultiply
+  | .quotientMinimum => fun a b => if b.lower = 0 ∨ b.upper = 0 then 0 else (a.divide b).lower
+  | .quotientMaximum => fun a b => if b.lower = 0 ∨ b.upper = 0 then 0 else (a.divide b).upper
+  | .divide => checkedDivide | .modulo => checkedModulo | .remainder => checkedRemainder
+  | .remainderLimit => Interval.remainderMagnitude
 
 inductive BoundConstant | minimum | maximum | first | last
   deriving DecidableEq
@@ -85,6 +94,10 @@ inductive Expr : Ty → Type
   | add : Expr .number → Expr .number → Expr .number
   | sub : Expr .number → Expr .number → Expr .number
   | mul : Expr .number → Expr .number → Expr .number
+  | div : Expr .number → Expr .number → Expr .number
+  | mod : Expr .number → Expr .number → Expr .number
+  | rem : Expr .number → Expr .number → Expr .number
+  | abs : Expr .number → Expr .number
   | neg : Expr .number → Expr .number
   | min (typeName : String) : Expr .number → Expr .number → Expr .number
   | max (typeName : String) : Expr .number → Expr .number → Expr .number
@@ -116,6 +129,10 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .convert _ x => x.eval calls locals
   | .add a b => a.eval calls locals + b.eval calls locals | .sub a b => a.eval calls locals - b.eval calls locals
   | .mul a b => a.eval calls locals * b.eval calls locals | .neg x => -x.eval calls locals
+  | .div a b => (a.eval calls locals).tdiv (b.eval calls locals)
+  | .mod a b => (a.eval calls locals).fmod (b.eval calls locals)
+  | .rem a b => (a.eval calls locals).tmod (b.eval calls locals)
+  | .abs a => Max.max (a.eval calls locals) (-a.eval calls locals)
   | .min _ a b => Min.min (a.eval calls locals) (b.eval calls locals)
   | .max _ a b => Max.max (a.eval calls locals) (b.eval calls locals)
   | .eq a b => decide (a.eval calls locals = b.eval calls locals)
@@ -149,6 +166,10 @@ def Expr.render : Expr ty → List String
   | .convert n x => [n,"("] ++ x.render ++ [")"]
   | .add a b => a.render ++ ["+"] ++ b.render | .sub a b => a.render ++ ["-"] ++ b.render
   | .mul a b => a.render ++ ["*"] ++ b.render | .neg x => ["-"] ++ x.render
+  | .div a b => a.render ++ ["/"] ++ b.render
+  | .mod a b => a.render ++ ["mod"] ++ b.render
+  | .rem a b => a.render ++ ["rem"] ++ b.render
+  | .abs a => ["abs"] ++ a.render
   | .min n a b => [n,"'","min","("] ++ a.render ++ [","] ++ b.render ++ [")"]
   | .max n a b => [n,"'","max","("] ++ a.render ++ [","] ++ b.render ++ [")"]
   | .eq a b => a.render ++ ["="] ++ b.render | .ne a b => a.render ++ ["/="] ++ b.render
@@ -226,6 +247,41 @@ def productMaximumBody : Expr .number := .max "wide"
 def multiplyBody : Expr .result := .ite (.orElse (ap (f .isEmpty) left) (ap (f .isEmpty) right)) .unreachable
   (app2 (f .checked) (app2 (f .productMinimum) left right) (app2 (f .productMaximum) left right))
 
+def quotientMinimumBody : Expr .number :=
+  .ite (.orElse (.eq (.lower right) (.number 0)) (.eq (.upper right) (.number 0))) (.number 0)
+  (.min "wide"
+  (.min "wide" (.div (wide (.lower left)) (wide (.lower right))) (.div (wide (.lower left)) (wide (.upper right))))
+  (.min "wide" (.div (wide (.upper left)) (wide (.lower right))) (.div (wide (.upper left)) (wide (.upper right)))))
+
+def quotientMaximumBody : Expr .number :=
+  .ite (.orElse (.eq (.lower right) (.number 0)) (.eq (.upper right) (.number 0))) (.number 0)
+  (.max "wide"
+  (.max "wide" (.div (wide (.lower left)) (wide (.lower right))) (.div (wide (.lower left)) (wide (.upper right))))
+  (.max "wide" (.div (wide (.upper left)) (wide (.lower right))) (.div (wide (.upper left)) (wide (.upper right)))))
+
+def divideBody : Expr .result := .ite (app2 (f .contains) right (.number 0)) .invalid
+  (.elsif (.orElse (ap (f .isEmpty) left) (ap (f .isEmpty) right)) .unreachable
+    (app2 (f .checked) (app2 (f .quotientMinimum) left right) (app2 (f .quotientMaximum) left right)))
+def moduloBody : Expr .result := .ite (app2 (f .contains) right (.number 0)) .invalid
+  (.elsif (.orElse (ap (f .isEmpty) left) (ap (f .isEmpty) right)) .unreachable
+    (.elsif (.andThen (.eq (.lower left) (.upper left)) (.eq (.lower right) (.upper right)))
+      (app2 (f .checked) (.mod (wide (.lower left)) (wide (.lower right)))
+        (.mod (wide (.lower left)) (wide (.lower right))))
+      (.elsif (.gt (.lower right) (.number 0)) (app2 (f .checked) (.number 0) (.sub (wide (.upper right)) (.number 1)))
+        (app2 (f .checked) (.add (wide (.lower right)) (.number 1)) (.number 0)))))
+def remainderLimitBody : Expr .number :=
+  .sub (.max "wide" (.abs (wide (.lower right))) (.abs (wide (.upper right)))) (.number 1)
+def remainderBody : Expr .result := .ite (app2 (f .contains) right (.number 0)) .invalid
+  (.elsif (.orElse (ap (f .isEmpty) left) (ap (f .isEmpty) right)) .unreachable
+    (.elsif (.andThen (.eq (.lower left) (.upper left)) (.eq (.lower right) (.upper right)))
+      (app2 (f .checked) (.rem (wide (.lower left)) (wide (.lower right)))
+        (.rem (wide (.lower left)) (wide (.lower right))))
+      (app2 (f .checked)
+        (.group <| .ite (.lt (.lower left) (.number 0))
+          (.max "wide" (wide (.lower left)) (.neg (ap (f .remainderLimit) right))) (.number 0))
+        (.group <| .ite (.gt (.upper left) (.number 0))
+          (.min "wide" (wide (.upper left)) (ap (f .remainderLimit) right)) (.number 0)))))
+
 
 def Ty.default : (ty : Ty) → ty.meaning
   | .number => 0 | .truth => false | .interval => Interval.empty
@@ -283,12 +339,18 @@ def Function.interpret (calls : Calls) : (fn : Function) → fn.type.meaning
   | .productMinimum => fun left right => productMinimumBody.eval calls ({left,right} : Context).locals
   | .productMaximum => fun left right => productMaximumBody.eval calls ({left,right} : Context).locals
   | .multiply => fun left right => multiplyBody.eval calls ({left,right} : Context).locals
+  | .quotientMinimum => fun left right => quotientMinimumBody.eval calls ({left,right} : Context).locals
+  | .quotientMaximum => fun left right => quotientMaximumBody.eval calls ({left,right} : Context).locals
+  | .divide => fun left right => divideBody.eval calls ({left,right} : Context).locals
+  | .modulo => fun left right => moduloBody.eval calls ({left,right} : Context).locals
+  | .remainder => fun left right => remainderBody.eval calls ({left,right} : Context).locals
+  | .remainderLimit => fun right => remainderLimitBody.eval calls ({right} : Context).locals
 
 def Function.rank : Function → Nat
   | .isEmpty | .contains | .singleton | .compare | .complement | .swap
-  | .inRange | .productMinimum | .productMaximum => 0
+  | .inRange | .productMinimum | .productMaximum | .quotientMinimum | .quotientMaximum | .remainderLimit => 0
   | .normalize | .checked => 1
-  | .join | .intersect | .add | .subtract | .negate | .multiply => 2
+  | .join | .intersect | .add | .subtract | .negate | .multiply | .divide | .modulo | .remainder => 2
   | .below | .above => 3
   | .refineTrue => 4
   | .refine => 5
@@ -300,7 +362,7 @@ def Expr.primary : Expr ty → Bool
   | _ => false
 
 def Expr.term : Expr ty → Bool
-  | .mul _ _ => true | value => value.primary
+  | .mul _ _ | .div _ _ | .mod _ _ | .rem _ _ | .abs _ => true | value => value.primary
 
 def Expr.simple : Expr ty → Bool
   | .add _ _ | .sub _ _ | .neg _ => true | value => value.term
@@ -328,7 +390,8 @@ def Expr.wellFormed : Expr ty → Bool
   | .convert _ value => value.wellFormed && value.simple
   | .min _ left right | .max _ left right => left.wellFormed && right.wellFormed && left.simple && right.simple
   | .add left right | .sub left right => left.wellFormed && right.wellFormed && left.simple && right.term
-  | .mul left right => left.wellFormed && right.wellFormed && left.term && right.primary
+  | .mul left right | .div left right | .mod left right | .rem left right => left.wellFormed && right.wellFormed && left.term && right.primary
+  | .abs value => value.wellFormed && value.primary
   | .neg value => value.wellFormed && value.term
   | .eq left right | .ne left right | .lt left right | .le left right | .gt left right | .ge left right =>
       left.wellFormed && right.wellFormed && left.simple && right.simple
@@ -351,7 +414,9 @@ abbrev WellFormedTrees : Prop :=
   belowBody.wellFormed = true ∧ aboveBody.wellFormed = true ∧ refineTrueBody.wellFormed = true ∧
   refineBody.wellFormed = true ∧ inRangeBody.wellFormed = true ∧ checkedBody.wellFormed = true ∧
   addBody.wellFormed = true ∧ subtractBody.wellFormed = true ∧ negateBody.wellFormed = true ∧
-  productMinimumBody.wellFormed = true ∧ productMaximumBody.wellFormed = true ∧ multiplyBody.wellFormed = true
+  productMinimumBody.wellFormed = true ∧ productMaximumBody.wellFormed = true ∧ multiplyBody.wellFormed = true ∧ quotientMinimumBody.wellFormed = true ∧
+  quotientMaximumBody.wellFormed = true ∧ divideBody.wellFormed = true ∧ moduloBody.wellFormed = true ∧
+  remainderLimitBody.wellFormed = true ∧ remainderBody.wellFormed = true
 
 
 theorem checked_precedence : WellFormedTrees := by decide +kernel
