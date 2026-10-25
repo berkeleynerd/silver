@@ -1,0 +1,5 @@
+Run 20261025T144837-3d46e7fa201f; implementation 3aae49385f2c432faf2495d4d9ec177b0e852b7e.
+Passed 474 tests in 2690.823 seconds (unittest); 2692.423 seconds managed elapsed.
+All 40 manifest samples admitted, proved, built and run; 96 execution cases, including the five new cases.
+Both symlinked-TMPDIR regressions passed.
+698 captured tracked inputs match the implementation; 8 other captured input identities retained in the managed ledger.

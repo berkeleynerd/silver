@@ -1,0 +1,340 @@
+{
+  "schema_version": 1,
+  "platform": "Linux x86_64",
+  "machine": "codex-silver",
+  "implementation_commit": "3aae49385f2c432faf2495d4d9ec177b0e852b7e",
+  "base_commit": "8002d5ac5508c7603dc411f7457b32c80f160245",
+  "scope": "#226 five finite current-language sample programs; no language/assurance-rule change",
+  "retained_native": {
+    "implementation_commit": "3aae49385f2c432faf2495d4d9ec177b0e852b7e",
+    "reused_native_proof_run": "20261025T070959-fd3da7c63f7a",
+    "reused_native_build_run": "20261025T071056-2f783520af81",
+    "current_native_worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native",
+    "native_provenance_manifest": "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.silver/linux-x86_64/compiler/obj/gnatprove/proof-provenance.json",
+    "native_provenance_sha256": "263a242e1a1b87e23b4c7388701359bb8b43d678b52e4c17f62819cfe8d4faae",
+    "tracked_inputs_matching_implementation": 141,
+    "tracked_inputs_digest_sha256": "894b59a2d86c75b7c3925043953d2659b4bba05a2066a0b18344f081de4ccebb",
+    "native_audit": {
+      "units": 75,
+      "entities": 1000,
+      "flow_checks": 1295,
+      "proof_checks": 13860,
+      "total_checks": 15155
+    },
+    "fresh_audit_command": [
+      "python3",
+      "scripts/check_evidence.py"
+    ],
+    "compiler_sha256": "f46f16cc87a9743c0dd30f292a061c26a8b6aeb2fde1265abea2879888369269",
+    "compiler_input_scope_unchanged": true,
+    "fresh_audit_result": "passed",
+    "fresh_audit_exit_status": 0,
+    "original_evidence_index": "../rosetta-supported-samples/validation.json"
+  },
+  "lean": {
+    "run_id": "20261025T144732-3f0c19eb35cc",
+    "host": "linux-x86_64",
+    "lean_version": "4.34.1",
+    "scope": "complete",
+    "mode": "incremental",
+    "clean_build": false,
+    "axiom_audit": "passed",
+    "kernel_recheck": null,
+    "threads_per_process": 2,
+    "lake_workers": 4,
+    "elapsed_seconds": 37.116,
+    "inputs_digest_sha256": "f452c73bf13d27b5724182e1cd0e92cffa1a44746cb6a2f1ba0a453c66317ebd",
+    "phases": [
+      {
+        "phase": "build",
+        "started_at": "2026-10-25T14:47:38.765705+00:00",
+        "finished_at": "2026-10-25T14:47:51.707128+00:00",
+        "elapsed_seconds": 12.941,
+        "exit_code": 0
+      },
+      {
+        "phase": "audit",
+        "started_at": "2026-10-25T14:47:53.456025+00:00",
+        "finished_at": "2026-10-25T14:48:05.363028+00:00",
+        "elapsed_seconds": 11.907,
+        "exit_code": 0
+      }
+    ],
+    "tools_sha256": {
+      ".tools/linux-x86_64/lean/bin/lean": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+      ".tools/linux-x86_64/lean/bin/lake": "6f53827dab18010d6c690d14c8401cacabc1db958edb3552a877ed4cf1dd995d"
+    },
+    "commands": [
+      [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/.tools/linux-x86_64/lean/bin/lake",
+        "--rehash",
+        "--reconfigure",
+        "-K",
+        "silverThreads=2",
+        "build",
+        "Silver.Audit"
+      ],
+      [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/.tools/linux-x86_64/lean/bin/lake",
+        "-K",
+        "silverThreads=2",
+        "env",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/.tools/linux-x86_64/lean/bin/lean",
+        "-DwarningAsError=true",
+        "-j2",
+        "Silver/Audit.lean"
+      ]
+    ],
+    "implementation_commit": "3aae49385f2c432faf2495d4d9ec177b0e852b7e",
+    "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean",
+    "module_count": 466,
+    "tracked_inputs_matching_implementation": 581,
+    "evidence_file_sha256": "665825d503d363f14d29d3927408d298b28c61e01b865cc6a54d9de412b45149",
+    "log_sha256": "123eebdb475981805f3f4ae0c22a10dba24c394503d3161e34ed7e1c80a12067",
+    "audited_declarations": 89369,
+    "foundations": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "managed_run": {
+      "run_id": "20261025T144732-3f0c19eb35cc",
+      "kind": "lean",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean",
+      "commands": [
+        [
+          "/usr/bin/python3",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/scripts/check_lean.py",
+          "--workers",
+          "4",
+          "--threads",
+          "2",
+          "--task",
+          "#226",
+          "--provenance",
+          "--reason",
+          "Complete cached source/artifact/module audit for the five-sample delivery; retain unchanged certificates and original installation paths."
+        ]
+      ],
+      "reason": "Complete cached source/artifact/module audit for the five-sample delivery; retain unchanged certificates and original installation paths.",
+      "workers": 4,
+      "started_utc": "2026-10-25T14:47:33.283267+00:00",
+      "finished_utc": "2026-10-25T14:48:09.713717+00:00",
+      "outcome": "success",
+      "duration_seconds": 36.430029458,
+      "tracked_input_comparison": {
+        "target_commit": "3aae49385f2c432faf2495d4d9ec177b0e852b7e",
+        "matched": 581,
+        "mismatches": [],
+        "sha256": "f452c73bf13d27b5724182e1cd0e92cffa1a44746cb6a2f1ba0a453c66317ebd",
+        "other_captured_inputs": 0
+      },
+      "ledger_events_sha256": "cee362fff199cc00ae7ed2bc27467572902021bc95cc727b57702cf1ba4b35b2"
+    }
+  },
+  "full_suite": {
+    "run_id": "20261025T144837-3d46e7fa201f",
+    "kind": "test",
+    "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native",
+    "commands": [
+      [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ]
+    ],
+    "reason": "Full regression checkpoint for five newly delivered manifest samples, including source-preserving proof/build/run checks and symlinked-TMPDIR coverage.",
+    "workers": 6,
+    "started_utc": "2026-10-25T14:48:38.823691+00:00",
+    "finished_utc": "2026-10-25T15:33:31.247133+00:00",
+    "outcome": "success",
+    "duration_seconds": 2692.423293892,
+    "tracked_input_comparison": {
+      "target_commit": "3aae49385f2c432faf2495d4d9ec177b0e852b7e",
+      "matched": 698,
+      "mismatches": [],
+      "sha256": "b11541d3f7df8c320c36a9a75dca139f8689a471832f11e1db8261a8b4274574",
+      "other_captured_inputs": 8
+    },
+    "ledger_events_sha256": "ed87d92fa99fc986ba4b64b92c92a73e3069e21303ebdb8812dbed30d7113cc2",
+    "tests": 474,
+    "unittest_seconds": 2690.823,
+    "log": "full-suite.log.gz",
+    "log_sha256": "24d7021ae80aacd5ad2910288a62e860c1a08efb1facbbbfdcab84016e922879",
+    "compressed_log_sha256": "aa01112b0a606623e239863963ba34ea33b3a64530d69a2086ef54b38e7dc69b",
+    "symlinked_tmpdir_regressions": "passed"
+  },
+  "manifest_sha256": "6ae10380037105ae46c0b40028a8e3480d7294d1bdfcaf7e74619d0b96dcc474",
+  "manifest_sample_count": 40,
+  "all_manifest_execution_cases": 96,
+  "new_samples": {
+    "samples/rosetta_compile_time_calculation.adb": {
+      "bytes": 765,
+      "sha256": "932b67fc5c1f6305c50e6edf1a7ada13c97f50988994abdfa69e3671d03a007c",
+      "expected": {
+        "stdout": "10! = 3628800\n",
+        "stderr": "",
+        "exit_status": 0
+      },
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "scalar_integer_literal",
+        "named_integer_constant",
+        "integer_expression",
+        "integer_image",
+        "string_literal",
+        "string_expression",
+        "string_concatenation",
+        "concatenated_output",
+        "expression_output",
+        "statement_sequence"
+      ],
+      "report_policy": "static",
+      "execution_cases": 1
+    },
+    "samples/rosetta_loops_n_plus_one_half.adb": {
+      "bytes": 313,
+      "sha256": "4fe3130e0d231c485538c6f4e5f33fe88db86ac28d9deebf4a336e9dba6e3603",
+      "expected": {
+        "stdout": " 1, 2, 3, 4, 5, 6, 7, 8, 9, 10\n",
+        "stderr": "",
+        "exit_status": 0
+      },
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "for_loop",
+        "scalar_integer_literal",
+        "integer_expression",
+        "integer_comparison",
+        "integer_image",
+        "string_literal",
+        "string_expression",
+        "literal_output",
+        "expression_output",
+        "string_choice",
+        "boolean_predicate",
+        "statement_sequence"
+      ],
+      "report_policy": "static",
+      "execution_cases": 1
+    },
+    "samples/rosetta_enforced_immutability.adb": {
+      "bytes": 750,
+      "sha256": "667a7fbb213fef860a884cc02a493045212e996b39194aba5cb8f9f5405c0608",
+      "expected": {
+        "stdout": "Silver keeps 42\nCopy is now 43; Answer is still 42\nLoop index 1 is immutable too.\n",
+        "stderr": "",
+        "exit_status": 0
+      },
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "scalar_integer_literal",
+        "named_integer_constant",
+        "named_integer_variable",
+        "integer_expression",
+        "integer_assignment",
+        "integer_image",
+        "for_loop",
+        "named_string_constant",
+        "string_literal",
+        "string_expression",
+        "string_concatenation",
+        "concatenated_output",
+        "expression_output",
+        "statement_sequence"
+      ],
+      "report_policy": "assigned",
+      "execution_cases": 1
+    },
+    "samples/rosetta_literals_integer.adb": {
+      "bytes": 1499,
+      "sha256": "2003af8fa9e38ffd5d6bdb3aa8b5c865e0dcea1775c26241d1b9145a377cb28c",
+      "expected": {
+        "stdout": "2#10_1101_0111# = 727\n8#1_327# = 727\n10#727# = 727\n16#2D7# = 727\n16:2d7: = 727\n7_27 = 727\n727E0 = 727\n7#1#E3 = 343\nInteger spans -2147483648 .. 2147483647\n",
+        "stderr": "",
+        "exit_status": 0
+      },
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "scalar_integer_literal",
+        "named_integer_constant",
+        "integer_expression",
+        "integer_image",
+        "string_literal",
+        "string_expression",
+        "string_concatenation",
+        "concatenated_output",
+        "expression_output",
+        "statement_sequence"
+      ],
+      "report_policy": "static",
+      "execution_cases": 1
+    },
+    "samples/rosetta_minimum_number_of_cells.adb": {
+      "bytes": 633,
+      "sha256": "3d6d0e8e8330aac746706494d25e20f72251f998e2b4eb932cb001af0ef4f16f",
+      "expected": {
+        "stdout": " 0 0 0 0 0 0 0 0 0 0\n 0 1 1 1 1 1 1 1 1 0\n 0 1 2 2 2 2 2 2 1 0\n 0 1 2 3 3 3 3 2 1 0\n 0 1 2 3 4 4 3 2 1 0\n 0 1 2 3 4 4 3 2 1 0\n 0 1 2 3 3 3 3 2 1 0\n 0 1 2 2 2 2 2 2 1 0\n 0 1 1 1 1 1 1 1 1 0\n 0 0 0 0 0 0 0 0 0 0\n",
+        "stderr": "",
+        "exit_status": 0
+      },
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "for_loop",
+        "scalar_integer_literal",
+        "named_integer_variable",
+        "integer_range_constraint",
+        "integer_expression",
+        "integer_comparison",
+        "integer_assignment",
+        "integer_image",
+        "string_literal",
+        "string_expression",
+        "literal_output",
+        "expression_output",
+        "string_choice",
+        "boolean_predicate",
+        "statement_sequence"
+      ],
+      "report_policy": "assigned",
+      "execution_cases": 1
+    }
+  },
+  "supplemental_renderer_inputs_sha256": {
+    "rosetta/refresh.py": "9762869c4bbb24648d0b11bf762eae71efcf1379b6727183df8f6f80ad355210",
+    "rosetta/coverage.json": "ac1c7a8167af904e3b2fa95388784e833cb60e7f2f7b6e7456140792a1e519a0",
+    "rosetta/manifest.json": "c007b4a67439be22b242e6104f5e41998d5aa3ca1a7174cfe3cc6de7927b452f"
+  },
+  "review": {
+    "commit": "3aae49385f2c432faf2495d4d9ec177b0e852b7e",
+    "base": "8002d5ac5508c7603dc411f7457b32c80f160245",
+    "scope": "samples/",
+    "selected_model": "gpt-6.1-sol",
+    "selected_effort": "xhigh",
+    "runtime_setting_independently_confirmed": false,
+    "elapsed_seconds": 97,
+    "material_findings": [],
+    "tokens": null,
+    "cost": null
+  },
+  "limits": [
+    "Compiler native proof/build reused with fresh full report and provenance audit.",
+    "Complete cached Lean/source check with fresh axiom/module audit, no independent kernel replay.",
+    "Application workspaces audited and then cleaned by sample tests; retained suite log is not per-program report archive.",
+    "Native Linux evidence only; no new macOS or hosted CI run."
+  ]
+}

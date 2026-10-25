@@ -1,0 +1,3 @@
+Complete cached Lean/source check and fresh axiom/module audit passed on linux-x86_64.
+Run 20261025T144732-3f0c19eb35cc; 466 modules, 89369 declarations, 581 authoritative inputs match implementation 3aae49385f.
+Foundations: propext, Classical.choice, Quot.sound; runner elapsed 37.116 seconds; no independent kernel replay.

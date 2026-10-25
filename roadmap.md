@@ -36,15 +36,18 @@ changed, so the generated progression was not re-rendered.
 
 The owner-requested [assessment reconciliation #225](https://github.com/berkeleynerd/silver/issues/225)
 is recorded in the [targeted mapping](rosetta/assessment-reconciliation-20261025.md).
-The selected next delivery proposal is
-[#226](https://github.com/berkeleynerd/silver/issues/226): five finite regressions
+The [#226 delivery](docs/rosetta-finite-samples.md) adds five finite regressions
 for compile-time calculation, N-plus-one-half loops, immutability, Integer
 literals and the NxN minimum-cell grid, all within today's language. Integer
 sequence is language-eligible but excluded from that batch because its faithful
 full-range execution emits billions of lines. After the planning pass, the owner
 instructed merging #221/#227 and proceeding with #226; the
 [2026-10-25 authorization](docs/session-memory.md#2026-10-25--merge-deliveries-and-implement-the-five-finite-samples)
-now covers this five-sample batch through validation, review and delivery.
+covered this five-sample batch through validation, review and delivery. The
+implementation and independent review target is `3aae49385f`; complete Linux
+validation passed and [PR #228](https://github.com/berkeleynerd/silver/pull/228)
+publishes the samples and evidence. Milestone 6's technical delivery is complete;
+the issue closes when its completing commit reaches main.
 
 The re-render keeps `supported` unchanged and gives stage 1 38 assessments,
 without expanding #9's original scope. The old ten-task #11 group now splits

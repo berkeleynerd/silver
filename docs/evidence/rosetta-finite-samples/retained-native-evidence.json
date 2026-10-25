@@ -1,0 +1,26 @@
+{
+  "implementation_commit": "3aae49385f2c432faf2495d4d9ec177b0e852b7e",
+  "reused_native_proof_run": "20261025T070959-fd3da7c63f7a",
+  "reused_native_build_run": "20261025T071056-2f783520af81",
+  "current_native_worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native",
+  "native_provenance_manifest": "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.silver/linux-x86_64/compiler/obj/gnatprove/proof-provenance.json",
+  "native_provenance_sha256": "263a242e1a1b87e23b4c7388701359bb8b43d678b52e4c17f62819cfe8d4faae",
+  "tracked_inputs_matching_implementation": 141,
+  "tracked_inputs_digest_sha256": "894b59a2d86c75b7c3925043953d2659b4bba05a2066a0b18344f081de4ccebb",
+  "native_audit": {
+    "units": 75,
+    "entities": 1000,
+    "flow_checks": 1295,
+    "proof_checks": 13860,
+    "total_checks": 15155
+  },
+  "fresh_audit_command": [
+    "python3",
+    "scripts/check_evidence.py"
+  ],
+  "compiler_sha256": "f46f16cc87a9743c0dd30f292a061c26a8b6aeb2fde1265abea2879888369269",
+  "compiler_input_scope_unchanged": true,
+  "fresh_audit_result": "passed",
+  "fresh_audit_exit_status": 0,
+  "original_evidence_index": "../rosetta-supported-samples/validation.json"
+}
