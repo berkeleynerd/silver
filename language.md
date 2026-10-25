@@ -797,6 +797,10 @@ countdown](samples/for_loop_countdown.adb) exercise loop, immutable Integer
 and standard Image forms. [Find square difference](samples/find_square_difference.adb)
 uses a constrained mutable result and prints the first satisfying index, 501.
 
+The [Rosetta sample delivery](docs/rosetta-supported-samples.md) exercises existing
+output, names, copies, expressions and branches for the runnable tasks in #9.
+It adds regression programs without extending the language.
+
 Language changes must specify exact syntax, restrictions, inherited semantics
 and compositions. Before 1.0, intentional changes are reflected consistently in
 the specification, catalogue, implementation, proofs and samples; Git records

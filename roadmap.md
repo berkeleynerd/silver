@@ -16,12 +16,28 @@ next capability while retaining full assurance for the current language.
 
 **Sequence since 2026-10-24.** Language development resumes first, following the
 [Rosetta progression](rosetta/progression.md) at the current 4,096-byte strict
-language: stage [#9](https://github.com/berkeleynerd/silver/issues/9), then the
-next construct stage after its own scope and authorization. The strict/loose
+language: stage [#9](https://github.com/berkeleynerd/silver/issues/9), whose sample delivery
+is recorded below, then the next construct stage after its own scope and
+authorization. The strict/extended
 assurance-modes milestone (#88–#94 in the order below) follows on the owner's
 later instruction when the current bounds bind a needed program, and the
 deferred #119 strict-mode rule on its recorded trigger. See the
 [decision](docs/session-memory.md#2026-10-24--capacity-derivation-119-deferred-language-development-resumes).
+
+### Rosetta samples using the current language
+
+The [#9 delivery record](docs/rosetta-supported-samples.md) maps the issue's
+original 31 tasks: fourteen executable regressions (thirteen new programs plus
+the existing null sample), fourteen prose/tooling skips and three exclusions
+whose assessed substitutes do not implement the requested semantics. The
+complete Linux native/Lean and full-suite validation checkpoint passed on
+2026-10-25, with independent sample review. No construct or supported identifier
+changed, so the generated progression was not re-rendered.
+
+The proposed next #11 scope is static named Integer subtypes with declarations
+using those names, motivated by a reusable `1 .. 10` range. Its detailed scope
+and implementation await the owner's separate instruction. The broader #11
+construct identifiers remain unsupported.
 
 ### Unbounded programs
 

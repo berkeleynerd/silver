@@ -1,5 +1,43 @@
 # Session memory
 
+## 2026-10-25 — Current-language Rosetta samples #9
+
+The owner's 2026-10-24 instruction directly selected
+[#9](https://github.com/berkeleynerd/silver/issues/9), following the authorization
+on main in [PR #220](https://github.com/berkeleynerd/silver/pull/220). Its scope
+is exactly the issue's original 31 tasks: runnable regressions within today's
+language and 4,096-byte source bound, with prose-only tasks skipped and missing
+semantics explicitly excluded. Delivery is through a pull request with a
+completing `Fixes #9` commit. The [delivery record](rosetta-supported-samples.md)
+contains the complete mapping, evidence and review.
+
+Implementation `247cc5c205` adds thirteen programs and manifest entries and
+reuses the unchanged null sample, covering fourteen runnable tasks. Fourteen
+prose/tooling tasks are skipped; built-in interpolation, heredocs and Rubik's
+Magic simulation are excluded because the assessed substitutes do not implement
+the task requirements. Independent review found no material issue. Native
+proof/build, complete cached Lean/source auditing and the full regression suite
+passed on Linux x86-64. Exact inputs, measurements and run IDs remain in the
+delivery record.
+No construct, catalogue, supported Rosetta identifier, admission/capacity rule,
+Oracle guarantee or tool pin changed; no progression re-render was called for.
+
+The owner reaffirmed that #119 and its children, accepted/frozen and paused
+packets, and #88–#94 remain deferred. This session did not review, integrate or
+resume them, perform R93 cleanup, or create/reactivate a harness goal. The local
+harness returned no active goal; this does not alter the earlier harness's pause.
+The current assurance-mode names are strict and extended; draft PR #147 stays
+unmerged and the Oracle remains unchanged.
+
+The next proposed #11 increment is static named Integer subtypes and declarations
+using them, motivated by a reusable `1 .. 10` range. Its detailed scope and
+implementation require the owner's next instruction. This is a proposal, not
+an authorization or completion of the broad #11 identifiers.
+
+GitHub #9 carries the claim, selection and delivery handoff; its issue closes
+when the completing commit reaches main. CLI memory was unavailable and was not
+updated. The checked-in record and issue handoff are the continuation pointers.
+
 ## 2026-10-24 — Capacity derivation #119 deferred; language development resumes
 
 The owner asked whether completing the full scope of

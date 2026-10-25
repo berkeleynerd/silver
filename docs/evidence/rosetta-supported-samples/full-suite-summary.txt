@@ -1,0 +1,5 @@
+test_symlinked_tmpdir_preserves_platform_setup_and_routing (test_platforms.InstallationEnvironmentTests.test_symlinked_tmpdir_preserves_platform_setup_and_routing) ... ok
+test_manifest_samples (test_samples.SupportedSampleTests.test_manifest_samples) ... ok
+test_maximum_dynamic_expression (test_samples.SupportedSampleTests.test_maximum_dynamic_expression) ... ok
+Ran 473 tests in 2647.144s
+OK

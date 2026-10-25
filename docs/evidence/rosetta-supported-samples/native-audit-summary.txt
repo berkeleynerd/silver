@@ -1,0 +1,2 @@
+Success: all checks proved (15155 checks).
+Complete GNATprove evidence: 75 units, 1000 entities, 1295 flow_checks, 13860 proof_checks, 290 limitation_notes, 18 imported_entities, 6236 trusted_math_notes, 62 vendor_spec_entities
