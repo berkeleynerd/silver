@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from a closed float subtype range, a modular generator and explicit index guards, with no annotations, but floating-point range reasoning and float-to-integer conversion make discharge depend on careful program shape.
 
-Position 1301 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1294 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

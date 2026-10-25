@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task asks only to show how to document code, which plain Ada comments plus text output do using constructs Silver already supports, so there are no proof obligations beyond trivial ones.
 
-Position 26 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 28 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

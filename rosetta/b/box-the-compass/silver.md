@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every value is a small bounded integer and every loop is a for loop over fixed ranges, so all checks follow from subtype ranges and a few length guards; the only care needed is the string-building buffer and fixed-width number formatting.
 
-Position 794 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 787 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

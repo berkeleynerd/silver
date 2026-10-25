@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Exact arithmetic in fixed-capacity decimal digit arrays handles the 10^100 and 2^120 multipliers without floating point, and every check follows from digit and carry subtypes plus guards before each shift or append, though the many loop-carried positions need careful shaping.
 
-Position 1412 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1405 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Approach
 

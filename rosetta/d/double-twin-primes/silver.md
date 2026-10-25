@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is bounded by the constant limit 1000, loops are for loops over static ranges, and nothing needs a loop invariant or variant, so the proofs should discharge from types and ranges.
 
-Position 200 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 193 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

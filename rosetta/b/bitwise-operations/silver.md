@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Modular operations never raise overflow checks and the shift amount is guarded, so every check is straight-line and follows from types; the only new needs are modular types, 'Image and bounded text building.
 
-Position 1266 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1259 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

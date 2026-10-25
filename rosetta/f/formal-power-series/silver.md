@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded rational arithmetic in fixed-size arrays with guards and rejection outcomes, so checks follow from types and guards, but loop-carried rational values need careful range guards and the gcd and nonlinear products make provers work harder.
 
-Position 865 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 858 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

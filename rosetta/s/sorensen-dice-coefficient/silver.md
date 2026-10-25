@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed array bounds, for-loop ranges and guards before counter increments, with integer scaled scores instead of floating point, so no annotation is needed, but the many loop-carried counters demand careful guard placement. The dictionary must be an embedded subset because reading the full task list is peripheral and file input is unnecessary.
 
-Position 952 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 945 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

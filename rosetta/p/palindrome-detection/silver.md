@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The only loop is a for loop, which terminates by itself, and every index is bounded by the loop range and the string's own bounds, so no annotation is needed.
 
-Position 961 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 954 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from Natural and Integer types and for loops over fixed ranges with no loop-carried value needing an invariant, and the digit buffer of 11 characters holds Integer'Last in octal (17777777777), so the program should prove without annotations.
 
-Position 487 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 480 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

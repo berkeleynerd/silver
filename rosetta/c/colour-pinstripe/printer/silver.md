@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index and counter is bounded by static constants and for-loop ranges, so the checks follow from types and no annotation is needed. The only new needs are a binary file-output operation plus basic arrays and integers.
 
-Position 1426 in the [progression](../../../progression.md#stage-26), in stage 26.
+Position 1419 in the [progression](../../../progression.md#stage-25), in stage 25.
 
 ## Failure paths to test
 

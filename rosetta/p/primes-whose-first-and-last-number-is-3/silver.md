@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every operand is bounded by a ranged subtype and every loop is a for loop over static bounds, so all checks follow from types and no loop invariant is needed.
 
-Position 133 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 126 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

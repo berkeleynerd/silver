@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from bounded types, array ranges and capacity guards, but the quadratic grouping with loop-carried counters and the buffer-append guards demand careful program shape, and no annotation is needed.
 
-Position 862 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 855 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

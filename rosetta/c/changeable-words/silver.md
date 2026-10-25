@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from declared ranges, for-loop indexes and guards on line length and table capacity, and nothing needs an annotation, but the file-reading procedure and the loop-carried counter need careful shape, so the outlook is plausible.
 
-Position 1356 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1349 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 

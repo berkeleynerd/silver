@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the 1 .. 7 loop index ranges (the sum is at most 21, 'Image strings are short and bounded) and for loops terminate by themselves, so no annotation is needed. Nothing is carried across iterations and the output is fixed and deterministic.
 
-Position 109 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 102 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

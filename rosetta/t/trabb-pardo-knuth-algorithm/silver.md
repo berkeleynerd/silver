@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The control flow is simple for loops and every check follows from ranged types and guards, but it depends on admitted floating-point parsing, Sqrt and formatting operations with verified contracts, so discharge hinges on careful range guards.
 
-Position 1234 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1227 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Failure paths to test
 

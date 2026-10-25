@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Indexing is safe because the loops run over the array's own range, but the loop-carried sum and product need explicit overflow guards with visible failure output since no invariant can be written. This is routine guarded arithmetic with no annotation needed.
 
-Position 171 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 164 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

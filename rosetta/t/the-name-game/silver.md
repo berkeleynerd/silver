@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is bounded character and slice work over a fixed-capacity buffer with explicit length guards, with no recursion, no loop-carried arithmetic beyond for-loop indexes, and no annotations needed.
 
-Position 986 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 979 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

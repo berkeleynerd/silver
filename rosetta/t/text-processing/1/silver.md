@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded integers (thousandths) with guards before indexing and division, and loops are for loops or while loops in procedures, so nothing needs an annotation, though parsing and decimal formatting with loop-carried values is shape-sensitive.
 
-Position 1148 in the [progression](../../../progression.md#stage-19), in stage 19.
+Position 1141 in the [progression](../../../progression.md#stage-18), in stage 18.
 
 ## Approach
 

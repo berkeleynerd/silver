@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Selection sort over a fixed-size array uses only for loops with static bounds and indices drawn from the array's own range, so index and range checks discharge from types without invariants; the output formatting is the only extra surface.
 
-Position 77 in the [progression](../../../progression.md#stage-5), in stage 5.
+Position 70 in the [progression](../../../progression.md#stage-4), in stage 4.
 
 ## Approach
 

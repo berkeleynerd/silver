@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every value is a bounded sum of for-loop indexes with declared ranges, the only loop-carried state is a Boolean flag, and no annotation, recursion or while loop is needed, so all checks follow from types and ranges.
 
-Position 94 in the [progression](../../../progression.md#stage-6), in stage 6.
+Position 87 in the [progression](../../../progression.md#stage-5), in stage 5.
 
 ## Approach
 

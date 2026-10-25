@@ -17,6 +17,42 @@ from rosetta import refresh
 
 
 class RosettaRenderTests(unittest.TestCase):
+    def test_pending_design_has_no_stage_and_is_not_an_oracle_exclusion(self):
+        """An unsettled design must not silently become a zero-construct candidate."""
+        manifest = json.loads((ROOT / "rosetta/manifest.json").read_text())["tasks"][:2]
+        coverage = {"policy": {"allowed_effects": []}, "tasks": {}}
+        for index, task in enumerate(manifest):
+            assessed = {"revision": task["revision"], "assessed": "2026-10-25",
+                        "model": "fixture", "effort": "high", "confidence": "medium",
+                        "conflicts": [], "effects": [], "surface": [], "outlook": "likely",
+                        "risks": [], "summary": "Fixture.", "approach": "An example approach."}
+            if index == 0:
+                assessed["assessment_status"] = "design-pending"
+            else:
+                assessed["size"] = 1
+            coverage["tasks"][task["title"]] = assessed
+        with tempfile.TemporaryDirectory(prefix="silver-rosetta-pending-") as temporary:
+            output = Path(temporary) / "rosetta"
+            for task in manifest:
+                (output / task["path"]).mkdir(parents=True)
+            (output / "coverage.json").write_text(json.dumps(coverage))
+            refresh.apply_coverage(manifest, output)
+            listing = Path(temporary) / "rosetta.md"
+            refresh.render(manifest, "2026-10-25", output, listing)
+            pending, candidate = manifest
+            self.assertEqual(pending["silver"]["verdict"], "design-pending")
+            self.assertEqual(pending["silver"]["reasons"], [])
+            self.assertNotIn("stage", pending["silver"])
+            self.assertEqual(candidate["silver"]["stage"], 1)
+            page = (output / pending["path"] / "silver.md").read_text()
+            self.assertIn("Design pending", page)
+            self.assertNotIn("About", page)
+            self.assertNotIn("Oracle conflicts", page)
+            progression = (output / "progression.md").read_text()
+            self.assertIn("1 candidates in 1 stages", progression)
+            self.assertIn("## Design pending", progression)
+            self.assertIn("[design pending]", listing.read_text())
+
     def test_render_is_identical_across_hash_seeds(self):
         """Exercise the real CLI and all current assessments without downloaded pages."""
         manifest = json.loads((ROOT / "rosetta/manifest.json").read_text())

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Encode and decode are iterative loops over a bounded input in a procedure, with each loop-carried index and count protected by guards that reject on overflow, so no annotation is needed but several guards must be placed carefully.
 
-Position 564 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 557 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

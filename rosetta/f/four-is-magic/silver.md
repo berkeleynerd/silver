@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check comes from a range-typed number split by div and mod and from guards before appends to a bounded buffer, with the only loop-carried state being the buffer position and the current number, so discharge depends on program shape but needs no annotation. No recursion, heap or function-side loops are needed, because the iteration lives in procedures.
 
-Position 579 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 572 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

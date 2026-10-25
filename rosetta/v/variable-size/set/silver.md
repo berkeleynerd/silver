@@ -1,19 +1,17 @@
 # Variable size/Set
 
-**Candidate: proofs likely to discharge automatically.** The only run-time checks are static initializations within declared ranges and images of static attribute values, so every proof obligation is trivial. The one open question is a language-policy one, not a proof one: whether Silver will also admit an explicit Size aspect, which is neither a pragma nor a contract, so no Oracle rule forbids it.
+**Candidate: proofs likely to discharge automatically.** A static confirming object Size clause is the only new surface this minimal example needs. It is a representation declaration, not a pragma or proof annotation, and does not require a new type, a named subtype, a conversion or a Size attribute expression.
 
-Position 43 in the [progression](../../../progression.md#stage-2), in stage 2.
+Position 1571 in the [progression](../../../progression.md#stage-38), in stage 38, which adds integer object size clause.
 
 ## Approach
 
-The program declares a few integer types whose ranges (for example 0 .. 1, 0 .. 255, -32_768 .. 32_767) set the minimum number of bits any object of the type must occupy, plus a variable of each type. Main then prints each type's bounds and its 'Size via 'Image with Put_Line, with no loops, arithmetic or guards needed. About 20 lines.
+Declare an initialized stand-alone object X : Integer := 0 and specify for X'Size use 32 before the null body. Explain that this confirming object representation clause specifies its 32-bit representation on the pinned targets; the task accepts specifying a variable's size and does not require reading the Size attribute or printing it. About 8 lines.
 
 ## Language surface recorded by this assessment
 
-Integers, ranged subtypes and 'Image of scalars.
+Integer object size clause and bounded mutable Integer objects.
 
-## External effects
+Initially assessed on 2026-10-15 against page revision 413114 of the [task](https://rosettacode.org/wiki/Variable_size/Set) by claude-opus-5-5 at high effort, escalated from claude-sonnet-5-5; current confidence high. The inclusion policy is in `rosetta/coverage.json`.
 
-- **console output** (allowed): The program prints each declared type's range and its resulting 'Size in bits with Silver_IO.Put_Line.
-
-Assessed on 2026-10-15 against page revision 413114 of the [task](https://rosettacode.org/wiki/Variable_size/Set) by claude-opus-5-5 at high effort, escalated from claude-sonnet-5-5; confidence medium. The inclusion policy is in `rosetta/coverage.json`.
+Revised on 2026-10-25 by Codex through targeted source review; see the [review record](../../../assessment-reconciliation-20261025.md).

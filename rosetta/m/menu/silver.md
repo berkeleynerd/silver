@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the constant item count, a range guard on the parsed number just before indexing, and fixed-capacity buffers, and the retry loop sits in a procedure where no termination proof is needed. Validated parsing and bounded line reading are admitted library operations with specified failure outcomes.
 
-Position 1223 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1216 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Failure paths to test
 

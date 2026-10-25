@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks are array indexes and a bounded length counter protected by guards placed just before each use inside for loops in Main, so no invariant or variant is needed and the outlook is likely.
 
-Position 978 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 971 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is bounded by declared coordinate ranges, fixed array capacity and for-loops in procedures, so no annotation is needed, but the fixed-point nonlinear arithmetic and string-buffer length reasoning require careful program shape.
 
-Position 637 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 630 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every operation is bounded fixed-width modular arithmetic with for loops over constant ranges, so checks follow from types and the capacity guard, but the index and conversion plumbing needs careful shape.
 
-Position 1311 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1304 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

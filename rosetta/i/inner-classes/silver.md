@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is a small demonstration with records, a constructor function and one method on bounded integers, so every check follows from declared ranges and one explicit guard; no loops carry unbounded values and no annotations are needed.
 
-Position 589 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 582 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

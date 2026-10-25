@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The algorithm is simple loops over fixed array ranges, so index checks are routine, but the float arithmetic carried through loops needs magnitude guards with visible rejection to discharge overflow and division checks, hence plausible rather than likely.
 
-Position 1096 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1089 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is a bounded circular-buffer queue with guarded push and pop and no unbounded loop-carried values, so every check follows from subtypes and guards placed just before use.
 
-Position 598 in the [progression](../../../progression.md#stage-12), in stage 12.
+Position 591 in the [progression](../../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

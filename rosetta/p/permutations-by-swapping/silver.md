@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the subtype ranges of the indices and counters, and each increment is guarded by the comparison just before it, so the loop needs no invariant; the while loop sits in a procedure, so no termination check arises.
 
-Position 212 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 205 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

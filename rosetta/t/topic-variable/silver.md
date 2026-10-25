@@ -1,19 +1,21 @@
 # Topic variable
 
-**Candidate: proofs likely to discharge automatically.** The task only needs a small bounded-integer demonstration with a for loop and integer-to-text output, all of whose checks follow from declared ranges and for-loop bounds. No annotation, recursion or nonlinear loop-carried value is involved.
+**Candidate: proofs likely to discharge automatically.** Unlike an ordinary variable named It, @ has predefined language meaning that abbreviates the current target; the task's optional square/root example is unnecessary. This is a future explicit Silver admission of inherited Ada syntax, with negation safe over symmetric bounded ranges and no need for scalar guard refinement.
 
-Position 36 in the [progression](../../progression.md#stage-2), in stage 2, which adds for loops, integers, ranged subtypes and 'Image of scalars.
+Position 1574 in the [progression](../../progression.md#stage-41), in stage 41, which adds assignment target name.
 
 ## Approach
 
-Ada has no topic variable, so the program declares a short-named variable It of a bounded integer subtype (0 .. 1000), assigns 3, and prints It, It*It and an integer square root found by a for loop over 0 .. 31 that keeps the largest R with R*R <= It. A second, inner use is skipped, and the output explains in text that Ada scoping is lexical with no implicit topic. All arithmetic is bounded by the subtype range, so no guards beyond the loop bound are needed. About 22 lines.
+Demonstrate Ada 2022's target-name symbol @ as the limited current-object analogue: initialize two Integer objects with symmetric ranges, assign A := (-@) and B := (-@), and print their results. Explain that @ is a constant view of the current assignment target, is permitted only in that assignment's right-hand expression, and has no persistent or dynamically nested topic binding. About 15 lines.
 
 ## Language surface recorded by this assessment
 
-Integers, ranged subtypes, 'Image of scalars and for loops.
+Assignment target name, bounded mutable Integer objects and Integer image.
 
 ## External effects
 
-- **console output** (allowed): Prints the topic value, its square and its integer square root with Put_Line.
+- **console output** (allowed): Displays the values obtained when @ denotes two different assignment targets and explains its assignment-local scope.
 
-Assessed on 2026-10-15 against page revision 405498 of the [task](https://rosettacode.org/wiki/Topic_variable) by claude-sonnet-5-5 at medium effort; confidence high. The inclusion policy is in `rosetta/coverage.json`.
+Initially assessed on 2026-10-15 against page revision 405498 of the [task](https://rosettacode.org/wiki/Topic_variable) by claude-sonnet-5-5 at medium effort; current confidence medium. The inclusion policy is in `rosetta/coverage.json`.
+
+Revised on 2026-10-25 by Codex through targeted source review; see the [review record](../../assessment-reconciliation-20261025.md).

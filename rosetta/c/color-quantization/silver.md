@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything can use iteration, bounded arrays and guarded loops in procedures with no recursion, so checks follow from subtype ranges and guards, but the many loop-carried indexes and PPM parsing make the program shape delicate, and it needs file input and argument support that Silver lacks today.
 
-Position 1475 in the [progression](../../progression.md#stage-28), in stage 28.
+Position 1468 in the [progression](../../progression.md#stage-27), in stage 27.
 
 ## Failure paths to test
 

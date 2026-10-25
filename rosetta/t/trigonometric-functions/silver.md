@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Nothing requires an annotation, a conflict or recursion since the task is a fixed set of float computations, but the proofs hinge on floating-point range and finiteness reasoning plus new float formatting output, so discharge is plausible rather than routine.
 
-Position 1056 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1049 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

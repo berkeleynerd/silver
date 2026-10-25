@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is an open-ended draft, so a small embedded-data grid search is faithful, and all checks come from fixed array bounds and guards; the main difficulty is floating-point trigonometry and interpolation, which is why it is plausible rather than likely.
 
-Position 1119 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1112 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Index-based arrays with a sentinel node turn all link accesses into type-range-safe indexing and the loops sit in procedures, so no annotations are needed, though the amount of tricky fixup code and bounded output building makes discharge depend on careful program shape.
 
-Position 1207 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1200 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

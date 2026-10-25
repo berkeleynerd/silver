@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from for-loop indexes over static constant ranges, the sum of two indexes at most 16 cannot overflow, and mod 2 has a literal nonzero divisor, so no loop-carried value needs a guard.
 
-Position 113 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 106 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

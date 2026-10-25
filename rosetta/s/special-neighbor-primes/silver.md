@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indices, sums and mod divisors are bounded by declared subtypes and for-loop ranges, with no while loops, recursion or loop-carried unbounded values, so every check follows from types and static bounds.
 
-Position 153 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 146 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

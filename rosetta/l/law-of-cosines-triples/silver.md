@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded by the 1..13 side subtype and the loops are plain for loops, so only the loop-carried counter needs a visible guard; the result is plausible rather than certain because of that guard and the integer-to-text output.
 
-Position 48 in the [progression](../../progression.md#stage-3), in stage 3.
+Position 39 in the [progression](../../progression.md#stage-2), in stage 2, which adds for loops, integers, procedures, ranged subtypes and 'Image of scalars.
 
 ## Approach
 

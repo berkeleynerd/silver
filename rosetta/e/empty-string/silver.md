@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task needs only String constants, length comparisons and if statements, which Silver already largely has, so no proof obligation exists beyond trivial ones.
 
-Position 85 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 78 in the [progression](../../progression.md#stage-5), in stage 5.
 
 ## Approach
 

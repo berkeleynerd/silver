@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The program needs only arrays, records, for loops and procedures, and it uses no recursion or annotations. Its outlook is plausible rather than likely because Long_Float overflow and division checks on values carried through Horner evaluation and polynomial division discharge only if magnitude guards are placed carefully before each operation.
 
-Position 1115 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1108 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

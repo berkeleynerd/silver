@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is bounded integer arithmetic with for loops and guards, and the invalid cases (surrogates, over-range values, malformed bytes) have a visible rejected outcome, so each check follows from subtypes and guards. Non-ASCII characters can be shown as the code point and hex bytes, so no wide text output is required.
 
-Position 1288 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1281 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

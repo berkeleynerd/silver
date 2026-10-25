@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks come from the declared height subtype, for loops over array ranges and a guarded accumulator, with no recursion or while loops, so it should prove without annotations but depends on careful guard placement for the loop-carried sum. Nothing here conflicts with the Oracle, and the new needs are only arrays, loops, procedures and integer-to-text.
 
-Position 178 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 171 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

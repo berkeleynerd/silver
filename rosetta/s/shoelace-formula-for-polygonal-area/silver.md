@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All data is embedded and bounded by declared ranges, so every overflow and index check follows from types and a fixed small loop with no annotation; floating point is avoided by working in integers (expected output 30.0).
 
-Position 584 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 577 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

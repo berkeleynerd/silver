@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** A bounded reverse loop prints the countdown from 10 to 0 using standard Integer'Image; every index and image length follows from the static range.
 
-Position 8 in the [progression](../../../progression.md#stage-1), in stage 1.
+Position 9 in the [progression](../../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

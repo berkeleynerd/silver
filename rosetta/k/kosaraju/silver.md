@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks are on small fixed-range arrays and ranged counters with guards before each push and increment, and the iterative DFS avoids recursion and function variants, but the loop-carried stack and finish-order indices need careful guards, so discharge is plausible rather than routine.
 
-Position 721 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 714 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

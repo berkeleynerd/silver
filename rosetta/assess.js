@@ -16,6 +16,12 @@ const EFFECTS = ['console-output', 'arguments', 'exit-status', 'stdin', 'files',
   'entropy', 'environment', 'processes', 'terminal', 'gui', 'graphics', 'sound', 'network', 'hardware',
   'os-services', 'other']
 const SURFACE = {
+  "fixed-string-replacement": "Ada.Strings.Fixed.Replace_Slice function on bounded Strings with statically valid slice positions and bounded replacement/result lengths",
+  "unicode-identifiers": "non-ASCII Ada identifiers in explicitly specified source encoding, with inherited normalization and case equivalence",
+  "scalar-guard-refinement": "path-sensitive narrowing of Integer value intervals by scalar comparisons before arithmetic and assignments",
+  "assignment-target-name": "Ada 2022 @ as a constant view of the current simple Integer assignment target within its right-hand expression",
+  "integer-object-size-clause": "static Size representation clauses for stand-alone Integer objects, initially confirming the pinned 32-bit representation",
+  "static-integer-types": "distinct signed integer type declarations with static bounds and initialized objects of those types, including same-type copies",
   'immutable-integers': 'immutable signed 32-bit Integer constants, interval-checked grouped +, -, * and nonliteral unary signs, standalone signed literals, and scalar comparisons',
   'integer-for-loops': 'inclusive ascending or reverse Integer range loops with immutable indexes, nesting and admitted scalar bounds',
   'integer-image': "standard Integer'Image with Ada's leading space for non-negative values and bounded result lengths",

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every operand is bounded by for-loop ranges, so all arithmetic checks follow from types and static bounds, and for loops need no variants or invariants.
 
-Position 86 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 79 in the [progression](../../progression.md#stage-5), in stage 5.
 
 ## Approach
 

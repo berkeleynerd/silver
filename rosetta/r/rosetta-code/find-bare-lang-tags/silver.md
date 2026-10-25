@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded loops over embedded fixed-size text with slice comparisons and small bounded counters, so checks follow from types and positional guards, but several loop-carried counters and padded-name handling need careful guard placement.
 
-Position 569 in the [progression](../../../progression.md#stage-11), in stage 11.
+Position 562 in the [progression](../../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

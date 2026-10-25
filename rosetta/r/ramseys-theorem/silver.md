@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is fixed-size array work with static loop bounds and a small modulus, so index and range checks follow from the declared subtypes, and the only loop-carried value is a Boolean flag.
 
-Position 661 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 654 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

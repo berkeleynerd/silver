@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is a variant record demonstration whose only checks are discriminant and index checks that follow from the declared types and a guard on Found, and the function uses a for loop so it needs no variant. No annotations are needed, and the Ada solution's Pre/Post contracts are not required for a faithful sum type.
 
-Position 1578 in the [progression](../../progression.md#stage-39), in stage 39, which adds variant records.
+Position 1575 in the [progression](../../progression.md#stage-42), in stage 42, which adds variant records.
 
 ## Approach
 

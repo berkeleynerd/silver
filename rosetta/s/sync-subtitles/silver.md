@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from fixed array bounds, bounded millisecond subtypes and a guard on the shifted value, and all loops are for loops in procedures, so no annotations are needed.
 
-Position 1133 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1126 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 

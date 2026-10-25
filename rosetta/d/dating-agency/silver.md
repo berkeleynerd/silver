@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The scenario is a small fixed-size data model with trivial integer and Character arithmetic over static ranges, and only for loops, so every check follows from types and bounds. It needs no recursion, while loops or heap.
 
-Position 527 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 520 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

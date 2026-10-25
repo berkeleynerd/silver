@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks come from subtype ranges, a static for-loop bound and guards, and the only while loop sits in a procedure, so no annotation is needed; the loop-carried Tot and counter arithmetic need careful range typing and guards, which makes discharge plausible rather than certain.
 
-Position 244 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 237 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

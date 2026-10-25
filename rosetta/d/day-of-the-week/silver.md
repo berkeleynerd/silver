@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Zeller's formula on a loop index with a declared range gives small bounded arithmetic with no loop-carried state, so overflow, range and division checks all follow from types and nothing needs an annotation. The only new surface is integer division, 'Image and a bounded concatenation.
 
-Position 1543 in the [progression](../../progression.md#stage-33), in stage 33, which adds membership tests.
+Position 1536 in the [progression](../../progression.md#stage-32), in stage 32, which adds membership tests.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from small declared ranges and guards just before each update or array write, with no annotation needed, but the loop-carried F, X and Y require careful guarding so the outlook is plausible rather than likely.
 
-Position 1540 in the [progression](../../../progression.md#stage-32), in stage 32.
+Position 1533 in the [progression](../../../progression.md#stage-31), in stage 31.
 
 ## Approach
 

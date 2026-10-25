@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indexes derive from validated characters mapped to 1..4 ranged subtypes, loops are for loops or live in procedures, and arithmetic is small and bounded, so every check follows from types and guards.
 
-Position 1230 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1223 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Failure paths to test
 

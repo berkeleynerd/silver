@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from array bounds, loop-bounded indices, a modular or range-bounded generator and edge guards, and the recursive flood fill of the existing solution is replaced by bounded iterative sweeps in a procedure so no variant is needed.
 
-Position 1286 in the [progression](../../../progression.md#stage-22), in stage 22.
+Position 1279 in the [progression](../../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

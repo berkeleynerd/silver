@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The decoder is a single for loop over a bounded string with a character-to-value case statement, so index checks follow from the loop range and the accumulator is bounded by the length cap times 1000, which fits in Integer.
 
-Position 785 in the [progression](../../../progression.md#stage-14), in stage 14.
+Position 778 in the [progression](../../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

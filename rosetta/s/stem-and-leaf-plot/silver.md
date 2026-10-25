@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index comes from a subtype-bounded element or a for-loop range, and the only loop-carried value (the count) gets a guard before its increment, so no annotation is needed. Output is plain text through procedures with only for loops, so there are no termination or recursion issues.
 
-Position 457 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 450 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

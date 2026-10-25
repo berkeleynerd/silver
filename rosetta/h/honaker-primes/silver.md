@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from declared ranges and guards just before use, with no annotations needed, but the large sieve and the guarded loop-carried counters make discharge depend on careful program shape.
 
-Position 407 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 400 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

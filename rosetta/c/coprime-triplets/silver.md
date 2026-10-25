@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from ranged subtypes, 1..49 bounded loops and a guard before each increment, and the only while loops sit in procedures, so no annotation is needed.
 
-Position 213 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 206 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

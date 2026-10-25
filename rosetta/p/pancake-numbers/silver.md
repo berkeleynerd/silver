@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The search is bounded (at most 362880 states) and uses only for loops and a procedure-level while loop, so no annotation is needed, but the loop-carried rank arithmetic and large array indexing require carefully placed guards.
 
-Position 474 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 467 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

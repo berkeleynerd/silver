@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task fits an iterative bounded backtracking procedure over fixed-size arrays with small ranged integers, so every check follows from types and guards, though cursor and counter bookkeeping in the loop needs careful guarding.
 
-Position 842 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 835 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

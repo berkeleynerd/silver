@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** No Oracle rule is violated and no annotation is needed because iteration counts are fixed, but proofs are plausible rather than likely because multi-limb arithmetic and complex division run through loops with many loop-carried values that need careful range-bounded types and guards.
 
-Position 1416 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1409 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Approach
 

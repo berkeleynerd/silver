@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the array's declared index range, a count typed with the capacity as its upper bound, a capacity guard just before each append, and a for loop over a bounded range, so no annotation is needed.
 
-Position 70 in the [progression](../../progression.md#stage-5), in stage 5.
+Position 63 in the [progression](../../progression.md#stage-4), in stage 4.
 
 ## Approach
 

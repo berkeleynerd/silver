@@ -1,5 +1,53 @@
 # Session memory
 
+## 2026-10-25 — Merge deliveries and implement the five finite samples
+
+The owner directly instructed in this conversation: **“Please merge 221 and 227
+and then proceed with 226.”** This authorizes merging the reviewed sample and
+planning PRs in that order and implementing
+[#226](https://github.com/berkeleynerd/silver/issues/226) through validation,
+review and delivery. This dated entry is included with PR #227 so the
+authorization reaches main before #226 is claimed.
+
+The selected scope is exactly five finite current-language regressions:
+Compile-time calculation, Loops/N plus one half, Enforced immutability,
+Literals/Integer and Minimum number of cells after, before, above and below NxN
+squares. Use the reviewed planning prototypes and exact expected outputs as the
+starting point, add supported samples and manifest entries, and complete
+development.md's sample-delivery validation with actual source correspondence.
+Routine implementation, focused review, required validation, tracking, commits
+and pull-request publication are included. Integer sequence remains outside this
+batch; the current language, Oracle, admission, capacity and tool pins are
+unchanged. No #11 construct or deferred #119/#88–#94 work is authorized.
+No new harness goal was requested; the earlier capacity goal remains paused.
+
+## 2026-10-25 — Rosetta assessment reconciliation and next-increment selection
+
+Following the PR #221 review, the owner directly requested in this conversation:
+**“Proceed with planning assessments next and then choose the most propitious
+next authorized increment.”** This authorizes the targeted assessment and
+selection pass tracked in [#225](https://github.com/berkeleynerd/silver/issues/225).
+The scope is the three excluded #9 assessments and the ten tasks previously
+grouped under #11, with regenerated planning records and explicit distinctions
+between current-language eligibility, sample delivery and future constructs.
+
+This instruction does not select a new construct for implementation or expand
+#9's original 31-task delivery. Implementation of the selected follow-on sample
+batch or a construct remains a separate decision. The #119 and #88–#94 deferrals,
+current Oracle, language and 4,096-byte bound remain in force. Publication is
+through the planning pull request; its issue identifies the branch and worktree.
+
+The [completed assessment](../rosetta/assessment-reconciliation-20261025.md)
+selects [#226](https://github.com/berkeleynerd/silver/issues/226), five finite
+current-language regressions, as the next delivery proposal. Six approaches are
+language-eligible; the full Integer sequence is excluded from that batch for
+execution cost, without capping its domain. Heredoc syntax is a fixed-edition
+conflict; interpolation has a qualified library candidate; Rubik's Magic remains
+design-pending; Unicode is a current lexical exclusion. Narrow future surfaces
+are recorded without marking them supported. #226 and the construct stages stay
+Backlog; #225 completes the authorized planning pass. Exact validation and
+review settings are in its record. CLI memory was unavailable and not updated.
+
 ## 2026-10-25 — PR #221 external review assessed
 
 The owner asked for judgment on the external review of PR #221 at `6a70c241db`.

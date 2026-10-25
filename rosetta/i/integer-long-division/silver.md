@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indices and arithmetic are bounded by ranged subtypes and a capacity guard in the while-loop condition, and the loop lives in a procedure so no termination variant is needed; the arithmetic is only small integer mod/div by a constant, so the proofs should discharge with careful program shape.
 
-Position 1005 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 998 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

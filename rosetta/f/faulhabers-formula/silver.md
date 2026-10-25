@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs only small exact rational arithmetic for fixed p up to 9, whose true values are tiny, so overflow checks are dischargeable with explicit magnitude guards; the plausible rating reflects loop-carried fraction values needing those guards and the gcd needing a procedure-based loop.
 
-Position 941 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 934 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

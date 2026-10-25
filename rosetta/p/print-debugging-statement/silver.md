@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program is only String literals and Put_Line, which Silver already supports, so no check can fail and nothing needs a loop or annotation. Provenance is written as literal text because the task only asks to show source information in print statements.
 
-Position 20 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 21 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

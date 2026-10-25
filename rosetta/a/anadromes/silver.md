@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged subtypes, bounded buffers and for-loop bounds, but the large fixed tables, hash probing and loop-carried counts need careful shape; loops live in procedures and probing is bounded, so discharge is plausible rather than routine.
 
-Position 1490 in the [progression](../../progression.md#stage-29), in stage 29.
+Position 1483 in the [progression](../../progression.md#stage-28), in stage 28.
 
 ## Failure paths to test
 

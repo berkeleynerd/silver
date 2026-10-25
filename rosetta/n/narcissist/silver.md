@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from a static source-length constant, guards before each buffer access and a saturating counter, but the quine construction with computed slice bounds and character-level stdin reading make the program shape delicate, so discharge is plausible rather than routine.
 
-Position 1233 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1226 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Failure paths to test
 

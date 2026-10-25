@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The dynamic-programming formulation avoids subset enumeration and needs only bounded 2D Boolean tables and for loops, so index and range checks follow from ranged types plus explicit guards; the risk is only the guarded loop-carried sums and table size.
 
-Position 713 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 706 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

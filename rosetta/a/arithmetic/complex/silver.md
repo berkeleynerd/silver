@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The operations are straight-line floating-point expressions over range-bounded inputs with one explicit zero-denominator guard, so they should prove without annotations, but float arithmetic and float-to-text formatting make it depend on careful range shaping.
 
-Position 1075 in the [progression](../../../progression.md#stage-18), in stage 18.
+Position 1068 in the [progression](../../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

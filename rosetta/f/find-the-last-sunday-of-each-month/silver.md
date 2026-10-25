@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is on a validated bounded year and month index inside a for loop with no loop-carried state, so every check follows from types and the entry guard.
 
-Position 1124 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1117 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Failure paths to test
 

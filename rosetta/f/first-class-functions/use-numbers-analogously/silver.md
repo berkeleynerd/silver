@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Generic instantiation meets the "returns a function" requirement without closures or access types, and every check is float arithmetic on constants or on bounded subtypes. The one non-routine part is choosing a bounded float subtype so that the provers can rule out overflow in the product of three values.
 
-Position 1539 in the [progression](../../../progression.md#stage-32), in stage 32.
+Position 1532 in the [progression](../../../progression.md#stage-31), in stage 31.
 
 ## Approach
 

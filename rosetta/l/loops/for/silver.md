@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The outer Integer index stays within 1 through 5 and bounds the nested loop; the sample uses immutable indexes and no loop-carried values.
 
-Position 13 in the [progression](../../../progression.md#stage-1), in stage 1.
+Position 14 in the [progression](../../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

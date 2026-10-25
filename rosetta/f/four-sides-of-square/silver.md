@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the validated Side_Length subtype and for loops over the array's own bounds, so no annotation is needed. The GUI request is optional and text output satisfies the task.
 
-Position 1369 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1362 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 

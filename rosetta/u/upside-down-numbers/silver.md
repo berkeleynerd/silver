@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from small fixed bounds and digit subtypes, but loop-carried block counts, quotients and string buffer positions each need a guard placed just before use, so discharge depends on careful program shape rather than being routine. No annotation is needed since the work is done in procedures with for loops.
 
-Position 819 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 812 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

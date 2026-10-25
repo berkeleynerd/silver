@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything uses modular words, static for loops and unrolled if-chain searches whose indexes are bounded by subtypes, so checks follow from types and guards without annotations; the only careful part is the carry-checked multi-limb multiplication.
 
-Position 1309 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1302 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

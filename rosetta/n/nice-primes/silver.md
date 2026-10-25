@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every value is bounded by small declared ranges and all loops are for loops with static bounds, so range and overflow checks follow from types and no termination annotation is needed.
 
-Position 341 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 334 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

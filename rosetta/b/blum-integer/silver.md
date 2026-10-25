@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is integer arithmetic over ranged subtypes with fixed-size arrays and loops whose bounds are guarded, so every check follows from types and guards without annotations; the only demands are a modest set of new surface features and explicit handling when the search limit is exceeded.
 
-Position 795 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 788 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

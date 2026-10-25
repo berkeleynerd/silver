@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops with static bounds, and the fixed-point coordinates live in bounded subtypes with convex-combination updates, so the checks follow from types and linear arithmetic with no recursion or floating point.
 
-Position 673 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 666 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

@@ -341,6 +341,12 @@ USES = {"stdin": "standard input", "files": "files", "arguments": "arguments", "
 # The question each construct's admission must answer: the decidable rule under which every program
 # using it proves automatically.
 ADMISSION = {
+    "fixed-string-replacement": "Which argument forms and source bounds guarantee valid Low/High positions, a bounded result and complete automatic discharge for the selected Replace_Slice operation, with corresponding library verification and compilation?",
+    "unicode-identifiers": "Which Unicode identifier repertoire and source encoding are admitted, and how do lexer identity, Ada case folding, byte limits and frontend source correspondence agree?",
+    "scalar-guard-refinement": "Which comparisons refine scalar intervals on each branch, and how do assignments, joins and loops preserve soundness and automatic discharge?",
+    "assignment-target-name": "How is @ resolved and bounded as the current assignment target, restricted to assignment right-hand sides and composed with existing scalar-expression rules without changing evaluation order?",
+    "integer-object-size-clause": "Which object Size clauses are guaranteed supported by the pinned targets, and how are legality, freezing, initialization and representation correspondence established without unsafe operations?",
+    "static-integer-types": "Which static signed integer type ranges and object initializer forms are admitted, and how are nominal type identity, base-range versus first-subtype meaning, range checks and automatic discharge established?",
     "bounded-mutable-integers": "Which initialized Integer objects and static object-local ranges "
                                 "keep every assignment within its declared range without scalar guard "
                                 "or update refinement, including through branches and counted loops?",
@@ -454,6 +460,8 @@ def reasons(assessed: dict, policy: dict) -> list[str]:
 def verdict(assessed: dict, why: list[str]) -> str:
     if why:
         return "excluded"
+    if assessed.get("assessment_status") == "design-pending":
+        return "design-pending"
     if "outlook" not in assessed:
         return "included"
     return assessed["outlook"]
@@ -508,6 +516,7 @@ def assessment(task: dict, assessed: dict, policy: dict) -> str:
                "unlikely": "Unlikely to prove automatically" + (
                    ": " + ", ".join(silver["risks"]) if silver["risks"] else ""),
                "included": "Included in Silver",
+               "design-pending": "Design pending: a faithful program has not been established",
                "excluded": "Excluded from Silver: " + ", ".join(why)}[kind]
     lines = [f"# {escape(task['title'])}", "", f"**{heading}.** {assessed['summary']}", ""]
     if "rank" in silver:
@@ -521,8 +530,10 @@ def assessment(task: dict, assessed: dict, policy: dict) -> str:
         lines += ["## Failure paths to test", ""]
         lines += [f"- **{construct(name)}**: {FAILURE_PATHS[name]}." for name in paths] + [""]
     if assessed.get("approach"):
+        size = assessed.get("size")
+        estimate = f" About {size} line{'s' * (size != 1)}." if size is not None else ""
         lines += ["## Approach", "",
-                  f"{assessed['approach']} About {assessed['size']} line{'s' * (assessed['size'] != 1)}.", ""]
+                  assessed['approach'] + estimate, ""]
     if assessed.get("risks"):
         lines += ["## Proof obligations to watch", ""]
         lines += [f"- **{r['obligation'].replace('-', ' ')}**: {r['explanation']}" for r in assessed["risks"]] + [""]
@@ -711,6 +722,9 @@ def progression_page(manifest: list[dict], order: list[tuple[dict, list[str]]], 
              "most restrictive.", "",
              f"{len(order):,} candidates in {len(stages):,} stages; {verdicts.count('unlikely'):,} samples are "
              f"unlikely to prove automatically and {verdicts.count('excluded'):,} are excluded."]
+    pending = [task for task in manifest if task.get("silver", {}).get("verdict") == "design-pending"]
+    if pending:
+        lines += ["", f"{len(pending):,} assessment(s) await a faithful program design and have no stage."]
     position = 0
     for number, (new, items) in enumerate(stages, 1):
         lines += ["", f"## Stage {number}", ""]
@@ -751,6 +765,10 @@ def progression_page(manifest: list[dict], order: list[tuple[dict, list[str]]], 
         lines += ["", "## Unlikely to prove automatically", ""]
         lines += [f"- [{escape(task['title'])}]({task['path']}/silver.md): "
                   + (", ".join(task["silver"]["risks"]) or "see the assessment") for task in unlikely]
+    if pending:
+        lines += ["", "## Design pending", "",
+                  "These assessments establish neither a required language surface nor an Oracle conflict.", ""]
+        lines += [f"- [{escape(task['title'])}]({task['path']}/silver.md)" for task in pending]
     return "\n".join(lines) + "\n"
 
 
@@ -790,10 +808,10 @@ def render(manifest: list[dict], retrieved: str, output: Path, listing: Path) ->
             groups.append((name, []))
         groups[-1][1].append(task)
     assessed = any("silver" in t for t in manifest)
-    kinds = [kind for kind in ("likely", "plausible", "included", "unlikely", "excluded")
+    kinds = [kind for kind in ("likely", "plausible", "included", "unlikely", "excluded", "design-pending")
              if any(t.get("silver", {}).get("verdict") == kind for t in manifest)]
     titles = {"likely": "Likely", "plausible": "Plausible", "included": "Included (earlier rubric)",
-              "unlikely": "Unlikely", "excluded": "Excluded"}
+              "unlikely": "Unlikely", "excluded": "Excluded", "design-pending": "Design pending"}
     tally = lambda items, kind: f"{sum(t.get('silver', {}).get('verdict') == kind for t in items):,}"
     if any(kind in OUTLOOKS for kind in kinds):
         silver_note = f"""
@@ -802,7 +820,8 @@ envisions it and links to its assessment. A candidate shows its position in the
 [progression]({local}/progression.md), the order in which Silver could grow to
 support it, and whether its proofs would likely or plausibly discharge
 automatically. Other tasks are unlikely to prove automatically or are excluded,
-with the reasons. The assessments and the inclusion policy are in
+with the reasons. Design-pending tasks have no stage until a faithful program
+is established. The assessments and the inclusion policy are in
 [{local}/coverage.json]({local}/coverage.json).
 """
     elif assessed:
@@ -865,6 +884,7 @@ Documentation License 1.3.
                     verdict = {"likely": f"[stage {silver.get('stage')}, #{silver.get('rank')} likely]({link})",
                                "plausible": f"[stage {silver.get('stage')}, #{silver.get('rank')} plausible]({link})",
                                "included": f"[included]({link})",
+                               "design-pending": f"[design pending]({link})",
                                "unlikely": f"[unlikely]({link})" + (
                                    ": " + ", ".join(silver["risks"]) if silver["risks"] else ""),
                                "excluded": f"[excluded]({link}): {', '.join(silver['reasons'])}"}[silver["verdict"]]

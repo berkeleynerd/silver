@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every index and counter is range-typed or guarded just before use, cells wrap by a modular type, and the loop sits in a procedure with a step limit, so no annotation is needed, though careful guard placement across the loop-carried positions is required.
 
-Position 1308 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1301 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

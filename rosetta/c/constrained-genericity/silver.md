@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Ada's generic formal subprogram expresses the eatable constraint directly without tagged types, and GNATprove analyses each instance, where the only checks are a count increment and index guarded by Count < Capacity, so proof should discharge without annotations.
 
-Position 1528 in the [progression](../../progression.md#stage-31), in stage 31.
+Position 1521 in the [progression](../../progression.md#stage-30), in stage 30.
 
 ## Approach
 

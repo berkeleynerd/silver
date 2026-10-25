@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops with static bounds and every array index comes from a mod expression or a for index, so checks follow from types without annotations; the only subtlety is the modular LCG and the count bounds.
 
-Position 1280 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1273 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

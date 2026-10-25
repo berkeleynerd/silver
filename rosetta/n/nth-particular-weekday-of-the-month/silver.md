@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is bounded integer arithmetic on small ranged subtypes in a fixed for loop with no loop-carried values, so the checks follow from types and the error case is a visible zero result.
 
-Position 782 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 775 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

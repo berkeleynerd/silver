@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexing and counts can be made safe with range types, mod and explicit guards in procedures, and the only unbounded behavior (endless wars) is cut off by a documented round cap with a visible outcome; the arithmetic is small and linear apart from the LCG, so no annotation is needed.
 
-Position 642 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 635 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All values are bounded by the 1..118 subtype and small constant tables, so index, range and overflow checks follow from types and the for loop needs no invariant, giving a likely automatic proof.
 
-Position 147 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 140 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

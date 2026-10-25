@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is an array index or small counter that follows from the 1..24 subtype, validated parsing and guards, and all loops are for loops or while loops in procedures, but the many loop-carried counters and the sizeable game logic make discharge depend on careful program shape.
 
-Position 1257 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1250 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Failure paths to test
 

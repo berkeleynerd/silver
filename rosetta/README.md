@@ -54,7 +54,11 @@ policy's `excluded_constructs` also exclude a task. Candidates whose outlook is
 likely or plausible are ordered in `progression.md`, starting from today's
 Silver: each step takes the sample whose new constructs the most remaining
 samples need, on average, then the one needing the fewest new constructs,
-preferring likely proofs, then the shortest program. Each stage of the
+preferring likely proofs, then the shortest program. An assessment with optional
+`assessment_status: "design-pending"` has no progression stage: a faithful
+program design has not been established, so its missing surface and size are
+not asserted. This status records an unresolved design, not an Oracle conflict
+or a proof failure. Each stage of the
 progression:
 
 - states the admission question for every construct it adds, the decidable rule

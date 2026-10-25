@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from subtypes and guards placed before each operation, but the digit-reversal accumulator, bounded counters and manual number-to-text formatting need careful shape, and nothing requires an annotation.
 
-Position 733 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 726 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

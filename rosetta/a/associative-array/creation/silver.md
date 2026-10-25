@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task only requires creating and using a small map, which maps cleanly to a fixed-capacity array of key/value entries with for-loop lookup, so every index and range check follows from types and guards.
 
-Position 597 in the [progression](../../../progression.md#stage-12), in stage 12.
+Position 590 in the [progression](../../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

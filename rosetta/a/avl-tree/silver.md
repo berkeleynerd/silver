@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The pointer-based, recursive, generic Ada solution can be recast as an array-indexed tree with iterative procedures, so index and range checks follow from types and guards, but the many loop-carried heights, balances and parent links make discharge depend on careful program shape rather than being routine.
 
-Position 860 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 853 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

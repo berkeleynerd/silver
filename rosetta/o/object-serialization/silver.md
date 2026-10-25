@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check is a byte-to-field range check guarded just before use, a for-loop index, or a static bound, and tagged types with dispatching procedures are supported by SPARK without annotations. Serialization uses hand-written byte encoding because SPARK has no stream attributes, and nothing else needs an annotation.
 
-Position 1561 in the [progression](../../progression.md#stage-34), in stage 34.
+Position 1554 in the [progression](../../progression.md#stage-33), in stage 33.
 
 ## Failure paths to test
 
