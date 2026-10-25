@@ -1,0 +1,37 @@
+with Silver_IO;
+procedure Main is
+   pragma SPARK_Mode (On);
+begin
+   Silver_IO.Put_Line ("                  |");
+   Silver_IO.Put_Line ("                  |");
+   Silver_IO.Put_Line ("                 /|\");
+   Silver_IO.Put_Line ("                 |||");
+   Silver_IO.Put_Line ("                 |||");
+   Silver_IO.Put_Line ("                _|||_");
+   Silver_IO.Put_Line ("               |  |  |");
+   Silver_IO.Put_Line ("               |  |  |");
+   Silver_IO.Put_Line ("              _|__|__|_");
+   Silver_IO.Put_Line ("             | | | | | |");
+   Silver_IO.Put_Line ("             | | | | | |");
+   Silver_IO.Put_Line ("             | | | | | |");
+   Silver_IO.Put_Line ("            _|_|_|_|_|_|_");
+   Silver_IO.Put_Line ("           | | | | | | | |");
+   Silver_IO.Put_Line ("           | | | | | | | |");
+   Silver_IO.Put_Line ("           | | | | | | | |");
+   Silver_IO.Put_Line ("           | | | | | | | |");
+   Silver_IO.Put_Line ("          _|_|_|_|_|_|_|_|_");
+   Silver_IO.Put_Line ("         | | | | | | | | | |");
+   Silver_IO.Put_Line ("         | | | | | | | | | |");
+   Silver_IO.Put_Line ("         | | | | | | | | | |");
+   Silver_IO.Put_Line ("         | | | | | | | | | |");
+   Silver_IO.Put_Line ("         | | | | | | | | | |");
+   Silver_IO.Put_Line ("        _|_|_|_|_|_|_|_|_|_|_");
+   Silver_IO.Put_Line ("       | | | | | | | | | | | |");
+   Silver_IO.Put_Line ("       | | | | | | | | | | | |");
+   Silver_IO.Put_Line ("       | | | | | | | | | | | |");
+   Silver_IO.Put_Line ("       | | | | | | | | | | | |");
+   Silver_IO.Put_Line ("      _|_|_|_|_|_|_|_|_|_|_|_|_");
+   Silver_IO.Put_Line ("     | | | | | | | | | | | | | |");
+   Silver_IO.Put_Line ("     | | | | | | | | | | | | | |");
+   Silver_IO.Put_Line ("     |___________|___|___________|");
+end Main;
