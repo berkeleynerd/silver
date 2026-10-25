@@ -1,5 +1,37 @@
 # Session memory
 
+## 2026-10-25 — Merge #228 and implement interval-checked integer division
+
+The owner answered **“Agreed. Proceed.”** to the coding agent's recommendation
+following review of PR #228: merge that sample delivery as-is, implement
+interval-checked Integer `/`, `mod` and `rem` through delivery, and record scalar
+guard refinement as the proposed successor. PR #228 merged as `6154f73c4c`;
+#226 and **Finite current-language Rosetta samples** (milestone 6) are closed.
+
+This directly authorizes [stage #229](https://github.com/berkeleynerd/silver/issues/229)
+and its scope, native, assurance and delivery packages #230–#233, including
+focused experiments, implementation, complete validation, independent review,
+tracking, commits and pull-request publication. The [scope](integer-division.md)
+and [milestone order](../roadmap.md#checked-integer-division-and-scalar-refinement)
+record the departure from generated Rosetta order. This entry reaches main
+before implementation is claimed. Routine work within this increment needs no
+additional approval gate.
+
+The selected driver is Josephus. The seven research candidates are feasibility
+assessments, not seven proved or delivered programs. Operator-specific interval
+rules must account for Ada truncation and signs; remainder bounds cannot use
+corner evaluation alone. Include exact singleton evaluation, existing declared
+ranges, shared operator accounting, complete obligation/discharge and actual-source
+assurance, and the feature-local report envelope. Keep the 4,096-byte source and
+63-operator budgets, Oracle and tool pins unchanged. Correct the five identified
+Rosetta assessments without prematurely marking division supported.
+
+[#234](https://github.com/berkeleynerd/silver/issues/234), scalar guard refinement,
+is proposed and remains Backlog; arrays remain provisional. Neither is authorized
+for implementation. #119/#201/#202/#212, paused packets/R93 and #88–#94 remain
+deferred. PR #121 and PR #147 remain draft and unmerged. No harness goal was
+requested or created; the earlier capacity harness remains paused.
+
 ## 2026-10-25 — Five finite Rosetta samples #226 delivered
 
 Following the owner's merge-and-proceed instruction below, PR #221 merged as

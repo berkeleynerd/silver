@@ -46,8 +46,8 @@ instructed merging #221/#227 and proceeding with #226; the
 covered this five-sample batch through validation, review and delivery. The
 implementation and independent review target is `3aae49385f`; complete Linux
 validation passed and [PR #228](https://github.com/berkeleynerd/silver/pull/228)
-publishes the samples and evidence. Milestone 6's technical delivery is complete;
-the issue closes when its completing commit reaches main.
+publishes the samples and evidence. [Finite current-language Rosetta samples](https://github.com/berkeleynerd/silver/milestone/6)
+is complete and closed after PR #228 merged and #226 closed.
 
 The re-render keeps `supported` unchanged and gives stage 1 38 assessments,
 without expanding #9's original scope. The old ten-task #11 group now splits
@@ -55,9 +55,44 @@ between six current-language candidates and four narrow future approaches.
 Generated stage 2 (#11) now also includes procedures, while arrays (#12) moves
 to stage 3; both remain unsupported and Backlog. New unsupported identifiers
 describe only the reviewed approaches, so their late generated positions do
-not establish implementation priority. After the selected sample batch, compare
-concrete scalar-refinement, division and named-type/subtype drivers in a separate
-construct-scope decision. No construct implementation is authorized by this plan.
+not establish implementation priority. The owner has now selected interval-checked division below. The remaining #11
+constructs and arrays keep their own unselected scope; a generated stage number
+does not authorize implementation.
+
+### Checked integer division and scalar refinement
+
+[Milestone 7](https://github.com/berkeleynerd/silver/milestone/7), **Checked integer
+division and scalar refinement**, records two ordered increments. The
+[2026-10-25 owner instruction](docs/session-memory.md#2026-10-25--merge-228-and-implement-interval-checked-integer-division)
+authorizes the first through delivery; the second is a proposal.
+
+1. [Interval-checked integer division #229](https://github.com/berkeleynerd/silver/issues/229):
+   fully grouped `/`, `mod` and `rem` in current scalar-expression positions,
+   driven by Josephus. Retain object-local ranges and current source/operator
+   budgets. The [capability record](docs/integer-division.md) specifies the
+   design obligations, evidence and exclusions. Its work packages are
+   [scope/design #230](https://github.com/berkeleynerd/silver/issues/230),
+   [native admission #231](https://github.com/berkeleynerd/silver/issues/231),
+   [universal/source assurance #232](https://github.com/berkeleynerd/silver/issues/232)
+   and [validation/delivery #233](https://github.com/berkeleynerd/silver/issues/233).
+   No partial package completes the parent or admits a construct.
+2. [Scalar guard refinement #234](https://github.com/berkeleynerd/silver/issues/234):
+   proposed successor, awaiting its own authorization. Scope useful scalar
+   comparisons, assignment transfer/invalidation, joins and loop facts before
+   implementation. No new syntax does not eliminate the assurance work.
+
+This deliberately selects division ahead of generated stage order (division
+was stage 6 at selection), because the assessed bounded arithmetic drivers offer
+more immediate capability than named subtypes. Seven task approaches are
+credible candidates, not demonstrated compiler/proof successes; the assessment
+filter's ten-task upper bound is provisional. The supported identifier list
+stays unchanged until the scoped capability is delivered. Assessment corrections
+may change generated positions, which remain planning metadata.
+
+Arrays are a provisional later candidate, with scope to be reconsidered after
+these deliveries. This milestone does not resume capacity derivation or the
+strict/extended assurance-mode packages. Complete feature-local report accounting
+remains part of division's assurance within the existing bounds.
 
 ### Unbounded programs
 
