@@ -1336,6 +1336,137 @@
         "stderr": "",
         "exit_status": 0
       }
+    },
+    {
+      "source": "rosetta_compile_time_calculation.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "scalar_integer_literal",
+        "named_integer_constant",
+        "integer_expression",
+        "integer_image",
+        "string_literal",
+        "string_expression",
+        "string_concatenation",
+        "concatenated_output",
+        "expression_output",
+        "statement_sequence"
+      ],
+      "specification": "../language.md#integer-objects-expressions-and-comparisons",
+      "expected": {
+        "stdout": "10! = 3628800\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    {
+      "source": "rosetta_loops_n_plus_one_half.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "for_loop",
+        "scalar_integer_literal",
+        "integer_expression",
+        "integer_comparison",
+        "integer_image",
+        "string_literal",
+        "string_expression",
+        "literal_output",
+        "expression_output",
+        "string_choice",
+        "boolean_predicate",
+        "statement_sequence"
+      ],
+      "specification": "../language.md#scoped-finite-for-loops",
+      "expected": {
+        "stdout": " 1, 2, 3, 4, 5, 6, 7, 8, 9, 10\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    {
+      "source": "rosetta_enforced_immutability.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "scalar_integer_literal",
+        "named_integer_constant",
+        "named_integer_variable",
+        "integer_expression",
+        "integer_assignment",
+        "integer_image",
+        "for_loop",
+        "named_string_constant",
+        "string_literal",
+        "string_expression",
+        "string_concatenation",
+        "concatenated_output",
+        "expression_output",
+        "statement_sequence"
+      ],
+      "specification": "../language.md#integer-objects-expressions-and-comparisons",
+      "expected": {
+        "stdout": "Silver keeps 42\nCopy is now 43; Answer is still 42\nLoop index 1 is immutable too.\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    {
+      "source": "rosetta_literals_integer.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "scalar_integer_literal",
+        "named_integer_constant",
+        "integer_expression",
+        "integer_image",
+        "string_literal",
+        "string_expression",
+        "string_concatenation",
+        "concatenated_output",
+        "expression_output",
+        "statement_sequence"
+      ],
+      "specification": "../language.md#integer-objects-expressions-and-comparisons",
+      "expected": {
+        "stdout": "2#10_1101_0111# = 727\n8#1_327# = 727\n10#727# = 727\n16#2D7# = 727\n16:2d7: = 727\n7_27 = 727\n727E0 = 727\n7#1#E3 = 343\nInteger spans -2147483648 .. 2147483647\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    {
+      "source": "rosetta_minimum_number_of_cells.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "for_loop",
+        "scalar_integer_literal",
+        "named_integer_variable",
+        "integer_range_constraint",
+        "integer_expression",
+        "integer_comparison",
+        "integer_assignment",
+        "integer_image",
+        "string_literal",
+        "string_expression",
+        "literal_output",
+        "expression_output",
+        "string_choice",
+        "boolean_predicate",
+        "statement_sequence"
+      ],
+      "specification": "../language.md#integer-objects-expressions-and-comparisons",
+      "expected": {
+        "stdout": " 0 0 0 0 0 0 0 0 0 0\n 0 1 1 1 1 1 1 1 1 0\n 0 1 2 2 2 2 2 2 1 0\n 0 1 2 3 3 3 3 2 1 0\n 0 1 2 3 4 4 3 2 1 0\n 0 1 2 3 4 4 3 2 1 0\n 0 1 2 3 3 3 3 2 1 0\n 0 1 2 2 2 2 2 2 1 0\n 0 1 1 1 1 1 1 1 1 0\n 0 0 0 0 0 0 0 0 0 0\n",
+        "stderr": "",
+        "exit_status": 0
+      }
     }
   ]
 }
