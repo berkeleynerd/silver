@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from small declared ranges and a fixed-count for loop, with no loop-carried value needing an invariant, so proofs should discharge automatically.
 
-Position 320 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 313 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

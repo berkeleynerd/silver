@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over the array's own index range and the only arithmetic is the J+1 index bounded by the loop range, so every check follows from types and static bounds; the function has no while loops or recursion, so no termination annotation is needed.
 
-Position 323 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 316 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

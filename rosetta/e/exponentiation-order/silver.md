@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every operand is a static literal so the overflow checks on 15625 and 1953125 are decided at compile time and discharge trivially; the program has no loops, recursion or input.
 
-Position 1503 in the [progression](../../progression.md#stage-30), in stage 30.
+Position 1496 in the [progression](../../progression.md#stage-29), in stage 29.
 
 ## Approach
 

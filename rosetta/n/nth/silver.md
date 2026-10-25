@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the declared subtype range (mod by non-zero literals, bounded image length, for-loop index), there are no loop-carried values, and the loops are plain for loops, so proofs should discharge without annotations.
 
-Position 307 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 300 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

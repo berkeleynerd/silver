@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from small declared ranges (values at most 64000, products at most 640000) and for-loop bounds, with only the counter needing a visible guard, so proofs should discharge without annotations. The main burden on Silver is surface growth: arrays, subtypes, for and while loops, functions, and number-to-text output.
 
-Position 899 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 892 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

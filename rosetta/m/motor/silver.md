@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program only declares fixed-size float records, assigns literals and prints components, so every check is routine and the only new needs are floating-point types and float formatting.
 
-Position 1038 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1031 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

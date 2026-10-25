@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded text processing over fixed buffers with an explicit file stack, so no annotations are needed, but the many index and slice guards and the file-library dependency make careful program shape necessary.
 
-Position 1491 in the [progression](../../../progression.md#stage-29), in stage 29.
+Position 1484 in the [progression](../../../progression.md#stage-28), in stage 28.
 
 ## Failure paths to test
 

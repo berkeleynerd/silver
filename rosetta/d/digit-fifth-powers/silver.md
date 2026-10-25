@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the declared range of N and the digit indexes, with a single guarded loop-carried Sum, so the proofs should discharge without annotations.
 
-Position 141 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 134 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

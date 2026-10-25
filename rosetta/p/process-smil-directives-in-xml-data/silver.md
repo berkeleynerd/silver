@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The program needs only bounded text scanning, scaled-integer arithmetic and string building, all of which can be guarded explicitly, though many loop-carried positions and accumulators need careful guards.
 
-Position 1151 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1144 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 

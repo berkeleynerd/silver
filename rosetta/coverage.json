@@ -12642,15 +12642,23 @@
     }
    ],
    "surface": [
-    "integers",
-    "scalar-image"
+    "immutable-integers",
+    "integer-image"
    ],
    "outlook": "likely",
    "risks": [],
-   "size": 8,
-   "approach": "Main declares a static Integer constant Factorial_10 equal to 10*9*8*7*6*5*4*3*2*1, which Ada evaluates exactly at compile time as a static expression. Main then prints it with Silver_IO.Put_Line(Integer'Image(Factorial_10)). It has no loops, guards or input.",
-   "summary": "The only arithmetic is a static expression that the compiler folds to 3628800, which fits in Integer, so no run-time check remains apart from the routine 'Image and output call. The proof should discharge trivially once integer constants and 'Image are admitted.",
-   "confidence": "high"
+   "size": 10,
+   "approach": "Main declares Factorial_10 : constant Integer using a fully parenthesized product of 10 through 1 and prints \"10! =\" concatenated with Integer'Image (Factorial_10). The product is Ada-static; output is \"10! = 3628800\" followed by LF. Explain that the current Silver scalar domain is signed 32-bit Integer, every static intermediate must fit, binary arithmetic is fully grouped, the shared arithmetic/concatenation budget is 63 operators, and source is at most 4096 ASCII bytes. In particular, 13! exceeds Integer and is excluded. There is no user-defined compile-time function facility in the current language.",
+   "summary": "The existing immutable Integer and Image fragment covers this task. The fully grouped Ada-static multiplication for 10! evaluates to 3628800, with every intermediate inside signed 32-bit Integer. No new integer type, loop form, contract or image operation is needed.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-25",
+    "record": "assessment-reconciliation-20261025.md",
+    "model": "gpt-6.1-sol",
+    "effort": "xhigh",
+    "setting_evidence": "Selected inherited reviewer setting; runtime setting not independently exposed",
+    "method": "Targeted static task, current-language and scratch-source review; no native admission, proof, build, test or execution"
+   }
   },
   "Compiler/AST interpreter": {
    "revision": 412098,
@@ -16899,25 +16907,24 @@
    "model": "claude-sonnet-5-5",
    "effort": "medium",
    "conflicts": [],
-   "effects": [
-    {
-     "effect": "console-output",
-     "explanation": "The program prints the demonstrated values and the outcome of validating an out-of-range candidate."
-    }
-   ],
+   "effects": [],
    "surface": [
-    "integers",
-    "ranged-subtypes",
-    "for-loops",
-    "put",
-    "scalar-image"
+    "static-integer-types"
    ],
    "outlook": "likely",
    "risks": [],
-   "size": 30,
-   "approach": "Declare type My_Type is range 1 .. 10, then use constants and variables of that type and a for loop over My_Type printing each value with 'Image. A candidate Integer value is tested with an explicit guard 'if C >= 1 and then C <= 10' before conversion to My_Type, and a visible rejection message is printed otherwise. Arithmetic is done by widening to Integer, guarding the result to the range, and converting back.",
-   "summary": "The task is a declared range type with checked conversions, which follows directly from types and guards placed just before each conversion or addition, so proofs should discharge routinely.",
-   "confidence": "high"
+   "size": 9,
+   "approach": "Declare type One_To_Ten is range 1 .. 10, then initialize A : One_To_Ten := 3 and B : One_To_Ten := A in Main with a null body. Explain that the declaration creates a distinct signed integer type and constrained first subtype, and that initializations and assignments to objects of that first subtype must stay within 1 .. 10 without application-written bounds checks.",
+   "summary": "A distinct integer type with bounded objects and an explanation of compiler checks directly matches the captured Ada answer and task wording. Conversions, arithmetic, loop subtype marks, type Image and bounds attributes are unnecessary for this minimal driver; a named Integer subtype is a different, narrower feature.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-25",
+    "record": "assessment-reconciliation-20261025.md",
+    "model": "gpt-6-astra",
+    "effort": "xhigh",
+    "setting_evidence": "Selected setting; runtime not independently confirmed",
+    "method": "Targeted static task, captured-answer and fixed-specification review"
+   }
   },
   "Delegates": {
    "revision": 413171,
@@ -20449,15 +20456,25 @@
     }
    ],
    "surface": [
-    "integers",
-    "scalar-image"
+    "immutable-integers",
+    "bounded-mutable-integers",
+    "integer-for-loops",
+    "integer-image"
    ],
    "outlook": "likely",
    "risks": [],
-   "size": 15,
-   "approach": "Main declares a String constant and an Integer constant with the constant keyword, so the compiler rejects any later assignment to them, and a comment notes the illegal assignment that would not compile. It prints both values with Put_Line, using 'Image for the integer, in straight-line code with no loops or guards.",
-   "summary": "The task is satisfied by Ada's constant declarations, which are compile-time enforced, and the program has only static values and output calls, so every check is trivial. The only surface beyond today's Silver is an integer constant and its 'Image.",
-   "confidence": "high"
+   "size": 17,
+   "approach": "Main declares Answer : constant Integer := 42, Name : constant String := \"Silver\" and mutable Copy : Integer := Answer. It prints the constants, assigns Copy := 43 and prints Copy alongside the unchanged Answer. A one-iteration loop prints its immutable index. Commented invalid assignments document that constants and indexes cannot be targets; the comments themselves are not executable negative-test evidence. Existing declaration and assignment membership rules provide the enforcement.",
+   "summary": "Current constant String and Integer declarations prevent assignments to those objects, and finite-loop indexes are also immutable. An independently mutable Integer copy demonstrates that changing another object does not modify the constant; no new language construct is needed.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-25",
+    "record": "assessment-reconciliation-20261025.md",
+    "model": "gpt-6.1-sol",
+    "effort": "xhigh",
+    "setting_evidence": "Selected inherited reviewer setting; runtime setting not independently exposed",
+    "method": "Targeted static task, current-language and scratch-source review; no native admission, proof, build, test or execution"
+   }
   },
   "Engel expansion": {
    "revision": 414183,
@@ -30247,20 +30264,28 @@
    "tier": "standard",
    "model": "claude-sonnet-5-5",
    "effort": "medium",
-   "conflicts": [],
-   "effects": [
+   "conflicts": [
     {
-     "effect": "console-output",
-     "explanation": "Each line of the text block is written with Silver_IO.Put_Line."
+     "kind": "outside-spark",
+     "explanation": "The task requires native heredoc text-block syntax, absent from the fixed Ada 2022/SPARK language, and adding it would violate Silver's subtractive-source rule."
     }
    ],
+   "effects": [],
    "surface": [],
-   "outlook": "likely",
+   "outlook": "unlikely",
    "risks": [],
-   "size": 12,
-   "approach": "A parameterless Main procedure with SPARK_Mode (On) emits the multi-line text block as a straight sequence of Silver_IO.Put_Line calls on String literals. Leading indentation and doubled quotation marks are preserved inside each literal, so line breaks and whitespace are kept exactly as in a here document. There are no variables, loops or guards.",
-   "summary": "The program is a fixed sequence of Put_Line calls on literals, which Silver already supports, so there are no run-time checks to prove and no new surface is needed.",
-   "confidence": "high"
+   "size": null,
+   "approach": "Record that the inherited language has no heredoc syntax and therefore no faithful executable Silver example for this task. Put_Line sequences and containers of strings are output workarounds, not demonstrations of the required text-block authoring syntax.",
+   "summary": "Ada 2022 string literals cannot contain line breaks, and the captured Ada answer explicitly labels its alternative a workaround. This exclusion concerns native heredoc syntax under the fixed editions, not the ability to output multiline text.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-25",
+    "record": "assessment-reconciliation-20261025.md",
+    "model": "gpt-6-astra",
+    "effort": "xhigh",
+    "setting_evidence": "Selected setting; runtime not independently confirmed",
+    "method": "Targeted static task, captured-answer and fixed-specification review"
+   }
   },
   "Heronian triangles": {
    "revision": 414248,
@@ -32857,16 +32882,23 @@
     }
    ],
    "surface": [
-    "integers",
-    "for-loops",
-    "scalar-image"
+    "integer-for-loops",
+    "integer-image"
    ],
    "outlook": "likely",
    "risks": [],
-   "size": 10,
-   "approach": "Main runs a single for loop, `for Value in 1 .. Integer'Last loop`, and prints `Integer'Image (Value)` with Silver_IO.Put_Line on each pass. The task allows stopping at an implementation limit, so the program ends at Integer'Last, which is the documented resource limit. The arbitrary-precision variant is optional and is left out.",
-   "summary": "The for loop's index stays inside its static range, so nothing can overflow and the loop ends on its own, and the image of an Integer is always a short, bounded string. Every check therefore follows from types and static bounds, with no annotation needed.",
-   "confidence": "high"
+   "size": 8,
+   "approach": "Main uses for Value in 1 .. 2147483647 loop and calls Silver_IO.Put_Line (Integer'Image (Value)). The explicit literal is the current signed 32-bit Integer maximum; Integer'Last is not admitted syntax. Successful execution emits exactly 2147483647 lines, one for every integer from 1 through 2147483647 inclusive. Each line is one ASCII space, the ordinary decimal digits of Value, then LF. No arbitrary precision example is claimed. Do not cap this source or treat a prefix execution as complete task execution; keep the full-run validation disposition explicit.",
+   "summary": "The current finite Integer-loop and standard Integer Image fragment can express the task's explicitly permitted implementation limit, 2147483647. This is language eligibility, not evidence that a complete 2147483647-line execution was performed; a normal sample-run disposition remains separate.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-25",
+    "record": "assessment-reconciliation-20261025.md",
+    "model": "gpt-6.1-sol",
+    "effort": "xhigh",
+    "setting_evidence": "Selected inherited reviewer setting; runtime setting not independently exposed",
+    "method": "Targeted static task, current-language and scratch-source review; no native admission, proof, build, test or execution"
+   }
   },
   "Interactive help": {
    "revision": 353733,
@@ -37176,15 +37208,23 @@
     }
    ],
    "surface": [
-    "integers",
-    "scalar-image"
+    "immutable-integers",
+    "integer-image"
    ],
    "outlook": "likely",
    "risks": [],
-   "size": 20,
-   "approach": "Main declares Integer constants written as Ada based literals (2#10_1101_0111#, 8#1_327#, 10#727#, 16#2D7#, with underscores and an exponent form like 7#1#E2). Each one is printed with Silver_IO.Put_Line of the constant's 'Image. There are no loops, no input and no arithmetic beyond static literal values.",
-   "summary": "Every value is a static literal within Integer's range, so the only checks are compile-time constant range checks plus a call to 'Image, which raise nothing, and the proofs are trivial.",
-   "confidence": "high"
+   "size": 29,
+   "approach": "Explain the complete parameterized syntax: B is a decimal base from 2 through 16; write B#digits# or B:digits: using digit values below B, with case-insensitive A through F for values 10 through 15. Single underscores may separate digits. A nonnegative E exponent multiplies a based numeral by B raised to that exponent, while a decimal numeral uses base 10; the current exponent resource bound is 4096 and the resulting signed value must fit Integer. Demonstrate representative bases 2, 8, 10 and 16, both delimiters, separators, 727E0, 7#1#E3 and the signed endpoints using literal Integer initializers, not parsing/conversion calls. The first seven examples denote 727; 7#1#E3 denotes 343. Unary minus forms the negative endpoint expression. Current Silver has one predefined signed Integer type; no additional integer type or unsigned suffix syntax is claimed.",
+   "summary": "Current Integer numerals already cover decimal and every based literal base from 2 through 16, hash and colon delimiters, digit separators, nonnegative exponents and the signed Integer endpoints. Numeral interpretation is performed by the language, with Image used only to display the resulting values.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-25",
+    "record": "assessment-reconciliation-20261025.md",
+    "model": "gpt-6.1-sol",
+    "effort": "xhigh",
+    "setting_evidence": "Selected inherited reviewer setting; runtime setting not independently exposed",
+    "method": "Targeted static task, current-language and scratch-source review; no native admission, proof, build, test or execution"
+   }
   },
   "Literals/String": {
    "revision": 415263,
@@ -38254,17 +38294,25 @@
     }
    ],
    "surface": [
-    "integers",
-    "for-loops",
-    "scalar-image",
+    "integer-for-loops",
+    "immutable-integers",
+    "integer-image",
     "put"
    ],
    "outlook": "likely",
    "risks": [],
    "size": 12,
-   "approach": "A parameterless Main procedure runs a for loop over 1 .. 10 with a constant range, emitting the number via Put of its 'Image and then, guarded by if I < 10, a separate Put of \", \" before ending with a line terminator. The loop index is a bounded for-loop variable, so no loop-carried values exist.",
-   "summary": "Everything follows from a static for-loop range and a visible if guard, with no loop-carried state, so all checks and the Bronze-level checks discharge routinely; the only gaps are unterminated Put and integer 'Image output in Silver_IO.",
-   "confidence": "high"
+   "approach": "Main loops I over 1 .. 10, calls Silver_IO.Put (Integer'Image (I)), then calls Silver_IO.Put (\",\") only under I < 10. Silver_IO.Put_Line (\"\") follows the loop. Because each positive Image already starts with a space, comma output must be \",\", not \", \". Exact output is one leading space followed by 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 and LF. The last iteration performs the number output while skipping the comma output.",
+   "summary": "Current Integer range loops, scalar comparisons, Put and standard Integer Image express the requested partial final iteration. Number and comma use distinct output statements inside the loop, and no trailing comma is emitted.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-25",
+    "record": "assessment-reconciliation-20261025.md",
+    "model": "gpt-6.1-sol",
+    "effort": "xhigh",
+    "setting_evidence": "Selected inherited reviewer setting; runtime setting not independently exposed",
+    "method": "Targeted static task, current-language and scratch-source review; no native admission, proof, build, test or execution"
+   }
   },
   "Loops/Nested": {
    "revision": 415008,
@@ -41559,18 +41607,26 @@
     }
    ],
    "surface": [
-    "integers",
-    "ranged-subtypes",
-    "for-loops",
+    "bounded-mutable-integers",
+    "immutable-integers",
+    "integer-for-loops",
     "put",
-    "scalar-image"
+    "integer-image"
    ],
    "outlook": "likely",
    "risks": [],
-   "size": 25,
-   "approach": "Nested for loops over a subtype Idx range 1 .. 10 compute the minimum of I-1, 10-I, J-1 and 10-J with if statements into a Natural-range variable. Each value is written with Put of its 'Image followed by a space, and each row ends with Put_Line of an empty string. All values are bounded 0..4 by the loop ranges, so no guards are needed.",
-   "summary": "Every value derives from constant loop ranges of 1..10, so the subtractions, the minimum and the image conversion all follow from types and static bounds, and there is no loop-carried accumulator.",
-   "confidence": "high"
+   "size": 22,
+   "approach": "Declare M : Integer range 0 .. 9 := 0. For each I and J in 1 .. 10, assign M := (I - 1), then compare and replace M successively with (10 - I), (J - 1) and (10 - J) whenever the candidate is smaller. This computes min(I-1,10-I,J-1,10-J), the minimum cells between that cell and any grid edge. Put(Integer'Image(M)) emits each one-digit entry with a leading space; Put_Line(\"\") ends each of ten rows. Each RHS independently fits the full declared 0..9 range, so branch refinement and a loop invariant are unnecessary.",
+   "summary": "The current fragment computes the required 10x10 grid with two finite Integer loops and one mutable Integer range 0..9 object. All subtraction intervals and assigned values lie in 0..9; the actual minima lie in 0..4, but admission does not need scalar guard refinement, a named subtype, Natural or a minimum library operation.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-25",
+    "record": "assessment-reconciliation-20261025.md",
+    "model": "gpt-6.1-sol",
+    "effort": "xhigh",
+    "setting_evidence": "Selected inherited reviewer setting; runtime setting not independently exposed",
+    "method": "Targeted static task, current-language and scratch-source review; no native admission, proof, build, test or execution"
+   }
   },
   "Minimum numbers of three lists": {
    "revision": 415517,
@@ -59217,16 +59273,25 @@
    "effects": [
     {
      "effect": "console-output",
-     "explanation": "Prints each of the five folding states as a title line followed by a text-art grid of the eight panels."
+     "explanation": "A prospective discrete simulation can display computed panel states as text without requiring a window or graphics effect."
     }
    ],
    "surface": [],
-   "outlook": "likely",
+   "outlook": "plausible",
    "risks": [],
-   "size": 40,
-   "approach": "The program embeds the five fold states (2x4 flat start, 2x2 thick square, closed loop, shifted loop, 3x3 with missing corner) as String literal text-art frames and prints each with Silver_IO.Put_Line in order. There are no loops, inputs or computed values, so control flow is a straight statement sequence.",
-   "summary": "The task is under-specified and a text-art walk through the folding states meets it with only literal output, so every check is trivially discharged and no new surface is needed.",
-   "confidence": "medium"
+   "size": null,
+   "approach": "Replace the literal-frame slideshow proposal with a pending design for a finite simulation that stores or computes panel state and applies explicitly specified fold transitions, displaying the computed result as text. The transition model, faithful scope and resulting language surface have not yet been settled; the captured graphical answer is evidence of a five-state presentation, not a verified mechanical model.",
+   "summary": "There is no identified Oracle conflict, and discrete bounded state may avoid floating point and graphics. No executable task solution, completed simulation design, required construct set or source-size estimate is claimed, so this assessment must not enter the progression until the design is resolved.",
+   "confidence": "low",
+   "assessment_status": "design-pending",
+   "review": {
+    "date": "2026-10-25",
+    "record": "assessment-reconciliation-20261025.md",
+    "model": "gpt-6-astra",
+    "effort": "xhigh",
+    "setting_evidence": "Selected setting; runtime not independently confirmed",
+    "method": "Targeted static task, captured-answer and fixed-specification review"
+   }
   },
   "Run as a daemon or service": {
    "revision": 385230,
@@ -68210,16 +68275,26 @@
    "effects": [
     {
      "effect": "console-output",
-     "explanation": "The interpolated sentence is printed with Silver_IO.Put_Line."
+     "explanation": "Prints Mary had a little lamb after the admitted library operation replaces the marker with the value held in Little."
     }
    ],
-   "surface": [],
+   "surface": [
+    "fixed-string-replacement"
+   ],
    "outlook": "likely",
    "risks": [],
-   "size": 8,
-   "approach": "A String constant holds \"little\" and Main prints \"Mary had a \" & Little & \" lamb.\" with Silver_IO.Put_Line, using Ada's built-in concatenation as the language's interpolation mechanism. There is no input, no loop and no guard, and the concatenation length is static.",
-   "summary": "The program needs only a String constant, bounded concatenation of static-length operands and Put_Line, all of which today's Silver supports, so every check is static and discharges trivially.",
-   "confidence": "high"
+   "size": 12,
+   "approach": "Follow the captured Ada answer's library-based interpretation: declare Original as the constant String \"Mary had a @__@ lamb\" and Little as a String variable containing \"little\", then print Ada.Strings.Fixed.Replace_Slice (Original, 12, 15, Little). The fixed task text makes the placeholder positions static, so no search operation or application-written interpolation routine is needed.",
+   "summary": "This future library candidate performs replacement in an existing template using a standard Ada operation, with fixed valid positions and a statically bounded result. It neither claims native interpolation syntax nor treats plain concatenation as interpolation; admission still requires the operation's complete contract and source-correspondence justification.",
+   "confidence": "medium",
+   "review": {
+    "date": "2026-10-25",
+    "record": "assessment-reconciliation-20261025.md",
+    "model": "gpt-6-astra",
+    "effort": "xhigh",
+    "setting_evidence": "Selected setting; runtime not independently confirmed",
+    "method": "Targeted static task, captured-answer and fixed-specification review"
+   }
   },
   "String length": {
    "revision": 415012,
@@ -72580,21 +72655,28 @@
    "effects": [
     {
      "effect": "console-output",
-     "explanation": "Prints the topic value, its square and its integer square root with Put_Line."
+     "explanation": "Displays the values obtained when @ denotes two different assignment targets and explains its assignment-local scope."
     }
    ],
    "surface": [
-    "integers",
-    "ranged-subtypes",
-    "scalar-image",
-    "for-loops"
+    "assignment-target-name",
+    "bounded-mutable-integers",
+    "integer-image"
    ],
    "outlook": "likely",
    "risks": [],
-   "size": 22,
-   "approach": "Ada has no topic variable, so the program declares a short-named variable It of a bounded integer subtype (0 .. 1000), assigns 3, and prints It, It*It and an integer square root found by a for loop over 0 .. 31 that keeps the largest R with R*R <= It. A second, inner use is skipped, and the output explains in text that Ada scoping is lexical with no implicit topic. All arithmetic is bounded by the subtype range, so no guards beyond the loop bound are needed.",
-   "summary": "The task only needs a small bounded-integer demonstration with a for loop and integer-to-text output, all of whose checks follow from declared ranges and for-loop bounds. No annotation, recursion or nonlinear loop-carried value is involved.",
-   "confidence": "high"
+   "size": 15,
+   "approach": "Demonstrate Ada 2022's target-name symbol @ as the limited current-object analogue: initialize two Integer objects with symmetric ranges, assign A := (-@) and B := (-@), and print their results. Explain that @ is a constant view of the current assignment target, is permitted only in that assignment's right-hand expression, and has no persistent or dynamically nested topic binding.",
+   "summary": "Unlike an ordinary variable named It, @ has predefined language meaning that abbreviates the current target; the task's optional square/root example is unnecessary. This is a future explicit Silver admission of inherited Ada syntax, with negation safe over symmetric bounded ranges and no need for scalar guard refinement.",
+   "confidence": "medium",
+   "review": {
+    "date": "2026-10-25",
+    "record": "assessment-reconciliation-20261025.md",
+    "model": "gpt-6-astra",
+    "effort": "xhigh",
+    "setting_evidence": "Selected setting; runtime not independently confirmed",
+    "method": "Targeted static task, captured-answer and fixed-specification review"
+   }
   },
   "Topological sort": {
    "revision": 414550,
@@ -74386,19 +74468,29 @@
    "effects": [
     {
      "effect": "console-output",
-     "explanation": "The program prints the incremented value of the variable named Δ, plus a short text describing Ada's identifier rules."
+     "explanation": "Prints the incremented value of the object whose identifier contains the Unicode delta character."
     }
    ],
    "surface": [
-    "integers",
-    "scalar-image"
+    "unicode-identifiers",
+    "scalar-guard-refinement",
+    "bounded-mutable-integers",
+    "integer-image"
    ],
    "outlook": "likely",
    "risks": [],
    "size": 12,
-   "approach": "Declare an Integer variable named Δ initialised to 1 in Main, add 1 to it in a straight-line assignment, and print Integer'Image of it with Silver_IO.Put_Line after a literal line describing Ada's Unicode identifier rules. There are no loops, calls or inputs, so no guards are needed.",
-   "summary": "The program is straight-line code on one Integer whose value is statically 1 before the increment, so the overflow check on the addition and the initialization checks discharge trivially. The only new surface is integer variables and 'Image, and the Unicode identifier is just a source-encoding matter that changes no proof.",
-   "confidence": "high"
+   "approach": "Declare Δ : Integer range 1 .. 2 := 1, increment it with Δ := (Δ + 1) inside if Δ < 2 then, and print Integer'Image (Δ). Accompany the source with the admitted encoding and Unicode identifier documentation; the guard makes the increment fit its range once scalar guard refinement is admitted.",
+   "summary": "Unicode identifiers are permitted by inherited Ada/SPARK but excluded by today's Silver ASCII source rule, and today's scalar analysis also cannot justify this increment. Explicit Unicode identifier support and scalar guard refinement are future surface, not Oracle amendments or currently delivered capabilities.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-25",
+    "record": "assessment-reconciliation-20261025.md",
+    "model": "gpt-6-astra",
+    "effort": "xhigh",
+    "setting_evidence": "Selected setting; runtime not independently confirmed",
+    "method": "Targeted static task, captured-answer and fixed-specification review"
+   }
   },
   "Unique characters": {
    "revision": 409273,
@@ -75716,23 +75808,25 @@
    "effort": "high",
    "escalated_from": "claude-sonnet-5-5",
    "conflicts": [],
-   "effects": [
-    {
-     "effect": "console-output",
-     "explanation": "The program prints each declared type's range and its resulting 'Size in bits with Silver_IO.Put_Line."
-    }
-   ],
+   "effects": [],
    "surface": [
-    "integers",
-    "ranged-subtypes",
-    "scalar-image"
+    "integer-object-size-clause",
+    "bounded-mutable-integers"
    ],
    "outlook": "likely",
    "risks": [],
-   "size": 20,
-   "approach": "The program declares a few integer types whose ranges (for example 0 .. 1, 0 .. 255, -32_768 .. 32_767) set the minimum number of bits any object of the type must occupy, plus a variable of each type. Main then prints each type's bounds and its 'Size via 'Image with Put_Line, with no loops, arithmetic or guards needed.",
-   "summary": "The only run-time checks are static initializations within declared ranges and images of static attribute values, so every proof obligation is trivial. The one open question is a language-policy one, not a proof one: whether Silver will also admit an explicit Size aspect, which is neither a pragma nor a contract, so no Oracle rule forbids it.",
-   "confidence": "medium"
+   "size": 8,
+   "approach": "Declare an initialized stand-alone object X : Integer := 0 and specify for X'Size use 32 before the null body. Explain that this confirming object representation clause specifies its 32-bit representation on the pinned targets; the task accepts specifying a variable's size and does not require reading the Size attribute or printing it.",
+   "summary": "A static confirming object Size clause is the only new surface this minimal example needs. It is a representation declaration, not a pragma or proof annotation, and does not require a new type, a named subtype, a conversion or a Size attribute expression.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-25",
+    "record": "assessment-reconciliation-20261025.md",
+    "model": "gpt-6-astra",
+    "effort": "xhigh",
+    "setting_evidence": "Selected setting; runtime not independently confirmed",
+    "method": "Targeted static task, captured-answer and fixed-specification review"
+   }
   },
   "Variable-length quantity": {
    "revision": 413112,

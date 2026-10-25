@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is fixed-bound for loops over constant array ranges with no recursion, so only the floating-point range bounds and elementary-function contracts are non-routine, making discharge plausible but dependent on careful float subtypes.
 
-Position 1519 in the [progression](../../progression.md#stage-30), in stage 30.
+Position 1512 in the [progression](../../progression.md#stage-29), in stage 29.
 
 ## Approach
 

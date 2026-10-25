@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded array and counter logic that types and just-before guards can discharge, but several loop-carried indexes and the hex formatting need careful guard placement, so it is plausible rather than likely.
 
-Position 1314 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1307 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

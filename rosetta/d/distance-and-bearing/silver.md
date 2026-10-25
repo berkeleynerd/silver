@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Nothing needs an annotation, but the program relies on admitted file input, text parsing and floating-point trig/sqrt contracts, and the proofs hinge on range-guarding the float operands and conversions in loop-carried code. That makes discharge plausible rather than likely.
 
-Position 1343 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1336 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Failure paths to test
 

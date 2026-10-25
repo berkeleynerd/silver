@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is straight-line code with no loops, so the only difficulty is floating-point overflow, division by zero and sqrt-domain checks, which range-bounded subtypes and explicit guards can address, though float formatting and sqrt need admitted library support.
 
-Position 1060 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1053 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

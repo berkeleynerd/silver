@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is string scanning and bounded counters over embedded data, so index and overflow checks follow from guards before each access, with no recursion, float arithmetic or annotations needed. The cost is the careful guarded token scanner with loop-carried positions, hence plausible rather than likely.
 
-Position 1026 in the [progression](../../../progression.md#stage-17), in stage 17.
+Position 1019 in the [progression](../../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

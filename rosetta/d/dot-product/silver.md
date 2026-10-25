@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from bounded element ranges, a fixed maximum length and a for loop over the array's own range, so no annotation is needed.
 
-Position 965 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 958 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

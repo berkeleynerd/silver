@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Iterative factorial over a ranged argument with a division-based guard on the accumulator needs no annotation, but the nonlinear loop-carried multiply makes discharge depend on program shape rather than being routine.
 
-Position 163 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 156 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

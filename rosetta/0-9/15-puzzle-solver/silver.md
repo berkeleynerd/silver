@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexing and arithmetic are bounded by ranged subtypes and explicit guards, and the recursive search is replaced by a procedure-only iterative stack so no variant is needed, but the many loop-carried values in the search need careful shaping to discharge.
 
-Position 1196 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1189 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

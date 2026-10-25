@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check is an array index by an enumeration, a bounded serial counter or a bounded string concatenation, all following from declared types and guards, with no loops carrying unbounded values and no recursion or heap use.
 
-Position 1168 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1161 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is bounded integer math with literal divisors on a ranged year, and every loop is a for loop over fixed small arrays, so checks follow from types and guards without annotations.
 
-Position 806 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 799 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

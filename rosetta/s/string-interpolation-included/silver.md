@@ -1,15 +1,21 @@
 # String interpolation (included)
 
-**Candidate: proofs likely to discharge automatically.** The program needs only a String constant, bounded concatenation of static-length operands and Put_Line, all of which today's Silver supports, so every check is static and discharges trivially.
+**Candidate: proofs likely to discharge automatically.** This future library candidate performs replacement in an existing template using a standard Ada operation, with fixed valid positions and a statically bounded result. It neither claims native interpolation syntax nor treats plain concatenation as interpolation; admission still requires the operation's complete contract and source-correspondence justification.
 
-Position 12 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 1573 in the [progression](../../progression.md#stage-40), in stage 40, which adds fixed string replacement.
 
 ## Approach
 
-A String constant holds "little" and Main prints "Mary had a " & Little & " lamb." with Silver_IO.Put_Line, using Ada's built-in concatenation as the language's interpolation mechanism. There is no input, no loop and no guard, and the concatenation length is static. About 8 lines.
+Follow the captured Ada answer's library-based interpretation: declare Original as the constant String "Mary had a @__@ lamb" and Little as a String variable containing "little", then print Ada.Strings.Fixed.Replace_Slice (Original, 12, 15, Little). The fixed task text makes the placeholder positions static, so no search operation or application-written interpolation routine is needed. About 12 lines.
+
+## Language surface recorded by this assessment
+
+Fixed string replacement.
 
 ## External effects
 
-- **console output** (allowed): The interpolated sentence is printed with Silver_IO.Put_Line.
+- **console output** (allowed): Prints Mary had a little lamb after the admitted library operation replaces the marker with the value held in Little.
 
-Assessed on 2026-10-15 against page revision 413061 of the [task](https://rosettacode.org/wiki/String_interpolation_%28included%29) by claude-opus-5-5 at high effort; confidence high. The inclusion policy is in `rosetta/coverage.json`.
+Initially assessed on 2026-10-15 against page revision 413061 of the [task](https://rosettacode.org/wiki/String_interpolation_%28included%29) by claude-opus-5-5 at high effort; current confidence medium. The inclusion policy is in `rosetta/coverage.json`.
+
+Revised on 2026-10-25 by Codex through targeted source review; see the [review record](../../assessment-reconciliation-20261025.md).

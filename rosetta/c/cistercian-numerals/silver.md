@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from subtypes, constant tables and for-loop indexes over fixed bounds with no loop-carried accumulator, but the coordinate arithmetic needs careful range-subtype design to discharge unaided.
 
-Position 835 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 828 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

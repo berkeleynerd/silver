@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic and indexes are bounded by small fixed ranges and guards, and loops are in procedures, so no annotation is needed, but the transposition index bookkeeping needs careful guard placement.
 
-Position 743 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 736 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

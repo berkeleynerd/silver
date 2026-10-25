@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are bounded for loops over fixed arrays or ranged subtypes, and the moduli and product are range-limited with an explicit guard, so every check follows from types and guards without an invariant.
 
-Position 139 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 132 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks come from fixed array bounds, subtype ranges and explicit pre-index guards, and the only loops needing care are bounded for loops inside a procedure, but the triply nested candidate scan with loop-carried coordinates and nonlinear LCG arithmetic makes discharge depend on careful program shape.
 
-Position 853 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 846 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

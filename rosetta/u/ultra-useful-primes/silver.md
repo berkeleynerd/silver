@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded fixed-capacity big-number arithmetic in procedures with limb types that bound all intermediate values, so no annotation is needed, but the multi-precision multiplication, folding reduction and fixed-base Miller-Rabin demand careful program shape for the provers.
 
-Position 1407 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1400 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Approach
 

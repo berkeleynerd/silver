@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from enumeration-indexed arrays and bounded counters with explicit capacity guards, and the recursion-free DFS sits in a procedure so no variants are needed. It is plausible rather than likely because the stack and output counters are loop-carried values that need guards before each use.
 
-Position 1191 in the [progression](../../../progression.md#stage-20), in stage 20.
+Position 1184 in the [progression](../../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

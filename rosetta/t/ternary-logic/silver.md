@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every operator is a total case statement over a three-value enumeration, and all loops are for loops over the enumeration range, so no run-time check depends on a loop-carried value and no annotation is needed. The only new surface is enumerations, case statements, functions and bounded string building, all routine for the provers.
 
-Position 1175 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1168 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

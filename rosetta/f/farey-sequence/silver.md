@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All values are small bounded integers and the recurrence is a simple loop in a procedure, so the only non-routine checks are the guarded nonlinear updates of loop-carried values, which discharge with explicit range guards. No annotation is needed.
 
-Position 257 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 250 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

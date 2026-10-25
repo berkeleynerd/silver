@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task fits the Oracle with no conflicts, but iterative floating-point linear algebra with loop-carried accumulators and parsing of real numbers makes automatic proof of overflow, NaN and division checks depend on careful range guards, and exact output matching is only approximate.
 
-Position 1247 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1240 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Failure paths to test
 

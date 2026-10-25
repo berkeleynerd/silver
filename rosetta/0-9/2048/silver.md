@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexes are range-typed constants 1..4 and merges use for loops over fixed arrays, so checks follow from types and guards, but capped tile and score arithmetic and the generator's modular arithmetic need careful range guards, hence plausible rather than likely.
 
-Position 1554 in the [progression](../../progression.md#stage-33), in stage 33.
+Position 1547 in the [progression](../../progression.md#stage-32), in stage 32.
 
 ## Failure paths to test
 

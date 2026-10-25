@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is a bounded for loop over a fixed pulse count with a wraparound generator and constant integer thresholds, so every check follows from types and static bounds. The only extra is the documented fixed-point precision replacing floating-point trigonometry.
 
-Position 1285 in the [progression](../../../progression.md#stage-22), in stage 22.
+Position 1278 in the [progression](../../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

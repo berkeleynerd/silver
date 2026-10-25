@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** This is a tiny recursive procedure whose only checks are a guarded decrement and concatenation of bounded image text, and procedures get no termination check, so proofs should discharge; the one soft spot is recursion depth, which the declared subtype bounds.
 
-Position 1562 in the [progression](../../progression.md#stage-35), in stage 35, which adds recursive procedures.
+Position 1555 in the [progression](../../progression.md#stage-34), in stage 34, which adds recursive procedures.
 
 ## Approach
 

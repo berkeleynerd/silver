@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from bounded buffers, ranged counts and guards before each index, with no recursion or annotation needed, but the program is large and relies on admitted multi-argument and file operations that Silver lacks today. Outlook is plausible because loop-carried cursors and counts need careful guards, not because any fact requires an invariant.
 
-Position 1499 in the [progression](../../progression.md#stage-29), in stage 29.
+Position 1492 in the [progression](../../progression.md#stage-28), in stage 28.
 
 ## Failure paths to test
 

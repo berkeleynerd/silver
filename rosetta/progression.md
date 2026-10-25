@@ -16,7 +16,9 @@ under which every program using the construct proves automatically. The obligati
 assessments flag, and how many samples are only plausible, show where that rule must be
 most restrictive.
 
-1,578 candidates in 39 stages; 2 samples are unlikely to prove automatically and 202 are excluded.
+1,576 candidates in 43 stages; 2 samples are unlikely to prove automatically and 203 are excluded.
+
+1 assessment(s) await a faithful program design and have no stage.
 
 ## Stage 1
 
@@ -29,72 +31,57 @@ Needs nothing beyond today's Silver and the supported constructs (Put without a 
 5. [Start from a main routine](s/start-from-a-main-routine/silver.md): likely, about 6 lines
 6. [Case-sensitivity of identifiers](c/case-sensitivity-of-identifiers/silver.md): likely, about 8 lines
 7. [Comments](c/comments/silver.md): likely, about 8 lines
-8. [Loops/Downward for](l/loops/downward-for/silver.md): likely, about 8 lines
-9. [Show the epoch](s/show-the-epoch/silver.md): likely, about 8 lines
-10. [Sort stability](s/sort-stability/silver.md): likely, about 8 lines
-11. [String concatenation](s/string-concatenation/silver.md): likely, about 8 lines
-12. [String interpolation (included)](s/string-interpolation-included/silver.md): likely, about 8 lines
-13. [Loops/For](l/loops/for/silver.md): likely, about 10 lines
-14. [Random number generator (included)](r/random-number-generator-included/silver.md): likely, about 10 lines
-15. [Find square difference](f/find-square-difference/silver.md): likely, about 12 lines
-16. [Here document](h/here-document/silver.md): likely, about 12 lines
-17. [Sealed classes and methods](s/sealed-classes-and-methods/silver.md): likely, about 12 lines
-18. [Loops/For with a specified step](l/loops/for-with-a-specified-step/silver.md): likely, about 14 lines
-19. [Copy a string](c/copy-a-string/silver.md): likely, about 15 lines
-20. [Print debugging statement](p/print-debugging-statement/silver.md): likely, about 15 lines
-21. [Special variables](s/special-variables/silver.md): likely, about 15 lines
-22. [Draw a diamond](d/draw-a-diamond/silver.md): likely, about 16 lines
-23. [Special characters](s/special-characters/silver.md): likely, about 16 lines
-24. [Write language name in 3D ASCII](w/write-language-name-in-3d-ascii/silver.md): likely, about 16 lines
-25. [Safe mode](s/safe-mode/silver.md): likely, about 20 lines
-26. [Documentation](d/documentation/silver.md): likely, about 22 lines
-27. [Rubik's cube](r/rubiks-cube/silver.md): likely, about 22 lines
-28. [Hello world/Newbie](h/hello-world/newbie/silver.md): likely, about 25 lines
-29. [Interactive help](i/interactive-help/silver.md): likely, about 25 lines; uses arguments
-30. [Operator precedence](o/operator-precedence/silver.md): likely, about 25 lines
-31. [Useless instructions](u/useless-instructions/silver.md): likely, about 25 lines
-32. [Cross compilation](c/cross-compilation/silver.md): likely, about 30 lines
-33. [Naming conventions](n/naming-conventions/silver.md): likely, about 40 lines
-34. [Rubik's Magic Simulation](r/rubiks-magic-simulation/silver.md): likely, about 40 lines
-35. [Draw the Empire State Building](d/draw-the-empire-state-building/silver.md): likely, about 45 lines
+8. [Integer sequence](i/integer-sequence/silver.md): likely, about 8 lines
+9. [Loops/Downward for](l/loops/downward-for/silver.md): likely, about 8 lines
+10. [Show the epoch](s/show-the-epoch/silver.md): likely, about 8 lines
+11. [Sort stability](s/sort-stability/silver.md): likely, about 8 lines
+12. [String concatenation](s/string-concatenation/silver.md): likely, about 8 lines
+13. [Compile-time calculation](c/compile-time-calculation/silver.md): likely, about 10 lines
+14. [Loops/For](l/loops/for/silver.md): likely, about 10 lines
+15. [Random number generator (included)](r/random-number-generator-included/silver.md): likely, about 10 lines
+16. [Find square difference](f/find-square-difference/silver.md): likely, about 12 lines
+17. [Loops/N plus one half](l/loops/n-plus-one-half/silver.md): likely, about 12 lines
+18. [Sealed classes and methods](s/sealed-classes-and-methods/silver.md): likely, about 12 lines
+19. [Loops/For with a specified step](l/loops/for-with-a-specified-step/silver.md): likely, about 14 lines
+20. [Copy a string](c/copy-a-string/silver.md): likely, about 15 lines
+21. [Print debugging statement](p/print-debugging-statement/silver.md): likely, about 15 lines
+22. [Special variables](s/special-variables/silver.md): likely, about 15 lines
+23. [Draw a diamond](d/draw-a-diamond/silver.md): likely, about 16 lines
+24. [Special characters](s/special-characters/silver.md): likely, about 16 lines
+25. [Write language name in 3D ASCII](w/write-language-name-in-3d-ascii/silver.md): likely, about 16 lines
+26. [Enforced immutability](e/enforced-immutability/silver.md): likely, about 17 lines
+27. [Safe mode](s/safe-mode/silver.md): likely, about 20 lines
+28. [Documentation](d/documentation/silver.md): likely, about 22 lines
+29. [Minimum number of cells after, before, above and below NxN squares](m/minimum-number-of-cells-after-before-above-and-below-nxn-squares/silver.md): likely, about 22 lines
+30. [Rubik's cube](r/rubiks-cube/silver.md): likely, about 22 lines
+31. [Hello world/Newbie](h/hello-world/newbie/silver.md): likely, about 25 lines
+32. [Interactive help](i/interactive-help/silver.md): likely, about 25 lines; uses arguments
+33. [Operator precedence](o/operator-precedence/silver.md): likely, about 25 lines
+34. [Useless instructions](u/useless-instructions/silver.md): likely, about 25 lines
+35. [Literals/Integer](l/literals/integer/silver.md): likely, about 29 lines
+36. [Cross compilation](c/cross-compilation/silver.md): likely, about 30 lines
+37. [Naming conventions](n/naming-conventions/silver.md): likely, about 40 lines
+38. [Draw the Empire State Building](d/draw-the-empire-state-building/silver.md): likely, about 45 lines
 
 ## Stage 2
 
-Adds for loops, integers, ranged subtypes and 'Image of scalars.
+Adds for loops, integers, procedures, ranged subtypes and 'Image of scalars.
 
 Admission questions:
 
 - **for loops**: Which for-loop forms are admitted, and which checks inside them must discharge from the loop index and local guards alone, without invariants?
 - **integers**: Which integer types, literals and operators are admitted, and which range or guard rule makes every +, - and * provably free of overflow?
+- **procedures**: Which procedures and parameter modes are admitted, and is each body proved for every value of its parameter types, with its own guards, or in the context of each call?
 - **ranged subtypes**: Which type and subtype declarations and conversions are admitted, and how is every range check at assignment and conversion discharged?
 - **'Image of scalars**: How are 'Image results bounded, including their leading space, so that every concatenation with them proves within capacity?
 
-36. [Topic variable](t/topic-variable/silver.md): likely, about 22 lines
-37. [Compile-time calculation](c/compile-time-calculation/silver.md): likely, about 8 lines
-38. [Integer sequence](i/integer-sequence/silver.md): likely, about 10 lines
-39. [Loops/N plus one half](l/loops/n-plus-one-half/silver.md): likely, about 12 lines
-40. [Unicode variable names](u/unicode-variable-names/silver.md): likely, about 12 lines
-41. [Enforced immutability](e/enforced-immutability/silver.md): likely, about 15 lines
-42. [Literals/Integer](l/literals/integer/silver.md): likely, about 20 lines
-43. [Variable size/Set](v/variable-size/set/silver.md): likely, about 20 lines
-44. [Minimum number of cells after, before, above and below NxN squares](m/minimum-number-of-cells-after-before-above-and-below-nxn-squares/silver.md): likely, about 25 lines
-45. [Define a primitive data type](d/define-a-primitive-data-type/silver.md): likely, about 30 lines
-
-## Stage 3
-
-Adds procedures.
-
-Admission questions:
-
-- **procedures**: Which procedures and parameter modes are admitted, and is each body proved for every value of its parameter types, with its own guards, or in the context of each call?
-
 The assessments flag overflow in 2 and range in 1 of its 3 samples. 1 of 3 is only plausible.
 
-46. [Return multiple values](r/return-multiple-values/silver.md): likely, about 20 lines
-47. [Named parameters](n/named-parameters/silver.md): likely, about 25 lines
-48. [Law of cosines - triples](l/law-of-cosines-triples/silver.md): plausible, about 60 lines
+39. [Law of cosines - triples](l/law-of-cosines-triples/silver.md): plausible, about 60 lines
+40. [Return multiple values](r/return-multiple-values/silver.md): likely, about 20 lines
+41. [Named parameters](n/named-parameters/silver.md): likely, about 25 lines
 
-## Stage 4
+## Stage 3
 
 Adds arrays.
 
@@ -104,23 +91,23 @@ Admission questions:
 
 The assessments flag index in 5, overflow in 5, range in 2 and initialization in 1 of its 15 samples. 1 of 15 is only plausible.
 
-49. [Loops/Foreach](l/loops/foreach/silver.md): likely, about 14 lines
-50. [Segmentation fault protection](s/segmentation-fault-protection/silver.md): likely, about 25 lines
-51. [Variable declaration reset](v/variable-declaration-reset/silver.md): likely, about 25 lines
-52. [Array concatenation](a/array-concatenation/silver.md): likely, about 30 lines
-53. [Singly-linked list/Traversal](s/singly-linked-list/traversal/silver.md): likely, about 30 lines
-54. [Monads/List monad](m/monads/list-monad/silver.md): likely, about 35 lines
-55. [Shift list elements to left by 3](s/shift-list-elements-to-left-by-3/silver.md): likely, about 35 lines
-56. [Sum of squares](s/sum-of-squares/silver.md): likely, about 35 lines
-57. [Common sorted list](c/common-sorted-list/silver.md): likely, about 45 lines
-58. [Leonardo numbers](l/leonardo-numbers/silver.md): likely, about 45 lines
-59. [Round-robin tournament schedule](r/round-robin-tournament-schedule/silver.md): likely, about 45 lines
-60. [Sort disjoint sublist](s/sort-disjoint-sublist/silver.md): likely, about 45 lines
-61. [Closest-pair problem](c/closest-pair-problem/silver.md): likely, about 55 lines
-62. [Hofstadter Q sequence](h/hofstadter-q-sequence/silver.md): likely, about 55 lines
-63. [Greatest subsequential sum](g/greatest-subsequential-sum/silver.md): plausible, about 45 lines
+42. [Loops/Foreach](l/loops/foreach/silver.md): likely, about 14 lines
+43. [Segmentation fault protection](s/segmentation-fault-protection/silver.md): likely, about 25 lines
+44. [Variable declaration reset](v/variable-declaration-reset/silver.md): likely, about 25 lines
+45. [Array concatenation](a/array-concatenation/silver.md): likely, about 30 lines
+46. [Singly-linked list/Traversal](s/singly-linked-list/traversal/silver.md): likely, about 30 lines
+47. [Monads/List monad](m/monads/list-monad/silver.md): likely, about 35 lines
+48. [Shift list elements to left by 3](s/shift-list-elements-to-left-by-3/silver.md): likely, about 35 lines
+49. [Sum of squares](s/sum-of-squares/silver.md): likely, about 35 lines
+50. [Common sorted list](c/common-sorted-list/silver.md): likely, about 45 lines
+51. [Leonardo numbers](l/leonardo-numbers/silver.md): likely, about 45 lines
+52. [Round-robin tournament schedule](r/round-robin-tournament-schedule/silver.md): likely, about 45 lines
+53. [Sort disjoint sublist](s/sort-disjoint-sublist/silver.md): likely, about 45 lines
+54. [Closest-pair problem](c/closest-pair-problem/silver.md): likely, about 55 lines
+55. [Hofstadter Q sequence](h/hofstadter-q-sequence/silver.md): likely, about 55 lines
+56. [Greatest subsequential sum](g/greatest-subsequential-sum/silver.md): plausible, about 45 lines
 
-## Stage 5
+## Stage 4
 
 Adds string building.
 
@@ -130,27 +117,27 @@ Admission questions:
 
 The assessments flag overflow in 12, index in 7, length in 4 and range in 3 of its 19 samples. 2 of 19 are only plausible.
 
-64. [String append](s/string-append/silver.md): likely, about 12 lines
-65. [String prepend](s/string-prepend/silver.md): likely, about 12 lines
-66. [99 bottles of beer](0-9/99-bottles-of-beer/silver.md): likely, about 22 lines
-67. [Array length](a/array-length/silver.md): likely, about 22 lines
-68. [Numeric separator syntax](n/numeric-separator-syntax/silver.md): likely, about 25 lines
-69. [Apply a callback to an array](a/apply-a-callback-to-an-array/silver.md): likely, about 30 lines
-70. [Collections](c/collections/silver.md): likely, about 30 lines
-71. [Show the (decimal) value of a number of 1s appended with a 3, then squared](s/show-the-decimal-value-of-a-number-of-1s-appended-with-a-3-then-squared/silver.md): likely, about 35 lines
-72. [Implicit type conversion](i/implicit-type-conversion/silver.md): likely, about 45 lines
-73. [Knapsack problem/Unbounded](k/knapsack-problem/unbounded/silver.md): likely, about 45 lines
-74. [NKTgLaw](n/nktglaw/silver.md): likely, about 45 lines
-75. [Sort an integer array](s/sort-an-integer-array/silver.md): likely, about 45 lines
-76. [Sorting algorithms/Bead sort](s/sorting-algorithms/bead-sort/silver.md): likely, about 45 lines
-77. [Sorting algorithms/Selection sort](s/sorting-algorithms/selection-sort/silver.md): likely, about 45 lines
-78. [Padovan n-step number sequences](p/padovan-n-step-number-sequences/silver.md): likely, about 55 lines
-79. [Taxicab numbers](t/taxicab-numbers/silver.md): likely, about 75 lines
-80. [Decreasing contiguous subsequences](d/decreasing-contiguous-subsequences/silver.md): likely, about 110 lines
-81. [Averages/Mode](a/averages/mode/silver.md): plausible, about 35 lines
-82. [Sorting algorithms/Counting sort](s/sorting-algorithms/counting-sort/silver.md): plausible, about 55 lines
+57. [String append](s/string-append/silver.md): likely, about 12 lines
+58. [String prepend](s/string-prepend/silver.md): likely, about 12 lines
+59. [99 bottles of beer](0-9/99-bottles-of-beer/silver.md): likely, about 22 lines
+60. [Array length](a/array-length/silver.md): likely, about 22 lines
+61. [Numeric separator syntax](n/numeric-separator-syntax/silver.md): likely, about 25 lines
+62. [Apply a callback to an array](a/apply-a-callback-to-an-array/silver.md): likely, about 30 lines
+63. [Collections](c/collections/silver.md): likely, about 30 lines
+64. [Show the (decimal) value of a number of 1s appended with a 3, then squared](s/show-the-decimal-value-of-a-number-of-1s-appended-with-a-3-then-squared/silver.md): likely, about 35 lines
+65. [Implicit type conversion](i/implicit-type-conversion/silver.md): likely, about 45 lines
+66. [Knapsack problem/Unbounded](k/knapsack-problem/unbounded/silver.md): likely, about 45 lines
+67. [NKTgLaw](n/nktglaw/silver.md): likely, about 45 lines
+68. [Sort an integer array](s/sort-an-integer-array/silver.md): likely, about 45 lines
+69. [Sorting algorithms/Bead sort](s/sorting-algorithms/bead-sort/silver.md): likely, about 45 lines
+70. [Sorting algorithms/Selection sort](s/sorting-algorithms/selection-sort/silver.md): likely, about 45 lines
+71. [Padovan n-step number sequences](p/padovan-n-step-number-sequences/silver.md): likely, about 55 lines
+72. [Taxicab numbers](t/taxicab-numbers/silver.md): likely, about 75 lines
+73. [Decreasing contiguous subsequences](d/decreasing-contiguous-subsequences/silver.md): likely, about 110 lines
+74. [Averages/Mode](a/averages/mode/silver.md): plausible, about 35 lines
+75. [Sorting algorithms/Counting sort](s/sorting-algorithms/counting-sort/silver.md): plausible, about 55 lines
 
-## Stage 6
+## Stage 5
 
 Adds Boolean objects.
 
@@ -160,29 +147,29 @@ Admission questions:
 
 The assessments flag overflow in 12, index in 11, range in 7 and stack in 2 of its 21 samples. 3 of 21 are only plausible.
 
-83. [Square but not cube](s/square-but-not-cube/silver.md): likely, about 25 lines
-84. [O'Halloran numbers](o/ohalloran-numbers/silver.md): likely, about 28 lines
-85. [Empty string](e/empty-string/silver.md): likely, about 30 lines
-86. [Special pythagorean triplet](s/special-pythagorean-triplet/silver.md): likely, about 30 lines
-87. [Zeckendorf number representation](z/zeckendorf-number-representation/silver.md): likely, about 35 lines
-88. [Numbers which are not the sum of distinct squares](n/numbers-which-are-not-the-sum-of-distinct-squares/silver.md): likely, about 40 lines
-89. [Sequence of non-squares](s/sequence-of-non-squares/silver.md): likely, about 40 lines
-90. [Two sum](t/two-sum/silver.md): likely, about 40 lines
-91. [Common list elements](c/common-list-elements/silver.md): likely, about 45 lines
-92. [Find adjacent primes which differ by a square integer](f/find-adjacent-primes-which-differ-by-a-square-integer/silver.md): likely, about 45 lines
-93. [Logical operations](l/logical-operations/silver.md): likely, about 45 lines
-94. [Pascal's triangle/Puzzle](p/pascals-triangle/puzzle/silver.md): likely, about 45 lines
-95. [Pythagorean quadruples](p/pythagorean-quadruples/silver.md): likely, about 45 lines
-96. [Short-circuit evaluation](s/short-circuit-evaluation/silver.md): likely, about 55 lines
-97. [4-rings or 4-squares puzzle](0-9/4-rings-or-4-squares-puzzle/silver.md): likely, about 70 lines
-98. [Singly-linked list/Element removal](s/singly-linked-list/element-removal/silver.md): likely, about 70 lines
-99. [Sum and product puzzle](s/sum-and-product-puzzle/silver.md): likely, about 70 lines
-100. [Associative array/Merging](a/associative-array/merging/silver.md): likely, about 80 lines
-101. [Hamming numbers](h/hamming-numbers/silver.md): plausible, about 60 lines
-102. [Klarner-Rado sequence](k/klarner-rado-sequence/silver.md): plausible, about 70 lines
-103. [Sorting algorithms/Patience sort](s/sorting-algorithms/patience-sort/silver.md): plausible, about 75 lines
+76. [Square but not cube](s/square-but-not-cube/silver.md): likely, about 25 lines
+77. [O'Halloran numbers](o/ohalloran-numbers/silver.md): likely, about 28 lines
+78. [Empty string](e/empty-string/silver.md): likely, about 30 lines
+79. [Special pythagorean triplet](s/special-pythagorean-triplet/silver.md): likely, about 30 lines
+80. [Zeckendorf number representation](z/zeckendorf-number-representation/silver.md): likely, about 35 lines
+81. [Numbers which are not the sum of distinct squares](n/numbers-which-are-not-the-sum-of-distinct-squares/silver.md): likely, about 40 lines
+82. [Sequence of non-squares](s/sequence-of-non-squares/silver.md): likely, about 40 lines
+83. [Two sum](t/two-sum/silver.md): likely, about 40 lines
+84. [Common list elements](c/common-list-elements/silver.md): likely, about 45 lines
+85. [Find adjacent primes which differ by a square integer](f/find-adjacent-primes-which-differ-by-a-square-integer/silver.md): likely, about 45 lines
+86. [Logical operations](l/logical-operations/silver.md): likely, about 45 lines
+87. [Pascal's triangle/Puzzle](p/pascals-triangle/puzzle/silver.md): likely, about 45 lines
+88. [Pythagorean quadruples](p/pythagorean-quadruples/silver.md): likely, about 45 lines
+89. [Short-circuit evaluation](s/short-circuit-evaluation/silver.md): likely, about 55 lines
+90. [4-rings or 4-squares puzzle](0-9/4-rings-or-4-squares-puzzle/silver.md): likely, about 70 lines
+91. [Singly-linked list/Element removal](s/singly-linked-list/element-removal/silver.md): likely, about 70 lines
+92. [Sum and product puzzle](s/sum-and-product-puzzle/silver.md): likely, about 70 lines
+93. [Associative array/Merging](a/associative-array/merging/silver.md): likely, about 80 lines
+94. [Hamming numbers](h/hamming-numbers/silver.md): plausible, about 60 lines
+95. [Klarner-Rado sequence](k/klarner-rado-sequence/silver.md): plausible, about 70 lines
+96. [Sorting algorithms/Patience sort](s/sorting-algorithms/patience-sort/silver.md): plausible, about 75 lines
 
-## Stage 7
+## Stage 6
 
 Adds integer division.
 
@@ -192,86 +179,86 @@ Admission questions:
 
 The assessments flag overflow in 55, index in 22, range in 22 and length in 17 of its 78 samples. 21 of 78 are only plausible.
 
-104. [Variable size/Get](v/variable-size/get/silver.md): likely, about 10 lines
-105. [Loops/Do-while](l/loops/do-while/silver.md): likely, about 12 lines
-106. [Sum of first n cubes](s/sum-of-first-n-cubes/silver.md): likely, about 12 lines
-107. [FizzBuzz](f/fizzbuzz/silver.md): likely, about 16 lines
-108. [Odd and square numbers](o/odd-and-square-numbers/silver.md): likely, about 16 lines
-109. [Department numbers](d/department-numbers/silver.md): likely, about 22 lines
-110. [Even or odd](e/even-or-odd/silver.md): likely, about 22 lines
-111. [Josephus problem](j/josephus-problem/silver.md): likely, about 22 lines
-112. [Largest proper divisor of n](l/largest-proper-divisor-of-n/silver.md): likely, about 22 lines
-113. [Mosaic matrix](m/mosaic-matrix/silver.md): likely, about 22 lines
-114. [Sequence of primes by trial division](s/sequence-of-primes-by-trial-division/silver.md): likely, about 22 lines
-115. [100 doors](0-9/100-doors/silver.md): likely, about 25 lines
-116. [Modular inverse](m/modular-inverse/silver.md): likely, about 25 lines
-117. [Product of divisors](p/product-of-divisors/silver.md): likely, about 25 lines
-118. [Pseudo-random numbers/Middle-square method](p/pseudo-random-numbers/middle-square-method/silver.md): likely, about 25 lines
-119. [McNuggets problem](m/mcnuggets-problem/silver.md): likely, about 28 lines
-120. [Base 16 numbers needing a to f](b/base-16-numbers-needing-a-to-f/silver.md): likely, about 30 lines
-121. [Factors of an integer](f/factors-of-an-integer/silver.md): likely, about 30 lines
-122. [Filter](f/filter/silver.md): likely, about 30 lines
-123. [Multiplicatively perfect numbers](m/multiplicatively-perfect-numbers/silver.md): likely, about 30 lines
-124. [Sieve of Eratosthenes](s/sieve-of-eratosthenes/silver.md): likely, about 30 lines
-125. [Smallest multiple](s/smallest-multiple/silver.md): likely, about 30 lines
-126. [Sum of divisors](s/sum-of-divisors/silver.md): likely, about 30 lines
-127. [Primes with digits in nondecreasing order](p/primes-with-digits-in-nondecreasing-order/silver.md): likely, about 32 lines
-128. [Append numbers at same position in strings](a/append-numbers-at-same-position-in-strings/silver.md): likely, about 35 lines
-129. [Find minimum number of coins that make a given value](f/find-minimum-number-of-coins-that-make-a-given-value/silver.md): likely, about 35 lines
-130. [Generate random numbers without repeating a value](g/generate-random-numbers-without-repeating-a-value/silver.md): likely, about 35 lines
-131. [Kaprekar numbers](k/kaprekar-numbers/silver.md): likely, about 35 lines
-132. [Numbers with prime digits whose sum is 13](n/numbers-with-prime-digits-whose-sum-is-13/silver.md): likely, about 35 lines
-133. [Primes whose first and last number is 3](p/primes-whose-first-and-last-number-is-3/silver.md): likely, about 35 lines
-134. [Solve equations with substitution method](s/solve-equations-with-substitution-method/silver.md): likely, about 35 lines
-135. [Steady squares](s/steady-squares/silver.md): likely, about 35 lines
-136. [Subtractive generator](s/subtractive-generator/silver.md): likely, about 35 lines
-137. [Sum of two adjacent numbers are primes](s/sum-of-two-adjacent-numbers-are-primes/silver.md): likely, about 35 lines
-138. [Abundant, deficient and perfect number classifications](a/abundant-deficient-and-perfect-number-classifications/silver.md): likely, about 40 lines
-139. [Chinese remainder theorem](c/chinese-remainder-theorem/silver.md): likely, about 45 lines
-140. [Currency](c/currency/silver.md): likely, about 45 lines
-141. [Digit fifth powers](d/digit-fifth-powers/silver.md): likely, about 45 lines
-142. [Dinesman's multiple-dwelling problem](d/dinesmans-multiple-dwelling-problem/silver.md): likely, about 45 lines
-143. [Find the intersection of two lines](f/find-the-intersection-of-two-lines/silver.md): likely, about 45 lines
-144. [Knuth shuffle](k/knuth-shuffle/silver.md): likely, about 45 lines
-145. [Maximum difference between adjacent elements of list](m/maximum-difference-between-adjacent-elements-of-list/silver.md): likely, about 45 lines
-146. [Numbers divisible by their individual digits, but not by the product of their digits](n/numbers-divisible-by-their-individual-digits-but-not-by-the-product-of-their-digits/silver.md): likely, about 45 lines
-147. [Periodic table](p/periodic-table/silver.md): likely, about 45 lines
-148. [Product of min and max prime factors](p/product-of-min-and-max-prime-factors/silver.md): likely, about 45 lines
-149. [Proper divisors](p/proper-divisors/silver.md): likely, about 45 lines
-150. [Sequence: smallest number with exactly n divisors](s/sequence-smallest-number-with-exactly-n-divisors/silver.md): likely, about 45 lines
-151. [Smallest square that begins with n](s/smallest-square-that-begins-with-n/silver.md): likely, about 45 lines
-152. [Sorting algorithms/Pancake sort](s/sorting-algorithms/pancake-sort/silver.md): likely, about 45 lines
-153. [Special neighbor primes](s/special-neighbor-primes/silver.md): likely, about 45 lines
-154. [Tau function](t/tau-function/silver.md): likely, about 45 lines
-155. [Temperature conversion](t/temperature-conversion/silver.md): likely, about 45 lines
-156. [Calmo numbers](c/calmo-numbers/silver.md): likely, about 55 lines
-157. [Inconsummate numbers in base 10](i/inconsummate-numbers-in-base-10/silver.md): likely, about 55 lines
-158. [Partition function P](p/partition-function-p/silver.md): likely, about 55 lines
-159. [Truncatable primes](t/truncatable-primes/silver.md): likely, about 60 lines
-160. [Angle difference between two bearings](a/angle-difference-between-two-bearings/silver.md): likely, about 70 lines
-161. [Catalan numbers](c/catalan-numbers/silver.md): plausible, about 30 lines
-162. [Amicable pairs](a/amicable-pairs/silver.md): plausible, about 35 lines
-163. [Factorial](f/factorial/silver.md): plausible, about 35 lines
-164. [Riordan numbers](r/riordan-numbers/silver.md): plausible, about 35 lines
-165. [Largest difference between adjacent primes](l/largest-difference-between-adjacent-primes/silver.md): plausible, about 40 lines
-166. [Count the occurrence of each digit in e](c/count-the-occurrence-of-each-digit-in-e/silver.md): plausible, about 45 lines
-167. [Five weekends](f/five-weekends/silver.md): plausible, about 45 lines
-168. [Minimum multiple of m where digital sum equals m](m/minimum-multiple-of-m-where-digital-sum-equals-m/silver.md): plausible, about 45 lines
-169. [Pythagorean triples](p/pythagorean-triples/silver.md): plausible, about 45 lines
-170. [Sleeping Beauty problem](s/sleeping-beauty-problem/silver.md): plausible, about 45 lines
-171. [Sum and product of an array](s/sum-and-product-of-an-array/silver.md): plausible, about 45 lines
-172. [Averages/Arithmetic mean](a/averages/arithmetic-mean/silver.md): plausible, about 55 lines
-173. [Animate a pendulum](a/animate-a-pendulum/silver.md): plausible, about 70 lines
-174. [Mertens function](m/mertens-function/silver.md): plausible, about 70 lines
-175. [Numbers which are the cube roots of the product of their proper divisors](n/numbers-which-are-the-cube-roots-of-the-product-of-their-proper-divisors/silver.md): plausible, about 70 lines
-176. [Pairs with common factors](p/pairs-with-common-factors/silver.md): plausible, about 70 lines
-177. [Permutation test](p/permutation-test/silver.md): plausible, about 70 lines
-178. [Water collected between towers](w/water-collected-between-towers/silver.md): plausible, about 70 lines
-179. [Verify distribution uniformity/Naive](v/verify-distribution-uniformity/naive/silver.md): plausible, about 90 lines; uses exit status
-180. [Mind boggling card trick](m/mind-boggling-card-trick/silver.md): plausible, about 110 lines
-181. [Minimal steps down to 1](m/minimal-steps-down-to-1/silver.md): plausible, about 130 lines
+97. [Variable size/Get](v/variable-size/get/silver.md): likely, about 10 lines
+98. [Loops/Do-while](l/loops/do-while/silver.md): likely, about 12 lines
+99. [Sum of first n cubes](s/sum-of-first-n-cubes/silver.md): likely, about 12 lines
+100. [FizzBuzz](f/fizzbuzz/silver.md): likely, about 16 lines
+101. [Odd and square numbers](o/odd-and-square-numbers/silver.md): likely, about 16 lines
+102. [Department numbers](d/department-numbers/silver.md): likely, about 22 lines
+103. [Even or odd](e/even-or-odd/silver.md): likely, about 22 lines
+104. [Josephus problem](j/josephus-problem/silver.md): likely, about 22 lines
+105. [Largest proper divisor of n](l/largest-proper-divisor-of-n/silver.md): likely, about 22 lines
+106. [Mosaic matrix](m/mosaic-matrix/silver.md): likely, about 22 lines
+107. [Sequence of primes by trial division](s/sequence-of-primes-by-trial-division/silver.md): likely, about 22 lines
+108. [100 doors](0-9/100-doors/silver.md): likely, about 25 lines
+109. [Modular inverse](m/modular-inverse/silver.md): likely, about 25 lines
+110. [Product of divisors](p/product-of-divisors/silver.md): likely, about 25 lines
+111. [Pseudo-random numbers/Middle-square method](p/pseudo-random-numbers/middle-square-method/silver.md): likely, about 25 lines
+112. [McNuggets problem](m/mcnuggets-problem/silver.md): likely, about 28 lines
+113. [Base 16 numbers needing a to f](b/base-16-numbers-needing-a-to-f/silver.md): likely, about 30 lines
+114. [Factors of an integer](f/factors-of-an-integer/silver.md): likely, about 30 lines
+115. [Filter](f/filter/silver.md): likely, about 30 lines
+116. [Multiplicatively perfect numbers](m/multiplicatively-perfect-numbers/silver.md): likely, about 30 lines
+117. [Sieve of Eratosthenes](s/sieve-of-eratosthenes/silver.md): likely, about 30 lines
+118. [Smallest multiple](s/smallest-multiple/silver.md): likely, about 30 lines
+119. [Sum of divisors](s/sum-of-divisors/silver.md): likely, about 30 lines
+120. [Primes with digits in nondecreasing order](p/primes-with-digits-in-nondecreasing-order/silver.md): likely, about 32 lines
+121. [Append numbers at same position in strings](a/append-numbers-at-same-position-in-strings/silver.md): likely, about 35 lines
+122. [Find minimum number of coins that make a given value](f/find-minimum-number-of-coins-that-make-a-given-value/silver.md): likely, about 35 lines
+123. [Generate random numbers without repeating a value](g/generate-random-numbers-without-repeating-a-value/silver.md): likely, about 35 lines
+124. [Kaprekar numbers](k/kaprekar-numbers/silver.md): likely, about 35 lines
+125. [Numbers with prime digits whose sum is 13](n/numbers-with-prime-digits-whose-sum-is-13/silver.md): likely, about 35 lines
+126. [Primes whose first and last number is 3](p/primes-whose-first-and-last-number-is-3/silver.md): likely, about 35 lines
+127. [Solve equations with substitution method](s/solve-equations-with-substitution-method/silver.md): likely, about 35 lines
+128. [Steady squares](s/steady-squares/silver.md): likely, about 35 lines
+129. [Subtractive generator](s/subtractive-generator/silver.md): likely, about 35 lines
+130. [Sum of two adjacent numbers are primes](s/sum-of-two-adjacent-numbers-are-primes/silver.md): likely, about 35 lines
+131. [Abundant, deficient and perfect number classifications](a/abundant-deficient-and-perfect-number-classifications/silver.md): likely, about 40 lines
+132. [Chinese remainder theorem](c/chinese-remainder-theorem/silver.md): likely, about 45 lines
+133. [Currency](c/currency/silver.md): likely, about 45 lines
+134. [Digit fifth powers](d/digit-fifth-powers/silver.md): likely, about 45 lines
+135. [Dinesman's multiple-dwelling problem](d/dinesmans-multiple-dwelling-problem/silver.md): likely, about 45 lines
+136. [Find the intersection of two lines](f/find-the-intersection-of-two-lines/silver.md): likely, about 45 lines
+137. [Knuth shuffle](k/knuth-shuffle/silver.md): likely, about 45 lines
+138. [Maximum difference between adjacent elements of list](m/maximum-difference-between-adjacent-elements-of-list/silver.md): likely, about 45 lines
+139. [Numbers divisible by their individual digits, but not by the product of their digits](n/numbers-divisible-by-their-individual-digits-but-not-by-the-product-of-their-digits/silver.md): likely, about 45 lines
+140. [Periodic table](p/periodic-table/silver.md): likely, about 45 lines
+141. [Product of min and max prime factors](p/product-of-min-and-max-prime-factors/silver.md): likely, about 45 lines
+142. [Proper divisors](p/proper-divisors/silver.md): likely, about 45 lines
+143. [Sequence: smallest number with exactly n divisors](s/sequence-smallest-number-with-exactly-n-divisors/silver.md): likely, about 45 lines
+144. [Smallest square that begins with n](s/smallest-square-that-begins-with-n/silver.md): likely, about 45 lines
+145. [Sorting algorithms/Pancake sort](s/sorting-algorithms/pancake-sort/silver.md): likely, about 45 lines
+146. [Special neighbor primes](s/special-neighbor-primes/silver.md): likely, about 45 lines
+147. [Tau function](t/tau-function/silver.md): likely, about 45 lines
+148. [Temperature conversion](t/temperature-conversion/silver.md): likely, about 45 lines
+149. [Calmo numbers](c/calmo-numbers/silver.md): likely, about 55 lines
+150. [Inconsummate numbers in base 10](i/inconsummate-numbers-in-base-10/silver.md): likely, about 55 lines
+151. [Partition function P](p/partition-function-p/silver.md): likely, about 55 lines
+152. [Truncatable primes](t/truncatable-primes/silver.md): likely, about 60 lines
+153. [Angle difference between two bearings](a/angle-difference-between-two-bearings/silver.md): likely, about 70 lines
+154. [Catalan numbers](c/catalan-numbers/silver.md): plausible, about 30 lines
+155. [Amicable pairs](a/amicable-pairs/silver.md): plausible, about 35 lines
+156. [Factorial](f/factorial/silver.md): plausible, about 35 lines
+157. [Riordan numbers](r/riordan-numbers/silver.md): plausible, about 35 lines
+158. [Largest difference between adjacent primes](l/largest-difference-between-adjacent-primes/silver.md): plausible, about 40 lines
+159. [Count the occurrence of each digit in e](c/count-the-occurrence-of-each-digit-in-e/silver.md): plausible, about 45 lines
+160. [Five weekends](f/five-weekends/silver.md): plausible, about 45 lines
+161. [Minimum multiple of m where digital sum equals m](m/minimum-multiple-of-m-where-digital-sum-equals-m/silver.md): plausible, about 45 lines
+162. [Pythagorean triples](p/pythagorean-triples/silver.md): plausible, about 45 lines
+163. [Sleeping Beauty problem](s/sleeping-beauty-problem/silver.md): plausible, about 45 lines
+164. [Sum and product of an array](s/sum-and-product-of-an-array/silver.md): plausible, about 45 lines
+165. [Averages/Arithmetic mean](a/averages/arithmetic-mean/silver.md): plausible, about 55 lines
+166. [Animate a pendulum](a/animate-a-pendulum/silver.md): plausible, about 70 lines
+167. [Mertens function](m/mertens-function/silver.md): plausible, about 70 lines
+168. [Numbers which are the cube roots of the product of their proper divisors](n/numbers-which-are-the-cube-roots-of-the-product-of-their-proper-divisors/silver.md): plausible, about 70 lines
+169. [Pairs with common factors](p/pairs-with-common-factors/silver.md): plausible, about 70 lines
+170. [Permutation test](p/permutation-test/silver.md): plausible, about 70 lines
+171. [Water collected between towers](w/water-collected-between-towers/silver.md): plausible, about 70 lines
+172. [Verify distribution uniformity/Naive](v/verify-distribution-uniformity/naive/silver.md): plausible, about 90 lines; uses exit status
+173. [Mind boggling card trick](m/mind-boggling-card-trick/silver.md): plausible, about 110 lines
+174. [Minimal steps down to 1](m/minimal-steps-down-to-1/silver.md): plausible, about 130 lines
 
-## Stage 8
+## Stage 7
 
 Adds while loops.
 
@@ -281,123 +268,123 @@ Admission questions:
 
 The assessments flag overflow in 102, termination in 82, index in 75 and range in 59 of its 115 samples. 79 of 115 are only plausible; this stage needs the most restrictive admitted forms.
 
-182. [Loops/Infinite](l/loops/infinite/silver.md): likely, about 8 lines
-183. [Loops/While](l/loops/while/silver.md): likely, about 12 lines
-184. [Babbage problem](b/babbage-problem/silver.md): likely, about 22 lines
-185. [Largest prime factor](l/largest-prime-factor/silver.md): likely, about 25 lines
-186. [Greatest common divisor](g/greatest-common-divisor/silver.md): likely, about 28 lines
-187. [Inverted syntax](i/inverted-syntax/silver.md): likely, about 30 lines
-188. [Loops/Break](l/loops/break/silver.md): likely, about 30 lines
-189. [Positive decimal integers with the digit 1 occurring exactly twice](p/positive-decimal-integers-with-the-digit-1-occurring-exactly-twice/silver.md): likely, about 30 lines
-190. [Sorting algorithms/Insertion sort](s/sorting-algorithms/insertion-sort/silver.md): likely, about 30 lines
-191. [Averages/Root mean square](a/averages/root-mean-square/silver.md): likely, about 35 lines
-192. [Coprimes](c/coprimes/silver.md): likely, about 35 lines
-193. [Munchausen numbers](m/munchausen-numbers/silver.md): likely, about 35 lines
-194. [Sorting algorithms/Comb sort](s/sorting-algorithms/comb-sort/silver.md): likely, about 35 lines
-195. [Sorting algorithms/Shell sort](s/sorting-algorithms/shell-sort/silver.md): likely, about 35 lines
-196. [Count in factors](c/count-in-factors/silver.md): likely, about 40 lines
-197. [Happy numbers](h/happy-numbers/silver.md): likely, about 40 lines
-198. [10001th prime](0-9/10001th-prime/silver.md): likely, about 45 lines
-199. [Almost prime](a/almost-prime/silver.md): likely, about 45 lines
-200. [Double twin primes](d/double-twin-primes/silver.md): likely, about 45 lines
-201. [Egyptian division](e/egyptian-division/silver.md): likely, about 45 lines
-202. [First 9 prime Fibonacci number](f/first-9-prime-fibonacci-number/silver.md): likely, about 45 lines
-203. [Jump anywhere](j/jump-anywhere/silver.md): likely, about 45 lines
-204. [Remove duplicate elements](r/remove-duplicate-elements/silver.md): likely, about 45 lines
-205. [Sorting algorithms/Bubble sort](s/sorting-algorithms/bubble-sort/silver.md): likely, about 45 lines
-206. [Sorting algorithms/Gnome sort](s/sorting-algorithms/gnome-sort/silver.md): likely, about 45 lines
-207. [Van Eck sequence](v/van-eck-sequence/silver.md): likely, about 45 lines
-208. [Ackermann function](a/ackermann-function/silver.md): likely, about 50 lines
-209. [Additive primes](a/additive-primes/silver.md): likely, about 55 lines
-210. [Flow-control structures](f/flow-control-structures/silver.md): likely, about 55 lines
-211. [Perfect shuffle](p/perfect-shuffle/silver.md): likely, about 55 lines
-212. [Permutations by swapping](p/permutations-by-swapping/silver.md): likely, about 55 lines
-213. [Coprime triplets](c/coprime-triplets/silver.md): likely, about 60 lines
-214. [Sorting algorithms/Heapsort](s/sorting-algorithms/heapsort/silver.md): likely, about 70 lines
-215. [Yellowstone sequence](y/yellowstone-sequence/silver.md): likely, about 70 lines
-216. [Extensible prime generator](e/extensible-prime-generator/silver.md): likely, about 80 lines
-217. [Consecutive primes with ascending or descending differences](c/consecutive-primes-with-ascending-or-descending-differences/silver.md): likely, about 90 lines
-218. [Binary search](b/binary-search/silver.md): plausible, about 45 lines
-219. [Least common multiple](l/least-common-multiple/silver.md): plausible, about 45 lines
-220. [Perfect totient numbers](p/perfect-totient-numbers/silver.md): plausible, about 45 lines
-221. [Posit numbers/encoding](p/posit-numbers/encoding/silver.md): plausible, about 45 lines
-222. [Smith numbers](s/smith-numbers/silver.md): plausible, about 45 lines
-223. [Sort numbers lexicographically](s/sort-numbers-lexicographically/silver.md): plausible, about 45 lines
-224. [Sum digits of an integer](s/sum-digits-of-an-integer/silver.md): plausible, about 45 lines
-225. [Arithmetic derivative](a/arithmetic-derivative/silver.md): plausible, about 50 lines
-226. [Erdős-primes](e/erdos-primes/silver.md): plausible, about 55 lines
-227. [Prime numbers of measurement](p/prime-numbers-of-measurement/silver.md): plausible, about 55 lines
-228. [The sieve of Sundaram](t/the-sieve-of-sundaram/silver.md): plausible, about 55 lines
-229. [Harshad or Niven series](h/harshad-or-niven-series/silver.md): plausible, about 60 lines
-230. [Berlekamp–Massey algorithm](b/berlekamp-massey-algorithm/silver.md): plausible, about 70 lines
-231. [Digital root](d/digital-root/silver.md): plausible, about 70 lines
-232. [Euclid-Mullin sequence](e/euclid-mullin-sequence/silver.md): plausible, about 70 lines
-233. [Hailstone sequence](h/hailstone-sequence/silver.md): plausible, about 70 lines
-234. [Iccanobif primes](i/iccanobif-primes/silver.md): plausible, about 70 lines
-235. [Juggler sequence](j/juggler-sequence/silver.md): plausible, about 70 lines
-236. [Mian-Chowla sequence](m/mian-chowla-sequence/silver.md): plausible, about 70 lines
-237. [N-queens problem](n/n-queens-problem/silver.md): plausible, about 70 lines
-238. [Quickselect algorithm](q/quickselect-algorithm/silver.md): plausible, about 70 lines
-239. [Recaman's sequence](r/recamans-sequence/silver.md): plausible, about 70 lines
-240. [Seven-sided dice from five-sided dice](s/seven-sided-dice-from-five-sided-dice/silver.md): plausible, about 70 lines
-241. [Smallest number k such that k+2^m is composite for all m less than k](s/smallest-number-k-such-that-k-plus-2-m-is-composite-for-all-m-less-than-k/silver.md): plausible, about 70 lines
-242. [Sorting algorithms/Circle sort](s/sorting-algorithms/circle-sort/silver.md): plausible, about 70 lines
-243. [Sorting algorithms/Quicksort](s/sorting-algorithms/quicksort/silver.md): plausible, about 70 lines
-244. [Totient function](t/totient-function/silver.md): plausible, about 70 lines
-245. [Ulam numbers](u/ulam-numbers/silver.md): plausible, about 70 lines
-246. [Erdős–Woods numbers](e/erdos-woods-numbers/silver.md): plausible, about 75 lines
-247. [Loops/With multiple ranges](l/loops/with-multiple-ranges/silver.md): plausible, about 75 lines
-248. [Equal prime and composite sums](e/equal-prime-and-composite-sums/silver.md): plausible, about 80 lines
-249. [Euler's sum of powers conjecture](e/eulers-sum-of-powers-conjecture/silver.md): plausible, about 80 lines
-250. [Goldbach's comet](g/goldbachs-comet/silver.md): plausible, about 80 lines
-251. [Ramanujan primes/twins](r/ramanujan-primes/twins/silver.md): plausible, about 80 lines
-252. [Sailors, coconuts and a monkey problem](s/sailors-coconuts-and-a-monkey-problem/silver.md): plausible, about 80 lines
-253. [Sorting algorithms/Radix sort](s/sorting-algorithms/radix-sort/silver.md): plausible, about 80 lines
-254. [Abundant odd numbers](a/abundant-odd-numbers/silver.md): plausible, about 90 lines
-255. [Chernick's Carmichael numbers](c/chernicks-carmichael-numbers/silver.md): plausible, about 90 lines
-256. [Digital root/Multiplicative digital root](d/digital-root/multiplicative-digital-root/silver.md): plausible, about 90 lines
-257. [Farey sequence](f/farey-sequence/silver.md): plausible, about 90 lines
-258. [Find palindromic numbers in both binary and ternary bases](f/find-palindromic-numbers-in-both-binary-and-ternary-bases/silver.md): plausible, about 90 lines
-259. [Greatest prime dividing the n-th cubefree number](g/greatest-prime-dividing-the-n-th-cubefree-number/silver.md): plausible, about 90 lines
-260. [Inventory sequence](i/inventory-sequence/silver.md): plausible, about 90 lines
-261. [Jordan-Pólya numbers](j/jordan-polya-numbers/silver.md): plausible, about 90 lines
-262. [Last list item](l/last-list-item/silver.md): plausible, about 90 lines
-263. [Multiplicative order](m/multiplicative-order/silver.md): plausible, about 90 lines
-264. [Pierpont primes](p/pierpont-primes/silver.md): plausible, about 90 lines
-265. [Ramanujan primes](r/ramanujan-primes/silver.md): plausible, about 90 lines
-266. [Ramer-Douglas-Peucker line simplification](r/ramer-douglas-peucker-line-simplification/silver.md): plausible, about 90 lines
-267. [Ruth-Aaron numbers](r/ruth-aaron-numbers/silver.md): plausible, about 90 lines
-268. [Sorting algorithms/Tree sort on a linked list](s/sorting-algorithms/tree-sort-on-a-linked-list/silver.md): plausible, about 90 lines
-269. [Strong and weak primes](s/strong-and-weak-primes/silver.md): plausible, about 90 lines
-270. [Topswops](t/topswops/silver.md): plausible, about 90 lines
-271. [Untouchable numbers](u/untouchable-numbers/silver.md): plausible, about 90 lines
-272. [Wolstenholme numbers](w/wolstenholme-numbers/silver.md): plausible, about 90 lines
-273. [Humble numbers](h/humble-numbers/silver.md): plausible, about 95 lines
-274. [Stern-Brocot sequence](s/stern-brocot-sequence/silver.md): plausible, about 95 lines
-275. [Calkin-Wilf sequence](c/calkin-wilf-sequence/silver.md): plausible, about 110 lines
-276. [Erdös-Selfridge categorization of primes](e/erdos-selfridge-categorization-of-primes/silver.md): plausible, about 110 lines
-277. [Isqrt (integer square root) of X](i/isqrt-integer-square-root-of-x/silver.md): plausible, about 110 lines
-278. [Ludic numbers](l/ludic-numbers/silver.md): plausible, about 110 lines
-279. [No prime sums](n/no-prime-sums/silver.md): plausible, about 110 lines
-280. [Ormiston triples](o/ormiston-triples/silver.md): plausible, about 110 lines
-281. [Prime triangle](p/prime-triangle/silver.md): plausible, about 110 lines
-282. [Engel expansion](e/engel-expansion/silver.md): plausible, about 120 lines
-283. [Legendre prime counting function](l/legendre-prime-counting-function/silver.md): plausible, about 120 lines
-284. [Sisyphus sequence](s/sisyphus-sequence/silver.md): plausible, about 120 lines
-285. [Achilles numbers](a/achilles-numbers/silver.md): plausible, about 130 lines
-286. [Combinations with repetitions/Square digit chain](c/combinations-with-repetitions/square-digit-chain/silver.md): plausible, about 130 lines
-287. [Earliest difference between prime gaps](e/earliest-difference-between-prime-gaps/silver.md): plausible, about 130 lines
-288. [Find largest left truncatable prime in a given base](f/find-largest-left-truncatable-prime-in-a-given-base/silver.md): plausible, about 130 lines
-289. [Powerful numbers](p/powerful-numbers/silver.md): plausible, about 130 lines
-290. [Sexy primes](s/sexy-primes/silver.md): plausible, about 130 lines
-291. [Smarandache-Wellin primes](s/smarandache-wellin-primes/silver.md): plausible, about 130 lines
-292. [Wasteful, equidigital and frugal numbers](w/wasteful-equidigital-and-frugal-numbers/silver.md): plausible, about 130 lines
-293. [Partition an integer x into n primes](p/partition-an-integer-x-into-n-primes/silver.md): plausible, about 170 lines
-294. [Successive prime differences](s/successive-prime-differences/silver.md): plausible, about 170 lines
-295. [Factor-perfect numbers](f/factor-perfect-numbers/silver.md): plausible, about 210 lines
-296. [Lucas-Carmichael numbers](l/lucas-carmichael-numbers/silver.md): plausible, about 230 lines
+175. [Loops/Infinite](l/loops/infinite/silver.md): likely, about 8 lines
+176. [Loops/While](l/loops/while/silver.md): likely, about 12 lines
+177. [Babbage problem](b/babbage-problem/silver.md): likely, about 22 lines
+178. [Largest prime factor](l/largest-prime-factor/silver.md): likely, about 25 lines
+179. [Greatest common divisor](g/greatest-common-divisor/silver.md): likely, about 28 lines
+180. [Inverted syntax](i/inverted-syntax/silver.md): likely, about 30 lines
+181. [Loops/Break](l/loops/break/silver.md): likely, about 30 lines
+182. [Positive decimal integers with the digit 1 occurring exactly twice](p/positive-decimal-integers-with-the-digit-1-occurring-exactly-twice/silver.md): likely, about 30 lines
+183. [Sorting algorithms/Insertion sort](s/sorting-algorithms/insertion-sort/silver.md): likely, about 30 lines
+184. [Averages/Root mean square](a/averages/root-mean-square/silver.md): likely, about 35 lines
+185. [Coprimes](c/coprimes/silver.md): likely, about 35 lines
+186. [Munchausen numbers](m/munchausen-numbers/silver.md): likely, about 35 lines
+187. [Sorting algorithms/Comb sort](s/sorting-algorithms/comb-sort/silver.md): likely, about 35 lines
+188. [Sorting algorithms/Shell sort](s/sorting-algorithms/shell-sort/silver.md): likely, about 35 lines
+189. [Count in factors](c/count-in-factors/silver.md): likely, about 40 lines
+190. [Happy numbers](h/happy-numbers/silver.md): likely, about 40 lines
+191. [10001th prime](0-9/10001th-prime/silver.md): likely, about 45 lines
+192. [Almost prime](a/almost-prime/silver.md): likely, about 45 lines
+193. [Double twin primes](d/double-twin-primes/silver.md): likely, about 45 lines
+194. [Egyptian division](e/egyptian-division/silver.md): likely, about 45 lines
+195. [First 9 prime Fibonacci number](f/first-9-prime-fibonacci-number/silver.md): likely, about 45 lines
+196. [Jump anywhere](j/jump-anywhere/silver.md): likely, about 45 lines
+197. [Remove duplicate elements](r/remove-duplicate-elements/silver.md): likely, about 45 lines
+198. [Sorting algorithms/Bubble sort](s/sorting-algorithms/bubble-sort/silver.md): likely, about 45 lines
+199. [Sorting algorithms/Gnome sort](s/sorting-algorithms/gnome-sort/silver.md): likely, about 45 lines
+200. [Van Eck sequence](v/van-eck-sequence/silver.md): likely, about 45 lines
+201. [Ackermann function](a/ackermann-function/silver.md): likely, about 50 lines
+202. [Additive primes](a/additive-primes/silver.md): likely, about 55 lines
+203. [Flow-control structures](f/flow-control-structures/silver.md): likely, about 55 lines
+204. [Perfect shuffle](p/perfect-shuffle/silver.md): likely, about 55 lines
+205. [Permutations by swapping](p/permutations-by-swapping/silver.md): likely, about 55 lines
+206. [Coprime triplets](c/coprime-triplets/silver.md): likely, about 60 lines
+207. [Sorting algorithms/Heapsort](s/sorting-algorithms/heapsort/silver.md): likely, about 70 lines
+208. [Yellowstone sequence](y/yellowstone-sequence/silver.md): likely, about 70 lines
+209. [Extensible prime generator](e/extensible-prime-generator/silver.md): likely, about 80 lines
+210. [Consecutive primes with ascending or descending differences](c/consecutive-primes-with-ascending-or-descending-differences/silver.md): likely, about 90 lines
+211. [Binary search](b/binary-search/silver.md): plausible, about 45 lines
+212. [Least common multiple](l/least-common-multiple/silver.md): plausible, about 45 lines
+213. [Perfect totient numbers](p/perfect-totient-numbers/silver.md): plausible, about 45 lines
+214. [Posit numbers/encoding](p/posit-numbers/encoding/silver.md): plausible, about 45 lines
+215. [Smith numbers](s/smith-numbers/silver.md): plausible, about 45 lines
+216. [Sort numbers lexicographically](s/sort-numbers-lexicographically/silver.md): plausible, about 45 lines
+217. [Sum digits of an integer](s/sum-digits-of-an-integer/silver.md): plausible, about 45 lines
+218. [Arithmetic derivative](a/arithmetic-derivative/silver.md): plausible, about 50 lines
+219. [Erdős-primes](e/erdos-primes/silver.md): plausible, about 55 lines
+220. [Prime numbers of measurement](p/prime-numbers-of-measurement/silver.md): plausible, about 55 lines
+221. [The sieve of Sundaram](t/the-sieve-of-sundaram/silver.md): plausible, about 55 lines
+222. [Harshad or Niven series](h/harshad-or-niven-series/silver.md): plausible, about 60 lines
+223. [Berlekamp–Massey algorithm](b/berlekamp-massey-algorithm/silver.md): plausible, about 70 lines
+224. [Digital root](d/digital-root/silver.md): plausible, about 70 lines
+225. [Euclid-Mullin sequence](e/euclid-mullin-sequence/silver.md): plausible, about 70 lines
+226. [Hailstone sequence](h/hailstone-sequence/silver.md): plausible, about 70 lines
+227. [Iccanobif primes](i/iccanobif-primes/silver.md): plausible, about 70 lines
+228. [Juggler sequence](j/juggler-sequence/silver.md): plausible, about 70 lines
+229. [Mian-Chowla sequence](m/mian-chowla-sequence/silver.md): plausible, about 70 lines
+230. [N-queens problem](n/n-queens-problem/silver.md): plausible, about 70 lines
+231. [Quickselect algorithm](q/quickselect-algorithm/silver.md): plausible, about 70 lines
+232. [Recaman's sequence](r/recamans-sequence/silver.md): plausible, about 70 lines
+233. [Seven-sided dice from five-sided dice](s/seven-sided-dice-from-five-sided-dice/silver.md): plausible, about 70 lines
+234. [Smallest number k such that k+2^m is composite for all m less than k](s/smallest-number-k-such-that-k-plus-2-m-is-composite-for-all-m-less-than-k/silver.md): plausible, about 70 lines
+235. [Sorting algorithms/Circle sort](s/sorting-algorithms/circle-sort/silver.md): plausible, about 70 lines
+236. [Sorting algorithms/Quicksort](s/sorting-algorithms/quicksort/silver.md): plausible, about 70 lines
+237. [Totient function](t/totient-function/silver.md): plausible, about 70 lines
+238. [Ulam numbers](u/ulam-numbers/silver.md): plausible, about 70 lines
+239. [Erdős–Woods numbers](e/erdos-woods-numbers/silver.md): plausible, about 75 lines
+240. [Loops/With multiple ranges](l/loops/with-multiple-ranges/silver.md): plausible, about 75 lines
+241. [Equal prime and composite sums](e/equal-prime-and-composite-sums/silver.md): plausible, about 80 lines
+242. [Euler's sum of powers conjecture](e/eulers-sum-of-powers-conjecture/silver.md): plausible, about 80 lines
+243. [Goldbach's comet](g/goldbachs-comet/silver.md): plausible, about 80 lines
+244. [Ramanujan primes/twins](r/ramanujan-primes/twins/silver.md): plausible, about 80 lines
+245. [Sailors, coconuts and a monkey problem](s/sailors-coconuts-and-a-monkey-problem/silver.md): plausible, about 80 lines
+246. [Sorting algorithms/Radix sort](s/sorting-algorithms/radix-sort/silver.md): plausible, about 80 lines
+247. [Abundant odd numbers](a/abundant-odd-numbers/silver.md): plausible, about 90 lines
+248. [Chernick's Carmichael numbers](c/chernicks-carmichael-numbers/silver.md): plausible, about 90 lines
+249. [Digital root/Multiplicative digital root](d/digital-root/multiplicative-digital-root/silver.md): plausible, about 90 lines
+250. [Farey sequence](f/farey-sequence/silver.md): plausible, about 90 lines
+251. [Find palindromic numbers in both binary and ternary bases](f/find-palindromic-numbers-in-both-binary-and-ternary-bases/silver.md): plausible, about 90 lines
+252. [Greatest prime dividing the n-th cubefree number](g/greatest-prime-dividing-the-n-th-cubefree-number/silver.md): plausible, about 90 lines
+253. [Inventory sequence](i/inventory-sequence/silver.md): plausible, about 90 lines
+254. [Jordan-Pólya numbers](j/jordan-polya-numbers/silver.md): plausible, about 90 lines
+255. [Last list item](l/last-list-item/silver.md): plausible, about 90 lines
+256. [Multiplicative order](m/multiplicative-order/silver.md): plausible, about 90 lines
+257. [Pierpont primes](p/pierpont-primes/silver.md): plausible, about 90 lines
+258. [Ramanujan primes](r/ramanujan-primes/silver.md): plausible, about 90 lines
+259. [Ramer-Douglas-Peucker line simplification](r/ramer-douglas-peucker-line-simplification/silver.md): plausible, about 90 lines
+260. [Ruth-Aaron numbers](r/ruth-aaron-numbers/silver.md): plausible, about 90 lines
+261. [Sorting algorithms/Tree sort on a linked list](s/sorting-algorithms/tree-sort-on-a-linked-list/silver.md): plausible, about 90 lines
+262. [Strong and weak primes](s/strong-and-weak-primes/silver.md): plausible, about 90 lines
+263. [Topswops](t/topswops/silver.md): plausible, about 90 lines
+264. [Untouchable numbers](u/untouchable-numbers/silver.md): plausible, about 90 lines
+265. [Wolstenholme numbers](w/wolstenholme-numbers/silver.md): plausible, about 90 lines
+266. [Humble numbers](h/humble-numbers/silver.md): plausible, about 95 lines
+267. [Stern-Brocot sequence](s/stern-brocot-sequence/silver.md): plausible, about 95 lines
+268. [Calkin-Wilf sequence](c/calkin-wilf-sequence/silver.md): plausible, about 110 lines
+269. [Erdös-Selfridge categorization of primes](e/erdos-selfridge-categorization-of-primes/silver.md): plausible, about 110 lines
+270. [Isqrt (integer square root) of X](i/isqrt-integer-square-root-of-x/silver.md): plausible, about 110 lines
+271. [Ludic numbers](l/ludic-numbers/silver.md): plausible, about 110 lines
+272. [No prime sums](n/no-prime-sums/silver.md): plausible, about 110 lines
+273. [Ormiston triples](o/ormiston-triples/silver.md): plausible, about 110 lines
+274. [Prime triangle](p/prime-triangle/silver.md): plausible, about 110 lines
+275. [Engel expansion](e/engel-expansion/silver.md): plausible, about 120 lines
+276. [Legendre prime counting function](l/legendre-prime-counting-function/silver.md): plausible, about 120 lines
+277. [Sisyphus sequence](s/sisyphus-sequence/silver.md): plausible, about 120 lines
+278. [Achilles numbers](a/achilles-numbers/silver.md): plausible, about 130 lines
+279. [Combinations with repetitions/Square digit chain](c/combinations-with-repetitions/square-digit-chain/silver.md): plausible, about 130 lines
+280. [Earliest difference between prime gaps](e/earliest-difference-between-prime-gaps/silver.md): plausible, about 130 lines
+281. [Find largest left truncatable prime in a given base](f/find-largest-left-truncatable-prime-in-a-given-base/silver.md): plausible, about 130 lines
+282. [Powerful numbers](p/powerful-numbers/silver.md): plausible, about 130 lines
+283. [Sexy primes](s/sexy-primes/silver.md): plausible, about 130 lines
+284. [Smarandache-Wellin primes](s/smarandache-wellin-primes/silver.md): plausible, about 130 lines
+285. [Wasteful, equidigital and frugal numbers](w/wasteful-equidigital-and-frugal-numbers/silver.md): plausible, about 130 lines
+286. [Partition an integer x into n primes](p/partition-an-integer-x-into-n-primes/silver.md): plausible, about 170 lines
+287. [Successive prime differences](s/successive-prime-differences/silver.md): plausible, about 170 lines
+288. [Factor-perfect numbers](f/factor-perfect-numbers/silver.md): plausible, about 210 lines
+289. [Lucas-Carmichael numbers](l/lucas-carmichael-numbers/silver.md): plausible, about 230 lines
 
-## Stage 9
+## Stage 8
 
 Adds functions.
 
@@ -407,142 +394,142 @@ Admission questions:
 
 The assessments flag overflow in 122, termination in 82, range in 57 and index in 49 of its 134 samples. 63 of 134 are only plausible.
 
-297. [Function definition](f/function-definition/silver.md): likely, about 22 lines
-298. [Leap year](l/leap-year/silver.md): likely, about 22 lines
-299. [Long year](l/long-year/silver.md): likely, about 28 lines
-300. [Sum multiples of 3 and 5](s/sum-multiples-of-3-and-5/silver.md): likely, about 28 lines
-301. [Aspect oriented programming](a/aspect-oriented-programming/silver.md): likely, about 30 lines
-302. [Find prime numbers of the form n\*n\*n+2](f/find-prime-numbers-of-the-form-n-star-n-star-n-plus-2/silver.md): likely, about 30 lines
-303. [Multifactorial](m/multifactorial/silver.md): likely, about 30 lines
-304. [Fibonacci sequence](f/fibonacci-sequence/silver.md): likely, about 35 lines
-305. [Find squares n where n+1 is prime](f/find-squares-n-where-n-plus-1-is-prime/silver.md): likely, about 35 lines
-306. [Length of an arc between two angles](l/length-of-an-arc-between-two-angles/silver.md): likely, about 35 lines
-307. [N'th](n/nth/silver.md): likely, about 35 lines
-308. [Next special primes](n/next-special-primes/silver.md): likely, about 35 lines
-309. [Odd squarefree semiprimes](o/odd-squarefree-semiprimes/silver.md): likely, about 35 lines
-310. [Perfect numbers](p/perfect-numbers/silver.md): likely, about 35 lines
-311. [Safe and Sophie Germain primes](s/safe-and-sophie-germain-primes/silver.md): likely, about 35 lines
-312. [Evaluate binomial coefficients](e/evaluate-binomial-coefficients/silver.md): likely, about 40 lines
-313. [Lucas-Lehmer test](l/lucas-lehmer-test/silver.md): likely, about 40 lines
-314. [Moser's circle problem](m/mosers-circle-problem/silver.md): likely, about 40 lines
-315. [Primality by trial division](p/primality-by-trial-division/silver.md): likely, about 40 lines
-316. [Substring primes](s/substring-primes/silver.md): likely, about 40 lines
-317. [Cousin primes](c/cousin-primes/silver.md): likely, about 45 lines
-318. [Cubic special primes](c/cubic-special-primes/silver.md): likely, about 45 lines
-319. [Deceptive numbers](d/deceptive-numbers/silver.md): likely, about 45 lines
-320. [Extra primes](e/extra-primes/silver.md): likely, about 45 lines
-321. [Frobenius numbers](f/frobenius-numbers/silver.md): likely, about 45 lines
-322. [Function prototype](f/function-prototype/silver.md): likely, about 45 lines
-323. [JortSort](j/jortsort/silver.md): likely, about 45 lines
-324. [Numbers in base 10 that are palindromic in bases 2, 4, and 16](n/numbers-in-base-10-that-are-palindromic-in-bases-2-4-and-16/silver.md): likely, about 45 lines
-325. [Numbers whose binary and ternary digit sums are prime](n/numbers-whose-binary-and-ternary-digit-sums-are-prime/silver.md): likely, about 45 lines
-326. [Palindromic primes](p/palindromic-primes/silver.md): likely, about 45 lines
-327. [Primes whose sum of digits is 25](p/primes-whose-sum-of-digits-is-25/silver.md): likely, about 45 lines
-328. [Sequence: smallest number greater than previous term with exactly n divisors](s/sequence-smallest-number-greater-than-previous-term-with-exactly-n-divisors/silver.md): likely, about 45 lines
-329. [Sorting algorithms/Bogosort](s/sorting-algorithms/bogosort/silver.md): likely, about 45 lines
-330. [Special divisors](s/special-divisors/silver.md): likely, about 45 lines
-331. [Strange plus numbers](s/strange-plus-numbers/silver.md): likely, about 45 lines
-332. [Sum of square and cube digits of an integer are primes](s/sum-of-square-and-cube-digits-of-an-integer-are-primes/silver.md): likely, about 45 lines
-333. [Summation of primes](s/summation-of-primes/silver.md): likely, about 45 lines
-334. [Tau number](t/tau-number/silver.md): likely, about 45 lines
-335. [Wagstaff primes](w/wagstaff-primes/silver.md): likely, about 45 lines
-336. [Semiprime](s/semiprime/silver.md): likely, about 50 lines
-337. [Concatenate two primes is also prime](c/concatenate-two-primes-is-also-prime/silver.md): likely, about 55 lines
-338. [Forbidden numbers](f/forbidden-numbers/silver.md): likely, about 55 lines
-339. [Iterated digits squaring](i/iterated-digits-squaring/silver.md): likely, about 55 lines
-340. [Largest palindrome product](l/largest-palindrome-product/silver.md): likely, about 55 lines
-341. [Nice primes](n/nice-primes/silver.md): likely, about 55 lines
-342. [Numbers with same digit set in base 10 and base 16](n/numbers-with-same-digit-set-in-base-10-and-base-16/silver.md): likely, about 55 lines
-343. [Order two numerical lists](o/order-two-numerical-lists/silver.md): likely, about 55 lines
-344. [Roots of a function](r/roots-of-a-function/silver.md): likely, about 55 lines
-345. [Sort primes from list to a list](s/sort-primes-from-list-to-a-list/silver.md): likely, about 55 lines
-346. [Sphenic numbers](s/sphenic-numbers/silver.md): likely, about 55 lines
-347. [Prime numbers which contain 123](p/prime-numbers-which-contain-123/silver.md): likely, about 60 lines
-348. [Birthday problem](b/birthday-problem/silver.md): likely, about 70 lines
-349. [Casting out nines](c/casting-out-nines/silver.md): likely, about 70 lines
-350. [Curzon numbers](c/curzon-numbers/silver.md): likely, about 70 lines
-351. [Factors of a Mersenne number](f/factors-of-a-mersenne-number/silver.md): likely, about 70 lines
-352. [Fermat pseudoprimes](f/fermat-pseudoprimes/silver.md): likely, about 70 lines
-353. [Increasing gaps between consecutive Niven numbers](i/increasing-gaps-between-consecutive-niven-numbers/silver.md): likely, about 70 lines
-354. [Practical numbers](p/practical-numbers/silver.md): likely, about 70 lines
-355. [Prime numbers p for which the sum of primes less than or equal to p is prime](p/prime-numbers-p-for-which-the-sum-of-primes-less-than-or-equal-to-p-is-prime/silver.md): likely, about 70 lines
-356. [Quadrat special primes](q/quadrat-special-primes/silver.md): likely, about 70 lines
-357. [Safe primes and unsafe primes](s/safe-primes-and-unsafe-primes/silver.md): likely, about 70 lines
-358. [Strange unique prime triplets](s/strange-unique-prime-triplets/silver.md): likely, about 70 lines
-359. [Vector products](v/vector-products/silver.md): likely, about 70 lines
-360. [Vile and Dopey numbers](v/vile-and-dopey-numbers/silver.md): likely, about 70 lines
-361. [Waveform analysis/Doh ray me](w/waveform-analysis/doh-ray-me/silver.md): likely, about 70 lines
-362. [Neighbour primes](n/neighbour-primes/silver.md): likely, about 75 lines
-363. [Unprimeable numbers](u/unprimeable-numbers/silver.md): likely, about 80 lines
-364. [Magnanimous numbers](m/magnanimous-numbers/silver.md): likely, about 85 lines
-365. [CalmoSoft primes](c/calmosoft-primes/silver.md): likely, about 95 lines
-366. [Biorhythms](b/biorhythms/silver.md): likely, about 110 lines
-367. [Two bullet roulette](t/two-bullet-roulette/silver.md): likely, about 110 lines
-368. [Descending primes](d/descending-primes/silver.md): plausible, about 45 lines
-369. [Ethiopian multiplication](e/ethiopian-multiplication/silver.md): plausible, about 45 lines
-370. [Pernicious numbers](p/pernicious-numbers/silver.md): plausible, about 45 lines
-371. [Anti-primes](a/anti-primes/silver.md): plausible, about 55 lines
-372. [Attractive numbers](a/attractive-numbers/silver.md): plausible, about 55 lines
-373. [Fairshare between two and more](f/fairshare-between-two-and-more/silver.md): plausible, about 55 lines
-374. [Narcissistic decimal number](n/narcissistic-decimal-number/silver.md): plausible, about 55 lines
-375. [Primes: n\*2^m+1](p/primes-n-star-2-m-plus-1/silver.md): plausible, about 55 lines
-376. [Summarize primes](s/summarize-primes/silver.md): plausible, about 55 lines
-377. [Factorial primes](f/factorial-primes/silver.md): plausible, about 60 lines
-378. [Numbers with equal rises and falls](n/numbers-with-equal-rises-and-falls/silver.md): plausible, about 60 lines
-379. [Brazilian numbers](b/brazilian-numbers/silver.md): plausible, about 70 lines
-380. [Carmichael 3 strong pseudoprimes](c/carmichael-3-strong-pseudoprimes/silver.md): plausible, about 70 lines
-381. [Circular primes](c/circular-primes/silver.md): plausible, about 70 lines
-382. [Cycle detection](c/cycle-detection/silver.md): plausible, about 70 lines
-383. [De Polignac numbers](d/de-polignac-numbers/silver.md): plausible, about 70 lines
-384. [Hofstadter Figure-Figure sequences](h/hofstadter-figure-figure-sequences/silver.md): plausible, about 70 lines
-385. [Montgomery reduction](m/montgomery-reduction/silver.md): plausible, about 70 lines
-386. [Motzkin numbers](m/motzkin-numbers/silver.md): plausible, about 70 lines
-387. [Numbers whose count of divisors is prime](n/numbers-whose-count-of-divisors-is-prime/silver.md): plausible, about 70 lines
-388. [Ormiston pairs](o/ormiston-pairs/silver.md): plausible, about 70 lines
-389. [Sub-unit squares](s/sub-unit-squares/silver.md): plausible, about 70 lines
-390. [Verify distribution uniformity/Chi-squared test](v/verify-distribution-uniformity/chi-squared-test/silver.md): plausible, about 70 lines
-391. [Modified random distribution](m/modified-random-distribution/silver.md): plausible, about 75 lines
-392. [Jacobi symbol](j/jacobi-symbol/silver.md): plausible, about 80 lines
-393. [Self numbers](s/self-numbers/silver.md): plausible, about 80 lines
-394. [AKS test for primes](a/aks-test-for-primes/silver.md): plausible, about 90 lines
-395. [Cuban primes](c/cuban-primes/silver.md): plausible, about 90 lines
-396. [Eban numbers](e/eban-numbers/silver.md): plausible, about 90 lines
-397. [Fortunate numbers](f/fortunate-numbers/silver.md): plausible, about 90 lines
-398. [Fusc sequence](f/fusc-sequence/silver.md): plausible, about 90 lines
-399. [Happy primes](h/happy-primes/silver.md): plausible, about 90 lines
-400. [Percolation/Mean run density](p/percolation/mean-run-density/silver.md): plausible, about 90 lines
-401. [Population count](p/population-count/silver.md): plausible, about 90 lines
-402. [Rare numbers](r/rare-numbers/silver.md): plausible, about 90 lines
-403. [Rhonda numbers](r/rhonda-numbers/silver.md): plausible, about 90 lines
-404. [Square-free integers](s/square-free-integers/silver.md): plausible, about 90 lines
-405. [Weird numbers](w/weird-numbers/silver.md): plausible, about 90 lines
-406. [Dividuus numbers](d/dividuus-numbers/silver.md): plausible, about 95 lines
-407. [Honaker primes](h/honaker-primes/silver.md): plausible, about 95 lines
-408. [Twelve statements](t/twelve-statements/silver.md): plausible, about 95 lines
-409. [Wilson primes of order n](w/wilson-primes-of-order-n/silver.md): plausible, about 95 lines
-410. [100 prisoners](0-9/100-prisoners/silver.md): plausible, about 110 lines
-411. [CORDIC](c/cordic/silver.md): plausible, about 110 lines
-412. [Diversity prediction theorem](d/diversity-prediction-theorem/silver.md): plausible, about 110 lines
-413. [Index finite lists of positive integers](i/index-finite-lists-of-positive-integers/silver.md): plausible, about 110 lines
-414. [Kolakoski sequence](k/kolakoski-sequence/silver.md): plausible, about 110 lines
-415. [Statistics/Basic](s/statistics/basic/silver.md): plausible, about 110 lines
-416. [Aliquot sequence classifications](a/aliquot-sequence-classifications/silver.md): plausible, about 130 lines
-417. [Colorful numbers](c/colorful-numbers/silver.md): plausible, about 130 lines
-418. [Pan base non-primes](p/pan-base-non-primes/silver.md): plausible, about 130 lines
-419. [Home primes](h/home-primes/silver.md): plausible, about 140 lines
-420. [Minkowski question-mark function](m/minkowski-question-mark-function/silver.md): plausible, about 150 lines
-421. [Pisano period](p/pisano-period/silver.md): plausible, about 150 lines
-422. [Zumkeller numbers](z/zumkeller-numbers/silver.md): plausible, about 150 lines
-423. [Radical of an integer](r/radical-of-an-integer/silver.md): plausible, about 160 lines
-424. [Deming's funnel](d/demings-funnel/silver.md): plausible, about 170 lines
-425. [Goodstein Sequence](g/goodstein-sequence/silver.md): plausible, about 170 lines
-426. [Heronian triangles](h/heronian-triangles/silver.md): plausible, about 170 lines
-427. [Kirkpatrick–Seidel algorithm](k/kirkpatrick-seidel-algorithm/silver.md): plausible, about 170 lines
-428. [Prime numbers whose neighboring pairs are tetraprimes](p/prime-numbers-whose-neighboring-pairs-are-tetraprimes/silver.md): plausible, about 170 lines
-429. [Primes - allocate descendants to their ancestors](p/primes-allocate-descendants-to-their-ancestors/silver.md): plausible, about 190 lines
-430. [Square form factorization](s/square-form-factorization/silver.md): plausible, about 230 lines
+290. [Function definition](f/function-definition/silver.md): likely, about 22 lines
+291. [Leap year](l/leap-year/silver.md): likely, about 22 lines
+292. [Long year](l/long-year/silver.md): likely, about 28 lines
+293. [Sum multiples of 3 and 5](s/sum-multiples-of-3-and-5/silver.md): likely, about 28 lines
+294. [Aspect oriented programming](a/aspect-oriented-programming/silver.md): likely, about 30 lines
+295. [Find prime numbers of the form n\*n\*n+2](f/find-prime-numbers-of-the-form-n-star-n-star-n-plus-2/silver.md): likely, about 30 lines
+296. [Multifactorial](m/multifactorial/silver.md): likely, about 30 lines
+297. [Fibonacci sequence](f/fibonacci-sequence/silver.md): likely, about 35 lines
+298. [Find squares n where n+1 is prime](f/find-squares-n-where-n-plus-1-is-prime/silver.md): likely, about 35 lines
+299. [Length of an arc between two angles](l/length-of-an-arc-between-two-angles/silver.md): likely, about 35 lines
+300. [N'th](n/nth/silver.md): likely, about 35 lines
+301. [Next special primes](n/next-special-primes/silver.md): likely, about 35 lines
+302. [Odd squarefree semiprimes](o/odd-squarefree-semiprimes/silver.md): likely, about 35 lines
+303. [Perfect numbers](p/perfect-numbers/silver.md): likely, about 35 lines
+304. [Safe and Sophie Germain primes](s/safe-and-sophie-germain-primes/silver.md): likely, about 35 lines
+305. [Evaluate binomial coefficients](e/evaluate-binomial-coefficients/silver.md): likely, about 40 lines
+306. [Lucas-Lehmer test](l/lucas-lehmer-test/silver.md): likely, about 40 lines
+307. [Moser's circle problem](m/mosers-circle-problem/silver.md): likely, about 40 lines
+308. [Primality by trial division](p/primality-by-trial-division/silver.md): likely, about 40 lines
+309. [Substring primes](s/substring-primes/silver.md): likely, about 40 lines
+310. [Cousin primes](c/cousin-primes/silver.md): likely, about 45 lines
+311. [Cubic special primes](c/cubic-special-primes/silver.md): likely, about 45 lines
+312. [Deceptive numbers](d/deceptive-numbers/silver.md): likely, about 45 lines
+313. [Extra primes](e/extra-primes/silver.md): likely, about 45 lines
+314. [Frobenius numbers](f/frobenius-numbers/silver.md): likely, about 45 lines
+315. [Function prototype](f/function-prototype/silver.md): likely, about 45 lines
+316. [JortSort](j/jortsort/silver.md): likely, about 45 lines
+317. [Numbers in base 10 that are palindromic in bases 2, 4, and 16](n/numbers-in-base-10-that-are-palindromic-in-bases-2-4-and-16/silver.md): likely, about 45 lines
+318. [Numbers whose binary and ternary digit sums are prime](n/numbers-whose-binary-and-ternary-digit-sums-are-prime/silver.md): likely, about 45 lines
+319. [Palindromic primes](p/palindromic-primes/silver.md): likely, about 45 lines
+320. [Primes whose sum of digits is 25](p/primes-whose-sum-of-digits-is-25/silver.md): likely, about 45 lines
+321. [Sequence: smallest number greater than previous term with exactly n divisors](s/sequence-smallest-number-greater-than-previous-term-with-exactly-n-divisors/silver.md): likely, about 45 lines
+322. [Sorting algorithms/Bogosort](s/sorting-algorithms/bogosort/silver.md): likely, about 45 lines
+323. [Special divisors](s/special-divisors/silver.md): likely, about 45 lines
+324. [Strange plus numbers](s/strange-plus-numbers/silver.md): likely, about 45 lines
+325. [Sum of square and cube digits of an integer are primes](s/sum-of-square-and-cube-digits-of-an-integer-are-primes/silver.md): likely, about 45 lines
+326. [Summation of primes](s/summation-of-primes/silver.md): likely, about 45 lines
+327. [Tau number](t/tau-number/silver.md): likely, about 45 lines
+328. [Wagstaff primes](w/wagstaff-primes/silver.md): likely, about 45 lines
+329. [Semiprime](s/semiprime/silver.md): likely, about 50 lines
+330. [Concatenate two primes is also prime](c/concatenate-two-primes-is-also-prime/silver.md): likely, about 55 lines
+331. [Forbidden numbers](f/forbidden-numbers/silver.md): likely, about 55 lines
+332. [Iterated digits squaring](i/iterated-digits-squaring/silver.md): likely, about 55 lines
+333. [Largest palindrome product](l/largest-palindrome-product/silver.md): likely, about 55 lines
+334. [Nice primes](n/nice-primes/silver.md): likely, about 55 lines
+335. [Numbers with same digit set in base 10 and base 16](n/numbers-with-same-digit-set-in-base-10-and-base-16/silver.md): likely, about 55 lines
+336. [Order two numerical lists](o/order-two-numerical-lists/silver.md): likely, about 55 lines
+337. [Roots of a function](r/roots-of-a-function/silver.md): likely, about 55 lines
+338. [Sort primes from list to a list](s/sort-primes-from-list-to-a-list/silver.md): likely, about 55 lines
+339. [Sphenic numbers](s/sphenic-numbers/silver.md): likely, about 55 lines
+340. [Prime numbers which contain 123](p/prime-numbers-which-contain-123/silver.md): likely, about 60 lines
+341. [Birthday problem](b/birthday-problem/silver.md): likely, about 70 lines
+342. [Casting out nines](c/casting-out-nines/silver.md): likely, about 70 lines
+343. [Curzon numbers](c/curzon-numbers/silver.md): likely, about 70 lines
+344. [Factors of a Mersenne number](f/factors-of-a-mersenne-number/silver.md): likely, about 70 lines
+345. [Fermat pseudoprimes](f/fermat-pseudoprimes/silver.md): likely, about 70 lines
+346. [Increasing gaps between consecutive Niven numbers](i/increasing-gaps-between-consecutive-niven-numbers/silver.md): likely, about 70 lines
+347. [Practical numbers](p/practical-numbers/silver.md): likely, about 70 lines
+348. [Prime numbers p for which the sum of primes less than or equal to p is prime](p/prime-numbers-p-for-which-the-sum-of-primes-less-than-or-equal-to-p-is-prime/silver.md): likely, about 70 lines
+349. [Quadrat special primes](q/quadrat-special-primes/silver.md): likely, about 70 lines
+350. [Safe primes and unsafe primes](s/safe-primes-and-unsafe-primes/silver.md): likely, about 70 lines
+351. [Strange unique prime triplets](s/strange-unique-prime-triplets/silver.md): likely, about 70 lines
+352. [Vector products](v/vector-products/silver.md): likely, about 70 lines
+353. [Vile and Dopey numbers](v/vile-and-dopey-numbers/silver.md): likely, about 70 lines
+354. [Waveform analysis/Doh ray me](w/waveform-analysis/doh-ray-me/silver.md): likely, about 70 lines
+355. [Neighbour primes](n/neighbour-primes/silver.md): likely, about 75 lines
+356. [Unprimeable numbers](u/unprimeable-numbers/silver.md): likely, about 80 lines
+357. [Magnanimous numbers](m/magnanimous-numbers/silver.md): likely, about 85 lines
+358. [CalmoSoft primes](c/calmosoft-primes/silver.md): likely, about 95 lines
+359. [Biorhythms](b/biorhythms/silver.md): likely, about 110 lines
+360. [Two bullet roulette](t/two-bullet-roulette/silver.md): likely, about 110 lines
+361. [Descending primes](d/descending-primes/silver.md): plausible, about 45 lines
+362. [Ethiopian multiplication](e/ethiopian-multiplication/silver.md): plausible, about 45 lines
+363. [Pernicious numbers](p/pernicious-numbers/silver.md): plausible, about 45 lines
+364. [Anti-primes](a/anti-primes/silver.md): plausible, about 55 lines
+365. [Attractive numbers](a/attractive-numbers/silver.md): plausible, about 55 lines
+366. [Fairshare between two and more](f/fairshare-between-two-and-more/silver.md): plausible, about 55 lines
+367. [Narcissistic decimal number](n/narcissistic-decimal-number/silver.md): plausible, about 55 lines
+368. [Primes: n\*2^m+1](p/primes-n-star-2-m-plus-1/silver.md): plausible, about 55 lines
+369. [Summarize primes](s/summarize-primes/silver.md): plausible, about 55 lines
+370. [Factorial primes](f/factorial-primes/silver.md): plausible, about 60 lines
+371. [Numbers with equal rises and falls](n/numbers-with-equal-rises-and-falls/silver.md): plausible, about 60 lines
+372. [Brazilian numbers](b/brazilian-numbers/silver.md): plausible, about 70 lines
+373. [Carmichael 3 strong pseudoprimes](c/carmichael-3-strong-pseudoprimes/silver.md): plausible, about 70 lines
+374. [Circular primes](c/circular-primes/silver.md): plausible, about 70 lines
+375. [Cycle detection](c/cycle-detection/silver.md): plausible, about 70 lines
+376. [De Polignac numbers](d/de-polignac-numbers/silver.md): plausible, about 70 lines
+377. [Hofstadter Figure-Figure sequences](h/hofstadter-figure-figure-sequences/silver.md): plausible, about 70 lines
+378. [Montgomery reduction](m/montgomery-reduction/silver.md): plausible, about 70 lines
+379. [Motzkin numbers](m/motzkin-numbers/silver.md): plausible, about 70 lines
+380. [Numbers whose count of divisors is prime](n/numbers-whose-count-of-divisors-is-prime/silver.md): plausible, about 70 lines
+381. [Ormiston pairs](o/ormiston-pairs/silver.md): plausible, about 70 lines
+382. [Sub-unit squares](s/sub-unit-squares/silver.md): plausible, about 70 lines
+383. [Verify distribution uniformity/Chi-squared test](v/verify-distribution-uniformity/chi-squared-test/silver.md): plausible, about 70 lines
+384. [Modified random distribution](m/modified-random-distribution/silver.md): plausible, about 75 lines
+385. [Jacobi symbol](j/jacobi-symbol/silver.md): plausible, about 80 lines
+386. [Self numbers](s/self-numbers/silver.md): plausible, about 80 lines
+387. [AKS test for primes](a/aks-test-for-primes/silver.md): plausible, about 90 lines
+388. [Cuban primes](c/cuban-primes/silver.md): plausible, about 90 lines
+389. [Eban numbers](e/eban-numbers/silver.md): plausible, about 90 lines
+390. [Fortunate numbers](f/fortunate-numbers/silver.md): plausible, about 90 lines
+391. [Fusc sequence](f/fusc-sequence/silver.md): plausible, about 90 lines
+392. [Happy primes](h/happy-primes/silver.md): plausible, about 90 lines
+393. [Percolation/Mean run density](p/percolation/mean-run-density/silver.md): plausible, about 90 lines
+394. [Population count](p/population-count/silver.md): plausible, about 90 lines
+395. [Rare numbers](r/rare-numbers/silver.md): plausible, about 90 lines
+396. [Rhonda numbers](r/rhonda-numbers/silver.md): plausible, about 90 lines
+397. [Square-free integers](s/square-free-integers/silver.md): plausible, about 90 lines
+398. [Weird numbers](w/weird-numbers/silver.md): plausible, about 90 lines
+399. [Dividuus numbers](d/dividuus-numbers/silver.md): plausible, about 95 lines
+400. [Honaker primes](h/honaker-primes/silver.md): plausible, about 95 lines
+401. [Twelve statements](t/twelve-statements/silver.md): plausible, about 95 lines
+402. [Wilson primes of order n](w/wilson-primes-of-order-n/silver.md): plausible, about 95 lines
+403. [100 prisoners](0-9/100-prisoners/silver.md): plausible, about 110 lines
+404. [CORDIC](c/cordic/silver.md): plausible, about 110 lines
+405. [Diversity prediction theorem](d/diversity-prediction-theorem/silver.md): plausible, about 110 lines
+406. [Index finite lists of positive integers](i/index-finite-lists-of-positive-integers/silver.md): plausible, about 110 lines
+407. [Kolakoski sequence](k/kolakoski-sequence/silver.md): plausible, about 110 lines
+408. [Statistics/Basic](s/statistics/basic/silver.md): plausible, about 110 lines
+409. [Aliquot sequence classifications](a/aliquot-sequence-classifications/silver.md): plausible, about 130 lines
+410. [Colorful numbers](c/colorful-numbers/silver.md): plausible, about 130 lines
+411. [Pan base non-primes](p/pan-base-non-primes/silver.md): plausible, about 130 lines
+412. [Home primes](h/home-primes/silver.md): plausible, about 140 lines
+413. [Minkowski question-mark function](m/minkowski-question-mark-function/silver.md): plausible, about 150 lines
+414. [Pisano period](p/pisano-period/silver.md): plausible, about 150 lines
+415. [Zumkeller numbers](z/zumkeller-numbers/silver.md): plausible, about 150 lines
+416. [Radical of an integer](r/radical-of-an-integer/silver.md): plausible, about 160 lines
+417. [Deming's funnel](d/demings-funnel/silver.md): plausible, about 170 lines
+418. [Goodstein Sequence](g/goodstein-sequence/silver.md): plausible, about 170 lines
+419. [Heronian triangles](h/heronian-triangles/silver.md): plausible, about 170 lines
+420. [Kirkpatrick–Seidel algorithm](k/kirkpatrick-seidel-algorithm/silver.md): plausible, about 170 lines
+421. [Prime numbers whose neighboring pairs are tetraprimes](p/prime-numbers-whose-neighboring-pairs-are-tetraprimes/silver.md): plausible, about 170 lines
+422. [Primes - allocate descendants to their ancestors](p/primes-allocate-descendants-to-their-ancestors/silver.md): plausible, about 190 lines
+423. [Square form factorization](s/square-form-factorization/silver.md): plausible, about 230 lines
 
-## Stage 10
+## Stage 9
 
 Adds characters.
 
@@ -552,54 +539,54 @@ Admission questions:
 
 The assessments flag overflow in 30, index in 27, range in 19 and termination in 12 of its 46 samples. 17 of 46 are only plausible.
 
-431. [Terminal control/Display an extended character](t/terminal-control/display-an-extended-character/silver.md): likely, about 8 lines
-432. [Terminal control/Ringing the terminal bell](t/terminal-control/ringing-the-terminal-bell/silver.md): likely, about 8 lines
-433. [Character codes](c/character-codes/silver.md): likely, about 12 lines
-434. [Code Golf](c/code-golf/silver.md): likely, about 12 lines
-435. [Quine](q/quine/silver.md): likely, about 15 lines
-436. [Literals/String](l/literals/string/silver.md): likely, about 20 lines
-437. [Generate lower case ASCII alphabet](g/generate-lower-case-ascii-alphabet/silver.md): likely, about 22 lines
-438. [Loop over multiple arrays simultaneously](l/loop-over-multiple-arrays-simultaneously/silver.md): likely, about 22 lines
-439. [Unicode strings](u/unicode-strings/silver.md): likely, about 25 lines
-440. [Euler's constant 0.5772...](e/eulers-constant-0-5772/silver.md): likely, about 35 lines
-441. [Doubly-linked list/Traversal](d/doubly-linked-list/traversal/silver.md): likely, about 45 lines
-442. [Draw a sphere](d/draw-a-sphere/silver.md): likely, about 45 lines
-443. [Non-decimal radices/Output](n/non-decimal-radices/output/silver.md): likely, about 45 lines
-444. [Pascal's triangle](p/pascals-triangle/silver.md): likely, about 45 lines
-445. [Permutations with repetitions](p/permutations-with-repetitions/silver.md): likely, about 45 lines
-446. [Quoting constructs](q/quoting-constructs/silver.md): likely, about 45 lines
-447. [Yin and yang](y/yin-and-yang/silver.md): likely, about 45 lines
-448. [Price fraction](p/price-fraction/silver.md): likely, about 50 lines
-449. [Numbers in base-16 representation that cannot be written with decimal digits](n/numbers-in-base-16-representation-that-cannot-be-written-with-decimal-digits/silver.md): likely, about 55 lines
-450. [Long multiplication](l/long-multiplication/silver.md): likely, about 60 lines
-451. [SEND + MORE = MONEY](s/send-plus-more-money/silver.md): likely, about 60 lines
-452. [Van der Corput sequence](v/van-der-corput-sequence/silver.md): likely, about 60 lines
-453. [Base64 encode data](b/base64-encode-data/silver.md): likely, about 70 lines
-454. [Fibonacci n-step number sequences](f/fibonacci-n-step-number-sequences/silver.md): likely, about 70 lines
-455. [Middle three digits](m/middle-three-digits/silver.md): likely, about 70 lines
-456. [Sierpinski sponge](s/sierpinski-sponge/silver.md): likely, about 70 lines
-457. [Stem-and-leaf plot](s/stem-and-leaf-plot/silver.md): likely, about 70 lines
-458. [Tic-tac-toe](t/tic-tac-toe/silver.md): likely, about 95 lines
-459. [Worthwhile task shaving](w/worthwhile-task-shaving/silver.md): likely, about 95 lines
-460. [Look-and-say sequence](l/look-and-say-sequence/silver.md): plausible, about 60 lines
-461. [Mandelbrot set](m/mandelbrot-set/silver.md): plausible, about 60 lines
-462. [Elementary cellular automaton/Infinite length](e/elementary-cellular-automaton/infinite-length/silver.md): plausible, about 70 lines
-463. [Julia set](j/julia-set/silver.md): plausible, about 70 lines
-464. [Permutations](p/permutations/silver.md): plausible, about 70 lines
-465. [List rooted trees](l/list-rooted-trees/silver.md): plausible, about 75 lines
-466. [Pi](p/pi/silver.md): plausible, about 90 lines
-467. [Sudoku](s/sudoku/silver.md): plausible, about 95 lines
-468. [Card shuffles](c/card-shuffles/silver.md): plausible, about 110 lines
-469. [Minimum positive multiple in base 10 using only 0 and 1](m/minimum-positive-multiple-in-base-10-using-only-0-and-1/silver.md): plausible, about 110 lines
-470. [Penholodigital squares](p/penholodigital-squares/silver.md): plausible, about 110 lines
-471. [Perceptron](p/perceptron/silver.md): plausible, about 110 lines
-472. [Magic numbers](m/magic-numbers/silver.md): plausible, about 130 lines
-473. [Sum to 100](s/sum-to-100/silver.md): plausible, about 150 lines
-474. [Pancake numbers](p/pancake-numbers/silver.md): plausible, about 170 lines
-475. [Zeckendorf arithmetic](z/zeckendorf-arithmetic/silver.md): plausible, about 170 lines
-476. [Time conventions and conversions](t/time-conventions-and-conversions/silver.md): plausible, about 260 lines
+424. [Terminal control/Display an extended character](t/terminal-control/display-an-extended-character/silver.md): likely, about 8 lines
+425. [Terminal control/Ringing the terminal bell](t/terminal-control/ringing-the-terminal-bell/silver.md): likely, about 8 lines
+426. [Character codes](c/character-codes/silver.md): likely, about 12 lines
+427. [Code Golf](c/code-golf/silver.md): likely, about 12 lines
+428. [Quine](q/quine/silver.md): likely, about 15 lines
+429. [Literals/String](l/literals/string/silver.md): likely, about 20 lines
+430. [Generate lower case ASCII alphabet](g/generate-lower-case-ascii-alphabet/silver.md): likely, about 22 lines
+431. [Loop over multiple arrays simultaneously](l/loop-over-multiple-arrays-simultaneously/silver.md): likely, about 22 lines
+432. [Unicode strings](u/unicode-strings/silver.md): likely, about 25 lines
+433. [Euler's constant 0.5772...](e/eulers-constant-0-5772/silver.md): likely, about 35 lines
+434. [Doubly-linked list/Traversal](d/doubly-linked-list/traversal/silver.md): likely, about 45 lines
+435. [Draw a sphere](d/draw-a-sphere/silver.md): likely, about 45 lines
+436. [Non-decimal radices/Output](n/non-decimal-radices/output/silver.md): likely, about 45 lines
+437. [Pascal's triangle](p/pascals-triangle/silver.md): likely, about 45 lines
+438. [Permutations with repetitions](p/permutations-with-repetitions/silver.md): likely, about 45 lines
+439. [Quoting constructs](q/quoting-constructs/silver.md): likely, about 45 lines
+440. [Yin and yang](y/yin-and-yang/silver.md): likely, about 45 lines
+441. [Price fraction](p/price-fraction/silver.md): likely, about 50 lines
+442. [Numbers in base-16 representation that cannot be written with decimal digits](n/numbers-in-base-16-representation-that-cannot-be-written-with-decimal-digits/silver.md): likely, about 55 lines
+443. [Long multiplication](l/long-multiplication/silver.md): likely, about 60 lines
+444. [SEND + MORE = MONEY](s/send-plus-more-money/silver.md): likely, about 60 lines
+445. [Van der Corput sequence](v/van-der-corput-sequence/silver.md): likely, about 60 lines
+446. [Base64 encode data](b/base64-encode-data/silver.md): likely, about 70 lines
+447. [Fibonacci n-step number sequences](f/fibonacci-n-step-number-sequences/silver.md): likely, about 70 lines
+448. [Middle three digits](m/middle-three-digits/silver.md): likely, about 70 lines
+449. [Sierpinski sponge](s/sierpinski-sponge/silver.md): likely, about 70 lines
+450. [Stem-and-leaf plot](s/stem-and-leaf-plot/silver.md): likely, about 70 lines
+451. [Tic-tac-toe](t/tic-tac-toe/silver.md): likely, about 95 lines
+452. [Worthwhile task shaving](w/worthwhile-task-shaving/silver.md): likely, about 95 lines
+453. [Look-and-say sequence](l/look-and-say-sequence/silver.md): plausible, about 60 lines
+454. [Mandelbrot set](m/mandelbrot-set/silver.md): plausible, about 60 lines
+455. [Elementary cellular automaton/Infinite length](e/elementary-cellular-automaton/infinite-length/silver.md): plausible, about 70 lines
+456. [Julia set](j/julia-set/silver.md): plausible, about 70 lines
+457. [Permutations](p/permutations/silver.md): plausible, about 70 lines
+458. [List rooted trees](l/list-rooted-trees/silver.md): plausible, about 75 lines
+459. [Pi](p/pi/silver.md): plausible, about 90 lines
+460. [Sudoku](s/sudoku/silver.md): plausible, about 95 lines
+461. [Card shuffles](c/card-shuffles/silver.md): plausible, about 110 lines
+462. [Minimum positive multiple in base 10 using only 0 and 1](m/minimum-positive-multiple-in-base-10-using-only-0-and-1/silver.md): plausible, about 110 lines
+463. [Penholodigital squares](p/penholodigital-squares/silver.md): plausible, about 110 lines
+464. [Perceptron](p/perceptron/silver.md): plausible, about 110 lines
+465. [Magic numbers](m/magic-numbers/silver.md): plausible, about 130 lines
+466. [Sum to 100](s/sum-to-100/silver.md): plausible, about 150 lines
+467. [Pancake numbers](p/pancake-numbers/silver.md): plausible, about 170 lines
+468. [Zeckendorf arithmetic](z/zeckendorf-arithmetic/silver.md): plausible, about 170 lines
+469. [Time conventions and conversions](t/time-conventions-and-conversions/silver.md): plausible, about 260 lines
 
-## Stage 11
+## Stage 10
 
 Adds string indexing.
 
@@ -609,114 +596,114 @@ Admission questions:
 
 The assessments flag index in 81, overflow in 57, range in 46 and termination in 27 of its 106 samples. 38 of 106 are only plausible.
 
-477. [Substring/Top and tail](s/substring/top-and-tail/silver.md): likely, about 12 lines
-478. [Reverse a string](r/reverse-a-string/silver.md): likely, about 14 lines
-479. [Formatted numeric output](f/formatted-numeric-output/silver.md): likely, about 22 lines
-480. [Idiomatically determine all the lowercase and uppercase letters](i/idiomatically-determine-all-the-lowercase-and-uppercase-letters/silver.md): likely, about 22 lines
-481. [Matrix with two diagonals](m/matrix-with-two-diagonals/silver.md): likely, about 22 lines
-482. [Split a character string based on change of character](s/split-a-character-string-based-on-change-of-character/silver.md): likely, about 22 lines
-483. [Print itself](p/print-itself/silver.md): likely, about 25 lines
-484. [Rot-13](r/rot-13/silver.md): likely, about 28 lines
-485. [Cantor set](c/cantor-set/silver.md): likely, about 30 lines
-486. [Colour pinstripe/Display](c/colour-pinstripe/display/silver.md): likely, about 30 lines
-487. [Count in octal](c/count-in-octal/silver.md): likely, about 30 lines
-488. [Power set](p/power-set/silver.md): likely, about 30 lines
-489. [Sierpinski triangle](s/sierpinski-triangle/silver.md): likely, about 30 lines
-490. [Strip whitespace from a string/Top and tail](s/strip-whitespace-from-a-string/top-and-tail/silver.md): likely, about 30 lines
-491. [Sorting algorithms/Cocktail sort](s/sorting-algorithms/cocktail-sort/silver.md): likely, about 32 lines
-492. [ABC correlation](a/abc-correlation/silver.md): likely, about 35 lines; uses arguments
-493. [Getting the number of decimal places](g/getting-the-number-of-decimal-places/silver.md): likely, about 35 lines
-494. [Increment a numerical string](i/increment-a-numerical-string/silver.md): likely, about 35 lines
-495. [Pinstripe/Display](p/pinstripe/display/silver.md): likely, about 35 lines
-496. [Repeat a string](r/repeat-a-string/silver.md): likely, about 35 lines
-497. [Selectively replace multiple instances of a character within a string](s/selectively-replace-multiple-instances-of-a-character-within-a-string/silver.md): likely, about 35 lines
-498. [Show ASCII table](s/show-ascii-table/silver.md): likely, about 35 lines
-499. [Sierpinski carpet](s/sierpinski-carpet/silver.md): likely, about 35 lines
-500. [String case](s/string-case/silver.md): likely, about 35 lines
-501. [Strip a set of characters from a string](s/strip-a-set-of-characters-from-a-string/silver.md): likely, about 35 lines
-502. [Tokenize a string](t/tokenize-a-string/silver.md): likely, about 35 lines
-503. [Untrusted environment](u/untrusted-environment/silver.md): likely, about 35 lines; uses arguments and exit status
-504. [Pinstripe/Printer](p/pinstripe/printer/silver.md): likely, about 40 lines
-505. [Count occurrences of a substring](c/count-occurrences-of-a-substring/silver.md): likely, about 45 lines
-506. [Find common directory path](f/find-common-directory-path/silver.md): likely, about 45 lines
-507. [Floyd's triangle](f/floyds-triangle/silver.md): likely, about 45 lines
-508. [Gotchas](g/gotchas/silver.md): likely, about 45 lines
-509. [ISBN13 check digit](i/isbn13-check-digit/silver.md): likely, about 45 lines
-510. [Largest number divisible by its digits](l/largest-number-divisible-by-its-digits/silver.md): likely, about 45 lines
-511. [Long literals, with continuations](l/long-literals-with-continuations/silver.md): likely, about 45 lines
-512. [Multiplication tables](m/multiplication-tables/silver.md): likely, about 45 lines
-513. [One-dimensional cellular automata](o/one-dimensional-cellular-automata/silver.md): likely, about 45 lines
-514. [Primality by Wilson's theorem](p/primality-by-wilsons-theorem/silver.md): likely, about 45 lines
-515. [URL encoding](u/url-encoding/silver.md): likely, about 45 lines
-516. [Visualize a tree](v/visualize-a-tree/silver.md): likely, about 45 lines
-517. [Palindromic primes in base 16](p/palindromic-primes-in-base-16/silver.md): likely, about 50 lines
-518. [Bioinformatics/Subsequence](b/bioinformatics/subsequence/silver.md): likely, about 55 lines
-519. [CUSIP](c/cusip/silver.md): likely, about 55 lines
-520. [Deal cards for FreeCell](d/deal-cards-for-freecell/silver.md): likely, about 55 lines
-521. [Permutations with some identical elements](p/permutations-with-some-identical-elements/silver.md): likely, about 55 lines
-522. [Phrase reversals](p/phrase-reversals/silver.md): likely, about 55 lines
-523. [Strip block comments](s/strip-block-comments/silver.md): likely, about 55 lines
-524. [Sum of the digits of n is substring of n](s/sum-of-the-digits-of-n-is-substring-of-n/silver.md): likely, about 55 lines
-525. [Convert day count to ordinal date](c/convert-day-count-to-ordinal-date/silver.md): likely, about 70 lines
-526. [Convert seconds to compound duration](c/convert-seconds-to-compound-duration/silver.md): likely, about 70 lines
-527. [Dating agency](d/dating-agency/silver.md): likely, about 70 lines
-528. [Elementary cellular automaton](e/elementary-cellular-automaton/silver.md): likely, about 70 lines
-529. [Gaussian primes](g/gaussian-primes/silver.md): likely, about 70 lines
-530. [Generate Chess960 starting position](g/generate-chess960-starting-position/silver.md): likely, about 70 lines
-531. [Non-continuous subsequences](n/non-continuous-subsequences/silver.md): likely, about 70 lines
-532. [Palindrome dates](p/palindrome-dates/silver.md): likely, about 70 lines
-533. [Primes which contain only one odd digit](p/primes-which-contain-only-one-odd-digit/silver.md): likely, about 70 lines
-534. [Move-to-front algorithm](m/move-to-front-algorithm/silver.md): likely, about 75 lines
-535. [Plasma effect](p/plasma-effect/silver.md): likely, about 75 lines
-536. [Draw a rotating stadium](d/draw-a-rotating-stadium/silver.md): likely, about 80 lines
-537. [Set right-adjacent bits](s/set-right-adjacent-bits/silver.md): likely, about 85 lines
-538. [Chaocipher](c/chaocipher/silver.md): likely, about 90 lines
-539. [Conjugate a Latin verb](c/conjugate-a-latin-verb/silver.md): likely, about 90 lines
-540. [Solve the no connection puzzle](s/solve-the-no-connection-puzzle/silver.md): likely, about 95 lines
-541. [Calendar - for "REAL" programmers](c/calendar-for-real-programmers/silver.md): likely, about 110 lines
-542. [Draw a rotating aircraft](d/draw-a-rotating-aircraft/silver.md): likely, about 110 lines
-543. [Intersecting number wheels](i/intersecting-number-wheels/silver.md): likely, about 110 lines
-544. [Text to HTML](t/text-to-html/silver.md): likely, about 130 lines
-545. [Calculating the value of e](c/calculating-the-value-of-e/silver.md): plausible, about 35 lines
-546. [String length](s/string-length/silver.md): plausible, about 35 lines
-547. [Sum of a series](s/sum-of-a-series/silver.md): plausible, about 35 lines
-548. [Factorize string into Lyndon words](f/factorize-string-into-lyndon-words/silver.md): plausible, about 45 lines
-549. [Longest common substring](l/longest-common-substring/silver.md): plausible, about 45 lines
-550. [Strip control codes and extended characters from a string](s/strip-control-codes-and-extended-characters-from-a-string/silver.md): plausible, about 45 lines
-551. [Combinations](c/combinations/silver.md): plausible, about 55 lines
-552. [Best shuffle](b/best-shuffle/silver.md): plausible, about 70 lines
-553. [N-grams](n/n-grams/silver.md): plausible, about 70 lines
-554. [Pig Latin](p/pig-latin/silver.md): plausible, about 70 lines
-555. [Sorting algorithms/Permutation sort](s/sorting-algorithms/permutation-sort/silver.md): plausible, about 70 lines
-556. [Base58Check encoding](b/base58check-encoding/silver.md): plausible, about 80 lines
-557. [Loops/Increment loop index within loop body](l/loops/increment-loop-index-within-loop-body/silver.md): plausible, about 80 lines
-558. [Range extraction](r/range-extraction/silver.md): plausible, about 80 lines
-559. [Composite numbers k with no single digit factors whose factors are all substrings of k](c/composite-numbers-k-with-no-single-digit-factors-whose-factors-are-all-substrings-of-k/silver.md): plausible, about 85 lines
-560. [Bacon cipher](b/bacon-cipher/silver.md): plausible, about 90 lines
-561. [Modular exponentiation](m/modular-exponentiation/silver.md): plausible, about 90 lines
-562. [Reverse the gender of a string](r/reverse-the-gender-of-a-string/silver.md): plausible, about 90 lines
-563. [XML/XPath](x/xml/xpath/silver.md): plausible, about 90 lines
-564. [Run-length encoding](r/run-length-encoding/silver.md): plausible, about 95 lines
-565. [Sorting algorithms/Strand sort](s/sorting-algorithms/strand-sort/silver.md): plausible, about 95 lines
-566. [Sturmian word](s/sturmian-word/silver.md): plausible, about 95 lines
-567. [Knuth-Morris-Pratt string search](k/knuth-morris-pratt-string-search/silver.md): plausible, about 110 lines
-568. [Negative base numbers](n/negative-base-numbers/silver.md): plausible, about 110 lines
-569. [Rosetta Code/Find bare lang tags](r/rosetta-code/find-bare-lang-tags/silver.md): plausible, about 110 lines
-570. [De Bruijn sequences](d/de-bruijn-sequences/silver.md): plausible, about 120 lines
-571. [Nonoblock](n/nonoblock/silver.md): plausible, about 120 lines
-572. [Parsing/Shunting-yard algorithm](p/parsing/shunting-yard-algorithm/silver.md): plausible, about 120 lines
-573. [XXXX redacted](x/xxxx-redacted/silver.md): plausible, about 120 lines
-574. [Read a configuration file](r/read-a-configuration-file/silver.md): plausible, about 130 lines
-575. [Superpermutation minimisation](s/superpermutation-minimisation/silver.md): plausible, about 130 lines
-576. [Abbreviations, easy](a/abbreviations-easy/silver.md): plausible, about 150 lines
-577. [Commatizing numbers](c/commatizing-numbers/silver.md): plausible, about 170 lines
-578. [Factorial base numbers indexing permutations of a collection](f/factorial-base-numbers-indexing-permutations-of-a-collection/silver.md): plausible, about 170 lines
-579. [Four is magic](f/four-is-magic/silver.md): plausible, about 170 lines
-580. [Last letter-first letter](l/last-letter-first-letter/silver.md): plausible, about 170 lines
-581. [Names to numbers](n/names-to-numbers/silver.md): plausible, about 170 lines
-582. [Four is the number of letters in the ...](f/four-is-the-number-of-letters-in-the/silver.md): plausible, about 260 lines
+470. [Substring/Top and tail](s/substring/top-and-tail/silver.md): likely, about 12 lines
+471. [Reverse a string](r/reverse-a-string/silver.md): likely, about 14 lines
+472. [Formatted numeric output](f/formatted-numeric-output/silver.md): likely, about 22 lines
+473. [Idiomatically determine all the lowercase and uppercase letters](i/idiomatically-determine-all-the-lowercase-and-uppercase-letters/silver.md): likely, about 22 lines
+474. [Matrix with two diagonals](m/matrix-with-two-diagonals/silver.md): likely, about 22 lines
+475. [Split a character string based on change of character](s/split-a-character-string-based-on-change-of-character/silver.md): likely, about 22 lines
+476. [Print itself](p/print-itself/silver.md): likely, about 25 lines
+477. [Rot-13](r/rot-13/silver.md): likely, about 28 lines
+478. [Cantor set](c/cantor-set/silver.md): likely, about 30 lines
+479. [Colour pinstripe/Display](c/colour-pinstripe/display/silver.md): likely, about 30 lines
+480. [Count in octal](c/count-in-octal/silver.md): likely, about 30 lines
+481. [Power set](p/power-set/silver.md): likely, about 30 lines
+482. [Sierpinski triangle](s/sierpinski-triangle/silver.md): likely, about 30 lines
+483. [Strip whitespace from a string/Top and tail](s/strip-whitespace-from-a-string/top-and-tail/silver.md): likely, about 30 lines
+484. [Sorting algorithms/Cocktail sort](s/sorting-algorithms/cocktail-sort/silver.md): likely, about 32 lines
+485. [ABC correlation](a/abc-correlation/silver.md): likely, about 35 lines; uses arguments
+486. [Getting the number of decimal places](g/getting-the-number-of-decimal-places/silver.md): likely, about 35 lines
+487. [Increment a numerical string](i/increment-a-numerical-string/silver.md): likely, about 35 lines
+488. [Pinstripe/Display](p/pinstripe/display/silver.md): likely, about 35 lines
+489. [Repeat a string](r/repeat-a-string/silver.md): likely, about 35 lines
+490. [Selectively replace multiple instances of a character within a string](s/selectively-replace-multiple-instances-of-a-character-within-a-string/silver.md): likely, about 35 lines
+491. [Show ASCII table](s/show-ascii-table/silver.md): likely, about 35 lines
+492. [Sierpinski carpet](s/sierpinski-carpet/silver.md): likely, about 35 lines
+493. [String case](s/string-case/silver.md): likely, about 35 lines
+494. [Strip a set of characters from a string](s/strip-a-set-of-characters-from-a-string/silver.md): likely, about 35 lines
+495. [Tokenize a string](t/tokenize-a-string/silver.md): likely, about 35 lines
+496. [Untrusted environment](u/untrusted-environment/silver.md): likely, about 35 lines; uses arguments and exit status
+497. [Pinstripe/Printer](p/pinstripe/printer/silver.md): likely, about 40 lines
+498. [Count occurrences of a substring](c/count-occurrences-of-a-substring/silver.md): likely, about 45 lines
+499. [Find common directory path](f/find-common-directory-path/silver.md): likely, about 45 lines
+500. [Floyd's triangle](f/floyds-triangle/silver.md): likely, about 45 lines
+501. [Gotchas](g/gotchas/silver.md): likely, about 45 lines
+502. [ISBN13 check digit](i/isbn13-check-digit/silver.md): likely, about 45 lines
+503. [Largest number divisible by its digits](l/largest-number-divisible-by-its-digits/silver.md): likely, about 45 lines
+504. [Long literals, with continuations](l/long-literals-with-continuations/silver.md): likely, about 45 lines
+505. [Multiplication tables](m/multiplication-tables/silver.md): likely, about 45 lines
+506. [One-dimensional cellular automata](o/one-dimensional-cellular-automata/silver.md): likely, about 45 lines
+507. [Primality by Wilson's theorem](p/primality-by-wilsons-theorem/silver.md): likely, about 45 lines
+508. [URL encoding](u/url-encoding/silver.md): likely, about 45 lines
+509. [Visualize a tree](v/visualize-a-tree/silver.md): likely, about 45 lines
+510. [Palindromic primes in base 16](p/palindromic-primes-in-base-16/silver.md): likely, about 50 lines
+511. [Bioinformatics/Subsequence](b/bioinformatics/subsequence/silver.md): likely, about 55 lines
+512. [CUSIP](c/cusip/silver.md): likely, about 55 lines
+513. [Deal cards for FreeCell](d/deal-cards-for-freecell/silver.md): likely, about 55 lines
+514. [Permutations with some identical elements](p/permutations-with-some-identical-elements/silver.md): likely, about 55 lines
+515. [Phrase reversals](p/phrase-reversals/silver.md): likely, about 55 lines
+516. [Strip block comments](s/strip-block-comments/silver.md): likely, about 55 lines
+517. [Sum of the digits of n is substring of n](s/sum-of-the-digits-of-n-is-substring-of-n/silver.md): likely, about 55 lines
+518. [Convert day count to ordinal date](c/convert-day-count-to-ordinal-date/silver.md): likely, about 70 lines
+519. [Convert seconds to compound duration](c/convert-seconds-to-compound-duration/silver.md): likely, about 70 lines
+520. [Dating agency](d/dating-agency/silver.md): likely, about 70 lines
+521. [Elementary cellular automaton](e/elementary-cellular-automaton/silver.md): likely, about 70 lines
+522. [Gaussian primes](g/gaussian-primes/silver.md): likely, about 70 lines
+523. [Generate Chess960 starting position](g/generate-chess960-starting-position/silver.md): likely, about 70 lines
+524. [Non-continuous subsequences](n/non-continuous-subsequences/silver.md): likely, about 70 lines
+525. [Palindrome dates](p/palindrome-dates/silver.md): likely, about 70 lines
+526. [Primes which contain only one odd digit](p/primes-which-contain-only-one-odd-digit/silver.md): likely, about 70 lines
+527. [Move-to-front algorithm](m/move-to-front-algorithm/silver.md): likely, about 75 lines
+528. [Plasma effect](p/plasma-effect/silver.md): likely, about 75 lines
+529. [Draw a rotating stadium](d/draw-a-rotating-stadium/silver.md): likely, about 80 lines
+530. [Set right-adjacent bits](s/set-right-adjacent-bits/silver.md): likely, about 85 lines
+531. [Chaocipher](c/chaocipher/silver.md): likely, about 90 lines
+532. [Conjugate a Latin verb](c/conjugate-a-latin-verb/silver.md): likely, about 90 lines
+533. [Solve the no connection puzzle](s/solve-the-no-connection-puzzle/silver.md): likely, about 95 lines
+534. [Calendar - for "REAL" programmers](c/calendar-for-real-programmers/silver.md): likely, about 110 lines
+535. [Draw a rotating aircraft](d/draw-a-rotating-aircraft/silver.md): likely, about 110 lines
+536. [Intersecting number wheels](i/intersecting-number-wheels/silver.md): likely, about 110 lines
+537. [Text to HTML](t/text-to-html/silver.md): likely, about 130 lines
+538. [Calculating the value of e](c/calculating-the-value-of-e/silver.md): plausible, about 35 lines
+539. [String length](s/string-length/silver.md): plausible, about 35 lines
+540. [Sum of a series](s/sum-of-a-series/silver.md): plausible, about 35 lines
+541. [Factorize string into Lyndon words](f/factorize-string-into-lyndon-words/silver.md): plausible, about 45 lines
+542. [Longest common substring](l/longest-common-substring/silver.md): plausible, about 45 lines
+543. [Strip control codes and extended characters from a string](s/strip-control-codes-and-extended-characters-from-a-string/silver.md): plausible, about 45 lines
+544. [Combinations](c/combinations/silver.md): plausible, about 55 lines
+545. [Best shuffle](b/best-shuffle/silver.md): plausible, about 70 lines
+546. [N-grams](n/n-grams/silver.md): plausible, about 70 lines
+547. [Pig Latin](p/pig-latin/silver.md): plausible, about 70 lines
+548. [Sorting algorithms/Permutation sort](s/sorting-algorithms/permutation-sort/silver.md): plausible, about 70 lines
+549. [Base58Check encoding](b/base58check-encoding/silver.md): plausible, about 80 lines
+550. [Loops/Increment loop index within loop body](l/loops/increment-loop-index-within-loop-body/silver.md): plausible, about 80 lines
+551. [Range extraction](r/range-extraction/silver.md): plausible, about 80 lines
+552. [Composite numbers k with no single digit factors whose factors are all substrings of k](c/composite-numbers-k-with-no-single-digit-factors-whose-factors-are-all-substrings-of-k/silver.md): plausible, about 85 lines
+553. [Bacon cipher](b/bacon-cipher/silver.md): plausible, about 90 lines
+554. [Modular exponentiation](m/modular-exponentiation/silver.md): plausible, about 90 lines
+555. [Reverse the gender of a string](r/reverse-the-gender-of-a-string/silver.md): plausible, about 90 lines
+556. [XML/XPath](x/xml/xpath/silver.md): plausible, about 90 lines
+557. [Run-length encoding](r/run-length-encoding/silver.md): plausible, about 95 lines
+558. [Sorting algorithms/Strand sort](s/sorting-algorithms/strand-sort/silver.md): plausible, about 95 lines
+559. [Sturmian word](s/sturmian-word/silver.md): plausible, about 95 lines
+560. [Knuth-Morris-Pratt string search](k/knuth-morris-pratt-string-search/silver.md): plausible, about 110 lines
+561. [Negative base numbers](n/negative-base-numbers/silver.md): plausible, about 110 lines
+562. [Rosetta Code/Find bare lang tags](r/rosetta-code/find-bare-lang-tags/silver.md): plausible, about 110 lines
+563. [De Bruijn sequences](d/de-bruijn-sequences/silver.md): plausible, about 120 lines
+564. [Nonoblock](n/nonoblock/silver.md): plausible, about 120 lines
+565. [Parsing/Shunting-yard algorithm](p/parsing/shunting-yard-algorithm/silver.md): plausible, about 120 lines
+566. [XXXX redacted](x/xxxx-redacted/silver.md): plausible, about 120 lines
+567. [Read a configuration file](r/read-a-configuration-file/silver.md): plausible, about 130 lines
+568. [Superpermutation minimisation](s/superpermutation-minimisation/silver.md): plausible, about 130 lines
+569. [Abbreviations, easy](a/abbreviations-easy/silver.md): plausible, about 150 lines
+570. [Commatizing numbers](c/commatizing-numbers/silver.md): plausible, about 170 lines
+571. [Factorial base numbers indexing permutations of a collection](f/factorial-base-numbers-indexing-permutations-of-a-collection/silver.md): plausible, about 170 lines
+572. [Four is magic](f/four-is-magic/silver.md): plausible, about 170 lines
+573. [Last letter-first letter](l/last-letter-first-letter/silver.md): plausible, about 170 lines
+574. [Names to numbers](n/names-to-numbers/silver.md): plausible, about 170 lines
+575. [Four is the number of letters in the ...](f/four-is-the-number-of-letters-in-the/silver.md): plausible, about 260 lines
 
-## Stage 12
+## Stage 11
 
 Adds records.
 
@@ -726,74 +713,74 @@ Admission questions:
 
 The assessments flag index in 47, overflow in 43, termination in 29 and range in 24 of its 66 samples. 29 of 66 are only plausible.
 
-583. [Compound data type](c/compound-data-type/silver.md): likely, about 22 lines
-584. [Shoelace formula for polygonal area](s/shoelace-formula-for-polygonal-area/silver.md): likely, about 35 lines
-585. [Delegates](d/delegates/silver.md): likely, about 40 lines
-586. [Doubly-linked list/Element definition](d/doubly-linked-list/element-definition/silver.md): likely, about 40 lines
-587. [Singly-linked list/Element definition](s/singly-linked-list/element-definition/silver.md): likely, about 40 lines
-588. [Classes](c/classes/silver.md): likely, about 45 lines
-589. [Inner classes](i/inner-classes/silver.md): likely, about 45 lines
-590. [List comprehensions](l/list-comprehensions/silver.md): likely, about 45 lines
-591. [Overloaded operators](o/overloaded-operators/silver.md): likely, about 45 lines
-592. [Table creation](t/table-creation/silver.md): likely, about 45 lines
-593. [History variables](h/history-variables/silver.md): likely, about 50 lines
-594. [Decorate-sort-undecorate idiom](d/decorate-sort-undecorate-idiom/silver.md): likely, about 55 lines
-595. [Find if a point is within a triangle](f/find-if-a-point-is-within-a-triangle/silver.md): likely, about 55 lines
-596. [Singly-linked list/Element insertion](s/singly-linked-list/element-insertion/silver.md): likely, about 55 lines
-597. [Associative array/Creation](a/associative-array/creation/silver.md): likely, about 60 lines
-598. [Queue/Usage](q/queue/usage/silver.md): likely, about 60 lines
-599. [Stack](s/stack/silver.md): likely, about 60 lines
-600. [Arena storage pool](a/arena-storage-pool/silver.md): likely, about 70 lines
-601. [Continued fraction/Arithmetic/Construct from rational number](c/continued-fraction/arithmetic/construct-from-rational-number/silver.md): likely, about 70 lines
-602. [Hash from two arrays](h/hash-from-two-arrays/silver.md): likely, about 70 lines
-603. [Loops/Wrong ranges](l/loops/wrong-ranges/silver.md): likely, about 70 lines
-604. [Monads/Maybe monad](m/monads/maybe-monad/silver.md): likely, about 70 lines
-605. [Rice coding](r/rice-coding/silver.md): likely, about 70 lines
-606. [Singly-linked list/Reversal](s/singly-linked-list/reversal/silver.md): likely, about 70 lines
-607. [Tokenize a string with escaping](t/tokenize-a-string-with-escaping/silver.md): likely, about 70 lines
-608. [Vector](v/vector/silver.md): likely, about 80 lines
-609. [Doubly-linked list/Definition](d/doubly-linked-list/definition/silver.md): likely, about 90 lines
-610. [Doubly-linked list/Element removal](d/doubly-linked-list/element-removal/silver.md): likely, about 90 lines
-611. [Generator/Exponential](g/generator/exponential/silver.md): likely, about 90 lines
-612. [Check if a polygon overlaps with a rectangle](c/check-if-a-polygon-overlaps-with-a-rectangle/silver.md): likely, about 110 lines
-613. [Hash join](h/hash-join/silver.md): likely, about 110 lines
-614. [Iterators](i/iterators/silver.md): likely, about 110 lines
-615. [Longest common suffix](l/longest-common-suffix/silver.md): likely, about 110 lines
-616. [Polynomial derivative](p/polynomial-derivative/silver.md): likely, about 110 lines
-617. [Order disjoint list items](o/order-disjoint-list-items/silver.md): likely, about 130 lines
-618. [Ray-casting algorithm](r/ray-casting-algorithm/silver.md): likely, about 130 lines
-619. [Search in paragraph's text](s/search-in-paragraphs-text/silver.md): likely, about 170 lines
-620. [First class environments](f/first-class-environments/silver.md): plausible, about 60 lines
-621. [Sudan function](s/sudan-function/silver.md): plausible, about 85 lines
-622. [Euclidean rhythm](e/euclidean-rhythm/silver.md): plausible, about 90 lines
-623. [Pythagoras tree](p/pythagoras-tree/silver.md): plausible, about 90 lines
-624. [Align columns](a/align-columns/silver.md): plausible, about 110 lines
-625. [Averages/Simple moving average](a/averages/simple-moving-average/silver.md): plausible, about 110 lines
-626. [Convex hull](c/convex-hull/silver.md): plausible, about 110 lines
-627. [Divide a rectangle into a number of unequal triangles](d/divide-a-rectangle-into-a-number-of-unequal-triangles/silver.md): plausible, about 110 lines
-628. [Most frequent k chars distance](m/most-frequent-k-chars-distance/silver.md): plausible, about 110 lines
-629. [Pig the dice game/Player](p/pig-the-dice-game/player/silver.md): plausible, about 110 lines
-630. [Price list behind API](p/price-list-behind-api/silver.md): plausible, about 110 lines
-631. [Binary strings](b/binary-strings/silver.md): plausible, about 130 lines
-632. [Sutherland-Hodgman polygon clipping](s/sutherland-hodgman-polygon-clipping/silver.md): plausible, about 130 lines
-633. [Tonelli-Shanks algorithm](t/tonelli-shanks-algorithm/silver.md): plausible, about 130 lines
-634. [VList](v/vlist/silver.md): plausible, about 130 lines
-635. [Multi-base primes](m/multi-base-primes/silver.md): plausible, about 140 lines
-636. [Jaro-Winkler distance](j/jaro-winkler-distance/silver.md): plausible, about 150 lines
-637. [Penrose tiling](p/penrose-tiling/silver.md): plausible, about 150 lines
-638. [Faces from a mesh](f/faces-from-a-mesh/silver.md): plausible, about 170 lines
-639. [Functional coverage tree](f/functional-coverage-tree/silver.md): plausible, about 170 lines
-640. [Range modifications](r/range-modifications/silver.md): plausible, about 170 lines
-641. [S-expressions](s/s-expressions/silver.md): plausible, about 170 lines
-642. [War card game](w/war-card-game/silver.md): plausible, about 170 lines
-643. [P-Adic numbers, basic](p/p-adic-numbers-basic/silver.md): plausible, about 230 lines
-644. [P-Adic square roots](p/p-adic-square-roots/silver.md): plausible, about 230 lines
-645. [Update a configuration file](u/update-a-configuration-file/silver.md): plausible, about 230 lines
-646. [Weiler-Atherton polygon clipping](w/weiler-atherton-polygon-clipping/silver.md): plausible, about 230 lines
-647. [Elliptic Curve Digital Signature Algorithm](e/elliptic-curve-digital-signature-algorithm/silver.md): plausible, about 260 lines
-648. [Fibonacci heap](f/fibonacci-heap/silver.md): plausible, about 260 lines
+576. [Compound data type](c/compound-data-type/silver.md): likely, about 22 lines
+577. [Shoelace formula for polygonal area](s/shoelace-formula-for-polygonal-area/silver.md): likely, about 35 lines
+578. [Delegates](d/delegates/silver.md): likely, about 40 lines
+579. [Doubly-linked list/Element definition](d/doubly-linked-list/element-definition/silver.md): likely, about 40 lines
+580. [Singly-linked list/Element definition](s/singly-linked-list/element-definition/silver.md): likely, about 40 lines
+581. [Classes](c/classes/silver.md): likely, about 45 lines
+582. [Inner classes](i/inner-classes/silver.md): likely, about 45 lines
+583. [List comprehensions](l/list-comprehensions/silver.md): likely, about 45 lines
+584. [Overloaded operators](o/overloaded-operators/silver.md): likely, about 45 lines
+585. [Table creation](t/table-creation/silver.md): likely, about 45 lines
+586. [History variables](h/history-variables/silver.md): likely, about 50 lines
+587. [Decorate-sort-undecorate idiom](d/decorate-sort-undecorate-idiom/silver.md): likely, about 55 lines
+588. [Find if a point is within a triangle](f/find-if-a-point-is-within-a-triangle/silver.md): likely, about 55 lines
+589. [Singly-linked list/Element insertion](s/singly-linked-list/element-insertion/silver.md): likely, about 55 lines
+590. [Associative array/Creation](a/associative-array/creation/silver.md): likely, about 60 lines
+591. [Queue/Usage](q/queue/usage/silver.md): likely, about 60 lines
+592. [Stack](s/stack/silver.md): likely, about 60 lines
+593. [Arena storage pool](a/arena-storage-pool/silver.md): likely, about 70 lines
+594. [Continued fraction/Arithmetic/Construct from rational number](c/continued-fraction/arithmetic/construct-from-rational-number/silver.md): likely, about 70 lines
+595. [Hash from two arrays](h/hash-from-two-arrays/silver.md): likely, about 70 lines
+596. [Loops/Wrong ranges](l/loops/wrong-ranges/silver.md): likely, about 70 lines
+597. [Monads/Maybe monad](m/monads/maybe-monad/silver.md): likely, about 70 lines
+598. [Rice coding](r/rice-coding/silver.md): likely, about 70 lines
+599. [Singly-linked list/Reversal](s/singly-linked-list/reversal/silver.md): likely, about 70 lines
+600. [Tokenize a string with escaping](t/tokenize-a-string-with-escaping/silver.md): likely, about 70 lines
+601. [Vector](v/vector/silver.md): likely, about 80 lines
+602. [Doubly-linked list/Definition](d/doubly-linked-list/definition/silver.md): likely, about 90 lines
+603. [Doubly-linked list/Element removal](d/doubly-linked-list/element-removal/silver.md): likely, about 90 lines
+604. [Generator/Exponential](g/generator/exponential/silver.md): likely, about 90 lines
+605. [Check if a polygon overlaps with a rectangle](c/check-if-a-polygon-overlaps-with-a-rectangle/silver.md): likely, about 110 lines
+606. [Hash join](h/hash-join/silver.md): likely, about 110 lines
+607. [Iterators](i/iterators/silver.md): likely, about 110 lines
+608. [Longest common suffix](l/longest-common-suffix/silver.md): likely, about 110 lines
+609. [Polynomial derivative](p/polynomial-derivative/silver.md): likely, about 110 lines
+610. [Order disjoint list items](o/order-disjoint-list-items/silver.md): likely, about 130 lines
+611. [Ray-casting algorithm](r/ray-casting-algorithm/silver.md): likely, about 130 lines
+612. [Search in paragraph's text](s/search-in-paragraphs-text/silver.md): likely, about 170 lines
+613. [First class environments](f/first-class-environments/silver.md): plausible, about 60 lines
+614. [Sudan function](s/sudan-function/silver.md): plausible, about 85 lines
+615. [Euclidean rhythm](e/euclidean-rhythm/silver.md): plausible, about 90 lines
+616. [Pythagoras tree](p/pythagoras-tree/silver.md): plausible, about 90 lines
+617. [Align columns](a/align-columns/silver.md): plausible, about 110 lines
+618. [Averages/Simple moving average](a/averages/simple-moving-average/silver.md): plausible, about 110 lines
+619. [Convex hull](c/convex-hull/silver.md): plausible, about 110 lines
+620. [Divide a rectangle into a number of unequal triangles](d/divide-a-rectangle-into-a-number-of-unequal-triangles/silver.md): plausible, about 110 lines
+621. [Most frequent k chars distance](m/most-frequent-k-chars-distance/silver.md): plausible, about 110 lines
+622. [Pig the dice game/Player](p/pig-the-dice-game/player/silver.md): plausible, about 110 lines
+623. [Price list behind API](p/price-list-behind-api/silver.md): plausible, about 110 lines
+624. [Binary strings](b/binary-strings/silver.md): plausible, about 130 lines
+625. [Sutherland-Hodgman polygon clipping](s/sutherland-hodgman-polygon-clipping/silver.md): plausible, about 130 lines
+626. [Tonelli-Shanks algorithm](t/tonelli-shanks-algorithm/silver.md): plausible, about 130 lines
+627. [VList](v/vlist/silver.md): plausible, about 130 lines
+628. [Multi-base primes](m/multi-base-primes/silver.md): plausible, about 140 lines
+629. [Jaro-Winkler distance](j/jaro-winkler-distance/silver.md): plausible, about 150 lines
+630. [Penrose tiling](p/penrose-tiling/silver.md): plausible, about 150 lines
+631. [Faces from a mesh](f/faces-from-a-mesh/silver.md): plausible, about 170 lines
+632. [Functional coverage tree](f/functional-coverage-tree/silver.md): plausible, about 170 lines
+633. [Range modifications](r/range-modifications/silver.md): plausible, about 170 lines
+634. [S-expressions](s/s-expressions/silver.md): plausible, about 170 lines
+635. [War card game](w/war-card-game/silver.md): plausible, about 170 lines
+636. [P-Adic numbers, basic](p/p-adic-numbers-basic/silver.md): plausible, about 230 lines
+637. [P-Adic square roots](p/p-adic-square-roots/silver.md): plausible, about 230 lines
+638. [Update a configuration file](u/update-a-configuration-file/silver.md): plausible, about 230 lines
+639. [Weiler-Atherton polygon clipping](w/weiler-atherton-polygon-clipping/silver.md): plausible, about 230 lines
+640. [Elliptic Curve Digital Signature Algorithm](e/elliptic-curve-digital-signature-algorithm/silver.md): plausible, about 260 lines
+641. [Fibonacci heap](f/fibonacci-heap/silver.md): plausible, about 260 lines
 
-## Stage 13
+## Stage 12
 
 Adds multidimensional arrays.
 
@@ -803,120 +790,120 @@ Admission questions:
 
 The assessments flag index in 97, overflow in 91, range in 57 and termination in 48 of its 112 samples. 78 of 112 are only plausible; this stage needs the most restrictive admitted forms.
 
-649. [Sum of elements below main diagonal of matrix](s/sum-of-elements-below-main-diagonal-of-matrix/silver.md): likely, about 25 lines
-650. [Matrix transposition](m/matrix-transposition/silver.md): likely, about 40 lines
-651. [Create an HTML table](c/create-an-html-table/silver.md): likely, about 45 lines
-652. [Curve that touches three points](c/curve-that-touches-three-points/silver.md): likely, about 45 lines
-653. [Draw a cuboid](d/draw-a-cuboid/silver.md): likely, about 45 lines
-654. [Levenshtein distance](l/levenshtein-distance/silver.md): likely, about 45 lines
-655. [Magic squares of doubly even order](m/magic-squares-of-doubly-even-order/silver.md): likely, about 45 lines
-656. [Matrix multiplication](m/matrix-multiplication/silver.md): likely, about 45 lines
-657. [Multi-dimensional array](m/multi-dimensional-array/silver.md): likely, about 45 lines
-658. [Plot coordinate pairs](p/plot-coordinate-pairs/silver.md): likely, about 45 lines
-659. [Collect and sort square numbers in ascending order from three lists](c/collect-and-sort-square-numbers-in-ascending-order-from-three-lists/silver.md): likely, about 55 lines
-660. [Largest product in a grid](l/largest-product-in-a-grid/silver.md): likely, about 55 lines
-661. [Ramsey's theorem](r/ramseys-theorem/silver.md): likely, about 55 lines
-662. [Sierpinski sponge of the 2nd order](s/sierpinski-sponge-of-the-2nd-order/silver.md): likely, about 55 lines
-663. [Maximum triangle path sum](m/maximum-triangle-path-sum/silver.md): likely, about 60 lines
-664. [Conway's Game of Life](c/conways-game-of-life/silver.md): likely, about 70 lines
-665. [Grayscale image](g/grayscale-image/silver.md): likely, about 70 lines
-666. [Magic squares of odd order](m/magic-squares-of-odd-order/silver.md): likely, about 70 lines
-667. [Raster bars](r/raster-bars/silver.md): likely, about 70 lines
-668. [Vibrating rectangles](v/vibrating-rectangles/silver.md): likely, about 70 lines
-669. [Walsh matrix](w/walsh-matrix/silver.md): likely, about 70 lines
-670. [Kronecker product based fractals](k/kronecker-product-based-fractals/silver.md): likely, about 80 lines
-671. [Pentagram](p/pentagram/silver.md): likely, about 85 lines
-672. [Color separation](c/color-separation/silver.md): likely, about 90 lines
-673. [Sierpinski pentagon](s/sierpinski-pentagon/silver.md): likely, about 90 lines
-674. [Zhang-Suen thinning algorithm](z/zhang-suen-thinning-algorithm/silver.md): likely, about 95 lines
-675. [3d turtle graphics](0-9/3d-turtle-graphics/silver.md): likely, about 110 lines
-676. [Geocentric model](g/geocentric-model/silver.md): likely, about 110 lines
-677. [Knapsack problem/Bounded](k/knapsack-problem/bounded/silver.md): likely, about 110 lines
-678. [Graph colouring](g/graph-colouring/silver.md): likely, about 120 lines
-679. [Non-transitive dice](n/non-transitive-dice/silver.md): likely, about 130 lines
-680. [Text completion](t/text-completion/silver.md): likely, about 130 lines; uses arguments
-681. [Zebra puzzle](z/zebra-puzzle/silver.md): likely, about 130 lines
-682. [Data Encryption Standard](d/data-encryption-standard/silver.md): likely, about 170 lines
-683. [Bell numbers](b/bell-numbers/silver.md): plausible, about 45 lines
-684. [Disarium numbers](d/disarium-numbers/silver.md): plausible, about 45 lines
-685. [Stirling numbers of the first kind](s/stirling-numbers-of-the-first-kind/silver.md): plausible, about 50 lines
-686. [Lah numbers](l/lah-numbers/silver.md): plausible, about 55 lines
-687. [Stirling numbers of the second kind](s/stirling-numbers-of-the-second-kind/silver.md): plausible, about 55 lines
-688. [Longest common subsequence](l/longest-common-subsequence/silver.md): plausible, about 60 lines
-689. [B-spline](b/b-spline/silver.md): plausible, about 70 lines
-690. [Bitmap/Bézier curves/Quadratic](b/bitmap/bezier-curves/quadratic/silver.md): plausible, about 70 lines
-691. [Bitmap/Histogram](b/bitmap/histogram/silver.md): plausible, about 70 lines
-692. [Hilbert curve](h/hilbert-curve/silver.md): plausible, about 70 lines
-693. [Magic squares of singly even order](m/magic-squares-of-singly-even-order/silver.md): plausible, about 70 lines
-694. [Median filter](m/median-filter/silver.md): plausible, about 70 lines
-695. [Möbius strip](m/mobius-strip/silver.md): plausible, about 70 lines
-696. [Random Latin squares](r/random-latin-squares/silver.md): plausible, about 70 lines
-697. [Shortest common supersequence](s/shortest-common-supersequence/silver.md): plausible, about 70 lines
-698. [Strange numbers](s/strange-numbers/silver.md): plausible, about 70 lines
-699. [Hamiltonian Cycle via Chvátal Closure](h/hamiltonian-cycle-via-chvatal-closure/silver.md): plausible, about 75 lines
-700. [Cramer's rule](c/cramers-rule/silver.md): plausible, about 80 lines
-701. [Amb](a/amb/silver.md): plausible, about 90 lines
-702. [Bilinear interpolation](b/bilinear-interpolation/silver.md): plausible, about 90 lines
-703. [Count the coins/0-1](c/count-the-coins/0-1/silver.md): plausible, about 90 lines
-704. [Dijkstra's algorithm](d/dijkstras-algorithm/silver.md): plausible, about 90 lines
-705. [Draw a torus](d/draw-a-torus/silver.md): plausible, about 90 lines
-706. [Eertree](e/eertree/silver.md): plausible, about 90 lines
-707. [Hough transform](h/hough-transform/silver.md): plausible, about 90 lines
-708. [Image convolution](i/image-convolution/silver.md): plausible, about 90 lines
-709. [Jaccard index](j/jaccard-index/silver.md): plausible, about 90 lines
-710. [Levenshtein distance/Alignment](l/levenshtein-distance/alignment/silver.md): plausible, about 90 lines
-711. [Matrix-exponentiation operator](m/matrix-exponentiation-operator/silver.md): plausible, about 90 lines
-712. [Prime conspiracy](p/prime-conspiracy/silver.md): plausible, about 90 lines
-713. [Subset sum problem](s/subset-sum-problem/silver.md): plausible, about 90 lines
-714. [Zsigmondy numbers](z/zsigmondy-numbers/silver.md): plausible, about 90 lines
-715. [Generate random chess position](g/generate-random-chess-position/silver.md): plausible, about 95 lines
-716. [Held–Karp algorithm](h/held-karp-algorithm/silver.md): plausible, about 95 lines
-717. [Maze solving](m/maze-solving/silver.md): plausible, about 95 lines
-718. [Boustrophedon transform](b/boustrophedon-transform/silver.md): plausible, about 110 lines
-719. [Floyd-Warshall algorithm](f/floyd-warshall-algorithm/silver.md): plausible, about 110 lines
-720. [Hierholzer's algorithm](h/hierholzers-algorithm/silver.md): plausible, about 110 lines
-721. [Kosaraju](k/kosaraju/silver.md): plausible, about 110 lines
-722. [Matrix chain multiplication](m/matrix-chain-multiplication/silver.md): plausible, about 110 lines
-723. [Solve a Hopido puzzle](s/solve-a-hopido-puzzle/silver.md): plausible, about 110 lines
-724. [Solve triangle solitaire puzzle](s/solve-triangle-solitaire-puzzle/silver.md): plausible, about 110 lines
-725. [Vogel's approximation method](v/vogels-approximation-method/silver.md): plausible, about 110 lines
-726. [Cartesian product of two or more lists](c/cartesian-product-of-two-or-more-lists/silver.md): plausible, about 120 lines
-727. [Smith–Waterman algorithm](s/smith-waterman-algorithm/silver.md): plausible, about 120 lines
-728. [Tarjan](t/tarjan/silver.md): plausible, about 120 lines
-729. [Abelian sandpile model/Identity](a/abelian-sandpile-model/identity/silver.md): plausible, about 130 lines
-730. [Fraction reduction](f/fraction-reduction/silver.md): plausible, about 130 lines
-731. [Hopcroft-Karp Algorithm](h/hopcroft-karp-algorithm/silver.md): plausible, about 130 lines
-732. [Jury stability criterion](j/jury-stability-criterion/silver.md): plausible, about 130 lines
-733. [Palindromic gapful numbers](p/palindromic-gapful-numbers/silver.md): plausible, about 130 lines
-734. [Percolation/Bond percolation](p/percolation/bond-percolation/silver.md): plausible, about 130 lines
-735. [Same fringe](s/same-fringe/silver.md): plausible, about 130 lines
-736. [Solve a Hidato puzzle](s/solve-a-hidato-puzzle/silver.md): plausible, about 130 lines
-737. [Wavelet Matrix](w/wavelet-matrix/silver.md): plausible, about 130 lines
-738. [Centroid of a set of N-dimensional points](c/centroid-of-a-set-of-n-dimensional-points/silver.md): plausible, about 150 lines
-739. [Johnson's algorithm](j/johnsons-algorithm/silver.md): plausible, about 150 lines
-740. [Peaceful chess queen armies](p/peaceful-chess-queen-armies/silver.md): plausible, about 150 lines
-741. [Percolation/Mean cluster density](p/percolation/mean-cluster-density/silver.md): plausible, about 150 lines
-742. [Summarize and say sequence](s/summarize-and-say-sequence/silver.md): plausible, about 150 lines
-743. [ADFGVX cipher](a/adfgvx-cipher/silver.md): plausible, about 170 lines
-744. [Countdown](c/countdown/silver.md): plausible, about 170 lines
-745. [Dominoes](d/dominoes/silver.md): plausible, about 170 lines
-746. [Gabow's algorithm](g/gabows-algorithm/silver.md): plausible, about 170 lines
-747. [Lychrel numbers](l/lychrel-numbers/silver.md): plausible, about 170 lines
-748. [Pfaffian and hfaffian](p/pfaffian-and-hfaffian/silver.md): plausible, about 170 lines
-749. [Solve a Numbrix puzzle](s/solve-a-numbrix-puzzle/silver.md): plausible, about 170 lines
-750. [State name puzzle](s/state-name-puzzle/silver.md): plausible, about 170 lines
-751. [Strassen's algorithm](s/strassens-algorithm/silver.md): plausible, about 170 lines
-752. [Suffix tree](s/suffix-tree/silver.md): plausible, about 170 lines
-753. [Wave function collapse](w/wave-function-collapse/silver.md): plausible, about 170 lines
-754. [Brace expansion](b/brace-expansion/silver.md): plausible, about 220 lines
-755. [Fibonacci matrix-exponentiation](f/fibonacci-matrix-exponentiation/silver.md): plausible, about 220 lines
-756. [Cycles of a permutation](c/cycles-of-a-permutation/silver.md): plausible, about 230 lines
-757. [Free polyominoes enumeration](f/free-polyominoes-enumeration/silver.md): plausible, about 260 lines
-758. [Transportation problem](t/transportation-problem/silver.md): plausible, about 260 lines
-759. [Christofides algorithm](c/christofides-algorithm/silver.md): plausible, about 380 lines
-760. [Diophantine linear system solving](d/diophantine-linear-system-solving/silver.md): plausible, about 380 lines
+642. [Sum of elements below main diagonal of matrix](s/sum-of-elements-below-main-diagonal-of-matrix/silver.md): likely, about 25 lines
+643. [Matrix transposition](m/matrix-transposition/silver.md): likely, about 40 lines
+644. [Create an HTML table](c/create-an-html-table/silver.md): likely, about 45 lines
+645. [Curve that touches three points](c/curve-that-touches-three-points/silver.md): likely, about 45 lines
+646. [Draw a cuboid](d/draw-a-cuboid/silver.md): likely, about 45 lines
+647. [Levenshtein distance](l/levenshtein-distance/silver.md): likely, about 45 lines
+648. [Magic squares of doubly even order](m/magic-squares-of-doubly-even-order/silver.md): likely, about 45 lines
+649. [Matrix multiplication](m/matrix-multiplication/silver.md): likely, about 45 lines
+650. [Multi-dimensional array](m/multi-dimensional-array/silver.md): likely, about 45 lines
+651. [Plot coordinate pairs](p/plot-coordinate-pairs/silver.md): likely, about 45 lines
+652. [Collect and sort square numbers in ascending order from three lists](c/collect-and-sort-square-numbers-in-ascending-order-from-three-lists/silver.md): likely, about 55 lines
+653. [Largest product in a grid](l/largest-product-in-a-grid/silver.md): likely, about 55 lines
+654. [Ramsey's theorem](r/ramseys-theorem/silver.md): likely, about 55 lines
+655. [Sierpinski sponge of the 2nd order](s/sierpinski-sponge-of-the-2nd-order/silver.md): likely, about 55 lines
+656. [Maximum triangle path sum](m/maximum-triangle-path-sum/silver.md): likely, about 60 lines
+657. [Conway's Game of Life](c/conways-game-of-life/silver.md): likely, about 70 lines
+658. [Grayscale image](g/grayscale-image/silver.md): likely, about 70 lines
+659. [Magic squares of odd order](m/magic-squares-of-odd-order/silver.md): likely, about 70 lines
+660. [Raster bars](r/raster-bars/silver.md): likely, about 70 lines
+661. [Vibrating rectangles](v/vibrating-rectangles/silver.md): likely, about 70 lines
+662. [Walsh matrix](w/walsh-matrix/silver.md): likely, about 70 lines
+663. [Kronecker product based fractals](k/kronecker-product-based-fractals/silver.md): likely, about 80 lines
+664. [Pentagram](p/pentagram/silver.md): likely, about 85 lines
+665. [Color separation](c/color-separation/silver.md): likely, about 90 lines
+666. [Sierpinski pentagon](s/sierpinski-pentagon/silver.md): likely, about 90 lines
+667. [Zhang-Suen thinning algorithm](z/zhang-suen-thinning-algorithm/silver.md): likely, about 95 lines
+668. [3d turtle graphics](0-9/3d-turtle-graphics/silver.md): likely, about 110 lines
+669. [Geocentric model](g/geocentric-model/silver.md): likely, about 110 lines
+670. [Knapsack problem/Bounded](k/knapsack-problem/bounded/silver.md): likely, about 110 lines
+671. [Graph colouring](g/graph-colouring/silver.md): likely, about 120 lines
+672. [Non-transitive dice](n/non-transitive-dice/silver.md): likely, about 130 lines
+673. [Text completion](t/text-completion/silver.md): likely, about 130 lines; uses arguments
+674. [Zebra puzzle](z/zebra-puzzle/silver.md): likely, about 130 lines
+675. [Data Encryption Standard](d/data-encryption-standard/silver.md): likely, about 170 lines
+676. [Bell numbers](b/bell-numbers/silver.md): plausible, about 45 lines
+677. [Disarium numbers](d/disarium-numbers/silver.md): plausible, about 45 lines
+678. [Stirling numbers of the first kind](s/stirling-numbers-of-the-first-kind/silver.md): plausible, about 50 lines
+679. [Lah numbers](l/lah-numbers/silver.md): plausible, about 55 lines
+680. [Stirling numbers of the second kind](s/stirling-numbers-of-the-second-kind/silver.md): plausible, about 55 lines
+681. [Longest common subsequence](l/longest-common-subsequence/silver.md): plausible, about 60 lines
+682. [B-spline](b/b-spline/silver.md): plausible, about 70 lines
+683. [Bitmap/Bézier curves/Quadratic](b/bitmap/bezier-curves/quadratic/silver.md): plausible, about 70 lines
+684. [Bitmap/Histogram](b/bitmap/histogram/silver.md): plausible, about 70 lines
+685. [Hilbert curve](h/hilbert-curve/silver.md): plausible, about 70 lines
+686. [Magic squares of singly even order](m/magic-squares-of-singly-even-order/silver.md): plausible, about 70 lines
+687. [Median filter](m/median-filter/silver.md): plausible, about 70 lines
+688. [Möbius strip](m/mobius-strip/silver.md): plausible, about 70 lines
+689. [Random Latin squares](r/random-latin-squares/silver.md): plausible, about 70 lines
+690. [Shortest common supersequence](s/shortest-common-supersequence/silver.md): plausible, about 70 lines
+691. [Strange numbers](s/strange-numbers/silver.md): plausible, about 70 lines
+692. [Hamiltonian Cycle via Chvátal Closure](h/hamiltonian-cycle-via-chvatal-closure/silver.md): plausible, about 75 lines
+693. [Cramer's rule](c/cramers-rule/silver.md): plausible, about 80 lines
+694. [Amb](a/amb/silver.md): plausible, about 90 lines
+695. [Bilinear interpolation](b/bilinear-interpolation/silver.md): plausible, about 90 lines
+696. [Count the coins/0-1](c/count-the-coins/0-1/silver.md): plausible, about 90 lines
+697. [Dijkstra's algorithm](d/dijkstras-algorithm/silver.md): plausible, about 90 lines
+698. [Draw a torus](d/draw-a-torus/silver.md): plausible, about 90 lines
+699. [Eertree](e/eertree/silver.md): plausible, about 90 lines
+700. [Hough transform](h/hough-transform/silver.md): plausible, about 90 lines
+701. [Image convolution](i/image-convolution/silver.md): plausible, about 90 lines
+702. [Jaccard index](j/jaccard-index/silver.md): plausible, about 90 lines
+703. [Levenshtein distance/Alignment](l/levenshtein-distance/alignment/silver.md): plausible, about 90 lines
+704. [Matrix-exponentiation operator](m/matrix-exponentiation-operator/silver.md): plausible, about 90 lines
+705. [Prime conspiracy](p/prime-conspiracy/silver.md): plausible, about 90 lines
+706. [Subset sum problem](s/subset-sum-problem/silver.md): plausible, about 90 lines
+707. [Zsigmondy numbers](z/zsigmondy-numbers/silver.md): plausible, about 90 lines
+708. [Generate random chess position](g/generate-random-chess-position/silver.md): plausible, about 95 lines
+709. [Held–Karp algorithm](h/held-karp-algorithm/silver.md): plausible, about 95 lines
+710. [Maze solving](m/maze-solving/silver.md): plausible, about 95 lines
+711. [Boustrophedon transform](b/boustrophedon-transform/silver.md): plausible, about 110 lines
+712. [Floyd-Warshall algorithm](f/floyd-warshall-algorithm/silver.md): plausible, about 110 lines
+713. [Hierholzer's algorithm](h/hierholzers-algorithm/silver.md): plausible, about 110 lines
+714. [Kosaraju](k/kosaraju/silver.md): plausible, about 110 lines
+715. [Matrix chain multiplication](m/matrix-chain-multiplication/silver.md): plausible, about 110 lines
+716. [Solve a Hopido puzzle](s/solve-a-hopido-puzzle/silver.md): plausible, about 110 lines
+717. [Solve triangle solitaire puzzle](s/solve-triangle-solitaire-puzzle/silver.md): plausible, about 110 lines
+718. [Vogel's approximation method](v/vogels-approximation-method/silver.md): plausible, about 110 lines
+719. [Cartesian product of two or more lists](c/cartesian-product-of-two-or-more-lists/silver.md): plausible, about 120 lines
+720. [Smith–Waterman algorithm](s/smith-waterman-algorithm/silver.md): plausible, about 120 lines
+721. [Tarjan](t/tarjan/silver.md): plausible, about 120 lines
+722. [Abelian sandpile model/Identity](a/abelian-sandpile-model/identity/silver.md): plausible, about 130 lines
+723. [Fraction reduction](f/fraction-reduction/silver.md): plausible, about 130 lines
+724. [Hopcroft-Karp Algorithm](h/hopcroft-karp-algorithm/silver.md): plausible, about 130 lines
+725. [Jury stability criterion](j/jury-stability-criterion/silver.md): plausible, about 130 lines
+726. [Palindromic gapful numbers](p/palindromic-gapful-numbers/silver.md): plausible, about 130 lines
+727. [Percolation/Bond percolation](p/percolation/bond-percolation/silver.md): plausible, about 130 lines
+728. [Same fringe](s/same-fringe/silver.md): plausible, about 130 lines
+729. [Solve a Hidato puzzle](s/solve-a-hidato-puzzle/silver.md): plausible, about 130 lines
+730. [Wavelet Matrix](w/wavelet-matrix/silver.md): plausible, about 130 lines
+731. [Centroid of a set of N-dimensional points](c/centroid-of-a-set-of-n-dimensional-points/silver.md): plausible, about 150 lines
+732. [Johnson's algorithm](j/johnsons-algorithm/silver.md): plausible, about 150 lines
+733. [Peaceful chess queen armies](p/peaceful-chess-queen-armies/silver.md): plausible, about 150 lines
+734. [Percolation/Mean cluster density](p/percolation/mean-cluster-density/silver.md): plausible, about 150 lines
+735. [Summarize and say sequence](s/summarize-and-say-sequence/silver.md): plausible, about 150 lines
+736. [ADFGVX cipher](a/adfgvx-cipher/silver.md): plausible, about 170 lines
+737. [Countdown](c/countdown/silver.md): plausible, about 170 lines
+738. [Dominoes](d/dominoes/silver.md): plausible, about 170 lines
+739. [Gabow's algorithm](g/gabows-algorithm/silver.md): plausible, about 170 lines
+740. [Lychrel numbers](l/lychrel-numbers/silver.md): plausible, about 170 lines
+741. [Pfaffian and hfaffian](p/pfaffian-and-hfaffian/silver.md): plausible, about 170 lines
+742. [Solve a Numbrix puzzle](s/solve-a-numbrix-puzzle/silver.md): plausible, about 170 lines
+743. [State name puzzle](s/state-name-puzzle/silver.md): plausible, about 170 lines
+744. [Strassen's algorithm](s/strassens-algorithm/silver.md): plausible, about 170 lines
+745. [Suffix tree](s/suffix-tree/silver.md): plausible, about 170 lines
+746. [Wave function collapse](w/wave-function-collapse/silver.md): plausible, about 170 lines
+747. [Brace expansion](b/brace-expansion/silver.md): plausible, about 220 lines
+748. [Fibonacci matrix-exponentiation](f/fibonacci-matrix-exponentiation/silver.md): plausible, about 220 lines
+749. [Cycles of a permutation](c/cycles-of-a-permutation/silver.md): plausible, about 230 lines
+750. [Free polyominoes enumeration](f/free-polyominoes-enumeration/silver.md): plausible, about 260 lines
+751. [Transportation problem](t/transportation-problem/silver.md): plausible, about 260 lines
+752. [Christofides algorithm](c/christofides-algorithm/silver.md): plausible, about 380 lines
+753. [Diophantine linear system solving](d/diophantine-linear-system-solving/silver.md): plausible, about 380 lines
 
-## Stage 14
+## Stage 13
 
 Adds case statements.
 
@@ -926,116 +913,116 @@ Admission questions:
 
 The assessments flag index in 85, overflow in 81, range in 64 and termination in 47 of its 108 samples. 58 of 108 are only plausible; this stage needs the most restrictive admitted forms.
 
-761. [Sign of an integer (signum)](s/sign-of-an-integer-signum/silver.md): likely, about 30 lines
-762. [Longest palindromic substrings](l/longest-palindromic-substrings/silver.md): likely, about 35 lines
-763. [Wieferich primes](w/wieferich-primes/silver.md): likely, about 35 lines
-764. [Caesar cipher](c/caesar-cipher/silver.md): likely, about 45 lines
-765. [Chaos game](c/chaos-game/silver.md): likely, about 45 lines
-766. [Count how many vowels and consonants occur in a string](c/count-how-many-vowels-and-consonants-occur-in-a-string/silver.md): likely, about 45 lines; uses arguments
-767. [Day of the week of Christmas and New Year](d/day-of-the-week-of-christmas-and-new-year/silver.md): likely, about 45 lines
-768. [Sum of primes in odd positions is prime](s/sum-of-primes-in-odd-positions-is-prime/silver.md): likely, about 45 lines
-769. [Triplet of three numbers](t/triplet-of-three-numbers/silver.md): likely, about 45 lines
-770. [Determine sentence type](d/determine-sentence-type/silver.md): likely, about 55 lines
-771. [SEDOLs](s/sedols/silver.md): likely, about 55 lines
-772. [Langton's ant](l/langtons-ant/silver.md): likely, about 60 lines
-773. [Base64 decode data](b/base64-decode-data/silver.md): likely, about 70 lines
-774. [Bioinformatics/Base count](b/bioinformatics/base-count/silver.md): likely, about 70 lines
-775. [CSV to HTML translation](c/csv-to-html-translation/silver.md): likely, about 70 lines
-776. [Determine if a string has all the same characters](d/determine-if-a-string-has-all-the-same-characters/silver.md): likely, about 70 lines
-777. [Execute HQ9+](e/execute-hq9-plus/silver.md): likely, about 70 lines
-778. [Four bit adder](f/four-bit-adder/silver.md): likely, about 70 lines
-779. [Just in time processing on a character stream](j/just-in-time-processing-on-a-character-stream/silver.md): likely, about 70 lines
-780. [L-system](l/l-system/silver.md): likely, about 70 lines
-781. [Marching squares](m/marching-squares/silver.md): likely, about 70 lines
-782. [Nth Particular Weekday of the Month](n/nth-particular-weekday-of-the-month/silver.md): likely, about 70 lines
-783. [Pandigital prime](p/pandigital-prime/silver.md): likely, about 70 lines
-784. [Peripheral drift illusion](p/peripheral-drift-illusion/silver.md): likely, about 70 lines
-785. [Roman numerals/Decode](r/roman-numerals/decode/silver.md): likely, about 70 lines
-786. [Old lady swallowed a fly](o/old-lady-swallowed-a-fly/silver.md): likely, about 80 lines
-787. [Peano curve](p/peano-curve/silver.md): likely, about 80 lines
-788. [The Twelve Days of Christmas](t/the-twelve-days-of-christmas/silver.md): likely, about 80 lines
-789. [Doomsday rule](d/doomsday-rule/silver.md): likely, about 85 lines
-790. [Chinese zodiac](c/chinese-zodiac/silver.md): likely, about 90 lines
-791. [IBAN](i/iban/silver.md): likely, about 90 lines
-792. [Search a list of records](s/search-a-list-of-records/silver.md): likely, about 90 lines
-793. [Soundex](s/soundex/silver.md): likely, about 90 lines
-794. [Box the compass](b/box-the-compass/silver.md): likely, about 95 lines
-795. [Blum integer](b/blum-integer/silver.md): likely, about 110 lines
-796. [Boids](b/boids/silver.md): likely, about 110 lines
-797. [Calendar](c/calendar/silver.md): likely, about 110 lines
-798. [Cipolla's algorithm](c/cipollas-algorithm/silver.md): likely, about 110 lines
-799. [Find Chess960 starting position identifier](f/find-chess960-starting-position-identifier/silver.md): likely, about 110 lines
-800. [Horse racing](h/horse-racing/silver.md): likely, about 110 lines
-801. [Knapsack problem/Continuous](k/knapsack-problem/continuous/silver.md): likely, about 110 lines
-802. [Mayan calendar](m/mayan-calendar/silver.md): likely, about 110 lines
-803. [Set, the card game](s/set-the-card-game/silver.md): likely, about 110 lines
-804. [XML/DOM serialization](x/xml/dom-serialization/silver.md): likely, about 110 lines
-805. [GSTrans string conversion](g/gstrans-string-conversion/silver.md): likely, about 130 lines
-806. [Holidays related to Easter](h/holidays-related-to-easter/silver.md): likely, about 130 lines
-807. [Topological sort](t/topological-sort/silver.md): likely, about 130 lines
-808. [Mayan numerals](m/mayan-numerals/silver.md): likely, about 150 lines
-809. [UPC](u/upc/silver.md): likely, about 150 lines
-810. [French Republican calendar](f/french-republican-calendar/silver.md): likely, about 170 lines
-811. [Ascending primes](a/ascending-primes/silver.md): plausible, about 55 lines
-812. [Sorting algorithms/Cocktail sort with shifting bounds](s/sorting-algorithms/cocktail-sort-with-shifting-bounds/silver.md): plausible, about 55 lines
-813. [Dragon curve](d/dragon-curve/silver.md): plausible, about 70 lines
-814. [Floyd-Steinberg dithering](f/floyd-steinberg-dithering/silver.md): plausible, about 70 lines
-815. [Death Star](d/death-star/silver.md): plausible, about 80 lines
-816. [Create your own text control codes](c/create-your-own-text-control-codes/silver.md): plausible, about 90 lines
-817. [Fibonacci word/fractal](f/fibonacci-word/fractal/silver.md): plausible, about 90 lines
-818. [Klein bottle](k/klein-bottle/silver.md): plausible, about 90 lines
-819. [Upside-down numbers](u/upside-down-numbers/silver.md): plausible, about 90 lines
-820. [World Cup group stage](w/world-cup-group-stage/silver.md): plausible, about 90 lines
-821. [Extreme primes](e/extreme-primes/silver.md): plausible, about 95 lines
-822. [Priority queue](p/priority-queue/silver.md): plausible, about 95 lines
-823. [Koch curve](k/koch-curve/silver.md): plausible, about 100 lines
-824. [Draw a rotating cube](d/draw-a-rotating-cube/silver.md): plausible, about 110 lines
-825. [Fractal tree](f/fractal-tree/silver.md): plausible, about 110 lines
-826. [Knapsack problem/0-1](k/knapsack-problem/0-1/silver.md): plausible, about 110 lines
-827. [Maze generation](m/maze-generation/silver.md): plausible, about 110 lines
-828. [Polynomial long division](p/polynomial-long-division/silver.md): plausible, about 110 lines
-829. [Sierpinski curve](s/sierpinski-curve/silver.md): plausible, about 110 lines
-830. [Szymański's algorithm](s/szymanskis-algorithm/silver.md): plausible, about 120 lines
-831. [Tree traversal](t/tree-traversal/silver.md): plausible, about 120 lines
-832. [Anaprimes](a/anaprimes/silver.md): plausible, about 130 lines
-833. [Black box](b/black-box/silver.md): plausible, about 130 lines
-834. [Carmichael lambda function](c/carmichael-lambda-function/silver.md): plausible, about 130 lines
-835. [Cistercian numerals](c/cistercian-numerals/silver.md): plausible, about 130 lines
-836. [Cut a rectangle](c/cut-a-rectangle/silver.md): plausible, about 130 lines
-837. [Element-wise operations](e/element-wise-operations/silver.md): plausible, about 130 lines
-838. [Find URI in text](f/find-uri-in-text/silver.md): plausible, about 130 lines
-839. [Harriss Spiral](h/harriss-spiral/silver.md): plausible, about 130 lines
-840. [Huffman coding](h/huffman-coding/silver.md): plausible, about 130 lines
-841. [Imaginary base numbers](i/imaginary-base-numbers/silver.md): plausible, about 130 lines
-842. [Latin Squares in reduced form](l/latin-squares-in-reduced-form/silver.md): plausible, about 130 lines
-843. [Man or boy test](m/man-or-boy-test/silver.md): plausible, about 130 lines
-844. [Shuffle groups](s/shuffle-groups/silver.md): plausible, about 130 lines
-845. [Straddling checkerboard](s/straddling-checkerboard/silver.md): plausible, about 130 lines
-846. [Vigenère cipher/Cryptanalysis](v/vigenere-cipher/cryptanalysis/silver.md): plausible, about 130 lines
-847. [LU decomposition](l/lu-decomposition/silver.md): plausible, about 150 lines
-848. [Lunar arithmetic](l/lunar-arithmetic/silver.md): plausible, about 150 lines
-849. [24 game/Solve](0-9/24-game/solve/silver.md): plausible, about 170 lines
-850. [A\* search algorithm](a/a-star-search-algorithm/silver.md): plausible, about 170 lines
-851. [Blossom algorithm](b/blossom-algorithm/silver.md): plausible, about 170 lines
-852. [Continued fraction/Arithmetic/G(matrix ng, continued fraction n)](c/continued-fraction/arithmetic/g-matrix-ng-continued-fraction-n/silver.md): plausible, about 170 lines
-853. [Morpion solitaire](m/morpion-solitaire/silver.md): plausible, about 170 lines
-854. [Numbers k such that the last letter of k is the same as the first letter of k+1](n/numbers-k-such-that-the-last-letter-of-k-is-the-same-as-the-first-letter-of-k-plus-1/silver.md): plausible, about 170 lines
-855. [Parsing/RPN calculator algorithm](p/parsing/rpn-calculator-algorithm/silver.md): plausible, about 170 lines
-856. [Quine–McCluskey algorithm](q/quine-mccluskey-algorithm/silver.md): plausible, about 170 lines
-857. [Set puzzle](s/set-puzzle/silver.md): plausible, about 170 lines
-858. [Spelling of ordinal numbers](s/spelling-of-ordinal-numbers/silver.md): plausible, about 170 lines
-859. [Undulating numbers](u/undulating-numbers/silver.md): plausible, about 170 lines
-860. [AVL tree](a/avl-tree/silver.md): plausible, about 230 lines
-861. [Bioinformatics/Global alignment](b/bioinformatics/global-alignment/silver.md): plausible, about 230 lines
-862. [English cardinal anagrams](e/english-cardinal-anagrams/silver.md): plausible, about 230 lines
-863. [Execute a Markov algorithm](e/execute-a-markov-algorithm/silver.md): plausible, about 230 lines
-864. [Extended Straddling Checkerboard](e/extended-straddling-checkerboard/silver.md): plausible, about 230 lines
-865. [Formal power series](f/formal-power-series/silver.md): plausible, about 230 lines
-866. [Pentomino tiling](p/pentomino-tiling/silver.md): plausible, about 230 lines
-867. [Chemical calculator](c/chemical-calculator/silver.md): plausible, about 260 lines
-868. [I'm a software engineer, get me out of here](i/im-a-software-engineer-get-me-out-of-here/silver.md): plausible, about 260 lines
+754. [Sign of an integer (signum)](s/sign-of-an-integer-signum/silver.md): likely, about 30 lines
+755. [Longest palindromic substrings](l/longest-palindromic-substrings/silver.md): likely, about 35 lines
+756. [Wieferich primes](w/wieferich-primes/silver.md): likely, about 35 lines
+757. [Caesar cipher](c/caesar-cipher/silver.md): likely, about 45 lines
+758. [Chaos game](c/chaos-game/silver.md): likely, about 45 lines
+759. [Count how many vowels and consonants occur in a string](c/count-how-many-vowels-and-consonants-occur-in-a-string/silver.md): likely, about 45 lines; uses arguments
+760. [Day of the week of Christmas and New Year](d/day-of-the-week-of-christmas-and-new-year/silver.md): likely, about 45 lines
+761. [Sum of primes in odd positions is prime](s/sum-of-primes-in-odd-positions-is-prime/silver.md): likely, about 45 lines
+762. [Triplet of three numbers](t/triplet-of-three-numbers/silver.md): likely, about 45 lines
+763. [Determine sentence type](d/determine-sentence-type/silver.md): likely, about 55 lines
+764. [SEDOLs](s/sedols/silver.md): likely, about 55 lines
+765. [Langton's ant](l/langtons-ant/silver.md): likely, about 60 lines
+766. [Base64 decode data](b/base64-decode-data/silver.md): likely, about 70 lines
+767. [Bioinformatics/Base count](b/bioinformatics/base-count/silver.md): likely, about 70 lines
+768. [CSV to HTML translation](c/csv-to-html-translation/silver.md): likely, about 70 lines
+769. [Determine if a string has all the same characters](d/determine-if-a-string-has-all-the-same-characters/silver.md): likely, about 70 lines
+770. [Execute HQ9+](e/execute-hq9-plus/silver.md): likely, about 70 lines
+771. [Four bit adder](f/four-bit-adder/silver.md): likely, about 70 lines
+772. [Just in time processing on a character stream](j/just-in-time-processing-on-a-character-stream/silver.md): likely, about 70 lines
+773. [L-system](l/l-system/silver.md): likely, about 70 lines
+774. [Marching squares](m/marching-squares/silver.md): likely, about 70 lines
+775. [Nth Particular Weekday of the Month](n/nth-particular-weekday-of-the-month/silver.md): likely, about 70 lines
+776. [Pandigital prime](p/pandigital-prime/silver.md): likely, about 70 lines
+777. [Peripheral drift illusion](p/peripheral-drift-illusion/silver.md): likely, about 70 lines
+778. [Roman numerals/Decode](r/roman-numerals/decode/silver.md): likely, about 70 lines
+779. [Old lady swallowed a fly](o/old-lady-swallowed-a-fly/silver.md): likely, about 80 lines
+780. [Peano curve](p/peano-curve/silver.md): likely, about 80 lines
+781. [The Twelve Days of Christmas](t/the-twelve-days-of-christmas/silver.md): likely, about 80 lines
+782. [Doomsday rule](d/doomsday-rule/silver.md): likely, about 85 lines
+783. [Chinese zodiac](c/chinese-zodiac/silver.md): likely, about 90 lines
+784. [IBAN](i/iban/silver.md): likely, about 90 lines
+785. [Search a list of records](s/search-a-list-of-records/silver.md): likely, about 90 lines
+786. [Soundex](s/soundex/silver.md): likely, about 90 lines
+787. [Box the compass](b/box-the-compass/silver.md): likely, about 95 lines
+788. [Blum integer](b/blum-integer/silver.md): likely, about 110 lines
+789. [Boids](b/boids/silver.md): likely, about 110 lines
+790. [Calendar](c/calendar/silver.md): likely, about 110 lines
+791. [Cipolla's algorithm](c/cipollas-algorithm/silver.md): likely, about 110 lines
+792. [Find Chess960 starting position identifier](f/find-chess960-starting-position-identifier/silver.md): likely, about 110 lines
+793. [Horse racing](h/horse-racing/silver.md): likely, about 110 lines
+794. [Knapsack problem/Continuous](k/knapsack-problem/continuous/silver.md): likely, about 110 lines
+795. [Mayan calendar](m/mayan-calendar/silver.md): likely, about 110 lines
+796. [Set, the card game](s/set-the-card-game/silver.md): likely, about 110 lines
+797. [XML/DOM serialization](x/xml/dom-serialization/silver.md): likely, about 110 lines
+798. [GSTrans string conversion](g/gstrans-string-conversion/silver.md): likely, about 130 lines
+799. [Holidays related to Easter](h/holidays-related-to-easter/silver.md): likely, about 130 lines
+800. [Topological sort](t/topological-sort/silver.md): likely, about 130 lines
+801. [Mayan numerals](m/mayan-numerals/silver.md): likely, about 150 lines
+802. [UPC](u/upc/silver.md): likely, about 150 lines
+803. [French Republican calendar](f/french-republican-calendar/silver.md): likely, about 170 lines
+804. [Ascending primes](a/ascending-primes/silver.md): plausible, about 55 lines
+805. [Sorting algorithms/Cocktail sort with shifting bounds](s/sorting-algorithms/cocktail-sort-with-shifting-bounds/silver.md): plausible, about 55 lines
+806. [Dragon curve](d/dragon-curve/silver.md): plausible, about 70 lines
+807. [Floyd-Steinberg dithering](f/floyd-steinberg-dithering/silver.md): plausible, about 70 lines
+808. [Death Star](d/death-star/silver.md): plausible, about 80 lines
+809. [Create your own text control codes](c/create-your-own-text-control-codes/silver.md): plausible, about 90 lines
+810. [Fibonacci word/fractal](f/fibonacci-word/fractal/silver.md): plausible, about 90 lines
+811. [Klein bottle](k/klein-bottle/silver.md): plausible, about 90 lines
+812. [Upside-down numbers](u/upside-down-numbers/silver.md): plausible, about 90 lines
+813. [World Cup group stage](w/world-cup-group-stage/silver.md): plausible, about 90 lines
+814. [Extreme primes](e/extreme-primes/silver.md): plausible, about 95 lines
+815. [Priority queue](p/priority-queue/silver.md): plausible, about 95 lines
+816. [Koch curve](k/koch-curve/silver.md): plausible, about 100 lines
+817. [Draw a rotating cube](d/draw-a-rotating-cube/silver.md): plausible, about 110 lines
+818. [Fractal tree](f/fractal-tree/silver.md): plausible, about 110 lines
+819. [Knapsack problem/0-1](k/knapsack-problem/0-1/silver.md): plausible, about 110 lines
+820. [Maze generation](m/maze-generation/silver.md): plausible, about 110 lines
+821. [Polynomial long division](p/polynomial-long-division/silver.md): plausible, about 110 lines
+822. [Sierpinski curve](s/sierpinski-curve/silver.md): plausible, about 110 lines
+823. [Szymański's algorithm](s/szymanskis-algorithm/silver.md): plausible, about 120 lines
+824. [Tree traversal](t/tree-traversal/silver.md): plausible, about 120 lines
+825. [Anaprimes](a/anaprimes/silver.md): plausible, about 130 lines
+826. [Black box](b/black-box/silver.md): plausible, about 130 lines
+827. [Carmichael lambda function](c/carmichael-lambda-function/silver.md): plausible, about 130 lines
+828. [Cistercian numerals](c/cistercian-numerals/silver.md): plausible, about 130 lines
+829. [Cut a rectangle](c/cut-a-rectangle/silver.md): plausible, about 130 lines
+830. [Element-wise operations](e/element-wise-operations/silver.md): plausible, about 130 lines
+831. [Find URI in text](f/find-uri-in-text/silver.md): plausible, about 130 lines
+832. [Harriss Spiral](h/harriss-spiral/silver.md): plausible, about 130 lines
+833. [Huffman coding](h/huffman-coding/silver.md): plausible, about 130 lines
+834. [Imaginary base numbers](i/imaginary-base-numbers/silver.md): plausible, about 130 lines
+835. [Latin Squares in reduced form](l/latin-squares-in-reduced-form/silver.md): plausible, about 130 lines
+836. [Man or boy test](m/man-or-boy-test/silver.md): plausible, about 130 lines
+837. [Shuffle groups](s/shuffle-groups/silver.md): plausible, about 130 lines
+838. [Straddling checkerboard](s/straddling-checkerboard/silver.md): plausible, about 130 lines
+839. [Vigenère cipher/Cryptanalysis](v/vigenere-cipher/cryptanalysis/silver.md): plausible, about 130 lines
+840. [LU decomposition](l/lu-decomposition/silver.md): plausible, about 150 lines
+841. [Lunar arithmetic](l/lunar-arithmetic/silver.md): plausible, about 150 lines
+842. [24 game/Solve](0-9/24-game/solve/silver.md): plausible, about 170 lines
+843. [A\* search algorithm](a/a-star-search-algorithm/silver.md): plausible, about 170 lines
+844. [Blossom algorithm](b/blossom-algorithm/silver.md): plausible, about 170 lines
+845. [Continued fraction/Arithmetic/G(matrix ng, continued fraction n)](c/continued-fraction/arithmetic/g-matrix-ng-continued-fraction-n/silver.md): plausible, about 170 lines
+846. [Morpion solitaire](m/morpion-solitaire/silver.md): plausible, about 170 lines
+847. [Numbers k such that the last letter of k is the same as the first letter of k+1](n/numbers-k-such-that-the-last-letter-of-k-is-the-same-as-the-first-letter-of-k-plus-1/silver.md): plausible, about 170 lines
+848. [Parsing/RPN calculator algorithm](p/parsing/rpn-calculator-algorithm/silver.md): plausible, about 170 lines
+849. [Quine–McCluskey algorithm](q/quine-mccluskey-algorithm/silver.md): plausible, about 170 lines
+850. [Set puzzle](s/set-puzzle/silver.md): plausible, about 170 lines
+851. [Spelling of ordinal numbers](s/spelling-of-ordinal-numbers/silver.md): plausible, about 170 lines
+852. [Undulating numbers](u/undulating-numbers/silver.md): plausible, about 170 lines
+853. [AVL tree](a/avl-tree/silver.md): plausible, about 230 lines
+854. [Bioinformatics/Global alignment](b/bioinformatics/global-alignment/silver.md): plausible, about 230 lines
+855. [English cardinal anagrams](e/english-cardinal-anagrams/silver.md): plausible, about 230 lines
+856. [Execute a Markov algorithm](e/execute-a-markov-algorithm/silver.md): plausible, about 230 lines
+857. [Extended Straddling Checkerboard](e/extended-straddling-checkerboard/silver.md): plausible, about 230 lines
+858. [Formal power series](f/formal-power-series/silver.md): plausible, about 230 lines
+859. [Pentomino tiling](p/pentomino-tiling/silver.md): plausible, about 230 lines
+860. [Chemical calculator](c/chemical-calculator/silver.md): plausible, about 260 lines
+861. [I'm a software engineer, get me out of here](i/im-a-software-engineer-get-me-out-of-here/silver.md): plausible, about 260 lines
 
-## Stage 15
+## Stage 14
 
 Adds floating point.
 
@@ -1045,18 +1032,18 @@ Admission questions:
 
 The assessments flag floating point in 10, range in 10, overflow in 8 and index in 6 of its 10 samples. 10 of 10 are only plausible; this stage needs the most restrictive admitted forms.
 
-869. [Superellipse](s/superellipse/silver.md): plausible, about 35 lines
-870. [Archimedean spiral](a/archimedean-spiral/silver.md): plausible, about 45 lines
-871. [Riemann surface](r/riemann-surface/silver.md): plausible, about 60 lines
-872. [Geohash](g/geohash/silver.md): plausible, about 70 lines
-873. [Polyspiral](p/polyspiral/silver.md): plausible, about 70 lines
-874. [Averages/Mean time of day](a/averages/mean-time-of-day/silver.md): plausible, about 75 lines
-875. [Pseudo-random numbers/Combined recursive generator MRG32k3a](p/pseudo-random-numbers/combined-recursive-generator-mrg32k3a/silver.md): plausible, about 75 lines
-876. [Catenoid surface](c/catenoid-surface/silver.md): plausible, about 90 lines
-877. [Total circles area](t/total-circles-area/silver.md): plausible, about 120 lines
-878. [Padovan sequence](p/padovan-sequence/silver.md): plausible, about 130 lines
+862. [Superellipse](s/superellipse/silver.md): plausible, about 35 lines
+863. [Archimedean spiral](a/archimedean-spiral/silver.md): plausible, about 45 lines
+864. [Riemann surface](r/riemann-surface/silver.md): plausible, about 60 lines
+865. [Geohash](g/geohash/silver.md): plausible, about 70 lines
+866. [Polyspiral](p/polyspiral/silver.md): plausible, about 70 lines
+867. [Averages/Mean time of day](a/averages/mean-time-of-day/silver.md): plausible, about 75 lines
+868. [Pseudo-random numbers/Combined recursive generator MRG32k3a](p/pseudo-random-numbers/combined-recursive-generator-mrg32k3a/silver.md): plausible, about 75 lines
+869. [Catenoid surface](c/catenoid-surface/silver.md): plausible, about 90 lines
+870. [Total circles area](t/total-circles-area/silver.md): plausible, about 120 lines
+871. [Padovan sequence](p/padovan-sequence/silver.md): plausible, about 130 lines
 
-## Stage 16
+## Stage 15
 
 Adds conditional expressions.
 
@@ -1066,84 +1053,84 @@ Admission questions:
 
 The assessments flag overflow in 65, index in 50, range in 46 and termination in 39 of its 76 samples. 49 of 76 are only plausible; this stage needs the most restrictive admitted forms.
 
-879. [Loops/Continue](l/loops/continue/silver.md): likely, about 16 lines
-880. [Minimum numbers of three lists](m/minimum-numbers-of-three-lists/silver.md): likely, about 25 lines
-881. [Kempner numbers](k/kempner-numbers/silver.md): likely, about 35 lines
-882. [Prime triplets](p/prime-triplets/silver.md): likely, about 35 lines
-883. [Approximate equality](a/approximate-equality/silver.md): likely, about 45 lines
-884. [Find prime n such that reversed n is also prime](f/find-prime-n-such-that-reversed-n-is-also-prime/silver.md): likely, about 45 lines
-885. [Find the missing permutation](f/find-the-missing-permutation/silver.md): likely, about 45 lines
-886. [Möbius function](m/mobius-function/silver.md): likely, about 45 lines
-887. [Spiral matrix](s/spiral-matrix/silver.md): likely, about 45 lines
-888. [Twin primes whose sum is square number](t/twin-primes-whose-sum-is-square-number/silver.md): likely, about 45 lines
-889. [Smarandache prime-digital sequence](s/smarandache-prime-digital-sequence/silver.md): likely, about 50 lines
-890. [Factorions](f/factorions/silver.md): likely, about 55 lines
-891. [Gapful numbers](g/gapful-numbers/silver.md): likely, about 55 lines
-892. [Giuga numbers](g/giuga-numbers/silver.md): likely, about 55 lines
-893. [Bitmap](b/bitmap/silver.md): likely, about 60 lines
-894. [Bitmap/Bézier curves/Cubic](b/bitmap/bezier-curves/cubic/silver.md): likely, about 70 lines
-895. [Sort using a custom comparator](s/sort-using-a-custom-comparator/silver.md): likely, about 70 lines
-896. [Vigenère cipher](v/vigenere-cipher/silver.md): likely, about 70 lines
-897. [Determine if two triangles overlap](d/determine-if-two-triangles-overlap/silver.md): likely, about 75 lines
-898. [Even numbers which cannot be expressed as the sum of two twin primes](e/even-numbers-which-cannot-be-expressed-as-the-sum-of-two-twin-primes/silver.md): likely, about 90 lines
-899. [Long primes](l/long-primes/silver.md): likely, about 90 lines
-900. [Pascal matrix generation](p/pascal-matrix-generation/silver.md): likely, about 90 lines
-901. [Set](s/set/silver.md): likely, about 90 lines
-902. [Check if two polygons overlap](c/check-if-two-polygons-overlap/silver.md): likely, about 95 lines
-903. [Eisenstein primes](e/eisenstein-primes/silver.md): likely, about 95 lines
-904. [Ranking methods](r/ranking-methods/silver.md): likely, about 120 lines
-905. [EKG sequence convergence](e/ekg-sequence-convergence/silver.md): likely, about 130 lines
-906. [Bernoulli's triangle](b/bernoullis-triangle/silver.md): plausible, about 40 lines
-907. [Count the coins](c/count-the-coins/silver.md): plausible, about 45 lines
-908. [Numbers k whose divisor sum is equal to the divisor sum of k + 1](n/numbers-k-whose-divisor-sum-is-equal-to-the-divisor-sum-of-k-plus-1/silver.md): plausible, about 45 lines
-909. [Zig-zag matrix](z/zig-zag-matrix/silver.md): plausible, about 45 lines
-910. [Erdős-Nicolas numbers](e/erdos-nicolas-numbers/silver.md): plausible, about 55 lines
-911. [Lorenz attractor](l/lorenz-attractor/silver.md): plausible, about 55 lines
-912. [Permuted multiples](p/permuted-multiples/silver.md): plausible, about 55 lines
-913. [Ulam spiral (for primes)](u/ulam-spiral-for-primes/silver.md): plausible, about 55 lines
-914. [Bitmap/Bresenham's line algorithm](b/bitmap/bresenhams-line-algorithm/silver.md): plausible, about 70 lines
-915. [Forward difference](f/forward-difference/silver.md): plausible, about 70 lines
-916. [Minimum primes](m/minimum-primes/silver.md): plausible, about 70 lines
-917. [Self-contained numbers](s/self-contained-numbers/silver.md): plausible, about 70 lines
-918. [Sieve of Pritchard](s/sieve-of-pritchard/silver.md): plausible, about 70 lines
-919. [Sorting algorithms/Merge sort](s/sorting-algorithms/merge-sort/silver.md): plausible, about 70 lines
-920. [Sorting algorithms/Stooge sort](s/sorting-algorithms/stooge-sort/silver.md): plausible, about 70 lines
-921. [Super-Poulet numbers](s/super-poulet-numbers/silver.md): plausible, about 75 lines
-922. [Arithmetic numbers](a/arithmetic-numbers/silver.md): plausible, about 80 lines
-923. [Babylonian spiral](b/babylonian-spiral/silver.md): plausible, about 90 lines
-924. [Duffinian numbers](d/duffinian-numbers/silver.md): plausible, about 90 lines
-925. [Esthetic numbers](e/esthetic-numbers/silver.md): plausible, about 90 lines
-926. [Lagrange Interpolation](l/lagrange-interpolation/silver.md): plausible, about 90 lines
-927. [Jacobsthal numbers](j/jacobsthal-numbers/silver.md): plausible, about 95 lines
-928. [Borůvka algorithm](b/boruvka-algorithm/silver.md): plausible, about 110 lines
-929. [Chowla numbers](c/chowla-numbers/silver.md): plausible, about 110 lines
-930. [Determinant and permanent](d/determinant-and-permanent/silver.md): plausible, about 110 lines
-931. [Dice game probabilities](d/dice-game-probabilities/silver.md): plausible, about 110 lines
-932. [Hofstadter-Conway \$10,000 sequence](h/hofstadter-conway-10-000-sequence/silver.md): plausible, about 110 lines
-933. [LZW compression](l/lzw-compression/silver.md): plausible, about 110 lines
-934. [Ordered partitions](o/ordered-partitions/silver.md): plausible, about 110 lines
-935. [Polynomial regression](p/polynomial-regression/silver.md): plausible, about 110 lines
-936. [Snake and ladder](s/snake-and-ladder/silver.md): plausible, about 110 lines
-937. [Special factorials](s/special-factorials/silver.md): plausible, about 110 lines
-938. [Xiaolin Wu's line algorithm](x/xiaolin-wus-line-algorithm/silver.md): plausible, about 110 lines
-939. [Binomial transform](b/binomial-transform/silver.md): plausible, about 130 lines
-940. [Exponential digital sums](e/exponential-digital-sums/silver.md): plausible, about 130 lines
-941. [Faulhaber's formula](f/faulhabers-formula/silver.md): plausible, about 130 lines
-942. [Permutations/Rank of a permutation](p/permutations/rank-of-a-permutation/silver.md): plausible, about 130 lines
-943. [Railway circuit](r/railway-circuit/silver.md): plausible, about 130 lines
-944. [Range consolidation](r/range-consolidation/silver.md): plausible, about 130 lines
-945. [Routh–Hurwitz stability criterion](r/routh-hurwitz-stability-criterion/silver.md): plausible, about 130 lines
-946. [Continued fraction convergents](c/continued-fraction-convergents/silver.md): plausible, about 150 lines
-947. [Vampire number](v/vampire-number/silver.md): plausible, about 150 lines
-948. [Cyclotomic polynomial](c/cyclotomic-polynomial/silver.md): plausible, about 160 lines
-949. [Canny edge detector](c/canny-edge-detector/silver.md): plausible, about 170 lines
-950. [Cyclops numbers](c/cyclops-numbers/silver.md): plausible, about 170 lines
-951. [Display an outline as a nested table](d/display-an-outline-as-a-nested-table/silver.md): plausible, about 170 lines
-952. [Sorensen–Dice coefficient](s/sorensen-dice-coefficient/silver.md): plausible, about 170 lines
-953. [Tree datastructures](t/tree-datastructures/silver.md): plausible, about 170 lines
-954. [NYSIIS](n/nysiis/silver.md): plausible, about 230 lines
+872. [Loops/Continue](l/loops/continue/silver.md): likely, about 16 lines
+873. [Minimum numbers of three lists](m/minimum-numbers-of-three-lists/silver.md): likely, about 25 lines
+874. [Kempner numbers](k/kempner-numbers/silver.md): likely, about 35 lines
+875. [Prime triplets](p/prime-triplets/silver.md): likely, about 35 lines
+876. [Approximate equality](a/approximate-equality/silver.md): likely, about 45 lines
+877. [Find prime n such that reversed n is also prime](f/find-prime-n-such-that-reversed-n-is-also-prime/silver.md): likely, about 45 lines
+878. [Find the missing permutation](f/find-the-missing-permutation/silver.md): likely, about 45 lines
+879. [Möbius function](m/mobius-function/silver.md): likely, about 45 lines
+880. [Spiral matrix](s/spiral-matrix/silver.md): likely, about 45 lines
+881. [Twin primes whose sum is square number](t/twin-primes-whose-sum-is-square-number/silver.md): likely, about 45 lines
+882. [Smarandache prime-digital sequence](s/smarandache-prime-digital-sequence/silver.md): likely, about 50 lines
+883. [Factorions](f/factorions/silver.md): likely, about 55 lines
+884. [Gapful numbers](g/gapful-numbers/silver.md): likely, about 55 lines
+885. [Giuga numbers](g/giuga-numbers/silver.md): likely, about 55 lines
+886. [Bitmap](b/bitmap/silver.md): likely, about 60 lines
+887. [Bitmap/Bézier curves/Cubic](b/bitmap/bezier-curves/cubic/silver.md): likely, about 70 lines
+888. [Sort using a custom comparator](s/sort-using-a-custom-comparator/silver.md): likely, about 70 lines
+889. [Vigenère cipher](v/vigenere-cipher/silver.md): likely, about 70 lines
+890. [Determine if two triangles overlap](d/determine-if-two-triangles-overlap/silver.md): likely, about 75 lines
+891. [Even numbers which cannot be expressed as the sum of two twin primes](e/even-numbers-which-cannot-be-expressed-as-the-sum-of-two-twin-primes/silver.md): likely, about 90 lines
+892. [Long primes](l/long-primes/silver.md): likely, about 90 lines
+893. [Pascal matrix generation](p/pascal-matrix-generation/silver.md): likely, about 90 lines
+894. [Set](s/set/silver.md): likely, about 90 lines
+895. [Check if two polygons overlap](c/check-if-two-polygons-overlap/silver.md): likely, about 95 lines
+896. [Eisenstein primes](e/eisenstein-primes/silver.md): likely, about 95 lines
+897. [Ranking methods](r/ranking-methods/silver.md): likely, about 120 lines
+898. [EKG sequence convergence](e/ekg-sequence-convergence/silver.md): likely, about 130 lines
+899. [Bernoulli's triangle](b/bernoullis-triangle/silver.md): plausible, about 40 lines
+900. [Count the coins](c/count-the-coins/silver.md): plausible, about 45 lines
+901. [Numbers k whose divisor sum is equal to the divisor sum of k + 1](n/numbers-k-whose-divisor-sum-is-equal-to-the-divisor-sum-of-k-plus-1/silver.md): plausible, about 45 lines
+902. [Zig-zag matrix](z/zig-zag-matrix/silver.md): plausible, about 45 lines
+903. [Erdős-Nicolas numbers](e/erdos-nicolas-numbers/silver.md): plausible, about 55 lines
+904. [Lorenz attractor](l/lorenz-attractor/silver.md): plausible, about 55 lines
+905. [Permuted multiples](p/permuted-multiples/silver.md): plausible, about 55 lines
+906. [Ulam spiral (for primes)](u/ulam-spiral-for-primes/silver.md): plausible, about 55 lines
+907. [Bitmap/Bresenham's line algorithm](b/bitmap/bresenhams-line-algorithm/silver.md): plausible, about 70 lines
+908. [Forward difference](f/forward-difference/silver.md): plausible, about 70 lines
+909. [Minimum primes](m/minimum-primes/silver.md): plausible, about 70 lines
+910. [Self-contained numbers](s/self-contained-numbers/silver.md): plausible, about 70 lines
+911. [Sieve of Pritchard](s/sieve-of-pritchard/silver.md): plausible, about 70 lines
+912. [Sorting algorithms/Merge sort](s/sorting-algorithms/merge-sort/silver.md): plausible, about 70 lines
+913. [Sorting algorithms/Stooge sort](s/sorting-algorithms/stooge-sort/silver.md): plausible, about 70 lines
+914. [Super-Poulet numbers](s/super-poulet-numbers/silver.md): plausible, about 75 lines
+915. [Arithmetic numbers](a/arithmetic-numbers/silver.md): plausible, about 80 lines
+916. [Babylonian spiral](b/babylonian-spiral/silver.md): plausible, about 90 lines
+917. [Duffinian numbers](d/duffinian-numbers/silver.md): plausible, about 90 lines
+918. [Esthetic numbers](e/esthetic-numbers/silver.md): plausible, about 90 lines
+919. [Lagrange Interpolation](l/lagrange-interpolation/silver.md): plausible, about 90 lines
+920. [Jacobsthal numbers](j/jacobsthal-numbers/silver.md): plausible, about 95 lines
+921. [Borůvka algorithm](b/boruvka-algorithm/silver.md): plausible, about 110 lines
+922. [Chowla numbers](c/chowla-numbers/silver.md): plausible, about 110 lines
+923. [Determinant and permanent](d/determinant-and-permanent/silver.md): plausible, about 110 lines
+924. [Dice game probabilities](d/dice-game-probabilities/silver.md): plausible, about 110 lines
+925. [Hofstadter-Conway \$10,000 sequence](h/hofstadter-conway-10-000-sequence/silver.md): plausible, about 110 lines
+926. [LZW compression](l/lzw-compression/silver.md): plausible, about 110 lines
+927. [Ordered partitions](o/ordered-partitions/silver.md): plausible, about 110 lines
+928. [Polynomial regression](p/polynomial-regression/silver.md): plausible, about 110 lines
+929. [Snake and ladder](s/snake-and-ladder/silver.md): plausible, about 110 lines
+930. [Special factorials](s/special-factorials/silver.md): plausible, about 110 lines
+931. [Xiaolin Wu's line algorithm](x/xiaolin-wus-line-algorithm/silver.md): plausible, about 110 lines
+932. [Binomial transform](b/binomial-transform/silver.md): plausible, about 130 lines
+933. [Exponential digital sums](e/exponential-digital-sums/silver.md): plausible, about 130 lines
+934. [Faulhaber's formula](f/faulhabers-formula/silver.md): plausible, about 130 lines
+935. [Permutations/Rank of a permutation](p/permutations/rank-of-a-permutation/silver.md): plausible, about 130 lines
+936. [Railway circuit](r/railway-circuit/silver.md): plausible, about 130 lines
+937. [Range consolidation](r/range-consolidation/silver.md): plausible, about 130 lines
+938. [Routh–Hurwitz stability criterion](r/routh-hurwitz-stability-criterion/silver.md): plausible, about 130 lines
+939. [Continued fraction convergents](c/continued-fraction-convergents/silver.md): plausible, about 150 lines
+940. [Vampire number](v/vampire-number/silver.md): plausible, about 150 lines
+941. [Cyclotomic polynomial](c/cyclotomic-polynomial/silver.md): plausible, about 160 lines
+942. [Canny edge detector](c/canny-edge-detector/silver.md): plausible, about 170 lines
+943. [Cyclops numbers](c/cyclops-numbers/silver.md): plausible, about 170 lines
+944. [Display an outline as a nested table](d/display-an-outline-as-a-nested-table/silver.md): plausible, about 170 lines
+945. [Sorensen–Dice coefficient](s/sorensen-dice-coefficient/silver.md): plausible, about 170 lines
+946. [Tree datastructures](t/tree-datastructures/silver.md): plausible, about 170 lines
+947. [NYSIIS](n/nysiis/silver.md): plausible, about 230 lines
 
-## Stage 17
+## Stage 16
 
 Adds unconstrained arrays.
 
@@ -1153,88 +1140,88 @@ Admission questions:
 
 The assessments flag index in 69, overflow in 52, length in 35 and range in 34 of its 80 samples. 37 of 80 are only plausible.
 
-955. [Unique characters](u/unique-characters/silver.md): likely, about 32 lines
-956. [Argument destructuring](a/argument-destructuring/silver.md): likely, about 35 lines
-957. [Binary digits](b/binary-digits/silver.md): likely, about 35 lines
-958. [Find first missing positive](f/find-first-missing-positive/silver.md): likely, about 35 lines
-959. [Greatest element of a list](g/greatest-element-of-a-list/silver.md): likely, about 35 lines
-960. [Nested function](n/nested-function/silver.md): likely, about 35 lines
-961. [Palindrome detection](p/palindrome-detection/silver.md): likely, about 35 lines
-962. [String matching](s/string-matching/silver.md): likely, about 35 lines
-963. [Thue-Morse](t/thue-morse/silver.md): likely, about 35 lines
-964. [Two identical strings](t/two-identical-strings/silver.md): likely, about 35 lines
-965. [Dot product](d/dot-product/silver.md): likely, about 40 lines
-966. [Strip comments from a string](s/strip-comments-from-a-string/silver.md): likely, about 40 lines
-967. [Damm algorithm](d/damm-algorithm/silver.md): likely, about 45 lines
-968. [Determine if a string is squeezable](d/determine-if-a-string-is-squeezable/silver.md): likely, about 45 lines
-969. [Idiomatically determine all the characters that can be used for symbols](i/idiomatically-determine-all-the-characters-that-can-be-used-for-symbols/silver.md): likely, about 45 lines
-970. [Luhn test of credit card numbers](l/luhn-test-of-credit-card-numbers/silver.md): likely, about 45 lines
-971. [Pangram checker](p/pangram-checker/silver.md): likely, about 45 lines
-972. [Remove vowels from a string](r/remove-vowels-from-a-string/silver.md): likely, about 45 lines
-973. [Substring](s/substring/silver.md): likely, about 45 lines
-974. [Unique characters in each string](u/unique-characters-in-each-string/silver.md): likely, about 45 lines
-975. [Compare length of two strings](c/compare-length-of-two-strings/silver.md): likely, about 55 lines
-976. [Determine if a string has all unique characters](d/determine-if-a-string-has-all-unique-characters/silver.md): likely, about 55 lines
-977. [Longest substrings without repeating characters](l/longest-substrings-without-repeating-characters/silver.md): likely, about 55 lines
-978. [Reverse words in a string](r/reverse-words-in-a-string/silver.md): likely, about 55 lines
-979. [Largest int from concatenated ints](l/largest-int-from-concatenated-ints/silver.md): likely, about 60 lines
-980. [Comma quibbling](c/comma-quibbling/silver.md): likely, about 70 lines
-981. [Determine if a string is numeric](d/determine-if-a-string-is-numeric/silver.md): likely, about 70 lines
-982. [Call a function](c/call-a-function/silver.md): likely, about 75 lines
-983. [Validate International Securities Identification Number](v/validate-international-securities-identification-number/silver.md): likely, about 75 lines
-984. [Longest common prefix](l/longest-common-prefix/silver.md): likely, about 80 lines
-985. [Prime groups](p/prime-groups/silver.md): likely, about 80 lines
-986. [The Name Game](t/the-name-game/silver.md): likely, about 80 lines; uses arguments and exit status
-987. [Distinct palindromes within decimal numbers](d/distinct-palindromes-within-decimal-numbers/silver.md): likely, about 90 lines
-988. [File extension is in extensions list](f/file-extension-is-in-extensions-list/silver.md): likely, about 90 lines
-989. [Next highest int from digits](n/next-highest-int-from-digits/silver.md): likely, about 90 lines
-990. [Bifid cipher](b/bifid-cipher/silver.md): likely, about 110 lines
-991. [Bloom filter](b/bloom-filter/silver.md): likely, about 110 lines
-992. [Sanitize user input](s/sanitize-user-input/silver.md): likely, about 110 lines
-993. [Bin given limits](b/bin-given-limits/silver.md): likely, about 130 lines
-994. [Camel case and snake case](c/camel-case-and-snake-case/silver.md): likely, about 130 lines
-995. [Verhoeff algorithm](v/verhoeff-algorithm/silver.md): likely, about 150 lines
-996. [Punched cards](p/punched-cards/silver.md): likely, about 170 lines
-997. [Transliterate English text using the Greek alphabet](t/transliterate-english-text-using-the-greek-alphabet/silver.md): likely, about 170 lines
-998. [Jewels and stones](j/jewels-and-stones/silver.md): plausible, about 30 lines
-999. [Horner's rule for polynomial evaluation](h/horners-rule-for-polynomial-evaluation/silver.md): plausible, about 40 lines
-1000. [Determine if a string is collapsible](d/determine-if-a-string-is-collapsible/silver.md): plausible, about 55 lines
-1001. [Rep-string](r/rep-string/silver.md): plausible, about 55 lines
-1002. [Roman numerals/Encode](r/roman-numerals/encode/silver.md): plausible, about 55 lines
-1003. [Balanced brackets](b/balanced-brackets/silver.md): plausible, about 70 lines
-1004. [Equilibrium index](e/equilibrium-index/silver.md): plausible, about 70 lines
-1005. [Integer long division](i/integer-long-division/silver.md): plausible, about 70 lines
-1006. [Lempel–Ziv complexity](l/lempel-ziv-complexity/silver.md): plausible, about 70 lines
-1007. [Lyndon word](l/lyndon-word/silver.md): plausible, about 70 lines
-1008. [Word wrap](w/word-wrap/silver.md): plausible, about 70 lines
-1009. [XML/Output](x/xml/output/silver.md): plausible, about 70 lines
-1010. [Longest increasing subsequence](l/longest-increasing-subsequence/silver.md): plausible, about 80 lines
-1011. [Specific characters](s/specific-characters/silver.md): plausible, about 80 lines
-1012. [Text between](t/text-between/silver.md): plausible, about 80 lines
-1013. [Abbreviations, automatic](a/abbreviations-automatic/silver.md): plausible, about 90 lines
-1014. [Boyer-Moore string search](b/boyer-moore-string-search/silver.md): plausible, about 90 lines
-1015. [First perfect square in base n with n unique digits](f/first-perfect-square-in-base-n-with-n-unique-digits/silver.md): plausible, about 90 lines
-1016. [Jaro similarity](j/jaro-similarity/silver.md): plausible, about 95 lines
-1017. [Kronecker product](k/kronecker-product/silver.md): plausible, about 95 lines
-1018. [Tree from nesting levels](t/tree-from-nesting-levels/silver.md): plausible, about 95 lines
-1019. [URL decoding](u/url-decoding/silver.md): plausible, about 95 lines
-1020. [Deconvolution/1D](d/deconvolution/1d/silver.md): plausible, about 110 lines
-1021. [Display a linear combination](d/display-a-linear-combination/silver.md): plausible, about 110 lines
-1022. [Word break problem](w/word-break-problem/silver.md): plausible, about 110 lines
-1023. [Burrows–Wheeler transform](b/burrows-wheeler-transform/silver.md): plausible, about 130 lines
-1024. [Separate the house number from the street name](s/separate-the-house-number-from-the-street-name/silver.md): plausible, about 130 lines
-1025. [Sylvester's sequence](s/sylvesters-sequence/silver.md): plausible, about 130 lines
-1026. [Text processing/2](t/text-processing/2/silver.md): plausible, about 130 lines
-1027. [Abbreviations, simple](a/abbreviations-simple/silver.md): plausible, about 150 lines
-1028. [Number names](n/number-names/silver.md): plausible, about 170 lines
-1029. [Parse an IP Address](p/parse-an-ip-address/silver.md): plausible, about 170 lines
-1030. [Parsing/RPN to infix conversion](p/parsing/rpn-to-infix-conversion/silver.md): plausible, about 170 lines
-1031. [Rosetta Code/Fix code tags](r/rosetta-code/fix-code-tags/silver.md): plausible, about 170 lines
-1032. [Unescape a string](u/unescape-a-string/silver.md): plausible, about 170 lines
-1033. [URL parser](u/url-parser/silver.md): plausible, about 170 lines
-1034. [McNaughton-Yamada-Thompson algorithm](m/mcnaughton-yamada-thompson-algorithm/silver.md): plausible, about 260 lines
+948. [Unique characters](u/unique-characters/silver.md): likely, about 32 lines
+949. [Argument destructuring](a/argument-destructuring/silver.md): likely, about 35 lines
+950. [Binary digits](b/binary-digits/silver.md): likely, about 35 lines
+951. [Find first missing positive](f/find-first-missing-positive/silver.md): likely, about 35 lines
+952. [Greatest element of a list](g/greatest-element-of-a-list/silver.md): likely, about 35 lines
+953. [Nested function](n/nested-function/silver.md): likely, about 35 lines
+954. [Palindrome detection](p/palindrome-detection/silver.md): likely, about 35 lines
+955. [String matching](s/string-matching/silver.md): likely, about 35 lines
+956. [Thue-Morse](t/thue-morse/silver.md): likely, about 35 lines
+957. [Two identical strings](t/two-identical-strings/silver.md): likely, about 35 lines
+958. [Dot product](d/dot-product/silver.md): likely, about 40 lines
+959. [Strip comments from a string](s/strip-comments-from-a-string/silver.md): likely, about 40 lines
+960. [Damm algorithm](d/damm-algorithm/silver.md): likely, about 45 lines
+961. [Determine if a string is squeezable](d/determine-if-a-string-is-squeezable/silver.md): likely, about 45 lines
+962. [Idiomatically determine all the characters that can be used for symbols](i/idiomatically-determine-all-the-characters-that-can-be-used-for-symbols/silver.md): likely, about 45 lines
+963. [Luhn test of credit card numbers](l/luhn-test-of-credit-card-numbers/silver.md): likely, about 45 lines
+964. [Pangram checker](p/pangram-checker/silver.md): likely, about 45 lines
+965. [Remove vowels from a string](r/remove-vowels-from-a-string/silver.md): likely, about 45 lines
+966. [Substring](s/substring/silver.md): likely, about 45 lines
+967. [Unique characters in each string](u/unique-characters-in-each-string/silver.md): likely, about 45 lines
+968. [Compare length of two strings](c/compare-length-of-two-strings/silver.md): likely, about 55 lines
+969. [Determine if a string has all unique characters](d/determine-if-a-string-has-all-unique-characters/silver.md): likely, about 55 lines
+970. [Longest substrings without repeating characters](l/longest-substrings-without-repeating-characters/silver.md): likely, about 55 lines
+971. [Reverse words in a string](r/reverse-words-in-a-string/silver.md): likely, about 55 lines
+972. [Largest int from concatenated ints](l/largest-int-from-concatenated-ints/silver.md): likely, about 60 lines
+973. [Comma quibbling](c/comma-quibbling/silver.md): likely, about 70 lines
+974. [Determine if a string is numeric](d/determine-if-a-string-is-numeric/silver.md): likely, about 70 lines
+975. [Call a function](c/call-a-function/silver.md): likely, about 75 lines
+976. [Validate International Securities Identification Number](v/validate-international-securities-identification-number/silver.md): likely, about 75 lines
+977. [Longest common prefix](l/longest-common-prefix/silver.md): likely, about 80 lines
+978. [Prime groups](p/prime-groups/silver.md): likely, about 80 lines
+979. [The Name Game](t/the-name-game/silver.md): likely, about 80 lines; uses arguments and exit status
+980. [Distinct palindromes within decimal numbers](d/distinct-palindromes-within-decimal-numbers/silver.md): likely, about 90 lines
+981. [File extension is in extensions list](f/file-extension-is-in-extensions-list/silver.md): likely, about 90 lines
+982. [Next highest int from digits](n/next-highest-int-from-digits/silver.md): likely, about 90 lines
+983. [Bifid cipher](b/bifid-cipher/silver.md): likely, about 110 lines
+984. [Bloom filter](b/bloom-filter/silver.md): likely, about 110 lines
+985. [Sanitize user input](s/sanitize-user-input/silver.md): likely, about 110 lines
+986. [Bin given limits](b/bin-given-limits/silver.md): likely, about 130 lines
+987. [Camel case and snake case](c/camel-case-and-snake-case/silver.md): likely, about 130 lines
+988. [Verhoeff algorithm](v/verhoeff-algorithm/silver.md): likely, about 150 lines
+989. [Punched cards](p/punched-cards/silver.md): likely, about 170 lines
+990. [Transliterate English text using the Greek alphabet](t/transliterate-english-text-using-the-greek-alphabet/silver.md): likely, about 170 lines
+991. [Jewels and stones](j/jewels-and-stones/silver.md): plausible, about 30 lines
+992. [Horner's rule for polynomial evaluation](h/horners-rule-for-polynomial-evaluation/silver.md): plausible, about 40 lines
+993. [Determine if a string is collapsible](d/determine-if-a-string-is-collapsible/silver.md): plausible, about 55 lines
+994. [Rep-string](r/rep-string/silver.md): plausible, about 55 lines
+995. [Roman numerals/Encode](r/roman-numerals/encode/silver.md): plausible, about 55 lines
+996. [Balanced brackets](b/balanced-brackets/silver.md): plausible, about 70 lines
+997. [Equilibrium index](e/equilibrium-index/silver.md): plausible, about 70 lines
+998. [Integer long division](i/integer-long-division/silver.md): plausible, about 70 lines
+999. [Lempel–Ziv complexity](l/lempel-ziv-complexity/silver.md): plausible, about 70 lines
+1000. [Lyndon word](l/lyndon-word/silver.md): plausible, about 70 lines
+1001. [Word wrap](w/word-wrap/silver.md): plausible, about 70 lines
+1002. [XML/Output](x/xml/output/silver.md): plausible, about 70 lines
+1003. [Longest increasing subsequence](l/longest-increasing-subsequence/silver.md): plausible, about 80 lines
+1004. [Specific characters](s/specific-characters/silver.md): plausible, about 80 lines
+1005. [Text between](t/text-between/silver.md): plausible, about 80 lines
+1006. [Abbreviations, automatic](a/abbreviations-automatic/silver.md): plausible, about 90 lines
+1007. [Boyer-Moore string search](b/boyer-moore-string-search/silver.md): plausible, about 90 lines
+1008. [First perfect square in base n with n unique digits](f/first-perfect-square-in-base-n-with-n-unique-digits/silver.md): plausible, about 90 lines
+1009. [Jaro similarity](j/jaro-similarity/silver.md): plausible, about 95 lines
+1010. [Kronecker product](k/kronecker-product/silver.md): plausible, about 95 lines
+1011. [Tree from nesting levels](t/tree-from-nesting-levels/silver.md): plausible, about 95 lines
+1012. [URL decoding](u/url-decoding/silver.md): plausible, about 95 lines
+1013. [Deconvolution/1D](d/deconvolution/1d/silver.md): plausible, about 110 lines
+1014. [Display a linear combination](d/display-a-linear-combination/silver.md): plausible, about 110 lines
+1015. [Word break problem](w/word-break-problem/silver.md): plausible, about 110 lines
+1016. [Burrows–Wheeler transform](b/burrows-wheeler-transform/silver.md): plausible, about 130 lines
+1017. [Separate the house number from the street name](s/separate-the-house-number-from-the-street-name/silver.md): plausible, about 130 lines
+1018. [Sylvester's sequence](s/sylvesters-sequence/silver.md): plausible, about 130 lines
+1019. [Text processing/2](t/text-processing/2/silver.md): plausible, about 130 lines
+1020. [Abbreviations, simple](a/abbreviations-simple/silver.md): plausible, about 150 lines
+1021. [Number names](n/number-names/silver.md): plausible, about 170 lines
+1022. [Parse an IP Address](p/parse-an-ip-address/silver.md): plausible, about 170 lines
+1023. [Parsing/RPN to infix conversion](p/parsing/rpn-to-infix-conversion/silver.md): plausible, about 170 lines
+1024. [Rosetta Code/Fix code tags](r/rosetta-code/fix-code-tags/silver.md): plausible, about 170 lines
+1025. [Unescape a string](u/unescape-a-string/silver.md): plausible, about 170 lines
+1026. [URL parser](u/url-parser/silver.md): plausible, about 170 lines
+1027. [McNaughton-Yamada-Thompson algorithm](m/mcnaughton-yamada-thompson-algorithm/silver.md): plausible, about 260 lines
 
-## Stage 18
+## Stage 17
 
 Adds floating-point images.
 
@@ -1244,95 +1231,95 @@ Admission questions:
 
 The assessments flag floating point in 85, overflow in 57, range in 53 and division in 47 of its 87 samples. 83 of 87 are only plausible; this stage needs the most restrictive admitted forms.
 
-1035. [Infinity](i/infinity/silver.md): likely, about 12 lines
-1036. [Literals/Floating point](l/literals/floating-point/silver.md): likely, about 22 lines
-1037. [Averages/Median](a/averages/median/silver.md): likely, about 35 lines
-1038. [Motor](m/motor/silver.md): likely, about 35 lines
-1039. [Jensen's Device](j/jensens-device/silver.md): plausible, about 28 lines
-1040. [Arithmetic-geometric mean](a/arithmetic-geometric-mean/silver.md): plausible, about 30 lines
-1041. [Map range](m/map-range/silver.md): plausible, about 30 lines
-1042. [Real constants and functions](r/real-constants-and-functions/silver.md): plausible, about 30 lines
-1043. [Euler's identity](e/eulers-identity/silver.md): plausible, about 35 lines
-1044. [Entropy](e/entropy/silver.md): plausible, about 40 lines
-1045. [Find the intersection of a line with a plane](f/find-the-intersection-of-a-line-with-a-plane/silver.md): plausible, about 45 lines
-1046. [Golden ratio/Convergence](g/golden-ratio/convergence/silver.md): plausible, about 45 lines
-1047. [Haversine formula](h/haversine-formula/silver.md): plausible, about 45 lines
-1048. [Meissel-Mertens constant](m/meissel-mertens-constant/silver.md): plausible, about 45 lines
-1049. [Random numbers](r/random-numbers/silver.md): plausible, about 45 lines
-1050. [Roots of a quadratic function](r/roots-of-a-quadratic-function/silver.md): plausible, about 45 lines
-1051. [Safe addition](s/safe-addition/silver.md): plausible, about 45 lines
-1052. [Averages/Pythagorean means](a/averages/pythagorean-means/silver.md): plausible, about 55 lines
-1053. [Chebyshev coefficients](c/chebyshev-coefficients/silver.md): plausible, about 55 lines
-1054. [Cumulative standard deviation](c/cumulative-standard-deviation/silver.md): plausible, about 55 lines
-1055. [Harmonic series](h/harmonic-series/silver.md): plausible, about 55 lines
-1056. [Trigonometric functions](t/trigonometric-functions/silver.md): plausible, about 55 lines
-1057. [Roots of unity](r/roots-of-unity/silver.md): plausible, about 60 lines
-1058. [Apply a digital filter (direct form II transposed)](a/apply-a-digital-filter-direct-form-ii-transposed/silver.md): plausible, about 70 lines
-1059. [Averages/Mean angle](a/averages/mean-angle/silver.md): plausible, about 70 lines
-1060. [Centre and radius of a circle passing through 3 points in a plane](c/centre-and-radius-of-a-circle-passing-through-3-points-in-a-plane/silver.md): plausible, about 70 lines
-1061. [Continued fraction](c/continued-fraction/silver.md): plausible, about 70 lines
-1062. [Euler method](e/euler-method/silver.md): plausible, about 70 lines
-1063. [Experimental Verification of the NKT Law: Interpolating the Masses of 8 Planets Using NASA Data as of 30–31/12/2024](e/experimental-verification-of-the-nkt-law-interpolating-the-masses-of-8-planets-using-nasa-data-as-of-30-31/12/2024/silver.md): plausible, about 70 lines
-1064. [Experimental Verification of the NKTg Law Using NASA Mercury Data in 2025](e/experimental-verification-of-the-nktg-law-using-nasa-mercury-data-in-2025/silver.md): plausible, about 70 lines
-1065. [Gamma function](g/gamma-function/silver.md): plausible, about 70 lines
-1066. [Gradient descent](g/gradient-descent/silver.md): plausible, about 70 lines
-1067. [Kahan summation](k/kahan-summation/silver.md): plausible, about 70 lines
-1068. [Nth root](n/nth-root/silver.md): plausible, about 70 lines
-1069. [Distribution of 0 digits in factorial series](d/distribution-of-0-digits-in-factorial-series/silver.md): plausible, about 80 lines
-1070. [Exponentiation operator](e/exponentiation-operator/silver.md): plausible, about 80 lines
-1071. [Logistic curve fitting in epidemiology](l/logistic-curve-fitting-in-epidemiology/silver.md): plausible, about 80 lines
-1072. [Resistor mesh](r/resistor-mesh/silver.md): plausible, about 80 lines
-1073. [Rodrigues’ rotation formula](r/rodrigues-rotation-formula/silver.md): plausible, about 80 lines
-1074. [Runge-Kutta method](r/runge-kutta-method/silver.md): plausible, about 80 lines
-1075. [Arithmetic/Complex](a/arithmetic/complex/silver.md): plausible, about 90 lines
-1076. [Average loop length](a/average-loop-length/silver.md): plausible, about 90 lines
-1077. [Bézier curves/Intersections](b/bezier-curves/intersections/silver.md): plausible, about 90 lines
-1078. [Experimental Verification of the NKTg Law Using NASA Neptune Data (2023–2024)](e/experimental-verification-of-the-nktg-law-using-nasa-neptune-data-2023-2024/silver.md): plausible, about 90 lines
-1079. [Fibonacci word](f/fibonacci-word/silver.md): plausible, about 90 lines
-1080. [Monads/Writer monad](m/monads/writer-monad/silver.md): plausible, about 90 lines
-1081. [Orbital elements](o/orbital-elements/silver.md): plausible, about 90 lines
-1082. [Quaternion](q/quaternion/silver.md): plausible, about 90 lines
-1083. [Thiele's interpolation formula](t/thieles-interpolation-formula/silver.md): plausible, about 90 lines
-1084. [Cholesky decomposition](c/cholesky-decomposition/silver.md): plausible, about 95 lines
-1085. [Numerical integration/Romberg integration](n/numerical-integration/romberg-integration/silver.md): plausible, about 95 lines
-1086. [Gauss-Jordan matrix inversion](g/gauss-jordan-matrix-inversion/silver.md): plausible, about 100 lines
-1087. [Circles of given radius through two points](c/circles-of-given-radius-through-two-points/silver.md): plausible, about 110 lines
-1088. [Experimental Verification of the NKTg Law in Earth Orbit Based on NASA’s 2025 Earth Dataset](e/experimental-verification-of-the-nktg-law-in-earth-orbit-based-on-nasas-2025-earth-dataset/silver.md): plausible, about 110 lines
-1089. [Fast Fourier transform](f/fast-fourier-transform/silver.md): plausible, about 110 lines
-1090. [Gaussian elimination](g/gaussian-elimination/silver.md): plausible, about 110 lines
-1091. [Line circle intersection](l/line-circle-intersection/silver.md): plausible, about 110 lines
-1092. [Numerical integration/Adaptive Simpson's method](n/numerical-integration/adaptive-simpsons-method/silver.md): plausible, about 110 lines
-1093. [Numerical integration/Gauss-Legendre Quadrature](n/numerical-integration/gauss-legendre-quadrature/silver.md): plausible, about 110 lines
-1094. [Perlin noise](p/perlin-noise/silver.md): plausible, about 110 lines
-1095. [Polynomial synthetic division](p/polynomial-synthetic-division/silver.md): plausible, about 110 lines
-1096. [Reduced row echelon form](r/reduced-row-echelon-form/silver.md): plausible, about 110 lines
-1097. [Statistics/Chi-squared distribution](s/statistics/chi-squared-distribution/silver.md): plausible, about 110 lines
-1098. [Triangular numbers](t/triangular-numbers/silver.md): plausible, about 110 lines
-1099. [Welch's t-test](w/welchs-t-test/silver.md): plausible, about 110 lines
-1100. [Multidimensional Newton-Raphson method](m/multidimensional-newton-raphson-method/silver.md): plausible, about 120 lines
-1101. [Steffensen's method](s/steffensens-method/silver.md): plausible, about 120 lines
-1102. [Bernstein basis polynomials](b/bernstein-basis-polynomials/silver.md): plausible, about 130 lines
-1103. [Conjugate transpose](c/conjugate-transpose/silver.md): plausible, about 130 lines
-1104. [Elliptic curve arithmetic](e/elliptic-curve-arithmetic/silver.md): plausible, about 130 lines
-1105. [Multiple regression](m/multiple-regression/silver.md): plausible, about 130 lines
-1106. [Problem of Apollonius](p/problem-of-apollonius/silver.md): plausible, about 130 lines
-1107. [Color Difference CIE ΔE2000](c/color-difference-cie-delta-e2000/silver.md): plausible, about 140 lines
-1108. [Combinations and permutations](c/combinations-and-permutations/silver.md): plausible, about 150 lines
-1109. [N-body problem](n/n-body-problem/silver.md): plausible, about 150 lines
-1110. [Angles (geometric), normalization and conversion](a/angles-geometric-normalization-and-conversion/silver.md): plausible, about 170 lines
-1111. [QR decomposition](q/qr-decomposition/silver.md): plausible, about 170 lines
-1112. [Roots of a cubic polynomial](r/roots-of-a-cubic-polynomial/silver.md): plausible, about 170 lines
-1113. [Smallest enclosing circle problem](s/smallest-enclosing-circle-problem/silver.md): plausible, about 170 lines
-1114. [Roots of a quartic polynomial](r/roots-of-a-quartic-polynomial/silver.md): plausible, about 220 lines
-1115. [Sturm sequence](s/sturm-sequence/silver.md): plausible, about 220 lines
-1116. [Addition-chain exponentiation](a/addition-chain-exponentiation/silver.md): plausible, about 230 lines
-1117. [K-d tree](k/k-d-tree/silver.md): plausible, about 230 lines
-1118. [Roots of any polynomial](r/roots-of-any-polynomial/silver.md): plausible, about 230 lines
-1119. [Weather routing](w/weather-routing/silver.md): plausible, about 230 lines
-1120. [Catmull–Clark subdivision surface](c/catmull-clark-subdivision-surface/silver.md): plausible, about 260 lines
-1121. [Quickhull](q/quickhull/silver.md): plausible, about 260 lines
+1028. [Infinity](i/infinity/silver.md): likely, about 12 lines
+1029. [Literals/Floating point](l/literals/floating-point/silver.md): likely, about 22 lines
+1030. [Averages/Median](a/averages/median/silver.md): likely, about 35 lines
+1031. [Motor](m/motor/silver.md): likely, about 35 lines
+1032. [Jensen's Device](j/jensens-device/silver.md): plausible, about 28 lines
+1033. [Arithmetic-geometric mean](a/arithmetic-geometric-mean/silver.md): plausible, about 30 lines
+1034. [Map range](m/map-range/silver.md): plausible, about 30 lines
+1035. [Real constants and functions](r/real-constants-and-functions/silver.md): plausible, about 30 lines
+1036. [Euler's identity](e/eulers-identity/silver.md): plausible, about 35 lines
+1037. [Entropy](e/entropy/silver.md): plausible, about 40 lines
+1038. [Find the intersection of a line with a plane](f/find-the-intersection-of-a-line-with-a-plane/silver.md): plausible, about 45 lines
+1039. [Golden ratio/Convergence](g/golden-ratio/convergence/silver.md): plausible, about 45 lines
+1040. [Haversine formula](h/haversine-formula/silver.md): plausible, about 45 lines
+1041. [Meissel-Mertens constant](m/meissel-mertens-constant/silver.md): plausible, about 45 lines
+1042. [Random numbers](r/random-numbers/silver.md): plausible, about 45 lines
+1043. [Roots of a quadratic function](r/roots-of-a-quadratic-function/silver.md): plausible, about 45 lines
+1044. [Safe addition](s/safe-addition/silver.md): plausible, about 45 lines
+1045. [Averages/Pythagorean means](a/averages/pythagorean-means/silver.md): plausible, about 55 lines
+1046. [Chebyshev coefficients](c/chebyshev-coefficients/silver.md): plausible, about 55 lines
+1047. [Cumulative standard deviation](c/cumulative-standard-deviation/silver.md): plausible, about 55 lines
+1048. [Harmonic series](h/harmonic-series/silver.md): plausible, about 55 lines
+1049. [Trigonometric functions](t/trigonometric-functions/silver.md): plausible, about 55 lines
+1050. [Roots of unity](r/roots-of-unity/silver.md): plausible, about 60 lines
+1051. [Apply a digital filter (direct form II transposed)](a/apply-a-digital-filter-direct-form-ii-transposed/silver.md): plausible, about 70 lines
+1052. [Averages/Mean angle](a/averages/mean-angle/silver.md): plausible, about 70 lines
+1053. [Centre and radius of a circle passing through 3 points in a plane](c/centre-and-radius-of-a-circle-passing-through-3-points-in-a-plane/silver.md): plausible, about 70 lines
+1054. [Continued fraction](c/continued-fraction/silver.md): plausible, about 70 lines
+1055. [Euler method](e/euler-method/silver.md): plausible, about 70 lines
+1056. [Experimental Verification of the NKT Law: Interpolating the Masses of 8 Planets Using NASA Data as of 30–31/12/2024](e/experimental-verification-of-the-nkt-law-interpolating-the-masses-of-8-planets-using-nasa-data-as-of-30-31/12/2024/silver.md): plausible, about 70 lines
+1057. [Experimental Verification of the NKTg Law Using NASA Mercury Data in 2025](e/experimental-verification-of-the-nktg-law-using-nasa-mercury-data-in-2025/silver.md): plausible, about 70 lines
+1058. [Gamma function](g/gamma-function/silver.md): plausible, about 70 lines
+1059. [Gradient descent](g/gradient-descent/silver.md): plausible, about 70 lines
+1060. [Kahan summation](k/kahan-summation/silver.md): plausible, about 70 lines
+1061. [Nth root](n/nth-root/silver.md): plausible, about 70 lines
+1062. [Distribution of 0 digits in factorial series](d/distribution-of-0-digits-in-factorial-series/silver.md): plausible, about 80 lines
+1063. [Exponentiation operator](e/exponentiation-operator/silver.md): plausible, about 80 lines
+1064. [Logistic curve fitting in epidemiology](l/logistic-curve-fitting-in-epidemiology/silver.md): plausible, about 80 lines
+1065. [Resistor mesh](r/resistor-mesh/silver.md): plausible, about 80 lines
+1066. [Rodrigues’ rotation formula](r/rodrigues-rotation-formula/silver.md): plausible, about 80 lines
+1067. [Runge-Kutta method](r/runge-kutta-method/silver.md): plausible, about 80 lines
+1068. [Arithmetic/Complex](a/arithmetic/complex/silver.md): plausible, about 90 lines
+1069. [Average loop length](a/average-loop-length/silver.md): plausible, about 90 lines
+1070. [Bézier curves/Intersections](b/bezier-curves/intersections/silver.md): plausible, about 90 lines
+1071. [Experimental Verification of the NKTg Law Using NASA Neptune Data (2023–2024)](e/experimental-verification-of-the-nktg-law-using-nasa-neptune-data-2023-2024/silver.md): plausible, about 90 lines
+1072. [Fibonacci word](f/fibonacci-word/silver.md): plausible, about 90 lines
+1073. [Monads/Writer monad](m/monads/writer-monad/silver.md): plausible, about 90 lines
+1074. [Orbital elements](o/orbital-elements/silver.md): plausible, about 90 lines
+1075. [Quaternion](q/quaternion/silver.md): plausible, about 90 lines
+1076. [Thiele's interpolation formula](t/thieles-interpolation-formula/silver.md): plausible, about 90 lines
+1077. [Cholesky decomposition](c/cholesky-decomposition/silver.md): plausible, about 95 lines
+1078. [Numerical integration/Romberg integration](n/numerical-integration/romberg-integration/silver.md): plausible, about 95 lines
+1079. [Gauss-Jordan matrix inversion](g/gauss-jordan-matrix-inversion/silver.md): plausible, about 100 lines
+1080. [Circles of given radius through two points](c/circles-of-given-radius-through-two-points/silver.md): plausible, about 110 lines
+1081. [Experimental Verification of the NKTg Law in Earth Orbit Based on NASA’s 2025 Earth Dataset](e/experimental-verification-of-the-nktg-law-in-earth-orbit-based-on-nasas-2025-earth-dataset/silver.md): plausible, about 110 lines
+1082. [Fast Fourier transform](f/fast-fourier-transform/silver.md): plausible, about 110 lines
+1083. [Gaussian elimination](g/gaussian-elimination/silver.md): plausible, about 110 lines
+1084. [Line circle intersection](l/line-circle-intersection/silver.md): plausible, about 110 lines
+1085. [Numerical integration/Adaptive Simpson's method](n/numerical-integration/adaptive-simpsons-method/silver.md): plausible, about 110 lines
+1086. [Numerical integration/Gauss-Legendre Quadrature](n/numerical-integration/gauss-legendre-quadrature/silver.md): plausible, about 110 lines
+1087. [Perlin noise](p/perlin-noise/silver.md): plausible, about 110 lines
+1088. [Polynomial synthetic division](p/polynomial-synthetic-division/silver.md): plausible, about 110 lines
+1089. [Reduced row echelon form](r/reduced-row-echelon-form/silver.md): plausible, about 110 lines
+1090. [Statistics/Chi-squared distribution](s/statistics/chi-squared-distribution/silver.md): plausible, about 110 lines
+1091. [Triangular numbers](t/triangular-numbers/silver.md): plausible, about 110 lines
+1092. [Welch's t-test](w/welchs-t-test/silver.md): plausible, about 110 lines
+1093. [Multidimensional Newton-Raphson method](m/multidimensional-newton-raphson-method/silver.md): plausible, about 120 lines
+1094. [Steffensen's method](s/steffensens-method/silver.md): plausible, about 120 lines
+1095. [Bernstein basis polynomials](b/bernstein-basis-polynomials/silver.md): plausible, about 130 lines
+1096. [Conjugate transpose](c/conjugate-transpose/silver.md): plausible, about 130 lines
+1097. [Elliptic curve arithmetic](e/elliptic-curve-arithmetic/silver.md): plausible, about 130 lines
+1098. [Multiple regression](m/multiple-regression/silver.md): plausible, about 130 lines
+1099. [Problem of Apollonius](p/problem-of-apollonius/silver.md): plausible, about 130 lines
+1100. [Color Difference CIE ΔE2000](c/color-difference-cie-delta-e2000/silver.md): plausible, about 140 lines
+1101. [Combinations and permutations](c/combinations-and-permutations/silver.md): plausible, about 150 lines
+1102. [N-body problem](n/n-body-problem/silver.md): plausible, about 150 lines
+1103. [Angles (geometric), normalization and conversion](a/angles-geometric-normalization-and-conversion/silver.md): plausible, about 170 lines
+1104. [QR decomposition](q/qr-decomposition/silver.md): plausible, about 170 lines
+1105. [Roots of a cubic polynomial](r/roots-of-a-cubic-polynomial/silver.md): plausible, about 170 lines
+1106. [Smallest enclosing circle problem](s/smallest-enclosing-circle-problem/silver.md): plausible, about 170 lines
+1107. [Roots of a quartic polynomial](r/roots-of-a-quartic-polynomial/silver.md): plausible, about 220 lines
+1108. [Sturm sequence](s/sturm-sequence/silver.md): plausible, about 220 lines
+1109. [Addition-chain exponentiation](a/addition-chain-exponentiation/silver.md): plausible, about 230 lines
+1110. [K-d tree](k/k-d-tree/silver.md): plausible, about 230 lines
+1111. [Roots of any polynomial](r/roots-of-any-polynomial/silver.md): plausible, about 230 lines
+1112. [Weather routing](w/weather-routing/silver.md): plausible, about 230 lines
+1113. [Catmull–Clark subdivision surface](c/catmull-clark-subdivision-surface/silver.md): plausible, about 260 lines
+1114. [Quickhull](q/quickhull/silver.md): plausible, about 260 lines
 
-## Stage 19
+## Stage 18
 
 Adds text parsing.
 
@@ -1346,38 +1333,38 @@ Failure paths to test, with the samples that use the input:
 
 The assessments flag overflow in 27, index in 25, range in 23 and termination in 16 of its 30 samples. 21 of 30 are only plausible; this stage needs the most restrictive admitted forms.
 
-1122. [Identity matrix](i/identity-matrix/silver.md): likely, about 40 lines; uses arguments and exit status
-1123. [Multiple distinct objects](m/multiple-distinct-objects/silver.md): likely, about 45 lines; uses arguments
-1124. [Find the last Sunday of each month](f/find-the-last-sunday-of-each-month/silver.md): likely, about 60 lines; uses arguments and exit status
-1125. [Last Friday of each month](l/last-friday-of-each-month/silver.md): likely, about 70 lines; uses arguments and exit status
-1126. [Galton box animation](g/galton-box-animation/silver.md): likely, about 110 lines; uses arguments
-1127. [Shape-Machine](s/shape-machine/silver.md): plausible, about 45 lines; uses arguments
-1128. [Emirp primes](e/emirp-primes/silver.md): plausible, about 90 lines; uses arguments
-1129. [Knight's tour](k/knights-tour/silver.md): plausible, about 130 lines; uses arguments and exit status
-1130. [Non-decimal radices/Convert](n/non-decimal-radices/convert/silver.md): likely, about 70 lines
-1131. [Three word location](t/three-word-location/silver.md): likely, about 80 lines
-1132. [Days between dates](d/days-between-dates/silver.md): likely, about 95 lines
-1133. [Sync subtitles](s/sync-subtitles/silver.md): likely, about 110 lines
-1134. [Non-decimal radices/Input](n/non-decimal-radices/input/silver.md): plausible, about 75 lines
-1135. [Range expansion](r/range-expansion/silver.md): plausible, about 80 lines
-1136. [Convert decimal number to rational](c/convert-decimal-number-to-rational/silver.md): plausible, about 90 lines
-1137. [Canonicalize CIDR](c/canonicalize-cidr/silver.md): plausible, about 110 lines
-1138. [Sort a list of object identifiers](s/sort-a-list-of-object-identifiers/silver.md): plausible, about 110 lines
-1139. [Fractran](f/fractran/silver.md): plausible, about 120 lines
-1140. [Date manipulation](d/date-manipulation/silver.md): plausible, about 130 lines
-1141. [Sparkline in unicode](s/sparkline-in-unicode/silver.md): plausible, about 130 lines
-1142. [XML/Input](x/xml/input/silver.md): plausible, about 130 lines
-1143. [Convert CSV records to TSV](c/convert-csv-records-to-tsv/silver.md): plausible, about 150 lines
-1144. [Test integerness](t/test-integerness/silver.md): plausible, about 150 lines
-1145. [Arithmetic evaluation](a/arithmetic-evaluation/silver.md): plausible, about 170 lines
-1146. [Decimal floating point number to binary](d/decimal-floating-point-number-to-binary/silver.md): plausible, about 170 lines
-1147. [Poker hand analyser](p/poker-hand-analyser/silver.md): plausible, about 170 lines
-1148. [Text processing/1](t/text-processing/1/silver.md): plausible, about 170 lines
-1149. [Brace expansion using ranges](b/brace-expansion-using-ranges/silver.md): plausible, about 230 lines
-1150. [Resistance network calculator](r/resistance-network-calculator/silver.md): plausible, about 230 lines
-1151. [Process SMIL directives in XML data](p/process-smil-directives-in-xml-data/silver.md): plausible, about 260 lines
+1115. [Identity matrix](i/identity-matrix/silver.md): likely, about 40 lines; uses arguments and exit status
+1116. [Multiple distinct objects](m/multiple-distinct-objects/silver.md): likely, about 45 lines; uses arguments
+1117. [Find the last Sunday of each month](f/find-the-last-sunday-of-each-month/silver.md): likely, about 60 lines; uses arguments and exit status
+1118. [Last Friday of each month](l/last-friday-of-each-month/silver.md): likely, about 70 lines; uses arguments and exit status
+1119. [Galton box animation](g/galton-box-animation/silver.md): likely, about 110 lines; uses arguments
+1120. [Shape-Machine](s/shape-machine/silver.md): plausible, about 45 lines; uses arguments
+1121. [Emirp primes](e/emirp-primes/silver.md): plausible, about 90 lines; uses arguments
+1122. [Knight's tour](k/knights-tour/silver.md): plausible, about 130 lines; uses arguments and exit status
+1123. [Non-decimal radices/Convert](n/non-decimal-radices/convert/silver.md): likely, about 70 lines
+1124. [Three word location](t/three-word-location/silver.md): likely, about 80 lines
+1125. [Days between dates](d/days-between-dates/silver.md): likely, about 95 lines
+1126. [Sync subtitles](s/sync-subtitles/silver.md): likely, about 110 lines
+1127. [Non-decimal radices/Input](n/non-decimal-radices/input/silver.md): plausible, about 75 lines
+1128. [Range expansion](r/range-expansion/silver.md): plausible, about 80 lines
+1129. [Convert decimal number to rational](c/convert-decimal-number-to-rational/silver.md): plausible, about 90 lines
+1130. [Canonicalize CIDR](c/canonicalize-cidr/silver.md): plausible, about 110 lines
+1131. [Sort a list of object identifiers](s/sort-a-list-of-object-identifiers/silver.md): plausible, about 110 lines
+1132. [Fractran](f/fractran/silver.md): plausible, about 120 lines
+1133. [Date manipulation](d/date-manipulation/silver.md): plausible, about 130 lines
+1134. [Sparkline in unicode](s/sparkline-in-unicode/silver.md): plausible, about 130 lines
+1135. [XML/Input](x/xml/input/silver.md): plausible, about 130 lines
+1136. [Convert CSV records to TSV](c/convert-csv-records-to-tsv/silver.md): plausible, about 150 lines
+1137. [Test integerness](t/test-integerness/silver.md): plausible, about 150 lines
+1138. [Arithmetic evaluation](a/arithmetic-evaluation/silver.md): plausible, about 170 lines
+1139. [Decimal floating point number to binary](d/decimal-floating-point-number-to-binary/silver.md): plausible, about 170 lines
+1140. [Poker hand analyser](p/poker-hand-analyser/silver.md): plausible, about 170 lines
+1141. [Text processing/1](t/text-processing/1/silver.md): plausible, about 170 lines
+1142. [Brace expansion using ranges](b/brace-expansion-using-ranges/silver.md): plausible, about 230 lines
+1143. [Resistance network calculator](r/resistance-network-calculator/silver.md): plausible, about 230 lines
+1144. [Process SMIL directives in XML data](p/process-smil-directives-in-xml-data/silver.md): plausible, about 260 lines
 
-## Stage 20
+## Stage 19
 
 Adds enumerations.
 
@@ -1387,68 +1374,68 @@ Admission questions:
 
 The assessments flag overflow in 39, index in 38, termination in 24 and range in 21 of its 60 samples. 30 of 60 are only plausible; this stage needs the most restrictive admitted forms.
 
-1152. [Boolean values](b/boolean-values/silver.md): likely, about 22 lines
-1153. [ASCII control characters](a/ascii-control-characters/silver.md): likely, about 30 lines
-1154. [Enumerations](e/enumerations/silver.md): likely, about 30 lines
-1155. [Type detection](t/type-detection/silver.md): likely, about 30 lines
-1156. [Associative array/Iteration](a/associative-array/iteration/silver.md): likely, about 35 lines
-1157. [Symmetric difference](s/symmetric-difference/silver.md): likely, about 40 lines
-1158. [Arrays](a/arrays/silver.md): likely, about 45 lines
-1159. [Combinations with repetitions](c/combinations-with-repetitions/silver.md): likely, about 45 lines
-1160. [Conditional structures](c/conditional-structures/silver.md): likely, about 45 lines
-1161. [Create an object/Native demonstration](c/create-an-object/native-demonstration/silver.md): likely, about 45 lines
-1162. [Finite state machine](f/finite-state-machine/silver.md): likely, about 50 lines
-1163. [Visitor pattern](v/visitor-pattern/silver.md): likely, about 55 lines
-1164. [Deepcopy](d/deepcopy/silver.md): likely, about 60 lines
-1165. [Top rank per group](t/top-rank-per-group/silver.md): likely, about 65 lines
-1166. [Cheryl's birthday](c/cheryls-birthday/silver.md): likely, about 70 lines
-1167. [Doubly-linked list/Element insertion](d/doubly-linked-list/element-insertion/silver.md): likely, about 70 lines
-1168. [Multiton](m/multiton/silver.md): likely, about 70 lines
-1169. [Nested templated data](n/nested-templated-data/silver.md): likely, about 70 lines
-1170. [Wordle comparison](w/wordle-comparison/silver.md): likely, about 70 lines
-1171. [Banker's algorithm](b/bankers-algorithm/silver.md): likely, about 90 lines
-1172. [Dutch national flag problem](d/dutch-national-flag-problem/silver.md): likely, about 90 lines
-1173. [Forest fire](f/forest-fire/silver.md): likely, about 90 lines
-1174. [Playing cards](p/playing-cards/silver.md): likely, about 90 lines
-1175. [Ternary logic](t/ternary-logic/silver.md): likely, about 90 lines
-1176. [Elevator simulation](e/elevator-simulation/silver.md): likely, about 110 lines
-1177. [Discordian date](d/discordian-date/silver.md): likely, about 120 lines
-1178. [Cocke–Younger–Kasami (CYK) Algorithm](c/cocke-younger-kasami-cyk-algorithm/silver.md): likely, about 130 lines
-1179. [Universal Turing machine](u/universal-turing-machine/silver.md): likely, about 130 lines
-1180. [Tamagotchi emulator](t/tamagotchi-emulator/silver.md): likely, about 150 lines
-1181. [JSON pointer](j/json-pointer/silver.md): likely, about 170 lines
-1182. [Catamorphism](c/catamorphism/silver.md): plausible, about 55 lines
-1183. [Bitmap/Flood fill](b/bitmap/flood-fill/silver.md): plausible, about 70 lines
-1184. [Probabilistic choice](p/probabilistic-choice/silver.md): plausible, about 70 lines
-1185. [Flatten a list](f/flatten-a-list/silver.md): plausible, about 90 lines
-1186. [Sierpinski arrowhead curve](s/sierpinski-arrowhead-curve/silver.md): plausible, about 90 lines
-1187. [Brownian tree](b/brownian-tree/silver.md): plausible, about 110 lines
-1188. [Fivenum](f/fivenum/silver.md): plausible, about 110 lines
-1189. [Miller-Rabin primality test](m/miller-rabin-primality-test/silver.md): plausible, about 110 lines; uses arguments and exit status
-1190. [Set consolidation](s/set-consolidation/silver.md): plausible, about 110 lines
-1191. [Topological sort/Extracted top item](t/topological-sort/extracted-top-item/silver.md): plausible, about 110 lines
-1192. [Bioinformatics/Sequence mutation](b/bioinformatics/sequence-mutation/silver.md): plausible, about 130 lines
-1193. [Solve a Holy Knight's tour](s/solve-a-holy-knights-tour/silver.md): plausible, about 130 lines
-1194. [Algebraic data types](a/algebraic-data-types/silver.md): plausible, about 150 lines
-1195. [Simple turtle graphics](s/simple-turtle-graphics/silver.md): plausible, about 150 lines
-1196. [15 puzzle solver](0-9/15-puzzle-solver/silver.md): plausible, about 170 lines
-1197. [N-queens minimum and knights and bishops](n/n-queens-minimum-and-knights-and-bishops/silver.md): plausible, about 170 lines
-1198. [Numerical integration](n/numerical-integration/silver.md): plausible, about 170 lines
-1199. [Regular expressions](r/regular-expressions/silver.md): plausible, about 170 lines
-1200. [Resistance calculator](r/resistance-calculator/silver.md): plausible, about 170 lines
-1201. [Set of real numbers](s/set-of-real-numbers/silver.md): plausible, about 170 lines
-1202. [Word search](w/word-search/silver.md): plausible, about 190 lines
-1203. [JSON](j/json/silver.md): plausible, about 220 lines
-1204. [Nonogram solver](n/nonogram-solver/silver.md): plausible, about 260 lines
-1205. [P-value correction](p/p-value-correction/silver.md): plausible, about 260 lines
-1206. [Brzozowski algebraic method](b/brzozowski-algebraic-method/silver.md): plausible, about 300 lines
-1207. [Red black tree sort](r/red-black-tree-sort/silver.md): plausible, about 300 lines
-1208. [Blackjack strategy](b/blackjack-strategy/silver.md): plausible, about 450 lines
-1209. [Parse EBNF](p/parse-ebnf/silver.md): plausible, about 450 lines
-1210. [Solving coin problems](s/solving-coin-problems/silver.md): plausible, about 450 lines
-1211. [XML validation](x/xml-validation/silver.md): plausible, about 650 lines
+1145. [Boolean values](b/boolean-values/silver.md): likely, about 22 lines
+1146. [ASCII control characters](a/ascii-control-characters/silver.md): likely, about 30 lines
+1147. [Enumerations](e/enumerations/silver.md): likely, about 30 lines
+1148. [Type detection](t/type-detection/silver.md): likely, about 30 lines
+1149. [Associative array/Iteration](a/associative-array/iteration/silver.md): likely, about 35 lines
+1150. [Symmetric difference](s/symmetric-difference/silver.md): likely, about 40 lines
+1151. [Arrays](a/arrays/silver.md): likely, about 45 lines
+1152. [Combinations with repetitions](c/combinations-with-repetitions/silver.md): likely, about 45 lines
+1153. [Conditional structures](c/conditional-structures/silver.md): likely, about 45 lines
+1154. [Create an object/Native demonstration](c/create-an-object/native-demonstration/silver.md): likely, about 45 lines
+1155. [Finite state machine](f/finite-state-machine/silver.md): likely, about 50 lines
+1156. [Visitor pattern](v/visitor-pattern/silver.md): likely, about 55 lines
+1157. [Deepcopy](d/deepcopy/silver.md): likely, about 60 lines
+1158. [Top rank per group](t/top-rank-per-group/silver.md): likely, about 65 lines
+1159. [Cheryl's birthday](c/cheryls-birthday/silver.md): likely, about 70 lines
+1160. [Doubly-linked list/Element insertion](d/doubly-linked-list/element-insertion/silver.md): likely, about 70 lines
+1161. [Multiton](m/multiton/silver.md): likely, about 70 lines
+1162. [Nested templated data](n/nested-templated-data/silver.md): likely, about 70 lines
+1163. [Wordle comparison](w/wordle-comparison/silver.md): likely, about 70 lines
+1164. [Banker's algorithm](b/bankers-algorithm/silver.md): likely, about 90 lines
+1165. [Dutch national flag problem](d/dutch-national-flag-problem/silver.md): likely, about 90 lines
+1166. [Forest fire](f/forest-fire/silver.md): likely, about 90 lines
+1167. [Playing cards](p/playing-cards/silver.md): likely, about 90 lines
+1168. [Ternary logic](t/ternary-logic/silver.md): likely, about 90 lines
+1169. [Elevator simulation](e/elevator-simulation/silver.md): likely, about 110 lines
+1170. [Discordian date](d/discordian-date/silver.md): likely, about 120 lines
+1171. [Cocke–Younger–Kasami (CYK) Algorithm](c/cocke-younger-kasami-cyk-algorithm/silver.md): likely, about 130 lines
+1172. [Universal Turing machine](u/universal-turing-machine/silver.md): likely, about 130 lines
+1173. [Tamagotchi emulator](t/tamagotchi-emulator/silver.md): likely, about 150 lines
+1174. [JSON pointer](j/json-pointer/silver.md): likely, about 170 lines
+1175. [Catamorphism](c/catamorphism/silver.md): plausible, about 55 lines
+1176. [Bitmap/Flood fill](b/bitmap/flood-fill/silver.md): plausible, about 70 lines
+1177. [Probabilistic choice](p/probabilistic-choice/silver.md): plausible, about 70 lines
+1178. [Flatten a list](f/flatten-a-list/silver.md): plausible, about 90 lines
+1179. [Sierpinski arrowhead curve](s/sierpinski-arrowhead-curve/silver.md): plausible, about 90 lines
+1180. [Brownian tree](b/brownian-tree/silver.md): plausible, about 110 lines
+1181. [Fivenum](f/fivenum/silver.md): plausible, about 110 lines
+1182. [Miller-Rabin primality test](m/miller-rabin-primality-test/silver.md): plausible, about 110 lines; uses arguments and exit status
+1183. [Set consolidation](s/set-consolidation/silver.md): plausible, about 110 lines
+1184. [Topological sort/Extracted top item](t/topological-sort/extracted-top-item/silver.md): plausible, about 110 lines
+1185. [Bioinformatics/Sequence mutation](b/bioinformatics/sequence-mutation/silver.md): plausible, about 130 lines
+1186. [Solve a Holy Knight's tour](s/solve-a-holy-knights-tour/silver.md): plausible, about 130 lines
+1187. [Algebraic data types](a/algebraic-data-types/silver.md): plausible, about 150 lines
+1188. [Simple turtle graphics](s/simple-turtle-graphics/silver.md): plausible, about 150 lines
+1189. [15 puzzle solver](0-9/15-puzzle-solver/silver.md): plausible, about 170 lines
+1190. [N-queens minimum and knights and bishops](n/n-queens-minimum-and-knights-and-bishops/silver.md): plausible, about 170 lines
+1191. [Numerical integration](n/numerical-integration/silver.md): plausible, about 170 lines
+1192. [Regular expressions](r/regular-expressions/silver.md): plausible, about 170 lines
+1193. [Resistance calculator](r/resistance-calculator/silver.md): plausible, about 170 lines
+1194. [Set of real numbers](s/set-of-real-numbers/silver.md): plausible, about 170 lines
+1195. [Word search](w/word-search/silver.md): plausible, about 190 lines
+1196. [JSON](j/json/silver.md): plausible, about 220 lines
+1197. [Nonogram solver](n/nonogram-solver/silver.md): plausible, about 260 lines
+1198. [P-value correction](p/p-value-correction/silver.md): plausible, about 260 lines
+1199. [Brzozowski algebraic method](b/brzozowski-algebraic-method/silver.md): plausible, about 300 lines
+1200. [Red black tree sort](r/red-black-tree-sort/silver.md): plausible, about 300 lines
+1201. [Blackjack strategy](b/blackjack-strategy/silver.md): plausible, about 450 lines
+1202. [Parse EBNF](p/parse-ebnf/silver.md): plausible, about 450 lines
+1203. [Solving coin problems](s/solving-coin-problems/silver.md): plausible, about 450 lines
+1204. [XML validation](x/xml-validation/silver.md): plausible, about 650 lines
 
-## Stage 21
+## Stage 20
 
 Adds standard input.
 
@@ -1462,59 +1449,59 @@ Failure paths to test, with the samples that use the input:
 
 The assessments flag overflow in 38, termination in 38, index in 36 and length in 22 of its 51 samples. 30 of 51 are only plausible; this stage needs the most restrictive admitted forms.
 
-1212. [Copy stdin to stdout](c/copy-stdin-to-stdout/silver.md): likely, about 12 lines; uses standard input
-1213. [Input loop](i/input-loop/silver.md): likely, about 20 lines; uses standard input
-1214. [A+B](a/a-plus-b/silver.md): likely, about 25 lines; uses standard input
-1215. [User input/Text](u/user-input/text/silver.md): likely, about 30 lines; uses standard input
-1216. [Input/Output for lines of text](i/input/output-for-lines-of-text/silver.md): likely, about 35 lines; uses standard input
-1217. [Guess the number/With feedback](g/guess-the-number/with-feedback/silver.md): likely, about 55 lines; uses standard input
-1218. [Guess the number/With feedback (player)](g/guess-the-number/with-feedback-player/silver.md): likely, about 55 lines; uses standard input
-1219. [Decision tables](d/decision-tables/silver.md): likely, about 70 lines; uses standard input
-1220. [Hourglass puzzle](h/hourglass-puzzle/silver.md): likely, about 70 lines; uses standard input
-1221. [Keyboard macros](k/keyboard-macros/silver.md): likely, about 70 lines; uses standard input
-1222. [Magic 8-ball](m/magic-8-ball/silver.md): likely, about 70 lines; uses standard input
-1223. [Menu](m/menu/silver.md): likely, about 75 lines; uses standard input
-1224. [21 game](0-9/21-game/silver.md): likely, about 80 lines; uses standard input
-1225. [Number reversal game](n/number-reversal-game/silver.md): likely, about 80 lines; uses standard input
-1226. [Spoof game](s/spoof-game/silver.md): likely, about 95 lines; uses standard input
-1227. [Subleq](s/subleq/silver.md): likely, about 95 lines; uses standard input
-1228. [Penney's game](p/penneys-game/silver.md): likely, about 110 lines; uses standard input
-1229. [Rock-paper-scissors](r/rock-paper-scissors/silver.md): likely, about 110 lines; uses standard input
-1230. [16 puzzle game](0-9/16-puzzle-game/silver.md): likely, about 130 lines; uses standard input
-1231. [Greed](g/greed/silver.md): likely, about 170 lines; uses standard input
-1232. [Mastermind](m/mastermind/silver.md): likely, about 170 lines; uses standard input
-1233. [Narcissist](n/narcissist/silver.md): plausible, about 45 lines; uses standard input
-1234. [Trabb Pardo–Knuth algorithm](t/trabb-pardo-knuth-algorithm/silver.md): plausible, about 55 lines; uses standard input
-1235. [Nim game](n/nim-game/silver.md): plausible, about 70 lines; uses standard input
-1236. [Bulls and cows](b/bulls-and-cows/silver.md): plausible, about 80 lines; uses standard input
-1237. [Soloway's recurring rainfall](s/soloways-recurring-rainfall/silver.md): plausible, about 90 lines; uses standard input
-1238. [Execute Brain\*\*\*\*](e/execute-brain-star-star-star-star/silver.md): plausible, about 110 lines; uses standard input
-1239. [General FizzBuzz](g/general-fizzbuzz/silver.md): plausible, about 110 lines; uses standard input
-1240. [Horizontal sundial calculations](h/horizontal-sundial-calculations/silver.md): plausible, about 110 lines; uses standard input
-1241. [15 puzzle game](0-9/15-puzzle-game/silver.md): plausible, about 130 lines; uses standard input
-1242. [Flipping bits game](f/flipping-bits-game/silver.md): plausible, about 130 lines; uses standard input
-1243. [Mad Libs](m/mad-libs/silver.md): plausible, about 130 lines; uses standard input
-1244. [15 puzzle game in 3D](0-9/15-puzzle-game-in-3d/silver.md): plausible, about 150 lines; uses standard input
-1245. [Number triplets game](n/number-triplets-game/silver.md): plausible, about 170 lines; uses standard input
-1246. [RCRPG](r/rcrpg/silver.md): plausible, about 170 lines; uses standard input
-1247. [Singular value decomposition](s/singular-value-decomposition/silver.md): plausible, about 170 lines; uses standard input
-1248. [Syntax highlighting using Mediawiki formatting](s/syntax-highlighting-using-mediawiki-formatting/silver.md): plausible, about 170 lines; uses standard input
-1249. [Wordiff](w/wordiff/silver.md): plausible, about 170 lines; uses standard input
-1250. [Minesweeper game](m/minesweeper-game/silver.md): plausible, about 210 lines; uses standard input
-1251. [Robots](r/robots/silver.md): plausible, about 220 lines; uses standard input
-1252. [24 game](0-9/24-game/silver.md): plausible, about 230 lines; uses standard input
-1253. [Go Fish](g/go-fish/silver.md): plausible, about 230 lines; uses standard input
-1254. [Hunt the Wumpus](h/hunt-the-wumpus/silver.md): plausible, about 230 lines; uses standard input
-1255. [Remote agent/Simulation](r/remote-agent/simulation/silver.md): plausible, about 230 lines; uses standard input
-1256. [Hexapawn](h/hexapawn/silver.md): plausible, about 260 lines; uses standard input
-1257. [Mill game](m/mill-game/silver.md): plausible, about 260 lines; uses standard input
-1258. [Rational calculator](r/rational-calculator/silver.md): plausible, about 260 lines; uses standard input
-1259. [Compiler/AST interpreter](c/compiler/ast-interpreter/silver.md): plausible, about 350 lines; uses standard input
-1260. [Compiler/code generator](c/compiler/code-generator/silver.md): plausible, about 450 lines; uses standard input
-1261. [Uno (card game)](u/uno-card-game/silver.md): plausible, about 450 lines; uses standard input
-1262. [Compiler/syntax analyzer](c/compiler/syntax-analyzer/silver.md): plausible, about 480 lines; uses standard input
+1205. [Copy stdin to stdout](c/copy-stdin-to-stdout/silver.md): likely, about 12 lines; uses standard input
+1206. [Input loop](i/input-loop/silver.md): likely, about 20 lines; uses standard input
+1207. [A+B](a/a-plus-b/silver.md): likely, about 25 lines; uses standard input
+1208. [User input/Text](u/user-input/text/silver.md): likely, about 30 lines; uses standard input
+1209. [Input/Output for lines of text](i/input/output-for-lines-of-text/silver.md): likely, about 35 lines; uses standard input
+1210. [Guess the number/With feedback](g/guess-the-number/with-feedback/silver.md): likely, about 55 lines; uses standard input
+1211. [Guess the number/With feedback (player)](g/guess-the-number/with-feedback-player/silver.md): likely, about 55 lines; uses standard input
+1212. [Decision tables](d/decision-tables/silver.md): likely, about 70 lines; uses standard input
+1213. [Hourglass puzzle](h/hourglass-puzzle/silver.md): likely, about 70 lines; uses standard input
+1214. [Keyboard macros](k/keyboard-macros/silver.md): likely, about 70 lines; uses standard input
+1215. [Magic 8-ball](m/magic-8-ball/silver.md): likely, about 70 lines; uses standard input
+1216. [Menu](m/menu/silver.md): likely, about 75 lines; uses standard input
+1217. [21 game](0-9/21-game/silver.md): likely, about 80 lines; uses standard input
+1218. [Number reversal game](n/number-reversal-game/silver.md): likely, about 80 lines; uses standard input
+1219. [Spoof game](s/spoof-game/silver.md): likely, about 95 lines; uses standard input
+1220. [Subleq](s/subleq/silver.md): likely, about 95 lines; uses standard input
+1221. [Penney's game](p/penneys-game/silver.md): likely, about 110 lines; uses standard input
+1222. [Rock-paper-scissors](r/rock-paper-scissors/silver.md): likely, about 110 lines; uses standard input
+1223. [16 puzzle game](0-9/16-puzzle-game/silver.md): likely, about 130 lines; uses standard input
+1224. [Greed](g/greed/silver.md): likely, about 170 lines; uses standard input
+1225. [Mastermind](m/mastermind/silver.md): likely, about 170 lines; uses standard input
+1226. [Narcissist](n/narcissist/silver.md): plausible, about 45 lines; uses standard input
+1227. [Trabb Pardo–Knuth algorithm](t/trabb-pardo-knuth-algorithm/silver.md): plausible, about 55 lines; uses standard input
+1228. [Nim game](n/nim-game/silver.md): plausible, about 70 lines; uses standard input
+1229. [Bulls and cows](b/bulls-and-cows/silver.md): plausible, about 80 lines; uses standard input
+1230. [Soloway's recurring rainfall](s/soloways-recurring-rainfall/silver.md): plausible, about 90 lines; uses standard input
+1231. [Execute Brain\*\*\*\*](e/execute-brain-star-star-star-star/silver.md): plausible, about 110 lines; uses standard input
+1232. [General FizzBuzz](g/general-fizzbuzz/silver.md): plausible, about 110 lines; uses standard input
+1233. [Horizontal sundial calculations](h/horizontal-sundial-calculations/silver.md): plausible, about 110 lines; uses standard input
+1234. [15 puzzle game](0-9/15-puzzle-game/silver.md): plausible, about 130 lines; uses standard input
+1235. [Flipping bits game](f/flipping-bits-game/silver.md): plausible, about 130 lines; uses standard input
+1236. [Mad Libs](m/mad-libs/silver.md): plausible, about 130 lines; uses standard input
+1237. [15 puzzle game in 3D](0-9/15-puzzle-game-in-3d/silver.md): plausible, about 150 lines; uses standard input
+1238. [Number triplets game](n/number-triplets-game/silver.md): plausible, about 170 lines; uses standard input
+1239. [RCRPG](r/rcrpg/silver.md): plausible, about 170 lines; uses standard input
+1240. [Singular value decomposition](s/singular-value-decomposition/silver.md): plausible, about 170 lines; uses standard input
+1241. [Syntax highlighting using Mediawiki formatting](s/syntax-highlighting-using-mediawiki-formatting/silver.md): plausible, about 170 lines; uses standard input
+1242. [Wordiff](w/wordiff/silver.md): plausible, about 170 lines; uses standard input
+1243. [Minesweeper game](m/minesweeper-game/silver.md): plausible, about 210 lines; uses standard input
+1244. [Robots](r/robots/silver.md): plausible, about 220 lines; uses standard input
+1245. [24 game](0-9/24-game/silver.md): plausible, about 230 lines; uses standard input
+1246. [Go Fish](g/go-fish/silver.md): plausible, about 230 lines; uses standard input
+1247. [Hunt the Wumpus](h/hunt-the-wumpus/silver.md): plausible, about 230 lines; uses standard input
+1248. [Remote agent/Simulation](r/remote-agent/simulation/silver.md): plausible, about 230 lines; uses standard input
+1249. [Hexapawn](h/hexapawn/silver.md): plausible, about 260 lines; uses standard input
+1250. [Mill game](m/mill-game/silver.md): plausible, about 260 lines; uses standard input
+1251. [Rational calculator](r/rational-calculator/silver.md): plausible, about 260 lines; uses standard input
+1252. [Compiler/AST interpreter](c/compiler/ast-interpreter/silver.md): plausible, about 350 lines; uses standard input
+1253. [Compiler/code generator](c/compiler/code-generator/silver.md): plausible, about 450 lines; uses standard input
+1254. [Uno (card game)](u/uno-card-game/silver.md): plausible, about 450 lines; uses standard input
+1255. [Compiler/syntax analyzer](c/compiler/syntax-analyzer/silver.md): plausible, about 480 lines; uses standard input
 
-## Stage 22
+## Stage 21
 
 Adds modular types.
 
@@ -1524,65 +1511,65 @@ Admission questions:
 
 The assessments flag overflow in 45, index in 38, range in 34 and termination in 18 of its 57 samples. 22 of 57 are only plausible.
 
-1263. [Two's complement](t/twos-complement/silver.md): likely, about 14 lines
-1264. [Modular arithmetic](m/modular-arithmetic/silver.md): likely, about 16 lines
-1265. [Linear congruential generator](l/linear-congruential-generator/silver.md): likely, about 25 lines
-1266. [Bitwise operations](b/bitwise-operations/silver.md): likely, about 28 lines
-1267. [CRC-32](c/crc-32/silver.md): likely, about 35 lines
-1268. [Memory layout of a data structure](m/memory-layout-of-a-data-structure/silver.md): likely, about 40 lines
-1269. [Elementary cellular automaton/Random number generator](e/elementary-cellular-automaton/random-number-generator/silver.md): likely, about 45 lines
-1270. [Gosper's hack](g/gospers-hack/silver.md): likely, about 45 lines
-1271. [Gray code](g/gray-code/silver.md): likely, about 45 lines
-1272. [Pick random element](p/pick-random-element/silver.md): likely, about 45 lines
-1273. [Pseudo-random numbers/Xorshift star](p/pseudo-random-numbers/xorshift-star/silver.md): likely, about 50 lines
-1274. [RPG attributes generator](r/rpg-attributes-generator/silver.md): likely, about 50 lines
-1275. [Constrained random points on a circle](c/constrained-random-points-on-a-circle/silver.md): likely, about 55 lines
-1276. [Pseudo-random numbers/Splitmix64](p/pseudo-random-numbers/splitmix64/silver.md): likely, about 55 lines
-1277. [Sattolo cycle](s/sattolo-cycle/silver.md): likely, about 55 lines
-1278. [Main step of GOST 28147-89](m/main-step-of-gost-28147-89/silver.md): likely, about 60 lines
-1279. [Passphrase generator](p/passphrase-generator/silver.md): likely, about 60 lines; uses arguments
-1280. [Knuth's algorithm S](k/knuths-algorithm-s/silver.md): likely, about 70 lines
-1281. [OpenWebNet password](o/openwebnet-password/silver.md): likely, about 70 lines
-1282. [Monty Hall problem](m/monty-hall-problem/silver.md): likely, about 90 lines
-1283. [Pig the dice game](p/pig-the-dice-game/silver.md): likely, about 90 lines
-1284. [SHA-1](s/sha-1/silver.md): likely, about 90 lines
-1285. [Simulated optics experiment/Simulator](s/simulated-optics-experiment/simulator/silver.md): likely, about 90 lines
-1286. [Percolation/Site percolation](p/percolation/site-percolation/silver.md): likely, about 95 lines
-1287. [Hashtron inference](h/hashtron-inference/silver.md): likely, about 110 lines
-1288. [UTF-8 encode and decode](u/utf-8-encode-and-decode/silver.md): likely, about 110 lines
-1289. [MD4](m/md4/silver.md): likely, about 120 lines
-1290. [Binary coded decimal](b/binary-coded-decimal/silver.md): likely, about 130 lines
-1291. [Parallel brute force](p/parallel-brute-force/silver.md): likely, about 130 lines
-1292. [SHA-256](s/sha-256/silver.md): likely, about 130 lines
-1293. [Bitcoin/address validation](b/bitcoin/address-validation/silver.md): likely, about 160 lines; uses arguments
-1294. [RIPEMD-160](r/ripemd-160/silver.md): likely, about 170 lines
-1295. [Snake](s/snake/silver.md): likely, about 170 lines; uses standard input
-1296. [The ISAAC cipher](t/the-isaac-cipher/silver.md): likely, about 170 lines
-1297. [Bitcoin/public point to address](b/bitcoin/public-point-to-address/silver.md): likely, about 260 lines
-1298. [One of n lines in a file](o/one-of-n-lines-in-a-file/silver.md): plausible, about 45 lines
-1299. [Stair-climbing puzzle](s/stair-climbing-puzzle/silver.md): plausible, about 55 lines
-1300. [Unbias a random generator](u/unbias-a-random-generator/silver.md): plausible, about 60 lines
-1301. [Barnsley fern](b/barnsley-fern/silver.md): plausible, about 70 lines
-1302. [Long stairs](l/long-stairs/silver.md): plausible, about 90 lines
-1303. [Endless maze](e/endless-maze/silver.md): plausible, about 95 lines; uses standard input
-1304. [Nimber arithmetic](n/nimber-arithmetic/silver.md): plausible, about 110 lines
-1305. [Particle fountain](p/particle-fountain/silver.md): plausible, about 110 lines
-1306. [Statistics/Normal distribution](s/statistics/normal-distribution/silver.md): plausible, about 110 lines
-1307. [Evolutionary algorithm](e/evolutionary-algorithm/silver.md): plausible, about 120 lines
-1308. [Execute SNUSP](e/execute-snusp/silver.md): plausible, about 130 lines
-1309. [Find first and last set bit of a long integer](f/find-first-and-last-set-bit-of-a-long-integer/silver.md): plausible, about 130 lines
-1310. [Permutations/Derangements](p/permutations/derangements/silver.md): plausible, about 130 lines
-1311. [MD5](m/md5/silver.md): plausible, about 150 lines
-1312. [Selection bias in clinical sciences](s/selection-bias-in-clinical-sciences/silver.md): plausible, about 150 lines
-1313. [ASCII art diagram converter](a/ascii-art-diagram-converter/silver.md): plausible, about 170 lines
-1314. [Consistent overhead byte stuffing](c/consistent-overhead-byte-stuffing/silver.md): plausible, about 170 lines
-1315. [Geometric algebra](g/geometric-algebra/silver.md): plausible, about 170 lines
-1316. [Schieber-Vishkin algorithm](s/schieber-vishkin-algorithm/silver.md): plausible, about 170 lines
-1317. [MD5/Implementation](m/md5/implementation/silver.md): plausible, about 210 lines
-1318. [Simulated annealing](s/simulated-annealing/silver.md): plausible, about 230 lines
-1319. [Sokoban](s/sokoban/silver.md): plausible, about 230 lines
+1256. [Two's complement](t/twos-complement/silver.md): likely, about 14 lines
+1257. [Modular arithmetic](m/modular-arithmetic/silver.md): likely, about 16 lines
+1258. [Linear congruential generator](l/linear-congruential-generator/silver.md): likely, about 25 lines
+1259. [Bitwise operations](b/bitwise-operations/silver.md): likely, about 28 lines
+1260. [CRC-32](c/crc-32/silver.md): likely, about 35 lines
+1261. [Memory layout of a data structure](m/memory-layout-of-a-data-structure/silver.md): likely, about 40 lines
+1262. [Elementary cellular automaton/Random number generator](e/elementary-cellular-automaton/random-number-generator/silver.md): likely, about 45 lines
+1263. [Gosper's hack](g/gospers-hack/silver.md): likely, about 45 lines
+1264. [Gray code](g/gray-code/silver.md): likely, about 45 lines
+1265. [Pick random element](p/pick-random-element/silver.md): likely, about 45 lines
+1266. [Pseudo-random numbers/Xorshift star](p/pseudo-random-numbers/xorshift-star/silver.md): likely, about 50 lines
+1267. [RPG attributes generator](r/rpg-attributes-generator/silver.md): likely, about 50 lines
+1268. [Constrained random points on a circle](c/constrained-random-points-on-a-circle/silver.md): likely, about 55 lines
+1269. [Pseudo-random numbers/Splitmix64](p/pseudo-random-numbers/splitmix64/silver.md): likely, about 55 lines
+1270. [Sattolo cycle](s/sattolo-cycle/silver.md): likely, about 55 lines
+1271. [Main step of GOST 28147-89](m/main-step-of-gost-28147-89/silver.md): likely, about 60 lines
+1272. [Passphrase generator](p/passphrase-generator/silver.md): likely, about 60 lines; uses arguments
+1273. [Knuth's algorithm S](k/knuths-algorithm-s/silver.md): likely, about 70 lines
+1274. [OpenWebNet password](o/openwebnet-password/silver.md): likely, about 70 lines
+1275. [Monty Hall problem](m/monty-hall-problem/silver.md): likely, about 90 lines
+1276. [Pig the dice game](p/pig-the-dice-game/silver.md): likely, about 90 lines
+1277. [SHA-1](s/sha-1/silver.md): likely, about 90 lines
+1278. [Simulated optics experiment/Simulator](s/simulated-optics-experiment/simulator/silver.md): likely, about 90 lines
+1279. [Percolation/Site percolation](p/percolation/site-percolation/silver.md): likely, about 95 lines
+1280. [Hashtron inference](h/hashtron-inference/silver.md): likely, about 110 lines
+1281. [UTF-8 encode and decode](u/utf-8-encode-and-decode/silver.md): likely, about 110 lines
+1282. [MD4](m/md4/silver.md): likely, about 120 lines
+1283. [Binary coded decimal](b/binary-coded-decimal/silver.md): likely, about 130 lines
+1284. [Parallel brute force](p/parallel-brute-force/silver.md): likely, about 130 lines
+1285. [SHA-256](s/sha-256/silver.md): likely, about 130 lines
+1286. [Bitcoin/address validation](b/bitcoin/address-validation/silver.md): likely, about 160 lines; uses arguments
+1287. [RIPEMD-160](r/ripemd-160/silver.md): likely, about 170 lines
+1288. [Snake](s/snake/silver.md): likely, about 170 lines; uses standard input
+1289. [The ISAAC cipher](t/the-isaac-cipher/silver.md): likely, about 170 lines
+1290. [Bitcoin/public point to address](b/bitcoin/public-point-to-address/silver.md): likely, about 260 lines
+1291. [One of n lines in a file](o/one-of-n-lines-in-a-file/silver.md): plausible, about 45 lines
+1292. [Stair-climbing puzzle](s/stair-climbing-puzzle/silver.md): plausible, about 55 lines
+1293. [Unbias a random generator](u/unbias-a-random-generator/silver.md): plausible, about 60 lines
+1294. [Barnsley fern](b/barnsley-fern/silver.md): plausible, about 70 lines
+1295. [Long stairs](l/long-stairs/silver.md): plausible, about 90 lines
+1296. [Endless maze](e/endless-maze/silver.md): plausible, about 95 lines; uses standard input
+1297. [Nimber arithmetic](n/nimber-arithmetic/silver.md): plausible, about 110 lines
+1298. [Particle fountain](p/particle-fountain/silver.md): plausible, about 110 lines
+1299. [Statistics/Normal distribution](s/statistics/normal-distribution/silver.md): plausible, about 110 lines
+1300. [Evolutionary algorithm](e/evolutionary-algorithm/silver.md): plausible, about 120 lines
+1301. [Execute SNUSP](e/execute-snusp/silver.md): plausible, about 130 lines
+1302. [Find first and last set bit of a long integer](f/find-first-and-last-set-bit-of-a-long-integer/silver.md): plausible, about 130 lines
+1303. [Permutations/Derangements](p/permutations/derangements/silver.md): plausible, about 130 lines
+1304. [MD5](m/md5/silver.md): plausible, about 150 lines
+1305. [Selection bias in clinical sciences](s/selection-bias-in-clinical-sciences/silver.md): plausible, about 150 lines
+1306. [ASCII art diagram converter](a/ascii-art-diagram-converter/silver.md): plausible, about 170 lines
+1307. [Consistent overhead byte stuffing](c/consistent-overhead-byte-stuffing/silver.md): plausible, about 170 lines
+1308. [Geometric algebra](g/geometric-algebra/silver.md): plausible, about 170 lines
+1309. [Schieber-Vishkin algorithm](s/schieber-vishkin-algorithm/silver.md): plausible, about 170 lines
+1310. [MD5/Implementation](m/md5/implementation/silver.md): plausible, about 210 lines
+1311. [Simulated annealing](s/simulated-annealing/silver.md): plausible, about 230 lines
+1312. [Sokoban](s/sokoban/silver.md): plausible, about 230 lines
 
-## Stage 23
+## Stage 22
 
 Adds file input.
 
@@ -1596,32 +1583,32 @@ Failure paths to test, with the samples that use the input:
 
 The assessments flag index in 22, length in 19, overflow in 17 and termination in 16 of its 24 samples. 14 of 24 are only plausible; this stage needs the most restrictive admitted forms.
 
-1320. [Find words which contains more than 3 e vowels](f/find-words-which-contains-more-than-3-e-vowels/silver.md): likely, about 45 lines; uses files
-1321. [Find words whose first and last three letters are equal](f/find-words-whose-first-and-last-three-letters-are-equal/silver.md): likely, about 45 lines; uses files
-1322. [Find words with alternating vowels and consonants](f/find-words-with-alternating-vowels-and-consonants/silver.md): likely, about 45 lines; uses files
-1323. [Words containing "the" substring](w/words-containing-the-substring/silver.md): likely, about 45 lines; uses files
-1324. [Prime words](p/prime-words/silver.md): likely, about 55 lines; uses files
-1325. [Find words which contain all the vowels](f/find-words-which-contain-all-the-vowels/silver.md): likely, about 60 lines; uses files
-1326. [Reverse the order of lines in a text file while preserving the contents of each line](r/reverse-the-order-of-lines-in-a-text-file-while-preserving-the-contents-of-each-line/silver.md): likely, about 60 lines; uses files, arguments and exit status
-1327. [Word wheel](w/word-wheel/silver.md): likely, about 70 lines; uses files
-1328. [ABC incremental counts](a/abc-incremental-counts/silver.md): likely, about 90 lines; uses files and arguments
-1329. [Function frequency](f/function-frequency/silver.md): likely, about 120 lines; uses files and arguments
-1330. [Read a file line by line](r/read-a-file-line-by-line/silver.md): plausible, about 30 lines; uses files
-1331. [Ordered words](o/ordered-words/silver.md): plausible, about 70 lines; uses files
-1332. [Kernighans large earthquake problem](k/kernighans-large-earthquake-problem/silver.md): plausible, about 80 lines; uses files
-1333. [Read a file character by character/UTF8](r/read-a-file-character-by-character/utf8/silver.md): plausible, about 90 lines; uses files
-1334. [Words from neighbour ones](w/words-from-neighbour-ones/silver.md): plausible, about 90 lines; uses files
-1335. [Wireworld](w/wireworld/silver.md): plausible, about 110 lines; uses files and arguments
-1336. [Anagram generator](a/anagram-generator/silver.md): plausible, about 170 lines; uses files
-1337. [Compiler/Verifying syntax](c/compiler/verifying-syntax/silver.md): plausible, about 170 lines; uses files and arguments
-1338. [Execute CopyPasta Language](e/execute-copypasta-language/silver.md): plausible, about 170 lines; uses files and arguments
-1339. [Hex words](h/hex-words/silver.md): plausible, about 170 lines; uses files
-1340. [Word ladder](w/word-ladder/silver.md): plausible, about 170 lines; uses files
-1341. [OCR of text in image](o/ocr-of-text-in-image/silver.md): plausible, about 220 lines; uses files
-1342. [SHA-256 Merkle tree](s/sha-256-merkle-tree/silver.md): plausible, about 230 lines; uses files and arguments
-1343. [Distance and Bearing](d/distance-and-bearing/silver.md): plausible, about 260 lines; uses files
+1313. [Find words which contains more than 3 e vowels](f/find-words-which-contains-more-than-3-e-vowels/silver.md): likely, about 45 lines; uses files
+1314. [Find words whose first and last three letters are equal](f/find-words-whose-first-and-last-three-letters-are-equal/silver.md): likely, about 45 lines; uses files
+1315. [Find words with alternating vowels and consonants](f/find-words-with-alternating-vowels-and-consonants/silver.md): likely, about 45 lines; uses files
+1316. [Words containing "the" substring](w/words-containing-the-substring/silver.md): likely, about 45 lines; uses files
+1317. [Prime words](p/prime-words/silver.md): likely, about 55 lines; uses files
+1318. [Find words which contain all the vowels](f/find-words-which-contain-all-the-vowels/silver.md): likely, about 60 lines; uses files
+1319. [Reverse the order of lines in a text file while preserving the contents of each line](r/reverse-the-order-of-lines-in-a-text-file-while-preserving-the-contents-of-each-line/silver.md): likely, about 60 lines; uses files, arguments and exit status
+1320. [Word wheel](w/word-wheel/silver.md): likely, about 70 lines; uses files
+1321. [ABC incremental counts](a/abc-incremental-counts/silver.md): likely, about 90 lines; uses files and arguments
+1322. [Function frequency](f/function-frequency/silver.md): likely, about 120 lines; uses files and arguments
+1323. [Read a file line by line](r/read-a-file-line-by-line/silver.md): plausible, about 30 lines; uses files
+1324. [Ordered words](o/ordered-words/silver.md): plausible, about 70 lines; uses files
+1325. [Kernighans large earthquake problem](k/kernighans-large-earthquake-problem/silver.md): plausible, about 80 lines; uses files
+1326. [Read a file character by character/UTF8](r/read-a-file-character-by-character/utf8/silver.md): plausible, about 90 lines; uses files
+1327. [Words from neighbour ones](w/words-from-neighbour-ones/silver.md): plausible, about 90 lines; uses files
+1328. [Wireworld](w/wireworld/silver.md): plausible, about 110 lines; uses files and arguments
+1329. [Anagram generator](a/anagram-generator/silver.md): plausible, about 170 lines; uses files
+1330. [Compiler/Verifying syntax](c/compiler/verifying-syntax/silver.md): plausible, about 170 lines; uses files and arguments
+1331. [Execute CopyPasta Language](e/execute-copypasta-language/silver.md): plausible, about 170 lines; uses files and arguments
+1332. [Hex words](h/hex-words/silver.md): plausible, about 170 lines; uses files
+1333. [Word ladder](w/word-ladder/silver.md): plausible, about 170 lines; uses files
+1334. [OCR of text in image](o/ocr-of-text-in-image/silver.md): plausible, about 220 lines; uses files
+1335. [SHA-256 Merkle tree](s/sha-256-merkle-tree/silver.md): plausible, about 230 lines; uses files and arguments
+1336. [Distance and Bearing](d/distance-and-bearing/silver.md): plausible, about 260 lines; uses files
 
-## Stage 24
+## Stage 23
 
 Adds exit status.
 
@@ -1635,35 +1622,35 @@ Failure paths to test, with the samples that use the input:
 
 The assessments flag index in 22, overflow in 20, termination in 15 and length in 14 of its 27 samples. 19 of 27 are only plausible; this stage needs the most restrictive admitted forms.
 
-1344. [Program termination](p/program-termination/silver.md): likely, about 22 lines; uses arguments and exit status
-1345. [Guess the number](g/guess-the-number/silver.md): likely, about 30 lines; uses standard input and exit status
-1346. [Letter frequency](l/letter-frequency/silver.md): likely, about 45 lines; uses files and exit status
-1347. [Test a function](t/test-a-function/silver.md): likely, about 45 lines; uses exit status
-1348. [Unit testing](u/unit-testing/silver.md): likely, about 45 lines; uses exit status
-1349. [ABC words](a/abc-words/silver.md): likely, about 60 lines; uses standard input and exit status
-1350. [I before E except after C](i/i-before-e-except-after-c/silver.md): likely, about 90 lines; uses files and exit status
-1351. [FASTA format](f/fasta-format/silver.md): plausible, about 55 lines; uses standard input and exit status
-1352. [Find words which contain the most consonants](f/find-words-which-contain-the-most-consonants/silver.md): plausible, about 70 lines; uses files and exit status
-1353. [List division](l/list-division/silver.md): plausible, about 70 lines; uses exit status
-1354. [Longest string challenge](l/longest-string-challenge/silver.md): plausible, about 70 lines; uses standard input and exit status
-1355. [Twin primes](t/twin-primes/silver.md): plausible, about 70 lines; uses arguments and exit status
-1356. [Changeable words](c/changeable-words/silver.md): plausible, about 90 lines; uses files and exit status
-1357. [Input/Output for pairs of numbers](i/input/output-for-pairs-of-numbers/silver.md): plausible, about 90 lines; uses standard input and exit status
-1358. [Order by pair comparisons](o/order-by-pair-comparisons/silver.md): plausible, about 90 lines; uses standard input and exit status
-1359. [Prime groups, counting](p/prime-groups-counting/silver.md): plausible, about 90 lines; uses standard input and exit status
-1360. [Solve hanging lantern problem](s/solve-hanging-lantern-problem/silver.md): plausible, about 100 lines; uses standard input and exit status
-1361. [Text processing/Max licenses in use](t/text-processing/max-licenses-in-use/silver.md): plausible, about 100 lines; uses files, arguments and exit status
-1362. [Anagrams/Deranged anagrams](a/anagrams/deranged-anagrams/silver.md): plausible, about 110 lines; uses files and exit status
-1363. [Chronological order](c/chronological-order/silver.md): plausible, about 110 lines; uses files and exit status
-1364. [Semordnilap](s/semordnilap/silver.md): plausible, about 130 lines; uses files, arguments and exit status
-1365. [Word frequency](w/word-frequency/silver.md): plausible, about 130 lines; uses files, arguments and exit status
-1366. [Anagrams](a/anagrams/silver.md): plausible, about 170 lines; uses standard input and exit status
-1367. [Simulated optics experiment/Data analysis](s/simulated-optics-experiment/data-analysis/silver.md): plausible, about 170 lines; uses files, arguments and exit status
-1368. [Solve a Rubik's cube](s/solve-a-rubiks-cube/silver.md): plausible, about 450 lines; uses arguments and exit status
-1369. [Four sides of square](f/four-sides-of-square/silver.md): likely, about 45 lines; uses arguments
-1370. [Catalan numbers/Pascal's triangle](c/catalan-numbers/pascals-triangle/silver.md): plausible, about 35 lines
+1337. [Program termination](p/program-termination/silver.md): likely, about 22 lines; uses arguments and exit status
+1338. [Guess the number](g/guess-the-number/silver.md): likely, about 30 lines; uses standard input and exit status
+1339. [Letter frequency](l/letter-frequency/silver.md): likely, about 45 lines; uses files and exit status
+1340. [Test a function](t/test-a-function/silver.md): likely, about 45 lines; uses exit status
+1341. [Unit testing](u/unit-testing/silver.md): likely, about 45 lines; uses exit status
+1342. [ABC words](a/abc-words/silver.md): likely, about 60 lines; uses standard input and exit status
+1343. [I before E except after C](i/i-before-e-except-after-c/silver.md): likely, about 90 lines; uses files and exit status
+1344. [FASTA format](f/fasta-format/silver.md): plausible, about 55 lines; uses standard input and exit status
+1345. [Find words which contain the most consonants](f/find-words-which-contain-the-most-consonants/silver.md): plausible, about 70 lines; uses files and exit status
+1346. [List division](l/list-division/silver.md): plausible, about 70 lines; uses exit status
+1347. [Longest string challenge](l/longest-string-challenge/silver.md): plausible, about 70 lines; uses standard input and exit status
+1348. [Twin primes](t/twin-primes/silver.md): plausible, about 70 lines; uses arguments and exit status
+1349. [Changeable words](c/changeable-words/silver.md): plausible, about 90 lines; uses files and exit status
+1350. [Input/Output for pairs of numbers](i/input/output-for-pairs-of-numbers/silver.md): plausible, about 90 lines; uses standard input and exit status
+1351. [Order by pair comparisons](o/order-by-pair-comparisons/silver.md): plausible, about 90 lines; uses standard input and exit status
+1352. [Prime groups, counting](p/prime-groups-counting/silver.md): plausible, about 90 lines; uses standard input and exit status
+1353. [Solve hanging lantern problem](s/solve-hanging-lantern-problem/silver.md): plausible, about 100 lines; uses standard input and exit status
+1354. [Text processing/Max licenses in use](t/text-processing/max-licenses-in-use/silver.md): plausible, about 100 lines; uses files, arguments and exit status
+1355. [Anagrams/Deranged anagrams](a/anagrams/deranged-anagrams/silver.md): plausible, about 110 lines; uses files and exit status
+1356. [Chronological order](c/chronological-order/silver.md): plausible, about 110 lines; uses files and exit status
+1357. [Semordnilap](s/semordnilap/silver.md): plausible, about 130 lines; uses files, arguments and exit status
+1358. [Word frequency](w/word-frequency/silver.md): plausible, about 130 lines; uses files, arguments and exit status
+1359. [Anagrams](a/anagrams/silver.md): plausible, about 170 lines; uses standard input and exit status
+1360. [Simulated optics experiment/Data analysis](s/simulated-optics-experiment/data-analysis/silver.md): plausible, about 170 lines; uses files, arguments and exit status
+1361. [Solve a Rubik's cube](s/solve-a-rubiks-cube/silver.md): plausible, about 450 lines; uses arguments and exit status
+1362. [Four sides of square](f/four-sides-of-square/silver.md): likely, about 45 lines; uses arguments
+1363. [Catalan numbers/Pascal's triangle](c/catalan-numbers/pascals-triangle/silver.md): plausible, about 35 lines
 
-## Stage 25
+## Stage 24
 
 Adds big numbers.
 
@@ -1673,54 +1660,54 @@ Admission questions:
 
 The assessments flag overflow in 46, index in 44, termination in 39 and range in 37 of its 46 samples. 46 of 46 are only plausible; this stage needs the most restrictive admitted forms.
 
-1371. [One-two primes](o/one-two-primes/silver.md): plausible, about 90 lines
-1372. [Smallest numbers](s/smallest-numbers/silver.md): plausible, about 90 lines
-1373. [Smallest power of 6 whose decimal expansion contains n](s/smallest-power-of-6-whose-decimal-expansion-contains-n/silver.md): plausible, about 90 lines
-1374. [Super-d numbers](s/super-d-numbers/silver.md): plausible, about 90 lines
-1375. [Tupper's self-referential formula](t/tuppers-self-referential-formula/silver.md): plausible, about 95 lines
-1376. [Sequence: nth number with exactly n divisors](s/sequence-nth-number-with-exactly-n-divisors/silver.md): plausible, about 100 lines
-1377. [Arbitrary-precision integers (included)](a/arbitrary-precision-integers-included/silver.md): plausible, about 110 lines
-1378. [Benford's law](b/benfords-law/silver.md): plausible, about 110 lines
-1379. [Integer roots](i/integer-roots/silver.md): plausible, about 130 lines
-1380. [Square root by hand](s/square-root-by-hand/silver.md): plausible, about 130 lines
-1381. [Pi to 1 million digits](p/pi-to-1-million-digits/silver.md): plausible, about 140 lines
-1382. [Left factorials](l/left-factorials/silver.md): plausible, about 150 lines
-1383. [N-smooth numbers](n/n-smooth-numbers/silver.md): plausible, about 150 lines
-1384. [Continued fraction/Arithmetic/G(matrix ng, continued fraction n1, continued fraction n2)](c/continued-fraction/arithmetic/g-matrix-ng-continued-fraction-n1-continued-fraction-n2/silver.md): plausible, about 170 lines
-1385. [Fermat numbers](f/fermat-numbers/silver.md): plausible, about 170 lines
-1386. [Metallic ratios](m/metallic-ratios/silver.md): plausible, about 170 lines
-1387. [Paraffins](p/paraffins/silver.md): plausible, about 170 lines; uses arguments
-1388. [Pell's equation](p/pells-equation/silver.md): plausible, about 170 lines
-1389. [Prime decomposition](p/prime-decomposition/silver.md): plausible, about 170 lines
-1390. [Primorial numbers](p/primorial-numbers/silver.md): plausible, about 170 lines
-1391. [Ramanujan's constant](r/ramanujans-constant/silver.md): plausible, about 170 lines
-1392. [Zigzag numbers](z/zigzag-numbers/silver.md): plausible, about 170 lines
-1393. [9 billion names of God the integer](0-9/9-billion-names-of-god-the-integer/silver.md): plausible, about 190 lines
-1394. [Hickerson series of almost integers](h/hickerson-series-of-almost-integers/silver.md): plausible, about 190 lines
-1395. [Knuth's power tree](k/knuths-power-tree/silver.md): plausible, about 210 lines
-1396. [Quad-power prime seeds](q/quad-power-prime-seeds/silver.md): plausible, about 220 lines
-1397. [Sequence of primorial primes](s/sequence-of-primorial-primes/silver.md): plausible, about 220 lines
-1398. [Balanced ternary](b/balanced-ternary/silver.md): plausible, about 230 lines
-1399. [Check Machin-like formulas](c/check-machin-like-formulas/silver.md): plausible, about 230 lines
-1400. [Faulhaber's triangle](f/faulhabers-triangle/silver.md): plausible, about 230 lines
-1401. [RSA code](r/rsa-code/silver.md): plausible, about 230 lines
-1402. [Almkvist-Giullera formula for pi](a/almkvist-giullera-formula-for-pi/silver.md): plausible, about 260 lines
-1403. [Apéry's constant](a/aperys-constant/silver.md): plausible, about 260 lines
-1404. [Arithmetic coding/As a generalized change of radix](a/arithmetic-coding/as-a-generalized-change-of-radix/silver.md): plausible, about 260 lines
-1405. [Arithmetic-geometric mean/Calculate Pi](a/arithmetic-geometric-mean/calculate-pi/silver.md): plausible, about 260 lines
-1406. [Penta-power prime seeds](p/penta-power-prime-seeds/silver.md): plausible, about 260 lines
-1407. [Ultra useful primes](u/ultra-useful-primes/silver.md): plausible, about 260 lines
-1408. [Bernoulli numbers](b/bernoulli-numbers/silver.md): plausible, about 300 lines
-1409. [Least m such that n! + m is prime](l/least-m-such-that-n-plus-m-is-prime/silver.md): plausible, about 320 lines
-1410. [Repunit primes](r/repunit-primes/silver.md): plausible, about 320 lines
-1411. [Suffixation of decimal numbers](s/suffixation-of-decimal-numbers/silver.md): plausible, about 320 lines
-1412. [Numerical and alphabetical suffixes](n/numerical-and-alphabetical-suffixes/silver.md): plausible, about 330 lines
-1413. [Pell numbers](p/pell-numbers/silver.md): plausible, about 330 lines
-1414. [Greedy algorithm for Egyptian fractions](g/greedy-algorithm-for-egyptian-fractions/silver.md): plausible, about 420 lines
-1415. [Prime reciprocal sum](p/prime-reciprocal-sum/silver.md): plausible, about 420 lines
-1416. [Wilkinson's polynomial](w/wilkinsons-polynomial/silver.md): plausible, about 420 lines
+1364. [One-two primes](o/one-two-primes/silver.md): plausible, about 90 lines
+1365. [Smallest numbers](s/smallest-numbers/silver.md): plausible, about 90 lines
+1366. [Smallest power of 6 whose decimal expansion contains n](s/smallest-power-of-6-whose-decimal-expansion-contains-n/silver.md): plausible, about 90 lines
+1367. [Super-d numbers](s/super-d-numbers/silver.md): plausible, about 90 lines
+1368. [Tupper's self-referential formula](t/tuppers-self-referential-formula/silver.md): plausible, about 95 lines
+1369. [Sequence: nth number with exactly n divisors](s/sequence-nth-number-with-exactly-n-divisors/silver.md): plausible, about 100 lines
+1370. [Arbitrary-precision integers (included)](a/arbitrary-precision-integers-included/silver.md): plausible, about 110 lines
+1371. [Benford's law](b/benfords-law/silver.md): plausible, about 110 lines
+1372. [Integer roots](i/integer-roots/silver.md): plausible, about 130 lines
+1373. [Square root by hand](s/square-root-by-hand/silver.md): plausible, about 130 lines
+1374. [Pi to 1 million digits](p/pi-to-1-million-digits/silver.md): plausible, about 140 lines
+1375. [Left factorials](l/left-factorials/silver.md): plausible, about 150 lines
+1376. [N-smooth numbers](n/n-smooth-numbers/silver.md): plausible, about 150 lines
+1377. [Continued fraction/Arithmetic/G(matrix ng, continued fraction n1, continued fraction n2)](c/continued-fraction/arithmetic/g-matrix-ng-continued-fraction-n1-continued-fraction-n2/silver.md): plausible, about 170 lines
+1378. [Fermat numbers](f/fermat-numbers/silver.md): plausible, about 170 lines
+1379. [Metallic ratios](m/metallic-ratios/silver.md): plausible, about 170 lines
+1380. [Paraffins](p/paraffins/silver.md): plausible, about 170 lines; uses arguments
+1381. [Pell's equation](p/pells-equation/silver.md): plausible, about 170 lines
+1382. [Prime decomposition](p/prime-decomposition/silver.md): plausible, about 170 lines
+1383. [Primorial numbers](p/primorial-numbers/silver.md): plausible, about 170 lines
+1384. [Ramanujan's constant](r/ramanujans-constant/silver.md): plausible, about 170 lines
+1385. [Zigzag numbers](z/zigzag-numbers/silver.md): plausible, about 170 lines
+1386. [9 billion names of God the integer](0-9/9-billion-names-of-god-the-integer/silver.md): plausible, about 190 lines
+1387. [Hickerson series of almost integers](h/hickerson-series-of-almost-integers/silver.md): plausible, about 190 lines
+1388. [Knuth's power tree](k/knuths-power-tree/silver.md): plausible, about 210 lines
+1389. [Quad-power prime seeds](q/quad-power-prime-seeds/silver.md): plausible, about 220 lines
+1390. [Sequence of primorial primes](s/sequence-of-primorial-primes/silver.md): plausible, about 220 lines
+1391. [Balanced ternary](b/balanced-ternary/silver.md): plausible, about 230 lines
+1392. [Check Machin-like formulas](c/check-machin-like-formulas/silver.md): plausible, about 230 lines
+1393. [Faulhaber's triangle](f/faulhabers-triangle/silver.md): plausible, about 230 lines
+1394. [RSA code](r/rsa-code/silver.md): plausible, about 230 lines
+1395. [Almkvist-Giullera formula for pi](a/almkvist-giullera-formula-for-pi/silver.md): plausible, about 260 lines
+1396. [Apéry's constant](a/aperys-constant/silver.md): plausible, about 260 lines
+1397. [Arithmetic coding/As a generalized change of radix](a/arithmetic-coding/as-a-generalized-change-of-radix/silver.md): plausible, about 260 lines
+1398. [Arithmetic-geometric mean/Calculate Pi](a/arithmetic-geometric-mean/calculate-pi/silver.md): plausible, about 260 lines
+1399. [Penta-power prime seeds](p/penta-power-prime-seeds/silver.md): plausible, about 260 lines
+1400. [Ultra useful primes](u/ultra-useful-primes/silver.md): plausible, about 260 lines
+1401. [Bernoulli numbers](b/bernoulli-numbers/silver.md): plausible, about 300 lines
+1402. [Least m such that n! + m is prime](l/least-m-such-that-n-plus-m-is-prime/silver.md): plausible, about 320 lines
+1403. [Repunit primes](r/repunit-primes/silver.md): plausible, about 320 lines
+1404. [Suffixation of decimal numbers](s/suffixation-of-decimal-numbers/silver.md): plausible, about 320 lines
+1405. [Numerical and alphabetical suffixes](n/numerical-and-alphabetical-suffixes/silver.md): plausible, about 330 lines
+1406. [Pell numbers](p/pell-numbers/silver.md): plausible, about 330 lines
+1407. [Greedy algorithm for Egyptian fractions](g/greedy-algorithm-for-egyptian-fractions/silver.md): plausible, about 420 lines
+1408. [Prime reciprocal sum](p/prime-reciprocal-sum/silver.md): plausible, about 420 lines
+1409. [Wilkinson's polynomial](w/wilkinsons-polynomial/silver.md): plausible, about 420 lines
 
-## Stage 26
+## Stage 25
 
 Adds file output.
 
@@ -1734,30 +1721,30 @@ Failure paths to test, with the samples that use the input:
 
 The assessments flag index in 14, overflow in 13, range in 10 and length in 9 of its 22 samples. 9 of 22 are only plausible.
 
-1417. [Write entire file](w/write-entire-file/silver.md): likely, about 12 lines; uses files and exit status
-1418. [Secure temporary file](s/secure-temporary-file/silver.md): likely, about 25 lines; uses files and exit status
-1419. [Colour bars/Display](c/colour-bars/display/silver.md): likely, about 35 lines; uses files
-1420. [Musical scale](m/musical-scale/silver.md): likely, about 40 lines; uses files
-1421. [Pseudorandom number generator image](p/pseudorandom-number-generator-image/silver.md): likely, about 40 lines; uses files
-1422. [Greyscale bars/Display](g/greyscale-bars/display/silver.md): likely, about 45 lines; uses files
-1423. [Munching squares](m/munching-squares/silver.md): likely, about 45 lines; uses files
-1424. [Bitmap/Write a PPM file](b/bitmap/write-a-ppm-file/silver.md): likely, about 55 lines; uses files
-1425. [Fixed length records](f/fixed-length-records/silver.md): likely, about 55 lines; uses files
-1426. [Colour pinstripe/Printer](c/colour-pinstripe/printer/silver.md): likely, about 60 lines; uses files
-1427. [Sierpinski triangle/Graphical](s/sierpinski-triangle/graphical/silver.md): likely, about 70 lines; uses files and arguments
-1428. [Substitution cipher](s/substitution-cipher/silver.md): likely, about 70 lines; uses files and arguments
-1429. [Voronoi diagram](v/voronoi-diagram/silver.md): likely, about 90 lines; uses files
-1430. [Write float arrays to a text file](w/write-float-arrays-to-a-text-file/silver.md): plausible, about 45 lines; uses files and arguments
-1431. [Abelian sandpile model](a/abelian-sandpile-model/silver.md): plausible, about 85 lines; uses files
-1432. [Sunflower fractal](s/sunflower-fractal/silver.md): plausible, about 90 lines; uses files
-1433. [Append a record to the end of a text file](a/append-a-record-to-the-end-of-a-text-file/silver.md): plausible, about 110 lines; uses files
-1434. [Bitwise IO](b/bitwise-io/silver.md): plausible, about 110 lines; uses files
-1435. [Color wheel](c/color-wheel/silver.md): plausible, about 110 lines; uses files
-1436. [Bitmap/Read a PPM file](b/bitmap/read-a-ppm-file/silver.md): plausible, about 170 lines; uses files, arguments and exit status
-1437. [External sort](e/external-sort/silver.md): plausible, about 170 lines; uses files
-1438. [K-means++ clustering](k/k-means-plus-plus-clustering/silver.md): plausible, about 170 lines; uses files
+1410. [Write entire file](w/write-entire-file/silver.md): likely, about 12 lines; uses files and exit status
+1411. [Secure temporary file](s/secure-temporary-file/silver.md): likely, about 25 lines; uses files and exit status
+1412. [Colour bars/Display](c/colour-bars/display/silver.md): likely, about 35 lines; uses files
+1413. [Musical scale](m/musical-scale/silver.md): likely, about 40 lines; uses files
+1414. [Pseudorandom number generator image](p/pseudorandom-number-generator-image/silver.md): likely, about 40 lines; uses files
+1415. [Greyscale bars/Display](g/greyscale-bars/display/silver.md): likely, about 45 lines; uses files
+1416. [Munching squares](m/munching-squares/silver.md): likely, about 45 lines; uses files
+1417. [Bitmap/Write a PPM file](b/bitmap/write-a-ppm-file/silver.md): likely, about 55 lines; uses files
+1418. [Fixed length records](f/fixed-length-records/silver.md): likely, about 55 lines; uses files
+1419. [Colour pinstripe/Printer](c/colour-pinstripe/printer/silver.md): likely, about 60 lines; uses files
+1420. [Sierpinski triangle/Graphical](s/sierpinski-triangle/graphical/silver.md): likely, about 70 lines; uses files and arguments
+1421. [Substitution cipher](s/substitution-cipher/silver.md): likely, about 70 lines; uses files and arguments
+1422. [Voronoi diagram](v/voronoi-diagram/silver.md): likely, about 90 lines; uses files
+1423. [Write float arrays to a text file](w/write-float-arrays-to-a-text-file/silver.md): plausible, about 45 lines; uses files and arguments
+1424. [Abelian sandpile model](a/abelian-sandpile-model/silver.md): plausible, about 85 lines; uses files
+1425. [Sunflower fractal](s/sunflower-fractal/silver.md): plausible, about 90 lines; uses files
+1426. [Append a record to the end of a text file](a/append-a-record-to-the-end-of-a-text-file/silver.md): plausible, about 110 lines; uses files
+1427. [Bitwise IO](b/bitwise-io/silver.md): plausible, about 110 lines; uses files
+1428. [Color wheel](c/color-wheel/silver.md): plausible, about 110 lines; uses files
+1429. [Bitmap/Read a PPM file](b/bitmap/read-a-ppm-file/silver.md): plausible, about 170 lines; uses files, arguments and exit status
+1430. [External sort](e/external-sort/silver.md): plausible, about 170 lines; uses files
+1431. [K-means++ clustering](k/k-means-plus-plus-clustering/silver.md): plausible, about 170 lines; uses files
 
-## Stage 27
+## Stage 26
 
 Adds further arguments.
 
@@ -1771,32 +1758,32 @@ Failure paths to test, with the samples that use the input:
 
 The assessments flag index in 19, overflow in 16, range in 14 and termination in 10 of its 24 samples. 16 of 24 are only plausible; this stage needs the most restrictive admitted forms.
 
-1439. [Program name](p/program-name/silver.md): likely, about 8 lines; uses arguments
-1440. [Command-line arguments](c/command-line-arguments/silver.md): likely, about 12 lines; uses arguments
-1441. [Multiline shebang](m/multiline-shebang/silver.md): likely, about 16 lines; uses arguments
-1442. [Integer comparison](i/integer-comparison/silver.md): likely, about 30 lines; uses arguments
-1443. [Parse command-line arguments](p/parse-command-line-arguments/silver.md): likely, about 45 lines; uses arguments
-1444. [Variadic function](v/variadic-function/silver.md): likely, about 55 lines; uses arguments
-1445. [Hex dump](h/hex-dump/silver.md): likely, about 110 lines; uses arguments
-1446. [Playfair cipher](p/playfair-cipher/silver.md): likely, about 150 lines; uses arguments
-1447. [Arithmetic/Integer](a/arithmetic/integer/silver.md): plausible, about 60 lines; uses arguments
-1448. [Entropy/Narcissist](e/entropy/narcissist/silver.md): plausible, about 70 lines; uses files, arguments and exit status
-1449. [Selective file copy](s/selective-file-copy/silver.md): plausible, about 70 lines; uses files and arguments
-1450. [WiktionaryDumps to words](w/wiktionarydumps-to-words/silver.md): plausible, about 120 lines; uses files and arguments
-1451. [Globally replace text in several files](g/globally-replace-text-in-several-files/silver.md): plausible, about 130 lines; uses files and arguments
-1452. [Old Russian measure of length](o/old-russian-measure-of-length/silver.md): plausible, about 130 lines; uses arguments and exit status
-1453. [CSV data manipulation](c/csv-data-manipulation/silver.md): plausible, about 150 lines; uses files, arguments and exit status
-1454. [Waveform analysis/Top and tail](w/waveform-analysis/top-and-tail/silver.md): plausible, about 150 lines; uses files, arguments and exit status
-1455. [Markov chain text generator](m/markov-chain-text-generator/silver.md): plausible, about 170 lines; uses files and arguments
-1456. [Percentage difference between images](p/percentage-difference-between-images/silver.md): plausible, about 170 lines; uses files, arguments and exit status
-1457. [Lucky and even lucky numbers](l/lucky-and-even-lucky-numbers/silver.md): plausible, about 230 lines; uses arguments and exit status
-1458. [Truth table](t/truth-table/silver.md): plausible, about 230 lines; uses arguments and exit status
-1459. [Draft:GC-60 Passive Window Prime Sieve](d/draft-gc-60-passive-window-prime-sieve/silver.md): plausible, about 260 lines; uses files, arguments and exit status
-1460. [Universal Lambda Machine](u/universal-lambda-machine/silver.md): plausible, about 260 lines; uses standard input and arguments
-1461. [Compiler/Preprocessor](c/compiler/preprocessor/silver.md): plausible, about 420 lines; uses standard input, files, arguments and exit status
-1462. [Read a specific line from a file](r/read-a-specific-line-from-a-file/silver.md): plausible, about 45 lines; uses files
+1432. [Program name](p/program-name/silver.md): likely, about 8 lines; uses arguments
+1433. [Command-line arguments](c/command-line-arguments/silver.md): likely, about 12 lines; uses arguments
+1434. [Multiline shebang](m/multiline-shebang/silver.md): likely, about 16 lines; uses arguments
+1435. [Integer comparison](i/integer-comparison/silver.md): likely, about 30 lines; uses arguments
+1436. [Parse command-line arguments](p/parse-command-line-arguments/silver.md): likely, about 45 lines; uses arguments
+1437. [Variadic function](v/variadic-function/silver.md): likely, about 55 lines; uses arguments
+1438. [Hex dump](h/hex-dump/silver.md): likely, about 110 lines; uses arguments
+1439. [Playfair cipher](p/playfair-cipher/silver.md): likely, about 150 lines; uses arguments
+1440. [Arithmetic/Integer](a/arithmetic/integer/silver.md): plausible, about 60 lines; uses arguments
+1441. [Entropy/Narcissist](e/entropy/narcissist/silver.md): plausible, about 70 lines; uses files, arguments and exit status
+1442. [Selective file copy](s/selective-file-copy/silver.md): plausible, about 70 lines; uses files and arguments
+1443. [WiktionaryDumps to words](w/wiktionarydumps-to-words/silver.md): plausible, about 120 lines; uses files and arguments
+1444. [Globally replace text in several files](g/globally-replace-text-in-several-files/silver.md): plausible, about 130 lines; uses files and arguments
+1445. [Old Russian measure of length](o/old-russian-measure-of-length/silver.md): plausible, about 130 lines; uses arguments and exit status
+1446. [CSV data manipulation](c/csv-data-manipulation/silver.md): plausible, about 150 lines; uses files, arguments and exit status
+1447. [Waveform analysis/Top and tail](w/waveform-analysis/top-and-tail/silver.md): plausible, about 150 lines; uses files, arguments and exit status
+1448. [Markov chain text generator](m/markov-chain-text-generator/silver.md): plausible, about 170 lines; uses files and arguments
+1449. [Percentage difference between images](p/percentage-difference-between-images/silver.md): plausible, about 170 lines; uses files, arguments and exit status
+1450. [Lucky and even lucky numbers](l/lucky-and-even-lucky-numbers/silver.md): plausible, about 230 lines; uses arguments and exit status
+1451. [Truth table](t/truth-table/silver.md): plausible, about 230 lines; uses arguments and exit status
+1452. [Draft:GC-60 Passive Window Prime Sieve](d/draft-gc-60-passive-window-prime-sieve/silver.md): plausible, about 260 lines; uses files, arguments and exit status
+1453. [Universal Lambda Machine](u/universal-lambda-machine/silver.md): plausible, about 260 lines; uses standard input and arguments
+1454. [Compiler/Preprocessor](c/compiler/preprocessor/silver.md): plausible, about 420 lines; uses standard input, files, arguments and exit status
+1455. [Read a specific line from a file](r/read-a-specific-line-from-a-file/silver.md): plausible, about 45 lines; uses files
 
-## Stage 28
+## Stage 27
 
 Adds packages.
 
@@ -1806,23 +1793,23 @@ Admission questions:
 
 The assessments flag index in 8, termination in 8, overflow in 7 and other in 5 of its 15 samples. 7 of 15 are only plausible.
 
-1463. [Include a file](i/include-a-file/silver.md): likely, about 20 lines
-1464. [Modulinos](m/modulinos/silver.md): likely, about 20 lines
-1465. [Break OO privacy](b/break-oo-privacy/silver.md): likely, about 35 lines
-1466. [Singleton](s/singleton/silver.md): likely, about 35 lines
-1467. [Scope modifiers](s/scope-modifiers/silver.md): likely, about 60 lines
-1468. [Queue/Definition](q/queue/definition/silver.md): likely, about 70 lines
-1469. [Scope/Function names and labels](s/scope/function-names-and-labels/silver.md): likely, about 70 lines
-1470. [Execute Computer/Zero](e/execute-computer/zero/silver.md): likely, about 110 lines
-1471. [Read entire file](r/read-entire-file/silver.md): plausible, about 35 lines; uses files
-1472. [Executable library](e/executable-library/silver.md): plausible, about 110 lines
-1473. [Rotating Rubik's cube](r/rotating-rubiks-cube/silver.md): plausible, about 120 lines
-1474. [Arithmetic/Rational](a/arithmetic/rational/silver.md): plausible, about 170 lines
-1475. [Color quantization](c/color-quantization/silver.md): plausible, about 230 lines; uses files, arguments and exit status
-1476. [Chess player](c/chess-player/silver.md): plausible, about 700 lines; uses standard input
-1477. [Facial detection in a photo](f/facial-detection-in-a-photo/silver.md): plausible, about 2500 lines; uses files
+1456. [Include a file](i/include-a-file/silver.md): likely, about 20 lines
+1457. [Modulinos](m/modulinos/silver.md): likely, about 20 lines
+1458. [Break OO privacy](b/break-oo-privacy/silver.md): likely, about 35 lines
+1459. [Singleton](s/singleton/silver.md): likely, about 35 lines
+1460. [Scope modifiers](s/scope-modifiers/silver.md): likely, about 60 lines
+1461. [Queue/Definition](q/queue/definition/silver.md): likely, about 70 lines
+1462. [Scope/Function names and labels](s/scope/function-names-and-labels/silver.md): likely, about 70 lines
+1463. [Execute Computer/Zero](e/execute-computer/zero/silver.md): likely, about 110 lines
+1464. [Read entire file](r/read-entire-file/silver.md): plausible, about 35 lines; uses files
+1465. [Executable library](e/executable-library/silver.md): plausible, about 110 lines
+1466. [Rotating Rubik's cube](r/rotating-rubiks-cube/silver.md): plausible, about 120 lines
+1467. [Arithmetic/Rational](a/arithmetic/rational/silver.md): plausible, about 170 lines
+1468. [Color quantization](c/color-quantization/silver.md): plausible, about 230 lines; uses files, arguments and exit status
+1469. [Chess player](c/chess-player/silver.md): plausible, about 700 lines; uses standard input
+1470. [Facial detection in a photo](f/facial-detection-in-a-photo/silver.md): plausible, about 2500 lines; uses files
 
-## Stage 29
+## Stage 28
 
 Adds string ordering.
 
@@ -1832,32 +1819,32 @@ Admission questions:
 
 The assessments flag index in 22, length in 16, overflow in 14 and termination in 14 of its 24 samples. 16 of 24 are only plausible; this stage needs the most restrictive admitted forms.
 
-1478. [Largest five adjacent number](l/largest-five-adjacent-number/silver.md): likely, about 35 lines
-1479. [Sort an array of composite structures](s/sort-an-array-of-composite-structures/silver.md): likely, about 45 lines
-1480. [Compare a list of strings](c/compare-a-list-of-strings/silver.md): likely, about 55 lines
-1481. [Sort three variables](s/sort-three-variables/silver.md): likely, about 55 lines
-1482. [String comparison](s/string-comparison/silver.md): likely, about 65 lines
-1483. [Merge and aggregate datasets](m/merge-and-aggregate-datasets/silver.md): likely, about 90 lines
-1484. [Optional parameters](o/optional-parameters/silver.md): likely, about 90 lines
-1485. [Stream merge](s/stream-merge/silver.md): likely, about 110 lines; uses files, arguments and exit status
-1486. [Alternade words](a/alternade-words/silver.md): plausible, about 110 lines; uses files
-1487. [Change e letters to i in words](c/change-e-letters-to-i-in-words/silver.md): plausible, about 110 lines; uses files, arguments and exit status
-1488. [Multisplit](m/multisplit/silver.md): plausible, about 110 lines
-1489. [Textonyms](t/textonyms/silver.md): plausible, about 110 lines
-1490. [Anadromes](a/anadromes/silver.md): plausible, about 120 lines; uses files and arguments
-1491. [Compiler/Simple file inclusion pre processor](c/compiler/simple-file-inclusion-pre-processor/silver.md): plausible, about 130 lines; uses files, arguments and exit status
-1492. [Isograms and heterograms](i/isograms-and-heterograms/silver.md): plausible, about 130 lines; uses files and exit status
-1493. [Odd words](o/odd-words/silver.md): plausible, about 130 lines; uses files
-1494. [Teacup rim text](t/teacup-rim-text/silver.md): plausible, about 130 lines; uses files and arguments
-1495. [Inverted index](i/inverted-index/silver.md): plausible, about 170 lines; uses standard input and files
-1496. [Natural sorting](n/natural-sorting/silver.md): plausible, about 170 lines
-1497. [User defined pipe and redirection operators](u/user-defined-pipe-and-redirection-operators/silver.md): plausible, about 190 lines; uses files
-1498. [Random sentence from book](r/random-sentence-from-book/silver.md): plausible, about 260 lines; uses files
-1499. [Simple database](s/simple-database/silver.md): plausible, about 260 lines; uses files, arguments and exit status
-1500. [Sort an outline at every level](s/sort-an-outline-at-every-level/silver.md): plausible, about 260 lines
-1501. [Autogram checker](a/autogram-checker/silver.md): plausible, about 320 lines
+1471. [Largest five adjacent number](l/largest-five-adjacent-number/silver.md): likely, about 35 lines
+1472. [Sort an array of composite structures](s/sort-an-array-of-composite-structures/silver.md): likely, about 45 lines
+1473. [Compare a list of strings](c/compare-a-list-of-strings/silver.md): likely, about 55 lines
+1474. [Sort three variables](s/sort-three-variables/silver.md): likely, about 55 lines
+1475. [String comparison](s/string-comparison/silver.md): likely, about 65 lines
+1476. [Merge and aggregate datasets](m/merge-and-aggregate-datasets/silver.md): likely, about 90 lines
+1477. [Optional parameters](o/optional-parameters/silver.md): likely, about 90 lines
+1478. [Stream merge](s/stream-merge/silver.md): likely, about 110 lines; uses files, arguments and exit status
+1479. [Alternade words](a/alternade-words/silver.md): plausible, about 110 lines; uses files
+1480. [Change e letters to i in words](c/change-e-letters-to-i-in-words/silver.md): plausible, about 110 lines; uses files, arguments and exit status
+1481. [Multisplit](m/multisplit/silver.md): plausible, about 110 lines
+1482. [Textonyms](t/textonyms/silver.md): plausible, about 110 lines
+1483. [Anadromes](a/anadromes/silver.md): plausible, about 120 lines; uses files and arguments
+1484. [Compiler/Simple file inclusion pre processor](c/compiler/simple-file-inclusion-pre-processor/silver.md): plausible, about 130 lines; uses files, arguments and exit status
+1485. [Isograms and heterograms](i/isograms-and-heterograms/silver.md): plausible, about 130 lines; uses files and exit status
+1486. [Odd words](o/odd-words/silver.md): plausible, about 130 lines; uses files
+1487. [Teacup rim text](t/teacup-rim-text/silver.md): plausible, about 130 lines; uses files and arguments
+1488. [Inverted index](i/inverted-index/silver.md): plausible, about 170 lines; uses standard input and files
+1489. [Natural sorting](n/natural-sorting/silver.md): plausible, about 170 lines
+1490. [User defined pipe and redirection operators](u/user-defined-pipe-and-redirection-operators/silver.md): plausible, about 190 lines; uses files
+1491. [Random sentence from book](r/random-sentence-from-book/silver.md): plausible, about 260 lines; uses files
+1492. [Simple database](s/simple-database/silver.md): plausible, about 260 lines; uses files, arguments and exit status
+1493. [Sort an outline at every level](s/sort-an-outline-at-every-level/silver.md): plausible, about 260 lines
+1494. [Autogram checker](a/autogram-checker/silver.md): plausible, about 320 lines
 
-## Stage 30
+## Stage 29
 
 Adds exponentiation.
 
@@ -1867,27 +1854,27 @@ Admission questions:
 
 The assessments flag overflow in 16, range in 12, index in 8 and division in 5 of its 19 samples. 9 of 19 are only plausible.
 
-1502. [Zero to the zero power](z/zero-to-the-zero-power/silver.md): likely, about 12 lines
-1503. [Exponentiation order](e/exponentiation-order/silver.md): likely, about 14 lines
-1504. [Cullen and Woodall numbers](c/cullen-and-woodall-numbers/silver.md): likely, about 22 lines
-1505. [Mersenne primes](m/mersenne-primes/silver.md): likely, about 30 lines
-1506. [Exponentiation with infix operators in (or operating on) the base](e/exponentiation-with-infix-operators-in-or-operating-on-the-base/silver.md): likely, about 40 lines
-1507. [Distinct power numbers](d/distinct-power-numbers/silver.md): likely, about 45 lines
-1508. [Magic constant](m/magic-constant/silver.md): likely, about 45 lines
-1509. [Self-describing numbers](s/self-describing-numbers/silver.md): likely, about 45 lines
-1510. [Variable-length quantity](v/variable-length-quantity/silver.md): likely, about 70 lines
-1511. [Pseudo-random numbers/PCG32](p/pseudo-random-numbers/pcg32/silver.md): likely, about 80 lines
-1512. [Own digits power sum](o/own-digits-power-sum/silver.md): plausible, about 45 lines
-1513. [Feigenbaum constant calculation](f/feigenbaum-constant-calculation/silver.md): plausible, about 55 lines
-1514. [First power of 2 that has leading decimal digits of 12](f/first-power-of-2-that-has-leading-decimal-digits-of-12/silver.md): plausible, about 70 lines
-1515. [Numerical integration/Tanh-Sinh Quadrature](n/numerical-integration/tanh-sinh-quadrature/silver.md): plausible, about 80 lines
-1516. [Posit numbers/decoding](p/posit-numbers/decoding/silver.md): plausible, about 80 lines
-1517. [Pollard's rho algorithm](p/pollards-rho-algorithm/silver.md): plausible, about 90 lines
-1518. [Numeric error propagation](n/numeric-error-propagation/silver.md): plausible, about 110 lines
-1519. [Particle swarm optimization](p/particle-swarm-optimization/silver.md): plausible, about 170 lines
-1520. [Unicode polynomial equation](u/unicode-polynomial-equation/silver.md): plausible, about 650 lines
+1495. [Zero to the zero power](z/zero-to-the-zero-power/silver.md): likely, about 12 lines
+1496. [Exponentiation order](e/exponentiation-order/silver.md): likely, about 14 lines
+1497. [Cullen and Woodall numbers](c/cullen-and-woodall-numbers/silver.md): likely, about 22 lines
+1498. [Mersenne primes](m/mersenne-primes/silver.md): likely, about 30 lines
+1499. [Exponentiation with infix operators in (or operating on) the base](e/exponentiation-with-infix-operators-in-or-operating-on-the-base/silver.md): likely, about 40 lines
+1500. [Distinct power numbers](d/distinct-power-numbers/silver.md): likely, about 45 lines
+1501. [Magic constant](m/magic-constant/silver.md): likely, about 45 lines
+1502. [Self-describing numbers](s/self-describing-numbers/silver.md): likely, about 45 lines
+1503. [Variable-length quantity](v/variable-length-quantity/silver.md): likely, about 70 lines
+1504. [Pseudo-random numbers/PCG32](p/pseudo-random-numbers/pcg32/silver.md): likely, about 80 lines
+1505. [Own digits power sum](o/own-digits-power-sum/silver.md): plausible, about 45 lines
+1506. [Feigenbaum constant calculation](f/feigenbaum-constant-calculation/silver.md): plausible, about 55 lines
+1507. [First power of 2 that has leading decimal digits of 12](f/first-power-of-2-that-has-leading-decimal-digits-of-12/silver.md): plausible, about 70 lines
+1508. [Numerical integration/Tanh-Sinh Quadrature](n/numerical-integration/tanh-sinh-quadrature/silver.md): plausible, about 80 lines
+1509. [Posit numbers/decoding](p/posit-numbers/decoding/silver.md): plausible, about 80 lines
+1510. [Pollard's rho algorithm](p/pollards-rho-algorithm/silver.md): plausible, about 90 lines
+1511. [Numeric error propagation](n/numeric-error-propagation/silver.md): plausible, about 110 lines
+1512. [Particle swarm optimization](p/particle-swarm-optimization/silver.md): plausible, about 170 lines
+1513. [Unicode polynomial equation](u/unicode-polynomial-equation/silver.md): plausible, about 650 lines
 
-## Stage 31
+## Stage 30
 
 Adds generics.
 
@@ -1897,18 +1884,18 @@ Admission questions:
 
 The assessments flag overflow in 7, index in 4, range in 3 and initialization in 2 of its 10 samples. 2 of 10 are only plausible.
 
-1521. [Repeat](r/repeat/silver.md): likely, about 22 lines
-1522. [Higher-order functions](h/higher-order-functions/silver.md): likely, about 25 lines
-1523. [Function composition](f/function-composition/silver.md): likely, about 35 lines
-1524. [Generic swap](g/generic-swap/silver.md): likely, about 35 lines
-1525. [Currying](c/currying/silver.md): likely, about 45 lines
-1526. [Parametric polymorphism](p/parametric-polymorphism/silver.md): likely, about 45 lines
-1527. [Partial function application](p/partial-function-application/silver.md): likely, about 45 lines
-1528. [Constrained genericity](c/constrained-genericity/silver.md): likely, about 55 lines
-1529. [Generalised floating point addition](g/generalised-floating-point-addition/silver.md): plausible, about 170 lines
-1530. [Generalised floating point multiplication](g/generalised-floating-point-multiplication/silver.md): plausible, about 380 lines
+1514. [Repeat](r/repeat/silver.md): likely, about 22 lines
+1515. [Higher-order functions](h/higher-order-functions/silver.md): likely, about 25 lines
+1516. [Function composition](f/function-composition/silver.md): likely, about 35 lines
+1517. [Generic swap](g/generic-swap/silver.md): likely, about 35 lines
+1518. [Currying](c/currying/silver.md): likely, about 45 lines
+1519. [Parametric polymorphism](p/parametric-polymorphism/silver.md): likely, about 45 lines
+1520. [Partial function application](p/partial-function-application/silver.md): likely, about 45 lines
+1521. [Constrained genericity](c/constrained-genericity/silver.md): likely, about 55 lines
+1522. [Generalised floating point addition](g/generalised-floating-point-addition/silver.md): plausible, about 170 lines
+1523. [Generalised floating point multiplication](g/generalised-floating-point-multiplication/silver.md): plausible, about 380 lines
 
-## Stage 32
+## Stage 31
 
 Adds block statements.
 
@@ -1918,20 +1905,20 @@ Admission questions:
 
 The assessments flag overflow in 8, index in 5, range in 4 and termination in 3 of its 12 samples. 4 of 12 are only plausible.
 
-1531. [Sort the letters of string in alphabetical order](s/sort-the-letters-of-string-in-alphabetical-order/silver.md): likely, about 22 lines
-1532. [Piprimes](p/piprimes/silver.md): likely, about 28 lines
-1533. [Loops/Nested](l/loops/nested/silver.md): likely, about 35 lines
-1534. [Variables](v/variables/silver.md): likely, about 45 lines
-1535. [Create a two-dimensional array at runtime](c/create-a-two-dimensional-array-at-runtime/silver.md): likely, about 55 lines; uses arguments and exit status
-1536. [ABC problem](a/abc-problem/silver.md): likely, about 60 lines
-1537. [Monte Carlo methods](m/monte-carlo-methods/silver.md): likely, about 70 lines
-1538. [Sorting algorithms/Cycle sort](s/sorting-algorithms/cycle-sort/silver.md): likely, about 70 lines
-1539. [First-class functions/Use numbers analogously](f/first-class-functions/use-numbers-analogously/silver.md): plausible, about 32 lines
-1540. [Bitmap/Midpoint circle algorithm](b/bitmap/midpoint-circle-algorithm/silver.md): plausible, about 70 lines
-1541. [Discrete Fourier transform](d/discrete-fourier-transform/silver.md): plausible, about 110 lines
-1542. [Addition chains](a/addition-chains/silver.md): plausible, about 120 lines
+1524. [Sort the letters of string in alphabetical order](s/sort-the-letters-of-string-in-alphabetical-order/silver.md): likely, about 22 lines
+1525. [Piprimes](p/piprimes/silver.md): likely, about 28 lines
+1526. [Loops/Nested](l/loops/nested/silver.md): likely, about 35 lines
+1527. [Variables](v/variables/silver.md): likely, about 45 lines
+1528. [Create a two-dimensional array at runtime](c/create-a-two-dimensional-array-at-runtime/silver.md): likely, about 55 lines; uses arguments and exit status
+1529. [ABC problem](a/abc-problem/silver.md): likely, about 60 lines
+1530. [Monte Carlo methods](m/monte-carlo-methods/silver.md): likely, about 70 lines
+1531. [Sorting algorithms/Cycle sort](s/sorting-algorithms/cycle-sort/silver.md): likely, about 70 lines
+1532. [First-class functions/Use numbers analogously](f/first-class-functions/use-numbers-analogously/silver.md): plausible, about 32 lines
+1533. [Bitmap/Midpoint circle algorithm](b/bitmap/midpoint-circle-algorithm/silver.md): plausible, about 70 lines
+1534. [Discrete Fourier transform](d/discrete-fourier-transform/silver.md): plausible, about 110 lines
+1535. [Addition chains](a/addition-chains/silver.md): plausible, about 120 lines
 
-## Stage 33
+## Stage 32
 
 Adds membership tests.
 
@@ -1941,20 +1928,20 @@ Admission questions:
 
 The assessments flag index in 10, overflow in 9, termination in 6 and range in 5 of its 12 samples. 7 of 12 are only plausible; this stage needs the most restrictive admitted forms.
 
-1543. [Day of the week](d/day-of-the-week/silver.md): likely, about 22 lines
-1544. [Exactly three adjacent 3 in lists](e/exactly-three-adjacent-3-in-lists/silver.md): likely, about 45 lines
-1545. [Idoneal numbers](i/idoneal-numbers/silver.md): likely, about 45 lines
-1546. [Extract file extension](e/extract-file-extension/silver.md): likely, about 70 lines
-1547. [Brilliant numbers](b/brilliant-numbers/silver.md): likely, about 90 lines
-1548. [Sierpinski square curve](s/sierpinski-square-curve/silver.md): plausible, about 90 lines
-1549. [Aho–Corasick algorithm](a/aho-corasick-algorithm/silver.md): plausible, about 130 lines
-1550. [Deconvolution/2D+](d/deconvolution/2d-plus/silver.md): plausible, about 130 lines
-1551. [Bron–Kerbosch algorithm](b/bron-kerbosch-algorithm/silver.md): plausible, about 150 lines
-1552. [Bulls and cows/Player](b/bulls-and-cows/player/silver.md): plausible, about 170 lines; uses standard input and exit status
-1553. [Stable marriage problem](s/stable-marriage-problem/silver.md): plausible, about 170 lines
-1554. [2048](0-9/2048/silver.md): plausible, about 230 lines; uses standard input
+1536. [Day of the week](d/day-of-the-week/silver.md): likely, about 22 lines
+1537. [Exactly three adjacent 3 in lists](e/exactly-three-adjacent-3-in-lists/silver.md): likely, about 45 lines
+1538. [Idoneal numbers](i/idoneal-numbers/silver.md): likely, about 45 lines
+1539. [Extract file extension](e/extract-file-extension/silver.md): likely, about 70 lines
+1540. [Brilliant numbers](b/brilliant-numbers/silver.md): likely, about 90 lines
+1541. [Sierpinski square curve](s/sierpinski-square-curve/silver.md): plausible, about 90 lines
+1542. [Aho–Corasick algorithm](a/aho-corasick-algorithm/silver.md): plausible, about 130 lines
+1543. [Deconvolution/2D+](d/deconvolution/2d-plus/silver.md): plausible, about 130 lines
+1544. [Bron–Kerbosch algorithm](b/bron-kerbosch-algorithm/silver.md): plausible, about 150 lines
+1545. [Bulls and cows/Player](b/bulls-and-cows/player/silver.md): plausible, about 170 lines; uses standard input and exit status
+1546. [Stable marriage problem](s/stable-marriage-problem/silver.md): plausible, about 170 lines
+1547. [2048](0-9/2048/silver.md): plausible, about 230 lines; uses standard input
 
-## Stage 34
+## Stage 33
 
 Adds tagged types.
 
@@ -1964,15 +1951,15 @@ Admission questions:
 
 The assessments flag other in 2 and range in 1 of its 7 samples.
 
-1555. [Inheritance/Single](i/inheritance/single/silver.md): likely, about 10 lines
-1556. [Inheritance/Multiple](i/inheritance/multiple/silver.md): likely, about 12 lines
-1557. [Call an object method](c/call-an-object-method/silver.md): likely, about 25 lines
-1558. [Abstract type](a/abstract-type/silver.md): likely, about 45 lines
-1559. [Polymorphic copy](p/polymorphic-copy/silver.md): likely, about 45 lines
-1560. [Polymorphism](p/polymorphism/silver.md): likely, about 110 lines
-1561. [Object serialization](o/object-serialization/silver.md): likely, about 130 lines; uses files
+1548. [Inheritance/Single](i/inheritance/single/silver.md): likely, about 10 lines
+1549. [Inheritance/Multiple](i/inheritance/multiple/silver.md): likely, about 12 lines
+1550. [Call an object method](c/call-an-object-method/silver.md): likely, about 25 lines
+1551. [Abstract type](a/abstract-type/silver.md): likely, about 45 lines
+1552. [Polymorphic copy](p/polymorphic-copy/silver.md): likely, about 45 lines
+1553. [Polymorphism](p/polymorphism/silver.md): likely, about 110 lines
+1554. [Object serialization](o/object-serialization/silver.md): likely, about 130 lines; uses files
 
-## Stage 35
+## Stage 34
 
 Adds recursive procedures.
 
@@ -1982,13 +1969,13 @@ Admission questions:
 
 The assessments flag range in 5, stack in 5, initialization in 3 and termination in 3 of its 5 samples. 3 of 5 are only plausible; this stage needs the most restrictive admitted forms.
 
-1562. [Towers of Hanoi](t/towers-of-hanoi/silver.md): likely, about 22 lines
-1563. [Anonymous recursion](a/anonymous-recursion/silver.md): likely, about 45 lines
-1564. [Mutual recursion](m/mutual-recursion/silver.md): plausible, about 55 lines
-1565. [Odd word problem](o/odd-word-problem/silver.md): plausible, about 70 lines; uses standard input and exit status
-1566. [Recursive descent parser generator](r/recursive-descent-parser-generator/silver.md): plausible, about 420 lines; uses files
+1555. [Towers of Hanoi](t/towers-of-hanoi/silver.md): likely, about 22 lines
+1556. [Anonymous recursion](a/anonymous-recursion/silver.md): likely, about 45 lines
+1557. [Mutual recursion](m/mutual-recursion/silver.md): plausible, about 55 lines
+1558. [Odd word problem](o/odd-word-problem/silver.md): plausible, about 70 lines; uses standard input and exit status
+1559. [Recursive descent parser generator](r/recursive-descent-parser-generator/silver.md): plausible, about 420 lines; uses files
 
-## Stage 36
+## Stage 35
 
 Adds standard error.
 
@@ -1998,12 +1985,12 @@ Admission questions:
 
 The assessments flag length in 3, index in 2, overflow in 2 and termination in 2 of its 4 samples. 2 of 4 are only plausible; this stage needs the most restrictive admitted forms.
 
-1567. [Hello world/Standard error](h/hello-world/standard-error/silver.md): likely, about 6 lines
-1568. [File input/output](f/file-input/output/silver.md): likely, about 25 lines; uses files and exit status
-1569. [Compiler/lexical analyzer](c/compiler/lexical-analyzer/silver.md): plausible, about 260 lines; uses standard input, files, arguments and exit status
-1570. [Compiler/virtual machine interpreter](c/compiler/virtual-machine-interpreter/silver.md): plausible, about 380 lines; uses standard input and exit status
+1560. [Hello world/Standard error](h/hello-world/standard-error/silver.md): likely, about 6 lines
+1561. [File input/output](f/file-input/output/silver.md): likely, about 25 lines; uses files and exit status
+1562. [Compiler/lexical analyzer](c/compiler/lexical-analyzer/silver.md): plausible, about 260 lines; uses standard input, files, arguments and exit status
+1563. [Compiler/virtual machine interpreter](c/compiler/virtual-machine-interpreter/silver.md): plausible, about 380 lines; uses standard input and exit status
 
-## Stage 37
+## Stage 36
 
 Adds access types.
 
@@ -2013,12 +2000,12 @@ Admission questions:
 
 The assessments flag heap in 3, other in 3, floating point in 1 and range in 1 of its 4 samples. 1 of 4 is only plausible.
 
-1571. [Null object](n/null-object/silver.md): likely, about 12 lines
-1572. [Memory allocation](m/memory-allocation/silver.md): likely, about 30 lines
-1573. [Pointers and references](p/pointers-and-references/silver.md): likely, about 40 lines
-1574. [First-class functions](f/first-class-functions/silver.md): plausible, about 85 lines
+1564. [Null object](n/null-object/silver.md): likely, about 12 lines
+1565. [Memory allocation](m/memory-allocation/silver.md): likely, about 30 lines
+1566. [Pointers and references](p/pointers-and-references/silver.md): likely, about 40 lines
+1567. [First-class functions](f/first-class-functions/silver.md): plausible, about 85 lines
 
-## Stage 38
+## Stage 37
 
 Adds fixed point.
 
@@ -2028,11 +2015,51 @@ Admission questions:
 
 The assessments flag other in 3, overflow in 3, floating point in 2 and division in 1 of its 3 samples. 3 of 3 are only plausible; this stage needs the most restrictive admitted forms.
 
-1575. [Air mass](a/air-mass/silver.md): plausible, about 70 lines
-1576. [Tropical algebra overloading](t/tropical-algebra-overloading/silver.md): plausible, about 80 lines
-1577. [Pathological floating point problems](p/pathological-floating-point-problems/silver.md): plausible, about 90 lines
+1568. [Air mass](a/air-mass/silver.md): plausible, about 70 lines
+1569. [Tropical algebra overloading](t/tropical-algebra-overloading/silver.md): plausible, about 80 lines
+1570. [Pathological floating point problems](p/pathological-floating-point-problems/silver.md): plausible, about 90 lines
+
+## Stage 38
+
+Adds integer object size clause.
+
+Admission questions:
+
+- **integer object size clause**: Which object Size clauses are guaranteed supported by the pinned targets, and how are legality, freezing, initialization and representation correspondence established without unsafe operations?
+
+1571. [Variable size/Set](v/variable-size/set/silver.md): likely, about 8 lines
 
 ## Stage 39
+
+Adds static integer types.
+
+Admission questions:
+
+- **static integer types**: Which static signed integer type ranges and object initializer forms are admitted, and how are nominal type identity, base-range versus first-subtype meaning, range checks and automatic discharge established?
+
+1572. [Define a primitive data type](d/define-a-primitive-data-type/silver.md): likely, about 9 lines
+
+## Stage 40
+
+Adds fixed string replacement.
+
+Admission questions:
+
+- **fixed string replacement**: Which argument forms and source bounds guarantee valid Low/High positions, a bounded result and complete automatic discharge for the selected Replace_Slice operation, with corresponding library verification and compilation?
+
+1573. [String interpolation (included)](s/string-interpolation-included/silver.md): likely, about 12 lines
+
+## Stage 41
+
+Adds assignment target name.
+
+Admission questions:
+
+- **assignment target name**: How is @ resolved and bounded as the current assignment target, restricted to assignment right-hand sides and composed with existing scalar-expression rules without changing evaluation order?
+
+1574. [Topic variable](t/topic-variable/silver.md): likely, about 15 lines
+
+## Stage 42
 
 Adds variant records.
 
@@ -2042,9 +2069,26 @@ Admission questions:
 
 The assessments flag discriminant in 1 of its 1 sample.
 
-1578. [Sum data type](s/sum-data-type/silver.md): likely, about 35 lines
+1575. [Sum data type](s/sum-data-type/silver.md): likely, about 35 lines
+
+## Stage 43
+
+Adds scalar guard refinement and unicode identifiers.
+
+Admission questions:
+
+- **scalar guard refinement**: Which comparisons refine scalar intervals on each branch, and how do assignments, joins and loops preserve soundness and automatic discharge?
+- **unicode identifiers**: Which Unicode identifier repertoire and source encoding are admitted, and how do lexer identity, Ada case folding, byte limits and frontend source correspondence agree?
+
+1576. [Unicode variable names](u/unicode-variable-names/silver.md): likely, about 12 lines
 
 ## Unlikely to prove automatically
 
 - [Parallel calculations](p/parallel-calculations/silver.md): tasking, overflow, index, division, initialization
 - [Self-hosting compiler](s/self-hosting-compiler/silver.md): index, length, overflow, termination, other
+
+## Design pending
+
+These assessments establish neither a required language surface nor an Oracle conflict.
+
+- [Rubik's Magic Simulation](r/rubiks-magic-simulation/silver.md)

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from declared ranges, fixed array bounds and guards before loop-carried additions, with no recursion or annotations, but nonlinear sums of squares, the square root and decimal formatting need careful shaping.
 
-Position 424 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 417 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

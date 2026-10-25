@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from bounded subtypes and guards placed before table appends and slice copies, with out-of-limit input given a specified rejection; the only unknowns are stdin line-reading operations and slice-copy proof shape.
 
-Position 1354 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1347 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 

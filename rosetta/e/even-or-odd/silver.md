@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The only arithmetic is rem 2 on a value bounded by a declared range inside a for loop, so no overflow, division or index check needs more than the type range, and no annotation is needed. The only growth needed is ranged integers, rem, a for loop and integer-to-text output.
 
-Position 110 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 103 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

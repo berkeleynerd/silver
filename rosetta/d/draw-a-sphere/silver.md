@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** A static ASCII-art sphere needs only bounded integer arithmetic and for loops over fixed ranges with a clamped ramp index, so every check follows from types and guards. No floating point, recursion or annotations are needed, and the task explicitly allows ASCII art.
 
-Position 442 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 435 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

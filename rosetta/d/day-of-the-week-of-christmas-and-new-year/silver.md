@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program is loop-free integer arithmetic over ranged subtypes small enough that no overflow, index or range check can fail, so every check follows from declarations and no invariant is needed.
 
-Position 767 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 760 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

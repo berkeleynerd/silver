@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Bijective numeration needs only bounded integer arithmetic and loops, with every overflow and capacity check dischargeable by a guard just before the operation and a visible rejection outcome, but the loop-carried accumulator and output-buffer building make it depend on careful program shape. The "arbitrarily large" requirement is met only up to a documented fixed bound, which the Oracle permits as a resource limit.
 
-Position 413 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 406 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

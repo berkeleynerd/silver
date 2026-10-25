@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check is an index or arithmetic bound that follows from subtypes, a small documented maximum N, and guards before each wraparound step, so no annotation is needed. The fill loop only needs the types of its carried positions, which are tight enough because the wrap tests are explicit.
 
-Position 666 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 659 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

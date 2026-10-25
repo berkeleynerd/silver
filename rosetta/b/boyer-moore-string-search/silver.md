@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every index and shift is bounded by array types and explicit guards before use, and the loops sit in procedures, so no annotation is needed, though loop-carried positions need careful bounded subtypes.
 
-Position 1014 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1007 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

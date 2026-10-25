@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed array bounds, subtype ranges and guards before use, and there are no recursion, functions with while loops or annotations, but the quadratic nested loops over a large fixed-capacity table with loop-carried best-length state need careful shaping.
 
-Position 1362 in the [progression](../../../progression.md#stage-24), in stage 24.
+Position 1355 in the [progression](../../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 

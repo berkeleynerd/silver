@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The program is a simple read-and-echo loop whose checks follow from a bounded buffer and library contracts, with no loop-carried arithmetic. The plausible rating reflects the not-yet-existing file-input library and the over-long-line and open-failure handling that must be specified.
 
-Position 1330 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1323 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Failure paths to test
 

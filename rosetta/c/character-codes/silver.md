@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check is static: Character'Val of a constant in 0..255 cannot fail the range check, and the concatenated image length is bounded by Integer'Image's known maximum. No loops, recursion or input are involved, so no annotations are needed.
 
-Position 433 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 426 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

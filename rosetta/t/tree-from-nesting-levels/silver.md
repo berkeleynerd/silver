@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks reduce to bounded subtypes and capacity guards placed right before each buffer write, and no annotation is needed, but the loop-carried depth and buffer position need careful guard shape.
 
-Position 1018 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1011 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

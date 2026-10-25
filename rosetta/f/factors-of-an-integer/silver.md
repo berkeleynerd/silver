@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Trial division with a for loop over a declared Positive range needs no loop-carried state, so division and range checks follow from types and loop bounds and no annotation is needed.
 
-Position 121 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 114 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from small ranged subtypes and guards on bounded arrays, and the work is done in a procedure with while loops, but the loop-carried position, candidate and counter values need careful guarding, so discharge is plausible rather than certain.
 
-Position 281 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 274 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

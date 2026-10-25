@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The only state is one Character with no arithmetic, indexing or accumulator, and a while loop in a procedure gets no termination check, so nothing needs an annotation. The proof burden lies in the admitted stdin and output library contracts, not in the program.
 
-Position 1212 in the [progression](../../progression.md#stage-21), in stage 21, which adds standard input.
+Position 1205 in the [progression](../../progression.md#stage-20), in stage 20, which adds standard input.
 
 ## Failure paths to test
 

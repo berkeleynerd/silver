@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything reduces to bounded arrays, for loops and explicit-stack while loops in procedures with capacity guards, so no annotation is needed, but many loop-carried indices and buffer positions require careful guarding.
 
-Position 1206 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1199 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

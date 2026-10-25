@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from a fixed-size buffer, guarded header parsing and range-bounded sample arithmetic with for-loop scans, but many file-derived offsets each need an explicit guard and the program depends on admitted binary file read and write operations that do not exist yet.
 
-Position 1454 in the [progression](../../../progression.md#stage-27), in stage 27.
+Position 1447 in the [progression](../../../progression.md#stage-26), in stage 26.
 
 ## Failure paths to test
 

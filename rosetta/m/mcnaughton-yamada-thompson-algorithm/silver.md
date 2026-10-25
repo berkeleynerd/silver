@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every structure is a fixed-capacity array with guards before each push or pop, so index and range checks follow from types and local guards, but several loop-carried counters across nested procedures need careful shaping, hence plausible rather than likely.
 
-Position 1034 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1027 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

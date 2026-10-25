@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index and counter check follows from ranged subtypes, for loops over the input's own range and a capacity guard just before each store, so no invariant or variant is needed. The program needs only Put and a few basic Ada features, and its token arrays are fixed-size.
 
-Position 502 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 495 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

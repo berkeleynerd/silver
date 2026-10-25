@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from declared subtypes, array bounds and for-loop ranges, with the only nontrivial parts being the carry in the digit-array multiply and the capacity guards. The program is plausible rather than likely because the fixed-capacity big-number arithmetic runs through nested loops and the search limits must be sized so the required outputs fit.
 
-Position 940 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 933 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

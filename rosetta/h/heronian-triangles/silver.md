@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged subtypes, fixed array capacity with a guard, and for loops or procedure-only while loops, so no annotation is needed. The risk is moderate because the nonlinear product, the sort indexing and the manual padded text formatting all depend on careful program shape.
 
-Position 426 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 419 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

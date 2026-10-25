@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is small, bounded integer work driven by for-loop indexes with ranged types, so every check follows from types and static bounds. The only new needs are file output and integer-to-text formatting, which are library and surface growth rather than proof difficulty.
 
-Position 1422 in the [progression](../../../progression.md#stage-26), in stage 26.
+Position 1415 in the [progression](../../../progression.md#stage-25), in stage 25.
 
 ## Failure paths to test
 

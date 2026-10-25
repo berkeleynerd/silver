@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indexes come from for loops over static ranges and the offset index 3 + I lies within 4..6, so every index and range check follows from static bounds, with no loop-carried values.
 
-Position 52 in the [progression](../../progression.md#stage-4), in stage 4.
+Position 45 in the [progression](../../progression.md#stage-3), in stage 3.
 
 ## Approach
 

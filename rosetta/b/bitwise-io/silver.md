@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is on small bounded byte and bit-count types with guards before each increment, and the loops are for loops or procedure while loops, so checks should discharge without annotations; the main uncertainty is the library file read/write operations that Silver does not yet have.
 
-Position 1434 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1427 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Failure paths to test
 

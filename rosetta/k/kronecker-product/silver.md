@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are for loops over array ranges with ranged element types, so only the nonlinear block-index arithmetic and the bounded row-text building need guards, and neither requires an annotation.
 
-Position 1017 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1010 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

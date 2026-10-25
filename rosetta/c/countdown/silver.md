@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded by six numbers and values below 10**9, so overflow, index and division checks follow from subtypes and local guards, but the explicit-stack search with many loop-carried indices needs careful program shape. Nothing requires an annotation, and the unbounded-recursion and heap problems are avoided.
 
-Position 744 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 737 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

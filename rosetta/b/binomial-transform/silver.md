@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are for loops over fixed array ranges with small embedded data, so indexes are routine and only the loop-carried accumulators and Pascal sums need explicit range guards with a visible reject outcome, which makes automatic discharge plausible rather than certain.
 
-Position 939 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 932 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

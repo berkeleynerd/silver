@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks are index checks over the String's own range and enumeration-valued assignments, so no loop-carried value needs an invariant and the for loop terminates by itself. Embedding the input script avoids stdin and keeps the program deterministic, with invalid signals handled explicitly.
 
-Position 1162 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1155 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

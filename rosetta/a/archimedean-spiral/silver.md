@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded loops over fixed grids with guards before each Float-to-Integer conversion and array store, so it should prove without annotations, though floating-point trig and conversions need careful range guards.
 
-Position 870 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 863 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

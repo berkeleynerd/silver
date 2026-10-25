@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Fixed-size count arrays, a bounded deck and procedure-based while loops mean every check follows from types and guards, but several loop-carried counters need explicit guards because no invariant can state that each rank has at most 4 cards.
 
-Position 1253 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1246 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Failure paths to test
 

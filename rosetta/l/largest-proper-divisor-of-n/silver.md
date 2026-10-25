@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is bounded by the 1..100 loop ranges (the divisor D is always at least 1 and Result is always within Integer), and both loops are for loops, so every check follows from types and no annotation is needed.
 
-Position 112 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 105 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

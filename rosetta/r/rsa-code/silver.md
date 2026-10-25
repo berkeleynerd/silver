@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything fits in fixed-capacity limb arrays with for-loop indexes and shift-and-add arithmetic needing no division by large values, so no annotation is required, but loop-carried big-number arithmetic needs careful guarded program shape.
 
-Position 1401 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1394 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task has no required input, so it reduces to a bounded integer rasterizer with a precomputed trig table, in which all checks follow from small declared subtypes and for-loop ranges with no loop-carried values. The only unusual part is replacing a live window with printed text frames and floating-point trig with a fixed-point table, which the task permits.
 
-Position 542 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 535 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

@@ -1,0 +1,312 @@
+{
+  "schema_version": 1,
+  "review_base": "e1f6f9a53b4268fc1181526540c30759e382eb44",
+  "scope": "Targeted planning assessment, admission-only prototypes and pure-Python renderer validation; no sample delivery or language change",
+  "supported_unchanged": [
+    "put",
+    "integer-for-loops",
+    "immutable-integers",
+    "integer-image",
+    "bounded-mutable-integers"
+  ],
+  "policy_unchanged": true,
+  "changed_assessments": [
+    "Compile-time calculation",
+    "Define a primitive data type",
+    "Enforced immutability",
+    "Here document",
+    "Integer sequence",
+    "Literals/Integer",
+    "Loops/N plus one half",
+    "Minimum number of cells after, before, above and below NxN squares",
+    "Rubik's Magic Simulation",
+    "String interpolation (included)",
+    "Topic variable",
+    "Unicode variable names",
+    "Variable size/Set"
+  ],
+  "original_attribution_and_revisions_preserved": true,
+  "validation_inputs_sha256": {
+    "rosetta/refresh.py": "9762869c4bbb24648d0b11bf762eae71efcf1379b6727183df8f6f80ad355210",
+    "rosetta/assess.js": "efaa6b5ea2d1b09cfb5964b7fabcf1a13754933692d32f87526cc49cecc1dedb",
+    "rosetta/coverage.json": "ac1c7a8167af904e3b2fa95388784e833cb60e7f2f7b6e7456140792a1e519a0",
+    "rosetta/manifest.json": "c007b4a67439be22b242e6104f5e41998d5aa3ca1a7174cfe3cc6de7927b452f",
+    "tests/test_rosetta.py": "3a6349b7a1253d8d81fd618060d10ffb10b6213d19828c31b8f96d840c831c96",
+    "language.md": "0ead96638624a1df8978e5f49964b09aaab0c86cc7dfa454752de363c3c0b3e5",
+    "oracle.md": "ef1e182ab8eedd8d259f5a7cff49a597e8b7ccfe207bdf11d7456003e0b6603a"
+  },
+  "captured_review_inputs_sha256": {
+    "Compile-time calculation": {
+      "rosetta/c/compile-time-calculation/task.wiki": "7d5b65bfead79e77f7f7e5c375028e4244222ef440d006c94de098cd9ac58b7a",
+      "rosetta/c/compile-time-calculation/ada.wiki": "cce877719e32fce7b387f961cb49bfd5eaddfa5b5a5a319d1c4711df4d4898ef"
+    },
+    "Define a primitive data type": {
+      "rosetta/d/define-a-primitive-data-type/task.wiki": "d7488047aa2eecb32e2c8f0ab86c2afd7a26e38092f4249e02a662a086cf8300",
+      "rosetta/d/define-a-primitive-data-type/ada.wiki": "cd9d0b74e44d386d842ea9fb7d698b2c890ec431b4015d87cb6cb9c41fe7868d"
+    },
+    "Enforced immutability": {
+      "rosetta/e/enforced-immutability/task.wiki": "0fff01c18e69cc075215af0a34ceb7c1e6a80fec5fc4f96107568a0943d40bbf",
+      "rosetta/e/enforced-immutability/ada.wiki": "a811d707acbdb167183d9cf1537e5bc72085ee7845e94dbb1ed99a73f4fde2d5"
+    },
+    "Here document": {
+      "rosetta/h/here-document/task.wiki": "a6032eb3e4f811a1c9c2dc508c62531ddf62c5ade76ccf9f0c790ca8af450c45",
+      "rosetta/h/here-document/ada.wiki": "736d9b53de3b2b89f87a6bf2fc2ba2c9cc52d68d6381b392fe6125971b69b2ae"
+    },
+    "Integer sequence": {
+      "rosetta/i/integer-sequence/task.wiki": "9c9ab6237972e9f6359ca29042d1a701fc61b94802b96d7504cc4fe927b9eab7",
+      "rosetta/i/integer-sequence/ada.wiki": "c8d4d22ad48c5127f9fbe5db8917a946099efdf6af66db9942c0772c8267085c"
+    },
+    "Literals/Integer": {
+      "rosetta/l/literals/integer/task.wiki": "72fe38f9adc9732f5baaa9353223f0875da5ba8dbba858ff9446aef1159ac01c",
+      "rosetta/l/literals/integer/ada.wiki": "6ed76f084dcf05171827cdffc4e0d9b22ee8e9adc1255f6eab38c4b7ce4d5d67"
+    },
+    "Loops/N plus one half": {
+      "rosetta/l/loops/n-plus-one-half/task.wiki": "569b740bd5388b80dcfe0ab342d3c6dad113ff6934c4f6ba7719588f0a9d7908",
+      "rosetta/l/loops/n-plus-one-half/ada.wiki": "faab40d47c70fbdf566fc7921dd9205c988f11e9ba507359df310b2560598c2e"
+    },
+    "Minimum number of cells after, before, above and below NxN squares": {
+      "rosetta/m/minimum-number-of-cells-after-before-above-and-below-nxn-squares/task.wiki": "4491ce50fccb55406161bf10758cafea0a9af3bb5ccc2ca71258aedc0d263ed8",
+      "rosetta/m/minimum-number-of-cells-after-before-above-and-below-nxn-squares/freebasic.wiki": "30bc5d1c8d3cb5cc5b0e7d1c383b8e894493eec5cf2fc2a6b930ce365e3e8d74"
+    },
+    "Rubik's Magic Simulation": {
+      "rosetta/r/rubiks-magic-simulation/task.wiki": "838f98781c6bad97454560a56c025e0dca2e5b296fdb458530fb5898cfee61a2",
+      "rosetta/r/rubiks-magic-simulation/freebasic.wiki": "414f413a2e099f6f7118de1004323565f40eaf7282724117fc52395e34663e42"
+    },
+    "String interpolation (included)": {
+      "rosetta/s/string-interpolation-included/task.wiki": "03416f6dedabd4090af1513b20def213d7b1cc02cb6eb0503cac00268379cd6d",
+      "rosetta/s/string-interpolation-included/ada.wiki": "0e733015b7a8ab6b2be4da82e838a996135b8dd3f83f293a63ce2c3189168d07"
+    },
+    "Topic variable": {
+      "rosetta/t/topic-variable/task.wiki": "d58046f465649047dc585cb3b28cedc750a67c5ab82f3d00c0a376918dbc8c54",
+      "rosetta/t/topic-variable/freebasic.wiki": "ead7bddbfc72b108545eff38900579171f09ccae29cc97630f3de2f82191532d"
+    },
+    "Unicode variable names": {
+      "rosetta/u/unicode-variable-names/task.wiki": "0dd6f5da61df428dd5ae516346e32793b3e7bbdd81c1c41ecc069d53b04e0e5b",
+      "rosetta/u/unicode-variable-names/ada.wiki": "87919144e19766eaee0632ab7d0ac28771c8c2d526bab174853c4f97deab8a81"
+    },
+    "Variable size/Set": {
+      "rosetta/v/variable-size/set/task.wiki": "d98d46610eadf447755a051838f7520b7c55bd4f3643d78ef0f8d7a5be1aadcc",
+      "rosetta/v/variable-size/set/ada.wiki": "06f73e98afd93ef35e944418958b1369ef6d87958414845f599ba50aa32e690a"
+    }
+  },
+  "test_run": {
+    "id": "20261025T121118-ac711f0d1ec2",
+    "host": "linux-x86_64",
+    "workers": 1,
+    "command": [
+      "/usr/bin/python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-v",
+      "-p",
+      "test_rosetta.py"
+    ],
+    "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/rosetta-next-increment-20261025",
+    "started_utc": "2026-10-25T12:11:18.979293+00:00",
+    "finished_utc": "2026-10-25T12:11:23.471864+00:00",
+    "outcome": "success",
+    "duration_seconds": 4.492431265,
+    "unittest_count": 3,
+    "unittest_seconds": 3.546,
+    "log": "rosetta-tests.log",
+    "log_sha256": "ff151c2d1fb839f6c19e81b5c4705417775129972908a686c04e98d2114f42f1"
+  },
+  "candidate_evidence": {
+    "path": "candidates.json",
+    "sha256": "bbd7122dd2e206f4a52b8a800a84aefd4adac0ef42690a20806cf15a4338bf81"
+  },
+  "rendered_mapping": [
+    {
+      "title": "Compile-time calculation",
+      "path": "c/compile-time-calculation",
+      "revision": 403674,
+      "silver": {
+        "verdict": "likely",
+        "reasons": [],
+        "risks": [],
+        "stale": false,
+        "rank": 13,
+        "stage": 1,
+        "introduces": []
+      }
+    },
+    {
+      "title": "Define a primitive data type",
+      "path": "d/define-a-primitive-data-type",
+      "revision": 412738,
+      "silver": {
+        "verdict": "likely",
+        "reasons": [],
+        "risks": [],
+        "stale": false,
+        "rank": 1572,
+        "stage": 39,
+        "introduces": [
+          "static-integer-types"
+        ]
+      }
+    },
+    {
+      "title": "Enforced immutability",
+      "path": "e/enforced-immutability",
+      "revision": 414182,
+      "silver": {
+        "verdict": "likely",
+        "reasons": [],
+        "risks": [],
+        "stale": false,
+        "rank": 26,
+        "stage": 1,
+        "introduces": []
+      }
+    },
+    {
+      "title": "Here document",
+      "path": "h/here-document",
+      "revision": 411758,
+      "silver": {
+        "verdict": "excluded",
+        "reasons": [
+          "outside SPARK"
+        ],
+        "risks": [],
+        "stale": false
+      }
+    },
+    {
+      "title": "Integer sequence",
+      "path": "i/integer-sequence",
+      "revision": 404486,
+      "silver": {
+        "verdict": "likely",
+        "reasons": [],
+        "risks": [],
+        "stale": false,
+        "rank": 8,
+        "stage": 1,
+        "introduces": []
+      }
+    },
+    {
+      "title": "Literals/Integer",
+      "path": "l/literals/integer",
+      "revision": 412883,
+      "silver": {
+        "verdict": "likely",
+        "reasons": [],
+        "risks": [],
+        "stale": false,
+        "rank": 35,
+        "stage": 1,
+        "introduces": []
+      }
+    },
+    {
+      "title": "Loops/N plus one half",
+      "path": "l/loops/n-plus-one-half",
+      "revision": 411531,
+      "silver": {
+        "verdict": "likely",
+        "reasons": [],
+        "risks": [],
+        "stale": false,
+        "rank": 17,
+        "stage": 1,
+        "introduces": []
+      }
+    },
+    {
+      "title": "Minimum number of cells after, before, above and below NxN squares",
+      "path": "m/minimum-number-of-cells-after-before-above-and-below-nxn-squares",
+      "revision": 406018,
+      "silver": {
+        "verdict": "likely",
+        "reasons": [],
+        "risks": [],
+        "stale": false,
+        "rank": 29,
+        "stage": 1,
+        "introduces": []
+      }
+    },
+    {
+      "title": "Rubik's Magic Simulation",
+      "path": "r/rubiks-magic-simulation",
+      "revision": 415559,
+      "silver": {
+        "verdict": "design-pending",
+        "reasons": [],
+        "risks": [],
+        "stale": false
+      }
+    },
+    {
+      "title": "String interpolation (included)",
+      "path": "s/string-interpolation-included",
+      "revision": 413061,
+      "silver": {
+        "verdict": "likely",
+        "reasons": [],
+        "risks": [],
+        "stale": false,
+        "rank": 1573,
+        "stage": 40,
+        "introduces": [
+          "fixed-string-replacement"
+        ]
+      }
+    },
+    {
+      "title": "Topic variable",
+      "path": "t/topic-variable",
+      "revision": 405498,
+      "silver": {
+        "verdict": "likely",
+        "reasons": [],
+        "risks": [],
+        "stale": false,
+        "rank": 1574,
+        "stage": 41,
+        "introduces": [
+          "assignment-target-name"
+        ]
+      }
+    },
+    {
+      "title": "Unicode variable names",
+      "path": "u/unicode-variable-names",
+      "revision": 413955,
+      "silver": {
+        "verdict": "likely",
+        "reasons": [],
+        "risks": [],
+        "stale": false,
+        "rank": 1576,
+        "stage": 43,
+        "introduces": [
+          "scalar-guard-refinement",
+          "unicode-identifiers"
+        ]
+      }
+    },
+    {
+      "title": "Variable size/Set",
+      "path": "v/variable-size/set",
+      "revision": 413114,
+      "silver": {
+        "verdict": "likely",
+        "reasons": [],
+        "risks": [],
+        "stale": false,
+        "rank": 1571,
+        "stage": 38,
+        "introduces": [
+          "integer-object-size-clause"
+        ]
+      }
+    }
+  ]
+}

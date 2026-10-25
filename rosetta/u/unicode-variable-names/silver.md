@@ -1,19 +1,21 @@
 # Unicode variable names
 
-**Candidate: proofs likely to discharge automatically.** The program is straight-line code on one Integer whose value is statically 1 before the increment, so the overflow check on the addition and the initialization checks discharge trivially. The only new surface is integer variables and 'Image, and the Unicode identifier is just a source-encoding matter that changes no proof.
+**Candidate: proofs likely to discharge automatically.** Unicode identifiers are permitted by inherited Ada/SPARK but excluded by today's Silver ASCII source rule, and today's scalar analysis also cannot justify this increment. Explicit Unicode identifier support and scalar guard refinement are future surface, not Oracle amendments or currently delivered capabilities.
 
-Position 40 in the [progression](../../progression.md#stage-2), in stage 2.
+Position 1576 in the [progression](../../progression.md#stage-43), in stage 43, which adds scalar guard refinement and unicode identifiers.
 
 ## Approach
 
-Declare an Integer variable named Δ initialised to 1 in Main, add 1 to it in a straight-line assignment, and print Integer'Image of it with Silver_IO.Put_Line after a literal line describing Ada's Unicode identifier rules. There are no loops, calls or inputs, so no guards are needed. About 12 lines.
+Declare Δ : Integer range 1 .. 2 := 1, increment it with Δ := (Δ + 1) inside if Δ < 2 then, and print Integer'Image (Δ). Accompany the source with the admitted encoding and Unicode identifier documentation; the guard makes the increment fit its range once scalar guard refinement is admitted. About 12 lines.
 
 ## Language surface recorded by this assessment
 
-Integers and 'Image of scalars.
+Unicode identifiers, scalar guard refinement, bounded mutable Integer objects and Integer image.
 
 ## External effects
 
-- **console output** (allowed): The program prints the incremented value of the variable named Δ, plus a short text describing Ada's identifier rules.
+- **console output** (allowed): Prints the incremented value of the object whose identifier contains the Unicode delta character.
 
-Assessed on 2026-10-15 against page revision 413955 of the [task](https://rosettacode.org/wiki/Unicode_variable_names) by claude-sonnet-5-5 at medium effort; confidence high. The inclusion policy is in `rosetta/coverage.json`.
+Initially assessed on 2026-10-15 against page revision 413955 of the [task](https://rosettacode.org/wiki/Unicode_variable_names) by claude-sonnet-5-5 at medium effort; current confidence high. The inclusion policy is in `rosetta/coverage.json`.
+
+Revised on 2026-10-25 by Codex through targeted source review; see the [review record](../../assessment-reconciliation-20261025.md).

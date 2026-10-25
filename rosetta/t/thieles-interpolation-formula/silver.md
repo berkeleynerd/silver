@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is fixed-size array and for-loop code that avoids recursion and needs no annotations, but proof depends on floating-point range bounds and zero-denominator guards through the nested loops, and on an admitted trig library or embedded table. This makes it plausible rather than likely.
 
-Position 1083 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1076 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

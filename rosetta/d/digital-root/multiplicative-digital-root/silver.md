@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded by declared subtypes and explicit guards placed before each multiplication, and the loops sit in procedures, so no annotations are needed, but the loop-carried product and the formatting arithmetic need careful program shape.
 
-Position 256 in the [progression](../../../progression.md#stage-8), in stage 8.
+Position 249 in the [progression](../../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

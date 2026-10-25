@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All values are small (at most 176), every divisor is a for-loop index of at least 2, and the only loop-carried arithmetic needs simple guards, with no annotation needed because loops live in procedures.
 
-Position 199 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 192 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

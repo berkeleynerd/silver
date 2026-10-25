@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks come from the 1..5 index subtypes, the 0..24 element subtype and guards before each cursor step, with no recursion or functions with while loops, but the loop-carried cursors need careful guard placement. The program is plausible rather than likely for that reason.
 
-Position 909 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 902 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

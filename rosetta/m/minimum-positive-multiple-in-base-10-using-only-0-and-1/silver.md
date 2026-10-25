@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged remainder types, fixed array capacities and explicit guards, and the BFS needs no variant because it runs in a procedure, but the carried queue and chain indexes make the program shape matter.
 
-Position 469 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 462 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

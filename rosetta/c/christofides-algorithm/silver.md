@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every step can be written iteratively over fixed-capacity arrays with typed ranges and explicit guards before each index, so no annotations are needed, but many loop-carried counters (stack pointer, adjacency counts, edge totals) make discharge depend on careful program shape.
 
-Position 759 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 752 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

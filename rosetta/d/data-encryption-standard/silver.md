@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** DES is a fixed-size, loop-over-constant-tables computation in which every index and arithmetic result is bounded by ranged subtypes and for-loop ranges, so no loop invariant or recursion is needed. The main cost is the large amount of constant table data and index-heavy but statically bounded code.
 
-Position 682 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 675 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

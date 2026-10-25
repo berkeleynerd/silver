@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are bounded for loops with small ranged types and the divisor sums are recomputed from bounded array elements, so every check follows from types and local guards.
 
-Position 156 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 149 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

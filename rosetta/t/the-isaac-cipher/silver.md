@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is fixed-size 32-bit modular arithmetic over 256-element arrays with for loops, so wraparound never raises checks and indices are bounded by types or mod 256, needing no invariants. The only care is the Caesar mod-95 range and the Character conversion, which are covered by simple bounded subtypes.
 
-Position 1296 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1289 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

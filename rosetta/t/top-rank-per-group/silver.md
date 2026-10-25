@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is bounded for loops over fixed arrays with index and salary types that bound all loop-carried values, so no annotation is needed. The only mild concern is the length check on concatenated output lines, which is bounded by the subtype ranges.
 
-Position 1165 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1158 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

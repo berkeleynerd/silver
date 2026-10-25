@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task needs only a record, a function, a procedure and a bounded integer, all of which are checked from declared ranges and one guard before the multiplication. No loops, recursion or annotations are involved.
 
-Position 588 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 581 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

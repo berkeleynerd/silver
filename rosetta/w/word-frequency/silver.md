@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is an index, length or counter bound that an explicit guard before the operation can discharge, and all open-ended loops sit in procedures, but the many loop-carried indexes and counts in the scan and lookup need careful guarding. The only new needs are bounded file reading and text building, with no annotation required.
 
-Position 1365 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1358 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 

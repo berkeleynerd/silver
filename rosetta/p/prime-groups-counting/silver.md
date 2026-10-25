@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from fixed bounds, a 0..255 prime table and guards before each loop-carried update, and the search is a while loop confined to a procedure so no variant is needed, but the explicit-stack search and counter guards need careful shape.
 
-Position 1359 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1352 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 

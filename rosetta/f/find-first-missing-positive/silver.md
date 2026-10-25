@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over array ranges or bounded integer ranges inside a procedure, with no loop-carried arithmetic, so every check follows from types and static bounds.
 
-Position 958 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 951 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

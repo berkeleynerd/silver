@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task requires recursion, but a nested recursive procedure with an out parameter avoids the termination-check problem a recursive function would have. Every arithmetic check follows from the declared ranges plus guards just before each operation, and the depth is statically bounded by the embedded test range.
 
-Position 1563 in the [progression](../../progression.md#stage-35), in stage 35.
+Position 1556 in the [progression](../../progression.md#stage-34), in stage 34.
 
 ## Approach
 

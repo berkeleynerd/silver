@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from loop-index subtype ranges and one guard before the array write, so no loop invariant is needed; the only cost is about 15 million cheap iterations of the triple loop, which is not a proof issue.
 
-Position 84 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 77 in the [progression](../../progression.md#stage-5), in stage 5.
 
 ## Approach
 

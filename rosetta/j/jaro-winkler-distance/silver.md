@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from ranged subtypes, for-loop index ranges and guards placed before indexing and division, with no annotation needed, but several loop-carried counters and the scaled-integer arithmetic need careful shaping. Using scaled integers instead of floats and an embedded dictionary keeps it within automatically provable style.
 
-Position 636 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 629 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from types, fixed array bounds and guards, but the roughly 70-bit primality test needs fixed-capacity big-number arithmetic carried through loops, so discharge depends on careful program shape rather than being routine.
 
-Position 1396 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1389 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Approach
 

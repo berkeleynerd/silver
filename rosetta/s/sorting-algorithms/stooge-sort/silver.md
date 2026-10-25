@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every array index and stack push can be guarded just before use with values drawn from bounded subtypes, so no annotation is needed, but the loop-carried frame indices and stack pointer make discharge depend on careful program shape. Avoiding recursion keeps stack depth a fixed documented limit rather than input-dependent.
 
-Position 920 in the [progression](../../../progression.md#stage-16), in stage 16.
+Position 913 in the [progression](../../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

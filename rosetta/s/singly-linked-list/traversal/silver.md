@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index check follows from the cursor's subtype 0..10 plus the guard that it is nonzero just before indexing, and the for loop terminates by itself, so no annotation is needed.
 
-Position 53 in the [progression](../../../progression.md#stage-4), in stage 4.
+Position 46 in the [progression](../../../progression.md#stage-3), in stage 3.
 
 ## Approach
 

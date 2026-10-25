@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from declared ranges, array bounds and guards before each write, with only loop-carried segment offsets and signature sums needing careful range design, and no annotation is required because loops sit in procedures.
 
-Position 280 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 273 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

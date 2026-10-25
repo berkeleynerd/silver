@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from for-loop ranges over array indices, clamped window bounds and small-range integers, and the floating point of the original is replaced by scaled integer arithmetic, but the loop-carried match count and clamped indices require careful guards.
 
-Position 1016 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1009 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

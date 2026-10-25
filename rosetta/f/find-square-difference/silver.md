@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The loop index interval 1 .. 1000 bounds each arithmetic operation within signed 32-bit Integer. Every assignment stores an index in Answer's declared range 0 .. 1000; scalar guard refinement and loop-carried arithmetic are unnecessary. The loop is finite, and standard Integer'Image has a bounded result length.
 
-Position 15 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 16 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

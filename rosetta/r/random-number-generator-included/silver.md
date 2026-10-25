@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program uses only constructs Silver already has: String literal output in one parameterless Main with no arithmetic, indexing or loops, so there are no proof obligations beyond trivial ones. The reported text depends on which generator, if any, Silver's library eventually admits, but that changes no proof check.
 
-Position 14 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 15 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

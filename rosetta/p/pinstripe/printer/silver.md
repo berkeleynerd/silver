@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index, division and arithmetic check follows from for-loop ranges and constant bounds (the divisor is a stripe width of at least 1 by its subtype), and nothing is loop-carried, so no annotation is needed.
 
-Position 504 in the [progression](../../../progression.md#stage-11), in stage 11.
+Position 497 in the [progression](../../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

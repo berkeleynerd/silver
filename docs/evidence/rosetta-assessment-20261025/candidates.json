@@ -1,0 +1,276 @@
+{
+  "scope": "Planning prototypes: admission-only confirmation and statically derived expected behavior; no proof/build/run or sample delivery.",
+  "reviewed_commit": "e1f6f9a53b4268fc1181526540c30759e382eb44",
+  "compiler_worktree_commit": "247cc5c205acf1e5a9e93a76b5d4ba5420838e6e",
+  "compiler_sha256": "f46f16cc87a9743c0dd30f292a061c26a8b6aeb2fde1265abea2879888369269",
+  "admission_elapsed_seconds": 0.138094,
+  "reviewer": {
+    "date": "2026-10-25",
+    "record": "assessment-reconciliation-20261025.md",
+    "model": "gpt-6.1-sol",
+    "effort": "xhigh",
+    "setting_evidence": "Selected inherited reviewer setting; runtime setting not independently exposed",
+    "method": "Targeted static task, current-language and scratch-source review; no native admission, proof, build, test or execution"
+  },
+  "candidates": {
+    "Compile-time calculation": {
+      "expected": {
+        "stdout": "10! = 3628800\n",
+        "stderr": "",
+        "exit_status": 0
+      },
+      "requirements": [
+        {
+          "reference": "rosetta/c/compile-time-calculation/task.wiki:6",
+          "requirement": "Calculate 10! at compile time."
+        },
+        {
+          "reference": "rosetta/c/compile-time-calculation/task.wiki:8",
+          "requirement": "Print the result when run."
+        },
+        {
+          "reference": "rosetta/c/compile-time-calculation/task.wiki:10",
+          "requirement": "Discuss the limitations of compile-time calculation."
+        }
+      ],
+      "derivation": "10*9*8*7*6*5*4*3*2*1 = 3628800. The output prefix ends with =; nonnegative Image begins with one space. Candidate comments identify static evaluation and the 13! limit; the complete syntax/resource discussion belongs in the assessment.",
+      "language_refs": [
+        "language.md:208",
+        "language.md:226",
+        "language.md:241",
+        "language.md:322",
+        "language.md:388"
+      ],
+      "task_path": "rosetta/c/compile-time-calculation",
+      "source_sha256": "bd5b789fa2b215696b2d02d4ea5c5bc2cf0881ca4cc853bc282fb534e7b9fb24",
+      "source_bytes": 398,
+      "source_lines": 10,
+      "classification": "existing-language; ordinary runnable candidate",
+      "source": "candidates/compile-time-calculation.adb",
+      "admission": {
+        "command": [
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.silver/linux-x86_64/compiler/bin/silver",
+          "check",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/rosetta-next-increment-20261025/docs/evidence/rosetta-assessment-20261025/candidates/compile-time-calculation.adb"
+        ],
+        "stdout": "Accepted: silver.\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    "Integer sequence": {
+      "requirements": [
+        {
+          "reference": "rosetta/i/integer-sequence/task.wiki:4",
+          "requirement": "Display the sequence from 1 to infinity or a relevant implementation limit if given enough time."
+        },
+        {
+          "reference": "rosetta/i/integer-sequence/task.wiki:7",
+          "requirement": "An implementation-limited finite range is explicitly acceptable."
+        },
+        {
+          "reference": "rosetta/i/integer-sequence/task.wiki:9",
+          "requirement": "Describe the nature of the built-in limitation; arbitrary precision is conditional, not mandatory."
+        }
+      ],
+      "derivation": "The loop interval is exactly [1,2147483647], inclusive. Ada Integer Image contributes a leading space to every positive value. Total digits are sum(9*10**(k-1)*k for k=1..9) + (2147483647-999999999)*10 = 20363725369; adding one leading space and LF per line gives 24658692663 bytes. This is an arithmetic derivation, not generated output.",
+      "language_refs": [
+        "language.md:208",
+        "language.md:282",
+        "language.md:287",
+        "language.md:312",
+        "language.md:322"
+      ],
+      "expected_stream": {
+        "values": {
+          "first": 1,
+          "last": 2147483647,
+          "step": 1,
+          "count": 2147483647
+        },
+        "line_format": "ASCII space + decimal digits of the positive integer + LF",
+        "first_line": " 1\n",
+        "last_line": " 2147483647\n",
+        "stdout_bytes_under_successful_LF_output": 24658692663,
+        "stderr_under_successful_output": "",
+        "exit_status_after_complete_successful_execution": 0
+      },
+      "validation_disposition": "Not executed. Keep outside the ordinary executable-manifest increment until the owner/lead explicitly selects a faithful, feasible validation disposition. Do not shorten the range, run a capped substitute or count prefix output as task completion.",
+      "task_path": "rosetta/i/integer-sequence",
+      "source_sha256": "a46958754f6f8970d69303820636a28665fe9bdd783e04c77d878e093496a1f4",
+      "source_bytes": 177,
+      "source_lines": 8,
+      "classification": "existing-language; full-run disposition unresolved",
+      "source": "candidates/integer-sequence.adb",
+      "admission": {
+        "command": [
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.silver/linux-x86_64/compiler/bin/silver",
+          "check",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/rosetta-next-increment-20261025/docs/evidence/rosetta-assessment-20261025/candidates/integer-sequence.adb"
+        ],
+        "stdout": "Accepted: silver.\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    "Loops/N plus one half": {
+      "expected": {
+        "stdout": " 1, 2, 3, 4, 5, 6, 7, 8, 9, 10\n",
+        "stderr": "",
+        "exit_status": 0
+      },
+      "requirements": [
+        {
+          "reference": "rosetta/l/loops/n-plus-one-half/task.wiki:10",
+          "requirement": "Write the comma-separated list from 1 through 10."
+        },
+        {
+          "reference": "rosetta/l/loops/n-plus-one-half/task.wiki:12",
+          "requirement": "Use separate number and comma output statements within the loop body."
+        }
+      ],
+      "derivation": "Ten iterations each emit space + decimal(I); only the first nine emit a comma. Appending LF yields the stated output with one initial space, one space after each comma and no trailing comma.",
+      "language_refs": [
+        "language.md:268",
+        "language.md:282",
+        "language.md:322"
+      ],
+      "task_path": "rosetta/l/loops/n-plus-one-half",
+      "source_sha256": "26a61b5bec9432605ebd298c80199705ccfef82d01baf1e96d8de9b0a7dac739",
+      "source_bytes": 249,
+      "source_lines": 12,
+      "classification": "existing-language; ordinary runnable candidate",
+      "source": "candidates/loops-n-plus-one-half.adb",
+      "admission": {
+        "command": [
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.silver/linux-x86_64/compiler/bin/silver",
+          "check",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/rosetta-next-increment-20261025/docs/evidence/rosetta-assessment-20261025/candidates/loops-n-plus-one-half.adb"
+        ],
+        "stdout": "Accepted: silver.\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    "Enforced immutability": {
+      "expected": {
+        "stdout": "Silver keeps 42\nCopy is now 43; Answer is still 42\nLoop index 1 is immutable too.\n",
+        "stderr": "",
+        "exit_status": 0
+      },
+      "requirements": [
+        {
+          "reference": "rosetta/e/enforced-immutability/task.wiki:4",
+          "requirement": "Demonstrate preventing modifications or creating immutable objects."
+        }
+      ],
+      "derivation": "Answer remains 42; Name is Silver; Copy changes from 42 to 43; the sole index value is 1. All three Integer Images are positive and each contributes one space at its concatenation boundary.",
+      "language_refs": [
+        "language.md:182",
+        "language.md:208",
+        "language.md:296",
+        "language.md:427",
+        "language.md:438",
+        "language.md:322"
+      ],
+      "task_path": "rosetta/e/enforced-immutability",
+      "source_sha256": "a51fc7892ff98f6819f25f87f31f993a51a7a7a181fd54d06c81b16c7c533c57",
+      "source_bytes": 676,
+      "source_lines": 17,
+      "classification": "existing-language; ordinary runnable candidate",
+      "source": "candidates/enforced-immutability.adb",
+      "admission": {
+        "command": [
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.silver/linux-x86_64/compiler/bin/silver",
+          "check",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/rosetta-next-increment-20261025/docs/evidence/rosetta-assessment-20261025/candidates/enforced-immutability.adb"
+        ],
+        "stdout": "Accepted: silver.\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    "Literals/Integer": {
+      "expected": {
+        "stdout": "2#10_1101_0111# = 727\n8#1_327# = 727\n10#727# = 727\n16#2D7# = 727\n16:2d7: = 727\n7_27 = 727\n727E0 = 727\n7#1#E3 = 343\nInteger spans-2147483648 .. 2147483647\n",
+        "stderr": "",
+        "exit_status": 0
+      },
+      "requirements": [
+        {
+          "reference": "rosetta/l/literals/integer/task.wiki:8",
+          "requirement": "Show all admitted bases, expressible by a parameterized base2..16 syntax explanation plus representative examples."
+        },
+        {
+          "reference": "rosetta/l/literals/integer/task.wiki:11",
+          "requirement": "Interpret numerals as language literals, without conversion/parsing function calls."
+        },
+        {
+          "reference": "rosetta/l/literals/integer/task.wiki:13",
+          "requirement": "Show other admitted literal spellings and discuss the currently admitted integer type."
+        }
+      ],
+      "derivation": "2#10_1101_0111#=512+128+64+16+4+2+1=727; 8#1327#=512+192+16+7=727; 16#2D7#=512+208+7=727; decimal727, grouped7_27 and727E0 each equal727. 7#1#E3=1*7^3=343. Image(Smallest) starts with minus, not a space, so the unchanged source's final prefix yields the exact bytes Integer spans-2147483648; positive Largest Image supplies the space after the two dots.",
+      "language_refs": [
+        "language.md:208",
+        "language.md:248",
+        "language.md:322",
+        "language.md:576"
+      ],
+      "task_path": "rosetta/l/literals/integer",
+      "source_sha256": "be88b3b9db00ba59f1ccde6220af0b4c469de9987bdb47f4fc407f7184ee5d35",
+      "source_bytes": 1498,
+      "source_lines": 29,
+      "classification": "existing-language; ordinary runnable candidate",
+      "source": "candidates/literals-integer.adb",
+      "admission": {
+        "command": [
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.silver/linux-x86_64/compiler/bin/silver",
+          "check",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/rosetta-next-increment-20261025/docs/evidence/rosetta-assessment-20261025/candidates/literals-integer.adb"
+        ],
+        "stdout": "Accepted: silver.\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    "Minimum number of cells after, before, above and below NxN squares": {
+      "expected": {
+        "stdout": " 0 0 0 0 0 0 0 0 0 0\n 0 1 1 1 1 1 1 1 1 0\n 0 1 2 2 2 2 2 2 1 0\n 0 1 2 3 3 3 3 2 1 0\n 0 1 2 3 4 4 3 2 1 0\n 0 1 2 3 4 4 3 2 1 0\n 0 1 2 3 3 3 3 2 1 0\n 0 1 2 2 2 2 2 2 1 0\n 0 1 1 1 1 1 1 1 1 0\n 0 0 0 0 0 0 0 0 0 0\n",
+        "stderr": "",
+        "exit_status": 0
+      },
+      "requirements": [
+        {
+          "reference": "rosetta/m/minimum-number-of-cells-after-before-above-and-below-nxn-squares/task.wiki:4",
+          "requirement": "Find and display the minimum cells to the four edges for an N=10 square."
+        }
+      ],
+      "derivation": "For row i,column j, the cells before,after,above,below are j-1,10-j,i-1,10-i. Successive replacement by a smaller candidate computes their minimum. The corners/entire outer border are 0; the central 2x2 entries are 4. Every row contains ten two-byte Images plus LF, so stdout is 210 bytes.",
+      "language_refs": [
+        "language.md:208",
+        "language.md:255",
+        "language.md:268",
+        "language.md:282",
+        "language.md:322",
+        "language.md:438"
+      ],
+      "task_path": "rosetta/m/minimum-number-of-cells-after-before-above-and-below-nxn-squares",
+      "source_sha256": "02db55ce8baf045763f2671119823f58518d54997eeaa64834babde03ef207f9",
+      "source_bytes": 511,
+      "source_lines": 22,
+      "classification": "existing-language; ordinary runnable candidate",
+      "source": "candidates/minimum-number-of-cells.adb",
+      "admission": {
+        "command": [
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.silver/linux-x86_64/compiler/bin/silver",
+          "check",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/rosetta-next-increment-20261025/docs/evidence/rosetta-assessment-20261025/candidates/minimum-number-of-cells.adb"
+        ],
+        "stdout": "Accepted: silver.\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    }
+  }
+}

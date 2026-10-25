@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indexes come from for-loop ranges over the array bounds (I+2 is at most 9 because I is at most 7), and loop-carried state is only Boolean, so every check follows from static bounds and no invariant or variant is needed.
 
-Position 1544 in the [progression](../../progression.md#stage-33), in stage 33.
+Position 1537 in the [progression](../../progression.md#stage-32), in stage 32.
 
 ## Approach
 

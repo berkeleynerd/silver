@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from declared subtypes, a per-step mod-bounded hash and a loop condition guarding chain indexing, with no function loops needing variants, so no annotation is required. The new surface (records, arrays, string indexing, 'Image, procedures) is large but each piece is routine for GNATprove.
 
-Position 613 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 606 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

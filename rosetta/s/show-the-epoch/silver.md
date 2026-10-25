@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task explicitly accepts documentation text where a demonstration is impractical, so printing literal epoch text needs only today's Silver and every check is trivial. A live demonstration through a date library would need an admitted calendar operation, but the text form already satisfies the task.
 
-Position 9 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 10 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

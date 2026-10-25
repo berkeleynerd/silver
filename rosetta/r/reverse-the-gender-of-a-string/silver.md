@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is a simple single-pass word substitution over a bounded buffer with no recursion or annotations needed, but the loop-carried positions and bounded output need careful guards.
 
-Position 562 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 555 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

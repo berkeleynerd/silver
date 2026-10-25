@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program only declares types, with null records, no operations and an empty body, so GNATprove has no run-time checks to discharge apart from trivial flow analysis. The only new surface Silver needs is tagged record types and type extension.
 
-Position 1555 in the [progression](../../../progression.md#stage-34), in stage 34, which adds tagged types.
+Position 1548 in the [progression](../../../progression.md#stage-33), in stage 33, which adds tagged types.
 
 ## Approach
 

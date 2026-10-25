@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program is just a series of Put_Line calls on static String literals, and doubled quotes inside them are ordinary Ada that Silver already admits. Those calls have no run-time checks beyond routine ones, so its proofs should discharge trivially with what Silver supports today.
 
-Position 23 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 24 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

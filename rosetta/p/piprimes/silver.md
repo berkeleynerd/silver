@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is small bounded integer arithmetic with static for-loop ranges and a guarded counter, so every check follows from types and guards. The main new needs are integers, mod, for loops, 'Image and Put without a line terminator.
 
-Position 1532 in the [progression](../../progression.md#stage-32), in stage 32.
+Position 1525 in the [progression](../../progression.md#stage-31), in stage 31.
 
 ## Approach
 

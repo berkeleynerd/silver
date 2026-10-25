@@ -34,12 +34,26 @@ complete Linux native/Lean and full-suite validation checkpoint passed on
 2026-10-25, with independent sample review. No construct or supported identifier
 changed, so the generated progression was not re-rendered.
 
-Before choosing the next implementation increment, reconcile the stage-2 task
-assessments as qualified in the [review disposition](docs/rosetta-supported-samples.md#next-proposal).
-Static named Integer subtypes with declarations using them remain a candidate
-under #11, motivated by a reusable `1 .. 10` range. The next sample batch or
-construct implementation awaits the owner's separate instruction; the broader
-#11 construct identifiers remain unsupported.
+The owner-requested [assessment reconciliation #225](https://github.com/berkeleynerd/silver/issues/225)
+is recorded in the [targeted mapping](rosetta/assessment-reconciliation-20261025.md).
+The selected next delivery proposal is
+[#226](https://github.com/berkeleynerd/silver/issues/226): five finite regressions
+for compile-time calculation, N-plus-one-half loops, immutability, Integer
+literals and the NxN minimum-cell grid, all within today's language. Integer
+sequence is language-eligible but excluded from that batch because its faithful
+full-range execution emits billions of lines. This assessment/selection request
+does not authorize implementing the new batch; #226 awaits the owner's next
+instruction after #9's delivery is accepted.
+
+The re-render keeps `supported` unchanged and gives stage 1 38 assessments,
+without expanding #9's original scope. The old ten-task #11 group now splits
+between six current-language candidates and four narrow future approaches.
+Generated stage 2 (#11) now also includes procedures, while arrays (#12) moves
+to stage 3; both remain unsupported and Backlog. New unsupported identifiers
+describe only the reviewed approaches, so their late generated positions do
+not establish implementation priority. After the selected sample batch, compare
+concrete scalar-refinement, division and named-type/subtype drivers in a separate
+construct-scope decision. No construct implementation is authorized by this plan.
 
 ### Unbounded programs
 

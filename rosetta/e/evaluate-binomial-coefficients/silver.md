@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check discharges without annotations: the for loop needs no termination variant, the divisor comes from the loop range, and the only loop-carried value, the overflow-prone accumulator, is guarded by a division-based bound test just before each multiply that leads to a reported outcome.
 
-Position 312 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 305 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

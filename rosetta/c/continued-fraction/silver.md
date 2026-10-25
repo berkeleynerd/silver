@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is a fixed-step reverse for-loop with positive coefficients, so termination is trivial and checks follow from ranged subtypes. The nonroutine part is bounding the float accumulator so the division and conversions discharge, and Silver lacking float formatting.
 
-Position 1061 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1054 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index comes from for-loop ranges over the arrays themselves and the single loop-carried counter is bounded by its subtype and a guard, so all checks discharge without annotations. No while loops, recursion or functions with loops are needed.
 
-Position 91 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 84 in the [progression](../../progression.md#stage-5), in stage 5.
 
 ## Approach
 

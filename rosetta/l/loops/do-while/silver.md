@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The for-loop index is bounded by its declared range, so the only checks are Value mod 6 (divisor is a nonzero literal) and the 'Image output, all of which follow from types. A while-style loop with an unbounded Value + 1 would need an overflow guard, which the bounded for loop avoids.
 
-Position 105 in the [progression](../../../progression.md#stage-7), in stage 7.
+Position 98 in the [progression](../../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

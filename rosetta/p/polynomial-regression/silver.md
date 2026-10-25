@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All data is embedded and small, so exact integer normal equations avoid floating point and every check follows from bounded subtypes or a guard just before the operation, though the loop-carried sums and determinants need careful guard placement.
 
-Position 935 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 928 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

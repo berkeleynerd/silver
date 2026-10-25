@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer arithmetic in nested for loops inside a procedure, with no recursion or floats, so checks follow from subtype ranges and a few guards on the carried position and length; the nonlinear products stay within Integer because the window is small.
 
-Position 923 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 916 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

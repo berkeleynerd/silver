@@ -1,19 +1,21 @@
 # Enforced immutability
 
-**Candidate: proofs likely to discharge automatically.** The task is satisfied by Ada's constant declarations, which are compile-time enforced, and the program has only static values and output calls, so every check is trivial. The only surface beyond today's Silver is an integer constant and its 'Image.
+**Candidate: proofs likely to discharge automatically.** Current constant String and Integer declarations prevent assignments to those objects, and finite-loop indexes are also immutable. An independently mutable Integer copy demonstrates that changing another object does not modify the constant; no new language construct is needed.
 
-Position 41 in the [progression](../../progression.md#stage-2), in stage 2.
+Position 26 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
-Main declares a String constant and an Integer constant with the constant keyword, so the compiler rejects any later assignment to them, and a comment notes the illegal assignment that would not compile. It prints both values with Put_Line, using 'Image for the integer, in straight-line code with no loops or guards. About 15 lines.
+Main declares Answer : constant Integer := 42, Name : constant String := "Silver" and mutable Copy : Integer := Answer. It prints the constants, assigns Copy := 43 and prints Copy alongside the unchanged Answer. A one-iteration loop prints its immutable index. Commented invalid assignments document that constants and indexes cannot be targets; the comments themselves are not executable negative-test evidence. Existing declaration and assignment membership rules provide the enforcement. About 17 lines.
 
 ## Language surface recorded by this assessment
 
-Integers and 'Image of scalars.
+Immutable Integer arithmetic, bounded mutable Integer objects, Integer range for loops and Integer image.
 
 ## External effects
 
 - **console output** (allowed): The program prints the values of its constants with Silver_IO.Put_Line to show they were created and remain unchanged.
 
-Assessed on 2026-10-15 against page revision 414182 of the [task](https://rosettacode.org/wiki/Enforced_immutability) by claude-opus-5-5 at high effort; confidence high. The inclusion policy is in `rosetta/coverage.json`.
+Initially assessed on 2026-10-15 against page revision 414182 of the [task](https://rosettacode.org/wiki/Enforced_immutability) by claude-opus-5-5 at high effort; current confidence high. The inclusion policy is in `rosetta/coverage.json`.
+
+Revised on 2026-10-25 by Codex through targeted source review; see the [review record](../../assessment-reconciliation-20261025.md).

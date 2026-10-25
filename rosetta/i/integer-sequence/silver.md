@@ -1,19 +1,21 @@
 # Integer sequence
 
-**Candidate: proofs likely to discharge automatically.** The for loop's index stays inside its static range, so nothing can overflow and the loop ends on its own, and the image of an Integer is always a short, bounded string. Every check therefore follows from types and static bounds, with no annotation needed.
+**Candidate: proofs likely to discharge automatically.** The current finite Integer-loop and standard Integer Image fragment can express the task's explicitly permitted implementation limit, 2147483647. This is language eligibility, not evidence that a complete 2147483647-line execution was performed; a normal sample-run disposition remains separate.
 
-Position 38 in the [progression](../../progression.md#stage-2), in stage 2.
+Position 8 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
-Main runs a single for loop, `for Value in 1 .. Integer'Last loop`, and prints `Integer'Image (Value)` with Silver_IO.Put_Line on each pass. The task allows stopping at an implementation limit, so the program ends at Integer'Last, which is the documented resource limit. The arbitrary-precision variant is optional and is left out. About 10 lines.
+Main uses for Value in 1 .. 2147483647 loop and calls Silver_IO.Put_Line (Integer'Image (Value)). The explicit literal is the current signed 32-bit Integer maximum; Integer'Last is not admitted syntax. Successful execution emits exactly 2147483647 lines, one for every integer from 1 through 2147483647 inclusive. Each line is one ASCII space, the ordinary decimal digits of Value, then LF. No arbitrary precision example is claimed. Do not cap this source or treat a prefix execution as complete task execution; keep the full-run validation disposition explicit. About 8 lines.
 
 ## Language surface recorded by this assessment
 
-Integers, for loops and 'Image of scalars.
+Integer range for loops and Integer image.
 
 ## External effects
 
 - **console output** (allowed): Each integer in the sequence is written to standard output on its own line with Silver_IO.Put_Line.
 
-Assessed on 2026-10-15 against page revision 404486 of the [task](https://rosettacode.org/wiki/Integer_sequence) by claude-opus-5-5 at high effort; confidence high. The inclusion policy is in `rosetta/coverage.json`.
+Initially assessed on 2026-10-15 against page revision 404486 of the [task](https://rosettacode.org/wiki/Integer_sequence) by claude-opus-5-5 at high effort; current confidence high. The inclusion policy is in `rosetta/coverage.json`.
+
+Revised on 2026-10-25 by Codex through targeted source review; see the [review record](../../assessment-reconciliation-20261025.md).

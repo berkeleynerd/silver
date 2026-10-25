@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is over tiny declared ranges and the only loop-carried value, the product, is protected by a guard right before the multiply, so every check follows from types and guards with no annotations.
 
-Position 303 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 296 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded loops over fixed-capacity interval arrays with comparison-only arithmetic, so the checks come from types and capacity guards, but the difference and intersection logic needs careful shape to keep counts within capacity without invariants. No recursion, while loops or annotations are needed, and the optional sin-based extra can be replaced by the exact interval rule.
 
-Position 1201 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1194 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 
