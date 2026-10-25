@@ -1,0 +1,294 @@
+{
+  "platform": "Linux x86_64",
+  "machine": "codex-silver",
+  "base_commit": "7a2fb0b70a445ea220ccd422fc62769a45e57904",
+  "implementation_commit": "247cc5c205acf1e5a9e93a76b5d4ba5420838e6e",
+  "scope": "Issue #9 original 31 tasks; 13 new samples plus existing null.adb cover 14 runnable tasks",
+  "source_change_scope": "samples only; compiler, runtime, proof, tooling, admission, capacity and pins unchanged",
+  "native_proof": {
+    "run_id": "20261025T070959-fd3da7c63f7a",
+    "kind": "prove",
+    "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native",
+    "command": [
+      [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.tools/linux-x86_64/alr/bin/alr",
+        "-s",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.tools/linux-x86_64/alire/settings",
+        "-C",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.silver/linux-x86_64/toolchain",
+        "-n",
+        "--no-tty",
+        "exec",
+        "--",
+        "gnatprove",
+        "-P",
+        "../../../silver.gpr",
+        "-U",
+        "--mode=all",
+        "--report=all",
+        "--warnings=error",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--timeout=30",
+        "-j",
+        "6",
+        "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.silver/linux-x86_64/proof-cache/gnatprove/ea6aba21eca447a9c8473fc1c3ea0300b03a95ce919d8a326f68a67989029329",
+        "-f",
+        "-XSILVER_HOST=linux-x86_64"
+      ]
+    ],
+    "reason": "Owner-requested complete sample-delivery checkpoint. Current compiler inputs match main; reuse the original successful native workspace and solver cache, refresh the complete report and provenance audit.",
+    "workers": 6,
+    "started_at": "2026-10-25T07:10:00.208098+00:00",
+    "finished_at": "2026-10-25T07:10:44.337316+00:00",
+    "outcome": "success",
+    "duration_seconds": 44.168508369,
+    "tracked_input_comparison": {
+      "target_commit": "247cc5c205acf1e5a9e93a76b5d4ba5420838e6e",
+      "matched": 141,
+      "mismatches": [],
+      "sha256": "894b59a2d86c75b7c3925043953d2659b4bba05a2066a0b18344f081de4ccebb"
+    },
+    "other_captured_inputs": 2378,
+    "captured_input_fingerprint": "3608f185a8b5ba5d18122dcb628b39962dbd3ad070f26f3a05783b3124390039",
+    "ledger_events_sha256": "2a8545d6fae6e942feab2daf61112c04ca358f3d4dfe5aae084583efb46c11b3",
+    "audit": {
+      "units": 75,
+      "entities": 1000,
+      "flow_checks": 1295,
+      "proof_checks": 13860,
+      "total_checks": 15155
+    }
+  },
+  "native_build": {
+    "run_id": "20261025T071056-2f783520af81",
+    "kind": "build",
+    "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native",
+    "command": [
+      [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.tools/linux-x86_64/alr/bin/alr",
+        "-s",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.tools/linux-x86_64/alire/settings",
+        "-C",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.silver/linux-x86_64/toolchain",
+        "-n",
+        "--no-tty",
+        "exec",
+        "--",
+        "gprbuild",
+        "-P",
+        "../../../silver.gpr",
+        "-p",
+        "-j6",
+        "-XSILVER_HOST=linux-x86_64"
+      ]
+    ],
+    "reason": "",
+    "workers": 6,
+    "started_at": "2026-10-25T07:10:57.776002+00:00",
+    "finished_at": "2026-10-25T07:11:05.377472+00:00",
+    "outcome": "success",
+    "duration_seconds": 7.601296194,
+    "tracked_input_comparison": {
+      "target_commit": "247cc5c205acf1e5a9e93a76b5d4ba5420838e6e",
+      "matched": 141,
+      "mismatches": [],
+      "sha256": "894b59a2d86c75b7c3925043953d2659b4bba05a2066a0b18344f081de4ccebb"
+    },
+    "other_captured_inputs": 2378,
+    "captured_input_fingerprint": "16ea4a6e3979ba1aa5a0214b00def5f6d7f2ec91432ddee5d8de1a9e897fb61d",
+    "ledger_events_sha256": "0f285ed93242e3a0bfc139a603697209aeab0db9dc8d745f1f1da4370f0c13cc"
+  },
+  "full_suite": {
+    "run_id": "20261025T071332-d7b2607b6d27",
+    "kind": "test",
+    "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native",
+    "command": [
+      [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ]
+    ],
+    "reason": "",
+    "workers": 6,
+    "started_at": "2026-10-25T07:13:34.103060+00:00",
+    "finished_at": "2026-10-25T07:57:42.841505+00:00",
+    "outcome": "success",
+    "duration_seconds": 2648.738100891,
+    "tracked_input_comparison": {
+      "target_commit": "247cc5c205acf1e5a9e93a76b5d4ba5420838e6e",
+      "matched": 693,
+      "mismatches": [],
+      "sha256": "b364dc69db87489c988d9c11358254979810fc7cacb6eed7a5892da957fb6e7e"
+    },
+    "other_captured_inputs": 8,
+    "captured_input_fingerprint": "bae29a8cfe240230416887471304c66fae2352e64addac12def93f2b818f47b1",
+    "ledger_events_sha256": "82542fc07d827ff0bba101d5a87a47285092dd2c32d95d9c712bd1fc951ef64f",
+    "tests": 473,
+    "unittest_seconds": 2647.144,
+    "manifest_sample_count": 35,
+    "new_sample_execution_cases": 19,
+    "log": "full-suite.log.gz",
+    "log_sha256": "b0bc23b4e47f74fc9fce80768b400359d68e1b3e30a7d1deb1476e553098033a",
+    "compressed_log_sha256": "0fe7b1995c0eba608db0b4903f7d2e584e4ea175544de5bb6f7f2c4a16aa0949",
+    "summary": "full-suite-summary.txt"
+  },
+  "lean": {
+    "run_id": "20261025T071150-d336b7715e90",
+    "host": "linux-x86_64",
+    "lean_version": "4.34.1",
+    "scope": "complete",
+    "mode": "incremental",
+    "clean_build": false,
+    "axiom_audit": "passed",
+    "kernel_recheck": null,
+    "threads_per_process": 2,
+    "lake_workers": 4,
+    "elapsed_seconds": 42.679,
+    "inputs_digest_sha256": "f452c73bf13d27b5724182e1cd0e92cffa1a44746cb6a2f1ba0a453c66317ebd",
+    "phases": [
+      {
+        "phase": "build",
+        "started_at": "2026-10-25T07:11:57.957162+00:00",
+        "finished_at": "2026-10-25T07:12:10.537173+00:00",
+        "elapsed_seconds": 12.58,
+        "exit_code": 0
+      },
+      {
+        "phase": "audit",
+        "started_at": "2026-10-25T07:12:15.071670+00:00",
+        "finished_at": "2026-10-25T07:12:29.358968+00:00",
+        "elapsed_seconds": 14.287,
+        "exit_code": 0
+      }
+    ],
+    "tools_sha256": {
+      ".tools/linux-x86_64/lean/bin/lean": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+      ".tools/linux-x86_64/lean/bin/lake": "6f53827dab18010d6c690d14c8401cacabc1db958edb3552a877ed4cf1dd995d"
+    },
+    "tracked_inputs_matching_implementation": 581,
+    "module_count": 466,
+    "audited_declarations": 89369,
+    "foundations": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "evidence_file_sha256": "c9686d02ebde81e4086ad5f1b94b26de5490ce58d4cf9a923eee8e0c74ebd416",
+    "managed_run": {
+      "run_id": "20261025T071150-d336b7715e90",
+      "kind": "lean",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean",
+      "command": [
+        [
+          "/usr/bin/python3",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/scripts/check_lean.py",
+          "--workers",
+          "4",
+          "--threads",
+          "2",
+          "--task",
+          "#9",
+          "--provenance",
+          "--reason",
+          "Complete cached source-correspondence and fresh axiom/module audit for the owner-requested sample delivery; unchanged proof inputs, retained original-path objects."
+        ]
+      ],
+      "reason": "Complete cached source-correspondence and fresh axiom/module audit for the owner-requested sample delivery; unchanged proof inputs, retained original-path objects.",
+      "workers": 4,
+      "started_at": "2026-10-25T07:11:51.956982+00:00",
+      "finished_at": "2026-10-25T07:12:33.113056+00:00",
+      "outcome": "success",
+      "duration_seconds": 41.155512482,
+      "tracked_input_comparison": {
+        "target_commit": "247cc5c205acf1e5a9e93a76b5d4ba5420838e6e",
+        "matched": 581,
+        "mismatches": [],
+        "sha256": "f452c73bf13d27b5724182e1cd0e92cffa1a44746cb6a2f1ba0a453c66317ebd"
+      },
+      "other_captured_inputs": 0,
+      "captured_input_fingerprint": "7619c30fbb2288f9ce377bace14ed63611d249560e53e85a2f514a86b952c84d",
+      "ledger_events_sha256": "fdf915bc9c725898fabcfe86c6af218bebc98bc4823165298ef3b171581055b7"
+    }
+  },
+  "samples": {
+    "samples/rosetta_copy_string.adb": {
+      "bytes": 283,
+      "sha256": "1ff8d9b046829fa7ba88882c85a9d57e2c49c525b8d86601bf3482f339f13ac3"
+    },
+    "samples/rosetta_diamond.adb": {
+      "bytes": 523,
+      "sha256": "3dfa6318172e96023458c96bc790817e8863e843df7dd6878f86f9939e6823c5"
+    },
+    "samples/rosetta_empire_state_building.adb": {
+      "bytes": 1805,
+      "sha256": "7ec4d786b514908c1c27aa94cf3d6ae3ab9a3e820843b18cdde28cb2ef13a2e5"
+    },
+    "samples/rosetta_hello_world.adb": {
+      "bytes": 117,
+      "sha256": "dc479602bd5473309332de9ae49badec5715d7b4be0e59860ace555f81a4c90f"
+    },
+    "samples/rosetta_identifier_case.adb": {
+      "bytes": 189,
+      "sha256": "fc6641e9e50b6aa55d88105c16dde5a733c11f8b5bdfc5d52bcd21d351586d3d"
+    },
+    "samples/rosetta_language_name_3d.adb": {
+      "bytes": 744,
+      "sha256": "9bb3d167460a598a46bd60721587c116ffff37ab7f96b0c18405b48d17d07ff9"
+    },
+    "samples/rosetta_newline_omission.adb": {
+      "bytes": 115,
+      "sha256": "06978a13a843f30a53f8af850a4fe5007b550c532128f8700d0a588c49334ede"
+    },
+    "samples/rosetta_print_debugging.adb": {
+      "bytes": 344,
+      "sha256": "6e6d7cef6d116fd35aee089d0fee5c303398dbf334b231e6b329358aaf2a42f7"
+    },
+    "samples/rosetta_rubiks_cube.adb": {
+      "bytes": 949,
+      "sha256": "2ada7f0dd5d5f4a2218f368b2ff588e76340ec343606d286749cb4579f3a60e4"
+    },
+    "samples/rosetta_shell_one_liner.adb": {
+      "bytes": 111,
+      "sha256": "a845ee99c96ed3ccee3346bea45370dade0fddc9ea7817afe9a89efdec8946ed"
+    },
+    "samples/rosetta_special_characters.adb": {
+      "bytes": 444,
+      "sha256": "f21bb4616b486e7ad5e49aca9223023cf2613a694f4e7a794433b2b4ff653803"
+    },
+    "samples/rosetta_string_concatenation.adb": {
+      "bytes": 220,
+      "sha256": "56780a91a6bd75d2b6276936c86f6fc3f604cf04b6e06ac12e7b3d2e5439a267"
+    },
+    "samples/rosetta_useless_instructions.adb": {
+      "bytes": 835,
+      "sha256": "fa9eebc91b9e9f88a0c9ecd0f09a5b02ce5b157dab3f2450a25c9a924b130ccb"
+    }
+  },
+  "manifest_sha256": "c49b92e5990a495871d156a2841f3f65cf3aee1286c412bf411ae31bb22b7ca9",
+  "manifest_sample_count": 35,
+  "new_sample_execution_cases": 19,
+  "review": {
+    "commit": "247cc5c205acf1e5a9e93a76b5d4ba5420838e6e",
+    "diff": "7a2fb0b70a..247cc5c205acf1e5a9e93a76b5d4ba5420838e6e -- samples/",
+    "selected_model": "gpt-6.1-sol",
+    "selected_effort": "xhigh",
+    "runtime_setting_independently_confirmed": false,
+    "elapsed_seconds": 77,
+    "material_findings": [],
+    "tokens": null,
+    "cost": null
+  },
+  "limits": [
+    "Cached native full audit, not cold proof.",
+    "Cached complete Lean build with fresh source/module/axiom audit, no independent kernel replay.",
+    "Native Linux only; no new macOS or hosted CI evidence.",
+    "Local ledger and full proof artifacts retained in the recorded workspaces; this file is a compact evidence index."
+  ]
+}

@@ -1,6 +1,74 @@
 # Session memory
 
+## 2026-10-25 — PR #221 external review assessed
+
+The owner asked for judgment on the external review of PR #221 at `6a70c241db`.
+The [supplied report](reviews/review-pr221-6a70c241db.md) and
+[disposition](rosetta-supported-samples.md#external-review-disposition--2026-10-25)
+retain the exact target, reviewer-reported measurements and conclusions.
+The no-blocker delivery verdict and M1/L1/L2 record repairs were accepted;
+the repairs retain existing native/Lean/full-suite evidence. The prior direct
+owner instruction supplies all three authorizations questioned by the review.
+
+The next-step recommendation is qualified: reconcile task assessments first;
+admission checks alone do not establish seven delivered solutions, Unicode is
+a current-language exclusion rather than an Oracle prohibition, and permanent
+interpolation exclusion needs a more precise task/library interpretation.
+Named Integer subtypes remain a candidate, not an authorized next increment.
+No new sample batch, construct, deferred work or PR #147 amendment was started.
+
+## 2026-10-25 — Current-language Rosetta samples #9
+
+The owner's 2026-10-24 instruction directly selected
+[#9](https://github.com/berkeleynerd/silver/issues/9), following the authorization
+on main in [PR #220](https://github.com/berkeleynerd/silver/pull/220). Its scope
+is exactly the issue's original 31 tasks: runnable regressions within today's
+language and 4,096-byte source bound, with prose-only tasks skipped and missing
+semantics explicitly excluded. Delivery is through a pull request with a
+completing `Fixes #9` commit. The [delivery record](rosetta-supported-samples.md)
+contains the complete mapping, evidence and review.
+
+The direct source is the owner message headed **“Owner instruction, 2026-10-24”**
+in this coding-agent conversation: “This is a direct owner request recorded on
+main; no further authorization is needed”; “Do not resume #119, #201, #202 or
+#212” and “Do not start them” for #88–#94; and “Deliver through a pull request
+whose completing commit carries "Fixes #9".” These are conversation instructions,
+not quotations from a new GitHub comment.
+
+Implementation `247cc5c205` adds thirteen programs and manifest entries and
+reuses the unchanged null sample, covering fourteen runnable tasks. Fourteen
+prose/tooling tasks are skipped; built-in interpolation, heredocs and Rubik's
+Magic simulation are excluded because the assessed substitutes do not implement
+the task requirements. Independent review found no material issue. Native
+proof/build, complete cached Lean/source auditing and the full regression suite
+passed on Linux x86-64. Exact inputs, measurements and run IDs remain in the
+delivery record.
+No construct, catalogue, supported Rosetta identifier, admission/capacity rule,
+Oracle guarantee or tool pin changed; no progression re-render was called for.
+
+The owner reaffirmed that #119 and its children, accepted/frozen and paused
+packets, and #88–#94 remain deferred. This session did not review, integrate or
+resume them, perform R93 cleanup, or create/reactivate a harness goal. The local
+harness returned no active goal; this does not alter the earlier harness's pause.
+The current assurance-mode names are strict and extended, as selected in the
+[2026-10-24 naming decision](https://github.com/berkeleynerd/silver/blob/914640a9dab5bc5e0c218112613a850b024a6437/docs/session-memory.md#2026-10-24--assurance-mode-open-questions-answered)
+on the draft PR #147 branch and restated in the owner's direct message. PR #147
+stays unmerged and the Oracle remains unchanged.
+
+The next proposed #11 increment is static named Integer subtypes and declarations
+using them, motivated by a reusable `1 .. 10` range. Its detailed scope and
+implementation require the owner's next instruction. This is a proposal, not
+an authorization or completion of the broad #11 identifiers.
+
+GitHub #9 carries the claim, selection and delivery handoff; its issue closes
+when the completing commit reaches main. CLI memory was unavailable and was not
+updated. The checked-in record and issue handoff are the continuation pointers.
+
 ## 2026-10-24 — Capacity derivation #119 deferred; language development resumes
+
+Terminology below was aligned on 2026-10-25 with the later
+[2026-10-24 naming decision](https://github.com/berkeleynerd/silver/blob/914640a9dab5bc5e0c218112613a850b024a6437/docs/session-memory.md#2026-10-24--assurance-mode-open-questions-answered);
+this does not change the original deferral or authorization.
 
 The owner asked whether completing the full scope of
 [#119](https://github.com/berkeleynerd/silver/issues/119) is worth doing before
@@ -60,7 +128,7 @@ three days before #119 began; none in the seven days since.
    independent reviews, integrate what is accepted, publish. Skipping it is
    acceptable; the policy's review tier is not lowered to finish it here.
 3. **Production #88–#94 keep their conditional authorization but are
-   re-sequenced** as the strict/loose assurance-modes milestone adopted in
+   re-sequenced** as the strict/extended assurance-modes milestone adopted in
    principle on 2026-10-19 (draft [PR #147](https://github.com/berkeleynerd/silver/pull/147)).
    It starts on a later owner instruction when the 4,096-byte source bound or the
    4,096 value/argument/output caps bind a needed program, in this order: #88
@@ -75,7 +143,7 @@ three days before #119 began; none in the seven days since.
    separately costed. Strict mode remains the uniform 4,096-byte bound until
    #119's rule exists. #88–#94 return to Backlog until that instruction.
 4. **Resume trigger for #119:** the first needed program that returns a
-   resource outcome or is rejected by the loose-mode envelope, or a later owner
+   resource outcome or is rejected by the extended-mode envelope, or a later owner
    selection. Dense programs beyond the measured prover reach (a dense 8 KB
    probe exceeded a 14 GiB guard) are not shippable under either route until
    #119 plus #90/#91 complete; the deferral does not change that.

@@ -354,6 +354,10 @@ silver_executable=$(python3 scripts/dev.py paths --field executable)
 
 ## Proofs and platform evidence
 
+The [current-language Rosetta sample record](docs/rosetta-supported-samples.md)
+maps issue #9's 31 tasks to runnable regressions and explicit skips, and records
+their Linux validation and independent review.
+
 The [Bounded mutable integers record](docs/bounded-mutable-integers.md) identifies
 the integrated implementation, [independent review](docs/reviews/review-bounded-mutable-integers.md),
 complete Linux native and Lean validation, and full-suite execution supplemented

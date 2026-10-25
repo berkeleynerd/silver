@@ -1030,6 +1030,312 @@
         "stderr": "",
         "exit_status": 0
       }
+    },
+    {
+      "source": "rosetta_shell_one_liner.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "literal_output",
+        "string_literal"
+      ],
+      "specification": "../language.md#grammar-and-capabilities",
+      "expected": {
+        "stdout": "Hello world!\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    {
+      "source": "rosetta_newline_omission.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "literal_output",
+        "string_literal"
+      ],
+      "specification": "../language.md#meaning-and-assurance",
+      "expected": {
+        "stdout": "Goodbye, World!",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    {
+      "source": "rosetta_hello_world.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "literal_output",
+        "string_literal"
+      ],
+      "specification": "../language.md#meaning-and-assurance",
+      "expected": {
+        "stdout": "Hello world!\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    {
+      "source": "rosetta_identifier_case.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "string_literal",
+        "named_string_variable",
+        "string_assignment",
+        "string_concatenation",
+        "concatenated_output"
+      ],
+      "specification": "../language.md#literals-and-names",
+      "expected": {
+        "stdout": "There is just one dog named Bernie.\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    {
+      "source": "rosetta_string_concatenation.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "string_literal",
+        "named_string_variable",
+        "string_concatenation",
+        "named_output",
+        "statement_sequence"
+      ],
+      "specification": "../language.md#common-string-expressions",
+      "expected": {
+        "stdout": "Hello\nHello world!\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    {
+      "source": "rosetta_copy_string.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "string_literal",
+        "named_string_variable",
+        "string_copy",
+        "string_assignment",
+        "string_concatenation",
+        "concatenated_output",
+        "statement_sequence"
+      ],
+      "specification": "../language.md#statement-sequences-and-fixed-bound-assignment",
+      "expected": {
+        "stdout": "Before: Hello / Hello\nAfter: World / Hello\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    {
+      "source": "rosetta_print_debugging.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "scalar_integer_literal",
+        "named_integer_variable",
+        "integer_range_constraint",
+        "integer_expression",
+        "integer_assignment",
+        "integer_image",
+        "string_literal",
+        "string_concatenation",
+        "expression_output",
+        "statement_sequence"
+      ],
+      "specification": "../language.md#integer-objects-expressions-and-comparisons",
+      "expected": {
+        "stdout": "TRACE rosetta_print_debugging.adb:8:4 Value := (9 - Value);\nbefore: 2\nafter: 7\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    {
+      "source": "rosetta_diamond.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "literal_output",
+        "string_literal",
+        "statement_sequence"
+      ],
+      "specification": "../language.md#meaning-and-assurance",
+      "expected": {
+        "stdout": "      ___________\n     / \\   |   / \\\n    /___\\__|__/___\\\n    \\   /  |  \\   /\n     \\ /   |   \\ /\n      \\    |    /\n       \\   |   /\n        \\  |  /\n         \\ | /\n          \\|/\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    {
+      "source": "rosetta_special_characters.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "string_literal",
+        "literal_output",
+        "statement_sequence"
+      ],
+      "specification": "../language.md#literals-and-names",
+      "expected": {
+        "stdout": "Single delimiters: & ' ( ) * + , - . : ; < = >\nCompound delimiters: => .. := /= >= <=\nDouble quotes delimit String literals; double a quote inside one.\nShe said \"Hello\".\nBackslash is literal: \\; -- inside a String is literal too.\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    {
+      "source": "rosetta_language_name_3d.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "literal_output",
+        "string_literal",
+        "statement_sequence"
+      ],
+      "specification": "../language.md#meaning-and-assurance",
+      "expected": {
+        "stdout": "  .....   .....   .       .   .   .....   ....\n /////   /////   /.      /.  /.  /////   //// .\n#####   #####   #/.     #/. #/. #####   #### /.\n#/.....   #/.   #/.     #/. #/. #/....  #/..#/\n#/////.   #/.   #/.     #/ .#/  #////   #///#\n#####/.   #/.   #/.     # /.#.  ####    #### .\n  ..#/.   #/... #/.....  #/#/   #/..... #/# / .\n ///#/   /#///  #/////   # #    #/////  #/ # /\n#####   #####   #####     #     #####   #   #\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    {
+      "source": "rosetta_rubiks_cube.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "literal_output",
+        "string_literal",
+        "statement_sequence"
+      ],
+      "specification": "../language.md#meaning-and-assurance",
+      "expected": {
+        "stdout": "      +---+---+---+\n     / W / W / W /|\n    +---+---+---+ |\n   / W / W / W /|R|\n  +---+---+---+ | +\n / W / W / W /|R|/|\n+---+---+---+ | + |\n|   |   |   |R|/|R|\n| G | G | G | + | +\n|   |   |   |/|R|/|\n+---+---+---+ | + |\n|   |   |   |R|/|R|\n| G | G | G | + | +\n|   |   |   |/|R|/\n+---+---+---+ | +\n|   |   |   |R|/\n| G | G | G | +\n|   |   |   |/\n+---+---+---+\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    {
+      "source": "rosetta_useless_instructions.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "argument_context",
+        "argument_initialization",
+        "input_guard",
+        "argument_rejection",
+        "named_string_constant",
+        "named_string_variable",
+        "string_literal",
+        "string_assignment",
+        "string_equality",
+        "string_choice",
+        "string_concatenation",
+        "concatenated_output",
+        "statement_sequence"
+      ],
+      "specification": "../language.md#statement-sequences-and-fixed-bound-assignment",
+      "expected": {
+        "stdout": "elsif: 2\nnested if: 2\n",
+        "stderr": "",
+        "exit_status": 0
+      },
+      "argument_cases": [
+        {
+          "arguments": [
+            "one"
+          ],
+          "expected": {
+            "stdout": "elsif: 1\nnested if: 1\n",
+            "stderr": "",
+            "exit_status": 0
+          }
+        },
+        {
+          "arguments": [
+            "two"
+          ],
+          "expected": {
+            "stdout": "elsif: 2\nnested if: 2\n",
+            "stderr": "",
+            "exit_status": 0
+          }
+        },
+        {
+          "arguments": [
+            "other"
+          ],
+          "expected": {
+            "stdout": "elsif: ?\nnested if: ?\n",
+            "stderr": "",
+            "exit_status": 0
+          }
+        },
+        {
+          "arguments": [
+            ""
+          ],
+          "expected": {
+            "stdout": "elsif: ?\nnested if: ?\n",
+            "stderr": "",
+            "exit_status": 0
+          }
+        },
+        {
+          "arguments": [
+            "one",
+            "two"
+          ],
+          "expected": {
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          }
+        },
+        {
+          "arguments": [
+            "\u0001"
+          ],
+          "expected": {
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          }
+        }
+      ]
+    },
+    {
+      "source": "rosetta_empire_state_building.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "literal_output",
+        "string_literal",
+        "statement_sequence"
+      ],
+      "specification": "../language.md#meaning-and-assurance",
+      "expected": {
+        "stdout": "                  |\n                  |\n                 /|\\\n                 |||\n                 |||\n                _|||_\n               |  |  |\n               |  |  |\n              _|__|__|_\n             | | | | | |\n             | | | | | |\n             | | | | | |\n            _|_|_|_|_|_|_\n           | | | | | | | |\n           | | | | | | | |\n           | | | | | | | |\n           | | | | | | | |\n          _|_|_|_|_|_|_|_|_\n         | | | | | | | | | |\n         | | | | | | | | | |\n         | | | | | | | | | |\n         | | | | | | | | | |\n         | | | | | | | | | |\n        _|_|_|_|_|_|_|_|_|_|_\n       | | | | | | | | | | | |\n       | | | | | | | | | | | |\n       | | | | | | | | | | | |\n       | | | | | | | | | | | |\n      _|_|_|_|_|_|_|_|_|_|_|_|_\n     | | | | | | | | | | | | | |\n     | | | | | | | | | | | | | |\n     |___________|___|___________|\n",
+        "stderr": "",
+        "exit_status": 0
+      }
     }
   ]
 }

@@ -1,0 +1,3 @@
+info: Silver/Audit.lean:7:0: Silver axiom audit passed: 89369 declarations; foundations: [propext, Classical.choice, Quot.sound]
+Silver axiom audit passed: 89369 declarations; foundations: [propext, Classical.choice, Quot.sound]
+Lean complete project check and fresh axiom audit passed for linux-x86_64: /home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/.silver/linux-x86_64/lean-proof.log
