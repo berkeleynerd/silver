@@ -80,9 +80,13 @@ non-deferred successors.
    and [validation/delivery #233](https://github.com/berkeleynerd/silver/issues/233).
    No partial package completes the parent or admits a construct.
 2. [Scalar guard refinement #234](https://github.com/berkeleynerd/silver/issues/234):
-   next under the owner's continuation, after division. Scope useful scalar
-   comparisons, assignment transfer/invalidation, joins and loop facts before
-   implementation. Its packages are [scope/design #237](https://github.com/berkeleynerd/silver/issues/237),
+   next under the owner's continuation, after division. The
+   [selected scope](docs/scalar-guard-refinement.md) refines mutable names and
+   loop indexes against static thresholds, separates declared ranges from flow,
+   replaces facts on assignment, joins branches and widens mutable facts at loop
+   boundaries while preserving captured index bounds. The finite driver is
+   100 doors; native discovery and implementation remain pending. Its packages are
+   [scope/design #237](https://github.com/berkeleynerd/silver/issues/237),
    [native admission #238](https://github.com/berkeleynerd/silver/issues/238),
    [universal/source assurance #239](https://github.com/berkeleynerd/silver/issues/239)
    and [validation/delivery #240](https://github.com/berkeleynerd/silver/issues/240).
