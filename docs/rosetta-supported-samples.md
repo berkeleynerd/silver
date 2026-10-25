@@ -52,7 +52,7 @@ The numbering follows #9, not the current generated stage positions.
 | 17 | [Special variables](../rosetta/s/special-variables/task.wiki) | Skip: prose inventory of special variables. |
 | 18 | [Draw a diamond](../rosetta/d/draw-a-diamond/task.wiki) | [rosetta_diamond.adb](../samples/rosetta_diamond.adb) — Faceted three-dimensional diamond/inverted pyramid. |
 | 19 | [Special characters](../rosetta/s/special-characters/task.wiki) | [rosetta_special_characters.adb](../samples/rosetta_special_characters.adb) — Actual doubled-quote escaping; literal backslash and comment marker. |
-| 20 | [Write language name in 3D ASCII](../rosetta/w/write-language-name-in-3d-ascii/task.wiki) | Silver lettering with front faces, extrusion strokes and back edges. |
+| 20 | [Write language name in 3D ASCII](../rosetta/w/write-language-name-in-3d-ascii/task.wiki) | [rosetta_language_name_3d.adb](../samples/rosetta_language_name_3d.adb) — Silver lettering with front faces, extrusion strokes and back edges. |
 | 21 | [Safe mode](../rosetta/s/safe-mode/task.wiki) | Skip: descriptive account of language restrictions. |
 | 22 | [Documentation](../rosetta/d/documentation/task.wiki) | Skip: comments/source documentation explanation. |
 | 23 | [Rubik's cube](../rosetta/r/rubiks-cube/task.wiki) | [rosetta_rubiks_cube.adb](../samples/rosetta_rubiks_cube.adb) — Fixed drawing with three visible 3-by-3 faces. |
@@ -94,7 +94,10 @@ The original native validation installation under
 `tmp/bounded-mutable-integers-native` and retained Lean installation under
 `tmp/review-b79-b1-lean` preserve effective cache paths. Their compiler, proof,
 script and test sources were checked against main before reuse. Unrelated scratch
-files are preserved. Linux x86-64 is the actual validation host.
+files are preserved. The native suite ran at implementation `247cc5c205`; the
+Lean workspace was at main `7a2fb0b70a`, with its 581 authoritative inputs checked
+byte-for-byte against the implementation commit. Linux x86-64 is the actual
+validation host.
 
 The manifest check admits each source, proves and builds its byte-identical
 snapshot, audits the application and selected-library reports and effective prover
@@ -139,6 +142,7 @@ while documentation changed; no source pin or semantic proof was altered.
 | --- | --- | --- | --- |
 | Task requirements and implementation | Author and independent task auditor: GPT-6.1 Sol, Extra High (selected through agent controls); lead runtime model/effort not exposed by this harness | Agreed 31-task disposition; rejected interpolation/heredoc output substitutes and fixed simulation frames; implementation integrated and independently reviewed | Auditor reported approximately two minutes; implementation elapsed not instrumented; token/cost measurements unavailable |
 | Stable validation and integration | Lead runtime model/effort unavailable; independent implementation reviewer: GPT-6.1 Sol, Extra High (selected) | Native, complete Lean/source and full-suite checks passed; all 35 samples passed, no implementation rework required | Review 77 s; native and suite timing in the validation table; whole-team token/cost measurements unavailable |
+| External review integration | Lead runtime setting unavailable; bounded recommendation check: GPT-6 Astra, Extra High (selected) | M1/L1/L2 repaired; authorization provenance clarified; planning overclaims corrected without implementation changes | Recommendation check 148 s excluding initial reads; lead elapsed and token/cost unavailable; prior successful validation retained |
 
 Independent implementation review covered exactly
 `7a2fb0b70a..247cc5c205acf1e5a9e93a76b5d4ba5420838e6e -- samples/`,
@@ -154,18 +158,76 @@ The implementation commit is `247cc5c205`; later delivery edits are documentatio
 and evidence only. The shell invocation above supplies the environment portion
 of the one-liner task, using the exact one-line regression source.
 
+## External review disposition — 2026-10-25
+
+The owner supplied [review-pr221-6a70c241db](reviews/review-pr221-6a70c241db.md),
+reviewing PR #221 at `6a70c241db` and implementation `247cc5c205`. The report is
+preserved verbatim; its recommendations are subject to the dispositions here.
+Its Claude Fable 5.1 settings, 53-minute duration, 958k output tokens and 119-agent
+accounting are reviewer-reported, not independently measured by this session.
+The delivery verdict is accepted: no blocker or sample implementation defect.
+
+| Finding | Disposition |
+| --- | --- |
+| M1, [#222](https://github.com/berkeleynerd/silver/issues/222) | Confirmed and fixed. Read the Lean ledger's `started.command` and `started.inputs.sources`; all 581 hashes were rechecked against `247cc5c205`. The index now contains the actual invocation and nonempty comparison. No proof result changed. |
+| L1, [#223](https://github.com/berkeleynerd/silver/issues/223) | Confirmed and fixed: row 20 links its 3D language-name regression. |
+| L2, [#224](https://github.com/berkeleynerd/silver/issues/224) | Confirmed and fixed: current roadmap/decision terminology is strict/extended, with an immutable citation to the owner's 2026-10-24 decision on draft PR #147 and a dated note on the historical terminology update. No Oracle or authorization change. |
+| L3 | Clarified the native and Lean worktree revisions above; their actual input correspondence remains the same. |
+| L4 | No policy defect: the tags selecting proof/report policy are correct, and the descriptive capability list is not an exhaustive syntax inventory. Cosmetic normalization is unnecessary for this delivery; manifest and samples remain unchanged. |
+| Owner confirmation note | No new confirmation needed. The earlier message headed “Owner instruction, 2026-10-24” explicitly selected #9, repeated the deferrals and required a pull request. Session memory now identifies that conversation source and quotes the relevant instructions. |
+| M2/L5 planning work | Assessment reconciliation remains the planning agent's separate work. Do not automatically adopt the report's permanent exclusions or seven-task progression claim; see below. No Rosetta render or next-stage implementation was performed here. |
+
+The repair validation checks the JSON against the retained ledger, links and
+whitespace. Existing native, Lean and full-suite evidence applies unchanged;
+no source, proof, script, sample or manifest was edited and no expensive success
+was rerun. The independent bounded recommendation check used selected GPT-6 Astra
+Extra High (runtime setting not independently confirmed), reading this report,
+the ten task texts, retained candidate sources and governing Ada/SPARK references.
+Its observed clock interval was 148 seconds, excluding initial reads; token/cost
+measurements are unavailable. It found the planning qualifications below.
+
+For future reviews, use a focused pass plus checks tied to unresolved findings.
+The supplied review's 119-agent expansion is disproportionate to these record
+repairs; agent and token totals do not establish stronger evidence. No model-quality
+comparison is inferred from the reported spending.
+
 ## Next proposal
 
-After #9, a bounded next increment under [#11](https://github.com/berkeleynerd/silver/issues/11)
-could admit static named Integer subtypes and object declarations using those names,
-motivated by the reusable `1 .. 10` range in
-[Define a primitive data type](../rosetta/d/define-a-primitive-data-type/task.wiki).
-Its scope would specify static range evaluation, name visibility, initialization,
-assignment and composition with existing loops and Integer Image, together with
-the complete universal, source-correspondence and native validation obligations.
-Named distinct types, conversions, scalar guard refinement, other scalar Images
-and broader loop forms would remain separate. This would advance part of #11;
-it would not complete its broad construct identifiers.
+Reconcile the stage-2 assessments and exact task interpretations before selecting
+another implementation increment. Admission alone is not task fidelity, proof,
+build or execution evidence. The supplied review's seven admitted candidates do
+not yet justify moving seven tasks to supported status:
 
-This is a proposal for the owner's scope decision, not implementation authorization.
-The next construct stage, deferred #119 work and #88–#94 remain unstarted here.
+- Topic variable uses an ordinary explicit variable; it does not establish the
+  [task's special topic-variable behavior](../rosetta/t/topic-variable/task.wiki).
+- Integer sequence permits an implementation limit, so the signed-32-bit sequence
+  is a valid candidate. Its 2,147,483,647 output lines still need an honest validation
+  disposition; silently capping the sequence is not completion of that task.
+- Compile-time calculation, the half-iteration loop, immutability and minimum cells
+  have faithful core candidates. Literals/Integer needs a minor explanation of the
+  full base range 2–16 and a comment correction: `7#1#E3` is 343, not 727.
+  All remain undelivered candidates until their required validation passes.
+
+Unicode identifiers are excluded by today's [source rules](../language.md#source-and-lexical-rules),
+not the Oracle: Ada 2022 RM 2.3 permits Unicode letters, and SPARK 16.1 adds no
+identifier restriction. The separate mutable-increment limitation comes from
+current interval analysis. Native heredoc syntax conflicts with the unchanged
+inherited Ada literal syntax. Permanent interpolation impossibility is not
+established merely by absence of literal interpolation syntax: the captured
+[Ada answer](../rosetta/s/string-interpolation-included/ada.wiki) uses existing
+`Fixed.Index`/`Fixed.Replace_Slice`, and the Oracle permits selectively admitted
+library operations. That approach needs an explicit task interpretation and
+admission assessment. The #9 exclusions themselves remain justified.
+
+Static named Integer subtypes and declarations using them remain a coherent
+candidate under [#11](https://github.com/berkeleynerd/silver/issues/11), motivated
+by the reusable `1 .. 10` range. A subtype mark in a for-loop range is related but
+not necessary to the minimal driver. Distinguish a subtype from a distinct Ada
+type and establish name resolution, range semantics and source correspondence;
+reuse of interval machinery does not discharge those obligations by itself.
+Assessment-derived task yields do not settle a subtype/division implementation
+order. Scalar guard refinement also has independent value for guarded updates
+of existing Integer objects; it does not require conversions to be useful.
+
+The next sample batch and construct stage still require owner authorization.
+Deferred #119 work and #88–#94 remain untouched.

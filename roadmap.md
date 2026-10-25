@@ -34,10 +34,12 @@ complete Linux native/Lean and full-suite validation checkpoint passed on
 2026-10-25, with independent sample review. No construct or supported identifier
 changed, so the generated progression was not re-rendered.
 
-The proposed next #11 scope is static named Integer subtypes with declarations
-using those names, motivated by a reusable `1 .. 10` range. Its detailed scope
-and implementation await the owner's separate instruction. The broader #11
-construct identifiers remain unsupported.
+Before choosing the next implementation increment, reconcile the stage-2 task
+assessments as qualified in the [review disposition](docs/rosetta-supported-samples.md#next-proposal).
+Static named Integer subtypes with declarations using them remain a candidate
+under #11, motivated by a reusable `1 .. 10` range. The next sample batch or
+construct implementation awaits the owner's separate instruction; the broader
+#11 construct identifiers remain unsupported.
 
 ### Unbounded programs
 
@@ -50,7 +52,7 @@ Accepted #119 evidence is frozen at the R92 checkpoint `f1920759b1` in draft
 PR #121 (tag `evidence/119-r92-accepted-f1920759b1`); #119, its children and the
 open findings are deferred in Backlog, and PR #121 stays unmerged. #88–#94 keep
 their conditional authorization but form the later assurance-modes milestone
-(loose mode with a crude sound envelope for the silent hard limits; strict mode
+(extended mode with a crude sound envelope for the silent hard limits; strict mode
 stays at 4,096 bytes until #119's rule exists). The paragraphs below record the
 2026-10-17 direction and its production order as history; the decision entry
 records the re-sequencing, the resume trigger and what is not authorized.
