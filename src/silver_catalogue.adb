@@ -749,7 +749,10 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""binary_operators"": [");
       Put_Line ("          ""+"",");
       Put_Line ("          ""-"",");
-      Put_Line ("          ""*""");
+      Put_Line ("          ""*"",");
+      Put_Line ("          ""/"",");
+      Put_Line ("          ""mod"",");
+      Put_Line ("          ""rem""");
       Put_Line ("        ],");
       Put_Line ("        ""binary_operations_fully_parenthesized"": true,");
       Put_Line ("        ""unary_operators"": [");
@@ -765,10 +768,14 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("          -2147483648,");
       Put_Line ("          2147483647");
       Put_Line ("        ],");
-      Put_Line ("        ""interval_arithmetic"": ""endpoint addition/subtraction/negation and min/max of four endpoint products; every intermediate fits Integer"",");
+      Put_Line ("        ""interval_arithmetic"": ""endpoint addition/subtraction/negation, four-corner product and truncating quotient hulls, singleton-exact modulus/remainder and conservative signed magnitude bounds; every intermediate fits Integer"",");
+      Put_Line ("        ""divisor_interval"": ""must exclude zero before empty-operand propagation"",");
+      Put_Line ("        ""division_overflow"": ""minimum Integer divided by minus one is excluded; mod and rem permit that pair with exact result zero"",");
+      Put_Line ("        ""modulo_interval"": ""singleton-exact; otherwise [0, divisor upper - 1] for positive divisors or [divisor lower + 1, 0] for negative divisors"",");
+      Put_Line ("        ""remainder_interval"": ""singleton-exact; otherwise dividend-sign bounds clipped by max(abs(divisor endpoints)) - 1"",");
       Put_Line ("        ""correlated_operands_refined"": false,");
       Put_Line ("        ""scalar_guards_refine_intervals"": false,");
-      Put_Line ("        ""empty_index_interval"": ""index-dependent safety vacuous except Integer assignment requires nonempty RHS; out-of-range static subexpressions still excluded"",");
+      Put_Line ("        ""empty_index_interval"": ""divisors must exclude zero; otherwise index-dependent safety vacuous except Integer assignment requires nonempty RHS; invalid static subexpressions still excluded"",");
       Put_Line ("        ""positions"": [");
       Put_Line ("          ""integer_object_initializer"",");
       Put_Line ("          ""static_range_bound"",");
@@ -778,7 +785,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("          ""integer_image_argument""");
       Put_Line ("        ],");
       Put_Line ("        ""conversions"": false,");
-      Put_Line ("        ""division"": false,");
+      Put_Line ("        ""division"": true,");
       Put_Line ("        ""mutable_integer_values"": true,");
       Put_Line ("        ""mutable_body_interval"": ""entire declared range; constants retain exact captured values""");
       Put_Line ("      }");

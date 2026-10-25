@@ -72,6 +72,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    Atom_VC_RANGE_CHECK : constant String := "VC_RANGE_CHECK";
    Atom_VC_LENGTH_CHECK : constant String := "VC_LENGTH_CHECK";
    Atom_VC_OVERFLOW_CHECK : constant String := "VC_OVERFLOW_CHECK";
+   Atom_VC_DIVISION_CHECK : constant String := "VC_DIVISION_CHECK";
    Atom_all : constant String := "all";
    Atom_info : constant String := "info";
    Atom_main_adb : constant String := "main.adb";
@@ -1311,7 +1312,8 @@ package body Silver_Library_Reports with SPARK_Mode => On is
              String_Equal (Text, Field_Spec (Text, Item, JSON_how_proved), Atom_prover)
              and then (String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_VC_RANGE_CHECK)
                or else String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_VC_LENGTH_CHECK)
-               or else String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_VC_OVERFLOW_CHECK))
+               or else String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_VC_OVERFLOW_CHECK)
+               or else String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_VC_DIVISION_CHECK))
              and then String_Equal (Text, Field_Spec (Text, Item, JSON_file), Atom_main_adb)
              and then Entity_Name_Spec (Text, Referenced_Entity_Spec
                (Text, Entities, Field_Spec (Text, Item, JSON_entity))) = Main_Entity
@@ -1400,7 +1402,8 @@ package body Silver_Library_Reports with SPARK_Mode => On is
            and then String_Equal (Text, How, Atom_prover)
            and then (String_Equal (Text, Field (Text, Item, JSON_rule), Atom_VC_RANGE_CHECK)
              or else String_Equal (Text, Field (Text, Item, JSON_rule), Atom_VC_LENGTH_CHECK)
-             or else String_Equal (Text, Field (Text, Item, JSON_rule), Atom_VC_OVERFLOW_CHECK))
+             or else String_Equal (Text, Field (Text, Item, JSON_rule), Atom_VC_OVERFLOW_CHECK)
+             or else String_Equal (Text, Field (Text, Item, JSON_rule), Atom_VC_DIVISION_CHECK))
            and then String_Equal (Text, Field (Text, Item, JSON_file), Atom_main_adb)
            and then Positive_Number (Text, Field (Text, Item, JSON_line))
            and then Positive_Number (Text, Field (Text, Item, JSON_col))
@@ -2192,7 +2195,8 @@ package body Silver_Library_Reports with SPARK_Mode => On is
              Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_how_proved), Atom_prover)
              and then (Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_VC_RANGE_CHECK)
                or else Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_VC_LENGTH_CHECK)
-               or else Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_VC_OVERFLOW_CHECK))
+               or else Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_VC_OVERFLOW_CHECK)
+               or else Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_VC_DIVISION_CHECK))
              and then Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_file), Atom_main_adb)
              and then Raw_Entity_Name (Text, Raw_Referenced_Entity
                (Text, Entities, Raw_Field (Text, Item, JSON_entity))) = Main_Entity
@@ -3456,6 +3460,9 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       Mixed_String_Congruence
         (Raw, Raw_Field (Raw, L, JSON_rule),
          Text, Field_Spec (Text, R, JSON_rule), Atom_VC_OVERFLOW_CHECK);
+      Mixed_String_Congruence
+        (Raw, Raw_Field (Raw, L, JSON_rule),
+         Text, Field_Spec (Text, R, JSON_rule), Atom_VC_DIVISION_CHECK);
       Mixed_Test_Congruence
         (Raw, Raw_Field (Raw, L, JSON_line),
          Text, Field_Spec (Text, R, JSON_line));

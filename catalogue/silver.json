@@ -711,7 +711,10 @@
         "binary_operators": [
           "+",
           "-",
-          "*"
+          "*",
+          "/",
+          "mod",
+          "rem"
         ],
         "binary_operations_fully_parenthesized": true,
         "unary_operators": [
@@ -727,10 +730,14 @@
           -2147483648,
           2147483647
         ],
-        "interval_arithmetic": "endpoint addition/subtraction/negation and min/max of four endpoint products; every intermediate fits Integer",
+        "interval_arithmetic": "endpoint addition/subtraction/negation, four-corner product and truncating quotient hulls, singleton-exact modulus/remainder and conservative signed magnitude bounds; every intermediate fits Integer",
+        "divisor_interval": "must exclude zero before empty-operand propagation",
+        "division_overflow": "minimum Integer divided by minus one is excluded; mod and rem permit that pair with exact result zero",
+        "modulo_interval": "singleton-exact; otherwise [0, divisor upper - 1] for positive divisors or [divisor lower + 1, 0] for negative divisors",
+        "remainder_interval": "singleton-exact; otherwise dividend-sign bounds clipped by max(abs(divisor endpoints)) - 1",
         "correlated_operands_refined": false,
         "scalar_guards_refine_intervals": false,
-        "empty_index_interval": "index-dependent safety vacuous except Integer assignment requires nonempty RHS; out-of-range static subexpressions still excluded",
+        "empty_index_interval": "divisors must exclude zero; otherwise index-dependent safety vacuous except Integer assignment requires nonempty RHS; invalid static subexpressions still excluded",
         "positions": [
           "integer_object_initializer",
           "static_range_bound",
@@ -740,7 +747,7 @@
           "integer_image_argument"
         ],
         "conversions": false,
-        "division": false,
+        "division": true,
         "mutable_integer_values": true,
         "mutable_body_interval": "entire declared range; constants retain exact captured values"
       }

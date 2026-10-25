@@ -1,6 +1,6 @@
 module
 
-public import Silver.IntegerIntervals
+public import Silver.IntegerDivision
 
 @[expose] public section
 
@@ -48,6 +48,9 @@ inductive Expr
   | add (left right : Expr)
   | subtract (left right : Expr)
   | multiply (left right : Expr)
+  | divide (left right : Expr)
+  | modulo (left right : Expr)
+  | remainder (left right : Expr)
   deriving DecidableEq, Repr
 
 def Expr.evaluate (values : Store) : Expr → Int
@@ -58,6 +61,9 @@ def Expr.evaluate (values : Store) : Expr → Int
   | .add left right => left.evaluate values + right.evaluate values
   | .subtract left right => left.evaluate values - right.evaluate values
   | .multiply left right => left.evaluate values * right.evaluate values
+  | .divide left right => (left.evaluate values).tdiv (right.evaluate values)
+  | .modulo left right => (left.evaluate values).fmod (right.evaluate values)
+  | .remainder left right => (left.evaluate values).tmod (right.evaluate values)
 
 def accepted (result : CheckResult) : Option Interval :=
   if result.safe then some result.bounds else none
@@ -78,6 +84,12 @@ def Expr.infer (ranges : Ranges) : Expr → Option Interval
       (right.infer ranges).bind fun b => accepted (checkedSubtract a b)
   | .multiply left right => (left.infer ranges).bind fun a =>
       (right.infer ranges).bind fun b => accepted (checkedMultiply a b)
+  | .divide left right => (left.infer ranges).bind fun a =>
+      (right.infer ranges).bind fun b => accepted (checkedDivide a b)
+  | .modulo left right => (left.infer ranges).bind fun a =>
+      (right.infer ranges).bind fun b => accepted (checkedModulo a b)
+  | .remainder left right => (left.infer ranges).bind fun a =>
+      (right.infer ranges).bind fun b => accepted (checkedRemainder a b)
 
 /-- Every node, including operands of a larger safe result, must fit Integer. -/
 def Expr.Safe (values : Store) : Expr → Prop
@@ -91,6 +103,15 @@ def Expr.Safe (values : Store) : Expr → Prop
       InRange (left.evaluate values - right.evaluate values)
   | .multiply left right => left.Safe values ∧ right.Safe values ∧
       InRange (left.evaluate values * right.evaluate values)
+  | .divide left right => left.Safe values ∧ right.Safe values ∧
+      DivideDefined (left.evaluate values) (right.evaluate values) ∧
+      InRange ((left.evaluate values).tdiv (right.evaluate values))
+  | .modulo left right => left.Safe values ∧ right.Safe values ∧
+      ModuloDefined (left.evaluate values) (right.evaluate values) ∧
+      InRange ((left.evaluate values).fmod (right.evaluate values))
+  | .remainder left right => left.Safe values ∧ right.Safe values ∧
+      RemainderDefined (left.evaluate values) (right.evaluate values) ∧
+      InRange ((left.evaluate values).tmod (right.evaluate values))
 
 theorem Expr.safe_value {values : Store} {expression : Expr}
     (safe : expression.Safe values) : InRange (expression.evaluate values) := by
@@ -99,6 +120,7 @@ theorem Expr.safe_value {values : Store} {expression : Expr}
   | positive _ ih | parenthesized _ ih => exact ih safe
   | negative => exact safe.2
   | add | subtract | multiply => exact safe.2.2
+  | divide | modulo | remainder => exact safe.2.2.2
 
 theorem Expr.infer_bounded {ranges : Ranges} {expression : Expr} {bounds : Interval}
     (found : expression.infer ranges = some bounds) : bounds.Bounded := by
@@ -115,11 +137,18 @@ theorem Expr.infer_bounded {ranges : Ranges} {expression : Expr} {bounds : Inter
       simp only [infer, Option.bind_eq_some_iff] at found
       obtain ⟨interval, _, accepted⟩ := found
       rw [← ((accepted_iff _ _).mp accepted).2]; exact checkedNegate_bounded _
-  | add left right _ _ | subtract left right _ _ | multiply left right _ _ =>
+  | add left right _ _ | subtract left right _ _ | multiply left right _ _
+  | divide left right _ _ | modulo left right _ _ | remainder left right _ _ =>
       simp only [infer, Option.bind_eq_some_iff] at found
       obtain ⟨a, _, b, _, accepted⟩ := found
       rw [← ((accepted_iff _ _).mp accepted).2]
-      first | exact checkedAdd_bounded _ _ | exact checkedSubtract_bounded _ _ | exact checkedMultiply_bounded _ _
+      first
+      | exact checkedAdd_bounded _ _
+      | exact checkedSubtract_bounded _ _
+      | exact checkedMultiply_bounded _ _
+      | exact checkedDivide_bounded _ _
+      | exact checkedModulo_bounded _ _
+      | exact checkedRemainder_bounded _ _
 
 theorem Expr.infer_sound {ranges : Ranges} {expression : Expr} {bounds : Interval} {values : Store}
     (found : expression.infer ranges = some bounds) (fits : Fits ranges values) :
@@ -143,7 +172,8 @@ theorem Expr.infer_sound {ranges : Ranges} {expression : Expr} {bounds : Interva
       have childSound := ih child
       have sound := checkedNegate_sound result.1 childSound.1
       exact ⟨by simpa only [result.2, evaluate] using sound.1, childSound.2, sound.2⟩
-  | add left right ihl ihr | subtract left right ihl ihr | multiply left right ihl ihr =>
+  | add left right ihl ihr | subtract left right ihl ihr | multiply left right ihl ihr
+  | divide left right ihl ihr | modulo left right ihl ihr | remainder left right ihl ihr =>
       simp only [infer, Option.bind_eq_some_iff] at found
       obtain ⟨a, leftFound, b, rightFound, accepted⟩ := found
       have result := (accepted_iff _ _).mp accepted
@@ -155,6 +185,12 @@ theorem Expr.infer_sound {ranges : Ranges} {expression : Expr} {bounds : Interva
       | have sound := checkedSubtract_sound result.1 l.1 r.1
         exact ⟨by simpa only [result.2, evaluate] using sound.1, l.2, r.2, sound.2⟩
       | have sound := checkedMultiply_sound result.1 l.1 r.1
+        exact ⟨by simpa only [result.2, evaluate] using sound.1, l.2, r.2, sound.2⟩
+      | have sound := checkedDivide_sound result.1 l.1 r.1
+        exact ⟨by simpa only [result.2, evaluate] using sound.1, l.2, r.2, sound.2⟩
+      | have sound := checkedModulo_sound result.1 l.1 r.1
+        exact ⟨by simpa only [result.2, evaluate] using sound.1, l.2, r.2, sound.2⟩
+      | have sound := checkedRemainder_sound result.1 l.1 r.1
         exact ⟨by simpa only [result.2, evaluate] using sound.1, l.2, r.2, sound.2⟩
 
 def checkedValue (value : Int) : Option Int := if InRange value then some value else none
@@ -170,6 +206,15 @@ def Expr.checkedEvaluate (values : Store) : Expr → Option Int
       (right.checkedEvaluate values).bind fun b => checkedValue (a - b)
   | .multiply left right => (left.checkedEvaluate values).bind fun a =>
       (right.checkedEvaluate values).bind fun b => checkedValue (a * b)
+  | .divide left right => (left.checkedEvaluate values).bind fun a =>
+      (right.checkedEvaluate values).bind fun b =>
+        if DivideDefined a b then checkedValue (a.tdiv b) else none
+  | .modulo left right => (left.checkedEvaluate values).bind fun a =>
+      (right.checkedEvaluate values).bind fun b =>
+        if ModuloDefined a b then checkedValue (a.fmod b) else none
+  | .remainder left right => (left.checkedEvaluate values).bind fun a =>
+      (right.checkedEvaluate values).bind fun b =>
+        if RemainderDefined a b then checkedValue (a.tmod b) else none
 
 theorem Expr.checkedEvaluate_agrees {expression : Expr} {values : Store}
     (safe : expression.Safe values) :
@@ -184,6 +229,9 @@ theorem Expr.checkedEvaluate_agrees {expression : Expr} {values : Store}
   | add _ _ ihl ihr | subtract _ _ ihl ihr | multiply _ _ ihl ihr =>
       simp only [checkedEvaluate, ihl safe.1, ihr safe.2.1, Option.bind_some,
         checkedValue, safe.2.2, ↓reduceIte, evaluate]
+  | divide _ _ ihl ihr | modulo _ _ ihl ihr | remainder _ _ ihl ihr =>
+      simp only [checkedEvaluate, ihl safe.1, ihr safe.2.1, Option.bind_some,
+        safe.2.2.1, checkedValue, safe.2.2.2, ↓reduceIte, evaluate]
 
 theorem Expr.inferred_execution {ranges : Ranges} {expression : Expr} {bounds : Interval} {values : Store}
     (found : expression.infer ranges = some bounds) (fits : Fits ranges values) :

@@ -1467,6 +1467,186 @@
         "stderr": "",
         "exit_status": 0
       }
+    },
+    {
+      "source": "rosetta_josephus_problem.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "scalar_integer_literal",
+        "integer_expression",
+        "statement_sequence",
+        "named_integer_constant",
+        "named_integer_variable",
+        "integer_range_constraint",
+        "integer_assignment",
+        "for_loop",
+        "integer_image",
+        "string_literal",
+        "string_expression",
+        "string_concatenation",
+        "expression_output"
+      ],
+      "specification": "../language.md#integer-objects-expressions-and-comparisons",
+      "expected": {
+        "stdout": "Survivor (0-based): 30\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    {
+      "source": "rosetta_sum_of_first_n_cubes.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "scalar_integer_literal",
+        "integer_expression",
+        "statement_sequence",
+        "named_integer_variable",
+        "integer_range_constraint",
+        "integer_assignment",
+        "for_loop",
+        "integer_image",
+        "string_expression",
+        "expression_output"
+      ],
+      "specification": "../language.md#integer-objects-expressions-and-comparisons",
+      "expected": {
+        "stdout": " 0\n 1\n 9\n 36\n 100\n 225\n 441\n 784\n 1296\n 2025\n 3025\n 4356\n 6084\n 8281\n 11025\n 14400\n 18496\n 23409\n 29241\n 36100\n 44100\n 53361\n 64009\n 76176\n 90000\n 105625\n 123201\n 142884\n 164836\n 189225\n 216225\n 246016\n 278784\n 314721\n 354025\n 396900\n 443556\n 494209\n 549081\n 608400\n 672400\n 741321\n 815409\n 894916\n 980100\n 1071225\n 1168561\n 1272384\n 1382976\n 1500625\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    {
+      "source": "rosetta_odd_and_square_numbers.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "scalar_integer_literal",
+        "integer_expression",
+        "statement_sequence",
+        "for_loop",
+        "integer_comparison",
+        "integer_image",
+        "string_literal",
+        "string_expression",
+        "expression_output",
+        "literal_output",
+        "string_choice",
+        "boolean_predicate"
+      ],
+      "specification": "../language.md#integer-objects-expressions-and-comparisons",
+      "expected": {
+        "stdout": " 121 169 225 289 361 441 529 625 729 841 961\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    {
+      "source": "rosetta_department_numbers.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "scalar_integer_literal",
+        "integer_expression",
+        "statement_sequence",
+        "for_loop",
+        "integer_comparison",
+        "integer_image",
+        "string_literal",
+        "string_expression",
+        "string_concatenation",
+        "expression_output",
+        "literal_output",
+        "string_choice",
+        "boolean_predicate"
+      ],
+      "specification": "../language.md#integer-objects-expressions-and-comparisons",
+      "expected": {
+        "stdout": "Police Sanitation Fire\n 2 3 7\n 2 4 6\n 2 6 4\n 2 7 3\n 4 1 7\n 4 2 6\n 4 3 5\n 4 5 3\n 4 6 2\n 4 7 1\n 6 1 5\n 6 2 4\n 6 4 2\n 6 5 1\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    {
+      "source": "rosetta_largest_proper_divisor.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "scalar_integer_literal",
+        "integer_expression",
+        "statement_sequence",
+        "named_integer_variable",
+        "integer_range_constraint",
+        "integer_assignment",
+        "for_loop",
+        "integer_comparison",
+        "integer_image",
+        "string_literal",
+        "string_expression",
+        "expression_output",
+        "literal_output",
+        "string_choice",
+        "boolean_predicate"
+      ],
+      "specification": "../language.md#integer-objects-expressions-and-comparisons",
+      "expected": {
+        "stdout": "  1  1  1  2  1  3  1  4  3  5\n  1  6  1  7  5  8  1  9  1 10\n  7 11  1 12  5 13  9 14  1 15\n  1 16 11 17  7 18  1 19 13 20\n  1 21  1 22 15 23  1 24  7 25\n 17 26  1 27 11 28 19 29  1 30\n  1 31 21 32 13 33  1 34 23 35\n  1 36  1 37 25 38 11 39  1 40\n 27 41  1 42 17 43 29 44  1 45\n 13 46 31 47 19 48  1 49 33 50\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    {
+      "source": "rosetta_mosaic_matrix.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "scalar_integer_literal",
+        "integer_expression",
+        "statement_sequence",
+        "named_integer_constant",
+        "for_loop",
+        "integer_comparison",
+        "string_literal",
+        "literal_output",
+        "string_choice",
+        "boolean_predicate"
+      ],
+      "specification": "../language.md#integer-objects-expressions-and-comparisons",
+      "expected": {
+        "stdout": "1 . 1 . 1 . 1 . \n. 1 . 1 . 1 . 1 \n1 . 1 . 1 . 1 . \n. 1 . 1 . 1 . 1 \n1 . 1 . 1 . 1 . \n. 1 . 1 . 1 . 1 \n1 . 1 . 1 . 1 . \n. 1 . 1 . 1 . 1 \n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    {
+      "source": "rosetta_solve_equations_substitution.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "scalar_integer_literal",
+        "integer_expression",
+        "statement_sequence",
+        "named_integer_constant",
+        "integer_image",
+        "string_literal",
+        "string_expression",
+        "string_concatenation",
+        "expression_output"
+      ],
+      "specification": "../language.md#integer-objects-expressions-and-comparisons",
+      "expected": {
+        "stdout": "x =-2\ny = 5\n",
+        "stderr": "",
+        "exit_status": 0
+      }
     }
   ]
 }

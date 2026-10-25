@@ -17,6 +17,9 @@ inductive Obligation
   | add (left right : Interval)
   | subtract (left right : Interval)
   | multiply (left right : Interval)
+  | divide (left right : Interval)
+  | modulo (left right : Interval)
+  | remainder (left right : Interval)
   | within (value target : Interval)
   | impossible
   deriving DecidableEq, Repr
@@ -27,6 +30,9 @@ def Obligation.discharge : Obligation → Bool
   | .add left right => (checkedAdd left right).safe
   | .subtract left right => (checkedSubtract left right).safe
   | .multiply left right => (checkedMultiply left right).safe
+  | .divide left right => (checkedDivide left right).safe
+  | .modulo left right => (checkedModulo left right).safe
+  | .remainder left right => (checkedRemainder left right).safe
   | .within value target => value.included target
   | .impossible => false
 
@@ -36,6 +42,12 @@ def Obligation.Valid : Obligation → Prop
   | .add left right => ∀ a b, left.Contains a → right.Contains b → InRange (a + b)
   | .subtract left right => ∀ a b, left.Contains a → right.Contains b → InRange (a - b)
   | .multiply left right => ∀ a b, left.Contains a → right.Contains b → InRange (a * b)
+  | .divide left right => ∀ a b, left.Contains a → right.Contains b →
+      DivideDefined a b ∧ InRange (a.tdiv b)
+  | .modulo left right => ∀ a b, left.Contains a → right.Contains b →
+      ModuloDefined a b ∧ InRange (a.fmod b)
+  | .remainder left right => ∀ a b, left.Contains a → right.Contains b →
+      RemainderDefined a b ∧ InRange (a.tmod b)
   | .within value target => ∀ item, value.Contains item → target.Contains item
   | .impossible => False
 
@@ -47,6 +59,9 @@ theorem Obligation.discharge_sound {obligation : Obligation} (proved : obligatio
   | add => exact fun _ _ left right => (checkedAdd_sound proved left right).2
   | subtract => exact fun _ _ left right => (checkedSubtract_sound proved left right).2
   | multiply => exact fun _ _ left right => (checkedMultiply_sound proved left right).2
+  | divide => exact fun _ _ left right => (checkedDivide_sound proved left right).2
+  | modulo => exact fun _ _ left right => (checkedModulo_sound proved left right).2
+  | remainder => exact fun _ _ left right => (checkedRemainder_sound proved left right).2
   | within => exact fun _ inside => Interval.included_sound proved inside
   | impossible => contradiction
 
@@ -73,6 +88,12 @@ def Expr.obligations (ranges : Ranges) : Expr → List Obligation
       [binaryObligation .subtract (left.infer ranges) (right.infer ranges)]
   | .multiply left right => left.obligations ranges ++ right.obligations ranges ++
       [binaryObligation .multiply (left.infer ranges) (right.infer ranges)]
+  | .divide left right => left.obligations ranges ++ right.obligations ranges ++
+      [binaryObligation .divide (left.infer ranges) (right.infer ranges)]
+  | .modulo left right => left.obligations ranges ++ right.obligations ranges ++
+      [binaryObligation .modulo (left.infer ranges) (right.infer ranges)]
+  | .remainder left right => left.obligations ranges ++ right.obligations ranges ++
+      [binaryObligation .remainder (left.infer ranges) (right.infer ranges)]
 
 theorem accepted_isSome (result : CheckResult) : (accepted result).isSome = result.safe := by
   simp only [accepted]; cases result.safe <;> rfl
@@ -90,7 +111,8 @@ theorem Expr.obligations_exact (expression : Expr) (ranges : Ranges) :
       rw [ih]
       cases found : value.infer ranges <;>
         simp [infer, found, unaryObligation, Obligation.discharge, accepted_isSome]
-  | add left right ihl ihr | subtract left right ihl ihr | multiply left right ihl ihr =>
+  | add left right ihl ihr | subtract left right ihl ihr | multiply left right ihl ihr
+  | divide left right ihl ihr | modulo left right ihl ihr | remainder left right ihl ihr =>
       simp only [obligations, discharged, List.all_append] at ihl ihr ⊢
       rw [ihl, ihr]
       cases hl : left.infer ranges <;> cases hr : right.infer ranges <;>

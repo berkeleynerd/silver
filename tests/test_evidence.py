@@ -294,7 +294,7 @@ class ProofEvidenceTests(unittest.TestCase):
 
     def test_composed_ranges_reject_consistently_mutated_checks(self) -> None:
         changes = (("severity", "low"), ("how_proved", "trivial"),
-                   ("rule", "VC_DIVISION_CHECK"), ("file", "./main.adb"),
+                   ("rule", "VC_ASSERT"), ("file", "./main.adb"),
                    ("entity", 2), ("line", 0), ("col", 0),
                    ("justification", ""), ("suppressed", False))
         for kind in ("static", "argument", "assigned", "selected"):
@@ -434,15 +434,15 @@ class ProofEvidenceTests(unittest.TestCase):
                         with self.assertRaises(EvidenceError):
                             audit_reports(self.path, {"main"}, application_kind=kind)
 
-    def test_length_and_overflow_policy_rejects_consistent_mutations(self) -> None:
+    def test_length_overflow_and_division_policy_rejects_consistent_mutations(self) -> None:
         changes = (("severity", "warning"), ("severity", "low"),
                    ("how_proved", "flow"), ("how_proved", "trivial"),
-                   ("rule", "VC_DIVISION_CHECK"), ("file", "./main.adb"),
+                   ("rule", "VC_ASSERT"), ("file", "./main.adb"),
                    ("entity", 2), ("line", 0), ("col", 0),
                    ("justification", ""), ("justified", False), ("suppressed", False),
                    ("annot_kind", ""), ("justif_msg", ""))
         for kind, rule in product(("static", "argument", "assigned", "selected"),
-                                  ("VC_LENGTH_CHECK", "VC_OVERFLOW_CHECK")):
+                                  ("VC_LENGTH_CHECK", "VC_OVERFLOW_CHECK", "VC_DIVISION_CHECK")):
             self.prepare_composed(kind, warning=True, count=1)
             self.report["proof"][0]["rule"] = rule
             self.refresh_composed()
