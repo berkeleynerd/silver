@@ -1,0 +1,67 @@
+{
+  "run_id": "20261025T144732-3f0c19eb35cc",
+  "host": "linux-x86_64",
+  "lean_version": "4.34.1",
+  "scope": "complete",
+  "mode": "incremental",
+  "clean_build": false,
+  "axiom_audit": "passed",
+  "kernel_recheck": null,
+  "threads_per_process": 2,
+  "lake_workers": 4,
+  "elapsed_seconds": 37.116,
+  "inputs_digest_sha256": "f452c73bf13d27b5724182e1cd0e92cffa1a44746cb6a2f1ba0a453c66317ebd",
+  "phases": [
+    {
+      "phase": "build",
+      "started_at": "2026-10-25T14:47:38.765705+00:00",
+      "finished_at": "2026-10-25T14:47:51.707128+00:00",
+      "elapsed_seconds": 12.941,
+      "exit_code": 0
+    },
+    {
+      "phase": "audit",
+      "started_at": "2026-10-25T14:47:53.456025+00:00",
+      "finished_at": "2026-10-25T14:48:05.363028+00:00",
+      "elapsed_seconds": 11.907,
+      "exit_code": 0
+    }
+  ],
+  "tools_sha256": {
+    ".tools/linux-x86_64/lean/bin/lean": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+    ".tools/linux-x86_64/lean/bin/lake": "6f53827dab18010d6c690d14c8401cacabc1db958edb3552a877ed4cf1dd995d"
+  },
+  "commands": [
+    [
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/.tools/linux-x86_64/lean/bin/lake",
+      "--rehash",
+      "--reconfigure",
+      "-K",
+      "silverThreads=2",
+      "build",
+      "Silver.Audit"
+    ],
+    [
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/.tools/linux-x86_64/lean/bin/lake",
+      "-K",
+      "silverThreads=2",
+      "env",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/.tools/linux-x86_64/lean/bin/lean",
+      "-DwarningAsError=true",
+      "-j2",
+      "Silver/Audit.lean"
+    ]
+  ],
+  "implementation_commit": "3aae49385f2c432faf2495d4d9ec177b0e852b7e",
+  "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean",
+  "module_count": 466,
+  "tracked_inputs_matching_implementation": 581,
+  "evidence_file_sha256": "665825d503d363f14d29d3927408d298b28c61e01b865cc6a54d9de412b45149",
+  "log_sha256": "123eebdb475981805f3f4ae0c22a10dba24c394503d3161e34ed7e1c80a12067",
+  "audited_declarations": 89369,
+  "foundations": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ]
+}

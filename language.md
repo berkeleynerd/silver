@@ -800,6 +800,9 @@ uses a constrained mutable result and prints the first satisfying index, 501.
 The [Rosetta sample delivery](docs/rosetta-supported-samples.md) exercises existing
 output, names, copies, expressions and branches for the runnable tasks in #9.
 It adds regression programs without extending the language.
+The [five finite follow-on samples](docs/rosetta-finite-samples.md) exercise
+static calculation, immutability, Integer numerals, conditional loop output and
+a computed grid using the same admitted rules.
 
 Language changes must specify exact syntax, restrictions, inherited semantics
 and compositions. Before 1.0, intentional changes are reflected consistently in

@@ -358,6 +358,9 @@ The [current-language Rosetta sample record](docs/rosetta-supported-samples.md)
 maps issue #9's 31 tasks to runnable regressions and explicit skips, and records
 their Linux validation and independent review.
 
+The [five finite Rosetta sample record](docs/rosetta-finite-samples.md) covers
+the #226 follow-on using existing Integer, loop, assignment and Image rules.
+
 The [Bounded mutable integers record](docs/bounded-mutable-integers.md) identifies
 the integrated implementation, [independent review](docs/reviews/review-bounded-mutable-integers.md),
 complete Linux native and Lean validation, and full-suite execution supplemented

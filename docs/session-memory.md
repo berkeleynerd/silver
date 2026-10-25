@@ -1,5 +1,27 @@
 # Session memory
 
+## 2026-10-25 — Five finite Rosetta samples #226 delivered
+
+Following the owner's merge-and-proceed instruction below, PR #221 merged as
+`ab9d0cee053c2ec6d38a0a312427cb380466a84b` and PR #227 as
+`8002d5ac5508c7603dc411f7457b32c80f160245`. The five authorized #226 samples and
+manifest entries are implemented and independently reviewed at `3aae49385f`.
+[PR #228](https://github.com/berkeleynerd/silver/pull/228) publishes the
+[delivery and evidence record](rosetta-finite-samples.md); #226 is In review
+pending merge of its completing commit.
+
+Native compiler proof/build evidence was reused with fresh complete provenance
+and report auditing against unchanged inputs. Complete cached Lean/source
+auditing and the full regression suite passed, including all supported samples
+and the symlinked-TMPDIR checks. The record retains exact inputs, run IDs,
+measurements and model settings. No validation obligation remains.
+
+No language, catalogue, supported Rosetta identifier, admission/capacity rule,
+Oracle guarantee or tool pin changed. Integer sequence was not added or capped;
+#11 constructs and deferred #119/#88–#94 work remain outside authorization.
+No new harness goal was created or reactivated. CLI memory was unavailable and
+was not updated; the issue and checked-in record are the continuation pointers.
+
 ## 2026-10-25 — Merge deliveries and implement the five finite samples
 
 The owner directly instructed in this conversation: **“Please merge 221 and 227

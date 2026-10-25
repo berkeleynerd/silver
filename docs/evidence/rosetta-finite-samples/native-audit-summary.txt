@@ -1,0 +1,3 @@
+Retained GNATprove full evidence freshly re-audited with python3 scripts/check_evidence.py.
+75 units, 1000 entities, 1295 flow checks, 13860 proof checks; complete provenance and input checks passed.
+Original full proof run: 20261025T070959-fd3da7c63f7a; compiler/build sources unchanged at implementation 3aae49385f.
