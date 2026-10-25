@@ -1,5 +1,26 @@
 # Session memory
 
+## 2026-10-25 — Merge deliveries and implement the five finite samples
+
+The owner directly instructed in this conversation: **“Please merge 221 and 227
+and then proceed with 226.”** This authorizes merging the reviewed sample and
+planning PRs in that order and implementing
+[#226](https://github.com/berkeleynerd/silver/issues/226) through validation,
+review and delivery. This dated entry is included with PR #227 so the
+authorization reaches main before #226 is claimed.
+
+The selected scope is exactly five finite current-language regressions:
+Compile-time calculation, Loops/N plus one half, Enforced immutability,
+Literals/Integer and Minimum number of cells after, before, above and below NxN
+squares. Use the reviewed planning prototypes and exact expected outputs as the
+starting point, add supported samples and manifest entries, and complete
+development.md's sample-delivery validation with actual source correspondence.
+Routine implementation, focused review, required validation, tracking, commits
+and pull-request publication are included. Integer sequence remains outside this
+batch; the current language, Oracle, admission, capacity and tool pins are
+unchanged. No #11 construct or deferred #119/#88–#94 work is authorized.
+No new harness goal was requested; the earlier capacity goal remains paused.
+
 ## 2026-10-25 — Rosetta assessment reconciliation and next-increment selection
 
 Following the PR #221 review, the owner directly requested in this conversation:
