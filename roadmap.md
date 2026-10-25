@@ -64,7 +64,10 @@ does not authorize implementation.
 [Milestone 7](https://github.com/berkeleynerd/silver/milestone/7), **Checked integer
 division and scalar refinement**, records two ordered increments. The
 [2026-10-25 owner instruction](docs/session-memory.md#2026-10-25--merge-228-and-implement-interval-checked-integer-division)
-authorizes the first through delivery; the second is a proposal.
+authorizes the first through delivery. The subsequent
+[roadmap continuation](docs/session-memory.md#2026-10-25--continue-non-deferred-roadmap-delivery)
+selects scalar guard refinement next and continued assessment/delivery of
+non-deferred successors.
 
 1. [Interval-checked integer division #229](https://github.com/berkeleynerd/silver/issues/229):
    fully grouped `/`, `mod` and `rem` in current scalar-expression positions,
@@ -77,9 +80,13 @@ authorizes the first through delivery; the second is a proposal.
    and [validation/delivery #233](https://github.com/berkeleynerd/silver/issues/233).
    No partial package completes the parent or admits a construct.
 2. [Scalar guard refinement #234](https://github.com/berkeleynerd/silver/issues/234):
-   proposed successor, awaiting its own authorization. Scope useful scalar
+   next under the owner's continuation, after division. Scope useful scalar
    comparisons, assignment transfer/invalidation, joins and loop facts before
-   implementation. No new syntax does not eliminate the assurance work.
+   implementation. Its packages are [scope/design #237](https://github.com/berkeleynerd/silver/issues/237),
+   [native admission #238](https://github.com/berkeleynerd/silver/issues/238),
+   [universal/source assurance #239](https://github.com/berkeleynerd/silver/issues/239)
+   and [validation/delivery #240](https://github.com/berkeleynerd/silver/issues/240).
+   No new syntax does not eliminate the assurance work.
 
 This deliberately selects division ahead of generated stage order (division
 was stage 6 at selection), because the assessed bounded arithmetic drivers offer
