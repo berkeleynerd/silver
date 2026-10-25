@@ -46,7 +46,8 @@ abbrev ExpressionTranslation : Prop := Native.WellFormedTrees ∧
 
 theorem expressions_checked : ExpressionTranslation := by
   refine ⟨Native.checked_precedence, ?_⟩
-  decide +kernel
+  repeat' apply And.intro
+  all_goals decide +kernel
 
 abbrev Headers : Prop :=
   functionHeader "is_empty" "is" Source.scalarsSpecTokens = some ["(", "bounds", ":", "interval", ")", "return", "boolean"] ∧
@@ -77,7 +78,10 @@ abbrev Headers : Prop :=
   functionHeader "remainder_limit" "is" Source.scalarsSpecTokens = some ["(", "right", ":", "interval", ")", "return", "wide"] ∧
   functionHeader "remainder" "is" Source.scalarsSpecTokens = some ["(", "left", ",", "right", ":", "interval", ")", "return", "check_result"]
 
-theorem headers_checked : Headers := by decide +kernel
+theorem headers_checked : Headers := by
+  unfold Headers
+  repeat' apply And.intro
+  all_goals decide +kernel
 
 abbrev Declarations : Prop :=
   subtypeDeclaration "value" Source.scalarsSpecTokens = some ["integer", "range", "-", "2_147_483_648", "..", "2_147_483_647"] ∧
