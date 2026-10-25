@@ -1,19 +1,21 @@
 # Odd and square numbers
 
-**Candidate: proofs likely to discharge automatically.** The loop bounds are static and the largest square is 961, so overflow and range checks follow from types and the for range, and mod by the literal 2 cannot divide by zero. No loop-carried value exists and no annotation is needed.
+**Candidate: proofs likely to discharge automatically.** The index covers every positive square root of a three-digit square. Modulo by 2 selects the eleven odd squares; the largest intermediate is 961 and the divisor is nonzero.
 
-Position 100 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 20 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
-A for loop runs I over the declared range 11 .. 31 (the smallest and largest odd I with 99 < I*I < 1000), and an if statement tests I mod 2 /= 0. The square is computed into a variable of a range subtype, and its 'Image text is written with Put, with a final Put_Line of an empty string to end the line. About 16 lines.
+Main loops over I in 11 .. 31. If (I mod 2) /= 0, Put writes Integer'Image ((I * I)); a final empty Put_Line terminates the row. The square is an expression, with no object or declared subtype. About 13 lines.
 
 ## Language surface recorded by this assessment
 
-Integers, integer division, ranged subtypes, for loops, 'Image of scalars and Put without a newline.
+Integer range for loops, immutable Integer arithmetic, interval-checked Integer division, Integer image and Put without a newline.
 
 ## External effects
 
 - **console output** (allowed): Prints the odd squares between 100 and 999 on one line.
 
-Assessed on 2026-10-15 against page revision 414368 of the [task](https://rosettacode.org/wiki/Odd_and_square_numbers) by claude-sonnet-5-5 at medium effort; confidence high. The inclusion policy is in `rosetta/coverage.json`.
+Initially assessed on 2026-10-15 against page revision 414368 of the [task](https://rosettacode.org/wiki/Odd_and_square_numbers) by claude-sonnet-5-5 at medium effort; current confidence high. The inclusion policy is in `rosetta/coverage.json`.
+
+Revised on 2026-10-25 by Codex through targeted source review; see the [review record](../../assessment-division-20261025.md).

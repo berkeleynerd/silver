@@ -1,8 +1,8 @@
 # FizzBuzz
 
-**Candidate: proofs likely to discharge automatically.** Static loop bounds and nonzero literal divisors make the arithmetic a candidate for interval-checked modulo. Integer loops and standard Image already exist; modulo remains future surface, and this assessment does not establish automatic discharge.
+**Candidate: proofs likely to discharge automatically.** Static loop bounds and nonzero literal divisors make the arithmetic a candidate for the current narrow interval-checked modulo capability. The existing broad integer-division dependency is retained pending approach review and migration; this assessment does not establish a delivered sample or automatic discharge.
 
-Position 99 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 105 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

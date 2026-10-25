@@ -119,6 +119,16 @@ constants or variables, and range-preserving assignments. Declaration snapshots 
 body reads use each mutable object's full declared range, without narrowing from
 assignments or scalar guards. Loop bounds capture their entry values, and writes
 persist after the loop.
+
+The [interval-checked division increment](docs/integer-division.md) adds fully
+grouped `/`, `mod` and `rem` in those scalar-expression positions. Division
+truncates toward zero; `mod` follows the divisor sign and `rem` the dividend sign.
+Incoming intervals must exclude zero divisors and quotient overflow, with exact
+singleton initialization and the existing declared-range body analysis. Seven
+sample approaches exercise the fragment, including the fixed Josephus (41,3)
+incident. The capability record tracks the pending complete validation and
+source-assurance checkpoint.
+
 The [Find square difference sample](samples/find_square_difference.adb) stores
 the first matching index and prints ` 501` followed by a newline.
 
@@ -170,8 +180,8 @@ provide setup, evidence auditing and tests. GNATprove verifies the compiler.
 Lean connects the restricted recognizer source to the language model and the
 runtime wrappers to their effect models. Every output shell selects a complete
 application report policy: static, argument, assigned or selected result. Emitted
-Main safety checks must all be proved range, length or scalar overflow checks
-under their selected policy. All output forms
+Main safety checks must all be proved range, length, scalar overflow or
+nonzero-divisor checks under their selected policy. All output forms
 precisely classify initializer advisories; assignment-bearing forms additionally
 classify the exact unused-assignment advisory. All sequence policies classify
 two exact statically known predicate advisories and four exact overwritten ghost-output

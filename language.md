@@ -289,7 +289,7 @@ operator or widen application Integer. These are deliberately conservative
 interval rules: no general operand correlation or scalar guard refinement is
 used, and a safe runtime value alone does not establish admission.
 
- An empty index interval makes index-dependent safety vacuous, but never
+An empty index interval makes index-dependent safety vacuous, but never
 permits an out-of-range static subexpression. Integer assignments additionally
 require a nonempty RHS interval, including in empty loops and unreachable arms.
 
@@ -797,7 +797,7 @@ membership.
 
 Faithful static evaluation, complete obligation/report generation, completeness
 of the accepted producer shapes and pinned solver completion for the bounded
-range/length/overflow fragment remain explicit
+range/length/overflow/nonzero-divisor fragment remain explicit
 [tool premises](docs/trusted-boundary.md#source-identity-and-program-proof-evidence).
 Native examples corroborate them; they do not prove universal assurance.
 Complete selected-library obligations remain mandatory for every output compile.

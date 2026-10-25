@@ -1,8 +1,8 @@
 # Even or odd
 
-**Candidate: proofs likely to discharge automatically.** Only Integer range loops, standard Integer Image and remainder by nonzero literal 2 are needed. The loop and Image forms already exist; integer remainder remains future surface. This is a feasibility assessment, not a proved sample.
+**Candidate: proofs likely to discharge automatically.** Only Integer range loops, standard Integer Image and remainder by nonzero literal 2 are needed by this plan. The narrow interval-integer-division capability now includes that remainder form. The existing broad integer-division dependency is retained pending approach review and migration; this assessment is not a delivered or proved sample.
 
-Position 98 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 104 in the [progression](../../progression.md#stage-6), in stage 6, which adds integer division.
 
 ## Approach
 

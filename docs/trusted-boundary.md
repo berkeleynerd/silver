@@ -98,6 +98,31 @@ not currently mapped to the driver's normal infrastructure-error status 3.
 Sufficient stack and memory are environmental premises; these observations do
 not change language membership or establish automatic proof completion.
 
+## Interval-checked Integer division boundary
+
+The [division extension](integer-division.md) retains the existing tool pins,
+source and operator budgets, runtime libraries and external solver premises.
+Its [semantic/discharge chain](assurance.md#interval-checked-integer-division)
+uses truncation toward zero for `/`, divisor-sign `mod` and dividend-sign `rem`.
+The restricted Ada interpretation must assign those meanings to the actual
+native helper expressions and frontend-generated application operations.
+Minimum/-1 quotient overflow remains excluded; remainder by -1 is defined even
+at minimum Integer. Zero-before-empty rejection is an explicit conservative
+membership restriction, corroborated by successful vacuous frontend probes.
+
+Faithful and complete pinned-tool obligation generation includes
+`VC_DIVISION_CHECK` with the nonzero-divisor meaning, applicable static
+elimination and the existing overflow channel. Every emitted record must still
+be proved with complete selected-unit coverage and the checked provenance.
+Accepting that spelling does not establish semantic validity or external solver
+completion. The [feature-local envelope review](integer-division-report-capacity.md)
+extends the retained Main bound to 15,421,440 bytes under the inherited producer
+and frontend correspondence assumptions; report storage stays at 16,777,216.
+This source-derived calculation introduces no binary-attestation claim and does
+not resume deferred whole-language capacity work. The capability record marks
+the complete native, source/Lean, sample and review checkpoint pending until
+its actual evidence is recorded.
+
 ## Compiler implementation and runtime imports
 
 All Silver-owned executable implementation is in the SPARK bodies under `src/`:
@@ -863,8 +888,8 @@ arbitrary JSON or replaces trusted GNATprove completeness and provenance.
 source grammar used for admission: static, argument, assigned or selected
 output. Its independent ghost policy and executable traversal require completed
 Main analysis, full Main coverage and no skipped/assumed/suppressed checks. Every
-emitted safety record must be proved/info `VC_RANGE_CHECK`, `VC_LENGTH_CHECK` or
-`VC_OVERFLOW_CHECK`,
+emitted safety record must be proved/info `VC_RANGE_CHECK`, `VC_LENGTH_CHECK`,
+`VC_OVERFLOW_CHECK` or `VC_DIVISION_CHECK`,
 with prover completion, Main filename/entity and a positive location. Static
 folding may leave no safety checks. Static/assigned report shapes contain Main
 with neither, either or both of Put and Put_Line. Argument/selected shapes additionally
@@ -891,14 +916,14 @@ Repeated-output advisories are restricted to the exact `INEFFECTIVE` message
 rejected; all provenance and suppression checks also apply to these eight messages.
 
 No-output sequences and static elimination can produce Main alone with or
-without length/range/overflow checks or advisories. The checker retains complete
-Main coverage, all emitted check requirements and approved dependency references.
+without length/range/overflow/division checks or advisories. The checker retains
+complete Main coverage, all emitted check requirements and approved dependency references.
 The external producer premise, rather than accepting arbitrary entity omissions,
 justifies this finite set of report shapes. The Python evidence helper applies
 the same policies and cross-checks SARIF records and totals.
 
-Automatic completion relies on faithful and complete range/length/overflow obligation
-generation and the accepted entity/advisory/check shapes. Applicable static
+Automatic completion relies on faithful and complete range, length, overflow
+and nonzero-divisor obligation generation and the accepted entity/advisory/check shapes. Applicable static
 elimination remains a frontend premise, but elimination of every satisfied
 assignment length check is no longer required: emitted length checks need their
 own semantic/discharge argument and successful solver records. Matching fields

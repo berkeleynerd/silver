@@ -361,7 +361,7 @@ ADMISSION = {
                      "with bounded String expressions and every length check?",
     "integers": "Which integer types, literals and operators are admitted, and which range or guard rule makes "
                 "every +, - and * provably free of overflow?",
-    "interval-integer-division": "Which fully grouped Integer /, mod and rem expressions have nonempty incoming operand intervals excluding zero divisors and the selected conservative Integer-minimum/-1 case, and how do operator-specific Ada-sign interval bounds, exact singleton initialization, shared operator budgets and complete producer/source-correspondence arguments establish automatic discharge without scalar guard or update refinement?",
+    "interval-integer-division": "Which fully grouped Integer /, mod and rem expressions exclude zero from each nonempty divisor interval before empty propagation, reject minimum/-1 quotient overflow while permitting mod/rem, and how do operator-specific Ada-sign interval bounds, exact singleton initialization, shared operator budgets and complete producer/source-correspondence arguments establish automatic discharge without scalar guard or update refinement?",
     "integer-division": "What must precede every /, mod and rem so that division by zero and the overflow of "
                         "the most negative value divided by -1 are provably excluded?",
     "exponentiation": "Which base and exponent bounds make every ** provably free of overflow?",

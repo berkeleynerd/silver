@@ -90,10 +90,14 @@ non-deferred successors.
 
 This deliberately selects division ahead of generated stage order (division
 was stage 6 at selection), because the assessed bounded arithmetic drivers offer
-more immediate capability than named subtypes. Seven task approaches are
-credible candidates, not demonstrated compiler/proof successes; the assessment
-filter's ten-task upper bound is provisional. The supported identifier list
-stays unchanged until the scoped capability is delivered. Assessment corrections
+more immediate capability than named subtypes. Seven concrete sample approaches
+are implemented and independently reviewed
+in the native/arithmetic core scope; their complete native/sample and source-proof
+checkpoint remains pending in the capability record. The prepared delivery
+metadata adds only `interval-integer-division` to supported identifiers and maps
+those seven approaches to it. The broad `integer-division` identifier, including
+`abs`, remains unsupported; the old ten-task assessment upper bound is not a
+delivered-task count. Assessment corrections
 may change generated positions, which remain planning metadata.
 
 Arrays are a provisional later candidate, with scope to be reconsidered after

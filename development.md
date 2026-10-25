@@ -66,11 +66,13 @@ For each authorized increment:
    alternatives cover sequences without output and producer elimination.
    The shared-binding checkpoint admitted proved range and length checks. The
    scalar/loop policy also admits proved overflow checks, supported by the
-   scalar intermediate-interval, Image-length and loop-composition schemas;
+   scalar intermediate-interval, Image-length and loop-composition schemas.
    Interval-checked division also admits proved nonzero-divisor checks, with
-   explicit quotient/remainder semantics and corresponding discharge schemas;
-   report classification alone does not establish discharge. Every emitted Main
-   safety check must be proved with the exact required provenance; applicable
+   explicit quotient/remainder semantics and corresponding
+   [discharge schemas](docs/assurance.md#interval-checked-integer-division). Its
+   [feature-local envelope](docs/integer-division-report-capacity.md) retains the
+   existing report storage bound; report classification alone does not establish
+   discharge. Every emitted Main safety check must be proved with the exact required provenance; applicable
    static elimination may leave an empty list. All output forms precisely classify initializer advisories;
    assignment-bearing forms additionally classify the exact unused-assignment
    advisory. All sequence policies classify the exact ineffective-statement

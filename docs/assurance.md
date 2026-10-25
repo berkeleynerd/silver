@@ -194,6 +194,57 @@ resolution and tool execution remain explicit external premises; Silver-owned
 matching, exact payload selection, source correspondence and obligation
 discharge remain required proofs.
 
+## Interval-checked Integer division
+
+The [division capability record](integer-division.md) tracks the current
+implementation and its pending complete delivery checkpoint. Fully grouped `/`,
+`mod` and `rem` compose through every scalar-expression position, including
+initializers, static constraint endpoints, bounds, comparisons, assignments and
+Image. Exact declaration snapshots and body reads from declared mutable ranges
+retain their earlier rules; scalar guards and assignments do not narrow ranges.
+
+[IntegerDivision.lean](../proof/Silver/IntegerDivision.lean) uses `Int.tdiv`,
+`Int.fmod` and `Int.tmod` for Ada quotient, modulus and remainder. Its
+`checkedDivide_sound`, `checkedModulo_sound` and `checkedRemainder_sound` derive
+interval inclusion, definedness and Integer-range safety for every represented
+operand pair. Quotient uses the four endpoint quotients; the remainder operators
+use exact singleton evaluation or proved sign/magnitude bounds. Each nonempty
+divisor interval excludes zero before empty propagation. This last ordering is
+a conservative Silver restriction. Minimum/-1 is excluded for quotient overflow;
+`mod` and `rem` retain their defined zero result.
+
+[IntegerChecks.lean](../proof/Silver/IntegerChecks.lean) adds separate `divide`,
+`modulo` and `remainder` obligations. Their `Valid` interpretations require
+nonzero divisors and in-range results, with the quotient's minimum/-1 exclusion.
+`Obligation.discharge_sound`, `Expr.obligations_discharge` and
+`Expr.automatic_discharge_complete` connect endpoint checks to every expression
+node and safe checked evaluation. `PredicateObligations` and `PredicateChecks`
+carry those scalar schemas through declarations, assignments, loop bounds,
+predicates and Image into `Program.all_obligations_discharge` and the current
+language endpoint. These are mathematical discharge claims under the stated
+external-tool premises, not measured solver completion bounds.
+
+The checked native helper interpretation in
+[ScalarsNativeSourceBridge.lean](../proof/Silver/ScalarsNativeSourceBridge.lean)
+provides `divide_sound`, `modulo_sound` and `remainder_sound`;
+[ScalarExpressionSourceBridge.lean](../proof/Silver/ScalarExpressionSourceBridge.lean)
+and the Compose work-counter equations connect actual recognition, case-insensitive
+whole-keyword matching and shared operator accounting. Source-shape comparisons
+must be reviewed with these semantic extensions. The independent
+[source-bridge integration review](reviews/review-integer-division-integration-14b9302a97.md)
+reports no findings at `14b9302a97`. The complete source/module/axiom audit remains
+pending in the capability record; static review does not claim that audit passed.
+
+`VC_DIVISION_CHECK` / `division check proved` is the additional accepted Main
+safety-record class. Its semantic obligation is the nonzero second operand above;
+complete proved status, provenance and coverage are still required. The
+[feature-local producer/report calculation](integer-division-report-capacity.md)
+adds at most one 2,048-byte retained record per new operator occurrence, within
+the unchanged aggregate 63-operator budget. It extends the previous Main envelope
+from 15,292,416 to **15,421,440 bytes**, below the unchanged 16,777,216-byte domain.
+The calculation relies on the reviewed pinned producer routes and inherited
+counting premises; neither report acceptance nor sample success proves discharge.
+
 ## Membership and composition
 
 `Current.Member` is the union of the null grammar and `Predicate.Member`.
@@ -250,9 +301,12 @@ implementation retain the external premises below.
 Every initializer, assignment RHS, equality operand and output uses one grammar
 of literals, initialized names, concatenation and parentheses. Expressions have
 1..64 leaves, counting empty values and each repeated static/dynamic reference.
-The program additionally has at most sixty-three syntactic concatenations, including
-all predicate operands and conditional arms. A source precheck skips complete literals and trivia/comments;
-its verified traversal counts only operator ampersands. This permits one maximal
+The program additionally shares a sixty-three-operator budget across String
+concatenations and scalar arithmetic, including all predicate operands and
+conditional arms. A source precheck skips complete literals and trivia/comments;
+its verified traversal counts operator ampersands and the admitted scalar
+operators, including whole case-insensitive `mod` and `rem` keywords. `/=` remains
+a comparison and contributes no division occurrence. This permits one maximal
 expression or the same aggregate operator count spread across positions;
 equal counts do not imply equal proof costs. The limits are explicit native
 proof/translation resource policies.
@@ -561,7 +615,8 @@ another accepted native safety-record class. Path-check refinement preserves the
 exact normalized schema and context; declaration checks retain their shared
 refinement rules.
 Every emitted safety obligation must correspond to the appropriate range,
-length or overflow channel and its scalar, Image, loop or String/path schema;
+length, overflow or nonzero-divisor channel and its scalar, Image, loop or
+String/path schema;
 report acceptance is not that correspondence proof.
 
 The arithmetic argument bounds each admitted String value by 4096 bytes and
@@ -587,8 +642,8 @@ faithful completed parsing, obligation generation, completion of proof for every
 source schema accepted by the Lean endpoint-discharge checker, fixed-library
 proof completion, same-source build completion, and preservation and realization
 of modeled execution.
-The generation relation must associate every emitted range/length/overflow check with
-its source schema; that association alone does not establish that the producer
+The generation relation must associate every emitted range, length, overflow or
+nonzero-divisor check with its source schema; that association alone does not establish that the producer
 omitted no required obligation. Faithful and complete GNATprove generation,
 applicable static elimination, accurate diagnostics and the accepted report
 shapes remain explicit producer premises. In particular, accepting length
@@ -692,8 +747,8 @@ All output shells use `Complete_Application_Proof`; only null retains
 | Selected | Argument-input sequence containing assignment | Main and argument callees, optionally Put and/or Put_Line; producer may eliminate calls | Above plus exact unused-assignment advisory |
 
 Every emitted Main safety record must be a proved/info `VC_RANGE_CHECK`,
-`VC_LENGTH_CHECK` or `VC_OVERFLOW_CHECK`, with the expected Main filename/entity, valid positive
-location, prover completion and no suppression or justification. Empty safety
+`VC_LENGTH_CHECK`, `VC_OVERFLOW_CHECK` or `VC_DIVISION_CHECK`, with the expected
+Main filename/entity, valid positive location, prover completion and no suppression or justification. Empty safety
 lists are permitted when checks were eliminated. Required coverage, progress
 and dependency fields remain checked; dependencies must identify approved
 entities and effect, postcondition or absence-of-runtime-error claims. No other
@@ -753,7 +808,10 @@ and the projection's SPARK argument. The
 [bounded mutable extension](bounded-mutable-report-capacity.md) bounds retained
 Main reports by 15,292,416 bytes within the unchanged 16,777,216-byte domain,
 including constrained declarations, scalar assignments and non-deduplicated
-Image advisories. It is not a Lean-derived JSON-size bound. The earlier
+Image advisories. The [division extension](integer-division-report-capacity.md)
+adds at most 63 nonzero-divisor records, yielding 15,421,440 bytes within the same
+domain. These are source-reviewed producer bounds, not Lean-derived JSON-size
+bounds. The earlier
 [capacity evidence](statement-sequencing.md) keeps its
 historical input and buffer scope.
 

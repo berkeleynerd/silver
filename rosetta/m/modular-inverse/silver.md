@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** A bounded exhaustive search over a ranged loop index computes the inverse (1969, equivalent to -48) so that A * X is at most about 85000 and mod by the constant 2017 is never a division by zero, with no loop-carried arithmetic and no recursion or while loop needing a variant.
 
-Position 107 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 108 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 
