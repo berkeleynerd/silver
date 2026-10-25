@@ -67,6 +67,8 @@ For each authorized increment:
    The shared-binding checkpoint admitted proved range and length checks. The
    scalar/loop policy also admits proved overflow checks, supported by the
    scalar intermediate-interval, Image-length and loop-composition schemas;
+   Interval-checked division also admits proved nonzero-divisor checks, with
+   explicit quotient/remainder semantics and corresponding discharge schemas;
    report classification alone does not establish discharge. Every emitted Main
    safety check must be proved with the exact required provenance; applicable
    static elimination may leave an empty list. All output forms precisely classify initializer advisories;

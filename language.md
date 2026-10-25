@@ -9,7 +9,9 @@ earlier [sequencing checkpoint](docs/statement-sequencing.md). The [For loops an
 integers delivery record](docs/for-loops-integers.md) covers immutable Integer
 values, scoped loops and standard Integer Image. The [bounded mutable Integer
 record](docs/bounded-mutable-integers.md) extends these rules with initialized
-mutable objects, object-local static ranges and scalar assignment. The [machine-readable
+mutable objects, object-local static ranges and scalar assignment. The
+[division record](docs/integer-division.md) extends shared scalar expressions
+with interval-checked `/`, `mod` and `rem`. The [machine-readable
 catalogue](catalogue/silver.json), compiler, and this specification must agree. A
 discrepancy is a defect to resolve, not an extension of the language. Membership
 depends on source bytes, never on prover success.
@@ -233,7 +235,7 @@ scalar_unsigned   ::= scalar_integer_literal | scalar_name | scalar_group
 scalar_group      ::= "(" scalar_unsigned ")"
                     | "(" sign scalar_unsigned ")"
                     | "(" scalar_unsigned scalar_operator scalar_unsigned ")"
-scalar_operator   ::= "+" | "-" | "*"
+scalar_operator   ::= "+" | "-" | "*" | "/" | "mod" | "rem"
 sign              ::= "+" | "-"
 ```
 
@@ -250,8 +252,10 @@ below for length literals, with magnitude at most 2147483648. This larger
 magnitude permits the directly signed minimum `-2147483648`; every resulting
 scalar value must still fit Integer. Thus `2147483648`, `+2147483648` and
 `(-(2147483648))` are excluded. The exponent remains nonnegative and at most
-4096, even for zero. Division, `mod`, `rem`, `abs` and exponentiation as an
-expression operator are excluded.
+4096, even for zero. `abs` and exponentiation as expression operators remain
+excluded. The binary `mod` and `rem` keywords are whole tokens, without case
+distinctions; `Model` and `Rem2` are names, not operator prefixes. The `/=`
+comparison is distinct from division.
 
 Admission propagates closed Integer intervals. During declaration elaboration,
 earlier objects contribute their exact initial values. In the executable body,
@@ -261,7 +265,31 @@ their endpoint bounds, multiplication uses the minimum and maximum of the four
 endpoint products, and negation reverses and negates the endpoints. Every
 intermediate result must fit Integer for the entire inferred interval. The
 analysis does not exploit correlations such as two occurrences of the same
-index. An empty index interval makes index-dependent safety vacuous, but never
+index.
+
+Division truncates toward zero. `rem` has the dividend's sign or is zero;
+`mod` has the divisor's sign or is zero, following Ada RM 4.5.5. For every
+operator, a nonempty divisor interval containing zero is rejected before
+empty-operand propagation. This is a uniform conservative Silver rule even
+when an empty dividend would make execution vacuous, not an Ada restriction.
+With any other empty operand, the result interval is empty. Static illegal
+subexpressions are independently rejected before their enclosing operation.
+For nonempty operand intervals `[a,b]` and `[c,d]`:
+
+| Operator | Inferred result interval |
+| --- | --- |
+| `/` | The minimum and maximum of the four endpoint quotients, each truncated toward zero. The complete result interval must fit Integer. |
+| `mod` | Exact result for two singleton intervals; otherwise `[0,d-1]` for positive divisors or `[c+1,0]` for negative divisors. |
+| `rem` | Exact result for two singleton intervals; otherwise let `M = max(abs c, abs d)-1` mathematically. The lower endpoint is `max(a,-M)` if `a < 0`, else zero; the upper endpoint is `min(b,M)` if `b > 0`, else zero. |
+
+Every intermediate must still fit Integer. Quotient rejects intervals that can
+jointly reach `-2147483648 / (-1)`; `mod` and `rem` permit that pair and return
+zero. Mathematical magnitudes in the rule do not admit an application `abs`
+operator or widen application Integer. These are deliberately conservative
+interval rules: no general operand correlation or scalar guard refinement is
+used, and a safe runtime value alone does not establish admission.
+
+ An empty index interval makes index-dependent safety vacuous, but never
 permits an out-of-range static subexpression. Integer assignments additionally
 require a nonempty RHS interval, including in empty loops and unreachable arms.
 
@@ -386,10 +414,11 @@ assignment of `"too long" & Integer'Image (I)` to a one-byte target is excluded.
 Names, types, mutability and static scalar legality remain checked everywhere.
 
 The source has at most **63 operators shared by String concatenation and scalar
-arithmetic**: every `&`, unary or binary `+`/`-`, and `*` across declarations,
+arithmetic**: every `&`, unary or binary `+`/`-`, `*`, `/`, `mod` and `rem` across declarations,
 range constraints, loop bounds, all statements and predicate operands in every arm counts. Operator
 characters in literals/comments and a numeric exponent's `+` do not count.
-Copies, parentheses, comparisons and Image itself consume no operator budget.
+Each whole `mod`/`rem` keyword counts once. Copies, parentheses, comparisons
+(including `/=`) and Image itself consume no operator budget.
 This explicit proof-work policy permits a maximal 64-leaf expression or the
 same operator total distributed across positions. The expression and source
 budgets do not bound iteration count, elapsed execution or total proof cost.
@@ -743,9 +772,10 @@ must cover all admitted names, declarations, copies, argument vectors and paths.
 Literal/static expressions and plain name output may have no Main safety checks.
 Runtime concatenation and constrained scalar initialization/assignment can emit
 range checks; copied dynamic-length assignments can emit length checks; scalar
-arithmetic can emit overflow checks. Every emitted Main
-safety record must be a proved/info `VC_RANGE_CHECK`, `VC_LENGTH_CHECK` or
-`VC_OVERFLOW_CHECK`, with complete coverage, approved dependencies and no
+arithmetic can emit overflow checks and division/remainder can emit nonzero-divisor
+checks. Every emitted Main
+safety record must be a proved/info `VC_RANGE_CHECK`, `VC_LENGTH_CHECK`,
+`VC_OVERFLOW_CHECK` or `VC_DIVISION_CHECK`, with complete coverage, approved dependencies and no
 suppression. Length checks require the fixed-bound argument; their absence through
 static elimination is no longer a prerequisite for supporting copies.
 

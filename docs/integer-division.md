@@ -55,9 +55,48 @@ conversion, wider type, scalar refinement or array change is selected. Deferred
 
 ## Evidence and rounds
 
-Design and implementation evidence will be linked here as each obligation closes.
+The [producer/report review](integer-division-report-capacity.md) records the
+feature-local envelope and native discovery. Implementation and complete
+source-correspondence validation remain in progress.
 No admission, proof or execution result is claimed by this authorization record.
 The initial planning thread selects GPT-6.1 Sol High; native and Lean design
 threads select GPT-6 Astra Extra High. Runtime settings and lead setting are not
 independently exposed. No token/cost measurement is available. The lead handles
 integration and is the sole proof-workspace runner.
+
+## Selected rules and design result
+
+The native rule and checked mathematical model use `/` with truncation toward
+zero, divisor-sign `mod` and dividend-sign `rem`. Quotient uses the hull of four
+endpoint quotients; modulo uses exact singleton evaluation or divisor-sign
+bounds; remainder uses exact singletons or the divisor-magnitude bound clipped
+by dividend magnitude/sign. The [language section](../language.md#integer-objects-expressions-and-comparisons)
+states the complete transfer rules. Every nonempty zero-containing divisor is
+rejected before empty propagation. The successful empty-loop native probes show
+that this uniform profile restriction is conservative; it is not inherited from
+Ada or required by a demonstrated frontend failure. Static invalid subtrees and
+empty assignment RHSs remain excluded. Minimum/-1 is accepted for `mod`/`rem`
+and rejected for quotient overflow.
+
+The [arithmetic core review](reviews/review-integer-division-core-16d0f0cfaa.md)
+found no issue at `16d0f0cfaa`, covering native code, arithmetic models, reports,
+capacity and all seven sample sources. The core's focused Lean check and fresh
+axiom audit passed; complete source-bridge validation and review remain separate
+outstanding obligations. The new obligation class was observed in managed
+native discovery before acceptance was extended. No authored program receives
+hidden contracts or an annotated replacement.
+
+The Rosetta [reconciliation](../rosetta/assessment-division-20261025.md) corrects
+five dependency assessments and reserves `interval-integer-division` for this
+narrow capability. The existing `integer-division` identifier also covers `abs`
+and other broader assessed approaches and will remain unsupported. Only concrete
+reviewed approaches can migrate to the narrow identifier at delivery.
+
+Seven proposed regressions exercise the selected fragment: Josephus (the fixed
+41-prisoner, step-3 incident, zero-based survivor 30), first-n cubes (0 through
+49), odd three-digit squares, the fourteen department triples, largest proper
+divisors for 1 through 100, an 8-by-8 text mosaic and the task's fixed simultaneous
+equations. Josephus is explicitly an incident demonstration, not an arbitrary
+positive-n,k API. Expected output was derived independently from list elimination,
+direct sums/searches/divisor enumeration or the requested alternating grid.
+All seven await the complete sample checkpoint before supported delivery.

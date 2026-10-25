@@ -115,3 +115,27 @@ The remaining #11 constructs and deferred #119/#88–#94 work are outside this
 delivery. No new goal was created; the earlier capacity harness remains paused.
 CLI memory was unavailable and was not updated. The issue and this record are
 the continuation pointers.
+
+## External review and closure — 2026-10-25
+
+The [supplied review](reviews/review-pr228-cad254039f.md) targets completing
+commit `cad254039f` and reports no blocker. Its measurements and host-limited
+audit reproduction remain attributed to that reviewer. The owner accepted the
+merge recommendation; PR #228 merged as `6154f73c4c`, #226 is closed/Done, and
+[Finite current-language Rosetta samples](https://github.com/berkeleynerd/silver/milestone/6)
+is closed and named in the roadmap (review L2).
+
+Review L1 is addressed by retaining a **new** audit's complete command, UTC
+times, workspace, stdout, stderr and exit status in
+[the audit transcript](evidence/rosetta-finite-samples/retained-native-audit-20261025.json).
+It ran against implementation `3aae49385f` using `/usr/bin/python3` on
+2026-10-25 and passed in 6.816 seconds. It does not recreate the earlier
+unretained transcript or rerun GNATprove/build. The original sample validation
+and source-correspondence evidence remain applicable.
+
+The next authorized capability is [interval-checked division #229](integer-division.md),
+with scalar refinement a proposed successor and arrays provisional. The
+research's task counts describe assessed opportunities, not delivered proof
+results. The division scope distinguishes operator-specific remainder bounds,
+automatic discharge and feature-local report accounting. Deferred capacity and
+assurance-mode work remains untouched.
