@@ -2142,7 +2142,16 @@ is
                end if;
                if Target /= 0 then
                   Result.When_True.Values (Target) := Refine_Or_Keep (Facts.Values (Target), Selected, Threshold, True);
+                  pragma Assert (Static =>
+                    Result.When_True = Refined_Flow (Facts, Target, Selected, Threshold, True));
+                  Lemma_Flow_Equality
+                    (Result.When_True, Refined_Flow (Facts, Target, Selected, Threshold, True));
                   Result.When_False.Values (Target) := Refine_Or_Keep (Facts.Values (Target), Selected, Threshold, False);
+               else
+                  pragma Assert (Static =>
+                    Result.When_True = Refined_Flow (Facts, Target, Selected, Threshold, True));
+                  Lemma_Flow_Equality
+                    (Result.When_True, Refined_Flow (Facts, Target, Selected, Threshold, True));
                end if;
                pragma Assert (Static =>
                  Result.When_True = Refined_Flow (Facts, Target, Selected, Threshold, True));
