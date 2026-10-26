@@ -162,6 +162,24 @@ obligations passed. Selected documentation inputs include the capability and
 
 ## Packages and next check
 
+The native implementation at `171d6b2a62` passed 105 exploratory admission cases
+and all twenty prepared 4,096/4,097-byte parser shapes on an 8 MiB stack.
+The [retained inputs and results](evidence/scalar-guard-refinement/admission-20261026/validation.json)
+match all 129 retained native source files to that commit. These checks exercise
+the actual parser; they do not establish application proof or universal resource
+sufficiency. The semantic core `fa815fca56` and fixed-cell follow-up `9db41ab578`
+passed focused Lean builds and fresh audits, including assignment/loop transfer,
+execution, obligation discharge and immutable-cell preservation. Complete native
+verification, parser/source correspondence and the final delivery checkpoint
+remain pending.
+
+Native verification exposed flow-initialization and discriminant-translation
+issues after the executable checks. Explicit initialization and constrained ghost
+results cleared those translation failures without changing the toolchain or
+removing obligations. The declaration-prefix invariant and source bridge are
+being completed against the repaired inputs; earlier successes retain their
+exact scope.
+
 The existing package order remains scope/discovery [#237](https://github.com/berkeleynerd/silver/issues/237),
 native [#238](https://github.com/berkeleynerd/silver/issues/238), universal/source
 assurance [#239](https://github.com/berkeleynerd/silver/issues/239), then complete
@@ -186,6 +204,7 @@ unchanged by this separate implementation stream.
 | Implementation/proof design | Selected GPT-6 Astra, Extra High; runtime setting not independently exposed | Mapped immutable metadata, flow overlays, assignment replacement, loop closure and actual-source proof changes. Identified the semantic staticness/refinement-policy metadata requirement. Native discovery and measured storage choice remain; no owner decision is missing. Recorded elapsed 5m 55s; tokens/cost unavailable. |
 | Pending documentation/sample records | Selected GPT-6.1 Sol, High; runtime model/effort not independently exposed | Aligned selected semantics with native tests at `171d6b2a62`, preserved discovered sample bytes, independently derived its manifest output, and prepared narrow Rosetta metadata/render. Structural checks only; full support remains pending. Elapsed time and token/cost measurements unavailable. |
 | Native discovery and storage selection | Probe preparation selected GPT-6.1 Sol, Extra High; design selected GPT-6 Astra, Extra High; live lead setting not independently exposed | Positive/native-driver checks and isolated unsafe diagnostics resolved the report/site questions. Fixed-vector proxy failures led to active extents and caller-owned condition buffers. Actual parser resource and source-proof closure remain. Managed timings are retained in discovery; active-flow design elapsed 6m 50s; tokens/cost unavailable. |
+| Native behavior and semantic integration | Native author selected GPT-6.1 Sol, Extra High; semantic/source authors selected GPT-6 Astra, Extra High; records author selected GPT-6.1 Sol, High; live lead setting not independently exposed | Actual admission and prepared parser boundary cases passed; the core and fixed-cell semantic proofs passed focused fresh audits. Native contract/translation repairs and complete source composition remain. Exact native timings are retained in the linked evidence; whole-team time, tokens and cost unavailable. |
 
 No additional owner decision is currently required. Oracle amendments remain
 reserved; #119/#201/#202/#212, paused packets/R93 and #88–#94 stay deferred.
