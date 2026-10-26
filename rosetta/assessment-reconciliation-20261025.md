@@ -181,3 +181,28 @@ the proposed PR mapping explicitly; #9's original task list is preserved.
 CLI memory was unavailable and was not updated. The checked-in record and issue
 handoffs are the continuation pointers. The live local harness has no active
 goal; the earlier capacity harness remains paused and is not reactivated.
+
+## Unicode scalar-flow scope — 2026-10-26
+
+The later Unicode variable names scope review compared the selected approach
+statically with the bare-name/static-threshold scalar guard rules. Its retained
+metadata is dated 2026-10-26, model `gpt-6.1-sol`, effort `high`, setting evidence
+“Selected setting; runtime model/effort not independently exposed”, and method
+“Static comparison with selected bare-name/static-threshold rules; Unicode
+admission remains excluded”. This was a source comparison, with no new proof,
+probe or program execution. The [delivered guard record](../docs/scalar-guard-refinement.md#delivery-assurance-and-validation)
+now supplies the assurance and validation scope, including retained regression
+results and focused repair validation. The scalar guard fragment is delivered;
+Unicode identifiers remain excluded by Silver's ASCII source rules, and this
+task remains a future candidate.
+
+The earlier reconciliation review remains historical: date `2026-10-25`, model
+`gpt-6-astra`, effort `xhigh`, setting evidence “Selected setting; runtime not
+independently confirmed”, method “Targeted static task, captured-answer and
+fixed-specification review”, with this reconciliation record as its reference.
+The original dispositions and validation above retain their dated input scope.
+The current `review` object links this appendix so the existing renderer exposes
+the later scope review without losing the earlier provenance. This record
+correction for [#250](https://github.com/berkeleynerd/silver/issues/250) and
+[#251](https://github.com/berkeleynerd/silver/issues/251) adds no assessment or
+supported identifier.
