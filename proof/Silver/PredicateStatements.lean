@@ -237,6 +237,79 @@ mutual
   termination_by sizeOf items
 end
 
+/- Immutable declaration snapshots remain exact throughout admission. The
+separate mutability and refinability premises exclude writes and guard updates;
+nonemptiness makes branch hulls literally preserve the incoming interval. -/
+mutual
+  theorem statement_preserves_fixed {shape : Shape} {analysis : Integer.Analysis}
+      {before after : Flow} {item : Statement} {index : Nat} {bounds : Integer.Interval}
+      (checked : item.check shape analysis before = some after)
+      (readonly : analysis.mutable index = false) (fixed : analysis.refinable index = false)
+      (incoming : before.scalars index = some bounds) (nonempty : bounds.isEmpty = false) :
+      after.scalars index = some bounds := by
+    cases item with
+    | simple item =>
+        simp only [Statement.check] at checked
+        split at checked
+        · cases checked; exact incoming
+        · contradiction
+    | scalarAssign update =>
+        simp only [Statement.check] at checked
+        split at checked
+        · rename_i good
+          cases checked
+          have changed : analysis.mutable update.target = true := by
+            simp only [Integer.Assignment.check, Bool.and_eq_true] at good
+            exact good.1
+          have distinct : index ≠ update.target := by
+            intro same
+            rw [← same, readonly] at changed
+            contradiction
+          simpa only [Integer.Assignment.after, Integer.put, distinct, ↓reduceIte] using incoming
+        · contradiction
+    | reject =>
+        simp only [Statement.check, Option.some.injEq] at checked
+        subst after
+        exact incoming
+    | choice condition yes no =>
+        simp only [Statement.check] at checked
+        split at checked
+        · simp only [Option.bind_eq_some_iff, Option.map_eq_some_iff] at checked
+          obtain ⟨afterYes, yesChecked, afterNo, noChecked, rfl⟩ := checked
+          have a := statements_preserves_fixed yesChecked readonly fixed
+            (condition.refine_preserves_fixed fixed incoming nonempty) nonempty
+          have b := statements_preserves_fixed noChecked readonly fixed
+            (condition.refine_preserves_fixed fixed incoming nonempty) nonempty
+          exact Integer.Ranges.join_fixed a b nonempty
+        · contradiction
+    | forLoop index reverse lower upper body =>
+        simp only [Statement.check, Option.bind_eq_some_iff, Option.map_eq_some_iff] at checked
+        obtain ⟨a, _, b, _, bodyAfter, _, rfl⟩ := checked
+        simp only [loopExit]
+        split
+        · exact incoming
+        · simpa only [Integer.Analysis.widen, readonly, Bool.false_eq_true, ↓reduceIte] using incoming
+  termination_by sizeOf item
+
+  theorem statements_preserves_fixed {shape : Shape} {analysis : Integer.Analysis}
+      {before after : Flow} {items : List Statement} {index : Nat} {bounds : Integer.Interval}
+      (checked : checkStatements shape analysis before items = some after)
+      (readonly : analysis.mutable index = false) (fixed : analysis.refinable index = false)
+      (incoming : before.scalars index = some bounds) (nonempty : bounds.isEmpty = false) :
+      after.scalars index = some bounds := by
+    cases items with
+    | nil =>
+        simp only [checkStatements, Option.some.injEq] at checked
+        subst after
+        exact incoming
+    | cons item rest =>
+        simp only [checkStatements, Option.bind_eq_some_iff] at checked
+        obtain ⟨middle, firstChecked, restChecked⟩ := checked
+        have first := statement_preserves_fixed firstChecked readonly fixed incoming nonempty
+        exact statements_preserves_fixed restChecked readonly fixed first nonempty
+  termination_by sizeOf items
+end
+
 /-- Successful completion must reject every reachable invalid-input path. -/
 def completed (context : Context) : Bool := !context.invalidReachable || context.invalidRejected
 

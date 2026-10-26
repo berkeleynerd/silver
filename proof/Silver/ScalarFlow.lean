@@ -10,6 +10,10 @@ public import Silver.PathFacts
 contains only the current read intervals and the independent input path facts. -/
 namespace Silver.Integer
 
+theorem Interval.join_comm (left right : Interval) : left.join right = right.join left := by
+  cases leftEmpty : left.isEmpty <;> cases rightEmpty : right.isEmpty <;>
+    simp_all [Interval.join, Interval.normalize, Int.min_comm, Int.max_comm]
+
 def Ranges.join (left right : Ranges) : Ranges := fun index =>
   match left index, right index with
   | some a, some b => some (a.join b)
