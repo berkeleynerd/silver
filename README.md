@@ -115,19 +115,26 @@ records the implementation corrections and their separate validation.
 
 The completed [Bounded mutable integers extension](docs/bounded-mutable-integers.md)
 adds initialized mutable Integer objects, optional object-local static ranges on
-constants or variables, and range-preserving assignments. Declaration snapshots remain exact;
-body reads use each mutable object's full declared range, without narrowing from
-assignments or scalar guards. Loop bounds capture their entry values, and writes
-persist after the loop.
+constants or variables, and range-preserving assignments. Declaration snapshots
+remain exact; initial body reads use each mutable object's full declared range.
+Loop bounds capture their entry values, and writes persist after the loop.
 
 The [interval-checked division increment](docs/integer-division.md) adds fully
 grouped `/`, `mod` and `rem` in those scalar-expression positions. Division
 truncates toward zero; `mod` follows the divisor sign and `rem` the dividend sign.
 Incoming intervals must exclude zero divisors and quotient overflow, with exact
-singleton initialization and the existing declared-range body analysis. Seven
+singleton initialization and interval analysis. Seven
 sample approaches exercise the fragment, including the fixed Josephus (41,3)
 incident. The capability record tracks the pending complete validation and
 source-assurance checkpoint.
+
+The prepared [scalar guard increment](docs/scalar-guard-refinement.md) narrows
+bare mutable Integer names and loop indexes against static thresholds. Assignments
+replace current read intervals, branches join by hull, and loops capture entry
+bounds before widening mutable facts at body entry and possible execution exits.
+It adds the complete [100 doors sample](samples/rosetta_100_doors.adb), with
+expected output derived independently by toggling each door on every pass.
+No new grammar is added; complete assurance and validation remain pending.
 
 The [Find square difference sample](samples/find_square_difference.adb) stores
 the first matching index and prints ` 501` followed by a newline.

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indexes are for-loop indexes over static constant bounds and the element values are small embedded literals, so every check follows from types and static ranges with no loop-carried state.
 
-Position 56 in the [progression](../../progression.md#stage-3), in stage 3.
+Position 57 in the [progression](../../progression.md#stage-3), in stage 3.
 
 ## Approach
 

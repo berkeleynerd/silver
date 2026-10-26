@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The retained prototype passed admission only under today's compiler. Loop-index intervals bound every intermediate arithmetic result, Found assignments stay in 0 .. 1 and Product accepts the bounded product. No Boolean object, declared subtype, guard refinement, new division operator, proof or execution result is claimed.
 
-Position 44 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 45 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
