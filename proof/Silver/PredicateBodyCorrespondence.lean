@@ -2,6 +2,7 @@ module
 
 public import Silver.PredicateBodyEquations
 public import Silver.PredicateBodyBounds
+public import Silver.PredicateBodyFlowPreservation
 
 @[expose] public section
 namespace Silver.Predicate.BodyNative
@@ -16,23 +17,26 @@ attribute [local irreducible] ScalarExpression.read
 abbrev ValidText := Compose.Expressions.ValidText
 
 def ValidScan (text : Source) (context : Native.Context) (scan : BodyScan) : Prop :=
-  scan.position ≤ text.length + 1 ∧ Controls context.model scan ∧ scan.facts.Bounded
+  scan.position ≤ text.length + 1 ∧ Controls context.model scan ∧ Native.ValidFlow context scan.facts
 
 theorem model_statement_valid (text : Source) (tv : ValidText text) (context : Native.Context)
     (cv : Native.ValidContext text context) (scan : BodyScan) (sv : ValidScan text context scan) :
     ValidScan text context (statementBody text context.model scan) :=
-  ⟨statementBody_bound text context.model scan tv cv.1 sv.1, statementBody_controls text context.model scan sv.2.1, statementBody_factsBounded text context.model scan sv.2.2⟩
+  ⟨statementBody_bound text context.model scan tv cv.1 sv.1, statementBody_controls text context.model scan sv.2.1, ⟨statementBody_factsBounded text context.model scan sv.2.2.1,
+    statementBody_flowReady text context.model scan cv.2.2.2 sv.2.2.2 cv.2.2.1⟩⟩
 
 theorem model_read_valid (text : Source) (tv : ValidText text) (context : Native.Context)
     (cv : Native.ValidContext text context) (scan : BodyScan) (stop : BodyStop) (sv : ValidScan text context scan) :
     ValidScan text context (readBody text context.model scan stop) :=
-  ⟨readBody_bound text context.model scan stop tv cv.1 sv.1, readBody_controls text context.model scan stop sv.2.1, readBody_factsBounded text context.model scan stop sv.2.2⟩
+  ⟨readBody_bound text context.model scan stop tv cv.1 sv.1, readBody_controls text context.model scan stop sv.2.1, ⟨readBody_factsBounded text context.model scan stop sv.2.2.1,
+    readBody_flowReady text context.model scan stop cv.2.2.2 sv.2.2.2 cv.2.2.1⟩⟩
 
 theorem start_valid (text : Source) (tv : ValidText text) (context : Native.Context)
     (cv : Native.ValidContext text context) (scan : BodyScan) (keyword : String) (sv : ValidScan text context scan) :
     ValidScan text context (branchStart text context.model scan keyword).1 :=
   ⟨branchStart_bound text context.model scan keyword tv cv.1 sv.1, branchStart_controls text context.model scan keyword sv.2.1,
-    (branchStart_factsBounded text context.model scan keyword sv.2.2).1⟩
+    ⟨(branchStart_factsBounded text context.model scan keyword sv.2.2.1).1,
+      (branchStart_flowReady text context.model scan keyword cv.2.2.2 sv.2.2.2).1⟩⟩
 
 /-- Helper callees have their separately established source meanings. These are
 only the remaining recursive body equations; none assumes admission or recursive
@@ -46,10 +50,12 @@ structure Equations (calls : Calls) : Prop where
     ValidScan text context scan → calls.conditional text context scan = conditionalFunction.eval modelPrimitives calls {text,context,scan}
   alternative : ∀ text, ValidText text → ∀ context, Native.ValidContext text context → ∀ scan,
     ValidScan text context scan → calls.alternative text context scan = alternativeFunction.eval modelPrimitives calls {text,context,scan}
+  tailModel : ∀ text, ValidText text → ∀ context, Native.ValidContext text context → ∀ scan stop,
+    ValidScan text context scan → calls.tailModel text context scan stop = tailModelBody.eval modelPrimitives calls {text,context,scan,stop}
   tail : ∀ text, ValidText text → ∀ context, Native.ValidContext text context → ∀ scan stop,
-    ValidScan text context scan → calls.tail text context scan stop = tailFunction.eval modelPrimitives calls {text,context,scan,stop}
+    ValidScan text context scan → calls.tail text context scan stop = calls.tailModel text context scan stop
   read : ∀ text, ValidText text → ∀ context, Native.ValidContext text context → ∀ scan stop,
-    ValidScan text context scan → calls.read text context scan stop = readFunction.eval modelPrimitives calls {text,context,scan,stop}
+    ValidScan text context scan → calls.read text context scan stop = readContractBody.eval modelPrimitives calls {text,context,scan,stop}
 
 theorem model_equations : Equations modelCalls where
   statement text _ context _ scan _ := by
@@ -58,8 +64,8 @@ theorem model_equations : Equations modelCalls where
     all_goals by_cases loopFound : fixedAfter text scan.position "for" true ≠ 0
     all_goals simp +instances [modelCalls, statementBody, statementEval, Test.eval, ScanExpr.eval,
       modelPrimitives, tokenAfter, ShellToken.word, zero, found, loopFound] <;> simp_all
-  loop text _ context _ scan _ := by
-    rw [LoopNative.eval_equation]
+  loop text _ context _ scan sv := by
+    rw [LoopNative.eval_equation _ text context scan sv.2.2.2.compatible.count]
     exact model_loop_equation text context scan
   conditional text tv context cv scan sv := by
     rw [conditional_eval]
@@ -67,9 +73,10 @@ theorem model_equations : Equations modelCalls where
   alternative text tv context cv scan sv := by
     rw [alternative_eval]
     exact model_alternative_equation text context scan tv cv.1 sv.1
-  tail text tv context cv scan stop sv := by
+  tailModel text tv context cv scan stop sv := by
     rw [tail_eval]
     exact model_tail_equation text context scan stop tv cv.1 sv.1
+  tail _ _ _ _ _ _ _ := rfl
   read text tv context cv scan stop sv := by
     rw [read_eval]
     exact model_read_equation text context scan stop tv cv.1 sv.1
@@ -100,7 +107,8 @@ mutual
       (tv : ValidText text) (context : Native.Context) (cv : Native.ValidContext text context)
       (scan : BodyScan) (sv : ValidScan text context scan) :
       calls.loop text context scan = loopBody text context.model scan := by
-    rw [equations.loop text tv context cv scan sv, LoopNative.eval_equation,
+    rw [equations.loop text tv context cv scan sv,
+      LoopNative.eval_equation calls.read text context scan sv.2.2.2.compatible.count,
       model_loop_equation text context scan]
     unfold LoopNative.equation
     dsimp only [modelCalls]
@@ -111,15 +119,18 @@ mutual
       · rw [ite_eq_right failed, ite_eq_right failed]
         have positive : (loopHeader text context.model scan).entry.position ≠ 0 := by omega
         have innerValid : Native.ValidContext text (LoopNative.inner context (loopHeader text context.model scan)) :=
-          ⟨cv.1, cv.2.1, loopInner_valid_environment (text := text) (context := context.model) (scan := scan) cv.2.2 allowed positive⟩
+          ⟨cv.1, cv.2.1,
+            loopInner_valid_environment (text := text) (context := context.model) (scan := scan) cv.2.2.1 allowed positive,
+            nativeLoopInner_baseReady cv.2.2.2 (loopHeader text context.model scan)⟩
         have entryValid : ValidScan text (LoopNative.inner context (loopHeader text context.model scan))
             (loopHeader text context.model scan).entry :=
           by
           refine ⟨loopHeader_bound text context.model scan, ?_, ?_⟩
           · exact sv.2.1
-          · exact loopContext_bounded sv.2.2
+          · exact ⟨loopContext_bounded sv.2.2.1
               (Integer.loopBounds (loopHeader text context.model scan).lower.bounds
-                (loopHeader text context.model scan).upper.bounds)
+                (loopHeader text context.model scan).upper.bounds),
+              loopHeader_flowReady cv.2.2.2 sv.2.2.2 cv.2.2.1 positive⟩
         have advanced := remaining_lt entryValid.1 (Nat.lt_of_not_ge failed)
         rw [read_unique calls equations text tv _ innerValid _ .endOnly entryValid]
     · have disallowed := Bool.eq_false_iff.mpr allowed
@@ -148,7 +159,8 @@ mutual
         have noValid : ValidScan text context
             {readBody text context.model (branchStart text context.model scan "if").1 .arm with
               facts := (branchStart text context.model scan "if").2} :=
-          ⟨yesValid.1, yesValid.2.1, (branchStart_factsBounded text context.model scan "if" sv.2.2).2⟩
+          ⟨yesValid.1, yesValid.2.1, ⟨(branchStart_factsBounded text context.model scan "if" sv.2.2.1).2,
+                (branchStart_flowReady text context.model scan "if" cv.2.2.2 sv.2.2.2).2⟩⟩
         rw [alternative_unique calls equations text tv context cv _ noValid]
   termination_by (bodyRemaining text scan, 1)
 
@@ -179,7 +191,8 @@ mutual
             have noValid : ValidScan text context
                 {readBody text context.model (branchStart text context.model scan "elsif").1 .arm with
                   facts := (branchStart text context.model scan "elsif").2} :=
-              ⟨yesValid.1, yesValid.2.1, (branchStart_factsBounded text context.model scan "elsif" sv.2.2).2⟩
+              ⟨yesValid.1, yesValid.2.1, ⟨(branchStart_factsBounded text context.model scan "elsif" sv.2.2.1).2,
+                (branchStart_flowReady text context.model scan "elsif" cv.2.2.2 sv.2.2.2).2⟩⟩
             rw [alternative_unique calls equations text tv context cv _ noValid]
       · rw [ite_eq_right found, ite_eq_right found]
         by_cases foundElse : fixedAfter text scan.position "else" true ≠ 0
@@ -197,8 +210,8 @@ mutual
   theorem tail_unique (calls : Calls) (equations : Equations calls) (text : Source)
       (tv : ValidText text) (context : Native.Context) (cv : Native.ValidContext text context)
       (scan : BodyScan) (stop : BodyStop) (sv : ValidScan text context scan) :
-      calls.tail text context scan stop = bodyTail text context.model scan stop := by
-    rw [equations.tail text tv context cv scan stop sv, tail_eval,
+      calls.tailModel text context scan stop = bodyTail text context.model scan stop := by
+    rw [equations.tailModel text tv context cv scan stop sv, tail_eval,
       model_tail_equation text context scan stop tv cv.1 sv.1]
     unfold tailEquation
     dsimp only [modelCalls]
@@ -234,5 +247,12 @@ mutual
       exact tail_unique calls equations text tv context cv _ stop nextValid
   termination_by (bodyRemaining text scan, 3)
 end
+
+theorem tail_executable_unique (calls : Calls) (equations : Equations calls) (text : Source)
+    (tv : ValidText text) (context : Native.Context) (cv : Native.ValidContext text context)
+    (scan : BodyScan) (stop : BodyStop) (sv : ValidScan text context scan) :
+    calls.tail text context scan stop = bodyTail text context.model scan stop :=
+  (equations.tail text tv context cv scan stop sv).trans
+    (tail_unique calls equations text tv context cv scan stop sv)
 
 end Silver.Predicate.BodyNative

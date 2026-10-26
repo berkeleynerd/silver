@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The current fragment computes the required 10x10 grid with two finite Integer loops and one mutable Integer range 0..9 object. All subtraction intervals and assigned values lie in 0..9; the actual minima lie in 0..4, but admission does not need scalar guard refinement, a named subtype, Natural or a minimum library operation.
 
-Position 35 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 36 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

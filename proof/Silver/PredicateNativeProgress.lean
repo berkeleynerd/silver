@@ -9,7 +9,7 @@ open Compose Compose.Expressions
 
 set_option backward.dsimp.instances true
 
-theorem primary_progress (text : Source) (context : ParseContext) (position : Nat) (facts : PathFacts.Context)
+theorem primary_progress (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
     (textValid : ValidText text) (namesValid : ValidNames text context.names)
     (bounded : position ≤ text.length + 1) (accepted : (readPrimary text context position facts).after ≠ 0) :
     position < (readPrimary text context position facts).after := by
@@ -18,14 +18,15 @@ theorem primary_progress (text : Source) (context : ParseContext) (position : Na
   · by_cases opening : fixedAfter text position "(" false ≠ 0
     · by_cases advanced : remainingAt text (fixedAfter text position "(" false) < remainingAt text position
       · have closed : fixedAfter text (readCondition text context (fixedAfter text position "(" false) facts).after ")" false ≠ 0 := by
-          simpa [readPrimary, zero, opening, advanced] using accepted
+          intro absent
+          simp [readPrimary, zero, opening, advanced, absent, invalidCondition] at accepted
         have innerPositive := fixedAfter_nonzero closed
         have afterBound := model_fixed_valid text position "(" false bounded
         have start := model_fixed_advances text position "(" false bounded (by decide) opening
         have inner := condition_progress text context _ facts innerPositive
         have innerBound := condition_bound text context _ facts textValid namesValid afterBound
         have stop := model_fixed_advances text _ ")" false innerBound (by decide) closed
-        simp [readPrimary, zero, opening, advanced]
+        simp [readPrimary, zero, opening, advanced, closed]
         omega
       · simp [readPrimary, zero, opening, advanced, invalidCondition] at accepted
     · have noOpening : fixedAfter text position "(" false = 0 := by omega
@@ -33,12 +34,14 @@ theorem primary_progress (text : Source) (context : ParseContext) (position : Na
         cases arguments : context.hasArguments with
         | false => simp [readPrimary, zero, noOpening, arguments, invalidCondition] at accepted
         | true => rfl
-      have finalPositive : callAfter text context.names position .validity context.scalarNames ≠ 0 := by simpa [readPrimary, zero, noOpening, arguments] using accepted
+      have finalPositive : callAfter text context.names position .validity context.scalarNames ≠ 0 := by
+        intro absent
+        simp [readPrimary, zero, noOpening, arguments, absent, invalidCondition] at accepted
       have progress := model_callAfter_advances text context.names position .validity bounded finalPositive
       simpa only [readPrimary, zero, noOpening, arguments, ne_eq, not_true_eq_false,
-        Bool.not_true, Bool.false_eq_true, ↓reduceIte] using progress
+        Bool.not_true, Bool.false_eq_true, finalPositive, ↓reduceIte] using progress
 
-theorem relation_progress (text : Source) (context : ParseContext) (position : Nat) (facts : PathFacts.Context)
+theorem relation_progress (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
     (textValid : ValidText text) (namesValid : ValidNames text context.names)
     (bounded : position ≤ text.length + 1) (accepted : (readRelation text context position facts).after ≠ 0) :
     position < (readRelation text context position facts).after := by
@@ -65,7 +68,7 @@ theorem relation_progress (text : Source) (context : ParseContext) (position : N
       · split <;> (try simp only [*] at accepted)
         · split <;> (try simp only [*] at accepted)
           · simp_all [invalidCondition]
-          · dsimp only
+          · dsimp only [scalarCondition]
             omega
         · split <;> (try simp only [*] at accepted)
           · split <;> (try simp only [*] at accepted)

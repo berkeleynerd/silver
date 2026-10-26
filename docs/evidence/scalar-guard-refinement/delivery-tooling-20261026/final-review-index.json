@@ -1,0 +1,32 @@
+{
+  "implementation_commit": "d4d564cf358bd2c617b4899c53ceb0c0c1fd69da",
+  "original_review_markdown_sha256": "6dfaa1c716c1f537090a4b3ffa4e6151936edab8f409357110ceb415f1ea4247",
+  "retained_review_markdown_sha256": "0831a719a8b3392d0e66299d847ac944b89ad211df95a3377801df0d9ccb4e7e",
+  "retained_review_path": "docs/reviews/review-scalar-guard-delivery-20261026.md",
+  "review_markdown_addition": "Lead retention links only",
+  "document_changes_after_review": [
+    {
+      "path": "docs/scalar-guard-refinement.md",
+      "reviewed_sha256": "8402c1329551d338052a3a42818fb5787cde5aa3edb0ecb1a01afd5c7a05add4",
+      "final_sha256": "47c3df4d804758cfd7bfaffc15adf848609bf2f15707c66a18e288e5f24132e8",
+      "sole_change": "added reference to this final review"
+    }
+  ],
+  "artifacts": {
+    "final-delivery-review.json": {
+      "sha256": "4a03e2bf5582967fa8a86ed5264b05e90cb8e1c4a5d7bda86b57bed7e94233b1",
+      "bytes": 7754,
+      "original_path": "tmp/guard-evidence-delivery-review-20261026/final-delivery-review.json"
+    },
+    "check-final-bundle.py": {
+      "sha256": "c39310b7e3366c48b7e7e5e07c5561ad58a9db643e8ce4761ef6bae1dcb2fb64",
+      "bytes": 11298,
+      "original_path": "tmp/guard-evidence-delivery-review-20261026/check-final-bundle.py"
+    },
+    "final-bundle-checks.json": {
+      "sha256": "39f6b94530aa126bb1a956c18942813c9eaebf620045b6d15af15350489a3d19",
+      "bytes": 3665,
+      "original_path": "tmp/guard-evidence-delivery-review-20261026/final-bundle-checks.json"
+    }
+  }
+}

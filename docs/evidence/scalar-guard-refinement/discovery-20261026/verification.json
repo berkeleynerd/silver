@@ -1,0 +1,54 @@
+{
+  "status": "retained evidence checks passed; no native tool invoked",
+  "retained_files": 334,
+  "run_events": 27,
+  "nonempty_input_comparisons": 60,
+  "positive_main_proof_records": 50,
+  "combined_unsafe_unproved": 2,
+  "combined_unsafe_later_info": 4,
+  "isolated_expected_failures": [
+    {
+      "case": "stale_replacement",
+      "line": 9,
+      "col": 18,
+      "rule": "VC_RANGE_CHECK"
+    },
+    {
+      "case": "branch_join",
+      "line": 8,
+      "col": 15,
+      "rule": "VC_RANGE_CHECK"
+    },
+    {
+      "case": "omitted_else",
+      "line": 8,
+      "col": 15,
+      "rule": "VC_RANGE_CHECK"
+    },
+    {
+      "case": "loop_reentry",
+      "line": 8,
+      "col": 42,
+      "rule": "VC_RANGE_CHECK"
+    },
+    {
+      "case": "minimum_negation",
+      "line": 8,
+      "col": 36,
+      "rule": "VC_OVERFLOW_CHECK"
+    },
+    {
+      "case": "shadowed_mutable",
+      "line": 9,
+      "col": 12,
+      "rule": "VC_RANGE_CHECK"
+    }
+  ],
+  "static_illegal_sites": 2,
+  "doors": {
+    "bytes": 1372,
+    "lines": 100,
+    "sha256": "3225966de56a69f5097ba77497b24195b548445c1f169b776f6cfafc007d338a"
+  },
+  "concrete_parser_runs": 0
+}

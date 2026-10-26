@@ -16,24 +16,24 @@ structure Contracts (calls : Calls) : Prop where
     ∀ position, position ≤ text.length + 1 → ∀ literal,
     (calls.length text context position literal).after ≤ text.length + 1
   primary : ∀ text, ValidText text → ∀ context, ValidContext text context →
-    ∀ position, position ≤ text.length + 1 → ∀ facts, facts.Bounded →
-    ValidResult text (calls.primary text context position facts) ∧
+    ∀ position, position ≤ text.length + 1 → ∀ facts, ValidFlow context facts →
+    ValidResult text context (calls.primary text context position facts) ∧
       ((calls.primary text context position facts).after = 0 ∨ position < (calls.primary text context position facts).after)
   relation : ∀ text, ValidText text → ∀ context, ValidContext text context →
-    ∀ position, position ≤ text.length + 1 → ∀ facts, facts.Bounded →
-    ValidResult text (calls.relation text context position facts) ∧
+    ∀ position, position ≤ text.length + 1 → ∀ facts, ValidFlow context facts →
+    ValidResult text context (calls.relation text context position facts) ∧
       ((calls.relation text context position facts).after = 0 ∨ position < (calls.relation text context position facts).after)
   model : ∀ text, ValidText text → ∀ context, ValidContext text context →
-    ∀ position, position ≤ text.length + 1 → ∀ facts, facts.Bounded →
-    ValidResult text (calls.model text context position facts) ∧
+    ∀ position, position ≤ text.length + 1 → ∀ facts, ValidFlow context facts →
+    ValidResult text context (calls.model text context position facts) ∧
       ((calls.model text context position facts).after = 0 ∨ position < (calls.model text context position facts).after)
   condition : ∀ text, ValidText text → ∀ context, ValidContext text context →
-    ∀ position, position ≤ text.length + 1 → ∀ facts, facts.Bounded →
-    ValidResult text (calls.condition text context position facts) ∧
+    ∀ position, position ≤ text.length + 1 → ∀ facts, ValidFlow context facts →
+    ValidResult text context (calls.condition text context position facts) ∧
       ((calls.condition text context position facts).after = 0 ∨ position < (calls.condition text context position facts).after)
   tail : ∀ text, ValidText text → ∀ context, ValidContext text context →
-    ∀ result, ValidResult text result → ∀ operator, operator.isChain = true → ∀ chained,
-    ValidResult text (calls.tail text context result operator chained) ∧
+    ∀ result, ValidResult text context result → ∀ operator, operator.isChain = true → ∀ chained,
+    ValidResult text context (calls.tail text context result operator chained) ∧
       ((calls.tail text context result operator chained).after = 0 ∨
         result.after ≤ (calls.tail text context result operator chained).after)
 
@@ -62,9 +62,13 @@ theorem model_contracts : Contracts modelCalls where
     · exact Or.inr (condition_progress text context.model position facts zero)
   tail text tv context cv result rv operator _ chained := by
     refine ⟨⟨tail_bound text context.model result _ tv cv.1 rv.1,
-      conditionTail_bounded text context.model result _ rv.2⟩, ?_⟩
-    by_cases zero : (conditionTail text context.model result (chainState operator chained)).after = 0
-    · exact Or.inl zero
-    · exact Or.inr (tail_nondecreasing text context.model result _ zero)
+      ?_, ?_⟩, ?_⟩
+    · exact ⟨(conditionTail_bounded text context.model result _ ⟨rv.2.1.1, rv.2.2.1⟩).1,
+        (tail_flowReady text context.model result _ cv.2.2.2 ⟨rv.2.1.2, rv.2.2.2⟩).1⟩
+    · exact ⟨(conditionTail_bounded text context.model result _ ⟨rv.2.1.1, rv.2.2.1⟩).2,
+        (tail_flowReady text context.model result _ cv.2.2.2 ⟨rv.2.1.2, rv.2.2.2⟩).2⟩
+    · by_cases zero : (conditionTail text context.model result (chainState operator chained)).after = 0
+      · exact Or.inl zero
+      · exact Or.inr (tail_nondecreasing text context.model result _ zero)
 
 end Silver.Predicate.Native

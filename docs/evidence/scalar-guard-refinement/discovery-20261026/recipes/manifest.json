@@ -1,0 +1,740 @@
+{
+  "issue": 237,
+  "status": "prepared only; no native execution",
+  "cases": [
+    {
+      "name": "guards",
+      "native_expectation": "pass",
+      "selected_silver_rule": "admit after selected implementation",
+      "questions": [
+        "All six operators, each direct/reversed and true/false: 24 discriminating target assignments."
+      ],
+      "expected_source_sites": [
+        {
+          "label": "direct_true: X = 5",
+          "operation": "Exact := X",
+          "expected": "constrained assignment range check, if retained, proved"
+        },
+        {
+          "label": "direct_true: X /= 0",
+          "operation": "Positive := X",
+          "expected": "constrained assignment range check, if retained, proved"
+        },
+        {
+          "label": "direct_true: X < 9",
+          "operation": "Below := X",
+          "expected": "constrained assignment range check, if retained, proved"
+        },
+        {
+          "label": "direct_true: X <= 8",
+          "operation": "Below := X",
+          "expected": "constrained assignment range check, if retained, proved"
+        },
+        {
+          "label": "direct_true: X > 0",
+          "operation": "Positive := X",
+          "expected": "constrained assignment range check, if retained, proved"
+        },
+        {
+          "label": "direct_true: X >= 1",
+          "operation": "Positive := X",
+          "expected": "constrained assignment range check, if retained, proved"
+        },
+        {
+          "label": "reversed_true: 5 = X",
+          "operation": "Exact := X",
+          "expected": "constrained assignment range check, if retained, proved"
+        },
+        {
+          "label": "reversed_true: 0 /= X",
+          "operation": "Positive := X",
+          "expected": "constrained assignment range check, if retained, proved"
+        },
+        {
+          "label": "reversed_true: 9 > X",
+          "operation": "Below := X",
+          "expected": "constrained assignment range check, if retained, proved"
+        },
+        {
+          "label": "reversed_true: 8 >= X",
+          "operation": "Below := X",
+          "expected": "constrained assignment range check, if retained, proved"
+        },
+        {
+          "label": "reversed_true: 0 < X",
+          "operation": "Positive := X",
+          "expected": "constrained assignment range check, if retained, proved"
+        },
+        {
+          "label": "reversed_true: 1 <= X",
+          "operation": "Positive := X",
+          "expected": "constrained assignment range check, if retained, proved"
+        },
+        {
+          "label": "direct_false: X = 0",
+          "operation": "Positive := X",
+          "expected": "constrained assignment range check, if retained, proved"
+        },
+        {
+          "label": "direct_false: X /= 5",
+          "operation": "Exact := X",
+          "expected": "constrained assignment range check, if retained, proved"
+        },
+        {
+          "label": "direct_false: X < 1",
+          "operation": "Positive := X",
+          "expected": "constrained assignment range check, if retained, proved"
+        },
+        {
+          "label": "direct_false: X <= 0",
+          "operation": "Positive := X",
+          "expected": "constrained assignment range check, if retained, proved"
+        },
+        {
+          "label": "direct_false: X > 8",
+          "operation": "Below := X",
+          "expected": "constrained assignment range check, if retained, proved"
+        },
+        {
+          "label": "direct_false: X >= 9",
+          "operation": "Below := X",
+          "expected": "constrained assignment range check, if retained, proved"
+        },
+        {
+          "label": "reversed_false: 0 = X",
+          "operation": "Positive := X",
+          "expected": "constrained assignment range check, if retained, proved"
+        },
+        {
+          "label": "reversed_false: 5 /= X",
+          "operation": "Exact := X",
+          "expected": "constrained assignment range check, if retained, proved"
+        },
+        {
+          "label": "reversed_false: 1 > X",
+          "operation": "Positive := X",
+          "expected": "constrained assignment range check, if retained, proved"
+        },
+        {
+          "label": "reversed_false: 0 >= X",
+          "operation": "Positive := X",
+          "expected": "constrained assignment range check, if retained, proved"
+        },
+        {
+          "label": "reversed_false: 8 < X",
+          "operation": "Below := X",
+          "expected": "constrained assignment range check, if retained, proved"
+        },
+        {
+          "label": "reversed_false: 9 <= X",
+          "operation": "Below := X",
+          "expected": "constrained assignment range check, if retained, proved"
+        }
+      ],
+      "source_bytes": 1409,
+      "status": "prepared; not executed",
+      "source_lines": [
+        {
+          "line": 3,
+          "text": "X : Integer range 0 .. 9 := 0;"
+        },
+        {
+          "line": 4,
+          "text": "Positive : Integer range 1 .. 9 := 1;"
+        },
+        {
+          "line": 5,
+          "text": "Below : Integer range 0 .. 8 := 0;"
+        },
+        {
+          "line": 6,
+          "text": "Exact : Integer range 5 .. 5 := 5;"
+        },
+        {
+          "line": 9,
+          "text": "X := Seed;"
+        },
+        {
+          "line": 10,
+          "text": "if X = 5 then Exact := X; end if;"
+        },
+        {
+          "line": 11,
+          "text": "if X /= 0 then Positive := X; end if;"
+        },
+        {
+          "line": 12,
+          "text": "if X < 9 then Below := X; end if;"
+        },
+        {
+          "line": 13,
+          "text": "if X <= 8 then Below := X; end if;"
+        },
+        {
+          "line": 14,
+          "text": "if X > 0 then Positive := X; end if;"
+        },
+        {
+          "line": 15,
+          "text": "if X >= 1 then Positive := X; end if;"
+        },
+        {
+          "line": 16,
+          "text": "if 5 = X then Exact := X; end if;"
+        },
+        {
+          "line": 17,
+          "text": "if 0 /= X then Positive := X; end if;"
+        },
+        {
+          "line": 18,
+          "text": "if 9 > X then Below := X; end if;"
+        },
+        {
+          "line": 19,
+          "text": "if 8 >= X then Below := X; end if;"
+        },
+        {
+          "line": 20,
+          "text": "if 0 < X then Positive := X; end if;"
+        },
+        {
+          "line": 21,
+          "text": "if 1 <= X then Positive := X; end if;"
+        },
+        {
+          "line": 22,
+          "text": "if X = 0 then null; else Positive := X; end if;"
+        },
+        {
+          "line": 23,
+          "text": "if X /= 5 then null; else Exact := X; end if;"
+        },
+        {
+          "line": 24,
+          "text": "if X < 1 then null; else Positive := X; end if;"
+        },
+        {
+          "line": 25,
+          "text": "if X <= 0 then null; else Positive := X; end if;"
+        },
+        {
+          "line": 26,
+          "text": "if X > 8 then null; else Below := X; end if;"
+        },
+        {
+          "line": 27,
+          "text": "if X >= 9 then null; else Below := X; end if;"
+        },
+        {
+          "line": 28,
+          "text": "if 0 = X then null; else Positive := X; end if;"
+        },
+        {
+          "line": 29,
+          "text": "if 5 /= X then null; else Exact := X; end if;"
+        },
+        {
+          "line": 30,
+          "text": "if 1 > X then null; else Positive := X; end if;"
+        },
+        {
+          "line": 31,
+          "text": "if 0 >= X then null; else Positive := X; end if;"
+        },
+        {
+          "line": 32,
+          "text": "if 8 < X then null; else Below := X; end if;"
+        },
+        {
+          "line": 33,
+          "text": "if 9 <= X then null; else Below := X; end if;"
+        }
+      ]
+    },
+    {
+      "name": "flow",
+      "native_expectation": "pass",
+      "selected_silver_rule": "admit after selected implementation",
+      "questions": [
+        "Guarded non-unrolled counter; assignment replaces stale facts; unrelated scalar/String writes preserve X.",
+        "Both branch outputs join to [1,2]; captured index survives bound-object write; shadowed index restores the outer index identity.",
+        "Provably empty loop restores precise entry flow."
+      ],
+      "expected_source_sites": [
+        {
+          "operation": "Visits := (Visits + 1)",
+          "expected": "overflow/range checks, if retained, proved"
+        },
+        {
+          "operation": "Small := (9 - X)",
+          "expected": "replacement makes RHS 0, retained checks proved"
+        },
+        {
+          "operation": "Small := I",
+          "expected": "captured index upper bound 9 despite X := 20"
+        },
+        {
+          "operation": "Small := X (after shadowing)",
+          "expected": "outer index X identity remains in 0 .. 9"
+        }
+      ],
+      "source_bytes": 1061,
+      "status": "prepared; not executed",
+      "source_lines": [
+        {
+          "line": 3,
+          "text": "X : Integer range 0 .. 20 := 0;"
+        },
+        {
+          "line": 4,
+          "text": "Small : Integer range 0 .. 9 := 0;"
+        },
+        {
+          "line": 5,
+          "text": "Visits : Integer range 0 .. 100 := 0;"
+        },
+        {
+          "line": 6,
+          "text": "Other : Integer range 0 .. 20 := 0;"
+        },
+        {
+          "line": 7,
+          "text": "Text : String := \"x\";"
+        },
+        {
+          "line": 10,
+          "text": "if Visits < 100 then Visits := (Visits + 1); end if;"
+        },
+        {
+          "line": 13,
+          "text": "X := Seed;"
+        },
+        {
+          "line": 15,
+          "text": "X := 9;"
+        },
+        {
+          "line": 16,
+          "text": "Small := (9 - X);"
+        },
+        {
+          "line": 18,
+          "text": "X := Seed;"
+        },
+        {
+          "line": 20,
+          "text": "Other := 20;"
+        },
+        {
+          "line": 21,
+          "text": "Text := \"y\";"
+        },
+        {
+          "line": 22,
+          "text": "Small := X;"
+        },
+        {
+          "line": 24,
+          "text": "X := Seed;"
+        },
+        {
+          "line": 25,
+          "text": "if X < 9 then X := 1; else X := 2; end if;"
+        },
+        {
+          "line": 26,
+          "text": "Small := X;"
+        },
+        {
+          "line": 27,
+          "text": "X := Seed;"
+        },
+        {
+          "line": 30,
+          "text": "X := 20;"
+        },
+        {
+          "line": 31,
+          "text": "Small := I;"
+        },
+        {
+          "line": 36,
+          "text": "for X in 1 .. 2 loop Small := X; end loop;"
+        },
+        {
+          "line": 37,
+          "text": "Small := X;"
+        },
+        {
+          "line": 40,
+          "text": "X := 1;"
+        },
+        {
+          "line": 42,
+          "text": "Small := X;"
+        }
+      ]
+    },
+    {
+      "name": "edges",
+      "native_expectation": "pass",
+      "selected_silver_rule": "admit after selected implementation",
+      "questions": [
+        "Strict minimum/maximum arithmetic in direct/reversed/false outcomes; safe minimum-negation guard.",
+        "Impossible endpoint arms retain incoming flow without inventing static overflow.",
+        "Reached flow enters and-then/or-else/not RHS arithmetic and Image. Proof only: full-Integer loop must not be executed."
+      ],
+      "expected_source_sites": [
+        {
+          "operation": "X - 1 (3 sites), X + 1 (3 sites), -X (1 site)",
+          "expected": "7 dynamic arithmetic sites; emitted overflow/range checks proved"
+        },
+        {
+          "operation": "9 / D (5 sites)",
+          "expected": "5 guard-dependent division sites; emitted nonzero-divisor checks proved; raw rule may be VC_RAISE"
+        },
+        {
+          "operation": "Integer'Image ((9 / D))",
+          "expected": "Image report/advisory inventory retained; no unproved safety check"
+        }
+      ],
+      "source_bytes": 1042,
+      "status": "prepared; not executed",
+      "source_lines": [
+        {
+          "line": 3,
+          "text": "Min : constant Integer := -2147483648;"
+        },
+        {
+          "line": 4,
+          "text": "Max : constant Integer := 2147483647;"
+        },
+        {
+          "line": 5,
+          "text": "Value : Integer := 0;"
+        },
+        {
+          "line": 6,
+          "text": "D : Integer range 0 .. 9 := 0;"
+        },
+        {
+          "line": 7,
+          "text": "Q : Integer range 0 .. 9 := 0;"
+        },
+        {
+          "line": 10,
+          "text": "if X > Min then Value := (X - 1); end if;"
+        },
+        {
+          "line": 11,
+          "text": "if Min < X then Value := (X - 1); end if;"
+        },
+        {
+          "line": 12,
+          "text": "if X <= Min then null; else Value := (X - 1); end if;"
+        },
+        {
+          "line": 13,
+          "text": "if X < Max then Value := (X + 1); end if;"
+        },
+        {
+          "line": 14,
+          "text": "if Max > X then Value := (X + 1); end if;"
+        },
+        {
+          "line": 15,
+          "text": "if X >= Max then null; else Value := (X + 1); end if;"
+        },
+        {
+          "line": 16,
+          "text": "if X > Min then Value := (-X); end if;"
+        },
+        {
+          "line": 17,
+          "text": "if X < Min then Value := X; end if;"
+        },
+        {
+          "line": 18,
+          "text": "if X > Max then Value := X; end if;"
+        },
+        {
+          "line": 21,
+          "text": "D := Seed;"
+        },
+        {
+          "line": 22,
+          "text": "if D > 0 and then (9 / D) > 0 then Q := (9 / D); end if;"
+        },
+        {
+          "line": 25,
+          "text": "if D > 0 and then Integer'Image ((9 / D)) /= \"\" then null; end if;"
+        }
+      ]
+    },
+    {
+      "name": "conservative",
+      "native_expectation": "pass expected; native result must be observed",
+      "selected_silver_rule": "reject whole source under selected Silver rules",
+      "questions": [
+        "Crossing-zero /= removes interior zero semantically, but one-interval hull retains it: intentional Silver rejection, not expected native failure.",
+        "X < 2 makes index interval for 2 .. X empty; index-dependent assignment remains excluded even if native proves vacuously.",
+        "Contradictory mutable X = 10 arm retains nonempty incoming flow; self-copy remains admissible in isolation.",
+        "Snapshot of mutable Source is nonstatic despite exact value; cannot supply selected refinement threshold."
+      ],
+      "expected_source_sites": [
+        {
+          "operation": "9 / D",
+          "expected": "native may prove using disjunction; Silver convex-hull rule rejects"
+        },
+        {
+          "operation": "X := I in newly empty loop",
+          "expected": "native may prove; Silver nonempty-RHS rule rejects"
+        },
+        {
+          "operation": "9 / I under I > Snapshot",
+          "expected": "native may prove using immutable Snapshot=0; Silver static-threshold rule rejects"
+        }
+      ],
+      "source_bytes": 609,
+      "status": "prepared; not executed",
+      "source_lines": [
+        {
+          "line": 3,
+          "text": "X : Integer range 0 .. 9 := 0;"
+        },
+        {
+          "line": 4,
+          "text": "D : Integer range -1 .. 1 := 0;"
+        },
+        {
+          "line": 5,
+          "text": "Q : Integer range -9 .. 9 := 0;"
+        },
+        {
+          "line": 6,
+          "text": "Source : Integer range 0 .. 9 := 0;"
+        },
+        {
+          "line": 7,
+          "text": "Snapshot : constant Integer := Source;"
+        },
+        {
+          "line": 10,
+          "text": "D := Seed;"
+        },
+        {
+          "line": 11,
+          "text": "if D /= 0 then Q := (9 / D); end if;"
+        },
+        {
+          "line": 14,
+          "text": "X := Seed;"
+        },
+        {
+          "line": 16,
+          "text": "for I in 2 .. X loop X := I; end loop;"
+        },
+        {
+          "line": 18,
+          "text": "if X = 10 then X := X; end if;"
+        },
+        {
+          "line": 21,
+          "text": "if I > Snapshot then Q := (9 / I); end if;"
+        }
+      ]
+    },
+    {
+      "name": "unsafe",
+      "native_expectation": "EXPECTED FAIL",
+      "selected_silver_rule": "reject",
+      "questions": [
+        "Expected-fail stale assignment, explicit branch join, omitted else, stale pre-loop guard, unguarded minimum negation, and hidden mutable/index identity confusion.",
+        "Counterexamples respectively X=9 after replacement, Seed=9, Seed=9, Seed=8 on second iteration, Seed=Integer minimum, Seed=10 with hidden Wide."
+      ],
+      "expected_source_sites": [
+        {
+          "operation": "X := (X + 1) (4 sites)",
+          "expected": "4 unsafe assignment range sites; unproved/failed range diagnostics expected"
+        },
+        {
+          "operation": "Negated := (-Wide)",
+          "expected": "1 unsafe overflow site at Integer minimum; unproved/failed overflow diagnostic expected"
+        },
+        {
+          "operation": "X := Wide after same-spelled loop index",
+          "expected": "1 unsafe assignment range site; hidden mutable Wide has not become the inner index"
+        }
+      ],
+      "source_bytes": 919,
+      "status": "prepared; not executed",
+      "source_lines": [
+        {
+          "line": 3,
+          "text": "X : Integer range 0 .. 9 := 0;"
+        },
+        {
+          "line": 4,
+          "text": "Wide : Integer := 0;"
+        },
+        {
+          "line": 5,
+          "text": "Negated : Integer := 0;"
+        },
+        {
+          "line": 8,
+          "text": "X := Seed;"
+        },
+        {
+          "line": 10,
+          "text": "X := 9;"
+        },
+        {
+          "line": 11,
+          "text": "X := (X + 1);"
+        },
+        {
+          "line": 15,
+          "text": "X := Seed;"
+        },
+        {
+          "line": 16,
+          "text": "if X < 9 then X := 0; else X := 9; end if;"
+        },
+        {
+          "line": 17,
+          "text": "X := (X + 1);"
+        },
+        {
+          "line": 20,
+          "text": "X := Seed;"
+        },
+        {
+          "line": 21,
+          "text": "if X < 9 then X := 0; end if;"
+        },
+        {
+          "line": 22,
+          "text": "X := (X + 1);"
+        },
+        {
+          "line": 25,
+          "text": "X := Seed;"
+        },
+        {
+          "line": 27,
+          "text": "for Step in 1 .. 2 loop X := (X + 1); end loop;"
+        },
+        {
+          "line": 31,
+          "text": "Wide := Seed;"
+        },
+        {
+          "line": 32,
+          "text": "if Wide < 0 then Negated := (-Wide); end if;"
+        },
+        {
+          "line": 35,
+          "text": "Wide := Seed;"
+        },
+        {
+          "line": 37,
+          "text": "X := Wide;"
+        }
+      ]
+    },
+    {
+      "name": "static",
+      "native_expectation": "EXPECTED FAIL (frontend/static legality)",
+      "selected_silver_rule": "reject",
+      "questions": [
+        "Impossible static-constant arms do not waive static expression legality.",
+        "Both sites are beyond Integer range; retain complete frontend errors/warnings even if no .spark exists."
+      ],
+      "expected_source_sites": [
+        {
+          "operation": "Max + 1",
+          "expected": "static Integer overflow diagnostic / frontend rejection"
+        },
+        {
+          "operation": "-Min",
+          "expected": "static Integer overflow diagnostic / frontend rejection"
+        }
+      ],
+      "source_bytes": 260,
+      "status": "prepared; not executed",
+      "source_lines": [
+        {
+          "line": 3,
+          "text": "Max : constant Integer := 2147483647;"
+        },
+        {
+          "line": 4,
+          "text": "Min : constant Integer := -2147483648;"
+        },
+        {
+          "line": 5,
+          "text": "Value : Integer := 0;"
+        },
+        {
+          "line": 7,
+          "text": "if Max < 0 then Value := (Max + 1); end if;"
+        },
+        {
+          "line": 8,
+          "text": "if Min > 0 then Value := (-Min); end if;"
+        }
+      ]
+    },
+    {
+      "name": "doors",
+      "native_expectation": "pass; exact 100-line execution match after proof/build",
+      "selected_silver_rule": "admit after selected implementation",
+      "questions": [
+        "Complete finite 100 doors task; output independently derived by pass-major toggles.",
+        "Per-door visit counter is guarded on each iteration; at most 99 prior visits means no required toggle is suppressed.",
+        "Use current Silver_IO source directly, selected source files only; no hidden annotated Main replacement."
+      ],
+      "expected_source_sites": [
+        {
+          "operation": "Door mod Pass, Visits + 1, Visits mod 2",
+          "expected": "guard-specific range/overflow/nonzero-divisor checks proved when retained"
+        },
+        {
+          "operation": "Integer'Image (Door) & suffix (2 sites)",
+          "expected": "all emitted Image/concatenation checks proved and advisories inventoried"
+        },
+        {
+          "operation": "Silver_IO",
+          "expected": "complete selected-library obligations included by -U"
+        }
+      ],
+      "source_bytes": 529,
+      "status": "prepared; not executed",
+      "source_lines": [
+        {
+          "line": 4,
+          "text": "Visits : Integer range 0 .. 100 := 0;"
+        },
+        {
+          "line": 7,
+          "text": "Visits := 0;"
+        },
+        {
+          "line": 10,
+          "text": "Visits := (Visits + 1);"
+        },
+        {
+          "line": 14,
+          "text": "Silver_IO.Put_Line (Integer'Image (Door) & \" is open\");"
+        },
+        {
+          "line": 16,
+          "text": "Silver_IO.Put_Line (Integer'Image (Door) & \" is closed\");"
+        }
+      ]
+    }
+  ],
+  "rationale": "Seven serial GNATprove invocations. Twenty-four guard-target sites, sparse composition cases, two labelled expected-fail controls, one complete driver. No division-only rerun."
+}

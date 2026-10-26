@@ -28,23 +28,23 @@ theorem loopLowerPosition_bound (text : Source) (scan : BodyScan) :
 
 theorem loopHeader_bound (text : Source) (context : ParseContext) (scan : BodyScan) :
     (loopHeader text context scan).entry.position ≤ text.length + 1 := by
-  have lower := scalarRead_bound text (loopLowerPosition text scan) context.scalarNames
+  have lower := scalarRead_bound text (loopLowerPosition text scan) (context.readingNames scan.facts)
     (loopFirst text scan) (loopNameAfter text scan) (loopLowerPosition_bound text scan)
   have delimiter := model_fixed_valid text _ ".." false lower
-  have upper := scalarRead_bound text _ context.scalarNames
+  have upper := scalarRead_bound text _ (context.readingNames scan.facts)
     (loopFirst text scan) (loopNameAfter text scan) delimiter
   exact model_fixed_valid text _ "loop" true upper
 
 theorem loopHeader_readings {text : Source} {context : ParseContext} {scan : BodyScan}
     (positive : (loopHeader text context scan).entry.position ≠ 0) :
     ∃ lower upper,
-      ScalarExpression.At text context.scalarNames (loopLowerPosition text scan)
+      ScalarExpression.At text (context.readingNames scan.facts) (loopLowerPosition text scan)
         lower (loopHeader text context scan).lower (loopFirst text scan) (loopNameAfter text scan) ∧
-      ScalarExpression.At text context.scalarNames
+      ScalarExpression.At text (context.readingNames scan.facts)
         (fixedAfter text (loopHeader text context scan).lower.after ".." false)
         upper (loopHeader text context scan).upper (loopFirst text scan) (loopNameAfter text scan) := by
   have upperPositive : (loopHeader text context scan).upper.after ≠ 0 := fixedAfter_nonzero positive
-  have lowerBound := scalarRead_bound text (loopLowerPosition text scan) context.scalarNames
+  have lowerBound := scalarRead_bound text (loopLowerPosition text scan) (context.readingNames scan.facts)
     (loopFirst text scan) (loopNameAfter text scan) (loopLowerPosition_bound text scan)
   have delimiter := model_fixed_valid text _ ".." false lowerBound
   obtain ⟨upper, upperRead⟩ := ScalarExpression.read_sound delimiter upperPositive
@@ -81,10 +81,10 @@ theorem loopBody_shape {text : Source} {context : ParseContext} {scan : BodyScan
       bodyRemaining text header.entry < bodyRemaining text scan ∧
       scan.position < body.position ∧
       loopBody text context scan = bodyTokens text
-        {body with facts := loopAfter scan.facts body.facts header.lower.bounds header.upper.bounds}
+        {body with facts := loopAfterFlow context scan.facts body.facts header.lower.bounds header.upper.bounds}
         [.word "end", .word "loop", .symbol ";"] ∧
       scan.position < (bodyTokens text
-        {body with facts := loopAfter scan.facts body.facts header.lower.bounds header.upper.bounds}
+        {body with facts := loopAfterFlow context scan.facts body.facts header.lower.bounds header.upper.bounds}
         [.word "end", .word "loop", .symbol ";"]).position := by
   rw [loopBody] at positive ⊢
   dsimp only at positive ⊢

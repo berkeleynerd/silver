@@ -186,11 +186,11 @@ def Assignment.obligations (assignment : Assignment) (ranges : Ranges) : List Ob
   assignment.value.obligations ranges ++
     [unaryObligation (fun value => .within value assignment.bounds) (assignment.value.infer ranges)]
 
-theorem Assignment.obligations_discharge {assignment : Assignment} {ranges : Ranges}
-    {mutable : Mutability} (checked : assignment.check ranges mutable = true) :
+theorem Assignment.obligations_discharge {assignment : Assignment} {ranges declared : Ranges}
+    {mutable : Mutability} (checked : assignment.check ranges mutable declared = true) :
     discharged (assignment.obligations ranges) = true := by
   simp only [Assignment.check, Bool.and_eq_true] at checked
-  cases target : ranges assignment.target with
+  cases target : declared assignment.target with
   | none => simp [target] at checked
   | some targetBounds =>
     cases value : assignment.value.infer ranges with

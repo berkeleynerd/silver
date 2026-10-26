@@ -1,0 +1,550 @@
+Phase 1 of 3: generation of data representation information ...
+Phase 2 of 3: generation of Global contracts ...
+Phase 3 of 3: flow analysis and proof ...
+ info: data dependencies proved
+--> silver_output_profile.adb:1918:11
+
+ info: overflow check proved
+--> silver_output_profile.adb:1920:50
+
+ info: precondition proved
+--> silver_output_profile.adb:1920:63
+
+ info: precondition proved
+--> silver_output_profile.adb:1922:19
+
+ info: postcondition proved
+--> silver_output_profile.adb:1923:28
+
+ info: overflow check proved
+--> silver_output_profile.adb:1924:91
+
+ info: precondition proved
+--> silver_output_profile.adb:1925:29
+
+ info: overflow check proved
+--> silver_output_profile.adb:1926:55
+
+ info: overflow check proved
+--> silver_output_profile.adb:1926:60
+
+ info: initialization of "Right" proved
+--> silver_output_profile.adb:2217:07
+
+ info: range check proved
+--> silver_output_profile.adb:2217:33
+
+ info: initialization of "Selected" proved
+--> silver_output_profile.adb:2220:07
+
+ info: initialization of "After" proved
+--> silver_output_profile.adb:2221:07
+
+ info: loop invariant initialization proved
+--> silver_output_profile.adb:2224:33
+
+ info: loop invariant preservation proved
+--> silver_output_profile.adb:2224:33
+
+ info: overflow check proved
+--> silver_output_profile.adb:2224:64
+
+ info: loop invariant initialization proved
+--> silver_output_profile.adb:2225:33
+
+ info: loop invariant preservation proved
+--> silver_output_profile.adb:2225:33
+
+ info: loop invariant initialization proved
+--> silver_output_profile.adb:2226:33
+
+ info: loop invariant preservation proved
+--> silver_output_profile.adb:2226:33
+
+ info: loop invariant initialization proved
+--> silver_output_profile.adb:2227:33
+
+ info: loop invariant preservation proved
+--> silver_output_profile.adb:2227:33
+
+ info: precondition proved
+--> silver_output_profile.adb:2229:12
+
+ info: loop invariant initialization proved
+--> silver_output_profile.adb:2229:12
+
+ info: loop invariant preservation proved
+--> silver_output_profile.adb:2229:12
+
+ info: precondition proved
+--> silver_output_profile.adb:2230:14
+
+ info: loop invariant initialization proved
+--> silver_output_profile.adb:2231:43
+
+ info: loop invariant preservation proved
+--> silver_output_profile.adb:2231:43
+
+ info: precondition proved
+--> silver_output_profile.adb:2232:13
+
+ info: precondition proved
+--> silver_output_profile.adb:2233:13
+
+ info: loop variant proved
+--> silver_output_profile.adb:2234:31
+
+ info: range check proved
+--> silver_output_profile.adb:2236:49
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2236:66
+
+ info: range check proved
+--> silver_output_profile.adb:2237:47
+
+ info: precondition proved
+--> silver_output_profile.adb:2238:15
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2238:15
+
+ info: assertion proved
+--> silver_output_profile.adb:2242:38
+
+ info: precondition proved
+--> silver_output_profile.adb:2243:25
+
+ info: assertion proved
+--> silver_output_profile.adb:2245:41
+
+ info: assertion proved
+--> silver_output_profile.adb:2246:41
+
+ info: precondition proved
+--> silver_output_profile.adb:2248:18
+
+ info: assertion proved
+--> silver_output_profile.adb:2248:18
+
+ info: range check proved
+--> silver_output_profile.adb:2253:22
+
+ info: range check proved
+--> silver_output_profile.adb:2254:22
+
+ info: range check proved
+--> silver_output_profile.adb:2254:43
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2254:43
+
+ info: assertion proved
+--> silver_output_profile.adb:2255:41
+
+ info: assertion proved
+--> silver_output_profile.adb:2256:41
+
+ info: assertion proved
+--> silver_output_profile.adb:2257:41
+
+ info: assertion proved
+--> silver_output_profile.adb:2259:18
+
+ info: precondition proved
+--> silver_output_profile.adb:2259:27
+
+ info: precondition proved
+--> silver_output_profile.adb:2262:22
+
+ info: range check proved
+--> silver_output_profile.adb:2265:22
+
+ info: range check proved
+--> silver_output_profile.adb:2266:22
+
+ info: range check proved
+--> silver_output_profile.adb:2266:43
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2266:43
+
+ info: assertion proved
+--> silver_output_profile.adb:2267:41
+
+ info: assertion proved
+--> silver_output_profile.adb:2268:41
+
+ info: assertion proved
+--> silver_output_profile.adb:2269:41
+
+ info: assertion proved
+--> silver_output_profile.adb:2271:18
+
+ info: precondition proved
+--> silver_output_profile.adb:2271:27
+
+ info: range check proved
+--> silver_output_profile.adb:2275:57
+
+ info: precondition proved
+--> silver_output_profile.adb:2276:18
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2276:18
+
+ info: precondition proved
+--> silver_output_profile.adb:2281:16
+
+ info: precondition proved
+--> silver_output_profile.adb:2282:32
+
+ info: assertion proved
+--> silver_output_profile.adb:2285:44
+
+ info: range check proved
+--> silver_output_profile.adb:2285:61
+
+ info: assertion proved
+--> silver_output_profile.adb:2286:44
+
+ info: precondition proved
+--> silver_output_profile.adb:2287:35
+
+ info: range check proved
+--> silver_output_profile.adb:2287:79
+
+ info: precondition proved
+--> silver_output_profile.adb:2288:19
+
+ info: subprogram variant proved
+--> silver_output_profile.adb:2288:19
+
+ info: range check proved
+--> silver_output_profile.adb:2288:67
+
+ info: precondition proved
+--> silver_output_profile.adb:2289:19
+
+ info: precondition proved
+--> silver_output_profile.adb:2290:29
+
+ info: range check proved
+--> silver_output_profile.adb:2290:73
+
+ info: assertion proved
+--> silver_output_profile.adb:2291:44
+
+ info: assertion proved
+--> silver_output_profile.adb:2293:44
+
+ info: range check proved
+--> silver_output_profile.adb:2293:61
+
+ info: assertion proved
+--> silver_output_profile.adb:2294:44
+
+ info: precondition proved
+--> silver_output_profile.adb:2295:35
+
+ info: range check proved
+--> silver_output_profile.adb:2295:79
+
+ info: precondition proved
+--> silver_output_profile.adb:2296:19
+
+ info: subprogram variant proved
+--> silver_output_profile.adb:2296:19
+
+ info: range check proved
+--> silver_output_profile.adb:2296:67
+
+ info: precondition proved
+--> silver_output_profile.adb:2297:19
+
+ info: precondition proved
+--> silver_output_profile.adb:2298:29
+
+ info: range check proved
+--> silver_output_profile.adb:2298:73
+
+ info: assertion proved
+--> silver_output_profile.adb:2299:44
+
+ info: assertion proved
+--> silver_output_profile.adb:2301:41
+
+ info: assertion proved
+--> silver_output_profile.adb:2302:41
+
+ info: assertion proved
+--> silver_output_profile.adb:2303:41
+
+ info: precondition proved
+--> silver_output_profile.adb:2303:49
+
+ info: range check proved
+--> silver_output_profile.adb:2307:25
+
+ info: range check proved
+--> silver_output_profile.adb:2308:25
+
+ info: range check proved
+--> silver_output_profile.adb:2308:46
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2308:46
+
+ info: assertion proved
+--> silver_output_profile.adb:2309:44
+
+ info: assertion proved
+--> silver_output_profile.adb:2310:44
+
+ info: assertion proved
+--> silver_output_profile.adb:2311:44
+
+ info: assertion proved
+--> silver_output_profile.adb:2313:21
+
+ info: precondition proved
+--> silver_output_profile.adb:2313:30
+
+ info: range check proved
+--> silver_output_profile.adb:2317:57
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2319:24
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2319:57
+
+ info: precondition proved
+--> silver_output_profile.adb:2319:69
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2319:69
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2321:24
+
+ info: precondition proved
+--> silver_output_profile.adb:2321:52
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2321:52
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2321:101
+
+ info: precondition proved
+--> silver_output_profile.adb:2325:19
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2328:58
+
+ info: precondition proved
+--> silver_output_profile.adb:2328:70
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2328:70
+
+ info: precondition proved
+--> silver_output_profile.adb:2330:53
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2330:53
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2330:102
+
+ info: assertion proved
+--> silver_output_profile.adb:2332:47
+
+ info: range check proved
+--> silver_output_profile.adb:2332:64
+
+ info: assertion proved
+--> silver_output_profile.adb:2333:47
+
+ info: assertion proved
+--> silver_output_profile.adb:2334:47
+
+ info: precondition proved
+--> silver_output_profile.adb:2335:46
+
+ info: precondition proved
+--> silver_output_profile.adb:2336:22
+
+ info: range check proved
+--> silver_output_profile.adb:2336:56
+
+ info: assertion proved
+--> silver_output_profile.adb:2337:47
+
+ info: assertion proved
+--> silver_output_profile.adb:2338:47
+
+ info: range check proved
+--> silver_output_profile.adb:2339:28
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2339:47
+
+ info: precondition proved
+--> silver_output_profile.adb:2340:22
+
+ info: range check proved
+--> silver_output_profile.adb:2340:49
+
+ info: precondition proved
+--> silver_output_profile.adb:2341:22
+
+ info: range check proved
+--> silver_output_profile.adb:2341:39
+
+ info: assertion proved
+--> silver_output_profile.adb:2343:24
+
+ info: range check proved
+--> silver_output_profile.adb:2343:30
+
+ info: precondition proved
+--> silver_output_profile.adb:2343:44
+
+ info: precondition proved
+--> silver_output_profile.adb:2344:22
+
+ info: range check proved
+--> silver_output_profile.adb:2345:31
+
+ info: precondition proved
+--> silver_output_profile.adb:2345:44
+
+ info: assertion proved
+--> silver_output_profile.adb:2347:47
+
+ info: range check proved
+--> silver_output_profile.adb:2347:64
+
+ info: assertion proved
+--> silver_output_profile.adb:2348:47
+
+ info: precondition proved
+--> silver_output_profile.adb:2349:45
+
+ info: assertion proved
+--> silver_output_profile.adb:2350:47
+
+ info: precondition proved
+--> silver_output_profile.adb:2351:22
+
+ info: range check proved
+--> silver_output_profile.adb:2351:56
+
+ info: assertion proved
+--> silver_output_profile.adb:2352:47
+
+ info: assertion proved
+--> silver_output_profile.adb:2353:47
+
+ info: precondition proved
+--> silver_output_profile.adb:2354:22
+
+ info: range check proved
+--> silver_output_profile.adb:2354:39
+
+ info: assertion proved
+--> silver_output_profile.adb:2356:24
+
+ info: range check proved
+--> silver_output_profile.adb:2356:30
+
+ info: precondition proved
+--> silver_output_profile.adb:2356:43
+
+ info: precondition proved
+--> silver_output_profile.adb:2357:22
+
+ info: range check proved
+--> silver_output_profile.adb:2358:31
+
+ info: precondition proved
+--> silver_output_profile.adb:2358:43
+
+ info: range check proved
+--> silver_output_profile.adb:2359:28
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2359:48
+
+ info: precondition proved
+--> silver_output_profile.adb:2360:22
+
+ info: range check proved
+--> silver_output_profile.adb:2360:49
+
+ info: assertion proved
+--> silver_output_profile.adb:2362:44
+
+ info: range check proved
+--> silver_output_profile.adb:2362:61
+
+ info: assertion proved
+--> silver_output_profile.adb:2363:44
+
+ info: range check proved
+--> silver_output_profile.adb:2363:61
+
+ info: assertion proved
+--> silver_output_profile.adb:2365:44
+
+ info: assertion proved
+--> silver_output_profile.adb:2366:44
+
+ info: assertion proved
+--> silver_output_profile.adb:2367:44
+
+ info: assertion proved
+--> silver_output_profile.adb:2368:44
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2370:57
+
+ info: precondition proved
+--> silver_output_profile.adb:2370:69
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2370:69
+
+ info: precondition proved
+--> silver_output_profile.adb:2372:52
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2372:52
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2372:101
+
+ info: assertion proved
+--> silver_output_profile.adb:2373:44
+
+ info: precondition proved
+--> silver_output_profile.adb:2374:21
+
+ info: assertion proved
+--> silver_output_profile.adb:2375:44
+
+ info: precondition proved
+--> silver_output_profile.adb:2376:28
+
+ info: precondition proved
+--> silver_output_profile.adb:2378:21
+
+ info: assertion proved
+--> silver_output_profile.adb:2378:21
+
+ info: precondition proved
+--> silver_output_profile.adb:2379:23
+Success: all checks proved (182 checks).
+Summary logged in /home/canto/src/github.com/berkeleynerd/silver/tmp/guard-native-v6/obj/explore/guard/gnatprove/gnatprove.out

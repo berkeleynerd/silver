@@ -62,12 +62,23 @@ does not authorize implementation.
 ### Checked integer division and scalar refinement
 
 [Milestone 7](https://github.com/berkeleynerd/silver/milestone/7), **Checked integer
-division and scalar refinement**, records two ordered increments. The
+division and scalar refinement**, is **complete on Linux, 2026-10-26**, with
+two ordered deliveries. The
 [2026-10-25 owner instruction](docs/session-memory.md#2026-10-25--merge-228-and-implement-interval-checked-integer-division)
 authorizes the first through delivery. The subsequent
 [roadmap continuation](docs/session-memory.md#2026-10-25--continue-non-deferred-roadmap-delivery)
 selects scalar guard refinement next and continued assessment/delivery of
 non-deferred successors.
+The owner's [2026-10-26 review pause](docs/session-memory.md#2026-10-26--pause-after-scalar-guard-delivery-for-external-review)
+ends that continuation at the completed scalar guard delivery. Roadmap
+implementation is now paused for an external comprehensive review. Successor
+assessments remain proposals during the pause.
+
+[Development velocity follow-up #246](https://github.com/berkeleynerd/silver/issues/246)
+records measured source-proof growth and proposed checkpoint, cache-boundary and
+batching improvements. It remains Backlog for assessment after the external
+review, outside this completed feature milestone; no optimization implementation
+or assurance-policy change is selected.
 
 1. [Interval-checked integer division #229](https://github.com/berkeleynerd/silver/issues/229):
    **delivered** fully grouped `/`, `mod` and `rem` in current scalar-expression positions,
@@ -80,13 +91,28 @@ non-deferred successors.
    and [validation/delivery #233](https://github.com/berkeleynerd/silver/issues/233).
    No partial package completes the parent or admits a construct.
 2. [Scalar guard refinement #234](https://github.com/berkeleynerd/silver/issues/234):
-   next under the owner's continuation, after division. Scope useful scalar
-   comparisons, assignment transfer/invalidation, joins and loop facts before
-   implementation. Its packages are [scope/design #237](https://github.com/berkeleynerd/silver/issues/237),
+   **delivered** after division. The
+   [selected scope](docs/scalar-guard-refinement.md) refines mutable names and
+   loop indexes against static thresholds, separates declared ranges from flow,
+   replaces facts on assignment, joins branches and widens mutable facts at loop
+   boundaries while preserving captured index bounds. The finite driver is
+   100 doors. The [delivery checkpoint](docs/scalar-guard-refinement.md#delivery-assurance-and-validation)
+   retains complete native and universal/source assurance, retained regression
+   results with focused repair validation, and independent review. Its completed packages are
+   [scope/design #237](https://github.com/berkeleynerd/silver/issues/237),
    [native admission #238](https://github.com/berkeleynerd/silver/issues/238),
    [universal/source assurance #239](https://github.com/berkeleynerd/silver/issues/239)
    and [validation/delivery #240](https://github.com/berkeleynerd/silver/issues/240).
    No new syntax does not eliminate the assurance work.
+   The [sample](samples/rosetta_100_doors.adb) preserves the discovered
+   529-byte driver; the manifest independently derives all 100 lines by pass-major
+   toggles. Rosetta metadata adds the narrow `scalar-guard-refinement`
+   identifier and maps 100 doors to the exact fragment. Its previous array/Boolean
+   approach is replaced by the faithful visit-count model; arrays, Boolean objects,
+   named subtypes, expression inversion and variable relations stay unsupported.
+   The Unicode-variable assessment uses the same selected guard form but still
+   requires unsupported Unicode identifiers. Rendering remains planning metadata;
+   the linked delivery evidence establishes this increment's completion.
 
 This deliberately selects division ahead of generated stage order (division
 was stage 6 at selection), because the assessed bounded arithmetic drivers offer
@@ -100,8 +126,8 @@ those seven approaches to it. The broad `integer-division` identifier, including
 delivered-task count. Assessment corrections
 may change generated positions, which remain planning metadata.
 
-Arrays are a provisional later candidate, with scope to be reconsidered after
-these deliveries. This milestone does not resume capacity derivation or the
+Arrays remain a provisional later candidate, with scope to be reconsidered
+after the external review and a later owner instruction. This milestone does not resume capacity derivation or the
 strict/extended assurance-mode packages. Complete feature-local report accounting
 remains part of division's assurance within the existing bounds.
 
@@ -626,6 +652,7 @@ sequence.
 | For loops and integers | Supported | Immutable signed-32-bit Integer constants, scoped forward/reverse loops, grouped arithmetic, comparisons and standard Integer Image, composed with existing String/path/output rules; [complete delivery evidence](docs/for-loops-integers.md#stable-delivery-evidence). | [Triangle](samples/for_loop_triangle.adb), [computed step](samples/for_loop_step.adb), [countdown](samples/for_loop_countdown.adb) in the coordinated delivery |
 | Bounded mutable integers | Supported | Initialized Integer objects with optional object-local static ranges, range-preserving assignments, exact declaration snapshots and captured loop bounds; [completed Linux validation](docs/bounded-mutable-integers.md). | [Find square difference](samples/find_square_difference.adb) |
 | Interval-checked Integer division | Supported | Fully grouped `/`, `mod` and `rem`, nonzero divisor intervals and operator-specific result bounds; [Linux validation and assurance](docs/integer-division.md). | [Josephus](samples/rosetta_josephus_problem.adb) and six further regressions |
+| Scalar guard refinement | Supported | Bare mutable/index comparisons against static thresholds, assignment replacement, branch hulls and captured bounds with mutable loop widening; [Linux validation and assurance](docs/scalar-guard-refinement.md#delivery-assurance-and-validation). | [100 doors](samples/rosetta_100_doors.adb) |
 
 The output target covers admitted literals and bounded command-line
 messages; the text `Hello, world!` receives no special treatment. String literals do not imply support for

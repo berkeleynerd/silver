@@ -1,0 +1,33 @@
+# Managed run index
+
+The exact command arrays, prepared input hashes, tool versions/hashes and complete UTC event streams are retained per run. `duration_seconds` is the managed run interval including its preflight; native-tool phase intervals are separately preserved in `analysis.json`. All evidence is Linux x86_64 on `codex-silver`.
+
+| Work | Run / immutable events | UTC start | UTC finish | Managed seconds | Workers | Outcome |
+| --- | --- | --- | --- | ---: | ---: | --- |
+| native/guards/proof | [20261026T002402-c9b84b0c7c19](runs/20261026T002402-c9b84b0c7c19/events.jsonl.gz) | 2026-10-26T00:24:03.249791+00:00 | 2026-10-26T00:24:15.951449+00:00 | 12.702 | 2 | success |
+| native/flow/proof | [20261026T002416-51349d50f7e0](runs/20261026T002416-51349d50f7e0/events.jsonl.gz) | 2026-10-26T00:24:17.496271+00:00 | 2026-10-26T00:24:27.701788+00:00 | 10.205 | 2 | success |
+| native/edges/proof | [20261026T002428-09533f8943a0](runs/20261026T002428-09533f8943a0/events.jsonl.gz) | 2026-10-26T00:24:29.579106+00:00 | 2026-10-26T00:24:42.874711+00:00 | 13.295 | 2 | success |
+| native/conservative/proof | [20261026T002443-304833d4d154](runs/20261026T002443-304833d4d154/events.jsonl.gz) | 2026-10-26T00:24:44.531183+00:00 | 2026-10-26T00:24:54.238606+00:00 | 9.707 | 2 | success |
+| native/unsafe/proof | [20261026T002454-4d21d6ea05aa](runs/20261026T002454-4d21d6ea05aa/events.jsonl.gz) | 2026-10-26T00:24:55.435286+00:00 | 2026-10-26T00:25:23.426547+00:00 | 27.991 | 2 | failure |
+| native/static/proof | [20261026T002523-c5da32c4f6f1](runs/20261026T002523-c5da32c4f6f1/events.jsonl.gz) | 2026-10-26T00:25:24.813306+00:00 | 2026-10-26T00:25:30.192366+00:00 | 5.379 | 2 | failure |
+| native/doors/proof | [20261026T002530-df90e06280b6](runs/20261026T002530-df90e06280b6/events.jsonl.gz) | 2026-10-26T00:25:31.785630+00:00 | 2026-10-26T00:25:57.902063+00:00 | 26.116 | 2 | success |
+| native/doors/build | [20261026T002558-1a825f2e8761](runs/20261026T002558-1a825f2e8761/events.jsonl.gz) | 2026-10-26T00:25:59.317402+00:00 | 2026-10-26T00:26:05.458674+00:00 | 6.146 | 2 | success |
+| negative/stale_replacement/proof | [20261026T003007-1a6be1767144](runs/20261026T003007-1a6be1767144/events.jsonl.gz) | 2026-10-26T00:30:08.362935+00:00 | 2026-10-26T00:30:17.985714+00:00 | 9.623 | 2 | failure |
+| negative/branch_join/proof | [20261026T003018-b1ef07415215](runs/20261026T003018-b1ef07415215/events.jsonl.gz) | 2026-10-26T00:30:19.867660+00:00 | 2026-10-26T00:30:27.150049+00:00 | 7.284 | 2 | failure |
+| negative/omitted_else/proof | [20261026T003027-7915870a44bd](runs/20261026T003027-7915870a44bd/events.jsonl.gz) | 2026-10-26T00:30:28.296894+00:00 | 2026-10-26T00:30:36.028277+00:00 | 7.733 | 2 | failure |
+| negative/loop_reentry/proof | [20261026T003036-2f8393340fa9](runs/20261026T003036-2f8393340fa9/events.jsonl.gz) | 2026-10-26T00:30:37.636352+00:00 | 2026-10-26T00:30:46.556476+00:00 | 8.920 | 2 | failure |
+| negative/minimum_negation/proof | [20261026T003046-ad82eb61781f](runs/20261026T003046-ad82eb61781f/events.jsonl.gz) | 2026-10-26T00:30:47.981494+00:00 | 2026-10-26T00:30:56.031043+00:00 | 8.050 | 2 | failure |
+| negative/shadowed_mutable/proof | [20261026T003056-2bdb8977d71f](runs/20261026T003056-2bdb8977d71f/events.jsonl.gz) | 2026-10-26T00:30:57.613587+00:00 | 2026-10-26T00:31:05.956236+00:00 | 8.345 | 2 | failure |
+| frame/build | [20261026T002820-8f49ef06c0e1](runs/20261026T002820-8f49ef06c0e1/events.jsonl.gz) | 2026-10-26T00:28:22.064063+00:00 | 2026-10-26T00:28:28.617456+00:00 | 6.554 | 1 | success |
+| frame/proxy-0 | [20261026T002828-2926a6e22514](runs/20261026T002828-2926a6e22514/events.jsonl.gz) | 2026-10-26T00:28:30.298625+00:00 | 2026-10-26T00:28:35.700614+00:00 | 5.402 | 1 | success |
+| frame/proxy-1 | [20261026T002835-1770aa350586](runs/20261026T002835-1770aa350586/events.jsonl.gz) | 2026-10-26T00:28:37.107773+00:00 | 2026-10-26T00:28:42.075140+00:00 | 4.968 | 1 | failure |
+| frame/proxy-10 | [20261026T002934-14b617190669](runs/20261026T002934-14b617190669/events.jsonl.gz) | 2026-10-26T00:29:35.421291+00:00 | 2026-10-26T00:29:40.990665+00:00 | 5.570 | 1 | success |
+| frame/proxy-11 | [20261026T002941-a389c8c228c5](runs/20261026T002941-a389c8c228c5/events.jsonl.gz) | 2026-10-26T00:29:42.030526+00:00 | 2026-10-26T00:29:47.758075+00:00 | 5.728 | 1 | success |
+| frame/proxy-2 | [20261026T002842-8c2bd2854c4a](runs/20261026T002842-8c2bd2854c4a/events.jsonl.gz) | 2026-10-26T00:28:43.326532+00:00 | 2026-10-26T00:28:49.404413+00:00 | 6.078 | 1 | success |
+| frame/proxy-3 | [20261026T002849-fce2fdf856d8](runs/20261026T002849-fce2fdf856d8/events.jsonl.gz) | 2026-10-26T00:28:50.875358+00:00 | 2026-10-26T00:28:55.073939+00:00 | 4.200 | 1 | success |
+| frame/proxy-4 | [20261026T002855-189ea4f55bee](runs/20261026T002855-189ea4f55bee/events.jsonl.gz) | 2026-10-26T00:28:56.260444+00:00 | 2026-10-26T00:28:59.960646+00:00 | 3.701 | 1 | failure |
+| frame/proxy-5 | [20261026T002900-3c3ce967c43d](runs/20261026T002900-3c3ce967c43d/events.jsonl.gz) | 2026-10-26T00:29:01.273157+00:00 | 2026-10-26T00:29:06.778125+00:00 | 5.505 | 1 | success |
+| frame/proxy-6 | [20261026T002907-273b0f44768a](runs/20261026T002907-273b0f44768a/events.jsonl.gz) | 2026-10-26T00:29:07.976936+00:00 | 2026-10-26T00:29:13.064377+00:00 | 5.091 | 1 | success |
+| frame/proxy-7 | [20261026T002913-2f7bf3448a70](runs/20261026T002913-2f7bf3448a70/events.jsonl.gz) | 2026-10-26T00:29:14.341340+00:00 | 2026-10-26T00:29:20.163965+00:00 | 5.823 | 1 | success |
+| frame/proxy-8 | [20261026T002920-554f70a64692](runs/20261026T002920-554f70a64692/events.jsonl.gz) | 2026-10-26T00:29:21.719365+00:00 | 2026-10-26T00:29:27.464389+00:00 | 5.746 | 1 | success |
+| frame/proxy-9 | [20261026T002927-23382bc6e490](runs/20261026T002927-23382bc6e490/events.jsonl.gz) | 2026-10-26T00:29:29.063557+00:00 | 2026-10-26T00:29:33.962561+00:00 | 4.899 | 1 | success |

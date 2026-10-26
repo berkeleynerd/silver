@@ -1,0 +1,14 @@
+Managed run: 20261026T002443-304833d4d154 (/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261026T002443-304833d4d154)
+Phase 1 of 3: generation of data representation information ...
+generation of data representation information failed
+continuing analysis with partial data representation
+for details, see log file gnatprove/data_representation_generation.log
+Phase 2 of 3: generation of Global contracts ...
+Phase 3 of 3: flow analysis and proof ...
+ info: division check proved
+--> main.adb:11:30
+
+ info: division check proved
+--> main.adb:21:36
+Success: all checks proved (2 checks).
+Summary logged in /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-guard-refinement/tmp/guard-discovery/probes/conservative/obj/explore/guard/20261026T002359Z/gnatprove/gnatprove.out

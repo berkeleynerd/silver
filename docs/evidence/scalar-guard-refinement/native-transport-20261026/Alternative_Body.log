@@ -1,0 +1,124 @@
+Phase 1 of 3: generation of data representation information ...
+Phase 2 of 3: generation of Global contracts ...
+Phase 3 of 3: flow analysis and proof ...
+ info: implicit aspect Always_Terminates on "Alternative_Body" has been proved, subprogram will terminate
+--> silver_output_profile.adb:2562:13
+
+ info: data dependencies proved
+--> silver_output_profile.adb:2564:11
+
+ info: precondition proved
+--> silver_output_profile.adb:2566:19
+
+ info: precondition proved
+--> silver_output_profile.adb:2566:58
+
+ info: precondition proved
+--> silver_output_profile.adb:2567:16
+
+ info: postcondition proved
+--> silver_output_profile.adb:2567:16
+
+ info: overflow check proved
+--> silver_output_profile.adb:2570:55
+
+ info: overflow check proved
+--> silver_output_profile.adb:2570:60
+
+ info: range check proved
+--> silver_output_profile.adb:2809:31
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2809:42
+
+ info: initialization of "Condition" proved
+--> silver_output_profile.adb:2810:07
+
+ info: range check proved
+--> silver_output_profile.adb:2810:41
+
+ info: initialization of "Yes" proved
+--> silver_output_profile.adb:2811:07
+
+ info: range check proved
+--> silver_output_profile.adb:2811:30
+
+ info: precondition proved
+--> silver_output_profile.adb:2814:10
+
+ info: precondition proved
+--> silver_output_profile.adb:2815:20
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2815:20
+
+ info: precondition proved
+--> silver_output_profile.adb:2816:10
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2818:35
+
+ info: precondition proved
+--> silver_output_profile.adb:2819:20
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2819:20
+
+ info: precondition proved
+--> silver_output_profile.adb:2821:20
+
+ info: subprogram variant proved
+--> silver_output_profile.adb:2821:20
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2821:20
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2823:23
+
+ info: assertion proved
+--> silver_output_profile.adb:2824:35
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2825:35
+
+ info: precondition proved
+--> silver_output_profile.adb:2826:20
+
+ info: subprogram variant proved
+--> silver_output_profile.adb:2826:20
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2826:20
+
+ info: assertion proved
+--> silver_output_profile.adb:2827:35
+
+ info: precondition proved
+--> silver_output_profile.adb:2828:10
+
+ info: precondition proved
+--> silver_output_profile.adb:2829:10
+
+ info: assertion proved
+--> silver_output_profile.adb:2830:35
+
+ info: precondition proved
+--> silver_output_profile.adb:2832:13
+
+ info: precondition proved
+--> silver_output_profile.adb:2833:20
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2833:20
+
+ info: precondition proved
+--> silver_output_profile.adb:2835:17
+
+ info: subprogram variant proved
+--> silver_output_profile.adb:2835:17
+
+ info: precondition proved
+--> silver_output_profile.adb:2836:13
+Success: all checks proved (40 checks).
+Summary logged in /home/canto/src/github.com/berkeleynerd/silver/tmp/guard-native-v7/obj/explore/guard/gnatprove/gnatprove.out

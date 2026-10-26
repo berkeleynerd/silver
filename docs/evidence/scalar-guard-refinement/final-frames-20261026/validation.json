@@ -1,0 +1,224 @@
+{
+  "admission": {
+    "cases": 105,
+    "elapsed_seconds": 26.866770267486572,
+    "errors": 0,
+    "executable_sha256": "a4a2115a571d39d58cd3ec649fb47712c091bcbbd91f5e5c295e8f1403ba08f6",
+    "failures": 0,
+    "scope": "Exploratory admission-only tests against scratch executable; no application proof/build execution.",
+    "source_sha256": "956eff6874727f95fcb1ede29b537705f96bf916d05483d1813198aeb0f1ea74",
+    "tests": 18
+  },
+  "allocation_sites": {
+    "after": 64,
+    "before": 64,
+    "per_source_function_counts_equal": true
+  },
+  "conditional_count_applicability": "Prior total successful-body payload count S(B)*(4N+6L+9J+4E+3) counts all allocations, including formerly released results. Source/site-count assumptions remain applicable; unchanged site inventory is not a new universal allocation proof.",
+  "executable_sha256": "a4a2115a571d39d58cd3ec649fb47712c091bcbbd91f5e5c295e8f1403ba08f6",
+  "frame_changes": {
+    "Bare_Target": {
+      "after": 256,
+      "before": 240
+    },
+    "Body_Tail": {
+      "after": 368,
+      "before": 416
+    },
+    "other_nine_listed_recursive_sums": "unchanged"
+  },
+  "generated_source_files_retained": 3,
+  "head_at_capture": "7c5db25b8e1849cac4b7f9953193c64134ae155b",
+  "head_source_differences": {},
+  "index_sha256": "46ab043d36584a7b5919c40cb1c90b10863e259ace7801426a8c38be99d1b729",
+  "index_uncompressed_sha256": "29d28507073ba63c43208325d41d15e646f3659886ef8ceaa01866d214820867",
+  "index_verified": true,
+  "lifetime_supersession": "Final Body_Tail has no former local secondary mark/release pair; prior completed-sibling release claim does not apply to this exact build.",
+  "limits": [
+    "Retention and read-only comparison only; no validator launched by this thread.",
+    "Scratch compiler frame build, admission-only tests and recognizer boundary shapes, not application proof/build execution.",
+    "No complete native compiler proof or complete Lean/source checkpoint claimed.",
+    "No universal8MiB certificate, malformed-prefix total capacity, external allocator sufficiency, allocator-metadata bound or all-route primary bound.",
+    "Conditional payload arithmetic still depends on successful-parse source/site counting and rounding assumptions.",
+    "Original source/build/test/parser observations and prior evidence remain preserved.",
+    "Executable/tool bytes not copied; their captured/current SHA identities are retained."
+  ],
+  "logical_destination": "docs/evidence/scalar-guard-refinement/final-frames-20261026",
+  "native_host": "linux-x86_64",
+  "parser_assembly_files_retained": 1,
+  "retained_gzip_records": 304,
+  "retention_completed_utc": "2026-10-26T07:50:11.762111+00:00",
+  "retention_started_utc": "2026-10-26T07:50:06.633454+00:00",
+  "runs": [
+    {
+      "duration_seconds": 14.410784649,
+      "effective_commands": [
+        [
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-guard-refinement/.tools/linux-x86_64/alr/bin/alr",
+          "-s",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-guard-refinement/.tools/linux-x86_64/alire/settings",
+          "-C",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-guard-refinement/.silver/linux-x86_64/toolchain",
+          "-n",
+          "--no-tty",
+          "exec",
+          "--",
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/guard-native-frames-final/probe.gpr",
+          "-p",
+          "silver.adb",
+          "-XSILVER_HOST=linux-x86_64",
+          "-cargs",
+          "-fstack-usage",
+          "-save-temps",
+          "-gargs",
+          "-j2"
+        ]
+      ],
+      "finished_utc": "2026-10-26T07:37:53.376769+00:00",
+      "frozen_source_files_matched": 132,
+      "input_capture_event": "prepared",
+      "input_capture_utc": "2026-10-26T07:37:42.451539+00:00",
+      "inputs_matched": 146,
+      "invocation_command": [
+        "gprbuild",
+        "-P",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/guard-native-frames-final/probe.gpr",
+        "-p",
+        "silver.adb",
+        "-XSILVER_HOST=linux-x86_64",
+        "-cargs",
+        "-fstack-usage",
+        "-save-temps",
+        "-gargs"
+      ],
+      "kind": "tool-gprbuild",
+      "outcome": "success",
+      "resources": [
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-guard-refinement/.silver/linux-x86_64/toolchain",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-guard-refinement/.silver/linux-x86_64/toolchain"
+        },
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/guard-native-frames-final/obj",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/guard-native-frames-final/obj"
+        },
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/guard-native-frames-final/bin",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/guard-native-frames-final/bin"
+        },
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/guard-native-frames-final/containers-obj",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/guard-native-frames-final/containers-obj"
+        }
+      ],
+      "returncode": null,
+      "run_id": "20261026T073737-a27ed2ad48a6",
+      "started_utc": "2026-10-26T07:37:38.967181+00:00",
+      "workers": 2,
+      "worktree": {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-guard-refinement",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-guard-refinement"
+      }
+    },
+    {
+      "duration_seconds": 34.430639384,
+      "effective_commands": [
+        [
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-guard-refinement/.tools/linux-x86_64/alr/bin/alr",
+          "-s",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-guard-refinement/.tools/linux-x86_64/alire/settings",
+          "-C",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-guard-refinement/.silver/linux-x86_64/toolchain",
+          "-n",
+          "--no-tty",
+          "exec",
+          "--",
+          "python3",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/guard-native-frames-final/run-admission.py"
+        ]
+      ],
+      "finished_utc": "2026-10-26T07:39:14.988096+00:00",
+      "frozen_source_files_matched": 132,
+      "input_capture_event": "prepared",
+      "input_capture_utc": "2026-10-26T07:38:44.447132+00:00",
+      "inputs_matched": 194,
+      "invocation_command": [
+        "python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/guard-native-frames-final/run-admission.py"
+      ],
+      "kind": "tool-python3",
+      "outcome": "success",
+      "resources": [
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-guard-refinement/.silver/linux-x86_64/toolchain",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-guard-refinement/.silver/linux-x86_64/toolchain"
+        },
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/guard-native-frames-final",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/guard-native-frames-final"
+        }
+      ],
+      "returncode": null,
+      "run_id": "20261026T073838-e2c59da5cc8d",
+      "started_utc": "2026-10-26T07:38:40.561073+00:00",
+      "workers": 1,
+      "worktree": {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-guard-refinement",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-guard-refinement"
+      }
+    },
+    {
+      "duration_seconds": 26.027548876,
+      "effective_commands": [
+        [
+          "/usr/bin/python3",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/guard-native-frames-final/run-shapes.py"
+        ]
+      ],
+      "finished_utc": "2026-10-26T07:39:42.434544+00:00",
+      "frozen_source_files_matched": 132,
+      "input_capture_event": "started",
+      "input_capture_utc": "2026-10-26T07:39:16.406867+00:00",
+      "inputs_matched": 183,
+      "invocation_command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/guard-native-frames-final/run-shapes.py"
+      ],
+      "kind": "guard-recognizer-shapes",
+      "outcome": "success",
+      "resources": [
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/guard-native-frames-final/shape-results-20261026T073915Z",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/guard-native-frames-final/shape-results-20261026T073915Z"
+        }
+      ],
+      "returncode": 0,
+      "run_id": "20261026T073915-30f6eea23d83",
+      "started_utc": "2026-10-26T07:39:16.406867+00:00",
+      "workers": 1,
+      "worktree": {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver"
+      }
+    }
+  ],
+  "runtime_settings": "not independently exposed",
+  "schema_version": 1,
+  "selected_effort": "Extra High",
+  "selected_model": "GPT-6.1 Sol",
+  "shape_input_hashes_verified": 183,
+  "shapes": {
+    "admitted_4096": 10,
+    "passed": 20,
+    "rejected_4097": 10,
+    "run_id": "20261026T073915-30f6eea23d83",
+    "stack_kib": 8192
+  },
+  "snapshot_files_checked": 134,
+  "source_files_matched": 129,
+  "source_sha256": "956eff6874727f95fcb1ede29b537705f96bf916d05483d1813198aeb0f1ea74",
+  "stack_usage_files_retained": 28,
+  "token_cost_evidence": "unavailable"
+}

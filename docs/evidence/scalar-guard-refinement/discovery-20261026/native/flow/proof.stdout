@@ -1,0 +1,26 @@
+Managed run: 20261026T002416-51349d50f7e0 (/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261026T002416-51349d50f7e0)
+Phase 1 of 3: generation of data representation information ...
+Phase 2 of 3: generation of Global contracts ...
+Phase 3 of 3: flow analysis and proof ...
+ info: range check proved
+--> main.adb:10:46
+
+ info: range check proved
+--> main.adb:16:22
+
+ info: range check proved
+--> main.adb:22:19
+
+ info: range check proved
+--> main.adb:26:16
+
+ info: range check proved
+--> main.adb:31:22
+
+ info: range check proved
+--> main.adb:37:22
+
+ info: range check proved
+--> main.adb:42:16
+Success: all checks proved (7 checks).
+Summary logged in /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-guard-refinement/tmp/guard-discovery/probes/flow/obj/explore/guard/20261026T002359Z/gnatprove/gnatprove.out

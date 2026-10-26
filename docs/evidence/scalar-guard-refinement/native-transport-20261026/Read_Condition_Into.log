@@ -1,0 +1,265 @@
+Phase 1 of 3: generation of data representation information ...
+Phase 2 of 3: generation of Global contracts ...
+Phase 3 of 3: flow analysis and proof ...
+ info: initialization of "Result" proved
+--> silver_output_profile.adb:1871:28
+
+ info: data dependencies proved
+--> silver_output_profile.adb:1872:11
+
+ info: overflow check proved
+--> silver_output_profile.adb:1874:41
+
+ info: precondition proved
+--> silver_output_profile.adb:1874:54
+
+ info: postcondition proved
+--> silver_output_profile.adb:1876:28
+
+ info: overflow check proved
+--> silver_output_profile.adb:1877:87
+
+ info: precondition proved
+--> silver_output_profile.adb:1878:29
+
+ info: overflow check proved
+--> silver_output_profile.adb:1879:55
+
+ info: overflow check proved
+--> silver_output_profile.adb:1879:60
+
+ info: range check proved
+--> silver_output_profile.adb:2337:56
+
+ info: precondition proved
+--> silver_output_profile.adb:2338:09
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2338:09
+
+ info: range check proved
+--> silver_output_profile.adb:2341:54
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2342:43
+
+ info: precondition proved
+--> silver_output_profile.adb:2343:15
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2343:15
+
+ info: range check proved
+--> silver_output_profile.adb:2345:50
+
+ info: precondition proved
+--> silver_output_profile.adb:2346:09
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2346:09
+
+ info: assertion proved
+--> silver_output_profile.adb:2349:32
+
+ info: precondition proved
+--> silver_output_profile.adb:2351:07
+
+ info: assertion proved
+--> silver_output_profile.adb:2354:32
+
+ info: precondition proved
+--> silver_output_profile.adb:2357:07
+
+ info: subprogram variant proved
+--> silver_output_profile.adb:2357:07
+
+ info: assertion proved
+--> silver_output_profile.adb:2358:32
+
+ info: precondition proved
+--> silver_output_profile.adb:2359:07
+
+ info: assertion proved
+--> silver_output_profile.adb:2360:32
+
+ info: assertion proved
+--> silver_output_profile.adb:2361:32
+
+ info: range check proved
+--> silver_output_profile.adb:2361:59
+
+ info: assertion proved
+--> silver_output_profile.adb:2362:32
+
+ info: range check proved
+--> silver_output_profile.adb:2362:59
+
+ info: range check proved
+--> silver_output_profile.adb:2365:59
+
+ info: precondition proved
+--> silver_output_profile.adb:2366:15
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2366:15
+
+ info: precondition proved
+--> silver_output_profile.adb:2369:13
+
+ info: precondition proved
+--> silver_output_profile.adb:2370:29
+
+ info: assertion proved
+--> silver_output_profile.adb:2372:38
+
+ info: assertion proved
+--> silver_output_profile.adb:2373:38
+
+ info: precondition proved
+--> silver_output_profile.adb:2374:13
+
+ info: precondition proved
+--> silver_output_profile.adb:2375:16
+
+ info: precondition proved
+--> silver_output_profile.adb:2376:16
+
+ info: subprogram variant proved
+--> silver_output_profile.adb:2376:16
+
+ info: assertion proved
+--> silver_output_profile.adb:2380:18
+
+ info: precondition proved
+--> silver_output_profile.adb:2380:27
+
+ info: assertion proved
+--> silver_output_profile.adb:2381:41
+
+ info: range check proved
+--> silver_output_profile.adb:2381:68
+
+ info: assertion proved
+--> silver_output_profile.adb:2382:41
+
+ info: range check proved
+--> silver_output_profile.adb:2382:68
+
+ info: precondition proved
+--> silver_output_profile.adb:2385:18
+
+ info: assertion proved
+--> silver_output_profile.adb:2385:18
+
+ info: assertion proved
+--> silver_output_profile.adb:2386:41
+
+ info: range check proved
+--> silver_output_profile.adb:2386:68
+
+ info: assertion proved
+--> silver_output_profile.adb:2387:41
+
+ info: range check proved
+--> silver_output_profile.adb:2387:68
+
+ info: assertion proved
+--> silver_output_profile.adb:2390:15
+
+ info: precondition proved
+--> silver_output_profile.adb:2390:24
+
+ info: precondition proved
+--> silver_output_profile.adb:2391:13
+
+ info: precondition proved
+--> silver_output_profile.adb:2392:24
+
+ info: assertion proved
+--> silver_output_profile.adb:2393:38
+
+ info: assertion proved
+--> silver_output_profile.adb:2394:38
+
+ info: precondition proved
+--> silver_output_profile.adb:2395:13
+
+ info: assertion proved
+--> silver_output_profile.adb:2396:38
+
+ info: assertion proved
+--> silver_output_profile.adb:2397:38
+
+ info: assertion proved
+--> silver_output_profile.adb:2400:35
+
+ info: assertion proved
+--> silver_output_profile.adb:2401:35
+
+ info: precondition proved
+--> silver_output_profile.adb:2402:10
+
+ info: assertion proved
+--> silver_output_profile.adb:2403:35
+
+ info: assertion proved
+--> silver_output_profile.adb:2404:35
+
+ info: assertion proved
+--> silver_output_profile.adb:2405:35
+
+ info: assertion proved
+--> silver_output_profile.adb:2407:32
+
+ info: precondition proved
+--> silver_output_profile.adb:2408:07
+
+ info: assertion proved
+--> silver_output_profile.adb:2409:32
+
+ info: precondition proved
+--> silver_output_profile.adb:2411:10
+
+ info: precondition proved
+--> silver_output_profile.adb:2412:10
+
+ info: assertion proved
+--> silver_output_profile.adb:2413:35
+
+ info: assertion proved
+--> silver_output_profile.adb:2414:35
+
+ info: range check proved
+--> silver_output_profile.adb:2414:62
+
+ info: assertion proved
+--> silver_output_profile.adb:2415:35
+
+ info: range check proved
+--> silver_output_profile.adb:2415:62
+
+ info: assertion proved
+--> silver_output_profile.adb:2417:35
+
+ info: range check proved
+--> silver_output_profile.adb:2417:62
+
+ info: assertion proved
+--> silver_output_profile.adb:2418:35
+
+ info: range check proved
+--> silver_output_profile.adb:2418:62
+
+ info: assertion proved
+--> silver_output_profile.adb:2420:32
+
+ info: assertion proved
+--> silver_output_profile.adb:2421:32
+
+ info: assertion proved
+--> silver_output_profile.adb:2422:32
+
+ info: precondition proved
+--> silver_output_profile.adb:2422:41
+Success: all checks proved (87 checks).
+Summary logged in /home/canto/src/github.com/berkeleynerd/silver/tmp/guard-native-v7/obj/explore/guard/gnatprove/gnatprove.out

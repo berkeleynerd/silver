@@ -1,0 +1,72 @@
+division_native
+Source: .git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261026T002857-50fd2281b177/proof-evidence/gnatprove.out
+SHA256: 8b5a85dce063c55c9d55e1b7cec0a7ed491470d6d501e0a2721f1e649f6fec60
+1: =========================
+2: Summary of SPARK analysis
+3: =========================
+4: 
+5: --------------------------------------------------------------------------------------------------------------------------
+6: SPARK Analysis results        Total         Flow                                            Provers   Justified   Unproved
+7: --------------------------------------------------------------------------------------------------------------------------
+8: Data Dependencies               532          532                                                  .           .          .
+9: Flow Dependencies                 .            .                                                  .           .          .
+10: Initialization                  238          238                                                  .           .          .
+11: Non-Aliasing                      .            .                                                  .           .          .
+12: Run-time Checks                8362            .    8362 (CVC5 6%, Trivial 44%, Z3 48%, altergo 1%)           .          .
+13: Assertions                      583            .     583 (CVC5 10%, Trivial 9%, Z3 77%, altergo 4%)           .          .
+14: Functional Contracts           4753            .     4753 (CVC5 7%, Trivial 3%, Z3 89%, altergo 2%)           .          .
+15: LSP Verification                  .            .                                                  .           .          .
+16: Termination                     756          533                  223 (CVC5 4%, Z3 95%, altergo 1%)           .          .
+17: Concurrency                       .            .                                                  .           .          .
+18: --------------------------------------------------------------------------------------------------------------------------
+19: Total                         15224    1303 (9%)                                        13921 (91%)           .          .
+20: 
+
+guard_native_rebuild
+Source: .git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261026T084316-ffe7696c9a8a/reports/0/gnatprove.out
+SHA256: 4726eab77a3dad733b423836094fea52cc1122fee4c4087e04e9a1b238b4c916
+1: =========================
+2: Summary of SPARK analysis
+3: =========================
+4: 
+5: --------------------------------------------------------------------------------------------------------------------------
+6: SPARK Analysis results        Total         Flow                                            Provers   Justified   Unproved
+7: --------------------------------------------------------------------------------------------------------------------------
+8: Data Dependencies               559          559                                                  .           .          .
+9: Flow Dependencies                 .            .                                                  .           .          .
+10: Initialization                  255          255                                                  .           .          .
+11: Non-Aliasing                      .            .                                                  .           .          .
+12: Run-time Checks                8877            .    8877 (CVC5 6%, Trivial 41%, Z3 52%, altergo 1%)           .          .
+13: Assertions                      848            .      848 (CVC5 9%, Trivial 6%, Z3 80%, altergo 5%)           .          .
+14: Functional Contracts           5014            .     5014 (CVC5 7%, Trivial 3%, Z3 87%, altergo 3%)           .          .
+15: LSP Verification                  .            .                                                  .           .          .
+16: Termination                     804          560                  244 (CVC5 5%, Z3 93%, altergo 1%)           .          .
+17: Concurrency                       .            .                                                  .           .          .
+18: --------------------------------------------------------------------------------------------------------------------------
+19: Total                         16357    1374 (8%)                                        14983 (92%)           .          .
+20: 
+
+guard_native_cached_complete
+Source: .git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261026T121322-fc9f4056f886/proof-evidence/gnatprove.out
+SHA256: 4726eab77a3dad733b423836094fea52cc1122fee4c4087e04e9a1b238b4c916
+1: =========================
+2: Summary of SPARK analysis
+3: =========================
+4: 
+5: --------------------------------------------------------------------------------------------------------------------------
+6: SPARK Analysis results        Total         Flow                                            Provers   Justified   Unproved
+7: --------------------------------------------------------------------------------------------------------------------------
+8: Data Dependencies               559          559                                                  .           .          .
+9: Flow Dependencies                 .            .                                                  .           .          .
+10: Initialization                  255          255                                                  .           .          .
+11: Non-Aliasing                      .            .                                                  .           .          .
+12: Run-time Checks                8877            .    8877 (CVC5 6%, Trivial 41%, Z3 52%, altergo 1%)           .          .
+13: Assertions                      848            .      848 (CVC5 9%, Trivial 6%, Z3 80%, altergo 5%)           .          .
+14: Functional Contracts           5014            .     5014 (CVC5 7%, Trivial 3%, Z3 87%, altergo 3%)           .          .
+15: LSP Verification                  .            .                                                  .           .          .
+16: Termination                     804          560                  244 (CVC5 5%, Z3 93%, altergo 1%)           .          .
+17: Concurrency                       .            .                                                  .           .          .
+18: --------------------------------------------------------------------------------------------------------------------------
+19: Total                         16357    1374 (8%)                                        14983 (92%)           .          .
+20: 
+

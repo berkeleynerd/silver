@@ -26,24 +26,24 @@ cursor scanner. The successful trace supplies only concrete admission guards. -/
 inductive BasicPayload (text : Source) (context : ParseContext) (scan : BodyScan) : SourceStatement → Prop
   | null : basicKind text context scan = .null → BasicPayload text context scan (.simple .null)
   | output {expression} : basicKind text context scan = .output →
-      ExpressionAt (scalarNames := context.scalarNames) text context.names (outputStart text context scan).position expression
-        (expressionAt text (outputStart text context scan).position context.names context.scalarNames) →
+      ExpressionAt (scalarNames := context.readingNames scan.facts) text context.names (outputStart text context scan).position expression
+        (expressionAt text (outputStart text context scan).position context.names (context.readingNames scan.facts)) →
       BasicPayload text context scan (.simple (.output expression))
   | put {expression} : basicKind text context scan = .put →
-      ExpressionAt (scalarNames := context.scalarNames) text context.names (putStart text context scan).position expression
-        (expressionAt text (putStart text context scan).position context.names context.scalarNames) →
+      ExpressionAt (scalarNames := context.readingNames scan.facts) text context.names (putStart text context scan).position expression
+        (expressionAt text (putStart text context scan).position context.names (context.readingNames scan.facts)) →
       BasicPayload text context scan (.simple (.put expression))
   | reject : basicKind text context scan = .reject → BasicPayload text context scan .reject
   | scalarAssignment {expression} : basicKind text context scan = .scalarAssignment →
-      ScalarExpression.At text context.scalarNames (scalarAssignmentStart text scan) expression
-        (ScalarExpression.read text (scalarAssignmentStart text scan) context.scalarNames) →
+      ScalarExpression.At text (context.readingNames scan.facts) (scalarAssignmentStart text scan) expression
+        (ScalarExpression.read text (scalarAssignmentStart text scan) (context.readingNames scan.facts)) →
       BasicPayload text context scan (.scalarAssign
         ⟨scalarTarget text context scan.position, expression,
           (ScalarExpression.binding context.scalarNames (scalarTarget text context scan.position)).declaredBounds⟩)
   | assignment {expression} : basicKind text context scan = .assignment →
       TargetReading text (parserState context scan) (assignmentTarget text context scan) false →
-      ExpressionAt (scalarNames := context.scalarNames) text context.names (assignmentStart text context scan).position expression
-        (expressionAt text (assignmentStart text context scan).position context.names context.scalarNames) →
+      ExpressionAt (scalarNames := context.readingNames scan.facts) text context.names (assignmentStart text context scan).position expression
+        (expressionAt text (assignmentStart text context scan).position context.names (context.readingNames scan.facts)) →
       BasicPayload text context scan (.simple (.assign ⟨(assignmentTarget text context scan).target, expression⟩))
 
 structure BasicAt (text : Source) (context : ParseContext) (scan : BodyScan)
@@ -84,25 +84,25 @@ theorem basic_sound {text context scan}
       split at raw
       · exact False.elim (raw rfl)
       · rename_i good
-        have positive : (expressionAt text (outputStart text context scan).position context.names context.scalarNames).after ≠ 0 :=
+        have positive : (expressionAt text (outputStart text context scan).position context.names (context.readingNames scan.facts)).after ≠ 0 :=
           fun zero => good (Or.inl zero)
-        obtain ⟨expression, parsed⟩ := expressionAt_sound (scalarNames := context.scalarNames) text context.names _ positive
+        obtain ⟨expression, parsed⟩ := expressionAt_sound (scalarNames := context.readingNames scan.facts) text context.names _ positive
         exact ⟨_, ⟨accepted, rfl, .output kind parsed⟩⟩
   | put =>
       simp only [basicRaw, kind] at raw
       split at raw
       · exact False.elim (raw rfl)
       · rename_i good
-        have positive : (expressionAt text (putStart text context scan).position context.names context.scalarNames).after ≠ 0 :=
+        have positive : (expressionAt text (putStart text context scan).position context.names (context.readingNames scan.facts)).after ≠ 0 :=
           fun zero => good (Or.inl zero)
-        obtain ⟨expression, parsed⟩ := expressionAt_sound (scalarNames := context.scalarNames) text context.names _ positive
+        obtain ⟨expression, parsed⟩ := expressionAt_sound (scalarNames := context.readingNames scan.facts) text context.names _ positive
         exact ⟨_, ⟨accepted, rfl, .put kind parsed⟩⟩
   | scalarAssignment =>
       simp only [basicRaw, kind, scalarAssignmentBody] at raw
       split at raw
       · exact False.elim (raw rfl)
       · rename_i good
-        have positive : (ScalarExpression.read text (scalarAssignmentStart text scan) context.scalarNames).after ≠ 0 := by
+        have positive : (ScalarExpression.read text (scalarAssignmentStart text scan) (context.readingNames scan.facts)).after ≠ 0 := by
           intro zero
           exact good (Or.inr (Or.inr (Or.inl (by omega))))
         obtain ⟨expression, parsed⟩ := ScalarExpression.read_sound
@@ -113,11 +113,11 @@ theorem basic_sound {text context scan}
       split at raw
       · exact False.elim (raw rfl)
       · rename_i good
-        have positive : (expressionAt text (assignmentStart text context scan).position context.names context.scalarNames).after ≠ 0 :=
+        have positive : (expressionAt text (assignmentStart text context scan).position context.names (context.readingNames scan.facts)).after ≠ 0 :=
           fun zero => good (Or.inl zero)
-        have startPositive := Compose.Expressions.model_expression_input_nonzero (scalarNames := context.scalarNames) text _ context.names positive
+        have startPositive := Compose.Expressions.model_expression_input_nonzero (scalarNames := context.readingNames scan.facts) text _ context.names positive
         have targetPositive : (assignmentTarget text context scan).position ≠ 0 := fixedAfter_nonzero startPositive
-        obtain ⟨expression, parsed⟩ := expressionAt_sound (scalarNames := context.scalarNames) text context.names _ positive
+        obtain ⟨expression, parsed⟩ := expressionAt_sound (scalarNames := context.readingNames scan.facts) text context.names _ positive
         exact ⟨_, ⟨accepted, rfl, .assignment kind (target_reading text _ false targetPositive) parsed⟩⟩
 
 private theorem true_of_not_neg {b : Bool} (h : ¬(!b) = true) : b = true := by
@@ -125,10 +125,12 @@ private theorem true_of_not_neg {b : Bool} (h : ¬(!b) = true) : b = true := by
 
 theorem basic_meaning {text context scan item result}
     (normal : NamesNormal context.names) (bodyReady : ScalarExpression.BodyReady context.scalarNames)
+    (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount scan.facts)
     (parsed : BasicAt text context scan item result) :
     item.WellFormed context.hasArguments context.names.shape ∧
-      item.lower.check context.names.shape scan.facts (ScalarExpression.ranges context.scalarNames)
-        (ScalarExpression.mutability context.scalarNames) = some result.facts := by
+      item.lower.check context.names.shape context.analysis scan.facts.model = some result.facts.model := by
+  have rangesEq : ScalarExpression.ranges (context.readingNames scan.facts) = scan.facts.model.scalars :=
+    ScalarMetadata.readingNames_ranges compatible
   have success : (basicBody text context scan).position ≠ 0 := parsed.equation ▸ parsed.positive
   have raw := basic_raw_positive success
   have resultEq := (basic_after_raw success).symm.trans parsed.equation
@@ -138,7 +140,7 @@ theorem basic_meaning {text context scan item result}
       simp only [SourceStatement.WellFormed, SimpleWellFormed]
       refine ⟨trivial, ?_⟩
       simp only [SourceStatement.lower, Statement.check, checkSimple, ↓reduceIte]
-      have factsEq := congrArg (fun value : BodyScan => some value.facts) resultEq
+      have factsEq := congrArg (fun value : BodyScan => some value.facts.model) resultEq
       simpa only [bodyToken_facts] using factsEq
   | reject kind =>
       have arguments : context.hasArguments = true := by
@@ -156,22 +158,24 @@ theorem basic_meaning {text context scan item result}
       simp only [basicRaw, kind] at resultEq
       simp only [SourceStatement.lower, Statement.check]
       have factsEq := congrArg BodyScan.facts resultEq
-      simpa only [bodyToken_facts, bodyTokens_facts] using congrArg some factsEq
+      simpa only [bodyToken_facts, bodyTokens_facts, ActiveFlow.model] using
+        congrArg (fun facts : ActiveFlow => some facts.model) factsEq
   | output kind expression =>
       have ready := expression_reading_ready normal expression
+      rw [rangesEq] at ready
       simp only [basicRaw, kind] at raw resultEq
       split at raw
       · exact False.elim (raw rfl)
       · rename_i good
         rw [ite_eq_right good] at resultEq
-        have fits : fitsLengthSummary scan.facts (summaryOf (expressionAt text (outputStart text context scan).position context.names context.scalarNames)) = true := by
+        have fits : fitsLengthSummary scan.facts.path (summaryOf (expressionAt text (outputStart text context scan).position context.names (context.readingNames scan.facts))) = true := by
           apply true_of_not_neg
-          simpa only [bodyTokens_facts] using (show ¬(!fitsLengthSummary (outputStart text context scan).facts
-              (summaryOf (expressionAt text (outputStart text context scan).position context.names context.scalarNames))) = true from
+          simpa only [bodyTokens_facts] using (show ¬(!fitsLengthSummary (outputStart text context scan).facts.path
+              (summaryOf (expressionAt text (outputStart text context scan).position context.names (context.readingNames scan.facts)))) = true from
             fun bad => good (Or.inr (Or.inr bad)))
         simp only [summaryOf] at fits
-        have valid : scan.facts.invalidReachable = false := by
-          cases h : scan.facts.invalidReachable with
+        have valid : scan.facts.path.invalidReachable = false := by
+          cases h : scan.facts.path.invalidReachable with
           | false => rfl
           | true => exact False.elim (good (Or.inr (Or.inl (by simpa only [bodyTokens_facts] using h))))
         simp only [SourceStatement.WellFormed, SimpleWellFormed]
@@ -179,23 +183,24 @@ theorem basic_meaning {text context scan item result}
         have factsEq : scan.facts = result.facts := by
           simpa only [bodyToken_facts, bodyTokens_facts] using congrArg BodyScan.facts resultEq
         rw [← factsEq]
-        simp only [SourceStatement.lower, Statement.check, checkSimple, ready.2, fits, valid,
+        simp only [SourceStatement.lower, Statement.check, checkSimple, ready.2, ActiveFlow.model_path, fits, valid,
           Bool.not_false, Bool.true_and, ↓reduceIte]
   | put kind expression =>
       have ready := expression_reading_ready normal expression
+      rw [rangesEq] at ready
       simp only [basicRaw, kind] at raw resultEq
       split at raw
       · exact False.elim (raw rfl)
       · rename_i good
         rw [ite_eq_right good] at resultEq
-        have fits : fitsLengthSummary scan.facts (summaryOf (expressionAt text (putStart text context scan).position context.names context.scalarNames)) = true := by
+        have fits : fitsLengthSummary scan.facts.path (summaryOf (expressionAt text (putStart text context scan).position context.names (context.readingNames scan.facts))) = true := by
           apply true_of_not_neg
-          simpa only [bodyTokens_facts] using (show ¬(!fitsLengthSummary (putStart text context scan).facts
-              (summaryOf (expressionAt text (putStart text context scan).position context.names context.scalarNames))) = true from
+          simpa only [bodyTokens_facts] using (show ¬(!fitsLengthSummary (putStart text context scan).facts.path
+              (summaryOf (expressionAt text (putStart text context scan).position context.names (context.readingNames scan.facts)))) = true from
             fun bad => good (Or.inr (Or.inr bad)))
         simp only [summaryOf] at fits
-        have valid : scan.facts.invalidReachable = false := by
-          cases h : scan.facts.invalidReachable with
+        have valid : scan.facts.path.invalidReachable = false := by
+          cases h : scan.facts.path.invalidReachable with
           | false => rfl
           | true => exact False.elim (good (Or.inr (Or.inl (by simpa only [bodyTokens_facts] using h))))
         simp only [SourceStatement.WellFormed, SimpleWellFormed]
@@ -203,7 +208,7 @@ theorem basic_meaning {text context scan item result}
         have factsEq : scan.facts = result.facts := by
           simpa only [bodyToken_facts, bodyTokens_facts] using congrArg BodyScan.facts resultEq
         rw [← factsEq]
-        simp only [SourceStatement.lower, Statement.check, checkSimple, ready.2, fits, valid,
+        simp only [SourceStatement.lower, Statement.check, checkSimple, ready.2, ActiveFlow.model_path, fits, valid,
           Bool.not_false, Bool.true_and, ↓reduceIte]
   | scalarAssignment kind expression =>
       simp only [basicRaw, kind, scalarAssignmentBody] at raw resultEq
@@ -217,29 +222,35 @@ theorem basic_meaning {text context scan item result}
         have mutable : (ScalarExpression.binding context.scalarNames (scalarTarget text context scan.position)).mutable = true :=
           true_of_not_neg (fun bad => good (Or.inr (Or.inl bad)))
         have same := ScalarExpression.bodyReady_binding bodyReady (Nat.pos_of_ne_zero nonzero) targetBound mutable
-        have notEmpty : (ScalarExpression.read text (scalarAssignmentStart text scan) context.scalarNames).bounds.isEmpty = false :=
+        have notEmpty : (ScalarExpression.read text (scalarAssignmentStart text scan) (context.readingNames scan.facts)).bounds.isEmpty = false :=
           Bool.eq_false_iff.mpr (fun bad => good (Or.inr (Or.inr (Or.inr (Or.inl bad)))))
-        have included : (ScalarExpression.read text (scalarAssignmentStart text scan) context.scalarNames).bounds.included
+        have included : (ScalarExpression.read text (scalarAssignmentStart text scan) (context.readingNames scan.facts)).bounds.included
             (ScalarExpression.binding context.scalarNames (scalarTarget text context scan.position)).declaredBounds = true := by
-          have low : ¬ (ScalarExpression.read text (scalarAssignmentStart text scan) context.scalarNames).bounds.lower <
+          have low : ¬ (ScalarExpression.read text (scalarAssignmentStart text scan) (context.readingNames scan.facts)).bounds.lower <
               (ScalarExpression.binding context.scalarNames (scalarTarget text context scan.position)).declaredBounds.lower :=
             fun bad => good (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl bad)))))
-          have high : ¬ (ScalarExpression.read text (scalarAssignmentStart text scan) context.scalarNames).bounds.upper >
+          have high : ¬ (ScalarExpression.read text (scalarAssignmentStart text scan) (context.readingNames scan.facts)).bounds.upper >
               (ScalarExpression.binding context.scalarNames (scalarTarget text context scan.position)).declaredBounds.upper :=
             fun bad => good (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr bad)))))
           simp only [Integer.Interval.included, notEmpty, Bool.false_or, decide_eq_true_eq]
           constructor <;> omega
-        have factsEq : scan.facts = result.facts := by
+        have factsEq : scan.facts.replace (scalarTarget text context scan.position)
+            (ScalarExpression.read text (scalarAssignmentStart text scan) (context.readingNames scan.facts)).bounds = result.facts := by
           simpa only [bodyToken_facts] using congrArg BodyScan.facts resultEq
+        have inferred := expression.inferred
+        rw [rangesEq] at inferred
         refine ⟨by simpa only [SourceStatement.WellFormed] using nonzero, ?_⟩
-        rw [← factsEq]
+        rw [← factsEq, ActiveFlow.replace_model _ _ _ (Nat.pos_of_ne_zero nonzero)
+          (by rw [compatible.count]; exact targetBound)]
         simp only [SourceStatement.lower, Statement.check, Integer.Assignment.check,
+          Integer.Assignment.after, ParseContext.analysis, ScalarMetadata.analysis,
           ScalarExpression.mutability, ScalarExpression.ranges,
           Nat.pos_of_ne_zero nonzero, targetBound, and_self, decide_true,
-          Bool.true_and, mutable, ↓reduceIte, expression.inferred, same,
-          included, notEmpty, Bool.not_false]
+          Bool.true_and, mutable, ↓reduceIte, inferred, same,
+          included, notEmpty, Bool.not_false, ActiveFlow.model_path]
   | assignment kind target expression =>
       have ready := expression_reading_ready normal expression
+      rw [rangesEq] at ready
       obtain ⟨name, info, _, found, _, mutable, _⟩ := target
       change context.names.get (assignmentTarget text context scan).target = some info at found
       have targetShape : context.names.shape (assignmentTarget text context scan).target = some ⟨info.bound, true⟩ := by
@@ -250,16 +261,16 @@ theorem basic_meaning {text context scan item result}
       · exact False.elim (raw rfl)
       · rename_i good
         rw [ite_eq_right good] at resultEq
-        have fits : fitsLengthSummary scan.facts (summaryOf (expressionAt text (assignmentStart text context scan).position context.names context.scalarNames)) = true := by
+        have fits : fitsLengthSummary scan.facts.path (summaryOf (expressionAt text (assignmentStart text context scan).position context.names (context.readingNames scan.facts))) = true := by
           apply true_of_not_neg
           exact fun bad => good (Or.inr (Or.inr (Or.inl bad)))
-        have equal : equalLengthSummary scan.facts
-            (summaryOf (expressionAt text (assignmentStart text context scan).position context.names context.scalarNames)) info.bound.summary = true := by
+        have equal : equalLengthSummary scan.facts.path
+            (summaryOf (expressionAt text (assignmentStart text context scan).position context.names (context.readingNames scan.facts))) info.bound.summary = true := by
           apply true_of_not_neg
           intro bad
           apply good
           right; right; right
-          change (!equalLengthSummary scan.facts (summaryOf (expressionAt text (assignmentStart text context scan).position context.names context.scalarNames))
+          change (!equalLengthSummary scan.facts.path (summaryOf (expressionAt text (assignmentStart text context scan).position context.names (context.readingNames scan.facts)))
             ((context.names.get (assignmentTarget text context scan).target).getD {}).bound.summary) = true
           simpa only [found, Option.getD_some] using bad
         simp only [SourceStatement.WellFormed, SimpleWellFormed]
@@ -269,7 +280,7 @@ theorem basic_meaning {text context scan item result}
           simpa only [bodyToken_facts] using congrArg BodyScan.facts resultEq
         rw [← factsEq]
         simp only [SourceStatement.lower, Statement.check, checkSimple, checkAssignment,
-          targetShape, ready.2, fits, equal, Bool.true_and, ↓reduceIte]
+          targetShape, ready.2, ActiveFlow.model_path, fits, equal, Bool.true_and, ↓reduceIte]
 
 theorem basic_unique {text context scan left right first second}
     (a : BasicAt text context scan left first) (b : BasicAt text context scan right second) :

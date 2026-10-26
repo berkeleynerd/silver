@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from subtype ranges and guards placed just before pointer increments and stores, with no recursion or while loops, but the loop-carried pointers and capped values make discharge depend on careful program shape.
 
-Position 101 in the [progression](../../progression.md#stage-5), in stage 5.
+Position 102 in the [progression](../../progression.md#stage-5), in stage 5.
 
 ## Approach
 

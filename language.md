@@ -11,7 +11,10 @@ values, scoped loops and standard Integer Image. The [bounded mutable Integer
 record](docs/bounded-mutable-integers.md) extends these rules with initialized
 mutable objects, object-local static ranges and scalar assignment. The
 [division record](docs/integer-division.md) extends shared scalar expressions
-with interval-checked `/`, `mod` and `rem`. The [machine-readable
+with interval-checked `/`, `mod` and `rem`. The
+[scalar guard delivery record](docs/scalar-guard-refinement.md#delivery-assurance-and-validation)
+records complete Linux validation and assurance for the flow rules below.
+The [machine-readable
 catalogue](catalogue/silver.json), compiler, and this specification must agree. A
 discrepancy is a defect to resolve, not an extension of the language. Membership
 depends on source bytes, never on prover success.
@@ -259,8 +262,10 @@ comparison is distinct from division.
 
 Admission propagates closed Integer intervals. During declaration elaboration,
 earlier objects contribute their exact initial values. In the executable body,
-constants retain singleton intervals, mutable objects contribute their entire
-declared ranges, and loop indexes use the intervals below. Addition and subtraction use
+constants retain singleton intervals. Mutable objects initially contribute their
+declared ranges; assignments and selected scalar guards update their current
+read intervals as specified below. Loop indexes use their captured intervals,
+subject to selected guard refinement. Addition and subtraction use
 their endpoint bounds, multiplication uses the minimum and maximum of the four
 endpoint products, and negation reverses and negates the endpoints. Every
 intermediate result must fit Integer for the entire inferred interval. The
@@ -286,18 +291,45 @@ Every intermediate must still fit Integer. Quotient rejects intervals that can
 jointly reach `-2147483648 / (-1)`; `mod` and `rem` permit that pair and return
 zero. Mathematical magnitudes in the rule do not admit an application `abs`
 operator or widen application Integer. These are deliberately conservative
-interval rules: no general operand correlation or scalar guard refinement is
-used, and a safe runtime value alone does not establish admission.
+interval rules: no general operand correlation is used, and a safe runtime
+value alone does not establish admission. Selected guards may narrow the incoming
+interval before the operation; the operator rules themselves are unchanged.
 
 An empty index interval makes index-dependent safety vacuous, but never
 permits an out-of-range static subexpression. Integer assignments additionally
 require a nonempty RHS interval, including in empty loops and unreachable arms.
 
 Scalar comparisons admit `=`, `/=`, `<`, `<=`, `>` and `>=` between scalar
-expressions and compose with the existing short-circuit predicates. They do
-not narrow scalar intervals or input path facts, even when their truth is
-statically known. A guard such as `I < 10` therefore does not justify `(I + 1)`
-when the incoming index interval includes Integer's maximum.
+expressions and compose with the existing short-circuit predicates. Both
+operands must pass the incoming expression check before refinement, including
+all static subexpressions. A comparison refines a bare visible mutable Integer
+name or loop-index name against an Ada-static nonempty singleton Integer
+expression, in either operand order. Refinement follows resolved binding
+identity, so shadowed names remain distinct. Parentheses around a whole condition
+preserve refinement; parentheses around the target scalar name, arithmetic
+targets and variable-to-variable comparisons do not refine. A nonstatic singleton,
+including an immutable snapshot copied from a mutable object or a singleton loop
+index, cannot supply the threshold. Immutable declaration constants keep their
+exact values and declaration-derived staticness.
+
+For each true or false outcome, intersect the target's current interval with
+the comparison constraint (complementing the operator for false, and swapping
+it for reversed operands). Retain the incoming interval if that refinement is
+empty. Thus a contradictory guard does not create a new empty mutable interval
+or bypass a statically illegal subtree; an already empty index stays empty.
+Use the smallest closed interval covering the selected values: `X /= 0` removes
+zero at an endpoint, but an interval crossing zero retains zero in its hull.
+Separate `X > 0` and `X < 0` arms can justify division for both signs. Other
+comparisons retain incoming scalar facts. Scalar impossibility does not prune
+the independent input/String context.
+
+True and false flows pass to the corresponding arms; `elsif` receives the
+preceding false flow, and `not` swaps outcomes. An `and then` RHS receives the
+left-true flow and an `or else` RHS the left-false flow, for every scalar read,
+including Image arguments nested in String expressions. Branch exits and
+alternative outcomes join each scalar identity by interval hull; an omitted
+else contributes the false flow. These rules add no grammar or relational facts
+between different objects.
 
 The type mark `Integer` must be visible in declarations and Image expressions.
 An Integer object cannot itself be named `Integer`. A String object named
@@ -338,12 +370,30 @@ hides an unqualified operation.
 For bound intervals `[a,b]` and `[c,d]`, the body index interval is `[a,d]`, or
 empty if either bound interval is empty or `a > d`. The loop is definitely
 nonempty when both intervals are nonempty and `b <= c`. Admission checks the
-body once over this interval, without enumerating iterations or using
-loop-carried scalar values. An empty loop preserves incoming path facts; a
-definitely nonempty loop retains the body exit facts; an uncertain loop joins
-incoming and body exit facts. Every String assignment preserves its object's
-fixed bounds. Finite Integer ranges establish termination; the application
-proof configuration disables loop unrolling.
+body once over this interval, without enumerating iterations or inferring
+loop-carried scalar invariants. Infer and capture both bounds in entry flow
+before widening every mutable scalar to its declared range for body analysis.
+Retain entry immutable and outer-index facts, then append the new index identity
+and its captured interval. A guard immediately inside the body may narrow that
+iteration's reads. Preloop or earlier-iteration mutable facts cannot justify a
+later iteration. Even a read-only, possibly executing loop loses mutable
+precision.
+
+An abstractly empty loop restores entry scalar flow. Every possibly executing
+loop returns mutable intervals widened to their declared ranges, restores entry
+immutable and outer-index facts, and removes its new index identity. Body-derived
+outer-index refinements do not escape. The independent input/String transfer is
+unchanged: an empty loop preserves entry path facts; a definitely nonempty loop
+retains body exit path facts; an uncertain loop joins entry and body exit path
+facts. Every String assignment preserves its object's fixed bounds. Finite
+Integer ranges establish termination; the application proof configuration
+disables loop unrolling.
+
+More precise captured bounds can intentionally exclude an earlier admitted
+source: after `X := 0`, `for I in 1 .. X loop R := I; end loop;` has an empty
+index interval, so the retained nonempty assignment-RHS rule excludes it. A
+contradictory guard does not waive this rule. There is no blanket claim that
+scalar refinement preserves admission of every earlier source.
 
 ### Standard Integer Image
 
@@ -473,13 +523,17 @@ range. Requiring nonemptiness is a Silver frontend-acceptance restriction:
 pinned GNAT still checks predictable assignment range errors in dead loop bodies
 under `SPARK_Mode (On)`. Thus an assignment depending on an index whose inferred
 interval is empty is excluded even when a particular instance would compile. Empty loops
-may still contain assignments whose RHS has a nonempty interval. Assignment
-and scalar guards do not narrow mutable ranges. Thus `X : Integer range 0 .. 9
-:= 0` permits `X := (9 - X)`, but excludes `X := (X + 1)` even after a reset
-or under `X < 9`. This is a limit of Silver's interval analysis, not Ada syntax.
+may still contain assignments whose RHS has a nonempty interval. Infer the RHS
+in incoming flow and check inclusion against the immutable declared range,
+then replace only the target's current read interval with the inferred RHS
+interval. Do not intersect the replacement with the target's old guard facts.
+Thus `X : Integer range 0 .. 9 := 0` excludes an unguarded body update
+`X := (X + 1)` initially, but permits it after `X := 0` or inside `if X < 9`.
+A write to another scalar preserves X's facts. String writes preserve all scalar
+facts; immutable scalar and String snapshots remain unchanged.
 Existing input-length facts remain valid across scalar writes. Image reads in
-the body use the current scalar value and its declared interval; equality to
-an earlier Image does not create a persistent fact about a mutable scalar.
+the body use the current flow interval; equality to an earlier Image does not
+create a persistent fact about a later live Image.
 
 For example, snapshots remain unchanged across later updates:
 
@@ -686,7 +740,7 @@ The catalogue uses these construct identifiers:
 | `string_copy` | Snapshot initialization and current name reads for compatible assignments. |
 | `string_expression`, `string_concatenation` | One through sixty-four literal/name/Image leaves; sixty-three operators shared with scalar arithmetic. |
 | `scalar_integer_literal`, `named_integer_constant`, `named_integer_variable`, `integer_range_constraint`, `integer_expression`, `integer_assignment` | Scalar numerals, initialized Integer objects, optional static object constraints, checked interval arithmetic and range-preserving assignments. |
-| `integer_comparison`, `integer_image`, `for_loop` | Scalar comparisons without refinement, standard decimal Image and scoped forward/reverse finite loops. |
+| `integer_comparison`, `scalar_guard_refinement`, `integer_image`, `for_loop` | Bare mutable/index names against static thresholds, current read intervals with assignment replacement and branch hulls, standard decimal Image and scoped finite loops with captured bounds and mutable widening. |
 | `expression_output`, `literal_output`, `named_output`, `concatenated_output` | Returning output calls with qualified or visible unqualified names and positional or `Item =>` actuals. |
 | `argument_initialization`, `input_guard`, `capacity_guard`, `argument_rejection` | First/unique immutable input with positional or `Default =>` literal, path-derived validity/capacity and returning rejection; existing calls follow the shared visibility rules. |
 | `string_equality`, `string_choice` | Nested predicates with nonempty statements, repeated `elsif`, optional `else` and path refinement. |
@@ -826,6 +880,10 @@ without replacing universal assurance. The [triangle](samples/for_loop_triangle.
 countdown](samples/for_loop_countdown.adb) exercise loop, immutable Integer
 and standard Image forms. [Find square difference](samples/find_square_difference.adb)
 uses a constrained mutable result and prints the first satisfying index, 501.
+The [100 doors sample](samples/rosetta_100_doors.adb) uses a guarded visit
+counter and prints every door's final state; its expected bytes come from an
+independent pass-major toggle model. Its complete validation is recorded in the
+[guard delivery record](docs/scalar-guard-refinement.md#delivery-assurance-and-validation).
 
 The [Rosetta sample delivery](docs/rosetta-supported-samples.md) exercises existing
 output, names, copies, expressions and branches for the runnable tasks in #9.

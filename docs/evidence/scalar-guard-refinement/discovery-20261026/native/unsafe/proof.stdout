@@ -1,0 +1,36 @@
+Managed run: 20261026T002454-4d21d6ea05aa (/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261026T002454-4d21d6ea05aa)
+Phase 1 of 3: generation of data representation information ...
+Phase 2 of 3: generation of Global contracts ...
+Phase 3 of 3: flow analysis and proof ...
+ high: range check might fail, cannot prove upper bound for (X + 1)
+--> main.adb:11:18
+   11 |             X := (X + 1);
+      |                  ~~~^~~~
+      + e.g. when X = 9
+      + reason for check: result of addition must fit in the target type of the assignment
+      + provers gave up before completing the proof
+
+ medium: range check might fail, cannot prove upper bound for (X + 1)
+--> main.adb:17:15
+   17 |          X := (X + 1);
+      |               ~~~^~~~
+      + reason for check: result of addition must fit in the target type of the assignment
+      + possible fix: loop at line 14 should mention X in a loop invariant
+   14 |       for Seed in 0 .. 9 loop
+      |                          ^
+      + provers gave up before completing the proof
+
+ info: range check proved
+--> main.adb:22:15
+
+ info: range check proved
+--> main.adb:27:42
+
+ info: overflow check proved
+--> main.adb:32:36
+
+ info: range check proved
+--> main.adb:37:12
+Summary logged in /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-guard-refinement/tmp/guard-discovery/probes/unsafe/obj/explore/guard/20261026T002359Z/gnatprove/gnatprove.out
+gnatprove: unproved check messages considered as errors
+ERROR: Command ["gnatprove", "-P", "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-guard-refinement/tmp/guard-discovery/probes/unsafe/probe.gpr", "--subdirs=explore/guard/20261026T002359Z", "-U", "--mode=all", "--report=all", "--checks-as-errors=on", "--level=2", "--prover=cvc5,z3,altergo", "--steps=100000", "--timeout=0", "--memlimit=1000", "--no-loop-unrolling", "--warnings=continue", "-j2"] exited with code 1

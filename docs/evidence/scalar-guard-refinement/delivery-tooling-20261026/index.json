@@ -1,0 +1,66 @@
+{
+  "retained_utc": "2026-10-26T12:27:09.237478+00:00",
+  "implementation_commit": "d4d564cf358bd2c617b4899c53ceb0c0c1fd69da",
+  "artifacts": {
+    "original-exporter.py": {
+      "sha256": "ea6180a6d2989831636b509b35792edcb3c4bcbbf0c5d60018207bf4e67c22d7",
+      "bytes": 34814,
+      "original_path": "tmp/guard-final-evidence-20261026/export-guard-evidence.py"
+    },
+    "original-suite-wrapper.py": {
+      "sha256": "9978a5fbf7bab7da412ef4dbbb155012e113ce97a8ce83369f182b6208e3f3c5",
+      "bytes": 4489,
+      "original_path": "tmp/guard-final-evidence-20261026/run-suite-with-renderer-capture.py"
+    },
+    "original-exporter-checks.json": {
+      "sha256": "2f6280460867b19530197d332e4afa95fd573509c20d807b225e3d9eddf27566",
+      "bytes": 6037,
+      "original_path": "tmp/guard-final-evidence-20261026/exporter-checks.json"
+    },
+    "initial-review.md": {
+      "sha256": "72256bcc92437730ff510a63082b8e18a018aedfb59b445ad29b65e65b1feb90",
+      "bytes": 4655,
+      "original_path": "tmp/guard-evidence-delivery-review-20261026/initial-review.md"
+    },
+    "initial-review.json": {
+      "sha256": "50a024dbc3ee4724ac62ce366c4855c6b590e380739f3e20baa73a2dcbd8ed35",
+      "bytes": 2664,
+      "original_path": "tmp/guard-evidence-delivery-review-20261026/initial-review.json"
+    },
+    "export-guard-evidence-repaired.py": {
+      "sha256": "2184a6e42bec0bdcae3c1f15c08e1fd62621ed37c0c7f098bcc4374d01f8c801",
+      "bytes": 18412,
+      "original_path": "tmp/guard-suite-evidence-repair-20261026/export-guard-evidence-repaired.py"
+    },
+    "run-suite-with-renderer-capture.py": {
+      "sha256": "1fa2afd6deb77bee8ecb23820e96a35a3714282b634390bcdfb9d59a64ab707c",
+      "bytes": 8089,
+      "original_path": "tmp/guard-suite-evidence-repair-20261026/run-suite-with-renderer-capture.py"
+    },
+    "check-exporter-repair.py": {
+      "sha256": "c67eb51a2344e76fb63ba4e81dba0ae18eee1d8dd5fcd4d0901bd1f472d87c56",
+      "bytes": 6971,
+      "original_path": "tmp/guard-suite-evidence-repair-20261026/check-exporter-repair.py"
+    },
+    "inspection-checks.json": {
+      "sha256": "a1526b45e9ba2faaf8a904b727103be9284b635d12f5d40deaf21c0b0279853f",
+      "bytes": 4227,
+      "original_path": "tmp/guard-suite-evidence-repair-20261026/inspection-checks.json"
+    },
+    "repair-exporter-review.md": {
+      "sha256": "57a81df3b931992b736e7135122a9cbde6d5da7c58fa689ea902396a41da8876",
+      "bytes": 5188,
+      "original_path": "tmp/guard-evidence-delivery-review-20261026/repair-exporter-review.md"
+    },
+    "repair-exporter-review.json": {
+      "sha256": "d770b0ffbe4786e13b6e2a9fe9633ee1445dab70a9f52ed6e200e2ca9ba78e37",
+      "bytes": 5803,
+      "original_path": "tmp/guard-evidence-delivery-review-20261026/repair-exporter-review.json"
+    },
+    "preparation.md": {
+      "sha256": "3d8cc0606958e1e06f4a7d9a39768a8d90230f469d0cdbc5c15492ab12ed78df",
+      "bytes": 5692,
+      "original_path": "tmp/guard-suite-evidence-repair-20261026/README.md"
+    }
+  }
+}

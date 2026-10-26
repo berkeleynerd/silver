@@ -3,6 +3,9 @@ module
 public import Silver.PredicateConditionSound
 public import Silver.PredicateConditionMeaning
 public import Silver.PathBounds
+public import Silver.PredicateFlowInvariant
+public import Silver.PredicateConditionFlow
+public import Silver.PredicateScalarGuardMeaning
 
 @[expose] public section
 
@@ -28,50 +31,93 @@ private theorem lengthAt_fits {text context position literal operand result fact
       · exact fitsSummary_fixed infoValid.2.2
 
 private theorem length_meaning {text context position facts left right leftResult rightResult}
-    (namesValid : Compose.Expressions.ValidNames text context.names) (bounded : facts.Bounded)
+    (namesValid : Compose.Expressions.ValidNames text context.names) (bounded : facts.path.Bounded)
     (leftRead : LengthAt text context position false (.binding left) leftResult)
     (rightRead : LengthAt text context (comparisonAt text leftResult.after).after true right rightResult) :
     ConditionMeaning context facts (.lengthCompare (comparisonAt text leftResult.after).operator left right)
       ⟨rightResult.after,
-        refineBounds facts (comparisonAt text leftResult.after).operator leftResult.value rightResult.value true,
-        refineBounds facts (comparisonAt text leftResult.after).operator leftResult.value rightResult.value false⟩ := by
+        refineFlowBounds facts (comparisonAt text leftResult.after).operator leftResult.value rightResult.value true,
+        refineFlowBounds facts (comparisonAt text leftResult.after).operator leftResult.value rightResult.value false⟩ := by
   have leftReading := lengthAt_readable leftRead
   have rightReading := lengthAt_readable rightRead
   obtain ⟨info, found⟩ := leftReading.1
   have leftBound : info.bound = leftResult.value := by
     simpa only [LengthOperand.bound, found, Option.map_some, Option.some.injEq] using leftReading.2
   refine ⟨trivial, ⟨⟨info, found⟩, rightReading.1⟩, ?_, ?_, ?_⟩
-  · simp only [Condition.checkBounds, found, rightReading.2, leftBound,
+  · simp only [Condition.checkBounds, found, rightReading.2, leftBound, ActiveFlow.model,
       lengthAt_fits namesValid bounded leftRead, lengthAt_fits namesValid bounded rightRead, Bool.and_self]
-  · simp only [Condition.refine, refineLength, found, rightReading.2, leftBound]
-  · simp only [Condition.refine, refineLength, found, rightReading.2, leftBound]
+  · simp only [Condition.refine, refineLength, found, rightReading.2, leftBound,
+      refineFlowBounds, ActiveFlow.model]
+  · simp only [Condition.refine, refineLength, found, rightReading.2, leftBound,
+      refineFlowBounds, ActiveFlow.model]
 
 private theorem string_meaning {text context position facts left right leftResult rightResult}
     (normal : NamesNormal context.names)
-    (leftRead : ExpressionAt (scalarNames := context.scalarNames) text context.names position left leftResult)
-    (rightRead : ExpressionAt (scalarNames := context.scalarNames) text context.names (comparisonAt text leftResult.after).after right rightResult)
+    (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount facts)
+    (leftRead : ExpressionAt (scalarNames := context.readingNames facts) text context.names position left leftResult)
+    (rightRead : ExpressionAt (scalarNames := context.readingNames facts) text context.names (comparisonAt text leftResult.after).after right rightResult)
     (ready : StringRelationReady facts leftResult rightResult (comparisonAt text leftResult.after)) :
     ConditionMeaning context facts (.stringCompare ((comparisonAt text leftResult.after).operator != .eq) left right)
       (stringResult facts leftResult rightResult (comparisonAt text leftResult.after)) := by
   have l := expression_reading_ready normal leftRead
   have r := expression_reading_ready normal rightRead
+  have ranges : ScalarExpression.ranges (context.readingNames facts) = facts.model.scalars :=
+    ScalarMetadata.readingNames_ranges compatible
+  rw [ranges] at l r
+  have leftInferred := l.2
+  have rightInferred := r.2
+  simp only [ActiveFlow.model] at leftInferred rightInferred
   refine ⟨trivial, ⟨l.1.1, r.1.1, l.1.2.1, r.1.2.1,
     l.1.2.2.1, l.1.2.2.2, r.1.2.2.1, r.1.2.2.2⟩, ?_, ?_, ?_⟩
   · simp only [Condition.checkBounds, l.2, r.2, Bool.and_eq_true]
     exact ⟨ready.2.2.2.2.2.1, ready.2.2.2.2.2.2⟩
   · rcases ready.2.2.1 with equal | equal <;>
-      simp [stringResult, summaryOf, Condition.refine, refineString, equal, l.2, r.2]
+      simp [stringResult, summaryOf, Condition.refine, refineString, equal,
+        leftInferred, rightInferred, ActiveFlow.model]
   · rcases ready.2.2.1 with equal | equal <;>
-      simp [stringResult, summaryOf, Condition.refine, refineString, equal, l.2, r.2]
+      simp [stringResult, summaryOf, Condition.refine, refineString, equal,
+        leftInferred, rightInferred, ActiveFlow.model]
+
+theorem ConditionMeaning.compatible {context facts condition result}
+    (base : ScalarMetadata.BaseReady context.scalarNames context.declarationCount)
+    (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount facts)
+    (meaning : ConditionMeaning context facts condition result)
+    (trueCount : result.whenTrue.count = context.scalarNames.length)
+    (falseCount : result.whenFalse.count = context.scalarNames.length) :
+    ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount result.whenTrue ∧
+      ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount result.whenFalse := by
+  have preserved : ∀ index, 0 < index → index ≤ context.scalarNames.length →
+      (ScalarExpression.binding context.scalarNames index).mutable = false → index ≤ context.declarationCount →
+      ∀ truth, (condition.refine context.names.shape context.analysis facts.model truth).scalars index =
+        facts.model.scalars index := by
+    intro index positive bounded mutable declared truth
+    have readonly : context.analysis.refinable index = false := by
+      simp only [ParseContext.analysis, ScalarMetadata.analysis, ScalarMetadata.refinable,
+        mutable, Bool.false_or, show ¬context.declarationCount < index by omega,
+        decide_false, Bool.and_false]
+    have cell := compatible.fixed_cell index positive bounded mutable declared
+    exact (condition.refine_preserves_fixed readonly cell
+      (base.declarationsNonempty index positive declared)).trans cell.symm
+  constructor
+  · apply ScalarMetadata.overlayCompatible_of_preserved compatible trueCount
+    intro index positive bounded mutable declared
+    rw [meaning.whenTrue]
+    exact preserved index positive bounded mutable declared true
+  · apply ScalarMetadata.overlayCompatible_of_preserved compatible falseCount
+    intro index positive bounded mutable declared
+    rw [meaning.whenFalse]
+    exact preserved index positive bounded mutable declared false
 
 mutual
   theorem primary_valid {text context position facts condition result}
       (normal : NamesNormal context.names) (namesValid : Compose.Expressions.ValidNames text context.names)
-      (bounded : facts.Bounded) (parsed : PrimaryAt text context position facts condition result) :
+      (base : ScalarMetadata.BaseReady context.scalarNames context.declarationCount)
+      (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount facts)
+      (bounded : facts.path.Bounded) (parsed : PrimaryAt text context position facts condition result) :
       ConditionMeaning context facts condition result ∧ condition.isPrimary = true := by
     cases parsed with
     | group _ _ _ inner _ =>
-        have meaning := condition_valid normal namesValid bounded inner
+        have meaning := condition_valid normal namesValid base compatible bounded inner
         exact ⟨meaning.parenthesized _, rfl⟩
     | valid _ _ arguments _ =>
         exact ⟨⟨trivial, arguments, rfl, rfl, rfl⟩, rfl⟩
@@ -80,20 +126,27 @@ mutual
 
   theorem relation_valid {text context position facts condition result}
       (normal : NamesNormal context.names) (namesValid : Compose.Expressions.ValidNames text context.names)
-      (bounded : facts.Bounded) (parsed : RelationAt text context position facts condition result) :
+      (base : ScalarMetadata.BaseReady context.scalarNames context.declarationCount)
+      (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount facts)
+      (bounded : facts.path.Bounded) (parsed : RelationAt text context position facts condition result) :
       ConditionMeaning context facts condition result ∧ condition.isRelation = true := by
     cases parsed with
     | negated _ _ _ inner =>
-        have meaning := primary_valid normal namesValid bounded inner
+        have meaning := primary_valid normal namesValid base compatible bounded inner
         exact ⟨meaning.1.negated meaning.2, rfl⟩
     | length _ _ _ left right _ => exact ⟨length_meaning namesValid bounded left right, rfl⟩
     | scalars _ _ _ _ left right _ =>
+        have ranges : ScalarExpression.ranges (context.readingNames facts) = facts.model.scalars :=
+          ScalarMetadata.readingNames_ranges compatible
         exact ⟨⟨trivial, trivial, by
-          simp only [Condition.checkBounds, left.inferred, right.inferred,
-            Option.isSome_some, Bool.and_self], rfl, rfl⟩, rfl⟩
-    | strings _ _ _ _ left right ready _ => exact ⟨string_meaning normal left right ready, rfl⟩
+          simp only [Condition.checkBounds, ← ranges, left.inferred, right.inferred,
+            Option.isSome_some, Bool.and_self],
+          scalarCondition_whenTrue_model compatible left right,
+          scalarCondition_whenFalse_model compatible left right⟩, rfl⟩
+    | strings _ _ _ _ left right ready _ =>
+        exact ⟨string_meaning normal compatible left right ready, rfl⟩
     | primary _ _ _ _ _ inner =>
-        have meaning := primary_valid normal namesValid bounded inner
+        have meaning := primary_valid normal namesValid base compatible bounded inner
         refine ⟨meaning.1, ?_⟩
         cases condition <;> simp_all [Condition.isPrimary, Condition.isRelation]
   termination_by (remainingAt text position, 2)
@@ -101,36 +154,55 @@ mutual
 
   theorem chain_valid {text context condition result chained final finalResult facts}
       (normal : NamesNormal context.names) (namesValid : Compose.Expressions.ValidNames text context.names)
-      (bounded : facts.Bounded) (parsed : ChainAt text context condition result chained final finalResult)
-      (meaning : ConditionMeaning context facts condition result) (shape : ChainShape chained condition) :
+      (base : ScalarMetadata.BaseReady context.scalarNames context.declarationCount)
+      (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount facts)
+      (bounded : facts.path.Bounded) (parsed : ChainAt text context condition result chained final finalResult)
+      (meaning : ConditionMeaning context facts condition result) (shape : ChainShape chained condition)
+      (counts : result.Counts facts.count) :
       ConditionMeaning context facts final finalResult := by
     cases parsed with
     | done => exact meaning
-    | @next condition result chained operator right rightResult final finalResult _ _ _ compatible _ _ rightRead _ _ rest =>
-        have reachedBound : (chainContext result operator).Bounded := by
+    | @next condition result chained operator right rightResult final finalResult _ _ _ compatibleChain _ _ rightRead _ _ rest =>
+        have outputs := meaning.compatible base compatible
+          (counts.1.trans compatible.count) (counts.2.trans compatible.count)
+        have reachedCompatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount
+            (chainContext result operator) := by
+          cases operator
+          · exact outputs.2
+          · exact outputs.1
+        have reachedBound : (chainContext result operator).path.Bounded := by
           cases operator with
           | false =>
-              change result.whenFalse.Bounded
+              change result.whenFalse.model.path.Bounded
               rw [meaning.whenFalse]
               exact Condition.refine_bounded bounded _ _ _ _
           | true =>
-              change result.whenTrue.Bounded
+              change result.whenTrue.model.path.Bounded
               rw [meaning.whenTrue]
               exact Condition.refine_bounded bounded _ _ _ _
-        have rightMeaning := relation_valid normal namesValid reachedBound rightRead
-        have nextMeaning := meaning.chain rightMeaning.1 (chainShape_selected shape compatible) rightMeaning.2
-        exact chain_valid normal namesValid bounded rest nextMeaning (chainShape_next _ _ _)
+        have rightMeaning := relation_valid normal namesValid base reachedCompatible reachedBound rightRead
+        have rightCounts : rightResult.Counts facts.count := by
+          have counted := relation_counts text context (chainAfter text result.after operator) (chainContext result operator)
+          rw [relation_complete rightRead] at counted
+          simpa only [chainContext_count counts] using counted
+        have nextMeaning := meaning.chain rightMeaning.1 (chainShape_selected shape compatibleChain) rightMeaning.2
+        exact chain_valid normal namesValid base compatible bounded rest nextMeaning (chainShape_next _ _ _)
+          (chainJoin_counts counts rightCounts operator)
   termination_by (remainingAt text result.after, 4)
   decreasing_by all_goals exact Prod.Lex.left _ _ (by assumption)
 
   theorem condition_valid {text context position facts condition result}
       (normal : NamesNormal context.names) (namesValid : Compose.Expressions.ValidNames text context.names)
-      (bounded : facts.Bounded) (parsed : ConditionAt text context position facts condition result) :
+      (base : ScalarMetadata.BaseReady context.scalarNames context.declarationCount)
+      (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount facts)
+      (bounded : facts.path.Bounded) (parsed : ConditionAt text context position facts condition result) :
       ConditionMeaning context facts condition result := by
     cases parsed with
     | condition _ first _ _ tail =>
-        have meaning := relation_valid normal namesValid bounded first
-        exact chain_valid normal namesValid bounded tail meaning.1 meaning.2
+        have meaning := relation_valid normal namesValid base compatible bounded first
+        have counts := relation_counts text context position facts
+        rw [relation_complete first] at counts
+        exact chain_valid normal namesValid base compatible bounded tail meaning.1 meaning.2 counts
   termination_by (remainingAt text position, 3)
   decreasing_by all_goals simp_wf; all_goals first | assumption | omega
 end

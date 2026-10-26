@@ -3,6 +3,8 @@ module
 public import Silver.PredicateAdmission
 public import Silver.ComposeContracts
 public import Silver.ScalarExpressionEnvironment
+public import Silver.PredicateConditionFlowValidity
+public import Silver.PredicateConditionBounds
 
 @[expose] public section
 
@@ -16,15 +18,35 @@ structure Context where
   dynamicFirst : Nat
   dynamicAfter : Nat
   scalarNames : ScalarExpression.Environment := []
+  declarationCount : Nat := 0
   deriving DecidableEq, Repr
 
 def Context.model (context : Context) : ParseContext :=
-  ⟨context.names, decide (context.dynamicFirst ≠ 0), context.scalarNames⟩
+  ⟨context.names, decide (context.dynamicFirst ≠ 0), context.scalarNames, context.declarationCount⟩
 
 def ValidContext (text : Source) (context : Context) : Prop :=
   Compose.Expressions.ValidNames text context.names ∧
     (⟨context.dynamicFirst, context.dynamicAfter⟩ : Named.NameState).Valid text ∧
-    ScalarExpression.ValidEnvironment text context.scalarNames
+    ScalarExpression.ValidEnvironment text context.scalarNames ∧
+    ScalarMetadata.BaseReady context.scalarNames context.declarationCount
+
+/-- The native array and interval types contribute the bounded domains; the
+checked Valid_Flow predicate contributes active extent, immutable cells,
+declaration containment and nonempty mutable cells. -/
+def ValidFlow (context : Context) (facts : ActiveFlow) : Prop :=
+  facts.path.Bounded ∧ ScalarMetadata.FlowReady context.scalarNames context.declarationCount facts
+
+theorem ValidFlow.count_le {text : Source} {context : Context} {facts : ActiveFlow}
+    (cv : ValidContext text context) (fv : ValidFlow context facts) :
+    facts.count ≤ ScalarExpression.maxBindings := by
+  rw [fv.2.compatible.count]
+  exact cv.2.2.1.1
+
+theorem ValidFlow.join {context : Context} {left right : ActiveFlow}
+    (base : ScalarMetadata.BaseReady context.scalarNames context.declarationCount)
+    (a : ValidFlow context left) (b : ValidFlow context right) :
+    ValidFlow context (left.join right) :=
+  ⟨PathFacts.Context.join_bounded a.1 b.1, ScalarMetadata.FlowReady.join base a.2 b.2⟩
 
 inductive Token
   | leftParenthesis | rightParenthesis | argumentsName | dot | inputIsValid

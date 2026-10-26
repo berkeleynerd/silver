@@ -1,0 +1,146 @@
+{
+  "started_utc": "2026-10-26T09:04:57.751085+00:00",
+  "finished_utc": "2026-10-26T09:05:25.471111+00:00",
+  "elapsed_seconds": 27.719868722982937,
+  "selected_model": "GPT-6.1 Sol",
+  "selected_effort": "Extra High",
+  "runtime_settings": "unconfirmed",
+  "tokens": "unavailable",
+  "cost": "unavailable",
+  "scripts_sha256": {
+    "export-guard-evidence.py": "ea6180a6d2989831636b509b35792edcb3c4bcbbf0c5d60018207bf4e67c22d7",
+    "run-suite-with-renderer-capture.py": "9978a5fbf7bab7da412ef4dbbb155012e113ce97a8ce83369f182b6208e3f3c5",
+    "check-exporter.py": "00d5346f724da8b1e1779262ed744243e21b8cef5eedc4b8b66142ac06f57aee"
+  },
+  "project_validators_invoked": false,
+  "checks": [
+    {
+      "check": "completed focused parity extraction on final source",
+      "run_id": "20261026T084854-8fd2b4b2d2e8",
+      "target_commit": "bc9b0815ebf4c6be42abe50cb48a94b0ea08c5f5",
+      "result": "passed; complete suite not claimed",
+      "expected": 739,
+      "matched": 739
+    },
+    {
+      "check": "empty command",
+      "result": "rejected as expected",
+      "reason": "empty/invalid command"
+    },
+    {
+      "check": "omitted expected source",
+      "result": "rejected as expected",
+      "reason": "incomplete test input comparison: missing=['src/silver_output_profile.adb'], unexpected=[]"
+    },
+    {
+      "check": "changed captured source",
+      "result": "rejected as expected",
+      "reason": "captured/target mismatch: src/silver_output_profile.adb"
+    },
+    {
+      "check": "unfinished native event stream",
+      "result": "rejected as expected",
+      "reason": "expected one finished {}, found 0"
+    },
+    {
+      "check": "failed native result with tool exit zero",
+      "result": "rejected as expected",
+      "reason": "unfinished/failed run cannot be delivery evidence: 20261026T084316-ffe7696c9a8a"
+    },
+    {
+      "check": "empty captured inputs",
+      "result": "rejected as expected",
+      "reason": "empty input capture"
+    },
+    {
+      "check": "completed historical Lean extraction (PR #221 M1 class)",
+      "run_id": "20261026T005331-e0e3d7a0bf00",
+      "target_commit": "b7dfcbcdb00b8cfd6cba7cc5daae87114e6ae0d2",
+      "result": "passed; historical division source only",
+      "input_capture_event": "started",
+      "invocation_command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/scripts/check_lean.py",
+        "--workers",
+        "4",
+        "--threads",
+        "2",
+        "--task",
+        "#232"
+      ],
+      "commands": [
+        [
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/.tools/linux-x86_64/lean/bin/lake",
+          "--rehash",
+          "--reconfigure",
+          "-K",
+          "silverThreads=2",
+          "build",
+          "Silver.Audit"
+        ],
+        [
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/.tools/linux-x86_64/lean/bin/lake",
+          "-K",
+          "silverThreads=2",
+          "env",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/.tools/linux-x86_64/lean/bin/lean",
+          "-DwarningAsError=true",
+          "-j2",
+          "Silver/Audit.lean"
+        ]
+      ],
+      "comparison": {
+        "expected": 582,
+        "matched": 582,
+        "target_commit": "b7dfcbcdb00b8cfd6cba7cc5daae87114e6ae0d2",
+        "historical_capture_to_git_only": true,
+        "live_reused_sources_not_compared": true
+      }
+    },
+    {
+      "check": "completed historical native full extraction",
+      "run_id": "20261026T002857-50fd2281b177",
+      "target_commit": "b7dfcbcdb00b8cfd6cba7cc5daae87114e6ae0d2",
+      "result": "passed; historical division source only",
+      "fresh_auditor_scope": {
+        "source": "chosen complete managed native run; no duplicate audit",
+        "command": [
+          "/usr/bin/python3.14",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/scripts/check_evidence.py",
+          "--source-dir",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/src",
+          "--generated-dir",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.silver/linux-x86_64/generated",
+          "--report-dir",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.silver/linux-x86_64/compiler/obj/gnatprove"
+        ],
+        "command_evidence": "reconstructed from captured dev.py, captured Python identity and selected native workspace",
+        "command_reconstruction_limits": "resolved Python executable identity retained; original selector spelling unavailable",
+        "exit_code": 0,
+        "exit_code_evidence": "inferred from checked child invocation followed by audit phase-end and successful managed finish",
+        "enclosing_started_utc": "2026-10-26T02:05:20.119268+00:00",
+        "enclosing_finished_utc": "2026-10-26T02:05:39.826095+00:00",
+        "enclosing_elapsed_seconds": 19.706843468,
+        "timing_scope": "audit envelope includes in-process source audit, provenance completion and auditor child; separate child time unavailable",
+        "output": "Complete GNATprove evidence: 75 units, 1007 entities, 1303 flow_checks, 13921 proof_checks, 290 limitation_notes, 18 imported_entities, 6236 trusted_math_notes, 62 vendor_spec_entities",
+        "transcript": {
+          "inspection_only": true,
+          "would_retain": "runs/20261026T002857-50fd2281b177-native.log.gz",
+          "sha256": "f688f492c6719909353e2ec86c3981e7c3d7478ffc0230b83c6e1afc2ffea74d",
+          "bytes": 1193449
+        }
+      },
+      "comparison": {
+        "expected": 141,
+        "matched": 141,
+        "target_commit": "b7dfcbcdb00b8cfd6cba7cc5daae87114e6ae0d2",
+        "historical_capture_to_git_only": true,
+        "live_reused_sources_not_compared": true
+      }
+    },
+    {
+      "check": "both scripts compile",
+      "result": "passed"
+    }
+  ]
+}

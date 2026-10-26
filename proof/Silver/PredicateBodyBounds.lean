@@ -10,7 +10,7 @@ open Compose Bindings PathFacts
 attribute [local irreducible] ScalarExpression.read
 
 theorem basicRaw_factsBounded (text : Source) (context : ParseContext) (scan : BodyScan)
-    (bounded : scan.facts.Bounded) : (basicRaw text context scan).facts.Bounded := by
+    (bounded : scan.facts.path.Bounded) : (basicRaw text context scan).facts.path.Bounded := by
   unfold basicRaw
   cases basicKind text context scan with
   | null => exact bounded
@@ -25,7 +25,7 @@ theorem basicRaw_factsBounded (text : Source) (context : ParseContext) (scan : B
       dsimp only
       split
       · exact Context.empty_bounded
-      · exact bounded
+      · simpa only [ActiveFlow.replace_path] using bounded
   | assignment =>
       dsimp only
       split
@@ -33,7 +33,7 @@ theorem basicRaw_factsBounded (text : Source) (context : ParseContext) (scan : B
       · exact bounded
 
 theorem basicBody_factsBounded (text : Source) (context : ParseContext) (scan : BodyScan)
-    (bounded : scan.facts.Bounded) : (basicBody text context scan).facts.Bounded := by
+    (bounded : scan.facts.path.Bounded) : (basicBody text context scan).facts.path.Bounded := by
   unfold basicBody
   split
   · exact Context.empty_bounded
@@ -43,8 +43,8 @@ theorem basicBody_factsBounded (text : Source) (context : ParseContext) (scan : 
     · exact basicRaw_factsBounded text context scan bounded
 
 theorem branchStart_factsBounded (text : Source) (context : ParseContext) (scan : BodyScan) (keyword : String)
-    (bounded : scan.facts.Bounded) : (branchStart text context scan keyword).1.facts.Bounded ∧
-      (branchStart text context scan keyword).2.Bounded :=
+    (bounded : scan.facts.path.Bounded) : (branchStart text context scan keyword).1.facts.path.Bounded ∧
+      (branchStart text context scan keyword).2.path.Bounded :=
   readCondition_bounded text context _ _ bounded
 
 theorem loopContext_bounded {context : Context} (bounded : context.Bounded) (bounds : Integer.Interval) :
@@ -65,7 +65,7 @@ theorem loopAfter_bounded {before after : Context} (entry : before.Bounded) (bod
 
 mutual
   theorem statementBody_factsBounded (text : Source) (context : ParseContext) (scan : BodyScan)
-      (sv : scan.facts.Bounded) : (statementBody text context scan).facts.Bounded := by
+      (sv : scan.facts.path.Bounded) : (statementBody text context scan).facts.path.Bounded := by
     rw [statementBody]
     split
     · exact Context.empty_bounded
@@ -77,7 +77,7 @@ mutual
   termination_by (bodyRemaining text scan, 2)
 
   theorem loopBody_factsBounded (text : Source) (context : ParseContext) (scan : BodyScan)
-      (sv : scan.facts.Bounded) : (loopBody text context scan).facts.Bounded := by
+      (sv : scan.facts.path.Bounded) : (loopBody text context scan).facts.path.Bounded := by
     rw [loopBody]
     dsimp only
     split
@@ -97,7 +97,7 @@ mutual
   termination_by (bodyRemaining text scan, 1)
 
   theorem conditionalBody_factsBounded (text : Source) (context : ParseContext) (scan : BodyScan)
-      (sv : scan.facts.Bounded) : (conditionalBody text context scan).facts.Bounded := by
+      (sv : scan.facts.path.Bounded) : (conditionalBody text context scan).facts.path.Bounded := by
     rw [conditionalBody]
     dsimp only
     split
@@ -118,7 +118,7 @@ mutual
   termination_by (bodyRemaining text scan, 1)
 
   theorem alternativeBody_factsBounded (text : Source) (context : ParseContext) (scan : BodyScan)
-      (sv : scan.facts.Bounded) : (alternativeBody text context scan).facts.Bounded := by
+      (sv : scan.facts.path.Bounded) : (alternativeBody text context scan).facts.path.Bounded := by
     rw [alternativeBody]
     split
     · exact Context.empty_bounded
@@ -148,7 +148,7 @@ mutual
   termination_by (bodyRemaining text scan, 1)
 
   theorem bodyTail_factsBounded (text : Source) (context : ParseContext) (scan : BodyScan) (stop : BodyStop)
-      (sv : scan.facts.Bounded) : (bodyTail text context scan stop).facts.Bounded := by
+      (sv : scan.facts.path.Bounded) : (bodyTail text context scan stop).facts.path.Bounded := by
     rw [bodyTail]
     split
     · exact Context.empty_bounded
@@ -163,7 +163,7 @@ mutual
   termination_by (bodyRemaining text scan, 3)
 
   theorem readBody_factsBounded (text : Source) (context : ParseContext) (scan : BodyScan) (stop : BodyStop)
-      (sv : scan.facts.Bounded) : (readBody text context scan stop).facts.Bounded := by
+      (sv : scan.facts.path.Bounded) : (readBody text context scan stop).facts.path.Bounded := by
     rw [readBody]
     try dsimp only
     split

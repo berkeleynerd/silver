@@ -93,10 +93,10 @@ class IntegerLoopsTests(unittest.TestCase):
         self.check(qualified)
         self.check(qualified.replace(b'Silver_IO.Put("x")', b'Put("x")'), 2)
 
-    def test_loop_arithmetic_checks_whole_index_range_without_guard_refinement(self) -> None:
+    def test_loop_arithmetic_uses_guarded_index_ranges(self) -> None:
         self.check(program(b'', b'for I in -100..100 loop if (I * I)<=10000 then null;end if;end loop;'))
         self.check(program(b'', b'for I in 0..2147483647 loop if I<10 then '
-                                b'if (I + 1)>0 then null;end if;end if;end loop;'), 2)
+                                b'if (I + 1)>0 then null;end if;end if;end loop;'))
         self.check(program(b'', b'for I in 3..1 loop if (I + 2147483647)>0 then null;end if;end loop;'))
         self.check(program(b'', b'for I in 3..1 loop if (2147483647 + 1)>0 then null;end if;end loop;'), 2)
 

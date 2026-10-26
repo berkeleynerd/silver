@@ -1,0 +1,10 @@
+Managed run: 20261026T002558-1a825f2e8761 (/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261026T002558-1a825f2e8761)
+Compile
+   [Ada]          main.adb
+   [Ada]          silver_io.adb
+   [Ada]          silver_output_libc.ads
+Bind
+   [gprbind]      main~1.bexch
+   [Ada]          main~1.ali
+Link
+   [link]         main.adb

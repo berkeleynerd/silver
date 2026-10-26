@@ -1,0 +1,43 @@
+Phase 1 of 3: generation of data representation information ...
+Phase 2 of 3: generation of Global contracts ...
+Phase 3 of 3: flow analysis and proof ...
+ info: implicit aspect Always_Terminates on "Scalar_Condition" has been proved, subprogram will terminate
+--> silver_output_profile.adb:1687:13
+
+ info: data dependencies proved
+--> silver_output_profile.adb:1691:28
+
+ info: precondition proved
+--> silver_output_profile.adb:1693:19
+
+ info: overflow check proved
+--> silver_output_profile.adb:1694:41
+
+ info: overflow check proved
+--> silver_output_profile.adb:1694:82
+
+ info: overflow check proved
+--> silver_output_profile.adb:1695:43
+
+ info: overflow check proved
+--> silver_output_profile.adb:1695:81
+
+ info: precondition proved
+--> silver_output_profile.adb:1701:68
+
+ info: precondition proved
+--> silver_output_profile.adb:1702:69
+
+ info: precondition proved
+--> silver_output_profile.adb:1716:23
+
+ info: discriminant check proved
+--> silver_output_profile.adb:1716:23
+
+ info: precondition proved
+--> silver_output_profile.adb:1717:24
+
+ info: discriminant check proved
+--> silver_output_profile.adb:1717:24
+Success: all checks proved (13 checks).
+Summary logged in /home/canto/src/github.com/berkeleynerd/silver/tmp/guard-native-check/obj/explore/guard/gnatprove/gnatprove.out

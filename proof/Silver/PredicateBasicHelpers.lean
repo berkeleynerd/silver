@@ -1,6 +1,6 @@
 module
 
-public import Silver.PredicateBasicEquations
+public import Silver.PredicateBasicSizing
 public import Silver.PredicateNativeLibraries
 public import Silver.PredicateScalarBodyHelpers
 
@@ -8,8 +8,7 @@ public import Silver.PredicateScalarBodyHelpers
 namespace Silver.Predicate.BasicNative
 open Compose Bindings
 
-/-- Exactly the literal token arguments occurring in the typed Basic_Body.
-The native finite Token_Kind representation excludes arbitrary spellings. -/
+/-- Exactly the literal token arguments occurring in the typed Basic_Body. -/
 def basicTokens : List ShellToken :=
   [.word "null", .word "silver_io", .symbol ".", .word "put_line", .symbol "(",
    .symbol ")", .word "silver_arguments", .word "reject", .symbol ":=", .symbol ";"]
@@ -21,18 +20,16 @@ def ExpressionDomain (text : Source) (position : Nat) (names : Compose.BindingEn
   Expressions.ValidText text ∧ Expressions.ValidCursor text position ∧ Expressions.ValidNames text names ∧
     ScalarExpression.ValidEnvironment text scalarNames
 
-def TargetDomain (text : Source) (state : ParserState) : Prop :=
-  Expressions.ValidText text ∧ Expressions.ValidState text state
+abbrev TargetDomain := ScalarBodyNative.TargetDomain
+abbrev ScalarTargetDomain := TargetDomain
+abbrev ScalarAssignmentDomain := ScalarBodyNative.AssignmentDomain
 
-def ScalarTargetDomain (text : Source) (context : Native.Context) (position : Nat) : Prop :=
-  Expressions.ValidText text ∧ Native.ValidContext text context ∧ Expressions.ValidCursor text position
+def BodyTokenDomain (text : Source) (context : Native.Context) (scan : BodyScan) (token : ShellToken) : Prop :=
+  ScalarAssignmentDomain text context scan ∧ token ∈ basicTokens
 
-def ScalarAssignmentDomain (text : Source) (context : Native.Context) (scan : BodyScan) : Prop :=
-  ScalarTargetDomain text context scan.position ∧ scan.target ≤ context.names.length
+def FlowDomain (text : Source) (context : Native.Context) (position : Nat) (facts : ActiveFlow) : Prop :=
+  FlowReaders.Legal {text,context,position,facts}
 
-/-- Pointwise meanings on the checked native call domains. The path operations
-already have unconditional scalar projections in PathFactsSourceBridge and
-sameLength_project; no out-of-domain Compose helper equality is assumed. -/
 structure HelperMeaning (primitive : Primitives) : Prop where
   callAfter : ∀ text names position operation scalarNames, ExpressionDomain text position names scalarNames →
     primitive.callAfter text names position operation scalarNames = Compose.callAfter text names position operation scalarNames
@@ -40,10 +37,13 @@ structure HelperMeaning (primitive : Primitives) : Prop where
     primitive.associationAfter text position formal = Names.associationAfter text position formal
   token : ∀ text position token, TokenDomain text position token →
     primitive.token text position token = tokenAfter text position token
-  expression : ∀ text position names scalarNames, ExpressionDomain text position names scalarNames →
-    primitive.expression text position names scalarNames = expressionAt text position names scalarNames
-  target : ∀ text state sameTarget, TargetDomain text state →
-    primitive.target text state sameTarget = targetAt text state sameTarget
+  expression : ∀ text context position facts, FlowDomain text context position facts →
+    primitive.expression text context position facts = expressionAt text position context.names (context.model.readingNames facts)
+  target : ∀ text context position, TargetDomain text context position →
+    primitive.target text context position = ScalarBodyNative.stringTargetEval ScalarBodyNative.modelImports text context position
+  bodyToken : ∀ text context scan token, BodyTokenDomain text context scan token →
+    primitive.bodyToken text context scan token = Predicate.bodyToken text scan token
+  invalid : ∀ scan, scan.count ≤ ScalarExpression.maxBindings → primitive.invalid scan = invalidBody scan
   scalarTarget : ∀ text context position, ScalarTargetDomain text context position →
     primitive.scalarTarget text context position = Predicate.scalarTarget text context.model position
   scalarAssignment : ∀ text context scan, ScalarAssignmentDomain text context scan →
@@ -52,9 +52,8 @@ structure HelperMeaning (primitive : Primitives) : Prop where
   sameLength : ∀ facts left right, primitive.sameLength facts left right = equalLengthIntervals facts left right
   reject : ∀ facts, primitive.reject facts = facts.reject
 
-/-- Formal total-function extension, not an executable check or replacement.
-Exact native contracts and GNATprove establish legality of executed calls; the
-typed source equations use this extension. All legal call values are retained. -/
+/-- Outside verified native call domains this formal extension uses the model.
+Its legal values and every complete flow record remain unchanged. -/
 noncomputable def totalize (primitive : Primitives) : Primitives := by
   classical
   exact {
@@ -64,10 +63,13 @@ noncomputable def totalize (primitive : Primitives) : Primitives := by
       primitive.associationAfter text position formal else Names.associationAfter text position formal
     token := fun text position token => if TokenDomain text position token then
       primitive.token text position token else tokenAfter text position token
-    expression := fun text position names scalarNames => if ExpressionDomain text position names scalarNames then
-      primitive.expression text position names scalarNames else expressionAt text position names scalarNames
-    target := fun text state sameTarget => if TargetDomain text state then
-      primitive.target text state sameTarget else targetAt text state sameTarget
+    expression := fun text context position facts => if FlowDomain text context position facts then
+      primitive.expression text context position facts else expressionAt text position context.names (context.model.readingNames facts)
+    target := fun text context position => if TargetDomain text context position then
+      primitive.target text context position else ScalarBodyNative.stringTargetEval ScalarBodyNative.modelImports text context position
+    bodyToken := fun text context scan token => if BodyTokenDomain text context scan token then
+      primitive.bodyToken text context scan token else Predicate.bodyToken text scan token
+    invalid := fun scan => if scan.count ≤ ScalarExpression.maxBindings then primitive.invalid scan else invalidBody scan
     scalarTarget := fun text context position => if ScalarTargetDomain text context position then
       primitive.scalarTarget text context position else Predicate.scalarTarget text context.model position
     scalarAssignment := fun text context scan => if ScalarAssignmentDomain text context scan then
@@ -75,41 +77,6 @@ noncomputable def totalize (primitive : Primitives) : Primitives := by
     fits := primitive.fits
     sameLength := primitive.sameLength
     reject := primitive.reject }
-
-theorem totalize_callAfter (primitive : Primitives) (text : Source) (names : Compose.BindingEnvironment)
-    (position : Nat) (operation : Names.Operation) (scalarNames : ScalarExpression.Environment) (valid : ExpressionDomain text position names scalarNames) :
-    (totalize primitive).callAfter text names position operation scalarNames = primitive.callAfter text names position operation scalarNames := by
-  simp only [totalize, valid, ↓reduceIte]
-
-theorem totalize_associationAfter (primitive : Primitives) (text : Source) (position : Nat) (formal : Bool)
-    (valid : Expressions.ValidText text ∧ Expressions.ValidCursor text position) :
-    (totalize primitive).associationAfter text position formal = primitive.associationAfter text position formal := by
-  simp only [totalize, valid, and_self, ↓reduceIte]
-
-theorem totalize_token (primitive : Primitives) (text : Source) (position : Nat) (token : ShellToken)
-    (valid : TokenDomain text position token) :
-    (totalize primitive).token text position token = primitive.token text position token := by
-  simp only [totalize, valid, ↓reduceIte]
-
-theorem totalize_expression (primitive : Primitives) (text : Source) (position : Nat) (names : Compose.BindingEnvironment) (scalarNames : ScalarExpression.Environment)
-    (valid : ExpressionDomain text position names scalarNames) :
-    (totalize primitive).expression text position names scalarNames = primitive.expression text position names scalarNames := by
-  simp only [totalize, valid, ↓reduceIte]
-
-theorem totalize_target (primitive : Primitives) (text : Source) (state : ParserState) (sameTarget : Bool)
-    (valid : TargetDomain text state) :
-    (totalize primitive).target text state sameTarget = primitive.target text state sameTarget := by
-  simp only [totalize, valid, ↓reduceIte]
-
-theorem totalize_scalarTarget (primitive : Primitives) (text : Source) (context : Native.Context) (position : Nat)
-    (valid : ScalarTargetDomain text context position) :
-    (totalize primitive).scalarTarget text context position = primitive.scalarTarget text context position := by
-  simp only [totalize, valid, ↓reduceIte]
-
-theorem totalize_scalarAssignment (primitive : Primitives) (text : Source) (context : Native.Context) (scan : BodyScan)
-    (valid : ScalarAssignmentDomain text context scan) :
-    (totalize primitive).scalarAssignment text context scan = primitive.scalarAssignment text context scan := by
-  simp only [totalize, valid, ↓reduceIte]
 
 theorem totalize_equations {primitive : Primitives} (meaning : HelperMeaning primitive) :
     PrimitiveEquations (totalize primitive) where
@@ -132,16 +99,28 @@ theorem totalize_equations {primitive : Primitives} (meaning : HelperMeaning pri
     · exact meaning.token text position token ‹_›
     · rfl
   expression := by
-    funext text position names scalarNames
+    funext text context position facts
     dsimp only [totalize]
     split
-    · exact meaning.expression text position names scalarNames ‹_›
+    · exact meaning.expression text context position facts ‹_›
     · rfl
   target := by
-    funext text state sameTarget
+    funext text context position
     dsimp only [totalize]
     split
-    · exact meaning.target text state sameTarget ‹_›
+    · exact meaning.target text context position ‹_›
+    · rfl
+  bodyToken := by
+    funext text context scan token
+    dsimp only [totalize]
+    split
+    · exact meaning.bodyToken text context scan token ‹_›
+    · rfl
+  invalid := by
+    funext scan
+    dsimp only [totalize]
+    split
+    · exact meaning.invalid scan ‹_›
     · rfl
   scalarTarget := by
     funext text context position
@@ -159,8 +138,9 @@ theorem totalize_equations {primitive : Primitives} (meaning : HelperMeaning pri
   sameLength := funext fun facts => funext fun left => funext fun right => meaning.sameLength facts left right
   reject := funext meaning.reject
 
-/-- Source equations interpret a verified native body with totalized primitives.
-The derived global equality belongs only to those formal extensions. -/
+theorem totalize_eq_model {primitive : Primitives} (meaning : HelperMeaning primitive) :
+    totalize primitive = modelPrimitives := (totalize_equations meaning).eq_model
+
 theorem basicEval_normalized {primitive : Primitives} (meaning : HelperMeaning primitive)
     (text : Source) (context : Native.Context) (scan : BodyScan) :
     basicEval (totalize primitive) text context scan = basicBody text context.model scan :=
@@ -172,6 +152,8 @@ theorem model_helper_meaning : HelperMeaning modelPrimitives where
   token _ _ _ _ := rfl
   expression _ _ _ _ _ := rfl
   target _ _ _ _ := rfl
+  bodyToken _ _ _ _ _ := rfl
+  invalid _ _ := rfl
   scalarTarget _ _ _ _ := rfl
   scalarAssignment _ _ _ _ := rfl
   fits _ _ := rfl
@@ -209,67 +191,5 @@ theorem basic_tokens_complete :
   intro token present
   exact of_decide_eq_true ((List.all_eq_true.mp checked) token present)
 
-/-- Callee wiring to inherited declaration/expression helpers and the exact
-typed path-library bodies. Native path records are projected only after body
-evaluation; the independent path meanings are derived below. -/
-structure Links (primitive : Primitives) (inherited : Expressions.Calls) : Prop where
-  callAfter : primitive.callAfter = inherited.function .callAfter
-  associationAfter : primitive.associationAfter = inherited.names.associationAfter
-  token : primitive.token = inherited.function .takeToken
-  expression : primitive.expression = fun text position names scalarNames => inherited.function .expression text position names scalarNames false
-  target : primitive.target = inherited.function .target
-  scalarTarget : ∀ text context position, ScalarTargetDomain text context position →
-    primitive.scalarTarget text context position =
-      ScalarBodyNative.targetEval (ScalarBodyNative.totalize (ScalarBodyNative.inheritedImports inherited)) text context position
-  scalarAssignment : ∀ text context scan, ScalarAssignmentDomain text context scan →
-    primitive.scalarAssignment text context scan =
-      ScalarBodyNative.assignmentEval (ScalarBodyNative.totalize (ScalarBodyNative.inheritedImports inherited)) text context scan
-  fits : ∀ (facts : PathFacts.Native.Context) summary,
-    primitive.fits facts.model summary =
-      LengthIntervals.Native.fitsBody.eval ({facts, value := summary} : LengthIntervals.Native.Inputs).locals
-  sameLength : ∀ (facts : PathFacts.Native.Context) left right,
-    primitive.sameLength facts.model left right = LengthIntervals.Native.sameLengthBody.eval
-      ({facts, left, right} : LengthIntervals.Native.Inputs).locals
-  reject : ∀ facts : PathFacts.Native.Context,
-    primitive.reject facts.model =
-      (PathFacts.Native.rejectedBody.eval ({facts} : Native.Libraries.PathInputs).locals).model
-
-theorem HelperMeaning.of_inherited {primitive : Primitives} {inherited : Expressions.Calls}
-    (source : Expressions.HelperEquations inherited) (links : Links primitive inherited) :
-    HelperMeaning primitive where
-  callAfter text names position operation scalarNames valid := by
-    rw [links.callAfter]
-    exact Expressions.interpreted_callAfter inherited source text valid.1 names position operation valid.2.2.1 valid.2.1 valid.2.2.2
-  associationAfter text position formal valid bounded := by
-    rw [links.associationAfter]
-    exact Names.interpreted_association inherited.names source.names text valid position formal bounded
-  token text position token valid := by
-    rw [links.token, Expressions.interpreted_take inherited source text valid.1 position token
-      valid.2.1 (basicToken_valid token valid.2.2)]
-    exact basicToken_model text position token valid.2.2
-  expression text position names scalarNames valid := by
-    rw [links.expression]
-    exact Expressions.interpreted_expression inherited source text valid.1 position names valid.2.1 valid.2.2.1 valid.2.2.2
-  target text state sameTarget valid := by
-    rw [links.target]
-    exact Expressions.interpreted_target inherited source text valid.1 state sameTarget valid.2
-  scalarTarget text context position valid := by
-    rw [links.scalarTarget text context position valid]
-    exact ScalarBodyNative.targetEval_inherited source text context position
-  scalarAssignment text context scan valid := by
-    rw [links.scalarAssignment text context scan valid]
-    exact ScalarBodyNative.assignmentEval_inherited source text context scan
-  fits facts summary := by
-    have equation := links.fits (Native.Libraries.reify facts) summary
-    simpa only [LengthIntervals.Native.fitsBody_eval,
-      LengthIntervals.Native.fits_model, Native.Libraries.reify_model] using equation
-  sameLength facts left right := by
-    have equation := links.sameLength (Native.Libraries.reify facts) left right
-    simpa only [LengthIntervals.Native.sameLengthBody_eval,
-      LengthIntervals.Native.sameLength_model, Native.Libraries.reify_model] using equation
-  reject facts := by
-    have equation := links.reject (Native.Libraries.reify facts)
-    simpa only [PathFacts.Native.rejectedBody_eval, Native.Libraries.PathInputs.locals,
-      PathFacts.Native.rejected_model, Native.Libraries.reify_model] using equation
 
 end Silver.Predicate.BasicNative

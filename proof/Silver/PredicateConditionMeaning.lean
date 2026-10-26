@@ -7,13 +7,13 @@ public import Silver.PredicateConditionReadings
 namespace Silver.Predicate
 open Compose Bindings PathFacts
 
-structure ConditionMeaning (context : ParseContext) (facts : Context)
+structure ConditionMeaning (context : ParseContext) (facts : ActiveFlow)
     (condition : Condition) (result : ConditionResult) : Prop where
   grammatical : condition.Grammatical
   readable : condition.Readable context.hasArguments context.names.shape
-  checked : condition.checkBounds context.names.shape facts (ScalarExpression.ranges context.scalarNames) = true
-  whenTrue : result.whenTrue = condition.refine context.names.shape facts true (ScalarExpression.ranges context.scalarNames)
-  whenFalse : result.whenFalse = condition.refine context.names.shape facts false (ScalarExpression.ranges context.scalarNames)
+  checked : condition.checkBounds context.names.shape context.analysis facts.model = true
+  whenTrue : result.whenTrue.model = condition.refine context.names.shape context.analysis facts.model true
+  whenFalse : result.whenFalse.model = condition.refine context.names.shape context.analysis facts.model false
 
 def ChainShape (chained : Option Bool) (condition : Condition) : Prop :=
   match chained with
@@ -55,25 +55,29 @@ theorem ConditionMeaning.chain {context facts left leftResult right rightResult 
     (head : (if operator then left.isAndHead else left.isOrHead) = true)
     (relation : right.isRelation = true) :
     ConditionMeaning context facts (chainCondition left right operator) (chainJoin leftResult rightResult operator) := by
+  have checkedRight := rightMeaning.checked
+  have trueRight := rightMeaning.whenTrue
+  have falseRight := rightMeaning.whenFalse
   cases operator with
   | false =>
-      simp only [chainContext, Bool.false_eq_true, ↓reduceIte, leftMeaning.whenFalse] at rightMeaning
+      simp only [chainContext, Bool.false_eq_true, ↓reduceIte, leftMeaning.whenFalse]
+        at checkedRight trueRight falseRight
       refine ⟨⟨head, relation, leftMeaning.grammatical, rightMeaning.grammatical⟩,
         ⟨leftMeaning.readable, rightMeaning.readable⟩, ?_, ?_, ?_⟩
       · simp only [chainCondition, Bool.false_eq_true, ↓reduceIte, Condition.checkBounds,
-          leftMeaning.checked, rightMeaning.checked, Bool.and_self]
+          leftMeaning.checked, checkedRight, Bool.and_self]
       · simp only [chainJoin, chainCondition, Bool.false_eq_true, ↓reduceIte, Condition.refine,
-          leftMeaning.whenTrue, rightMeaning.whenTrue]
+          ActiveFlow.join_model, leftMeaning.whenTrue, trueRight]
       · simp only [chainJoin, chainCondition, Bool.false_eq_true, ↓reduceIte, Condition.refine,
-          rightMeaning.whenFalse]
+          falseRight]
   | true =>
-      simp only [chainContext, ↓reduceIte, leftMeaning.whenTrue] at rightMeaning
+      simp only [chainContext, ↓reduceIte, leftMeaning.whenTrue] at checkedRight trueRight falseRight
       refine ⟨⟨head, relation, leftMeaning.grammatical, rightMeaning.grammatical⟩,
         ⟨leftMeaning.readable, rightMeaning.readable⟩, ?_, ?_, ?_⟩
       · simp only [chainCondition, ↓reduceIte, Condition.checkBounds,
-          leftMeaning.checked, rightMeaning.checked, Bool.and_self]
-      · simp only [chainJoin, chainCondition, ↓reduceIte, Condition.refine, rightMeaning.whenTrue]
-      · simp only [chainJoin, chainCondition, ↓reduceIte, Condition.refine,
-          leftMeaning.whenFalse, rightMeaning.whenFalse, Bool.false_eq_true]
+          leftMeaning.checked, checkedRight, Bool.and_self]
+      · simp only [chainJoin, chainCondition, ↓reduceIte, Condition.refine, trueRight]
+      · simp only [chainJoin, chainCondition, ↓reduceIte, Condition.refine, ActiveFlow.join_model,
+          leftMeaning.whenFalse, falseRight, Bool.false_eq_true]
 
 end Silver.Predicate

@@ -1,0 +1,503 @@
+{
+  "run_id": "20261026T084316-ffe7696c9a8a",
+  "implementation_commit": "d039e68dba2f8e2448b095849e8d9e7c4ee2a500",
+  "managed_outcome": "failure",
+  "native_tool_returncode": 0,
+  "native_tool_checks_proved": 16357,
+  "duration_seconds": 7292.199032778,
+  "audit_error": "EvidenceError: silver_output_profile: warn_error diagnostic is not proved/info: {'check_tree': {}, 'col': 16, 'file': 'silver_output_profile.adb', 'how_proved': 'trivial', 'line': 1161, 'message': {'text': 'initialization of an array in FOR loop is handled imprecisely [array-initialization]'}, 'rule': 'array-initialization', 'severity': 'warning', 'suppressed': '', 'unproved_status': {'status': 'unknown'}}",
+  "array_initialization_records": [
+    {
+      "check_tree": {},
+      "col": 16,
+      "file": "silver_output_profile.adb",
+      "how_proved": "trivial",
+      "line": 1161,
+      "message": {
+        "text": "initialization of an array in FOR loop is handled imprecisely [array-initialization]"
+      },
+      "rule": "array-initialization",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {},
+      "col": 16,
+      "file": "silver_output_profile.adb",
+      "how_proved": "trivial",
+      "line": 1283,
+      "message": {
+        "text": "initialization of an array in FOR loop is handled imprecisely [array-initialization]"
+      },
+      "rule": "array-initialization",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {},
+      "col": 32,
+      "file": "silver_output_profile.adb",
+      "how_proved": "trivial",
+      "line": 2060,
+      "message": {
+        "text": "initialization of an array in FOR loop is handled imprecisely [array-initialization]"
+      },
+      "rule": "array-initialization",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {},
+      "col": 33,
+      "file": "silver_output_profile.adb",
+      "how_proved": "trivial",
+      "line": 2061,
+      "message": {
+        "text": "initialization of an array in FOR loop is handled imprecisely [array-initialization]"
+      },
+      "rule": "array-initialization",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    },
+    {
+      "check_tree": {},
+      "col": 29,
+      "file": "silver_output_profile.adb",
+      "how_proved": "trivial",
+      "line": 2883,
+      "message": {
+        "text": "initialization of an array in FOR loop is handled imprecisely [array-initialization]"
+      },
+      "rule": "array-initialization",
+      "severity": "warning",
+      "suppressed": "",
+      "unproved_status": {
+        "status": "unknown"
+      }
+    }
+  ],
+  "limits": [
+    "All native checks proved, but the managed full audit failed.",
+    "No completed full proof provenance or successful check_evidence child is claimed for this run.",
+    "The build/full-suite continuation stopped before modifying any inputs."
+  ],
+  "artifacts": {
+    "events.jsonl.gz": {
+      "sha256": "99eea58deeb1e0ec40ee3992516a53f39cb42cf4cfc1c5df8f10b082716cbdd7",
+      "compressed_sha256": "70e76f7682b03e05fe1b409c4b5e4faa12f6c8c0f2f6ea91bda6152267d0f665",
+      "bytes": 464011
+    },
+    "native.log.gz": {
+      "sha256": "473550d1c08449fc093648fa23a2a1511dd4d903e6ee6a07b56acedb24dea5b1",
+      "compressed_sha256": "87300078244d7a449819c1127ffb4dacae332a4a2d9c111b18d6e4e1c2e187e5",
+      "bytes": 1271537
+    },
+    "reports/gnatprove.out.gz": {
+      "sha256": "4726eab77a3dad733b423836094fea52cc1122fee4c4087e04e9a1b238b4c916",
+      "compressed_sha256": "df63db935b2eade09183c92915905e4cdb1e345ed21130ff6957ac3977cad44f",
+      "bytes": 196649
+    },
+    "reports/gnatprove.sarif.gz": {
+      "sha256": "494a844e55631ab9590b6366434e58f6fea0863543e2eec18829a0b7c4dd2393",
+      "compressed_sha256": "1167818f8eb53bdb035ec410788cf18be006bd8de6ed7134af91a05c8de499cc",
+      "bytes": 6928422
+    },
+    "reports/silver.spark.gz": {
+      "sha256": "81487a08c63c464af65480de28d0baa86fa18717027ce7fb0195b6a2cf44a1f5",
+      "compressed_sha256": "6e77093f946e04b881326428eadb1aea42260ac05a8cb3a42252151985d11088",
+      "bytes": 326251
+    },
+    "reports/silver_arguments.spark.gz": {
+      "sha256": "7ab37318162d16cb574570619072abfaa11d929d73fbfcdc84a4648f36001ef6",
+      "compressed_sha256": "b2858476d3888ca043d8823341bd5312b7f54cac8a6b38a3a7b669e70ad4d0e9",
+      "bytes": 34283
+    },
+    "reports/silver_build.spark.gz": {
+      "sha256": "f960c2fbb2e134cf67c5ebae27819243a71d36714e57e76681965dfe77554c9d",
+      "compressed_sha256": "b82626699dc548ba7d5a1017df9cc64ca2ee13e005e17c4d2159a0538aea269c",
+      "bytes": 838
+    },
+    "reports/silver_catalogue.spark.gz": {
+      "sha256": "21ff3436befecbee9ab4980f572bc350e6eceb954b0b9e2550c612f5baa8a892",
+      "compressed_sha256": "331e42ceae17bf05f2c4330b4cd5ede878dcda3fb09eab206b5e666dccfb4865",
+      "bytes": 94119
+    },
+    "reports/silver_image_adapter.spark.gz": {
+      "sha256": "a1159bff45be4804b15cf16332665f3a592d3fca679b36368c7103cffa939de4",
+      "compressed_sha256": "4c3c2f5a8275a58864d5ea0f95830c16a47f34d4eeeebbd55557df7b9ccce99b",
+      "bytes": 216669
+    },
+    "reports/silver_image_config.spark.gz": {
+      "sha256": "693da82e3d4a8607690107330f139a8c3cc356f360ae6458c41f0d30d2e2222a",
+      "compressed_sha256": "e009b63e38a75f85002feaf8529f75c6cfae78c0ce011eab0525f91ac605db5f",
+      "bytes": 852
+    },
+    "reports/silver_image_files.spark.gz": {
+      "sha256": "342e490937ccd2b3f41360bbedb6f02ade1d28b22871509f57f63c046a406ebe",
+      "compressed_sha256": "eadc0da9897da5cbb42942af3765e4829f2b32869eeef83c08dbc12683bb8e5a",
+      "bytes": 305356
+    },
+    "reports/silver_image_install.spark.gz": {
+      "sha256": "0f3a2923532eedd984a9572fbc002577aa506004935805d447d0083e78795604",
+      "compressed_sha256": "e4e43e2364c33a6cc00a733b81c2e85b67ea9d45632db10fce463a4eaeb19de9",
+      "bytes": 83179
+    },
+    "reports/silver_image_libc.spark.gz": {
+      "sha256": "3525c03feeb6381eb292f3c3e0b23c9761d3485bb64a776ad952522a7da3abfc",
+      "compressed_sha256": "4ac4faea4e9de5d178d098b77d7c537a746ce518183fed4be371d4f11f276fed",
+      "bytes": 1130
+    },
+    "reports/silver_image_model.spark.gz": {
+      "sha256": "08f351d7b7dd88daefe845ed6ebd9d9396ced123ffb1249ca23fd42112610d49",
+      "compressed_sha256": "a587a87dd899c64e1bd8110651a8005d3b998ff527c7cd81d645fa9cc545c70c",
+      "bytes": 550736
+    },
+    "reports/silver_image_model_templates.spark.gz": {
+      "sha256": "331e3bcf5a8ffda102bff960dd10f6f1721fdcc79d1304e70dfb885788dcaa0c",
+      "compressed_sha256": "c62abc499af096b20708e9cff341c3cbaa477f3ee1f08fc256b3b516ce4ab99f",
+      "bytes": 26039
+    },
+    "reports/silver_image_runtime.spark.gz": {
+      "sha256": "fd3bd26ad1176dab6be2edceb8485ef5f65d330b17f498c849cb57c4a4ef1ca4",
+      "compressed_sha256": "85f0f65b6061d3b94cdf98875ab93c0f45cde375d98d8fb5a64b6dd4c667070f",
+      "bytes": 1153
+    },
+    "reports/silver_image_theory.spark.gz": {
+      "sha256": "70ec615d66087736bbfb448e972f2df4282ce0beb7499709b4820d3da0396926",
+      "compressed_sha256": "6658ce8d65b511c9e2377e29dc335f96bc0f040ba5a40a2c05c5934885e4ef97",
+      "bytes": 852
+    },
+    "reports/silver_integer_image.spark.gz": {
+      "sha256": "f80b7e83809c4b6a9e9c135d3433bcd65d42449d423d838d842c5c69f6d4bb3b",
+      "compressed_sha256": "0c5eaa1a6832aa02b53d09cd9d1a4da8738a89c91b05ff803b82bf98c13bb8d6",
+      "bytes": 3112
+    },
+    "reports/silver_integer_literals.spark.gz": {
+      "sha256": "f03da1d0ad2de899c68229ffb0876fafaec98fc92053c340b58aada979a82cdc",
+      "compressed_sha256": "55c665a6f065b0a70b913e4c1da4110b673330d22dffcf635f36adc50875a108",
+      "bytes": 274472
+    },
+    "reports/silver_io.spark.gz": {
+      "sha256": "35753a45389f98f66c4f34fa461b247e37c92c03261dd2cea6576280c025bb85",
+      "compressed_sha256": "aaabc33aafa6c57789ed704a7cf5aab1d06a737b1aec06148844893ff447a874",
+      "bytes": 82886
+    },
+    "reports/silver_length_intervals.spark.gz": {
+      "sha256": "f0bf7a2d5e9feb1385348ec64ff9917dc4c9c67181752cf83ce60b30440edc69",
+      "compressed_sha256": "1bcbcbbe6572e5d4251cbec2b6fe478137d441db6963f7b255177563d2667c0a",
+      "bytes": 28414
+    },
+    "reports/silver_libc.spark.gz": {
+      "sha256": "9aca985b68a69d8a396d0db2f08b504eb275f896c7ba3e48dca1cef271b27f8e",
+      "compressed_sha256": "3c5dd469bc821ce40287a2763a7824c1fc4ae8030bc3a43f3d62c1b933dc4921",
+      "bytes": 3010
+    },
+    "reports/silver_libraries.spark.gz": {
+      "sha256": "dfa2767833f7908dc4027e8015d683c4e3afa007e2de06c9f743134e54bd107d",
+      "compressed_sha256": "80a5201d0a0ea2d519d2feccee13c5b9d47e105a069342feae0fa5d79e7e4ad8",
+      "bytes": 170116
+    },
+    "reports/silver_library_reports.spark.gz": {
+      "sha256": "aa9b5063b11f447be1dc7ea2c078aa70cbf03b002bfa13434adf23b7c5182586",
+      "compressed_sha256": "dbd24fa51be24a8b8a2e651e2f87ae745ff28645e5f80c053c815bedf74e3dc0",
+      "bytes": 7132921
+    },
+    "reports/silver_library_sources.spark.gz": {
+      "sha256": "223e63b3a9d28826f43eac968085a777c34b50b2176c1d889086fe097fd5fe14",
+      "compressed_sha256": "291d994d4d256934d06ec066cd0c7b6832ad770d46b49a9b21cabde05e25bc9c",
+      "bytes": 858
+    },
+    "reports/silver_names.spark.gz": {
+      "sha256": "63c3faedfc0499f23c51d9b4f65e2b54e7a59138c22a04c4243d06250f29a6e0",
+      "compressed_sha256": "24461fb325ba10d083b276247f6c8f3028577fa7497dbbccd7745940cfa98956",
+      "bytes": 241750
+    },
+    "reports/silver_numbers.spark.gz": {
+      "sha256": "6ce53edbad3cce5ba776d7e80dbbd257341986b42549d431f0ef85be5392358f",
+      "compressed_sha256": "3b19625ce784324f4d24b6194509f9851f4bb043f4640fea1d23ffa1b89e656d",
+      "bytes": 66146
+    },
+    "reports/silver_output_lexical.spark.gz": {
+      "sha256": "a2c2bbbfa33f95520fae00539d77fd886220da707208ea58d3d7b76afe4ecb24",
+      "compressed_sha256": "9d4c611c04363d5529e82f9cb944257d48ed553238fbf96f651bbbc58060e7b0",
+      "bytes": 646897
+    },
+    "reports/silver_output_libc.spark.gz": {
+      "sha256": "62d6c781314f798a3fe90ad0da9a61f9b5cbd216551e85151ad97de1ed930d94",
+      "compressed_sha256": "c6883c74b1d056ba117700405dc43d07d81be891c58a28c583ac3ca7d92ac49a",
+      "bytes": 1715
+    },
+    "reports/silver_output_profile.spark.gz": {
+      "sha256": "5c9b5c8e040a97824340f9f87bb7060a63618180efde5093c511cdd4ce76aeff",
+      "compressed_sha256": "69bb31dfcf6af1743f0537f309ac24b83177886120fe7c7ff6071483b62231f0",
+      "bytes": 5387607
+    },
+    "reports/silver_path_facts.spark.gz": {
+      "sha256": "eb0114d8f6111546d1a42d4bd720822c40d02a6bb568b095ec5ccaf89284890a",
+      "compressed_sha256": "07cfc02cd987752a61d2d7be7b496ae268654873923186bda70055dba0a409de",
+      "bytes": 46690
+    },
+    "reports/silver_platform.spark.gz": {
+      "sha256": "3f1dea73b561f0eaa5425d7fbcf87ffc3a4b4b653ff8e5e838d9ef96a187c1ec",
+      "compressed_sha256": "a111e604b53c7c5b54407dd0167dba4a19cc6a2153204259424bdf20f3b561f7",
+      "bytes": 292379
+    },
+    "reports/silver_process_runtime.spark.gz": {
+      "sha256": "181476d90901001c2b1380800d23f007511b9db5729f6e7a5fd3557ab1bc7645",
+      "compressed_sha256": "70839c5c69de2bbc1f797587ffd009815761e8451e68af528c28ddab03d38d4e",
+      "bytes": 4533
+    },
+    "reports/silver_profile.spark.gz": {
+      "sha256": "65a0d8614803576936c6746970487ab1052ba3eedaccad15237092603e624855",
+      "compressed_sha256": "6a616247f51c8d6dc5b1939c1d8f124b151cba50de64ef87488cce89177a55e3",
+      "bytes": 378006
+    },
+    "reports/silver_report_observation_assembly.spark.gz": {
+      "sha256": "80449fbcb4888de3309c750e64f5ebba2f9acb9aa4dd58d8d487ed74ed7152bd",
+      "compressed_sha256": "cc517c6f45f95dcd37daefae12378799492ee183c85d83dae054e1cd37419db1",
+      "bytes": 465945
+    },
+    "reports/silver_report_observation_composition.spark.gz": {
+      "sha256": "53260f6bd2b0d6e6a927126766085c0e44e159921024555761de57a38efd4964",
+      "compressed_sha256": "2b84a5a4d4211e7c66f51d11eb891ba70f02e1b528984045a0ce54af09ba15b2",
+      "bytes": 529942
+    },
+    "reports/silver_report_observation_items.spark.gz": {
+      "sha256": "548b915b09d4f764d99e56fd69e62f5555e4bd6ba9126703ea42bf631ac13802",
+      "compressed_sha256": "7062ecd6144eff117b8f62138c6fe74d3c78a0d8c83fb32cc35c691b8eb1b502",
+      "bytes": 422530
+    },
+    "reports/silver_report_observation_traversal.spark.gz": {
+      "sha256": "534343ac05b1afe4ffd93738b39c4b6e78b8e5640046ff0f10f1340b1a508b91",
+      "compressed_sha256": "5967046387cc81f781232a10f1282dfb2ef0d082c62def49357c738c55b701f3",
+      "bytes": 258097
+    },
+    "reports/silver_report_observation_windows.spark.gz": {
+      "sha256": "3a0740d4d36f4f8cdb0f0425d6701ba7425d588142d5f8405997016d7344d9e9",
+      "compressed_sha256": "042020e14897ecc4f7b73307d2838d23a8232efe95906be495e9b5cd79236030",
+      "bytes": 1422072
+    },
+    "reports/silver_report_observations.spark.gz": {
+      "sha256": "6273fb8150068e9e20d815d09e903750cadf65d21a7d58319d8afc820fda58b9",
+      "compressed_sha256": "6a9edc7815cf7b6016aeb55367da77458df4d79d6bea80c81ee8596e1831a856",
+      "bytes": 491915
+    },
+    "reports/silver_report_projection.spark.gz": {
+      "sha256": "7b41d28832ebe4882ad734f98fddc50727c0205e6131652f9d066889a01c5752",
+      "compressed_sha256": "aae195bf118ede48918b844f61d5a77b1eab71879ddfba47e94bff1f9ab5adfe",
+      "bytes": 150107
+    },
+    "reports/silver_report_projection_audit.spark.gz": {
+      "sha256": "1a60d6de6512ee59f34246212ab0bdf33231ee48c80df59590159bab4fe7a8af",
+      "compressed_sha256": "d8f2e9c37e46bcf4bf74bd2f826a07e36dd227d33bee042cb2975cfd05d3c01c",
+      "bytes": 58694
+    },
+    "reports/silver_report_projection_bridge.spark.gz": {
+      "sha256": "3d34a674893bbe345152af88b784709f3e9482a4e15773e41eab40998622da36",
+      "compressed_sha256": "d6ef981dec91eaa9dbc44bcd21dc89870fb7db13abe208f63098d92417e43b81",
+      "bytes": 475552
+    },
+    "reports/silver_report_projection_composition.spark.gz": {
+      "sha256": "a178a400a7d352f9b43b2809159d829ab74fa072b89716f9bf4a39d6348bddda",
+      "compressed_sha256": "eeff94fa0726fdab5c507f238bd42a6b5a6115b5998a6d72b9dc8b40185b2bf7",
+      "bytes": 713718
+    },
+    "reports/silver_report_projection_container_mapping.spark.gz": {
+      "sha256": "1b6284c78c6faf0a2a7d1ac3342e485aef9da533ec3e7379ffdb6cec985f490d",
+      "compressed_sha256": "559c27e107db1610a78ee6b6fc2ce291eedc3e11de73c39a53a3f2849940bee4",
+      "bytes": 260625
+    },
+    "reports/silver_report_projection_continuations.spark.gz": {
+      "sha256": "1007f76b4698de89a9aae6e7a29061a8092e4452f640f1653ae2f108a20e4613",
+      "compressed_sha256": "6b4533464378c424f9b142699924cf7d5d7ea604af4af038092f910be0004636",
+      "bytes": 646549
+    },
+    "reports/silver_report_projection_emissions.spark.gz": {
+      "sha256": "6d26efc59c78264f81362908dd4e4c51f0269dd87385512d015757ee52dea7cb",
+      "compressed_sha256": "ae153c552a58491e5549730333683d3d20f6d4b93d10e093ad3d42aeddd5edfb",
+      "bytes": 99115
+    },
+    "reports/silver_report_projection_entry.spark.gz": {
+      "sha256": "7fad9b268cb3112b4d81e1dafbc304c4d7417c0efff050c8107c1f19aa12417c",
+      "compressed_sha256": "c1a4750bdda4a74eb8352472f379b15c20606bdd3a438e3f015a393e403b61a6",
+      "bytes": 63028
+    },
+    "reports/silver_report_projection_item_mapping.spark.gz": {
+      "sha256": "ca9dd01bf3ba19baa289910d4ae375b3a7e02a968b466525a0388db018a4179e",
+      "compressed_sha256": "1f5e472304d73e223857ff12fd0baff42f97981c820ff2aebd1fb44c407beba2",
+      "bytes": 760230
+    },
+    "reports/silver_report_projection_keys.spark.gz": {
+      "sha256": "ad08b350bfbb6de7cf9ccfd8915b7bee5d29a628b3fc2e076f081b01a32c2580",
+      "compressed_sha256": "4fa6f73e58df37c356e669b64453c1c2e5b02f84c42e8b5e6ba53afc0877a4b9",
+      "bytes": 824813
+    },
+    "reports/silver_report_projection_lists.spark.gz": {
+      "sha256": "5f6d1436b9069595d2fce080d7fd8afd42b336cea4cdf4c1f3bc0b399cbd5fcd",
+      "compressed_sha256": "37ffb46ce78a79841c0787a9ef4b3e29f03622711fd8a910ab63c105add0b9f0",
+      "bytes": 486199
+    },
+    "reports/silver_report_projection_mapping.spark.gz": {
+      "sha256": "30da715cd7a7619911230d4bb70413b5ac59cd037c276f26a238481b67ee6257",
+      "compressed_sha256": "aad36bf89102fd45e7496cb754f6487c7ec26aa7c517ba3e1fb24effb79eb887",
+      "bytes": 371412
+    },
+    "reports/silver_report_projection_member_bounds.spark.gz": {
+      "sha256": "9936b3905beb103ed6f751e57854771630c13c8d98b1b5923d84ebae625653d1",
+      "compressed_sha256": "61035f64258c05ce1e7d949c204043d57c0e00713bee5ba5d81aac4f3f4ed0bb",
+      "bytes": 386846
+    },
+    "reports/silver_report_projection_member_mapping.spark.gz": {
+      "sha256": "58e9cd43b187bb02706d144afcb903f8ffdad5e17d6155fba3b00a8b7c36b0f5",
+      "compressed_sha256": "d03d30b7f69cf0d3e47d468861444ff46461845a0a08a75588fdde54bf735ac8",
+      "bytes": 501244
+    },
+    "reports/silver_report_projection_member_steps.spark.gz": {
+      "sha256": "f39bc868e374c3542400d40c3b62ee9fa3c1cf58029f3a3182a406ebed38ab95",
+      "compressed_sha256": "440a2460329a8bc85dd5dc1a6ac65d4e58b3028b9f172acf91ae12c7b6b08088",
+      "bytes": 157993
+    },
+    "reports/silver_report_projection_members.spark.gz": {
+      "sha256": "9ed3703b5c6cfa0ee58ebedef6ceaa50af06c9ef201981f166bbd92211d4f70d",
+      "compressed_sha256": "a3597b7642f016b51d84fd960f2aa20bc2462fbe6b672be1afbd700a90726424",
+      "bytes": 1866554
+    },
+    "reports/silver_report_projection_model.spark.gz": {
+      "sha256": "32c7292bead21377b1f101759fc05379a4e3b40b9ccdfba4b7f5937ac1317687",
+      "compressed_sha256": "afb08cc098ffb2f3a4104de12680de9581fd3b7db7706a5aac18338b2f441821",
+      "bytes": 515355
+    },
+    "reports/silver_report_projection_nonobjects.spark.gz": {
+      "sha256": "3bfda54d8d6bd37a4cca47e05fc2dfac34358e32d0a97b3c9586bbf92df3d79e",
+      "compressed_sha256": "a9e26eb579d5215aa575a16343ac2c5e22004d57002d86bbc1b21ea281b11ae8",
+      "bytes": 131188
+    },
+    "reports/silver_report_projection_observations.spark.gz": {
+      "sha256": "4175012662c2bc2eef06340e90eff0fdbaf9dec5130024c7a70854e56744e913",
+      "compressed_sha256": "95925de4104f65955c91f2f531709531897e0e5b903824c2a5cd9d1d762d9672",
+      "bytes": 290049
+    },
+    "reports/silver_report_projection_parents.spark.gz": {
+      "sha256": "ef7743c599887506535aa5b0b550443a78aaf1a2c14e883f8d32b7dfe1543cc0",
+      "compressed_sha256": "4574bce4b51969840a805aac1f3510f64cfdd13b7810fa135d96bab4cc7e41f4",
+      "bytes": 177309
+    },
+    "reports/silver_report_projection_records.spark.gz": {
+      "sha256": "e805052682d5f99c3bfb5c578f4ec1e4cdb0d780106c42515c39eb69ef516501",
+      "compressed_sha256": "f6d068cfd5475bd472c466ce229f9b4485b2f1a89d020a80d0f39ac6b46c1b37",
+      "bytes": 735884
+    },
+    "reports/silver_report_projection_representation.spark.gz": {
+      "sha256": "08805e4b659f7a2425411ef2b1300e2b8ae645f44262e7618d7ab02d6fa50f27",
+      "compressed_sha256": "eefeb3f5dfcb7856aeb6c2d96543536e594cf24b20dc95319c44f2b361586d41",
+      "bytes": 29073
+    },
+    "reports/silver_report_projection_roots.spark.gz": {
+      "sha256": "273c7e780cd277c1d0296b04060b28bd9c44bb434f438ca2ef90897b4fcc328c",
+      "compressed_sha256": "3107c730a8bd163cab38373cb1d50edd5c20ac23cdd4eec18635b445644e62b4",
+      "bytes": 183373
+    },
+    "reports/silver_report_projection_separators.spark.gz": {
+      "sha256": "1c0af528666ee6bbec0adff714b3e4e5dc5718fa1afd74fad5cce3e5775ff216",
+      "compressed_sha256": "4151595f4c5aadc6da2ef80c64436c740bf1bc134ca675ee586676f62a8f1f42",
+      "bytes": 280754
+    },
+    "reports/silver_report_projection_spans.spark.gz": {
+      "sha256": "777e53e91088ff4cee48215e9df9b17d29fdf641c11b15eee79198a4f48e1d1b",
+      "compressed_sha256": "ed6e06ed4da793619474b89c408f95f1ad8743f7ed2313febb7a821af576a68e",
+      "bytes": 253462
+    },
+    "reports/silver_report_projection_structure.spark.gz": {
+      "sha256": "9c66ed5f8a5a0408a85275cd0080887f34a48dc7e88ea69375c434b89b64e2b4",
+      "compressed_sha256": "93f8e60b1021c041ccc63d5954a96b76b845c5cc359a0fa9f54cfa8f4195f89d",
+      "bytes": 133421
+    },
+    "reports/silver_report_projection_syntax.spark.gz": {
+      "sha256": "ee3a8f3f66d9e09e6072b80424ade1a030f51bf8c92bef0ddfbf63efbdee0ee6",
+      "compressed_sha256": "12ee54cc34206f12b6d3c7eb806c0350fda9ce0d56d756371812e22e4295a596",
+      "bytes": 256970
+    },
+    "reports/silver_report_projection_tokens.spark.gz": {
+      "sha256": "49778737c79a3a9a857a61b8e3a6afde965ad8565e362f8b2ae8d372b98ad4dc",
+      "compressed_sha256": "f8979e2ac6e2d429149cb8c9a9f0877f9c5263267ce6b2eab50c7dbf027977cd",
+      "bytes": 712638
+    },
+    "reports/silver_report_projection_types.spark.gz": {
+      "sha256": "ed205caa0a105ca1caea8944a43574ff2734b33bb6ff3c350cd55f90977b27c6",
+      "compressed_sha256": "d72e3a9567b0039b8844047755559ccf5d23944dd29b9ede4acb0db10155ad24",
+      "bytes": 874
+    },
+    "reports/silver_report_projection_value_mapping.spark.gz": {
+      "sha256": "7a54d4404e38c2ecd047282cea387ca512eec8ddf2ddbde26d9e1925d2d53c85",
+      "compressed_sha256": "c70028ab49c0b16ec1fdef48651d3f484a4ce58b3c73ab2ce321676428b9e16e",
+      "bytes": 283946
+    },
+    "reports/silver_report_projection_values.spark.gz": {
+      "sha256": "05792f10d23ff0d79140714f52ef068022c8dfe180d501ebc7efb8aeb6f6ba08",
+      "compressed_sha256": "e3a802c0e07270443c237ac6c0eed22d86ae6cda84e4f3cdff0159c372b8a864",
+      "bytes": 815251
+    },
+    "reports/silver_report_projection_windows.spark.gz": {
+      "sha256": "43df1af5c6be14edf2d4e2d93f371c13acb30f246d73c2dfaa75369b49918420",
+      "compressed_sha256": "5afa0dd94787dbf35a067c0bbf1db0a75f8f71a71c0715b2a193d975e3e6c956",
+      "bytes": 112511
+    },
+    "reports/silver_report_reader.spark.gz": {
+      "sha256": "f4d9c90fdca4567fd70074c2bab61f488a343f13fc70919ff14619290eb30d10",
+      "compressed_sha256": "4b984421c554b946abd2f1d61b68943491168a21f1dd1d38447d8d628913fd0e",
+      "bytes": 129830
+    },
+    "reports/silver_report_storage.spark.gz": {
+      "sha256": "6c5b685c93cee54fce527dfdcb387fb565b653c6bd64e577fd0dc8d6b52912d5",
+      "compressed_sha256": "12155277d95865c10a2eb3a5ab2c33cd17bf7c3ae033305b32af8ab5929a0a62",
+      "bytes": 856
+    },
+    "reports/silver_reports.spark.gz": {
+      "sha256": "468789b04c5a79fef2c79f4722ac95de335c8103b79fda2240be596b85dc4eb2",
+      "compressed_sha256": "c20b4c96449a05e8c7b00ddd07e8eece835aa8c894e21b80116a5739c7b2fd11",
+      "bytes": 577238
+    },
+    "reports/silver_runtime.spark.gz": {
+      "sha256": "61a4df74fddab0ff173755ae39d8e2cedf96454b63007592a56266f95221b0ac",
+      "compressed_sha256": "7b1276b8cd75f06490f71f7682f96cf673a81756e6a9f218faa0ceeb2736ef58",
+      "bytes": 1692
+    },
+    "reports/silver_scalar_expressions.spark.gz": {
+      "sha256": "ae5370c2386a93737fffc4022f986cc25ac9da43033a12524e40044177535d32",
+      "compressed_sha256": "b92be5e4f97fd11673f47ad154386c7ce28413c8d364fe3844a85a58577ac9b5",
+      "bytes": 449630
+    },
+    "reports/silver_scalar_literals.spark.gz": {
+      "sha256": "890627fe8d01ea308c228534132ff468a2a4e83df00b5addb2ab5d1d38441bae",
+      "compressed_sha256": "28d06da9fb0d3008828da74acdcc25b160537335d033e587f7980e3a13a6c143",
+      "bytes": 278283
+    },
+    "reports/silver_scalars.spark.gz": {
+      "sha256": "373e9c9586b0bcc5c941bcccd2189d2502b5748c7c64616beb98a4bb15d6ffed",
+      "compressed_sha256": "df113f25888cc2d2ba62c411156f290376cc0a98930b42129f78954f2c8d9082",
+      "bytes": 65375
+    },
+    "inputs/src/silver_output_profile.adb.gz": {
+      "sha256": "ec2f0a72dcbdcf1ff6dadc9fb8ec2975653a8c0c11db2bf3d53b7a5b8dec3a3d",
+      "compressed_sha256": "cc8069ff7b888ad9937af0af97bed85e47747c1f74d9ed4a0bb8fbe014f37a94",
+      "bytes": 179103
+    },
+    "inputs/scripts/check_evidence.py.gz": {
+      "sha256": "e74034ab4dbbe370f1a28d4d460b4b327ed281f7b8bdad81d4e7a529b9094c76",
+      "compressed_sha256": "567a889632283bc935633dd89e54b0655a88bacb88e71f9c85446483c61fdee6",
+      "bytes": 44672
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "scope": "Focused checks on isolated v6 source; only the two proved bodies integrated. Other condition validity repairs remain pending; no full native validation claim.",
+  "checked_source_sha256": "25ec857bf8a161c7eee3162d6684f80f9ee90f7090c0148c8ff90a2445213944",
+  "integrated": [
+    {
+      "function": "Within_Work_Budget",
+      "body_sha256": "57d852e447511688de15f1f6e96202f6636f36d4e77fecd11d28840c16076cb9",
+      "run_id": "20261026T042717-e1a3158cf544"
+    },
+    {
+      "function": "Body_Tail",
+      "body_sha256": "6882a7d91f767f882a35ecd7a3b439383bcd0b5260b93585eda4b8d8330eb8d4",
+      "run_id": "20261026T042859-6bcf808e8681"
+    }
+  ]
+}

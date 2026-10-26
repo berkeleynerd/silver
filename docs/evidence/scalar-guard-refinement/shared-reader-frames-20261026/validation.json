@@ -1,0 +1,71 @@
+{
+  "admission": {
+    "cases": 105,
+    "elapsed_seconds": 18.768319368362427,
+    "errors": 0,
+    "executable_sha256": "bb02ca8a574646d2a3258c0ef695fdf61037ef95dd2555ac8405efccb3f2ca76",
+    "failures": 0,
+    "scope": "Exploratory admission-only tests against scratch executable; no application proof/build execution.",
+    "source_sha256": "0b4c95feb685491236c4880597f557eac2283d22420e5a54f39995238de03ccb",
+    "tests": 18
+  },
+  "assembly_files_retained": 27,
+  "historical_inputs_notice": "historical-pre-helper-inputs.json predates shared helper; use source-comparison.json and shape-results/summary.json for this snapshot.",
+  "index_sha256": "626a4b521f8bdfdd6f132f411b37e509ef0c588679bc91eae886cb5169973cd9",
+  "limits": "Retained build, admission and parser-shape observations; feature-local conditional frame/payload accounting. No application proof, complete source-correspondence proof, universal 8 MiB certificate, malformed-prefix capacity or external allocator proof.",
+  "native_host": "linux-x86_64",
+  "retained_gzip_records": 272,
+  "runs": [
+    {
+      "command": [
+        "gprbuild",
+        "-P",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/guard-frame-check/probe.gpr",
+        "-p",
+        "silver.adb",
+        "-XSILVER_HOST=linux-x86_64",
+        "-cargs",
+        "-fstack-usage",
+        "-save-temps",
+        "-gargs"
+      ],
+      "duration_seconds": 8.258400694,
+      "finished_utc": "2026-10-26T03:34:21.919987+00:00",
+      "outcome": "success",
+      "run_id": "20261026T033412-b6260b5bebde",
+      "started_utc": "2026-10-26T03:34:13.662275+00:00"
+    },
+    {
+      "command": [
+        "python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/guard-frame-check/run-admission.py"
+      ],
+      "duration_seconds": 26.238110622,
+      "finished_utc": "2026-10-26T03:35:56.573568+00:00",
+      "outcome": "success",
+      "run_id": "20261026T033529-091e794133d5",
+      "started_utc": "2026-10-26T03:35:30.340412+00:00"
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/guard-frame-check/run-shapes.py"
+      ],
+      "duration_seconds": 28.675185223,
+      "finished_utc": "2026-10-26T03:36:53.166748+00:00",
+      "outcome": "success",
+      "run_id": "20261026T033623-4e2ff8b1bc60",
+      "started_utc": "2026-10-26T03:36:24.491411+00:00"
+    }
+  ],
+  "shape_input_hashes_verified": 183,
+  "shapes": {
+    "admitted_4096": 10,
+    "passed": 20,
+    "rejected_4097": 10,
+    "stack_kib": 8192
+  },
+  "source_commit": "042998ad3a44ae6f30d2bafdbfe9ca31b419e62a",
+  "source_files_matched": 129,
+  "stack_usage_files_retained": 28
+}

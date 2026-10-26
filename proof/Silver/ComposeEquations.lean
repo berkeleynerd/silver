@@ -15,26 +15,28 @@ public import Silver.ScalarExpressionNativeTypes
 namespace Silver.Compose.Expressions
 open Named
 
+variable {domain : StateDomain}
+
 set_option maxRecDepth 10000
 set_option maxHeartbeats 2000000
 set_option backward.dsimp.instances true
 attribute [local irreducible] ScalarExpression.read scalarConstraintAt
 
-@[simp] theorem interpreted_skip (calls : Calls) (equations : HelperEquations calls)
+@[simp] theorem interpreted_skip (calls : Calls) (equations : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (position : Nat) (bound : ValidCursor text position) :
     calls.function .skip text position = skipAt text position := by
   rw [equations.skip text valid position bound]
   dsimp +instances only [skipBody, Expr.eval, Context.locals, lexical, modelPrimitives, skipAt]
   simp only [decide_eq_true_eq]
 
-@[simp] theorem interpreted_name (calls : Calls) (equations : HelperEquations calls)
+@[simp] theorem interpreted_name (calls : Calls) (equations : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (position : Nat) (bound : ValidCursor text position) :
     calls.function .nameAfter text position = nameAfter text position := by
   rw [equations.name text valid position bound]
   dsimp +instances only [nameBody, Expr.eval, Context.locals, lexical, modelPrimitives, nameAfter]
   simp only [decide_eq_true_eq]
 
-@[simp] theorem interpreted_fixed (calls : Calls) (equations : HelperEquations calls)
+@[simp] theorem interpreted_fixed (calls : Calls) (equations : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (position : Nat) (token : ShellToken)
     (bound : ValidCursor text position) (tokenValid : ValidToken token) :
     calls.function .fixedAfter text position token = fixedAfter text position (spelling token) (isWord token) := by
@@ -42,7 +44,7 @@ attribute [local irreducible] ScalarExpression.read scalarConstraintAt
   dsimp +instances only [fixedBody, Expr.eval, Context.locals, lexical, modelPrimitives, fixedAfter]
   simp only [decide_eq_true_eq]
 
-@[simp] theorem interpreted_take (calls : Calls) (equations : HelperEquations calls)
+@[simp] theorem interpreted_take (calls : Calls) (equations : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (position : Nat) (token : ShellToken)
     (bound : ValidCursor text position) (tokenValid : ValidToken token) :
     calls.function .takeToken text position token = fixedAfter text position (spelling token) (isWord token) := by
@@ -50,14 +52,14 @@ attribute [local irreducible] ScalarExpression.read scalarConstraintAt
   dsimp +instances only [fixedBody, Expr.eval, Context.locals, lexical, modelPrimitives, fixedAfter]
   simp only [decide_eq_true_eq]
 
-@[simp] theorem interpreted_literal (calls : Calls) (equations : HelperEquations calls)
+@[simp] theorem interpreted_literal (calls : Calls) (equations : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (position : Nat) (bound : ValidCursor text position) :
     calls.function .literal text position = literalAt text position := by
   rw [equations.literal text valid position bound]
   dsimp +instances only [literalBody, Expr.eval, Context.locals, lexical, modelPrimitives, literalAt]
   simp only [Bool.and_eq_true, and_assoc, decide_eq_true_eq]
 
-@[simp] theorem interpreted_lookupFrom (calls : Calls) (equations : HelperEquations calls)
+@[simp] theorem interpreted_lookupFrom (calls : Calls) (equations : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (names : BindingEnvironment) (first after index : Nat)
     (namesValid : ValidNames text names) (nameValid : ValidName text first after)
     (positive : 1 ≤ index) (bounded : index ≤ names.length + 1) :
@@ -77,7 +79,7 @@ attribute [local irreducible] ScalarExpression.read scalarConstraintAt
 termination_by names.length + 1 - index
 decreasing_by omega
 
-@[simp] theorem interpreted_lookup (calls : Calls) (equations : HelperEquations calls)
+@[simp] theorem interpreted_lookup (calls : Calls) (equations : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (names : BindingEnvironment) (first after : Nat)
     (namesValid : ValidNames text names) (firstValid : ValidCursor text first) (afterValid : ValidCursor text after) :
     calls.function .lookupName text names first after = lookupName text names first after := by
@@ -92,7 +94,7 @@ decreasing_by omega
     apply interpreted_lookupFrom calls equations text valid names first after 1 namesValid
         (by exact ⟨firstPositive, afterGreater, afterValid⟩) (by omega) (by omega)
 
-@[simp] theorem interpreted_callAfter (calls : Calls) (equations : HelperEquations calls)
+@[simp] theorem interpreted_callAfter (calls : Calls) (equations : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (names : BindingEnvironment) (position : Nat)
     (operation : Names.Operation) {scalarNames : ScalarExpression.Environment} (namesValid : ValidNames text names) (bound : ValidCursor text position) (scalarValid : ScalarExpression.ValidEnvironment text scalarNames) :
     calls.function .callAfter text names position operation scalarNames = callAfter text names position operation scalarNames := by
@@ -113,7 +115,7 @@ decreasing_by omega
   rw [lookupEq, equations.scalarLookup text valid scalarNames first after scalarValid firstBound afterBound, afterEq, firstEq]
   simp only [callAfter, Bool.decide_or]
 
-@[simp] theorem interpreted_workTail (calls : Calls) (equations : HelperEquations calls)
+@[simp] theorem interpreted_workTail (calls : Calls) (equations : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (position remaining : Nat)
     (bound : ValidCursor text position) (remainingBound : remaining ≤ maxConcatenations) :
     calls.function .workTail text position remaining = workTail text position remaining := by
@@ -197,13 +199,13 @@ decreasing_by omega
 termination_by text.length + 1 - position
  decreasing_by all_goals assumption
 
-@[simp] theorem interpreted_workBudget (calls : Calls) (equations : HelperEquations calls)
+@[simp] theorem interpreted_workBudget (calls : Calls) (equations : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) :
     calls.function .workBudget text = withinWorkBudget text := by
   rw [equations.workBudget text valid]
   exact interpreted_workTail calls equations text valid 1 maxConcatenations (by unfold ValidCursor; omega) (Nat.le_refl _)
 
-@[simp] theorem interpreted_image (calls : Calls) (equations : HelperEquations calls)
+@[simp] theorem interpreted_image (calls : Calls) (equations : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (position : Nat) (names : BindingEnvironment)
     (integerHidden : Bool) {scalarNames : ScalarExpression.Environment}
     (bound : ValidCursor text position) (namesValid : ValidNames text names)
@@ -263,7 +265,7 @@ termination_by text.length + 1 - position
     · simp [zero]
     · simp [reversed]
 
-@[simp] theorem interpreted_value (calls : Calls) (equations : HelperEquations calls)
+@[simp] theorem interpreted_value (calls : Calls) (equations : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (position : Nat) (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
     (bound : ValidCursor text position) (namesValid : ValidNames text names) (scalarValid : ScalarExpression.ValidEnvironment text scalarNames) :
     calls.function .value text position names scalarNames integerHidden = valueAt text position names scalarNames integerHidden := by
@@ -280,17 +282,17 @@ termination_by text.length + 1 - position
   rw [interpreted_image calls equations text valid position names integerHidden bound namesValid scalarValid]
   simp only [valueAt, Bool.and_eq_true, decide_eq_true_eq]
 
-@[simp] theorem interpreted_newName (calls : Calls) (equations : HelperEquations calls)
+@[simp] theorem interpreted_newName (calls : Calls) (equations : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (state : ParserState) (first after : Nat) (arguments : Bool)
-    (stateValid : ValidState text state) (firstValid : ValidCursor text first) (afterValid : ValidCursor text after) :
+    (stateValid : domain.holds text state) (firstValid : ValidCursor text first) (afterValid : ValidCursor text after) :
     calls.function .newName text state first after arguments = newNameAllowed text state first after arguments := by
   rw [equations.newName text valid state first after arguments stateValid firstValid afterValid]
   dsimp +instances only [newNameBody, Expr.eval, Context.locals, lexical, modelPrimitives, Calls.get, Field.get, newNameAllowed]
-  simp only [interpreted_lookup calls equations text valid state.names first after stateValid.2.1 firstValid afterValid, equations.scalarLookup text valid state.scalarNames first after stateValid.2.2.2.2.2 firstValid afterValid, Bool.and_assoc, Bool.decide_and]
+  simp only [interpreted_lookup calls equations text valid state.names first after (domain.valid text state stateValid).2.1 firstValid afterValid, equations.scalarLookup text valid state.scalarNames first after (domain.valid text state stateValid).2.2.2.2.2 firstValid afterValid, Bool.and_assoc, Bool.decide_and]
 
-@[simp] theorem interpreted_addBinding (calls : Calls) (equations : HelperEquations calls)
+@[simp] theorem interpreted_addBinding (calls : Calls) (equations : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (state : ParserState) (first after : Nat) (value : ValueResult)
-    (mutable : Bool) (following : Nat) (stateValid : ValidState text state)
+    (mutable : Bool) (following : Nat) (stateValid : domain.holds text state)
     (firstValid : ValidCursor text first) (afterValid : ValidCursor text after)
     (valueValid : ValidValue text value) (followingValid : ValidCursor text following)
     (room : state.names.length < maxBindings) :
@@ -298,7 +300,7 @@ termination_by text.length + 1 - position
   rw [equations.addBinding text valid state first after value mutable following stateValid firstValid afterValid valueValid followingValid room]
   rfl
 
-@[simp] theorem interpreted_expressionStep (calls : Calls) (equations : HelperEquations calls)
+@[simp] theorem interpreted_expressionStep (calls : Calls) (equations : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (names : BindingEnvironment) (scan : ExpressionState) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
     (namesValid : ValidNames text names) (scalarValid : ScalarExpression.ValidEnvironment text scalarNames) (scanValid : ValidScan text scan) :
     calls.function .expressionStep text names scan scalarNames integerHidden = expressionStep text names scan scalarNames integerHidden := by
@@ -317,7 +319,7 @@ termination_by text.length + 1 - position
   simp only [eopen, ejoin, eclose, atom]
   simp [expressionStep, Bool.or_eq_true, Bool.and_eq_true, or_assoc]
 
-@[simp] theorem interpreted_tail (calls : Calls) (equations : HelperEquations calls)
+@[simp] theorem interpreted_tail (calls : Calls) (equations : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (names : BindingEnvironment) (scan : ExpressionState) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
     (namesValid : ValidNames text names) (scalarValid : ScalarExpression.ValidEnvironment text scalarNames) (scanValid : ValidScan text scan) :
     calls.function .tail text names scan scalarNames integerHidden = expressionTail text names scan scalarNames integerHidden := by
@@ -355,7 +357,7 @@ termination_by text.length + 1 - scan.position
   unfold ValidCursor at nextBound
   omega
 
-@[simp] theorem interpreted_expression (calls : Calls) (equations : HelperEquations calls)
+@[simp] theorem interpreted_expression (calls : Calls) (equations : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (position : Nat) (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
     (bound : ValidCursor text position) (namesValid : ValidNames text names) (scalarValid : ScalarExpression.ValidEnvironment text scalarNames) :
     calls.function .expression text position names scalarNames integerHidden = expressionAt text position names scalarNames integerHidden := by
@@ -366,7 +368,7 @@ termination_by text.length + 1 - scan.position
   change position = 0 ∨ 0 < position
   omega
 
-@[simp] theorem interpreted_fits (calls : Calls) (equations : HelperEquations calls)
+@[simp] theorem interpreted_fits (calls : Calls) (equations : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (result : ExpressionResult) (capacity : Nat)
     (resultValid : ValidResult text result) (capacityBound : capacity ≤ maxSourceLength) :
     calls.function .fits result capacity = fits result capacity := by
@@ -383,9 +385,9 @@ private theorem declarationGate {α : Type} (a : Bool) (b c : Prop) [Decidable b
       (if !a || decide (b ∨ c) then yes else no) := by
   cases a <;> simp
 
-@[simp] theorem interpreted_stringDeclaration (calls : Calls) (equations : HelperEquations calls)
+@[simp] theorem interpreted_stringDeclaration (calls : Calls) (equations : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (state : ParserState) (arguments : Bool)
-    (stateValid : ValidState text state) :
+    (stateValid : domain.holds text state) :
     calls.function .stringDeclaration text state arguments = stringDeclarationAt text state arguments := by
   let first := calls.function .skip text state.position
   let after := calls.function .nameAfter text first
@@ -397,16 +399,16 @@ private theorem declarationGate {α : Type} (a : Bool) (b c : Prop) [Decidable b
     decide (calls.function .takeToken text first (.word "integer") = after)
   let value := calls.function .expression text valuePosition state.names state.scalarNames integerHidden
   let following := calls.function .takeToken text value.after (.symbol ";")
-  have bfirst : ValidCursor text first := equations.ranges.skip text valid _ stateValid.1
+  have bfirst : ValidCursor text first := equations.ranges.skip text valid _ (domain.valid text state stateValid).1
   have bafter : ValidCursor text after := equations.ranges.name text valid _ bfirst
   have bcolon : ValidCursor text colon := equations.ranges.token text valid _ _ bafter (by unfold ValidToken; decide)
   have bconstant : ValidCursor text constant := equations.ranges.token text valid _ _ bcolon (by unfold ValidToken; decide)
   have btype : ValidCursor text typeAfter := equations.ranges.token text valid _ _
     (by split <;> assumption) (by unfold ValidToken; decide)
   have bposition : ValidCursor text valuePosition := equations.ranges.token text valid _ _ btype (by unfold ValidToken; decide)
-  have bvalue : ValidResult text value := equations.ranges.expression text valid _ _ state.scalarNames integerHidden bposition stateValid.2.1 stateValid.2.2.2.2.2
+  have bvalue : ValidResult text value := equations.ranges.expression text valid _ _ state.scalarNames integerHidden bposition (domain.valid text state stateValid).2.1 (domain.valid text state stateValid).2.2.2.2.2
   have bfollowing : ValidCursor text following := equations.ranges.token text valid _ _ bvalue.1 (by unfold ValidToken; decide)
-  have efirst : first = declarationFirst text state := interpreted_skip calls equations text valid _ stateValid.1
+  have efirst : first = declarationFirst text state := interpreted_skip calls equations text valid _ (domain.valid text state stateValid).1
   have eafter : after = nameAfter text first := interpreted_name calls equations text valid _ bfirst
   have ecolon : colon = fixedAfter text after ":" false := interpreted_take calls equations text valid _ _ bafter (by unfold ValidToken; decide)
   have econstant : constant = fixedAfter text colon "constant" true := interpreted_take calls equations text valid _ _ bcolon (by unfold ValidToken; decide)
@@ -414,7 +416,7 @@ private theorem declarationGate {α : Type} (a : Bool) (b c : Prop) [Decidable b
     interpreted_take calls equations text valid _ _ (by split <;> assumption) (by unfold ValidToken; decide)
   have eposition : valuePosition = fixedAfter text typeAfter ":=" false :=
     interpreted_take calls equations text valid _ _ btype (by unfold ValidToken; decide)
-  have evalue : value = expressionAt text valuePosition state.names state.scalarNames integerHidden := interpreted_expression (integerHidden := integerHidden) calls equations text valid _ _ bposition stateValid.2.1 stateValid.2.2.2.2.2
+  have evalue : value = expressionAt text valuePosition state.names state.scalarNames integerHidden := interpreted_expression (integerHidden := integerHidden) calls equations text valid _ _ bposition (domain.valid text state stateValid).2.1 (domain.valid text state stateValid).2.2.2.2.2
   have efollowing : following = fixedAfter text value.after ";" false :=
     interpreted_take calls equations text valid _ _ bvalue.1 (by unfold ValidToken; decide)
   have efits := interpreted_fits calls equations text valid value maxSourceLength bvalue (Nat.le_refl _)
@@ -430,7 +432,7 @@ private theorem declarationGate {α : Type} (a : Bool) (b c : Prop) [Decidable b
     else calls.function .addBinding state first after value.value (decide (constant = 0)) following) = _
   by_cases full : state.names.length = maxBindings
   · simp [full, stringDeclarationAt]
-  · have room : state.names.length < maxBindings := by have := stateValid.2.1.1; omega
+  · have room : state.names.length < maxBindings := by have := (domain.valid text state stateValid).2.1.1; omega
     rw [interpreted_addBinding calls equations text valid state first after value.value _ following
       stateValid bfirst bafter convertedValid bfollowing room, ename, efits]
     have modelFirst : declarationFirst text state = first := efirst.symm
@@ -461,7 +463,7 @@ private theorem declarationGate {α : Type} (a : Bool) (b c : Prop) [Decidable b
     rw [stringDeclarationAt, parts]
     simp only [Bool.or_eq_true, Bool.not_eq_true', decide_eq_true_eq, or_assoc]
 
-@[simp] theorem interpreted_scalarConstraint (calls : Calls) (equations : HelperEquations calls)
+@[simp] theorem interpreted_scalarConstraint (calls : Calls) (equations : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (position : Nat)
     (names : ScalarExpression.Environment) (bound : ValidCursor text position)
     (environment : ScalarExpression.ValidEnvironment text names) :
@@ -492,9 +494,9 @@ private theorem declarationGate {α : Type} (a : Bool) (b c : Prop) [Decidable b
   simp only [scalarConstraintAt, rangeAfter, low, highPosition, high, Bool.or_eq_true, Bool.not_eq_true',
     decide_eq_true_eq, or_assoc]
 
-@[simp] theorem interpreted_scalarDeclaration (calls : Calls) (equations : HelperEquations calls)
+@[simp] theorem interpreted_scalarDeclaration (calls : Calls) (equations : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (state : ParserState) (arguments : Bool)
-    (stateValid : ValidState text state) :
+    (stateValid : domain.holds text state) :
     calls.function .scalarDeclaration text state arguments = scalarDeclarationAt text state arguments := by
   let first := declarationFirst text state
   let after := declarationAfter text state
@@ -506,7 +508,7 @@ private theorem declarationGate {α : Type} (a : Bool) (b c : Prop) [Decidable b
   let position := scalarDeclarationValuePosition text state
   let value := ScalarExpression.read text position state.scalarNames
   let following := fixedAfter text value.after ";" false
-  have bfirst : ValidCursor text first := model_skip_valid text state.position stateValid.1
+  have bfirst : ValidCursor text first := model_skip_valid text state.position (domain.valid text state stateValid).1
   have bafter : ValidCursor text after := model_name_valid text first
   have bcolon : ValidCursor text colon := model_fixed_valid text after ":" false bafter
   have bconstant : ValidCursor text constant := model_fixed_valid text colon "constant" true bcolon
@@ -523,19 +525,19 @@ private theorem declarationGate {α : Type} (a : Bool) (b c : Prop) [Decidable b
     · have positions := ScalarExpression.read_bounds bposition zero
       obtain ⟨expression, inferred, _, _⟩ := ScalarExpression.read_has_expression zero
       exact ⟨positions.2.1, Integer.Expr.infer_bounded inferred⟩
-  have efirst : calls.function .skip text state.position = first := interpreted_skip calls equations text valid state.position stateValid.1
+  have efirst : calls.function .skip text state.position = first := interpreted_skip calls equations text valid state.position (domain.valid text state stateValid).1
   have eafter : calls.function .nameAfter text first = after := interpreted_name calls equations text valid first bfirst
   have ecolon : calls.function .takeToken text after (.symbol ":") = colon := interpreted_take calls equations text valid after (.symbol ":") bafter (by unfold ValidToken; decide)
   have econstant : calls.function .takeToken text colon (.word "constant") = constant := interpreted_take calls equations text valid colon (.word "constant") bcolon (by unfold ValidToken; decide)
   have etypeFirst : calls.function .skip text (if constant ≠ 0 then constant else colon) = typeFirst := interpreted_skip calls equations text valid _ bchoice
   have etypeAfter : calls.function .takeToken text typeFirst (.word "integer") = typeAfter := interpreted_take calls equations text valid typeFirst (.word "integer") btypeFirst (by unfold ValidToken; decide)
-  have econstraint : calls.function .scalarConstraint text typeAfter state.scalarNames = constraint := interpreted_scalarConstraint calls equations text valid typeAfter state.scalarNames btypeAfter stateValid.2.2.2.2.2
+  have econstraint : calls.function .scalarConstraint text typeAfter state.scalarNames = constraint := interpreted_scalarConstraint calls equations text valid typeAfter state.scalarNames btypeAfter (domain.valid text state stateValid).2.2.2.2.2
   have eposition : calls.function .takeToken text constraint.after (.symbol ":=") = position := interpreted_take calls equations text valid constraint.after (.symbol ":=") bconstraint (by unfold ValidToken; decide)
-  have evalue : calls.function .scalarRead text position state.scalarNames = value := equations.scalarRead text valid position state.scalarNames bposition stateValid.2.2.2.2.2
+  have evalue : calls.function .scalarRead text position state.scalarNames = value := equations.scalarRead text valid position state.scalarNames bposition (domain.valid text state stateValid).2.2.2.2.2
   have efollowing : calls.function .takeToken text value.after (.symbol ";") = following := interpreted_take calls equations text valid value.after (.symbol ";") bvalue.1 (by unfold ValidToken; decide)
   have ename := interpreted_newName calls equations text valid state first after arguments stateValid bfirst bafter
-  have estring := interpreted_lookup calls equations text valid state.names typeFirst typeAfter stateValid.2.1 btypeFirst btypeAfter
-  have escalar := equations.scalarLookup text valid state.scalarNames typeFirst typeAfter stateValid.2.2.2.2.2 btypeFirst btypeAfter
+  have estring := interpreted_lookup calls equations text valid state.names typeFirst typeAfter (domain.valid text state stateValid).2.1 btypeFirst btypeAfter
+  have escalar := equations.scalarLookup text valid state.scalarNames typeFirst typeAfter (domain.valid text state stateValid).2.2.2.2.2 btypeFirst btypeAfter
   have eempty := equations.scalarEmpty value.bounds bvalue.2
   rw [equations.scalarDeclaration text valid state arguments stateValid, scalarDeclaration_denotation]
   change scalarDeclarationEquation calls text state arguments = _
@@ -549,7 +551,7 @@ private theorem declarationGate {α : Type} (a : Bool) (b c : Prop) [Decidable b
     · simp [full, scalarDeclarationAt, scalarDeclarationParts, first, after, typeFirst, typeAfter,
         constraint, position, value, following, maxBindings, ScalarExpression.maxBindings, maxSourceLength]
     · have room : state.scalarNames.length < ScalarExpression.maxBindings := by
-        have bound := stateValid.2.2.2.2.2.1
+        have bound := (domain.valid text state stateValid).2.2.2.2.2.1
         omega
       rw [equations.scalarAppend state.scalarNames _ room]
       dsimp +instances only [scalarDeclarationAt, scalarDeclarationParts, addScalarBinding,
@@ -559,9 +561,9 @@ private theorem declarationGate {α : Type} (a : Bool) (b c : Prop) [Decidable b
   · have rejected : newNameAllowed text state first after arguments = false := Bool.eq_false_iff.mpr allowed
     simp [rejected, scalarDeclarationAt, scalarDeclarationParts, first, after]
 
-@[simp] theorem interpreted_declaration (calls : Calls) (equations : HelperEquations calls)
+@[simp] theorem interpreted_declaration (calls : Calls) (equations : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (state : ParserState) (arguments : Bool)
-    (stateValid : ValidState text state) :
+    (stateValid : domain.holds text state) :
     calls.function .declaration text state arguments = declarationAt text state arguments := by
   rw [equations.declaration text valid state arguments stateValid]
   dsimp +instances only [declarationBody, Expr.eval, Context.locals, Locals.set, lexical, Calls.get, Field.get]
@@ -569,15 +571,15 @@ private theorem declarationGate {α : Type} (a : Bool) (b c : Prop) [Decidable b
   rfl
 
 set_option backward.dsimp.instances true in
-@[simp] theorem interpreted_argument (calls : Calls) (equations : HelperEquations calls)
+@[simp] theorem interpreted_argument (calls : Calls) (equations : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (state : ParserState)
-    (stateValid : ValidState text state) :
+    (stateValid : domain.holds text state) :
     calls.function .argument text state = argumentAt text state := by
   let first := calls.function .skip text state.position
   let after := calls.function .nameAfter text first
-  have bfirst : ValidCursor text first := equations.ranges.skip text valid _ stateValid.1
+  have bfirst : ValidCursor text first := equations.ranges.skip text valid _ (domain.valid text state stateValid).1
   have bafter : ValidCursor text after := equations.ranges.name text valid _ bfirst
-  have efirst : first = skipAt text state.position := interpreted_skip calls equations text valid _ stateValid.1
+  have efirst : first = skipAt text state.position := interpreted_skip calls equations text valid _ (domain.valid text state stateValid).1
   have eafter : after = nameAfter text first := interpreted_name calls equations text valid _ bfirst
   let p0 := calls.function .takeToken text after (.symbol ":")
   have bp0 : ValidCursor text p0 := equations.ranges.token text valid _ _ bafter (by unfold ValidToken; decide)
@@ -646,15 +648,15 @@ set_option backward.dsimp.instances true in
     simp [empty]
   · simp [empty, argumentAt]
 
-@[simp] theorem interpreted_declarations (calls : Calls) (equations : HelperEquations calls)
+@[simp] theorem interpreted_declarations (calls : Calls) (equations : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (state : ParserState) (arguments : Bool)
-    (stateValid : ValidState text state) :
+    (stateValid : domain.holds text state) :
     calls.function .declarations text state arguments = declarationsAt text state arguments := by
-  have etoken := interpreted_take calls equations text valid state.position (.word "begin") stateValid.1
+  have etoken := interpreted_take calls equations text valid state.position (.word "begin") (domain.valid text state stateValid).1
     (by unfold ValidToken; decide)
   simp only [ShellToken.word, spelling, isWord] at etoken
   have edeclaration := interpreted_declaration calls equations text valid state arguments stateValid
-  have nextValid : ValidState text (declarationAt text state arguments) := by
+  have nextValid : domain.holds text (declarationAt text state arguments) := by
     rw [← edeclaration]
     exact (equations.ranges.declaration text valid state arguments stateValid).1
   rw [equations.declarations text valid state arguments stateValid]
@@ -662,8 +664,8 @@ set_option backward.dsimp.instances true in
   simp only [decide_eq_true_eq]
   simp only [etoken, edeclaration]
   rw [declarationsAt_equation text state arguments (by
-    have strings := stateValid.2.1.1
-    have scalars := stateValid.2.2.2.2.2.1
+    have strings := (domain.valid text state stateValid).2.1.1
+    have scalars := (domain.valid text state stateValid).2.2.2.2.2.1
     change state.scalarNames.length ≤ maxBindings at scalars
     omega)]
   split
@@ -677,43 +679,43 @@ set_option backward.dsimp.instances true in
 termination_by 2 * maxBindings + 1 - (state.names.length + state.scalarNames.length)
 decreasing_by
   have count := declarationAt_count (text := text) (state := state) (arguments := arguments) (by assumption)
-  have _bounded := stateValid.2.1.1
-  have nextBound := nextValid.2.1.1
-  have nextScalarBound := nextValid.2.2.2.2.2.1
+  have _bounded := (domain.valid text state stateValid).2.1.1
+  have nextBound := (domain.valid text (declarationAt text state arguments) nextValid).2.1.1
+  have nextScalarBound := (domain.valid text (declarationAt text state arguments) nextValid).2.2.2.2.2.1
   change (declarationAt text state arguments).scalarNames.length ≤ maxBindings at nextScalarBound
   omega
 
-@[simp] theorem interpreted_output (calls : Calls) (equations : HelperEquations calls)
+@[simp] theorem interpreted_output (calls : Calls) (equations : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (state : ParserState)
-    (stateValid : ValidState text state) :
+    (stateValid : domain.holds text state) :
     calls.function .output text state = outputAt text state := by
-  have resultValid := equations.ranges.expression text valid state.position state.names state.scalarNames false stateValid.1 stateValid.2.1 stateValid.2.2.2.2.2
-  have evalue := interpreted_expression (integerHidden := false) calls equations text valid state.position state.names stateValid.1 stateValid.2.1 stateValid.2.2.2.2.2
-  have efits := interpreted_fits calls equations text valid _ state.capacity resultValid stateValid.2.2.2.2.1
+  have resultValid := equations.ranges.expression text valid state.position state.names state.scalarNames false (domain.valid text state stateValid).1 (domain.valid text state stateValid).2.1 (domain.valid text state stateValid).2.2.2.2.2
+  have evalue := interpreted_expression (integerHidden := false) calls equations text valid state.position state.names (domain.valid text state stateValid).1 (domain.valid text state stateValid).2.1 (domain.valid text state stateValid).2.2.2.2.2
+  have efits := interpreted_fits calls equations text valid _ state.capacity resultValid (domain.valid text state stateValid).2.2.2.2.1
   rw [equations.output text valid state stateValid]
   dsimp +instances only [outputBody, Expr.eval, Context.locals, Locals.set, lexical, Calls.get, Field.get]
   simp only [reduceCtorEq, ↓reduceIte, ↓reduceDIte]
   rw [efits, evalue]
   cases h : fits (expressionAt text state.position state.names state.scalarNames) state.capacity <;> simp [outputAt, h]
 
-@[simp] theorem interpreted_comparison (calls : Calls) (equations : HelperEquations calls)
+@[simp] theorem interpreted_comparison (calls : Calls) (equations : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (state : ParserState)
-    (stateValid : ValidState text state) :
+    (stateValid : domain.holds text state) :
     calls.function .comparison text state = comparisonAt text state := by
   let lhs := calls.function .expression text state.position state.names state.scalarNames false
   let after := calls.function .takeToken text lhs.after (.symbol "=")
   let rhs := calls.function .expression text after state.names state.scalarNames false
-  have blhs : ValidResult text lhs := equations.ranges.expression text valid _ _ state.scalarNames false stateValid.1 stateValid.2.1 stateValid.2.2.2.2.2
+  have blhs : ValidResult text lhs := equations.ranges.expression text valid _ _ state.scalarNames false (domain.valid text state stateValid).1 (domain.valid text state stateValid).2.1 (domain.valid text state stateValid).2.2.2.2.2
   have bafter : ValidCursor text after := equations.ranges.token text valid _ _ blhs.1 (by unfold ValidToken; decide)
-  have brhs : ValidResult text rhs := equations.ranges.expression text valid _ _ state.scalarNames false bafter stateValid.2.1 stateValid.2.2.2.2.2
+  have brhs : ValidResult text rhs := equations.ranges.expression text valid _ _ state.scalarNames false bafter (domain.valid text state stateValid).2.1 (domain.valid text state stateValid).2.2.2.2.2
   have elhs : lhs = expressionAt text state.position state.names state.scalarNames :=
-    interpreted_expression (integerHidden := false) calls equations text valid _ _ stateValid.1 stateValid.2.1 stateValid.2.2.2.2.2
+    interpreted_expression (integerHidden := false) calls equations text valid _ _ (domain.valid text state stateValid).1 (domain.valid text state stateValid).2.1 (domain.valid text state stateValid).2.2.2.2.2
   have eafter : after = fixedAfter text lhs.after "=" false :=
     interpreted_take calls equations text valid _ _ blhs.1 (by unfold ValidToken; decide)
   have erhs : rhs = expressionAt text after state.names state.scalarNames :=
-    interpreted_expression (integerHidden := false) calls equations text valid _ _ bafter stateValid.2.1 stateValid.2.2.2.2.2
-  have flhs := interpreted_fits calls equations text valid lhs state.capacity blhs stateValid.2.2.2.2.1
-  have frhs := interpreted_fits calls equations text valid rhs state.capacity brhs stateValid.2.2.2.2.1
+    interpreted_expression (integerHidden := false) calls equations text valid _ _ bafter (domain.valid text state stateValid).2.1 (domain.valid text state stateValid).2.2.2.2.2
+  have flhs := interpreted_fits calls equations text valid lhs state.capacity blhs (domain.valid text state stateValid).2.2.2.2.1
+  have frhs := interpreted_fits calls equations text valid rhs state.capacity brhs (domain.valid text state stateValid).2.2.2.2.1
   rw [equations.comparison text valid state stateValid]
   dsimp +instances only [comparisonBody, Expr.eval, Context.locals, Locals.set, lexical, Calls.get, Field.get]
   simp only [reduceCtorEq, String.reduceEq, ↓reduceIte, ↓reduceDIte]
@@ -727,27 +729,27 @@ decreasing_by
   generalize (expressionAt text (fixedAfter text (expressionAt text state.position state.names state.scalarNames).after "=" false) state.names state.scalarNames).namedSeen = d
   cases a <;> cases b <;> cases c <;> cases d <;> rfl
 
-@[simp] theorem interpreted_target (calls : Calls) (equations : HelperEquations calls)
+@[simp] theorem interpreted_target (calls : Calls) (equations : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (state : ParserState) (sameTarget : Bool)
-    (stateValid : ValidState text state) :
+    (stateValid : domain.holds text state) :
     calls.function .target text state sameTarget = targetAt text state sameTarget := by
-  have skipBound := equations.ranges.skip text valid state.position stateValid.1
+  have skipBound := equations.ranges.skip text valid state.position (domain.valid text state stateValid).1
   have nameBound := equations.ranges.name text valid _ skipBound
-  have skipEq := interpreted_skip calls equations text valid state.position stateValid.1
+  have skipEq := interpreted_skip calls equations text valid state.position (domain.valid text state stateValid).1
   have nameEq := interpreted_name calls equations text valid _ skipBound
-  have lookupEq := interpreted_lookup calls equations text valid state.names _ _ stateValid.2.1 skipBound nameBound
+  have lookupEq := interpreted_lookup calls equations text valid state.names _ _ (domain.valid text state stateValid).2.1 skipBound nameBound
   rw [equations.target text valid state sameTarget stateValid]
   dsimp +instances only [targetBody, Expr.eval, Context.locals, Locals.set, lexical, Calls.get, Field.get]
   simp only [reduceCtorEq, String.reduceEq, ↓reduceIte, ↓reduceDIte]
-  rw [lookupEq, equations.scalarLookup text valid state.scalarNames _ _ stateValid.2.2.2.2.2 skipBound nameBound, nameEq, skipEq]
+  rw [lookupEq, equations.scalarLookup text valid state.scalarNames _ _ (domain.valid text state stateValid).2.2.2.2.2 skipBound nameBound, nameEq, skipEq]
   simp [targetAt, Bool.or_eq_true, Bool.and_eq_true, or_assoc]
 
-@[simp] theorem interpreted_dynamic (calls : Calls) (equations : HelperEquations calls)
+@[simp] theorem interpreted_dynamic (calls : Calls) (equations : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (state : ParserState)
-    (stateValid : ValidState text state) :
+    (stateValid : domain.holds text state) :
     calls.function .dynamic text state = dynamicAt text state := by
-  have skipBound := equations.ranges.skip text valid state.position stateValid.1
-  have skipEq := interpreted_skip calls equations text valid state.position stateValid.1
+  have skipBound := equations.ranges.skip text valid state.position (domain.valid text state stateValid).1
+  have skipEq := interpreted_skip calls equations text valid state.position (domain.valid text state stateValid).1
   have nameEq := interpreted_name calls equations text valid _ skipBound
   rw [equations.dynamic text valid state stateValid]
   dsimp +instances only [dynamicBody, Expr.eval, Context.locals, Locals.set, lexical, modelPrimitives, Calls.get, Field.get]
@@ -755,13 +757,13 @@ decreasing_by
   rw [nameEq, skipEq]
   simp [dynamicAt, Bool.or_eq_true, or_assoc]
 
-@[simp] theorem interpreted_assignmentValue (calls : Calls) (equations : HelperEquations calls)
+@[simp] theorem interpreted_assignmentValue (calls : Calls) (equations : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (state : ParserState)
-    (stateValid : ValidState text state) :
+    (stateValid : domain.holds text state) :
     calls.function .assignmentValue text state = assignmentAt text state := by
-  have resultValid := equations.ranges.expression text valid state.position state.names state.scalarNames false stateValid.1 stateValid.2.1 stateValid.2.2.2.2.2
-  have evalue := interpreted_expression (integerHidden := false) calls equations text valid state.position state.names stateValid.1 stateValid.2.1 stateValid.2.2.2.2.2
-  have efits := interpreted_fits calls equations text valid _ state.capacity resultValid stateValid.2.2.2.2.1
+  have resultValid := equations.ranges.expression text valid state.position state.names state.scalarNames false (domain.valid text state stateValid).1 (domain.valid text state stateValid).2.1 (domain.valid text state stateValid).2.2.2.2.2
+  have evalue := interpreted_expression (integerHidden := false) calls equations text valid state.position state.names (domain.valid text state stateValid).1 (domain.valid text state stateValid).2.1 (domain.valid text state stateValid).2.2.2.2.2
+  have efits := interpreted_fits calls equations text valid _ state.capacity resultValid (domain.valid text state stateValid).2.2.2.2.1
   rw [equations.assignmentValue text valid state stateValid]
   dsimp +instances only [assignmentBody, Expr.eval, Context.locals, Locals.set, lexical, Calls.get, Field.get]
   simp only [reduceCtorEq, ↓reduceIte, ↓reduceDIte]
@@ -773,9 +775,9 @@ decreasing_by
   congr 1
   exact propext (reorder _ _ _ _ _ _)
 
-@[simp] theorem interpreted_capacity (calls : Calls) (equations : HelperEquations calls)
+@[simp] theorem interpreted_capacity (calls : Calls) (equations : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (state : ParserState)
-    (stateValid : ValidState text state) :
+    (stateValid : domain.holds text state) :
     calls.function .capacity text state = capacityAt text state := by
   rw [equations.capacity text valid state stateValid]
   dsimp +instances only [capacityBody, Expr.eval, Context.locals, lexical, modelPrimitives, Field.get, capacityAt, skipAt]
@@ -783,7 +785,7 @@ decreasing_by
   by_cases zero : state.position = 0
   · simp [zero]
   · have positive : Cursor.triviaPosition text state.position ≠ 0 := by
-      have lower := (Cursor.triviaPosition_bounds text state.position (by omega) stateValid.1).1
+      have lower := (Cursor.triviaPosition_bounds text state.position (by omega) (domain.valid text state stateValid).1).1
       omega
     simp [zero, positive]
 

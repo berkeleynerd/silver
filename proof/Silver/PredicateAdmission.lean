@@ -3,6 +3,7 @@ module
 public import Silver.ComposeGrammar
 public import Silver.PredicateChecking
 public import Silver.IntegerLiteral
+public import Silver.PredicateFlowOverlay
 
 @[expose] public section
 
@@ -17,7 +18,21 @@ structure ParseContext where
   names : Compose.BindingEnvironment
   hasArguments : Bool
   scalarNames : ScalarExpression.Environment := []
+  declarationCount : Nat := 0
   deriving Repr
+
+def ParseContext.analysis (context : ParseContext) : Integer.Analysis :=
+  ScalarMetadata.analysis context.scalarNames context.declarationCount
+
+def ParseContext.readingNames (context : ParseContext) (facts : ActiveFlow) : ScalarExpression.Environment :=
+  ScalarMetadata.readingNames context.scalarNames context.declarationCount facts
+
+def readScalarInFlow (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
+    (maskFirst maskAfter : Nat := 0) : ScalarExpression.Result :=
+  ScalarExpression.read text position (context.readingNames facts) maskFirst maskAfter
+
+def readStringInFlow (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow) :
+    ExpressionResult := expressionAt text position context.names (context.readingNames facts)
 
 def Comparison.toInteger : Comparison → Integer.Comparison
   | .eq => .eq | .ne => .ne | .lt => .lt | .le => .le | .gt => .gt | .ge => .ge
@@ -53,11 +68,36 @@ def lengthAt (text : Source) (context : ParseContext) (position : Nat) (literal 
 
 structure ConditionResult where
   after : Nat
-  whenTrue : Context
-  whenFalse : Context
+  whenTrue : ActiveFlow
+  whenFalse : ActiveFlow
   deriving DecidableEq, Repr
 
-def invalidCondition : ConditionResult := ⟨0, Context.empty, Context.empty⟩
+def ConditionResult.count (result : ConditionResult) : Nat := result.whenTrue.count
+
+def invalidCondition (facts : ActiveFlow) : ConditionResult := ⟨0, facts.invalid, facts.invalid⟩
+
+def bareTarget (text : Source) (context : ParseContext) (position after : Nat) : Nat :=
+  let first := skipAt text position
+  let last := nameAfter text first
+  let index := ScalarExpression.lookup text context.scalarNames first last
+  if index ≠ 0 ∧ last = after ∧
+      ((ScalarExpression.binding context.scalarNames index).mutable || decide (context.declarationCount < index))
+  then index else 0
+
+def scalarCondition (text : Source) (context : ParseContext) (position rightPosition : Nat)
+    (facts : ActiveFlow) (left right : ScalarExpression.Result) (operator : Comparison) : ConditionResult :=
+  let leftTarget := bareTarget text context position left.after
+  let rightTarget := bareTarget text context rightPosition right.after
+  let target := if leftTarget ≠ 0 ∧ right.isStatic ∧ right.bounds.lower = right.bounds.upper then leftTarget
+    else if rightTarget ≠ 0 ∧ left.isStatic ∧ left.bounds.lower = left.bounds.upper then rightTarget else 0
+  let selected := if leftTarget ≠ 0 ∧ right.isStatic ∧ right.bounds.lower = right.bounds.upper
+    then operator.toInteger else operator.toInteger.swap
+  let threshold := if leftTarget ≠ 0 ∧ right.isStatic ∧ right.bounds.lower = right.bounds.upper
+    then right.bounds.lower else left.bounds.lower
+  ⟨right.after, facts.refine target selected threshold true, facts.refine target selected threshold false⟩
+
+def refineFlowBounds (facts : ActiveFlow) (operator : Comparison) (left right : Bound) (truth : Bool) : ActiveFlow :=
+  {facts with path := refineBounds facts.path operator left right truth}
 
 def summaryOf (value : ExpressionResult) : LengthSummary := value.lengthSummary
 
@@ -74,7 +114,7 @@ def chainAfter (text : Source) (position : Nat) (andThen : Bool) : Nat :=
   fixedAfter text (fixedAfter text position (if andThen then "and" else "or") true)
     (if andThen then "then" else "else") true
 
-def chainContext (result : ConditionResult) (andThen : Bool) : Context :=
+def chainContext (result : ConditionResult) (andThen : Bool) : ActiveFlow :=
   if andThen then result.whenTrue else result.whenFalse
 
 def chainJoin (left right : ConditionResult) (andThen : Bool) : ConditionResult :=
@@ -82,54 +122,58 @@ def chainJoin (left right : ConditionResult) (andThen : Bool) : ConditionResult 
   else ⟨right.after, left.whenTrue.join right.whenTrue, right.whenFalse⟩
 
 mutual
-  def readPrimary (text : Source) (context : ParseContext) (position : Nat) (facts : Context) : ConditionResult :=
-    if position = 0 then invalidCondition else
+  def readPrimary (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow) : ConditionResult :=
+    if position = 0 then invalidCondition facts else
     let after := fixedAfter text position "(" false
     if after ≠ 0 then
       if _advanced : remainingAt text after < remainingAt text position then
         let result := readCondition text context after facts
-        {result with after := fixedAfter text result.after ")" false}
-      else invalidCondition
-    else if !context.hasArguments then invalidCondition
-    else ⟨callAfter text context.names position .validity context.scalarNames, facts.assumeValid, facts.assumeInvalid⟩
+        let close := fixedAfter text result.after ")" false
+        if close = 0 then invalidCondition facts else {result with after := close}
+      else invalidCondition facts
+    else if !context.hasArguments then invalidCondition facts
+    else
+      let afterCall := callAfter text context.names position .validity context.scalarNames
+      if afterCall = 0 then invalidCondition facts else
+        ⟨afterCall, {facts with path := facts.path.assumeValid}, {facts with path := facts.path.assumeInvalid}⟩
   termination_by remainingAt text position * 5 + 1
   decreasing_by all_goals simp_wf; all_goals try dsimp (config := {zetaDelta := true}) only at *; all_goals omega
 
-  def readRelation (text : Source) (context : ParseContext) (position : Nat) (facts : Context) : ConditionResult :=
-    if position = 0 then invalidCondition else
+  def readRelation (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow) : ConditionResult :=
+    if position = 0 then invalidCondition facts else
     let after := fixedAfter text position "not" true
     if after ≠ 0 then
       if _advanced : remainingAt text after < remainingAt text position then
         let result := readPrimary text context after facts
         ⟨result.after, result.whenFalse, result.whenTrue⟩
-      else invalidCondition
+      else invalidCondition facts
     else
       let leftLength := lengthAt text context position false
       if leftLength.after ≠ 0 then
         let operator := comparisonAt text leftLength.after
         let rightLength := lengthAt text context operator.after true
-        if rightLength.after ≤ position then invalidCondition else
+        if rightLength.after ≤ position then invalidCondition facts else
         ⟨rightLength.after,
-          refineBounds facts operator.operator leftLength.value rightLength.value true,
-          refineBounds facts operator.operator leftLength.value rightLength.value false⟩
+          refineFlowBounds facts operator.operator leftLength.value rightLength.value true,
+          refineFlowBounds facts operator.operator leftLength.value rightLength.value false⟩
       else
-        let leftScalar := ScalarExpression.read text position context.scalarNames
+        let leftScalar := ScalarExpression.read text position (context.readingNames facts)
         if leftScalar.after ≠ 0 then
           let operator := comparisonAt text leftScalar.after
-          let rightScalar := ScalarExpression.read text operator.after context.scalarNames
-          if rightScalar.after ≤ position then invalidCondition
-          else ⟨rightScalar.after, facts, facts⟩
+          let rightScalar := ScalarExpression.read text operator.after (context.readingNames facts)
+          if rightScalar.after ≤ position then invalidCondition facts
+          else scalarCondition text context position operator.after facts leftScalar rightScalar operator.operator
         else
-        let left := expressionAt text position context.names context.scalarNames
+        let left := expressionAt text position context.names (context.readingNames facts)
         if left.after ≠ 0 then
           let operator := comparisonAt text left.after
-          if operator.after = 0 ∨ (operator.operator ≠ .eq ∧ operator.operator ≠ .ne) then invalidCondition
+          if operator.after = 0 ∨ (operator.operator ≠ .eq ∧ operator.operator ≠ .ne) then invalidCondition facts
           else
-            let right := expressionAt text operator.after context.names context.scalarNames
+            let right := expressionAt text operator.after context.names (context.readingNames facts)
             if right.after ≤ position ∨ !(left.namedSeen || right.namedSeen) ∨
-                !fitsLengthSummary facts (summaryOf left) ∨ !fitsLengthSummary facts (summaryOf right) then invalidCondition
+                !fitsLengthSummary facts.path (summaryOf left) ∨ !fitsLengthSummary facts.path (summaryOf right) then invalidCondition facts
             else
-              let equalFacts := refineLengthOverlap facts (summaryOf left) (summaryOf right)
+              let equalFacts := {facts with path := refineLengthOverlap facts.path (summaryOf left) (summaryOf right)}
               ⟨right.after, if operator.operator == .eq then equalFacts else facts,
                 if operator.operator == .eq then facts else equalFacts⟩
         else readPrimary text context position facts
@@ -138,30 +182,31 @@ mutual
 
   def conditionTail (text : Source) (context : ParseContext) (result : ConditionResult)
       (chained : Option Bool) : ConditionResult :=
-    if result.after = 0 then invalidCondition else
+    if result.after = 0 then invalidCondition result.whenTrue else
     match chainOperator text result.after with
     | none => result
     | some operator =>
-        if chained.isSome && decide (chained ≠ some operator) then invalidCondition else
+        if chained.isSome && decide (chained ≠ some operator) then invalidCondition result.whenTrue else
         let after := chainAfter text result.after operator
-        if after = 0 then invalidCondition else
+        if after = 0 then invalidCondition result.whenTrue else
         if _advanced : remainingAt text after < remainingAt text result.after then
           let right := readRelation text context after (chainContext result operator)
-          if right.after = 0 then invalidCondition else
+          if right.after = 0 then invalidCondition result.whenTrue else
           let next := chainJoin result right operator
           if _rightAdvanced : remainingAt text next.after < remainingAt text result.after then
             conditionTail text context next (some operator)
-          else invalidCondition
-        else invalidCondition
+          else invalidCondition result.whenTrue
+        else invalidCondition result.whenTrue
   termination_by remainingAt text result.after * 5 + 4
   decreasing_by all_goals simp_wf; all_goals try dsimp (config := {zetaDelta := true}) only at *; all_goals omega
 
-  def readCondition (text : Source) (context : ParseContext) (position : Nat) (facts : Context) : ConditionResult :=
+  def readCondition (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow) : ConditionResult :=
     let result := readRelation text context position facts
-    if result.after = 0 then invalidCondition else
+    if result.after = 0 then invalidCondition facts else
     if _advanced : remainingAt text result.after < remainingAt text position then
-      conditionTail text context result none
-    else invalidCondition
+      let final := conditionTail text context result none
+      if final.after = 0 then invalidCondition facts else final
+    else invalidCondition facts
   termination_by remainingAt text position * 5 + 3
   decreasing_by all_goals simp_wf; all_goals try dsimp (config := {zetaDelta := true}) only at *; all_goals omega
 end

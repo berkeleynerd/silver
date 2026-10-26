@@ -1,0 +1,155 @@
+{
+  "implementation_commit": "d039e68dba2f8e2448b095849e8d9e7c4ee2a500",
+  "scope": "Focused repair evidence only; complete final-source/native checkpoint remains required. Historical source inputs retain their captured identity.",
+  "runs": [
+    {
+      "run_id": "20261026T074542-45d3cf58824e",
+      "command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/scripts/check_lean.py",
+        "--task",
+        "#239",
+        "--workers",
+        "4",
+        "--threads",
+        "2"
+      ],
+      "scope": "complete",
+      "outcome": "failure",
+      "started_utc": "2026-10-26T07:45:43.932434+00:00",
+      "finished_utc": "2026-10-26T09:18:11.237287+00:00",
+      "events": {
+        "path": "20261026T074542-45d3cf58824e/events.jsonl.gz",
+        "sha256": "de680659e943ab7110d631757c75869d2c18a67b2830f94e929c48ff2973d7c9",
+        "compressed_sha256": "44f8a53ae96455bb3f8b5bb84a4313971775dfee214c23ba8a5ef519b3481875",
+        "bytes": 71289
+      },
+      "captured_source_inputs": 612,
+      "log": {
+        "path": "20261026T074542-45d3cf58824e/failed-complete-lean.log.gz",
+        "sha256": "2dd91f1bd11fcbeacf4c8c9512234cf86650c73ed5777eeee007fa80ed5fcfc5",
+        "compressed_sha256": "aaf0c71c78cd59976a7c06ea75dcdcecacbdbaf41b053c31746681e3cc83adba",
+        "bytes": 15395
+      },
+      "result_scope": "Failed complete build; no successful result manifest. Final log includes the deliberate obsolete certificate interruption."
+    },
+    {
+      "run_id": "20261026T093333-027143e77aea",
+      "command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/scripts/check_lean.py",
+        "--task",
+        "#239",
+        "--workers",
+        "2",
+        "--threads",
+        "2",
+        "--target",
+        "Silver.GuardRendererRepairCheck"
+      ],
+      "scope": [
+        "Silver.GuardRendererRepairCheck"
+      ],
+      "outcome": "success",
+      "started_utc": "2026-10-26T09:33:37.257407+00:00",
+      "finished_utc": "2026-10-26T09:34:49.579255+00:00",
+      "events": {
+        "path": "20261026T093333-027143e77aea/events.jsonl.gz",
+        "sha256": "a2ddea568c0d21fde538aa48d54478af04fd6d48ebd62461f5a548136ad5944e",
+        "compressed_sha256": "25dbcb91de6c64d6aba785cff9611e6eb9b266069af74cb856dda6c1910fd7bd",
+        "bytes": 72110
+      },
+      "captured_source_inputs": 614,
+      "result": {
+        "path": "20261026T093333-027143e77aea/lean-focused-evidence.json.gz",
+        "sha256": "8ee1ac0e514fd67e026f0ff410a89caea90cf57013877836f4d45549e54350db",
+        "compressed_sha256": "edae0583c8311af3f51cb07d54ae7b83a78d9969f449abdcd851a222d16f02ee",
+        "bytes": 4372
+      },
+      "log": {
+        "path": "20261026T093333-027143e77aea/lean-focused.log.gz",
+        "sha256": "6e190d7d34566a68a2d3fe3df56510cebb7a43d39783cf3cd5abc6f61059a838",
+        "compressed_sha256": "6f9832ab3cbd16ea88a33339a00b9851618e0c79dbfae11065dbfa35dcbfeca5",
+        "bytes": 4705
+      }
+    },
+    {
+      "run_id": "20261026T093522-12961dacbd93",
+      "command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/scripts/check_lean.py",
+        "--task",
+        "#239",
+        "--workers",
+        "2",
+        "--threads",
+        "2",
+        "--target",
+        "Silver.GuardCandidateRepairCheck"
+      ],
+      "scope": [
+        "Silver.GuardCandidateRepairCheck"
+      ],
+      "outcome": "success",
+      "started_utc": "2026-10-26T09:35:25.916801+00:00",
+      "finished_utc": "2026-10-26T09:38:50.665293+00:00",
+      "events": {
+        "path": "20261026T093522-12961dacbd93/events.jsonl.gz",
+        "sha256": "0ec10030f96d7c133866d180602f688eec210a15ba3f5cc08d46f70d0bb01dd1",
+        "compressed_sha256": "bf8b534058be026073546595b824a241b56f090f499440ce881539d55f08f1c6",
+        "bytes": 72489
+      },
+      "captured_source_inputs": 614,
+      "result": {
+        "path": "20261026T093522-12961dacbd93/lean-focused-evidence.json.gz",
+        "sha256": "903c66e1355236574a7dc3dc9b062bfaa2730de0c1234673f430bc75a10115e8",
+        "compressed_sha256": "4fd62695cddfc7ac88b81f61d322d4f02fb2ee3a8f9d29b825cb28542516ff80",
+        "bytes": 6516
+      },
+      "log": {
+        "path": "20261026T093522-12961dacbd93/lean-focused.log.gz",
+        "sha256": "e7a34002a5ac5300d1f687984d9fe0e5c9203d73afb8f79c3b55a470b79985fa",
+        "compressed_sha256": "35a49d541460021a92fcee2e7a77e3d69f5836b9b860d86c6197cadc72c00b9d",
+        "bytes": 7245
+      }
+    }
+  ],
+  "GuardRendererRepairCheck": {
+    "path": "diagnostic-source/GuardRendererRepairCheck.lean.gz",
+    "sha256": "77f343a44f2a545d04ad2ddb8664ab8f3c09d3ed583295d8b67f688694ccaa1b",
+    "compressed_sha256": "6f1147946b3b27242939a1e985a7859f244fb37ad1e5b751f740c24ba5dbd84f",
+    "bytes": 625
+  },
+  "GuardCandidateRepairCheck": {
+    "path": "diagnostic-source/GuardCandidateRepairCheck.lean.gz",
+    "sha256": "e921e9d92e39d070a1a54b7a373cbdc5550ce63e13e3a0f770b3bfd07ad4cd11",
+    "compressed_sha256": "45bc9159911fa40fa60b0faf8445a60ac6623e5e28a8fd41647565acf7eb2c17",
+    "bytes": 989
+  },
+  "interruption": {
+    "path": "obsolete-run-interruption.json.gz",
+    "sha256": "53a2e5b0c9b5a2f20446f748c048530dcc94b52faf4d1879717c9c3a8b1ff0f0",
+    "compressed_sha256": "6065be02205144bd4a483042ed6da9f2bb06f2440023877a835863570225720f",
+    "bytes": 1860
+  },
+  "additional_diagnostics": {
+    "guard-candidate-repair-preflight.log": {
+      "path": "diagnostics/guard-candidate-repair-preflight.log.gz",
+      "sha256": "a1a8dac01889ae7114fed83b9021a0272ed9edbd12849e34915fdccae43e98e3",
+      "compressed_sha256": "b2ffa2dbfe17a840ded95fdabd6d8dfb2c9a964c5272c242e2b1e490fc11969d",
+      "bytes": 7167
+    },
+    "guard-renderer-only-preflight.log": {
+      "path": "diagnostics/guard-renderer-only-preflight.log.gz",
+      "sha256": "40ffe8856ac4b5d1f8899f70e82979177a1071e540fe823ae17c1c0b0ac201b6",
+      "compressed_sha256": "17a261357bc16ae4396a8a19b986c2a53edcf03685bf8171b15513e7e34f6d99",
+      "bytes": 3391
+    },
+    "guard-renderer-equations-diagnostic.log": {
+      "path": "diagnostics/guard-renderer-equations-diagnostic.log.gz",
+      "sha256": "377a2567a1b13a03f5bd083bba7f42667570ddb328db452b6e27ed008d1d0edd",
+      "compressed_sha256": "cd2aab9cf92bdb2743b3e5695300de1a7311bf25aae32ff438500374b3366ac8",
+      "bytes": 21639
+    }
+  }
+}

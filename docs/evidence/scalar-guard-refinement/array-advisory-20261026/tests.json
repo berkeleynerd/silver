@@ -1,0 +1,22 @@
+{
+  "run_id": "20261026T105625-c89ba43031eb",
+  "outcome": "success",
+  "tests": 60,
+  "test_seconds": 4.886,
+  "managed_seconds": 6.497430776,
+  "auditor_sha256": "7d8bb865f97e419ec5c3b6466964151feb3cd5ba8233fd80ae521af4525f268e",
+  "tests_sha256": "fe2bdb6287f64ece29a4b66e4c414f72a4e421a561f59f0d0e2f6c9244b90dd6",
+  "artifacts": {
+    "tests.log.gz": {
+      "sha256": "83acb3b96abe1538dc771f708be3b46a40168b6593022aa860e23cfc6510de0a",
+      "compressed_sha256": "2b5f14b86c66a1367e08909909367f846b902241f8b90f5307cf05b2302c66b4",
+      "bytes": 9865
+    },
+    "tests.events.jsonl.gz": {
+      "sha256": "ee011303d717f8953a3412bd60c7292ab3b6d17e94fafa8eaf1f398df46de822",
+      "compressed_sha256": "96c6c3a578a8300f064d63a4fa86af257495392215750e2a6447c28669c25d90",
+      "bytes": 137549
+    }
+  },
+  "scope": "Complete tests/test_evidence.py, including exact compiler advisory acceptance and rejection of malformed metadata, application use, unproved/omitted obligations and mismatched SARIF. Not a full native audit."
+}

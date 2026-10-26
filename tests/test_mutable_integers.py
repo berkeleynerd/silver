@@ -56,15 +56,15 @@ class MutableIntegerTests(unittest.TestCase):
             with self.subTest(declarations=declarations):
                 self.check(program(declarations, b'null;'), 2)
 
-    def test_admission_body_uses_declared_ranges_without_narrowing(self) -> None:
+    def test_admission_body_starts_declared_and_tracks_writes_and_guards(self) -> None:
         declarations = b'X:Integer range 0..9:=0;Y:Integer range -9..9:=0;'
         for body in (b'X:=9;X:=(9 - X);Y:=(-Y);',
                      b'for I in 0..9 loop X:=I;end loop;',
                      b'if X=0 then X:=9;else X:=0;end if;',
-                     b'X:=X;Y:=X;'):
+                     b'X:=X;Y:=X;', b'X:=0;X:=(X + 1);',
+                     b'if X<9 then X:=(X + 1);end if;'):
             self.check(program(declarations, body))
-        for body in (b'X:=(X + 1);', b'X:=0;X:=(X + 1);',
-                     b'if X<9 then X:=(X + 1);end if;', b'X:=(X - X);',
+        for body in (b'X:=(X + 1);', b'X:=(X - X);',
                      b'X:=Y;', b'X:=10;', b'X:=(-1);'):
             self.check(program(declarations, body), 2)
         self.check(program(b'X:Integer:=0;', b'X:=(X + 1);'), 2)
@@ -145,7 +145,7 @@ class MutableIntegerTests(unittest.TestCase):
                             + b'S:String:="' + b'x' * width + b'";')
             self.check(program(declarations, b'S:=Integer\'Image(A);'), status)
         self.check(program(b'A:Integer range 9..10:=9;S:String:=Integer\'Image(A);',
-                           b'A:=9;S:=Integer\'Image(A);'), 2)
+                           b'A:=9;S:=Integer\'Image(A);'))
 
     def test_admission_scalar_guard_composes_with_input_length_facts(self) -> None:
         declarations = b'A:Integer range 10..99:=10;'

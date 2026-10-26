@@ -1,6 +1,8 @@
 module
 
 public import Silver.PredicateNativeHelpers
+public import Silver.PredicateFlowReaderLibraries
+public import Silver.PredicateNativeScalarHelpers
 public import Silver.ComposeModelCalls
 public import Silver.ComposeEquations
 public import Silver.IntegerLiteralEquations
@@ -10,6 +12,8 @@ public import Silver.LengthIntervalExpressions
 namespace Silver.Predicate.Native
 open Compose Compose.Expressions
 namespace Libraries
+
+variable {domain : Compose.Expressions.StateDomain}
 
 set_option backward.dsimp.instances true
 set_option maxRecDepth 10000
@@ -61,6 +65,35 @@ def PathInputs.locals (inputs : PathInputs) : PathFacts.Native.Locals
   | .truth, "truth" => inputs.truth
   | ty, _ => ty.default
 
+/-- Scalar helper definitions inherit their primitive lexical and interval
+operations from already interpreted source libraries. -/
+structure ScalarLinks (calls : Native.Calls) (composed : Compose.Expressions.Calls) : Prop where
+  source : ∃ helpers : ScalarHelpers.Calls,
+    Integer.NativeSourceBridge.InterpretedSource helpers.scalars ∧
+    helpers.skip = composed.function .skip ∧
+    helpers.nameAfter = composed.function .nameAfter ∧
+    helpers.lookup = composed.function .scalarLookup ∧
+    ScalarHelpers.DefinitionEquations helpers ∧
+    calls.scalarCondition = helpers.scalarCondition ∧ calls.invalidCondition = helpers.invalid
+
+theorem scalar_primitives {helperCalls : ScalarHelpers.Calls} {composed : Compose.Expressions.Calls}
+    (equations : HelperEquations composed (domain := domain))
+    (scalars : Integer.NativeSourceBridge.InterpretedSource helperCalls.scalars)
+    (skip : helperCalls.skip = composed.function .skip)
+    (name : helperCalls.nameAfter = composed.function .nameAfter)
+    (lookup : helperCalls.lookup = composed.function .scalarLookup) :
+    ScalarHelpers.PrimitiveMeaning helperCalls where
+  scalars := scalars
+  skip text tv position pv := by
+    rw [skip]
+    exact interpreted_skip composed equations text tv position pv
+  nameAfter text tv position pv := by
+    rw [name]
+    exact interpreted_name composed equations text tv position pv
+  lookup text tv names first after nv fv av := by
+    rw [lookup]
+    exact equations.scalarLookup text tv names first after nv fv av
+
 /-- Callee wiring only: lexical/expression calls use their inherited native
 functions; Read_Integer uses its runtime wrapper; path calls use the exact typed
 library bodies. No independent predicate meaning occurs in these links. -/
@@ -78,6 +111,8 @@ structure Links (calls : Native.Calls) (composed : Compose.Expressions.Calls)
     calls.lookup text names first after = composed.function .lookupName text names first after
   scalarLookup : calls.scalarLookup = composed.function .scalarLookup
   scalarRead : calls.scalarRead = composed.function .scalarRead
+  readers : FlowReaders.Links composed calls.scalarInFlow calls.stringInFlow
+  scalarHelpers : ScalarLinks calls composed
   integer : ∀ text, ValidText text → ∀ position, position ≤ text.length + 1 →
     calls.integer text position = integer text position
   expression : ∀ text, ValidText text → ∀ position names scalarNames, position ≤ text.length + 1 → ValidNames text names →
@@ -97,16 +132,17 @@ structure Links (calls : Native.Calls) (composed : Compose.Expressions.Calls)
   refineEqual : ∀ (facts : Paths) left right,
     calls.refineEqual facts.model left right =
       (LengthIntervals.Native.refineEqualBody.eval ({facts, left, right} : LengthIntervals.Native.Inputs).locals).model
-  join : ∀ left right : Paths,
-    calls.join left.model right.model =
-      (PathFacts.Native.joinBody.eval ({leftFacts := left, rightFacts := right} : PathInputs).locals).model
+  join : ∃ flowCalls joined,
+    FlowSourceBridge.CallsMeaning flowCalls ∧ FlowSourceBridge.InterpretedJoined flowCalls joined ∧
+    ∀ left right, left.count ≤ ScalarExpression.maxBindings → left.count = right.count →
+      calls.join left right = (joined (FlowSourceBridge.ofFlow left) (FlowSourceBridge.ofFlow right)).active
 
 theorem token_valid (token : Token) : Compose.Expressions.ValidToken token.shell := by
   unfold Compose.Expressions.ValidToken
   cases token <;> decide +kernel
 
 theorem helper_meaning (calls : Native.Calls) (composed : Compose.Expressions.Calls)
-    (composedEquations : Compose.Expressions.HelperEquations composed)
+    (composedEquations : Compose.Expressions.HelperEquations composed (domain := domain))
     (literals : IntegerLiteral.Native.Calls) (literalEquations : IntegerLiteral.Native.Equations literals)
     (integer : Source → Nat → IntegerLiteral.Result)
     (refinement : ∀ text, IntegerLiteral.Native.ValidText text → ∀ position, position ≤ text.length + 1 →
@@ -132,6 +168,22 @@ theorem helper_meaning (calls : Native.Calls) (composed : Compose.Expressions.Ca
   scalarRead text tv position names pv nv := by
     rw [links.scalarRead]
     exact composedEquations.scalarRead text tv position names pv nv
+  scalarInFlow text tv context cv position facts pv fv :=
+    FlowReaders.linked_scalar composedEquations links.readers {text, context, position, facts}
+      ⟨tv, cv, fv, pv⟩
+  stringInFlow text tv context cv position facts pv fv :=
+    FlowReaders.linked_string composedEquations links.readers {text, context, position, facts}
+      ⟨tv, cv, fv, pv⟩
+  scalarCondition text tv context cv position rightPosition pv rpv facts fv left right la ra operator lb rb := by
+    obtain ⟨helpers, scalars, skip, name, lookup, definitions, condition, _⟩ := links.scalarHelpers.source
+    rw [condition]
+    exact ScalarHelpers.scalarCondition_meaning
+      (scalar_primitives composedEquations scalars skip name lookup) definitions
+      text tv context cv position rightPosition pv rpv facts fv left right la ra operator lb rb
+  invalidCondition facts capacity := by
+    obtain ⟨helpers, _, _, _, _, definitions, _, invalid⟩ := links.scalarHelpers.source
+    rw [invalid]
+    exact ScalarHelpers.invalid_meaning definitions facts capacity
   integer text tv position bounded := by
     rw [links.integer text tv position bounded]
     exact IntegerLiteral.Native.executable_refinement literals literalEquations integer refinement text tv position bounded
@@ -153,9 +205,12 @@ theorem helper_meaning (calls : Native.Calls) (composed : Compose.Expressions.Ca
   refineEqual facts left right := by
     have equation := links.refineEqual (reify facts) left right
     simpa only [LengthIntervals.Native.refineEqualBody_eval, LengthIntervals.Native.refineEqual_model, reify_model] using equation
-  join left right := by
-    have equation := links.join (reify left) (reify right)
-    simpa only [PathFacts.Native.joinBody_eval, PathInputs.locals, PathFacts.Native.join_model, reify_model] using equation
+  join left right capacity same := by
+    obtain ⟨flowCalls, joined, meaning, source, observed⟩ := links.join
+    rw [observed left right capacity same]
+    simpa only [FlowSourceBridge.ofFlow_active] using
+      FlowSourceBridge.interpreted_joined flowCalls meaning joined source
+        (FlowSourceBridge.ofFlow left) (FlowSourceBridge.ofFlow right) capacity same
 
 /-- The callee wiring itself has a concrete inhabitant. -/
 theorem model_links : Links Native.modelCalls Compose.Expressions.modelCalls IntegerLiteral.read where
@@ -166,6 +221,24 @@ theorem model_links : Links Native.modelCalls Compose.Expressions.modelCalls Int
   lookup _ _ _ _ _ _ _ _ := rfl
   scalarLookup := rfl
   scalarRead := rfl
+  readers := by
+    let inherited := FlowReaders.inheritedCalls FlowSourceBridge.readingStorage
+      Compose.Expressions.modelCalls ScalarExpression.Native.modelCalls
+    refine ⟨FlowSourceBridge.readingStorage, ScalarExpression.Native.modelCalls,
+      FlowReaders.modelScalar inherited, FlowSourceBridge.model_reading_interpreted,
+      ScalarExpression.Native.model_primitives, ScalarExpression.Native.model_equations,
+      FlowReaders.model_scalar_refinement inherited, ?_, ?_⟩
+    · constructor
+      intro inputs legal
+      dsimp only [FlowReaders.stringRhs, FlowReaders.Expr.eval, inherited, FlowReaders.inheritedCalls]
+      rw [FlowReaders.overlay_meaning FlowSourceBridge.model_reading_interpreted legal.2.1 legal.2.2.1]
+      rfl
+    · intro text context position facts legal
+      exact (FlowReaders.scalar_meaning FlowReaders.model_meaning
+        (FlowReaders.model_scalar_refinement FlowReaders.modelCalls)
+        {text, context, position, facts} legal (Or.inl ⟨rfl, rfl⟩)).symm
+  scalarHelpers := ⟨ScalarHelpers.modelCalls, Integer.NativeSourceBridge.model_interpreted,
+    rfl, rfl, rfl, ScalarHelpers.model_equations, rfl, rfl⟩
   integer _ _ _ _ := rfl
   expression _ _ _ _ _ _ _ _ := rfl
   assumeValid facts := by
@@ -183,9 +256,15 @@ theorem model_links : Links Native.modelCalls Compose.Expressions.modelCalls Int
   refineEqual facts left right := by
     rw [LengthIntervals.Native.refineEqualBody_eval]
     exact (LengthIntervals.Native.refineEqual_model facts left right).symm
-  join left right := by
-    rw [PathFacts.Native.joinBody_eval]
-    exact (PathFacts.Native.join_model left right).symm
+  join := by
+    refine ⟨FlowSourceBridge.modelCalls, FlowSourceBridge.joinedStorage FlowSourceBridge.modelCalls,
+      FlowSourceBridge.model_calls_meaning, FlowSourceBridge.model_joined_interpreted _, ?_⟩
+    intro left right capacity same
+    symm
+    simpa only [FlowSourceBridge.ofFlow_active, Native.modelCalls] using
+      FlowSourceBridge.interpreted_joined FlowSourceBridge.modelCalls
+        FlowSourceBridge.model_calls_meaning _ (FlowSourceBridge.model_joined_interpreted _)
+        (FlowSourceBridge.ofFlow left) (FlowSourceBridge.ofFlow right) capacity same
 
 end Libraries
 end Silver.Predicate.Native

@@ -5,8 +5,7 @@ public import Silver.IntegerDeclarations
 @[expose] public section
 
 /-! Exact ordered elaboration and the declared-range invariant used throughout
-the executable body. Mutable reads never retain an initializer or assignment's
-singleton. Immutable snapshots retain their initial values, independently of
+the executable body. Initial mutable reads use declared ranges; executable flow is carried separately. Immutable snapshots retain their initial values, independently of
 whether their Ada initializer was a static expression. -/
 namespace Silver.Integer
 
@@ -123,9 +122,10 @@ structure Assignment where
 /-- Empty RHS intervals are rejected even in unreachable loop bodies: the
 pinned Ada/SPARK frontend still checks statically predictable assignments.
 Mathematical interval inclusion itself retains the empty-subset law. -/
-def Assignment.check (assignment : Assignment) (ranges : Ranges) (mutable : Mutability) : Bool :=
+def Assignment.check (assignment : Assignment) (ranges : Ranges) (mutable : Mutability)
+    (declared : Ranges := ranges) : Bool :=
   mutable assignment.target &&
-    match ranges assignment.target, assignment.value.infer ranges with
+    match declared assignment.target, assignment.value.infer ranges with
     | some target, some value =>
         decide (assignment.bounds = target) && (!value.isEmpty && value.included target)
     | _, _ => false
@@ -137,12 +137,19 @@ def Assignment.checkedExecute (assignment : Assignment) (values : Store) : Optio
   (assignment.value.checkedEvaluate values).bind fun value =>
     if assignment.bounds.Contains value then some (put values assignment.target value) else none
 
-theorem Assignment.check_sound {assignment : Assignment} {ranges : Ranges} {mutable : Mutability}
-    {values : Store} (checked : assignment.check ranges mutable = true) (fits : Fits ranges values) :
-    assignment.value.Safe values ∧ Fits ranges (assignment.execute values) ∧
+/-- Replacement records the RHS interval, including singleton assignments. -/
+def Assignment.after (assignment : Assignment) (ranges : Ranges) : Ranges :=
+  put ranges assignment.target (assignment.value.infer ranges)
+
+theorem Assignment.check_flow_sound {assignment : Assignment} {ranges declared : Ranges}
+    {mutable : Mutability} {values : Store}
+    (checked : assignment.check ranges mutable declared = true)
+    (fits : Fits ranges values) (declaredFits : Fits declared values) :
+    assignment.value.Safe values ∧ Fits declared (assignment.execute values) ∧
+      Fits (assignment.after ranges) (assignment.execute values) ∧
       assignment.checkedExecute values = some (assignment.execute values) := by
   simp only [check, Bool.and_eq_true] at checked
-  cases target : ranges assignment.target with
+  cases target : declared assignment.target with
   | none => simp [target] at checked
   | some targetBounds =>
     cases value : assignment.value.infer ranges with
@@ -151,22 +158,36 @@ theorem Assignment.check_sound {assignment : Assignment} {ranges : Ranges} {muta
       have compatible : assignment.bounds = targetBounds ∧
           valueBounds.isEmpty = false ∧ valueBounds.included targetBounds = true := by
         simpa only [target, value, Bool.and_eq_true, Bool.not_eq_true', decide_eq_true_eq] using checked.2
-      have included := compatible.2.2
       have inferred := Expr.infer_sound value fits
-      have within := Interval.included_sound included inferred.1
-      refine ⟨inferred.2, ?_, ?_⟩
+      have within := Interval.included_sound compatible.2.2 inferred.1
+      refine ⟨inferred.2, ?_, ?_, ?_⟩
       · intro index bounds found
         by_cases same : index = assignment.target
         · subst index
           rw [target] at found
           cases found
           simpa only [execute, put, ↓reduceIte] using within
-        · simpa only [execute, put, same, ↓reduceIte] using fits index bounds found
+        · simpa only [execute, put, same, ↓reduceIte] using declaredFits index bounds found
+      · intro index bounds found
+        by_cases same : index = assignment.target
+        · subst index
+          simp only [after, put, ↓reduceIte, value, Option.some.injEq] at found
+          subst bounds
+          simpa only [execute, put, ↓reduceIte] using inferred.1
+        · simp only [after, put, same, ↓reduceIte] at found
+          simpa only [execute, put, same, ↓reduceIte] using fits index bounds found
       · simp only [checkedExecute, Expr.checkedEvaluate_agrees inferred.2, Option.bind_some,
           compatible.1, within, ↓reduceIte, execute]
 
-theorem Assignment.unchanged {assignment : Assignment} {ranges : Ranges} {mutable : Mutability}
-    {values : Store} (checked : assignment.check ranges mutable = true) {index : Nat}
+theorem Assignment.check_sound {assignment : Assignment} {ranges : Ranges} {mutable : Mutability}
+    {values : Store} (checked : assignment.check ranges mutable = true) (fits : Fits ranges values) :
+    assignment.value.Safe values ∧ Fits ranges (assignment.execute values) ∧
+      assignment.checkedExecute values = some (assignment.execute values) := by
+  have sound := check_flow_sound checked fits fits
+  exact ⟨sound.1, sound.2.1, sound.2.2.2⟩
+
+theorem Assignment.unchanged {assignment : Assignment} {ranges declared : Ranges} {mutable : Mutability}
+    {values : Store} (checked : assignment.check ranges mutable declared = true) {index : Nat}
     (readonly : mutable index = false) : assignment.execute values index = values index := by
   simp only [check, Bool.and_eq_true] at checked
   have changed : mutable assignment.target = true := checked.1
@@ -175,6 +196,41 @@ theorem Assignment.unchanged {assignment : Assignment} {ranges : Ranges} {mutabl
     rw [same, changed] at readonly
     contradiction
   simp only [execute, put, distinct, ↓reduceIte]
+
+/-- Ada staticness follows declaration dependencies, never interval width. -/
+def Expr.isStatic (names : Mutability) : Expr → Bool
+  | .literal _ => true
+  | .name index => names index
+  | .positive inner | .negative inner | .parenthesized inner => inner.isStatic names
+  | .add left right | .subtract left right | .multiply left right
+  | .divide left right | .modulo left right | .remainder left right =>
+      left.isStatic names && right.isStatic names
+
+def nameFlags (flags : List Bool) : Mutability := fun index =>
+  if index = 0 then false else (flags[index - 1]?).getD false
+
+def declarationStaticFlags : List Bool → List Declaration → List Bool
+  | flags, [] => flags
+  | flags, declaration :: rest =>
+      declarationStaticFlags
+        (flags ++ [!declaration.mutable && declaration.value.isStatic (nameFlags flags)]) rest
+
+structure Analysis where
+  declared : Ranges
+  mutable : Mutability
+  static : Mutability
+  refinable : Mutability
+
+def Analysis.empty : Analysis := ⟨emptyRanges, immutable, immutable, immutable⟩
+
+def Analysis.ofDeclarations (declarations : List Declaration) : Analysis :=
+  let bindings := elaborate [] declarations
+  ⟨bindings.ranges, bindings.mutability, nameFlags (declarationStaticFlags [] declarations),
+    bindings.mutability⟩
+
+def Analysis.withIndex (analysis : Analysis) (index : Nat) (bounds : Interval) : Analysis :=
+  ⟨put analysis.declared index (some bounds), put analysis.mutable index false,
+    put analysis.static index false, put analysis.refinable index true⟩
 
 /-- Restore only the lexical index cell after a loop body. All writes to other
 scalar objects remain observable by the next iteration and later statements. -/

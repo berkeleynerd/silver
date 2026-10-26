@@ -880,6 +880,184 @@ class ProofEvidenceTests(unittest.TestCase):
             self.audit()
 
 
+class ArrayInitializationAdvisoryTests(unittest.TestCase):
+    def setUp(self) -> None:
+        ProofEvidenceTests.setUp(self)
+        self.initial_report = copy.deepcopy(self.report)
+        self.initial_sarif = copy.deepcopy(self.sarif)
+        self.prepare_array_advisory()
+
+    def prepare_array_advisory(self) -> None:
+        self.unit = "silver_output_profile"
+        self.report = copy.deepcopy(self.initial_report)
+        self.report["entities"] = {" 1": {"name": "Silver_Output_Profile.Initial_Flow",
+                                          "sloc": [{"file": self.unit + ".adb",
+                                                    "line": 1152, "column": 13}]}}
+        self.report["assumptions"] = []
+        self.report["proof"] = [{"severity": "info", "how_proved": "prover", "entity": 1,
+                                 "rule": "VC_INDEX_CHECK", "file": self.unit + ".adb",
+                                 "line": 1161, "col": 16, "message": {"text": "index check proved"}}]
+        # Exact native GNATprove 16.1 diagnostic, without an obligation entity.
+        self.note = {"rule": "array-initialization", "severity": "warning", "how_proved": "trivial",
+                     "file": self.unit + ".adb", "line": 1161, "col": 16,
+                     "message": {"text": "initialization of an array in FOR loop is handled imprecisely "
+                                          "[array-initialization]"},
+                     "unproved_status": {"status": "unknown"}, "check_tree": {}, "suppressed": ""}
+        self.report["warn_error"] = [self.note]
+        self.reports = {self.unit: self.report}
+        self.sarif = copy.deepcopy(self.initial_sarif)
+
+    def write_reports(self) -> None:
+        diagnostics = []
+        summary = []
+        flow = proof = 0
+        for unit, report in self.reports.items():
+            (self.path / (unit + ".spark")).write_text(json.dumps(report))
+            summary.append(f"in unit {unit}, 1 subprograms and packages out of 1 analyzed")
+            flow += len(report["flow"])
+            proof += len(report["proof"])
+            for section in ("flow", "proof", "warn_error"):
+                for record in report[section]:
+                    diagnostic = {
+                        "ruleId": record.get("rule"), "kind": "pass", "level": "none",
+                        "message": record.get("message"), "locations": [{"physicalLocation": {
+                            "artifactLocation": {"uri": record.get("file")},
+                            "region": {"startLine": record.get("line"), "startColumn": record.get("col")}}}]}
+                    if section == "warn_error":
+                        diagnostic.update(kind="open", level="warning", suppressions=[{"kind": "external"}])
+                    diagnostics.append(diagnostic)
+        (self.path / "gnatprove.out").write_text(
+            f"Total {flow + proof} {flow} {proof} . .\n" + "\n".join(summary) + "\n")
+        self.sarif["runs"][0]["results"] = diagnostics
+        (self.path / "gnatprove.sarif").write_text(json.dumps(self.sarif))
+
+    def audit(self, application_kind: str | None = None) -> dict[str, int]:
+        self.write_reports()
+        return audit_reports(self.path, set(self.reports), application_kind=application_kind)
+
+    def test_exact_compiler_advisory_is_separate_from_required_checks(self) -> None:
+        stats = self.audit()
+        self.assertEqual((stats["array_initialization_advisories"], stats["flow_checks"],
+                          stats["proof_checks"], stats["limitation_notes"]), (1, 0, 1, 0))
+        (self.path / "gnatprove.out").write_text(
+            f"Total 2 . 2 . .\nin unit {self.unit}, 1 subprograms and packages out of 1 analyzed\n")
+        with self.assertRaisesRegex(EvidenceError, "check totals disagree"):
+            audit_reports(self.path, {self.unit})
+
+    def test_compiler_advisory_requires_exact_native_metadata(self) -> None:
+        changes = ({"rule": "numeric-variant"}, {"severity": "info"}, {"severity": "medium"},
+                   {"how_proved": "prover"}, {"how_proved": "unproved"},
+                   {"file": "other.adb"}, {"file": "./silver_output_profile.adb"},
+                   {"line": 0}, {"line": True}, {"line": 1161.0},
+                   {"col": 0}, {"col": True}, {"col": 16.0},
+                   {"message": {"text": "initialization might fail [array-initialization]"}},
+                   {"message": {"text": self.note["message"]["text"], "extra": True}},
+                   {"unproved_status": {"status": "valid"}},
+                   {"unproved_status": {"status": "unknown", "extra": True}},
+                   {"check_tree": {"unproved": True}}, {"suppressed": "source suppression"},
+                   {"suppressed": False}, {"entity": 1}, {"justification": ""},
+                   {"justified": False}, {"annot_kind": ""}, {"justif_msg": ""}, {"extra": True})
+        for change in changes:
+            with self.subTest(change=change):
+                self.prepare_array_advisory()
+                self.note.update(change)
+                with self.assertRaisesRegex(EvidenceError, "unexpected array-initialization advisory"):
+                    self.audit()
+        self.prepare_array_advisory()
+        for field in tuple(self.note):
+            with self.subTest(missing=field):
+                self.prepare_array_advisory()
+                self.note.pop(field, None)
+                with self.assertRaisesRegex(EvidenceError, "unexpected array-initialization advisory"):
+                    self.audit()
+
+    def test_compiler_advisory_cannot_replace_or_hide_required_work(self) -> None:
+        for section, severity in product(("flow", "proof"), ("warning", "info")):
+            with self.subTest(section=section, severity=severity):
+                self.prepare_array_advisory()
+                self.note.update(severity=severity, entity=1)
+                self.report["warn_error"] = []
+                self.report[section] = [self.note]
+                with self.assertRaisesRegex(EvidenceError, "unexpected array-initialization advisory"):
+                    self.audit()
+        for section, record in (("flow", {"severity": "high", "how_proved": "flow", "rule": "UNINITIALIZED"}),
+                                ("proof", {"severity": "medium", "how_proved": "unproved"})):
+            with self.subTest(section=section):
+                self.prepare_array_advisory()
+                failed = dict(self.report["proof"][0], **record)
+                self.report[section].append(failed)
+                with self.assertRaisesRegex(EvidenceError, "not proved/info"):
+                    self.audit()
+        for section in ("skip_flow_proof", "skip_proof", "pragma_assume"):
+            with self.subTest(section=section):
+                self.prepare_array_advisory()
+                self.report[section] = [1]
+                with self.assertRaisesRegex(EvidenceError, "missing or nonempty"):
+                    self.audit()
+
+    def test_advisory_is_rejected_throughout_application_audits(self) -> None:
+        for kind, target in product(("static", "argument", "assigned", "selected"), ("main", "library")):
+            with self.subTest(kind=kind, target=target):
+                self.prepare_array_advisory()
+                main = copy.deepcopy(self.initial_report)
+                main["assumptions"] = []
+                if target == "main":
+                    main["warn_error"] = [dict(self.note, file="main.adb")]
+                    self.report["warn_error"] = []
+                self.reports["main"] = main
+                with self.assertRaisesRegex(EvidenceError, "unexpected array-initialization advisory"):
+                    self.audit(application_kind=kind)
+
+    def test_advisory_is_rejected_for_unreviewed_compiler_units(self) -> None:
+        self.unit = "silver_io"
+        self.note["file"] = self.unit + ".adb"
+        self.report["proof"][0]["file"] = self.unit + ".adb"
+        self.report["entities"][" 1"].update(
+            name="Silver_IO.Put", sloc=[{"file": self.unit + ".adb", "line": 1, "column": 1}])
+        self.reports = {self.unit: self.report}
+        with self.assertRaisesRegex(EvidenceError, "unexpected array-initialization advisory"):
+            self.audit()
+
+    def test_advisory_requires_exact_sarif_classification_and_coverage(self) -> None:
+        changes = ({"kind": "pass", "level": "none"}, {"kind": "informational"},
+                   {"level": "error"}, {"ruleId": "numeric-variant"},
+                   {"message": {"text": "different advisory"}}, {"suppressions": []},
+                   {"suppressions": [{"kind": "inSource"}]},
+                   {"suppressions": [{"kind": "external", "justification": "trusted"}]},
+                   {"properties": {"extra": True}})
+        for change in changes:
+            with self.subTest(change=change):
+                self.prepare_array_advisory()
+                self.write_reports()
+                self.sarif["runs"][0]["results"][-1].update(change)
+                (self.path / "gnatprove.sarif").write_text(json.dumps(self.sarif))
+                with self.assertRaises(EvidenceError):
+                    audit_reports(self.path, {self.unit})
+        for field, value in (("uri", "./silver_output_profile.adb"),
+                             ("startLine", 1161.0), ("startColumn", 16.0),
+                             ("startLine", True), ("startColumn", True)):
+            with self.subTest(field=field, value=value):
+                self.prepare_array_advisory()
+                self.write_reports()
+                location = self.sarif["runs"][0]["results"][-1]["locations"][0]["physicalLocation"]
+                location["artifactLocation" if field == "uri" else "region"][field] = value
+                (self.path / "gnatprove.sarif").write_text(json.dumps(self.sarif))
+                with self.assertRaises(EvidenceError):
+                    audit_reports(self.path, {self.unit})
+        for duplicate in (False, True):
+            with self.subTest(duplicate=duplicate):
+                self.prepare_array_advisory()
+                self.write_reports()
+                results = self.sarif["runs"][0]["results"]
+                if duplicate:
+                    results.append(copy.deepcopy(results[-1]))
+                else:
+                    results.pop()
+                (self.path / "gnatprove.sarif").write_text(json.dumps(self.sarif))
+                with self.assertRaisesRegex(EvidenceError, "diagnostic coverage disagree"):
+                    audit_reports(self.path, {self.unit})
+
+
 class VendorProofEvidenceTests(unittest.TestCase):
     refresh_reports = ProofEvidenceTests.refresh_reports
 

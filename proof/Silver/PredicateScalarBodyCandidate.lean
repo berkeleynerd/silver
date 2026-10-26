@@ -10,11 +10,6 @@ namespace Silver.Predicate.ScalarBodyNative.SourceChecks
 
 /-- Exact scalar helper bodies and headers in the reviewed output source. -/
 theorem candidate_checked : Checked SourceShape.bodyTokens := by
-  constructor
-  · rw [target_rendered]
-    decide +kernel
-  · rw [assignment_rendered]
-    decide +kernel
-  all_goals decide +kernel
+  constructor <;> decide +kernel
 
 end Silver.Predicate.ScalarBodyNative.SourceChecks

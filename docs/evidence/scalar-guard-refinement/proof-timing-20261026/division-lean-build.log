@@ -1,0 +1,227 @@
+Lean phase build started at 2026-10-25T22:46:36.774218+00:00
++ /home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/.tools/linux-x86_64/lean/bin/lake --rehash --reconfigure -K silverThreads=2 build Silver.Audit
+✔ [143/159] Built Silver.ScalarExpressionBodySource (1.5s)
+✔ [145/159] Built Silver.ScalarsSpecSource (1.9s)
+✔ [147/159] Built Silver.OutputProfileBodySource (2.2s)
+✔ [149/159] Built Silver.AuthoritativeSource (1.3s)
+✔ [150/165] Built Silver.ReviewedOutputShape (37s)
+✔ [171/185] Built Silver.ScalarExpressionSourceShape (5.3s)
+✔ [172/187] Built Silver.ScalarEnvironmentSourceBridge (35s)
+✔ [173/187] Built Silver.ComposeLexical (3.7s)
+✔ [174/191] Built Silver.ComposeEvaluation (22s)
+✔ [182/203] Built Silver.StringExecution (2.8s)
+✔ [183/207] Built Silver.StringFreezing (1.0s)
+✔ [184/207] Built Silver.ComposeSemantics (4.2s)
+✔ [186/208] Built Silver.ComposeFrozenSemantics (1.0s)
+✔ [188/208] Built Silver.ComposeDeclarations (11s)
+✔ [189/208] Built Silver.PathFacts (3.7s)
+✔ [190/211] Built Silver.ComposeMain (3.0s)
+✔ [191/219] Built Silver.ComposeGrammar (7.3s)
+✔ [193/219] Built Silver.StringLengthRefinement (2.3s)
+✔ [194/219] Built Silver.PredicateSyntax (2.7s)
+✔ [196/219] Built Silver.PredicateSemantics (2.4s)
+✔ [197/219] Built Silver.PredicateChecking (2.0s)
+✔ [198/219] Built Silver.PredicateAdmission (2.5s)
+✔ [199/219] Built Silver.PredicateNativeState (2.2s)
+✔ [200/220] Built Silver.PredicateNativeExpressions (4.0s)
+✔ [201/222] Built Silver.PredicateNativeBodies (1.8s)
+✔ [202/222] Built Silver.SequenceSyntax (6.1s)
+✔ [203/222] Built Silver.PredicateNativeSourceChecks (2.0s)
+✔ [204/225] Built Silver.IntegerIteration (1.4s)
+✔ [205/225] Built Silver.PredicateStatements (3.0s)
+✔ [206/227] Built Silver.SequenceSemantics (5.7s)
+✔ [207/229] Built Silver.SequenceExecution (6.5s)
+✔ [208/229] Built Silver.ComposeObligations (2.2s)
+✔ [209/231] Built Silver.PredicateExecution (12s)
+✔ [210/231] Built Silver.SequenceEffects (2.1s)
+✔ [211/232] Built Silver.PredicateObligations (6.7s)
+✔ [212/232] Built Silver.PredicateComposition (2.5s)
+✔ [213/232] Built Silver.PredicateSourceSyntax (9.2s)
+✔ [214/232] Built Silver.PredicateBodyAdmission (4.5s)
+✔ [215/240] Built Silver.PredicateScalarBodyNative (3.2s)
+✔ [216/240] Built Silver.PathBounds (1.9s)
+✔ [217/240] Built Silver.PredicateScalarBodySource (3.1s)
+✔ [218/240] Built Silver.PathNativeModel (2.7s)
+✔ [219/240] Built Silver.PathNativeExpressions (3.9s)
+✔ [220/240] Built Silver.PathNativeEquations (12s)
+✔ [221/240] Built Silver.LengthIntervalModel (2.0s)
+✔ [222/240] Built Silver.PredicateBasicExpressions (4.5s)
+✔ [223/248] Built Silver.PredicateBasicSourceCandidate (4.3s)
+✔ [224/249] Built Silver.PredicateReadings (1.9s)
+✔ [225/249] Built Silver.PredicateConditionReadings (2.1s)
+✔ [226/249] Built Silver.PredicateConditionSound (4.7s)
+✔ [227/249] Built Silver.PredicateLoopProperties (3.3s)
+✔ [228/250] Built Silver.PredicateLoopNative (36s)
+✔ [229/250] Built Silver.PredicateBodyProperties (11s)
+✔ [230/250] Built Silver.ScalarsSpecCertificate (329s)
+✔ [231/251] Built Silver.PredicateLoopCandidate (3.7s)
+✔ [232/256] Built Silver.PredicateBodyExpressions (6.9s)
+✔ [233/256] Built Silver.PredicateBodyControls (8.6s)
+✖ [234/256] Building Silver.ScalarsNativeSourceChecks (14s)
+trace: .> LEAN_PATH=/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/.silver/linux-x86_64/proof/.lake/build/lib/lean /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/lean/bin/lean -j2 -DwarningAsError=true /home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/.silver/linux-x86_64/proof/Silver/ScalarsNativeSourceChecks.lean -o /home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/ScalarsNativeSourceChecks.olean -i /home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/ScalarsNativeSourceChecks.ilean -c /home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/.silver/linux-x86_64/proof/.lake/build/ir/Silver/ScalarsNativeSourceChecks.c --setup /home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/.silver/linux-x86_64/proof/.lake/build/ir/Silver/ScalarsNativeSourceChecks.setup.json --json
+error: Silver/ScalarsNativeSourceChecks.lean:49:2: failed to synthesize
+  Decidable
+    (Source.expressionBody "is_empty" Source.scalarsSpecTokens = some Native.isEmptyBody.render ∧
+      Source.expressionBody "contains" Source.scalarsSpecTokens = some Native.containsBody.render ∧
+        Source.expressionBody "singleton" Source.scalarsSpecTokens = some Native.singletonBody.render ∧
+          Source.expressionBody "normalize" Source.scalarsSpecTokens = some Native.normalizeBody.render ∧
+            Source.expressionBody "join" Source.scalarsSpecTokens = some Native.joinBody.render ∧
+              Source.expressionBody "intersect" Source.scalarsSpecTokens = some Native.intersectBody.render ∧
+                Source.expressionBody "compare" Source.scalarsSpecTokens = some Native.compareBody.render ∧
+                  Source.expressionBody "complement" Source.scalarsSpecTokens = some Native.complementBody.render ∧
+                    Source.expressionBody "swap" Source.scalarsSpecTokens = some Native.swapBody.render ∧
+                      Source.expressionBody "below" Source.scalarsSpecTokens = some Native.belowBody.render ∧
+                        Source.expressionBody "above" Source.scalarsSpecTokens = some Native.aboveBody.render ∧
+                          Source.expressionBody "refine_true" Source.scalarsSpecTokens =
+                              some Native.refineTrueBody.render ∧
+                            Source.expressionBody "refine" Source.scalarsSpecTokens = some Native.refineBody.render ∧
+                              Source.expressionBody "in_range" Source.scalarsSpecTokens =
+                                  some Native.inRangeBody.render ∧
+                                Source.expressionBody "checked" Source.scalarsSpecTokens =
+                                    some Native.checkedBody.render ∧
+                                  Source.expressionBody "add" Source.scalarsSpecTokens = some Native.addBody.render ∧
+                                    Source.expressionBody "subtract" Source.scalarsSpecTokens =
+                                        some Native.subtractBody.render ∧
+                                      Source.expressionBody "negate" Source.scalarsSpecTokens =
+                                          some Native.negateBody.render ∧
+                                        Source.expressionBody "product_minimum" Source.scalarsSpecTokens =
+                                            some Native.productMinimumBody.render ∧
+                                          Source.expressionBody "product_maximum" Source.scalarsSpecTokens =
+                                              some Native.productMaximumBody.render ∧
+                                            Source.expressionBody "multiply" Source.scalarsSpecTokens =
+                                                some Native.multiplyBody.render ∧
+                                              Source.expressionBody "quotient_minimum" Source.scalarsSpecTokens =
+                                                  some Native.quotientMinimumBody.render ∧
+                                                Source.expressionBody "quotient_maximum" Source.scalarsSpecTokens =
+                                                    some Native.quotientMaximumBody.render ∧
+                                                  Source.expressionBody "divide" Source.scalarsSpecTokens =
+                                                      some Native.divideBody.render ∧
+                                                    Source.expressionBody "modulo" Source.scalarsSpecTokens =
+                                                        some Native.moduloBody.render ∧
+                                                      Source.expressionBody "remainder_limit" Source.scalarsSpecTokens =
+                                                          some Native.remainderLimitBody.render ∧
+                                                        Source.expressionBody "remainder" Source.scalarsSpecTokens =
+                                                          some Native.remainderBody.render)
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+error: Silver/ScalarsNativeSourceChecks.lean:80:40: failed to synthesize
+  Decidable Headers
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+✔ [236/256] Built Silver.PredicateBodyCandidates (6.5s)
+✔ [238/262] Built Silver.PredicateBodyEquations (15s)
+✔ [239/264] Built Silver.PredicateSourceShape (1.1s)
+✔ [240/265] Built Silver.PredicateConditionBounds (12s)
+✔ [241/265] Built Silver.PredicateNativePrecedence (4.7s)
+✔ [242/265] Built Silver.PredicateBodyBounds (8.1s)
+✔ [243/265] Built Silver.PredicateBodyCorrespondence (7.8s)
+✔ [244/265] Built Silver.PredicateOuterExpressions (6.9s)
+✔ [245/267] Built Silver.PredicateScalarBodyCandidate (42s)
+✔ [246/270] Built Silver.PredicateAdapter (14s)
+✔ [248/270] Built Silver.PredicateAdapterEnvironment (3.5s)
+✔ [249/272] Built Silver.PredicateOuterCandidates (6.6s)
+✔ [254/273] Built Silver.LengthIntervalExpressions (6.9s)
+✔ [256/273] Built Silver.PredicateAdapterSourceCandidate (10s)
+✔ [257/278] Built Silver.LengthIntervalPrecedence (3.8s)
+✔ [258/278] Built Silver.PathNativePrecedence (3.8s)
+✔ [260/280] Built Silver.PredicateSourceRequirements (6.0s)
+✔ [261/280] Built Silver.PathFactsSourceChecks (94s)
+✔ [262/280] Built Silver.PredicateLoopImports (3.4s)
+✔ [263/281] Built Silver.PathFactsSourceBridge (3.2s)
+✔ [264/281] Built Silver.PredicateBodyHelpers (3.8s)
+✔ [265/281] Built Silver.LengthIntervalsSource (18s)
+✔ [266/282] Built Silver.PredicateBasicEquations (65s)
+✔ [267/288] Built Silver.ScalarExpressionBodyCertificate (626s)
+✔ [268/290] Built Silver.PredicateNativeEquations (30s)
+✔ [269/292] Built Silver.PredicateNativeRanges (4.5s)
+✔ [271/293] Built Silver.PredicateNativeProgress (5.5s)
+✔ [272/293] Built Silver.PredicateScalarBodyHelpers (2.7s)
+✔ [273/293] Built Silver.PredicateNativeModel (4.7s)
+✔ [274/294] Built Silver.PredicateNativeCorrespondence (10s)
+✔ [275/294] Built Silver.PredicateNativeContracts (2.5s)
+✔ [276/294] Built Silver.PredicateOuterEquations (4.0s)
+✔ [277/295] Built Silver.PredicateNativeHelpers (3.5s)
+✔ [278/297] Built Silver.PredicateNativeLibraries (6.7s)
+✔ [280/297] Built Silver.PredicateLoopHelpers (3.8s)
+✔ [281/300] Built Silver.PredicateBasicHelpers (5.8s)
+✔ [282/300] Built Silver.ComposeRecognitionEquations (6.0s)
+✔ [283/300] Built Silver.ComposeModelRanges (4.3s)
+✔ [284/303] Built Silver.ScalarExpressionSourceChecks (120s)
+✔ [285/303] Built Silver.ScalarExpressionSourceBridge (2.0s)
+✔ [286/310] Built Silver.ComposeModelLegal (191s)
+✔ [287/311] Built Silver.PredicateConditionMeaning (3.0s)
+✔ [288/311] Built Silver.PredicateConditionValidity (5.1s)
+✔ [289/311] Built Silver.PredicateConditionUnique (6.7s)
+✔ [290/315] Built Silver.PredicateBasicReadings (7.4s)
+✔ [291/315] Built Silver.PredicateBodyReadings (5.0s)
+✔ [292/317] Built Silver.SequenceAdmission (8.2s)
+✔ [293/317] Built Silver.PredicateBodyUnique (22s)
+✔ [294/317] Built Silver.ComposeModelEquations (296s)
+✔ [295/317] Built Silver.PredicateBodyMeaning (17s)
+✔ [296/317] Built Silver.SequenceTokens (4.6s)
+✔ [297/317] Built Silver.PredicateBodySound (15s)
+✔ [298/319] Built Silver.ComposeDecode (4.1s)
+✔ [299/319] Built Silver.PredicateOuterModel (3.0s)
+✔ [300/319] Built Silver.SequenceContext (2.0s)
+✔ [301/319] Built Silver.PredicateEquations (2.5s)
+✔ [302/326] Built Silver.PredicateHeaderDecode (1.8s)
+✔ [303/326] Built Silver.PredicateShell (1.7s)
+✔ [304/330] Built Silver.ComposeScalarTrace (9.1s)
+✔ [305/330] Built Silver.StringObligations (1.6s)
+✔ [306/330] Built Silver.PredicateChecks (2.5s)
+✔ [307/330] Built Silver.SequenceScalarTrace (3.3s)
+✔ [308/338] Built Silver.PredicateNativeSourceBridge (1.9s)
+✔ [438/469] Built Silver.SequenceBasics (2.0s)
+✔ [439/469] Built Silver.SequenceLists (2.1s)
+✔ [440/470] Built Silver.ComposeInitializerTrace (10s)
+✔ [441/471] Built Silver.SequenceInitializerTrace (1.0s)
+✔ [442/476] Built Silver.SequenceConditions (6.7s)
+✔ [443/476] Built Silver.SequenceHeader (2.4s)
+✔ [444/477] Built Silver.SequenceShell (2.0s)
+✔ [445/477] Built Silver.PredicateHeader (3.8s)
+✔ [446/477] Built Silver.SequenceObligations (11s)
+✔ [447/478] Built Silver.PredicateGrammar (3.6s)
+✔ [448/478] Built Silver.Current (2.2s)
+✔ [449/478] Built Silver.PredicateFlags (9.6s)
+✔ [450/478] Built Silver.SequenceModelRanges (5.1s)
+✔ [451/478] Built Silver.SequenceConditionValidity (38s)
+✔ [452/478] Built Silver.BranchingExamples (85s)
+✔ [453/478] Built Silver.AssignmentExamples (40s)
+✔ [454/478] Built Silver.ConcatExamples (65s)
+✔ [455/478] Built Silver.PredicateSourceCandidate (908s)
+✔ [456/478] Built Silver.NamedExamples (32s)
+✔ [457/478] Built Silver.ArgumentsExamples (188s)
+✔ [458/478] Built Silver.PredicateSelectors (8.9s)
+✔ [459/481] Built Silver.SequenceGrammar (4.1s)
+✔ [460/481] Built Silver.SequenceFormDisjoint (4.9s)
+✔ [461/481] Built Silver.SequenceNativeState (2.6s)
+✔ [462/483] Built Silver.SequenceSelectors (11s)
+✔ [463/483] Built Silver.SequenceNativeExpressions (13s)
+✔ [464/483] Built Silver.SequenceMain (11s)
+✔ [465/483] Built Silver.SequenceNativeEquations (26s)
+✔ [466/483] Built Silver.SequenceExpressions (12s)
+✔ [467/486] Built Silver.SequenceNativeUnique (7.2s)
+✔ [468/491] Built Silver.SequenceNativeModel (42s)
+✔ [469/492] Built Silver.SequenceBodyContext (6.6s)
+✔ [470/492] Built Silver.SequenceFullEquations (3.2s)
+✔ [471/492] Built Silver.SequenceNativeProjection (2.8s)
+✔ [472/492] Built Silver.ComposeExecution (7.9s)
+✔ [473/492] Built Silver.SequenceNativeProjected (1.7s)
+✔ [474/492] Built Silver.SequenceNativeCorrespondence (2.8s)
+✔ [475/492] Built Silver.SequenceEquations (9.9s)
+✔ [477/500] Built Silver.ComposeExamples (568s)
+✔ [484/500] Built Silver.SequenceModel (4.5s)
+✔ [485/500] Built Silver.PredicateExamples (311s)
+✔ [486/500] Built Silver.OutputBodyCertificate (3910s)
+✔ [487/500] Built Silver.SourceCertificates (2.0s)
+✔ [488/500] Built Silver.Source (2.5s)
+✔ [489/500] Built Silver.OutputSourceBridge (196s)
+✔ [490/500] Built Silver.NamedSourceBridge (35s)
+✔ [491/500] Built Silver.ArgumentsSourceBridge (104s)
+✔ [492/500] Built Silver.LexicalSourceBridge (109s)
+✔ [493/500] Built Silver.ComposeSourceChecks (3454s)
+Some required targets logged failures:
+- Silver.ScalarsNativeSourceChecks
+error: build failed
+
+Lean phase build finished at 2026-10-26T00:49:34.644309+00:00; elapsed 7377.870s; exit 1

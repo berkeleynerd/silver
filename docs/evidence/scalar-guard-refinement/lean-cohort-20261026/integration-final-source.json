@@ -1,0 +1,47 @@
+{
+  "inputs": [
+    {
+      "path": "src/silver_output_profile.adb",
+      "sha256": "956eff6874727f95fcb1ede29b537705f96bf916d05483d1813198aeb0f1ea74"
+    },
+    {
+      "path": "proof/Silver/PredicateNativeSourceChecks.lean",
+      "sha256": "fc2328ddadfa3d1166fe76d921e4bfc151eab49b66b30dd21b6ba502e05230e2"
+    },
+    {
+      "path": "proof/Silver/PredicateSourceCandidate.lean",
+      "sha256": "1ca4c654328841835a62904993210071847a716d2481f1efe04e44564eb1a29e"
+    },
+    {
+      "path": "proof/Silver/ComposeSourceChecks.lean",
+      "sha256": "b733f741eb39c0db69005ee11319639c81435d943f935981e9561126ce07c274"
+    },
+    {
+      "path": "proof/Silver/PredicateScalarBodyCandidate.lean",
+      "sha256": "d0422aa873db4efc116d17e7d702565ab93ddb177ccd8b7abef38cb1dea5cdd1"
+    },
+    {
+      "path": "proof/Silver/PredicateSourceBridge.lean",
+      "sha256": "66cb83160567f502f7afbc5bb59aaac1f2480d575bcf04eecc6413500be8bd08"
+    },
+    {
+      "path": "proof/Silver/ReviewedOutputShape.lean",
+      "sha256": "aa3c8daa4d094aa6d1b6717e647670568d55417b40fab821976de1475ca6679e"
+    },
+    {
+      "path": "proof/Silver/OutputBodyCertificate.lean",
+      "sha256": "063a183452a1108c6437e4688ed995ee5330ef788adca180627109982c244062"
+    },
+    {
+      "path": "proof/Silver/ScalarExpressionBodyCertificate.lean",
+      "sha256": "0f7587e95adb379879d141056e2ecc22a9662da28f191f0de07605898f8209d9"
+    },
+    {
+      "path": "proof/Silver/ScalarsSpecCertificate.lean",
+      "sha256": "4cb31be5ed62eda77e197532be38c158934cb0249de389dc911f907ec968faa0"
+    }
+  ],
+  "scope": "Frozen candidate for complete source check; native relation proof remains active",
+  "review": "../../../reviews/review-scalar-guard-orientation-20261026.md",
+  "integration_notes": "Preserves newer flow-equality fields and explicit adapter import; regenerated exact output-body tokens/certificate; complete source validation in progress."
+}

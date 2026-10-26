@@ -82,7 +82,8 @@ class SilverIntegrationTests(unittest.TestCase):
                          "length_predicate", "boolean_predicate", "integer_literal",
                          "scalar_integer_literal", "named_integer_constant", "named_integer_variable",
                          "integer_range_constraint", "integer_assignment", "integer_expression",
-                         "integer_comparison", "integer_image", "for_loop"} <= set(constructs))
+                         "integer_comparison", "scalar_guard_refinement", "integer_image",
+                         "for_loop"} <= set(constructs))
         compositions = {item["name"]: item for item in catalogue["compositions"]}
         self.assertEqual(set(compositions), {"null", "static_statements", "argument_statements"})
         self.assertEqual(compositions["null"]["statements"], ["null_statement"])
@@ -206,7 +207,8 @@ class SilverIntegrationTests(unittest.TestCase):
         scalar = constructs["integer_expression"]["conditions"]
         self.assertEqual(scalar["binary_operators"], ["+", "-", "*", "/", "mod", "rem"])
         self.assertTrue(scalar["binary_operations_fully_parenthesized"])
-        self.assertFalse(scalar["scalar_guards_refine_intervals"])
+        self.assertEqual(scalar["scalar_guards_refine_intervals"],
+                         "selected scalar_guard_refinement only")
         self.assertIn("integer_image", expression["operand_kinds"])
         self.assertEqual(constructs["integer_image"]["conditions"]["length_range"], [2, 11])
         loop = constructs["for_loop"]["conditions"]

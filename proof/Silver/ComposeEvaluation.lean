@@ -792,7 +792,7 @@ theorem Expr.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning cal
 
 /-- Native SPARK establishes the domains of executed lexical calls in these
 bodies. No field asserts equality to the membership or semantic model. -/
-structure LegalHelpers (calls : Calls) : Prop where
+structure LegalHelpers (calls : Calls) (domain : StateDomain := .basic) : Prop where
   callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames,
     ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames → ValidCursor text position →
     callAfterBody.Legal calls (Context.locals {text,scalarNames,names,position,operation})
@@ -824,28 +824,28 @@ structure LegalHelpers (calls : Calls) : Prop where
     ValidCursor text position → ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
     valueBody.Legal calls (Context.locals {text,scalarNames,integerHidden,position,names})
   newName : ∀ text, ValidText text → ∀ state first after arguments,
-    ValidState text state → ValidCursor text first → ValidCursor text after →
+    domain.holds text state → ValidCursor text first → ValidCursor text after →
     newNameBody.Legal calls (Context.locals {text,state,first,after,arguments})
   addBinding : ∀ text, ValidText text → ∀ state first after value mutable following,
-    ValidState text state → ValidCursor text first → ValidCursor text after → ValidValue text value → ValidCursor text following → state.names.length < maxBindings →
+    domain.holds text state → ValidCursor text first → ValidCursor text after → ValidValue text value → ValidCursor text following → state.names.length < maxBindings →
     addBindingBody.Legal calls (Context.locals {text,state,first,after,value,mutable,following})
   stringDeclaration : ∀ text, ValidText text → ∀ state arguments,
-    ValidState text state →
+    domain.holds text state →
     stringDeclarationBody.Legal calls (Context.locals {text,state,arguments})
   scalarConstraint : ∀ text, ValidText text → ∀ position scalarNames,
     ValidCursor text position → ScalarExpression.ValidEnvironment text scalarNames →
     scalarConstraintBody.Legal calls (Context.locals {text,position,scalarNames})
   scalarDeclaration : ∀ text, ValidText text → ∀ state arguments,
-    ValidState text state →
+    domain.holds text state →
     scalarDeclarationBody.Legal calls (Context.locals {text,state,arguments})
   declaration : ∀ text, ValidText text → ∀ state arguments,
-    ValidState text state →
+    domain.holds text state →
     declarationBody.Legal calls (Context.locals {text,state,arguments})
   argument : ∀ text, ValidText text → ∀ state,
-    ValidState text state →
+    domain.holds text state →
     argumentBody.Legal calls (Context.locals {text,state})
   declarations : ∀ text, ValidText text → ∀ state arguments,
-    ValidState text state →
+    domain.holds text state →
     declarationsBody.Legal calls (Context.locals {text,state,arguments})
   expressionStep : ∀ text, ValidText text → ∀ names scan scalarNames integerHidden,
     ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames → ValidScan text scan →
@@ -857,25 +857,25 @@ structure LegalHelpers (calls : Calls) : Prop where
     ValidResult text result → capacity ≤ maxSourceLength →
     fitsBody.Legal calls (Context.locals {text,result,capacity})
   comparison : ∀ text, ValidText text → ∀ state,
-    ValidState text state →
+    domain.holds text state →
     comparisonBody.Legal calls (Context.locals {text,state})
   expression : ∀ text, ValidText text → ∀ position names scalarNames integerHidden,
     ValidCursor text position → ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
     expressionBody.Legal calls (Context.locals {text,scalarNames,integerHidden,position,names})
   target : ∀ text, ValidText text → ∀ state sameTarget,
-    ValidState text state →
+    domain.holds text state →
     targetBody.Legal calls (Context.locals {text,state,sameTarget})
   dynamic : ∀ text, ValidText text → ∀ state,
-    ValidState text state →
+    domain.holds text state →
     dynamicBody.Legal calls (Context.locals {text,state})
   assignmentValue : ∀ text, ValidText text → ∀ state,
-    ValidState text state →
+    domain.holds text state →
     assignmentBody.Legal calls (Context.locals {text,state})
   output : ∀ text, ValidText text → ∀ state,
-    ValidState text state →
+    domain.holds text state →
     outputBody.Legal calls (Context.locals {text,state})
   capacity : ∀ text, ValidText text → ∀ state,
-    ValidState text state →
+    domain.holds text state →
     capacityBody.Legal calls (Context.locals {text,state})
   workTail : ∀ text, ValidText text → ∀ position remaining,
     ValidCursor text position → remaining ≤ maxConcatenations →
@@ -898,10 +898,10 @@ structure LegalBodies (calls : Calls) : Prop extends LegalHelpers calls where
 
 /-- Normalize only retained lexical meanings. All new helper calls stay
 arbitrary until their checked equations and terminating recursion determine them. -/
-theorem normalized_helpers (calls : Calls)
+theorem normalized_helpers {domain : StateDomain} (calls : Calls)
     (meaning : Compose.Lexical.Meaning calls.primitive)
-    (source : HelperEquations calls calls) (legal : LegalHelpers calls) :
-    HelperEquations calls where
+    (source : HelperEquations calls calls domain) (legal : LegalHelpers calls domain) :
+    HelperEquations calls (domain := domain) where
   ranges := source.ranges
   names := source.names
   scalarLookup := source.scalarLookup

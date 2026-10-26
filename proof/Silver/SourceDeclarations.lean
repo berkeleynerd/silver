@@ -50,6 +50,54 @@ def functionHeader (name stop : String) (tokens : List String) : Option (List St
   | [header] => some header
   | _ => none
 
+/-- Procedure modes and contracts are retained verbatim. Forward declarations
+and implementations are selected independently by their top-level terminator. -/
+def procedureHeaders (name stop : String) : List String → List (List String)
+  | [] => []
+  | "procedure" :: actual :: tokens =>
+    let later := procedureHeaders name stop (actual :: tokens)
+    if actual == name then
+      match headerEnd 0 tokens with
+      | some (header, terminator) => if terminator == stop then header :: later else later
+      | none => later
+    else later
+  | _ :: tokens => procedureHeaders name stop tokens
+
+def procedureHeader (name stop : String) (tokens : List String) : Option (List String) :=
+  match procedureHeaders name stop tokens with
+  | [header] => some header
+  | _ => none
+
+/-- Keep postfix aspects attached to an expression function. In particular a
+Static ghost declaration must not be confused with an executable declaration
+having the same expression tokens. -/
+def expressionDeclarations (name : String) : List String → List (List String × List String)
+  | [] => []
+  | "function" :: actual :: tokens =>
+    let later := expressionDeclarations name (actual :: tokens)
+    if actual == name then
+      match headerEnd 0 tokens with
+      | some (header, "is") =>
+        match tokens.drop (header.length + 1) with
+        | "(" :: expression =>
+          match Source.balanced 1 expression with
+          | some (body, ";" :: _) => (body, []) :: later
+          | some (body, "with" :: tail) =>
+            match Source.declarationEnd 0 tail with
+            | some aspects => (body, "with" :: aspects) :: later
+            | none => later
+          | _ => later
+        | _ => later
+      | _ => later
+    else later
+  | _ :: tokens => expressionDeclarations name tokens
+
+def expressionDeclaration (name : String) (tokens : List String) :
+    Option (List String × List String) :=
+  match expressionDeclarations name tokens with
+  | [declaration] => some declaration
+  | _ => none
+
 /-- All expected headers below are single physical lines. -/
 def expectedTokens (text : String) : List String := (Source.lexLine text).getD []
 
@@ -116,6 +164,29 @@ def recordDeclarations (name : String) : List String → List (List String)
 def recordDeclaration (name : String) (tokens : List String) : Option (List String) :=
   match recordDeclarations name tokens with
   | [body] => some body
+  | _ => none
+
+/-- A discriminated record's complete declaration includes its discriminants,
+their defaults if any, and all component constraints. Checking this result
+therefore distinguishes active arrays from default-discriminant storage. -/
+def discriminatedRecordDeclarations (name : String) : List String → List (List String)
+  | [] => []
+  | "type" :: actual :: "(" :: tokens =>
+    let later := discriminatedRecordDeclarations name (actual :: "(" :: tokens)
+    if actual == name then
+      match Source.balanced 1 tokens with
+      | some (discriminants, "is" :: "record" :: fields) =>
+        match recordEnd fields with
+        | some body => (["("] ++ discriminants ++ [")", "is", "record"] ++ body) :: later
+        | none => later
+      | _ => later
+    else later
+  | _ :: tokens => discriminatedRecordDeclarations name tokens
+
+def discriminatedRecordDeclaration (name : String) (tokens : List String) :
+    Option (List String) :=
+  match discriminatedRecordDeclarations name tokens with
+  | [declaration] => some declaration
   | _ => none
 
 end Silver.Lexical.SourceBridge

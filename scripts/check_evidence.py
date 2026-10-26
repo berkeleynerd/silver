@@ -63,6 +63,13 @@ PROOF_LIMITATION_NOTES = {"contracts-recursive", "numeric-variant"}
 IMAGE_ADVISORY_TEXT = ('references to the "Image" attribute are handled in an imprecise way, '
                        'so nothing will be known about the evaluation of the attribute reference '
                        'apart from a bound on its length [imprecise-image]')
+# This pinned flow limitation withholds the full-array-initialization inference;
+# it neither assumes initialization nor removes a flow/proof obligation. Keep it
+# separate from proof limitations and application diagnostics, and restrict it to
+# the reviewed compiler body. See SPARK 16.1 UG flow_limitations.rst and
+# Warn_Init_Array in the pinned producer's vc_kinds.ads.
+ARRAY_INITIALIZATION_ADVISORY_TEXT = (
+    'initialization of an array in FOR loop is handled imprecisely [array-initialization]')
 # Runtime units need verification even when the compiler Main does not call them.
 # GNATprove's default only analyzes Main and its transitive dependency closure.
 PROOF_OPTIONS = ["-U", "--mode=all", "--report=all", "--warnings=error",
@@ -304,7 +311,8 @@ def audit_reports(report_dir: Path, expected_units: set[str],
     trusted_import_units = trusted_import_units or set()
     stats = {"units": 0, "entities": 0, "flow_checks": 0, "proof_checks": 0,
              "limitation_notes": 0, "imported_entities": 0,
-             "trusted_math_notes": 0, "vendor_spec_entities": 0}
+             "trusted_math_notes": 0, "vendor_spec_entities": 0,
+             "array_initialization_advisories": 0}
     instances = dict(proof_instances or {})
     if proof_instance is not None:
         require(SEQUENCE_UNIT not in instances, "duplicate compiler proof-container instance")
@@ -332,6 +340,7 @@ def audit_reports(report_dir: Path, expected_units: set[str],
     assignment_diagnostics: Counter = Counter()
     math_diagnostics: Counter = Counter()
     image_diagnostics: Counter = Counter()
+    array_initialization_diagnostics: Counter = Counter()
     summary = (report_dir / "gnatprove.out").read_text()
     summaries_by_report = {name: (int(analyzed), int(total)) for name, analyzed, total in
                           re.findall(r"in unit ([^,\s]+), (\d+) subprograms and packages out of (\d+) analyzed", summary)}
@@ -452,6 +461,26 @@ def audit_reports(report_dir: Path, expected_units: set[str],
             require(isinstance(records, list), f"{unit}: missing {key} results")
             for record in records:
                 require(isinstance(record, dict), f"{unit}: malformed {key} record")
+                array_note = (record.get("rule") == "array-initialization"
+                              or (isinstance(record.get("message"), dict)
+                                  and record["message"].get("text") == ARRAY_INITIALIZATION_ADVISORY_TEXT))
+                if array_note:
+                    require(application_kind is None and unit == "silver_output_profile"
+                            and key == "warn_error"
+                            and set(record) == {"rule", "severity", "how_proved", "file", "line", "col",
+                                                "message", "unproved_status", "check_tree", "suppressed"}
+                            and record.get("rule") == "array-initialization"
+                            and record.get("severity") == "warning"
+                            and record.get("how_proved") == "trivial"
+                            and record.get("file") == unit + ".adb"
+                            and type(record.get("line")) is int and record["line"] > 0
+                            and type(record.get("col")) is int and record["col"] > 0
+                            and record.get("message") == {"text": ARRAY_INITIALIZATION_ADVISORY_TEXT}
+                            and record.get("unproved_status") == {"status": "unknown"}
+                            and record.get("check_tree") == {}
+                            and record.get("suppressed") == "",
+                            "compiler: unexpected array-initialization advisory")
+                    stats["array_initialization_advisories"] += 1
                 image_note = application and key == "warn_error"
                 if image_note:
                     require(record.get("severity") == "warning"
@@ -520,7 +549,7 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                                                       record.get("message")))
                 require(record.get("message", {}).get("text") != BIG_INTEGER_VALIDITY_TEXT or math_note,
                         "vendor math note: unreviewed premise classification")
-                require(record.get("severity") == "info" or limitation or advisory or math_note or image_note,
+                require(record.get("severity") == "info" or limitation or advisory or math_note or image_note or array_note,
                         f"{unit}: {key} diagnostic is not proved/info: {record}")
                 if limitation:
                     stats["limitation_notes"] += 1
@@ -530,7 +559,7 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                         f"{unit}: justified or unproved {key} result: {record}")
                 require(not record.get("justification") and not record.get("justified"),
                         f"{unit}: justified result")
-                require(("suppressed" not in record or ((limitation or image_note) and record["suppressed"] == ""))
+                require(("suppressed" not in record or ((limitation or image_note or array_note) and record["suppressed"] == ""))
                         and not record.get("annot_kind") and not record.get("justif_msg"),
                         f"{unit}: suppressed result")
                 require(isinstance(record.get("rule"), str) and isinstance(record.get("file"), str)
@@ -548,6 +577,8 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                     math_diagnostics[diagnostic] += 1
                 if image_note:
                     image_diagnostics[diagnostic] += 1
+                if array_note:
+                    array_initialization_diagnostics[diagnostic] += 1
         stats["units"] += 1
         stats["entities"] += len(own_entities)
         stats["flow_checks"] += 0 if application else len(report["flow"])
@@ -616,15 +647,30 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                       and result.get("kind") == "open" and result.get("level") == "warning")
         require(diagnostic not in image_diagnostics or image_note,
                 "application: SARIF must preserve the exact Image advisory classification")
-        require(result.get("kind") in ("pass", "informational") or limitation or advisory or math_note or image_note,
+        array_note = diagnostic in array_initialization_diagnostics
+        if array_note:
+            require(type(region["startLine"]) is int and region["startLine"] > 0
+                    and type(region["startColumn"]) is int and region["startColumn"] > 0
+                    and result == {
+                        "ruleId": "array-initialization", "kind": "open", "level": "warning",
+                        "message": {"text": ARRAY_INITIALIZATION_ADVISORY_TEXT},
+                        "locations": [{"physicalLocation": {
+                            "artifactLocation": {"uri": diagnostic[1]},
+                            "region": {"startLine": diagnostic[2], "startColumn": diagnostic[3]}}}],
+                        "suppressions": [{"kind": "external"}]},
+                    "compiler: SARIF must preserve the exact array-initialization advisory classification")
+        require((result.get("ruleId") != "array-initialization"
+                 and result.get("message", {}).get("text") != ARRAY_INITIALIZATION_ADVISORY_TEXT) or array_note,
+                "compiler: unreviewed SARIF array-initialization advisory")
+        require(result.get("kind") in ("pass", "informational") or limitation or advisory or math_note or image_note or array_note,
                 f"SARIF result not proved: {result}")
-        require(result.get("level", "none") in ("none", "note") or limitation or advisory or math_note or image_note,
+        require(result.get("level", "none") in ("none", "note") or limitation or advisory or math_note or image_note or array_note,
                 f"SARIF warning/error: {result}")
         # GNATprove marks its disabled-by-default limitation diagnostics as
         # externally suppressed. This is not an obligation suppression.
         suppressions = result.get("suppressions", [])
         require((not image_note and not suppressions)
-                or ((limitation or image_note) and suppressions == [{"kind": "external"}]),
+                or ((limitation or image_note or array_note) and suppressions == [{"kind": "external"}]),
                 "suppressed SARIF diagnostic")
         sarif_diagnostics[diagnostic] += 1
     require(diagnostics == sarif_diagnostics, "SARIF and SPARK diagnostic coverage disagree")
