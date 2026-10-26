@@ -104,6 +104,9 @@ any exploratory acyclic-route extraction. This number is not a proved bound.
 
 ## Secondary results and actual lifetimes
 
+This section describes the earlier snapshot identified above. The final-source
+observations below supersede its Body_Tail sibling-release claim.
+
 The current parser assembly maps calls in
 `shared-reader-frames-20261026/secondary-call-sites.json.gz`. Body_Tail marks at
 line 26346 immediately before Statement_Body, copies the result into its primary
@@ -162,3 +165,30 @@ the live lead setting were not independently exposed. The result is hashed
 retention plus the scoped account and arithmetic corrections above. No proof,
 native, test, build or render runner was launched; token/cost and separate
 round elapsed measurements are unavailable.
+
+## Final-source observations
+
+The [retained final evidence](final-frames-20261026/validation.json) binds parser
+`956eff687472...`, integrated at `7c5db25b8e`, to scratch build
+`20261026T073737-a27ed2ad48a6`, admission run `20261026T073838-e2c59da5cc8d`
+(18 tests/105 cases, zero failures or errors), and shape run
+`20261026T073915-30f6eea23d83` (all 20 expected 4096/4097-byte statuses at
+8192 KiB). Every captured shape input matches; the package retains all 129
+tracked and three generated source files and their managed input comparisons.
+
+The final Body_Tail wrapper/body frame sum is **368 bytes**, down from 416;
+Bare_Target is **256 bytes**, up from 240. The other nine listed recursive sums
+are unchanged. Body_Tail's former local secondary-stack mark/release pair is
+absent from this assembly, so completed siblings cannot be claimed to release
+their secondary results per iteration on this evidence. All 64 parser secondary
+allocation sites retain their per-source-function counts. The conditional
+successful-body payload count `S(B)*(4N+6L+9J+4E+3)` already counted every
+allocation, including formerly released results; its source/site-count
+assumptions remain applicable despite the longer retention. The same rounding
+and successful-parse assumptions still apply.
+
+These are feature-local observations under the existing sufficient-resource
+premise, without a universal 8 MiB, malformed-prefix capacity or external
+allocator-sufficiency claim. Complete native proof and complete Lean/source
+validation remain separate obligations. Retention and comparison used selected
+GPT-6.1 Sol at Extra High; runtime settings and token/cost data are unavailable.
