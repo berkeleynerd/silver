@@ -108,17 +108,41 @@ execution of every case.
 
 ## Integrated delivery checkpoint
 
-Implementation target: `14b9302a97` (arithmetic/native core `16d0f0cfaa`, merged
-planning base `ca4242ff5a`). The [source-bridge integration review](reviews/review-integer-division-integration-14b9302a97.md)
-reports no findings for that exact target. Full validation must identify the
+Implementation/source integration: `14b9302a97` (arithmetic/native core
+`16d0f0cfaa`, merged planning base `ca4242ff5a`), with the proof-script-only
+repair `92a3791e22` described below. The [source-bridge integration review](reviews/review-integer-division-integration-14b9302a97.md)
+reports no findings for that exact target. The bounded
+[repair review](reviews/review-integer-division-repairs-559ef643e3.md) reports no
+findings for the proof repairs through `559ef643e3`. Full validation must identify the
 actual final source inputs before closing #232/#233/#229. Linux
 is the selected native platform; no new macOS or hosted-CI evidence is claimed.
 The lead coordinates the managed workspaces and native worker allocations.
 
+The first complete Lean build reached the expanded scalar source checks and
+could not synthesize a decision procedure for their combined expression/header
+conjunctions. Commit `92a3791e22` splits those conjunctions into individual
+kernel-checked obligations, preserving every statement and the existing proof
+limits. The active run retains independent completed certificates; the repaired
+target and subsequent complete audit remain pending. This is a proof-script
+integration failure, not a successful complete validation result.
+
+The same native checkpoint subsequently reported a 30-second timeout in
+`Silver_Library_Reports.Map_OK`'s loop-invariant preservation. Repair `1d9bc08382`
+names the recursive suffix as a ghost summary and explicitly establishes its
+one-step equation and the existing `Advance_Map` policy equivalence. It preserves
+the executable policy, original invariant/postcondition and proof settings.
+Focused managed run `20261026T002009-46b35fbc8582` proved all 39 `Map_OK` checks,
+including both new assertions and the invariant, in isolated scratch output using
+the unchanged proof regime. An earlier selector pointed at a blank line and
+generated no checks; that failed invocation is retained separately. The original
+complete run finished with that single failed obligation. Its successful work
+and cache remain retained. The rebuilt repaired source now has a new complete
+native audit in progress; final Lean input correspondence is also required.
+
 | Required evidence | Current result and exact remaining field |
 | --- | --- |
-| Native compiler/runtime build | Lead reports managed run `20261025T221842-90d169f323b3` succeeded. Pending retained command/log link and exact input correspondence to final implementation. |
-| Full native proof and evidence audit | Managed run `20261025T221851-c7c38b2dd915` active at this documentation handoff. Pending final outcome, complete unit/entity/flow/proof coverage, provenance audit and retained evidence links. |
+| Native compiler/runtime build | Repaired-input run `20261026T002846-e157157cf62b` succeeded. Pending retained command/log link and exact input correspondence to final implementation. |
+| Full native proof and evidence audit | Repaired-input run `20261026T002857-50fd2281b177` is active after the focused repair passed. Successful complete coverage/provenance audit and retained evidence links remain pending. Original run `20261025T221851-c7c38b2dd915` failed only the recorded invariant. |
 | Complete Lean/source and axiom audit | Managed run `20261025T224628-2bc4dc5ed3d3` active at handoff. Pending final outcome, actual input/module/declaration coverage, permitted axioms, cache scope, worker settings and evidence links. |
 | Full regression and sample checkpoint | Pending run identity, result, actual tests/samples/execution-case totals, exact stdout/stderr/status comparisons and retained log/input identities. Seven new sample sources and expected outputs are implemented; success is not inferred from their existence. |
 | Independent review | [Arithmetic/native core review](reviews/review-integer-division-core-16d0f0cfaa.md) reports no findings for its exact target. [Source-bridge integration review](reviews/review-integer-division-integration-14b9302a97.md) reports no findings at `14b9302a97`. Final documentation/evidence review is outside those implementation-review scopes and remains pending. |

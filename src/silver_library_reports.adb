@@ -1794,8 +1794,21 @@ package body Silver_Library_Reports with SPARK_Mode => On is
                   pragma Assert (Static => not Map_Spec (Text, Items, Entities, Kind, Coverage));
                   return False;
                end if;
-               Advance_Map
-                 (Seen, Map_From (Text, Items, Entities, Kind, Coverage, M.Next), Name, Kind, Coverage);
+               declare
+                  Rest : constant Entity_Summary := Map_From
+                    (Text, Items, Entities, Kind, Coverage, M.Next)
+                    with Ghost => Static;
+               begin
+                  pragma Assert
+                    (Static => Map_From (Text, Items, Entities, Kind, Coverage, P) =
+                      (Rest.Well_Formed, Rest.Unique and not Rest.Seen (Name),
+                       Remember (Rest.Seen, Name)));
+                  Advance_Map (Seen, Rest, Name, Kind, Coverage);
+                  pragma Assert
+                    (Static => Map_Policy
+                      (Seen, Map_From (Text, Items, Entities, Kind, Coverage, P), Kind, Coverage) =
+                      Map_Policy (Remember (Seen, Name), Rest, Kind, Coverage));
+               end;
                Seen := Remember (Seen, Name);
                P := M.Next;
          end case;
