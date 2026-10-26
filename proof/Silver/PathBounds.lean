@@ -150,11 +150,11 @@ theorem refineString_bounded {context : Context} (bounded : context.Bounded)
     · exact bounded
   · exact bounded
 
-theorem Condition.refine_bounded {context : Context} (bounded : context.Bounded)
-    (shape : Shape) (condition : Condition) (truth : Bool)
-    (ranges : Integer.Ranges := Integer.emptyRanges) : (condition.refine shape context truth ranges).Bounded := by
-  induction condition generalizing context truth with
-  | stringCompare unequal left right => exact refineString_bounded bounded _ _ _ _ _ ranges
+theorem Condition.refine_bounded {flow : Flow} (bounded : flow.path.Bounded)
+    (shape : Shape) (analysis : Integer.Analysis) (condition : Condition) (truth : Bool) :
+    (condition.refine shape analysis flow truth).path.Bounded := by
+  induction condition generalizing flow truth with
+  | stringCompare unequal left right => exact refineString_bounded bounded _ _ _ _ _ flow.scalars
   | lengthCompare operator left right => exact refineLength_bounded bounded _ _ _ _ _
   | scalarCompare => exact bounded
   | inputValid =>
