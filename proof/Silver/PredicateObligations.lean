@@ -97,36 +97,34 @@ theorem image_obligations_discharge {expression : Expression} {shape : Shape}
           obtain ⟨bounds, found, _⟩ := atomKnown
           exact (scalar_discharged _).trans (Integer.Expr.obligations_discharge found)
 
-def Condition.obligations (shape : Shape) (condition : Condition) (context : Context)
-    (ranges : Integer.Ranges := Integer.emptyRanges) : List Obligation :=
+def Condition.obligations (shape : Shape) (analysis : Integer.Analysis) (condition : Condition) (flow : Flow) : List Obligation :=
   match condition with
   | .stringCompare _ left right =>
-      imageObligations left ranges ++ imageObligations right ranges ++
-        match left.inferLength shape ranges, right.inferLength shape ranges with
-        | some a, some b => [.stringRange context a, .stringRange context b]
+      imageObligations left flow.scalars ++ imageObligations right flow.scalars ++
+        match left.inferLength shape flow.scalars, right.inferLength shape flow.scalars with
+        | some a, some b => [.stringRange flow.path a, .stringRange flow.path b]
         | _, _ => [.impossible]
   | .lengthCompare _operator left right =>
       match shape left, right.bound shape with
-      | some info, some bound => [.range context info.bound.summary, .range context bound.summary]
+      | some info, some bound => [.range flow.path info.bound.summary, .range flow.path bound.summary]
       | _, _ => [.impossible]
   | .scalarCompare _ left right =>
-      (left.obligations ranges ++ right.obligations ranges).map Obligation.scalar
+      (left.obligations flow.scalars ++ right.obligations flow.scalars).map Obligation.scalar
   | .inputValid => []
-  | .parenthesized inner | .negated inner => inner.obligations shape context ranges
+  | .parenthesized inner | .negated inner => inner.obligations shape analysis flow
   | .andThen left right =>
-      left.obligations shape context ranges ++ right.obligations shape (left.refine shape context true ranges) ranges
+      left.obligations shape analysis flow ++ right.obligations shape analysis (left.refine shape analysis flow true)
   | .orElse left right =>
-      left.obligations shape context ranges ++ right.obligations shape (left.refine shape context false ranges) ranges
+      left.obligations shape analysis flow ++ right.obligations shape analysis (left.refine shape analysis flow false)
 
-theorem Condition.obligations_exact (condition : Condition) (shape : Shape) (context : Context)
-    (ranges : Integer.Ranges := Integer.emptyRanges) :
-    discharged (condition.obligations shape context ranges) = condition.checkBounds shape context ranges := by
-  induction condition generalizing context with
+theorem Condition.obligations_exact (condition : Condition) (shape : Shape) (analysis : Integer.Analysis) (flow : Flow) :
+    discharged (condition.obligations shape analysis flow) = condition.checkBounds shape analysis flow := by
+  induction condition generalizing flow with
   | stringCompare unequal left right =>
-      cases leftKnown : left.inferLength shape ranges with
+      cases leftKnown : left.inferLength shape flow.scalars with
       | none => simp [obligations, checkBounds, leftKnown, discharged, Obligation.discharge]
       | some a =>
-          cases rightKnown : right.inferLength shape ranges with
+          cases rightKnown : right.inferLength shape flow.scalars with
           | none => simp [obligations, checkBounds, leftKnown, rightKnown, discharged, Obligation.discharge]
           | some b =>
               simp only [obligations, checkBounds, leftKnown, rightKnown, discharged_append,
@@ -140,8 +138,8 @@ theorem Condition.obligations_exact (condition : Condition) (shape : Shape) (con
       simp only [obligations, List.map_append, discharged_append, scalar_discharged,
         Integer.Expr.obligations_exact, checkBounds]
   | inputValid => rfl
-  | parenthesized inner ih => exact ih context
-  | negated inner ih => exact ih context
+  | parenthesized inner ih => exact ih flow
+  | negated inner ih => exact ih flow
   | andThen left right ihl ihr => simp only [obligations, discharged_append, ihl, ihr, checkBounds]
   | orElse left right ihl ihr => simp only [obligations, discharged_append, ihl, ihr, checkBounds]
 
@@ -182,38 +180,37 @@ theorem simple_obligations_exact (shape : Shape) (context : Context) (item : Seq
           Bool.false_and, Bool.and_false]
 
 mutual
-  def Statement.obligations (shape : Shape) (context : Context) (item : Statement)
-      (ranges : Integer.Ranges := Integer.emptyRanges)
-      (mutable : Integer.Mutability := Integer.immutable) : List Obligation :=
+  def Statement.obligations (shape : Shape) (analysis : Integer.Analysis) (flow : Flow)
+      (item : Statement) : List Obligation :=
     match item with
-    | .simple item => simpleObligations shape context item ranges
-    | .scalarAssign update => (update.obligations ranges).map Obligation.scalar
+    | .simple item => simpleObligations shape flow.path item flow.scalars
+    | .scalarAssign update => (update.obligations flow.scalars).map Obligation.scalar
     | .reject => []
-    | .choice condition yes no => condition.obligations shape context ranges ++
-        statementsObligations shape (condition.refine shape context true ranges) yes ranges mutable ++
-        statementsObligations shape (condition.refine shape context false ranges) no ranges mutable
+    | .choice condition yes no => condition.obligations shape analysis flow ++
+        statementsObligations shape analysis (condition.refine shape analysis flow true) yes ++
+        statementsObligations shape analysis (condition.refine shape analysis flow false) no
     | .forLoop index _ lower upper body =>
-        (lower.obligations ranges ++ upper.obligations ranges).map Obligation.scalar ++
-          match lower.infer ranges, upper.infer ranges with
-          | some a, some b => statementsObligations shape (loopContext context (Integer.loopBounds a b)) body
-              (Integer.put ranges index (some (Integer.loopBounds a b))) (Integer.put mutable index false)
+        (lower.obligations flow.scalars ++ upper.obligations flow.scalars).map Obligation.scalar ++
+          match lower.infer flow.scalars, upper.infer flow.scalars with
+          | some a, some b => statementsObligations shape
+              (analysis.withIndex index (Integer.loopBounds a b))
+              (loopEntry analysis flow index (Integer.loopBounds a b)) body
           | _, _ => [.impossible]
   termination_by sizeOf item
-  def statementsObligations (shape : Shape) (context : Context) (items : List Statement)
-      (ranges : Integer.Ranges := Integer.emptyRanges)
-      (mutable : Integer.Mutability := Integer.immutable) : List Obligation :=
+  def statementsObligations (shape : Shape) (analysis : Integer.Analysis) (flow : Flow)
+      (items : List Statement) : List Obligation :=
     match items with
     | [] => []
-    | item :: rest => item.obligations shape context ranges mutable ++
-        match item.check shape context ranges mutable with
+    | item :: rest => item.obligations shape analysis flow ++
+        match item.check shape analysis flow with
         | none => []
-        | some next => statementsObligations shape next rest ranges mutable
+        | some next => statementsObligations shape analysis next rest
   termination_by sizeOf items
 end
 
 mutual
-  theorem statement_obligations_discharge {shape : Shape} {ranges : Integer.Ranges} {mutable : Integer.Mutability} {before after : Context} {item : Statement}
-      (checked : item.check shape before ranges mutable = some after) : discharged (item.obligations shape before ranges mutable) = true := by
+  theorem statement_obligations_discharge {shape : Shape} {analysis : Integer.Analysis} {before after : Flow} {item : Statement}
+      (checked : item.check shape analysis before = some after) : discharged (item.obligations shape analysis before) = true := by
     cases item with
     | simple item =>
         simp only [Statement.check] at checked
@@ -247,9 +244,9 @@ mutual
           Bool.and_self]
   termination_by sizeOf item
 
-  theorem statements_obligations_discharge {shape : Shape} {ranges : Integer.Ranges} {mutable : Integer.Mutability} {before after : Context} {items : List Statement}
-      (checked : checkStatements shape before items ranges mutable = some after) :
-      discharged (statementsObligations shape before items ranges mutable) = true := by
+  theorem statements_obligations_discharge {shape : Shape} {analysis : Integer.Analysis} {before after : Flow} {items : List Statement}
+      (checked : checkStatements shape analysis before items = some after) :
+      discharged (statementsObligations shape analysis before items) = true := by
     cases items with
     | nil => simp [statementsObligations, discharged]
     | cons item rest =>
@@ -261,23 +258,21 @@ mutual
   termination_by sizeOf items
 end
 
-theorem statements_obligations_valid {shape : Shape} {ranges : Integer.Ranges} {mutable : Integer.Mutability} {before after : Context} {items : List Statement}
-    (checked : checkStatements shape before items ranges mutable = some after) :
-    ∀ check ∈ statementsObligations shape before items ranges mutable, check.Valid := by
+theorem statements_obligations_valid {shape : Shape} {analysis : Integer.Analysis} {before after : Flow} {items : List Statement}
+    (checked : checkStatements shape analysis before items = some after) :
+    ∀ check ∈ statementsObligations shape analysis before items, check.Valid := by
   have all := statements_obligations_discharge checked
   simp only [discharged, List.all_eq_true] at all
   exact fun check present => Obligation.discharge_sound (all check present)
 
 def Obligation.toObligation (check : Obligation) : Semantics.Obligation := ⟨.runTimeSafety, check.discharge⟩
 
-def modeledObligations (shape : Shape) (before : Context) (items : List Statement)
-    (ranges : Integer.Ranges := Integer.emptyRanges)
-    (mutable : Integer.Mutability := Integer.immutable) : List Semantics.Obligation :=
-  (statementsObligations shape before items ranges mutable).map Obligation.toObligation
+def modeledObligations (shape : Shape) (analysis : Integer.Analysis) (before : Flow) (items : List Statement) : List Semantics.Obligation :=
+  (statementsObligations shape analysis before items).map Obligation.toObligation
 
-theorem all_modeled_obligations_discharge {shape : Shape} {ranges : Integer.Ranges} {mutable : Integer.Mutability} {before after : Context} {items : List Statement}
-    (checked : checkStatements shape before items ranges mutable = some after) :
-    Semantics.discharge (modeledObligations shape before items ranges mutable) = true := by
+theorem all_modeled_obligations_discharge {shape : Shape} {analysis : Integer.Analysis} {before after : Flow} {items : List Statement}
+    (checked : checkStatements shape analysis before items = some after) :
+    Semantics.discharge (modeledObligations shape analysis before items) = true := by
   apply (Semantics.discharge_iff _).mpr
   intro check present
   obtain ⟨schema, member, rfl⟩ := List.mem_map.mp present

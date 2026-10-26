@@ -133,32 +133,107 @@ def loopAfter (before after : Context) (lower upper : Integer.Interval) : Contex
   if (Integer.loopBounds lower upper).isEmpty then before
   else if Integer.loopDefinite lower upper then after else before.join after
 
+def loopEntry (analysis : Integer.Analysis) (flow : Flow) (index : Nat)
+    (bounds : Integer.Interval) : Flow :=
+  ⟨loopContext flow.path bounds, Integer.put (analysis.widen flow.scalars) index (some bounds)⟩
+
+def loopExit (analysis : Integer.Analysis) (before after : Flow)
+    (lower upper : Integer.Interval) : Flow :=
+  ⟨loopAfter before.path after.path lower upper,
+    if (Integer.loopBounds lower upper).isEmpty then before.scalars
+    else analysis.widen before.scalars⟩
+
 mutual
-  def Statement.check (shape : Shape) (context : Context) (item : Statement)
-      (ranges : Integer.Ranges := Integer.emptyRanges)
-      (mutable : Integer.Mutability := Integer.immutable) : Option Context :=
+  def Statement.check (shape : Shape) (analysis : Integer.Analysis) (flow : Flow)
+      (item : Statement) : Option Flow :=
     match item with
-    | .simple item => if checkSimple shape context item ranges then some context else none
-    | .scalarAssign update => if update.check ranges mutable then some context else none
-    | .reject => some context.reject
+    | .simple item => if checkSimple shape flow.path item flow.scalars then some flow else none
+    | .scalarAssign update =>
+        if update.check flow.scalars analysis.mutable analysis.declared
+        then some {flow with scalars := update.after flow.scalars} else none
+    | .reject => some {flow with path := flow.path.reject}
     | .choice condition yes no =>
-        if condition.checkBounds shape context ranges then
-          (checkStatements shape (condition.refine shape context true ranges) yes ranges mutable).bind fun afterYes =>
-            (checkStatements shape (condition.refine shape context false ranges) no ranges mutable).map fun afterNo =>
+        if condition.checkBounds shape analysis flow then
+          (checkStatements shape analysis (condition.refine shape analysis flow true) yes).bind fun afterYes =>
+            (checkStatements shape analysis (condition.refine shape analysis flow false) no).map fun afterNo =>
               afterYes.join afterNo
         else none
     | .forLoop index _ lower upper body =>
-        (lower.infer ranges).bind fun a => (upper.infer ranges).bind fun b =>
+        (lower.infer flow.scalars).bind fun a => (upper.infer flow.scalars).bind fun b =>
           let bounds := Integer.loopBounds a b
-          (checkStatements shape (loopContext context bounds) body
-            (Integer.put ranges index (some bounds)) (Integer.put mutable index false)).map fun after => loopAfter context after a b
+          (checkStatements shape (analysis.withIndex index bounds)
+            (loopEntry analysis flow index bounds) body).map fun after => loopExit analysis flow after a b
   termination_by sizeOf item
-  def checkStatements (shape : Shape) (context : Context) (items : List Statement)
-      (ranges : Integer.Ranges := Integer.emptyRanges)
-      (mutable : Integer.Mutability := Integer.immutable) : Option Context :=
+  def checkStatements (shape : Shape) (analysis : Integer.Analysis) (flow : Flow)
+      (items : List Statement) : Option Flow :=
     match items with
-    | [] => some context
-    | item :: rest => (item.check shape context ranges mutable).bind fun next => checkStatements shape next rest ranges mutable
+    | [] => some flow
+    | item :: rest => (item.check shape analysis flow).bind fun next => checkStatements shape analysis next rest
+  termination_by sizeOf items
+end
+
+/- Admission preserves abstract containment in immutable declaration ranges,
+including through precise assignments, branch hulls and conservative loop exits. -/
+mutual
+  theorem statement_ranges_invariant {shape : Shape} {analysis : Integer.Analysis}
+      {before after : Flow} {item : Statement}
+      (checked : item.check shape analysis before = some after)
+      (refined : before.scalars.Refines analysis.declared)
+      (bounded : before.scalars.Bounded) (declared : analysis.declared.Bounded) :
+      after.scalars.Refines analysis.declared ∧ after.scalars.Bounded := by
+    cases item with
+    | simple item =>
+        simp only [Statement.check] at checked
+        split at checked
+        · cases checked; exact ⟨refined, bounded⟩
+        · contradiction
+    | scalarAssign update =>
+        simp only [Statement.check] at checked
+        split at checked
+        · rename_i good
+          cases checked
+          exact ⟨update.after_refines good refined, update.after_bounded bounded⟩
+        · contradiction
+    | reject =>
+        simp only [Statement.check, Option.some.injEq] at checked
+        subst after
+        exact ⟨refined, bounded⟩
+    | choice condition yes no =>
+        simp only [Statement.check] at checked
+        split at checked
+        · simp only [Option.bind_eq_some_iff, Option.map_eq_some_iff] at checked
+          obtain ⟨afterYes, yesChecked, afterNo, noChecked, rfl⟩ := checked
+          have a := statements_ranges_invariant yesChecked (condition.refine_refines refined)
+            (condition.refine_bounded bounded) declared
+          have b := statements_ranges_invariant noChecked (condition.refine_refines refined)
+            (condition.refine_bounded bounded) declared
+          exact ⟨Integer.Ranges.join_refines a.1 b.1, Integer.Ranges.join_bounded a.2 b.2⟩
+        · contradiction
+    | forLoop index reverse lower upper body =>
+        simp only [Statement.check, Option.bind_eq_some_iff, Option.map_eq_some_iff] at checked
+        obtain ⟨a, _, b, _, bodyAfter, _, rfl⟩ := checked
+        simp only [loopExit]
+        split
+        · exact ⟨refined, bounded⟩
+        · exact ⟨analysis.widen_refines refined, analysis.widen_bounded bounded declared⟩
+  termination_by sizeOf item
+
+  theorem statements_ranges_invariant {shape : Shape} {analysis : Integer.Analysis}
+      {before after : Flow} {items : List Statement}
+      (checked : checkStatements shape analysis before items = some after)
+      (refined : before.scalars.Refines analysis.declared)
+      (bounded : before.scalars.Bounded) (declared : analysis.declared.Bounded) :
+      after.scalars.Refines analysis.declared ∧ after.scalars.Bounded := by
+    cases items with
+    | nil =>
+        simp only [checkStatements, Option.some.injEq] at checked
+        subst after
+        exact ⟨refined, bounded⟩
+    | cons item rest =>
+        simp only [checkStatements, Option.bind_eq_some_iff] at checked
+        obtain ⟨middle, firstChecked, restChecked⟩ := checked
+        have first := statement_ranges_invariant firstChecked refined bounded declared
+        exact statements_ranges_invariant restChecked first.1 first.2 declared
   termination_by sizeOf items
 end
 
