@@ -259,6 +259,59 @@ theorem Ranges.join_none_left {left right : Ranges} {index : Nat}
     (absent : left index = none) : (left.join right) index = none := by
   simp only [join, absent]
 
+/-- Guard refinement retains a present nonempty cell, including when its
+comparison outcome is impossible and the incoming interval is kept. -/
+theorem Ranges.refineName_nonempty {ranges : Ranges} {index target : Nat}
+    {operator : Comparison} {threshold : Int} {truth : Bool}
+    (nonempty : ∃ bounds, ranges index = some bounds ∧ bounds.isEmpty = false) :
+    ∃ bounds, ranges.refineName target operator threshold truth index = some bounds ∧
+      bounds.isEmpty = false := by
+  obtain ⟨bounds, found, nonempty⟩ := nonempty
+  by_cases same : index = target
+  · subst target
+    exact ⟨bounds.refineOrKeep operator threshold truth,
+      by simp only [refineName, found, put, ↓reduceIte],
+      Interval.refineOrKeep_nonempty nonempty _ _ _⟩
+  · exact ⟨bounds, (refineName_other same).trans found, nonempty⟩
+
+theorem refineComparison_nonempty {analysis : Analysis} {ranges : Ranges} {index : Nat}
+    {operator : Comparison} {left right : Expr} {truth : Bool}
+    (nonempty : ∃ bounds, ranges index = some bounds ∧ bounds.isEmpty = false) :
+    ∃ bounds, refineComparison analysis ranges operator left right truth index = some bounds ∧
+      bounds.isEmpty = false := by
+  cases leftFound : left.infer ranges with
+  | none => simpa only [refineComparison, leftFound] using nonempty
+  | some a =>
+      cases rightFound : right.infer ranges with
+      | none => simpa only [refineComparison, leftFound, rightFound] using nonempty
+      | some b =>
+          cases selected : guardCandidate analysis left right b with
+          | some pair =>
+              obtain ⟨target, threshold⟩ := pair
+              simpa only [refineComparison, leftFound, rightFound, selected] using
+                (Ranges.refineName_nonempty (target := target) (operator := operator)
+                  (threshold := threshold) (truth := truth) nonempty)
+          | none =>
+              cases reversed : guardCandidate analysis right left a with
+              | none => simpa only [refineComparison, leftFound, rightFound, selected, reversed] using nonempty
+              | some pair =>
+                  obtain ⟨target, threshold⟩ := pair
+                  simpa only [refineComparison, leftFound, rightFound, selected, reversed] using
+                    (Ranges.refineName_nonempty (target := target) (operator := operator.swap)
+                      (threshold := threshold) (truth := truth) nonempty)
+
+theorem Ranges.join_nonempty {left right : Ranges} {index : Nat}
+    (a : ∃ bounds, left index = some bounds ∧ bounds.isEmpty = false)
+    (b : ∃ bounds, right index = some bounds ∧ bounds.isEmpty = false) :
+    ∃ bounds, (left.join right) index = some bounds ∧ bounds.isEmpty = false := by
+  obtain ⟨l, leftFound, leftNonempty⟩ := a
+  obtain ⟨r, rightFound, _⟩ := b
+  have lower : l.Contains l.lower := by
+    simp only [Interval.isEmpty, decide_eq_false_iff_not] at leftNonempty
+    exact ⟨Int.le_refl _, by omega⟩
+  exact ⟨l.join r, by simp only [join, leftFound, rightFound],
+    Interval.contains_nonempty (Interval.join_left lower)⟩
+
 /-- Every declared identity has a current interval contained in its immutable
 base interval. This is an abstract invariant, independent of execution samples. -/
 def Ranges.Refines (current declared : Ranges) : Prop :=

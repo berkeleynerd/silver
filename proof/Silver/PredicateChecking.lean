@@ -361,6 +361,22 @@ theorem Condition.refine_scalars_bounded {shape : Shape} {analysis : Integer.Ana
       · first | exact ihr (ihl bounded) | exact Integer.Ranges.join_bounded (ihl bounded) (ihr (ihl bounded))
       · first | exact ihr (ihl bounded) | exact Integer.Ranges.join_bounded (ihl bounded) (ihr (ihl bounded))
 
+/-- Refinement preserves nonempty scalar cells across both sequentially
+reached guards and joins of short-circuit outcomes. -/
+theorem Condition.refine_nonempty {shape : Shape} {analysis : Integer.Analysis}
+    {condition : Condition} {flow : Flow} {truth : Bool} {index : Nat}
+    (nonempty : ∃ bounds, flow.scalars index = some bounds ∧ bounds.isEmpty = false) :
+    ∃ bounds, (condition.refine shape analysis flow truth).scalars index = some bounds ∧
+      bounds.isEmpty = false := by
+  induction condition generalizing flow truth with
+  | stringCompare | lengthCompare | inputValid => exact nonempty
+  | scalarCompare => exact Integer.refineComparison_nonempty nonempty
+  | parenthesized _ ih | negated _ ih => exact ih nonempty
+  | andThen left right ihl ihr | orElse left right ihl ihr =>
+      cases truth <;>
+      simp only [refine]
+      all_goals first | exact ihr (ihl nonempty) | exact Integer.Ranges.join_nonempty (ihl nonempty) (ihr (ihl nonempty))
+
 /-- Immutable declaration intervals are nonempty exact snapshots. This
 premise matters: joins normalize noncanonical empty intervals, which are not
 immutable declarations. Empty loop indexes remain eligible for refinement. -/
