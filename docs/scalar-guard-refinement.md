@@ -287,3 +287,28 @@ full regression/sample validation and independent delivery review remain open.
 
 Native timings remain in the retained run records. Whole-round token/cost
 measurements are unavailable.
+
+## Semantic review and native equation checkpoint — 2026-10-26
+
+The [independent semantic review](reviews/review-scalar-guard-semantics-0655fa76be.md)
+at `0655fa76be` found no material gap in guard selection, assignment replacement,
+short-circuit flow, joins, captured bounds or repeated-loop closure. Its selected
+reviewer was GPT-6 Astra at Extra High; the bounded inspection and report took
+3 minutes 3 seconds. It excludes the unfinished native/source integration and
+does not establish a new validation result.
+
+The native relation reader's exact model equation passed in managed run
+`20261026T041233-b1a6f00330d2`. That run failed its runtime flow-validity
+postcondition, which remains a required repair. Joined-flow, refinement-target
+and condition-tail helpers have passed focused checks. Body-tail and operator
+budget annotations remain under focused development, with unchanged contracts,
+runtime behavior and solver settings. Further condition/body checks are active.
+
+The coherent Lean check now builds loop execution equations, body expressions,
+body equations/correspondence and inherited declaration readiness. Remaining
+adapter/sizing proof diagnostics are being repaired before a fresh combined
+audit. The source runner still carries the preceding division parser input;
+these focused results do not establish final guard actual-source correspondence.
+The resumed proof subthreads use selected GPT-6 Astra at Extra High. Runtime
+settings and whole-round token/cost measurements are unavailable. Complete native,
+source, regression and independent delivery validation remain outstanding.
