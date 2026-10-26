@@ -64,7 +64,8 @@ class IntegerDivisionTests(unittest.TestCase):
                 with self.subTest(operator=operator, lower=lower, upper=upper):
                     self.check(program(declarations, b'if ' + expression + b'=0 then null;end if;'), 2)
                     self.check(program(declarations, b'if D/=0 then if ' + expression
-                                       + b'=0 then null;end if;end if;'), 2)
+                                       + b'=0 then null;end if;end if;'),
+                               2 if lower == upper == 0 or lower < 0 < upper else 0)
             self.check(program(b'X:constant Integer:=(1 ' + operator + b' 0);', b'null;'), 2)
         self.check(program(b'X:constant Integer:=((-2147483648) / (-1));', b'null;'), 2)
         declarations = b'X:Integer:=-2147483648;D:Integer range -1..-1:=-1;'
