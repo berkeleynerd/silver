@@ -26,6 +26,15 @@ theorem loopToken_model (text : Source) (position : Nat) (token : ShellToken)
   simp only [loopTokens, List.mem_cons, List.mem_nil_iff, or_false] at valid
   rcases valid with rfl | rfl | rfl | rfl | rfl | rfl | rfl <;> rfl
 
+theorem loopToken_fixed (token : ShellToken) (valid : token ∈ loopTokens) : Adapter.FixedToken token := by
+  simp only [loopTokens, List.mem_cons, List.mem_nil_iff, or_false] at valid
+  rcases valid with rfl | rfl | rfl | rfl | rfl | rfl | rfl <;>
+    simp [Adapter.FixedToken, ShellToken.word, ShellToken.symbol]
+
+theorem loop_token_calls_fixed :
+    ∀ token ∈ .word "for" :: commands.tokenCalls, Adapter.FixedToken token :=
+  fun token present => loopToken_fixed token (loop_tokens_complete token present)
+
 /-- Callee identity and typed library-body interpretation. The inherited source
 bridges establish helper meanings separately; no loop scanner equality appears
 among these premises. Constants retain the checked native record values. -/
@@ -34,7 +43,8 @@ structure Links (imports : Imports) (inherited : Compose.Expressions.Calls)
   token : ∀ text position token, token ∈ loopTokens →
     imports.token text position token = inherited.function .takeToken text position token
   bodyToken : ∃ models wrappers body,
-    Adapter.Wrappers.ModelEquations models body ∧ Adapter.Wrappers.Refinement models wrappers ∧
+    Adapter.Wrappers.ModelEquations models body (takeTokenCall := inherited.function .takeToken) ∧
+    Adapter.Wrappers.Refinement models wrappers ∧
     imports.bodyToken = wrappers.token
   invalid : ∃ calls, BodyWrappers.DefinitionEquations calls ∧ imports.invalid = calls.invalid
   skip : imports.skip = inherited.function .skip
@@ -73,8 +83,9 @@ theorem ImportsMeaning.of_inherited {imports : Imports} {inherited : Compose.Exp
   bodyToken text context scan token valid := by
     obtain ⟨models, wrappers, body, definitions, refinement, observed⟩ := links.bodyToken
     rw [observed]
-    exact Adapter.Wrappers.token_interpreted definitions refinement text context scan token
-      ⟨valid.1.1, valid.1.2.1, valid.1.2.2, loopToken_valid token valid.2⟩
+    exact Adapter.Wrappers.token_interpreted (Adapter.Wrappers.normalize_tokens source definitions)
+      refinement text context scan token
+      ⟨valid.1.1, valid.1.2.1, valid.1.2.2, loopToken_valid token valid.2⟩ (loopToken_fixed token valid.2)
   invalid scan capacity := by
     obtain ⟨calls, definitions, observed⟩ := links.invalid
     rw [observed]
@@ -120,11 +131,14 @@ theorem ImportsMeaning.of_inherited {imports : Imports} {inherited : Compose.Exp
   emptyBounds := links.emptyBounds
   emptyFacts := links.emptyFacts
 
-theorem model_links : Links modelImports Compose.Expressions.modelCalls ScalarExpression.Native.modelCalls where
+theorem model_links {domain : Compose.Expressions.StateDomain}
+    (source : Compose.Expressions.HelperEquations Compose.Expressions.modelCalls (domain := domain)) :
+    Links {modelImports with bodyToken := (Adapter.Wrappers.modelCalls BodyNative.modelCalls).token}
+      Compose.Expressions.modelCalls ScalarExpression.Native.modelCalls where
   token text position token valid := (loopToken_model text position token valid).symm
   bodyToken := ⟨Adapter.Wrappers.modelCalls BodyNative.modelCalls,
     Adapter.Wrappers.modelCalls BodyNative.modelCalls, BodyNative.modelCalls,
-    Adapter.Wrappers.model_equations BodyNative.modelCalls,
+    Adapter.Wrappers.model_raw_equations source BodyNative.modelCalls,
     Adapter.Wrappers.model_refinement _, rfl⟩
   invalid := ⟨BodyWrappers.modelCalls, BodyWrappers.model_definitions, rfl⟩
   skip := rfl

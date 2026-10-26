@@ -202,43 +202,61 @@ inductive Expr : Type → Type 1
 def initialFlow (context : Native.Context) : ActiveFlow :=
   ActiveFlow.initial context.scalarNames (initialFacts (decide (context.dynamicFirst ≠ 0)))
 
+/-- The native Take_Token operation uses Spelling/Is_Word_Token for every
+Token_Kind, including the literal and capacity enum values. -/
+def takeTokenModel (text : Source) (position : Nat) (token : ShellToken) : Nat :=
+  fixedAfter text position (Expressions.spelling token) (Expressions.isWord token)
+
+/-- Semantic body-token calls use fixed words or symbols. The native token
+operation above remains defined on the complete checked enumeration. -/
+def FixedToken : ShellToken → Prop
+  | .fixed _ _ => True
+  | _ => False
+
+theorem takeTokenModel_fixed (text : Source) (position : Nat) (token : ShellToken)
+    (fixed : FixedToken token) : takeTokenModel text position token = tokenAfter text position token := by
+  cases token <;> simp_all [FixedToken, takeTokenModel, tokenAfter, Expressions.spelling, Expressions.isWord]
+
 def Expr.eval (calls : BodyNative.Calls) (frame : Frame)
     (bodyOfCall : ScanResult → BodyScan := Predicate.bodyOf)
-    (initialFlowCall : Native.Context → ActiveFlow := Adapter.initialFlow) : Expr α → α
+    (initialFlowCall : Native.Context → ActiveFlow := Adapter.initialFlow)
+    (takeTokenCall : Source → Nat → ShellToken → Nat := takeTokenModel) : Expr α → α
   | .scan => frame.scan | .body => frame.body | .context => frame.context | .result => frame.result
   | .position => frame.position | .token => frame.token | .stop => frame.stop
-  | .field projection value => projection.eval (value.eval calls frame bodyOfCall initialFlowCall)
-  | .zero value => decide (value.eval calls frame bodyOfCall initialFlowCall = 0)
-  | .nonzero value => decide (value.eval calls frame bodyOfCall initialFlowCall ≠ 0)
-  | .not value => !(value.eval calls frame bodyOfCall initialFlowCall)
-  | .orElse left right => left.eval calls frame bodyOfCall initialFlowCall || right.eval calls frame bodyOfCall initialFlowCall
+  | .field projection value => projection.eval (value.eval calls frame bodyOfCall initialFlowCall takeTokenCall)
+  | .zero value => decide (value.eval calls frame bodyOfCall initialFlowCall takeTokenCall = 0)
+  | .nonzero value => decide (value.eval calls frame bodyOfCall initialFlowCall takeTokenCall ≠ 0)
+  | .not value => !(value.eval calls frame bodyOfCall initialFlowCall takeTokenCall)
+  | .orElse left right => left.eval calls frame bodyOfCall initialFlowCall takeTokenCall || right.eval calls frame bodyOfCall initialFlowCall takeTokenCall
   | .tokenEqual tok => decide (frame.token = tok)
   | .stopValue boundary => boundary
-  | .choose test yes no => if test.eval calls frame bodyOfCall initialFlowCall then yes.eval calls frame bodyOfCall initialFlowCall else no.eval calls frame bodyOfCall initialFlowCall
-  | .initial arguments => (PathFacts.Native.initial (arguments.eval calls frame bodyOfCall initialFlowCall)).model
-  | .initialFlow ctx => initialFlowCall (ctx.eval calls frame bodyOfCall initialFlowCall)
-  | .nameCount names => (names.eval calls frame bodyOfCall initialFlowCall).length
-  | .completed facts => Predicate.completed (facts.eval calls frame bodyOfCall initialFlowCall)
-  | .bodyEnvironment names => ScalarExpression.bodyEnvironment (names.eval calls frame bodyOfCall initialFlowCall)
+  | .choose test yes no => if test.eval calls frame bodyOfCall initialFlowCall takeTokenCall then yes.eval calls frame bodyOfCall initialFlowCall takeTokenCall else no.eval calls frame bodyOfCall initialFlowCall takeTokenCall
+  | .initial arguments => (PathFacts.Native.initial (arguments.eval calls frame bodyOfCall initialFlowCall takeTokenCall)).model
+  | .initialFlow ctx => initialFlowCall (ctx.eval calls frame bodyOfCall initialFlowCall takeTokenCall)
+  | .nameCount names => (names.eval calls frame bodyOfCall initialFlowCall takeTokenCall).length
+  | .completed facts => Predicate.completed (facts.eval calls frame bodyOfCall initialFlowCall takeTokenCall)
+  | .bodyEnvironment names => ScalarExpression.bodyEnvironment (names.eval calls frame bodyOfCall initialFlowCall takeTokenCall)
   | .contextValue names scalarNames declarations first after =>
-      ⟨names.eval calls frame bodyOfCall initialFlowCall, first.eval calls frame bodyOfCall initialFlowCall, after.eval calls frame bodyOfCall initialFlowCall,
-        scalarNames.eval calls frame bodyOfCall initialFlowCall, declarations.eval calls frame bodyOfCall initialFlowCall⟩
+      ⟨names.eval calls frame bodyOfCall initialFlowCall takeTokenCall, first.eval calls frame bodyOfCall initialFlowCall takeTokenCall, after.eval calls frame bodyOfCall initialFlowCall takeTokenCall,
+        scalarNames.eval calls frame bodyOfCall initialFlowCall takeTokenCall, declarations.eval calls frame bodyOfCall initialFlowCall takeTokenCall⟩
   | .bodyValue _ facts pos target capacity assigned output =>
-      ⟨pos.eval calls frame bodyOfCall initialFlowCall, target.eval calls frame bodyOfCall initialFlowCall, capacity.eval calls frame bodyOfCall initialFlowCall,
-        facts.eval calls frame bodyOfCall initialFlowCall, assigned.eval calls frame bodyOfCall initialFlowCall, output.eval calls frame bodyOfCall initialFlowCall⟩
+      ⟨pos.eval calls frame bodyOfCall initialFlowCall takeTokenCall, target.eval calls frame bodyOfCall initialFlowCall takeTokenCall, capacity.eval calls frame bodyOfCall initialFlowCall takeTokenCall,
+        facts.eval calls frame bodyOfCall initialFlowCall takeTokenCall, assigned.eval calls frame bodyOfCall initialFlowCall takeTokenCall, output.eval calls frame bodyOfCall initialFlowCall takeTokenCall⟩
   | .stateValue pos names scalarNames first after target capacity =>
-      ⟨pos.eval calls frame bodyOfCall initialFlowCall, names.eval calls frame bodyOfCall initialFlowCall, first.eval calls frame bodyOfCall initialFlowCall,
-        after.eval calls frame bodyOfCall initialFlowCall, target.eval calls frame bodyOfCall initialFlowCall, capacity.eval calls frame bodyOfCall initialFlowCall, scalarNames.eval calls frame bodyOfCall initialFlowCall⟩
-  | .scanValue state assigned output => ⟨state.eval calls frame bodyOfCall initialFlowCall, assigned.eval calls frame bodyOfCall initialFlowCall, output.eval calls frame bodyOfCall initialFlowCall⟩
-  | .bodyToken input tok => Predicate.bodyToken frame.text (input.eval calls frame bodyOfCall initialFlowCall) (tok.eval calls frame bodyOfCall initialFlowCall)
-  | .takeToken pos tok => tokenAfter frame.text (pos.eval calls frame bodyOfCall initialFlowCall) tok
+      ⟨pos.eval calls frame bodyOfCall initialFlowCall takeTokenCall, names.eval calls frame bodyOfCall initialFlowCall takeTokenCall, first.eval calls frame bodyOfCall initialFlowCall takeTokenCall,
+        after.eval calls frame bodyOfCall initialFlowCall takeTokenCall, target.eval calls frame bodyOfCall initialFlowCall takeTokenCall, capacity.eval calls frame bodyOfCall initialFlowCall takeTokenCall, scalarNames.eval calls frame bodyOfCall initialFlowCall takeTokenCall⟩
+  | .scanValue state assigned output => ⟨state.eval calls frame bodyOfCall initialFlowCall takeTokenCall, assigned.eval calls frame bodyOfCall initialFlowCall takeTokenCall, output.eval calls frame bodyOfCall initialFlowCall takeTokenCall⟩
+  | .bodyToken input tok =>
+      let scan := input.eval calls frame bodyOfCall initialFlowCall takeTokenCall
+      {scan with position := takeTokenCall frame.text scan.position (tok.eval calls frame bodyOfCall initialFlowCall takeTokenCall)}
+  | .takeToken pos tok => takeTokenCall frame.text (pos.eval calls frame bodyOfCall initialFlowCall takeTokenCall) tok
   | .invalid => invalidScan
-  | .contextOf input => Adapter.contextOf (input.eval calls frame bodyOfCall initialFlowCall)
-  | .bodyOf input => bodyOfCall (input.eval calls frame bodyOfCall initialFlowCall)
-  | .expand ctx input => Adapter.expand (ctx.eval calls frame bodyOfCall initialFlowCall) (input.eval calls frame bodyOfCall initialFlowCall)
-  | .read ctx input boundary => calls.read frame.text (ctx.eval calls frame bodyOfCall initialFlowCall) (input.eval calls frame bodyOfCall initialFlowCall) (boundary.eval calls frame bodyOfCall initialFlowCall)
+  | .contextOf input => Adapter.contextOf (input.eval calls frame bodyOfCall initialFlowCall takeTokenCall)
+  | .bodyOf input => bodyOfCall (input.eval calls frame bodyOfCall initialFlowCall takeTokenCall)
+  | .expand ctx input => Adapter.expand (ctx.eval calls frame bodyOfCall initialFlowCall takeTokenCall) (input.eval calls frame bodyOfCall initialFlowCall takeTokenCall)
+  | .read ctx input boundary => calls.read frame.text (ctx.eval calls frame bodyOfCall initialFlowCall takeTokenCall) (input.eval calls frame bodyOfCall initialFlowCall takeTokenCall) (boundary.eval calls frame bodyOfCall initialFlowCall takeTokenCall)
   | .stopCase ending alternative arm => match frame.stop with
-      | .endOnly => ending.eval calls frame bodyOfCall initialFlowCall | .elseOnly => alternative.eval calls frame bodyOfCall initialFlowCall | .arm => arm.eval calls frame bodyOfCall initialFlowCall
+      | .endOnly => ending.eval calls frame bodyOfCall initialFlowCall takeTokenCall | .elseOnly => alternative.eval calls frame bodyOfCall initialFlowCall takeTokenCall | .arm => arm.eval calls frame bodyOfCall initialFlowCall takeTokenCall
 
 def record (fields : List (String × List String)) : List String :=
   ["("] ++ List.intercalate [","] (fields.map fun (name, value) => [name, "=>"] ++ value) ++ [")"]
@@ -311,10 +329,11 @@ structure Function where
 
 def Function.eval (fn : Function) (calls : BodyNative.Calls) (frame : Frame)
     (bodyOfCall : ScanResult → BodyScan := Predicate.bodyOf)
-    (initialFlowCall : Native.Context → ActiveFlow := Adapter.initialFlow) : ScanResult :=
-  let next := {frame with context := fn.context.eval calls frame bodyOfCall initialFlowCall}
-  let last := {next with result := fn.result.eval calls next bodyOfCall initialFlowCall}
-  fn.returned.eval calls last bodyOfCall initialFlowCall
+    (initialFlowCall : Native.Context → ActiveFlow := Adapter.initialFlow)
+    (takeTokenCall : Source → Nat → ShellToken → Nat := takeTokenModel) : ScanResult :=
+  let next := {frame with context := fn.context.eval calls frame bodyOfCall initialFlowCall takeTokenCall}
+  let last := {next with result := fn.result.eval calls next bodyOfCall initialFlowCall takeTokenCall}
+  fn.returned.eval calls last bodyOfCall initialFlowCall takeTokenCall
 
 def Function.render (fn : Function) : List String :=
   ["context", ":", "constant", "body_context", ":="] ++ fn.context.render ++ [";",
@@ -346,12 +365,15 @@ theorem body_count (calls : BodyNative.Calls) (frame : Frame) :
 theorem expand_eval (calls : BodyNative.Calls) (frame : Frame) :
     expandExpr.eval calls frame = expand frame.context frame.body := rfl
 
-theorem token_eval (calls : BodyNative.Calls) (frame : Frame) :
-    tokenExpr.eval calls frame = bodyToken frame.text frame.body frame.token := rfl
+theorem token_eval (calls : BodyNative.Calls) (frame : Frame) (fixed : FixedToken frame.token) :
+    tokenExpr.eval calls frame = bodyToken frame.text frame.body frame.token := by
+  change {frame.body with position := takeTokenModel frame.text frame.body.position frame.token} = _
+  rw [takeTokenModel_fixed frame.text frame.body.position frame.token fixed]
+  rfl
 
 theorem atStop_eval (calls : BodyNative.Calls) (frame : Frame) :
     atStopExpr.eval calls frame = atBodyStop frame.text frame.position frame.stop := by
-  dsimp +instances only [atStopExpr, Expr.eval, tokenAfter, ShellToken.word]
+  dsimp +instances only [atStopExpr, Expr.eval, takeTokenModel, Expressions.spelling, Expressions.isWord, ShellToken.word]
   apply Bool.eq_iff_iff.mpr
   cases frame.stop <;> simp [atBodyStop]
 

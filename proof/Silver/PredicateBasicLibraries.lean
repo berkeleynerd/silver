@@ -10,6 +10,17 @@ open Compose
 
 variable {domain : Expressions.StateDomain}
 
+theorem basicToken_fixed (token : ShellToken) (valid : token ∈ basicTokens) : Adapter.FixedToken token := by
+  simp only [basicTokens, List.mem_cons, List.mem_nil_iff, or_false] at valid
+  rcases valid with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl <;>
+    simp [Adapter.FixedToken, ShellToken.word, ShellToken.symbol]
+
+/-- Every token call in the complete Basic_Body rendering satisfies the
+fixed-token premise needed to project native token behavior to body semantics. -/
+theorem basic_token_calls_fixed :
+    ∀ token ∈ basicCommands.tokenCalls, Adapter.FixedToken token :=
+  fun token present => basicToken_fixed token (basic_tokens_complete token present)
+
 /-- Every Basic_Body callee is linked to its own typed source definition or
 runtime wrapper contract. The complete scalar assignment and String target
 meanings are derived from those component definitions. -/
@@ -24,7 +35,8 @@ structure Links (primitive : Primitives) (inherited : Expressions.Calls) : Prop 
     primitive.target = calls.stringTarget ∧ primitive.scalarTarget = calls.target ∧
     primitive.scalarAssignment = calls.assignment ∧ primitive.invalid = body.invalid
   bodyToken : ∃ models wrappers body,
-    Adapter.Wrappers.ModelEquations models body ∧ Adapter.Wrappers.Refinement models wrappers ∧
+    Adapter.Wrappers.ModelEquations models body (takeTokenCall := inherited.function .takeToken) ∧
+    Adapter.Wrappers.Refinement models wrappers ∧
     primitive.bodyToken = wrappers.token
   fits : ∀ (facts : PathFacts.Native.Context) summary,
     primitive.fits facts.model summary =
@@ -59,10 +71,11 @@ theorem HelperMeaning.of_inherited {primitive : Primitives} {inherited : Express
   bodyToken text context scan token valid := by
     obtain ⟨models, wrappers, body, definitions, refinement, observed⟩ := links.bodyToken
     rw [observed]
-    exact Adapter.Wrappers.token_interpreted definitions refinement text context scan token
+    exact Adapter.Wrappers.token_interpreted (Adapter.Wrappers.normalize_tokens source definitions)
+      refinement text context scan token
       ⟨valid.1.1.1, valid.1.1.2.1,
         ⟨valid.1.1.2.2, valid.1.2.1, valid.1.2.2⟩,
-        basicToken_valid token valid.2⟩
+        basicToken_valid token valid.2⟩ (basicToken_fixed token valid.2)
   invalid scan capacity := by
     obtain ⟨scalar, body, calls, flow, invalid, definitions, target, scalarTarget, assignment, observed⟩ := links.scalarBodies
     rw [observed]
@@ -94,7 +107,9 @@ theorem HelperMeaning.of_inherited {primitive : Primitives} {inherited : Express
 /-- A simultaneous witness for the complete callee wiring. The inherited
 reader theorem is parameterized by the selected state domain. -/
 theorem model_links (source : Expressions.HelperEquations Expressions.modelCalls (domain := domain)) :
-    Links {modelPrimitives with token := Expressions.modelCalls.function .takeToken} Expressions.modelCalls where
+    Links {modelPrimitives with
+      token := Expressions.modelCalls.function .takeToken
+      bodyToken := (Adapter.Wrappers.modelCalls BodyNative.modelCalls).token} Expressions.modelCalls where
   callAfter := rfl
   associationAfter := rfl
   token := rfl
@@ -122,7 +137,7 @@ theorem model_links (source : Expressions.HelperEquations Expressions.modelCalls
       assignment := fun _ _ _ _ => rfl }
   bodyToken := ⟨Adapter.Wrappers.modelCalls BodyNative.modelCalls,
     Adapter.Wrappers.modelCalls BodyNative.modelCalls, BodyNative.modelCalls,
-    Adapter.Wrappers.model_equations BodyNative.modelCalls,
+    Adapter.Wrappers.model_raw_equations source BodyNative.modelCalls,
     Adapter.Wrappers.model_refinement _, rfl⟩
   fits facts summary := by
     rw [LengthIntervals.Native.fitsBody_eval, LengthIntervals.Native.fits_model]

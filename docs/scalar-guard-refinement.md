@@ -353,3 +353,26 @@ cannot satisfy that interface over its stated domain. The finding is confirmed
 and under repair before final source validation. The repair must retain raw
 callee semantics and prove every actual caller lies in any narrower normalized
 projection domain; native contracts and application membership remain unchanged.
+
+
+The token-wrapper finding [#243](https://github.com/berkeleynerd/silver/issues/243)
+is repaired in the five files identified by the
+[checked integration manifest](evidence/scalar-guard-refinement/lean-cohort-20261026/integration-token-wrapper.json).
+The raw model retains the lexical callee over its existing full formal domain;
+normalization now derives that callee's meaning before projecting fixed-token
+calls used by the body, basic and loop parsers. The native contract and language
+membership are unchanged. The [independent recheck](reviews/review-scalar-guard-token-wrapper-repair.md)
+found no residual issue in that bounded repair.
+
+Managed run `20261026T050814-e5e727ef4f27` passed the focused parser equations
+and scalar-body source target with a fresh audit of 63,378 declarations. Its
+build took 20.020 seconds and audit 11.573 seconds; all five integrated files
+match the captured inputs. The first attempt exposed a record-field layout
+syntax error, repaired before this run. Final native-source correspondence
+still waits for the stable compiler snapshot and complete audit.
+
+This repair used selected GPT-6 Astra at Extra High for the author and
+independent reviewer. Runtime settings are not independently exposed; token
+and cost measurements are unavailable. The reviewer reports 3 minutes 7 seconds
+including report writing and final hash checks. Native parser proof obligations
+remain under development and no capability package is complete.

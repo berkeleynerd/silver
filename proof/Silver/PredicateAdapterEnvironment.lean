@@ -3,6 +3,8 @@ module
 public import Silver.PredicateAdapter
 public import Silver.ScalarEnvironmentSourceBridge
 public import Silver.PredicateFlowSourceBridge
+public import Silver.ComposeEquations
+public import Silver.ComposeModelCalls
 
 @[expose] public section
 
@@ -139,10 +141,36 @@ def TokenDomain (text : Source) (context : Native.Context) (scan : BodyScan)
     BodyNative.ValidScan text context scan ∧ Compose.Expressions.ValidToken token
 
 structure ModelEquations (models : Calls) (body : BodyNative.Calls)
-    (initialFlowCall : Native.Context → ActiveFlow := Adapter.initialFlow) : Prop where
+    (initialFlowCall : Native.Context → ActiveFlow := Adapter.initialFlow)
+    (takeTokenCall : Source → Nat → ShellToken → Nat := Adapter.takeTokenModel) : Prop where
   bodyOf : ∀ scan, BodyDomain scan → models.bodyOf scan = bodyExpr.eval body {scan} (initialFlowCall := initialFlowCall)
   token : ∀ text context scan token, TokenDomain text context scan token →
-    models.token text context scan token = tokenExpr.eval body {text,context,body := scan,token}
+    models.token text context scan token =
+      tokenExpr.eval body {text,context,body := scan,token} (takeTokenCall := takeTokenCall)
+
+/-- Interpret the raw Take_Token callee on its complete native enum domain.
+No fixed-token restriction is needed until projection to the body semantics. -/
+theorem token_expression_projection {domain : Expressions.StateDomain} {inherited : Expressions.Calls}
+    (source : Expressions.HelperEquations inherited (domain := domain))
+    (body : BodyNative.Calls) (text : Source) (context : Native.Context)
+    (scan : BodyScan) (token : ShellToken) (legal : TokenDomain text context scan token) :
+    tokenExpr.eval body {text,context,body := scan,token}
+        (takeTokenCall := inherited.function .takeToken) =
+      tokenExpr.eval body {text,context,body := scan,token} := by
+  change {scan with position := inherited.function .takeToken text scan.position token} =
+    {scan with position := Adapter.takeTokenModel text scan.position token}
+  rw [Expressions.interpreted_take inherited source text legal.1 scan.position token
+    legal.2.2.1.1 legal.2.2.2]
+  rfl
+
+theorem normalize_tokens {domain : Expressions.StateDomain} {inherited : Expressions.Calls}
+    (source : Expressions.HelperEquations inherited (domain := domain))
+    {models : Calls} {body : BodyNative.Calls} {initialFlowCall : Native.Context → ActiveFlow}
+    (definitions : ModelEquations models body initialFlowCall (inherited.function .takeToken)) :
+    ModelEquations models body initialFlowCall where
+  bodyOf := definitions.bodyOf
+  token text context scan token legal := (definitions.token text context scan token legal).trans
+    (token_expression_projection source body text context scan token legal)
 
 /-- Normalize the actual Initial_Flow callee only after interpreting its full
 Count/Path/Values postcondition. The body model function remains arbitrary. -/
@@ -183,10 +211,11 @@ theorem bodyOf_count {models wrappers : Calls} {body : BodyNative.Calls}
 theorem token_interpreted {models wrappers : Calls} {body : BodyNative.Calls}
     (definitions : ModelEquations models body) (verified : Refinement models wrappers)
     (text : Source) (context : Native.Context) (scan : BodyScan) (token : ShellToken)
-    (legal : TokenDomain text context scan token) : wrappers.token text context scan token = bodyToken text scan token := by
+    (legal : TokenDomain text context scan token) (fixed : Adapter.FixedToken token) :
+    wrappers.token text context scan token = bodyToken text scan token := by
   rw [verified.token text context scan token legal]
   change models.token text context scan token = _
-  rw [definitions.token text context scan token legal, token_eval]
+  rw [definitions.token text context scan token legal, token_eval body {text,context,body := scan,token} fixed]
 
 /-- Interpret the Body_Of runtime call at its concrete Read_Statements site,
 with arbitrary recursive body calls preserved. -/
@@ -206,6 +235,17 @@ def modelCalls (body : BodyNative.Calls) : Calls where
 
 theorem model_equations (body : BodyNative.Calls) : ModelEquations (modelCalls body) body :=
   ⟨fun _ _ => rfl, fun _ _ _ _ _ => rfl⟩
+
+/-- The concrete full-enum model also inhabits the raw inherited-callee
+interface; this witness includes capacity/literal/pseudo token values. -/
+theorem model_raw_equations {domain : Expressions.StateDomain}
+    (source : Expressions.HelperEquations Expressions.modelCalls (domain := domain))
+    (body : BodyNative.Calls) :
+    ModelEquations (modelCalls body) body
+      (takeTokenCall := Expressions.modelCalls.function .takeToken) where
+  bodyOf _ _ := rfl
+  token text context scan token legal :=
+    (token_expression_projection source body text context scan token legal).symm
 
 theorem model_refinement (models : Calls) : Refinement models models :=
   ⟨fun _ _ => rfl, fun _ _ _ _ _ => rfl⟩
@@ -242,7 +282,7 @@ structure Projection : Prop where
   bodyOf : ∀ models wrappers body, ModelEquations models body → Refinement models wrappers →
     ∀ scan, BodyDomain scan → wrappers.bodyOf scan = Predicate.bodyOf scan
   token : ∀ models wrappers body, ModelEquations models body → Refinement models wrappers →
-    ∀ text context scan token, TokenDomain text context scan token →
+    ∀ text context scan token, TokenDomain text context scan token → Adapter.FixedToken token →
       wrappers.token text context scan token = bodyToken text scan token
   bodyCount : ∀ calls frame, (bodyExpr.eval calls frame).count = frame.scan.state.scalarNames.length
   wrapperCount : ∀ models wrappers body, ModelEquations models body → Refinement models wrappers →

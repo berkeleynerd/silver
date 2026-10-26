@@ -1,0 +1,52 @@
+{
+  "run_id": "20261026T050814-e5e727ef4f27",
+  "scope": "Focused token-wrapper repair and parser-equation audit; final guard native-source correspondence and whole-project validation pending. Runner retains preceding division parser.",
+  "integrated": [
+    {
+      "path": "proof/Silver/PredicateAdapter.lean",
+      "sha256": "cd5e7761061ccd77b90979c332f3d5ad739c337f5c470e87e858247831e086c9",
+      "runner_sha256": "cd5e7761061ccd77b90979c332f3d5ad739c337f5c470e87e858247831e086c9",
+      "runner_matches_author": true
+    },
+    {
+      "path": "proof/Silver/PredicateAdapterEnvironment.lean",
+      "sha256": "6b46802be94968ff65dd574ba511214f0a7ea17e61429f64a31377aeeee2d764",
+      "runner_sha256": "6b46802be94968ff65dd574ba511214f0a7ea17e61429f64a31377aeeee2d764",
+      "runner_matches_author": true
+    },
+    {
+      "path": "proof/Silver/PredicateBasicLibraries.lean",
+      "sha256": "b45b70c3fd3880dc633a8a02ea8180034b3e07f0c24ea085cbf6fdccab039b05",
+      "runner_sha256": "b45b70c3fd3880dc633a8a02ea8180034b3e07f0c24ea085cbf6fdccab039b05",
+      "runner_matches_author": true
+    },
+    {
+      "path": "proof/Silver/PredicateLoopHelpers.lean",
+      "sha256": "485ea109568aa94ef2f39ca94b0f19e8b3fc2e30dc6d2ea8db104e367ee0bcc4",
+      "runner_sha256": "485ea109568aa94ef2f39ca94b0f19e8b3fc2e30dc6d2ea8db104e367ee0bcc4",
+      "runner_matches_author": true
+    },
+    {
+      "path": "proof/Silver/PredicateEquations.lean",
+      "sha256": "2fa25c220e1c9617c791b5521483cf21507ff9e9189ff76d441c8ff00bc67ee4",
+      "runner_sha256": "2fa25c220e1c9617c791b5521483cf21507ff9e9189ff76d441c8ff00bc67ee4",
+      "runner_matches_author": true
+    }
+  ],
+  "command": [
+    "/usr/bin/python3",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/scripts/check_lean.py",
+    "--task",
+    "#243",
+    "--target",
+    "Silver.PredicateEquations",
+    "--target",
+    "Silver.PredicateScalarBodySource",
+    "--workers",
+    "2",
+    "--threads",
+    "2"
+  ],
+  "source_input_count": 612,
+  "review": "docs/reviews/review-scalar-guard-token-wrapper-repair.md"
+}
