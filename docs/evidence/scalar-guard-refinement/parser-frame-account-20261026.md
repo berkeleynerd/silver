@@ -192,3 +192,13 @@ premise, without a universal 8 MiB, malformed-prefix capacity or external
 allocator-sufficiency claim. Complete native proof and complete Lean/source
 validation remain separate obligations. Retention and comparison used selected
 GPT-6.1 Sol at Extra High; runtime settings and token/cost data are unavailable.
+
+
+The [final integration review](../../reviews/review-scalar-guard-final-integration-20261026.md)
+compares this retained parser to final `ec2f0a72dcbd...` at `bc9b0815eb`. The
+only delta adds two Static assertions, two calls of the existing Static/pure
+equality helper and their ghost-only else arm. It adds no runtime object,
+condition, contract or allocation site. Under the existing GNAT static-ghost
+erasure premise, the allocation/lifetime account remains applicable. The
+observations keep their original `956eff...` input identity; neither final
+binary identity nor a fresh frame run is claimed.

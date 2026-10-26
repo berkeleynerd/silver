@@ -476,3 +476,27 @@ snapshot. This round uses selected GPT-6 Astra at Extra High for the model/nativ
 repair and independent review, and GPT-6.1 Sol at Extra High for input inventory.
 The passing Lean build/audit took 514.269/9.942 seconds; independent review took
 356 seconds. Live lead settings and whole-round token/cost data are unavailable.
+
+
+The remaining relation join is resolved at `bc9b0815eb`: both target branches
+supply checked Static equality bridges, preserving the original joined assertion,
+all native contracts and executable behavior. Focused run
+`20261026T083814-1b657c3ee2da` passed all 22 selected checks at the unchanged
+level-2/30-second settings. The final source pin and certificate were regenerated;
+run `20261026T084854-8fd2b4b2d2e8` passed the regeneration-parity method for all
+26 certificates (8.424 seconds of tests). This is not a complete source audit.
+
+The [final integration review](reviews/review-scalar-guard-final-integration-20261026.md)
+found no scoped blocker, checked the earlier semantic/domain/callee repairs
+against final bytes, and identified no additional independent review gap. It
+also establishes qualified applicability of the retained `956eff...` frame
+observations to the final Static-only delta, under the existing ghost-erasure
+premise. Those observations are not relabeled as a fresh final-source build or
+a universal stack bound. Complete native proof, final-source Lean, build and
+full-suite checks remain required before delivery.
+
+This integration round selected GPT-6 Astra at Extra High for the independent
+review (390 seconds including writing) and GPT-6.1 Sol at Extra High for
+evidence preparation. Runtime settings and whole-round token/cost measurements
+are unavailable. It closed the native join and final semantic-review obligations;
+the complete native and preserved preceding-source Lean runs remain active.
