@@ -1,0 +1,92 @@
+[
+  {
+    "name": "parentheses-1",
+    "source_bytes": 4096,
+    "negative_neighbor_bytes": 4097,
+    "expectation": "current grammar: 4096 accepted; 4097 source-limit rejection",
+    "form": "parentheses",
+    "active_scalars": 1,
+    "depth": 1988
+  },
+  {
+    "name": "parentheses-32",
+    "source_bytes": 4096,
+    "negative_neighbor_bytes": 4097,
+    "expectation": "current grammar: 4096 accepted; 4097 source-limit rejection",
+    "form": "parentheses",
+    "active_scalars": 32,
+    "depth": 1760
+  },
+  {
+    "name": "parentheses-128",
+    "source_bytes": 4096,
+    "negative_neighbor_bytes": 4097,
+    "expectation": "current grammar: 4096 accepted; 4097 source-limit rejection",
+    "form": "parentheses",
+    "active_scalars": 128,
+    "depth": 1026
+  },
+  {
+    "name": "parentheses-224",
+    "source_bytes": 4096,
+    "negative_neighbor_bytes": 4097,
+    "expectation": "current grammar: 4096 accepted; 4097 source-limit rejection",
+    "form": "parentheses",
+    "active_scalars": 224,
+    "depth": 258
+  },
+  {
+    "name": "not",
+    "source_bytes": 4096,
+    "negative_neighbor_bytes": 4097,
+    "expectation": "current grammar: 4096 accepted; 4097 source-limit rejection",
+    "form": "not",
+    "depth": 662,
+    "active_scalars": 1
+  },
+  {
+    "name": "and_then",
+    "source_bytes": 4096,
+    "negative_neighbor_bytes": 4097,
+    "expectation": "current grammar: 4096 accepted; 4097 source-limit rejection",
+    "form": "and_then",
+    "depth": 305,
+    "active_scalars": 1
+  },
+  {
+    "name": "or_else",
+    "source_bytes": 4096,
+    "negative_neighbor_bytes": 4097,
+    "expectation": "current grammar: 4096 accepted; 4097 source-limit rejection",
+    "form": "or_else",
+    "depth": 331,
+    "active_scalars": 1
+  },
+  {
+    "name": "nested_if",
+    "source_bytes": 4096,
+    "negative_neighbor_bytes": 4097,
+    "expectation": "current grammar: 4096 accepted; 4097 source-limit rejection",
+    "form": "nested_if",
+    "depth": 210,
+    "active_scalars": 1
+  },
+  {
+    "name": "nested_loop",
+    "source_bytes": 4096,
+    "negative_neighbor_bytes": 4097,
+    "expectation": "current grammar: 4096 accepted; 4097 source-limit rejection",
+    "form": "nested_loop",
+    "depth": 142,
+    "active_scalars": 143
+  },
+  {
+    "name": "mixed",
+    "source_bytes": 4096,
+    "negative_neighbor_bytes": 4097,
+    "expectation": "current grammar: 4096 accepted; 4097 source-limit rejection",
+    "form": "mixed",
+    "depth": 81,
+    "active_scalars": 82
+  }
+]

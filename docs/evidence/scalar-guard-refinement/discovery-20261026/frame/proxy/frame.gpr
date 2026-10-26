@@ -1,0 +1,11 @@
+project Frame is
+   for Languages use ("Ada");
+   for Source_Dirs use ("src");
+   for Main use ("main.adb");
+   for Object_Dir use "obj";
+   for Exec_Dir use "bin";
+   package Compiler is
+      for Default_Switches ("Ada") use
+        ("-gnat2022", "-gnata", "-gnato", "-O0", "-fno-inline", "-fstack-usage");
+   end Compiler;
+end Frame;

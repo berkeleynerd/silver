@@ -1,0 +1,77 @@
+Managed run: 20261026T002402-c9b84b0c7c19 (/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261026T002402-c9b84b0c7c19)
+Phase 1 of 3: generation of data representation information ...
+Phase 2 of 3: generation of Global contracts ...
+Phase 3 of 3: flow analysis and proof ...
+ info: range check proved
+--> main.adb:10:30
+
+ info: range check proved
+--> main.adb:11:34
+
+ info: range check proved
+--> main.adb:12:30
+
+ info: range check proved
+--> main.adb:13:31
+
+ info: range check proved
+--> main.adb:14:33
+
+ info: range check proved
+--> main.adb:15:34
+
+ info: range check proved
+--> main.adb:16:30
+
+ info: range check proved
+--> main.adb:17:34
+
+ info: range check proved
+--> main.adb:18:30
+
+ info: range check proved
+--> main.adb:19:31
+
+ info: range check proved
+--> main.adb:20:33
+
+ info: range check proved
+--> main.adb:21:34
+
+ info: range check proved
+--> main.adb:22:44
+
+ info: range check proved
+--> main.adb:23:42
+
+ info: range check proved
+--> main.adb:24:44
+
+ info: range check proved
+--> main.adb:25:45
+
+ info: range check proved
+--> main.adb:26:41
+
+ info: range check proved
+--> main.adb:27:42
+
+ info: range check proved
+--> main.adb:28:44
+
+ info: range check proved
+--> main.adb:29:42
+
+ info: range check proved
+--> main.adb:30:44
+
+ info: range check proved
+--> main.adb:31:45
+
+ info: range check proved
+--> main.adb:32:41
+
+ info: range check proved
+--> main.adb:33:42
+Success: all checks proved (24 checks).
+Summary logged in /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-guard-refinement/tmp/guard-discovery/probes/guards/obj/explore/guard/20261026T002359Z/gnatprove/gnatprove.out

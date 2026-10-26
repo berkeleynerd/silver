@@ -1,0 +1,17 @@
+Managed run: 20261026T003036-2f8393340fa9 (/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261026T003036-2f8393340fa9)
+Phase 1 of 3: generation of data representation information ...
+Phase 2 of 3: generation of Global contracts ...
+Phase 3 of 3: flow analysis and proof ...
+ high: range check might fail, cannot prove upper bound for (X + 1)
+--> main.adb:8:42
+    8 |             for Step in 1 .. 2 loop X := (X + 1); end loop;
+      |                                          ~~~^~~~
+      + e.g. when X = 9
+      + reason for check: result of addition must fit in the target type of the assignment
+      + possible fix: loop at line 8 should mention X in a loop invariant
+    8 |             for Step in 1 .. 2 loop X := (X + 1); end loop;
+      |                                ^
+      + provers gave up before completing the proof
+Summary logged in /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-guard-refinement/tmp/guard-discovery/negative-controls/results/20261026T003004Z-be3d3b48/loop_reentry/input/obj/explore/guard-negative/20261026T003004Z-be3d3b48/gnatprove/gnatprove.out
+gnatprove: unproved check messages considered as errors
+ERROR: Command ["gnatprove", "-P", "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-guard-refinement/tmp/guard-discovery/negative-controls/results/20261026T003004Z-be3d3b48/loop_reentry/input/probe.gpr", "--subdirs=explore/guard-negative/20261026T003004Z-be3d3b48", "-U", "--mode=all", "--report=all", "--checks-as-errors=on", "--level=2", "--prover=cvc5,z3,altergo", "--steps=100000", "--timeout=0", "--memlimit=1000", "--no-loop-unrolling", "--warnings=continue", "-j2"] exited with code 1

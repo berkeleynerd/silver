@@ -1,0 +1,19 @@
+Managed run: 20261026T002523-c5da32c4f6f1 (/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261026T002523-c5da32c4f6f1)
+Phase 1 of 3: generation of data representation information ...
+generation of data representation information failed
+continuing analysis with partial data representation
+for details, see log file gnatprove/data_representation_generation.log
+Phase 2 of 3: generation of Global contracts ...
+ error: value not in range of type "Standard.Integer"
+--> main.adb:7:34
+    7 |       if Max < 0 then Value := (Max + 1); end if;
+      |                                 ~~~~^~~
+      + static expression fails Constraint_Check
+
+ error: value not in range of type "Standard.Integer"
+--> main.adb:8:30
+    8 |       if Min > 0 then Value := (-Min); end if;
+      |                                ~^~~~
+      + static expression fails Constraint_Check
+gnatprove: error during generation of Global contracts
+ERROR: Command ["gnatprove", "-P", "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-guard-refinement/tmp/guard-discovery/probes/static/probe.gpr", "--subdirs=explore/guard/20261026T002359Z", "-U", "--mode=all", "--report=all", "--checks-as-errors=on", "--level=2", "--prover=cvc5,z3,altergo", "--steps=100000", "--timeout=0", "--memlimit=1000", "--no-loop-unrolling", "--warnings=continue", "-j2"] exited with code 1

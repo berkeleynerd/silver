@@ -1,0 +1,148 @@
+{
+  "issue": 237,
+  "status": "six independent negative controls prepared; no new native execution",
+  "original_combined_source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-guard-refinement/tmp/guard-discovery/probes/unsafe/src/main.adb",
+  "original_combined_sha256": "e77ba525db90ae18b260953a8b7a99cb37343201168f5486c0923cd0f222a3e1",
+  "original_evidence": "../results/20261026T002359Z/unsafe",
+  "evidence_limit": "Combined evidence failed original lines 11 and 17; later four sites were proved after preceding unsafe checks. It does not establish six exercised failing sites.",
+  "cases": [
+    {
+      "name": "stale_replacement",
+      "status": "prepared only; not executed",
+      "native_expectation": "EXPECTED FAIL",
+      "rationale": "After X < 9, X := 9 replaces the old fact; the next X+1 is outside 0 .. 9.",
+      "source_bytes": 226,
+      "source_sha256": "bde3d71edb99c34f85a60c17b29f85465042c47c80068e4232b7b5221109920e",
+      "original_fragment_lines": [
+        7,
+        13
+      ],
+      "original_failing_line": 11,
+      "original_fragment_sha256": "9480c3dc17c189ed43350a5274d6fdde1106e5b654895f91be06d1fc7f09eb74",
+      "expected_check": {
+        "file": "main.adb",
+        "line": 9,
+        "col": 18,
+        "rule": "VC_RANGE_CHECK",
+        "message_contains": "range check might fail",
+        "expected_unproved_safety_sites": 1
+      },
+      "expected_source_line": "         X := (X + 1);"
+    },
+    {
+      "name": "branch_join",
+      "status": "prepared only; not executed",
+      "native_expectation": "EXPECTED FAIL",
+      "rationale": "Seed=9 takes the explicit else assigning 9, then the joined X+1 is outside 0 .. 9.",
+      "source_bytes": 221,
+      "source_sha256": "d489584c32823691a7f5894f8413ffd1ca9a569274a1b4cbe91711a0170af3db",
+      "original_fragment_lines": [
+        14,
+        18
+      ],
+      "original_failing_line": 17,
+      "original_fragment_sha256": "3fbc0b137a99a2f1b32712923883d48e4d7c0396ab4866348b1b3c54d222b876",
+      "expected_check": {
+        "file": "main.adb",
+        "line": 8,
+        "col": 15,
+        "rule": "VC_RANGE_CHECK",
+        "message_contains": "range check might fail",
+        "expected_unproved_safety_sites": 1
+      },
+      "expected_source_line": "      X := (X + 1);"
+    },
+    {
+      "name": "omitted_else",
+      "status": "prepared only; not executed",
+      "native_expectation": "EXPECTED FAIL",
+      "rationale": "Seed=9 takes the omitted else, preserving 9 before X+1.",
+      "source_bytes": 208,
+      "source_sha256": "8b9ff744651182e4067af2980d42bc8172b9ca19c27eb0b84c4fc4caa4d64509",
+      "original_fragment_lines": [
+        19,
+        23
+      ],
+      "original_failing_line": 22,
+      "original_fragment_sha256": "ef05623106b4c12edccbbd7c989b0236dd36f047d8cc480002ad08c5e29bccba",
+      "expected_check": {
+        "file": "main.adb",
+        "line": 8,
+        "col": 15,
+        "rule": "VC_RANGE_CHECK",
+        "message_contains": "range check might fail",
+        "expected_unproved_safety_sites": 1
+      },
+      "expected_source_line": "      X := (X + 1);"
+    },
+    {
+      "name": "loop_reentry",
+      "status": "prepared only; not executed",
+      "native_expectation": "EXPECTED FAIL",
+      "rationale": "Seed=8 passes the preloop X < 9 guard; the second iteration attempts X=10.",
+      "source_bytes": 243,
+      "source_sha256": "ec39a453b522d989eb2013d152c9b385c0e440250ba0ba3af432d7046548d6bc",
+      "original_fragment_lines": [
+        24,
+        29
+      ],
+      "original_failing_line": 27,
+      "original_fragment_sha256": "ef43fc6cb1239121dbb2853f1c9422cc7719f7da3bab02c26c50835675a7a235",
+      "expected_check": {
+        "file": "main.adb",
+        "line": 8,
+        "col": 42,
+        "rule": "VC_RANGE_CHECK",
+        "message_contains": "range check might fail",
+        "expected_unproved_safety_sites": 1
+      },
+      "expected_source_line": "         for Step in 1 .. 2 loop X := (X + 1); end loop;"
+    },
+    {
+      "name": "minimum_negation",
+      "status": "prepared only; not executed",
+      "native_expectation": "EXPECTED FAIL",
+      "rationale": "Seed=Integer minimum reaches negative Wide; -Wide exceeds Integer maximum.",
+      "source_bytes": 243,
+      "source_sha256": "3842ed599a938818a1c0d32dd24eeaa1984865a9c00e829530713f08a885e99b",
+      "original_fragment_lines": [
+        30,
+        33
+      ],
+      "original_failing_line": 32,
+      "original_fragment_sha256": "25b2d296039dbeb9241cf8eb121821d06df1dda6498fdbc932ea044d0f60044d",
+      "expected_check": {
+        "file": "main.adb",
+        "line": 8,
+        "col": 36,
+        "rule": "VC_OVERFLOW_CHECK",
+        "message_contains": "overflow check might fail",
+        "expected_unproved_safety_sites": 1
+      },
+      "expected_source_line": "      if Wide < 0 then Negated := (-Wide); end if;"
+    },
+    {
+      "name": "shadowed_mutable",
+      "status": "prepared only; not executed",
+      "native_expectation": "EXPECTED FAIL",
+      "rationale": "Seed=10 remains in hidden mutable Wide; the same-spelled inner index does not change it.",
+      "source_bytes": 243,
+      "source_sha256": "93e6d8d5a93ed2efe05b719be9a5b0d9ff4854d4c26265a67bf008230f7f514f",
+      "original_fragment_lines": [
+        34,
+        38
+      ],
+      "original_failing_line": 37,
+      "original_fragment_sha256": "e759337e5e5b02785d1fe16de9725e157b18209e233981e4208178d36e36dbfd",
+      "expected_check": {
+        "file": "main.adb",
+        "line": 9,
+        "col": 12,
+        "rule": "VC_RANGE_CHECK",
+        "message_contains": "range check might fail",
+        "expected_unproved_safety_sites": 1
+      },
+      "expected_source_line": "      X := Wide;"
+    }
+  ]
+}

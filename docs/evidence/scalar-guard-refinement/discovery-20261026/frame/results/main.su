@@ -1,0 +1,7 @@
+<built-in>:active_resultIP	16	static
+/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-guard-refinement/tmp/guard-discovery/frame-proxy/src/main.adb:3:1:Main	864	dynamic
+/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-guard-refinement/tmp/guard-discovery/frame-proxy/src/main.adb:31:4:Current	96	static
+/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-guard-refinement/tmp/guard-discovery/frame-proxy/src/main.adb:38:4:Fixed	5552	static
+/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-guard-refinement/tmp/guard-discovery/frame-proxy/src/main.adb:51:4:Active	96	dynamic
+/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-guard-refinement/tmp/guard-discovery/frame-proxy/src/main.adb:29:4:Header	16	static
+<built-in>:main	32	static

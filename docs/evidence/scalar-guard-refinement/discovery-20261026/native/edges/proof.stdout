@@ -1,0 +1,51 @@
+Managed run: 20261026T002428-09533f8943a0 (/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261026T002428-09533f8943a0)
+Phase 1 of 3: generation of data representation information ...
+Phase 2 of 3: generation of Global contracts ...
+Phase 3 of 3: flow analysis and proof ...
+ info: overflow check proved
+--> main.adb:10:35
+
+ info: overflow check proved
+--> main.adb:11:35
+
+ info: overflow check proved
+--> main.adb:12:47
+
+ info: overflow check proved
+--> main.adb:13:35
+
+ info: overflow check proved
+--> main.adb:14:35
+
+ info: overflow check proved
+--> main.adb:15:47
+
+ info: overflow check proved
+--> main.adb:16:33
+
+ warning: this statement is never reached
+--> main.adb:17:29
+   17 |          if X < Min then Value := X; end if;
+      |                          ~~~~~~^~~~
+
+ warning: this statement is never reached
+--> main.adb:18:29
+   18 |          if X > Max then Value := X; end if;
+      |                          ~~~~~~^~~~
+
+ info: division check proved
+--> main.adb:22:28
+
+ info: division check proved
+--> main.adb:22:50
+
+ info: division check proved
+--> main.adb:23:27
+
+ info: division check proved
+--> main.adb:24:34
+
+ info: division check proved
+--> main.adb:25:43
+Success: all checks proved (12 checks).
+Summary logged in /home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-guard-refinement/tmp/guard-discovery/probes/edges/obj/explore/guard/20261026T002359Z/gnatprove/gnatprove.out

@@ -2,8 +2,10 @@
 
 The owner's [roadmap continuation](session-memory.md#2026-10-25--continue-non-deferred-roadmap-delivery)
 authorizes [#234](https://github.com/berkeleynerd/silver/issues/234) after division
-#229. This record selects the scope for #237; implementation and native discovery
-are pending. It does not amend current membership or claim supported capability.
+#229. This record selects the scope for #237; native discovery is complete and
+implementation is starting in an isolated branch while division's stable
+validation runs finish. Delivery remains ordered: division first, then guards.
+This record does not amend current membership or claim supported capability.
 The [source assessment and addendum](evidence/scalar-guard-refinement/assessment-20261025.md)
 identify the actual interfaces, proof obligations and design traps at division
 commit `d85251a4fc`. The selected rules below incorporate the addendum.
@@ -11,6 +13,13 @@ The [implementation/proof design](evidence/scalar-guard-refinement/proof-design-
 maps the native and semantic flow interfaces. In particular, semantic metadata
 must preserve Ada staticness and refinement eligibility independently of current
 intervals; a singleton range alone cannot identify a static threshold.
+The [native discovery](evidence/scalar-guard-refinement/native-discovery-20261026.md)
+retains positive checks, isolated unsafe controls, exact driver execution and
+the storage proxy. The [active-flow interface](evidence/scalar-guard-refinement/active-flow-design-20261026.md)
+selects caller-owned condition buffers, active-length records, nonrecursive
+read overlays and iterative tails. Fixed full-size recursive vectors overflowed
+the proxy's unchanged stack; actual parser frame and source-limit validation
+remain implementation obligations.
 
 ## Selected rules
 
@@ -114,18 +123,21 @@ validation/review/delivery [#240](https://github.com/berkeleynerd/silver/issues/
 The assessment maps native and Lean ownership; the lead must settle shared flow
 interfaces before delegating edits and remains the sole proof-workspace runner.
 
-After division delivery, run one managed discovery batch covering the guarded
-counter, reversed/false/minimum/maximum guards, guarded short-circuit division,
-stale-fact replacement, branch joins, captured mutable bounds and shadowing.
-Include impossible static-constant arms, minimum negation, crossing-zero
-inequality and newly empty loop assignments. Retain exact inputs and complete
-reports. #237 remains incomplete until that evidence and the representation
-choice resolve the design obligations.
+The managed discovery batch covered guarded counters, reversed/false/endpoint
+guards, short-circuit division, assignment replacement, joins, captured bounds,
+shadowing, static illegality and conservative exclusions. Positive Main checks
+proved; all six isolated unsafe controls exposed their intended failure; the
+100-door driver built and matched the independent output. Retained hashes and
+full reports were verified. The next checks are focused native/model validation
+of the selected interface, followed by actual parser frame measurements and the
+complete implementation/source checkpoint. Division's captured validation
+workspaces remain unchanged by this separate implementation stream.
 
 | Round | Selected settings | Resolved obligations and remaining evidence |
 | --- | --- | --- |
 | Read-only scope assessment | GPT-6 Astra, Extra High; runtime setting not independently exposed | Located the flow/metadata boundary, selected bounded refinement and loop rules, preserved static values, and justified the finite driver. Native discovery, frame probe and implementation remain. Elapsed time, tokens and cost unavailable. |
 | Implementation/proof design | Selected GPT-6 Astra, Extra High; runtime setting not independently exposed | Mapped immutable metadata, flow overlays, assignment replacement, loop closure and actual-source proof changes. Identified the semantic staticness/refinement-policy metadata requirement. Native discovery and measured storage choice remain; no owner decision is missing. Recorded elapsed 5m 55s; tokens/cost unavailable. |
+| Native discovery and storage selection | Probe preparation selected GPT-6.1 Sol, Extra High; design selected GPT-6 Astra, Extra High; live lead setting not independently exposed | Positive/native-driver checks and isolated unsafe diagnostics resolved the report/site questions. Fixed-vector proxy failures led to active extents and caller-owned condition buffers. Actual parser resource and source-proof closure remain. Managed timings are retained in discovery; active-flow design elapsed 6m 50s; tokens/cost unavailable. |
 
 No additional owner decision is currently required. Oracle amendments remain
 reserved; #119/#201/#202/#212, paused packets/R93 and #88–#94 stay deferred.
