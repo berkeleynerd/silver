@@ -75,10 +75,14 @@ implementation is now paused for an external comprehensive review. Successor
 assessments remain proposals during the pause.
 
 [Development velocity follow-up #246](https://github.com/berkeleynerd/silver/issues/246)
-records measured source-proof growth and proposed checkpoint, cache-boundary and
-batching improvements. It remains Backlog for assessment after the external
-review, outside this completed feature milestone; no optimization implementation
-or assurance-policy change is selected.
+has a retained [assessment and scheduling checklist](docs/development-velocity.md)
+covering source-proof cost, checkpoint scheduling and candidate dependency
+changes. The owner's [sequencing instruction](docs/session-memory.md#2026-10-26--velocity-assessment-retained-feature-review-response-comes-next)
+puts the comprehensive feature-review response next. Reconsider #246 after that
+response is merged, using the resulting main and still-applicable evidence.
+It remains open in Backlog outside this completed feature milestone; the
+proposed packages are not selected increments, and no optimization implementation,
+profiling run or assurance-policy change is authorized by the assessment.
 
 1. [Interval-checked integer division #229](https://github.com/berkeleynerd/silver/issues/229):
    **delivered** fully grouped `/`, `mod` and `rem` in current scalar-expression positions,

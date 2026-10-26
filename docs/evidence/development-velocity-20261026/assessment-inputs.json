@@ -1,0 +1,492 @@
+{
+  "reviewed_main": "22838bc80995ee66e9cf15fe57f14aeb161e2823",
+  "scope": "Read-only extraction of retained records; no validation or measurement run. Supplement to the checked-in guard timing/delivery evidence.",
+  "ledger_root": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs",
+  "limitations": [
+    "Selected event fields and source hashes, not a full inventory or new assurance record.",
+    "Native 221851 failure has no native-tool phase-end event; the finish is the managed-run finish.",
+    "October 17 and division have different source inputs and scopes; no causal performance attribution.",
+    "Original division generated-certificate run-start inventory is absent; generated representations are not newly regenerated."
+  ],
+  "runs": [
+    {
+      "run_id": "20261017T121424-bdf9ff7af233",
+      "events_sha256": "e4ce41e1c26c0f4d1f50ab4a2c3e236a43a698e37ea3c410b4d6ab9327a5df76",
+      "selected_configuration": {
+        "clean": false,
+        "memory_mb": null,
+        "provenance": true,
+        "replay": false,
+        "threads": 2,
+        "workers": 4
+      },
+      "selected_source_hashes": {
+        "src/silver_output_profile.adb": "f5a781bc19caea091d8b352e2c43a8672e11c5524182d27539ffa58296caf715",
+        "proof/generate_source_certificate.py": "f2ec5bd5ab1503572b53c6b99b1ad13e89d0d2eb7b3782260f92bbdf5a9114c2",
+        "proof/lakefile.lean": "0d3d950348d3f726179749f4bf342762eb5913c613b638417fec0ded8e9b0145",
+        "proof/lean-toolchain": "d5edba4e4b8faad9c1baeadb265716d20d03be4d1a2647dc5e35b0c0325bea7b",
+        "scripts/check_lean.py": "1b45efd95da60a65af5edfe6f4719bbf87bda4364585539e2a2b552033b95b16",
+        "proof/Silver/OutputProfileBodySource.lean": "35ef9119ab63f6e20483c936107241bc997f9f3378181beb45f7ed7bab72938f",
+        "proof/Silver/CertificateWitness.lean": "7f64ba1832d59532bdfcf56d06cfb3d9589fdb71c2e39e0bc88326b2d8757f2d",
+        "proof/Silver/SourceLexer.lean": "6c2824f4ed5b303b3a3f3ec94d8cdb650ffbd86103eef842a32a3c6f3755a8eb",
+        "proof/Silver/Cursor.lean": "c5316bac7eb2a733fcda3787d23ee16e8e3b963ef31f6b7e26d285eb7e517ac3",
+        "proof/Silver/Admission.lean": "7c756102bc689b108aa0d5b2c41a68868d07f21230282891d776ef0994f2faf2",
+        "proof/Silver/Lexical.lean": "bd6025d6dc26fd8d984de90bc4a00b63e30d76c27e3db086358aeaa5712ad372"
+      },
+      "selected_tool_hashes": {
+        ".tools/linux-x86_64/lean/bin/lake": "6f53827dab18010d6c690d14c8401cacabc1db958edb3552a877ed4cf1dd995d",
+        ".tools/linux-x86_64/lean/bin/lean": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550"
+      },
+      "events": [
+        {
+          "original_line": 1,
+          "original_line_sha256": "c75fc4f1b263c38cdb8d4bd9636e99270ef63ead48c98b64ff79615ee43808e7",
+          "event": "started",
+          "utc": "2026-10-17T12:14:25.035022+00:00",
+          "workers": 4,
+          "available_cpus": 12,
+          "command": [
+            "/usr/bin/python3",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/scripts/check_lean.py",
+            "--task",
+            "#77",
+            "--target",
+            "Silver.ComposeSourceChecks",
+            "--workers",
+            "4",
+            "--threads",
+            "2",
+            "--provenance",
+            "--reason",
+            "Required actual-source correspondence for the stable B1 native and reviewed shape; source dependency closure excludes all five M1 edited modules, so retain this expensive successful work while M1 finishes independently."
+          ],
+          "reason": "Required actual-source correspondence for the stable B1 native and reviewed shape; source dependency closure excludes all five M1 edited modules, so retain this expensive successful work while M1 finishes independently.",
+          "expensive": false,
+          "scope": [
+            "Silver.ComposeSourceChecks"
+          ]
+        },
+        {
+          "original_line": 3,
+          "original_line_sha256": "b89c8404f83c60cc2b1875841bfd2a93df22ee49da046c6e3fbd9e27193ff5b1",
+          "event": "phase_started",
+          "utc": "2026-10-17T12:14:28.025414+00:00",
+          "phase": "build",
+          "started_at": "2026-10-17T12:14:28.025228+00:00",
+          "command": [
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/.tools/linux-x86_64/lean/bin/lake",
+            "--rehash",
+            "--reconfigure",
+            "-K",
+            "silverThreads=2",
+            "build",
+            "+Silver.ComposeSourceChecks",
+            "+Silver.AxiomAudit"
+          ]
+        },
+        {
+          "original_line": 4,
+          "original_line_sha256": "b6b4066386d3476e79c2b526131eb92626b226f9e96922be77fadbc0c655f878",
+          "event": "phase_finished",
+          "utc": "2026-10-17T13:13:03.950976+00:00",
+          "phase": "build",
+          "started_at": "2026-10-17T12:14:28.025228+00:00",
+          "finished_at": "2026-10-17T13:13:03.949219+00:00",
+          "elapsed_seconds": 3515.874,
+          "exit_code": 0
+        },
+        {
+          "original_line": 5,
+          "original_line_sha256": "c9a8b6ea125b6cdf44065b536a81fbf34510f47e4491de75addad1e1313ff20e",
+          "event": "phase_started",
+          "utc": "2026-10-17T13:13:09.229744+00:00",
+          "phase": "audit",
+          "started_at": "2026-10-17T13:13:09.228845+00:00",
+          "command": [
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/.tools/linux-x86_64/lean/bin/lake",
+            "-K",
+            "silverThreads=2",
+            "env",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/.tools/linux-x86_64/lean/bin/lean",
+            "-DwarningAsError=true",
+            "-j2",
+            ".lake/silver-focused-audit.lean"
+          ]
+        },
+        {
+          "original_line": 6,
+          "original_line_sha256": "ba43fd1d8915210ce3d98c3557d1a7d6989563dd0803607b8c0d6704e6cc6084",
+          "event": "phase_finished",
+          "utc": "2026-10-17T13:13:20.165539+00:00",
+          "phase": "audit",
+          "started_at": "2026-10-17T13:13:09.228845+00:00",
+          "finished_at": "2026-10-17T13:13:20.164897+00:00",
+          "elapsed_seconds": 10.936,
+          "exit_code": 0
+        },
+        {
+          "original_line": 7,
+          "original_line_sha256": "71627933ba8fb18a74df700ba117656518dbd7b1578f2c9fab4f950773e71dc3",
+          "event": "finished",
+          "utc": "2026-10-17T13:13:24.696034+00:00",
+          "duration_seconds": 3539.609836954,
+          "outcome": "success",
+          "returncode": null,
+          "failure_keys": []
+        }
+      ],
+      "log": {
+        "path": "lean-focused.log",
+        "sha256": "39ac794af4af863f9cb6d9c8d48954a4f4849625245a0f7347aa972b7c06bbc5",
+        "selected_lines": [
+          {
+            "line": 4,
+            "text": "\u2714 [43/44] Built Silver.OutputBodyCertificate (1927s)"
+          },
+          {
+            "line": 5,
+            "text": "\u2714 [44/44] Built Silver.ComposeSourceChecks (1584s)"
+          }
+        ]
+      },
+      "matching_ada_blob": {
+        "commit": "e02bb3e9091138421ab7d76e670d52b955329645",
+        "bytes": 98059,
+        "lines": 1810,
+        "sha256": "f5a781bc19caea091d8b352e2c43a8672e11c5524182d27539ffa58296caf715"
+      }
+    },
+    {
+      "run_id": "20261025T221851-c7c38b2dd915",
+      "events_sha256": "523fa26de393c312a4473d9842e403442b5e2efa32ef9f25b5c4cf45f78920bd",
+      "selected_configuration": null,
+      "selected_source_hashes": {},
+      "selected_tool_hashes": {},
+      "events": [
+        {
+          "original_line": 1,
+          "original_line_sha256": "1a2c0a30defc76be3f63430abb65a16cb283669043e39dbe3f2d093a0ed42b7c",
+          "event": "started",
+          "utc": "2026-10-25T22:18:53.215648+00:00",
+          "workers": 4,
+          "available_cpus": 12,
+          "command": [
+            "gnatprove"
+          ],
+          "reason": "Complete compiler proof and provenance audit for the stable native integer-division implementation, including all report-policy routes.",
+          "expensive": false,
+          "scope": [
+            "compiler"
+          ]
+        },
+        {
+          "original_line": 2,
+          "original_line_sha256": "a748ae33475345b02f321c2e378536c2904256a05a0a7987e10f2b25c4f41520",
+          "event": "phase-start",
+          "utc": "2026-10-25T22:18:53.254933+00:00",
+          "phase": "preflight"
+        },
+        {
+          "original_line": 4,
+          "original_line_sha256": "d9dcee572014ad49bb45a1e4abb71506c533ec890a6bb5428de3dbec52a80d70",
+          "event": "phase-end",
+          "utc": "2026-10-25T22:18:56.283606+00:00",
+          "phase": "preflight"
+        },
+        {
+          "original_line": 5,
+          "original_line_sha256": "252f80ed1149b3d2903726020e4649501f6e5afd484ddf9927b00e5eaa288049",
+          "event": "command",
+          "utc": "2026-10-25T22:18:56.289760+00:00",
+          "command": [
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.tools/linux-x86_64/alr/bin/alr",
+            "-s",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.tools/linux-x86_64/alire/settings",
+            "-C",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.silver/linux-x86_64/toolchain",
+            "-n",
+            "--no-tty",
+            "exec",
+            "--",
+            "gnatprove",
+            "-P",
+            "../../../silver.gpr",
+            "-U",
+            "--mode=all",
+            "--report=all",
+            "--warnings=error",
+            "--checks-as-errors=on",
+            "--level=2",
+            "--prover=cvc5,z3,altergo",
+            "--timeout=30",
+            "-j",
+            "4",
+            "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.silver/linux-x86_64/proof-cache/gnatprove/ea6aba21eca447a9c8473fc1c3ea0300b03a95ce919d8a326f68a67989029329",
+            "-f",
+            "-XSILVER_HOST=linux-x86_64"
+          ]
+        },
+        {
+          "original_line": 6,
+          "original_line_sha256": "86c80880963e800dfa05750b26a26f74cf586e1e8785dbba8f677b778d8a2828",
+          "event": "phase-start",
+          "utc": "2026-10-25T22:18:57.624602+00:00",
+          "phase": "native-tool"
+        },
+        {
+          "original_line": 7,
+          "original_line_sha256": "dc9956aa157eb67bdea1aeb99482ab0a2639be7006ad991c8f722b27cd30cdcd",
+          "event": "finished",
+          "utc": "2026-10-26T00:25:58.002521+00:00",
+          "duration_seconds": 7624.833587858,
+          "outcome": "failure",
+          "returncode": 1,
+          "failure_keys": [
+            "silver_library_reports.adb:1766:23:VC_LOOP_INVARIANT_PRESERV"
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": "20261025T224628-2bc4dc5ed3d3",
+      "events_sha256": "6ccdf75e58c12a6596b947b75d1c4ece183d79e87b6d1a0d44ab7550de9e5e5d",
+      "selected_configuration": {
+        "clean": false,
+        "memory_mb": null,
+        "provenance": false,
+        "replay": false,
+        "threads": 2,
+        "workers": 4
+      },
+      "selected_source_hashes": {
+        "src/silver_output_profile.adb": "6aa14d74436526724a0060a5fc1990b83fafb29e2608dab5173f4cee473a8a2d",
+        "proof/generate_source_certificate.py": "f2ec5bd5ab1503572b53c6b99b1ad13e89d0d2eb7b3782260f92bbdf5a9114c2",
+        "proof/lakefile.lean": "0d3d950348d3f726179749f4bf342762eb5913c613b638417fec0ded8e9b0145",
+        "proof/lean-toolchain": "d5edba4e4b8faad9c1baeadb265716d20d03be4d1a2647dc5e35b0c0325bea7b",
+        "scripts/check_lean.py": "1b45efd95da60a65af5edfe6f4719bbf87bda4364585539e2a2b552033b95b16",
+        "proof/Silver/OutputProfileBodySource.lean": "35ef9119ab63f6e20483c936107241bc997f9f3378181beb45f7ed7bab72938f",
+        "proof/Silver/CertificateWitness.lean": "7f64ba1832d59532bdfcf56d06cfb3d9589fdb71c2e39e0bc88326b2d8757f2d",
+        "proof/Silver/SourceLexer.lean": "6c2824f4ed5b303b3a3f3ec94d8cdb650ffbd86103eef842a32a3c6f3755a8eb",
+        "proof/Silver/Cursor.lean": "c5316bac7eb2a733fcda3787d23ee16e8e3b963ef31f6b7e26d285eb7e517ac3",
+        "proof/Silver/Admission.lean": "7c756102bc689b108aa0d5b2c41a68868d07f21230282891d776ef0994f2faf2",
+        "proof/Silver/Lexical.lean": "bd6025d6dc26fd8d984de90bc4a00b63e30d76c27e3db086358aeaa5712ad372"
+      },
+      "selected_tool_hashes": {
+        ".tools/linux-x86_64/lean/bin/lake": "6f53827dab18010d6c690d14c8401cacabc1db958edb3552a877ed4cf1dd995d",
+        ".tools/linux-x86_64/lean/bin/lean": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550"
+      },
+      "events": [
+        {
+          "original_line": 1,
+          "original_line_sha256": "a453a3cea49dfed97b4a9e20673ffe6d213e834de2930103d8d681acf22781b8",
+          "event": "started",
+          "utc": "2026-10-25T22:46:30.146206+00:00",
+          "workers": 4,
+          "available_cpus": 12,
+          "command": [
+            "/usr/bin/python3",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/scripts/check_lean.py",
+            "--workers",
+            "4",
+            "--threads",
+            "2",
+            "--task",
+            "#232"
+          ],
+          "reason": "",
+          "expensive": false,
+          "scope": "complete"
+        },
+        {
+          "original_line": 3,
+          "original_line_sha256": "fc276ee273a56db4e963c7e8244e7db74c841d6cdf4c496309f53739e0d44845",
+          "event": "phase_started",
+          "utc": "2026-10-25T22:46:36.774413+00:00",
+          "phase": "build",
+          "started_at": "2026-10-25T22:46:36.774218+00:00",
+          "command": [
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/.tools/linux-x86_64/lean/bin/lake",
+            "--rehash",
+            "--reconfigure",
+            "-K",
+            "silverThreads=2",
+            "build",
+            "Silver.Audit"
+          ]
+        },
+        {
+          "original_line": 4,
+          "original_line_sha256": "f15429542cd072c119e9fc3d5277072be89ac9aa1682aa19e0cbadb4d3ab747d",
+          "event": "phase_finished",
+          "utc": "2026-10-26T00:49:34.644994+00:00",
+          "phase": "build",
+          "started_at": "2026-10-25T22:46:36.774218+00:00",
+          "finished_at": "2026-10-26T00:49:34.644309+00:00",
+          "elapsed_seconds": 7377.87,
+          "exit_code": 1
+        },
+        {
+          "original_line": 5,
+          "original_line_sha256": "413314368539aeca8a10929aa3461c14f5cd71213a8dbf092ee31df78a06f6c8",
+          "event": "finished",
+          "utc": "2026-10-26T00:49:34.659120+00:00",
+          "duration_seconds": 7384.511966359,
+          "outcome": "failure",
+          "returncode": 1,
+          "failure_keys": [
+            "lean:build:Silver/ScalarsNativeSourceChecks.lean:49:2:failed to synthesize",
+            "lean:build:Silver/ScalarsNativeSourceChecks.lean:80:40:failed to synthesize"
+          ]
+        }
+      ],
+      "log": {
+        "path": "reports/0/lean-proof.log",
+        "sha256": "f31d4424adf0ebb0e124b61c8000ec2881102980c7598f651ded6e0fa96f10d3",
+        "selected_lines": [
+          {
+            "line": 191,
+            "text": "\u2714 [455/478] Built Silver.PredicateSourceCandidate (908s)"
+          },
+          {
+            "line": 215,
+            "text": "\u2714 [486/500] Built Silver.OutputBodyCertificate (3910s)"
+          },
+          {
+            "line": 222,
+            "text": "\u2714 [493/500] Built Silver.ComposeSourceChecks (3454s)"
+          }
+        ]
+      },
+      "matching_ada_blob": {
+        "commit": "a5305f1b04741302d589d881f2e3cc243d7d65d0",
+        "bytes": 98810,
+        "lines": 1821,
+        "sha256": "6aa14d74436526724a0060a5fc1990b83fafb29e2608dab5173f4cee473a8a2d"
+      }
+    },
+    {
+      "run_id": "20261026T074542-45d3cf58824e",
+      "events_sha256": "de680659e943ab7110d631757c75869d2c18a67b2830f94e929c48ff2973d7c9",
+      "selected_configuration": {
+        "clean": false,
+        "memory_mb": null,
+        "provenance": false,
+        "replay": false,
+        "threads": 2,
+        "workers": 4
+      },
+      "selected_source_hashes": {
+        "src/silver_output_profile.adb": "956eff6874727f95fcb1ede29b537705f96bf916d05483d1813198aeb0f1ea74",
+        "proof/generate_source_certificate.py": "f2ec5bd5ab1503572b53c6b99b1ad13e89d0d2eb7b3782260f92bbdf5a9114c2",
+        "proof/lakefile.lean": "0d3d950348d3f726179749f4bf342762eb5913c613b638417fec0ded8e9b0145",
+        "proof/lean-toolchain": "d5edba4e4b8faad9c1baeadb265716d20d03be4d1a2647dc5e35b0c0325bea7b",
+        "scripts/check_lean.py": "1b45efd95da60a65af5edfe6f4719bbf87bda4364585539e2a2b552033b95b16",
+        "proof/Silver/OutputProfileBodySource.lean": "35ef9119ab63f6e20483c936107241bc997f9f3378181beb45f7ed7bab72938f",
+        "proof/Silver/CertificateWitness.lean": "7f64ba1832d59532bdfcf56d06cfb3d9589fdb71c2e39e0bc88326b2d8757f2d",
+        "proof/Silver/SourceLexer.lean": "6c2824f4ed5b303b3a3f3ec94d8cdb650ffbd86103eef842a32a3c6f3755a8eb",
+        "proof/Silver/Cursor.lean": "c5316bac7eb2a733fcda3787d23ee16e8e3b963ef31f6b7e26d285eb7e517ac3",
+        "proof/Silver/Admission.lean": "7c756102bc689b108aa0d5b2c41a68868d07f21230282891d776ef0994f2faf2",
+        "proof/Silver/Lexical.lean": "bd6025d6dc26fd8d984de90bc4a00b63e30d76c27e3db086358aeaa5712ad372"
+      },
+      "selected_tool_hashes": {
+        ".tools/linux-x86_64/lean/bin/lake": "6f53827dab18010d6c690d14c8401cacabc1db958edb3552a877ed4cf1dd995d",
+        ".tools/linux-x86_64/lean/bin/lean": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550"
+      },
+      "events": [
+        {
+          "original_line": 1,
+          "original_line_sha256": "37d9a431a34fa55c696c4ca22a36898b795a19441fc457b3571ae844e96591f3",
+          "event": "started",
+          "utc": "2026-10-26T07:45:43.932434+00:00",
+          "workers": 4,
+          "available_cpus": 12,
+          "command": [
+            "/usr/bin/python3",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/scripts/check_lean.py",
+            "--task",
+            "#239",
+            "--workers",
+            "4",
+            "--threads",
+            "2"
+          ],
+          "reason": "",
+          "expensive": false,
+          "scope": "complete"
+        },
+        {
+          "original_line": 3,
+          "original_line_sha256": "51ca6d4ee8963eb9fc178b44585aa0f6b650f064002b170c2bbcd61678beea71",
+          "event": "phase_started",
+          "utc": "2026-10-26T07:45:52.865965+00:00",
+          "phase": "build",
+          "started_at": "2026-10-26T07:45:52.864992+00:00",
+          "command": [
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/.tools/linux-x86_64/lean/bin/lake",
+            "--rehash",
+            "--reconfigure",
+            "-K",
+            "silverThreads=2",
+            "build",
+            "Silver.Audit"
+          ]
+        },
+        {
+          "original_line": 4,
+          "original_line_sha256": "0a58257f7331141f9dad020164e1ada3fada7b49598fc5627606ebbd8a1e97b8",
+          "event": "phase_finished",
+          "utc": "2026-10-26T09:18:11.226368+00:00",
+          "phase": "build",
+          "started_at": "2026-10-26T07:45:52.864992+00:00",
+          "finished_at": "2026-10-26T09:18:11.224658+00:00",
+          "elapsed_seconds": 5538.36,
+          "exit_code": 1
+        },
+        {
+          "original_line": 5,
+          "original_line_sha256": "1b7cb295cc63bdd03582c1d2b4c559da07cffa6c7174e0ac54fe4112853c3212",
+          "event": "finished",
+          "utc": "2026-10-26T09:18:11.237287+00:00",
+          "duration_seconds": 5547.304511817,
+          "outcome": "failure",
+          "returncode": 1,
+          "failure_keys": [
+            "lean:build:Silver/PredicateSourceCandidate.lean:396:2:Tactic `decide` failed for proposition",
+            "lean:build:Silver/PredicateSourceCandidate.lean:555:2:Tactic `decide` failed for proposition",
+            "lean:build:Silver/PredicateSourceCandidate.lean:561:2:Tactic `decide` failed for proposition",
+            "lean:build:Silver/PredicateSourceCandidate.lean:679:23:Type mismatch",
+            "lean:build:Silver/PredicateSourceCandidate.lean:681:21:Type mismatch"
+          ]
+        }
+      ],
+      "log": {
+        "path": "reports/0/lean-proof.log",
+        "sha256": "89d97546adfe9da0fe19e36a18a216e32a80f52e33a35adc7b862fe29e67f91a",
+        "selected_lines": [
+          {
+            "line": 227,
+            "text": "\u2716 [513/530] Building Silver.OutputBodyCertificate (5526s)"
+          }
+        ]
+      },
+      "matching_ada_blob": {
+        "commit": "7c5db25b8e1849cac4b7f9953193c64134ae155b",
+        "bytes": 178533,
+        "lines": 3129,
+        "sha256": "956eff6874727f95fcb1ede29b537705f96bf916d05483d1813198aeb0f1ea74"
+      }
+    }
+  ],
+  "matched_pipeline_paths": [
+    "proof/generate_source_certificate.py",
+    "proof/lakefile.lean",
+    "proof/lean-toolchain",
+    "scripts/check_lean.py",
+    "proof/Silver/OutputProfileBodySource.lean",
+    "proof/Silver/CertificateWitness.lean",
+    "proof/Silver/SourceLexer.lean",
+    "proof/Silver/Cursor.lean",
+    "proof/Silver/Admission.lean",
+    "proof/Silver/Lexical.lean"
+  ]
+}
