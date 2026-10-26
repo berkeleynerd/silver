@@ -77,12 +77,12 @@ and exactly the five named assessments changed.
 
 ## Delivery mapping
 
-The prepared #233 delivery metadata adds **`interval-integer-division`** to the
+The #233 delivery metadata adds **`interval-integer-division`** to the
 supported list. This is the narrow fully grouped signed-32-bit `/`, `mod`, `rem`
 fragment, with the current source/operator bounds and declared-range body
 analysis. The broad `integer-division` identifier also describes `abs` and other
 unreviewed assessed approaches; it remains unsupported. Final capability
-validation is pending in the [delivery checkpoint](../docs/integer-division.md#integrated-delivery-checkpoint).
+validation is recorded in the [delivery checkpoint](../docs/integer-division.md#integrated-delivery-checkpoint).
 The earlier planning/validation sections above retain their original input scope.
 
 Inputs for this reconciliation are the seven checked-in sources and manifest
@@ -107,7 +107,7 @@ Only those seven dependency sets migrate. Even or odd and FizzBuzz keep their
 existing broad mapping pending approach review, while their summaries now
 acknowledge that the narrow remainder/modulo capability exists. The remaining
 broad assessments are not mechanically relabeled. This reconciles capability
-metadata; success for every new execution case still requires the complete
+metadata; every new execution case passed the complete
 sample checkpoint. Existing task revision/original-assessor metadata is retained
 and the seven new review objects identify this review's selected setting.
 
@@ -123,7 +123,7 @@ These stage facts do not authorize broad division, arrays or deferred work.
 
 | Work | Selected or actual setting | Result | Measurements |
 | --- | --- | --- | --- |
-| Delivery records and targeted Rosetta reconciliation | Lead-selected GPT-6.1 Sol, High; runtime not independently exposed | Seven reviewed sample dependency sets map to narrow support, two stale summaries corrected, current-language description and admission question aligned, complete generated render integrated. Complete proof/test/review evidence fields remain pending with the lead. | Initial render elapsed 3.271 seconds; the render after correcting the two summaries took 4.169 seconds; whole-round elapsed, tokens and cost unavailable. |
+| Delivery records and targeted Rosetta reconciliation | Lead-selected GPT-6.1 Sol, High; runtime not independently exposed | Seven reviewed sample dependency sets map to narrow support, two stale summaries corrected, current-language description and admission question aligned, complete generated render integrated. Complete proof/test results and final review are retained in the capability record. | Initial render elapsed 3.271 seconds; the render after correcting the two summaries took 4.169 seconds; whole-round elapsed, tokens and cost unavailable. |
 
 No native proof, Lean, build or regression runner was invoked by this
 reconciliation thread. The previous renderer-test successes above remain

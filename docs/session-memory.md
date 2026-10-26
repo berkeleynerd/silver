@@ -1,5 +1,22 @@
 # Session memory
 
+## 2026-10-26 — Interval-checked Integer division delivered
+
+[PR #236](https://github.com/berkeleynerd/silver/pull/236) delivers #229 and
+packages #230–#233: grouped `/`, `mod` and `rem` with operator-specific interval
+checks, complete native and Lean assurance, and seven Rosetta regressions.
+The [capability record](integer-division.md) retains the exact implementation,
+review scopes and validation, including a failed certificate parity check and
+its successful focused repair. The Oracle, installed tool pins and existing
+source/operator bounds are unchanged.
+
+Under the [existing continuation](#2026-10-25--continue-non-deferred-roadmap-delivery),
+scalar guard refinement #234 is next; its separate implementation and proof work
+remain pending delivery. This intermediate PR is not a stop condition. Deferred
+#119/#201/#202/#212, paused packets/R93, #88–#94 and draft PRs #121/#147 remain
+outside the continued work. No harness goal was created or reactivated. CLI
+memory is unavailable and was not updated.
+
 ## 2026-10-25 — Continue non-deferred roadmap delivery
 
 During the authorized division implementation, the owner instructed:

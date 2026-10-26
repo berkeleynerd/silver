@@ -125,8 +125,8 @@ truncates toward zero; `mod` follows the divisor sign and `rem` the dividend sig
 Incoming intervals must exclude zero divisors and quotient overflow, with exact
 singleton initialization and interval analysis. Seven
 sample approaches exercise the fragment, including the fixed Josephus (41,3)
-incident. The capability record tracks the pending complete validation and
-source-assurance checkpoint.
+incident. The capability record retains complete native and Lean assurance,
+full-suite results and the successful focused certificate-parity repair.
 
 The prepared [scalar guard increment](docs/scalar-guard-refinement.md) narrows
 bare mutable Integer names and loop indexes against static thresholds. Assignments
