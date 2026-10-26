@@ -192,6 +192,16 @@ contract projections, with a fresh audit of 16,092 declarations. Complete native
 contract/model correspondence, source checks and the whole-project checkpoint
 remain pending.
 
+The next focused checkpoint, `20261026T023524-114e39d9c637`, passed the
+language-wide semantic endpoint (`Silver.Current`), native condition allocation
+extents and full-flow reader contracts, with a fresh audit of 17,798 declarations.
+The declaration bridge derives staticness and initial scalar flow from the
+actual parsed header, including nonempty declaration intervals; it does not
+assume those facts at the language endpoint. Integrated commits `9049fa4766`
+and `fd19152ea2` retain these checked inputs. Native scalar helper, body/loop
+worker and declaration-adapter correspondence, complete source checks, native
+verification and final delivery validation remain outstanding.
+
 The existing package order remains scope/discovery [#237](https://github.com/berkeleynerd/silver/issues/237),
 native [#238](https://github.com/berkeleynerd/silver/issues/238), universal/source
 assurance [#239](https://github.com/berkeleynerd/silver/issues/239), then complete
@@ -218,6 +228,7 @@ unchanged by this separate implementation stream.
 | Native discovery and storage selection | Probe preparation selected GPT-6.1 Sol, Extra High; design selected GPT-6 Astra, Extra High; live lead setting not independently exposed | Positive/native-driver checks and isolated unsafe diagnostics resolved the report/site questions. Fixed-vector proxy failures led to active extents and caller-owned condition buffers. Actual parser resource and source-proof closure remain. Managed timings are retained in discovery; active-flow design elapsed 6m 50s; tokens/cost unavailable. |
 | Native behavior and semantic integration | Native author selected GPT-6.1 Sol, Extra High; semantic/source authors selected GPT-6 Astra, Extra High; records author selected GPT-6.1 Sol, High; live lead setting not independently exposed | Actual admission and prepared parser boundary cases passed; the core and fixed-cell semantic proofs passed focused fresh audits. Native contract/translation repairs and complete source composition remain. Exact native timings are retained in the linked evidence; whole-team time, tokens and cost unavailable. |
 | Source-selection and body-flow foundations | Continuing semantic/source and flow-storage authors selected GPT-6 Astra, Extra High; live lead setting not independently exposed | Derived scanner selection/staticness, full-flow condition/body meaning, parser soundness/uniqueness, native condition sizing and storage projections; the combined focused fresh audit passed. All-input native validity, remaining helper/worker correspondence and complete source checks remain. Combined run elapsed 59.178 seconds; whole-team time, tokens and cost unavailable. |
+| Language endpoint and native condition contracts | Continuing semantic/source and scalar-helper authors selected GPT-6 Astra, Extra High; live lead setting not independently exposed | Integrated strict native condition contracts and all-input flow validity, then declaration-derived staticness/initial flow through `Silver.Current`, condition extents and reader contracts. Focused fresh audits passed; helper and body/loop/outer source correspondence remains. | Endpoint checkpoint elapsed 92.819 seconds; whole-team time, tokens and cost unavailable. |
 
 No additional owner decision is currently required. Oracle amendments remain
 reserved; #119/#201/#202/#212, paused packets/R93 and #88–#94 stay deferred.
