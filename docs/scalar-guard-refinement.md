@@ -244,3 +244,46 @@ unchanged by this separate implementation stream.
 
 No additional owner decision is currently required. Oracle amendments remain
 reserved; #119/#201/#202/#212, paused packets/R93 and #88–#94 stay deferred.
+
+## Shared-reader proof and frame checkpoint
+
+The division delivery merged as `a5305f1b04`; this separate guard branch
+incorporates it without changing the guard authorization. Commit `042998ad3a`
+(native author `a201d7e6f7`) shares executable `Reading_Names` between the scalar
+and String wrappers. Both wrappers now pass that exact returned environment to
+the existing readers. This removes duplicated overlay construction while
+preserving the Count/all-cell contract and the nonrecursive wrapper placement.
+The old separately constructed environments were equal under Ada's bounded
+array equality, but that fact alone did not discharge the recursive reader
+congruence obligations in the generated proof context.
+
+Focused runs `20261026T032948-7db1c6e04607`,
+`20261026T033131-e84a79b990b3` and `20261026T033141-6f0297e34305` proved
+all 11 scalar-reader, 12 shared-helper and 10 String-reader checks respectively.
+The Body_Tail rank adjustment discharges its prior ghost-call termination checks;
+its exact model equality and loop invariant still need repair. These focused
+successes do not establish the complete compiler audit.
+
+The [frame account](evidence/scalar-guard-refinement/parser-frame-account-20261026.md)
+and [retained native observations](evidence/scalar-guard-refinement/shared-reader-frames-20261026/README.md)
+record the corresponding build, 105 admission cases and 20 source-boundary
+shapes. All passed; every one of 129 source inputs matches the measured commit.
+The recursive frame sums remain unchanged; the shared helper adds transient
+nonrecursive frames and no secondary-stack allocation. The account distinguishes
+actual frame/lifetime facts, conditional source-budget arithmetic and the
+unchanged environmental sufficient-resource premise. It does not claim a
+universal fixed-8-MiB certificate or resume deferred capacity work.
+
+Later proof-annotation candidates are still under validation. An attempted
+automatic lemma-instantiation annotation was rejected by the pinned frontend;
+the replacement keeps the existing join function and strengthens its checked
+componentwise postcondition. Complete native discharge, final source correspondence,
+full regression/sample validation and independent delivery review remain open.
+
+| Round | Selected settings | Resolved obligations and remaining work |
+| --- | --- | --- |
+| Shared reader diagnosis and proof repair | GPT-6 Astra, Extra High for bounded diagnosis; live lead setting not independently exposed | Identified the generated array-congruence boundary and proved the shared environment/helper/reader contracts. Body/condition equations remain under validation. |
+| Frame retention and scope reconciliation | GPT-6.1 Sol, High for retention/accounting; GPT-6 Astra, Extra High for read-only scope review; runtime settings not independently exposed | Retained exact source/frame/admission/boundary evidence and conditional allocation analysis under the governing sufficient-resource premise. Later source applicability still requires checking. |
+
+Native timings remain in the retained run records. Whole-round token/cost
+measurements are unavailable.
