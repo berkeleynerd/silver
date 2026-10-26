@@ -82,9 +82,11 @@ language-wide assurance or admission of the exploratory source shell.
 
 Separate empty-loop probes also passed: runs
 `20261025T220859-607733c0fe31`, `20261025T220908-2707637afa18` and
-`20261025T220916-fdf3e2d848b5` proved the vacuous division checks for `/`, `mod`
-and `rem` with a zero divisor. Accordingly the selected uniform rejection of
-a nonempty zero-containing divisor interval, even when the other operand is
-empty, is an explicit conservative Silver rule. It is **not** claimed to be a
-frontend necessity. Static invalid subexpressions remain independently rejected.
-Exact sources, reports, commands and logs are retained with the design evidence.
+`20261025T220916-fdf3e2d848b5` report “division check proved” for `/`, `mod`
+and `rem` with a zero divisor, but the raw rule is `VC_RAISE`, accompanied by
+`DEAD_CODE` diagnostics, rather than `VC_DIVISION_CHECK`. The frontend rewrites
+static division by zero to an unreachable raise. The current Main report policy
+excludes `VC_RAISE`, so rejecting a nonempty zero-containing divisor interval
+before empty propagation is required to preserve that policy. Static invalid
+subexpressions remain independently rejected. Exact sources, reports, commands
+and logs are retained with the design evidence.
