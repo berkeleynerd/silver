@@ -48,8 +48,15 @@ theorem checked_source : CheckedSource where
   pathBodies := PathFacts.SourceBridge.actual_body_interpretation
   pathProjection := PathFacts.SourceBridge.actual_model_projection
 
+/-- The ready-domain helper equations and interpreted flow contracts normalize
+the raw Take_Token and Initial_Flow imports in Definitions. Fixed Static
+save/join annotations in the checked source are erased only under the native
+frontend and complete native verification premises, including Lemma_Joined_Flow
+and its call preconditions. Worker-only equality helpers have exact Static,
+purity and Logical_Equal source checks; their annotations and
+Lemma_Condition_Equality still require complete native verification. -/
 structure InterpretedSource (calls : Implementation.Calls) : Prop where
-  helpers : Compose.SourceBridge.InterpretedSource calls.outer.helpers
+  helpers : Compose.SourceBridge.InterpretedSource calls.outer.helpers OuterReadiness.domain
   definitions : Implementation.Definitions calls
 
 theorem interpreted_helpers (calls : Implementation.Calls) (source : InterpretedSource calls) :
@@ -99,7 +106,7 @@ theorem actual_source_correspondence : CheckedSource ∧
 /-- No extra assumptions are needed to inhabit the complete interpretation,
 including its literal, path, predicate, basic, recursive-body and outer calls. -/
 theorem model_interpreted : InterpretedSource Implementation.modelCalls where
-  helpers := Compose.SourceBridge.model_interpreted
+  helpers := InheritedReady.model_interpreted
   definitions := Implementation.model_definitions
 
 theorem model_executable :

@@ -123,6 +123,9 @@ def same_condition_expression : List String :=
 def lemma_condition_equality_impl : List String :=
   ["(", "left", ",", "right", ":", "condition_result", ")", "with", "ghost", "=>", "static", ",", "global", "=>", "null", ",", "pre", "=>", "left", "=", "right", ",", "post", "=>", "same_condition", "(", "left", ",", "right", ")"]
 
+def lemma_flow_equality_impl : List String :=
+  ["(", "left", ",", "right", ":", "scalar_flow", ")", "with", "ghost", "=>", "static", ",", "global", "=>", "null", ",", "pre", "=>", "left", "=", "right", ",", "post", "=>", "same_flow", "(", "left", ",", "right", ")"]
+
 structure Checked (tokens : List String) : Prop where
   flow : FlowSourceBridge.Checked tokens
   readers : FlowReaders.Checked tokens
@@ -139,6 +142,7 @@ structure Checked (tokens : List String) : Prop where
   same_condition_header : functionHeader "same_condition" "is" tokens = some same_condition_header
   same_condition_body : expressionDeclaration "same_condition" tokens = some (same_condition_expression, logical_equality_aspects)
   lemma_condition_equality_impl : procedureHeader "lemma_condition_equality" "is" tokens = some lemma_condition_equality_impl
+  lemma_flow_equality_impl : procedureHeader "lemma_flow_equality" "is" tokens = some lemma_flow_equality_impl
   valid_condition_header : functionHeader "valid_condition" "is" tokens = some valid_condition_header
   valid_condition_body : Source.expressionBody "valid_condition" tokens = some valid_condition_expression
   summary_of_body : qualifiedExpressionBody "summary_of" tokens = some ((summaryBody.render.drop 1).dropLast)

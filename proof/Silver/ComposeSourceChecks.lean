@@ -284,13 +284,17 @@ abbrev Declarations : Prop :=
   Source.declaration "invalid_value" Source.outputBodyTokens = some (expectedTokens "constant value_result := ( after => 0 , value_first => 0 , minimum_length => 0 , static_length => 0 , dynamic_seen => false , nonliteral_seen => false , empty_value => false , reference => 0 )") ∧
   Source.declaration "invalid_expression" Source.outputBodyTokens = some (expectedTokens "constant expression_result := ( after => 0 , minimum_length => 0 , static_length => 0 , dynamic_count => 0 , named_seen => false , empty_value => false )") ∧
   Source.expressionBody "valid_names" Source.outputBodyTokens = some (expectedTokens "for all I in 1 .. Names.Count => Names.Items (I).First > 0 and then Valid_Name_State (Text, Names.Items (I).First, Names.Items (I).After) and then Names.Items (I).Value_First <= Text'Last + 1") ∧
-  Source.expressionBody "valid_state" Source.outputBodyTokens = some (expectedTokens "State.Position <= Text'Last + 1 and then Valid_Names (Text, State.Names) and then Scalar_Expressions.Valid_Environment (Text, State.Scalar_Names) and then Valid_Name_State (Text, State.Dynamic_First, State.Dynamic_After) and then State.Target <= State.Names.Count") ∧
+  Source.expressionBody "valid_state" Source.outputBodyTokens = some (expectedTokens "State.Position <= Text'Last + 1 and then Valid_Names (Text, State.Names) and then Scalar_Expressions.Valid_Environment (Text, State.Scalar_Names) and then Valid_Mutable_Bounds (State.Scalar_Names) and then Valid_Declaration_Values (State.Scalar_Names, State.Scalar_Names.Count) and then Valid_Name_State (Text, State.Dynamic_First, State.Dynamic_After) and then State.Target <= State.Names.Count") ∧
   maxConcatenations = 63 ∧
   Lexical.SourceBridge.subtypeDeclaration "concatenation_count" Source.outputBodyTokens = some (expectedTokens "natural range 0 .. max_concatenations") ∧
   Source.declaration "max_concatenations" Source.outputSpecTokens = some (expectedTokens "constant positive := 63") ∧
   Lexical.SourceBridge.recordDeclaration "expression_state" Source.outputBodyTokens = some (expectedTokens "record position : literal_position ; minimum_length , static_length : capacity_value ; dynamic_count , operands : operand_count ; depth : literal_position ; named_seen , need_operand , complete , empty_value : boolean ; end record") ∧
   Source.declaration "invalid_expression_state" Source.outputBodyTokens = some (expectedTokens "constant expression_state := ( position => 0 , minimum_length => 0 , static_length => 0 , dynamic_count => 0 , operands => 0 , depth => 0 , named_seen => false , need_operand => true , complete => false , empty_value => false )") ∧
-  Source.expressionBody "valid_expression_state" Source.outputBodyTokens = some (expectedTokens "State.Position <= Text'Last + 1 and then State.Dynamic_Count <= State.Operands and then (State.Position = 0 or else State.Depth < State.Position)")
+  Source.expressionBody "valid_expression_state" Source.outputBodyTokens = some (expectedTokens "State.Position <= Text'Last + 1 and then State.Dynamic_Count <= State.Operands and then (State.Position = 0 or else State.Depth < State.Position)") ∧
+  functionHeader "valid_mutable_bounds" "is" Source.outputBodyTokens = some (expectedTokens "(Scalar_Names : Scalar_Expressions.Environment) return Boolean") ∧
+  Source.expressionBody "valid_mutable_bounds" Source.outputBodyTokens = some (expectedTokens "for all Index in 1 .. Scalar_Names.Count => (if Scalar_Names.Items (Index).Mutable then not Scalars.Is_Empty (Scalar_Names.Items (Index).Bounds) and then Scalar_Names.Items (Index).Bounds.Lower >= Scalar_Names.Items (Index).Declared_Bounds.Lower and then Scalar_Names.Items (Index).Bounds.Upper <= Scalar_Names.Items (Index).Declared_Bounds.Upper)") ∧
+  functionHeader "valid_declaration_values" "is" Source.outputBodyTokens = some (expectedTokens "(Scalar_Names : Scalar_Expressions.Environment; Count : Scalar_Expressions.Binding_Count) return Boolean") ∧
+  Source.expressionBody "valid_declaration_values" Source.outputBodyTokens = some (expectedTokens "Count <= Scalar_Names.Count and then (for all Index in 1 .. Count => not Scalars.Is_Empty (Scalar_Names.Items (Index).Bounds))")
 
 private theorem declaration_scalar_constraint :
   Lexical.SourceBridge.recordDeclaration "scalar_constraint_result" Source.outputBodyTokens =
@@ -360,7 +364,7 @@ private theorem declaration_fact_21 :
   Source.expressionBody "valid_names" Source.outputBodyTokens = some (expectedTokens "for all I in 1 .. Names.Count => Names.Items (I).First > 0 and then Valid_Name_State (Text, Names.Items (I).First, Names.Items (I).After) and then Names.Items (I).Value_First <= Text'Last + 1") := by decide +kernel
 
 private theorem declaration_fact_22 :
-  Source.expressionBody "valid_state" Source.outputBodyTokens = some (expectedTokens "State.Position <= Text'Last + 1 and then Valid_Names (Text, State.Names) and then Scalar_Expressions.Valid_Environment (Text, State.Scalar_Names) and then Valid_Name_State (Text, State.Dynamic_First, State.Dynamic_After) and then State.Target <= State.Names.Count") := by decide +kernel
+  Source.expressionBody "valid_state" Source.outputBodyTokens = some (expectedTokens "State.Position <= Text'Last + 1 and then Valid_Names (Text, State.Names) and then Scalar_Expressions.Valid_Environment (Text, State.Scalar_Names) and then Valid_Mutable_Bounds (State.Scalar_Names) and then Valid_Declaration_Values (State.Scalar_Names, State.Scalar_Names.Count) and then Valid_Name_State (Text, State.Dynamic_First, State.Dynamic_After) and then State.Target <= State.Names.Count") := by decide +kernel
 
 private theorem declaration_fact_23 :
   maxConcatenations = 63 := by decide +kernel
@@ -379,6 +383,18 @@ private theorem declaration_fact_27 :
 
 private theorem declaration_fact_28 :
   Source.expressionBody "valid_expression_state" Source.outputBodyTokens = some (expectedTokens "State.Position <= Text'Last + 1 and then State.Dynamic_Count <= State.Operands and then (State.Position = 0 or else State.Depth < State.Position)") := by decide +kernel
+
+private theorem declaration_mutable_bounds_header :
+  functionHeader "valid_mutable_bounds" "is" Source.outputBodyTokens = some (expectedTokens "(Scalar_Names : Scalar_Expressions.Environment) return Boolean") := by decide +kernel
+
+private theorem declaration_mutable_bounds_body :
+  Source.expressionBody "valid_mutable_bounds" Source.outputBodyTokens = some (expectedTokens "for all Index in 1 .. Scalar_Names.Count => (if Scalar_Names.Items (Index).Mutable then not Scalars.Is_Empty (Scalar_Names.Items (Index).Bounds) and then Scalar_Names.Items (Index).Bounds.Lower >= Scalar_Names.Items (Index).Declared_Bounds.Lower and then Scalar_Names.Items (Index).Bounds.Upper <= Scalar_Names.Items (Index).Declared_Bounds.Upper)") := by decide +kernel
+
+private theorem declaration_declaration_values_header :
+  functionHeader "valid_declaration_values" "is" Source.outputBodyTokens = some (expectedTokens "(Scalar_Names : Scalar_Expressions.Environment; Count : Scalar_Expressions.Binding_Count) return Boolean") := by decide +kernel
+
+private theorem declaration_declaration_values_body :
+  Source.expressionBody "valid_declaration_values" Source.outputBodyTokens = some (expectedTokens "Count <= Scalar_Names.Count and then (for all Index in 1 .. Count => not Scalars.Is_Empty (Scalar_Names.Items (Index).Bounds))") := by decide +kernel
 
 theorem actual_declarations : Declarations := by
   exact ⟨declaration_scalar_constraint, declaration_fact_01,
@@ -408,7 +424,11 @@ theorem actual_declarations : Declarations := by
     declaration_fact_25,
     declaration_fact_26,
     declaration_fact_27,
-    declaration_fact_28⟩
+    declaration_fact_28,
+    declaration_mutable_bounds_header,
+    declaration_mutable_bounds_body,
+    declaration_declaration_values_header,
+    declaration_declaration_values_body⟩
 
 abbrev Refinement : Prop :=
   functionHeader "scalar_constraint_at" ";" Source.outputBodyTokens = some

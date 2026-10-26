@@ -12,6 +12,61 @@ open Silver.SourceBridge Native NativeSourceChecks
 
 /-! The complete reviewed source shape supplies every syntactic requirement.
 The final bridge proves equality with freshly certified authoritative tokens. -/
+
+private theorem native_flow_checked : FlowSourceBridge.Checked SourceShape.bodyTokens := by
+  constructor <;> decide +kernel
+
+private theorem native_readers_checked : FlowReaders.Checked SourceShape.bodyTokens := by
+  constructor <;> decide +kernel
+
+private theorem native_scalarHelpers_checked : Native.ScalarHelpers.Checked SourceShape.bodyTokens := by
+  constructor <;> decide +kernel
+
+private theorem native_workers_checked : Native.Workers.Checked SourceShape.bodyTokens := by
+  constructor <;> decide +kernel
+
+private theorem native_same_interval_header : functionHeader "same_interval" "is" SourceShape.bodyTokens = some same_interval_header := by
+  decide +kernel
+
+private theorem native_same_interval_body : expressionDeclaration "same_interval" SourceShape.bodyTokens = some (same_interval_expression, logical_equality_aspects) := by
+  decide +kernel
+
+private theorem native_same_path_header : functionHeader "same_path" "is" SourceShape.bodyTokens = some same_path_header := by
+  decide +kernel
+
+private theorem native_same_path_body : expressionDeclaration "same_path" SourceShape.bodyTokens = some (same_path_expression, logical_equality_aspects) := by
+  decide +kernel
+
+private theorem native_same_values_header : functionHeader "same_values" "is" SourceShape.bodyTokens = some same_values_header := by
+  decide +kernel
+
+private theorem native_same_values_body : expressionDeclaration "same_values" SourceShape.bodyTokens = some (same_values_expression, logical_equality_aspects) := by
+  decide +kernel
+
+private theorem native_same_flow_header : functionHeader "same_flow" "is" SourceShape.bodyTokens = some same_flow_header := by
+  decide +kernel
+
+private theorem native_same_flow_body : expressionDeclaration "same_flow" SourceShape.bodyTokens = some (same_flow_expression, logical_equality_aspects) := by
+  decide +kernel
+
+private theorem native_same_condition_header : functionHeader "same_condition" "is" SourceShape.bodyTokens = some same_condition_header := by
+  decide +kernel
+
+private theorem native_same_condition_body : expressionDeclaration "same_condition" SourceShape.bodyTokens = some (same_condition_expression, logical_equality_aspects) := by
+  decide +kernel
+
+private theorem native_lemma_condition_equality_impl : procedureHeader "lemma_condition_equality" "is" SourceShape.bodyTokens = some lemma_condition_equality_impl := by
+  decide +kernel
+
+private theorem native_lemma_flow_equality_impl : procedureHeader "lemma_flow_equality" "is" SourceShape.bodyTokens = some lemma_flow_equality_impl := by
+  decide +kernel
+
+private theorem native_valid_condition_header : functionHeader "valid_condition" "is" SourceShape.bodyTokens = some valid_condition_header := by
+  decide +kernel
+
+private theorem native_valid_condition_body : Source.expressionBody "valid_condition" SourceShape.bodyTokens = some valid_condition_expression := by
+  decide +kernel
+
 private theorem native_summary_of_body : qualifiedExpressionBody "summary_of" SourceShape.bodyTokens = some ((summaryBody.render.drop 1).dropLast) := by
   simp only [summaryBody, Expr.render]
   decide +kernel
@@ -32,11 +87,11 @@ private theorem native_length_at_body : Source.expressionBody "length_at" Source
   simp only [lengthBody, Expr.render]
   decide +kernel
 
-private theorem native_read_primary_body : Source.expressionBody "read_primary" SourceShape.bodyTokens = some (primaryBody.render) := by
+private theorem native_primary_model_body : Source.expressionBody "primary_model" SourceShape.bodyTokens = some (primaryBody.render) := by
   simp only [primaryBody, Expr.render, Expr.declared]
   decide +kernel
 
-private theorem native_read_relation_body : Source.expressionBody "read_relation" SourceShape.bodyTokens = some (relationBody.render) := by
+private theorem native_relation_model_body : Source.expressionBody "relation_model" SourceShape.bodyTokens = some (relationBody.render) := by
   simp only [relationBody, Expr.render, Expr.declared]
   decide +kernel
 
@@ -54,10 +109,6 @@ private theorem native_condition_tail_body : Source.expressionBody "condition_ta
 
 private theorem native_condition_model_body : Source.expressionBody "condition_model" SourceShape.bodyTokens = some (modelBody.render) := by
   simp only [modelBody, Expr.render]
-  decide +kernel
-
-private theorem native_read_condition_body : Source.expressionBody "read_condition" SourceShape.bodyTokens = some (conditionBody.render) := by
-  simp only [conditionBody]
   decide +kernel
 
 private theorem native_summary_of_impl_header : functionHeader "summary_of" "is" SourceShape.bodyTokens = some summary_of_impl_header := by
@@ -81,16 +132,16 @@ private theorem native_length_at_spec_header : functionHeader "length_at" ";" So
 private theorem native_length_at_impl_header : functionHeader "length_at" "is" SourceShape.bodyTokens = some length_at_impl_header := by
   decide +kernel
 
-private theorem native_read_primary_spec_header : functionHeader "read_primary" ";" SourceShape.bodyTokens = some read_primary_spec_header := by
+private theorem native_primary_model_spec_header : functionHeader "primary_model" ";" SourceShape.bodyTokens = some primary_model_spec_header := by
   decide +kernel
 
-private theorem native_read_primary_impl_header : functionHeader "read_primary" "is" SourceShape.bodyTokens = some read_primary_impl_header := by
+private theorem native_primary_model_impl_header : functionHeader "primary_model" "is" SourceShape.bodyTokens = some primary_model_impl_header := by
   decide +kernel
 
-private theorem native_read_relation_spec_header : functionHeader "read_relation" ";" SourceShape.bodyTokens = some read_relation_spec_header := by
+private theorem native_relation_model_spec_header : functionHeader "relation_model" ";" SourceShape.bodyTokens = some relation_model_spec_header := by
   decide +kernel
 
-private theorem native_read_relation_impl_header : functionHeader "read_relation" "is" SourceShape.bodyTokens = some read_relation_impl_header := by
+private theorem native_relation_model_impl_header : functionHeader "relation_model" "is" SourceShape.bodyTokens = some relation_model_impl_header := by
   decide +kernel
 
 private theorem native_chain_token_spec_header : functionHeader "chain_token" ";" SourceShape.bodyTokens = some chain_token_spec_header := by
@@ -117,37 +168,42 @@ private theorem native_condition_model_spec_header : functionHeader "condition_m
 private theorem native_condition_model_impl_header : functionHeader "condition_model" "is" SourceShape.bodyTokens = some condition_model_impl_header := by
   decide +kernel
 
-private theorem native_read_condition_spec_header : functionHeader "read_condition" ";" SourceShape.bodyTokens = some read_condition_spec_header := by
-  decide +kernel
-
-private theorem native_read_condition_impl_header : functionHeader "read_condition" "is" SourceShape.bodyTokens = some read_condition_impl_header := by
-  decide +kernel
-
 private theorem native_comparison_result_declaration : Lexical.SourceBridge.recordDeclaration "comparison_result" SourceShape.bodyTokens = some comparison_result_declaration := by
   decide +kernel
 
 private theorem native_length_result_declaration : Lexical.SourceBridge.recordDeclaration "length_result" SourceShape.bodyTokens = some length_result_declaration := by
   decide +kernel
 
-private theorem native_condition_result_declaration : Lexical.SourceBridge.recordDeclaration "condition_result" SourceShape.bodyTokens = some condition_result_declaration := by
-  decide +kernel
-
-private theorem native_invalid_condition_declaration : Source.declaration "invalid_condition" SourceShape.bodyTokens = some invalid_condition_declaration := by
-  decide +kernel
-
 private theorem native_checked : NativeSourceChecks.Checked SourceShape.bodyTokens where
+  flow := native_flow_checked
+  readers := native_readers_checked
+  scalarHelpers := native_scalarHelpers_checked
+  workers := native_workers_checked
+  same_interval_header := native_same_interval_header
+  same_interval_body := native_same_interval_body
+  same_path_header := native_same_path_header
+  same_path_body := native_same_path_body
+  same_values_header := native_same_values_header
+  same_values_body := native_same_values_body
+  same_flow_header := native_same_flow_header
+  same_flow_body := native_same_flow_body
+  same_condition_header := native_same_condition_header
+  same_condition_body := native_same_condition_body
+  lemma_condition_equality_impl := native_lemma_condition_equality_impl
+  lemma_flow_equality_impl := native_lemma_flow_equality_impl
+  valid_condition_header := native_valid_condition_header
+  valid_condition_body := native_valid_condition_body
   summary_of_body := native_summary_of_body
   bound_of_body := native_bound_of_body
   binding_summary_body := native_binding_summary_body
   scalar_comparison_at_body := native_scalar_comparison_at_body
   length_at_body := native_length_at_body
-  read_primary_body := native_read_primary_body
-  read_relation_body := native_read_relation_body
+  primary_model_body := native_primary_model_body
+  relation_model_body := native_relation_model_body
   chain_token_body := native_chain_token_body
   chain_after_body := native_chain_after_body
   condition_tail_body := native_condition_tail_body
   condition_model_body := native_condition_model_body
-  read_condition_body := native_read_condition_body
   summary_of_impl_header := native_summary_of_impl_header
   bound_of_impl_header := native_bound_of_impl_header
   binding_summary_impl_header := native_binding_summary_impl_header
@@ -155,10 +211,10 @@ private theorem native_checked : NativeSourceChecks.Checked SourceShape.bodyToke
   scalar_comparison_at_impl_header := native_scalar_comparison_at_impl_header
   length_at_spec_header := native_length_at_spec_header
   length_at_impl_header := native_length_at_impl_header
-  read_primary_spec_header := native_read_primary_spec_header
-  read_primary_impl_header := native_read_primary_impl_header
-  read_relation_spec_header := native_read_relation_spec_header
-  read_relation_impl_header := native_read_relation_impl_header
+  primary_model_spec_header := native_primary_model_spec_header
+  primary_model_impl_header := native_primary_model_impl_header
+  relation_model_spec_header := native_relation_model_spec_header
+  relation_model_impl_header := native_relation_model_impl_header
   chain_token_spec_header := native_chain_token_spec_header
   chain_token_impl_header := native_chain_token_impl_header
   chain_after_spec_header := native_chain_after_spec_header
@@ -167,13 +223,20 @@ private theorem native_checked : NativeSourceChecks.Checked SourceShape.bodyToke
   condition_tail_impl_header := native_condition_tail_impl_header
   condition_model_spec_header := native_condition_model_spec_header
   condition_model_impl_header := native_condition_model_impl_header
-  read_condition_spec_header := native_read_condition_spec_header
-  read_condition_impl_header := native_read_condition_impl_header
   comparison_result_declaration := native_comparison_result_declaration
   length_result_declaration := native_length_result_declaration
-  condition_result_declaration := native_condition_result_declaration
-  invalid_condition_declaration := native_invalid_condition_declaration
 
+private theorem candidate_bodyWrappers : BodyWrappers.Checked SourceShape.bodyTokens := by
+  constructor <;> decide +kernel
+
+private theorem candidate_adapterWrappers : Adapter.Wrappers.Checked SourceShape.bodyTokens := by
+  constructor <;> decide +kernel
+
+private theorem candidate_lemma_joined_flow_spec : procedureHeader "lemma_joined_flow" ";" SourceShape.bodyTokens = some lemma_joined_flow_spec := by
+  decide +kernel
+
+private theorem candidate_lemma_joined_flow_impl : procedureHeader "lemma_joined_flow" "is" SourceShape.bodyTokens = some lemma_joined_flow_header := by
+  decide +kernel
 
 private theorem candidate_basic_body_body : ordinaryFunction "basic_body" SourceShape.bodyTokens = some (BasicNative.basicRender) := by
   rw [BasicNative.rendered_candidate]
@@ -195,8 +258,14 @@ private theorem candidate_alternative_body_body : ordinaryFunction "alternative_
   rw [BodyNative.rendered_alternative_body]
   decide +kernel
 
-private theorem candidate_body_tail_body : ordinaryFunction "body_tail" SourceShape.bodyTokens = some (BodyNative.tailFunction.render "body_tail") := by
-  rw [BodyNative.rendered_body_tail]
+private theorem candidate_body_tail_model_body : Source.expressionBody "body_tail_model" SourceShape.bodyTokens = some BodyNative.tailModelBody.render := by
+  rw [BodyNative.rendered_body_tail_model]
+  decide +kernel
+
+private theorem candidate_body_tail_model_spec : functionHeader "body_tail_model" ";" SourceShape.bodyTokens = some body_body_tail_model_spec_header := by
+  decide +kernel
+
+private theorem candidate_body_tail_model_impl : functionHeader "body_tail_model" "is" SourceShape.bodyTokens = some body_body_tail_impl_header := by
   decide +kernel
 
 private theorem candidate_read_body_body : ordinaryFunction "read_body" SourceShape.bodyTokens = some (BodyNative.readFunction.render "read_body") := by
@@ -207,16 +276,8 @@ private theorem candidate_context_of_body : Source.expressionBody "context_of" S
   rw [Adapter.context_of_candidate]
   decide +kernel
 
-private theorem candidate_body_of_body : Source.expressionBody "body_of" SourceShape.bodyTokens = some ((Adapter.bodyExpr.render).drop 1).dropLast := by
-  rw [Adapter.body_of_candidate]
-  decide +kernel
-
 private theorem candidate_expand_body_body : Source.expressionBody "expand_body" SourceShape.bodyTokens = some ((Adapter.expandExpr.render).drop 1).dropLast := by
   rw [Adapter.expand_body_candidate]
-  decide +kernel
-
-private theorem candidate_body_token_body : Source.expressionBody "body_token" SourceShape.bodyTokens = some ((Adapter.tokenExpr.render).drop 1).dropLast := by
-  rw [Adapter.body_token_candidate]
   decide +kernel
 
 private theorem candidate_at_body_stop_body : Source.expressionBody "at_body_stop" SourceShape.bodyTokens = some ((Adapter.atStopExpr.render).drop 1).dropLast := by
@@ -439,7 +500,7 @@ private theorem candidate_scan_result_declaration : Lexical.SourceBridge.recordD
 private theorem candidate_body_context_declaration : Lexical.SourceBridge.recordDeclaration "body_context" SourceShape.bodyTokens = some body_context_declaration := by
   decide +kernel
 
-private theorem candidate_body_scan_declaration : Lexical.SourceBridge.recordDeclaration "body_scan" SourceShape.bodyTokens = some body_scan_declaration := by
+private theorem candidate_body_scan_declaration : Lexical.SourceBridge.discriminatedRecordDeclaration "body_scan" SourceShape.bodyTokens = some body_scan_declaration := by
   decide +kernel
 
 private theorem candidate_body_stop_declaration : typeDeclaration "body_stop" SourceShape.bodyTokens = some body_stop_declaration := by
@@ -458,9 +519,6 @@ private theorem candidate_initial_scan_declaration : Source.declaration "initial
   decide +kernel
 
 private theorem candidate_invalid_scan_declaration : Source.declaration "invalid_scan" SourceShape.bodyTokens = some invalid_scan_declaration := by
-  decide +kernel
-
-private theorem candidate_invalid_body_declaration : Source.declaration "invalid_body" SourceShape.bodyTokens = some invalid_body_declaration := by
   decide +kernel
 
 private theorem candidate_max_source_length_declaration : Source.declaration "max_source_length" SourceShape.specTokens = some max_source_length_declaration := by
@@ -490,6 +548,21 @@ private theorem candidate_operand_count_declaration : Lexical.SourceBridge.subty
 private theorem candidate_concatenation_count_declaration : Lexical.SourceBridge.subtypeDeclaration "concatenation_count" SourceShape.bodyTokens = some concatenation_count_declaration := by
   decide +kernel
 
+private theorem candidate_valid_flow_body : Source.expressionBody "valid_flow" SourceShape.bodyTokens = some valid_flow_expression := by
+  decide +kernel
+
+private theorem candidate_valid_flow_header : functionHeader "valid_flow" "is" SourceShape.bodyTokens = some ((Source.lex "(Context : Body_Context; Facts : Scalar_Flow) return Boolean").getD []) := by
+  decide +kernel
+
+private theorem candidate_included_body : Source.expressionBody "included" SourceShape.bodyTokens = some included_expression := by
+  decide +kernel
+
+private theorem candidate_included_header : functionHeader "included" "is" SourceShape.bodyTokens = some ((Source.lex "(Value, Bounds : Scalars.Interval) return Boolean").getD []) := by
+  decide +kernel
+
+private theorem candidate_string_target_declaration : Lexical.SourceBridge.recordDeclaration "string_target_result" SourceShape.bodyTokens = some string_target_declaration := by
+  decide +kernel
+
 private theorem candidate_valid_context_body : Source.expressionBody "valid_context" SourceShape.bodyTokens = some valid_context_expression := by
   decide +kernel
 
@@ -497,21 +570,25 @@ private theorem candidate_valid_body_body : Source.expressionBody "valid_body" S
   decide +kernel
 
 theorem candidate_checked : Checked SourceShape.specTokens SourceShape.bodyTokens where
-  scalarBodies := ScalarBodyNative.SourceChecks.candidate_checked
   spec_shape := rfl
   body_shape := rfl
   native := native_checked
+  scalarBodies := ScalarBodyNative.SourceChecks.candidate_checked
+  bodyWrappers := candidate_bodyWrappers
+  adapterWrappers := candidate_adapterWrappers
+  lemma_joined_flow_spec := candidate_lemma_joined_flow_spec
+  lemma_joined_flow_impl := candidate_lemma_joined_flow_impl
   basic_body_body := candidate_basic_body_body
   statement_body_body := candidate_statement_body_body
   loop_body_body := candidate_loop_body_body
   conditional_body_body := candidate_conditional_body_body
   alternative_body_body := candidate_alternative_body_body
-  body_tail_body := candidate_body_tail_body
+  body_tail_model_body := candidate_body_tail_model_body
+  body_tail_model_spec := candidate_body_tail_model_spec
+  body_tail_model_impl := candidate_body_tail_model_impl
   read_body_body := candidate_read_body_body
   context_of_body := candidate_context_of_body
-  body_of_body := candidate_body_of_body
   expand_body_body := candidate_expand_body_body
-  body_token_body := candidate_body_token_body
   at_body_stop_body := candidate_at_body_stop_body
   read_statements_body := candidate_read_statements_body
   tokens_body := candidate_tokens_body
@@ -589,7 +666,6 @@ theorem candidate_checked : Checked SourceShape.specTokens SourceShape.bodyToken
   token_sequence_declaration := candidate_token_sequence_declaration
   initial_scan_declaration := candidate_initial_scan_declaration
   invalid_scan_declaration := candidate_invalid_scan_declaration
-  invalid_body_declaration := candidate_invalid_body_declaration
   max_source_length_declaration := candidate_max_source_length_declaration
   max_expression_operands_declaration := candidate_max_expression_operands_declaration
   max_concatenations_declaration := candidate_max_concatenations_declaration
@@ -599,6 +675,11 @@ theorem candidate_checked : Checked SourceShape.specTokens SourceShape.bodyToken
   binding_index_declaration := candidate_binding_index_declaration
   operand_count_declaration := candidate_operand_count_declaration
   concatenation_count_declaration := candidate_concatenation_count_declaration
+  valid_flow_body := candidate_valid_flow_body
+  valid_flow_header := candidate_valid_flow_header
+  included_body := candidate_included_body
+  included_header := candidate_included_header
+  string_target_declaration := candidate_string_target_declaration
   valid_context_body := candidate_valid_context_body
   valid_body_body := candidate_valid_body_body
 
