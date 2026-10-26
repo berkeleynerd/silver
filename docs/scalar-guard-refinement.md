@@ -343,3 +343,13 @@ semantic review, and the previously prepared GPT-6.1 Sol Extra High operator-bud
 repair. Explicit frame-count preservation and reuse of the checked target reader
 resolved the repeated model-normalization failures. Native condition transport
 and final delivery validation remain; whole-round token/cost data are unavailable.
+
+The [independent source-contract review](reviews/review-scalar-guard-source-contracts-4a4435a5ba.md)
+at `4a4435a5ba` found one material gap: the token wrapper assumes normalized
+`Take_Token` behavior without deriving it from the inherited lexical callee,
+and its broad token domain includes a concrete counterexample (`Capacity_Literal`
+on `"0"`). The conditional model theorems remain valid; the actual native function
+cannot satisfy that interface over its stated domain. The finding is confirmed
+and under repair before final source validation. The repair must retain raw
+callee semantics and prove every actual caller lies in any narrower normalized
+projection domain; native contracts and application membership remain unchanged.
