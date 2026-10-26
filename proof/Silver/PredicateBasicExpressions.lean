@@ -10,17 +10,14 @@ public import Silver.LengthIntervalModel
 namespace Silver.Predicate.BasicNative
 open Compose Bindings
 
-/-- Expand_Body preserves native immutable argument-name fields. Basic_Body
-only observes the returned target scanner's position and target. -/
-def expandedState (context : Native.Context) (scan : BodyScan) : ParserState :=
-  ⟨scan.position, context.names, context.dynamicFirst, context.dynamicAfter, scan.target, scan.capacity, context.scalarNames⟩
-
 structure Primitives where
   callAfter : Source → Compose.BindingEnvironment → Nat → Names.Operation → ScalarExpression.Environment → Nat
   associationAfter : Source → Nat → Bool → Nat
   token : Source → Nat → ShellToken → Nat
-  expression : Source → Nat → Compose.BindingEnvironment → ScalarExpression.Environment → ExpressionResult
-  target : Source → ParserState → Bool → ParserState
+  expression : Source → Native.Context → Nat → ActiveFlow → ExpressionResult
+  target : Source → Native.Context → Nat → ScalarBodyNative.StringTargetResult
+  bodyToken : Source → Native.Context → BodyScan → ShellToken → BodyScan
+  invalid : BodyScan → BodyScan
   scalarTarget : Source → Native.Context → Nat → Nat
   scalarAssignment : Source → Native.Context → BodyScan → BodyScan
   fits : PathFacts.Context → LengthSummary → Bool
@@ -31,14 +28,11 @@ structure Frame where
   text : Source
   context : Native.Context
   scan : BodyScan
-  result : BodyScan := invalidBody
+  result : BodyScan := scan
   value : ExpressionResult := {}
-  state : ParserState := invalidState
+  target : ScalarBodyNative.StringTargetResult := {}
 
 def bindingSummary (info : Compose.BindingInfo) : LengthSummary := .ofExact info.bound.summary
-
-def Primitives.bodyToken (primitive : Primitives) (text : Source) (scan : BodyScan) (token : ShellToken) : BodyScan :=
-  {scan with position := primitive.token text scan.position token}
 
 inductive Test
   | operation (value : Names.Operation)
@@ -53,11 +47,11 @@ def Test.eval (primitive : Primitives) (frame : Frame) : Test → Bool
   | .present token => decide (primitive.token frame.text frame.result.position token ≠ 0)
   | .hasArguments => decide (frame.context.dynamicFirst ≠ 0)
   | .zeroValue => decide (frame.value.after = 0)
-  | .invalidInput => frame.result.facts.invalidReachable
-  | .notFits => !primitive.fits frame.result.facts (summaryOf frame.value)
+  | .invalidInput => frame.result.facts.path.invalidReachable
+  | .notFits => !primitive.fits frame.result.facts.path (summaryOf frame.value)
   | .scalarTarget => decide (primitive.scalarTarget frame.text frame.context frame.result.position ≠ 0)
   | .zeroTarget => decide (frame.result.target = 0)
-  | .notSameLength => !primitive.sameLength frame.result.facts (summaryOf frame.value)
+  | .notSameLength => !primitive.sameLength frame.result.facts.path (summaryOf frame.value)
       (bindingSummary ((frame.context.names.get frame.result.target).getD {}))
   | .orElse left right => left.eval primitive frame || right.eval primitive frame
   | .andThen left right => left.eval primitive frame && right.eval primitive frame
@@ -71,13 +65,13 @@ def Test.render : Test → List String
   | .present token => call "take_token" [["text"], ["result", ".", "position"], [Compose.Expressions.tokenName token]] ++ ["/=", "0"]
   | .hasArguments => ["context", ".", "dynamic_first", "/=", "0"]
   | .zeroValue => ["value", ".", "after", "=", "0"]
-  | .invalidInput => ["result", ".", "facts", ".", "invalid_reachable"]
+  | .invalidInput => ["result", ".", "facts", ".", "path", ".", "invalid_reachable"]
   | .notFits => ["not", "length_intervals", "."] ++ call "fits"
-      [["result", ".", "facts"], call "summary_of" [["value"]]]
+      [["result", ".", "facts", ".", "path"], call "summary_of" [["value"]]]
   | .scalarTarget => call "scalar_target" [["text"], ["context"], ["result", ".", "position"]] ++ ["/=", "0"]
   | .zeroTarget => ["result", ".", "target", "=", "0"]
   | .notSameLength => ["not", "length_intervals", "."] ++ call "same_length"
-      [["result", ".", "facts"], call "summary_of" [["value"]], call "binding_summary"
+      [["result", ".", "facts", ".", "path"], call "summary_of" [["value"]], call "binding_summary"
         [["context", ".", "names", ".", "items", "(", "result", ".", "target", ")"]]]
   | .orElse left right => left.render ++ ["or", "else"] ++ right.render
   | .andThen left right => left.render ++ ["and", "then"] ++ right.render
@@ -90,14 +84,14 @@ inductive Update
 def Update.eval (primitive : Primitives) (frame : Frame) : Update → BodyScan
   | .operation value => {frame.result with position := primitive.callAfter frame.text frame.context.names frame.result.position value frame.context.scalarNames}
   | .association => {frame.result with position := primitive.associationAfter frame.text frame.result.position false}
-  | .token tok => primitive.bodyToken frame.text frame.result tok
+  | .token tok => primitive.bodyToken frame.text frame.context frame.result tok
   | .scalarAssignment => primitive.scalarAssignment frame.text frame.context frame.result
   | .valueAfter => {frame.result with position := frame.value.after}
-  | .statePosition => {frame.result with position := frame.state.position}
-  | .stateTarget => {frame.result with target := frame.state.target}
+  | .statePosition => {frame.result with position := frame.target.after}
+  | .stateTarget => {frame.result with target := frame.target.target}
   | .output => {frame.result with output := true}
   | .assigned => {frame.result with assigned := true}
-  | .rejected => {frame.result with facts := primitive.reject frame.result.facts}
+  | .rejected => {frame.result with facts := {frame.result.facts with path := primitive.reject frame.result.facts.path}}
 
 def Update.render : Update → List String
   | .operation value => ["result", ".", "position", ":="] ++ call "call_after" [["text"], ["context", ".", "names"], ["result", ".", "position"], (Compose.Expressions.Expr.operation value).render, ["context", ".", "scalar_names"]] ++ [";"]
@@ -106,11 +100,11 @@ def Update.render : Update → List String
       [["text"], ["context"], ["result"], [Compose.Expressions.tokenName tok]] ++ [";"]
   | .scalarAssignment => ["result", ":="] ++ call "scalar_assignment_body" [["text"], ["context"], ["result"]] ++ [";"]
   | .valueAfter => ["result", ".", "position", ":=", "value", ".", "after", ";"]
-  | .statePosition => ["result", ".", "position", ":=", "state", ".", "position", ";"]
-  | .stateTarget => ["result", ".", "target", ":=", "state", ".", "target", ";"]
+  | .statePosition => ["result", ".", "position", ":=", "target", ".", "after", ";"]
+  | .stateTarget => ["result", ".", "target", ":=", "target", ".", "target", ";"]
   | .output => ["result", ".", "output", ":=", "true", ";"]
   | .assigned => ["result", ".", "assigned", ":=", "true", ";"]
-  | .rejected => ["result", ".", "facts", ":=", "paths", "."] ++ call "rejected" [["result", ".", "facts"]] ++ [";"]
+  | .rejected => ["result", ".", "facts", ".", "path", ":=", "paths", "."] ++ call "rejected" [["result", ".", "facts", ".", "path"]] ++ [";"]
 
 inductive Command
   | nothing | update (value : Update) | expression | target | returnInvalid | returnResult
@@ -120,9 +114,9 @@ inductive Command
 def Command.eval (primitive : Primitives) (frame : Frame) (next : Frame → BodyScan) : Command → BodyScan
   | .nothing => next frame
   | .update value => next {frame with result := value.eval primitive frame}
-  | .expression => next {frame with value := primitive.expression frame.text frame.result.position frame.context.names frame.context.scalarNames}
-  | .target => next {frame with state := primitive.target frame.text (expandedState frame.context frame.result) false}
-  | .returnInvalid => invalidBody
+  | .expression => next {frame with value := primitive.expression frame.text frame.context frame.result.position frame.result.facts}
+  | .target => next {frame with target := primitive.target frame.text frame.context frame.result.position}
+  | .returnInvalid => primitive.invalid frame.scan
   | .returnResult => frame.result
   | .sequence first second => first.eval primitive frame (fun updated => second.eval primitive updated next)
   | .choose test yes no => if test.eval primitive frame then yes.eval primitive frame next else no.eval primitive frame next
@@ -130,10 +124,10 @@ def Command.eval (primitive : Primitives) (frame : Frame) (next : Frame → Body
 mutual
   def Command.render : Command → List String
     | .nothing => [] | .update value => value.render
-    | .expression => ["value", ":="] ++ call "expression_at" [["text"], ["result", ".", "position"], ["context", ".", "names"], ["context", ".", "scalar_names"]] ++ [";"]
-    | .target => ["state", ":="] ++ call "target_at"
-        [["text"], call "expand_body" [["context"], ["result"]] ++ [".", "state"], ["false"]] ++ [";"]
-    | .returnInvalid => ["return", "invalid_body", ";"] | .returnResult => ["return", "result", ";"]
+    | .expression => ["value", ":="] ++ call "read_string_in_flow" [["text"], ["context"], ["result", ".", "position"], ["result", ".", "facts"]] ++ [";"]
+    | .target => ["target", ":="] ++ call "body_string_target"
+        [["text"], ["context"], ["result", ".", "position"]] ++ [";"]
+    | .returnInvalid => ["return", "invalid_body", "(", "scan", ")", ";"] | .returnResult => ["return", "result", ";"]
     | .sequence first second => first.render ++ second.render
     | .choose test yes no => ["if"] ++ test.render ++ ["then"] ++ yes.render ++ no.renderElse ++ ["end", "if", ";"]
   def Command.renderElse : Command → List String
@@ -169,18 +163,20 @@ def basicCommands : Command := .list [guard .zeroResult, dispatchCommands,
   .update (.token (.symbol ";")), guard .nonadvancing, .returnResult]
 
 def basicRender : List String :=
-  ["result", ":", "body_scan", ":=", "scan", ";", "value", ":", "expression_result", ";",
-    "state", ":", "parser_state", ";", "begin"] ++ basicCommands.render ++ ["end", "basic_body", ";"]
+  ["result", ":", "body_scan", "(", "scan", ".", "count", ")", ":=", "scan", ";", "value", ":", "expression_result", ";",
+    "target", ":", "string_target_result", ";", "begin"] ++ basicCommands.render ++ ["end", "basic_body", ";"]
 
 def basicEval (primitive : Primitives) (text : Source) (context : Native.Context) (scan : BodyScan) : BodyScan :=
-  basicCommands.eval primitive ⟨text, context, scan, scan, {}, invalidState⟩ (fun _ => invalidBody)
+  basicCommands.eval primitive ⟨text, context, scan, scan, {}, {}⟩ (fun _ => primitive.invalid scan)
 
 def modelPrimitives : Primitives where
   callAfter := fun text names position operation scalarNames => Compose.callAfter text names position operation scalarNames
   associationAfter := Names.associationAfter
   token := tokenAfter
-  expression := fun text position names scalarNames => expressionAt text position names scalarNames
-  target := targetAt
+  expression := fun text context position facts => expressionAt text position context.names (context.model.readingNames facts)
+  target := ScalarBodyNative.stringTargetEval ScalarBodyNative.modelImports
+  bodyToken := fun text _ scan token => Predicate.bodyToken text scan token
+  invalid := invalidBody
   scalarTarget := fun text context position => Predicate.scalarTarget text context.model position
   scalarAssignment := fun text context scan => scalarAssignmentBody text context.model scan
   fits := fitsLengthSummary

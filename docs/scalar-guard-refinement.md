@@ -329,3 +329,17 @@ preserve runtime statements, contracts and solver settings. Only those two
 proved bodies are integrated; their [exact identities](evidence/scalar-guard-refinement/native-loop-annotations-20261026.json)
 distinguish the checked scratch source from the integrated subset. Condition
 validity and the complete native audit remain pending.
+
+The top-level parser equations and all selected helper integrations then passed
+in managed run `20261026T044700-92f77d7e4b48`, with a fresh audit of 63,340
+declarations. This closes the outstanding adapter, body-count, basic-statement
+and loop-helper model proofs. The [integrated hashes](evidence/scalar-guard-refinement/lean-cohort-20261026/integration-equations.json)
+and [focused result](evidence/scalar-guard-refinement/lean-cohort-20261026/lean-equations-evidence.json)
+retain the scope and 22.432-second build/15.207-second audit. Complete guard
+actual-source checks still wait for the stable native annotation snapshot.
+
+This round used selected GPT-6 Astra at Extra High for the proof subthreads and
+semantic review, and the previously prepared GPT-6.1 Sol Extra High operator-budget
+repair. Explicit frame-count preservation and reuse of the checked target reader
+resolved the repeated model-normalization failures. Native condition transport
+and final delivery validation remain; whole-round token/cost data are unavailable.

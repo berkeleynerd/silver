@@ -1,40 +1,41 @@
 module
 
 public import Silver.PredicateScalarBodyNative
-public import Silver.SourceBridge
+public import Silver.SourceDeclarations
 
 @[expose] public section
 
 namespace Silver.Predicate.ScalarBodyNative.SourceChecks
 open Silver.SourceBridge
 
-def targetSpec : List String :=
-  ["(", "text", ":", "string", ";", "context", ":", "body_context", ";", "position", ":", "literal_position", ")", "return", "scalar_expressions", ".", "binding_count", "with", "global", "=>", "null", ",", "pre", "=>", "text", "'", "first", "=", "1", "and", "then", "text", "'", "length", "in", "1", "..", "max_source_length", "and", "then", "valid_context", "(", "text", ",", "context", ")", "and", "then", "position", "<=", "text", "'", "last", "+", "1", ",", "post", "=>", "scalar_target", "'", "result", "<=", "context", ".", "scalar_names", ".", "count"]
+def expectedTokens (text : String) : List String := (Source.lex text).getD []
+def targetImpl : List String := expectedTokens
+  "(Text : String; Context : Body_Context; Position : Literal_Position) return Scalar_Expressions.Binding_Count"
+def targetSpec : List String := targetImpl ++ expectedTokens
+  "with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Valid_Context (Text, Context) and then Position <= Text'Last + 1, Post => Scalar_Target'Result <= Context.Scalar_Names.Count"
 
-def targetImpl : List String :=
-  ["(", "text", ":", "string", ";", "context", ":", "body_context", ";", "position", ":", "literal_position", ")", "return", "scalar_expressions", ".", "binding_count"]
+def stringTargetImpl : List String := expectedTokens
+  "(Text : String; Context : Body_Context; Position : Literal_Position) return String_Target_Result"
+def stringTargetSpec : List String := stringTargetImpl ++ expectedTokens
+  "with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Valid_Context (Text, Context) and then Position <= Text'Last + 1, Post => Body_String_Target'Result.Target <= Context.Names.Count and then (Body_String_Target'Result.After = 0 or else Body_String_Target'Result.After in Position + 1 .. Text'Last + 1)"
 
-def targetCandidate : List String :=
-  ["declare", "first", ":", "constant", "literal_position", ":=", "skip_at", "(", "text", ",", "position", ")", ";", "after", ":", "constant", "literal_position", ":=", "name_after", "(", "text", ",", "first", ")", ";", "begin", "scalar_expressions", ".", "lookup", "(", "text", ",", "context", ".", "scalar_names", ",", "first", ",", "after", ")"]
-
-def assignmentSpec : List String :=
-  ["(", "text", ":", "string", ";", "context", ":", "body_context", ";", "scan", ":", "body_scan", ")", "return", "body_scan", "with", "global", "=>", "null", ",", "pre", "=>", "text", "'", "first", "=", "1", "and", "then", "text", "'", "length", "in", "1", "..", "max_source_length", "and", "then", "valid_context", "(", "text", ",", "context", ")", "and", "then", "valid_body", "(", "text", ",", "context", ",", "scan", ")", ",", "post", "=>", "valid_body", "(", "text", ",", "context", ",", "scalar_assignment_body", "'", "result", ")", "and", "then", "(", "scalar_assignment_body", "'", "result", ".", "position", "=", "0", "or", "else", "scalar_assignment_body", "'", "result", ".", "position", ">", "scan", ".", "position", ")"]
-
-def assignmentImpl : List String :=
-  ["(", "text", ":", "string", ";", "context", ":", "body_context", ";", "scan", ":", "body_scan", ")", "return", "body_scan"]
-
-def assignmentCandidate : List String :=
-  ["declare", "first", ":", "constant", "literal_position", ":=", "skip_at", "(", "text", ",", "scan", ".", "position", ")", ";", "after", ":", "constant", "literal_position", ":=", "name_after", "(", "text", ",", "first", ")", ";", "target", ":", "constant", "scalar_expressions", ".", "binding_count", ":=", "scalar_expressions", ".", "lookup", "(", "text", ",", "context", ".", "scalar_names", ",", "first", ",", "after", ")", ";", "value", ":", "constant", "scalar_expressions", ".", "expression_result", ":=", "scalar_expressions", ".", "read_expression", "(", "text", ",", "take_token", "(", "text", ",", "after", ",", "assignment", ")", ",", "context", ".", "scalar_names", ")", ";", "begin", "(", "if", "target", "=", "0", "or", "else", "not", "context", ".", "scalar_names", ".", "items", "(", "target", ")", ".", "mutable", "or", "else", "value", ".", "after", "<=", "scan", ".", "position", "or", "else", "scalars", ".", "is_empty", "(", "value", ".", "bounds", ")", "or", "else", "value", ".", "bounds", ".", "lower", "<", "context", ".", "scalar_names", ".", "items", "(", "target", ")", ".", "declared_bounds", ".", "lower", "or", "else", "value", ".", "bounds", ".", "upper", ">", "context", ".", "scalar_names", ".", "items", "(", "target", ")", ".", "declared_bounds", ".", "upper", "then", "invalid_body", "else", "(", "scan", "with", "delta", "position", "=>", "value", ".", "after", ",", "assigned", "=>", "true", ")", ")"]
-
-theorem target_rendered : ScalarBodyNative.targetBody.render = targetCandidate := by decide +kernel
-
-theorem assignment_rendered : ScalarBodyNative.assignmentBody.render = assignmentCandidate := by decide +kernel
+def assignmentImpl : List String := expectedTokens
+  "(Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan"
+def assignmentModelSpec : List String := assignmentImpl ++ expectedTokens
+  "with Ghost => Static, Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan), Post => Valid_Body (Text, Context, Scalar_Assignment_Model'Result) and then (Scalar_Assignment_Model'Result.Position = 0 or else Scalar_Assignment_Model'Result.Position > Scan.Position)"
+def assignmentSpec : List String := assignmentImpl ++ expectedTokens
+  "with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan), Post => (Runtime => Valid_Body (Text, Context, Scalar_Assignment_Body'Result) and then (Scalar_Assignment_Body'Result.Position = 0 or else Scalar_Assignment_Body'Result.Position > Scan.Position), Static => Scalar_Assignment_Body'Result =" ++ assignmentRhs.render ++ [")"]
 
 structure Checked (tokens : List String) : Prop where
-  target_body : qualifiedExpressionBody "scalar_target" tokens = some ScalarBodyNative.targetBody.render
-  assignment_body : Source.expressionBody "scalar_assignment_body" tokens = some ScalarBodyNative.assignmentBody.render
+  target_body : qualifiedExpressionBody "scalar_target" tokens = some targetBody.render
   target_spec : functionHeader "scalar_target" ";" tokens = some targetSpec
   target_impl : functionHeader "scalar_target" "is" tokens = some targetImpl
+  string_target_body : Source.expressionBody "body_string_target" tokens = some stringTargetBody.render
+  string_target_spec : functionHeader "body_string_target" ";" tokens = some stringTargetSpec
+  string_target_impl : functionHeader "body_string_target" "is" tokens = some stringTargetImpl
+  assignment_body : Source.expressionBody "scalar_assignment_model" tokens = some assignmentBody.render
+  assignment_model_spec : functionHeader "scalar_assignment_model" ";" tokens = some assignmentModelSpec
+  assignment_model_impl : functionHeader "scalar_assignment_model" "is" tokens = some assignmentImpl
   assignment_spec : functionHeader "scalar_assignment_body" ";" tokens = some assignmentSpec
   assignment_impl : functionHeader "scalar_assignment_body" "is" tokens = some assignmentImpl
 

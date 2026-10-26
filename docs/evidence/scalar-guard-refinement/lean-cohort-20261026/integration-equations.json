@@ -1,0 +1,58 @@
+{
+  "run_id": "20261026T044700-92f77d7e4b48",
+  "scope": "Focused complete parser equation/helper integration; runner retains preceding division parser. Final actual-source correspondence and whole-project audit pending.",
+  "integrated": [
+    {
+      "path": "proof/Silver/PredicateAdapter.lean",
+      "sha256": "667c28962529857a290aee5496f8b98f9bc30520d3080e32aa529e4d676c578c"
+    },
+    {
+      "path": "proof/Silver/PredicateAdapterEnvironment.lean",
+      "sha256": "ae6dd1798b641a21b87611467a19cf8b9c739863689aa647aa40e988efac1350"
+    },
+    {
+      "path": "proof/Silver/PredicateBasicEquations.lean",
+      "sha256": "4c38c37ac057bfc1fb0f1fe70f9f95b39ad7e24e0f51a74d050164fb4949fa2a"
+    },
+    {
+      "path": "proof/Silver/PredicateBasicExpressions.lean",
+      "sha256": "2dc95c3e8e1c0d43d7ce8db9a12beeb8d8b6f4effdc7ece0954570d1de769c0c"
+    },
+    {
+      "path": "proof/Silver/PredicateBasicHelpers.lean",
+      "sha256": "d0a682130788441af9504efaca960710070e83d72c24fe4ed48edd846b36ab7e"
+    },
+    {
+      "path": "proof/Silver/PredicateBasicLibraries.lean",
+      "sha256": "150c5590f9a18a97f9633e36f662bd0cf2142b9419056dd608e4bf0030bbce5f"
+    },
+    {
+      "path": "proof/Silver/PredicateBasicSizing.lean",
+      "sha256": "a7562749f0d23fc5a7cbb57ebf4c36055237528109dd975f31473f1cc7985430"
+    },
+    {
+      "path": "proof/Silver/PredicateBodyHelpers.lean",
+      "sha256": "e03a037a0b2cb2c4081342558543747c5990c378d59a644afc011fe48dd07106"
+    },
+    {
+      "path": "proof/Silver/PredicateBodyModelSizing.lean",
+      "sha256": "bf1a0de3d7405a260b5edae13a1ba4f2621d877e50e3ff220263ffe664f1e1a1"
+    },
+    {
+      "path": "proof/Silver/PredicateEquations.lean",
+      "sha256": "4a9e184ba8f0a1019ffaac399e8bef3bea8428d5c4a85da0b670b7dbafb67c74"
+    },
+    {
+      "path": "proof/Silver/PredicateLoopHelpers.lean",
+      "sha256": "2d97581b5fda881ff819b97fd8407eb2f36f15b0a92ff52c2ae426af4ec70dbe"
+    },
+    {
+      "path": "proof/Silver/PredicateOuterModel.lean",
+      "sha256": "cabd835273839a0f3c61236711399e83ccf08a23e3fa6ebdc970c8584e509aa7"
+    },
+    {
+      "path": "proof/Silver/PredicateScalarBodySource.lean",
+      "sha256": "b496126f1af19a134f0547b40c9d2f946fe59d83b2bc9c76cf97db83d6693a83"
+    }
+  ]
+}

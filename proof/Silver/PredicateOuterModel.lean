@@ -4,6 +4,7 @@ public import Silver.PredicateOuterEquations
 public import Silver.PredicateAdapter
 public import Silver.ComposeModelEquations
 public import Silver.ComposeModelRanges
+public import Silver.PredicateInheritedReady
 
 @[expose] public section
 namespace Silver.Predicate.Outer
@@ -27,7 +28,7 @@ def modelCalls : Calls where
   output := hasOutput
 
 theorem model_helpers : HelperMeaning modelCalls where
-  equations := (Compose.Expressions.model_definitions Compose.Expressions.model_ranges).toHelperEquations
+  equations := Compose.SourceBridge.interpreted_equations Compose.Expressions.modelCalls InheritedReady.model_interpreted
   step _ _ _ _ _ _ _ := rfl
   trivia _ _ _ _ _ := rfl
 
@@ -37,7 +38,7 @@ theorem model_body : BodyMeaning modelCalls where
 theorem model_ranges : RangeContracts modelCalls where
   step text tv form token scan _ sv := by
     cases token with
-    | helper token => exact Compose.Expressions.model_step_valid text tv form.helper token scan.state sv
+    | helper token => exact OuterReadiness.step_valid text tv form.helper token scan.state sv
     | statements => exact Adapter.readStatements_valid text tv scan sv
 
 theorem model_suffix (text : Source) (form : Form) (index : Nat) (scan : ScanResult)
