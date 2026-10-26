@@ -31,8 +31,9 @@ theorem prefix_decoded_valid (form : Form) (events : List Event) (items : List S
     (body : SourceStatementsWellFormed form.hasArguments
       (Sequence.eventsContext (emptyShape, maxSourceLength) events).1 items)
     (checked : ∃ after, checkStatements (Sequence.eventsContext (emptyShape, maxSourceLength) events).1
-      (initialFacts form.hasArguments) (lowerStatements items) (Integer.elaborate [] integerDeclarations).ranges
-      (Integer.elaborate [] integerDeclarations).mutability = some after ∧ completed after = true)
+      (Integer.Analysis.ofDeclarations integerDeclarations)
+      (Flow.initial (Integer.Analysis.ofDeclarations integerDeclarations) (initialFacts form.hasArguments))
+      (lowerStatements items) = some after ∧ completed after.path = true)
     (scalars : Integer.checkDeclarations [] integerDeclarations = some integerConstants)
     (initializers : Integer.discharged initializerChecks = true) :
     ∃ program, decodePrefix form events items integerDeclarations integerConstants initializerChecks = some program ∧ program.Valid := by

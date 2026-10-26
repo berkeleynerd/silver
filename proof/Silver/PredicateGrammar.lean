@@ -1,6 +1,6 @@
 module
 
-public import Silver.PredicateHeader
+public import Silver.PredicateHeaderFlow
 
 @[expose] public section
 
@@ -14,7 +14,7 @@ structure FormReading (source : Source) (form : Form) (events : List Event)
     (items : List SourceStatement) : Prop where
   header : Sequence.TokensAt source form.helper form.prefix initialState events (prefixScan source form).state
   statements : BodyAt source (contextOf (prefixScan source form)) (bodyOf (prefixScan source form)) .endOnly items (rawBody source form)
-  completed : completed (rawBody source form).facts = true
+  completed : completed (rawBody source form).facts.path = true
   footer : ∃ footerEvents, Sequence.TokensAt source form.helper form.footer (bodyScan source form).state
     footerEvents (finalScan source form).state
   finished : Cursor.triviaPosition source (finalScan source form).state.position = source.length + 1
@@ -42,12 +42,12 @@ theorem form_reading_sound {source : Source} {form : Form}
   have rawPositive : (rawBody source form).position ≠ 0 := by
     intro zero
     simp [bodyScan, readStatements, zero, invalidScan, invalidState] at bodyPositive
-  have complete : completed (rawBody source form).facts = true := by
-    by_cases good : completed (rawBody source form).facts = true
+  have complete : completed (rawBody source form).facts.path = true := by
+    by_cases good : completed (rawBody source form).facts.path = true
     · exact good
     · simp only [bodyScan, readStatements] at bodyPositive
-      have bad : (!completed (rawBody source form).facts) = true := by
-        cases h : completed (rawBody source form).facts <;> simp_all
+      have bad : (!completed (rawBody source form).facts.path) = true := by
+        cases h : completed (rawBody source form).facts.path <;> simp_all
       simp only [rawBody] at bad
       rw [ite_eq_left (Or.inr bad)] at bodyPositive
       exact False.elim (bodyPositive rfl)
@@ -89,16 +89,10 @@ theorem form_reading_valid {source : Source} {form : Form} {events : List Event}
   obtain ⟨scalars, scalarTrace⟩ := Sequence.tokens_scalar_trace parsed.header
   obtain ⟨checks, initializerTrace⟩ := Sequence.tokens_initializer_trace parsed.header
   have scalarChecked := prefix_scalar_checked scalarTrace
-  have objects := prefix_scalar_objects scalarTrace
-  have scalarRanges : ScalarExpression.ranges (ScalarExpression.bodyEnvironment (prefixScan source form).state.scalarNames) =
-      (Integer.elaborate [] scalars).ranges := by
-    rw [← ScalarExpression.objectBindings_ranges, objects]
-  have scalarMutable : ScalarExpression.mutability (ScalarExpression.bodyEnvironment (prefixScan source form).state.scalarNames) =
-      (Integer.elaborate [] scalars).mutability := by
-    rw [← ScalarExpression.objectBindings_mutability, objects]
   obtain ⟨valid, stream⟩ := Sequence.tokens_valid domain.2.1 parsed.header Compose.initial_valid
   have ranges := scanTokens_ranges source form.helper form.prefix initialScan ⟨domain.1, domain.2.1⟩ (initial_ranges source)
-  have bodyValid := body_meaning valid.1 (ScalarExpression.bodyEnvironment_ready _) ranges.2.1 (initialFacts_bounded _) parsed.statements
+  have bodyValid := body_meaning valid.1 (prefix_baseReady scalarTrace) ranges.2.1
+    (bodyOf_compatible _) (initialFacts_bounded _) parsed.statements
   have context := Sequence.tokens_context parsed.header
   simp only [initialState, empty_names_shape] at context
   have arguments := prefix_arguments parsed.header
@@ -108,8 +102,8 @@ theorem form_reading_valid {source : Source} {form : Form} {events : List Event}
     (body_nonempty parsed.statements)
     (by rw [context, ← arguments]; exact bodyValid.1)
     (by
-      refine ⟨(rawBody source form).facts, ?_, parsed.completed⟩
-      rw [context, ← arguments, ← scalarRanges, ← scalarMutable]
+      refine ⟨(rawBody source form).facts.model, ?_, parsed.completed⟩
+      rw [context, ← arguments, ← prefix_analysis scalarTrace, ← bodyOf_model]
       exact bodyValid.2.1)
     scalarChecked.1 (prefix_initializer_checked domain.2.1 initializerTrace)
   exact ⟨scalars, checks, program, scalarTrace, initializerTrace, decoded, programValid⟩
