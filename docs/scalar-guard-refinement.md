@@ -320,3 +320,12 @@ readiness. The [result and integrated input hashes](evidence/scalar-guard-refine
 retain its exact scope. The build and audit took 11.687 and 12.442 seconds,
 reusing successful objects. Adapter and remaining body/helper integration are
 still pending; the parser/source qualification above remains unchanged.
+
+The operator-budget and body-tail annotation repairs subsequently passed all
+80 and 57 focused native checks in runs `20261026T042717-e1a3158cf544` and
+`20261026T042859-6bcf808e8681`. The repairs expose recursive model equations
+through ordinary Static ghost calls and explicit transition equalities. They
+preserve runtime statements, contracts and solver settings. Only those two
+proved bodies are integrated; their [exact identities](evidence/scalar-guard-refinement/native-loop-annotations-20261026.json)
+distinguish the checked scratch source from the integrated subset. Condition
+validity and the complete native audit remain pending.

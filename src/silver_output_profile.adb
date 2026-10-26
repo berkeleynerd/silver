@@ -448,29 +448,69 @@ is
             After_Name : constant Literal_Position := Name_After (Text, First);
             Number : constant Silver_Scalar_Literals.Literal_Result :=
               Silver_Scalar_Literals.Read_Integer (Text, First);
+            Current_Tail : constant Boolean := Work_Tail (Text, Position, Remaining)
+              with Ghost => Static;
          begin
+            pragma Assert
+              (Static => Work_Tail (Text, 1, Max_Concatenations) = Current_Tail);
+            pragma Assert
+              (Static => Current_Tail =
+                (if First = 0 then False
+                 elsif First > Text'Last then True
+                 elsif Text (First) = Character'Val (34) then
+                   Quoted.After /= 0 and then Work_Tail (Text, Quoted.After, Remaining)
+                 elsif After_Name /= 0 then
+                   (if Name_Is (Text, First, After_Name, "mod")
+                     or else Name_Is (Text, First, After_Name, "rem")
+                    then Remaining /= 0 and then Work_Tail (Text, After_Name, Remaining - 1)
+                    else Work_Tail (Text, After_Name, Remaining))
+                 elsif Number.After /= 0 then Work_Tail (Text, Number.After, Remaining)
+                 elsif Text (First) = '/' and then First < Text'Last and then Text (First + 1) = '=' then
+                   Work_Tail (Text, First + 2, Remaining)
+                 elsif Text (First) in '&' | '+' | '-' | '*' | '/' then
+                   Remaining /= 0 and then Work_Tail (Text, First + 1, Remaining - 1)
+                 else Work_Tail (Text, First + 1, Remaining)));
             if First = 0 then return False; end if;
             if First > Text'Last then return True; end if;
             if Text (First) = Character'Val (34) then
                if Quoted.After = 0 then return False; end if;
                Position := Quoted.After;
+               pragma Assert
+                 (Static => Current_Tail = Work_Tail (Text, Position, Remaining));
             elsif After_Name /= 0 then
                if Name_Is (Text, First, After_Name, "mod") or else Name_Is (Text, First, After_Name, "rem") then
                   if Remaining = 0 then return False; end if;
+                  pragma Assert
+                    (Static => Current_Tail = Work_Tail (Text, After_Name, Remaining - 1));
                   Remaining := Remaining - 1;
                end if;
                Position := After_Name;
+               pragma Assert
+                 (Static => Current_Tail = Work_Tail (Text, Position, Remaining));
             elsif Number.After /= 0 then
                Position := Number.After;
+               pragma Assert
+                 (Static => Current_Tail = Work_Tail (Text, Position, Remaining));
             elsif Text (First) = '/' and then First < Text'Last and then Text (First + 1) = '=' then
                Position := First + 2;
+               pragma Assert
+                 (Static => Current_Tail = Work_Tail (Text, Position, Remaining));
             elsif Text (First) in '&' | '+' | '-' | '*' | '/' then
                if Remaining = 0 then return False; end if;
                Position := First + 1;
                Remaining := Remaining - 1;
+               pragma Assert
+                 (Static => Current_Tail = Work_Tail (Text, Position, Remaining));
             else
                Position := First + 1;
+               pragma Assert
+                 (Static => Current_Tail = Work_Tail (Text, Position, Remaining));
             end if;
+            pragma Assert
+              (Static => Current_Tail = Work_Tail (Text, Position, Remaining));
+            pragma Assert
+              (Static => Work_Tail (Text, 1, Max_Concatenations)
+                = Work_Tail (Text, Position, Remaining));
          end;
       end loop;
    end Within_Work_Budget;
@@ -2184,12 +2224,45 @@ is
          pragma Loop_Invariant (Static => Body_Tail_Model (Text, Context, Scan, Stop)
            = Body_Tail_Model (Text, Context, Result, Stop));
          pragma Loop_Variant (Increases => Result.Position);
-         Before := Result.Position;
-         Result := Statement_Body (Text, Context, Result);
-         if Result.Position <= Before then return Invalid_Body (Result); end if;
+         declare
+            --  Keep the model step in an ordinary ghost declaration: the
+            --  pinned translator rejects this local inside a declare-expression.
+            Next : constant Body_Scan (Scan.Count) :=
+              Statement_Body (Text, Context, Result) with Ghost => Static;
+            --  Numeric-variant recursive model bodies are available on ordinary
+            --  ghost calls, but not on calls occurring inside assertions.
+            Tail : constant Body_Scan (Scan.Count) :=
+              Body_Tail_Model (Text, Context, Result, Stop) with Ghost => Static;
+         begin
+            --  The same Statement_Body application supplies the executable step.
+            pragma Assert
+              (Static => Tail = Body_Tail_Model (Text, Context, Result, Stop)
+                and then Tail =
+                (if Next.Position <= Result.Position then Invalid_Body_Model (Next)
+                 else Body_Tail_Model (Text, Context, Next, Stop)));
+            Before := Result.Position;
+            Result := Statement_Body (Text, Context, Result);
+            pragma Assert
+              (Static => Body_Tail_Model (Text, Context, Scan, Stop) =
+                (if Result.Position <= Before then Invalid_Body_Model (Result)
+                 else Body_Tail_Model (Text, Context, Result, Stop)));
+            if Result.Position <= Before then return Invalid_Body (Result); end if;
+         end;
       end loop;
-      if Result.Position = 0 then return Invalid_Body (Result); end if;
-      return Result;
+      declare
+         Tail : constant Body_Scan (Scan.Count) :=
+           Body_Tail_Model (Text, Context, Result, Stop) with Ghost => Static;
+      begin
+         if Result.Position = 0 then
+            pragma Assert
+              (Static => Tail = Body_Tail_Model (Text, Context, Result, Stop)
+                and then Tail = Invalid_Body_Model (Result));
+            return Invalid_Body (Result);
+         end if;
+         pragma Assert (Static => Tail = Body_Tail_Model (Text, Context, Result, Stop)
+           and then Tail = Result);
+         return Result;
+      end;
    end Body_Tail;
 
    function Read_Body
