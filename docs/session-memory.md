@@ -1,5 +1,31 @@
 # Session memory
 
+## 2026-10-26 — First development-velocity package authorized
+
+After the feature-review response merged in #257, the owner requested an effort
+estimate for #246 and answered **“Please do.”** to the recommendation to implement
+its useful first package. [Milestone 9](https://github.com/berkeleynerd/silver/milestone/9),
+**Source-proof iteration cost**, contains this one increment under
+[#246](https://github.com/berkeleynerd/silver/issues/246): finish concise checkpoint
+and invalidation guidance, profile the two current heavy modules using existing
+scratch tools, and separate expensive composition checks over reviewed tokens
+from their authoritative-source adapters. Complete applicable assurance,
+independent review and a matched unprofiled comparison before delivery. Routine
+tracking, commits and publication through reviewed pull requests are included.
+
+This selects A/B, bounded A2 and C1 from the [retained assessment](development-velocity.md).
+It authorizes the dependency refactor despite the earlier closed performance
+investigations, while preserving exact-byte reconstruction, authoritative
+statements and complete native/Lean assurance. Preserve existing caches and
+record actual resources, CPU/memory observations and measurement limitations.
+Historical timing causation is not a required research project.
+
+Certificate chunking, predicate-proof optimization and persistent runner metrics
+(including I9) remain conditional follow-ups, not selected work. Use ordinary
+records and existing tools; the owner's instruction against overengineering
+continues to apply. New language work, #119/#201/#202/#212, paused packets/R93
+and #88–#94 remain deferred. No Oracle amendment or harness goal is implied.
+
 ## 2026-10-26 — Feature-review response and narrow regression reuse
 
 The owner supplied the complete external review of `22838bc809`, reporting no

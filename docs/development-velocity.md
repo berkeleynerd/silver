@@ -2,12 +2,15 @@
 
 Assessment date: 2026-10-26; reviewed target `22838bc80995ee66e9cf15fe57f14aeb161e2823`.
 
-[#246](https://github.com/berkeleynerd/silver/issues/246) remains an open Backlog
-item outside closed milestone 7. The owner requested this closeout for later
-scheduling; the next unit of work is responding to the in-progress new-language
-feature review. Return to velocity work after those responses are merged and
-the owner selects its scope. This record retains recommendations, not selected
-work packages, implementation authorization or adopted policy amendments.
+The initial assessment was retained for later scheduling. After the feature-review
+response merged in #257, the owner [authorized the first package](session-memory.md#2026-10-26--first-development-velocity-package-authorized)
+under [#246](https://github.com/berkeleynerd/silver/issues/246) and
+[milestone 9](https://github.com/berkeleynerd/silver/milestone/9): A/B, bounded A2
+and C1 below, as one increment. Complete applicable assurance and independent
+review, and measure a matched unprofiled before/after workload. The detailed
+assessment remains historical evidence; its performance forecasts are not
+measurements. C2, predicate optimization and persistent D/I9 metrics remain
+conditional follow-ups outside the selected scope.
 
 ## Assessment and evidence
 
