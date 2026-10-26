@@ -1,0 +1,267 @@
+{
+  "schema": 1,
+  "captured_at": "2026-10-26T12:37:41.111835+00:00",
+  "question": "Are we running into any unusually large proof-time growth since our start 14.5 hours ago?",
+  "conclusion": "Retained same-host source-module rebuild observations show substantial growth: OutputBodyCertificate 2.31x and PredicateSourceCandidate 5.60x. Whole guard Lean validation is still pending at this capture. These observations do not establish a scaling law or isolate causes.",
+  "review_round": {
+    "task": "Bounded retained-evidence extraction; no proofs, tests, optimization experiments, governed-input changes or external messages.",
+    "selected_model": "GPT-6.1 Sol",
+    "selected_effort": "Extra High",
+    "runtime_model_and_effort_independently_confirmed": false,
+    "token_cost_evidence": null
+  },
+  "lean": {
+    "host": "linux-x86_64",
+    "division_rebuild_run_id": "20261025T224628-2bc4dc5ed3d3",
+    "guard_active_run_id": "20261026T094105-ac4e120bd9f9",
+    "both_selected_configuration": {
+      "workers": 4,
+      "threads": 2,
+      "clean": false,
+      "replay": false,
+      "memory_mb": null
+    },
+    "division_overall_build": {
+      "elapsed_seconds": 7377.87,
+      "exit_code": 1,
+      "failure_module": "Silver.ScalarsNativeSourceChecks",
+      "module_timing_scope": "The three compared modules completed successfully despite the later overall build failure."
+    },
+    "guard_complete_validation_outcome": "pending at capture; no full build/audit success claimed",
+    "module_timing_precision": "Lake reports integer module seconds, not exact subsecond durations.",
+    "modules": [
+      {
+        "module": "Silver.OutputBodyCertificate",
+        "division": {
+          "elapsed_seconds_rounded_as_reported_by_lake": 3910,
+          "source_path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261025T224628-2bc4dc5ed3d3/reports/0/lean-proof.log",
+          "source_line": 215,
+          "text": "\u2714 [486/500] Built Silver.OutputBodyCertificate (3910s)",
+          "module_outcome": "success"
+        },
+        "guard": {
+          "elapsed_seconds_rounded_as_reported_by_lake": 9037,
+          "source_path": "tmp/guard-proof-timing-20261026/guard-lean-build.observed.log",
+          "source_line": 7,
+          "text": "\u2714 [513/530] Built Silver.OutputBodyCertificate (9037s)",
+          "module_outcome": "success"
+        },
+        "guard_division_time_ratio": 2.3112531969309464,
+        "guard_status": "success"
+      },
+      {
+        "module": "Silver.PredicateSourceCandidate",
+        "division": {
+          "elapsed_seconds_rounded_as_reported_by_lake": 908,
+          "source_path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261025T224628-2bc4dc5ed3d3/reports/0/lean-proof.log",
+          "source_line": 191,
+          "text": "\u2714 [455/478] Built Silver.PredicateSourceCandidate (908s)",
+          "module_outcome": "success"
+        },
+        "guard": {
+          "elapsed_seconds_rounded_as_reported_by_lake": 5082,
+          "source_path": "tmp/guard-proof-timing-20261026/guard-lean-build.observed.log",
+          "source_line": 6,
+          "text": "\u2714 [512/530] Built Silver.PredicateSourceCandidate (5082s)",
+          "module_outcome": "success"
+        },
+        "guard_division_time_ratio": 5.596916299559472,
+        "guard_status": "success"
+      },
+      {
+        "module": "Silver.ComposeSourceChecks",
+        "division": {
+          "elapsed_seconds_rounded_as_reported_by_lake": 3454,
+          "source_path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261025T224628-2bc4dc5ed3d3/reports/0/lean-proof.log",
+          "source_line": 222,
+          "text": "\u2714 [493/500] Built Silver.ComposeSourceChecks (3454s)",
+          "module_outcome": "success"
+        },
+        "guard": null,
+        "guard_division_time_ratio": null,
+        "guard_status": "not_completed_in_captured_log"
+      }
+    ],
+    "division_cached_complete_distinct": {
+      "run_id": "20261026T005331-e0e3d7a0bf00",
+      "build_elapsed_seconds": 39.714,
+      "audit_elapsed_seconds": 8.867,
+      "outcome": "success",
+      "use_as_rebuild_baseline": false
+    }
+  },
+  "native": {
+    "division_rebuild": {
+      "run_id": "20261026T002857-50fd2281b177",
+      "selected_workers": 4,
+      "native_tool_started_at": "2026-10-26T00:29:04.109296+00:00",
+      "native_tool_finished_at": "2026-10-26T02:05:20.115978+00:00",
+      "native_tool_elapsed_seconds": 5776.006692114,
+      "native_tool_returncode": 0,
+      "managed_run_total_seconds": 5801.391525588,
+      "managed_run_outcome": "success",
+      "source_path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261026T002857-50fd2281b177/proof-evidence/gnatprove.out",
+      "source_file_sha256": "8b5a85dce063c55c9d55e1b7cec0a7ed491470d6d501e0a2721f1e649f6fec60",
+      "total_checks_source_line": 19,
+      "total_checks": 15224
+    },
+    "guard_rebuild": {
+      "run_id": "20261026T084316-ffe7696c9a8a",
+      "selected_workers": 6,
+      "native_tool_started_at": "2026-10-26T08:43:23.569064+00:00",
+      "native_tool_finished_at": "2026-10-26T10:44:46.512130+00:00",
+      "native_tool_elapsed_seconds": 7282.943092465,
+      "native_tool_returncode": 0,
+      "managed_run_total_seconds": 7292.199032778,
+      "managed_run_outcome": "failure",
+      "source_path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261026T084316-ffe7696c9a8a/reports/0/gnatprove.out",
+      "source_file_sha256": "4726eab77a3dad733b423836094fea52cc1122fee4c4087e04e9a1b238b4c916",
+      "total_checks_source_line": 19,
+      "total_checks": 16357
+    },
+    "guard_cached_complete_distinct": {
+      "run_id": "20261026T121322-fc9f4056f886",
+      "selected_workers": 6,
+      "native_tool_started_at": "2026-10-26T12:13:30.947365+00:00",
+      "native_tool_finished_at": "2026-10-26T12:14:25.563146+00:00",
+      "native_tool_elapsed_seconds": 54.615759118,
+      "native_tool_returncode": 0,
+      "managed_run_total_seconds": 80.191880263,
+      "managed_run_outcome": "success",
+      "source_path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261026T121322-fc9f4056f886/proof-evidence/gnatprove.out",
+      "source_file_sha256": "4726eab77a3dad733b423836094fea52cc1122fee4c4087e04e9a1b238b4c916",
+      "total_checks_source_line": 19,
+      "total_checks": 16357
+    },
+    "guard_division_native_tool_time_ratio": 1.2608958889207011,
+    "guard_division_total_checks_ratio": 1.074421965317919,
+    "scope_note": "Guard rebuild native-tool returned zero with all 16,357 checks proved; its managed evidence audit failed on array-initialization warning records. The later cached complete invocation passed. Cached 80.192s total is not a fresh proof timing."
+  },
+  "source_representations": [
+    {
+      "path": "src/silver_output_profile.adb",
+      "source_line_start": 1,
+      "division": {
+        "git_revision": "a5305f1b04",
+        "git_source": "a5305f1b04:src/silver_output_profile.adb",
+        "bytes": 98810,
+        "lines": 1821,
+        "sha256": "6aa14d74436526724a0060a5fc1990b83fafb29e2608dab5173f4cee473a8a2d",
+        "matches_run_started_input_sha256": true
+      },
+      "guard": {
+        "git_revision": "d4d564cf35",
+        "git_source": "d4d564cf35:src/silver_output_profile.adb",
+        "bytes": 179103,
+        "lines": 3138,
+        "sha256": "ec2f0a72dcbdcf1ff6dadc9fb8ec2975653a8c0c11db2bf3d53b7a5b8dec3a3d",
+        "matches_run_started_input_sha256": true,
+        "current_timed_workspace_path": "tmp/review-b79-b1-lean/src/silver_output_profile.adb",
+        "matches_current_timed_workspace_file_sha256": true
+      },
+      "guard_division_bytes_ratio": 1.812599939277401
+    },
+    {
+      "path": "proof/Silver/OutputBodyCertificate.lean",
+      "source_line_start": 1,
+      "division": {
+        "git_revision": "a5305f1b04",
+        "git_source": "a5305f1b04:proof/Silver/OutputBodyCertificate.lean",
+        "bytes": 7757780,
+        "lines": 27364,
+        "sha256": "41d46115faa4d1c64af85b213740f5c166bb9c7c28512f2f14a74a6e36a55305",
+        "matches_run_started_input_sha256": null
+      },
+      "guard": {
+        "git_revision": "d4d564cf35",
+        "git_source": "d4d564cf35:proof/Silver/OutputBodyCertificate.lean",
+        "bytes": 14862127,
+        "lines": 47123,
+        "sha256": "be7988e967dde675420af25a62124d29133ef8b128fa90c5649199dce17e223a",
+        "matches_run_started_input_sha256": null,
+        "current_timed_workspace_path": "tmp/review-b79-b1-lean/.silver/linux-x86_64/proof/Silver/OutputBodyCertificate.lean",
+        "matches_current_timed_workspace_file_sha256": true
+      },
+      "guard_division_bytes_ratio": 1.9157706199453968,
+      "representation_note": "Checked-in delivery representations. This generated module is absent from the run-start input inventory; no historical generated-file inventory capture is claimed. No regeneration performed."
+    },
+    {
+      "path": "proof/Silver/PredicateSourceCandidate.lean",
+      "source_line_start": 1,
+      "division": {
+        "git_revision": "a5305f1b04",
+        "git_source": "a5305f1b04:proof/Silver/PredicateSourceCandidate.lean",
+        "bytes": 34488,
+        "lines": 605,
+        "sha256": "3538df13e5308d858877acf8737da4c58218122e8895e0ce53cde43c9d0fdac4",
+        "matches_run_started_input_sha256": true
+      },
+      "guard": {
+        "git_revision": "d4d564cf35",
+        "git_source": "d4d564cf35:proof/Silver/PredicateSourceCandidate.lean",
+        "bytes": 39036,
+        "lines": 690,
+        "sha256": "ab16a4e477e3fc8c21a2d4439cb7f0d902969ac3fa89a8ec053b73d6c47e4edf",
+        "matches_run_started_input_sha256": true,
+        "current_timed_workspace_path": "tmp/review-b79-b1-lean/proof/Silver/PredicateSourceCandidate.lean",
+        "matches_current_timed_workspace_file_sha256": true
+      },
+      "guard_division_bytes_ratio": 1.1318719554627696
+    },
+    {
+      "path": "proof/Silver/ComposeSourceChecks.lean",
+      "source_line_start": 1,
+      "division": {
+        "git_revision": "a5305f1b04",
+        "git_source": "a5305f1b04:proof/Silver/ComposeSourceChecks.lean",
+        "bytes": 68264,
+        "lines": 629,
+        "sha256": "e2859c2ab9ba55c22578b90a090f56a0db6f5d3ebe92bdfa462f7e05910d610f",
+        "matches_run_started_input_sha256": true
+      },
+      "guard": {
+        "git_revision": "d4d564cf35",
+        "git_source": "d4d564cf35:proof/Silver/ComposeSourceChecks.lean",
+        "bytes": 71074,
+        "lines": 649,
+        "sha256": "b733f741eb39c0db69005ee11319639c81435d943f935981e9561126ce07c274",
+        "matches_run_started_input_sha256": true,
+        "current_timed_workspace_path": "tmp/review-b79-b1-lean/proof/Silver/ComposeSourceChecks.lean",
+        "matches_current_timed_workspace_file_sha256": true
+      },
+      "guard_division_bytes_ratio": 1.0411637173327084
+    }
+  ],
+  "qualifications": [
+    "Not a controlled isolated benchmark: guard Lean started 09:41:26 UTC while the six-worker native tool was active until 10:44:46 UTC. Division Lean OutputBodyCertificate completed before the division native run started at 00:29:04 UTC.",
+    "Changed source, dependency graph, scheduling, caches and concurrent workloads prevent a pure algorithmic-regression attribution. Equal Lean worker/thread settings do not establish equal host contention.",
+    "Source/certificate bytes are checked-in delivery representations from the named revisions; source and handwritten-module hashes match the respective timed run-start inventories. The generated baseline certificate has no captured run-start inventory entry.",
+    "Only two successfully completed guard module times are presently compared. No complete guard Lean success, clean rebuild timing, scaling-law, exponential-growth or model-quality claim is made.",
+    "The larger certificate and more expensive source reconstruction are plausible contributors, not causally isolated measurements.",
+    "The earlier certificate representation investigation remains closed; this packet authorizes no optimization work."
+  ],
+  "retained_artifacts": [
+    {
+      "retained_file": "division-lean-build.log",
+      "original_path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261025T224628-2bc4dc5ed3d3/reports/0/lean-proof.log",
+      "sha256": "f31d4424adf0ebb0e124b61c8000ec2881102980c7598f651ded6e0fa96f10d3",
+      "bytes": 15220,
+      "lines": 227,
+      "captured_at": "2026-10-26T12:37:41.111835+00:00"
+    },
+    {
+      "retained_file": "guard-lean-build.observed.log",
+      "original_path": "tmp/review-b79-b1-lean/.silver/linux-x86_64/lean-proof.log",
+      "sha256": "3f94a35ebeadbe237bfa1e76d096aa01be2fa0d78728d4501d3039594c997238",
+      "bytes": 827,
+      "lines": 13,
+      "captured_at": "2026-10-26T12:37:41.111835+00:00"
+    }
+  ],
+  "external_review_focus": [
+    "Verify line-level timing extraction and exact run/configuration identities.",
+    "Check module success versus overall failed/pending validation scope.",
+    "Check source hash correspondence and generated-baseline representation qualification.",
+    "Check cache/concurrency qualifications and absence of scaling-law or model-quality inference."
+  ]
+}

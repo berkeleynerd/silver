@@ -1,0 +1,13 @@
+Lean phase build started at 2026-10-26T09:41:26.585479+00:00
++ /home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/.tools/linux-x86_64/lean/bin/lake --rehash --reconfigure -K silverThreads=2 build Silver.Audit
+✔ [318/346] Built Silver.OutputProfileBodySource (3.0s)
+✔ [388/454] Built Silver.AuthoritativeSource (2.5s)
+✔ [511/530] Built Silver.PredicateScalarBodyCandidate (448s)
+✔ [512/530] Built Silver.PredicateSourceCandidate (5082s)
+✔ [513/530] Built Silver.OutputBodyCertificate (9037s)
+✔ [514/530] Built Silver.SourceCertificates (2.4s)
+✔ [515/530] Built Silver.Source (2.3s)
+✔ [516/530] Built Silver.OutputSourceBridge (194s)
+✔ [517/530] Built Silver.NamedSourceBridge (32s)
+✔ [518/530] Built Silver.ArgumentsSourceBridge (92s)
+✔ [519/530] Built Silver.LexicalSourceBridge (104s)

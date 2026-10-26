@@ -1,0 +1,827 @@
+{
+  "schema": 1,
+  "captured_at": "2026-10-26T12:37:41.111835+00:00",
+  "scope": "Selected event fields and hashes; full source/tool inventories deliberately omitted.",
+  "runs": {
+    "division_lean_rebuild": {
+      "run_id": "20261025T224628-2bc4dc5ed3d3",
+      "source_path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261025T224628-2bc4dc5ed3d3/events.jsonl",
+      "source_file_sha256_at_capture": "6ccdf75e58c12a6596b947b75d1c4ece183d79e87b6d1a0d44ab7550de9e5e5d",
+      "events": [
+        {
+          "source_line": 1,
+          "source_line_sha256": "a453a3cea49dfed97b4a9e20673ffe6d213e834de2930103d8d681acf22781b8",
+          "fields": {
+            "event": "started",
+            "utc": "2026-10-25T22:46:30.146206+00:00",
+            "monotonic_ns": 208145909463100,
+            "command": [
+              "/usr/bin/python3",
+              "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/scripts/check_lean.py",
+              "--workers",
+              "4",
+              "--threads",
+              "2",
+              "--task",
+              "#232"
+            ],
+            "kind": "lean",
+            "host": "linux-x86_64",
+            "machine": "codex-silver",
+            "available_cpus": 12,
+            "requested_workers": 4,
+            "workers": 4,
+            "scope": "complete",
+            "task": "#232",
+            "run_id": "20261025T224628-2bc4dc5ed3d3",
+            "configuration": {
+              "clean": false,
+              "memory_mb": null,
+              "provenance": false,
+              "replay": false,
+              "threads": 2,
+              "workers": 4
+            },
+            "selected_input_sha256": {
+              "proof/Silver/ComposeSourceChecks.lean": "e2859c2ab9ba55c22578b90a090f56a0db6f5d3ebe92bdfa462f7e05910d610f",
+              "proof/Silver/PredicateSourceCandidate.lean": "3538df13e5308d858877acf8737da4c58218122e8895e0ce53cde43c9d0fdac4",
+              "src/silver_output_profile.adb": "6aa14d74436526724a0060a5fc1990b83fafb29e2608dab5173f4cee473a8a2d"
+            }
+          }
+        },
+        {
+          "source_line": 2,
+          "source_line_sha256": "d7a5f0f28b6fa16d7f0253660b357c29d27bdd3e42bfb993e8f0d331128cd3cc",
+          "fields": {
+            "event": "preflight",
+            "utc": "2026-10-25T22:46:30.358838+00:00",
+            "monotonic_ns": 208146122093754,
+            "outcome": "success",
+            "run_id": "20261025T224628-2bc4dc5ed3d3"
+          }
+        },
+        {
+          "source_line": 3,
+          "source_line_sha256": "fc276ee273a56db4e963c7e8244e7db74c841d6cdf4c496309f53739e0d44845",
+          "fields": {
+            "event": "phase_started",
+            "utc": "2026-10-25T22:46:36.774413+00:00",
+            "started_at": "2026-10-25T22:46:36.774218+00:00",
+            "monotonic_ns": 208152537643963,
+            "phase": "build",
+            "command": [
+              "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/.tools/linux-x86_64/lean/bin/lake",
+              "--rehash",
+              "--reconfigure",
+              "-K",
+              "silverThreads=2",
+              "build",
+              "Silver.Audit"
+            ],
+            "run_id": "20261025T224628-2bc4dc5ed3d3"
+          }
+        },
+        {
+          "source_line": 4,
+          "source_line_sha256": "f15429542cd072c119e9fc3d5277072be89ac9aa1682aa19e0cbadb4d3ab747d",
+          "fields": {
+            "event": "phase_finished",
+            "utc": "2026-10-26T00:49:34.644994+00:00",
+            "started_at": "2026-10-25T22:46:36.774218+00:00",
+            "finished_at": "2026-10-26T00:49:34.644309+00:00",
+            "monotonic_ns": 215530408226775,
+            "phase": "build",
+            "elapsed_seconds": 7377.87,
+            "exit_code": 1,
+            "run_id": "20261025T224628-2bc4dc5ed3d3"
+          }
+        },
+        {
+          "source_line": 5,
+          "source_line_sha256": "413314368539aeca8a10929aa3461c14f5cd71213a8dbf092ee31df78a06f6c8",
+          "fields": {
+            "event": "finished",
+            "utc": "2026-10-26T00:49:34.659120+00:00",
+            "monotonic_ns": 215530422373543,
+            "duration_seconds": 7384.511966359,
+            "outcome": "failure",
+            "returncode": 1,
+            "failure_keys": [
+              "lean:build:Silver/ScalarsNativeSourceChecks.lean:49:2:failed to synthesize",
+              "lean:build:Silver/ScalarsNativeSourceChecks.lean:80:40:failed to synthesize"
+            ],
+            "run_id": "20261025T224628-2bc4dc5ed3d3"
+          }
+        }
+      ]
+    },
+    "division_lean_cached_complete": {
+      "run_id": "20261026T005331-e0e3d7a0bf00",
+      "source_path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261026T005331-e0e3d7a0bf00/events.jsonl",
+      "source_file_sha256_at_capture": "c34f16fa39193b1e4ee2d35ba3b3576794bfc838cf91684a0eef4524985e1395",
+      "events": [
+        {
+          "source_line": 1,
+          "source_line_sha256": "98fa9419818037e437760c6e77fa0262ec8fbac5a23883337735176b780e69c1",
+          "fields": {
+            "event": "started",
+            "utc": "2026-10-26T00:53:32.293303+00:00",
+            "monotonic_ns": 215768056565484,
+            "command": [
+              "/usr/bin/python3",
+              "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/scripts/check_lean.py",
+              "--workers",
+              "4",
+              "--threads",
+              "2",
+              "--task",
+              "#232"
+            ],
+            "kind": "lean",
+            "host": "linux-x86_64",
+            "machine": "codex-silver",
+            "available_cpus": 12,
+            "requested_workers": 4,
+            "workers": 4,
+            "scope": "complete",
+            "task": "#232",
+            "run_id": "20261026T005331-e0e3d7a0bf00",
+            "configuration": {
+              "clean": false,
+              "memory_mb": null,
+              "provenance": false,
+              "replay": false,
+              "threads": 2,
+              "workers": 4
+            },
+            "selected_input_sha256": {
+              "proof/Silver/ComposeSourceChecks.lean": "e2859c2ab9ba55c22578b90a090f56a0db6f5d3ebe92bdfa462f7e05910d610f",
+              "proof/Silver/PredicateSourceCandidate.lean": "3538df13e5308d858877acf8737da4c58218122e8895e0ce53cde43c9d0fdac4",
+              "src/silver_output_profile.adb": "6aa14d74436526724a0060a5fc1990b83fafb29e2608dab5173f4cee473a8a2d"
+            }
+          }
+        },
+        {
+          "source_line": 2,
+          "source_line_sha256": "02c3be924e8a7e21221d31ba896645d64dd92060e1bb82287110706fb56fc6f6",
+          "fields": {
+            "event": "preflight",
+            "utc": "2026-10-26T00:53:32.558943+00:00",
+            "monotonic_ns": 215768322190046,
+            "outcome": "success",
+            "run_id": "20261026T005331-e0e3d7a0bf00"
+          }
+        },
+        {
+          "source_line": 3,
+          "source_line_sha256": "5439b10c79e1c89ff5a504f1160a58cb05e2e8637424c1c3cdcf6a51d3852398",
+          "fields": {
+            "event": "phase_started",
+            "utc": "2026-10-26T00:53:39.085514+00:00",
+            "started_at": "2026-10-26T00:53:39.084877+00:00",
+            "monotonic_ns": 215774848754591,
+            "phase": "build",
+            "command": [
+              "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/.tools/linux-x86_64/lean/bin/lake",
+              "--rehash",
+              "--reconfigure",
+              "-K",
+              "silverThreads=2",
+              "build",
+              "Silver.Audit"
+            ],
+            "run_id": "20261026T005331-e0e3d7a0bf00"
+          }
+        },
+        {
+          "source_line": 4,
+          "source_line_sha256": "a9651553298c07b038e4231a65826ab327fc34768b5eec691628f1fbd6b78548",
+          "fields": {
+            "event": "phase_finished",
+            "utc": "2026-10-26T00:54:18.799353+00:00",
+            "started_at": "2026-10-26T00:53:39.084877+00:00",
+            "finished_at": "2026-10-26T00:54:18.798871+00:00",
+            "monotonic_ns": 215814562594838,
+            "phase": "build",
+            "elapsed_seconds": 39.714,
+            "exit_code": 0,
+            "run_id": "20261026T005331-e0e3d7a0bf00"
+          }
+        },
+        {
+          "source_line": 5,
+          "source_line_sha256": "ea5849f5cddbcf56af5b3b02c8fc14ba7fa78de80771be6662089b4fdc63d790",
+          "fields": {
+            "event": "phase_started",
+            "utc": "2026-10-26T00:54:19.904256+00:00",
+            "started_at": "2026-10-26T00:54:19.903909+00:00",
+            "monotonic_ns": 215815667492628,
+            "phase": "audit",
+            "command": [
+              "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/.tools/linux-x86_64/lean/bin/lake",
+              "-K",
+              "silverThreads=2",
+              "env",
+              "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/.tools/linux-x86_64/lean/bin/lean",
+              "-DwarningAsError=true",
+              "-j2",
+              "Silver/Audit.lean"
+            ],
+            "run_id": "20261026T005331-e0e3d7a0bf00"
+          }
+        },
+        {
+          "source_line": 6,
+          "source_line_sha256": "f95fea58388eee498b84d847b25250eae38da781e2b5a8ef120c25353b4dbc37",
+          "fields": {
+            "event": "phase_finished",
+            "utc": "2026-10-26T00:54:28.771410+00:00",
+            "started_at": "2026-10-26T00:54:19.903909+00:00",
+            "finished_at": "2026-10-26T00:54:28.770755+00:00",
+            "monotonic_ns": 215824534652663,
+            "phase": "audit",
+            "elapsed_seconds": 8.867,
+            "exit_code": 0,
+            "run_id": "20261026T005331-e0e3d7a0bf00"
+          }
+        },
+        {
+          "source_line": 7,
+          "source_line_sha256": "9a71218e254caf7f95ce3a835275924317fa9ba81b5b4367755b116c974f228d",
+          "fields": {
+            "event": "finished",
+            "utc": "2026-10-26T00:54:30.244127+00:00",
+            "monotonic_ns": 215826007381267,
+            "duration_seconds": 57.948082822,
+            "outcome": "success",
+            "returncode": null,
+            "failure_keys": [],
+            "run_id": "20261026T005331-e0e3d7a0bf00"
+          }
+        }
+      ]
+    },
+    "guard_lean_active": {
+      "run_id": "20261026T094105-ac4e120bd9f9",
+      "source_path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261026T094105-ac4e120bd9f9/events.jsonl",
+      "source_file_sha256_at_capture": "770bae3d2c0aa340d786a3f3b680eae3244a191c286ef43902e68072d893a5ff",
+      "events": [
+        {
+          "source_line": 1,
+          "source_line_sha256": "2ff4165d4be9ceb32f31a27f84de732e63024bb8d316cbce73a2bbe790987093",
+          "fields": {
+            "event": "started",
+            "utc": "2026-10-26T09:41:09.471102+00:00",
+            "monotonic_ns": 247425234381736,
+            "command": [
+              "/usr/bin/python3",
+              "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/scripts/check_lean.py",
+              "--task",
+              "#239",
+              "--workers",
+              "4",
+              "--threads",
+              "2"
+            ],
+            "kind": "lean",
+            "host": "linux-x86_64",
+            "machine": "codex-silver",
+            "available_cpus": 12,
+            "requested_workers": 4,
+            "workers": 4,
+            "scope": "complete",
+            "task": "#239",
+            "run_id": "20261026T094105-ac4e120bd9f9",
+            "configuration": {
+              "clean": false,
+              "memory_mb": null,
+              "provenance": false,
+              "replay": false,
+              "threads": 2,
+              "workers": 4
+            },
+            "selected_input_sha256": {
+              "proof/Silver/ComposeSourceChecks.lean": "b733f741eb39c0db69005ee11319639c81435d943f935981e9561126ce07c274",
+              "proof/Silver/PredicateSourceCandidate.lean": "ab16a4e477e3fc8c21a2d4439cb7f0d902969ac3fa89a8ec053b73d6c47e4edf",
+              "src/silver_output_profile.adb": "ec2f0a72dcbdcf1ff6dadc9fb8ec2975653a8c0c11db2bf3d53b7a5b8dec3a3d"
+            }
+          }
+        },
+        {
+          "source_line": 2,
+          "source_line_sha256": "a9e1031787ff2792c61e56660832bc71c7f4145bd81e49d03ceaf559a5f71116",
+          "fields": {
+            "event": "preflight",
+            "utc": "2026-10-26T09:41:10.081311+00:00",
+            "monotonic_ns": 247425844600646,
+            "outcome": "success",
+            "run_id": "20261026T094105-ac4e120bd9f9"
+          }
+        },
+        {
+          "source_line": 3,
+          "source_line_sha256": "d054d54a2d4942957281d82682fda5b0417d5cfc0d1408b3f3f26bfe430a1cb3",
+          "fields": {
+            "event": "phase_started",
+            "utc": "2026-10-26T09:41:26.585917+00:00",
+            "started_at": "2026-10-26T09:41:26.585479+00:00",
+            "monotonic_ns": 247442349148226,
+            "phase": "build",
+            "command": [
+              "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/.tools/linux-x86_64/lean/bin/lake",
+              "--rehash",
+              "--reconfigure",
+              "-K",
+              "silverThreads=2",
+              "build",
+              "Silver.Audit"
+            ],
+            "run_id": "20261026T094105-ac4e120bd9f9"
+          }
+        }
+      ]
+    },
+    "division_native": {
+      "run_id": "20261026T002857-50fd2281b177",
+      "source_path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261026T002857-50fd2281b177/events.jsonl",
+      "source_file_sha256_at_capture": "f9c6933d064f32909bd2aa02142c03665fac0256d2c99da762021242a917b10b",
+      "events": [
+        {
+          "source_line": 1,
+          "source_line_sha256": "50ece3390961a93195d34fd3d911ae082910d4f15857c26bca885a0587c25194",
+          "fields": {
+            "event": "started",
+            "utc": "2026-10-26T00:28:58.506767+00:00",
+            "monotonic_ns": 214294270031360,
+            "command": [
+              "gnatprove"
+            ],
+            "kind": "prove",
+            "host": "linux-x86_64",
+            "machine": "codex-silver",
+            "available_cpus": 12,
+            "requested_workers": 4,
+            "workers": 4,
+            "scope": [
+              "compiler"
+            ],
+            "task": "#231",
+            "run_id": "20261026T002857-50fd2281b177"
+          }
+        },
+        {
+          "source_line": 2,
+          "source_line_sha256": "6e7d45e14f15ac023c98bc92d94c0271d7db3ddb8a00fb6fde2656a074456d0c",
+          "fields": {
+            "event": "phase-start",
+            "utc": "2026-10-26T00:28:58.550082+00:00",
+            "monotonic_ns": 214294313348947,
+            "phase": "preflight",
+            "run_id": "20261026T002857-50fd2281b177"
+          }
+        },
+        {
+          "source_line": 3,
+          "source_line_sha256": "14efe56546ba8a7e3cf2a03c7cee8bc31928651c13f144ba86dbb5a8adb0b0fa",
+          "fields": {
+            "event": "prepared",
+            "utc": "2026-10-26T00:29:01.278946+00:00",
+            "monotonic_ns": 214297042186590,
+            "scope": [
+              "compiler"
+            ],
+            "run_id": "20261026T002857-50fd2281b177",
+            "selected_input_sha256": {
+              "src/silver_output_profile.adb": "6aa14d74436526724a0060a5fc1990b83fafb29e2608dab5173f4cee473a8a2d"
+            }
+          }
+        },
+        {
+          "source_line": 4,
+          "source_line_sha256": "955e2faea703458a40a0a56939d51a5e6d22dec6ff290f1dd1761d17507fdf78",
+          "fields": {
+            "event": "phase-end",
+            "utc": "2026-10-26T00:29:02.060422+00:00",
+            "monotonic_ns": 214297823663397,
+            "phase": "preflight",
+            "run_id": "20261026T002857-50fd2281b177"
+          }
+        },
+        {
+          "source_line": 5,
+          "source_line_sha256": "a996d775ae5f12023450669d4240f4b08f003cce7adfabc9d1fe6b05562013fb",
+          "fields": {
+            "event": "command",
+            "utc": "2026-10-26T00:29:02.062927+00:00",
+            "monotonic_ns": 214297826159426,
+            "command": [
+              "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.tools/linux-x86_64/alr/bin/alr",
+              "-s",
+              "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.tools/linux-x86_64/alire/settings",
+              "-C",
+              "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.silver/linux-x86_64/toolchain",
+              "-n",
+              "--no-tty",
+              "exec",
+              "--",
+              "gnatprove",
+              "-P",
+              "../../../silver.gpr",
+              "-U",
+              "--mode=all",
+              "--report=all",
+              "--warnings=error",
+              "--checks-as-errors=on",
+              "--level=2",
+              "--prover=cvc5,z3,altergo",
+              "--timeout=30",
+              "-j",
+              "4",
+              "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.silver/linux-x86_64/proof-cache/gnatprove/ea6aba21eca447a9c8473fc1c3ea0300b03a95ce919d8a326f68a67989029329",
+              "-f",
+              "-XSILVER_HOST=linux-x86_64"
+            ],
+            "run_id": "20261026T002857-50fd2281b177"
+          }
+        },
+        {
+          "source_line": 6,
+          "source_line_sha256": "34cec8d5257a4773c95472b173ea4a656d5c1a364e082e947a1e90b55cf2cffc",
+          "fields": {
+            "event": "phase-start",
+            "utc": "2026-10-26T00:29:04.109296+00:00",
+            "monotonic_ns": 214299872541336,
+            "phase": "native-tool",
+            "run_id": "20261026T002857-50fd2281b177"
+          }
+        },
+        {
+          "source_line": 7,
+          "source_line_sha256": "98abc36c4d1c52e3bb26b85ce57650b636b77214fd978a4e8a9f969a9ff2156d",
+          "fields": {
+            "event": "phase-end",
+            "utc": "2026-10-26T02:05:20.115978+00:00",
+            "monotonic_ns": 220075879233450,
+            "phase": "native-tool",
+            "returncode": 0,
+            "run_id": "20261026T002857-50fd2281b177"
+          }
+        },
+        {
+          "source_line": 8,
+          "source_line_sha256": "b566d9ce38de28113e35b964985626693f427b39e87b6debe155afa8641fe9eb",
+          "fields": {
+            "event": "phase-start",
+            "utc": "2026-10-26T02:05:20.119268+00:00",
+            "monotonic_ns": 220075882502129,
+            "phase": "audit",
+            "run_id": "20261026T002857-50fd2281b177"
+          }
+        },
+        {
+          "source_line": 9,
+          "source_line_sha256": "ebbea5d48aef1faa9d6e4b20628c5df7e7c0d7de97e053e53b11182cdf0dc34a",
+          "fields": {
+            "event": "phase-end",
+            "utc": "2026-10-26T02:05:39.826095+00:00",
+            "monotonic_ns": 220095589345597,
+            "phase": "audit",
+            "run_id": "20261026T002857-50fd2281b177"
+          }
+        },
+        {
+          "source_line": 10,
+          "source_line_sha256": "1b4d5c50db782fe9c14ef11344459b612641e232d46cbd5d0e08a8747268a9a9",
+          "fields": {
+            "event": "finished",
+            "utc": "2026-10-26T02:05:39.848381+00:00",
+            "monotonic_ns": 220095611625942,
+            "duration_seconds": 5801.391525588,
+            "outcome": "success",
+            "returncode": null,
+            "failure_keys": [],
+            "run_id": "20261026T002857-50fd2281b177"
+          }
+        }
+      ]
+    },
+    "guard_native_rebuild": {
+      "run_id": "20261026T084316-ffe7696c9a8a",
+      "source_path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261026T084316-ffe7696c9a8a/events.jsonl",
+      "source_file_sha256_at_capture": "99eea58deeb1e0ec40ee3992516a53f39cb42cf4cfc1c5df8f10b082716cbdd7",
+      "events": [
+        {
+          "source_line": 1,
+          "source_line_sha256": "1e5cb79f483bfedb32b3f122915f12ae9ad13afa74a6e29b207a88ff0f00eb81",
+          "fields": {
+            "event": "started",
+            "utc": "2026-10-26T08:43:17.847851+00:00",
+            "monotonic_ns": 243953611146993,
+            "command": [
+              "gnatprove"
+            ],
+            "kind": "prove",
+            "host": "linux-x86_64",
+            "machine": "codex-silver",
+            "available_cpus": 12,
+            "requested_workers": 6,
+            "workers": 6,
+            "scope": [
+              "compiler"
+            ],
+            "task": "#240",
+            "run_id": "20261026T084316-ffe7696c9a8a"
+          }
+        },
+        {
+          "source_line": 2,
+          "source_line_sha256": "e6848a65874047412ea22ff3e648428243833c5d0de8b357fbd2d2a83e88d4d2",
+          "fields": {
+            "event": "phase-start",
+            "utc": "2026-10-26T08:43:17.893534+00:00",
+            "monotonic_ns": 243953656787790,
+            "phase": "preflight",
+            "run_id": "20261026T084316-ffe7696c9a8a"
+          }
+        },
+        {
+          "source_line": 3,
+          "source_line_sha256": "306586fcb5bc6a6dbebe5e72aa9ccedf339979e38fec797c5fca2efd4d891d76",
+          "fields": {
+            "event": "prepared",
+            "utc": "2026-10-26T08:43:20.709519+00:00",
+            "monotonic_ns": 243956472786337,
+            "scope": [
+              "compiler"
+            ],
+            "run_id": "20261026T084316-ffe7696c9a8a",
+            "selected_input_sha256": {
+              "src/silver_output_profile.adb": "ec2f0a72dcbdcf1ff6dadc9fb8ec2975653a8c0c11db2bf3d53b7a5b8dec3a3d"
+            }
+          }
+        },
+        {
+          "source_line": 4,
+          "source_line_sha256": "1ddbc967ce77868b195fd502cf4ec83894c752e2beba90c30a1d8f49c3b8a00e",
+          "fields": {
+            "event": "phase-end",
+            "utc": "2026-10-26T08:43:21.675819+00:00",
+            "monotonic_ns": 243957439068538,
+            "phase": "preflight",
+            "run_id": "20261026T084316-ffe7696c9a8a"
+          }
+        },
+        {
+          "source_line": 5,
+          "source_line_sha256": "4500a03cc9edaff5118debfdf3cbe48eb7af6c5d5295e402e4e2f11517c1fdeb",
+          "fields": {
+            "event": "command",
+            "utc": "2026-10-26T08:43:21.681935+00:00",
+            "monotonic_ns": 243957445168542,
+            "command": [
+              "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.tools/linux-x86_64/alr/bin/alr",
+              "-s",
+              "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.tools/linux-x86_64/alire/settings",
+              "-C",
+              "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.silver/linux-x86_64/toolchain",
+              "-n",
+              "--no-tty",
+              "exec",
+              "--",
+              "gnatprove",
+              "-P",
+              "../../../silver.gpr",
+              "-U",
+              "--mode=all",
+              "--report=all",
+              "--warnings=error",
+              "--checks-as-errors=on",
+              "--level=2",
+              "--prover=cvc5,z3,altergo",
+              "--timeout=30",
+              "-j",
+              "6",
+              "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.silver/linux-x86_64/proof-cache/gnatprove/ea6aba21eca447a9c8473fc1c3ea0300b03a95ce919d8a326f68a67989029329",
+              "-f",
+              "-XSILVER_HOST=linux-x86_64"
+            ],
+            "run_id": "20261026T084316-ffe7696c9a8a"
+          }
+        },
+        {
+          "source_line": 6,
+          "source_line_sha256": "215bcf9c669648648eceb3b7c86c786737655e9eedeb0f45339073ab664f088c",
+          "fields": {
+            "event": "phase-start",
+            "utc": "2026-10-26T08:43:23.569064+00:00",
+            "monotonic_ns": 243959332315125,
+            "phase": "native-tool",
+            "run_id": "20261026T084316-ffe7696c9a8a"
+          }
+        },
+        {
+          "source_line": 7,
+          "source_line_sha256": "47dcc6c8102eedc959430ced114ee8e5a7af2bfe793553b975bd42b6bd7bc434",
+          "fields": {
+            "event": "phase-end",
+            "utc": "2026-10-26T10:44:46.512130+00:00",
+            "monotonic_ns": 251242275407590,
+            "phase": "native-tool",
+            "returncode": 0,
+            "run_id": "20261026T084316-ffe7696c9a8a"
+          }
+        },
+        {
+          "source_line": 8,
+          "source_line_sha256": "3edbea5dc689feef179f9f2444eef69552b8f2c0ddda21160cd5bb431c397609",
+          "fields": {
+            "event": "phase-start",
+            "utc": "2026-10-26T10:44:46.520237+00:00",
+            "monotonic_ns": 251242283489652,
+            "phase": "audit",
+            "run_id": "20261026T084316-ffe7696c9a8a"
+          }
+        },
+        {
+          "source_line": 9,
+          "source_line_sha256": "ea009a242b2c2e48fe2b6f70a4eb28c45472cb5abba7a0fec0c090dd437197f8",
+          "fields": {
+            "event": "finished",
+            "utc": "2026-10-26T10:44:49.941320+00:00",
+            "monotonic_ns": 251245704566837,
+            "duration_seconds": 7292.199032778,
+            "outcome": "failure",
+            "returncode": null,
+            "error": "EvidenceError: silver_output_profile: warn_error diagnostic is not proved/info: {'check_tree': {}, 'col': 16, 'file': 'silver_output_profile.adb', 'how_proved': 'trivial', 'line': 1161, 'message': {'text': 'initialization of an array in FOR loop is handled imprecisely [array-initialization]'}, 'rule': 'array-initialization', 'severity': 'warning', 'suppressed': '', 'unproved_status': {'status': 'unknown'}}",
+            "failure_keys": [],
+            "run_id": "20261026T084316-ffe7696c9a8a"
+          }
+        }
+      ]
+    },
+    "guard_native_cached_complete": {
+      "run_id": "20261026T121322-fc9f4056f886",
+      "source_path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261026T121322-fc9f4056f886/events.jsonl",
+      "source_file_sha256_at_capture": "083f2167d612ee67fc0eb15752f9ee098bc1d102b88be939fcb30feb0f519c81",
+      "events": [
+        {
+          "source_line": 1,
+          "source_line_sha256": "28aec3d989d7040e6f3b985151df364e24fc5c4cdd4c74f4bd6fd18d3b8d2058",
+          "fields": {
+            "event": "started",
+            "utc": "2026-10-26T12:13:24.340904+00:00",
+            "monotonic_ns": 256560104163819,
+            "command": [
+              "gnatprove"
+            ],
+            "kind": "prove",
+            "host": "linux-x86_64",
+            "machine": "codex-silver",
+            "available_cpus": 12,
+            "requested_workers": 6,
+            "workers": 6,
+            "scope": [
+              "compiler"
+            ],
+            "task": "#240,#245",
+            "run_id": "20261026T121322-fc9f4056f886"
+          }
+        },
+        {
+          "source_line": 2,
+          "source_line_sha256": "c56f671e066aa41910a278f16136b5594f26a00e9fe55e8d9e330a9e343645bd",
+          "fields": {
+            "event": "phase-start",
+            "utc": "2026-10-26T12:13:24.386671+00:00",
+            "monotonic_ns": 256560149922357,
+            "phase": "preflight",
+            "run_id": "20261026T121322-fc9f4056f886"
+          }
+        },
+        {
+          "source_line": 3,
+          "source_line_sha256": "b1405dcea20af0a0c919b4aac353e5ca27c0ab2c3559aa41e75b3f36bc9e56e2",
+          "fields": {
+            "event": "prepared",
+            "utc": "2026-10-26T12:13:27.371458+00:00",
+            "monotonic_ns": 256563134708360,
+            "scope": [
+              "compiler"
+            ],
+            "run_id": "20261026T121322-fc9f4056f886",
+            "selected_input_sha256": {
+              "src/silver_output_profile.adb": "ec2f0a72dcbdcf1ff6dadc9fb8ec2975653a8c0c11db2bf3d53b7a5b8dec3a3d"
+            }
+          }
+        },
+        {
+          "source_line": 4,
+          "source_line_sha256": "bc89d5e9d686203a8866641c378f2926f7622676fac8ebd4942f4f8a16867f13",
+          "fields": {
+            "event": "phase-end",
+            "utc": "2026-10-26T12:13:28.764072+00:00",
+            "monotonic_ns": 256564527327075,
+            "phase": "preflight",
+            "run_id": "20261026T121322-fc9f4056f886"
+          }
+        },
+        {
+          "source_line": 5,
+          "source_line_sha256": "52dfaf3b3b45a15d0ae46014c07e24eb87f87b11758223d02a68db28e3c1caa2",
+          "fields": {
+            "event": "command",
+            "utc": "2026-10-26T12:13:28.771777+00:00",
+            "monotonic_ns": 256564535015525,
+            "command": [
+              "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.tools/linux-x86_64/alr/bin/alr",
+              "-s",
+              "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.tools/linux-x86_64/alire/settings",
+              "-C",
+              "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.silver/linux-x86_64/toolchain",
+              "-n",
+              "--no-tty",
+              "exec",
+              "--",
+              "gnatprove",
+              "-P",
+              "../../../silver.gpr",
+              "-U",
+              "--mode=all",
+              "--report=all",
+              "--warnings=error",
+              "--checks-as-errors=on",
+              "--level=2",
+              "--prover=cvc5,z3,altergo",
+              "--timeout=30",
+              "-j",
+              "6",
+              "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.silver/linux-x86_64/proof-cache/gnatprove/ea6aba21eca447a9c8473fc1c3ea0300b03a95ce919d8a326f68a67989029329",
+              "-f",
+              "-XSILVER_HOST=linux-x86_64"
+            ],
+            "run_id": "20261026T121322-fc9f4056f886"
+          }
+        },
+        {
+          "source_line": 6,
+          "source_line_sha256": "7765d5f39083419aec449a09a03201d4fc35cc8f5674b3ff8eca68f996e971c5",
+          "fields": {
+            "event": "phase-start",
+            "utc": "2026-10-26T12:13:30.947365+00:00",
+            "monotonic_ns": 256566710663950,
+            "phase": "native-tool",
+            "run_id": "20261026T121322-fc9f4056f886"
+          }
+        },
+        {
+          "source_line": 7,
+          "source_line_sha256": "4150a1aaa80cd6c36d58ee1a5f71c76c731cc372bbd28ce2ead0c0cbb3097186",
+          "fields": {
+            "event": "phase-end",
+            "utc": "2026-10-26T12:14:25.563146+00:00",
+            "monotonic_ns": 256621326423068,
+            "phase": "native-tool",
+            "returncode": 0,
+            "run_id": "20261026T121322-fc9f4056f886"
+          }
+        },
+        {
+          "source_line": 8,
+          "source_line_sha256": "d5a3ba4fe7a61e2117788cc89233fb668b3084b943745669749ffdd9b806ab51",
+          "fields": {
+            "event": "phase-start",
+            "utc": "2026-10-26T12:14:25.586686+00:00",
+            "monotonic_ns": 256621349932977,
+            "phase": "audit",
+            "run_id": "20261026T121322-fc9f4056f886"
+          }
+        },
+        {
+          "source_line": 9,
+          "source_line_sha256": "d8af50d0746ad54eb683e8507f4977e0f53cc69c14b25282b0322b19848c5850",
+          "fields": {
+            "event": "phase-end",
+            "utc": "2026-10-26T12:14:44.441905+00:00",
+            "monotonic_ns": 256640205160062,
+            "phase": "audit",
+            "run_id": "20261026T121322-fc9f4056f886"
+          }
+        },
+        {
+          "source_line": 10,
+          "source_line_sha256": "ef1b9cd1fadcb1d9c7ca57137239c9ecd1d46923140c30e0925c9c798837c769",
+          "fields": {
+            "event": "finished",
+            "utc": "2026-10-26T12:14:44.446164+00:00",
+            "monotonic_ns": 256640209399862,
+            "duration_seconds": 80.191880263,
+            "outcome": "success",
+            "returncode": null,
+            "failure_keys": [],
+            "run_id": "20261026T121322-fc9f4056f886"
+          }
+        }
+      ]
+    }
+  }
+}
