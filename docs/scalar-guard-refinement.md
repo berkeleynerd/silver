@@ -431,3 +431,14 @@ This integration reused completed proof work. Recovery and source/input inventor
 used selected GPT-6.1 Sol at Extra High; source and native equality repairs use
 selected GPT-6 Astra at Extra High. The live lead setting is not independently
 exposed, and whole-round token/cost measurements are unavailable.
+
+The native loop, primary reader, invalid-body helper and both branch-body
+checks have passed. Their [focused evidence](evidence/scalar-guard-refinement/native-transport-20261026/index.json)
+records the exact commands, logs and frozen source hashes compared with the
+managed inputs. The stronger invalid-body post exposes the preserved count and
+interval endpoints without changing executable behavior. Its [exact Lean
+contract rendering](evidence/scalar-guard-refinement/lean-cohort-20261026/integration-invalid-body-header.json)
+passed run `20261026T061202-8932bfd8f50a`, with a fresh audit of 10,480
+declarations. Relation/chain equality and one condition-join equality remain
+under focused repair before final native-source integration. These are partial
+checks, not the complete compiler or source checkpoint.

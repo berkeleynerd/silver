@@ -1,0 +1,37 @@
+Phase 1 of 3: generation of data representation information ...
+Phase 2 of 3: generation of Global contracts ...
+Phase 3 of 3: flow analysis and proof ...
+ info: implicit aspect Always_Terminates on "Invalid_Body" has been proved, subprogram will terminate
+--> silver_output_profile.adb:1190:13
+
+ info: data dependencies proved
+--> silver_output_profile.adb:1191:11
+
+ info: postcondition proved
+--> silver_output_profile.adb:1193:10
+
+ info: index check proved
+--> silver_output_profile.adb:1196:46
+
+ info: index check proved
+--> silver_output_profile.adb:1197:33
+
+ info: index check proved
+--> silver_output_profile.adb:1198:55
+
+ info: index check proved
+--> silver_output_profile.adb:1199:33
+
+ info: initialization of "Result" proved
+--> silver_output_profile.adb:1202:14
+
+ info: range check proved
+--> silver_output_profile.adb:1202:38
+
+ info: range check proved
+--> silver_output_profile.adb:1203:30
+
+ info: discriminant check proved
+--> silver_output_profile.adb:1203:30
+Success: all checks proved (11 checks).
+Summary logged in /home/canto/src/github.com/berkeleynerd/silver/tmp/guard-native-v7/obj/explore/guard/gnatprove/gnatprove.out

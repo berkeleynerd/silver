@@ -107,7 +107,8 @@ theorem model_definitions : DefinitionEquations modelCalls :=
 def expectedTokens (text : String) : List String := (Source.lexLine text).getD []
 def invalidHeader : List String := expectedTokens "(Scan : Body_Scan) return Body_Scan"
 def invalidSpec : List String := invalidHeader ++ expectedTokens
-  "with Global => null, Post => (Static => Invalid_Body'Result =" ++ invalidRhs.render ++ [")"]
+  "with Global => null, Post => (Static => Invalid_Body'Result =" ++ invalidRhs.render ++
+  ["and", "then", "invalid_body", "'", "result", ".", "count", "=", "scan", ".", "count", "and", "then", "(", "for", "all", "index", "in", "scan", ".", "facts", ".", "values", "'", "range", "=>", "invalid_body", "'", "result", ".", "facts", ".", "values", "(", "index", ")", ".", "lower", "=", "scan", ".", "facts", ".", "values", "(", "index", ")", ".", "lower", "and", "then", "invalid_body", "'", "result", ".", "facts", ".", "values", "(", "index", ")", ".", "upper", "=", "scan", ".", "facts", ".", "values", "(", "index", ")", ".", "upper", ")", ")"]
 
 structure Checked (tokens : List String) : Prop where
   invalidModelHeader : Silver.SourceBridge.functionHeader "invalid_body_model" "is" tokens = some invalidHeader

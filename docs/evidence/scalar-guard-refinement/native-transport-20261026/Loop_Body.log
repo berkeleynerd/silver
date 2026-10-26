@@ -1,0 +1,229 @@
+Phase 1 of 3: generation of data representation information ...
+Phase 2 of 3: generation of Global contracts ...
+Phase 3 of 3: flow analysis and proof ...
+ info: implicit aspect Always_Terminates on "Loop_Body" has been proved, subprogram will terminate
+--> silver_output_profile.adb:2509:13
+
+ info: data dependencies proved
+--> silver_output_profile.adb:2511:11
+
+ info: precondition proved
+--> silver_output_profile.adb:2513:19
+
+ info: precondition proved
+--> silver_output_profile.adb:2513:58
+
+ info: precondition proved
+--> silver_output_profile.adb:2514:16
+
+ info: postcondition proved
+--> silver_output_profile.adb:2514:16
+
+ info: overflow check proved
+--> silver_output_profile.adb:2517:55
+
+ info: overflow check proved
+--> silver_output_profile.adb:2517:60
+
+ info: range check proved
+--> silver_output_profile.adb:2652:31
+
+ info: precondition proved
+--> silver_output_profile.adb:2652:42
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2652:42
+
+ info: precondition proved
+--> silver_output_profile.adb:2653:44
+
+ info: precondition proved
+--> silver_output_profile.adb:2654:44
+
+ info: initialization of "Low" proved
+--> silver_output_profile.adb:2655:07
+
+ info: initialization of "High" proved
+--> silver_output_profile.adb:2655:12
+
+ info: initialization of "Index_Bounds" proved
+--> silver_output_profile.adb:2656:07
+
+ info: initialization of "Definite" proved
+--> silver_output_profile.adb:2657:07
+
+ info: precondition proved
+--> silver_output_profile.adb:2660:18
+
+ info: range check proved
+--> silver_output_profile.adb:2660:40
+
+ info: range check proved
+--> silver_output_profile.adb:2660:47
+
+ info: precondition proved
+--> silver_output_profile.adb:2661:24
+
+ info: range check proved
+--> silver_output_profile.adb:2661:39
+
+ info: range check proved
+--> silver_output_profile.adb:2661:46
+
+ info: precondition proved
+--> silver_output_profile.adb:2663:20
+
+ info: range check proved
+--> silver_output_profile.adb:2663:35
+
+ info: range check proved
+--> silver_output_profile.adb:2663:42
+
+ info: precondition proved
+--> silver_output_profile.adb:2666:26
+
+ info: precondition proved
+--> silver_output_profile.adb:2667:10
+
+ info: precondition proved
+--> silver_output_profile.adb:2668:29
+
+ info: precondition proved
+--> silver_output_profile.adb:2671:14
+
+ info: range check proved
+--> silver_output_profile.adb:2671:71
+
+ info: precondition proved
+--> silver_output_profile.adb:2672:26
+
+ info: precondition proved
+--> silver_output_profile.adb:2673:15
+
+ info: range check proved
+--> silver_output_profile.adb:2673:72
+
+ info: precondition proved
+--> silver_output_profile.adb:2674:26
+
+ info: precondition proved
+--> silver_output_profile.adb:2681:07
+
+ info: assertion proved
+--> silver_output_profile.adb:2682:32
+
+ info: initialization of "Inner_Scan" proved
+--> silver_output_profile.adb:2685:10
+
+ info: range check proved
+--> silver_output_profile.adb:2685:45
+
+ info: precondition proved
+--> silver_output_profile.adb:2687:50
+
+ info: length check proved
+--> silver_output_profile.adb:2696:34
+
+ info: length check proved
+--> silver_output_profile.adb:2696:37
+
+ info: loop invariant initialization proved
+--> silver_output_profile.adb:2699:26
+
+ info: loop invariant preservation proved
+--> silver_output_profile.adb:2699:26
+
+ info: index check proved
+--> silver_output_profile.adb:2700:42
+
+ info: index check proved
+--> silver_output_profile.adb:2700:71
+
+ info: index check proved
+--> silver_output_profile.adb:2701:38
+
+ info: index check proved
+--> silver_output_profile.adb:2701:69
+
+ info: assertion proved
+--> silver_output_profile.adb:2705:12
+
+ info: index check proved
+--> silver_output_profile.adb:2706:40
+
+ info: index check proved
+--> silver_output_profile.adb:2706:70
+
+ info: assertion proved
+--> silver_output_profile.adb:2708:12
+
+ info: index check proved
+--> silver_output_profile.adb:2709:41
+
+ info: index check proved
+--> silver_output_profile.adb:2709:78
+
+ info: assertion proved
+--> silver_output_profile.adb:2711:12
+
+ info: index check proved
+--> silver_output_profile.adb:2712:45
+
+ info: assertion proved
+--> silver_output_profile.adb:2714:12
+
+ info: index check proved
+--> silver_output_profile.adb:2714:52
+
+ info: assertion proved
+--> silver_output_profile.adb:2716:12
+
+ info: assertion proved
+--> silver_output_profile.adb:2718:12
+
+ info: index check proved
+--> silver_output_profile.adb:2718:57
+
+ info: index check proved
+--> silver_output_profile.adb:2719:58
+
+ info: assertion proved
+--> silver_output_profile.adb:2720:35
+
+ info: precondition proved
+--> silver_output_profile.adb:2721:24
+
+ info: subprogram variant proved
+--> silver_output_profile.adb:2721:24
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2721:24
+
+ info: range check proved
+--> silver_output_profile.adb:2729:33
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2729:33
+
+ info: range check proved
+--> silver_output_profile.adb:2733:50
+
+ info: precondition proved
+--> silver_output_profile.adb:2737:17
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2737:17
+
+ info: precondition proved
+--> silver_output_profile.adb:2738:17
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2738:17
+
+ info: precondition proved
+--> silver_output_profile.adb:2739:17
+
+ info: discriminant check proved
+--> silver_output_profile.adb:2739:17
+Success: all checks proved (75 checks).
+Summary logged in /home/canto/src/github.com/berkeleynerd/silver/tmp/guard-native-check/obj/explore/guard/gnatprove/gnatprove.out
