@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Fixed-size arrays, for loops and subtype-bounded indices let nearly every check follow from types and guards just before use, but the loop-carried pile and link indices need careful guards, so the outlook is plausible rather than likely.
 
-Position 103 in the [progression](../../../progression.md#stage-5), in stage 5.
+Position 104 in the [progression](../../../progression.md#stage-5), in stage 5.
 
 ## Approach
 

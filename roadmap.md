@@ -85,12 +85,23 @@ non-deferred successors.
    loop indexes against static thresholds, separates declared ranges from flow,
    replaces facts on assignment, joins branches and widens mutable facts at loop
    boundaries while preserving captured index bounds. The finite driver is
-   100 doors; native discovery and implementation remain pending. Its packages are
+   100 doors; native discovery is retained, and native implementation and delivery
+   records are prepared while universal/source assurance, complete validation
+   and review remain pending. Its packages are
    [scope/design #237](https://github.com/berkeleynerd/silver/issues/237),
    [native admission #238](https://github.com/berkeleynerd/silver/issues/238),
    [universal/source assurance #239](https://github.com/berkeleynerd/silver/issues/239)
    and [validation/delivery #240](https://github.com/berkeleynerd/silver/issues/240).
    No new syntax does not eliminate the assurance work.
+   The prepared [sample](samples/rosetta_100_doors.adb) preserves the discovered
+   529-byte driver; the manifest independently derives all 100 lines by pass-major
+   toggles. Prepared Rosetta metadata adds the narrow `scalar-guard-refinement`
+   identifier and maps 100 doors to the exact fragment. Its previous array/Boolean
+   approach is replaced by the faithful visit-count model; arrays, Boolean objects,
+   named subtypes, expression inversion and variable relations stay unsupported.
+   The Unicode-variable assessment uses the same selected guard form but still
+   requires unsupported Unicode identifiers. Rendering is planning metadata;
+   #234/#238/#239/#240 are not completed by these draft records.
 
 This deliberately selects division ahead of generated stage order (division
 was stage 6 at selection), because the assessed bounded arithmetic drivers offer

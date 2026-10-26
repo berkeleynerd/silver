@@ -1647,6 +1647,37 @@
         "stderr": "",
         "exit_status": 0
       }
+    },
+    {
+      "source": "rosetta_100_doors.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "scalar_integer_literal",
+        "integer_expression",
+        "statement_sequence",
+        "named_integer_variable",
+        "integer_range_constraint",
+        "integer_assignment",
+        "for_loop",
+        "integer_comparison",
+        "scalar_guard_refinement",
+        "integer_image",
+        "string_literal",
+        "string_expression",
+        "string_concatenation",
+        "expression_output",
+        "literal_output",
+        "string_choice",
+        "boolean_predicate"
+      ],
+      "specification": "../language.md#integer-objects-expressions-and-comparisons",
+      "expected": {
+        "stdout": " 1 is open\n 2 is closed\n 3 is closed\n 4 is open\n 5 is closed\n 6 is closed\n 7 is closed\n 8 is closed\n 9 is open\n 10 is closed\n 11 is closed\n 12 is closed\n 13 is closed\n 14 is closed\n 15 is closed\n 16 is open\n 17 is closed\n 18 is closed\n 19 is closed\n 20 is closed\n 21 is closed\n 22 is closed\n 23 is closed\n 24 is closed\n 25 is open\n 26 is closed\n 27 is closed\n 28 is closed\n 29 is closed\n 30 is closed\n 31 is closed\n 32 is closed\n 33 is closed\n 34 is closed\n 35 is closed\n 36 is open\n 37 is closed\n 38 is closed\n 39 is closed\n 40 is closed\n 41 is closed\n 42 is closed\n 43 is closed\n 44 is closed\n 45 is closed\n 46 is closed\n 47 is closed\n 48 is closed\n 49 is open\n 50 is closed\n 51 is closed\n 52 is closed\n 53 is closed\n 54 is closed\n 55 is closed\n 56 is closed\n 57 is closed\n 58 is closed\n 59 is closed\n 60 is closed\n 61 is closed\n 62 is closed\n 63 is closed\n 64 is open\n 65 is closed\n 66 is closed\n 67 is closed\n 68 is closed\n 69 is closed\n 70 is closed\n 71 is closed\n 72 is closed\n 73 is closed\n 74 is closed\n 75 is closed\n 76 is closed\n 77 is closed\n 78 is closed\n 79 is closed\n 80 is closed\n 81 is open\n 82 is closed\n 83 is closed\n 84 is closed\n 85 is closed\n 86 is closed\n 87 is closed\n 88 is closed\n 89 is closed\n 90 is closed\n 91 is closed\n 92 is closed\n 93 is closed\n 94 is closed\n 95 is closed\n 96 is closed\n 97 is closed\n 98 is closed\n 99 is closed\n 100 is open\n",
+        "stderr": "",
+        "exit_status": 0
+      }
     }
   ]
 }

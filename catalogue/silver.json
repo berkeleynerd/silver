@@ -502,7 +502,7 @@
         "right_operand_path": "left true for and then; left false for or else",
         "boolean_literals": false,
         "eager_operators": false,
-        "scope_purpose": "short-circuit input path refinement; scalar comparisons retain incoming intervals; Boolean values and eager operators remain excluded"
+        "scope_purpose": "short-circuit input and selected scalar flow refinement; reached RHSs use the corresponding full flow, including nested Image arguments; Boolean values and eager operators remain excluded"
       }
     },
     {
@@ -689,7 +689,7 @@
         "value": "integer_expression",
         "evaluation": "RHS reads the pre-assignment scalar store; update only the target",
         "interval_inclusion": "every RHS intermediate fits Integer; whole RHS interval is nonempty and lies in target declared range",
-        "body_interval": "whole declared range at every mutable read; assignment and guards never narrow it",
+        "body_interval": "initial declared range; infer RHS in incoming flow and replace only target current interval with RHS interval after checking inclusion in immutable declared range",
         "self_assignment": true,
         "preserves_input_length_facts": true,
         "live_mutable_image_equalities": false,
@@ -736,7 +736,7 @@
         "modulo_interval": "singleton-exact; otherwise [0, divisor upper - 1] for positive divisors or [divisor lower + 1, 0] for negative divisors",
         "remainder_interval": "singleton-exact; otherwise dividend-sign bounds clipped by max(abs(divisor endpoints)) - 1",
         "correlated_operands_refined": false,
-        "scalar_guards_refine_intervals": false,
+        "scalar_guards_refine_intervals": "selected scalar_guard_refinement only",
         "empty_index_interval": "divisors must exclude zero; otherwise index-dependent safety vacuous except Integer assignment requires nonempty RHS; invalid static subexpressions still excluded",
         "positions": [
           "integer_object_initializer",
@@ -749,7 +749,7 @@
         "conversions": false,
         "division": true,
         "mutable_integer_values": true,
-        "mutable_body_interval": "entire declared range; constants retain exact captured values"
+        "mutable_body_interval": "initial declared range, then current assignment/guard flow; constants retain exact captured values and declaration-derived staticness"
       }
     },
     {
@@ -769,9 +769,40 @@
           "integer_expression"
         ],
         "predefined_integer_comparison": true,
-        "refines_scalar_intervals": false,
+        "refines_scalar_intervals": "selected scalar_guard_refinement only",
         "refines_input_path_facts": false,
         "composition": "existing grouped and short-circuit predicate grammar"
+      }
+    },
+    {
+      "id": "scalar_guard_refinement",
+      "ada_kind": "flow_analysis",
+      "conditions": {
+        "grammar_change": false,
+        "target": "bare visible mutable Integer name or loop-index name, resolved by binding identity",
+        "threshold": "Ada-static nonempty singleton Integer expression in either operand order; nonstatic snapshots and singleton indexes are not thresholds",
+        "operators": [
+          "=",
+          "/=",
+          "<",
+          "<=",
+          ">",
+          ">="
+        ],
+        "operand_checks": "both ordinary incoming expression checks precede refinement; illegal static subtrees remain excluded",
+        "parentheses": "whole-condition grouping preserves refinement; parenthesized scalar targets do not refine",
+        "outcomes": "comparison intersection for true; complemented comparison for false; swap operator for reversed operands; retain incoming interval if refinement is empty",
+        "interval_holes": "closed interval hull only; disequality removes an endpoint but retains interior holes",
+        "immutable_declarations": "preserve exact snapshot values and Ada staticness; never refinement targets",
+        "other_comparisons": "checked without expression inversion, variable relations or scalar refinement",
+        "short_circuit": "and then RHS gets left-true flow; or else RHS gets left-false; not swaps outcomes; all nested scalar/Image reads use reached flow",
+        "branch_join": "componentwise scalar hulls; elsif receives previous false flow; omitted else contributes false flow",
+        "assignments": "replace only written identity with inferred RHS after declared-range containment; preserve other scalar and immutable input-length facts",
+        "string_writes": "preserve scalar facts; snapshots do not alias live scalar/Image reads",
+        "loops": "capture bounds in entry flow, then widen mutables at body entry and possible execution exit; preserve entry immutable/outer-index facts; empty loops restore entry",
+        "scalar_impossibility_prunes_input_path": false,
+        "nonempty_assignment_rhs_required": true,
+        "admission_monotonicity_claim": false
       }
     },
     {
@@ -806,7 +837,7 @@
         "other_scalar_images": false,
         "expanded_standard_prefix": false,
         "source_rewriting": false,
-        "snapshots": "declaration initializers capture exact earlier scalar values; body reads use current values and full mutable declared ranges"
+        "snapshots": "declaration initializers capture exact earlier scalar values; body Image reads use current scalar flow, including within reached short-circuit String expressions; no persistent relation to later live Images"
       }
     },
     {
@@ -818,6 +849,7 @@
           "integer_expression"
         ],
         "bounds_evaluated_once_on_entry": true,
+        "bound_flow": "infer and capture in entry flow before mutable widening",
         "directions": [
           "forward",
           "reverse"
@@ -850,7 +882,10 @@
         "exit_statements": false,
         "count_and_nesting": "limited by complete source size",
         "termination": "finite predefined Integer range",
-        "scalar_writes": "carry across iterations and out of loops; writes to bound objects do not change captured iteration bounds"
+        "scalar_writes": "carry across iterations and out of loops; writes to bound objects do not change captured iteration bounds",
+        "scalar_body_flow": "widen every mutable scalar to declared range; retain entry immutable and outer-index facts; append captured new index; no loop-carried scalar invariant",
+        "scalar_exit_flow": "empty restores entry; possibly executing widens mutables and restores entry immutable/outer-index facts; remove new index; body-derived outer-index refinements do not escape",
+        "intentional_empty_loop_exclusion": "precise entry bounds can reveal an empty index-dependent assignment RHS, which remains excluded even if earlier wider analysis admitted it"
       }
     }
   ],

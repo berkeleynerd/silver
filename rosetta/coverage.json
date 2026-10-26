@@ -18,16 +18,17 @@
   "immutable-integers",
   "integer-image",
   "bounded-mutable-integers",
-  "interval-integer-division"
+  "interval-integer-division",
+  "scalar-guard-refinement"
  ],
  "tasks": {
   "100 doors": {
    "revision": 414028,
-   "assessed": "2026-10-15",
+   "assessed": "2026-10-26",
    "rubric": 2,
    "tier": "standard",
-   "model": "claude-sonnet-5-5",
-   "effort": "medium",
+   "model": "gpt-6.1-sol",
+   "effort": "high",
    "conflicts": [],
    "effects": [
     {
@@ -36,21 +37,26 @@
     }
    ],
    "surface": [
-    "integers",
-    "integer-division",
-    "ranged-subtypes",
-    "booleans",
-    "arrays",
-    "for-loops",
-    "scalar-image",
-    "string-building"
+    "bounded-mutable-integers",
+    "interval-integer-division",
+    "integer-for-loops",
+    "integer-image",
+    "scalar-guard-refinement"
    ],
    "outlook": "likely",
    "risks": [],
-   "size": 25,
-   "approach": "Declare a subtype Door_Index range 1 .. 100 and a Boolean array over it initialised to False (closed), then run nested for loops over the pass number and door index, toggling the door with \"not\" when J mod I = 0. A final for loop prints each line as Door_Index'Image(I) & \" is open\" or \" is closed\" with Silver_IO.Put_Line using plain if statements.",
-   "summary": "Every check follows from for-loop indexes over the array's own range, a divisor that the loop range keeps in 1 .. 100, and constant-bounded image strings, with no loop-carried values.",
-   "confidence": "high"
+   "size": 21,
+   "approach": "For each door from 1 through 100, reset a Visits : Integer range 0 .. 100 counter, then scan passes 1 through 100 and increment it when Door mod Pass = 0 and then Visits < 100. Print every door with Integer'Image and either \" is open\" or \" is closed\" according to odd or even visit parity. This is samples/rosetta_100_doors.adb, using the exact discovered source bytes.",
+   "summary": "Door toggles are independent, so exchanging loop order and counting visits preserves the complete task. Before any increment there are at most 99 prior visits; the guard suppresses no required toggle. Static nonzero pass bounds justify modulo, and the bare-name/static-threshold guard justifies the bounded increment. Expected bytes are derived independently by pass-major toggles. Delivery metadata is prepared; complete Silver assurance and validation remain pending.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-26",
+    "record": "../docs/scalar-guard-refinement.md",
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setting_evidence": "Selected setting; runtime model/effort not independently exposed",
+    "method": "Static selected-scope/native-test comparison and independent pass-major expected-output derivation; no native, Lean or test runner"
+   }
   },
   "100 prisoners": {
    "revision": 414029,
@@ -74543,7 +74549,7 @@
    "risks": [],
    "size": 12,
    "approach": "Declare Δ : Integer range 1 .. 2 := 1, increment it with Δ := (Δ + 1) inside if Δ < 2 then, and print Integer'Image (Δ). Accompany the source with the admitted encoding and Unicode identifier documentation; the guard makes the increment fit its range once scalar guard refinement is admitted.",
-   "summary": "Unicode identifiers are permitted by inherited Ada/SPARK but excluded by today's Silver ASCII source rule, and today's scalar analysis also cannot justify this increment. Explicit Unicode identifier support and scalar guard refinement are future surface, not Oracle amendments or currently delivered capabilities.",
+   "summary": "The bare-name/static-threshold increment fits the prepared scalar-guard-refinement fragment; its complete validation remains pending. Unicode identifiers are permitted by inherited Ada/SPARK but remain excluded by Silver ASCII source rules, so this task still requires explicit Unicode identifier support. No Unicode admission or task delivery is claimed.",
    "confidence": "high",
    "review": {
     "date": "2026-10-25",
@@ -74552,6 +74558,14 @@
     "effort": "xhigh",
     "setting_evidence": "Selected setting; runtime not independently confirmed",
     "method": "Targeted static task, captured-answer and fixed-specification review"
+   },
+   "flow_scope_review": {
+    "date": "2026-10-26",
+    "record": "../docs/scalar-guard-refinement.md",
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setting_evidence": "Selected setting; runtime model/effort not independently exposed",
+    "method": "Static comparison with selected bare-name/static-threshold rules; Unicode admission remains excluded"
    }
   },
   "Unique characters": {

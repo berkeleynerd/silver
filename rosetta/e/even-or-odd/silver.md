@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Only Integer range loops, standard Integer Image and remainder by nonzero literal 2 are needed by this plan. The narrow interval-integer-division capability now includes that remainder form. The existing broad integer-division dependency is retained pending approach review and migration; this assessment is not a delivered or proved sample.
 
-Position 104 in the [progression](../../progression.md#stage-6), in stage 6, which adds integer division.
+Position 105 in the [progression](../../progression.md#stage-6), in stage 6, which adds integer division.
 
 ## Approach
 
