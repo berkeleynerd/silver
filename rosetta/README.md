@@ -103,6 +103,17 @@ To assess new or changed tasks after a refresh:
 
 A verdict whose page has changed since it was assessed is marked stale.
 
+A curated task's optional `review` object records a later targeted review while
+preserving the original `assessed`, `revision`, `tier`, `model` and `effort`
+attribution. Its `date` and `record` fields supply the rendered revision date
+and review link; `record` is relative to `rosetta/` and may include an anchor.
+The optional `model`, `effort`, `setting_evidence` and `method` fields retain
+review provenance in the JSON; the renderer does not display them. When a later
+review replaces this object, preserve earlier review provenance in the linked
+record. Review dates and methods describe the actual review, while current
+summaries and delivery links describe delivered support and evidence at their
+recorded scope.
+
 ## Refreshing
 
 `python3 rosetta/refresh.py` downloads the current revisions and rebuilds the

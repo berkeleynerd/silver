@@ -13,7 +13,8 @@ mutable objects, object-local static ranges and scalar assignment. The
 [division record](docs/integer-division.md) extends shared scalar expressions
 with interval-checked `/`, `mod` and `rem`. The
 [scalar guard delivery record](docs/scalar-guard-refinement.md#delivery-assurance-and-validation)
-records complete Linux validation and assurance for the flow rules below.
+records complete Linux native and Lean assurance, reviewed retained regression
+results and successful focused repair tests for the flow rules below.
 The [machine-readable
 catalogue](catalogue/silver.json), compiler, and this specification must agree. A
 discrepancy is a defect to resolve, not an extension of the language. Membership
@@ -882,7 +883,7 @@ and standard Image forms. [Find square difference](samples/find_square_differenc
 uses a constrained mutable result and prints the first satisfying index, 501.
 The [100 doors sample](samples/rosetta_100_doors.adb) uses a guarded visit
 counter and prints every door's final state; its expected bytes come from an
-independent pass-major toggle model. Its complete validation is recorded in the
+independent pass-major toggle model. Its validation evidence is recorded in the
 [guard delivery record](docs/scalar-guard-refinement.md#delivery-assurance-and-validation).
 
 The [Rosetta sample delivery](docs/rosetta-supported-samples.md) exercises existing
@@ -896,5 +897,6 @@ Language changes must specify exact syntax, restrictions, inherited semantics
 and compositions. Before 1.0, intentional changes are reflected consistently in
 the specification, catalogue, implementation, proofs and samples; Git records
 the history. Every admitted program retains the Oracle's complete automatic
-assurance. New support is complete only after the
-[development checkpoint](development.md#proof-loop-and-validation) passes.
+assurance. New support is complete only after all requirements of the
+[development checkpoint](development.md#proof-loop-and-validation) are satisfied,
+including its requirements for any reused regression results.

@@ -215,6 +215,19 @@ python3 scripts/dev.py test
 python3 scripts/check_lean.py
 ```
 
+The regression and sample-test requirement may be satisfied by a completed
+full-suite run plus successful repair reruns when a recorded independent review
+accounts for the complete final test inventory and establishes which successful
+results remain applicable to the final inputs and settings. Review the exact
+input changes and dependencies; rerun every failed or affected test, including
+effects through shared fixtures, tooling or generated artifacts. No required
+test may remain uncovered or failing. Retain failed runs as failed and distinguish
+reused results from fresh passes. If coverage or applicability cannot be
+established, rerun the full suite. Use existing run records and ordinary change
+review; no new evidence format is required. This composes test results only:
+successful complete native proof/audit and Lean/source-correspondence checkpoints
+remain mandatory.
+
 After successful validation, repeat only checks invalidated by changed inputs,
 a failure or a concrete unresolved concern. Preserve successful work and caches;
 do not repeat the whole checkpoint for documentation-only follow-ups. This

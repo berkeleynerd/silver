@@ -75,10 +75,12 @@ endpoint quotients; modulo uses exact singleton evaluation or divisor-sign
 bounds; remainder uses exact singletons or the divisor-magnitude bound clipped
 by dividend magnitude/sign. The [language section](../language.md#integer-objects-expressions-and-comparisons)
 states the complete transfer rules. Every nonempty zero-containing divisor is
-rejected before empty propagation. The successful empty-loop native probes show
-that this uniform profile restriction is conservative; it is not inherited from
-Ada or required by a demonstrated frontend failure. Static invalid subtrees and
-empty assignment RHSs remain excluded. Minimum/-1 is accepted for `mod`/`rem`
+rejected before empty propagation. The [empty-loop native probes](integer-division-report-capacity.md#native-corroboration-and-scope-choices)
+report “division check proved” under `VC_RAISE`, with dead-code diagnostics,
+rather than `VC_DIVISION_CHECK`: the frontend rewrites static division by zero
+to an unreachable raise. The zero-before-empty rejection is required by the
+current Main report policy, which excludes `VC_RAISE`. Static invalid subtrees
+and empty assignment RHSs remain excluded. Minimum/-1 is accepted for `mod`/`rem`
 and rejected for quotient overflow.
 
 The [arithmetic core review](reviews/review-integer-division-core-16d0f0cfaa.md)
@@ -159,9 +161,14 @@ and excludes checked-in candidates from its captured source inputs. All **582**
 captured inputs remain byte-identical to the final implementation, including the
 actual source, generator, handwritten proofs and tooling. Refreshing the checked-in
 copies therefore does not invalidate that successful audit. The native proof/build
-inputs likewise remain unchanged. The retained failed suite and successful focused
-repair together close the validation obligations; no clean whole-suite rerun is
-claimed. Successful unaffected tests are reused under `development.md`.
+inputs likewise remain unchanged. The division full suite remains failed; the
+focused rerun establishes repaired certificate parity, but it did not rerun every
+test that reads the refreshed certificates. The later
+[scalar-guard checkpoint](scalar-guard-refinement.md#delivery-assurance-and-validation),
+including full run `20261026T110119-3b18a2302af0` and its independently reviewed
+focused auditor repair, supplies complete regression coverage for the current
+implementation under the [reviewed reuse policy](../development.md#proof-loop-and-validation).
+No successful whole-suite rerun is claimed for the historical division target.
 
 | Required evidence | Result |
 | --- | --- |
@@ -189,7 +196,6 @@ claim follows.
 | Source integration and validation | Live lead model/effort not independently exposed; source reviewer selected GPT-6 Astra, Extra High | Bridge integration and proof repairs passed complete native and Lean audits. Independent source integration review reports no findings; exact final documentation/evidence review is separate. | Integration review interval 22:45:59–22:49:01 UTC (3m 2s); retain managed run measurements with final evidence. Whole-team tokens/cost unavailable. |
 | Delivery documentation and Rosetta mapping | Lead-selected GPT-6.1 Sol, High; runtime setting not independently exposed | Align semantic/discharge and boundary claims, map seven reviewed approaches to narrow support and render current metadata. Validation records preserve failed parity and its focused successful repair, with unchanged-input reuse. | Whole-round elapsed, tokens and cost unavailable. |
 | Certificate parity repair | Lead setting not independently exposed; evidence-export thread selected GPT-6 Astra, Extra High | Refreshed three stale checked-in candidates; full-suite sample checks passed and the repaired parity test passed. Native and complete Lean inputs unchanged. | Full suite 4,361.623 seconds; repaired parity 4.216 seconds; whole-team tokens/cost unavailable. |
-
 | Final delivery-record review | Selected GPT-6 Astra, Extra High; runtime setting not independently exposed | Independently checked retained artifacts, run outcomes and final input correspondence; no correctness or evidence findings. Repaired the suggested table formatting. | 03:30:51–03:37:12 UTC (6m 21s); tokens/cost unavailable. |
 
 The owner's [continuation](session-memory.md#2026-10-25--continue-non-deferred-roadmap-delivery)

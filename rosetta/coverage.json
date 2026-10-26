@@ -47,7 +47,7 @@
    "risks": [],
    "size": 21,
    "approach": "For each door from 1 through 100, reset a Visits : Integer range 0 .. 100 counter, then scan passes 1 through 100 and increment it when Door mod Pass = 0 and then Visits < 100. Print every door with Integer'Image and either \" is open\" or \" is closed\" according to odd or even visit parity. This is samples/rosetta_100_doors.adb, using the exact discovered source bytes.",
-   "summary": "Door toggles are independent, so exchanging loop order and counting visits preserves the complete task. Before any increment there are at most 99 prior visits; the guard suppresses no required toggle. Static nonzero pass bounds justify modulo, and the bare-name/static-threshold guard justifies the bounded increment. Expected bytes are derived independently by pass-major toggles. Delivery metadata is prepared; complete Silver assurance and validation remain pending.",
+   "summary": "Door toggles are independent, so exchanging loop order and counting visits preserves the complete task. Before any increment there are at most 99 prior visits; the guard suppresses no required toggle. Static nonzero pass bounds justify modulo, and the bare-name/static-threshold guard justifies the bounded increment. Expected bytes are derived independently by pass-major toggles. Silver admission, proof, build and execution completed with expected results in the retained delivery suite; the [delivery record](../../../docs/scalar-guard-refinement.md#delivery-assurance-and-validation) distinguishes complete assurance, retained regression results and focused repair validation.",
    "confidence": "high",
    "review": {
     "date": "2026-10-26",
@@ -17060,7 +17060,7 @@
     "date": "2026-10-25",
     "record": "assessment-division-20261025.md",
     "setting_evidence": "Selected GPT-6.1 Sol High by the lead; runtime setting not independently exposed",
-    "method": "Concrete sample and task reconciliation after independent arithmetic/native core review; complete delivery validation pending in docs/integer-division.md",
+    "method": "Concrete sample and task reconciliation after independent arithmetic/native core review; subsequent delivery evidence and test-result scope are recorded in docs/integer-division.md#integrated-delivery-checkpoint",
     "model": "gpt-6.1-sol",
     "effort": "high"
    }
@@ -34023,7 +34023,7 @@
     "date": "2026-10-25",
     "record": "assessment-division-20261025.md",
     "setting_evidence": "Selected GPT-6.1 Sol High by the lead; runtime setting not independently exposed",
-    "method": "Concrete sample and task reconciliation after independent arithmetic/native core review; complete delivery validation pending in docs/integer-division.md",
+    "method": "Concrete sample and task reconciliation after independent arithmetic/native core review; subsequent delivery evidence and test-result scope are recorded in docs/integer-division.md#integrated-delivery-checkpoint",
     "model": "gpt-6.1-sol",
     "effort": "high"
    }
@@ -36126,7 +36126,7 @@
     "date": "2026-10-25",
     "record": "assessment-division-20261025.md",
     "setting_evidence": "Selected GPT-6.1 Sol High by the lead; runtime setting not independently exposed",
-    "method": "Concrete sample and task reconciliation after independent arithmetic/native core review; complete delivery validation pending in docs/integer-division.md",
+    "method": "Concrete sample and task reconciliation after independent arithmetic/native core review; subsequent delivery evidence and test-result scope are recorded in docs/integer-division.md#integrated-delivery-checkpoint",
     "model": "gpt-6.1-sol",
     "effort": "high"
    }
@@ -42416,7 +42416,7 @@
     "date": "2026-10-25",
     "record": "assessment-division-20261025.md",
     "setting_evidence": "Selected GPT-6.1 Sol High by the lead; runtime setting not independently exposed",
-    "method": "Concrete sample and task reconciliation after independent arithmetic/native core review; complete delivery validation pending in docs/integer-division.md",
+    "method": "Concrete sample and task reconciliation after independent arithmetic/native core review; subsequent delivery evidence and test-result scope are recorded in docs/integer-division.md#integrated-delivery-checkpoint",
     "model": "gpt-6.1-sol",
     "effort": "high"
    }
@@ -46411,7 +46411,7 @@
     "date": "2026-10-25",
     "record": "assessment-division-20261025.md",
     "setting_evidence": "Selected GPT-6.1 Sol High by the lead; runtime setting not independently exposed",
-    "method": "Concrete sample and task reconciliation after independent arithmetic/native core review; complete delivery validation pending in docs/integer-division.md",
+    "method": "Concrete sample and task reconciliation after independent arithmetic/native core review; subsequent delivery evidence and test-result scope are recorded in docs/integer-division.md#integrated-delivery-checkpoint",
     "model": "gpt-6.1-sol",
     "effort": "high"
    }
@@ -64597,7 +64597,7 @@
     "date": "2026-10-25",
     "record": "assessment-division-20261025.md",
     "setting_evidence": "Selected GPT-6.1 Sol High by the lead; runtime setting not independently exposed",
-    "method": "Concrete sample and task reconciliation after independent arithmetic/native core review; complete delivery validation pending in docs/integer-division.md",
+    "method": "Concrete sample and task reconciliation after independent arithmetic/native core review; subsequent delivery evidence and test-result scope are recorded in docs/integer-division.md#integrated-delivery-checkpoint",
     "model": "gpt-6.1-sol",
     "effort": "high"
    }
@@ -69750,7 +69750,7 @@
     "date": "2026-10-25",
     "record": "assessment-division-20261025.md",
     "setting_evidence": "Selected GPT-6.1 Sol High by the lead; runtime setting not independently exposed",
-    "method": "Concrete sample and task reconciliation after independent arithmetic/native core review; complete delivery validation pending in docs/integer-division.md",
+    "method": "Concrete sample and task reconciliation after independent arithmetic/native core review; subsequent delivery evidence and test-result scope are recorded in docs/integer-division.md#integrated-delivery-checkpoint",
     "model": "gpt-6.1-sol",
     "effort": "high"
    }
@@ -74548,20 +74548,12 @@
    "outlook": "likely",
    "risks": [],
    "size": 12,
-   "approach": "Declare Δ : Integer range 1 .. 2 := 1, increment it with Δ := (Δ + 1) inside if Δ < 2 then, and print Integer'Image (Δ). Accompany the source with the admitted encoding and Unicode identifier documentation; the guard makes the increment fit its range once scalar guard refinement is admitted.",
-   "summary": "The bare-name/static-threshold increment fits the prepared scalar-guard-refinement fragment; its complete validation remains pending. Unicode identifiers are permitted by inherited Ada/SPARK but remain excluded by Silver ASCII source rules, so this task still requires explicit Unicode identifier support. No Unicode admission or task delivery is claimed.",
+   "approach": "Declare Δ : Integer range 1 .. 2 := 1, increment it with Δ := (Δ + 1) inside if Δ < 2 then, and print Integer'Image (Δ). Accompany the source with the admitted encoding and Unicode identifier documentation; the guard makes the increment fit its range under delivered scalar guard refinement.",
+   "summary": "The bare-name/static-threshold increment fits the delivered scalar-guard-refinement fragment. Unicode identifiers are permitted by inherited Ada/SPARK but remain excluded by Silver ASCII source rules, so this task still requires explicit Unicode identifier support. No Unicode admission or task delivery is claimed.",
    "confidence": "high",
    "review": {
-    "date": "2026-10-25",
-    "record": "assessment-reconciliation-20261025.md",
-    "model": "gpt-6-astra",
-    "effort": "xhigh",
-    "setting_evidence": "Selected setting; runtime not independently confirmed",
-    "method": "Targeted static task, captured-answer and fixed-specification review"
-   },
-   "flow_scope_review": {
     "date": "2026-10-26",
-    "record": "../docs/scalar-guard-refinement.md",
+    "record": "assessment-reconciliation-20261025.md#unicode-scalar-flow-scope--2026-10-26",
     "model": "gpt-6.1-sol",
     "effort": "high",
     "setting_evidence": "Selected setting; runtime model/effort not independently exposed",

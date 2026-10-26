@@ -198,7 +198,7 @@ and execution of the checked-in sample.
 The universal proof preserves concrete-store containment in current flow and
 declared ranges, static values, name identity, assignment replacement,
 true/false and short-circuit refinement, branch hulls, captured bounds and the
-widened loop-entry invariant. Obligation generation uses exactly the same
+widened loop-entry invariant. Modeled obligation generation uses exactly the same
 intermediate flow as admission at every expression and statement. The automatic
 discharge and actual-source chain includes typed source trees, arbitrary-callee
 equations, concrete witnesses, full source checks and the current-language
