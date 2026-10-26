@@ -139,6 +139,29 @@ def widenedValue : IntervalExpr := .ifMutable .declared .old
 def readingCount : CountExpr := .context
 def readingItem : ReadingExpr := .ifActiveRefinable .withBounds .original
 
+inductive JoinArgument | oldLeft | right
+  deriving DecidableEq
+
+def JoinArgument.eval (left right : FlowStorage) : JoinArgument → FlowStorage
+  | .oldLeft => left | .right => right
+
+def JoinArgument.render : JoinArgument → List String
+  | .oldLeft => expectedTokens "Left'Old" | .right => ["right"]
+
+structure JoinIntoExpr where
+  left : JoinArgument
+  right : JoinArgument
+  deriving DecidableEq
+
+def JoinIntoExpr.eval (tree : JoinIntoExpr) (joined : FlowStorage → FlowStorage → FlowStorage)
+    (left right : FlowStorage) : FlowStorage :=
+  joined (tree.left.eval left right) (tree.right.eval left right)
+
+def JoinIntoExpr.render (tree : JoinIntoExpr) : List String :=
+  ["joined", "("] ++ tree.left.render ++ [","] ++ tree.right.render ++ [")"]
+
+def joinIntoBody : JoinIntoExpr := ⟨.oldLeft, .right⟩
+
 def unusedFlow : FlowStorage := ⟨0, PathFacts.Context.empty, fun _ => Integer.Interval.empty⟩
 def unusedContext : Context := ⟨⟨0, fun _ => emptyBinding⟩, 0, 0⟩
 def initialLocals (context : Context) (index : Nat := 0) : Locals :=
@@ -181,6 +204,12 @@ structure InterpretedJoined (calls : Calls) (joined : FlowStorage → FlowStorag
     ∀ index, 1 ≤ index → index ≤ (joined left right).count →
       (joined left right).values index = joinedValue.eval calls (joinedLocals left right index)
 
+/-- The executable in-out operation refines the checked ghost Joined call.
+The old left operand is retained explicitly by the typed postcondition RHS. -/
+structure InterpretedJoinInto (joined joinInto : FlowStorage → FlowStorage → FlowStorage) : Prop where
+  equation : ∀ left right, left.count ≤ maxBindings → left.count = right.count →
+    joinInto left right = joinIntoBody.eval joined left right
+
 structure InterpretedReadingNames (reading : Context → FlowStorage → NameStorage) : Prop where
   count : ∀ context facts, context.InRange → facts.count = context.names.count →
     (reading context facts).count = readingCount.eval (flowLocals context facts)
@@ -205,6 +234,9 @@ theorem model_initial_interpreted (calls : Calls) : InterpretedInitial calls (in
 
 theorem model_joined_interpreted (calls : Calls) : InterpretedJoined calls (joinedStorage calls) :=
   ⟨fun _ _ _ _ => rfl, fun _ _ _ _ => rfl, fun _ _ _ _ _ _ _ => rfl⟩
+
+theorem model_joinInto_interpreted (joined : FlowStorage → FlowStorage → FlowStorage) :
+    InterpretedJoinInto joined joined := ⟨fun _ _ _ _ => rfl⟩
 
 theorem model_reading_interpreted : InterpretedReadingNames readingStorage :=
   ⟨fun _ _ _ _ => rfl, fun _ _ _ _ _ _ _ => rfl⟩
@@ -315,6 +347,14 @@ theorem interpreted_joined (calls : Calls) (meaning : CallsMeaning calls)
     · exact source.path left right legal same
     · exact source.values left right legal same
   · exact joined_storage_active calls meaning left right same
+
+theorem interpreted_joinInto (calls : Calls) (meaning : CallsMeaning calls)
+    (joined : FlowStorage → FlowStorage → FlowStorage) (joinedSource : InterpretedJoined calls joined)
+    (joinInto : FlowStorage → FlowStorage → FlowStorage) (source : InterpretedJoinInto joined joinInto)
+    (left right : FlowStorage) (legal : left.count ≤ maxBindings) (same : left.count = right.count) :
+    (joinInto left right).active = left.active.join right.active := by
+  rw [source.equation left right legal same]
+  exact interpreted_joined calls meaning joined joinedSource left right legal same
 
 theorem interpreted_readingNames (reading : Context → FlowStorage → NameStorage)
     (source : InterpretedReadingNames reading) (context : Context) (facts : FlowStorage)
@@ -451,6 +491,10 @@ def joinedHeader : List String :=
   expectedTokens "and then (for all Index in Joined'Result.Values'Range => Joined'Result.Values (Index) =" ++
   joinedValue.render ++ [")"]
 
+def joinIntoHeader : List String :=
+  expectedTokens "(Left : in out Scalar_Flow; Right : Scalar_Flow) with Global => null, Pre => Left.Count = Right.Count, Post => (Static => Left =" ++
+  joinIntoBody.render ++ [")"]
+
 def widenedHeader : List String :=
   expectedTokens "(Context : Body_Context; Facts : in out Scalar_Flow) with Global => null, Pre => Facts.Count = Context.Scalar_Names.Count, Post => Facts.Path =" ++
   widenedPath.render ++ expectedTokens "and then (for all Index in Facts.Values'Range => Facts.Values (Index) =" ++
@@ -464,6 +508,7 @@ def readingHeader : List String :=
 structure Checked (tokens : List String) : Prop where
   initial : functionHeader "initial_flow" ";" tokens = some initialHeader
   joined : functionHeader "joined" ";" tokens = some joinedHeader
+  joinInto : procedureHeader "join_into" ";" tokens = some joinIntoHeader
   widened : procedureHeader "widen_into" ";" tokens = some widenedHeader
   reading : functionHeader "reading_names" ";" tokens = some readingHeader
   vector : typeDeclaration "interval_vector" tokens =
