@@ -122,9 +122,9 @@ The first complete Lean build reached the expanded scalar source checks and
 could not synthesize a decision procedure for their combined expression/header
 conjunctions. Commit `92a3791e22` splits those conjunctions into individual
 kernel-checked obligations, preserving every statement and the existing proof
-limits. The active run retains independent completed certificates; the repaired
-target and subsequent complete audit remain pending. This is a proof-script
-integration failure, not a successful complete validation result.
+limits. The completed repaired run retained the independent certificates and
+passed the complete source and fresh axiom audit. The original failure remains
+recorded separately from that successful checkpoint.
 
 The same native checkpoint subsequently reported a 30-second timeout in
 `Silver_Library_Reports.Map_OK`'s loop-invariant preservation. Repair `1d9bc08382`
@@ -137,13 +137,15 @@ the unchanged proof regime. An earlier selector pointed at a blank line and
 generated no checks; that failed invocation is retained separately. The original
 complete run finished with that single failed obligation. Its successful work
 and cache remain retained. The rebuilt repaired source now has a new complete
-native audit in progress; final Lean input correspondence is also required.
+native audit in progress. Final Lean input correspondence is retained for all
+582 captured source inputs before the validation workspace was reused for the
+separate guard increment.
 
 | Required evidence | Current result and exact remaining field |
 | --- | --- |
 | Native compiler/runtime build | Repaired-input run `20261026T002846-e157157cf62b` succeeded. Pending retained command/log link and exact input correspondence to final implementation. |
 | Full native proof and evidence audit | Repaired-input run `20261026T002857-50fd2281b177` is active after the focused repair passed. Successful complete coverage/provenance audit and retained evidence links remain pending. Original run `20261025T221851-c7c38b2dd915` failed only the recorded invariant. |
-| Complete Lean/source and axiom audit | Managed run `20261025T224628-2bc4dc5ed3d3` active at handoff. Pending final outcome, actual input/module/declaration coverage, permitted axioms, cache scope, worker settings and evidence links. |
+| Complete Lean/source and axiom audit | Repaired complete run `20261026T005331-e0e3d7a0bf00` passed: 467 modules and 90,288 declarations, with only `propext`, `Classical.choice` and `Quot.sound`. All 582 captured source inputs matched `dfdd0269ae` and the live validation worktree before reuse. Cached build: 39.714 seconds; fresh audit: 8.867 seconds; four workers, two threads per process. Portable evidence export remains pending the native/full-suite checkpoint. |
 | Full regression and sample checkpoint | Pending run identity, result, actual tests/samples/execution-case totals, exact stdout/stderr/status comparisons and retained log/input identities. Seven new sample sources and expected outputs are implemented; success is not inferred from their existence. |
 | Independent review | [Arithmetic/native core review](reviews/review-integer-division-core-16d0f0cfaa.md) reports no findings for its exact target. [Source-bridge integration review](reviews/review-integer-division-integration-14b9302a97.md) reports no findings at `14b9302a97`. Final documentation/evidence review is outside those implementation-review scopes and remains pending. |
 | Rosetta reconciliation and render | Narrow identifier and seven concrete approaches prepared; full render and documentation consistency result recorded in the [assessment record](../rosetta/assessment-division-20261025.md#delivery-mapping). Pending lead's stage/board update and successful delivery checkpoint. |
