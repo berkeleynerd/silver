@@ -8,7 +8,7 @@ public import Silver.SourceDeclarations
 namespace Silver.Predicate.ScalarBodyNative.SourceChecks
 open Silver.SourceBridge
 
-def expectedTokens (text : String) : List String := (Source.lex text).getD []
+def expectedTokens (text : String) : List String := (Source.lexLine text).getD []
 def targetImpl : List String := expectedTokens
   "(Text : String; Context : Body_Context; Position : Literal_Position) return Scalar_Expressions.Binding_Count"
 def targetSpec : List String := targetImpl ++ expectedTokens

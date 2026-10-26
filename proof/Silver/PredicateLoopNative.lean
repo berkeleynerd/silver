@@ -175,6 +175,10 @@ inductive Update
   | restoreFacts | bodyPath | joinFacts | readBody | token (value : ShellToken)
   deriving DecidableEq
 
+/-- The fixed Static assertions attached to widen/indexValue in the rendering
+have no executable state effects. Their exact tokens remain part of the source
+check, and native verification must discharge their obligations; no constructor
+accepts arbitrary ignored source. -/
 def Update.eval (read : Reader) (frame : Frame) : Update → Frame
   | .inside => {frame with result := {frame.result with position := fixedAfter frame.text frame.after "in" true}}
   | .reverse => {frame with result := bodyToken frame.text frame.result (.word "reverse")}
@@ -256,7 +260,9 @@ def Update.render : Update → List String
       call "normalize" [["(", "low", ".", "bounds", ".", "lower", ",", "high", ".", "bounds", ".", "upper", ")"]] ++ [")", ";"]
   | .definite => ["definite", ":=", "not"] ++ emptyBounds "low" ++ ["and", "then", "not"] ++ emptyBounds "high" ++
       ["and", "then", "low", ".", "bounds", ".", "upper", "<=", "high", ".", "bounds", ".", "lower", ";"]
-  | .widen => call "widen_into" [["context"], ["result", ".", "facts"]] ++ [";"]
+  | .widen => call "widen_into" [["context"], ["result", ".", "facts"]] ++ [";"] ++
+      ["pragma", "assert", "(", "static", "=>"] ++
+      call "valid_flow" [["context"], ["result", ".", "facts"]] ++ [")", ";"]
   | .inner => ["inner", ".", "scalar_names", ":=", "scalar_expressions", "."] ++
       call "append" [["context", ".", "scalar_names"], ["(", "first", ",", "after", ",", "index_bounds", ",", "false", ",", "index_bounds", ",", "false", ")"]] ++ [";"]
   | .copyToInner field => ["inner_scan", ".", field.name, ":=", "result", ".", field.name, ";"]
@@ -271,7 +277,27 @@ def Update.render : Update → List String
        "result", ".", "facts", ".", "values", "'", "first", "..", "index", "-", "1", "=>",
        "inner_scan", ".", "facts", ".", "values", "(", "done", ")", "=", "result", ".", "facts", ".", "values", "(", "done", ")", ")", ")", ";",
        "inner_scan", ".", "facts", ".", "values", "(", "index", ")", ":=", "result", ".", "facts", ".", "values", "(", "index", ")", ";", "end", "loop", ";"]
-  | .indexValue => ["inner_scan", ".", "facts", ".", "values", "(", "inner_scan", ".", "count", ")", ":=", "index_bounds", ";"]
+  | .indexValue =>
+      ["pragma", "assert", "(", "static", "=>", "(", "for", "all", "index", "in",
+       "result", ".", "facts", ".", "values", "'", "range", "=>",
+       "inner_scan", ".", "facts", ".", "values", "(", "index", ")", "=",
+       "result", ".", "facts", ".", "values", "(", "index", ")", ")", ")", ";",
+       "pragma", "assert", "(", "static", "=>", "(", "for", "all", "index", "in", "1", "..",
+       "context", ".", "scalar_names", ".", "count", "=>",
+       "inner", ".", "scalar_names", ".", "items", "(", "index", ")", "=",
+       "context", ".", "scalar_names", ".", "items", "(", "index", ")", ")", ")", ";",
+       "pragma", "assert", "(", "static", "=>",
+       "inner", ".", "declaration_count", "=", "context", ".", "declaration_count", ")", ";",
+       "inner_scan", ".", "facts", ".", "values", "(", "inner_scan", ".", "count", ")", ":=", "index_bounds", ";",
+       "pragma", "assert", "(", "static", "=>", "not",
+       "inner", ".", "scalar_names", ".", "items", "(", "inner_scan", ".", "count", ")", ".", "mutable", ")", ";",
+       "pragma", "assert", "(", "static", "=>",
+       "inner_scan", ".", "count", ">", "inner", ".", "declaration_count", ")", ";",
+       "pragma", "assert", "(", "static", "=>", "included", "(",
+       "inner_scan", ".", "facts", ".", "values", "(", "inner_scan", ".", "count", ")", ",",
+       "inner", ".", "scalar_names", ".", "items", "(", "inner_scan", ".", "count", ")", ".", "bounds", ")", ")", ";",
+       "pragma", "assert", "(", "static", "=>"] ++
+      call "valid_flow" [["inner"], ["inner_scan", ".", "facts"]] ++ [")", ";"]
   | .restoreFacts => ["result", ".", "facts", ":=", "scan", ".", "facts", ";"]
   | .bodyPath => ["result", ".", "facts", ".", "path", ":=", "inner_scan", ".", "facts", ".", "path", ";"]
   | .joinFacts => ["result", ".", "facts", ".", "path", ":=", "paths", "."] ++

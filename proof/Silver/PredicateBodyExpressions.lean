@@ -143,6 +143,11 @@ inductive Command
   | choose (condition : Test) (yes no : Command)
   deriving DecidableEq
 
+/-- Executable meaning of the exact source commands. The fixed Static assertions
+and Static Lemma_Joined_Flow call attached to saveYes/joinYes in the rendering
+are erased by the native frontend. Source checks require that helper's complete
+Ghost/Global/pre/post header, and native verification must prove its obligations
+and every call precondition; there is no generic ignored-source constructor. -/
 def Command.eval (primitive : Primitives) (calls : Calls) (frame : Frame) : Command → Option BodyScan × Frame
   | .nothing => (none, frame)
   | .assign value => (none, {frame with result := value.eval primitive calls frame})
@@ -171,8 +176,16 @@ mutual
     | .condition => conditionCall ++ [";"]
     | .positionAfter => ["result", ".", "position", ":=", "condition", ".", "after", ";"]
     | .facts value => ["result", ".", "facts", ":="] ++ value.render ++ [";"]
-    | .saveYes => ["yes", ":=", "result", ".", "facts", ";"]
-    | .joinYes => call "join_into" [["result", ".", "facts"], ["yes"]] ++ [";"]
+    | .saveYes => ["yes", ":=", "result", ".", "facts", ";"] ++
+        ["pragma", "assert", "(", "static", "=>"] ++
+        call "valid_flow" [["context"], ["yes"]] ++ [")", ";"]
+    | .joinYes =>
+        ["pragma", "assert", "(", "static", "=>"] ++
+        call "valid_flow" [["context"], ["result", ".", "facts"]] ++ [")", ";"] ++
+        call "lemma_joined_flow" [["context"], ["result", ".", "facts"], ["yes"]] ++ [";"] ++
+        call "join_into" [["result", ".", "facts"], ["yes"]] ++ [";"] ++
+        ["pragma", "assert", "(", "static", "=>"] ++
+        call "valid_flow" [["context"], ["result", ".", "facts"]] ++ [")", ";"]
     | .ret value => ["return"] ++ value.render ++ [";"]
     | .sequence first second => first.render ++ second.render
     | .choose test yes no => ["if"] ++ test.render ++ ["then"] ++ yes.render ++

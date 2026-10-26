@@ -87,7 +87,7 @@ theorem model_refinement (legal : InputDomain) (chainLegal : ChainDomain) (calls
   ⟨fun _ _ _ _ _ _ _ => rfl, fun _ _ _ _ _ _ _ => rfl,
     fun _ _ _ _ _ _ _ => rfl, fun _ _ _ _ => rfl⟩
 
-def expectedTokens (source : String) : List String := (Source.lex source).getD []
+def expectedTokens (source : String) : List String := (Source.lexLine source).getD []
 
 def outputHeader : List String := expectedTokens
   "(Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow; Result : out Condition_Result)"

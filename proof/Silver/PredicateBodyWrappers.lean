@@ -104,7 +104,7 @@ def modelCalls : Calls := ⟨invalidBody, invalidBody⟩
 theorem model_definitions : DefinitionEquations modelCalls :=
   ⟨invalidBody_sized modelCalls, fun _ _ => rfl, fun _ _ => rfl⟩
 
-def expectedTokens (text : String) : List String := (Source.lex text).getD []
+def expectedTokens (text : String) : List String := (Source.lexLine text).getD []
 def invalidHeader : List String := expectedTokens "(Scan : Body_Scan) return Body_Scan"
 def invalidSpec : List String := invalidHeader ++ expectedTokens
   "with Global => null, Post => (Static => Invalid_Body'Result =" ++ invalidRhs.render ++ [")"]

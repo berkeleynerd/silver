@@ -149,7 +149,7 @@ def modelString (calls : Calls) : StringWrapper := fun text context position fac
 theorem model_scalar_refinement (calls : Calls) : ScalarRefinement calls (modelScalar calls) := ⟨fun _ _ _ => rfl⟩
 theorem model_string_refinement (calls : Calls) : StringRefinement calls (modelString calls) := ⟨fun _ _ => rfl⟩
 
-def expectedTokens (text : String) := (Source.lex text).getD []
+def expectedTokens (text : String) := (Source.lexLine text).getD []
 def scalarHeader : List String := expectedTokens
   "(Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow; Mask_First : Literal_Position := 0; Mask_After : Literal_Position := 0) return Scalar_Expressions.Expression_Result"
 def stringHeader : List String := expectedTokens

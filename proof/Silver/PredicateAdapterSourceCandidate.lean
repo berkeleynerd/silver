@@ -10,17 +10,19 @@ namespace Silver.Predicate.Adapter
 /-- Exact isolated native candidate blocks. Final authoritative extraction is integrated separately. -/
 
 def context_ofCandidate : List String :=
-  ["(", "names", "=>", "scan", ".", "state", ".", "names", ",", "scalar_names", "=>", "scalar_expressions", ".", "body_environment", "(", "scan", ".", "state", ".", "scalar_names", ")", ",", "dynamic_first", "=>", "scan", ".", "state", ".", "dynamic_first", ",", "dynamic_after", "=>", "scan", ".", "state", ".", "dynamic_after", ")"]
+  ["(", "names", "=>", "scan", ".", "state", ".", "names", ",", "scalar_names", "=>", "scalar_expressions", ".", "body_environment", "(", "scan", ".", "state", ".", "scalar_names", ")", ",", "declaration_count", "=>", "scan", ".", "state", ".", "scalar_names", ".", "count", ",", "dynamic_first", "=>", "scan", ".", "state", ".", "dynamic_first", ",", "dynamic_after", "=>", "scan", ".", "state", ".", "dynamic_after", ")"]
 
 theorem context_of_candidate : contextExpr.render = context_ofCandidate := by
+  unfold context_ofCandidate
   simp only [contextExpr, Expr.render, Field.name, record]
   decide +kernel
 
 
 def body_ofCandidate : List String :=
-  ["(", "facts", "=>", "paths", ".", "initial", "(", "scan", ".", "state", ".", "dynamic_first", "/=", "0", ")", ",", "position", "=>", "scan", ".", "state", ".", "position", ",", "target", "=>", "scan", ".", "state", ".", "target", ",", "capacity", "=>", "scan", ".", "state", ".", "capacity", ",", "assigned", "=>", "scan", ".", "assigned", ",", "output", "=>", "scan", ".", "output", ")"]
+  ["(", "count", "=>", "scan", ".", "state", ".", "scalar_names", ".", "count", ",", "facts", "=>", "initial_flow", "(", "context_of", "(", "scan", ")", ")", ",", "position", "=>", "scan", ".", "state", ".", "position", ",", "target", "=>", "scan", ".", "state", ".", "target", ",", "capacity", "=>", "scan", ".", "state", ".", "capacity", ",", "assigned", "=>", "scan", ".", "assigned", ",", "output", "=>", "scan", ".", "output", ")"]
 
 theorem body_of_candidate : bodyExpr.render = body_ofCandidate := by
+  unfold body_ofCandidate
   simp only [bodyExpr, Expr.render, Field.name, record]
   decide +kernel
 
@@ -50,9 +52,10 @@ theorem at_body_stop_candidate : atStopExpr.render = at_body_stopCandidate := by
 
 
 def read_statementsCandidate : List String :=
-  ["context", ":", "constant", "body_context", ":=", "context_of", "(", "scan", ")", ";", "result", ":", "constant", "body_scan", ":=", "read_body", "(", "text", ",", "context", ",", "body_of", "(", "scan", ")", ",", "(", "if", "stop", "=", "else_keyword", "then", "else_only", "else", "end_only", ")", ")", ";", "begin", "return", "(", "if", "result", ".", "position", "=", "0", "or", "else", "not", "paths", ".", "completed", "(", "result", ".", "facts", ")", "then", "invalid_scan", "else", "expand_body", "(", "context", ",", "result", ")", ")", ";", "end", "read_statements", ";"]
+  ["context", ":", "constant", "body_context", ":=", "context_of", "(", "scan", ")", ";", "result", ":", "constant", "body_scan", "(", "scan", ".", "state", ".", "scalar_names", ".", "count", ")", ":=", "read_body", "(", "text", ",", "context", ",", "body_of", "(", "scan", ")", ",", "(", "if", "stop", "=", "else_keyword", "then", "else_only", "else", "end_only", ")", ")", ";", "begin", "return", "(", "if", "result", ".", "position", "=", "0", "or", "else", "not", "paths", ".", "completed", "(", "result", ".", "facts", ".", "path", ")", "then", "invalid_scan", "else", "expand_body", "(", "context", ",", "result", ")", ")", ";", "end", "read_statements", ";"]
 
 theorem read_statements_candidate : adapterFunction.render = read_statementsCandidate := by
+  unfold read_statementsCandidate
   simp only [adapterFunction, Function.render, Expr.render, Field.name]
   decide +kernel
 

@@ -416,3 +416,18 @@ independent reviewer; runtime settings and token/cost measurements are unavailab
 The bounded domain review reports 154 seconds of inspection. Native loop-body
 and equality-transport helpers have passed focused checks; condition, relation
 and branch return proofs still precede the complete native/source checkpoint.
+
+The checked source renderers, literal-token candidates and scalar helper headers
+are now integrated with their [input manifest](evidence/scalar-guard-refinement/lean-cohort-20261026/integration-source-renderers.json).
+The manifest checks each file against its successful run's captured input and
+audited module list. Run `20261026T055212-fb21807077d8` also checked the exact
+loop annotation rendering, parser equations and current-language model endpoint,
+with a fresh audit of 64,624 declarations. Its [focused result](evidence/scalar-guard-refinement/lean-cohort-20261026/lean-loop-current-evidence.json)
+records 295.195 seconds building and 14.624 seconds auditing. These results still
+use the preceding division source binding; final guard source correspondence
+and the complete native checkpoint remain outstanding.
+
+This integration reused completed proof work. Recovery and source/input inventory
+used selected GPT-6.1 Sol at Extra High; source and native equality repairs use
+selected GPT-6 Astra at Extra High. The live lead setting is not independently
+exposed, and whole-round token/cost measurements are unavailable.

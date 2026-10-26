@@ -1,0 +1,60 @@
+{
+  "scope": "Focused checked renderers, candidates and model/helper interfaces; final guard actual-source correspondence remains pending",
+  "files": [
+    {
+      "path": "proof/Silver/PredicateAdapterSourceCandidate.lean",
+      "sha256": "40b7ddff04a0e874e6658e06f18a5171569d530ae1bf9ed1c32f439f54ec279d",
+      "run_id": "20261026T054741-00f8b4d72975"
+    },
+    {
+      "path": "proof/Silver/PredicateBasicSourceCandidate.lean",
+      "sha256": "b824107eae924095ce304a913e9a53a7957197d5005a218e9c72bfb069233933",
+      "run_id": "20261026T054741-00f8b4d72975"
+    },
+    {
+      "path": "proof/Silver/PredicateBodyCandidates.lean",
+      "sha256": "890c42cb661c9bc4af832815cef8869e6cde26fae46622193844f9ca5136703c",
+      "run_id": "20261026T054741-00f8b4d72975"
+    },
+    {
+      "path": "proof/Silver/PredicateBodyWrappers.lean",
+      "sha256": "c6ce9650adab243b257cd768b4186a978887e2d9f5980c0424cedf349f9ef725",
+      "run_id": "20261026T054741-00f8b4d72975"
+    },
+    {
+      "path": "proof/Silver/PredicateFlowReaders.lean",
+      "sha256": "6d69674333db7d1b28100bad79d2b006da40b35041cdab0b8bd3c3940ee1fcca",
+      "run_id": "20261026T054741-00f8b4d72975"
+    },
+    {
+      "path": "proof/Silver/PredicateNativeWorkers.lean",
+      "sha256": "8b42d0c95e7df4e17806fa08c43fbc828c1408ae5b1e9537c6f9fb4ddf43fc45",
+      "run_id": "20261026T054741-00f8b4d72975"
+    },
+    {
+      "path": "proof/Silver/PredicateScalarBodySource.lean",
+      "sha256": "4a65a97a85d426a711dfb3ef632ecc7bebd36375404fe6ccb91bb63efb7b8973",
+      "run_id": "20261026T054741-00f8b4d72975"
+    },
+    {
+      "path": "proof/Silver/PredicateBodyExpressions.lean",
+      "sha256": "4941ac3c5e93d1b508d807a4354a9f9bc21de3108d4abcfd0a84854f085277b5",
+      "run_id": "20261026T055212-fb21807077d8"
+    },
+    {
+      "path": "proof/Silver/PredicateLoopNative.lean",
+      "sha256": "c6aa3be0e5d27525e1ab643736ea35eb71ca78cffaa633dfebea43daa8017c58",
+      "run_id": "20261026T055212-fb21807077d8"
+    },
+    {
+      "path": "proof/Silver/PredicateLoopCandidate.lean",
+      "sha256": "c3af3c2674c3b8b332a03d5e38063ad7f7d83f044d094b611fcbf0693004c300",
+      "run_id": "20261026T055212-fb21807077d8"
+    },
+    {
+      "path": "proof/Silver/PredicateNativeScalarHelpers.lean",
+      "sha256": "08e497fdea9378384b8471127824e0cfa9aa4de49e7150cf9404a1f744885a02",
+      "run_id": "20261026T055212-fb21807077d8"
+    }
+  ]
+}

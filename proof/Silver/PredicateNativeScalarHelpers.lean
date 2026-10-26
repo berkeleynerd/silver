@@ -651,12 +651,13 @@ structure Checked (tokens : List String) : Prop where
   operator : expressionDeclaration "scalar_operator" tokens = some (operatorBody.render, [])
   operatorHeader : functionHeader "scalar_operator" "is" tokens =
     some (expectedTokens "(Operator : Paths.Comparison) return Scalars.Comparison")
-  refineKeep : expressionDeclaration "refine_or_keep" tokens = some (refineKeepBody.render, [])
+  refineKeep : expressionDeclaration "refine_or_keep" tokens = some (refineKeepBody.render,
+    expectedTokens "with Post => (Static => Included (Refine_Or_Keep'Result, Bounds) and then (Scalars.Is_Empty (Refine_Or_Keep'Result) = Scalars.Is_Empty (Bounds)))")
   refineKeepHeader : functionHeader "refine_or_keep" "is" tokens =
     some (expectedTokens "(Bounds : Scalars.Interval; Operator : Scalars.Comparison; Threshold : Scalars.Value; Truth : Boolean) return Scalars.Interval")
   bareTarget : expressionDeclaration "bare_target" tokens = some (bareTargetBody.render, [])
   bareTargetHeader : functionHeader "bare_target" ";" tokens = some (expectedTokens
-    "(Text : String; Context : Body_Context; Position, After : Literal_Position) return Scalar_Expressions.Binding_Count with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Valid_Context (Text, Context) and then Position <= Text'Last + 1 and then After <= Text'Last + 1, Post => Bare_Target'Result <= Context.Scalar_Names.Count")
+    "(Text : String; Context : Body_Context; Position, After : Literal_Position) return Scalar_Expressions.Binding_Count with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Valid_Context (Text, Context) and then Position <= Text'Last + 1 and then After <= Text'Last + 1, Post => Bare_Target'Result <= Context.Scalar_Names.Count and then (Bare_Target'Result = 0 or else Context.Scalar_Names.Items (Bare_Target'Result).Mutable or else Bare_Target'Result > Context.Declaration_Count)")
   refinedFlow : expressionDeclaration "refined_flow" tokens =
     some (refinedFlowBody.render, expectedTokens "with Ghost => Static, Pre => Index <= Facts.Count")
   refinedFlowHeader : functionHeader "refined_flow" "is" tokens = some (expectedTokens
