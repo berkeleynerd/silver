@@ -1,0 +1,28 @@
+Phase 1 of 3: generation of data representation information ...
+Phase 2 of 3: generation of Global contracts ...
+Phase 3 of 3: flow analysis and proof ...
+ info: division check proved
+--> main.adb:12:18
+
+ info: division check proved
+--> main.adb:13:18
+
+ info: division check proved
+--> main.adb:14:18
+
+ info: division check proved
+--> main.adb:17:18
+
+ info: division check proved
+--> main.adb:18:18
+
+ info: division check proved
+--> main.adb:19:18
+
+ info: division check proved
+--> main.adb:24:18
+
+ info: division check proved
+--> main.adb:25:18
+Success: all checks proved (8 checks).
+Summary logged in /home/canto/src/github.com/berkeleynerd/silver/tmp/interval-integer-division/tmp/division-probes/discovery/obj/explore/division/gnatprove/gnatprove.out

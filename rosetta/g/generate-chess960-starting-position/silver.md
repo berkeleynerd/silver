@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from bounded range subtypes, fixed array bounds and for loops over the array range, with no recursion or while loops needed, so proofs should discharge without annotations. The only mild care is the LCG product bound and the free-square index search.
 
-Position 523 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 522 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

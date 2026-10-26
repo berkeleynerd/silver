@@ -444,6 +444,7 @@ inductive Expr : Ty → Type
   | lexAllowed : Expr .source → Expr .truth
   | operation (value : Names.Operation) : Expr .operation
   | number (n : Nat) : Expr .number
+  | character (n : Nat) : Expr .number
   | truth (b : Bool) : Expr .truth
   | variable (name : String) : Expr ty
   | function (symbol : Function) : Expr symbol.type
@@ -591,6 +592,7 @@ def Expr.render : Expr ty → List String
   | .operation op => ["names", ".", match op with
       | .output => "output_call" | .partialOutput => "partial_output_call" | .argument => "argument_call" | .validity => "validity_call" | .reject => "reject_call"]
   | .number n => [toString n]
+  | .character n => ["'" ++ String.singleton (Char.ofNat n) ++ "'"]
   | .truth b => [if b then "true" else "false"]
   | .variable name => [name]
   | .function .contextAfter => ["names", ".", "context_after"]
@@ -612,7 +614,7 @@ def Expr.render : Expr ty → List String
   | .field projection x => x.render ++ [".", projection.name]
   | .scalarCount x => x.render ++ [".", "count"]
   | .word spellingValue => ["\"" ++ spellingValue ++ "\""]
-  | .operatorByte x => x.render ++ ["in", "'&'", "|", "'+'", "|", "'-'", "|", "'*'"]
+  | .operatorByte x => x.render ++ ["in", "'&'", "|", "'+'", "|", "'-'", "|", "'*'", "|", "'/'"]
   | .maxScalarBindings => ["scalar_expressions", ".", "max_bindings"]
   | .fullInterval => ["scalars", ".", "full"]
   | .emptyInterval => ["scalars", ".", "empty"]
@@ -717,14 +719,14 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .lexNormalize a => calls.primitive.normalize (a.eval calls locals)
   | .lexAllowed a => calls.primitive.allowed (a.eval calls locals)
   | .operation op => op
-  | .number n => n | .truth b => b | .variable name => locals _ name
+  | .number n | .character n => n | .truth b => b | .variable name => locals _ name
   | .function symbol => calls.get symbol
   | .app f x => f.eval calls locals (x.eval calls locals)
   | .defaultFalse f => f.eval calls locals false
   | .field projection x => projection.get (x.eval calls locals)
   | .scalarCount x => (x.eval calls locals).length
   | .word spellingValue => spellingValue
-  | .operatorByte x => decide (x.eval calls locals ∈ [38, 43, 45, 42])
+  | .operatorByte x => decide (x.eval calls locals ∈ [38, 43, 45, 42, 47])
   | .maxScalarBindings => ScalarExpression.maxBindings
   | .fullInterval => Integer.Interval.full
   | .emptyInterval => Integer.Interval.empty
@@ -835,8 +837,15 @@ def workTailBody : Expr .truth :=
     .elsif (.eq (.byteAt text first) (.characterVal (.number 34)))
       (.andThen (.ne (.field .valueAfter quoted) (.number 0))
         (recurse (.field .valueAfter quoted) remaining)) <|
-    .elsif (.ne afterName (.number 0)) (recurse afterName remaining) <|
+    .elsif (.ne afterName (.number 0))
+      (.group <| .ite (.orElse
+        (.app (.app (.app (.app (.function .nameIs) text) first) afterName) (.word "mod"))
+        (.app (.app (.app (.app (.function .nameIs) text) first) afterName) (.word "rem")))
+        (.andThen (.ne remaining (.number 0)) (recurse afterName (.sub remaining (.number 1))))
+        (recurse afterName remaining)) <|
     .elsif (.ne (.field .scalarLiteralAfter number) (.number 0)) (recurse (.field .scalarLiteralAfter number) remaining) <|
+    .elsif (.andThen (.andThen (.eq (.byteAt text first) (.character 47)) (.lt first (.sourceLast text)))
+      (.eq (.byteAt text (.add first (.number 1))) (.character 61))) (recurse (.add first (.number 2)) remaining) <|
     .elsif (.operatorByte (.byteAt text first))
       (.andThen (.ne remaining (.number 0))
         (recurse (.add first (.number 1)) (.sub remaining (.number 1))))
@@ -1360,6 +1369,7 @@ def Expr.wellFormed : Expr ty → Bool
   | .firstForm _ source => source.wellFormed
   | .operation _ => true
   | .number _ => true
+  | .character n => decide (32 ≤ n ∧ n ≤ 126 ∧ n ≠ 39 ∧ n ≠ 40)
   | .truth _ => true
   | .variable _ => true
   | .maxLength  => true
@@ -1492,7 +1502,7 @@ def Expr.scoped (scope : Scope) : Expr ty → Bool
   | .someForm source => source.scoped scope
   | .firstForm _ source => source.scoped scope
   | .operation _ => true
-  | .number _ => true
+  | .number _ | .character _ => true
   | .truth _ => true
   | .maxLength  => true
   | .maxBindings  => true

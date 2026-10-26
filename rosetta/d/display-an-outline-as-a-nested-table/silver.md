@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is fixed-size arrays and for loops in procedures with no recursion, so checks follow from subtype ranges and a few explicit guards, but the many loop-carried indices and sums and the string-building of each markup line make the shape of the program matter.
 
-Position 944 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 943 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

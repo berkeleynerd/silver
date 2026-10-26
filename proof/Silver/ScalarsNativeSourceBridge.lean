@@ -41,6 +41,30 @@ theorem multiply_sound (calls : Native.Calls) (source : InterpretedSource calls)
   rw [interpreted_functions calls source .multiply] at accepted ⊢
   exact checkedMultiply_sound accepted ha hb
 
+theorem divide_sound (calls : Native.Calls) (source : InterpretedSource calls)
+    {left right : Interval} {a b : Int}
+    (accepted : (calls .divide left right).safe = true)
+    (ha : left.Contains a) (hb : right.Contains b) :
+    (calls .divide left right).bounds.Contains (a.tdiv b) ∧ DivideDefined a b ∧ InRange (a.tdiv b) := by
+  rw [interpreted_functions calls source .divide] at accepted ⊢
+  exact checkedDivide_sound accepted ha hb
+
+theorem modulo_sound (calls : Native.Calls) (source : InterpretedSource calls)
+    {left right : Interval} {a b : Int}
+    (accepted : (calls .modulo left right).safe = true)
+    (ha : left.Contains a) (hb : right.Contains b) :
+    (calls .modulo left right).bounds.Contains (a.fmod b) ∧ ModuloDefined a b ∧ InRange (a.fmod b) := by
+  rw [interpreted_functions calls source .modulo] at accepted ⊢
+  exact checkedModulo_sound accepted ha hb
+
+theorem remainder_sound (calls : Native.Calls) (source : InterpretedSource calls)
+    {left right : Interval} {a b : Int}
+    (accepted : (calls .remainder left right).safe = true)
+    (ha : left.Contains a) (hb : right.Contains b) :
+    (calls .remainder left right).bounds.Contains (a.tmod b) ∧ RemainderDefined a b ∧ InRange (a.tmod b) := by
+  rw [interpreted_functions calls source .remainder] at accepted ⊢
+  exact checkedRemainder_sound accepted ha hb
+
 theorem negate_sound (calls : Native.Calls) (source : InterpretedSource calls)
     {bounds : Interval} {a : Int}
     (accepted : (calls .negate bounds).safe = true) (ha : bounds.Contains a) :

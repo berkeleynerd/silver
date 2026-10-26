@@ -1,19 +1,21 @@
 # Even or odd
 
-**Candidate: proofs likely to discharge automatically.** The only arithmetic is rem 2 on a value bounded by a declared range inside a for loop, so no overflow, division or index check needs more than the type range, and no annotation is needed. The only growth needed is ranged integers, rem, a for loop and integer-to-text output.
+**Candidate: proofs likely to discharge automatically.** Only Integer range loops, standard Integer Image and remainder by nonzero literal 2 are needed by this plan. The narrow interval-integer-division capability now includes that remainder form. The existing broad integer-division dependency is retained pending approach review and migration; this assessment is not a delivered or proved sample.
 
-Position 103 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 104 in the [progression](../../progression.md#stage-6), in stage 6, which adds integer division.
 
 ## Approach
 
-Declare a bounded integer subtype (for example -1000 .. 1000) and loop with a for loop over that range, testing N rem 2 = 0 for even and printing the number with its 'Image and the verdict via Put_Line. Every value is bounded by its type, so rem and 'Image checks follow from declared ranges, with no recursion or loop-carried state. About 22 lines.
+Main loops directly over the Integer range -1000 .. 1000. For each immutable index N, an if statement tests (N rem 2) = 0 and prints Integer'Image (N) concatenated with the literal even or odd verdict through Put_Line. The bounded literal range includes negative values and zero. No declared subtype, user-defined procedure or separate Put call is needed. About 16 lines.
 
 ## Language surface recorded by this assessment
 
-Integers, integer division, ranged subtypes, for loops, 'Image of scalars, Put without a newline and procedures.
+Integer range for loops, integer division and Integer image.
 
 ## External effects
 
 - **console output** (allowed): Prints whether each sample integer is even or odd.
 
-Assessed on 2026-10-15 against page revision 415382 of the [task](https://rosettacode.org/wiki/Even_or_odd) by claude-sonnet-5-5 at medium effort; confidence high. The inclusion policy is in `rosetta/coverage.json`.
+Initially assessed on 2026-10-15 against page revision 415382 of the [task](https://rosettacode.org/wiki/Even_or_odd) by claude-sonnet-5-5 at medium effort; current confidence high. The inclusion policy is in `rosetta/coverage.json`.
+
+Revised on 2026-10-25 by Codex through targeted source review; see the [review record](../../assessment-division-20261025.md).

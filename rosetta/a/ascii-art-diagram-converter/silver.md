@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from bounded subtypes, fixed-capacity buffers and guards placed before each index, and loops live in procedures, but the many loop-carried positions in the scanner and the validation shape need careful guard placement. No annotation is needed, so discharge is plausible rather than routine.
 
-Position 1306 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1305 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

@@ -67,13 +67,15 @@ theorem lookup_bound (text : Source) (names : Environment) (first after : Nat) :
 def leaves : Integer.Expr → Nat
   | .literal _ | .name _ => 1
   | .positive value | .negative value | .parenthesized value => leaves value
-  | .add left right | .subtract left right | .multiply left right => leaves left + leaves right
+  | .add left right | .subtract left right | .multiply left right
+  | .divide left right | .modulo left right | .remainder left right => leaves left + leaves right
 
 def isStatic (names : Environment) : Integer.Expr → Bool
   | .literal _ => true
   | .name index => (binding names index).isStatic
   | .positive value | .negative value | .parenthesized value => isStatic names value
-  | .add left right | .subtract left right | .multiply left right =>
+  | .add left right | .subtract left right | .multiply left right
+  | .divide left right | .modulo left right | .remainder left right =>
       isStatic names left && isStatic names right
 
 theorem leaves_positive (expression : Integer.Expr) : 0 < leaves expression := by
@@ -113,6 +115,17 @@ def symbol (text : Source) (position byte : Nat) : Nat :=
 def nameAfter (text : Source) (position : Nat) : Nat :=
   if position = 0 then 0 else Named.identifierEnd text position
 
+/-- End of one complete scalar operator token; `/=` remains a comparison. -/
+def binaryAfter (text : Source) (position : Nat) : Nat :=
+  let after := nameAfter text position
+  if position = 0 ∨ position > text.length then 0
+  else if Cursor.byteAt text position = 43 ∨ Cursor.byteAt text position = 45 ∨
+      Cursor.byteAt text position = 42 then position + 1
+  else if Cursor.byteAt text position = 47 then
+    if position < text.length ∧ Cursor.byteAt text (position + 1) = 61 then 0 else position + 1
+  else if after ≠ 0 ∧ (Named.nameIs text position after ("mod".toList.map Char.toNat) = true ∨
+      Named.nameIs text position after ("rem".toList.map Char.toNat) = true) then after else 0
+
 def signedValue (value : Nat) (negative : Bool) : Int :=
   if negative then -(Int.ofNat value) else Int.ofNat value
 
@@ -126,6 +139,9 @@ def binary (left right : Parsed) (operator : Nat) : Option Parsed :=
   if operator = 43 then some ⟨right.after, .add left.expression right.expression⟩
   else if operator = 45 then some ⟨right.after, .subtract left.expression right.expression⟩
   else if operator = 42 then some ⟨right.after, .multiply left.expression right.expression⟩
+  else if operator = 47 then some ⟨right.after, .divide left.expression right.expression⟩
+  else if operator = 109 then some ⟨right.after, .modulo left.expression right.expression⟩
+  else if operator = 114 then some ⟨right.after, .remainder left.expression right.expression⟩
   else none
 
 def close (text : Source) (parsed : Option Parsed) : Option Parsed := do
@@ -173,11 +189,10 @@ def parseFuel : Nat → Source → Nat → Environment → Nat → Nat → Bool 
           if next = 0 ∨ next > text.length then none
           else if Cursor.byteAt text next = 41 then
             some ⟨next + 1, .parenthesized left.expression⟩
-          else if Cursor.byteAt text next ≠ 43 ∧ Cursor.byteAt text next ≠ 45 ∧ Cursor.byteAt text next ≠ 42
-          then none
+          else if binaryAfter text next = 0 then none
           else
-            let right ← parseFuel fuel text (next + 1) names maskFirst maskAfter false
-            close text (binary left right (Cursor.byteAt text next))
+            let right ← parseFuel fuel text (binaryAfter text next) names maskFirst maskAfter false
+            close text (binary left right (lowercase (Cursor.byteAt text next)))
 
 def read (text : Source) (position : Nat) (names : Environment)
     (maskFirst maskAfter : Nat := 0) (allowSign : Bool := true) : Result :=

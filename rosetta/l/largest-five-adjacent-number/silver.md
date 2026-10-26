@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from ranged subtypes, constant loop bounds over a fixed 1000-character string and a constant-modulus generator, with no loop-carried value needing an invariant. Comparing digit strings lexicographically avoids loop-carried numeric accumulation entirely.
 
-Position 1471 in the [progression](../../progression.md#stage-28), in stage 28, which adds string ordering.
+Position 1470 in the [progression](../../progression.md#stage-28), in stage 28, which adds string ordering.
 
 ## Approach
 

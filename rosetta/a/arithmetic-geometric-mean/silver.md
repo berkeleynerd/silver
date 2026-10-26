@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs only bounded floating-point arithmetic, Sqrt and a fixed-count loop, so checks reduce to range and non-negativity facts, but float range reasoning and the admitted Sqrt contract make discharge depend on careful typing.
 
-Position 1033 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1032 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

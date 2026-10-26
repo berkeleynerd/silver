@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is on a wraparound modular type with for loops over fixed nibble indexes, so no overflow, range or index check depends on a loop-carried value and nothing needs an annotation.
 
-Position 1271 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1270 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

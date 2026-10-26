@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is bounded by Character'Pos at most 255 and the loops are for loops or sit in procedures, so every check follows from types and bounds; the only new need is an admitted line-reading file operation.
 
-Position 1317 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1316 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Failure paths to test
 

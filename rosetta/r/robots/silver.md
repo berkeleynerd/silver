@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Nothing here needs recursion, floating point or annotations, and all coordinates are range-typed grid indices guarded at boundaries, so only the LCG arithmetic and the many loop-carried positions need careful guarding; the task itself is only a game clone with no specified behavior beyond that, so a text turn-based form is faithful.
 
-Position 1244 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1243 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Failure paths to test
 

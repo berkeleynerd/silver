@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is pure text processing over bounded character buffers, so every check follows from the buffer's declared capacity, for-loop ranges and guards before each look-behind or look-ahead. It is plausible rather than likely only because many loop-carried lengths need guards and many rewrite passes must be written carefully.
 
-Position 947 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 946 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

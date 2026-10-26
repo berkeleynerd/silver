@@ -107,4 +107,41 @@ package Silver_Scalars with SPARK_Mode => On is
    function Multiply (Left, Right : Interval) return Check_Result is
      (if Is_Empty (Left) or else Is_Empty (Right) then Unreachable
       else Checked (Product_Minimum (Left, Right), Product_Maximum (Left, Right)));
+   function Quotient_Minimum (Left, Right : Interval) return Wide is
+     (if Right.Lower = 0 or else Right.Upper = 0 then 0
+      else Wide'Min (Wide'Min (Wide (Left.Lower) / Wide (Right.Lower),
+                         Wide (Left.Lower) / Wide (Right.Upper)),
+                Wide'Min (Wide (Left.Upper) / Wide (Right.Lower),
+                         Wide (Left.Upper) / Wide (Right.Upper))));
+   function Quotient_Maximum (Left, Right : Interval) return Wide is
+     (if Right.Lower = 0 or else Right.Upper = 0 then 0
+      else Wide'Max (Wide'Max (Wide (Left.Lower) / Wide (Right.Lower),
+                         Wide (Left.Lower) / Wide (Right.Upper)),
+                Wide'Max (Wide (Left.Upper) / Wide (Right.Lower),
+                         Wide (Left.Upper) / Wide (Right.Upper))));
+   --  Check the divisor before propagating empty bounds: an unreachable
+   --  dividend does not admit a divisor interval that contains zero.
+   function Divide (Left, Right : Interval) return Check_Result is
+     (if Contains (Right, 0) then Invalid
+      elsif Is_Empty (Left) or else Is_Empty (Right) then Unreachable
+      else Checked (Quotient_Minimum (Left, Right), Quotient_Maximum (Left, Right)));
+   function Modulo (Left, Right : Interval) return Check_Result is
+     (if Contains (Right, 0) then Invalid
+      elsif Is_Empty (Left) or else Is_Empty (Right) then Unreachable
+      elsif Left.Lower = Left.Upper and then Right.Lower = Right.Upper then
+        Checked (Wide (Left.Lower) mod Wide (Right.Lower),
+                 Wide (Left.Lower) mod Wide (Right.Lower))
+      elsif Right.Lower > 0 then Checked (0, Wide (Right.Upper) - 1)
+      else Checked (Wide (Right.Lower) + 1, 0));
+   function Remainder_Limit (Right : Interval) return Wide is
+     (Wide'Max (abs Wide (Right.Lower), abs Wide (Right.Upper)) - 1);
+   function Remainder (Left, Right : Interval) return Check_Result is
+     (if Contains (Right, 0) then Invalid
+      elsif Is_Empty (Left) or else Is_Empty (Right) then Unreachable
+      elsif Left.Lower = Left.Upper and then Right.Lower = Right.Upper then
+        Checked (Wide (Left.Lower) rem Wide (Right.Lower),
+                 Wide (Left.Lower) rem Wide (Right.Lower))
+      else Checked
+        ((if Left.Lower < 0 then Wide'Max (Wide (Left.Lower), -Remainder_Limit (Right)) else 0),
+         (if Left.Upper > 0 then Wide'Min (Wide (Left.Upper), Remainder_Limit (Right)) else 0)));
 end Silver_Scalars;

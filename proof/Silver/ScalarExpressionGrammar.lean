@@ -138,6 +138,94 @@ theorem atom_complete {text : Source} {names : Environment} {position maskFirst 
       simp [atom, nonzero, Nat.not_lt.mpr within, notSign, numberEquation,
         nameAfter, nameEquation, found, nonzeroIndex, unmasked]
 
+/-- Operator terminals are described independently of the operator reader. -/
+inductive BinaryTokenAt (text : Source) (position : Nat) : Nat → Prop
+  | symbol : 0 < position → position ≤ text.length →
+      (Cursor.byteAt text position = 43 ∨ Cursor.byteAt text position = 45 ∨
+        Cursor.byteAt text position = 42) → BinaryTokenAt text position (position + 1)
+  | divide : 0 < position → position ≤ text.length → Cursor.byteAt text position = 47 →
+      ¬ (position < text.length ∧ Cursor.byteAt text (position + 1) = 61) →
+      BinaryTokenAt text position (position + 1)
+  | word {bytes : Source} {after : Nat} : 0 < position →
+      Named.IdentifierAt text position bytes after →
+      (Named.canonicalName text position after = ("mod".toList.map Char.toNat) ∨
+        Named.canonicalName text position after = ("rem".toList.map Char.toNat)) →
+      BinaryTokenAt text position after
+
+theorem binaryToken_bounds {text : Source} {position after : Nat}
+    (token : BinaryTokenAt text position after) :
+    0 < position ∧ position < after ∧ after ≤ text.length + 1 := by
+  cases token with
+  | symbol positive within _ | divide positive within _ _ => omega
+  | word positive named _ =>
+      have bounds := Named.identifier_bounds named
+      exact ⟨positive, bounds.2.2.1, bounds.2.2.2⟩
+
+theorem binaryToken_not_close {text : Source} {position after : Nat}
+    (token : BinaryTokenAt text position after) : Cursor.byteAt text position ≠ 41 := by
+  cases token with
+  | symbol _ _ operators => omega
+  | divide _ _ slash _ => omega
+  | word _ named _ =>
+      cases named with
+      | identifier _ letter _ => simp only [Named.letter, decide_eq_true_eq] at letter; omega
+
+theorem binaryAfter_sound {text : Source} {position : Nat}
+    (success : binaryAfter text position ≠ 0) :
+    BinaryTokenAt text position (binaryAfter text position) := by
+  unfold binaryAfter at success ⊢
+  dsimp only at success ⊢
+  split
+  · simp_all
+  · rename_i valid
+    split
+    · exact .symbol (by omega) (by omega) (by assumption)
+    · split
+      · split
+        · simp_all
+        · exact .divide (by omega) (by omega) (by assumption) (by assumption)
+      · split
+        · rename_i matched
+          have positive : position ≠ 0 := by omega
+          have identified : Named.identifierEnd text position ≠ 0 := by
+            simpa [nameAfter, positive] using matched.1
+          obtain ⟨bytes, named⟩ := Named.identifierEnd_sound text position identified
+          have bounds := Named.identifierEnd_bounds text position identified
+          apply BinaryTokenAt.word (bytes := bytes) (by omega)
+          · simpa [nameAfter, positive] using named
+          · have nameBounds : nameAfter text position = Named.identifierEnd text position := by simp [nameAfter, positive]
+            rcases matched.2 with mod | rem
+            · exact Or.inl ((Named.nameIs_iff text position _ (("mod".toList.map Char.toNat)) (by omega)
+                (by omega) (by omega)).mp mod)
+            · exact Or.inr ((Named.nameIs_iff text position _ (("rem".toList.map Char.toNat)) (by omega)
+                (by omega) (by omega)).mp rem)
+        · simp_all
+
+theorem binaryAfter_complete {text : Source} {position after : Nat}
+    (token : BinaryTokenAt text position after) : binaryAfter text position = after := by
+  cases token with
+  | symbol positive within operators => simp [binaryAfter, show position ≠ 0 by omega, Nat.not_lt.mpr within, operators]
+  | divide positive within slash notEqual =>
+      simp [binaryAfter, show position ≠ 0 by omega, Nat.not_lt.mpr within, slash, notEqual]
+  | word positive named spelling =>
+      have eq := Named.identifierEnd_complete named
+      have bounds := Named.identifier_bounds named
+      have letter : Named.letter (Cursor.byteAt text position) = true := by cases named; assumption
+      have charRange := letter
+      simp only [Named.letter, decide_eq_true_eq] at charRange
+      have names : Named.nameIs text position after (("mod".toList.map Char.toNat)) = true ∨
+          Named.nameIs text position after (("rem".toList.map Char.toNat)) = true := by
+        rcases spelling with mod | rem
+        · exact Or.inl ((Named.nameIs_iff text position after _ (by omega) (by omega) bounds.2.2.2).mpr mod)
+        · exact Or.inr ((Named.nameIs_iff text position after _ (by omega) (by omega) bounds.2.2.2).mpr rem)
+      change Named.nameIs text position after [109, 111, 100] = true ∨
+        Named.nameIs text position after [114, 101, 109] = true at names
+      have within : position ≤ text.length := by cases named; assumption
+      simp [binaryAfter, nameAfter, show position ≠ 0 by omega, Nat.not_lt.mpr within,
+        show Cursor.byteAt text position ≠ 43 by omega, show Cursor.byteAt text position ≠ 45 by omega,
+        show Cursor.byteAt text position ≠ 42 by omega, show Cursor.byteAt text position ≠ 47 by omega,
+        eq, show after ≠ 0 by omega, names]
+
 def inner (text : Source) (position : Nat) : Nat := skip text (skip text position + 1)
 
 def Opens (text : Source) (position : Nat) : Prop :=
@@ -169,14 +257,13 @@ inductive SyntaxAt (text : Source) (names : Environment) (maskFirst maskAfter : 
       SyntaxAt text names maskFirst maskAfter true (inner text position) value →
       SymbolAt text value.after 41 closed →
       SyntaxAt text names maskFirst maskAfter allowSign position ⟨closed, .parenthesized value.expression⟩
-  | binary {position closed : Nat} {allowSign : Bool} {left right combined : Parsed} :
+  | binary {position closed operatorEnd : Nat} {allowSign : Bool} {left right combined : Parsed} :
       Opens text position → ¬ Sign (Cursor.byteAt text (inner text position)) →
       SyntaxAt text names maskFirst maskAfter true (inner text position) left →
       skip text left.after ≠ 0 → skip text left.after ≤ text.length →
-      (Cursor.byteAt text (skip text left.after) = 43 ∨
-        Cursor.byteAt text (skip text left.after) = 45 ∨ Cursor.byteAt text (skip text left.after) = 42) →
-      SyntaxAt text names maskFirst maskAfter false (skip text left.after + 1) right →
-      binary left right (Cursor.byteAt text (skip text left.after)) = some combined →
+      BinaryTokenAt text (skip text left.after) operatorEnd →
+      SyntaxAt text names maskFirst maskAfter false operatorEnd right →
+      binary left right (lowercase (Cursor.byteAt text (skip text left.after))) = some combined →
       SymbolAt text combined.after 41 closed →
       SyntaxAt text names maskFirst maskAfter allowSign position {combined with after := closed}
 

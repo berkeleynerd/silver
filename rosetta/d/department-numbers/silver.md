@@ -1,19 +1,21 @@
 # Department numbers
 
-**Candidate: proofs likely to discharge automatically.** Every check follows from the 1 .. 7 loop index ranges (the sum is at most 21, 'Image strings are short and bounded) and for loops terminate by themselves, so no annotation is needed. Nothing is carried across iterations and the output is fixed and deterministic.
+**Candidate: proofs likely to discharge automatically.** Every intermediate sum is at most 21 and the modulo divisor is literal 2. The loops enumerate exactly the fourteen task triples without mutable objects, declared subtypes or scalar refinement.
 
-Position 102 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 31 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
-Main prints a header, then three nested for loops over 1 .. 7 for police, sanitation and fire, with the loop indexes as the only data. An if statement tests Police mod 2 = 0, the three inequalities and a sum of 12, and prints the three values with 'Image and bounded concatenation. All state is loop indexes, so no loop-carried values exist. About 22 lines.
+Main prints the heading and nests Integer range loops over Police, Sanitation and Fire in 1 .. 7. A short-circuit condition requires (Police mod 2)=0, pairwise distinct values and ((Police + Sanitation) + Fire)=12, then prints the three Integer images through Put_Line. About 20 lines.
 
 ## Language surface recorded by this assessment
 
-Integers, integer division, for loops and 'Image of scalars.
+Integer range for loops, immutable Integer arithmetic, interval-checked Integer division and Integer image.
 
 ## External effects
 
 - **console output** (allowed): Prints a header line and the 14 valid combinations with Put_Line.
 
-Assessed on 2026-10-15 against page revision 415394 of the [task](https://rosettacode.org/wiki/Department_numbers) by claude-sonnet-5-5 at medium effort; confidence high. The inclusion policy is in `rosetta/coverage.json`.
+Initially assessed on 2026-10-15 against page revision 415394 of the [task](https://rosettacode.org/wiki/Department_numbers) by claude-sonnet-5-5 at medium effort; current confidence high. The inclusion policy is in `rosetta/coverage.json`.
+
+Revised on 2026-10-25 by Codex through targeted source review; see the [review record](../../assessment-division-20261025.md).

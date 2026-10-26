@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs only a bounded record, simple non-recursive functions, one Sqrt and bounded text appends, so every check follows from constant inputs and capacity guards; float formatting and Sqrt preconditions need careful range guards, hence plausible rather than likely.
 
-Position 1073 in the [progression](../../../progression.md#stage-17), in stage 17.
+Position 1072 in the [progression](../../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

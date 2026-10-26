@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every operand is bounded by declared subtypes and all loops are for loops over static ranges, so the overflow, range and termination checks follow from types and guards without any annotation. The only extra surface is integer arithmetic, integer division, small functions and integer-to-text output.
 
-Position 882 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 881 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

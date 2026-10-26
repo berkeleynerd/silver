@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from bounded integer subtypes, fixed array capacity and explicit guards before each operation, with no annotation-only facts, but the loop-carried parser accumulator and count need carefully placed guards.
 
-Position 1134 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1133 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 

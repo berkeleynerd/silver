@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Integer Bresenham on a small fixed grid has all indexes and arithmetic bounded by 1..16 subtypes and for loops, so checks should discharge without annotations, though the nonlinear rounding division and subtype conversions need careful shaping. Silver today lacks arrays, loops, procedures, characters and integers, which are needed.
 
-Position 907 in the [progression](../../../progression.md#stage-15), in stage 15.
+Position 906 in the [progression](../../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

@@ -1,0 +1,18 @@
+Managed run: 20261025T220908-2707637afa18 (/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261025T220908-2707637afa18)
+Phase 1 of 3: generation of data representation information ...
+Phase 2 of 3: generation of Global contracts ...
+Phase 3 of 3: flow analysis and proof ...
+ warning: loop range is null, loop will not execute [enabled by default]
+--> main.adb:4:13
+    4 |     for I in 1 .. 0 loop
+      |              ~~^~~~
+
+ warning: this statement is never reached
+--> main.adb:5:03
+    5 |      if (I mod 0) = 0 then null; end if;
+      |      ^~
+
+ info: division check proved
+--> main.adb:5:09
+Success: all checks proved (1 check).
+Summary logged in /home/canto/src/github.com/berkeleynerd/silver/tmp/interval-integer-division/tmp/division-probes/empty_mod/obj/explore/division/gnatprove/gnatprove.out

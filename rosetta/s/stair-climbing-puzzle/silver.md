@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The recursion in the task's pseudo-code can be replaced by an explicit pending-steps counter in a procedure, so no variant is needed and all checks follow from bounded subtypes and guards. The nonrecursive form is a faithful equivalent, and the only non-routine items are loop-carried counters that need explicit bound guards.
 
-Position 1292 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1291 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

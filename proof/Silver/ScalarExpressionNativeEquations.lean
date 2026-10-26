@@ -23,6 +23,10 @@ structure Primitives (calls : Calls) : Prop where
   equalName : ∀ text, ValidText text → ∀ first after otherFirst otherAfter,
     Span text first after → Span text otherFirst otherAfter →
     calls.equalName text first after otherFirst otherAfter = Named.equalName text first after otherFirst otherAfter
+  nameIs : ∀ text, ValidText text → ∀ first after word,
+    Span text first after → 0 < word.length → word.length ≤ 4096 →
+    calls.nameIs text first after word = Named.nameIs text first after word
+  lowercase : ∀ byte, byte ≤ 255 → calls.lowercase byte = Silver.lowercase byte
   integerLiteral : ∀ text, ValidText text → ∀ position, position ≤ text.length + 1 →
     calls.integerLiteral text position = ScalarLiteral.read text position
   checked : ∀ lower upper, Integer.WideInRange lower → Integer.WideInRange upper →
@@ -31,6 +35,9 @@ structure Primitives (calls : Calls) : Prop where
   add : ∀ left right, left.Bounded → right.Bounded → calls.scalars.add left right = Integer.checkedAdd left right
   subtract : ∀ left right, left.Bounded → right.Bounded → calls.scalars.subtract left right = Integer.checkedSubtract left right
   multiply : ∀ left right, left.Bounded → right.Bounded → calls.scalars.multiply left right = Integer.checkedMultiply left right
+  divide : ∀ left right, left.Bounded → right.Bounded → calls.scalars.divide left right = Integer.checkedDivide left right
+  modulo : ∀ left right, left.Bounded → right.Bounded → calls.scalars.modulo left right = Integer.checkedModulo left right
+  remainder : ∀ left right, left.Bounded → right.Bounded → calls.scalars.remainder left right = Integer.checkedRemainder left right
   normalize : ∀ value, value.Bounded → calls.scalars.normalize value = value.normalize
 
 /-- Typed body interpretation and exact checked runtime refinements. These
@@ -46,6 +53,8 @@ structure Equations (calls : Calls) : Prop where
     calls.skip text position = if position = 0 then 0 else calls.trivia text position
   nameAfter : ∀ text, ValidText text → ∀ position, position ≤ text.length + 1 →
     calls.nameAfter text position = if position = 0 then 0 else calls.identifier text position
+  binaryAfter : ∀ text, ValidText text → ∀ position, position ≤ text.length + 1 →
+    calls.binaryAfter text position = binaryAfterBody.eval calls ({text,position} : Context).locals
   symbol : ∀ text, ValidText text → ∀ position item, position ≤ text.length + 1 → item ≤ 255 →
     calls.symbol text position item = symbolBody.eval calls ({text,position,item} : Context).locals
   literal : ∀ number negative, LiteralType number →
@@ -95,6 +104,31 @@ theorem interpreted_nameAfter (calls : Calls) (primitives : Primitives calls) (e
   · simp [nameAfter, zero]
   · simp [nameAfter, zero, primitives.identifier text valid position (by omega) bound]
 
+theorem interpreted_binaryAfter (calls : Calls) (primitives : Primitives calls) (equations : Equations calls)
+    (text : Source) (valid : ValidText text) (position : Nat) (bound : position ≤ text.length + 1) :
+    calls.binaryAfter text position = binaryAfter text position := by
+  rw [equations.binaryAfter text valid position bound, binaryAfter_denotation]
+  unfold binaryAfterEquation binaryAfter
+  rw [interpreted_nameAfter calls primitives equations text valid position bound]
+  dsimp only
+  by_cases invalid : position = 0 ∨ position > text.length
+  · simp only [invalid, ↓reduceIte]
+  · simp only [invalid, ↓reduceIte]
+    split
+    · rfl
+    · split
+      · rfl
+      · by_cases unnamed : nameAfter text position = 0
+        · simp only [unnamed, ne_eq, not_true_eq_false, false_and, ↓reduceIte]
+        · have positive : position ≠ 0 := by omega
+          have nameBound := Named.identifierEnd_bounds text position
+            (show Named.identifierEnd text position ≠ 0 by simpa [nameAfter, positive] using unnamed)
+          have span : Span text position (nameAfter text position) := by
+            simp only [Span, nameAfter, positive, ↓reduceIte]
+            exact ⟨by omega, nameBound⟩
+          rw [primitives.nameIs text valid position _ ("mod".toList.map Char.toNat) span (by decide) (by decide),
+            primitives.nameIs text valid position _ ("rem".toList.map Char.toNat) span (by decide) (by decide)]
+
 theorem interpreted_symbol (calls : Calls) (primitives : Primitives calls) (equations : Equations calls)
     (text : Source) (valid : ValidText text) (position item : Nat) (bound : position ≤ text.length + 1)
     (itemBound : item ≤ 255) : calls.symbol text position item = symbol text position item := by
@@ -127,7 +161,10 @@ theorem interpreted_binary (calls : Calls) (primitives : Primitives calls) (equa
   rw [equations.binary left right operator a b item, binary_denotation]
   simp only [binaryEquation, primitives.add left.bounds right.bounds a.2.1 b.2.1,
     primitives.subtract left.bounds right.bounds a.2.1 b.2.1,
-    primitives.multiply left.bounds right.bounds a.2.1 b.2.1, binaryResult]
+    primitives.multiply left.bounds right.bounds a.2.1 b.2.1,
+    primitives.divide left.bounds right.bounds a.2.1 b.2.1,
+    primitives.modulo left.bounds right.bounds a.2.1 b.2.1,
+    primitives.remainder left.bounds right.bounds a.2.1 b.2.1, binaryResult]
 
 theorem interpreted_close (calls : Calls) (primitives : Primitives calls) (equations : Equations calls)
     (text : Source) (valid : ValidText text) (value : Result) (typed : ResultType value)
@@ -304,7 +341,9 @@ theorem interpreted_readExpression (calls : Calls) (primitives : Primitives call
                 compound_denotation]
               unfold compoundEquation compoundStep
               rw [interpreted_skip calls primitives equations text valid _ childAfter]
+              have nextBounds := skip_bounds text _ childAfter
               dsimp only
+              rw [interpreted_binaryAfter calls primitives equations text valid _ nextBounds.2]
               split
               · rfl
               · rename_i validNext
@@ -313,9 +352,8 @@ theorem interpreted_readExpression (calls : Calls) (primitives : Primitives call
                 · split
                   · rfl
                   · rename_i supported
-                    have nextBounds := skip_bounds text _ childAfter
-                    have rightPosition : skip text (read text (skip text (skip text position + 1)) names maskFirst maskAfter true).after + 1
-                        ≤ text.length + 1 := by omega
+                    have operatorBounds := binaryAfter_bounds supported
+                    have rightPosition := operatorBounds.2
                     have childProgress : position < (read text (skip text (skip text position + 1)) names maskFirst maskAfter true).after := by
                       rcases childContract with zero | good
                       · have skipped : skip text (read text (skip text (skip text position + 1)) names maskFirst maskAfter true).after = 0 := by
@@ -323,17 +361,18 @@ theorem interpreted_readExpression (calls : Calls) (primitives : Primitives call
                         exact False.elim (validNext (Or.inl skipped))
                       · omega
                     rw [ih _ (by omega) _ false rightPosition rfl]
-                    have operatorBound : Cursor.byteAt text
-                        (skip text (read text (skip text (skip text position + 1)) names maskFirst maskAfter true).after) ≤ 255 := by omega
+                    have rawOperatorBound := binaryAfter_byte_bound supported
+                    rw [primitives.lowercase _ rawOperatorBound]
+                    have operatorBound := lowercase_byte_bound rawOperatorBound
                     rw [interpreted_binary calls primitives equations _ _ _ childType (read_type valid rightPosition) operatorBound]
                     have resultAfter := binary_result_after
                       (read text (skip text (skip text position + 1)) names maskFirst maskAfter true)
-                      (read text (skip text (read text (skip text (skip text position + 1)) names maskFirst maskAfter true).after + 1)
+                      (read text (binaryAfter text (skip text (read text (skip text (skip text position + 1)) names maskFirst maskAfter true).after))
                         names maskFirst maskAfter false)
-                      (Cursor.byteAt text (skip text (read text (skip text (skip text position + 1)) names maskFirst maskAfter true).after))
-                    have rightAfter : (read text (skip text (read text (skip text (skip text position + 1)) names maskFirst maskAfter true).after + 1)
+                      (Silver.lowercase (Cursor.byteAt text (skip text (read text (skip text (skip text position + 1)) names maskFirst maskAfter true).after)))
+                    have rightAfter : (read text (binaryAfter text (skip text (read text (skip text (skip text position + 1)) names maskFirst maskAfter true).after))
                         names maskFirst maskAfter false).after ≤ text.length + 1 := by
-                      by_cases zero : (read text (skip text (read text (skip text (skip text position + 1)) names maskFirst maskAfter true).after + 1)
+                      by_cases zero : (read text (binaryAfter text (skip text (read text (skip text (skip text position + 1)) names maskFirst maskAfter true).after))
                         names maskFirst maskAfter false).after = 0
                       · omega
                       · exact (read_bounds rightPosition zero).2.1
@@ -347,12 +386,17 @@ theorem model_primitives : Primitives modelCalls where
   trivia _ _ _ _ _ := rfl
   identifier _ _ _ _ _ := rfl
   equalName _ _ _ _ _ _ _ _ := rfl
+  nameIs _ _ _ _ _ _ _ _ := rfl
+  lowercase _ _ := rfl
   integerLiteral _ _ _ _ := rfl
   checked _ _ _ _ := rfl
   negate _ _ := rfl
   add _ _ _ _ := rfl
   subtract _ _ _ _ := rfl
   multiply _ _ _ _ := rfl
+  divide _ _ _ _ := rfl
+  modulo _ _ _ _ := rfl
+  remainder _ _ _ _ := rfl
   normalize _ _ := rfl
 
 theorem model_equations : Equations modelCalls where
@@ -363,6 +407,7 @@ theorem model_equations : Equations modelCalls where
   lookup _ _ _ _ _ _ _ _ := rfl
   skip _ _ _ _ := rfl
   nameAfter _ _ _ _ := rfl
+  binaryAfter _ _ _ _ := by rw [binaryAfter_denotation]; rfl
   symbol _ _ _ _ _ _ := by rw [symbol_denotation]; rfl
   literal _ _ _ := by rw [literal_denotation]; rfl
   unary _ _ _ := by rw [unary_denotation]; rfl

@@ -1,19 +1,21 @@
 # Largest proper divisor of n
 
-**Candidate: proofs likely to discharge automatically.** All arithmetic is bounded by the 1..100 loop ranges (the divisor D is always at least 1 and Result is always within Integer), and both loops are for loops, so every check follows from types and no annotation is needed.
+**Candidate: proofs likely to discharge automatically.** The outer quotient lies in 0..50; live inner-loop indexes lie in 1..50, excluding zero and fitting Largest's declared range. Both modulo sites have nonzero divisors. Padding uses an ordinary scalar condition without narrowing a later arithmetic expression.
 
-Position 105 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 39 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
-Main uses a subtype N_Range is Integer range 1 .. 100 and an outer for loop over it, with an inner forward for loop over 1 .. N / 2 that sets Result to the divisor whenever N mod D = 0, so the last hit is the largest and no exit is needed. Each value is printed with Integer'Image, padded with one extra space when below 10, and Put_Line of an empty string ends a row when N mod 10 = 0. About 22 lines.
+Main initializes Largest : Integer range 1 .. 50 := 1. For each N in 1 .. 100 it resets Largest to 1, then loops D over 1 .. (N / 2), assigning Largest := D whenever (N mod D)=0. Ascending enumeration leaves the largest proper divisor last. Put emits padded Integer images and every tenth N ends a row. The task's a(1)=1 convention handles the empty inner loop. About 25 lines.
 
 ## Language surface recorded by this assessment
 
-Integers, integer division, ranged subtypes, for loops, 'Image of scalars and Put without a newline.
+Integer range for loops, immutable Integer arithmetic, interval-checked Integer division, bounded mutable Integer objects, Integer image and Put without a newline.
 
 ## External effects
 
 - **console output** (allowed): Prints the 100 values as ten rows of ten right-aligned numbers.
 
-Assessed on 2026-10-15 against page revision 414303 of the [task](https://rosettacode.org/wiki/Largest_proper_divisor_of_n) by claude-sonnet-5-5 at medium effort; confidence high. The inclusion policy is in `rosetta/coverage.json`.
+Initially assessed on 2026-10-15 against page revision 414303 of the [task](https://rosettacode.org/wiki/Largest_proper_divisor_of_n) by claude-sonnet-5-5 at medium effort; current confidence high. The inclusion policy is in `rosetta/coverage.json`.
+
+Revised on 2026-10-25 by Codex through targeted source review; see the [review record](../../assessment-division-20261025.md).

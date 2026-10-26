@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every index and range check follows from the element subtype and guards placed in the scanning conditions, and no loop or call lives in a function, so no annotation is needed, though the guard shape of the next-permutation scans needs care.
 
-Position 457 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 456 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

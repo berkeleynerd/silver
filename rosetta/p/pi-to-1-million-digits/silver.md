@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from range-subtyped limbs, carries and for-loop indexes over the array's own range, with all while loops in procedures, so no annotation is needed, but the large fixed-capacity big-number arithmetic carried through nested loops makes discharge depend on careful program shape.
 
-Position 1374 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1373 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Duval's algorithm is plain iteration over a fixed-length String inside a procedure, so no termination check applies, and the index checks can be discharged by redundant explicit guards plus ranged subtypes, though loop-carried indices need careful shaping.
 
-Position 541 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 540 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

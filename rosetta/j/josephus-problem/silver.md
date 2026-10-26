@@ -1,24 +1,21 @@
 # Josephus problem
 
-**Candidate: proofs likely to discharge automatically.** The O(n) recurrence needs only a for loop and a bounded mod, so every check follows from declared ranges and the loop index with no annotation needed.
+**Candidate: proofs likely to discharge automatically.** The incoming Survivor interval is 0..40, Survivor+K is 3..43 and the divisor I is 2..41. Modulo yields 0..40, preserving the declared range without guard or update refinement. The independently derived incident answer is zero-based 30.
 
-Position 104 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 21 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
-Embed N = 41 and K = 3 as constants and compute the survivor with the iterative recurrence J(1) = 0, J(i) = (J(i-1) + K) mod i in a for loop over 2 .. N, holding J in a ranged subtype 0 .. N-1. Print the final survivor (0-based, stated in the output) with Put_Line using 'Image concatenation; the optional extra of m survivors is omitted. About 22 lines.
-
-## Proof obligations to watch
-
-- **range**: The loop-carried survivor index is a subtype 0 .. 40 and the assignment (J + K) mod I is bounded by I - 1 <= 40 because I is a for-loop index in 2 .. 41, which the provers handle without an invariant.
-- **division**: The mod divisor I is the for-loop index starting at 2, so it is statically nonzero.
+Main fixes N=41 and K=3 and initializes Survivor : Integer range 0 .. 40 := 0. An Integer range loop over 2 .. N assigns Survivor := ((Survivor + K) mod I), then prints the zero-based survivor with Integer'Image and Put_Line. This implements the task's (41,3) incident; it is not an arbitrary positive-n,k API or the optional m-survivor extension. About 14 lines.
 
 ## Language surface recorded by this assessment
 
-Integers, integer division, ranged subtypes, for loops and 'Image of scalars.
+Integer range for loops, immutable Integer arithmetic, interval-checked Integer division, bounded mutable Integer objects and Integer image.
 
 ## External effects
 
 - **console output** (allowed): Prints the survivor number with Put_Line.
 
-Assessed on 2026-10-15 against page revision 414279 of the [task](https://rosettacode.org/wiki/Josephus_problem) by claude-sonnet-5-5 at medium effort; confidence high. The inclusion policy is in `rosetta/coverage.json`.
+Initially assessed on 2026-10-15 against page revision 414279 of the [task](https://rosettacode.org/wiki/Josephus_problem) by claude-sonnet-5-5 at medium effort; current confidence high. The inclusion policy is in `rosetta/coverage.json`.
+
+Revised on 2026-10-25 by Codex through targeted source review; see the [review record](../../assessment-division-20261025.md).

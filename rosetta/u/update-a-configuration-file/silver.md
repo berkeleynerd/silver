@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task only needs bounded line buffers, character scanning and Put_Line output over embedded data, and every index and length check can be guarded in procedures with bounded loops, but many loop-carried positions make careful guard placement necessary.
 
-Position 638 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 637 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

@@ -125,6 +125,9 @@ package body Silver_Scalar_Expressions with SPARK_Mode => On is
            when '+' => Scalars.Add (Left.Bounds, Right.Bounds),
            when '-' => Scalars.Subtract (Left.Bounds, Right.Bounds),
            when '*' => Scalars.Multiply (Left.Bounds, Right.Bounds),
+           when '/' => Scalars.Divide (Left.Bounds, Right.Bounds),
+           when 'm' => Scalars.Modulo (Left.Bounds, Right.Bounds),
+           when 'r' => Scalars.Remainder (Left.Bounds, Right.Bounds),
            when others => Scalars.Invalid);
       begin (if Left.After = 0 or else Right.After = 0 or else not Checked.Safe
                or else Left.Operands > Max_Operands - Right.Operands
@@ -198,6 +201,23 @@ package body Silver_Scalar_Expressions with SPARK_Mode => On is
          else Unary_Result
            (Read_Expression (Text, Next, Names, Mask_First, Mask_After, False), Text (Position) = '-'))));
 
+   function Binary_After (Text : String; Position : Literal_Position) return Literal_Position
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1,
+       Post => Binary_After'Result = 0
+         or else Binary_After'Result in Position + 1 .. Text'Last + 1;
+   function Binary_After (Text : String; Position : Literal_Position) return Literal_Position is
+     (declare After : constant Literal_Position := Name_After (Text, Position);
+      begin
+        (if Position = 0 or else Position > Text'Last then 0
+         elsif Text (Position) in '+' | '-' | '*' then Position + 1
+         elsif Text (Position) = '/' then
+           (if Position < Text'Last and then Text (Position + 1) = '=' then 0 else Position + 1)
+         elsif After /= 0 and then
+           (Name_Is (Text, Position, After, "mod") or else Name_Is (Text, Position, After, "rem"))
+         then After else 0));
+
    function Read_Compound
      (Text : String; Position : Literal_Position; Names : Environment;
       Left : Expression_Result; Mask_First, Mask_After : Literal_Position)
@@ -217,12 +237,13 @@ package body Silver_Scalar_Expressions with SPARK_Mode => On is
       Left : Expression_Result; Mask_First, Mask_After : Literal_Position)
       return Expression_Result is
      (declare Next : constant Literal_Position := Skip (Text, Left.After);
+              After : constant Literal_Position := Binary_After (Text, Next);
       begin
         (if Next = 0 or else Next > Text'Last then Invalid
          elsif Text (Next) = ')' then (Left with delta After => Next + 1)
-         elsif Text (Next) not in '+' | '-' | '*' then Invalid
+         elsif After = 0 then Invalid
          else Close_Result (Text, Binary_Result
-           (Left, Read_Expression (Text, Next + 1, Names, Mask_First, Mask_After, False), Text (Next)))));
+           (Left, Read_Expression (Text, After, Names, Mask_First, Mask_After, False), Lowercase (Text (Next))))));
 
    function Read_Group
      (Text : String; Position : Literal_Position; Names : Environment;

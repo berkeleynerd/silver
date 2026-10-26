@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded-integer work in a procedure with fixed-count for loops, so every check follows from subtype ranges and a few input guards, though the carry and weight arithmetic need careful range shaping.
 
-Position 834 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 833 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

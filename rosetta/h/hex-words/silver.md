@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from bounded buffers, small ranged subtypes and explicit guards with visible rejection outcomes, and no function needs a loop variant because the loops live in procedures. The main care points are the guarded value accumulator and the fixed-capacity tables and sorts.
 
-Position 1332 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1331 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Failure paths to test
 

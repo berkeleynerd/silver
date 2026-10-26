@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** A static confirming object Size clause is the only new surface this minimal example needs. It is a representation declaration, not a pragma or proof annotation, and does not require a new type, a named subtype, a conversion or a Size attribute expression.
 
-Position 1571 in the [progression](../../../progression.md#stage-38), in stage 38, which adds integer object size clause.
+Position 1570 in the [progression](../../../progression.md#stage-38), in stage 38, which adds integer object size clause.
 
 ## Approach
 

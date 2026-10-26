@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is bounded character-by-character string processing in procedures with for loops and explicit capacity guards, so all index, range and overflow checks follow from types and guards just before use. The main work needed is Silver growing character, string indexing, slices, unconstrained String parameters and procedures.
 
-Position 987 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 986 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

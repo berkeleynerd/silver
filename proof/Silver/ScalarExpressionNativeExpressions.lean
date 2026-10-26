@@ -27,15 +27,16 @@ def Ty.default : (ty : Ty) → ty.meaning
   | .arrow _ b => fun _ => b.default
 
 inductive Function
-  | lookupModel | lookup | skip | symbol | nameAfter
+  | lookupModel | lookup | skip | symbol | nameAfter | binaryAfter | nameIs | lowercase
   | literalResult | unaryResult | binaryResult | closeResult
   | readAtom | readUnary | readCompound | readGroup | readExpression | readExpressionDefault
-  | integerLiteral | equalName | scalarChecked | scalarNegate | scalarAdd | scalarSubtract | scalarMultiply | scalarNormalize
+  | integerLiteral | equalName | scalarChecked | scalarNegate | scalarAdd | scalarSubtract | scalarMultiply | scalarDivide | scalarModulo | scalarRemainder | scalarNormalize
   deriving DecidableEq
 
 def Function.name : Function → List String
   | .lookupModel => ["lookup_model"] | .lookup => ["lookup"] | .skip => ["skip"]
   | .symbol => ["symbol"] | .nameAfter => ["name_after"]
+  | .binaryAfter => ["binary_after"] | .nameIs => ["name_is"] | .lowercase => ["lowercase"]
   | .literalResult => ["literal_result"] | .unaryResult => ["unary_result"]
   | .binaryResult => ["binary_result"] | .closeResult => ["close_result"]
   | .readAtom => ["read_atom"] | .readUnary => ["read_unary"] | .readCompound => ["read_compound"]
@@ -44,12 +45,17 @@ def Function.name : Function → List String
   | .equalName => ["equal_name"] | .scalarChecked => ["scalars", ".", "checked"]
   | .scalarNegate => ["scalars", ".", "negate"] | .scalarAdd => ["scalars", ".", "add"]
   | .scalarSubtract => ["scalars", ".", "subtract"] | .scalarMultiply => ["scalars", ".", "multiply"]
+  | .scalarDivide => ["scalars", ".", "divide"]
+  | .scalarModulo => ["scalars", ".", "modulo"]
+  | .scalarRemainder => ["scalars", ".", "remainder"]
   | .scalarNormalize => ["scalars", ".", "normalize"]
 
 def Function.type : Function → Ty
   | .lookupModel => .arrow .source (.arrow .environment (.arrow .number (.arrow .number (.arrow .number .number))))
   | .lookup => .arrow .source (.arrow .environment (.arrow .number (.arrow .number .number)))
-  | .skip | .nameAfter => .arrow .source (.arrow .number .number)
+  | .skip | .nameAfter | .binaryAfter => .arrow .source (.arrow .number .number)
+  | .nameIs => .arrow .source (.arrow .number (.arrow .number (.arrow .source .truth)))
+  | .lowercase => .arrow .number .number
   | .symbol => .arrow .source (.arrow .number (.arrow .number .number))
   | .literalResult => .arrow .literal (.arrow .truth .result)
   | .unaryResult => .arrow .result (.arrow .truth .result)
@@ -65,12 +71,13 @@ def Function.type : Function → Ty
   | .equalName => .arrow .source (.arrow .number (.arrow .number (.arrow .number (.arrow .number .truth))))
   | .scalarChecked => .arrow .integer (.arrow .integer .check)
   | .scalarNegate => .arrow .interval .check
-  | .scalarAdd | .scalarSubtract | .scalarMultiply => .arrow .interval (.arrow .interval .check)
+  | .scalarAdd | .scalarSubtract | .scalarMultiply | .scalarDivide | .scalarModulo | .scalarRemainder => .arrow .interval (.arrow .interval .check)
   | .scalarNormalize => .arrow .interval .interval
 
 def Calls.get (calls : Calls) : (fn : Function) → fn.type.meaning
   | .lookupModel => calls.lookupModel | .lookup => calls.lookup | .skip => calls.skip
   | .symbol => calls.symbol | .nameAfter => calls.nameAfter
+  | .binaryAfter => calls.binaryAfter | .nameIs => calls.nameIs | .lowercase => calls.lowercase
   | .literalResult => calls.literalResult | .unaryResult => calls.unaryResult
   | .binaryResult => calls.binaryResult | .closeResult => calls.closeResult
   | .readAtom => calls.readAtom | .readUnary => calls.readUnary | .readCompound => calls.readCompound
@@ -81,6 +88,8 @@ def Calls.get (calls : Calls) : (fn : Function) → fn.type.meaning
   | .scalarChecked => calls.scalars.checked | .scalarNegate => calls.scalars.negate
   | .scalarAdd => calls.scalars.add | .scalarSubtract => calls.scalars.subtract
   | .scalarMultiply => calls.scalars.multiply | .scalarNormalize => calls.scalars.normalize
+  | .scalarDivide => calls.scalars.divide | .scalarModulo => calls.scalars.modulo
+  | .scalarRemainder => calls.scalars.remainder
 
 inductive Field : Ty → Ty → Type
   | resultAfter : Field .result .number | literalAfter : Field .literal .number
@@ -108,6 +117,7 @@ def Field.get : Field a b → a.meaning → b.meaning
 
 inductive Expr : Ty → Type
   | number (value : Nat) : Expr .number
+  | word (value : String) : Expr .source
   | character (value : Nat) : Expr .number
   | characterVal (value : Nat) : Expr .number
   | truth (value : Bool) : Expr .truth
@@ -124,10 +134,11 @@ inductive Expr : Ty → Type
   | maxOperands : Expr .number
   | eq : Expr .number → Expr .number → Expr .truth
   | ne : Expr .number → Expr .number → Expr .truth
+  | lt : Expr .number → Expr .number → Expr .truth
   | le : Expr .number → Expr .number → Expr .truth
   | gt : Expr .number → Expr .number → Expr .truth
   | choices : Expr .number → Expr .number → Expr .number → Expr .truth
-  | notOperators : Expr .number → Expr .truth
+  | operators : Expr .number → Expr .truth
   | andThen : Expr .truth → Expr .truth → Expr .truth
   | orElse : Expr .truth → Expr .truth → Expr .truth
   | not : Expr .truth → Expr .truth
@@ -140,7 +151,7 @@ inductive Expr : Ty → Type
   | check : Expr .truth → Expr .interval → Expr .check
   | deltaAfter : Expr .result → Expr .number → Expr .result
   | deltaBounds : Expr .result → Expr .interval → Expr .result
-  | operatorCase : Expr .number → Expr .check → Expr .check → Expr .check → Expr .check → Expr .check
+  | operatorCase : Expr .number → Expr .check → Expr .check → Expr .check → Expr .check → Expr .check → Expr .check → Expr .check → Expr .check
   | invalid : Expr .result
   | invalidCheck : Expr .check
 
@@ -156,6 +167,7 @@ def positional (values : List (List String)) : List String :=
 
 def Expr.render : Expr ty → List String
   | .number value => [toString value]
+  | .word value => ["\"" ++ value ++ "\""]
   | .character value => ["'" ++ String.singleton (Char.ofNat value) ++ "'"]
   | .characterVal value => ["character", "'", "val", "(", toString value, ")"]
   | .truth value => [if value then "true" else "false"]
@@ -172,10 +184,11 @@ def Expr.render : Expr ty → List String
   | .last text => text.render ++ ["'", "last"] | .maxOperands => ["max_operands"]
   | .eq left right => left.render ++ ["="] ++ right.render
   | .ne left right => left.render ++ ["/="] ++ right.render
+  | .lt left right => left.render ++ ["<"] ++ right.render
   | .le left right => left.render ++ ["<="] ++ right.render
   | .gt left right => left.render ++ [">"] ++ right.render
   | .choices item left right => item.render ++ ["in"] ++ left.render ++ ["|"] ++ right.render
-  | .notOperators item => item.render ++ ["not", "in", "'+'", "|", "'-'", "|", "'*'"]
+  | .operators item => item.render ++ ["in", "'+'", "|", "'-'", "|", "'*'"]
   | .andThen left right => left.render ++ ["and", "then"] ++ right.render
   | .orElse left right => left.render ++ ["or", "else"] ++ right.render
   | .not value => ["not"] ++ value.render
@@ -191,14 +204,18 @@ def Expr.render : Expr ty → List String
   | .check safe bounds => positional [safe.render, bounds.render]
   | .deltaAfter value after => ["("] ++ value.render ++ ["with", "delta", "after", "=>"] ++ after.render ++ [")"]
   | .deltaBounds value bounds => ["("] ++ value.render ++ ["with", "delta", "bounds", "=>"] ++ bounds.render ++ [")"]
-  | .operatorCase operator adding subtracting multiplying otherwise =>
+  | .operatorCase operator adding subtracting multiplying dividing modulo remainder otherwise =>
       ["case"] ++ operator.render ++ ["is", "when", "'+'", "=>"] ++ adding.render ++
       [",", "when", "'-'", "=>"] ++ subtracting.render ++ [",", "when", "'*'", "=>"] ++
-      multiplying.render ++ [",", "when", "others", "=>"] ++ otherwise.render
+      multiplying.render ++ [",", "when", "'/'", "=>"] ++ dividing.render ++
+      [",", "when", "'m'", "=>"] ++ modulo.render ++
+      [",", "when", "'r'", "=>"] ++ remainder.render ++
+      [",", "when", "others", "=>"] ++ otherwise.render
   | .invalid => ["invalid"] | .invalidCheck => ["scalars", ".", "invalid"]
 
 def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .number value | .character value | .characterVal value => value
+  | .word value => value.toList.map Char.toNat
   | .truth value => value | .variable name => locals _ name | .function fn => calls.get fn
   | .app fn argument => fn.eval calls locals (argument.eval calls locals)
   | .field projection value => projection.get (value.eval calls locals)
@@ -210,10 +227,11 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .last text => (text.eval calls locals).length | .maxOperands => ScalarExpression.maxOperands
   | .eq left right => decide (left.eval calls locals = right.eval calls locals)
   | .ne left right => decide (left.eval calls locals ≠ right.eval calls locals)
+  | .lt left right => decide (left.eval calls locals < right.eval calls locals)
   | .le left right => decide (left.eval calls locals ≤ right.eval calls locals)
   | .gt left right => decide (left.eval calls locals > right.eval calls locals)
   | .choices item left right => decide (item.eval calls locals = left.eval calls locals ∨ item.eval calls locals = right.eval calls locals)
-  | .notOperators item => decide (item.eval calls locals ≠ 43 ∧ item.eval calls locals ≠ 45 ∧ item.eval calls locals ≠ 42)
+  | .operators item => decide (item.eval calls locals = 43 ∨ item.eval calls locals = 45 ∨ item.eval calls locals = 42)
   | .andThen left right => left.eval calls locals && right.eval calls locals
   | .orElse left right => left.eval calls locals || right.eval calls locals
   | .not value => !(value.eval calls locals) | .group value => value.eval calls locals
@@ -226,10 +244,13 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .check safe bounds => ⟨safe.eval calls locals, bounds.eval calls locals⟩
   | .deltaAfter value after => {value.eval calls locals with after := after.eval calls locals}
   | .deltaBounds value bounds => {value.eval calls locals with bounds := bounds.eval calls locals}
-  | .operatorCase operator adding subtracting multiplying otherwise =>
+  | .operatorCase operator adding subtracting multiplying dividing modulo remainder otherwise =>
       if operator.eval calls locals = 43 then adding.eval calls locals
       else if operator.eval calls locals = 45 then subtracting.eval calls locals
-      else if operator.eval calls locals = 42 then multiplying.eval calls locals else otherwise.eval calls locals
+      else if operator.eval calls locals = 42 then multiplying.eval calls locals
+      else if operator.eval calls locals = 47 then dividing.eval calls locals
+      else if operator.eval calls locals = 109 then modulo.eval calls locals
+      else if operator.eval calls locals = 114 then remainder.eval calls locals else otherwise.eval calls locals
   | .invalid => ScalarExpression.invalid | .invalidCheck => ⟨false, Integer.Interval.empty⟩
 
 structure Context where
@@ -321,7 +342,8 @@ def binaryBody : Expr .result :=
   .locals <| .local "checked" ["scalars", ".", "check_result"]
     (.group <| .operatorCase (.variable "operator")
       (apply (.function .scalarAdd)) (apply (.function .scalarSubtract))
-      (apply (.function .scalarMultiply)) .invalidCheck) <|
+      (apply (.function .scalarMultiply)) (apply (.function .scalarDivide))
+      (apply (.function .scalarModulo)) (apply (.function .scalarRemainder)) .invalidCheck) <|
     .group <| .ite (.orElse (.orElse (.orElse
       (.eq (.field .resultAfter left) (.number 0)) (.eq (.field .resultAfter right) (.number 0)))
       (.not (.field .checkSafe checked)))
@@ -381,16 +403,33 @@ def readUnaryBody : Expr .result :=
       (apply2 (.function .literalResult) number (.eq (.byteAt text position) (.character 45)))
       (apply2 (.function .unaryResult) (readCall next (.truth false)) (.eq (.byteAt text position) (.character 45))))
 
+def binaryAfterBody : Expr .number :=
+  let text : Expr .source := .variable "text"
+  let position : Expr .number := .variable "position"
+  let after : Expr .number := .variable "after"
+  .locals <| .local "after" ["literal_position"] (apply2 (.function .nameAfter) text position) <|
+    .group <| .ite (.orElse (.eq position (.number 0)) (.gt position (.last text))) (.number 0) <|
+    .elsif (.operators (.byteAt text position)) (.add position (.number 1)) <|
+    .elsif (.eq (.byteAt text position) (.character 47))
+      (.group <| .ite (.andThen (.lt position (.last text))
+        (.eq (.byteAt text (.add position (.number 1))) (.character 61)))
+        (.number 0) (.add position (.number 1))) <|
+    .elsif (.andThen (.ne after (.number 0)) (.group <| .orElse
+      (apply4 (.function .nameIs) text position after (.word "mod"))
+      (apply4 (.function .nameIs) text position after (.word "rem")))) after (.number 0)
+
 def compoundBody : Expr .result :=
   let text : Expr .source := .variable "text"
   let next : Expr .number := .variable "next"
   let left : Expr .result := .variable "left"
+  let after : Expr .number := .variable "after"
   .locals <| .local "next" ["literal_position"] (apply2 (.function .skip) text (.field .resultAfter left)) <|
+    .local "after" ["literal_position"] (apply2 (.function .binaryAfter) text next) <|
     .group <| .ite (.orElse (.eq next (.number 0)) (.gt next (.last text))) .invalid <|
     .elsif (.eq (.byteAt text next) (.character 41)) (.deltaAfter left (.add next (.number 1))) <|
-    .elsif (.notOperators (.byteAt text next)) .invalid <|
+    .elsif (.eq after (.number 0)) .invalid <|
     apply2 (.function .closeResult) text (apply3 (.function .binaryResult) left
-      (readCall (.add next (.number 1)) (.truth false)) (.byteAt text next))
+      (readCall after (.truth false)) (.app (.function .lowercase) (.byteAt text next)))
 
 def groupBody : Expr .result :=
   let text : Expr .source := .variable "text"
@@ -416,7 +455,7 @@ def expressionBody : Expr .result :=
 /-- Rendering retains Ada precedence, homogeneous Boolean chains and explicit
 parentheses. This is checked independently for every body translated below. -/
 def Expr.primary : Expr ty → Bool
-  | .number _ | .character _ | .characterVal _ | .truth _ | .variable _ | .function _ | .app _ _
+  | .number _ | .word _ | .character _ | .characterVal _ | .truth _ | .variable _ | .function _ | .app _ _
   | .field _ _ | .binding _ _ | .byteAt _ _ | .last _ | .maxOperands | .group _
   | .result _ _ _ _ | .check _ _ | .deltaAfter _ _ | .deltaBounds _ _ | .invalid | .invalidCheck => true
   | _ => false
@@ -426,7 +465,7 @@ def Expr.simple : Expr ty → Bool
   | value => value.primary
 
 def Expr.relation : Expr ty → Bool
-  | .eq _ _ | .ne _ _ | .le _ _ | .gt _ _ | .choices _ _ _ | .notOperators _ | .not _ => true
+  | .eq _ _ | .ne _ _ | .lt _ _ | .le _ _ | .gt _ _ | .choices _ _ _ | .operators _ | .not _ => true
   | value => value.simple
 
 def Expr.andHead : Expr ty → Bool
@@ -450,11 +489,11 @@ def Expr.wellFormed : Expr ty → Bool
   | .binding names index => names.wellFormed && names.primary && index.wellFormed && index.simple
   | .add left right | .sub left right => left.wellFormed && right.wellFormed && left.simple && right.primary
   | .neg value => value.wellFormed && value.primary
-  | .eq left right | .ne left right | .le left right | .gt left right =>
+  | .eq left right | .ne left right | .lt left right | .le left right | .gt left right =>
       left.wellFormed && right.wellFormed && left.simple && right.simple
   | .choices value lower upper =>
       value.wellFormed && lower.wellFormed && upper.wellFormed && value.simple && lower.simple && upper.simple
-  | .notOperators value => value.wellFormed && value.simple
+  | .operators value => value.wellFormed && value.simple
   | .andThen left right => left.wellFormed && right.wellFormed && left.andHead && right.relation
   | .orElse left right => left.wellFormed && right.wellFormed && left.orHead && right.relation
   | .not value => value.wellFormed && value.primary
@@ -469,15 +508,16 @@ def Expr.wellFormed : Expr ty → Bool
   | .check safe bounds => safe.wellFormed && safe.condition && bounds.wellFormed && bounds.simple
   | .deltaAfter value after => value.wellFormed && value.primary && after.wellFormed && after.simple
   | .deltaBounds value bounds => value.wellFormed && value.primary && bounds.wellFormed && bounds.simple
-  | .operatorCase operator adding subtracting multiplying otherwise => operator.wellFormed && operator.simple &&
+  | .operatorCase operator adding subtracting multiplying dividing modulo remainder otherwise => operator.wellFormed && operator.simple &&
       adding.wellFormed && adding.simple && subtracting.wellFormed && subtracting.simple &&
-      multiplying.wellFormed && multiplying.simple && otherwise.wellFormed && otherwise.simple
+      multiplying.wellFormed && multiplying.simple && dividing.wellFormed && dividing.simple &&
+      modulo.wellFormed && modulo.simple && remainder.wellFormed && remainder.simple && otherwise.wellFormed && otherwise.simple
   | _ => true
 
 abbrev WellFormedTrees : Prop := lookupBody.wellFormed = true ∧ symbolBody.wellFormed = true ∧
   literalBody.wellFormed = true ∧ unaryBody.wellFormed = true ∧ binaryBody.wellFormed = true ∧
   closeBody.wellFormed = true ∧ atomBody.wellFormed = true ∧ readUnaryBody.wellFormed = true ∧
-  compoundBody.wellFormed = true ∧ groupBody.wellFormed = true ∧ expressionBody.wellFormed = true
+  binaryAfterBody.wellFormed = true ∧ compoundBody.wellFormed = true ∧ groupBody.wellFormed = true ∧ expressionBody.wellFormed = true
 
 theorem checked_precedence : WellFormedTrees := by decide +kernel
 

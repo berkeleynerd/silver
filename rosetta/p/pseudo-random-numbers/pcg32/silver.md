@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is modular or small-range integer arithmetic in for loops and procedures, so every check follows from types and static bounds with no recursion or while loop. The only mild care points are the nonlinear bucket index bound and the loop-carried counters, both handled by types.
 
-Position 1504 in the [progression](../../../progression.md#stage-29), in stage 29.
+Position 1503 in the [progression](../../../progression.md#stage-29), in stage 29.
 
 ## Approach
 

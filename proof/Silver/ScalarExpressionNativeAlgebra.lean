@@ -34,13 +34,15 @@ theorem binary_correspondence (names : Environment) (left right : Parsed) (opera
     (leftPositive : left.after ≠ 0) (rightPositive : right.after ≠ 0) :
     binaryResult (summarize names (some left)) (summarize names (some right)) operator =
       summarize names (binary left right operator) := by
-  by_cases unsupported : operator ≠ 43 ∧ operator ≠ 45 ∧ operator ≠ 42
-  · simp [binaryResult, binary, unsupported.1, unsupported.2.1, unsupported.2.2, summarize]
-  · have supported : operator = 43 ∨ operator = 45 ∨ operator = 42 := by omega
-    rcases supported with rfl | rfl | rfl <;>
-      simp only [binaryResult, binary, show (45 : Nat) ≠ 43 by decide,
-        show (42 : Nat) ≠ 43 by decide, show (42 : Nat) ≠ 45 by decide,
-        ↓reduceIte, summarize, leaves, Integer.Expr.infer, isStatic]
+  by_cases unsupported : operator ≠ 43 ∧ operator ≠ 45 ∧ operator ≠ 42 ∧
+      operator ≠ 47 ∧ operator ≠ 109 ∧ operator ≠ 114
+  · simp [binaryResult, binary, unsupported.1, unsupported.2.1, unsupported.2.2.1,
+      unsupported.2.2.2.1, unsupported.2.2.2.2.1, unsupported.2.2.2.2.2, summarize]
+  · have supported : operator = 43 ∨ operator = 45 ∨ operator = 42 ∨
+        operator = 47 ∨ operator = 109 ∨ operator = 114 := by omega
+    rcases supported with rfl | rfl | rfl | rfl | rfl | rfl <;>
+      simp only [binaryResult, binary, Nat.reduceEqDiff, ↓reduceIte, summarize, leaves,
+        Integer.Expr.infer, isStatic]
     all_goals
       have leftLeaves := leaves_positive left.expression
       have rightLeaves := leaves_positive right.expression
@@ -69,6 +71,12 @@ theorem binary_correspondence (names : Environment) (left right : Parsed) (opera
                   | cases checked : (Integer.checkedSubtract leftBounds rightBounds).safe <;>
                       simp [checked] <;> split <;> rfl
                   | cases checked : (Integer.checkedMultiply leftBounds rightBounds).safe <;>
+                      simp [checked] <;> split <;> rfl
+                  | cases checked : (Integer.checkedDivide leftBounds rightBounds).safe <;>
+                      simp [checked] <;> split <;> rfl
+                  | cases checked : (Integer.checkedModulo leftBounds rightBounds).safe <;>
+                      simp [checked] <;> split <;> rfl
+                  | cases checked : (Integer.checkedRemainder leftBounds rightBounds).safe <;>
                       simp [checked] <;> split <;> rfl
 
 theorem checked_bounded_normalize {bounds : Integer.Interval} (bounded : bounds.Bounded) :

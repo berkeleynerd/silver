@@ -17,7 +17,8 @@
   "integer-for-loops",
   "immutable-integers",
   "integer-image",
-  "bounded-mutable-integers"
+  "bounded-mutable-integers",
+  "interval-integer-division"
  ],
  "tasks": {
   "100 doors": {
@@ -17038,17 +17039,25 @@
     }
    ],
    "surface": [
-    "integers",
-    "integer-division",
-    "for-loops",
-    "scalar-image"
+    "integer-for-loops",
+    "immutable-integers",
+    "interval-integer-division",
+    "integer-image"
    ],
    "outlook": "likely",
    "risks": [],
-   "size": 22,
-   "approach": "Main prints a header, then three nested for loops over 1 .. 7 for police, sanitation and fire, with the loop indexes as the only data. An if statement tests Police mod 2 = 0, the three inequalities and a sum of 12, and prints the three values with 'Image and bounded concatenation. All state is loop indexes, so no loop-carried values exist.",
-   "summary": "Every check follows from the 1 .. 7 loop index ranges (the sum is at most 21, 'Image strings are short and bounded) and for loops terminate by themselves, so no annotation is needed. Nothing is carried across iterations and the output is fixed and deterministic.",
-   "confidence": "high"
+   "size": 20,
+   "approach": "Main prints the heading and nests Integer range loops over Police, Sanitation and Fire in 1 .. 7. A short-circuit condition requires (Police mod 2)=0, pairwise distinct values and ((Police + Sanitation) + Fire)=12, then prints the three Integer images through Put_Line.",
+   "summary": "Every intermediate sum is at most 21 and the modulo divisor is literal 2. The loops enumerate exactly the fourteen task triples without mutable objects, declared subtypes or scalar refinement.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-25",
+    "record": "assessment-division-20261025.md",
+    "setting_evidence": "Selected GPT-6.1 Sol High by the lead; runtime setting not independently exposed",
+    "method": "Concrete sample and task reconciliation after independent arithmetic/native core review; complete delivery validation pending in docs/integer-division.md",
+    "model": "gpt-6.1-sol",
+    "effort": "high"
+   }
   },
   "Descending primes": {
    "revision": 414152,
@@ -21552,20 +21561,24 @@
     }
    ],
    "surface": [
-    "integers",
+    "integer-for-loops",
     "integer-division",
-    "ranged-subtypes",
-    "for-loops",
-    "scalar-image",
-    "put",
-    "procedures"
+    "integer-image"
    ],
    "outlook": "likely",
    "risks": [],
-   "size": 22,
-   "approach": "Declare a bounded integer subtype (for example -1000 .. 1000) and loop with a for loop over that range, testing N rem 2 = 0 for even and printing the number with its 'Image and the verdict via Put_Line. Every value is bounded by its type, so rem and 'Image checks follow from declared ranges, with no recursion or loop-carried state.",
-   "summary": "The only arithmetic is rem 2 on a value bounded by a declared range inside a for loop, so no overflow, division or index check needs more than the type range, and no annotation is needed. The only growth needed is ranged integers, rem, a for loop and integer-to-text output.",
-   "confidence": "high"
+   "size": 16,
+   "approach": "Main loops directly over the Integer range -1000 .. 1000. For each immutable index N, an if statement tests (N rem 2) = 0 and prints Integer'Image (N) concatenated with the literal even or odd verdict through Put_Line. The bounded literal range includes negative values and zero. No declared subtype, user-defined procedure or separate Put call is needed.",
+   "summary": "Only Integer range loops, standard Integer Image and remainder by nonzero literal 2 are needed by this plan. The narrow interval-integer-division capability now includes that remainder form. The existing broad integer-division dependency is retained pending approach review and migration; this assessment is not a delivered or proved sample.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-25",
+    "record": "assessment-division-20261025.md",
+    "setting_evidence": "Selected GPT-6.1 Sol High by the lead; runtime setting not independently exposed",
+    "method": "Targeted task, current-language and retained-prototype review; no new native admission, proof, build or execution",
+    "model": "gpt-6.1-sol",
+    "effort": "high"
+   }
   },
   "Events": {
    "revision": 412774,
@@ -25927,19 +25940,24 @@
     }
    ],
    "surface": [
-    "integers",
+    "integer-for-loops",
     "integer-division",
-    "ranged-subtypes",
-    "for-loops",
-    "scalar-image",
-    "string-building"
+    "integer-image"
    ],
    "outlook": "likely",
    "risks": [],
    "size": 16,
-   "approach": "A parameterless Main uses a for loop over the static range 1 .. 100 with an integer loop index, and tests I mod 15, I mod 5 and I mod 3 in an if/elsif/else chain. Each branch calls Silver_IO.Put_Line with the literal Fizz, Buzz or FizzBuzz, and the else branch prints the number's text image with the leading space trimmed. No loop-carried state exists, so nothing needs a guard.",
-   "summary": "Every check follows from the static loop range 1 .. 100 and constant divisors, so mod cannot divide by zero, 'Image of the bounded index has a known maximum length, and the for loop terminates by itself.",
-   "confidence": "high"
+   "approach": "A parameterless Main uses a for loop over the static Integer range 1 .. 100 and tests (I mod 15), (I mod 5) and (I mod 3) in an if/elsif/else chain. The branches call Silver_IO.Put_Line with FizzBuzz, Buzz or Fizz respectively; the else branch prints ordinary Integer'Image (I), including Ada's leading space. The task does not require trimming that space. No computed-length string buffer or trimming operation is used.",
+   "summary": "Static loop bounds and nonzero literal divisors make the arithmetic a candidate for the current narrow interval-checked modulo capability. The existing broad integer-division dependency is retained pending approach review and migration; this assessment does not establish a delivered sample or automatic discharge.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-25",
+    "record": "assessment-division-20261025.md",
+    "setting_evidence": "Selected GPT-6.1 Sol High by the lead; runtime setting not independently exposed",
+    "method": "Targeted task, current-language and retained-prototype review; no new native admission, proof, build or execution",
+    "model": "gpt-6.1-sol",
+    "effort": "high"
+   }
   },
   "Flatten a list": {
    "revision": 415482,
@@ -33983,27 +34001,26 @@
     }
    ],
    "surface": [
-    "integers",
-    "integer-division",
-    "ranged-subtypes",
-    "for-loops",
-    "scalar-image"
+    "integer-for-loops",
+    "immutable-integers",
+    "interval-integer-division",
+    "bounded-mutable-integers",
+    "integer-image"
    ],
    "outlook": "likely",
-   "risks": [
-    {
-     "obligation": "range",
-     "explanation": "The loop-carried survivor index is a subtype 0 .. 40 and the assignment (J + K) mod I is bounded by I - 1 <= 40 because I is a for-loop index in 2 .. 41, which the provers handle without an invariant."
-    },
-    {
-     "obligation": "division",
-     "explanation": "The mod divisor I is the for-loop index starting at 2, so it is statically nonzero."
-    }
-   ],
-   "size": 22,
-   "approach": "Embed N = 41 and K = 3 as constants and compute the survivor with the iterative recurrence J(1) = 0, J(i) = (J(i-1) + K) mod i in a for loop over 2 .. N, holding J in a ranged subtype 0 .. N-1. Print the final survivor (0-based, stated in the output) with Put_Line using 'Image concatenation; the optional extra of m survivors is omitted.",
-   "summary": "The O(n) recurrence needs only a for loop and a bounded mod, so every check follows from declared ranges and the loop index with no annotation needed.",
-   "confidence": "high"
+   "risks": [],
+   "size": 14,
+   "approach": "Main fixes N=41 and K=3 and initializes Survivor : Integer range 0 .. 40 := 0. An Integer range loop over 2 .. N assigns Survivor := ((Survivor + K) mod I), then prints the zero-based survivor with Integer'Image and Put_Line. This implements the task's (41,3) incident; it is not an arbitrary positive-n,k API or the optional m-survivor extension.",
+   "summary": "The incoming Survivor interval is 0..40, Survivor+K is 3..43 and the divisor I is 2..41. Modulo yields 0..40, preserving the declared range without guard or update refinement. The independently derived incident answer is zero-based 30.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-25",
+    "record": "assessment-division-20261025.md",
+    "setting_evidence": "Selected GPT-6.1 Sol High by the lead; runtime setting not independently exposed",
+    "method": "Concrete sample and task reconciliation after independent arithmetic/native core review; complete delivery validation pending in docs/integer-division.md",
+    "model": "gpt-6.1-sol",
+    "effort": "high"
+   }
   },
   "Joystick position": {
    "revision": 415018,
@@ -36086,19 +36103,27 @@
     }
    ],
    "surface": [
-    "integers",
-    "integer-division",
-    "ranged-subtypes",
-    "for-loops",
-    "scalar-image",
+    "integer-for-loops",
+    "immutable-integers",
+    "interval-integer-division",
+    "bounded-mutable-integers",
+    "integer-image",
     "put"
    ],
    "outlook": "likely",
    "risks": [],
-   "size": 22,
-   "approach": "Main uses a subtype N_Range is Integer range 1 .. 100 and an outer for loop over it, with an inner forward for loop over 1 .. N / 2 that sets Result to the divisor whenever N mod D = 0, so the last hit is the largest and no exit is needed. Each value is printed with Integer'Image, padded with one extra space when below 10, and Put_Line of an empty string ends a row when N mod 10 = 0.",
-   "summary": "All arithmetic is bounded by the 1..100 loop ranges (the divisor D is always at least 1 and Result is always within Integer), and both loops are for loops, so every check follows from types and no annotation is needed.",
-   "confidence": "high"
+   "size": 25,
+   "approach": "Main initializes Largest : Integer range 1 .. 50 := 1. For each N in 1 .. 100 it resets Largest to 1, then loops D over 1 .. (N / 2), assigning Largest := D whenever (N mod D)=0. Ascending enumeration leaves the largest proper divisor last. Put emits padded Integer images and every tenth N ends a row. The task's a(1)=1 convention handles the empty inner loop.",
+   "summary": "The outer quotient lies in 0..50; live inner-loop indexes lie in 1..50, excluding zero and fitting Largest's declared range. Both modulo sites have nonzero divisors. Padding uses an ordinary scalar condition without narrowing a later arithmetic expression.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-25",
+    "record": "assessment-division-20261025.md",
+    "setting_evidence": "Selected GPT-6.1 Sol High by the lead; runtime setting not independently exposed",
+    "method": "Concrete sample and task reconciliation after independent arithmetic/native core review; complete delivery validation pending in docs/integer-division.md",
+    "model": "gpt-6.1-sol",
+    "effort": "high"
+   }
   },
   "Last Friday of each month": {
    "revision": 414729,
@@ -38072,14 +38097,23 @@
     "integer-division",
     "for-loops",
     "scalar-image",
-    "ranged-subtypes"
+    "ranged-subtypes",
+    "while-loops"
    ],
    "outlook": "likely",
    "risks": [],
    "size": 12,
-   "approach": "Main declares a subtype Counter of Integer range 1 .. 6 and runs a for loop over Counter, which executes the body at least once. Each iteration prints Integer'Image (Value) with Put_Line and ends with exit when Value mod 6 = 0, so the program prints 1 through 6. The loop index comes from the for-loop range, so no loop-carried accumulator or overflow check exists.",
-   "summary": "The for-loop index is bounded by its declared range, so the only checks are Value mod 6 (divisor is a nonzero literal) and the 'Image output, all of which follow from types. A while-style loop with an unbounded Value + 1 would need an overflow guard, which the bounded for loop avoids.",
-   "confidence": "high"
+   "approach": "Main declares a subtype Counter of Integer range 1 .. 6 and runs a for loop over Counter, giving the successive values obtained by starting at zero and adding one before each body. Each iteration prints Integer'Image (Value) with Put_Line and then executes exit when Value mod 6 = 0. The bounded counted loop supplies the increment and conditional exit supplies the post-body termination test, so the body executes at least once and prints 1 through 6. Conditional loop exit is future while-loops surface even inside a for loop.",
+   "summary": "The bounded index avoids a loop-carried accumulator, and mod 6 has a nonzero literal divisor. The plan still needs conditional loop exit in addition to integer remainder; a counted-loop bound alone would not demonstrate the requested post-body condition.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-25",
+    "record": "assessment-division-20261025.md",
+    "setting_evidence": "Selected GPT-6.1 Sol High by the lead; runtime setting not independently exposed",
+    "method": "Targeted task, current-language and retained-prototype review; no new native admission, proof, build or execution",
+    "model": "gpt-6.1-sol",
+    "effort": "high"
+   }
   },
   "Loops/Downward for": {
    "revision": 412893,
@@ -42361,18 +42395,25 @@
     }
    ],
    "surface": [
-    "integers",
-    "integer-division",
-    "for-loops",
-    "put",
-    "ranged-subtypes"
+    "integer-for-loops",
+    "immutable-integers",
+    "interval-integer-division",
+    "put"
    ],
    "outlook": "likely",
    "risks": [],
-   "size": 22,
-   "approach": "A constant side length (for example 8) bounds two nested for loops over Positive range 1 .. Side, and each cell prints \"1 \" when (Row + Col) mod 2 = 0 and \". \" otherwise using Put. After each inner loop a Put_Line of an empty string ends the row, and no input is read, so nothing needs validating.",
-   "summary": "Every check follows from for-loop indexes over static constant ranges, the sum of two indexes at most 16 cannot overflow, and mod 2 has a literal nonzero divisor, so no loop-carried value needs a guard.",
-   "confidence": "high"
+   "size": 19,
+   "approach": "Main fixes Side : constant Integer := 8 and nests Row and Col loops over 1 .. Side. If ((Row + Col) mod 2)=0 it writes \"1 \" with Put, otherwise \". \"; an empty Put_Line ends each row. This is the task's fixed 8-by-8 alternating text grid.",
+   "summary": "Row+Col lies in 2..16 and divisor 2 is nonzero. No array, declared subtype, mutable object or scalar refinement is needed; each output is a bounded literal.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-25",
+    "record": "assessment-division-20261025.md",
+    "setting_evidence": "Selected GPT-6.1 Sol High by the lead; runtime setting not independently exposed",
+    "method": "Concrete sample and task reconciliation after independent arithmetic/native core review; complete delivery validation pending in docs/integer-division.md",
+    "model": "gpt-6.1-sol",
+    "effort": "high"
+   }
   },
   "Moser's circle problem": {
    "revision": 415212,
@@ -46348,19 +46389,26 @@
     }
    ],
    "surface": [
-    "integers",
-    "integer-division",
-    "ranged-subtypes",
-    "for-loops",
-    "scalar-image",
+    "integer-for-loops",
+    "immutable-integers",
+    "interval-integer-division",
+    "integer-image",
     "put"
    ],
    "outlook": "likely",
    "risks": [],
-   "size": 16,
-   "approach": "A for loop runs I over the declared range 11 .. 31 (the smallest and largest odd I with 99 < I*I < 1000), and an if statement tests I mod 2 /= 0. The square is computed into a variable of a range subtype, and its 'Image text is written with Put, with a final Put_Line of an empty string to end the line.",
-   "summary": "The loop bounds are static and the largest square is 961, so overflow and range checks follow from types and the for range, and mod by the literal 2 cannot divide by zero. No loop-carried value exists and no annotation is needed.",
-   "confidence": "high"
+   "size": 13,
+   "approach": "Main loops over I in 11 .. 31. If (I mod 2) /= 0, Put writes Integer'Image ((I * I)); a final empty Put_Line terminates the row. The square is an expression, with no object or declared subtype.",
+   "summary": "The index covers every positive square root of a three-digit square. Modulo by 2 selects the eleven odd squares; the largest intermediate is 961 and the divisor is nonzero.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-25",
+    "record": "assessment-division-20261025.md",
+    "setting_evidence": "Selected GPT-6.1 Sol High by the lead; runtime setting not independently exposed",
+    "method": "Concrete sample and task reconciliation after independent arithmetic/native core review; complete delivery validation pending in docs/integer-division.md",
+    "model": "gpt-6.1-sol",
+    "effort": "high"
+   }
   },
   "Odd squarefree semiprimes": {
    "revision": 404013,
@@ -64529,26 +64577,24 @@
     }
    ],
    "surface": [
-    "integers",
-    "integer-division",
-    "ranged-subtypes",
-    "scalar-image"
+    "immutable-integers",
+    "interval-integer-division",
+    "integer-image"
    ],
    "outlook": "likely",
-   "risks": [
-    {
-     "obligation": "division",
-     "explanation": "The divisor a2 - b2*a1 is tested against zero by an explicit if just before the division, with a visible 'no unique solution' output otherwise."
-    },
-    {
-     "obligation": "overflow",
-     "explanation": "Coefficients are declared as a small ranged subtype (about -1000..1000), so every product and difference fits in Integer and the checks follow from types."
-    }
-   ],
-   "size": 35,
-   "approach": "Embed the two equations as named integer constants of a small ranged subtype, solve the first for y, substitute into the second to get x times (a2 - b2*a1) equals r2 - b2*r1, and guard the divisor for zero and the division for exactness with mod. Then compute y from the first equation and print both values with 'Image, with a visible message when there is no unique integer solution. The control flow is straight-line code with a few ifs and no loops.",
-   "summary": "The task is a fixed two-equation linear solve done as straight-line integer arithmetic, so all checks follow from bounded types and one divisor guard. No loops, recursion or annotations are needed.",
-   "confidence": "high"
+   "risks": [],
+   "size": 21,
+   "approach": "Main embeds the task's fixed equations 3*x+y=-1 and 2*x-3*y=-19 as Integer constants. Ordered grouped constant expressions compute Denominator := (A2 - (B2 * A1)), Numerator := (R2 - (B2 * R1)), X := (Numerator / Denominator) and Y := (R1 - (A1 * X)). Put_Line prints X and Y with ordinary Integer'Image. This solves those equations, without claiming a general linear-system API.",
+   "summary": "Exact singleton initialization gives denominator 11 and numerator -22, then x=-2 and y=5. The nonzero divisor and all intermediate ranges follow directly from those exact values; no declared subtype, guard narrowing or general solver procedure is required.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-25",
+    "record": "assessment-division-20261025.md",
+    "setting_evidence": "Selected GPT-6.1 Sol High by the lead; runtime setting not independently exposed",
+    "method": "Concrete sample and task reconciliation after independent arithmetic/native core review; complete delivery validation pending in docs/integer-division.md",
+    "model": "gpt-6.1-sol",
+    "effort": "high"
+   }
   },
   "Solve hanging lantern problem": {
    "revision": 407974,
@@ -66573,27 +66619,34 @@
     }
    ],
    "surface": [
-    "integers",
-    "ranged-subtypes",
-    "for-loops",
-    "scalar-image",
-    "booleans"
+    "integer-for-loops",
+    "immutable-integers",
+    "integer-image",
+    "bounded-mutable-integers"
    ],
    "outlook": "likely",
    "risks": [
     {
      "obligation": "overflow",
-     "explanation": "a*a+b*b, c*c and a*b*c are bounded by loop ranges (a<=333, b<=500, c<=1000, product under 1.7e8), so they fit Integer without any invariant."
+     "explanation": "A lies in 1..333 and B in 2..500; C = 1000-A-B lies in 167..997. Squares, their sum and the conservatively bounded product at most 333*500*997 = 166000500 fit signed 32-bit Integer."
     },
     {
      "obligation": "range",
-     "explanation": "c is computed as 1000-a-b inside loops with static bounds, so it lies in 167..998 and fits a subtype 1..1000 by interval reasoning."
+     "explanation": "Found starts at 0 and is only assigned 1, both inside its declared 0..1 range. Product is initialized and unconstrained Integer; there is no C object assignment or Boolean state."
     }
    ],
    "size": 30,
-   "approach": "Two nested for loops run a over 1..333 and b over a+1..500, compute c as 1000-a-b, and test a*a+b*b = c*c with Integer arithmetic. A Boolean Found and an Integer Product are updated on the first match (guarded by not Found), and after the loops the program prints Integer'Image of Product, or a specified not-found message if none exists.",
-   "summary": "Every operand is bounded by for-loop ranges, so all arithmetic checks follow from types and static bounds, and for loops need no variants or invariants.",
-   "confidence": "high"
+   "approach": "Main initializes Found : Integer range 0 .. 1 := 0 and Product : Integer := 0. Nested Integer range loops run A over 1 .. 333 and B over (A + 1) .. 500. An if with Found = 0 and then the grouped equality ((A * A) + (B * B)) = (((1000 - A) - B) * ((1000 - A) - B)) selects the first match, sets Found := 1 and assigns Product := ((A * B) * ((1000 - A) - B)). After the loops Put_Line prints Integer'Image (Product), which is 31875000 for the task's fixed sum. If the search found no match, its initialized product would visibly be zero. A bounded Integer flag replaces a Boolean object, and grouped expressions avoid a local C declaration.",
+   "summary": "The retained prototype passed admission only under today's compiler. Loop-index intervals bound every intermediate arithmetic result, Found assignments stay in 0 .. 1 and Product accepts the bounded product. No Boolean object, declared subtype, guard refinement, new division operator, proof or execution result is claimed.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-25",
+    "record": "assessment-division-20261025.md",
+    "setting_evidence": "Selected GPT-6.1 Sol High by the lead; runtime setting not independently exposed",
+    "method": "Targeted task, current-language and retained-prototype review; no new native admission, proof, build or execution",
+    "model": "gpt-6.1-sol",
+    "effort": "high"
+   }
   },
   "Special variables": {
    "revision": 413047,
@@ -69675,17 +69728,26 @@
     }
    ],
    "surface": [
-    "integers",
-    "integer-division",
-    "for-loops",
-    "scalar-image"
+    "integer-for-loops",
+    "immutable-integers",
+    "interval-integer-division",
+    "bounded-mutable-integers",
+    "integer-image"
    ],
    "outlook": "likely",
    "risks": [],
    "size": 12,
-   "approach": "A for loop runs N over 0 .. 49 and computes the triangular number T = N * (N + 1) / 2, then the sum of the first N cubes as T * T, so nothing is carried between iterations. Each result is printed with Silver_IO.Put_Line (Integer'Image (Sum)), one entry per line.",
-   "summary": "The loop index has static bounds 0 .. 49, so the closed-form expressions are bounded by at most 1,500,625 and cannot overflow, and no loop-carried accumulator exists that would need an invariant. The only new surface is integer arithmetic, a for loop and Integer'Image, so the proofs should discharge automatically.",
-   "confidence": "high"
+   "approach": "Main initializes Triangular : Integer range 0 .. 1225 := 0. For N in 0 .. 49 it assigns Triangular := ((N * (N + 1)) / 2) and prints Integer'Image ((Triangular * Triangular)). This prints the task's first 50 sums starting with n=0; no local declaration region, procedure or declared subtype is needed.",
+   "summary": "The product N*(N+1) lies in 0..2450 and quotient in 0..1225. The full declared-range square is at most 1500625, within Integer. Divisor 2 is nonzero and all assignments preserve the object-local range.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-25",
+    "record": "assessment-division-20261025.md",
+    "setting_evidence": "Selected GPT-6.1 Sol High by the lead; runtime setting not independently exposed",
+    "method": "Concrete sample and task reconciliation after independent arithmetic/native core review; complete delivery validation pending in docs/integer-division.md",
+    "model": "gpt-6.1-sol",
+    "effort": "high"
+   }
   },
   "Sum of primes in odd positions is prime": {
    "revision": 400625,
@@ -75790,14 +75852,23 @@
    "surface": [
     "integers",
     "integer-division",
-    "scalar-image"
+    "scalar-image",
+    "integer-object-size-read"
    ],
    "outlook": "likely",
    "risks": [],
    "size": 10,
-   "approach": "Declare an Integer variable and constants holding X'Size (bits) and that value divided by the storage unit of 8 (bytes). Print both through 'Image text with Put_Line. There are no loops, and the only guard is that the divisor is a static nonzero literal.",
-   "summary": "The program is straight-line code over static constants, so every check follows from static values and nothing needs an annotation. The only new needs are the 'Size attribute, integer division by a literal and 'Image output.",
-   "confidence": "high"
+   "approach": "Declare an initialized Integer variable X and Integer constants holding X'Size in bits and that value divided by 8 in bytes on the pinned eight-bit-storage-unit targets. Print both through Integer'Image with Put_Line. X'Size reads the representation attribute of an object; it is a different construct from a Size representation clause that requests a representation. There are no loops, and division uses a static nonzero literal.",
+   "summary": "The straight-line plan needs an Integer object Size-attribute read, integer division by a literal and Image output. Its attribute value, Integer range and target interpretation still need an admission rule; Size-clause support would not by itself admit this read.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-25",
+    "record": "assessment-division-20261025.md",
+    "setting_evidence": "Selected GPT-6.1 Sol High by the lead; runtime setting not independently exposed",
+    "method": "Targeted task, current-language and retained-prototype review; no new native admission, proof, build or execution",
+    "model": "gpt-6.1-sol",
+    "effort": "high"
+   }
   },
   "Variable size/Set": {
    "revision": 413114,

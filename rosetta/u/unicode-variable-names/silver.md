@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Unicode identifiers are permitted by inherited Ada/SPARK but excluded by today's Silver ASCII source rule, and today's scalar analysis also cannot justify this increment. Explicit Unicode identifier support and scalar guard refinement are future surface, not Oracle amendments or currently delivered capabilities.
 
-Position 1576 in the [progression](../../progression.md#stage-43), in stage 43, which adds scalar guard refinement and unicode identifiers.
+Position 1576 in the [progression](../../progression.md#stage-44), in stage 44, which adds scalar guard refinement and unicode identifiers.
 
 ## Approach
 

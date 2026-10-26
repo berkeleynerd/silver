@@ -105,8 +105,10 @@ def main_envelope() -> int:
     # Separate charges deliberately overcount the shared 63-operator budget,
     # declaration sites and loop-bound conversions. Producer/frontend routes,
     # rather than example report counts, justify them in the capacity record.
+    # Division adds at most one nonzero-divisor record per charged operator,
+    # alongside the existing overflow allowance. See integer-division-report-capacity.md.
     checks = (SOURCE_BYTES // 5 + SOURCE_BYTES // 3 + 63
-              + 63 + SOURCE_BYTES // 13 + 2 * (SOURCE_BYTES // 18))
+              + 2 * 63 + SOURCE_BYTES // 13 + 2 * (SOURCE_BYTES // 18))
     image_warnings = 2 * (SOURCE_BYTES // 16)
     return (checks * MAIN_RECORD_BYTES + (2 * SOURCE_BYTES + image_warnings) * FLOW_RECORD_BYTES
             + 2 * SOURCE_BYTES + METADATA_BYTES)
@@ -154,7 +156,11 @@ class CapacityEnvelopeTests(unittest.TestCase):
         self.assertLessEqual(embedded_record_bytes(maximal_retained_record(flow=True, runtime=True)),
                              FLOW_RECORD_BYTES)
         self.assertLessEqual(embedded_record_bytes(maximal_image_advisory()), FLOW_RECORD_BYTES)
-        self.assertEqual(main_envelope(), 15_292_416)
+        division = maximal_retained_record()
+        division['rule'] = 'VC_DIVISION_CHECK'
+        division['message']['text'] = 'division check proved'
+        self.assertLessEqual(embedded_record_bytes(division), MAIN_RECORD_BYTES)
+        self.assertEqual(main_envelope(), 15_421_440)
         self.assertEqual(metadata_envelope(), 55_712)
         self.assertLessEqual(metadata_envelope(), METADATA_BYTES)
         specification = (ROOT / "src/silver_library_reports.ads").read_text()

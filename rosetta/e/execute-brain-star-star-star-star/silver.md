@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every index, range and counter check can be discharged by a guard placed just before use, and no function-level loops or annotations are needed, but several loop-carried values (instruction pointer, tape pointer, bracket depth, step count) need careful guards. The step limit and explicit bounds keep the interpreter faithful for the tasks's required instructions while remaining provable.
 
-Position 1231 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1230 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Failure paths to test
 

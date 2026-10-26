@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs exact big-integer arithmetic, which Silver can do with fixed-capacity limb arrays whose carries and indexes are bounded by types and for loops, so no annotation is needed, though the careful signed big-number shape makes it plausible rather than likely.
 
-Position 1392 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1391 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Approach
 

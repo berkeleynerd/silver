@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from array ranges, for-loop indexes and a counter typed 0 .. 10_000 whose only decrement is guarded, with no while loops, recursion or nonlinear arithmetic, so proofs should discharge without annotations.
 
-Position 530 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 529 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

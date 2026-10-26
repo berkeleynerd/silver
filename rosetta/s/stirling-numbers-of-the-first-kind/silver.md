@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is a bounded nested for-loop over static ranges with a guarded recurrence, so checks should discharge, but the loop-carried array values need careful guard placement and the 'Image padding needs bounded buffers.
 
-Position 678 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 677 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

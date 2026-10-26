@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is on small bounded fixed-point values with explicit range guards before each addition and a for-loop power, so no annotation is needed, but fixed-point image formatting, the loop-carried accumulator guard, and the -Inf record make careful program shape necessary.
 
-Position 1569 in the [progression](../../progression.md#stage-37), in stage 37.
+Position 1568 in the [progression](../../progression.md#stage-37), in stage 37.
 
 ## Approach
 

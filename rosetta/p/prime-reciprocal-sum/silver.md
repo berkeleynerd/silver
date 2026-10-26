@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** No annotation is needed because all arithmetic is fixed-capacity digit-array loops in procedures with types and guards bounding each step, but the amount of bignum division and modular exponentiation makes discharge depend on careful program shape rather than being routine.
 
-Position 1408 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1407 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Approach
 

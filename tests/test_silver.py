@@ -204,7 +204,7 @@ class SilverIntegrationTests(unittest.TestCase):
         self.assertEqual(scalar_literal["resulting_scalar_range"], [-2147483648, 2147483647])
         self.assertEqual(scalar_literal["exponent_range"], [0, 4096])
         scalar = constructs["integer_expression"]["conditions"]
-        self.assertEqual(scalar["binary_operators"], ["+", "-", "*"])
+        self.assertEqual(scalar["binary_operators"], ["+", "-", "*", "/", "mod", "rem"])
         self.assertTrue(scalar["binary_operations_fully_parenthesized"])
         self.assertFalse(scalar["scalar_guards_refine_intervals"])
         self.assertIn("integer_image", expression["operand_kinds"])

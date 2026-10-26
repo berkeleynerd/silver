@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer arithmetic and character handling in a procedure-based while loop, so each check can be discharged by explicit guards placed before each lookahead and by range-typed hex digits, with no annotation needed. The risk is the careful guard shape for index and arithmetic bounds across many loop-carried values.
 
-Position 1025 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 1024 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

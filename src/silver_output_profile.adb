@@ -405,9 +405,14 @@ is
          elsif First > Text'Last then True
          elsif Text (First) = Character'Val (34) then
            Quoted.After /= 0 and then Work_Tail (Text, Quoted.After, Remaining)
-         elsif After_Name /= 0 then Work_Tail (Text, After_Name, Remaining)
+         elsif After_Name /= 0 then
+           (if Name_Is (Text, First, After_Name, "mod") or else Name_Is (Text, First, After_Name, "rem")
+            then Remaining /= 0 and then Work_Tail (Text, After_Name, Remaining - 1)
+            else Work_Tail (Text, After_Name, Remaining))
          elsif Number.After /= 0 then Work_Tail (Text, Number.After, Remaining)
-         elsif Text (First) in '&' | '+' | '-' | '*' then
+         elsif Text (First) = '/' and then First < Text'Last and then Text (First + 1) = '=' then
+           Work_Tail (Text, First + 2, Remaining)
+         elsif Text (First) in '&' | '+' | '-' | '*' | '/' then
            Remaining /= 0 and then Work_Tail (Text, First + 1, Remaining - 1)
          else Work_Tail (Text, First + 1, Remaining)));
 
@@ -437,10 +442,16 @@ is
                if Quoted.After = 0 then return False; end if;
                Position := Quoted.After;
             elsif After_Name /= 0 then
+               if Name_Is (Text, First, After_Name, "mod") or else Name_Is (Text, First, After_Name, "rem") then
+                  if Remaining = 0 then return False; end if;
+                  Remaining := Remaining - 1;
+               end if;
                Position := After_Name;
             elsif Number.After /= 0 then
                Position := Number.After;
-            elsif Text (First) in '&' | '+' | '-' | '*' then
+            elsif Text (First) = '/' and then First < Text'Last and then Text (First + 1) = '=' then
+               Position := First + 2;
+            elsif Text (First) in '&' | '+' | '-' | '*' | '/' then
                if Remaining = 0 then return False; end if;
                Position := First + 1;
                Remaining := Remaining - 1;

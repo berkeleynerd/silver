@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index is a for-loop variable over the array's own static ranges and the only arithmetic is copying elements, so all checks follow from declarations and no loop-carried value needs an invariant. The arbitrary-size requirement is met by documented fixed bounds.
 
-Position 643 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 642 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

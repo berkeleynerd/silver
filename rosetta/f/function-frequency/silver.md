@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task permits static analysis of source text, which an ordinary file scan does, so nothing conflicts with the Oracle. Every loop-carried value (word length, table size, counts) can be guarded just before use, and the read loop sits in a procedure, so no annotation is needed.
 
-Position 1322 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1321 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Failure paths to test
 

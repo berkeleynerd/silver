@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from bounded subtypes, array index ranges and guards before the sum and division, though the loop-carried sum and the decimal formatting need careful shape. Scaled-integer arithmetic avoids floating point and nothing requires an annotation.
 
-Position 731 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 730 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

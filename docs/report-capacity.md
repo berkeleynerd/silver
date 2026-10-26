@@ -377,3 +377,13 @@ policy-correspondence checks passed, followed by the complete Linux
 B1 is complete for the currently admitted language. The separate null route
 retains its raw reader and recognizer and is outside this structural
 correspondence argument.
+
+## Interval-checked integer division extension
+
+The selected [division increment](integer-division.md) extends the retained
+Main envelope to **15,421,440 bytes**, within the unchanged 16,777,216-byte
+allocation. The [producer source review](integer-division-report-capacity.md)
+adds at most 63 division-check records to the existing mutable-Integer formula,
+retaining the prior overflow/root/flow/Image/metadata allowances. This is a
+feature-local derivation; capability support still requires its complete native
+and Lean/source checkpoint. Deferred #119 research remains untouched.

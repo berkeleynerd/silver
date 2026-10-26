@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every operation is bounded integer arithmetic inside for loops with static ranges, and the only loop-carried value is a counter that a visible guard keeps in range, so no annotation is needed. The 4^a(8b+7) characterisation avoids searching sums of squares and keeps all work linear and bounded.
 
-Position 331 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 330 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

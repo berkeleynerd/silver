@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Widening to 64 bits plus a zero-divisor guard discharges all the basic operations routinely. Only the guarded multiply in the power loop relies on nonlinear reasoning, so proof depends on careful program shape rather than annotations, which makes the outlook plausible.
 
-Position 1440 in the [progression](../../../progression.md#stage-26), in stage 26.
+Position 1439 in the [progression](../../../progression.md#stage-26), in stage 26.
 
 ## Failure paths to test
 

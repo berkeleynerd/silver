@@ -123,7 +123,8 @@ theorem readFuel_correspondence {text : Source} {names : Environment}
                       · split
                         · rfl
                         · rename_i supported
-                          cases rightFound : parseFuel fuel text (skip text left.after + 1) names
+                          have operatorBounds := binaryAfter_bounds supported
+                          cases rightFound : parseFuel fuel text (binaryAfter text (skip text left.after)) names
                               maskFirst maskAfter false with
                           | none => rfl
                           | some right =>
@@ -146,8 +147,10 @@ theorem readFuel_correspondence {text : Source} {names : Environment}
                         simp only [rejected, ↓reduceIte]
                       · split
                         · rfl
-                        · rw [ih _ _ (by omega)]
-                          cases rightFound : parseFuel fuel text (skip text left.after + 1) names
+                        · rename_i supported
+                          have operatorBounds := binaryAfter_bounds supported
+                          rw [ih _ _ operatorBounds.2]
+                          cases rightFound : parseFuel fuel text (binaryAfter text (skip text left.after)) names
                               maskFirst maskAfter false with
                           | none => simp [summarize, binary_invalid_right, close_invalid]
                           | some right =>
@@ -235,7 +238,9 @@ theorem read_step {text : Source} {names : Environment}
               · rfl
               · split
                 · rfl
-                · rw [readFuel_large valid _ _ maskFirst maskAfter false (by omega) (by omega)]
+                · rename_i supported
+                  have operatorBounds := binaryAfter_bounds supported
+                  rw [readFuel_large valid _ _ maskFirst maskAfter false operatorBounds.2 (by omega)]
       · rfl
   exact same.symm.trans equation
 

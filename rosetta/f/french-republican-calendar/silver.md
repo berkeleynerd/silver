@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is bounded date arithmetic over a 14-year range with fixed tables and for loops, so every check follows from ranged subtypes and range guards without annotations; the later-date leap-year method can be omitted by documenting the 1805 limit.
 
-Position 803 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 802 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

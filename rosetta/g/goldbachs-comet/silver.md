@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks come from ranged subtypes, a static array bound and loop-condition guards, but the loop-carried count and sieve step need carefully shaped, guarded code, so discharge is plausible rather than routine.
 
-Position 243 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 242 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

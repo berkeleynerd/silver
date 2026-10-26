@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check comes from byte and carry subtypes, from modular arithmetic that cannot overflow, or from static for-loop bounds. There are no while loops or recursion, so nothing needs a variant or invariant.
 
-Position 1286 in the [progression](../../../progression.md#stage-21), in stage 21.
+Position 1285 in the [progression](../../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

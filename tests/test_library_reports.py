@@ -335,7 +335,7 @@ end Probe;
             base["proof"] = [dict(check(), rule="VC_RANGE_CHECK", file="main.adb")]
             self.assertTrue(self.accepts(base, kind=kind))
             for field, value in (("severity", "low"), ("how_proved", "trivial"),
-                                 ("rule", "VC_DIVISION_CHECK"), ("entity", 2),
+                                 ("rule", "VC_ASSERT"), ("entity", 2),
                                  ("file", "silver_io.adb"), ("line", 0), ("col", 0),
                                  ("suppressed", False), ("justification", "approved")):
                 data = copy.deepcopy(base)
@@ -462,15 +462,15 @@ end Probe;
             changed["assumptions"][0]["claim"]["arg"] = 2
             self.assertFalse(self.accepts(changed, kind=kind))
 
-    def test_length_and_overflow_checks_have_the_same_complete_safety_policy(self) -> None:
+    def test_length_overflow_and_division_checks_have_the_same_complete_safety_policy(self) -> None:
         changes = (("severity", "warning"), ("severity", "low"),
                    ("how_proved", "flow"), ("how_proved", "trivial"),
-                   ("rule", "VC_DIVISION_CHECK"), ("entity", 2),
+                   ("rule", "VC_ASSERT"), ("entity", 2),
                    ("file", "silver_io.adb"), ("line", 0), ("col", 0),
                    ("suppressed", False), ("justification", ""),
                    ("justified", False), ("annot_kind", ""), ("justif_msg", ""))
         for kind, rule in product(("static", "main", "assignment", "selected"),
-                                  ("VC_LENGTH_CHECK", "VC_OVERFLOW_CHECK")):
+                                  ("VC_LENGTH_CHECK", "VC_OVERFLOW_CHECK", "VC_DIVISION_CHECK")):
             data = main_report(0) if kind in ("main", "selected") else assignment_call_report()
             data["proof"] = [dict(check(), rule=rule, file="main.adb")]
             self.assertTrue(self.accepts(data, kind=kind))

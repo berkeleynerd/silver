@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are for loops over static or subtype-bounded ranges and no recursion or floating point is needed, but because pass-to-pass growth of loop-carried values cannot be bounded without an invariant, each subtraction needs a range guard with a visible rejection outcome, so discharge depends on careful program shape.
 
-Position 908 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 907 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

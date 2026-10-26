@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded and iterative with an embedded input, so only the buffer-index and length checks on loop-carried positions need careful guard placement, and no annotation is needed. Integer-to-text conversion into the buffer adds some shape-dependence, hence plausible rather than likely.
 
-Position 551 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 550 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

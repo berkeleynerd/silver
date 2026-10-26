@@ -41,14 +41,20 @@ theorem model_workTail_equation (text : Source) (_valid : ValidText text)
           simp [firstZero, finished, isQuote, absent, quotedDecrease]
       · by_cases nameZero : nameAfter text (skipAt text position) = 0
         · by_cases numberZero : (ScalarLiteral.read text (skipAt text position)).after = 0
-          · by_cases isOperator : Cursor.byteAt text (skipAt text position) = 38 ∨
-                Cursor.byteAt text (skipAt text position) = 43 ∨
-                Cursor.byteAt text (skipAt text position) = 45 ∨
-                Cursor.byteAt text (skipAt text position) = 42
-            · by_cases empty : remaining = 0
-              · simp [firstZero, finished, isQuote, nameZero, numberZero, isOperator, empty]
-              · simp [firstZero, finished, isQuote, nameZero, numberZero, isOperator, empty, plainDecrease]
-            · simp [firstZero, finished, isQuote, nameZero, numberZero, isOperator, plainDecrease]
+          · by_cases isComparison : Cursor.byteAt text (skipAt text position) = 47 ∧
+                skipAt text position < text.length ∧ Cursor.byteAt text (skipAt text position + 1) = 61
+            · have pairDecrease : text.length + 1 - (skipAt text position + 2) < text.length + 1 - position := by omega
+              simp [firstZero, finished, nameZero, numberZero, isComparison]
+              omega
+            · simp only [Bool.and_eq_true, decide_eq_true_eq, and_assoc, isComparison, ↓reduceIte]
+              by_cases isOperator : Cursor.byteAt text (skipAt text position) = 38 ∨
+                  Cursor.byteAt text (skipAt text position) = 43 ∨
+                  Cursor.byteAt text (skipAt text position) = 45 ∨
+                  Cursor.byteAt text (skipAt text position) = 42 ∨ Cursor.byteAt text (skipAt text position) = 47
+              · by_cases empty : remaining = 0
+                · simp [firstZero, finished, isQuote, nameZero, numberZero, isOperator, empty]
+                · simp [firstZero, finished, isQuote, nameZero, numberZero, isOperator, empty, plainDecrease]
+              · simp [firstZero, finished, isQuote, nameZero, numberZero, isOperator, plainDecrease]
           · have numberBounds := ScalarLiteral.integer_bounds
               (ScalarLiteral.read_sound (model_skip_valid text position bound) numberZero)
             have numberDecrease :
@@ -58,7 +64,11 @@ theorem model_workTail_equation (text : Source) (_valid : ValidText text)
         · have nameAdvance := model_name_advances text (skipAt text position) nameZero
           have nameDecrease : text.length + 1 - nameAfter text (skipAt text position) <
                 text.length + 1 - position := by omega
-          simp [firstZero, finished, isQuote, nameZero, nameDecrease]
+          simp only [firstZero, finished, isQuote, ne_eq, nameZero, not_false_eq_true,
+            nameDecrease, ↓reduceIte, ↓reduceDIte]
+          split
+          · by_cases empty : remaining = 0 <;> simp [empty]
+          · rfl
 
 theorem model_tail_equation (ranges : RangeContracts modelCalls)
     (text : Source) (valid : ValidText text) (names : BindingEnvironment)

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is bounded by ranged subtypes plus loop-condition guards, and the loops live in procedures so no termination check or annotation is needed. The only non-routine part is that the game ends with probability one rather than by a provable bound, which is irrelevant to procedures.
 
-Position 1276 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1275 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All bounds are small and static (N below 500, digit sum at most 22), so the checks follow from ranged types and a guard before the sieve write, and no loop invariant is needed.
 
-Position 202 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 201 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

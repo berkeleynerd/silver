@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything runs in procedures over fixed-bound arrays with ranged indexes and explicit capacity guards, but many loop-carried lengths and offsets without invariants make discharge depend on careful program shape rather than being routine.
 
-Position 568 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 567 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 
