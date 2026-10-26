@@ -82,12 +82,15 @@ test/tooling work and #246 are not automatically selected.
 [Development velocity follow-up #246](https://github.com/berkeleynerd/silver/issues/246)
 has a retained [assessment and scheduling checklist](docs/development-velocity.md)
 covering source-proof cost, checkpoint scheduling and candidate dependency
-changes. The owner's [sequencing instruction](docs/session-memory.md#2026-10-26--velocity-assessment-retained-feature-review-response-comes-next)
-puts the comprehensive feature-review response next. Reconsider #246 after that
-response is merged, using the resulting main and still-applicable evidence.
-It remains open in Backlog outside this completed feature milestone; the
-proposed packages are not selected increments, and no optimization implementation,
-profiling run or assurance-policy change is authorized by the assessment.
+changes. After the review response merged, the owner
+[selected its first package](docs/session-memory.md#2026-10-26--first-development-velocity-package-authorized)
+under [milestone 9, Source-proof iteration cost](https://github.com/berkeleynerd/silver/milestone/9).
+This is one increment: concise checkpoint/invalidation guidance, bounded profiling,
+then the composition-check dependency split with complete applicable assurance,
+independent review and a matched unprofiled comparison. Retain authoritative
+source statements and exact-byte reconstruction. Certificate chunking,
+predicate-proof optimization and persistent runner metrics remain conditional;
+new language development is not selected by this authorization.
 
 1. [Interval-checked integer division #229](https://github.com/berkeleynerd/silver/issues/229):
    **delivered** fully grouped `/`, `mod` and `rem` in current scalar-expression positions,
