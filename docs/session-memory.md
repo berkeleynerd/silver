@@ -1,5 +1,33 @@
 # Session memory
 
+## 2026-10-26 — Feature-review response and narrow regression reuse
+
+The owner supplied the complete external review of `22838bc809`, reporting no
+blocker or medium finding, and selected this review response as the next unit
+of work. The [retained report and dispositions](reviews/review-22838bc809.md)
+identify seven low record/metadata corrections and the informational suggestions.
+[Milestone 8](https://github.com/berkeleynerd/silver/milestone/8) groups the small
+record-correction response; optional test/tooling/proof improvements remain
+deferred or tracked in existing follow-ups.
+
+For D1 the owner selected **“Codify narrowly reviewed reuse (recommended)”**:
+the final test inventory must be covered, an independent input/dependency review
+must establish retained-result applicability, and every failed or affected test
+must pass a rerun. Failed full runs remain labelled failed. If applicability or
+coverage cannot be established, rerun the full suite. Complete native and Lean
+assurance remains mandatory; this authorizes a narrow development-policy
+clarification, not an Oracle amendment. Correct the division record's historical
+reuse scope using the later guard checkpoint without inventing a fresh pass.
+
+The owner also instructed **“Remember to not overengineer solutions around our
+project”**, specifically avoiding machinery for unlikely adversarial artifact
+corruption in this local, single-developer project. Use a short policy clause,
+ordinary recorded review, concrete record fixes and existing follow-ups. No new
+evidence framework, broad defensive tooling or automatic expansion of the
+informational suggestions is selected. Routine tracking and publication of this
+response are included. #246 remains deferred until this response is merged and
+its scope is later selected; all capacity and assurance-mode deferrals persist.
+
 ## 2026-10-26 — Velocity assessment retained; feature-review response comes next
 
 After the external scoping report for
