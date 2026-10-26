@@ -393,6 +393,10 @@ private theorem candidate_body_body_tail_impl_header : functionHeader "body_tail
   decide +kernel
 
 private theorem candidate_body_read_body_spec_header : functionHeader "read_body" ";" SourceShape.bodyTokens = some body_read_body_spec_header := by
+  unfold body_read_body_spec_header
+  simp only [BodyNative.readContractBody, BodyNative.ModelExpr.render.eq_def,
+    BodyNative.ModelExpr.renderElse.eq_def, BodyNative.ScanExpr.render,
+    BodyNative.Test.render, BodyNative.StopRef.render]
   decide +kernel
 
 private theorem candidate_body_read_body_impl_header : functionHeader "read_body" "is" SourceShape.bodyTokens = some body_read_body_impl_header := by
@@ -551,13 +555,13 @@ private theorem candidate_concatenation_count_declaration : Lexical.SourceBridge
 private theorem candidate_valid_flow_body : Source.expressionBody "valid_flow" SourceShape.bodyTokens = some valid_flow_expression := by
   decide +kernel
 
-private theorem candidate_valid_flow_header : functionHeader "valid_flow" "is" SourceShape.bodyTokens = some ((Source.lex "(Context : Body_Context; Facts : Scalar_Flow) return Boolean").getD []) := by
+private theorem candidate_valid_flow_header : functionHeader "valid_flow" "is" SourceShape.bodyTokens = some ((Source.lexLine "(Context : Body_Context; Facts : Scalar_Flow) return Boolean").getD []) := by
   decide +kernel
 
 private theorem candidate_included_body : Source.expressionBody "included" SourceShape.bodyTokens = some included_expression := by
   decide +kernel
 
-private theorem candidate_included_header : functionHeader "included" "is" SourceShape.bodyTokens = some ((Source.lex "(Value, Bounds : Scalars.Interval) return Boolean").getD []) := by
+private theorem candidate_included_header : functionHeader "included" "is" SourceShape.bodyTokens = some ((Source.lexLine "(Value, Bounds : Scalars.Interval) return Boolean").getD []) := by
   decide +kernel
 
 private theorem candidate_string_target_declaration : Lexical.SourceBridge.recordDeclaration "string_target_result" SourceShape.bodyTokens = some string_target_declaration := by
