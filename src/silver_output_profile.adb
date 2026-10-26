@@ -1263,7 +1263,7 @@ is
 
    function Reading_Names (Context : Body_Context; Facts : Scalar_Flow)
       return Scalar_Expressions.Environment
-     with Ghost => Static, Global => null, Pre => Facts.Count = Context.Scalar_Names.Count,
+     with Global => null, Pre => Facts.Count = Context.Scalar_Names.Count,
        Post => Reading_Names'Result.Count = Context.Scalar_Names.Count
          and then (for all Index in Scalar_Expressions.Binding_Index =>
            Reading_Names'Result.Items (Index) =
@@ -1307,20 +1307,8 @@ is
      (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow;
       Mask_First : Literal_Position := 0; Mask_After : Literal_Position := 0)
       return Scalar_Expressions.Expression_Result is
-      Overlay : Scalar_Expressions.Environment := Context.Scalar_Names;
+      Overlay : constant Scalar_Expressions.Environment := Reading_Names (Context, Facts);
    begin
-      for Index in Facts.Values'Range loop
-         pragma Loop_Invariant (Overlay.Count = Context.Scalar_Names.Count);
-         pragma Loop_Invariant
-           (Static => (for all Cell in Scalar_Expressions.Binding_Index => Overlay.Items (Cell) =
-             (if Cell < Index and then (Context.Scalar_Names.Items (Cell).Mutable
-               or else Cell > Context.Declaration_Count)
-              then (Context.Scalar_Names.Items (Cell) with delta Bounds => Facts.Values (Cell))
-              else Context.Scalar_Names.Items (Cell))));
-         if Overlay.Items (Index).Mutable or else Index > Context.Declaration_Count then
-            Overlay.Items (Index).Bounds := Facts.Values (Index);
-         end if;
-      end loop;
       return Scalar_Expressions.Read_Expression (Text, Position, Overlay, Mask_First, Mask_After);
    end Read_Scalar_In_Flow;
    function Read_String_In_Flow
@@ -1338,20 +1326,8 @@ is
    function Read_String_In_Flow
      (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow)
       return Expression_Result is
-      Overlay : Scalar_Expressions.Environment := Context.Scalar_Names;
+      Overlay : constant Scalar_Expressions.Environment := Reading_Names (Context, Facts);
    begin
-      for Index in Facts.Values'Range loop
-         pragma Loop_Invariant (Overlay.Count = Context.Scalar_Names.Count);
-         pragma Loop_Invariant
-           (Static => (for all Cell in Scalar_Expressions.Binding_Index => Overlay.Items (Cell) =
-             (if Cell < Index and then (Context.Scalar_Names.Items (Cell).Mutable
-               or else Cell > Context.Declaration_Count)
-              then (Context.Scalar_Names.Items (Cell) with delta Bounds => Facts.Values (Cell))
-              else Context.Scalar_Names.Items (Cell))));
-         if Overlay.Items (Index).Mutable or else Index > Context.Declaration_Count then
-            Overlay.Items (Index).Bounds := Facts.Values (Index);
-         end if;
-      end loop;
       return Expression_At (Text, Position, Context.Names, Overlay);
    end Read_String_In_Flow;
 
@@ -2194,7 +2170,8 @@ is
        Post => (Runtime => Valid_Body (Text, Context, Body_Tail'Result)
          and then (Body_Tail'Result.Position = 0 or else Body_Tail'Result.Position >= Scan.Position),
          Static => Body_Tail'Result = Body_Tail_Model (Text, Context, Scan, Stop)),
-       Subprogram_Variant => (Decreases => (Text'Last + 1) - Scan.Position, Decreases => 3);
+       --  The executable wrapper also calls its rank-3 ghost model in contracts.
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - Scan.Position, Decreases => 4);
    function Body_Tail
      (Text : String; Context : Body_Context; Scan : Body_Scan; Stop : Body_Stop)
       return Body_Scan is
