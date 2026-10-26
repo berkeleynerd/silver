@@ -1,0 +1,45 @@
+{
+  "run_id": "20261026T072713-47e20847e594",
+  "source_commit": "408569f3b256936e259d5f976ac61f3ec85431e5 plus identified orientation repair",
+  "scope": "Focused model/helper/endpoint validation; runner still uses division native source binding. Final guard source correspondence remains pending.",
+  "command": [
+    "/usr/bin/python3",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/scripts/check_lean.py",
+    "--task",
+    "#239",
+    "--workers",
+    "2",
+    "--threads",
+    "2",
+    "--target",
+    "Silver.PredicateNativeScalarHelpers",
+    "--target",
+    "Silver.PredicateScalarGuardMeaning",
+    "--target",
+    "Silver.PredicateNativeLibraries",
+    "--target",
+    "Silver.PredicateEquations",
+    "--target",
+    "Silver.Current"
+  ],
+  "inputs": [
+    {
+      "path": "proof/Silver/PredicateAdmission.lean",
+      "sha256": "8dc5af3972449dfb8baf8cf6e679e1aa56888573778377d569345f5f122b34cc",
+      "captured_input_match": true
+    },
+    {
+      "path": "proof/Silver/PredicateNativeScalarHelpers.lean",
+      "sha256": "3e92c9ecebd6d027c7ac4dd445a354dd28c031470f570dd9641f9a00d1aa9c03",
+      "captured_input_match": true
+    },
+    {
+      "path": "proof/Silver/PredicateScalarGuardMeaning.lean",
+      "sha256": "55ff550d918f49e04123ed32fd254e3c9878e834b1784d4fba3629252b72c73e",
+      "captured_input_match": true
+    }
+  ],
+  "axiom_audit": "64530 declarations; passed",
+  "initial_failure": "20261026T072432-672471c686a2: two unused simp arguments, removed without statement changes",
+  "review": "../../../reviews/review-scalar-guard-orientation-20261026.md"
+}

@@ -1,0 +1,353 @@
+Lean phase build started at 2026-10-26T07:27:29.937416+00:00
++ /home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/.tools/linux-x86_64/lean/bin/lake --rehash --reconfigure -K silverThreads=2 build +Silver.PredicateNativeScalarHelpers +Silver.PredicateScalarGuardMeaning +Silver.PredicateNativeLibraries +Silver.PredicateEquations +Silver.Current +Silver.AxiomAudit
+✔ [90/96] Built Silver.PredicateScalarGuardMeaning (8.6s)
+✔ [91/96] Built Silver.PredicateNativeExpressions (15s)
+✔ [92/102] Built Silver.PredicateNativeBodies (8.0s)
+✔ [93/104] Built Silver.PredicateNativePrecedence (8.4s)
+✔ [94/104] Built Silver.PredicateConditionSound (24s)
+✔ [95/105] Built Silver.PredicateNativeScalarHelpers (92s)
+✔ [96/105] Built Silver.PredicateNativeRanges (6.0s)
+✔ [97/111] Built Silver.PredicateNativeProgress (6.4s)
+✔ [102/115] Built Silver.PredicateFlowReaders (5.9s)
+✔ [113/129] Built Silver.PredicateFlowReaderLibraries (7.5s)
+✔ [123/138] Built Silver.PredicateNativeEquations (52s)
+✔ [127/142] Built Silver.PredicateNativeSizing (5.0s)
+✔ [129/146] Built Silver.PredicateNativeWorkers (5.0s)
+✔ [132/149] Built Silver.PredicateNativeModel (7.0s)
+✔ [133/152] Built Silver.PredicateBodyAdmission (8.5s)
+✔ [134/154] Built Silver.PredicateNativeCorrespondence (9.6s)
+✔ [135/156] Built Silver.PredicateLoopProperties (6.7s)
+✔ [136/156] Built Silver.PredicateNativeContracts (4.4s)
+✔ [137/156] Built Silver.PredicateBodyFlow (15s)
+✔ [138/156] Built Silver.PredicateLoopFlowValidity (3.9s)
+✔ [139/156] Built Silver.PredicateNativeModelSizing (71s)
+✔ [140/156] Built Silver.PredicateBodyProperties (16s)
+✔ [141/156] Built Silver.PredicateLoopNative (93s)
+✔ [142/156] Built Silver.PredicateBodyWrappers (5.5s)
+✔ [143/156] Built Silver.PredicateBodyFlowValidity (4.0s)
+✔ [144/156] Built Silver.PredicateNativeHelpers (4.7s)
+✔ [145/156] Built Silver.PredicateBodyControls (10s)
+✔ [146/156] Built Silver.PredicateBodyExpressions (10s)
+✔ [147/160] Built Silver.PredicateBodyFlowPreservation (10s)
+✔ [148/162] Built Silver.PredicateNativeLibraries (11s)
+✔ [149/162] Built Silver.PredicateLoopImports (4.3s)
+✔ [150/162] Built Silver.PredicateBodySizing (2.8s)
+✔ [151/162] Built Silver.PredicateBodyBounds (12s)
+✔ [152/162] Built Silver.PredicateScalarBodyNative (6.4s)
+✔ [153/162] Built Silver.PredicateScalarBodyHelpers (4.5s)
+✔ [154/166] Built Silver.PredicateBasicExpressions (6.1s)
+✔ [155/166] Built Silver.PredicateBodyEquations (24s)
+✔ [156/166] Built Silver.PredicateOuterReadiness (24s)
+✔ [157/166] Built Silver.PredicateBodyCorrespondence (8.9s)
+✔ [158/166] Built Silver.PredicateAdapter (16s)
+✔ [159/166] Built Silver.PredicateBodyModelSizing (3.9s)
+✔ [160/166] Built Silver.PredicateAdapterEnvironment (5.3s)
+✔ [161/173] Built Silver.PredicateBodyHelpers (5.5s)
+✔ [180/190] Built Silver.PredicateLoopSizing (6.3s)
+✔ [182/190] Built Silver.PredicateBasicEquations (75s)
+✔ [184/193] Built Silver.PredicateBasicSizing (3.8s)
+✔ [185/194] Built Silver.PredicateOuterExpressions (9.8s)
+✔ [187/194] Built Silver.PredicateLoopHelpers (7.6s)
+✔ [189/194] Built Silver.PredicateBasicHelpers (7.0s)
+✔ [192/197] Built Silver.PredicateOuterEquations (6.5s)
+✔ [266/274] Built Silver.PredicateBasicLibraries (6.4s)
+✔ [267/274] Built Silver.PredicateInheritedReady (5.1s)
+✔ [268/277] Built Silver.PredicateConditionUnique (8.9s)
+✔ [269/278] Built Silver.PredicateOuterModel (7.9s)
+✔ [270/278] Built Silver.PredicateConditionMeaning (3.1s)
+✔ [271/278] Built Silver.PredicateBasicReadings (9.7s)
+✔ [272/278] Built Silver.PredicateEquations (5.4s)
+✔ [273/282] Built Silver.PredicateConditionValidity (7.5s)
+✔ [278/286] Built Silver.PredicateBodyReadings (5.9s)
+✔ [280/286] Built Silver.PredicateHeaderDecode (4.2s)
+✔ [281/286] Built Silver.PredicateBodyMeaning (25s)
+✔ [283/294] Built Silver.PredicateBodyUnique (31s)
+✔ [289/294] Built Silver.PredicateBodySound (27s)
+✔ [290/294] Built Silver.PredicateShell (3.1s)
+✔ [291/294] Built Silver.PredicateHeader (4.4s)
+✔ [292/294] Built Silver.PredicateHeaderFlow (2.3s)
+✔ [293/294] Built Silver.PredicateGrammar (3.6s)
+✔ [294/294] Built Silver.Current (3.1s)
+Build completed successfully (294 jobs).
+
+Lean phase build finished at 2026-10-26T07:36:04.205950+00:00; elapsed 514.269s; exit 0
+Lean phase audit started at 2026-10-26T07:36:05.447105+00:00
++ /home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/.tools/linux-x86_64/lean/bin/lake -K silverThreads=2 env /home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/.tools/linux-x86_64/lean/bin/lean -DwarningAsError=true -j2 .lake/silver-focused-audit.lean
+SILVER_MODULE Silver.Lexical
+SILVER_MODULE Silver.Admission
+SILVER_MODULE Silver.OutputLiteral
+SILVER_MODULE Silver.Cursor
+SILVER_MODULE Silver.OutputAdmission
+SILVER_MODULE Silver.NamedIdentifier
+SILVER_MODULE Silver.NamedAdmission
+SILVER_MODULE Silver.ArgumentsAdmission
+SILVER_MODULE Silver.GuardedDecimal
+SILVER_MODULE Silver.OutputRuntime
+SILVER_MODULE Silver.ArgumentsRuntime
+SILVER_MODULE Silver.IntegerIntervals
+SILVER_MODULE Silver.IntegerDivision
+SILVER_MODULE Silver.IntegerExpressions
+SILVER_MODULE Silver.IntegerImage
+SILVER_MODULE Silver.Bindings
+SILVER_MODULE Silver.ComposeExpression
+SILVER_MODULE Silver.Names
+SILVER_MODULE Silver.ScalarLiteral
+SILVER_MODULE Silver.ScalarExpression
+SILVER_MODULE Silver.ScalarExpressionBounds
+SILVER_MODULE Silver.ScalarExpressionGrammar
+SILVER_MODULE Silver.ScalarExpressionRecognition
+SILVER_MODULE Silver.ScalarExpressionEnvironment
+SILVER_MODULE Silver.ScalarExpressionAdmission
+SILVER_MODULE Silver.StringLengths
+SILVER_MODULE Silver.ComposeAdmission
+SILVER_MODULE Silver.StringExecution
+SILVER_MODULE Silver.ComposeSemantics
+SILVER_MODULE Silver.StringFreezing
+SILVER_MODULE Silver.IntegerDeclarations
+SILVER_MODULE Silver.IntegerMutable
+SILVER_MODULE Silver.ScalarExpressionConstants
+SILVER_MODULE Silver.ComposeFrozenSemantics
+SILVER_MODULE Silver.ComposeBounds
+SILVER_MODULE Silver.ComposeScalarDeclarations
+SILVER_MODULE Silver.ComposeDeclarations
+SILVER_MODULE Silver.GuardedAdmission
+SILVER_MODULE Silver.NamedSemantics
+SILVER_MODULE Silver.GuardedSemantics
+SILVER_MODULE Silver.Semantics
+SILVER_MODULE Silver.GuardedObligations
+SILVER_MODULE Silver.ComposeMain
+SILVER_MODULE Silver.ComposeGrammar
+SILVER_MODULE Silver.PathFacts
+SILVER_MODULE Silver.IntegerChecks
+SILVER_MODULE Silver.IntegerComparisons
+SILVER_MODULE Silver.PredicateSyntax
+SILVER_MODULE Silver.PredicateSemantics
+SILVER_MODULE Silver.StringLengthRefinement
+SILVER_MODULE Silver.ScalarFlow
+SILVER_MODULE Silver.PredicateChecking
+SILVER_MODULE Silver.IntegerLiteral
+SILVER_MODULE Silver.PredicateFlowStorage
+SILVER_MODULE Silver.PredicateFlowOverlay
+SILVER_MODULE Silver.PredicateAdmission
+SILVER_MODULE Silver.Expressions
+SILVER_MODULE Silver.NamesExpressions
+SILVER_MODULE Silver.NamesEquations
+SILVER_MODULE Silver.ComposeExpressions
+SILVER_MODULE Silver.ComposeContracts
+SILVER_MODULE Silver.PredicateFlowOperations
+SILVER_MODULE Silver.PredicateConditionFlow
+SILVER_MODULE Silver.PredicateFlowInvariant
+SILVER_MODULE Silver.PredicateConditionFlowValidity
+SILVER_MODULE Silver.PathBounds
+SILVER_MODULE Silver.PredicateConditionBounds
+SILVER_MODULE Silver.PredicateNativeState
+SILVER_MODULE Silver.PredicateFlowWidening
+SILVER_MODULE Silver.SourceLexer
+SILVER_MODULE Silver.SourceDeclarations
+SILVER_MODULE Silver.CertificateWitness
+SILVER_MODULE Silver.ScalarExpressionSpecSource
+SILVER_MODULE Silver.ScalarExpressionSpecCertificate
+SILVER_MODULE Silver.ScalarEnvironmentSourceBridge
+SILVER_MODULE Silver.PredicateFlowSourceBridge
+SILVER_MODULE Silver.ScalarsNativeExpressions
+SILVER_MODULE Silver.ScalarsNativeEquations
+SILVER_MODULE Silver.ScalarsSpecSource
+SILVER_MODULE Silver.ScalarsSpecCertificate
+SILVER_MODULE Silver.ScalarsNativeSourceChecks
+SILVER_MODULE Silver.ScalarsNativeSourceBridge
+SILVER_MODULE Silver.PredicateNativeScalarHelpers
+SILVER_MODULE Silver.SequenceSyntax
+SILVER_MODULE Silver.IntegerIteration
+SILVER_MODULE Silver.PredicateStatements
+SILVER_MODULE Silver.PredicateReadings
+SILVER_MODULE Silver.PredicateConditionReadings
+SILVER_MODULE Silver.PredicateScalarGuardMeaning
+SILVER_MODULE Silver.PredicateNativeExpressions
+SILVER_MODULE Silver.PredicateNativeBodies
+SILVER_MODULE Silver.PredicateNativePrecedence
+SILVER_MODULE Silver.PredicateNativeEquations
+SILVER_MODULE Silver.PredicateConditionSound
+SILVER_MODULE Silver.PredicateNativeRanges
+SILVER_MODULE Silver.PredicateNativeProgress
+SILVER_MODULE Silver.PredicateNativeModel
+SILVER_MODULE Silver.PredicateNativeCorrespondence
+SILVER_MODULE Silver.PredicateNativeContracts
+SILVER_MODULE Silver.PredicateNativeSizing
+SILVER_MODULE Silver.PredicateNativeModelSizing
+SILVER_MODULE Silver.PredicateNativeWorkers
+SILVER_MODULE Silver.ScalarExpressionNativeModel
+SILVER_MODULE Silver.ScalarExpressionNativeAlgebra
+SILVER_MODULE Silver.ScalarExpressionNativeRecursion
+SILVER_MODULE Silver.ScalarExpressionNativeTypes
+SILVER_MODULE Silver.PredicateNativeHelpers
+SILVER_MODULE Silver.PredicateFlowReaders
+SILVER_MODULE Silver.ScalarExpressionNativeExpressions
+SILVER_MODULE Silver.ScalarExpressionNativeDenotations
+SILVER_MODULE Silver.ScalarExpressionNativeEquations
+SILVER_MODULE Silver.ComposeScalarDenotations
+SILVER_MODULE Silver.ComposeStateBounds
+SILVER_MODULE Silver.NamedDisjoint
+SILVER_MODULE Silver.ComposeNameBridge
+SILVER_MODULE Silver.ComposeEquations
+SILVER_MODULE Silver.ComposeModelCalls
+SILVER_MODULE Silver.PredicateFlowReaderLibraries
+SILVER_MODULE Silver.IntegerLiteralExpressions
+SILVER_MODULE Silver.IntegerLiteralEquations
+SILVER_MODULE Silver.PathNativeModel
+SILVER_MODULE Silver.PathNativeExpressions
+SILVER_MODULE Silver.PathNativeEquations
+SILVER_MODULE Silver.LengthIntervalModel
+SILVER_MODULE Silver.LengthIntervalExpressions
+SILVER_MODULE Silver.PredicateNativeLibraries
+SILVER_MODULE Silver.SequenceSemantics
+SILVER_MODULE Silver.SequenceExecution
+SILVER_MODULE Silver.PredicateExecution
+SILVER_MODULE Silver.ComposeObligations
+SILVER_MODULE Silver.PredicateObligations
+SILVER_MODULE Silver.SequenceEffects
+SILVER_MODULE Silver.PredicateComposition
+SILVER_MODULE Silver.PredicateSourceSyntax
+SILVER_MODULE Silver.PredicateBodyAdmission
+SILVER_MODULE Silver.PredicateLoopProperties
+SILVER_MODULE Silver.PredicateBodyFlow
+SILVER_MODULE Silver.PredicateBodyProperties
+SILVER_MODULE Silver.PredicateBodyWrappers
+SILVER_MODULE Silver.PredicateFlowCopy
+SILVER_MODULE Silver.PredicateLoopNative
+SILVER_MODULE Silver.PredicateBodyExpressions
+SILVER_MODULE Silver.PredicateBodyEquations
+SILVER_MODULE Silver.PredicateBodyControls
+SILVER_MODULE Silver.PredicateBodyBounds
+SILVER_MODULE Silver.PredicateBodyFlowValidity
+SILVER_MODULE Silver.PredicateLoopFlowValidity
+SILVER_MODULE Silver.PredicateBodyFlowPreservation
+SILVER_MODULE Silver.PredicateBodyCorrespondence
+SILVER_MODULE Silver.PredicateBodySizing
+SILVER_MODULE Silver.PredicateBodyModelSizing
+SILVER_MODULE Silver.PredicateLoopImports
+SILVER_MODULE Silver.PredicateBodyHelpers
+SILVER_MODULE Silver.PredicateScalarBodyNative
+SILVER_MODULE Silver.PredicateBasicExpressions
+SILVER_MODULE Silver.PredicateBasicEquations
+SILVER_MODULE Silver.PredicateBasicSizing
+SILVER_MODULE Silver.PredicateScalarBodyHelpers
+SILVER_MODULE Silver.PredicateBasicHelpers
+SILVER_MODULE Silver.PredicateOuterReadiness
+SILVER_MODULE Silver.PredicateAdapter
+SILVER_MODULE Silver.PredicateAdapterEnvironment
+SILVER_MODULE Silver.PredicateBasicLibraries
+SILVER_MODULE Silver.Uniqueness
+SILVER_MODULE Silver.OutputEquations
+SILVER_MODULE Silver.NamedEquations
+SILVER_MODULE Silver.ConcatAdmission
+SILVER_MODULE Silver.ConcatEquations
+SILVER_MODULE Silver.ArgumentsEquations
+SILVER_MODULE Silver.GuardedEquations
+SILVER_MODULE Silver.RecursiveBridge
+SILVER_MODULE Silver.OutputExpressions
+SILVER_MODULE Silver.NamedExpressions
+SILVER_MODULE Silver.ConcatExpressions
+SILVER_MODULE Silver.ArgumentsExpressions
+SILVER_MODULE Silver.AssignmentAdmission
+SILVER_MODULE Silver.AssignmentEquations
+SILVER_MODULE Silver.AssignmentExpressions
+SILVER_MODULE Silver.BranchingAdmission
+SILVER_MODULE Silver.BranchingEquations
+SILVER_MODULE Silver.BranchingExpressions
+SILVER_MODULE Silver.GuardedExpressions
+SILVER_MODULE Silver.ComposeLexical
+SILVER_MODULE Silver.PredicateLoopHelpers
+SILVER_MODULE Silver.PredicateLoopSizing
+SILVER_MODULE Silver.PredicateOuterExpressions
+SILVER_MODULE Silver.PredicateOuterEquations
+SILVER_MODULE Silver.ComposeModelRecursion
+SILVER_MODULE Silver.ComposeRecognitionEquations
+SILVER_MODULE Silver.ComposeModelEquations
+SILVER_MODULE Silver.ComposeModelRanges
+SILVER_MODULE Silver.OutputProfileSpecSource
+SILVER_MODULE Silver.OutputSpecCertificate
+SILVER_MODULE Silver.OutputProfileBodySource
+SILVER_MODULE Silver.OutputBodyCertificate
+SILVER_MODULE Silver.ComposeSourceChecks
+SILVER_MODULE Silver.ProfileSpecSource
+SILVER_MODULE Silver.ProfileSpecCertificate
+SILVER_MODULE Silver.ProfileBodySource
+SILVER_MODULE Silver.ProfileBodyCertificate
+SILVER_MODULE Silver.Precedence
+SILVER_MODULE Silver.SupportedTools
+SILVER_MODULE Silver.ReviewedSourceShape
+SILVER_MODULE Silver.SourceBridge
+SILVER_MODULE Silver.OutputLexicalSpecSource
+SILVER_MODULE Silver.OutputLexicalSpecCertificate
+SILVER_MODULE Silver.OutputLexicalBodySource
+SILVER_MODULE Silver.OutputLexicalBodyCertificate
+SILVER_MODULE Silver.IoSpecSource
+SILVER_MODULE Silver.IOSpecCertificate
+SILVER_MODULE Silver.IoBodySource
+SILVER_MODULE Silver.IOBodyCertificate
+SILVER_MODULE Silver.OutputLibcSpecSource
+SILVER_MODULE Silver.OutputLibcCertificate
+SILVER_MODULE Silver.ReviewedOutputShape
+SILVER_MODULE Silver.OutputSourceBridge
+SILVER_MODULE Silver.NamedSourceBridge
+SILVER_MODULE Silver.ArgumentsSpecSource
+SILVER_MODULE Silver.ArgumentsSpecCertificate
+SILVER_MODULE Silver.ArgumentsBodySource
+SILVER_MODULE Silver.ArgumentsBodyCertificate
+SILVER_MODULE Silver.RuntimeSpecSource
+SILVER_MODULE Silver.RuntimeSpecCertificate
+SILVER_MODULE Silver.ArgumentsSourceBridge
+SILVER_MODULE Silver.LexicalSourceBridge
+SILVER_MODULE Silver.NamesSourceShape
+SILVER_MODULE Silver.NamesSpecSource
+SILVER_MODULE Silver.NamesSpecCertificate
+SILVER_MODULE Silver.NamesBodySource
+SILVER_MODULE Silver.NamesBodyCertificate
+SILVER_MODULE Silver.NamesSourceChecks
+SILVER_MODULE Silver.NamesSourceBridge
+SILVER_MODULE Silver.ScalarExpressionSourceShape
+SILVER_MODULE Silver.ScalarExpressionBodySource
+SILVER_MODULE Silver.ScalarExpressionBodyCertificate
+SILVER_MODULE Silver.ScalarExpressionSourceChecks
+SILVER_MODULE Silver.ScalarExpressionSourceBridge
+SILVER_MODULE Silver.ComposeEvaluation
+SILVER_MODULE Silver.IntegerImageLength
+SILVER_MODULE Silver.IntegerImageNative
+SILVER_MODULE Silver.IntegerImageNativeExpressions
+SILVER_MODULE Silver.IntegerImageSpecSource
+SILVER_MODULE Silver.IntegerImageNativeCapture
+SILVER_MODULE Silver.IntegerImageNativeSource
+SILVER_MODULE Silver.ComposeSourceBridge
+SILVER_MODULE Silver.ComposeModelLegal
+SILVER_MODULE Silver.ComposeModel
+SILVER_MODULE Silver.PredicateInheritedReady
+SILVER_MODULE Silver.PredicateOuterModel
+SILVER_MODULE Silver.PredicateEquations
+SILVER_MODULE Silver.PredicateChecks
+SILVER_MODULE Silver.PredicateConditionUnique
+SILVER_MODULE Silver.PredicateBasicReadings
+SILVER_MODULE Silver.PredicateBodyReadings
+SILVER_MODULE Silver.PredicateBodySound
+SILVER_MODULE Silver.PredicateConditionMeaning
+SILVER_MODULE Silver.PredicateConditionValidity
+SILVER_MODULE Silver.PredicateBodyMeaning
+SILVER_MODULE Silver.PredicateBodyUnique
+SILVER_MODULE Silver.SequenceAdmission
+SILVER_MODULE Silver.SequenceTokens
+SILVER_MODULE Silver.SequenceContext
+SILVER_MODULE Silver.PredicateShell
+SILVER_MODULE Silver.ComposeDecode
+SILVER_MODULE Silver.PredicateHeaderDecode
+SILVER_MODULE Silver.ComposeScalarTrace
+SILVER_MODULE Silver.SequenceScalarTrace
+SILVER_MODULE Silver.StringObligations
+SILVER_MODULE Silver.ComposeInitializerTrace
+SILVER_MODULE Silver.SequenceInitializerTrace
+SILVER_MODULE Silver.PredicateHeader
+SILVER_MODULE Silver.PredicateHeaderFlow
+SILVER_MODULE Silver.PredicateGrammar
+SILVER_MODULE Silver.Current
+SILVER_MODULE Silver.AxiomAudit
+Silver axiom audit passed: 64530 declarations; foundations: [propext, Classical.choice, Quot.sound]
+
+Lean phase audit finished at 2026-10-26T07:36:15.388967+00:00; elapsed 9.942s; exit 0

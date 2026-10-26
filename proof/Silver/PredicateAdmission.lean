@@ -90,8 +90,10 @@ def scalarCondition (text : Source) (context : ParseContext) (position rightPosi
   let rightTarget := bareTarget text context rightPosition right.after
   let target := if leftTarget ≠ 0 ∧ right.isStatic ∧ right.bounds.lower = right.bounds.upper then leftTarget
     else if rightTarget ≠ 0 ∧ left.isStatic ∧ left.bounds.lower = left.bounds.upper then rightTarget else 0
-  let selected := if target = leftTarget then operator.toInteger else operator.toInteger.swap
-  let threshold := if target = leftTarget then right.bounds.lower else left.bounds.lower
+  let selected := if leftTarget ≠ 0 ∧ right.isStatic ∧ right.bounds.lower = right.bounds.upper
+    then operator.toInteger else operator.toInteger.swap
+  let threshold := if leftTarget ≠ 0 ∧ right.isStatic ∧ right.bounds.lower = right.bounds.upper
+    then right.bounds.lower else left.bounds.lower
   ⟨right.after, facts.refine target selected threshold true, facts.refine target selected threshold false⟩
 
 def refineFlowBounds (facts : ActiveFlow) (operator : Comparison) (left right : Bound) (truth : Bool) : ActiveFlow :=

@@ -223,15 +223,9 @@ theorem scalarCondition_outcome_model {text : Source} {context : ParseContext} {
           then guardTarget context left
           else if guardTarget context right ≠ 0 ∧ left.isStatic context.analysis.static = true ∧ leftResult.bounds.lower = leftResult.bounds.upper
           then guardTarget context right else 0)
-        (if (if guardTarget context left ≠ 0 ∧ right.isStatic context.analysis.static = true ∧ rightResult.bounds.lower = rightResult.bounds.upper
-          then guardTarget context left
-          else if guardTarget context right ≠ 0 ∧ left.isStatic context.analysis.static = true ∧ leftResult.bounds.lower = leftResult.bounds.upper
-          then guardTarget context right else 0) = guardTarget context left
+        (if guardTarget context left ≠ 0 ∧ right.isStatic context.analysis.static = true ∧ rightResult.bounds.lower = rightResult.bounds.upper
           then operator.toInteger else operator.toInteger.swap)
-        (if (if guardTarget context left ≠ 0 ∧ right.isStatic context.analysis.static = true ∧ rightResult.bounds.lower = rightResult.bounds.upper
-          then guardTarget context left
-          else if guardTarget context right ≠ 0 ∧ left.isStatic context.analysis.static = true ∧ leftResult.bounds.lower = leftResult.bounds.upper
-          then guardTarget context right else 0) = guardTarget context left
+        (if guardTarget context left ≠ 0 ∧ right.isStatic context.analysis.static = true ∧ rightResult.bounds.lower = rightResult.bounds.upper
           then rightResult.bounds.lower else leftResult.bounds.lower) truth := by
     cases truth <;> simp only [scalarCondition, Bool.false_eq_true, ↓reduceIte,
       leftTarget, rightTarget, leftStatic, rightStatic]
@@ -240,22 +234,11 @@ theorem scalarCondition_outcome_model {text : Source} {context : ParseContext} {
     guardCandidate_target]
   by_cases chooseLeft : guardTarget context left ≠ 0 ∧ right.isStatic context.analysis.static = true ∧
       rightResult.bounds.lower = rightResult.bounds.upper
-  · simp only [ite_eq_left chooseLeft, ↓reduceIte]
+  · simp only [ite_eq_left chooseLeft]
     rfl
   · by_cases chooseRight : guardTarget context right ≠ 0 ∧ left.isStatic context.analysis.static = true ∧
         leftResult.bounds.lower = leftResult.bounds.upper
-    · have different : guardTarget context right ≠ guardTarget context left := by
-        intro same
-        have leftNonzero : guardTarget context left ≠ 0 := by rw [← same]; exact chooseRight.1
-        have leftName := guardTarget_nonzero leftNonzero
-        have rightName := guardTarget_nonzero chooseRight.1
-        have sameExpression : left = right := by rw [leftName, rightName, same]
-        have staticRight : right.isStatic context.analysis.static = true := by rw [← sameExpression]; exact chooseRight.2.1
-        have boundsEqual : leftResult.bounds = rightResult.bounds := by
-          rw [sameExpression] at l
-          exact Option.some.inj (l.symm.trans r)
-        exact chooseLeft ⟨leftNonzero, staticRight, by rw [← boundsEqual]; exact chooseRight.2.2⟩
-      simp only [ite_eq_right chooseLeft, ite_eq_left chooseRight, ite_eq_right different]
+    · simp only [ite_eq_right chooseLeft, ite_eq_left chooseRight]
       rfl
     · simp only [chooseLeft, chooseRight, ↓reduceIte, Integer.Ranges.refineName,
         ActiveFlow.model, ActiveFlow.ranges, ↓reduceIte]

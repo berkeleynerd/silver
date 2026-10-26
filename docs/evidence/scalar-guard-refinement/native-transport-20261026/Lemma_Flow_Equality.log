@@ -1,0 +1,31 @@
+Phase 1 of 3: generation of data representation information ...
+Phase 2 of 3: generation of Global contracts ...
+Phase 3 of 3: flow analysis and proof ...
+ info: data dependencies proved
+--> silver_output_profile.adb:1632:28
+
+ info: postcondition proved
+--> silver_output_profile.adb:1634:16
+
+ info: assertion proved
+--> silver_output_profile.adb:1638:32
+
+ info: precondition proved
+--> silver_output_profile.adb:1639:07
+
+ info: discriminant check proved
+--> silver_output_profile.adb:1640:57
+
+ info: discriminant check proved
+--> silver_output_profile.adb:1640:77
+
+ info: discriminant check proved
+--> silver_output_profile.adb:1641:58
+
+ info: discriminant check proved
+--> silver_output_profile.adb:1641:79
+
+ info: assertion proved
+--> silver_output_profile.adb:1642:32
+Success: all checks proved (9 checks).
+Summary logged in /home/canto/src/github.com/berkeleynerd/silver/tmp/guard-native-v6/obj/explore/guard/gnatprove/gnatprove.out

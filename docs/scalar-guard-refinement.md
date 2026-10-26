@@ -453,3 +453,26 @@ retains the exact inputs and timings. This checks the source-requirement
 definitions and facade, not their instantiation against final guard source.
 The independent review used selected GPT-6 Astra at Extra High and reports
 455 seconds including writing; runtime settings and token/cost are unavailable.
+
+The condition reader and flow-equality helper subsequently passed their focused
+native checks. The remaining relation diagnostics exposed a model mismatch:
+comparison orientation was inferred from target-index equality instead of the
+executable reader's first-candidate predicate. The corrected ghost/formal helper
+uses that predicate directly, preserving executable behavior and the full helper
+domain. The [independent review](reviews/review-scalar-guard-orientation-20261026.md)
+found no scoped blocker. Its native helper passed 13 checks; the native evidence
+index above retains the exact inputs and log.
+
+The [integrated model repair](evidence/scalar-guard-refinement/lean-cohort-20261026/integration-orientation.json)
+passed focused validation through `Silver.Current` in run
+`20261026T072713-47e20847e594`, including a fresh audit of 64,530 declarations.
+Two unused simplification hints from the first attempt were removed without
+changing theorem statements. This remains model/endpoint evidence using the
+preceding native source binding; final guard source correspondence, the active
+chain/relation native checks and complete delivery validation remain required.
+The final parser also requires fresh frame and boundary observations because its
+ordinary postcondition and control-flow rewrites differ from the retained frame
+snapshot. This round uses selected GPT-6 Astra at Extra High for the model/native
+repair and independent review, and GPT-6.1 Sol at Extra High for input inventory.
+The passing Lean build/audit took 514.269/9.942 seconds; independent review took
+356 seconds. Live lead settings and whole-round token/cost data are unavailable.

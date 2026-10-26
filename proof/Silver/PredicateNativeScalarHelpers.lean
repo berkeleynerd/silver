@@ -299,9 +299,9 @@ def scalarConditionBody : Expr .condition :=
       (.group (.ite (candidate leftTarget right) leftTarget
         (.elsif (candidate rightTarget left) rightTarget (.number 0)))) <|
     .local "selected" ["scalars", ".", "comparison"]
-      (.group (.ite (.eq target leftTarget) convert (.scalarSwap convert))) <|
+      (.group (.ite (candidate leftTarget right) convert (.scalarSwap convert))) <|
     .local "threshold" ["scalars", ".", "value"]
-      (.group (.ite (.eq target leftTarget) (.lower (.resultBounds right)) (.lower (.resultBounds left)))) <|
+      (.group (.ite (candidate leftTarget right) (.lower (.resultBounds right)) (.lower (.resultBounds left)))) <|
     .condition (.count facts) (.resultAfter right)
       (.refinedFlow facts target selected threshold (.truth true))
       (.refinedFlow facts target selected threshold (.truth false))
@@ -366,8 +366,10 @@ def scalarConditionEquation (calls : Calls) (text : Source) (context : Native.Co
       then leftTarget
     else if decide (rightTarget ≠ 0) && (left.isStatic && decide (left.bounds.lower = left.bounds.upper))
       then rightTarget else 0
-  let selected := if target = leftTarget then calls.operator operator else calls.scalars .swap (calls.operator operator)
-  let threshold := if target = leftTarget then right.bounds.lower else left.bounds.lower
+  let selected := if decide (leftTarget ≠ 0) && (right.isStatic && decide (right.bounds.lower = right.bounds.upper))
+    then calls.operator operator else calls.scalars .swap (calls.operator operator)
+  let threshold := if decide (leftTarget ≠ 0) && (right.isStatic && decide (right.bounds.lower = right.bounds.upper))
+    then right.bounds.lower else left.bounds.lower
   ⟨right.after, calls.refinedFlow facts target selected threshold true,
     calls.refinedFlow facts target selected threshold false⟩
 
@@ -398,7 +400,7 @@ theorem scalarCondition_denotation (calls : Calls) (text : Source) (context : Na
     scalarConditionBody.eval calls ({text, context, position, rightPosition, facts, left, right, operator} : Inputs).locals =
       scalarConditionEquation calls text context position rightPosition facts left right operator := by
   simp only [scalarConditionBody, Expr.eval, Inputs.locals, Locals.set, scalarConditionEquation]
-  simp only [reduceCtorEq, String.reduceEq, ↓reduceIte, ↓reduceDIte, decide_eq_true_eq]
+  simp only [reduceCtorEq, String.reduceEq, ↓reduceIte, ↓reduceDIte]
 
 structure PrimitiveMeaning (calls : Calls) : Prop where
   scalars : Integer.NativeSourceBridge.InterpretedSource calls.scalars
@@ -549,7 +551,8 @@ theorem scalarCondition_meaning {calls : Calls} (primitives : PrimitiveMeaning c
     split
     · omega
     · split <;> omega
-  let threshold := if target = Predicate.bareTarget text context.model position left.after
+  let threshold := if Predicate.bareTarget text context.model position left.after ≠ 0 ∧
+      right.isStatic = true ∧ right.bounds.lower = right.bounds.upper
     then right.bounds.lower else left.bounds.lower
   have thresholdType : Integer.InRange threshold := by
     dsimp only [threshold]
