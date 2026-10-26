@@ -347,7 +347,7 @@ theorem Condition.refine_refines {shape : Shape} {analysis : Integer.Analysis}
       · first | exact ihr (ihl refined) | exact Integer.Ranges.join_refines (ihl refined) (ihr (ihl refined))
       · first | exact ihr (ihl refined) | exact Integer.Ranges.join_refines (ihl refined) (ihr (ihl refined))
 
-theorem Condition.refine_bounded {shape : Shape} {analysis : Integer.Analysis}
+theorem Condition.refine_scalars_bounded {shape : Shape} {analysis : Integer.Analysis}
     {condition : Condition} {flow : Flow} {truth : Bool}
     (bounded : flow.scalars.Bounded) :
     (condition.refine shape analysis flow truth).scalars.Bounded := by
@@ -360,6 +360,39 @@ theorem Condition.refine_bounded {shape : Shape} {analysis : Integer.Analysis}
       split
       · first | exact ihr (ihl bounded) | exact Integer.Ranges.join_bounded (ihl bounded) (ihr (ihl bounded))
       · first | exact ihr (ihl bounded) | exact Integer.Ranges.join_bounded (ihl bounded) (ihr (ihl bounded))
+
+/-- Immutable declaration intervals are nonempty exact snapshots. This
+premise matters: joins normalize noncanonical empty intervals, which are not
+immutable declarations. Empty loop indexes remain eligible for refinement. -/
+theorem Condition.refine_preserves_fixed {shape : Shape} {analysis : Integer.Analysis}
+    {condition : Condition} {flow : Flow} {truth : Bool} {index : Nat} {bounds : Integer.Interval}
+    (readonly : analysis.refinable index = false)
+    (incoming : flow.scalars index = some bounds) (nonempty : bounds.isEmpty = false) :
+    (condition.refine shape analysis flow truth).scalars index = some bounds := by
+  induction condition generalizing flow truth with
+  | stringCompare | lengthCompare | inputValid => exact incoming
+  | scalarCompare => exact (Integer.refineComparison_preserves_fixed readonly).trans incoming
+  | parenthesized _ ih | negated _ ih => exact ih incoming
+  | andThen left right ihl ihr | orElse left right ihl ihr =>
+      simp only [refine]
+      split
+      · first | exact ihr (ihl incoming) | exact Integer.Ranges.join_fixed (ihl incoming) (ihr (ihl incoming)) nonempty
+      · first | exact ihr (ihl incoming) | exact Integer.Ranges.join_fixed (ihl incoming) (ihr (ihl incoming)) nonempty
+
+/-- Refinement cannot introduce a scalar identity outside the active domain. -/
+theorem Condition.refine_preserves_none {shape : Shape} {analysis : Integer.Analysis}
+    {condition : Condition} {flow : Flow} {truth : Bool} {index : Nat}
+    (absent : flow.scalars index = none) :
+    (condition.refine shape analysis flow truth).scalars index = none := by
+  induction condition generalizing flow truth with
+  | stringCompare | lengthCompare | inputValid => exact absent
+  | scalarCompare => exact Integer.refineComparison_preserves_none absent
+  | parenthesized _ ih | negated _ ih => exact ih absent
+  | andThen left right ihl ihr | orElse left right ihl ihr =>
+      simp only [refine]
+      split
+      · first | exact ihr (ihl absent) | exact Integer.Ranges.join_none_left (ihl absent)
+      · first | exact ihr (ihl absent) | exact Integer.Ranges.join_none_left (ihl absent)
 
 def fitsSummary (context : Context) (summary : Summary) : Bool :=
   (match context.validLengths with

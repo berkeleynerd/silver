@@ -153,6 +153,108 @@ theorem refineComparison_sound {analysis : Analysis} {ranges : Ranges} {values :
       · exact fits
   · exact fits
 
+theorem guardCandidate_refinable {analysis : Analysis} {target threshold : Expr}
+    {bounds : Interval} {index : Nat} {value : Int}
+    (candidate : guardCandidate analysis target threshold bounds = some (index, value)) :
+    analysis.refinable index = true := by
+  cases target <;> simp only [guardCandidate] at candidate <;> try contradiction
+  rename_i named
+  split at candidate
+  · rename_i selected
+    simp only [Option.some.injEq, Prod.mk.injEq] at candidate
+    rcases candidate with ⟨rfl, rfl⟩
+    simp only [Bool.and_eq_true, decide_eq_true_eq] at selected
+    exact selected.1.1
+  · contradiction
+
+theorem Ranges.refineName_other {ranges : Ranges} {target index : Nat}
+    {operator : Comparison} {threshold : Int} {truth : Bool} (different : index ≠ target) :
+    ranges.refineName target operator threshold truth index = ranges index := by
+  cases found : ranges target with
+  | none => simp only [refineName, found]
+  | some bounds => simp only [refineName, found, put, different, ↓reduceIte]
+
+theorem Ranges.refineName_none {ranges : Ranges} {target index : Nat}
+    {operator : Comparison} {threshold : Int} {truth : Bool} (absent : ranges index = none) :
+    ranges.refineName target operator threshold truth index = none := by
+  by_cases same : index = target
+  · subst target
+    simp only [refineName, absent]
+  · rw [refineName_other same, absent]
+
+/-- Scalar guards cannot alter immutable declaration cells, regardless of
+whether their exact initial value was an Ada-static expression. -/
+theorem refineComparison_preserves_fixed {analysis : Analysis} {ranges : Ranges}
+    {operator : Comparison} {left right : Expr} {truth : Bool} {index : Nat}
+    (readonly : analysis.refinable index = false) :
+    refineComparison analysis ranges operator left right truth index = ranges index := by
+  have unchanged : ∀ target bounds value,
+      guardCandidate analysis left right bounds = some (target, value) →
+      ranges.refineName target operator value truth index = ranges index := by
+    intro target bounds value selected
+    apply Ranges.refineName_other
+    intro same
+    have refinable := guardCandidate_refinable selected
+    rw [← same, readonly] at refinable
+    contradiction
+  cases leftFound : left.infer ranges with
+  | none => simp only [refineComparison, leftFound]
+  | some a =>
+    cases rightFound : right.infer ranges with
+    | none => simp only [refineComparison, leftFound, rightFound]
+    | some b =>
+      cases selected : guardCandidate analysis left right b with
+      | some pair =>
+        obtain ⟨target, threshold⟩ := pair
+        simpa only [refineComparison, leftFound, rightFound, selected] using
+          unchanged target b threshold selected
+      | none =>
+        cases reversed : guardCandidate analysis right left a with
+        | none => simp only [refineComparison, leftFound, rightFound, selected, reversed]
+        | some pair =>
+          obtain ⟨target, threshold⟩ := pair
+          simp only [refineComparison, leftFound, rightFound, selected, reversed]
+          apply Ranges.refineName_other
+          intro same
+          have refinable := guardCandidate_refinable reversed
+          rw [← same, readonly] at refinable
+          contradiction
+
+theorem refineComparison_preserves_none {analysis : Analysis} {ranges : Ranges}
+    {operator : Comparison} {left right : Expr} {truth : Bool} {index : Nat}
+    (absent : ranges index = none) :
+    refineComparison analysis ranges operator left right truth index = none := by
+  cases leftFound : left.infer ranges with
+  | none => simpa only [refineComparison, leftFound] using absent
+  | some a =>
+    cases rightFound : right.infer ranges with
+    | none => simpa only [refineComparison, leftFound, rightFound] using absent
+    | some b =>
+      cases selected : guardCandidate analysis left right b with
+      | some pair =>
+        obtain ⟨target, threshold⟩ := pair
+        simpa only [refineComparison, leftFound, rightFound, selected] using
+          (Ranges.refineName_none (target := target) (operator := operator)
+            (threshold := threshold) (truth := truth) absent)
+      | none =>
+        cases reversed : guardCandidate analysis right left a with
+        | none => simpa only [refineComparison, leftFound, rightFound, selected, reversed] using absent
+        | some pair =>
+          obtain ⟨target, threshold⟩ := pair
+          simpa only [refineComparison, leftFound, rightFound, selected, reversed] using
+            (Ranges.refineName_none (target := target) (operator := operator.swap)
+              (threshold := threshold) (truth := truth) absent)
+
+theorem Ranges.join_fixed {left right : Ranges} {index : Nat} {bounds : Interval}
+    (a : left index = some bounds) (b : right index = some bounds)
+    (nonempty : bounds.isEmpty = false) : (left.join right) index = some bounds := by
+  simp only [join, a, b, Interval.join, nonempty, Bool.false_eq_true, ↓reduceIte,
+    Int.min_self, Int.max_self]
+
+theorem Ranges.join_none_left {left right : Ranges} {index : Nat}
+    (absent : left index = none) : (left.join right) index = none := by
+  simp only [join, absent]
+
 /-- Every declared identity has a current interval contained in its immutable
 base interval. This is an abstract invariant, independent of execution samples. -/
 def Ranges.Refines (current declared : Ranges) : Prop :=

@@ -204,9 +204,9 @@ mutual
         · simp only [Option.bind_eq_some_iff, Option.map_eq_some_iff] at checked
           obtain ⟨afterYes, yesChecked, afterNo, noChecked, rfl⟩ := checked
           have a := statements_ranges_invariant yesChecked (condition.refine_refines refined)
-            (condition.refine_bounded bounded) declared
+            (condition.refine_scalars_bounded bounded) declared
           have b := statements_ranges_invariant noChecked (condition.refine_refines refined)
-            (condition.refine_bounded bounded) declared
+            (condition.refine_scalars_bounded bounded) declared
           exact ⟨Integer.Ranges.join_refines a.1 b.1, Integer.Ranges.join_bounded a.2 b.2⟩
         · contradiction
     | forLoop index reverse lower upper body =>
