@@ -7,6 +7,10 @@ are pending. It does not amend current membership or claim supported capability.
 The [source assessment and addendum](evidence/scalar-guard-refinement/assessment-20261025.md)
 identify the actual interfaces, proof obligations and design traps at division
 commit `d85251a4fc`. The selected rules below incorporate the addendum.
+The [implementation/proof design](evidence/scalar-guard-refinement/proof-design-20261026.md)
+maps the native and semantic flow interfaces. In particular, semantic metadata
+must preserve Ada staticness and refinement eligibility independently of current
+intervals; a singleton range alone cannot identify a static threshold.
 
 ## Selected rules
 
@@ -121,6 +125,7 @@ choice resolve the design obligations.
 | Round | Selected settings | Resolved obligations and remaining evidence |
 | --- | --- | --- |
 | Read-only scope assessment | GPT-6 Astra, Extra High; runtime setting not independently exposed | Located the flow/metadata boundary, selected bounded refinement and loop rules, preserved static values, and justified the finite driver. Native discovery, frame probe and implementation remain. Elapsed time, tokens and cost unavailable. |
+| Implementation/proof design | Selected GPT-6 Astra, Extra High; runtime setting not independently exposed | Mapped immutable metadata, flow overlays, assignment replacement, loop closure and actual-source proof changes. Identified the semantic staticness/refinement-policy metadata requirement. Native discovery and measured storage choice remain; no owner decision is missing. Recorded elapsed 5m 55s; tokens/cost unavailable. |
 
 No additional owner decision is currently required. Oracle amendments remain
 reserved; #119/#201/#202/#212, paused packets/R93 and #88–#94 stay deferred.
