@@ -48,17 +48,23 @@ def Program.bodyRanges (program : Program) : Integer.Ranges := program.bodyBindi
 
 def Program.bodyMutability (program : Program) : Integer.Mutability := program.bodyBindings.mutability
 
-def Program.checkBody (program : Program) : Option Context :=
+def Program.bodyAnalysis (program : Program) : Integer.Analysis :=
+  Integer.Analysis.ofDeclarations program.integerDeclarations
+
+def Program.initialFlow (program : Program) : Flow :=
+  Flow.initial program.bodyAnalysis program.initialContext
+
+def Program.checkBody (program : Program) : Option Flow :=
   if Integer.checkDeclarations [] program.integerDeclarations = some program.integerConstants ∧
       Integer.discharged program.initializerChecks = true then
-    checkStatements program.names.shape program.initialContext program.statements program.bodyRanges program.bodyMutability
+    checkStatements program.names.shape program.bodyAnalysis program.initialFlow program.statements
   else none
 
-theorem Program.checkBody_iff (program : Program) (after : Context) :
+theorem Program.checkBody_iff (program : Program) (after : Flow) :
     program.checkBody = some after ↔
       Integer.checkDeclarations [] program.integerDeclarations = some program.integerConstants ∧
       Integer.discharged program.initializerChecks = true ∧
-      checkStatements program.names.shape program.initialContext program.statements program.bodyRanges program.bodyMutability = some after := by
+      checkStatements program.names.shape program.bodyAnalysis program.initialFlow program.statements = some after := by
   simp only [checkBody]
   split <;> simp_all
 
@@ -74,7 +80,7 @@ def Program.Valid (program : Program) : Prop :=
   DeclarationsValid emptyShape program.declarations program.names.shape ∧
     Bindings.Printable program.fallback ∧ program.fallback.length ≤ maxSourceLength ∧
     program.statements ≠ [] ∧ StatementsWellFormed program.hasArguments program.names.shape program.statements ∧
-    ∃ after, program.checkBody = some after ∧ completed after = true
+    ∃ after, program.checkBody = some after ∧ completed after.path = true
 
 theorem selected_invalid (fallback : Source) (arguments : Arguments.Runtime.Arguments)
     (invalid : Arguments.Runtime.inputIsValid arguments = false) : selected fallback arguments = [] := by
@@ -126,6 +132,19 @@ theorem Program.initial_integer_fits {program : Program} (valid : program.Valid)
   rw [initialIntegers, Integer.elaborate_initial_store]
   exact Integer.ObjectBindings.fits (Integer.elaborate_valid declarations)
 
+theorem Program.body_ranges_bounded {program : Program} (valid : program.Valid) :
+    program.bodyAnalysis.declared.Bounded := by
+  obtain ⟨after, checked, _⟩ := valid.2.2.2.2.2
+  have declarations := ((program.checkBody_iff after).mp checked).1
+  exact Integer.ObjectBindings.ranges_bounded (Integer.elaborate_valid declarations)
+
+theorem Program.body_flow_invariant {program : Program} (valid : program.Valid) {after : Flow}
+    (checked : program.checkBody = some after) :
+    after.scalars.Refines program.bodyRanges ∧ after.scalars.Bounded := by
+  have bodyChecked := ((program.checkBody_iff after).mp checked).2.2
+  exact statements_ranges_invariant bodyChecked (Integer.Ranges.refines_refl _)
+    (program.body_ranges_bounded valid) (program.body_ranges_bounded valid)
+
 theorem Program.execution_sound {program : Program} (valid : program.Valid)
     (arguments : Arguments.Runtime.Arguments) :
     Fits program.names.shape (program.input arguments) (program.execute arguments).values ∧
@@ -134,8 +153,8 @@ theorem Program.execution_sound {program : Program} (valid : program.Valid)
   obtain ⟨after, checked, _⟩ := valid.2.2.2.2.2
   have bodyChecked := ((program.checkBody_iff after).mp checked).2.2
   have sound := statements_execution_sound valid.2.2.2.2.1 bodyChecked
-    (program.initial_fits valid arguments) (program.input_domain arguments).2 (program.initial_allowed arguments)
-    (program.initial_integer_fits valid)
+    (program.initial_fits valid arguments) (program.input_domain arguments).2
+    ⟨program.initial_allowed arguments, program.initial_integer_fits valid⟩ (program.initial_integer_fits valid)
   exact ⟨sound.state, sound.effects, sound.agreement⟩
 
 theorem Program.scalar_execution_invariant {program : Program} (valid : program.Valid)
@@ -144,8 +163,26 @@ theorem Program.scalar_execution_invariant {program : Program} (valid : program.
   obtain ⟨after, checked, _⟩ := valid.2.2.2.2.2
   have bodyChecked := ((program.checkBody_iff after).mp checked).2.2
   exact (statements_execution_sound valid.2.2.2.2.1 bodyChecked
-    (program.initial_fits valid arguments) (program.input_domain arguments).2 (program.initial_allowed arguments)
+    (program.initial_fits valid arguments) (program.input_domain arguments).2
+    ⟨program.initial_allowed arguments, program.initial_integer_fits valid⟩ (program.initial_integer_fits valid)).declared
+
+theorem Program.current_scalar_execution_invariant {program : Program} (valid : program.Valid)
+    {after : Flow} (checked : program.checkBody = some after)
+    (arguments : Arguments.Runtime.Arguments) :
+    Integer.Fits after.scalars (program.execute arguments).integers := by
+  have bodyChecked := ((program.checkBody_iff after).mp checked).2.2
+  exact (statements_execution_sound valid.2.2.2.2.1 bodyChecked
+    (program.initial_fits valid arguments) (program.input_domain arguments).2
+    ⟨program.initial_allowed arguments, program.initial_integer_fits valid⟩
     (program.initial_integer_fits valid)).scalars
+
+theorem Program.immutable_snapshot_preserved {program : Program} (valid : program.Valid)
+    {index : Nat} (readonly : program.bodyMutability index = false)
+    (arguments : Arguments.Runtime.Arguments) :
+    (program.execute arguments).integers index = program.initialIntegers index := by
+  obtain ⟨after, checked, _⟩ := valid.2.2.2.2.2
+  have bodyChecked := ((program.checkBody_iff after).mp checked).2.2
+  exact statements_unchanged bodyChecked readonly
 
 theorem Program.invalid_trace {program : Program} (valid : program.Valid)
     (arguments : Arguments.Runtime.Arguments) (invalid : program.inputValid arguments = false) :
@@ -155,8 +192,8 @@ theorem Program.invalid_trace {program : Program} (valid : program.Valid)
   rw [invalid] at allowed
   have bodyChecked := ((program.checkBody_iff after).mp checked).2.2
   have behavior := completed_invalid_rejected valid.2.2.2.2.1 bodyChecked
-    (program.initial_fits valid arguments) (program.input_domain arguments).2 allowed finished
-    (program.initial_integer_fits valid)
+    (program.initial_fits valid arguments) (program.input_domain arguments).2
+    ⟨allowed, program.initial_integer_fits valid⟩ finished (program.initial_integer_fits valid)
   simpa only [Program.execute, invalid] using behavior
 
 theorem noOutput_accepted_empty (effects : List Effect) (noOutput : NoOutput effects)
@@ -224,7 +261,7 @@ def scalarObligation (check : Integer.Obligation) : Semantics.Obligation :=
 def Program.obligations (program : Program) : List Semantics.Obligation :=
   (declarationChecks program).map Compose.Check.toObligation ++
     (integerDeclarationChecks program ++ program.initializerChecks).map scalarObligation ++
-    modeledObligations program.names.shape program.initialContext program.statements program.bodyRanges program.bodyMutability
+    modeledObligations program.names.shape program.bodyAnalysis program.initialFlow program.statements
 
 theorem Program.declaration_checks_valid {program : Program} (valid : program.Valid) :
     ∀ check ∈ declarationChecks program, check.Valid := by
