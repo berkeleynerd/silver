@@ -16,10 +16,11 @@ structure Context where
   dynamicFirst : Nat
   dynamicAfter : Nat
   scalarNames : ScalarExpression.Environment := []
+  declarationCount : Nat := 0
   deriving DecidableEq, Repr
 
 def Context.model (context : Context) : ParseContext :=
-  ⟨context.names, decide (context.dynamicFirst ≠ 0), context.scalarNames⟩
+  ⟨context.names, decide (context.dynamicFirst ≠ 0), context.scalarNames, context.declarationCount⟩
 
 def ValidContext (text : Source) (context : Context) : Prop :=
   Compose.Expressions.ValidNames text context.names ∧
