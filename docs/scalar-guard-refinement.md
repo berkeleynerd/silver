@@ -480,7 +480,7 @@ The passing Lean build/audit took 514.269/9.942 seconds; independent review took
 
 The remaining relation join is resolved at `bc9b0815eb`: both target branches
 supply checked Static equality bridges, preserving the original joined assertion,
-all native contracts and executable behavior. Focused run
+all native contracts and executable behavior. [Retained focused run](evidence/scalar-guard-refinement/native-join-final-20261026/README.md)
 `20261026T083814-1b657c3ee2da` passed all 22 selected checks at the unchanged
 level-2/30-second settings. The final source pin and certificate were regenerated;
 run `20261026T084854-8fd2b4b2d2e8` passed the regeneration-parity method for all
