@@ -156,6 +156,12 @@ is
       Scalar_Names => Scalar_Expressions.Empty_Environment, Dynamic_First => 0,
       Dynamic_After => 0, Target => 0, Capacity => 0);
 
+   function Valid_Mutable_Bounds (Scalar_Names : Scalar_Expressions.Environment) return Boolean is
+     (for all Index in 1 .. Scalar_Names.Count =>
+       (if Scalar_Names.Items (Index).Mutable then
+          not Scalars.Is_Empty (Scalar_Names.Items (Index).Bounds)
+          and then Scalar_Names.Items (Index).Bounds.Lower >= Scalar_Names.Items (Index).Declared_Bounds.Lower
+          and then Scalar_Names.Items (Index).Bounds.Upper <= Scalar_Names.Items (Index).Declared_Bounds.Upper));
    function Valid_State (Text : String; State : Parser_State) return Boolean
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length;
@@ -163,6 +169,7 @@ is
      (State.Position <= Text'Last + 1
       and then Valid_Names (Text, State.Names)
       and then Scalar_Expressions.Valid_Environment (Text, State.Scalar_Names)
+      and then Valid_Mutable_Bounds (State.Scalar_Names)
       and then Valid_Name_State (Text, State.Dynamic_First, State.Dynamic_After)
       and then State.Target <= State.Names.Count);
 
@@ -235,8 +242,8 @@ is
       if Word'Length > (Text'Last - Position) + 1 then return; end if;
       for Index in Word'Range loop
          pragma Loop_Invariant
-           (for all Previous in Word'First .. Index - 1 =>
-             Lowercase (Text ((Position + Previous) - 1)) = Word (Previous));
+           (Static => (for all Previous in Word'First .. Index - 1 =>
+             Lowercase (Text ((Position + Previous) - 1)) = Word (Previous)));
          if Lowercase (Text ((Position + Index) - 1)) /= Word (Index) then
             return;
          end if;
@@ -1046,8 +1053,8 @@ is
 
    --  A scan records syntactic effects alongside unchanged binding shapes.
    --  Flags accumulate across both arms; they select report policy, not runtime
-   --  execution. Source-bounded statement traversal uses recursive frames containing only
-   --  cursors and flags, sharing the immutable declaration context.
+   --  execution. Sequential statement tails are iterative; nested control flow
+   --  retains only its active scalar identities and shares immutable metadata.
    type Scan_Result is record
       State : Parser_State;
       Assigned, Output : Boolean;
@@ -1057,35 +1064,97 @@ is
    Invalid_Scan : constant Scan_Result :=
      (State => Invalid_State, Assigned => False, Output => False);
 
-   --  Recursive conditional frames hold only cursors and flags. The common
-   --  declaration environment stays immutable and is passed separately.
+   --  Metadata stays immutable; only active scalar intervals travel with paths.
    type Body_Context is record
       Names : Binding_Environment;
       Scalar_Names : Scalar_Expressions.Environment;
+      Declaration_Count : Scalar_Expressions.Binding_Count;
       Dynamic_First, Dynamic_After : Literal_Position;
    end record;
    package Paths renames Silver_Path_Facts;
    use type Paths.Context;
    use type Paths.Comparison;
-   type Body_Scan is record
-      Facts : Paths.Context;
+   use type Scalars.Interval;
+   use type Scalar_Expressions.Binding;
+   use type Scalar_Expressions.Expression_Result;
+   type Interval_Vector is array (Positive range <>) of Scalars.Interval;
+   type Scalar_Flow (Count : Scalar_Expressions.Binding_Count) is record
+      Path : Paths.Context;
+      Values : Interval_Vector (1 .. Count);
+   end record;
+   type Body_Scan (Count : Scalar_Expressions.Binding_Count) is record
+      Facts : Scalar_Flow (Count);
       Position : Literal_Position;
       Target : Binding_Count;
       Capacity : Capacity_Value;
       Assigned, Output : Boolean;
    end record;
-   Invalid_Body : constant Body_Scan :=
-     (Facts => Paths.Empty_Context, Position => 0, Target => 0, Capacity => 0, Assigned => False, Output => False);
    type Body_Stop is (End_Only, Else_Only, Arm_Boundary);
 
    function Context_Of (Scan : Scan_Result) return Body_Context is
-     (Names => Scan.State.Names, Scalar_Names => Scalar_Expressions.Body_Environment (Scan.State.Scalar_Names),
+     (Names => Scan.State.Names,
+      Scalar_Names => Scalar_Expressions.Body_Environment (Scan.State.Scalar_Names),
+      Declaration_Count => Scan.State.Scalar_Names.Count,
       Dynamic_First => Scan.State.Dynamic_First,
       Dynamic_After => Scan.State.Dynamic_After);
-   function Body_Of (Scan : Scan_Result) return Body_Scan is
-     (Facts => Paths.Initial (Scan.State.Dynamic_First /= 0),
+   function Initial_Flow (Context : Body_Context) return Scalar_Flow
+     with Global => null,
+       Post => Initial_Flow'Result.Count = Context.Scalar_Names.Count
+         and then Initial_Flow'Result.Path = Paths.Initial (Context.Dynamic_First /= 0)
+         and then (for all Index in Initial_Flow'Result.Values'Range =>
+           Initial_Flow'Result.Values (Index) = Context.Scalar_Names.Items (Index).Bounds);
+   function Initial_Flow (Context : Body_Context) return Scalar_Flow is
+      Result : Scalar_Flow (Context.Scalar_Names.Count);
+   begin
+      Result.Path := Paths.Initial (Context.Dynamic_First /= 0);
+      for Index in Result.Values'Range loop
+         pragma Loop_Invariant
+           (Static => (for all Done in Result.Values'First .. Index - 1 =>
+             Result.Values (Done) = Context.Scalar_Names.Items (Done).Bounds));
+         Result.Values (Index) := Context.Scalar_Names.Items (Index).Bounds;
+      end loop;
+      return Result;
+   end Initial_Flow;
+   function Body_Of_Model (Scan : Scan_Result) return Body_Scan is
+     (Count => Scan.State.Scalar_Names.Count,
+      Facts => Initial_Flow (Context_Of (Scan)),
       Position => Scan.State.Position, Target => Scan.State.Target,
-      Capacity => Scan.State.Capacity, Assigned => Scan.Assigned, Output => Scan.Output);
+      Capacity => Scan.State.Capacity, Assigned => Scan.Assigned, Output => Scan.Output)
+     with Ghost => Static;
+   function Body_Of (Scan : Scan_Result) return Body_Scan
+     with Global => null,
+       Post => (Static => Body_Of'Result = Body_Of_Model (Scan));
+   function Body_Of (Scan : Scan_Result) return Body_Scan is
+   begin
+      return Result : Body_Scan (Scan.State.Scalar_Names.Count) do
+         Result.Facts := Initial_Flow (Context_Of (Scan));
+         Result.Position := Scan.State.Position;
+         Result.Target := Scan.State.Target;
+         Result.Capacity := Scan.State.Capacity;
+         Result.Assigned := Scan.Assigned;
+         Result.Output := Scan.Output;
+      end return;
+   end Body_Of;
+   function Invalid_Body_Model (Scan : Body_Scan) return Body_Scan is
+     (Count => Scan.Count,
+      Facts => (Count => Scan.Count, Path => Paths.Empty_Context, Values => Scan.Facts.Values),
+      Position => 0, Target => 0, Capacity => 0, Assigned => False, Output => False)
+     with Ghost => Static;
+   function Invalid_Body (Scan : Body_Scan) return Body_Scan
+     with Global => null,
+       Post => (Static => Invalid_Body'Result = Invalid_Body_Model (Scan));
+   function Invalid_Body (Scan : Body_Scan) return Body_Scan is
+   begin
+      return Result : Body_Scan (Scan.Count) do
+         Result.Facts := Scan.Facts;
+         Result.Facts.Path := Paths.Empty_Context;
+         Result.Position := 0;
+         Result.Target := 0;
+         Result.Capacity := 0;
+         Result.Assigned := False;
+         Result.Output := False;
+      end return;
+   end Invalid_Body;
    function Expand_Body (Context : Body_Context; Scan : Body_Scan) return Scan_Result is
      (State => (Position => Scan.Position, Names => Context.Names, Scalar_Names => Context.Scalar_Names,
        Dynamic_First => Context.Dynamic_First, Dynamic_After => Context.Dynamic_After,
@@ -1097,28 +1166,214 @@ is
    function Valid_Context (Text : String; Context : Body_Context) return Boolean is
      (Valid_Names (Text, Context.Names)
       and then Scalar_Expressions.Valid_Environment (Text, Context.Scalar_Names)
+      and then Context.Declaration_Count <= Context.Scalar_Names.Count
+      and then Valid_Mutable_Bounds (Context.Scalar_Names)
+      and then (for all Index in 1 .. Context.Scalar_Names.Count =>
+        (if Context.Scalar_Names.Items (Index).Mutable then
+           Context.Scalar_Names.Items (Index).Bounds = Context.Scalar_Names.Items (Index).Declared_Bounds))
       and then Valid_Name_State (Text, Context.Dynamic_First, Context.Dynamic_After));
+   function Included (Value, Bounds : Scalars.Interval) return Boolean is
+     (Scalars.Is_Empty (Value)
+      or else (not Scalars.Is_Empty (Bounds) and then Value.Lower >= Bounds.Lower
+        and then Value.Upper <= Bounds.Upper));
+   function Valid_Flow (Context : Body_Context; Facts : Scalar_Flow) return Boolean is
+     (Facts.Count = Context.Scalar_Names.Count
+      and then (for all Index in Facts.Values'Range =>
+        (if Context.Scalar_Names.Items (Index).Mutable then
+           not Scalars.Is_Empty (Facts.Values (Index))
+           and then Included (Facts.Values (Index), Context.Scalar_Names.Items (Index).Declared_Bounds)
+         elsif Index > Context.Declaration_Count then
+           Included (Facts.Values (Index), Context.Scalar_Names.Items (Index).Bounds)
+         else Facts.Values (Index) = Context.Scalar_Names.Items (Index).Bounds)));
    function Valid_Body
      (Text : String; Context : Body_Context; Scan : Body_Scan) return Boolean
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length;
    function Valid_Body
      (Text : String; Context : Body_Context; Scan : Body_Scan) return Boolean is
-     (Scan.Position <= Text'Last + 1 and then Scan.Target <= Context.Names.Count);
+     (Scan.Position <= Text'Last + 1 and then Scan.Target <= Context.Names.Count
+      and then Valid_Flow (Context, Scan.Facts));
 
+   function Joined (Left, Right : Scalar_Flow) return Scalar_Flow
+     with Ghost => Static, Global => null, Pre => Left.Count = Right.Count,
+       Post => Joined'Result.Count = Left.Count
+         and then Joined'Result.Path = Paths.Join (Left.Path, Right.Path)
+         and then (for all Index in Joined'Result.Values'Range =>
+           Joined'Result.Values (Index) = Scalars.Join (Left.Values (Index), Right.Values (Index)));
+   function Joined (Left, Right : Scalar_Flow) return Scalar_Flow is
+      Result : Scalar_Flow (Left.Count) := Left;
+   begin
+      Result.Path := Paths.Join (Left.Path, Right.Path);
+      for Index in Result.Values'Range loop
+         pragma Loop_Invariant (Result.Path = Paths.Join (Left.Path, Right.Path));
+         pragma Loop_Invariant
+           (Static => (for all Done in Result.Values'First .. Index - 1 =>
+             Result.Values (Done) = Scalars.Join (Left.Values (Done), Right.Values (Done))));
+         Result.Values (Index) := Scalars.Join (Left.Values (Index), Right.Values (Index));
+      end loop;
+      return Result;
+   end Joined;
+   procedure Join_Into (Left : in out Scalar_Flow; Right : Scalar_Flow)
+     with Global => null, Pre => Left.Count = Right.Count,
+       Post => (Static => Left = Joined (Left'Old, Right));
+   procedure Join_Into (Left : in out Scalar_Flow; Right : Scalar_Flow) is
+   begin
+      Left.Path := Paths.Join (Left.Path, Right.Path);
+      for Index in Left.Values'Range loop
+         pragma Loop_Invariant
+           (Static => (for all Done in Left.Values'First .. Index - 1 =>
+             Left.Values (Done) = Scalars.Join (Left'Loop_Entry.Values (Done), Right.Values (Done))));
+         pragma Loop_Invariant
+           (Static => (for all Pending in Index .. Left.Values'Last =>
+             Left.Values (Pending) = Left'Loop_Entry.Values (Pending)));
+         Left.Values (Index) := Scalars.Join (Left.Values (Index), Right.Values (Index));
+      end loop;
+   end Join_Into;
+   procedure Widen_Into (Context : Body_Context; Facts : in out Scalar_Flow)
+     with Global => null, Pre => Facts.Count = Context.Scalar_Names.Count,
+       Post => Facts.Path = Facts'Old.Path
+         and then (for all Index in Facts.Values'Range =>
+           Facts.Values (Index) =
+             (if Context.Scalar_Names.Items (Index).Mutable
+              then Context.Scalar_Names.Items (Index).Declared_Bounds else Facts'Old.Values (Index)));
+   procedure Widen_Into (Context : Body_Context; Facts : in out Scalar_Flow) is
+   begin
+      for Index in Facts.Values'Range loop
+         pragma Loop_Invariant (Facts.Path = Facts'Loop_Entry.Path);
+         pragma Loop_Invariant
+           (Static => (for all Done in Facts.Values'First .. Index - 1 =>
+             Facts.Values (Done) =
+               (if Context.Scalar_Names.Items (Done).Mutable
+                then Context.Scalar_Names.Items (Done).Declared_Bounds else Facts'Loop_Entry.Values (Done))));
+         pragma Loop_Invariant
+           (Static => (for all Pending in Index .. Facts.Values'Last =>
+             Facts.Values (Pending) = Facts'Loop_Entry.Values (Pending)));
+         if Context.Scalar_Names.Items (Index).Mutable then
+            Facts.Values (Index) := Context.Scalar_Names.Items (Index).Declared_Bounds;
+         end if;
+      end loop;
+   end Widen_Into;
+
+   function Reading_Names (Context : Body_Context; Facts : Scalar_Flow)
+      return Scalar_Expressions.Environment
+     with Ghost => Static, Global => null, Pre => Facts.Count = Context.Scalar_Names.Count,
+       Post => Reading_Names'Result.Count = Context.Scalar_Names.Count
+         and then (for all Index in Scalar_Expressions.Binding_Index =>
+           Reading_Names'Result.Items (Index) =
+             (if Index <= Facts.Count
+               and then (Context.Scalar_Names.Items (Index).Mutable or else Index > Context.Declaration_Count)
+              then (Context.Scalar_Names.Items (Index) with delta Bounds => Facts.Values (Index))
+              else Context.Scalar_Names.Items (Index)));
+   function Reading_Names (Context : Body_Context; Facts : Scalar_Flow)
+      return Scalar_Expressions.Environment is
+      Result : Scalar_Expressions.Environment := Context.Scalar_Names;
+   begin
+      for Index in Facts.Values'Range loop
+         pragma Loop_Invariant (Result.Count = Context.Scalar_Names.Count);
+         pragma Loop_Invariant
+           (Static => (for all Cell in Scalar_Expressions.Binding_Index => Result.Items (Cell) =
+             (if Cell < Index and then (Context.Scalar_Names.Items (Cell).Mutable
+               or else Cell > Context.Declaration_Count)
+              then (Context.Scalar_Names.Items (Cell) with delta Bounds => Facts.Values (Cell))
+              else Context.Scalar_Names.Items (Cell))));
+         if Result.Items (Index).Mutable or else Index > Context.Declaration_Count then
+            Result.Items (Index).Bounds := Facts.Values (Index);
+         end if;
+      end loop;
+      return Result;
+   end Reading_Names;
+   function Read_Scalar_In_Flow
+     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow;
+      Mask_First : Literal_Position := 0; Mask_After : Literal_Position := 0)
+      return Scalar_Expressions.Expression_Result
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_Context (Text, Context) and then Valid_Flow (Context, Facts)
+         and then Position <= Text'Last + 1 and then Valid_Name_State (Text, Mask_First, Mask_After),
+       Post => (Runtime => Read_Scalar_In_Flow'Result.After = 0
+         or else (Read_Scalar_In_Flow'Result.After in Position + 1 .. Text'Last + 1
+           and then Read_Scalar_In_Flow'Result.Operands > 0),
+         Static => Read_Scalar_In_Flow'Result = Scalar_Expressions.Read_Expression
+           (Text, Position, Reading_Names (Context, Facts), Mask_First, Mask_After));
+   pragma No_Inline (Read_Scalar_In_Flow);
+   function Read_Scalar_In_Flow
+     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow;
+      Mask_First : Literal_Position := 0; Mask_After : Literal_Position := 0)
+      return Scalar_Expressions.Expression_Result is
+      Overlay : Scalar_Expressions.Environment := Context.Scalar_Names;
+   begin
+      for Index in Facts.Values'Range loop
+         pragma Loop_Invariant (Overlay.Count = Context.Scalar_Names.Count);
+         pragma Loop_Invariant
+           (Static => (for all Cell in Scalar_Expressions.Binding_Index => Overlay.Items (Cell) =
+             (if Cell < Index and then (Context.Scalar_Names.Items (Cell).Mutable
+               or else Cell > Context.Declaration_Count)
+              then (Context.Scalar_Names.Items (Cell) with delta Bounds => Facts.Values (Cell))
+              else Context.Scalar_Names.Items (Cell))));
+         if Overlay.Items (Index).Mutable or else Index > Context.Declaration_Count then
+            Overlay.Items (Index).Bounds := Facts.Values (Index);
+         end if;
+      end loop;
+      return Scalar_Expressions.Read_Expression (Text, Position, Overlay, Mask_First, Mask_After);
+   end Read_Scalar_In_Flow;
+   function Read_String_In_Flow
+     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow)
+      return Expression_Result
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_Context (Text, Context) and then Valid_Flow (Context, Facts)
+         and then Position <= Text'Last + 1,
+       Post => (Runtime => Read_String_In_Flow'Result.After = 0
+         or else Read_String_In_Flow'Result.After in Position + 1 .. Text'Last + 1,
+         Static => Read_String_In_Flow'Result = Expression_At
+           (Text, Position, Context.Names, Reading_Names (Context, Facts)));
+   pragma No_Inline (Read_String_In_Flow);
+   function Read_String_In_Flow
+     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow)
+      return Expression_Result is
+      Overlay : Scalar_Expressions.Environment := Context.Scalar_Names;
+   begin
+      for Index in Facts.Values'Range loop
+         pragma Loop_Invariant (Overlay.Count = Context.Scalar_Names.Count);
+         pragma Loop_Invariant
+           (Static => (for all Cell in Scalar_Expressions.Binding_Index => Overlay.Items (Cell) =
+             (if Cell < Index and then (Context.Scalar_Names.Items (Cell).Mutable
+               or else Cell > Context.Declaration_Count)
+              then (Context.Scalar_Names.Items (Cell) with delta Bounds => Facts.Values (Cell))
+              else Context.Scalar_Names.Items (Cell))));
+         if Overlay.Items (Index).Mutable or else Index > Context.Declaration_Count then
+            Overlay.Items (Index).Bounds := Facts.Values (Index);
+         end if;
+      end loop;
+      return Expression_At (Text, Position, Context.Names, Overlay);
+   end Read_String_In_Flow;
+
+   function Body_Token_Model
+     (Text : String; Context : Body_Context; Scan : Body_Scan; Token : Token_Kind)
+      return Body_Scan is
+     (Scan with delta Position => Take_Token (Text, Scan.Position, Token))
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan);
    function Body_Token
      (Text : String; Context : Body_Context; Scan : Body_Scan; Token : Token_Kind)
       return Body_Scan
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan),
-       Post => Valid_Body (Text, Context, Body_Token'Result)
+       Post => (Runtime => Valid_Body (Text, Context, Body_Token'Result)
          and then (Body_Token'Result.Position = 0
-           or else Body_Token'Result.Position > Scan.Position);
+           or else Body_Token'Result.Position > Scan.Position),
+         Static => Body_Token'Result = Body_Token_Model (Text, Context, Scan, Token));
    function Body_Token
      (Text : String; Context : Body_Context; Scan : Body_Scan; Token : Token_Kind)
       return Body_Scan is
-     (Scan with delta Position => Take_Token (Text, Scan.Position, Token));
+   begin
+      return Result : Body_Scan (Scan.Count) do
+         Result := Scan;
+         Result.Position := Take_Token (Text, Scan.Position, Token);
+      end return;
+   end Body_Token;
 
    function Summary_Of (Value : Expression_Result) return Length_Intervals.Summary is
      (Value.Minimum_Length, Value.Static_Length, Value.Dynamic_Count, Value.Empty_Value);
@@ -1184,114 +1439,200 @@ is
          else (Take_Token (Text, Take_Token (Text, After, Apostrophe), Length_Name),
            Bound_Of (Context.Names.Items (Index)))));
 
-   type Condition_Result is record
+   type Condition_Result (Count : Scalar_Expressions.Binding_Count) is record
       After : Literal_Position;
-      When_True, When_False : Paths.Context;
+      When_True, When_False : Scalar_Flow (Count);
    end record;
-   Invalid_Condition : constant Condition_Result :=
-     (0, Paths.Empty_Context, Paths.Empty_Context);
+   function Invalid_Condition (Facts : Scalar_Flow) return Condition_Result is
+     (Count => Facts.Count, After => 0,
+      When_True => (Facts with delta Path => Paths.Empty_Context),
+      When_False => (Facts with delta Path => Paths.Empty_Context))
+     with Ghost => Static;
+   function Valid_Condition (Context : Body_Context; Result : Condition_Result) return Boolean is
+     (Valid_Flow (Context, Result.When_True) and then Valid_Flow (Context, Result.When_False));
+   procedure Invalidate_Condition (Facts : Scalar_Flow; Result : out Condition_Result)
+     with Global => null, Pre => Result.Count = Facts.Count,
+       Post => (Static => Result = Invalid_Condition (Facts));
+   procedure Invalidate_Condition (Facts : Scalar_Flow; Result : out Condition_Result) is
+   begin
+      Result.After := 0;
+      Result.When_True := Facts;
+      Result.When_False := Facts;
+      Result.When_True.Path := Paths.Empty_Context;
+      Result.When_False.Path := Paths.Empty_Context;
+   end Invalidate_Condition;
+   function Scalar_Operator (Operator : Paths.Comparison) return Scalars.Comparison is
+     (case Operator is
+        when Paths.Equal => Scalars.Equal, when Paths.Unequal => Scalars.Unequal,
+        when Paths.Less => Scalars.Less, when Paths.Less_Equal => Scalars.Less_Equal,
+        when Paths.Greater => Scalars.Greater, when Paths.Greater_Equal => Scalars.Greater_Equal);
+   function Refine_Or_Keep
+     (Bounds : Scalars.Interval; Operator : Scalars.Comparison; Threshold : Scalars.Value; Truth : Boolean)
+      return Scalars.Interval is
+     (declare Refined : constant Scalars.Interval := Scalars.Refine (Bounds, Operator, Threshold, Truth);
+      begin (if Scalars.Is_Empty (Refined) then Bounds else Refined));
+   function Bare_Target
+     (Text : String; Context : Body_Context; Position, After : Literal_Position)
+      return Scalar_Expressions.Binding_Count
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_Context (Text, Context) and then Position <= Text'Last + 1
+         and then After <= Text'Last + 1,
+       Post => Bare_Target'Result <= Context.Scalar_Names.Count;
+   function Bare_Target
+     (Text : String; Context : Body_Context; Position, After : Literal_Position)
+      return Scalar_Expressions.Binding_Count is
+     (declare First : constant Literal_Position := Skip_At (Text, Position);
+      Last : constant Literal_Position := Name_After (Text, First);
+      Index : constant Scalar_Expressions.Binding_Count :=
+        Scalar_Expressions.Lookup (Text, Context.Scalar_Names, First, Last);
+      begin
+        (if Index /= 0 and then Last = After
+          and then (Context.Scalar_Names.Items (Index).Mutable or else Index > Context.Declaration_Count)
+         then Index else 0));
+   function Refined_Flow
+     (Facts : Scalar_Flow; Index : Scalar_Expressions.Binding_Count;
+      Operator : Scalars.Comparison; Threshold : Scalars.Value; Truth : Boolean)
+      return Scalar_Flow is
+     (if Index = 0 then Facts else
+       (Facts with delta Values => (Facts.Values with delta Index =>
+         Refine_Or_Keep (Facts.Values (Index), Operator, Threshold, Truth))))
+     with Ghost => Static, Pre => Index <= Facts.Count;
+   function Scalar_Condition
+     (Text : String; Context : Body_Context; Position, Right_Position : Literal_Position;
+      Facts : Scalar_Flow; Left, Right : Scalar_Expressions.Expression_Result;
+      Operator : Paths.Comparison) return Condition_Result
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_Context (Text, Context) and then Valid_Flow (Context, Facts)
+         and then Position <= Text'Last + 1 and then Right_Position <= Text'Last + 1
+         and then Left.After <= Text'Last + 1 and then Right.After <= Text'Last + 1;
+   function Scalar_Condition
+     (Text : String; Context : Body_Context; Position, Right_Position : Literal_Position;
+      Facts : Scalar_Flow; Left, Right : Scalar_Expressions.Expression_Result;
+      Operator : Paths.Comparison) return Condition_Result is
+     (declare
+        Left_Target : constant Scalar_Expressions.Binding_Count := Bare_Target (Text, Context, Position, Left.After);
+        Right_Target : constant Scalar_Expressions.Binding_Count := Bare_Target (Text, Context, Right_Position, Right.After);
+        Target : constant Scalar_Expressions.Binding_Count :=
+          (if Left_Target /= 0 and then Right.Static and then Right.Bounds.Lower = Right.Bounds.Upper
+           then Left_Target
+           elsif Right_Target /= 0 and then Left.Static and then Left.Bounds.Lower = Left.Bounds.Upper
+           then Right_Target else 0);
+        Selected : constant Scalars.Comparison :=
+          (if Target = Left_Target then Scalar_Operator (Operator) else Scalars.Swap (Scalar_Operator (Operator)));
+        Threshold : constant Scalars.Value := (if Target = Left_Target then Right.Bounds.Lower else Left.Bounds.Lower);
+      begin
+        (Count => Facts.Count, After => Right.After,
+         When_True => Refined_Flow (Facts, Target, Selected, Threshold, True),
+         When_False => Refined_Flow (Facts, Target, Selected, Threshold, False)));
    function Condition_Model
-     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Paths.Context)
+     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow)
       return Condition_Result
-     with Global => null,
+     with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
-         and then Position <= Text'Last + 1 and then Valid_Context (Text, Context),
-       Post => Condition_Model'Result.After = 0
-         or else Condition_Model'Result.After in Position + 1 .. Text'Last + 1,
+         and then Position <= Text'Last + 1 and then Valid_Context (Text, Context)
+         and then Valid_Flow (Context, Facts),
+       Post => Condition_Model'Result.Count = Facts.Count
+         and then Valid_Condition (Context, Condition_Model'Result)
+         and then (Condition_Model'Result.After = 0
+           or else Condition_Model'Result.After in Position + 1 .. Text'Last + 1),
        Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => 3);
-   function Read_Condition
-     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Paths.Context)
+   function Primary_Model
+     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow)
       return Condition_Result
-     with Global => null,
+     with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
-         and then Position <= Text'Last + 1 and then Valid_Context (Text, Context),
-       Post => (Runtime => Read_Condition'Result.After = 0
-         or else Read_Condition'Result.After in Position + 1 .. Text'Last + 1,
-         Static => Read_Condition'Result = Condition_Model (Text, Context, Position, Facts)),
-       Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => 5);
-   function Read_Primary
-     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Paths.Context)
-      return Condition_Result
-     with Global => null,
-       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
-         and then Position <= Text'Last + 1 and then Valid_Context (Text, Context),
-       Post => Read_Primary'Result.After = 0
-         or else Read_Primary'Result.After in Position + 1 .. Text'Last + 1,
+         and then Position <= Text'Last + 1 and then Valid_Context (Text, Context)
+         and then Valid_Flow (Context, Facts),
+       Post => Primary_Model'Result.Count = Facts.Count
+         and then Valid_Condition (Context, Primary_Model'Result)
+         and then (Primary_Model'Result.After = 0
+           or else Primary_Model'Result.After in Position + 1 .. Text'Last + 1),
        Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => 1);
-   function Read_Relation
-     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Paths.Context)
+   function Relation_Model
+     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow)
       return Condition_Result
-     with Global => null,
+     with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
-         and then Position <= Text'Last + 1 and then Valid_Context (Text, Context),
-       Post => Read_Relation'Result.After = 0
-         or else Read_Relation'Result.After in Position + 1 .. Text'Last + 1,
+         and then Position <= Text'Last + 1 and then Valid_Context (Text, Context)
+         and then Valid_Flow (Context, Facts),
+       Post => Relation_Model'Result.Count = Facts.Count
+         and then Valid_Condition (Context, Relation_Model'Result)
+         and then (Relation_Model'Result.After = 0
+           or else Relation_Model'Result.After in Position + 1 .. Text'Last + 1),
        Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => 2);
-
-   function Read_Primary
-     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Paths.Context)
+   function Primary_Model
+     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow)
       return Condition_Result is
-     (if Position = 0 then Invalid_Condition else
+     (if Position = 0 then Invalid_Condition (Facts) else
         (declare After : constant Literal_Position := Take_Token (Text, Position, Left_Parenthesis);
          begin
            (if After /= 0 then
-              (declare Result : constant Condition_Result := Read_Condition (Text, Context, After, Facts);
-               begin (Result with delta After => Take_Token (Text, Result.After, Right_Parenthesis)))
-            elsif Context.Dynamic_First = 0 then Invalid_Condition
-            else (Call_After (Text, Context.Names, Position, Names.Validity_Call, Context.Scalar_Names),
-                    Paths.Assume_Valid (Facts), Paths.Assume_Invalid (Facts)))));
-
-   function Read_Relation
-     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Paths.Context)
+              (declare Result : constant Condition_Result := Condition_Model (Text, Context, After, Facts);
+               Close : constant Literal_Position := Take_Token (Text, Result.After, Right_Parenthesis);
+               begin (if Close = 0 then Invalid_Condition (Facts) else (Result with delta After => Close)))
+            elsif Context.Dynamic_First = 0 then Invalid_Condition (Facts)
+            else
+              (declare After_Call : constant Literal_Position :=
+                 Call_After (Text, Context.Names, Position, Names.Validity_Call, Context.Scalar_Names);
+               begin (if After_Call = 0 then Invalid_Condition (Facts) else
+                 (Count => Facts.Count, After => After_Call,
+                  When_True => (Facts with delta Path => Paths.Assume_Valid (Facts.Path)),
+                  When_False => (Facts with delta Path => Paths.Assume_Invalid (Facts.Path))))))));
+   function Relation_Model
+     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow)
       return Condition_Result is
-     (if Position = 0 then Invalid_Condition else
+     (if Position = 0 then Invalid_Condition (Facts) else
         (declare
            After : constant Literal_Position := Take_Token (Text, Position, Not_Keyword);
            Left_Length : constant Length_Result := Length_At (Text, Context, Position, False);
-           Left_Scalar : constant Scalar_Expressions.Expression_Result :=
-             Scalar_Expressions.Read_Expression (Text, Position, Context.Scalar_Names);
+           Left_Scalar : constant Scalar_Expressions.Expression_Result := Read_Scalar_In_Flow (Text, Context, Position, Facts);
          begin
            (if After /= 0 then
-              (declare Result : constant Condition_Result := Read_Primary (Text, Context, After, Facts);
-               begin (Result.After, Result.When_False, Result.When_True))
+              (declare Result : constant Condition_Result := Primary_Model (Text, Context, After, Facts);
+               begin (Result.Count, Result.After, Result.When_False, Result.When_True))
             elsif Left_Length.After /= 0 then
               (declare
                  Operator : constant Comparison_Result := Scalar_Comparison_At (Text, Left_Length.After);
                  Right_Length : constant Length_Result := Length_At (Text, Context, Operator.After, True);
                begin
-                 (if Right_Length.After <= Position then Invalid_Condition else
-                    (Right_Length.After,
-                     Paths.Refine_Bounds (Facts, Operator.Operator, Left_Length.Value, Right_Length.Value, True),
-                     Paths.Refine_Bounds (Facts, Operator.Operator, Left_Length.Value, Right_Length.Value, False))))
+                 (if Right_Length.After <= Position then Invalid_Condition (Facts) else
+                    (Count => Facts.Count, After => Right_Length.After,
+                     When_True => (Facts with delta Path =>
+                       Paths.Refine_Bounds (Facts.Path, Operator.Operator, Left_Length.Value, Right_Length.Value, True)),
+                     When_False => (Facts with delta Path =>
+                       Paths.Refine_Bounds (Facts.Path, Operator.Operator, Left_Length.Value, Right_Length.Value, False)))))
             elsif Left_Scalar.After /= 0 then
               (declare
                  Operator : constant Comparison_Result := Scalar_Comparison_At (Text, Left_Scalar.After);
                  Right_Scalar : constant Scalar_Expressions.Expression_Result :=
-                   Scalar_Expressions.Read_Expression (Text, Operator.After, Context.Scalar_Names);
+                   Read_Scalar_In_Flow (Text, Context, Operator.After, Facts);
                begin
-                 (if Right_Scalar.After <= Position then Invalid_Condition
-                  else (Right_Scalar.After, Facts, Facts)))
+                 (if Right_Scalar.After <= Position then Invalid_Condition (Facts)
+                  else Scalar_Condition (Text, Context, Position, Operator.After, Facts, Left_Scalar, Right_Scalar, Operator.Operator)))
             else
-              (declare Left : constant Expression_Result := Expression_At (Text, Position, Context.Names, Context.Scalar_Names);
+              (declare Left : constant Expression_Result := Read_String_In_Flow (Text, Context, Position, Facts);
                begin
                  (if Left.After /= 0 then
                     (declare Operator : constant Comparison_Result := Scalar_Comparison_At (Text, Left.After);
                      begin
                        (if Operator.After = 0 or else Operator.Operator not in Paths.Equal | Paths.Unequal
-                        then Invalid_Condition else
-                          (declare Right : constant Expression_Result := Expression_At (Text, Operator.After, Context.Names, Context.Scalar_Names);
+                        then Invalid_Condition (Facts) else
+                          (declare Right : constant Expression_Result := Read_String_In_Flow (Text, Context, Operator.After, Facts);
                            begin
                              (if Right.After <= Position or else not (Left.Named_Seen or else Right.Named_Seen)
-                                or else not Length_Intervals.Fits (Facts, Summary_Of (Left))
-                                or else not Length_Intervals.Fits (Facts, Summary_Of (Right))
-                              then Invalid_Condition else
+                                or else not Length_Intervals.Fits (Facts.Path, Summary_Of (Left))
+                                or else not Length_Intervals.Fits (Facts.Path, Summary_Of (Right))
+                              then Invalid_Condition (Facts) else
                                 (declare Equal_Facts : constant Paths.Context :=
-                                   Length_Intervals.Refine_Equal (Facts, Summary_Of (Left), Summary_Of (Right));
-                                 begin (Right.After,
-                                   (if Operator.Operator = Paths.Equal then Equal_Facts else Facts),
-                                   (if Operator.Operator = Paths.Equal then Facts else Equal_Facts)))))))
-                  else Read_Primary (Text, Context, Position, Facts))))));
-
+                                   Length_Intervals.Refine_Equal (Facts.Path, Summary_Of (Left), Summary_Of (Right));
+                                 begin (Count => Facts.Count, After => Right.After,
+                                   When_True => (Facts with delta Path =>
+                                     (if Operator.Operator = Paths.Equal then Equal_Facts else Facts.Path)),
+                                   When_False => (Facts with delta Path =>
+                                     (if Operator.Operator = Paths.Equal then Facts.Path else Equal_Facts))))))))
+                  else Primary_Model (Text, Context, Position, Facts))))));
    function Chain_Token (Text : String; Position : Literal_Position) return Token_Kind
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
@@ -1315,46 +1656,294 @@ is
    function Condition_Tail
      (Text : String; Context : Body_Context; Result : Condition_Result;
       Operator : Token_Kind; Chained : Boolean) return Condition_Result
-     with Global => null,
+     with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Result.After <= Text'Last + 1 and then Valid_Context (Text, Context)
-         and then Operator in And_Keyword | Or_Keyword,
-       Post => Condition_Tail'Result.After = 0
-         or else Condition_Tail'Result.After in Result.After .. Text'Last + 1,
+         and then Valid_Condition (Context, Result) and then Operator in And_Keyword | Or_Keyword,
+       Post => Condition_Tail'Result.Count = Result.Count
+         and then Valid_Condition (Context, Condition_Tail'Result)
+         and then (Condition_Tail'Result.After = 0
+           or else Condition_Tail'Result.After in Result.After .. Text'Last + 1),
        Subprogram_Variant => (Decreases => (Text'Last + 1) - Result.After, Decreases => 4);
    function Condition_Tail
      (Text : String; Context : Body_Context; Result : Condition_Result;
       Operator : Token_Kind; Chained : Boolean) return Condition_Result is
-     (if Result.After = 0 then Invalid_Condition else
+     (if Result.After = 0 then Invalid_Condition (Result.When_True) else
         (declare Selected : constant Token_Kind := Chain_Token (Text, Result.After);
          begin
            (if Selected not in And_Keyword | Or_Keyword then Result
-            elsif Chained and then Operator /= Selected then Invalid_Condition
+            elsif Chained and then Operator /= Selected then Invalid_Condition (Result.When_True)
             else
               (declare After : constant Literal_Position := Chain_After (Text, Result.After, Selected);
                begin
-                 (if After = 0 then Invalid_Condition else
-                    (declare Right : constant Condition_Result := Read_Relation (Text, Context, After,
+                 (if After = 0 then Invalid_Condition (Result.When_True) else
+                    (declare Right : constant Condition_Result := Relation_Model (Text, Context, After,
                        (if Selected = And_Keyword then Result.When_True else Result.When_False));
                      begin
-                       (if Right.After = 0 then Invalid_Condition else
+                       (if Right.After = 0 then Invalid_Condition (Result.When_True) else
                           Condition_Tail (Text, Context,
                             (if Selected = And_Keyword then
-                               (Right.After, Right.When_True, Paths.Join (Result.When_False, Right.When_False))
-                             else (Right.After, Paths.Join (Result.When_True, Right.When_True), Right.When_False)),
+                               (Result.Count, Right.After, Right.When_True, Joined (Result.When_False, Right.When_False))
+                             else (Result.Count, Right.After, Joined (Result.When_True, Right.When_True), Right.When_False)),
                             Selected, True))))))));
-
    function Condition_Model
-     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Paths.Context)
+     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow)
       return Condition_Result is
-     (declare Result : constant Condition_Result := Read_Relation (Text, Context, Position, Facts);
-      begin (if Result.After = 0 then Invalid_Condition
-        else Condition_Tail (Text, Context, Result, And_Keyword, False)));
-
-   function Read_Condition
-     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Paths.Context)
-      return Condition_Result is
-     (Condition_Model (Text, Context, Position, Facts));
+     (declare Result : constant Condition_Result (Facts.Count) := Relation_Model (Text, Context, Position, Facts);
+      begin (if Result.After = 0 then Invalid_Condition (Facts) else
+        (declare Final : constant Condition_Result (Facts.Count) :=
+           Condition_Tail (Text, Context, Result, And_Keyword, False);
+         begin (if Final.After = 0 then Invalid_Condition (Facts) else Final))));
+   procedure Read_Condition_Into
+     (Text : String; Context : Body_Context; Position : Literal_Position;
+      Facts : Scalar_Flow; Result : out Condition_Result)
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1 and then Valid_Context (Text, Context)
+         and then Valid_Flow (Context, Facts) and then Result.Count = Facts.Count,
+       Post => (Runtime => Valid_Condition (Context, Result)
+         and then (Result.After = 0 or else Result.After in Position + 1 .. Text'Last + 1),
+         Static => Result = Condition_Model (Text, Context, Position, Facts)),
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => 5);
+   procedure Read_Primary_Into
+     (Text : String; Context : Body_Context; Position : Literal_Position;
+      Facts : Scalar_Flow; Result : out Condition_Result)
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1 and then Valid_Context (Text, Context)
+         and then Valid_Flow (Context, Facts) and then Result.Count = Facts.Count,
+       Post => (Runtime => Valid_Condition (Context, Result)
+         and then (Result.After = 0 or else Result.After in Position + 1 .. Text'Last + 1),
+         Static => Result = Primary_Model (Text, Context, Position, Facts)),
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => 1);
+   procedure Read_Relation_Into
+     (Text : String; Context : Body_Context; Position : Literal_Position;
+      Facts : Scalar_Flow; Result : out Condition_Result)
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1 and then Valid_Context (Text, Context)
+         and then Valid_Flow (Context, Facts) and then Result.Count = Facts.Count,
+       Post => (Runtime => Valid_Condition (Context, Result)
+         and then (Result.After = 0 or else Result.After in Position + 1 .. Text'Last + 1),
+         Static => Result = Relation_Model (Text, Context, Position, Facts)),
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => 2);
+   procedure Read_Chain_Into
+     (Text : String; Context : Body_Context; Result : in out Condition_Result)
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Result.After in 1 .. Text'Last + 1 and then Valid_Context (Text, Context)
+         and then Valid_Condition (Context, Result)
+         and then Chain_Token (Text, Result.After) in And_Keyword | Or_Keyword,
+       Post => (Runtime => Valid_Condition (Context, Result)
+         and then (Result.After = 0 or else Result.After in Result.After'Old .. Text'Last + 1),
+         Static => Result = Condition_Tail (Text, Context, Result'Old, And_Keyword, False)),
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - Result.After, Decreases => 4);
+   procedure Read_Primary_Into
+     (Text : String; Context : Body_Context; Position : Literal_Position;
+      Facts : Scalar_Flow; Result : out Condition_Result) is
+      After : constant Literal_Position := Take_Token (Text, Position, Left_Parenthesis);
+   begin
+      if Position = 0 then
+         Invalidate_Condition (Facts, Result);
+      elsif After /= 0 then
+         --  Grouping forwards the caller's buffer; no active vector is local.
+         Read_Condition_Into (Text, Context, After, Facts, Result);
+         Result.After := Take_Token (Text, Result.After, Right_Parenthesis);
+         if Result.After = 0 then Invalidate_Condition (Facts, Result); end if;
+      elsif Context.Dynamic_First = 0 then
+         Invalidate_Condition (Facts, Result);
+      else
+         Result.After := Call_After (Text, Context.Names, Position, Names.Validity_Call, Context.Scalar_Names);
+         Result.When_True := Facts;
+         Result.When_False := Facts;
+         if Result.After = 0 then
+            Invalidate_Condition (Facts, Result);
+         else
+            Result.When_True.Path := Paths.Assume_Valid (Facts.Path);
+            Result.When_False.Path := Paths.Assume_Invalid (Facts.Path);
+         end if;
+      end if;
+   end Read_Primary_Into;
+   procedure Read_Relation_Into
+     (Text : String; Context : Body_Context; Position : Literal_Position;
+      Facts : Scalar_Flow; Result : out Condition_Result) is
+      After : constant Literal_Position := Take_Token (Text, Position, Not_Keyword);
+      Left_Length : constant Length_Result := Length_At (Text, Context, Position, False);
+      Left_Scalar : constant Scalar_Expressions.Expression_Result := Read_Scalar_In_Flow (Text, Context, Position, Facts);
+      Temporary_Path : Paths.Context;
+      Temporary_Value : Scalars.Interval;
+   begin
+      if Position = 0 then
+         Invalidate_Condition (Facts, Result);
+      elsif After /= 0 then
+         Read_Primary_Into (Text, Context, After, Facts, Result);
+         Temporary_Path := Result.When_True.Path;
+         Result.When_True.Path := Result.When_False.Path;
+         Result.When_False.Path := Temporary_Path;
+         for Index in Facts.Values'Range loop
+            pragma Loop_Invariant
+              (Static => (for all Done in Facts.Values'First .. Index - 1 =>
+                Result.When_True.Values (Done) = Result'Loop_Entry.When_False.Values (Done)
+                and then Result.When_False.Values (Done) = Result'Loop_Entry.When_True.Values (Done)));
+            pragma Loop_Invariant
+              (Static => (for all Pending in Index .. Facts.Values'Last =>
+                Result.When_True.Values (Pending) = Result'Loop_Entry.When_True.Values (Pending)
+                and then Result.When_False.Values (Pending) = Result'Loop_Entry.When_False.Values (Pending)));
+            Temporary_Value := Result.When_True.Values (Index);
+            Result.When_True.Values (Index) := Result.When_False.Values (Index);
+            Result.When_False.Values (Index) := Temporary_Value;
+         end loop;
+      elsif Left_Length.After /= 0 then
+         declare
+            Operator : constant Comparison_Result := Scalar_Comparison_At (Text, Left_Length.After);
+            Right_Length : constant Length_Result := Length_At (Text, Context, Operator.After, True);
+         begin
+            if Right_Length.After <= Position then
+               Invalidate_Condition (Facts, Result);
+            else
+               Result.After := Right_Length.After;
+               Result.When_True := Facts;
+               Result.When_False := Facts;
+               Result.When_True.Path := Paths.Refine_Bounds
+                 (Facts.Path, Operator.Operator, Left_Length.Value, Right_Length.Value, True);
+               Result.When_False.Path := Paths.Refine_Bounds
+                 (Facts.Path, Operator.Operator, Left_Length.Value, Right_Length.Value, False);
+            end if;
+         end;
+      elsif Left_Scalar.After /= 0 then
+         declare
+            Operator : constant Comparison_Result := Scalar_Comparison_At (Text, Left_Scalar.After);
+            Right_Scalar : constant Scalar_Expressions.Expression_Result :=
+              Read_Scalar_In_Flow (Text, Context, Operator.After, Facts);
+            Left_Target : constant Scalar_Expressions.Binding_Count := Bare_Target (Text, Context, Position, Left_Scalar.After);
+            Right_Target : constant Scalar_Expressions.Binding_Count := Bare_Target (Text, Context, Operator.After, Right_Scalar.After);
+            Target : Scalar_Expressions.Binding_Count := 0;
+            Selected : Scalars.Comparison := Scalar_Operator (Operator.Operator);
+            Threshold : Scalars.Value := Right_Scalar.Bounds.Lower;
+         begin
+            if Right_Scalar.After <= Position then
+               Invalidate_Condition (Facts, Result);
+            else
+               Result.After := Right_Scalar.After;
+               Result.When_True := Facts;
+               Result.When_False := Facts;
+               if Left_Target /= 0 and then Right_Scalar.Static
+                 and then Right_Scalar.Bounds.Lower = Right_Scalar.Bounds.Upper
+               then
+                  Target := Left_Target;
+               elsif Right_Target /= 0 and then Left_Scalar.Static
+                 and then Left_Scalar.Bounds.Lower = Left_Scalar.Bounds.Upper
+               then
+                  Target := Right_Target;
+                  Selected := Scalars.Swap (Selected);
+                  Threshold := Left_Scalar.Bounds.Lower;
+               end if;
+               if Target /= 0 then
+                  Result.When_True.Values (Target) := Refine_Or_Keep (Facts.Values (Target), Selected, Threshold, True);
+                  Result.When_False.Values (Target) := Refine_Or_Keep (Facts.Values (Target), Selected, Threshold, False);
+               end if;
+            end if;
+         end;
+      else
+         declare Left : constant Expression_Result := Read_String_In_Flow (Text, Context, Position, Facts);
+         begin
+            if Left.After /= 0 then
+               declare Operator : constant Comparison_Result := Scalar_Comparison_At (Text, Left.After);
+               begin
+                  if Operator.After = 0 or else Operator.Operator not in Paths.Equal | Paths.Unequal then
+                     Invalidate_Condition (Facts, Result);
+                  else
+                     declare Right : constant Expression_Result := Read_String_In_Flow (Text, Context, Operator.After, Facts);
+                     begin
+                        if Right.After <= Position or else not (Left.Named_Seen or else Right.Named_Seen)
+                          or else not Length_Intervals.Fits (Facts.Path, Summary_Of (Left))
+                          or else not Length_Intervals.Fits (Facts.Path, Summary_Of (Right))
+                        then
+                           Invalidate_Condition (Facts, Result);
+                        else
+                           Result.After := Right.After;
+                           Result.When_True := Facts;
+                           Result.When_False := Facts;
+                           if Operator.Operator = Paths.Equal then
+                              Result.When_True.Path := Length_Intervals.Refine_Equal (Facts.Path, Summary_Of (Left), Summary_Of (Right));
+                           else
+                              Result.When_False.Path := Length_Intervals.Refine_Equal (Facts.Path, Summary_Of (Left), Summary_Of (Right));
+                           end if;
+                        end if;
+                     end;
+                  end if;
+               end;
+            else
+               Read_Primary_Into (Text, Context, Position, Facts, Result);
+            end if;
+         end;
+      end if;
+   end Read_Relation_Into;
+   procedure Read_Chain_Into
+     (Text : String; Context : Body_Context; Result : in out Condition_Result) is
+      Right : Condition_Result (Result.Count);
+      Operator : Token_Kind := And_Keyword;
+      Chained : Boolean := False;
+      Selected : Token_Kind;
+      After : Literal_Position;
+   begin
+      loop
+         pragma Loop_Invariant (Result.After in 1 .. Text'Last + 1);
+         pragma Loop_Invariant (Valid_Condition (Context, Result));
+         pragma Loop_Invariant (Operator in And_Keyword | Or_Keyword);
+         pragma Loop_Invariant (Result.After >= Result'Loop_Entry.After);
+         pragma Loop_Invariant (Static =>
+           Condition_Tail (Text, Context, Result'Loop_Entry, And_Keyword, False) =
+             Condition_Tail (Text, Context, Result, Operator, Chained));
+         pragma Loop_Variant (Increases => Result.After);
+         Selected := Chain_Token (Text, Result.After);
+         exit when Selected not in And_Keyword | Or_Keyword;
+         if Chained and then Operator /= Selected then
+            Result.After := 0;
+            Result.When_True.Path := Paths.Empty_Context;
+            Result.When_False := Result.When_True;
+            return;
+         end if;
+         After := Chain_After (Text, Result.After, Selected);
+         if After = 0 then
+            Result.After := 0;
+            Result.When_True.Path := Paths.Empty_Context;
+            Result.When_False := Result.When_True;
+            return;
+         end if;
+         if Selected = And_Keyword then
+            Read_Relation_Into (Text, Context, After, Result.When_True, Right);
+         else
+            Read_Relation_Into (Text, Context, After, Result.When_False, Right);
+         end if;
+         if Right.After = 0 then
+            Result.After := 0;
+            Result.When_True.Path := Paths.Empty_Context;
+            Result.When_False := Result.When_True;
+            return;
+         end if;
+         if Selected = And_Keyword then
+            Result.When_True := Right.When_True;
+            Join_Into (Result.When_False, Right.When_False);
+         else
+            Join_Into (Result.When_True, Right.When_True);
+            Result.When_False := Right.When_False;
+         end if;
+         Result.After := Right.After;
+         Operator := Selected;
+         Chained := True;
+      end loop;
+   end Read_Chain_Into;
+   procedure Read_Condition_Into
+     (Text : String; Context : Body_Context; Position : Literal_Position;
+      Facts : Scalar_Flow; Result : out Condition_Result) is
+   begin
+      Read_Relation_Into (Text, Context, Position, Facts, Result);
+      if Result.After /= 0 and then Chain_Token (Text, Result.After) in And_Keyword | Or_Keyword then
+         Read_Chain_Into (Text, Context, Result);
+      end if;
+      if Result.After = 0 then Invalidate_Condition (Facts, Result); end if;
+   end Read_Condition_Into;
 
    function Scalar_Target
      (Text : String; Context : Body_Context; Position : Literal_Position)
@@ -1370,31 +1959,63 @@ is
       After : constant Literal_Position := Name_After (Text, First);
       begin Scalar_Expressions.Lookup (Text, Context.Scalar_Names, First, After));
 
-   function Scalar_Assignment_Body
+   function Scalar_Assignment_Model
      (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan
-     with Global => null,
+     with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan),
-       Post => Valid_Body (Text, Context, Scalar_Assignment_Body'Result)
-         and then (Scalar_Assignment_Body'Result.Position = 0
-           or else Scalar_Assignment_Body'Result.Position > Scan.Position);
-   function Scalar_Assignment_Body
+       Post => Valid_Body (Text, Context, Scalar_Assignment_Model'Result)
+         and then (Scalar_Assignment_Model'Result.Position = 0
+           or else Scalar_Assignment_Model'Result.Position > Scan.Position);
+   function Scalar_Assignment_Model
      (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan is
      (declare First : constant Literal_Position := Skip_At (Text, Scan.Position);
       After : constant Literal_Position := Name_After (Text, First);
       Target : constant Scalar_Expressions.Binding_Count :=
         Scalar_Expressions.Lookup (Text, Context.Scalar_Names, First, After);
       Value : constant Scalar_Expressions.Expression_Result :=
-        Scalar_Expressions.Read_Expression
-          (Text, Take_Token (Text, After, Assignment), Context.Scalar_Names);
+        Read_Scalar_In_Flow
+          (Text, Context, Take_Token (Text, After, Assignment), Scan.Facts);
       begin
         (if Target = 0 or else not Context.Scalar_Names.Items (Target).Mutable
            or else Value.After <= Scan.Position
            or else Scalars.Is_Empty (Value.Bounds)
            or else Value.Bounds.Lower < Context.Scalar_Names.Items (Target).Declared_Bounds.Lower
            or else Value.Bounds.Upper > Context.Scalar_Names.Items (Target).Declared_Bounds.Upper
-         then Invalid_Body
-         else (Scan with delta Position => Value.After, Assigned => True)));
+         then Invalid_Body_Model (Scan)
+         else (Scan with delta Position => Value.After, Assigned => True,
+           Facts => (Scan.Facts with delta Values => (Scan.Facts.Values with delta Target => Value.Bounds)))));
+
+   function Scalar_Assignment_Body
+     (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan),
+       Post => (Runtime => Valid_Body (Text, Context, Scalar_Assignment_Body'Result)
+         and then (Scalar_Assignment_Body'Result.Position = 0
+           or else Scalar_Assignment_Body'Result.Position > Scan.Position),
+         Static => Scalar_Assignment_Body'Result = Scalar_Assignment_Model (Text, Context, Scan));
+   function Scalar_Assignment_Body
+     (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan is
+      First : constant Literal_Position := Skip_At (Text, Scan.Position);
+      After : constant Literal_Position := Name_After (Text, First);
+      Target : constant Scalar_Expressions.Binding_Count :=
+        Scalar_Expressions.Lookup (Text, Context.Scalar_Names, First, After);
+      Value : constant Scalar_Expressions.Expression_Result :=
+        Read_Scalar_In_Flow (Text, Context, Take_Token (Text, After, Assignment), Scan.Facts);
+   begin
+      if Target = 0 or else not Context.Scalar_Names.Items (Target).Mutable
+        or else Value.After <= Scan.Position or else Scalars.Is_Empty (Value.Bounds)
+        or else Value.Bounds.Lower < Context.Scalar_Names.Items (Target).Declared_Bounds.Lower
+        or else Value.Bounds.Upper > Context.Scalar_Names.Items (Target).Declared_Bounds.Upper
+      then return Invalid_Body (Scan); end if;
+      return Result : Body_Scan (Scan.Count) do
+         Result := Scan;
+         Result.Position := Value.After;
+         Result.Assigned := True;
+         Result.Facts.Values (Target) := Value.Bounds;
+      end return;
+   end Scalar_Assignment_Body;
 
    function Basic_Body
      (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan
@@ -1406,21 +2027,21 @@ is
            or else Basic_Body'Result.Position > Scan.Position);
    function Basic_Body
      (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan is
-      Result : Body_Scan := Scan;
+      Result : Body_Scan (Scan.Count) := Scan;
       Value : Expression_Result;
       State : Parser_State;
    begin
-      if Result.Position = 0 then return Invalid_Body; end if;
+      if Result.Position = 0 then return Invalid_Body (Scan); end if;
       if Take_Token (Text, Result.Position, Null_Keyword) /= 0 then
          Result := Body_Token (Text, Context, Result, Null_Keyword);
       elsif Call_After (Text, Context.Names, Result.Position, Names.Output_Call, Context.Scalar_Names) /= 0 then
          Result.Position := Call_After (Text, Context.Names, Result.Position, Names.Output_Call, Context.Scalar_Names);
          Result := Body_Token (Text, Context, Result, Left_Parenthesis);
          Result.Position := Names.Association_After (Text, Result.Position, False);
-         Value := Expression_At (Text, Result.Position, Context.Names, Context.Scalar_Names);
-         if Value.After = 0 or else Result.Facts.Invalid_Reachable
-           or else not Length_Intervals.Fits (Result.Facts, Summary_Of (Value))
-         then return Invalid_Body; end if;
+         Value := Read_String_In_Flow (Text, Context, Result.Position, Result.Facts);
+         if Value.After = 0 or else Result.Facts.Path.Invalid_Reachable
+           or else not Length_Intervals.Fits (Result.Facts.Path, Summary_Of (Value))
+         then return Invalid_Body (Scan); end if;
          Result.Position := Value.After;
          Result := Body_Token (Text, Context, Result, Right_Parenthesis);
          Result.Output := True;
@@ -1428,10 +2049,10 @@ is
          Result.Position := Call_After (Text, Context.Names, Result.Position, Names.Partial_Output_Call, Context.Scalar_Names);
          Result := Body_Token (Text, Context, Result, Left_Parenthesis);
          Result.Position := Names.Association_After (Text, Result.Position, False);
-         Value := Expression_At (Text, Result.Position, Context.Names, Context.Scalar_Names);
-         if Value.After = 0 or else Result.Facts.Invalid_Reachable
-           or else not Length_Intervals.Fits (Result.Facts, Summary_Of (Value))
-         then return Invalid_Body; end if;
+         Value := Read_String_In_Flow (Text, Context, Result.Position, Result.Facts);
+         if Value.After = 0 or else Result.Facts.Path.Invalid_Reachable
+           or else not Length_Intervals.Fits (Result.Facts.Path, Summary_Of (Value))
+         then return Invalid_Body (Scan); end if;
          Result.Position := Value.After;
          Result := Body_Token (Text, Context, Result, Right_Parenthesis);
          Result.Output := True;
@@ -1439,7 +2060,7 @@ is
         and then Call_After (Text, Context.Names, Result.Position, Names.Reject_Call, Context.Scalar_Names) /= 0
       then
          Result.Position := Call_After (Text, Context.Names, Result.Position, Names.Reject_Call, Context.Scalar_Names);
-         Result.Facts := Paths.Rejected (Result.Facts);
+         Result.Facts.Path := Paths.Rejected (Result.Facts.Path);
       elsif Scalar_Target (Text, Context, Result.Position) /= 0 then
          Result := Scalar_Assignment_Body (Text, Context, Result);
       else
@@ -1447,17 +2068,17 @@ is
          Result.Position := State.Position;
          Result.Target := State.Target;
          Result := Body_Token (Text, Context, Result, Assignment);
-         Value := Expression_At (Text, Result.Position, Context.Names, Context.Scalar_Names);
+         Value := Read_String_In_Flow (Text, Context, Result.Position, Result.Facts);
          if Value.After = 0 or else Result.Target = 0
-           or else not Length_Intervals.Fits (Result.Facts, Summary_Of (Value))
+           or else not Length_Intervals.Fits (Result.Facts.Path, Summary_Of (Value))
            or else not Length_Intervals.Same_Length
-             (Result.Facts, Summary_Of (Value), Binding_Summary (Context.Names.Items (Result.Target)))
-         then return Invalid_Body; end if;
+             (Result.Facts.Path, Summary_Of (Value), Binding_Summary (Context.Names.Items (Result.Target)))
+         then return Invalid_Body (Scan); end if;
          Result.Position := Value.After;
          Result.Assigned := True;
       end if;
       Result := Body_Token (Text, Context, Result, Semicolon);
-      if Result.Position <= Scan.Position then return Invalid_Body; end if;
+      if Result.Position <= Scan.Position then return Invalid_Body (Scan); end if;
       return Result;
    end Basic_Body;
 
@@ -1512,26 +2133,53 @@ is
            or else Alternative_Body'Result.Position >= Scan.Position),
        Subprogram_Variant => (Decreases => (Text'Last + 1) - Scan.Position, Decreases => 1);
 
+   function Body_Tail_Model
+     (Text : String; Context : Body_Context; Scan : Body_Scan; Stop : Body_Stop)
+      return Body_Scan
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan),
+       Post => Valid_Body (Text, Context, Body_Tail_Model'Result)
+         and then (Body_Tail_Model'Result.Position = 0
+           or else Body_Tail_Model'Result.Position >= Scan.Position),
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - Scan.Position, Decreases => 3);
+   function Body_Tail_Model
+     (Text : String; Context : Body_Context; Scan : Body_Scan; Stop : Body_Stop)
+      return Body_Scan is
+     (if Scan.Position = 0 then Invalid_Body_Model (Scan)
+      elsif At_Body_Stop (Text, Scan.Position, Stop) then Scan
+      else
+        (declare Result : constant Body_Scan (Scan.Count) := Statement_Body (Text, Context, Scan);
+         begin (if Result.Position <= Scan.Position then Invalid_Body_Model (Result)
+           else Body_Tail_Model (Text, Context, Result, Stop))));
    function Body_Tail
      (Text : String; Context : Body_Context; Scan : Body_Scan; Stop : Body_Stop)
       return Body_Scan
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan),
-       Post => Valid_Body (Text, Context, Body_Tail'Result)
-         and then (Body_Tail'Result.Position = 0
-           or else Body_Tail'Result.Position >= Scan.Position),
+       Post => (Runtime => Valid_Body (Text, Context, Body_Tail'Result)
+         and then (Body_Tail'Result.Position = 0 or else Body_Tail'Result.Position >= Scan.Position),
+         Static => Body_Tail'Result = Body_Tail_Model (Text, Context, Scan, Stop)),
        Subprogram_Variant => (Decreases => (Text'Last + 1) - Scan.Position, Decreases => 3);
    function Body_Tail
      (Text : String; Context : Body_Context; Scan : Body_Scan; Stop : Body_Stop)
       return Body_Scan is
-      Result : Body_Scan := Scan;
+      Result : Body_Scan (Scan.Count) := Scan;
+      Before : Literal_Position;
    begin
-      if Result.Position = 0 then return Invalid_Body; end if;
-      if At_Body_Stop (Text, Result.Position, Stop) then return Result; end if;
-      Result := Statement_Body (Text, Context, Result);
-      if Result.Position <= Scan.Position then return Invalid_Body; end if;
-      return Body_Tail (Text, Context, Result, Stop);
+      while Result.Position /= 0 and then not At_Body_Stop (Text, Result.Position, Stop) loop
+         pragma Loop_Invariant (Valid_Body (Text, Context, Result));
+         pragma Loop_Invariant (Result.Position >= Scan.Position);
+         pragma Loop_Invariant (Static => Body_Tail_Model (Text, Context, Scan, Stop)
+           = Body_Tail_Model (Text, Context, Result, Stop));
+         pragma Loop_Variant (Increases => Result.Position);
+         Before := Result.Position;
+         Result := Statement_Body (Text, Context, Result);
+         if Result.Position <= Before then return Invalid_Body (Result); end if;
+      end loop;
+      if Result.Position = 0 then return Invalid_Body (Result); end if;
+      return Result;
    end Body_Tail;
 
    function Read_Body
@@ -1544,21 +2192,21 @@ is
          and then (Read_Body'Result.Position = 0
            or else Read_Body'Result.Position > Scan.Position),
          Static => Read_Body'Result =
-           (if Statement_Body (Text, Context, Scan).Position = 0 then Invalid_Body
-            else Body_Tail (Text, Context, Statement_Body (Text, Context, Scan), Stop))),
+           (if Statement_Body (Text, Context, Scan).Position = 0 then Invalid_Body (Statement_Body (Text, Context, Scan))
+            else Body_Tail_Model (Text, Context, Statement_Body (Text, Context, Scan), Stop))),
        Subprogram_Variant => (Decreases => (Text'Last + 1) - Scan.Position, Decreases => 3);
    function Read_Body
      (Text : String; Context : Body_Context; Scan : Body_Scan; Stop : Body_Stop)
       return Body_Scan is
-      Result : constant Body_Scan := Statement_Body (Text, Context, Scan);
+      Result : constant Body_Scan (Scan.Count) := Statement_Body (Text, Context, Scan);
    begin
-      if Result.Position = 0 then return Invalid_Body; end if;
+      if Result.Position = 0 then return Invalid_Body (Result); end if;
       return Body_Tail (Text, Context, Result, Stop);
    end Read_Body;
 
    function Statement_Body
      (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan is
-     (if Scan.Position = 0 then Invalid_Body
+     (if Scan.Position = 0 then Invalid_Body (Scan)
       elsif Take_Token (Text, Scan.Position, If_Keyword) /= 0
       then Conditional_Body (Text, Context, Scan)
       elsif Take_Token (Text, Scan.Position, For_Keyword) /= 0
@@ -1566,10 +2214,9 @@ is
 
    function Loop_Body
      (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan is
-      Result : Body_Scan := Body_Token (Text, Context, Scan, For_Keyword);
+      Result : Body_Scan (Scan.Count) := Body_Token (Text, Context, Scan, For_Keyword);
       First : constant Literal_Position := Skip_At (Text, Result.Position);
       After : constant Literal_Position := Name_After (Text, First);
-      Inner : Body_Context := Context;
       Low, High : Scalar_Expressions.Expression_Result;
       Index_Bounds : Scalars.Interval;
       Definite : Boolean;
@@ -1580,93 +2227,119 @@ is
         or else (Context.Dynamic_First /= 0
           and then Name_Is (Text, First, After, "silver_arguments"))
         or else Context.Scalar_Names.Count = Scalar_Expressions.Max_Bindings
-      then return Invalid_Body; end if;
+      then return Invalid_Body (Scan); end if;
       Result.Position := Take_Token (Text, After, In_Keyword);
       if Take_Token (Text, Result.Position, Reverse_Keyword) /= 0 then
          Result.Position := Take_Token (Text, Result.Position, Reverse_Keyword);
       end if;
-      Low := Scalar_Expressions.Read_Expression
-        (Text, Result.Position, Context.Scalar_Names, First, After);
+      --  Ada captures bounds in entry flow before body reads are widened.
+      Low := Read_Scalar_In_Flow (Text, Context, Result.Position, Scan.Facts, First, After);
       Result.Position := Take_Token (Text, Low.After, Range_Delimiter);
-      High := Scalar_Expressions.Read_Expression
-        (Text, Result.Position, Context.Scalar_Names, First, After);
+      High := Read_Scalar_In_Flow (Text, Context, Result.Position, Scan.Facts, First, After);
       Result.Position := Take_Token (Text, High.After, Loop_Keyword);
-      if Result.Position <= Scan.Position then return Invalid_Body; end if;
+      if Result.Position <= Scan.Position then return Invalid_Body (Scan); end if;
       Index_Bounds :=
         (if Scalars.Is_Empty (Low.Bounds) or else Scalars.Is_Empty (High.Bounds)
          then Scalars.Empty else Scalars.Normalize ((Low.Bounds.Lower, High.Bounds.Upper)));
       Definite := not Scalars.Is_Empty (Low.Bounds) and then not Scalars.Is_Empty (High.Bounds)
         and then Low.Bounds.Upper <= High.Bounds.Lower;
-      Inner.Scalar_Names := Scalar_Expressions.Append
-        (Context.Scalar_Names, (First, After, Index_Bounds, False, Index_Bounds, False));
-      if Scalars.Is_Empty (Index_Bounds) then Result.Facts := Paths.Empty_Context; end if;
-      Result := Read_Body (Text, Inner, Result, End_Only);
-      if Result.Position <= Scan.Position then return Invalid_Body; end if;
-      if Scalars.Is_Empty (Index_Bounds) then
-         Result.Facts := Scan.Facts;
-      elsif not Definite then
-         Result.Facts := Paths.Join (Scan.Facts, Result.Facts);
-      end if;
+      Widen_Into (Context, Result.Facts);
+      declare
+         Inner : Body_Context := Context;
+         Inner_Scan : Body_Scan (Scan.Count + 1);
+      begin
+         Inner.Scalar_Names := Scalar_Expressions.Append
+           (Context.Scalar_Names, (First, After, Index_Bounds, False, Index_Bounds, False));
+         Inner_Scan.Position := Result.Position;
+         Inner_Scan.Target := Result.Target;
+         Inner_Scan.Capacity := Result.Capacity;
+         Inner_Scan.Assigned := Result.Assigned;
+         Inner_Scan.Output := Result.Output;
+         Inner_Scan.Facts.Path :=
+           (if Scalars.Is_Empty (Index_Bounds) then Paths.Empty_Context else Result.Facts.Path);
+         for Index in Result.Facts.Values'Range loop
+            pragma Loop_Invariant
+              (Static => (for all Done in Result.Facts.Values'First .. Index - 1 =>
+                Inner_Scan.Facts.Values (Done) = Result.Facts.Values (Done)));
+            Inner_Scan.Facts.Values (Index) := Result.Facts.Values (Index);
+         end loop;
+         Inner_Scan.Facts.Values (Inner_Scan.Count) := Index_Bounds;
+         Inner_Scan := Read_Body (Text, Inner, Inner_Scan, End_Only);
+         if Inner_Scan.Position <= Scan.Position then return Invalid_Body (Scan); end if;
+         Result.Position := Inner_Scan.Position;
+         Result.Target := Inner_Scan.Target;
+         Result.Capacity := Inner_Scan.Capacity;
+         Result.Assigned := Inner_Scan.Assigned;
+         Result.Output := Inner_Scan.Output;
+         if Scalars.Is_Empty (Index_Bounds) then
+            Result.Facts := Scan.Facts;
+         elsif Definite then
+            Result.Facts.Path := Inner_Scan.Facts.Path;
+         else
+            Result.Facts.Path := Paths.Join (Scan.Facts.Path, Inner_Scan.Facts.Path);
+         end if;
+         --  Result keeps widened mutables and the entry outer-index intervals.
+      end;
       Result := Body_Token (Text, Context, Result, End_Keyword);
       Result := Body_Token (Text, Context, Result, Loop_Keyword);
       Result := Body_Token (Text, Context, Result, Semicolon);
-      if Result.Position <= Scan.Position then return Invalid_Body; end if;
+      if Result.Position <= Scan.Position then return Invalid_Body (Scan); end if;
       return Result;
    end Loop_Body;
 
    function Conditional_Body
      (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan is
-      Result : Body_Scan := Body_Token (Text, Context, Scan, If_Keyword);
-      Condition : constant Condition_Result :=
-        Read_Condition (Text, Context, Result.Position, Result.Facts);
-      Yes : Paths.Context;
+      Result : Body_Scan (Scan.Count) := Body_Token (Text, Context, Scan, If_Keyword);
+      Condition : Condition_Result (Scan.Count);
+      Yes : Scalar_Flow (Scan.Count);
    begin
+      Read_Condition_Into (Text, Context, Result.Position, Result.Facts, Condition);
       Result.Position := Condition.After;
       Result.Facts := Condition.When_True;
       Result := Body_Token (Text, Context, Result, Then_Keyword);
-      if Result.Position <= Scan.Position then return Invalid_Body; end if;
+      if Result.Position <= Scan.Position then return Invalid_Body (Scan); end if;
       Result := Read_Body (Text, Context, Result, Arm_Boundary);
-      if Result.Position <= Scan.Position then return Invalid_Body; end if;
+      if Result.Position <= Scan.Position then return Invalid_Body (Scan); end if;
       Yes := Result.Facts;
       Result.Facts := Condition.When_False;
       Result := Alternative_Body (Text, Context, Result);
-      Result.Facts := Paths.Join (Yes, Result.Facts);
+      Join_Into (Result.Facts, Yes);
       Result := Body_Token (Text, Context, Result, End_Keyword);
       Result := Body_Token (Text, Context, Result, If_Keyword);
       Result := Body_Token (Text, Context, Result, Semicolon);
-      if Result.Position <= Scan.Position then return Invalid_Body; end if;
+      if Result.Position <= Scan.Position then return Invalid_Body (Scan); end if;
       return Result;
    end Conditional_Body;
 
    function Alternative_Body
      (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan is
-      Result : Body_Scan := Scan;
-      Condition : Condition_Result;
-      Yes : Paths.Context;
+      Result : Body_Scan (Scan.Count) := Scan;
+      Condition : Condition_Result (Scan.Count);
+      Yes : Scalar_Flow (Scan.Count);
    begin
-      if Scan.Position = 0 then return Invalid_Body; end if;
+      if Scan.Position = 0 then return Invalid_Body (Scan); end if;
       if Take_Token (Text, Scan.Position, Elsif_Keyword) /= 0 then
          Result := Body_Token (Text, Context, Result, Elsif_Keyword);
-         Condition := Read_Condition (Text, Context, Result.Position, Result.Facts);
+         Read_Condition_Into (Text, Context, Result.Position, Result.Facts, Condition);
          Result.Position := Condition.After;
          Result.Facts := Condition.When_True;
          Result := Body_Token (Text, Context, Result, Then_Keyword);
-         if Result.Position <= Scan.Position then return Invalid_Body; end if;
+         if Result.Position <= Scan.Position then return Invalid_Body (Scan); end if;
          Result := Read_Body (Text, Context, Result, Arm_Boundary);
-         if Result.Position <= Scan.Position then return Invalid_Body; end if;
+         if Result.Position <= Scan.Position then return Invalid_Body (Scan); end if;
          Yes := Result.Facts;
          Result.Facts := Condition.When_False;
          Result := Alternative_Body (Text, Context, Result);
-         Result.Facts := Paths.Join (Yes, Result.Facts);
+         Join_Into (Result.Facts, Yes);
          return Result;
       elsif Take_Token (Text, Scan.Position, Else_Keyword) /= 0 then
          Result := Body_Token (Text, Context, Result, Else_Keyword);
-         if Result.Position <= Scan.Position then return Invalid_Body; end if;
+         if Result.Position <= Scan.Position then return Invalid_Body (Scan); end if;
          return Read_Body (Text, Context, Result, End_Only);
       elsif Take_Token (Text, Scan.Position, End_Keyword) /= 0 then
          return Scan;
       else
-         return Invalid_Body;
+         return Invalid_Body (Scan);
       end if;
    end Alternative_Body;
 
@@ -1679,10 +2352,10 @@ is
    function Read_Statements
      (Text : String; Scan : Scan_Result; Stop : Token_Kind) return Scan_Result is
       Context : constant Body_Context := Context_Of (Scan);
-      Result : constant Body_Scan := Read_Body
+      Result : constant Body_Scan (Scan.State.Scalar_Names.Count) := Read_Body
         (Text, Context, Body_Of (Scan), (if Stop = Else_Keyword then Else_Only else End_Only));
    begin
-      return (if Result.Position = 0 or else not Paths.Completed (Result.Facts)
+      return (if Result.Position = 0 or else not Paths.Completed (Result.Facts.Path)
               then Invalid_Scan else Expand_Body (Context, Result));
    end Read_Statements;
 
