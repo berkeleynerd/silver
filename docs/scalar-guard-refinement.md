@@ -202,6 +202,18 @@ and `fd19152ea2` retain these checked inputs. Native scalar helper, body/loop
 worker and declaration-adapter correspondence, complete source checks, native
 verification and final delivery validation remain outstanding.
 
+The constrained native repair is integrated at `7c403a063e`. Its exploratory
+build, 105 admission cases and twenty 4,096/4,097-byte parser shapes passed
+again on the repaired source. All 129 compiled repository source files match
+that commit. The [retained frame checkpoint](evidence/scalar-guard-refinement/native-frames-20261026/validation.json)
+includes managed commands, input comparisons, emitted assembly and stack-usage
+records. Predicate forwarding frames contain no full scalar environment;
+`Read_Chain_Into` retains both its active scratch result and a runtime
+loop-entry snapshot. The loop body still has a larger fixed context frame.
+Complete primary/secondary stack accounting remains pending; successful shape
+execution is not a universal resource bound. The older exploratory native proof
+run retains its captured inputs and is not evidence for this later repair.
+
 The existing package order remains scope/discovery [#237](https://github.com/berkeleynerd/silver/issues/237),
 native [#238](https://github.com/berkeleynerd/silver/issues/238), universal/source
 assurance [#239](https://github.com/berkeleynerd/silver/issues/239), then complete
