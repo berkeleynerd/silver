@@ -1,0 +1,175 @@
+{
+  "scope": "Final selected evidence artifact integrity, ledger/source-input correspondence and delivery-claim review; no repeated semantic/source argument review",
+  "implementation_target": "d4d564cf358bd2c617b4899c53ceb0c0c1fd69da",
+  "lead_supplied_canonical_head": "861543d1a8",
+  "reviewed_state": "Supplied HEAD plus exact uncommitted delivery documentation and evidence bytes listed below; no Git action by reviewer",
+  "canonical_worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-guard-refinement",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_settings": "Not independently confirmed by runtime telemetry",
+  "tokens": "Unavailable",
+  "cost": "Unavailable",
+  "started_utc": "2026-10-26T13:14:33+00:00",
+  "finished_utc": "2026-10-26T13:19:56.766566+00:00",
+  "elapsed_seconds": 323.766566,
+  "validators_invoked": false,
+  "exporter_invoked": false,
+  "git_or_github_actions": false,
+  "canonical_mutations": false,
+  "inspected_document_and_index_sha256": {
+    "README.md": "66fc6c5d46465fc91507a6c0dc477bca935fb84cced7706265ce81ad8832a5ea",
+    "language.md": "95e26c93f405802d4fb515ed4ea8ea2e1f7bf28a1449dc218d1ec484e6378ed4",
+    "roadmap.md": "8da7f5fa96fc829aa088787f0f458c80bcb0031d01d78b148def5c840d57e318",
+    "docs/assurance.md": "94c32621237e3d230d7fcc2e6e42a214eb64bb87a2c6d2bf5cd61a95fa5888bc",
+    "docs/trusted-boundary.md": "46aa4c934c26577c42de739d8a293e46faf7f69d1c3cc224f24908e2a693f112",
+    "docs/session-memory.md": "e4cc42abab24fbf5dcac692fc49b2061ebb4c86be0a963505c348e9a2f8ef581",
+    "docs/scalar-guard-refinement.md": "8402c1329551d338052a3a42818fb5787cde5aa3edb0ecb1a01afd5c7a05add4",
+    "docs/reviews/review-scalar-guard-array-initialization-advisory-20261026.md": "865c08f5a37c8eccc6725d41be084a6f57a649ddd998f829cc1e9fad8586064b",
+    "docs/evidence/scalar-guard-refinement/proof-timing-20261026/README.md": "9523b95e6dafecf85f37125764a606fb6ffeb506bf13717841d6ac22a59ec888",
+    "docs/evidence/scalar-guard-refinement/proof-timing-20261026/comparison.json": "381634e87ef79df42cc114eec5ce7baf2864ade3f3bd16952a03fe265dc8f9da",
+    "docs/evidence/scalar-guard-refinement/delivery-20261026/validation.json": "72f5d0f8094de0307ea5ac9b03b0ae6d8a83ba667e3f90b5cda527faf18f982c",
+    "docs/evidence/scalar-guard-refinement/delivery-20261026/artifact-index.json": "927d3787d3f999360db4e8c2aa08d68abdf3660e122edb87e1712cfbeb2c51c3",
+    "docs/evidence/scalar-guard-refinement/delivery-20261026/preserved-source/completion.json": "395459b004aeb83973b3d30e68b09e09039f922b1f3701821b44cdbf6e336b7c",
+    "docs/evidence/scalar-guard-refinement/delivery-tooling-20261026/index.json": "9df150e65fa3f353349cee6dc329098893d6057d5040adadfc14ca623a6bf2ef",
+    "docs/evidence/scalar-guard-refinement/delivery-tooling-20261026/README.md": "882907a46a32e6e6acd910ab46df891ea79b3f217c85c4c7039edd6f85eb6157",
+    "tests/test_samples.py": "bf823ad70640796313347f879086203c6e71cbcd8a2092452c69b8fa53010127"
+  },
+  "pr_body_path": "tmp/guard-delivery-docs-final-20261026/pr-body-final.md",
+  "pr_body_sha256": "bb14fa1cba9456a5267bd316fd219d87b3a611b810a449509f77040231cb70bd",
+  "verification_script_sha256": "c39310b7e3366c48b7e7e5e07c5561ad58a9db643e8ce4761ef6bae1dcb2fb64",
+  "verification_result_sha256": "39f6b94530aa126bb1a956c18942813c9eaebf620045b6d15af15350489a3d19",
+  "findings": [],
+  "open_blocking_findings": 0,
+  "disposition": "Ready to complete PR #242 within reviewed scope. Root retains final commit/publication/link checks. Stop roadmap implementation afterward for external comprehensive review.",
+  "verification": {
+    "native_full": {
+      "run_id": "20261026T121322-fc9f4056f886",
+      "outcome": "success",
+      "managed_seconds": 80.191880263,
+      "captured_inputs": 2519,
+      "tracked_matches": 141,
+      "actual_commands": 1
+    },
+    "native_build": {
+      "run_id": "20261026T121505-a32d8e0916ec",
+      "outcome": "success",
+      "managed_seconds": 4.936350121,
+      "captured_inputs": 2519,
+      "tracked_matches": 141,
+      "actual_commands": 1
+    },
+    "lean": {
+      "run_id": "20261026T131016-6b27137135dc",
+      "outcome": "success",
+      "managed_seconds": 35.005383717,
+      "captured_inputs": 612,
+      "tracked_matches": 612,
+      "actual_commands": 2,
+      "phases": [
+        {
+          "phase": "build",
+          "started_at": "2026-10-26T13:10:26.156879+00:00",
+          "finished_at": "2026-10-26T13:10:36.846907+00:00",
+          "elapsed_seconds": 10.69,
+          "exit_code": 0
+        },
+        {
+          "phase": "audit",
+          "started_at": "2026-10-26T13:10:37.947684+00:00",
+          "finished_at": "2026-10-26T13:10:49.815887+00:00",
+          "elapsed_seconds": 11.868,
+          "exit_code": 0
+        }
+      ],
+      "modules": 497,
+      "declarations": 104238,
+      "runner_elapsed_seconds": 36.936
+    },
+    "evidence": {
+      "run_id": "20261026T120722-6e5bfb5dcbea",
+      "outcome": "success",
+      "managed_seconds": 6.244690178,
+      "captured_inputs": 743,
+      "tracked_matches": 739,
+      "actual_commands": 1
+    },
+    "image": {
+      "run_id": "20261026T120715-ae60c9d42d98",
+      "outcome": "success",
+      "managed_seconds": 5.701727071,
+      "captured_inputs": 743,
+      "tracked_matches": 739,
+      "actual_commands": 1
+    },
+    "native_report_inventory": 77,
+    "suite": {
+      "baseline_run": "20261026T110119-3b18a2302af0",
+      "outcome": "failure",
+      "tests": 511,
+      "errors": 1,
+      "tracked_baseline_inputs": 739,
+      "unchanged_final_matches": 738,
+      "historical_difference": {
+        "scripts/check_evidence.py": [
+          "7d8bb865f97e419ec5c3b6466964151feb3cd5ba8233fd80ae521af4525f268e",
+          "1cfe226a5c86874b4cd574da5589f8b925599f009a8e784bd42242e9da2b0060"
+        ]
+      },
+      "focused_tests": [
+        5,
+        60
+      ],
+      "manifest_samples": 48,
+      "execution_cases": 104
+    },
+    "preserved_source": {
+      "run_id": "20261026T094105-ac4e120bd9f9",
+      "outcome": "success",
+      "input_matches": 611,
+      "captured_inputs": 612,
+      "difference": {
+        "scripts/check_evidence.py": {
+          "captured": "e74034ab4dbbe370f1a28d4d460b4b327ed281f7b8bdad81d4e7a529b9094c76",
+          "final": "1cfe226a5c86874b4cd574da5589f8b925599f009a8e784bd42242e9da2b0060"
+        }
+      },
+      "phases": [
+        {
+          "phase": "build",
+          "started_at": "2026-10-26T09:41:26.585479+00:00",
+          "finished_at": "2026-10-26T13:09:46.707313+00:00",
+          "elapsed_seconds": 12500.122,
+          "exit_code": 0
+        },
+        {
+          "phase": "audit",
+          "started_at": "2026-10-26T13:09:47.878293+00:00",
+          "finished_at": "2026-10-26T13:09:59.119003+00:00",
+          "elapsed_seconds": 11.241,
+          "exit_code": 0
+        }
+      ],
+      "module_seconds": {
+        "PredicateSourceCandidate": 5082,
+        "OutputBodyCertificate": 9037,
+        "ComposeSourceChecks": 3408
+      }
+    },
+    "checked_utc": "2026-10-26T13:17:01.873191+00:00",
+    "validation_sha256": "72f5d0f8094de0307ea5ac9b03b0ae6d8a83ba667e3f90b5cda527faf18f982c",
+    "artifact_index_sha256": "927d3787d3f999360db4e8c2aa08d68abdf3660e122edb87e1712cfbeb2c51c3",
+    "indexed_artifacts": 108,
+    "bundle_files": 114,
+    "bundle_bytes": 3113879,
+    "tooling_artifacts": 12,
+    "tooling_index_sha256": "9df150e65fa3f353349cee6dc329098893d6057d5040adadfc14ca623a6bf2ef",
+    "checks": "passed",
+    "validators_invoked": false
+  },
+  "root_reported_checks_not_repeated": [
+    "729 local Markdown file/anchor links passed",
+    "git diff --check passed",
+    "No governed input delta from d4d564cf35",
+    "origin/main freshly fetched at a5305f1b04"
+  ]
+}

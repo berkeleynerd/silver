@@ -32,3 +32,7 @@ This is **not a controlled isolated benchmark**. Guard Lean overlapped the six-w
 Proposed external-review focus: confirm extraction/run identities, source correspondence, module-versus-run outcome scope, and the cache/concurrency qualifications. The root may append final guard completion evidence later.
 
 Evidence extraction selected GPT-6.1 Sol at Extra High; runtime settings are not independently confirmed. Token/cost measurements are unavailable.
+
+## Subsequent completion
+
+The preserved guard run later completed successfully: `ComposeSourceChecks` took 3,408 seconds, versus the division module's 3,454 seconds. The complete guard build took 12,500.122 seconds, followed by an 11.241-second fresh audit of 497 modules and 104,238 declarations. Thus this source-composition module did not share the growth measured in the other two modules. The earlier observation and JSON remain unchanged as their dated capture. The [completion record](../delivery-20261026/preserved-source/completion.json) retains the full successful log/events/result and the explicit earlier-auditor difference; final matching-input cached validation is separately indexed in the delivery evidence.

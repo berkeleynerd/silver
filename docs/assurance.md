@@ -82,7 +82,7 @@ mutability and declared ranges. Its complete native and Lean validation,
 regressions and independent source review are recorded at the linked checkpoint.
 Interval proofs cover every intermediate operation, including minimum-value
 negation. That earlier checkpoint used declared mutable read ranges; the
-[prepared guard increment](#scalar-guard-refinement-prepared-assurance) below
+[guard increment](#scalar-guard-refinement) below
 adds explicit flow refinement. Bounds are read once at loop entry. The semantic
 loop argument is induction over the finite Ada range, independent of runtime iteration counts and solver unrolling. Existing
 String snapshots, path facts, returning output/rejection effects and fixed-bound
@@ -105,7 +105,7 @@ sequences and each finite iteration. Loop bounds use the entry store, and
 preserves declared ranges, while `Program.all_obligations_discharge` covers
 initializers, assignment range checks and every body obligation. Image lengths
 use exact values during declaration elaboration and the current scalar read
-interval in the prepared guard body analysis. Input-length facts survive scalar
+interval in the guard body analysis. Input-length facts survive scalar
 writes; live mutable Image equalities are not retained.
 
 `ScalarConstraintAt` independently reads optional declared constraints: absent
@@ -205,7 +205,7 @@ implementation and its completed Linux validation checkpoint. Fully grouped `/`,
 initializers, static constraint endpoints, bounds, comparisons, assignments and
 Image. Exact declaration snapshots and immutable declared assignment bounds
 remain distinct from the current scalar read intervals introduced by the
-[prepared guard increment](#scalar-guard-refinement-prepared-assurance). Guards
+[guard increment](#scalar-guard-refinement). Guards
 and assignments update current intervals under its selected rules; division
 retains the same interval safety checks.
 
@@ -252,17 +252,21 @@ from 15,292,416 to **15,421,440 bytes**, below the unchanged 16,777,216-byte dom
 The calculation relies on the reviewed pinned producer routes and inherited
 counting premises; neither report acceptance nor sample success proves discharge.
 
-## Scalar guard refinement: prepared assurance
+## Scalar guard refinement
 
-The [guard capability record](scalar-guard-refinement.md) tracks #234/#239/#240,
-focused evidence and the remaining delivery work. This section describes the
-prepared proof interfaces at `a386c7389b`, not a completed support checkpoint.
-Complete native Bronze/Silver verification and guard actual-source proof
-validation remain pending. Recorded focused Lean audits still use the preceding
-division source binding. Final native contracts, authoritative source checks,
-whole-project validation and delivery review must establish the combined chain
-on the final guard inputs. None of these pending checks changes the Oracle's
-required guarantee or makes proof success a membership test.
+The [guard delivery record](scalar-guard-refinement.md#delivery-assurance-and-validation)
+records #234/#239/#240's completed native Bronze/Silver verification,
+authoritative-source Lean checks, whole-project module/axiom audit and delivery
+validation on the final guard inputs. Its linked evidence distinguishes final
+checks from historical focused runs on earlier source bindings. The
+[final integration review](reviews/review-scalar-guard-final-integration-20261026.md)
+at `bc9b0815eb` reuses the earlier scoped semantic and source reviews; the later
+[proof-only candidate repair](reviews/review-scalar-guard-candidate-integration-repair-20261026.md)
+records renderer normalization and the exact required header lexer spellings.
+The later [compiler advisory assessment](reviews/review-scalar-guard-array-initialization-advisory-20261026.md)
+reviews exact diagnostic classification and the malformed-message guard, with
+all safety checks, source coverage and provenance still required. The proof chain below retains the Oracle's guarantee and existing external
+premises; proof success remains separate from source membership.
 
 [ScalarFlow.lean](../proof/Silver/ScalarFlow.lean) separates current read intervals
 from `Integer.Analysis.declared`, mutability and Ada-staticness. Its
@@ -326,8 +330,8 @@ all scalar native context clauses, including declared-bound containment.
 `prefix_baseReady` in [PredicateHeaderFlow.lean](../proof/Silver/PredicateHeaderFlow.lean)
 derives readiness from actual parsed declarations; immutable loop-index append
 preserves it without forbidding empty indexes. This repairs a formal contract
-domain, with no new language restriction or external premise. Final source
-integration for #244 remains required.
+domain, with no new language restriction or external premise. The final
+source checkpoint includes the integrated #244 repair.
 
 The [#243 repair](reviews/review-scalar-guard-token-wrapper-repair.md) preserves
 the full raw token domain. `Adapter.takeTokenModel` in
@@ -344,7 +348,7 @@ inventories. `model_raw_equations` supplies a concrete full-domain witness.
 Normalization is therefore conditional on the inherited lexical equations,
 never an assumed replacement of raw `Take_Token` behavior.
 
-The prepared endpoint chain uses typed source trees, arbitrary-callee equations,
+The endpoint chain uses typed source trees, arbitrary-callee equations,
 checked contracts and concrete model witnesses. `syntax_bareTarget`,
 `scalarAt_staticness`, `scalarCondition_whenTrue_model` and
 `scalarCondition_whenFalse_model` in
@@ -358,7 +362,7 @@ conditions, assignments and loops retain their respective native equations and
 source checks. `Implementation.Definitions` and `Implementation.correspondence`
 in [PredicateEquations.lean](../proof/Silver/PredicateEquations.lean) compose
 those domain-bounded calls; `Implementation.model_definitions` witnesses that
-interface. `SourceChecks.actualSource` in `PredicateSourceChecks` must check the
+interface. `SourceChecks.actualSource` in `PredicateSourceChecks` checks the
 authoritative spec/body tokens, tree precedence and scope.
 [PredicateSourceBridge.lean](../proof/Silver/PredicateSourceBridge.lean)'s
 `checked_source` and `actual_source_correspondence` retain explicit
@@ -381,8 +385,8 @@ wrapper dependencies,
 `executable_main_correct`, `current_executable_membership` and
 `executable_pipeline` connect admitted authoritative source, unique meaning,
 execution, every modeled obligation and the same-source tool pipeline. These
-are conditional interface claims pending the final guard checkpoint, with no
-new trusted premise or obligation suppression.
+are conditional claims under those explicit dependencies, checked at the final
+guard checkpoint, with no new trusted premise or obligation suppression.
 
 ## Membership and composition
 

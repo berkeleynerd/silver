@@ -1,0 +1,125 @@
+{
+  "native_full": {
+    "run_id": "20261026T121322-fc9f4056f886",
+    "outcome": "success",
+    "managed_seconds": 80.191880263,
+    "captured_inputs": 2519,
+    "tracked_matches": 141,
+    "actual_commands": 1
+  },
+  "native_build": {
+    "run_id": "20261026T121505-a32d8e0916ec",
+    "outcome": "success",
+    "managed_seconds": 4.936350121,
+    "captured_inputs": 2519,
+    "tracked_matches": 141,
+    "actual_commands": 1
+  },
+  "lean": {
+    "run_id": "20261026T131016-6b27137135dc",
+    "outcome": "success",
+    "managed_seconds": 35.005383717,
+    "captured_inputs": 612,
+    "tracked_matches": 612,
+    "actual_commands": 2,
+    "phases": [
+      {
+        "phase": "build",
+        "started_at": "2026-10-26T13:10:26.156879+00:00",
+        "finished_at": "2026-10-26T13:10:36.846907+00:00",
+        "elapsed_seconds": 10.69,
+        "exit_code": 0
+      },
+      {
+        "phase": "audit",
+        "started_at": "2026-10-26T13:10:37.947684+00:00",
+        "finished_at": "2026-10-26T13:10:49.815887+00:00",
+        "elapsed_seconds": 11.868,
+        "exit_code": 0
+      }
+    ],
+    "modules": 497,
+    "declarations": 104238,
+    "runner_elapsed_seconds": 36.936
+  },
+  "evidence": {
+    "run_id": "20261026T120722-6e5bfb5dcbea",
+    "outcome": "success",
+    "managed_seconds": 6.244690178,
+    "captured_inputs": 743,
+    "tracked_matches": 739,
+    "actual_commands": 1
+  },
+  "image": {
+    "run_id": "20261026T120715-ae60c9d42d98",
+    "outcome": "success",
+    "managed_seconds": 5.701727071,
+    "captured_inputs": 743,
+    "tracked_matches": 739,
+    "actual_commands": 1
+  },
+  "native_report_inventory": 77,
+  "suite": {
+    "baseline_run": "20261026T110119-3b18a2302af0",
+    "outcome": "failure",
+    "tests": 511,
+    "errors": 1,
+    "tracked_baseline_inputs": 739,
+    "unchanged_final_matches": 738,
+    "historical_difference": {
+      "scripts/check_evidence.py": [
+        "7d8bb865f97e419ec5c3b6466964151feb3cd5ba8233fd80ae521af4525f268e",
+        "1cfe226a5c86874b4cd574da5589f8b925599f009a8e784bd42242e9da2b0060"
+      ]
+    },
+    "focused_tests": [
+      5,
+      60
+    ],
+    "manifest_samples": 48,
+    "execution_cases": 104
+  },
+  "preserved_source": {
+    "run_id": "20261026T094105-ac4e120bd9f9",
+    "outcome": "success",
+    "input_matches": 611,
+    "captured_inputs": 612,
+    "difference": {
+      "scripts/check_evidence.py": {
+        "captured": "e74034ab4dbbe370f1a28d4d460b4b327ed281f7b8bdad81d4e7a529b9094c76",
+        "final": "1cfe226a5c86874b4cd574da5589f8b925599f009a8e784bd42242e9da2b0060"
+      }
+    },
+    "phases": [
+      {
+        "phase": "build",
+        "started_at": "2026-10-26T09:41:26.585479+00:00",
+        "finished_at": "2026-10-26T13:09:46.707313+00:00",
+        "elapsed_seconds": 12500.122,
+        "exit_code": 0
+      },
+      {
+        "phase": "audit",
+        "started_at": "2026-10-26T13:09:47.878293+00:00",
+        "finished_at": "2026-10-26T13:09:59.119003+00:00",
+        "elapsed_seconds": 11.241,
+        "exit_code": 0
+      }
+    ],
+    "module_seconds": {
+      "PredicateSourceCandidate": 5082,
+      "OutputBodyCertificate": 9037,
+      "ComposeSourceChecks": 3408
+    }
+  },
+  "checked_utc": "2026-10-26T13:17:01.873191+00:00",
+  "validation_sha256": "72f5d0f8094de0307ea5ac9b03b0ae6d8a83ba667e3f90b5cda527faf18f982c",
+  "artifact_index_sha256": "927d3787d3f999360db4e8c2aa08d68abdf3660e122edb87e1712cfbeb2c51c3",
+  "indexed_artifacts": 108,
+  "bundle_files": 114,
+  "bundle_bytes": 3113879,
+  "tooling_artifacts": 12,
+  "tooling_index_sha256": "9df150e65fa3f353349cee6dc329098893d6057d5040adadfc14ca623a6bf2ef",
+  "checks": "passed",
+  "validators_invoked": false
+}

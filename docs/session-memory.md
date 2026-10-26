@@ -1,5 +1,31 @@
 # Session memory
 
+## 2026-10-26 — Development velocity follow-up recorded
+
+While the guard source rebuild was active, the owner requested a ticket covering
+ways to improve development velocity from the observed proof costs and cache
+behavior. [Follow-up #246](https://github.com/berkeleynerd/silver/issues/246)
+is recorded in Backlog outside milestone 7. It covers stable proof checkpoints,
+finer source-certificate/cache boundaries, separating proof invalidation from
+evidence refresh, coherent experimental/delivery batches and measured results.
+The [timing comparison](evidence/scalar-guard-refinement/proof-timing-20261026/README.md)
+retains the observations and their cache/concurrency qualifications.
+
+This records a planning follow-up for assessment after the external comprehensive
+review. It does not authorize implementation, alter the current supported-language
+assurance guarantee, interrupt the preserved guard validation or lift the review
+pause. A proposed batch may remain experimental until its complete composition
+and source assurance is established; supported delivery retains the Oracle.
+
+## 2026-10-26 — Retry model capacity limits without switching models
+
+The owner instructed: **“When you encounter model capacity limits just
+immediately retry on some reasonable cadence until it becomes available.”**
+Preserve completed work and retry the same selected model on a reasonable
+cadence, for example about 30 seconds. Do not switch to a fallback model without
+an owner instruction. This direction applies during remaining guard delivery
+work and does not authorize a successor or supersede the external-review pause.
+
 ## 2026-10-26 — Pause after scalar guard delivery for external review
 
 While scalar guard refinement [#234](https://github.com/berkeleynerd/silver/issues/234)
@@ -17,6 +43,32 @@ assessment remains a proposal to reconsider after the external review and a
 later owner instruction. The Oracle, tool pins, current source/operator bounds,
 and all explicit capacity/assurance-mode deferrals remain unchanged. No harness
 goal was requested or created; the earlier capacity harness remains paused.
+The completed guard delivery below reaches this boundary; roadmap implementation
+is now paused for that external review.
+
+## 2026-10-26 — Scalar guard refinement delivered; external-review pause reached
+
+[PR #242](https://github.com/berkeleynerd/silver/pull/242) delivers #234 and
+packages #237–#240 after division, completing milestone 7. The
+[delivery record](scalar-guard-refinement.md#delivery-assurance-and-validation)
+identifies the final implementation target, the issue handoff for the delivered
+external-review target, scoped independent reviews, proof-only candidate repair,
+compiler advisory repair and final Linux native, source/Lean, build, retained
+regression and focused repair evidence. The full-suite run remains failed with
+one malformed-message Image error; the independently reviewed narrow repair
+passed both focused modules. Unaffected suite results and all manifest sample
+executions are retained, without claiming a fresh complete-suite pass.
+The delivered fragment keeps the selected
+bare-name/static-threshold rules, assignment replacement, branch hulls, captured
+bounds and mutable loop widening. No grammar, tool pin, source/operator bound,
+external premise or Oracle guarantee changes.
+
+The owner's pause above now applies: hand off this completed implementation and
+its evidence for the external comprehensive review. No successor implementation
+starts; later candidates remain proposals awaiting that review and a later owner
+instruction. Existing capacity/assurance-mode deferrals remain unchanged. No
+harness goal was created or reactivated. CLI memory is unavailable and was not
+updated.
 
 ## 2026-10-26 — Interval-checked Integer division delivered
 

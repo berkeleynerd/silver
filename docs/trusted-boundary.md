@@ -119,9 +119,40 @@ completion. The [feature-local envelope review](integer-division-report-capacity
 extends the retained Main bound to 15,421,440 bytes under the inherited producer
 and frontend correspondence assumptions; report storage stays at 16,777,216.
 This source-derived calculation introduces no binary-attestation claim and does
-not resume deferred whole-language capacity work. The capability record marks
-the complete native, source/Lean, sample and review checkpoint pending until
-its actual evidence is recorded.
+not resume deferred whole-language capacity work. The
+[capability record](integer-division.md) retains the completed native,
+source/Lean, sample and review checkpoint.
+
+## Scalar guard refinement boundary
+
+The [guard delivery](scalar-guard-refinement.md#delivery-assurance-and-validation)
+retains the same tool pins, runtime libraries, source/operator budgets and
+external premises. Its [assurance chain](assurance.md#scalar-guard-refinement)
+connects current read intervals to declared assignment bounds, bare resolved
+mutable/index comparisons against Ada-static thresholds, assignment replacement,
+branch hulls and captured loop bounds with mutable widening. Immutable snapshots
+retain their values and staticness; contradictory scalar outcomes retain the
+incoming interval and do not waive static legality or prune String/input facts.
+No expression inversion, variable relation or loop-carried scalar invariant is
+assumed.
+
+Native verification establishes the checked contracts on their explicit domains;
+the source bridge retains the Ada/frontend interpretation and executable-wrapper
+premises. The final whole-project source/module/axiom checkpoint and independent
+reviews are recorded separately from exploratory sample and frame observations.
+The [compiler advisory assessment](reviews/review-scalar-guard-array-initialization-advisory-20261026.md)
+classifies only the pinned compiler's exact array-initialization information-loss
+advisory under strict JSON/SARIF metadata and existing source/provenance policy.
+It withholds an initialization fact without suppressing a safety check. The
+narrow malformed-message guard preserves the classifier's acceptance rules.
+Application policies and the trusted premises remain unchanged.
+The [feature-local frame account](evidence/scalar-guard-refinement/parser-frame-account-20261026.md)
+retains qualified applicability of the observed parser build to the final
+Static-only delta under the existing ghost-erasure premise. Those observations
+and conditional payload calculations establish no universal 8 MiB stack bound,
+malformed-prefix capacity theorem or all-route primary-stack bound. Sufficient
+stack and memory remain environmental premises; deferred capacity work stays
+deferred.
 
 ## Compiler implementation and runtime imports
 

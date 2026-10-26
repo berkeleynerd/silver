@@ -66,3 +66,27 @@ The lead applied the exact reviewed patch. Managed run
 retain its scope. This is focused validation, not a claim that the repaired
 complete native audit has finished. The active Lean source check remains frozen;
 no native source or proof file changed in this auditor repair.
+
+## Follow-up #245: malformed-message guard and evidence reuse
+
+Selected reviewer remains GPT-6 Astra Extra High; runtime confirmation and token/cost measurements remain unavailable. This independent follow-up began 2026-10-26 12:06:36 UTC. Scope is solely the classifier delta and applicability of retained validation; no exporter, paused, successor, source or proof work was inspected. No validators were run.
+
+Reviewed canonical HEAD `e88a218c7e935be6d885a5d1c43f0d94e9ebf031` plus the uncommitted two-line replacement in `scripts/check_evidence.py:465`. The old marker's unconditional `record.get("message", {}).get("text")` becomes `(isinstance(record.get("message"), dict) and record["message"].get("text") == ARRAY_INITIALIZATION_ADVISORY_TEXT)`. The exact array-rule disjunct and strict classifier are unchanged. The complete file diff contains only this replacement. No `src/` or `proof/` working-tree difference from that HEAD was present.
+
+Exact reviewed hashes:
+
+- Previous auditor: `7d8bb865f97e419ec5c3b6466964151feb3cd5ba8233fd80ae521af4525f268e`.
+- Repaired auditor: `1cfe226a5c86874b4cd574da5589f8b925599f009a8e784bd42242e9da2b0060`.
+- Saved `classifier-message-shape-245.patch`: `5ee4835f4ae706c81a1036bb0e33cb8b6223c034878a3fc5109870596af05f16`.
+- Unchanged `tests/test_evidence.py`: `fe2bdb6287f64ece29a4b66e4c414f72a4e421a561f59f0d0e2f6c9244b90dd6`.
+- Unchanged `tests/test_image_reports.py`: `65a14dd4c648218bcc4110b5d5fdf88ab3c715b36ef67d7a1042d276e2ebc96d`.
+
+No blocking finding on this precise delta. If the rule is `array-initialization`, short-circuit evaluation enters the identical strict classifier, including its exact message object requirement. Otherwise, dictionary-valued messages yield the same marker result; an absent message still yields false. A malformed non-dictionary message now yields false at this marker instead of AttributeError. For the failing Image route, the already-existing `isinstance(..., dict)` requirement then raises EvidenceError. It remains rejected, with the intended error type. No valid report acceptance, warning permission, safety obligation, proof source or source correspondence rule changes.
+
+Retained managed run `20261026T110119-3b18a2302af0` was independently inspected through `native.log` and `events.jsonl` under `.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/`. Its log SHA256 is `b7c531ce2d5e5d8e1d3f35588226ffada55170e016b5fb5f4dfafd51e76738c9`. It ran 511 tests in 3540.751 seconds, with one error: `test_image_reports.ImageEvidenceTests.test_mutated_advisory_fields_are_rejected`, subtest `changed message=[]`, raised AttributeError at the new array marker. The managed completion remains failure (return code 1), not full-suite success. This interaction was missed by the earlier read-only patch review and was exposed by the required full suite.
+
+The remaining completed test methods and unchanged well-formed native report cases remain applicable: their marker decisions are unchanged by case analysis above. The existing Image mutation test already exercises the precise failed input, and the evidence test module exercises both marker disjuncts, strict array metadata, failed checks, policy boundaries, SARIF and totals. Running `tests/test_evidence.py` and `tests/test_image_reports.py` is sufficient regression scope for this delta, conditional on their passing and the reviewed delta remaining exact. No duplicate hour-long whole suite is justified solely by this error-type repair. This follows development.md:218–222 (repeat checks invalidated by changed inputs, failure or a concrete concern) and :335–343 (preserve successful work and choose the smallest remaining check).
+
+The auditor is a captured provenance input, so final native/build/Lean records must still be refreshed as required under the normal cached workflow. Retained solver and build results are distinct from a fresh audit against the repaired auditor. Final reporting should identify the failed full run, the successful unaffected cases retained from it, and the separately successful targeted repair tests; it must not describe a fresh 511-test pass. Root owns those validation runs and final integration. Changes outside this exact delta require their own applicability assessment.
+
+Follow-up review completed at 12:10:03 UTC, elapsed 3 minutes 27 seconds including awaiting the applied delta. This is separate from the historical 7-minute-26-second original review. Token/cost data remain unavailable.

@@ -1,0 +1,1597 @@
+{
+  "exported_utc": "2026-10-26T13:12:45.848986+00:00",
+  "fresh_check_evidence": {
+    "command": [
+      "/usr/bin/python3.14",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/scripts/check_evidence.py",
+      "--source-dir",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/src",
+      "--generated-dir",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.silver/linux-x86_64/generated",
+      "--report-dir",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.silver/linux-x86_64/compiler/obj/gnatprove"
+    ],
+    "command_evidence": "reconstructed from captured dev.py, captured Python identity and selected native workspace",
+    "command_reconstruction_limits": "resolved Python executable identity retained; original selector spelling unavailable",
+    "enclosing_elapsed_seconds": 18.855227085,
+    "enclosing_finished_utc": "2026-10-26T12:14:44.441905+00:00",
+    "enclosing_started_utc": "2026-10-26T12:14:25.586686+00:00",
+    "exit_code": 0,
+    "exit_code_evidence": "inferred from checked child invocation followed by audit phase-end and successful managed finish",
+    "output": "Complete GNATprove evidence: 75 units, 1044 entities, 1374 flow_checks, 14983 proof_checks, 290 limitation_notes, 18 imported_entities, 6236 trusted_math_notes, 62 vendor_spec_entities, 5 array_initialization_advisories",
+    "source": "chosen complete managed native run; no duplicate audit",
+    "timing_scope": "audit envelope includes in-process source audit, provenance completion and auditor child; separate child time unavailable",
+    "transcript": {
+      "bytes": 1271757,
+      "compressed_sha256": "855b112b3feb3a677f939aea6e8bcb72a317ffb678005331a72570e923d115bc",
+      "path": "runs/20261026T121322-fc9f4056f886-native.log.gz",
+      "sha256": "4674235ac621d0afcab72fbdc14d83c092524068f153e885fb00a612d4ff15da"
+    }
+  },
+  "full_suite_checkpoint": {
+    "baseline_failed_full_suite": {
+      "baseline_commit": "e88a218c7e935be6d885a5d1c43f0d94e9ebf031",
+      "captured_inputs": {
+        "bytes": 145930,
+        "compressed_sha256": "f4669d04775bede332a64fd3ba65772c8782e1010434df43cdcb677575f265ba",
+        "path": "inputs/99e53df5bb67024006e900f79c2c102d8844bcf9130fcb110d2d10e457ee6f4a.json.gz",
+        "sha256": "99e53df5bb67024006e900f79c2c102d8844bcf9130fcb110d2d10e457ee6f4a"
+      },
+      "commands": [
+        [
+          "/usr/bin/python3",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ]
+      ],
+      "duration_seconds": 3542.385602572,
+      "errors": 1,
+      "events": {
+        "bytes": 144174,
+        "compressed_sha256": "0f137dd8643b47c09d98f99475e063d6d8830913d3161fd4ff93eb4c503b91d4",
+        "path": "suite/baseline-events.jsonl.gz",
+        "sha256": "7276749a9b3e94bff1c8d0c63444b8fae9b88fd4b806eb26e15f02405036ec9b"
+      },
+      "exception": "AttributeError: 'list' object has no attribute 'get'",
+      "failure_identity": "ERROR: test_mutated_advisory_fields_are_rejected (test_image_reports.ImageEvidenceTests.test_mutated_advisory_fields_are_rejected) (description='changed message=[]')",
+      "finished_utc": "2026-10-26T12:00:23.014912+00:00",
+      "input_comparison": {
+        "all_other_captured_inputs_live_match": true,
+        "baseline_auditor_sha256": "7d8bb865f97e419ec5c3b6466964151feb3cd5ba8233fd80ae521af4525f268e",
+        "baseline_commit": "e88a218c7e935be6d885a5d1c43f0d94e9ebf031",
+        "baseline_matched": 739,
+        "baseline_target_inputs": {
+          "bytes": 81475,
+          "compressed_sha256": "c0134bbcff7b9e45115cf3600ec87ab8bb10a1fa5422547318e9ed2c9dc07ae3",
+          "path": "inputs/781869cbf7eddd2926b988daa3d1f1024f6ae61e389ef482a1f03d2179c56fa5.json.gz",
+          "sha256": "781869cbf7eddd2926b988daa3d1f1024f6ae61e389ef482a1f03d2179c56fa5"
+        },
+        "expected": 739,
+        "explicit_repaired_input": "scripts/check_evidence.py",
+        "external_inputs": 1,
+        "final_auditor_sha256": "1cfe226a5c86874b4cd574da5589f8b925599f009a8e784bd42242e9da2b0060",
+        "target_commit": "d4d564cf358bd2c617b4899c53ceb0c0c1fd69da",
+        "unchanged_matched": 738
+      },
+      "invocation_command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "kind": "test",
+      "log": {
+        "bytes": 1755953,
+        "compressed_sha256": "fc3bf9183962d5be5932ef9888ba7007586e01ef141884f00270d909c1bea2e7",
+        "path": "suite/baseline-native.log.gz",
+        "sha256": "b7c531ce2d5e5d8e1d3f35588226ffada55170e016b5fb5f4dfafd51e76738c9"
+      },
+      "outcome": "failure",
+      "renderer_inputs": {
+        "capture_valid": true,
+        "original_launch_log": {
+          "bytes": 1756261,
+          "compressed_sha256": "926d3060ba74096b7ee7812172544e26cad6818e97834850fd00187115b92d26",
+          "path": "suite/original-suite-launch.log.gz",
+          "sha256": "8c5615dbaf880dbd7a5748df2b397c01eb782f8eb1d49ad95bd618400037ca3b"
+        },
+        "original_rejection_retained": "expected exactly one managed run ID",
+        "original_snapshot": {
+          "bytes": 1587,
+          "compressed_sha256": "fb4a5886f8f2992313a2c9706cc1540090f7a637fd0d37633e7b4013b002d000",
+          "path": "suite/original-renderer-before-after.json.gz",
+          "sha256": "2f9ed558675fc48a445ad29b96520d082d8710bb149610ee989af43dbbb7f729"
+        },
+        "reconciled_snapshot": {
+          "bytes": 3045,
+          "compressed_sha256": "e5d9bf98ab26bbfaff0cf4d7b8b03a72a1d19a1a2e48212cb6e5c240f1c15ed2",
+          "path": "suite/reconciled-renderer-before-after.json.gz",
+          "sha256": "e17165e4fd784942edf7ae8dfe270ee2f579abf65aad6445f0b86d1fc07cf195"
+        },
+        "suite_outcome": "failure"
+      },
+      "returncode": 1,
+      "run_id": "20261026T110119-3b18a2302af0",
+      "skipped": 0,
+      "started_utc": "2026-10-26T11:01:20.628845+00:00",
+      "tests": 511,
+      "unittest_seconds": 3540.751,
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native"
+    },
+    "claim": "retained failed complete suite plus successful focused auditor repair",
+    "fresh_full_suite_success": false,
+    "reviewed_auditor_delta": {
+      "all_other_governed_inputs_unchanged": true,
+      "baseline_auditor": {
+        "bytes": 48076,
+        "compressed_sha256": "ce4cca620f90b653611052d832e6f6faea9e909347f2ef702136366c94a805da",
+        "path": "repair/baseline-check_evidence.py.gz",
+        "sha256": "7d8bb865f97e419ec5c3b6466964151feb3cd5ba8233fd80ae521af4525f268e"
+      },
+      "baseline_auditor_sha256": "7d8bb865f97e419ec5c3b6466964151feb3cd5ba8233fd80ae521af4525f268e",
+      "baseline_commit": "e88a218c7e935be6d885a5d1c43f0d94e9ebf031",
+      "changed_governed_inputs": [
+        "scripts/check_evidence.py"
+      ],
+      "exact_replacement_verified": true,
+      "final_auditor": {
+        "bytes": 48148,
+        "compressed_sha256": "80dca98224332b3bab82b6c28cd2503718e891d6bac3f7f9e3ac4e38cd72e24f",
+        "path": "repair/final-check_evidence.py.gz",
+        "sha256": "1cfe226a5c86874b4cd574da5589f8b925599f009a8e784bd42242e9da2b0060"
+      },
+      "final_auditor_sha256": "1cfe226a5c86874b4cd574da5589f8b925599f009a8e784bd42242e9da2b0060",
+      "final_commit": "d4d564cf358bd2c617b4899c53ceb0c0c1fd69da",
+      "patch": {
+        "bytes": 917,
+        "compressed_sha256": "04a13ec39fc82ddcaa22fdf3a60a901df6f77980e497532336fa7ae36aad25b0",
+        "path": "repair/auditor-only.patch.gz",
+        "sha256": "5ee4835f4ae706c81a1036bb0e33cb8b6223c034878a3fc5109870596af05f16"
+      }
+    },
+    "successful_final_input_repair_tests": {
+      "evidence": {
+        "captured_inputs": {
+          "bytes": 139213,
+          "compressed_sha256": "b53b9c3b949c9cd16765fbeb9f279fb3b9a3bc9a8a031bc1758431c73e634f98",
+          "path": "inputs/19bb860b5164c5aca006fd7e8ed03f1e463b51e95dee67274d824b516c4ad5da.json.gz",
+          "sha256": "19bb860b5164c5aca006fd7e8ed03f1e463b51e95dee67274d824b516c4ad5da"
+        },
+        "commands": [
+          [
+            "/usr/bin/python3",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-v",
+            "-p",
+            "test_evidence.py"
+          ]
+        ],
+        "duration_seconds": 6.244690178,
+        "errors": 0,
+        "events": {
+          "bytes": 137549,
+          "compressed_sha256": "dcddb94965c6eecf26d0d4847da8a33012fdd32d9dad236c12227529cecf611f",
+          "path": "runs/20261026T120722-6e5bfb5dcbea-events.jsonl.gz",
+          "sha256": "6b3154cc5c47cfc1c74929a737ead24447ef80b0ef7590220618675214a15351"
+        },
+        "finished_utc": "2026-10-26T12:07:30.525512+00:00",
+        "input_capture_event": "prepared",
+        "input_capture_utc": "2026-10-26T12:07:24.690884+00:00",
+        "invocation_command": [
+          "/usr/bin/python3",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v",
+          "-p",
+          "test_evidence.py"
+        ],
+        "kind": "test",
+        "log": {
+          "bytes": 9693,
+          "compressed_sha256": "f1c85868b2bb7ca031f8c3a09c8a44da8da3fafac9c28c1c2bf383fa8047a82e",
+          "path": "runs/20261026T120722-6e5bfb5dcbea-native.log.gz",
+          "sha256": "7ec374f43fd12332ad800b73d2767ad7d4f7b75fc613d767d0162bce20e6f885"
+        },
+        "outcome": "success",
+        "reason": "",
+        "run_id": "20261026T120722-6e5bfb5dcbea",
+        "skipped": 0,
+        "started_utc": "2026-10-26T12:07:24.280747+00:00",
+        "tests": 60,
+        "tracked_input_comparison": {
+          "additional_local_inputs": 3,
+          "all_captured_inputs_live_match": true,
+          "expected": 739,
+          "external_inputs": 1,
+          "matched": 739,
+          "mismatches": {},
+          "missing": [],
+          "policy": "test",
+          "target_commit": "d4d564cf358bd2c617b4899c53ceb0c0c1fd69da",
+          "target_inputs": {
+            "bytes": 81475,
+            "compressed_sha256": "43f87c5a9fbed68b2111e64b30fbbef6672cfc375cd1e21ff8708a5344ecc5e1",
+            "path": "inputs/f959958353e389bc5183eaf20c4d0be7f38a52ee096627dbef503485280faa5e.json.gz",
+            "sha256": "f959958353e389bc5183eaf20c4d0be7f38a52ee096627dbef503485280faa5e"
+          }
+        },
+        "unittest_seconds": 3.836,
+        "workers": 2,
+        "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-guard-refinement"
+      },
+      "image": {
+        "captured_inputs": {
+          "bytes": 139223,
+          "compressed_sha256": "121b3a576024c7a7ad295f6f9af761895d507fc2e7b7bce0985b9ced7ff61cf4",
+          "path": "inputs/7acf6d016eff2a2c3a19bd8e27994636fbc75f7569853dec2b14d272e993f408.json.gz",
+          "sha256": "7acf6d016eff2a2c3a19bd8e27994636fbc75f7569853dec2b14d272e993f408"
+        },
+        "commands": [
+          [
+            "/usr/bin/python3",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-v",
+            "-p",
+            "test_image_reports.py"
+          ]
+        ],
+        "duration_seconds": 5.701727071,
+        "errors": 0,
+        "events": {
+          "bytes": 137589,
+          "compressed_sha256": "f0dc578322806efe8776c795062c8df3a97fb65ce3d20bb4b970426f202ee317",
+          "path": "runs/20261026T120715-ae60c9d42d98-events.jsonl.gz",
+          "sha256": "867768ad56cd0586b6f9a036dcfe0efdd36e7f4beb8a3acebcd022ad3b73c468"
+        },
+        "finished_utc": "2026-10-26T12:07:22.547190+00:00",
+        "input_capture_event": "prepared",
+        "input_capture_utc": "2026-10-26T12:07:17.139889+00:00",
+        "invocation_command": [
+          "/usr/bin/python3",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v",
+          "-p",
+          "test_image_reports.py"
+        ],
+        "kind": "test",
+        "log": {
+          "bytes": 927,
+          "compressed_sha256": "900f9dd417fc1e553a386a71cc48aca8d764cbe524003ce6ba5ece64b4f16e8a",
+          "path": "runs/20261026T120715-ae60c9d42d98-native.log.gz",
+          "sha256": "e8658135dc8f813db8dfff44ee40ca7f40e6bb6a5fdfd16aff39ad2837d27b98"
+        },
+        "outcome": "success",
+        "reason": "",
+        "run_id": "20261026T120715-ae60c9d42d98",
+        "skipped": 0,
+        "started_utc": "2026-10-26T12:07:16.845339+00:00",
+        "tests": 5,
+        "tracked_input_comparison": {
+          "additional_local_inputs": 3,
+          "all_captured_inputs_live_match": true,
+          "expected": 739,
+          "external_inputs": 1,
+          "matched": 739,
+          "mismatches": {},
+          "missing": [],
+          "policy": "test",
+          "target_commit": "d4d564cf358bd2c617b4899c53ceb0c0c1fd69da",
+          "target_inputs": {
+            "bytes": 81475,
+            "compressed_sha256": "43f87c5a9fbed68b2111e64b30fbbef6672cfc375cd1e21ff8708a5344ecc5e1",
+            "path": "inputs/f959958353e389bc5183eaf20c4d0be7f38a52ee096627dbef503485280faa5e.json.gz",
+            "sha256": "f959958353e389bc5183eaf20c4d0be7f38a52ee096627dbef503485280faa5e"
+          }
+        },
+        "unittest_seconds": 3.728,
+        "workers": 2,
+        "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/scalar-guard-refinement"
+      }
+    }
+  },
+  "implementation_commit": "d4d564cf358bd2c617b4899c53ceb0c0c1fd69da",
+  "lean": {
+    "axiom_audit": "passed",
+    "captured_inputs": {
+      "bytes": 69817,
+      "compressed_sha256": "afa6434ef5c6ec0689a4bfc5ee6ff36bd4e6d7e6fa14b139648eeec776d680f5",
+      "path": "inputs/abfde104093141f4eea742165235d643badf6f9f8416d52b9fb32f6276f7298f.json.gz",
+      "sha256": "abfde104093141f4eea742165235d643badf6f9f8416d52b9fb32f6276f7298f"
+    },
+    "certificate_scope": "Complete Lean regenerates candidates from captured source/generator inputs; checked-in candidate parity passed in the separately retained complete suite, whose one unrelated Image malformed-message error keeps that whole run labeled failure.",
+    "commands": [
+      [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/.tools/linux-x86_64/lean/bin/lake",
+        "--rehash",
+        "--reconfigure",
+        "-K",
+        "silverThreads=2",
+        "build",
+        "Silver.Audit"
+      ],
+      [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/.tools/linux-x86_64/lean/bin/lake",
+        "-K",
+        "silverThreads=2",
+        "env",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/.tools/linux-x86_64/lean/bin/lean",
+        "-DwarningAsError=true",
+        "-j2",
+        "Silver/Audit.lean"
+      ]
+    ],
+    "duration_seconds": 35.005383717,
+    "elapsed_seconds": 36.936,
+    "events": {
+      "bytes": 72290,
+      "compressed_sha256": "536058b6257748e13b0cecbc30ae215ca982fe42a08e01a9a24b2c1eed4cab67",
+      "path": "runs/20261026T131016-6b27137135dc-events.jsonl.gz",
+      "sha256": "6c04b81da9b8983d42e551b7e93eeeb56e292d17fa67f6c10e587fb07002822d"
+    },
+    "finished_utc": "2026-10-26T13:10:53.300617+00:00",
+    "fresh_audit": {
+      "command": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/.tools/linux-x86_64/lean/bin/lake",
+        "-K",
+        "silverThreads=2",
+        "env",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/.tools/linux-x86_64/lean/bin/lean",
+        "-DwarningAsError=true",
+        "-j2",
+        "Silver/Audit.lean"
+      ],
+      "exit_code": 0,
+      "finished_utc": "2026-10-26T13:10:49.815887+00:00",
+      "output": "Silver axiom audit passed: 104238 declarations; foundations: [propext, Classical.choice, Quot.sound]",
+      "started_utc": "2026-10-26T13:10:37.947684+00:00",
+      "transcript_log_byte_offset": 36022,
+      "transcript_sha256": "ec85ad12d9f39156930667adffc3593f0b14f9700cddb06e4f4639b3aba63506"
+    },
+    "input_capture_event": "started",
+    "input_capture_utc": "2026-10-26T13:10:18.294939+00:00",
+    "invocation_command": [
+      "/usr/bin/python3",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/scripts/check_lean.py",
+      "--task",
+      "#239,#245",
+      "--workers",
+      "4",
+      "--threads",
+      "2",
+      "--reason",
+      "Capture the reviewed auditor-only repair after preserving the complete source build; proof and native source bytes are unchanged."
+    ],
+    "kernel_recheck": null,
+    "kind": "lean",
+    "log": {
+      "bytes": 57635,
+      "compressed_sha256": "072a0b8b0b8da733d48b12ac6e30a9d8fb1c16613c614fd4dd85a260d781c8d1",
+      "path": "lean/complete-lean.log.gz",
+      "sha256": "5d9aa63a9abbaa7a49b10eb40f44c5cde22293a1d70b1b497e8c6f6f39953f69"
+    },
+    "mode": "incremental",
+    "modules": [
+      "Silver",
+      "Silver.Admission",
+      "Silver.ArgumentsAdmission",
+      "Silver.ArgumentsBodyCertificate",
+      "Silver.ArgumentsBodySource",
+      "Silver.ArgumentsDisjoint",
+      "Silver.ArgumentsEquations",
+      "Silver.ArgumentsExamples",
+      "Silver.ArgumentsExpressions",
+      "Silver.ArgumentsRuntime",
+      "Silver.ArgumentsSemantics",
+      "Silver.ArgumentsSourceBridge",
+      "Silver.ArgumentsSpecCertificate",
+      "Silver.ArgumentsSpecSource",
+      "Silver.AssignmentAdmission",
+      "Silver.AssignmentDisjoint",
+      "Silver.AssignmentEquations",
+      "Silver.AssignmentExamples",
+      "Silver.AssignmentExpressions",
+      "Silver.AssignmentSemantics",
+      "Silver.Audit",
+      "Silver.AuthoritativeSource",
+      "Silver.AxiomAudit",
+      "Silver.Bindings",
+      "Silver.BranchingAdmission",
+      "Silver.BranchingDisjoint",
+      "Silver.BranchingEquations",
+      "Silver.BranchingExamples",
+      "Silver.BranchingExpressions",
+      "Silver.BranchingMain",
+      "Silver.BranchingSemantics",
+      "Silver.CertificateWitness",
+      "Silver.ComposeAdmission",
+      "Silver.ComposeBounds",
+      "Silver.ComposeContracts",
+      "Silver.ComposeDeclarations",
+      "Silver.ComposeDecode",
+      "Silver.ComposeEquations",
+      "Silver.ComposeEvaluation",
+      "Silver.ComposeExamples",
+      "Silver.ComposeExecution",
+      "Silver.ComposeExpression",
+      "Silver.ComposeExpressions",
+      "Silver.ComposeFrozenSemantics",
+      "Silver.ComposeGrammar",
+      "Silver.ComposeInitializerTrace",
+      "Silver.ComposeLexical",
+      "Silver.ComposeMain",
+      "Silver.ComposeModel",
+      "Silver.ComposeModelCalls",
+      "Silver.ComposeModelEquations",
+      "Silver.ComposeModelLegal",
+      "Silver.ComposeModelRanges",
+      "Silver.ComposeModelRecursion",
+      "Silver.ComposeNameBridge",
+      "Silver.ComposeObligations",
+      "Silver.ComposeRecognitionEquations",
+      "Silver.ComposeScalarDeclarations",
+      "Silver.ComposeScalarDenotations",
+      "Silver.ComposeScalarTrace",
+      "Silver.ComposeSemantics",
+      "Silver.ComposeSourceBridge",
+      "Silver.ComposeSourceChecks",
+      "Silver.ComposeStateBounds",
+      "Silver.ConcatAdmission",
+      "Silver.ConcatDisjoint",
+      "Silver.ConcatEquations",
+      "Silver.ConcatExamples",
+      "Silver.ConcatExpressions",
+      "Silver.ConcatSemantics",
+      "Silver.Current",
+      "Silver.Cursor",
+      "Silver.Expressions",
+      "Silver.GuardedAdmission",
+      "Silver.GuardedDecimal",
+      "Silver.GuardedDisjoint",
+      "Silver.GuardedEquations",
+      "Silver.GuardedExamples",
+      "Silver.GuardedExpressions",
+      "Silver.GuardedMain",
+      "Silver.GuardedObligations",
+      "Silver.GuardedSemantics",
+      "Silver.IOBodyCertificate",
+      "Silver.IOSpecCertificate",
+      "Silver.ImageConsumerEndpoint",
+      "Silver.ImageFileSplice",
+      "Silver.ImageFilesBodySource",
+      "Silver.ImageFilesCapture",
+      "Silver.ImageFilesEndpoint",
+      "Silver.ImageFilesSource",
+      "Silver.ImageFilesSourceShape",
+      "Silver.ImageFilesSpecSource",
+      "Silver.ImageFilesSplice",
+      "Silver.ImageFilesTrace",
+      "Silver.ImageModelAtomResult",
+      "Silver.ImageModelBodyCertificate",
+      "Silver.ImageModelBodySource",
+      "Silver.ImageModelByteCount",
+      "Silver.ImageModelCanonicalRead",
+      "Silver.ImageModelCharacter",
+      "Silver.ImageModelClone",
+      "Silver.ImageModelCloneMeaning",
+      "Silver.ImageModelCodeUnitSpelling",
+      "Silver.ImageModelConsumeNative",
+      "Silver.ImageModelConsumerBoundary",
+      "Silver.ImageModelCoreState",
+      "Silver.ImageModelDecodedNative",
+      "Silver.ImageModelDecodedSource",
+      "Silver.ImageModelDocumentAcceptance",
+      "Silver.ImageModelDocumentAllSelected",
+      "Silver.ImageModelDocumentEffects",
+      "Silver.ImageModelDocumentEntries",
+      "Silver.ImageModelDocumentFinish",
+      "Silver.ImageModelDocumentFooter",
+      "Silver.ImageModelDocumentHeader",
+      "Silver.ImageModelDocumentScan",
+      "Silver.ImageModelDocumentSelection",
+      "Silver.ImageModelDocumentSpan",
+      "Silver.ImageModelDocumentSplice",
+      "Silver.ImageModelDocumentTheory",
+      "Silver.ImageModelDocumentTraceProperties",
+      "Silver.ImageModelEmissionLiveness",
+      "Silver.ImageModelExactEmission",
+      "Silver.ImageModelFieldArrayBody",
+      "Silver.ImageModelFinishNative",
+      "Silver.ImageModelFinishSource",
+      "Silver.ImageModelHexSource",
+      "Silver.ImageModelIdNormalization",
+      "Silver.ImageModelIdRun",
+      "Silver.ImageModelInitialSource",
+      "Silver.ImageModelInsertion",
+      "Silver.ImageModelJsonArrays",
+      "Silver.ImageModelJsonBodies",
+      "Silver.ImageModelJsonCanonical",
+      "Silver.ImageModelJsonComposition",
+      "Silver.ImageModelJsonDelimiters",
+      "Silver.ImageModelJsonErasure",
+      "Silver.ImageModelJsonFields",
+      "Silver.ImageModelJsonMeaning",
+      "Silver.ImageModelJsonNormalization",
+      "Silver.ImageModelJsonSimulation",
+      "Silver.ImageModelJsonSpelling",
+      "Silver.ImageModelJsonSplice",
+      "Silver.ImageModelJsonSyntax",
+      "Silver.ImageModelMatcher",
+      "Silver.ImageModelMatcherDeath",
+      "Silver.ImageModelMatcherNative",
+      "Silver.ImageModelMatcherSource",
+      "Silver.ImageModelNameNative",
+      "Silver.ImageModelNameSource",
+      "Silver.ImageModelNames",
+      "Silver.ImageModelNativeHelpers",
+      "Silver.ImageModelNormalExact",
+      "Silver.ImageModelNumberScan",
+      "Silver.ImageModelProducerSyntax",
+      "Silver.ImageModelQuotedString",
+      "Silver.ImageModelRefinement",
+      "Silver.ImageModelRootScan",
+      "Silver.ImageModelScanTrace",
+      "Silver.ImageModelScannerSource",
+      "Silver.ImageModelScannerSyntax",
+      "Silver.ImageModelSelectedMeaning",
+      "Silver.ImageModelSelectedTemplate",
+      "Silver.ImageModelSourceShape",
+      "Silver.ImageModelSpecCertificate",
+      "Silver.ImageModelSpecSource",
+      "Silver.ImageModelStringEncoding",
+      "Silver.ImageModelStringNative",
+      "Silver.ImageModelStringNormalization",
+      "Silver.ImageModelStringObservations",
+      "Silver.ImageModelStringResult",
+      "Silver.ImageModelStringScan",
+      "Silver.ImageModelStringSource",
+      "Silver.ImageModelStructuralNative",
+      "Silver.ImageModelStructuralNesting",
+      "Silver.ImageModelStructuralSteps",
+      "Silver.ImageModelTemplateData",
+      "Silver.ImageModelTemplateFragments",
+      "Silver.ImageModelTemplateIndex",
+      "Silver.ImageModelTemplateSchema",
+      "Silver.ImageModelTemplateSelectors",
+      "Silver.ImageModelTemplateSource",
+      "Silver.ImageModelTemplateValidity",
+      "Silver.ImageModelTemplatesBodyCertificate",
+      "Silver.ImageModelTemplatesBodySource",
+      "Silver.ImageModelTemplatesSpecCertificate",
+      "Silver.ImageModelTemplatesSpecSource",
+      "Silver.ImageModelTheoryAcceptance",
+      "Silver.ImageModelTheoryCuts",
+      "Silver.ImageModelTheoryFields",
+      "Silver.ImageModelTheoryNative",
+      "Silver.ImageModelTheoryOffsets",
+      "Silver.ImageModelTheoryRefinement",
+      "Silver.ImageModelTheoryScan",
+      "Silver.ImageModelTheorySource",
+      "Silver.ImageModelTheorySpan",
+      "Silver.ImageModelTheorySpelling",
+      "Silver.ImageModelTheorySplice",
+      "Silver.ImageModelTokenScan",
+      "Silver.ImageModelWideFields",
+      "Silver.ImageModelWideNormalization",
+      "Silver.ImageModelWideQuotedResult",
+      "Silver.ImageModelWideSimulation",
+      "Silver.ImageModelWideString",
+      "Silver.ImageModelWideTheoryFields",
+      "Silver.ImageModelWideTheoryScan",
+      "Silver.ImageModelWideTheorySpelling",
+      "Silver.ImageProducerEndpoint",
+      "Silver.ImageRefinementEndpoint",
+      "Silver.ImageTheorySpecSource",
+      "Silver.IntegerChecks",
+      "Silver.IntegerComparisons",
+      "Silver.IntegerDeclarations",
+      "Silver.IntegerDivision",
+      "Silver.IntegerExpressions",
+      "Silver.IntegerImage",
+      "Silver.IntegerImageLength",
+      "Silver.IntegerImageNative",
+      "Silver.IntegerImageNativeCapture",
+      "Silver.IntegerImageNativeExpressions",
+      "Silver.IntegerImageNativeSource",
+      "Silver.IntegerImageRefinement",
+      "Silver.IntegerImageSpecSource",
+      "Silver.IntegerImageTheory",
+      "Silver.IntegerIntervals",
+      "Silver.IntegerIteration",
+      "Silver.IntegerLiteral",
+      "Silver.IntegerLiteralBodyCertificate",
+      "Silver.IntegerLiteralBodySource",
+      "Silver.IntegerLiteralEquations",
+      "Silver.IntegerLiteralExpressions",
+      "Silver.IntegerLiteralSourceBridge",
+      "Silver.IntegerLiteralSourceChecks",
+      "Silver.IntegerLiteralSourceShape",
+      "Silver.IntegerLiteralSpecCertificate",
+      "Silver.IntegerLiteralSpecSource",
+      "Silver.IntegerMutable",
+      "Silver.IoBodySource",
+      "Silver.IoSpecSource",
+      "Silver.LengthIntervalExpressions",
+      "Silver.LengthIntervalModel",
+      "Silver.LengthIntervalPrecedence",
+      "Silver.LengthIntervalsBodySource",
+      "Silver.LengthIntervalsCapture",
+      "Silver.LengthIntervalsSource",
+      "Silver.LengthIntervalsSpecSource",
+      "Silver.Lexical",
+      "Silver.LexicalSourceBridge",
+      "Silver.NamedAdmission",
+      "Silver.NamedDisjoint",
+      "Silver.NamedEquations",
+      "Silver.NamedExamples",
+      "Silver.NamedExpressions",
+      "Silver.NamedIdentifier",
+      "Silver.NamedSemantics",
+      "Silver.NamedSourceBridge",
+      "Silver.Names",
+      "Silver.NamesBodyCertificate",
+      "Silver.NamesBodySource",
+      "Silver.NamesEquations",
+      "Silver.NamesExpressions",
+      "Silver.NamesSourceBridge",
+      "Silver.NamesSourceChecks",
+      "Silver.NamesSourceShape",
+      "Silver.NamesSpecCertificate",
+      "Silver.NamesSpecSource",
+      "Silver.OutputAdmission",
+      "Silver.OutputBodyCertificate",
+      "Silver.OutputEquations",
+      "Silver.OutputExpressions",
+      "Silver.OutputLexicalBodyCertificate",
+      "Silver.OutputLexicalBodySource",
+      "Silver.OutputLexicalSpecCertificate",
+      "Silver.OutputLexicalSpecSource",
+      "Silver.OutputLibcCertificate",
+      "Silver.OutputLibcSpecSource",
+      "Silver.OutputLiteral",
+      "Silver.OutputProfileBodySource",
+      "Silver.OutputProfileSpecSource",
+      "Silver.OutputRuntime",
+      "Silver.OutputSourceBridge",
+      "Silver.OutputSpecCertificate",
+      "Silver.PathBounds",
+      "Silver.PathFacts",
+      "Silver.PathFactsSourceBridge",
+      "Silver.PathFactsSourceChecks",
+      "Silver.PathFactsSourceShape",
+      "Silver.PathFactsSpecCertificate",
+      "Silver.PathFactsSpecSource",
+      "Silver.PathNativeEquations",
+      "Silver.PathNativeExpressions",
+      "Silver.PathNativeModel",
+      "Silver.PathNativePrecedence",
+      "Silver.Precedence",
+      "Silver.PredicateAdapter",
+      "Silver.PredicateAdapterEnvironment",
+      "Silver.PredicateAdapterSourceCandidate",
+      "Silver.PredicateAdmission",
+      "Silver.PredicateBasicEquations",
+      "Silver.PredicateBasicExpressions",
+      "Silver.PredicateBasicHelpers",
+      "Silver.PredicateBasicLibraries",
+      "Silver.PredicateBasicReadings",
+      "Silver.PredicateBasicSizing",
+      "Silver.PredicateBasicSourceCandidate",
+      "Silver.PredicateBodyAdmission",
+      "Silver.PredicateBodyBounds",
+      "Silver.PredicateBodyCandidates",
+      "Silver.PredicateBodyControls",
+      "Silver.PredicateBodyCorrespondence",
+      "Silver.PredicateBodyEquations",
+      "Silver.PredicateBodyExpressions",
+      "Silver.PredicateBodyFlow",
+      "Silver.PredicateBodyFlowPreservation",
+      "Silver.PredicateBodyFlowValidity",
+      "Silver.PredicateBodyHelpers",
+      "Silver.PredicateBodyMeaning",
+      "Silver.PredicateBodyModelSizing",
+      "Silver.PredicateBodyProperties",
+      "Silver.PredicateBodyReadings",
+      "Silver.PredicateBodySizing",
+      "Silver.PredicateBodySound",
+      "Silver.PredicateBodyUnique",
+      "Silver.PredicateBodyWrappers",
+      "Silver.PredicateChecking",
+      "Silver.PredicateChecks",
+      "Silver.PredicateComposition",
+      "Silver.PredicateConditionBounds",
+      "Silver.PredicateConditionFlow",
+      "Silver.PredicateConditionFlowValidity",
+      "Silver.PredicateConditionMeaning",
+      "Silver.PredicateConditionReadings",
+      "Silver.PredicateConditionSound",
+      "Silver.PredicateConditionUnique",
+      "Silver.PredicateConditionValidity",
+      "Silver.PredicateCorrespondence",
+      "Silver.PredicateEquations",
+      "Silver.PredicateExamples",
+      "Silver.PredicateExecution",
+      "Silver.PredicateFlags",
+      "Silver.PredicateFlowCopy",
+      "Silver.PredicateFlowInvariant",
+      "Silver.PredicateFlowOperations",
+      "Silver.PredicateFlowOverlay",
+      "Silver.PredicateFlowReaderLibraries",
+      "Silver.PredicateFlowReaders",
+      "Silver.PredicateFlowSourceBridge",
+      "Silver.PredicateFlowStorage",
+      "Silver.PredicateFlowWidening",
+      "Silver.PredicateGrammar",
+      "Silver.PredicateHeader",
+      "Silver.PredicateHeaderDecode",
+      "Silver.PredicateHeaderFlow",
+      "Silver.PredicateInheritedReady",
+      "Silver.PredicateLoopCandidate",
+      "Silver.PredicateLoopFlowValidity",
+      "Silver.PredicateLoopHelpers",
+      "Silver.PredicateLoopImports",
+      "Silver.PredicateLoopNative",
+      "Silver.PredicateLoopProperties",
+      "Silver.PredicateLoopSizing",
+      "Silver.PredicateNativeBodies",
+      "Silver.PredicateNativeContracts",
+      "Silver.PredicateNativeCorrespondence",
+      "Silver.PredicateNativeEquations",
+      "Silver.PredicateNativeExpressions",
+      "Silver.PredicateNativeHelpers",
+      "Silver.PredicateNativeLibraries",
+      "Silver.PredicateNativeModel",
+      "Silver.PredicateNativeModelSizing",
+      "Silver.PredicateNativePrecedence",
+      "Silver.PredicateNativeProgress",
+      "Silver.PredicateNativeRanges",
+      "Silver.PredicateNativeScalarHelpers",
+      "Silver.PredicateNativeSizing",
+      "Silver.PredicateNativeSourceBridge",
+      "Silver.PredicateNativeSourceChecks",
+      "Silver.PredicateNativeState",
+      "Silver.PredicateNativeWorkers",
+      "Silver.PredicateObligations",
+      "Silver.PredicateOuterCandidates",
+      "Silver.PredicateOuterEquations",
+      "Silver.PredicateOuterExpressions",
+      "Silver.PredicateOuterModel",
+      "Silver.PredicateOuterReadiness",
+      "Silver.PredicateReadings",
+      "Silver.PredicateScalarBodyCandidate",
+      "Silver.PredicateScalarBodyHelpers",
+      "Silver.PredicateScalarBodyNative",
+      "Silver.PredicateScalarBodySource",
+      "Silver.PredicateScalarGuardMeaning",
+      "Silver.PredicateSelectors",
+      "Silver.PredicateSemantics",
+      "Silver.PredicateShell",
+      "Silver.PredicateSourceBridge",
+      "Silver.PredicateSourceCandidate",
+      "Silver.PredicateSourceChecks",
+      "Silver.PredicateSourceRequirements",
+      "Silver.PredicateSourceShape",
+      "Silver.PredicateSourceSyntax",
+      "Silver.PredicateStatements",
+      "Silver.PredicateSyntax",
+      "Silver.ProfileBodyCertificate",
+      "Silver.ProfileBodySource",
+      "Silver.ProfileSpecCertificate",
+      "Silver.ProfileSpecSource",
+      "Silver.RecursiveBridge",
+      "Silver.ReviewedOutputShape",
+      "Silver.ReviewedSourceShape",
+      "Silver.RuntimeSpecCertificate",
+      "Silver.RuntimeSpecSource",
+      "Silver.ScalarEnvironmentSourceBridge",
+      "Silver.ScalarExpression",
+      "Silver.ScalarExpressionAdmission",
+      "Silver.ScalarExpressionBodyCertificate",
+      "Silver.ScalarExpressionBodySource",
+      "Silver.ScalarExpressionBounds",
+      "Silver.ScalarExpressionConstants",
+      "Silver.ScalarExpressionEnvironment",
+      "Silver.ScalarExpressionGrammar",
+      "Silver.ScalarExpressionNativeAlgebra",
+      "Silver.ScalarExpressionNativeDenotations",
+      "Silver.ScalarExpressionNativeEquations",
+      "Silver.ScalarExpressionNativeExpressions",
+      "Silver.ScalarExpressionNativeModel",
+      "Silver.ScalarExpressionNativeRecursion",
+      "Silver.ScalarExpressionNativeTypes",
+      "Silver.ScalarExpressionRecognition",
+      "Silver.ScalarExpressionSourceBridge",
+      "Silver.ScalarExpressionSourceChecks",
+      "Silver.ScalarExpressionSourceShape",
+      "Silver.ScalarExpressionSpecCertificate",
+      "Silver.ScalarExpressionSpecSource",
+      "Silver.ScalarFlow",
+      "Silver.ScalarLiteral",
+      "Silver.ScalarLiteralBodyCertificate",
+      "Silver.ScalarLiteralBodySource",
+      "Silver.ScalarLiteralEquations",
+      "Silver.ScalarLiteralExpressions",
+      "Silver.ScalarLiteralSourceBridge",
+      "Silver.ScalarLiteralSourceChecks",
+      "Silver.ScalarLiteralSourceShape",
+      "Silver.ScalarLiteralSpecCertificate",
+      "Silver.ScalarLiteralSpecSource",
+      "Silver.ScalarsNativeEquations",
+      "Silver.ScalarsNativeExpressions",
+      "Silver.ScalarsNativeSourceBridge",
+      "Silver.ScalarsNativeSourceChecks",
+      "Silver.ScalarsSpecCertificate",
+      "Silver.ScalarsSpecSource",
+      "Silver.Semantics",
+      "Silver.SequenceAdmission",
+      "Silver.SequenceBasics",
+      "Silver.SequenceBodyContext",
+      "Silver.SequenceConditionValidity",
+      "Silver.SequenceConditions",
+      "Silver.SequenceContext",
+      "Silver.SequenceEffects",
+      "Silver.SequenceEquations",
+      "Silver.SequenceExecution",
+      "Silver.SequenceExpressions",
+      "Silver.SequenceFormDisjoint",
+      "Silver.SequenceFullEquations",
+      "Silver.SequenceGrammar",
+      "Silver.SequenceHeader",
+      "Silver.SequenceInitializerTrace",
+      "Silver.SequenceLists",
+      "Silver.SequenceMain",
+      "Silver.SequenceModel",
+      "Silver.SequenceModelRanges",
+      "Silver.SequenceNativeCorrespondence",
+      "Silver.SequenceNativeEquations",
+      "Silver.SequenceNativeExpressions",
+      "Silver.SequenceNativeModel",
+      "Silver.SequenceNativeProjected",
+      "Silver.SequenceNativeProjection",
+      "Silver.SequenceNativeState",
+      "Silver.SequenceNativeUnique",
+      "Silver.SequenceObligations",
+      "Silver.SequenceScalarTrace",
+      "Silver.SequenceSelectors",
+      "Silver.SequenceSemantics",
+      "Silver.SequenceShell",
+      "Silver.SequenceSyntax",
+      "Silver.SequenceTokens",
+      "Silver.Source",
+      "Silver.SourceBridge",
+      "Silver.SourceCertificates",
+      "Silver.SourceDeclarations",
+      "Silver.SourceLexer",
+      "Silver.StringExecution",
+      "Silver.StringFreezing",
+      "Silver.StringLengthRefinement",
+      "Silver.StringLengths",
+      "Silver.StringObligations",
+      "Silver.SupportedTools",
+      "Silver.Uniqueness"
+    ],
+    "outcome": "success",
+    "reason": "Capture the reviewed auditor-only repair after preserving the complete source build; proof and native source bytes are unchanged.",
+    "result": {
+      "bytes": 18913,
+      "compressed_sha256": "40615db6c3ec96e3cbb6c76eb3e72302be19ac328b2dc501ff0a96bc15b57ee6",
+      "path": "lean/complete-lean-result.json.gz",
+      "sha256": "a61fd3dc17e7b7f1c9163a7b6028ed2c1f0bf73083aec27351d3bc3bde755288"
+    },
+    "run_id": "20261026T131016-6b27137135dc",
+    "started_utc": "2026-10-26T13:10:18.294939+00:00",
+    "tools_sha256": {
+      ".tools/linux-x86_64/lean/bin/lake": "6f53827dab18010d6c690d14c8401cacabc1db958edb3552a877ed4cf1dd995d",
+      ".tools/linux-x86_64/lean/bin/lean": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550"
+    },
+    "tracked_input_comparison": {
+      "additional_local_inputs": 0,
+      "all_captured_inputs_live_match": true,
+      "expected": 612,
+      "external_inputs": 0,
+      "matched": 612,
+      "mismatches": {},
+      "missing": [],
+      "policy": "lean",
+      "target_commit": "d4d564cf358bd2c617b4899c53ceb0c0c1fd69da",
+      "target_inputs": {
+        "bytes": 68025,
+        "compressed_sha256": "57402f9e482524b18dcd50dfb15b2e50a00f1b8a53111a8f8a28f552f0edbcb3",
+        "path": "inputs/8a374bd5d949f17609e4ea617a0f92145a9d0622321b76e1cde0b17fd762c78d.json.gz",
+        "sha256": "8a374bd5d949f17609e4ea617a0f92145a9d0622321b76e1cde0b17fd762c78d"
+      }
+    },
+    "workers": 4,
+    "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean"
+  },
+  "limits": [
+    "The full 511-test run remains failure (one Image malformed-message error); no fresh 511-test pass is claimed.",
+    "Unaffected completed full-suite cases are reused only for the exact independently reviewed auditor guard delta.",
+    "Native/Lean caches may be reused; final-input complete audits freshly execute.",
+    "No independent kernel replay, native macOS or hosted CI is claimed.",
+    "External comprehensive review and capability/issue integration remain separate."
+  ],
+  "native_build": {
+    "captured_inputs": {
+      "bytes": 445714,
+      "compressed_sha256": "d6acbb7d3f02756a0a0219d8767ff4fd2c3ebc12a4662c94dc9d002d5833fdfa",
+      "path": "inputs/1886c78c9146dfc029ebb0d805e194cfb00c2a09ba632a2bca3553645cfad96d.json.gz",
+      "sha256": "1886c78c9146dfc029ebb0d805e194cfb00c2a09ba632a2bca3553645cfad96d"
+    },
+    "commands": [
+      [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.tools/linux-x86_64/alr/bin/alr",
+        "-s",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.tools/linux-x86_64/alire/settings",
+        "-C",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.silver/linux-x86_64/toolchain",
+        "-n",
+        "--no-tty",
+        "exec",
+        "--",
+        "gprbuild",
+        "-P",
+        "../../../silver.gpr",
+        "-p",
+        "-j2",
+        "-XSILVER_HOST=linux-x86_64"
+      ]
+    ],
+    "duration_seconds": 4.936350121,
+    "events": {
+      "bytes": 434093,
+      "compressed_sha256": "14744703c8bb123f36697910c6ab525d940bd304dbf8961618ed39e150046844",
+      "path": "runs/20261026T121505-a32d8e0916ec-events.jsonl.gz",
+      "sha256": "ce9b3b00efb2fab1198a6295906c335315f2f9dd613fd07cd2d9056dfabc9774"
+    },
+    "finished_utc": "2026-10-26T12:15:11.946215+00:00",
+    "input_capture_event": "prepared",
+    "input_capture_utc": "2026-10-26T12:15:09.520357+00:00",
+    "invocation_command": [
+      "gprbuild"
+    ],
+    "kind": "build",
+    "log": {
+      "bytes": 74,
+      "compressed_sha256": "ac0828e978b3de1db46a73a044c533834fb1f803222b686b01806d5a805c8b62",
+      "path": "runs/20261026T121505-a32d8e0916ec-native.log.gz",
+      "sha256": "78ecb0e42b6d01eb16d8ac863668ef2fbb3a1d8fb04ac9be4fbc82349d053473"
+    },
+    "outcome": "success",
+    "reason": "",
+    "run_id": "20261026T121505-a32d8e0916ec",
+    "started_utc": "2026-10-26T12:15:07.009771+00:00",
+    "tracked_input_comparison": {
+      "additional_local_inputs": 2378,
+      "all_captured_inputs_live_match": true,
+      "expected": 141,
+      "external_inputs": 0,
+      "matched": 141,
+      "mismatches": {},
+      "missing": [],
+      "policy": "build",
+      "target_commit": "d4d564cf358bd2c617b4899c53ceb0c0c1fd69da",
+      "target_inputs": {
+        "bytes": 15166,
+        "compressed_sha256": "5d5691351569f55b9d1f1c8787880d210c3fc473b3b24c57ec055518b44a02ab",
+        "path": "inputs/c48d5519ca6f42e1a2847b3647540c29c65756cf1718cc28a7a8d0020aedbd30.json.gz",
+        "sha256": "c48d5519ca6f42e1a2847b3647540c29c65756cf1718cc28a7a8d0020aedbd30"
+      }
+    },
+    "workers": 2,
+    "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native"
+  },
+  "native_full": {
+    "audit": {
+      "finished_utc": "2026-10-26T12:14:44.441905+00:00",
+      "output": "Complete GNATprove evidence: 75 units, 1044 entities, 1374 flow_checks, 14983 proof_checks, 290 limitation_notes, 18 imported_entities, 6236 trusted_math_notes, 62 vendor_spec_entities, 5 array_initialization_advisories",
+      "scope": "complete coverage/provenance audit; native sessions and cache may be reused",
+      "started_utc": "2026-10-26T12:14:25.586686+00:00"
+    },
+    "captured_inputs": {
+      "bytes": 445713,
+      "compressed_sha256": "a048df57681cb6d691506bad93617746b1d677969e23a01c1621490589cb96a3",
+      "path": "inputs/c5fd199eaee6d13b84406dd175f4c43aa0fd5dc7315727af9c6de0a7b552155b.json.gz",
+      "sha256": "c5fd199eaee6d13b84406dd175f4c43aa0fd5dc7315727af9c6de0a7b552155b"
+    },
+    "commands": [
+      [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.tools/linux-x86_64/alr/bin/alr",
+        "-s",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.tools/linux-x86_64/alire/settings",
+        "-C",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.silver/linux-x86_64/toolchain",
+        "-n",
+        "--no-tty",
+        "exec",
+        "--",
+        "gnatprove",
+        "-P",
+        "../../../silver.gpr",
+        "-U",
+        "--mode=all",
+        "--report=all",
+        "--warnings=error",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--timeout=30",
+        "-j",
+        "6",
+        "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.silver/linux-x86_64/proof-cache/gnatprove/ea6aba21eca447a9c8473fc1c3ea0300b03a95ce919d8a326f68a67989029329",
+        "-f",
+        "-XSILVER_HOST=linux-x86_64"
+      ]
+    ],
+    "duration_seconds": 80.191880263,
+    "events": {
+      "bytes": 436709,
+      "compressed_sha256": "69de9b7c9fe4ab93f29f7c2eecdf099a57777a1bf0f2878b2c112f24b713a380",
+      "path": "runs/20261026T121322-fc9f4056f886-events.jsonl.gz",
+      "sha256": "083f2167d612ee67fc0eb15752f9ee098bc1d102b88be939fcb30feb0f519c81"
+    },
+    "finished_utc": "2026-10-26T12:14:44.446164+00:00",
+    "fresh_check_evidence": {
+      "command": [
+        "/usr/bin/python3.14",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/scripts/check_evidence.py",
+        "--source-dir",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/src",
+        "--generated-dir",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.silver/linux-x86_64/generated",
+        "--report-dir",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.silver/linux-x86_64/compiler/obj/gnatprove"
+      ],
+      "command_evidence": "reconstructed from captured dev.py, captured Python identity and selected native workspace",
+      "command_reconstruction_limits": "resolved Python executable identity retained; original selector spelling unavailable",
+      "enclosing_elapsed_seconds": 18.855227085,
+      "enclosing_finished_utc": "2026-10-26T12:14:44.441905+00:00",
+      "enclosing_started_utc": "2026-10-26T12:14:25.586686+00:00",
+      "exit_code": 0,
+      "exit_code_evidence": "inferred from checked child invocation followed by audit phase-end and successful managed finish",
+      "output": "Complete GNATprove evidence: 75 units, 1044 entities, 1374 flow_checks, 14983 proof_checks, 290 limitation_notes, 18 imported_entities, 6236 trusted_math_notes, 62 vendor_spec_entities, 5 array_initialization_advisories",
+      "source": "chosen complete managed native run; no duplicate audit",
+      "timing_scope": "audit envelope includes in-process source audit, provenance completion and auditor child; separate child time unavailable",
+      "transcript": {
+        "bytes": 1271757,
+        "compressed_sha256": "855b112b3feb3a677f939aea6e8bcb72a317ffb678005331a72570e923d115bc",
+        "path": "runs/20261026T121322-fc9f4056f886-native.log.gz",
+        "sha256": "4674235ac621d0afcab72fbdc14d83c092524068f153e885fb00a612d4ff15da"
+      }
+    },
+    "input_capture_event": "prepared",
+    "input_capture_utc": "2026-10-26T12:13:27.371458+00:00",
+    "invocation_command": [
+      "gnatprove"
+    ],
+    "kind": "prove",
+    "log": {
+      "bytes": 1271757,
+      "compressed_sha256": "855b112b3feb3a677f939aea6e8bcb72a317ffb678005331a72570e923d115bc",
+      "path": "runs/20261026T121322-fc9f4056f886-native.log.gz",
+      "sha256": "4674235ac621d0afcab72fbdc14d83c092524068f153e885fb00a612d4ff15da"
+    },
+    "outcome": "success",
+    "reason": "Refresh complete provenance and audit with the reviewed malformed-message type guard; native sources and tool settings are unchanged, reuse successful proof cache.",
+    "reports": {
+      "gnatprove.out": {
+        "bytes": 196649,
+        "compressed_sha256": "df63db935b2eade09183c92915905e4cdb1e345ed21130ff6957ac3977cad44f",
+        "path": "native-proof/gnatprove.out.gz",
+        "sha256": "4726eab77a3dad733b423836094fea52cc1122fee4c4087e04e9a1b238b4c916"
+      },
+      "gnatprove.sarif": {
+        "bytes": 6928422,
+        "compressed_sha256": "4f4d71d8b72494e974943176307e100914005dad29c83825b4cea46a6837551d",
+        "path": "native-proof/gnatprove.sarif.gz",
+        "sha256": "5c5b6abe4b630dfb465319650ccc2abacc4b368f93c184df383307173d9ff988"
+      },
+      "proof-inputs.json": {
+        "bytes": 446320,
+        "compressed_sha256": "30c15de00e918b0746057047eb22068e94b50586e425306bf858a210075d2014",
+        "path": "native-proof/proof-inputs.json.gz",
+        "sha256": "7cbeeb9f3bc3b9c9011b2014fde690470bbb6cb0ebfdf0fc252640f9b686b576"
+      },
+      "proof-provenance.json": {
+        "bytes": 454617,
+        "compressed_sha256": "dcdd067e1e794effa3f10ac24fe3e6358e02e8a8e114b22ead4f3bc863a0f2bc",
+        "path": "native-proof/proof-provenance.json.gz",
+        "sha256": "134d8e7c0934bece7e01df12874a27c050859de9b972881928cc1611b0a3b87f"
+      },
+      "silver.spark": {
+        "bytes": 326251,
+        "compressed_sha256": "923d6a908a5f55d4cbca2ffeb328a9d0b6209adcd59942346cc9b2e9c6ad09cf",
+        "path": "native-proof/silver.spark.gz",
+        "sha256": "88ea48cef473aa7aa14cfa2b9dc490f0498ec255c0579c3e1adad4c0ba79320d"
+      },
+      "silver_arguments.spark": {
+        "bytes": 34283,
+        "compressed_sha256": "285f2e95490bacafeb292be5963d559b45a880f2d76289bce85d845f80a7e75d",
+        "path": "native-proof/silver_arguments.spark.gz",
+        "sha256": "5ff9995aec56e413eb30eaf548a4d0f553b1aa2d462e92d2f9c51cf12bce6f93"
+      },
+      "silver_build.spark": {
+        "bytes": 838,
+        "compressed_sha256": "56950a6cdf32f58da5e6c13261df5dd7724e3b3adb78886dc5584fef925e6e9b",
+        "path": "native-proof/silver_build.spark.gz",
+        "sha256": "d5f1fddb15be7365aeb5b34e97a231e67c792adf47c01f63dc068915806fdf53"
+      },
+      "silver_catalogue.spark": {
+        "bytes": 94119,
+        "compressed_sha256": "f7622e12356a7fe2f102bd25b7acdfefcc8235625e377de6dbe2dca097642a8e",
+        "path": "native-proof/silver_catalogue.spark.gz",
+        "sha256": "54645ba84324f4b7760ea2199c05380118218db8af2f6f7a13e66df7a699f501"
+      },
+      "silver_image_adapter.spark": {
+        "bytes": 216669,
+        "compressed_sha256": "2c490261b5996163565d134e1aa9aabcd203fdca8f42553c18513e0d00b970b4",
+        "path": "native-proof/silver_image_adapter.spark.gz",
+        "sha256": "f9b6704cb0f510dc71b465856b1bb7b39d47a0e1691ff3b37af8060769b96ef0"
+      },
+      "silver_image_config.spark": {
+        "bytes": 852,
+        "compressed_sha256": "533bd31081ae7a029f0c94622142956f1baf4cd50c08280fe531a98fd7cb9969",
+        "path": "native-proof/silver_image_config.spark.gz",
+        "sha256": "f1c8dca72667c8eab2e8653ea9b6e395135430f28d3e7ed5aa04ec053e9c763b"
+      },
+      "silver_image_files.spark": {
+        "bytes": 305356,
+        "compressed_sha256": "609f1e8529f98d327179017c21ecc495293345ccbeaf3a0ec9aed17e72072232",
+        "path": "native-proof/silver_image_files.spark.gz",
+        "sha256": "4d5300a62b547013bd5bf58832d6440041a279d2be0a9ebd109c8395e1cbd137"
+      },
+      "silver_image_install.spark": {
+        "bytes": 83179,
+        "compressed_sha256": "3389d49eb188ecdde2045d78380647c4b46cee81b341e0f983037fd3cb9785e6",
+        "path": "native-proof/silver_image_install.spark.gz",
+        "sha256": "f6b72da6d7e2becb038a0880e8253863d1ac82387c9e1d71c2e2e161f01e01f2"
+      },
+      "silver_image_libc.spark": {
+        "bytes": 1130,
+        "compressed_sha256": "3125df3356a3bda1ee55645cfacb5bfcab5d04532ca3b37f9ce56ee4aeb2919e",
+        "path": "native-proof/silver_image_libc.spark.gz",
+        "sha256": "672816896556fa6e6ddd35cc99d4702a0d8fc71d43da5138074a642aa88efbef"
+      },
+      "silver_image_model.spark": {
+        "bytes": 550736,
+        "compressed_sha256": "70c92a251e8e9b08b0046489ddaf83e05a403e0e956e100b1550ad66de480997",
+        "path": "native-proof/silver_image_model.spark.gz",
+        "sha256": "3f64aea167a7e1e33dcceed284844b400e8a0675f0b61c9400ff8db5bbfe97d2"
+      },
+      "silver_image_model_templates.spark": {
+        "bytes": 26039,
+        "compressed_sha256": "a9b7984337d8d005ad03d2c3ca1054cb7d26afd38d1cacb4065e29b978d522a7",
+        "path": "native-proof/silver_image_model_templates.spark.gz",
+        "sha256": "48f9d82b15e8ad8e96f57b52a369040b78cc1541a6cc83ed1043e17a7333bed6"
+      },
+      "silver_image_runtime.spark": {
+        "bytes": 1153,
+        "compressed_sha256": "3674cad52603ce5098a4e5a088c22f1d63802112f214ba8e6a8ea6eb18995812",
+        "path": "native-proof/silver_image_runtime.spark.gz",
+        "sha256": "09d1cf8750558a12ba0b7a2ed6e43dcc8ed5840fbd17897810895657cec8e5b1"
+      },
+      "silver_image_theory.spark": {
+        "bytes": 852,
+        "compressed_sha256": "d1feb1fb90c0a32757a6e269347c72e59b47059c6ff07e3316c0b992134ae641",
+        "path": "native-proof/silver_image_theory.spark.gz",
+        "sha256": "c4e33e1815a679aeea1805bdcf422f836904461dadeb8e2737110d8c8543e2d2"
+      },
+      "silver_integer_image.spark": {
+        "bytes": 3112,
+        "compressed_sha256": "7e0b2ec16bd812de2c307ea11a17d7dc656db942a9ac33f66b838d2b427ef229",
+        "path": "native-proof/silver_integer_image.spark.gz",
+        "sha256": "ee123a81b67aec7b74050079626a08ec44b55b419d97fa146efaf3493e9ad91b"
+      },
+      "silver_integer_literals.spark": {
+        "bytes": 274472,
+        "compressed_sha256": "cebff6ec1cb11224c2e004ee19f8f6cf50f73b08586a956dee88c986d8725f4c",
+        "path": "native-proof/silver_integer_literals.spark.gz",
+        "sha256": "9bd1970941f0427bf0fdcff3080b51d8bb5df949300a331cd6296f529bb54bf1"
+      },
+      "silver_io.spark": {
+        "bytes": 82886,
+        "compressed_sha256": "b69d52227827ed0f3edefe4d872cc955cfb00e9b20c0766575e5db96fc120701",
+        "path": "native-proof/silver_io.spark.gz",
+        "sha256": "978f4b37782696e94721dce39a84ba84d285cc61172a91ecfb246be3c0da09f7"
+      },
+      "silver_length_intervals.spark": {
+        "bytes": 28414,
+        "compressed_sha256": "f04cfe5ef9298662e0ccc1a3c669fe6b9921eb8b1150932bf28d841c18373233",
+        "path": "native-proof/silver_length_intervals.spark.gz",
+        "sha256": "676df5945e37dae2ef3f259ba8d7695cc99cc745387413790ee9c0a8338d9e8d"
+      },
+      "silver_libc.spark": {
+        "bytes": 3010,
+        "compressed_sha256": "498d0f43c7be36dd3b1b124845725d0d76b61e517a65be415eed5b5cc03d282b",
+        "path": "native-proof/silver_libc.spark.gz",
+        "sha256": "a1ad251e13f0ed88714cc995fbbcbb0706e54b442767a52cc453c2f47133e550"
+      },
+      "silver_libraries.spark": {
+        "bytes": 170116,
+        "compressed_sha256": "61849012f2f11191046b0cc4702fb10468cff7419c60cc3663c0a7133c543da0",
+        "path": "native-proof/silver_libraries.spark.gz",
+        "sha256": "aecfe63a0b4aea7d9a36d939bebaa6bdf22e52c81c4a359280be572bf941bf7d"
+      },
+      "silver_library_reports.spark": {
+        "bytes": 7132921,
+        "compressed_sha256": "919a7c2fa343d3910dae68b5acf7d2ea8afd6c0400c716ca4a96a3f68e26d11e",
+        "path": "native-proof/silver_library_reports.spark.gz",
+        "sha256": "403e98b8f65ed74cd0535512a2c15ab3e7ee04e88ff0cab167697dea2c7e3dd8"
+      },
+      "silver_library_sources.spark": {
+        "bytes": 858,
+        "compressed_sha256": "8524539be878edd312fc0c3d651961236b86aec5b01508488cf1d9925e3dd614",
+        "path": "native-proof/silver_library_sources.spark.gz",
+        "sha256": "14d11259bb433049093c94d68045dd0a3eb0d8691062eadb1b990999363c5358"
+      },
+      "silver_names.spark": {
+        "bytes": 241750,
+        "compressed_sha256": "7995868773b45fba6c5543f5f6f45a850b32606db0d07eedb2f228b2639f16ec",
+        "path": "native-proof/silver_names.spark.gz",
+        "sha256": "845a059b5df2943e5b400fa080d4eea902c49665fcb47ec80aee226b3f6a543c"
+      },
+      "silver_numbers.spark": {
+        "bytes": 66146,
+        "compressed_sha256": "6a7ec0500948646efb84c0e8db9314d802a7babc17b3544ca158059bef438575",
+        "path": "native-proof/silver_numbers.spark.gz",
+        "sha256": "b1a7d11ca1cf6a5c86536d600336c4aab456527697b91ab08e32c1f6ec19837f"
+      },
+      "silver_output_lexical.spark": {
+        "bytes": 646897,
+        "compressed_sha256": "71c88cdd473aaa8778452a0a5e83245f0e46415306b757c4fc14166d12f337e6",
+        "path": "native-proof/silver_output_lexical.spark.gz",
+        "sha256": "d40f9cfd8865aebe22c6fd832006ece648bd9594647c6451fc89259697c6bf02"
+      },
+      "silver_output_libc.spark": {
+        "bytes": 1715,
+        "compressed_sha256": "2688f0b1872bae73a64b7aa1551d0bea97c15dc1c34827c8cdefdd4d525c43dd",
+        "path": "native-proof/silver_output_libc.spark.gz",
+        "sha256": "92ab6400bb341f67156b5386f97c2ec02c0465e8a59bf448e39c18242bfa69b0"
+      },
+      "silver_output_profile.spark": {
+        "bytes": 5387607,
+        "compressed_sha256": "a822969c87732d56be1f61d3910adf7f22921d69e812eb8a050da3447ac30f0c",
+        "path": "native-proof/silver_output_profile.spark.gz",
+        "sha256": "22ff39f8c0023d4692d1adbe08f44b074c3c2e7d99209bee9841ae4c6589c21c"
+      },
+      "silver_path_facts.spark": {
+        "bytes": 46690,
+        "compressed_sha256": "4c496724fe1e921f21b2b88e1c43392f7be150e8f0d5eb82186a0c09751173e5",
+        "path": "native-proof/silver_path_facts.spark.gz",
+        "sha256": "06940bf0cbb4412d07cef5c1713ebebd42634d4aaf4431aa46eac62631b42f11"
+      },
+      "silver_platform.spark": {
+        "bytes": 292379,
+        "compressed_sha256": "099eac83b0d52c8d82325ee0431227cb84f77a6530becaf3cfb4ce76c313a0b3",
+        "path": "native-proof/silver_platform.spark.gz",
+        "sha256": "8dabee6f7bee454ae75e847863a88f7c40efb630a2a0694e7943d5185e83a37d"
+      },
+      "silver_process_runtime.spark": {
+        "bytes": 4533,
+        "compressed_sha256": "963384da3a9923284e124547acd85c0b1c79122862385bb3d5760d7bdb79dafe",
+        "path": "native-proof/silver_process_runtime.spark.gz",
+        "sha256": "521a5d0f261c0153c577670ba9c2c3591ea60306385eb02434641966e04e6759"
+      },
+      "silver_profile.spark": {
+        "bytes": 378006,
+        "compressed_sha256": "0edbce4349ae904dba2cf57e4abed2696de4704232c1aff82f73805a84e12c33",
+        "path": "native-proof/silver_profile.spark.gz",
+        "sha256": "bf1bb25d17a7267df6a34d106feb21be90ed3c7406704aeb938475bad6371e2d"
+      },
+      "silver_report_observation_assembly.spark": {
+        "bytes": 465945,
+        "compressed_sha256": "4a50d7019cf94a4caaeaefba8bbe3037c574dc5b93966ad0aed5865df0095969",
+        "path": "native-proof/silver_report_observation_assembly.spark.gz",
+        "sha256": "53f698c5ad4af38ccd651d8d5269fd145006e7d342eecac01a153212a6e30043"
+      },
+      "silver_report_observation_composition.spark": {
+        "bytes": 529942,
+        "compressed_sha256": "b10984d7e85c24b837bec7b5271b80ff327447fc2797b192302cc67430b59bb7",
+        "path": "native-proof/silver_report_observation_composition.spark.gz",
+        "sha256": "941e186d6685d7d2d8866f3934e7ed3ee603185363220f9e494532890d255f6c"
+      },
+      "silver_report_observation_items.spark": {
+        "bytes": 422530,
+        "compressed_sha256": "d375e851649b681beab24b0cb5c66b3a1226ee06c31b3e8c1c9d1499bc3e43ba",
+        "path": "native-proof/silver_report_observation_items.spark.gz",
+        "sha256": "9954af92c3a7697f913d40ff864f1e280047f14b1dd959be80edcb48c284c566"
+      },
+      "silver_report_observation_traversal.spark": {
+        "bytes": 258097,
+        "compressed_sha256": "fe02675edce97e9bc37619cdefec91433b623175eec1fcac228669d04076c678",
+        "path": "native-proof/silver_report_observation_traversal.spark.gz",
+        "sha256": "eb02047f0c6dc9517989838c84218c28fdee1bc43f6e2566c806f90b6112a771"
+      },
+      "silver_report_observation_windows.spark": {
+        "bytes": 1422072,
+        "compressed_sha256": "7ae29abb8ba337b12ef39d7259ad9d48fc069f52af2e64087fae5a242048b890",
+        "path": "native-proof/silver_report_observation_windows.spark.gz",
+        "sha256": "1e31f0ce55c106951de61c61dfc66e04869c5c9a2d9f148b57ed8f7d6c32cd9d"
+      },
+      "silver_report_observations.spark": {
+        "bytes": 491915,
+        "compressed_sha256": "846e8e448dbeaf35c93f03e1b6bd5d82a92fb19f809514cd6389f29db1ca40fa",
+        "path": "native-proof/silver_report_observations.spark.gz",
+        "sha256": "c7fe76f4e5ba293c8bd9aed6e6e7eda73a9f2dce19281bf5d2767addb7cc2bf7"
+      },
+      "silver_report_projection.spark": {
+        "bytes": 150107,
+        "compressed_sha256": "24e984983451771e709f1c1782952428a274dd76c384df6398711a34bf1b1090",
+        "path": "native-proof/silver_report_projection.spark.gz",
+        "sha256": "aab2e677325ce8133b5fb7dcfa6292d6075a07f6b3fa105e0cc27a4d710171f9"
+      },
+      "silver_report_projection_audit.spark": {
+        "bytes": 58694,
+        "compressed_sha256": "ce2ba322512c71f0116c3038722b6cec7818203957943021b965a0052fa23251",
+        "path": "native-proof/silver_report_projection_audit.spark.gz",
+        "sha256": "7ec9217a947ebfb713852ae602888bf2f3395a55d964f60050a92b09e32b8fd8"
+      },
+      "silver_report_projection_bridge.spark": {
+        "bytes": 475552,
+        "compressed_sha256": "cf5e600278e636492b5fe3de12547e3b062add975a3ee2b25b969f2009422681",
+        "path": "native-proof/silver_report_projection_bridge.spark.gz",
+        "sha256": "43da45691318322cb474128aba94a299c50194d903dee3fab974beee1f174298"
+      },
+      "silver_report_projection_composition.spark": {
+        "bytes": 713718,
+        "compressed_sha256": "a6fbfe70b83cbde19697b877852a1a05df818a7cec65363a72a9504b61859a65",
+        "path": "native-proof/silver_report_projection_composition.spark.gz",
+        "sha256": "0cfba4465e659eef1cc2be28ad87ffc4b94e3302565cb51fc13975d32e836c9f"
+      },
+      "silver_report_projection_container_mapping.spark": {
+        "bytes": 260625,
+        "compressed_sha256": "7b2410d459ec173f25088a7f2a1a7e911ba4b980fff0a578bf43e0f4c02e8950",
+        "path": "native-proof/silver_report_projection_container_mapping.spark.gz",
+        "sha256": "7330a18ac59e94923b9a21c89bb85b41f5b416ab95dfe1160c021ab7332a4cf4"
+      },
+      "silver_report_projection_continuations.spark": {
+        "bytes": 646549,
+        "compressed_sha256": "ec2964ed75108f823f32bec50042e15a3d2d709d9b647d3684350fcf697111e8",
+        "path": "native-proof/silver_report_projection_continuations.spark.gz",
+        "sha256": "aee6cfa67cff74aa1a5a4cfa6a63f6b6a911cc018edff58f2f7e8d7433a617eb"
+      },
+      "silver_report_projection_emissions.spark": {
+        "bytes": 99115,
+        "compressed_sha256": "e161eccd4f1b5d0c796c06ca59aa31f45961844fd6f831683919c0499bf55d2c",
+        "path": "native-proof/silver_report_projection_emissions.spark.gz",
+        "sha256": "120aa6ad5013579ffe109f193dd383b8b1f3b972cc838115f4717a3c48579416"
+      },
+      "silver_report_projection_entry.spark": {
+        "bytes": 63028,
+        "compressed_sha256": "23eba021ff4b498b867bafeee7b51dade5a613fea8de558a1c9ca26a8d68b44a",
+        "path": "native-proof/silver_report_projection_entry.spark.gz",
+        "sha256": "51bef598e2d4243607c12c75fb9975af04d97b7f045fe5a958f881814b6b3346"
+      },
+      "silver_report_projection_item_mapping.spark": {
+        "bytes": 760230,
+        "compressed_sha256": "25893df3860949d5cab7ab9d33b9914ca0391c243edc3ad9ef5d3e884a695855",
+        "path": "native-proof/silver_report_projection_item_mapping.spark.gz",
+        "sha256": "f0d5b09e7b28dc67c32707e347d3d1b1dcf59d67f8194268f005f47341ff4885"
+      },
+      "silver_report_projection_keys.spark": {
+        "bytes": 824813,
+        "compressed_sha256": "8aa1084f842c14e62caea5063de0416978c50139945315d5e2f1d514c2d625e9",
+        "path": "native-proof/silver_report_projection_keys.spark.gz",
+        "sha256": "27c21602fbf123b21bb5e250715ebfde72dccb935ba2762df011ab81b5c679b2"
+      },
+      "silver_report_projection_lists.spark": {
+        "bytes": 486199,
+        "compressed_sha256": "ede133cd6492af1cb6076ba35fdaafecd053f95d113488480a30dcdd0318f2d9",
+        "path": "native-proof/silver_report_projection_lists.spark.gz",
+        "sha256": "ef2e56644a2acb4642c69025cdce6a0b5612e5fd6ac457df8ce1b475023fccda"
+      },
+      "silver_report_projection_mapping.spark": {
+        "bytes": 371412,
+        "compressed_sha256": "91e6f3b378d128ea1dda0c79c8355b8ad539e62a21b660e3b253833a4caa8826",
+        "path": "native-proof/silver_report_projection_mapping.spark.gz",
+        "sha256": "5a03145850989d98f020e043262dee7629e532c263c7b17a78a803253188f787"
+      },
+      "silver_report_projection_member_bounds.spark": {
+        "bytes": 386846,
+        "compressed_sha256": "4ffb5dcbf1f93f8d5e115060c4d5191d39ab0451ca5c6e6314f1d5d532e88f38",
+        "path": "native-proof/silver_report_projection_member_bounds.spark.gz",
+        "sha256": "70b9b9289634dbc0d46d37c352dd011553615d56096574252cdd12c0bef0a897"
+      },
+      "silver_report_projection_member_mapping.spark": {
+        "bytes": 501244,
+        "compressed_sha256": "b24c826c8d208ac7dccb3ac911c2182bba8214467a76b867b4f71a9a48199db7",
+        "path": "native-proof/silver_report_projection_member_mapping.spark.gz",
+        "sha256": "44743a210b0a42d29150a6c1ae1832e30c91132688eee95ddc1d44546357bda5"
+      },
+      "silver_report_projection_member_steps.spark": {
+        "bytes": 157993,
+        "compressed_sha256": "0167f5fa319fc8b56cbbe70446e8000cbac92899c846f9300a895f84d7a87ddd",
+        "path": "native-proof/silver_report_projection_member_steps.spark.gz",
+        "sha256": "4cae105609bfe0fc5f9c6cf4589d61ddab9d610b950ff274e26570129f6771c6"
+      },
+      "silver_report_projection_members.spark": {
+        "bytes": 1866554,
+        "compressed_sha256": "9de04778b9dfd3c4dc395299739f2cf321cf871a83b8b5fa6f0972cfb03c691b",
+        "path": "native-proof/silver_report_projection_members.spark.gz",
+        "sha256": "ed6ca3291537bd675049c47b227054cbffdd37672244f2bfc9eef2104323fc2f"
+      },
+      "silver_report_projection_model.spark": {
+        "bytes": 515355,
+        "compressed_sha256": "7003c5c243b90dc810fb623654d8a630915204de643e6cde1e4365ae12d9ba53",
+        "path": "native-proof/silver_report_projection_model.spark.gz",
+        "sha256": "9179e4861b8da4212911ecde5fa91efb7689a3dc1b8fd907229d5cdcefd3cfdf"
+      },
+      "silver_report_projection_nonobjects.spark": {
+        "bytes": 131188,
+        "compressed_sha256": "3abfedc1a1e570bc3f3bed3463197675fe714d544ea5f90ba0de9b96bd8feefa",
+        "path": "native-proof/silver_report_projection_nonobjects.spark.gz",
+        "sha256": "5e95296c4f8b49b2cfa51b8aadeae0f1ff96adc75edf6860e6c431f3000fde10"
+      },
+      "silver_report_projection_observations.spark": {
+        "bytes": 290049,
+        "compressed_sha256": "e73e850ac79f8eee6533b7db3238e864ce415c15be3e8934a63f073b7cf2da5a",
+        "path": "native-proof/silver_report_projection_observations.spark.gz",
+        "sha256": "a2e429f4e38b09807655243605032c681ab6895f1baf22e2a473d7a38f08c6b8"
+      },
+      "silver_report_projection_parents.spark": {
+        "bytes": 177309,
+        "compressed_sha256": "6e027104996ba0cdf21a8ac0223c44dd2fbac2e1fa87c2f9369ecb8b6bf2bd1a",
+        "path": "native-proof/silver_report_projection_parents.spark.gz",
+        "sha256": "4e6010b537d25f316c726758837dfa1c96d75a365b7297411c1b3cdc7991c546"
+      },
+      "silver_report_projection_records.spark": {
+        "bytes": 735884,
+        "compressed_sha256": "29c4dd446e0dc54c8ab42be273dd04a56c29c914b9a352d752247fbd94eae28d",
+        "path": "native-proof/silver_report_projection_records.spark.gz",
+        "sha256": "3be94d7693004ba209645be51fbe6dda39d53b576a07519e8013f2def0250759"
+      },
+      "silver_report_projection_representation.spark": {
+        "bytes": 29073,
+        "compressed_sha256": "4f33d1296f5503406ed89fa3f61c2d570da07e9b0e8e0894718c1bd3cdf1bd11",
+        "path": "native-proof/silver_report_projection_representation.spark.gz",
+        "sha256": "339e54a4c046e257abba342d54c78fbdbcca4a286e1c09ec442f611fb7f37b51"
+      },
+      "silver_report_projection_roots.spark": {
+        "bytes": 183373,
+        "compressed_sha256": "74b0f2aa9717b221b2592282ba16779617367035ac0902bcc138ce735c2be56f",
+        "path": "native-proof/silver_report_projection_roots.spark.gz",
+        "sha256": "79db2b84633c1e32b531e1f755584930f000bf9277364bf9395324330a5acece"
+      },
+      "silver_report_projection_separators.spark": {
+        "bytes": 280754,
+        "compressed_sha256": "b6f2ce4ef95faa4f733ad44f2d959519bde280834a23c7f74cc027bb4acc975a",
+        "path": "native-proof/silver_report_projection_separators.spark.gz",
+        "sha256": "1939a25163facf357590a790f04f7f4118dba5e1d1de32da1d20357ac69ec6fd"
+      },
+      "silver_report_projection_spans.spark": {
+        "bytes": 253462,
+        "compressed_sha256": "cada24b5e440c583a2b89788464f7e7c6803e1fe5702e7494c68bcaf42d733f1",
+        "path": "native-proof/silver_report_projection_spans.spark.gz",
+        "sha256": "23ada16f49c91d167bb35e17925fc53a942e5f4af9ec246fcf234614bb55ca35"
+      },
+      "silver_report_projection_structure.spark": {
+        "bytes": 133421,
+        "compressed_sha256": "2127a97f9afb3b8cad04c70ddce0bedd0f0c83ab7173dc0e1d0fe5fc76d10b06",
+        "path": "native-proof/silver_report_projection_structure.spark.gz",
+        "sha256": "449d2f260503f11dc8f6545eb6ee9b72b29d8c25bd58a66443dbca6c4c2dd867"
+      },
+      "silver_report_projection_syntax.spark": {
+        "bytes": 256970,
+        "compressed_sha256": "dbbb3e9250f9055831c3876a3cb9579f856c1a2311b2a85a5e7d7f4033e0f28a",
+        "path": "native-proof/silver_report_projection_syntax.spark.gz",
+        "sha256": "fc114756b12463b2f86c11b20043b9dc5412ca45e92e232e385ec29623dbab2d"
+      },
+      "silver_report_projection_tokens.spark": {
+        "bytes": 712638,
+        "compressed_sha256": "ec941a1d813f25610f74fa30a892869df0103ef55b2b7e153e45df25bbe05bce",
+        "path": "native-proof/silver_report_projection_tokens.spark.gz",
+        "sha256": "711cb61a25e887b6f00e2e38997bbfca6a9296534fb928efad0d6ee3d4768fa7"
+      },
+      "silver_report_projection_types.spark": {
+        "bytes": 874,
+        "compressed_sha256": "7ad65e87969a55a13731d18274e9a5c3f5285ce7bbafd9353801b4c5d68abba5",
+        "path": "native-proof/silver_report_projection_types.spark.gz",
+        "sha256": "3cc6671ceda980aec1ce791615e556424dd8dd9a8151bbbeb34c7649348a9e46"
+      },
+      "silver_report_projection_value_mapping.spark": {
+        "bytes": 283946,
+        "compressed_sha256": "ae68355ad0f98da9e00041265d7830a93b8ba59b0ff957123724971d28dfbe83",
+        "path": "native-proof/silver_report_projection_value_mapping.spark.gz",
+        "sha256": "fbafb1661fed99dd3d603aa21afc87c38bc5c2c861b9364e91115ab9c3fd887e"
+      },
+      "silver_report_projection_values.spark": {
+        "bytes": 815251,
+        "compressed_sha256": "afc1f141b08977410f8f690e548450fa3ddf55fae414cc6aeb1b510fe7cb5166",
+        "path": "native-proof/silver_report_projection_values.spark.gz",
+        "sha256": "b0e873254bb73006cd044b3a12c794398187508bd7cf278c5ce8bb108e1f258b"
+      },
+      "silver_report_projection_windows.spark": {
+        "bytes": 112511,
+        "compressed_sha256": "3fadeb6447052b491efef0a057332976d00f7306681b2d0b1b5f178a0c5255a8",
+        "path": "native-proof/silver_report_projection_windows.spark.gz",
+        "sha256": "cf65166e9e9c9ad3fb0dd065d4e6f3dbddfe729d5a912216f14aac8402387381"
+      },
+      "silver_report_reader.spark": {
+        "bytes": 129830,
+        "compressed_sha256": "d8deea1d40b99324fd35bb1e3dc4d6b49575a12d94e4e636541b546413162229",
+        "path": "native-proof/silver_report_reader.spark.gz",
+        "sha256": "dcf5f75a66d42859a66d26fd1d7fa2123d0aac1ccb9c6e69969c8c2805532933"
+      },
+      "silver_report_storage.spark": {
+        "bytes": 856,
+        "compressed_sha256": "1c78e1687878a0577608f7cc32afb74e83b134c499fddb5fee7ea400f17bd8bd",
+        "path": "native-proof/silver_report_storage.spark.gz",
+        "sha256": "d20240a99b386978a55d6c62410e47fccee2c7ad288ddd54533b7961b423f096"
+      },
+      "silver_reports.spark": {
+        "bytes": 577238,
+        "compressed_sha256": "3c8eb93ba1cfa23ed4fc717b205b31df9d4442c533d28e350e57b27e7aa63f63",
+        "path": "native-proof/silver_reports.spark.gz",
+        "sha256": "eac87d57709dc388e4720f6a99feb341721f3015360c6ca29d4077e2ae4d11ea"
+      },
+      "silver_runtime.spark": {
+        "bytes": 1692,
+        "compressed_sha256": "26b3bcbd2c5877d43aa51f987d2dd51783ce974a43c6351c2fca50bb1cd3a496",
+        "path": "native-proof/silver_runtime.spark.gz",
+        "sha256": "d99922cac9f5e40572421e729c461913f609dd7d62bf76476adddbfad8785327"
+      },
+      "silver_scalar_expressions.spark": {
+        "bytes": 449630,
+        "compressed_sha256": "c033e4e0ffa407a32e4ef5a1ffaf86f65754729c5349263f33e892e4b14b5a35",
+        "path": "native-proof/silver_scalar_expressions.spark.gz",
+        "sha256": "2ca0a2326f00bfd23801d82a47d8d5c9c77cd934b54c0028c5c6016f13e95fdc"
+      },
+      "silver_scalar_literals.spark": {
+        "bytes": 278283,
+        "compressed_sha256": "a7a113d3c12e132b86a599524b8ddac8b9fec03d56ba8b5656bebeb5a727ae2b",
+        "path": "native-proof/silver_scalar_literals.spark.gz",
+        "sha256": "92475f2dca47303542a04bcdb53b206394660c2b47547a50730697eaaa2fc2ee"
+      },
+      "silver_scalars.spark": {
+        "bytes": 65375,
+        "compressed_sha256": "48b420a5f09011c224982de75331cc1d7c4437b037b3acdc9981817b7f71fb3c",
+        "path": "native-proof/silver_scalars.spark.gz",
+        "sha256": "2392d6b4fd1afe44747af092d5b36cb8bc39759bf71e6824dd0248824cf86e85"
+      }
+    },
+    "run_id": "20261026T121322-fc9f4056f886",
+    "started_utc": "2026-10-26T12:13:24.340904+00:00",
+    "tracked_input_comparison": {
+      "additional_local_inputs": 2378,
+      "all_captured_inputs_live_match": true,
+      "expected": 141,
+      "external_inputs": 0,
+      "matched": 141,
+      "mismatches": {},
+      "missing": [],
+      "policy": "prove",
+      "target_commit": "d4d564cf358bd2c617b4899c53ceb0c0c1fd69da",
+      "target_inputs": {
+        "bytes": 15166,
+        "compressed_sha256": "5d5691351569f55b9d1f1c8787880d210c3fc473b3b24c57ec055518b44a02ab",
+        "path": "inputs/c48d5519ca6f42e1a2847b3647540c29c65756cf1718cc28a7a8d0020aedbd30.json.gz",
+        "sha256": "c48d5519ca6f42e1a2847b3647540c29c65756cf1718cc28a7a8d0020aedbd30"
+      }
+    },
+    "workers": 6,
+    "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native"
+  },
+  "platform": "Linux x86_64",
+  "schema_version": 2
+}

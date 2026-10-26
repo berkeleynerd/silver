@@ -1,0 +1,113 @@
+{
+  "scope": "Repaired suite evidence exporter code and retained-record review; final Lean/bundle pending",
+  "implementation_target": "d4d564cf358bd2c617b4899c53ceb0c0c1fd69da",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_settings": "Not independently confirmed by runtime telemetry",
+  "tokens": "Unavailable",
+  "cost": "Unavailable",
+  "started_utc": "2026-10-26T12:17:35+00:00",
+  "finished_utc": "2026-10-26T12:22:53.067976+00:00",
+  "elapsed_seconds": 318.067976,
+  "validators_invoked": false,
+  "exporter_invoked": false,
+  "git_or_github_actions": false,
+  "inspected_sha256": {
+    "tmp/guard-suite-evidence-repair-20261026/export-guard-evidence-repaired.py": "2184a6e42bec0bdcae3c1f15c08e1fd62621ed37c0c7f098bcc4374d01f8c801",
+    "tmp/guard-suite-evidence-repair-20261026/run-suite-with-renderer-capture.py": "1fa2afd6deb77bee8ecb23820e96a35a3714282b634390bcdfb9d59a64ab707c",
+    "tmp/guard-suite-evidence-repair-20261026/check-exporter-repair.py": "c67eb51a2344e76fb63ba4e81dba0ae18eee1d8dd5fcd4d0901bd1f472d87c56",
+    "tmp/guard-suite-evidence-repair-20261026/inspection-checks.json": "a1526b45e9ba2faaf8a904b727103be9284b635d12f5d40deaf21c0b0279853f",
+    "tmp/guard-suite-evidence-repair-20261026/README.md": "3d8cc0606958e1e06f4a7d9a39768a8d90230f469d0cdbc5c15492ab12ed78df",
+    "tmp/guard-suite-evidence-repair-20261026/reconciled/suite-renderer-before-after.json": "e17165e4fd784942edf7ae8dfe270ee2f579abf65aad6445f0b86d1fc07cf195",
+    "tmp/guard-final-evidence-20261026/export-guard-evidence.py": "ea6180a6d2989831636b509b35792edcb3c4bcbbf0c5d60018207bf4e67c22d7",
+    "tmp/guard-final-evidence-20261026/suite-final/suite-renderer-before-after.json": "2f9ed558675fc48a445ad29b96520d082d8710bb149610ee989af43dbbb7f729",
+    "tmp/guard-final-evidence-20261026/suite-final/suite-launch.log": "8c5615dbaf880dbd7a5748df2b397c01eb782f8eb1d49ad95bd618400037ca3b",
+    "tmp/guard-array-advisory-assessment-20261026/assessment.md": "62b32229ad71b6cc9343eba34f6240cc8ecd040c6b6eb9fe89a629040931d34d",
+    "tmp/scalar-guard-refinement/scripts/check_evidence.py": "1cfe226a5c86874b4cd574da5589f8b925599f009a8e784bd42242e9da2b0060"
+  },
+  "source_ledger_outcomes": {
+    "20261026T110119-3b18a2302af0": {
+      "kind": "test",
+      "started_utc": "2026-10-26T11:01:20.628845+00:00",
+      "finished_utc": "2026-10-26T12:00:23.014912+00:00",
+      "outcome": "failure",
+      "returncode": 1,
+      "duration_seconds": 3542.385602572,
+      "events_sha256": "7276749a9b3e94bff1c8d0c63444b8fae9b88fd4b806eb26e15f02405036ec9b",
+      "log_sha256": "b7c531ce2d5e5d8e1d3f35588226ffada55170e016b5fb5f4dfafd51e76738c9",
+      "summaries": [
+        "Ran 511 tests in 3540.751s",
+        "FAILED (errors=1)"
+      ]
+    },
+    "20261026T120715-ae60c9d42d98": {
+      "kind": "test",
+      "started_utc": "2026-10-26T12:07:16.845339+00:00",
+      "finished_utc": "2026-10-26T12:07:22.547190+00:00",
+      "outcome": "success",
+      "returncode": null,
+      "duration_seconds": 5.701727071,
+      "events_sha256": "867768ad56cd0586b6f9a036dcfe0efdd36e7f4beb8a3acebcd022ad3b73c468",
+      "log_sha256": "e8658135dc8f813db8dfff44ee40ca7f40e6bb6a5fdfd16aff39ad2837d27b98",
+      "summaries": [
+        "Ran 5 tests in 3.728s",
+        "OK"
+      ]
+    },
+    "20261026T120722-6e5bfb5dcbea": {
+      "kind": "test",
+      "started_utc": "2026-10-26T12:07:24.280747+00:00",
+      "finished_utc": "2026-10-26T12:07:30.525512+00:00",
+      "outcome": "success",
+      "returncode": null,
+      "duration_seconds": 6.244690178,
+      "events_sha256": "6b3154cc5c47cfc1c74929a737ead24447ef80b0ef7590220618675214a15351",
+      "log_sha256": "7ec374f43fd12332ad800b73d2767ad7d4f7b75fc613d767d0162bce20e6f885",
+      "summaries": [
+        "Ran 60 tests in 3.836s",
+        "OK"
+      ]
+    },
+    "20261026T121322-fc9f4056f886": {
+      "kind": "prove",
+      "started_utc": "2026-10-26T12:13:24.340904+00:00",
+      "finished_utc": "2026-10-26T12:14:44.446164+00:00",
+      "outcome": "success",
+      "returncode": null,
+      "duration_seconds": 80.191880263,
+      "events_sha256": "083f2167d612ee67fc0eb15752f9ee098bc1d102b88be939fcb30feb0f519c81",
+      "log_sha256": "4674235ac621d0afcab72fbdc14d83c092524068f153e885fb00a612d4ff15da",
+      "summaries": [
+        "Complete GNATprove evidence: 75 units, 1044 entities, 1374 flow_checks, 14983 proof_checks, 290 limitation_notes, 18 imported_entities, 6236 trusted_math_notes, 62 vendor_spec_entities, 5 array_initialization_advisories"
+      ]
+    },
+    "20261026T121505-a32d8e0916ec": {
+      "kind": "build",
+      "started_utc": "2026-10-26T12:15:07.009771+00:00",
+      "finished_utc": "2026-10-26T12:15:11.946215+00:00",
+      "outcome": "success",
+      "returncode": null,
+      "duration_seconds": 4.936350121,
+      "events_sha256": "ce9b3b00efb2fab1198a6295906c335315f2f9dd613fd07cd2d9056dfabc9774",
+      "log_sha256": "78ecb0e42b6d01eb16d8ac863668ef2fbb3a1d8fb04ac9be4fbc82349d053473",
+      "summaries": []
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "scope": "Inherited Lean certificate_scope reporting sentence",
+      "finding": "Base sentence described a successful complete test suite, inconsistent with repaired split evidence.",
+      "disposition": "Exporter owner corrected it; independent exact-delta hash check confirms only reporting assignment changed; no acceptance logic changed.",
+      "status": "fixed"
+    }
+  ],
+  "pending": [
+    "Final-input complete Lean success",
+    "Exported artifact integrity and source-ledger correspondence",
+    "Final integrated document claims"
+  ],
+  "open_blocking_findings": 0,
+  "tooling_check_record_sha256": "a1526b45e9ba2faaf8a904b727103be9284b635d12f5d40deaf21c0b0279853f",
+  "tooling_check_elapsed_seconds": 16.883489858999383
+}

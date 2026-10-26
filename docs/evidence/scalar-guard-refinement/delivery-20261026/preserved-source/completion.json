@@ -1,0 +1,75 @@
+{
+  "run_id": "20261026T094105-ac4e120bd9f9",
+  "outcome": "success",
+  "scope": "preserved complete final-native-source Lean run; auditor input predates both advisory repairs",
+  "implementation_commit": "d4d564cf358bd2c617b4899c53ceb0c0c1fd69da",
+  "command": [
+    "/usr/bin/python3",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/scripts/check_lean.py",
+    "--task",
+    "#239",
+    "--workers",
+    "4",
+    "--threads",
+    "2"
+  ],
+  "started_utc": "2026-10-26T09:41:09.471102+00:00",
+  "finished_utc": "2026-10-26T13:10:01.122822+00:00",
+  "duration_seconds": 12531.649483907,
+  "modules": 497,
+  "audited_declarations": 104238,
+  "phases": [
+    {
+      "phase": "build",
+      "started_at": "2026-10-26T09:41:26.585479+00:00",
+      "finished_at": "2026-10-26T13:09:46.707313+00:00",
+      "elapsed_seconds": 12500.122,
+      "exit_code": 0
+    },
+    {
+      "phase": "audit",
+      "started_at": "2026-10-26T13:09:47.878293+00:00",
+      "finished_at": "2026-10-26T13:09:59.119003+00:00",
+      "elapsed_seconds": 11.241,
+      "exit_code": 0
+    }
+  ],
+  "module_build_seconds": {
+    "PredicateSourceCandidate": 5082,
+    "OutputBodyCertificate": 9037,
+    "ComposeSourceChecks": 3408
+  },
+  "captured_sources": 612,
+  "matched_final_sources": 611,
+  "input_differences": {
+    "scripts/check_evidence.py": {
+      "captured": "e74034ab4dbbe370f1a28d4d460b4b327ed281f7b8bdad81d4e7a529b9094c76",
+      "final": "1cfe226a5c86874b4cd574da5589f8b925599f009a8e784bd42242e9da2b0060"
+    }
+  },
+  "artifacts": {
+    "events.jsonl": {
+      "path": "events.jsonl.gz",
+      "raw_sha256": "8e84f7ad4bcbc5b68156bc73f0017005be7d230e55e2c623637bf7eb26a29bce",
+      "gzip_sha256": "feb1d6188ac7db072faac8ad26b24d33bbb533dd79922f6f9848e060b2f1e85b",
+      "raw_bytes": 71657
+    },
+    "lean-proof.log": {
+      "path": "lean-proof.log.gz",
+      "raw_sha256": "5da703005dcfe7a7ff5ae3accbe8ddc0d2e426551e46669e961b3101c936c23f",
+      "gzip_sha256": "62ddc4f55fd75fd277f38c351d186debe2931f0c7b07edf986cbf9541086b897",
+      "raw_bytes": 58765
+    },
+    "lean-evidence.json": {
+      "path": "lean-evidence.json.gz",
+      "raw_sha256": "3e45d30de62cce3dfb29bf15d9ed02072985302a384b1425ccc5341635d4d71b",
+      "gzip_sha256": "0d9c95a90c7f6069eef9a9924ca48c28db9eb6c436cf3bb1d6e18573668338dc",
+      "raw_bytes": 18920
+    }
+  },
+  "limits": [
+    "This original run is preserved as source-build evidence, not a claim that every captured input matches the final auditor.",
+    "The separately indexed final-auditor cached complete run supplies the final matching-input checkpoint.",
+    "No independent kernel replay is claimed."
+  ]
+}

@@ -128,13 +128,15 @@ sample approaches exercise the fragment, including the fixed Josephus (41,3)
 incident. The capability record retains complete native and Lean assurance,
 full-suite results and the successful focused certificate-parity repair.
 
-The prepared [scalar guard increment](docs/scalar-guard-refinement.md) narrows
+The [scalar guard increment](docs/scalar-guard-refinement.md) narrows
 bare mutable Integer names and loop indexes against static thresholds. Assignments
 replace current read intervals, branches join by hull, and loops capture entry
 bounds before widening mutable facts at body entry and possible execution exits.
 It adds the complete [100 doors sample](samples/rosetta_100_doors.adb), with
 expected output derived independently by toggling each door on every pass.
-No new grammar is added; complete assurance and validation remain pending.
+No new grammar is added. The capability record retains complete Linux native
+and source/Lean assurance, retained regression results with focused repair
+validation, and the scoped independent reviews.
 
 The [Find square difference sample](samples/find_square_difference.adb) stores
 the first matching index and prints ` 501` followed by a newline.

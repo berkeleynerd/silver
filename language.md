@@ -11,9 +11,9 @@ values, scoped loops and standard Integer Image. The [bounded mutable Integer
 record](docs/bounded-mutable-integers.md) extends these rules with initialized
 mutable objects, object-local static ranges and scalar assignment. The
 [division record](docs/integer-division.md) extends shared scalar expressions
-with interval-checked `/`, `mod` and `rem`. The prepared
-[scalar guard increment](docs/scalar-guard-refinement.md) specifies the flow
-rules below; its complete assurance and validation checkpoint remains pending.
+with interval-checked `/`, `mod` and `rem`. The
+[scalar guard delivery record](docs/scalar-guard-refinement.md#delivery-assurance-and-validation)
+records complete Linux validation and assurance for the flow rules below.
 The [machine-readable
 catalogue](catalogue/silver.json), compiler, and this specification must agree. A
 discrepancy is a defect to resolve, not an extension of the language. Membership
@@ -880,10 +880,10 @@ without replacing universal assurance. The [triangle](samples/for_loop_triangle.
 countdown](samples/for_loop_countdown.adb) exercise loop, immutable Integer
 and standard Image forms. [Find square difference](samples/find_square_difference.adb)
 uses a constrained mutable result and prints the first satisfying index, 501.
-The prepared [100 doors sample](samples/rosetta_100_doors.adb) uses a guarded
-visit counter and prints every door's final state; its expected bytes come from
-an independent pass-major toggle model. Its complete validation is pending in
-the [guard record](docs/scalar-guard-refinement.md).
+The [100 doors sample](samples/rosetta_100_doors.adb) uses a guarded visit
+counter and prints every door's final state; its expected bytes come from an
+independent pass-major toggle model. Its complete validation is recorded in the
+[guard delivery record](docs/scalar-guard-refinement.md#delivery-assurance-and-validation).
 
 The [Rosetta sample delivery](docs/rosetta-supported-samples.md) exercises existing
 output, names, copies, expressions and branches for the runnable tasks in #9.

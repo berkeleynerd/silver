@@ -1,14 +1,103 @@
 # Scalar guard refinement
 
 The owner's [roadmap continuation](session-memory.md#2026-10-25--continue-non-deferred-roadmap-delivery)
-authorizes [#234](https://github.com/berkeleynerd/silver/issues/234) after division
-#229. This record selects the scope for #237 and records pending #238/#240 delivery
-metadata. Native discovery is complete; the selected native implementation is
-committed at `171d6b2a62`, independently of these records prepared from
-`e7ec53b325`. Universal/source assurance and complete validation/review remain
-pending. Delivery remains ordered: division first, then guards. Prepared changes
-to the language, catalogue and Rosetta `supported` list describe the selected
-increment together; they do not establish completed support or close a package.
+authorized [#234](https://github.com/berkeleynerd/silver/issues/234) after division
+#229. This capability is delivered through
+[PR #242](https://github.com/berkeleynerd/silver/pull/242), completing packages
+#237–#240 and milestone 7. The final implementation target is
+`d4d564cf358bd2c617b4899c53ceb0c0c1fd69da`. The delivery/documentation commit and
+resulting main-branch target for the external comprehensive review are recorded
+separately in the [#234 handoff](https://github.com/berkeleynerd/silver/issues/234). The
+[final integration review](reviews/review-scalar-guard-final-integration-20261026.md)
+covers `bc9b0815eb` and the retained earlier semantic/source repairs. The later
+[proof-only candidate repair](reviews/review-scalar-guard-candidate-integration-repair-20261026.md)
+records explicit renderer normalization and two corrections to the unchanged
+required header lexer types; it changes no Ada source, native contract, semantic
+definition or public endpoint statement. The later auditor-only repair at
+`e88a218c7e` classifies the exact compiler array-initialization advisory; the
+narrow malformed-message guard at `d4d564cf35` preserves its acceptance rules.
+The [independent advisory assessment and follow-up](reviews/review-scalar-guard-array-initialization-advisory-20261026.md)
+records both review scopes and the applicability of retained regression results.
+Native Ada and source pins remain at `bc9b0815eb`; the source-proof repair is
+`d039e68dba`. The implementation target includes both later auditor repairs.
+
+Under the owner's [review pause](session-memory.md#2026-10-26--pause-after-scalar-guard-delivery-for-external-review),
+roadmap implementation is now paused for an external comprehensive review.
+No successor implementation is selected. The selected rules, exclusions and
+external premises below remain unchanged.
+
+## Delivery assurance and validation
+
+The [final Linux validation evidence](evidence/scalar-guard-refinement/delivery-20261026/validation.json)
+records the actual implementation inputs, native platform, managed runs and
+results: complete native proof/audit, build, retained regression results plus
+focused repair validation, and complete authoritative-source Lean build with a
+fresh whole-project module/axiom audit. The complete native proof discharged all
+16,357 checks. Its original managed run failed at the advisory audit; the later
+successful complete audit and final-auditor refresh are recorded separately.
+Final native audit `20261026T121322-fc9f4056f886` and build
+`20261026T121505-a32d8e0916ec` succeeded. Complete final-source Lean
+`20261026T094105-ac4e120bd9f9` passed after a 12,500.122-second build and
+11.241-second fresh audit. Final-auditor cached run
+`20261026T131016-6b27137135dc` passed on all 612 matching captured inputs,
+covering 497 modules and 104,238 declarations with only `propext`,
+`Classical.choice` and `Quot.sound`. Its timings and exact scope are in the
+validation index. No independent kernel replay is claimed.
+
+Full-suite run `20261026T110119-3b18a2302af0` remains **failed**: 511 tests ran
+with one malformed-message Image error. Its completed unaffected results are
+retained under the independent applicability assessment. Both focused repair
+modules passed after the narrow guard: Image run `20261026T120715-ae60c9d42d98`
+(5 tests) and evidence-auditor run `20261026T120722-6e5bfb5dcbea` (60 tests).
+This is not a fresh 511-test pass. All 48 manifest samples and 104 execution
+cases, including Silver admission, proof, build and execution of 100 doors,
+completed with expected results in the retained suite. The execution count is
+the base case for every manifest entry plus its `argument_cases`, as implemented
+by `tests/test_samples.py`.
+
+The evidence retains failed or interrupted predecessors separately and
+identifies retained results with matching inputs and fresh executions.
+Timings and hashes remain in that evidence.
+The [final evidence and delivery review](reviews/review-scalar-guard-delivery-20261026.md)
+checks artifact integrity, exact input correspondence and these completion claims;
+its scope and measurements are retained separately from the semantic reviews.
+
+The [assurance argument](assurance.md#scalar-guard-refinement) states the exact
+conditional semantic/discharge and actual-source claims. The scoped reviews
+cover the selected rules, source-contract domains, raw token interpretation,
+comparison orientation and final integration; the candidate-repair record and
+final evidence cover the later proof-only elaboration repair. The separate
+advisory assessment covers the compiler-only diagnostic classification, the
+malformed-message guard and regression reuse; it changes no safety obligation
+or source semantics. The
+[frame account](evidence/scalar-guard-refinement/parser-frame-account-20261026.md)
+retains its observed-build identity and qualified applicability to the final
+Static-only Ada delta. Successful source-boundary shapes and conditional payload
+arithmetic establish no universal 8 MiB stack bound or all-route resource theorem.
+The existing tool, frontend and sufficient-resource premises remain explicit.
+
+| Round | Selected settings | Outcome and evidence limits |
+| --- | --- | --- |
+| Completion records | GPT-6.1 Sol, High; runtime model/effort not independently exposed | Aligned delivered support, assurance boundaries and the external-review pause with the final linked evidence. No new language rule or successor implementation. Elapsed time and token/cost measurements unavailable; the scratch-only reconciliation and final refresh used the same selected settings. Final refresh preserves failed-suite status and reviewed reuse with focused repair validation. |
+
+### Source-proof rebuild cost
+
+The [retained timing comparison](evidence/scalar-guard-refinement/proof-timing-20261026/README.md)
+answers the owner's performance question. The compiler-body certificate grew
+from 3,910 to 9,037 seconds and the predicate source candidate from 908 to
+5,082 seconds between division and guards. Both selected four Lake workers and
+two Lean threads; different inputs, caches and concurrent native work prevent a
+controlled scaling claim. The comparison's guard source-composition result was
+still pending when captured; it subsequently passed in 3,408 seconds, compared
+with 3,454 seconds for division. The [preserved source completion](evidence/scalar-guard-refinement/delivery-20261026/preserved-source/completion.json)
+retains the successful full run and distinguishes its earlier auditor input from
+the final cached checkpoint. The generated delivery certificate grew from 7.76 MB to 14.86 MB.
+
+[Development velocity follow-up #246](https://github.com/berkeleynerd/silver/issues/246)
+tracks source-proof scalability, checkpoint scheduling and cache/batching
+improvements for assessment after the external comprehensive review. These observations authorize no representation
+change or relaxation of kernel checks, source correspondence or coverage.
+
 The [source assessment and addendum](evidence/scalar-guard-refinement/assessment-20261025.md)
 identify the actual interfaces, proof obligations and design traps at division
 commit `d85251a4fc`. The selected rules below incorporate the addendum.
@@ -21,8 +110,8 @@ retains positive checks, isolated unsafe controls, exact driver execution and
 the storage proxy. The [active-flow interface](evidence/scalar-guard-refinement/active-flow-design-20261026.md)
 selects caller-owned condition buffers, active-length records, nonrecursive
 read overlays and iterative tails. Fixed full-size recursive vectors overflowed
-the proxy's unchanged stack; actual parser frame and source-limit validation
-remain implementation obligations.
+the proxy's unchanged stack. The retained frame account and final validation
+above record the resulting implementation evidence and its resource limits.
 
 ## Selected rules
 
@@ -103,28 +192,43 @@ Its manifest's expected stdout is independently generated by the pass-major togg
 model, with Ada Image's leading space, ` is open` or ` is closed`, and one newline
 for each door 1 through 100. The open doors are 1, 4, 9, 16, 25, 36, 49, 64,
 81 and 100. Historical native discovery executed those original Ada/SPARK bytes;
-these delivery records do not claim a Silver admission, proof, build or execution
-run for the prepared sample.
+the final delivery evidence separately records Silver admission, proof, build
+and execution of the checked-in sample.
 
-The universal proof must preserve concrete-store containment in current flow
-and declared ranges, static values, name identity, assignment replacement,
+The universal proof preserves concrete-store containment in current flow and
+declared ranges, static values, name identity, assignment replacement,
 true/false and short-circuit refinement, branch hulls, captured bounds and the
-widened loop-entry invariant. Obligation generation must use exactly the same
-intermediate flow as admission at every expression and statement. Extend both
-automatic discharge and actual-source correspondence, including typed source
-trees, arbitrary-callee equations, concrete witnesses, full source checks and
-the current-language endpoints. A source pin or execution safety alone is
-insufficient.
+widened loop-entry invariant. Obligation generation uses exactly the same
+intermediate flow as admission at every expression and statement. The automatic
+discharge and actual-source chain includes typed source trees, arbitrary-callee
+equations, concrete witnesses, full source checks and the current-language
+endpoints, under the explicit premises in the assurance argument. A source pin
+or execution safety alone is insufficient.
 
 No new obligation class, grammar, library, source/operator bound or tool pin is
-selected. Native discovery must verify automatic discharge and diagnostics.
-Retain a source-derived report-counting argument: new analysis creates no
-authored operation sites, but altered static elimination must remain covered by
-the existing envelope. Probe recursive frame growth before choosing how scalar
-vectors are stored in condition results. This is a feature-local implementation
-obligation, not a resumption of #119.
+selected. Native discovery and final validation record discharge and diagnostics.
+The source-derived report argument retains the existing envelope: new analysis
+creates no authored operation sites, including where static elimination changes.
+The feature-local frame account records active-count storage and recursive
+allocation observations with their explicit limits; this does not resume #119.
 
-## Prepared delivery records and checks
+## Historical preparation and intermediate checkpoints
+
+The remaining sections retain their dated inputs, partial results and then-open
+obligations as history. Their pending statements describe those intermediate
+snapshots; the delivery checkpoint above records the final combined result.
+
+### Prepared delivery records and checks
+
+The owner's [roadmap continuation](session-memory.md#2026-10-25--continue-non-deferred-roadmap-delivery)
+authorizes [#234](https://github.com/berkeleynerd/silver/issues/234) after division
+#229. This record selects the scope for #237 and records pending #238/#240 delivery
+metadata. Native discovery is complete; the selected native implementation is
+committed at `171d6b2a62`, independently of these records prepared from
+`e7ec53b325`. Universal/source assurance and complete validation/review remain
+pending. Delivery remains ordered: division first, then guards. Prepared changes
+to the language, catalogue and Rosetta `supported` list describe the selected
+increment together; they do not establish completed support or close a package.
 
 The specification and catalogue now describe the selected rules without new
 grammar: bare-name/static-threshold refinement, immutable declared ranges and
@@ -160,7 +264,7 @@ managed integration checkpoint; these draft checks are not evidence that those
 obligations passed. Selected documentation inputs include the capability and
 2026-10-26 active-flow/proof designs and native tests at `171d6b2a62`.
 
-## Packages and next check
+### Historical packages and next checks
 
 The native implementation at `171d6b2a62` passed 105 exploratory admission cases
 and all twenty prepared 4,096/4,097-byte parser shapes on an 8 MiB stack.
@@ -547,3 +651,33 @@ check must capture the repaired auditor after that run finishes.
 | Round | Selected settings | Resolved obligation and remaining validation | Measurements |
 | --- | --- | --- | --- |
 | Array advisory classification | GPT-6 Astra, Extra High for producer assessment and independent patch review; GPT-6.1 Sol, Extra High for the bounded patch; runtime settings not independently exposed | Established conservative information-loss semantics, restricted acceptance to the exact compiler unit/class, and passed the complete evidence-test file. Fresh complete audit remains pending. | Assessment/review 7m26s; managed evidence tests 6.497s (test body 4.886s); whole-team token/cost measurements unavailable. |
+
+
+### Malformed-message guard and retained regression evidence — 2026-10-26
+
+After the advisory repair, complete native audit
+`20261026T105929-ab95ef7b85fa` succeeded. It used the preceding auditor; final
+native audit/provenance `20261026T121322-fc9f4056f886` succeeded on the repaired
+auditor, and build `20261026T121505-a32d8e0916ec` succeeded. Full-suite
+`20261026T110119-3b18a2302af0` ran 511 tests with one error in the Image
+malformed-message mutation case. The run remains failed. Its completed
+unaffected results include all 48 manifest samples and 104 execution cases;
+the count includes one base case per sample plus every explicit
+`argument_cases` entry.
+
+The exact auditor-only guard at `d4d564cf35` restores the existing EvidenceError
+path for non-dictionary messages. The strict array-advisory classifier and valid
+report acceptance are unchanged. The
+[independent follow-up assessment](reviews/review-scalar-guard-array-initialization-advisory-20261026.md#follow-up-245-malformed-message-guard-and-evidence-reuse)
+found no scoped blocker and established reuse of unaffected suite results,
+conditional on the exact delta and both focused modules passing. Image run
+`20261026T120715-ae60c9d42d98` passed all 5 tests; evidence-auditor run
+`20261026T120722-6e5bfb5dcbea` passed all 60 tests. These separately successful
+checks resolve the failed route without relabeling the full-suite run as passed.
+Final native/build/Lean auditor-input refreshes remain distinct evidence.
+
+This follow-up selected GPT-6 Astra at Extra High for independent review and
+GPT-6.1 Sol at High for delivery-document refresh. Runtime settings are not
+independently attested, and token/cost measurements are unavailable. The
+independent follow-up review reports 3 minutes 27 seconds; no duplicate complete
+suite was run solely to repair this error-type path.
