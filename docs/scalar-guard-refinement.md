@@ -442,3 +442,14 @@ passed run `20261026T061202-8932bfd8f50a`, with a fresh audit of 10,480
 declarations. Relation/chain equality and one condition-join equality remain
 under focused repair before final native-source integration. These are partial
 checks, not the complete compiler or source checkpoint.
+
+The [final source-interface review](reviews/review-scalar-guard-final-source-20261026.md)
+found no new semantic/domain gap. It identified a stale public facade still
+using the old path-only signatures; the three-line repair uses the checked
+active-flow domain. Focused validation also exposed a missing explicit wrapper
+import, which was added. The [integrated interfaces](evidence/scalar-guard-refinement/lean-cohort-20261026/integration-final-interface.json)
+then passed their fresh audit of 24,877 declarations; the [result](evidence/scalar-guard-refinement/lean-cohort-20261026/lean-final-interface-evidence.json)
+retains the exact inputs and timings. This checks the source-requirement
+definitions and facade, not their instantiation against final guard source.
+The independent review used selected GPT-6 Astra at Extra High and reports
+455 seconds including writing; runtime settings and token/cost are unavailable.

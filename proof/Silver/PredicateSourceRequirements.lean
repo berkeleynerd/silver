@@ -3,9 +3,11 @@ module
 public import Silver.PredicateNativeSourceChecks
 public import Silver.PredicateBasicSourceCandidate
 public import Silver.PredicateScalarBodySource
+public import Silver.PredicateBodyWrappers
 public import Silver.PredicateBodyCandidates
 public import Silver.PredicateLoopCandidate
 public import Silver.PredicateAdapterSourceCandidate
+public import Silver.PredicateAdapterEnvironment
 public import Silver.PredicateOuterCandidates
 public import Silver.PredicateSourceShape
 
@@ -115,13 +117,15 @@ def body_alternative_body_impl_header : List String :=
   ["(", "text", ":", "string", ";", "context", ":", "body_context", ";", "scan", ":", "body_scan", ")", "return", "body_scan"]
 
 def body_body_tail_spec_header : List String :=
-  ["(", "text", ":", "string", ";", "context", ":", "body_context", ";", "scan", ":", "body_scan", ";", "stop", ":", "body_stop", ")", "return", "body_scan", "with", "global", "=>", "null", ",", "pre", "=>", "text", "'", "first", "=", "1", "and", "then", "text", "'", "length", "in", "1", "..", "max_source_length", "and", "then", "valid_context", "(", "text", ",", "context", ")", "and", "then", "valid_body", "(", "text", ",", "context", ",", "scan", ")", ",", "post", "=>", "valid_body", "(", "text", ",", "context", ",", "body_tail", "'", "result", ")", "and", "then", "(", "body_tail", "'", "result", ".", "position", "=", "0", "or", "else", "body_tail", "'", "result", ".", "position", ">=", "scan", ".", "position", ")", ",", "subprogram_variant", "=>", "(", "decreases", "=>", "(", "text", "'", "last", "+", "1", ")", "-", "scan", ".", "position", ",", "decreases", "=>", "3", ")"]
+  (Source.lexLine "(Text : String; Context : Body_Context; Scan : Body_Scan; Stop : Body_Stop) return Body_Scan with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan), Post => (Runtime => Valid_Body (Text, Context, Body_Tail'Result) and then (Body_Tail'Result.Position = 0 or else Body_Tail'Result.Position >= Scan.Position), Static => Body_Tail'Result =").getD [] ++
+  (BodyNative.ScanExpr.tailModel .current .input).render ++ (Source.lexLine ") , Subprogram_Variant => (Decreases => (Text'Last + 1) - Scan.Position, Decreases => 4)").getD []
 
 def body_body_tail_impl_header : List String :=
   ["(", "text", ":", "string", ";", "context", ":", "body_context", ";", "scan", ":", "body_scan", ";", "stop", ":", "body_stop", ")", "return", "body_scan"]
 
 def body_read_body_spec_header : List String :=
-  ["(", "text", ":", "string", ";", "context", ":", "body_context", ";", "scan", ":", "body_scan", ";", "stop", ":", "body_stop", ")", "return", "body_scan", "with", "global", "=>", "null", ",", "pre", "=>", "text", "'", "first", "=", "1", "and", "then", "text", "'", "length", "in", "1", "..", "max_source_length", "and", "then", "valid_context", "(", "text", ",", "context", ")", "and", "then", "valid_body", "(", "text", ",", "context", ",", "scan", ")", ",", "post", "=>", "(", "runtime", "=>", "valid_body", "(", "text", ",", "context", ",", "read_body", "'", "result", ")", "and", "then", "(", "read_body", "'", "result", ".", "position", "=", "0", "or", "else", "read_body", "'", "result", ".", "position", ">", "scan", ".", "position", ")", ",", "static", "=>", "read_body", "'", "result", "=", "(", "if", "statement_body", "(", "text", ",", "context", ",", "scan", ")", ".", "position", "=", "0", "then", "invalid_body", "else", "body_tail", "(", "text", ",", "context", ",", "statement_body", "(", "text", ",", "context", ",", "scan", ")", ",", "stop", ")", ")", ")", ",", "subprogram_variant", "=>", "(", "decreases", "=>", "(", "text", "'", "last", "+", "1", ")", "-", "scan", ".", "position", ",", "decreases", "=>", "3", ")"]
+  (Source.lexLine "(Text : String; Context : Body_Context; Scan : Body_Scan; Stop : Body_Stop) return Body_Scan with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan), Post => (Runtime => Valid_Body (Text, Context, Read_Body'Result) and then (Read_Body'Result.Position = 0 or else Read_Body'Result.Position > Scan.Position), Static => Read_Body'Result =").getD [] ++
+  BodyNative.readContractBody.render ++ (Source.lexLine ") , Subprogram_Variant => (Decreases => (Text'Last + 1) - Scan.Position, Decreases => 3)").getD []
 
 def body_read_body_impl_header : List String :=
   ["(", "text", ":", "string", ";", "context", ":", "body_context", ";", "scan", ":", "body_scan", ";", "stop", ":", "body_stop", ")", "return", "body_scan"]
@@ -136,7 +140,7 @@ def body_expand_body_impl_header : List String :=
   ["(", "context", ":", "body_context", ";", "scan", ":", "body_scan", ")", "return", "scan_result"]
 
 def body_body_token_spec_header : List String :=
-  ["(", "text", ":", "string", ";", "context", ":", "body_context", ";", "scan", ":", "body_scan", ";", "token", ":", "token_kind", ")", "return", "body_scan", "with", "global", "=>", "null", ",", "pre", "=>", "text", "'", "first", "=", "1", "and", "then", "text", "'", "length", "in", "1", "..", "max_source_length", "and", "then", "valid_context", "(", "text", ",", "context", ")", "and", "then", "valid_body", "(", "text", ",", "context", ",", "scan", ")", ",", "post", "=>", "valid_body", "(", "text", ",", "context", ",", "body_token", "'", "result", ")", "and", "then", "(", "body_token", "'", "result", ".", "position", "=", "0", "or", "else", "body_token", "'", "result", ".", "position", ">", "scan", ".", "position", ")"]
+  Adapter.Wrappers.tokenSpec
 
 def body_body_token_impl_header : List String :=
   ["(", "text", ":", "string", ";", "context", ":", "body_context", ";", "scan", ":", "body_scan", ";", "token", ":", "token_kind", ")", "return", "body_scan"]
@@ -226,10 +230,10 @@ def scan_result_declaration : List String :=
   ["record", "state", ":", "parser_state", ";", "assigned", ",", "output", ":", "boolean", ";", "end", "record"]
 
 def body_context_declaration : List String :=
-  ["record", "names", ":", "binding_environment", ";", "scalar_names", ":", "scalar_expressions", ".", "environment", ";", "dynamic_first", ",", "dynamic_after", ":", "literal_position", ";", "end", "record"]
+  (Source.lexLine "record Names : Binding_Environment; Scalar_Names : Scalar_Expressions.Environment; Declaration_Count : Scalar_Expressions.Binding_Count; Dynamic_First, Dynamic_After : Literal_Position; end record").getD []
 
 def body_scan_declaration : List String :=
-  ["record", "facts", ":", "paths", ".", "context", ";", "position", ":", "literal_position", ";", "target", ":", "binding_count", ";", "capacity", ":", "capacity_value", ";", "assigned", ",", "output", ":", "boolean", ";", "end", "record"]
+  (Source.lexLine "(Count : Scalar_Expressions.Binding_Count) is record Facts : Scalar_Flow (Count); Position : Literal_Position; Target : Binding_Count; Capacity : Capacity_Value; Assigned, Output : Boolean; end record").getD []
 
 def body_stop_declaration : List String :=
   ["(", "end_only", ",", "else_only", ",", "arm_boundary", ")"]
@@ -248,9 +252,6 @@ def initial_scan_declaration : List String :=
 
 def invalid_scan_declaration : List String :=
   ["constant", "scan_result", ":=", "(", "state", "=>", "invalid_state", ",", "assigned", "=>", "false", ",", "output", "=>", "false", ")"]
-
-def invalid_body_declaration : List String :=
-  ["constant", "body_scan", ":=", "(", "facts", "=>", "paths", ".", "empty_context", ",", "position", "=>", "0", ",", "target", "=>", "0", ",", "capacity", "=>", "0", ",", "assigned", "=>", "false", ",", "output", "=>", "false", ")"]
 
 def max_source_length_declaration : List String :=
   ["constant", "positive", ":=", "4_096"]
@@ -280,27 +281,52 @@ def concatenation_count_declaration : List String :=
   ["natural", "range", "0", "..", "max_concatenations"]
 
 def valid_context_expression : List String :=
-  ["valid_names", "(", "text", ",", "context", ".", "names", ")", "and", "then", "scalar_expressions", ".", "valid_environment", "(", "text", ",", "context", ".", "scalar_names", ")", "and", "then", "valid_name_state", "(", "text", ",", "context", ".", "dynamic_first", ",", "context", ".", "dynamic_after", ")"]
+  (Source.lexLine "Valid_Names (Text, Context.Names) and then Scalar_Expressions.Valid_Environment (Text, Context.Scalar_Names) and then Valid_Declaration_Values (Context.Scalar_Names, Context.Declaration_Count) and then Valid_Mutable_Bounds (Context.Scalar_Names) and then (for all Index in 1 .. Context.Scalar_Names.Count => (if Context.Scalar_Names.Items (Index).Mutable then Context.Scalar_Names.Items (Index).Bounds = Context.Scalar_Names.Items (Index).Declared_Bounds)) and then Valid_Name_State (Text, Context.Dynamic_First, Context.Dynamic_After)").getD []
 
 def valid_body_expression : List String :=
-  ["scan", ".", "position", "<=", "text", "'", "last", "+", "1", "and", "then", "scan", ".", "target", "<=", "context", ".", "names", ".", "count"]
+  (Source.lexLine "Scan.Position <= Text'Last + 1 and then Scan.Target <= Context.Names.Count and then Valid_Flow (Context, Scan.Facts)").getD []
+
+def body_body_tail_model_spec_header : List String :=
+  (Source.lexLine "(Text : String; Context : Body_Context; Scan : Body_Scan; Stop : Body_Stop) return Body_Scan with Ghost => Static, Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan), Post => Valid_Body (Text, Context, Body_Tail_Model'Result) and then (Body_Tail_Model'Result.Position = 0 or else Body_Tail_Model'Result.Position >= Scan.Position), Subprogram_Variant => (Decreases => (Text'Last + 1) - Scan.Position, Decreases => 3)").getD []
+
+def valid_flow_expression : List String :=
+  (Source.lexLine "Facts.Count = Context.Scalar_Names.Count and then (for all Index in Facts.Values'Range => (if Context.Scalar_Names.Items (Index).Mutable then not Scalars.Is_Empty (Facts.Values (Index)) and then Included (Facts.Values (Index), Context.Scalar_Names.Items (Index).Declared_Bounds) elsif Index > Context.Declaration_Count then Included (Facts.Values (Index), Context.Scalar_Names.Items (Index).Bounds) else Facts.Values (Index) = Context.Scalar_Names.Items (Index).Bounds))").getD []
+
+def included_expression : List String :=
+  (Source.lexLine "Scalars.Is_Empty (Value) or else (not Scalars.Is_Empty (Bounds) and then Value.Lower >= Bounds.Lower and then Value.Upper <= Bounds.Upper)").getD []
+
+def string_target_declaration : List String :=
+  (Source.lexLine "record After : Literal_Position; Target : Binding_Count; end record").getD []
+
+def lemma_joined_flow_header : List String :=
+  (Source.lexLine "(Context : Body_Context; Left, Right : Scalar_Flow)").getD []
+
+/-- This exact Static helper is the only ghost call attached to the rendered
+save/join compound. Its verified precondition covers declaration nonemptiness
+and both incoming flows; its postcondition covers the joined flow. -/
+def lemma_joined_flow_spec : List String :=
+  lemma_joined_flow_header ++ (Source.lexLine "with Ghost => Static, Global => null, Pre => Valid_Declaration_Values (Context.Scalar_Names, Context.Declaration_Count) and then Valid_Flow (Context, Left) and then Valid_Flow (Context, Right), Post => Valid_Flow (Context, Joined (Left, Right))").getD []
 
 structure Checked (specTokens bodyTokens : List String) : Prop where
   spec_shape : specTokens = SourceShape.specTokens
   body_shape : bodyTokens = SourceShape.bodyTokens
   native : NativeSourceChecks.Checked bodyTokens
   scalarBodies : ScalarBodyNative.SourceChecks.Checked bodyTokens
+  bodyWrappers : BodyWrappers.Checked bodyTokens
+  adapterWrappers : Adapter.Wrappers.Checked bodyTokens
+  lemma_joined_flow_spec : procedureHeader "lemma_joined_flow" ";" bodyTokens = some lemma_joined_flow_spec
+  lemma_joined_flow_impl : procedureHeader "lemma_joined_flow" "is" bodyTokens = some lemma_joined_flow_header
   basic_body_body : ordinaryFunction "basic_body" bodyTokens = some (BasicNative.basicRender)
   statement_body_body : Source.expressionBody "statement_body" bodyTokens = some (BodyNative.statementRender)
   loop_body_body : ordinaryFunction "loop_body" bodyTokens = some LoopNative.render
   conditional_body_body : ordinaryFunction "conditional_body" bodyTokens = some (BodyNative.conditionalFunction.render "conditional_body")
   alternative_body_body : ordinaryFunction "alternative_body" bodyTokens = some (BodyNative.alternativeFunction.render "alternative_body")
-  body_tail_body : ordinaryFunction "body_tail" bodyTokens = some (BodyNative.tailFunction.render "body_tail")
+  body_tail_model_body : Source.expressionBody "body_tail_model" bodyTokens = some BodyNative.tailModelBody.render
+  body_tail_model_spec : functionHeader "body_tail_model" ";" bodyTokens = some body_body_tail_model_spec_header
+  body_tail_model_impl : functionHeader "body_tail_model" "is" bodyTokens = some body_body_tail_impl_header
   read_body_body : ordinaryFunction "read_body" bodyTokens = some (BodyNative.readFunction.render "read_body")
   context_of_body : Source.expressionBody "context_of" bodyTokens = some ((Adapter.contextExpr.render).drop 1).dropLast
-  body_of_body : Source.expressionBody "body_of" bodyTokens = some ((Adapter.bodyExpr.render).drop 1).dropLast
   expand_body_body : Source.expressionBody "expand_body" bodyTokens = some ((Adapter.expandExpr.render).drop 1).dropLast
-  body_token_body : Source.expressionBody "body_token" bodyTokens = some ((Adapter.tokenExpr.render).drop 1).dropLast
   at_body_stop_body : Source.expressionBody "at_body_stop" bodyTokens = some ((Adapter.atStopExpr.render).drop 1).dropLast
   read_statements_body : ordinaryFunction "read_statements" bodyTokens = some (Adapter.adapterFunction.render)
   tokens_body : Source.expressionBody "tokens" bodyTokens = some (Outer.tokensBody)
@@ -371,14 +397,13 @@ structure Checked (specTokens bodyTokens : List String) : Prop where
   body_is_word_token_impl_header : functionHeader "is_word_token" "is" bodyTokens = some body_is_word_token_impl_header
   scan_result_declaration : Lexical.SourceBridge.recordDeclaration "scan_result" bodyTokens = some scan_result_declaration
   body_context_declaration : Lexical.SourceBridge.recordDeclaration "body_context" bodyTokens = some body_context_declaration
-  body_scan_declaration : Lexical.SourceBridge.recordDeclaration "body_scan" bodyTokens = some body_scan_declaration
+  body_scan_declaration : Lexical.SourceBridge.discriminatedRecordDeclaration "body_scan" bodyTokens = some body_scan_declaration
   body_stop_declaration : typeDeclaration "body_stop" bodyTokens = some body_stop_declaration
   form_kind_declaration : typeDeclaration "form_kind" specTokens = some form_kind_declaration
   token_kind_declaration : typeDeclaration "token_kind" specTokens = some token_kind_declaration
   token_sequence_declaration : typeDeclaration "token_sequence" specTokens = some token_sequence_declaration
   initial_scan_declaration : Source.declaration "initial_scan" bodyTokens = some initial_scan_declaration
   invalid_scan_declaration : Source.declaration "invalid_scan" bodyTokens = some invalid_scan_declaration
-  invalid_body_declaration : Source.declaration "invalid_body" bodyTokens = some invalid_body_declaration
   max_source_length_declaration : Source.declaration "max_source_length" specTokens = some max_source_length_declaration
   max_expression_operands_declaration : Source.declaration "max_expression_operands" specTokens = some max_expression_operands_declaration
   max_concatenations_declaration : Source.declaration "max_concatenations" specTokens = some max_concatenations_declaration
@@ -388,6 +413,11 @@ structure Checked (specTokens bodyTokens : List String) : Prop where
   binding_index_declaration : Lexical.SourceBridge.subtypeDeclaration "binding_index" bodyTokens = some binding_index_declaration
   operand_count_declaration : Lexical.SourceBridge.subtypeDeclaration "operand_count" bodyTokens = some operand_count_declaration
   concatenation_count_declaration : Lexical.SourceBridge.subtypeDeclaration "concatenation_count" bodyTokens = some concatenation_count_declaration
+  valid_flow_body : Source.expressionBody "valid_flow" bodyTokens = some valid_flow_expression
+  valid_flow_header : functionHeader "valid_flow" "is" bodyTokens = some ((Source.lexLine "(Context : Body_Context; Facts : Scalar_Flow) return Boolean").getD [])
+  included_body : Source.expressionBody "included" bodyTokens = some included_expression
+  included_header : functionHeader "included" "is" bodyTokens = some ((Source.lexLine "(Value, Bounds : Scalars.Interval) return Boolean").getD [])
+  string_target_declaration : Lexical.SourceBridge.recordDeclaration "string_target_result" bodyTokens = some string_target_declaration
   valid_context_body : Source.expressionBody "valid_context" bodyTokens = some valid_context_expression
   valid_body_body : Source.expressionBody "valid_body" bodyTokens = some valid_body_expression
 

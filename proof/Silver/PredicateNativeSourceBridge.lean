@@ -57,7 +57,7 @@ theorem chainAfter_correct (source : InterpretedSource tokens calls) (text : Sou
 theorem condition_correct (source : InterpretedSource tokens calls) (text : Source)
     (tv : ValidText text) (context : Native.Context) (cv : ValidContext text context)
     (position : Nat) (bounded : position ≤ text.length + 1)
-    (facts : PathFacts.Context) (fv : facts.Bounded) :
+    (facts : ActiveFlow) (fv : ValidFlow context facts) :
     calls.condition text context position facts = readCondition text context.model position facts :=
   condition_of_source_equations source.helpers source.definitions source.contracts
     text tv context cv position bounded facts fv
@@ -65,8 +65,8 @@ theorem condition_correct (source : InterpretedSource tokens calls) (text : Sour
 theorem condition_valid (source : InterpretedSource tokens calls) (text : Source)
     (tv : ValidText text) (context : Native.Context) (cv : ValidContext text context)
     (position : Nat) (bounded : position ≤ text.length + 1)
-    (facts : PathFacts.Context) (fv : facts.Bounded) :
-    ValidResult text (calls.condition text context position facts) := by
+    (facts : ActiveFlow) (fv : ValidFlow context facts) :
+    ValidResult text context (calls.condition text context position facts) := by
   rw [condition_correct source text tv context cv position bounded facts fv]
   exact model_condition_valid text tv context cv position bounded facts fv
 
