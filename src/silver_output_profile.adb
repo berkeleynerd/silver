@@ -162,6 +162,11 @@ is
           not Scalars.Is_Empty (Scalar_Names.Items (Index).Bounds)
           and then Scalar_Names.Items (Index).Bounds.Lower >= Scalar_Names.Items (Index).Declared_Bounds.Lower
           and then Scalar_Names.Items (Index).Bounds.Upper <= Scalar_Names.Items (Index).Declared_Bounds.Upper));
+   function Valid_Declaration_Values
+     (Scalar_Names : Scalar_Expressions.Environment; Count : Scalar_Expressions.Binding_Count)
+      return Boolean is
+     (Count <= Scalar_Names.Count
+      and then (for all Index in 1 .. Count => not Scalars.Is_Empty (Scalar_Names.Items (Index).Bounds)));
    function Valid_State (Text : String; State : Parser_State) return Boolean
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length;
@@ -170,6 +175,7 @@ is
       and then Valid_Names (Text, State.Names)
       and then Scalar_Expressions.Valid_Environment (Text, State.Scalar_Names)
       and then Valid_Mutable_Bounds (State.Scalar_Names)
+      and then Valid_Declaration_Values (State.Scalar_Names, State.Scalar_Names.Count)
       and then Valid_Name_State (Text, State.Dynamic_First, State.Dynamic_After)
       and then State.Target <= State.Names.Count);
 
@@ -1107,6 +1113,7 @@ is
       Result : Scalar_Flow (Context.Scalar_Names.Count);
    begin
       Result.Path := Paths.Initial (Context.Dynamic_First /= 0);
+      Result.Values := (others => Scalars.Empty);
       for Index in Result.Values'Range loop
          pragma Loop_Invariant
            (Static => (for all Done in Result.Values'First .. Index - 1 =>
@@ -1166,7 +1173,7 @@ is
    function Valid_Context (Text : String; Context : Body_Context) return Boolean is
      (Valid_Names (Text, Context.Names)
       and then Scalar_Expressions.Valid_Environment (Text, Context.Scalar_Names)
-      and then Context.Declaration_Count <= Context.Scalar_Names.Count
+      and then Valid_Declaration_Values (Context.Scalar_Names, Context.Declaration_Count)
       and then Valid_Mutable_Bounds (Context.Scalar_Names)
       and then (for all Index in 1 .. Context.Scalar_Names.Count =>
         (if Context.Scalar_Names.Items (Index).Mutable then
@@ -1569,7 +1576,7 @@ is
         (declare After : constant Literal_Position := Take_Token (Text, Position, Left_Parenthesis);
          begin
            (if After /= 0 then
-              (declare Result : constant Condition_Result := Condition_Model (Text, Context, After, Facts);
+              (declare Result : constant Condition_Result (Facts.Count) := Condition_Model (Text, Context, After, Facts);
                Close : constant Literal_Position := Take_Token (Text, Result.After, Right_Parenthesis);
                begin (if Close = 0 then Invalid_Condition (Facts) else (Result with delta After => Close)))
             elsif Context.Dynamic_First = 0 then Invalid_Condition (Facts)
@@ -1590,7 +1597,7 @@ is
            Left_Scalar : constant Scalar_Expressions.Expression_Result := Read_Scalar_In_Flow (Text, Context, Position, Facts);
          begin
            (if After /= 0 then
-              (declare Result : constant Condition_Result := Primary_Model (Text, Context, After, Facts);
+              (declare Result : constant Condition_Result (Facts.Count) := Primary_Model (Text, Context, After, Facts);
                begin (Result.Count, Result.After, Result.When_False, Result.When_True))
             elsif Left_Length.After /= 0 then
               (declare
@@ -1677,7 +1684,7 @@ is
               (declare After : constant Literal_Position := Chain_After (Text, Result.After, Selected);
                begin
                  (if After = 0 then Invalid_Condition (Result.When_True) else
-                    (declare Right : constant Condition_Result := Relation_Model (Text, Context, After,
+                    (declare Right : constant Condition_Result (Result.Count) := Relation_Model (Text, Context, After,
                        (if Selected = And_Keyword then Result.When_True else Result.When_False));
                      begin
                        (if Right.After = 0 then Invalid_Condition (Result.When_True) else
@@ -1881,7 +1888,8 @@ is
    end Read_Relation_Into;
    procedure Read_Chain_Into
      (Text : String; Context : Body_Context; Result : in out Condition_Result) is
-      Right : Condition_Result (Result.Count);
+      Active_Count : constant Scalar_Expressions.Binding_Count := Result.Count;
+      Right : Condition_Result (Active_Count);
       Operator : Token_Kind := And_Keyword;
       Chained : Boolean := False;
       Selected : Token_Kind;
@@ -1959,6 +1967,31 @@ is
       After : constant Literal_Position := Name_After (Text, First);
       begin Scalar_Expressions.Lookup (Text, Context.Scalar_Names, First, After));
 
+   type String_Target_Result is record
+      After : Literal_Position;
+      Target : Binding_Count;
+   end record;
+   function Body_String_Target
+     (Text : String; Context : Body_Context; Position : Literal_Position)
+      return String_Target_Result
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_Context (Text, Context) and then Position <= Text'Last + 1,
+       Post => Body_String_Target'Result.Target <= Context.Names.Count
+         and then (Body_String_Target'Result.After = 0
+           or else Body_String_Target'Result.After in Position + 1 .. Text'Last + 1);
+   function Body_String_Target
+     (Text : String; Context : Body_Context; Position : Literal_Position)
+      return String_Target_Result is
+     (declare First : constant Literal_Position := Skip_At (Text, Position);
+      After : constant Literal_Position := Name_After (Text, First);
+      Index : constant Binding_Count := Lookup_Name (Text, Context.Names, First, After);
+      begin
+        (if Index = 0
+          or else Scalar_Expressions.Lookup (Text, Context.Scalar_Names, First, After) /= 0
+          or else not Context.Names.Items (Index).Mutable
+         then (0, 0) else (After, Index)));
+
    function Scalar_Assignment_Model
      (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan
      with Ghost => Static, Global => null,
@@ -2029,7 +2062,7 @@ is
      (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan is
       Result : Body_Scan (Scan.Count) := Scan;
       Value : Expression_Result;
-      State : Parser_State;
+      Target : String_Target_Result;
    begin
       if Result.Position = 0 then return Invalid_Body (Scan); end if;
       if Take_Token (Text, Result.Position, Null_Keyword) /= 0 then
@@ -2064,9 +2097,9 @@ is
       elsif Scalar_Target (Text, Context, Result.Position) /= 0 then
          Result := Scalar_Assignment_Body (Text, Context, Result);
       else
-         State := Target_At (Text, Expand_Body (Context, Result).State, False);
-         Result.Position := State.Position;
-         Result.Target := State.Target;
+         Target := Body_String_Target (Text, Context, Result.Position);
+         Result.Position := Target.After;
+         Result.Target := Target.Target;
          Result := Body_Token (Text, Context, Result, Assignment);
          Value := Read_String_In_Flow (Text, Context, Result.Position, Result.Facts);
          if Value.After = 0 or else Result.Target = 0
@@ -2257,6 +2290,7 @@ is
          Inner_Scan.Output := Result.Output;
          Inner_Scan.Facts.Path :=
            (if Scalars.Is_Empty (Index_Bounds) then Paths.Empty_Context else Result.Facts.Path);
+         Inner_Scan.Facts.Values := (others => Scalars.Empty);
          for Index in Result.Facts.Values'Range loop
             pragma Loop_Invariant
               (Static => (for all Done in Result.Facts.Values'First .. Index - 1 =>
