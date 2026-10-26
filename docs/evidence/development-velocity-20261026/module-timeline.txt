@@ -1,0 +1,28 @@
+Owner-supplied report Appendix B: run 20261026T094105-ac4e120bd9f9.
+Transcribed from the full report pasted in the conversation on 2026-10-26.
+The reviewer reports capturing these .trace mtimes at 14:34:26 UTC from
+tmp/review-b79-b1-lean/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/.
+This is a retained report excerpt, not a new filesystem capture or independently
+verified CPU/utilization history. The original reviewer-local snapshot path was
+unavailable. Compare module durations with the separately retained successful
+log and completion.json; do not infer CPU occupancy from completion times.
+
+Reported UTC completion times, 2026-10-26:
+09:41:44  OutputProfileBodySource      (binding; .olean 09:41:43)
+09:49:11  PredicateScalarBodyCandidate
+11:13:53  PredicateSourceCandidate
+12:12:21  OutputBodyCertificate        (.olean 12:10:29)
+12:12:23  SourceCertificates
+12:12:26  Source
+12:15:36  OutputSourceBridge
+12:16:08  NamedSourceBridge
+12:17:41  ArgumentsSourceBridge
+12:19:25  LexicalSourceBridge
+13:09:10  ComposeSourceChecks
+13:09:15  ComposeSourceBridge
+13:09:18  PredicateSourceChecks
+13:09:46  Audit                        (audit ended 13:09:59; run 13:10:01)
+
+Reported cached inputs:
+OutputSpecCertificate: 2026-10-17 02:11 UTC
+ReviewedOutputShape: 2026-10-26 09:21:43 UTC, preceding focused run

@@ -1,5 +1,25 @@
 # Session memory
 
+## 2026-10-26 — Velocity assessment retained; feature-review response comes next
+
+After the external scoping report for
+[#246](https://github.com/berkeleynerd/silver/issues/246) and the coding agent's
+assessment, the owner requested closing out this planning work for later
+scheduling: **“Our next unit of work will be responding to the in-progress
+review of new language features but we will likely return to this item once
+that work is merged.”** Retain the
+[assessment and re-entry checklist](development-velocity.md), correct the issue's
+stale evidence wording, and keep #246 open in Backlog without a milestone.
+
+The next work is the response to the comprehensive feature review of the
+PR #242 delivery. Reconsider #246 after that response is merged; the merge is
+a scheduling checkpoint, not automatic authorization to profile or implement
+an optimization. The retained packages and policy choices are recommendations,
+not adopted workflow rules or selected implementation increments. Refresh their
+applicability against the resulting main before selecting work. Existing
+Oracle, capacity and assurance-mode deferrals remain unchanged. No harness goal
+is created or reactivated by this planning closeout.
+
 ## 2026-10-26 — Development velocity follow-up recorded
 
 While the guard source rebuild was active, the owner requested a ticket covering
