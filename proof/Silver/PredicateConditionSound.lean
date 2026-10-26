@@ -47,7 +47,7 @@ private theorem length_name {text context position operand result}
   | binding => exact ⟨_, rfl⟩
 
 mutual
-  theorem primary_sound (text : Source) (context : ParseContext) (position : Nat) (facts : PathFacts.Context)
+  theorem primary_sound (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
       (textValid : ValidText text) (namesValid : ValidNames text context.names)
       (bounded : position ≤ text.length + 1) (accepted : (readPrimary text context position facts).after ≠ 0) :
       (∃ condition, PrimaryAt text context position facts condition (readPrimary text context position facts)) ∧
@@ -57,13 +57,14 @@ mutual
     · by_cases opening : fixedAfter text position "(" false ≠ 0
       · by_cases advanced : remainingAt text (fixedAfter text position "(" false) < remainingAt text position
         · have closed : fixedAfter text (readCondition text context (fixedAfter text position "(" false) facts).after ")" false ≠ 0 := by
-            simpa [readPrimary, zero, opening, advanced] using accepted
+            intro failed
+            simp [readPrimary, zero, opening, advanced, failed, invalidCondition] at accepted
           have innerPositive := fixedAfter_nonzero closed
           have inner := condition_sound text context (fixedAfter text position "(" false) facts
             textValid namesValid (model_fixed_valid text position _ _ bounded) innerPositive
           obtain ⟨condition, parsed⟩ := inner.1
           rw [readPrimary]
-          simp [zero, opening, advanced]
+          simp [zero, opening, advanced, closed]
           exact ⟨⟨.parenthesized condition, .group zero opening advanced parsed closed⟩,
             model_fixed_valid text _ _ _ inner.2⟩
         · simp [readPrimary, zero, opening, advanced, invalidCondition] at accepted
@@ -72,14 +73,16 @@ mutual
           cases arguments : context.hasArguments with
           | false => simp [readPrimary, zero, noOpening, arguments, invalidCondition] at accepted
           | true => rfl
-        have finalPositive : callAfter text context.names position .validity context.scalarNames ≠ 0 := by simpa [readPrimary, zero, noOpening, arguments] using accepted
-        simp [readPrimary, zero, noOpening, arguments]
+        have finalPositive : callAfter text context.names position .validity context.scalarNames ≠ 0 := by
+          intro failed
+          simp [readPrimary, zero, noOpening, arguments, failed, invalidCondition] at accepted
+        simp [readPrimary, zero, noOpening, arguments, finalPositive]
         exact ⟨⟨.inputValid, .valid zero noOpening arguments finalPositive⟩,
           model_callAfter_valid (scalarNames := context.scalarNames) text context.names position .validity bounded⟩
   termination_by (remainingAt text position, 1)
   decreasing_by all_goals exact Prod.Lex.left _ _ (by assumption)
 
-  theorem relation_sound (text : Source) (context : ParseContext) (position : Nat) (facts : PathFacts.Context)
+  theorem relation_sound (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
       (textValid : ValidText text) (namesValid : ValidNames text context.names)
       (bounded : position ≤ text.length + 1) (accepted : (readRelation text context position facts).after ≠ 0) :
       (∃ condition, RelationAt text context position facts condition (readRelation text context position facts)) ∧
@@ -116,13 +119,13 @@ mutual
           exact ⟨⟨_, .length zero noNot lengthPresent leftRead rightRead rightAdvanced⟩,
             length_bound text context _ true rightBound⟩
         · have noLength : (lengthAt text context position false).after = 0 := by omega
-          by_cases scalarPresent : (ScalarExpression.read text position context.scalarNames).after ≠ 0
-          · let left := ScalarExpression.read text position context.scalarNames
+          by_cases scalarPresent : (ScalarExpression.read text position (context.readingNames facts)).after ≠ 0
+          · let left := ScalarExpression.read text position (context.readingNames facts)
             let operator := Predicate.comparisonAt text left.after
-            let right := ScalarExpression.read text operator.after context.scalarNames
+            let right := ScalarExpression.read text operator.after (context.readingNames facts)
             have advanced : position < right.after := by
               by_cases failed : right.after ≤ position
-              · have resultEq : readRelation text context position facts = invalidCondition := by
+              · have resultEq : readRelation text context position facts = invalidCondition facts := by
                   simp only [readRelation, zero, noNot, noLength, ne_eq, not_true_eq_false,
                     scalarPresent, not_false_eq_true, ↓reduceIte]
                   exact ite_eq_left failed
@@ -133,21 +136,21 @@ mutual
             have leftBound := (ScalarExpression.read_bounds bounded scalarPresent).2.1
             have operatorBound := comparison_bound text left.after leftBound
             obtain ⟨rightExpr, rightRead⟩ := ScalarExpression.read_sound operatorBound rightPositive
-            have resultEq : readRelation text context position facts = ⟨right.after, facts, facts⟩ := by
+            have resultEq : readRelation text context position facts = scalarCondition text context position operator.after facts left right operator.operator := by
               simp only [readRelation, zero, noNot, noLength, ne_eq, not_true_eq_false,
                 scalarPresent, not_false_eq_true, ↓reduceIte]
               exact ite_eq_right (Nat.not_le.mpr advanced)
             rw [resultEq]
             exact ⟨⟨_, .scalars zero noNot noLength scalarPresent leftRead rightRead advanced⟩,
               (ScalarExpression.read_bounds operatorBound rightPositive).2.1⟩
-          · have noScalar : (ScalarExpression.read text position context.scalarNames).after = 0 := by omega
-            by_cases expressionPresent : (expressionAt text position context.names context.scalarNames).after ≠ 0
-            · let left := expressionAt text position context.names context.scalarNames
+          · have noScalar : (ScalarExpression.read text position (context.readingNames facts)).after = 0 := by omega
+            by_cases expressionPresent : (expressionAt text position context.names (context.readingNames facts)).after ≠ 0
+            · let left := expressionAt text position context.names (context.readingNames facts)
               let operator := Predicate.comparisonAt text left.after
-              let right := expressionAt text operator.after context.names context.scalarNames
+              let right := expressionAt text operator.after context.names (context.readingNames facts)
               have allowed : ¬(operator.after = 0 ∨ (operator.operator ≠ .eq ∧ operator.operator ≠ .ne)) := by
                 intro failed
-                have resultEq : readRelation text context position facts = invalidCondition := by
+                have resultEq : readRelation text context position facts = invalidCondition facts := by
                   rw [readRelation]
                   simp only [zero, noNot, noLength, noScalar, ne_eq, not_true_eq_false, expressionPresent,
                     not_false_eq_true, ↓reduceIte]
@@ -155,9 +158,9 @@ mutual
                   rw [ite_eq_left failed]
                 exact accepted (congrArg ConditionResult.after resultEq)
               have boundedValues : ¬(right.after ≤ position ∨ !(left.namedSeen || right.namedSeen) ∨
-                  !fitsLengthSummary facts (summaryOf left) ∨ !fitsLengthSummary facts (summaryOf right)) := by
+                  !fitsLengthSummary facts.path (summaryOf left) ∨ !fitsLengthSummary facts.path (summaryOf right)) := by
                 intro failed
-                have unfolded : readRelation text context position facts = invalidCondition := by
+                have unfolded : readRelation text context position facts = invalidCondition facts := by
                   simp only [readRelation, zero, noNot, noLength, noScalar, ne_eq, not_true_eq_false,
                     expressionPresent, not_false_eq_true, ↓reduceIte]
                   change (if operator.after = 0 ∨ _ then _ else _) = _
@@ -178,8 +181,8 @@ mutual
                 · exact true_of_not_neg (fun bad => boundedValues (Or.inr (Or.inl bad)))
                 · exact true_of_not_neg (fun bad => boundedValues (Or.inr (Or.inr (Or.inl bad))))
                 · exact true_of_not_neg (fun bad => boundedValues (Or.inr (Or.inr (Or.inr bad))))
-              obtain ⟨leftExpr, leftRead⟩ := expressionAt_sound (scalarNames := context.scalarNames) text context.names position ready.1
-              obtain ⟨rightExpr, rightRead⟩ := expressionAt_sound (scalarNames := context.scalarNames) text context.names operator.after ready.2.2.2.1
+              obtain ⟨leftExpr, leftRead⟩ := expressionAt_sound (scalarNames := (context.readingNames facts)) text context.names position ready.1
+              obtain ⟨rightExpr, rightRead⟩ := expressionAt_sound (scalarNames := (context.readingNames facts)) text context.names operator.after ready.2.2.2.1
               have resultEq : readRelation text context position facts = stringResult facts left right operator := by
                 simp only [readRelation, zero, noNot, noLength, noScalar, ne_eq, not_true_eq_false,
                   expressionPresent, not_false_eq_true, ↓reduceIte]
@@ -188,10 +191,10 @@ mutual
                 rfl
               rw [resultEq]
               exact ⟨⟨_, .strings zero noNot noLength noScalar leftRead rightRead ready rightAdvanced⟩,
-                (model_expression_valid (scalarNames := context.scalarNames) text textValid operator.after context.names
-                  (comparison_bound text left.after (model_expression_valid (scalarNames := context.scalarNames) text textValid position context.names bounded namesValid).1)
+                (model_expression_valid (scalarNames := (context.readingNames facts)) text textValid operator.after context.names
+                  (comparison_bound text left.after (model_expression_valid (scalarNames := (context.readingNames facts)) text textValid position context.names bounded namesValid).1)
                   namesValid).1⟩
-            · have noExpression : (expressionAt text position context.names context.scalarNames).after = 0 := by omega
+            · have noExpression : (expressionAt text position context.names (context.readingNames facts)).after = 0 := by omega
               have primaryPositive : (readPrimary text context position facts).after ≠ 0 := by
                 simpa [readRelation, zero, noNot, noLength, noScalar, noExpression] using accepted
               have primary := primary_sound text context position facts textValid namesValid bounded primaryPositive
@@ -224,7 +227,7 @@ mutual
                 by_cases rightZero : right.after = 0
                 · rw [conditionTail] at accepted
                   simp only [zero, operatorEq, compatible, Bool.false_eq_true, afterZero, advanced, ↓reduceIte, ↓reduceDIte] at accepted
-                  change (if right.after = 0 then invalidCondition else _).after ≠ 0 at accepted
+                  change (if right.after = 0 then invalidCondition result.whenTrue else _).after ≠ 0 at accepted
                   simp only [rightZero, ↓reduceIte, invalidCondition, ne_eq, not_true_eq_false] at accepted
                 · let next := chainJoin result right operator
                   by_cases nextAdvanced : remainingAt text next.after < remainingAt text result.after
@@ -232,8 +235,8 @@ mutual
                       rw [conditionTail] at accepted
                       simp only [zero, operatorEq, compatible, Bool.false_eq_true, afterZero, advanced,
                         ↓reduceIte, ↓reduceDIte] at accepted
-                      change (if right.after = 0 then invalidCondition else
-                        if _ : remainingAt text next.after < remainingAt text result.after then _ else invalidCondition).after ≠ 0 at accepted
+                      change (if right.after = 0 then invalidCondition result.whenTrue else
+                        if _ : remainingAt text next.after < remainingAt text result.after then _ else invalidCondition result.whenTrue).after ≠ 0 at accepted
                       simpa only [rightZero, nextAdvanced, ↓reduceIte, ↓reduceDIte] using accepted
                     have rightReading := relation_sound text context (chainAfter text result.after operator)
                       (chainContext result operator) textValid namesValid (chainAfter_bound text result.after operator bounded) rightZero
@@ -247,8 +250,8 @@ mutual
                       rw [conditionTail]
                       simp only [zero, operatorEq, compatible, Bool.false_eq_true, afterZero, advanced,
                         ↓reduceIte, ↓reduceDIte]
-                      change (if right.after = 0 then invalidCondition else
-                        if _ : remainingAt text next.after < remainingAt text result.after then _ else invalidCondition) = _
+                      change (if right.after = 0 then invalidCondition result.whenTrue else
+                        if _ : remainingAt text next.after < remainingAt text result.after then _ else invalidCondition result.whenTrue) = _
                       simp only [rightZero, nextAdvanced, ↓reduceIte, ↓reduceDIte]
                       rfl
                     rw [equation]
@@ -258,15 +261,15 @@ mutual
                   · rw [conditionTail] at accepted
                     simp only [zero, operatorEq, compatible, Bool.false_eq_true, afterZero, advanced,
                       ↓reduceIte, ↓reduceDIte] at accepted
-                    change (if right.after = 0 then invalidCondition else
-                      if _ : remainingAt text next.after < remainingAt text result.after then _ else invalidCondition).after ≠ 0 at accepted
+                    change (if right.after = 0 then invalidCondition result.whenTrue else
+                      if _ : remainingAt text next.after < remainingAt text result.after then _ else invalidCondition result.whenTrue).after ≠ 0 at accepted
                     simp only [rightZero, nextAdvanced, ↓reduceIte, ↓reduceDIte, invalidCondition, ne_eq, not_true_eq_false] at accepted
               · rw [conditionTail] at accepted
                 simp only [zero, operatorEq, compatible, Bool.false_eq_true, afterZero, advanced, ↓reduceIte, ↓reduceDIte, invalidCondition, ne_eq, not_true_eq_false] at accepted
   termination_by (remainingAt text result.after, 4)
   decreasing_by all_goals exact Prod.Lex.left _ _ (by assumption)
 
-  theorem condition_sound (text : Source) (context : ParseContext) (position : Nat) (facts : PathFacts.Context)
+  theorem condition_sound (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
       (textValid : ValidText text) (namesValid : ValidNames text context.names)
       (bounded : position ≤ text.length + 1) (accepted : (readCondition text context position facts).after ≠ 0) :
       (∃ condition, ConditionAt text context position facts condition (readCondition text context position facts)) ∧
@@ -277,12 +280,14 @@ mutual
       · have first := relation_sound text context position facts textValid namesValid bounded zero
         obtain ⟨condition, firstRead⟩ := first.1
         have tailPositive : (conditionTail text context (readRelation text context position facts) none).after ≠ 0 := by
-          simpa only [readCondition, zero, advanced, ↓reduceIte, ↓reduceDIte] using accepted
+          intro failed
+          simp only [readCondition, zero, advanced, ↓reduceIte, ↓reduceDIte,
+            failed, invalidCondition, ne_eq, not_true_eq_false] at accepted
         have tail := chain_sound text context condition (readRelation text context position facts) none
           textValid namesValid first.2 tailPositive
         obtain ⟨final, finalRead⟩ := tail.1
         have equation : readCondition text context position facts = conditionTail text context (readRelation text context position facts) none := by
-          simp only [readCondition, zero, advanced, ↓reduceIte, ↓reduceDIte]
+          simp only [readCondition, zero, advanced, ↓reduceIte, ↓reduceDIte, tailPositive]
         rw [equation]
         exact ⟨⟨final, .condition equation firstRead zero advanced finalRead⟩, tail.2⟩
       · simp [readCondition, zero, advanced, invalidCondition] at accepted
