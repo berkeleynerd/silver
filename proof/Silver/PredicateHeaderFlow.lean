@@ -105,10 +105,10 @@ theorem prefix_baseReady {source form values}
       (prefixScan source form).state) :
     ScalarMetadata.BaseReady (contextOf (prefixScan source form)).scalarNames
       (contextOf (prefixScan source form)).declarationCount := by
-  refine ⟨ScalarExpression.bodyEnvironment_ready _, ?_, ?_⟩
-  · simp only [contextOf, ScalarExpression.bodyEnvironment_length]
-    exact Nat.le_refl _
-  · intro index positive declared
+  have nonempty : ScalarMetadata.DeclarationsNonempty
+      (contextOf (prefixScan source form)).scalarNames
+      (contextOf (prefixScan source form)).declarationCount := by
+    intro index positive declared
     have active : 0 < index ∧ index ≤
         (ScalarExpression.bodyEnvironment (prefixScan source form).state.scalarNames).length := by
       simpa only [contextOf, ScalarExpression.bodyEnvironment_length] using And.intro positive declared
@@ -120,6 +120,12 @@ theorem prefix_baseReady {source form values}
     rw [← ScalarExpression.objectBindings_ranges, prefix_scalar_objects trace] at found
     exact Integer.Interval.contains_nonempty
       (Integer.ObjectBindings.fits (Integer.elaborate_valid (prefix_scalar_checked trace).1) index _ found)
+  refine ⟨ScalarExpression.bodyEnvironment_ready _, ?_, nonempty, ?_⟩
+  · simp only [contextOf, ScalarExpression.bodyEnvironment_length]
+    exact Nat.le_refl _
+  · intro index positive bounded _mutable
+    exact nonempty index positive
+      (by simpa only [contextOf, ScalarExpression.bodyEnvironment_length] using bounded)
 
 theorem bodyOf_compatible (scan : ScanResult) :
     ScalarMetadata.OverlayCompatible (contextOf scan).scalarNames (contextOf scan).declarationCount

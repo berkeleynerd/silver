@@ -387,3 +387,32 @@ reachable application behavior. Repair adds the missing property to the formal
 context invariant and preserves declaration and immutable loop-index construction.
 Native contracts and application membership remain unchanged. Its proof and
 final source integration are pending.
+
+
+The #244 domain repair is now integrated with its
+[exact input manifest](evidence/scalar-guard-refinement/lean-cohort-20261026/integration-context-domain.json).
+`BaseReady` includes nonempty mutable bounds, and `baseReady_iff_native`
+connects it to all native context clauses. Declaration and header constructors
+preserve the added property; immutable loop indexes may still have empty ranges.
+The [independent domain review](reviews/review-scalar-guard-context-domain-repair.md)
+found no material issue. A later helper-name collision was repaired by a rename
+and its consumer update, with statements unchanged.
+
+Managed run `20261026T054741-00f8b4d72975` passed the combined focused check
+and fresh audit of 21,357 declarations (84.370 seconds build, 16.423 seconds
+audit). All six integrated files match its captured inputs. This resolves the
+context-only contract-domain obligation; final actual-source integration remains
+pending, so #244 stays open through that checkpoint.
+
+The same run checked literal-token candidates after direct inline lexer reduction
+proved costly: the preceding worker reached 14,690,800 KiB resident memory and
+was interrupted for diagnosis. Explicit candidate token lists preserve the exact
+kernel-checked renderer equality and later authoritative-source comparison; the
+Body candidate then built in 11 seconds. Existing successful objects were retained.
+No application rule, lexer or trusted boundary changed.
+
+This round used selected GPT-6 Astra at Extra High for the proof authors and
+independent reviewer; runtime settings and token/cost measurements are unavailable.
+The bounded domain review reports 154 seconds of inspection. Native loop-body
+and equality-transport helpers have passed focused checks; condition, relation
+and branch return proofs still precede the complete native/source checkpoint.

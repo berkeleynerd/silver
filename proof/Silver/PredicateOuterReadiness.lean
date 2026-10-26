@@ -69,12 +69,14 @@ theorem HeaderReady.bodyEnvironment {names : ScalarExpression.Environment} (read
 
 theorem HeaderReady.baseReady {names : ScalarExpression.Environment} (ready : HeaderReady names) :
     BaseReady (ScalarExpression.bodyEnvironment names) names.length := by
-  refine ⟨ScalarExpression.bodyEnvironment_ready _, ?_, ?_⟩
+  refine ⟨ScalarExpression.bodyEnvironment_ready _, ?_, ?_, ?_⟩
   · simp only [ScalarExpression.bodyEnvironment_length]
     exact Nat.le_refl _
   · intro index positive bounded
     exact (ready.bodyEnvironment.binding index positive
       (by simpa only [ScalarExpression.bodyEnvironment_length] using bounded)).1
+  · intro index positive bounded _mutable
+    exact (ready.bodyEnvironment.binding index positive bounded).1
 
 theorem ranges_bounded {text : Source} {names : ScalarExpression.Environment}
     (valid : ScalarExpression.ValidEnvironment text names) : (ScalarExpression.ranges names).Bounded := by

@@ -60,13 +60,23 @@ theorem loopInner_analysis {context : ParseContext} (header : LoopHeader)
 theorem loopInner_baseReady {context : ParseContext} (header : LoopHeader)
     (base : ScalarMetadata.BaseReady context.scalarNames context.declarationCount) :
     ScalarMetadata.BaseReady (loopInner context header).scalarNames (loopInner context header).declarationCount := by
-  refine ⟨ScalarExpression.bodyReady_append base.body (by simp), ?_, ?_⟩
+  refine ⟨ScalarExpression.bodyReady_append base.body (by simp), ?_, ?_, ?_⟩
   · simp only [loopInner, List.length_append, List.length_singleton]
     exact Nat.le_trans base.count (Nat.le_succ _)
   · intro index positive declared
     have old : index ≤ context.scalarNames.length := Nat.le_trans declared base.count
     simpa only [loopInner, ScalarExpression.binding_append_old _ _ _ positive old] using
       base.declarationsNonempty index positive declared
+  · intro index positive bounded mutable
+    have bound : index ≤ context.scalarNames.length + 1 := by
+      simpa only [loopInner, List.length_append, List.length_singleton] using bounded
+    dsimp only [loopInner] at mutable ⊢
+    by_cases old : index ≤ context.scalarNames.length
+    · rw [ScalarExpression.binding_append_old _ _ index positive old] at mutable ⊢
+      exact base.mutableNonempty index positive old mutable
+    · have fresh : index = context.scalarNames.length + 1 := by omega
+      subst index
+      simp only [ScalarExpression.binding_append_new, Bool.false_eq_true] at mutable
 
 theorem loopHeader_model {text : Source} {context : ParseContext} {scan : BodyScan}
     (ready : ScalarExpression.BodyReady context.scalarNames)

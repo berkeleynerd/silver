@@ -13,10 +13,40 @@ Appended loop indexes are outside this prefix and may have empty intervals. -/
 def DeclarationsNonempty (names : Environment) (declarations : Nat) : Prop :=
   ∀ index, 0 < index → index ≤ declarations → (binding names index).bounds.isEmpty = false
 
+/-- The exact active-cell clauses of native Valid_Mutable_Bounds. Mutable
+bindings are covered even when they are outside the declaration prefix. -/
+def ValidMutableBounds (names : Environment) : Prop :=
+  ∀ index, 0 < index → index ≤ names.length → (binding names index).mutable = true →
+    (binding names index).bounds.isEmpty = false ∧
+      (binding names index).declaredBounds.lower ≤ (binding names index).bounds.lower ∧
+      (binding names index).bounds.upper ≤ (binding names index).declaredBounds.upper
+
 structure BaseReady (names : Environment) (declarations : Nat) : Prop where
   body : BodyReady names
   count : declarations ≤ names.length
   declarationsNonempty : DeclarationsNonempty names declarations
+  mutableNonempty : ∀ index, 0 < index → index ≤ names.length →
+    (binding names index).mutable = true → (binding names index).bounds.isEmpty = false
+
+theorem BaseReady.mutable_bounds {names : Environment} {declarations : Nat}
+    (ready : BaseReady names declarations) : ValidMutableBounds names := by
+  intro index positive bounded mutable
+  refine ⟨ready.mutableNonempty index positive bounded mutable, ?_⟩
+  rw [bodyReady_binding ready.body positive bounded mutable]
+  exact ⟨Int.le_refl _, Int.le_refl _⟩
+
+/-- Native Valid_Context supplies all four clauses. Conversely, body metadata
+uses equal mutable Bounds/Declared_Bounds, so their containment inequalities
+follow without an additional restriction on immutable suffix bindings. -/
+theorem baseReady_iff_native (names : Environment) (declarations : Nat) :
+    BaseReady names declarations ↔ BodyReady names ∧ declarations ≤ names.length ∧
+      DeclarationsNonempty names declarations ∧ ValidMutableBounds names := by
+  constructor
+  · intro ready
+    exact ⟨ready.body, ready.count, ready.declarationsNonempty, ready.mutable_bounds⟩
+  · rintro ⟨body, count, declared, mutable⟩
+    exact ⟨body, count, declared,
+      fun index positive bounded isMutable => (mutable index positive bounded isMutable).1⟩
 
 theorem overlayCompatible_of_preserved {names : Environment} {declarations : Nat}
     {before after : ActiveFlow} (initial : OverlayCompatible names declarations before)

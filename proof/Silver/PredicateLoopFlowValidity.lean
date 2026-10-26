@@ -60,6 +60,15 @@ theorem BaseReady.append_immutable {names : Environment} {declarations : Nat}
   declarationsNonempty index positive declared := by
     rw [binding_append_old names item index positive (Nat.le_trans declared base.count)]
     exact base.declarationsNonempty index positive declared
+  mutableNonempty index positive bounded mutable := by
+    by_cases old : index ≤ names.length
+    · rw [binding_append_old names item index positive old] at mutable ⊢
+      exact base.mutableNonempty index positive old mutable
+    · have fresh : index = names.length + 1 := by
+        simp only [List.length_append, List.length_singleton] at bounded
+        omega
+      subst index
+      simp only [binding_append_new, immutable, Bool.false_eq_true] at mutable
 
 theorem FlowReady.append_immutable {names : Environment} {declarations : Nat} {flow : ActiveFlow}
     (base : BaseReady names declarations) (ready : FlowReady names declarations flow)
@@ -97,7 +106,7 @@ theorem FlowReady.append_immutable {names : Environment} {declarations : Nat} {f
 
 end ScalarMetadata
 
-theorem loopInner_baseReady {context : ParseContext}
+theorem nativeLoopInner_baseReady {context : ParseContext}
     (base : ScalarMetadata.BaseReady context.scalarNames context.declarationCount)
     (header : LoopHeader) :
     ScalarMetadata.BaseReady (loopInner context header).scalarNames (loopInner context header).declarationCount :=

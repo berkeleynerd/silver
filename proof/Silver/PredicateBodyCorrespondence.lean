@@ -121,7 +121,7 @@ mutual
         have innerValid : Native.ValidContext text (LoopNative.inner context (loopHeader text context.model scan)) :=
           ⟨cv.1, cv.2.1,
             loopInner_valid_environment (text := text) (context := context.model) (scan := scan) cv.2.2.1 allowed positive,
-            loopInner_baseReady cv.2.2.2 (loopHeader text context.model scan)⟩
+            nativeLoopInner_baseReady cv.2.2.2 (loopHeader text context.model scan)⟩
         have entryValid : ValidScan text (LoopNative.inner context (loopHeader text context.model scan))
             (loopHeader text context.model scan).entry :=
           by

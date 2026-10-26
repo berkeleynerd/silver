@@ -1,0 +1,66 @@
+{
+  "run_id": "20261026T054741-00f8b4d72975",
+  "scope": "Focused context-domain repair, constructor/consumer proofs and candidate checks. Final guard actual-source correspondence and whole-project validation pending; runner still retains preceding division parser.",
+  "integrated": [
+    {
+      "path": "proof/Silver/PredicateFlowInvariant.lean",
+      "sha256": "20703108ffc001070f35948c80718d30165b5ce242866eecfc020f0ba256b734"
+    },
+    {
+      "path": "proof/Silver/PredicateOuterReadiness.lean",
+      "sha256": "0584b76896a17ef3663cc0de06f82d8285eafd3772a6a0e27f596c5eda900c14"
+    },
+    {
+      "path": "proof/Silver/PredicateHeaderFlow.lean",
+      "sha256": "c62c39f567499a22b27455cfd1775f990624b74bed250b2b0c863eebd87e48cf"
+    },
+    {
+      "path": "proof/Silver/PredicateBodyMeaning.lean",
+      "sha256": "c5931aaca27a1a3ee596aca1ce3bdbfd25414c99c1a0d8cb474fc75c74abcf5f"
+    },
+    {
+      "path": "proof/Silver/PredicateLoopFlowValidity.lean",
+      "sha256": "627763dfd808915f9031f2705a5b12dfc35a474bf64943762523c6e2aabdc1f0"
+    },
+    {
+      "path": "proof/Silver/PredicateBodyCorrespondence.lean",
+      "sha256": "efa0749abaaceaee3bc4c8e6539c578d9a68f717645f3d38e5ec902435caacd2"
+    }
+  ],
+  "command": [
+    "/usr/bin/python3",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/scripts/check_lean.py",
+    "--task",
+    "#239,#244",
+    "--target",
+    "Silver.PredicateBodyCandidates",
+    "--target",
+    "Silver.PredicateBasicSourceCandidate",
+    "--target",
+    "Silver.PredicateAdapterSourceCandidate",
+    "--target",
+    "Silver.PredicateNativeWorkers",
+    "--target",
+    "Silver.PredicateFlowReaders",
+    "--target",
+    "Silver.PredicateBodyWrappers",
+    "--target",
+    "Silver.PredicateScalarBodySource",
+    "--target",
+    "Silver.PredicateOuterReadiness",
+    "--target",
+    "Silver.PredicateHeaderFlow",
+    "--target",
+    "Silver.PredicateBodyMeaning",
+    "--target",
+    "Silver.PredicateLoopFlowValidity",
+    "--target",
+    "Silver.PredicateNativeState",
+    "--workers",
+    "2",
+    "--threads",
+    "2"
+  ],
+  "source_input_count": 612,
+  "post_review_change": "Only rename LoopFlowValidity.loopInner_baseReady to nativeLoopInner_baseReady and update its BodyCorrespondence consumer; statements/proofs otherwise unchanged."
+}
