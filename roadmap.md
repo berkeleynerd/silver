@@ -68,6 +68,10 @@ authorizes the first through delivery. The subsequent
 [roadmap continuation](docs/session-memory.md#2026-10-25--continue-non-deferred-roadmap-delivery)
 selects scalar guard refinement next and continued assessment/delivery of
 non-deferred successors.
+The owner's [2026-10-26 review pause](docs/session-memory.md#2026-10-26--pause-after-scalar-guard-delivery-for-external-review)
+now ends that continuation after scalar guard delivery: complete #234, then pause
+for an external comprehensive review before starting another feature. Successor
+assessments remain proposals during the pause.
 
 1. [Interval-checked integer division #229](https://github.com/berkeleynerd/silver/issues/229):
    **delivered** fully grouped `/`, `mod` and `rem` in current scalar-expression positions,
