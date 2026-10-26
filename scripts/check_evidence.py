@@ -462,7 +462,8 @@ def audit_reports(report_dir: Path, expected_units: set[str],
             for record in records:
                 require(isinstance(record, dict), f"{unit}: malformed {key} record")
                 array_note = (record.get("rule") == "array-initialization"
-                              or record.get("message", {}).get("text") == ARRAY_INITIALIZATION_ADVISORY_TEXT)
+                              or (isinstance(record.get("message"), dict)
+                                  and record["message"].get("text") == ARRAY_INITIALIZATION_ADVISORY_TEXT))
                 if array_note:
                     require(application_kind is None and unit == "silver_output_profile"
                             and key == "warn_error"
