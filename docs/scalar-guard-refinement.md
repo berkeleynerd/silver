@@ -517,3 +517,33 @@ certificate worker was interrupted deliberately, preserving completed objects;
 final complete source run `20261026T094105-ac4e120bd9f9` now checks the repaired
 proof and final parser/catalogue inputs. The native full proof remains active.
 This closes the specific reduction/interface errors, not the final delivery gate.
+
+## Compiler array-initialization advisory — 2026-10-26
+
+Complete native run `20261026T084316-ffe7696c9a8a` finished its proof phase with
+all 16,357 checks proved, then failed the complete audit on five exact
+`array-initialization` information notes. The [failed-run evidence](evidence/scalar-guard-refinement/array-advisory-20261026/index.json)
+retains the complete reports/log and distinguishes the successful native-tool
+exit from the failed managed checkpoint. No completed provenance or standalone
+auditor success is claimed for that run; its build/suite continuation stopped.
+
+The [independent producer and patch assessment](reviews/review-scalar-guard-array-initialization-advisory-20261026.md)
+establishes that this pinned flow heuristic only withholds initialization facts.
+All five arrays are already initialized, and every actual flow/proof obligation
+remains required. The repair classifies only exact compiler `silver_output_profile`
+JSON/SARIF metadata, preserves cross-report coverage and records the notes
+separately from checks. Application policies, native/Lean source, contracts,
+Oracle and tool pins are unchanged. Finding [#245](https://github.com/berkeleynerd/silver/issues/245)
+tracks this repair through complete validation.
+
+[All 60 evidence-auditor tests passed](evidence/scalar-guard-refinement/array-advisory-20261026/tests.json)
+in managed run `20261026T105625-c89ba43031eb`, including negative controls for
+application use, unproved or omitted checks, malformed metadata and mismatched
+SARIF. Complete native auditing under the repaired script, final build/full suite
+and final-input reconciliation remain required. The active complete Lean run
+continues on its frozen earlier auditor inputs; a subsequent cached complete
+check must capture the repaired auditor after that run finishes.
+
+| Round | Selected settings | Resolved obligation and remaining validation | Measurements |
+| --- | --- | --- | --- |
+| Array advisory classification | GPT-6 Astra, Extra High for producer assessment and independent patch review; GPT-6.1 Sol, Extra High for the bounded patch; runtime settings not independently exposed | Established conservative information-loss semantics, restricted acceptance to the exact compiler unit/class, and passed the complete evidence-test file. Fresh complete audit remains pending. | Assessment/review 7m26s; managed evidence tests 6.497s (test body 4.886s); whole-team token/cost measurements unavailable. |

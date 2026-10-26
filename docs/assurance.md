@@ -1092,7 +1092,10 @@ reports by content. Inputs and tools must remain stable. Failed checks, missing
 coverage, suppressed/justified obligations, `pragma Assume` and unclassified
 warnings fail the audit. The documented `contracts-recursive` and
 `numeric-variant` limitation notes withhold prover information; they do not waive
-obligations. Exact rules are in [the trusted boundary](trusted-boundary.md).
+obligations. The exact compiler-only `array-initialization` information note in
+`silver_output_profile` likewise withholds a flow fact and is counted separately
+from required checks. Application policy is unchanged. Exact rules and the
+pinned producer assessment are in [the trusted boundary](trusted-boundary.md).
 
 Incremental `dev.py prove` preserves sessions and gives development feedback,
 while invalidating the previous completed full-audit manifest. Ordinary builds

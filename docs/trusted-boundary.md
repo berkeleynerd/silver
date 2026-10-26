@@ -757,6 +757,18 @@ counts; current capability validation is in [copy-values.md](copy-values.md).
 Earlier evidence remains in [greeting.md](greeting.md), [command-line.md](command-line.md) and
 [command-line-review-repairs.md](command-line-review-repairs.md).
 
+The complete compiler audit also classifies the exact `array-initialization`
+information warning in `silver_output_profile.adb`. The pinned
+[flow-limitations documentation](../references/spark/16.1/docs/ug/en/source/flow_limitations.rst)
+and [producer assessment](reviews/review-scalar-guard-array-initialization-advisory-20261026.md)
+establish that failed heuristic recognition withholds an initialization fact;
+it does not assume initialization or omit a check. The classifier requires the
+reviewed compiler unit, exact JSON/SARIF metadata and matching diagnostic
+coverage, counting these notes separately from discharged obligations. Its
+external-suppression marker identifies the disabled-by-default information
+warning; source suppression remains forbidden. Application audits cannot use
+this class. Every initialization, safety and coverage check remains required.
+
 ## Source identity and program proof evidence
 
 The compiler reads the author's source as bytes and decides membership before
