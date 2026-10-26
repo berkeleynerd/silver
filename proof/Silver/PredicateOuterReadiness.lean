@@ -114,6 +114,10 @@ namespace OuterReadiness
 def ValidState (text : Source) (state : ParserState) : Prop :=
   Compose.Expressions.ValidState text state ∧ ScalarMetadata.HeaderReady state.scalarNames
 
+/-- The exact strengthened state domain used by inherited native helpers. -/
+def domain : Compose.Expressions.StateDomain :=
+  ⟨ValidState, fun _ _ valid => valid.1⟩
+
 theorem initial_valid (text : Source) : ValidState text initialState := by
   refine ⟨?_, ScalarMetadata.headerReady_empty⟩
   simp [Compose.Expressions.ValidState, Compose.Expressions.ValidCursor, Compose.Expressions.ValidNames,
@@ -123,7 +127,7 @@ theorem initial_valid (text : Source) : ValidState text initialState := by
 theorem invalid_valid (text : Source) : ValidState text invalidState :=
   ⟨Compose.Expressions.model_invalid_state_valid text, ScalarMetadata.headerReady_empty⟩
 
-private theorem scalarDeclaration_ready (text : Source) (state : ParserState) (arguments : Bool)
+theorem scalarDeclaration_ready (text : Source) (state : ParserState) (arguments : Bool)
     (ready : ScalarMetadata.HeaderReady state.scalarNames) :
     ScalarMetadata.HeaderReady (scalarDeclarationAt text state arguments).scalarNames := by
   unfold scalarDeclarationAt
@@ -137,7 +141,7 @@ private theorem scalarDeclaration_ready (text : Source) (state : ParserState) (a
     rcases checked with ⟨_, _, _, _, _, nonempty, _, lower, upper, _⟩
     exact ready.append nonempty (fun _ => ⟨lower, upper⟩)
 
-private theorem stringDeclaration_ready (text : Source) (state : ParserState) (arguments : Bool)
+theorem stringDeclaration_ready (text : Source) (state : ParserState) (arguments : Bool)
     (ready : ScalarMetadata.HeaderReady state.scalarNames) :
     ScalarMetadata.HeaderReady (stringDeclarationAt text state arguments).scalarNames := by
   unfold stringDeclarationAt
@@ -146,7 +150,7 @@ private theorem stringDeclaration_ready (text : Source) (state : ParserState) (a
   · exact ScalarMetadata.headerReady_empty
   · exact ready
 
-private theorem declaration_ready (text : Source) (state : ParserState) (arguments : Bool)
+theorem declaration_ready (text : Source) (state : ParserState) (arguments : Bool)
     (ready : ScalarMetadata.HeaderReady state.scalarNames) :
     ScalarMetadata.HeaderReady (declarationAt text state arguments).scalarNames := by
   unfold declarationAt
@@ -169,6 +173,20 @@ private theorem declarationsLoop_ready (text : Source) (arguments : Bool) (fuel 
         · split
           · exact ScalarMetadata.headerReady_empty
           · exact ih _ (declaration_ready text state arguments ready)
+
+theorem argument_ready (text : Source) (state : ParserState)
+    (ready : ScalarMetadata.HeaderReady state.scalarNames) :
+    ScalarMetadata.HeaderReady (argumentAt text state).scalarNames := by
+  unfold argumentAt
+  dsimp only
+  split
+  · exact ScalarMetadata.headerReady_empty
+  · exact ready
+
+theorem declarations_ready (text : Source) (state : ParserState) (arguments : Bool)
+    (ready : ScalarMetadata.HeaderReady state.scalarNames) :
+    ScalarMetadata.HeaderReady (declarationsAt text state arguments).scalarNames :=
+  declarationsLoop_ready text arguments _ state ready
 
 theorem step_ready (text : Source) (form : Compose.Form) (token : ShellToken) (state : ParserState)
     (ready : ScalarMetadata.HeaderReady state.scalarNames) :

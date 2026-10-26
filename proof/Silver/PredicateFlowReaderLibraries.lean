@@ -10,6 +10,8 @@ public import Silver.ComposeModelCalls
 namespace Silver.Predicate.FlowReaders
 open Compose
 
+variable {domain : Expressions.StateDomain}
+
 /-- The wrapper RHS calls the existing complete scalar reader and expression
 reader. The scalar mask remains explicit for loop-bound calls. -/
 def inheritedCalls
@@ -21,7 +23,7 @@ def inheritedCalls
 
 theorem inherited_meaning {reading composed scalars}
     (readingSource : FlowSourceBridge.InterpretedReadingNames reading)
-    (composedEquations : Expressions.HelperEquations composed)
+    (composedEquations : Expressions.HelperEquations composed (domain := domain))
     (primitives : ScalarExpression.Native.Primitives scalars)
     (equations : ScalarExpression.Native.Equations scalars) :
     Meaning (inheritedCalls reading composed scalars) where
@@ -46,7 +48,7 @@ structure Links (composed : Expressions.Calls) (scalar : DefaultScalarWrapper)
     ∀ text context position facts, Legal {text, context, position, facts} →
       scalar text context position facts = wrapper text context position facts 0 0
 
-theorem linked_scalar {composed scalar string} (equations : Expressions.HelperEquations composed)
+theorem linked_scalar {composed scalar string} (equations : Expressions.HelperEquations composed (domain := domain))
     (links : Links composed scalar string) (inputs : Inputs) (legal : Legal inputs) :
     scalar inputs.text inputs.context inputs.position inputs.facts =
       ScalarExpression.read inputs.text inputs.position (inputs.context.model.readingNames inputs.facts) := by
@@ -56,7 +58,7 @@ theorem linked_scalar {composed scalar string} (equations : Expressions.HelperEq
   exact scalar_meaning (inherited_meaning readingSource equations primitives definitions) scalarSource
     {inputs with maskFirst := 0, maskAfter := 0} defaultLegal (Or.inl ⟨rfl, rfl⟩)
 
-theorem linked_string {composed scalar string} (equations : Expressions.HelperEquations composed)
+theorem linked_string {composed scalar string} (equations : Expressions.HelperEquations composed (domain := domain))
     (links : Links composed scalar string) (inputs : Inputs) (legal : Legal inputs) :
     string inputs.text inputs.context inputs.position inputs.facts =
       expressionAt inputs.text inputs.position inputs.context.names (inputs.context.model.readingNames inputs.facts) := by

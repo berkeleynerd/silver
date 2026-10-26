@@ -2,6 +2,7 @@ module
 
 public import Silver.PredicateBodyProperties
 public import Silver.PredicateNativeState
+public import Silver.PredicateBodyWrappers
 public import Silver.PredicateLoopNative
 
 @[expose] public section
@@ -15,14 +16,19 @@ open Compose
 structure Primitives where
   loop : LoopNative.Imports
   token : Source → Nat → ShellToken → Nat
+  bodyToken : Source → Native.Context → BodyScan → ShellToken → BodyScan
   basic : Source → Native.Context → BodyScan → BodyScan
-  predicate : Source → Native.Context → Nat → PathFacts.Context → ConditionResult
+  predicate : Source → Native.Context → Nat → ActiveFlow → ConditionResult
+  invalidModel : BodyScan → BodyScan
+  invalid : BodyScan → BodyScan
+  joinInto : ActiveFlow → ActiveFlow → ActiveFlow
 
 structure Calls where
   statement : Source → Native.Context → BodyScan → BodyScan
   loop : Source → Native.Context → BodyScan → BodyScan
   conditional : Source → Native.Context → BodyScan → BodyScan
   alternative : Source → Native.Context → BodyScan → BodyScan
+  tailModel : Source → Native.Context → BodyScan → BodyStop → BodyScan
   tail : Source → Native.Context → BodyScan → BodyStop → BodyScan
   read : Source → Native.Context → BodyScan → BodyStop → BodyScan
 
@@ -30,9 +36,9 @@ structure Frame where
   text : Source
   context : Native.Context
   scan : BodyScan
-  result : BodyScan := invalidBody
-  condition : ConditionResult := invalidCondition
-  yes : PathFacts.Context := PathFacts.Context.empty
+  result : BodyScan := invalidBody scan
+  condition : ConditionResult := invalidCondition scan.facts
+  yes : ActiveFlow := scan.facts.invalid
   stop : BodyStop := .endOnly
 
 inductive StopRef | literal (stop : BodyStop) | current
@@ -48,56 +54,61 @@ def StopRef.render : StopRef → List String
   | .literal stop => [stopName stop] | .current => ["stop"]
 
 inductive ScanExpr
-  | input | result | invalid
+  | input | result
+  | invalid (value : ScanExpr)
+  | invalidModel (value : ScanExpr)
   | token (token : ShellToken) (value : ScanExpr)
   | basic (value : ScanExpr)
   | statement (value : ScanExpr)
   | loop (value : ScanExpr)
   | conditional (value : ScanExpr)
   | alternative (value : ScanExpr)
+  | tailModel (stop : StopRef) (value : ScanExpr)
   | tail (stop : StopRef) (value : ScanExpr)
   | read (stop : StopRef) (value : ScanExpr)
   deriving DecidableEq
 
 def ScanExpr.eval (primitive : Primitives) (calls : Calls) (frame : Frame) : ScanExpr → BodyScan
-  | .input => frame.scan | .result => frame.result | .invalid => invalidBody
-  | .token tok value => let scan := value.eval primitive calls frame
-      {scan with position := primitive.token frame.text scan.position tok}
+  | .input => frame.scan | .result => frame.result
+  | .invalid value => primitive.invalid (value.eval primitive calls frame)
+  | .invalidModel value => primitive.invalidModel (value.eval primitive calls frame)
+  | .token tok value => primitive.bodyToken frame.text frame.context (value.eval primitive calls frame) tok
   | .basic value => primitive.basic frame.text frame.context (value.eval primitive calls frame)
   | .statement value => calls.statement frame.text frame.context (value.eval primitive calls frame)
   | .loop value => calls.loop frame.text frame.context (value.eval primitive calls frame)
   | .conditional value => calls.conditional frame.text frame.context (value.eval primitive calls frame)
   | .alternative value => calls.alternative frame.text frame.context (value.eval primitive calls frame)
+  | .tailModel stop value => calls.tailModel frame.text frame.context (value.eval primitive calls frame) (stop.eval frame)
   | .tail stop value => calls.tail frame.text frame.context (value.eval primitive calls frame) (stop.eval frame)
   | .read stop value => calls.read frame.text frame.context (value.eval primitive calls frame) (stop.eval frame)
 
 def call := Compose.Expressions.call
 
 def ScanExpr.render : ScanExpr → List String
-  | .input => ["scan"] | .result => ["result"] | .invalid => ["invalid_body"]
+  | .input => ["scan"] | .result => ["result"]
+  | .invalid value => call "invalid_body" [value.render]
+  | .invalidModel value => call "invalid_body_model" [value.render]
   | .token tok value => call "body_token" [["text"], ["context"], value.render, [Compose.Expressions.tokenName tok]]
   | .basic value => call "basic_body" [["text"], ["context"], value.render]
   | .statement value => call "statement_body" [["text"], ["context"], value.render]
   | .loop value => call "loop_body" [["text"], ["context"], value.render]
   | .conditional value => call "conditional_body" [["text"], ["context"], value.render]
   | .alternative value => call "alternative_body" [["text"], ["context"], value.render]
+  | .tailModel stop value => call "body_tail_model" [["text"], ["context"], value.render, stop.render]
   | .tail stop value => call "body_tail" [["text"], ["context"], value.render, stop.render]
   | .read stop value => call "read_body" [["text"], ["context"], value.render, stop.render]
 
 inductive FactsExpr
   | result | yes | whenTrue | whenFalse
-  | join (left right : FactsExpr)
   deriving DecidableEq
 
-def FactsExpr.eval (frame : Frame) : FactsExpr → PathFacts.Context
+def FactsExpr.eval (frame : Frame) : FactsExpr → ActiveFlow
   | .result => frame.result.facts | .yes => frame.yes
   | .whenTrue => frame.condition.whenTrue | .whenFalse => frame.condition.whenFalse
-  | .join left right => (left.eval frame).join (right.eval frame)
 
 def FactsExpr.render : FactsExpr → List String
   | .result => ["result", ".", "facts"] | .yes => ["yes"]
   | .whenTrue => ["condition", ".", "when_true"] | .whenFalse => ["condition", ".", "when_false"]
-  | .join left right => ["paths", "."] ++ call "join" [left.render, right.render]
 
 inductive Test
   | zero (value : ScanExpr)
@@ -126,6 +137,7 @@ inductive Command
   | positionAfter
   | facts (value : FactsExpr)
   | saveYes
+  | joinYes
   | ret (value : ScanExpr)
   | sequence (first second : Command)
   | choose (condition : Test) (yes no : Command)
@@ -138,6 +150,8 @@ def Command.eval (primitive : Primitives) (calls : Calls) (frame : Frame) : Comm
   | .positionAfter => (none, {frame with result := {frame.result with position := frame.condition.after}})
   | .facts value => (none, {frame with result := {frame.result with facts := value.eval frame}})
   | .saveYes => (none, {frame with yes := frame.result.facts})
+  | .joinYes => (none, {frame with result := {frame.result with
+      facts := primitive.joinInto frame.result.facts frame.yes}})
   | .ret value => (some (value.eval primitive calls frame), frame)
   | .sequence first second =>
       let (returned, next) := first.eval primitive calls frame
@@ -147,17 +161,18 @@ def Command.eval (primitive : Primitives) (calls : Calls) (frame : Frame) : Comm
   | .choose test yes no => if test.eval primitive calls frame then
       yes.eval primitive calls frame else no.eval primitive calls frame
 
-def conditionCall : List String := call "read_condition"
-  [["text"], ["context"], ["result", ".", "position"], ["result", ".", "facts"]]
+def conditionCall : List String := call "read_condition_into"
+  [["text"], ["context"], ["result", ".", "position"], ["result", ".", "facts"], ["condition"]]
 
 mutual
   def Command.render : Command → List String
     | .nothing => []
     | .assign value => ["result", ":="] ++ value.render ++ [";"]
-    | .condition => ["condition", ":="] ++ conditionCall ++ [";"]
+    | .condition => conditionCall ++ [";"]
     | .positionAfter => ["result", ".", "position", ":=", "condition", ".", "after", ";"]
     | .facts value => ["result", ".", "facts", ":="] ++ value.render ++ [";"]
     | .saveYes => ["yes", ":=", "result", ".", "facts", ";"]
+    | .joinYes => call "join_into" [["result", ".", "facts"], ["yes"]] ++ [";"]
     | .ret value => ["return"] ++ value.render ++ [";"]
     | .sequence first second => first.render ++ second.render
     | .choose test yes no => ["if"] ++ test.render ++ ["then"] ++ yes.render ++
@@ -170,17 +185,17 @@ end
 
 def Command.list (commands : List Command) : Command := commands.foldr .sequence .nothing
 
-def guard (test : Test) : Command := .choose test (.ret .invalid) .nothing
+def guard (test : Test) (failure : ScanExpr := .input) : Command :=
+  .choose test (.ret (.invalid failure)) .nothing
 
 def finish : Command := .sequence (guard (.nonadvancing .result)) (.ret .result)
 
-inductive Local | conditionConstant | conditionVariable | yes
+inductive Local | conditionVariable | yes
   deriving DecidableEq
 
 def Local.render : Local → List String
-  | .conditionConstant => ["condition", ":", "constant", "condition_result", ":="] ++ conditionCall ++ [";"]
-  | .conditionVariable => ["condition", ":", "condition_result", ";"]
-  | .yes => ["yes", ":", "paths", ".", "context", ";"]
+  | .conditionVariable => ["condition", ":", "condition_result", "(", "scan", ".", "count", ")", ";"]
+  | .yes => ["yes", ":", "scalar_flow", "(", "scan", ".", "count", ")", ";"]
 
 structure Function where
   initial : ScanExpr
@@ -191,38 +206,74 @@ structure Function where
 
 def Function.eval (fn : Function) (primitive : Primitives) (calls : Calls) (frame : Frame) : BodyScan :=
   let initial := {frame with result := fn.initial.eval primitive calls frame}
-  let initialized := if fn.locals.contains .conditionConstant then
-    {initial with condition := primitive.predicate initial.text initial.context initial.result.position initial.result.facts}
-    else initial
-  ((fn.body.eval primitive calls initialized).1).getD invalidBody
+  ((fn.body.eval primitive calls initial).1).getD (primitive.invalid frame.scan)
 
 def Function.render (fn : Function) (name : String) : List String :=
-  ["result", ":"] ++ (if fn.constant then ["constant"] else []) ++ ["body_scan", ":="] ++ fn.initial.render ++ [";"] ++
+  ["result", ":"] ++ (if fn.constant then ["constant"] else []) ++ ["body_scan", "(", "scan", ".", "count", ")", ":="] ++ fn.initial.render ++ [";"] ++
     (fn.locals.flatMap Local.render) ++ ["begin"] ++ fn.body.render ++ ["end", name, ";"]
 
 def statementRender : List String :=
-  ["if", "scan", ".", "position", "=", "0", "then", "invalid_body", "elsif"] ++
+  ["if", "scan", ".", "position", "=", "0", "then"] ++
+  (ScanExpr.invalid .input).render ++ ["elsif"] ++
   (Test.present (.word "if") .input).render ++ ["then"] ++ (ScanExpr.conditional .input).render ++
   ["elsif"] ++ (Test.present (.word "for") .input).render ++ ["then"] ++ (ScanExpr.loop .input).render ++
   ["else"] ++ (ScanExpr.basic .input).render
 
 def statementEval (primitive : Primitives) (calls : Calls) (frame : Frame) : BodyScan :=
-  if (Test.zero .input).eval primitive calls frame then invalidBody
+  if (Test.zero .input).eval primitive calls frame then primitive.invalid frame.scan
   else if (Test.present (.word "if") .input).eval primitive calls frame then
     (ScanExpr.conditional .input).eval primitive calls frame
   else if (Test.present (.word "for") .input).eval primitive calls frame then
     (ScanExpr.loop .input).eval primitive calls frame else (ScanExpr.basic .input).eval primitive calls frame
 
-def tailFunction : Function := ⟨.input, false, [], .list [guard (.zero .result),
-  .choose (.stop .result) (.ret .result) .nothing,
-  .assign (.statement .result), guard (.nonadvancing .result), .ret (.tail .current .result)]⟩
+/-- The recursive Static model is interpreted independently of the executable
+Body_Tail loop. The constrained local retains its source allocation count. -/
+inductive ModelExpr
+  | value : ScanExpr → ModelExpr
+  | choose : Test → ModelExpr → ModelExpr → ModelExpr
+  | elsif : Test → ModelExpr → ModelExpr → ModelExpr
+  | localResult : ScanExpr → ModelExpr → ModelExpr
+  | group : ModelExpr → ModelExpr
+  deriving DecidableEq
 
-def readFunction : Function := ⟨.statement .input, true, [], .list [guard (.zero .result), .ret (.tail .current .result)]⟩
+def ModelExpr.eval (primitive : Primitives) (calls : Calls) (frame : Frame) : ModelExpr → BodyScan
+  | .value expression => expression.eval primitive calls frame
+  | .group expression => expression.eval primitive calls frame
+  | .choose test yes no | .elsif test yes no =>
+      if test.eval primitive calls frame then yes.eval primitive calls frame else no.eval primitive calls frame
+  | .localResult initial rest => rest.eval primitive calls {frame with result := initial.eval primitive calls frame}
 
-def conditionalFunction : Function := ⟨.token (.word "if") .input, false, [.conditionConstant, .yes],
-  .list [.positionAfter, .facts .whenTrue, .assign (.token (.word "then") .result),
+mutual
+  def ModelExpr.render : ModelExpr → List String
+    | .value expression => expression.render
+    | .group expression => ["("] ++ expression.render ++ [")"]
+    | .choose test yes no | .elsif test yes no =>
+        ["if"] ++ test.render ++ ["then"] ++ yes.render ++ no.renderElse
+    | .localResult initial rest =>
+        ["(", "declare", "result", ":", "constant", "body_scan", "(", "scan", ".", "count", ")", ":="] ++
+        initial.render ++ [";", "begin", "("] ++ rest.render ++ [")", ")"]
+  def ModelExpr.renderElse : ModelExpr → List String
+    | .elsif test yes no => ["elsif"] ++ test.render ++ ["then"] ++ yes.render ++ no.renderElse
+    | expression => ["else"] ++ expression.render
+end
+
+/-- Ada's elsif spelling belongs to the preceding conditional expression. -/
+def tailModelBody : ModelExpr :=
+  .choose (.zero .input) (.value (.invalidModel .input))
+    (.elsif (.stop .input) (.value .input)
+      (.localResult (.statement .input)
+        (.choose (.nonadvancing .result) (.value (.invalidModel .result)) (.value (.tailModel .current .result)))))
+
+def readContractBody : ModelExpr :=
+  .group (.choose (.zero (.statement .input)) (.value (.invalid (.statement .input)))
+    (.value (.tailModel .current (.statement .input))))
+
+def readFunction : Function := ⟨.statement .input, true, [], .list [guard (.zero .result) .result, .ret (.tail .current .result)]⟩
+
+def conditionalFunction : Function := ⟨.token (.word "if") .input, false, [.conditionVariable, .yes],
+  .list [.condition, .positionAfter, .facts .whenTrue, .assign (.token (.word "then") .result),
     guard (.nonadvancing .result), .assign (.read (.literal .arm) .result), guard (.nonadvancing .result),
-    .saveYes, .facts .whenFalse, .assign (.alternative .result), .facts (.join .yes .result),
+    .saveYes, .facts .whenFalse, .assign (.alternative .result), .joinYes,
     .assign (.token (.word "end") .result), .assign (.token (.word "if") .result),
     .assign (.token (.symbol ";") .result), finish]⟩
 
@@ -231,23 +282,28 @@ def alternativeFunction : Function := ⟨.input, false, [.conditionVariable, .ye
     (.list [.assign (.token (.word "elsif") .result), .condition, .positionAfter,
       .facts .whenTrue, .assign (.token (.word "then") .result), guard (.nonadvancing .result),
       .assign (.read (.literal .arm) .result), guard (.nonadvancing .result), .saveYes,
-      .facts .whenFalse, .assign (.alternative .result), .facts (.join .yes .result), .ret .result])
+      .facts .whenFalse, .assign (.alternative .result), .joinYes, .ret .result])
     (.choose (.present (.word "else") .input)
       (.list [.assign (.token (.word "else") .result), guard (.nonadvancing .result),
         .ret (.read (.literal .endOnly) .result)])
-      (.choose (.present (.word "end") .input) (.ret .input) (.ret .invalid))))⟩
+      (.choose (.present (.word "end") .input) (.ret .input) (.ret (.invalid .input)))))⟩
 
 def modelPrimitives : Primitives where
   loop := LoopNative.modelImports
   token := tokenAfter
+  bodyToken text _ scan token := Predicate.bodyToken text scan token
   basic text context scan := basicBody text context.model scan
   predicate text context position facts := readCondition text context.model position facts
+  invalidModel := invalidBody
+  invalid := invalidBody
+  joinInto := ActiveFlow.join
 
 def modelCalls : Calls where
   statement text context scan := statementBody text context.model scan
   loop text context scan := loopBody text context.model scan
   conditional text context scan := conditionalBody text context.model scan
   alternative text context scan := alternativeBody text context.model scan
+  tailModel text context scan stop := bodyTail text context.model scan stop
   tail text context scan stop := bodyTail text context.model scan stop
   read text context scan stop := readBody text context.model scan stop
 

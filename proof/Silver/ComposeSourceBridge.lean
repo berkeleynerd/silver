@@ -59,7 +59,7 @@ def NativeForm (form : Form) : Prop := form ∈ helperForms
 
 /-- Helper definitions and executed lexical-call domains, with Step restricted
 to the two shell tags actually declared by the native implementation. -/
-structure InterpretedSource (calls : Expressions.Calls) : Prop where
+structure InterpretedSource (calls : Expressions.Calls) (domain : StateDomain := .basic) : Prop where
   imageLengths : ∃ (imageCalls : Integer.Image.Native.Calls) (scalarCalls : Integer.Native.Calls),
     Integer.Image.NativeSource.InterpretedSource imageCalls scalarCalls ∧
       ∀ bounds, bounds.Bounded →
@@ -69,24 +69,24 @@ structure InterpretedSource (calls : Expressions.Calls) : Prop where
       (token : Source → Nat → String → Bool → Bool),
     calls.primitive = Lexical.primitives helpers token ∧
       Lexical.InterpretedSource helpers token
-  definitions : Expressions.HelperEquations calls calls
-  legal : Expressions.LegalHelpers calls
+  definitions : Expressions.HelperEquations calls calls domain
+  legal : Expressions.LegalHelpers calls domain
   step : ∀ text, Expressions.ValidText text → ∀ form token state,
-    NativeForm form → Expressions.ValidToken token → Expressions.ValidState text state →
+    NativeForm form → Expressions.ValidToken token → domain.holds text state →
     calls.function .step text form token state =
       Expressions.stepBody.eval calls (Expressions.Context.locals {text,form,token,state})
   stepLegal : ∀ text, Expressions.ValidText text → ∀ form token state,
-    NativeForm form → Expressions.ValidToken token → Expressions.ValidState text state →
+    NativeForm form → Expressions.ValidToken token → domain.holds text state →
     Expressions.stepBody.Legal calls (Expressions.Context.locals {text,form,token,state})
 
-theorem interpreted_primitives (calls : Expressions.Calls)
-    (source : InterpretedSource calls) : Lexical.Meaning calls.primitive := by
+theorem interpreted_primitives {domain : StateDomain} (calls : Expressions.Calls)
+    (source : InterpretedSource calls domain) : Lexical.Meaning calls.primitive := by
   obtain ⟨helpers, token, same, interpreted⟩ := source.lexical
   rw [same]
   exact Lexical.interpreted_primitives helpers token interpreted
 
-theorem interpreted_equations (calls : Expressions.Calls)
-    (source : InterpretedSource calls) : Expressions.HelperEquations calls := by
+theorem interpreted_equations {domain : StateDomain} (calls : Expressions.Calls)
+    (source : InterpretedSource calls domain) : Expressions.HelperEquations calls (domain := domain) := by
   obtain ⟨imageCalls, scalarCalls, imageSource, linked⟩ := source.imageLengths
   have minimum : ∀ bounds, bounds.Bounded →
       calls.function .imageMinimum bounds = (LengthSummary.ofImage bounds).minimumLength := by
@@ -105,10 +105,10 @@ theorem interpreted_equations (calls : Expressions.Calls)
   exact Expressions.normalized_helpers calls (interpreted_primitives calls source)
     {source.definitions with imageMinimum := minimum, imageMaximum := maximum} source.legal
 
-theorem interpreted_step (calls : Expressions.Calls) (source : InterpretedSource calls)
+theorem interpreted_step {domain : StateDomain} (calls : Expressions.Calls) (source : InterpretedSource calls domain)
     (text : Source) (valid : Expressions.ValidText text) (form : Form) (token : ShellToken)
     (state : ParserState) (native : NativeForm form)
-    (tokenValid : Expressions.ValidToken token) (context : Expressions.ValidState text state) :
+    (tokenValid : Expressions.ValidToken token) (context : domain.holds text state) :
     calls.function .step text form token state = step text form token state := by
   let equations := interpreted_equations calls source
   have normalized := Expressions.Expr.eval_lexical calls (interpreted_primitives calls source)
@@ -126,11 +126,11 @@ theorem interpreted_step (calls : Expressions.Calls) (source : InterpretedSource
   have output := interpreted_output calls equations text valid state context
   have comparison := interpreted_comparison calls equations text valid state context
   have capacity := interpreted_capacity calls equations text valid state context
-  have skipped := interpreted_skip calls equations text valid state.position context.1
-  have skipDomain := equations.ranges.skip text valid state.position context.1
+  have skipped := interpreted_skip calls equations text valid state.position (domain.valid text state context).1
+  have skipDomain := equations.ranges.skip text valid state.position (domain.valid text state context).1
   rw [skipped] at skipDomain
   have literal := interpreted_literal calls equations text valid (skipAt text state.position) skipDomain
-  have taken := interpreted_take calls equations text valid state.position token context.1 tokenValid
+  have taken := interpreted_take calls equations text valid state.position token (domain.valid text state context).1 tokenValid
   dsimp +instances only [stepBody, Expr.eval, Calls.get, Field.get, Context.locals, lexical, modelPrimitives]
   rw [skipped, literal, argument, read, target, targetSame, dynamic, assignment, output, comparison, capacity, taken, contextAfter]
   cases token <;> simp +instances [step, spelling, isWord, BEq.beq]

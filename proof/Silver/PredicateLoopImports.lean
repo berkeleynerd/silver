@@ -2,6 +2,7 @@ module
 
 public import Silver.PredicateLoopNative
 public import Silver.ComposeContracts
+public import Silver.PredicateBodyControls
 
 @[expose] public section
 namespace Silver.Predicate.LoopNative
@@ -19,29 +20,46 @@ def CursorDomain (text : Source) (position : Nat) : Prop :=
 def TokenDomain (text : Source) (position : Nat) (token : ShellToken) : Prop :=
   CursorDomain text position ∧ token ∈ loopTokens
 
+def BodyTokenDomain (text : Source) (context : Native.Context) (scan : BodyScan) (token : ShellToken) : Prop :=
+  (Expressions.ValidText text ∧ Native.ValidContext text context ∧
+    scan.position ≤ text.length + 1 ∧ Controls context.model scan ∧ Native.ValidFlow context scan.facts) ∧
+    token ∈ loopTokens
+
 def NameDomain (text : Source) (first after : Nat) : Prop :=
   Expressions.ValidText text ∧ Expressions.ValidName text first after
 
 def WordDomain (text : Source) (first after : Nat) (word : String) : Prop :=
   NameDomain text first after ∧ 0 < word.toList.length ∧ word.toList.length ≤ 16
 
-def ScalarDomain (text : Source) (position : Nat) (names : ScalarExpression.Environment)
+def FlowDomain (text : Source) (context : Native.Context) (facts : ActiveFlow) : Prop :=
+  Expressions.ValidText text ∧ Native.ValidContext text context ∧ Native.ValidFlow context facts
+
+def ScalarDomain (text : Source) (context : Native.Context) (position : Nat) (facts : ActiveFlow)
     (first after : Nat) : Prop :=
-  CursorDomain text position ∧ ScalarExpression.ValidEnvironment text names ∧ ScalarExpression.ValidMask text first after
+  FlowDomain text context facts ∧ position ≤ text.length + 1 ∧ ScalarExpression.ValidMask text first after
+
+def WidenDomain (context : Native.Context) (facts : ActiveFlow) : Prop :=
+  facts.count = context.scalarNames.length ∧ context.scalarNames.length ≤ ScalarExpression.maxBindings
 
 /-- Native argument domains only. Source-derived component proofs discharge
 these pointwise meanings; none assert a loop-scanner equivalence. -/
 structure ImportsMeaning (imports : Imports) : Prop where
   token : ∀ text position token, TokenDomain text position token →
     imports.token text position token = tokenAfter text position token
+  bodyToken : ∀ text context scan token, BodyTokenDomain text context scan token →
+    imports.bodyToken text context scan token = Predicate.bodyToken text scan token
+  invalid : ∀ scan, scan.count ≤ ScalarExpression.maxBindings → imports.invalid scan = invalidBody scan
   skip : ∀ text position, CursorDomain text position → imports.skip text position = skipAt text position
   nameAfter : ∀ text position, CursorDomain text position → imports.nameAfter text position = Compose.nameAfter text position
   forbidden : ∀ text first after, NameDomain text first after →
     imports.forbidden text first after = Named.forbiddenName text first after
   nameIs : ∀ text first after word, WordDomain text first after word →
     imports.nameIs text first after word = Named.nameIs text first after (word.toList.map Char.toNat)
-  readScalar : ∀ text position names first after, ScalarDomain text position names first after →
-    imports.readScalar text position names first after = ScalarExpression.read text position names first after
+  readScalar : ∀ text context position facts first after, ScalarDomain text context position facts first after →
+    imports.readScalar text context position facts first after =
+      ScalarExpression.read text position (context.model.readingNames facts) first after
+  widen : ∀ context facts, WidenDomain context facts →
+    imports.widen context facts = ActiveFlow.widen context.scalarNames facts
   append : ∀ names item, names.length < ScalarExpression.maxBindings → imports.append names item = names ++ [item]
   isEmpty : ∀ value, value.Bounded → imports.isEmpty value = value.isEmpty
   normalize : ∀ value, value.Bounded → imports.normalize value = value.normalize
@@ -55,11 +73,17 @@ noncomputable def totalizeImports (imports : Imports) : Imports := by
   classical
   exact {
     token := fun text position token => if TokenDomain text position token then imports.token text position token else modelImports.token text position token
+    bodyToken := fun text context scan token => if BodyTokenDomain text context scan token then
+      imports.bodyToken text context scan token else modelImports.bodyToken text context scan token
+    invalid := fun scan => if scan.count ≤ ScalarExpression.maxBindings then imports.invalid scan else modelImports.invalid scan
     skip := fun text position => if CursorDomain text position then imports.skip text position else modelImports.skip text position
     nameAfter := fun text position => if CursorDomain text position then imports.nameAfter text position else modelImports.nameAfter text position
     forbidden := fun text first after => if NameDomain text first after then imports.forbidden text first after else modelImports.forbidden text first after
     nameIs := fun text first after word => if WordDomain text first after word then imports.nameIs text first after word else modelImports.nameIs text first after word
-    readScalar := fun text position names first after => if ScalarDomain text position names first after then imports.readScalar text position names first after else modelImports.readScalar text position names first after
+    readScalar := fun text context position facts first after =>
+      if ScalarDomain text context position facts first after then imports.readScalar text context position facts first after
+      else modelImports.readScalar text context position facts first after
+    widen := fun context facts => if WidenDomain context facts then imports.widen context facts else modelImports.widen context facts
     append := fun names item => if names.length < ScalarExpression.maxBindings then imports.append names item else modelImports.append names item
     isEmpty := fun value => if value.Bounded then imports.isEmpty value else modelImports.isEmpty value
     normalize := fun value => if value.Bounded then imports.normalize value else modelImports.normalize value
@@ -77,6 +101,16 @@ theorem totalizeImports_skip (imports : Imports) (text : Source) (position : Nat
     (totalizeImports imports).skip text position = imports.skip text position := by
   simp only [totalizeImports, valid, ↓reduceIte]
 
+theorem totalizeImports_bodyToken (imports : Imports) (text : Source) (context : Native.Context)
+    (scan : BodyScan) (token : ShellToken) (valid : BodyTokenDomain text context scan token) :
+    (totalizeImports imports).bodyToken text context scan token = imports.bodyToken text context scan token := by
+  simp only [totalizeImports, valid, ↓reduceIte]
+
+theorem totalizeImports_invalid (imports : Imports) (scan : BodyScan)
+    (capacity : scan.count ≤ ScalarExpression.maxBindings) :
+    (totalizeImports imports).invalid scan = imports.invalid scan := by
+  simp only [totalizeImports, capacity, ↓reduceIte]
+
 theorem totalizeImports_nameAfter (imports : Imports) (text : Source) (position : Nat)
     (valid : CursorDomain text position) :
     (totalizeImports imports).nameAfter text position = imports.nameAfter text position := by
@@ -92,9 +126,16 @@ theorem totalizeImports_nameIs (imports : Imports) (text : Source) (first after 
     (totalizeImports imports).nameIs text first after word = imports.nameIs text first after word := by
   simp only [totalizeImports, valid, ↓reduceIte]
 
-theorem totalizeImports_readScalar (imports : Imports) (text : Source) (position : Nat) (names : ScalarExpression.Environment) (first after : Nat)
-    (valid : ScalarDomain text position names first after) :
-    (totalizeImports imports).readScalar text position names first after = imports.readScalar text position names first after := by
+theorem totalizeImports_readScalar (imports : Imports) (text : Source) (context : Native.Context)
+    (position : Nat) (facts : ActiveFlow) (first after : Nat)
+    (valid : ScalarDomain text context position facts first after) :
+    (totalizeImports imports).readScalar text context position facts first after =
+      imports.readScalar text context position facts first after := by
+  simp only [totalizeImports, valid, ↓reduceIte]
+
+theorem totalizeImports_widen (imports : Imports) (context : Native.Context) (facts : ActiveFlow)
+    (valid : WidenDomain context facts) :
+    (totalizeImports imports).widen context facts = imports.widen context facts := by
   simp only [totalizeImports, valid, ↓reduceIte]
 
 theorem totalizeImports_append (imports : Imports) (names : ScalarExpression.Environment) (item : ScalarExpression.Binding)
@@ -120,6 +161,16 @@ theorem totalizeImports_eq_model {imports : Imports} (meaning : ImportsMeaning i
     split
     · exact meaning.token text position token ‹_›
     · rfl
+  · funext text context scan token
+    dsimp only [totalizeImports]
+    split
+    · exact meaning.bodyToken text context scan token ‹_›
+    · rfl
+  · funext scan
+    dsimp only [totalizeImports]
+    split
+    · exact meaning.invalid scan ‹_›
+    · rfl
   · funext text position
     dsimp only [totalizeImports]
     split
@@ -140,10 +191,15 @@ theorem totalizeImports_eq_model {imports : Imports} (meaning : ImportsMeaning i
     split
     · exact meaning.nameIs text first after word ‹_›
     · rfl
-  · funext text position names first after
+  · funext text context position facts first after
     dsimp only [totalizeImports]
     split
-    · exact meaning.readScalar text position names first after ‹_›
+    · exact meaning.readScalar text context position facts first after ‹_›
+    · rfl
+  · funext context facts
+    dsimp only [totalizeImports]
+    split
+    · exact meaning.widen context facts ‹_›
     · rfl
   · funext names item
     dsimp only [totalizeImports]
@@ -171,11 +227,14 @@ theorem evalWith_of_meaning {imports : Imports} (meaning : ImportsMeaning import
 
 theorem model_imports_meaning : ImportsMeaning modelImports where
   token _ _ _ _ := rfl
+  bodyToken _ _ _ _ _ := rfl
+  invalid _ _ := rfl
   skip _ _ _ := rfl
   nameAfter _ _ _ := rfl
   forbidden _ _ _ _ := rfl
   nameIs _ _ _ _ _ := rfl
-  readScalar _ _ _ _ _ _ := rfl
+  readScalar _ _ _ _ _ _ _ := rfl
+  widen _ _ _ := rfl
   append _ _ _ := rfl
   isEmpty _ _ := rfl
   normalize _ _ := rfl
@@ -192,6 +251,7 @@ def Update.tokenCalls : Update → List ShellToken
 
 def Command.tokenCalls : Command → List ShellToken
   | .update value => value.tokenCalls
+  | .scope body => body.tokenCalls
   | .sequence first second => first.tokenCalls ++ second.tokenCalls
   | .choose test yes no => test.tokenCalls ++ yes.tokenCalls ++ no.tokenCalls
   | _ => []

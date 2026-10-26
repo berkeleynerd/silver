@@ -312,3 +312,11 @@ these focused results do not establish final guard actual-source correspondence.
 The resumed proof subthreads use selected GPT-6 Astra at Extra High. Runtime
 settings and whole-round token/cost measurements are unavailable. Complete native,
 source, regression and independent delivery validation remain outstanding.
+
+Managed run `20261026T042806-91a48244f160` then completed a fresh focused audit
+of 61,948 declarations covering the repaired loop equations/sizing, scalar-body
+helpers, body equations/correspondence, reader libraries and inherited declaration
+readiness. The [result and integrated input hashes](evidence/scalar-guard-refinement/lean-cohort-20261026/integration.json)
+retain its exact scope. The build and audit took 11.687 and 12.442 seconds,
+reusing successful objects. Adapter and remaining body/helper integration are
+still pending; the parser/source qualification above remains unchanged.

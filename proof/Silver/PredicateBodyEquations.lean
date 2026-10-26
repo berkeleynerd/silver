@@ -12,38 +12,38 @@ set_option maxHeartbeats 1000000
 
 def conditionalEquation (calls : Calls) (text : Source) (context : Native.Context) (scan : BodyScan) : BodyScan :=
   let start := branchStart text context.model scan "if"
-  if start.1.position ≤ scan.position then invalidBody else
+  if start.1.position ≤ scan.position then invalidBody scan else
   let yes := calls.read text context start.1 .arm
-  if yes.position ≤ scan.position then invalidBody else
+  if yes.position ≤ scan.position then invalidBody scan else
   let no := calls.alternative text context {yes with facts := start.2}
   let joined := {no with facts := yes.facts.join no.facts}
   let result := bodyTokens text joined [.word "end", .word "if", .symbol ";"]
-  if result.position ≤ scan.position then invalidBody else result
+  if result.position ≤ scan.position then invalidBody scan else result
 
 def alternativeEquation (calls : Calls) (text : Source) (context : Native.Context) (scan : BodyScan) : BodyScan :=
-  if scan.position = 0 then invalidBody
+  if scan.position = 0 then invalidBody scan
   else if fixedAfter text scan.position "elsif" true ≠ 0 then
     let start := branchStart text context.model scan "elsif"
-    if start.1.position ≤ scan.position then invalidBody else
+    if start.1.position ≤ scan.position then invalidBody scan else
     let yes := calls.read text context start.1 .arm
-    if yes.position ≤ scan.position then invalidBody else
+    if yes.position ≤ scan.position then invalidBody scan else
     let no := calls.alternative text context {yes with facts := start.2}
     {no with facts := yes.facts.join no.facts}
   else if fixedAfter text scan.position "else" true ≠ 0 then
     let start := bodyToken text scan (.word "else")
-    if start.position ≤ scan.position then invalidBody else calls.read text context start .endOnly
-  else if fixedAfter text scan.position "end" true ≠ 0 then scan else invalidBody
+    if start.position ≤ scan.position then invalidBody scan else calls.read text context start .endOnly
+  else if fixedAfter text scan.position "end" true ≠ 0 then scan else invalidBody scan
 
 def tailEquation (calls : Calls) (text : Source) (context : Native.Context) (scan : BodyScan) (stop : BodyStop) : BodyScan :=
-  if scan.position = 0 then invalidBody
+  if scan.position = 0 then invalidBody scan
   else if atBodyStop text scan.position stop then scan
   else
     let next := calls.statement text context scan
-    if next.position ≤ scan.position then invalidBody else calls.tail text context next stop
+    if next.position ≤ scan.position then invalidBody next else calls.tailModel text context next stop
 
 def readEquation (calls : Calls) (text : Source) (context : Native.Context) (scan : BodyScan) (stop : BodyStop) : BodyScan :=
   let next := calls.statement text context scan
-  if next.position = 0 then invalidBody else calls.tail text context next stop
+  if next.position = 0 then invalidBody next else calls.tailModel text context next stop
 
 theorem conditional_eval (calls : Calls) (text : Source) (context : Native.Context) (scan : BodyScan) :
     conditionalFunction.eval modelPrimitives calls {text, context, scan} = conditionalEquation calls text context scan := by
@@ -59,7 +59,7 @@ theorem conditional_eval (calls : Calls) (text : Source) (context : Native.Conte
   all_goals simp only [branchStart, bodyToken, bodyTokens, List.foldl_cons, List.foldl_nil] at third
   all_goals simp +instances [Function.eval, conditionalFunction, Command.eval, Command.list, guard, finish,
     ScanExpr.eval, FactsExpr.eval, Test.eval, StopRef.eval, modelPrimitives,
-    conditionalEquation, branchStart, bodyToken, bodyTokens, first, second, third]
+    conditionalEquation, branchStart, bodyToken, bodyTokens, ActiveFlow.join_comm, first, second, third]
 
 theorem alternative_eval (calls : Calls) (text : Source) (context : Native.Context) (scan : BodyScan) :
     alternativeFunction.eval modelPrimitives calls {text, context, scan} = alternativeEquation calls text context scan := by
@@ -74,20 +74,20 @@ theorem alternative_eval (calls : Calls) (text : Source) (context : Native.Conte
   all_goals simp +instances [Function.eval, alternativeFunction, Command.eval, Command.list, guard,
     ScanExpr.eval, FactsExpr.eval, Test.eval, StopRef.eval, modelPrimitives,
     alternativeEquation, branchStart, bodyToken, tokenAfter, ShellToken.word,
-    zero, found, first, second, foundElse, next, foundEnd]
+    zero, found, first, second, foundElse, next, foundEnd, ActiveFlow.join_comm]
 
 theorem tail_eval (calls : Calls) (text : Source) (context : Native.Context) (scan : BodyScan) (stop : BodyStop) :
-    tailFunction.eval modelPrimitives calls {text, context, scan, stop} = tailEquation calls text context scan stop := by
+    tailModelBody.eval modelPrimitives calls {text, context, scan, stop} = tailEquation calls text context scan stop := by
   by_cases zero : scan.position = 0
   all_goals by_cases stopped : atBodyStop text scan.position stop = true
   all_goals by_cases failed : (calls.statement text context scan).position ≤ scan.position
-  all_goals simp +instances [Function.eval, tailFunction, Command.eval, Command.list, guard,
+  all_goals simp +instances [ModelExpr.eval, tailModelBody, modelPrimitives,
     ScanExpr.eval, Test.eval, StopRef.eval, tailEquation, zero, stopped, failed]
 
 theorem read_eval (calls : Calls) (text : Source) (context : Native.Context) (scan : BodyScan) (stop : BodyStop) :
-    readFunction.eval modelPrimitives calls {text, context, scan, stop} = readEquation calls text context scan stop := by
+    readContractBody.eval modelPrimitives calls {text, context, scan, stop} = readEquation calls text context scan stop := by
   by_cases zero : (calls.statement text context scan).position = 0
-  all_goals simp +instances [Function.eval, readFunction, Command.eval, Command.list, guard,
+  all_goals simp +instances [ModelExpr.eval, readContractBody, modelPrimitives,
     ScanExpr.eval, Test.eval, StopRef.eval, readEquation, zero]
 
 theorem remaining_lt {text : Source} {left right : BodyScan}

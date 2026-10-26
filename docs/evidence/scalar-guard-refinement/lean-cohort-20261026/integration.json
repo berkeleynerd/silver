@@ -1,0 +1,90 @@
+{
+  "run_id": "20261026T042806-91a48244f160",
+  "scope": "Focused semantic/native model cohort only; runner parser remained preceding division source. Final guard actual-source correspondence is pending.",
+  "integrated": [
+    {
+      "path": "proof/Silver/ComposeContracts.lean",
+      "sha256": "efebd42fc8be0ed226bd21897f1e8fba2152f56c7f54181d1c35a0a33cce7be0"
+    },
+    {
+      "path": "proof/Silver/ComposeEquations.lean",
+      "sha256": "6bc78a8f7cbdd73d18aa527a0cab80a015689bb1c43f4d827e03b0868b9990d4"
+    },
+    {
+      "path": "proof/Silver/ComposeEvaluation.lean",
+      "sha256": "c111ca7a7ac2beb1b449f645eaada3da7d645cd523e81c74a8a4245904206004"
+    },
+    {
+      "path": "proof/Silver/ComposeSourceBridge.lean",
+      "sha256": "b62f6df850467047be952c87dab09786dfd07edb987af78d16b139a84034d880"
+    },
+    {
+      "path": "proof/Silver/PredicateBodyCorrespondence.lean",
+      "sha256": "bb118738dd6d04aed70392982094dc10b710695bb65533103a97980f3546d5d1"
+    },
+    {
+      "path": "proof/Silver/PredicateBodyEquations.lean",
+      "sha256": "cabfd6766081bf2537473fcfe176095c4813c1c084013b8d098b7828e0954671"
+    },
+    {
+      "path": "proof/Silver/PredicateBodyExpressions.lean",
+      "sha256": "ed036b1ba32678009ae1b8cde4cf98d62c88cdcf1b26124d08bc1e9727c02680"
+    },
+    {
+      "path": "proof/Silver/PredicateBodyFlowPreservation.lean",
+      "sha256": "9a0403161fd124ec112560bf440e579cac7349d40bf7a7c4e3c03b4e8d78db80"
+    },
+    {
+      "path": "proof/Silver/PredicateBodySizing.lean",
+      "sha256": "c4b9539ab53099fc93650c3f854b636d12fe3384f705c3883f88a57e001cfc8b"
+    },
+    {
+      "path": "proof/Silver/PredicateFlowReaderLibraries.lean",
+      "sha256": "7831adb928b7da4e06d752c5058c1c3252cb6708b3b80d667acdb9f9d23ebe45"
+    },
+    {
+      "path": "proof/Silver/PredicateFlowSourceBridge.lean",
+      "sha256": "71e7a582c03b7cce4b25429a2145d9f748adca7dd3f4ea496b742a26dce03c0c"
+    },
+    {
+      "path": "proof/Silver/PredicateInheritedReady.lean",
+      "sha256": "63eecc16c48d5ac502eddc1ab3c1b8a560b263c7d42a121cba201da9f803410e"
+    },
+    {
+      "path": "proof/Silver/PredicateLoopFlowValidity.lean",
+      "sha256": "8ef9001795e79d38709505c728aff65ad32126e0ed91b187c8942f10146d4345"
+    },
+    {
+      "path": "proof/Silver/PredicateLoopImports.lean",
+      "sha256": "e2fc9b8e49130e71a82b58b7efa2b03096d1715c4e81da94c60ef514206b67dd"
+    },
+    {
+      "path": "proof/Silver/PredicateLoopNative.lean",
+      "sha256": "6324166fb8a7e563f9a87036e5608f3d0354d82bcafd59d53b34c6985b9c4396"
+    },
+    {
+      "path": "proof/Silver/PredicateLoopSizing.lean",
+      "sha256": "98c920e56c15cad9c40e2cd97c2657d85e6e21f05290dc68464c049344ac954a"
+    },
+    {
+      "path": "proof/Silver/PredicateNativeLibraries.lean",
+      "sha256": "70ec580bce93a79efcd46b288d4da47be79f0a806e554005bda9710b2f2d0023"
+    },
+    {
+      "path": "proof/Silver/PredicateOuterEquations.lean",
+      "sha256": "2d1fc81be5a12c3b2d43521178f80eea229aae0f60c00fb2f9a6ac0b5456ea39"
+    },
+    {
+      "path": "proof/Silver/PredicateOuterReadiness.lean",
+      "sha256": "eaa03d1672d2d261bcc1993edbbcdf342a9b912da08ad32458830e34e6f248a8"
+    },
+    {
+      "path": "proof/Silver/PredicateScalarBodyHelpers.lean",
+      "sha256": "60557ddf2d07a51a55dd3db36b22b1f64658e67775578c96abd07469eabcde20"
+    },
+    {
+      "path": "proof/Silver/PredicateScalarBodyNative.lean",
+      "sha256": "eb1ec33e37d7e18a2d319072774b047c9468934c25e4e29b37c6ffd29b5affc1"
+    }
+  ]
+}

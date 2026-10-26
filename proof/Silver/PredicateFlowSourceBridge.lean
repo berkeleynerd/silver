@@ -489,7 +489,8 @@ def joinedHeader : List String :=
   expectedTokens "(Left, Right : Scalar_Flow) return Scalar_Flow with Ghost => Static, Global => null, Pre => Left.Count = Right.Count, Post => Joined'Result.Count =" ++
   joinedCount.render ++ expectedTokens "and then Joined'Result.Path =" ++ joinedPath.render ++
   expectedTokens "and then (for all Index in Joined'Result.Values'Range => Joined'Result.Values (Index) =" ++
-  joinedValue.render ++ [")"]
+  joinedValue.render ++
+  expectedTokens "and then (if Scalars.Is_Empty (Left.Values (Index)) then (if Scalars.Is_Empty (Right.Values (Index)) then Scalars.Is_Empty (Joined'Result.Values (Index)) else Joined'Result.Values (Index) = Right.Values (Index)) elsif Scalars.Is_Empty (Right.Values (Index)) then Joined'Result.Values (Index) = Left.Values (Index) else not Scalars.Is_Empty (Joined'Result.Values (Index)) and then Joined'Result.Values (Index).Lower = Scalars.Value'Min (Left.Values (Index).Lower, Right.Values (Index).Lower) and then Joined'Result.Values (Index).Upper = Scalars.Value'Max (Left.Values (Index).Upper, Right.Values (Index).Upper)) and then (if not Scalars.Is_Empty (Left.Values (Index)) and then Left.Values (Index) = Right.Values (Index) then Joined'Result.Values (Index) = Left.Values (Index))" ++ [")"]
 
 def joinIntoHeader : List String :=
   expectedTokens "(Left : in out Scalar_Flow; Right : Scalar_Flow) with Global => null, Pre => Left.Count = Right.Count, Post => (Static => Left =" ++
@@ -501,7 +502,7 @@ def widenedHeader : List String :=
   widenedValue.render ++ [")"]
 
 def readingHeader : List String :=
-  expectedTokens "(Context : Body_Context; Facts : Scalar_Flow) return Scalar_Expressions.Environment with Ghost => Static, Global => null, Pre => Facts.Count = Context.Scalar_Names.Count, Post => Reading_Names'Result.Count =" ++
+  expectedTokens "(Context : Body_Context; Facts : Scalar_Flow) return Scalar_Expressions.Environment with Global => null, Pre => Facts.Count = Context.Scalar_Names.Count, Post => Reading_Names'Result.Count =" ++
   readingCount.render ++ expectedTokens "and then (for all Index in Scalar_Expressions.Binding_Index => Reading_Names'Result.Items (Index) =" ++
   readingItem.render ++ [")"]
 

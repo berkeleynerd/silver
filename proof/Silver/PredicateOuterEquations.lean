@@ -3,6 +3,7 @@ module
 public import Silver.PredicateOuterExpressions
 public import Silver.ComposeEquations
 public import Silver.ComposeLexical
+public import Silver.PredicateOuterReadiness
 
 @[expose] public section
 namespace Silver.Predicate.Outer
@@ -12,7 +13,7 @@ set_option maxHeartbeats 2000000
 set_option backward.dsimp.instances true
 
 abbrev ValidScan (text : Source) (scan : ScanResult) : Prop :=
-  Compose.Expressions.ValidState text scan.state
+  OuterReadiness.ValidState text scan.state
 abbrev ValidText := Compose.Expressions.ValidText
 abbrev ValidHelperToken := Compose.Expressions.ValidToken
 
@@ -24,9 +25,9 @@ structure RangeContracts (calls : Calls) : Prop where
   step : ∀ text, ValidText text → ∀ form token scan, ValidToken token → ValidScan text scan →
     ValidScan text (calls.scanStep text form token scan)
 structure HelperMeaning (calls : Calls) : Prop where
-  equations : Compose.Expressions.HelperEquations calls.helpers
+  equations : Compose.Expressions.HelperEquations calls.helpers (domain := OuterReadiness.domain)
   step : ∀ text, ValidText text → ∀ (form : Form) token state,
-    ValidHelperToken token → Compose.Expressions.ValidState text state →
+    ValidHelperToken token → OuterReadiness.ValidState text state →
     calls.helpers.function .step text form.helper token state = Compose.step text form.helper token state
   trivia : ∀ text, ValidText text → ∀ position, 0 < position → position ≤ text.length + 1 →
     calls.helpers.primitive.trivia text position = Cursor.triviaPosition text position
@@ -99,7 +100,7 @@ theorem suffix_denotation (calls : Calls) (helpers : HelperMeaning calls) (body 
   · simp [zero]
   · simp only [zero, ↓reduceIte]
     by_cases done : index > form.tokens.length
-    · rw [helpers.trivia text valid scan.state.position (by omega) context.1]
+    · rw [helpers.trivia text valid scan.state.position (by omega) context.1.1]
       simp [done]
     · simp only [done, ↓reduceIte]
       exact congrArg (calls.suffix text form (index + 1))
@@ -146,10 +147,8 @@ theorem interpreted_suffix (calls : Calls) (helpers : HelperMeaning calls) (body
 termination_by form.tokens.length + 1 - index
 decreasing_by omega
 
-private theorem initial_valid (text : Source) : ValidScan text initialScan := by
-  simp [ValidScan, Compose.Expressions.ValidState, Compose.Expressions.ValidCursor,
-    Compose.Expressions.ValidNames, initialScan, initialState, Named.NameState.Valid, maxBindings, maxSourceLength,
-    ScalarExpression.validEnvironment_empty]
+private theorem initial_valid (text : Source) : ValidScan text initialScan :=
+  OuterReadiness.initial_valid text
 
 theorem interpreted_form (calls : Calls) (helpers : HelperMeaning calls) (body : BodyMeaning calls)
     (equations : DefinitionEquations calls) (text : Source) (form : Form) :
