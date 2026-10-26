@@ -2,6 +2,7 @@ module
 
 public import Silver.PredicateBodyAdmission
 public import Silver.PredicateLoopProperties
+public import Silver.PredicateBodyFlow
 
 @[expose] public section
 namespace Silver.Predicate
@@ -62,7 +63,7 @@ theorem basicRaw_bound (text : Source) (context : ParseContext) (scan : BodyScan
       · exact Nat.zero_le _
       · dsimp only [bodyToken, tokenAfter, ShellToken.symbol]
         apply model_fixed_valid
-        exact (model_expression_valid (scalarNames := context.scalarNames) text textValid _ context.names
+        exact (model_expression_valid (scalarNames := context.readingNames scan.facts) text textValid _ context.names
             (Names.associationAfter_bound text _ false
               (model_fixed_valid text _ "(" false (model_callAfter_valid (scalarNames := context.scalarNames) text context.names scan.position .output bounded))) namesValid).1
   | put =>
@@ -71,7 +72,7 @@ theorem basicRaw_bound (text : Source) (context : ParseContext) (scan : BodyScan
       · exact Nat.zero_le _
       · dsimp only [bodyToken, tokenAfter, ShellToken.symbol]
         apply model_fixed_valid
-        exact (model_expression_valid (scalarNames := context.scalarNames) text textValid _ context.names
+        exact (model_expression_valid (scalarNames := context.readingNames scan.facts) text textValid _ context.names
             (Names.associationAfter_bound text _ false
               (model_fixed_valid text _ "(" false (model_callAfter_valid (scalarNames := context.scalarNames) text context.names scan.position .partialOutput bounded))) namesValid).1
   | reject => exact model_callAfter_valid (scalarNames := context.scalarNames) text context.names scan.position .reject bounded
@@ -80,7 +81,7 @@ theorem basicRaw_bound (text : Source) (context : ParseContext) (scan : BodyScan
       dsimp only
       split
       · exact Nat.zero_le _
-      · exact scalarRead_bound text _ context.scalarNames 0 0
+      · exact scalarRead_bound text _ (context.readingNames scan.facts) 0 0
           (model_fixed_valid text _ ":=" false (model_name_valid text _))
   | assignment =>
       have targetBound : (targetAt text (parserState context scan) false).position ≤ text.length + 1 := by
@@ -92,7 +93,7 @@ theorem basicRaw_bound (text : Source) (context : ParseContext) (scan : BodyScan
       try dsimp only
       split
       · exact Nat.zero_le _
-      · exact (model_expression_valid (scalarNames := context.scalarNames) text textValid _ context.names
+      · exact (model_expression_valid (scalarNames := context.readingNames scan.facts) text textValid _ context.names
           (bodyToken_bound text _ _ targetBound) namesValid).1
 
 theorem basicBody_bound (text : Source) (context : ParseContext) (scan : BodyScan)
@@ -121,9 +122,9 @@ theorem basicBody_progress (text : Source) (context : ParseContext) (scan : Body
     · omega
 
 theorem basicBody_zero {text context scan} (zero : scan.position = 0) :
-    basicBody text context scan = invalidBody := by simp [basicBody, zero]
+    basicBody text context scan = invalidBody scan := by simp [basicBody, zero]
 
-theorem condition_bound (text : Source) (context : ParseContext) (position : Nat) (facts : PathFacts.Context)
+theorem condition_bound (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
     (textValid : ValidText text) (namesValid : ValidNames text context.names)
     (bounded : position ≤ text.length + 1) :
     (readCondition text context position facts).after ≤ text.length + 1 := by
@@ -259,16 +260,16 @@ mutual
 end
 
 @[simp] theorem statementBody_zero {text context scan} (zero : scan.position = 0) :
-    statementBody text context scan = invalidBody := by rw [statementBody]; simp [zero]
+    statementBody text context scan = invalidBody scan := by rw [statementBody]; simp [zero]
 @[simp] theorem bodyTail_zero {text context scan stop} (zero : scan.position = 0) :
-    bodyTail text context scan stop = invalidBody := by rw [bodyTail]; simp [zero]
+    bodyTail text context scan stop = invalidBody scan := by rw [bodyTail]; simp [zero]
 @[simp] theorem alternativeBody_zero {text context scan} (zero : scan.position = 0) :
-    alternativeBody text context scan = invalidBody := by rw [alternativeBody]; simp [zero]
+    alternativeBody text context scan = invalidBody scan := by rw [alternativeBody]; simp [zero]
 @[simp] theorem readBody_zero {text context scan stop} (zero : scan.position = 0) :
-    readBody text context scan stop = invalidBody := by rw [readBody, statementBody_zero zero]; rfl
+    readBody text context scan stop = invalidBody scan := by rw [readBody, statementBody_zero zero]; rfl
 
-theorem readCondition_zero (text : Source) (context : ParseContext) (facts : PathFacts.Context) :
-    readCondition text context 0 facts = invalidCondition := by
+theorem readCondition_zero (text : Source) (context : ParseContext) (facts : ActiveFlow) :
+    readCondition text context 0 facts = invalidCondition facts := by
   rw [readCondition, readRelation]
   simp [invalidCondition]
 
@@ -278,7 +279,7 @@ theorem branchStart_zero {text context scan keyword} (zero : scan.position = 0) 
     ↓reduceIte, readCondition_zero, invalidCondition]
 
 theorem conditionalBody_zero {text context scan} (zero : scan.position = 0) :
-    conditionalBody text context scan = invalidBody := by
+    conditionalBody text context scan = invalidBody scan := by
   rw [conditionalBody]
   simp only [branchStart_zero zero, zero, Nat.le_refl, ↓reduceIte]
 

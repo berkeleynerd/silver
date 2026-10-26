@@ -1,6 +1,6 @@
 module
 
-public import Silver.PredicateConditionValidity
+public import Silver.PredicateConditionReadings
 
 @[expose] public section
 
@@ -71,7 +71,7 @@ mutual
             obtain ⟨rfl, _⟩ := expressionTail_unique rightRead otherRight
             rfl
         | primary _ _ _ _ noExpression =>
-            rw [show expressionAt text position context.names context.scalarNames = _ from expressionTail_complete leftRead] at noExpression
+            rw [show expressionAt text position context.names (context.readingNames facts) = _ from expressionTail_complete leftRead] at noExpression
             exact False.elim (ready.1 noExpression)
     | primary _ noNot noLength noScalar noExpression inner =>
         cases second with
@@ -83,7 +83,7 @@ mutual
             rw [ScalarExpression.read_complete left] at noScalar
             exact False.elim (leftPositive noScalar)
         | strings _ _ _ _ left _ ready _ =>
-            rw [show expressionAt text position context.names context.scalarNames = _ from expressionTail_complete left] at noExpression
+            rw [show expressionAt text position context.names (context.readingNames facts) = _ from expressionTail_complete left] at noExpression
             exact False.elim (ready.1 noExpression)
         | primary _ _ _ _ _ other => exact primary_unique inner other
 
