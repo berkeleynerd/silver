@@ -5,8 +5,9 @@
 The [2026-10-25 owner instruction](session-memory.md#2026-10-25--merge-228-and-implement-interval-checked-integer-division)
 authorizes [#229](https://github.com/berkeleynerd/silver/issues/229) through
 complete implementation, assurance, validation, review and pull-request delivery.
-The implementation and coordinated language/catalogue/sample changes are in
-review; the complete delivery checkpoint below is pending. The current
+The implementation and coordinated language/catalogue/sample changes are
+delivered through [PR #236](https://github.com/berkeleynerd/silver/pull/236),
+with the Linux validation checkpoint below. The current
 [language specification](../language.md) states the selected rules.
 
 Admit fully grouped binary `/`, `mod` and `rem` wherever today's scalar
@@ -59,8 +60,8 @@ conversion, wider type, scalar refinement or array change is selected. Deferred
 The [producer/report review](integer-division-report-capacity.md) records the
 feature-local envelope and native discovery. Implementation and source-bridge
 integration are at `14b9302a97`; complete
-source-correspondence validation remains in progress. Earlier focused evidence
-is distinguished from the complete checkpoint below.
+source-correspondence validation has passed on the repaired inputs. Earlier
+focused evidence is distinguished from the complete checkpoint below.
 The initial planning thread selects GPT-6.1 Sol High; native and Lean design
 threads select GPT-6 Astra Extra High. Runtime settings and lead setting are not
 independently exposed. No token/cost measurement is available. The lead handles
@@ -83,8 +84,8 @@ and rejected for quotient overflow.
 The [arithmetic core review](reviews/review-integer-division-core-16d0f0cfaa.md)
 found no issue at `16d0f0cfaa`, covering native code, arithmetic models, reports,
 capacity and all seven sample sources. The core's focused Lean check and fresh
-axiom audit passed; complete source-bridge validation and review remain separate
-outstanding obligations. The new obligation class was observed in managed
+axiom audit passed; the complete source-bridge validation and review are recorded
+separately below. The new obligation class was observed in managed
 native discovery before acceptance was extended. No authored program receives
 hidden contracts or an annotated replacement.
 
@@ -102,9 +103,9 @@ divisors for 1 through 100, an 8-by-8 text mosaic and the task's fixed simultane
 equations. Josephus is explicitly an incident demonstration, not an arbitrary
 positive-n,k API. Expected output was derived independently from list elimination,
 direct sums/searches/divisor enumeration or the requested alternating grid.
-All seven await the complete sample checkpoint before supported delivery.
-The independently reviewed source/manifest behavior is distinct from successful
-execution of every case.
+All seven passed the manifest-driven admission, proof, build and exact-output
+checks in the complete suite below. The independently reviewed source/manifest
+behavior and native execution are separate evidence.
 
 ## Integrated delivery checkpoint
 
@@ -113,8 +114,10 @@ Implementation/source integration: `14b9302a97` (arithmetic/native core
 repair `92a3791e22` described below. The [source-bridge integration review](reviews/review-integer-division-integration-14b9302a97.md)
 reports no findings for that exact target. The bounded
 [repair review](reviews/review-integer-division-repairs-559ef643e3.md) reports no
-findings for the proof repairs through `559ef643e3`. Full validation must identify the
-actual final source inputs before closing #232/#233/#229. Linux
+findings for the proof repairs through `559ef643e3`. The final implementation
+target is `b7dfcbcdb0`, which also refreshes three checked-in generated
+certificates; the machine-readable [validation index](evidence/integer-division/validation.json)
+compares retained run inputs with that commit. Linux
 is the selected native platform; no new macOS or hosted-CI evidence is claimed.
 The lead coordinates the managed workspaces and native worker allocations.
 
@@ -142,15 +145,33 @@ Final Lean input correspondence is retained for all
 582 captured source inputs before the validation workspace was reused for the
 separate guard increment.
 
-| Required evidence | Current result and exact remaining field |
+The complete suite ran **485 tests**. All sample and execution checks passed;
+its only failures were three subcases of the checked-in certificate parity test.
+The full run remains recorded as failed. Commit `b7dfcbcdb0` refreshes
+`OutputBodyCertificate`, `ScalarExpressionBodyCertificate` and
+`ScalarsSpecCertificate` from the unchanged authoritative sources and generator.
+The affected test then passed in managed run `20261026T032402-770b4c60bac2`
+(4.216 seconds). An intervening whole-file run used the old certificates and
+reported the same failures; it supplies no repaired-success claim.
+
+The complete Lean runner generates these candidates in its isolated workspace
+and excludes checked-in candidates from its captured source inputs. All **582**
+captured inputs remain byte-identical to the final implementation, including the
+actual source, generator, handwritten proofs and tooling. Refreshing the checked-in
+copies therefore does not invalidate that successful audit. The native proof/build
+inputs likewise remain unchanged. The retained failed suite and successful focused
+repair together close the validation obligations; no clean whole-suite rerun is
+claimed. Successful unaffected tests are reused under `development.md`.
+
+| Required evidence | Result |
 | --- | --- |
-| Native compiler/runtime build | Repaired-input run `20261026T002846-e157157cf62b` succeeded. Pending retained command/log link and exact input correspondence to final implementation. |
-| Full native proof and evidence audit | Repaired-input run `20261026T002857-50fd2281b177` passed all 15,224 checks and complete coverage/provenance auditing: 75 units, 1,007 entities, 1,303 flow checks and 13,921 proof checks. Managed elapsed time was 5,801.392 seconds with four workers. Portable evidence export remains pending. Original run `20261025T221851-c7c38b2dd915` failed only the recorded invariant. |
-| Complete Lean/source and axiom audit | Repaired complete run `20261026T005331-e0e3d7a0bf00` passed: 467 modules and 90,288 declarations, with only `propext`, `Classical.choice` and `Quot.sound`. All 582 captured source inputs matched `dfdd0269ae` and the live validation worktree before reuse. Cached build: 39.714 seconds; fresh audit: 8.867 seconds; four workers, two threads per process. Portable evidence export remains pending the native/full-suite checkpoint. |
-| Full regression and sample checkpoint | The full suite is running on the repaired native inputs. Result, actual tests/samples/execution-case totals, exact stdout/stderr/status comparisons and retained log/input identities remain pending. Seven new sample sources and expected outputs are implemented; success is not inferred from their existence. |
-| Independent review | [Arithmetic/native core review](reviews/review-integer-division-core-16d0f0cfaa.md) reports no findings for its exact target. [Source-bridge integration review](reviews/review-integer-division-integration-14b9302a97.md) reports no findings at `14b9302a97`. Final documentation/evidence review is outside those implementation-review scopes and remains pending. |
-| Rosetta reconciliation and render | Narrow identifier and seven concrete approaches prepared; full render and documentation consistency result recorded in the [assessment record](../rosetta/assessment-division-20261025.md#delivery-mapping). Pending lead's stage/board update and successful delivery checkpoint. |
-| Delivery and closure | Pending final evidence record, reviewed delivery commit/PR, issue/board disposition and dated session-memory update. No completing commit or closure is claimed here. |
+| Native compiler/runtime build | `20261026T002846-e157157cf62b` succeeded; commands, logs and final input comparison are retained in the validation index. |
+| Full native proof and evidence audit | `20261026T002857-50fd2281b177` passed all **15,224 checks** and complete coverage/provenance auditing: 75 units, 1,007 entities, 1,303 flow checks and 13,921 proof checks; 5,801.392 seconds with four workers. The audit line, time and retained provenance are indexed. |
+| Complete Lean/source and axiom audit | `20261026T005331-e0e3d7a0bf00` passed: **467 modules, 90,288 declarations**, only `propext`, `Classical.choice` and `Quot.sound`. All 582 captured inputs match the final implementation. Cached build 39.714 seconds; fresh audit 8.867 seconds; four workers and two threads per process. No independent kernel replay is claimed. |
+| Regression and sample checkpoint | Full run `20261026T020550-192982f3d06e`: 485 tests, the three parity subcase failures above, all **47 manifest samples / 103 execution cases** passed. Repair run `20261026T032402-770b4c60bac2` passed the complete certificate parity method. Symlinked-TMPDIR tests passed. Commands, original outcomes, logs and input comparisons are retained. |
+| Independent review | The linked arithmetic/core, source integration and proof repair reviews report no findings in their exact scopes. Final documentation/evidence review is recorded separately before merge. |
+| Rosetta reconciliation and render | The [assessment record](../rosetta/assessment-division-20261025.md#delivery-mapping) records the narrow supported identifier, seven concrete approaches and complete render. #11 remains stage 2; arrays #12 remains stage 3. |
+| Delivery | PR #236 carries the completing commit for #229–#233. The next authorized increment is scalar guard refinement #234, under the existing continuation. |
 
 The [assurance chain](assurance.md#interval-checked-integer-division) links
 `VC_DIVISION_CHECK` to nonzero-divisor semantics, explicit per-node mathematical
@@ -165,8 +186,10 @@ claim follows.
 | Round/work | Selected or actual settings | Intended result and achieved state | Time/token/cost evidence |
 | --- | --- | --- | --- |
 | Native and arithmetic design/core review | Selected GPT-6 Astra, Extra High; runtime setting not independently exposed | Operator-specific transfer rules, nonzero checks, seven source approaches and envelope reviewed; no findings in the linked core scope. Complete bridge validation remains separate. | Review completion 22:22:59 UTC; whole-round elapsed, tokens and cost unavailable. |
-| Source integration and validation | Live lead model/effort not independently exposed; source reviewer selected GPT-6 Astra, Extra High | Bridge integration at `14b9302a97`; complete native and Lean runs pending above. Independent source integration review reports no findings; final documentation/evidence review remains pending. | Integration review interval 22:45:59–22:49:01 UTC (3m 2s); retain managed run measurements with final evidence. Whole-team tokens/cost unavailable. |
-| Delivery documentation and Rosetta mapping | Lead-selected GPT-6.1 Sol, High; runtime setting not independently exposed | Align semantic/discharge and boundary claims, map seven reviewed approaches to narrow support and render current metadata. Final validation fields remain explicitly pending. | Whole-round elapsed, tokens and cost unavailable. |
+| Source integration and validation | Live lead model/effort not independently exposed; source reviewer selected GPT-6 Astra, Extra High | Bridge integration and proof repairs passed complete native and Lean audits. Independent source integration review reports no findings; exact final documentation/evidence review is separate. | Integration review interval 22:45:59–22:49:01 UTC (3m 2s); retain managed run measurements with final evidence. Whole-team tokens/cost unavailable. |
+| Delivery documentation and Rosetta mapping | Lead-selected GPT-6.1 Sol, High; runtime setting not independently exposed | Align semantic/discharge and boundary claims, map seven reviewed approaches to narrow support and render current metadata. Validation records preserve failed parity and its focused successful repair, with unchanged-input reuse. | Whole-round elapsed, tokens and cost unavailable. |
+
+| Certificate parity repair | Lead setting not independently exposed; evidence-export thread selected GPT-6 Astra, Extra High | Refreshed three stale checked-in candidates; full-suite sample checks passed and the repaired parity test passed. Native and complete Lean inputs unchanged. | Full suite 4,361.623 seconds; repaired parity 4.216 seconds; whole-team tokens/cost unavailable. |
 
 The owner's [continuation](session-memory.md#2026-10-25--continue-non-deferred-roadmap-delivery)
 selects scalar guard refinement #234 after division, with its scope/design,

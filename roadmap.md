@@ -70,7 +70,7 @@ selects scalar guard refinement next and continued assessment/delivery of
 non-deferred successors.
 
 1. [Interval-checked integer division #229](https://github.com/berkeleynerd/silver/issues/229):
-   fully grouped `/`, `mod` and `rem` in current scalar-expression positions,
+   **delivered** fully grouped `/`, `mod` and `rem` in current scalar-expression positions,
    driven by Josephus. Retain object-local ranges and current source/operator
    budgets. The [capability record](docs/integer-division.md) specifies the
    design obligations, evidence and exclusions. Its work packages are
@@ -92,9 +92,9 @@ This deliberately selects division ahead of generated stage order (division
 was stage 6 at selection), because the assessed bounded arithmetic drivers offer
 more immediate capability than named subtypes. Seven concrete sample approaches
 are implemented and independently reviewed
-in the native/arithmetic core scope; their complete native/sample and source-proof
-checkpoint remains pending in the capability record. The prepared delivery
-metadata adds only `interval-integer-division` to supported identifiers and maps
+in the native/arithmetic core scope; the capability record retains their successful
+manifest checks, complete native/Lean audits and the repaired certificate parity
+check. The delivery metadata adds only `interval-integer-division` to supported identifiers and maps
 those seven approaches to it. The broad `integer-division` identifier, including
 `abs`, remains unsupported; the old ten-task assessment upper bound is not a
 delivered-task count. Assessment corrections
@@ -625,6 +625,7 @@ sequence.
 | Names and Calls | Supported | Reordered/grouped/repeated contexts, use-visible calls with local-name hiding, and named `Item`/`Default` actuals for existing operations; [completed validation](docs/names-and-calls.md). | [samples/names_calls.adb](samples/names_calls.adb) |
 | For loops and integers | Supported | Immutable signed-32-bit Integer constants, scoped forward/reverse loops, grouped arithmetic, comparisons and standard Integer Image, composed with existing String/path/output rules; [complete delivery evidence](docs/for-loops-integers.md#stable-delivery-evidence). | [Triangle](samples/for_loop_triangle.adb), [computed step](samples/for_loop_step.adb), [countdown](samples/for_loop_countdown.adb) in the coordinated delivery |
 | Bounded mutable integers | Supported | Initialized Integer objects with optional object-local static ranges, range-preserving assignments, exact declaration snapshots and captured loop bounds; [completed Linux validation](docs/bounded-mutable-integers.md). | [Find square difference](samples/find_square_difference.adb) |
+| Interval-checked Integer division | Supported | Fully grouped `/`, `mod` and `rem`, nonzero divisor intervals and operator-specific result bounds; [Linux validation and assurance](docs/integer-division.md). | [Josephus](samples/rosetta_josephus_problem.adb) and six further regressions |
 
 The output target covers admitted literals and bounded command-line
 messages; the text `Hello, world!` receives no special treatment. String literals do not imply support for

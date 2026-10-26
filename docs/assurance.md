@@ -197,7 +197,7 @@ discharge remain required proofs.
 ## Interval-checked Integer division
 
 The [division capability record](integer-division.md) tracks the current
-implementation and its pending complete delivery checkpoint. Fully grouped `/`,
+implementation and its completed Linux validation checkpoint. Fully grouped `/`,
 `mod` and `rem` compose through every scalar-expression position, including
 initializers, static constraint endpoints, bounds, comparisons, assignments and
 Image. Exact declaration snapshots and body reads from declared mutable ranges
@@ -232,8 +232,9 @@ and the Compose work-counter equations connect actual recognition, case-insensit
 whole-keyword matching and shared operator accounting. Source-shape comparisons
 must be reviewed with these semantic extensions. The independent
 [source-bridge integration review](reviews/review-integer-division-integration-14b9302a97.md)
-reports no findings at `14b9302a97`. The complete source/module/axiom audit remains
-pending in the capability record; static review does not claim that audit passed.
+reports no findings at `14b9302a97`. The complete source/module/axiom audit passed
+on the final implementation inputs, as recorded in the capability record;
+static review and executed validation remain separate claims.
 
 `VC_DIVISION_CHECK` / `division check proved` is the additional accepted Main
 safety-record class. Its semantic obligation is the nonzero second operand above;

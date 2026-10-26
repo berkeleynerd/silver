@@ -126,8 +126,8 @@ truncates toward zero; `mod` follows the divisor sign and `rem` the dividend sig
 Incoming intervals must exclude zero divisors and quotient overflow, with exact
 singleton initialization and the existing declared-range body analysis. Seven
 sample approaches exercise the fragment, including the fixed Josephus (41,3)
-incident. The capability record tracks the pending complete validation and
-source-assurance checkpoint.
+incident. The capability record retains complete native and Lean assurance,
+full-suite results and the successful focused certificate-parity repair.
 
 The [Find square difference sample](samples/find_square_difference.adb) stores
 the first matching index and prints ` 501` followed by a newline.
