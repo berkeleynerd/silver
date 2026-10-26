@@ -151,7 +151,9 @@ issue, titled by the constructs it adds, with Constructs set and Stage holding i
 current position. [rosetta/progression.md](../rosetta/progression.md) carries its
 admission questions, failure paths and driver samples. Stage numbers change
 whenever the progression is re-rendered, so update the Stage field after each
-re-render and do not put stage numbers in titles or links. Create stage issues
+re-render for open and closed stage issues. Closed issues whose constructs are
+now supported carry Stage 1; their Closed/Done status remains unchanged.
+Do not put stage numbers in titles or links. Create stage issues
 for the next few stages only, and sample sub-issues only for the active stage.
 
 Generated stages and owner-selected milestones can differ. Record the mapping
@@ -165,6 +167,10 @@ When a milestone admits a construct, add its identifier to `supported` in
 [rosetta/coverage.json](../rosetta/coverage.json), update the description of
 today's Silver in `rosetta/assess.js`, run `python3 rosetta/refresh.py --render`,
 and update the stage issue or close it if its constructs are all supported.
+At delivery, also check the assessor's current-language description and the
+affected assessment summaries/review metadata for stale prepared or pending
+claims. Re-render changes to those source records; do not edit generated pages
+independently.
 
 ## Access
 
