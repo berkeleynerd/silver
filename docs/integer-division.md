@@ -125,17 +125,21 @@ target and subsequent complete audit remain pending. This is a proof-script
 integration failure, not a successful complete validation result.
 
 The same native checkpoint subsequently reported a 30-second timeout in
-`Silver_Library_Reports.Map_OK`'s loop-invariant preservation. The pending repair
+`Silver_Library_Reports.Map_OK`'s loop-invariant preservation. Repair `1d9bc08382`
 names the recursive suffix as a ghost summary and explicitly establishes its
 one-step equation and the existing `Advance_Map` policy equivalence. It preserves
 the executable policy, original invariant/postcondition and proof settings.
-The active run's inputs remain untouched; focused discharge and final native,
-build and Lean input correspondence are still required for the repaired source.
+Focused managed run `20261026T002009-46b35fbc8582` proved all 39 `Map_OK` checks,
+including both new assertions and the invariant, in isolated scratch output using
+the unchanged proof regime. An earlier selector pointed at a blank line and
+generated no checks; that failed invocation is retained separately. The active
+complete run's inputs remain untouched; the final native audit, build and Lean
+input correspondence are still required for the repaired source.
 
 | Required evidence | Current result and exact remaining field |
 | --- | --- |
 | Native compiler/runtime build | Lead reports managed run `20261025T221842-90d169f323b3` succeeded. Pending retained command/log link and exact input correspondence to final implementation. |
-| Full native proof and evidence audit | Managed run `20261025T221851-c7c38b2dd915` remains active with the `Map_OK` timeout described above. Pending focused repair, successful complete coverage/provenance audit and retained evidence links. |
+| Full native proof and evidence audit | Managed run `20261025T221851-c7c38b2dd915` remains active with the `Map_OK` timeout described above. The focused repair passed; successful complete coverage/provenance audit and retained evidence links remain pending. |
 | Complete Lean/source and axiom audit | Managed run `20261025T224628-2bc4dc5ed3d3` active at handoff. Pending final outcome, actual input/module/declaration coverage, permitted axioms, cache scope, worker settings and evidence links. |
 | Full regression and sample checkpoint | Pending run identity, result, actual tests/samples/execution-case totals, exact stdout/stderr/status comparisons and retained log/input identities. Seven new sample sources and expected outputs are implemented; success is not inferred from their existence. |
 | Independent review | [Arithmetic/native core review](reviews/review-integer-division-core-16d0f0cfaa.md) reports no findings for its exact target. [Source-bridge integration review](reviews/review-integer-division-integration-14b9302a97.md) reports no findings at `14b9302a97`. Final documentation/evidence review is outside those implementation-review scopes and remains pending. |

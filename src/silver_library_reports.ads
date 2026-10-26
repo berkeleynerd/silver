@@ -67,7 +67,8 @@ package Silver_Library_Reports with SPARK_Mode => On is
      with Global => null,
        Post => (Static => Complete_Runtime_Proof'Result = Runtime_Report_Policy (Report, Kind));
    --  Source membership selects the exact Main/callee entity set. Every emitted
-   --  safety check must be a proved range, length or overflow check for Main.
+   --  safety check must be a proved range, length, overflow or nonzero-divisor
+   --  check for Main.
    --  All output forms permit exact ineffective-initialization advisories; assigned and
    --  selected results additionally permit the exact unused-assignment advisory.
    --  All sequence forms permit the exact ineffective/unreachable-statement
