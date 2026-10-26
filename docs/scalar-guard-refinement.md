@@ -500,3 +500,20 @@ review (390 seconds including writing) and GPT-6.1 Sol at Extra High for
 evidence preparation. Runtime settings and whole-round token/cost measurements
 are unavailable. It closed the native join and final semantic-review obligations;
 the complete native and preserved preceding-source Lean runs remain active.
+
+
+Complete source checking exposed three candidate integration errors: two private
+header lemmas used the complete-source lexer instead of the required line lexer,
+and direct reduction did not unfold the well-founded grouped-contract renderer.
+The [bounded repair review](reviews/review-scalar-guard-candidate-integration-repair-20261026.md)
+records the rejected shorthand/import hypotheses and the final existing
+`render.eq_def`/`renderElse.eq_def` proof. The native source, models, contracts,
+source requirements and public endpoint types are unchanged.
+
+At `d039e68dba`, the renderer-only proof and all three affected source-header
+goals passed their focused builds and fresh audits. The [retained evidence](evidence/scalar-guard-refinement/candidate-repair-20261026/index.json)
+identifies their exact scopes and inputs. The failed complete run's obsolete
+certificate worker was interrupted deliberately, preserving completed objects;
+final complete source run `20261026T094105-ac4e120bd9f9` now checks the repaired
+proof and final parser/catalogue inputs. The native full proof remains active.
+This closes the specific reduction/interface errors, not the final delivery gate.

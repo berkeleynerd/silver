@@ -1,0 +1,104 @@
+{
+  "implementation_commit": "d039e68dba2f8e2448b095849e8d9e7c4ee2a500",
+  "scope": "Focused repair evidence only; complete final-source/native checkpoint remains required. Historical source inputs retain their captured identity.",
+  "runs": [
+    {
+      "run_id": "20261026T074542-45d3cf58824e",
+      "command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/scripts/check_lean.py",
+        "--task",
+        "#239",
+        "--workers",
+        "4",
+        "--threads",
+        "2"
+      ],
+      "scope": "complete",
+      "outcome": "failure",
+      "started_utc": "2026-10-26T07:45:43.932434+00:00",
+      "finished_utc": "2026-10-26T09:18:11.237287+00:00",
+      "events": {
+        "path": "20261026T074542-45d3cf58824e/events.jsonl.gz",
+        "sha256": "de680659e943ab7110d631757c75869d2c18a67b2830f94e929c48ff2973d7c9",
+        "compressed_sha256": "44f8a53ae96455bb3f8b5bb84a4313971775dfee214c23ba8a5ef519b3481875",
+        "bytes": 71289
+      },
+      "captured_source_inputs": 612
+    },
+    {
+      "run_id": "20261026T093333-027143e77aea",
+      "command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/scripts/check_lean.py",
+        "--task",
+        "#239",
+        "--workers",
+        "2",
+        "--threads",
+        "2",
+        "--target",
+        "Silver.GuardRendererRepairCheck"
+      ],
+      "scope": [
+        "Silver.GuardRendererRepairCheck"
+      ],
+      "outcome": "success",
+      "started_utc": "2026-10-26T09:33:37.257407+00:00",
+      "finished_utc": "2026-10-26T09:34:49.579255+00:00",
+      "events": {
+        "path": "20261026T093333-027143e77aea/events.jsonl.gz",
+        "sha256": "a2ddea568c0d21fde538aa48d54478af04fd6d48ebd62461f5a548136ad5944e",
+        "compressed_sha256": "25dbcb91de6c64d6aba785cff9611e6eb9b266069af74cb856dda6c1910fd7bd",
+        "bytes": 72110
+      },
+      "captured_source_inputs": 614
+    },
+    {
+      "run_id": "20261026T093522-12961dacbd93",
+      "command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/scripts/check_lean.py",
+        "--task",
+        "#239",
+        "--workers",
+        "2",
+        "--threads",
+        "2",
+        "--target",
+        "Silver.GuardCandidateRepairCheck"
+      ],
+      "scope": [
+        "Silver.GuardCandidateRepairCheck"
+      ],
+      "outcome": "success",
+      "started_utc": "2026-10-26T09:35:25.916801+00:00",
+      "finished_utc": "2026-10-26T09:38:50.665293+00:00",
+      "events": {
+        "path": "20261026T093522-12961dacbd93/events.jsonl.gz",
+        "sha256": "0ec10030f96d7c133866d180602f688eec210a15ba3f5cc08d46f70d0bb01dd1",
+        "compressed_sha256": "bf8b534058be026073546595b824a241b56f090f499440ce881539d55f08f1c6",
+        "bytes": 72489
+      },
+      "captured_source_inputs": 614
+    }
+  ],
+  "GuardRendererRepairCheck": {
+    "path": "diagnostic-source/GuardRendererRepairCheck.lean.gz",
+    "sha256": "77f343a44f2a545d04ad2ddb8664ab8f3c09d3ed583295d8b67f688694ccaa1b",
+    "compressed_sha256": "6f1147946b3b27242939a1e985a7859f244fb37ad1e5b751f740c24ba5dbd84f",
+    "bytes": 625
+  },
+  "GuardCandidateRepairCheck": {
+    "path": "diagnostic-source/GuardCandidateRepairCheck.lean.gz",
+    "sha256": "e921e9d92e39d070a1a54b7a373cbdc5550ce63e13e3a0f770b3bfd07ad4cd11",
+    "compressed_sha256": "45bc9159911fa40fa60b0faf8445a60ac6623e5e28a8fd41647565acf7eb2c17",
+    "bytes": 989
+  },
+  "interruption": {
+    "path": "obsolete-run-interruption.json.gz",
+    "sha256": "53a2e5b0c9b5a2f20446f748c048530dcc94b52faf4d1879717c9c3a8b1ff0f0",
+    "compressed_sha256": "6065be02205144bd4a483042ed6da9f2bb06f2440023877a835863570225720f",
+    "bytes": 1860
+  }
+}
