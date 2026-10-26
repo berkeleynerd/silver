@@ -81,29 +81,32 @@ retains exact ordered initializer values separately from Ada-staticness,
 mutability and declared ranges. Its complete native and Lean validation,
 regressions and independent source review are recorded at the linked checkpoint.
 Interval proofs cover every intermediate operation, including minimum-value
-negation; comparisons do not silently narrow scalar ranges. Bounds are read
-once at loop entry. The semantic loop argument is induction over the finite Ada
-range, independent of runtime iteration counts and solver unrolling. Existing
+negation. That earlier checkpoint used declared mutable read ranges; the
+[prepared guard increment](#scalar-guard-refinement-prepared-assurance) below
+adds explicit flow refinement. Bounds are read once at loop entry. The semantic
+loop argument is induction over the finite Ada range, independent of runtime iteration counts and solver unrolling. Existing
 String snapshots, path facts, returning output/rejection effects and fixed-bound
 assignments compose through empty, definitely nonempty and uncertain loops.
 Image contributes its derived length interval to every String expression
 position, including concatenation and assignment.
 
-Mutable body reads use the whole declared range. `Integer.Assignment.check_sound`
+At that earlier checkpoint, mutable body reads used the whole declared range.
+`Integer.Assignment.check_sound`
 derives safe RHS evaluation, target-range inclusion and preservation of the
 scalar range invariant. `Integer.Assignment.execute` changes exactly its target;
 `Integer.Assignment.unchanged` proves preservation of every other scalar value.
 Declaration snapshots retain exact values, including
 constants copied from mutable objects; these snapshots do not acquire
-Ada-staticness. Scalar assignments and comparisons never refine mutable ranges.
+Ada-staticness. The guard increment replaces the earlier nonrefining assignment
+and comparison analysis with separate current flow and declared ranges.
 `Predicate.Execution` threads Integer and String stores through branches,
 sequences and each finite iteration. Loop bounds use the entry store, and
 `restoreIndex` restores only the scoped index. `Program.scalar_execution_invariant`
 preserves declared ranges, while `Program.all_obligations_discharge` covers
 initializers, assignment range checks and every body obligation. Image lengths
-use the declared mutable interval in the body and exact values during declaration
-elaboration. Input-length facts survive scalar writes; live mutable Image
-equalities are not retained.
+use exact values during declaration elaboration and the current scalar read
+interval in the prepared guard body analysis. Input-length facts survive scalar
+writes; live mutable Image equalities are not retained.
 
 `ScalarConstraintAt` independently reads optional declared constraints: absent
 `range` denotes the full Integer bounds; a present range has source readings of
@@ -200,8 +203,11 @@ The [division capability record](integer-division.md) tracks the current
 implementation and its completed Linux validation checkpoint. Fully grouped `/`,
 `mod` and `rem` compose through every scalar-expression position, including
 initializers, static constraint endpoints, bounds, comparisons, assignments and
-Image. Exact declaration snapshots and body reads from declared mutable ranges
-retain their earlier rules; scalar guards and assignments do not narrow ranges.
+Image. Exact declaration snapshots and immutable declared assignment bounds
+remain distinct from the current scalar read intervals introduced by the
+[prepared guard increment](#scalar-guard-refinement-prepared-assurance). Guards
+and assignments update current intervals under its selected rules; division
+retains the same interval safety checks.
 
 [IntegerDivision.lean](../proof/Silver/IntegerDivision.lean) uses `Int.tdiv`,
 `Int.fmod` and `Int.tmod` for Ada quotient, modulus and remainder. Its
@@ -245,6 +251,138 @@ the unchanged aggregate 63-operator budget. It extends the previous Main envelop
 from 15,292,416 to **15,421,440 bytes**, below the unchanged 16,777,216-byte domain.
 The calculation relies on the reviewed pinned producer routes and inherited
 counting premises; neither report acceptance nor sample success proves discharge.
+
+## Scalar guard refinement: prepared assurance
+
+The [guard capability record](scalar-guard-refinement.md) tracks #234/#239/#240,
+focused evidence and the remaining delivery work. This section describes the
+prepared proof interfaces at `a386c7389b`, not a completed support checkpoint.
+Complete native Bronze/Silver verification and guard actual-source proof
+validation remain pending. Recorded focused Lean audits still use the preceding
+division source binding. Final native contracts, authoritative source checks,
+whole-project validation and delivery review must establish the combined chain
+on the final guard inputs. None of these pending checks changes the Oracle's
+required guarantee or makes proof success a membership test.
+
+[ScalarFlow.lean](../proof/Silver/ScalarFlow.lean) separates current read intervals
+from `Integer.Analysis.declared`, mutability and Ada-staticness. Its
+`refineComparison_sound` derives concrete-store containment for either comparison
+outcome. Refinement selects a bare resolved mutable/index identity against an
+Ada-static singleton threshold, in either operand order, after both operands
+have checked in incoming flow. `refineOrKeep` retains the incoming interval when
+the selected intersection is empty; it does not prune the independent
+input/String context or excuse static illegality. A single interval retains the
+hull of a hole. Immutable declaration snapshots remain exact and retain their
+original staticness; a singleton mutable read or nonstatic snapshot does not
+become a static threshold.
+
+[IntegerMutable.lean](../proof/Silver/IntegerMutable.lean)'s
+`Assignment.check_flow_sound` proves safe RHS evaluation in incoming current
+flow, containment in the target's immutable declared bounds, concrete-store
+containment in both resulting flow and declared ranges, and agreement with
+checked execution. `Assignment.after` replaces only the target's current interval
+with the inferred RHS. The nonempty-RHS requirement remains, including in empty
+loops and unreachable arms. `statement_ranges_invariant` and
+`statements_ranges_invariant` in
+[PredicateStatements.lean](../proof/Silver/PredicateStatements.lean) preserve
+abstract containment in declared bounds. `statement_preserves_fixed` and
+`statements_preserves_fixed` preserve immutable cells.
+
+[PredicateChecking.lean](../proof/Silver/PredicateChecking.lean)'s
+`Condition.refine_sound` covers true/false transfer, negation and short-circuit
+reached flow. Branches join scalar intervals componentwise using `Ranges.join`;
+`Ranges.join_left` and `Ranges.join_right` retain either concrete outcome.
+Scalar reads and Image inside String expressions use that same reached flow.
+`loopEntry` and `loopExit` in `PredicateStatements` capture bounds in entry flow,
+then widen every mutable cell to its declared range before analyzing the body.
+Outer-index facts survive entry; the fresh immutable index uses its captured
+interval. `Analysis.widen_closed` in `ScalarFlow` supplies repeated-iteration
+closure when readonly values are preserved. An abstractly empty loop returns
+entry scalar flow; a possibly executing loop widens mutable exit intervals and
+restores entry immutable/outer-index facts, dropping its own index. No
+loop-carried scalar invariant is inferred. More precise bounds can expose an
+empty index-dependent assignment RHS, so no blanket admission-monotonicity
+claim is made.
+
+`statements_execution_sound` in
+[PredicateExecution.lean](../proof/Silver/PredicateExecution.lean) composes
+concrete current-flow and declared-range containment with checked execution,
+String bounds and effects across every branch and finite iteration.
+[PredicateComposition.lean](../proof/Silver/PredicateComposition.lean)'s
+`Program.current_scalar_execution_invariant`, `Program.scalar_execution_invariant`
+and `Program.immutable_snapshot_preserved` expose the corresponding program
+claims. Input-length facts survive scalar writes; no relationship to a later
+live mutable Image is retained.
+
+The source correspondence has additional exact domain obligations.
+[PredicateNativeState.lean](../proof/Silver/PredicateNativeState.lean)'s
+`Native.ValidContext` includes `ScalarMetadata.BaseReady`, separately from
+`Native.ValidFlow`. The [#244 repair](reviews/review-scalar-guard-context-domain-repair.md)
+adds nonempty bounds for every active mutable binding, including hypothetical
+bindings beyond the declaration prefix. `BaseReady.mutable_bounds` and
+`baseReady_iff_native` in
+[PredicateFlowInvariant.lean](../proof/Silver/PredicateFlowInvariant.lean) match
+all scalar native context clauses, including declared-bound containment.
+`prefix_baseReady` in [PredicateHeaderFlow.lean](../proof/Silver/PredicateHeaderFlow.lean)
+derives readiness from actual parsed declarations; immutable loop-index append
+preserves it without forbidding empty indexes. This repairs a formal contract
+domain, with no new language restriction or external premise. Final source
+integration for #244 remains required.
+
+The [#243 repair](reviews/review-scalar-guard-token-wrapper-repair.md) preserves
+the full raw token domain. `Adapter.takeTokenModel` in
+[PredicateAdapter.lean](../proof/Silver/PredicateAdapter.lean) uses inherited
+spelling/word-token semantics, including nonfixed token kinds.
+`Wrappers.token_expression_projection`, `normalize_tokens` and
+`token_interpreted` in
+[PredicateAdapterEnvironment.lean](../proof/Silver/PredicateAdapterEnvironment.lean)
+derive raw callee meaning before semantic fixed-token projection. The last
+projection requires `Adapter.FixedToken`; `basic_token_calls_fixed`,
+`loop_token_calls_fixed` and `body_token_calls_fixed` in `PredicateBasicLibraries`,
+`PredicateLoopHelpers` and `PredicateEquations` establish the actual caller
+inventories. `model_raw_equations` supplies a concrete full-domain witness.
+Normalization is therefore conditional on the inherited lexical equations,
+never an assumed replacement of raw `Take_Token` behavior.
+
+The prepared endpoint chain uses typed source trees, arbitrary-callee equations,
+checked contracts and concrete model witnesses. `syntax_bareTarget`,
+`scalarAt_staticness`, `scalarCondition_whenTrue_model` and
+`scalarCondition_whenFalse_model` in
+[PredicateScalarGuardMeaning.lean](../proof/Silver/PredicateScalarGuardMeaning.lean)
+connect parsed identities/staticness to semantic refinement.
+`PredicateConditionMeaning` and `PredicateBodyMeaning` carry complete flow into
+[PredicateGrammar.lean](../proof/Silver/PredicateGrammar.lean)'s `meaning_valid`
+and `source_execution_sound`. Flow storage and read overlays are interpreted in
+`PredicateFlowSourceBridge`; scalar helpers,
+conditions, assignments and loops retain their respective native equations and
+source checks. `Implementation.Definitions` and `Implementation.correspondence`
+in [PredicateEquations.lean](../proof/Silver/PredicateEquations.lean) compose
+those domain-bounded calls; `Implementation.model_definitions` witnesses that
+interface. `SourceChecks.actualSource` in `PredicateSourceChecks` must check the
+authoritative spec/body tokens, tree precedence and scope.
+[PredicateSourceBridge.lean](../proof/Silver/PredicateSourceBridge.lean)'s
+`checked_source` and `actual_source_correspondence` retain explicit
+`InterpretedSource` dependencies. `executable_correspondence` additionally
+requires `ExecutableRefinement`, whose public wrapper equalities require native
+verification. Neither matching pins nor inhabited model equations establish
+those executable facts.
+
+Obligation generation follows admission's exact intermediate flow:
+`Condition.obligations_exact`, `simple_obligations_exact` and
+`all_modeled_obligations_discharge` in
+[PredicateObligations.lean](../proof/Silver/PredicateObligations.lean) feed
+`Program.all_obligations_discharge`, `Program.checks_fragment` and
+[Current.lean](../proof/Silver/Current.lean)'s `all_obligations_discharge` and
+`automatic_discharge_complete`. The latter is the modeled automatic checker;
+actual generation coverage and pinned-solver completion retain the existing
+`Current.ToolContract` premises. Under that contract and the interpreted/native
+wrapper dependencies,
+[PredicateCorrespondence.lean](../proof/Silver/PredicateCorrespondence.lean)'s
+`executable_main_correct`, `current_executable_membership` and
+`executable_pipeline` connect admitted authoritative source, unique meaning,
+execution, every modeled obligation and the same-source tool pipeline. These
+are conditional interface claims pending the final guard checkpoint, with no
+new trusted premise or obligation suppression.
 
 ## Membership and composition
 
