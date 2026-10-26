@@ -72,10 +72,12 @@ non-deferred successors.
 The owner's [2026-10-26 review pause](docs/session-memory.md#2026-10-26--pause-after-scalar-guard-delivery-for-external-review)
 ends that continuation at the completed scalar guard delivery. The
 [external comprehensive review](docs/reviews/review-22838bc809.md) reports no
-blocker or medium finding. The current work is its small record/metadata response
-in [milestone 8](https://github.com/berkeleynerd/silver/milestone/8), including the
-owner-selected narrow regression-reuse clarification. New capability work remains
-paused; informational test/tooling suggestions are not automatically selected.
+blocker or medium finding. Its small record/metadata response in
+[milestone 8](https://github.com/berkeleynerd/silver/milestone/8) is complete,
+including the owner-selected narrow regression-reuse clarification and all seven
+low record corrections. Informational suggestions have explicit dispositions
+and bounded follow-up links. New capability work remains paused; optional
+test/tooling work and #246 are not automatically selected.
 
 [Development velocity follow-up #246](https://github.com/berkeleynerd/silver/issues/246)
 has a retained [assessment and scheduling checklist](docs/development-velocity.md)
