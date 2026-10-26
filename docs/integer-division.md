@@ -136,17 +136,18 @@ including both new assertions and the invariant, in isolated scratch output usin
 the unchanged proof regime. An earlier selector pointed at a blank line and
 generated no checks; that failed invocation is retained separately. The original
 complete run finished with that single failed obligation. Its successful work
-and cache remain retained. The rebuilt repaired source now has a new complete
-native audit in progress. Final Lean input correspondence is retained for all
+and cache remain retained. The rebuilt repaired source passed the new complete
+native audit: all 15,224 checks and the coverage/provenance audit succeeded.
+Final Lean input correspondence is retained for all
 582 captured source inputs before the validation workspace was reused for the
 separate guard increment.
 
 | Required evidence | Current result and exact remaining field |
 | --- | --- |
 | Native compiler/runtime build | Repaired-input run `20261026T002846-e157157cf62b` succeeded. Pending retained command/log link and exact input correspondence to final implementation. |
-| Full native proof and evidence audit | Repaired-input run `20261026T002857-50fd2281b177` is active after the focused repair passed. Successful complete coverage/provenance audit and retained evidence links remain pending. Original run `20261025T221851-c7c38b2dd915` failed only the recorded invariant. |
+| Full native proof and evidence audit | Repaired-input run `20261026T002857-50fd2281b177` passed all 15,224 checks and complete coverage/provenance auditing: 75 units, 1,007 entities, 1,303 flow checks and 13,921 proof checks. Managed elapsed time was 5,801.392 seconds with four workers. Portable evidence export remains pending. Original run `20261025T221851-c7c38b2dd915` failed only the recorded invariant. |
 | Complete Lean/source and axiom audit | Repaired complete run `20261026T005331-e0e3d7a0bf00` passed: 467 modules and 90,288 declarations, with only `propext`, `Classical.choice` and `Quot.sound`. All 582 captured source inputs matched `dfdd0269ae` and the live validation worktree before reuse. Cached build: 39.714 seconds; fresh audit: 8.867 seconds; four workers, two threads per process. Portable evidence export remains pending the native/full-suite checkpoint. |
-| Full regression and sample checkpoint | Pending run identity, result, actual tests/samples/execution-case totals, exact stdout/stderr/status comparisons and retained log/input identities. Seven new sample sources and expected outputs are implemented; success is not inferred from their existence. |
+| Full regression and sample checkpoint | The full suite is running on the repaired native inputs. Result, actual tests/samples/execution-case totals, exact stdout/stderr/status comparisons and retained log/input identities remain pending. Seven new sample sources and expected outputs are implemented; success is not inferred from their existence. |
 | Independent review | [Arithmetic/native core review](reviews/review-integer-division-core-16d0f0cfaa.md) reports no findings for its exact target. [Source-bridge integration review](reviews/review-integer-division-integration-14b9302a97.md) reports no findings at `14b9302a97`. Final documentation/evidence review is outside those implementation-review scopes and remains pending. |
 | Rosetta reconciliation and render | Narrow identifier and seven concrete approaches prepared; full render and documentation consistency result recorded in the [assessment record](../rosetta/assessment-division-20261025.md#delivery-mapping). Pending lead's stage/board update and successful delivery checkpoint. |
 | Delivery and closure | Pending final evidence record, reviewed delivery commit/PR, issue/board disposition and dated session-memory update. No completing commit or closure is claimed here. |
