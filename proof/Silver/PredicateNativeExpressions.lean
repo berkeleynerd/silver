@@ -300,6 +300,7 @@ inductive Expr : Ty → Type
   | orElse : Expr .truth → Expr .truth → Expr .truth
   | not : Expr .truth → Expr .truth
   | group : Expr a → Expr a
+  | old : Expr a → Expr a
   | ite : Expr .truth → Expr a → Expr a → Expr a
   | elsif : Expr .truth → Expr a → Expr a → Expr a
   | local (name : String) (typeName : List String) : Expr a → Expr b → Expr b
@@ -350,6 +351,7 @@ def Expr.render : Expr ty → List String
   | .orElse left right => left.render ++ ["or", "else"] ++ right.render
   | .not value => ["not"] ++ value.render
   | .group value => ["("] ++ value.render ++ [")"]
+  | .old value => value.render ++ ["'", "old"]
   | .ite guard yes no => ["if"] ++ guard.render ++ ["then"] ++ yes.render ++
       (match no with | .elsif _ _ _ => no.render | _ => ["else"] ++ no.render)
   | .elsif guard yes no => ["elsif"] ++ guard.render ++ ["then"] ++ yes.render ++
@@ -393,7 +395,7 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .andThen left right => left.eval calls locals && right.eval calls locals
   | .orElse left right => left.eval calls locals || right.eval calls locals
   | .not value => !(value.eval calls locals)
-  | .group value => value.eval calls locals
+  | .group value | .old value => value.eval calls locals
   | .ite guard yes no | .elsif guard yes no =>
       if guard.eval calls locals then yes.eval calls locals else no.eval calls locals
   | .local name _ value rest => rest.eval calls (locals.set _ name (value.eval calls locals))

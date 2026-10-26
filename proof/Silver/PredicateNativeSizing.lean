@@ -14,7 +14,7 @@ additional interpretation obligation, separate from precedence and scope. -/
 def Expr.Sized (calls : Calls) (locals : Locals) : Expr ty → Prop
   | .operation _ | .number _ | .truth _ | .token _ | .comparison _ | .variable _ | .function _ => True
   | .app fn arg => fn.Sized calls locals ∧ arg.Sized calls locals
-  | .field _ value | .notEquality value | .notChain value | .not value | .group value | .locals value =>
+  | .field _ value | .notEquality value | .notChain value | .not value | .group value | .old value | .locals value =>
       value.Sized calls locals
   | .bindingAt left right | .eq left right | .ne left right | .le left right | .tokenEq left right
   | .tokenNe left right | .comparisonEq left right | .andThen left right | .orElse left right

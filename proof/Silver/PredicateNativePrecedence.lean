@@ -45,6 +45,7 @@ def Expr.wellFormed : Expr ty → Bool
   | .andThen left right => left.andHead && right.relation && left.wellFormed && right.wellFormed
   | .orElse left right => left.orHead && right.relation && left.wellFormed && right.wellFormed
   | .group value => value.wellFormed
+  | .old value => value.primary && value.wellFormed
   | .ite guard yes no | .elsif guard yes no =>
       guard.conditional && yes.primary && (no.primary || no.isElsif) && guard.wellFormed && yes.wellFormed && no.wellFormed
   | .local _ _ value rest => value.primary && value.wellFormed && (rest.primary || rest.isLocal) && rest.wellFormed
@@ -66,7 +67,7 @@ def Expr.scoped (scope : Scope) : Expr ty → Bool
   | .variable (ty := ty) name => (ty, name) ∈ scope
   | .operation _ | .number _ | .truth _ | .token _ | .comparison _ | .function _ => true
   | .app fn arg => fn.scoped scope && arg.scoped scope
-  | .invalid value | .field _ value | .notEquality value | .notChain value | .not value | .group value | .locals value => value.scoped scope
+  | .invalid value | .field _ value | .notEquality value | .notChain value | .not value | .group value | .old value | .locals value => value.scoped scope
   | .bindingAt left right | .eq left right | .ne left right | .le left right | .tokenEq left right
   | .tokenNe left right | .comparisonEq left right | .andThen left right | .orElse left right
   | .bound left right | .compared left right | .length left right

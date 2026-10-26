@@ -30,6 +30,11 @@ def modelCalls : Calls where
   lookup := lookupName
   scalarLookup := ScalarExpression.lookup
   scalarRead := fun text position names => ScalarExpression.read text position names
+  scalarInFlow := fun text context position facts => ScalarExpression.read text position (context.model.readingNames facts)
+  stringInFlow := fun text context position facts => expressionAt text position context.names (context.model.readingNames facts)
+  scalarCondition := fun text context position rightPosition facts left right operator =>
+    Predicate.scalarCondition text context.model position rightPosition facts left right operator
+  invalidCondition := Predicate.invalidCondition
   integer := IntegerLiteral.read
   expression := fun text position names scalarNames => expressionAt text position names scalarNames
   summary := summaryOf
@@ -49,7 +54,7 @@ def modelCalls : Calls where
   refineBounds := Predicate.refineBounds
   fits := fitsLengthSummary
   refineEqual := refineLengthOverlap
-  join := PathFacts.Context.join
+  join := ActiveFlow.join
 
 /-- Replace only already interpreted helper calls. The five mutually recursive
 condition functions remain arbitrary and are discharged by source equations. -/
@@ -94,7 +99,7 @@ theorem model_chainAfter_equation (text : Source) (position : Nat) (operator : T
     modelCalls.chainAfter text position operator = chainAfterEquation modelCalls text position operator := by
   rcases chain_cases valid with rfl | rfl <;> rfl
 
-theorem model_primary_equation (text : Source) (context : Context) (position : Nat) (facts : PathFacts.Context)
+theorem model_primary_equation (text : Source) (context : Context) (position : Nat) (facts : ActiveFlow)
     (bounded : position ≤ text.length + 1) :
     modelCalls.primary text context position facts = primaryEquation modelCalls text context position facts := by
   change readPrimary text context.model position facts = _
@@ -111,7 +116,7 @@ theorem model_primary_equation (text : Source) (context : Context) (position : N
     · simp only [found, ↓reduceIte]
       simp [Context.model]
 
-theorem model_relation_equation (text : Source) (context : Context) (position : Nat) (facts : PathFacts.Context)
+theorem model_relation_equation (text : Source) (context : Context) (position : Nat) (facts : ActiveFlow)
     (bounded : position ≤ text.length + 1) :
     modelCalls.relation text context position facts = relationEquation modelCalls text context position facts := by
   change readRelation text context.model position facts = _
@@ -127,7 +132,14 @@ theorem model_relation_equation (text : Source) (context : Context) (position : 
       simp [found, advanced]
     · simp only [found, ↓reduceIte]
       simp only [beq_iff_eq, Context.model]
-      rfl
+      by_cases equal : (comparisonAt text
+          (expressionAt text position context.names (context.model.readingNames facts)).after).operator = .eq
+      · simp only [Context.model] at equal
+        simp only [equal, ↓reduceIte]
+        rfl
+      · simp only [Context.model] at equal
+        simp only [equal, ↓reduceIte]
+        rfl
 
 theorem chainAfter_progress (text : Source) (position : Nat) (operator : Bool)
     (bounded : position ≤ text.length + 1) (accepted : Predicate.chainAfter text position operator ≠ 0) :
@@ -141,15 +153,15 @@ theorem chainAfter_progress (text : Source) (position : Nat) (operator : Bool)
 
 def tailStep (text : Source) (context : ParseContext) (result : ConditionResult)
     (chained : Option Bool) : ConditionResult :=
-  if result.after = 0 then invalidCondition else
+  if result.after = 0 then invalidCondition result.whenTrue else
   match chainOperator text result.after with
   | none => result
   | some operator =>
-      if chained.isSome && decide (chained ≠ some operator) then invalidCondition else
+      if chained.isSome && decide (chained ≠ some operator) then invalidCondition result.whenTrue else
       let after := Predicate.chainAfter text result.after operator
-      if after = 0 then invalidCondition else
+      if after = 0 then invalidCondition result.whenTrue else
       let right := readRelation text context after (chainContext result operator)
-      if right.after = 0 then invalidCondition else
+      if right.after = 0 then invalidCondition result.whenTrue else
       conditionTail text context (chainJoin result right operator) (some operator)
 
 theorem tail_unfold (text : Source) (context : ParseContext) (result : ConditionResult)
@@ -210,30 +222,23 @@ theorem model_tail_equation (text : Source) (context : Context) (result : Condit
           simp [Token.isChain, Token.chain, chainState, chainContext, chainJoin] <;> rfl
       · simp [orFound, Token.isChain]
 
-theorem condition_unfold (text : Source) (context : ParseContext) (position : Nat) (facts : PathFacts.Context)
+theorem condition_unfold (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
     (tv : ValidText text) (nv : ValidNames text context.names) (bounded : position ≤ text.length + 1) :
-    readCondition text context position facts = conditionTail text context (readRelation text context position facts) none := by
+    readCondition text context position facts =
+      (let result := readRelation text context position facts
+       if result.after = 0 then invalidCondition facts else
+       let final := conditionTail text context result none
+       if final.after = 0 then invalidCondition facts else final) := by
   rw [readCondition]
   by_cases zero : (readRelation text context position facts).after = 0
   · simp only [zero, ↓reduceIte]
-    rw [conditionTail]
-    simp [zero]
   · have advanced := remaining_lt (relation_bound text context position facts tv nv bounded)
       (relation_progress text context position facts tv nv bounded zero)
     simp only [zero, advanced, ↓reduceIte, ↓reduceDIte]
 
-theorem model_model_equation (text : Source) (context : Context) (position : Nat) (facts : PathFacts.Context)
+theorem model_model_equation (text : Source) (context : Context) (position : Nat) (facts : ActiveFlow)
     (tv : ValidText text) (cv : ValidContext text context) (bounded : position ≤ text.length + 1) :
     modelCalls.model text context position facts = modelEquation modelCalls text context position facts := by
-  change readCondition text context.model position facts = _
-  rw [condition_unfold text context.model position facts tv cv.1 bounded]
-  unfold modelEquation
-  dsimp only [modelCalls]
-  by_cases zero : (readRelation text context.model position facts).after = 0
-  · simp only [zero, ↓reduceIte]
-    rw [conditionTail]
-    simp [zero]
-  · simp only [zero, ↓reduceIte]
-    rfl
+  exact condition_unfold text context.model position facts tv cv.1 bounded
 
 end Silver.Predicate.Native
