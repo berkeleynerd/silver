@@ -86,7 +86,7 @@ inductive Function
   | addBinding
   | declaration
   | stringDeclaration | scalarConstraint | scalarDeclaration | scalarLookup | scalarRead | scalarAppend | scalarEmpty | scalarLiteral | nameIs
-  | arrayLookup | arrayDeclaration
+  | arrayLookup | arrayDeclaration | arrayValuesModel | arrayValues
   | argument
   | declarations
   | readDeclarations
@@ -151,6 +151,8 @@ def Function.name : Function → String
   | .nameIs => "name_is"
   | .arrayLookup => "array_bindings.lookup"
   | .arrayDeclaration => "array_declaration_at"
+  | .arrayValuesModel => "array_values_model"
+  | .arrayValues => "array_values_at"
   | .argument => "argument_at"
   | .declarations => "declarations_at"
   | .readDeclarations => "read_declarations"
@@ -212,6 +214,8 @@ def Function.name : Function → String
   | .nameIs => .arrow .source (.arrow .number (.arrow .number (.arrow .spelling .truth)))
   | .arrayLookup => .arrow .source (.arrow .arrayMetadata (.arrow .number (.arrow .number .number)))
   | .arrayDeclaration => .arrow .source (.arrow .state (.arrow .truth .state))
+  | .arrayValuesModel | .arrayValues => .arrow .source (.arrow .state (.arrow .state
+      (.arrow .number (.arrow .number (.arrow .number .state)))))
   | .argument => .arrow .source (.arrow .state (.state))
   | .declarations => .arrow .source (.arrow .state (.arrow .truth (.state)))
   | .readDeclarations => .arrow .source (.arrow .state (.arrow .truth (.state)))
@@ -282,6 +286,8 @@ def Calls.get (calls : Calls) : (symbol : Function) → symbol.type.meaning
   | .nameIs => calls.function .nameIs
   | .arrayLookup => calls.function .arrayLookup
   | .arrayDeclaration => calls.function .arrayDeclaration
+  | .arrayValuesModel => calls.function .arrayValuesModel
+  | .arrayValues => calls.function .arrayValues
   | .argument => calls.function .argument
   | .declarations => calls.function .declarations
   | .readDeclarations => calls.function .readDeclarations
@@ -322,6 +328,7 @@ inductive Field : Ty → Ty → Type
   | stateArrayNames : Field .state .arrayEnv
   | arrayNames : Field .arrayEnv .arrayMetadata
   | arrayValues : Field .arrayEnv .arrayInitials
+  | arrayUsed : Field .arrayEnv .number
   | constraintAfter : Field .scalarConstraint .number
   | constraintBounds : Field .scalarConstraint .interval
   | intervalLower : Field .interval .integer
@@ -372,6 +379,7 @@ def Field.name : Field a b → String
   | .stateNames => "names"
   | .stateScalarNames => "scalar_names"
   | .stateArrayNames => "array_names" | .arrayNames => "names" | .arrayValues => "values"
+  | .arrayUsed => "used"
   | .constraintAfter => "after" | .constraintBounds => "bounds"
   | .intervalLower => "lower" | .intervalUpper => "upper"
   | .scalarAfter => "after" | .scalarBounds => "bounds" | .scalarStatic => "static"
@@ -419,6 +427,7 @@ def Field.get : Field a b → a.meaning → b.meaning
   | .stateScalarNames, value => value.scalarNames
   | .stateArrayNames, value => value.arrayNames
   | .arrayNames, value => value.names | .arrayValues, value => value.values
+  | .arrayUsed, value => value.used
   | .constraintAfter, value => value.after | .constraintBounds, value => value.bounds
   | .intervalLower, value => value.lower | .intervalUpper, value => value.upper
   | .scalarAfter, value => value.after | .scalarBounds, value => value.bounds
@@ -477,6 +486,25 @@ inductive Expr : Ty → Type
   | scalarCount : Expr .scalarNames → Expr .number
   | word (value : String) : Expr .spelling
   | operatorByte : Expr .number → Expr .truth
+  | arrayCount : Expr .arrayMetadata → Expr .number
+  | maxArrayBindings : Expr .number
+  | maxArrayElements : Expr .number
+  | invalidScalar : Expr .scalarResult
+  | integerNumber (n : Nat) : Expr .integer
+  | wideInteger : Expr .integer → Expr .integer
+  | wideNumber : Expr .number → Expr .integer
+  | elementCount : Expr .integer → Expr .number
+  | integerSub : Expr .integer → Expr .integer → Expr .integer
+  | integerAdd : Expr .integer → Expr .integer → Expr .integer
+  | integerGt : Expr .integer → Expr .integer → Expr .truth
+  | integerGe : Expr .integer → Expr .integer → Expr .truth
+  | arrayPut : Expr .arrayInitials → Expr .number → Expr .integer → Expr .arrayInitials
+  | arrayUsedValues : Expr .arrayEnv → Expr .number → Expr .arrayInitials → Expr .arrayEnv
+  | arrayNamesOnly : Expr .arrayEnv → Expr .arrayMetadata → Expr .arrayEnv
+  | stateArray : Expr .state → Expr .arrayEnv → Expr .state
+  | statePositionArray : Expr .state → Expr .number → Expr .arrayEnv → Expr .state
+  | arrayAppend : Expr .arrayMetadata → Expr .number → Expr .number → Expr .interval →
+      Expr .number → Expr .number → Expr .truth → Expr .arrayMetadata
   | maxScalarBindings : Expr .number
   | fullInterval : Expr .interval
   | emptyInterval : Expr .interval
@@ -646,6 +674,29 @@ def Expr.render : Expr ty → List String
   | .scalarCount x => x.render ++ [".", "count"]
   | .word spellingValue => ["\"" ++ spellingValue ++ "\""]
   | .operatorByte x => x.render ++ ["in", "'&'", "|", "'+'", "|", "'-'", "|", "'*'", "|", "'/'"]
+  | .arrayCount a => a.render ++ [".", "count"]
+  | .maxArrayBindings => ["array_bindings", ".", "max_bindings"]
+  | .maxArrayElements => ["array_bindings", ".", "max_elements"]
+  | .invalidScalar => ["scalar_expressions", ".", "invalid"]
+  | .integerNumber n => [toString n]
+  | .wideInteger a => ["scalars", "."] ++ call "wide" [a.render]
+  | .wideNumber a => ["scalars", "."] ++ call "wide" [a.render]
+  | .elementCount a => ["array_bindings", "."] ++ call "element_count" [a.render]
+  | .integerSub a b => a.render ++ ["-"] ++ b.render
+  | .integerAdd a b => a.render ++ ["+"] ++ b.render
+  | .integerGt a b => a.render ++ [">"] ++ b.render
+  | .integerGe a b => a.render ++ [">="] ++ b.render
+  | .arrayPut a b c => ["("] ++ a.render ++ ["with", "delta"] ++ b.render ++ ["=>"] ++ c.render ++ [")"]
+  | .arrayUsedValues a b c => updated a.render [("used", b.render), ("values", c.render)]
+  | .arrayNamesOnly a b => updated a.render [("names", b.render)]
+  | .stateArray a b => updated a.render [("array_names", b.render)]
+  | .statePositionArray a b c => updated a.render [("position", b.render), ("array_names", c.render)]
+  | .arrayAppend names first after bounds offset length mutable =>
+      let count := names.render ++ [".", "count", "+", "1"]
+      let item := ["("] ++ first.render ++ [","] ++ after.render ++ [","] ++ bounds.render ++
+        [","] ++ offset.render ++ [","] ++ length.render ++ [","] ++ mutable.render ++ [")"]
+      aggregate [("count", count), ("items", ["("] ++ names.render ++ [".", "items", "with", "delta"] ++
+        count ++ ["=>"] ++ item ++ [")"])]
   | .maxScalarBindings => ["scalar_expressions", ".", "max_bindings"]
   | .fullInterval => ["scalars", ".", "full"]
   | .emptyInterval => ["scalars", ".", "empty"]
@@ -675,7 +726,8 @@ def Expr.render : Expr ty → List String
       (match b with | .elsif _ _ _ => b.render | _ => ["else"] ++ b.render)
   | .elsif c a b => ["elsif"] ++ c.render ++ ["then"] ++ a.render ++
       (match b with | .elsif _ _ _ => b.render | _ => ["else"] ++ b.render)
-  | .local name typeName localValue rest => [name, ":", "constant"] ++ (if typeName == "scalar_expressions.expression_result" then ["scalar_expressions", ".", "expression_result"]
+  | .local name typeName localValue rest => [name, ":", "constant"] ++ (if typeName == "array_bindings.element_count" then ["array_bindings", ".", "element_count"]
+      else if typeName == "scalar_expressions.expression_result" then ["scalar_expressions", ".", "expression_result"]
         else if typeName == "silver_scalar_literals.literal_result" then ["silver_scalar_literals", ".", "literal_result"]
         else [typeName]) ++ [":="] ++ localValue.render ++ [";"] ++
       (match rest with | .local _ _ _ _ => rest.render | _ => ["begin"] ++ rest.render)
@@ -766,6 +818,26 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .scalarCount x => (x.eval calls locals).length
   | .word spellingValue => spellingValue
   | .operatorByte x => decide (x.eval calls locals ∈ [38, 43, 45, 42, 47])
+  | .arrayCount a => (a.eval calls locals).length
+  | .maxArrayBindings => ArrayBindings.maxBindings
+  | .maxArrayElements => ArrayBindings.maxElements
+  | .invalidScalar => ScalarExpression.invalid
+  | .integerNumber n => n
+  | .wideInteger a => a.eval calls locals
+  | .wideNumber a => (a.eval calls locals : Nat)
+  | .elementCount a => (a.eval calls locals).toNat
+  | .integerSub a b => a.eval calls locals - b.eval calls locals
+  | .integerAdd a b => a.eval calls locals + b.eval calls locals
+  | .integerGt a b => decide (a.eval calls locals > b.eval calls locals)
+  | .integerGe a b => decide (a.eval calls locals ≥ b.eval calls locals)
+  | .arrayPut a b c => ArrayBindings.putInitial (a.eval calls locals) (b.eval calls locals) (c.eval calls locals)
+  | .arrayUsedValues a b c => {a.eval calls locals with used := b.eval calls locals, values := c.eval calls locals}
+  | .arrayNamesOnly a b => {a.eval calls locals with names := b.eval calls locals}
+  | .stateArray a b => {a.eval calls locals with arrayNames := b.eval calls locals}
+  | .statePositionArray a b c => {a.eval calls locals with position := b.eval calls locals, arrayNames := c.eval calls locals}
+  | .arrayAppend a b c d e f g => a.eval calls locals ++
+      [⟨b.eval calls locals, c.eval calls locals, d.eval calls locals, e.eval calls locals,
+        f.eval calls locals, g.eval calls locals⟩]
   | .maxScalarBindings => ScalarExpression.maxBindings
   | .fullInterval => Integer.Interval.full
   | .emptyInterval => Integer.Interval.empty
@@ -1323,7 +1395,7 @@ def Expr.functionSpine : Expr ty → Bool
   | _ => false
 
 def localType : (ty : Ty) → String → Bool
-  | .number, name => decide (name ∈ ["literal_position", "binding_count", "capacity_value", "operand_count"])
+  | .number, name => decide (name ∈ ["literal_position", "binding_count", "capacity_value", "operand_count", "array_bindings.element_count"])
   | .state, name => name == "parser_state"
   | .scalarConstraint, name => name == "scalar_constraint_result"
   | .scalarResult, name => name == "scalar_expressions.expression_result"
@@ -1367,6 +1439,21 @@ def Expr.wellFormed : Expr ty → Bool
       a.wellFormed && i.wellFormed && e.wellFormed && t.simple && p.simple && n.simple && sn.simple && a.simple && i.simple && e.simple
   | .field _ x => x.wellFormed && x.primary
   | .scalarCount x => x.wellFormed
+  | .arrayCount a => a.wellFormed
+  | .wideInteger a => a.wellFormed
+  | .wideNumber a => a.wellFormed
+  | .elementCount a => a.wellFormed
+  | .integerSub a b => a.wellFormed && b.wellFormed
+  | .integerAdd a b => a.wellFormed && b.wellFormed
+  | .integerGt a b => a.wellFormed && b.wellFormed
+  | .integerGe a b => a.wellFormed && b.wellFormed
+  | .arrayPut a b c => a.wellFormed && b.wellFormed && c.wellFormed
+  | .arrayUsedValues a b c => a.wellFormed && b.wellFormed && c.wellFormed
+  | .arrayNamesOnly a b => a.wellFormed && b.wellFormed
+  | .stateArray a b => a.wellFormed && b.wellFormed
+  | .statePositionArray a b c => a.wellFormed && b.wellFormed && c.wellFormed
+  | .arrayAppend a b c d e f g => a.wellFormed && b.wellFormed && c.wellFormed && d.wellFormed && e.wellFormed && f.wellFormed && g.wellFormed
+  | .maxArrayBindings | .maxArrayElements | .invalidScalar | .integerNumber _ => true
   | .word _ | .maxScalarBindings => true
   | .operatorByte x => x.wellFormed && x.simple
   | .fullInterval | .emptyInterval => true
@@ -1504,6 +1591,21 @@ def Expr.scoped (scope : Scope) : Expr ty → Bool
   | .expressionArrays t p n sn a i e => t.scoped scope && p.scoped scope && n.scoped scope && sn.scoped scope && a.scoped scope && i.scoped scope && e.scoped scope
   | .field _ x => x.scoped scope
   | .scalarCount x => x.scoped scope
+  | .arrayCount a => a.scoped scope
+  | .wideInteger a => a.scoped scope
+  | .wideNumber a => a.scoped scope
+  | .elementCount a => a.scoped scope
+  | .integerSub a b => a.scoped scope && b.scoped scope
+  | .integerAdd a b => a.scoped scope && b.scoped scope
+  | .integerGt a b => a.scoped scope && b.scoped scope
+  | .integerGe a b => a.scoped scope && b.scoped scope
+  | .arrayPut a b c => a.scoped scope && b.scoped scope && c.scoped scope
+  | .arrayUsedValues a b c => a.scoped scope && b.scoped scope && c.scoped scope
+  | .arrayNamesOnly a b => a.scoped scope && b.scoped scope
+  | .stateArray a b => a.scoped scope && b.scoped scope
+  | .statePositionArray a b c => a.scoped scope && b.scoped scope && c.scoped scope
+  | .arrayAppend a b c d e f g => a.scoped scope && b.scoped scope && c.scoped scope && d.scoped scope && e.scoped scope && f.scoped scope && g.scoped scope
+  | .maxArrayBindings | .maxArrayElements | .invalidScalar | .integerNumber _ => true
   | .word _ | .maxScalarBindings => true
   | .operatorByte x => x.scoped scope
   | .fullInterval | .emptyInterval => true

@@ -51,6 +51,7 @@ def modelCalls : Calls where
     | .scalarRead => fun text position names arrays initials elaborating => ScalarExpression.read text position names 0 0 true arrays initials elaborating
     | .arrayLookup => ArrayBindings.lookup
     | .arrayDeclaration => arrayDeclarationAt
+    | .arrayValuesModel | .arrayValues => arrayValuesModel
     | .scalarAppend => fun names item => names ++ [item]
     | .scalarEmpty => Integer.Interval.isEmpty
     | .scalarLiteral => ScalarLiteral.read

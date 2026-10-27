@@ -101,6 +101,21 @@ def Expr.Legal (calls : Calls) (locals : Locals) : Expr ty → Prop
   | .variable name => True
   | .maxLength  => True
   | .maxBindings  => True
+  | .arrayCount a => a.Legal calls locals
+  | .wideInteger a => a.Legal calls locals
+  | .wideNumber a => a.Legal calls locals
+  | .elementCount a => a.Legal calls locals
+  | .integerSub a b => a.Legal calls locals ∧ b.Legal calls locals
+  | .integerAdd a b => a.Legal calls locals ∧ b.Legal calls locals
+  | .integerGt a b => a.Legal calls locals ∧ b.Legal calls locals
+  | .integerGe a b => a.Legal calls locals ∧ b.Legal calls locals
+  | .arrayPut a b c => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals
+  | .arrayUsedValues a b c => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals
+  | .arrayNamesOnly a b => a.Legal calls locals ∧ b.Legal calls locals
+  | .stateArray a b => a.Legal calls locals ∧ b.Legal calls locals
+  | .statePositionArray a b c => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals
+  | .arrayAppend a b c d e f g => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals ∧ e.Legal calls locals ∧ f.Legal calls locals ∧ g.Legal calls locals
+  | .maxArrayBindings | .maxArrayElements | .invalidScalar | .integerNumber _ => True
   | .maxScalarBindings => True
   | .maxOperands  => True
   | .maxConcatenations => True
@@ -778,6 +793,141 @@ theorem Expr.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning cal
   | .variable name, _ => rfl
   | .maxLength , _ => rfl
   | .maxBindings , _ => rfl
+  | .arrayCount a, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    all_goals rfl
+
+  | .wideInteger a, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    all_goals rfl
+
+  | .wideNumber a, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    all_goals rfl
+
+  | .elementCount a, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    all_goals rfl
+
+  | .integerSub a b, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    all_goals rfl
+
+  | .integerAdd a b, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    all_goals rfl
+
+  | .integerGt a b, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    all_goals rfl
+
+  | .integerGe a b, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    all_goals rfl
+
+  | .arrayPut a b c, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2.1
+    have h2 := Expr.eval_lexical calls meaning locals c legal.2.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    rw [h2]
+    all_goals rfl
+
+  | .arrayUsedValues a b c, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2.1
+    have h2 := Expr.eval_lexical calls meaning locals c legal.2.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    rw [h2]
+    all_goals rfl
+
+  | .arrayNamesOnly a b, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    all_goals rfl
+
+  | .stateArray a b, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    all_goals rfl
+
+  | .statePositionArray a b c, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2.1
+    have h2 := Expr.eval_lexical calls meaning locals c legal.2.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    rw [h2]
+    all_goals rfl
+
+  | .arrayAppend a b c d e f g, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2.1
+    have h2 := Expr.eval_lexical calls meaning locals c legal.2.2.1
+    have h3 := Expr.eval_lexical calls meaning locals d legal.2.2.2.1
+    have h4 := Expr.eval_lexical calls meaning locals e legal.2.2.2.2.1
+    have h5 := Expr.eval_lexical calls meaning locals f legal.2.2.2.2.2.1
+    have h6 := Expr.eval_lexical calls meaning locals g legal.2.2.2.2.2.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    rw [h2]
+    rw [h3]
+    rw [h4]
+    rw [h5]
+    rw [h6]
+    all_goals rfl
+
+  | .maxArrayBindings, _ | .maxArrayElements, _ | .invalidScalar, _ | .integerNumber _, _ => rfl
   | .maxScalarBindings, _ => rfl
   | .maxOperands , _ => rfl
   | .maxConcatenations, _ => rfl
