@@ -189,6 +189,23 @@ theorem static_inference {names : Environment} {expression : Integer.Expr}
   obtain ⟨value, _, rfl⟩ := present
   rfl
 
+theorem elaborated_array_inference {names : Environment} {expression : Integer.Expr}
+    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials}
+    {bounds : Integer.Interval} (exact : ElaboratedEnvironment names)
+    (found : expression.infer (ArrayBindings.ranges arrays initials true (ranges names)) = some bounds) :
+    bounds.lower = bounds.upper := by
+  apply infer_singleton (found := found)
+  intro index interval present
+  unfold ArrayBindings.ranges at present
+  split at present
+  · simp only [↓reduceIte, Option.some.injEq] at present
+    rw [← present]
+    rfl
+  · rw [static_ranges exact] at present
+    simp only [Integer.Constants.ranges, Option.map_eq_some_iff] at present
+    obtain ⟨value, _, rfl⟩ := present
+    rfl
+
 /-- Stable scalar identities and exact initial values, paired with the
 interval used for every executable-body read. -/
 def Binding.objectBinding (item : Binding) : Integer.ObjectBinding :=
