@@ -952,15 +952,138 @@ is
             Nonliteral_Seen => Value.Named_Seen, Empty_Value => Value.Empty_Value, Reference => 0),
            Constant_After = 0, Following)));
 
+   function Array_Values_Model
+     (Text : String; Source_State, Result_State : Parser_State;
+      Position : Literal_Position; Length, Parsed : Array_Bindings.Element_Count)
+      return Parser_State
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, Source_State) and then Valid_State (Text, Result_State)
+         and then Position <= Text'Last + 1 and then Parsed <= Length
+         and then Length <= Array_Bindings.Max_Elements - Source_State.Array_Names.Used
+         and then Result_State.Array_Names.Used = Source_State.Array_Names.Used + Parsed,
+       Post => Valid_State (Text, Array_Values_Model'Result)
+         and then (if Array_Values_Model'Result.Position /= 0 then
+           Array_Values_Model'Result.Position >= Position
+           and then Array_Values_Model'Result =
+             (Result_State with delta Position => Array_Values_Model'Result.Position,
+               Array_Names => (Result_State.Array_Names with delta
+                 Used => Source_State.Array_Names.Used + Length,
+                 Values => Array_Values_Model'Result.Array_Names.Values))
+           and then (for all Slot in 1 .. Result_State.Array_Names.Used =>
+             Array_Values_Model'Result.Array_Names.Values (Slot) =
+               Result_State.Array_Names.Values (Slot))),
+       Subprogram_Variant => (Decreases => Length - Parsed);
+   function Array_Values_Model
+     (Text : String; Source_State, Result_State : Parser_State;
+      Position : Literal_Position; Length, Parsed : Array_Bindings.Element_Count)
+      return Parser_State is
+     (if Position = 0 then Invalid_State
+      elsif Parsed = Length then (Result_State with delta Position => Position)
+      else
+        (declare Value : constant Scalar_Expressions.Expression_Result :=
+           Scalar_Expressions.Read_Expression
+             (Text, Position, Source_State.Scalar_Names,
+              Arrays => Source_State.Array_Names.Names,
+              Initials => Source_State.Array_Names.Values, Elaborating => True);
+         begin
+           (if Value.After = 0 or else Scalars.Is_Empty (Value.Bounds)
+              or else Value.Bounds.Lower /= Value.Bounds.Upper
+            then Invalid_State
+            else
+              (declare Next_State : constant Parser_State :=
+                 (Result_State with delta Array_Names => (Result_State.Array_Names with delta
+                   Used => Result_State.Array_Names.Used + 1,
+                   Values => (Result_State.Array_Names.Values with delta
+                     Result_State.Array_Names.Used + 1 => Value.Bounds.Lower)));
+                       Next_Position : constant Literal_Position :=
+                         (if Parsed + 1 < Length then Take_Token (Text, Value.After, Comma)
+                          else Value.After);
+               begin Array_Values_Model
+                 (Text, Source_State, Next_State, Next_Position, Length, Parsed + 1)))));
+
+   function Array_Declaration_Model
+     (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, State),
+       Post => Valid_State (Text, Array_Declaration_Model'Result)
+         and then (Array_Declaration_Model'Result.Position = 0
+           or else Array_Declaration_Model'Result.Position > State.Position);
+   function Array_Declaration_Model
+     (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State is
+     (declare First : constant Literal_Position := Skip_At (Text, State.Position);
+              After : constant Literal_Position := Name_After (Text, First);
+              Colon_After : constant Literal_Position := Take_Token (Text, After, Colon);
+              Constant_After : constant Literal_Position := Take_Token (Text, Colon_After, Constant_Keyword);
+              Array_After : constant Literal_Position := Take_Token
+                (Text, (if Constant_After /= 0 then Constant_After else Colon_After), Array_Keyword);
+              Low : constant Scalar_Expressions.Expression_Result := Scalar_Expressions.Read_Expression
+                (Text, Take_Token (Text, Array_After, Left_Parenthesis), State.Scalar_Names,
+                 Arrays => State.Array_Names.Names, Initials => State.Array_Names.Values, Elaborating => True);
+              High : constant Scalar_Expressions.Expression_Result := Scalar_Expressions.Read_Expression
+                (Text, Take_Token (Text, Low.After, Range_Delimiter), State.Scalar_Names,
+                 Arrays => State.Array_Names.Names, Initials => State.Array_Names.Values, Elaborating => True);
+              Type_First : constant Literal_Position := Skip_At (Text, Take_Token (Text,
+                Take_Token (Text, High.After, Right_Parenthesis), Of_Keyword));
+              Type_After : constant Literal_Position := Take_Token (Text, Type_First, Integer_Name);
+              Position : constant Literal_Position := Take_Token (Text,
+                Take_Token (Text, Type_After, Assignment), Left_Parenthesis);
+      begin
+        (if not New_Name_Allowed (Text, State, First, After, Arguments)
+           or else Name_Is (Text, First, After, "integer")
+           or else Array_After = 0 or else Position = 0
+           or else State.Array_Names.Names.Count = Array_Bindings.Max_Bindings
+           or else Low.After = 0 or else High.After = 0 or else not Low.Static or else not High.Static
+           or else Scalars.Is_Empty (Low.Bounds) or else Scalars.Is_Empty (High.Bounds)
+           or else Low.Bounds.Lower /= Low.Bounds.Upper or else High.Bounds.Lower /= High.Bounds.Upper
+           or else Low.Bounds.Lower > High.Bounds.Lower
+           or else Scalars.Wide (High.Bounds.Lower) - Scalars.Wide (Low.Bounds.Lower)
+             >= Scalars.Wide (Array_Bindings.Max_Elements - State.Array_Names.Used)
+           or else Lookup_Name (Text, State.Names, Type_First, Type_After) /= 0
+           or else Scalar_Expressions.Lookup (Text, State.Scalar_Names, Type_First, Type_After) /= 0
+           or else Array_Bindings.Lookup (Text, State.Array_Names.Names, Type_First, Type_After) /= 0
+         then Invalid_State
+         else
+           (declare Length : constant Array_Bindings.Element_Count := Array_Bindings.Element_Count
+              ((Scalars.Wide (High.Bounds.Lower) - Scalars.Wide (Low.Bounds.Lower)) + 1);
+                    Choice : constant Scalar_Expressions.Expression_Result :=
+                      (if Length = 1 then Scalar_Expressions.Read_Expression
+                         (Text, Position, State.Scalar_Names, Arrays => State.Array_Names.Names,
+                          Initials => State.Array_Names.Values, Elaborating => True)
+                       else Scalar_Expressions.Invalid);
+                    Values_First : constant Literal_Position :=
+                      (if Length = 1 then Take_Token (Text, Choice.After, Arrow) else Position);
+            begin
+              (if Length = 1 and then
+                 (Values_First = 0 or else not Choice.Static or else Scalars.Is_Empty (Choice.Bounds)
+                  or else Choice.Bounds.Lower /= Low.Bounds.Lower
+                  or else Choice.Bounds.Upper /= Low.Bounds.Lower)
+               then Invalid_State
+               else
+                 (declare Values : constant Parser_State :=
+                    Array_Values_Model (Text, State, State, Values_First, Length, 0);
+                          Following : constant Literal_Position := Take_Token
+                            (Text, Take_Token (Text, Values.Position, Right_Parenthesis), Semicolon);
+                  begin
+                    (if Values.Position = 0 or else Following <= State.Position then Invalid_State
+                     else (Values with delta Position => Following,
+                       Array_Names => (Values.Array_Names with delta Names =>
+                         (Count => State.Array_Names.Names.Count + 1,
+                          Items => (State.Array_Names.Names.Items with delta
+                            State.Array_Names.Names.Count + 1 =>
+                              (First, After, (Low.Bounds.Lower, High.Bounds.Lower),
+                               State.Array_Names.Used, Length, Constant_After = 0)))))))))));
 
    function Array_Declaration_At
      (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Valid_State (Text, State),
-       Post => Valid_State (Text, Array_Declaration_At'Result)
+       Post => (Runtime => Valid_State (Text, Array_Declaration_At'Result)
          and then (Array_Declaration_At'Result.Position = 0
-           or else Array_Declaration_At'Result.Position > State.Position);
+           or else Array_Declaration_At'Result.Position > State.Position),
+         Static => Array_Declaration_At'Result = Array_Declaration_Model (Text, State, Arguments));
    function Array_Declaration_At
      (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State is
       First : constant Literal_Position := Skip_At (Text, State.Position);
@@ -986,6 +1109,9 @@ is
       Length : Array_Bindings.Element_Count;
       Parsed : Array_Bindings.Element_Count := 0;
       Value : Scalar_Expressions.Expression_Result;
+      Values_First : Literal_Position with Ghost => Static;
+      Expected : constant Parser_State := Array_Declaration_Model (Text, State, Arguments)
+        with Ghost => Static;
    begin
       if not New_Name_Allowed (Text, State, First, After, Arguments)
         or else Name_Is (Text, First, After, "integer")
@@ -1013,6 +1139,7 @@ is
            or else Value.Bounds.Lower /= Low.Bounds.Lower or else Value.Bounds.Upper /= Low.Bounds.Lower
          then return Invalid_State; end if;
       end if;
+      Values_First := Position;
       while Parsed < Length loop
          pragma Loop_Invariant (Parsed <= Length);
          pragma Loop_Invariant (Length <= Array_Bindings.Max_Elements - State.Array_Names.Used);
@@ -1022,22 +1149,40 @@ is
          pragma Loop_Invariant
            (for all Slot in 1 .. State.Array_Names.Used =>
              Result.Array_Names.Values (Slot) = State.Array_Names.Values (Slot));
+         pragma Loop_Invariant (Static =>
+           Array_Values_Model (Text, State, State, Values_First, Length, 0)
+             = Array_Values_Model (Text, State, Result, Position, Length, Parsed));
          pragma Loop_Variant (Increases => Parsed);
-         Value := Scalar_Expressions.Read_Expression
-           (Text, Position, State.Scalar_Names, Arrays => State.Array_Names.Names,
-           Initials => State.Array_Names.Values, Elaborating => True);
-         if Value.After = 0 or else Scalars.Is_Empty (Value.Bounds)
-           or else Value.Bounds.Lower /= Value.Bounds.Upper
-         then return Invalid_State; end if;
-         Parsed := Parsed + 1;
-         Result.Array_Names.Used := Result.Array_Names.Used + 1;
-         Result.Array_Names.Values (Result.Array_Names.Used) := Value.Bounds.Lower;
-         Position := Value.After;
-         if Parsed < Length then
-            Position := Take_Token (Text, Position, Comma);
-            if Position = 0 then return Invalid_State; end if;
-         end if;
+         declare
+            Tail : constant Parser_State :=
+              Array_Values_Model (Text, State, Result, Position, Length, Parsed)
+                with Ghost => Static;
+         begin
+            Value := Scalar_Expressions.Read_Expression
+              (Text, Position, State.Scalar_Names, Arrays => State.Array_Names.Names,
+               Initials => State.Array_Names.Values, Elaborating => True);
+            if Value.After = 0 or else Scalars.Is_Empty (Value.Bounds)
+              or else Value.Bounds.Lower /= Value.Bounds.Upper
+            then return Invalid_State; end if;
+            Parsed := Parsed + 1;
+            Result.Array_Names.Used := Result.Array_Names.Used + 1;
+            Result.Array_Names.Values (Result.Array_Names.Used) := Value.Bounds.Lower;
+            Position := Value.After;
+            if Parsed < Length then
+               Position := Take_Token (Text, Position, Comma);
+               if Position = 0 then return Invalid_State; end if;
+            end if;
+            pragma Assert (Static =>
+              Tail = Array_Values_Model (Text, State, Result, Position, Length, Parsed));
+         end;
       end loop;
+      declare
+         Completed : constant Parser_State :=
+           Array_Values_Model (Text, State, Result, Position, Length, Parsed)
+             with Ghost => Static;
+      begin
+         pragma Assert (Static => Completed = (Result with delta Position => Position));
+      end;
       Position := Take_Token (Text, Take_Token (Text, Position, Right_Parenthesis), Semicolon);
       if Position <= State.Position then return Invalid_State; end if;
       Result.Array_Names.Names.Count := Result.Array_Names.Names.Count + 1;
@@ -1045,6 +1190,7 @@ is
         (First, After, (Low.Bounds.Lower, High.Bounds.Lower),
          State.Array_Names.Used, Length, Constant_After = 0);
       Result.Position := Position;
+      pragma Assert (Static => Result = Expected);
       return Result;
    end Array_Declaration_At;
 

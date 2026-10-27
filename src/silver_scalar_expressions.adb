@@ -146,6 +146,44 @@ package body Silver_Scalar_Expressions with SPARK_Mode => On is
      (declare After : constant Literal_Position := Symbol (Text, Value.After, ')');
       begin (if After = 0 then Invalid else (Value with delta After => After)));
 
+   function Read_Array_Atom
+     (Text : String; Position : Literal_Position; Names : Environment;
+      Mask_First, Mask_After : Literal_Position;
+      Target : Array_Bindings.Binding_Index; Arrays : Array_Bindings.Metadata;
+      Initials : Array_Bindings.Element_Array; Elaborating : Boolean)
+      return Expression_Result
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1 and then Valid_Environment (Text, Names)
+         and then Valid_Name_State (Text, Mask_First, Mask_After)
+         and then Array_Bindings.Valid_Metadata (Text, Arrays)
+         and then Target <= Arrays.Count,
+       Post => Read_Array_Atom'Result.After = 0
+         or else (Read_Array_Atom'Result.After in Position + 1 .. Text'Last + 1
+           and then Read_Array_Atom'Result.Operands > 0),
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => 0);
+   function Read_Array_Atom
+     (Text : String; Position : Literal_Position; Names : Environment;
+      Mask_First, Mask_After : Literal_Position;
+      Target : Array_Bindings.Binding_Index; Arrays : Array_Bindings.Metadata;
+      Initials : Array_Bindings.Element_Array; Elaborating : Boolean)
+      return Expression_Result is
+     (declare Open_After : constant Literal_Position := Symbol (Text, Position, Character'Val (40));
+      begin
+        (if Open_After = 0 then Invalid
+         else
+           (declare Subscript : constant Expression_Result := Read_Expression
+              (Text, Open_After, Names, Mask_First, Mask_After);
+                    Close_After : constant Literal_Position := Symbol (Text, Subscript.After, ')');
+            begin
+              (if Close_After <= Position
+                 or else Subscript.Operands = Max_Operands
+                 or else not Array_Bindings.Contains (Arrays.Items (Target), Subscript.Bounds)
+               then Invalid
+               else (Close_After,
+                 Array_Bindings.Read_Bounds (Arrays, Initials, Elaborating, Target, Subscript.Bounds),
+                 Subscript.Operands + 1, False)))));
+
    function Read_Atom
      (Text : String; Position : Literal_Position; Names : Environment;
       Mask_First, Mask_After : Literal_Position; Allow_Sign : Boolean;
@@ -167,50 +205,31 @@ package body Silver_Scalar_Expressions with SPARK_Mode => On is
       Arrays : Array_Bindings.Metadata;
       Initials : Array_Bindings.Element_Array; Elaborating : Boolean)
       return Expression_Result is
-      First : constant Literal_Position := Skip (Text, Position);
-      After : constant Literal_Position := Name_After (Text, First);
-      Index : constant Binding_Count := Lookup (Text, Names, First, After);
-      Target : constant Array_Bindings.Binding_Count :=
-        Array_Bindings.Lookup (Text, Arrays, First, After);
-   begin
-      if First = 0 or else First > Text'Last then return Invalid; end if;
-      if Text (First) in '+' | '-' then
-         return (if not Allow_Sign then Invalid else Literal_Result
-           (Silver_Scalar_Literals.Read_Integer (Text, Skip (Text, First + 1)), Text (First) = '-'));
-      end if;
-      declare
-         Number : constant Silver_Scalar_Literals.Literal_Result :=
-           Silver_Scalar_Literals.Read_Integer (Text, First);
+     (declare First : constant Literal_Position := Skip (Text, Position);
+              After : constant Literal_Position := Name_After (Text, First);
+              Index : constant Binding_Count := Lookup (Text, Names, First, After);
+              Target : constant Array_Bindings.Binding_Count :=
+                Array_Bindings.Lookup (Text, Arrays, First, After);
       begin
-         if Number.After /= 0 then return Literal_Result (Number, False); end if;
-      end;
-      if After = 0 then return Invalid; end if;
-      if Mask_First /= 0 and then Equal_Name (Text, Mask_First, Mask_After, First, After)
-      then return Invalid; end if;
-      --  A scoped scalar index hides an outer array of the same spelling.
-      if Index /= 0 then
-         return (After, Scalars.Normalize (Names.Items (Index).Bounds), 1, Names.Items (Index).Static);
-      elsif Target = 0 then
-         return Invalid;
-      end if;
-      declare
-         Open_After : constant Literal_Position := Symbol (Text, After, '(');
-      begin
-         if Open_After = 0 then return Invalid; end if;
-         declare
-            Subscript : constant Expression_Result := Read_Expression
-              (Text, Open_After, Names, Mask_First, Mask_After);
-            Close_After : constant Literal_Position := Symbol (Text, Subscript.After, ')');
-         begin
-            if Close_After <= Position
-              or else Subscript.Operands = Max_Operands
-              or else not Array_Bindings.Contains (Arrays.Items (Target), Subscript.Bounds)
-            then return Invalid; end if;
-            return (Close_After, Array_Bindings.Read_Bounds (Arrays, Initials, Elaborating, Target, Subscript.Bounds),
-                    Subscript.Operands + 1, False);
-         end;
-      end;
-   end Read_Atom;
+        (if First = 0 or else First > Text'Last then Invalid
+         elsif Text (First) in '+' | '-' then
+           (if not Allow_Sign then Invalid else Literal_Result
+             (Silver_Scalar_Literals.Read_Integer (Text, Skip (Text, First + 1)), Text (First) = '-'))
+         else
+           (declare Number : constant Silver_Scalar_Literals.Literal_Result :=
+              Silver_Scalar_Literals.Read_Integer (Text, First);
+            begin
+              (if Number.After /= 0 then Literal_Result (Number, False)
+               elsif After = 0 then Invalid
+               elsif Mask_First /= 0
+                 and then Equal_Name (Text, Mask_First, Mask_After, First, After)
+               then Invalid
+               --  A scoped scalar index hides an outer array of the same spelling.
+               elsif Index /= 0 then
+                 (After, Scalars.Normalize (Names.Items (Index).Bounds), 1, Names.Items (Index).Static)
+               elsif Target = 0 then Invalid
+               else Read_Array_Atom
+                 (Text, After, Names, Mask_First, Mask_After, Target, Arrays, Initials, Elaborating)))));
 
    function Read_Unary
      (Text : String; Position : Literal_Position; Names : Environment;
