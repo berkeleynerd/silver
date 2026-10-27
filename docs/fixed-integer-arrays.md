@@ -152,7 +152,30 @@ found one source-correspondence gap, tracked in
 must retain the caller's native scalar-state conditions. The domain repair and
 its array declaration/caller equations have compiled in focused checks. A
 follow-up independent review found no remaining caller-domain defect; the
-concrete model and full source validation are pending. The separate mathematical
+concrete model has passed its focused check, while complete source validation
+is pending. The separate mathematical
 snapshot/composition review found no missing link. Generic, array and remaining
 declaration equations now live in separate modules so repairing the array proof
 retains the already checked helper proofs; public imports preserve their names.
+
+The [native/specification review](reviews/review-fixed-arrays-native-726465447c.md)
+found no mismatch in static bounds, aggregate shape, snapshots, body intervals,
+subscripts, hiding, operand limits or existing guard/loop/input compositions.
+It reused the matching 12-test checkpoint; it does not replace the pending
+complete native and source assurance or the final integrated feature review.
+
+A fresh [semantic integration review](reviews/review-fixed-arrays-integration-726465447c.md)
+found no new consequential gap in storage separation, raw initializer obligations,
+snapshot preservation, captured loop bounds or native/source wiring. It reviewed
+`726465447c` before the outstanding validation finished; later proof-script
+repairs and final evidence still require their closing review.
+
+Focused integration run `20261027T121859-1ce124c7ffc1` passed the Compose model
+equations and legality, predicate native/flow-reader and Basic libraries, indexed
+body source bridge, and scalar/array source candidate. Build time was 366.777 s,
+followed by a fresh 22.700 s audit of 34,373 declarations using only `propext`,
+`Classical.choice` and `Quot.sound`. Earlier completed modules were retained,
+including the 642 s scalar/array source candidate. The recurring legality-proof
+timeout came from lazy equation-lemma generation for the large expression
+evaluator; direct `dsimp` unfolding resolved it without changing statements or
+increasing limits. This focused result does not replace the complete checkpoint.

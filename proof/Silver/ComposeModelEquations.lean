@@ -125,7 +125,7 @@ private theorem model_definition_callAfter : ∀ text, ValidText text → ∀ na
     modelCalls.function .callAfter text names position operation scalarNames arrays =
       callAfterBody.eval modelCalls (Context.locals {text,scalarNames,arrays,names,position,operation}) := by
   intros
-  dsimp +instances only [modelCalls, Names.modelCalls, Context.locals, Expr.eval, Calls.get, Locals.set, callAfterBody, callAfter] <;> simp +instances
+  dsimp +instances only [modelCalls, Names.modelCalls, Context.locals, Expr.eval, Calls.get, Locals.set, callAfterBody, callAfter] <;> simp +instances [Bool.or_assoc]
 
 private theorem model_definition_stepRange (ranges : RangeContracts modelCalls) : ∀ text, ValidText text → ∀ form token state,
     ValidToken token → ValidState text state →

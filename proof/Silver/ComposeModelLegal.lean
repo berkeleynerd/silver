@@ -148,13 +148,19 @@ private theorem model_legal_scalarConstraint : ∀ text, ValidText text → ∀ 
     ValidCursor text position → ScalarExpression.ValidEnvironment text scalarNames →
     scalarConstraintBody.Legal modelCalls (Context.locals {text,position,scalarNames}) := by
   intros
-  simp only [scalarConstraintBody, Expr.Legal, Function.isLexical, and_self, implies_true, ite_self]
+  generalize modelCalls = calls
+  generalize Context.locals _ = locals
+  dsimp +instances only [scalarConstraintBody, Expr.Legal, Function.isLexical]
+  simp only [and_self, implies_true, ite_self]
 
 private theorem model_legal_scalarDeclaration : ∀ text, ValidText text → ∀ state arguments,
     ValidState text state →
     scalarDeclarationBody.Legal modelCalls (Context.locals {text,state,arguments}) := by
   intros
-  simp only [scalarDeclarationBody, Expr.Legal, Function.isLexical, and_self, implies_true, ite_self]
+  generalize modelCalls = calls
+  generalize Context.locals _ = locals
+  dsimp +instances only [scalarDeclarationBody, Expr.Legal, Function.isLexical]
+  simp only [and_self, implies_true, ite_self]
 
 private theorem model_legal_declaration : ∀ text, ValidText text → ∀ state arguments,
     ValidState text state →
