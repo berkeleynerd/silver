@@ -2,6 +2,7 @@ module
 
 public import Silver.ScalarExpressionNativeDenotations
 public import Silver.ScalarExpressionNativeTypes
+public import Silver.ScalarExpressionNativeArrayRecursion
 
 @[expose] public section
 
@@ -16,6 +17,8 @@ def Span (text : Source) (first after : Nat) : Prop :=
 /-- Imported lexical, literal and interval meanings, restricted to their native
 argument domains. No scalar-expression helper correspondence is assumed. -/
 structure Primitives (calls : Calls) : Prop where
+  arrayPrimitives : ArrayBindings.Native.Primitives calls.arrays
+  arrayEquations : ArrayBindings.Native.Equations calls.arrays
   trivia : ∀ text, ValidText text → ∀ position, 0 < position → position ≤ text.length + 1 →
     calls.trivia text position = Cursor.triviaPosition text position
   identifier : ∀ text, ValidText text → ∀ position, 0 < position → position ≤ text.length + 1 →
@@ -65,28 +68,39 @@ structure Equations (calls : Calls) : Prop where
     calls.binaryResult left right operator = binaryBody.eval calls ({left,right,operator} : Context).locals
   close : ∀ text, ValidText text → ∀ value, ResultType value → value.after ≤ text.length + 1 →
     calls.closeResult text value = closeBody.eval calls ({text,value} : Context).locals
-  atom : ∀ text, ValidText text → ∀ position names maskFirst maskAfter allowSign,
+  arrayAtom : ∀ text, ValidText text → ∀ position names maskFirst maskAfter target arrays initials elaborating,
     position ≤ text.length + 1 → ValidEnvironment text names → ValidMask text maskFirst maskAfter →
-    calls.readAtom text position names maskFirst maskAfter allowSign =
-      atomBody.eval calls ({text,position,names,maskFirst,maskAfter,allowSign} : Context).locals
-  readUnary : ∀ text, ValidText text → ∀ position names maskFirst maskAfter,
+    ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials →
+    0 < target → target ≤ arrays.length →
+    calls.readArrayAtom text position names maskFirst maskAfter target arrays initials elaborating =
+      arrayAtomBody.eval calls ({text,position,names,maskFirst,maskAfter,target,arrays,initials,elaborating} : Context).locals
+  atom : ∀ text, ValidText text → ∀ position names maskFirst maskAfter allowSign arrays initials elaborating,
+    position ≤ text.length + 1 → ValidEnvironment text names → ValidMask text maskFirst maskAfter →
+    ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials →
+    calls.readAtom text position names maskFirst maskAfter allowSign arrays initials elaborating =
+      atomBody.eval calls ({text,position,names,maskFirst,maskAfter,allowSign,arrays,initials,elaborating} : Context).locals
+  readUnary : ∀ text, ValidText text → ∀ position names maskFirst maskAfter arrays initials elaborating,
     0 < position → position ≤ text.length → (Cursor.byteAt text position = 43 ∨ Cursor.byteAt text position = 45) →
     ValidEnvironment text names → ValidMask text maskFirst maskAfter →
-    calls.readUnary text position names maskFirst maskAfter =
-      readUnaryBody.eval calls ({text,position,names,maskFirst,maskAfter} : Context).locals
-  compound : ∀ text, ValidText text → ∀ position names left maskFirst maskAfter,
-    position ≤ text.length + 1 → ValidEnvironment text names → ValidMask text maskFirst maskAfter → ResultType left →
-    (left.after = 0 ∨ (position < left.after ∧ left.after ≤ text.length + 1 ∧ 0 < left.operands)) →
-    calls.readCompound text position names left maskFirst maskAfter =
-      compoundBody.eval calls ({text,position,names,left,maskFirst,maskAfter} : Context).locals
-  group : ∀ text, ValidText text → ∀ position names maskFirst maskAfter,
-    0 < position → position ≤ text.length → ValidEnvironment text names → ValidMask text maskFirst maskAfter →
-    calls.readGroup text position names maskFirst maskAfter =
-      groupBody.eval calls ({text,position,names,maskFirst,maskAfter} : Context).locals
-  expression : ∀ text, ValidText text → ∀ position names maskFirst maskAfter allowSign,
+    ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials →
+    calls.readUnary text position names maskFirst maskAfter arrays initials elaborating =
+      readUnaryBody.eval calls ({text,position,names,maskFirst,maskAfter,arrays,initials,elaborating} : Context).locals
+  compound : ∀ text, ValidText text → ∀ position names left maskFirst maskAfter arrays initials elaborating,
     position ≤ text.length + 1 → ValidEnvironment text names → ValidMask text maskFirst maskAfter →
-    calls.readExpression text position names maskFirst maskAfter allowSign =
-      expressionBody.eval calls ({text,position,names,maskFirst,maskAfter,allowSign} : Context).locals
+    ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials → ResultType left →
+    (left.after = 0 ∨ (position < left.after ∧ left.after ≤ text.length + 1 ∧ 0 < left.operands)) →
+    calls.readCompound text position names left maskFirst maskAfter arrays initials elaborating =
+      compoundBody.eval calls ({text,position,names,left,maskFirst,maskAfter,arrays,initials,elaborating} : Context).locals
+  group : ∀ text, ValidText text → ∀ position names maskFirst maskAfter arrays initials elaborating,
+    0 < position → position ≤ text.length → ValidEnvironment text names → ValidMask text maskFirst maskAfter →
+    ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials →
+    calls.readGroup text position names maskFirst maskAfter arrays initials elaborating =
+      groupBody.eval calls ({text,position,names,maskFirst,maskAfter,arrays,initials,elaborating} : Context).locals
+  expression : ∀ text, ValidText text → ∀ position names maskFirst maskAfter allowSign arrays initials elaborating,
+    position ≤ text.length + 1 → ValidEnvironment text names → ValidMask text maskFirst maskAfter →
+    ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials →
+    calls.readExpression text position names maskFirst maskAfter allowSign arrays initials elaborating =
+      expressionBody.eval calls ({text,position,names,maskFirst,maskAfter,allowSign,arrays,initials,elaborating} : Context).locals
 
 theorem interpreted_skip (calls : Calls) (primitives : Primitives calls) (equations : Equations calls)
     (text : Source) (valid : ValidText text) (position : Nat) (bound : position ≤ text.length + 1) :
@@ -215,19 +229,70 @@ theorem lookup_invalid (text : Source) (names : Environment) (first after : Nat)
   unfold lookup
   cases names.length <;> simp [lookupFrom,bad]
 
+theorem interpreted_arrayAtom (calls : Calls) (primitives : Primitives calls) (equations : Equations calls)
+    (text : Source) (valid : ValidText text) (position : Nat) (names : Environment) (maskFirst maskAfter target : Nat)
+    (arrays : ArrayBindings.Metadata) (initials : ArrayBindings.Initials) (elaborating : Bool)
+    (bound : position ≤ text.length + 1) (environment : ValidEnvironment text names)
+    (mask : ValidMask text maskFirst maskAfter) (metadata : ArrayBindings.ValidMetadata text arrays)
+    (values : ArrayBindings.ValidInitials initials) (targetPositive : 0 < target) (targetBound : target ≤ arrays.length)
+    (recurse : ∀ next sign, position < next → next ≤ text.length + 1 →
+      calls.readExpression text next names maskFirst maskAfter sign = read text next names maskFirst maskAfter sign) :
+    calls.readArrayAtom text position names maskFirst maskAfter target arrays initials elaborating =
+      arrayAtomStep scalarReader text position names maskFirst maskAfter target arrays initials elaborating := by
+  rw [equations.arrayAtom text valid position names maskFirst maskAfter target arrays initials elaborating
+      bound environment mask metadata values targetPositive targetBound, arrayAtom_denotation]
+  unfold arrayAtomEquation arrayAtomStep scalarReader
+  rw [interpreted_symbol calls primitives equations text valid position 40 bound (by decide)]
+  dsimp only
+  split
+  · rfl
+  · rename_i opened
+    have opening := symbol_bounds bound opened
+    rw [recurse _ true opening.1 opening.2]
+    have childType : ResultType (read text (symbol text position 40) names maskFirst maskAfter true) :=
+      read_type valid opening.2
+    have childBound : (read text (symbol text position 40) names maskFirst maskAfter true).after ≤ text.length + 1 := by
+      by_cases zero : (read text (symbol text position 40) names maskFirst maskAfter true).after = 0
+      · omega
+      · exact (read_bounds opening.2 zero).2.1
+    rw [interpreted_symbol calls primitives equations text valid _ 41 childBound (by decide)]
+    have member := ArrayBindings.Native.binding_mem targetPositive targetBound
+    have itemValid := (metadata.2 _ member).2.2.2
+    have itemType : ArrayBindings.Native.BindingType (ArrayBindings.binding arrays target) :=
+      ⟨itemValid.1, by have cap := itemValid.2.2.2.1; omega, by have cap := itemValid.2.2.2.1; omega⟩
+    rw [ArrayBindings.Native.interpreted_contains calls.arrays primitives.arrayPrimitives primitives.arrayEquations
+      _ _ itemType childType.2.1]
+    split
+    · rfl
+    · rename_i accepted
+      have inside : ArrayBindings.contains (ArrayBindings.binding arrays target)
+          (read text (symbol text position 40) names maskFirst maskAfter true).bounds = true := by
+        cases found : ArrayBindings.contains (ArrayBindings.binding arrays target)
+          (read text (symbol text position 40) names maskFirst maskAfter true).bounds <;> simp_all
+      rw [ArrayBindings.Native.interpreted_readBounds calls.arrays primitives.arrayPrimitives primitives.arrayEquations
+        arrays initials elaborating target _ metadata.1 values targetPositive targetBound itemValid inside]
+
 theorem interpreted_atom (calls : Calls) (primitives : Primitives calls) (equations : Equations calls)
     (text : Source) (valid : ValidText text) (position : Nat) (names : Environment) (maskFirst maskAfter : Nat)
-    (allowSign : Bool) (bound : position ≤ text.length + 1) (environment : ValidEnvironment text names)
-    (mask : ValidMask text maskFirst maskAfter) :
-    calls.readAtom text position names maskFirst maskAfter allowSign = atomResult text position names maskFirst maskAfter allowSign := by
-  rw [equations.atom text valid position names maskFirst maskAfter allowSign bound environment mask, atom_denotation]
+    (allowSign : Bool) (arrays : ArrayBindings.Metadata) (initials : ArrayBindings.Initials) (elaborating : Bool)
+    (bound : position ≤ text.length + 1) (environment : ValidEnvironment text names)
+    (mask : ValidMask text maskFirst maskAfter) (metadata : ArrayBindings.ValidMetadata text arrays)
+    (values : ArrayBindings.ValidInitials initials)
+    (recurse : ∀ next sign, position < next → next ≤ text.length + 1 →
+      calls.readExpression text next names maskFirst maskAfter sign = read text next names maskFirst maskAfter sign) :
+    calls.readAtom text position names maskFirst maskAfter allowSign arrays initials elaborating =
+      arraysAtomStep scalarReader text position names maskFirst maskAfter allowSign arrays initials elaborating := by
+  rw [equations.atom text valid position names maskFirst maskAfter allowSign arrays initials elaborating
+      bound environment mask metadata values, atom_denotation]
   have firstBounds := skip_bounds text position bound
   have afterBound := nameAfter_bounds text (skip text position)
-  unfold atomEquation atomResult
+  unfold atomEquation arraysAtomStep
   rw [interpreted_skip calls primitives equations text valid position bound]
   dsimp only
   rw [interpreted_nameAfter calls primitives equations text valid _ firstBounds.2,
-    interpreted_lookup calls primitives equations text valid names environment _ _ firstBounds.2 afterBound]
+    interpreted_lookup calls primitives equations text valid names environment _ _ firstBounds.2 afterBound,
+    ArrayBindings.Native.interpreted_lookup calls.arrays primitives.arrayPrimitives primitives.arrayEquations
+      text valid arrays metadata _ _ firstBounds.2 afterBound]
   split
   · rfl
   · rename_i firstValid
@@ -241,41 +306,62 @@ theorem interpreted_atom (calls : Calls) (primitives : Primitives calls) (equati
     · rw [primitives.integerLiteral text valid _ firstBounds.2]
       split
       · rw [interpreted_literal calls primitives equations _ _ (literal_read_type valid firstBounds.2)]
-      · by_cases missing : lookup text names (skip text position) (nameAfter text (skip text position)) = 0
-        · simp [missing]
-        · have present : 0 < lookup text names (skip text position) (nameAfter text (skip text position)) := by omega
+      · split
+        · rfl
+        · rename_i namedNonzero
+          have firstPositive : skip text position ≠ 0 := by omega
+          have nameBounds := Named.identifierEnd_bounds text (skip text position)
+            (show Named.identifierEnd text (skip text position) ≠ 0 by
+              simpa only [nameAfter, firstPositive, ↓reduceIte] using namedNonzero)
           have named : Span text (skip text position) (nameAfter text (skip text position)) := by
-            refine ⟨by omega, ?_, afterBound⟩
-            by_cases good : skip text position < nameAfter text (skip text position)
-            · exact good
-            · have absent := lookup_invalid text names _ _ (Or.inr (Nat.le_of_not_gt good))
-              contradiction
-          have normalized := primitives.normalize _ (binding_bounded environment present (lookup_bound text names _ _))
-          by_cases noMask : maskFirst = 0
-          · simp [noMask,missing,normalized]
-          · have maskSpan : Span text maskFirst maskAfter := by
-              rcases mask with absent | active
-              · exact False.elim (noMask absent.1)
-              · exact active
-            rw [primitives.equalName text valid maskFirst maskAfter _ _ maskSpan named, normalized]
+            simpa only [Span, nameAfter, firstPositive, ↓reduceIte] using And.intro (by omega : 0 < skip text position) nameBounds
+          have compared : (maskFirst ≠ 0 ∧ calls.equalName text maskFirst maskAfter
+              (skip text position) (nameAfter text (skip text position)) = true) =
+              (maskFirst ≠ 0 ∧ Named.equalName text maskFirst maskAfter
+              (skip text position) (nameAfter text (skip text position)) = true) := by
+            by_cases noMask : maskFirst = 0
+            · simp [noMask]
+            · have maskSpan : Span text maskFirst maskAfter := by
+                rcases mask with absent | active
+                · exact False.elim (noMask absent.1)
+                · exact active
+              rw [primitives.equalName text valid maskFirst maskAfter _ _ maskSpan named]
+          simp only [compared]
+          split
+          · rfl
+          · split
+            · rename_i present
+              rw [primitives.normalize _ (binding_bounded environment (by omega) (lookup_bound text names _ _))]
+            · split
+              · rfl
+              · rename_i target
+                exact interpreted_arrayAtom calls primitives equations text valid _ names maskFirst maskAfter _
+                  arrays initials elaborating afterBound environment mask metadata values (by omega)
+                  (ArrayBindings.Native.lookup_bound text arrays _ _)
+                  (by
+                    intro next sign advanced nextBound
+                    apply recurse next sign (by have before := named.2.1; omega) nextBound)
 
-theorem interpreted_readExpression (calls : Calls) (primitives : Primitives calls) (equations : Equations calls)
+theorem interpreted_readExpression_arrays (calls : Calls) (primitives : Primitives calls) (equations : Equations calls)
     (text : Source) (valid : ValidText text) (position : Nat) (names : Environment) (maskFirst maskAfter : Nat)
-    (allowSign : Bool) (bound : position ≤ text.length + 1) (environment : ValidEnvironment text names)
-    (mask : ValidMask text maskFirst maskAfter) :
-    calls.readExpression text position names maskFirst maskAfter allowSign =
-      read text position names maskFirst maskAfter allowSign := by
-  have total : ∀ budget position allowSign, position ≤ text.length + 1 →
+    (allowSign : Bool) (arrays : ArrayBindings.Metadata) (initials : ArrayBindings.Initials) (elaborating : Bool)
+    (bound : position ≤ text.length + 1) (environment : ValidEnvironment text names)
+    (mask : ValidMask text maskFirst maskAfter) (metadata : ArrayBindings.ValidMetadata text arrays)
+    (values : ArrayBindings.ValidInitials initials) :
+    calls.readExpression text position names maskFirst maskAfter allowSign arrays initials elaborating =
+      read text position names maskFirst maskAfter allowSign arrays initials elaborating := by
+  have total : ∀ budget position allowSign arrays initials elaborating,
+      ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials → position ≤ text.length + 1 →
       text.length + 1 - position = budget →
-      calls.readExpression text position names maskFirst maskAfter allowSign =
-        read text position names maskFirst maskAfter allowSign := by
+      calls.readExpression text position names maskFirst maskAfter allowSign arrays initials elaborating =
+        read text position names maskFirst maskAfter allowSign arrays initials elaborating := by
     intro budget
     induction budget using Nat.strongRecOn with
     | ind budget ih =>
-      intro position allowSign bound measure
-      rw [equations.expression text valid position names maskFirst maskAfter allowSign bound environment mask,
-        expression_denotation, ← read_step environment position maskFirst maskAfter allowSign bound]
-      unfold expressionEquation readStep
+      intro position allowSign arrays initials elaborating metadata values bound measure
+      rw [equations.expression text valid position names maskFirst maskAfter allowSign arrays initials elaborating bound environment mask metadata values,
+        expression_denotation, ← arrays_read_step environment metadata values elaborating position maskFirst maskAfter allowSign bound]
+      unfold expressionEquation arraysReadStep
       rw [interpreted_skip calls primitives equations text valid position bound]
       have firstBounds := skip_bounds text position bound
       dsimp only
@@ -283,9 +369,9 @@ theorem interpreted_readExpression (calls : Calls) (primitives : Primitives call
       · rfl
       · rename_i validFirst
         split
-        · rw [equations.group text valid _ names maskFirst maskAfter (by omega) (by omega) environment mask,
+        · rw [equations.group text valid _ names maskFirst maskAfter arrays initials elaborating (by omega) (by omega) environment mask metadata values,
             group_denotation]
-          unfold groupEquation groupStep
+          unfold groupEquation arraysGroupStep
           rw [interpreted_skip calls primitives equations text valid _ (by omega)]
           have innerBounds := skip_bounds text (skip text position + 1) (by omega)
           dsimp only
@@ -294,9 +380,9 @@ theorem interpreted_readExpression (calls : Calls) (primitives : Primitives call
           · rename_i validInner
             split
             · rename_i sign
-              rw [equations.readUnary text valid _ names maskFirst maskAfter (by omega) (by omega) sign environment mask,
+              rw [equations.readUnary text valid _ names maskFirst maskAfter arrays initials elaborating (by omega) (by omega) sign environment mask metadata values,
                 unary_read_denotation]
-              unfold unaryReadEquation unaryStep
+              unfold unaryReadEquation arraysUnaryStep unaryStep
               rw [interpreted_skip calls primitives equations text valid _ (by omega)]
               have nextBounds := skip_bounds text (skip text (skip text position + 1) + 1) (by omega)
               dsimp only
@@ -309,37 +395,37 @@ theorem interpreted_readExpression (calls : Calls) (primitives : Primitives call
                 have numberAfter := (literal_read_bounds nextBounds.2).1
                 rw [interpreted_close calls primitives equations text valid _
                   (literal_result_type (literal_read_type valid nextBounds.2) _) (by omega)]
-              · rw [ih _ (by omega) _ false nextBounds.2 rfl]
+              · rw [ih _ (by omega) _ false arrays initials elaborating metadata values nextBounds.2 rfl]
                 rw [interpreted_unary calls primitives equations _ _ (read_type valid nextBounds.2)]
                 have resultAfter := unary_result_after
-                  (read text (skip text (skip text (skip text position + 1) + 1)) names maskFirst maskAfter false)
+                  (read text (skip text (skip text (skip text position + 1) + 1)) names maskFirst maskAfter false arrays initials elaborating)
                   (Cursor.byteAt text (skip text (skip text position + 1)) == 45)
-                have childAfter : (read text (skip text (skip text (skip text position + 1) + 1)) names maskFirst maskAfter false).after
+                have childAfter : (read text (skip text (skip text (skip text position + 1) + 1)) names maskFirst maskAfter false arrays initials elaborating).after
                     ≤ text.length + 1 := by
-                  by_cases zero : (read text (skip text (skip text (skip text position + 1) + 1)) names maskFirst maskAfter false).after = 0
+                  by_cases zero : (read text (skip text (skip text (skip text position + 1) + 1)) names maskFirst maskAfter false arrays initials elaborating).after = 0
                   · omega
-                  · exact (read_bounds nextBounds.2 zero).2.1
+                  · exact (read_arrays_bounds nextBounds.2 zero).2.1
                 rw [interpreted_close calls primitives equations text valid _
                   (unary_result_type (read_type valid nextBounds.2) _) (by omega)]
-            · rw [ih _ (by omega) _ true innerBounds.2 rfl]
+            · rw [ih _ (by omega) _ true arrays initials elaborating metadata values innerBounds.2 rfl]
               have childType := read_type (names := names) (maskFirst := maskFirst) (maskAfter := maskAfter)
-                (allowSign := true) valid innerBounds.2
+                (allowSign := true) (arrays := arrays) (initials := initials) (elaborating := elaborating) valid innerBounds.2
               have childContract :
-                  (read text (skip text (skip text position + 1)) names maskFirst maskAfter true).after = 0 ∨
-                  (skip text position < (read text (skip text (skip text position + 1)) names maskFirst maskAfter true).after ∧
-                    (read text (skip text (skip text position + 1)) names maskFirst maskAfter true).after ≤ text.length + 1 ∧
-                    0 < (read text (skip text (skip text position + 1)) names maskFirst maskAfter true).operands) := by
-                by_cases zero : (read text (skip text (skip text position + 1)) names maskFirst maskAfter true).after = 0
+                  (read text (skip text (skip text position + 1)) names maskFirst maskAfter true arrays initials elaborating).after = 0 ∨
+                  (skip text position < (read text (skip text (skip text position + 1)) names maskFirst maskAfter true arrays initials elaborating).after ∧
+                    (read text (skip text (skip text position + 1)) names maskFirst maskAfter true arrays initials elaborating).after ≤ text.length + 1 ∧
+                    0 < (read text (skip text (skip text position + 1)) names maskFirst maskAfter true arrays initials elaborating).operands) := by
+                by_cases zero : (read text (skip text (skip text position + 1)) names maskFirst maskAfter true arrays initials elaborating).after = 0
                 · exact Or.inl zero
-                · have limits := read_bounds innerBounds.2 zero
+                · have limits := read_arrays_bounds innerBounds.2 zero
                   exact Or.inr ⟨by omega,limits.2.1,limits.2.2.1⟩
-              have childAfter : (read text (skip text (skip text position + 1)) names maskFirst maskAfter true).after ≤ text.length + 1 := by
+              have childAfter : (read text (skip text (skip text position + 1)) names maskFirst maskAfter true arrays initials elaborating).after ≤ text.length + 1 := by
                 rcases childContract with zero | good
                 · omega
                 · exact good.2.1
-              rw [equations.compound text valid _ names _ maskFirst maskAfter firstBounds.2 environment mask childType childContract,
+              rw [equations.compound text valid _ names _ maskFirst maskAfter arrays initials elaborating firstBounds.2 environment mask metadata values childType childContract,
                 compound_denotation]
-              unfold compoundEquation compoundStep
+              unfold compoundEquation arraysCompoundStep compoundStep
               rw [interpreted_skip calls primitives equations text valid _ childAfter]
               have nextBounds := skip_bounds text _ childAfter
               dsimp only
@@ -354,35 +440,54 @@ theorem interpreted_readExpression (calls : Calls) (primitives : Primitives call
                   · rename_i supported
                     have operatorBounds := binaryAfter_bounds supported
                     have rightPosition := operatorBounds.2
-                    have childProgress : position < (read text (skip text (skip text position + 1)) names maskFirst maskAfter true).after := by
+                    have childProgress : position < (read text (skip text (skip text position + 1)) names maskFirst maskAfter true arrays initials elaborating).after := by
                       rcases childContract with zero | good
-                      · have skipped : skip text (read text (skip text (skip text position + 1)) names maskFirst maskAfter true).after = 0 := by
+                      · have skipped : skip text (read text (skip text (skip text position + 1)) names maskFirst maskAfter true arrays initials elaborating).after = 0 := by
                           rw [zero]; rfl
                         exact False.elim (validNext (Or.inl skipped))
                       · omega
-                    rw [ih _ (by omega) _ false rightPosition rfl]
+                    rw [ih _ (by omega) _ false arrays initials elaborating metadata values rightPosition rfl]
                     have rawOperatorBound := binaryAfter_byte_bound supported
                     rw [primitives.lowercase _ rawOperatorBound]
                     have operatorBound := lowercase_byte_bound rawOperatorBound
                     rw [interpreted_binary calls primitives equations _ _ _ childType (read_type valid rightPosition) operatorBound]
                     have resultAfter := binary_result_after
-                      (read text (skip text (skip text position + 1)) names maskFirst maskAfter true)
-                      (read text (binaryAfter text (skip text (read text (skip text (skip text position + 1)) names maskFirst maskAfter true).after))
-                        names maskFirst maskAfter false)
-                      (Silver.lowercase (Cursor.byteAt text (skip text (read text (skip text (skip text position + 1)) names maskFirst maskAfter true).after)))
-                    have rightAfter : (read text (binaryAfter text (skip text (read text (skip text (skip text position + 1)) names maskFirst maskAfter true).after))
-                        names maskFirst maskAfter false).after ≤ text.length + 1 := by
-                      by_cases zero : (read text (binaryAfter text (skip text (read text (skip text (skip text position + 1)) names maskFirst maskAfter true).after))
-                        names maskFirst maskAfter false).after = 0
+                      (read text (skip text (skip text position + 1)) names maskFirst maskAfter true arrays initials elaborating)
+                      (read text (binaryAfter text (skip text (read text (skip text (skip text position + 1)) names maskFirst maskAfter true arrays initials elaborating).after))
+                        names maskFirst maskAfter false arrays initials elaborating)
+                      (Silver.lowercase (Cursor.byteAt text (skip text (read text (skip text (skip text position + 1)) names maskFirst maskAfter true arrays initials elaborating).after)))
+                    have rightAfter : (read text (binaryAfter text (skip text (read text (skip text (skip text position + 1)) names maskFirst maskAfter true arrays initials elaborating).after))
+                        names maskFirst maskAfter false arrays initials elaborating).after ≤ text.length + 1 := by
+                      by_cases zero : (read text (binaryAfter text (skip text (read text (skip text (skip text position + 1)) names maskFirst maskAfter true arrays initials elaborating).after))
+                        names maskFirst maskAfter false arrays initials elaborating).after = 0
                       · omega
-                      · exact (read_bounds rightPosition zero).2.1
+                      · exact (read_arrays_bounds rightPosition zero).2.1
                     rw [interpreted_close calls primitives equations text valid _
                       (binary_result_type childType (read_type valid rightPosition) _) (by omega)]
-        · exact interpreted_atom calls primitives equations text valid _ names maskFirst maskAfter allowSign firstBounds.2 environment mask
-  exact total _ position allowSign bound rfl
+        · exact interpreted_atom calls primitives equations text valid _ names maskFirst maskAfter allowSign
+            arrays initials elaborating firstBounds.2 environment mask metadata values
+            (by
+              intro next sign advanced nextBound
+              exact ih _ (by omega) next sign [] [] false
+                (by simp [ArrayBindings.ValidMetadata, ArrayBindings.maxBindings])
+                (by simp [ArrayBindings.ValidInitials, ArrayBindings.maxElements]) nextBound rfl)
+  exact total _ position allowSign arrays initials elaborating metadata values bound rfl
+
+theorem interpreted_readExpression (calls : Calls) (primitives : Primitives calls) (equations : Equations calls)
+    (text : Source) (valid : ValidText text) (position : Nat) (names : Environment) (maskFirst maskAfter : Nat)
+    (allowSign : Bool) (bound : position ≤ text.length + 1) (environment : ValidEnvironment text names)
+    (mask : ValidMask text maskFirst maskAfter) :
+    calls.readExpression text position names maskFirst maskAfter allowSign =
+      read text position names maskFirst maskAfter allowSign :=
+  interpreted_readExpression_arrays calls primitives equations text valid position names maskFirst maskAfter
+    allowSign [] [] false bound environment mask
+    (by simp [ArrayBindings.ValidMetadata, ArrayBindings.maxBindings])
+    (by simp [ArrayBindings.ValidInitials, ArrayBindings.maxElements])
 
 /-- The equation premises admit the independent reader as a concrete witness. -/
 theorem model_primitives : Primitives modelCalls where
+  arrayPrimitives := ArrayBindings.Native.model_primitives
+  arrayEquations := ArrayBindings.Native.model_equations
   trivia _ _ _ _ _ := rfl
   identifier _ _ _ _ _ := rfl
   equalName _ _ _ _ _ _ _ _ := rfl
@@ -413,12 +518,13 @@ theorem model_equations : Equations modelCalls where
   unary _ _ _ := by rw [unary_denotation]; rfl
   binary _ _ _ _ _ _ := by rw [binary_denotation]; rfl
   close _ _ _ _ _ := by rw [close_denotation]; rfl
-  atom _ _ _ _ _ _ _ _ _ _ := by rw [atom_denotation]; rfl
-  readUnary _ _ _ _ _ _ _ _ _ _ _ := by rw [unary_read_denotation]; rfl
-  compound _ _ _ _ _ _ _ _ _ _ _ _ := by rw [compound_denotation]; rfl
-  group _ _ _ _ _ _ _ _ _ _ := by rw [group_denotation]; rfl
-  expression text _ position names maskFirst maskAfter allowSign bound environment _ := by
+  arrayAtom := by intros; rw [arrayAtom_denotation]; rfl
+  atom := by intros; rw [atom_denotation]; rfl
+  readUnary := by intros; rw [unary_read_denotation]; rfl
+  compound := by intros; rw [compound_denotation]; rfl
+  group := by intros; rw [group_denotation]; rfl
+  expression text _ position names maskFirst maskAfter allowSign arrays initials elaborating bound environment _ metadata values := by
     rw [expression_denotation]
-    exact (read_step environment position maskFirst maskAfter allowSign bound).symm
+    exact (arrays_read_step environment metadata values elaborating position maskFirst maskAfter allowSign bound).symm
 
 end Silver.ScalarExpression.Native
