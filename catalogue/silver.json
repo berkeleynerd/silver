@@ -108,7 +108,7 @@
         "copy_semantics": "snapshot of the earlier initialized value; later source assignments do not change the copy",
         "unused_allowed": true,
         "argument_initializer_position": "first and unique binding in argument-bearing forms only",
-        "shared_name_environment": "String and Integer declarations; scoped loop indexes may hide them in bodies",
+        "shared_name_environment": "String, Integer and Integer-array declarations; scoped loop indexes may hide them in bodies",
         "integer_type_hiding": "a String binding named Integer hides the Image type mark in its own initializer and later source",
         "initializer_image_length": "non-input minimum and maximum must agree; Image captures exact initial values of earlier Integer objects"
       }
@@ -281,7 +281,7 @@
         "bounds": "fixed by initialized value",
         "copy_semantics": "snapshot of the earlier initialized value; later source assignments do not change the copy",
         "unused_allowed": true,
-        "shared_name_environment": "String and Integer declarations; scoped loop indexes may hide them in bodies",
+        "shared_name_environment": "String, Integer and Integer-array declarations; scoped loop indexes may hide them in bodies",
         "integer_type_hiding": "a String binding named Integer hides the Image type mark in its own initializer and later source",
         "initializer_image_length": "non-input minimum and maximum must agree; Image captures exact initial values of earlier Integer objects"
       }
@@ -400,6 +400,7 @@
           "null_statement",
           "string_assignment",
           "integer_assignment",
+          "integer_array_assignment",
           "expression_output",
           "argument_rejection"
         ],
@@ -442,6 +443,7 @@
           "null_statement",
           "string_assignment",
           "integer_assignment",
+          "integer_array_assignment",
           "expression_output",
           "string_choice",
           "argument_rejection",
@@ -608,7 +610,7 @@
         "exclude_ada_2022_reserved_words": true,
         "case_insensitive_binding": true,
         "all_declared_names_distinct_ignoring_case": true,
-        "shared_name_environment": "String and Integer declarations; scoped loop indexes may hide them in bodies",
+        "shared_name_environment": "String, Integer and Integer-array declarations; scoped loop indexes may hide them in bodies",
         "type_mark_visible": true,
         "declaration_context": "every output shell; after the first argument binding in argument shells",
         "count": "finite_within_complete_source_bound",
@@ -646,7 +648,7 @@
         "exclude_ada_2022_reserved_words": true,
         "case_insensitive_binding": true,
         "all_declared_names_distinct_ignoring_case": true,
-        "shared_name_environment": "String and Integer declarations; scoped loop indexes may hide them in bodies",
+        "shared_name_environment": "String, Integer and Integer-array declarations; scoped loop indexes may hide them in bodies",
         "type_mark_visible": true,
         "declaration_context": "every output shell; after the first argument binding in argument shells",
         "count": "finite_within_complete_source_bound",
@@ -697,6 +699,52 @@
       }
     },
     {
+      "id": "integer_array_object",
+      "ada_kind": "anonymous_array_object_declaration",
+      "conditions": {
+        "dimensions": 1,
+        "index_bounds": "Ada-static nonempty Integer range; existing static scalar expressions",
+        "component_type": "Integer",
+        "constant_optional": true,
+        "initializer": "exact explicit component count; positional for length >= 2; sole-index static named association for length 1",
+        "initializer_values": "ordered exact snapshots from earlier declarations; every intermediate fits Integer",
+        "body_read_interval": "full Integer for constant and mutable arrays",
+        "array_reads_ada_static": false,
+        "derived_total_element_capacity": "floor(complete source byte count / 2), at most 2048; no compact expansion",
+        "named_types": false,
+        "component_constraints": false,
+        "others_aggregates": false,
+        "null_arrays": false,
+        "whole_array_operations": false,
+        "attributes": false
+      }
+    },
+    {
+      "id": "integer_array_read",
+      "ada_kind": "indexed_component",
+      "conditions": {
+        "prefix": "visible initialized Integer array object",
+        "index": "existing scalar expression grammar without array reads",
+        "index_safety": "nonempty inferred interval contained in static array bounds, including dead arms and empty loops",
+        "positions": "ordinary scalar contexts, including initializers, Image, comparisons and loop bounds",
+        "operands": "one array-name operand plus all index operands within existing 64-leaf limit",
+        "ada_static": false,
+        "element_guard_refinement": false,
+        "nested_subscripts": false
+      }
+    },
+    {
+      "id": "integer_array_assignment",
+      "ada_kind": "assignment_statement",
+      "conditions": {
+        "target": "checked indexed component of a visible mutable Integer array",
+        "value": "integer_expression; nonempty inferred interval and every intermediate fits Integer",
+        "evaluation": "index and RHS read incoming state; update only the selected component",
+        "preserves": "array bounds, other elements, scalar flow, String/input facts and earlier snapshots",
+        "composition": "all admitted sequences, branches and nested forward/reverse loops"
+      }
+    },
+    {
       "id": "integer_expression",
       "ada_kind": "expression",
       "conditions": {
@@ -704,7 +752,8 @@
           "scalar_integer_literal",
           "visible_integer_constant",
           "visible_mutable_integer",
-          "scoped_for_index"
+          "scoped_for_index",
+          "integer_array_read"
         ],
         "min_operands": 1,
         "max_operands": 64,
@@ -737,14 +786,17 @@
         "remainder_interval": "singleton-exact; otherwise dividend-sign bounds clipped by max(abs(divisor endpoints)) - 1",
         "correlated_operands_refined": false,
         "scalar_guards_refine_intervals": "selected scalar_guard_refinement only",
-        "empty_index_interval": "divisors must exclude zero; otherwise index-dependent safety vacuous except Integer assignment requires nonempty RHS; invalid static subexpressions still excluded",
+        "empty_index_interval": "array subscripts must be nonempty; divisors exclude zero; other index-dependent safety remains vacuous except assignment RHS nonemptiness; invalid static subexpressions stay excluded",
         "positions": [
           "integer_object_initializer",
           "static_range_bound",
           "integer_assignment_rhs",
           "scalar_comparison_operand",
           "loop_bound",
-          "integer_image_argument"
+          "integer_image_argument",
+          "array_initializer_component",
+          "array_assignment_rhs",
+          "array_index_expression_without_array_reads"
         ],
         "conversions": false,
         "division": true,
@@ -916,13 +968,15 @@
           "named_string_constant",
           "named_string_variable",
           "named_integer_constant",
-          "named_integer_variable"
+          "named_integer_variable",
+          "integer_array_object"
         ],
         "minimum": 0,
         "count": "finite_within_complete_source_bound",
         "initializers": [
           "string_expression",
-          "integer_expression"
+          "integer_expression",
+          "explicit_integer_array_aggregate"
         ],
         "ordered": true,
         "distinct_names_ignoring_case": true
@@ -957,13 +1011,15 @@
           "named_string_constant",
           "named_string_variable",
           "named_integer_constant",
-          "named_integer_variable"
+          "named_integer_variable",
+          "integer_array_object"
         ],
         "minimum": 0,
         "count": "finite_within_complete_source_bound",
         "initializers": [
           "string_expression",
-          "integer_expression"
+          "integer_expression",
+          "explicit_integer_array_aggregate"
         ],
         "ordered": true,
         "distinct_names_ignoring_case": true
@@ -1067,6 +1123,10 @@
   "integer_constrained_declaration_tokens": ["<declaration_name>",":","integer","range","<static_integer_expression>","..","<static_integer_expression>",":=","<integer_expression>",";"],
   "integer_constrained_constant_declaration_tokens": ["<declaration_name>",":","constant","integer","range","<static_integer_expression>","..","<static_integer_expression>",":=","<integer_expression>",";"],
   "integer_assignment_tokens": ["<integer_assignment_target>",":=","<integer_expression>",";"],
+  "integer_array_declaration_tokens": ["<declaration_name>",":","array","(","<static_integer_expression>","..","<static_integer_expression>",")","of","integer",":=","<explicit_integer_array_aggregate>",";"],
+  "integer_array_constant_declaration_tokens": ["<declaration_name>",":","constant","array","(","<static_integer_expression>","..","<static_integer_expression>",")","of","integer",":=","<explicit_integer_array_aggregate>",";"],
+  "integer_array_read_tokens": ["<integer_array_name>","(","<scalar_index_expression_without_array_reads>",")"],
+  "integer_array_assignment_tokens": ["<mutable_integer_array_name>","(","<scalar_index_expression_without_array_reads>",")",":=","<integer_expression>",";"],
   "integer_image_tokens": ["integer","'","image","(","<integer_expression>",")"],
   "scalar_relation_tokens": ["<integer_expression>","<scalar_comparison>","<integer_expression>"],
   "for_loop_tokens": ["for","<index_name>","in","<integer_expression>","..","<integer_expression>","loop","<statements>","end","loop",";"],

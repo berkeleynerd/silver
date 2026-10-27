@@ -1,8 +1,10 @@
 # Proof-report storage and process stack
 
-This record addresses [B1 and L4](reviews/review-343c2f8.md) for the current
-4096-byte String language. The application audit buffer holds **16,777,216
-bytes of retained report data**. Selected runtime reports retain their
+This record addresses [B1 and L4](reviews/review-343c2f8.md) for the then-current
+4096-byte String language. That repair allocated **16,777,216 bytes of retained
+report data**. The [fixed-array extension](fixed-integer-arrays-report-capacity.md)
+raises the current application allocation to **33,554,432 bytes**, retaining the
+same source budget and projection policy. Selected runtime reports retain their
 262,144-byte domain. Neither number bounds the original report file: the
 streaming reader consumes its complete JSON, replacing only immediate
 `check_tree` values in records of the top-level `flow` and `proof` arrays with
@@ -11,7 +13,7 @@ original `.spark` file stays unchanged on disk.
 
 The separate null-program recognizer still receives the original report bytes
 through `Silver_Platform.Read_File`. Its recognizer retains a 262,144-byte
-raw-policy limit, even though the shared read buffer can hold 16,777,216 bytes.
+raw-policy limit, even though the shared read buffer supports the larger Main allocation.
 The streaming projection applies to the output-application and runtime policies;
 it does not alter the null recognizer's substring-based policy.
 
@@ -387,3 +389,15 @@ adds at most 63 division-check records to the existing mutable-Integer formula,
 retaining the prior overflow/root/flow/Image/metadata allowances. This is a
 feature-local derivation; capability support still requires its complete native
 and Lean/source checkpoint. Deferred #119 research remains untouched.
+
+## Fixed-size Integer array extension
+
+The [array producer review](fixed-integer-arrays-report-capacity.md) charges
+aggregate components and indexed occurrences jointly with earlier expression
+roots/comparisons, and accounts for an array-loop initialization note at each
+enclosing-loop/write pair. The resulting retained Main envelope is
+**25,084,928 bytes**. Main and the shared platform reader use **33,554,432 bytes**;
+runtime and null-report policies remain at **262,144 bytes**. This is a
+feature-local allocation, preserving the source/operator budgets and existing
+projection. It does not reopen deferred #119 research or claim that an observed
+report exceeded the old allocation.

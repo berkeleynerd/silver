@@ -75,10 +75,11 @@ comments and punctuation preserve the ordinary ASCII literal. This restriction
 keeps the pinned frontend premise consistent with the admitted bytes.
 
 The recorded Linux report-capacity checks used an 8 MiB process stack. `compile`
-and `run` now use a 16 MiB library-level buffer for retained audit data. Their
+and `run` use a 32 MiB library-level buffer for retained audit data. Their
 one-based report slices take the auditor's direct path without a report-sized stack copy. The
 generic non-one-based path retains a rebasing copy in a separate frame; the
-driver does not use it. See the [capacity repair](report-capacity.md). The
+driver does not use it. See the [capacity repair](report-capacity.md) and
+[fixed-array envelope](fixed-integer-arrays-report-capacity.md). The
 recursive statement/predicate recognizer consumes stack even for `check`.
 The review of `4503d17` measured 3,688 KiB for a 4096-byte source with 1,994
 condition parentheses; its deepest compile failed at 5,632 KiB and passed at
@@ -117,11 +118,31 @@ be proved with complete selected-unit coverage and the checked provenance.
 Accepting that spelling does not establish semantic validity or external solver
 completion. The [feature-local envelope review](integer-division-report-capacity.md)
 extends the retained Main bound to 15,421,440 bytes under the inherited producer
-and frontend correspondence assumptions; report storage stays at 16,777,216.
+and frontend correspondence assumptions; that increment retained 16,777,216-byte storage.
 This source-derived calculation introduces no binary-attestation claim and does
 not resume deferred whole-language capacity work. The
 [capability record](integer-division.md) retains the completed native,
 source/Lean, sample and review checkpoint.
+
+## Fixed-size Integer array boundary
+
+The [array increment](fixed-integer-arrays.md) retains the pinned frontend,
+SPARK/Why3/solver and Integer-meaning premises. Anonymous one-dimensional arrays
+are explicitly initialized component by component. Static bounds and aggregate
+cardinality establish their shape; nonempty contained subscript intervals
+establish index safety. Constant and mutable body reads use the full Integer
+range. Source correspondence and the complete capability checkpoint are tracked
+in the capability record; example runs alone do not establish the guarantee.
+
+The [producer account](fixed-integer-arrays-report-capacity.md) identifies
+`VC_INDEX_CHECK`, aggregate conversions and the exact Main
+`array-initialization` advisory. Failed heuristic recognition withholds a flow
+initialization fact; it does not assume initialization or omit obligations.
+The exact rule/message pair and metadata are classified separately from proved
+checks, with the Python audit also checking the exact SARIF diagnostic multiset.
+Main's 32 MiB retained report storage covers the 25,084,928-byte producer envelope,
+including repeated nested-loop notes. Runtime/null report limits and the
+language's source/operator budgets remain unchanged.
 
 ## Scalar guard refinement boundary
 
@@ -145,7 +166,8 @@ classifies only the pinned compiler's exact array-initialization information-los
 advisory under strict JSON/SARIF metadata and existing source/provenance policy.
 It withholds an initialization fact without suppressing a safety check. The
 narrow malformed-message guard preserves the classifier's acceptance rules.
-Application policies and the trusted premises remain unchanged.
+That guard delivery left application policies unchanged; the fixed-array
+extension above separately reviews the same advisory in Main.
 The [feature-local frame account](evidence/scalar-guard-refinement/parser-frame-account-20261026.md)
 retains qualified applicability of the observed parser build to the final
 Static-only delta under the existing ghost-erasure premise. Those observations
@@ -885,7 +907,7 @@ proof-only computations, preventing recursive stack growth during report
 processing. GNATprove still verifies all obligations of this report unit,
 including its refinement contract. The executable checks and global
 `-gnata`/`-gnato` switches are retained. Retained application audit data has a
-16,777,216-byte capacity after the streaming projection; runtime reports retain
+33,554,432-byte capacity after the streaming projection; runtime reports retain
 their separate 262,144-byte bound. The projection uses the producer's byte-oriented
 JSON token grammar and trusts its encoding of raw non-ASCII string bytes;
 it does not add a UTF-8 validator. A native
@@ -1024,7 +1046,7 @@ capacity evidence and its limits. Proof cost can differ
 by expression position. [Sequencing probes](statement-sequencing.md) produced
 314,746-byte and 469,246-byte Main reports within the source/operator limits,
 exceeding the previous application buffer. Retained application audit data now
-has a 16 MiB domain; retained runtime data stays within 262,144 bytes. The
+has a 32 MiB domain; retained runtime data stays within 262,144 bytes. The
 [capacity repair](report-capacity.md) derives their envelopes from current
 source and producer fields. A streaming reader validates the complete JSON
 and replaces only immediate `check_tree` values in flow/proof records, removing
