@@ -160,6 +160,16 @@ def mutability (names : Metadata) (scalars : Integer.Mutability) : Integer.Mutab
 def refinability (names : Metadata) (scalars : Integer.Mutability) : Integer.Mutability := fun cell =>
   if covers names cell then false else scalars cell
 
+@[simp] theorem ranges_nil (values : Initials) (elaborating : Bool) (scalars : Integer.Ranges) :
+    ranges [] values elaborating scalars = scalars := rfl
+
+@[simp] theorem store_nil (values : Initials) (scalars : Integer.Store) :
+    store [] values scalars = scalars := rfl
+
+@[simp] theorem mutability_nil (scalars : Integer.Mutability) : mutability [] scalars = scalars := rfl
+
+@[simp] theorem refinability_nil (scalars : Integer.Mutability) : refinability [] scalars = scalars := rfl
+
 theorem binding_descriptor_valid {item : Binding} (valid : ValidBinding item) : item.descriptor.Valid :=
   ⟨valid.1, valid.2.1⟩
 
