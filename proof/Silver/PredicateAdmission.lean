@@ -32,6 +32,40 @@ def ParseContext.flow (context : ParseContext) (facts : ActiveFlow) : Flow :=
 def ParseContext.readingNames (context : ParseContext) (facts : ActiveFlow) : ScalarExpression.Environment :=
   ScalarMetadata.readingNames context.scalarNames context.declarationCount facts
 
+def ParseContext.ArraysReady (context : ParseContext) (text : Source) : Prop :=
+  ArrayBindings.ValidMetadata text context.arrayNames ∧
+    context.arrayNames.Pairwise (fun left right => left.offset + left.length ≤ right.offset)
+
+theorem ParseContext.reading_ranges {context : ParseContext} {facts : ActiveFlow}
+    (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount facts) :
+    ArrayBindings.ranges context.arrayNames [] false (ScalarExpression.ranges (context.readingNames facts)) =
+      (context.flow facts).scalars := by
+  unfold ParseContext.readingNames
+  rw [ScalarMetadata.readingNames_ranges compatible]
+  rfl
+
+@[simp] theorem ParseContext.flow_path (context : ParseContext) (facts : ActiveFlow) :
+    (context.flow facts).path = facts.path := rfl
+
+theorem ParseContext.flow_scalar (context : ParseContext) (facts : ActiveFlow)
+    {index : Nat} (low : index ≤ ArrayBindings.scalarLimit) :
+    (context.flow facts).scalars index = facts.model.scalars index :=
+  ArrayFlow.ranges_scalar context.arrayNames facts.model.scalars low
+
+theorem ParseContext.flow_join (context : ParseContext) (left right : ActiveFlow) :
+    context.flow (left.join right) = (context.flow left).join (context.flow right) :=
+  ArrayFlow.flow_join context.arrayNames left right
+
+theorem ParseContext.flow_refine (context : ParseContext) (facts : ActiveFlow)
+    (index : Nat) (operator : Integer.Comparison) (threshold : Int) (truth : Bool)
+    (low : index ≤ ArrayBindings.scalarLimit) :
+    context.flow (facts.refine index operator threshold truth) =
+      ⟨facts.path, (context.flow facts).scalars.refineName index operator threshold truth⟩ :=
+  ArrayFlow.flow_refine context.arrayNames facts index operator threshold truth low
+
+@[simp] theorem ParseContext.flow_withPath (context : ParseContext) (facts : ActiveFlow)
+    (path : Context) : context.flow {facts with path} = {context.flow facts with path} := rfl
+
 def readScalarInFlow (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
     (maskFirst maskAfter : Nat := 0) : ScalarExpression.Result :=
   ScalarExpression.read text position (context.readingNames facts) maskFirst maskAfter (arrays := context.arrayNames)

@@ -73,12 +73,12 @@ mutual
           cases arguments : context.hasArguments with
           | false => simp [readPrimary, zero, noOpening, arguments, invalidCondition] at accepted
           | true => rfl
-        have finalPositive : callAfter text context.names position .validity context.scalarNames ≠ 0 := by
+        have finalPositive : callAfter (arrays := context.arrayNames) text context.names position .validity context.scalarNames ≠ 0 := by
           intro failed
           simp [readPrimary, zero, noOpening, arguments, failed, invalidCondition] at accepted
         simp [readPrimary, zero, noOpening, arguments, finalPositive]
         exact ⟨⟨.inputValid, .valid zero noOpening arguments finalPositive⟩,
-          model_callAfter_valid (scalarNames := context.scalarNames) text context.names position .validity bounded⟩
+          model_callAfter_valid (arrays := context.arrayNames) (scalarNames := context.scalarNames) text context.names position .validity bounded⟩
   termination_by (remainingAt text position, 1)
   decreasing_by all_goals exact Prod.Lex.left _ _ (by assumption)
 
@@ -119,10 +119,10 @@ mutual
           exact ⟨⟨_, .length zero noNot lengthPresent leftRead rightRead rightAdvanced⟩,
             length_bound text context _ true rightBound⟩
         · have noLength : (lengthAt text context position false).after = 0 := by omega
-          by_cases scalarPresent : (ScalarExpression.read text position (context.readingNames facts)).after ≠ 0
-          · let left := ScalarExpression.read text position (context.readingNames facts)
+          by_cases scalarPresent : (ScalarExpression.read (arrays := context.arrayNames) text position (context.readingNames facts)).after ≠ 0
+          · let left := ScalarExpression.read (arrays := context.arrayNames) text position (context.readingNames facts)
             let operator := Predicate.comparisonAt text left.after
-            let right := ScalarExpression.read text operator.after (context.readingNames facts)
+            let right := ScalarExpression.read (arrays := context.arrayNames) text operator.after (context.readingNames facts)
             have advanced : position < right.after := by
               by_cases failed : right.after ≤ position
               · have resultEq : readRelation text context position facts = invalidCondition facts := by
@@ -133,7 +133,7 @@ mutual
               · omega
             have rightPositive : right.after ≠ 0 := by omega
             obtain ⟨leftExpr, leftRead⟩ := ScalarExpression.read_sound bounded scalarPresent
-            have leftBound := (ScalarExpression.read_bounds bounded scalarPresent).2.1
+            have leftBound := leftRead.cursorBounds.2.2
             have operatorBound := comparison_bound text left.after leftBound
             obtain ⟨rightExpr, rightRead⟩ := ScalarExpression.read_sound operatorBound rightPositive
             have resultEq : readRelation text context position facts = scalarCondition text context position operator.after facts left right operator.operator := by
@@ -142,12 +142,12 @@ mutual
               exact ite_eq_right (Nat.not_le.mpr advanced)
             rw [resultEq]
             exact ⟨⟨_, .scalars zero noNot noLength scalarPresent leftRead rightRead advanced⟩,
-              (ScalarExpression.read_bounds operatorBound rightPositive).2.1⟩
-          · have noScalar : (ScalarExpression.read text position (context.readingNames facts)).after = 0 := by omega
-            by_cases expressionPresent : (expressionAt text position context.names (context.readingNames facts)).after ≠ 0
-            · let left := expressionAt text position context.names (context.readingNames facts)
+              rightRead.cursorBounds.2.2⟩
+          · have noScalar : (ScalarExpression.read (arrays := context.arrayNames) text position (context.readingNames facts)).after = 0 := by omega
+            by_cases expressionPresent : (expressionAt (arrays := context.arrayNames) text position context.names (context.readingNames facts)).after ≠ 0
+            · let left := expressionAt (arrays := context.arrayNames) text position context.names (context.readingNames facts)
               let operator := Predicate.comparisonAt text left.after
-              let right := expressionAt text operator.after context.names (context.readingNames facts)
+              let right := expressionAt (arrays := context.arrayNames) text operator.after context.names (context.readingNames facts)
               have allowed : ¬(operator.after = 0 ∨ (operator.operator ≠ .eq ∧ operator.operator ≠ .ne)) := by
                 intro failed
                 have resultEq : readRelation text context position facts = invalidCondition facts := by
@@ -194,7 +194,7 @@ mutual
                 (model_expression_valid (scalarNames := (context.readingNames facts)) text textValid operator.after context.names
                   (comparison_bound text left.after (model_expression_valid (scalarNames := (context.readingNames facts)) text textValid position context.names bounded namesValid).1)
                   namesValid).1⟩
-            · have noExpression : (expressionAt text position context.names (context.readingNames facts)).after = 0 := by omega
+            · have noExpression : (expressionAt (arrays := context.arrayNames) text position context.names (context.readingNames facts)).after = 0 := by omega
               have primaryPositive : (readPrimary text context position facts).after ≠ 0 := by
                 simpa [readRelation, zero, noNot, noLength, noScalar, noExpression] using accepted
               have primary := primary_sound text context position facts textValid namesValid bounded primaryPositive

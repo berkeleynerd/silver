@@ -44,39 +44,38 @@ private theorem length_meaning {text context position facts left right leftResul
   have leftBound : info.bound = leftResult.value := by
     simpa only [LengthOperand.bound, found, Option.map_some, Option.some.injEq] using leftReading.2
   refine ⟨trivial, ⟨⟨info, found⟩, rightReading.1⟩, ?_, ?_, ?_⟩
-  · simp only [Condition.checkBounds, found, rightReading.2, leftBound, ActiveFlow.model,
+  · simp only [Condition.checkBounds, found, rightReading.2, leftBound, ParseContext.flow_path,
       lengthAt_fits namesValid bounded leftRead, lengthAt_fits namesValid bounded rightRead, Bool.and_self]
   · simp only [Condition.refine, refineLength, found, rightReading.2, leftBound,
-      refineFlowBounds, ActiveFlow.model]
+      refineFlowBounds, ParseContext.flow_withPath, ParseContext.flow_path]
   · simp only [Condition.refine, refineLength, found, rightReading.2, leftBound,
-      refineFlowBounds, ActiveFlow.model]
+      refineFlowBounds, ParseContext.flow_withPath, ParseContext.flow_path]
 
 private theorem string_meaning {text context position facts left right leftResult rightResult}
     (normal : NamesNormal context.names)
     (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount facts)
-    (leftRead : ExpressionAt (scalarNames := context.readingNames facts) text context.names position left leftResult)
-    (rightRead : ExpressionAt (scalarNames := context.readingNames facts) text context.names (comparisonAt text leftResult.after).after right rightResult)
+    (leftRead : ExpressionAt (scalarNames := context.readingNames facts) (arrays := context.arrayNames) text context.names position left leftResult)
+    (rightRead : ExpressionAt (scalarNames := context.readingNames facts) (arrays := context.arrayNames) text context.names (comparisonAt text leftResult.after).after right rightResult)
     (ready : StringRelationReady facts leftResult rightResult (comparisonAt text leftResult.after)) :
     ConditionMeaning context facts (.stringCompare ((comparisonAt text leftResult.after).operator != .eq) left right)
       (stringResult facts leftResult rightResult (comparisonAt text leftResult.after)) := by
   have l := expression_reading_ready normal leftRead
   have r := expression_reading_ready normal rightRead
-  have ranges : ScalarExpression.ranges (context.readingNames facts) = facts.model.scalars :=
-    ScalarMetadata.readingNames_ranges compatible
+  have ranges := context.reading_ranges compatible
   rw [ranges] at l r
   have leftInferred := l.2
   have rightInferred := r.2
-  simp only [ActiveFlow.model] at leftInferred rightInferred
+
   refine ⟨trivial, ⟨l.1.1, r.1.1, l.1.2.1, r.1.2.1,
     l.1.2.2.1, l.1.2.2.2, r.1.2.2.1, r.1.2.2.2⟩, ?_, ?_, ?_⟩
   · simp only [Condition.checkBounds, l.2, r.2, Bool.and_eq_true]
     exact ⟨ready.2.2.2.2.2.1, ready.2.2.2.2.2.2⟩
   · rcases ready.2.2.1 with equal | equal <;>
       simp [stringResult, summaryOf, Condition.refine, refineString, equal,
-        leftInferred, rightInferred, ActiveFlow.model]
+        leftInferred, rightInferred, ParseContext.flow_withPath, ParseContext.flow_path] <;> rfl
   · rcases ready.2.2.1 with equal | equal <;>
       simp [stringResult, summaryOf, Condition.refine, refineString, equal,
-        leftInferred, rightInferred, ActiveFlow.model]
+        leftInferred, rightInferred, ParseContext.flow_withPath, ParseContext.flow_path] <;> rfl
 
 theorem ConditionMeaning.compatible {context facts condition result}
     (base : ScalarMetadata.BaseReady context.scalarNames context.declarationCount)
@@ -88,24 +87,30 @@ theorem ConditionMeaning.compatible {context facts condition result}
       ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount result.whenFalse := by
   have preserved : ∀ index, 0 < index → index ≤ context.scalarNames.length →
       (ScalarExpression.binding context.scalarNames index).mutable = false → index ≤ context.declarationCount →
-      ∀ truth, (condition.refine context.names.shape context.analysis facts.model truth).scalars index =
-        facts.model.scalars index := by
+      ∀ truth, (condition.refine context.names.shape context.analysis (context.flow facts) truth).scalars index =
+        (context.flow facts).scalars index := by
     intro index positive bounded mutable declared truth
     have readonly : context.analysis.refinable index = false := by
-      simp only [ParseContext.analysis, ScalarMetadata.analysis, ScalarMetadata.refinable,
+      simp only [ParseContext.analysis, ArrayFlow.analysis,
+        ArrayBindings.refinability_scalar _ _ (Nat.le_trans bounded base.size),
+        ScalarMetadata.analysis, ScalarMetadata.refinable,
         mutable, Bool.false_or, show ¬context.declarationCount < index by omega,
         decide_false, Bool.and_false]
-    have cell := compatible.fixed_cell index positive bounded mutable declared
+    have cell : (context.flow facts).scalars index = some (ScalarExpression.binding context.scalarNames index).bounds := by
+      rw [context.flow_scalar facts (Nat.le_trans bounded base.size)]
+      exact compatible.fixed_cell index positive bounded mutable declared
     exact (condition.refine_preserves_fixed readonly cell
       (base.declarationsNonempty index positive declared)).trans cell.symm
   constructor
   · apply ScalarMetadata.overlayCompatible_of_preserved compatible trueCount
     intro index positive bounded mutable declared
-    rw [meaning.whenTrue]
+    rw [← context.flow_scalar result.whenTrue (Nat.le_trans bounded base.size), meaning.whenTrue,
+      ← context.flow_scalar facts (Nat.le_trans bounded base.size)]
     exact preserved index positive bounded mutable declared true
   · apply ScalarMetadata.overlayCompatible_of_preserved compatible falseCount
     intro index positive bounded mutable declared
-    rw [meaning.whenFalse]
+    rw [← context.flow_scalar result.whenFalse (Nat.le_trans bounded base.size), meaning.whenFalse,
+      ← context.flow_scalar facts (Nat.le_trans bounded base.size)]
     exact preserved index positive bounded mutable declared false
 
 mutual
@@ -136,16 +141,16 @@ mutual
         exact ⟨meaning.1.negated meaning.2, rfl⟩
     | length _ _ _ left right _ => exact ⟨length_meaning namesValid bounded left right, rfl⟩
     | scalars _ _ _ _ left right _ =>
-        have ranges : ScalarExpression.ranges (context.readingNames facts) = facts.model.scalars :=
-          ScalarMetadata.readingNames_ranges compatible
+        have ranges := context.reading_ranges compatible
         exact ⟨⟨trivial, trivial, by
           have l := left.inferred
           have r := right.inferred
-          change Integer.Expr.infer (ScalarExpression.ranges (context.readingNames facts)) _ = _ at l r
+          change Integer.Expr.infer (ArrayBindings.ranges context.arrayNames [] false
+            (ScalarExpression.ranges (context.readingNames facts))) _ = _ at l r
           simp only [Condition.checkBounds, ← ranges, l, r,
             Option.isSome_some, Bool.and_self],
-          scalarCondition_whenTrue_model compatible left right,
-          scalarCondition_whenFalse_model compatible left right⟩, rfl⟩
+          scalarCondition_whenTrue_model base.size compatible left right,
+          scalarCondition_whenFalse_model base.size compatible left right⟩, rfl⟩
     | strings _ _ _ _ left right ready _ =>
         exact ⟨string_meaning normal compatible left right ready, rfl⟩
     | primary _ _ _ _ _ inner =>
@@ -176,11 +181,11 @@ mutual
         have reachedBound : (chainContext result operator).path.Bounded := by
           cases operator with
           | false =>
-              change result.whenFalse.model.path.Bounded
+              change (context.flow result.whenFalse).path.Bounded
               rw [meaning.whenFalse]
               exact Condition.refine_bounded bounded _ _ _ _
           | true =>
-              change result.whenTrue.model.path.Bounded
+              change (context.flow result.whenTrue).path.Bounded
               rw [meaning.whenTrue]
               exact Condition.refine_bounded bounded _ _ _ _
         have rightMeaning := relation_valid normal namesValid base reachedCompatible reachedBound rightRead

@@ -80,7 +80,7 @@ mutual
                 split
                 · exact invalidCondition_bounded _
                 · try dsimp only
-                  by_cases equal : (comparisonAt text (expressionAt text position context.names (context.readingNames facts)).after).operator == Comparison.eq
+                  by_cases equal : (comparisonAt text (expressionAt (arrays := context.arrayNames) text position context.names (context.readingNames facts)).after).operator == Comparison.eq
                   · simp only [equal, ↓reduceIte]
                     exact ⟨refineLengthOverlap_bounded bounded _ _, bounded⟩
                   · simp only [equal, Bool.false_eq_true, ↓reduceIte]

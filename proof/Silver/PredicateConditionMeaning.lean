@@ -11,9 +11,9 @@ structure ConditionMeaning (context : ParseContext) (facts : ActiveFlow)
     (condition : Condition) (result : ConditionResult) : Prop where
   grammatical : condition.Grammatical
   readable : condition.Readable context.hasArguments context.names.shape
-  checked : condition.checkBounds context.names.shape context.analysis facts.model = true
-  whenTrue : result.whenTrue.model = condition.refine context.names.shape context.analysis facts.model true
-  whenFalse : result.whenFalse.model = condition.refine context.names.shape context.analysis facts.model false
+  checked : condition.checkBounds context.names.shape context.analysis (context.flow facts) = true
+  whenTrue : (context.flow result.whenTrue) = condition.refine context.names.shape context.analysis (context.flow facts) true
+  whenFalse : (context.flow result.whenFalse) = condition.refine context.names.shape context.analysis (context.flow facts) false
 
 def ChainShape (chained : Option Bool) (condition : Condition) : Prop :=
   match chained with
@@ -67,7 +67,7 @@ theorem ConditionMeaning.chain {context facts left leftResult right rightResult 
       · simp only [chainCondition, Bool.false_eq_true, ↓reduceIte, Condition.checkBounds,
           leftMeaning.checked, checkedRight, Bool.and_self]
       · simp only [chainJoin, chainCondition, Bool.false_eq_true, ↓reduceIte, Condition.refine,
-          ActiveFlow.join_model, leftMeaning.whenTrue, trueRight]
+          ParseContext.flow_join, leftMeaning.whenTrue, trueRight]
       · simp only [chainJoin, chainCondition, Bool.false_eq_true, ↓reduceIte, Condition.refine,
           falseRight]
   | true =>
@@ -77,7 +77,7 @@ theorem ConditionMeaning.chain {context facts left leftResult right rightResult 
       · simp only [chainCondition, ↓reduceIte, Condition.checkBounds,
           leftMeaning.checked, checkedRight, Bool.and_self]
       · simp only [chainJoin, chainCondition, ↓reduceIte, Condition.refine, trueRight]
-      · simp only [chainJoin, chainCondition, ↓reduceIte, Condition.refine, ActiveFlow.join_model,
+      · simp only [chainJoin, chainCondition, ↓reduceIte, Condition.refine, ParseContext.flow_join,
           leftMeaning.whenFalse, falseRight, Bool.false_eq_true]
 
 end Silver.Predicate

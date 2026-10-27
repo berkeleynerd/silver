@@ -11,11 +11,12 @@ open Compose Bindings PathFacts Compose.Expressions
 attribute [local irreducible] ScalarExpression.read
 
 theorem scalarRead_bound (text : Source) (position : Nat) (names : ScalarExpression.Environment)
-    (first after : Nat) (bounded : position ≤ text.length + 1) :
-    (ScalarExpression.read text position names first after).after ≤ text.length + 1 := by
-  by_cases zero : (ScalarExpression.read text position names first after).after = 0
+    (first after : Nat) (arrays : ArrayBindings.Metadata := []) (bounded : position ≤ text.length + 1) :
+    (ScalarExpression.read (arrays := arrays) text position names first after).after ≤ text.length + 1 := by
+  by_cases zero : (ScalarExpression.read (arrays := arrays) text position names first after).after = 0
   · simp [zero]
-  · exact (ScalarExpression.read_bounds bounded zero).2.1
+  · obtain ⟨expression, parsed⟩ := ScalarExpression.read_sound bounded zero
+    exact parsed.cursorBounds.2.2
 
 theorem loopLowerPosition_bound (text : Source) (scan : BodyScan) :
     loopLowerPosition text scan ≤ text.length + 1 := by
@@ -29,23 +30,23 @@ theorem loopLowerPosition_bound (text : Source) (scan : BodyScan) :
 theorem loopHeader_bound (text : Source) (context : ParseContext) (scan : BodyScan) :
     (loopHeader text context scan).entry.position ≤ text.length + 1 := by
   have lower := scalarRead_bound text (loopLowerPosition text scan) (context.readingNames scan.facts)
-    (loopFirst text scan) (loopNameAfter text scan) (loopLowerPosition_bound text scan)
+    (loopFirst text scan) (loopNameAfter text scan) context.arrayNames (loopLowerPosition_bound text scan)
   have delimiter := model_fixed_valid text _ ".." false lower
   have upper := scalarRead_bound text _ (context.readingNames scan.facts)
-    (loopFirst text scan) (loopNameAfter text scan) delimiter
+    (loopFirst text scan) (loopNameAfter text scan) context.arrayNames delimiter
   exact model_fixed_valid text _ "loop" true upper
 
 theorem loopHeader_readings {text : Source} {context : ParseContext} {scan : BodyScan}
     (positive : (loopHeader text context scan).entry.position ≠ 0) :
     ∃ lower upper,
-      ScalarExpression.At text (context.readingNames scan.facts) (loopLowerPosition text scan)
+      ScalarExpression.At (arrays := context.arrayNames) text (context.readingNames scan.facts) (loopLowerPosition text scan)
         lower (loopHeader text context scan).lower (loopFirst text scan) (loopNameAfter text scan) ∧
-      ScalarExpression.At text (context.readingNames scan.facts)
+      ScalarExpression.At (arrays := context.arrayNames) text (context.readingNames scan.facts)
         (fixedAfter text (loopHeader text context scan).lower.after ".." false)
         upper (loopHeader text context scan).upper (loopFirst text scan) (loopNameAfter text scan) := by
   have upperPositive : (loopHeader text context scan).upper.after ≠ 0 := fixedAfter_nonzero positive
   have lowerBound := scalarRead_bound text (loopLowerPosition text scan) (context.readingNames scan.facts)
-    (loopFirst text scan) (loopNameAfter text scan) (loopLowerPosition_bound text scan)
+    (loopFirst text scan) (loopNameAfter text scan) context.arrayNames (loopLowerPosition_bound text scan)
   have delimiter := model_fixed_valid text _ ".." false lowerBound
   obtain ⟨upper, upperRead⟩ := ScalarExpression.read_sound delimiter upperPositive
   have delimiterPositive := (ScalarExpression.syntax_bounds upperRead.positionBound upperRead.grammar).1
