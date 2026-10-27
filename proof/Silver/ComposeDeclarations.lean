@@ -83,8 +83,7 @@ theorem declaration_sound (text : Source) (state : ParserState) (arguments : Boo
   rw [partsEq] at valueEq
   have valueNonzero : parts.value.after ≠ 0 := (decide_eq_true_eq.mp bounded).1
   rw [valueEq] at valueNonzero
-  obtain ⟨value, parsed⟩ := expressionAt_sound (scalarNames := state.scalarNames)
-      (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true) (integerHidden := declarationIntegerHidden text state) text state.names (declarationValuePosition text state) valueNonzero
+  obtain ⟨value, parsed⟩ := expressionAt_sound (scalarNames := state.scalarNames) (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true) (integerHidden := declarationIntegerHidden text state) text state.names (declarationValuePosition text state) valueNonzero
   refine ⟨⟨state.names.length + 1, decide (parts.constantAfter = 0), value.freezeImages (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values)⟩, ?_⟩
   rw [observed]
   simp only [allowed, Bool.not_true, following, count, or_self,

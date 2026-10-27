@@ -178,8 +178,7 @@ theorem model_image_valid (text : Source) (position : Nat) (names : BindingEnvir
 theorem model_value_valid (text : Source) (valid : ValidText text) (position : Nat)
     (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
     {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool} (namesValid : ValidNames text names) :
-    ValidValue text (valueAt (scalarNames := scalarNames) (integerHidden := integerHidden)
-    (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names) := by
+    ValidValue text (valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names) := by
   unfold valueAt
   dsimp only
   split
@@ -198,10 +197,8 @@ theorem model_value_valid (text : Source) (valid : ValidText text) (position : N
 
 theorem model_value_advances (text : Source) (position : Nat) (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
     {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool}
-    (bound : ValidCursor text position) (nonzero : (valueAt (scalarNames := scalarNames) (integerHidden := integerHidden)
-    (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names).after ≠ 0) :
-    position < (valueAt (scalarNames := scalarNames) (integerHidden := integerHidden)
-    (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names).after := by
+    (bound : ValidCursor text position) (nonzero : (valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names).after ≠ 0) :
+    position < (valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names).after := by
   by_cases quoted : (literalAt text (skipAt text position)).after ≠ 0
   · have literalAdvance := literalAt_advances text (skipAt text position) quoted
     have startNonzero : skipAt text position ≠ 0 := by
@@ -232,16 +229,11 @@ theorem model_scan_valid (text : Source) (valid : ValidText text)
     (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
     {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool} (scan : ExpressionState)
     (namesValid : ValidNames text names) (scanValid : ValidScan text scan) :
-    ValidScan text (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden)
-    (arrays := arrays) (initials := initials) (elaborating := elaborating) text names scan) ∧
-      ((expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden)
-    (arrays := arrays) (initials := initials) (elaborating := elaborating) text names scan).position = 0 ∨
-       (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden)
-    (arrays := arrays) (initials := initials) (elaborating := elaborating) text names scan).complete = true ∨
-       scan.position < (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden)
-    (arrays := arrays) (initials := initials) (elaborating := elaborating) text names scan).position) := by
-  have atomValid := model_value_valid (scalarNames := scalarNames) (integerHidden := integerHidden)
-    (arrays := arrays) (initials := initials) (elaborating := elaborating) text valid scan.position names namesValid
+    ValidScan text (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names scan) ∧
+      ((expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names scan).position = 0 ∨
+       (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names scan).complete = true ∨
+       scan.position < (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names scan).position) := by
+  have atomValid := model_value_valid (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text valid scan.position names namesValid
   have textBound := valid.2
   have openBound := model_fixed_valid text scan.position "(" false scanValid.1
   have joinBound := model_fixed_valid text scan.position "&" false scanValid.1
@@ -249,8 +241,7 @@ theorem model_scan_valid (text : Source) (valid : ValidText text)
   have openAdvance := model_fixed_advances text scan.position "(" false scanValid.1 (by decide)
   have joinAdvance := model_fixed_advances text scan.position "&" false scanValid.1 (by decide)
   have closeAdvance := model_fixed_advances text scan.position ")" false scanValid.1 (by decide)
-  have atomAdvance := model_value_advances (scalarNames := scalarNames) (integerHidden := integerHidden)
-    (arrays := arrays) (initials := initials) (elaborating := elaborating) text scan.position names scanValid.1
+  have atomAdvance := model_value_advances (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text scan.position names scanValid.1
   unfold expressionStep
   dsimp only
   split
@@ -267,8 +258,7 @@ theorem model_scan_valid (text : Source) (valid : ValidText text)
         · split
           · exact ⟨model_invalid_scan_valid text, Or.inl rfl⟩
           · rename_i admitted
-            have nonempty : (valueAt (scalarNames := scalarNames) (integerHidden := integerHidden)
-    (arrays := arrays) (initials := initials) (elaborating := elaborating) text scan.position names).after ≠ 0 := by omega
+            have nonempty : (valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text scan.position names).after ≠ 0 := by omega
             have advance := atomAdvance nonempty
             simp only [ValidScan, ValidCursor, ValidValue] at scanValid atomValid ⊢
             split <;> exact ⟨by omega, Or.inr (Or.inr advance)⟩
@@ -296,8 +286,7 @@ theorem model_tail_valid (text : Source) (valid : ValidText text)
     (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
     {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool} (scan : ExpressionState)
     (namesValid : ValidNames text names) (scanValid : ValidScan text scan) :
-    ValidResult text (expressionTail (scalarNames := scalarNames) (integerHidden := integerHidden)
-    (arrays := arrays) (initials := initials) (elaborating := elaborating) text names scan) := by
+    ValidResult text (expressionTail (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names scan) := by
   rw [expressionTail]
   split
   · simp [ValidResult, invalidExpression]
@@ -307,32 +296,25 @@ theorem model_tail_valid (text : Source) (valid : ValidText text)
       split
       · simp [ValidResult, invalidExpression]
       · split
-        · exact model_result_valid text _ (model_scan_valid (scalarNames := scalarNames) (integerHidden := integerHidden)
-    (arrays := arrays) (initials := initials) (elaborating := elaborating) text valid names scan namesValid scanValid).1
+        · exact model_result_valid text _ (model_scan_valid (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text valid names scan namesValid scanValid).1
         · split
-          · exact model_tail_valid (scalarNames := scalarNames) (integerHidden := integerHidden)
-    (arrays := arrays) (initials := initials) (elaborating := elaborating) text valid names _ namesValid
-              (model_scan_valid (scalarNames := scalarNames) (integerHidden := integerHidden)
-    (arrays := arrays) (initials := initials) (elaborating := elaborating) text valid names scan namesValid scanValid).1
+          · exact model_tail_valid (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text valid names _ namesValid
+              (model_scan_valid (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text valid names scan namesValid scanValid).1
           · simp [ValidResult, invalidExpression]
 termination_by text.length + 1 - scan.position
 
 theorem model_expression_valid (text : Source) (valid : ValidText text) (position : Nat)
     (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
     {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool} (bound : ValidCursor text position)
-    (namesValid : ValidNames text names) : ValidResult text (expressionAt (scalarNames := scalarNames) (integerHidden := integerHidden)
-    (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names) := by
-  apply model_tail_valid (scalarNames := scalarNames) (integerHidden := integerHidden)
-    (arrays := arrays) (initials := initials) (elaborating := elaborating) text valid names _ namesValid
+    (namesValid : ValidNames text names) : ValidResult text (expressionAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names) := by
+  apply model_tail_valid (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text valid names _ namesValid
   exact ⟨bound, by simp, by simp, by simp, by simp,
     by change position = 0 ∨ 0 < position; omega, by simp⟩
 
 theorem model_scan_completed_position (text : Source) (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
     {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool}
-    (scan : ExpressionState) (finished : (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden)
-    (arrays := arrays) (initials := initials) (elaborating := elaborating) text names scan).complete = true) :
-    (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden)
-    (arrays := arrays) (initials := initials) (elaborating := elaborating) text names scan).position = scan.position := by
+    (scan : ExpressionState) (finished : (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names scan).complete = true) :
+    (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names scan).position = scan.position := by
   unfold expressionStep at finished ⊢
   dsimp only at finished ⊢
   repeat' split at finished
@@ -342,10 +324,8 @@ theorem model_scan_completed_position (text : Source) (names : BindingEnvironmen
 backwards: completed steps retain the cursor and recursive calls strictly advance. -/
 theorem model_tail_nondecreasing (text : Source) (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
     {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool} (scan : ExpressionState) :
-    (expressionTail (scalarNames := scalarNames) (integerHidden := integerHidden)
-    (arrays := arrays) (initials := initials) (elaborating := elaborating) text names scan).after = 0 ∨
-      scan.position ≤ (expressionTail (scalarNames := scalarNames) (integerHidden := integerHidden)
-    (arrays := arrays) (initials := initials) (elaborating := elaborating) text names scan).after := by
+    (expressionTail (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names scan).after = 0 ∨
+      scan.position ≤ (expressionTail (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names scan).after := by
   rw [expressionTail]
   split
   · exact Or.inl rfl
@@ -356,13 +336,10 @@ theorem model_tail_nondecreasing (text : Source) (names : BindingEnvironment) {s
       · exact Or.inl rfl
       · split
         · rename_i finished
-          exact Or.inr (Nat.le_of_eq (model_scan_completed_position (scalarNames := scalarNames) (integerHidden := integerHidden)
-    (arrays := arrays) (initials := initials) (elaborating := elaborating) text names scan finished).symm)
+          exact Or.inr (Nat.le_of_eq (model_scan_completed_position (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names scan finished).symm)
         · split
           · rename_i advancing
-            rcases model_tail_nondecreasing (scalarNames := scalarNames) (integerHidden := integerHidden)
-    (arrays := arrays) (initials := initials) (elaborating := elaborating) text names (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden)
-    (arrays := arrays) (initials := initials) (elaborating := elaborating) text names scan) with zero | forward
+            rcases model_tail_nondecreasing (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names scan) with zero | forward
             · exact Or.inl zero
             · exact Or.inr (Nat.le_trans (by omega) forward)
           · exact Or.inl rfl
@@ -375,8 +352,7 @@ theorem model_fixed_input_nonzero (text : Source) (position : Nat) (spelling : S
 
 theorem model_expression_input_nonzero (text : Source) (position : Nat) (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
     {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool}
-    (nonzero : (expressionAt (scalarNames := scalarNames) (integerHidden := integerHidden)
-    (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names).after ≠ 0) : position ≠ 0 := by
+    (nonzero : (expressionAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names).after ≠ 0) : position ≠ 0 := by
   intro zero
   subst position
   simp [expressionAt, expressionTail, invalidExpression] at nonzero

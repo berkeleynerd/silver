@@ -27,8 +27,7 @@ theorem expressionAt_frozen_summary {text : Source} {names : BindingEnvironment}
     {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {position : Nat}
     {expression : Expression} {result : ExpressionResult}
     (normal : NamesNormal names) (static : ScalarExpression.StaticEnvironment scalarNames)
-    (parsed : ExpressionAt (scalarNames := scalarNames) (integerHidden := integerHidden)
-      (arrays := arrays) (initials := initials) (elaborating := true) text names position expression result)
+    (parsed : ExpressionAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := true) text names position expression result)
     (exact : result.minimumLength = result.staticLength) :
     (expression.freezeImages (frozenIntegers scalarNames arrays initials)).summary names.shape =
       ⟨result.staticLength, result.dynamicCount⟩ := by
@@ -45,8 +44,7 @@ theorem expressionAt_safe {text : Source} {names : BindingEnvironment}
     {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {position capacity : Nat}
     {expression : Expression} {result : ExpressionResult}
     (normal : NamesNormal names) (static : ScalarExpression.StaticEnvironment scalarNames)
-    (parsed : ExpressionAt (scalarNames := scalarNames) (integerHidden := integerHidden)
-      (arrays := arrays) (initials := initials) (elaborating := true) text names position expression result)
+    (parsed : ExpressionAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := true) text names position expression result)
     (bounded : fits result capacity = true) :
     SafeExpression (expression.freezeImages (frozenIntegers scalarNames arrays initials)) names.shape capacity := by
   have known := expressionAt_inferLength normal parsed
@@ -68,8 +66,7 @@ theorem expressionAt_frozen_execution {text : Source} {names : BindingEnvironmen
     {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {position capacity : Nat}
     {expression : Expression} {result : ExpressionResult} {values : Values} {input : Source}
     (normal : NamesNormal names) (static : ScalarExpression.StaticEnvironment scalarNames)
-    (parsed : ExpressionAt (scalarNames := scalarNames) (integerHidden := integerHidden)
-      (arrays := arrays) (initials := initials) (elaborating := true) text names position expression result)
+    (parsed : ExpressionAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := true) text names position expression result)
     (bounded : fits result capacity = true) (state : Fits names.shape input values)
     (inputBound : input.length ≤ capacity) :
     expression.checkedEvaluate values input (frozenIntegers scalarNames arrays initials) =

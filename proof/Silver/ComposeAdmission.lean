@@ -290,8 +290,7 @@ def expressionStep (text : Source) (names : BindingEnvironment) (state : Express
     (arrays : ArrayBindings.Metadata := []) (initials : ArrayBindings.Initials := [])
     (elaborating : Bool := false) : ExpressionState :=
   let openAfter := fixedAfter text state.position "(" false
-  let atom := valueAt (scalarNames := scalarNames) (integerHidden := integerHidden)
-    (arrays := arrays) (initials := initials) (elaborating := elaborating) text state.position names
+  let atom := valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text state.position names
   let joinAfter := fixedAfter text state.position "&" false
   let closeAfter := fixedAfter text state.position ")" false
   if state.position = 0 then invalidExpressionState
@@ -325,13 +324,11 @@ def expressionTail (text : Source) (names : BindingEnvironment) (state : Express
   if state.position = 0 then invalidExpression
   else if state.complete then state.result
   else
-    let next := expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden)
-    (arrays := arrays) (initials := initials) (elaborating := elaborating) text names state
+    let next := expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names state
     if next.position = 0 then invalidExpression
     else if next.complete then next.result
     else if _advancing : text.length + 1 - next.position < text.length + 1 - state.position then
-      expressionTail (scalarNames := scalarNames) (integerHidden := integerHidden)
-    (arrays := arrays) (initials := initials) (elaborating := elaborating) text names next
+      expressionTail (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names next
     else invalidExpression
 termination_by text.length + 1 - state.position
 decreasing_by exact _advancing
@@ -340,8 +337,7 @@ def expressionAt (text : Source) (position : Nat) (names : BindingEnvironment)
     (scalarNames : ScalarExpression.Environment := []) (integerHidden : Bool := false)
     (arrays : ArrayBindings.Metadata := []) (initials : ArrayBindings.Initials := [])
     (elaborating : Bool := false) : ExpressionResult :=
-  expressionTail (scalarNames := scalarNames) (integerHidden := integerHidden)
-    (arrays := arrays) (initials := initials) (elaborating := elaborating) text names {position := position}
+  expressionTail (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names {position := position}
 
 def fits (result : ExpressionResult) (capacity : Nat) : Bool :=
   decide (result.after ≠ 0 ∧ (result.emptyValue = true ∨ result.staticLength + result.dynamicCount * capacity ≤ maxSourceLength))
@@ -919,10 +915,8 @@ abbrev ValueAt (text : Source) (names : BindingEnvironment) (position : Nat)
 theorem value_complete {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment}
     {integerHidden : Bool}
     {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat} {value : Operand} {result : ValueResult}
-    (parsed : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden)
-    (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position value result) :
-    valueAt (scalarNames := scalarNames) (integerHidden := integerHidden)
-    (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names = result := by
+    (parsed : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position value result) :
+    valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names = result := by
   cases parsed with
   | literal positive bound quote parsed =>
       rename_i after bytes
@@ -943,18 +937,14 @@ theorem value_complete {text : Source} {names : BindingEnvironment} {scalarNames
 theorem value_sound (text : Source) (position : Nat) (names : BindingEnvironment)
     {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
     {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool}
-    (accepted : (valueAt (scalarNames := scalarNames) (integerHidden := integerHidden)
-    (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names).after ≠ 0) :
-    ∃ value, ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden)
-    (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position value
-      (valueAt (scalarNames := scalarNames) (integerHidden := integerHidden)
-    (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names) := by
+    (accepted : (valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names).after ≠ 0) :
+    ∃ value, ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position value
+      (valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names) := by
   by_cases quoted : (literalAt text (skipAt text position)).after ≠ 0
   · obtain ⟨bytes, after, positive, bound, quote, parsed⟩ := (quotedValue_iff text position).mpr quoted
     have nonzero : after ≠ 0 := by have := Output.literalAt_bounds parsed; omega
     refine ⟨.literal bytes, ?_⟩
-    have observed : valueAt (scalarNames := scalarNames) (integerHidden := integerHidden)
-    (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names =
+    have observed : valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names =
         ⟨after, skipAt text position + 1, bytes.length, bytes.length, false, false, false, 0⟩ := by
       simp [valueAt, literalAt, positive, bound, quote, Output.literalAt_complete parsed,
         Guarded.literalLength_decodes parsed, nonzero]
@@ -970,8 +960,7 @@ theorem value_sound (text : Source) (position : Nat) (names : BindingEnvironment
       have afterSame : nameAfter text (skipAt text position) = identifierEnd text (skipAt text position) := by
         simp [nameAfter, positive]
       refine ⟨.reference (lookupName text names (skipAt text position) (nameAfter text (skipAt text position))), ?_⟩
-      have observed : valueAt (scalarNames := scalarNames) (integerHidden := integerHidden)
-    (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names =
+      have observed : valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names =
           ⟨nameAfter text (skipAt text position), info.valueFirst, info.staticLength, info.staticLength,
             info.dynamic, true, false, lookupName text names (skipAt text position) (nameAfter text (skipAt text position))⟩ := by
         simp [valueAt, quoted, referenced, present]
@@ -1000,8 +989,7 @@ theorem value_inferLength {text : Source} {names : BindingEnvironment}
     {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
     {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
     {value : Operand} {result : ValueResult} (normal : NamesNormal names)
-    (parsed : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden)
-    (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position value result) :
+    (parsed : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position value result) :
     value.inferLength names.shape (ArrayBindings.ranges arrays initials elaborating (ScalarExpression.ranges scalarNames)) = some result.lengthSummary := by
   cases parsed with
   | literal => rfl
@@ -1024,8 +1012,7 @@ theorem value_literals {text : Source} {names : BindingEnvironment}
     {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
     {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
     {value : Operand} {result : ValueResult}
-    (parsed : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden)
-    (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position value result) :
+    (parsed : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position value result) :
     value.PrintableLiterals := by
   cases parsed with
   | literal _ _ _ parsed => exact (Output.literalAt_bounds parsed).2.2
@@ -1064,23 +1051,20 @@ theorem arrayValuesModel_preserves (text : Source) (source result : ParserState)
       (arrayValuesModel text source result position length parsed).scalarNames = result.scalarNames ∧
       (arrayValuesModel text source result position length parsed).arrayNames.names = result.arrayNames.names := by
   rw [arrayValuesModel] at accepted ⊢
-  split at accepted
-  · simp only [invalidState] at accepted
-    contradiction
-  · rename_i positive
-    simp only [positive, ↓reduceIte]
-    split at accepted
-    · rename_i remaining
-      simp only [remaining, ↓reduceDIte]
-      split at accepted
-      · simp only [invalidState] at accepted
-        contradiction
-      · rename_i valid
-        simp only [valid, ↓reduceIte]
+  by_cases zero : position = 0
+  · simp only [zero, ↓reduceIte, invalidState, ne_eq, not_true_eq_false] at accepted
+  · simp only [zero, ↓reduceIte] at accepted ⊢
+    by_cases remaining : parsed < length
+    · simp only [remaining, ↓reduceDIte] at accepted ⊢
+      generalize valueEq : ScalarExpression.read text position source.scalarNames
+        (arrays := source.arrayNames.names) (initials := source.arrayNames.values)
+        (elaborating := true) = value at accepted ⊢
+      by_cases bad : value.after = 0 ∨ value.bounds.isEmpty = true ∨ value.bounds.lower ≠ value.bounds.upper
+      · simp only [bad, ↓reduceIte, invalidState, ne_eq, not_true_eq_false] at accepted
+      · simp only [bad, ↓reduceIte] at accepted ⊢
         exact arrayValuesModel_preserves text source _ _ length (parsed + 1) accepted
-    · rename_i finished
-      simp only [finished, ↓reduceDIte]
-      exact ⟨rfl, rfl, rfl⟩
+    · simp only [remaining, ↓reduceDIte]
+      trivial
 termination_by length - parsed
 decreasing_by omega
 
@@ -1122,7 +1106,7 @@ theorem declarationAt_count {text : Source} {state : ParserState} {arguments : B
       state.names.length + state.scalarNames.length + state.arrayNames.names.length + 1 := by
   by_cases scalar : (scalarDeclarationAt text state arguments).position ≠ 0
   · have selected : declarationAt text state arguments = scalarDeclarationAt text state arguments := by
-      simp only [declarationAt, scalar, ↓reduceIte]
+      simp only [declarationAt]; split <;> simp_all
     rw [selected]
     unfold scalarDeclarationAt at scalar ⊢
     dsimp only at scalar ⊢
@@ -1134,13 +1118,13 @@ theorem declarationAt_count {text : Source} {state : ParserState} {arguments : B
       omega
   · by_cases array : (arrayDeclarationAt text state arguments).position ≠ 0
     · have selected : declarationAt text state arguments = arrayDeclarationAt text state arguments := by
-        simp only [declarationAt, scalar, array, ↓reduceIte]
+        simp only [declarationAt]; split <;> simp_all
       rw [selected]
       have count := arrayDeclarationAt_count array
       rw [count.1, count.2.1, count.2.2]
       omega
     · have selected : declarationAt text state arguments = stringDeclarationAt text state arguments := by
-        simp only [declarationAt, scalar, array, ↓reduceIte]
+        simp only [declarationAt]; split <;> simp_all
       rw [selected] at accepted ⊢
       unfold stringDeclarationAt at accepted ⊢
       dsimp only at accepted ⊢
