@@ -65,6 +65,7 @@ mutual
     match item with
     | .simple item => executeSimpleStatement input values item integers
     | .scalarAssign update => ⟨values, [], update.execute integers⟩
+    | .arrayAssign update => ⟨values, [], update.execute integers⟩
     | .reject => ⟨values, [.reject], integers⟩
     | .choice condition yes no =>
         if condition.evaluate values input inputValid integers
@@ -92,6 +93,7 @@ mutual
     match item with
     | .simple item => checkedSimpleStatement input values item integers
     | .scalarAssign update => (update.checkedExecute integers).map fun scalars => ⟨values, [], scalars⟩
+    | .arrayAssign update => (update.checkedExecute integers).map fun scalars => ⟨values, [], scalars⟩
     | .reject => some ⟨values, [.reject], integers⟩
     | .choice condition yes no =>
         (condition.checkedEvaluate values input inputValid integers).bind fun outcome =>
@@ -156,6 +158,13 @@ mutual
         split at checked
         · simpa only [Statement.execute] using
             update.unchanged (values := integers) (by assumption) readonly
+        · contradiction
+    | arrayAssign update =>
+        simp only [Statement.check] at checked
+        split at checked
+        · rename_i good
+          simpa only [Statement.execute] using
+            update.unchanged (values := integers) (Bool.and_eq_true.mp good).1 readonly
         · contradiction
     | reject => simp only [Statement.execute]
     | choice condition yes no =>
@@ -339,6 +348,23 @@ mutual
           refine ⟨state, by simp [EffectsValid], by simp [NoOutput], ?_, ?_, sound.2.2.1, sound.2.1⟩
           · simpa [rejectedAfter] using allowed.1
           · simp only [sound.2.2.2, Option.map_some]
+        · contradiction
+    | arrayAssign update =>
+        simp only [Statement.check] at checked
+        split at checked
+        · rename_i good
+          cases checked
+          have accepted := (Bool.and_eq_true.mp good).1
+          have full := (Integer.ArrayDescriptor.fullRanges_iff _ _).mp (Bool.and_eq_true.mp good).2
+          have sound := update.check_sound accepted allowed.2
+          have declared : Integer.Fits analysis.declared (update.execute integers) := by
+            simpa only [Integer.ArrayAssignment.execute, sound.2.2.1, ↓reduceIte] using
+              update.array.write_preserves_ranges declaredState full sound.2.2.1
+                (Integer.Expr.safe_value sound.2.1)
+          simp only [Statement.execute, Statement.checkedExecute]
+          refine ⟨state, by simp [EffectsValid], by simp [NoOutput], ?_, ?_, sound.2.2.2.1, declared⟩
+          · simpa [rejectedAfter] using allowed.1
+          · simp only [sound.2.2.2.2, Option.map_some]
         · contradiction
     | reject =>
         simp only [Statement.check, Option.some.injEq] at checked

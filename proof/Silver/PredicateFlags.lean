@@ -22,7 +22,7 @@ def Flag.observe (flag : Flag) (scan : BodyScan) : Bool :=
 mutual
   def Flag.source (flag : Flag) : SourceStatement → Bool
     | .simple item => flag.simple item
-    | .scalarAssign _ => flag == .assignment
+    | .scalarAssign _ | .arrayAssign _ => flag == .assignment
     | .reject => false
     | .choice _ yes tail => flag.sources yes || flag.alternative tail
     | .forLoop _ _ _ _ body => flag.sources body

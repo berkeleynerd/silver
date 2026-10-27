@@ -47,7 +47,7 @@ theorem accepted_form_unique {source : Source} {first second : Form}
 mutual
   def Flag.statement (flag : Flag) : Statement → Bool
     | .simple item => flag.simple item
-    | .scalarAssign _ => flag == .assignment
+    | .scalarAssign _ | .arrayAssign _ => flag == .assignment
     | .reject => false
     | .choice _ yes no => flag.statements yes || flag.statements no
     | .forLoop _ _ _ _ body => flag.statements body
@@ -64,6 +64,7 @@ mutual
     cases item with
     | simple item => simp only [SourceStatement.lower, Flag.statement, Flag.source]
     | scalarAssign update => simp only [SourceStatement.lower, Flag.statement, Flag.source]
+    | arrayAssign update => simp only [SourceStatement.lower, Flag.statement, Flag.source]
     | reject => simp only [SourceStatement.lower, Flag.statement, Flag.source]
     | choice condition yes tail =>
         simp only [SourceStatement.lower, Flag.statement, Flag.source,

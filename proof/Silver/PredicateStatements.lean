@@ -4,6 +4,7 @@ public import Silver.PredicateChecking
 public import Silver.SequenceSyntax
 public import Silver.IntegerIteration
 public import Silver.IntegerMutable
+public import Silver.IntegerArrays
 
 @[expose] public section
 
@@ -17,6 +18,7 @@ open Bindings Compose PathFacts
 inductive Statement
   | simple (item : Sequence.SimpleStatement)
   | scalarAssign (update : Integer.Assignment)
+  | arrayAssign (update : Integer.ArrayAssignment)
   | reject
   | choice (condition : Condition) (yes no : List Statement)
   | forLoop (index : Nat) (reverse : Bool) (lower upper : Integer.Expr) (body : List Statement)
@@ -36,6 +38,7 @@ mutual
   def Statement.WellFormed (hasArguments : Bool) (shape : Shape) : Statement → Prop
     | .simple item => SimpleWellFormed shape item
     | .scalarAssign update => update.target ≠ 0
+    | .arrayAssign _ => True
     | .reject => hasArguments = true
     | .choice condition yes no =>
         condition.Grammatical ∧ condition.Readable hasArguments shape ∧ yes ≠ [] ∧
@@ -143,6 +146,12 @@ def loopExit (analysis : Integer.Analysis) (before after : Flow)
     if (Integer.loopBounds lower upper).isEmpty then before.scalars
     else analysis.widen before.scalars⟩
 
+/-- Array components remain Full in both flow and declaration environments.
+The core check also requires the complete target segment to be mutable. -/
+def checkArrayAssignment (analysis : Integer.Analysis) (flow : Flow)
+    (update : Integer.ArrayAssignment) : Bool :=
+  update.check flow.scalars analysis.mutable && update.array.fullRanges analysis.declared
+
 mutual
   def Statement.check (shape : Shape) (analysis : Integer.Analysis) (flow : Flow)
       (item : Statement) : Option Flow :=
@@ -151,6 +160,8 @@ mutual
     | .scalarAssign update =>
         if update.check flow.scalars analysis.mutable analysis.declared
         then some {flow with scalars := update.after flow.scalars} else none
+    | .arrayAssign update =>
+        if checkArrayAssignment analysis flow update then some flow else none
     | .reject => some {flow with path := flow.path.reject}
     | .choice condition yes no =>
         if condition.checkBounds shape analysis flow then
@@ -193,6 +204,11 @@ mutual
         · rename_i good
           cases checked
           exact ⟨update.after_refines good refined, update.after_bounded bounded⟩
+        · contradiction
+    | arrayAssign update =>
+        simp only [Statement.check] at checked
+        split at checked
+        · cases checked; exact ⟨refined, bounded⟩
         · contradiction
     | reject =>
         simp only [Statement.check, Option.some.injEq] at checked
@@ -266,6 +282,11 @@ mutual
             rw [← same, readonly] at changed
             contradiction
           simpa only [Integer.Assignment.after, Integer.put, distinct, ↓reduceIte] using incoming
+        · contradiction
+    | arrayAssign update =>
+        simp only [Statement.check] at checked
+        split at checked
+        · cases checked; exact incoming
         · contradiction
     | reject =>
         simp only [Statement.check, Option.some.injEq] at checked
