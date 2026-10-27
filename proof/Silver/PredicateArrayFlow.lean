@@ -27,6 +27,15 @@ theorem ranges_scalar (arrays : ArrayBindings.Metadata) (scalars : Integer.Range
     {index : Nat} (low : index ≤ ArrayBindings.scalarLimit) : ranges arrays scalars index = scalars index :=
   ArrayBindings.ranges_scalar arrays [] false scalars low
 
+theorem ranges_bounded (arrays : ArrayBindings.Metadata) {scalars : Integer.Ranges}
+    (bounded : scalars.Bounded) : (ranges arrays scalars).Bounded := by
+  intro cell bounds found
+  change (if ArrayBindings.covers arrays cell then some Integer.Interval.full else scalars cell) = some bounds at found
+  split at found
+  · cases found
+    exact Integer.Interval.full_bounded
+  · exact bounded cell bounds found
+
 theorem ranges_put (arrays : ArrayBindings.Metadata) (scalars : Integer.Ranges)
     {index : Nat} (low : index ≤ ArrayBindings.scalarLimit) (bounds : Option Integer.Interval) :
     ranges arrays (Integer.put scalars index bounds) = Integer.put (ranges arrays scalars) index bounds :=

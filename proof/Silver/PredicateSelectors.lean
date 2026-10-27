@@ -91,8 +91,8 @@ mutual
   termination_by sizeOf items
 end
 
-theorem decoded_body {form events items scalars constants checks program}
-    (decoded : decodePrefix form events items scalars constants checks = some program) :
+theorem decoded_body {form events items scalars constants checks arrays program}
+    (decoded : decodePrefix form events items scalars constants checks arrays = some program) :
     program.statements = lowerStatements items ∧ program.hasArguments = form.hasArguments := by
   unfold decodePrefix at decoded
   split at decoded <;> cases decoded

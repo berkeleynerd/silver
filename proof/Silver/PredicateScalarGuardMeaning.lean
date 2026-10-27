@@ -205,8 +205,9 @@ theorem sourceSyntax_bareTarget {text : Source} {context : ParseContext} {facts 
       rw [arrays] at parsed
       exact arraysSyntax_bareTarget size (by simpa only [arrays, ScalarExpression.sourceSyntaxAt] using parsed)
 
-theorem inferred_staticness {names : ScalarExpression.Environment} {arrays : ArrayBindings.Metadata} {expression : Integer.Expr}
-    {bounds : Integer.Interval} (found : expression.infer (ArrayBindings.ranges arrays [] false (ScalarExpression.ranges names)) = some bounds) :
+theorem inferred_staticness {names : ScalarExpression.Environment} {arrays : ArrayBindings.Metadata}
+    {initials : ArrayBindings.Initials} {elaborating : Bool} {expression : Integer.Expr}
+    {bounds : Integer.Interval} (found : expression.infer (ArrayBindings.ranges arrays initials elaborating (ScalarExpression.ranges names)) = some bounds) :
     ScalarExpression.isStatic names expression = expression.isStatic (ScalarMetadata.staticness names) := by
   induction expression generalizing bounds with
   | literal _ | snapshot _ | indexed _ _ => rfl
@@ -218,7 +219,7 @@ theorem inferred_staticness {names : ScalarExpression.Environment} {arrays : Arr
         · exact positive
         · have zero : index = 0 := by omega
           subst index
-          rw [ArrayBindings.ranges_scalar arrays [] false _ (by decide)] at present
+          rw [ArrayBindings.ranges_scalar arrays initials elaborating _ (by decide)] at present
           simp [ScalarExpression.ranges] at present
       by_cases bounded : index ≤ names.length
       · simp [ScalarExpression.isStatic, Integer.Expr.isStatic, ScalarMetadata.staticness, positive, bounded]

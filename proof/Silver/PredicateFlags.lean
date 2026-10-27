@@ -93,6 +93,15 @@ theorem basic_flags {text context scan item result} (parsed : BasicAt text conte
         rw [← resultEq]
         simp only [bodyToken_flags, Flag.source]
         cases flag <;> simp [Flag.observe]
+  | arrayAssignment kind indexed expression =>
+      simp only [basicRaw, kind, arrayAssignmentBody] at raw resultEq
+      split at raw
+      · exact False.elim (raw rfl)
+      · rename_i good
+        rw [ite_eq_right good] at resultEq
+        rw [← resultEq]
+        simp only [bodyToken_flags, Flag.source]
+        cases flag <;> simp [Flag.observe]
   | assignment kind target expression =>
       simp only [basicRaw, kind] at raw resultEq
       split at raw
