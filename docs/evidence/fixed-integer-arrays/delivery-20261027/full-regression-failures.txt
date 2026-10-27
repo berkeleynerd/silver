@@ -1,0 +1,150 @@
+======================================================================
+ERROR: test_native_dynamic_signs_and_minimum_integer (test_integer_division.IntegerDivisionTests.test_native_dynamic_signs_and_minimum_integer)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/canto/src/github.com/berkeleynerd/silver/tmp/fixed-arrays-regression/tests/test_integer_division.py", line 164, in test_native_dynamic_signs_and_minimum_integer
+    executable, report = self.compile(program(declarations, body), 'static')
+                         ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/canto/src/github.com/berkeleynerd/silver/tmp/fixed-arrays-regression/tests/test_shared_bindings.py", line 51, in compile
+    result = invoke('compile', self.source)
+  File "/home/canto/src/github.com/berkeleynerd/silver/tmp/fixed-arrays-regression/tests/test_silver.py", line 25, in invoke
+    return subprocess.run([str(SILVER), *(str(arg) for arg in args)], cwd=cwd,
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                          text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                          timeout=120)
+                          ^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 2154, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 1268, in _check_timeout
+    raise TimeoutExpired(
+    ...<2 lines>...
+            stderr=b''.join(stderr_seq) if stderr_seq else None)
+subprocess.TimeoutExpired: Command '['/home/canto/src/github.com/berkeleynerd/silver/tmp/fixed-arrays-regression/.silver/linux-x86_64/compiler/bin/silver', 'compile', '/tmp/silver integer division-b1iugrck/division.adb']' timed out after 120 seconds
+
+======================================================================
+ERROR: test_maximum_dynamic_expression (test_samples.SupportedSampleTests.test_maximum_dynamic_expression)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/canto/src/github.com/berkeleynerd/silver/tmp/fixed-arrays-regression/tests/test_samples.py", line 147, in test_maximum_dynamic_expression
+    compilation = subprocess.run([str(SILVER), "compile", str(source)], cwd=ROOT,
+                                 text=True, stdout=subprocess.PIPE,
+                                 stderr=subprocess.STDOUT, timeout=300)
+  File "/usr/lib/python3.14/subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 2154, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 1268, in _check_timeout
+    raise TimeoutExpired(
+    ...<2 lines>...
+            stderr=b''.join(stderr_seq) if stderr_seq else None)
+subprocess.TimeoutExpired: Command '['/home/canto/src/github.com/berkeleynerd/silver/tmp/fixed-arrays-regression/.silver/linux-x86_64/compiler/bin/silver', 'compile', '/tmp/silver-proof-policy-7cf20m37/main.adb']' timed out after 300 seconds
+
+======================================================================
+FAIL: test_lake_tracks_embedded_ada_bytes_and_preserves_unchanged_objects (test_lean_evidence.LeanNativeDependencyTests.test_lake_tracks_embedded_ada_bytes_and_preserves_unchanged_objects)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/canto/src/github.com/berkeleynerd/silver/tmp/fixed-arrays-regression/tests/test_lean_evidence.py", line 1024, in test_lake_tracks_embedded_ada_bytes_and_preserves_unchanged_objects
+    self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : ✖ [1/19] Running arrayBindingsSpecSource
+error: no such file or directory (error code: 2)
+  file: /tmp/silver lean dependencies-dtlpwcn4/.silver/linux-x86_64/proof/../src/silver_array_bindings.ads
+✖ [4/19] Running arrayBindingsBodySource
+error: no such file or directory (error code: 2)
+  file: /tmp/silver lean dependencies-dtlpwcn4/.silver/linux-x86_64/proof/../src/silver_array_bindings.adb
+✔ [19/45] Built Silver.ImageModelBodySource (3.9s)
+✔ [20/48] Built Silver.ImageModelSpecSource (4.0s)
+✔ [21/48] Built Silver.ImageModelTemplatesBodySource (3.0s)
+✔ [23/48] Built Silver.ScalarExpressionSpecSource (4.1s)
+✔ [24/48] Built Silver.ScalarExpressionBodySource (4.0s)
+✔ [25/48] Built Silver.ScalarsSpecSource (3.0s)
+✔ [27/51] Built Silver.Independent (4.4s)
+✔ [28/51] Built Silver.ScalarLiteralBodySource (5.0s)
+✔ [30/51] Built Silver.ImageModelTemplatesSpecSource (5.6s)
+✔ [31/54] Built Silver.ScalarLiteralSpecSource (5.9s)
+✔ [32/54] Built Silver.NamesSpecSource (5.8s)
+✔ [33/54] Built Silver.NamesBodySource (5.8s)
+✔ [35/54] Built Silver.ImageModelBodySourceWitness (4.2s)
+✔ [36/54] Built Silver.PathFactsSpecSource (4.2s)
+✔ [37/57] Built Silver.ImageModelSpecSourceWitness (4.4s)
+✔ [38/57] Built Silver.ImageModelTemplatesBodySourceWitness (4.6s)
+✔ [40/57] Built Silver.IntegerLiteralSpecSource (4.7s)
+✔ [41/57] Built Silver.ScalarExpressionBodySourceWitness (4.8s)
+✔ [42/63] Built Silver.ScalarExpressionSpecSourceWitness (4.6s)
+✔ [43/63] Built Silver.ScalarsSpecSourceWitness (5.5s)
+✔ [46/66] Built Silver.IntegerLiteralBodySource (4.6s)
+✔ [48/66] Built Silver.ScalarLiteralSpecSourceWitness (4.4s)
+✔ [49/69] Built Silver.ImageModelTemplatesSpecSourceWitness (4.5s)
+✔ [51/72] Built Silver.ScalarLiteralBodySourceWitness (5.0s)
+✔ [53/72] Built Silver.ArgumentsBodySource (4.6s)
+✔ [54/75] Built Silver.NamesSpecSourceWitness (5.2s)
+✔ [56/78] Built Silver.IntegerLiteralBodySourceWitness (3.8s)
+✔ [58/81] Built Silver.ProfileSpecSource (4.1s)
+✔ [59/81] Built Silver.NamesBodySourceWitness (6.3s)
+✔ [61/84] Built Silver.ArgumentsSpecSource (6.6s)
+✔ [62/84] Built Silver.IntegerLiteralSpecSourceWitness (6.1s)
+✔ [65/88] Built Silver.PathFactsSpecSourceWitness (6.5s)
+✔ [66/88] Built Silver.ProfileBodySource (4.9s)
+✔ [67/88] Built Silver.OutputProfileBodySource (4.5s)
+✔ [68/88] Built Silver.RuntimeSpecSource (5.9s)
+✔ [69/88] Built Silver.OutputProfileSpecSource (5.6s)
+✔ [70/88] Built Silver.ProfileSpecSourceWitness (4.1s)
+✔ [71/88] Built Silver.OutputLexicalBodySource (4.1s)
+✔ [72/88] Built Silver.OutputLibcSpecSource (3.5s)
+✔ [73/88] Built Silver.IoSpecSource (5.3s)
+✔ [74/88] Built Silver.RuntimeSpecSourceWitness (4.2s)
+✔ [75/88] Built Silver.ArgumentsSpecSourceWitness (5.4s)
+✔ [76/88] Built Silver.OutputProfileSpecSourceWitness (3.9s)
+✔ [77/88] Built Silver.ArgumentsBodySourceWitness (6.8s)
+✔ [78/88] Built Silver.OutputLexicalSpecSource (6.6s)
+✔ [79/88] Built Silver.OutputLexicalBodySourceWitness (2.3s)
+✔ [80/88] Built Silver.IoBodySource (5.6s)
+✔ [81/88] Built Silver.ProfileBodySourceWitness (5.4s)
+✔ [82/88] Built Silver.OutputProfileBodySourceWitness (5.2s)
+✔ [83/88] Built Silver.OutputLibcSpecSourceWitness (2.2s)
+✔ [84/88] Built Silver.IoSpecSourceWitness (1.0s)
+✔ [85/88] Built Silver.IoBodySourceWitness (1.2s)
+✔ [86/88] Built Silver.OutputLexicalSpecSourceWitness (1.8s)
+Some required targets logged failures:
+- arrayBindingsSpecSource
+- arrayBindingsBodySource
+info: silverProof: no previous manifest, creating one from scratch
+info: toolchain not updated; already up-to-date
+error: build failed
+
+
+======================================================================
+FAIL: test_embedded_source_lists_and_lake_dependencies_agree (test_lean_source.CompilerSourcePolicyTests.test_embedded_source_lists_and_lake_dependencies_agree)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/canto/src/github.com/berkeleynerd/silver/tmp/fixed-arrays-regression/tests/test_lean_source.py", line 61, in test_embedded_source_lists_and_lake_dependencies_agree
+    self.assertEqual(len(modules), len(all_files))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 34 != 32
+
+======================================================================
+FAIL: test_include_str_is_confined_to_the_source_bindings (test_lean_source.CompilerSourcePolicyTests.test_include_str_is_confined_to_the_source_bindings)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/canto/src/github.com/berkeleynerd/silver/tmp/fixed-arrays-regression/tests/test_lean_source.py", line 120, in test_include_str_is_confined_to_the_source_bindings
+    self.assertEqual(len(expected), len(EMBEDDED) + len(EXTRA_SOURCE_BINDINGS))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 34 != 32
+
+----------------------------------------------------------------------
+Ran 530 tests in 6818.245s
+
+FAILED (failures=3, errors=2)

@@ -179,3 +179,27 @@ including the 642 s scalar/array source candidate. The recurring legality-proof
 timeout came from lazy equation-lemma generation for the large expression
 evaluator; direct `dsimp` unfolding resolved it without changing statements or
 increasing limits. This focused result does not replace the complete checkpoint.
+
+## Regression checkpoint
+
+The [independent closing review](reviews/review-fixed-arrays-closing-899a15a5a0.md)
+accounts for every one of the 530 tests at `899a15a5a0`: 73 successful focused
+results and 457 retained successful results. The
+[retained evidence](evidence/fixed-integer-arrays/delivery-20261027/README.md)
+keeps the original full run `20261027T113223-c732210ca335` labelled failed
+(three failures and two errors; 6,818.245 s test time).
+
+The three failures came from omitted array bindings in the test fixture lists;
+the corrected source/evidence modules passed all 12 and 49 tests. The division
+and maximum-expression errors were compilation deadlines in the test harness,
+not failed proof obligations. Their unchanged tests passed in runs
+`20261027T132720-978e7f5308f1` (11 tests, 82.317 s) and
+`20261027T132919-e15867ceed8c` (one test, 138.741 s), with more CPU availability
+and existing warm caches. Deadlines and production prover settings were
+unchanged. The full run also passed all 49 manifest samples, including the
+rotation, and all 12 array regressions.
+
+This closes regression coverage for the reviewed implementation. Final Rosetta
+metadata needs its applicable renderer tests. Complete native and Lean/source
+assurance and their closing evidence review remain pending; arrays are not yet
+supported.
