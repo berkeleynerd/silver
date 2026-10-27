@@ -159,6 +159,23 @@ theorem stringDeclaration_ready (text : Source) (state : ParserState) (arguments
   · exact ScalarMetadata.headerReady_empty
   · exact ready
 
+theorem arrayDeclaration_ready (text : Source) (state : ParserState) (arguments : Bool)
+    (ready : ScalarMetadata.HeaderReady state.scalarNames) :
+    ScalarMetadata.HeaderReady (arrayDeclarationAt text state arguments).scalarNames := by
+  unfold arrayDeclarationAt
+  dsimp only
+  split
+  · exact ScalarMetadata.headerReady_empty
+  · split
+    · exact ScalarMetadata.headerReady_empty
+    · split
+      · exact ScalarMetadata.headerReady_empty
+      · rename_i accepted
+        split
+        · exact ScalarMetadata.headerReady_empty
+        · rw [(arrayValuesModel_preserves text state state _ _ 0 accepted).2.1]
+          exact ready
+
 theorem declaration_ready (text : Source) (state : ParserState) (arguments : Bool)
     (ready : ScalarMetadata.HeaderReady state.scalarNames) :
     ScalarMetadata.HeaderReady (declarationAt text state arguments).scalarNames := by
