@@ -163,8 +163,12 @@ mutual
         simp only [Statement.check] at checked
         split at checked
         · rename_i good
+          have both : update.check before.scalars analysis.mutable = true ∧
+              update.array.fullRanges analysis.declared = true := by
+            simpa only [checkArrayAssignment, Bool.and_eq_true] using good
+          have accepted := both.1
           simpa only [Statement.execute] using
-            update.unchanged (values := integers) (Bool.and_eq_true.mp good).1 readonly
+            update.unchanged (values := integers) accepted readonly
         · contradiction
     | reject => simp only [Statement.execute]
     | choice condition yes no =>
@@ -354,8 +358,11 @@ mutual
         split at checked
         · rename_i good
           cases checked
-          have accepted := (Bool.and_eq_true.mp good).1
-          have full := (Integer.ArrayDescriptor.fullRanges_iff _ _).mp (Bool.and_eq_true.mp good).2
+          have both : update.check before.scalars analysis.mutable = true ∧
+              update.array.fullRanges analysis.declared = true := by
+            simpa only [checkArrayAssignment, Bool.and_eq_true] using good
+          have accepted := both.1
+          have full := (Integer.ArrayDescriptor.fullRanges_iff _ _).mp both.2
           have sound := update.check_sound accepted allowed.2
           have declared : Integer.Fits analysis.declared (update.execute integers) := by
             simpa only [Integer.ArrayAssignment.execute, sound.2.2.1, ↓reduceIte] using

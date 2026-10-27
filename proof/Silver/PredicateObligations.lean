@@ -229,7 +229,10 @@ mutual
         simp only [Statement.check] at checked
         split at checked
         · rename_i good
-          have accepted := (Bool.and_eq_true.mp good).1
+          have both : update.check before.scalars analysis.mutable = true ∧
+              update.array.fullRanges analysis.declared = true := by
+            simpa only [checkArrayAssignment, Bool.and_eq_true] using good
+          have accepted := both.1
           simpa only [Statement.obligations, scalar_discharged] using update.obligations_discharge accepted
         · contradiction
     | reject => simp [Statement.obligations, discharged]
