@@ -4,6 +4,7 @@ public import Silver.ComposeGrammar
 public import Silver.PredicateChecking
 public import Silver.IntegerLiteral
 public import Silver.PredicateFlowOverlay
+public import Silver.PredicateArrayFlow
 
 @[expose] public section
 
@@ -19,20 +20,24 @@ structure ParseContext where
   hasArguments : Bool
   scalarNames : ScalarExpression.Environment := []
   declarationCount : Nat := 0
+  arrayNames : ArrayBindings.Metadata := []
   deriving Repr
 
 def ParseContext.analysis (context : ParseContext) : Integer.Analysis :=
-  ScalarMetadata.analysis context.scalarNames context.declarationCount
+  ArrayFlow.analysis context.arrayNames (ScalarMetadata.analysis context.scalarNames context.declarationCount)
+
+def ParseContext.flow (context : ParseContext) (facts : ActiveFlow) : Flow :=
+  ArrayFlow.flow context.arrayNames facts
 
 def ParseContext.readingNames (context : ParseContext) (facts : ActiveFlow) : ScalarExpression.Environment :=
   ScalarMetadata.readingNames context.scalarNames context.declarationCount facts
 
 def readScalarInFlow (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
     (maskFirst maskAfter : Nat := 0) : ScalarExpression.Result :=
-  ScalarExpression.read text position (context.readingNames facts) maskFirst maskAfter
+  ScalarExpression.read text position (context.readingNames facts) maskFirst maskAfter (arrays := context.arrayNames)
 
 def readStringInFlow (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow) :
-    ExpressionResult := expressionAt text position context.names (context.readingNames facts)
+    ExpressionResult := expressionAt text position context.names (context.readingNames facts) (arrays := context.arrayNames)
 
 def Comparison.toInteger : Comparison → Integer.Comparison
   | .eq => .eq | .ne => .ne | .lt => .lt | .le => .le | .gt => .gt | .ge => .ge
@@ -133,7 +138,7 @@ mutual
       else invalidCondition facts
     else if !context.hasArguments then invalidCondition facts
     else
-      let afterCall := callAfter text context.names position .validity context.scalarNames
+      let afterCall := callAfter text context.names position .validity context.scalarNames context.arrayNames
       if afterCall = 0 then invalidCondition facts else
         ⟨afterCall, {facts with path := facts.path.assumeValid}, {facts with path := facts.path.assumeInvalid}⟩
   termination_by remainingAt text position * 5 + 1
@@ -157,19 +162,19 @@ mutual
           refineFlowBounds facts operator.operator leftLength.value rightLength.value true,
           refineFlowBounds facts operator.operator leftLength.value rightLength.value false⟩
       else
-        let leftScalar := ScalarExpression.read text position (context.readingNames facts)
+        let leftScalar := ScalarExpression.read text position (context.readingNames facts) (arrays := context.arrayNames)
         if leftScalar.after ≠ 0 then
           let operator := comparisonAt text leftScalar.after
-          let rightScalar := ScalarExpression.read text operator.after (context.readingNames facts)
+          let rightScalar := ScalarExpression.read text operator.after (context.readingNames facts) (arrays := context.arrayNames)
           if rightScalar.after ≤ position then invalidCondition facts
           else scalarCondition text context position operator.after facts leftScalar rightScalar operator.operator
         else
-        let left := expressionAt text position context.names (context.readingNames facts)
+        let left := expressionAt text position context.names (context.readingNames facts) (arrays := context.arrayNames)
         if left.after ≠ 0 then
           let operator := comparisonAt text left.after
           if operator.after = 0 ∨ (operator.operator ≠ .eq ∧ operator.operator ≠ .ne) then invalidCondition facts
           else
-            let right := expressionAt text operator.after context.names (context.readingNames facts)
+            let right := expressionAt text operator.after context.names (context.readingNames facts) (arrays := context.arrayNames)
             if right.after ≤ position ∨ !(left.namedSeen || right.namedSeen) ∨
                 !fitsLengthSummary facts.path (summaryOf left) ∨ !fitsLengthSummary facts.path (summaryOf right) then invalidCondition facts
             else
