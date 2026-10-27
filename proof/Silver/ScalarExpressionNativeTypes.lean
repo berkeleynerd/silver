@@ -38,13 +38,14 @@ theorem literal_read_type {text : Source} (valid : ValidText text) {position : N
   exact ⟨by have length := valid.2; omega, bounds.2⟩
 
 theorem read_type {text : Source} (valid : ValidText text) {position maskFirst maskAfter : Nat}
-    {names : Environment} {allowSign : Bool} (bound : position ≤ text.length + 1) :
-    ResultType (read text position names maskFirst maskAfter allowSign) := by
-  by_cases zero : (read text position names maskFirst maskAfter allowSign).after = 0
-  · rw [show read text position names maskFirst maskAfter allowSign = invalid from summarize_zero zero]
+    {names : Environment} {allowSign : Bool} {arrays : ArrayBindings.Metadata}
+    {initials : ArrayBindings.Initials} {elaborating : Bool} (bound : position ≤ text.length + 1) :
+    ResultType (read text position names maskFirst maskAfter allowSign arrays initials elaborating) := by
+  by_cases zero : (read text position names maskFirst maskAfter allowSign arrays initials elaborating).after = 0
+  · rw [read_arrays_zero zero]
     exact invalid_type
-  · have limits := read_bounds bound zero
-    obtain ⟨expression, inferred, operands, _⟩ := read_has_expression zero
+  · have limits := read_arrays_bounds bound zero
+    obtain ⟨expression, inferred, operands, _⟩ := read_arrays_has_expression bound zero
     exact ⟨by have length := valid.2; omega, Integer.Expr.infer_bounded inferred, limits.2.2.2⟩
 
 theorem literal_result_type {number : ScalarLiteral.Result} (typed : LiteralType number) (negative : Bool) :

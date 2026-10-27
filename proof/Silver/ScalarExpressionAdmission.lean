@@ -134,4 +134,45 @@ theorem At.noArray_evaluate_overlay {text : Source} {names : Environment} {posit
   intro index inside
   exact ArrayBindings.store_scalar arrays initials scalars (by omega)
 
+theorem read_arrays_zero {text : Source} {names : Environment} {position maskFirst maskAfter : Nat}
+    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating allowSign : Bool}
+    (zero : (read text position names maskFirst maskAfter allowSign arrays initials elaborating).after = 0) :
+    read text position names maskFirst maskAfter allowSign arrays initials elaborating = invalid := by
+  rw [read_eq_summarizeArrays] at zero ⊢
+  generalize parsed : parseWithArrays (text.length + 1) text position names arrays maskFirst maskAfter allowSign = value at zero ⊢
+  cases value with
+  | none => rfl
+  | some value =>
+      simp only [summarizeArrays] at zero ⊢
+      split
+      · rfl
+      · rename_i good
+        cases found : value.expression.infer (ArrayBindings.ranges arrays initials elaborating (ranges names)) with
+        | none => rfl
+        | some bounds => simp only [ite_eq_right good, found] at zero; omega
+
+theorem read_arrays_bounds {text : Source} {names : Environment} {position maskFirst maskAfter : Nat}
+    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating allowSign : Bool}
+    (bound : position ≤ text.length + 1)
+    (success : (read text position names maskFirst maskAfter allowSign arrays initials elaborating).after ≠ 0) :
+    position < (read text position names maskFirst maskAfter allowSign arrays initials elaborating).after ∧
+      (read text position names maskFirst maskAfter allowSign arrays initials elaborating).after ≤ text.length + 1 ∧
+      0 < (read text position names maskFirst maskAfter allowSign arrays initials elaborating).operands ∧
+      (read text position names maskFirst maskAfter allowSign arrays initials elaborating).operands ≤ maxOperands := by
+  obtain ⟨expression, parsed⟩ := read_sound bound success
+  have cursor := parsed.cursorBounds
+  exact ⟨cursor.2.1, cursor.2.2, by rw [parsed.operands]; exact leaves_positive expression,
+    by rw [parsed.operands]; exact parsed.operandBound⟩
+
+theorem read_arrays_has_expression {text : Source} {names : Environment} {position maskFirst maskAfter : Nat}
+    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating allowSign : Bool}
+    (bound : position ≤ text.length + 1)
+    (success : (read text position names maskFirst maskAfter allowSign arrays initials elaborating).after ≠ 0) :
+    ∃ expression, expression.infer (ArrayBindings.ranges arrays initials elaborating (ranges names)) =
+        some (read text position names maskFirst maskAfter allowSign arrays initials elaborating).bounds ∧
+      leaves expression = (read text position names maskFirst maskAfter allowSign arrays initials elaborating).operands ∧
+      isStatic names expression = (read text position names maskFirst maskAfter allowSign arrays initials elaborating).isStatic := by
+  obtain ⟨expression, parsed⟩ := read_sound bound success
+  exact ⟨expression, parsed.inferred, parsed.operands.symm, parsed.staticValue.symm⟩
+
 end Silver.ScalarExpression
