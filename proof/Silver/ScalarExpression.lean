@@ -2,6 +2,7 @@ module
 
 public import Silver.ScalarLiteral
 public import Silver.IntegerExpressions
+public import Silver.ArrayBindings
 public import Silver.NamedIdentifier
 
 @[expose] public section
@@ -197,9 +198,73 @@ def parseFuel : Nat → Source → Nat → Environment → Nat → Nat → Bool 
             let right ← parseFuel fuel text (binaryAfter text next) names maskFirst maskAfter false
             close text (binary left right (lowercase (Cursor.byteAt text next)))
 
+/-- Array subscripts use the scalar-only grammar above. Ordinary scalar
+bindings take precedence, including a scoped index hiding an outer array. -/
+def arrayAtom (fuel : Nat) (text : Source) (position : Nat) (names : Environment)
+    (arrays : ArrayBindings.Metadata) (maskFirst maskAfter : Nat) (allowSign : Bool) : Option Parsed :=
+  let ordinary := atom text position names maskFirst maskAfter allowSign
+  if ordinary.isSome then ordinary else
+    let first := skip text position
+    let after := nameAfter text first
+    let target := ArrayBindings.lookup text arrays first after
+    if first = 0 ∨ first > text.length ∨ after = 0 ∨ target = 0 ∨
+        lookup text names first after ≠ 0 ∨
+        Cursor.byteAt text first = 43 ∨ Cursor.byteAt text first = 45 ∨
+        (ScalarLiteral.read text first).after ≠ 0 ∨
+        (maskFirst ≠ 0 ∧ Named.equalName text maskFirst maskAfter first after = true) then none
+    else
+      let opened := symbol text after 40
+      if opened = 0 then none else do
+        let index ← parseFuel fuel text opened names maskFirst maskAfter true
+        let closed := symbol text index.after 41
+        if closed ≤ position then none
+        else some ⟨closed, .indexed (ArrayBindings.binding arrays target).descriptor index.expression⟩
+
+def parseArraysFuel : Nat → Source → Nat → Environment → ArrayBindings.Metadata → Nat → Nat → Bool → Option Parsed
+  | 0, _, _, _, _, _, _, _ => none
+  | fuel + 1, text, position, names, arrays, maskFirst, maskAfter, allowSign =>
+      let first := skip text position
+      if first = 0 ∨ first > text.length then none
+      else if Cursor.byteAt text first ≠ 40 then
+        arrayAtom fuel text first names arrays maskFirst maskAfter allowSign
+      else
+        let inner := skip text (first + 1)
+        if inner > text.length then none
+        else if Cursor.byteAt text inner = 43 ∨ Cursor.byteAt text inner = 45 then
+          let next := skip text (inner + 1)
+          let number := ScalarLiteral.read text next
+          close text (if number.after ≠ 0 then literal number (Cursor.byteAt text inner == 45)
+            else (parseArraysFuel fuel text next names arrays maskFirst maskAfter false).map
+              fun value => unary value (Cursor.byteAt text inner == 45))
+        else do
+          let left ← parseArraysFuel fuel text inner names arrays maskFirst maskAfter true
+          let next := skip text left.after
+          if next = 0 ∨ next > text.length then none
+          else if Cursor.byteAt text next = 41 then
+            some ⟨next + 1, .parenthesized left.expression⟩
+          else if binaryAfter text next = 0 then none
+          else
+            let right ← parseArraysFuel fuel text (binaryAfter text next) names arrays maskFirst maskAfter false
+            close text (binary left right (lowercase (Cursor.byteAt text next)))
+
+def summarizeArrays (names : Environment) (arrays : ArrayBindings.Metadata)
+    (initials : ArrayBindings.Initials) (elaborating : Bool) (parsed : Option Parsed) : Result :=
+  match parsed with
+  | none => invalid
+  | some value =>
+      if value.after = 0 ∨ maxOperands < leaves value.expression then invalid
+      else match value.expression.infer (ArrayBindings.ranges arrays initials elaborating (ranges names)) with
+      | none => invalid
+      | some bounds => ⟨value.after, bounds, leaves value.expression, isStatic names value.expression⟩
+
 def read (text : Source) (position : Nat) (names : Environment)
-    (maskFirst maskAfter : Nat := 0) (allowSign : Bool := true) : Result :=
-  summarize names (parseFuel (text.length + 1) text position names maskFirst maskAfter allowSign)
+    (maskFirst maskAfter : Nat := 0) (allowSign : Bool := true)
+    (arrays : ArrayBindings.Metadata := []) (initials : ArrayBindings.Initials := [])
+    (elaborating : Bool := false) : Result :=
+  match arrays with
+  | [] => summarize names (parseFuel (text.length + 1) text position names maskFirst maskAfter allowSign)
+  | _ :: _ => summarizeArrays names arrays initials elaborating
+      (parseArraysFuel (text.length + 1) text position names arrays maskFirst maskAfter allowSign)
 
 theorem summarize_success {names : Environment} {parsed : Option Parsed}
     (success : (summarize names parsed).after ≠ 0) :
