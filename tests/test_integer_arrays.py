@@ -214,8 +214,11 @@ class IntegerArrayTests(unittest.TestCase):
                   b'for I in 7..9 loop Result(I):=Source((I - 6));end loop;'
                   b'for I in 1..9 loop Silver_IO.Put(Integer\'Image(Result(I)));end loop;'
                   b'Silver_IO.Put_Line(\"\");')
-        executable, report = self.compile(program(declarations, body), 'assigned')
-        self.run_program(executable, b' 7/ 9\n 1 2 3 4 5 6 7 8 9\n 4 5 6 7 8 9 1 2 3\n')
+        executable, report = self.compile(
+            program(declarations, body, arguments=True, capacity=10), 'selected')
+        expected = b' 7/ 9\n 1 2 3 4 5 6 7 8 9\n 4 5 6 7 8 9 1 2 3\n'
+        self.run_program(executable, expected)
+        self.run_program(executable, expected, (b'array',))
         self.assertTrue(any(item['rule'] == 'VC_INDEX_CHECK' for item in report['proof']))
 
     def test_admission_dense_explicit_initializers_fit_the_source_derived_table(self) -> None:
