@@ -34,6 +34,10 @@ structure Links (primitive : Primitives) (inherited : Expressions.Calls) : Prop 
     ScalarBodyNative.DefinitionEquations (ScalarBodyNative.inheritedImports inherited scalar body) calls ∧
     primitive.target = calls.stringTarget ∧ primitive.scalarTarget = calls.target ∧
     primitive.scalarAssignment = calls.assignment ∧ primitive.invalid = body.invalid
+  arrayBodies : ∃ scalar calls,
+    FlowReaders.Links inherited scalar primitive.expression ∧
+    ArrayBodyNative.Links inherited scalar calls ∧
+    primitive.arrayTarget = calls.target ∧ primitive.arrayAssignment = calls.assignment
   bodyToken : ∃ models wrappers body,
     Adapter.Wrappers.ModelEquations models body (takeTokenCall := inherited.function .takeToken) ∧
     Adapter.Wrappers.Refinement models wrappers ∧
@@ -51,9 +55,10 @@ structure Links (primitive : Primitives) (inherited : Expressions.Calls) : Prop 
 theorem HelperMeaning.of_inherited {primitive : Primitives} {inherited : Expressions.Calls}
     (source : Expressions.HelperEquations inherited (domain := domain)) (links : Links primitive inherited) :
     HelperMeaning primitive where
-  callAfter text names position operation scalarNames valid := by
+  callAfter text names position operation scalarNames arrays valid := by
     rw [links.callAfter]
-    exact Expressions.interpreted_callAfter inherited source text valid.1 names position operation valid.2.2.1 valid.2.1 valid.2.2.2
+    exact Expressions.interpreted_callAfter inherited source text valid.1 names position operation
+      valid.2.2.1 valid.2.1 valid.2.2.2.1 valid.2.2.2.2
   associationAfter text position formal valid bounded := by
     rw [links.associationAfter]
     exact Names.interpreted_association inherited.names source.names text valid position formal bounded
@@ -90,6 +95,14 @@ theorem HelperMeaning.of_inherited {primitive : Primitives} {inherited : Express
     rw [observed]
     exact ScalarBodyNative.assignment_meaning (ScalarBodyNative.inherited_meaning source flow invalid)
       definitions text context scan valid
+  arrayTarget text context position valid := by
+    obtain ⟨scalar, calls, flow, arrays, observed, _⟩ := links.arrayBodies
+    rw [observed]
+    exact ArrayBodyNative.linked_target source flow arrays text context position valid
+  arrayAssignment text context scan valid := by
+    obtain ⟨scalar, calls, flow, arrays, _, observed⟩ := links.arrayBodies
+    rw [observed]
+    exact ArrayBodyNative.linked_assignment source flow arrays text context scan valid
   fits facts summary := by
     have equation := links.fits (Native.Libraries.reify facts) summary
     simpa only [LengthIntervals.Native.fitsBody_eval,
@@ -135,6 +148,11 @@ theorem model_links (source : Expressions.HelperEquations Expressions.modelCalls
         rw [normalized]
         exact (ScalarBodyNative.assignmentEval_model ..).symm
       assignment := fun _ _ _ _ => rfl }
+  arrayBodies := by
+    have flow : FlowReaders.Links Expressions.modelCalls Native.modelCalls.scalarInFlow modelPrimitives.expression :=
+      Native.Libraries.model_links.readers
+    exact ⟨Native.modelCalls.scalarInFlow, ArrayBodyNative.modelCalls, flow,
+      ArrayBodyNative.model_links source flow, rfl, rfl⟩
   bodyToken := ⟨Adapter.Wrappers.modelCalls BodyNative.modelCalls,
     Adapter.Wrappers.modelCalls BodyNative.modelCalls, BodyNative.modelCalls,
     Adapter.Wrappers.model_raw_equations source BodyNative.modelCalls,
