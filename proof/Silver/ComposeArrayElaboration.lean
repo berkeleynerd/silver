@@ -48,7 +48,7 @@ theorem arrayValues_canonical {text source result position length parsed express
         rw [table, append, List.append_assoc]
         rfl
 
-private theorem putInitial_valid {values : ArrayBindings.Initials} {slot : Nat} {value : Int}
+theorem putInitial_valid {values : ArrayBindings.Initials} {slot : Nat} {value : Int}
     (valid : ArrayBindings.ValidInitials values) (bound : slot ≤ ArrayBindings.maxElements)
     (safe : Integer.InRange value) : ArrayBindings.ValidInitials (ArrayBindings.putInitial values slot value) := by
   refine ⟨by rw [ArrayBindings.putInitial_length]; exact Nat.max_le.mpr ⟨valid.1, bound⟩, ?_⟩
