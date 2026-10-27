@@ -100,6 +100,8 @@ The shared platform reader supports that storage; runtime/null policies retain
 `20261027T080751-d735c37e325e` (retained-record/envelope guard) passed.
 The [independent classifier review](reviews/review-fixed-arrays-main-advisory-4d4919efa2.md)
 found no blocking issue. Complete native proof and source assurance remain pending.
+The [capacity integration review](reviews/review-fixed-arrays-capacity-8c95af6742.md)
+also confirmed the conservative envelope against the pinned producer routes.
 
 ## Delivery obligations
 
@@ -120,5 +122,4 @@ capability requires it.
 | --- | --- | --- | --- |
 | Initial design | GPT-6 Astra / Extra High for assurance; GPT-6.1 Sol / Extra High for driver/native design | Select a faithful driver and a compositional fragment | Rotation selected; explicit initialization, non-nested subscripts and uniform full-range body reads bound the fragment. Lead runtime setting and token/cost measurements are unavailable. |
 | Authorization review | GPT-6.1 Sol / High | Check the three planning files against the owner instruction and current sequence | No blocking finding; one wording clarification applied. Relative links and whitespace checked. Runtime settings and elapsed/token/cost measurements are unavailable. |
-
 | Core implementation | GPT-6.1 Sol / Extra High native; GPT-6 Astra / Extra High core and composition | Implement indexed storage and preserve existing compositions | Core array projection/expression/assignment/obligation modules passed focused Lean checks; native admission and exact initializer-hull probes passed. A real producer warning corrected the initial capacity conclusion; full integration remains pending. Elapsed/token/cost measurements unavailable. |

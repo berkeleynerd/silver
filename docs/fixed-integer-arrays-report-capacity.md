@@ -31,6 +31,8 @@ not installed-binary attestation. Producer files are retained beneath
 | `src/why/gnat2why-types.adb` | `3b4b21d00eb4d14a4f7966c097f215217ea54183be4048a5d9bbd98ccdb3663d` |
 | `src/spark/spark_util-types.adb` | `61c39d0e43f4b2d8f36a723d87b9061d2e14611296c2378473b509df42979cc9` |
 | `src/spark/spark_definition.adb` | `d8d9203d847f4673be7be8bef8f006d90e5d0da9365e30e2eed311540bda934e` |
+| `src/flow/flow-control_flow_graph.adb` | `d6d903a8f15e645e1de51c2b74c8b61288885b34c88e9b2ac1f5469a801684b7` |
+| `src/utils/errout_wrapper.adb` | `d117c09ba360c274d453dbfb90c6cc61b5ff6c008b75f97abddab15442579a20` |
 | frontend `sem_ch3.adb` | `198190171bcd99d293c3ec86a2ffe4ffb4a29276bfd205ebc4b9f0aea87d263f` |
 | frontend `exp_spark.adb` | `509e27a893828c31e7148f29470ab1fcbacd879242a1066dd22bdc3a6cf0fbfb` |
 | frontend `expander.adb` | `5cbfe2783201ea57d9d93290187daa0a24d71757b82b2a49c9280704b148b461` |
@@ -213,6 +215,8 @@ Existing managed native probes under
 
 These probes do not establish universal assurance. This review performed no
 new native/proof run. Selected reviewer: GPT-6 Astra / Extra High; runtime
-confirmation and elapsed/token/cost measurements were unavailable. Independent
-integration review, executable capacity guards and the capability's complete
-native/Lean/source checkpoint remain separate delivery obligations.
+confirmation and elapsed/token/cost measurements were unavailable. The
+[independent integration review](reviews/review-fixed-arrays-capacity-8c95af6742.md)
+confirmed the additional producer routes and conservative source charge.
+Executable capacity guards and the capability's complete native/Lean/source
+checkpoint remain separate delivery obligations.
