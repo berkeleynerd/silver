@@ -17,6 +17,7 @@ inductive ScalarDeclarationsAt (text : Source) (arguments : Bool) :
       {rest : List Integer.Declaration} :
       state.position ≠ 0 → fixedAfter text state.position "begin" true = 0 →
       (scalarDeclarationAt text state arguments).position = 0 →
+      (arrayDeclarationAt text state arguments).position = 0 →
       DeclarationAt text arguments state declaration middle →
       ScalarDeclarationsAt text arguments middle rest final →
       ScalarDeclarationsAt text arguments state rest final
@@ -26,18 +27,28 @@ inductive ScalarDeclarationsAt (text : Source) (arguments : Bool) :
       ScalarDeclarationAt text arguments state declaration middle →
       ScalarDeclarationsAt text arguments middle rest final →
       ScalarDeclarationsAt text arguments state (declaration :: rest) final
+  | array {state middle final : ParserState} {declaration : Integer.ArrayDeclaration}
+      {rest : List Integer.Declaration} :
+      state.position ≠ 0 → fixedAfter text state.position "begin" true = 0 →
+      (scalarDeclarationAt text state arguments).position = 0 →
+      ArrayDeclarationAt text arguments state declaration middle →
+      ScalarDeclarationsAt text arguments middle rest final →
+      ScalarDeclarationsAt text arguments state rest final
 
 theorem declarations_scalar_trace {text : Source} {arguments : Bool} {state final : ParserState}
     {declarations : List Bindings.Declaration} (parsed : DeclarationsAt text arguments state declarations final) :
     ∃ values, ScalarDeclarationsAt text arguments state values final := by
   induction parsed with
   | done positive stop => exact ⟨[], .done positive stop⟩
-  | next positive more noScalar first rest ih =>
+  | next positive more noScalar noArray first rest ih =>
       obtain ⟨values, reading⟩ := ih
-      exact ⟨values, .string positive more noScalar first reading⟩
+      exact ⟨values, .string positive more noScalar noArray first reading⟩
   | scalar positive more first rest ih =>
       obtain ⟨values, reading⟩ := ih
       exact ⟨_ :: values, .scalar positive more first reading⟩
+  | array positive more noScalar first rest ih =>
+      obtain ⟨values, reading⟩ := ih
+      exact ⟨values, .array positive more noScalar first reading⟩
 
 theorem scalar_declarations_static {text : Source} {arguments : Bool} {state final : ParserState}
     {values : List Integer.Declaration} (parsed : ScalarDeclarationsAt text arguments state values final)
@@ -45,10 +56,13 @@ theorem scalar_declarations_static {text : Source} {arguments : Bool} {state fin
     ScalarExpression.StaticEnvironment final.scalarNames := by
   induction parsed with
   | done => exact static
-  | string _ _ _ first _ ih =>
+  | string _ _ _ _ first _ ih =>
       cases first
       exact ih static
   | scalar _ _ first _ ih => exact ih (scalar_declaration_static static first)
+  | array _ _ _ first _ ih =>
+      rw [(array_declaration_preserves first).2] at ih
+      exact ih static
 
 theorem scalar_declarations_source_bounds {text : Source} {arguments : Bool} {state final : ParserState}
     {values : List Integer.Declaration} (parsed : ScalarDeclarationsAt text arguments state values final)
@@ -56,7 +70,7 @@ theorem scalar_declarations_source_bounds {text : Source} {arguments : Bool} {st
     ∀ declaration ∈ values, ScalarDeclarationSourceBounds text declaration := by
   induction parsed with
   | done => simp
-  | string _ _ _ first _ ih =>
+  | string _ _ _ _ first _ ih =>
       cases first
       exact ih elaborated
   | scalar _ _ first _ ih =>
@@ -64,6 +78,9 @@ theorem scalar_declarations_source_bounds {text : Source} {arguments : Bool} {st
       rcases List.mem_cons.mp member with rfl | member
       · exact scalar_declaration_source_bounds elaborated first
       · exact ih (scalar_declaration_static elaborated first) declaration member
+  | array _ _ _ first _ ih =>
+      rw [(array_declaration_preserves first).2] at ih
+      exact ih elaborated
 
 theorem scalar_declarations_count_bound {text : Source} {arguments : Bool} {state final : ParserState}
     {values : List Integer.Declaration} (parsed : ScalarDeclarationsAt text arguments state values final)
@@ -71,8 +88,11 @@ theorem scalar_declarations_count_bound {text : Source} {arguments : Bool} {stat
     final.scalarNames.length ≤ ArrayBindings.scalarLimit := by
   induction parsed with
   | done => exact bounded
-  | string _ _ _ first _ ih => cases first; exact ih bounded
+  | string _ _ _ _ first _ ih => cases first; exact ih bounded
   | scalar _ _ first _ ih => exact ih (scalar_declaration_count_bound bounded first)
+  | array _ _ _ first _ ih =>
+      rw [(array_declaration_preserves first).2] at ih
+      exact ih bounded
 
 theorem scalar_declarations_checked {text : Source} {arguments : Bool} {state final : ParserState}
     {values : List Integer.Declaration} (parsed : ScalarDeclarationsAt text arguments state values final)
@@ -82,12 +102,15 @@ theorem scalar_declarations_checked {text : Source} {arguments : Bool} {state fi
       some (ScalarExpression.constants final.scalarNames) := by
   induction parsed with
   | done => rfl
-  | string _ _ _ first _ ih =>
+  | string _ _ _ _ first _ ih =>
       cases first
       exact ih static bounded
   | scalar _ _ first _ ih =>
       simp only [Integer.checkDeclarations, scalar_declaration_checked static bounded first, Option.bind_some]
       exact ih (scalar_declaration_static static first) (scalar_declaration_count_bound bounded first)
+  | array _ _ _ first _ ih =>
+      rw [(array_declaration_preserves first).2] at ih
+      exact ih static bounded
 
 theorem scalar_declarations_objects {text : Source} {arguments : Bool} {state final : ParserState}
     {values : List Integer.Declaration} (parsed : ScalarDeclarationsAt text arguments state values final)
@@ -97,7 +120,7 @@ theorem scalar_declarations_objects {text : Source} {arguments : Bool} {state fi
       Integer.elaborate (ScalarExpression.constants state.scalarNames) values := by
   induction parsed with
   | done => simp [Integer.elaborate]
-  | string _ _ _ first _ ih =>
+  | string _ _ _ _ first _ ih =>
       cases first
       exact ih exact bounded
   | scalar _ _ first _ ih =>
@@ -105,6 +128,9 @@ theorem scalar_declarations_objects {text : Source} {arguments : Bool} {state fi
       have values := (Integer.Declaration.check_sound (scalar_declaration_checked exact bounded first)).1
       rw [ih (scalar_declaration_static exact first) (scalar_declaration_count_bound bounded first), objects, values]
       simp only [Integer.elaborate, List.append_assoc, List.singleton_append]
+  | array _ _ _ first _ ih =>
+      rw [(array_declaration_preserves first).2] at ih
+      exact ih exact bounded
 
 theorem scalar_declarations_declared_bounds {text : Source} {arguments : Bool} {state final : ParserState}
     {values : List Integer.Declaration} (parsed : ScalarDeclarationsAt text arguments state values final)
@@ -112,10 +138,13 @@ theorem scalar_declarations_declared_bounds {text : Source} {arguments : Bool} {
     ScalarExpression.DeclaredBoundsValid final.scalarNames := by
   induction parsed with
   | done => exact valid
-  | string _ _ _ first _ ih =>
+  | string _ _ _ _ first _ ih =>
       cases first
       exact ih valid
   | scalar _ _ first _ ih => exact ih (scalar_declaration_declared_bounds valid first)
+  | array _ _ _ first _ ih =>
+      rw [(array_declaration_preserves first).2] at ih
+      exact ih valid
 
 theorem scalar_declarations_unique {text : Source} {arguments : Bool} {state leftState rightState : ParserState}
     {left right : List Integer.Declaration} (first : ScalarDeclarationsAt text arguments state left leftState)
@@ -124,21 +153,25 @@ theorem scalar_declarations_unique {text : Source} {arguments : Bool} {state lef
   | done positive stop =>
       cases second with
       | done => exact ⟨rfl, rfl⟩
-      | string _ more _ _ _ | scalar _ more _ _ => exact False.elim (stop more)
-  | string positive more noScalar parsed rest ih =>
+      | string _ more _ _ _ _ | scalar _ more _ _ | array _ more _ _ _ => exact False.elim (stop more)
+  | string positive more noScalar noArray parsed rest ih =>
       cases second with
       | done _ stop => exact False.elim (stop more)
-      | string _ _ _ other remaining =>
+      | string _ _ _ _ other remaining =>
           obtain ⟨rfl, rfl⟩ := declaration_unique parsed other
           exact ih remaining
       | scalar _ _ other _ =>
           have accepted := scalar_declaration_positive other
           rw [← scalar_declaration_complete other, noScalar] at accepted
           contradiction
+      | array _ _ _ other _ =>
+          have accepted := array_declaration_positive other
+          rw [← array_declaration_complete other, noArray] at accepted
+          contradiction
   | scalar positive more parsed rest ih =>
       cases second with
       | done _ stop => exact False.elim (stop more)
-      | string _ _ noScalar _ _ =>
+      | string _ _ noScalar _ _ _ | array _ _ noScalar _ _ =>
           have accepted := scalar_declaration_positive parsed
           rw [← scalar_declaration_complete parsed, noScalar] at accepted
           contradiction
@@ -146,5 +179,20 @@ theorem scalar_declarations_unique {text : Source} {arguments : Bool} {state lef
           obtain ⟨rfl, rfl⟩ := scalar_declaration_unique parsed other
           obtain ⟨rfl, rfl⟩ := ih remaining
           exact ⟨rfl, rfl⟩
+  | array positive more noScalar parsed rest ih =>
+      cases second with
+      | done _ stop => exact False.elim (stop more)
+      | string _ _ _ noArray _ _ =>
+          have accepted := array_declaration_positive parsed
+          rw [← array_declaration_complete parsed, noArray] at accepted
+          contradiction
+      | scalar _ _ other _ =>
+          have accepted := scalar_declaration_positive other
+          rw [← scalar_declaration_complete other, noScalar] at accepted
+          contradiction
+      | array _ _ _ other remaining =>
+          have same := (array_declaration_complete parsed).symm.trans (array_declaration_complete other)
+          cases same
+          exact ih remaining
 
 end Silver.Compose
