@@ -68,7 +68,8 @@ inductive ArrayValuesAt (text : Source) (source : ParserState) :
         (arrays := source.arrayNames.names) (initials := source.arrayNames.values) (elaborating := true) →
       value.bounds.isEmpty = false → value.bounds.lower = value.bounds.upper →
       ArrayValuesAt text source
-        {result with arrayNames := {result.arrayNames with used := result.arrayNames.used + 1,
+        {result with arrayNames := {result.arrayNames with
+          used := result.arrayNames.used + 1
           values := ArrayBindings.putInitial result.arrayNames.values (result.arrayNames.used + 1) value.bounds.lower}}
         (if parsed + 1 < length then fixedAfter text value.after "," false else value.after)
         length (parsed + 1) rest final →
@@ -78,15 +79,16 @@ theorem arrayValues_complete {text source result position length parsed expressi
     (reading : ArrayValuesAt text source result position length parsed expressions final) :
     arrayValuesModel text source result position length parsed = final := by
   induction reading with
-  | done positive finished =>
+  | @done result position length parsed positive finished =>
       rw [arrayValuesModel]
-      simp only [positive, ↓reduceIte, show ¬ parsed < length by omega, ↓reduceDIte]
+      simp only [positive, ↓reduceIte, Nat.not_lt.mpr finished, ↓reduceDIte]
   | @next result final position length parsed expression value rest positive remaining reading nonempty singleton restRead ih =>
-      have progress := ScalarExpression.syntax_bounds reading.positionBound reading.grammar
+      have progress := reading.cursorBounds
       have present : value.after ≠ 0 := by omega
       rw [arrayValuesModel]
-      simp only [positive, ↓reduceIte, remaining, ↓reduceDIte, ScalarExpression.read_complete reading,
-        present, nonempty, singleton, not_true_eq_false, false_or]
+      have good : ¬(value.after = 0 ∨ value.bounds.isEmpty = true ∨ value.bounds.lower ≠ value.bounds.upper) := by
+        simp [present, nonempty, singleton]
+      simp only [positive, ↓reduceIte, remaining, ↓reduceDIte, ScalarExpression.read_complete reading, good]
       exact ih
 
 theorem arrayValues_sound (text : Source) (source result : ParserState)
@@ -95,40 +97,37 @@ theorem arrayValues_sound (text : Source) (source result : ParserState)
     ∃ expressions, ArrayValuesAt text source result position length parsed expressions
       (arrayValuesModel text source result position length parsed) := by
   rw [arrayValuesModel] at accepted ⊢
-  split at accepted
-  · simp only [invalidState] at accepted
-    contradiction
-  · rename_i positive
-    simp only [positive, ↓reduceIte]
-    split at accepted
-    · rename_i remaining
-      simp only [remaining, ↓reduceDIte]
-      split at accepted
-      · simp only [invalidState] at accepted
-        contradiction
-      · rename_i good
-        simp only [good, ↓reduceIte]
-        have checked := good
-        simp only [not_or, Bool.not_eq_true] at checked
-        obtain ⟨expression, value⟩ := ScalarExpression.read_sound bound checked.1
-        have ending := ScalarExpression.read_bounds bound checked.1
-        have nextBound :
-            (if parsed + 1 < length then fixedAfter text
-              (ScalarExpression.read text position source.scalarNames
-                (arrays := source.arrayNames.names) (initials := source.arrayNames.values)
-                (elaborating := true)).after "," false
-             else (ScalarExpression.read text position source.scalarNames
-                (arrays := source.arrayNames.names) (initials := source.arrayNames.values)
-                (elaborating := true)).after) ≤ text.length + 1 := by
+  by_cases zero : position = 0
+  · simp only [zero, ↓reduceIte, invalidState, ne_eq, not_true_eq_false] at accepted
+  · simp only [zero, ↓reduceIte] at accepted ⊢
+    by_cases remaining : parsed < length
+    · simp only [remaining, ↓reduceDIte] at accepted ⊢
+      generalize valueEq : ScalarExpression.read text position source.scalarNames
+        (arrays := source.arrayNames.names) (initials := source.arrayNames.values)
+        (elaborating := true) = value at accepted ⊢
+      by_cases bad : value.after = 0 ∨ value.bounds.isEmpty = true ∨ value.bounds.lower ≠ value.bounds.upper
+      · simp only [bad, ↓reduceIte, invalidState, ne_eq, not_true_eq_false] at accepted
+      · simp only [bad, ↓reduceIte] at accepted ⊢
+        have checked := bad
+        simp only [not_or, Bool.not_eq_true, Decidable.not_not] at checked
+        have present : (ScalarExpression.read text position source.scalarNames
+            (arrays := source.arrayNames.names) (initials := source.arrayNames.values)
+            (elaborating := true)).after ≠ 0 := by rw [valueEq]; exact checked.1
+        obtain ⟨expression, raw⟩ := ScalarExpression.read_sound bound present
+        have reading : ScalarExpression.At text source.scalarNames position expression value
+            (arrays := source.arrayNames.names) (initials := source.arrayNames.values)
+            (elaborating := true) := by rw [← valueEq]; exact raw
+        have ending : value.after ≤ text.length + 1 := by
+          exact reading.cursorBounds.2.2
+        have nextBound : (if parsed + 1 < length then fixedAfter text value.after "," false
+            else value.after) ≤ text.length + 1 := by
           split
-          · exact model_fixed_valid text _ "," false ending.2.1
-          · exact ending.2.1
+          · exact model_fixed_valid text _ "," false ending
+          · exact ending
         obtain ⟨rest, restRead⟩ := arrayValues_sound text source _ _ length (parsed + 1) nextBound accepted
-        exact ⟨expression :: rest, .next positive remaining value checked.2.1
-          (Classical.not_not.mp checked.2.2) restRead⟩
-    · rename_i finished
-      simp only [finished, ↓reduceDIte]
-      exact ⟨[], .done positive (by omega)⟩
+        exact ⟨expression :: rest, .next zero remaining reading checked.2.1 checked.2.2 restRead⟩
+    · simp only [remaining, ↓reduceDIte]
+      exact ⟨[], .done zero (by omega)⟩
 termination_by length - parsed
 decreasing_by omega
 
@@ -147,8 +146,12 @@ theorem arrayValues_initialValues {text source result position length parsed exp
   | @next result final position length parsed expression value rest _ _ reading _ singleton _ ih =>
       obtain ⟨values, checked⟩ := ih
       refine ⟨value.bounds.lower :: values, ?_⟩
-      simp only [Integer.arrayInitialValues, declarationRanges, reading.inferred, Option.bind_some,
-        singleton, ↓reduceIte, checked, Option.map_some]
+      change expression.infer (declarationRanges source) >>= _ = _
+      rw [show expression.infer (declarationRanges source) = some value.bounds from reading.inferred]
+      change (if value.bounds.lower = value.bounds.upper then
+        (Integer.arrayInitialValues (declarationRanges source) rest).map
+          (fun values => value.bounds.lower :: values) else none) = some (value.bounds.lower :: values)
+      simp only [singleton, ↓reduceIte, checked, Option.map_some]
 
 theorem arrayValues_obligations {text source result position length parsed expressions final}
     (reading : ArrayValuesAt text source result position length parsed expressions final) :
@@ -157,8 +160,11 @@ theorem arrayValues_obligations {text source result position length parsed expre
   induction reading with
   | done => rfl
   | next _ _ reading _ _ _ ih =>
-      simp only [List.flatMap_cons, Integer.discharged_append,
-        Integer.Expr.obligations_discharge reading.inferred, ih, Bool.and_self]
+      rw [List.flatMap_cons, Integer.discharged_append, ih]
+      have discharged : Integer.discharged (Integer.Expr.obligations (declarationRanges source) _) = true :=
+        Integer.Expr.obligations_discharge reading.inferred
+      rw [discharged]
+      rfl
 
 
 theorem arrayAggregate_complete {text state parts position}
@@ -179,6 +185,7 @@ theorem arrayAggregate_sound {text state parts}
   split at accepted
   · rename_i single
     simp only [single, ↓reduceIte]
+    dsimp only at accepted
     split at accepted
     · contradiction
     · rename_i good
@@ -189,7 +196,8 @@ theorem arrayAggregate_sound {text state parts}
           (arrays := state.arrayNames.names) (initials := state.arrayNames.values)
           (elaborating := true)).after ≠ 0 := by
         intro absent
-        simpa only [absent, fixedAfter, ↓reduceIte] using checked.1
+        apply checked.1
+        simp only [absent, fixedAfter, ↓reduceIte]
       obtain ⟨expression, value⟩ := ScalarExpression.read_sound bound present
       exact .singleton single value checked.2.1 checked.2.2.1 checked.2.2.2.1 checked.2.2.2.2 checked.1
   · rename_i multiple
@@ -242,5 +250,87 @@ theorem array_declaration_preserves {text arguments state declaration final}
         ((arrayValues_complete values).symm ▸ arrayValues_positive values)
       rw [arrayValues_complete values] at preserved
       exact ⟨preserved.1, preserved.2.1⟩
+
+
+theorem array_declaration_complete {text arguments state declaration final}
+    (reading : ArrayDeclarationAt text arguments state declaration final) :
+    arrayDeclarationAt text state arguments = final := by
+  cases reading with
+  | @declaration values parts lower upper position following expressions partsEq ready _ _ aggregate valuesRead followingEq advances =>
+      have start := arrayValues_start_positive valuesRead
+      have positive := arrayValues_positive valuesRead
+      have aggregateEq := arrayAggregate_complete aggregate
+      have valuesEq := arrayValues_complete valuesRead
+      simp only [ArrayDeclarationParts.length] at aggregateEq valuesEq
+      simp only [arrayDeclarationAt, partsEq]
+      split
+      · rename_i bad
+        exfalso
+        simp_all [ArrayDeclarationReady, Bool.or_eq_true]
+        omega
+      · simp only [aggregateEq, start, valuesEq, positive, ↓reduceIte]
+        rw [← followingEq, ite_eq_right (Nat.not_le.mpr advances)]
+        rfl
+
+theorem array_declaration_sound (text : Source) (state : ParserState) (arguments : Bool)
+    (accepted : (arrayDeclarationAt text state arguments).position ≠ 0) :
+    ∃ declaration, ArrayDeclarationAt text arguments state declaration (arrayDeclarationAt text state arguments) := by
+  unfold arrayDeclarationAt at accepted ⊢
+  generalize partsEq : arrayDeclarationParts text state = parts at accepted ⊢
+  dsimp only at accepted ⊢
+  split at accepted
+  · simp only [invalidState] at accepted
+    contradiction
+  · rename_i good
+    simp only [good, Bool.false_eq_true, ↓reduceIte]
+    have ready : ArrayDeclarationReady text state arguments parts := by
+      simpa [ArrayDeclarationReady, Bool.or_eq_true, not_or, Nat.not_le, Int.not_lt,
+        Int.not_le, and_assoc] using good
+    split at accepted
+    · simp only [invalidState] at accepted
+      contradiction
+    · rename_i start
+      simp only [start, ↓reduceIte]
+      split at accepted
+      · simp only [invalidState] at accepted
+        contradiction
+      · rename_i positive
+        simp only [positive, ↓reduceIte]
+        split at accepted
+        · simp only [invalidState] at accepted
+          contradiction
+        · rename_i advances
+          simp only [advances, ↓reduceIte]
+          have lowerEq : parts.lower = ScalarExpression.read text
+              (fixedAfter text parts.arrayAfter "(" false) state.scalarNames
+              (arrays := state.arrayNames.names) (initials := state.arrayNames.values)
+              (elaborating := true) := by rw [← partsEq]; rfl
+          have upperEq : parts.upper = ScalarExpression.read text
+              (fixedAfter text parts.lower.after ".." false) state.scalarNames
+              (arrays := state.arrayNames.names) (initials := state.arrayNames.values)
+              (elaborating := true) := by rw [← partsEq]; rfl
+          have lowPositive : parts.lower.after ≠ 0 := ready.2.2.2.2.2.1
+          have highPositive : parts.upper.after ≠ 0 := ready.2.2.2.2.2.2.1
+          obtain ⟨lower, lowerRead⟩ := ScalarExpression.read_sound
+            (fixedAfter_result_bound text _ "(" false (by decide)) (lowerEq ▸ lowPositive)
+          obtain ⟨upper, upperRead⟩ := ScalarExpression.read_sound
+            (fixedAfter_result_bound text _ ".." false (by decide)) (upperEq ▸ highPositive)
+          have positionBound : parts.position ≤ text.length + 1 := by
+            rw [← partsEq]
+            exact fixedAfter_result_bound text _ "(" false (by decide)
+          have aggregate := arrayAggregate_sound positionBound start
+          have aggregateBound : arrayAggregatePosition text state parts parts.length ≤ text.length + 1 := by
+            unfold arrayAggregatePosition
+            split
+            · dsimp only
+              split
+              · omega
+              · exact fixedAfter_result_bound text _ "=>" false (by decide)
+            · exact positionBound
+          obtain ⟨expressions, valuesRead⟩ := arrayValues_sound text state state _ parts.length 0
+            aggregateBound positive
+          refine ⟨⟨(parts.binding state).descriptor, expressions⟩, ?_⟩
+          exact .declaration partsEq ready (lowerEq.symm ▸ lowerRead) (upperEq.symm ▸ upperRead)
+            aggregate valuesRead rfl (by omega)
 
 end Silver.Compose
