@@ -4,6 +4,7 @@ public import Silver.ComposeExpression
 public import Silver.Names
 public import Silver.ScalarExpressionAdmission
 public import Silver.StringLengths
+public import Silver.ArrayBindings
 
 @[expose] public section
 
@@ -61,6 +62,7 @@ structure ParserState where
   target : Nat := 0
   capacity : Nat := maxSourceLength
   scalarNames : ScalarExpression.Environment := []
+  arrayNames : ArrayBindings.Env := {}
   deriving DecidableEq, Repr
 
 def initialState : ParserState := {}
@@ -129,10 +131,12 @@ def lookupName (text : Source) (names : BindingEnvironment) (first after : Nat) 
   if first = 0 ∨ after ≤ first then 0 else lookupFrom text names first after 1
 
 def callAfter (text : Source) (names : BindingEnvironment) (position : Nat)
-    (operation : Names.Operation) (scalarNames : ScalarExpression.Environment := []) : Nat :=
+    (operation : Names.Operation) (scalarNames : ScalarExpression.Environment := [])
+    (arrays : ArrayBindings.Metadata := []) : Nat :=
   let first := skipAt text position
   let after := nameAfter text first
-  Names.operationAfter text position operation (decide (lookupName text names first after ≠ 0 ∨ ScalarExpression.lookup text scalarNames first after ≠ 0))
+  Names.operationAfter text position operation (decide (lookupName text names first after ≠ 0 ∨ ScalarExpression.lookup text scalarNames first after ≠ 0 ∨
+    ArrayBindings.lookup text arrays first after ≠ 0))
 
 
 def literalAt (text : Source) (position : Nat) : ValueResult :=
@@ -162,13 +166,16 @@ structure ImageParts where
   following : Nat
   deriving DecidableEq, Repr
 
-def imageParts (text : Source) (position : Nat) (scalarNames : ScalarExpression.Environment) : ImageParts :=
+def imageParts (text : Source) (position : Nat) (scalarNames : ScalarExpression.Environment)
+    (arrays : ArrayBindings.Metadata := []) (initials : ArrayBindings.Initials := [])
+    (elaborating : Bool := false) : ImageParts :=
   let first := skipAt text position
   let typeAfter := fixedAfter text first "integer" true
   let attributeFirst := skipAt text (fixedAfter text typeAfter "'" false)
   let attributeAfter := nameAfter text attributeFirst
   let scalarPosition := fixedAfter text attributeAfter "(" false
-  let scalar := ScalarExpression.read text scalarPosition scalarNames
+  let scalar := ScalarExpression.read text scalarPosition scalarNames (arrays := arrays)
+    (initials := initials) (elaborating := elaborating)
   ⟨first, typeAfter, attributeFirst, attributeAfter, scalarPosition, scalar,
     fixedAfter text scalar.after ")" false⟩
 
@@ -177,18 +184,23 @@ def imageValue (parts : ImageParts) : ValueResult :=
   ⟨parts.following, 0, lengths.minimumLength, lengths.staticLength, false, true, lengths.empty, 0⟩
 
 def imageAt (text : Source) (position : Nat) (names : BindingEnvironment)
-    (scalarNames : ScalarExpression.Environment) (integerHidden : Bool) : ValueResult :=
-  let parts := imageParts text position scalarNames
+    (scalarNames : ScalarExpression.Environment) (integerHidden : Bool)
+    (arrays : ArrayBindings.Metadata := []) (initials : ArrayBindings.Initials := [])
+    (elaborating : Bool := false) : ValueResult :=
+  let parts := imageParts text position scalarNames arrays initials elaborating
   if integerHidden || decide (parts.typeAfter = 0 ∨
       lookupName text names parts.first parts.typeAfter ≠ 0 ∨
       ScalarExpression.lookup text scalarNames parts.first parts.typeAfter ≠ 0 ∨
+      ArrayBindings.lookup text arrays parts.first parts.typeAfter ≠ 0 ∨
       parts.attributeFirst = 0 ∨ parts.attributeAfter ≤ parts.attributeFirst) ||
       !Named.nameIs text parts.attributeFirst parts.attributeAfter ("image".toList.map Char.toNat) ||
       decide (parts.following ≤ position)
   then invalidValue else imageValue parts
 
 def valueAt (text : Source) (position : Nat) (names : BindingEnvironment)
-    (scalarNames : ScalarExpression.Environment := []) (integerHidden : Bool := false) : ValueResult :=
+    (scalarNames : ScalarExpression.Environment := []) (integerHidden : Bool := false)
+    (arrays : ArrayBindings.Metadata := []) (initials : ArrayBindings.Initials := [])
+    (elaborating : Bool := false) : ValueResult :=
   let first := skipAt text position
   let quoted := literalAt text first
   let after := nameAfter text first
@@ -197,7 +209,7 @@ def valueAt (text : Source) (position : Nat) (names : BindingEnvironment)
   else if index ≠ 0 ∧ ScalarExpression.lookup text scalarNames first after = 0 then
     let info := (names.get index).getD {}
     ⟨after, info.valueFirst, info.staticLength, info.staticLength, info.dynamic, true, false, index⟩
-  else imageAt text position names scalarNames integerHidden
+  else imageAt text position names scalarNames integerHidden arrays initials elaborating
 
 /-- Share one 64-leaf expression's operator allowance across all source
 positions. Integer arithmetic and String concatenation use one proof-work budget. -/
@@ -274,9 +286,12 @@ def ValidExpressionState (text : Source) (state : ExpressionState) : Prop :=
     (state.position = 0 ∨ state.depth < state.position)
 
 def expressionStep (text : Source) (names : BindingEnvironment) (state : ExpressionState)
-    (scalarNames : ScalarExpression.Environment := []) (integerHidden : Bool := false) : ExpressionState :=
+    (scalarNames : ScalarExpression.Environment := []) (integerHidden : Bool := false)
+    (arrays : ArrayBindings.Metadata := []) (initials : ArrayBindings.Initials := [])
+    (elaborating : Bool := false) : ExpressionState :=
   let openAfter := fixedAfter text state.position "(" false
-  let atom := valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) text state.position names
+  let atom := valueAt (scalarNames := scalarNames) (integerHidden := integerHidden)
+    (arrays := arrays) (initials := initials) (elaborating := elaborating) text state.position names
   let joinAfter := fixedAfter text state.position "&" false
   let closeAfter := fixedAfter text state.position ")" false
   if state.position = 0 then invalidExpressionState
@@ -304,22 +319,29 @@ def ExpressionState.result (state : ExpressionState) : ExpressionResult :=
   ⟨state.position, state.minimumLength, state.staticLength, state.dynamicCount, state.namedSeen, state.emptyValue⟩
 
 def expressionTail (text : Source) (names : BindingEnvironment) (state : ExpressionState)
-    (scalarNames : ScalarExpression.Environment := []) (integerHidden : Bool := false) : ExpressionResult :=
+    (scalarNames : ScalarExpression.Environment := []) (integerHidden : Bool := false)
+    (arrays : ArrayBindings.Metadata := []) (initials : ArrayBindings.Initials := [])
+    (elaborating : Bool := false) : ExpressionResult :=
   if state.position = 0 then invalidExpression
   else if state.complete then state.result
   else
-    let next := expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) text names state
+    let next := expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden)
+    (arrays := arrays) (initials := initials) (elaborating := elaborating) text names state
     if next.position = 0 then invalidExpression
     else if next.complete then next.result
     else if _advancing : text.length + 1 - next.position < text.length + 1 - state.position then
-      expressionTail (scalarNames := scalarNames) (integerHidden := integerHidden) text names next
+      expressionTail (scalarNames := scalarNames) (integerHidden := integerHidden)
+    (arrays := arrays) (initials := initials) (elaborating := elaborating) text names next
     else invalidExpression
 termination_by text.length + 1 - state.position
 decreasing_by exact _advancing
 
 def expressionAt (text : Source) (position : Nat) (names : BindingEnvironment)
-    (scalarNames : ScalarExpression.Environment := []) (integerHidden : Bool := false) : ExpressionResult :=
-  expressionTail (scalarNames := scalarNames) (integerHidden := integerHidden) text names {position := position}
+    (scalarNames : ScalarExpression.Environment := []) (integerHidden : Bool := false)
+    (arrays : ArrayBindings.Metadata := []) (initials : ArrayBindings.Initials := [])
+    (elaborating : Bool := false) : ExpressionResult :=
+  expressionTail (scalarNames := scalarNames) (integerHidden := integerHidden)
+    (arrays := arrays) (initials := initials) (elaborating := elaborating) text names {position := position}
 
 def fits (result : ExpressionResult) (capacity : Nat) : Bool :=
   decide (result.after ≠ 0 ∧ (result.emptyValue = true ∨ result.staticLength + result.dynamicCount * capacity ≤ maxSourceLength))
@@ -332,7 +354,8 @@ def newNameAllowed (text : Source) (state : ParserState) (first after : Nat) (ar
   decide (first ≠ 0 ∧ after > first) && !forbiddenName text first after &&
     (!arguments || !Arguments.forbiddenName text first after) &&
     decide (lookupName text state.names first after = 0 ∧
-      ScalarExpression.lookup text state.scalarNames first after = 0)
+      ScalarExpression.lookup text state.scalarNames first after = 0 ∧
+      ArrayBindings.lookup text state.arrayNames.names first after = 0)
 
 def addBinding (state : ParserState) (first after : Nat) (value : ValueResult)
     (mutable : Bool) (following : Nat) : ParserState :=
@@ -367,8 +390,10 @@ def declarationIntegerHidden (text : Source) (state : ParserState) : Bool :=
 
 def declarationParts (text : Source) (state : ParserState) : DeclarationParts :=
   ⟨declarationFirst text state, declarationAfter text state, declarationConstantAfter text state,
-    expressionAt text (declarationValuePosition text state) state.names state.scalarNames (declarationIntegerHidden text state),
-    fixedAfter text (expressionAt text (declarationValuePosition text state) state.names state.scalarNames (declarationIntegerHidden text state)).after ";" false⟩
+    expressionAt text (declarationValuePosition text state) state.names state.scalarNames (declarationIntegerHidden text state)
+      state.arrayNames.names state.arrayNames.values true,
+    fixedAfter text (expressionAt text (declarationValuePosition text state) state.names state.scalarNames (declarationIntegerHidden text state)
+      state.arrayNames.names state.arrayNames.values true).after ";" false⟩
 
 def stringDeclarationAt (text : Source) (state : ParserState) (arguments : Bool) : ParserState :=
   let parts := declarationParts text state
@@ -419,6 +444,7 @@ def scalarDeclarationValuePosition (text : Source) (state : ParserState) : Nat :
 
 def scalarDeclarationParts (text : Source) (state : ParserState) : ScalarDeclarationParts :=
   let value := ScalarExpression.read text (scalarDeclarationValuePosition text state) state.scalarNames
+    (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true)
   ⟨declarationFirst text state, declarationAfter text state, declarationConstantAfter text state,
     scalarDeclarationTypeFirst text state, scalarDeclarationTypeAfter text state,
     scalarConstraintAt text (scalarDeclarationTypeAfter text state) state.scalarNames, value,
@@ -441,12 +467,99 @@ def scalarDeclarationAt (text : Source) (state : ParserState) (arguments : Bool)
         parts.constraint.bounds.upper < parts.value.bounds.upper) ||
       decide (fixedAfter text parts.first "integer" true = parts.after) ||
       decide (lookupName text state.names parts.typeFirst parts.typeAfter ≠ 0 ∨
-        ScalarExpression.lookup text state.scalarNames parts.typeFirst parts.typeAfter ≠ 0)
+        ScalarExpression.lookup text state.scalarNames parts.typeFirst parts.typeAfter ≠ 0 ∨
+        ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter ≠ 0)
   then invalidState else addScalarBinding state parts
+
+structure ArrayDeclarationParts where
+  first : Nat
+  after : Nat
+  constantAfter : Nat
+  arrayAfter : Nat
+  lower : ScalarExpression.Result
+  upper : ScalarExpression.Result
+  typeFirst : Nat
+  typeAfter : Nat
+  position : Nat
+  deriving DecidableEq, Repr
+
+def arrayDeclarationParts (text : Source) (state : ParserState) : ArrayDeclarationParts :=
+  let arrayAfter := fixedAfter text
+    (if declarationConstantAfter text state ≠ 0 then declarationConstantAfter text state
+      else declarationColonAfter text state) "array" true
+  let lower := ScalarExpression.read text (fixedAfter text arrayAfter "(" false) state.scalarNames
+    (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true)
+  let upper := ScalarExpression.read text (fixedAfter text lower.after ".." false) state.scalarNames
+    (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true)
+  let typeFirst := skipAt text (fixedAfter text (fixedAfter text upper.after ")" false) "of" true)
+  let typeAfter := fixedAfter text typeFirst "integer" true
+  ⟨declarationFirst text state, declarationAfter text state, declarationConstantAfter text state,
+    arrayAfter, lower, upper, typeFirst, typeAfter,
+    fixedAfter text (fixedAfter text typeAfter ":=" false) "(" false⟩
+
+def arrayAggregatePosition (text : Source) (state : ParserState)
+    (parts : ArrayDeclarationParts) (length : Nat) : Nat :=
+  if length = 1 then
+    let index := ScalarExpression.read text parts.position state.scalarNames
+      (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true)
+    let following := fixedAfter text index.after "=>" false
+    if following = 0 ∨ index.isStatic = false ∨ index.bounds.isEmpty = true ∨
+        index.bounds.lower ≠ parts.lower.bounds.lower ∨ index.bounds.upper ≠ parts.lower.bounds.lower
+    then 0 else following
+  else parts.position
+
+/-- The native aggregate loop's exact recursive meaning. Every component reads
+from the incoming declaration state; the accumulator receives only flat values.
+The source readiness proof separately establishes `values.length = used`. -/
+def arrayValuesModel (text : Source) (source result : ParserState)
+    (position length parsed : Nat) : ParserState :=
+  if _remaining : parsed < length then
+    let value := ScalarExpression.read text position source.scalarNames
+      (arrays := source.arrayNames.names) (initials := source.arrayNames.values) (elaborating := true)
+    if value.after = 0 ∨ value.bounds.isEmpty = true ∨ value.bounds.lower ≠ value.bounds.upper then invalidState
+    else
+      let next := {result with arrayNames := {result.arrayNames with
+        used := result.arrayNames.used + 1,
+        values := ArrayBindings.putInitial result.arrayNames.values (result.arrayNames.used + 1) value.bounds.lower}}
+      let following := if parsed + 1 < length then fixedAfter text value.after "," false else value.after
+      if parsed + 1 < length ∧ following = 0 then invalidState
+      else arrayValuesModel text source next following length (parsed + 1)
+  else {result with position := position}
+termination_by length - parsed
+decreasing_by omega
+
+def arrayDeclarationAt (text : Source) (state : ParserState) (arguments : Bool) : ParserState :=
+  let parts := arrayDeclarationParts text state
+  if !newNameAllowed text state parts.first parts.after arguments ||
+      Named.nameIs text parts.first parts.after ("integer".toList.map Char.toNat) ||
+      decide (parts.arrayAfter = 0 ∨ parts.position = 0 ∨
+        state.arrayNames.names.length = ArrayBindings.maxBindings ∨
+        parts.lower.after = 0 ∨ parts.upper.after = 0) ||
+      !parts.lower.isStatic || !parts.upper.isStatic || parts.lower.bounds.isEmpty || parts.upper.bounds.isEmpty ||
+      decide (parts.lower.bounds.lower ≠ parts.lower.bounds.upper ∨
+        parts.upper.bounds.lower ≠ parts.upper.bounds.upper ∨ parts.lower.bounds.lower > parts.upper.bounds.lower ∨
+        parts.upper.bounds.lower - parts.lower.bounds.lower ≥ (ArrayBindings.maxElements - state.arrayNames.used : Nat)) ||
+      decide (lookupName text state.names parts.typeFirst parts.typeAfter ≠ 0 ∨
+        ScalarExpression.lookup text state.scalarNames parts.typeFirst parts.typeAfter ≠ 0 ∨
+        ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter ≠ 0)
+  then invalidState else
+    let length := (parts.upper.bounds.lower - parts.lower.bounds.lower + 1).toNat
+    let position := arrayAggregatePosition text state parts length
+    if position = 0 then invalidState else
+      let result := arrayValuesModel text state state position length 0
+      if result.position = 0 then invalidState else
+        let following := fixedAfter text (fixedAfter text result.position ")" false) ";" false
+        if following ≤ state.position then invalidState else
+          {result with position := following, arrayNames := {result.arrayNames with
+            names := result.arrayNames.names ++ [⟨parts.first, parts.after,
+              ⟨parts.lower.bounds.lower, parts.upper.bounds.lower⟩,
+              state.arrayNames.used, length, decide (parts.constantAfter = 0)⟩]}}
 
 def declarationAt (text : Source) (state : ParserState) (arguments : Bool) : ParserState :=
   let scalar := scalarDeclarationAt text state arguments
-  if scalar.position ≠ 0 then scalar else stringDeclarationAt text state arguments
+  let array := arrayDeclarationAt text state arguments
+  if scalar.position ≠ 0 then scalar
+  else if array.position ≠ 0 then array else stringDeclarationAt text state arguments
 
 structure ArgumentParts where
   first : Nat
@@ -556,19 +669,23 @@ def dynamicAt (text : Source) (state : ParserState) : ParserState :=
   else {state with position := after}
 
 def assignmentAt (text : Source) (state : ParserState) : ParserState :=
-  let value := expressionAt text state.position state.names state.scalarNames
+  let value := expressionAt text state.position state.names state.scalarNames false
+    state.arrayNames.names state.arrayNames.values true
   let target := (state.names.get state.target).getD {}
   if !fits value state.capacity || value.emptyValue || decide (value.minimumLength ≠ value.staticLength ∨ state.target = 0 ∨ value.staticLength ≠ target.staticLength ∨
       value.dynamicCount ≠ (if target.dynamic then 1 else 0)) then invalidState
   else {state with position := value.after}
 
 def outputAt (text : Source) (state : ParserState) : ParserState :=
-  let value := expressionAt text state.position state.names state.scalarNames
+  let value := expressionAt text state.position state.names state.scalarNames false
+    state.arrayNames.names state.arrayNames.values true
   if fits value state.capacity then {state with position := value.after} else invalidState
 
 def comparisonAt (text : Source) (state : ParserState) : ParserState :=
-  let left := expressionAt text state.position state.names state.scalarNames
-  let right := expressionAt text (fixedAfter text left.after "=" false) state.names state.scalarNames
+  let left := expressionAt text state.position state.names state.scalarNames false
+    state.arrayNames.names state.arrayNames.values true
+  let right := expressionAt text (fixedAfter text left.after "=" false) state.names state.scalarNames false
+    state.arrayNames.names state.arrayNames.values true
   if fits left state.capacity && fits right state.capacity && (left.namedSeen || right.namedSeen)
   then {state with position := right.after} else invalidState
 
@@ -688,45 +805,54 @@ theorem fixedAfter_result_bound (text : Source) (position : Nat) (word : String)
 
 structure ImageReading (text : Source) (names : BindingEnvironment)
     (scalarNames : ScalarExpression.Environment) (integerHidden : Bool)
-    (position : Nat) (expression : Integer.Expr) : Prop where
+    (position : Nat) (expression : Integer.Expr)
+    (arrays : ArrayBindings.Metadata := []) (initials : ArrayBindings.Initials := [])
+    (elaborating : Bool := false) : Prop where
   visible : integerHidden = false
-  typePresent : (imageParts text position scalarNames).typeAfter ≠ 0
-  stringClear : lookupName text names (imageParts text position scalarNames).first
-    (imageParts text position scalarNames).typeAfter = 0
-  scalarClear : ScalarExpression.lookup text scalarNames (imageParts text position scalarNames).first
-    (imageParts text position scalarNames).typeAfter = 0
-  attributePositive : (imageParts text position scalarNames).attributeFirst ≠ 0
-  attributeOrdered : (imageParts text position scalarNames).attributeFirst <
-    (imageParts text position scalarNames).attributeAfter
-  attributeName : Named.nameIs text (imageParts text position scalarNames).attributeFirst
-    (imageParts text position scalarNames).attributeAfter ("image".toList.map Char.toNat) = true
-  scalar : ScalarExpression.At text scalarNames (imageParts text position scalarNames).scalarPosition
-    expression (imageParts text position scalarNames).scalar
-  following : position < (imageParts text position scalarNames).following
+  typePresent : (imageParts text position scalarNames arrays initials elaborating).typeAfter ≠ 0
+  stringClear : lookupName text names (imageParts text position scalarNames arrays initials elaborating).first
+    (imageParts text position scalarNames arrays initials elaborating).typeAfter = 0
+  scalarClear : ScalarExpression.lookup text scalarNames (imageParts text position scalarNames arrays initials elaborating).first
+    (imageParts text position scalarNames arrays initials elaborating).typeAfter = 0
+  arrayClear : ArrayBindings.lookup text arrays (imageParts text position scalarNames arrays initials elaborating).first
+    (imageParts text position scalarNames arrays initials elaborating).typeAfter = 0
+  attributePositive : (imageParts text position scalarNames arrays initials elaborating).attributeFirst ≠ 0
+  attributeOrdered : (imageParts text position scalarNames arrays initials elaborating).attributeFirst <
+    (imageParts text position scalarNames arrays initials elaborating).attributeAfter
+  attributeName : Named.nameIs text (imageParts text position scalarNames arrays initials elaborating).attributeFirst
+    (imageParts text position scalarNames arrays initials elaborating).attributeAfter ("image".toList.map Char.toNat) = true
+  scalar : ScalarExpression.At text scalarNames (imageParts text position scalarNames arrays initials elaborating).scalarPosition
+    expression (imageParts text position scalarNames arrays initials elaborating).scalar
+    (arrays := arrays) (initials := initials) (elaborating := elaborating)
+  following : position < (imageParts text position scalarNames arrays initials elaborating).following
 
 theorem image_complete {text : Source} {names : BindingEnvironment}
-    {scalarNames : ScalarExpression.Environment} {integerHidden : Bool} {position : Nat}
-    {expression : Integer.Expr} (parsed : ImageReading text names scalarNames integerHidden position expression) :
-    imageAt text position names scalarNames integerHidden = imageValue (imageParts text position scalarNames) := by
+    {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
+    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
+    {expression : Integer.Expr} (parsed : ImageReading text names scalarNames integerHidden position expression arrays initials elaborating) :
+    imageAt text position names scalarNames integerHidden arrays initials elaborating = imageValue (imageParts text position scalarNames arrays initials elaborating) := by
   have attr := parsed.attributeName
-  change Named.nameIs text (imageParts text position scalarNames).attributeFirst
-    (imageParts text position scalarNames).attributeAfter [105, 109, 97, 103, 101] = true at attr
-  simp [imageAt, parsed.visible, parsed.typePresent, parsed.stringClear, parsed.scalarClear,
+  change Named.nameIs text (imageParts text position scalarNames arrays initials elaborating).attributeFirst
+    (imageParts text position scalarNames arrays initials elaborating).attributeAfter [105, 109, 97, 103, 101] = true at attr
+  simp [imageAt, parsed.visible, parsed.typePresent, parsed.stringClear, parsed.scalarClear, parsed.arrayClear,
     parsed.attributePositive, Nat.not_le.mpr parsed.attributeOrdered, attr,
     Nat.not_le.mpr parsed.following]
 
 theorem image_sound {text : Source} {names : BindingEnvironment}
-    {scalarNames : ScalarExpression.Environment} {integerHidden : Bool} {position : Nat}
-    (accepted : (imageAt text position names scalarNames integerHidden).after ≠ 0) :
-    ∃ expression, ImageReading text names scalarNames integerHidden position expression := by
-  have good : integerHidden = false ∧ (imageParts text position scalarNames).typeAfter ≠ 0 ∧
-      lookupName text names (imageParts text position scalarNames).first (imageParts text position scalarNames).typeAfter = 0 ∧
-      ScalarExpression.lookup text scalarNames (imageParts text position scalarNames).first (imageParts text position scalarNames).typeAfter = 0 ∧
-      (imageParts text position scalarNames).attributeFirst ≠ 0 ∧
-      (imageParts text position scalarNames).attributeFirst < (imageParts text position scalarNames).attributeAfter ∧
-      Named.nameIs text (imageParts text position scalarNames).attributeFirst
-        (imageParts text position scalarNames).attributeAfter ("image".toList.map Char.toNat) = true ∧
-      position < (imageParts text position scalarNames).following := by
+    {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
+    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
+    (accepted : (imageAt text position names scalarNames integerHidden arrays initials elaborating).after ≠ 0) :
+    ∃ expression, ImageReading text names scalarNames integerHidden position expression arrays initials elaborating := by
+  have good : integerHidden = false ∧ (imageParts text position scalarNames arrays initials elaborating).typeAfter ≠ 0 ∧
+      lookupName text names (imageParts text position scalarNames arrays initials elaborating).first (imageParts text position scalarNames arrays initials elaborating).typeAfter = 0 ∧
+      ScalarExpression.lookup text scalarNames (imageParts text position scalarNames arrays initials elaborating).first (imageParts text position scalarNames arrays initials elaborating).typeAfter = 0 ∧
+      ArrayBindings.lookup text arrays (imageParts text position scalarNames arrays initials elaborating).first
+        (imageParts text position scalarNames arrays initials elaborating).typeAfter = 0 ∧
+      (imageParts text position scalarNames arrays initials elaborating).attributeFirst ≠ 0 ∧
+      (imageParts text position scalarNames arrays initials elaborating).attributeFirst < (imageParts text position scalarNames arrays initials elaborating).attributeAfter ∧
+      Named.nameIs text (imageParts text position scalarNames arrays initials elaborating).attributeFirst
+        (imageParts text position scalarNames arrays initials elaborating).attributeAfter ("image".toList.map Char.toNat) = true ∧
+      position < (imageParts text position scalarNames arrays initials elaborating).following := by
     dsimp only [imageAt] at accepted
     split at accepted
     · simp [invalidValue] at accepted
@@ -734,35 +860,37 @@ theorem image_sound {text : Source} {names : BindingEnvironment}
       simp only [Bool.or_eq_true, decide_eq_true_eq, Bool.not_eq_true', not_or, Bool.not_eq_true,
         Bool.not_eq_true', Nat.not_le] at good
       rcases good with ⟨⟨⟨hidden, typeGood⟩, attributeName⟩, following⟩
-      rcases typeGood with ⟨typePresent, stringClear, scalarClear, attributePositive, attributeOrdered⟩
+      rcases typeGood with ⟨typePresent, stringClear, scalarClear, arrayClear, attributePositive, attributeOrdered⟩
       have attributeTrue : Named.nameIs text
-          (imageParts text position scalarNames).attributeFirst
-          (imageParts text position scalarNames).attributeAfter ("image".toList.map Char.toNat) = true := by
+          (imageParts text position scalarNames arrays initials elaborating).attributeFirst
+          (imageParts text position scalarNames arrays initials elaborating).attributeAfter ("image".toList.map Char.toNat) = true := by
         rcases Bool.eq_false_or_eq_true (Named.nameIs text
-          (imageParts text position scalarNames).attributeFirst
-          (imageParts text position scalarNames).attributeAfter ("image".toList.map Char.toNat)) with found | absent
+          (imageParts text position scalarNames arrays initials elaborating).attributeFirst
+          (imageParts text position scalarNames arrays initials elaborating).attributeAfter ("image".toList.map Char.toNat)) with found | absent
         · exact found
         · exact False.elim (attributeName absent)
-      exact ⟨hidden, typePresent, by omega, by omega,
+      exact ⟨hidden, typePresent, by omega, by omega, by omega,
         attributePositive, attributeOrdered, attributeTrue, following⟩
-  have scalarPositive : (imageParts text position scalarNames).scalar.after ≠ 0 := by
+  have scalarPositive : (imageParts text position scalarNames arrays initials elaborating).scalar.after ≠ 0 := by
     intro zero
-    have following := good.2.2.2.2.2.2.2
-    change position < fixedAfter text (imageParts text position scalarNames).scalar.after ")" false at following
+    have following := good.2.2.2.2.2.2.2.2
+    change position < fixedAfter text (imageParts text position scalarNames arrays initials elaborating).scalar.after ")" false at following
     simp [zero, fixedAfter] at following
-  have bound : (imageParts text position scalarNames).scalarPosition ≤ text.length + 1 :=
+  have bound : (imageParts text position scalarNames arrays initials elaborating).scalarPosition ≤ text.length + 1 :=
     fixedAfter_result_bound text _ "(" false (by decide)
   obtain ⟨expression, parsed⟩ := ScalarExpression.read_sound bound scalarPositive
   exact ⟨expression, good.1, good.2.1, good.2.2.1, good.2.2.2.1, good.2.2.2.2.1,
-    good.2.2.2.2.2.1, good.2.2.2.2.2.2.1, parsed, good.2.2.2.2.2.2.2⟩
+    good.2.2.2.2.2.1, good.2.2.2.2.2.2.1, good.2.2.2.2.2.2.2.1, parsed, good.2.2.2.2.2.2.2.2⟩
 
 inductive ValueAtCore (text : Source) (names : BindingEnvironment)
-    (scalarNames : ScalarExpression.Environment) (integerHidden : Bool) : Nat → Operand → ValueResult → Prop
+    (scalarNames : ScalarExpression.Environment) (integerHidden : Bool)
+    (arrays : ArrayBindings.Metadata) (initials : ArrayBindings.Initials) (elaborating : Bool) :
+    Nat → Operand → ValueResult → Prop
   | literal {position after : Nat} {bytes : Source} :
       skipAt text position ≠ 0 → skipAt text position ≤ text.length →
       Cursor.byteAt text (skipAt text position) = 34 →
       Output.LiteralAt text (skipAt text position + 1) bytes after →
-      ValueAtCore text names scalarNames integerHidden position (.literal bytes)
+      ValueAtCore text names scalarNames integerHidden arrays initials elaborating position (.literal bytes)
         ⟨after, skipAt text position + 1, bytes.length, bytes.length, false, false, false, 0⟩
   | reference {position after index : Nat} {name : Source} {info : BindingInfo} :
       skipAt text position ≠ 0 →
@@ -770,25 +898,29 @@ inductive ValueAtCore (text : Source) (names : BindingEnvironment)
       lookupName text names (skipAt text position) after = index → index ≠ 0 →
       ScalarExpression.lookup text scalarNames (skipAt text position) after = 0 →
       names.get index = some info →
-      ValueAtCore text names scalarNames integerHidden position (.reference index)
+      ValueAtCore text names scalarNames integerHidden arrays initials elaborating position (.reference index)
         ⟨after, info.valueFirst, info.staticLength, info.staticLength, info.dynamic, true, false, index⟩
   | image {position : Nat} {expression : Integer.Expr} :
       ¬ QuotedValueAt text position →
       ¬ (lookupName text names (skipAt text position) (nameAfter text (skipAt text position)) ≠ 0 ∧
         ScalarExpression.lookup text scalarNames (skipAt text position) (nameAfter text (skipAt text position)) = 0) →
-      ImageReading text names scalarNames integerHidden position expression →
-      ValueAtCore text names scalarNames integerHidden position (.image expression)
-        (imageValue (imageParts text position scalarNames))
+      ImageReading text names scalarNames integerHidden position expression arrays initials elaborating →
+      ValueAtCore text names scalarNames integerHidden arrays initials elaborating position (.image expression)
+        (imageValue (imageParts text position scalarNames arrays initials elaborating))
 
 abbrev ValueAt (text : Source) (names : BindingEnvironment) (position : Nat)
     (value : Operand) (result : ValueResult) (scalarNames : ScalarExpression.Environment := [])
-    (integerHidden : Bool := false) : Prop :=
-  ValueAtCore text names scalarNames integerHidden position value result
+    (integerHidden : Bool := false) (arrays : ArrayBindings.Metadata := [])
+    (initials : ArrayBindings.Initials := []) (elaborating : Bool := false) : Prop :=
+  ValueAtCore text names scalarNames integerHidden arrays initials elaborating position value result
 
 theorem value_complete {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment}
-    {integerHidden : Bool} {position : Nat} {value : Operand} {result : ValueResult}
-    (parsed : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden) text names position value result) :
-    valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) text position names = result := by
+    {integerHidden : Bool}
+    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat} {value : Operand} {result : ValueResult}
+    (parsed : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden)
+    (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position value result) :
+    valueAt (scalarNames := scalarNames) (integerHidden := integerHidden)
+    (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names = result := by
   cases parsed with
   | literal positive bound quote parsed =>
       rename_i after bytes
@@ -808,14 +940,19 @@ theorem value_complete {text : Source} {names : BindingEnvironment} {scalarNames
 
 theorem value_sound (text : Source) (position : Nat) (names : BindingEnvironment)
     {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
-    (accepted : (valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) text position names).after ≠ 0) :
-    ∃ value, ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden) text names position value
-      (valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) text position names) := by
+    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool}
+    (accepted : (valueAt (scalarNames := scalarNames) (integerHidden := integerHidden)
+    (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names).after ≠ 0) :
+    ∃ value, ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden)
+    (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position value
+      (valueAt (scalarNames := scalarNames) (integerHidden := integerHidden)
+    (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names) := by
   by_cases quoted : (literalAt text (skipAt text position)).after ≠ 0
   · obtain ⟨bytes, after, positive, bound, quote, parsed⟩ := (quotedValue_iff text position).mpr quoted
     have nonzero : after ≠ 0 := by have := Output.literalAt_bounds parsed; omega
     refine ⟨.literal bytes, ?_⟩
-    have observed : valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) text position names =
+    have observed : valueAt (scalarNames := scalarNames) (integerHidden := integerHidden)
+    (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names =
         ⟨after, skipAt text position + 1, bytes.length, bytes.length, false, false, false, 0⟩ := by
       simp [valueAt, literalAt, positive, bound, quote, Output.literalAt_complete parsed,
         Guarded.literalLength_decodes parsed, nonzero]
@@ -831,7 +968,8 @@ theorem value_sound (text : Source) (position : Nat) (names : BindingEnvironment
       have afterSame : nameAfter text (skipAt text position) = identifierEnd text (skipAt text position) := by
         simp [nameAfter, positive]
       refine ⟨.reference (lookupName text names (skipAt text position) (nameAfter text (skipAt text position))), ?_⟩
-      have observed : valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) text position names =
+      have observed : valueAt (scalarNames := scalarNames) (integerHidden := integerHidden)
+    (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names =
           ⟨nameAfter text (skipAt text position), info.valueFirst, info.staticLength, info.staticLength,
             info.dynamic, true, false, lookupName text names (skipAt text position) (nameAfter text (skipAt text position))⟩ := by
         simp [valueAt, quoted, referenced, present]
@@ -842,7 +980,7 @@ theorem value_sound (text : Source) (position : Nat) (names : BindingEnvironment
       · exact referenced.1
       · exact referenced.2
       · exact present
-    · have imageAccepted : (imageAt text position names scalarNames integerHidden).after ≠ 0 := by
+    · have imageAccepted : (imageAt text position names scalarNames integerHidden arrays initials elaborating).after ≠ 0 := by
         simpa only [valueAt, quoted, ↓reduceIte, referenced] using accepted
       obtain ⟨expression, parsed⟩ := image_sound imageAccepted
       refine ⟨.image expression, ?_⟩
@@ -857,10 +995,12 @@ def NamesNormal (names : BindingEnvironment) : Prop :=
   ∀ index info, names.get index = some info → info.dynamic = true → info.staticLength = 0
 
 theorem value_inferLength {text : Source} {names : BindingEnvironment}
-    {scalarNames : ScalarExpression.Environment} {integerHidden : Bool} {position : Nat}
+    {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
+    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
     {value : Operand} {result : ValueResult} (normal : NamesNormal names)
-    (parsed : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden) text names position value result) :
-    value.inferLength names.shape (ScalarExpression.ranges scalarNames) = some result.lengthSummary := by
+    (parsed : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden)
+    (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position value result) :
+    value.inferLength names.shape (ArrayBindings.ranges arrays initials elaborating (ScalarExpression.ranges scalarNames)) = some result.lengthSummary := by
   cases parsed with
   | literal => rfl
   | reference positive identifier selected nonzero unmasked present =>
@@ -879,9 +1019,11 @@ theorem value_inferLength {text : Source} {names : BindingEnvironment}
       split <;> rfl
 
 theorem value_literals {text : Source} {names : BindingEnvironment}
-    {scalarNames : ScalarExpression.Environment} {integerHidden : Bool} {position : Nat}
+    {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
+    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
     {value : Operand} {result : ValueResult}
-    (parsed : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden) text names position value result) :
+    (parsed : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden)
+    (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position value result) :
     value.PrintableLiterals := by
   cases parsed with
   | literal _ _ _ parsed => exact (Output.literalAt_bounds parsed).2.2
