@@ -9,6 +9,7 @@ with Silver_Names;
 with Silver_Scalars;
 with Silver_Scalar_Literals;
 with Silver_Scalar_Expressions;
+with Silver_Array_Bindings;
 with Silver_Integer_Image;
 with Silver_Length_Intervals;
 
@@ -20,6 +21,8 @@ is
    package Names renames Silver_Names;
    package Scalars renames Silver_Scalars;
    package Scalar_Expressions renames Silver_Scalar_Expressions;
+   package Array_Bindings renames Silver_Array_Bindings;
+   use type Scalars.Wide;
    package Image_Lengths renames Silver_Integer_Image;
    package Length_Intervals renames Silver_Length_Intervals;
 
@@ -28,7 +31,8 @@ is
         | Arguments_Name | First_Or_Default_Name | If_Keyword
         | Input_Is_Valid_Name | Then_Keyword | Else_Keyword | Elsif_Keyword | Reject_Name
         | And_Keyword | Length_Name | Or_Keyword | Not_Keyword | Null_Keyword
-        | Integer_Name | For_Keyword | In_Keyword | Reverse_Keyword | Loop_Keyword | Range_Keyword);
+        | Integer_Name | For_Keyword | In_Keyword | Reverse_Keyword | Loop_Keyword | Range_Keyword
+        | Array_Keyword | Of_Keyword);
 
    function Spelling (Token : Token_Kind) return String is
      (case Token is
@@ -81,6 +85,10 @@ is
          when Loop_Keyword => "loop",
          when Range_Delimiter => "..",
          when Range_Keyword => "range",
+         when Array_Keyword => "array",
+         when Of_Keyword => "of",
+         when Comma => ",",
+         when Arrow => "=>",
          when Argument_Declaration | Declarations | Assignment_Target
             | Target_Reference | Dynamic_Reference | Assignment_Value
             | Output_Expression | Comparison_Expression | Statements | Context_Clauses => "_");
@@ -143,17 +151,20 @@ is
       Position : Literal_Position;
       Names : Binding_Environment;
       Scalar_Names : Scalar_Expressions.Environment;
+      Array_Names : Array_Bindings.Environment;
       Dynamic_First, Dynamic_After : Literal_Position;
       Target : Binding_Count;
       Capacity : Capacity_Value;
    end record;
    Initial_State : constant Parser_State :=
      (Position => 1, Names => Empty_Environment,
-      Scalar_Names => Scalar_Expressions.Empty_Environment, Dynamic_First => 0,
+      Scalar_Names => Scalar_Expressions.Empty_Environment,
+      Array_Names => Array_Bindings.Empty_Environment, Dynamic_First => 0,
       Dynamic_After => 0, Target => 0, Capacity => Max_Source_Length);
    Invalid_State : constant Parser_State :=
      (Position => 0, Names => Empty_Environment,
-      Scalar_Names => Scalar_Expressions.Empty_Environment, Dynamic_First => 0,
+      Scalar_Names => Scalar_Expressions.Empty_Environment,
+      Array_Names => Array_Bindings.Empty_Environment, Dynamic_First => 0,
       Dynamic_After => 0, Target => 0, Capacity => 0);
 
    function Valid_Mutable_Bounds (Scalar_Names : Scalar_Expressions.Environment) return Boolean is
@@ -174,6 +185,7 @@ is
      (State.Position <= Text'Last + 1
       and then Valid_Names (Text, State.Names)
       and then Scalar_Expressions.Valid_Environment (Text, State.Scalar_Names)
+      and then Array_Bindings.Valid_Environment (Text, State.Array_Names)
       and then Valid_Mutable_Bounds (State.Scalar_Names)
       and then Valid_Declaration_Values (State.Scalar_Names, State.Scalar_Names.Count)
       and then Valid_Name_State (Text, State.Dynamic_First, State.Dynamic_After)
@@ -335,22 +347,26 @@ is
    function Call_After
      (Text : String; Environment : Binding_Environment; Position : Literal_Position;
       Operation : Names.Operation_Kind;
-      Scalar_Names : Scalar_Expressions.Environment := Scalar_Expressions.Empty_Environment) return Literal_Position
+      Scalar_Names : Scalar_Expressions.Environment := Scalar_Expressions.Empty_Environment;
+      Arrays : Array_Bindings.Metadata := Array_Bindings.Empty_Metadata) return Literal_Position
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Valid_Names (Text, Environment)
-         and then Scalar_Expressions.Valid_Environment (Text, Scalar_Names) and then Position <= Text'Last + 1,
+         and then Scalar_Expressions.Valid_Environment (Text, Scalar_Names)
+         and then Array_Bindings.Valid_Metadata (Text, Arrays) and then Position <= Text'Last + 1,
        Post => Call_After'Result = 0
          or else Call_After'Result in Position + 1 .. Text'Last + 1;
    function Call_After
      (Text : String; Environment : Binding_Environment; Position : Literal_Position;
       Operation : Names.Operation_Kind;
-      Scalar_Names : Scalar_Expressions.Environment := Scalar_Expressions.Empty_Environment) return Literal_Position is
+      Scalar_Names : Scalar_Expressions.Environment := Scalar_Expressions.Empty_Environment;
+      Arrays : Array_Bindings.Metadata := Array_Bindings.Empty_Metadata) return Literal_Position is
      (declare First : constant Literal_Position := Skip_At (Text, Position);
               After : constant Literal_Position := Name_After (Text, First);
       begin Names.Operation_After
         (Text, Position, Operation, Lookup_Name (Text, Environment, First, After) /= 0
-          or else Scalar_Expressions.Lookup (Text, Scalar_Names, First, After) /= 0));
+          or else Scalar_Expressions.Lookup (Text, Scalar_Names, First, After) /= 0
+          or else Array_Bindings.Lookup (Text, Arrays, First, After) /= 0));
 
    type Value_Result is record
       After, Value_First : Literal_Position;
@@ -517,19 +533,24 @@ is
 
    function Image_At
      (Text : String; Position : Literal_Position; Names : Binding_Environment;
-      Scalar_Names : Scalar_Expressions.Environment; Integer_Hidden : Boolean)
+      Scalar_Names : Scalar_Expressions.Environment; Integer_Hidden : Boolean;
+      Arrays : Array_Bindings.Metadata;
+      Initials : Array_Bindings.Element_Array; Elaborating : Boolean)
       return Value_Result
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Position <= Text'Last + 1 and then Valid_Names (Text, Names)
-         and then Scalar_Expressions.Valid_Environment (Text, Scalar_Names),
+         and then Scalar_Expressions.Valid_Environment (Text, Scalar_Names)
+         and then Array_Bindings.Valid_Metadata (Text, Arrays),
        Post => Image_At'Result.Value_First = 0
          and then Image_At'Result.Reference = 0
          and then (Image_At'Result.After = 0
            or else Image_At'Result.After in Position + 1 .. Text'Last + 1);
    function Image_At
      (Text : String; Position : Literal_Position; Names : Binding_Environment;
-      Scalar_Names : Scalar_Expressions.Environment; Integer_Hidden : Boolean)
+      Scalar_Names : Scalar_Expressions.Environment; Integer_Hidden : Boolean;
+      Arrays : Array_Bindings.Metadata;
+      Initials : Array_Bindings.Element_Array; Elaborating : Boolean)
       return Value_Result is
      (declare First : constant Literal_Position := Skip_At (Text, Position);
               Type_After : constant Literal_Position := Take_Token (Text, First, Integer_Name);
@@ -538,12 +559,13 @@ is
               Attribute_After : constant Literal_Position := Name_After (Text, Attribute_First);
               Value : constant Scalar_Expressions.Expression_Result :=
                 Scalar_Expressions.Read_Expression
-                  (Text, Take_Token (Text, Attribute_After, Left_Parenthesis), Scalar_Names);
+                  (Text, Take_Token (Text, Attribute_After, Left_Parenthesis), Scalar_Names, Arrays => Arrays, Initials => Initials, Elaborating => Elaborating);
               Following : constant Literal_Position := Take_Token (Text, Value.After, Right_Parenthesis);
       begin
         (if Integer_Hidden or else Type_After = 0
            or else Lookup_Name (Text, Names, First, Type_After) /= 0
            or else Scalar_Expressions.Lookup (Text, Scalar_Names, First, Type_After) /= 0
+           or else Array_Bindings.Lookup (Text, Arrays, First, Type_After) /= 0
            or else Attribute_First = 0 or else Attribute_After <= Attribute_First
            or else not Name_Is (Text, Attribute_First, Attribute_After, "image")
            or else Following <= Position
@@ -557,12 +579,16 @@ is
    function Value_At
      (Text : String; Position : Literal_Position; Names : Binding_Environment;
       Scalar_Names : Scalar_Expressions.Environment := Scalar_Expressions.Empty_Environment;
-      Integer_Hidden : Boolean := False)
+      Integer_Hidden : Boolean := False;
+      Arrays : Array_Bindings.Metadata := Array_Bindings.Empty_Metadata;
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values;
+      Elaborating : Boolean := False)
       return Value_Result
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Position <= Text'Last + 1 and then Valid_Names (Text, Names)
-         and then Scalar_Expressions.Valid_Environment (Text, Scalar_Names),
+         and then Scalar_Expressions.Valid_Environment (Text, Scalar_Names)
+         and then Array_Bindings.Valid_Metadata (Text, Arrays),
        Post => Value_At'Result.Value_First <= Text'Last + 1
          and then Value_At'Result.Reference <= Names.Count
          and then (Value_At'Result.After = 0
@@ -570,7 +596,10 @@ is
    function Value_At
      (Text : String; Position : Literal_Position; Names : Binding_Environment;
       Scalar_Names : Scalar_Expressions.Environment := Scalar_Expressions.Empty_Environment;
-      Integer_Hidden : Boolean := False)
+      Integer_Hidden : Boolean := False;
+      Arrays : Array_Bindings.Metadata := Array_Bindings.Empty_Metadata;
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values;
+      Elaborating : Boolean := False)
       return Value_Result is
      (declare First : constant Literal_Position := Skip_At (Text, Position);
               Quoted : constant Value_Result := Literal_At (Text, First);
@@ -585,7 +614,7 @@ is
             Static_Length => Names.Items (Index).Static_Length,
             Dynamic_Seen => Names.Items (Index).Dynamic, Nonliteral_Seen => True,
             Empty_Value => False, Reference => Index)
-         else Image_At (Text, Position, Names, Scalar_Names, Integer_Hidden)));
+         else Image_At (Text, Position, Names, Scalar_Names, Integer_Hidden, Arrays, Initials, Elaborating)));
 
    subtype Operand_Count is Natural range 0 .. Max_Expression_Operands;
    type Expression_Result is record
@@ -625,12 +654,16 @@ is
    function Expression_Step
      (Text : String; Names : Binding_Environment; State : Expression_State;
       Scalar_Names : Scalar_Expressions.Environment := Scalar_Expressions.Empty_Environment;
-      Integer_Hidden : Boolean := False)
+      Integer_Hidden : Boolean := False;
+      Arrays : Array_Bindings.Metadata := Array_Bindings.Empty_Metadata;
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values;
+      Elaborating : Boolean := False)
       return Expression_State
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Valid_Names (Text, Names)
          and then Scalar_Expressions.Valid_Environment (Text, Scalar_Names)
+         and then Array_Bindings.Valid_Metadata (Text, Arrays)
          and then Valid_Expression_State (Text, State),
        Post => Valid_Expression_State (Text, Expression_Step'Result)
          and then (Expression_Step'Result.Position = 0
@@ -639,11 +672,14 @@ is
    function Expression_Step
      (Text : String; Names : Binding_Environment; State : Expression_State;
       Scalar_Names : Scalar_Expressions.Environment := Scalar_Expressions.Empty_Environment;
-      Integer_Hidden : Boolean := False)
+      Integer_Hidden : Boolean := False;
+      Arrays : Array_Bindings.Metadata := Array_Bindings.Empty_Metadata;
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values;
+      Elaborating : Boolean := False)
       return Expression_State is
      (declare Open_After : constant Literal_Position :=
                 Take_Token (Text, State.Position, Left_Parenthesis);
-              Atom : constant Value_Result := Value_At (Text, State.Position, Names, Scalar_Names, Integer_Hidden);
+              Atom : constant Value_Result := Value_At (Text, State.Position, Names, Scalar_Names, Integer_Hidden, Arrays, Initials, Elaborating);
               Join_After : constant Literal_Position :=
                 Take_Token (Text, State.Position, Ampersand);
               Close_After : constant Literal_Position :=
@@ -676,12 +712,16 @@ is
    function Expression_Tail
      (Text : String; Names : Binding_Environment; State : Expression_State;
       Scalar_Names : Scalar_Expressions.Environment := Scalar_Expressions.Empty_Environment;
-      Integer_Hidden : Boolean := False)
+      Integer_Hidden : Boolean := False;
+      Arrays : Array_Bindings.Metadata := Array_Bindings.Empty_Metadata;
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values;
+      Elaborating : Boolean := False)
       return Expression_Result
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Valid_Names (Text, Names)
          and then Scalar_Expressions.Valid_Environment (Text, Scalar_Names)
+         and then Array_Bindings.Valid_Metadata (Text, Arrays)
          and then Valid_Expression_State (Text, State),
        Post => Expression_Tail'Result.After = 0
          or else Expression_Tail'Result.After in State.Position .. Text'Last + 1,
@@ -689,40 +729,50 @@ is
    function Expression_Tail
      (Text : String; Names : Binding_Environment; State : Expression_State;
       Scalar_Names : Scalar_Expressions.Environment := Scalar_Expressions.Empty_Environment;
-      Integer_Hidden : Boolean := False)
+      Integer_Hidden : Boolean := False;
+      Arrays : Array_Bindings.Metadata := Array_Bindings.Empty_Metadata;
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values;
+      Elaborating : Boolean := False)
       return Expression_Result is
      (if State.Position = 0 then Invalid_Expression
       elsif State.Complete then
         (After => State.Position, Minimum_Length => State.Minimum_Length, Static_Length => State.Static_Length,
          Dynamic_Count => State.Dynamic_Count, Named_Seen => State.Named_Seen, Empty_Value => State.Empty_Value)
       else
-        (declare Next : constant Expression_State := Expression_Step (Text, Names, State, Scalar_Names, Integer_Hidden);
+        (declare Next : constant Expression_State := Expression_Step (Text, Names, State, Scalar_Names, Integer_Hidden, Arrays, Initials, Elaborating);
          begin
            (if Next.Position = 0 then Invalid_Expression
             elsif Next.Complete then
               (After => Next.Position, Minimum_Length => Next.Minimum_Length, Static_Length => Next.Static_Length,
                Dynamic_Count => Next.Dynamic_Count, Named_Seen => Next.Named_Seen, Empty_Value => Next.Empty_Value)
-            else Expression_Tail (Text, Names, Next, Scalar_Names, Integer_Hidden))));
+            else Expression_Tail (Text, Names, Next, Scalar_Names, Integer_Hidden, Arrays, Initials, Elaborating))));
 
    function Expression_At
      (Text : String; Position : Literal_Position; Names : Binding_Environment;
       Scalar_Names : Scalar_Expressions.Environment := Scalar_Expressions.Empty_Environment;
-      Integer_Hidden : Boolean := False)
+      Integer_Hidden : Boolean := False;
+      Arrays : Array_Bindings.Metadata := Array_Bindings.Empty_Metadata;
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values;
+      Elaborating : Boolean := False)
       return Expression_Result
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Position <= Text'Last + 1 and then Valid_Names (Text, Names)
-         and then Scalar_Expressions.Valid_Environment (Text, Scalar_Names),
+         and then Scalar_Expressions.Valid_Environment (Text, Scalar_Names)
+         and then Array_Bindings.Valid_Metadata (Text, Arrays),
        Post => (Static => (Expression_At'Result.After = 0
          or else Expression_At'Result.After in Position + 1 .. Text'Last + 1)
          and then (Expression_At'Result = Expression_Tail (Text, Names,
            (Position => Position, Minimum_Length => 0, Static_Length => 0, Dynamic_Count => 0,
             Operands => 0, Depth => 0, Named_Seen => False,
-            Need_Operand => True, Complete => False, Empty_Value => False), Scalar_Names, Integer_Hidden)));
+            Need_Operand => True, Complete => False, Empty_Value => False), Scalar_Names, Integer_Hidden, Arrays, Initials, Elaborating)));
    function Expression_At
      (Text : String; Position : Literal_Position; Names : Binding_Environment;
       Scalar_Names : Scalar_Expressions.Environment := Scalar_Expressions.Empty_Environment;
-      Integer_Hidden : Boolean := False)
+      Integer_Hidden : Boolean := False;
+      Arrays : Array_Bindings.Metadata := Array_Bindings.Empty_Metadata;
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values;
+      Elaborating : Boolean := False)
       return Expression_Result is
       State : Expression_State :=
         (Position => Position, Minimum_Length => 0, Static_Length => 0, Dynamic_Count => 0,
@@ -740,10 +790,10 @@ is
            Expression_Tail (Text, Names,
              (Position => Position, Minimum_Length => 0, Static_Length => 0, Dynamic_Count => 0,
               Operands => 0, Depth => 0, Named_Seen => False,
-            Need_Operand => True, Complete => False, Empty_Value => False), Scalar_Names, Integer_Hidden)
-             = Expression_Tail (Text, Names, State, Scalar_Names, Integer_Hidden));
+            Need_Operand => True, Complete => False, Empty_Value => False), Scalar_Names, Integer_Hidden, Arrays, Initials, Elaborating)
+             = Expression_Tail (Text, Names, State, Scalar_Names, Integer_Hidden, Arrays, Initials, Elaborating));
          pragma Loop_Variant (Increases => State.Position);
-         State := Expression_Step (Text, Names, State, Scalar_Names, Integer_Hidden);
+         State := Expression_Step (Text, Names, State, Scalar_Names, Integer_Hidden, Arrays, Initials, Elaborating);
       end loop;
       if State.Position = 0 then return Invalid_Expression; end if;
       return (After => State.Position, Minimum_Length => State.Minimum_Length, Static_Length => State.Static_Length,
@@ -771,7 +821,8 @@ is
       and then not Forbidden_Name (Text, First, After)
       and then (not Arguments or else not Forbidden_Argument_Name (Text, First, After))
       and then Lookup_Name (Text, State.Names, First, After) = 0
-      and then Scalar_Expressions.Lookup (Text, State.Scalar_Names, First, After) = 0);
+      and then Scalar_Expressions.Lookup (Text, State.Scalar_Names, First, After) = 0
+      and then Array_Bindings.Lookup (Text, State.Array_Names.Names, First, After) = 0);
 
    function Add_Binding
      (State : Parser_State; First, After : Literal_Position;
@@ -846,7 +897,9 @@ is
         Scalar_Constraint_At (Text, Type_After, State.Scalar_Names);
       Value : constant Scalar_Expressions.Expression_Result :=
         Scalar_Expressions.Read_Expression
-          (Text, Take_Token (Text, Constraint.After, Assignment), State.Scalar_Names);
+          (Text, Take_Token (Text, Constraint.After, Assignment), State.Scalar_Names,
+           Arrays => State.Array_Names.Names,
+           Initials => State.Array_Names.Values, Elaborating => True);
       Following : constant Literal_Position := Take_Token (Text, Value.After, Semicolon);
       begin
         (if not New_Name_Allowed (Text, State, First, After, Arguments)
@@ -858,6 +911,7 @@ is
         or else Name_Is (Text, First, After, "integer")
         or else Lookup_Name (Text, State.Names, Type_First, Type_After) /= 0
         or else Scalar_Expressions.Lookup (Text, State.Scalar_Names, Type_First, Type_After) /= 0
+        or else Array_Bindings.Lookup (Text, State.Array_Names.Names, Type_First, Type_After) /= 0
          then Invalid_State
          else (State with delta Position => Following,
         Scalar_Names => Scalar_Expressions.Append
@@ -884,7 +938,7 @@ is
               Value : constant Expression_Result := Expression_At
                 (Text, Take_Token (Text, Type_After, Assignment), State.Names, State.Scalar_Names,
                  First /= 0 and then After > First
-                   and then Take_Token (Text, First, Integer_Name) = After);
+                   and then Take_Token (Text, First, Integer_Name) = After, State.Array_Names.Names, State.Array_Names.Values, True);
               Following : constant Literal_Position := Take_Token (Text, Value.After, Semicolon);
       begin
         (if not New_Name_Allowed (Text, State, First, After, Arguments)
@@ -899,6 +953,101 @@ is
            Constant_After = 0, Following)));
 
 
+   function Array_Declaration_At
+     (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, State),
+       Post => Valid_State (Text, Array_Declaration_At'Result)
+         and then (Array_Declaration_At'Result.Position = 0
+           or else Array_Declaration_At'Result.Position > State.Position);
+   function Array_Declaration_At
+     (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State is
+      First : constant Literal_Position := Skip_At (Text, State.Position);
+      After : constant Literal_Position := Name_After (Text, First);
+      Colon_After : constant Literal_Position := Take_Token (Text, After, Colon);
+      Constant_After : constant Literal_Position := Take_Token (Text, Colon_After, Constant_Keyword);
+      Array_After : constant Literal_Position := Take_Token
+        (Text, (if Constant_After /= 0 then Constant_After else Colon_After), Array_Keyword);
+      Low : constant Scalar_Expressions.Expression_Result := Scalar_Expressions.Read_Expression
+        (Text, Take_Token (Text, Array_After, Left_Parenthesis), State.Scalar_Names,
+         Arrays => State.Array_Names.Names,
+           Initials => State.Array_Names.Values, Elaborating => True);
+      High : constant Scalar_Expressions.Expression_Result := Scalar_Expressions.Read_Expression
+        (Text, Take_Token (Text, Low.After, Range_Delimiter), State.Scalar_Names,
+         Arrays => State.Array_Names.Names,
+           Initials => State.Array_Names.Values, Elaborating => True);
+      Type_First : constant Literal_Position := Skip_At (Text, Take_Token (Text,
+        Take_Token (Text, High.After, Right_Parenthesis), Of_Keyword));
+      Type_After : constant Literal_Position := Take_Token (Text, Type_First, Integer_Name);
+      Position : Literal_Position := Take_Token (Text,
+        Take_Token (Text, Type_After, Assignment), Left_Parenthesis);
+      Result : Parser_State := State;
+      Length : Array_Bindings.Element_Count;
+      Parsed : Array_Bindings.Element_Count := 0;
+      Value : Scalar_Expressions.Expression_Result;
+   begin
+      if not New_Name_Allowed (Text, State, First, After, Arguments)
+        or else Name_Is (Text, First, After, "integer")
+        or else Array_After = 0 or else Position = 0
+        or else State.Array_Names.Names.Count = Array_Bindings.Max_Bindings
+        or else Low.After = 0 or else High.After = 0 or else not Low.Static or else not High.Static
+        or else Scalars.Is_Empty (Low.Bounds) or else Scalars.Is_Empty (High.Bounds)
+        or else Low.Bounds.Lower /= Low.Bounds.Upper or else High.Bounds.Lower /= High.Bounds.Upper
+        or else Low.Bounds.Lower > High.Bounds.Lower
+        or else Scalars.Wide (High.Bounds.Lower) - Scalars.Wide (Low.Bounds.Lower)
+          >= Scalars.Wide (Array_Bindings.Max_Elements - State.Array_Names.Used)
+        or else Lookup_Name (Text, State.Names, Type_First, Type_After) /= 0
+        or else Scalar_Expressions.Lookup (Text, State.Scalar_Names, Type_First, Type_After) /= 0
+        or else Array_Bindings.Lookup (Text, State.Array_Names.Names, Type_First, Type_After) /= 0
+      then return Invalid_State; end if;
+      Length := Array_Bindings.Element_Count
+        ((Scalars.Wide (High.Bounds.Lower) - Scalars.Wide (Low.Bounds.Lower)) + 1);
+      if Length = 1 then
+         --  Parentheses around one value are not an Ada array aggregate.
+         Value := Scalar_Expressions.Read_Expression
+           (Text, Position, State.Scalar_Names, Arrays => State.Array_Names.Names,
+           Initials => State.Array_Names.Values, Elaborating => True);
+         Position := Take_Token (Text, Value.After, Arrow);
+         if Position = 0 or else not Value.Static or else Scalars.Is_Empty (Value.Bounds)
+           or else Value.Bounds.Lower /= Low.Bounds.Lower or else Value.Bounds.Upper /= Low.Bounds.Lower
+         then return Invalid_State; end if;
+      end if;
+      while Parsed < Length loop
+         pragma Loop_Invariant (Parsed <= Length);
+         pragma Loop_Invariant (Length <= Array_Bindings.Max_Elements - State.Array_Names.Used);
+         pragma Loop_Invariant (Result.Array_Names.Used = State.Array_Names.Used + Parsed);
+         pragma Loop_Invariant (Position <= Text'Last + 1);
+         pragma Loop_Invariant (Valid_State (Text, Result));
+         pragma Loop_Invariant
+           (for all Slot in 1 .. State.Array_Names.Used =>
+             Result.Array_Names.Values (Slot) = State.Array_Names.Values (Slot));
+         pragma Loop_Variant (Increases => Parsed);
+         Value := Scalar_Expressions.Read_Expression
+           (Text, Position, State.Scalar_Names, Arrays => State.Array_Names.Names,
+           Initials => State.Array_Names.Values, Elaborating => True);
+         if Value.After = 0 or else Scalars.Is_Empty (Value.Bounds)
+           or else Value.Bounds.Lower /= Value.Bounds.Upper
+         then return Invalid_State; end if;
+         Parsed := Parsed + 1;
+         Result.Array_Names.Used := Result.Array_Names.Used + 1;
+         Result.Array_Names.Values (Result.Array_Names.Used) := Value.Bounds.Lower;
+         Position := Value.After;
+         if Parsed < Length then
+            Position := Take_Token (Text, Position, Comma);
+            if Position = 0 then return Invalid_State; end if;
+         end if;
+      end loop;
+      Position := Take_Token (Text, Take_Token (Text, Position, Right_Parenthesis), Semicolon);
+      if Position <= State.Position then return Invalid_State; end if;
+      Result.Array_Names.Names.Count := Result.Array_Names.Names.Count + 1;
+      Result.Array_Names.Names.Items (Result.Array_Names.Names.Count) :=
+        (First, After, (Low.Bounds.Lower, High.Bounds.Lower),
+         State.Array_Names.Used, Length, Constant_After = 0);
+      Result.Position := Position;
+      return Result;
+   end Array_Declaration_At;
+
    function Declaration_At
      (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State
      with Global => null,
@@ -910,7 +1059,9 @@ is
    function Declaration_At
      (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State is
      (declare Scalar_State : constant Parser_State := Scalar_Declaration_At (Text, State, Arguments);
+              Array_State : constant Parser_State := Array_Declaration_At (Text, State, Arguments);
       begin (if Scalar_State.Position /= 0 then Scalar_State
+             elsif Array_State.Position /= 0 then Array_State
              else String_Declaration_At (Text, State, Arguments)));
 
    function Argument_At (Text : String; State : Parser_State) return Parser_State
@@ -1015,7 +1166,8 @@ is
          and then Valid_State (Text, State),
        Post => Valid_State (Text, Assignment_At'Result);
    function Assignment_At (Text : String; State : Parser_State) return Parser_State is
-     (declare Value : constant Expression_Result := Expression_At (Text, State.Position, State.Names, State.Scalar_Names);
+     (declare Value : constant Expression_Result := Expression_At (Text, State.Position, State.Names, State.Scalar_Names, Arrays => State.Array_Names.Names,
+           Initials => State.Array_Names.Values, Elaborating => True);
       begin
         (if not Fits (Value, State.Capacity) or else State.Target = 0
            or else Value.Empty_Value or else Value.Minimum_Length /= Value.Static_Length
@@ -1030,7 +1182,8 @@ is
          and then Valid_State (Text, State),
        Post => Valid_State (Text, Output_At'Result);
    function Output_At (Text : String; State : Parser_State) return Parser_State is
-     (declare Value : constant Expression_Result := Expression_At (Text, State.Position, State.Names, State.Scalar_Names);
+     (declare Value : constant Expression_Result := Expression_At (Text, State.Position, State.Names, State.Scalar_Names, Arrays => State.Array_Names.Names,
+           Initials => State.Array_Names.Values, Elaborating => True);
       begin
         (if not Fits (Value, State.Capacity)
          then Invalid_State else (State with delta Position => Value.After)));
@@ -1041,9 +1194,11 @@ is
          and then Valid_State (Text, State),
        Post => Valid_State (Text, Comparison_At'Result);
    function Comparison_At (Text : String; State : Parser_State) return Parser_State is
-     (declare Left : constant Expression_Result := Expression_At (Text, State.Position, State.Names, State.Scalar_Names);
+     (declare Left : constant Expression_Result := Expression_At (Text, State.Position, State.Names, State.Scalar_Names, Arrays => State.Array_Names.Names,
+           Initials => State.Array_Names.Values, Elaborating => True);
               Right : constant Expression_Result := Expression_At
-                (Text, Take_Token (Text, Left.After, Equal), State.Names, State.Scalar_Names);
+                (Text, Take_Token (Text, Left.After, Equal), State.Names, State.Scalar_Names, Arrays => State.Array_Names.Names,
+           Initials => State.Array_Names.Values, Elaborating => True);
       begin
         (if not Fits (Left, State.Capacity) or else not Fits (Right, State.Capacity)
            or else not (Left.Named_Seen or else Right.Named_Seen)
@@ -1114,6 +1269,7 @@ is
    type Body_Context is record
       Names : Binding_Environment;
       Scalar_Names : Scalar_Expressions.Environment;
+      Array_Names : Array_Bindings.Metadata;
       Declaration_Count : Scalar_Expressions.Binding_Count;
       Dynamic_First, Dynamic_After : Literal_Position;
    end record;
@@ -1140,6 +1296,7 @@ is
    function Context_Of (Scan : Scan_Result) return Body_Context is
      (Names => Scan.State.Names,
       Scalar_Names => Scalar_Expressions.Body_Environment (Scan.State.Scalar_Names),
+      Array_Names => Scan.State.Array_Names.Names,
       Declaration_Count => Scan.State.Scalar_Names.Count,
       Dynamic_First => Scan.State.Dynamic_First,
       Dynamic_After => Scan.State.Dynamic_After);
@@ -1209,8 +1366,10 @@ is
          Result.Output := False;
       end return;
    end Invalid_Body;
-   function Expand_Body (Context : Body_Context; Scan : Body_Scan) return Scan_Result is
+   function Expand_Body
+     (Context : Body_Context; Scan : Body_Scan; Arrays : Array_Bindings.Environment) return Scan_Result is
      (State => (Position => Scan.Position, Names => Context.Names, Scalar_Names => Context.Scalar_Names,
+       Array_Names => Arrays,
        Dynamic_First => Context.Dynamic_First, Dynamic_After => Context.Dynamic_After,
        Target => Scan.Target, Capacity => Scan.Capacity),
       Assigned => Scan.Assigned, Output => Scan.Output);
@@ -1220,6 +1379,7 @@ is
    function Valid_Context (Text : String; Context : Body_Context) return Boolean is
      (Valid_Names (Text, Context.Names)
       and then Scalar_Expressions.Valid_Environment (Text, Context.Scalar_Names)
+      and then Array_Bindings.Valid_Metadata (Text, Context.Array_Names)
       and then Valid_Declaration_Values (Context.Scalar_Names, Context.Declaration_Count)
       and then Valid_Mutable_Bounds (Context.Scalar_Names)
       and then (for all Index in 1 .. Context.Scalar_Names.Count =>
@@ -1403,7 +1563,7 @@ is
          or else (Read_Scalar_In_Flow'Result.After in Position + 1 .. Text'Last + 1
            and then Read_Scalar_In_Flow'Result.Operands > 0),
          Static => Read_Scalar_In_Flow'Result = Scalar_Expressions.Read_Expression
-           (Text, Position, Reading_Names (Context, Facts), Mask_First, Mask_After));
+           (Text, Position, Reading_Names (Context, Facts), Mask_First, Mask_After, Arrays => Context.Array_Names));
    pragma No_Inline (Read_Scalar_In_Flow);
    function Read_Scalar_In_Flow
      (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow;
@@ -1411,7 +1571,7 @@ is
       return Scalar_Expressions.Expression_Result is
       Overlay : constant Scalar_Expressions.Environment := Reading_Names (Context, Facts);
    begin
-      return Scalar_Expressions.Read_Expression (Text, Position, Overlay, Mask_First, Mask_After);
+      return Scalar_Expressions.Read_Expression (Text, Position, Overlay, Mask_First, Mask_After, Arrays => Context.Array_Names);
    end Read_Scalar_In_Flow;
    function Read_String_In_Flow
      (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow)
@@ -1423,14 +1583,14 @@ is
        Post => (Runtime => Read_String_In_Flow'Result.After = 0
          or else Read_String_In_Flow'Result.After in Position + 1 .. Text'Last + 1,
          Static => Read_String_In_Flow'Result = Expression_At
-           (Text, Position, Context.Names, Reading_Names (Context, Facts)));
+           (Text, Position, Context.Names, Reading_Names (Context, Facts), Arrays => Context.Array_Names));
    pragma No_Inline (Read_String_In_Flow);
    function Read_String_In_Flow
      (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow)
       return Expression_Result is
       Overlay : constant Scalar_Expressions.Environment := Reading_Names (Context, Facts);
    begin
-      return Expression_At (Text, Position, Context.Names, Overlay);
+      return Expression_At (Text, Position, Context.Names, Overlay, Arrays => Context.Array_Names);
    end Read_String_In_Flow;
 
    function Body_Token_Model
@@ -1764,7 +1924,7 @@ is
             elsif Context.Dynamic_First = 0 then Invalid_Condition (Facts)
             else
               (declare After_Call : constant Literal_Position :=
-                 Call_After (Text, Context.Names, Position, Names.Validity_Call, Context.Scalar_Names);
+                 Call_After (Text, Context.Names, Position, Names.Validity_Call, Context.Scalar_Names, Context.Array_Names);
                begin (if After_Call = 0 then Invalid_Condition (Facts) else
                  (Count => Facts.Count, After => After_Call,
                   When_True => (Facts with delta Path => Paths.Assume_Valid (Facts.Path)),
@@ -1988,7 +2148,7 @@ is
          pragma Assert (Static => Valid_Flow (Context, Result.When_True));
          pragma Assert (Static => Valid_Flow (Context, Result.When_False));
       else
-         Result.After := Call_After (Text, Context.Names, Position, Names.Validity_Call, Context.Scalar_Names);
+         Result.After := Call_After (Text, Context.Names, Position, Names.Validity_Call, Context.Scalar_Names, Context.Array_Names);
          Result.When_True := Facts;
          Result.When_False := Facts;
          if Result.After = 0 then
@@ -2600,6 +2760,47 @@ is
       end return;
    end Scalar_Assignment_Body;
 
+   function Array_Target
+     (Text : String; Context : Body_Context; Position : Literal_Position)
+      return Array_Bindings.Binding_Count
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_Context (Text, Context) and then Position <= Text'Last + 1,
+       Post => Array_Target'Result <= Context.Array_Names.Count;
+   function Array_Target
+     (Text : String; Context : Body_Context; Position : Literal_Position)
+      return Array_Bindings.Binding_Count is
+     (declare First : constant Literal_Position := Skip_At (Text, Position);
+              After : constant Literal_Position := Name_After (Text, First);
+      begin (if Scalar_Expressions.Lookup (Text, Context.Scalar_Names, First, After) /= 0
+             then 0 else Array_Bindings.Lookup (Text, Context.Array_Names, First, After)));
+
+   function Array_Assignment_Body
+     (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan),
+       Post => Valid_Body (Text, Context, Array_Assignment_Body'Result)
+         and then (Array_Assignment_Body'Result.Position = 0
+           or else Array_Assignment_Body'Result.Position > Scan.Position);
+   function Array_Assignment_Body
+     (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan is
+      First : constant Literal_Position := Skip_At (Text, Scan.Position);
+      After : constant Literal_Position := Name_After (Text, First);
+      Target : constant Array_Bindings.Binding_Count := Array_Target (Text, Context, Scan.Position);
+      Subscript : constant Scalar_Expressions.Expression_Result := Scalar_Expressions.Read_Expression
+        (Text, Take_Token (Text, After, Left_Parenthesis), Reading_Names (Context, Scan.Facts));
+      Value : constant Scalar_Expressions.Expression_Result := Read_Scalar_In_Flow
+        (Text, Context, Take_Token (Text, Take_Token (Text, Subscript.After, Right_Parenthesis), Assignment), Scan.Facts);
+   begin
+      if Target = 0 or else not Context.Array_Names.Items (Target).Mutable
+        or else not Array_Bindings.Contains (Context.Array_Names.Items (Target), Subscript.Bounds)
+        or else Subscript.Operands = Scalar_Expressions.Max_Operands
+        or else Value.After <= Scan.Position or else Scalars.Is_Empty (Value.Bounds)
+      then return Invalid_Body (Scan); end if;
+      return (Scan with delta Position => Value.After, Assigned => True);
+   end Array_Assignment_Body;
+
    function Basic_Body
      (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan
      with Global => null,
@@ -2617,8 +2818,8 @@ is
       if Result.Position = 0 then return Invalid_Body (Scan); end if;
       if Take_Token (Text, Result.Position, Null_Keyword) /= 0 then
          Result := Body_Token (Text, Context, Result, Null_Keyword);
-      elsif Call_After (Text, Context.Names, Result.Position, Names.Output_Call, Context.Scalar_Names) /= 0 then
-         Result.Position := Call_After (Text, Context.Names, Result.Position, Names.Output_Call, Context.Scalar_Names);
+      elsif Call_After (Text, Context.Names, Result.Position, Names.Output_Call, Context.Scalar_Names, Context.Array_Names) /= 0 then
+         Result.Position := Call_After (Text, Context.Names, Result.Position, Names.Output_Call, Context.Scalar_Names, Context.Array_Names);
          Result := Body_Token (Text, Context, Result, Left_Parenthesis);
          Result.Position := Names.Association_After (Text, Result.Position, False);
          Value := Read_String_In_Flow (Text, Context, Result.Position, Result.Facts);
@@ -2628,8 +2829,8 @@ is
          Result.Position := Value.After;
          Result := Body_Token (Text, Context, Result, Right_Parenthesis);
          Result.Output := True;
-      elsif Call_After (Text, Context.Names, Result.Position, Names.Partial_Output_Call, Context.Scalar_Names) /= 0 then
-         Result.Position := Call_After (Text, Context.Names, Result.Position, Names.Partial_Output_Call, Context.Scalar_Names);
+      elsif Call_After (Text, Context.Names, Result.Position, Names.Partial_Output_Call, Context.Scalar_Names, Context.Array_Names) /= 0 then
+         Result.Position := Call_After (Text, Context.Names, Result.Position, Names.Partial_Output_Call, Context.Scalar_Names, Context.Array_Names);
          Result := Body_Token (Text, Context, Result, Left_Parenthesis);
          Result.Position := Names.Association_After (Text, Result.Position, False);
          Value := Read_String_In_Flow (Text, Context, Result.Position, Result.Facts);
@@ -2640,12 +2841,14 @@ is
          Result := Body_Token (Text, Context, Result, Right_Parenthesis);
          Result.Output := True;
       elsif Context.Dynamic_First /= 0
-        and then Call_After (Text, Context.Names, Result.Position, Names.Reject_Call, Context.Scalar_Names) /= 0
+        and then Call_After (Text, Context.Names, Result.Position, Names.Reject_Call, Context.Scalar_Names, Context.Array_Names) /= 0
       then
-         Result.Position := Call_After (Text, Context.Names, Result.Position, Names.Reject_Call, Context.Scalar_Names);
+         Result.Position := Call_After (Text, Context.Names, Result.Position, Names.Reject_Call, Context.Scalar_Names, Context.Array_Names);
          Result.Facts.Path := Paths.Rejected (Result.Facts.Path);
       elsif Scalar_Target (Text, Context, Result.Position) /= 0 then
          Result := Scalar_Assignment_Body (Text, Context, Result);
+      elsif Array_Target (Text, Context, Result.Position) /= 0 then
+         Result := Array_Assignment_Body (Text, Context, Result);
       else
          Target := Body_String_Target (Text, Context, Result.Position);
          Result.Position := Target.After;
@@ -3000,7 +3203,7 @@ is
         (Text, Context, Body_Of (Scan), (if Stop = Else_Keyword then Else_Only else End_Only));
    begin
       return (if Result.Position = 0 or else not Paths.Completed (Result.Facts.Path)
-              then Invalid_Scan else Expand_Body (Context, Result));
+              then Invalid_Scan else Expand_Body (Context, Result, Scan.State.Array_Names));
    end Read_Statements;
 
    function Scan_Step

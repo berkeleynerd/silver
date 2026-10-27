@@ -1,6 +1,7 @@
 with Silver_Profile;
 with Silver_Output_Lexical;
 with Silver_Scalars;
+with Silver_Array_Bindings;
 
 package Silver_Scalar_Expressions with SPARK_Mode => On is
    use Silver_Profile;
@@ -80,12 +81,16 @@ package Silver_Scalar_Expressions with SPARK_Mode => On is
    function Read_Expression
      (Text : String; Position : Literal_Position; Names : Environment;
       Mask_First : Literal_Position := 0; Mask_After : Literal_Position := 0;
-      Allow_Sign : Boolean := True)
+      Allow_Sign : Boolean := True;
+      Arrays : Silver_Array_Bindings.Metadata := Silver_Array_Bindings.Empty_Metadata;
+      Initials : Silver_Array_Bindings.Element_Array := Silver_Array_Bindings.Empty_Values;
+      Elaborating : Boolean := False)
       return Expression_Result
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Position <= Text'Last + 1 and then Valid_Environment (Text, Names)
-         and then Valid_Name_State (Text, Mask_First, Mask_After),
+         and then Valid_Name_State (Text, Mask_First, Mask_After)
+         and then Silver_Array_Bindings.Valid_Metadata (Text, Arrays),
        Post => Read_Expression'Result.After = 0
          or else (Read_Expression'Result.After in Position + 1 .. Text'Last + 1
            and then Read_Expression'Result.Operands > 0),

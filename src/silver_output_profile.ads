@@ -26,7 +26,7 @@ is
       Dynamic_Reference, Assignment_Value, Output_Expression, Comparison_Expression,
       Null_Keyword, Statements, Context_Clauses, Integer_Name,
       For_Keyword, In_Keyword, Reverse_Keyword, Loop_Keyword, Range_Delimiter,
-      Range_Keyword);
+      Range_Keyword, Array_Keyword, Of_Keyword, Comma, Arrow);
 
    function Is_Word_Token (Token : Token_Kind) return Boolean
      with Global => null,
@@ -35,7 +35,7 @@ is
            | First_Or_Default_Name | If_Keyword | Input_Is_Valid_Name
            | Then_Keyword | Else_Keyword | Elsif_Keyword | Reject_Name | And_Keyword | Length_Name
            | Or_Keyword | Not_Keyword | Null_Keyword | Integer_Name
-           | For_Keyword | In_Keyword | Reverse_Keyword | Loop_Keyword | Range_Keyword);
+           | For_Keyword | In_Keyword | Reverse_Keyword | Loop_Keyword | Range_Keyword | Array_Keyword | Of_Keyword);
 
    type Token_Sequence is array (Positive range <>) of Token_Kind;
    --  Shared declaration and statement rules live within two outer shells.
