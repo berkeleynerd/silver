@@ -4,6 +4,7 @@ public import Silver.ComposeModelRecursion
 public import Silver.ComposeRecognitionEquations
 public import Silver.ComposeNameBridge
 public import Silver.ComposeScalarDenotations
+public import Silver.ComposeArrayModel
 
 @[expose] public section
 
@@ -43,9 +44,47 @@ private theorem model_definition_arrayLookup : ∀ text, ValidText text → ∀ 
     ArrayBindings.ValidMetadata text arrays → ValidCursor text first → ValidCursor text after →
     modelCalls.function .arrayLookup text arrays first after = ArrayBindings.lookup text arrays first after := by intros; rfl
 
+private theorem model_definition_arrayPut : ∀ state value,
+    state.arrayNames.used < ArrayBindings.maxElements → Integer.InRange value →
+    modelCalls.function .arrayPut state value = arrayPutBody.eval modelCalls (arrayPutLocals state value) := by
+  intros
+  rw [arrayPut_denotation]
+  rfl
+
+private theorem model_definition_arrayAdd : ∀ text, ValidText text →
+    ∀ state first after bounds offset length mutable following,
+    ValidState text state → ValidName text first after →
+    ArrayBindings.ValidBinding ⟨first, after, bounds, offset, length, mutable⟩ →
+    state.arrayNames.names.length < ArrayBindings.maxBindings →
+    offset + length ≤ state.arrayNames.used → ValidCursor text following →
+    modelCalls.function .arrayAdd text state first after bounds offset length mutable following =
+      arrayAddBody.eval modelCalls (arrayAddLocals text state first after bounds offset length mutable following) := by
+  intros
+  rw [arrayAdd_denotation]
+  rfl
+
+private theorem model_definition_arrayValuesModel : ∀ text, ValidText text →
+    ∀ source result position length parsed, ArrayValuesDomain text source result position length parsed →
+    modelCalls.function .arrayValuesModel text source result position length parsed =
+      arrayValuesModelBody.eval modelCalls (arrayValuesLocals text source result position length parsed) := by
+  intro text _ source result position length parsed domain
+  rw [arrayValues_denotation, model_arrayValues_equation text source result position length parsed domain.parsedBound]
+  rfl
+
+private theorem model_definition_arrayValues : ∀ text, ValidText text →
+    ∀ source result position length parsed, ArrayValuesDomain text source result position length parsed →
+    modelCalls.function .arrayValues text source result position length parsed =
+      modelCalls.function .arrayValuesModel text source result position length parsed := by
+  intros
+  rfl
+
 private theorem model_definition_arrayDeclaration : ∀ text, ValidText text → ∀ state arguments,
     ValidState text state →
-    modelCalls.function .arrayDeclaration text state arguments = arrayDeclarationAt text state arguments := by intros; rfl
+    modelCalls.function .arrayDeclaration text state arguments =
+      (arrayDeclarationBody true).eval modelCalls (Context.locals {text,state,arguments}) := by
+  intro text _ state arguments _
+  rw [arrayDeclaration_denotation, model_arrayDeclaration_equation]
+  rfl
 
 private theorem model_definition_scalarLiteral : ∀ text, ValidText text → ∀ position, ValidCursor text position →
     modelCalls.function .scalarLiteral text position = ScalarLiteral.read text position := by intros; rfl
@@ -185,6 +224,7 @@ private theorem model_definition_stringDeclaration : ∀ text, ValidText text �
   let after := declarationAfter text state
   let constant := declarationConstantAfter text state
   let value := expressionAt text (declarationValuePosition text state) state.names state.scalarNames (declarationIntegerHidden text state)
+    state.arrayNames.names state.arrayNames.values true
   let following := fixedAfter text value.after ";" false
   change
     (if !newNameAllowed text state first after arguments ||
@@ -234,7 +274,8 @@ private theorem model_definition_scalarDeclaration : ∀ text, ValidText text �
           decide (parts.constraint.bounds.upper < parts.value.bounds.upper) ||
           Named.nameIs text parts.first parts.after ("integer".toList.map Char.toNat) ||
           decide (lookupName text state.names parts.typeFirst parts.typeAfter ≠ 0) ||
-          decide (ScalarExpression.lookup text state.scalarNames parts.typeFirst parts.typeAfter ≠ 0)
+          decide (ScalarExpression.lookup text state.scalarNames parts.typeFirst parts.typeAfter ≠ 0) ||
+          decide (ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter ≠ 0)
         then invalidState else addScalarBinding state parts) := by
     rw [scalarDeclaration_denotation]
     dsimp +zetaHave only [scalarDeclarationEquation]
@@ -254,7 +295,8 @@ private theorem model_definition_scalarDeclaration : ∀ text, ValidText text �
         parts.constraint.bounds.upper < parts.value.bounds.upper) ||
       decide (fixedAfter text parts.first "integer" true = parts.after) ||
       decide (lookupName text state.names parts.typeFirst parts.typeAfter ≠ 0 ∨
-        ScalarExpression.lookup text state.scalarNames parts.typeFirst parts.typeAfter ≠ 0)
+        ScalarExpression.lookup text state.scalarNames parts.typeFirst parts.typeAfter ≠ 0 ∨
+        ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter ≠ 0)
     then invalidState else addScalarBinding state parts) = _
   by_cases allowed : newNameAllowed text state parts.first parts.after arguments = true
   · have own := declaration_nameIs_integer text state arguments parts.first parts.after rfl rfl allowed
@@ -418,6 +460,10 @@ theorem model_definitions (ranges : RangeContracts modelCalls) :
   scalarLookup := model_definition_scalarLookup
   scalarRead := model_definition_scalarRead
   arrayLookup := model_definition_arrayLookup
+  arrayPut := model_definition_arrayPut
+  arrayAdd := model_definition_arrayAdd
+  arrayValuesModel := model_definition_arrayValuesModel
+  arrayValues := model_definition_arrayValues
   arrayDeclaration := model_definition_arrayDeclaration
   scalarLiteral := model_definition_scalarLiteral
   scalarAppend := model_definition_scalarAppend

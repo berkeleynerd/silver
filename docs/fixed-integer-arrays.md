@@ -124,6 +124,7 @@ capability requires it.
 | Authorization review | GPT-6.1 Sol / High | Check the three planning files against the owner instruction and current sequence | No blocking finding; one wording clarification applied. Relative links and whitespace checked. Runtime settings and elapsed/token/cost measurements are unavailable. |
 | Core implementation | GPT-6.1 Sol / Extra High native; GPT-6 Astra / Extra High core and composition | Implement indexed storage and preserve existing compositions | Core array projection/expression/assignment/obligation modules passed focused Lean checks; native admission and exact initializer-hull probes passed. A real producer warning corrected the initial capacity conclusion; full integration remains pending. Elapsed/token/cost measurements unavailable. |
 | Aggregate-loop diagnostic review | GPT-6 Astra / Extra High | Identify the remaining recursive-model proof obstacle before another native retry | Read-only review of `20261027T091926-c04248446233` found distinct internal array-update maps despite identical bounded element equations. The recursive unfolding was already present. The repair shares one pure `Put_Array_Value` expression between the model and runtime; its focused native check passed in `20261027T092828-bc511f2ddc79`, followed by the exact loop refinement in `20261027T092945-c19ef466ed7d` (359 checks). No extra equality lemma was needed. About seven minutes for the review; runtime model settings and token/cost measurements unavailable. |
+| Array source and language integration | GPT-6 Astra / Extra High for core and composition subthreads | Connect indexed reads, declaration snapshots and nested control flow to current assurance | Exact scalar-expression source bridge passed (`20261027T101109-bca7c1bbb6c8`, 50.106 s build, 6.575 s audit); mathematical `Current` and selector endpoints passed (`20261027T101357-1cc770acdc6a`, 34.517 s build, 6.380 s audit). The Compose declaration model also passed a focused check after its raw helper equations were derived. Native declaration refinement and the remaining source/caller integration are pending; these are not a complete checkpoint. Runtime settings and token/cost measurements unavailable. |
 
 The diagnostic review used the retained source with SHA-256
 `d4222ef6c64f0becbcd59bd725c0dda1156450c1a08acf451e83eca6675409da`
@@ -133,3 +134,25 @@ The successful scalar-unit check in `20261027T092253-06c49ba4b19a` has 190 proof
 and 38 flow records, all info. Its overall managed run remains failed because
 the shared exploratory directory retained three unresolved output-profile
 obligations; it is not a complete native checkpoint.
+
+The later native declaration diagnostic isolated two identical string literals
+represented as distinct solver maps. Reusing `Spelling (Integer_Name)` proved
+the wrapper but failed native compilation, so that experiment remains
+superseded. A shared static `Integer_Type_Word` constant preserves the exact
+string and both routines' contracts. The final constant version built in
+`20261027T103130-6338213d6531` (9.794 s), proved all 419 targeted declaration
+checks in `20261027T103206-4b9cae036d88` (226.526 s), and passed all 12 array
+tests in `20261027T103611-8a2488674e75` (20.312 s test phase). The mixed report
+policy congruence separately passed all 384 checks in
+`20261027T101514-03e5a36178d6` (623.115 s). These remain focused results.
+
+The [Compose domain and snapshot review](reviews/review-fixed-arrays-compose-domains-f2b5791d5a.md)
+found one source-correspondence gap, tracked in
+[#262](https://github.com/berkeleynerd/silver/issues/262): raw aggregate helpers
+must retain the caller's native scalar-state conditions. The domain repair and
+its array declaration/caller equations have compiled in focused checks. A
+follow-up independent review found no remaining caller-domain defect; the
+concrete model and full source validation are pending. The separate mathematical
+snapshot/composition review found no missing link. Generic, array and remaining
+declaration equations now live in separate modules so repairing the array proof
+retains the already checked helper proofs; public imports preserve their names.

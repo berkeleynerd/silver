@@ -119,7 +119,7 @@ def arrayDeclarationBody (executable : Bool) : Expr .state :=
     (arrayStateNames state)) (.variable "type_first")) (.variable "type_after")
   let conditions : List (Expr .truth) :=
     [.not (.app (.app (.app (.app (.app (.function .newName) text) state) first) after) arguments),
-     .app (.app (.app (.app (.function .nameIs) text) first) after) (.word "integer"),
+     .app (.app (.app (.app (.function .nameIs) text) first) after) .integerTypeWord,
      .eq (.variable "array_after") (.number 0), .eq position (.number 0),
      .eq (.arrayCount (arrayStateNames state)) .maxArrayBindings,
      .eq (.field .scalarAfter lower) (.number 0), .eq (.field .scalarAfter upper) (.number 0),
@@ -190,5 +190,27 @@ theorem arrayDeclaration_scope :
     (arrayDeclarationBody false).scoped [("text", .source), ("state", .state), ("arguments", .truth)] = true ∧
     (arrayDeclarationBody true).scoped [("text", .source), ("state", .state), ("arguments", .truth)] = true := by
   decide +kernel
+
+/-- Complete typed-source coverage for the array helper family. This remains
+separate from the base expression catalogue to preserve its dependency order. -/
+abbrev ArrayWellFormedTrees : Prop :=
+  arrayPutBody.wellFormed = true ∧ arrayAddBody.wellFormed = true ∧
+  arrayValuesModelBody.wellFormed = true ∧
+  (arrayDeclarationBody false).wellFormed = true ∧
+  (arrayDeclarationBody true).wellFormed = true
+
+theorem checked_array_precedence : ArrayWellFormedTrees := by decide +kernel
+
+abbrev ArrayWellScopedTrees : Prop :=
+  arrayPutBody.scoped [("state", .state), ("value", .integer)] = true ∧
+  arrayAddBody.scoped [("text", .source), ("state", .state), ("first", .number),
+    ("after", .number), ("bounds", .interval), ("offset", .number), ("length", .number),
+    ("mutable", .truth), ("following", .number)] = true ∧
+  arrayValuesModelBody.scoped [("text", .source), ("source_state", .state),
+    ("result_state", .state), ("position", .number), ("length", .number), ("parsed", .number)] = true ∧
+  (arrayDeclarationBody false).scoped [("text", .source), ("state", .state), ("arguments", .truth)] = true ∧
+  (arrayDeclarationBody true).scoped [("text", .source), ("state", .state), ("arguments", .truth)] = true
+
+theorem checked_array_scopes : ArrayWellScopedTrees := by decide +kernel
 
 end Silver.Compose.Expressions

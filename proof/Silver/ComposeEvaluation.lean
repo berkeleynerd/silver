@@ -2,6 +2,7 @@ module
 
 public import Silver.ComposeLexical
 public import Silver.ComposeContracts
+public import Silver.ComposeArrayDenotations
 
 @[expose] public section
 
@@ -96,7 +97,7 @@ def Expr.Legal (calls : Calls) (locals : Locals) : Expr ty → Prop
   | .firstForm _ source => source.Legal calls locals
   | .operation _ => True
   | .number n | .character n => True
-  | .word _ => True
+  | .word _ | .integerTypeWord => True
   | .truth b => True
   | .variable name => True
   | .maxLength  => True
@@ -788,7 +789,7 @@ theorem Expr.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning cal
   | .operation _, _ => rfl
   | .number n, _ => rfl
   | .character n, _ => rfl
-  | .word _, _ => rfl
+  | .word _, _ | .integerTypeWord, _ => rfl
   | .truth b, _ => rfl
   | .variable name, _ => rfl
   | .maxLength , _ => rfl
@@ -1100,7 +1101,23 @@ theorem normalized_helpers {domain : StateDomain} (calls : Calls)
   scalarLookup := source.scalarLookup
   scalarRead := source.scalarRead
   arrayLookup := source.arrayLookup
-  arrayDeclaration := source.arrayDeclaration
+  arrayAdd := by
+    intro text valid state first after bounds offset length mutable following stateValid nameValid bindingValid room allocated ending
+    exact (source.arrayAdd text valid state first after bounds offset length mutable following
+      stateValid nameValid bindingValid room allocated ending).trans
+        (arrayAdd_eval_lexical calls text state first after bounds offset length mutable following).symm
+  arrayPut := by
+    intro state value room safe
+    exact (source.arrayPut state value room safe).trans (arrayPut_eval_lexical calls state value).symm
+  arrayValuesModel := by
+    intro text valid sourceState result position length parsed context
+    exact (source.arrayValuesModel text valid sourceState result position length parsed context).trans
+      (arrayValues_eval_lexical calls text sourceState result position length parsed).symm
+  arrayValues := source.arrayValues
+  arrayDeclaration := by
+    intro text valid state arguments context
+    exact (source.arrayDeclaration text valid state arguments context).trans
+      (arrayDeclaration_eval_lexical calls true text state arguments).symm
   scalarLiteral := source.scalarLiteral
   scalarAppend := source.scalarAppend
   scalarEmpty := source.scalarEmpty

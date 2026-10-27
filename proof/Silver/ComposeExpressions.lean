@@ -492,6 +492,7 @@ inductive Expr : Ty → Type
   | count : Expr .names → Expr .number
   | scalarCount : Expr .scalarNames → Expr .number
   | word (value : String) : Expr .spelling
+  | integerTypeWord : Expr .spelling
   | operatorByte : Expr .number → Expr .truth
   | arrayCount : Expr .arrayMetadata → Expr .number
   | maxArrayBindings : Expr .number
@@ -680,6 +681,7 @@ def Expr.render : Expr ty → List String
   | .field projection x => x.render ++ [".", projection.name]
   | .scalarCount x => x.render ++ [".", "count"]
   | .word spellingValue => ["\"" ++ spellingValue ++ "\""]
+  | .integerTypeWord => ["integer_type_word"]
   | .operatorByte x => x.render ++ ["in", "'&'", "|", "'+'", "|", "'-'", "|", "'*'", "|", "'/'"]
   | .arrayCount a => a.render ++ [".", "count"]
   | .maxArrayBindings => ["array_bindings", ".", "max_bindings"]
@@ -824,6 +826,7 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .field projection x => projection.get (x.eval calls locals)
   | .scalarCount x => (x.eval calls locals).length
   | .word spellingValue => spellingValue
+  | .integerTypeWord => "integer"
   | .operatorByte x => decide (x.eval calls locals ∈ [38, 43, 45, 42, 47])
   | .arrayCount a => (a.eval calls locals).length
   | .maxArrayBindings => ArrayBindings.maxBindings
@@ -1461,7 +1464,7 @@ def Expr.wellFormed : Expr ty → Bool
   | .statePositionArray a b c => a.wellFormed && b.wellFormed && c.wellFormed
   | .arrayAppend a b c d e f g => a.wellFormed && b.wellFormed && c.wellFormed && d.wellFormed && e.wellFormed && f.wellFormed && g.wellFormed
   | .maxArrayBindings | .maxArrayElements | .invalidScalar | .integerNumber _ => true
-  | .word _ | .maxScalarBindings => true
+  | .word _ | .integerTypeWord | .maxScalarBindings => true
   | .operatorByte x => x.wellFormed && x.simple
   | .fullInterval | .emptyInterval => true
   | .interval a b | .integerNe a b | .integerLt a b => a.wellFormed && b.wellFormed
@@ -1613,7 +1616,7 @@ def Expr.scoped (scope : Scope) : Expr ty → Bool
   | .statePositionArray a b c => a.scoped scope && b.scoped scope && c.scoped scope
   | .arrayAppend a b c d e f g => a.scoped scope && b.scoped scope && c.scoped scope && d.scoped scope && e.scoped scope && f.scoped scope && g.scoped scope
   | .maxArrayBindings | .maxArrayElements | .invalidScalar | .integerNumber _ => true
-  | .word _ | .maxScalarBindings => true
+  | .word _ | .integerTypeWord | .maxScalarBindings => true
   | .operatorByte x => x.scoped scope
   | .fullInterval | .emptyInterval => true
   | .interval a b | .integerNe a b | .integerLt a b => a.scoped scope && b.scoped scope

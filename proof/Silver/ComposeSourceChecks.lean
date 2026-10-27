@@ -27,14 +27,19 @@ abbrev Refinement : Prop :=
 abbrev AdapterTranslation : Prop :=
   AdapterTranslationFor Source.outputBodyTokens
 
+abbrev ArrayHelperTranslation : Prop :=
+  ArrayHelperTranslationFor Source.outputBodyTokens
+
 private theorem actual_checked :
-    ExpressionTranslation ∧ HelperCatalogueTranslation ∧ Declarations ∧ Refinement ∧ AdapterTranslation := by
+    ExpressionTranslation ∧ HelperCatalogueTranslation ∧ Declarations ∧ Refinement ∧
+      AdapterTranslation ∧ ArrayHelperTranslation := by
   have shape := Output.SourceBridge.actual_complete_shape
   change ExpressionTranslationFor Source.outputBodyTokens ∧
     HelperCatalogueTranslationFor Source.outputSpecTokens Source.outputBodyTokens ∧
     DeclarationsFor Source.outputSpecTokens Source.outputBodyTokens ∧
     RefinementFor Source.outputBodyTokens ∧
-    AdapterTranslationFor Source.outputBodyTokens
+    AdapterTranslationFor Source.outputBodyTokens ∧
+    ArrayHelperTranslationFor Source.outputBodyTokens
   rw [shape.1, shape.2.1]
   exact candidate_checked
 
@@ -48,6 +53,8 @@ theorem actual_declarations : Declarations := actual_checked.2.2.1
 
 theorem actual_refinement : Refinement := actual_checked.2.2.2.1
 
-theorem actual_adapters : AdapterTranslation := actual_checked.2.2.2.2
+theorem actual_adapters : AdapterTranslation := actual_checked.2.2.2.2.1
+
+theorem actual_array_helpers : ArrayHelperTranslation := actual_checked.2.2.2.2.2
 
 end Silver.Compose.SourceBridge
