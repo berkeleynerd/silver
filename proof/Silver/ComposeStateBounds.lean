@@ -2,6 +2,7 @@ module
 
 public import Silver.ComposeContracts
 public import Silver.ComposeScalarDeclarations
+public import Silver.ComposeArrayElaboration
 
 @[expose] public section
 
@@ -18,7 +19,7 @@ set_option maxHeartbeats 2000000
 attribute [local irreducible] ScalarExpression.read
 
 theorem model_invalid_state_valid (text : Source) : ValidState text invalidState := by
-  simp [ValidState, ValidCursor, ValidNames, NameState.Valid, invalidState, ScalarExpression.ValidEnvironment, ScalarExpression.maxBindings]
+  simp [ValidState, ValidCursor, ValidNames, NameState.Valid, invalidState, ScalarExpression.ValidEnvironment, ScalarExpression.maxBindings, ArrayBindings.ValidEnvironment, ArrayBindings.ValidMetadata, ArrayBindings.ValidInitials]
 
 theorem model_state_position_valid (text : Source) (state : ParserState)
     (valid : ValidState text state) (position : Nat) (bound : ValidCursor text position) :
@@ -63,7 +64,7 @@ theorem model_string_declaration_valid (text : Source) (valid : ValidText text)
     ValidState text (stringDeclarationAt text state arguments) := by
   have nameBound : ValidCursor text (declarationParts text state).after := model_name_valid text _
   have resultBound : ValidResult text (declarationParts text state).value :=
-    model_expression_valid (scalarNames := state.scalarNames) (integerHidden := declarationIntegerHidden text state) text valid _ state.names (model_declaration_position_valid text state stateValid) stateValid.2.1
+    model_expression_valid (scalarNames := state.scalarNames) (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true) (integerHidden := declarationIntegerHidden text state) text valid _ state.names (model_declaration_position_valid text state stateValid) stateValid.2.1
   have followingBound : ValidCursor text (declarationParts text state).following :=
     model_fixed_valid text _ _ _ resultBound.1
   unfold stringDeclarationAt
@@ -94,14 +95,14 @@ theorem model_string_declaration_advances (text : Source) (valid : ValidText tex
     change (declarationParts text state).following ≠ 0 at nonzero
     have sourceNameBound : ValidCursor text (declarationParts text state).after := model_name_valid text _
     have resultBound : ValidResult text (declarationParts text state).value :=
-      model_expression_valid (scalarNames := state.scalarNames) (integerHidden := declarationIntegerHidden text state) text valid _ state.names
+      model_expression_valid (scalarNames := state.scalarNames) (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true) (integerHidden := declarationIntegerHidden text state) text valid _ state.names
         (model_declaration_position_valid text state stateValid) stateValid.2.1
     have resultNonzero : (declarationParts text state).value.after ≠ 0 :=
       model_fixed_input_nonzero text _ ";" false nonzero
     have startNonzero : declarationValuePosition text state ≠ 0 :=
-      model_expression_input_nonzero (scalarNames := state.scalarNames) (integerHidden := declarationIntegerHidden text state) text _ state.names resultNonzero
+      model_expression_input_nonzero (scalarNames := state.scalarNames) (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true) (integerHidden := declarationIntegerHidden text state) text _ state.names resultNonzero
     have expressionForward : declarationValuePosition text state ≤ (declarationParts text state).value.after := by
-      rcases model_tail_nondecreasing (scalarNames := state.scalarNames) (integerHidden := declarationIntegerHidden text state) text state.names {position := declarationValuePosition text state} with zero | forward
+      rcases model_tail_nondecreasing (scalarNames := state.scalarNames) (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true) (integerHidden := declarationIntegerHidden text state) text state.names {position := declarationValuePosition text state} with zero | forward
       · exact False.elim (resultNonzero zero)
       · exact forward
     have endingForward : (declarationParts text state).value.after < (declarationParts text state).following :=
@@ -155,24 +156,23 @@ theorem model_scalar_reading_valid {text : Source} {state next : ParserState} {a
         rw [← partsEq]
         exact model_name_valid text _
       have nameValid := model_new_name_valid text state parts.first parts.after arguments nameBound ready.1
-      have scalarBounds := ScalarExpression.syntax_bounds reading.positionBound reading.grammar
-      dsimp only at scalarBounds
+      have scalarBounds := reading.cursorBounds
       have followingEq := scalarDeclarationParts_following text state
       rw [partsEq] at followingEq
       have following : ValidCursor text parts.following := by
         rw [followingEq]
         exact model_fixed_valid text parts.value.after ";" false scalarBounds.2.2
       have room : state.scalarNames.length < ScalarExpression.maxBindings := by
-        have bound := stateValid.2.2.2.2.2.1
+        have bound := stateValid.2.2.2.2.2.1.1
         have available := ready.2.2.2.2.1
         change state.scalarNames.length ≠ ScalarExpression.maxBindings at available
         omega
-      have scalars := ScalarExpression.validEnvironment_append stateValid.2.2.2.2.2 room
+      have scalars := ScalarExpression.validEnvironment_append stateValid.2.2.2.2.2.1 room
         (item := ⟨parts.first, parts.after, parts.value.bounds, decide (parts.constantAfter ≠ 0) && parts.value.isStatic, parts.constraint.bounds, decide (parts.constantAfter = 0)⟩)
         ⟨nameValid.1, nameValid.2.1, nameValid.2.2, Integer.Expr.infer_bounded reading.inferred,
           constraint.bounded⟩
       exact ⟨following, stateValid.2.1, stateValid.2.2.1,
-        stateValid.2.2.2.1, stateValid.2.2.2.2.1, scalars⟩
+        stateValid.2.2.2.1, stateValid.2.2.2.2.1, scalars, stateValid.2.2.2.2.2.2⟩
 
 theorem model_scalar_declaration_valid (text : Source) (state : ParserState) (arguments : Bool)
     (stateValid : ValidState text state) : ValidState text (scalarDeclarationAt text state arguments) := by
@@ -205,6 +205,55 @@ theorem model_scalar_declaration_advances (text : Source) (state : ParserState) 
       simpa [ScalarDeclarationReady, Bool.or_eq_true, not_or, Nat.not_le, and_assoc] using good
     exact ready.2.2.2.1
 
+theorem model_array_reading_valid {text : Source} {state next : ParserState} {arguments : Bool}
+    {declaration : Integer.ArrayDeclaration} (stateValid : ValidState text state)
+    (parsed : ArrayDeclarationAt text arguments state declaration next) : ValidState text next := by
+  have arrays := array_declaration_array_valid parsed stateValid.2.2.2.2.2.2
+  cases parsed with
+  | declaration _ _ _ _ _ values following _ =>
+      have fields := arrayValues_fields values
+      refine ⟨?_, ?_, ?_, ?_, ?_, ?_, arrays⟩
+      · rw [following]
+        exact fixedAfter_result_bound text _ ";" false (by decide)
+      · rw [show _ = state.names from congrArg (fun s => s.names) fields]
+        exact stateValid.2.1
+      · rw [show _ = state.dynamicFirst from congrArg (fun s => s.dynamicFirst) fields,
+          show _ = state.dynamicAfter from congrArg (fun s => s.dynamicAfter) fields]
+        exact stateValid.2.2.1
+      · rw [show _ = state.target from congrArg (fun s => s.target) fields,
+          show _ = state.names from congrArg (fun s => s.names) fields]
+        exact stateValid.2.2.2.1
+      · rw [show _ = state.capacity from congrArg (fun s => s.capacity) fields]
+        exact stateValid.2.2.2.2.1
+      · rw [show _ = state.scalarNames from congrArg (fun s => s.scalarNames) fields]
+        exact stateValid.2.2.2.2.2.1
+
+theorem model_array_declaration_valid (text : Source) (state : ParserState) (arguments : Bool)
+    (stateValid : ValidState text state) : ValidState text (arrayDeclarationAt text state arguments) := by
+  unfold arrayDeclarationAt
+  dsimp only
+  split
+  · exact model_invalid_state_valid text
+  · split
+    · exact model_invalid_state_valid text
+    · split
+      · exact model_invalid_state_valid text
+      · split
+        · exact model_invalid_state_valid text
+        · rename_i good start positive advances
+          have accepted : (arrayDeclarationAt text state arguments).position ≠ 0 := by
+            simp only [arrayDeclarationAt, good, start, positive, advances, Bool.false_eq_true, ↓reduceIte]
+            omega
+          obtain ⟨declaration, reading⟩ := array_declaration_sound text state arguments accepted
+          simpa only [arrayDeclarationAt, good, start, positive, advances, Bool.false_eq_true, ↓reduceIte] using
+            model_array_reading_valid stateValid reading
+
+theorem model_array_declaration_advances (text : Source) (state : ParserState) (arguments : Bool)
+    (positive : (arrayDeclarationAt text state arguments).position ≠ 0) :
+    state.position < (arrayDeclarationAt text state arguments).position := by
+  obtain ⟨declaration, reading⟩ := array_declaration_sound text state arguments positive
+  exact array_declaration_advances reading
+
 theorem model_declaration_valid (text : Source) (valid : ValidText text)
     (state : ParserState) (arguments : Bool) (stateValid : ValidState text state) :
     ValidState text (declarationAt text state arguments) := by
@@ -212,7 +261,9 @@ theorem model_declaration_valid (text : Source) (valid : ValidText text)
   dsimp only
   split
   · exact model_scalar_declaration_valid text state arguments stateValid
-  · exact model_string_declaration_valid text valid state arguments stateValid
+  · split
+    · exact model_array_declaration_valid text state arguments stateValid
+    · exact model_string_declaration_valid text valid state arguments stateValid
 
 theorem model_declaration_advances (text : Source) (valid : ValidText text)
     (state : ParserState) (arguments : Bool) (stateValid : ValidState text state)
@@ -222,9 +273,17 @@ theorem model_declaration_advances (text : Source) (valid : ValidText text)
   · have selected : declarationAt text state arguments = scalarDeclarationAt text state arguments := ite_eq_left scalar
     rw [selected]
     exact model_scalar_declaration_advances text state arguments scalar
-  · have selected : declarationAt text state arguments = stringDeclarationAt text state arguments := ite_eq_right scalar
-    rw [selected] at nonzero ⊢
-    exact model_string_declaration_advances text valid state arguments stateValid nonzero
+  · by_cases array : (arrayDeclarationAt text state arguments).position ≠ 0
+    · have selected : declarationAt text state arguments = arrayDeclarationAt text state arguments := by
+        dsimp only [declarationAt]
+        rw [ite_eq_right scalar, ite_eq_left array]
+      rw [selected]
+      exact model_array_declaration_advances text state arguments array
+    · have selected : declarationAt text state arguments = stringDeclarationAt text state arguments := by
+        dsimp only [declarationAt]
+        rw [ite_eq_right scalar, ite_eq_right array]
+      rw [selected] at nonzero ⊢
+      exact model_string_declaration_advances text valid state arguments stateValid nonzero
 
 theorem model_dynamic_value_valid (text : Source) (following : Nat)
     (bound : ValidCursor text following) :
@@ -304,7 +363,7 @@ theorem model_assignment_valid (text : Source) (valid : ValidText text) (state :
   all_goals first
     | exact model_invalid_state_valid text
     | exact model_state_position_valid text state stateValid _
-        (model_expression_valid (scalarNames := state.scalarNames) text valid _ _ stateValid.1 stateValid.2.1).1
+        (model_expression_valid (scalarNames := state.scalarNames) (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true) text valid _ _ stateValid.1 stateValid.2.1).1
 
 theorem model_output_valid (text : Source) (valid : ValidText text) (state : ParserState)
     (stateValid : ValidState text state) : ValidState text (outputAt text state) := by
@@ -312,14 +371,14 @@ theorem model_output_valid (text : Source) (valid : ValidText text) (state : Par
   dsimp only
   split
   · exact model_state_position_valid text state stateValid _
-      (model_expression_valid (scalarNames := state.scalarNames) text valid _ _ stateValid.1 stateValid.2.1).1
+      (model_expression_valid (scalarNames := state.scalarNames) (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true) text valid _ _ stateValid.1 stateValid.2.1).1
   · exact model_invalid_state_valid text
 
 theorem model_comparison_valid (text : Source) (valid : ValidText text) (state : ParserState)
     (stateValid : ValidState text state) : ValidState text (comparisonAt text state) := by
-  have left := model_expression_valid (scalarNames := state.scalarNames) (integerHidden := false) text valid _ _ stateValid.1 stateValid.2.1
-  have equalPosition := model_fixed_valid text (expressionAt text state.position state.names state.scalarNames).after "=" false left.1
-  have right := model_expression_valid (scalarNames := state.scalarNames) (integerHidden := false) text valid _ _ equalPosition stateValid.2.1
+  have left := model_expression_valid (scalarNames := state.scalarNames) (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true) (integerHidden := false) text valid _ _ stateValid.1 stateValid.2.1
+  have equalPosition := model_fixed_valid text (expressionAt text state.position state.names state.scalarNames false state.arrayNames.names state.arrayNames.values true).after "=" false left.1
+  have right := model_expression_valid (scalarNames := state.scalarNames) (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true) (integerHidden := false) text valid _ _ equalPosition stateValid.2.1
   unfold comparisonAt
   dsimp only
   split

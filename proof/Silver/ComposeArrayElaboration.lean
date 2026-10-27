@@ -158,4 +158,10 @@ theorem array_declaration_source_ready {text arguments state declaration final}
       subst right
       exact ready.1.2.2.2 left member
 
+theorem array_declaration_advances {text arguments state declaration final}
+    (reading : ArrayDeclarationAt text arguments state declaration final) :
+    state.position < final.position := by
+  cases reading with
+  | declaration _ _ _ _ _ _ _ advances => exact advances
+
 end Silver.Compose
