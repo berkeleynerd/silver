@@ -1,6 +1,7 @@
 module
 
 public import Silver.IntegerDivision
+public import Silver.ArrayLayout
 
 @[expose] public section
 
@@ -42,6 +43,7 @@ theorem put_fits {ranges : Ranges} {values : Store} {index : Nat} {bounds : Inte
 inductive Expr
   | literal (value : Int)
   | name (index : Nat)
+  | indexed (array : ArrayDescriptor) (index : Expr)
   | positive (value : Expr)
   | negative (value : Expr)
   | parenthesized (value : Expr)
@@ -56,6 +58,7 @@ inductive Expr
 def Expr.evaluate (values : Store) : Expr → Int
   | .literal value => value
   | .name index => values index
+  | .indexed array index => array.project values (index.evaluate values)
   | .positive value | .parenthesized value => value.evaluate values
   | .negative value => -value.evaluate values
   | .add left right => left.evaluate values + right.evaluate values
@@ -73,9 +76,64 @@ theorem accepted_iff (result : CheckResult) (bounds : Interval) :
   simp only [accepted]
   cases result.safe <;> simp
 
+/-- Every indexed occurrence has a nonempty, contained index interval, even
+in source regions whose execution is otherwise impossible. -/
+def arrayIndexCheck (array : ArrayDescriptor) (indices : Interval) : Bool :=
+  decide (array.Valid ∧ indices.lower ≤ indices.upper ∧
+    array.bounds.lower ≤ indices.lower ∧ indices.upper ≤ array.bounds.upper)
+
+def arrayReadRange (ranges : Ranges) (array : ArrayDescriptor) (indices : Interval) : Option Interval :=
+  if arrayIndexCheck array indices then
+    (arraySpanRange ranges (array.address indices.lower)
+      (indices.upper - indices.lower + 1).toNat).bind fun bounds => accepted (checked bounds)
+  else none
+
+theorem arrayReadRange_index {ranges : Ranges} {array : ArrayDescriptor} {indices bounds : Interval}
+    (found : arrayReadRange ranges array indices = some bounds) :
+    arrayIndexCheck array indices = true := by
+  unfold arrayReadRange at found
+  split at found
+  · assumption
+  · contradiction
+
+theorem arrayReadRange_bounded {ranges : Ranges} {array : ArrayDescriptor} {indices bounds : Interval}
+    (found : arrayReadRange ranges array indices = some bounds) : bounds.Bounded := by
+  unfold arrayReadRange at found
+  split at found
+  · simp only [Option.bind_eq_some_iff] at found
+    obtain ⟨raw, _, accepted⟩ := found
+    rw [← ((accepted_iff _ _).mp accepted).2]
+    exact checked_bounded _
+  · contradiction
+
+theorem arrayReadRange_sound {ranges : Ranges} {values : Store} {array : ArrayDescriptor}
+    {indices bounds : Interval} {index : Int}
+    (found : arrayReadRange ranges array indices = some bounds) (fits : Fits ranges values)
+    (inside : indices.Contains index) : array.bounds.Contains index ∧
+      bounds.Contains (array.project values index) ∧ InRange (array.project values index) := by
+  have allowed := arrayReadRange_index found
+  simp only [arrayIndexCheck, decide_eq_true_eq] at allowed
+  have inArray : array.bounds.Contains index := by
+    simp only [Interval.Contains] at *
+    omega
+  have inSpan : array.address indices.lower ≤ array.address index ∧
+      array.address index < array.address indices.lower + (indices.upper - indices.lower + 1).toNat := by
+    simp only [ArrayDescriptor.address, Interval.Contains] at *
+    omega
+  unfold arrayReadRange at found
+  rw [show arrayIndexCheck array indices = true from by simpa [arrayIndexCheck] using allowed] at found
+  simp only [↓reduceIte, Option.bind_eq_some_iff] at found
+  obtain ⟨raw, scanned, checked⟩ := found
+  have accepted := (accepted_iff _ _).mp checked
+  have within := arraySpanRange_sound fits scanned inSpan
+  have sound := checked_sound accepted.1 within
+  exact ⟨inArray, by simpa only [accepted.2, ArrayDescriptor.project] using sound.1,
+    by simpa only [ArrayDescriptor.project] using sound.2⟩
+
 def Expr.infer (ranges : Ranges) : Expr → Option Interval
   | .literal value => accepted (checked (Interval.singleton value))
   | .name index => (ranges index).bind fun bounds => accepted (checked bounds)
+  | .indexed array index => (index.infer ranges).bind fun bounds => arrayReadRange ranges array bounds
   | .positive value | .parenthesized value => value.infer ranges
   | .negative value => (value.infer ranges).bind fun bounds => accepted (checkedNegate bounds)
   | .add left right => (left.infer ranges).bind fun a =>
@@ -95,6 +153,8 @@ def Expr.infer (ranges : Ranges) : Expr → Option Interval
 def Expr.Safe (values : Store) : Expr → Prop
   | .literal value => InRange value
   | .name index => InRange (values index)
+  | .indexed array index => index.Safe values ∧ array.bounds.Contains (index.evaluate values) ∧
+      InRange (array.project values (index.evaluate values))
   | .positive value | .parenthesized value => value.Safe values
   | .negative value => value.Safe values ∧ InRange (-value.evaluate values)
   | .add left right => left.Safe values ∧ right.Safe values ∧
@@ -117,6 +177,7 @@ theorem Expr.safe_value {values : Store} {expression : Expr}
     (safe : expression.Safe values) : InRange (expression.evaluate values) := by
   induction expression with
   | literal | name => exact safe
+  | indexed => exact safe.2.2
   | positive _ ih | parenthesized _ ih => exact ih safe
   | negative => exact safe.2
   | add | subtract | multiply => exact safe.2.2
@@ -132,6 +193,10 @@ theorem Expr.infer_bounded {ranges : Ranges} {expression : Expr} {bounds : Inter
       simp only [infer, Option.bind_eq_some_iff] at found
       obtain ⟨interval, _, accepted⟩ := found
       rw [← ((accepted_iff _ _).mp accepted).2]; exact checked_bounded _
+  | indexed array index _ =>
+      simp only [infer, Option.bind_eq_some_iff] at found
+      obtain ⟨indices, _, read⟩ := found
+      exact arrayReadRange_bounded read
   | positive _ ih | parenthesized _ ih => exact ih found
   | negative value _ =>
       simp only [infer, Option.bind_eq_some_iff] at found
@@ -164,6 +229,12 @@ theorem Expr.infer_sound {ranges : Ranges} {expression : Expr} {bounds : Interva
       have result := (accepted_iff _ _).mp accepted
       have sound := checked_sound result.1 (fits index interval present)
       simpa only [result.2, evaluate, Safe] using sound
+  | indexed array index ih =>
+      simp only [infer, Option.bind_eq_some_iff] at found
+      obtain ⟨indices, inferred, read⟩ := found
+      have child := ih inferred
+      have sound := arrayReadRange_sound read fits child.1
+      exact ⟨sound.2.1, child.2, sound.1, sound.2.2⟩
   | positive value ih | parenthesized value ih => exact ih found
   | negative value ih =>
       simp only [infer, Option.bind_eq_some_iff] at found
@@ -198,6 +269,8 @@ def checkedValue (value : Int) : Option Int := if InRange value then some value 
 def Expr.checkedEvaluate (values : Store) : Expr → Option Int
   | .literal value => checkedValue value
   | .name index => checkedValue (values index)
+  | .indexed array index => (index.checkedEvaluate values).bind fun value =>
+      if array.bounds.Contains value then checkedValue (array.project values value) else none
   | .positive value | .parenthesized value => value.checkedEvaluate values
   | .negative value => (value.checkedEvaluate values).bind fun result => checkedValue (-result)
   | .add left right => (left.checkedEvaluate values).bind fun a =>
@@ -223,6 +296,9 @@ theorem Expr.checkedEvaluate_agrees {expression : Expr} {values : Store}
   | literal | name =>
       change InRange _ at safe
       simp only [checkedEvaluate, checkedValue, safe, ↓reduceIte, evaluate]
+  | indexed array index ih =>
+      simp only [checkedEvaluate, ih safe.1, Option.bind_some, safe.2.1,
+        checkedValue, safe.2.2, ↓reduceIte, evaluate]
   | positive _ ih | parenthesized _ ih => exact ih safe
   | negative _ ih =>
       simp only [checkedEvaluate, ih safe.1, Option.bind_some, checkedValue, safe.2, ↓reduceIte, evaluate]

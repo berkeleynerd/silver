@@ -201,6 +201,7 @@ theorem Assignment.unchanged {assignment : Assignment} {ranges declared : Ranges
 def Expr.isStatic (names : Mutability) : Expr → Bool
   | .literal _ => true
   | .name index => names index
+  | .indexed _ _ => false
   | .positive inner | .negative inner | .parenthesized inner => inner.isStatic names
   | .add left right | .subtract left right | .multiply left right
   | .divide left right | .modulo left right | .remainder left right =>
