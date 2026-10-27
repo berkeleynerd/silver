@@ -1,0 +1,26 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--task",
+    "#246",
+    "--workers",
+    "2",
+    "--threads",
+    "2",
+    "--memory-mb",
+    "24576",
+    "--reason",
+    "Revised matched unprofiled AFTER then BEFORE reconstruction pair at24576MiB; AFTER also supplies complete C1 correctness; original warm seed preserved."
+  ],
+  "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/velocity-246-measure/before-24g-worktree",
+  "started_at": "2026-10-27T00:15:56.905075+00:00",
+  "start_epoch": 1793060156.9049604,
+  "sample_interval_seconds": 1,
+  "cutoff_available_kib": 3145728,
+  "clock_ticks_per_second": 100,
+  "scope": "complete incremental reconstruction build and fresh audit",
+  "profile_is_timing_baseline": false,
+  "matched_pair_order": "AFTER then BEFORE",
+  "launcher_origin": ".silver/linux-x86_64/lean-baseline-20261012T094603Z/measure.py"
+}

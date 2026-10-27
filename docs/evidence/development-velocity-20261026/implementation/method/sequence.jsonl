@@ -1,0 +1,5 @@
+{"at": "2026-10-26T18:24:31.986593+00:00", "event": "Waiting for existing OutputBodyCertificate managed profile"}
+{"at": "2026-10-26T20:07:35.947382+00:00", "event": "profile-output complete; run 20261026T182152-23f822d35d4b; analysis and bounded summary retained"}
+{"at": "2026-10-26T20:07:35.968219+00:00", "event": "Starting PredicateSourceCandidate sequential profile; 1 worker/2 threads/16384 MiB"}
+{"at": "2026-10-26T21:00:18.709377+00:00", "event": "profile-predicate complete; run 20261026T200740-15b816e51f3c; analysis and bounded summary retained"}
+{"at": "2026-10-26T21:00:18.709738+00:00", "event": "Both profiles complete; report summaries to lead before unprofiled BEFORE or focused correctness work"}

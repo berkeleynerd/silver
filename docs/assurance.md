@@ -664,6 +664,13 @@ required correspondence. The checked chain has these distinct parts:
    separate from obsolete fixed-shell recognizer equations. Legal caller domains
    and recursive uniqueness establish those helpers' meanings for arbitrary
    callees satisfying their actual definition equations and verified contracts.
+   `ComposeSourceCandidate` performs the helper source decisions over the complete
+   reviewed output shape without importing source bindings or certificates.
+   `ComposeSourceChecks` retains the authoritative proposition names and theorem
+   statements, transporting the reviewed checks through
+   `Output.SourceBridge.actual_complete_shape` to certified actual output tokens.
+   Reviewed-shape checks alone establish no actual-source claim; the final
+   `ComposeSourceBridge.CheckedSource` interface remains authoritative and unchanged.
 4. `Compose.Lexical.InterpretedSource` supplies only retained lexical equations.
    `interpreted_primitives` proves trivia, literals, identifiers, exclusions,
    name equality, capacities, tokens, normalization and allowed bytes on their

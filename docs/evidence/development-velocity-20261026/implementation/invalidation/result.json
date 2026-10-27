@@ -1,0 +1,173 @@
+{
+  "scope": "Lake --no-build freshness controls; no proof build or audit",
+  "after_commit": "80d5ec3e0e5224fe36c705f6be15e429b7fa7468",
+  "after_run_id": "20261026T221956-84d1b4b6e429",
+  "source_snapshot": "/home/canto/src/github.com/berkeleynerd/silver/tmp/velocity-246-measure/after-24g-worktree",
+  "scratch": "/home/canto/src/github.com/berkeleynerd/silver/tmp/velocity-246-plan/invalidation-20261026/snapshot",
+  "probes": [
+    {
+      "label": "normal-candidate",
+      "command": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/velocity-246-plan/invalidation-20261026/snapshot/.tools/linux-x86_64/lean/bin/lake",
+        "--rehash",
+        "--reconfigure",
+        "--no-build",
+        "-K",
+        "silverThreads=2",
+        "-K",
+        "silverMemoryMb=24576",
+        "build",
+        "+Silver.ComposeSourceCandidate"
+      ],
+      "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/velocity-246-plan/invalidation-20261026/snapshot/.silver/linux-x86_64/proof",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 11.32857679296285,
+      "expected_frontier": null
+    },
+    {
+      "label": "normal-authoritative",
+      "command": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/velocity-246-plan/invalidation-20261026/snapshot/.tools/linux-x86_64/lean/bin/lake",
+        "--rehash",
+        "--reconfigure",
+        "--no-build",
+        "-K",
+        "silverThreads=2",
+        "-K",
+        "silverMemoryMb=24576",
+        "build",
+        "+Silver.ComposeSourceChecks"
+      ],
+      "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/velocity-246-plan/invalidation-20261026/snapshot/.silver/linux-x86_64/proof",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 9.186489376996178,
+      "expected_frontier": null
+    },
+    {
+      "label": "comment-candidate",
+      "command": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/velocity-246-plan/invalidation-20261026/snapshot/.tools/linux-x86_64/lean/bin/lake",
+        "--rehash",
+        "--reconfigure",
+        "--no-build",
+        "-K",
+        "silverThreads=2",
+        "-K",
+        "silverMemoryMb=24576",
+        "build",
+        "+Silver.ComposeSourceCandidate"
+      ],
+      "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/velocity-246-plan/invalidation-20261026/snapshot/.silver/linux-x86_64/proof",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 8.34823101805523,
+      "expected_frontier": null
+    },
+    {
+      "label": "comment-authoritative",
+      "command": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/velocity-246-plan/invalidation-20261026/snapshot/.tools/linux-x86_64/lean/bin/lake",
+        "--rehash",
+        "--reconfigure",
+        "--no-build",
+        "-K",
+        "silverThreads=2",
+        "-K",
+        "silverMemoryMb=24576",
+        "build",
+        "+Silver.ComposeSourceChecks"
+      ],
+      "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/velocity-246-plan/invalidation-20261026/snapshot/.silver/linux-x86_64/proof",
+      "exit_code": 3,
+      "expected_exit_code": 3,
+      "seconds": 8.744653533038218,
+      "expected_frontier": "Silver.OutputProfileBodySource"
+    },
+    {
+      "label": "restored-authoritative",
+      "command": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/velocity-246-plan/invalidation-20261026/snapshot/.tools/linux-x86_64/lean/bin/lake",
+        "--rehash",
+        "--reconfigure",
+        "--no-build",
+        "-K",
+        "silverThreads=2",
+        "-K",
+        "silverMemoryMb=24576",
+        "build",
+        "+Silver.ComposeSourceChecks"
+      ],
+      "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/velocity-246-plan/invalidation-20261026/snapshot/.silver/linux-x86_64/proof",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 8.817041152971797,
+      "expected_frontier": null
+    },
+    {
+      "label": "reviewed-pin-candidate",
+      "command": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/velocity-246-plan/invalidation-20261026/snapshot/.tools/linux-x86_64/lean/bin/lake",
+        "--rehash",
+        "--reconfigure",
+        "--no-build",
+        "-K",
+        "silverThreads=2",
+        "-K",
+        "silverMemoryMb=24576",
+        "build",
+        "+Silver.ComposeSourceCandidate"
+      ],
+      "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/velocity-246-plan/invalidation-20261026/snapshot/.silver/linux-x86_64/proof",
+      "exit_code": 3,
+      "expected_exit_code": 3,
+      "seconds": 8.408213739981875,
+      "expected_frontier": "Silver.ReviewedOutputShape"
+    },
+    {
+      "label": "restored-candidate",
+      "command": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/velocity-246-plan/invalidation-20261026/snapshot/.tools/linux-x86_64/lean/bin/lake",
+        "--rehash",
+        "--reconfigure",
+        "--no-build",
+        "-K",
+        "silverThreads=2",
+        "-K",
+        "silverMemoryMb=24576",
+        "build",
+        "+Silver.ComposeSourceCandidate"
+      ],
+      "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/velocity-246-plan/invalidation-20261026/snapshot/.silver/linux-x86_64/proof",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 8.493016886990517,
+      "expected_frontier": null
+    },
+    {
+      "label": "restored-final-authoritative",
+      "command": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/velocity-246-plan/invalidation-20261026/snapshot/.tools/linux-x86_64/lean/bin/lake",
+        "--rehash",
+        "--reconfigure",
+        "--no-build",
+        "-K",
+        "silverThreads=2",
+        "-K",
+        "silverMemoryMb=24576",
+        "build",
+        "+Silver.ComposeSourceChecks"
+      ],
+      "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/velocity-246-plan/invalidation-20261026/snapshot/.silver/linux-x86_64/proof",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 8.933140415989328,
+      "expected_frontier": null
+    }
+  ],
+  "passed": true,
+  "frontier_semantics": "Exit 3 identifies a stale dependency frontier, not all stale targets.",
+  "objects_unchanged": true,
+  "normal_bytes_restored": true
+}

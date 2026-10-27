@@ -1,0 +1,12 @@
+{
+  "child_user_seconds": 12145.194155,
+  "child_system_seconds": 1458.996899,
+  "maximum_child_rss_kib": 17507008,
+  "exit_code": 0,
+  "wall_seconds": 6915.571863445977,
+  "started_epoch": 1793053195.6737113,
+  "finished_epoch": 1793060111.245581,
+  "sampled_peak_tree_rss_kib": 19559988,
+  "minimum_available_kib": 13159692,
+  "cutoff_reason": null
+}

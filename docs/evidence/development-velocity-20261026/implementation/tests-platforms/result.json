@@ -1,0 +1,9 @@
+{
+  "exit_code": 0,
+  "wall_seconds": 230.1851299640257,
+  "run_id": "20261026T210647-cd87af06ed83",
+  "skipped": false,
+  "test_totals": [
+    "Ran 16 tests in 225.973s"
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "status": "per-declaration service attribution inconclusive; module observations retained",
+  "input_sha256": {
+    "predicate-profile.json": "dbe8f0c2ad4f51e887f147d5d530a7d84897ff6f1f501dd99af8cc52a9db121b",
+    "analyze_profile.py": "9736d2f73c4c02feea1548cf8826b8d32ad3121d2657144d9cf5049328acffe5",
+    "finish_profiles.py": "3fd68aee35e3db963730f9e7d8eae813855644b38b0f9072559b38d21cb17f75",
+    "profile-predicate/result.json": "3a4f1de31af5f5c93dd2ff01e6d459f86d3a787e8c182b527c5f3aa29c61c4b1",
+    "profile-predicate/rss.jsonl": "37def7c405a8be35e95b00a2abca5169669b9c6434234ad213896438ea7476a0",
+    "profile-predicate/lean-focused-evidence.json": "5a297329a0294cad5f4b16cb13965daca1d267bac3853051f83517e973cd48ed",
+    "profile/proof/Silver/PredicateSourceCandidate.lean": "ab16a4e477e3fc8c21a2d4439cb7f0d902969ac3fa89a8ec053b73d6c47e4edf",
+    "profile/.tools/linux-x86_64/lean/src/lean/Lean/Util/Profiler.lean": "4a52c749aaf11c299d5e8a9b390ff5aa8191471ed23fe4645e052ce9a21a37a8",
+    "profile/.tools/linux-x86_64/lean/src/lean/Lean/Environment.lean": "ee364e4788ce0560c87f621eeb3c4c3dfec62e8db4e15e099fd80e6adc533b86",
+    "profile/.tools/linux-x86_64/lean/src/lean/Lean/AddDecl.lean": "7e6e74107d8f0116dff7cde2de3e60ed556bbab3ca56309311ea90dfc931bd40",
+    "profile/.tools/linux-x86_64/lean/src/lean/Lean/Elab/Tactic/Decide.lean": "99e84ce67778157e77d7261aa25b64ed72da16e9d1f60031cf2aa26f5ea6ee68"
+  },
+  "trace_threads": 160,
+  "frontend_span_seconds": 3120.9890370460153,
+  "raw_trace_weight_sum_seconds_not_service_cost": 335450.5979934732,
+  "kernel_positive_slices": 356,
+  "kernel_scope_weight_sum_seconds_not_service_cost": 332316.92046581395,
+  "kernel_scope_union_wall_seconds_including_waits": 3119.462178169012,
+  "peak_overlapping_kernel_scopes_including_waits": 158,
+  "sampled_module_process_cpu_seconds_increase": 3110.7799999999997,
+  "sampled_module_cpu_window_elapsed_seconds": 3120.960820064007,
+  "largest_global_completion_gaps_not_service_costs": [
+    {
+      "previous_completion_offset_seconds": 17.80842434900999,
+      "completion_offset_seconds": 190.39994847905635,
+      "gap_seconds": 172.59152413004637,
+      "completing_scope": "Kernel: typechecking declarations [_private.Silver.PredicateSourceCandidate.0.Silver.Predicate.SourceChecks.native_flow_checked._proof_1_2]"
+    },
+    {
+      "previous_completion_offset_seconds": 1565.5103610960246,
+      "completion_offset_seconds": 1695.3289662780167,
+      "gap_seconds": 129.81860518199204,
+      "completing_scope": "Kernel: typechecking declarations [_private.Silver.PredicateSourceCandidate.0.Silver.Predicate.SourceChecks.native_condition_tail_spec_header._proof_1_1]"
+    },
+    {
+      "previous_completion_offset_seconds": 1404.5241162030102,
+      "completion_offset_seconds": 1517.5023158710003,
+      "gap_seconds": 112.97819966799021,
+      "completing_scope": "Kernel: typechecking declarations [_private.Silver.PredicateSourceCandidate.0.Silver.Predicate.SourceChecks.native_relation_model_spec_header._proof_1_1]"
+    },
+    {
+      "previous_completion_offset_seconds": 1710.7876105140447,
+      "completion_offset_seconds": 1821.5511708790063,
+      "gap_seconds": 110.76356036496162,
+      "completing_scope": "Kernel: typechecking declarations [_private.Silver.PredicateSourceCandidate.0.Silver.Predicate.SourceChecks.native_condition_model_spec_header._proof_1_1]"
+    },
+    {
+      "previous_completion_offset_seconds": 1283.3450907810332,
+      "completion_offset_seconds": 1390.2605000740289,
+      "gap_seconds": 106.91540929299593,
+      "completing_scope": "Kernel: typechecking declarations [_private.Silver.PredicateSourceCandidate.0.Silver.Predicate.SourceChecks.native_primary_model_spec_header._proof_1_1]"
+    },
+    {
+      "previous_completion_offset_seconds": 633.3117598659992,
+      "completion_offset_seconds": 719.8559918760061,
+      "gap_seconds": 86.54423201000691,
+      "completing_scope": "Kernel: typechecking declarations [_private.Silver.PredicateSourceCandidate.0.Silver.Predicate.SourceChecks.native_scalarHelpers_checked._proof_1_12]"
+    },
+    {
+      "previous_completion_offset_seconds": 3020.53421361202,
+      "completion_offset_seconds": 3105.9812909080388,
+      "gap_seconds": 85.4470772960186,
+      "completing_scope": "Kernel: typechecking declarations [_private.Silver.PredicateSourceCandidate.0.Silver.Predicate.SourceChecks.candidate_valid_context_body._proof_1_1]"
+    },
+    {
+      "previous_completion_offset_seconds": 277.7991062620282,
+      "completion_offset_seconds": 359.73632000905275,
+      "gap_seconds": 81.93721374702453,
+      "completing_scope": "Kernel: typechecking declarations [_private.Silver.PredicateSourceCandidate.0.Silver.Predicate.SourceChecks.native_readers_checked._proof_1_1]"
+    },
+    {
+      "previous_completion_offset_seconds": 2075.0153256520034,
+      "completion_offset_seconds": 2155.981321433008,
+      "gap_seconds": 80.96599578100442,
+      "completing_scope": "Kernel: typechecking declarations [_private.Silver.PredicateSourceCandidate.0.Silver.Predicate.SourceChecks.candidate_body_tail_model_spec._proof_1_1]"
+    },
+    {
+      "previous_completion_offset_seconds": 514.7678180400134,
+      "completion_offset_seconds": 594.9059322350025,
+      "gap_seconds": 80.1381141949892,
+      "completing_scope": "Kernel: typechecking declarations [_private.Silver.PredicateSourceCandidate.0.Silver.Predicate.SourceChecks.native_scalarHelpers_checked._proof_1_8]"
+    }
+  ],
+  "limits": [
+    "Trace weights and exporter-synthesized threadCPUDelta are elapsed wall intervals, not measured CPU.",
+    "Kernel scopes encompass checked-environment future waits and actual checking without a boundary event.",
+    "Completion gaps are global observed wall gaps; they are neither per-declaration service costs nor guaranteed cost bounds.",
+    "Scope union identifies outstanding kernel-labelled work/wait, not active kernel CPU utilization.",
+    "Process CPU samples are cumulative process totals; missing endpoints and no per-thread counters prevent declaration allocation.",
+    "Original ranked.json and invalid-attribution.json must not be used for per-declaration cost rankings."
+  ]
+}

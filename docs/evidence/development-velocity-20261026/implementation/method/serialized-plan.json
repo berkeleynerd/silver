@@ -1,0 +1,29 @@
+{
+  "baseline_commit": "e94c8b4343f429c434900cc2a23e29e870f577bf",
+  "wait_for": "continuation.jsonl all-authorized-cases-complete after correctness/BEFORE/AFTER success",
+  "watched_pid": 874595,
+  "worktree": "serialized-predicate-worktree",
+  "case": "profile-predicate-serialized",
+  "workers": 1,
+  "threads": 2,
+  "memory_mb": 16384,
+  "sampled_headroom_cutoff_GiB": 3,
+  "exact_module_option": "-DElab.async=false (Silver.PredicateSourceCandidate only)",
+  "scope": "One focused serialized diagnostic profile; no supported option change, no timing baseline, no predicate optimization",
+  "input_seed": "ORIGINAL warm-proof plus independent pinned Lean copy",
+  "stop_on_failure": true,
+  "acceptance": [
+    "One main trace stream",
+    "Peak Kernel-scope overlap exactly1",
+    "Positive absolute timestamp intervals partition complete frontend span",
+    "Named exclusive cost plus unassigned time equals frontend span",
+    "Fresh focused module/private/transitive axiom audit passed"
+  ],
+  "queue_pid": 880554,
+  "queue_session": 64781,
+  "invocation": "python3 tmp/velocity-246-measure/serialized_predicate_after_cases.py",
+  "scripts_sha256": {
+    "serialized_predicate_after_cases.py": "f51594fa74216068ecbdca39e85babaaa6cb8f5106c369e455a08957b20b92b5",
+    "verify_serialized_profile.py": "b129aebe642d7dc1d56797e57e4f5c141a748e503219a11c9e0f1ec98f12557a"
+  }
+}

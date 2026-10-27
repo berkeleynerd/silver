@@ -1,0 +1,25 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--task",
+    "#246",
+    "--workers",
+    "2",
+    "--threads",
+    "2",
+    "--memory-mb",
+    "16384",
+    "--reason",
+    "Owner-authorized bounded velocity profiling or matched reconstruction measurement; original caches preserved."
+  ],
+  "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/velocity-246-measure/correctness-worktree",
+  "started_at": "2026-10-26T21:10:43.643052+00:00",
+  "start_epoch": 1793049043.6429584,
+  "sample_interval_seconds": 1,
+  "cutoff_available_kib": 3145728,
+  "clock_ticks_per_second": 100,
+  "scope": "complete incremental reconstruction build and fresh audit",
+  "profile_is_timing_baseline": false,
+  "launcher_origin": ".silver/linux-x86_64/lean-baseline-20261012T094603Z/measure.py"
+}

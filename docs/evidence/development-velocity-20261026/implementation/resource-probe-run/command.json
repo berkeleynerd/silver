@@ -1,0 +1,27 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--task",
+    "#246",
+    "--workers",
+    "1",
+    "--threads",
+    "2",
+    "--memory-mb",
+    "24576",
+    "--reason",
+    "Focused exact-fact resource diagnostic after retained -M16384 failures; test only -M24576 with normal async; original caches preserved.",
+    "--target",
+    "Silver.ComposeRefinementResourceProbe"
+  ],
+  "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/velocity-246-measure/resource-probe-worktree",
+  "started_at": "2026-10-26T22:09:42.021849+00:00",
+  "start_epoch": 1793052582.021781,
+  "sample_interval_seconds": 1,
+  "cutoff_available_kib": 3145728,
+  "clock_ticks_per_second": 100,
+  "scope": "focused exact-proposition memory diagnostic",
+  "profile_is_timing_baseline": false,
+  "launcher_origin": ".silver/linux-x86_64/lean-baseline-20261012T094603Z/measure.py"
+}

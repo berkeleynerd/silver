@@ -1,0 +1,54 @@
+{
+  "status": "PREPARED ONLY; do not start until resource-probe success/peak is reported and lead confirms",
+  "order": [
+    "AFTER80d5",
+    "BEFOREe94c8"
+  ],
+  "reason": "16GiB warm correctness failed at two exact memory-bound facts; avoid duplicating a separate complete warm correctness before the required measured AFTER",
+  "resource_probe": "resource-probe-run; exact two-fact diagnostic24576MiB, normal async",
+  "invocation": "python3 tmp/velocity-246-measure/resume_pair_24g.py --resource-probe-run RUN_ID",
+  "settings": {
+    "workers": 2,
+    "threads": 2,
+    "memory_mb": 24576,
+    "sampled_headroom_cutoff_GiB": 3
+  },
+  "seed": "Independent ORIGINAL warm-proof copies and copied pinned Lean per case; no failed/profiled/correctness objects seed the pair",
+  "cases": {
+    "after-24g": {
+      "commit": "80d5ec3e0e5224fe36c705f6be15e429b7fa7468",
+      "closure": 20,
+      "supplies": "Complete C1 correctness plus unprofiled reconstruction timing"
+    },
+    "before-24g": {
+      "commit": "e94c8b4343f429c434900cc2a23e29e870f577bf",
+      "closure": 19
+    }
+  },
+  "acceptance": [
+    "Complete source build and fresh private/module/axiom audit each",
+    "Actual rebuilt sets from Lake and object inventories exactly20/19",
+    "No competing dense work",
+    "Stop on any failure; preserve evidence and do not retry automatically"
+  ],
+  "limits": [
+    "One fixed-order AFTER\u2192BEFORE pair; order/host drift limits any timing conclusion",
+    "Per-process24GiB threshold is not aggregate memory enforcement; sampled3GiB host cutoff controls this experiment",
+    "Resource probe reduced context does not establish complete candidate memory safety"
+  ],
+  "tests": "Retain existing focused Lean/platform tests; no repeat",
+  "serialized_last": "Prepared separate serialized predicate diagnostic must gate on revised matched-pair success;1worker/2threads/16384MiB",
+  "preserved_history": [
+    "correctness/ failed16GiB",
+    "continue_cases.py",
+    "continuation-plan.json",
+    "serialized_predicate_after_cases.py",
+    "serialized-plan.json"
+  ],
+  "script_sha256": {
+    "resume_pair_24g.py": "ea4087cfd5b66ff67c0b6a0888021ca25d0f6ee6aca8c9a83d975d26033250c7",
+    "measure_pair_24g.py": "093cdd417b47822fa2430a1459ee3318e5dbc0f6b507ba03da253e49ea2eeabf",
+    "serialized_predicate_after_pair_24g.py": "71dd63c29a41db0304fd0910c6625264ef9624a30bbd08be9ace79a171de2542"
+  },
+  "serialized_last_invocation": "python3 tmp/velocity-246-measure/serialized_predicate_after_pair_24g.py"
+}

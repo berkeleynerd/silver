@@ -1,0 +1,7 @@
+{
+  "original": "ranked.json",
+  "status": "Superseded for single-stream frontend conservation; all original named declaration entries are unchanged and valid under the primary-stream validation",
+  "use": "ranked-primary-stream.json",
+  "original_unassigned_extra_ms": 0.028499,
+  "raw_and_original_ranking_preserved": true
+}

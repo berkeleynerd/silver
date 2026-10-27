@@ -133,12 +133,11 @@ class CompilerSourcePolicyTests(unittest.TestCase):
         }
         self.assertEqual(legacy, {Path("Silver/Audit.lean"), Path("Silver/AxiomAudit.lean")})
 
-    def test_compose_source_checks_retain_only_relevant_source_dependencies(self):
-        # Guard the production dependency graph, rather than an exact spelling
-        # of direct imports. An umbrella reintroduced anywhere upstream would
-        # make unrelated path-source edits rebuild this expensive check again.
+    def project_import_closure(self, *roots):
+        # Include ordinary, public, meta and import-all dependencies. Guard the
+        # production graph rather than an exact spelling of direct imports.
         proof = ROOT / "proof"
-        pending = ["Silver.ComposeSourceChecks"]
+        pending = list(roots)
         closure = set()
         while pending:
             module = pending.pop()
@@ -149,9 +148,34 @@ class CompilerSourcePolicyTests(unittest.TestCase):
             pending.extend(re.findall(
                 r"^(?:public )?(?:meta )?import(?: all)? (Silver(?:\.\w+)*)\b",
                 path.read_text(), re.MULTILINE))
+        return closure
+
+    def test_compose_candidate_has_no_authoritative_source_dependencies(self):
+        closure = self.project_import_closure("Silver.ComposeSourceCandidate")
+        self.assertIn("Silver.ReviewedOutputShape", closure)
+        for module in sorted(closure):
+            with self.subTest(module=module):
+                self.assertFalse(module.endswith("Certificate"))
+                self.assertNotIn(module, {"Silver.Source", "Silver.AuthoritativeSource",
+                                          "Silver.SourceBridge", "Silver.OutputSourceBridge",
+                                          "Silver.ComposeSourceChecks", "Silver.ComposeSourceBridge"})
+                path = (ROOT / "proof").joinpath(*module.split(".")).with_suffix(".lean")
+                self.assertNotRegex(path.read_text(), r'\binclude_str\s*"')
+
+    def test_compose_source_checks_retain_authoritative_dependencies(self):
+        closure = self.project_import_closure("Silver.ComposeSourceChecks")
+        self.assertIn("Silver.ComposeSourceCandidate", closure)
+        # The adapter uses the complete actual-output shape theorem, including
+        # its lexical/runtime/profile source closure. Pin-only checks cannot
+        # replace that source-certified boundary.
+        authoritative = self.project_import_closure("Silver.OutputSourceBridge")
+        self.assertLessEqual(authoritative, closure)
 
         for required in ("OutputSpecCertificate", "OutputBodyCertificate",
-                         "OutputProfileSpecSource", "OutputProfileBodySource"):
+                         "OutputProfileSpecSource", "OutputProfileBodySource",
+                         "OutputLexicalSpecCertificate", "OutputLexicalBodyCertificate",
+                         "IOSpecCertificate", "IOBodyCertificate", "OutputLibcCertificate",
+                         "ProfileSpecCertificate", "ProfileBodyCertificate"):
             with self.subTest(required=required):
                 self.assertIn("Silver." + required, closure)
         for unrelated in ("PathFactsSpecCertificate", "PathFactsSpecSource"):

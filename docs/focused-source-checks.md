@@ -22,20 +22,22 @@ interface redesign and new caching infrastructure are outside this milestone.
 
 ## Implementation
 
-Only import headers change in six Lean files. `ComposeSourceChecks` imports
-the generic declaration readers, output spec/body certificates and composition
-equations directly. `ComposeSourceBridge` explicitly retains the lexical bridge
-that it previously received transitively. The null, output and argument bridges
-name their required certificates; `Silver.lean` explicitly retains the complete
-`Source` facade. No declaration, proof body, source binding, generated certificate,
-Lake rule, runner or native implementation changes.
+At the October 14 checkpoint, only import headers changed in six Lean files.
+`ComposeSourceChecks` imported the generic declaration readers, output spec/body
+certificates and composition equations directly. `ComposeSourceBridge` explicitly
+retained the lexical bridge that it previously received transitively. The null,
+output and argument bridges named their required certificates; `Silver.lean`
+explicitly retained the complete `Source` facade. No declaration, proof body,
+source binding, generated certificate, Lake rule, runner or native implementation
+changed at that checkpoint.
 
-The project-only import closure of `ComposeSourceChecks` shrinks from 92 modules
-to 28, and from seventeen source certificates to two. The complete root and audit
-retain exactly the same project-module sets. The focused graph regression requires
-the output certificates/bindings and excludes unrelated path-facts certificates/
-bindings without pinning the spelling of the direct imports. An independent
-read-only review confirmed unchanged non-import bytes and retained source links.
+That checkpoint's project-only import closure of `ComposeSourceChecks` shrank
+from 92 modules to 28, and from seventeen source certificates to two. The complete
+root and audit retained exactly the same project-module sets. The focused graph
+regression required the output certificates/bindings and excluded unrelated
+path-facts certificates/bindings without pinning the spelling of the direct
+imports. An independent read-only review confirmed unchanged non-import bytes
+and retained source links.
 
 ## Measurement method
 
@@ -110,3 +112,38 @@ and focused runner records, the import graph, actual-object comparisons, the
 native-provenance check and control outcomes. `tmp/focused-source-checks-active.json`
 locates both the evidence and isolated experiment roots. Preserve those caches,
 the corrected probe scripts and the prior records.
+
+## Reviewed-shape composition checks — October 26, 2026
+
+[Development velocity #246](https://github.com/berkeleynerd/silver/issues/246)
+separates the 98 composition decisions into `ComposeSourceCandidate`. It depends
+on the complete `ReviewedOutputShape` and shared models/readers, with no
+transitive authoritative source bindings, certificates or source umbrella.
+The five source-dependent predicates accept explicit token lists; their
+authoritative names and `actual_*` statements remain in `ComposeSourceChecks`.
+A single adapter transports their conjunction through
+`Output.SourceBridge.actual_complete_shape`. `TokenMapping` is source-independent,
+and its existing `finite_mapping` wrapper remains available.
+
+The authoritative adapter now imports `OutputSourceBridge`, retaining its full
+profile, output, lexical and runtime certificate closure. The graph regression
+checks candidate isolation and that complete authoritative closure separately;
+both closures still exclude unrelated path-facts source bindings/certificates.
+`ComposeSourceBridge.CheckedSource` and `checked_source`, the Ada source, reviewed
+pins, generator and runner are unchanged. Actual-byte reconstruction, semantic
+interpretation and legal call domains remain required, as do the complete
+native and Lean module/private/transitive axiom audits.
+
+The separate [#246 delivery record](development-velocity.md#first-package-implementation-and-validation)
+records successful complete Linux validation of all 498 modules / 104,251
+declarations, 92 focused tests, and independently reviewed retained native and
+regression evidence. No clean build or independent replay is claimed.
+
+In one matched reconstruction workload with two workers and two threads, the
+build fell from 9,567.554 to 6,891.336 seconds (27.97% less wall time). The
+candidate took 3,266 seconds alongside the certificate; the authoritative
+adapter took 2.2 seconds. Cheap no-build controls confirm candidate reuse after
+a comment-only Ada edit and invalidation after a reviewed-token edit, while
+authoritative source invalidation remains intact. This evidence is separate
+from the October 14 results above. See the delivery record for the fixed-order
+comparison, 24 GiB per-process setting, measured memory and profile limits.

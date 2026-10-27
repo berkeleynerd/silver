@@ -132,6 +132,32 @@ assurance; the existing native manifest audit and Lean input/artifact/axiom chec
 remain required. Neither a matching ledger fingerprint nor a matching Git commit
 replaces those checks.
 
+## Input changes and evidence refresh
+
+Use this matrix to select the smallest outstanding checks, not to exempt inputs
+from hashing. [The retained assessment](development-velocity.md#assessment-and-evidence)
+distinguishes failed runs, successful objects and fresh audits. A changed run
+identity does not by itself mean every compiled proof must rebuild.
+
+| Changed input | Invalidation and required evidence |
+| --- | --- |
+| Ada implementation, contracts, annotations or other bytes | Native source/provenance inputs change. Each embedded file's binary dependency in `proof/lakefile.lean` invalidates its handwritten binding, certificate and transitive importers; unrelated certificates/models can remain cached. Review pins with source/semantics and complete native/source assurance on final bytes. |
+| Lean private theorem body | Recheck the module and fresh applicable audit. Lean's module artifacts may preserve consumers; follow actual Lake dependencies rather than assuming a whole-project rebuild. |
+| Lean public interface, exposed definition or imports | Rebuild affected consumers and review changed statements/dependencies; complete source correspondence and whole-project axiom/coverage auditing remain required. |
+| Certificate generator, toolchain or build/configuration | Regenerate affected candidates and validate affected proofs/configuration. `check_lean.py` captures noncandidate Lean, Lake/toolchain/generator files, all root `src/*.ads`/`*.adb` and `scripts/*.py`; `CANDIDATES` are regenerated in the workspace and captured there, not trusted from checked-in copies. Tool executables have separate identities. |
+| Auditor-only logic | Refresh applicable complete native/Lean checks, provenance and fresh audits with current inputs; unchanged expensive proof objects can remain cached. Establish that source, semantic proof dependencies, build configuration and obligations are unchanged, and check affected auditor behavior. This does not excuse changed semantic proofs or a failed audit. |
+| Tests, fixtures, samples or test tooling | Run affected tests during iteration and cover the final inventory at the stable checkpoint under the existing [regression reuse provision](../development.md#proof-loop-and-validation). A failed run remains failed. Shared tooling/generated-artifact effects count as affected inputs. |
+| Documentation only | Check consistency, links and whitespace; unchanged proof/test inputs need no unrelated rerun. |
+
+For native `dev.py` proof/build inputs, `proof_provenance.input_hashes` includes
+Ada/generated sources, recursive Python scripts, project files, Alire manifests,
+Alire configuration/lock and generated build configuration; tools are identified
+separately. Thus even auditor-only Python edits change provenance and require
+current matching evidence, while native sessions/cache can retain valid solver
+work. Lean likewise freshly audits its selected import scope on cache hits.
+Use the [stable-checkpoint entry guidance](../development.md#proof-loop-and-validation)
+and existing managed modes; this matrix adds no hash exclusions or replay gate.
+
 ## Recurring failures and handoff
 
 After three retained attempts report the same failed obligation for the same

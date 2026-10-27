@@ -1,0 +1,51 @@
+{
+  "status": "serialized interval checks passed",
+  "trace_threads": 1,
+  "frontend_start_monotonic_ms": 309570488.183193,
+  "frontend_stop_monotonic_ms": 312652433.359875,
+  "frontend_span_ms": 3081945.1766819954,
+  "positive_slice_union_ms": 3081945.1766819954,
+  "positive_slice_weight_ms": 3081945.176682,
+  "peak_overlapping_positive_slices": 1,
+  "kernel_scopes": 356,
+  "peak_overlapping_kernel_scopes": 1,
+  "kernel_scope_union_ms": 3066037.6176923513,
+  "tolerance_ms": 0.001,
+  "notes": [
+    "Absolute timestamp interval coverage and non-overlap checked independently of owner arithmetic.",
+    "These are serialized diagnostic traced elapsed costs; OS scheduling/GC can remain inside scopes.",
+    "No recovered normal-async per-declaration CPU/service cost is claimed."
+  ],
+  "named_exclusive_ms": 3079540.727514,
+  "unassigned_ms": 2404.449168000001,
+  "named_plus_unassigned_minus_frontend_ms": 4.6566128730773926e-09,
+  "scope": "Only original main-thread trace, projected without changing its frames, stacks, timestamps or samples",
+  "original_trace_threads": 3,
+  "raw_profile_sha256": "e219c85bbb745e35358f61ef81872d8c979c78a4e19eb19d8952da2b977a0dac",
+  "projected_profile_sha256": "5824400dccb7d0706e6b4393197a9827e15074125655440488ff6c74d2d25c38",
+  "verifier_sha256": "b129aebe642d7dc1d56797e57e4f5c141a748e503219a11c9e0f1ec98f12557a",
+  "excluded_streams": [
+    {
+      "thread": "886064",
+      "sample_records": 110,
+      "positive_slices": 28,
+      "positive_weight_ms": 0.010612,
+      "labels": [
+        "Elab.async: Lean.Meta.realizeConst"
+      ],
+      "reason": "Only unnamed realizeConst exception-reporting callbacks; no declaration or Kernel frames"
+    },
+    {
+      "thread": "886477",
+      "sample_records": 110,
+      "positive_slices": 28,
+      "positive_weight_ms": 0.017887,
+      "labels": [
+        "Elab.async: Lean.Meta.realizeConst"
+      ],
+      "reason": "Only unnamed realizeConst exception-reporting callbacks; no declaration or Kernel frames"
+    }
+  ],
+  "excluded_total_positive_weight_ms": 0.028499,
+  "original_named_declaration_entries_unchanged": true
+}

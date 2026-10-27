@@ -1,0 +1,11 @@
+{
+  "instrumented_output_profile_overlap": [
+    {
+      "description": "Lead read-only native retained input identity verification,2519 cached and141 current tracked files; all matched.",
+      "reported_started_utc": "2026-10-26T18:22:15Z",
+      "reported_finished_utc": "2026-10-26T18:22:16Z",
+      "reported_wall_seconds": 0.904
+    }
+  ],
+  "timing_control_policy": "No other proof/native or heavy CPU/IO workload during matched unprofiled measurements; instrumented profile is not a timing baseline."
+}

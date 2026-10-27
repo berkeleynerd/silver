@@ -206,7 +206,26 @@ pinned `leanchecker --fresh` executable has no memory-limit CLI option; observe
 host headroom during that phase as well.
 
 Once a capability's implementation and proof inputs are stable, run one complete
-validation checkpoint before describing it as supported:
+validation checkpoint before describing it as supported. Enter it with:
+
+- Planned Ada implementation and annotation edits finished, and known failures
+  requiring source changes resolved through focused iteration. Inspect retained
+  diagnostics and report obligations; tool exit status alone is insufficient.
+- Applicable cheap certificate-parity and handwritten source-shape/pin checks
+  reviewed together with their source and semantic changes. Expensive source
+  proofs belong inside the checkpoint, not in a mandatory entry precheck.
+- A preferably committed snapshot, with captured input bytes verified against
+  it; an equivalent verified exact-byte snapshot is valid. Keep those inputs
+  stable throughout the run and record outstanding checks at handoff.
+- Retained results classified using the [invalidation matrix](docs/proof-iteration.md#input-changes-and-evidence-refresh),
+  and resources chosen for the actual host, concurrent work and memory headroom.
+
+The commands below form the complete checkpoint, without prescribing serial
+order. A focused native check can expose annotation repairs before a long Lean
+build; independent native and Lean work can usefully overlap when reservations
+and host headroom permit. Run the full regression/sample suite on the stable
+delivery inputs, using only the reviewed reuse provision below for retained
+results from a failed run.
 
 ```sh
 python3 scripts/dev.py prove --full

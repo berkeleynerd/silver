@@ -1,0 +1,26 @@
+{
+  "reviewed_commit": "80d5ec3e0e5224fe36c705f6be15e429b7fa7468",
+  "baseline_commit": "e94c8b4343f429c434900cc2a23e29e870f577bf",
+  "sequence_script": "tmp/velocity-246-measure/continue_cases.py",
+  "waits_for_existing_profile_sequence_pid": 873852,
+  "order": [
+    "tests-lean",
+    "tests-platforms",
+    "correctness",
+    "before",
+    "after"
+  ],
+  "settings": {
+    "workers": 2,
+    "threads": 2,
+    "memory_mb": 16384
+  },
+  "seed": "warm-proof (original retained seed, never profile/correctness outputs)",
+  "expected_rebuild_counts": {
+    "before": 19,
+    "after": 20
+  },
+  "stop_on_failure": true,
+  "no_build_invalidation_controls": "delegated back to lead after measured cases",
+  "script_sha256": "fd2d8692ddf86921afe39b271b591a62c395574935add1fb61faef5a65c63c10"
+}

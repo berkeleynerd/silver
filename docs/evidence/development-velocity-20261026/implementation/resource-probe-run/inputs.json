@@ -1,0 +1,36 @@
+{
+  "created_at": "2026-10-26T22:09:08.614367+00:00",
+  "reviewed_commit": "80d5ec3e0e5224fe36c705f6be15e429b7fa7468",
+  "baseline_commit": "e94c8b4343f429c434900cc2a23e29e870f577bf",
+  "fact_identities": [
+    {
+      "name": "refinement_fact_09",
+      "baseline_statement_and_proof_sha256": "a1fd9aceae9528e65f01e922551beedecd71780a3d47d6b84682310c82ad1dbe",
+      "current_statement_and_proof_sha256": "8ce1b9365243bba5860569d86a5057ea361442cf0b1832cf3f88b43c34d90a8c",
+      "identity_after_only_reviewed_token_name_substitution": true,
+      "current_line": 480,
+      "baseline_line": 480
+    },
+    {
+      "name": "refinement_fact_11",
+      "baseline_statement_and_proof_sha256": "fabbe3cd167b5476c2169e073b358ffc8a0a76aa21a88d3ef3ef0840a8010cf4",
+      "current_statement_and_proof_sha256": "3fc31f200b612b8e263c98b508a0ed08f5c94e56ee8bf295ee55a961e322fe99",
+      "identity_after_only_reviewed_token_name_substitution": true,
+      "current_line": 486,
+      "baseline_line": 486
+    }
+  ],
+  "current_source_sha256": "b859ab72196c1fc1cae061007d44e3df515acb5593cf3e84d5e3985e894fd653",
+  "baseline_source_sha256": "b733f741eb39c0db69005ee11319639c81435d943f935981e9561126ce07c274",
+  "probe_source_sha256": "eaf135db27bdf704e102427907636362b2eca2cfb9c3ba6ed3a8b9c88d4531f2",
+  "facts_identical_to_failed_workspace_bytes": true,
+  "context": "Exact candidate header/imports/options/namespace and two exact private theorem blocks; other candidate declarations/proofs omitted because these facts reference only imported functionHeader,expectedTokens and ReviewedOutputShape. Private module prefix and cumulative retained proof state differ. Normal Elab.async is unchanged; no profiler flags. A successful reduced-context probe does not establish complete candidate memory safety.",
+  "settings": {
+    "workers": 1,
+    "threads": 2,
+    "memory_mb": 24576,
+    "sampled_headroom_cutoff_GiB": 3
+  },
+  "failed_case": "correctness/",
+  "failure": "Kernel memory threshold16384MiB in two exact facts; no successful complete correctness claim"
+}
