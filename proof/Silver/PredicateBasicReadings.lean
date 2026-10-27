@@ -239,6 +239,7 @@ theorem basic_meaning {text context scan item result}
           simpa only [bodyToken_facts] using congrArg BodyScan.facts resultEq
         have inferred := expression.inferred
         rw [rangesEq] at inferred
+        change Integer.Expr.infer scan.facts.model.scalars _ = _ at inferred
         refine ⟨by simpa only [SourceStatement.WellFormed] using nonzero, ?_⟩
         rw [← factsEq, ActiveFlow.replace_model _ _ _ (Nat.pos_of_ne_zero nonzero)
           (by rw [compatible.count]; exact targetBound)]

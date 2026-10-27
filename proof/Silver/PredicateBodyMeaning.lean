@@ -237,6 +237,7 @@ mutual
         have lowerInferred := lowerRead.inferred
         have upperInferred := upperRead.inferred
         rw [ranges] at lowerInferred upperInferred
+        change Integer.Expr.infer scan.facts.model.scalars _ = _ at lowerInferred upperInferred
         refine ⟨?_, ?_, ?_⟩
         · simp only [SourceStatement.WellFormed]
           exact ⟨by omega, body_nonempty bodyRead, bodyGood.1⟩

@@ -144,7 +144,7 @@ theorem inferred_staticness {names : ScalarExpression.Environment} {expression :
     {bounds : Integer.Interval} (found : expression.infer (ScalarExpression.ranges names) = some bounds) :
     ScalarExpression.isStatic names expression = expression.isStatic (ScalarMetadata.staticness names) := by
   induction expression generalizing bounds with
-  | literal _ => rfl
+  | literal _ | snapshot _ | indexed _ _ => rfl
   | name index =>
       simp only [Integer.Expr.infer, Option.bind_eq_some_iff] at found
       obtain ⟨interval, present, _⟩ := found
@@ -212,6 +212,8 @@ theorem scalarCondition_outcome_model {text : Source} {context : ParseContext} {
   have l := leftRead.inferred
   have r := rightRead.inferred
   rw [ranges] at l r
+  change left.infer facts.model.scalars = some leftResult.bounds at l
+  change right.infer facts.model.scalars = some rightResult.bounds at r
   have leftTarget := syntax_bareTarget leftRead.grammar
   have rightTarget := syntax_bareTarget rightRead.grammar
   have leftStatic := scalarAt_staticness leftRead

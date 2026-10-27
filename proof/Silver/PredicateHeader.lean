@@ -4,6 +4,7 @@ public import Silver.PredicateShell
 public import Silver.PredicateHeaderDecode
 public import Silver.SequenceScalarTrace
 public import Silver.SequenceInitializerTrace
+public import Silver.SequenceArrayReady
 
 @[expose] public section
 
@@ -102,5 +103,16 @@ theorem prefix_initializer_checked {source form checks}
     (trace : Sequence.InitializerTokensAt source form.helper form.prefix initialState checks
       (prefixScan source form).state) : Integer.discharged checks = true :=
   Sequence.initializer_tokens_discharge domain trace Compose.initial_valid
+
+theorem prefix_array_ready {source form events}
+    (parsed : Sequence.TokensAt source form.helper form.prefix initialState events (prefixScan source form).state) :
+    ArrayBindings.SourceReady source (prefixScan source form).state.arrayNames :=
+  Sequence.tokens_array_ready parsed (Sequence.initial_array_ready source)
+
+theorem prefix_scalar_count_bound {source form values}
+    (trace : Sequence.ScalarTokensAt source form.helper form.prefix initialState values
+      (prefixScan source form).state) :
+    (prefixScan source form).state.scalarNames.length ≤ ArrayBindings.scalarLimit :=
+  Sequence.scalar_tokens_count_bound trace (by simp [initialState])
 
 end Silver.Predicate

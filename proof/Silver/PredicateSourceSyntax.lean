@@ -160,7 +160,7 @@ mutual
     cases item with
     | simple item => simpa only [SourceStatement.lower, Statement.WellFormed, SourceStatement.WellFormed] using valid
     | scalarAssign update => simpa only [SourceStatement.lower, Statement.WellFormed, SourceStatement.WellFormed] using valid
-    | arrayAssign update => exact valid
+    | arrayAssign update => simp only [SourceStatement.lower, Statement.WellFormed]
     | reject => simpa only [SourceStatement.lower, Statement.WellFormed, SourceStatement.WellFormed] using valid
     | choice condition yes tail =>
         simp only [SourceStatement.WellFormed] at valid

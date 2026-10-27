@@ -139,7 +139,10 @@ mutual
         have ranges : ScalarExpression.ranges (context.readingNames facts) = facts.model.scalars :=
           ScalarMetadata.readingNames_ranges compatible
         exact ⟨⟨trivial, trivial, by
-          simp only [Condition.checkBounds, ← ranges, left.inferred, right.inferred,
+          have l := left.inferred
+          have r := right.inferred
+          change Integer.Expr.infer (ScalarExpression.ranges (context.readingNames facts)) _ = _ at l r
+          simp only [Condition.checkBounds, ← ranges, l, r,
             Option.isSome_some, Bool.and_self],
           scalarCondition_whenTrue_model compatible left right,
           scalarCondition_whenFalse_model compatible left right⟩, rfl⟩

@@ -148,6 +148,14 @@ theorem scalar_tokens_source_bounds {text form tokens state values final}
       · exact scalar_step_source_bounds reading elaborated declaration member
       · exact ih (scalar_step_static reading elaborated) declaration member
 
+theorem scalar_tokens_count_bound {text form tokens state values final}
+    (trace : ScalarTokensAt text form tokens state values final)
+    (bounded : state.scalarNames.length ≤ ArrayBindings.scalarLimit) :
+    final.scalarNames.length ≤ ArrayBindings.scalarLimit := by
+  induction trace with
+  | done => exact bounded
+  | next _ reading _ ih => exact ih (scalar_step_count_bound reading bounded)
+
 theorem scalar_tokens_checked {text form tokens state values final}
     (trace : ScalarTokensAt text form tokens state values final)
     (static : ScalarExpression.StaticEnvironment state.scalarNames)
