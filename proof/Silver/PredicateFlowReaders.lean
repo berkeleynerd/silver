@@ -29,8 +29,8 @@ theorem overlay_meaning {reading}
 
 structure Calls where
   reading : FlowSourceBridge.Context → ActiveFlow.Storage → FlowSourceBridge.NameStorage
-  scalar : Source → Nat → ScalarExpression.Environment → Nat → Nat → ScalarExpression.Result
-  string : Source → Nat → BindingEnvironment → ScalarExpression.Environment → ExpressionResult
+  scalar : Source → Nat → ScalarExpression.Environment → Nat → Nat → ArrayBindings.Metadata → ScalarExpression.Result
+  string : Source → Nat → BindingEnvironment → ScalarExpression.Environment → ArrayBindings.Metadata → ExpressionResult
 
 structure Inputs where
   text : Source
@@ -40,11 +40,12 @@ structure Inputs where
   maskFirst : Nat := 0
   maskAfter : Nat := 0
 
-inductive Ty | source | context | position | facts | names | scalarNames | scalar | string
+inductive Ty | source | context | position | facts | names | scalarNames | arrays | scalar | string
 
 @[reducible] def Ty.meaning : Ty → Type
   | .source => Source | .context => Native.Context | .position => Nat | .facts => ActiveFlow
   | .names => BindingEnvironment | .scalarNames => ScalarExpression.Environment
+  | .arrays => ArrayBindings.Metadata
   | .scalar => ScalarExpression.Result | .string => ExpressionResult
 
 inductive Expr : Ty → Type
@@ -55,45 +56,53 @@ inductive Expr : Ty → Type
   | maskFirst : Expr .position
   | maskAfter : Expr .position
   | names : Expr .context → Expr .names
+  | arrays : Expr .context → Expr .arrays
   | reading : Expr .context → Expr .facts → Expr .scalarNames
-  | scalar : Expr .source → Expr .position → Expr .scalarNames → Expr .position → Expr .position → Expr .scalar
-  | string : Expr .source → Expr .position → Expr .names → Expr .scalarNames → Expr .string
+  | scalar : Expr .source → Expr .position → Expr .scalarNames → Expr .position → Expr .position → Expr .arrays → Expr .scalar
+  | string : Expr .source → Expr .position → Expr .names → Expr .scalarNames → Expr .arrays → Expr .string
 
 def Expr.render : Expr ty → List String
   | .text => ["text"] | .context => ["context"] | .position => ["position"] | .facts => ["facts"]
   | .maskFirst => ["mask_first"] | .maskAfter => ["mask_after"]
   | .names contextExpr => contextExpr.render ++ [".", "names"]
+  | .arrays contextExpr => contextExpr.render ++ [".", "array_names"]
   | .reading contextExpr flowExpr => Expressions.call "reading_names" [contextExpr.render, flowExpr.render]
-  | .scalar textExpr positionExpr environmentExpr startExpr endExpr =>
+  | .scalar textExpr positionExpr environmentExpr startExpr endExpr arraysExpr =>
       ["scalar_expressions", "."] ++ Expressions.call "read_expression"
-        [textExpr.render, positionExpr.render, environmentExpr.render, startExpr.render, endExpr.render]
-  | .string textExpr positionExpr environmentExpr scalarsExpr => Expressions.call "expression_at"
-      [textExpr.render, positionExpr.render, environmentExpr.render, scalarsExpr.render]
+        [textExpr.render, positionExpr.render, environmentExpr.render, startExpr.render, endExpr.render,
+          ["arrays", "=>"] ++ arraysExpr.render]
+  | .string textExpr positionExpr environmentExpr scalarsExpr arraysExpr => Expressions.call "expression_at"
+      [textExpr.render, positionExpr.render, environmentExpr.render, scalarsExpr.render,
+        ["arrays", "=>"] ++ arraysExpr.render]
 
 def Expr.eval (calls : Calls) (inputs : Inputs) : Expr ty → ty.meaning
   | .text => inputs.text | .context => inputs.context | .position => inputs.position | .facts => inputs.facts
   | .maskFirst => inputs.maskFirst | .maskAfter => inputs.maskAfter
   | .names contextExpr => (contextExpr.eval calls inputs).names
+  | .arrays contextExpr => (contextExpr.eval calls inputs).arrayNames
   | .reading contextExpr flowExpr => overlay calls.reading (contextExpr.eval calls inputs) (flowExpr.eval calls inputs)
-  | .scalar textExpr positionExpr environmentExpr startExpr endExpr =>
+  | .scalar textExpr positionExpr environmentExpr startExpr endExpr arraysExpr =>
       calls.scalar (textExpr.eval calls inputs) (positionExpr.eval calls inputs)
         (environmentExpr.eval calls inputs) (startExpr.eval calls inputs) (endExpr.eval calls inputs)
-  | .string textExpr positionExpr environmentExpr scalarsExpr =>
+        (arraysExpr.eval calls inputs)
+  | .string textExpr positionExpr environmentExpr scalarsExpr arraysExpr =>
       calls.string (textExpr.eval calls inputs) (positionExpr.eval calls inputs)
-        (environmentExpr.eval calls inputs) (scalarsExpr.eval calls inputs)
+        (environmentExpr.eval calls inputs) (scalarsExpr.eval calls inputs) (arraysExpr.eval calls inputs)
 
-def scalarRhs : Expr .scalar := .scalar .text .position (.reading .context .facts) .maskFirst .maskAfter
-def stringRhs : Expr .string := .string .text .position (.names .context) (.reading .context .facts)
+def scalarRhs : Expr .scalar := .scalar .text .position (.reading .context .facts) .maskFirst .maskAfter (.arrays .context)
+def stringRhs : Expr .string := .string .text .position (.names .context) (.reading .context .facts) (.arrays .context)
 
 structure Meaning (calls : Calls) : Prop where
   reading : FlowSourceBridge.InterpretedReadingNames calls.reading
-  scalar : ∀ text, ValidText text → ∀ position names first after,
+  scalar : ∀ text, ValidText text → ∀ position names first after arrays,
     position ≤ text.length + 1 → ScalarExpression.ValidEnvironment text names →
     (⟨first, after⟩ : Named.NameState).Valid text →
-    calls.scalar text position names first after = ScalarExpression.read text position names first after
-  string : ∀ text, ValidText text → ∀ position names scalars,
+    ArrayBindings.ValidMetadata text arrays →
+    calls.scalar text position names first after arrays = ScalarExpression.read text position names first after (arrays := arrays)
+  string : ∀ text, ValidText text → ∀ position names scalars arrays,
     position ≤ text.length + 1 → Expressions.ValidNames text names → ScalarExpression.ValidEnvironment text scalars →
-    calls.string text position names scalars = expressionAt text position names scalars
+    ArrayBindings.ValidMetadata text arrays →
+    calls.string text position names scalars arrays = expressionAt text position names scalars (arrays := arrays)
 
 def Legal (inputs : Inputs) : Prop :=
   ValidText inputs.text ∧ Native.ValidContext inputs.text inputs.context ∧
@@ -115,31 +124,33 @@ theorem scalar_meaning {calls wrapper} (meaning : Meaning calls) (verified : Sca
     (mask : (⟨inputs.maskFirst, inputs.maskAfter⟩ : Named.NameState).Valid inputs.text) :
     wrapper inputs.text inputs.context inputs.position inputs.facts inputs.maskFirst inputs.maskAfter =
       ScalarExpression.read inputs.text inputs.position (inputs.context.model.readingNames inputs.facts)
-        inputs.maskFirst inputs.maskAfter := by
+        inputs.maskFirst inputs.maskAfter (arrays := inputs.context.arrayNames) := by
   rw [verified.equation inputs legal mask]
   simp only [scalarRhs, Expr.eval, overlay_meaning meaning.reading legal.2.1 legal.2.2.1]
-  apply meaning.scalar inputs.text legal.1 _ _ _ _ legal.2.2.2 _ mask
+  apply meaning.scalar inputs.text legal.1 _ _ _ _ _ legal.2.2.2 _ mask legal.2.1.arrays
   exact ScalarMetadata.readingNames_valid legal.2.1.2.2.1
     legal.2.2.1.2.compatible.count legal.2.2.1.2.bounded
 
 theorem string_meaning {calls wrapper} (meaning : Meaning calls) (verified : StringRefinement calls wrapper)
     (inputs : Inputs) (legal : Legal inputs) :
     wrapper inputs.text inputs.context inputs.position inputs.facts =
-      expressionAt inputs.text inputs.position inputs.context.names (inputs.context.model.readingNames inputs.facts) := by
+      expressionAt inputs.text inputs.position inputs.context.names (inputs.context.model.readingNames inputs.facts)
+        (arrays := inputs.context.arrayNames) := by
   rw [verified.equation inputs legal]
   simp only [stringRhs, Expr.eval, overlay_meaning meaning.reading legal.2.1 legal.2.2.1]
-  apply meaning.string inputs.text legal.1 _ _ _ legal.2.2.2 legal.2.1.1
+  apply meaning.string inputs.text legal.1 _ _ _ _ legal.2.2.2 legal.2.1.1 _ legal.2.1.arrays
   exact ScalarMetadata.readingNames_valid legal.2.1.2.2.1
     legal.2.2.1.2.compatible.count legal.2.2.1.2.bounded
 
 def modelCalls : Calls where
   reading := FlowSourceBridge.readingStorage
-  scalar text position names first after := ScalarExpression.read text position names first after
-  string text position names scalars := expressionAt text position names scalars
+  scalar text position names first after arrays := ScalarExpression.read text position names first after (arrays := arrays)
+  string text position names scalars arrays := expressionAt text position names scalars (arrays := arrays)
 
-theorem model_meaning : Meaning modelCalls :=
-  ⟨FlowSourceBridge.model_reading_interpreted, fun _ _ _ _ _ _ _ _ _ => rfl,
-    fun _ _ _ _ _ _ _ _ => rfl⟩
+theorem model_meaning : Meaning modelCalls where
+  reading := FlowSourceBridge.model_reading_interpreted
+  scalar _ _ _ _ _ _ _ _ _ _ _ := rfl
+  string _ _ _ _ _ _ _ _ _ _ := rfl
 
 def modelScalar (calls : Calls) : ScalarWrapper := fun text context position facts first after =>
   scalarRhs.eval calls ⟨text, context, position, facts, first, after⟩

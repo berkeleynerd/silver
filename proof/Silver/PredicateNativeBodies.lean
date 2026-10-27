@@ -80,7 +80,8 @@ def primaryBody : Expr .condition :=
         .group <| .ite (.eq close (.number 0)) (.invalid facts) (.updateAfter result close))
       (.elsif (.eq (.field .dynamicFirst context) (.number 0)) (.invalid facts)
         (.declared "after_call" ["literal_position"]
-          (.callOperation text (.field .contextNames context) position (.operation .validity) (.field .contextScalarNames context)) <|
+          (.callOperation text (.field .contextNames context) position (.operation .validity)
+            (.field .contextScalarNames context) (.field .contextArrays context)) <|
           .group <| .ite (.eq afterCall (.number 0)) (.invalid facts)
             (.condition true (.field .flowCount facts) afterCall
               (.updatePath facts (.callAssumeValid path)) (.updatePath facts (.callAssumeInvalid path)))))

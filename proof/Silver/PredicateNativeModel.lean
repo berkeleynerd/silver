@@ -23,15 +23,15 @@ def chainTokenModel (text : Source) (position : Nat) : Token :=
   else .endKeyword
 
 def modelCalls : Calls where
-  callAfter := fun text names position operation scalarNames => Compose.callAfter text names position operation scalarNames
+  callAfter := fun text names position operation scalarNames arrays => Compose.callAfter text names position operation scalarNames arrays
   take := takeModel
   skip := skipAt
   nameAfter := Compose.nameAfter
   lookup := lookupName
   scalarLookup := ScalarExpression.lookup
   scalarRead := fun text position names => ScalarExpression.read text position names
-  scalarInFlow := fun text context position facts => ScalarExpression.read text position (context.model.readingNames facts)
-  stringInFlow := fun text context position facts => expressionAt text position context.names (context.model.readingNames facts)
+  scalarInFlow := fun text context position facts => readScalarInFlow text context.model position facts
+  stringInFlow := fun text context position facts => readStringInFlow text context.model position facts
   scalarCondition := fun text context position rightPosition facts left right operator =>
     Predicate.scalarCondition text context.model position rightPosition facts left right operator
   invalidCondition := Predicate.invalidCondition
@@ -131,13 +131,13 @@ theorem model_relation_equation (text : Source) (context : Context) (position : 
         (model_fixed_advances text position "not" true bounded (by decide) found)
       simp [found, advanced]
     · simp only [found, ↓reduceIte]
-      simp only [beq_iff_eq, Context.model]
+      simp only [beq_iff_eq, Context.model, readScalarInFlow, readStringInFlow]
       by_cases equal : (comparisonAt text
-          (expressionAt text position context.names (context.model.readingNames facts)).after).operator = .eq
-      · simp only [Context.model] at equal
+          (readStringInFlow text context.model position facts).after).operator = .eq
+      · simp only [readStringInFlow, Context.model] at equal
         simp only [equal, ↓reduceIte]
         rfl
-      · simp only [Context.model] at equal
+      · simp only [readStringInFlow, Context.model] at equal
         simp only [equal, ↓reduceIte]
         rfl
 

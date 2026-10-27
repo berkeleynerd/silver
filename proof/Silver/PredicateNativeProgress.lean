@@ -34,7 +34,7 @@ theorem primary_progress (text : Source) (context : ParseContext) (position : Na
         cases arguments : context.hasArguments with
         | false => simp [readPrimary, zero, noOpening, arguments, invalidCondition] at accepted
         | true => rfl
-      have finalPositive : callAfter text context.names position .validity context.scalarNames ≠ 0 := by
+      have finalPositive : callAfter text context.names position .validity context.scalarNames context.arrayNames ≠ 0 := by
         intro absent
         simp [readPrimary, zero, noOpening, arguments, absent, invalidCondition] at accepted
       have progress := model_callAfter_advances text context.names position .validity bounded finalPositive

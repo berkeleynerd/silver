@@ -16,9 +16,10 @@ set_option maxHeartbeats 2000000
 No predicate parser equivalence occurs in this interface. The path operations
 are total mathematical interpretations of the checked native projections. -/
 structure HelperMeaning (calls : Calls) : Prop where
-  callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames,
-    ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames → position ≤ text.length + 1 →
-    calls.callAfter text names position operation scalarNames = Compose.callAfter text names position operation scalarNames
+  callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames arrays,
+    ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
+    ArrayBindings.ValidMetadata text arrays → position ≤ text.length + 1 →
+    calls.callAfter text names position operation scalarNames arrays = Compose.callAfter text names position operation scalarNames arrays
   take : ∀ text, ValidText text → ∀ position token, position ≤ text.length + 1 →
     calls.take text position token = takeModel text position token
   skip : ∀ text, ValidText text → ∀ position, position ≤ text.length + 1 →
@@ -36,10 +37,10 @@ structure HelperMeaning (calls : Calls) : Prop where
     calls.scalarRead text position names = ScalarExpression.read text position names
   scalarInFlow : ∀ text, ValidText text → ∀ context, ValidContext text context →
     ∀ position facts, position ≤ text.length + 1 → ValidFlow context facts →
-    calls.scalarInFlow text context position facts = ScalarExpression.read text position (context.model.readingNames facts)
+    calls.scalarInFlow text context position facts = readScalarInFlow text context.model position facts
   stringInFlow : ∀ text, ValidText text → ∀ context, ValidContext text context →
     ∀ position facts, position ≤ text.length + 1 → ValidFlow context facts →
-    calls.stringInFlow text context position facts = expressionAt text position context.names (context.model.readingNames facts)
+    calls.stringInFlow text context position facts = readStringInFlow text context.model position facts
   scalarCondition : ∀ text, ValidText text → ∀ context, ValidContext text context →
     ∀ position rightPosition, position ≤ text.length + 1 → rightPosition ≤ text.length + 1 →
     ∀ facts, ValidFlow context facts → ∀ left right, left.after ≤ text.length + 1 → right.after ≤ text.length + 1 →
@@ -175,7 +176,7 @@ theorem primary_normalized (contracts : Contracts calls) (text : Source) (tv : V
   have openingBound := takeModel_valid text position .leftParenthesis bounded
   have innerBound := (contracts.model text tv context cv _ openingBound facts fv).1.1
   rw [helpers.take text tv _ .rightParenthesis innerBound,
-    helpers.callAfter text tv context.names position .validity context.scalarNames cv.1 cv.2.2.1 bounded,
+    helpers.callAfter text tv context.names position .validity context.scalarNames context.arrayNames cv.1 cv.2.2.1 cv.arrays bounded,
     helpers.assumeValid, helpers.assumeInvalid]
   simp only [helpers.invalidCondition facts (fv.count_le cv)]
   rfl
@@ -195,26 +196,28 @@ theorem relation_normalized (text : Source) (tv : ValidText text)
   rw [length_meaning helpers defs text tv context cv _ true compareLengthBound]
   simp only [helpers.refineBounds]
   rw [helpers.scalarInFlow text tv context cv position facts bounded fv]
-  have scalarBound : (ScalarExpression.read text position (context.model.readingNames facts)).after ≤ text.length + 1 := by
-    by_cases zero : (ScalarExpression.read text position (context.model.readingNames facts)).after = 0
+  have scalarBound : (readScalarInFlow text context.model position facts).after ≤ text.length + 1 := by
+    by_cases zero : (readScalarInFlow text context.model position facts).after = 0
     · simp [zero]
-    · exact (ScalarExpression.read_bounds bounded zero).2.1
+    · exact (ScalarExpression.read_arrays_bounds bounded zero).2.1
   rw [comparison_meaning helpers defs text tv _ scalarBound]
   have scalarComparisonBound := Predicate.comparison_bound text _ scalarBound
   rw [helpers.scalarInFlow text tv context cv _ facts scalarComparisonBound fv]
-  have rightScalarBound : (ScalarExpression.read text
-      (comparisonAt text (ScalarExpression.read text position (context.model.readingNames facts)).after).after
-      (context.model.readingNames facts)).after ≤ text.length + 1 := by
-    by_cases zero : (ScalarExpression.read text
-        (comparisonAt text (ScalarExpression.read text position (context.model.readingNames facts)).after).after
-        (context.model.readingNames facts)).after = 0
+  have rightScalarBound : (readScalarInFlow text context.model
+      (comparisonAt text (readScalarInFlow text context.model position facts).after).after
+      facts).after ≤ text.length + 1 := by
+    by_cases zero : (readScalarInFlow text context.model
+        (comparisonAt text (readScalarInFlow text context.model position facts).after).after
+        facts).after = 0
     · simp [zero]
-    · exact (ScalarExpression.read_bounds scalarComparisonBound zero).2.1
+    · exact (ScalarExpression.read_arrays_bounds scalarComparisonBound zero).2.1
   rw [helpers.scalarCondition text tv context cv position _ bounded scalarComparisonBound facts fv _ _ scalarBound rightScalarBound _
     (ScalarExpression.Native.read_type tv bounded).2.1
     (ScalarExpression.Native.read_type tv scalarComparisonBound).2.1]
   rw [helpers.stringInFlow text tv context cv position facts bounded fv]
-  have expressionBound := (model_expression_valid (scalarNames := context.model.readingNames facts) (integerHidden := false)
+  have expressionBound : (readStringInFlow text context.model position facts).after ≤ text.length + 1 :=
+    (model_expression_valid (scalarNames := context.model.readingNames facts)
+    (integerHidden := false) (arrays := context.arrayNames) (initials := []) (elaborating := false)
     text tv position context.names bounded cv.1).1
   rw [comparison_meaning helpers defs text tv _ expressionBound]
   have comparisonBound := Predicate.comparison_bound text _ expressionBound
@@ -279,7 +282,7 @@ theorem condition_of_source_equations (contracts : Contracts calls) (text : Sour
 end
 
 theorem model_helper_meaning : HelperMeaning modelCalls where
-  callAfter _ _ _ _ _ _ _ _ _ := rfl
+  callAfter _ _ _ _ _ _ _ _ _ _ _ := rfl
   take _ _ _ _ _ := rfl
   skip _ _ _ _ := rfl
   name _ _ _ _ := rfl

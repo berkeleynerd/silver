@@ -56,7 +56,7 @@ theorem model_primary_valid (text : Source) (tv : ValidText text) (context : Con
     (facts : ActiveFlow) (fv : ValidFlow context facts) :
     ValidResult text context (readPrimary text context.model position facts) := by
   have paths := readPrimary_bounded text context.model position facts fv.1
-  have scalars := primary_flowReady text context.model position facts cv.2.2.2 fv.2
+  have scalars := primary_flowReady text context.model position facts cv.base fv.2
   exact ⟨primary_bound text context.model position facts tv cv.1 bounded,
     ⟨paths.1, scalars.1⟩, ⟨paths.2, scalars.2⟩⟩
 
@@ -65,7 +65,7 @@ theorem model_relation_valid (text : Source) (tv : ValidText text) (context : Co
     (facts : ActiveFlow) (fv : ValidFlow context facts) :
     ValidResult text context (readRelation text context.model position facts) := by
   have paths := readRelation_bounded text context.model position facts fv.1
-  have scalars := relation_flowReady text context.model position facts cv.2.2.2 fv.2
+  have scalars := relation_flowReady text context.model position facts cv.base fv.2
   exact ⟨relation_bound text context.model position facts tv cv.1 bounded,
     ⟨paths.1, scalars.1⟩, ⟨paths.2, scalars.2⟩⟩
 
@@ -74,7 +74,7 @@ theorem model_condition_valid (text : Source) (tv : ValidText text) (context : C
     (facts : ActiveFlow) (fv : ValidFlow context facts) :
     ValidResult text context (readCondition text context.model position facts) := by
   have paths := readCondition_bounded text context.model position facts fv.1
-  have scalars := condition_flowReady text context.model position facts cv.2.2.2 fv.2
+  have scalars := condition_flowReady text context.model position facts cv.base fv.2
   exact ⟨condition_bound text context.model position facts tv cv.1 bounded,
     ⟨paths.1, scalars.1⟩, ⟨paths.2, scalars.2⟩⟩
 
@@ -191,8 +191,8 @@ mutual
                 refine ⟨?_, ?_⟩
                 · rw [nextAfter]; exact rightValid.1
                 · dsimp only [next]; split
-                  · exact ⟨rightValid.2.1, ValidFlow.join cv.2.2.2 rv.2.2 rightValid.2.2⟩
-                  · exact ⟨ValidFlow.join cv.2.2.2 rv.2.1 rightValid.2.1, rightValid.2.2⟩
+                  · exact ⟨rightValid.2.1, ValidFlow.join cv.base rv.2.2 rightValid.2.2⟩
+                  · exact ⟨ValidFlow.join cv.base rv.2.1 rightValid.2.1, rightValid.2.2⟩
               have rightProgress := relation_progress text context.model _ _ tv cv.1 afterBound rightZero
               have nextAdvanced : remainingAt text next.after < remainingAt text result.after := by
                 rw [nextAfter]

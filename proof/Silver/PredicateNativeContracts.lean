@@ -64,9 +64,9 @@ theorem model_contracts : Contracts modelCalls where
     refine ⟨⟨tail_bound text context.model result _ tv cv.1 rv.1,
       ?_, ?_⟩, ?_⟩
     · exact ⟨(conditionTail_bounded text context.model result _ ⟨rv.2.1.1, rv.2.2.1⟩).1,
-        (tail_flowReady text context.model result _ cv.2.2.2 ⟨rv.2.1.2, rv.2.2.2⟩).1⟩
+        (tail_flowReady text context.model result _ cv.base ⟨rv.2.1.2, rv.2.2.2⟩).1⟩
     · exact ⟨(conditionTail_bounded text context.model result _ ⟨rv.2.1.1, rv.2.2.1⟩).2,
-        (tail_flowReady text context.model result _ cv.2.2.2 ⟨rv.2.1.2, rv.2.2.2⟩).2⟩
+        (tail_flowReady text context.model result _ cv.base ⟨rv.2.1.2, rv.2.2.2⟩).2⟩
     · by_cases zero : (conditionTail text context.model result (chainState operator chained)).after = 0
       · exact Or.inl zero
       · exact Or.inr (tail_nondecreasing text context.model result _ zero)
