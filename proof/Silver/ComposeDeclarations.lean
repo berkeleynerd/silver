@@ -12,7 +12,8 @@ namespace Silver.Compose
 open Named Bindings
 
 theorem declarationParts_value (text : Source) (state : ParserState) :
-    (declarationParts text state).value = expressionAt text (declarationValuePosition text state) state.names state.scalarNames (declarationIntegerHidden text state) := by
+    (declarationParts text state).value = expressionAt text (declarationValuePosition text state) state.names state.scalarNames (declarationIntegerHidden text state)
+      state.arrayNames.names state.arrayNames.values true := by
   simp only [declarationParts]
 
 theorem fixedAfter_nonzero {text : Source} {position : Nat} {spelling : String} {word : Bool}
@@ -32,9 +33,10 @@ inductive DeclarationAt (text : Source) (arguments : Bool) : ParserState → Dec
       fits parts.value maxSourceLength = true →
       parts.value.emptyValue = false → parts.value.minimumLength = parts.value.staticLength →
       ExpressionAt text state.names (declarationValuePosition text state) value parts.value state.scalarNames
-        (declarationIntegerHidden text state) →
+        (declarationIntegerHidden text state)
+      state.arrayNames.names state.arrayNames.values true →
       DeclarationAt text arguments state
-        ⟨state.names.length + 1, decide (parts.constantAfter = 0), value.freezeImages (frozenIntegers state.scalarNames)⟩
+        ⟨state.names.length + 1, decide (parts.constantAfter = 0), value.freezeImages (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values)⟩
         (addBinding state parts.first parts.after parts.value.value (decide (parts.constantAfter = 0)) parts.following)
 
 theorem declaration_complete {text : Source} {arguments : Bool} {state next : ParserState}
@@ -81,8 +83,9 @@ theorem declaration_sound (text : Source) (state : ParserState) (arguments : Boo
   rw [partsEq] at valueEq
   have valueNonzero : parts.value.after ≠ 0 := (decide_eq_true_eq.mp bounded).1
   rw [valueEq] at valueNonzero
-  obtain ⟨value, parsed⟩ := expressionAt_sound (scalarNames := state.scalarNames) (integerHidden := declarationIntegerHidden text state) text state.names (declarationValuePosition text state) valueNonzero
-  refine ⟨⟨state.names.length + 1, decide (parts.constantAfter = 0), value.freezeImages (frozenIntegers state.scalarNames)⟩, ?_⟩
+  obtain ⟨value, parsed⟩ := expressionAt_sound (scalarNames := state.scalarNames)
+      (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true) (integerHidden := declarationIntegerHidden text state) text state.names (declarationValuePosition text state) valueNonzero
+  refine ⟨⟨state.names.length + 1, decide (parts.constantAfter = 0), value.freezeImages (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values)⟩, ?_⟩
   rw [observed]
   simp only [allowed, Bool.not_true, following, count, or_self,
     decide_false, bounded, nonempty, exact, ne_eq, not_true_eq_false, Bool.false_eq_true, Bool.or_self, ↓reduceIte]
