@@ -199,6 +199,9 @@ and existing warm caches. Deadlines and production prover settings were
 unchanged. The full run also passed all 49 manifest samples, including the
 rotation, and all 12 array regressions.
 
+The [applicability addendum](reviews/review-fixed-arrays-applicability-529df9a6c4.md)
+confirms that the later header-data repair preserves this coverage at
+`529df9a6c4`; it changes no test dependency or inspected source-policy property.
 This closes regression coverage for the reviewed implementation. Final Rosetta
 metadata needs its applicable renderer tests. Complete native and Lean/source
 assurance and their closing evidence review remain pending; arrays are not yet

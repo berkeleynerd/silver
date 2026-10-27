@@ -2,7 +2,8 @@
 
 Implementation/review target: `899a15a5a0`. This packet currently retains the
 completed build, focused model checks and reviewed regression checkpoint.
-It also retains the failed composition check and its bounded header repair.
+It also retains the failed composition check, its bounded header repair and
+the successful output certificates on the current native source.
 Complete native and Lean/source assurance are still pending; this is not a
 completed feature delivery.
 
@@ -23,6 +24,7 @@ file hashes. Events retain the captured input maps and selected commands.
 | `20261027T132919-e15867ceed8c` | Maximum-expression rerun | One test passed |
 | `20261027T113255-5e15169d81f4` | Composition source candidate | Failed at the kernel-memory threshold; no fresh audit |
 | `20261027T142844-8cb1d281bb38` | Three literal-header equalities | Focused success at 4 GiB |
+| `20261027T104437-61ba627463df` | Output source bindings and certificates | Focused success; fresh audit of 28,847 declarations |
 
 [Test inventory](test-inventory.json), [inventory comparison](test-inventory-comparison.json),
 [original tracebacks](full-regression-failures.txt), [rerun record](regression-follow-up.md)
@@ -39,3 +41,12 @@ The [independent header review](../../../reviews/review-fixed-arrays-header-lite
 checks the four-line repair without treating the candidate generator as an
 assurance substitute. Full candidate and authoritative-source validation remain
 pending.
+
+The [certificate outcome](output-certificates/outcome.json) records a
+14,939.674-second build and 18.845-second fresh audit. Its wall time includes
+a [4,375.007-second resource suspension](output-certificates/resource-suspension.json)
+and concurrent host work; it is not an isolated timing baseline. The
+[artifact inventory](output-certificates/artifact-manifest.json) and
+[integration transfer](output-certificates/root-transfer.json) identify the
+68 verified output-module files reused for the complete checkpoint, with
+matching source and tool inputs. The complete checkpoint remains pending.

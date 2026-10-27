@@ -1,0 +1,437 @@
+{
+  "utc": "2026-10-27T14:58:09.585089+00:00",
+  "source_run": "20261027T104437-61ba627463df",
+  "source_commit": "b0e1dd616e949be5d2e1335318e3b76e13fdb66a",
+  "destination_commit": "529df9a6c4",
+  "matching_dependency_paths": [
+    "proof/lean-toolchain",
+    "proof/lakefile.lean",
+    "proof/generate_source_certificate.py",
+    "proof/Silver/SourceLexer.lean",
+    "proof/Silver/CertificateWitness.lean",
+    "proof/Silver/AxiomAudit.lean",
+    "src/silver_output_profile.ads",
+    "src/silver_output_profile.adb",
+    ".tools/linux-x86_64/lean/bin/lean",
+    ".tools/linux-x86_64/lean/bin/lake"
+  ],
+  "modules": [
+    "OutputProfileSpecSource",
+    "OutputProfileBodySource",
+    "OutputSpecCertificate",
+    "OutputBodyCertificate"
+  ],
+  "files": [
+    {
+      "path": "Silver/OutputProfileSpecSource.lean",
+      "sha256": "ba94c55928192eb6bd4794589610901175e2a86b027eb98e2750add18ad4205b",
+      "previous_sha256": "ba94c55928192eb6bd4794589610901175e2a86b027eb98e2750add18ad4205b",
+      "copied": false
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputProfileSpecSource.ilean",
+      "sha256": "b906aeb736d93718d007700d83fd61ff1b09a9a60b581c9186e568058e6cd343",
+      "previous_sha256": "b906aeb736d93718d007700d83fd61ff1b09a9a60b581c9186e568058e6cd343",
+      "copied": false
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputProfileSpecSource.ilean.hash",
+      "sha256": "907b415bf5f72acb9fee908c0150cd4e00ef45e0dfae808e3f42548124c7420b",
+      "previous_sha256": "907b415bf5f72acb9fee908c0150cd4e00ef45e0dfae808e3f42548124c7420b",
+      "copied": false
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputProfileSpecSource.ir",
+      "sha256": "e387af316883134e47987eb055ec402918093149762d56090a810411f75fc553",
+      "previous_sha256": "acb5633215a7a25d5d99adcdbfe4806dab5fc186ca6c8b5d56e9f1f940d37031",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputProfileSpecSource.ir.hash",
+      "sha256": "7752d0865acdbb6b333f434be545fa9ce03e772147b7999b02502bc367506f9c",
+      "previous_sha256": "f247f718838f4746dc0168351e7375e8ec1645f26ff7ca8bb27b283f80f41da4",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputProfileSpecSource.ir.sig",
+      "sha256": "d87cc3fb8479e21d22e764917caa93c2bc980031734000d46c13ece2b2ecbfcf",
+      "previous_sha256": "d87cc3fb8479e21d22e764917caa93c2bc980031734000d46c13ece2b2ecbfcf",
+      "copied": false
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputProfileSpecSource.ir.sig.hash",
+      "sha256": "e05a1755f3c98f0be556e4020c4436ae6fe72edbbc91226f1013145dcee79321",
+      "previous_sha256": "e05a1755f3c98f0be556e4020c4436ae6fe72edbbc91226f1013145dcee79321",
+      "copied": false
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputProfileSpecSource.olean",
+      "sha256": "d6a3e1886982f347481bfa079b5ed96cfc0a0560b83fc3612c4f9e0b110a4ad4",
+      "previous_sha256": "d2d0b2d1fee706e53ac3a921891bdc0eec53820e438fc0b2103537ff63bea471",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputProfileSpecSource.olean.hash",
+      "sha256": "ca8426825a652a8949bbe6a409e31d32d48e25e014228468007e81bc67430464",
+      "previous_sha256": "18cda81dccfb23e1a449ed2671271faf542d947e1a3d84cc32d7d1b7da1c495c",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputProfileSpecSource.olean.private",
+      "sha256": "6a441b1efcaa10cfa69fe9df5a37ad02285a4d5b13a8c88fc15cb70d9e846bb4",
+      "previous_sha256": "2319e19da4ce01b1d044ea20bd501bcf3f8f56aef6491658302f3dc419763768",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputProfileSpecSource.olean.private.hash",
+      "sha256": "f28493e76e4917b1a80cde469f8ad4cde1b233a3cf177df9c2b829332502acf6",
+      "previous_sha256": "ace8576b0a9694445ce387ae2892eddc3ae2cce43aaf075cb8104a7785a6b4ed",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputProfileSpecSource.olean.server",
+      "sha256": "143672ee98dd839c0f8f54dc2718d9a4bb9c107e2cfda349bafdedb09981dea0",
+      "previous_sha256": "d25a9ee6d62ddd0e7f93dd706d9f54d599b478813788e8d7f36a9e0d69f28103",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputProfileSpecSource.olean.server.hash",
+      "sha256": "50efec6b9b003afa24119fcb1881de8f9a88cf79a43da48f4513916bb72bd09b",
+      "previous_sha256": "60ddc8aaec966bc6fafea5d9bd2cb0b99e15ac467d5263469b92eb2724abe2f8",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputProfileSpecSource.trace",
+      "sha256": "f112670ee56a2cf95476e43b5e1c4b6f2b53ae44e9f8a4eaa0e7e4b9f718ee84",
+      "previous_sha256": "bfc5056a81cd33f12d3af10b283ca7b1ff39b5b8812dd0fd504afa1b02bdecc0",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/ir/Silver/OutputProfileSpecSource.c",
+      "sha256": "77794311a10048d27d8523d491af77d084371c543151ce0023f9cb96f3f71399",
+      "previous_sha256": "0b574f24661c0b80c3b610cda2c0182c545673d250288781d2fc8ff6931b72bd",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/ir/Silver/OutputProfileSpecSource.c.hash",
+      "sha256": "76657744e9de8058e06d64f684c204db8bafc55c9147d4d8d546cec433c5a7ac",
+      "previous_sha256": "7c95aa2f1a941ed3f23f90f76d3be7ad6a09018970f05a2574273dc16b9e10c0",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/ir/Silver/OutputProfileSpecSource.setup.json",
+      "sha256": "fba0ad9aaf96e27e762531301d43fa5073c73b0358b5cc3d06487b9d2a147d01",
+      "previous_sha256": "fba0ad9aaf96e27e762531301d43fa5073c73b0358b5cc3d06487b9d2a147d01",
+      "copied": false
+    },
+    {
+      "path": "Silver/OutputProfileBodySource.lean",
+      "sha256": "35ef9119ab63f6e20483c936107241bc997f9f3378181beb45f7ed7bab72938f",
+      "previous_sha256": "35ef9119ab63f6e20483c936107241bc997f9f3378181beb45f7ed7bab72938f",
+      "copied": false
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputProfileBodySource.ilean",
+      "sha256": "2841ea253522baba1f6c93ca9129834f9a660fae51170ded9d3fff3c40b7890a",
+      "previous_sha256": "2841ea253522baba1f6c93ca9129834f9a660fae51170ded9d3fff3c40b7890a",
+      "copied": false
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputProfileBodySource.ilean.hash",
+      "sha256": "4c3a1ad7e4a2296aef19520ace53a291bec58ec2318f9fa617c41e1cf58a4699",
+      "previous_sha256": "4c3a1ad7e4a2296aef19520ace53a291bec58ec2318f9fa617c41e1cf58a4699",
+      "copied": false
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputProfileBodySource.ir",
+      "sha256": "8790522b245215cd77a7459c4b24835892de4672b3569023bf92e4f5dd1a820e",
+      "previous_sha256": "ee631e7dc53998fe046f2c98f34ed2b800f1c2237c0382005ee041e33a237631",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputProfileBodySource.ir.hash",
+      "sha256": "8b502b804d6c5e8b3339ff93579b2d2e01a98812ce4f28c8d63ca977ca618652",
+      "previous_sha256": "c9963bcbcc8849ef1172267df80aa85b4549b971d2244f3aa270e886da1d2db1",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputProfileBodySource.ir.sig",
+      "sha256": "b130b7a435dbf8346237fde540469acbf0e3b408e963f349aec42d1c8be74af9",
+      "previous_sha256": "b130b7a435dbf8346237fde540469acbf0e3b408e963f349aec42d1c8be74af9",
+      "copied": false
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputProfileBodySource.ir.sig.hash",
+      "sha256": "29f9a1d496adeb11ad8d0340fdda670092dda8fc2ef948638f3cfe4da9c13d6f",
+      "previous_sha256": "29f9a1d496adeb11ad8d0340fdda670092dda8fc2ef948638f3cfe4da9c13d6f",
+      "copied": false
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputProfileBodySource.olean",
+      "sha256": "4a3cce269346e42f075f8a1e02ea226ac2e2a657320e60324bf9ff6cd14dcb18",
+      "previous_sha256": "6e6a80e4f6ff11a723750a2aa18673b06a0d1bbefb83b1204cd4b1e494161e58",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputProfileBodySource.olean.hash",
+      "sha256": "8954d4658f1d2e421b601b5f3dab4c51da71d50467676eed654284d124094186",
+      "previous_sha256": "0e6b0406dcdc56c85b1083785d3a4be180beec929795e4886821a9f280b95533",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputProfileBodySource.olean.private",
+      "sha256": "b9030c8e1018c15f80ce397573d9121b5dca1fd946e509fc78c9e0b86a113c76",
+      "previous_sha256": "3de74dedfc590633d702dbfe2336b60a8a0de3517c662df69559bdc2467b69d5",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputProfileBodySource.olean.private.hash",
+      "sha256": "89fc4907782d0b08ce9395323cbba402f2fd1c1d58fd319bff87aede3445b08a",
+      "previous_sha256": "526875cd9231ebbb73cf0896e92f400a0d1c09403bfbffbc303dc9dd2b8921da",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputProfileBodySource.olean.server",
+      "sha256": "6cd74fd789b8d34ab23808fbe37c8b7ebe545bf3e7a78eef12154b1e2548fdbe",
+      "previous_sha256": "0f41694f78dcead7de68e565bc6cb635e31140cef8021e2ee3082c852b42dfb6",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputProfileBodySource.olean.server.hash",
+      "sha256": "9d92660d7a9bc8493cb72a65d8f4ebf6329ba42dcfb2aa68fe705c78af550e12",
+      "previous_sha256": "9eedf2bc586705e0bda77b9fdcf9b6c8f01b336b5bd0b66089acc582f3aac5b2",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputProfileBodySource.trace",
+      "sha256": "cdcd97bff063be0a38dea66ffaf43934ca39e04861964f3a70f779bc7f906703",
+      "previous_sha256": "1b3e3b484f460914eb2c208291bad22b5b32939f3eae8815239e5ffbd8558fd5",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/ir/Silver/OutputProfileBodySource.c",
+      "sha256": "0ddac5afc365898d186cef48237333fac120c73f39ce6b1eca36c33ff6bc1726",
+      "previous_sha256": "0ec40de312de489722521b3539b77e6f8cfc29756a85e8c65c561c1e89869a9a",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/ir/Silver/OutputProfileBodySource.c.hash",
+      "sha256": "294084b7d8bdb0d36a58eaab2c7c43a4088bba0f9522fa27a9c02e5d986abe0c",
+      "previous_sha256": "cb31c410dc7e5e3975c4cfd186dad3eafe4d87f4eb4e93039966fc84ce0fca5c",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/ir/Silver/OutputProfileBodySource.setup.json",
+      "sha256": "ed6a974205d6f5883a60750484d26927d5a96cb346242d61461b4b6527740e02",
+      "previous_sha256": "ed6a974205d6f5883a60750484d26927d5a96cb346242d61461b4b6527740e02",
+      "copied": false
+    },
+    {
+      "path": "Silver/OutputSpecCertificate.lean",
+      "sha256": "63154adf8a4d657655742689d8f946c3307fde75028b863c4345d5d754b86f25",
+      "previous_sha256": "63154adf8a4d657655742689d8f946c3307fde75028b863c4345d5d754b86f25",
+      "copied": false
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputSpecCertificate.ilean",
+      "sha256": "f786f208d3e5ed1f43f202fa488c64e717734e05b32e77ca8e4774e9d6f27ed5",
+      "previous_sha256": "bca7db7b0ad5c4892cfeab1771fb2c3814dd4309e8641cd833d927da41eda0e0",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputSpecCertificate.ilean.hash",
+      "sha256": "51ffe9f335ebb170a2365df715a2f71888c3f3c02d5a5d0be6c0d889888d167b",
+      "previous_sha256": "6e51e2615ea3391f11da823add6270b2372dcc737d8237740b89ac06d2ae9e88",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputSpecCertificate.ir",
+      "sha256": "5a0efc7de144ce6b5e508579b228e2f9ecc6eb38a8f850c0d04c3cf81640ec79",
+      "previous_sha256": "94d6d8c023ec4e9c8c9b11f026ece04f230dfc043c62eec86d74fe2fcf2a19c6",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputSpecCertificate.ir.hash",
+      "sha256": "4746c55c38392e22d0a311832c5a554558150e9c6b82ee671c781ad8b5db360d",
+      "previous_sha256": "0ddf1ad940a49560e0e8a928137ef7cdf908c78d3c296aae26701bdde66bdad5",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputSpecCertificate.ir.sig",
+      "sha256": "fb6dc973bcb25f31b4837e7b7f473c116b33bcfbf8728933ba8a01aea69d8a45",
+      "previous_sha256": "fb6dc973bcb25f31b4837e7b7f473c116b33bcfbf8728933ba8a01aea69d8a45",
+      "copied": false
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputSpecCertificate.ir.sig.hash",
+      "sha256": "a2a31b08cbc4ea917218f293163657cff701e8d13c1644716222e81e2dd9e4e5",
+      "previous_sha256": "a2a31b08cbc4ea917218f293163657cff701e8d13c1644716222e81e2dd9e4e5",
+      "copied": false
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputSpecCertificate.olean",
+      "sha256": "d85b5a524adc61e9e4ad675f7c6cfc1866eef1d2ba17af860856ee84814bea6c",
+      "previous_sha256": "ae9403fb9fed063dc10905772dbc86ac85d8355a95fe4c8bc0fed7446de38d02",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputSpecCertificate.olean.hash",
+      "sha256": "eaec1c8183056ba31f237249b78e977d6c14b8c3c7b8dd4279f2297ceec6ad56",
+      "previous_sha256": "20228e317ae470e7f0bec4c8c31b898e3cd9f0d777636cbfac6f587487c58951",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputSpecCertificate.olean.private",
+      "sha256": "983d5c691917a83a2f9916ccd05a925c74bc373956816ba0a4c43ff4139a6176",
+      "previous_sha256": "6d80b23a6f39734b3815de2ea00cf7df0c6bc504f584e9b8d0280d601257c58d",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputSpecCertificate.olean.private.hash",
+      "sha256": "7fb74359fc2699f229f44cf7dc7644a309eef55e0b6b39c37f8143a711e0c4f3",
+      "previous_sha256": "6a42fe8c29e7655e2b2762f79a964cc705c25a3a7cfe039a04c0ce940b76d2a7",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputSpecCertificate.olean.server",
+      "sha256": "e448af0848b86ecf424b5dc33b35a1a6e78d70a9959848bf198130b348aee8e0",
+      "previous_sha256": "4c97482412ef36194febd4ad0355e773cfb48a5677cf1a17c02b392a0797a9d2",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputSpecCertificate.olean.server.hash",
+      "sha256": "ec9821c05bb879aab80497ff8d19ef1022df8185078e7af47588d2200cf46d25",
+      "previous_sha256": "69195fc37b2701a6b01d44e24f011a159a0907923f447f0b1055976e2167e629",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputSpecCertificate.trace",
+      "sha256": "ebed57bcd92d32fcfa0b2ad95812e059ef3c8e242a66608eac8c8ada9537cfd7",
+      "previous_sha256": "9ad87fa25ad7a062d688b22eefd088ee8858264ad29f3cb358539f511735b9f0",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/ir/Silver/OutputSpecCertificate.c",
+      "sha256": "90349b15ecb821af5dea6274a178532e382b9635a54292b705e2528bac6c5fa9",
+      "previous_sha256": "ece9f42ca36626aabdeffa04462ee67805d1d69a605d3845785285190cf7b33e",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/ir/Silver/OutputSpecCertificate.c.hash",
+      "sha256": "875248ab9b38dfd269f8c13cb40f3974ce5bf54aacea41cd22570f13c29559af",
+      "previous_sha256": "94de2abbd630a27d0d3ecf80301689f705cf80e6e9d184f4130de690a2b60f9d",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/ir/Silver/OutputSpecCertificate.setup.json",
+      "sha256": "7d219f7dc4aeeeeb1e3c1a7b9d706011380dbf16522ceeb584387911715daa36",
+      "previous_sha256": "1a2a2e5c6edc5ce2d77119a819f647310821622533d455d978a78cea9c24c58c",
+      "copied": true
+    },
+    {
+      "path": "Silver/OutputBodyCertificate.lean",
+      "sha256": "0f09b43d6bbd89e5258c39b5357a0120b27ad0e20565bc9abe1d213d078d8a2c",
+      "previous_sha256": "0f09b43d6bbd89e5258c39b5357a0120b27ad0e20565bc9abe1d213d078d8a2c",
+      "copied": false
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputBodyCertificate.ilean",
+      "sha256": "aefb1e3b7366e36fe128034e6d95aad2732cf823a7815723543cfe3af410a75c",
+      "previous_sha256": "3befa97cbce60e42cee6ab575587f7253dd3274f63162dee763944d4a7443349",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputBodyCertificate.ilean.hash",
+      "sha256": "db42621addf4d42c5fddc1c02510bf4afe7514feaa5afa06496ce547a7874553",
+      "previous_sha256": "ed52a26d6e119633b2183e2dcf00ad3a5846410eb7b46d3e5fc1bf036cb491fa",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputBodyCertificate.ir",
+      "sha256": "000a445f2bf5f6143861bdef550636c8d8f270d425955416f6719a51d5855400",
+      "previous_sha256": "2cd7a3e538771d960edcf5ec65851c7e3926a408ba53e6f7a3cd5f86825af4b9",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputBodyCertificate.ir.hash",
+      "sha256": "4db3cc420f80ef73cc828fbacaac686d4a0a4985cd18d798eb7a27dabbc15a81",
+      "previous_sha256": "9dab13b8bd8ab471bd978b7b714e988c008c6ecb9c45b68d6b5dcad28dddfa7f",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputBodyCertificate.ir.sig",
+      "sha256": "b6bc056a5be61f8c9c2a595d2147836c0ed84d153dbeea9125a86edd580bb0bd",
+      "previous_sha256": "b6bc056a5be61f8c9c2a595d2147836c0ed84d153dbeea9125a86edd580bb0bd",
+      "copied": false
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputBodyCertificate.ir.sig.hash",
+      "sha256": "d56466762023789b8ab07dcddc9e95d1dead2c69024fa341c3719f01afd0556c",
+      "previous_sha256": "d56466762023789b8ab07dcddc9e95d1dead2c69024fa341c3719f01afd0556c",
+      "copied": false
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputBodyCertificate.olean",
+      "sha256": "dc11dec7f59c29c54304e6a48c2396acc849285b3b589778b2b63c3477383092",
+      "previous_sha256": "d76fa5ccd27d21c295cb7d1ce06ea643c4e9a7a06cfa7545f0dd139a320ac3ff",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputBodyCertificate.olean.hash",
+      "sha256": "5cec43e98828442f4f7a655b91f7bc841fa52ca0dd042552ac611556666b89f1",
+      "previous_sha256": "d0387bee53d25477ff449f2fee2e9763ec0a110b79718fab8b4a84358708db10",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputBodyCertificate.olean.private",
+      "sha256": "468f8ca4f9db8cce5e94387d09e3cc8a770da9da35ca7cc2ffadfe8394f0b2a7",
+      "previous_sha256": "378851e1c29f3876bb578a1c7562fd8d97881f055a6385b7205fa440573f3090",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputBodyCertificate.olean.private.hash",
+      "sha256": "76f7013f75f7d057259ef57dd85be00f022f404856bfd479b1124a074b838a29",
+      "previous_sha256": "1dca2c1e8e234767802b418df7eb92d42b1e9631ec7aad7b768d2c1b96262286",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputBodyCertificate.olean.server",
+      "sha256": "267d3e1500d8a960fc87fba719accc91eecaadf7fa11d8ec777f0a102512a032",
+      "previous_sha256": "316bf4fcfe83b8a085063625b6d6d91c761a0165fda25833676d9099398376b2",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputBodyCertificate.olean.server.hash",
+      "sha256": "77d9669011a06c556f163a9a81f741cab8fc175d9e5c5f0cbf67be321f88f11f",
+      "previous_sha256": "3846f68ef32083b26ed8ff390c882d6e3cf49f9262dcfb3970cd034f4ce511b3",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/OutputBodyCertificate.trace",
+      "sha256": "e36b9298a4b5f6a37bf1a36b81b06de17e98184e42da9f60116771688db6f5e8",
+      "previous_sha256": "4db6a93bc8d6cbf0d55544c85fc1fc436d6ca4f09c70b285de9a42c0ec4ea7f9",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/ir/Silver/OutputBodyCertificate.c",
+      "sha256": "c65334f3aeafda871e0a8b27c80cced137f9d6dbf1f1852d80faa0018b027d1e",
+      "previous_sha256": "0dbb3453ac35177142c8d8facf84fa9bacd86158a52a529b83fbe5495716f0ff",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/ir/Silver/OutputBodyCertificate.c.hash",
+      "sha256": "f8e0736e916de29e42eb1246f0b34b18b843152ec8dbffc914f993b572220d44",
+      "previous_sha256": "b94eae0b4681c84914542dc78aa5a9f1f743610e0872cad04346fa3bdd800ec1",
+      "copied": true
+    },
+    {
+      "path": ".lake/build/ir/Silver/OutputBodyCertificate.setup.json",
+      "sha256": "78b2460e9b33fd80bce91cd70a5eba8bed20c148274bcb0f7ef69c11bdb4a318",
+      "previous_sha256": "850e426d36b45ef0022b45c4f3fd889e067e59fecd1cd327e1ecd240317f44f2",
+      "copied": true
+    }
+  ],
+  "count": 68,
+  "copied": 50,
+  "scope": "Only verified successful output binding/certificate families; no failed candidate, probe, unrelated cache or Lake configuration artifacts copied."
+}
