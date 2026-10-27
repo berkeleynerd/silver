@@ -65,7 +65,7 @@ theorem lookup_bound (text : Source) (names : Environment) (first after : Nat) :
     lookup text names first after ≤ names.length := lookupFrom_bound ..
 
 def leaves : Integer.Expr → Nat
-  | .literal _ | .name _ => 1
+  | .literal _ | .snapshot _ | .name _ => 1
   | .indexed _ index => 1 + leaves index
   | .positive value | .negative value | .parenthesized value => leaves value
   | .add left right | .subtract left right | .multiply left right
@@ -73,6 +73,7 @@ def leaves : Integer.Expr → Nat
 
 def isStatic (names : Environment) : Integer.Expr → Bool
   | .literal _ => true
+  | .snapshot _ => false
   | .name index => (binding names index).isStatic
   | .indexed _ _ => false
   | .positive value | .negative value | .parenthesized value => isStatic names value

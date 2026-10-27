@@ -1,6 +1,7 @@
 module
 
 public import Silver.IntegerChecks
+public import Silver.IntegerArraySnapshots
 
 @[expose] public section
 

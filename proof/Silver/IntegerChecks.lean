@@ -90,7 +90,7 @@ def binaryObligation (constructor : Interval → Interval → Obligation)
   match left, right with | some a, some b => constructor a b | _, _ => .impossible
 
 def Expr.obligations (ranges : Ranges) : Expr → List Obligation
-  | .literal value => [.range (Interval.singleton value)]
+  | .literal value | .snapshot value => [.range (Interval.singleton value)]
   | .name index => [unaryObligation .range (ranges index)]
   | .indexed array index => index.obligations ranges ++
       match index.infer ranges with
@@ -124,7 +124,7 @@ theorem arrayReadRange_checked {ranges : Ranges} {array : ArrayDescriptor} {indi
 theorem Expr.obligations_exact (expression : Expr) (ranges : Ranges) :
     discharged (expression.obligations ranges) = (expression.infer ranges).isSome := by
   induction expression with
-  | literal value => simp [obligations, infer, discharged, Obligation.discharge, accepted_isSome]
+  | literal value | snapshot value => simp [obligations, infer, discharged, Obligation.discharge, accepted_isSome]
   | name index =>
       cases found : ranges index <;>
         simp [obligations, infer, discharged, Obligation.discharge, unaryObligation, found, accepted_isSome]

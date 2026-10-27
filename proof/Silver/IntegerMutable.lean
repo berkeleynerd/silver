@@ -200,6 +200,7 @@ theorem Assignment.unchanged {assignment : Assignment} {ranges declared : Ranges
 /-- Ada staticness follows declaration dependencies, never interval width. -/
 def Expr.isStatic (names : Mutability) : Expr → Bool
   | .literal _ => true
+  | .snapshot _ => false
   | .name index => names index
   | .indexed _ _ => false
   | .positive inner | .negative inner | .parenthesized inner => inner.isStatic names

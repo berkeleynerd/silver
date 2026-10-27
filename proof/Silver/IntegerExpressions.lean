@@ -42,6 +42,8 @@ theorem put_fits {ranges : Ranges} {values : Store} {index : Nat} {bounds : Inte
 
 inductive Expr
   | literal (value : Int)
+  /-- Internal exact declaration snapshot; never an author-source production. -/
+  | snapshot (value : Int)
   | name (index : Nat)
   | indexed (array : ArrayDescriptor) (index : Expr)
   | positive (value : Expr)
@@ -56,7 +58,7 @@ inductive Expr
   deriving DecidableEq, Repr
 
 def Expr.evaluate (values : Store) : Expr → Int
-  | .literal value => value
+  | .literal value | .snapshot value => value
   | .name index => values index
   | .indexed array index => array.project values (index.evaluate values)
   | .positive value | .parenthesized value => value.evaluate values
@@ -131,7 +133,7 @@ theorem arrayReadRange_sound {ranges : Ranges} {values : Store} {array : ArrayDe
     by simpa only [ArrayDescriptor.project] using sound.2⟩
 
 def Expr.infer (ranges : Ranges) : Expr → Option Interval
-  | .literal value => accepted (checked (Interval.singleton value))
+  | .literal value | .snapshot value => accepted (checked (Interval.singleton value))
   | .name index => (ranges index).bind fun bounds => accepted (checked bounds)
   | .indexed array index => (index.infer ranges).bind fun bounds => arrayReadRange ranges array bounds
   | .positive value | .parenthesized value => value.infer ranges
@@ -151,7 +153,7 @@ def Expr.infer (ranges : Ranges) : Expr → Option Interval
 
 /-- Every node, including operands of a larger safe result, must fit Integer. -/
 def Expr.Safe (values : Store) : Expr → Prop
-  | .literal value => InRange value
+  | .literal value | .snapshot value => InRange value
   | .name index => InRange (values index)
   | .indexed array index => index.Safe values ∧ array.bounds.Contains (index.evaluate values) ∧
       InRange (array.project values (index.evaluate values))
@@ -176,7 +178,7 @@ def Expr.Safe (values : Store) : Expr → Prop
 theorem Expr.safe_value {values : Store} {expression : Expr}
     (safe : expression.Safe values) : InRange (expression.evaluate values) := by
   induction expression with
-  | literal | name => exact safe
+  | literal | snapshot | name => exact safe
   | indexed => exact safe.2.2
   | positive _ ih | parenthesized _ ih => exact ih safe
   | negative => exact safe.2
@@ -186,7 +188,7 @@ theorem Expr.safe_value {values : Store} {expression : Expr}
 theorem Expr.infer_bounded {ranges : Ranges} {expression : Expr} {bounds : Interval}
     (found : expression.infer ranges = some bounds) : bounds.Bounded := by
   induction expression generalizing bounds with
-  | literal value =>
+  | literal value | snapshot value =>
       have accepted := (accepted_iff _ _).mp found
       rw [← accepted.2]; exact checked_bounded _
   | name index =>
@@ -219,7 +221,7 @@ theorem Expr.infer_sound {ranges : Ranges} {expression : Expr} {bounds : Interva
     (found : expression.infer ranges = some bounds) (fits : Fits ranges values) :
     bounds.Contains (expression.evaluate values) ∧ expression.Safe values := by
   induction expression generalizing bounds with
-  | literal value =>
+  | literal value | snapshot value =>
       have result := (accepted_iff _ _).mp found
       have sound := checked_sound result.1 ((Interval.singleton_contains value value).mpr rfl)
       simpa only [result.2, evaluate, Safe] using sound
@@ -267,7 +269,7 @@ theorem Expr.infer_sound {ranges : Ranges} {expression : Expr} {bounds : Interva
 def checkedValue (value : Int) : Option Int := if InRange value then some value else none
 
 def Expr.checkedEvaluate (values : Store) : Expr → Option Int
-  | .literal value => checkedValue value
+  | .literal value | .snapshot value => checkedValue value
   | .name index => checkedValue (values index)
   | .indexed array index => (index.checkedEvaluate values).bind fun value =>
       if array.bounds.Contains value then checkedValue (array.project values value) else none
@@ -293,7 +295,7 @@ theorem Expr.checkedEvaluate_agrees {expression : Expr} {values : Store}
     (safe : expression.Safe values) :
     expression.checkedEvaluate values = some (expression.evaluate values) := by
   induction expression with
-  | literal | name =>
+  | literal | snapshot | name =>
       change InRange _ at safe
       simp only [checkedEvaluate, checkedValue, safe, ↓reduceIte, evaluate]
   | indexed array index ih =>
