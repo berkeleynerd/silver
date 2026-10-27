@@ -8,6 +8,8 @@ public import Silver.ComposeStateBounds
 
 namespace Silver.Compose.Expressions
 
+variable {domain : StateDomain}
+
 /-- A single initialized-value update preserves the native parser invariant.
 No ordering or compactness of the incoming array table is assumed. -/
 theorem model_putArray_valid {text : Source} {state : ParserState} {value : Int}
@@ -24,7 +26,7 @@ theorem model_putArray_valid {text : Source} {state : ParserState} {value : Int}
     omega
 
 theorem ArrayValuesDomain.room {text source result position length parsed}
-    (valid : ArrayValuesDomain text source result position length parsed)
+    (valid : ArrayValuesDomain text source result position length parsed domain)
     (remaining : parsed < length) : result.arrayNames.used < ArrayBindings.maxElements := by
   have used := valid.used
   have capacity := valid.capacity
@@ -32,12 +34,13 @@ theorem ArrayValuesDomain.room {text source result position length parsed}
   omega
 
 theorem ArrayValuesDomain.next {text source result position length parsed value following}
-    (valid : ArrayValuesDomain text source result position length parsed)
+    (valid : ArrayValuesDomain text source result position length parsed domain)
     (remaining : parsed < length) (safe : Integer.InRange value)
     (positionValid : ValidCursor text following) :
-    ArrayValuesDomain text source (putArrayValue result value) following length (parsed + 1) where
-  sourceValid := valid.sourceValid
-  resultValid := model_putArray_valid valid.resultValid (valid.room remaining) safe
+    ArrayValuesDomain text source (putArrayValue result value) following length (parsed + 1) domain where
+  sourceContext := valid.sourceContext
+  resultContext := domain.transportScalar text result _ valid.resultContext
+    (model_putArray_valid valid.resultValid (valid.room remaining) safe) rfl
   positionValid := positionValid
   parsedBound := by omega
   capacity := valid.capacity
@@ -95,7 +98,7 @@ theorem model_arrayParts_valid (text : Source) (state : ParserState)
 rejected readings. This does not assume source-level compact allocation. -/
 theorem model_arrayValues_valid (text : Source) (source result : ParserState)
     (position length parsed : Nat)
-    (context : ArrayValuesDomain text source result position length parsed) :
+    (context : ArrayValuesDomain text source result position length parsed domain) :
     ValidState text (arrayValuesModel text source result position length parsed) := by
   rw [arrayValuesModel]
   by_cases zero : position = 0

@@ -25,8 +25,15 @@ The base domain remains available for the independent mathematical model. -/
 structure StateDomain where
   holds : Source → ParserState → Prop
   valid : ∀ text state, holds text state → ValidState text state
+  /-- Additional caller invariants depend only on scalar declarations. Native
+  validity supplies the bounds of all other fields after an array update. -/
+  transportScalar : ∀ text before after, holds text before → ValidState text after →
+    after.scalarNames = before.scalarNames → holds text after
 
-def StateDomain.basic : StateDomain := ⟨ValidState, fun _ _ valid => valid⟩
+def StateDomain.basic : StateDomain where
+  holds := ValidState
+  valid := fun _ _ valid => valid
+  transportScalar := fun _ _ _ _ valid _ => valid
 
 def allTokens : List ShellToken :=
   [.word "with", .word "silver_io", .word "procedure", .word "main", .word "is",
@@ -100,16 +107,26 @@ def Context.locals (ctx : Context) : Locals
   | .operation, _ => ctx.operation
   | ty, _ => ty.default
 
-/-- Exact native precondition of the aggregate loop and its recursive model.
+/-- The aggregate precondition retains the caller's complete state domain.
 This requires native table validity, not the stronger source allocation layout. -/
 structure ArrayValuesDomain (text : Source) (source result : ParserState)
-    (position length parsed : Nat) : Prop where
-  sourceValid : ValidState text source
-  resultValid : ValidState text result
+    (position length parsed : Nat) (domain : StateDomain := .basic) : Prop where
+  sourceContext : domain.holds text source
+  resultContext : domain.holds text result
   positionValid : ValidCursor text position
   parsedBound : parsed ≤ length
   capacity : length ≤ ArrayBindings.maxElements - source.arrayNames.used
   used : result.arrayNames.used = source.arrayNames.used + parsed
+
+theorem ArrayValuesDomain.sourceValid {domain : StateDomain}
+    {text source result position length parsed}
+    (context : ArrayValuesDomain text source result position length parsed domain) :
+    ValidState text source := domain.valid text source context.sourceContext
+
+theorem ArrayValuesDomain.resultValid {domain : StateDomain}
+    {text source result position length parsed}
+    (context : ArrayValuesDomain text source result position length parsed domain) :
+    ValidState text result := domain.valid text result context.resultContext
 
 def arrayPutLocals (state : ParserState) (value : Int) : Locals :=
   (Context.locals {state}).set .integer "value" value
@@ -283,7 +300,7 @@ structure HelperEquations (calls : Calls) (evaluator : Calls := lexical calls)
     domain.holds text state → calls.function .scalarDeclaration text state arguments =
       scalarDeclarationBody.eval evaluator (Context.locals {text,state,arguments})
   arrayAdd : ∀ text, ValidText text → ∀ state first after bounds offset length mutable following,
-    ValidState text state → ValidName text first after →
+    domain.holds text state → ValidName text first after →
     ArrayBindings.ValidBinding ⟨first, after, bounds, offset, length, mutable⟩ →
     state.arrayNames.names.length < ArrayBindings.maxBindings →
     offset + length ≤ state.arrayNames.used → ValidCursor text following →
@@ -293,11 +310,11 @@ structure HelperEquations (calls : Calls) (evaluator : Calls := lexical calls)
     Integer.InRange value →
     calls.function .arrayPut state value = arrayPutBody.eval evaluator (arrayPutLocals state value)
   arrayValuesModel : ∀ text, ValidText text → ∀ source result position length parsed,
-    ArrayValuesDomain text source result position length parsed →
+    ArrayValuesDomain text source result position length parsed domain →
     calls.function .arrayValuesModel text source result position length parsed =
       arrayValuesModelBody.eval evaluator (arrayValuesLocals text source result position length parsed)
   arrayValues : ∀ text, ValidText text → ∀ source result position length parsed,
-    ArrayValuesDomain text source result position length parsed →
+    ArrayValuesDomain text source result position length parsed domain →
     calls.function .arrayValues text source result position length parsed =
       calls.function .arrayValuesModel text source result position length parsed
   arrayDeclaration : ∀ text, ValidText text → ∀ state arguments,
