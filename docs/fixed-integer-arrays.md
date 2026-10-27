@@ -203,3 +203,27 @@ This closes regression coverage for the reviewed implementation. Final Rosetta
 metadata needs its applicable renderer tests. Complete native and Lean/source
 assurance and their closing evidence review remain pending; arrays are not yet
 supported.
+
+## Source-check memory repair
+
+Composition source run `20261027T113255-5e15169d81f4` failed at its 24 GiB
+kernel-memory threshold: the `expression_at` prototype check and two array-helper
+header checks could not finish. Its failed build and diagnostics are retained;
+no fresh axiom audit ran. The output-certificate worker was suspended while the
+composition check occupied memory, then resumed on the same inputs and process.
+Its 4,375.007-second suspension is part of the recorded wall time.
+
+The [reviewed repair](reviews/review-fixed-arrays-header-literals-5dd2c43b58.md)
+at `24452b335a` replaces four uses of long expected-header strings with literal
+token lists: `expression_at` in its predicate and proof, and the
+`array_values_model` / `array_values_at` prototypes. Independent comparison
+preserves all 214, 231 and 265 tokens, including every contract and aspect.
+The source lexer, extractors, generator, reviewed pin, Ada and authoritative
+source transport are unchanged.
+
+Isolated run `20261027T142844-8cb1d281bb38` proved the three header equalities
+at a 4 GiB limit (51.071 s build, 10.752 s fresh audit, 519 declarations with
+only the approved foundations). Its temporary probe is retained as evidence
+and excluded from the delivered proof tree. This result supports the local
+repair; it does not establish the complete candidate's memory peak or replace
+the pending complete source/module/axiom checkpoint.

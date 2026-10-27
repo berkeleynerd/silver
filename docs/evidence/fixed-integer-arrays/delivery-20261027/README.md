@@ -2,6 +2,7 @@
 
 Implementation/review target: `899a15a5a0`. This packet currently retains the
 completed build, focused model checks and reviewed regression checkpoint.
+It also retains the failed composition check and its bounded header repair.
 Complete native and Lean/source assurance are still pending; this is not a
 completed feature delivery.
 
@@ -20,6 +21,8 @@ file hashes. Events retain the captured input maps and selected commands.
 | `20261027T124456-035726160aa1` | Shared evidence/dependency fixture repair | 49 tests passed |
 | `20261027T132720-978e7f5308f1` | Division rerun | 11 tests passed |
 | `20261027T132919-e15867ceed8c` | Maximum-expression rerun | One test passed |
+| `20261027T113255-5e15169d81f4` | Composition source candidate | Failed at the kernel-memory threshold; no fresh audit |
+| `20261027T142844-8cb1d281bb38` | Three literal-header equalities | Focused success at 4 GiB |
 
 [Test inventory](test-inventory.json), [inventory comparison](test-inventory-comparison.json),
 [original tracebacks](full-regression-failures.txt), [rerun record](regression-follow-up.md)
@@ -29,3 +32,10 @@ establishes applicability of 73 fresh and 457 retained successful results at the
 reviewed target. The original full run remains failed. Final metadata changes
 require their affected checks, and complete assurance cannot be replaced by
 composing focused test results.
+
+The [header data comparison](header-literal-repair/token-equivalence.json) was
+recorded before the isolated probe. Its later successful run is retained above.
+The [independent header review](../../../reviews/review-fixed-arrays-header-literals-5dd2c43b58.md)
+checks the four-line repair without treating the candidate generator as an
+assurance substitute. Full candidate and authoritative-source validation remain
+pending.
