@@ -1069,6 +1069,8 @@ is
                begin Array_Values_Model
                  (Text, Source_State, Next_State, Next_Position, Length, Parsed + 1)))));
 
+   Integer_Type_Word : constant String := "integer";
+
    function Array_Declaration_Model
      (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State
      with Ghost => Static, Global => null,
@@ -1098,7 +1100,7 @@ is
                 Take_Token (Text, Type_After, Assignment), Left_Parenthesis);
       begin
         (if not New_Name_Allowed (Text, State, First, After, Arguments)
-           or else Name_Is (Text, First, After, "integer")
+           or else Name_Is (Text, First, After, Integer_Type_Word)
            or else Array_After = 0 or else Position = 0
            or else State.Array_Names.Names.Count = Array_Bindings.Max_Bindings
            or else Low.After = 0 or else High.After = 0 or else not Low.Static or else not High.Static
@@ -1160,7 +1162,9 @@ is
              Array_Values_At'Result.Array_Names.Values (Slot) =
                Result_State.Array_Names.Values (Slot))),
          Static => Array_Values_At'Result = Array_Values_Model
-           (Text, Source_State, Result_State, Position, Length, Parsed));
+           (Text, Source_State, Result_State, Position, Length, Parsed)
+         and then Same_Parser_State (Array_Values_At'Result, Array_Values_Model
+           (Text, Source_State, Result_State, Position, Length, Parsed)));
    function Array_Values_At
      (Text : String; Source_State, Result_State : Parser_State;
       Position : Literal_Position; Length, Parsed : Array_Bindings.Element_Count)
@@ -1270,7 +1274,7 @@ is
                 Take_Token (Text, Type_After, Assignment), Left_Parenthesis);
       begin
         (if not New_Name_Allowed (Text, State, First, After, Arguments)
-           or else Name_Is (Text, First, After, "integer")
+           or else Name_Is (Text, First, After, Integer_Type_Word)
            or else Array_After = 0 or else Position = 0
            or else State.Array_Names.Names.Count = Array_Bindings.Max_Bindings
            or else Low.After = 0 or else High.After = 0 or else not Low.Static or else not High.Static
