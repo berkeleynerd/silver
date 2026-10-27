@@ -53,9 +53,11 @@ theorem FlowReady.widen {text : Source} {names : Environment} {declarations : Na
     exact ⟨Int.le_refl _, by omega⟩
 
 theorem BaseReady.append_immutable {names : Environment} {declarations : Nat}
-    (base : BaseReady names declarations) (item : Binding) (immutable : item.mutable = false) :
+    (base : BaseReady names declarations) (item : Binding) (immutable : item.mutable = false)
+    (space : names.length + 1 ≤ ArrayBindings.scalarLimit) :
     BaseReady (names ++ [item]) declarations where
   body := bodyReady_append_immutable base.body immutable
+  size := by simpa only [List.length_append, List.length_singleton] using space
   count := by simp only [List.length_append, List.length_singleton]; have := base.count; omega
   declarationsNonempty index positive declared := by
     rw [binding_append_old names item index positive (Nat.le_trans declared base.count)]
@@ -108,9 +110,9 @@ end ScalarMetadata
 
 theorem nativeLoopInner_baseReady {context : ParseContext}
     (base : ScalarMetadata.BaseReady context.scalarNames context.declarationCount)
-    (header : LoopHeader) :
+    (header : LoopHeader) (space : context.scalarNames.length + 1 ≤ ArrayBindings.scalarLimit) :
     ScalarMetadata.BaseReady (loopInner context header).scalarNames (loopInner context header).declarationCount :=
-  base.append_immutable _ rfl
+  base.append_immutable _ rfl space
 
 theorem loopHeader_flowReady {text : Source} {context : ParseContext} {scan : BodyScan}
     (base : ScalarMetadata.BaseReady context.scalarNames context.declarationCount)

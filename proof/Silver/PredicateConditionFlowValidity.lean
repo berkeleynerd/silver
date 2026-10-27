@@ -196,7 +196,7 @@ mutual
                 · exact invalidCondition_flowReady ready
                 · try dsimp only
                   by_cases equal : (comparisonAt text
-                    (expressionAt text position context.names (context.readingNames facts)).after).operator == Comparison.eq
+                    (expressionAt (arrays := context.arrayNames) text position context.names (context.readingNames facts)).after).operator == Comparison.eq
                   · simp only [equal, ↓reduceIte]
                     exact ⟨ready.withPath _, ready⟩
                   · simp only [equal, Bool.false_eq_true, ↓reduceIte]

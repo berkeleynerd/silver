@@ -55,6 +55,21 @@ theorem loopHeader_readings {text : Source} {context : ParseContext} {scan : Bod
   obtain ⟨lower, lowerRead⟩ := ScalarExpression.read_sound (loopLowerPosition_bound text scan) lowerPositive
   exact ⟨lower, upper, lowerRead, upperRead⟩
 
+theorem loopNameAllowed_space {text : Source} {context : ParseContext} {header : LoopHeader}
+    (size : context.scalarNames.length ≤ ArrayBindings.scalarLimit)
+    (allowed : loopNameAllowed text context header = true) :
+    context.scalarNames.length + 1 ≤ ArrayBindings.scalarLimit := by
+  simp only [loopNameAllowed, Bool.and_eq_true, decide_eq_true_eq] at allowed
+  have different := allowed.2
+  change context.scalarNames.length ≠ ArrayBindings.scalarLimit at different
+  omega
+
+@[simp] theorem loopInner_flow (context : ParseContext) (header : LoopHeader) (facts : ActiveFlow) :
+    (loopInner context header).flow facts = context.flow facts := rfl
+
+theorem loopInner_arraysReady {text : Source} {context : ParseContext} (header : LoopHeader)
+    (ready : context.ArraysReady text) : (loopInner context header).ArraysReady text := ready
+
 theorem loopInner_valid_environment {text : Source} {context : ParseContext} {scan : BodyScan}
     (valid : ScalarExpression.ValidEnvironment text context.scalarNames)
     (allowed : loopNameAllowed text context (loopHeader text context scan) = true)
