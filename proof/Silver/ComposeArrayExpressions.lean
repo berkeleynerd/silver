@@ -30,6 +30,24 @@ def arrayPutBody : Expr .state :=
   .stateArray state (.arrayUsedValues (.field .stateArrayNames state) next
     (.arrayPut (arrayStateValues state) next (.variable "value")))
 
+def addArrayBinding (state : ParserState) (first after : Nat) (bounds : Integer.Interval)
+    (offset length : Nat) (mutable : Bool) (following : Nat) : ParserState :=
+  {state with position := following, arrayNames := {state.arrayNames with
+    names := state.arrayNames.names ++ [⟨first, after, bounds, offset, length, mutable⟩]}}
+
+def arrayAddBody : Expr .state :=
+  let state : Expr .state := .variable "state"
+  .statePositionArray state (.variable "following")
+    (.arrayNamesOnly (.field .stateArrayNames state)
+      (.arrayAppend (arrayStateNames state) (.variable "first") (.variable "after")
+        (.variable "bounds") (.variable "offset") (.variable "length") (.variable "mutable")))
+
+def arrayAddCall (text : Expr .source) (state : Expr .state) (first after : Expr .number)
+    (bounds : Expr .interval) (offset length : Expr .number) (mutable : Expr .truth)
+    (following : Expr .number) : Expr .state :=
+  .app (.app (.app (.app (.app (.app (.app (.app (.app
+    (.function .arrayAdd) text) state) first) after) bounds) offset) length) mutable) following
+
 def arrayRead (text : Expr .source) (position : Expr .number)
     (state : Expr .state) : Expr .scalarResult :=
   .scalarReadArrays text position (.field .stateScalarNames state)
@@ -155,9 +173,8 @@ def arrayDeclarationBody (executable : Bool) : Expr .state :=
           (take (take (.field .statePosition values) (.symbol ")")) (.symbol ";")) <|
         .group <| .ite (.orElse (.eq (.field .statePosition values) (.number 0))
             (.le following (.field .statePosition state))) .invalid <|
-          .statePositionArray values following (.arrayNamesOnly (.field .stateArrayNames values)
-            (.arrayAppend (arrayStateNames state) first after (.interval low high)
-              (arrayStateUsed state) length (.eq constant (.number 0))))
+          arrayAddCall text values first after (.interval low high)
+            (arrayStateUsed state) length (.eq constant (.number 0)) following
 
 theorem arrayValues_precedence : arrayValuesModelBody.wellFormed = true := by decide +kernel
 

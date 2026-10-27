@@ -13,6 +13,12 @@ set_option maxHeartbeats 300000
 set_option backward.dsimp.instances true
 attribute [local irreducible] ScalarExpression.read
 
+theorem arrayAdd_denotation (calls : Calls) (text : Source) (state : ParserState)
+    (first after : Nat) (bounds : Integer.Interval) (offset length : Nat)
+    (mutable : Bool) (following : Nat) :
+    arrayAddBody.eval calls (arrayAddLocals text state first after bounds offset length mutable following) =
+      addArrayBinding state first after bounds offset length mutable following := by rfl
+
 theorem arrayPut_denotation (calls : Calls) (state : ParserState) (value : Int) :
     arrayPutBody.eval calls (arrayPutLocals state value) = putArrayValue state value := by
   rfl
@@ -56,8 +62,7 @@ theorem model_arrayValues_equation (text : Source) (source result : ParserState)
       dsimp +instances only [modelCalls, putArrayValue, spelling, isWord, ShellToken.symbol]
       simp only [Bool.or_eq_true, decide_eq_true_eq, or_assoc]
 
-def arrayDeclarationEquation (calls : Calls) (executable : Bool)
-    (text : Source) (state : ParserState) (arguments : Bool) : ParserState :=
+def arrayPartsEquation (calls : Calls) (text : Source) (state : ParserState) : ArrayDeclarationParts :=
   let take := calls.function .takeToken text
   let read := fun position => calls.function .scalarRead text position state.scalarNames
     state.arrayNames.names state.arrayNames.values true
@@ -71,6 +76,23 @@ def arrayDeclarationEquation (calls : Calls) (executable : Bool)
   let typeFirst := calls.function .skip text (take (take high.after (.symbol ")")) (.word "of"))
   let typeAfter := take typeFirst (.word "integer")
   let position := take (take typeAfter (.symbol ":=")) (.symbol "(")
+  ⟨first, after, constant, arrayAfter, low, high, typeFirst, typeAfter, position⟩
+
+def arrayDeclarationEquation (calls : Calls) (executable : Bool)
+    (text : Source) (state : ParserState) (arguments : Bool) : ParserState :=
+  let parts := arrayPartsEquation calls text state
+  let first := parts.first
+  let after := parts.after
+  let constant := parts.constantAfter
+  let arrayAfter := parts.arrayAfter
+  let low := parts.lower
+  let high := parts.upper
+  let typeFirst := parts.typeFirst
+  let typeAfter := parts.typeAfter
+  let position := parts.position
+  let take := calls.function .takeToken text
+  let read := fun position => calls.function .scalarRead text position state.scalarNames
+    state.arrayNames.names state.arrayNames.values true
   if !calls.function .newName text state first after arguments ||
       calls.function .nameIs text first after "integer" ||
       decide (arrayAfter = 0) || decide (position = 0) ||
@@ -95,9 +117,8 @@ def arrayDeclarationEquation (calls : Calls) (executable : Bool)
         text state state valuesFirst length 0
       let following := take (take values.position (.symbol ")")) (.symbol ";")
       if decide (values.position = 0) || decide (following ≤ state.position) then invalidState else
-        {values with position := following, arrayNames := {values.arrayNames with
-          names := state.arrayNames.names ++ [⟨first, after, ⟨low.bounds.lower, high.bounds.lower⟩,
-            state.arrayNames.used, length, decide (constant = 0)⟩]}}
+        calls.function .arrayAdd text values first after ⟨low.bounds.lower, high.bounds.lower⟩
+          state.arrayNames.used length (decide (constant = 0)) following
 
 private theorem arrayDeclaration_false_denotation : ∀ (calls : Calls)
     (text : Source) (state : ParserState) (arguments : Bool),
@@ -120,5 +141,29 @@ theorem arrayDeclaration_denotation (calls : Calls) (executable : Bool)
   cases executable
   · exact arrayDeclaration_false_denotation calls text state arguments
   · exact arrayDeclaration_true_denotation calls text state arguments
+
+theorem arrayAdd_eval_lexical (calls : Calls) (text : Source) (state : ParserState)
+    (first after : Nat) (bounds : Integer.Interval) (offset length : Nat)
+    (mutable : Bool) (following : Nat) :
+    arrayAddBody.eval (lexical calls) (arrayAddLocals text state first after bounds offset length mutable following) =
+      arrayAddBody.eval calls (arrayAddLocals text state first after bounds offset length mutable following) := by rfl
+
+theorem arrayPut_eval_lexical (calls : Calls) (state : ParserState) (value : Int) :
+    arrayPutBody.eval (lexical calls) (arrayPutLocals state value) =
+      arrayPutBody.eval calls (arrayPutLocals state value) := by rfl
+
+theorem arrayValues_eval_lexical (calls : Calls) (text : Source) (source result : ParserState)
+    (position length parsed : Nat) :
+    arrayValuesModelBody.eval (lexical calls) (arrayValuesLocals text source result position length parsed) =
+      arrayValuesModelBody.eval calls (arrayValuesLocals text source result position length parsed) := by
+  rw [arrayValues_denotation, arrayValues_denotation]
+  rfl
+
+theorem arrayDeclaration_eval_lexical (calls : Calls) (executable : Bool)
+    (text : Source) (state : ParserState) (arguments : Bool) :
+    (arrayDeclarationBody executable).eval (lexical calls) (Context.locals {text,state,arguments}) =
+      (arrayDeclarationBody executable).eval calls (Context.locals {text,state,arguments}) := by
+  rw [arrayDeclaration_denotation, arrayDeclaration_denotation]
+  rfl
 
 end Silver.Compose.Expressions

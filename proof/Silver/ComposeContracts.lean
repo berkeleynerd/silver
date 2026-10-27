@@ -114,6 +114,11 @@ structure ArrayValuesDomain (text : Source) (source result : ParserState)
 def arrayPutLocals (state : ParserState) (value : Int) : Locals :=
   (Context.locals {state}).set .integer "value" value
 
+def arrayAddLocals (text : Source) (state : ParserState) (first after : Nat)
+    (bounds : Integer.Interval) (offset length : Nat) (mutable : Bool) (following : Nat) : Locals :=
+  ((Context.locals {text,state,first,after,length,mutable,following}).set .interval "bounds" bounds)
+    |>.set .number "offset" offset
+
 /-- Source state and result accumulator are separate native arguments. -/
 def arrayValuesLocals (text : Source) (source result : ParserState)
     (position length parsed : Nat) : Locals :=
@@ -277,6 +282,13 @@ structure HelperEquations (calls : Calls) (evaluator : Calls := lexical calls)
   scalarDeclaration : ∀ text, ValidText text → ∀ state arguments,
     domain.holds text state → calls.function .scalarDeclaration text state arguments =
       scalarDeclarationBody.eval evaluator (Context.locals {text,state,arguments})
+  arrayAdd : ∀ text, ValidText text → ∀ state first after bounds offset length mutable following,
+    ValidState text state → ValidName text first after →
+    ArrayBindings.ValidBinding ⟨first, after, bounds, offset, length, mutable⟩ →
+    state.arrayNames.names.length < ArrayBindings.maxBindings →
+    offset + length ≤ state.arrayNames.used → ValidCursor text following →
+    calls.function .arrayAdd text state first after bounds offset length mutable following =
+      arrayAddBody.eval evaluator (arrayAddLocals text state first after bounds offset length mutable following)
   arrayPut : ∀ state value, state.arrayNames.used < ArrayBindings.maxElements →
     Integer.InRange value →
     calls.function .arrayPut state value = arrayPutBody.eval evaluator (arrayPutLocals state value)

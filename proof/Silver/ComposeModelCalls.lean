@@ -55,6 +55,7 @@ def modelCalls : Calls where
     | .arrayDeclaration => arrayDeclarationAt
     | .arrayValuesModel | .arrayValues => arrayValuesModel
     | .arrayPut => putArrayValue
+    | .arrayAdd => fun _text => addArrayBinding
     | .scalarAppend => fun names item => names ++ [item]
     | .scalarEmpty => Integer.Interval.isEmpty
     | .scalarLiteral => ScalarLiteral.read
