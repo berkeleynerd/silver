@@ -1,0 +1,15 @@
+{
+  "command": [
+    "python3",
+    "scripts/dev.py",
+    "test",
+    "--jobs",
+    "2",
+    "--task",
+    "#246",
+    "--",
+    "-p",
+    "test_lean*.py"
+  ],
+  "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/velocity-246-measure/correctness-worktree"
+}

@@ -1,0 +1,5 @@
+
+lean_lib ProfiledSerializedPredicateSourceCandidate where
+  roots := #[]
+  globs := #[.one `Silver.PredicateSourceCandidate]
+  weakLeanArgs := #["--profile", "-Dprofiler.threshold=100", "-Dtrace.profiler=true", "-Dtrace.profiler.threshold=1000000000", "-Dtrace.Kernel=true", "-Dtrace.Elab.definition.header=true", "-Dtrace.Elab.definition.value=true", "-Dtrace.Elab.async=true", "-Dtrace.profiler.output.pp=true", "-Dtrace.profiler.output=/home/canto/src/github.com/berkeleynerd/silver/tmp/velocity-246-measure/predicate-serialized-profile.json", "-DElab.async=false"]

@@ -1,0 +1,52 @@
+{
+  "host": "linux-x86_64",
+  "lean_version": "4.34.1",
+  "run_id": "20261026T182152-23f822d35d4b",
+  "scope": "focused",
+  "targets": [
+    "Silver.OutputBodyCertificate"
+  ],
+  "mode": "focused",
+  "clean_build": false,
+  "axiom_audit": "passed",
+  "kernel_recheck": null,
+  "threads_per_process": 2,
+  "lake_workers": 1,
+  "available_cpus": 12,
+  "memory_mb_per_process": 16384,
+  "phases": [
+    {
+      "phase": "build",
+      "started_at": "2026-10-26T18:22:01.179549+00:00",
+      "finished_at": "2026-10-26T20:07:06.445287+00:00",
+      "elapsed_seconds": 6305.216,
+      "exit_code": 0
+    },
+    {
+      "phase": "audit",
+      "started_at": "2026-10-26T20:07:08.105112+00:00",
+      "finished_at": "2026-10-26T20:07:17.549214+00:00",
+      "elapsed_seconds": 9.444,
+      "exit_code": 0
+    }
+  ],
+  "tools_sha256": {
+    ".tools/linux-x86_64/lean/bin/lean": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+    ".tools/linux-x86_64/lean/bin/lake": "6f53827dab18010d6c690d14c8401cacabc1db958edb3552a877ed4cf1dd995d"
+  },
+  "modules": [
+    "Silver.Admission",
+    "Silver.AxiomAudit",
+    "Silver.CertificateWitness",
+    "Silver.Cursor",
+    "Silver.Lexical",
+    "Silver.OutputBodyCertificate",
+    "Silver.OutputProfileBodySource",
+    "Silver.SourceLexer"
+  ],
+  "elapsed_seconds": 6327.56,
+  "inputs_digest_sha256": "1fa17d455ef45ae16d0f9d4944a891d52a53532a498f78db8fdce88857eff677",
+  "workspace": ".silver/linux-x86_64/proof",
+  "authoritative_source": "src",
+  "log": ".silver/linux-x86_64/lean-focused.log"
+}

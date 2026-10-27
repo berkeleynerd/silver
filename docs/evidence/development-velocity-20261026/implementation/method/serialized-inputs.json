@@ -1,0 +1,95 @@
+{
+  "commit": "e94c8b4343f429c434900cc2a23e29e870f577bf",
+  "matched_baseline_input_files": 639,
+  "predicate_source_sha256": "ab16a4e477e3fc8c21a2d4439cb7f0d902969ac3fa89a8ec053b73d6c47e4edf",
+  "tools_sha256": {
+    ".tools/linux-x86_64/lean/bin/lean": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+    ".tools/linux-x86_64/lean/bin/lake": "6f53827dab18010d6c690d14c8401cacabc1db958edb3552a877ed4cf1dd995d"
+  },
+  "baseline_input_record_sha256": "afefefc1b4b37711f1032a49bfe7858a89a6616b81f3a948117cbe928d67f1b8",
+  "normal_async_run_id": "20261026T200740-15b816e51f3c",
+  "normal_async_raw_sha256": "dbe8f0c2ad4f51e887f147d5d530a7d84897ff6f1f501dd99af8cc52a9db121b",
+  "preserved_invalid_async_summary_sha256": "0d6e601566f7eb79d2451e0d8dc5bebac8cd73d85a70f0b5ebd8b8403bf1a00b",
+  "normal_async_attribution_diagnosis_sha256": "ccb6528fcdee79aed7039b6262f62ed93513f0d5c1e16f78a5877e2318243591",
+  "instrumented_lakefile_sha256": "705dc50002b3d7950bd5d72b3b5f59a4416533196d49c4083588cb8388e06427",
+  "exact_module_additional_args": [
+    "--profile",
+    "-Dprofiler.threshold=100",
+    "-Dtrace.profiler=true",
+    "-Dtrace.profiler.threshold=1000000000",
+    "-Dtrace.Kernel=true",
+    "-Dtrace.Elab.definition.header=true",
+    "-Dtrace.Elab.definition.value=true",
+    "-Dtrace.Elab.async=true",
+    "-Dtrace.profiler.output.pp=true",
+    "-Dtrace.profiler.output=/home/canto/src/github.com/berkeleynerd/silver/tmp/velocity-246-measure/predicate-serialized-profile.json",
+    "-DElab.async=false"
+  ],
+  "removed_artifacts": [
+    {
+      "path": ".lake/build/lib/lean/Silver/PredicateSourceCandidate.ir.sig",
+      "sha256": "8dc6f79cc9e950e2e3914bb5302d22209982b8f024674042bcaf34bac19c1e4e"
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/PredicateSourceCandidate.ir",
+      "sha256": "065fc23861db72592c25eff50d8bcc196103067b356f28765a3c4b86c6d12ebf"
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/PredicateSourceCandidate.ir.hash",
+      "sha256": "b7ebf64df16ed0caf284a23fc541082ab3d3057e8dd7d79e566cdaa28e2f5cf7"
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/PredicateSourceCandidate.olean",
+      "sha256": "fba119ef82118f7617abc322afa4f0ed1acc87de63dcc15c8e38a5cfc362e86e"
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/PredicateSourceCandidate.trace",
+      "sha256": "8072f377c4a180fe36042cb7712111ea8be588e70bdcebd26c8badef828ce139"
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/PredicateSourceCandidate.olean.private.hash",
+      "sha256": "7541d6d3b326a72554e6e9fccd8a810465700d6e5cd43798a2572652f98c5e4e"
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/PredicateSourceCandidate.ilean",
+      "sha256": "a980b2129ad804e857ae962837b4739d86929de2d17125a2062f2dcd2872a7d5"
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/PredicateSourceCandidate.ilean.hash",
+      "sha256": "a6966293f434cf0476e74bd9a37dbe6f8d300a0092ac404de3ac31b47dac7daa"
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/PredicateSourceCandidate.ir.sig.hash",
+      "sha256": "29d969215e416a1661b0bce65b1a5cc0da072202ae02f3e14807b8b72de25eb5"
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/PredicateSourceCandidate.olean.server.hash",
+      "sha256": "ad98e7d2f3a0f18142e29a35d9acb4d00ae65d4f1c0f5809f414791f0c14bf5b"
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/PredicateSourceCandidate.olean.hash",
+      "sha256": "43cb6b9769a4b64f191f82435f4ac2df8f58ef6069c843e12c926daeb0bec554"
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/PredicateSourceCandidate.olean.private",
+      "sha256": "0d1033196f4d3efd71e1fafe18176b31be44f9315bf6eb0c731b23253ab84a48"
+    },
+    {
+      "path": ".lake/build/lib/lean/Silver/PredicateSourceCandidate.olean.server",
+      "sha256": "af0cf71fa10b9a3a867b20a823340b63ee4b3af2d3f711e1c17d4ea5c135d98c"
+    },
+    {
+      "path": ".lake/build/ir/Silver/PredicateSourceCandidate.c",
+      "sha256": "a0f60c53cd7157ee819c410e0fac110115093a96b6182be616459d5cb3e56997"
+    },
+    {
+      "path": ".lake/build/ir/Silver/PredicateSourceCandidate.c.hash",
+      "sha256": "0ade503d79be3334f69db2c88e241cd4f3c6a6502fb83603f30968c245a7cceb"
+    },
+    {
+      "path": ".lake/build/ir/Silver/PredicateSourceCandidate.setup.json",
+      "sha256": "94eec63f5c8989cbc64ec9001f39bd764f717cf84905d1f89671111fbf16b22c"
+    }
+  ],
+  "purpose": "Serialized diagnostic ranking only; no normal-async service-cost or performance claim"
+}

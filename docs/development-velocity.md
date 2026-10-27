@@ -1,4 +1,4 @@
-# Development velocity: retained assessment and scheduling
+# Development velocity: implementation and retained assessment
 
 Assessment date: 2026-10-26; reviewed target `22838bc80995ee66e9cf15fe57f14aeb161e2823`.
 
@@ -6,11 +6,116 @@ The initial assessment was retained for later scheduling. After the feature-revi
 response merged in #257, the owner [authorized the first package](session-memory.md#2026-10-26--first-development-velocity-package-authorized)
 under [#246](https://github.com/berkeleynerd/silver/issues/246) and
 [milestone 9](https://github.com/berkeleynerd/silver/milestone/9): A/B, bounded A2
-and C1 below, as one increment. Complete applicable assurance and independent
-review, and measure a matched unprofiled before/after workload. The detailed
+and C1 below, as one increment. The selected package completed on Linux on
+2026-10-27, with applicable assurance, independent review and a matched
+unprofiled before/after workload. The detailed
 assessment remains historical evidence; its performance forecasts are not
 measurements. C2, predicate optimization and persistent D/I9 metrics remain
 conditional follow-ups outside the selected scope.
+
+## First package: implementation and validation
+
+Implementation target: `80d5ec3e0e5224fe36c705f6be15e429b7fa7468`;
+baseline: `e94c8b4343f429c434900cc2a23e29e870f577bf`.
+
+The 98 expensive composition decisions now live in
+[`ComposeSourceCandidate`](../proof/Silver/ComposeSourceCandidate.lean), over the
+reviewed token lists. Its 37-module dependency closure contains no authoritative
+source binding or certificate. The cheap `ComposeSourceChecks` adapter retains
+the authoritative predicates and six public theorem statements, transporting
+the conjunction once through `Output.SourceBridge.actual_complete_shape`.
+`ComposeSourceBridge.CheckedSource` and `checked_source` are unchanged. This
+refines the initial proposal: the expensive candidate is independent; the
+authoritative adapter still depends on the certificates.
+
+The [independent code review](reviews/review-velocity-c1-80d5ec3e0e.md) found no
+actionable issue and confirmed preservation of all 98 decisions. The
+[checkpoint guidance](../development.md#proof-loop-and-validation) and
+[invalidation matrix](proof-iteration.md#input-changes-and-evidence-refresh)
+clarify existing practice without a new gate or input-hash exception. No Ada,
+pin, generator, supported runner, catalogue or sample changed.
+
+The complete C1 checkpoint and matched comparison passed. The focused
+Lean-related tests (73), platform-isolation tests (16) and Rosetta tests (3)
+passed without skips. The [independent applicability review](reviews/review-velocity-evidence-reuse-80d5ec3e0e.md)
+accounts for the complete current test inventory using these results and the
+retained regression/repair results; no fresh full-suite pass is claimed.
+The [native-input comparison](evidence/development-velocity-20261026/implementation/native-reuse.json)
+matches all 2,519 original inputs of successful complete native run 121322 and
+the 141 tracked inputs at the implementation target; this retains that audit,
+not a new GNATprove execution. Complete Lean run
+`20261026T221956-84d1b4b6e429` rebuilt exactly the selected 20-module closure,
+then freshly audited all 498 modules and 104,251 declarations with only
+`propext`, `Classical.choice` and `Quot.sound`. Build time was 6,891.336 seconds;
+the complete managed check took 6,914.489 seconds. This is an incremental
+complete-scope checkpoint, not a clean rebuild or independent replay.
+
+The first warm complete check failed at the 16 GiB per-process threshold in
+two long-header decisions (`refinement_fact_09` and `refinement_fact_11`);
+it reported no other proof error. Its 54.62-minute failed result is retained.
+A focused check of those exact decisions at 24 GiB passed in 8.75 minutes,
+with 16.60 GiB peak child RSS. Its reduced context does not establish the complete
+candidate's peak. The matched comparison runs AFTER then BEFORE at
+two workers, two threads and 24 GiB per process, with sampled host headroom.
+The successful AFTER checkpoint reached 16.70 GiB largest-child RSS and retained
+at least 12.55 GiB sampled available host memory. Its composition candidate took
+3,266 seconds, overlapping the 6,447-second certificate; the authoritative
+composition adapter took 2.2 seconds. The baseline build took 9,567.554 seconds:
+the new build is **27.97% shorter**, saving 2,676.218 seconds (44.60 minutes)
+in this workload. Complete managed checks took 9,591.191 versus 6,914.489 seconds.
+Both rebuilt the intended closures from independent copies of the same original
+warm seed, without Lean profiling. This single fixed-order AFTER→BEFORE pair
+is not a clean-build baseline or a general scaling result. The historical
+12,500-second contended guard run is not the comparison baseline.
+
+The expensive decision work itself is similar: baseline `ComposeSourceChecks`
+took 3,261 seconds, versus 3,266 seconds in the new candidate. The saving comes
+from scheduling that work independently of the certificate. Child CPU totals
+were 13,218.534 seconds before and 13,604.191 after; this reduces wall time,
+not total CPU work. The [implementation evidence](evidence/development-velocity-20261026/implementation/README.md)
+retains resource settings, exact rebuild sets, profiles and limitations.
+
+The isolated certificate profile attributes 74.79% of named traced elapsed time
+to line certificates and 24.62% to joins. These are shares of the named trace
+accounting, not exclusive CPU costs. Its instrumented run took 105.47 minutes
+and the largest child reached 13.69 GiB RSS. The normal-async predicate profile
+passed in 52.53 minutes with an 11.60 GiB largest child, but overlapping
+checked-environment waits invalidate its per-declaration cost ranking. The
+separate serialized diagnostic passed in 51.94 minutes. Its validated primary
+trace assigns 3,079.541 seconds to named declarations; the three largest are
+`native_flow_checked` (284.762 s), `native_workers_checked` (284.024 s) and
+`native_scalarHelpers_checked` (275.157 s). These are exclusive traced elapsed
+costs in that diagnostic, not recovered normal-async CPU costs. The production
+async setting is unchanged. Two tiny background reporting streams initially
+tripped the one-stream assertion; the corrected analysis excludes their
+0.028499 ms of unnamed work and verifies primary-stream conservation and
+non-overlapping kernel scopes. No additional proof run was needed.
+These instrumented times are not performance baselines, and the certificate
+profile does not separate string conversion from lexing inside a line proof.
+
+The no-build invalidation controls passed: a comment-only authoritative Ada
+edit leaves the candidate current while the authoritative adapter reports a
+stale source binding; a reviewed-token edit makes the candidate stale. Restoring
+the bytes restores both targets, with the observed proof objects and sidecars
+unchanged. Lake's exit 3 reports a stale dependency frontier, not a complete
+list of stale targets. The [final evidence review](reviews/review-velocity-final-80d5ec3e0e.md)
+records the complete validation, matched comparison and attribution limits.
+
+This completes the selected scope of #246 through
+[PR #259](https://github.com/berkeleynerd/silver/pull/259). Certificate chunking
+and predicate optimization now have better measurements for a later owner
+decision, but remain unselected. Scratch instrumentation was sufficient here;
+persistent runner metrics and I9 remain deferred. Roadmap batching is still an
+owner scheduling choice. No successor capability or optimization starts with
+this closeout.
+
+Implementation and scratch measurement work used selected GPT-6.1 Sol at
+Extra High; independent source, reuse and measurement reviews used selected
+GPT-6 Astra at Extra High. Lead runtime settings and token/cost measurements
+are unavailable. The retained reviews record their measured intervals; run
+records carry machine time, including the failed 16 GiB attempt and successful
+resource diagnostic. The reviews corrected invalid async attribution and
+identified the small Rosetta test rerun; no assurance requirement was reduced.
 
 ## Assessment and evidence
 
@@ -75,10 +180,12 @@ error. Successful unaffected cases were reused following an independent
 applicability review; focused Image and evidence repairs passed separately.
 This is not a green aggregate or a fresh complete-suite pass. The
 [#245 repair/reuse review](reviews/review-scalar-guard-array-initialization-advisory-20261026.md#follow-up-245-malformed-message-guard-and-evidence-reuse)
-records the exact scope. The comprehensive feature review must assess any
-uncovered interaction or invalidation; #246 does not decide delivery acceptance.
+records the exact scope. The [completed comprehensive feature review](reviews/review-22838bc809.md)
+established coverage at its target. The owner subsequently adopted narrow,
+independently reviewed reuse in development.md; #246 does not retroactively
+change those failed runs into successful suites.
 
-## Recommended sequence when selected
+## Original candidate assessment
 
 **A — Classify retained evidence first.** Inventory additional baselines,
 interrupted runs and snapshots with exact inputs and provenance. Separate native
@@ -169,4 +276,5 @@ build and fresh audits; performance claims need measured results.
 | Documentation closeout | GPT-6.1 Sol, High; lead setting not independently exposed | Retained recommendations and re-entry conditions. Lead checked the record and extracted supplemental evidence; the documentation author reviewed the lead's sequencing edits and found no material inconsistency. No proof execution. |
 
 Runtime confirmation, whole-round elapsed time and token/cost measurements are unavailable.
-No proof, test, build, benchmark or project validator ran for this documentation closeout.
+No proof, test, build, benchmark or project validator ran for the original
+documentation-only assessment closeout. The implementation work above is separate.

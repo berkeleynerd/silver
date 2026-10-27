@@ -1,0 +1,13 @@
+{
+  "checked_utc": "2026-10-26T18:22:15.697809+00:00",
+  "target_commit": "e94c8b4343f429c434900cc2a23e29e870f577bf",
+  "retained_native_run": "20261026T121322-fc9f4056f886",
+  "original_worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native",
+  "captured_inputs": 2519,
+  "matched_live": 2519,
+  "missing": [],
+  "mismatches": [],
+  "tracked_inputs": 141,
+  "tracked_mismatches": [],
+  "claim": "Reuse of unchanged-input complete native proof/audit; not a fresh GNATprove run."
+}

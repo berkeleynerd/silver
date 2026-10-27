@@ -1,0 +1,27 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--task",
+    "#246",
+    "--workers",
+    "1",
+    "--threads",
+    "2",
+    "--memory-mb",
+    "16384",
+    "--reason",
+    "Owner-authorized bounded velocity profiling or matched reconstruction measurement; original caches preserved.",
+    "--target",
+    "Silver.OutputBodyCertificate"
+  ],
+  "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/velocity-246-measure/profile",
+  "started_at": "2026-10-26T18:21:51.831117+00:00",
+  "start_epoch": 1793038911.8309782,
+  "sample_interval_seconds": 1,
+  "cutoff_available_kib": 3145728,
+  "clock_ticks_per_second": 100,
+  "scope": "focused profile",
+  "profile_is_timing_baseline": false,
+  "launcher_origin": ".silver/linux-x86_64/lean-baseline-20261012T094603Z/measure.py"
+}

@@ -1,5 +1,29 @@
 # Session memory
 
+## 2026-10-27 — First development-velocity package completed
+
+[PR #259](https://github.com/berkeleynerd/silver/pull/259) completes the selected
+scope of [#246](https://github.com/berkeleynerd/silver/issues/246) and milestone 9.
+The [delivery record](development-velocity.md#first-package-implementation-and-validation)
+retains the composition candidate/authoritative-adapter split, concise checkpoint
+guidance and invalidation matrix, bounded profiles, complete Linux Lean/source/
+axiom validation, applicable native/regression reuse, and independent reviews.
+The matched workload reduced build wall time by 27.97%; this is one controlled
+incremental workload, not a clean-build or universal speedup claim.
+
+Exact-byte correspondence and authoritative statements remain intact. The
+compiler, pins, generator, supported runner and admitted language are unchanged.
+The failed 16 GiB attempt and corrected profile analyses remain in the record;
+the successful complete comparison used two workers, two threads and a 24 GiB
+per-process threshold with sampled host headroom. These observations are not a
+new universal default or an aggregate memory guarantee.
+
+The owner-selected first package is complete. Certificate chunking, predicate
+optimization and persistent metrics/I9 remain unselected; later work needs an
+owner instruction. The language-development pause and existing capacity/
+assurance-mode deferrals remain. No harness goal was created or reactivated.
+CLI memory is unavailable and was not updated.
+
 ## 2026-10-26 — First development-velocity package authorized
 
 After the feature-review response merged in #257, the owner requested an effort

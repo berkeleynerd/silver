@@ -85,10 +85,12 @@ covering source-proof cost, checkpoint scheduling and candidate dependency
 changes. After the review response merged, the owner
 [selected its first package](docs/session-memory.md#2026-10-26--first-development-velocity-package-authorized)
 under [milestone 9, Source-proof iteration cost](https://github.com/berkeleynerd/silver/milestone/9).
-This is one increment: concise checkpoint/invalidation guidance, bounded profiling,
-then the composition-check dependency split with complete applicable assurance,
-independent review and a matched unprofiled comparison. Retain authoritative
-source statements and exact-byte reconstruction. Certificate chunking,
+This increment is **complete on Linux, 2026-10-27**: concise checkpoint/invalidation
+guidance, bounded profiling and the composition-check dependency split, with
+complete applicable assurance and independent review. The
+[delivery record](docs/development-velocity.md#first-package-implementation-and-validation)
+retains the 27.97% build-wall reduction in one matched workload, exact source
+statements and reconstruction, memory limits and validation scopes. Certificate chunking,
 predicate-proof optimization and persistent runner metrics remain conditional;
 new language development is not selected by this authorization.
 

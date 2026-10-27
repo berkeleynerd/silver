@@ -134,7 +134,16 @@ pins, generator and runner are unchanged. Actual-byte reconstruction, semantic
 interpretation and legal call domains remain required, as do the complete
 native and Lean module/private/transitive axiom audits.
 
-This implementation does not extend the historical validation or timing evidence
-above. Focused and complete Lean validation and matched measurements for #246
-remain pending. The development-velocity estimates are forecasts, not measured
-savings.
+The separate [#246 delivery record](development-velocity.md#first-package-implementation-and-validation)
+records successful complete Linux validation of all 498 modules / 104,251
+declarations, 92 focused tests, and independently reviewed retained native and
+regression evidence. No clean build or independent replay is claimed.
+
+In one matched reconstruction workload with two workers and two threads, the
+build fell from 9,567.554 to 6,891.336 seconds (27.97% less wall time). The
+candidate took 3,266 seconds alongside the certificate; the authoritative
+adapter took 2.2 seconds. Cheap no-build controls confirm candidate reuse after
+a comment-only Ada edit and invalidation after a reviewed-token edit, while
+authoritative source invalidation remains intact. This evidence is separate
+from the October 14 results above. See the delivery record for the fixed-order
+comparison, 24 GiB per-process setting, measured memory and profile limits.
