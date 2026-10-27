@@ -49,7 +49,7 @@ theorem loopHeader_readings {text : Source} {context : ParseContext} {scan : Bod
     (loopFirst text scan) (loopNameAfter text scan) context.arrayNames (loopLowerPosition_bound text scan)
   have delimiter := model_fixed_valid text _ ".." false lowerBound
   obtain ⟨upper, upperRead⟩ := ScalarExpression.read_sound delimiter upperPositive
-  have delimiterPositive := (ScalarExpression.syntax_bounds upperRead.positionBound upperRead.grammar).1
+  have delimiterPositive := upperRead.cursorBounds.1
   have lowerPositive : (loopHeader text context scan).lower.after ≠ 0 :=
     fixedAfter_nonzero (Nat.ne_of_gt delimiterPositive)
   obtain ⟨lower, lowerRead⟩ := ScalarExpression.read_sound (loopLowerPosition_bound text scan) lowerPositive
