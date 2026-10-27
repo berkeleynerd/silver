@@ -50,11 +50,11 @@ theorem model_ranges : RangeContracts modelCalls where
     · exact Or.inl zero
     · exact Or.inr (model_scalar_declaration_advances text state arguments zero)
   arrayDeclaration := by
-    intro text valid state arguments stateValid
-    refine ⟨model_array_declaration_valid text valid state arguments stateValid, ?_⟩
+    intro text _ state arguments stateValid
+    refine ⟨model_array_declaration_valid text state arguments stateValid, ?_⟩
     by_cases zero : (arrayDeclarationAt text state arguments).position = 0
     · exact Or.inl zero
-    · exact Or.inr (model_array_declaration_advances text valid state arguments stateValid zero)
+    · exact Or.inr (model_array_declaration_advances text state arguments zero)
   declaration := by
     intro text valid state arguments stateValid
     refine ⟨model_declaration_valid text valid state arguments stateValid, ?_⟩

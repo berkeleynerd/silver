@@ -86,7 +86,7 @@ inductive Function
   | addBinding
   | declaration
   | stringDeclaration | scalarConstraint | scalarDeclaration | scalarLookup | scalarRead | scalarAppend | scalarEmpty | scalarLiteral | nameIs
-  | arrayLookup | arrayDeclaration | arrayValuesModel | arrayValues
+  | arrayLookup | arrayDeclaration | arrayValuesModel | arrayValues | arrayPut
   | argument
   | declarations
   | readDeclarations
@@ -153,6 +153,7 @@ def Function.name : Function → String
   | .arrayDeclaration => "array_declaration_at"
   | .arrayValuesModel => "array_values_model"
   | .arrayValues => "array_values_at"
+  | .arrayPut => "put_array_value"
   | .argument => "argument_at"
   | .declarations => "declarations_at"
   | .readDeclarations => "read_declarations"
@@ -216,6 +217,7 @@ def Function.name : Function → String
   | .arrayDeclaration => .arrow .source (.arrow .state (.arrow .truth .state))
   | .arrayValuesModel | .arrayValues => .arrow .source (.arrow .state (.arrow .state
       (.arrow .number (.arrow .number (.arrow .number .state)))))
+  | .arrayPut => .arrow .state (.arrow .integer .state)
   | .argument => .arrow .source (.arrow .state (.state))
   | .declarations => .arrow .source (.arrow .state (.arrow .truth (.state)))
   | .readDeclarations => .arrow .source (.arrow .state (.arrow .truth (.state)))
@@ -288,6 +290,7 @@ def Calls.get (calls : Calls) : (symbol : Function) → symbol.type.meaning
   | .arrayDeclaration => calls.function .arrayDeclaration
   | .arrayValuesModel => calls.function .arrayValuesModel
   | .arrayValues => calls.function .arrayValues
+  | .arrayPut => calls.function .arrayPut
   | .argument => calls.function .argument
   | .declarations => calls.function .declarations
   | .readDeclarations => calls.function .readDeclarations

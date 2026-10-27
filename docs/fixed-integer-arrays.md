@@ -123,3 +123,13 @@ capability requires it.
 | Initial design | GPT-6 Astra / Extra High for assurance; GPT-6.1 Sol / Extra High for driver/native design | Select a faithful driver and a compositional fragment | Rotation selected; explicit initialization, non-nested subscripts and uniform full-range body reads bound the fragment. Lead runtime setting and token/cost measurements are unavailable. |
 | Authorization review | GPT-6.1 Sol / High | Check the three planning files against the owner instruction and current sequence | No blocking finding; one wording clarification applied. Relative links and whitespace checked. Runtime settings and elapsed/token/cost measurements are unavailable. |
 | Core implementation | GPT-6.1 Sol / Extra High native; GPT-6 Astra / Extra High core and composition | Implement indexed storage and preserve existing compositions | Core array projection/expression/assignment/obligation modules passed focused Lean checks; native admission and exact initializer-hull probes passed. A real producer warning corrected the initial capacity conclusion; full integration remains pending. Elapsed/token/cost measurements unavailable. |
+| Aggregate-loop diagnostic review | GPT-6 Astra / Extra High | Identify the remaining recursive-model proof obstacle before another native retry | Read-only review of `20261027T091926-c04248446233` found distinct internal array-update maps despite identical bounded element equations. The recursive unfolding was already present. The repair shares one pure `Put_Array_Value` expression between the model and runtime; its focused native check passed in `20261027T092828-bc511f2ddc79`, followed by the exact loop refinement in `20261027T092945-c19ef466ed7d` (359 checks). No extra equality lemma was needed. About seven minutes for the review; runtime model settings and token/cost measurements unavailable. |
+
+The diagnostic review used the retained source with SHA-256
+`d4222ef6c64f0becbcd59bd725c0dda1156450c1a08acf451e83eca6675409da`
+and six saved SMT obligations under the native worktree's
+`.silver/linux-x86_64/array-step-review-091926/` (inventory `inputs.json`).
+The successful scalar-unit check in `20261027T092253-06c49ba4b19a` has 190 proof
+and 38 flow records, all info. Its overall managed run remains failed because
+the shared exploratory directory retained three unresolved output-profile
+obligations; it is not a complete native checkpoint.

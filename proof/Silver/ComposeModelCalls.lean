@@ -1,6 +1,7 @@
 module
 
 public import Silver.ComposeContracts
+public import Silver.ComposeArrayExpressions
 
 @[expose] public section
 
@@ -38,7 +39,8 @@ def modelCalls : Calls where
     | .literal => literalAt
     | .workTail => workTail
     | .workBudget => withinWorkBudget
-    | .image => imageAt
+    | .image => fun text position names scalarNames integerHidden arrays initials elaborating =>
+      imageAt text position names scalarNames integerHidden arrays initials elaborating
     | .imageMinimum => fun bounds => (LengthSummary.ofImage bounds).minimumLength
     | .imageMaximum => fun bounds => (LengthSummary.ofImage bounds).staticLength
     | .value => fun text position names scalarNames integerHidden arrays initials elaborating => valueAt text position names scalarNames integerHidden arrays initials elaborating
@@ -52,6 +54,7 @@ def modelCalls : Calls where
     | .arrayLookup => ArrayBindings.lookup
     | .arrayDeclaration => arrayDeclarationAt
     | .arrayValuesModel | .arrayValues => arrayValuesModel
+    | .arrayPut => putArrayValue
     | .scalarAppend => fun names item => names ++ [item]
     | .scalarEmpty => Integer.Interval.isEmpty
     | .scalarLiteral => ScalarLiteral.read

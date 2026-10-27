@@ -10,6 +10,11 @@ all parsing, staticness, capacity and type-hiding tests from that model. -/
 
 namespace Silver.Compose.Expressions
 
+def putArrayValue (state : ParserState) (value : Int) : ParserState :=
+  {state with arrayNames := {state.arrayNames with
+    used := state.arrayNames.used + 1,
+    values := ArrayBindings.putInitial state.arrayNames.values (state.arrayNames.used + 1) value}}
+
 def arrayStateNames (state : Expr .state) : Expr .arrayMetadata :=
   .field .arrayNames (.field .stateArrayNames state)
 
@@ -18,6 +23,12 @@ def arrayStateValues (state : Expr .state) : Expr .arrayInitials :=
 
 def arrayStateUsed (state : Expr .state) : Expr .number :=
   .field .arrayUsed (.field .stateArrayNames state)
+
+def arrayPutBody : Expr .state :=
+  let state : Expr .state := .variable "state"
+  let next := Expr.add (arrayStateUsed state) (.number 1)
+  .stateArray state (.arrayUsedValues (.field .stateArrayNames state) next
+    (.arrayPut (arrayStateValues state) next (.variable "value")))
 
 def arrayRead (text : Expr .source) (position : Expr .number)
     (state : Expr .state) : Expr .scalarResult :=
@@ -44,7 +55,6 @@ def arrayValuesModelBody : Expr .state :=
   let parsed : Expr .number := .variable "parsed"
   let value : Expr .scalarResult := .variable "value"
   let bounds := Expr.field .scalarBounds value
-  let nextUsed := Expr.add (arrayStateUsed result) (.number 1)
   .ite (.eq position (.number 0)) .invalid <|
   .elsif (.eq parsed length) (.statePosition result position) <|
   .group <| .locals <|
@@ -56,8 +66,7 @@ def arrayValuesModelBody : Expr .state :=
       .invalid <|
     .group <| .locals <|
       .local "next_state" "parser_state"
-        (.stateArray result (.arrayUsedValues (.field .stateArrayNames result) nextUsed
-          (.arrayPut (arrayStateValues result) nextUsed (.field .intervalLower bounds)))) <|
+        (.app (.app (.function .arrayPut) result) (.field .intervalLower bounds)) <|
       .local "next_position" "literal_position"
         (.group <| .ite (.lt (.add parsed (.number 1)) length)
           (arrayTake text (.field .scalarAfter value) (.symbol ",")) (.field .scalarAfter value)) <|

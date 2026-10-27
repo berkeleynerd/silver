@@ -1,6 +1,7 @@
 module
 
 public import Silver.ComposeExpressions
+public import Silver.ComposeArrayExpressions
 public import Silver.ComposeBounds
 
 @[expose] public section
@@ -98,6 +99,26 @@ def Context.locals (ctx : Context) : Locals
   | .token, _ => ctx.token
   | .operation, _ => ctx.operation
   | ty, _ => ty.default
+
+/-- Exact native precondition of the aggregate loop and its recursive model.
+This requires native table validity, not the stronger source allocation layout. -/
+structure ArrayValuesDomain (text : Source) (source result : ParserState)
+    (position length parsed : Nat) : Prop where
+  sourceValid : ValidState text source
+  resultValid : ValidState text result
+  positionValid : ValidCursor text position
+  parsedBound : parsed ≤ length
+  capacity : length ≤ ArrayBindings.maxElements - source.arrayNames.used
+  used : result.arrayNames.used = source.arrayNames.used + parsed
+
+def arrayPutLocals (state : ParserState) (value : Int) : Locals :=
+  (Context.locals {state}).set .integer "value" value
+
+/-- Source state and result accumulator are separate native arguments. -/
+def arrayValuesLocals (text : Source) (source result : ParserState)
+    (position length parsed : Nat) : Locals :=
+  ((Context.locals {text,position,length}).set .state "source_state" source).set .state "result_state" result
+    |>.set .number "parsed" parsed
 
 /-- Consequences of the native subtype declarations and proved routine contracts.
 Only result bounds/state preservation occur here, never admission correctness. -/
@@ -256,9 +277,21 @@ structure HelperEquations (calls : Calls) (evaluator : Calls := lexical calls)
   scalarDeclaration : ∀ text, ValidText text → ∀ state arguments,
     domain.holds text state → calls.function .scalarDeclaration text state arguments =
       scalarDeclarationBody.eval evaluator (Context.locals {text,state,arguments})
+  arrayPut : ∀ state value, state.arrayNames.used < ArrayBindings.maxElements →
+    Integer.InRange value →
+    calls.function .arrayPut state value = arrayPutBody.eval evaluator (arrayPutLocals state value)
+  arrayValuesModel : ∀ text, ValidText text → ∀ source result position length parsed,
+    ArrayValuesDomain text source result position length parsed →
+    calls.function .arrayValuesModel text source result position length parsed =
+      arrayValuesModelBody.eval evaluator (arrayValuesLocals text source result position length parsed)
+  arrayValues : ∀ text, ValidText text → ∀ source result position length parsed,
+    ArrayValuesDomain text source result position length parsed →
+    calls.function .arrayValues text source result position length parsed =
+      calls.function .arrayValuesModel text source result position length parsed
   arrayDeclaration : ∀ text, ValidText text → ∀ state arguments,
     domain.holds text state →
-    calls.function .arrayDeclaration text state arguments = arrayDeclarationAt text state arguments
+    calls.function .arrayDeclaration text state arguments =
+      (arrayDeclarationBody true).eval evaluator (Context.locals {text,state,arguments})
   declaration : ∀ text, ValidText text → ∀ state arguments,
     domain.holds text state →
     calls.function .declaration text state arguments =
