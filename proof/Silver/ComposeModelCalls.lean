@@ -27,8 +27,8 @@ def modelCalls : Calls where
     | .contextAfter => Names.contextAfter
     | .operationAfter => Names.operationAfter
     | .associationAfter => Names.associationAfter
-    | .callAfter => fun text names position operation scalarNames =>
-      callAfter text names position operation scalarNames
+    | .callAfter => fun text names position operation scalarNames arrays =>
+      callAfter text names position operation scalarNames arrays
     | .skip => skipAt
     | .nameAfter => nameAfter
     | .fixedAfter => fun text position token => fixedAfter text position (spelling token) (isWord token)
@@ -41,14 +41,16 @@ def modelCalls : Calls where
     | .image => imageAt
     | .imageMinimum => fun bounds => (LengthSummary.ofImage bounds).minimumLength
     | .imageMaximum => fun bounds => (LengthSummary.ofImage bounds).staticLength
-    | .value => fun text position names scalarNames integerHidden => valueAt text position names scalarNames integerHidden
+    | .value => fun text position names scalarNames integerHidden arrays initials elaborating => valueAt text position names scalarNames integerHidden arrays initials elaborating
     | .newName => newNameAllowed
     | .addBinding => addBinding
     | .stringDeclaration => stringDeclarationAt
     | .scalarConstraint => scalarConstraintAt
     | .scalarDeclaration => scalarDeclarationAt
     | .scalarLookup => ScalarExpression.lookup
-    | .scalarRead => fun text position names => ScalarExpression.read text position names
+    | .scalarRead => fun text position names arrays initials elaborating => ScalarExpression.read text position names 0 0 true arrays initials elaborating
+    | .arrayLookup => ArrayBindings.lookup
+    | .arrayDeclaration => arrayDeclarationAt
     | .scalarAppend => fun names item => names ++ [item]
     | .scalarEmpty => Integer.Interval.isEmpty
     | .scalarLiteral => ScalarLiteral.read
@@ -57,11 +59,11 @@ def modelCalls : Calls where
     | .argument => argumentAt
     | .declarations => declarationsAt
     | .readDeclarations => declarationsAt
-    | .expressionStep => fun text names scan scalarNames integerHidden => expressionStep text names scan scalarNames integerHidden
+    | .expressionStep => fun text names scan scalarNames integerHidden arrays initials elaborating => expressionStep text names scan scalarNames integerHidden arrays initials elaborating
     | .fits => fits
     | .comparison => comparisonAt
-    | .tail => fun text names scan scalarNames integerHidden => expressionTail text names scan scalarNames integerHidden
-    | .expression => fun text position names scalarNames integerHidden => expressionAt text position names scalarNames integerHidden
+    | .tail => fun text names scan scalarNames integerHidden arrays initials elaborating => expressionTail text names scan scalarNames integerHidden arrays initials elaborating
+    | .expression => fun text position names scalarNames integerHidden arrays initials elaborating => expressionAt text position names scalarNames integerHidden arrays initials elaborating
     | .target => targetAt
     | .dynamic => dynamicAt
     | .assignmentValue => assignmentAt
