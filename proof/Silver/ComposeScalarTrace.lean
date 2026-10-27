@@ -65,34 +65,45 @@ theorem scalar_declarations_source_bounds {text : Source} {arguments : Bool} {st
       · exact scalar_declaration_source_bounds elaborated first
       · exact ih (scalar_declaration_static elaborated first) declaration member
 
+theorem scalar_declarations_count_bound {text : Source} {arguments : Bool} {state final : ParserState}
+    {values : List Integer.Declaration} (parsed : ScalarDeclarationsAt text arguments state values final)
+    (bounded : state.scalarNames.length ≤ ArrayBindings.scalarLimit) :
+    final.scalarNames.length ≤ ArrayBindings.scalarLimit := by
+  induction parsed with
+  | done => exact bounded
+  | string _ _ _ first _ ih => cases first; exact ih bounded
+  | scalar _ _ first _ ih => exact ih (scalar_declaration_count_bound bounded first)
+
 theorem scalar_declarations_checked {text : Source} {arguments : Bool} {state final : ParserState}
     {values : List Integer.Declaration} (parsed : ScalarDeclarationsAt text arguments state values final)
-    (static : ScalarExpression.StaticEnvironment state.scalarNames) :
+    (static : ScalarExpression.StaticEnvironment state.scalarNames)
+    (bounded : state.scalarNames.length ≤ ArrayBindings.scalarLimit) :
     Integer.checkDeclarations (ScalarExpression.constants state.scalarNames) values =
       some (ScalarExpression.constants final.scalarNames) := by
   induction parsed with
   | done => rfl
   | string _ _ _ first _ ih =>
       cases first
-      exact ih static
+      exact ih static bounded
   | scalar _ _ first _ ih =>
-      simp only [Integer.checkDeclarations, scalar_declaration_checked static first, Option.bind_some]
-      exact ih (scalar_declaration_static static first)
+      simp only [Integer.checkDeclarations, scalar_declaration_checked static bounded first, Option.bind_some]
+      exact ih (scalar_declaration_static static first) (scalar_declaration_count_bound bounded first)
 
 theorem scalar_declarations_objects {text : Source} {arguments : Bool} {state final : ParserState}
     {values : List Integer.Declaration} (parsed : ScalarDeclarationsAt text arguments state values final)
-    (exact : ScalarExpression.ElaboratedEnvironment state.scalarNames) :
+    (exact : ScalarExpression.ElaboratedEnvironment state.scalarNames)
+    (bounded : state.scalarNames.length ≤ ArrayBindings.scalarLimit) :
     ScalarExpression.objectBindings final.scalarNames = ScalarExpression.objectBindings state.scalarNames ++
       Integer.elaborate (ScalarExpression.constants state.scalarNames) values := by
   induction parsed with
   | done => simp [Integer.elaborate]
   | string _ _ _ first _ ih =>
       cases first
-      exact ih exact
+      exact ih exact bounded
   | scalar _ _ first _ ih =>
-      have objects := scalar_declaration_objects exact first
-      have values := (Integer.Declaration.check_sound (scalar_declaration_checked exact first)).1
-      rw [ih (scalar_declaration_static exact first), objects, values]
+      have objects := scalar_declaration_objects exact bounded first
+      have values := (Integer.Declaration.check_sound (scalar_declaration_checked exact bounded first)).1
+      rw [ih (scalar_declaration_static exact first) (scalar_declaration_count_bound bounded first), objects, values]
       simp only [Integer.elaborate, List.append_assoc, List.singleton_append]
 
 theorem scalar_declarations_declared_bounds {text : Source} {arguments : Bool} {state final : ParserState}
