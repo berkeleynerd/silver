@@ -50,6 +50,16 @@ theorem bodyTokens_zero {text scan tokens} (zero : scan.position = 0) :
   | nil => exact zero
   | cons token tokens ih => exact ih (bodyToken_zero (token := token) zero)
 
+theorem arrayIndex_bound (text : Source) (context : ParseContext) (scan : BodyScan) :
+    (arrayIndex text context scan).after ≤ text.length + 1 :=
+  scalarRead_bound text _ (context.readingNames scan.facts) 0 0 []
+    (model_fixed_valid text _ "(" false (model_name_valid text _))
+
+theorem arrayValueStart_bound (text : Source) (context : ParseContext) (scan : BodyScan) :
+    arrayValueStart text context scan ≤ text.length + 1 :=
+  model_fixed_valid text _ ":=" false
+    (model_fixed_valid text _ ")" false (arrayIndex_bound text context scan))
+
 theorem basicRaw_bound (text : Source) (context : ParseContext) (scan : BodyScan)
     (textValid : ValidText text) (namesValid : ValidNames text context.names)
     (bounded : scan.position ≤ text.length + 1) :

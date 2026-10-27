@@ -34,9 +34,9 @@ mutual
       ParseContext → BodyScan → Integer.Expr → Integer.Expr → List SourceStatement → BodyScan → Prop
     | loop {context scan lower upper body bodyResult result} :
         loopNameAllowed text context (loopHeader text context scan) = true →
-        ScalarExpression.At text (context.readingNames scan.facts) (loopLowerPosition text scan)
+        ScalarExpression.At (arrays := context.arrayNames) text (context.readingNames scan.facts) (loopLowerPosition text scan)
           lower (loopHeader text context scan).lower (loopFirst text scan) (loopNameAfter text scan) →
-        ScalarExpression.At text (context.readingNames scan.facts)
+        ScalarExpression.At (arrays := context.arrayNames) text (context.readingNames scan.facts)
           (fixedAfter text (loopHeader text context scan).lower.after ".." false)
           upper (loopHeader text context scan).upper (loopFirst text scan) (loopNameAfter text scan) →
         bodyRemaining text (loopHeader text context scan).entry < bodyRemaining text scan →
