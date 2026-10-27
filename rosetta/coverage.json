@@ -19,7 +19,8 @@
   "integer-image",
   "bounded-mutable-integers",
   "interval-integer-division",
-  "scalar-guard-refinement"
+  "scalar-guard-refinement",
+  "fixed-integer-arrays"
  ],
  "tasks": {
   "100 doors": {
@@ -61876,13 +61877,15 @@
    "risks": [],
    "size": 21,
    "approach": "Declare an explicitly initialized constant source array containing 1 through 9 and a mutable result array initialized to zero. Copy source indices 4 through 9 into result indices 1 through 6, then source indices 1 through 3 into result indices 7 through 9; print both arrays with Integer Image and Put. This is samples/rosetta_shift_list_left_3.adb, with no named types, array attributes, user subprograms or modulo.",
-   "summary": "The two loops rotate the nine task values left by three positions; their index intervals stay inside 1 through 9. All components are initialized and writes preserve the other cells. The bounded fixed-integer-arrays increment is under implementation; complete assurance and delivery validation remain pending in docs/fixed-integer-arrays.md.",
+   "summary": "The two copy loops rotate the nine task values left by three positions: destination indices 1 through 6 read source indices 4 through 9, and destination indices 7 through 9 read source indices 1 through 3. Both index intervals stay within 1 through 9, all components are explicitly initialized, and writes preserve other cells. The exact source and manifest match this narrow approach; broader arrays remain unsupported. The assurance and validation status is recorded separately in docs/fixed-integer-arrays.md; this static assessment establishes no native or universal validation evidence.",
    "confidence": "high",
    "review": {
     "date": "2026-10-27",
     "record": "assessment-arrays-20261027.md",
-    "setting_evidence": "Integration lead; live model and effort not independently exposed",
-    "method": "Targeted task/specification/sample review and retained external admission evidence; no new complete validation claim"
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setting_evidence": "Selected setting for delivery metadata reconciliation; runtime model/effort not independently exposed",
+    "method": "Static downloaded-task, current-language, exact sample and manifest comparison; independent rotation/index interval check; deterministic metadata render only, with no native, Lean or suite validation"
    }
   },
   "Shoelace formula for polygonal area": {

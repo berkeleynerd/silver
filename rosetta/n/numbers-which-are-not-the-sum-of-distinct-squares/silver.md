@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is bounded for loops over small ranged subtypes with a Boolean array, so each index and arithmetic check follows from types and the loop range; the only subtlety is documenting the fixed limit, which Oracle rule 7 allows.
 
-Position 89 in the [progression](../../progression.md#stage-5), in stage 5.
+Position 91 in the [progression](../../progression.md#stage-5), in stage 5.
 
 ## Approach
 
