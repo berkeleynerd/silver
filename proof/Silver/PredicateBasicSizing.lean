@@ -25,7 +25,9 @@ def SizedBasic (primitive : Primitives) (text : Source) (context : Native.Contex
 private theorem model_update_count (frame : Frame) (value : Update) :
     (value.eval modelPrimitives frame).count = frame.result.count := by
   cases value <;> try rfl
-  exact scalarAssignment_count ..
+  · exact scalarAssignment_count ..
+  · dsimp only [Update.eval, modelPrimitives, arrayAssignmentBody]
+    split <;> rfl
 
 private theorem model_command_sized (command : Command) (frame : Frame)
     (same : frame.result.count = frame.scan.count) (next : Frame → Prop)
