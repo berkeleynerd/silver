@@ -513,6 +513,7 @@ from the incoming declaration state; the accumulator receives only flat values.
 The source readiness proof separately establishes `values.length = used`. -/
 def arrayValuesModel (text : Source) (source result : ParserState)
     (position length parsed : Nat) : ParserState :=
+  if position = 0 then invalidState else
   if _remaining : parsed < length then
     let value := ScalarExpression.read text position source.scalarNames
       (arrays := source.arrayNames.names) (initials := source.arrayNames.values) (elaborating := true)
@@ -522,8 +523,7 @@ def arrayValuesModel (text : Source) (source result : ParserState)
         used := result.arrayNames.used + 1,
         values := ArrayBindings.putInitial result.arrayNames.values (result.arrayNames.used + 1) value.bounds.lower}}
       let following := if parsed + 1 < length then fixedAfter text value.after "," false else value.after
-      if parsed + 1 < length ∧ following = 0 then invalidState
-      else arrayValuesModel text source next following length (parsed + 1)
+      arrayValuesModel text source next following length (parsed + 1)
   else {result with position := position}
 termination_by length - parsed
 decreasing_by omega
