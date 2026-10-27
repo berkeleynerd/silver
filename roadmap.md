@@ -56,8 +56,28 @@ Generated stage 2 (#11) now also includes procedures, while arrays (#12) moves
 to stage 3; both remain unsupported and Backlog. New unsupported identifiers
 describe only the reviewed approaches, so their late generated positions do
 not establish implementation priority. The owner has now selected interval-checked division below. The remaining #11
-constructs and arrays keep their own unselected scope; a generated stage number
-does not authorize implementation.
+constructs keep their own unselected scope; the bounded array increment selected
+below does not select every approach in the broad arrays stage. A generated
+stage number does not authorize implementation.
+
+### Fixed-size Integer arrays
+
+After the external-review response and the selected #246 performance package,
+the owner [selected fixed-size Integer arrays](docs/session-memory.md#2026-10-27--fixed-size-integer-arrays-authorized)
+as the next language increment. [Milestone 10](https://github.com/berkeleynerd/silver/milestone/10)
+contains one issue, [#260](https://github.com/berkeleynerd/silver/issues/260),
+linked to the broader [arrays stage #12](https://github.com/berkeleynerd/silver/issues/12).
+The order is a faithful Rosetta driver and exact scope/obligation discovery,
+native and universal/source implementation, then complete validation and
+independent review. The [capability record](docs/fixed-integer-arrays.md)
+retains the design and eventual evidence. Arrays are not yet supported.
+
+Choose the minimum useful one-dimensional Integer-array declarations,
+initialization and checked indexing/read/write rules, retaining the current
+source/operator bounds and complete assurance for all admitted compositions.
+The broader arrays identifier and #12 stay open where their assessed forms
+exceed this fragment. Other #11 constructs, capacity/assurance-mode work and
+further proof-performance packages remain deferred.
 
 ### Checked integer division and scalar refinement
 
@@ -76,8 +96,8 @@ blocker or medium finding. Its small record/metadata response in
 [milestone 8](https://github.com/berkeleynerd/silver/milestone/8) is complete,
 including the owner-selected narrow regression-reuse clarification and all seven
 low record corrections. Informational suggestions have explicit dispositions
-and bounded follow-up links. New capability work remains paused; optional
-test/tooling work and #246 are not automatically selected.
+and bounded follow-up links. The later fixed-size-array authorization above
+resumes one capability; optional test/tooling work is not automatically selected.
 
 [Development velocity follow-up #246](https://github.com/berkeleynerd/silver/issues/246)
 has a retained [assessment and scheduling checklist](docs/development-velocity.md)
@@ -92,7 +112,7 @@ complete applicable assurance and independent review. The
 retains the 27.97% build-wall reduction in one matched workload, exact source
 statements and reconstruction, memory limits and validation scopes. Certificate chunking,
 predicate-proof optimization and persistent runner metrics remain conditional;
-new language development is not selected by this authorization.
+new language development is not selected by the #246 authorization.
 
 1. [Interval-checked integer division #229](https://github.com/berkeleynerd/silver/issues/229):
    **delivered** fully grouped `/`, `mod` and `rem` in current scalar-expression positions,
@@ -140,8 +160,8 @@ those seven approaches to it. The broad `integer-division` identifier, including
 delivered-task count. Assessment corrections
 may change generated positions, which remain planning metadata.
 
-Arrays remain a provisional later candidate, with scope to be reconsidered
-after the external review and a later owner instruction. This milestone does not resume capacity derivation or the
+The later owner instruction selects the bounded array increment above after
+the external review. This completed milestone does not resume capacity derivation or the
 strict/extended assurance-mode packages. Complete feature-local report accounting
 remains part of division's assurance within the existing bounds.
 

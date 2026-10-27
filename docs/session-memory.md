@@ -1,5 +1,32 @@
 # Session memory
 
+## 2026-10-27 — Fixed-size Integer arrays authorized
+
+After the selected #246 package merged in #259, the owner accepted the
+recommendation to return to language development, starting with a bounded
+fixed-size array fragment from [#12](https://github.com/berkeleynerd/silver/issues/12):
+**“Agreed. Proceed with the next language feature.”**
+[Milestone 10](https://github.com/berkeleynerd/silver/milestone/10), **Fixed-size
+Integer arrays**, contains one delivery increment,
+[#260](https://github.com/berkeleynerd/silver/issues/260). Its
+[capability record](fixed-integer-arrays.md) will retain the chosen faithful
+Rosetta driver, exact scope, design decisions, implementation and evidence.
+
+This resumes language development for that increment through implementation,
+complete native and Lean composition/source assurance, regression validation,
+independent review and publication through reviewed pull requests. Routine
+tracking and implementation choices within the bounded scope need no further
+permission. Keep the current source/operator limits and distinguish the narrow
+delivered fragment from broader unsupported arrays. The sequence is scope and
+obligation discovery, implementation and proof integration, then one stable
+delivery checkpoint. Supported-language claims change only at delivery.
+
+The owner's instruction against overengineering remains. Certificate chunking,
+predicate optimization and persistent metrics remain deferred, as do #119,
+#201/#202/#212, paused packets/R93 and #88–#94. Other #11 constructs and general
+array expansion are not selected. No Oracle amendment or harness goal is
+implied. CLI memory is unavailable and was not updated.
+
 ## 2026-10-27 — First development-velocity package completed
 
 [PR #259](https://github.com/berkeleynerd/silver/pull/259) completes the selected
