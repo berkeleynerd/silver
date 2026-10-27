@@ -23,6 +23,8 @@ is
    package Scalar_Expressions renames Silver_Scalar_Expressions;
    package Array_Bindings renames Silver_Array_Bindings;
    use type Scalars.Wide;
+   use type Scalar_Expressions.Binding;
+   use type Array_Bindings.Binding;
    package Image_Lengths renames Silver_Integer_Image;
    package Length_Intervals renames Silver_Length_Intervals;
 
@@ -952,6 +954,54 @@ is
             Nonliteral_Seen => Value.Named_Seen, Empty_Value => Value.Empty_Value, Reference => 0),
            Constant_After = 0, Following)));
 
+   --  Share this exact successor in the model and executable loop.  Distinct
+   --  array delta aggregates supply only pointwise equality to the prover.
+   function Put_Array_Value (State : Parser_State; Value : Scalars.Value) return Parser_State is
+     (State with delta Array_Names => (State.Array_Names with delta
+       Used => State.Array_Names.Used + 1,
+       Values => (State.Array_Names.Values with delta State.Array_Names.Used + 1 => Value)))
+     with Global => null, Pre => State.Array_Names.Used < Array_Bindings.Max_Elements;
+
+   --  Keep the four fixed-array extensionality checks separate from the
+   --  enclosing parser record's logical equality check.
+   function Same_Parser_String_Items (Left, Right : Binding_Array) return Boolean is
+     (Left'First = Right'First and then Left'Last = Right'Last
+      and then (for all Index in Binding_Index => Left (Index) = Right (Index)))
+     with Ghost => Static, Global => null,
+       Annotate => (GNATprove, Logical_Equal);
+   function Same_Parser_Scalar_Items
+     (Left, Right : Scalar_Expressions.Binding_Array) return Boolean is
+     (Left'First = Right'First and then Left'Last = Right'Last
+      and then (for all Index in Scalar_Expressions.Binding_Index => Left (Index) = Right (Index)))
+     with Ghost => Static, Global => null,
+       Annotate => (GNATprove, Logical_Equal);
+   function Same_Parser_Array_Items
+     (Left, Right : Array_Bindings.Binding_Array) return Boolean is
+     (Left'First = Right'First and then Left'Last = Right'Last
+      and then (for all Index in Array_Bindings.Binding_Index => Left (Index) = Right (Index)))
+     with Ghost => Static, Global => null,
+       Annotate => (GNATprove, Logical_Equal);
+   function Same_Parser_Elements
+     (Left, Right : Array_Bindings.Element_Array) return Boolean is
+     (Left'First = Right'First and then Left'Last = Right'Last
+      and then (for all Index in Array_Bindings.Element_Index => Left (Index) = Right (Index)))
+     with Ghost => Static, Global => null,
+       Annotate => (GNATprove, Logical_Equal);
+   function Same_Parser_State (Left, Right : Parser_State) return Boolean is
+     (Left.Position = Right.Position
+      and then Left.Names.Count = Right.Names.Count
+      and then Same_Parser_String_Items (Left.Names.Items, Right.Names.Items)
+      and then Left.Scalar_Names.Count = Right.Scalar_Names.Count
+      and then Same_Parser_Scalar_Items (Left.Scalar_Names.Items, Right.Scalar_Names.Items)
+      and then Left.Array_Names.Names.Count = Right.Array_Names.Names.Count
+      and then Same_Parser_Array_Items (Left.Array_Names.Names.Items, Right.Array_Names.Names.Items)
+      and then Left.Array_Names.Used = Right.Array_Names.Used
+      and then Same_Parser_Elements (Left.Array_Names.Values, Right.Array_Names.Values)
+      and then Left.Dynamic_First = Right.Dynamic_First and then Left.Dynamic_After = Right.Dynamic_After
+      and then Left.Target = Right.Target and then Left.Capacity = Right.Capacity)
+     with Ghost => Static, Global => null,
+       Annotate => (GNATprove, Logical_Equal);
+
    function Array_Values_Model
      (Text : String; Source_State, Result_State : Parser_State;
       Position : Literal_Position; Length, Parsed : Array_Bindings.Element_Count)
@@ -992,10 +1042,7 @@ is
             then Invalid_State
             else
               (declare Next_State : constant Parser_State :=
-                 (Result_State with delta Array_Names => (Result_State.Array_Names with delta
-                   Used => Result_State.Array_Names.Used + 1,
-                   Values => (Result_State.Array_Names.Values with delta
-                     Result_State.Array_Names.Used + 1 => Value.Bounds.Lower)));
+                 Put_Array_Value (Result_State, Value.Bounds.Lower);
                        Next_Position : constant Literal_Position :=
                          (if Parsed + 1 < Length then Take_Token (Text, Value.After, Comma)
                           else Value.After);
@@ -1105,7 +1152,6 @@ is
       Result : Parser_State := Result_State;
       Current : Literal_Position := Position;
       Parsed_Count : Array_Bindings.Element_Count := Parsed;
-      Value : Scalar_Expressions.Expression_Result;
    begin
       if Current = 0 then return Invalid_State; end if;
       while Parsed_Count < Length loop
@@ -1124,28 +1170,48 @@ is
          pragma Loop_Invariant (Static =>
            Array_Values_Model (Text, Source_State, Result_State, Position, Length, Parsed)
              = Array_Values_Model (Text, Source_State, Result, Current, Length, Parsed_Count));
+         pragma Loop_Invariant (Static => Same_Parser_State
+           (Array_Values_Model (Text, Source_State, Result_State, Position, Length, Parsed),
+            Array_Values_Model (Text, Source_State, Result, Current, Length, Parsed_Count)));
          pragma Loop_Variant (Increases => Parsed_Count);
          declare
+            Before : constant Parser_State := Result with Ghost => Static;
+            Value : constant Scalar_Expressions.Expression_Result :=
+              Scalar_Expressions.Read_Expression
+                (Text, Current, Source_State.Scalar_Names, Arrays => Source_State.Array_Names.Names,
+                 Initials => Source_State.Array_Names.Values, Elaborating => True);
             Tail : constant Parser_State :=
-              Array_Values_Model (Text, Source_State, Result, Current, Length, Parsed_Count)
+              Array_Values_Model (Text, Source_State, Before, Current, Length, Parsed_Count)
                 with Ghost => Static;
          begin
-            Value := Scalar_Expressions.Read_Expression
-              (Text, Current, Source_State.Scalar_Names, Arrays => Source_State.Array_Names.Names,
-               Initials => Source_State.Array_Names.Values, Elaborating => True);
+            pragma Assert (Static => Same_Parser_State (Result, Before));
             if Value.After = 0 or else Scalars.Is_Empty (Value.Bounds)
               or else Value.Bounds.Lower /= Value.Bounds.Upper
             then return Invalid_State; end if;
-            Parsed_Count := Parsed_Count + 1;
-            Result.Array_Names.Used := Result.Array_Names.Used + 1;
-            Result.Array_Names.Values (Result.Array_Names.Used) := Value.Bounds.Lower;
-            Current := Value.After;
-            if Parsed_Count < Length then
-               Current := Take_Token (Text, Current, Comma);
-               if Current = 0 then return Invalid_State; end if;
-            end if;
-            pragma Assert (Static => Tail =
-              Array_Values_Model (Text, Source_State, Result, Current, Length, Parsed_Count));
+            declare
+               Next_State : constant Parser_State :=
+                 Put_Array_Value (Before, Value.Bounds.Lower) with Ghost => Static;
+               Next_Position : constant Literal_Position :=
+                 (if Parsed_Count + 1 < Length then Take_Token (Text, Value.After, Comma)
+                  else Value.After) with Ghost => Static;
+               Next_Parsed : constant Array_Bindings.Element_Count := Parsed_Count + 1
+                 with Ghost => Static;
+            begin
+               pragma Assert (Static => Tail =
+                 Array_Values_Model (Text, Source_State, Next_State, Next_Position, Length, Next_Parsed));
+               Parsed_Count := Parsed_Count + 1;
+               Result := Put_Array_Value (Result, Value.Bounds.Lower);
+               Current := Value.After;
+               if Parsed_Count < Length then
+                  Current := Take_Token (Text, Current, Comma);
+                  if Current = 0 then return Invalid_State; end if;
+               end if;
+               pragma Assert (Static => Result = Next_State
+                 and then Current = Next_Position and then Parsed_Count = Next_Parsed);
+               pragma Assert (Static => Same_Parser_State (Result, Next_State));
+               pragma Assert (Static => Tail =
+                 Array_Values_Model (Text, Source_State, Result, Current, Length, Parsed_Count));
+            end;
          end;
       end loop;
       declare
