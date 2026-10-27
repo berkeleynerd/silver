@@ -1204,7 +1204,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
             Put (",""" & Silver_Output_Profile.Spelling (Token) & """");
          end if;
       end loop;
-      Put_Line (",""use"",""item"",""default"",""put"",""image"",""range""],");
+      Put_Line (",""use"",""item"",""default"",""put"",""image"",""range"",""array"",""of""],");
       Put ("  ""casefold_bytes"": [");
       for Item in Character loop
          if Item /= Character'First then Put (","); end if;
