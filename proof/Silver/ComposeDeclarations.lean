@@ -2,6 +2,7 @@ module
 
 public import Silver.ComposeFrozenSemantics
 public import Silver.ComposeScalarDeclarations
+public import Silver.ComposeArrayElaboration
 
 @[expose] public section
 
@@ -180,12 +181,19 @@ inductive DeclarationsAt (text : Source) (arguments : Bool) :
   | next {state middle final : ParserState} {declaration : Declaration} {rest : List Declaration} :
       state.position ≠ 0 → fixedAfter text state.position "begin" true = 0 →
       (scalarDeclarationAt text state arguments).position = 0 →
+      (arrayDeclarationAt text state arguments).position = 0 →
       DeclarationAt text arguments state declaration middle →
       DeclarationsAt text arguments middle rest final →
       DeclarationsAt text arguments state (declaration :: rest) final
   | scalar {state middle final : ParserState} {declaration : Integer.Declaration} {rest : List Declaration} :
       state.position ≠ 0 → fixedAfter text state.position "begin" true = 0 →
       ScalarDeclarationAt text arguments state declaration middle →
+      DeclarationsAt text arguments middle rest final →
+      DeclarationsAt text arguments state rest final
+  | array {state middle final : ParserState} {declaration : Integer.ArrayDeclaration} {rest : List Declaration} :
+      state.position ≠ 0 → fixedAfter text state.position "begin" true = 0 →
+      (scalarDeclarationAt text state arguments).position = 0 →
+      ArrayDeclarationAt text arguments state declaration middle →
       DeclarationsAt text arguments middle rest final →
       DeclarationsAt text arguments state rest final
 
@@ -212,16 +220,28 @@ theorem declarationsLoop_sound (text : Source) (arguments : Bool) (fuel : Nat) (
               refine ⟨rest, ?_⟩
               simpa [declarationsLoop, positive, stop, selected, scalar] using
                 DeclarationsAt.scalar positive (by omega) parsed parsedRest
-            · have selected : declarationAt text state arguments = stringDeclarationAt text state arguments := by
-                simp [declarationAt, scalar]
-              have stringPositive : (stringDeclarationAt text state arguments).position ≠ 0 := selected ▸ failed
-              obtain ⟨declaration, parsed⟩ := declaration_sound text state arguments stringPositive
-              have remaining : (declarationsLoop text arguments fuel (stringDeclarationAt text state arguments)).position ≠ 0 := by
-                simpa [declarationsLoop, positive, stop, selected, stringPositive] using accepted
-              obtain ⟨rest, parsedRest⟩ := ih _ remaining
-              refine ⟨declaration :: rest, ?_⟩
-              simpa [declarationsLoop, positive, stop, selected, stringPositive] using
-                DeclarationsAt.next positive (by omega) (by omega) parsed parsedRest
+            · by_cases array : (arrayDeclarationAt text state arguments).position ≠ 0
+              · have selected : declarationAt text state arguments = arrayDeclarationAt text state arguments := by
+                  dsimp only [declarationAt]
+                  rw [ite_eq_right scalar, ite_eq_left array]
+                obtain ⟨declaration, parsed⟩ := array_declaration_sound text state arguments array
+                have remaining : (declarationsLoop text arguments fuel (arrayDeclarationAt text state arguments)).position ≠ 0 := by
+                  simpa [declarationsLoop, positive, stop, selected, array] using accepted
+                obtain ⟨rest, parsedRest⟩ := ih _ remaining
+                refine ⟨rest, ?_⟩
+                simpa [declarationsLoop, positive, stop, selected, array] using
+                  DeclarationsAt.array positive (by omega) (by omega) parsed parsedRest
+              · have selected : declarationAt text state arguments = stringDeclarationAt text state arguments := by
+                  dsimp only [declarationAt]
+                  rw [ite_eq_right scalar, ite_eq_right array]
+                have stringPositive : (stringDeclarationAt text state arguments).position ≠ 0 := selected ▸ failed
+                obtain ⟨declaration, parsed⟩ := declaration_sound text state arguments stringPositive
+                have remaining : (declarationsLoop text arguments fuel (stringDeclarationAt text state arguments)).position ≠ 0 := by
+                  simpa [declarationsLoop, positive, stop, selected, stringPositive] using accepted
+                obtain ⟨rest, parsedRest⟩ := ih _ remaining
+                refine ⟨declaration :: rest, ?_⟩
+                simpa [declarationsLoop, positive, stop, selected, stringPositive] using
+                  DeclarationsAt.next positive (by omega) (by omega) (by omega) parsed parsedRest
 
 theorem declarations_sound (text : Source) (state : ParserState) (arguments : Bool)
     (accepted : (declarationsAt text state arguments).position ≠ 0) :
@@ -233,12 +253,15 @@ theorem declarations_count {text : Source} {arguments : Bool} {state final : Par
     final.names.length = state.names.length + declarations.length := by
   induction parsed with
   | done => simp
-  | next _ _ _ first _ ih =>
+  | next _ _ _ _ first _ ih =>
       have count := stringDeclarationAt_count ((declaration_complete first).symm ▸ declaration_positive first)
       rw [declaration_complete first] at count
       simpa only [List.length_cons, count, Nat.add_assoc, Nat.add_comm, Nat.add_left_comm] using ih
   | scalar _ _ first _ ih =>
       cases first
+      exact ih
+  | array _ _ _ first _ ih =>
+      rw [(array_declaration_preserves first).1] at ih
       exact ih
 
 theorem declarations_shape {text : Source} {arguments : Bool} {state final : ParserState}
@@ -248,7 +271,7 @@ theorem declarations_shape {text : Source} {arguments : Bool} {state final : Par
     Bindings.DeclarationsValid state.names.shape declarations final.names.shape := by
   induction parsed with
   | done => exact .nil _
-  | next _ _ _ first _ ih =>
+  | next _ _ _ _ first _ ih =>
       obtain ⟨bound, valid, same⟩ := declaration_shape normal static first
       exact .cons valid (same ▸ ih (declaration_normal normal first)
         ((declaration_scalarNames first).symm ▸ static))
@@ -256,15 +279,21 @@ theorem declarations_shape {text : Source} {arguments : Bool} {state final : Par
       have nextStatic := scalar_declaration_static static first
       cases first
       exact ih normal nextStatic
+  | array _ _ _ first _ ih =>
+      rw [(array_declaration_preserves first).1, (array_declaration_preserves first).2] at ih
+      exact ih normal static
 
 theorem declarations_normal {text : Source} {arguments : Bool} {state final : ParserState}
     {declarations : List Declaration} (parsed : DeclarationsAt text arguments state declarations final)
     (normal : NamesNormal state.names) : NamesNormal final.names := by
   induction parsed with
   | done => exact normal
-  | next _ _ _ first _ ih => exact ih (declaration_normal normal first)
+  | next _ _ _ _ first _ ih => exact ih (declaration_normal normal first)
   | scalar _ _ first _ ih =>
       cases first
+      exact ih normal
+  | array _ _ _ first _ ih =>
+      rw [(array_declaration_preserves first).1] at ih
       exact ih normal
 
 
@@ -274,8 +303,11 @@ theorem declarations_static {text : Source} {arguments : Bool} {state final : Pa
     ScalarExpression.StaticEnvironment final.scalarNames := by
   induction parsed with
   | done => exact static
-  | next _ _ _ first _ ih => exact ih ((declaration_scalarNames first).symm ▸ static)
+  | next _ _ _ _ first _ ih => exact ih ((declaration_scalarNames first).symm ▸ static)
   | scalar _ _ first _ ih => exact ih (scalar_declaration_static static first)
+  | array _ _ _ first _ ih =>
+      rw [(array_declaration_preserves first).2] at ih
+      exact ih static
 
 
 inductive LiteralReading (text : Source) : Nat → Source → ValueResult → Prop
@@ -440,11 +472,11 @@ theorem declarations_unique {text : Source} {arguments : Bool} {state leftState 
   | done positive stop =>
       cases second with
       | done => exact ⟨rfl, rfl⟩
-      | next _ more _ _ _ | scalar _ more _ _ => exact False.elim (stop more)
-  | next positive more noScalar parsed rest ih =>
+      | next _ more _ _ _ _ | scalar _ more _ _ | array _ more _ _ _ => exact False.elim (stop more)
+  | next positive more noScalar noArray parsed rest ih =>
       cases second with
       | done _ stop => exact False.elim (stop more)
-      | next _ _ _ other remaining =>
+      | next _ _ _ _ other remaining =>
           obtain ⟨rfl, rfl⟩ := declaration_unique parsed other
           obtain ⟨rfl, rfl⟩ := ih remaining
           exact ⟨rfl, rfl⟩
@@ -452,15 +484,34 @@ theorem declarations_unique {text : Source} {arguments : Bool} {state leftState 
           have accepted := scalar_declaration_positive other
           rw [← scalar_declaration_complete other, noScalar] at accepted
           contradiction
+      | array _ _ _ other _ =>
+          have accepted := array_declaration_positive other
+          rw [← array_declaration_complete other, noArray] at accepted
+          contradiction
   | scalar positive more parsed rest ih =>
       cases second with
       | done _ stop => exact False.elim (stop more)
-      | next _ _ noScalar _ _ =>
+      | next _ _ noScalar _ _ _ | array _ _ noScalar _ _ =>
           have accepted := scalar_declaration_positive parsed
           rw [← scalar_declaration_complete parsed, noScalar] at accepted
           contradiction
       | scalar _ _ other remaining =>
           obtain ⟨rfl, rfl⟩ := scalar_declaration_unique parsed other
+          exact ih remaining
+  | array positive more noScalar parsed rest ih =>
+      cases second with
+      | done _ stop => exact False.elim (stop more)
+      | next _ _ _ noArray _ _ =>
+          have accepted := array_declaration_positive parsed
+          rw [← array_declaration_complete parsed, noArray] at accepted
+          contradiction
+      | scalar _ _ other _ =>
+          have accepted := scalar_declaration_positive other
+          rw [← scalar_declaration_complete other, noScalar] at accepted
+          contradiction
+      | array _ _ _ other remaining =>
+          have same := (array_declaration_complete parsed).symm.trans (array_declaration_complete other)
+          cases same
           exact ih remaining
 
 theorem argument_unique {text : Source} {state leftState rightState : ParserState}
@@ -478,17 +529,31 @@ theorem declarations_fields {text : Source} {arguments : Bool} {state final : Pa
       final.dynamicFirst = state.dynamicFirst ∧ final.dynamicAfter = state.dynamicAfter := by
   induction parsed with
   | done => exact ⟨rfl, rfl, rfl, rfl⟩
-  | next _ _ _ first _ ih =>
+  | next _ _ _ _ first _ ih =>
       cases first
       exact ih
   | scalar _ _ first _ ih =>
       cases first
       exact ih
+  | array _ _ _ first _ ih =>
+      have fields := array_declaration_fields first
+      exact ⟨ih.1.trans fields.1, ih.2.1.trans fields.2.1,
+        ih.2.2.1.trans fields.2.2.1, ih.2.2.2.trans fields.2.2.2⟩
 
 theorem argument_fields {text fallback : Source} {state final : ParserState}
     (parsed : ArgumentAt text state fallback final) :
     final.capacity = state.capacity ∧ final.target = state.target := by
   cases parsed
   exact ⟨rfl, rfl⟩
+
+theorem declarations_array_ready {text arguments state final declarations}
+    (parsed : DeclarationsAt text arguments state declarations final)
+    (ready : ArrayBindings.SourceReady text state.arrayNames) :
+    ArrayBindings.SourceReady text final.arrayNames := by
+  induction parsed with
+  | done => exact ready
+  | next _ _ _ _ first _ ih => cases first; exact ih ready
+  | scalar _ _ first _ ih => cases first; exact ih ready
+  | array _ _ _ first _ ih => exact ih (array_declaration_source_ready first ready)
 
 end Silver.Compose

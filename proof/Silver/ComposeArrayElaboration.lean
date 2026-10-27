@@ -164,4 +164,50 @@ theorem array_declaration_advances {text arguments state declaration final}
   cases reading with
   | declaration _ _ _ _ _ _ _ advances => exact advances
 
+theorem array_declaration_fields {text arguments state declaration final}
+    (reading : ArrayDeclarationAt text arguments state declaration final) :
+    final.capacity = state.capacity ∧ final.target = state.target ∧
+      final.dynamicFirst = state.dynamicFirst ∧ final.dynamicAfter = state.dynamicAfter := by
+  cases reading with
+  | declaration _ _ _ _ _ values _ _ =>
+      have fields := arrayValues_fields values
+      exact ⟨congrArg (fun s => s.capacity) fields, congrArg (fun s => s.target) fields,
+        congrArg (fun s => s.dynamicFirst) fields, congrArg (fun s => s.dynamicAfter) fields⟩
+
+theorem arrayValues_unique {text source result position length parsed left right firstFinal secondFinal}
+    (first : ArrayValuesAt text source result position length parsed left firstFinal)
+    (second : ArrayValuesAt text source result position length parsed right secondFinal) :
+    left = right ∧ firstFinal = secondFinal := by
+  have states := (arrayValues_complete first).symm.trans (arrayValues_complete second)
+  refine ⟨?_, states⟩
+  induction first generalizing right secondFinal with
+  | done _ finished =>
+      cases second with
+      | done => rfl
+      | next _ remaining _ _ _ _ => omega
+  | next _ remaining reading _ _ _ ih =>
+      cases second with
+      | done _ finished => omega
+      | next _ _ other _ _ tail =>
+          obtain ⟨rfl, rfl⟩ := ScalarExpression.at_unique reading other
+          rw [ih tail states]
+
+theorem array_declaration_unique {text arguments state left right firstFinal secondFinal}
+    (first : ArrayDeclarationAt text arguments state left firstFinal)
+    (second : ArrayDeclarationAt text arguments state right secondFinal) :
+    left = right ∧ firstFinal = secondFinal := by
+  have states := (array_declaration_complete first).symm.trans (array_declaration_complete second)
+  refine ⟨?_, states⟩
+  cases first with
+  | declaration parts _ _ _ aggregate values _ _ =>
+      cases second with
+      | declaration otherParts _ _ _ otherAggregate otherValues _ _ =>
+          have sameParts := parts.symm.trans otherParts
+          cases sameParts
+          have samePosition := (arrayAggregate_complete aggregate).symm.trans (arrayAggregate_complete otherAggregate)
+          cases samePosition
+          have sameValues := (arrayValues_unique values otherValues).1
+          cases sameValues
+          rfl
+
 end Silver.Compose
