@@ -962,6 +962,26 @@ is
        Values => (State.Array_Names.Values with delta State.Array_Names.Used + 1 => Value)))
      with Global => null, Pre => State.Array_Names.Used < Array_Bindings.Max_Elements;
 
+   function Add_Array_Binding
+     (Text : String; State : Parser_State; First, After : Literal_Position;
+      Bounds : Scalars.Interval; Offset, Length : Array_Bindings.Element_Count;
+      Mutable : Boolean; Following : Literal_Position) return Parser_State is
+     (State with delta Position => Following,
+       Array_Names => (State.Array_Names with delta Names =>
+         (Count => State.Array_Names.Names.Count + 1,
+          Items => (State.Array_Names.Names.Items with delta State.Array_Names.Names.Count + 1 =>
+            (First, After, Bounds, Offset, Length, Mutable)))))
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, State)
+         and then State.Array_Names.Names.Count < Array_Bindings.Max_Bindings
+         and then First > 0 and then Valid_Name_State (Text, First, After)
+         and then Array_Bindings.Valid_Binding ((First, After, Bounds, Offset, Length, Mutable))
+         and then Offset + Length <= State.Array_Names.Used
+         and then Following <= Text'Last + 1,
+       Post => Valid_State (Text, Add_Array_Binding'Result)
+         and then Add_Array_Binding'Result.Position = Following;
+
    --  Keep the four fixed-array extensionality checks separate from the
    --  enclosing parser record's logical equality check.
    function Same_Parser_String_Items (Left, Right : Binding_Array) return Boolean is
@@ -1114,13 +1134,9 @@ is
                             (Text, Take_Token (Text, Values.Position, Right_Parenthesis), Semicolon);
                   begin
                     (if Values.Position = 0 or else Following <= State.Position then Invalid_State
-                     else (Values with delta Position => Following,
-                       Array_Names => (Values.Array_Names with delta Names =>
-                         (Count => State.Array_Names.Names.Count + 1,
-                          Items => (State.Array_Names.Names.Items with delta
-                            State.Array_Names.Names.Count + 1 =>
-                              (First, After, (Low.Bounds.Lower, High.Bounds.Lower),
-                               State.Array_Names.Used, Length, Constant_After = 0)))))))))));
+                     else Add_Array_Binding
+                       (Text, Values, First, After, (Low.Bounds.Lower, High.Bounds.Lower),
+                        State.Array_Names.Used, Length, Constant_After = 0, Following)))))));
 
    function Array_Values_At
      (Text : String; Source_State, Result_State : Parser_State;
@@ -1290,13 +1306,9 @@ is
                             (Text, Take_Token (Text, Values.Position, Right_Parenthesis), Semicolon);
                   begin
                     (if Values.Position = 0 or else Following <= State.Position then Invalid_State
-                     else (Values with delta Position => Following,
-                       Array_Names => (Values.Array_Names with delta Names =>
-                         (Count => State.Array_Names.Names.Count + 1,
-                          Items => (State.Array_Names.Names.Items with delta
-                            State.Array_Names.Names.Count + 1 =>
-                              (First, After, (Low.Bounds.Lower, High.Bounds.Lower),
-                               State.Array_Names.Used, Length, Constant_After = 0)))))))))));
+                     else Add_Array_Binding
+                       (Text, Values, First, After, (Low.Bounds.Lower, High.Bounds.Lower),
+                        State.Array_Names.Used, Length, Constant_After = 0, Following)))))));
 
    function Declaration_At
      (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State
