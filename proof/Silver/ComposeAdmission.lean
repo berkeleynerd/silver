@@ -605,7 +605,9 @@ def declarationsLoop (text : Source) (arguments : Bool) : Nat → ParserState �
       else declarationsLoop text arguments fuel (declarationAt text state arguments)
 
 def declarationsAt (text : Source) (state : ParserState) (arguments : Bool) : ParserState :=
-  declarationsLoop text arguments (2 * maxBindings + 1 - (state.names.length + state.scalarNames.length)) state
+  declarationsLoop text arguments
+    (2 * maxBindings + ArrayBindings.maxBindings + 1 -
+      (state.names.length + state.scalarNames.length + state.arrayNames.names.length)) state
 
 -- The shell tables retain current control flow. Only declaration slots become
 -- a finite list, and assignment names resolve against its shared environment.
@@ -1055,13 +1057,72 @@ theorem stringDeclarationAt_count {text : Source} {state : ParserState} {argumen
     simp only [stringDeclarationAt, rejected, ↓reduceIte, invalidState, ne_eq, not_true_eq_false] at accepted
   · simp [addBinding]
 
+theorem arrayValuesModel_preserves (text : Source) (source result : ParserState)
+    (position length parsed : Nat)
+    (accepted : (arrayValuesModel text source result position length parsed).position ≠ 0) :
+    (arrayValuesModel text source result position length parsed).names = result.names ∧
+      (arrayValuesModel text source result position length parsed).scalarNames = result.scalarNames ∧
+      (arrayValuesModel text source result position length parsed).arrayNames.names = result.arrayNames.names := by
+  rw [arrayValuesModel] at accepted ⊢
+  split at accepted
+  · simp only [invalidState] at accepted
+    contradiction
+  · rename_i positive
+    simp only [positive, ↓reduceIte]
+    split at accepted
+    · rename_i remaining
+      simp only [remaining, ↓reduceDIte]
+      split at accepted
+      · simp only [invalidState] at accepted
+        contradiction
+      · rename_i valid
+        simp only [valid, ↓reduceIte]
+        exact arrayValuesModel_preserves text source _ _ length (parsed + 1) accepted
+    · rename_i finished
+      simp only [finished, ↓reduceDIte]
+      exact ⟨rfl, rfl, rfl⟩
+termination_by length - parsed
+decreasing_by omega
+
+theorem arrayDeclarationAt_count {text : Source} {state : ParserState} {arguments : Bool}
+    (accepted : (arrayDeclarationAt text state arguments).position ≠ 0) :
+    (arrayDeclarationAt text state arguments).names = state.names ∧
+      (arrayDeclarationAt text state arguments).scalarNames = state.scalarNames ∧
+      (arrayDeclarationAt text state arguments).arrayNames.names.length = state.arrayNames.names.length + 1 := by
+  unfold arrayDeclarationAt at accepted ⊢
+  dsimp only at accepted ⊢
+  split at accepted
+  · simp only [invalidState] at accepted
+    contradiction
+  · rename_i ready
+    simp only [ready, Bool.false_eq_true, ↓reduceIte]
+    split at accepted
+    · simp only [invalidState] at accepted
+      contradiction
+    · rename_i start
+      simp only [start, ↓reduceIte]
+      split at accepted
+      · simp only [invalidState] at accepted
+        contradiction
+      · rename_i values
+        simp only [values, ↓reduceIte]
+        split at accepted
+        · simp only [invalidState] at accepted
+          contradiction
+        · rename_i following
+          simp only [following, ↓reduceIte, List.length_append, List.length_singleton]
+          have preserved := arrayValuesModel_preserves text state state _ _ 0 values
+          exact ⟨preserved.1, preserved.2.1, by rw [preserved.2.2]⟩
+
 theorem declarationAt_count {text : Source} {state : ParserState} {arguments : Bool}
     (accepted : (declarationAt text state arguments).position ≠ 0) :
     (declarationAt text state arguments).names.length +
-      (declarationAt text state arguments).scalarNames.length =
-      state.names.length + state.scalarNames.length + 1 := by
+      (declarationAt text state arguments).scalarNames.length +
+      (declarationAt text state arguments).arrayNames.names.length =
+      state.names.length + state.scalarNames.length + state.arrayNames.names.length + 1 := by
   by_cases scalar : (scalarDeclarationAt text state arguments).position ≠ 0
-  · have selected : declarationAt text state arguments = scalarDeclarationAt text state arguments := ite_eq_left scalar
+  · have selected : declarationAt text state arguments = scalarDeclarationAt text state arguments := by
+      simp only [declarationAt, scalar, ↓reduceIte]
     rw [selected]
     unfold scalarDeclarationAt at scalar ⊢
     dsimp only at scalar ⊢
@@ -1071,26 +1132,34 @@ theorem declarationAt_count {text : Source} {state : ParserState} {arguments : B
       simp only [good, Bool.false_eq_true, ↓reduceIte, addScalarBinding,
         List.length_append, List.length_singleton]
       omega
-  · have selected : declarationAt text state arguments = stringDeclarationAt text state arguments := ite_eq_right scalar
-    rw [selected] at accepted ⊢
-    unfold stringDeclarationAt at accepted ⊢
-    dsimp only at accepted ⊢
-    split at accepted
-    · simp [invalidState] at accepted
-    · rename_i good
-      simp only [good, Bool.false_eq_true, ↓reduceIte, addBinding,
-        List.length_append, List.length_singleton]
+  · by_cases array : (arrayDeclarationAt text state arguments).position ≠ 0
+    · have selected : declarationAt text state arguments = arrayDeclarationAt text state arguments := by
+        simp only [declarationAt, scalar, array, ↓reduceIte]
+      rw [selected]
+      have count := arrayDeclarationAt_count array
+      rw [count.1, count.2.1, count.2.2]
       omega
+    · have selected : declarationAt text state arguments = stringDeclarationAt text state arguments := by
+        simp only [declarationAt, scalar, array, ↓reduceIte]
+      rw [selected] at accepted ⊢
+      unfold stringDeclarationAt at accepted ⊢
+      dsimp only at accepted ⊢
+      split at accepted
+      · simp [invalidState] at accepted
+      · rename_i good
+        simp only [good, Bool.false_eq_true, ↓reduceIte, addBinding,
+          List.length_append, List.length_singleton]
+        omega
 
 theorem declarationsAt_equation (text : Source) (state : ParserState) (arguments : Bool)
-    (bounded : state.names.length + state.scalarNames.length ≤ 2 * maxBindings) :
+    (bounded : state.names.length + state.scalarNames.length + state.arrayNames.names.length ≤ (2 * maxBindings + ArrayBindings.maxBindings)) :
     declarationsAt text state arguments =
       if state.position = 0 then invalidState
       else if fixedAfter text state.position "begin" true ≠ 0 then state
       else if (declarationAt text state arguments).position = 0 then invalidState
       else declarationsAt text (declarationAt text state arguments) arguments := by
-  have fuel : 2 * maxBindings + 1 - (state.names.length + state.scalarNames.length) =
-      (2 * maxBindings - (state.names.length + state.scalarNames.length)) + 1 := by omega
+  have fuel : (2 * maxBindings + ArrayBindings.maxBindings) + 1 - (state.names.length + state.scalarNames.length + state.arrayNames.names.length) =
+      ((2 * maxBindings + ArrayBindings.maxBindings) - (state.names.length + state.scalarNames.length + state.arrayNames.names.length)) + 1 := by omega
   unfold declarationsAt
   rw [fuel, declarationsLoop]
   by_cases empty : state.position = 0
