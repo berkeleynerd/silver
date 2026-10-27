@@ -57,7 +57,7 @@ structure ImportsMeaning (imports : Imports) : Prop where
     imports.nameIs text first after word = Named.nameIs text first after (word.toList.map Char.toNat)
   readScalar : ∀ text context position facts first after, ScalarDomain text context position facts first after →
     imports.readScalar text context position facts first after =
-      ScalarExpression.read text position (context.model.readingNames facts) first after
+      ScalarExpression.read text position (context.model.readingNames facts) first after (arrays := context.arrayNames)
   widen : ∀ context facts, WidenDomain context facts →
     imports.widen context facts = ActiveFlow.widen context.scalarNames facts
   append : ∀ names item, names.length < ScalarExpression.maxBindings → imports.append names item = names ++ [item]
