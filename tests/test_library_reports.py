@@ -706,7 +706,7 @@ end Probe;
 
     def test_application_report_bound_preserves_runtime_domain(self) -> None:
         data = json.dumps(assignment_report(False))
-        padded = data + " " * (16_777_216 - len(data))
+        padded = data + " " * (33_554_432 - len(data))
         self.assertTrue(self.accepts(padded, kind="static"))
         self.assertFalse(self.accepts(padded + " ", kind="static"))
         runtime = json.dumps(report())

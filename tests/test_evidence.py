@@ -995,7 +995,7 @@ class ArrayInitializationAdvisoryTests(unittest.TestCase):
                 with self.assertRaisesRegex(EvidenceError, "missing or nonempty"):
                     self.audit()
 
-    def test_advisory_is_rejected_throughout_application_audits(self) -> None:
+    def test_advisory_is_accepted_only_for_main_in_application_audits(self) -> None:
         for kind, target in product(("static", "argument", "assigned", "selected"), ("main", "library")):
             with self.subTest(kind=kind, target=target):
                 self.prepare_array_advisory()
@@ -1005,8 +1005,11 @@ class ArrayInitializationAdvisoryTests(unittest.TestCase):
                     main["warn_error"] = [dict(self.note, file="main.adb")]
                     self.report["warn_error"] = []
                 self.reports["main"] = main
-                with self.assertRaisesRegex(EvidenceError, "unexpected array-initialization advisory"):
-                    self.audit(application_kind=kind)
+                if target == "main":
+                    self.assertEqual(self.audit(application_kind=kind)["array_initialization_advisories"], 1)
+                else:
+                    with self.assertRaisesRegex(EvidenceError, "unexpected array-initialization advisory"):
+                        self.audit(application_kind=kind)
 
     def test_advisory_is_rejected_for_unreviewed_compiler_units(self) -> None:
         self.unit = "silver_io"
