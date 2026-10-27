@@ -583,6 +583,7 @@ def tokenName : ShellToken → String
     | "/=" => "not_equal" | "<" => "less" | ">" => "greater" | ">=" => "greater_equal" | "'" => "apostrophe" | "length" => "length_name"
     | "<=" => "less_equal" | "null" => "null_keyword" | "integer" => "integer_name"
     | "for" => "for_keyword" | "in" => "in_keyword" | "reverse" => "reverse_keyword"
+    | "array" => "array_keyword" | "of" => "of_keyword" | "," => "comma" | "=>" => "arrow"
     | "range" => "range_keyword" | "loop" => "loop_keyword" | ".." => "range_delimiter" | _ => "equal"
 
 def spelling : ShellToken → String
