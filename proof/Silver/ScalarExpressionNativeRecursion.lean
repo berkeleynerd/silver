@@ -203,13 +203,14 @@ theorem readFuel_large {text : Source} {names : Environment}
 theorem read_step {text : Source} {names : Environment}
     (valid : ValidEnvironment text names) (position maskFirst maskAfter : Nat)
     (allowSign : Bool) (bound : position ≤ text.length + 1) :
-    readStep (@read) text position names maskFirst maskAfter allowSign =
+    readStep scalarReader text position names maskFirst maskAfter allowSign =
       read text position names maskFirst maskAfter allowSign := by
   have equation := readFuel_large valid (text.length + 2) position maskFirst maskAfter allowSign bound (by omega)
   rw [show text.length + 2 = (text.length + 1) + 1 from rfl, readFuel] at equation
   have same : readStep (readFuel (text.length + 1)) text position names maskFirst maskAfter allowSign =
-      readStep (@read) text position names maskFirst maskAfter allowSign := by
+      readStep scalarReader text position names maskFirst maskAfter allowSign := by
     have firstBounds := skip_bounds text position bound
+    unfold scalarReader
     simp only [readStep]
     split
     · rfl

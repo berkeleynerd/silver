@@ -1,6 +1,7 @@
 module
 
 public import Silver.ScalarExpressionAdmission
+public import Silver.ArrayBindingsNativeEquations
 
 @[expose] public section
 
@@ -51,6 +52,9 @@ def atomResult (text : Source) (position : Nat) (names : Environment)
     else ⟨after, (binding names index).bounds.normalize, 1, (binding names index).isStatic⟩
 
 abbrev Reader := Source → Nat → Environment → Nat → Nat → Bool → Result
+
+def scalarReader : Reader := fun text position names maskFirst maskAfter allowSign =>
+  read text position names maskFirst maskAfter allowSign
 
 def unaryStep (recurse : Reader) (text : Source) (position : Nat) (names : Environment)
     (maskFirst maskAfter : Nat) : Result :=
@@ -109,6 +113,83 @@ def scalarModel : ScalarCalls where
   remainder := Integer.checkedRemainder
   normalize := Integer.Interval.normalize
 
+abbrev ArraysReader := Source → Nat → Environment → Nat → Nat → Bool →
+  optParam ArrayBindings.Metadata [] → optParam ArrayBindings.Initials [] → optParam Bool false → Result
+
+def arrayAtomStep (recurse : Reader) (text : Source) (position : Nat) (names : Environment)
+    (maskFirst maskAfter target : Nat) (arrays : ArrayBindings.Metadata)
+    (initials : ArrayBindings.Initials) (elaborating : Bool) : Result :=
+  let opened := symbol text position 40
+  if opened = 0 then invalid else
+    let subscript := recurse text opened names maskFirst maskAfter true
+    let closed := symbol text subscript.after 41
+    if closed ≤ position ∨ subscript.operands = maxOperands ∨
+        ArrayBindings.contains (ArrayBindings.binding arrays target) subscript.bounds = false then invalid
+    else ⟨closed, ArrayBindings.readBounds arrays initials elaborating target subscript.bounds,
+      subscript.operands + 1, false⟩
+
+def arraysAtomStep (recurse : Reader) (text : Source) (position : Nat) (names : Environment)
+    (maskFirst maskAfter : Nat) (allowSign : Bool) (arrays : ArrayBindings.Metadata)
+    (initials : ArrayBindings.Initials) (elaborating : Bool) : Result :=
+  let first := skip text position
+  let after := nameAfter text first
+  let index := lookup text names first after
+  let target := ArrayBindings.lookup text arrays first after
+  if first = 0 ∨ first > text.length then invalid
+  else if Cursor.byteAt text first = 43 ∨ Cursor.byteAt text first = 45 then
+    if !allowSign then invalid else
+      literalResult (ScalarLiteral.read text (skip text (first + 1))) (Cursor.byteAt text first == 45)
+  else
+    let number := ScalarLiteral.read text first
+    if number.after ≠ 0 then literalResult number false
+    else if after = 0 then invalid
+    else if maskFirst ≠ 0 ∧ Named.equalName text maskFirst maskAfter first after = true then invalid
+    else if index ≠ 0 then ⟨after, (binding names index).bounds.normalize, 1, (binding names index).isStatic⟩
+    else if target = 0 then invalid
+    else arrayAtomStep recurse text after names maskFirst maskAfter target arrays initials elaborating
+
+def arraysUnaryStep (recurse : ArraysReader) (text : Source) (position : Nat) (names : Environment)
+    (maskFirst maskAfter : Nat) (arrays : ArrayBindings.Metadata)
+    (initials : ArrayBindings.Initials) (elaborating : Bool) : Result :=
+  unaryStep (fun text position names maskFirst maskAfter allowSign =>
+    recurse text position names maskFirst maskAfter allowSign arrays initials elaborating)
+    text position names maskFirst maskAfter
+
+def arraysCompoundStep (recurse : ArraysReader) (text : Source) (names : Environment)
+    (left : Result) (maskFirst maskAfter : Nat) (arrays : ArrayBindings.Metadata)
+    (initials : ArrayBindings.Initials) (elaborating : Bool) : Result :=
+  compoundStep (fun text position names maskFirst maskAfter allowSign =>
+    recurse text position names maskFirst maskAfter allowSign arrays initials elaborating)
+    text names left maskFirst maskAfter
+
+def arraysGroupStep (recurse : ArraysReader) (text : Source) (position : Nat) (names : Environment)
+    (maskFirst maskAfter : Nat) (arrays : ArrayBindings.Metadata)
+    (initials : ArrayBindings.Initials) (elaborating : Bool) : Result :=
+  let first := skip text (position + 1)
+  if first > text.length then invalid
+  else if Cursor.byteAt text first = 43 ∨ Cursor.byteAt text first = 45
+  then arraysUnaryStep (@recurse) text first names maskFirst maskAfter arrays initials elaborating
+  else arraysCompoundStep (@recurse) text names
+    (recurse text first names maskFirst maskAfter true arrays initials elaborating) maskFirst maskAfter arrays initials elaborating
+
+def arraysReadStep (recurse : ArraysReader) (text : Source) (position : Nat) (names : Environment)
+    (maskFirst maskAfter : Nat) (allowSign : Bool) (arrays : ArrayBindings.Metadata)
+    (initials : ArrayBindings.Initials) (elaborating : Bool) : Result :=
+  let first := skip text position
+  if first = 0 ∨ first > text.length then invalid
+  else if Cursor.byteAt text first = 40 then
+    arraysGroupStep (@recurse) text first names maskFirst maskAfter arrays initials elaborating
+  else arraysAtomStep (fun text position names maskFirst maskAfter allowSign =>
+    recurse text position names maskFirst maskAfter allowSign)
+    text first names maskFirst maskAfter allowSign arrays initials elaborating
+
+def arraysReadFuel : Nat → ArraysReader
+  | 0 => fun _ _ _ _ _ _ _ _ _ => invalid
+  | fuel + 1 => fun text position names maskFirst maskAfter allowSign arrays initials elaborating =>
+      match arrays with
+      | [] => readFuel (fuel + 1) text position names maskFirst maskAfter allowSign
+      | _ :: _ => arraysReadStep (@arraysReadFuel fuel) text position names maskFirst maskAfter allowSign arrays initials elaborating
+
 structure Calls where
   lookupModel : Source → Environment → Nat → Nat → Nat → Nat
   lookup : Source → Environment → Nat → Nat → Nat
@@ -120,11 +201,13 @@ structure Calls where
   unaryResult : Result → Bool → Result
   binaryResult : Result → Result → Nat → Result
   closeResult : Source → Result → Result
-  readAtom : Reader
-  readUnary : Source → Nat → Environment → Nat → Nat → Result
-  readCompound : Source → Nat → Environment → Result → Nat → Nat → Result
-  readGroup : Source → Nat → Environment → Nat → Nat → Result
-  readExpression : Reader
+  readArrayAtom : Source → Nat → Environment → Nat → Nat → Nat → ArrayBindings.Metadata → ArrayBindings.Initials → Bool → Result
+  readAtom : ArraysReader
+  readUnary : Source → Nat → Environment → Nat → Nat → optParam ArrayBindings.Metadata [] → optParam ArrayBindings.Initials [] → optParam Bool false → Result
+  readCompound : Source → Nat → Environment → Result → Nat → Nat → optParam ArrayBindings.Metadata [] → optParam ArrayBindings.Initials [] → optParam Bool false → Result
+  readGroup : Source → Nat → Environment → Nat → Nat → optParam ArrayBindings.Metadata [] → optParam ArrayBindings.Initials [] → optParam Bool false → Result
+  readExpression : ArraysReader
+  arrays : ArrayBindings.Native.Calls
   scalars : ScalarCalls
   integerLiteral : Source → Nat → ScalarLiteral.Result
   trivia : Source → Nat → Nat
@@ -144,11 +227,13 @@ def modelCalls : Calls where
   unaryResult := Native.unaryResult
   binaryResult := Native.binaryResult
   closeResult := Native.closeResult
-  readAtom := atomResult
-  readUnary := unaryStep (@read)
-  readCompound text _ names left maskFirst maskAfter := compoundStep (@read) text names left maskFirst maskAfter
-  readGroup := groupStep (@read)
+  readArrayAtom := arrayAtomStep (fun text position names maskFirst maskAfter allowSign => read text position names maskFirst maskAfter allowSign)
+  readAtom := arraysAtomStep (fun text position names maskFirst maskAfter allowSign => read text position names maskFirst maskAfter allowSign)
+  readUnary := arraysUnaryStep (@read)
+  readCompound text _ names left maskFirst maskAfter := arraysCompoundStep (@read) text names left maskFirst maskAfter
+  readGroup := arraysGroupStep (@read)
   readExpression := @read
+  arrays := ArrayBindings.Native.modelCalls
   scalars := scalarModel
   integerLiteral := ScalarLiteral.read
   trivia := Cursor.triviaPosition
