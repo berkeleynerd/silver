@@ -528,7 +528,7 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                     stats["assignment_advisories"] += 1
                 if application and key == "proof":
                     require(record.get("severity") == "info" and record.get("how_proved") == "prover"
-                            and record.get("rule") in {"VC_RANGE_CHECK", "VC_LENGTH_CHECK", "VC_OVERFLOW_CHECK", "VC_DIVISION_CHECK"}
+                            and record.get("rule") in {"VC_RANGE_CHECK", "VC_LENGTH_CHECK", "VC_OVERFLOW_CHECK", "VC_DIVISION_CHECK", "VC_INDEX_CHECK"}
                             and record.get("file") == "main.adb"
                             and type(record.get("line")) is int and record["line"] > 0
                             and type(record.get("col")) is int and record["col"] > 0
