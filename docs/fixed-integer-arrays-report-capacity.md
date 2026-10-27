@@ -82,7 +82,7 @@ Existing mutable-array initializer/assignment advisories use the same branches
 in `flow-analysis.adb:1989–2055`. Positive initialization messages skip explicit
 initializers and internal objects at `2763–2794`. Position/message/severity
 deduplication and the source-bounded initializer-name allowance remain applicable.
-There is no new accepted diagnostic. Array component/bound syntax contains no
+The additional loop advisory is reviewed separately below. Array component/bound syntax contains no
 Image expression; placing indexed reads in existing Image arguments does not
 change its predefined Integer prefix or inherited maximum traversal count.
 
@@ -117,16 +117,88 @@ Main = checks*2048 + (2*S + 2*floor(S/16))*1024 + 2*S + 65536
 
 S = 4096: checks = 3006
 Main = 15,142,912 bytes
-16,777,216 - Main = 1,634,304 bytes of headroom
+Main before the additional loop advisory = 15,142,912 bytes
 ```
 
-The smaller total reflects removal of overlapping old maxima, despite adding
-new sites. No report-storage change is needed. Runtime envelopes remain
-unchanged. The sole new accepted Main proof rule is `VC_INDEX_CHECK`, whose
-fixed success text is `index check proved`; both fit the existing 2,048-byte
-record allowance. Existing info/prover/Main provenance and all suppression and
-justification exclusions remain. No `VC_RAISE`, new entity or diagnostic is
-admitted by this derivation.
+This subtotal reflects removal of overlapping old maxima, despite adding new
+sites. The sole new accepted Main proof rule is `VC_INDEX_CHECK`, whose fixed
+success text is `index check proved`; both fit the existing 2,048-byte record
+allowance. Existing info/prover/Main provenance and all suppression and
+justification exclusions remain. `VC_RAISE` and new report entities remain
+excluded.
+
+## Loop initialization advisory and corrected total
+
+The initial review incorrectly concluded that there was no additional accepted
+diagnostic and that the 15,142,912-byte subtotal was complete. The later actual
+rotation report `tmp/fixed-arrays-native/.silver/linux-x86_64/program-YO21S8/obj/gnatprove/main~1.spark`
+refuted that conclusion: it contains two `array-initialization` warnings. All
+71 application/runtime checks were proved, but the then-current Main auditor
+rejected these warnings. The original conclusion is retained here as refuted
+history, not accepted capacity evidence.
+
+The [earlier compiler assessment](reviews/review-scalar-guard-array-initialization-advisory-20261026.md)
+reviews the same pinned producer mechanism; its compiler-only policy did not
+authorize application acceptance. For this array fragment, the exact Main
+advisory is likewise conservative. `flow-control_flow_graph.adb:4015–4032`
+warns instead of including an object in `Fully_Initialized`; only recognized
+successes create the synthetic positive initialization vertex at `4307–4323`.
+The warning therefore withholds an initialization fact, without assuming safety
+or removing an obligation. `Emit_Warning` at `3648–3665` tests default/type
+initialization, not earlier explicit executable initialization. This fragment
+requires every component to be explicitly initialized before body execution.
+All ordinary initialization, index, range and other flow/proof checks remain
+required.
+
+The exact accepted record is in `warn_error`, for `main.adb`, with rule
+`array-initialization`, severity `warning`, `how_proved: trivial`, text
+`initialization of an array in FOR loop is handled imprecisely [array-initialization]`,
+positive line/column, empty `check_tree`, exact empty `suppressed`, and unknown
+status. It has no entity, statistics, VC location, secondary location or
+justification/annotation metadata. Source warning-suppression pragmas remain
+excluded. The warning's unknown status is not an unproved safety check.
+
+`Variables_Initialized_By_Loop` recursively visits nested loops
+(`flow-control_flow_graph.adb:4040–4117`). `Potentially_Defined` visits each
+indexed assignment once per enclosing loop analysis. The three call sites at
+`3483,3497,3515` are mutually exclusive. Warning emission is disabled during
+global generation. Admitted output calls have no array out parameter, and no
+other admitted call adds a warning route. Thus with `L` source for-loops and
+`W` indexed assignment sites, the warning count is at most `L*W`, not merely
+one per source assignment. `Warning_Msg_N` at `errout_wrapper.adb:874–916`
+appends JSON without deduplication; repeated nested-loop warnings must be
+charged separately.
+
+Each loop consumes disjoint fixed syntax of at least 27 bytes: the existing
+18-byte minimum prefix and nine-byte `end loop;`. Each indexed assignment
+consumes at least eight different bytes (`A(0):=0;`). Hence:
+
+```text
+27*L + 8*W <= S
+L*W <= floor(S*S / (4*27*8))
+S = 4096: warning count <= 19,418
+```
+
+Actual lexical separation and the required program/declaration shell consume
+more source bytes. The ceiling deliberately ignores them. A direct integer
+maximization of this already conservative constraint gives 19,404 pairs; the
+closed-form 19,418 ceiling is sufficient.
+
+The complete fixed warning schema with Natural-width positions and the same
+pretty-print indentation/separators as the inherited capacity guard occupies
+430 bytes. It has no user-defined name payload. Charge **512 bytes** per note:
+
+```text
+15,142,912 + 19,418*512 = 25,084,928 bytes
+33,554,432 - 25,084,928 = 8,469,504 bytes of headroom
+```
+
+The recommended feature-local Main allocation is therefore **33,554,432
+bytes (32 MiB)**. Runtime reports keep their 262,144-byte domain. This is a
+conservative envelope exceeding the old 16 MiB allocation, not evidence that
+an actual accepted program necessarily emits more than 16 MiB. It avoids a
+separate diagnostic projection or deduplication mechanism and leaves source
+and operator admission limits unchanged.
 
 ## Corroboration and scope
 
