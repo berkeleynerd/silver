@@ -48,6 +48,38 @@ theorem putInitial_length (values : Initials) (slot : Nat) (value : Int) :
     (putInitial values slot value).length = max values.length slot := by
   simp [putInitial]
 
+theorem initialValue_putInitial (values : Initials) (slot : Nat) (value : Int)
+    {observed : Nat} (positive : 0 < observed) :
+    initialValue (putInitial values slot value) observed =
+      if observed = slot then value else initialValue values observed := by
+  unfold initialValue putInitial
+  by_cases inside : observed - 1 < max values.length slot
+  · simp only [List.getD_eq_getElem?_getD, List.getElem?_map,
+      List.getElem?_eq_getElem (by simpa using inside : observed - 1 < (List.range (max values.length slot)).length),
+      List.getElem_range, Option.map_some, Option.getD_some]
+    have next : observed - 1 + 1 = observed := by omega
+    simp only [next]
+  · have oldOutside : values.length ≤ observed - 1 := by omega
+    have distinct : observed ≠ slot := by omega
+    simp only [List.getD_eq_getElem?_getD, List.getElem?_map,
+      List.getElem?_eq_none (by simpa using Nat.le_of_not_gt inside :
+        (List.range (max values.length slot)).length ≤ observed - 1),
+      Option.map_none, Option.getD_none, distinct, ↓reduceIte, List.getElem?_eq_none oldOutside]
+
+theorem putInitial_append (values : Initials) (value : Int) :
+    putInitial values (values.length + 1) value = values ++ [value] := by
+  apply List.ext_getElem
+  · simp [putInitial_length]
+  · intro index leftBound rightBound
+    simp only [putInitial, List.getElem_map, List.getElem_range]
+    by_cases old : index < values.length
+    · rw [List.getElem_append_left old]
+      have different : index ≠ values.length := by omega
+      simp [different, List.getD_eq_getElem?_getD, List.getElem?_eq_getElem old]
+    · have last : index = values.length := by simp only [List.length_append, List.length_singleton] at rightBound; omega
+      subst index
+      simp
+
 def ValidBinding (item : Binding) : Prop :=
   item.bounds.Bounded ∧ item.bounds.lower ≤ item.bounds.upper ∧
     0 < item.length ∧ item.offset + item.length ≤ maxElements ∧
@@ -191,6 +223,53 @@ theorem ranges_idempotent (names : Metadata) (values : Initials) (elaborating : 
 theorem store_scalar (names : Metadata) (values : Initials) (scalars : Integer.Store)
     {cell : Nat} (low : cell ≤ scalarLimit) : store names values scalars cell = scalars cell := by
   simp only [store, covers_scalar names low, Bool.false_eq_true, ↓reduceIte]
+
+theorem store_put (names : Metadata) (values : Initials) (scalars : Integer.Store)
+    {index : Nat} (low : index ≤ scalarLimit) (value : Int) :
+    store names values (Integer.put scalars index value) =
+      Integer.put (store names values scalars) index value := by
+  funext cell
+  by_cases same : cell = index
+  · subst cell
+    simp only [store_scalar names values _ low, Integer.put, ↓reduceIte]
+  · simp only [store, Integer.put, same, ↓reduceIte]
+
+theorem mutability_of_not_covered {names : Metadata} {cell : Nat} (absent : covers names cell = false)
+    (scalars : Integer.Mutability) : mutability names scalars cell = scalars cell := by
+  have missing : names.find? (fun item => decide (item.descriptor.ContainsCell cell)) = none := by
+    apply List.find?_eq_none.mpr
+    intro item member covered
+    have present := (covers_iff names cell).mpr ⟨item, member, of_decide_eq_true covered⟩
+    simp only [absent, Bool.false_eq_true] at present
+  simp only [mutability, missing]
+
+theorem mutability_scalar (names : Metadata) (scalars : Integer.Mutability)
+    {cell : Nat} (low : cell ≤ scalarLimit) : mutability names scalars cell = scalars cell :=
+  mutability_of_not_covered (covers_scalar names low) scalars
+
+theorem refinability_scalar (names : Metadata) (scalars : Integer.Mutability)
+    {cell : Nat} (low : cell ≤ scalarLimit) : refinability names scalars cell = scalars cell := by
+  simp only [refinability, covers_scalar names low, Bool.false_eq_true, ↓reduceIte]
+
+theorem mutability_put (names : Metadata) (scalars : Integer.Mutability)
+    {index : Nat} (low : index ≤ scalarLimit) (value : Bool) :
+    mutability names (Integer.put scalars index value) =
+      Integer.put (mutability names scalars) index value := by
+  funext cell
+  by_cases same : cell = index
+  · subst cell
+    simp only [mutability_scalar names _ low, Integer.put, ↓reduceIte]
+  · simp only [mutability, Integer.put, same, ↓reduceIte]
+
+theorem refinability_put (names : Metadata) (scalars : Integer.Mutability)
+    {index : Nat} (low : index ≤ scalarLimit) (value : Bool) :
+    refinability names (Integer.put scalars index value) =
+      Integer.put (refinability names scalars) index value := by
+  funext cell
+  by_cases same : cell = index
+  · subst cell
+    simp only [refinability_scalar names _ low, Integer.put, ↓reduceIte]
+  · simp only [refinability, Integer.put, same, ↓reduceIte]
 
 theorem initial_ranges_fits (names : Metadata) (values : Initials)
     {rangesBefore : Integer.Ranges} {valuesBefore : Integer.Store}

@@ -112,4 +112,26 @@ theorem At.noArray_readsOnly {text : Source} {names : Environment} {position mas
     expression.ReadsOnly (fun index => 0 < index ∧ index ≤ names.length) :=
   sourceSyntax_noArray_readsOnly parsed.grammar absent
 
+theorem At.noArray_infer_overlay {text : Source} {names : Environment} {position maskFirst maskAfter : Nat}
+    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating allowSign : Bool}
+    {expression : Integer.Expr} {result : Result}
+    (parsed : At text names position expression result maskFirst maskAfter allowSign arrays initials elaborating)
+    (absent : expression.hasArray = false) (capacity : names.length ≤ ArrayBindings.scalarLimit)
+    (scalars : Integer.Ranges) :
+    expression.infer (ArrayBindings.ranges arrays initials elaborating scalars) = expression.infer scalars := by
+  apply Integer.Expr.infer_readsOnly (parsed.noArray_readsOnly absent)
+  intro index inside
+  exact ArrayBindings.ranges_scalar arrays initials elaborating scalars (by omega)
+
+theorem At.noArray_evaluate_overlay {text : Source} {names : Environment} {position maskFirst maskAfter : Nat}
+    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating allowSign : Bool}
+    {expression : Integer.Expr} {result : Result}
+    (parsed : At text names position expression result maskFirst maskAfter allowSign arrays initials elaborating)
+    (absent : expression.hasArray = false) (capacity : names.length ≤ ArrayBindings.scalarLimit)
+    (scalars : Integer.Store) :
+    expression.evaluate (ArrayBindings.store arrays initials scalars) = expression.evaluate scalars := by
+  apply Integer.Expr.evaluate_readsOnly (parsed.noArray_readsOnly absent)
+  intro index inside
+  exact ArrayBindings.store_scalar arrays initials scalars (by omega)
+
 end Silver.ScalarExpression
