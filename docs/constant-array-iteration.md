@@ -1,7 +1,8 @@
 # Constant Integer-array iteration
 
-Status: paused at the owner’s request for the VM upgrade; not supported yet.
-See the [restart handoff](constant-array-iteration-pause-20261028.md).
+Status: implementation complete; full validation resumed after the VM upgrade.
+Not supported yet. The [pause handoff](constant-array-iteration-pause-20261028.md)
+retains the recovery snapshot.
 
 The [2026-10-28 owner instruction](session-memory.md#2026-10-28--constant-integer-array-iteration-authorized-as-a-stacked-pr)
 authorizes [#264](https://github.com/berkeleynerd/silver/issues/264) under
@@ -203,3 +204,26 @@ The [pause handoff](constant-array-iteration-pause-20261028.md) records preserve
 workspaces, toolchains, complete Lake artifacts and native solver caches outside
 `tmp`. The next feature work requires the owner's resumption. No support metadata
 was promoted and PR #266 remains draft and open.
+
+## Resumed complete checkpoint, 2026-10-28
+
+On the owner's “Please continue,” the existing worktrees and caches were
+verified and reused. Native run `20261028T142028-347f04375d6c` resumes complete
+proof/audit with four workers. Lean run `20261028T142057-dfe6a5552d65` checks
+the complete final project with one worker/thread and a 24,576 MiB process
+threshold. Both remain pending until their terminal evidence and audits pass.
+
+The [artifact transfer](evidence/constant-array-iteration-20261028/certificate-transfer.json)
+compares the successful certificate/bridge source and tool dependencies and
+preserves all seven module families, including private/server objects, IR and
+Lake metadata. Both worktrees were idle at transfer. The old candidate-success
+guard was replaced by its terminal interrupted state because the owner pause
+had released that workspace; no unfinished predicate artifact was transferred.
+The complete run reuses the successfully built composition candidate and rebuilds
+the unfinished predicate module before its whole-project fresh audit.
+
+The [independent delivery review](reviews/review-constant-array-iteration-delivery-20261028.md)
+confirmed all 87 transfer dependencies and 119 artifact files, with no actionable
+transfer defect. This bounded Astra / Extra High review took 131 seconds through
+its final comparisons; runtime confirmation and token/cost data are unavailable.
+Complete native/Lean results and final metadata remain outside that verdict.

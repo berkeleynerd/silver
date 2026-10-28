@@ -3,8 +3,9 @@
 The implementation is on stacked PR #266, based on `0a85336c83`. The final typed
 bridge is integrated as `fd9761af5c`; the validation snapshot is `1e7f42f0c1`.
 Complete native and Lean/source assurance remain pending. This packet does not
-yet establish supported delivery. Work is paused for the owner-requested VM
-upgrade; see the [restart handoff](../../constant-array-iteration-pause-20261028.md).
+yet establish supported delivery. Validation has resumed after the owner-requested VM
+pause; the [recovery handoff](../../constant-array-iteration-pause-20261028.md)
+retains that historical checkpoint.
 
 Each `runs/<run-id>/` directory retains original managed events and logs, plus
 Lean evidence or native reports when applicable, compressed without changing

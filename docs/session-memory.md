@@ -1,5 +1,24 @@
 # Session memory
 
+## 2026-10-28 — Constant-array iteration resumed after VM upgrade
+
+The owner instructed **“Please continue.”** after the upgrade pause. Resume
+#264/#267 through the remaining complete native and Lean/source validation,
+final evidence review and stacked PR delivery. PR #266 must remain open; the
+parent's external review still does not authorize merging the successor.
+
+All five worktrees and their caches survived. Captured input checks confirmed
+all 647 Lean source inputs and all 143 tracked native provenance inputs still
+match the integration branch. Successful certificate and bridge artifacts were
+transferred between idle worktrees after matching their dependencies, allowing
+one complete Lean run to reuse the composition candidate and rebuild the
+unfinished predicate module. Native validation resumes with saved sessions and
+the restored parent solver cache. The two pause-interrupted runs remain
+interrupted. The [capability record](constant-array-iteration.md) carries current
+run IDs; the [pause handoff](constant-array-iteration-pause-20261028.md) and local
+backup remain historical recovery records. No harness goal was created; CLI
+memory remains unavailable.
+
 ## 2026-10-28 — Constant-array iteration paused for VM upgrade
 
 The owner requested pausing at the next opportunity for the sbx VM upgrade to

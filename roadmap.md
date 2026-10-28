@@ -68,9 +68,9 @@ contains one bounded increment, [#264](https://github.com/berkeleynerd/silver/is
 `for E of [reverse] A loop`, where `A` is an existing constant Integer array.
 The faithful driver is Rosetta Loops/Foreach. The
 [capability record](docs/constant-array-iteration.md) retains scope and evidence.
-This feature is not supported yet. Work is paused at the owner’s request for the
-VM upgrade; the [restart handoff](docs/constant-array-iteration-pause-20261028.md)
-records preserved validation work and remaining checks.
+This feature is not supported yet. Complete validation resumed after the owner’s
+VM-upgrade pause; the [recovery handoff](docs/constant-array-iteration-pause-20261028.md)
+retains the saved checkpoint.
 
 The sequence is producer and semantics discovery, native/universal/source
 implementation, then one stable complete validation checkpoint and independent

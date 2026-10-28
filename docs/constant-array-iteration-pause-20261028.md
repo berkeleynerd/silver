@@ -1,5 +1,9 @@
 # Constant-array iteration: VM-upgrade pause, 2026-10-28
 
+Historical pause snapshot: the owner subsequently instructed “Please continue.”
+The [capability record](constant-array-iteration.md#resumed-complete-checkpoint-2026-10-28)
+records the resumed validation. Preserve this snapshot and backup as recovery history.
+
 The owner requested pausing for the sbx VM upgrade to `.50`, with possible
 restart and loss of `tmp`. Feature work is paused; resume only on the owner's
 instruction. [PR #266](https://github.com/berkeleynerd/silver/pull/266) remains
