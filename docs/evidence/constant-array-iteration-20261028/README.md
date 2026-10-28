@@ -2,8 +2,8 @@
 
 The implementation is on stacked PR #266, based on `0a85336c83`. The final typed
 bridge is integrated as `fd9761af5c`; the validation snapshot is `1e7f42f0c1`.
-Complete native and Lean/source assurance remain pending. This packet does not
-yet establish supported delivery. Validation has resumed after the owner-requested VM
+Complete Lean/source assurance passed; complete native assurance remains pending.
+This packet does not yet establish supported delivery. Validation resumed after the owner-requested VM
 pause; the [recovery handoff](../../constant-array-iteration-pause-20261028.md)
 retains that historical checkpoint.
 
@@ -20,6 +20,7 @@ runs keep their original outcomes.
 | `20261028T112717-49ee7b84b5ec` | Final typed bridge and exact loop rendering | Focused build and fresh 34,099-declaration audit passed |
 | `20261028T103900-407484c4629b` | Byte-exact output-body certificate | Focused build and fresh 28,400-declaration audit passed |
 | `20261028T134726-e1a9c7080656` | Output, named, argument and lexical source bridges | Focused build and fresh 48,060-declaration audit passed |
+| `20261028T142057-dfe6a5552d65` | Complete Lean/source/module/axiom checkpoint | Passed; all 532 modules, 112,705 declarations, approved foundations only |
 | `20261028T110929-97e25e5a798e` | Complete 540-test suite | Failed: 539 passes and one 180-second fixture timeout |
 | `20261028T123939-44279f5d51d8` | Source policy and certificate tests | All 12 passed |
 | `20261028T131129-d738104f578d` | Platform tests, including the timeout case | All 16 passed; timeout and assertions unchanged |
@@ -44,7 +45,14 @@ native run uses the reviewed catalogue repair at `d155e60ccc`.
 The certificate build took 10,706.620 seconds, followed by a fresh 24.945-second
 axiom audit. It used one worker/thread and a 16,384 MiB process threshold.
 It ran alongside other managed work, so this is not an isolated timing baseline.
-The final project check will reuse its verified matching artifacts.
+The complete project check reused its verified matching artifacts.
+
+[Lean input applicability](lean-input-applicability.json) verifies all 647
+captured source inputs against integration. The complete incremental build took
+8,523.114 seconds and its separate fresh whole-project audit 15.738 seconds.
+The [independent delivery review](../../reviews/review-constant-array-iteration-delivery-20261028.md)
+confirms that result and the exact module/input inventories. Native assurance,
+Rosetta tests and final delivery metadata remain outside that bounded verdict.
 
 The [producer evidence](producer/files.json) supports the
 [feature-local capacity account](../../constant-array-iteration-report-capacity.md).

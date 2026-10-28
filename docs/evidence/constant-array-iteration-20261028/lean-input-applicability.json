@@ -1,0 +1,9 @@
+{
+  "run_id": "20261028T142057-dfe6a5552d65",
+  "implementation_commit": "fd9761af5c",
+  "compared_at_commit": "ddc0d9ec12e9e8d3ce5db8c314e50a046b6c8067",
+  "matched_inputs": 647,
+  "different_inputs": [],
+  "inputs_digest_sha256": "727eb413347565a01ed4239df76b2f1c3c01aa6f7e29a5d53b40c4db46561adc",
+  "scope": "All captured Lean authoritative source inputs match the integration tree; subsequent delivery changes are documentation and Rosetta metadata only."
+}
