@@ -1,5 +1,25 @@
 # Session memory
 
+## 2026-10-28 — Fixed-array external review response authorized
+
+The owner supplied the complete external review of `10cdcd274c` / PR #263 and
+selected **“Separate response PR stacked on #266 (recommended)”**. This authorizes
+the bounded [milestone 12 response](https://github.com/berkeleynerd/silver/milestone/12):
+repair M1's expression-tree precedence guards, correct the catalogue and Rosetta
+test-input capture, reconcile required records/bookkeeping, observe the counted
+and constant-array loop shapes under an 8 MiB stack, and complete one combined
+validation checkpoint with independent review. The
+[retained review and dispositions](reviews/review-10cdcd274c.md) distinguish the
+external findings from the selected response and deferred informational work.
+
+Base the response on #266 at `873f5910d2`. Keep both PRs open and do not merge.
+The original fixed-array and constant-array-iteration support claims stand;
+the existing trees have correct association, but fix the guard before any new
+tree relies on it. No next language feature, Oracle amendment, general capacity
+redesign, new assurance mode or mandatory replay is selected. Keep failed and
+interrupted evidence historical. No harness goal was created; CLI memory is
+unavailable and was not updated.
+
 ## 2026-10-28 — Constant Integer-array iteration delivery checkpoint
 
 The authorized #264 implementation and #267 catalogue correction have passed

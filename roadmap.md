@@ -14,6 +14,19 @@ next capability while retaining full assurance for the current language.
 
 ## Current development sequence
 
+### Fixed-array external review response
+
+The owner selected a separate response PR stacked on #266 for the
+[external review of PR #263](docs/reviews/review-10cdcd274c.md), under
+[milestone 12](https://github.com/berkeleynerd/silver/milestone/12).
+One coordinated increment repairs the latent precedence/association guard
+[#268](https://github.com/berkeleynerd/silver/issues/268), catalogue and managed
+Rosetta-input capture, required records and two stack observations, followed by
+one stable complete assurance checkpoint and independent review. Findings
+#269–#282 track the other required corrections; existing issues retain the
+bookkeeping and optional follow-ups. Implementation is in progress. Both PRs
+remain open; broader language, capacity and optional refactors are not selected.
+
 **Sequence since 2026-10-24.** Language development resumes first, following the
 [Rosetta progression](rosetta/progression.md) at the current 4,096-byte strict
 language: stage [#9](https://github.com/berkeleynerd/silver/issues/9), whose sample delivery
