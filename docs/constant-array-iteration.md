@@ -82,8 +82,9 @@ introduce a general iterator framework or assurance mode.
 The planning authorization reached main through PR #265 (`a2bb0a9f65`).
 Implementation remains on `feat/constant-array-iteration`, with isolated native,
 core-proof and source-correspondence worktrees. The stacked PR is not complete
-or supported yet; full native/Lean/source/regression validation and independent
-integration review remain outstanding.
+or supported yet. The focused implementation and regression layers are reviewed;
+complete native and Lean/source assurance and final delivery review remain
+outstanding, as detailed below.
 
 The native change is a direct `of` branch in `Loop_Body`, sharing the existing
 body flow logic with counted loops. The mathematical core has a dedicated
@@ -129,8 +130,8 @@ records the correction to both catalogue copies and related language summaries.
 The reviewer confirmed the repaired meanings; build
 `20261028T110633-769e6cd4dab7` and catalogue byte-parity regression
 `20261028T110712-42bfb28a9731` passed. The recognizer and output certificate are
-unchanged. The active native checkpoint retains its original catalogue inputs;
-a complete cached refresh will validate the corrected catalogue before delivery.
+unchanged. The first native checkpoint retained its original catalogue inputs.
+The final native checkpoint described below includes the corrected catalogue.
 
 The final typed bridge at `3255e9ddecae` proves the unchanged
 `LoopNative.eval_equation` by separating header selection from the shared body
@@ -148,8 +149,8 @@ normalization attempt was deliberately interrupted; smaller private staging
 lemmas closed the same statement. No native behavior, theorem assumption,
 source representation or kernel-check policy was changed. Selected settings
 are recorded; runtime confirmation and token/cost measurements are unavailable.
-Complete native, source-certificate, whole-project and regression checkpoints
-remain pending.
+Complete native, source-certificate and whole-project checkpoints remain
+pending. The reviewed regression coverage is recorded below.
 
 The complete 540-test run `20261028T110929-97e25e5a798e` retained 539
 successes and one symlinked-TMPDIR fixture timeout at 180 seconds. All 788
