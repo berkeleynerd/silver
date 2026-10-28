@@ -129,7 +129,7 @@ class SilverIntegrationTests(unittest.TestCase):
         sequence = constructs["statement_sequence"]["conditions"]
         self.assertEqual(sequence["minimum"], 1)
         self.assertEqual(sequence["items"], ["null_statement", "string_assignment", "integer_assignment", "integer_array_assignment", "expression_output",
-                                             "string_choice", "argument_rejection", "for_loop"])
+                                         "string_choice", "argument_rejection", "for_loop", "integer_array_iteration"])
         self.assertEqual(sequence["argument_rejection_context"], "argument-input shell only")
         self.assertFalse(sequence["output_required"])
         self.assertTrue(sequence["repeated_choices"])
