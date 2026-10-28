@@ -75,6 +75,11 @@ mutual
         executeIterations (fun current scalars value =>
           (executeStatements input inputValid current body (Integer.put scalars index value)).restoreIndex index scalars)
           values integers (Integer.iterationValues reverse (lower.evaluate integers) (upper.evaluate integers))
+    | .arrayLoop index reverse array body =>
+        executeIterations (fun current scalars component =>
+          (executeStatements input inputValid current body
+            (Integer.put scalars index (array.project scalars component))).restoreIndex index scalars)
+          values integers (Integer.iterationValues reverse array.bounds.lower array.bounds.upper)
   termination_by sizeOf item
   def executeStatements (input : Source) (inputValid : Bool) (values : Values) (items : List Statement)
       (integers : Integer.Store := Integer.emptyStore) : Execution :=
@@ -105,6 +110,13 @@ mutual
             (checkedStatements input inputValid current body (Integer.put scalars index value)).map
               fun result => result.restoreIndex index scalars)
             values integers (Integer.iterationValues reverse a b)
+    | .arrayLoop index reverse array body =>
+        checkedIterations (fun current scalars component =>
+          if array.bounds.Contains component then
+            (Integer.checkedValue (array.project scalars component)).bind fun value =>
+              (checkedStatements input inputValid current body (Integer.put scalars index value)).map
+                fun result => result.restoreIndex index scalars
+          else none) values integers (Integer.iterationValues reverse array.bounds.lower array.bounds.upper)
   termination_by sizeOf item
   def checkedStatements (input : Source) (inputValid : Bool) (values : Values) (items : List Statement)
       (integers : Integer.Store := Integer.emptyStore) : Option Execution :=
@@ -195,6 +207,24 @@ mutual
           have preserved := statements_unchanged (input := input) (valid := valid)
             (values := current) (integers := Integer.put scalars binder value) bodyChecked readonlyBody
           simpa only [Execution.restoreIndex, Integer.restore, Integer.put, same, ↓reduceIte] using preserved
+    | arrayLoop binder reverse array body =>
+        simp only [Statement.check] at checked
+        split at checked
+        · simp only [Option.map_eq_some_iff] at checked
+          obtain ⟨bodyAfter, bodyChecked, _⟩ := checked
+          simp only [Statement.execute]
+          apply iterations_unchanged
+          intro current scalars component
+          by_cases same : index = binder
+          · subst index
+            simp only [Execution.restoreIndex, Integer.restore, Integer.put, ↓reduceIte]
+          · have readonlyBody : (analysis.withIndex binder Integer.Interval.full).mutable index = false := by
+              simpa only [Integer.Analysis.withIndex, Integer.put, same, ↓reduceIte] using readonly
+            have preserved := statements_unchanged (input := input) (valid := valid)
+              (values := current) (integers := Integer.put scalars binder (array.project scalars component))
+              bodyChecked readonlyBody
+            simpa only [Execution.restoreIndex, Integer.restore, Integer.put, same, ↓reduceIte] using preserved
+        · contradiction
   termination_by sizeOf item
 
   theorem statements_unchanged {shape : Shape} {analysis : Integer.Analysis} {before after : Flow}
@@ -215,6 +245,31 @@ mutual
         simpa only [executeStatements] using following.trans first
   termination_by sizeOf items
 end
+
+/-- Constant arrays retain their actual components across every admitted body,
+including nested loops, branches, other-array writes and returning Reject. -/
+theorem statements_constant_components {shape : Shape} {analysis : Integer.Analysis}
+    {before after : Flow} {items : List Statement} {input : Source} {valid : Bool}
+    {values : Values} {integers : Integer.Store} {array : Integer.ArrayDescriptor}
+    (checked : checkStatements shape analysis before items = some after)
+    (readonly : ∀ cell, array.ContainsCell cell → analysis.mutable cell = false)
+    {component : Int} (inside : array.bounds.Contains component) :
+    array.project (executeStatements input valid values items integers).integers component =
+      array.project integers component :=
+  statements_unchanged checked (readonly _ (array.address_within inside))
+
+/-- Installing the lexical element binding cannot replace its actual component.
+The premise is a generic core check, independent of native allocation bounds. -/
+theorem arrayLoop_binding_component {analysis : Integer.Analysis} {flow : Flow} {index : Nat}
+    {array : Integer.ArrayDescriptor} {integers : Integer.Store} {component value : Int}
+    (ready : arrayLoopReady analysis flow index array = true)
+    (inside : array.bounds.Contains component) :
+    array.project (Integer.put integers index value) component = array.project integers component := by
+  have separate := ((arrayLoopReady_iff analysis flow index array).mp ready).2.1
+  have different : array.address component ≠ index := by
+    intro same
+    exact separate (same ▸ array.address_within inside)
+  simp only [Integer.ArrayDescriptor.project, Integer.put, different, ↓reduceIte]
 
 structure ExecutionSound (shape : Shape) (analysis : Integer.Analysis) (flow : Flow) (input : Source)
     (valid beforeRejected : Bool) (result : Execution) (ordinary : Option Execution) : Prop where
@@ -494,6 +549,64 @@ mutual
             change Integer.Fits before.scalars (executeIterations _ values integers indices).integers
             simpa only [noIterations, executeIterations] using allowed.2
           · exact iterated.scalars
+    | arrayLoop index reverse array body =>
+        simp only [Statement.WellFormed] at wellFormed
+        simp only [Statement.check] at checked
+        split at checked
+        · rename_i ready
+          have properties := (arrayLoopReady_iff analysis before index array).mp (Bool.and_eq_true_iff.mp ready).1
+          simp only [Option.map_eq_some_iff] at checked
+          obtain ⟨bodyAfter, bodyChecked, rfl⟩ := checked
+          let indices := Integer.iterationValues reverse array.bounds.lower array.bounds.upper
+          let widened := analysis.widen before.scalars
+          have nonempty : indices ≠ [] := Integer.iterationValues_nonempty properties.1.2
+          have iterated : ExecutionSound shape analysis
+              ⟨if indices = [] then before.path else bodyAfter.path, widened⟩ input valid rejected
+              (executeIterations (fun current scalars component =>
+                (executeStatements input valid current body
+                  (Integer.put scalars index (array.project scalars component))).restoreIndex index scalars)
+                values integers indices)
+              (checkedIterations (fun current scalars component =>
+                if array.bounds.Contains component then
+                  (Integer.checkedValue (array.project scalars component)).bind fun value =>
+                    (checkedStatements input valid current body (Integer.put scalars index value)).map
+                      fun result => result.restoreIndex index scalars
+                else none) values integers indices) := by
+            apply iterations_execution_sound _ state allowed.1
+              (analysis.widen_fits allowed.2 declaredState) declaredState
+            intro component member current scalars already currentState currentAllowed currentScalars currentDeclared
+            have inside : array.bounds.Contains component := Integer.iterationValues_contains member
+            have valueWithin : Integer.Interval.full.Contains (array.project scalars component) :=
+              currentDeclared _ _ (properties.2.2.2.1 component inside)
+            have valueSafe : Integer.InRange (array.project scalars component) :=
+              by simpa only [Integer.Interval.full_contains] using valueWithin
+            have bodyAllowed : (arrayLoopEntry analysis before index).Allows
+                valid input.length already (Integer.put scalars index (array.project scalars component)) :=
+              ⟨currentAllowed, Integer.put_fits currentScalars valueWithin⟩
+            have bodySound := statements_execution_sound wellFormed.2.2 bodyChecked currentState printable bodyAllowed
+              (Integer.put_fits currentDeclared valueWithin)
+            have restoredDeclared := Integer.restore_fits currentDeclared bodySound.declared
+            have restoredCurrent : Integer.Fits widened
+                (Integer.restore scalars (executeStatements input valid current body
+                  (Integer.put scalars index (array.project scalars component))).integers index) := by
+              apply analysis.widen_closed currentScalars restoredDeclared
+              intro other readonly
+              by_cases same : other = index
+              · subst other
+                simp only [Integer.restore, Integer.put, ↓reduceIte]
+              · have readBody : (analysis.withIndex index Integer.Interval.full).mutable other = false := by
+                  simpa only [Integer.Analysis.withIndex, Integer.put, same, ↓reduceIte] using readonly
+                have unchanged := statements_unchanged (input := input) (valid := valid)
+                  (values := current) (integers := Integer.put scalars index (array.project scalars component))
+                  bodyChecked readBody
+                simpa only [Integer.restore, Integer.put, same, ↓reduceIte] using unchanged
+            refine ⟨bodySound.state, bodySound.effects, bodySound.invalid_no_output, bodySound.next,
+              ?_, restoredCurrent, restoredDeclared⟩
+            simp only [inside, ↓reduceIte, Integer.checkedValue, valueSafe,
+              Option.bind_some, bodySound.agreement, Option.map_some]
+          simpa only [Statement.execute, Statement.checkedExecute, arrayLoopExit, nonempty, ↓reduceIte]
+            using iterated
+        · contradiction
   termination_by sizeOf item
 
   theorem statements_execution_sound {shape : Shape} {before after : Flow} {hasArguments : Bool}

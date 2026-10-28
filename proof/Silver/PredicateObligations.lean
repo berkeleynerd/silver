@@ -197,6 +197,10 @@ mutual
               (analysis.withIndex index (Integer.loopBounds a b))
               (loopEntry analysis flow index (Integer.loopBounds a b)) body
           | _, _ => [.impossible]
+    | .arrayLoop index _ array body =>
+        [.scalar (.arrayIndex array array.bounds)] ++
+          statementsObligations shape (analysis.withIndex index Integer.Interval.full)
+            (arrayLoopEntry analysis flow index) body
   termination_by sizeOf item
   def statementsObligations (shape : Shape) (analysis : Integer.Analysis) (flow : Flow)
       (items : List Statement) : List Obligation :=
@@ -253,6 +257,20 @@ mutual
           scalar_discharged, Integer.Expr.obligations_discharge lowerFound,
           Integer.Expr.obligations_discharge upperFound, statements_obligations_discharge bodyChecked,
           Bool.and_self]
+    | arrayLoop index reverse array body =>
+        simp only [Statement.check] at checked
+        split at checked
+        · rename_i ready
+          have valid := ((arrayLoopReady_iff analysis before index array).mp (Bool.and_eq_true_iff.mp ready).1).1
+          simp only [Option.map_eq_some_iff] at checked
+          obtain ⟨bodyAfter, bodyChecked, _⟩ := checked
+          have indexCheck : Integer.arrayIndexCheck array array.bounds = true := by
+            simp only [Integer.arrayIndexCheck, decide_eq_true_eq]
+            exact ⟨valid, valid.2, Int.le_refl _, Int.le_refl _⟩
+          simp only [Statement.obligations, discharged_append,
+            statements_obligations_discharge bodyChecked, Bool.and_true]
+          simp [discharged, Obligation.discharge, Integer.Obligation.discharge, indexCheck]
+        · contradiction
   termination_by sizeOf item
 
   theorem statements_obligations_discharge {shape : Shape} {analysis : Integer.Analysis} {before after : Flow} {items : List Statement}

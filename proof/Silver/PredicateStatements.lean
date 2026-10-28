@@ -22,7 +22,24 @@ inductive Statement
   | reject
   | choice (condition : Condition) (yes no : List Statement)
   | forLoop (index : Nat) (reverse : Bool) (lower upper : Integer.Expr) (body : List Statement)
+  | arrayLoop (index : Nat) (reverse : Bool) (array : Integer.ArrayDescriptor) (body : List Statement)
   deriving Repr
+
+/- Lexical binders must never transiently overwrite a constant component.
+Restoring a nested binder only at loop exit would not establish Ada's alias
+semantics during the nested body. This check covers both loop constructors. -/
+mutual
+  def Statement.bindersApart (array : Integer.ArrayDescriptor) : Statement → Bool
+    | .simple _ | .scalarAssign _ | .arrayAssign _ | .reject => true
+    | .choice _ yes no => statementsBindersApart array yes && statementsBindersApart array no
+    | .forLoop index _ _ _ body | .arrayLoop index _ _ body =>
+        decide (¬array.ContainsCell index) && statementsBindersApart array body
+  termination_by item => sizeOf item
+  def statementsBindersApart (array : Integer.ArrayDescriptor) : List Statement → Bool
+    | [] => true
+    | item :: rest => item.bindersApart array && statementsBindersApart array rest
+  termination_by items => sizeOf items
+end
 
 def ExpressionReady (shape : Shape) (expression : Expression) : Prop :=
   expression.StringReadable shape ∧ expression.LiteralsPrintable ∧
@@ -43,7 +60,8 @@ mutual
     | .choice condition yes no =>
         condition.Grammatical ∧ condition.Readable hasArguments shape ∧ yes ≠ [] ∧
           StatementsWellFormed hasArguments shape yes ∧ StatementsWellFormed hasArguments shape no
-    | .forLoop index _ _ _ body => index ≠ 0 ∧ body ≠ [] ∧ StatementsWellFormed hasArguments shape body
+    | .forLoop index _ _ _ body | .arrayLoop index _ _ body =>
+        index ≠ 0 ∧ body ≠ [] ∧ StatementsWellFormed hasArguments shape body
   termination_by item => sizeOf item
   def StatementsWellFormed (hasArguments : Bool) (shape : Shape) : List Statement → Prop
     | [] => True
@@ -146,6 +164,34 @@ def loopExit (analysis : Integer.Analysis) (before after : Flow)
     if (Integer.loopBounds lower upper).isEmpty then before.scalars
     else analysis.widen before.scalars⟩
 
+/-- A generic core identity need not obey native allocation limits. Require
+binder/storage separation directly, alongside constant Full component cells. -/
+def arrayLoopReady (analysis : Integer.Analysis) (flow : Flow) (index : Nat)
+    (array : Integer.ArrayDescriptor) : Bool :=
+  decide (array.Valid ∧ ¬array.ContainsCell index) &&
+    (array.fullRanges flow.scalars && (array.fullRanges analysis.declared &&
+      array.allCells (fun cell => !analysis.mutable cell)))
+
+theorem arrayLoopReady_iff (analysis : Integer.Analysis) (flow : Flow) (index : Nat)
+    (array : Integer.ArrayDescriptor) :
+    arrayLoopReady analysis flow index array = true ↔
+      array.Valid ∧ ¬array.ContainsCell index ∧ array.FullRanges flow.scalars ∧
+      array.FullRanges analysis.declared ∧
+      (∀ cell, array.ContainsCell cell → analysis.mutable cell = false) := by
+  simp only [arrayLoopReady, Bool.and_eq_true, decide_eq_true_eq,
+    Integer.ArrayDescriptor.fullRanges_iff, Integer.ArrayDescriptor.allCells_iff,
+    Bool.not_eq_true', and_assoc]
+
+/-- Every component exists, and entry facts describe the current component's
+full Integer domain. Mutable scalar facts are widened before every body. -/
+def arrayLoopEntry (analysis : Integer.Analysis) (flow : Flow) (index : Nat) : Flow :=
+  ⟨flow.path, Integer.put (analysis.widen flow.scalars) index (some Integer.Interval.full)⟩
+
+/-- Nonempty array iteration retains the definitely-executed body's input flow;
+component refinements and mutable scalar facts do not escape. -/
+def arrayLoopExit (analysis : Integer.Analysis) (before after : Flow) : Flow :=
+  ⟨after.path, analysis.widen before.scalars⟩
+
 /-- Array components remain Full in both flow and declaration environments.
 The core check also requires the complete target segment to be mutable. -/
 def checkArrayAssignment (analysis : Integer.Analysis) (flow : Flow)
@@ -174,6 +220,11 @@ mutual
           let bounds := Integer.loopBounds a b
           (checkStatements shape (analysis.withIndex index bounds)
             (loopEntry analysis flow index bounds) body).map fun after => loopExit analysis flow after a b
+    | .arrayLoop index _ array body =>
+        if arrayLoopReady analysis flow index array && statementsBindersApart array body then
+          (checkStatements shape (analysis.withIndex index Integer.Interval.full)
+            (arrayLoopEntry analysis flow index) body).map fun after => arrayLoopExit analysis flow after
+        else none
   termination_by sizeOf item
   def checkStatements (shape : Shape) (analysis : Integer.Analysis) (flow : Flow)
       (items : List Statement) : Option Flow :=
@@ -232,6 +283,13 @@ mutual
         split
         · exact ⟨refined, bounded⟩
         · exact ⟨analysis.widen_refines refined, analysis.widen_bounded bounded declared⟩
+    | arrayLoop index reverse array body =>
+        simp only [Statement.check] at checked
+        split at checked
+        · simp only [Option.map_eq_some_iff] at checked
+          obtain ⟨bodyAfter, _, rfl⟩ := checked
+          exact ⟨analysis.widen_refines refined, analysis.widen_bounded bounded declared⟩
+        · contradiction
   termination_by sizeOf item
 
   theorem statements_ranges_invariant {shape : Shape} {analysis : Integer.Analysis}
@@ -310,6 +368,13 @@ mutual
         split
         · exact incoming
         · simpa only [Integer.Analysis.widen, readonly, Bool.false_eq_true, ↓reduceIte] using incoming
+    | arrayLoop binder reverse array body =>
+        simp only [Statement.check] at checked
+        split at checked
+        · simp only [Option.map_eq_some_iff] at checked
+          obtain ⟨bodyAfter, _, rfl⟩ := checked
+          simpa only [arrayLoopExit, Integer.Analysis.widen, readonly, Bool.false_eq_true, ↓reduceIte] using incoming
+        · contradiction
   termination_by sizeOf item
 
   theorem statements_preserves_fixed {shape : Shape} {analysis : Integer.Analysis}

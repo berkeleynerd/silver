@@ -25,7 +25,7 @@ mutual
     | .scalarAssign _ | .arrayAssign _ => flag == .assignment
     | .reject => false
     | .choice _ yes tail => flag.sources yes || flag.alternative tail
-    | .forLoop _ _ _ _ body => flag.sources body
+    | .forLoop _ _ _ _ body | .arrayLoop _ _ _ body => flag.sources body
   termination_by item => sizeOf item
   def Flag.alternative (flag : Flag) : SourceAlternative → Bool
     | .absent => false

@@ -50,7 +50,7 @@ mutual
     | .scalarAssign _ | .arrayAssign _ => flag == .assignment
     | .reject => false
     | .choice _ yes no => flag.statements yes || flag.statements no
-    | .forLoop _ _ _ _ body => flag.statements body
+    | .forLoop _ _ _ _ body | .arrayLoop _ _ _ body => flag.statements body
   termination_by item => sizeOf item
   def Flag.statements (flag : Flag) : List Statement → Bool
     | [] => false
@@ -69,7 +69,7 @@ mutual
     | choice condition yes tail =>
         simp only [SourceStatement.lower, Flag.statement, Flag.source,
           statements_lower_flags flag yes, alternative_lower_flags flag tail]
-    | forLoop index reverse lower upper body =>
+    | forLoop index reverse lower upper body | arrayLoop index reverse array body =>
         simp only [SourceStatement.lower, Flag.statement, Flag.source, statements_lower_flags flag body]
   termination_by sizeOf item
   theorem alternative_lower_flags (flag : Flag) (tail : SourceAlternative) :
