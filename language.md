@@ -414,8 +414,8 @@ are captured on entry, including bounds read from arrays, and later writes do
 not alter that iteration sequence. Empty loops preserve the entire store.
 
 Array names share declaration uniqueness and operation/type hiding with String
-and Integer names. A scoped loop index may hide an array, and the new index's
-name is unavailable in its own bounds. Whole-array values, assignment, copying,
+and Integer names. A scoped loop index or element may hide an array. The new
+binder's name is unavailable in its own bounds or iterable specification. Whole-array values, assignment, copying,
 comparison, slices, concatenation and attributes are not admitted; copying
 components explicitly through checked reads and writes is permitted.
 
@@ -440,9 +440,9 @@ The index is immutable and disappears on loop exit. Declarations stay in the
 single outer declaration region; `exit`, `while`, unconstrained loops and
 explicit iteration steps are excluded.
 
-Indexes may hide a String, an Integer object, an Integer array, an enclosing index or a
-use-visible operation. The index's own name is hidden in both bounds: an inner
-`for I in 1 .. I` cannot use the outer `I`. Differently named enclosing indexes
+Indexes may hide a String, an Integer object, an Integer array, an enclosing index, an enclosing
+element or a use-visible operation. The index's own name is hidden in both bounds: an inner
+`for I in 1 .. I` cannot use the outer `I`. Differently named enclosing indexes and elements
 remain available, as in `for J in 1 .. I`. Sequential loops may reuse names.
 Index names obey the identifier/reserved-word rules and cannot be `Silver_IO`,
 or `Silver_Arguments` in an argument shell. Unlike ordinary declarations, an
@@ -643,7 +643,7 @@ contiguous token.
 
 Integer assignment evaluates the RHS in the current scalar store and changes
 only its target. The target must be a visible mutable Integer object; constants,
-loop indexes and hidden outer objects cannot be assigned, including in empty
+loop indexes, loop elements and hidden outer objects cannot be assigned, including in empty
 loops or unreachable arms. Every RHS intermediate must fit Integer and its
 whole inferred interval must be nonempty and lie within the target's declared
 range. Requiring nonemptiness is a Silver frontend-acceptance restriction:
@@ -874,7 +874,7 @@ The catalogue uses these construct identifiers:
 | `scalar_integer_literal`, `named_integer_constant`, `named_integer_variable`, `integer_range_constraint`, `integer_expression`, `integer_assignment` | Scalar numerals, initialized Integer objects, optional static object constraints, checked interval arithmetic and range-preserving assignments. |
 | `integer_array_object`, `integer_array_read`, `integer_array_assignment` | Explicitly initialized anonymous fixed-size Integer arrays, nonempty interval-checked subscripts and component-preserving indexed assignment. |
 | `integer_array_iteration` | Forward/reverse iteration over constant Integer arrays, with immutable nonstatic elements, full Integer entry bounds and existing guard/statement compositions. |
-| `integer_comparison`, `scalar_guard_refinement`, `integer_image`, `for_loop` | Bare mutable/index names against static thresholds, current read intervals with assignment replacement and branch hulls, standard decimal Image and scoped finite loops with captured bounds and mutable widening. |
+| `integer_comparison`, `scalar_guard_refinement`, `integer_image`, `for_loop` | Bare mutable/index/element names against static thresholds, current read intervals with assignment replacement and branch hulls, standard decimal Image and scoped finite loops with captured bounds and mutable widening. |
 | `expression_output`, `literal_output`, `named_output`, `concatenated_output` | Returning output calls with qualified or visible unqualified names and positional or `Item =>` actuals. |
 | `argument_initialization`, `input_guard`, `capacity_guard`, `argument_rejection` | First/unique immutable input with positional or `Default =>` literal, path-derived validity/capacity and returning rejection; existing calls follow the shared visibility rules. |
 | `string_equality`, `string_choice` | Nested predicates with nonempty statements, repeated `elsif`, optional `else` and path refinement. |

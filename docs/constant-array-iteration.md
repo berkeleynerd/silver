@@ -121,3 +121,13 @@ in `20261028T103521-e9ff9a0ca62d`, including original-source native compile,
 prove and execution in the argument shell. The native source was frozen at
 SHA-256 `09858656aa96cdff7cc6f1ebc6683ce70885840e94df9706420b4c4e45ed6abc`
 before the isolated output-certificate and complete native checkpoint began.
+
+Independent integration review R1 found that existing catalogue expression and
+guard entries omitted scoped elements even though the new iteration entry and
+implementation admitted them. [#267](https://github.com/berkeleynerd/silver/issues/267)
+records the correction to both catalogue copies and related language summaries.
+The reviewer confirmed the repaired meanings; build
+`20261028T110633-769e6cd4dab7` and catalogue byte-parity regression
+`20261028T110712-42bfb28a9731` passed. The recognizer and output certificate are
+unchanged. The active native checkpoint retains its original catalogue inputs;
+a complete cached refresh will validate the corrected catalogue before delivery.

@@ -146,7 +146,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""copy_semantics"": ""snapshot of the earlier initialized value; later source assignments do not change the copy"",");
       Put_Line ("        ""unused_allowed"": true,");
       Put_Line ("        ""argument_initializer_position"": ""first and unique binding in argument-bearing forms only"",");
-      Put_Line ("        ""shared_name_environment"": ""String, Integer and Integer-array declarations; scoped loop indexes may hide them in bodies"",");
+      Put_Line ("        ""shared_name_environment"": ""String, Integer and Integer-array declarations; scoped loop indexes and elements may hide them in bodies"",");
       Put_Line ("        ""integer_type_hiding"": ""a String binding named Integer hides the Image type mark in its own initializer and later source"",");
       Put_Line ("        ""initializer_image_length"": ""non-input minimum and maximum must agree; Image captures exact initial values of earlier Integer objects""");
       Put_Line ("      }");
@@ -319,7 +319,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""bounds"": ""fixed by initialized value"",");
       Put_Line ("        ""copy_semantics"": ""snapshot of the earlier initialized value; later source assignments do not change the copy"",");
       Put_Line ("        ""unused_allowed"": true,");
-      Put_Line ("        ""shared_name_environment"": ""String, Integer and Integer-array declarations; scoped loop indexes may hide them in bodies"",");
+      Put_Line ("        ""shared_name_environment"": ""String, Integer and Integer-array declarations; scoped loop indexes and elements may hide them in bodies"",");
       Put_Line ("        ""integer_type_hiding"": ""a String binding named Integer hides the Image type mark in its own initializer and later source"",");
       Put_Line ("        ""initializer_image_length"": ""non-input minimum and maximum must agree; Image captures exact initial values of earlier Integer objects""");
       Put_Line ("      }");
@@ -649,7 +649,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""exclude_ada_2022_reserved_words"": true,");
       Put_Line ("        ""case_insensitive_binding"": true,");
       Put_Line ("        ""all_declared_names_distinct_ignoring_case"": true,");
-      Put_Line ("        ""shared_name_environment"": ""String, Integer and Integer-array declarations; scoped loop indexes may hide them in bodies"",");
+      Put_Line ("        ""shared_name_environment"": ""String, Integer and Integer-array declarations; scoped loop indexes and elements may hide them in bodies"",");
       Put_Line ("        ""type_mark_visible"": true,");
       Put_Line ("        ""declaration_context"": ""every output shell; after the first argument binding in argument shells"",");
       Put_Line ("        ""count"": ""finite_within_complete_source_bound"",");
@@ -687,7 +687,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""exclude_ada_2022_reserved_words"": true,");
       Put_Line ("        ""case_insensitive_binding"": true,");
       Put_Line ("        ""all_declared_names_distinct_ignoring_case"": true,");
-      Put_Line ("        ""shared_name_environment"": ""String, Integer and Integer-array declarations; scoped loop indexes may hide them in bodies"",");
+      Put_Line ("        ""shared_name_environment"": ""String, Integer and Integer-array declarations; scoped loop indexes and elements may hide them in bodies"",");
       Put_Line ("        ""type_mark_visible"": true,");
       Put_Line ("        ""declaration_context"": ""every output shell; after the first argument binding in argument shells"",");
       Put_Line ("        ""count"": ""finite_within_complete_source_bound"",");
@@ -716,7 +716,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("          -2147483648,");
       Put_Line ("          2147483647");
       Put_Line ("        ],");
-      Put_Line ("        ""staticness"": ""mutable objects, loop indexes and constants initialized from them cannot supply endpoints"",");
+      Put_Line ("        ""staticness"": ""mutable objects, loop indexes, loop elements and constants initialized from them cannot supply endpoints"",");
       Put_Line ("        ""operator_budget"": ""shares the complete-program 63-operator budget"",");
       Put_Line ("        ""named_types_or_subtypes"": false,");
       Put_Line ("        ""dynamic_constraints"": false");
@@ -726,7 +726,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("      ""id"": ""integer_assignment"",");
       Put_Line ("      ""ada_kind"": ""assignment_statement"",");
       Put_Line ("      ""conditions"": {");
-      Put_Line ("        ""target"": ""visible initialized mutable Integer object; constants and loop indexes excluded, including in empty loops and unreachable arms"",");
+      Put_Line ("        ""target"": ""visible initialized mutable Integer object; constants, loop indexes and loop elements excluded, including in empty loops and unreachable arms"",");
       Put_Line ("        ""value"": ""integer_expression"",");
       Put_Line ("        ""evaluation"": ""RHS reads the pre-assignment scalar store; update only the target"",");
       Put_Line ("        ""interval_inclusion"": ""every RHS intermediate fits Integer; whole RHS interval is nonempty and lies in target declared range"",");
@@ -792,6 +792,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("          ""visible_integer_constant"",");
       Put_Line ("          ""visible_mutable_integer"",");
       Put_Line ("          ""scoped_for_index"",");
+      Put_Line ("          ""scoped_for_element"",");
       Put_Line ("          ""integer_array_read""");
       Put_Line ("        ],");
       Put_Line ("        ""min_operands"": 1,");
@@ -870,8 +871,8 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("      ""ada_kind"": ""flow_analysis"",");
       Put_Line ("      ""conditions"": {");
       Put_Line ("        ""grammar_change"": false,");
-      Put_Line ("        ""target"": ""bare visible mutable Integer name or loop-index name, resolved by binding identity"",");
-      Put_Line ("        ""threshold"": ""Ada-static nonempty singleton Integer expression in either operand order; nonstatic snapshots and singleton indexes are not thresholds"",");
+      Put_Line ("        ""target"": ""bare visible mutable Integer name, loop-index name or loop-element name, resolved by binding identity"",");
+      Put_Line ("        ""threshold"": ""Ada-static nonempty singleton Integer expression in either operand order; nonstatic snapshots, singleton indexes and singleton elements are not thresholds"",");
       Put_Line ("        ""operators"": [");
       Put_Line ("          ""="",");
       Put_Line ("          ""/="",");
@@ -890,7 +891,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""branch_join"": ""componentwise scalar hulls; elsif receives previous false flow; omitted else contributes false flow"",");
       Put_Line ("        ""assignments"": ""replace only written identity with inferred RHS after declared-range containment; preserve other scalar and immutable input-length facts"",");
       Put_Line ("        ""string_writes"": ""preserve scalar facts; snapshots do not alias live scalar/Image reads"",");
-      Put_Line ("        ""loops"": ""capture bounds in entry flow, then widen mutables at body entry and possible execution exit; preserve entry immutable/outer-index facts; empty loops restore entry"",");
+      Put_Line ("        ""loops"": ""capture bounds in entry flow, then widen mutables at body entry and possible execution exit; preserve entry immutable/outer-index/outer-element facts; empty loops restore entry"",");
       Put_Line ("        ""scalar_impossibility_prunes_input_path"": false,");
       Put_Line ("        ""nonempty_assignment_rhs_required"": true,");
       Put_Line ("        ""admission_monotonicity_claim"": false");
@@ -1013,8 +1014,8 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""count_and_nesting"": ""limited by complete source size"",");
       Put_Line ("        ""termination"": ""finite predefined Integer range"",");
       Put_Line ("        ""scalar_writes"": ""carry across iterations and out of loops; writes to bound objects do not change captured iteration bounds"",");
-      Put_Line ("        ""scalar_body_flow"": ""widen every mutable scalar to declared range; retain entry immutable and outer-index facts; append captured new index; no loop-carried scalar invariant"",");
-      Put_Line ("        ""scalar_exit_flow"": ""empty restores entry; possibly executing widens mutables and restores entry immutable/outer-index facts; remove new index; body-derived outer-index refinements do not escape"",");
+      Put_Line ("        ""scalar_body_flow"": ""widen every mutable scalar to declared range; retain entry immutable, outer-index and outer-element facts; append captured new index; no loop-carried scalar invariant"",");
+      Put_Line ("        ""scalar_exit_flow"": ""empty restores entry; possibly executing widens mutables and restores entry immutable/outer-index/outer-element facts; remove new index; body-derived outer-index/outer-element refinements do not escape"",");
       Put_Line ("        ""intentional_empty_loop_exclusion"": ""precise entry bounds can reveal an empty index-dependent assignment RHS, which remains excluded even if earlier wider analysis admitted it""");
       Put_Line ("      }");
       Put_Line ("    }");
