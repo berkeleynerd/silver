@@ -1371,27 +1371,49 @@ def Function.isLexical : Function → Bool
 /-- Ada 2022 expression categories. Renderers preserve explicit grouping;
 these checks prevent a flattened tree from changing precedence or association. -/
 def Expr.primary : Expr ty → Bool
-  | .integerNe _ _ | .integerLt _ _ | .add _ _ | .sub _ _ | .mul _ _ | .eq _ _ | .ne _ _ | .boolNe _ _ | .lt _ _ | .le _ _ | .gt _ _
-  | .operatorByte _ | .range _ _ _ | .andThen _ _ | .orElse _ _ | .not _ | .ite _ _ _ | .elsif _ _ _
-  | .local _ _ _ _ | .locals _ | .someForm _ | .firstForm _ _ => false
-  | _ => true
+  | .lexTrivia _ _ | .lexLiteralEnd _ _ | .lexLiteralLength _ _ | .lexIdentifier _ _
+  | .lexForbidden _ _ _ | .lexForbiddenArgument _ _ _ | .lexEqual _ _ _ _ _
+  | .lexDecimal _ _ | .lexTokenAt _ _ _ _ | .lexNormalize _ | .lexAllowed _
+  | .operation _ | .number _ | .character _ | .truth _ | .variable _ | .function _
+  | .app _ _ | .defaultFalse _ | .scalarReadDefault _ _ _ | .scalarReadArrays _ _ _ _ _ _
+  | .expressionArrays _ _ _ _ _ _ _ | .field _ _ | .count _ | .scalarCount _
+  | .word _ | .integerTypeWord | .arrayCount _ | .maxArrayBindings | .maxArrayElements
+  | .invalidScalar | .integerNumber _ | .wideInteger _ | .wideNumber _ | .elementCount _
+  | .arrayPut _ _ _ | .arrayUsedValues _ _ _ | .arrayNamesOnly _ _ | .stateArray _ _
+  | .statePositionArray _ _ _ | .arrayAppend _ _ _ _ _ _ _ | .maxScalarBindings
+  | .fullInterval | .emptyInterval | .interval _ _ | .constraint _ _
+  | .scalarBinding _ _ _ _ _ _ | .stateScalar _ _ _ | .item _ _ | .group _
+  | .byteAt _ _ | .sourceLast _ | .sourceLength _ | .characterVal _
+  | .maxLength | .maxBindings | .maxOperands | .maxConcatenations | .token _
+  | .tokenSpelling _ | .spellingLength _ | .wordToken _ | .hasArguments _
+  | .tokensLast _ | .tokenIndex _ _ | .initial | .invalid | .invalidValue
+  | .invalidResult | .invalidScan | .binding _ _ _ _ _ _ | .value _ _ _ _ _ _ _ _
+  | .result _ _ _ _ _ _ | .scan _ _ _ _ _ _ _ _ _ _ | .scanDepth _ _ _
+  | .scanAtom _ _ _ _ _ _ _ _ | .scanNeed _ _ | .scanComplete _ | .statePosition _ _
+  | .stateTarget _ _ _ | .stateCapacity _ _ _ | .stateDynamic _ _ _ | .stateBinding _ _ _ => true
+  | _ => false
 
-def Expr.term : Expr .number → Bool
-  | .mul _ _ => true
+def Expr.term : Expr ty → Bool
+  | .mul _ _ | .not _ => true
   | x => x.primary
 
 def Expr.simple : Expr ty → Bool
-  | .ite _ _ _ | .elsif _ _ _ | .local _ _ _ _ | .locals _ | .someForm _ | .firstForm _ _ => false
-  | _ => true
+  | .add _ _ | .sub _ _ | .integerAdd _ _ | .integerSub _ _ => true
+  | x => x.term
 
-def Expr.relation : Expr .truth → Bool
-  | .andThen _ _ | .orElse _ _ | .ite _ _ _ | .elsif _ _ _ | .local _ _ _ _
-  | .locals _ | .someForm _ | .firstForm _ _ => false
-  | _ => true
+def Expr.relation : Expr ty → Bool
+  | .integerNe _ _ | .integerLt _ _ | .integerGt _ _ | .integerGe _ _
+  | .eq _ _ | .ne _ _ | .boolNe _ _ | .lt _ _ | .le _ _ | .gt _ _
+  | .operatorByte _ | .range _ _ _ | .tokenEq _ _ => true
+  | x => x.simple
 
-def Expr.logical : Expr .truth → Bool
-  | .ite _ _ _ | .elsif _ _ _ | .local _ _ _ _ | .locals _ | .someForm _ | .firstForm _ _ => false
-  | _ => true
+/-- Full expressions may be logical; relational operands must be simple
+expressions. Bare conditional/declaration expressions require grouping. -/
+def Expr.expression : Expr ty → Bool
+  | .andThen _ _ | .orElse _ _ => true
+  | x => x.relation
+
+def Expr.logical (value : Expr .truth) : Bool := value.expression
 
 def Expr.isElsif : Expr ty → Bool | .elsif _ _ _ => true | _ => false
 
@@ -1440,23 +1462,21 @@ def Expr.wellFormed : Expr ty → Bool
   | .lexTokenAt a b c d => a.wellFormed && b.wellFormed && c.wellFormed && d.wellFormed
   | .lexNormalize a => a.wellFormed
   | .lexAllowed a => a.wellFormed
-  | .app f x => f.wellFormed && x.wellFormed && f.functionSpine && x.simple
+  | .app f x => f.wellFormed && x.wellFormed && f.functionSpine && x.expression
   | .defaultFalse f => f.wellFormed && f.hasFalseDefault
-  | .scalarReadDefault t p n => t.wellFormed && p.wellFormed && n.wellFormed && t.simple && p.simple && n.simple
+  | .scalarReadDefault t p n => t.wellFormed && p.wellFormed && n.wellFormed && t.expression && p.expression && n.expression
   | .scalarReadArrays t p n a i e => t.wellFormed && p.wellFormed && n.wellFormed &&
-      a.wellFormed && i.wellFormed && e.wellFormed && t.simple && p.simple && n.simple && a.simple && i.simple && e.simple
+      a.wellFormed && i.wellFormed && e.wellFormed && t.expression && p.expression && n.expression && a.expression && i.expression && e.expression
   | .expressionArrays t p n sn a i e => t.wellFormed && p.wellFormed && n.wellFormed && sn.wellFormed &&
-      a.wellFormed && i.wellFormed && e.wellFormed && t.simple && p.simple && n.simple && sn.simple && a.simple && i.simple && e.simple
+      a.wellFormed && i.wellFormed && e.wellFormed && t.expression && p.expression && n.expression && sn.expression && a.expression && i.expression && e.expression
   | .field _ x => x.wellFormed && x.primary
   | .scalarCount x => x.wellFormed
   | .arrayCount a => a.wellFormed
   | .wideInteger a => a.wellFormed
   | .wideNumber a => a.wellFormed
   | .elementCount a => a.wellFormed
-  | .integerSub a b => a.wellFormed && b.wellFormed
-  | .integerAdd a b => a.wellFormed && b.wellFormed
-  | .integerGt a b => a.wellFormed && b.wellFormed
-  | .integerGe a b => a.wellFormed && b.wellFormed
+  | .integerSub a b | .integerAdd a b => a.wellFormed && b.wellFormed && a.simple && b.term
+  | .integerGt a b | .integerGe a b => a.wellFormed && b.wellFormed && a.simple && b.simple
   | .arrayPut a b c => a.wellFormed && b.wellFormed && c.wellFormed
   | .arrayUsedValues a b c => a.wellFormed && b.wellFormed && c.wellFormed
   | .arrayNamesOnly a b => a.wellFormed && b.wellFormed
@@ -1467,7 +1487,8 @@ def Expr.wellFormed : Expr ty → Bool
   | .word _ | .integerTypeWord | .maxScalarBindings => true
   | .operatorByte x => x.wellFormed && x.simple
   | .fullInterval | .emptyInterval => true
-  | .interval a b | .integerNe a b | .integerLt a b => a.wellFormed && b.wellFormed
+  | .interval a b => a.wellFormed && b.wellFormed
+  | .integerNe a b | .integerLt a b => a.wellFormed && b.wellFormed && a.simple && b.simple
   | .constraint a b => a.wellFormed && b.wellFormed
   | .scalarBinding a b c d e f => a.wellFormed && b.wellFormed && c.wellFormed && d.wellFormed && e.wellFormed && f.wellFormed
   | .stateScalar a b c => a.wellFormed && b.wellFormed && c.wellFormed
@@ -1530,10 +1551,10 @@ def Expr.wellFormed : Expr ty → Bool
   | .function _ => true
   | .andThen a b => a.wellFormed && b.wellFormed && a.andLeft && b.relation
   | .orElse a b => a.wellFormed && b.wellFormed && a.orLeft && b.relation
-  | .ite c a b | .elsif c a b => c.wellFormed && c.logical && a.wellFormed && a.simple &&
-      b.wellFormed && (b.simple || b.isElsif)
+  | .ite c a b | .elsif c a b => c.wellFormed && c.logical && a.wellFormed && a.expression &&
+      b.wellFormed && (b.expression || b.isElsif)
   | .local (a := ty) _ typeName localValue rest => localType ty typeName && localValue.wellFormed &&
-      localValue.simple && rest.wellFormed
+      localValue.expression && rest.wellFormed
 
 abbrev WellFormedTrees : Prop :=
   callAfterBody.wellFormed = true ∧
@@ -1573,6 +1594,67 @@ abbrev WellFormedTrees : Prop :=
   assignmentSelectorBody.wellFormed = true
 
 theorem checked_precedence : WellFormedTrees := by decide +kernel
+
+namespace PrecedenceChecks
+
+private def rightSub : Expr .integer := .integerSub (.integerNumber 10)
+  (.integerSub (.integerNumber 3) (.integerNumber 1))
+private def leftSub : Expr .integer := .integerSub
+  (.integerSub (.integerNumber 10) (.integerNumber 3)) (.integerNumber 1)
+private def integerChoice : Expr .integer := .ite (.truth true) (.integerNumber 3) (.integerNumber 1)
+private def logicalOperand : Expr .truth := .andThen (.truth false) (.truth false)
+
+/-- Equal flattened tokens do not imply equal tree meanings. -/
+private theorem subtraction_collision (calls : Calls) (locals : Locals) :
+    rightSub.render = leftSub.render ∧ rightSub.eval calls locals = 8 ∧ leftSub.eval calls locals = 6 := by
+  exact ⟨rfl, rfl, rfl⟩
+
+private theorem arithmetic_categories :
+    rightSub.wellFormed = false ∧ leftSub.wellFormed = true ∧
+    (Expr.integerSub (.integerNumber 10) (.group (.integerSub (.integerNumber 3) (.integerNumber 1)))).wellFormed = true ∧
+    (Expr.integerSub (.integerNumber 10) (.integerAdd (.integerNumber 3) (.integerNumber 1))).wellFormed = false ∧
+    (Expr.integerSub (.integerNumber 10) (.group (.integerAdd (.integerNumber 3) (.integerNumber 1)))).wellFormed = true ∧
+    (Expr.integerAdd (.integerNumber 10) (.integerAdd (.integerNumber 3) (.integerNumber 1))).wellFormed = false ∧
+    (Expr.integerAdd (.integerNumber 10) (.group (.integerAdd (.integerNumber 3) (.integerNumber 1)))).wellFormed = true ∧
+    (Expr.not (.integerGt (.integerNumber 3) (.integerNumber 1))).wellFormed = false ∧
+    (Expr.not (.group (.integerGt (.integerNumber 3) (.integerNumber 1)))).wellFormed = true ∧
+    (Expr.not (.integerGe (.integerNumber 3) (.integerNumber 1))).wellFormed = false := by decide +kernel
+
+private theorem conditional_categories :
+    (Expr.integerSub integerChoice (.integerNumber 1)).wellFormed = false ∧
+    (Expr.integerAdd (.integerNumber 1) integerChoice).wellFormed = false ∧
+    (Expr.integerGt integerChoice (.integerNumber 1)).wellFormed = false ∧
+    (Expr.integerGe (.integerNumber 1) integerChoice).wellFormed = false ∧
+    (Expr.integerNe integerChoice (.integerNumber 1)).wellFormed = false ∧
+    (Expr.integerLt (.integerNumber 1) integerChoice).wellFormed = false ∧
+    (Expr.integerSub (.group integerChoice) (.integerNumber 1)).wellFormed = true ∧
+    (Expr.integerGe (.integerNumber 1) (.group integerChoice)).wellFormed = true ∧
+    (Expr.group (.integerAdd integerChoice (.integerNumber 1))).wellFormed = false ∧
+    (Expr.group (.integerAdd (.group integerChoice) (.integerNumber 1))).wellFormed = true ∧
+    (Expr.app (.app (.function .arrayPut) (.variable "state"))
+      (.integerSub integerChoice (.integerNumber 1))).wellFormed = false ∧
+    (Expr.app (.app (.function .arrayPut) (.variable "state"))
+      (.integerSub (.group integerChoice) (.integerNumber 1))).wellFormed = true ∧
+    (Expr.ite (.truth true) integerChoice (.integerNumber 0)).wellFormed = false ∧
+    (Expr.ite (.truth true) (.group integerChoice) (.integerNumber 0)).wellFormed = true := by decide +kernel
+
+private theorem boolean_collision (calls : Calls) (locals : Locals) :
+    (Expr.boolNe logicalOperand (.truth true)).render =
+      (Expr.andThen (.truth false) (.boolNe (.truth false) (.truth true))).render ∧
+    (Expr.boolNe logicalOperand (.truth true)).eval calls locals = true ∧
+    (Expr.andThen (.truth false) (.boolNe (.truth false) (.truth true))).eval calls locals = false := by
+  exact ⟨rfl, rfl, rfl⟩
+
+private theorem boolean_categories :
+    (Expr.boolNe logicalOperand (.truth true)).wellFormed = false ∧
+    (Expr.boolNe (.group logicalOperand) (.truth true)).wellFormed = true ∧
+    (Expr.boolNe (.truth true) (.boolNe (.truth true) (.truth false))).wellFormed = false ∧
+    (Expr.boolNe (.truth true) (.group (.boolNe (.truth true) (.truth false)))).wellFormed = true ∧
+    (Expr.boolNe (.not (.truth true)) (.truth false)).wellFormed = true ∧
+    (Expr.ite (.truth true) logicalOperand (.truth false)).wellFormed = true ∧
+    (Expr.app (.app (.function .contextAfter) (.variable "text")) logicalOperand).wellFormed = true := by decide +kernel
+
+end PrecedenceChecks
 
 /-- Names are checked against the parameter/local declaration scope. The
 first binding wins, matching Ada lexical shadowing; a variable of another type

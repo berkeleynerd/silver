@@ -317,6 +317,7 @@ def ordinaryFunction (name : String) (tokens : List String) : Option (List Strin
   | _ => none
 
 structure Checked (tokens : List String) : Prop where
+  precedence : WellFormedTrees
   target_body : qualifiedExpressionBody "array_target" tokens = some targetBody.render
   target_spec : functionHeader "array_target" ";" tokens = some targetSpec
   target_impl : functionHeader "array_target" "is" tokens = some targetImpl
