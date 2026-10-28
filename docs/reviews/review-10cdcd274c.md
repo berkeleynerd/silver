@@ -185,12 +185,15 @@ reviewed applicability remains historical evidence. The two latest source
 candidates took 6,034 and 6,859 seconds at one worker/thread, so the older
 8,900-second rebuild estimate is not a current baseline.
 
-The response is published as draft [PR #283](https://github.com/berkeleynerd/silver/pull/283),
-stacked on #266. Implementation integration and complete Lean validation remain
-pending; complete native validation and both stack observations have passed. Existing source
+The response is published for review in [PR #283](https://github.com/berkeleynerd/silver/pull/283),
+stacked on #266. Implementation integration, complete native validation, focused
+proofs, independent code review, both stack observations and the affected
+regressions have passed. The owner then proposed incorporating review feedback
+before the final Lean checkpoint; the active full run was interrupted cleanly
+and complete Lean/source validation remains required before merge. Existing source
 certificates remain reusable when their Ada and generator inputs match. The
 [response packet](../evidence/array-review-response-20261028/README.md) records
-the combined checkpoint and the remaining affected regressions.
+the completed affected regressions and remaining complete Lean/source checkpoint.
 No original failure or interrupted run will be relabelled successful.
 
 | Round | Selected model/effort | Result and measurement limits |

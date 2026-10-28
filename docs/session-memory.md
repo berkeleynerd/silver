@@ -1,5 +1,25 @@
 # Session memory
 
+## 2026-10-28 — Review the array revisions before the complete Lean checkpoint
+
+The owner proposed submitting the revisions for review, incorporating relevant
+feedback, and then performing the final Lean validation before merge. Adopt that
+sequence for the [external-array response](reviews/review-10cdcd274c.md).
+The revisions remain in [PR #283](https://github.com/berkeleynerd/silver/pull/283),
+stacked on the already-validated #266, consistent with the earlier placement
+decision. Both PRs remain open; neither this review checkpoint nor earlier
+successful focused checks authorize a merge or substitute for complete assurance.
+
+The full Lean run was interrupted cleanly after about nine minutes, preserving
+completed caches and its interrupted record. Native assurance, build, focused
+guard/source proofs, independent code review, the two stack observations and
+affected regression checks have passed. The [response packet](evidence/array-review-response-20261028/README.md)
+records the exact implementation and remaining validation. Integrate applicable
+review feedback, then run the complete Lean/source/module/axiom checkpoint on
+stable final inputs and refresh any other checks invalidated by those changes
+before merge. Do not start another expensive run merely while awaiting feedback.
+No harness goal exists; CLI memory is unavailable and was not updated.
+
 ## 2026-10-28 — Fixed-array external review response authorized
 
 The owner supplied the complete external review of `10cdcd274c` / PR #263 and

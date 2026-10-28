@@ -24,7 +24,11 @@ One coordinated increment repairs the latent precedence/association guard
 Rosetta-input capture, required records and two stack observations, followed by
 one stable complete assurance checkpoint and independent review. Findings
 #269–#282 track the other required corrections; existing issues retain the
-bookkeeping and optional follow-ups. Implementation is in progress. Both PRs
+bookkeeping and optional follow-ups. The revisions are in
+[PR #283](https://github.com/berkeleynerd/silver/pull/283) for review before the
+complete Lean checkpoint, following the owner's updated sequence. Native,
+focused proof and affected regression checks passed; complete source assurance
+on the response remains required after feedback and before merge. Both PRs
 remain open; broader language, capacity and optional refactors are not selected.
 
 **Sequence since 2026-10-24.** Language development resumes first, following the

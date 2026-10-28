@@ -2,10 +2,13 @@
 
 This packet records the response to [review-10cdcd274c](../../reviews/review-10cdcd274c.md),
 stacked above PR #266 at `873f5910d2`. The implementation snapshot is
-`5e53345a00`, published in [draft PR #283](https://github.com/berkeleynerd/silver/pull/283).
-The complete Lean/source checkpoint `20261028T185441-7fe036b871f3` is running
-on that frozen snapshot at one worker/thread and a 24 GiB process threshold.
-Both PRs remain open. No language rule or Oracle guarantee changes.
+`5e53345a00`, published for review in [PR #283](https://github.com/berkeleynerd/silver/pull/283).
+The owner proposed reviewing the revisions and incorporating feedback before the
+complete Lean/source checkpoint. Run `20261028T185441-7fe036b871f3` was therefore
+interrupted cleanly after 530.958 s, preserving completed caches. No complete
+Lean success is claimed for the response. Both PRs remain open; that checkpoint
+is required on stable final inputs before merge. No language rule or Oracle
+guarantee changes.
 
 Managed events and logs are retained under `runs/`, compressed without changing
 the decompressed bytes. Each `retained.json` gives hashes and the original
@@ -26,6 +29,7 @@ successful sessions/cache; no clean build or independent kernel replay is claime
 | `20261028T185112-d630b7abbbea` | Final private counterexample controls | Passed; 54.986 s build and 4.517 s fresh 15,099-declaration audit |
 | `20261028T185332-76aab44e2c25` | Source policy and certificate parity | All 12 passed |
 | `20261028T185511-862e99ae419a` | Platform and installation routing | All 16 passed; 246.994 s test time |
+| `20261028T185441-7fe036b871f3` | Complete Lean/source checkpoint | Interrupted for review-first sequencing after 530.958 s; composition candidate unfinished, no final audit |
 
 [Native input applicability](native-input-applicability.json) verifies all 143
 tracked inputs against the response and all 78 retained report digests. The
@@ -36,7 +40,7 @@ The [independent guard review](../../reviews/review-array-precedence-repair-2026
 checks the exact final repair, including authoritative wiring and private
 counterexamples. Renderers, evaluators, current checked trees, endpoint statements
 and source pins are unchanged. Its one fixture-quality note was corrected and
-rechecked; neither focused result substitutes for the running complete checkpoint.
+rechecked; neither focused result substitutes for the deferred complete checkpoint.
 The [regression applicability review](../../reviews/review-array-response-applicability-20261028.md)
 accounts for 542 final test identities: 484 applicable earlier passes, 30 successful
 response passes and 28 successful proof-sensitive reruns (12 source and 16 platform
@@ -81,9 +85,22 @@ minimum-recognition-stack figures remain attributed to the external review.
 | Catalogue and runner repair | GPT-6.1 Sol / High | Five condition descriptions corrected; exactly three Rosetta test inputs captured, with two regression methods. Focused results retained above. |
 | Record reconciliation | GPT-6.1 Sol / High | Current claims, historical cache conditions, attribution and missing rounds corrected. Historical seed origins not retrospectively invented. |
 | Stack observations | GPT-6.1 Sol / High | Two concrete 8 MiB passes above, preserving production options. |
-| Precedence repair and independent review | GPT-6 Astra / Extra High for each bounded subthread | Focused guard/candidate checks passed, with one visibility repair and one private-fixture correction. Independent review found no remaining blocking defect; complete source validation is running. |
+| Precedence repair and independent review | GPT-6 Astra / Extra High for each bounded subthread | Focused guard/candidate checks passed, with one visibility repair and one private-fixture correction. Independent review found no remaining blocking defect; complete source validation was interrupted for the owner-proposed review-first sequence. |
 | Regression and record applicability review | GPT-6 Astra / Extra High | Identified the 28 affected identities and corrected overlapping cache-count wording. Earlier passing results retained only where inputs/dependencies apply. |
 
 These are selected settings, not independently confirmed runtime settings. Lead
 runtime settings and token/cost measurements are unavailable. No macOS or hosted
 CI result is claimed.
+
+## Remaining checkpoint
+
+Review #283 together with its #266 base, integrate relevant feedback, and freeze
+the resulting implementation inputs. The reusable proof workspace is
+`tmp/constant-array-source`, branch `validation/array-review-lean`, at
+`5e53345a00`; the interrupted candidate's in-process work must be recomputed,
+while completed artifacts remain available. Run the ordinary complete
+`scripts/check_lean.py` checkpoint there at one worker/thread and the previously
+successful 24 GiB process threshold, without a clean build or optional replay.
+Refresh native/build/regression checks only if feedback changes their inputs or
+dependencies. Complete validation and an evidence confirmation remain mandatory
+before merge; this packet is a review checkpoint, not a completed delivery claim.

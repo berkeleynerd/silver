@@ -93,3 +93,32 @@ Pending M1 inputs reviewed for regression dependencies, **not semantic correctne
 - `test_platforms.PlatformIsolationTests.test_legacy_archives_are_read_only_inputs`
 - `test_platforms.PlatformIsolationTests.test_platform_aliases_and_disjoint_paths`
 - `test_platforms.PlatformIsolationTests.test_unchanged_context_setup_preserves_generated_file_mtimes`
+
+## Bounded addendum — final regression closure and review-first sequence
+
+Reviewed snapshot: `1ca946f281bde82de66fb7a4dec7a80b468480c3`, containing final M1 implementation `5e53345a0069eec81d94fecbb8819ee51381e803`, plus the retained interrupted-run packet and the four uncommitted review-first document updates inspected at 19:05:50 UTC. Selected reviewer remains GPT-6 Astra / Extra High (`xhigh`); independent runtime attestation and token/cost measurements remain unavailable. This bounded evidence pass ran from 2026-10-28 19:04:51 UTC to 2026-10-28 19:06:57 UTC (126.6 seconds). No tests, builds, native proof, Lean proof, or whole-inventory rediscovery were run; only existing records, byte comparisons and the bounded diff were inspected.
+
+**The 28 regression obligations identified above are now closed.** The final census is **542 covered identities = 484 applicable retained passes + 58 response passes**, with the latter comprising 26 runner, one catalogue, three Rosetta, 12 source-policy and 16 platform results. The final inventory and per-identity map have identical 542-element sets with no duplicate strings, missing entry or unexpected identity; the only inventory additions remain the two already reviewed runner methods. The 484 retained IDs exactly equal the earlier independently approved retained set. Test files have not changed since that review, and the only additional implementation delta is the four already identified M1 proof files.
+
+| Final rerun | Identities | Test time | Managed elapsed | Captured input comparison |
+| --- | ---: | ---: | ---: | --- |
+| `20261028T185332-76aab44e2c25` | 12 | 77.246 s | 79.942 s | All 783 non-generated worktree inputs match |
+| `20261028T185511-862e99ae419a` | 16 | 246.994 s | 252.036 s | All 783 non-generated worktree inputs match |
+
+Independently verified both runs' compressed/decompressed file hashes, byte counts, successful terminal events and actual per-test `ok` results against their assigned coverage entries. The platform command-routing test prints managed fixture output before its separate `ok` line; that formatting is not a missing result. Both run maps bind all four final M1 files and the tested Rosetta inputs. The original full run remains failed; neither this composition nor the interrupted Lean run changes its outcome.
+
+Exact reviewed census records under `docs/evidence/array-review-response-20261028/`:
+
+| Record | SHA-256 |
+| --- | --- |
+| `test-inventory.json` | `d15f0c25fa22797fd12929bb948c2b858e551b72b105e53dbc1f0aac7738767f` |
+| `regression-applicability.json` | `b393df7b0abce0ea05fcb373624517ca9d484230708f760f6ed097e04eb3ce3c` |
+| `regression-input-applicability.json` | `0112ef7c03f7aa1415b23b021065cd4ba9dddcfc7954f65f4fa50711a3acb3ae` |
+
+The final private-control delta changes `ComposeExpressions.lean` to SHA-256 `4f329643de5ff97dea327bddfdaa82d6013d4d626f255376de307060e183fb14` and `PredicateArrayBodyNative.lean` to `34f3e387b35459b1700dfbf4417d49310fda6d72bfd07317484f9f2b72a49145`; the other two proof hashes in the initial review remain unchanged. These hashes match the integrated files and the separate review's final-control addendum in `docs/reviews/review-array-precedence-repair-20261028.md`. That reviewer checked the final guard/fixture delta and successful focused evidence. This applicability pass does not duplicate its semantic review or elevate its focused results to complete source assurance. The later L16 naming corrections in `language.md` and `docs/fixed-integer-arrays.md` are documentation-only and do not invalidate regression evidence.
+
+The owner-directed sequence is now: obtain external review of PR #283 stacked on #266, incorporate relevant feedback, then complete Lean/source/module/axiom validation on stable final inputs before merge. The complete run `20261028T185441-7fe036b871f3` has a verified **interrupted** terminal event at 2026-10-28 19:03:34 UTC after 530.958 seconds. Its retained build log shows an interrupted build (521.893 s), no module-success output, and no fresh final audit. Its retained manifest SHA-256 is `7bd12a5be513efcef0c129f6c47bdd4c5b3a6797c33539c5d74a49542800cbbd`; decompressed events and build-log hashes are respectively `5394e96b31be73dc7626d05c828dd311f2b0ee9adb2d9da38e17fb48a9bea203` and `214c52ebc610c8b3a60d66ff63b43b96fc0a7ac5242d4a05274ad419b394d79a`. These were checked against the retained bytes. Completed caches remain reusable under the existing rules; no success is inferred for the interrupted in-process work. The lead reports no active workers; this subthread did not independently inspect process state.
+
+**Review readiness is supported; complete-assurance/merge readiness is not yet established.** Both PRs should remain open and related issues in review while feedback and complete Lean validation remain outstanding. Existing native, build and regression evidence need refresh only when later changes invalidate their inputs or dependencies. No new full regression run or repeated native proof is called for by the reviewed delta. The review-first documentation accurately preserves this distinction; one stale phrase saying “remaining affected regressions” was reported to the lead for replacement with completed regressions and the remaining Lean/source checkpoint.
+
+This addendum supersedes only the initial report's pending-regression and sequencing statements. Its earlier dependency analysis, failed-run preservation, and requirement for complete assurance remain in force.
