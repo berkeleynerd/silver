@@ -1,5 +1,33 @@
 # Session memory
 
+## 2026-10-28 — Constant Integer-array iteration authorized as a stacked PR
+
+After PR #263 delivered fixed-size Integer arrays, the owner requested:
+**“Let's implement the next language feature as a stacked PR. PR 263 is being
+reviewed by an external agent in the interim.”** The selected bounded successor
+is forward/reverse element iteration over existing constant Integer arrays,
+driven by Rosetta Loops/Foreach. [Milestone 11](https://github.com/berkeleynerd/silver/milestone/11)
+contains one increment, [#264](https://github.com/berkeleynerd/silver/issues/264).
+The [capability record](constant-array-iteration.md) records its exact scope,
+semantics, producer/capacity obligations and eventual evidence.
+
+This authorizes implementation, complete native and Lean/source assurance,
+regression validation, independent review and publication as a separate stacked
+PR. PR #263 is already merged; preserve its feature branch
+`feat/fixed-integer-arrays` at `0a85336c83` as the successor PR base while its
+external review proceeds. Keep successor implementation out of main and leave
+that PR open during the review. This planning record changes no governed
+implementation input of the external review target. Incorporate applicable
+parent repairs deliberately if that review requires them.
+
+Retain the 4,096-byte source, 63-operator and 64-leaf limits and all existing
+admitted compositions. Constant iterables avoid mutable element aliases;
+reverse order reuses existing finite enumeration. Mutable iterables, general
+iterators, procedures, named types/subtypes and broad arrays remain unselected,
+as do #119/#88–#94 and further #246 work. Use existing tools and ordinary
+records, without new assurance modes or approval ceremonies. No Oracle amendment
+or harness goal is implied. CLI memory is unavailable and was not updated.
+
 ## 2026-10-28 — Fixed-size Integer-array delivery checkpoint
 
 The owner-authorized [#260](https://github.com/berkeleynerd/silver/issues/260)
