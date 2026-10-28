@@ -64,9 +64,12 @@ class ConstantArrayIterationTests(unittest.TestCase):
                            b'for E of A loop if E>=1 and then E<=2 then '
                            b'B(E):=E;X:=E;' + output(b"Integer'Image((E + 1))")
                            + b'end if;end loop;'))
-        # A singleton source value does not make the element binding Ada-static.
+        # Refining an element to a singleton does not make it Ada-static.
         self.check(program(declarations + b'N:Integer range 0..3:=0;',
                            b'for E of A loop if N=E then B(N):=0;end if;end loop;'), 2)
+        self.check(program(declarations + b'N:Integer range 0..3:=0;',
+                           b'for E of A loop if E=1 then if N=E then B(N):=0;'
+                           b'end if;end if;end loop;'), 2)
 
     def test_admission_nested_loops_and_mutable_array_writes(self) -> None:
         declarations = (b'A:constant array(1..2)of Integer:=(1,2);'
