@@ -80,6 +80,11 @@ For each authorized increment:
    exact overwritten ghost-output advisories for each of Put and Put_Line.
    The scalar/Image policy also classifies the exact pinned Image advisory under
    its own complete warning/provenance rules; it never waives a safety check.
+   Fixed-size Integer arrays add proved index checks and the exact pinned
+   array-loop initialization advisory in Main. The latter withholds a flow fact;
+   it never replaces initialization or safety checks. Its
+   [producer/capacity account](docs/fixed-integer-arrays-report-capacity.md) covers
+   repeated nested-loop notes within the unchanged source/operator budgets.
    Other diagnostics remain rejected. A new accepted obligation class
    needs a corresponding semantic/discharge argument, not just report handling.
    The [shared-binding checkpoint](docs/shared-bindings.md) records the completed

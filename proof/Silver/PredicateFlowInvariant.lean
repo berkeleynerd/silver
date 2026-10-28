@@ -27,6 +27,7 @@ structure BaseReady (names : Environment) (declarations : Nat) : Prop where
   declarationsNonempty : DeclarationsNonempty names declarations
   mutableNonempty : ∀ index, 0 < index → index ≤ names.length →
     (binding names index).mutable = true → (binding names index).bounds.isEmpty = false
+  size : names.length ≤ ArrayBindings.scalarLimit
 
 theorem BaseReady.mutable_bounds {names : Environment} {declarations : Nat}
     (ready : BaseReady names declarations) : ValidMutableBounds names := by
@@ -38,7 +39,8 @@ theorem BaseReady.mutable_bounds {names : Environment} {declarations : Nat}
 /-- Native Valid_Context supplies all four clauses. Conversely, body metadata
 uses equal mutable Bounds/Declared_Bounds, so their containment inequalities
 follow without an additional restriction on immutable suffix bindings. -/
-theorem baseReady_iff_native (names : Environment) (declarations : Nat) :
+theorem baseReady_iff_native (names : Environment) (declarations : Nat)
+    (size : names.length ≤ ArrayBindings.scalarLimit) :
     BaseReady names declarations ↔ BodyReady names ∧ declarations ≤ names.length ∧
       DeclarationsNonempty names declarations ∧ ValidMutableBounds names := by
   constructor
@@ -46,7 +48,7 @@ theorem baseReady_iff_native (names : Environment) (declarations : Nat) :
     exact ⟨ready.body, ready.count, ready.declarationsNonempty, ready.mutable_bounds⟩
   · rintro ⟨body, count, declared, mutable⟩
     exact ⟨body, count, declared,
-      fun index positive bounded isMutable => (mutable index positive bounded isMutable).1⟩
+      fun index positive bounded isMutable => (mutable index positive bounded isMutable).1, size⟩
 
 theorem overlayCompatible_of_preserved {names : Environment} {declarations : Nat}
     {before after : ActiveFlow} (initial : OverlayCompatible names declarations before)

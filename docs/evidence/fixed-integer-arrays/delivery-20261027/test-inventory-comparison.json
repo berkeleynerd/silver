@@ -1,0 +1,16 @@
+{
+  "baseline_run": "20261027T113223-c732210ca335",
+  "inventory_commit": "899a15a5a0",
+  "inventory_count": 530,
+  "executed_unique_test_headers": 530,
+  "same_inventory": true,
+  "failed_test_ids": [
+    "test_integer_division.IntegerDivisionTests.test_native_dynamic_signs_and_minimum_integer",
+    "test_samples.SupportedSampleTests.test_maximum_dynamic_expression",
+    "test_lean_evidence.LeanNativeDependencyTests.test_lake_tracks_embedded_ada_bytes_and_preserves_unchanged_objects",
+    "test_lean_source.CompilerSourcePolicyTests.test_embedded_source_lists_and_lake_dependencies_agree",
+    "test_lean_source.CompilerSourcePolicyTests.test_include_str_is_confined_to_the_source_bindings"
+  ],
+  "complete_suite_result": "failure",
+  "limits": "Five failed tests require successful applicable reruns; header comparison is not a replacement for independent applicability review."
+}

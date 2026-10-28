@@ -13,6 +13,8 @@ namespace Silver.Integer
 
 inductive Obligation
   | range (bounds : Interval)
+  | arrayIndex (array : ArrayDescriptor) (indices : Interval)
+  | arrayLength (actual expected : Nat)
   | negate (bounds : Interval)
   | add (left right : Interval)
   | subtract (left right : Interval)
@@ -26,6 +28,8 @@ inductive Obligation
 
 def Obligation.discharge : Obligation → Bool
   | .range bounds => (checked bounds).safe
+  | .arrayIndex array indices => arrayIndexCheck array indices
+  | .arrayLength actual expected => decide (actual = expected)
   | .negate bounds => (checkedNegate bounds).safe
   | .add left right => (checkedAdd left right).safe
   | .subtract left right => (checkedSubtract left right).safe
@@ -38,6 +42,8 @@ def Obligation.discharge : Obligation → Bool
 
 def Obligation.Valid : Obligation → Prop
   | .range bounds => ∀ value, bounds.Contains value → InRange value
+  | .arrayIndex array indices => ∀ index, indices.Contains index → array.bounds.Contains index
+  | .arrayLength actual expected => actual = expected
   | .negate bounds => ∀ value, bounds.Contains value → InRange (-value)
   | .add left right => ∀ a b, left.Contains a → right.Contains b → InRange (a + b)
   | .subtract left right => ∀ a b, left.Contains a → right.Contains b → InRange (a - b)
@@ -55,6 +61,12 @@ theorem Obligation.discharge_sound {obligation : Obligation} (proved : obligatio
     obligation.Valid := by
   cases obligation with
   | range => exact fun _ within => (checked_sound proved within).2
+  | arrayIndex array indices =>
+      simp only [Obligation.discharge, arrayIndexCheck, decide_eq_true_eq] at proved
+      intro index inside
+      simp only [Interval.Contains] at *
+      omega
+  | arrayLength => simpa only [Obligation.discharge, Obligation.Valid, decide_eq_true_eq] using proved
   | negate => exact fun _ within => (checkedNegate_sound proved within).2
   | add => exact fun _ _ left right => (checkedAdd_sound proved left right).2
   | subtract => exact fun _ _ left right => (checkedSubtract_sound proved left right).2
@@ -78,8 +90,13 @@ def binaryObligation (constructor : Interval → Interval → Obligation)
   match left, right with | some a, some b => constructor a b | _, _ => .impossible
 
 def Expr.obligations (ranges : Ranges) : Expr → List Obligation
-  | .literal value => [.range (Interval.singleton value)]
+  | .literal value | .snapshot value => [.range (Interval.singleton value)]
   | .name index => [unaryObligation .range (ranges index)]
+  | .indexed array index => index.obligations ranges ++
+      match index.infer ranges with
+      | none => [.impossible]
+      | some indices => [.arrayIndex array indices,
+          unaryObligation .range (arrayReadRange ranges array indices)]
   | .positive value | .parenthesized value => value.obligations ranges
   | .negative value => value.obligations ranges ++ [unaryObligation .negate (value.infer ranges)]
   | .add left right => left.obligations ranges ++ right.obligations ranges ++
@@ -98,13 +115,29 @@ def Expr.obligations (ranges : Ranges) : Expr → List Obligation
 theorem accepted_isSome (result : CheckResult) : (accepted result).isSome = result.safe := by
   simp only [accepted]; cases result.safe <;> rfl
 
+theorem arrayReadRange_checked {ranges : Ranges} {array : ArrayDescriptor} {indices bounds : Interval}
+    (found : arrayReadRange ranges array indices = some bounds) : (checked bounds).safe = true := by
+  have bounded := arrayReadRange_bounded found
+  simp only [checked]
+  split <;> simp_all
+
 theorem Expr.obligations_exact (expression : Expr) (ranges : Ranges) :
     discharged (expression.obligations ranges) = (expression.infer ranges).isSome := by
   induction expression with
-  | literal value => simp [obligations, infer, discharged, Obligation.discharge, accepted_isSome]
+  | literal value | snapshot value => simp [obligations, infer, discharged, Obligation.discharge, accepted_isSome]
   | name index =>
       cases found : ranges index <;>
         simp [obligations, infer, discharged, Obligation.discharge, unaryObligation, found, accepted_isSome]
+  | indexed array index ih =>
+      simp only [obligations, discharged_append, ih]
+      cases hi : index.infer ranges with
+      | none => simp [infer, hi]
+      | some indices =>
+          cases hr : arrayReadRange ranges array indices with
+          | none => simp [infer, hi, hr, discharged, Obligation.discharge, unaryObligation]
+          | some bounds =>
+              simp [infer, hi, hr, discharged, Obligation.discharge, unaryObligation,
+                arrayReadRange_index hr, arrayReadRange_checked hr]
   | positive _ ih | parenthesized _ ih => exact ih
   | negative value ih =>
       simp only [obligations, discharged, List.all_append] at ih ⊢

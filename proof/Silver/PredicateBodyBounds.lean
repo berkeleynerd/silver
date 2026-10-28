@@ -26,6 +26,12 @@ theorem basicRaw_factsBounded (text : Source) (context : ParseContext) (scan : B
       split
       · exact Context.empty_bounded
       · simpa only [ActiveFlow.replace_path] using bounded
+  | arrayAssignment =>
+      unfold arrayAssignmentBody
+      dsimp only
+      split
+      · exact Context.empty_bounded
+      · exact bounded
   | assignment =>
       dsimp only
       split

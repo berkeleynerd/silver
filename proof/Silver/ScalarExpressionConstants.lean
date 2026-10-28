@@ -90,7 +90,7 @@ private theorem infer_singleton {ranges : Integer.Ranges} {expression : Integer.
     (singletons : ∀ index interval, ranges index = some interval → interval.lower = interval.upper)
     (found : expression.infer ranges = some bounds) : bounds.lower = bounds.upper := by
   induction expression generalizing bounds with
-  | literal value =>
+  | literal value | snapshot value =>
       have same := checked_singleton found
       simp [same, Integer.Interval.singleton]
   | name index =>
@@ -102,6 +102,28 @@ private theorem infer_singleton {ranges : Integer.Ranges} {expression : Integer.
       rw [singleton] at checked
       have same := checked_singleton checked
       simp [same, Integer.Interval.singleton]
+  | indexed array index ih =>
+      simp only [Integer.Expr.infer, Option.bind_eq_some_iff] at found
+      obtain ⟨indices, indexKnown, read⟩ := found
+      have sameIndex := ih indexKnown
+      unfold Integer.arrayReadRange at read
+      split at read
+      · rw [← sameIndex] at read
+        simp only [Int.sub_self, Int.zero_add, Int.toNat_one, Integer.arraySpanRange,
+          Option.map_some, Option.bind_assoc, Option.bind_some, Option.bind_eq_some_iff] at read
+        obtain ⟨cellBounds, present, checked⟩ := read
+        have exactCell := singletons _ _ present
+        have asSingleton : cellBounds = .singleton cellBounds.lower := by
+          cases cellBounds
+          simp_all [Integer.Interval.singleton]
+        have joined : cellBounds.join Integer.Interval.empty = .singleton cellBounds.lower := by
+          rw [asSingleton]
+          simp [Integer.Interval.join, Integer.Interval.isEmpty, Integer.Interval.singleton,
+            Integer.Interval.empty]
+        rw [joined] at checked
+        have same := checked_singleton checked
+        simp [same, Integer.Interval.singleton]
+      · contradiction
   | positive value ih | parenthesized value ih => exact ih found
   | negative value ih =>
       simp only [Integer.Expr.infer, Option.bind_eq_some_iff] at found
@@ -166,6 +188,23 @@ theorem static_inference {names : Environment} {expression : Integer.Expr}
   simp only [Integer.Constants.ranges, Option.map_eq_some_iff] at present
   obtain ⟨value, _, rfl⟩ := present
   rfl
+
+theorem elaborated_array_inference {names : Environment} {expression : Integer.Expr}
+    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials}
+    {bounds : Integer.Interval} (exact : ElaboratedEnvironment names)
+    (found : expression.infer (ArrayBindings.ranges arrays initials true (ranges names)) = some bounds) :
+    bounds.lower = bounds.upper := by
+  apply infer_singleton (found := found)
+  intro index interval present
+  unfold ArrayBindings.ranges at present
+  split at present
+  · simp only [↓reduceIte, Option.some.injEq] at present
+    rw [← present]
+    rfl
+  · rw [static_ranges exact] at present
+    simp only [Integer.Constants.ranges, Option.map_eq_some_iff] at present
+    obtain ⟨value, _, rfl⟩ := present
+    rfl
 
 /-- Stable scalar identities and exact initial values, paired with the
 interval used for every executable-body read. -/

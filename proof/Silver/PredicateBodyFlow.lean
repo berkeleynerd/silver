@@ -40,6 +40,10 @@ theorem basicRaw_count (text : Source) (context : ParseContext) (scan : BodyScan
       split <;> rfl
   | reject => rfl
   | scalarAssignment => exact scalarAssignment_count ..
+  | arrayAssignment =>
+      unfold arrayAssignmentBody
+      dsimp only
+      split <;> rfl
   | assignment =>
       try dsimp only
       split <;> rfl

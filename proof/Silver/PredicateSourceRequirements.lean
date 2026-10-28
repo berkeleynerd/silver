@@ -3,6 +3,7 @@ module
 public import Silver.PredicateNativeSourceChecks
 public import Silver.PredicateBasicSourceCandidate
 public import Silver.PredicateScalarBodySource
+public import Silver.PredicateArrayBodySource
 public import Silver.PredicateBodyWrappers
 public import Silver.PredicateBodyCandidates
 public import Silver.PredicateLoopCandidate
@@ -81,7 +82,7 @@ def spec_spelling_spec_header : List String :=
   ["(", "token", ":", "token_kind", ")", "return", "string", "with", "global", "=>", "null", ",", "post", "=>", "spelling", "'", "result", "'", "first", "=", "1", "and", "then", "spelling", "'", "result", "'", "length", "in", "1", "..", "16"]
 
 def spec_is_word_token_spec_header : List String :=
-  ["(", "token", ":", "token_kind", ")", "return", "boolean", "with", "global", "=>", "null", ",", "post", "=>", "is_word_token", "'", "result", "=", "(", "token_kind", "'", "pos", "(", "token", ")", "in", "0", "..", "10", "or", "else", "token", "in", "constant_keyword", "|", "string_name", "|", "arguments_name", "|", "first_or_default_name", "|", "if_keyword", "|", "input_is_valid_name", "|", "then_keyword", "|", "else_keyword", "|", "elsif_keyword", "|", "reject_name", "|", "and_keyword", "|", "length_name", "|", "or_keyword", "|", "not_keyword", "|", "null_keyword", "|", "integer_name", "|", "for_keyword", "|", "in_keyword", "|", "reverse_keyword", "|", "loop_keyword", "|", "range_keyword", ")"]
+  ["(", "token", ":", "token_kind", ")", "return", "boolean", "with", "global", "=>", "null", ",", "post", "=>", "is_word_token", "'", "result", "=", "(", "token_kind", "'", "pos", "(", "token", ")", "in", "0", "..", "10", "or", "else", "token", "in", "constant_keyword", "|", "string_name", "|", "arguments_name", "|", "first_or_default_name", "|", "if_keyword", "|", "input_is_valid_name", "|", "then_keyword", "|", "else_keyword", "|", "elsif_keyword", "|", "reject_name", "|", "and_keyword", "|", "length_name", "|", "or_keyword", "|", "not_keyword", "|", "null_keyword", "|", "integer_name", "|", "for_keyword", "|", "in_keyword", "|", "reverse_keyword", "|", "loop_keyword", "|", "range_keyword", "|", "array_keyword", "|", "of_keyword", ")"]
 
 def spec_is_argument_form_impl_header : List String :=
   ["(", "form", ":", "form_kind", ")", "return", "boolean"]
@@ -137,7 +138,7 @@ def body_body_of_impl_header : List String :=
   ["(", "scan", ":", "scan_result", ")", "return", "body_scan"]
 
 def body_expand_body_impl_header : List String :=
-  ["(", "context", ":", "body_context", ";", "scan", ":", "body_scan", ")", "return", "scan_result"]
+  ["(", "context", ":", "body_context", ";", "scan", ":", "body_scan", ";", "arrays", ":", "array_bindings", ".", "environment", ")", "return", "scan_result"]
 
 def body_body_token_spec_header : List String :=
   Adapter.Wrappers.tokenSpec
@@ -230,7 +231,7 @@ def scan_result_declaration : List String :=
   ["record", "state", ":", "parser_state", ";", "assigned", ",", "output", ":", "boolean", ";", "end", "record"]
 
 def body_context_declaration : List String :=
-  (Source.lexLine "record Names : Binding_Environment; Scalar_Names : Scalar_Expressions.Environment; Declaration_Count : Scalar_Expressions.Binding_Count; Dynamic_First, Dynamic_After : Literal_Position; end record").getD []
+  (Source.lexLine "record Names : Binding_Environment; Scalar_Names : Scalar_Expressions.Environment; Array_Names : Array_Bindings.Metadata; Declaration_Count : Scalar_Expressions.Binding_Count; Dynamic_First, Dynamic_After : Literal_Position; end record").getD []
 
 def body_scan_declaration : List String :=
   (Source.lexLine "(Count : Scalar_Expressions.Binding_Count) is record Facts : Scalar_Flow (Count); Position : Literal_Position; Target : Binding_Count; Capacity : Capacity_Value; Assigned, Output : Boolean; end record").getD []
@@ -242,7 +243,7 @@ def form_kind_declaration : List String :=
   ["(", "direct_form", ",", "argument_form", ")"]
 
 def token_kind_declaration : List String :=
-  ["(", "with_keyword", ",", "io_name", ",", "procedure_keyword", ",", "main_name", ",", "is_keyword", ",", "pragma_keyword", ",", "spark_mode_name", ",", "on_name", ",", "begin_keyword", ",", "put_line_name", ",", "end_keyword", ",", "left_parenthesis", ",", "right_parenthesis", ",", "semicolon", ",", "dot", ",", "string_literal", ",", "colon", ",", "constant_keyword", ",", "string_name", ",", "assignment", ",", "arguments_name", ",", "first_or_default_name", ",", "if_keyword", ",", "input_is_valid_name", ",", "then_keyword", ",", "else_keyword", ",", "elsif_keyword", ",", "reject_name", ",", "ampersand", ",", "and_keyword", ",", "or_keyword", ",", "not_keyword", ",", "not_equal", ",", "less", ",", "greater", ",", "greater_equal", ",", "apostrophe", ",", "length_name", ",", "less_equal", ",", "capacity_literal", ",", "equal", ",", "argument_declaration", ",", "declarations", ",", "assignment_target", ",", "target_reference", ",", "dynamic_reference", ",", "assignment_value", ",", "output_expression", ",", "comparison_expression", ",", "null_keyword", ",", "statements", ",", "context_clauses", ",", "integer_name", ",", "for_keyword", ",", "in_keyword", ",", "reverse_keyword", ",", "loop_keyword", ",", "range_delimiter", ",", "range_keyword", ")"]
+  ["(", "with_keyword", ",", "io_name", ",", "procedure_keyword", ",", "main_name", ",", "is_keyword", ",", "pragma_keyword", ",", "spark_mode_name", ",", "on_name", ",", "begin_keyword", ",", "put_line_name", ",", "end_keyword", ",", "left_parenthesis", ",", "right_parenthesis", ",", "semicolon", ",", "dot", ",", "string_literal", ",", "colon", ",", "constant_keyword", ",", "string_name", ",", "assignment", ",", "arguments_name", ",", "first_or_default_name", ",", "if_keyword", ",", "input_is_valid_name", ",", "then_keyword", ",", "else_keyword", ",", "elsif_keyword", ",", "reject_name", ",", "ampersand", ",", "and_keyword", ",", "or_keyword", ",", "not_keyword", ",", "not_equal", ",", "less", ",", "greater", ",", "greater_equal", ",", "apostrophe", ",", "length_name", ",", "less_equal", ",", "capacity_literal", ",", "equal", ",", "argument_declaration", ",", "declarations", ",", "assignment_target", ",", "target_reference", ",", "dynamic_reference", ",", "assignment_value", ",", "output_expression", ",", "comparison_expression", ",", "null_keyword", ",", "statements", ",", "context_clauses", ",", "integer_name", ",", "for_keyword", ",", "in_keyword", ",", "reverse_keyword", ",", "loop_keyword", ",", "range_delimiter", ",", "range_keyword", ",", "array_keyword", ",", "of_keyword", ",", "comma", ",", "arrow", ")"]
 
 def token_sequence_declaration : List String :=
   ["array", "(", "positive", "range", "<", ">", ")", "of", "token_kind"]
@@ -281,7 +282,7 @@ def concatenation_count_declaration : List String :=
   ["natural", "range", "0", "..", "max_concatenations"]
 
 def valid_context_expression : List String :=
-  (Source.lexLine "Valid_Names (Text, Context.Names) and then Scalar_Expressions.Valid_Environment (Text, Context.Scalar_Names) and then Valid_Declaration_Values (Context.Scalar_Names, Context.Declaration_Count) and then Valid_Mutable_Bounds (Context.Scalar_Names) and then (for all Index in 1 .. Context.Scalar_Names.Count => (if Context.Scalar_Names.Items (Index).Mutable then Context.Scalar_Names.Items (Index).Bounds = Context.Scalar_Names.Items (Index).Declared_Bounds)) and then Valid_Name_State (Text, Context.Dynamic_First, Context.Dynamic_After)").getD []
+  (Source.lexLine "Valid_Names (Text, Context.Names) and then Scalar_Expressions.Valid_Environment (Text, Context.Scalar_Names) and then Array_Bindings.Valid_Metadata (Text, Context.Array_Names) and then Valid_Declaration_Values (Context.Scalar_Names, Context.Declaration_Count) and then Valid_Mutable_Bounds (Context.Scalar_Names) and then (for all Index in 1 .. Context.Scalar_Names.Count => (if Context.Scalar_Names.Items (Index).Mutable then Context.Scalar_Names.Items (Index).Bounds = Context.Scalar_Names.Items (Index).Declared_Bounds)) and then Valid_Name_State (Text, Context.Dynamic_First, Context.Dynamic_After)").getD []
 
 def valid_body_expression : List String :=
   (Source.lexLine "Scan.Position <= Text'Last + 1 and then Scan.Target <= Context.Names.Count and then Valid_Flow (Context, Scan.Facts)").getD []
@@ -312,6 +313,7 @@ structure Checked (specTokens bodyTokens : List String) : Prop where
   body_shape : bodyTokens = SourceShape.bodyTokens
   native : NativeSourceChecks.Checked bodyTokens
   scalarBodies : ScalarBodyNative.SourceChecks.Checked bodyTokens
+  array_helpers : ArrayBodyNative.SourceChecks.Checked bodyTokens
   bodyWrappers : BodyWrappers.Checked bodyTokens
   adapterWrappers : Adapter.Wrappers.Checked bodyTokens
   lemma_joined_flow_spec : procedureHeader "lemma_joined_flow" ";" bodyTokens = some lemma_joined_flow_spec

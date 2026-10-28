@@ -1,19 +1,21 @@
 # Shift list elements to left by 3
 
-**Candidate: proofs likely to discharge automatically.** All indexes are for-loop indexes over static constant bounds and the element values are small embedded literals, so every check follows from types and static ranges with no loop-carried state.
+**Candidate: proofs likely to discharge automatically.** The two copy loops rotate the nine task values left by three positions: destination indices 1 through 6 read source indices 4 through 9, and destination indices 7 through 9 read source indices 1 through 3. Both index intervals stay within 1 through 9, all components are explicitly initialized, and writes preserve other cells. The exact source and manifest match this narrow approach; broader arrays remain unsupported. The assurance and validation status is recorded separately in docs/fixed-integer-arrays.md; this static assessment establishes no native or universal validation evidence.
 
-Position 57 in the [progression](../../progression.md#stage-3), in stage 3.
+Position 36 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
-Store the nine integers in a constrained array indexed 1..9 with a constant shift of 3, and build the result array with a for loop assigning Result(I) := Source(((I - 1 + 3) mod 9) + 1) (or two for loops copying 4..9 then 1..3 to avoid mod). A Print procedure loops over the array range, emitting each element with Put of its image, followed by a line terminator via Put_Line. About 35 lines.
+Declare an explicitly initialized constant source array containing 1 through 9 and a mutable result array initialized to zero. Copy source indices 4 through 9 into result indices 1 through 6, then source indices 1 through 3 into result indices 7 through 9; print both arrays with Integer Image and Put. This is samples/rosetta_shift_list_left_3.adb, with no named types, array attributes, user subprograms or modulo. About 21 lines.
 
 ## Language surface recorded by this assessment
 
-Integers, ranged subtypes, arrays, for loops, procedures, 'Image of scalars and Put without a newline.
+Fixed-size Integer arrays, immutable Integer arithmetic, Integer range for loops, Integer image and Put without a newline.
 
 ## External effects
 
 - **console output** (allowed): Prints the list before and after the shift to standard output.
 
-Assessed on 2026-10-15 against page revision 406577 of the [task](https://rosettacode.org/wiki/Shift_list_elements_to_left_by_3) by claude-sonnet-5-5 at medium effort; confidence high. The inclusion policy is in `rosetta/coverage.json`.
+Initially assessed on 2026-10-15 against page revision 406577 of the [task](https://rosettacode.org/wiki/Shift_list_elements_to_left_by_3) by claude-sonnet-5-5 at medium effort; current confidence high. The inclusion policy is in `rosetta/coverage.json`.
+
+Revised on 2026-10-27 by Codex through targeted source review; see the [review record](../../assessment-arrays-20261027.md).

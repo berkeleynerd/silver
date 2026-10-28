@@ -15,6 +15,8 @@ with interval-checked `/`, `mod` and `rem`. The
 [scalar guard delivery record](docs/scalar-guard-refinement.md#delivery-assurance-and-validation)
 records complete Linux native and Lean assurance, reviewed retained regression
 results and successful focused repair tests for the flow rules below.
+The [fixed-size Integer-array record](docs/fixed-integer-arrays.md) specifies the
+bounded array increment and its implementation/validation status.
 The [machine-readable
 catalogue](catalogue/silver.json), compiler, and this specification must agree. A
 discrepancy is a defect to resolve, not an extension of the language. Membership
@@ -163,7 +165,7 @@ followed by letters or digits, optionally separated by single underscores, witho
 trailing underscore. The 74 Ada 2022 reserved words, `String` and `Silver_IO` are
 excluded ignoring ASCII case. In an argument-bearing shell, `Silver_Arguments` is
 also excluded for **every** declaration. Names in the ordered declaration region must
-be distinct ignoring ASCII case across String and Integer declarations. Loop indexes
+be distinct ignoring ASCII case across String, Integer and Integer-array declarations. Loop indexes
 have the scoped hiding rules below. `Main` is legal; `Silver_Arguments` remains legal
 in the static shell. Every reference matches the entire declared identifier ignoring
 ASCII case. There is no additional identifier-length limit beyond the complete source
@@ -178,12 +180,13 @@ declaration ::= name ":" [ "constant" ] "String" ":=" expression ";"
               | name ":" [ "constant" ] "Integer"
                 [ "range" static_scalar_expression ".." static_scalar_expression ]
                 ":=" scalar_expression ";"
+              | integer_array_declaration
 ```
 
 Each declaration introduces exactly one name. Every initializer is required;
 a String initializer may read earlier String constants or mutable objects and
 use Integer Image; an Integer initializer may read earlier initialized Integer
-constants or mutable objects.
+constants or mutable objects, including earlier initialized array components.
 Forward, cyclic and self-initializer references are excluded. Each String
 initializer evaluates its literals, earlier names, images and concatenations
 immediately; parenthesized subexpressions preserve their grouping. A name
@@ -236,6 +239,7 @@ indexes and constants initialized from them cannot supply an endpoint.
 ```text
 scalar_expression ::= scalar_unsigned | sign scalar_integer_literal
 scalar_unsigned   ::= scalar_integer_literal | scalar_name | scalar_group
+                    | indexed_integer_component
 scalar_group      ::= "(" scalar_unsigned ")"
                     | "(" sign scalar_unsigned ")"
                     | "(" scalar_unsigned scalar_operator scalar_unsigned ")"
@@ -243,8 +247,10 @@ scalar_operator   ::= "+" | "-" | "*" | "/" | "mod" | "rem"
 sign              ::= "+" | "-"
 ```
 
-Here `scalar_name` denotes a visible initialized Integer object or loop index. Each scalar
-expression has one through sixty-four literal/name leaves. Binary operations
+Here `scalar_name` denotes a visible initialized Integer object or loop index.
+Indexed Integer components follow the array rules below. Each scalar expression
+has one through sixty-four operands: literal/name leaves and, for each indexed
+read, one array-name operand plus every operand of its subscript. Binary operations
 are fully parenthesized; `1 + 2` is excluded and `(1 + 2)` is admitted. A sign
 outside a group can prefix only a numeral: `-1` is admitted, while negating a
 name requires `(-N)`. Signed operands of binary operations need their own
@@ -333,9 +339,83 @@ else contributes the false flow. These rules add no grammar or relational facts
 between different objects.
 
 The type mark `Integer` must be visible in declarations and Image expressions.
-An Integer object cannot itself be named `Integer`. A String object named
+An Integer or Integer-array object cannot itself be named `Integer`. A String object named
 `Integer` remains legal, but hides the type in its own initializer and later
-source; scalar declarations cannot use that hidden type mark.
+source; scalar declarations and array component declarations cannot use that
+hidden type mark.
+
+### Fixed-size Integer arrays
+
+The ordered declaration region admits anonymous, one-dimensional arrays:
+
+```text
+integer_array_declaration ::= name ":" [ "constant" ] "array" "("
+                              static_scalar_expression ".." static_scalar_expression
+                              ")" "of" "Integer" ":=" integer_array_aggregate ";"
+integer_array_aggregate   ::= "(" scalar_expression "," scalar_expression
+                              { "," scalar_expression } ")"
+                            | "(" static_scalar_expression "=>" scalar_expression ")"
+indexed_integer_component ::= integer_array_name "(" scalar_index_expression ")"
+```
+
+Both index bounds must be Ada-static, fit Integer and form a nonempty range.
+Each declaration creates its own anonymous Ada array type. Components have the
+full predefined Integer subtype. Named array types, component constraints,
+multiple dimensions, null arrays and dynamic index bounds are outside this
+fragment. These are Silver scope restrictions, not Ada requirements.
+
+Initialization is mandatory and explicit. Arrays of at least two elements use
+exactly one positional expression per component, in increasing index order.
+A one-element array uses one named association whose Ada-static choice equals
+its sole index; `(E)` alone is an ordinary parenthesized expression, not an
+array aggregate. `others`, range choices, mixed associations, brackets and
+aggregate expansion are excluded. Every component expression passes the usual
+Integer intermediate checks and evaluates to an exact initialized value.
+Expressions can read earlier declarations, including earlier array components;
+self, cyclic and forward references remain excluded. There are no side effects
+inside an initializer expression. Subsequent component writes do not change
+earlier scalar, String or array snapshots.
+
+Explicit components bound storage through the existing complete-source limit:
+each uses an expression byte and a distinct comma or closing delimiter, so all
+arrays' components together fit within `floor(source_bytes / 2)`, at most 2048.
+The implementation compares the wide-arithmetic index cardinality with the
+explicit component count before using an element-table offset. This storage
+capacity is derived from source syntax, not an additional array-length policy.
+
+A visible array component is an Integer atom wherever ordinary scalar
+expressions occur: later initializers, arithmetic, comparisons, Image, assignment
+values and loop bounds. A subscript uses the existing scalar grammar with
+array reads excluded; therefore `A((I + 1))` is permitted when its interval is
+safe, but `A(B(I))` is outside this first fragment. Every inferred subscript
+interval must be nonempty and lie inside the declared index range, including
+in unreachable arms and empty loops. Static illegal expressions remain excluded.
+The array name and all subscript operands count toward the enclosing scalar
+expression's 64-operand limit; arithmetic shares the existing 63-operator budget.
+
+Declaration elaboration reads the exact initialized component values. In the
+body, every array read contributes the full Integer interval, including reads
+from constant arrays. Array elements receive no per-element flow refinement.
+An indexed read is never Ada-static; a constant initialized from `A(1)` is an
+exact snapshot but cannot supply a static range endpoint or guard threshold.
+Scalar guards can establish a safe index interval, but a comparison of an array
+element does not narrow a later read of that element.
+
+An indexed assignment has the form
+`A(index_expression) := scalar_expression;`. Only visible mutable arrays can
+be targets. The index passes the same check as a read, and the RHS must have a
+nonempty inferred interval with every intermediate fitting Integer. Both use
+the incoming state; the assignment replaces precisely the selected component.
+Other elements, array bounds, scalar-flow facts, String/input facts and earlier
+snapshots are preserved. Array writes carry across loop iterations. Loop bounds
+are captured on entry, including bounds read from arrays, and later writes do
+not alter that iteration sequence. Empty loops preserve the entire store.
+
+Array names share declaration uniqueness and operation/type hiding with String
+and Integer names. A scoped loop index may hide an array, and the new index's
+name is unavailable in its own bounds. Whole-array values, assignment, copying,
+comparison, slices, concatenation and attributes are not admitted; copying
+components explicitly through checked reads and writes is permitted.
 
 ### Scoped finite for loops
 
@@ -358,7 +438,7 @@ The index is immutable and disappears on loop exit. Declarations stay in the
 single outer declaration region; `exit`, `while`, unconstrained loops and
 explicit iteration steps are excluded.
 
-Indexes may hide a String, an Integer object, an enclosing index or a
+Indexes may hide a String, an Integer object, an Integer array, an enclosing index or a
 use-visible operation. The index's own name is hidden in both bounds: an inner
 `for I in 1 .. I` cannot use the outer `I`. Differently named enclosing indexes
 remain available, as in `for J in 1 .. I`. Sequential loops may reuse names.
@@ -491,6 +571,8 @@ basic_statement  ::= "null" ";"
                    | reject_name ";"
                    | mutable_name ":=" expression ";"
                    | mutable_integer_name ":=" scalar_expression ";"
+                   | mutable_integer_array_name "(" scalar_index_expression ")"
+                     ":=" scalar_expression ";"
                    | output_name "(" [ "Item" "=>" ] expression ")" ";"
 string_choice    ::= "if" condition "then" statements
                      { "elsif" condition "then" statements }
@@ -584,8 +666,10 @@ Review B1 later found a denser static-shell construction with only 0.28–0.29%
 headroom; timing-dependent prover credits can exceed that margin. The
 [capacity correction](docs/review-343c2f8-repairs.md#report-capacity-correction)
 distinguishes the deterministic floor and measured credits. The
-[report-capacity repair](docs/report-capacity.md) derives the current 16 MiB
-allocation from source and producer-format bounds. These specimens do not
+[report-capacity repair](docs/report-capacity.md) derived the earlier 16 MiB
+allocation. The [fixed-array extension](docs/fixed-integer-arrays-report-capacity.md)
+raises retained Main report storage to 32 MiB, accounting for repeated loop
+initialization advisories within the same 4,096-byte source budget. These specimens do not
 establish a universal resource bound. The
 [branch capacity assessment](docs/branches.md#bounded-5bc-capacity-assessment--2026-10-14)
 records the specimen and smaller matching probe. The original
@@ -741,6 +825,7 @@ The catalogue uses these construct identifiers:
 | `string_copy` | Snapshot initialization and current name reads for compatible assignments. |
 | `string_expression`, `string_concatenation` | One through sixty-four literal/name/Image leaves; sixty-three operators shared with scalar arithmetic. |
 | `scalar_integer_literal`, `named_integer_constant`, `named_integer_variable`, `integer_range_constraint`, `integer_expression`, `integer_assignment` | Scalar numerals, initialized Integer objects, optional static object constraints, checked interval arithmetic and range-preserving assignments. |
+| `integer_array_object`, `integer_array_read`, `integer_array_assignment` | Explicitly initialized anonymous fixed-size Integer arrays, nonempty interval-checked subscripts and component-preserving indexed assignment. |
 | `integer_comparison`, `scalar_guard_refinement`, `integer_image`, `for_loop` | Bare mutable/index names against static thresholds, current read intervals with assignment replacement and branch hulls, standard decimal Image and scoped finite loops with captured bounds and mutable widening. |
 | `expression_output`, `literal_output`, `named_output`, `concatenated_output` | Returning output calls with qualified or visible unqualified names and positional or `Item =>` actuals. |
 | `argument_initialization`, `input_guard`, `capacity_guard`, `argument_rejection` | First/unique immutable input with positional or `Default =>` literal, path-derived validity/capacity and returning rejection; existing calls follow the shared visibility rules. |
@@ -830,7 +915,7 @@ range checks; copied dynamic-length assignments can emit length checks; scalar
 arithmetic can emit overflow checks and division/remainder can emit nonzero-divisor
 checks. Every emitted Main
 safety record must be a proved/info `VC_RANGE_CHECK`, `VC_LENGTH_CHECK`,
-`VC_OVERFLOW_CHECK` or `VC_DIVISION_CHECK`, with complete coverage, approved dependencies and no
+`VC_OVERFLOW_CHECK`, `VC_DIVISION_CHECK` or `VC_INDEX_CHECK`, with complete coverage, approved dependencies and no
 suppression. Length checks require the fixed-bound argument; their absence through
 static elimination is no longer a prerequisite for supporting copies.
 

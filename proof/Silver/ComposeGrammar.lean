@@ -49,20 +49,20 @@ def PayloadAt (text : Source) (form : Form) (token : ShellToken)
   | .declarations => ∃ values, DeclarationsAt text form.hasArguments state values next ∧
       event = some (.declarations values next.names)
   | .argumentDeclaration => ∃ fallback, ArgumentAt text state fallback next ∧ event = some (.argument fallback)
-  | .assignmentValue => ∃ value, ExpressionAt (scalarNames := state.scalarNames) text state.names state.position value (expressionAt text state.position state.names state.scalarNames) ∧
-      event = some (.assignment ⟨state.target, value.freezeImages (frozenIntegers state.scalarNames)⟩)
+  | .assignmentValue => ∃ value, ExpressionAt (scalarNames := state.scalarNames) (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true) text state.names state.position value (expressionAt text state.position state.names state.scalarNames false state.arrayNames.names state.arrayNames.values true) ∧
+      event = some (.assignment ⟨state.target, value.freezeImages (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values)⟩)
   | .literal => ∃ bytes, LiteralReading text (skipAt text state.position) bytes (literalAt text (skipAt text state.position)) ∧
       event = some (.literal bytes)
   | .capacity => event = some (.capacity next.capacity)
   | .outputExpression => ∃ expression,
-      ExpressionAt (scalarNames := state.scalarNames) text state.names state.position expression (expressionAt text state.position state.names state.scalarNames) ∧
-      event = some (.output (expression.freezeImages (frozenIntegers state.scalarNames)))
+      ExpressionAt (scalarNames := state.scalarNames) (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true) text state.names state.position expression (expressionAt text state.position state.names state.scalarNames false state.arrayNames.names state.arrayNames.values true) ∧
+      event = some (.output (expression.freezeImages (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values)))
   | .comparisonExpression => ∃ left right,
-      ExpressionAt (scalarNames := state.scalarNames) text state.names state.position left (expressionAt text state.position state.names state.scalarNames) ∧
-      ExpressionAt (scalarNames := state.scalarNames) text state.names (fixedAfter text (expressionAt text state.position state.names state.scalarNames).after "=" false)
-        right (expressionAt text (fixedAfter text (expressionAt text state.position state.names state.scalarNames).after "=" false) state.names state.scalarNames) ∧
-      event = some (.comparison (left.freezeImages (frozenIntegers state.scalarNames))
-        (right.freezeImages (frozenIntegers state.scalarNames)))
+      ExpressionAt (scalarNames := state.scalarNames) (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true) text state.names state.position left (expressionAt text state.position state.names state.scalarNames false state.arrayNames.names state.arrayNames.values true) ∧
+      ExpressionAt (scalarNames := state.scalarNames) (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true) text state.names (fixedAfter text (expressionAt text state.position state.names state.scalarNames false state.arrayNames.names state.arrayNames.values true).after "=" false)
+        right (expressionAt text (fixedAfter text (expressionAt text state.position state.names state.scalarNames false state.arrayNames.names state.arrayNames.values true).after "=" false) state.names state.scalarNames false state.arrayNames.names state.arrayNames.values true) ∧
+      event = some (.comparison (left.freezeImages (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values))
+        (right.freezeImages (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values)))
   | _ => event = none
 
 /-- An assignment target denotes the declared mutable cell whose source name
@@ -182,34 +182,34 @@ theorem step_payload (text : Source) (form : Form) (token : ShellToken) (state :
       exact ⟨some (.literal bytes), bytes, parsed, rfl⟩
   | capacity => exact ⟨some (.capacity (step text form .capacity state).capacity), rfl⟩
   | assignmentValue =>
-      have success : (expressionAt text state.position state.names state.scalarNames).after ≠ 0 := by
-        by_cases failed : (expressionAt text state.position state.names state.scalarNames).after = 0
+      have success : (expressionAt text state.position state.names state.scalarNames false state.arrayNames.names state.arrayNames.values true).after ≠ 0 := by
+        by_cases failed : (expressionAt text state.position state.names state.scalarNames false state.arrayNames.names state.arrayNames.values true).after = 0
         · simp [step, positive, assignmentAt, fits, failed, invalidState] at accepted
         · exact failed
-      obtain ⟨value, parsed⟩ := expressionAt_sound (scalarNames := state.scalarNames) text state.names state.position success
-      exact ⟨some (.assignment ⟨state.target, value.freezeImages (frozenIntegers state.scalarNames)⟩), value, parsed, rfl⟩
+      obtain ⟨value, parsed⟩ := expressionAt_sound (scalarNames := state.scalarNames) (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true) text state.names state.position success
+      exact ⟨some (.assignment ⟨state.target, value.freezeImages (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values)⟩), value, parsed, rfl⟩
   | outputExpression =>
-      have success : (expressionAt text state.position state.names state.scalarNames).after ≠ 0 := by
-        by_cases failed : (expressionAt text state.position state.names state.scalarNames).after = 0
+      have success : (expressionAt text state.position state.names state.scalarNames false state.arrayNames.names state.arrayNames.values true).after ≠ 0 := by
+        by_cases failed : (expressionAt text state.position state.names state.scalarNames false state.arrayNames.names state.arrayNames.values true).after = 0
         · simp [step, positive, outputAt, fits, failed, invalidState] at accepted
         · exact failed
-      obtain ⟨expression, parsed⟩ := expressionAt_sound (scalarNames := state.scalarNames) text state.names state.position success
-      exact ⟨some (.output (expression.freezeImages (frozenIntegers state.scalarNames))), expression, parsed, rfl⟩
+      obtain ⟨expression, parsed⟩ := expressionAt_sound (scalarNames := state.scalarNames) (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true) text state.names state.position success
+      exact ⟨some (.output (expression.freezeImages (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values))), expression, parsed, rfl⟩
   | comparisonExpression =>
-      have leftSuccess : (expressionAt text state.position state.names state.scalarNames).after ≠ 0 := by
-        by_cases failed : (expressionAt text state.position state.names state.scalarNames).after = 0
+      have leftSuccess : (expressionAt text state.position state.names state.scalarNames false state.arrayNames.names state.arrayNames.values true).after ≠ 0 := by
+        by_cases failed : (expressionAt text state.position state.names state.scalarNames false state.arrayNames.names state.arrayNames.values true).after = 0
         · simp [step, positive, comparisonAt, fits, failed, invalidState] at accepted
         · exact failed
       have rightSuccess : (expressionAt text (fixedAfter text
-          (expressionAt text state.position state.names state.scalarNames).after "=" false) state.names state.scalarNames).after ≠ 0 := by
+          (expressionAt text state.position state.names state.scalarNames false state.arrayNames.names state.arrayNames.values true).after "=" false) state.names state.scalarNames false state.arrayNames.names state.arrayNames.values true).after ≠ 0 := by
         by_cases failed : (expressionAt text (fixedAfter text
-            (expressionAt text state.position state.names state.scalarNames).after "=" false) state.names state.scalarNames).after = 0
+            (expressionAt text state.position state.names state.scalarNames false state.arrayNames.names state.arrayNames.values true).after "=" false) state.names state.scalarNames false state.arrayNames.names state.arrayNames.values true).after = 0
         · simp [step, positive, comparisonAt, fits, failed, invalidState] at accepted
         · exact failed
-      obtain ⟨left, first⟩ := expressionAt_sound (scalarNames := state.scalarNames) text state.names state.position leftSuccess
-      obtain ⟨right, second⟩ := expressionAt_sound (scalarNames := state.scalarNames) text state.names _ rightSuccess
-      exact ⟨some (.comparison (left.freezeImages (frozenIntegers state.scalarNames))
-        (right.freezeImages (frozenIntegers state.scalarNames))), left, right, first, second, rfl⟩
+      obtain ⟨left, first⟩ := expressionAt_sound (scalarNames := state.scalarNames) (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true) text state.names state.position leftSuccess
+      obtain ⟨right, second⟩ := expressionAt_sound (scalarNames := state.scalarNames) (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true) text state.names _ rightSuccess
+      exact ⟨some (.comparison (left.freezeImages (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values))
+        (right.freezeImages (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values))), left, right, first, second, rfl⟩
 
 theorem step_sound (text : Source) (form : Form) (token : ShellToken) (state : ParserState)
     (positive : state.position ≠ 0) (accepted : (step text form token state).position ≠ 0) :
@@ -295,13 +295,13 @@ theorem initial_valid : StateValid initialState := by
 theorem assignment_safe {text : Source} {state : ParserState} {value : Expression}
     (normal : NamesNormal state.names) (static : ScalarExpression.StaticEnvironment state.scalarNames)
     (valid : TargetValid state)
-    (parsed : ExpressionAt (scalarNames := state.scalarNames) text state.names state.position value (expressionAt text state.position state.names state.scalarNames))
+    (parsed : ExpressionAt (scalarNames := state.scalarNames) (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true) text state.names state.position value (expressionAt text state.position state.names state.scalarNames false state.arrayNames.names state.arrayNames.values true))
     (accepted : (assignmentAt text state).position ≠ 0) :
-    (Bindings.Assignment.mk state.target (value.freezeImages (frozenIntegers state.scalarNames))).Valid state.names.shape ∧
-      SafeExpression (value.freezeImages (frozenIntegers state.scalarNames)) state.names.shape state.capacity ∧
+    (Bindings.Assignment.mk state.target (value.freezeImages (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values))).Valid state.names.shape ∧
+      SafeExpression (value.freezeImages (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values)) state.names.shape state.capacity ∧
       (assignmentAt text state).names = state.names ∧ (assignmentAt text state).capacity = state.capacity ∧
       (assignmentAt text state).target = state.target := by
-  generalize valueEq : expressionAt text state.position state.names state.scalarNames = result at *
+  generalize valueEq : expressionAt text state.position state.names state.scalarNames false state.arrayNames.names state.arrayNames.values true = result at *
   generalize infoEq : (state.names.get state.target).getD {} = info
   have observed : assignmentAt text state =
       if !fits result state.capacity || result.emptyValue || decide (result.minimumLength ≠ result.staticLength ∨ state.target = 0 ∨ result.staticLength ≠ info.staticLength ∨
@@ -331,7 +331,7 @@ theorem assignment_safe {text : Source} {state : ParserState} {value : Expressio
     have exact : result.minimumLength = result.staticLength := by omega
     have summary := expressionAt_frozen_summary normal static parsed exact
     have safe := expressionAt_safe normal static parsed bounded
-    have same : (value.freezeImages (frozenIntegers state.scalarNames)).summary state.names.shape = bound.summary := by
+    have same : (value.freezeImages (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values)).summary state.names.shape = bound.summary := by
       rw [summary, ← boundEq]
       have lengthEq : result.staticLength = info.staticLength := by omega
       have countEq : result.dynamicCount = if info.dynamic then 1 else 0 := by omega
@@ -344,26 +344,26 @@ theorem assignment_safe {text : Source} {state : ParserState} {value : Expressio
 
 theorem output_safe {text : Source} {state : ParserState} {expression : Expression}
     (normal : NamesNormal state.names) (static : ScalarExpression.StaticEnvironment state.scalarNames)
-    (parsed : ExpressionAt (scalarNames := state.scalarNames) text state.names state.position expression (expressionAt text state.position state.names state.scalarNames))
+    (parsed : ExpressionAt (scalarNames := state.scalarNames) (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true) text state.names state.position expression (expressionAt text state.position state.names state.scalarNames false state.arrayNames.names state.arrayNames.values true))
     (accepted : (outputAt text state).position ≠ 0) :
-    SafeExpression (expression.freezeImages (frozenIntegers state.scalarNames)) state.names.shape state.capacity ∧ outputAt text state =
-      {state with position := (expressionAt text state.position state.names state.scalarNames).after} := by
-  have bounded : fits (expressionAt text state.position state.names state.scalarNames) state.capacity = true := by
-    by_cases good : fits (expressionAt text state.position state.names state.scalarNames) state.capacity = true
+    SafeExpression (expression.freezeImages (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values)) state.names.shape state.capacity ∧ outputAt text state =
+      {state with position := (expressionAt text state.position state.names state.scalarNames false state.arrayNames.names state.arrayNames.values true).after} := by
+  have bounded : fits (expressionAt text state.position state.names state.scalarNames false state.arrayNames.names state.arrayNames.values true) state.capacity = true := by
+    by_cases good : fits (expressionAt text state.position state.names state.scalarNames false state.arrayNames.names state.arrayNames.values true) state.capacity = true
     · exact good
     · simp [outputAt, good, invalidState] at accepted
   exact ⟨expressionAt_safe normal static parsed bounded, by simp [outputAt, bounded]⟩
 
 theorem comparison_safe {text : Source} {state : ParserState} {left right : Expression}
     (normal : NamesNormal state.names) (static : ScalarExpression.StaticEnvironment state.scalarNames)
-    (first : ExpressionAt (scalarNames := state.scalarNames) text state.names state.position left (expressionAt text state.position state.names state.scalarNames))
-    (second : ExpressionAt (scalarNames := state.scalarNames) text state.names (fixedAfter text (expressionAt text state.position state.names state.scalarNames).after "=" false)
-      right (expressionAt text (fixedAfter text (expressionAt text state.position state.names state.scalarNames).after "=" false) state.names state.scalarNames))
+    (first : ExpressionAt (scalarNames := state.scalarNames) (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true) text state.names state.position left (expressionAt text state.position state.names state.scalarNames false state.arrayNames.names state.arrayNames.values true))
+    (second : ExpressionAt (scalarNames := state.scalarNames) (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true) text state.names (fixedAfter text (expressionAt text state.position state.names state.scalarNames false state.arrayNames.names state.arrayNames.values true).after "=" false)
+      right (expressionAt text (fixedAfter text (expressionAt text state.position state.names state.scalarNames false state.arrayNames.names state.arrayNames.values true).after "=" false) state.names state.scalarNames false state.arrayNames.names state.arrayNames.values true))
     (accepted : (comparisonAt text state).position ≠ 0) :
-    SafeExpression (left.freezeImages (frozenIntegers state.scalarNames)) state.names.shape state.capacity ∧
-      SafeExpression (right.freezeImages (frozenIntegers state.scalarNames)) state.names.shape state.capacity ∧
+    SafeExpression (left.freezeImages (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values)) state.names.shape state.capacity ∧
+      SafeExpression (right.freezeImages (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values)) state.names.shape state.capacity ∧
     comparisonAt text state = {state with position := (expressionAt text
-      (fixedAfter text (expressionAt text state.position state.names state.scalarNames).after "=" false) state.names state.scalarNames).after} := by
+      (fixedAfter text (expressionAt text state.position state.names state.scalarNames false state.arrayNames.names state.arrayNames.values true).after "=" false) state.names state.scalarNames false state.arrayNames.names state.arrayNames.values true).after} := by
   dsimp only [comparisonAt] at accepted ⊢
   split at accepted
   · rename_i good
@@ -377,9 +377,9 @@ theorem comparison_safe {text : Source} {state : ParserState} {left right : Expr
 /-- Equality has a resolved String object on at least one side. Literal-only
 Ada equality would be overload-ambiguous even though its byte meaning is clear. -/
 theorem comparison_anchor {text : Source} {state : ParserState} {left right : Expression}
-    (first : ExpressionAt (scalarNames := state.scalarNames) text state.names state.position left (expressionAt text state.position state.names state.scalarNames))
-    (second : ExpressionAt (scalarNames := state.scalarNames) text state.names (fixedAfter text (expressionAt text state.position state.names state.scalarNames).after "=" false)
-      right (expressionAt text (fixedAfter text (expressionAt text state.position state.names state.scalarNames).after "=" false) state.names state.scalarNames))
+    (first : ExpressionAt (scalarNames := state.scalarNames) (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true) text state.names state.position left (expressionAt text state.position state.names state.scalarNames false state.arrayNames.names state.arrayNames.values true))
+    (second : ExpressionAt (scalarNames := state.scalarNames) (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true) text state.names (fixedAfter text (expressionAt text state.position state.names state.scalarNames false state.arrayNames.names state.arrayNames.values true).after "=" false)
+      right (expressionAt text (fixedAfter text (expressionAt text state.position state.names state.scalarNames false state.arrayNames.names state.arrayNames.values true).after "=" false) state.names state.scalarNames false state.arrayNames.names state.arrayNames.values true))
     (accepted : (comparisonAt text state).position ≠ 0) : (left.hasName || right.hasName) = true := by
   dsimp only [comparisonAt] at accepted
   split at accepted

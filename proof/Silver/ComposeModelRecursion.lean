@@ -72,18 +72,20 @@ theorem model_workTail_equation (text : Source) (_valid : ValidText text)
 
 theorem model_tail_equation (ranges : RangeContracts modelCalls)
     (text : Source) (valid : ValidText text) (names : BindingEnvironment)
-    (scan : ExpressionState) (scalarNames : ScalarExpression.Environment) (integerHidden : Bool)
+    (scan : ExpressionState) (scalarNames : ScalarExpression.Environment) (integerHidden : Bool) (arrays : ArrayBindings.Metadata)
+    (initials : ArrayBindings.Initials) (elaborating : Bool)
     (namesValid : ValidNames text names)
     (scalarNamesValid : ScalarExpression.ValidEnvironment text scalarNames)
+    (arraysValid : ArrayBindings.ValidMetadata text arrays) (initialsValid : ArrayBindings.ValidInitials initials)
     (scanValid : ValidScan text scan) :
-    modelCalls.function .tail text names scan scalarNames integerHidden =
-      tailBody.eval modelCalls (Context.locals {text,scalarNames,integerHidden,names,scan}) := by
-  have nextRange := ranges.expressionStep text valid names scan scalarNames integerHidden namesValid scalarNamesValid scanValid
-  change ValidScan text (expressionStep text names scan scalarNames integerHidden) ∧
-    ((expressionStep text names scan scalarNames integerHidden).position = 0 ∨
-      (expressionStep text names scan scalarNames integerHidden).complete = true ∨
-      scan.position < (expressionStep text names scan scalarNames integerHidden).position) at nextRange
-  change expressionTail text names scan scalarNames integerHidden = _
+    modelCalls.function .tail text names scan scalarNames integerHidden arrays initials elaborating =
+      tailBody.eval modelCalls (Context.locals {text,scalarNames,integerHidden,arrays,initials,elaborating,names,scan}) := by
+  have nextRange := ranges.expressionStep text valid names scan scalarNames integerHidden arrays initials elaborating namesValid scalarNamesValid arraysValid initialsValid scanValid
+  change ValidScan text (expressionStep text names scan scalarNames integerHidden arrays initials elaborating) ∧
+    ((expressionStep text names scan scalarNames integerHidden arrays initials elaborating).position = 0 ∨
+      (expressionStep text names scan scalarNames integerHidden arrays initials elaborating).complete = true ∨
+      scan.position < (expressionStep text names scan scalarNames integerHidden arrays initials elaborating).position) at nextRange
+  change expressionTail text names scan scalarNames integerHidden arrays initials elaborating = _
   dsimp +instances only [tailBody, Expr.eval, Context.locals, Locals.set,
     modelCalls, Calls.get, Field.get]
   simp +instances only [reduceCtorEq, ↓reduceIte, ↓reduceDIte, decide_eq_true_eq]
@@ -92,17 +94,17 @@ theorem model_tail_equation (ranges : RangeContracts modelCalls)
   · simp [zero]
   · by_cases complete : scan.complete = true
     · simp [zero, complete, ExpressionState.result]
-    · by_cases nextZero : (expressionStep text names scan scalarNames integerHidden).position = 0
+    · by_cases nextZero : (expressionStep text names scan scalarNames integerHidden arrays initials elaborating).position = 0
       · simp [zero, complete, nextZero]
-      · by_cases nextComplete : (expressionStep text names scan scalarNames integerHidden).complete = true
+      · by_cases nextComplete : (expressionStep text names scan scalarNames integerHidden arrays initials elaborating).complete = true
         · simp [zero, complete, nextZero, nextComplete, ExpressionState.result]
-        · have advances : scan.position < (expressionStep text names scan scalarNames integerHidden).position := by
+        · have advances : scan.position < (expressionStep text names scan scalarNames integerHidden arrays initials elaborating).position := by
             rcases nextRange.2 with bad | done | progress
             · exact False.elim (nextZero bad)
             · exact False.elim (nextComplete done)
             · exact progress
           have bounded := nextRange.1.1
-          have smaller : text.length + 1 - (expressionStep text names scan scalarNames integerHidden).position <
+          have smaller : text.length + 1 - (expressionStep text names scan scalarNames integerHidden arrays initials elaborating).position <
               text.length + 1 - scan.position := by
             unfold ValidCursor at bounded
             omega

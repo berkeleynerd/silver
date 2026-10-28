@@ -1,6 +1,7 @@
 module
 
 public import Silver.ComposeExpressions
+public import Silver.ComposeArrayExpressions
 public import Silver.ComposeBounds
 
 @[expose] public section
@@ -16,15 +17,23 @@ def ValidState (text : Source) (state : ParserState) : Prop :=
   ValidCursor text state.position ∧ ValidNames text state.names ∧
     (⟨state.dynamicFirst,state.dynamicAfter⟩ : NameState).Valid text ∧
     state.target ≤ state.names.length ∧ state.capacity ≤ maxSourceLength ∧
-    ScalarExpression.ValidEnvironment text state.scalarNames
+    ScalarExpression.ValidEnvironment text state.scalarNames ∧
+    ArrayBindings.ValidEnvironment text state.arrayNames
 
 /-- The state precondition actually provided by an interpreted native caller.
 The base domain remains available for the independent mathematical model. -/
 structure StateDomain where
   holds : Source → ParserState → Prop
   valid : ∀ text state, holds text state → ValidState text state
+  /-- Additional caller invariants depend only on scalar declarations. Native
+  validity supplies the bounds of all other fields after an array update. -/
+  transportScalar : ∀ text before after, holds text before → ValidState text after →
+    after.scalarNames = before.scalarNames → holds text after
 
-def StateDomain.basic : StateDomain := ⟨ValidState, fun _ _ valid => valid⟩
+def StateDomain.basic : StateDomain where
+  holds := ValidState
+  valid := fun _ _ valid => valid
+  transportScalar := fun _ _ _ _ valid _ => valid
 
 def allTokens : List ShellToken :=
   [.word "with", .word "silver_io", .word "procedure", .word "main", .word "is",
@@ -36,7 +45,7 @@ def allTokens : List ShellToken :=
    .symbol "'", .word "length", .symbol "<=", .capacity, .symbol "=", .argumentDeclaration,
    .declarations, .assignmentTarget, .targetReference, .dynamicReference, .assignmentValue,
    .outputExpression, .comparisonExpression, .word "null", .contextClauses,
-   .word "integer", .word "for", .word "in", .word "reverse", .word "loop", .symbol "..", .word "range"]
+   .word "integer", .word "for", .word "in", .word "reverse", .word "loop", .symbol "..", .word "range", .word "array", .word "of", .symbol ",", .symbol "=>"]
 
 def ValidToken (token : ShellToken) : Prop := token ∈ allTokens
 
@@ -58,6 +67,9 @@ structure Context where
   nextToken : Nat := 1
   names : BindingEnvironment := []
   scalarNames : ScalarExpression.Environment := []
+  arrays : ArrayBindings.Metadata := []
+  initials : ArrayBindings.Initials := []
+  elaborating : Bool := false
   state : ParserState := initialState
   value : ValueResult := invalidValue
   result : ExpressionResult := invalidExpression
@@ -81,9 +93,11 @@ def Context.locals (ctx : Context) : Locals
   | .truth, name => match name with
     | "arguments" => ctx.arguments | "mutable" => ctx.mutable
     | "same_target" => ctx.sameTarget | "dynamic_seen" => ctx.dynamicSeen
-    | "integer_hidden" => ctx.integerHidden | _ => false
+    | "integer_hidden" => ctx.integerHidden | "elaborating" => ctx.elaborating | _ => false
   | .names, _ => ctx.names
   | .scalarNames, _ => ctx.scalarNames
+  | .arrayMetadata, _ => ctx.arrays
+  | .arrayInitials, _ => ctx.initials
   | .state, _ => ctx.state
   | .value, _ => ctx.value
   | .result, _ => ctx.result
@@ -92,6 +106,41 @@ def Context.locals (ctx : Context) : Locals
   | .token, _ => ctx.token
   | .operation, _ => ctx.operation
   | ty, _ => ty.default
+
+/-- The aggregate precondition retains the caller's complete state domain.
+This requires native table validity, not the stronger source allocation layout. -/
+structure ArrayValuesDomain (text : Source) (source result : ParserState)
+    (position length parsed : Nat) (domain : StateDomain := .basic) : Prop where
+  sourceContext : domain.holds text source
+  resultContext : domain.holds text result
+  positionValid : ValidCursor text position
+  parsedBound : parsed ≤ length
+  capacity : length ≤ ArrayBindings.maxElements - source.arrayNames.used
+  used : result.arrayNames.used = source.arrayNames.used + parsed
+
+theorem ArrayValuesDomain.sourceValid {domain : StateDomain}
+    {text source result position length parsed}
+    (context : ArrayValuesDomain text source result position length parsed domain) :
+    ValidState text source := domain.valid text source context.sourceContext
+
+theorem ArrayValuesDomain.resultValid {domain : StateDomain}
+    {text source result position length parsed}
+    (context : ArrayValuesDomain text source result position length parsed domain) :
+    ValidState text result := domain.valid text result context.resultContext
+
+def arrayPutLocals (state : ParserState) (value : Int) : Locals :=
+  (Context.locals {state}).set .integer "value" value
+
+def arrayAddLocals (text : Source) (state : ParserState) (first after : Nat)
+    (bounds : Integer.Interval) (offset length : Nat) (mutable : Bool) (following : Nat) : Locals :=
+  ((Context.locals {text,state,first,after,length,mutable,following}).set .interval "bounds" bounds)
+    |>.set .number "offset" offset
+
+/-- Source state and result accumulator are separate native arguments. -/
+def arrayValuesLocals (text : Source) (source result : ParserState)
+    (position length parsed : Nat) : Locals :=
+  ((Context.locals {text,position,length}).set .state "source_state" source).set .state "result_state" result
+    |>.set .number "parsed" parsed
 
 /-- Consequences of the native subtype declarations and proved routine contracts.
 Only result bounds/state preservation occur here, never admission correctness. -/
@@ -108,12 +157,14 @@ structure HelperRanges (calls : Calls) (domain : StateDomain := .basic) : Prop w
     calls.function .lookupName text names first after ≤ names.length
   literal : ∀ text, ValidText text → ∀ position, ValidCursor text position →
     ValidValue text (calls.function .literal text position)
-  image : ∀ text, ValidText text → ∀ position names scalarNames integerHidden,
+  image : ∀ text, ValidText text → ∀ position names scalarNames integerHidden arrays initials elaborating,
     ValidCursor text position → ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
-    ValidValue text (calls.function .image text position names scalarNames integerHidden)
-  value : ∀ text, ValidText text → ∀ position names scalarNames integerHidden,
+    ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials →
+    ValidValue text (calls.function .image text position names scalarNames integerHidden arrays initials elaborating)
+  value : ∀ text, ValidText text → ∀ position names scalarNames integerHidden arrays initials elaborating,
     ValidCursor text position → ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
-    ValidValue text (calls.function .value text position names scalarNames integerHidden)
+    ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials →
+    ValidValue text (calls.function .value text position names scalarNames integerHidden arrays initials elaborating)
   stringDeclaration : ∀ text, ValidText text → ∀ state arguments, domain.holds text state →
     domain.holds text (calls.function .stringDeclaration text state arguments) ∧
       ((calls.function .stringDeclaration text state arguments).position = 0 ∨
@@ -122,6 +173,10 @@ structure HelperRanges (calls : Calls) (domain : StateDomain := .basic) : Prop w
     domain.holds text (calls.function .scalarDeclaration text state arguments) ∧
       ((calls.function .scalarDeclaration text state arguments).position = 0 ∨
         state.position < (calls.function .scalarDeclaration text state arguments).position)
+  arrayDeclaration : ∀ text, ValidText text → ∀ state arguments, domain.holds text state →
+    domain.holds text (calls.function .arrayDeclaration text state arguments) ∧
+      ((calls.function .arrayDeclaration text state arguments).position = 0 ∨
+        state.position < (calls.function .arrayDeclaration text state arguments).position)
   declaration : ∀ text, ValidText text → ∀ state arguments, domain.holds text state →
     domain.holds text (calls.function .declaration text state arguments) ∧
       ((calls.function .declaration text state arguments).position = 0 ∨
@@ -130,15 +185,17 @@ structure HelperRanges (calls : Calls) (domain : StateDomain := .basic) : Prop w
     domain.holds text (calls.function .argument text state)
   declarations : ∀ text, ValidText text → ∀ state arguments, domain.holds text state →
     domain.holds text (calls.function .declarations text state arguments)
-  expressionStep : ∀ text, ValidText text → ∀ names scan scalarNames integerHidden,
-    ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames → ValidScan text scan →
-    ValidScan text (calls.function .expressionStep text names scan scalarNames integerHidden) ∧
-      ((calls.function .expressionStep text names scan scalarNames integerHidden).position = 0 ∨
-       (calls.function .expressionStep text names scan scalarNames integerHidden).complete = true ∨
-       scan.position < (calls.function .expressionStep text names scan scalarNames integerHidden).position)
-  expression : ∀ text, ValidText text → ∀ position names scalarNames integerHidden,
+  expressionStep : ∀ text, ValidText text → ∀ names scan scalarNames integerHidden arrays initials elaborating,
+    ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
+    ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials → ValidScan text scan →
+    ValidScan text (calls.function .expressionStep text names scan scalarNames integerHidden arrays initials elaborating) ∧
+      ((calls.function .expressionStep text names scan scalarNames integerHidden arrays initials elaborating).position = 0 ∨
+       (calls.function .expressionStep text names scan scalarNames integerHidden arrays initials elaborating).complete = true ∨
+       scan.position < (calls.function .expressionStep text names scan scalarNames integerHidden arrays initials elaborating).position)
+  expression : ∀ text, ValidText text → ∀ position names scalarNames integerHidden arrays initials elaborating,
     ValidCursor text position → ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
-    ValidResult text (calls.function .expression text position names scalarNames integerHidden)
+    ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials →
+    ValidResult text (calls.function .expression text position names scalarNames integerHidden arrays initials elaborating)
 
 structure RangeContracts (calls : Calls) : Prop extends HelperRanges calls where
   step : ∀ text, ValidText text → ∀ form token state,
@@ -154,9 +211,14 @@ structure HelperEquations (calls : Calls) (evaluator : Calls := lexical calls)
   scalarLookup : ∀ text, ValidText text → ∀ names first after,
     ScalarExpression.ValidEnvironment text names → ValidCursor text first → ValidCursor text after →
     calls.function .scalarLookup text names first after = ScalarExpression.lookup text names first after
-  scalarRead : ∀ text, ValidText text → ∀ position names,
+  scalarRead : ∀ text, ValidText text → ∀ position names arrays initials elaborating,
     ValidCursor text position → ScalarExpression.ValidEnvironment text names →
-    calls.function .scalarRead text position names = ScalarExpression.read text position names
+    ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials →
+    calls.function .scalarRead text position names arrays initials elaborating =
+      ScalarExpression.read text position names 0 0 true arrays initials elaborating
+  arrayLookup : ∀ text, ValidText text → ∀ arrays first after,
+    ArrayBindings.ValidMetadata text arrays → ValidCursor text first → ValidCursor text after →
+    calls.function .arrayLookup text arrays first after = ArrayBindings.lookup text arrays first after
   scalarLiteral : ∀ text, ValidText text → ∀ position, ValidCursor text position →
     calls.function .scalarLiteral text position = ScalarLiteral.read text position
   scalarAppend : ∀ names item, names.length < ScalarExpression.maxBindings →
@@ -170,10 +232,11 @@ structure HelperEquations (calls : Calls) (evaluator : Calls := lexical calls)
   nameIs : ∀ text, ValidText text → ∀ first after word,
     ValidName text first after → 0 < word.toList.length → word.toList.length ≤ 16 →
     calls.function .nameIs text first after word = Named.nameIs text first after (word.toList.map Char.toNat)
-  callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames,
-    ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames → ValidCursor text position →
-    calls.function .callAfter text names position operation scalarNames =
-      callAfterBody.eval evaluator (Context.locals {text,scalarNames,names,position,operation})
+  callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames arrays,
+    ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
+    ArrayBindings.ValidMetadata text arrays → ValidCursor text position →
+    calls.function .callAfter text names position operation scalarNames arrays =
+      callAfterBody.eval evaluator (Context.locals {text,scalarNames,arrays,names,position,operation})
   skip : ∀ text, ValidText text → ∀ position,
     ValidCursor text position →
     calls.function .skip text position =
@@ -208,14 +271,16 @@ structure HelperEquations (calls : Calls) (evaluator : Calls := lexical calls)
       workTailBody.eval evaluator (Context.locals {text,position,remaining})
   workBudget : ∀ text, ValidText text →
     calls.function .workBudget text = workBudgetBody.eval evaluator (Context.locals {text})
-  image : ∀ text, ValidText text → ∀ position names scalarNames integerHidden,
+  image : ∀ text, ValidText text → ∀ position names scalarNames integerHidden arrays initials elaborating,
     ValidCursor text position → ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
-    calls.function .image text position names scalarNames integerHidden =
-      imageBody.eval evaluator (Context.locals {text,scalarNames,integerHidden,position,names})
-  value : ∀ text, ValidText text → ∀ position names scalarNames integerHidden,
+    ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials →
+    calls.function .image text position names scalarNames integerHidden arrays initials elaborating =
+      imageBody.eval evaluator (Context.locals {text,scalarNames,integerHidden,arrays,initials,elaborating,position,names})
+  value : ∀ text, ValidText text → ∀ position names scalarNames integerHidden arrays initials elaborating,
     ValidCursor text position → ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
-    calls.function .value text position names scalarNames integerHidden =
-      valueBody.eval evaluator (Context.locals {text,scalarNames,integerHidden,position,names})
+    ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials →
+    calls.function .value text position names scalarNames integerHidden arrays initials elaborating =
+      valueBody.eval evaluator (Context.locals {text,scalarNames,integerHidden,arrays,initials,elaborating,position,names})
   newName : ∀ text, ValidText text → ∀ state first after arguments,
     domain.holds text state → ValidCursor text first → ValidCursor text after →
     calls.function .newName text state first after arguments =
@@ -234,6 +299,28 @@ structure HelperEquations (calls : Calls) (evaluator : Calls := lexical calls)
   scalarDeclaration : ∀ text, ValidText text → ∀ state arguments,
     domain.holds text state → calls.function .scalarDeclaration text state arguments =
       scalarDeclarationBody.eval evaluator (Context.locals {text,state,arguments})
+  arrayAdd : ∀ text, ValidText text → ∀ state first after bounds offset length mutable following,
+    domain.holds text state → ValidName text first after →
+    ArrayBindings.ValidBinding ⟨first, after, bounds, offset, length, mutable⟩ →
+    state.arrayNames.names.length < ArrayBindings.maxBindings →
+    offset + length ≤ state.arrayNames.used → ValidCursor text following →
+    calls.function .arrayAdd text state first after bounds offset length mutable following =
+      arrayAddBody.eval evaluator (arrayAddLocals text state first after bounds offset length mutable following)
+  arrayPut : ∀ state value, state.arrayNames.used < ArrayBindings.maxElements →
+    Integer.InRange value →
+    calls.function .arrayPut state value = arrayPutBody.eval evaluator (arrayPutLocals state value)
+  arrayValuesModel : ∀ text, ValidText text → ∀ source result position length parsed,
+    ArrayValuesDomain text source result position length parsed domain →
+    calls.function .arrayValuesModel text source result position length parsed =
+      arrayValuesModelBody.eval evaluator (arrayValuesLocals text source result position length parsed)
+  arrayValues : ∀ text, ValidText text → ∀ source result position length parsed,
+    ArrayValuesDomain text source result position length parsed domain →
+    calls.function .arrayValues text source result position length parsed =
+      calls.function .arrayValuesModel text source result position length parsed
+  arrayDeclaration : ∀ text, ValidText text → ∀ state arguments,
+    domain.holds text state →
+    calls.function .arrayDeclaration text state arguments =
+      (arrayDeclarationBody true).eval evaluator (Context.locals {text,state,arguments})
   declaration : ∀ text, ValidText text → ∀ state arguments,
     domain.holds text state →
     calls.function .declaration text state arguments =
@@ -246,14 +333,16 @@ structure HelperEquations (calls : Calls) (evaluator : Calls := lexical calls)
     domain.holds text state →
     calls.function .declarations text state arguments =
       declarationsBody.eval evaluator (Context.locals {text,state,arguments})
-  expressionStep : ∀ text, ValidText text → ∀ names scan scalarNames integerHidden,
-    ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames → ValidScan text scan →
-    calls.function .expressionStep text names scan scalarNames integerHidden =
-      expressionStepBody.eval evaluator (Context.locals {text,scalarNames,integerHidden,names,scan})
-  tail : ∀ text, ValidText text → ∀ names scan scalarNames integerHidden,
-    ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames → ValidScan text scan →
-    calls.function .tail text names scan scalarNames integerHidden =
-      tailBody.eval evaluator (Context.locals {text,scalarNames,integerHidden,names,scan})
+  expressionStep : ∀ text, ValidText text → ∀ names scan scalarNames integerHidden arrays initials elaborating,
+    ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
+    ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials → ValidScan text scan →
+    calls.function .expressionStep text names scan scalarNames integerHidden arrays initials elaborating =
+      expressionStepBody.eval evaluator (Context.locals {text,scalarNames,integerHidden,arrays,initials,elaborating,names,scan})
+  tail : ∀ text, ValidText text → ∀ names scan scalarNames integerHidden arrays initials elaborating,
+    ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
+    ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials → ValidScan text scan →
+    calls.function .tail text names scan scalarNames integerHidden arrays initials elaborating =
+      tailBody.eval evaluator (Context.locals {text,scalarNames,integerHidden,arrays,initials,elaborating,names,scan})
   fits : ∀ text, ValidText text → ∀ result capacity,
     ValidResult text result → capacity ≤ maxSourceLength →
     calls.function .fits result capacity =
@@ -262,10 +351,11 @@ structure HelperEquations (calls : Calls) (evaluator : Calls := lexical calls)
     domain.holds text state →
     calls.function .comparison text state =
       comparisonBody.eval evaluator (Context.locals {text,state})
-  expression : ∀ text, ValidText text → ∀ position names scalarNames integerHidden,
+  expression : ∀ text, ValidText text → ∀ position names scalarNames integerHidden arrays initials elaborating,
     ValidCursor text position → ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
-    calls.function .expression text position names scalarNames integerHidden =
-      expressionBody.eval evaluator (Context.locals {text,scalarNames,integerHidden,position,names})
+    ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials →
+    calls.function .expression text position names scalarNames integerHidden arrays initials elaborating =
+      expressionBody.eval evaluator (Context.locals {text,scalarNames,integerHidden,arrays,initials,elaborating,position,names})
   target : ∀ text, ValidText text → ∀ state sameTarget,
     domain.holds text state →
     calls.function .target text state sameTarget =

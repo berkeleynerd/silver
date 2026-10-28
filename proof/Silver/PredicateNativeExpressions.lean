@@ -12,7 +12,7 @@ arbitrary until their source equations or inherited contracts are applied. -/
 namespace Silver.Predicate.Native
 
 inductive Ty
-  | number | truth | source | token | operation | comparison | binding | names | scalarNames | scalarResult | context | result | literal | length | compared | condition | summary | bound | facts | path | arrow (domain codomain : Ty)
+  | number | truth | source | token | operation | comparison | binding | names | scalarNames | arrays | scalarResult | context | result | literal | length | compared | condition | summary | bound | facts | path | arrow (domain codomain : Ty)
   deriving DecidableEq, Repr
 
 @[reducible] def Ty.meaning : Ty → Type
@@ -25,6 +25,7 @@ inductive Ty
   | .binding => Bindings.BindingInfo
   | .names => Compose.BindingEnvironment
   | .scalarNames => ScalarExpression.Environment
+  | .arrays => ArrayBindings.Metadata
   | .scalarResult => ScalarExpression.Result
   | .context => Context
   | .result => Compose.ExpressionResult
@@ -48,8 +49,9 @@ def Ty.default : (ty : Ty) → ty.meaning
   | .binding => {}
   | .names => []
   | .scalarNames => []
+  | .arrays => []
   | .scalarResult => ScalarExpression.invalid
-  | .context => ⟨[], 0, 0, [], 0⟩
+  | .context => ⟨[], 0, 0, [], 0, []⟩
   | .result => Compose.invalidExpression
   | .literal => IntegerLiteral.invalid
   | .length => ⟨0, .fixed 0⟩
@@ -99,7 +101,7 @@ def Function.name : Function → List String
   | .join => ["joined"]
 
 @[reducible] def Function.type : Function → Ty
-  | .callAfter => .arrow .source (.arrow .names (.arrow .number (.arrow .operation (.arrow .scalarNames .number))))
+  | .callAfter => .arrow .source (.arrow .names (.arrow .number (.arrow .operation (.arrow .scalarNames (.arrow .arrays .number)))))
   | .take => .arrow .source (.arrow .number (.arrow .token (.number)))
   | .skip => .arrow .source (.arrow .number (.number))
   | .nameAfter => .arrow .source (.arrow .number (.number))
@@ -132,7 +134,7 @@ def Function.name : Function → List String
   | .join => .arrow .facts (.arrow .facts (.facts))
 
 structure Calls where
-  callAfter : Source → Compose.BindingEnvironment → Nat → Names.Operation → ScalarExpression.Environment → Nat
+  callAfter : Source → Compose.BindingEnvironment → Nat → Names.Operation → ScalarExpression.Environment → ArrayBindings.Metadata → Nat
   take : Source → Nat → Token → Nat
   skip : Source → Nat → Nat
   nameAfter : Source → Nat → Nat
@@ -200,6 +202,7 @@ def Calls.get (calls : Calls) : (f : Function) → f.type.meaning
 inductive Field : Ty → Ty → Type
   | contextNames : Field .context .names
   | contextScalarNames : Field .context .scalarNames
+  | contextArrays : Field .context .arrays
   | contextDeclarations : Field .context .number
   | flowPath : Field .facts .path
   | flowCount : Field .facts .number
@@ -227,6 +230,7 @@ inductive Field : Ty → Ty → Type
 def Field.name : Field a b → String
   | .contextNames => "names"
   | .contextScalarNames => "scalar_names"
+  | .contextArrays => "array_names"
   | .contextDeclarations => "declaration_count"
   | .flowPath => "path"
   | .flowCount | .conditionCount => "count"
@@ -253,6 +257,7 @@ def Field.name : Field a b → String
 def Field.get : Field a b → a.meaning → b.meaning
   | .contextNames, value => value.names
   | .contextScalarNames, value => value.scalarNames
+  | .contextArrays, value => value.arrayNames
   | .contextDeclarations, value => value.declarationCount
   | .flowPath, value => value.path
   | .flowCount, value => value.count
@@ -411,8 +416,8 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .invalid facts => calls.invalidCondition (facts.eval calls locals)
 
 namespace Expr
-def callOperation (text : Expr .source) (names : Expr .names) (position : Expr .number) (operation : Expr .operation) (scalarNames : Expr .scalarNames) : Expr .number :=
-  .app (.app (.app (.app (.app (.function .callAfter) text) names) position) operation) scalarNames
+def callOperation (text : Expr .source) (names : Expr .names) (position : Expr .number) (operation : Expr .operation) (scalarNames : Expr .scalarNames) (arrays : Expr .arrays) : Expr .number :=
+  .app (.app (.app (.app (.app (.app (.function .callAfter) text) names) position) operation) scalarNames) arrays
 
 def callTake (x0 : Expr .source) (x1 : Expr .number) (x2 : Expr .token) : Expr .number :=
   .app (.app (.app (.function .take) x0) x1) x2

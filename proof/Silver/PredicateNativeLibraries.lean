@@ -110,14 +110,14 @@ structure Links (calls : Native.Calls) (composed : Compose.Expressions.Calls)
     ValidNames text names → first ≤ text.length + 1 → after ≤ text.length + 1 →
     calls.lookup text names first after = composed.function .lookupName text names first after
   scalarLookup : calls.scalarLookup = composed.function .scalarLookup
-  scalarRead : calls.scalarRead = composed.function .scalarRead
+  scalarRead : calls.scalarRead = fun text position names => composed.function .scalarRead text position names [] [] false
   readers : FlowReaders.Links composed calls.scalarInFlow calls.stringInFlow
   scalarHelpers : ScalarLinks calls composed
   integer : ∀ text, ValidText text → ∀ position, position ≤ text.length + 1 →
     calls.integer text position = integer text position
   expression : ∀ text, ValidText text → ∀ position names scalarNames, position ≤ text.length + 1 → ValidNames text names →
     ScalarExpression.ValidEnvironment text scalarNames →
-    calls.expression text position names scalarNames = composed.function .expression text position names scalarNames false
+    calls.expression text position names scalarNames = composed.function .expression text position names scalarNames false [] [] false
   assumeValid : ∀ facts : Paths,
     calls.assumeValid facts.model =
       (PathFacts.Native.assumeValidBody.eval ({facts} : PathInputs).locals).model
@@ -148,9 +148,9 @@ theorem helper_meaning (calls : Native.Calls) (composed : Compose.Expressions.Ca
     (refinement : ∀ text, IntegerLiteral.Native.ValidText text → ∀ position, position ≤ text.length + 1 →
       integer text position = literals.model text position)
     (links : Links calls composed integer) : HelperMeaning calls where
-  callAfter text tv names position operation scalarNames nv sv pv := by
+  callAfter text tv names position operation scalarNames arrays nv sv av pv := by
     rw [links.callAfter]
-    exact Compose.Expressions.interpreted_callAfter composed composedEquations text tv names position operation nv pv sv
+    exact Compose.Expressions.interpreted_callAfter composed composedEquations text tv names position operation nv pv sv av
   take text tv position token bounded := by
     rw [links.take text tv position token bounded,
       Compose.Expressions.interpreted_take composed composedEquations text tv position token.shell bounded (token_valid token)]
@@ -167,7 +167,9 @@ theorem helper_meaning (calls : Native.Calls) (composed : Compose.Expressions.Ca
     exact composedEquations.scalarLookup text tv names first after nv fv av
   scalarRead text tv position names pv nv := by
     rw [links.scalarRead]
-    exact composedEquations.scalarRead text tv position names pv nv
+    exact composedEquations.scalarRead text tv position names [] [] false pv nv
+      (by simp [ArrayBindings.ValidMetadata, ArrayBindings.maxBindings])
+      (by simp [ArrayBindings.ValidInitials, ArrayBindings.maxElements])
   scalarInFlow text tv context cv position facts pv fv :=
     FlowReaders.linked_scalar composedEquations links.readers {text, context, position, facts}
       ⟨tv, cv, fv, pv⟩
@@ -189,7 +191,9 @@ theorem helper_meaning (calls : Native.Calls) (composed : Compose.Expressions.Ca
     exact IntegerLiteral.Native.executable_refinement literals literalEquations integer refinement text tv position bounded
   expression text tv position names scalarNames bounded nv sv := by
     rw [links.expression text tv position names scalarNames bounded nv sv,
-      Compose.Expressions.interpreted_expression composed composedEquations text tv position names bounded nv sv]
+      Compose.Expressions.interpreted_expression composed composedEquations text tv position names bounded nv sv
+        (by simp [ArrayBindings.ValidMetadata, ArrayBindings.maxBindings])
+        (by simp [ArrayBindings.ValidInitials, ArrayBindings.maxElements])]
   assumeValid facts := by
     have equation := links.assumeValid (reify facts)
     simpa only [PathFacts.Native.assumeValidBody_eval, PathInputs.locals, PathFacts.Native.assumeValid_model, reify_model] using equation

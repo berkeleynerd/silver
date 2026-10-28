@@ -37,7 +37,7 @@ structure ImportsMeaning (imports : Imports) : Prop where
   assignment : ∀ text position, CursorDomain text position →
     imports.assignment text position = fixedAfter text position ":=" false
   read : ∀ text context position facts, ReadDomain text context position facts →
-    imports.read text context position facts = ScalarExpression.read text position (context.model.readingNames facts)
+    imports.read text context position facts = ScalarExpression.read text position (context.model.readingNames facts) (arrays := context.arrayNames)
   invalidModel : ∀ scan, scan.count ≤ ScalarExpression.maxBindings → imports.invalidModel scan = invalidBody scan
   isEmpty : ∀ bounds, bounds.Bounded → imports.isEmpty bounds = bounds.isEmpty
 

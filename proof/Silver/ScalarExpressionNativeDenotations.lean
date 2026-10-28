@@ -47,11 +47,25 @@ def closeEquation (calls : Calls) (text : Source) (value : Result) : Result :=
   let after := calls.symbol text value.after 41
   if after = 0 then invalid else {value with after := after}
 
+def arrayAtomEquation (calls : Calls) (text : Source) (position : Nat) (names : Environment)
+    (maskFirst maskAfter target : Nat) (arrays : ArrayBindings.Metadata)
+    (initials : ArrayBindings.Initials) (elaborating : Bool) : Result :=
+  let opened := calls.symbol text position 40
+  if opened = 0 then invalid else
+    let subscript := calls.readExpression text opened names maskFirst maskAfter true
+    let closed := calls.symbol text subscript.after 41
+    if closed ≤ position ∨ subscript.operands = maxOperands ∨
+        calls.arrays.contains (ArrayBindings.binding arrays target) subscript.bounds = false then invalid
+    else ⟨closed, calls.arrays.readBounds arrays initials elaborating target subscript.bounds,
+      subscript.operands + 1, false⟩
+
 def atomEquation (calls : Calls) (text : Source) (position : Nat) (names : Environment)
-    (maskFirst maskAfter : Nat) (allowSign : Bool) : Result :=
+    (maskFirst maskAfter : Nat) (allowSign : Bool) (arrays : ArrayBindings.Metadata)
+    (initials : ArrayBindings.Initials) (elaborating : Bool) : Result :=
   let first := calls.skip text position
   let after := calls.nameAfter text first
   let index := calls.lookup text names first after
+  let target := calls.arrays.lookup text arrays first after
   if first = 0 ∨ first > text.length then invalid
   else if Cursor.byteAt text first = 43 ∨ Cursor.byteAt text first = 45 then
     if !allowSign then invalid else
@@ -59,16 +73,19 @@ def atomEquation (calls : Calls) (text : Source) (position : Nat) (names : Envir
   else
     let number := calls.integerLiteral text first
     if number.after ≠ 0 then calls.literalResult number false
-    else if index = 0 ∨ (maskFirst ≠ 0 ∧ calls.equalName text maskFirst maskAfter first after = true)
-    then invalid
-    else ⟨after, calls.scalars.normalize (binding names index).bounds, 1, (binding names index).isStatic⟩
+    else if after = 0 then invalid
+    else if maskFirst ≠ 0 ∧ calls.equalName text maskFirst maskAfter first after = true then invalid
+    else if index ≠ 0 then ⟨after, calls.scalars.normalize (binding names index).bounds, 1, (binding names index).isStatic⟩
+    else if target = 0 then invalid
+    else calls.readArrayAtom text after names maskFirst maskAfter target arrays initials elaborating
 
 def unaryReadEquation (calls : Calls) (text : Source) (position : Nat) (names : Environment)
-    (maskFirst maskAfter : Nat) : Result :=
+    (maskFirst maskAfter : Nat) (arrays : ArrayBindings.Metadata)
+    (initials : ArrayBindings.Initials) (elaborating : Bool) : Result :=
   let next := calls.skip text (position + 1)
   let number := calls.integerLiteral text next
   calls.closeResult text (if number.after ≠ 0 then calls.literalResult number (Cursor.byteAt text position == 45)
-    else calls.unaryResult (calls.readExpression text next names maskFirst maskAfter false) (Cursor.byteAt text position == 45))
+    else calls.unaryResult (calls.readExpression text next names maskFirst maskAfter false arrays initials elaborating) (Cursor.byteAt text position == 45))
 
 def binaryAfterEquation (calls : Calls) (text : Source) (position : Nat) : Nat :=
   let after := calls.nameAfter text position
@@ -81,29 +98,32 @@ def binaryAfterEquation (calls : Calls) (text : Source) (position : Nat) : Nat :
       calls.nameIs text position after ("rem".toList.map Char.toNat) = true) then after else 0
 
 def compoundEquation (calls : Calls) (text : Source) (names : Environment)
-    (left : Result) (maskFirst maskAfter : Nat) : Result :=
+    (left : Result) (maskFirst maskAfter : Nat) (arrays : ArrayBindings.Metadata)
+    (initials : ArrayBindings.Initials) (elaborating : Bool) : Result :=
   let next := calls.skip text left.after
   let after := calls.binaryAfter text next
   if next = 0 ∨ next > text.length then invalid
   else if Cursor.byteAt text next = 41 then {left with after := next + 1}
   else if after = 0 then invalid
-  else calls.closeResult text (calls.binaryResult left (calls.readExpression text after names maskFirst maskAfter false)
+  else calls.closeResult text (calls.binaryResult left (calls.readExpression text after names maskFirst maskAfter false arrays initials elaborating)
     (calls.lowercase (Cursor.byteAt text next)))
 
 def groupEquation (calls : Calls) (text : Source) (position : Nat) (names : Environment)
-    (maskFirst maskAfter : Nat) : Result :=
+    (maskFirst maskAfter : Nat) (arrays : ArrayBindings.Metadata)
+    (initials : ArrayBindings.Initials) (elaborating : Bool) : Result :=
   let first := calls.skip text (position + 1)
   if first > text.length then invalid
   else if Cursor.byteAt text first = 43 ∨ Cursor.byteAt text first = 45
-  then calls.readUnary text first names maskFirst maskAfter
-  else calls.readCompound text position names (calls.readExpression text first names maskFirst maskAfter true) maskFirst maskAfter
+  then calls.readUnary text first names maskFirst maskAfter arrays initials elaborating
+  else calls.readCompound text position names (calls.readExpression text first names maskFirst maskAfter true arrays initials elaborating) maskFirst maskAfter arrays initials elaborating
 
 def expressionEquation (calls : Calls) (text : Source) (position : Nat) (names : Environment)
-    (maskFirst maskAfter : Nat) (allowSign : Bool) : Result :=
+    (maskFirst maskAfter : Nat) (allowSign : Bool) (arrays : ArrayBindings.Metadata)
+    (initials : ArrayBindings.Initials) (elaborating : Bool) : Result :=
   let first := calls.skip text position
   if first = 0 ∨ first > text.length then invalid
-  else if Cursor.byteAt text first = 40 then calls.readGroup text first names maskFirst maskAfter
-  else calls.readAtom text first names maskFirst maskAfter allowSign
+  else if Cursor.byteAt text first = 40 then calls.readGroup text first names maskFirst maskAfter arrays initials elaborating
+  else calls.readAtom text first names maskFirst maskAfter allowSign arrays initials elaborating
 
 theorem binaryAfter_denotation (calls : Calls) (text : Source) (position : Nat) :
     binaryAfterBody.eval calls ({text,position} : Context).locals = binaryAfterEquation calls text position := by
@@ -140,42 +160,55 @@ theorem close_denotation (calls : Calls) (text : Source) (value : Result) :
   dsimp +instances only [closeBody, Expr.eval, Context.locals, Calls.get, Field.get, apply3, apply2, Locals.set]
   simp [closeEquation]
 
+theorem arrayAtom_denotation (calls : Calls) (text : Source) (position : Nat) (names : Environment)
+    (maskFirst maskAfter target : Nat) (arrays : ArrayBindings.Metadata)
+    (initials : ArrayBindings.Initials) (elaborating : Bool) :
+    arrayAtomBody.eval calls ({text,position,names,maskFirst,maskAfter,target,arrays,initials,elaborating} : Context).locals =
+      arrayAtomEquation calls text position names maskFirst maskAfter target arrays initials elaborating := by
+  dsimp +instances only [arrayAtomBody, Expr.eval, Context.locals, Calls.get, Field.get, apply5, apply4, apply3, apply2, Locals.set]
+  simp [arrayAtomEquation, or_assoc]
+
 theorem atom_denotation (calls : Calls) (text : Source) (position : Nat) (names : Environment)
-    (maskFirst maskAfter : Nat) (allowSign : Bool) :
-    atomBody.eval calls ({text,position,names,maskFirst,maskAfter,allowSign} : Context).locals =
-      atomEquation calls text position names maskFirst maskAfter allowSign := by
-  dsimp +instances only [atomBody, Expr.eval, Context.locals, Calls.get, Field.get, apply5, apply4, apply3, apply2, Locals.set]
+    (maskFirst maskAfter : Nat) (allowSign : Bool) (arrays : ArrayBindings.Metadata)
+    (initials : ArrayBindings.Initials) (elaborating : Bool) :
+    atomBody.eval calls ({text,position,names,maskFirst,maskAfter,allowSign,arrays,initials,elaborating} : Context).locals =
+      atomEquation calls text position names maskFirst maskAfter allowSign arrays initials elaborating := by
+  dsimp +instances only [atomBody, arrayArgs, Expr.eval, Context.locals, Calls.get, Field.get, apply6, apply5, apply4, apply3, apply2, Locals.set]
   simp [atomEquation, decide_nat_eq]
 
 theorem unary_read_denotation (calls : Calls) (text : Source) (position : Nat) (names : Environment)
-    (maskFirst maskAfter : Nat) :
-    readUnaryBody.eval calls ({text,position,names,maskFirst,maskAfter} : Context).locals =
-      unaryReadEquation calls text position names maskFirst maskAfter := by
-  dsimp +instances only [readUnaryBody, readCall, Expr.eval, Context.locals, Calls.get, Field.get,
+    (maskFirst maskAfter : Nat) (arrays : ArrayBindings.Metadata)
+    (initials : ArrayBindings.Initials) (elaborating : Bool) :
+    readUnaryBody.eval calls ({text,position,names,maskFirst,maskAfter,arrays,initials,elaborating} : Context).locals =
+      unaryReadEquation calls text position names maskFirst maskAfter arrays initials elaborating := by
+  dsimp +instances only [readUnaryBody, readCall, arrayArgs, Expr.eval, Context.locals, Calls.get, Field.get,
     apply6, apply5, apply4, apply3, apply2, Locals.set]
   simp [unaryReadEquation, decide_nat_eq]
 
 theorem compound_denotation (calls : Calls) (text : Source) (position : Nat) (names : Environment)
-    (left : Result) (maskFirst maskAfter : Nat) :
-    compoundBody.eval calls ({text,position,names,left,maskFirst,maskAfter} : Context).locals =
-      compoundEquation calls text names left maskFirst maskAfter := by
-  dsimp +instances only [compoundBody, readCall, Expr.eval, Context.locals, Calls.get, Field.get,
+    (left : Result) (maskFirst maskAfter : Nat) (arrays : ArrayBindings.Metadata)
+    (initials : ArrayBindings.Initials) (elaborating : Bool) :
+    compoundBody.eval calls ({text,position,names,left,maskFirst,maskAfter,arrays,initials,elaborating} : Context).locals =
+      compoundEquation calls text names left maskFirst maskAfter arrays initials elaborating := by
+  dsimp +instances only [compoundBody, readCall, arrayArgs, Expr.eval, Context.locals, Calls.get, Field.get,
     apply6, apply5, apply4, apply3, apply2, Locals.set]
   simp [compoundEquation]
 
 theorem group_denotation (calls : Calls) (text : Source) (position : Nat) (names : Environment)
-    (maskFirst maskAfter : Nat) :
-    groupBody.eval calls ({text,position,names,maskFirst,maskAfter} : Context).locals =
-      groupEquation calls text position names maskFirst maskAfter := by
-  dsimp +instances only [groupBody, readDefaultCall, Expr.eval, Context.locals, Calls.get, Field.get,
+    (maskFirst maskAfter : Nat) (arrays : ArrayBindings.Metadata)
+    (initials : ArrayBindings.Initials) (elaborating : Bool) :
+    groupBody.eval calls ({text,position,names,maskFirst,maskAfter,arrays,initials,elaborating} : Context).locals =
+      groupEquation calls text position names maskFirst maskAfter arrays initials elaborating := by
+  dsimp +instances only [groupBody, readDefaultCall, namedArrayArgs, Expr.eval, Context.locals, Calls.get, Field.get,
     apply6, apply5, apply4, apply3, apply2, Locals.set]
   simp [groupEquation]
 
 theorem expression_denotation (calls : Calls) (text : Source) (position : Nat) (names : Environment)
-    (maskFirst maskAfter : Nat) (allowSign : Bool) :
-    expressionBody.eval calls ({text,position,names,maskFirst,maskAfter,allowSign} : Context).locals =
-      expressionEquation calls text position names maskFirst maskAfter allowSign := by
-  dsimp +instances only [expressionBody, Expr.eval, Context.locals, Calls.get, Field.get,
+    (maskFirst maskAfter : Nat) (allowSign : Bool) (arrays : ArrayBindings.Metadata)
+    (initials : ArrayBindings.Initials) (elaborating : Bool) :
+    expressionBody.eval calls ({text,position,names,maskFirst,maskAfter,allowSign,arrays,initials,elaborating} : Context).locals =
+      expressionEquation calls text position names maskFirst maskAfter allowSign arrays initials elaborating := by
+  dsimp +instances only [expressionBody, arrayArgs, namedArrayArgs, Expr.eval, Context.locals, Calls.get, Field.get,
     apply6, apply5, apply4, apply3, apply2, Locals.set]
   simp [expressionEquation]
 

@@ -465,7 +465,7 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                               or (isinstance(record.get("message"), dict)
                                   and record["message"].get("text") == ARRAY_INITIALIZATION_ADVISORY_TEXT))
                 if array_note:
-                    require(application_kind is None and unit == "silver_output_profile"
+                    require(((application_kind is None and unit == "silver_output_profile") or application)
                             and key == "warn_error"
                             and set(record) == {"rule", "severity", "how_proved", "file", "line", "col",
                                                 "message", "unproved_status", "check_tree", "suppressed"}
@@ -479,9 +479,9 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                             and record.get("unproved_status") == {"status": "unknown"}
                             and record.get("check_tree") == {}
                             and record.get("suppressed") == "",
-                            "compiler: unexpected array-initialization advisory")
+                            f"{unit}: unexpected array-initialization advisory")
                     stats["array_initialization_advisories"] += 1
-                image_note = application and key == "warn_error"
+                image_note = application and key == "warn_error" and not array_note
                 if image_note:
                     require(record.get("severity") == "warning"
                             and record.get("how_proved") == "trivial"
@@ -528,13 +528,13 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                     stats["assignment_advisories"] += 1
                 if application and key == "proof":
                     require(record.get("severity") == "info" and record.get("how_proved") == "prover"
-                            and record.get("rule") in {"VC_RANGE_CHECK", "VC_LENGTH_CHECK", "VC_OVERFLOW_CHECK", "VC_DIVISION_CHECK"}
+                            and record.get("rule") in {"VC_RANGE_CHECK", "VC_LENGTH_CHECK", "VC_OVERFLOW_CHECK", "VC_DIVISION_CHECK", "VC_INDEX_CHECK"}
                             and record.get("file") == "main.adb"
                             and type(record.get("line")) is int and record["line"] > 0
                             and type(record.get("col")) is int and record["col"] > 0
                             and type(record.get("entity")) is int and record["entity"] > 0
                             and entities.get(f" {record['entity']}", entities.get(str(record["entity"]))) == main,
-                            "application: expected a proved Main range, length, overflow or division check")
+                            "application: expected a proved Main range, length, overflow, division or index check")
                     require(not any(field in record for field in
                                     ("justification", "justified", "suppressed", "annot_kind", "justif_msg")),
                             "application: suppressed or justified safety check")
@@ -658,10 +658,10 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                             "artifactLocation": {"uri": diagnostic[1]},
                             "region": {"startLine": diagnostic[2], "startColumn": diagnostic[3]}}}],
                         "suppressions": [{"kind": "external"}]},
-                    "compiler: SARIF must preserve the exact array-initialization advisory classification")
+                    "SARIF must preserve the exact array-initialization advisory classification")
         require((result.get("ruleId") != "array-initialization"
                  and result.get("message", {}).get("text") != ARRAY_INITIALIZATION_ADVISORY_TEXT) or array_note,
-                "compiler: unreviewed SARIF array-initialization advisory")
+                "unreviewed SARIF array-initialization advisory")
         require(result.get("kind") in ("pass", "informational") or limitation or advisory or math_note or image_note or array_note,
                 f"SARIF result not proved: {result}")
         require(result.get("level", "none") in ("none", "note") or limitation or advisory or math_note or image_note or array_note,

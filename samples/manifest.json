@@ -1678,6 +1678,31 @@
         "stderr": "",
         "exit_status": 0
       }
+    },
+    {
+      "source": "rosetta_shift_list_left_3.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "scalar_integer_literal",
+        "integer_expression",
+        "statement_sequence",
+        "integer_array_object",
+        "integer_array_read",
+        "integer_array_assignment",
+        "for_loop",
+        "integer_image",
+        "expression_output",
+        "string_literal",
+        "literal_output"
+      ],
+      "specification": "../language.md#fixed-size-integer-arrays",
+      "expected": {
+        "stdout": " 1 2 3 4 5 6 7 8 9\n 4 5 6 7 8 9 1 2 3\n",
+        "stderr": "",
+        "exit_status": 0
+      }
     }
   ]
 }

@@ -42,7 +42,7 @@ def modelImports : Imports where
   forbidden := Named.forbiddenName
   nameIs := fun text first after word => Named.nameIs text first after (word.toList.map Char.toNat)
   readScalar := fun text context position facts first after =>
-    ScalarExpression.read text position (context.model.readingNames facts) first after
+    ScalarExpression.read text position (context.model.readingNames facts) first after (arrays := context.arrayNames)
   widen := fun context facts => ActiveFlow.widen context.scalarNames facts
   append := fun names item => names ++ [item]
   isEmpty := Integer.Interval.isEmpty
@@ -183,10 +183,10 @@ def Update.eval (read : Reader) (frame : Frame) : Update → Frame
   | .inside => {frame with result := {frame.result with position := fixedAfter frame.text frame.after "in" true}}
   | .reverse => {frame with result := bodyToken frame.text frame.result (.word "reverse")}
   | .low => {frame with low := (ScalarExpression.read frame.text frame.result.position
-      (frame.context.model.readingNames frame.scan.facts) frame.first frame.after)}
+      (frame.context.model.readingNames frame.scan.facts) frame.first frame.after (arrays := frame.context.arrayNames))}
   | .delimiter => {frame with result := {frame.result with position := fixedAfter frame.text frame.low.after ".." false}}
   | .high => {frame with high := (ScalarExpression.read frame.text frame.result.position
-      (frame.context.model.readingNames frame.scan.facts) frame.first frame.after)}
+      (frame.context.model.readingNames frame.scan.facts) frame.first frame.after (arrays := frame.context.arrayNames))}
   | .opening => {frame with result := {frame.result with position := fixedAfter frame.text frame.high.after "loop" true}}
   | .bounds => {frame with bounds := Integer.loopBounds frame.low.bounds frame.high.bounds}
   | .definite => {frame with definite := Integer.loopDefinite frame.low.bounds frame.high.bounds}
@@ -463,10 +463,10 @@ theorem eval_equation (read : Reader) (text : Source) (context : Native.Context)
     all_goals generalize hi : fixedAfter text after "in" true = inside at *
     all_goals generalize hr : fixedAfter text inside "reverse" true = rev at *
     all_goals simp +instances (config := {maxSteps := 500000}) [reversed]
-    all_goals generalize hl : ScalarExpression.read text inside (context.model.readingNames scan.facts) first after = low at *
-    all_goals generalize hlr : ScalarExpression.read text rev (context.model.readingNames scan.facts) first after = lowRev at *
-    all_goals generalize hu : ScalarExpression.read text (fixedAfter text low.after ".." false) (context.model.readingNames scan.facts) first after = high at *
-    all_goals generalize hur : ScalarExpression.read text (fixedAfter text lowRev.after ".." false) (context.model.readingNames scan.facts) first after = highRev at *
+    all_goals generalize hl : ScalarExpression.read text inside (context.model.readingNames scan.facts) first after (arrays := context.arrayNames) = low at *
+    all_goals generalize hlr : ScalarExpression.read text rev (context.model.readingNames scan.facts) first after (arrays := context.arrayNames) = lowRev at *
+    all_goals generalize hu : ScalarExpression.read text (fixedAfter text low.after ".." false) (context.model.readingNames scan.facts) first after (arrays := context.arrayNames) = high at *
+    all_goals generalize hur : ScalarExpression.read text (fixedAfter text lowRev.after ".." false) (context.model.readingNames scan.facts) first after (arrays := context.arrayNames) = highRev at *
     all_goals repeat' first | rfl | (simp_all +instances; done) | split
   · have disallowed := Bool.eq_false_iff.mpr allowed
     simp only [disallowed, Bool.not_false, ↓reduceIte]

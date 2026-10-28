@@ -5,9 +5,11 @@ public import Silver.ComposeEquations
 
 @[expose] public section
 
-/-! The native recursive scanner shares declarations and keeps only scalar
-state in each frame. These conversions preserve the full scanner state used
-by admission; failed scans have the canonical invalid result. -/
+/-! The retained sequence-scanner model shares its complete declaration
+environment between frames. These conversions preserve its full admission
+state; failed scans have the canonical invalid result. The current compiler's
+metadata-only context and separate array environment are interpreted by
+`Predicate.Native`, rather than this earlier mathematical witness. -/
 
 namespace Silver.Sequence.Native
 open Compose
@@ -17,6 +19,7 @@ structure Context where
   dynamicFirst : Nat
   dynamicAfter : Nat
   scalarNames : ScalarExpression.Environment
+  arrayNames : ArrayBindings.Env
   deriving DecidableEq, Repr
 
 structure Scan where
@@ -30,14 +33,15 @@ structure Scan where
 def invalid : Scan := ⟨0, 0, 0, false, false⟩
 
 def contextOf (scan : ScanResult) : Context :=
-  ⟨scan.state.names, scan.state.dynamicFirst, scan.state.dynamicAfter, scan.state.scalarNames⟩
+  ⟨scan.state.names, scan.state.dynamicFirst, scan.state.dynamicAfter,
+    scan.state.scalarNames, scan.state.arrayNames⟩
 
 def bodyOf (scan : ScanResult) : Scan :=
   ⟨scan.state.position, scan.state.target, scan.state.capacity, scan.assigned, scan.output⟩
 
 def expand (context : Context) (scan : Scan) : ScanResult :=
   ⟨⟨scan.position, context.names, context.dynamicFirst, context.dynamicAfter,
-      scan.target, scan.capacity, context.scalarNames⟩, scan.assigned, scan.output⟩
+      scan.target, scan.capacity, context.scalarNames, context.arrayNames⟩, scan.assigned, scan.output⟩
 
 def compact (context : Context) (scan : ScanResult) : Scan :=
   if scan.state.position = 0 ∨ context.names.length < scan.state.target then invalid
@@ -49,7 +53,8 @@ def lift (context : Context) (scan : Scan) : ScanResult :=
 def ValidContext (text : Source) (context : Context) : Prop :=
   Compose.Expressions.ValidNames text context.names ∧
     (⟨context.dynamicFirst, context.dynamicAfter⟩ : Named.NameState).Valid text ∧
-    ScalarExpression.ValidEnvironment text context.scalarNames
+    ScalarExpression.ValidEnvironment text context.scalarNames ∧
+    ArrayBindings.ValidEnvironment text context.arrayNames
 
 def ValidScan (text : Source) (context : Context) (scan : Scan) : Prop :=
   scan.position ≤ text.length + 1 ∧ scan.target ≤ context.names.length ∧

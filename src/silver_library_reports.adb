@@ -32,6 +32,8 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    Initialization_Suffix : constant String := "\"" has no effect""";
    Atom_imprecise_image : constant String := "imprecise-image";
    Atom_image_message : constant String := "references to the \""Image\"" attribute are handled in an imprecise way, so nothing will be known about the evaluation of the attribute reference apart from a bound on its length [imprecise-image]";
+   Atom_array_initialization : constant String := "array-initialization";
+   Atom_array_initialization_message : constant String := "initialization of an array in FOR loop is handled imprecisely [array-initialization]";
    Atom_unknown : constant String := "unknown";
    Atom_INEFFECTIVE : constant String := "INEFFECTIVE";
    Atom_DEAD_CODE : constant String := "DEAD_CODE";
@@ -73,6 +75,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    Atom_VC_LENGTH_CHECK : constant String := "VC_LENGTH_CHECK";
    Atom_VC_OVERFLOW_CHECK : constant String := "VC_OVERFLOW_CHECK";
    Atom_VC_DIVISION_CHECK : constant String := "VC_DIVISION_CHECK";
+   Atom_VC_INDEX_CHECK : constant String := "VC_INDEX_CHECK";
    Atom_all : constant String := "all";
    Atom_info : constant String := "info";
    Atom_main_adb : constant String := "main.adb";
@@ -1235,7 +1238,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       or else String_Equal (Text, Item, Atom_put_unused_Written_Bytes));
 
    type List_Kind is (Checks, Main_Checks, Binding_Diagnostics, Argument_Diagnostics,
-                      Assignment_Diagnostics, Selected_Diagnostics, Image_Advisories,
+                      Assignment_Diagnostics, Selected_Diagnostics, Main_Advisories,
                       References, Postconditions, Put_Postconditions, Argument_Postconditions);
    subtype Main_Diagnostics is List_Kind range Binding_Diagnostics .. Selected_Diagnostics;
    function Record_Policy (Text : String; Item, Entities : Span; Kind : List_Kind)
@@ -1246,15 +1249,20 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    function Record_Policy (Text : String; Item, Entities : Span; Kind : List_Kind)
      return Boolean is
      (if Kind = References then Reference_Policy (Text, Entities, Item)
-      elsif Kind = Image_Advisories then
+      elsif Kind = Main_Advisories then
         String_Equal (Text, Field_Spec (Text, Item, JSON_severity), Atom_warning)
         and then String_Equal (Text, Field_Spec (Text, Item, JSON_how_proved), Atom_trivial)
         and then String_Equal (Text, Field_Spec (Text, Item, JSON_file), Atom_main_adb)
         and then Positive_Number (Text, Field_Spec (Text, Item, JSON_line))
         and then Positive_Number (Text, Field_Spec (Text, Item, JSON_col))
-        and then String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_imprecise_image)
-        and then String_Equal (Text, Field_Spec
-          (Text, Field_Spec (Text, Item, JSON_message), JSON_text), Atom_image_message)
+        and then
+          ((String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_imprecise_image)
+            and then String_Equal (Text, Field_Spec
+              (Text, Field_Spec (Text, Item, JSON_message), JSON_text), Atom_image_message))
+           or else
+             (String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_array_initialization)
+              and then String_Equal (Text, Field_Spec
+                (Text, Field_Spec (Text, Item, JSON_message), JSON_text), Atom_array_initialization_message)))
         and then String_Equal (Text, Field_Spec
           (Text, Field_Spec (Text, Item, JSON_unproved_status), JSON_status), Atom_unknown)
         and then Empty_Object_Spec (Text, Field_Spec (Text, Item, JSON_check_tree))
@@ -1313,7 +1321,8 @@ package body Silver_Library_Reports with SPARK_Mode => On is
              and then (String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_VC_RANGE_CHECK)
                or else String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_VC_LENGTH_CHECK)
                or else String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_VC_OVERFLOW_CHECK)
-               or else String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_VC_DIVISION_CHECK))
+               or else String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_VC_DIVISION_CHECK)
+               or else String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_VC_INDEX_CHECK))
              and then String_Equal (Text, Field_Spec (Text, Item, JSON_file), Atom_main_adb)
              and then Entity_Name_Spec (Text, Referenced_Entity_Spec
                (Text, Entities, Field_Spec (Text, Item, JSON_entity))) = Main_Entity
@@ -1339,15 +1348,20 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       How : Span;
    begin
       if Kind = References then return Reference_OK (Text, Entities, Item); end if;
-      if Kind = Image_Advisories then
+      if Kind = Main_Advisories then
          return String_Equal (Text, Field (Text, Item, JSON_severity), Atom_warning)
         and then String_Equal (Text, Field (Text, Item, JSON_how_proved), Atom_trivial)
         and then String_Equal (Text, Field (Text, Item, JSON_file), Atom_main_adb)
         and then Positive_Number (Text, Field (Text, Item, JSON_line))
         and then Positive_Number (Text, Field (Text, Item, JSON_col))
-        and then String_Equal (Text, Field (Text, Item, JSON_rule), Atom_imprecise_image)
-        and then String_Equal (Text, Field
-          (Text, Field (Text, Item, JSON_message), JSON_text), Atom_image_message)
+        and then
+          ((String_Equal (Text, Field (Text, Item, JSON_rule), Atom_imprecise_image)
+            and then String_Equal (Text, Field
+              (Text, Field (Text, Item, JSON_message), JSON_text), Atom_image_message))
+           or else
+             (String_Equal (Text, Field (Text, Item, JSON_rule), Atom_array_initialization)
+              and then String_Equal (Text, Field
+                (Text, Field (Text, Item, JSON_message), JSON_text), Atom_array_initialization_message)))
         and then String_Equal (Text, Field
           (Text, Field (Text, Item, JSON_unproved_status), JSON_status), Atom_unknown)
         and then Empty_Object (Text, Field (Text, Item, JSON_check_tree))
@@ -1403,7 +1417,8 @@ package body Silver_Library_Reports with SPARK_Mode => On is
            and then (String_Equal (Text, Field (Text, Item, JSON_rule), Atom_VC_RANGE_CHECK)
              or else String_Equal (Text, Field (Text, Item, JSON_rule), Atom_VC_LENGTH_CHECK)
              or else String_Equal (Text, Field (Text, Item, JSON_rule), Atom_VC_OVERFLOW_CHECK)
-             or else String_Equal (Text, Field (Text, Item, JSON_rule), Atom_VC_DIVISION_CHECK))
+             or else String_Equal (Text, Field (Text, Item, JSON_rule), Atom_VC_DIVISION_CHECK)
+             or else String_Equal (Text, Field (Text, Item, JSON_rule), Atom_VC_INDEX_CHECK))
            and then String_Equal (Text, Field (Text, Item, JSON_file), Atom_main_adb)
            and then Positive_Number (Text, Field (Text, Item, JSON_line))
            and then Positive_Number (Text, Field (Text, Item, JSON_col))
@@ -1853,7 +1868,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         and then Empty_Array_Spec (Text, Field_Spec (Text, Object, JSON_skip_proof))
         and then Empty_Array_Spec (Text, Field_Spec (Text, Object, JSON_pragma_assume))
         and then (if Kind in Application_Audit then
-          List_Spec (Text, Field_Spec (Text, Object, JSON_warn_error), Entities, Image_Advisories)
+          List_Spec (Text, Field_Spec (Text, Object, JSON_warn_error), Entities, Main_Advisories)
           else Empty_Array_Spec (Text, Field_Spec (Text, Object, JSON_warn_error)))
         and then Map_Spec (Text, Entities, Entities, Kind, False)
         and then Map_Spec (Text, Field_Spec (Text, Object, JSON_spark), Entities, Kind, True)
@@ -2142,15 +2157,20 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    function Raw_Record_Policy (Text : Raw_Bytes.Sequence; Item, Entities : Raw_Scan.Span; Kind : List_Kind)
      return Boolean is
      (if Kind = References then Raw_Reference_Policy (Text, Entities, Item)
-      elsif Kind = Image_Advisories then
+      elsif Kind = Main_Advisories then
         Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_severity), Atom_warning)
         and then Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_how_proved), Atom_trivial)
         and then Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_file), Atom_main_adb)
         and then Raw_Positive_Number (Text, Raw_Field (Text, Item, JSON_line))
         and then Raw_Positive_Number (Text, Raw_Field (Text, Item, JSON_col))
-        and then Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_imprecise_image)
-        and then Raw_String_Equal (Text, Raw_Field
-          (Text, Raw_Field (Text, Item, JSON_message), JSON_text), Atom_image_message)
+        and then
+          ((Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_imprecise_image)
+            and then Raw_String_Equal (Text, Raw_Field
+              (Text, Raw_Field (Text, Item, JSON_message), JSON_text), Atom_image_message))
+           or else
+             (Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_array_initialization)
+              and then Raw_String_Equal (Text, Raw_Field
+                (Text, Raw_Field (Text, Item, JSON_message), JSON_text), Atom_array_initialization_message)))
         and then Raw_String_Equal (Text, Raw_Field
           (Text, Raw_Field (Text, Item, JSON_unproved_status), JSON_status), Atom_unknown)
         and then Raw_Empty_Object (Text, Raw_Field (Text, Item, JSON_check_tree))
@@ -2209,7 +2229,8 @@ package body Silver_Library_Reports with SPARK_Mode => On is
              and then (Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_VC_RANGE_CHECK)
                or else Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_VC_LENGTH_CHECK)
                or else Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_VC_OVERFLOW_CHECK)
-               or else Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_VC_DIVISION_CHECK))
+               or else Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_VC_DIVISION_CHECK)
+               or else Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_VC_INDEX_CHECK))
              and then Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_file), Atom_main_adb)
              and then Raw_Entity_Name (Text, Raw_Referenced_Entity
                (Text, Entities, Raw_Field (Text, Item, JSON_entity))) = Main_Entity
@@ -2358,7 +2379,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         and then Raw_Empty_Array (Text, Raw_Field (Text, Object, JSON_skip_proof))
         and then Raw_Empty_Array (Text, Raw_Field (Text, Object, JSON_pragma_assume))
         and then (if Kind in Application_Audit then
-          Raw_List_Spec (Text, Raw_Field (Text, Object, JSON_warn_error), Entities, Image_Advisories)
+          Raw_List_Spec (Text, Raw_Field (Text, Object, JSON_warn_error), Entities, Main_Advisories)
           else Raw_Empty_Array (Text, Raw_Field (Text, Object, JSON_warn_error)))
         and then Raw_Map_Spec (Text, Entities, Entities, Kind, False)
         and then Raw_Map_Spec (Text, Raw_Field (Text, Object, JSON_spark), Entities, Kind, True)
@@ -3415,7 +3436,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
          and then Kind /= References
-         and then Record_Observation_Agreement (Raw, L, LE, Text, R, RE, Kind = Image_Advisories),
+         and then Record_Observation_Agreement (Raw, L, LE, Text, R, RE, Kind = Main_Advisories),
        Post => Raw_Record_Policy (Raw, L, LE, Kind) = Record_Policy (Text, R, RE, Kind)
    is
    begin
@@ -3476,6 +3497,9 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       Mixed_String_Congruence
         (Raw, Raw_Field (Raw, L, JSON_rule),
          Text, Field_Spec (Text, R, JSON_rule), Atom_VC_DIVISION_CHECK);
+      Mixed_String_Congruence
+        (Raw, Raw_Field (Raw, L, JSON_rule),
+         Text, Field_Spec (Text, R, JSON_rule), Atom_VC_INDEX_CHECK);
       Mixed_Test_Congruence
         (Raw, Raw_Field (Raw, L, JSON_line),
          Text, Field_Spec (Text, R, JSON_line));
@@ -3500,9 +3524,14 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         (Raw, Raw_Field (Raw, Raw_Field (Raw, L, JSON_message), JSON_text),
          Text, Field_Spec (Text, Field_Spec (Text, R, JSON_message), JSON_text),
          Atom_statement_unreachable);
-      if Kind = Image_Advisories then
+      if Kind = Main_Advisories then
          Mixed_String_Congruence
            (Raw, Raw_Field (Raw, L, JSON_rule), Text, Field_Spec (Text, R, JSON_rule), Atom_imprecise_image);
+         Mixed_String_Congruence
+           (Raw, Raw_Field (Raw, L, JSON_rule), Text, Field_Spec (Text, R, JSON_rule), Atom_array_initialization);
+         Mixed_String_Congruence
+           (Raw, Raw_Field (Raw, Raw_Field (Raw, L, JSON_message), JSON_text),
+            Text, Field_Spec (Text, Field_Spec (Text, R, JSON_message), JSON_text), Atom_array_initialization_message);
          Mixed_String_Congruence
            (Raw, Raw_Field (Raw, L, JSON_suppressed), Text, Field_Spec (Text, R, JSON_suppressed), Atom_Empty);
          Mixed_String_Congruence
@@ -3598,7 +3627,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
          and then LP >= L.First + 1 and then LP <= Raw_Bytes.Length (Raw) + 1
          and then RP in R.First + 1 .. Text'Length + 1
          and then List_Items_Agreement
-           (Raw, L, LE, LP, Text, R, RE, RP, Kind = References, Kind = Image_Advisories),
+           (Raw, L, LE, LP, Text, R, RE, RP, Kind = References, Kind = Main_Advisories),
        Post => Raw_List_From (Raw, L, LE, Kind, LP) = List_From (Text, R, RE, Kind, RP),
        Subprogram_Variant => (Decreases => (Raw_Bytes.Length (Raw) + 1) - LP)
    is
@@ -3636,7 +3665,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; Text : String; R, RE : Span; Kind : List_Kind)
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
-         and then List_Observation_Agreement (Raw, L, LE, Text, R, RE, Kind = References, Kind = Image_Advisories),
+         and then List_Observation_Agreement (Raw, L, LE, Text, R, RE, Kind = References, Kind = Main_Advisories),
        Post => Raw_List_Spec (Raw, L, LE, Kind) = List_Spec (Text, R, RE, Kind)
    is
    begin
@@ -4123,7 +4152,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       Observe_Preserved_List
         (Raw, Raw_Field (Raw, L, JSON_warn_error), LE, Text, Field_Spec (Text, R, JSON_warn_error), RE, False, True);
       Mixed_List_Congruence
-        (Raw, Raw_Field (Raw, L, JSON_warn_error), LE, Text, Field_Spec (Text, R, JSON_warn_error), RE, Image_Advisories);
+        (Raw, Raw_Field (Raw, L, JSON_warn_error), LE, Text, Field_Spec (Text, R, JSON_warn_error), RE, Main_Advisories);
       Mixed_Map (Raw, LE, LE, Text, RE, RE, Kind, False);
       Mixed_Map (Raw, Raw_Field (Raw, L, JSON_spark), LE, Text, Field_Spec (Text, R, JSON_spark), RE, Kind, True);
       Mixed_Dependencies (Raw, Raw_Field (Raw, L, JSON_assumptions), LE,
@@ -4276,7 +4305,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
            and then Empty_Array (Text, Field (Text, Object, JSON_skip_proof))
            and then Empty_Array (Text, Field (Text, Object, JSON_pragma_assume))
            and then (if Kind in Application_Audit then
-             List_OK (Text, Field (Text, Object, JSON_warn_error), Entities, Image_Advisories)
+             List_OK (Text, Field (Text, Object, JSON_warn_error), Entities, Main_Advisories)
              else Empty_Array (Text, Field (Text, Object, JSON_warn_error)))
            and then Entities_OK (Text, Entities, Kind)
            and then Coverage_OK (Text, Field (Text, Object, JSON_spark), Entities, Kind)

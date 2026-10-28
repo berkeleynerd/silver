@@ -149,7 +149,7 @@ theorem body_meaning (lexical : Compose.Lexical.Meaning calls.outer.helpers.prim
   statements text tv scan sv := by
     rw [definitions.adapter text tv scan sv (.word "end") (Or.inr rfl),
       Adapter.Wrappers.adapter_interpreted (wrapper_models calls helpers definitions) definitions.wrappers
-        {text,scan,token := .word "end"} sv.1.2.2.2.2.2.1,
+        {text,scan,token := .word "end"} sv.1.2.2.2.2.2.1.1,
       Adapter.adapter_eval,
       Adapter.adapter_unique calls.outer.body (body_equations calls helpers definitions lexical) text tv scan sv]
     exact Adapter.model_adapter text scan
@@ -267,7 +267,7 @@ theorem model_definitions : Definitions modelCalls where
       Adapter.adapterFunction.eval BodyNative.modelCalls {text,scan,token := stop}
         (bodyOfCall := (Adapter.Wrappers.modelCalls BodyNative.modelCalls).bodyOf)
     rw [Adapter.Wrappers.adapter_interpreted (Adapter.Wrappers.model_equations BodyNative.modelCalls)
-      (Adapter.Wrappers.model_refinement _) {text,scan,token := stop} sv.1.2.2.2.2.2.1]
+      (Adapter.Wrappers.model_refinement _) {text,scan,token := stop} sv.1.2.2.2.2.2.1.1]
     exact (Adapter.adapter_eval BodyNative.modelCalls {text,scan,token := stop}).symm
   outer := Outer.model_definitions
 

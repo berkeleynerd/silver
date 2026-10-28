@@ -1,6 +1,7 @@
 module
 
 public import Silver.PredicateHeaderFlow
+public import Silver.ComposeArrayStore
 
 @[expose] public section
 
@@ -27,7 +28,8 @@ def Member (source : Source) : Prop := ∃ form, FormMember source form
 private theorem initial_ranges (source : Source) : Compose.Expressions.ValidState source initialState := by
   simp [Compose.Expressions.ValidState, Compose.Expressions.ValidCursor, Compose.Expressions.ValidNames,
     Named.NameState.Valid, initialState, maxSourceLength, maxBindings,
-    ScalarExpression.ValidEnvironment, ScalarExpression.maxBindings]
+    ScalarExpression.ValidEnvironment, ScalarExpression.maxBindings, ArrayBindings.ValidEnvironment,
+    ArrayBindings.ValidMetadata, ArrayBindings.ValidInitials, ArrayBindings.maxBindings, ArrayBindings.maxElements]
 
 private theorem initialFacts_bounded (arguments : Bool) : (initialFacts arguments).Bounded := by
   cases arguments
@@ -85,24 +87,27 @@ theorem form_reading_valid {source : Source} {form : Form} {events : List Event}
       Sequence.ScalarTokensAt source form.helper form.prefix initialState scalars (prefixScan source form).state ∧
       Sequence.InitializerTokensAt source form.helper form.prefix initialState checks (prefixScan source form).state ∧
       decodePrefix form events items scalars
-        (ScalarExpression.constants (prefixScan source form).state.scalarNames) checks = some program ∧ program.Valid := by
+        (ScalarExpression.constants (prefixScan source form).state.scalarNames) checks
+        (prefixScan source form).state.arrayNames = some program ∧ program.Valid := by
   obtain ⟨scalars, scalarTrace⟩ := Sequence.tokens_scalar_trace parsed.header
   obtain ⟨checks, initializerTrace⟩ := Sequence.tokens_initializer_trace parsed.header
   have scalarChecked := prefix_scalar_checked scalarTrace
   obtain ⟨valid, stream⟩ := Sequence.tokens_valid domain.2.1 parsed.header Compose.initial_valid
   have ranges := scanTokens_ranges source form.helper form.prefix initialScan ⟨domain.1, domain.2.1⟩ (initial_ranges source)
-  have bodyValid := body_meaning valid.1 (prefix_baseReady scalarTrace) ranges.2.1
+  have bodyValid := body_meaning valid.1 (prefix_baseReady scalarTrace) (prefix_arraysReady parsed.header) ranges.2.1
     (bodyOf_compatible _) (initialFacts_bounded _) parsed.statements
   have context := Sequence.tokens_context parsed.header
   simp only [initialState, empty_names_shape] at context
   have arguments := prefix_arguments parsed.header
   obtain ⟨program, decoded, programValid⟩ := prefix_decoded_valid form events items scalars
-    (ScalarExpression.constants (prefixScan source form).state.scalarNames) checks (Sequence.tokens_kinds parsed.header)
+    (ScalarExpression.constants (prefixScan source form).state.scalarNames) checks
+    (prefixScan source form).state.arrayNames (prefix_array_ready parsed.header).1.2.2.1
+    (Sequence.tokens_kinds parsed.header)
     (by simpa only [initialState, empty_names_shape, List.append_nil] using stream [] trivial)
     (body_nonempty parsed.statements)
     (by rw [context, ← arguments]; exact bodyValid.1)
     (by
-      refine ⟨(rawBody source form).facts.model, ?_, parsed.completed⟩
+      refine ⟨(contextOf (prefixScan source form)).flow (rawBody source form).facts, ?_, parsed.completed⟩
       rw [context, ← arguments, ← prefix_analysis scalarTrace, ← bodyOf_model]
       exact bodyValid.2.1)
     scalarChecked.1 (prefix_initializer_checked domain.2.1 initializerTrace)
@@ -114,7 +119,8 @@ def SourceMeaning (source : Source) (program : Program) : Prop :=
     Sequence.ScalarTokensAt source form.helper form.prefix initialState scalars (prefixScan source form).state ∧
     Sequence.InitializerTokensAt source form.helper form.prefix initialState checks (prefixScan source form).state ∧
     decodePrefix form events items scalars
-      (ScalarExpression.constants (prefixScan source form).state.scalarNames) checks = some program
+      (ScalarExpression.constants (prefixScan source form).state.scalarNames) checks
+        (prefixScan source form).state.arrayNames = some program
 
 theorem meaning_member {source : Source} {program : Program}
     (meaning : SourceMeaning source program) : Member source := by
@@ -158,6 +164,29 @@ theorem meaning_valid {source : Source} {program : Program}
   have equal := Option.some.inj (same.symm.trans decoded)
   simpa only [equal] using valid
 
+/-- Array shape, disjoint allocation and the canonical initialization table
+come from the actual mixed declaration trace, including empty headers. -/
+theorem meaning_arrays_source_ready {source : Source} {program : Program}
+    (meaning : SourceMeaning source program) : ArrayBindings.SourceReady source program.arrays := by
+  obtain ⟨form, events, items, scalars, checks, _, _, parsed, _, _, decoded⟩ := meaning
+  rw [(decoded_integer_state decoded).2]
+  exact prefix_array_ready parsed.header
+
+/-- The executable initial Integer store is exactly the source header's
+frozen store. Scalar and String initializer projections freeze in their own
+incoming store; raw array aggregates have the transition proved by
+`Compose.array_declaration_execute`, and all raw checks remain in the trace. -/
+theorem meaning_initial_integer_store {source : Source} {program : Program}
+    (meaning : SourceMeaning source program) :
+    ∃ form, selectedForm source = some form ∧
+      program.initialIntegers = frozenIntegers (prefixScan source form).state.scalarNames
+        (prefixScan source form).state.arrayNames.names (prefixScan source form).state.arrayNames.values := by
+  have initial := (Program.initial_integers (meaning_valid meaning)).1
+  obtain ⟨form, events, items, scalars, checks, _, selected, _, _, _, decoded⟩ := meaning
+  have fields := decoded_integer_state decoded
+  rw [fields.1, fields.2] at initial
+  exact ⟨form, selected, initial⟩
+
 /-- Source meaning preserves the exact declared Integer subtype: explicit
 ranges evaluate their independently read static endpoints, and an absent range
 has the predefined Integer bounds. This covers every decoded declaration. -/
@@ -171,8 +200,9 @@ theorem meaning_scalar_source_bounds {source : Source} {program : Program}
     split at decoded <;> cases decoded <;> rfl
   simpa only [same] using bounds
 
-/-- The canonical inventory contains exactly the raw initializer Image schemas
-read from the accepted header, before immutable Image specialization. -/
+/-- The canonical inventory retains the raw initializer Image schemas, array
+bounds, singleton association choices and every aggregate component from the
+accepted header, before immutable specialization. -/
 theorem meaning_initializer_trace {source : Source} {program : Program}
     (meaning : SourceMeaning source program) :
     ∃ form, selectedForm source = some form ∧

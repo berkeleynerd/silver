@@ -62,22 +62,31 @@ stage number does not authorize implementation.
 
 ### Fixed-size Integer arrays
 
-After the external-review response and the selected #246 performance package,
-the owner [selected fixed-size Integer arrays](docs/session-memory.md#2026-10-27--fixed-size-integer-arrays-authorized)
-as the next language increment. [Milestone 10](https://github.com/berkeleynerd/silver/milestone/10)
-contains one issue, [#260](https://github.com/berkeleynerd/silver/issues/260),
-linked to the broader [arrays stage #12](https://github.com/berkeleynerd/silver/issues/12).
-The order is a faithful Rosetta driver and exact scope/obligation discovery,
-native and universal/source implementation, then complete validation and
-independent review. The [capability record](docs/fixed-integer-arrays.md)
-retains the design and eventual evidence. Arrays are not yet supported.
+[Milestone 10](https://github.com/berkeleynerd/silver/milestone/10),
+[#260](https://github.com/berkeleynerd/silver/issues/260), delivers the bounded
+Integer-array fragment selected by the
+[owner](docs/session-memory.md#2026-10-27--fixed-size-integer-arrays-authorized).
+The [rotation driver](samples/rosetta_shift_list_left_3.adb) maps
+`[1,2,3,4,5,6,7,8,9]` to `[4,5,6,7,8,9,1,2,3]` with two explicit copy loops.
+The [capability record](docs/fixed-integer-arrays.md) describes the rules; its
+[delivery evidence](docs/fixed-integer-arrays.md#delivery-assurance-and-validation)
+records the exact implementation, native and universal/source assurance,
+regression results and independent review.
 
-Choose the minimum useful one-dimensional Integer-array declarations,
-initialization and checked indexing/read/write rules, retaining the current
-source/operator bounds and complete assurance for all admitted compositions.
-The broader arrays identifier and #12 stay open where their assessed forms
-exceed this fragment. Other #11 constructs, capacity/assurance-mode work and
-further proof-performance packages remain deferred.
+The fragment admits anonymous one-dimensional constant or mutable Integer
+arrays, nonempty static bounds, mandatory explicit initialization and scalar-only
+checked subscripts for reads and writes. Declaration snapshots retain exact
+values; body reads use full Integer intervals. Indexed writes preserve other
+components, existing String/input facts and captured loop bounds. The source
+and operator budgets are unchanged.
+
+Rosetta support is limited to `fixed-integer-arrays` and the exact rotation
+approach. Broad `arrays` and
+[stage #12](https://github.com/berkeleynerd/silver/issues/12) remain open for
+named array types, dynamic or null arrays, array attributes, whole-array
+operations, foreach and other unadmitted forms. Other #11 constructs,
+capacity/assurance-mode work and further proof-performance packages remain
+outside this increment.
 
 ### Checked integer division and scalar refinement
 
@@ -687,6 +696,7 @@ sequence.
 | Bounded mutable integers | Supported | Initialized Integer objects with optional object-local static ranges, range-preserving assignments, exact declaration snapshots and captured loop bounds; [completed Linux validation](docs/bounded-mutable-integers.md). | [Find square difference](samples/find_square_difference.adb) |
 | Interval-checked Integer division | Supported | Fully grouped `/`, `mod` and `rem`, nonzero divisor intervals and operator-specific result bounds; [Linux validation and assurance](docs/integer-division.md). | [Josephus](samples/rosetta_josephus_problem.adb) and six further regressions |
 | Scalar guard refinement | Supported | Bare mutable/index comparisons against static thresholds, assignment replacement, branch hulls and captured bounds with mutable loop widening; [Linux validation and assurance](docs/scalar-guard-refinement.md#delivery-assurance-and-validation). | [100 doors](samples/rosetta_100_doors.adb) |
+| Fixed-size Integer arrays | Supported | Anonymous one-dimensional Integer arrays with nonempty static bounds, explicit initialization, checked scalar-only subscripts, exact declaration snapshots and component-preserving writes; [delivery assurance and validation](docs/fixed-integer-arrays.md#delivery-assurance-and-validation). Broad arrays remain separate. | [Left rotation by three](samples/rosetta_shift_list_left_3.adb) |
 
 The output target covers admitted literals and bounded command-line
 messages; the text `Hello, world!` receives no special treatment. String literals do not imply support for

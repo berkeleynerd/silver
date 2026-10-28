@@ -1,11 +1,12 @@
-"""Only the producer's exact Image advisory may accompany proved checks."""
+"""Only the producer's reviewed Main advisories may accompany proved checks."""
 from __future__ import annotations
 
 import copy
 import json
 import unittest
 
-from scripts.check_evidence import EvidenceError, IMAGE_ADVISORY_TEXT, audit_reports
+from scripts.check_evidence import (EvidenceError, IMAGE_ADVISORY_TEXT,
+                                    ARRAY_INITIALIZATION_ADVISORY_TEXT, audit_reports)
 from tests import test_evidence as evidence
 from tests import test_library_reports as native
 
@@ -16,7 +17,12 @@ def advisory() -> dict:
             "unproved_status": {"status": "unknown"}, "message": {"text": IMAGE_ADVISORY_TEXT}}
 
 
-def mutations():
+def array_advisory() -> dict:
+    return dict(advisory(), rule="array-initialization",
+                message={"text": ARRAY_INITIALIZATION_ADVISORY_TEXT})
+
+
+def mutations(make_advisory=advisory):
     for key, value in (("rule", "VC_LENGTH_CHECK"), ("severity", "info"),
                        ("how_proved", "prover"), ("file", "other.adb"),
                        ("line", 0), ("col", 0), ("line", True), ("entity", 1),
@@ -26,14 +32,15 @@ def mutations():
                        ("message", {"text": IMAGE_ADVISORY_TEXT + " changed"}), ("message", []),
                        ("justification", ""), ("justified", False),
                        ("annot_kind", ""), ("justif_msg", "")):
-        yield f"changed {key}={value!r}", dict(advisory(), **{key: value})
-    for key in advisory():
-        value = advisory()
+        yield f"changed {key}={value!r}", dict(make_advisory(), **{key: value})
+    for key in make_advisory():
+        value = make_advisory()
         del value[key]
         yield f"missing {key}", value
 
 
 class NativeImageReportTests(unittest.TestCase):
+    advisory = staticmethod(advisory)
     setUpClass = classmethod(native.LibraryReportTests.setUpClass.__func__)
     tearDownClass = classmethod(native.LibraryReportTests.tearDownClass.__func__)
     accepts = native.LibraryReportTests.accepts
@@ -41,7 +48,7 @@ class NativeImageReportTests(unittest.TestCase):
     def test_exact_advisory_preserves_required_checks_in_all_application_policies(self) -> None:
         for kind in ("static", "main", "assignment", "selected"):
             data = native.assignment_report(False)
-            data["warn_error"] = [advisory(), advisory()]
+            data["warn_error"] = [self.advisory(), self.advisory()]
             data["proof"] = [dict(native.check(), rule="VC_LENGTH_CHECK", file="main.adb")]
             with self.subTest(kind=kind):
                 self.assertTrue(self.accepts(data, kind=kind))
@@ -53,35 +60,37 @@ class NativeImageReportTests(unittest.TestCase):
 
     def test_mutated_missing_duplicate_and_misplaced_advisories_are_rejected(self) -> None:
         data = native.assignment_report(False)
-        for description, value in mutations():
+        for description, value in mutations(self.advisory):
             with self.subTest(description=description):
                 data["warn_error"] = [value]
                 self.assertFalse(self.accepts(data, kind="static"))
-        data["warn_error"] = [advisory()]
-        raw = json.dumps(data).replace('"rule": "imprecise-image"',
-                                     '"rule": "imprecise-image", "rule": "imprecise-image"')
+        data["warn_error"] = [self.advisory()]
+        rule = '"rule": ' + json.dumps(self.advisory()["rule"])
+        raw = json.dumps(data).replace(rule, rule + ", " + rule)
         self.assertFalse(self.accepts(raw, kind="static"))
         for section in ("flow", "proof"):
             bad = native.assignment_report(False)
-            bad[section] = [advisory()]
+            bad[section] = [self.advisory()]
             self.assertFalse(self.accepts(bad, kind="static"))
         for kind, value in (("body", native.report()), ("interface", native.report(True)),
                             ("arguments", native.argument_report()),
                             ("runtime", native.argument_report(True))):
-            value["warn_error"] = [advisory()]
+            value["warn_error"] = [self.advisory()]
             self.assertFalse(self.accepts(value, kind=kind))
 
 
 class ImageEvidenceTests(unittest.TestCase):
+    advisory = staticmethod(advisory)
+    counter = "image_advisories"
     setUp = evidence.ProofEvidenceTests.setUp
     refresh_reports = evidence.ProofEvidenceTests.refresh_reports
 
     def prepare(self, value: dict | None = None) -> None:
-        self.report["warn_error"] = [advisory() if value is None else value]
+        self.report["warn_error"] = [self.advisory() if value is None else value]
         (self.path / "main.spark").write_text(json.dumps(self.report))
         self.refresh_reports()
         # The generic fixture helper supplies an entity to every diagnostic;
-        # Image advisories deliberately have none in the actual producer schema.
+        # Main advisories deliberately have none in the actual producer schema.
         (self.path / "main.spark").write_text(json.dumps(self.report))
         sarif = json.loads((self.path / "gnatprove.sarif").read_text())
         sarif["runs"][0]["results"][0].update(
@@ -92,7 +101,7 @@ class ImageEvidenceTests(unittest.TestCase):
         self.prepare()
         for kind in ("static", "argument", "assigned", "selected"):
             stats = audit_reports(self.path, {"main"}, application_kind=kind)
-            self.assertEqual((stats["proof_checks"], stats["flow_checks"], stats["image_advisories"]), (0, 0, 1))
+            self.assertEqual((stats["proof_checks"], stats["flow_checks"], stats[self.counter]), (0, 0, 1))
         with self.assertRaises(EvidenceError):
             audit_reports(self.path, {"main"})
         # The warning never permits a failed original safety obligation.
@@ -102,7 +111,7 @@ class ImageEvidenceTests(unittest.TestCase):
             audit_reports(self.path, {"main"}, application_kind="static")
 
     def test_mutated_advisory_fields_are_rejected(self) -> None:
-        for description, value in mutations():
+        for description, value in mutations(self.advisory):
             with self.subTest(description=description):
                 self.prepare(value)
                 with self.assertRaises(EvidenceError):
@@ -120,6 +129,22 @@ class ImageEvidenceTests(unittest.TestCase):
             path.write_text(json.dumps(bad))
             with self.subTest(key=key, value=value), self.assertRaises(EvidenceError):
                 audit_reports(self.path, {"main"}, application_kind="static")
+
+
+class NativeArrayReportTests(NativeImageReportTests):
+    advisory = staticmethod(array_advisory)
+
+    def test_rule_and_message_must_be_the_same_advisory(self) -> None:
+        for rule, message in (("array-initialization", IMAGE_ADVISORY_TEXT),
+                              ("imprecise-image", ARRAY_INITIALIZATION_ADVISORY_TEXT)):
+            data = native.assignment_report(False)
+            data["warn_error"] = [dict(array_advisory(), rule=rule, message={"text": message})]
+            self.assertFalse(self.accepts(data, kind="static"))
+
+
+class ArrayEvidenceTests(ImageEvidenceTests):
+    advisory = staticmethod(array_advisory)
+    counter = "array_initialization_advisories"
 
 
 if __name__ == "__main__":

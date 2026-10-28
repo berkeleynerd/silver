@@ -14,6 +14,7 @@ mutual
   inductive SourceStatement
     | simple (item : Sequence.SimpleStatement)
     | scalarAssign (update : Integer.Assignment)
+    | arrayAssign (update : Integer.ArrayAssignment)
     | reject
     | choice (condition : Condition) (yes : List SourceStatement) (tail : SourceAlternative)
     | forLoop (index : Nat) (reverse : Bool) (lower upper : Integer.Expr) (body : List SourceStatement)
@@ -29,6 +30,7 @@ mutual
   def SourceStatement.lower : SourceStatement → Statement
     | .simple item => .simple item
     | .scalarAssign update => .scalarAssign update
+    | .arrayAssign update => .arrayAssign update
     | .reject => .reject
     | .choice condition yes tail => .choice condition (lowerStatements yes) tail.lower
     | .forLoop index reverse lower upper body => .forLoop index reverse lower upper (lowerStatements body)
@@ -50,6 +52,7 @@ mutual
     match item with
     | .simple item => executeSimpleStatement input values item integers
     | .scalarAssign update => ⟨values, [], update.execute integers⟩
+    | .arrayAssign update => ⟨values, [], update.execute integers⟩
     | .reject => ⟨values, [.reject], integers⟩
     | .choice condition yes tail =>
         if condition.evaluate values input valid integers then executeSourceStatements input valid values yes integers
@@ -87,6 +90,7 @@ mutual
     cases item with
     | simple item => simp only [SourceStatement.lower, Statement.execute, SourceStatement.execute]
     | scalarAssign update => simp only [SourceStatement.lower, Statement.execute, SourceStatement.execute]
+    | arrayAssign update => simp only [SourceStatement.lower, Statement.execute, SourceStatement.execute]
     | reject => simp only [SourceStatement.lower, Statement.execute, SourceStatement.execute]
     | choice condition yes tail =>
         have yesEq := lowerStatements_execute yes input valid values integers
@@ -132,6 +136,7 @@ mutual
   def SourceStatement.WellFormed (hasArguments : Bool) (shape : Shape) : SourceStatement → Prop
     | .simple item => SimpleWellFormed shape item
     | .scalarAssign update => update.target ≠ 0
+    | .arrayAssign _ => True
     | .reject => hasArguments = true
     | .choice condition yes tail => condition.Grammatical ∧ condition.Readable hasArguments shape ∧
         yes ≠ [] ∧ SourceStatementsWellFormed hasArguments shape yes ∧ tail.WellFormed hasArguments shape
@@ -155,6 +160,7 @@ mutual
     cases item with
     | simple item => simpa only [SourceStatement.lower, Statement.WellFormed, SourceStatement.WellFormed] using valid
     | scalarAssign update => simpa only [SourceStatement.lower, Statement.WellFormed, SourceStatement.WellFormed] using valid
+    | arrayAssign update => simp only [SourceStatement.lower, Statement.WellFormed]
     | reject => simpa only [SourceStatement.lower, Statement.WellFormed, SourceStatement.WellFormed] using valid
     | choice condition yes tail =>
         simp only [SourceStatement.WellFormed] at valid

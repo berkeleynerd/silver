@@ -185,6 +185,7 @@ mutual
     match item with
     | .simple item => simpleObligations shape flow.path item flow.scalars
     | .scalarAssign update => (update.obligations flow.scalars).map Obligation.scalar
+    | .arrayAssign update => (update.obligations flow.scalars).map Obligation.scalar
     | .reject => []
     | .choice condition yes no => condition.obligations shape analysis flow ++
         statementsObligations shape analysis (condition.refine shape analysis flow true) yes ++
@@ -223,6 +224,16 @@ mutual
         split at checked
         · rename_i good
           simpa only [Statement.obligations, scalar_discharged] using update.obligations_discharge good
+        · contradiction
+    | arrayAssign update =>
+        simp only [Statement.check] at checked
+        split at checked
+        · rename_i good
+          have both : update.check before.scalars analysis.mutable = true ∧
+              update.array.fullRanges analysis.declared = true := by
+            simpa only [checkArrayAssignment, Bool.and_eq_true] using good
+          have accepted := both.1
+          simpa only [Statement.obligations, scalar_discharged] using update.obligations_discharge accepted
         · contradiction
     | reject => simp [Statement.obligations, discharged]
     | choice condition yes no =>

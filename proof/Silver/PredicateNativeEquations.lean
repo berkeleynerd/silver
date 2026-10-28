@@ -12,7 +12,7 @@ set_option maxHeartbeats 2000000
 
 structure Inputs where
   text : Source := []
-  context : Context := ⟨[], 0, 0, [], 0⟩
+  context : Context := ⟨[], 0, 0, [], 0, []⟩
   position : Nat := 0
   facts : ActiveFlow := ⟨PathFacts.Context.empty, []⟩
   value : Compose.ExpressionResult := Compose.invalidExpression
@@ -64,7 +64,7 @@ def primaryEquation (calls : Calls) (text : Source) (context : Context) (positio
     if close = 0 then calls.invalidCondition facts else {result with after := close}
   else if context.dynamicFirst = 0 then calls.invalidCondition facts
   else
-    let afterCall := calls.callAfter text context.names position .validity context.scalarNames
+    let afterCall := calls.callAfter text context.names position .validity context.scalarNames context.arrayNames
     if afterCall = 0 then calls.invalidCondition facts else
       ⟨afterCall, {facts with path := calls.assumeValid facts.path},
         {facts with path := calls.assumeInvalid facts.path}⟩

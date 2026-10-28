@@ -27,6 +27,9 @@ theorem model_ranges : HelperRanges Compose.Expressions.modelCalls OuterReadines
   scalarDeclaration text tv state arguments sv := by
     have bounded := Compose.Expressions.model_ranges.scalarDeclaration text tv state arguments sv.1
     exact ⟨⟨bounded.1, OuterReadiness.scalarDeclaration_ready text state arguments sv.2⟩, bounded.2⟩
+  arrayDeclaration text tv state arguments sv := by
+    have bounded := Compose.Expressions.model_ranges.arrayDeclaration text tv state arguments sv.1
+    exact ⟨⟨bounded.1, OuterReadiness.arrayDeclaration_ready text state arguments sv.2⟩, bounded.2⟩
   declaration text tv state arguments sv := by
     have bounded := Compose.Expressions.model_ranges.declaration text tv state arguments sv.1
     exact ⟨⟨bounded.1, OuterReadiness.declaration_ready text state arguments sv.2⟩, bounded.2⟩
@@ -40,12 +43,19 @@ theorem model_ranges : HelperRanges Compose.Expressions.modelCalls OuterReadines
 private theorem base_definitions : HelperEquations Compose.Expressions.modelCalls Compose.Expressions.modelCalls :=
   (Compose.Expressions.model_definitions Compose.Expressions.model_ranges).toHelperEquations
 
+private theorem base_array_domain {text source result position length parsed}
+    (valid : ArrayValuesDomain text source result position length parsed OuterReadiness.domain) :
+    ArrayValuesDomain text source result position length parsed :=
+  ⟨valid.sourceContext.1, valid.resultContext.1, valid.positionValid,
+    valid.parsedBound, valid.capacity, valid.used⟩
+
 theorem model_definitions :
     HelperEquations Compose.Expressions.modelCalls Compose.Expressions.modelCalls OuterReadiness.domain where
   ranges := model_ranges
   names := base_definitions.names
   scalarLookup := base_definitions.scalarLookup
   scalarRead := base_definitions.scalarRead
+  arrayLookup := base_definitions.arrayLookup
   scalarLiteral := base_definitions.scalarLiteral
   scalarAppend := base_definitions.scalarAppend
   scalarEmpty := base_definitions.scalarEmpty
@@ -73,6 +83,16 @@ theorem model_definitions :
   scalarConstraint := base_definitions.scalarConstraint
   scalarDeclaration text tv state arguments sv :=
     base_definitions.scalarDeclaration text tv state arguments sv.1
+  arrayPut := base_definitions.arrayPut
+  arrayAdd text tv state first after bounds offset length mutable following sv nv bv room extent cursor :=
+    base_definitions.arrayAdd text tv state first after bounds offset length mutable following
+      sv.1 nv bv room extent cursor
+  arrayValuesModel text tv source result position length parsed valid :=
+    base_definitions.arrayValuesModel text tv source result position length parsed (base_array_domain valid)
+  arrayValues text tv source result position length parsed valid :=
+    base_definitions.arrayValues text tv source result position length parsed (base_array_domain valid)
+  arrayDeclaration text tv state arguments sv :=
+    base_definitions.arrayDeclaration text tv state arguments sv.1
   declaration text tv state arguments sv :=
     base_definitions.declaration text tv state arguments sv.1
   argument text tv state sv :=

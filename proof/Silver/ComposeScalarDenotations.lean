@@ -15,9 +15,9 @@ values keeps dependent local lookup reduction separate from callee refinement. -
 def scalarConstraintEquation (calls : Calls) (text : Source) (position : Nat)
     (names : ScalarExpression.Environment) : ScalarConstraintResult :=
   let rangeAfter := calls.function .takeToken text position (.word "range")
-  let low := calls.function .scalarRead text rangeAfter names
+  let low := calls.function .scalarRead text rangeAfter names [] [] false
   let delimiterAfter := calls.function .takeToken text low.after (.symbol "..")
-  let high := calls.function .scalarRead text delimiterAfter names
+  let high := calls.function .scalarRead text delimiterAfter names [] [] false
   if decide (rangeAfter = 0) then ⟨position, Integer.Interval.full⟩
   else if decide (low.after = 0) || decide (delimiterAfter = 0) || decide (high.after = 0) ||
       !low.isStatic || !high.isStatic || calls.function .scalarEmpty low.bounds ||
@@ -37,6 +37,7 @@ def scalarDeclarationEquation (calls : Calls) (text : Source) (state : ParserSta
   let constraint := calls.function .scalarConstraint text typeAfter state.scalarNames
   let value := calls.function .scalarRead text
     (calls.function .takeToken text constraint.after (.symbol ":=")) state.scalarNames
+    state.arrayNames.names state.arrayNames.values true
   let following := calls.function .takeToken text value.after (.symbol ";")
   if !calls.function .newName text state first after arguments ||
       decide (typeAfter = 0) || decide (constraint.after = 0) ||
@@ -48,7 +49,8 @@ def scalarDeclarationEquation (calls : Calls) (text : Source) (state : ParserSta
       decide (constraint.bounds.upper < value.bounds.upper) ||
       calls.function .nameIs text first after "integer" ||
       decide (calls.function .lookupName text state.names typeFirst typeAfter ≠ 0) ||
-      decide (calls.function .scalarLookup text state.scalarNames typeFirst typeAfter ≠ 0)
+      decide (calls.function .scalarLookup text state.scalarNames typeFirst typeAfter ≠ 0) ||
+      decide (calls.function .arrayLookup text state.arrayNames.names typeFirst typeAfter ≠ 0)
     then invalidState
     else {state with position := following, scalarNames := (calls.function .scalarAppend state.scalarNames ⟨first, after, value.bounds, decide (constant ≠ 0) && value.isStatic, constraint.bounds, decide (constant = 0)⟩)}
 

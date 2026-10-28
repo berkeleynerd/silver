@@ -3,7 +3,6 @@ module
 public import Silver.PredicateBodyFlow
 public import Silver.PredicateBodyProperties
 public import Silver.PredicateConditionFlowValidity
-public import Silver.ScalarExpressionNativeRecursion
 
 @[expose] public section
 
@@ -74,14 +73,6 @@ theorem bodyTokens_flowReady {context scan} (ready : BodyScan.FlowReady context 
     (text : Source) (tokens : List ShellToken) : (bodyTokens text scan tokens).FlowReady context := by
   simpa only [BodyScan.FlowReady, bodyTokens_facts] using ready
 
-private theorem scalarRead_bounds_bounded (text : Source) (position : Nat)
-    (names : ScalarExpression.Environment) : (ScalarExpression.read text position names).bounds.Bounded := by
-  by_cases zero : (ScalarExpression.read text position names).after = 0
-  · rw [show ScalarExpression.read text position names = ScalarExpression.invalid from ScalarExpression.Native.summarize_zero zero]
-    exact Integer.Interval.empty_bounded
-  · obtain ⟨expression, inferred, _, _⟩ := ScalarExpression.read_has_expression zero
-    exact Integer.Expr.infer_bounded inferred
-
 private theorem true_of_not_neg {value : Bool} (known : ¬(!value) = true) : value = true := by
   cases value <;> simp_all
 
@@ -98,18 +89,25 @@ theorem scalarAssignment_flowReady (text : Source) (context : ParseContext) (sca
       ScalarExpression.lookup_bound ..
     have mutable : (ScalarExpression.binding context.scalarNames (scalarTarget text context scan.position)).mutable = true :=
       true_of_not_neg (fun bad => good (Or.inr (Or.inl bad)))
-    have nonempty : (ScalarExpression.read text (scalarAssignmentStart text scan) (context.readingNames scan.facts)).bounds.isEmpty = false :=
+    have nonempty : (ScalarExpression.read (arrays := context.arrayNames) text (scalarAssignmentStart text scan) (context.readingNames scan.facts)).bounds.isEmpty = false :=
       Bool.eq_false_iff.mpr (fun bad => good (Or.inr (Or.inr (Or.inr (Or.inl bad)))))
-    have low : ¬ (ScalarExpression.read text (scalarAssignmentStart text scan) (context.readingNames scan.facts)).bounds.lower <
+    have low : ¬ (ScalarExpression.read (arrays := context.arrayNames) text (scalarAssignmentStart text scan) (context.readingNames scan.facts)).bounds.lower <
         (ScalarExpression.binding context.scalarNames (scalarTarget text context scan.position)).declaredBounds.lower :=
       fun bad => good (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl bad)))))
-    have high : ¬ (ScalarExpression.read text (scalarAssignmentStart text scan) (context.readingNames scan.facts)).bounds.upper >
+    have high : ¬ (ScalarExpression.read (arrays := context.arrayNames) text (scalarAssignmentStart text scan) (context.readingNames scan.facts)).bounds.upper >
         (ScalarExpression.binding context.scalarNames (scalarTarget text context scan.position)).declaredBounds.upper :=
       fun bad => good (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr bad)))))
+    have positive : (ScalarExpression.read (arrays := context.arrayNames) text (scalarAssignmentStart text scan)
+        (context.readingNames scan.facts)).after ≠ 0 := by
+      intro zero
+      exact good (Or.inr (Or.inr (Or.inl (by omega))))
+    obtain ⟨expression, parsed⟩ := ScalarExpression.read_sound
+      (Compose.Expressions.model_fixed_valid text _ ":=" false (Compose.Expressions.model_name_valid text _)) positive
     apply ScalarMetadata.FlowReady.replace base ready _ _ (Nat.pos_of_ne_zero nonzero) targetBound mutable
-      (scalarRead_bounds_bounded ..) nonempty
+      (Integer.Expr.infer_bounded parsed.inferred) nonempty
     intro value within
     rcases within with ⟨lo, hi⟩
+    dsimp only [scalarAssignmentStart] at low high
     constructor <;> omega
 
 theorem basicRaw_flowReady (text : Source) (context : ParseContext) (scan : BodyScan)
@@ -130,6 +128,12 @@ theorem basicRaw_flowReady (text : Source) (context : ParseContext) (scan : Body
       · exact ready
   | reject => exact ready.withPath _
   | scalarAssignment => exact scalarAssignment_flowReady text context scan base ready
+  | arrayAssignment =>
+      unfold arrayAssignmentBody
+      dsimp only
+      split
+      · exact invalidBody_flowReady ready
+      · exact ready
   | assignment =>
       try dsimp only
       split

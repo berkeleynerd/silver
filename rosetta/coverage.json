@@ -19,7 +19,8 @@
   "integer-image",
   "bounded-mutable-integers",
   "interval-integer-division",
-  "scalar-guard-refinement"
+  "scalar-guard-refinement",
+  "fixed-integer-arrays"
  ],
  "tasks": {
   "100 doors": {
@@ -21568,22 +21569,20 @@
    ],
    "surface": [
     "integer-for-loops",
-    "integer-division",
+    "interval-integer-division",
     "integer-image"
    ],
    "outlook": "likely",
    "risks": [],
    "size": 16,
    "approach": "Main loops directly over the Integer range -1000 .. 1000. For each immutable index N, an if statement tests (N rem 2) = 0 and prints Integer'Image (N) concatenated with the literal even or odd verdict through Put_Line. The bounded literal range includes negative values and zero. No declared subtype, user-defined procedure or separate Put call is needed.",
-   "summary": "Only Integer range loops, standard Integer Image and remainder by nonzero literal 2 are needed by this plan. The narrow interval-integer-division capability now includes that remainder form. The existing broad integer-division dependency is retained pending approach review and migration; this assessment is not a delivered or proved sample.",
+   "summary": "Remainder by literal 2 and the static loop range -1000 through 1000 fit the delivered interval-integer-division rules, including negative dividends and zero. The external review confirmed admission of this approach. This is a current-language assessment, not a delivered manifest sample or a new proof/build/execution record.",
    "confidence": "high",
    "review": {
-    "date": "2026-10-25",
-    "record": "assessment-division-20261025.md",
-    "setting_evidence": "Selected GPT-6.1 Sol High by the lead; runtime setting not independently exposed",
-    "method": "Targeted task, current-language and retained-prototype review; no new native admission, proof, build or execution",
-    "model": "gpt-6.1-sol",
-    "effort": "high"
+    "date": "2026-10-27",
+    "record": "assessment-arrays-20261027.md",
+    "setting_evidence": "Integration lead; live model and effort not independently exposed",
+    "method": "Targeted task/specification/sample review and retained external admission evidence; no new complete validation claim"
    }
   },
   "Events": {
@@ -25947,22 +25946,20 @@
    ],
    "surface": [
     "integer-for-loops",
-    "integer-division",
+    "interval-integer-division",
     "integer-image"
    ],
    "outlook": "likely",
    "risks": [],
    "size": 16,
    "approach": "A parameterless Main uses a for loop over the static Integer range 1 .. 100 and tests (I mod 15), (I mod 5) and (I mod 3) in an if/elsif/else chain. The branches call Silver_IO.Put_Line with FizzBuzz, Buzz or Fizz respectively; the else branch prints ordinary Integer'Image (I), including Ada's leading space. The task does not require trimming that space. No computed-length string buffer or trimming operation is used.",
-   "summary": "Static loop bounds and nonzero literal divisors make the arithmetic a candidate for the current narrow interval-checked modulo capability. The existing broad integer-division dependency is retained pending approach review and migration; this assessment does not establish a delivered sample or automatic discharge.",
+   "summary": "The static 1 through 100 loop and literal nonzero divisors 15, 5 and 3 fit the delivered interval-integer-division rules. The branch order distinguishes multiples of both before either individual divisor. The external review confirmed admission of this approach. This is a current-language assessment, not a delivered manifest sample or a new proof/build/execution record.",
    "confidence": "high",
    "review": {
-    "date": "2026-10-25",
-    "record": "assessment-division-20261025.md",
-    "setting_evidence": "Selected GPT-6.1 Sol High by the lead; runtime setting not independently exposed",
-    "method": "Targeted task, current-language and retained-prototype review; no new native admission, proof, build or execution",
-    "model": "gpt-6.1-sol",
-    "effort": "high"
+    "date": "2026-10-27",
+    "record": "assessment-arrays-20261027.md",
+    "setting_evidence": "Integration lead; live model and effort not independently exposed",
+    "method": "Targeted task/specification/sample review and retained external admission evidence; no new complete validation claim"
    }
   },
   "Flatten a list": {
@@ -61870,20 +61867,26 @@
     }
    ],
    "surface": [
-    "integers",
-    "ranged-subtypes",
-    "arrays",
-    "for-loops",
-    "procedures",
-    "scalar-image",
+    "fixed-integer-arrays",
+    "immutable-integers",
+    "integer-for-loops",
+    "integer-image",
     "put"
    ],
    "outlook": "likely",
    "risks": [],
-   "size": 35,
-   "approach": "Store the nine integers in a constrained array indexed 1..9 with a constant shift of 3, and build the result array with a for loop assigning Result(I) := Source(((I - 1 + 3) mod 9) + 1) (or two for loops copying 4..9 then 1..3 to avoid mod). A Print procedure loops over the array range, emitting each element with Put of its image, followed by a line terminator via Put_Line.",
-   "summary": "All indexes are for-loop indexes over static constant bounds and the element values are small embedded literals, so every check follows from types and static ranges with no loop-carried state.",
-   "confidence": "high"
+   "size": 21,
+   "approach": "Declare an explicitly initialized constant source array containing 1 through 9 and a mutable result array initialized to zero. Copy source indices 4 through 9 into result indices 1 through 6, then source indices 1 through 3 into result indices 7 through 9; print both arrays with Integer Image and Put. This is samples/rosetta_shift_list_left_3.adb, with no named types, array attributes, user subprograms or modulo.",
+   "summary": "The two copy loops rotate the nine task values left by three positions: destination indices 1 through 6 read source indices 4 through 9, and destination indices 7 through 9 read source indices 1 through 3. Both index intervals stay within 1 through 9, all components are explicitly initialized, and writes preserve other cells. The exact source and manifest match this narrow approach; broader arrays remain unsupported. The assurance and validation status is recorded separately in docs/fixed-integer-arrays.md; this static assessment establishes no native or universal validation evidence.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-27",
+    "record": "assessment-arrays-20261027.md",
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setting_evidence": "Selected setting for delivery metadata reconciliation; runtime model/effort not independently exposed",
+    "method": "Static downloaded-task, current-language, exact sample and manifest comparison; independent rotation/index interval check; deterministic metadata render only, with no native, Lean or suite validation"
+   }
   },
   "Shoelace formula for polygonal area": {
    "revision": 414466,

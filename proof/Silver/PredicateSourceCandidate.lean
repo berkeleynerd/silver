@@ -578,6 +578,7 @@ theorem candidate_checked : Checked SourceShape.specTokens SourceShape.bodyToken
   body_shape := rfl
   native := native_checked
   scalarBodies := ScalarBodyNative.SourceChecks.candidate_checked
+  array_helpers := ArrayBodyNative.SourceChecks.candidate_checked
   bodyWrappers := candidate_bodyWrappers
   adapterWrappers := candidate_adapterWrappers
   lemma_joined_flow_spec := candidate_lemma_joined_flow_spec

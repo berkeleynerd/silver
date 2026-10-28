@@ -18,8 +18,8 @@ def inheritedCalls
     (reading : FlowSourceBridge.Context → ActiveFlow.Storage → FlowSourceBridge.NameStorage)
     (composed : Expressions.Calls) (scalars : ScalarExpression.Native.Calls) : Calls where
   reading := reading
-  scalar text position names first after := scalars.readExpression text position names first after true
-  string text position names scalarNames := composed.function .expression text position names scalarNames false
+  scalar text position names first after arrays := scalars.readExpression text position names first after true arrays [] false
+  string text position names scalarNames arrays := composed.function .expression text position names scalarNames false arrays [] false
 
 theorem inherited_meaning {reading composed scalars}
     (readingSource : FlowSourceBridge.InterpretedReadingNames reading)
@@ -28,11 +28,13 @@ theorem inherited_meaning {reading composed scalars}
     (equations : ScalarExpression.Native.Equations scalars) :
     Meaning (inheritedCalls reading composed scalars) where
   reading := readingSource
-  scalar text tv position names first after pv nv mask :=
-    ScalarExpression.Native.interpreted_readExpression scalars primitives equations
-      text tv position names first after true pv nv mask
-  string text tv position names _scalarNames pv nv sv :=
-    Expressions.interpreted_expression composed composedEquations text tv position names pv nv sv
+  scalar text tv position names first after arrays pv nv mask av :=
+    ScalarExpression.Native.interpreted_readExpression_arrays scalars primitives equations
+      text tv position names first after true arrays [] false pv nv mask av
+        (by simp [ArrayBindings.ValidInitials, ArrayBindings.maxElements])
+  string text tv position names _scalarNames _arrays pv nv sv av :=
+    Expressions.interpreted_expression composed composedEquations text tv position names pv nv sv av
+      (by simp [ArrayBindings.ValidInitials, ArrayBindings.maxElements])
 
 abbrev DefaultScalarWrapper := Source → Native.Context → Nat → ActiveFlow → ScalarExpression.Result
 
@@ -51,7 +53,8 @@ structure Links (composed : Expressions.Calls) (scalar : DefaultScalarWrapper)
 theorem linked_scalar {composed scalar string} (equations : Expressions.HelperEquations composed (domain := domain))
     (links : Links composed scalar string) (inputs : Inputs) (legal : Legal inputs) :
     scalar inputs.text inputs.context inputs.position inputs.facts =
-      ScalarExpression.read inputs.text inputs.position (inputs.context.model.readingNames inputs.facts) := by
+      ScalarExpression.read inputs.text inputs.position (inputs.context.model.readingNames inputs.facts)
+        (arrays := inputs.context.arrayNames) := by
   obtain ⟨reading, scalars, wrapper, readingSource, primitives, definitions, scalarSource, _, observed⟩ := links.source
   have defaultLegal : Legal {inputs with maskFirst := 0, maskAfter := 0} := legal
   rw [observed inputs.text inputs.context inputs.position inputs.facts legal]
@@ -61,7 +64,8 @@ theorem linked_scalar {composed scalar string} (equations : Expressions.HelperEq
 theorem linked_string {composed scalar string} (equations : Expressions.HelperEquations composed (domain := domain))
     (links : Links composed scalar string) (inputs : Inputs) (legal : Legal inputs) :
     string inputs.text inputs.context inputs.position inputs.facts =
-      expressionAt inputs.text inputs.position inputs.context.names (inputs.context.model.readingNames inputs.facts) := by
+      expressionAt inputs.text inputs.position inputs.context.names (inputs.context.model.readingNames inputs.facts)
+        (arrays := inputs.context.arrayNames) := by
   obtain ⟨reading, scalars, wrapper, readingSource, primitives, definitions, _, stringSource, _⟩ := links.source
   exact string_meaning (inherited_meaning readingSource equations primitives definitions) stringSource inputs legal
 

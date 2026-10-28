@@ -39,7 +39,7 @@ private theorem declaration_staticFlags {text arguments state next declaration}
       have static := reading.staticValue
       rw [inferred_staticness reading.inferred, ScalarMetadata.staticness_flags] at static
       by_cases constant : parts.constantAfter = 0 <;>
-        simp [addScalarBinding, Integer.declarationStaticFlags, constant, static]
+        simp [addScalarBinding, Integer.declarationStaticFlags, Integer.Expr.freezeArrays_static, constant, static]
 
 private theorem declarations_staticFlags {text arguments state final values}
     (parsed : ScalarDeclarationsAt text arguments state values final) :
@@ -47,12 +47,15 @@ private theorem declarations_staticFlags {text arguments state final values}
       Integer.declarationStaticFlags (state.scalarNames.map (·.isStatic)) values := by
   induction parsed with
   | done => rfl
-  | string _ _ _ first _ ih =>
+  | string _ _ _ _ first _ ih =>
       cases first
       exact ih
   | scalar _ _ first _ ih =>
       rw [ih, declaration_staticFlags first]
       rfl
+  | array _ _ _ first _ ih =>
+      rw [(array_declaration_preserves first).2] at ih
+      exact ih
 
 private theorem scalar_step_staticFlags {text form token state next values}
     (trace : Sequence.ScalarStepAt text form token state values next) :
@@ -76,7 +79,8 @@ singleton mutable values and immutable snapshots do not create static names. -/
 theorem prefix_analysis {source form values}
     (trace : Sequence.ScalarTokensAt source form.helper form.prefix initialState values
       (prefixScan source form).state) :
-    (contextOf (prefixScan source form)).analysis = Integer.Analysis.ofDeclarations values := by
+    (contextOf (prefixScan source form)).analysis =
+      ArrayFlow.analysis (prefixScan source form).state.arrayNames.names (Integer.Analysis.ofDeclarations values) := by
   have objects := prefix_scalar_objects trace
   have flags := scalar_tokens_staticFlags trace
   simp only [initialState, List.map_nil] at flags
@@ -96,6 +100,7 @@ theorem prefix_analysis {source form values}
     rw [← ScalarExpression.bodyEnvironment_length (prefixScan source form).state.scalarNames]
     exact ScalarMetadata.refinable_declarations _
   simp only [contextOf, ParseContext.analysis, ScalarMetadata.analysis, Integer.Analysis.ofDeclarations]
+  congr 1
   rw [← ranges, ← mutable, static, refinable, ← mutable]
 
 /-- Header admission supplies nonempty declared body intervals: each has the
@@ -120,21 +125,28 @@ theorem prefix_baseReady {source form values}
     rw [← ScalarExpression.objectBindings_ranges, prefix_scalar_objects trace] at found
     exact Integer.Interval.contains_nonempty
       (Integer.ObjectBindings.fits (Integer.elaborate_valid (prefix_scalar_checked trace).1) index _ found)
-  refine ⟨ScalarExpression.bodyEnvironment_ready _, ?_, nonempty, ?_⟩
+  refine ⟨ScalarExpression.bodyEnvironment_ready _, ?_, nonempty, ?_, ?_⟩
   · simp only [contextOf, ScalarExpression.bodyEnvironment_length]
     exact Nat.le_refl _
   · intro index positive bounded _mutable
     exact nonempty index positive
       (by simpa only [contextOf, ScalarExpression.bodyEnvironment_length] using bounded)
+  · simpa only [contextOf, ScalarExpression.bodyEnvironment_length] using prefix_scalar_count_bound trace
+
+theorem prefix_arraysReady {source form events}
+    (parsed : Sequence.TokensAt source form.helper form.prefix initialState events (prefixScan source form).state) :
+    (contextOf (prefixScan source form)).ArraysReady source :=
+  ⟨(prefix_array_ready parsed).1.1, (prefix_array_ready parsed).2.2⟩
 
 theorem bodyOf_compatible (scan : ScanResult) :
     ScalarMetadata.OverlayCompatible (contextOf scan).scalarNames (contextOf scan).declarationCount
       (bodyOf scan).facts := ScalarMetadata.initial_compatible ..
 
 theorem bodyOf_model (scan : ScanResult) :
-    (bodyOf scan).facts.model =
+    (contextOf scan).flow (bodyOf scan).facts =
       Flow.initial (contextOf scan).analysis (initialFacts (contextOf scan).hasArguments) := by
-  simp only [bodyOf, ActiveFlow.initial_model, Flow.initial, contextOf, ParseContext.analysis,
-    ScalarMetadata.analysis]
+  simp only [ParseContext.flow, ArrayFlow.flow, bodyOf, ActiveFlow.initial_model, Flow.initial,
+    contextOf, ParseContext.analysis, ArrayFlow.analysis, ScalarMetadata.analysis]
+  rfl
 
 end Silver.Predicate

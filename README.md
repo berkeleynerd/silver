@@ -138,6 +138,16 @@ No new grammar is added. The capability record retains complete Linux native
 and source/Lean assurance, retained regression results with focused repair
 validation, and the scoped independent reviews.
 
+The [fixed-size Integer-array increment](docs/fixed-integer-arrays.md) adds
+anonymous one-dimensional arrays with nonempty static bounds, explicit
+initialization and checked indexed reads and writes. Declaration snapshots stay
+exact; body reads use full Integer intervals. The
+[rotation sample](samples/rosetta_shift_list_left_3.adb) moves the first three
+values to the end. Named array types, array attributes, whole-array operations
+and foreach remain outside this fragment. The
+[delivery evidence](docs/fixed-integer-arrays.md#delivery-assurance-and-validation)
+records its assurance and validation scope.
+
 The [Find square difference sample](samples/find_square_difference.adb) stores
 the first matching index and prints ` 501` followed by a newline.
 

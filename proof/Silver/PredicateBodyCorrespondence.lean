@@ -23,20 +23,20 @@ theorem model_statement_valid (text : Source) (tv : ValidText text) (context : N
     (cv : Native.ValidContext text context) (scan : BodyScan) (sv : ValidScan text context scan) :
     ValidScan text context (statementBody text context.model scan) :=
   ⟨statementBody_bound text context.model scan tv cv.1 sv.1, statementBody_controls text context.model scan sv.2.1, ⟨statementBody_factsBounded text context.model scan sv.2.2.1,
-    statementBody_flowReady text context.model scan cv.2.2.2 sv.2.2.2 cv.2.2.1⟩⟩
+    statementBody_flowReady text context.model scan cv.base sv.2.2.2 cv.2.2.1⟩⟩
 
 theorem model_read_valid (text : Source) (tv : ValidText text) (context : Native.Context)
     (cv : Native.ValidContext text context) (scan : BodyScan) (stop : BodyStop) (sv : ValidScan text context scan) :
     ValidScan text context (readBody text context.model scan stop) :=
   ⟨readBody_bound text context.model scan stop tv cv.1 sv.1, readBody_controls text context.model scan stop sv.2.1, ⟨readBody_factsBounded text context.model scan stop sv.2.2.1,
-    readBody_flowReady text context.model scan stop cv.2.2.2 sv.2.2.2 cv.2.2.1⟩⟩
+    readBody_flowReady text context.model scan stop cv.base sv.2.2.2 cv.2.2.1⟩⟩
 
 theorem start_valid (text : Source) (tv : ValidText text) (context : Native.Context)
     (cv : Native.ValidContext text context) (scan : BodyScan) (keyword : String) (sv : ValidScan text context scan) :
     ValidScan text context (branchStart text context.model scan keyword).1 :=
   ⟨branchStart_bound text context.model scan keyword tv cv.1 sv.1, branchStart_controls text context.model scan keyword sv.2.1,
     ⟨(branchStart_factsBounded text context.model scan keyword sv.2.2.1).1,
-      (branchStart_flowReady text context.model scan keyword cv.2.2.2 sv.2.2.2).1⟩⟩
+      (branchStart_flowReady text context.model scan keyword cv.base sv.2.2.2).1⟩⟩
 
 /-- Helper callees have their separately established source meanings. These are
 only the remaining recursive body equations; none assumes admission or recursive
@@ -121,7 +121,8 @@ mutual
         have innerValid : Native.ValidContext text (LoopNative.inner context (loopHeader text context.model scan)) :=
           ⟨cv.1, cv.2.1,
             loopInner_valid_environment (text := text) (context := context.model) (scan := scan) cv.2.2.1 allowed positive,
-            nativeLoopInner_baseReady cv.2.2.2 (loopHeader text context.model scan)⟩
+            nativeLoopInner_baseReady (context := context.model) cv.base (loopHeader text context.model scan)
+              (loopNameAllowed_space cv.base.size allowed), cv.arrays⟩
         have entryValid : ValidScan text (LoopNative.inner context (loopHeader text context.model scan))
             (loopHeader text context.model scan).entry :=
           by
@@ -130,7 +131,7 @@ mutual
           · exact ⟨loopContext_bounded sv.2.2.1
               (Integer.loopBounds (loopHeader text context.model scan).lower.bounds
                 (loopHeader text context.model scan).upper.bounds),
-              loopHeader_flowReady cv.2.2.2 sv.2.2.2 cv.2.2.1 positive⟩
+              loopHeader_flowReady cv.base sv.2.2.2 cv.2.2.1 positive⟩
         have advanced := remaining_lt entryValid.1 (Nat.lt_of_not_ge failed)
         rw [read_unique calls equations text tv _ innerValid _ .endOnly entryValid]
     · have disallowed := Bool.eq_false_iff.mpr allowed
@@ -160,7 +161,7 @@ mutual
             {readBody text context.model (branchStart text context.model scan "if").1 .arm with
               facts := (branchStart text context.model scan "if").2} :=
           ⟨yesValid.1, yesValid.2.1, ⟨(branchStart_factsBounded text context.model scan "if" sv.2.2.1).2,
-                (branchStart_flowReady text context.model scan "if" cv.2.2.2 sv.2.2.2).2⟩⟩
+                (branchStart_flowReady text context.model scan "if" cv.base sv.2.2.2).2⟩⟩
         rw [alternative_unique calls equations text tv context cv _ noValid]
   termination_by (bodyRemaining text scan, 1)
 
@@ -192,7 +193,7 @@ mutual
                 {readBody text context.model (branchStart text context.model scan "elsif").1 .arm with
                   facts := (branchStart text context.model scan "elsif").2} :=
               ⟨yesValid.1, yesValid.2.1, ⟨(branchStart_factsBounded text context.model scan "elsif" sv.2.2.1).2,
-                (branchStart_flowReady text context.model scan "elsif" cv.2.2.2 sv.2.2.2).2⟩⟩
+                (branchStart_flowReady text context.model scan "elsif" cv.base sv.2.2.2).2⟩⟩
             rw [alternative_unique calls equations text tv context cv _ noValid]
       · rw [ite_eq_right found, ite_eq_right found]
         by_cases foundElse : fixedAfter text scan.position "else" true ≠ 0

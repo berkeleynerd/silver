@@ -1,0 +1,77 @@
+{
+  "recorded_at": "2026-10-27T14:57:54.120826+00:00",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_measurement": null,
+  "token_cost_evidence": null,
+  "run_id": "20261027T104437-61ba627463df",
+  "result": "success",
+  "native_host": "linux-x86_64",
+  "lean_version": "4.34.1",
+  "commit": "b0e1dd616e949be5d2e1335318e3b76e13fdb66a",
+  "targets": [
+    "Silver.OutputBodyCertificate",
+    "Silver.OutputSpecCertificate"
+  ],
+  "scope": "focused output source-binding/certificate validation with fresh axiom audit; full project Lean checkpoint remains root work",
+  "fresh_audited_declarations": 28847,
+  "approved_foundations": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "configuration": {
+    "workers": 2,
+    "threads": 1,
+    "memory_mib": 24576
+  },
+  "phases": [
+    {
+      "phase": "build",
+      "started_at": "2026-10-27T10:44:49.453568+00:00",
+      "finished_at": "2026-10-27T14:53:49.127357+00:00",
+      "elapsed_seconds": 14939.674,
+      "exit_code": 0
+    },
+    {
+      "phase": "audit",
+      "started_at": "2026-10-27T14:53:51.070462+00:00",
+      "finished_at": "2026-10-27T14:54:09.915205+00:00",
+      "elapsed_seconds": 18.845,
+      "exit_code": 0
+    }
+  ],
+  "managed_duration_seconds": 14972.388524367,
+  "focused_evidence_elapsed_seconds": 14974.832,
+  "output_spec_module_reported_seconds": 204,
+  "output_body_module_reported_seconds": 14926,
+  "resource_suspension": {
+    "start": "2026-10-27T13:00:47.164627+00:00",
+    "end": "2026-10-27T14:13:42.172103+00:00",
+    "wall_seconds": 4375.007476,
+    "pid": 955236,
+    "process_start_ticks": "33765746"
+  },
+  "timing_limitation": "Module, build-phase, managed and focused evidence wall times include the 4375.007476-second resource suspension and concurrent shared-host work. This is not an unpaused or isolated benchmark.",
+  "sampled_body_peak_rss_mib": 15830.0,
+  "memory_limitations": "Sampled RSS is not a proven peak or an isolated profile; the monitoring record includes concurrent Compose and native work.",
+  "tools_sha256": {
+    ".tools/linux-x86_64/lean/bin/lean": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+    ".tools/linux-x86_64/lean/bin/lake": "6f53827dab18010d6c690d14c8401cacabc1db958edb3552a877ed4cf1dd995d"
+  },
+  "inputs_digest_sha256": "ece72b6440531cb05382b62ccc596d698681ae95d22426e85ab26177d204f50b",
+  "native_output_source_sha256": "446ac3f3e668096e5cdda361bfa21bbc7dac747ea637659de2cae951d767d794",
+  "artifact_manifest": "/home/canto/src/github.com/berkeleynerd/silver/tmp/fixed-arrays-source-validation/.silver/linux-x86_64/source-validation/output-artifact-transfer-manifest.json",
+  "artifact_manifest_sha256": "3507c42c3dab398b0ff3eb0887b7b9b848d6b2b310f1d5c42810b1b25481ad68",
+  "artifact_file_count": 68,
+  "scalar_artifacts_retained_unchanged": 32,
+  "worktree_clean": true,
+  "transfer_status": "No transfer performed by this subthread; complete verified manifest supplied to root for matching-input transfer while destination idle",
+  "compose_repair": {
+    "commit": "ce3315bcb4117a75cb15b61807268c428619b410",
+    "root_integration": "24452b335a",
+    "probe_run": "20261027T142844-8cb1d281bb38",
+    "probe_result": "passed at 4096 MiB; 519 declarations freshly audited",
+    "full_candidate": "not rerun; root plans complete sequential checkpoint after artifact transfer"
+  }
+}

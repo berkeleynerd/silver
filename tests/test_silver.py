@@ -82,6 +82,7 @@ class SilverIntegrationTests(unittest.TestCase):
                          "length_predicate", "boolean_predicate", "integer_literal",
                          "scalar_integer_literal", "named_integer_constant", "named_integer_variable",
                          "integer_range_constraint", "integer_assignment", "integer_expression",
+                         "integer_array_object", "integer_array_read", "integer_array_assignment",
                          "integer_comparison", "scalar_guard_refinement", "integer_image",
                          "for_loop"} <= set(constructs))
         compositions = {item["name"]: item for item in catalogue["compositions"]}
@@ -127,7 +128,7 @@ class SilverIntegrationTests(unittest.TestCase):
                         ["own_binding_hides_unqualified_call"])
         sequence = constructs["statement_sequence"]["conditions"]
         self.assertEqual(sequence["minimum"], 1)
-        self.assertEqual(sequence["items"], ["null_statement", "string_assignment", "integer_assignment", "expression_output",
+        self.assertEqual(sequence["items"], ["null_statement", "string_assignment", "integer_assignment", "integer_array_assignment", "expression_output",
                                              "string_choice", "argument_rejection", "for_loop"])
         self.assertEqual(sequence["argument_rejection_context"], "argument-input shell only")
         self.assertFalse(sequence["output_required"])
@@ -150,10 +151,10 @@ class SilverIntegrationTests(unittest.TestCase):
             declarations = composition["declaration_list"]
             self.assertEqual(declarations["items"],
                              ["named_string_constant", "named_string_variable", "named_integer_constant",
-                              "named_integer_variable"])
+                              "named_integer_variable", "integer_array_object"])
             self.assertEqual(declarations["minimum"], 0)
             self.assertEqual(declarations["count"], "finite_within_complete_source_bound")
-            self.assertEqual(declarations["initializers"], [*initializers, "integer_expression"])
+            self.assertEqual(declarations["initializers"], [*initializers, "integer_expression", "explicit_integer_array_aggregate"])
             self.assertIn(composition["tokens"], catalogue)
         for key in ("dynamic_source", "mutable_source", "self_assignment", "snapshot_semantics",
                     "constant_to_constant_initialization"):

@@ -28,6 +28,7 @@ structure CheckedSource : Prop where
   namesLexical : Names.fixedAt = Compose.fixedAt ∧ Names.take = Compose.fixedAfter
   inherited : Lexical.SourceBridge.CheckedSource
   expressions : ExpressionTranslation
+  arrayHelpers : ArrayHelperTranslation
   catalogue : HelperCatalogueTranslation
   tokens : TokenMapping
   declarations : Declarations
@@ -46,6 +47,7 @@ theorem checked_source : CheckedSource where
   namesLexical := ⟨rfl, rfl⟩
   inherited := Lexical.SourceBridge.checked_source
   expressions := actual_expressions
+  arrayHelpers := actual_array_helpers
   catalogue := actual_catalogue
   tokens := finite_mapping
   declarations := actual_declarations

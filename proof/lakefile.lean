@@ -172,6 +172,24 @@ input_file scalarExpressionSpecSource where
   path := "../src/silver_scalar_expressions.ads"
   text := false
 
+input_file arrayBindingsSpecSource where
+  path := "../src/silver_array_bindings.ads"
+  text := false
+
+lean_lib ArrayBindingsSpecSource where
+  roots := #[]
+  globs := #[.one `Silver.ArrayBindingsSpecSource]
+  needs := #[arrayBindingsSpecSource]
+
+input_file arrayBindingsBodySource where
+  path := "../src/silver_array_bindings.adb"
+  text := false
+
+lean_lib ArrayBindingsBodySource where
+  roots := #[]
+  globs := #[.one `Silver.ArrayBindingsBodySource]
+  needs := #[arrayBindingsBodySource]
+
 lean_lib ScalarExpressionSpecSource where
   roots := #[]
   globs := #[.one `Silver.ScalarExpressionSpecSource]

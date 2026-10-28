@@ -319,6 +319,7 @@ SURFACE_LABELS = {"integer-for-loops": "Integer range for loops",
                   "immutable-integers": "immutable Integer arithmetic",
                   "bounded-mutable-integers": "bounded mutable Integer objects",
                   "interval-integer-division": "interval-checked Integer division",
+                  "fixed-integer-arrays": "fixed-size Integer arrays",
                   "integer-object-size-read": "Integer object Size attribute reads",
                   "integer-image": "Integer image", "booleans": "Boolean objects",
                   "multidim-arrays": "multidimensional arrays",
@@ -379,6 +380,7 @@ ADMISSION = {
                       "bounds make each one provably free of overflow and invalid arguments?",
     "fixed-point": "Which fixed-point and decimal types are admitted, and how are their overflow and "
                    "conversion checks discharged?",
+    "fixed-integer-arrays": "How do explicit initialization, static nonempty bounds, interval-checked subscripts and component-preserving updates establish automatic discharge and source correspondence across existing declarations, guards and loops?",
     "arrays": "Which array types, aggregates and index forms are admitted so that every index check proves "
               "without loop invariants?",
     "multidim-arrays": "Which multidimensional arrays and index expressions are admitted under the same index "

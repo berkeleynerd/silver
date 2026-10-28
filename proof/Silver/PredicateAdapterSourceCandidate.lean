@@ -10,7 +10,7 @@ namespace Silver.Predicate.Adapter
 /-- Exact isolated native candidate blocks. Final authoritative extraction is integrated separately. -/
 
 def context_ofCandidate : List String :=
-  ["(", "names", "=>", "scan", ".", "state", ".", "names", ",", "scalar_names", "=>", "scalar_expressions", ".", "body_environment", "(", "scan", ".", "state", ".", "scalar_names", ")", ",", "declaration_count", "=>", "scan", ".", "state", ".", "scalar_names", ".", "count", ",", "dynamic_first", "=>", "scan", ".", "state", ".", "dynamic_first", ",", "dynamic_after", "=>", "scan", ".", "state", ".", "dynamic_after", ")"]
+  ["(", "names", "=>", "scan", ".", "state", ".", "names", ",", "scalar_names", "=>", "scalar_expressions", ".", "body_environment", "(", "scan", ".", "state", ".", "scalar_names", ")", ",", "array_names", "=>", "scan", ".", "state", ".", "array_names", ".", "names", ",", "declaration_count", "=>", "scan", ".", "state", ".", "scalar_names", ".", "count", ",", "dynamic_first", "=>", "scan", ".", "state", ".", "dynamic_first", ",", "dynamic_after", "=>", "scan", ".", "state", ".", "dynamic_after", ")"]
 
 theorem context_of_candidate : contextExpr.render = context_ofCandidate := by
   unfold context_ofCandidate
@@ -28,7 +28,7 @@ theorem body_of_candidate : bodyExpr.render = body_ofCandidate := by
 
 
 def expand_bodyCandidate : List String :=
-  ["(", "state", "=>", "(", "position", "=>", "scan", ".", "position", ",", "names", "=>", "context", ".", "names", ",", "scalar_names", "=>", "context", ".", "scalar_names", ",", "dynamic_first", "=>", "context", ".", "dynamic_first", ",", "dynamic_after", "=>", "context", ".", "dynamic_after", ",", "target", "=>", "scan", ".", "target", ",", "capacity", "=>", "scan", ".", "capacity", ")", ",", "assigned", "=>", "scan", ".", "assigned", ",", "output", "=>", "scan", ".", "output", ")"]
+  ["(", "state", "=>", "(", "position", "=>", "scan", ".", "position", ",", "names", "=>", "context", ".", "names", ",", "scalar_names", "=>", "context", ".", "scalar_names", ",", "array_names", "=>", "arrays", ",", "dynamic_first", "=>", "context", ".", "dynamic_first", ",", "dynamic_after", "=>", "context", ".", "dynamic_after", ",", "target", "=>", "scan", ".", "target", ",", "capacity", "=>", "scan", ".", "capacity", ")", ",", "assigned", "=>", "scan", ".", "assigned", ",", "output", "=>", "scan", ".", "output", ")"]
 
 theorem expand_body_candidate : expandExpr.render = expand_bodyCandidate := by
   simp only [expandExpr, Expr.render, Field.name, record]
@@ -52,7 +52,7 @@ theorem at_body_stop_candidate : atStopExpr.render = at_body_stopCandidate := by
 
 
 def read_statementsCandidate : List String :=
-  ["context", ":", "constant", "body_context", ":=", "context_of", "(", "scan", ")", ";", "result", ":", "constant", "body_scan", "(", "scan", ".", "state", ".", "scalar_names", ".", "count", ")", ":=", "read_body", "(", "text", ",", "context", ",", "body_of", "(", "scan", ")", ",", "(", "if", "stop", "=", "else_keyword", "then", "else_only", "else", "end_only", ")", ")", ";", "begin", "return", "(", "if", "result", ".", "position", "=", "0", "or", "else", "not", "paths", ".", "completed", "(", "result", ".", "facts", ".", "path", ")", "then", "invalid_scan", "else", "expand_body", "(", "context", ",", "result", ")", ")", ";", "end", "read_statements", ";"]
+  ["context", ":", "constant", "body_context", ":=", "context_of", "(", "scan", ")", ";", "result", ":", "constant", "body_scan", "(", "scan", ".", "state", ".", "scalar_names", ".", "count", ")", ":=", "read_body", "(", "text", ",", "context", ",", "body_of", "(", "scan", ")", ",", "(", "if", "stop", "=", "else_keyword", "then", "else_only", "else", "end_only", ")", ")", ";", "begin", "return", "(", "if", "result", ".", "position", "=", "0", "or", "else", "not", "paths", ".", "completed", "(", "result", ".", "facts", ".", "path", ")", "then", "invalid_scan", "else", "expand_body", "(", "context", ",", "result", ",", "scan", ".", "state", ".", "array_names", ")", ")", ";", "end", "read_statements", ";"]
 
 theorem read_statements_candidate : adapterFunction.render = read_statementsCandidate := by
   unfold read_statementsCandidate

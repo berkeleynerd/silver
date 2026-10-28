@@ -15,6 +15,7 @@ NATURAL_MAX = 2_147_483_647
 MAIN_RECORD_BYTES = 2048
 FLOW_RECORD_BYTES = 1024
 METADATA_BYTES = 65_536
+ARRAY_NOTE_BYTES = 512
 
 
 def dense_source() -> bytes:
@@ -102,16 +103,14 @@ def embedded_record_bytes(data: dict) -> int:
 
 
 def main_envelope() -> int:
-    # Separate charges deliberately overcount the shared 63-operator budget,
-    # declaration sites and loop-bound conversions. Producer/frontend routes,
-    # rather than example report counts, justify them in the capacity record.
-    # Division adds at most one nonzero-divisor record per charged operator,
-    # alongside the existing overflow allowance. See integer-division-report-capacity.md.
-    checks = (SOURCE_BYTES // 5 + SOURCE_BYTES // 3 + 63
-              + 2 * 63 + SOURCE_BYTES // 13 + 2 * (SOURCE_BYTES // 18))
+    # The joint two-byte charge covers roots, comparisons, components and indices.
+    # Nested loops can repeat the array note once per enclosing loop/write pair;
+    # 27*loops + 8*writes <= source bytes. See fixed-integer-arrays-report-capacity.md.
+    checks = SOURCE_BYTES // 2 + 3 * 63 + SOURCE_BYTES // 13 + 2 * (SOURCE_BYTES // 18)
     image_warnings = 2 * (SOURCE_BYTES // 16)
+    array_warnings = SOURCE_BYTES ** 2 // (4 * 27 * 8)
     return (checks * MAIN_RECORD_BYTES + (2 * SOURCE_BYTES + image_warnings) * FLOW_RECORD_BYTES
-            + 2 * SOURCE_BYTES + METADATA_BYTES)
+            + 2 * SOURCE_BYTES + METADATA_BYTES + array_warnings * ARRAY_NOTE_BYTES)
 
 
 def metadata_envelope() -> int:
@@ -160,7 +159,14 @@ class CapacityEnvelopeTests(unittest.TestCase):
         division['rule'] = 'VC_DIVISION_CHECK'
         division['message']['text'] = 'division check proved'
         self.assertLessEqual(embedded_record_bytes(division), MAIN_RECORD_BYTES)
-        self.assertEqual(main_envelope(), 15_421_440)
+        array_note = maximal_image_advisory()
+        array_note.update(rule="array-initialization", message={"text":
+            "initialization of an array in FOR loop is handled imprecisely [array-initialization]"})
+        self.assertLessEqual(embedded_record_bytes(array_note), ARRAY_NOTE_BYTES)
+        index = maximal_retained_record()
+        index.update(rule="VC_INDEX_CHECK", message={"text": "index check proved"})
+        self.assertLessEqual(embedded_record_bytes(index), MAIN_RECORD_BYTES)
+        self.assertEqual(main_envelope(), 25_084_928)
         self.assertEqual(metadata_envelope(), 55_712)
         self.assertLessEqual(metadata_envelope(), METADATA_BYTES)
         specification = (ROOT / "src/silver_library_reports.ads").read_text()

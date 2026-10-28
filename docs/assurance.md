@@ -64,6 +64,50 @@ The assurance targets are the User's Guide definitions of
 The [trusted boundary](trusted-boundary.md) names the frontend, proof tools,
 runtime imports, ABI and environmental assumptions used throughout.
 
+## Fixed-size Integer arrays
+
+The [delivery assurance and validation record](fixed-integer-arrays.md#delivery-assurance-and-validation)
+identifies the exact native, Lean/source, regression and independent-review
+evidence for this bounded fragment. `ArrayLayout.lean` gives each descriptor a
+finite segment in the existing Integer store and proves indexed projection,
+initialization, component update and disjoint-cell preservation. Indexed
+`Integer.Expr` checks a nonempty subscript interval contained in the descriptor
+bounds and joins the addressed cell ranges. `IntegerChecks.lean` retains index
+and aggregate-length obligations. `IntegerArrays.lean` requires mutability and
+full Integer ranges for every target cell before indexed assignment, deriving
+store-fit preservation while leaving other cells unchanged.
+
+Declaration elaboration uses exact initialized components; indexed snapshots
+remain nonstatic. Body reads use full Integer ranges, with no element-wise flow
+refinement. The parsed header supplies the array environment, initial store and
+source-derived scalar/index bounds used to separate array, scalar and loop
+identities. Loop execution captures its bounds before iteration and threads
+component writes through the store, preserving earlier snapshots and existing
+String/input facts. `ComposeInitializerTrace` and `ComposeArrayChecks` retain
+the original initializer, index and arithmetic obligations before snapshot
+folding; `PredicateChecks` carries them into current-language discharge.
+
+The source chain derives declaration behavior from typed native bodies and raw
+helper equations in `ComposeArrayEquations`, with each helper's actual caller
+domain and capacity/cursor premises. `ComposeSourceChecks` transports reviewed
+complete-shape checks to authoritative output tokens through
+`Output.SourceBridge.actual_complete_shape`. `PredicateArrayBodySource` connects
+the scalar-only subscript reader, array-aware RHS reader, flow overlay and
+indexed-assignment helpers; `ScalarExpressionSourceBridge` includes the indexed
+read helper bridge. `PredicateSourceChecks` requires authoritative complete
+source shapes, and `PredicateSourceBridge` combines those checks with executable
+refinements. The parsed meaning and retained obligations feed `Current` through
+the existing correspondence chain. A matching source pin or focused model proof
+alone does not establish these actual-source conclusions; the frontend and
+interpretation premises described below still apply.
+
+The [producer/capacity record](fixed-integer-arrays-report-capacity.md) connects
+index and aggregate conversion routes to the pinned producer. Its exact
+array-loop advisory withholds information and never excuses a failed check.
+The retained Main envelope is 25,084,928 bytes, covered by a 32 MiB allocation;
+the runtime/null limits and language source/operator budgets are unchanged.
+Broader array forms remain outside the admitted fragment.
+
 ## For loops and standard Integer Image
 
 The [completed Linux capability checkpoint](for-loops-integers.md#stable-delivery-evidence)
@@ -949,7 +993,7 @@ These specifications describe byte traversal, quoted strings, nesting, audited
 fields, entities, dependencies and every emitted record, without calling the
 executable acceptance traversal. Shared elementary predicates and immutable
 tables do not replace that refinement. Retained application audit data has a
-16,777,216-byte domain; runtime data retains 262,144 bytes. These are storage
+33,554,432-byte domain; runtime data retains 262,144 bytes. These are storage
 bounds after the streaming projection of unaudited `check_tree` values, not
 limits on original evidence-file length. The original reports remain unchanged,
 and every record and policy-relevant field remains in the audited input.
@@ -1105,8 +1149,9 @@ warnings fail the audit. The documented `contracts-recursive` and
 `numeric-variant` limitation notes withhold prover information; they do not waive
 obligations. The exact compiler-only `array-initialization` information note in
 `silver_output_profile` likewise withholds a flow fact and is counted separately
-from required checks. Application policy is unchanged. Exact rules and the
-pinned producer assessment are in [the trusted boundary](trusted-boundary.md).
+from required checks. The fixed-array extension separately classifies the
+same exact information note in Main; all required flow/proof checks remain.
+Exact rules and the pinned producer assessment are in [the trusted boundary](trusted-boundary.md).
 
 Incremental `dev.py prove` preserves sessions and gives development feedback,
 while invalidating the previous completed full-audit manifest. Ordinary builds

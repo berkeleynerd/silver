@@ -93,7 +93,7 @@ mutual
                 · exact invalidCondition_counts facts
                 · try dsimp only
                   by_cases equal : (comparisonAt text
-                    (expressionAt text position context.names (context.readingNames facts)).after).operator == Comparison.eq
+                    (expressionAt (arrays := context.arrayNames) text position context.names (context.readingNames facts)).after).operator == Comparison.eq
                   · simp only [equal, ↓reduceIte]
                     exact ⟨rfl, rfl⟩
                   · simp only [equal, Bool.false_eq_true, ↓reduceIte]

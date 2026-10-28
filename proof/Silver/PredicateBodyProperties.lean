@@ -50,6 +50,16 @@ theorem bodyTokens_zero {text scan tokens} (zero : scan.position = 0) :
   | nil => exact zero
   | cons token tokens ih => exact ih (bodyToken_zero (token := token) zero)
 
+theorem arrayIndex_bound (text : Source) (context : ParseContext) (scan : BodyScan) :
+    (arrayIndex text context scan).after ≤ text.length + 1 :=
+  scalarRead_bound text _ (context.readingNames scan.facts) 0 0 []
+    (model_fixed_valid text _ "(" false (model_name_valid text _))
+
+theorem arrayValueStart_bound (text : Source) (context : ParseContext) (scan : BodyScan) :
+    arrayValueStart text context scan ≤ text.length + 1 :=
+  model_fixed_valid text _ ":=" false
+    (model_fixed_valid text _ ")" false (arrayIndex_bound text context scan))
+
 theorem basicRaw_bound (text : Source) (context : ParseContext) (scan : BodyScan)
     (textValid : ValidText text) (namesValid : ValidNames text context.names)
     (bounded : scan.position ≤ text.length + 1) :
@@ -63,26 +73,35 @@ theorem basicRaw_bound (text : Source) (context : ParseContext) (scan : BodyScan
       · exact Nat.zero_le _
       · dsimp only [bodyToken, tokenAfter, ShellToken.symbol]
         apply model_fixed_valid
-        exact (model_expression_valid (scalarNames := context.readingNames scan.facts) text textValid _ context.names
+        exact (model_expression_valid (arrays := context.arrayNames) (scalarNames := context.readingNames scan.facts) text textValid _ context.names
             (Names.associationAfter_bound text _ false
-              (model_fixed_valid text _ "(" false (model_callAfter_valid (scalarNames := context.scalarNames) text context.names scan.position .output bounded))) namesValid).1
+              (model_fixed_valid text _ "(" false (model_callAfter_valid (arrays := context.arrayNames) (scalarNames := context.scalarNames) text context.names scan.position .output bounded))) namesValid).1
   | put =>
       try dsimp only
       split
       · exact Nat.zero_le _
       · dsimp only [bodyToken, tokenAfter, ShellToken.symbol]
         apply model_fixed_valid
-        exact (model_expression_valid (scalarNames := context.readingNames scan.facts) text textValid _ context.names
+        exact (model_expression_valid (arrays := context.arrayNames) (scalarNames := context.readingNames scan.facts) text textValid _ context.names
             (Names.associationAfter_bound text _ false
-              (model_fixed_valid text _ "(" false (model_callAfter_valid (scalarNames := context.scalarNames) text context.names scan.position .partialOutput bounded))) namesValid).1
-  | reject => exact model_callAfter_valid (scalarNames := context.scalarNames) text context.names scan.position .reject bounded
+              (model_fixed_valid text _ "(" false (model_callAfter_valid (arrays := context.arrayNames) (scalarNames := context.scalarNames) text context.names scan.position .partialOutput bounded))) namesValid).1
+  | reject => exact model_callAfter_valid (arrays := context.arrayNames) (scalarNames := context.scalarNames) text context.names scan.position .reject bounded
   | scalarAssignment =>
       unfold scalarAssignmentBody
       dsimp only
       split
       · exact Nat.zero_le _
-      · exact scalarRead_bound text _ (context.readingNames scan.facts) 0 0
+      · exact scalarRead_bound text _ (context.readingNames scan.facts) 0 0 context.arrayNames
           (model_fixed_valid text _ ":=" false (model_name_valid text _))
+  | arrayAssignment =>
+      unfold arrayAssignmentBody
+      dsimp only
+      split
+      · exact Nat.zero_le _
+      · exact scalarRead_bound text _ (context.readingNames scan.facts) 0 0 context.arrayNames
+          (model_fixed_valid text _ ":=" false (model_fixed_valid text _ ")" false
+            (scalarRead_bound text _ (context.readingNames scan.facts) 0 0 []
+              (model_fixed_valid text _ "(" false (model_name_valid text _)))))
   | assignment =>
       have targetBound : (targetAt text (parserState context scan) false).position ≤ text.length + 1 := by
         unfold targetAt
@@ -93,7 +112,7 @@ theorem basicRaw_bound (text : Source) (context : ParseContext) (scan : BodyScan
       try dsimp only
       split
       · exact Nat.zero_le _
-      · exact (model_expression_valid (scalarNames := context.readingNames scan.facts) text textValid _ context.names
+      · exact (model_expression_valid (arrays := context.arrayNames) (scalarNames := context.readingNames scan.facts) text textValid _ context.names
           (bodyToken_bound text _ _ targetBound) namesValid).1
 
 theorem basicBody_bound (text : Source) (context : ParseContext) (scan : BodyScan)

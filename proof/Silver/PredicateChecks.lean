@@ -92,7 +92,7 @@ theorem Program.checks_fragment {program : Program} (valid : program.Valid) :
       exact List.all_eq_true.mp (program.scalar_checks_discharge valid) schema present
   · obtain ⟨schema, present, rfl⟩ := List.mem_map.mp path
     obtain ⟨after, checked, _⟩ := valid.2.2.2.2.2
-    have bodyChecked := ((program.checkBody_iff after).mp checked).2.2
+    have bodyChecked := ((program.checkBody_iff after).mp checked).2.2.2
     exact (List.all_eq_true.mp (statements_obligations_discharge bodyChecked)) schema present
 
 theorem Program.checks_obligations (program : Program) :

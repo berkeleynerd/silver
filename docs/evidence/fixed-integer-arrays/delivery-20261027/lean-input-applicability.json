@@ -1,0 +1,9 @@
+{
+  "run_id": "20261028T025546-5dcc21502246",
+  "implementation_commit": "6e18e13c06",
+  "compared_at_commit": "64c9f8036e1a1b3fee100f8b1d3c8e98a4321df3",
+  "matched_inputs": 646,
+  "different_inputs": [],
+  "inputs_digest_sha256": "b0fbf84e8e62dd17772a0b4ab580010fb54065a373315ad0cc535b4d266d7ecc",
+  "scope": "All captured Lean authoritative source inputs match the integration tree; current uncommitted changes are delivery documentation only."
+}

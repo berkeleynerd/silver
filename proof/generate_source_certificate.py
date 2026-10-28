@@ -13,6 +13,8 @@ import json
 from pathlib import Path
 
 SOURCE_BINDINGS = (
+    ("silver_array_bindings.ads", "arrayBindingsSpec", "arrayBindingsSpecTokens"),
+    ("silver_array_bindings.adb", "arrayBindingsBody", "arrayBindingsBodyTokens"),
     ("silver_image_model.ads", "imageModelSpec", "imageModelSpecTokens"),
     ("silver_image_model.adb", "imageModelBody", "imageModelBodyTokens"),
     ("silver_image_model_templates.ads", "imageModelTemplatesSpec", "imageModelTemplatesSpecTokens"),

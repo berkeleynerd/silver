@@ -1,6 +1,7 @@
 module
 
 public import Silver.PredicateScalarBodySource
+public import Silver.PredicateArrayBodySource
 public import Silver.PredicateSourceShape
 
 @[expose] public section
@@ -13,3 +14,11 @@ theorem candidate_checked : Checked SourceShape.bodyTokens := by
   constructor <;> decide +kernel
 
 end Silver.Predicate.ScalarBodyNative.SourceChecks
+
+namespace Silver.Predicate.ArrayBodyNative.SourceChecks
+
+/-- The complete indexed helper bodies and headers in the same reviewed source. -/
+theorem candidate_checked : Checked SourceShape.bodyTokens := by
+  constructor <;> decide +kernel
+
+end Silver.Predicate.ArrayBodyNative.SourceChecks

@@ -19,16 +19,27 @@ structure Context where
   dynamicAfter : Nat
   scalarNames : ScalarExpression.Environment := []
   declarationCount : Nat := 0
+  arrayNames : ArrayBindings.Metadata := []
   deriving DecidableEq, Repr
 
 def Context.model (context : Context) : ParseContext :=
-  ⟨context.names, decide (context.dynamicFirst ≠ 0), context.scalarNames, context.declarationCount⟩
+  ⟨context.names, decide (context.dynamicFirst ≠ 0), context.scalarNames,
+    context.declarationCount, context.arrayNames⟩
 
 def ValidContext (text : Source) (context : Context) : Prop :=
   Compose.Expressions.ValidNames text context.names ∧
     (⟨context.dynamicFirst, context.dynamicAfter⟩ : Named.NameState).Valid text ∧
     ScalarExpression.ValidEnvironment text context.scalarNames ∧
-    ScalarMetadata.BaseReady context.scalarNames context.declarationCount
+    ScalarMetadata.BaseReady context.scalarNames context.declarationCount ∧
+    ArrayBindings.ValidMetadata text context.arrayNames
+
+theorem ValidContext.base {text : Source} {context : Context}
+    (valid : ValidContext text context) :
+    ScalarMetadata.BaseReady context.scalarNames context.declarationCount := valid.2.2.2.1
+
+theorem ValidContext.arrays {text : Source} {context : Context}
+    (valid : ValidContext text context) :
+    ArrayBindings.ValidMetadata text context.arrayNames := valid.2.2.2.2
 
 /-- The native array and interval types contribute the bounded domains; the
 checked Valid_Flow predicate contributes active extent, immutable cells,

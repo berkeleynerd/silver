@@ -1,0 +1,56 @@
+{
+  "run_id": "20261027T121859-1ce124c7ffc1",
+  "finished": {
+    "duration_seconds": 410.782875888,
+    "event": "finished",
+    "evidence": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/fixed-integer-arrays/.silver/linux-x86_64/lean-focused.log",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/fixed-integer-arrays/.silver/linux-x86_64/lean-focused.log"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/fixed-integer-arrays/.silver/linux-x86_64/lean-focused-evidence.json",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/fixed-integer-arrays/.silver/linux-x86_64/lean-focused-evidence.json"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261027T121859-1ce124c7ffc1/previous-evidence/lean-focused.log",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261027T121859-1ce124c7ffc1/previous-evidence/lean-focused.log"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261027T121859-1ce124c7ffc1/lean-focused.log",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261027T121859-1ce124c7ffc1/lean-focused.log"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261027T121859-1ce124c7ffc1/lean-focused-evidence.json",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261027T121859-1ce124c7ffc1/lean-focused-evidence.json"
+      }
+    ],
+    "failure_keys": [],
+    "monotonic_ns": 343708660818638,
+    "outcome": "success",
+    "retained_reports": [],
+    "returncode": null,
+    "run_id": "20261027T121859-1ce124c7ffc1",
+    "utc": "2026-10-27T12:25:52.997750+00:00"
+  },
+  "files": [
+    {
+      "path": "events.jsonl.gz",
+      "bytes": 76636,
+      "sha256": "32a6b35bc985fdbae543e2b1d03cd9399ec73f37bc80906c37562160179a2500",
+      "compressed_sha256": "8216a7b888f59d083e378745e292ef794ecfe697b9de26d0db30aa0df79ce0d9"
+    },
+    {
+      "path": "lean-focused.log.gz",
+      "bytes": 10083,
+      "sha256": "af28adc3fbcd59aad905fe935fcd283ad3d22f293b94c93db9089ceb137f53f1",
+      "compressed_sha256": "af0f1af4e447dc2531d86d85dbc1e5bcdaa10872ceb9c710bc11699c16d20b67"
+    },
+    {
+      "path": "lean-focused-evidence.json.gz",
+      "bytes": 8916,
+      "sha256": "97ea08fa7f520859766552408416dd94e23c08cee1d58dd2559f49e08bac6ede",
+      "compressed_sha256": "ce41e85066edff308e9f7f32fbf11bcb928759fac540866442ad0b472c7454c6"
+    }
+  ]
+}
