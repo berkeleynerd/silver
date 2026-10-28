@@ -105,10 +105,14 @@ def embedded_record_bytes(data: dict) -> int:
 def main_envelope() -> int:
     # The joint two-byte charge covers roots, comparisons, components and indices.
     # Nested loops can repeat the array note once per enclosing loop/write pair;
-    # 27*loops + 8*writes <= source bytes. See fixed-integer-arrays-report-capacity.md.
-    checks = SOURCE_BYTES // 2 + 3 * 63 + SOURCE_BYTES // 13 + 2 * (SOURCE_BYTES // 18)
+    # 24*loops + 8*writes <= source bytes. Each element reference and the
+    # generated component renaming can add an index check; each reference
+    # consumes an identifier byte and a following separator. See
+    # docs/constant-array-iteration-report-capacity.md.
+    checks = (SOURCE_BYTES // 2 + 3 * 63 + SOURCE_BYTES // 13
+              + 3 * (SOURCE_BYTES // 15) + SOURCE_BYTES // 2)
     image_warnings = 2 * (SOURCE_BYTES // 16)
-    array_warnings = SOURCE_BYTES ** 2 // (4 * 27 * 8)
+    array_warnings = SOURCE_BYTES ** 2 // (4 * 24 * 8)
     return (checks * MAIN_RECORD_BYTES + (2 * SOURCE_BYTES + image_warnings) * FLOW_RECORD_BYTES
             + 2 * SOURCE_BYTES + METADATA_BYTES + array_warnings * ARRAY_NOTE_BYTES)
 
@@ -166,7 +170,7 @@ class CapacityEnvelopeTests(unittest.TestCase):
         index = maximal_retained_record()
         index.update(rule="VC_INDEX_CHECK", message={"text": "index check proved"})
         self.assertLessEqual(embedded_record_bytes(index), MAIN_RECORD_BYTES)
-        self.assertEqual(main_envelope(), 25_084_928)
+        self.assertEqual(main_envelope(), 31_269_376)
         self.assertEqual(metadata_envelope(), 55_712)
         self.assertLessEqual(metadata_envelope(), METADATA_BYTES)
         specification = (ROOT / "src/silver_library_reports.ads").read_text()

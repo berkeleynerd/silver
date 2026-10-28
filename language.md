@@ -17,6 +17,8 @@ records complete Linux native and Lean assurance, reviewed retained regression
 results and successful focused repair tests for the flow rules below.
 The [fixed-size Integer-array record](docs/fixed-integer-arrays.md) specifies the
 bounded array increment and its implementation/validation status.
+This branch also specifies [constant-array iteration](docs/constant-array-iteration.md);
+its implementation and complete validation are pending.
 The [machine-readable
 catalogue](catalogue/silver.json), compiler, and this specification must agree. A
 discrepancy is a defect to resolve, not an extension of the language. Membership
@@ -165,7 +167,7 @@ followed by letters or digits, optionally separated by single underscores, witho
 trailing underscore. The 74 Ada 2022 reserved words, `String` and `Silver_IO` are
 excluded ignoring ASCII case. In an argument-bearing shell, `Silver_Arguments` is
 also excluded for **every** declaration. Names in the ordered declaration region must
-be distinct ignoring ASCII case across String, Integer and Integer-array declarations. Loop indexes
+be distinct ignoring ASCII case across String, Integer and Integer-array declarations. Loop indexes and elements
 have the scoped hiding rules below. `Main` is legal; `Silver_Arguments` remains legal
 in the static shell. Every reference matches the entire declared identifier ignoring
 ASCII case. There is no additional identifier-length limit beyond the complete source
@@ -247,7 +249,7 @@ scalar_operator   ::= "+" | "-" | "*" | "/" | "mod" | "rem"
 sign              ::= "+" | "-"
 ```
 
-Here `scalar_name` denotes a visible initialized Integer object or loop index.
+Here `scalar_name` denotes a visible initialized Integer object, loop index or loop element.
 Indexed Integer components follow the array rules below. Each scalar expression
 has one through sixty-four operands: literal/name leaves and, for each indexed
 read, one array-name operand plus every operand of its subscript. Binary operations
@@ -310,7 +312,7 @@ Scalar comparisons admit `=`, `/=`, `<`, `<=`, `>` and `>=` between scalar
 expressions and compose with the existing short-circuit predicates. Both
 operands must pass the incoming expression check before refinement, including
 all static subexpressions. A comparison refines a bare visible mutable Integer
-name or loop-index name against an Ada-static nonempty singleton Integer
+name, loop-index name or loop-element name against an Ada-static nonempty singleton Integer
 expression, in either operand order. Refinement follows resolved binding
 identity, so shadowed names remain distinct. Parentheses around a whole condition
 preserve refinement; parentheses around the target scalar name, arithmetic
@@ -476,6 +478,48 @@ index interval, so the retained nonempty assignment-RHS rule excludes it. A
 contradictory guard does not waive this rule. There is no blanket claim that
 scalar refinement preserves admission of every earlier source.
 
+### Constant Integer-array iteration
+
+```text
+array_iteration ::= "for" element_name "of" [ "reverse" ]
+                    constant_integer_array_name "loop"
+                    statements "end" "loop" ";"
+```
+
+The iterable is one visible, existing constant Integer-array object from the
+declaration region. The loop visits every component once, in increasing index
+order, or decreasing index order with `reverse`. Its identity and bounds are
+selected once on entry. The element denotes the actual component under Ada's
+iterator semantics; the array is constant and no admitted operation can change
+its components. No array snapshot or source rewriting is involved.
+
+The scoped element is immutable and nonstatic. Its entry interval is the full
+predefined Integer range, even when all initializer values are small. A guard
+on its bare name may refine its reads in that iteration, under the existing
+scalar-guard rules. It neither refines array cells nor supplies an Ada-static
+threshold. Element facts do not carry into another iteration or escape the loop.
+
+Element names follow the counted-loop index rules, including hiding outer
+objects, indexes, elements and use-visible operations. The new name is hidden
+in its own iterable specification: `for A of A loop` cannot select an outer
+array `A`. A nested binder hiding the array's spelling does not change the
+identity already captured by an enclosing iteration. An element named `Integer`
+hides the Image type mark in its body. Sequential loops may reuse element names.
+
+The nonempty body may contain every admitted statement, including either loop
+form, guards, assignments to other mutable objects, output and argument-shell
+Reject. Mutable scalar facts are widened before body analysis; entry immutable
+and enclosing-loop facts are retained. On exit, mutable facts remain widened,
+entry immutable and enclosing-loop facts are restored, and the element binding
+is removed. Every admitted array is nonempty, so the independent String/input
+flow keeps body exit facts. Writes to other objects carry across iterations and
+remain visible after the loop.
+
+Mutable iterables, assignment through an element, subtype indications, iterator
+filters, slices, array-valued expressions and general iterators are excluded.
+These are scope limits for this constant-array fragment. Source, expression and
+operator limits are unchanged; there is no separate iteration-count limit.
+
 ### Standard Integer Image
 
 `Integer'Image (scalar_expression)` is a String atom in ordinary initializers,
@@ -565,7 +609,7 @@ Every output-capable body contains a nonempty sequence of these statements:
 
 ```text
 statements       ::= statement { statement }
-statement        ::= basic_statement | string_choice | for_loop
+statement        ::= basic_statement | string_choice | for_loop | array_iteration
 basic_statements ::= basic_statement { basic_statement }
 basic_statement  ::= "null" ";"
                    | reject_name ";"
@@ -826,6 +870,7 @@ The catalogue uses these construct identifiers:
 | `string_expression`, `string_concatenation` | One through sixty-four literal/name/Image leaves; sixty-three operators shared with scalar arithmetic. |
 | `scalar_integer_literal`, `named_integer_constant`, `named_integer_variable`, `integer_range_constraint`, `integer_expression`, `integer_assignment` | Scalar numerals, initialized Integer objects, optional static object constraints, checked interval arithmetic and range-preserving assignments. |
 | `integer_array_object`, `integer_array_read`, `integer_array_assignment` | Explicitly initialized anonymous fixed-size Integer arrays, nonempty interval-checked subscripts and component-preserving indexed assignment. |
+| `integer_array_iteration` | Forward/reverse iteration over constant Integer arrays, with immutable nonstatic elements, full Integer entry bounds and existing guard/statement compositions. |
 | `integer_comparison`, `scalar_guard_refinement`, `integer_image`, `for_loop` | Bare mutable/index names against static thresholds, current read intervals with assignment replacement and branch hulls, standard decimal Image and scoped finite loops with captured bounds and mutable widening. |
 | `expression_output`, `literal_output`, `named_output`, `concatenated_output` | Returning output calls with qualified or visible unqualified names and positional or `Item =>` actuals. |
 | `argument_initialization`, `input_guard`, `capacity_guard`, `argument_rejection` | First/unique immutable input with positional or `Default =>` literal, path-derived validity/capacity and returning rejection; existing calls follow the shared visibility rules. |

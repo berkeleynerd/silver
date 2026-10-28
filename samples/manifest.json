@@ -1703,6 +1703,27 @@
         "stderr": "",
         "exit_status": 0
       }
+    },
+    {
+      "source": "rosetta_loops_foreach.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "scalar_integer_literal",
+        "integer_expression",
+        "statement_sequence",
+        "integer_array_object",
+        "integer_array_iteration",
+        "integer_image",
+        "expression_output"
+      ],
+      "specification": "../language.md#constant-integer-array-iteration",
+      "expected": {
+        "stdout": "-1\n 0\n 1\n 2\n 3\n",
+        "stderr": "",
+        "exit_status": 0
+      }
     }
   ]
 }

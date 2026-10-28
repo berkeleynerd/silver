@@ -447,7 +447,8 @@
           "expression_output",
           "string_choice",
           "argument_rejection",
-          "for_loop"
+          "for_loop",
+          "integer_array_iteration"
         ],
         "minimum": 1,
         "count": "finite_within_complete_source_bound",
@@ -893,6 +894,45 @@
       }
     },
     {
+      "id": "integer_array_iteration",
+      "ada_kind": "loop_statement",
+      "conditions": {
+        "iterable": "one visible existing constant anonymous fixed-size Integer-array object",
+        "directions": [
+          "forward",
+          "reverse"
+        ],
+        "order": "increasing array index; decreasing with reverse",
+        "iterable_identity_and_bounds_evaluated_once": true,
+        "element_semantics": "actual constant component, not an array snapshot",
+        "element_immutable": true,
+        "element_static": false,
+        "element_interval": "full predefined Integer range on each iteration entry",
+        "element_refinement": "existing bare-name scalar guards within that iteration only; no array-cell refinement",
+        "element_scope": "body only; own name hidden in iterable specification; restore outer binding on exit",
+        "name_rules": "same as counted-loop indexes, including String/Integer names and operation/type hiding",
+        "body": [
+          "statement_sequence"
+        ],
+        "body_minimum": 1,
+        "nested": true,
+        "definitely_nonempty": true,
+        "path_facts_after_loop": "body exit facts",
+        "scalar_body_flow": "widen mutable scalars; retain entry immutable and enclosing-loop facts; append Full-range element",
+        "scalar_exit_flow": "widen mutables; restore entry immutable and enclosing-loop facts; remove element identity",
+        "other_object_writes": "carry across iterations and after the loop",
+        "iteration_enumeration_required": false,
+        "termination": "finite nonempty declared array index range",
+        "mutable_iterables": false,
+        "element_assignment": false,
+        "subtype_indications": false,
+        "filters": false,
+        "general_iterators": false,
+        "source_rewriting": false,
+        "count_and_nesting": "limited by complete source size"
+      }
+    },
+    {
       "id": "for_loop",
       "ada_kind": "loop_statement",
       "conditions": {
@@ -1131,6 +1171,8 @@
   "scalar_relation_tokens": ["<integer_expression>","<scalar_comparison>","<integer_expression>"],
   "for_loop_tokens": ["for","<index_name>","in","<integer_expression>","..","<integer_expression>","loop","<statements>","end","loop",";"],
   "reverse_for_loop_tokens": ["for","<index_name>","in","reverse","<integer_expression>","..","<integer_expression>","loop","<statements>","end","loop",";"],
+  "integer_array_iteration_tokens": ["for","<element_name>","of","<constant_integer_array_name>","loop","<statements>","end","loop",";"],
+  "reverse_integer_array_iteration_tokens": ["for","<element_name>","of","reverse","<constant_integer_array_name>","loop","<statements>","end","loop",";"],
   "output_tokens": ["<context_clauses>","procedure","main","is","pragma","spark_mode","(","on",")",";","<declarations>","begin","<statements>","end","main",";"],
   "argument_tokens": ["<context_clauses>","procedure","main","is","pragma","spark_mode","(","on",")",";","<argument_declaration>","<declarations>","begin","<statements>","end","main",";"]
 }
