@@ -14,13 +14,14 @@ open Compose Bindings
 def SameContext (left right : ParserState) : Prop :=
   left.names = right.names ∧ left.dynamicFirst = right.dynamicFirst ∧
     left.dynamicAfter = right.dynamicAfter ∧ left.capacity = right.capacity ∧
-    left.scalarNames = right.scalarNames
+    left.scalarNames = right.scalarNames ∧ left.arrayNames = right.arrayNames
 
 theorem SameContext.trans {left middle right : ParserState}
     (first : SameContext left middle) (second : SameContext middle right) : SameContext left right :=
   ⟨first.1.trans second.1, first.2.1.trans second.2.1,
     first.2.2.1.trans second.2.2.1, first.2.2.2.1.trans second.2.2.2.1,
-    first.2.2.2.2.trans second.2.2.2.2⟩
+    first.2.2.2.2.1.trans second.2.2.2.2.1,
+    first.2.2.2.2.2.trans second.2.2.2.2.2⟩
 
 theorem step_body_context {text form token state}
     (ordinary : ShapeToken token)
@@ -32,7 +33,7 @@ theorem step_body_context {text form token state}
   all_goals simp only [step, positive, ↓reduceIte, SameContext] at accepted ⊢
   all_goals first
     | trivial
-    | exact ⟨rfl, rfl, rfl, rfl, rfl⟩
+    | exact ⟨rfl, rfl, rfl, rfl, rfl, rfl⟩
     | (try simp only [targetAt, dynamicAt, assignmentAt, outputAt, comparisonAt] at accepted ⊢
        repeat' split <;> simp_all [invalidState])
 
@@ -41,7 +42,7 @@ theorem scanTokens_context {text form tokens scan}
     (accepted : (scanTokens text form tokens scan).state.position ≠ 0) :
     SameContext (scanTokens text form tokens scan).state scan.state := by
   induction tokens generalizing scan with
-  | nil => exact ⟨rfl, rfl, rfl, rfl, rfl⟩
+  | nil => exact ⟨rfl, rfl, rfl, rfl, rfl, rfl⟩
   | cons token tokens ih =>
       have nextPositive : (step text form token scan.state).position ≠ 0 := fun zero =>
         accepted (scanTokens_zero text form tokens {scan with state := step text form token scan.state} zero)
@@ -110,7 +111,7 @@ mutual
         · simp [invalidScan, invalidState] at accepted
       · rw [alternativeAt, ite_eq_right positive, ite_eq_right isElsif, ite_eq_right isElse] at accepted ⊢
         split <;> (try simp only [*] at accepted) <;> (try dsimp only at accepted)
-        · exact ⟨rfl, rfl, rfl, rfl, rfl⟩
+        · exact ⟨rfl, rfl, rfl, rfl, rfl, rfl⟩
         · simp [invalidScan, invalidState] at accepted
   termination_by (remaining text scan, 1)
 
@@ -134,7 +135,7 @@ mutual
     split <;> (try simp only [*] at accepted) <;> (try dsimp only at accepted)
     · simp [invalidScan, invalidState] at accepted
     · split <;> (try simp only [*] at accepted) <;> (try dsimp only at accepted)
-      · exact ⟨rfl, rfl, rfl, rfl, rfl⟩
+      · exact ⟨rfl, rfl, rfl, rfl, rfl, rfl⟩
       · split <;> (try simp only [*] at accepted) <;> (try dsimp only at accepted)
         · simp [invalidScan, invalidState] at accepted
         · split <;> (try simp only [*] at accepted) <;> (try dsimp only at accepted)
