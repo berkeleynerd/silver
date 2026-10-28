@@ -401,9 +401,11 @@ values and loop bounds. A subscript uses the existing scalar grammar with
 array reads excluded; therefore `A((I + 1))` is permitted when its interval is
 safe, but `A(B(I))` is outside this first fragment. Every inferred subscript
 interval must be nonempty and lie inside the declared index range, including
-in unreachable arms and empty loops. The same structural index rule applies
-without a separate reachability exemption, keeping membership decidable from
-the checked intervals and preserving the existing safety-report policy.
+in unreachable arms and empty loops. This also preserves frontend acceptance:
+the pinned GNAT frontend rejects some out-of-range subscripts even in dead
+arms or null loops, including a null loop range wholly outside the array bounds.
+Silver applies one uniform interval rule rather than tracking which unreachable
+shapes the frontend accepts; the rule also excludes some Ada-legal shapes.
 Static illegal expressions remain excluded.
 The array name and all subscript operands count toward the enclosing scalar
 expression's 64-operand limit; arithmetic shares the existing 63-operator budget.

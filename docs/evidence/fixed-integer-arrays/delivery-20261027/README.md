@@ -12,6 +12,12 @@ plus the Lean evidence JSON when applicable, compressed without altering the
 decompressed bytes. `retained.json` records the original finished event and
 file hashes. Events retain the captured input maps and selected commands.
 
+The response also retains the [earlier advisory discovery](advisory-discovery/retained.json)
+from `20261027T075301-f654f3d5d925`: source, SPARK/SARIF reports, producer output
+and managed events/log. That historical run failed because the then-current
+auditor rejected two array-initialization notes despite all 71 checks proving.
+It is not a successful delivery checkpoint.
+
 | Run | Scope | Outcome |
 | --- | --- | --- |
 | `20261027T113126-109aa8ee133a` | Native build in the regression snapshot | Success |

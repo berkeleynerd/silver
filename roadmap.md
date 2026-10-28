@@ -97,6 +97,8 @@ separate. Source, expression and operator limits are unchanged.
 
 ### Fixed-size Integer arrays
 
+**Complete on Linux, 2026-10-28 ([PR #263](https://github.com/berkeleynerd/silver/pull/263)).**
+
 [Milestone 10](https://github.com/berkeleynerd/silver/milestone/10),
 [#260](https://github.com/berkeleynerd/silver/issues/260), delivers the bounded
 Integer-array fragment selected by the

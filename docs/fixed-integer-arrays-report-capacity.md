@@ -135,11 +135,18 @@ excluded.
 
 The initial review incorrectly concluded that there was no additional accepted
 diagnostic and that the 15,142,912-byte subtotal was complete. The later actual
-rotation report `tmp/fixed-arrays-native/.silver/linux-x86_64/program-YO21S8/obj/gnatprove/main~1.spark`
+rotation [report](evidence/fixed-integer-arrays/delivery-20261027/advisory-discovery/main~1.spark.gz)
+from managed run `20261027T075301-f654f3d5d925`
 refuted that conclusion: it contains two `array-initialization` warnings. All
 71 application/runtime checks were proved, but the then-current Main auditor
 rejected these warnings. The original conclusion is retained here as refuted
 history, not accepted capacity evidence.
+
+The [retained inventory](evidence/fixed-integer-arrays/delivery-20261027/advisory-discovery/retained.json)
+binds the original source, SPARK report, SARIF mirror and producer output by
+SHA-256, alongside the original managed events/log. These are the bytes from
+`program-YO21S8`, retained during the external-review response; no discovery run
+was repeated or relabelled successful.
 
 The [earlier compiler assessment](reviews/review-scalar-guard-array-initialization-advisory-20261026.md)
 reviews the same pinned producer mechanism; its compiler-only policy did not
