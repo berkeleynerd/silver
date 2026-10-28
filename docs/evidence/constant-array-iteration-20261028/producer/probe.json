@@ -1,0 +1,28 @@
+{
+  "task": "#264",
+  "host": "linux-x86_64",
+  "selected_model": "GPT-6.1 Sol",
+  "selected_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "token_cost_measurement": null,
+  "producer_run": "20261028T101914-67c513028724",
+  "producer_mode": "all/report=all/no-loop-unrolling/steps=100000/timeout=0/memlimit=1000/debug",
+  "producer_workers": 4,
+  "producer_result": "success; all 3 source checks proved",
+  "implicit_iterator_check_records": 0,
+  "proof_rules": [
+    "VC_OVERFLOW_CHECK",
+    "VC_INDEX_CHECK",
+    "VC_INDEX_CHECK"
+  ],
+  "flow_records": 0,
+  "entities": [
+    "Iteration_Probe"
+  ],
+  "warn_error_records": {
+    "array-initialization": 3
+  },
+  "hiding_run": "20261028T102043-f5210d7983a1",
+  "hiding_result": "expected frontend error: object A cannot be used before end of its declaration at4:13",
+  "initial_probe_note": "20261028T101727-f7ee115906de proved checks but failed managed identity: declared directory input contained output. Source-only declaration corrected on20261028T101830-51777de6ee2b; exact no-unroll config probe supersedes it."
+}

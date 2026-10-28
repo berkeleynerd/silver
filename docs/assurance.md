@@ -108,6 +108,40 @@ The retained Main envelope is 25,084,928 bytes, covered by a 32 MiB allocation;
 the runtime/null limits and language source/operator budgets are unchanged.
 Broader array forms remain outside the admitted fragment.
 
+## Constant Integer-array iteration
+
+The [#264 capability record](constant-array-iteration.md) tracks implementation
+and evidence; its complete checkpoint remains pending. The predicate core's
+`arrayLoop` retains the resolved array descriptor, direction and fresh element
+identity. Execution captures the finite index sequence once and reads the actual
+component at each step. It restores the scoped binder while retaining writes to
+other objects. The core requires valid nonempty bounds, Full component ranges,
+readonly component cells and separation from both the element binder and every
+nested loop binder.
+
+`PredicateExecution.statements_constant_components` reuses immutable-store
+preservation. `arrayLoop_components_stable` strengthens it through nested bodies,
+and `arrayLoop_body_actual_component` relates the element value to the actual
+component. Thus temporary lexical bindings cannot silently overwrite array
+storage in the mathematical store. The source chain derives binder separation
+from the existing scalar/array allocation rules; it is not an assumed bound on
+arbitrary mathematical identities. Ordered finite enumeration covers both
+directions, and the nonempty array transfers the definitely-executed body's
+String/input facts. Mutable scalar widening and outer immutable facts follow the
+existing loop rules.
+
+`PredicateObligations` includes the implicit cursor's array-index schema and
+the body's ordinary obligations. The same descriptor bounds establish every
+implicit component access. `PredicateLoopNative` connects the native `of` branch
+to source readings and the dedicated semantic constructor; full source pins and
+the byte-exact certificate remain required at the complete checkpoint.
+
+The [producer/capacity account](constant-array-iteration-report-capacity.md)
+inspects GNAT's indexed-loop/component-renaming expansion and charges its
+implicit check sites and shorter syntax. The revised 31,269,376-byte envelope
+fits the existing 32 MiB allocation. No new diagnostic class, runtime library,
+tool or source/operator limit is introduced. Mutable iterables remain excluded.
+
 ## For loops and standard Integer Image
 
 The [completed Linux capability checkpoint](for-loops-integers.md#stable-delivery-evidence)

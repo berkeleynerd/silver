@@ -713,7 +713,10 @@ distinguishes the deterministic floor and measured credits. The
 [report-capacity repair](docs/report-capacity.md) derived the earlier 16 MiB
 allocation. The [fixed-array extension](docs/fixed-integer-arrays-report-capacity.md)
 raises retained Main report storage to 32 MiB, accounting for repeated loop
-initialization advisories within the same 4,096-byte source budget. These specimens do not
+initialization advisories within the same 4,096-byte source budget. The
+[constant-iteration extension](docs/constant-array-iteration-report-capacity.md)
+also accounts for shorter loop syntax and implicit component accesses within
+that allocation. These specimens do not
 establish a universal resource bound. The
 [branch capacity assessment](docs/branches.md#bounded-5bc-capacity-assessment--2026-10-14)
 records the specimen and smaller matching probe. The original

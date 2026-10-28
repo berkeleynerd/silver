@@ -53,7 +53,8 @@ axiom; the retained single executable traversal applies. Array-index reads and
 ordinary arithmetic/root checks retain their existing charges. No new Main
 proof rule, call dependency, entity or warning policy is required. Generated
 internal objects retain the existing exclusion from positive initialization
-messages; the loop is not a new source subprogram or type-VC trigger.
+messages; `flow-control_flow_graph.adb:130,7200–7202` ignores object-renaming
+declarations; the loop is not a new source subprogram or type-VC trigger.
 
 ## Combined source charge
 
@@ -112,14 +113,22 @@ existing array-initialization notes (the nested write appears twice). No
 implicit iterator check survived to the report. The envelope nevertheless
 charges those possible check sites.
 
-Sources, GPR, log, generated Why and report are retained beneath
-`tmp/constant-array-native/tmp/foreach-producer-probe/`, including
-`obj/explore/no-unroll/gnatprove/iteration_probe.{mlw,spark}`. The earlier probe
+Sources, GPR, logs, generated Why/frontend tree and report are retained in
+[the producer evidence directory](evidence/constant-array-iteration-20261028/producer/),
+with compressed and original hashes in `files.json`. Original workspaces remain
+beneath `tmp/constant-array-native/tmp/foreach-producer-probe/` and
+`tmp/constant-array-native/tmp/foreach-hiding-probe/`. The self-hiding probe is
+an expected frontend rejection, retained as a failed managed run, not a passed
+application proof. The earlier probe
 with an output-containing input directory failed managed input identity; it
 remains failed. A following exploratory run omitted no-loop-unrolling and is
 not substituted for this production-setting observation.
 
 These probes corroborate producer routes; they do not establish universal
-assurance or replace the final native/Lean/source checkpoint. Independent
-integration review of this account remains pending. Lead runtime model/effort
-and token/cost measurements are not independently available.
+assurance or replace the final native/Lean/source checkpoint. A bounded independent Astra / Extra High review confirmed the four source
+hashes, native admission conditions, single body traversal
+(`gnat2why-expr-loops.adb:507–518,560–570`), renaming exclusion from flow
+processing, retained probe and complete formula. It found no missing charge or
+blocking issue. That review ran no tools that build/prove/test; runtime model
+confirmation and time/token/cost measurements were unavailable. Final integrated
+validation remains separate.

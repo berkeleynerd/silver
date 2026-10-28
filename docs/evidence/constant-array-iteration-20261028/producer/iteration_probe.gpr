@@ -1,0 +1,6 @@
+project Iteration_Probe is
+ for Source_Dirs use (".");
+ for Object_Dir use "obj";
+ for Main use ("iteration_probe.adb");
+ package Compiler is for Default_Switches ("Ada") use ("-gnat2022", "-gnata", "-gnato"); end Compiler;
+end Iteration_Probe;

@@ -59,7 +59,10 @@ The shorter syntax changes the feature-local report envelope. The minimum
 `for E of A loop` prefix is 15 bytes, so the previous `27*L + 8*W <= S` charge
 for all loops cannot be inherited unchanged. Recheck the conservative combined
 `24*L + 8*W <= S` charge, diagnostic multiplicity and implicit iterator checks
-against the current 32 MiB Main allocation. This is required feature-local
+against the current 32 MiB Main allocation. The
+[producer/capacity account](constant-array-iteration-report-capacity.md) records
+the inspected expansion, production-setting probe and revised 31,269,376-byte
+envelope, within that unchanged allocation. This is required feature-local
 accounting within the unchanged source limit, not a reopening of #119.
 
 Completion requires agreement of native/compiler/catalogue/specification,
@@ -73,3 +76,48 @@ introduce a general iterator framework or assurance mode.
 | --- | --- | --- |
 | Driver and scope selection | GPT-6.1 Sol / Extra High | The cached task requires ordered foreach output, not mutable iteration; a small constant Integer-array driver is faithful. Procedures/named subtypes would add independent call/alias/type machinery. Runtime settings and token/cost measurements unavailable. |
 | Semantics and assurance design | GPT-6 Astra / Extra High | Confirmed constant-component semantics, preservation and hiding obligations, source-derived binder separation and the shorter-loop capacity premise. Existing reverse enumeration is reusable. Read-only; no proof/probe run or performance claim. Runtime settings and token/cost measurements unavailable. |
+
+## Implementation checkpoint, 2026-10-28
+
+The planning authorization reached main through PR #265 (`a2bb0a9f65`).
+Implementation remains on `feat/constant-array-iteration`, with isolated native,
+core-proof and source-correspondence worktrees. The stacked PR is not complete
+or supported yet; full native/Lean/source/regression validation and independent
+integration review remain outstanding.
+
+The native change is a direct `of` branch in `Loop_Body`, sharing the existing
+body flow logic with counted loops. The mathematical core has a dedicated
+`arrayLoop` constructor. It captures the descriptor and index sequence once,
+reads the actual component on each iteration and restores the scoped binder.
+Its checker requires Full-range readonly array cells and binder separation,
+including every nested body's lexical binders. The source proof derives that
+separation from the existing allocation rules rather than assuming a native
+bound on arbitrary mathematical identities.
+
+| Round | Selected model/effort | Result and measurement limits |
+| --- | --- | --- |
+| Planning review | GPT-6.1 Sol / High | No actionable scope, authorization or premature-support finding. Reviewed the three planning files before PR #265. Runtime setting and token/cost measurements unavailable. |
+| Native implementation and producer discovery | GPT-6.1 Sol / Extra High | Original-source branch and focused admission regressions; production no-unrolling probe passed with existing check/advisory classes. Self-hiding was rejected by the pinned Ada frontend. Two initial regression expectations were corrected: Reject returns, and an Integer-named element is legal while hiding the Image type mark. Complete validation remains pending. |
+| Universal core extension | GPT-6 Astra / Extra High | Focused Statements, Execution, Obligations and SourceSyntax build/audit passed at `c679325e27`, 1 worker/thread, 8,192 MiB threshold; build 60.296 s, audit 9.245 s, 10,096 declarations. This is partial evidence; recursive component-preservation refinements and source integration continue. |
+| Source correspondence | GPT-6 Astra / Extra High | Array/count header model and cursor/count/flow invariants passed focused checks at `23f6b82f82`. Parsed readings, meaning and typed native interpretation remain in progress. Runtime setting and token/cost measurements unavailable. |
+
+The [report-capacity record](constant-array-iteration-report-capacity.md) retains
+the precise source inputs and probe evidence. Native build
+`20261028T102103-f46e6228b43e` and focused admission run
+`20261028T102312-96fa6ff1dcfb` passed. These do not replace the final checkpoint.
+
+The subsequent core checkpoint `73a40b56e5` passed fresh audit of 10,227
+declarations in run `20261028T102938-f47d9f9056b0`. It includes recursive
+component stability, ordered/unique enumeration and extreme-endpoint witnesses.
+The source-model checkpoint `b7649bafed` passed its seven targets and fresh
+16,468-declaration audit in `20261028T103509-43b36c151ccb` (249.614 s total).
+The [independent core/source review](reviews/review-constant-array-iteration-core-20261028.md)
+found no actionable defect in either layer; typed native interpretation and final
+actual-source validation remain outside that verdict.
+
+Native `Loop_Body` focused proof passed all 89 checks in
+`20261028T102351-2fc5f52c3651`. The complete ten-method new regression file passed
+in `20261028T103521-e9ff9a0ca62d`, including original-source native compile,
+prove and execution in the argument shell. The native source was frozen at
+SHA-256 `09858656aa96cdff7cc6f1ebc6683ce70885840e94df9706420b4c4e45ed6abc`
+before the isolated output-certificate and complete native checkpoint began.
