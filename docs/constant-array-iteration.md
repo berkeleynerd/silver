@@ -172,3 +172,10 @@ The [cache record](evidence/constant-array-iteration-20261028/native-cache-reuse
 keeps this setup correction distinct from assurance success. The final native
 checkpoint uses the reviewed catalogue correction at `d155e60ccc`; its tracked
 source, scripts and project inputs match the integration branch.
+
+The byte-exact output-body certificate passed in
+`20261028T103900-407484c4629b`: 10,706.620 s build and 24.945 s fresh
+axiom audit of 28,400 declarations with only the approved foundations. It used
+one worker/thread and a 16,384 MiB per-process threshold. This focused result
+will be reused by the complete source checkpoint after matching its dependencies;
+it is not a whole-project result or isolated performance baseline.
