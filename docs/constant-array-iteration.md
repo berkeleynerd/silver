@@ -150,3 +150,24 @@ source representation or kernel-check policy was changed. Selected settings
 are recorded; runtime confirmation and token/cost measurements are unavailable.
 Complete native, source-certificate, whole-project and regression checkpoints
 remain pending.
+
+The complete 540-test run `20261028T110929-97e25e5a798e` retained 539
+successes and one symlinked-TMPDIR fixture timeout at 180 seconds. All 788
+captured inputs still matched before final proof integration. The only subsequent
+governed changes were the four reviewed typed Lean files. Source-policy run
+`20261028T123939-44279f5d51d8` passed 12 tests; platform run
+`20261028T131129-d738104f578d` passed 16, including the timeout case with its
+original timeout and assertions. Independent review accounts for all 540 IDs:
+512 applicable retained passes and 28 successful reruns. The original complete
+run remains failed. All 50 manifest samples and 106 executions passed.
+
+The first complete native attempt was deliberately interrupted after discovering
+that the private worktree lacked the retained parent solver cache. Of its first
+26,847 generated cache keys, 25,857 already existed in the parent. Its completed
+work and 27 partial report files were preserved. With native processes stopped,
+59,719 missing parent entries were copied without overwriting current entries;
+the Alire lock matched, and GNATprove retains responsibility for cache matching.
+The [cache record](evidence/constant-array-iteration-20261028/native-cache-reuse.json)
+keeps this setup correction distinct from assurance success. The final native
+checkpoint uses the reviewed catalogue correction at `d155e60ccc`; its tracked
+source, scripts and project inputs match the integration branch.

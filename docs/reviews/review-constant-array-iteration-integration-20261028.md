@@ -75,3 +75,23 @@ No additional affected test module was found. Inspected `test_lean_evidence`, `t
 Full-suite run `20261028T110929-97e25e5a798e` was still running at this assessment. No pass or complete-coverage claim is made. Once its terminal log is available, unchanged successful results may apply to the final snapshot subject to matching settings and the complete 540-ID inventory. Every failed, incomplete, missing or newly affected test still needs successful coverage. With the planned 28-ID rerun, the other 512 IDs are candidates for retained-result reuse, not presently asserted successes. Later Rosetta changes and their metadata checks are outside this assessment and require their own applicability review.
 
 Selected reviewer: GPT-6 Astra / Extra High; runtime confirmation and token/cost measurements unavailable. Read-only source/dependency/inventory inspection, 11:37:40–11:39:37 UTC (117 seconds through final input comparison); no test/build/proof execution or GitHub mutation.
+
+## Regression coverage closure — 2026-10-28
+
+Verdict: the regression/sample layer is complete for integration `f57c097f5d1395c979bb11233d9a4c7da7a5638d`, with the final bridge integrated as `fd9761af5c`. Governed implementation, proof, test, script, sample, catalogue and project inputs match validation snapshot `1e7f42f0c145b62eedbc4bc404b080ea37ed3c81`. This closes the provisional applicability section above. It does not close the pending complete native or whole-Lean/source assurance checkpoints, or the later Rosetta metadata delta.
+
+Read original events, logs and `retained.json` for the following three runs in `docs/evidence/constant-array-iteration-20261028/runs/`, plus `test-inventory.json` and the updated `regression-applicability.json`. Verified every retained compressed/original event/log hash, parsed actual individual test identities and outcomes, and independently compared the recorded prepared-input hashes to final files.
+
+| Run | Observed result | Applied evidence |
+| --- | --- | --- |
+| `20261028T110929-97e25e5a798e` | 540 IDs: 539 `ok`, one `ERROR`; terminal failure | Retain 512 successful IDs outside the two affected modules |
+| `20261028T123939-44279f5d51d8` | Exactly all 12 `test_lean_source` IDs `ok`; terminal success | Replace that affected module's results |
+| `20261028T131129-d738104f578d` | Exactly all 16 `test_platforms` IDs `ok`; terminal success | Replace that affected module's results, including the earlier error |
+
+The full-run IDs equal the 540 distinct retained inventory IDs, including the three Rosetta tests whose descriptions span two log lines. The union of the 512 retained passes and 28 rerun passes equals that inventory exactly: no missing, extra, skipped or unresolved failing ID. The full run remains failed; the combined evidence establishes regression completion under the repository's reviewed-reuse provision, not a newly claimed single successful full-suite run.
+
+All three runs captured the same 788-path input set. Both successful reruns' 788 hashes match final bytes. The full run differs only in the four already-reviewed typed Lean files; the exact differences agree with `regression-applicability.json`. Their affected-test closure remains the two rerun modules. Native/compiler, test, fixture, script and sample inputs are unchanged. No timeout or assertion was relaxed: the original failure is `TimeoutExpired` in the symlinked-TMPDIR subprocess at 180 seconds, and the successful final rerun used the same 180-second limit and assertions. The logs establish the timeout and subsequent success without proving a causal explanation for the timing difference.
+
+`test_samples.SupportedSampleTests.test_manifest_samples` passed in the retained full run. Its unchanged manifest contains 50 samples and 106 execution cases; the test iterates and checks each case, original source identity and application proof-policy/report audits. Those sample results therefore remain applicable.
+
+Selected reviewer remains GPT-6 Astra / Extra High; runtime confirmation and token/cost data unavailable. Review ran 13:25:19–13:27:21 UTC (122 seconds through final input/timeout inspection). Read-only except this report append; no tests, builds, proofs or GitHub mutations. No new finding. The interrupted earlier native run and active replacement native run are not successful whole-native evidence; their cache handling is outside this regression closure. Pending Rosetta metadata and whole assurance require their separately assigned final checks.

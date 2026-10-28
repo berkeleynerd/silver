@@ -37,7 +37,7 @@
     "test_lean_source.py",
     "test_platforms.py"
   ],
-  "final_outcome": "pending affected reruns and independent final review",
+  "final_outcome": "independent review confirms complete 540-ID coverage: 512 applicable retained passes plus 28 successful rerun passes; original full run remains failed",
   "added_or_removed_captured_paths": [],
   "completed_reruns": [
     {
@@ -45,6 +45,14 @@
       "scope": "test_lean_source.py",
       "tests": 12,
       "outcome": "success"
+    },
+    {
+      "run_id": "20261028T131129-d738104f578d",
+      "scope": "test_platforms.py",
+      "tests": 16,
+      "outcome": "success",
+      "timeout_changed": false
     }
-  ]
+  ],
+  "independent_review": "docs/reviews/review-constant-array-iteration-integration-20261028.md"
 }

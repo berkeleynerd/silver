@@ -1,0 +1,17 @@
+{
+  "interrupted_run": "20261028T104216-2bf8dc56c8ec",
+  "reason": "Private native worktree omitted the retained parent solver cache; 25,857 of the first 26,847 generated keys already existed in parent. Preserve completed current work and seed only missing entries before final catalogue checkpoint.",
+  "parent_cache": "/home/canto/src/github.com/berkeleynerd/silver/tmp/fixed-arrays-native/.silver/linux-x86_64/proof-cache/gnatprove/ea6aba21eca447a9c8473fc1c3ea0300b03a95ce919d8a326f68a67989029329",
+  "destination_cache": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-native/.silver/linux-x86_64/proof-cache/gnatprove/ea6aba21eca447a9c8473fc1c3ea0300b03a95ce919d8a326f68a67989029329",
+  "alire_lock_sha256": "ea6aba21eca447a9c8473fc1c3ea0300b03a95ce919d8a326f68a67989029329",
+  "copied_missing_entries": 59719,
+  "duration_seconds": 61.74492068600375,
+  "matching_authority": "GNATprove owns cache matching and validity; this transfer is not a new assurance claim.",
+  "overlapping_entries_preserved": 26136,
+  "current_only_entries_preserved": 997,
+  "final_cache_entries": 86852,
+  "original_run_outcome": "interrupted; no complete native assurance claim",
+  "partial_report_files_retained": 27,
+  "final_native_input_commit": "d155e60ccc",
+  "tracked_native_inputs_match_integration": "f57c097f5d"
+}
