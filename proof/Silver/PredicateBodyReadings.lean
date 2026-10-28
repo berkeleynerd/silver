@@ -43,7 +43,7 @@ mutual
         BodyAt text (loopInner context (loopHeader text context scan)) (loopHeader text context scan).entry
           .endOnly body bodyResult →
         result = bodyTokens text
-          {bodyResult with facts := loopAfterFlow context scan.facts bodyResult.facts (loopHeader text context scan).lower.bounds (loopHeader text context scan).upper.bounds}
+          {bodyResult with facts := loopAfterHeader context scan.facts bodyResult.facts (loopHeader text context scan)}
           [.word "end", .word "loop", .symbol ";"] →
         result.position ≠ 0 → loopBody text context scan = result →
         LoopAt text context scan lower upper body result

@@ -156,6 +156,8 @@ structure LoopHeader where
   lower : ScalarExpression.Result
   upper : ScalarExpression.Result
   entry : BodyScan
+  isArray : Bool := false
+  arrayTarget : Nat := 0
   deriving Repr
 
 def loopFirst (text : Source) (scan : BodyScan) : Nat :=
@@ -163,8 +165,14 @@ def loopFirst (text : Source) (scan : BodyScan) : Nat :=
 
 def loopNameAfter (text : Source) (scan : BodyScan) : Nat := nameAfter text (loopFirst text scan)
 
+def loopOfAfter (text : Source) (scan : BodyScan) : Nat :=
+  fixedAfter text (loopNameAfter text scan) "of" true
+
+def loopIsArray (text : Source) (scan : BodyScan) : Bool := decide (loopOfAfter text scan ≠ 0)
+
 def loopInAfter (text : Source) (scan : BodyScan) : Nat :=
-  fixedAfter text (loopNameAfter text scan) "in" true
+  if loopIsArray text scan then loopOfAfter text scan
+  else fixedAfter text (loopNameAfter text scan) "in" true
 
 def loopReverse (text : Source) (scan : BodyScan) : Bool :=
   decide (fixedAfter text (loopInAfter text scan) "reverse" true ≠ 0)
@@ -173,17 +181,40 @@ def loopLowerPosition (text : Source) (scan : BodyScan) : Nat :=
   if loopReverse text scan then fixedAfter text (loopInAfter text scan) "reverse" true
   else loopInAfter text scan
 
+/-- Capture the iterable's binding identity before appending the element name.
+The scoped name is masked in its own iterator specification. -/
+def loopArrayTarget (text : Source) (context : ParseContext) (scan : BodyScan) : Nat :=
+  arrayTarget text context (loopLowerPosition text scan)
+
+def loopArrayAllowed (text : Source) (context : ParseContext) (scan : BodyScan) : Bool :=
+  let target := loopArrayTarget text context scan
+  let first := skipAt text (loopLowerPosition text scan)
+  let after := nameAfter text first
+  decide (first ≠ 0 ∧ first < after ∧ target ≠ 0) && !(ArrayBindings.binding context.arrayNames target).mutable &&
+    !Named.equalName text (loopFirst text scan) (loopNameAfter text scan) first after
+
+def LoopHeader.bounds (header : LoopHeader) : Integer.Interval :=
+  if header.isArray then Integer.Interval.full else Integer.loopBounds header.lower.bounds header.upper.bounds
+
 def loopHeader (text : Source) (context : ParseContext) (scan : BodyScan) : LoopHeader :=
   let first := loopFirst text scan
   let after := loopNameAfter text scan
-  let lower := ScalarExpression.read text (loopLowerPosition text scan) (context.readingNames scan.facts) first after (arrays := context.arrayNames)
-  let upper := ScalarExpression.read text (fixedAfter text lower.after ".." false) (context.readingNames scan.facts) first after (arrays := context.arrayNames)
-  let bounds := Integer.loopBounds lower.bounds upper.bounds
+  let isArray := loopIsArray text scan
+  let lower := if isArray then ScalarExpression.invalid else
+    ScalarExpression.read text (loopLowerPosition text scan) (context.readingNames scan.facts) first after (arrays := context.arrayNames)
+  let upper := if isArray then ScalarExpression.invalid else
+    ScalarExpression.read text (fixedAfter text lower.after ".." false) (context.readingNames scan.facts) first after (arrays := context.arrayNames)
+  let bounds := if isArray then Integer.Interval.full else Integer.loopBounds lower.bounds upper.bounds
+  let opening := if isArray then
+    if loopArrayAllowed text context scan then
+      fixedAfter text (nameAfter text (skipAt text (loopLowerPosition text scan))) "loop" true
+    else 0
+    else fixedAfter text upper.after "loop" true
   ⟨first, after, loopReverse text scan, lower, upper,
     {scan with
-      position := fixedAfter text upper.after "loop" true,
+      position := opening,
       facts := {(ActiveFlow.widen context.scalarNames scan.facts).append bounds with
-        path := loopContext scan.facts.path bounds}}⟩
+        path := loopContext scan.facts.path bounds}}, isArray, loopArrayTarget text context scan⟩
 
 def loopNameAllowed (text : Source) (context : ParseContext) (header : LoopHeader) : Bool :=
   decide (header.first ≠ 0 ∧ header.first < header.after) &&
@@ -195,14 +226,18 @@ def loopNameAllowed (text : Source) (context : ParseContext) (header : LoopHeade
 
 def loopInner (context : ParseContext) (header : LoopHeader) : ParseContext :=
   {context with scalarNames := context.scalarNames ++
-    [⟨header.first, header.after, Integer.loopBounds header.lower.bounds header.upper.bounds, false,
-      Integer.loopBounds header.lower.bounds header.upper.bounds, false⟩]}
+    [⟨header.first, header.after, header.bounds, false, header.bounds, false⟩]}
 
 def loopAfterFlow (context : ParseContext) (before after : ActiveFlow)
     (lower upper : Integer.Interval) : ActiveFlow :=
   let values := if (Integer.loopBounds lower upper).isEmpty then before.values
     else (ActiveFlow.widen context.scalarNames before).values
   ⟨loopAfter before.path after.path lower upper, values⟩
+
+/-- Constant arrays are nonempty, so their final body path is always reached. -/
+def loopAfterHeader (context : ParseContext) (before after : ActiveFlow) (header : LoopHeader) : ActiveFlow :=
+  if header.isArray then ⟨after.path, (ActiveFlow.widen context.scalarNames before).values⟩
+  else loopAfterFlow context before after header.lower.bounds header.upper.bounds
 
 mutual
   def statementBody (text : Source) (context : ParseContext) (scan : BodyScan) : BodyScan :=
@@ -224,7 +259,7 @@ mutual
       let body := readBody text (loopInner context header) header.entry .endOnly
       if body.position ≤ scan.position then invalidBody scan else
       let result := bodyTokens text
-        {body with facts := loopAfterFlow context scan.facts body.facts header.lower.bounds header.upper.bounds}
+        {body with facts := loopAfterHeader context scan.facts body.facts header}
         [.word "end", .word "loop", .symbol ";"]
       if result.position ≤ scan.position then invalidBody scan else result
     else invalidBody scan

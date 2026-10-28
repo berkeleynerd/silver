@@ -79,6 +79,14 @@ theorem loopAfterFlow_count (context : ParseContext) (before after : ActiveFlow)
   · rfl
   · exact ActiveFlow.widen_count context.scalarNames before same
 
+theorem loopAfterHeader_count (context : ParseContext) (before after : ActiveFlow)
+    (header : LoopHeader) (same : before.count = context.scalarNames.length) :
+    (loopAfterHeader context before after header).count = before.count := by
+  unfold loopAfterHeader
+  split
+  · exact ActiveFlow.widen_count context.scalarNames before same
+  · exact loopAfterFlow_count context before after _ _ same
+
 theorem loopBody_count (text : Source) (context : ParseContext) (scan : BodyScan)
     (same : scan.count = context.scalarNames.length) :
     (loopBody text context scan).count = context.scalarNames.length := by
@@ -94,7 +102,7 @@ theorem loopBody_count (text : Source) (context : ParseContext) (scan : BodyScan
         · split
           · exact same
           · rw [bodyTokens_count]
-            exact (loopAfterFlow_count context scan.facts _ _ _ same).trans same
+            exact (loopAfterHeader_count context scan.facts _ _ same).trans same
       · exact same
 
 mutual

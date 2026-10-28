@@ -69,6 +69,14 @@ theorem loopAfter_bounded {before after : Context} (entry : before.Bounded) (bod
     · exact body
     · exact Context.join_bounded entry body
 
+theorem loopAfterHeader_bounded {context : ParseContext} {before after : ActiveFlow}
+    (entry : before.path.Bounded) (body : after.path.Bounded) (header : LoopHeader) :
+    (loopAfterHeader context before after header).path.Bounded := by
+  unfold loopAfterHeader
+  split
+  · exact body
+  · exact loopAfter_bounded entry body _ _
+
 mutual
   theorem statementBody_factsBounded (text : Source) (context : ParseContext) (scan : BodyScan)
       (sv : scan.facts.path.Bounded) : (statementBody text context scan).facts.path.Bounded := by
@@ -96,9 +104,9 @@ mutual
           · split
             · exact Context.empty_bounded
             · simp only [bodyTokens_facts]
-              exact loopAfter_bounded sv
+              exact loopAfterHeader_bounded sv
                 (readBody_factsBounded text (loopInner context (loopHeader text context scan)) _ .endOnly
-                  (loopContext_bounded sv _)) _ _
+                  (loopContext_bounded sv _)) _
         · exact Context.empty_bounded
   termination_by (bodyRemaining text scan, 1)
 

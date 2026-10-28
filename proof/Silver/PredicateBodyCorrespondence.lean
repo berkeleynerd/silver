@@ -129,8 +129,7 @@ mutual
           refine ⟨loopHeader_bound text context.model scan, ?_, ?_⟩
           · exact sv.2.1
           · exact ⟨loopContext_bounded sv.2.2.1
-              (Integer.loopBounds (loopHeader text context.model scan).lower.bounds
-                (loopHeader text context.model scan).upper.bounds),
+              (loopHeader text context.model scan).bounds,
               loopHeader_flowReady cv.base sv.2.2.2 cv.2.2.1 positive⟩
         have advanced := remaining_lt entryValid.1 (Nat.lt_of_not_ge failed)
         rw [read_unique calls equations text tv _ innerValid _ .endOnly entryValid]
