@@ -110,7 +110,7 @@
         "argument_initializer_position": "first and unique binding in argument-bearing forms only",
         "shared_name_environment": "String, Integer and Integer-array declarations; scoped loop indexes and elements may hide them in bodies",
         "integer_type_hiding": "a String binding named Integer hides the Image type mark in its own initializer and later source",
-        "initializer_image_length": "non-input minimum and maximum must agree; Image captures exact initial values of earlier Integer objects"
+        "initializer_image_length": "non-input minimum and maximum must agree; Image captures exact initial values of earlier Integer objects and array components"
       }
     },
     {
@@ -283,7 +283,7 @@
         "unused_allowed": true,
         "shared_name_environment": "String, Integer and Integer-array declarations; scoped loop indexes and elements may hide them in bodies",
         "integer_type_hiding": "a String binding named Integer hides the Image type mark in its own initializer and later source",
-        "initializer_image_length": "non-input minimum and maximum must agree; Image captures exact initial values of earlier Integer objects"
+        "initializer_image_length": "non-input minimum and maximum must agree; Image captures exact initial values of earlier Integer objects and array components"
       }
     },
     {
@@ -598,7 +598,7 @@
           "integer_expression"
         ],
         "initializer_required": true,
-        "initializer_visibility": "earlier initialized Integer constants or mutable objects; no self, forward or cyclic reference",
+        "initializer_visibility": "earlier initialized Integer constants or mutable objects, including array components; no self, forward or cyclic reference",
         "identifier_pattern": "[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*",
         "excluded_names": [
           "String",
@@ -636,7 +636,7 @@
           "integer_expression"
         ],
         "initializer_required": true,
-        "initializer_visibility": "earlier initialized Integer constants or mutable objects; no self, forward or cyclic reference",
+        "initializer_visibility": "earlier initialized Integer constants or mutable objects, including array components; no self, forward or cyclic reference",
         "identifier_pattern": "[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*",
         "excluded_names": [
           "String",
@@ -956,7 +956,7 @@
         "nested": true,
         "index_immutable": true,
         "index_scope": "body only; own name hidden in both bounds, including outer homonyms; restore only the scoped index on exit",
-        "bound_visibility": "initialized Integer objects and differently named enclosing indexes",
+        "bound_visibility": "initialized Integer objects and array components, and differently named enclosing indexes and elements",
         "identifier_pattern": "[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*",
         "excluded_names": [
           "Silver_IO"
