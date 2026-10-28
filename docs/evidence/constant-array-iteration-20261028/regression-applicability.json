@@ -1,0 +1,50 @@
+{
+  "run_id": "20261028T110929-97e25e5a798e",
+  "checked_at": "2026-10-28T12:39:39.004592+00:00",
+  "snapshot": "8e85dd5d3b",
+  "captured_inputs": 788,
+  "matching_inputs": 788,
+  "differences_before_proof_integration": [],
+  "suite_outcome": "failure",
+  "tests": 540,
+  "passed": 539,
+  "errors": 1,
+  "failure": "Platform symlinked-TMPDIR fixture subprocess exceeded 180 seconds; no assertion failure.",
+  "proof_integration": "fd9761af5c",
+  "changed_inputs_after_proof_integration": [
+    {
+      "path": "proof/Silver/PredicateLoopHelpers.lean",
+      "captured_sha256": "485ea109568aa94ef2f39ca94b0f19e8b3fc2e30dc6d2ea8db104e367ee0bcc4",
+      "final_sha256": "66d5c07ab69ab67c30ea38abc58641e9f64ceb82d454f800530266a3eec1be76"
+    },
+    {
+      "path": "proof/Silver/PredicateLoopImports.lean",
+      "captured_sha256": "84a89c69488dec4684135b25a5cb900abe72d960825f91bdef1264b8e90c9f10",
+      "final_sha256": "52971100fbbfaf6ad446722c4bcd26cca9e95eaecc05a41534bb35c095a481c8"
+    },
+    {
+      "path": "proof/Silver/PredicateLoopNative.lean",
+      "captured_sha256": "0c26e81e2655be360012e325b8e60e102df9413270bb13f43a6693072466618a",
+      "final_sha256": "bc7acdb39f8cd7697e22c2a7736c060b2bbfe1a57cbf113bfb723c544561d740"
+    },
+    {
+      "path": "proof/Silver/PredicateLoopSizing.lean",
+      "captured_sha256": "98c920e56c15cad9c40e2cd97c2657d85e6e21f05290dc68464c049344ac954a",
+      "final_sha256": "1a8837141512eec98a50bb22cea4581ff6ce2bd1a3616e29f69bf5e32fb2c4b2"
+    }
+  ],
+  "required_reruns": [
+    "test_lean_source.py",
+    "test_platforms.py"
+  ],
+  "final_outcome": "pending affected reruns and independent final review",
+  "added_or_removed_captured_paths": [],
+  "completed_reruns": [
+    {
+      "run_id": "20261028T123939-44279f5d51d8",
+      "scope": "test_lean_source.py",
+      "tests": 12,
+      "outcome": "success"
+    }
+  ]
+}

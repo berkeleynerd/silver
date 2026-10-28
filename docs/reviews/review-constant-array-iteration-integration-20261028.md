@@ -56,3 +56,22 @@ Reviewed retained run `20261028T112717-49ee7b84b5ec`: `retained.json`, original 
 On `linux-x86_64`, Lean 4.34.1, one worker/thread and a 4,096 MiB process limit, the incremental five-target build passed in 169.896 seconds and a newly executed audit passed in 26.155 seconds: 34,099 declarations, foundations `[propext, Classical.choice, Quot.sound]`. The evidence says `clean_build: false` and `kernel_recheck: null`; this is not a clean rebuild or independent kernel replay. The managed run completed successfully with no failure keys. No execution was repeated by this reviewer.
 
 Selected reviewer remains GPT-6 Astra / Extra High; runtime confirmation and token/cost data remain unavailable. This follow-up ran 11:32:52–11:34:30 UTC (98 seconds of wall time through the final evidence inspection). Read-only except for appending this report; no builds, proofs, tests or GitHub mutations. No additional finding or rework. The ongoing source-candidate run's entry basis is the prior definitions/native/source review plus focused bridge build/audit; this follow-up supplies the final tactic-proof review without retroactively claiming it preceded that run.
+
+## Provisional regression applicability — 2026-10-28
+
+Scope: stable full-suite snapshot `8e85dd5d3b` to validation snapshot `1e7f42f0c145b62eedbc4bc404b080ea37ed3c81`, before pending Rosetta commit `c5a23c13f4`. The Git delta is exactly the four reviewed typed Lean files and this review document. Native sources, scripts, tests, samples, catalogue, project/toolchain inputs and certificate generator are byte-unchanged. The retained `test-inventory.json` identifies 540 distinct test IDs at `8e85dd5d3b`; the test inventory does not change across this delta.
+
+The affected test modules are exactly `test_lean_source` and `test_platforms`. The planned rerun of both modules covers 28 inventory IDs and is sufficient. A smaller complete selection is these 15 IDs:
+
+- `test_lean_source.CompilerSourcePolicyTests.test_include_str_is_confined_to_the_source_bindings`
+- `test_lean_source.CompilerSourcePolicyTests.test_only_audit_roots_use_legacy_full_imports`
+- All 12 `test_platforms.PlatformIsolationTests` IDs in the retained inventory.
+- `test_platforms.InstallationEnvironmentTests.test_symlinked_tmpdir_preserves_platform_setup_and_routing`
+
+The two source-policy tests traverse every project Lean file. `PlatformIsolationTests.setUp` copies the complete Lean tree, so the class's fixture inputs change; the TMPDIR regression invokes that same class in a subprocess. The Compose candidate/source dependency tests read narrower import closures that contain none of the four changed modules, even after the new Helpers import. Other tests in these two modules read unchanged certificate/source-binding/audit files or synthetic inputs; rerunning the entire modules is a conservative superset.
+
+No additional affected test module was found. Inspected `test_lean_evidence`, `test_lean_modules` and `test_lean_run_history`: their project fixtures are synthetic, with real-file reads confined to unchanged audit modules, Lake/toolchain files and authoritative source-binding modules. Native/provenance/static-proof, report, application and sample tests use unchanged Ada/runtime/project/script inputs; the native provenance input list excludes these Lean files. The review-document addition has no test reader. This assessment does not substitute for the independently required whole-Lean/source checkpoint.
+
+Full-suite run `20261028T110929-97e25e5a798e` was still running at this assessment. No pass or complete-coverage claim is made. Once its terminal log is available, unchanged successful results may apply to the final snapshot subject to matching settings and the complete 540-ID inventory. Every failed, incomplete, missing or newly affected test still needs successful coverage. With the planned 28-ID rerun, the other 512 IDs are candidates for retained-result reuse, not presently asserted successes. Later Rosetta changes and their metadata checks are outside this assessment and require their own applicability review.
+
+Selected reviewer: GPT-6 Astra / Extra High; runtime confirmation and token/cost measurements unavailable. Read-only source/dependency/inventory inspection, 11:37:40–11:39:37 UTC (117 seconds through final input comparison); no test/build/proof execution or GitHub mutation.
