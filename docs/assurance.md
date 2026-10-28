@@ -110,8 +110,11 @@ Broader array forms remain outside the admitted fragment.
 
 ## Constant Integer-array iteration
 
-The [#264 capability record](constant-array-iteration.md) tracks implementation
-and evidence; its complete checkpoint remains pending. The predicate core's
+The [#264 delivery record](constant-array-iteration.md#delivery-assurance-and-validation)
+identifies the complete Linux native and Lean/source checkpoint, reviewed
+regression coverage and independent review. Its retained caches and incremental
+builds are distinguished from clean rebuilds and independent kernel replay.
+The predicate core's
 `arrayLoop` retains the resolved array descriptor, direction and fresh element
 identity. Execution captures the finite index sequence once and reads the actual
 component at each step. It restores the scoped binder while retaining writes to
@@ -133,8 +136,11 @@ existing loop rules.
 `PredicateObligations` includes the implicit cursor's array-index schema and
 the body's ordinary obligations. The same descriptor bounds establish every
 implicit component access. `PredicateLoopNative` connects the native `of` branch
-to source readings and the dedicated semantic constructor; full source pins and
-the byte-exact certificate remain required at the complete checkpoint.
+to source readings and the dedicated semantic constructor. The complete
+checkpoint includes the authoritative source chain, full source-shape checks
+and byte-exact certificate; focused proofs and matching pins alone do not
+establish that correspondence. All admitted body compositions retain their
+required obligations under the existing frontend and tool premises.
 
 The [producer/capacity account](constant-array-iteration-report-capacity.md)
 inspects GNAT's indexed-loop/component-renaming expansion and charges its

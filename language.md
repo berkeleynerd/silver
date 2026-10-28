@@ -17,8 +17,9 @@ records complete Linux native and Lean assurance, reviewed retained regression
 results and successful focused repair tests for the flow rules below.
 The [fixed-size Integer-array record](docs/fixed-integer-arrays.md) specifies the
 bounded array increment and its implementation/validation status.
-This branch also specifies [constant-array iteration](docs/constant-array-iteration.md);
-its implementation and complete validation are pending.
+The [constant-array iteration record](docs/constant-array-iteration.md#delivery-assurance-and-validation)
+records complete Linux native and Lean/source assurance for forward/reverse
+element iteration over these constant arrays, including existing body compositions.
 The [machine-readable
 catalogue](catalogue/silver.json), compiler, and this specification must agree. A
 discrepancy is a defect to resolve, not an extension of the language. Membership

@@ -151,8 +151,12 @@ preservation through nested bodies and separation from scoped scalar identities.
 The [producer account](constant-array-iteration-report-capacity.md) inspects
 GNAT's hidden index loop and component renaming. Its 31,269,376-byte envelope
 includes implicit index accesses and the shorter source syntax within the same
-32 MiB allocation. The extension's complete assurance checkpoint remains pending
-in its capability record; the producer probes alone are not that checkpoint.
+32 MiB allocation. The extension's
+[complete Linux checkpoint](constant-array-iteration.md#delivery-assurance-and-validation)
+records native obligation coverage, authoritative source correspondence and the
+whole-project Lean/module/axiom audit. Producer probes corroborate the inspected
+routes; they do not replace those arguments. The existing frontend, tool, local
+cache and environmental premises remain unchanged.
 
 ## Scalar guard refinement boundary
 

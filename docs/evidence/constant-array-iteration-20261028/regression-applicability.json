@@ -35,9 +35,10 @@
   ],
   "required_reruns": [
     "test_lean_source.py",
-    "test_platforms.py"
+    "test_platforms.py",
+    "test_rosetta.py"
   ],
-  "final_outcome": "independent review confirms complete 540-ID coverage: 512 applicable retained passes plus 28 successful rerun passes; original full run remains failed",
+  "final_outcome": "Complete final 540-ID coverage: 509 applicable retained passes plus 31 successful rerun passes; original full run remains failed.",
   "added_or_removed_captured_paths": [],
   "completed_reruns": [
     {
@@ -52,7 +53,75 @@
       "tests": 16,
       "outcome": "success",
       "timeout_changed": false
+    },
+    {
+      "run_id": "20261028T173937-7305e9754f59",
+      "scope": "test_rosetta.py",
+      "tests": 3,
+      "outcome": "success"
     }
   ],
-  "independent_review": "docs/reviews/review-constant-array-iteration-integration-20261028.md"
+  "independent_review": "docs/reviews/review-constant-array-iteration-integration-20261028.md",
+  "final_rosetta_integration": "d9e83fcf02",
+  "final_captured_input_differences": [
+    "proof/Silver/PredicateLoopHelpers.lean",
+    "proof/Silver/PredicateLoopImports.lean",
+    "proof/Silver/PredicateLoopNative.lean",
+    "proof/Silver/PredicateLoopSizing.lean"
+  ],
+  "final_inventory_unchanged": "All captured test files match the full run; no test was added or removed. Rosetta metadata is covered by its complete three-test module rerun.",
+  "final_coverage": {
+    "count": 540,
+    "retained": 509,
+    "fresh": 31,
+    "rerun_tests": [
+      {
+        "run_id": "20261028T123939-44279f5d51d8",
+        "tests": [
+          "test_lean_source.CompilerSourcePolicyTests.test_all_bytes_have_the_explicit_compiler_alphabet",
+          "test_lean_source.CompilerSourcePolicyTests.test_authoritative_bindings_are_not_generated",
+          "test_lean_source.CompilerSourcePolicyTests.test_checked_in_certificates_equal_regeneration",
+          "test_lean_source.CompilerSourcePolicyTests.test_compose_candidate_has_no_authoritative_source_dependencies",
+          "test_lean_source.CompilerSourcePolicyTests.test_compose_source_checks_retain_authoritative_dependencies",
+          "test_lean_source.CompilerSourcePolicyTests.test_current_compiler_sources_satisfy_byte_policy",
+          "test_lean_source.CompilerSourcePolicyTests.test_embedded_source_lists_and_lake_dependencies_agree",
+          "test_lean_source.CompilerSourcePolicyTests.test_hidden_declarations_fail_before_certificate_generation",
+          "test_lean_source.CompilerSourcePolicyTests.test_include_str_is_confined_to_the_source_bindings",
+          "test_lean_source.CompilerSourcePolicyTests.test_only_audit_roots_use_legacy_full_imports",
+          "test_lean_source.CompilerSourcePolicyTests.test_unsupported_literal_syntax_cannot_hide_declarations",
+          "test_lean_source.NativeCertificateTests.test_generated_certificates_and_witnesses_remain_kernel_checked"
+        ]
+      },
+      {
+        "run_id": "20261028T131129-d738104f578d",
+        "tests": [
+          "test_platforms.InstallationEnvironmentTests.test_bootstrap_requires_complete_bounded_runtime_sources",
+          "test_platforms.InstallationEnvironmentTests.test_bootstrap_reserves_the_library_evidence_precondition_suffix",
+          "test_platforms.InstallationEnvironmentTests.test_generated_tool_command_anchors_and_quotes_installation",
+          "test_platforms.InstallationEnvironmentTests.test_symlinked_tmpdir_preserves_platform_setup_and_routing",
+          "test_platforms.PlatformIsolationTests.test_cached_build_log_cannot_replace_fresh_lean_audit",
+          "test_platforms.PlatformIsolationTests.test_concurrent_different_host_setups_do_not_collide",
+          "test_platforms.PlatformIsolationTests.test_development_commands_keep_project_outputs_and_audit_in_native_host",
+          "test_platforms.PlatformIsolationTests.test_development_output_overrides_fail_before_invoking_tools",
+          "test_platforms.PlatformIsolationTests.test_each_host_setup_preserves_other_hosts_and_shared_inputs",
+          "test_platforms.PlatformIsolationTests.test_failed_proof_invalidates_only_its_host_evidence",
+          "test_platforms.PlatformIsolationTests.test_foreign_execution_is_rejected_before_side_effects",
+          "test_platforms.PlatformIsolationTests.test_lean_auto_and_explicit_resources_are_recorded_and_isolated",
+          "test_platforms.PlatformIsolationTests.test_lean_full_and_clean_modes_record_their_actual_checks",
+          "test_platforms.PlatformIsolationTests.test_legacy_archives_are_read_only_inputs",
+          "test_platforms.PlatformIsolationTests.test_platform_aliases_and_disjoint_paths",
+          "test_platforms.PlatformIsolationTests.test_unchanged_context_setup_preserves_generated_file_mtimes"
+        ]
+      },
+      {
+        "run_id": "20261028T173937-7305e9754f59",
+        "tests": [
+          "test_rosetta.RosettaRenderTests.test_pending_design_has_no_stage_and_is_not_an_oracle_exclusion",
+          "test_rosetta.RosettaRenderTests.test_render_is_identical_across_hash_seeds",
+          "test_rosetta.RosettaRenderTests.test_risk_counts_are_per_sample_and_ties_are_alphabetical"
+        ]
+      }
+    ]
+  },
+  "final_independent_review": "docs/reviews/review-constant-array-iteration-delivery-20261028.md"
 }

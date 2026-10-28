@@ -64,20 +64,23 @@ stage number does not authorize implementation.
 
 The owner [authorized the next feature as a stacked PR](docs/session-memory.md#2026-10-28--constant-integer-array-iteration-authorized-as-a-stacked-pr)
 while PR #263 receives external review. [Milestone 11](https://github.com/berkeleynerd/silver/milestone/11)
-contains one bounded increment, [#264](https://github.com/berkeleynerd/silver/issues/264):
-`for E of [reverse] A loop`, where `A` is an existing constant Integer array.
-The faithful driver is Rosetta Loops/Foreach. The
-[capability record](docs/constant-array-iteration.md) retains scope and evidence.
-This feature is not supported yet. Complete validation resumed after the owner’s
-VM-upgrade pause; the [recovery handoff](docs/constant-array-iteration-pause-20261028.md)
-retains the saved checkpoint.
+contains one bounded increment, [#264](https://github.com/berkeleynerd/silver/issues/264),
+whose implementation and validation are complete:
+`for E of [reverse] A loop`, where `A` is an existing constant anonymous
+fixed-size Integer array. Brackets denote optional syntax. The faithful driver
+is Rosetta Loops/Foreach. The
+[delivery record](docs/constant-array-iteration.md#delivery-assurance-and-validation)
+identifies complete Linux native and Lean/source assurance, reviewed regression
+coverage and independent review. The
+[recovery handoff](docs/constant-array-iteration-pause-20261028.md) retains the
+historical VM-upgrade pause; interrupted runs remain interrupted.
 
-The sequence is producer and semantics discovery, native/universal/source
-implementation, then one stable complete validation checkpoint and independent
-review. Publish the successor against the preserved arrays feature branch and
-leave it open while that delivery's external review proceeds. Broad arrays #12,
-procedures/named subtypes in #11, capacity/assurance modes and proof-performance
-follow-ups remain separate.
+Milestone 11 and [PR #266](https://github.com/berkeleynerd/silver/pull/266)
+remain open pending merge. The PR remains against the preserved arrays feature
+branch under the owner's review instruction.
+Mutable iteration, general iterators, broad arrays #12, procedures/named
+subtypes in #11, capacity/assurance modes and proof-performance follow-ups remain
+separate. Source, expression and operator limits are unchanged.
 
 ### Fixed-size Integer arrays
 
@@ -103,7 +106,7 @@ Rosetta support is limited to `fixed-integer-arrays` and the exact rotation
 approach. Broad `arrays` and
 [stage #12](https://github.com/berkeleynerd/silver/issues/12) remain open for
 named array types, dynamic or null arrays, array attributes, whole-array
-operations, foreach and other unadmitted forms. Other #11 constructs,
+operations, mutable/general iteration and other unadmitted forms. Other #11 constructs,
 capacity/assurance-mode work and further proof-performance packages remain
 outside this increment.
 
@@ -716,6 +719,7 @@ sequence.
 | Interval-checked Integer division | Supported | Fully grouped `/`, `mod` and `rem`, nonzero divisor intervals and operator-specific result bounds; [Linux validation and assurance](docs/integer-division.md). | [Josephus](samples/rosetta_josephus_problem.adb) and six further regressions |
 | Scalar guard refinement | Supported | Bare mutable/index comparisons against static thresholds, assignment replacement, branch hulls and captured bounds with mutable loop widening; [Linux validation and assurance](docs/scalar-guard-refinement.md#delivery-assurance-and-validation). | [100 doors](samples/rosetta_100_doors.adb) |
 | Fixed-size Integer arrays | Supported | Anonymous one-dimensional Integer arrays with nonempty static bounds, explicit initialization, checked scalar-only subscripts, exact declaration snapshots and component-preserving writes; [delivery assurance and validation](docs/fixed-integer-arrays.md#delivery-assurance-and-validation). Broad arrays remain separate. | [Left rotation by three](samples/rosetta_shift_list_left_3.adb) |
+| Constant Integer-array iteration | Supported | Forward/reverse element iteration over existing constant anonymous fixed-size Integer arrays, immutable scoped elements and existing body compositions; [delivery assurance and validation](docs/constant-array-iteration.md#delivery-assurance-and-validation). Mutable iteration and general iterators remain separate. | [Loops/Foreach](samples/rosetta_loops_foreach.adb) |
 
 The output target covers admitted literals and bounded command-line
 messages; the text `Hello, world!` receives no special treatment. String literals do not imply support for

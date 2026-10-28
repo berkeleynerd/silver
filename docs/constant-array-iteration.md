@@ -1,8 +1,10 @@
 # Constant Integer-array iteration
 
-Status: implementation complete; full validation resumed after the VM upgrade.
-Not supported yet. The [pause handoff](constant-array-iteration-pause-20261028.md)
-retains the recovery snapshot.
+Status: supported; complete Linux native and Lean/source assurance and final
+review are recorded in [delivery assurance and validation](#delivery-assurance-and-validation).
+PR #266 remains open under the owner's review instruction. The
+[pause handoff](constant-array-iteration-pause-20261028.md) retains the historical
+recovery snapshot; partial, failed and interrupted runs keep their original outcomes.
 
 The [2026-10-28 owner instruction](session-memory.md#2026-10-28--constant-integer-array-iteration-authorized-as-a-stacked-pr)
 authorizes [#264](https://github.com/berkeleynerd/silver/issues/264) under
@@ -24,7 +26,9 @@ The driver is Rosetta [Loops/Foreach](../rosetta/l/loops/foreach/task.wiki): pri
 each collection element in order using the language's foreach construct. A
 constant array `(-1, 0, 1, 2, 3)` and `Integer'Image (Value)` give a faithful
 small example. The task requires neither input nor mutable-element writes.
-The old indexed-loop assessment must be reconciled because Ada provides `of`.
+The narrow `constant-integer-array-iteration` Rosetta mapping reconciles the
+old indexed-loop assessment with Ada's `of` syntax; broad iterators remain outside
+that mapping.
 
 The scoped element binding is immutable, nonstatic and refinable by the existing
 scalar guards. Its entry interval is the full Integer range, consistent with
@@ -227,3 +231,47 @@ confirmed all 87 transfer dependencies and 119 artifact files, with no actionabl
 transfer defect. This bounded Astra / Extra High review took 131 seconds through
 its final comparisons; runtime confirmation and token/cost data are unavailable.
 Complete native/Lean results and final metadata remain outside that verdict.
+
+## Delivery assurance and validation
+
+The completed Linux checkpoint covers the admitted forward/reverse constant-array
+iteration fragment and every permitted body composition. Universal execution,
+component preservation, flow transfer and automatic-discharge proofs join the
+native implementation through authoritative source checks and the byte-exact
+certificate. Samples exercise these rules; they do not establish the universal
+guarantee. The [trusted boundary](trusted-boundary.md#fixed-size-integer-array-boundary)
+retains the existing frontend, solver-completion, runtime and environmental premises.
+
+The [retained evidence packet](evidence/constant-array-iteration-20261028/README.md)
+identifies exact final inputs, results and applicability. Final implementation
+input: `fd9761af5c`; final delivery review:
+[independent delivery review](reviews/review-constant-array-iteration-delivery-20261028.md).
+
+| Checkpoint | Actual evidence and limits |
+| --- | --- |
+| Complete native proof/audit | `20261028T142028-347f04375d6c`: 16,711 required checks proved; complete coverage audit and provenance passed in 11,887.177 s. Four workers; retained solver cache. |
+| Native build | `20261028T110633-769e6cd4dab7`: passed on final applicable native inputs. |
+| Complete Lean/source | `20261028T142057-dfe6a5552d65`: build passed in 8,523.114 s; fresh whole-project audit passed in 15.738 s across 112,705 declarations and 532 modules, using only `[propext, Classical.choice, Quot.sound]`. One worker/thread, 24,576 MiB process threshold. |
+| Reviewed regression coverage | All 540 test IDs covered: 509 applicable retained passes plus 31 successful reruns; the original full run remains failed. All 50 manifest samples and 106 executions retain applicable successful evidence. |
+| Rosetta mapping | Prepared commit `c5a23c13f4` integrated as `d9e83fcf02`; three affected tests passed in `20261028T173937-7305e9754f59`. Only the exact constant Integer-array foreach approach is promoted. |
+
+The complete native run reuses retained completed solver work; the Lean run
+reuses dependency-matched certificate/bridge artifacts and completed composition
+work, rebuilds unfinished dependencies and performs a fresh whole-project audit.
+These are cached/incremental Linux results, not clean rebuilds, independent kernel
+replays, isolated performance benchmarks, macOS validation or hosted CI results.
+The historical 540-test full-suite run remains failed; reviewed retained passes
+and successful reruns establish final coverage without relabeling that run.
+
+No source/expression/operator budget, Main report allocation, runtime library,
+diagnostic acceptance policy or Oracle guarantee changes. Mutable iterables,
+writes through elements, general iterators and broader arrays remain excluded.
+Implementation and validation are complete; milestone 11 and PR #266 remain
+open pending merge. This checkpoint does not authorize merging the PR or starting
+another feature.
+
+Closing documentation used GPT-6.1 Sol / High; independent evidence and delivery
+review used GPT-6 Astra / Extra High. Selected settings and measured review times
+are retained in the review report; runtime confirmation and token/cost data are
+unavailable. No successful proof checkpoint was repeated for these documentation
+and Rosetta-only closing changes.

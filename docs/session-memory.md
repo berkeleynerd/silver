@@ -1,5 +1,22 @@
 # Session memory
 
+## 2026-10-28 — Constant Integer-array iteration delivery checkpoint
+
+The authorized #264 implementation and #267 catalogue correction have passed
+complete Linux native and Lean/source assurance. The
+[delivery record](constant-array-iteration.md#delivery-assurance-and-validation)
+retains the exact inputs, cache reuse, reviewed regression coverage and
+independent reviews. The narrow Rosetta mapping admits only constant Integer-array
+element iteration and its Loops/Foreach driver; mutable iterables, general
+iterators, broader arrays and existing deferred work remain separate.
+
+Publication is through stacked PR #266 against the preserved arrays branch.
+Leave that PR and milestone 11 open pending merge under the owner's instruction;
+completion does not authorize merging or starting another feature. Earlier failed
+and pause-interrupted runs remain recorded with their original outcomes. No
+Oracle amendment or new assurance mode was introduced. No harness goal exists;
+CLI memory remains unavailable and was not updated.
+
 ## 2026-10-28 — Constant-array iteration resumed after VM upgrade
 
 The owner instructed **“Please continue.”** after the upgrade pause. Resume
