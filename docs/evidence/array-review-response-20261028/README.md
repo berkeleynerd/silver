@@ -25,6 +25,7 @@ successful sessions/cache; no clean build or independent kernel replay is claime
 | `20261028T183022-b6f6878a4f91` | Guards, current trees and indexed source candidate | Passed; 1,173.268 s build and 9.795 s fresh 19,970-declaration audit |
 | `20261028T185112-d630b7abbbea` | Final private counterexample controls | Passed; 54.986 s build and 4.517 s fresh 15,099-declaration audit |
 | `20261028T185332-76aab44e2c25` | Source policy and certificate parity | All 12 passed |
+| `20261028T185511-862e99ae419a` | Platform and installation routing | All 16 passed; 246.994 s test time |
 
 [Native input applicability](native-input-applicability.json) verifies all 143
 tracked inputs against the response and all 78 retained report digests. The
@@ -38,9 +39,12 @@ and source pins are unchanged. Its one fixture-quality note was corrected and
 rechecked; neither focused result substitutes for the running complete checkpoint.
 The [regression applicability review](../../reviews/review-array-response-applicability-20261028.md)
 accounts for 542 final test identities: 484 applicable earlier passes, 30 successful
-response passes and 28 proof-sensitive reruns (12 source and 16 platform tests).
-The source rerun above passed; the platform rerun is pending. The earlier full
-540-test run remains failed.
+response passes and 28 successful proof-sensitive reruns (12 source and 16 platform
+tests). The [final inventory](test-inventory.json) and
+[per-identity coverage](regression-applicability.json) retain that partition;
+[input comparisons](regression-input-applicability.json) verify all 783 captured
+non-generated worktree inputs of each final rerun against the response. The earlier
+full 540-test run remains failed.
 
 ## Stack observations
 

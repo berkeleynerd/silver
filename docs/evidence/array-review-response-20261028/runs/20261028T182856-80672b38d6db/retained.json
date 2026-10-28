@@ -82,6 +82,12 @@
       "bytes": 79461,
       "sha256": "8aacae5f7957b6fa07002f6c0e078de78e9a22317e164fe7ace2b0366b13f0f0",
       "compressed_sha256": "afd7bb1a60f0135e9aac6582f0189090bfe38ba814d0c06a1e38619ef1224d8f"
+    },
+    {
+      "path": "reports/0/lean-focused.log.gz",
+      "bytes": 12077,
+      "sha256": "3d623464a81119a0ffc8263c765d000155bb36e9a239154005aaa09d516ad2bd",
+      "compressed_sha256": "401b8b2fe2f838436ee79f99f09144e91e80260260ca52990ef2a8fecddeaaa7"
     }
   ]
 }
