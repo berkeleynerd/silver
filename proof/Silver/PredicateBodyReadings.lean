@@ -29,10 +29,17 @@ mutual
         LoopAt text context scan lower upper body result → statementBody text context scan = result →
         StatementAt text context scan
           (.forLoop (context.scalarNames.length + 1) (loopHeader text context scan).reverse lower upper body) result
+    | arrayLoop {context scan body result} : scan.position ≠ 0 → fixedAfter text scan.position "if" true = 0 →
+        fixedAfter text scan.position "for" true ≠ 0 →
+        ArrayLoopAt text context scan body result → statementBody text context scan = result →
+        StatementAt text context scan
+          (.arrayLoop (context.scalarNames.length + 1) (loopHeader text context scan).reverse
+            (ArrayBindings.binding context.arrayNames (loopArrayTarget text context scan)).descriptor body) result
 
   inductive LoopAt (text : Source) :
       ParseContext → BodyScan → Integer.Expr → Integer.Expr → List SourceStatement → BodyScan → Prop
     | loop {context scan lower upper body bodyResult result} :
+        loopIsArray text scan = false →
         loopNameAllowed text context (loopHeader text context scan) = true →
         ScalarExpression.At (arrays := context.arrayNames) text (context.readingNames scan.facts) (loopLowerPosition text scan)
           lower (loopHeader text context scan).lower (loopFirst text scan) (loopNameAfter text scan) →
@@ -47,6 +54,21 @@ mutual
           [.word "end", .word "loop", .symbol ";"] →
         result.position ≠ 0 → loopBody text context scan = result →
         LoopAt text context scan lower upper body result
+
+  inductive ArrayLoopAt (text : Source) :
+      ParseContext → BodyScan → List SourceStatement → BodyScan → Prop
+    | loop {context scan body bodyResult result} :
+        loopIsArray text scan = true →
+        loopNameAllowed text context (loopHeader text context scan) = true →
+        loopArrayAllowed text context scan = true →
+        bodyRemaining text (loopHeader text context scan).entry < bodyRemaining text scan →
+        BodyAt text (loopInner context (loopHeader text context scan)) (loopHeader text context scan).entry
+          .endOnly body bodyResult →
+        result = bodyTokens text
+          {bodyResult with facts := loopAfterHeader context scan.facts bodyResult.facts (loopHeader text context scan)}
+          [.word "end", .word "loop", .symbol ";"] →
+        result.position ≠ 0 → loopBody text context scan = result →
+        ArrayLoopAt text context scan body result
 
   inductive ChoiceAt (text : Source) :
       ParseContext → BodyScan → Condition → List SourceStatement → SourceAlternative → BodyScan → Prop
@@ -111,6 +133,10 @@ theorem choice_complete {text context scan condition yes tail result}
 
 theorem loop_complete {text context scan lower upper body result}
     (parsed : LoopAt text context scan lower upper body result) : loopBody text context scan = result := by
+  cases parsed; assumption
+
+theorem arrayLoop_complete {text context scan body result}
+    (parsed : ArrayLoopAt text context scan body result) : loopBody text context scan = result := by
   cases parsed; assumption
 
 theorem alternative_complete {text context scan tail result}
