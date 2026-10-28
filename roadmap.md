@@ -60,6 +60,23 @@ constructs keep their own unselected scope; the bounded array increment selected
 below does not select every approach in the broad arrays stage. A generated
 stage number does not authorize implementation.
 
+### Constant Integer-array iteration
+
+The owner [authorized the next feature as a stacked PR](docs/session-memory.md#2026-10-28--constant-integer-array-iteration-authorized-as-a-stacked-pr)
+while PR #263 receives external review. [Milestone 11](https://github.com/berkeleynerd/silver/milestone/11)
+contains one bounded increment, [#264](https://github.com/berkeleynerd/silver/issues/264):
+`for E of [reverse] A loop`, where `A` is an existing constant Integer array.
+The faithful driver is Rosetta Loops/Foreach. The
+[capability record](docs/constant-array-iteration.md) retains scope and evidence.
+This feature is not supported yet.
+
+The sequence is producer and semantics discovery, native/universal/source
+implementation, then one stable complete validation checkpoint and independent
+review. Publish the successor against the preserved arrays feature branch and
+leave it open while that delivery's external review proceeds. Broad arrays #12,
+procedures/named subtypes in #11, capacity/assurance modes and proof-performance
+follow-ups remain separate.
+
 ### Fixed-size Integer arrays
 
 [Milestone 10](https://github.com/berkeleynerd/silver/milestone/10),
