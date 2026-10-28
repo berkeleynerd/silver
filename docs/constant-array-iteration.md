@@ -131,3 +131,22 @@ The reviewer confirmed the repaired meanings; build
 `20261028T110712-42bfb28a9731` passed. The recognizer and output certificate are
 unchanged. The active native checkpoint retains its original catalogue inputs;
 a complete cached refresh will validate the corrected catalogue before delivery.
+
+The final typed bridge at `3255e9ddecae` proves the unchanged
+`LoopNative.eval_equation` by separating header selection from the shared body
+and exit transfer. Native, Imports, Helpers, Sizing and exact loop rendering
+passed together in `20261028T112717-49ee7b84b5ec`: 169.896 s build,
+26.155 s fresh audit, 34,099 declarations and only the three approved
+foundations. This focused run does not establish complete source correspondence.
+The [integration review](reviews/review-constant-array-iteration-integration-20261028.md)
+independently confirmed the final proof, source rendering and exact evidence
+inputs without an actionable remaining defect in that bounded layer.
+
+This round used GPT-6 Astra / Extra High for the equation repair and independent
+review, and GPT-6.1 Sol / Extra High for bridge integration. The first broad
+normalization attempt was deliberately interrupted; smaller private staging
+lemmas closed the same statement. No native behavior, theorem assumption,
+source representation or kernel-check policy was changed. Selected settings
+are recorded; runtime confirmation and token/cost measurements are unavailable.
+Complete native, source-certificate, whole-project and regression checkpoints
+remain pending.
