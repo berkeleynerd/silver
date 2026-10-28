@@ -271,6 +271,135 @@ theorem arrayLoop_binding_component {analysis : Integer.Analysis} {flow : Flow} 
     exact separate (same ▸ array.address_within inside)
   simp only [Integer.ArrayDescriptor.project, Integer.put, different, ↓reduceIte]
 
+/- Each nested body is covered independently. An unchanged final loop store
+alone would permit a transient binder collision; the loop clauses exclude it. -/
+mutual
+  def Statement.ComponentsStable (array : Integer.ArrayDescriptor) (item : Statement) : Prop :=
+    (∀ input valid values integers component, array.bounds.Contains component →
+      array.project (item.execute input valid values integers).integers component =
+        array.project integers component) ∧
+    match item with
+    | .simple _ | .scalarAssign _ | .arrayAssign _ | .reject => True
+    | .choice _ yes no => StatementsComponentsStable array yes ∧ StatementsComponentsStable array no
+    | .forLoop index _ _ _ body | .arrayLoop index _ _ body =>
+        ¬array.ContainsCell index ∧ StatementsComponentsStable array body
+  termination_by sizeOf item
+  def StatementsComponentsStable (array : Integer.ArrayDescriptor) : List Statement → Prop
+    | [] => True
+    | item :: rest => item.ComponentsStable array ∧ StatementsComponentsStable array rest
+  termination_by items => sizeOf items
+end
+
+mutual
+  theorem statement_components_stable {shape : Shape} {analysis : Integer.Analysis}
+      {before after : Flow} {item : Statement} {array : Integer.ArrayDescriptor}
+      (checked : item.check shape analysis before = some after)
+      (readonly : ∀ cell, array.ContainsCell cell → analysis.mutable cell = false)
+      (apart : item.bindersApart array = true) : item.ComponentsStable array := by
+    rw [Statement.ComponentsStable.eq_def]
+    refine ⟨fun input valid values integers component inside =>
+      statement_unchanged checked (readonly _ (array.address_within inside)), ?_⟩
+    cases item with
+    | simple | scalarAssign | arrayAssign | reject => trivial
+    | choice condition yes no =>
+        simp only [Statement.check] at checked
+        simp only [Statement.bindersApart, Bool.and_eq_true] at apart
+        split at checked
+        · simp only [Option.bind_eq_some_iff, Option.map_eq_some_iff] at checked
+          obtain ⟨afterYes, yesChecked, afterNo, noChecked, _⟩ := checked
+          exact ⟨statements_components_stable yesChecked readonly apart.1,
+            statements_components_stable noChecked readonly apart.2⟩
+        · contradiction
+    | forLoop binder reverse lower upper body =>
+        simp only [Statement.check, Option.bind_eq_some_iff, Option.map_eq_some_iff] at checked
+        obtain ⟨a, _, b, _, bodyAfter, bodyChecked, _⟩ := checked
+        simp only [Statement.bindersApart, Bool.and_eq_true, decide_eq_true_eq] at apart
+        refine ⟨apart.1, statements_components_stable bodyChecked ?_ apart.2⟩
+        intro cell inside
+        have different : cell ≠ binder := fun same => apart.1 (same ▸ inside)
+        simpa only [Integer.Analysis.withIndex, Integer.put, different, ↓reduceIte]
+          using readonly cell inside
+    | arrayLoop binder reverse iterable body =>
+        simp only [Statement.check] at checked
+        simp only [Statement.bindersApart, Bool.and_eq_true, decide_eq_true_eq] at apart
+        split at checked
+        · simp only [Option.map_eq_some_iff] at checked
+          obtain ⟨bodyAfter, bodyChecked, _⟩ := checked
+          refine ⟨apart.1, statements_components_stable bodyChecked ?_ apart.2⟩
+          intro cell inside
+          have different : cell ≠ binder := fun same => apart.1 (same ▸ inside)
+          simpa only [Integer.Analysis.withIndex, Integer.put, different, ↓reduceIte]
+            using readonly cell inside
+        · contradiction
+  termination_by sizeOf item
+
+  theorem statements_components_stable {shape : Shape} {analysis : Integer.Analysis}
+      {before after : Flow} {items : List Statement} {array : Integer.ArrayDescriptor}
+      (checked : checkStatements shape analysis before items = some after)
+      (readonly : ∀ cell, array.ContainsCell cell → analysis.mutable cell = false)
+      (apart : statementsBindersApart array items = true) : StatementsComponentsStable array items := by
+    cases items with
+    | nil => simp only [StatementsComponentsStable]
+    | cons item rest =>
+        simp only [StatementsComponentsStable]
+        simp only [checkStatements, Option.bind_eq_some_iff] at checked
+        obtain ⟨middle, firstChecked, restChecked⟩ := checked
+        simp only [statementsBindersApart, Bool.and_eq_true] at apart
+        exact ⟨statement_components_stable firstChecked readonly apart.1,
+          statements_components_stable restChecked readonly apart.2⟩
+  termination_by sizeOf items
+end
+
+/-- Admission establishes component preservation at every nested body, as well
+as at the complete iteration boundary. No source identity bound is assumed. -/
+theorem arrayLoop_components_stable {shape : Shape} {analysis : Integer.Analysis}
+    {before after : Flow} {index : Nat} {reverse : Bool} {array : Integer.ArrayDescriptor}
+    {body : List Statement}
+    (checked : (Statement.arrayLoop index reverse array body).check shape analysis before = some after) :
+    (Statement.arrayLoop index reverse array body).ComponentsStable array := by
+  have accepted := checked
+  simp only [Statement.check] at accepted
+  split at accepted
+  · rename_i ready
+    have both := Bool.and_eq_true_iff.mp ready
+    have properties := (arrayLoopReady_iff analysis before index array).mp both.1
+    apply statement_components_stable checked properties.2.2.2.2
+    simp only [Statement.bindersApart, Bool.and_eq_true, decide_eq_true_eq]
+    exact ⟨properties.2.1, both.2⟩
+  · contradiction
+
+/-- The immutable scalar binding still denotes the actual component after the
+body. Recursive ComponentsStable additionally covers each nested body boundary. -/
+theorem arrayLoop_body_actual_component {shape : Shape} {analysis : Integer.Analysis}
+    {flow after : Flow} {index : Nat} {array : Integer.ArrayDescriptor} {body : List Statement}
+    {input : Source} {valid : Bool} {values : Values} {integers : Integer.Store} {component : Int}
+    (ready : arrayLoopReady analysis flow index array = true)
+    (checked : checkStatements shape (analysis.withIndex index Integer.Interval.full)
+      (arrayLoopEntry analysis flow index) body = some after)
+    (inside : array.bounds.Contains component) :
+    let result := executeStatements input valid values body
+      (Integer.put integers index (array.project integers component))
+    result.integers index = array.project result.integers component := by
+  have properties := (arrayLoopReady_iff analysis flow index array).mp ready
+  have readonlyBody : ∀ cell, array.ContainsCell cell →
+      (analysis.withIndex index Integer.Interval.full).mutable cell = false := by
+    intro cell cellInside
+    have different : cell ≠ index := fun same => properties.2.1 (same ▸ cellInside)
+    simpa only [Integer.Analysis.withIndex, Integer.put, different, ↓reduceIte]
+      using properties.2.2.2.2 cell cellInside
+  have componentPreserved := statements_constant_components (input := input) (valid := valid)
+    (values := values) (integers := Integer.put integers index (array.project integers component))
+    checked readonlyBody inside
+  have entry := arrayLoop_binding_component (integers := integers)
+    (value := array.project integers component) ready inside
+  have bindingPreserved := statements_unchanged (input := input) (valid := valid) (values := values)
+    (integers := Integer.put integers index (array.project integers component)) (index := index)
+    checked (by simp only [Integer.Analysis.withIndex, Integer.put, ↓reduceIte])
+  calc
+    _ = (Integer.put integers index (array.project integers component)) index := bindingPreserved
+    _ = array.project integers component := by simp only [Integer.put, ↓reduceIte]
+    _ = _ := (componentPreserved.trans entry).symm
+
 structure ExecutionSound (shape : Shape) (analysis : Integer.Analysis) (flow : Flow) (input : Source)
     (valid beforeRejected : Bool) (result : Execution) (ordinary : Option Execution) : Prop where
   state : Fits shape input result.values

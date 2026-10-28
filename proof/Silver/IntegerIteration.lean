@@ -39,6 +39,42 @@ theorem iterationValues_nonempty {reverse : Bool} {lower upper : Int} (nonempty 
   intro empty
   simp only [empty, List.not_mem_nil] at member
 
+/-- Every component index occurs, including either extreme Integer endpoint;
+the enumeration uses mathematical offsets rather than a successor past Last. -/
+theorem iterationValues_mem_iff {reverse : Bool} {lower upper value : Int} :
+    value ∈ iterationValues reverse lower upper ↔ lower ≤ value ∧ value ≤ upper := by
+  constructor
+  · exact iterationValues_contains
+  · intro inside
+    have forward : value ∈ (List.range (upper - lower + 1).toNat).map
+        (fun (offset : Nat) => lower + (offset : Int)) := by
+      apply List.mem_map.mpr
+      exact ⟨(value - lower).toNat, List.mem_range.mpr (by omega), by omega⟩
+    cases reverse
+    · exact forward
+    · exact List.mem_reverse.mpr forward
+
+theorem iterationValues_length (reverse : Bool) (lower upper : Int) :
+    (iterationValues reverse lower upper).length = (upper - lower + 1).toNat := by
+  cases reverse <;> simp [iterationValues]
+
+/-- The order is strictly increasing, or strictly decreasing under reverse. -/
+theorem iterationValues_ordered (reverse : Bool) (lower upper : Int) :
+    (iterationValues reverse lower upper).Pairwise
+      (fun left right => if reverse then right < left else left < right) := by
+  have forward : ((List.range (upper - lower + 1).toNat).map
+      (fun (offset : Nat) => lower + (offset : Int))).Pairwise (· < ·) :=
+    List.pairwise_lt_range.map _ (by intro left right less; omega)
+  cases reverse <;>
+    simpa only [iterationValues, Bool.false_eq_true, ↓reduceIte, List.pairwise_reverse] using forward
+
+/-- Each component is visited once, independently of the component values. -/
+theorem iterationValues_nodup (reverse : Bool) (lower upper : Int) :
+    (iterationValues reverse lower upper).Nodup := by
+  apply (iterationValues_ordered reverse lower upper).imp
+  intro left right ordered
+  cases reverse <;> simp only [Bool.false_eq_true, ↓reduceIte] at ordered <;> omega
+
 def loopBounds (lower upper : Interval) : Interval :=
   if lower.isEmpty || upper.isEmpty then Interval.empty
   else Interval.normalize ⟨lower.lower, upper.upper⟩
