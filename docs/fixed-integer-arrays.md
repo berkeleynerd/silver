@@ -1,6 +1,6 @@
 # Fixed-size Integer arrays
 
-Status: complete Linux assurance and regression checkpoint, 2026-10-28; final delivery review in progress.
+Status: supported on Linux, 2026-10-28.
 
 The [2026-10-27 owner instruction](session-memory.md#2026-10-27--fixed-size-integer-arrays-authorized)
 selects one bounded array increment under
@@ -265,8 +265,10 @@ and freshly audited the whole project. Neither failed run is relabelled passed.
 Regression reuse follows the independently reviewed input/dependency accounting
 linked above, with the three Rosetta results replacing their retained entries.
 All 49 manifest samples, including the rotation, and all 12 array regressions
-passed in the retained full run. The final review checks applicability of the
-last proof-only changes and the delivery record.
+passed in the retained full run. The [final delivery review](reviews/review-fixed-arrays-delivery-20261028.md)
+confirms applicability of the last proof-only changes, the complete evidence
+and the delivery record, with no remaining consequential finding. This closes
+#260 and the complete-source validation condition of #262.
 
 These are complete-scope incremental checks with native/Lake cache reuse,
 not clean-build measurements. No independent kernel replay, native macOS or
