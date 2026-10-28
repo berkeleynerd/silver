@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Current constant String and Integer declarations prevent assignments to those objects, and finite-loop indexes are also immutable. An independently mutable Integer copy demonstrates that changing another object does not modify the constant; no new language construct is needed.
 
-Position 31 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 32 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

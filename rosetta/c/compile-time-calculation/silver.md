@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The existing immutable Integer and Image fragment covers this task. The fully grouped Ada-static multiplication for 10! evaluates to 3628800, with every intermediate inside signed 32-bit Integer. No new integer type, loop form, contract or image operation is needed.
 
-Position 13 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 14 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

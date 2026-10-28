@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Current Integer range loops, scalar comparisons, Put and standard Integer Image express the requested partial final iteration. Number and comma use distinct output statements inside the loop, and no trailing comma is emitted.
 
-Position 17 in the [progression](../../../progression.md#stage-1), in stage 1.
+Position 18 in the [progression](../../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
