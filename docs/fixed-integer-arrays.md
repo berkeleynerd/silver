@@ -26,7 +26,7 @@ The implementation scope is:
   Bounds are nonempty Ada-static Integer expressions. Every component is
   explicit and the count must equal `U-L+1`. A singleton uses `(L => E)`, with
   the static choice equal to its sole index; `(E)` alone is a scalar expression.
-- Indexed reads `A(index_expression)` in the ordinary scalar expression
+- Indexed reads `A(scalar_index_expression)` in the ordinary scalar expression
   positions, including later initializers, Image, comparisons and loop bounds.
   The subscript uses the pre-array scalar grammar: no array read inside a
   subscript. Every inferred index interval must be nonempty and contained in

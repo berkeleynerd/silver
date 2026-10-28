@@ -185,12 +185,23 @@ reviewed applicability remains historical evidence. The two latest source
 candidates took 6,034 and 6,859 seconds at one worker/thread, so the older
 8,900-second rebuild estimate is not a current baseline.
 
-Implementation and validation of this response are pending. Existing source
+The response is published as draft [PR #283](https://github.com/berkeleynerd/silver/pull/283),
+stacked on #266. Implementation integration and complete Lean validation remain
+pending; complete native validation and both stack observations have passed. Existing source
 certificates remain reusable when their Ada and generator inputs match. The
-combined proof, catalogue and runner changes will receive one stable complete
-native and Lean/source checkpoint, affected regressions and independent review.
+[response packet](../evidence/array-review-response-20261028/README.md) records
+the combined checkpoint and the remaining affected regressions.
 No original failure or interrupted run will be relabelled successful.
 
 | Round | Selected model/effort | Result and measurement limits |
 | --- | --- | --- |
 | Scope and current-tree assessment | GPT-6 Astra / Extra High; GPT-6.1 Sol / High for record triage | Confirmed M1 remains latent on #266, identified the missing authoritative guard connection, and grouped the required corrections. No builds/proofs/tests. Runtime confirmation and token/cost data unavailable. |
+
+The missing completion comments on [#260](https://github.com/berkeleynerd/silver/issues/260#issuecomment-6477502291)
+and [#262](https://github.com/berkeleynerd/silver/issues/262#issuecomment-6477502885)
+now distinguish the closing confirmation from the later M1 finding.
+[#255](https://github.com/berkeleynerd/silver/issues/255#issuecomment-6477505015) is closed
+for its already-merged retagging. The concrete optional cases are retained on
+[#4](https://github.com/berkeleynerd/silver/issues/4#issuecomment-6477503420),
+[#6](https://github.com/berkeleynerd/silver/issues/6#issuecomment-6477503882) and
+[#12](https://github.com/berkeleynerd/silver/issues/12#issuecomment-6477504405).

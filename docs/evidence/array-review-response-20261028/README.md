@@ -16,7 +16,7 @@ successful sessions/cache; no clean build or independent kernel replay is claime
 | `20261028T182607-8b55cdee57a3` | Managed-runner tests | 26 passed |
 | `20261028T182622-c23cff9b9c3e` | Build with corrected catalogue | Passed |
 | `20261028T182645-200a4889f24e` | Catalogue parity and description assertions | Passed |
-| `20261028T182657-152f444d7d05` | Rosetta capture on tooling snapshot | Three passed; final response metadata still needs its rerun |
+| `20261028T182657-152f444d7d05` | Rosetta capture on tooling snapshot | Three passed; all three actual renderer inputs match the response |
 | `20261028T183946-c9c0249f72f8` | Complete native proof and coverage/provenance audit | Passed: 16,711 checks, 76 units, 1,068 entities; 92.552 s with retained sessions/cache, four workers |
 | `20261028T184201-a36497f8e938` | Build after native refresh | Passed; 10.579 s |
 

@@ -422,7 +422,7 @@ Scalar guards can establish a safe index interval, but a comparison of an array
 element does not narrow a later read of that element.
 
 An indexed assignment has the form
-`A(index_expression) := scalar_expression;`. Only visible mutable arrays can
+`A(scalar_index_expression) := scalar_expression;`. Only visible mutable arrays can
 be targets. The index passes the same check as a read, and the RHS must have a
 nonempty inferred interval with every intermediate fitting Integer. Both use
 the incoming state; the assignment replaces precisely the selected component.
