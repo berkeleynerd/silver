@@ -3314,21 +3314,45 @@ is
           and then Name_Is (Text, First, After, "silver_arguments"))
         or else Context.Scalar_Names.Count = Scalar_Expressions.Max_Bindings
       then return Invalid_Body (Scan); end if;
-      Result.Position := Take_Token (Text, After, In_Keyword);
-      if Take_Token (Text, Result.Position, Reverse_Keyword) /= 0 then
-         Result.Position := Take_Token (Text, Result.Position, Reverse_Keyword);
+      if Take_Token (Text, After, Of_Keyword) /= 0 then
+         Result.Position := Take_Token (Text, After, Of_Keyword);
+         if Take_Token (Text, Result.Position, Reverse_Keyword) /= 0 then
+            Result.Position := Take_Token (Text, Result.Position, Reverse_Keyword);
+         end if;
+         declare
+            Array_First : constant Literal_Position := Skip_At (Text, Result.Position);
+            Array_After : constant Literal_Position := Name_After (Text, Array_First);
+            Target : constant Array_Bindings.Binding_Count :=
+              Array_Target (Text, Context, Result.Position);
+         begin
+            --  Resolve the constant iterable once, before extending the scope.
+            --  Ada hides the new binder's name in its iterator specification.
+            if Array_First = 0 or else Array_After <= Array_First
+              or else Equal_Name (Text, First, After, Array_First, Array_After)
+              or else Target = 0 or else Context.Array_Names.Items (Target).Mutable
+            then return Invalid_Body (Scan); end if;
+            Result.Position := Take_Token (Text, Array_After, Loop_Keyword);
+         end;
+         --  Components have the full Integer subtype, including in constants.
+         Index_Bounds := Scalars.Full;
+         Definite := True;
+      else
+         Result.Position := Take_Token (Text, After, In_Keyword);
+         if Take_Token (Text, Result.Position, Reverse_Keyword) /= 0 then
+            Result.Position := Take_Token (Text, Result.Position, Reverse_Keyword);
+         end if;
+         --  Ada captures bounds in entry flow before body reads are widened.
+         Low := Read_Scalar_In_Flow (Text, Context, Result.Position, Scan.Facts, First, After);
+         Result.Position := Take_Token (Text, Low.After, Range_Delimiter);
+         High := Read_Scalar_In_Flow (Text, Context, Result.Position, Scan.Facts, First, After);
+         Result.Position := Take_Token (Text, High.After, Loop_Keyword);
+         Index_Bounds :=
+           (if Scalars.Is_Empty (Low.Bounds) or else Scalars.Is_Empty (High.Bounds)
+            then Scalars.Empty else Scalars.Normalize ((Low.Bounds.Lower, High.Bounds.Upper)));
+         Definite := not Scalars.Is_Empty (Low.Bounds) and then not Scalars.Is_Empty (High.Bounds)
+           and then Low.Bounds.Upper <= High.Bounds.Lower;
       end if;
-      --  Ada captures bounds in entry flow before body reads are widened.
-      Low := Read_Scalar_In_Flow (Text, Context, Result.Position, Scan.Facts, First, After);
-      Result.Position := Take_Token (Text, Low.After, Range_Delimiter);
-      High := Read_Scalar_In_Flow (Text, Context, Result.Position, Scan.Facts, First, After);
-      Result.Position := Take_Token (Text, High.After, Loop_Keyword);
       if Result.Position <= Scan.Position then return Invalid_Body (Scan); end if;
-      Index_Bounds :=
-        (if Scalars.Is_Empty (Low.Bounds) or else Scalars.Is_Empty (High.Bounds)
-         then Scalars.Empty else Scalars.Normalize ((Low.Bounds.Lower, High.Bounds.Upper)));
-      Definite := not Scalars.Is_Empty (Low.Bounds) and then not Scalars.Is_Empty (High.Bounds)
-        and then Low.Bounds.Upper <= High.Bounds.Lower;
       Widen_Into (Context, Result.Facts);
       pragma Assert (Static => Valid_Flow (Context, Result.Facts));
       declare
