@@ -1,6 +1,7 @@
 # Constant Integer-array iteration
 
-Status: authorized implementation; not supported yet.
+Status: paused at the owner’s request for the VM upgrade; not supported yet.
+See the [restart handoff](constant-array-iteration-pause-20261028.md).
 
 The [2026-10-28 owner instruction](session-memory.md#2026-10-28--constant-integer-array-iteration-authorized-as-a-stacked-pr)
 authorizes [#264](https://github.com/berkeleynerd/silver/issues/264) under
@@ -179,3 +180,26 @@ axiom audit of 28,400 declarations with only the approved foundations. It used
 one worker/thread and a 16,384 MiB per-process threshold. This focused result
 will be reused by the complete source checkpoint after matching its dependencies;
 it is not a whole-project result or isolated performance baseline.
+
+The remaining authoritative bridge chain passed in
+`20261028T134726-e1a9c7080656` at `12ae7f13bd`, after the certificate
+worktree received the final reviewed token shape. Output, named, argument and
+lexical source bridges passed together with a fresh 48,060-declaration axiom
+audit using only the approved foundations. Their transitive source dependencies
+match the final validation snapshot. This required work overlapped the independent
+predicate candidate; complete project validation remains pending.
+
+## Owner-requested pause, 2026-10-28
+
+The two active runs stopped cleanly at 14:02:44 UTC for the VM upgrade.
+`20261028T113210-1ee519cf63b5` remains interrupted after 9,028.671 seconds:
+the composition candidate built in 6,034 seconds, but the predicate candidate
+and focused audit did not finish. `20261028T131912-7b62c2a618ba` remains
+interrupted after 2,609.255 seconds, without a complete native audit/provenance
+manifest. The latter's 75 partial reports and completed solver work are retained.
+Neither interruption is a proof failure or a successful checkpoint.
+
+The [pause handoff](constant-array-iteration-pause-20261028.md) records preserved
+workspaces, toolchains, complete Lake artifacts and native solver caches outside
+`tmp`. The next feature work requires the owner's resumption. No support metadata
+was promoted and PR #266 remains draft and open.

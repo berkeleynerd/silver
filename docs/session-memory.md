@@ -1,5 +1,24 @@
 # Session memory
 
+## 2026-10-28 — Constant-array iteration paused for VM upgrade
+
+The owner requested pausing at the next opportunity for the sbx VM upgrade to
+`.50`, with possible restart and loss of temporary directories. All active
+feature validation was interrupted cleanly; no further feature work is selected
+until the owner resumes it. PR #266 remains draft and open, with #264/#267
+unfinished. No harness goal exists.
+
+Implementation, focused semantic/typed/source reviews and reviewed regression
+coverage are preserved. The byte-exact output certificate and authoritative
+source bridges passed. The composition candidate built successfully inside an
+interrupted focused run; the predicate candidate and complete native audit did
+not finish. Complete project assurance and delivery metadata remain pending.
+The [pause handoff](constant-array-iteration-pause-20261028.md) identifies exact
+commits, interrupted and successful runs, preserved caches/toolchains outside
+`tmp`, and the smallest required continuation. Successful modules remain reusable;
+interrupted runs are not relabelled successful. The existing instruction to leave
+the stacked PR open during the parent review still applies.
+
 ## 2026-10-28 — Constant Integer-array iteration authorized as a stacked PR
 
 After PR #263 delivered fixed-size Integer arrays, the owner requested:

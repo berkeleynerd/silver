@@ -3,7 +3,8 @@
 The implementation is on stacked PR #266, based on `0a85336c83`. The final typed
 bridge is integrated as `fd9761af5c`; the validation snapshot is `1e7f42f0c1`.
 Complete native and Lean/source assurance remain pending. This packet does not
-yet establish supported delivery.
+yet establish supported delivery. Work is paused for the owner-requested VM
+upgrade; see the [restart handoff](../../constant-array-iteration-pause-20261028.md).
 
 Each `runs/<run-id>/` directory retains original managed events and logs, plus
 Lean evidence or native reports when applicable, compressed without changing
@@ -17,10 +18,13 @@ runs keep their original outcomes.
 | `20261028T110712-42bfb28a9731` | Catalogue output byte parity | Passed |
 | `20261028T112717-49ee7b84b5ec` | Final typed bridge and exact loop rendering | Focused build and fresh 34,099-declaration audit passed |
 | `20261028T103900-407484c4629b` | Byte-exact output-body certificate | Focused build and fresh 28,400-declaration audit passed |
+| `20261028T134726-e1a9c7080656` | Output, named, argument and lexical source bridges | Focused build and fresh 48,060-declaration audit passed |
 | `20261028T110929-97e25e5a798e` | Complete 540-test suite | Failed: 539 passes and one 180-second fixture timeout |
 | `20261028T123939-44279f5d51d8` | Source policy and certificate tests | All 12 passed |
 | `20261028T131129-d738104f578d` | Platform tests, including the timeout case | All 16 passed; timeout and assertions unchanged |
 | `20261028T104216-2bf8dc56c8ec` | Initial complete native attempt without the parent solver cache | Interrupted; completed work and 27 partial reports preserved |
+| `20261028T113210-1ee519cf63b5` | Composition and predicate source candidates | Interrupted for the VM upgrade; composition built, predicate and fresh audit unfinished |
+| `20261028T131912-7b62c2a618ba` | Final complete native proof/audit, with restored cache and catalogue repair | Interrupted for the VM upgrade; 75 partial reports preserved, complete audit unfinished |
 
 [Test inventory](test-inventory.json) and
 [regression applicability](regression-applicability.json) account for 512
