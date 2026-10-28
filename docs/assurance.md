@@ -101,6 +101,18 @@ the existing correspondence chain. A matching source pin or focused model proof
 alone does not establish these actual-source conclusions; the frontend and
 interpretation premises described below still apply.
 
+The array helper claims have distinct integration levels.
+`ArrayBindings.SourceChecks.CheckedSource` checks complete helper source shapes
+and feeds the helper correspondence side theorems; it is not a field of
+`Predicate.SourceBridge.CheckedSource`. The `maxBindings` and `maxElements`
+constants are connected by the complete specification token pin rather than
+separate constant-extraction equations. Mutable-cell write-frame and raw header
+elaboration lemmas remain independently checked supporting results; the
+current public endpoint does not consume every such lemma. The read-only
+array-frame theorem applies to all programs satisfying its validity hypotheses,
+not only programs with no mutable arrays. These distinctions describe the
+existing proof structure and do not weaken any theorem or change the endpoint.
+
 The [producer/capacity record](fixed-integer-arrays-report-capacity.md) connects
 index and aggregate conversion routes to the pinned producer. Its exact
 array-loop advisory withholds information and never excuses a failed check.
@@ -981,8 +993,8 @@ All output shells use `Complete_Application_Proof`; only null retains
 | Selected | Argument-input sequence containing assignment | Main and argument callees, optionally Put and/or Put_Line; producer may eliminate calls | Above plus exact unused-assignment advisory |
 
 Every emitted Main safety record must be a proved/info `VC_RANGE_CHECK`,
-`VC_LENGTH_CHECK`, `VC_OVERFLOW_CHECK` or `VC_DIVISION_CHECK`, with the expected
-Main filename/entity, valid positive location, prover completion and no suppression or justification. Empty safety
+`VC_LENGTH_CHECK`, `VC_OVERFLOW_CHECK`, `VC_DIVISION_CHECK` or `VC_INDEX_CHECK`,
+with the expected Main filename/entity, valid positive location, prover completion and no suppression or justification. Empty safety
 lists are permitted when checks were eliminated. Required coverage, progress
 and dependency fields remain checked; dependencies must identify approved
 entities and effect, postcondition or absence-of-runtime-error claims. No other

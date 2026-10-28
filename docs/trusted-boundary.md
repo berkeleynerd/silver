@@ -968,7 +968,7 @@ source grammar used for admission: static, argument, assigned or selected
 output. Its independent ghost policy and executable traversal require completed
 Main analysis, full Main coverage and no skipped/assumed/suppressed checks. Every
 emitted safety record must be proved/info `VC_RANGE_CHECK`, `VC_LENGTH_CHECK`,
-`VC_OVERFLOW_CHECK` or `VC_DIVISION_CHECK`,
+`VC_OVERFLOW_CHECK`, `VC_DIVISION_CHECK` or `VC_INDEX_CHECK`,
 with prover completion, Main filename/entity and a positive location. Static
 folding may leave no safety checks. Static/assigned report shapes contain Main
 with neither, either or both of Put and Put_Line. Argument/selected shapes additionally

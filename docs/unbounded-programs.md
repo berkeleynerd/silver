@@ -410,8 +410,8 @@ and the mode's `--warnings` setting; drop `--level` and use:
 | 63 operators per program | `Work_Tail`/`Within_Work_Budget` | No independent policy cap; charge necessary tool representations | #92 |
 | 64 expression leaves | `Max_Expression_Operands`, `Max_Operands`; catalogue operand/reference fields | No independent policy cap; charge necessary tool representations | #92 |
 | 341 binding slots | Profile/scalar environments (`Max_Source_Length / 12`) | Sized from input | #89 |
-| 16 MiB retained reports; Natural indexing | `Silver_Report_Storage`, `Max_Report_Length` | Streaming or 64-bit-indexed storage | #89 |
-| 16 MiB source/file reads and writes | `Silver_Platform`, ghost arrays and driver snapshots | Growable storage/sequences; operational read/size failures never mean nonmembership | #88, #89 |
+| 32 MiB retained Main reports (262,144 bytes for runtime/null); Natural indexing | `Silver_Report_Storage`, `Max_Report_Length` | Streaming or 64-bit-indexed storage | #89 |
+| 32 MiB source/file reads and writes | `Silver_Platform`, ghost arrays and driver snapshots | Growable storage/sequences; operational read/size failures never mean nonmembership | #88, #89 |
 | 4096-character report-policy names | `Silver_Library_Reports`, `scripts/check_evidence.py` | Explicit identifier rule | #89 |
 | Exponent at most 4096 | Scalar/length numerals, `Max_Exponent` | Pinned maximum 799,999 | #92 |
 | String/output/argument lengths and length literals at most 4096 | `Silver_IO`, `Silver_Path_Facts`, catalogue | Justified value/composition domain within Integer'Last and #91's aggregate rules | #93 |
