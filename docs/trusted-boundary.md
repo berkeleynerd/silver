@@ -90,9 +90,17 @@ measured a 143-loop source with the delivered environment records: recognition
 failed with `Storage_Error` and exit 1 at a 4,200 KiB stack limit and passed at
 4,600 KiB; an independent reviewer measured 4,411 KiB versus 3,196 KiB for a
 pre-PR-shaped binary. This exceeds the earlier recognizer observation but
-remains below 8 MiB. These are input/build-specific observations, not a proved
-worst-case bound. Per-level environment-copy redesign and a new stack regression
-remain deferred. The external
+remained below 8 MiB. Fixed-array metadata subsequently added 4,764 bytes to
+the copied body context. The [external array review](reviews/review-10cdcd274c.md)
+reports loop-frame growth from 29,184 to about 33,950 bytes and recognition of
+143 nested loops needing about 5.2–5.3 MiB. Those are reviewer measurements;
+the response did not retain a fresh compiler frame-size report.
+The [2026-10-28 managed observations](evidence/array-review-response-20261028/README.md#stack-observations)
+then admitted, compiled and executed a 4,079-byte/143-level counted-loop program
+and a 4,091-byte/159-level constant-array foreach program under an actual
+8 MiB process stack. These are input/build-specific observations, not a proved
+worst-case bound. Per-level environment-copy redesign remains deferred with #119.
+The external
 [sequencing review](reviews/review-9b99d52.md) observed `Storage_Error` and exit
 status 1 with a 2 MiB stack before the report-storage repair. Such resource exceptions are
 not currently mapped to the driver's normal infrastructure-error status 3.

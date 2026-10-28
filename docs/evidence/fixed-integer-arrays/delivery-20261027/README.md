@@ -73,9 +73,11 @@ dependencies. The complete checkpoint used those certificates.
 
 Cache provenance has a separate limitation. The external review of
 `10cdcd274c` reconstructs four final module rebuilds and 527 reused modules:
-261 from other workspaces (four recorded output binding/certificate modules
-and 257 without a contemporaneous seed-copy inventory), plus 270 other reused
-modules. Those historical seed origins are reviewer-reported; the retained
+257 without a contemporaneous seed-copy inventory and 270 other reused modules.
+Its separate origin count identifies 261 from other workspaces: those 257 plus
+four recorded output binding/certificate modules within the 270. The two counts
+describe overlapping categories, not additional modules. Those historical seed
+origins are reviewer-reported; the retained
 packet does not independently identify the source and copy time for each of
 the 257 modules. No retrospective copy manifest or fresh-build claim is
 inferred from that count.

@@ -1,0 +1,73 @@
+{
+  "binary": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/bin/silver",
+  "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/external-array-review-272/count-143.adb",
+  "bytes": 4079,
+  "binary_sha256": "6f977ee2455d80af6522bf7a5454c27bbd6048666f861711b59372e93af4850d",
+  "source_sha256": "475f33910742bdbedfc105d599b08c4907c22de09380807c253efbd3c11e67aa",
+  "stack_kib": 8192,
+  "cpu_affinity": [
+    0,
+    1
+  ],
+  "shell_text": "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+  "observations": [
+    {
+      "name": "check",
+      "command": [
+        "bash",
+        "-c",
+        "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+        "silver-stack-observation",
+        "taskset",
+        "-c",
+        "0,1",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/bin/silver",
+        "check",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/external-array-review-272/count-143.adb"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 0.12488138799926674,
+      "output_file": "check.log"
+    },
+    {
+      "name": "compile",
+      "command": [
+        "bash",
+        "-c",
+        "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+        "silver-stack-observation",
+        "taskset",
+        "-c",
+        "0,1",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/bin/silver",
+        "compile",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/external-array-review-272/count-143.adb"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 24.493735840000227,
+      "output_file": "compile.log"
+    },
+    {
+      "name": "execute",
+      "command": [
+        "bash",
+        "-c",
+        "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+        "silver-stack-observation",
+        "taskset",
+        "-c",
+        "0,1",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/program-BituXE/bin/main"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 0.01449593500001356,
+      "output_file": "execute.log"
+    }
+  ],
+  "executable": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/program-BituXE/bin/main",
+  "workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/program-BituXE",
+  "snapshot_matches_source": true,
+  "proof_checks": 66,
+  "managed_run_id": "20261028T183837-8e184380a34d",
+  "managed_duration_seconds": 30.79390017
+}

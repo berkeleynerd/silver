@@ -1,0 +1,19 @@
+{
+  "fixtures": [
+    {
+      "file": "count-143.adb",
+      "bytes": 4079,
+      "depth": 143,
+      "sha256": "475f33910742bdbedfc105d599b08c4907c22de09380807c253efbd3c11e67aa"
+    },
+    {
+      "file": "foreach-source-bound.adb",
+      "bytes": 4091,
+      "depth": 159,
+      "sha256": "65f28f97b35fb6f6e1867e93129612b00a225d22f34e6a6a14f32a0785dd03c4"
+    }
+  ],
+  "foreach_same_shape_next_depth_bytes": 4116,
+  "source_limit": 4096,
+  "source_shape_note": "Foreach depth fills this compact fixture shape; no universal maximal-depth claim."
+}
