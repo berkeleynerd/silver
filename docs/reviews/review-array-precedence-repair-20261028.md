@@ -39,3 +39,31 @@ Exact reviewed SHA-256 inputs:
 | `proof/Silver/PredicateArrayBodySource.lean` | `6a9a50d00a16485334dc598b3a987f995de4bcfffa975b280ad760c92d87080a` |
 
 SHA-256 of `git diff --` over those four files in the table order: `1a2406f6c409b3c4a46ccdbe4af503a368f407e417c4be6299e972aff9b7650b`.
+
+## Bounded follow-up: final private controls
+
+Follow-up target: author commit `66bb50c3d73d15f2559ecba52a8d832fe3056d0a`; integrated commit `5e53345a0069eec81d94fecbb8819ee51381e803` has byte-identical contents for all four reviewed files. Reviewed only the final private-control delta, without a broad rereview or a new build. Selected reviewer settings remain GPT-6 Astra / Extra High; separate runtime attestation and token/cost measurements remain unavailable. Follow-up inspection ran from 2026-10-28 18:52:05 UTC to 18:53:23 UTC (1m18s).
+
+Disposition: clean. The initial non-blocking collision-fixture observation is resolved. The replacement Boolean primary is `isEmpty (resultBounds localValue)`. Under its explicit true-value hypothesis, the rejected `not (orElse atom atom)` tree evaluates to false, while the alternate `orElse (not atom) atom` tree evaluates to true. Both share the ungrouped token sequence; a kernel control now explicitly requires the alternate tree to be well formed. The relation-based rejection controls remain, and the correctly grouped negation is accepted.
+
+The additional Compose kernel controls reject the three requested exact structural shapes and accept their correctly grouped counterparts: subtraction with an ungrouped additive right operand; an outer group around addition whose left operand is a bare `ite`; and subtraction of a bare `ite` supplied to the `arrayPut` function. An outer group or call context cannot repair grouping missing inside arithmetic; these controls exercise that boundary directly.
+
+The only follow-up changes are six private Compose control conjuncts and the private predicate Boolean fixture/theorem/three controls. This is mechanically checked, not merely author-reported: reversing those exact edits in memory reproduced the two original file SHA-256 values in the initial table. The other two file hashes are unchanged. Thus the initially reviewed guards, renderers, evaluators, public APIs, fixed source trees, and source-check wiring are byte-identical through this follow-up.
+
+Retained managed evidence was inspected directly:
+
+- `20261028T183022-b6f6878a4f91` completed successfully: build 1173.268s, fresh audit 9.795s, 19,970 declarations, foundations only `propext`, `Classical.choice`, and `Quot.sound`. Its targets included `PredicateScalarBodyCandidate`, which discharges the new mandatory source-candidate field. This supersedes the initial report's pending status for that run.
+- Final control run `20261028T185112-d630b7abbbea` completed successfully: `ComposeArrayExpressions` and `PredicateArrayBodyNative`, build 54.986s, fresh audit 4.517s, 15,099 declarations, the same permitted foundations. This checks the final private controls.
+
+The complete actual-source/module/axiom checkpoint remains the lead's next required step. The successful focused candidate run and final private-control run are distinct evidence, not a claim that this follow-up performed that complete checkpoint.
+
+Final exact reviewed SHA-256 inputs:
+
+| File | SHA-256 |
+| --- | --- |
+| `proof/Silver/ComposeExpressions.lean` | `4f329643de5ff97dea327bddfdaa82d6013d4d626f255376de307060e183fb14` |
+| `proof/Silver/ArrayBindingsNativeExpressions.lean` | `7a59c90c66c6c4bdd187177dff733bfa2c8edfa5166dcc1bfe568608f419610b` |
+| `proof/Silver/PredicateArrayBodyNative.lean` | `34f3e387b35459b1700dfbf4417d49310fda6d72bfd07317484f9f2b72a49145` |
+| `proof/Silver/PredicateArrayBodySource.lean` | `6a9a50d00a16485334dc598b3a987f995de4bcfffa975b280ad760c92d87080a` |
+
+SHA-256 of the four-file diff from base `873f5910d2a1eaf2be00c397848c6a7bf872a5c1` to author commit `66bb50c3d73d15f2559ecba52a8d832fe3056d0a`: `e4bbdad05fed840c74323effa76be80f76003a881010e39627883e27ed6d0108`. `git diff --check` passed before the author commit; the observed integrated checkout was clean. No repository edits were made by the reviewer.

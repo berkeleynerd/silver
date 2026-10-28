@@ -1,0 +1,87 @@
+{
+  "run_id": "20261028T182856-80672b38d6db",
+  "finished": {
+    "duration_seconds": 69.102021036,
+    "event": "finished",
+    "evidence": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-source/.silver/linux-x86_64/lean-focused.log",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-source/.silver/linux-x86_64/lean-focused.log"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-source/.silver/linux-x86_64/lean-focused-evidence.json",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-source/.silver/linux-x86_64/lean-focused-evidence.json"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261028T182856-80672b38d6db/previous-evidence/lean-focused.log",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261028T182856-80672b38d6db/previous-evidence/lean-focused.log"
+      }
+    ],
+    "failure_keys": [
+      "lean:build:Silver/ArrayBindingsNativeExpressions.lean:307:22:Unknown identifier `leftSub.render`",
+      "lean:build:Silver/ArrayBindingsNativeExpressions.lean:307:39:Unknown identifier `rightSub.eval`",
+      "lean:build:Silver/ArrayBindingsNativeExpressions.lean:307:4:Unknown identifier `rightSub.render`",
+      "lean:build:Silver/ArrayBindingsNativeExpressions.lean:307:72:Unknown identifier `leftSub.eval`",
+      "lean:build:Silver/ArrayBindingsNativeExpressions.lean:311:34:Unknown identifier `leftSub.wellFormed`",
+      "lean:build:Silver/ArrayBindingsNativeExpressions.lean:311:4:Unknown identifier `rightSub.wellFormed`",
+      "lean:build:Silver/ArrayBindingsNativeExpressions.lean:316:16:Unknown identifier `choice`",
+      "lean:build:Silver/ArrayBindingsNativeExpressions.lean:317:24:Unknown identifier `choice`",
+      "lean:build:Silver/ArrayBindingsNativeExpressions.lean:322:14:Unknown identifier `condition`",
+      "lean:build:Silver/ArrayBindingsNativeExpressions.lean:323:22:Unknown identifier `condition`",
+      "lean:build:Silver/ArrayBindingsNativeExpressions.lean:324:27:Unknown identifier `condition`",
+      "lean:build:Silver/ArrayBindingsNativeExpressions.lean:324:37:Unknown identifier `condition`",
+      "lean:build:Silver/ArrayBindingsNativeExpressions.lean:324:48:Unknown identifier `condition`",
+      "lean:build:Silver/ArrayBindingsNativeExpressions.lean:325:35:Unknown identifier `condition`",
+      "lean:build:Silver/ArrayBindingsNativeExpressions.lean:325:45:Unknown identifier `condition`",
+      "lean:build:Silver/ArrayBindingsNativeExpressions.lean:325:57:Unknown identifier `condition`",
+      "lean:build:Silver/ArrayBindingsNativeExpressions.lean:326:14:Unknown identifier `condition`",
+      "lean:build:Silver/ArrayBindingsNativeExpressions.lean:326:24:Unknown identifier `choice`",
+      "lean:build:Silver/ArrayBindingsNativeExpressions.lean:327:14:Unknown identifier `condition`",
+      "lean:build:Silver/ArrayBindingsNativeExpressions.lean:327:32:Unknown identifier `choice`",
+      "lean:build:Silver/ArrayBindingsNativeExpressions.lean:328:24:Unknown identifier `condition`",
+      "lean:build:Silver/ArrayBindingsNativeExpressions.lean:329:14:Unknown identifier `condition`",
+      "lean:build:Silver/ArrayBindingsNativeExpressions.lean:329:40:Unknown identifier `condition`",
+      "lean:build:Silver/ComposeExpressions.lean:1609:22:Unknown identifier `leftSub.render`",
+      "lean:build:Silver/ComposeExpressions.lean:1609:39:Unknown identifier `rightSub.eval`",
+      "lean:build:Silver/ComposeExpressions.lean:1609:4:Unknown identifier `rightSub.render`",
+      "lean:build:Silver/ComposeExpressions.lean:1609:72:Unknown identifier `leftSub.eval`",
+      "lean:build:Silver/ComposeExpressions.lean:1613:34:Unknown identifier `leftSub.wellFormed`",
+      "lean:build:Silver/ComposeExpressions.lean:1613:4:Unknown identifier `rightSub.wellFormed`",
+      "lean:build:Silver/ComposeExpressions.lean:1622:21:Unknown identifier `integerChoice`",
+      "lean:build:Silver/ComposeExpressions.lean:1623:40:Unknown identifier `integerChoice`",
+      "lean:build:Silver/ComposeExpressions.lean:1624:20:Unknown identifier `integerChoice`",
+      "lean:build:Silver/ComposeExpressions.lean:1625:39:Unknown identifier `integerChoice`",
+      "lean:build:Silver/ComposeExpressions.lean:1626:20:Unknown identifier `integerChoice`",
+      "lean:build:Silver/ComposeExpressions.lean:1627:39:Unknown identifier `integerChoice`",
+      "lean:build:Silver/ComposeExpressions.lean:1628:29:Unknown identifier `integerChoice`",
+      "lean:build:Silver/ComposeExpressions.lean:1629:47:Unknown identifier `integerChoice`",
+      "lean:build:Silver/ComposeExpressions.lean:1630:28:Unknown identifier `integerChoice`",
+      "lean:build:Silver/ComposeExpressions.lean:1631:36:Unknown identifier `integerChoice`",
+      "lean:build:Silver/ComposeExpressions.lean:1634:17:Unknown identifier `logicalOperand`",
+      "lean:build:Silver/ComposeExpressions.lean:1636:17:Unknown identifier `logicalOperand`",
+      "lean:build:Silver/ComposeExpressions.lean:1641:17:Unknown identifier `logicalOperand`",
+      "lean:build:Silver/ComposeExpressions.lean:1642:25:Unknown identifier `logicalOperand`",
+      "lean:build:Silver/ComposeExpressions.lean:1646:28:Unknown identifier `logicalOperand`",
+      "lean:build:Silver/ComposeExpressions.lean:1647:66:Unknown identifier `logicalOperand`"
+    ],
+    "monotonic_ns": 15237586743097,
+    "outcome": "failure",
+    "retained_reports": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-source/.silver/linux-x86_64/lean-focused.log",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261028T182856-80672b38d6db/reports/0/lean-focused.log"
+      }
+    ],
+    "returncode": 1,
+    "run_id": "20261028T182856-80672b38d6db",
+    "utc": "2026-10-28T18:30:07.400261+00:00"
+  },
+  "files": [
+    {
+      "path": "events.jsonl.gz",
+      "bytes": 79461,
+      "sha256": "8aacae5f7957b6fa07002f6c0e078de78e9a22317e164fe7ace2b0366b13f0f0",
+      "compressed_sha256": "afd7bb1a60f0135e9aac6582f0189090bfe38ba814d0c06a1e38619ef1224d8f"
+    }
+  ]
+}
