@@ -66,28 +66,47 @@ runtime imports, ABI and environmental assumptions used throughout.
 
 ## Fixed-size Integer arrays
 
-The [capability record](fixed-integer-arrays.md) tracks the array implementation
-and outstanding complete checkpoint. `ArrayLayout.lean` gives each descriptor a
+The [delivery assurance and validation record](fixed-integer-arrays.md#delivery-assurance-and-validation)
+identifies the exact native, Lean/source, regression and independent-review
+evidence for this bounded fragment. `ArrayLayout.lean` gives each descriptor a
 finite segment in the existing Integer store and proves indexed projection,
-initialization, component update and disjoint-cell preservation. The indexed
+initialization, component update and disjoint-cell preservation. Indexed
 `Integer.Expr` checks a nonempty subscript interval contained in the descriptor
-bounds and joins the addressed cell ranges. `IntegerChecks.lean` records index
-and aggregate-length obligations. `IntegerArrays.lean` checks every array target
-cell's full Integer range and mutability before indexed assignment, deriving
+bounds and joins the addressed cell ranges. `IntegerChecks.lean` retains index
+and aggregate-length obligations. `IntegerArrays.lean` requires mutability and
+full Integer ranges for every target cell before indexed assignment, deriving
 store-fit preservation while leaving other cells unchanged.
 
 Declaration elaboration uses exact initialized components; indexed snapshots
 remain nonstatic. Body reads use full Integer ranges, with no element-wise flow
-refinement. Composition must establish disjoint array/scalar/loop storage from
-the native source-derived limits, preserve captured loop bounds and existing
-String/input facts, and discharge original initializer checks. The complete
-source bridges and endpoint integration remain delivery obligations.
+refinement. The parsed header supplies the array environment, initial store and
+source-derived scalar/index bounds used to separate array, scalar and loop
+identities. Loop execution captures its bounds before iteration and threads
+component writes through the store, preserving earlier snapshots and existing
+String/input facts. `ComposeInitializerTrace` and `ComposeArrayChecks` retain
+the original initializer, index and arithmetic obligations before snapshot
+folding; `PredicateChecks` carries them into current-language discharge.
+
+The source chain derives declaration behavior from typed native bodies and raw
+helper equations in `ComposeArrayEquations`, with each helper's actual caller
+domain and capacity/cursor premises. `ComposeSourceChecks` transports reviewed
+complete-shape checks to authoritative output tokens through
+`Output.SourceBridge.actual_complete_shape`. `PredicateArrayBodySource` connects
+the scalar-only subscript reader, array-aware RHS reader, flow overlay and
+indexed-assignment helpers; `ScalarExpressionSourceBridge` includes the indexed
+read helper bridge. `PredicateSourceChecks` requires authoritative complete
+source shapes, and `PredicateSourceBridge` combines those checks with executable
+refinements. The parsed meaning and retained obligations feed `Current` through
+the existing correspondence chain. A matching source pin or focused model proof
+alone does not establish these actual-source conclusions; the frontend and
+interpretation premises described below still apply.
 
 The [producer/capacity record](fixed-integer-arrays-report-capacity.md) connects
 index and aggregate conversion routes to the pinned producer. Its exact
 array-loop advisory withholds information and never excuses a failed check.
 The retained Main envelope is 25,084,928 bytes, covered by a 32 MiB allocation;
 the runtime/null limits and language source/operator budgets are unchanged.
+Broader array forms remain outside the admitted fragment.
 
 ## For loops and standard Integer Image
 

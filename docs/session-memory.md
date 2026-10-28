@@ -1,5 +1,23 @@
 # Session memory
 
+## 2026-10-28 — Fixed-size Integer-array delivery checkpoint
+
+The owner-authorized [#260](https://github.com/berkeleynerd/silver/issues/260)
+implementation and complete Linux native/Lean checkpoint have passed. The
+[delivery record](fixed-integer-arrays.md#delivery-assurance-and-validation)
+retains exact inputs, original failures, reviewed repairs and regression reuse.
+The narrow fragment covers explicitly initialized anonymous one-dimensional
+Integer arrays, checked scalar-only subscripts and indexed writes. Rosetta
+adds only `fixed-integer-arrays` and its rotation driver. Broad arrays and #12
+remain open, and the existing source/operator limits and deferred work remain.
+
+The final Sequence-model repair preserves the full array environment in a
+retained mathematical witness; the current authoritative Predicate route and
+native compiler are unchanged. The complete audit covers every retained module.
+Final delivery review and reviewed publication remain the next steps. No new
+feature or performance package is selected. No harness goal was created; CLI
+memory is unavailable and was not updated.
+
 ## 2026-10-27 — Fixed-size Integer arrays authorized
 
 After the selected #246 package merged in #259, the owner accepted the

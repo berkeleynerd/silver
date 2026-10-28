@@ -1,6 +1,6 @@
 # Fixed-size Integer arrays
 
-Status: authorized design and implementation; not supported yet.
+Status: complete Linux assurance and regression checkpoint, 2026-10-28; final delivery review in progress.
 
 The [2026-10-27 owner instruction](session-memory.md#2026-10-27--fixed-size-integer-arrays-authorized)
 selects one bounded array increment under
@@ -99,7 +99,7 @@ The shared platform reader supports that storage; runtime/null policies retain
 `20261027T080721-f9182bff71ec` (36 native report-policy tests) and
 `20261027T080751-d735c37e325e` (retained-record/envelope guard) passed.
 The [independent classifier review](reviews/review-fixed-arrays-main-advisory-4d4919efa2.md)
-found no blocking issue. Complete native proof and source assurance remain pending.
+found no blocking issue. The complete native/source checkpoint is recorded below.
 The [capacity integration review](reviews/review-fixed-arrays-capacity-8c95af6742.md)
 also confirmed the conservative envelope against the pinned producer routes.
 
@@ -152,8 +152,7 @@ found one source-correspondence gap, tracked in
 must retain the caller's native scalar-state conditions. The domain repair and
 its array declaration/caller equations have compiled in focused checks. A
 follow-up independent review found no remaining caller-domain defect; the
-concrete model has passed its focused check, while complete source validation
-is pending. The separate mathematical
+concrete model passed its focused check, followed by the complete source checkpoint below. The separate mathematical
 snapshot/composition review found no missing link. Generic, array and remaining
 declaration equations now live in separate modules so repairing the array proof
 retains the already checked helper proofs; public imports preserve their names.
@@ -203,9 +202,7 @@ The [applicability addendum](reviews/review-fixed-arrays-applicability-529df9a6c
 confirms that the later header-data repair preserves this coverage at
 `529df9a6c4`; it changes no test dependency or inspected source-policy property.
 This closes regression coverage for the reviewed implementation. Final Rosetta
-metadata needs its applicable renderer tests. Complete native and Lean/source
-assurance and their closing evidence review remain pending; arrays are not yet
-supported.
+metadata and the complete assurance results are recorded in the closing checkpoint below.
 
 ## Source-check memory repair
 
@@ -230,3 +227,48 @@ only the approved foundations). Its temporary probe is retained as evidence
 and excluded from the delivered proof tree. This result supports the local
 repair; it does not establish the complete candidate's memory peak or replace
 the pending complete source/module/axiom checkpoint.
+
+## Delivery assurance and validation
+
+The final implementation is `6e18e13c06`; Rosetta delivery metadata is
+`64c9f8036e`. The [retained packet](evidence/fixed-integer-arrays/delivery-20261027/README.md)
+includes the successful checkpoints, original failed runs and input comparisons.
+The existing 4,096-byte source, 63-operator and 64-leaf limits remain. Broader
+arrays and stage #12 remain open; this delivers only `fixed-integer-arrays`.
+
+| Check | Retained result |
+| --- | --- |
+| Complete native proof/audit `20261027T104107-f971342569f8` | Passed on Linux: 16,697 checks (1,418 flow and 15,279 proof), 76 units and 1,068 entities. Finished 2026-10-27 18:34 UTC after 28,417.217 s including the audit. |
+| Build `20261027T113126-109aa8ee133a` | Passed on the regression snapshot; compiler sources and build inputs remain applicable. |
+| Complete Lean `20261028T025546-5dcc21502246` | Passed: 531 modules, 112,162 declarations; build 39.708 s and fresh audit 10.449 s, with only `propext`, `Classical.choice` and `Quot.sound`. |
+| Regression checkpoint | All 530 identities covered: 76 fresh passes and 454 retained successful results. The original complete run remains failed. |
+| Rosetta `20261028T025725-858b560a8320` | All three affected renderer tests passed in 4.463 s after integration. |
+
+All 143 tracked inputs named in native provenance match the final tree, and
+all 78 retained report digests verify. The original native record captures
+2,558 inputs including worktree-generated and toolchain files. All 646 captured
+Lean source inputs match the final tree. Later changes are documentation,
+evidence and Rosetta metadata; no native rerun is needed for the Lean repair.
+
+The long complete Lean attempt `20261027T150301-0958f36e542b` remains failed.
+It successfully checked the composition and predicate source candidates in
+4,604 s and 4,278 s, then exposed an omitted array environment in the retained
+Sequence scanner model. The [repair review](reviews/review-fixed-arrays-sequence-state-20261028.md)
+confirms that model is separate from the current authoritative Predicate route.
+The repair preserves arbitrary array environments, strengthens context equality
+and threads array-aware expression parameters through the progress proof.
+A subsequent 98.025-second build exposed one remaining empty-environment
+initialization proof; adding its existing validity definitions closed that
+obligation. The successful complete checkpoint then reused all checked modules
+and freshly audited the whole project. Neither failed run is relabelled passed.
+
+Regression reuse follows the independently reviewed input/dependency accounting
+linked above, with the three Rosetta results replacing their retained entries.
+All 49 manifest samples, including the rotation, and all 12 array regressions
+passed in the retained full run. The final review checks applicability of the
+last proof-only changes and the delivery record.
+
+These are complete-scope incremental checks with native/Lake cache reuse,
+not clean-build measurements. No independent kernel replay, native macOS or
+hosted CI result is claimed. The output certificate's recorded suspension
+remains included in its wall time.
