@@ -41,8 +41,13 @@ not replace the required complete native audit.
 
 The focused repaired run completed successfully at 15:25:32 UTC in 507.443
 managed seconds: **289 checks proved**, comprising the two targeted
-`Logical_Equal` proof checks and 287 unit flow checks, with no warnings or
-unproved checks. `after.json` records the exact repaired source hash and retained
+`Logical_Equal` proof checks and 287 unit flow checks, with no unproved checks.
+The detailed `.spark` report also retains **50 warning entries**: five
+`array-initialization`, 26 `contracts-recursive` and 19 `numeric-variant`.
+The initial evidence summary incorrectly reported no warnings; independent
+review found this reporting defect. This correction preserves the original
+report and does not classify those entries as discharged by a focused proof.
+The complete native audit must apply the existing warning/advisory policy. `after.json` records the exact repaired source hash and retained
 complete focused report/log plus the two successful Why3 sessions. The
 `Same_Parser_State` annotation at line 1205 is the repaired form of the original
 failed line 1196 obligation. No broader proof scope is inferred from this result.

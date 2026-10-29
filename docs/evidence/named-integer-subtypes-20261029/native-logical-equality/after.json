@@ -6,7 +6,7 @@
   "source_sha256": "241637c5043dc66776a4a9715e7703abb9602c6323fa0d12a5375959790e4f07",
   "proof_checks": 2,
   "flow_checks": 287,
-  "warnings": 0,
+  "warnings": 50,
   "unproved": 0,
   "scope": "Only Logical_Equal proof checks at1187:8 and1205:8, with unit flow checks; not complete native assurance.",
   "snapshots": [
@@ -40,5 +40,11 @@
       "bytes": 2110,
       "snapshot": "same_parser_state-success.xml.gz"
     }
-  ]
+  ],
+  "warnings_by_rule": {
+    "array-initialization": 5,
+    "contracts-recursive": 26,
+    "numeric-variant": 19
+  },
+  "warning_scope": "The focused .spark report retains these unit warnings; the complete production audit must apply the existing warning/advisory policy. The initial no-warning summary was incorrect and has been corrected without modifying the report."
 }
