@@ -261,8 +261,7 @@ def Update.evalWith (imports : Imports) (read : Reader) (frame : Frame) : Update
       decide (frame.low.bounds.upper ≤ frame.high.bounds.lower))}
   | .arrayDefinite => {frame with definite := true}
   | .widen => {frame with result := {frame.result with facts := imports.widen frame.context frame.result.facts}}
-  | .inner => {frame with inner := {frame.inner with scalarNames :=
-      frame.inner.scalarNames.take frame.context.scalarNames.length ++
+  | .inner => {frame with inner := {frame.inner with scalarNames := frame.inner.scalarNames.take frame.context.scalarNames.length ++
       [⟨frame.first, frame.after, frame.bounds, false, frame.bounds, false⟩]}}
   | .copyToInner field => {frame with innerScan := field.copy frame.result frame.innerScan}
   | .copyFromInner field => {frame with result := field.copy frame.innerScan frame.result}
@@ -683,7 +682,7 @@ private theorem header_components_nonempty (text : Source) (context : Native.Con
     (loopArrayTarget text context.model scan)
   change (ArrayBindings.binding context.arrayNames (loopArrayTarget text context.model scan)).componentBounds.isEmpty = false
   simp only [Integer.Interval.isEmpty, decide_eq_false_iff_not, Int.not_lt]
-  exact valid.2
+  simpa only [ArrayBindings.Binding.descriptor] using valid.2
 
 private theorem header_tail (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan)
     (metadata : ArrayBindings.ValidMetadata text context.arrayNames) :
@@ -699,7 +698,9 @@ private theorem array_tail (read : Reader) (text : Source) (context : Native.Con
     tailEquation read (arrayFrame text context scan) = headerContinuation read text context scan := by
   rw [← header_tail read text context scan metadata]
   have selected : (loopHeader text context.model scan).isArray = true := iterable
-  simp only [tailEquation, arrayFrame, headerFrame, LoopHeader.bounds, selected, ↓reduceIte]
+  have components : (loopHeader text context.model scan).componentBounds =
+      (ArrayBindings.binding context.arrayNames (loopArrayTarget text context.model scan)).componentBounds := rfl
+  simp only [tailEquation, arrayFrame, headerFrame, LoopHeader.bounds, selected, ↓reduceIte, components]
 
 private theorem counted_tail (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan)
     (counted : loopIsArray text scan = false)

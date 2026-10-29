@@ -38,7 +38,7 @@ def Expr.wellFormed : Expr ty → Bool
   | .operation _ | .number _ | .truth _ | .token _ | .comparison _ | .variable _ | .function _ => true
   | .app fn arg => fn.callSpine && fn.wellFormed && arg.primary && arg.wellFormed
   | .field _ value => value.primary && value.wellFormed
-  | .subtypeHidden context operation => context.primary && context.wellFormed && operation.wellFormed
+  | .subtypeHidden context op => context.primary && context.wellFormed && op.wellFormed
   | .bindingAt names index => names.primary && names.wellFormed && index.primary && index.wellFormed
   | .eq left right | .ne left right | .le left right | .tokenEq left right | .tokenNe left right
   | .comparisonEq left right => left.primary && right.primary && left.wellFormed && right.wellFormed

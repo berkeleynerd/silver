@@ -120,7 +120,7 @@ mutual
         have positive : (loopHeader text context.model scan).entry.position ≠ 0 := by omega
         have innerValid : Native.ValidContext text (LoopNative.inner context (loopHeader text context.model scan)) :=
           ⟨cv.1, cv.2.1,
-            loopInner_valid_environment (text := text) (context := context.model) (scan := scan) cv.2.2.1 allowed positive,
+            loopInner_valid_environment (text := text) (context := context.model) (scan := scan) cv.arrays cv.2.2.1 allowed positive,
             nativeLoopInner_baseReady (context := context.model) cv.base (loopHeader text context.model scan)
               (loopNameAllowed_space cv.base.size allowed), cv.arrays⟩
         have entryValid : ValidScan text (LoopNative.inner context (loopHeader text context.model scan))
@@ -130,7 +130,7 @@ mutual
           · exact sv.2.1
           · exact ⟨loopContext_bounded sv.2.2.1
               (loopHeader text context.model scan).bounds,
-              loopHeader_flowReady cv.base sv.2.2.2 cv.2.2.1 positive⟩
+              loopHeader_flowReady cv.arrays cv.base sv.2.2.2 cv.2.2.1 positive⟩
         have advanced := remaining_lt entryValid.1 (Nat.lt_of_not_ge failed)
         rw [read_unique calls equations text tv _ innerValid _ .endOnly entryValid]
     · have disallowed := Bool.eq_false_iff.mpr allowed

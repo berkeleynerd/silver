@@ -347,7 +347,7 @@ def Expr.render : Expr ty → List String
     | .app _ _ => fn.render.dropLast ++ [","] ++ argument.render ++ [")"]
     | _ => fn.render ++ ["("] ++ argument.render ++ [")"]
   | .field projection value => value.render ++ [".", projection.name]
-  | .subtypeHidden context operation => context.render ++ [".", "subtype_hiding", "("] ++ operation.render ++ [")"]
+  | .subtypeHidden context op => context.render ++ [".", "subtype_hiding", "("] ++ op.render ++ [")"]
   | .bindingAt names index => names.render ++ [".", "items", "("] ++ index.render ++ [")"]
   | .eq left right | .tokenEq left right | .comparisonEq left right => left.render ++ ["="] ++ right.render
   | .ne left right | .tokenNe left right => left.render ++ ["/="] ++ right.render
@@ -390,7 +390,7 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .function symbol => calls.get symbol
   | .app fn argument => fn.eval calls locals (argument.eval calls locals)
   | .field projection value => projection.get (value.eval calls locals)
-  | .subtypeHidden context operation => (context.eval calls locals).subtypeHiding.get (operation.eval calls locals)
+  | .subtypeHidden context op => (context.eval calls locals).subtypeHiding.get (op.eval calls locals)
   | .bindingAt names index => ((names.eval calls locals).get (index.eval calls locals)).getD {}
   | .eq left right => decide (left.eval calls locals = right.eval calls locals)
   | .ne left right => decide (left.eval calls locals ≠ right.eval calls locals)

@@ -12,7 +12,7 @@ set_option maxHeartbeats 2000000
 
 structure Inputs where
   text : Source := []
-  context : Context := ⟨[], 0, 0, [], 0, []⟩
+  context : Context := ⟨[], 0, 0, [], 0, [], {}⟩
   position : Nat := 0
   facts : ActiveFlow := ⟨PathFacts.Context.empty, []⟩
   value : Compose.ExpressionResult := Compose.invalidExpression

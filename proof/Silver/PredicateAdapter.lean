@@ -101,7 +101,8 @@ theorem model_adapter_valid (text : Source) (tv : Expressions.ValidText text)
   · exact invalidScan_valid text
   · exact ⟨expand_valid text _ _ (context_valid text scan sv)
       (BodyNative.model_read_valid text tv _ (context_valid text scan sv) _ _ (body_valid text scan sv))
-      scan.state.arrayNames sv.1.2.2.2.2.2.2,
+      scan.state.arrayNames sv.1.2.2.2.2.2.2.1
+      scan.state.subtypeNames sv.1.2.2.2.2.2.2.2,
       sv.2.bodyEnvironment⟩
 
 theorem readStatements_valid (text : Source) (tv : Expressions.ValidText text)
