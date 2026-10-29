@@ -89,3 +89,48 @@ complete native obligation/report/provenance audit, complete Lean source/module/
 axiom evidence, and the reconciled test inventory. Cached focused successes
 remain separate from those complete-run claims. No further broad code review
 is requested unless final validation changes the reviewed inputs.
+
+## Regression evidence confirmation — 2026-10-29
+
+**Regression evidence confirmed; no actionable discrepancy found. Complete
+native and Lean outcomes remain pending in this report.** Reviewed the retained
+[regression evidence](../evidence/named-integer-subtypes-20261029/README.md) at
+`ced8d0d799b489d987de3799d7dd72b7a8dd3d1c` against implementation
+`97312a790fb11a83a9607ad48ddab491711f2c3d`, reusing the applicability analysis
+above. Selected reviewer remained GPT-6 Astra / Extra High; runtime confirmation
+and token/cost measurements remain unavailable. Evidence inspection ran
+17:38:19–17:42:46 UTC (267 seconds), followed by report preparation. No tests,
+native proofs or Lean checks were rerun by the reviewer.
+
+Independently decompressed all three retained logs and event streams, verified
+their SHA-256 values against `retained.json`, and checked their successful
+terminal events and zero test-phase return codes:
+
+- `20261029T153819-5626949ad567`: all 555 unique inventory identities have
+  explicit successful outcomes, including entries with interleaved tool output
+  or multiline descriptions. The original successful result is preserved.
+- `20261029T170712-d9dc75fa5629`: all 12 proof-source identities passed.
+- `20261029T170846-5ccd1f3667b8`: all 16 platform-fixture identities passed.
+
+Recomputed input comparisons from the raw prepared events and Git blobs, rather
+than relying on the reconciliation booleans. The full suite captured 800 inputs:
+787 tracked files match final bytes, exactly the five previously reviewed Lean
+files differ, and eight are workspace/generated/tool inputs. All 792 tracked
+inputs in each rerun match final bytes; the eight other hashes agree across all
+three runs. Implementation inputs under tests, scripts, sources, samples,
+catalogue and proof are unchanged through the evidence commit.
+
+The replacement identities are exactly the affected 12 plus 16, yielding 527
+applicable retained results plus 28 refreshed results, with no missing, failed
+or incomplete identity. The passing manifest test and its unchanged inputs
+account for all 52 sample sources and 108 application executions. Platform
+fixture source and evidence correctly distinguish mocked tool/host routing
+from native macOS execution and Lean proof validity; these results are Linux
+x86_64 evidence. Later changes to tested inputs still require applicability
+assessment, including affected renderer tests for Rosetta metadata changes.
+
+Complete-native confirmation now concerns replacement run
+`20261029T165015-c6b111fb4f2a`; complete Lean/source/module/axiom confirmation
+still concerns `20261029T161817-0a8089cd7dc3`. Neither outcome is established by
+this regression-only confirmation. The earlier pending-state description is
+retained as history; this update supplies only the completed regression evidence.
