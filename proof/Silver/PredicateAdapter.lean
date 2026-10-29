@@ -52,7 +52,7 @@ theorem initialFacts_bounded (arguments : Bool) : (initialFacts arguments).Bound
 theorem context_valid (text : Source) (scan : ScanResult)
     (valid : OuterReadiness.ValidState text scan.state) : Native.ValidContext text (contextOf scan) :=
   ⟨valid.1.2.1, valid.1.2.2.1, ScalarExpression.bodyEnvironment_valid valid.1.2.2.2.2.2.1,
-    valid.2.baseReady valid.1.2.2.2.2.2.1.1, valid.1.2.2.2.2.2.2.1⟩
+    valid.2.baseReady valid.1.2.2.2.2.2.1.1, valid.1.2.2.2.2.2.2.1.1⟩
 
 theorem initial_flow_valid (text : Source) (scan : ScanResult)
     (valid : OuterReadiness.ValidState text scan.state) :
@@ -201,7 +201,7 @@ inductive Expr : Type → Type 1
   | completed (facts : Expr PathFacts.Context) : Expr Bool
   | bodyEnvironment (names : Expr ScalarExpression.Environment) : Expr ScalarExpression.Environment
   | contextValue (names : Expr BindingEnvironment) (scalarNames : Expr ScalarExpression.Environment)
-      (arrays : Expr ArrayBindings.Metadata) (hiding : Expr IntegerSubtypes.CallHiding)
+      (arrays : Expr ArrayBindings.Metadata) (hiddenCalls : Expr IntegerSubtypes.CallHiding)
       (declarations first after : Expr Nat) : Expr Native.Context
   | bodyValue (count : Expr Nat) (facts : Expr ActiveFlow) (position target capacity : Expr Nat)
       (assigned output : Expr Bool) : Expr BodyScan
@@ -256,9 +256,9 @@ def Expr.eval (calls : BodyNative.Calls) (frame : Frame)
   | .nameCount names => (names.eval calls frame bodyOfCall initialFlowCall takeTokenCall).length
   | .completed facts => Predicate.completed (facts.eval calls frame bodyOfCall initialFlowCall takeTokenCall)
   | .bodyEnvironment names => ScalarExpression.bodyEnvironment (names.eval calls frame bodyOfCall initialFlowCall takeTokenCall)
-  | .contextValue names scalarNames arrayNames hiding declarations first after =>
+  | .contextValue names scalarNames arrayNames hiddenCalls declarations first after =>
       ⟨names.eval calls frame bodyOfCall initialFlowCall takeTokenCall, first.eval calls frame bodyOfCall initialFlowCall takeTokenCall, after.eval calls frame bodyOfCall initialFlowCall takeTokenCall,
-        scalarNames.eval calls frame bodyOfCall initialFlowCall takeTokenCall, declarations.eval calls frame bodyOfCall initialFlowCall takeTokenCall, arrayNames.eval calls frame bodyOfCall initialFlowCall takeTokenCall, hiding.eval calls frame bodyOfCall initialFlowCall takeTokenCall⟩
+        scalarNames.eval calls frame bodyOfCall initialFlowCall takeTokenCall, declarations.eval calls frame bodyOfCall initialFlowCall takeTokenCall, arrayNames.eval calls frame bodyOfCall initialFlowCall takeTokenCall, hiddenCalls.eval calls frame bodyOfCall initialFlowCall takeTokenCall⟩
   | .bodyValue _ facts pos target capacity assigned output =>
       ⟨pos.eval calls frame bodyOfCall initialFlowCall takeTokenCall, target.eval calls frame bodyOfCall initialFlowCall takeTokenCall, capacity.eval calls frame bodyOfCall initialFlowCall takeTokenCall,
         facts.eval calls frame bodyOfCall initialFlowCall takeTokenCall, assigned.eval calls frame bodyOfCall initialFlowCall takeTokenCall, output.eval calls frame bodyOfCall initialFlowCall takeTokenCall⟩
@@ -299,8 +299,8 @@ def Expr.render : Expr α → List String
   | .nameCount names => names.render ++ [".", "count"]
   | .completed facts => ["paths", "."] ++ Expressions.call "completed" [facts.render]
   | .bodyEnvironment names => ["scalar_expressions", "."] ++ Expressions.call "body_environment" [names.render]
-  | .contextValue names scalarNames arrayNames hiding declarations first after => record [("names", names.render),
-      ("scalar_names", scalarNames.render), ("array_names", arrayNames.render), ("subtype_hiding", hiding.render), ("declaration_count", declarations.render),
+  | .contextValue names scalarNames arrayNames hiddenCalls declarations first after => record [("names", names.render),
+      ("scalar_names", scalarNames.render), ("array_names", arrayNames.render), ("subtype_hiding", hiddenCalls.render), ("declaration_count", declarations.render),
       ("dynamic_first", first.render), ("dynamic_after", after.render)]
   | .bodyValue count facts pos target capacity assigned output => record [("count", count.render), ("facts", facts.render),
       ("position", pos.render), ("target", target.render), ("capacity", capacity.render),
