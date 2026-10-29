@@ -183,3 +183,15 @@ Focused run `20261029T154909-06ffd07f35c4` was interrupted when an inherited-mod
 target unexpectedly pulled in the expensive source chain; completed lower
 objects are retained, but no successful focused audit is claimed for that run.
 The replacement target set excludes that source dependency.
+
+That replacement check, `20261029T161019-1954ab856759`, passed the scalar-array
+recursion and native Predicate helper/library targets with a fresh audit of
+35,005 declarations (77.000 s build, 12.643 s audit). The two repaired internal
+array helpers receive the metadata already established by their caller; public
+array/scalar correspondence endpoints keep their statements and domains.
+The [focused record](evidence/named-integer-subtypes-20261029/native-predicate-closure/README.md)
+retains preceding failed and interrupted checks. The
+[cache transfer](evidence/named-integer-subtypes-20261029/native-predicate-cache-transfer.json)
+records the matching 206-module closure reused by integration. These results
+close the known focused proof repairs and permit the complete checkpoint;
+they do not themselves establish final authoritative-source assurance.
