@@ -1,0 +1,44 @@
+{
+  "main.adb": {
+    "source": "tmp/subtype-producer/input/main.adb",
+    "sha256": "6596165587f49a4d272465afa7de0e57190c4e85d6d637c4df14c7b12245b5f5",
+    "uncompressed_sha256": "6596165587f49a4d272465afa7de0e57190c4e85d6d637c4df14c7b12245b5f5",
+    "bytes": 692,
+    "uncompressed_bytes": 692
+  },
+  "probe.gpr": {
+    "source": "tmp/subtype-producer/input/probe.gpr",
+    "sha256": "3e269962d66c2bd90c6c67188efddd6612026b34b69df0aeb60f085484361a19",
+    "uncompressed_sha256": "3e269962d66c2bd90c6c67188efddd6612026b34b69df0aeb60f085484361a19",
+    "bytes": 241,
+    "uncompressed_bytes": 241
+  },
+  "producer.log.gz": {
+    "source": "producer.log",
+    "sha256": "e2b04a0f8fc9ea6a8529138b9a7e4eae12faf7b621e4c68acd1dbd1aa29ce847",
+    "uncompressed_sha256": "f8a07367beb0ea1b648eb673354810b44d507a025977ab665af15181e2643ad6",
+    "bytes": 347,
+    "uncompressed_bytes": 621
+  },
+  "main.spark.gz": {
+    "source": "tmp/subtype-producer/output/obj/explore/subtypes/gnatprove/main.spark",
+    "sha256": "466054c31e8a35c8e6f06a7f5737ded1be8e1d8491528af37d6c6fe1a512776e",
+    "uncompressed_sha256": "9b12acd8bff9390edae7d9c0e54805e55dfb86e21cfb1a788f18dc874568cd65",
+    "bytes": 1529,
+    "uncompressed_bytes": 6301
+  },
+  "main.gnat-json.gz": {
+    "source": "tmp/subtype-producer/output/obj/explore/subtypes/gnatprove/main.gnat-json",
+    "sha256": "a9436e9df93c4bba2887506d6041bd58d59b686c01237f43097b956f5fa8ee4f",
+    "uncompressed_sha256": "e4aebdfb2d0cb38305cdb365d432da674e97cf31de3f5191bb16990c8edd4765",
+    "bytes": 23666,
+    "uncompressed_bytes": 185491
+  },
+  "gnatprove.out.gz": {
+    "source": "tmp/subtype-producer/output/obj/explore/subtypes/gnatprove/gnatprove.out",
+    "sha256": "66dad42caba8c3f1208e2f8b9af7c3e5c4c6d0f0e31587241b1e72016317a066",
+    "uncompressed_sha256": "2122c7ab3e6bf6f32ad748fa1c760afc6399aa209ddede23789ea49e53c6cb69",
+    "bytes": 489,
+    "uncompressed_bytes": 1748
+  }
+}
