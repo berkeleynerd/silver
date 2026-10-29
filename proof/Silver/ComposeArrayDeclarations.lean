@@ -1,6 +1,6 @@
 module
 
-public import Silver.ComposeBounds
+public import Silver.ComposeSubtypeDeclarations
 public import Silver.IntegerArraySnapshots
 
 @[expose] public section
@@ -23,7 +23,7 @@ def ArrayDeclarationParts.length (parts : ArrayDeclarationParts) : Nat :=
 def ArrayDeclarationParts.binding (parts : ArrayDeclarationParts) (state : ParserState) :
     ArrayBindings.Binding :=
   ⟨parts.first, parts.after, ⟨parts.lower.bounds.lower, parts.upper.bounds.lower⟩,
-    state.arrayNames.used, parts.length, decide (parts.constantAfter = 0)⟩
+    state.arrayNames.used, parts.length, decide (parts.constantAfter = 0), parts.componentBounds⟩
 
 def ArrayDeclarationReady (text : Source) (state : ParserState) (arguments : Bool)
     (parts : ArrayDeclarationParts) : Prop :=
@@ -56,46 +56,49 @@ inductive ArrayAggregateAt (text : Source) (state : ParserState) (parts : ArrayD
       fixedAfter text result.after "=>" false ≠ 0 →
       ArrayAggregateAt text state parts (fixedAfter text result.after "=>" false)
 
-inductive ArrayValuesAt (text : Source) (source : ParserState) :
+inductive ArrayValuesAt (text : Source) (source : ParserState) (componentBounds : Integer.Interval) :
     ParserState → Nat → Nat → Nat → List Integer.Expr → ParserState → Prop
   | done {result : ParserState} {position length parsed : Nat} :
       position ≠ 0 → length ≤ parsed →
-      ArrayValuesAt text source result position length parsed [] {result with position := position}
+      ArrayValuesAt text source componentBounds result position length parsed [] {result with position := position}
   | next {result final : ParserState} {position length parsed : Nat}
       {expression : Integer.Expr} {value : ScalarExpression.Result} {rest : List Integer.Expr} :
       position ≠ 0 → parsed < length →
       ScalarExpression.At text source.scalarNames position expression value
         (arrays := source.arrayNames.names) (initials := source.arrayNames.values) (elaborating := true) →
       value.bounds.isEmpty = false → value.bounds.lower = value.bounds.upper →
-      ArrayValuesAt text source
+      (componentBounds.lower ≤ value.bounds.lower ∧ value.bounds.upper ≤ componentBounds.upper) →
+      ArrayValuesAt text source componentBounds
         {result with arrayNames := {result.arrayNames with
           used := result.arrayNames.used + 1
           values := ArrayBindings.putInitial result.arrayNames.values (result.arrayNames.used + 1) value.bounds.lower}}
         (if parsed + 1 < length then fixedAfter text value.after "," false else value.after)
         length (parsed + 1) rest final →
-      ArrayValuesAt text source result position length parsed (expression :: rest) final
+      ArrayValuesAt text source componentBounds result position length parsed (expression :: rest) final
 
-theorem arrayValues_complete {text source result position length parsed expressions final}
-    (reading : ArrayValuesAt text source result position length parsed expressions final) :
-    arrayValuesModel text source result position length parsed = final := by
+theorem arrayValues_complete {text source componentBounds result position length parsed expressions final}
+    (reading : ArrayValuesAt text source componentBounds result position length parsed expressions final) :
+    arrayValuesModel text source result position length parsed componentBounds = final := by
   induction reading with
   | @done result position length parsed positive finished =>
       rw [arrayValuesModel]
       simp only [positive, ↓reduceIte, Nat.not_lt.mpr finished, ↓reduceDIte]
-  | @next result final position length parsed expression value rest positive remaining reading nonempty singleton restRead ih =>
+  | @next result final position length parsed expression value rest positive remaining reading nonempty singleton within restRead ih =>
       have progress := reading.cursorBounds
       have present : value.after ≠ 0 := by omega
       rw [arrayValuesModel]
-      have good : ¬(value.after = 0 ∨ value.bounds.isEmpty = true ∨ value.bounds.lower ≠ value.bounds.upper) := by
-        simp [present, nonempty, singleton]
+      have good : ¬(value.after = 0 ∨ value.bounds.isEmpty = true ∨ value.bounds.lower ≠ value.bounds.upper ∨
+          value.bounds.lower < componentBounds.lower ∨ componentBounds.upper < value.bounds.upper) := by
+        simp only [present, nonempty, singleton, Bool.false_eq_true, ne_eq, not_true_eq_false, false_or]
+        omega
       simp only [positive, ↓reduceIte, remaining, ↓reduceDIte, ScalarExpression.read_complete reading, good]
       exact ih
 
 theorem arrayValues_sound (text : Source) (source result : ParserState)
-    (position length parsed : Nat) (bound : position ≤ text.length + 1)
-    (accepted : (arrayValuesModel text source result position length parsed).position ≠ 0) :
-    ∃ expressions, ArrayValuesAt text source result position length parsed expressions
-      (arrayValuesModel text source result position length parsed) := by
+    (position length parsed : Nat) {componentBounds : Integer.Interval} (bound : position ≤ text.length + 1)
+    (accepted : (arrayValuesModel text source result position length parsed componentBounds).position ≠ 0) :
+    ∃ expressions, ArrayValuesAt text source componentBounds result position length parsed expressions
+      (arrayValuesModel text source result position length parsed componentBounds) := by
   rw [arrayValuesModel] at accepted ⊢
   by_cases zero : position = 0
   · simp only [zero, ↓reduceIte, invalidState, ne_eq, not_true_eq_false] at accepted
@@ -105,11 +108,12 @@ theorem arrayValues_sound (text : Source) (source result : ParserState)
       generalize valueEq : ScalarExpression.read text position source.scalarNames
         (arrays := source.arrayNames.names) (initials := source.arrayNames.values)
         (elaborating := true) = value at accepted ⊢
-      by_cases bad : value.after = 0 ∨ value.bounds.isEmpty = true ∨ value.bounds.lower ≠ value.bounds.upper
+      by_cases bad : value.after = 0 ∨ value.bounds.isEmpty = true ∨ value.bounds.lower ≠ value.bounds.upper ∨
+        value.bounds.lower < componentBounds.lower ∨ componentBounds.upper < value.bounds.upper
       · simp only [bad, ↓reduceIte, invalidState, ne_eq, not_true_eq_false] at accepted
       · simp only [bad, ↓reduceIte] at accepted ⊢
         have checked := bad
-        simp only [not_or, Bool.not_eq_true, Decidable.not_not] at checked
+        simp only [not_or, Bool.not_eq_true, Decidable.not_not, Int.not_lt] at checked
         have present : (ScalarExpression.read text position source.scalarNames
             (arrays := source.arrayNames.names) (initials := source.arrayNames.values)
             (elaborating := true)).after ≠ 0 := by rw [valueEq]; exact checked.1
@@ -125,25 +129,25 @@ theorem arrayValues_sound (text : Source) (source result : ParserState)
           · exact model_fixed_valid text _ "," false ending
           · exact ending
         obtain ⟨rest, restRead⟩ := arrayValues_sound text source _ _ length (parsed + 1) nextBound accepted
-        exact ⟨expression :: rest, .next zero remaining reading checked.2.1 checked.2.2 restRead⟩
+        exact ⟨expression :: rest, .next zero remaining reading checked.2.1 checked.2.2.1 checked.2.2.2 restRead⟩
     · simp only [remaining, ↓reduceDIte]
       exact ⟨[], .done zero (by omega)⟩
 termination_by length - parsed
 decreasing_by omega
 
-theorem arrayValues_length {text source result position length parsed expressions final}
-    (reading : ArrayValuesAt text source result position length parsed expressions final) :
+theorem arrayValues_length {text source componentBounds result position length parsed expressions final}
+    (reading : ArrayValuesAt text source componentBounds result position length parsed expressions final) :
     expressions.length = length - parsed := by
   induction reading with
   | done _ finished => simp; omega
-  | next _ remaining _ _ _ _ ih => simp only [List.length_cons]; omega
+  | next _ remaining _ _ _ _ _ ih => simp only [List.length_cons]; omega
 
-theorem arrayValues_initialValues {text source result position length parsed expressions final}
-    (reading : ArrayValuesAt text source result position length parsed expressions final) :
+theorem arrayValues_initialValues {text source componentBounds result position length parsed expressions final}
+    (reading : ArrayValuesAt text source componentBounds result position length parsed expressions final) :
     ∃ values, Integer.arrayInitialValues (declarationRanges source) expressions = some values := by
   induction reading with
   | done => exact ⟨[], rfl⟩
-  | @next result final position length parsed expression value rest _ _ reading _ singleton _ ih =>
+  | @next result final position length parsed expression value rest _ _ reading _ singleton _ _ ih =>
       obtain ⟨values, checked⟩ := ih
       refine ⟨value.bounds.lower :: values, ?_⟩
       change expression.infer (declarationRanges source) >>= _ = _
@@ -153,13 +157,13 @@ theorem arrayValues_initialValues {text source result position length parsed exp
           (fun values => value.bounds.lower :: values) else none) = some (value.bounds.lower :: values)
       simp only [singleton, ↓reduceIte, checked, Option.map_some]
 
-theorem arrayValues_obligations {text source result position length parsed expressions final}
-    (reading : ArrayValuesAt text source result position length parsed expressions final) :
+theorem arrayValues_obligations {text source componentBounds result position length parsed expressions final}
+    (reading : ArrayValuesAt text source componentBounds result position length parsed expressions final) :
     Integer.discharged (expressions.flatMap fun expression =>
       expression.obligations (declarationRanges source)) = true := by
   induction reading with
   | done => rfl
-  | next _ _ reading _ _ _ ih =>
+  | next _ _ reading _ _ _ _ ih =>
       rw [List.flatMap_cons, Integer.discharged_append, ih]
       have discharged : Integer.discharged (Integer.Expr.obligations (declarationRanges source) _) = true :=
         Integer.Expr.obligations_discharge reading.inferred
@@ -212,40 +216,41 @@ inductive ArrayDeclarationAt (text : Source) (arguments : Bool) :
   | declaration {state values : ParserState} {parts : ArrayDeclarationParts}
       {lower upper : Integer.Expr} {position following : Nat} {expressions : List Integer.Expr} :
       arrayDeclarationParts text state = parts → ArrayDeclarationReady text state arguments parts →
+      ScalarTypeAt text state parts.typeFirst ⟨parts.typeAfter, parts.componentBounds⟩ →
       ScalarExpression.At text state.scalarNames (fixedAfter text parts.arrayAfter "(" false) lower parts.lower
         (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true) →
       ScalarExpression.At text state.scalarNames (fixedAfter text parts.lower.after ".." false) upper parts.upper
         (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true) →
       ArrayAggregateAt text state parts position →
-      ArrayValuesAt text state state position parts.length 0 expressions values →
+      ArrayValuesAt text state parts.componentBounds state position parts.length 0 expressions values →
       following = fixedAfter text (fixedAfter text values.position ")" false) ";" false →
       state.position < following →
       ArrayDeclarationAt text arguments state ⟨(parts.binding state).descriptor, expressions⟩
         {values with position := following, arrayNames := {values.arrayNames with
           names := values.arrayNames.names ++ [parts.binding state]}}
 
-theorem arrayValues_positive {text source result position length parsed expressions final}
-    (reading : ArrayValuesAt text source result position length parsed expressions final) : final.position ≠ 0 := by
+theorem arrayValues_positive {text source componentBounds result position length parsed expressions final}
+    (reading : ArrayValuesAt text source componentBounds result position length parsed expressions final) : final.position ≠ 0 := by
   induction reading with
   | done positive _ => exact positive
-  | next _ _ _ _ _ _ ih => exact ih
+  | next _ _ _ _ _ _ _ ih => exact ih
 
-theorem arrayValues_start_positive {text source result position length parsed expressions final}
-    (reading : ArrayValuesAt text source result position length parsed expressions final) : position ≠ 0 := by
+theorem arrayValues_start_positive {text source componentBounds result position length parsed expressions final}
+    (reading : ArrayValuesAt text source componentBounds result position length parsed expressions final) : position ≠ 0 := by
   cases reading with
   | done positive _ => exact positive
-  | next positive _ _ _ _ _ => exact positive
+  | next positive _ _ _ _ _ _ => exact positive
 
 theorem array_declaration_positive {text arguments state declaration final}
     (reading : ArrayDeclarationAt text arguments state declaration final) : final.position ≠ 0 := by
   cases reading with
-  | declaration _ _ _ _ _ _ _ following => dsimp only; omega
+  | declaration _ _ _ _ _ _ _ _ following => dsimp only; omega
 
 theorem array_declaration_preserves {text arguments state declaration final}
     (reading : ArrayDeclarationAt text arguments state declaration final) :
     final.names = state.names ∧ final.scalarNames = state.scalarNames := by
   cases reading with
-  | declaration _ _ _ _ _ values _ _ =>
+  | declaration _ _ _ _ _ _ values _ _ =>
       have preserved := arrayValuesModel_preserves _ _ _ _ _ _
         ((arrayValues_complete values).symm ▸ arrayValues_positive values)
       rw [arrayValues_complete values] at preserved
@@ -256,7 +261,7 @@ theorem array_declaration_complete {text arguments state declaration final}
     (reading : ArrayDeclarationAt text arguments state declaration final) :
     arrayDeclarationAt text state arguments = final := by
   cases reading with
-  | @declaration values parts lower upper position following expressions partsEq ready _ _ aggregate valuesRead followingEq advances =>
+  | @declaration values parts lower upper position following expressions partsEq ready _ _ _ aggregate valuesRead followingEq advances =>
       have start := arrayValues_start_positive valuesRead
       have positive := arrayValues_positive valuesRead
       have aggregateEq := arrayAggregate_complete aggregate
@@ -330,7 +335,16 @@ theorem array_declaration_sound (text : Source) (state : ParserState) (arguments
           obtain ⟨expressions, valuesRead⟩ := arrayValues_sound text state state _ parts.length 0
             aggregateBound positive
           refine ⟨⟨(parts.binding state).descriptor, expressions⟩, ?_⟩
-          exact .declaration partsEq ready (lowerEq.symm ▸ lowerRead) (upperEq.symm ▸ upperRead)
+          have typePositive : (scalarTypeAt text state parts.typeFirst).after ≠ 0 := by
+            have pos := ready.2.2.2.1
+            rw [← partsEq] at pos ⊢
+            exact model_fixed_input_nonzero text _ ":=" false
+              (model_fixed_input_nonzero text _ "(" false pos)
+          have typeEq : scalarTypeAt text state parts.typeFirst = ⟨parts.typeAfter, parts.componentBounds⟩ := by
+            rw [← partsEq]
+            rfl
+          exact .declaration partsEq ready (typeEq ▸ scalarTypeAt_sound text state _ typePositive)
+            (lowerEq.symm ▸ lowerRead) (upperEq.symm ▸ upperRead)
             aggregate valuesRead rfl (by omega)
 
 end Silver.Compose

@@ -226,6 +226,22 @@ theorem scalarTypeAt_complete {text state position result}
       subst first; subst after; subst target
       simp_all [scalarTypeAt, Nat.not_le.mpr advance]
 
+theorem ScalarTypeAt.bounded {text state position result}
+    (reading : ScalarTypeAt text state position result)
+    (valid : IntegerSubtypes.ValidEnvironment text state.subtypeNames) : result.bounds.Bounded := by
+  rw [← scalarTypeAt_complete reading]
+  exact scalarTypeAt_bounded text state position valid
+
+theorem ScalarTypeAt.nonempty {text state position result}
+    (reading : ScalarTypeAt text state position result)
+    (valid : IntegerSubtypes.ValidEnvironment text state.subtypeNames) : result.bounds.lower ≤ result.bounds.upper := by
+  cases reading with
+  | integer => exact (by decide : Integer.Interval.full.lower ≤ Integer.Interval.full.upper)
+  | @named first after target _ _ _ _ _ _ _ _ found nonzero =>
+      have bound := IntegerSubtypes.lookup_bound text state.subtypeNames first after
+      rw [← found] at bound
+      exact (valid.2 _ (subtypeBinding_mem (by omega) bound)).2.2.2.2
+
 /-- Every admitted subtype names Integer directly and has a mandatory,
 nonempty static range. Names of value objects remain unavailable as parents. -/
 def SubtypeDeclarationReady (text : Source) (state : ParserState) (arguments : Bool)
