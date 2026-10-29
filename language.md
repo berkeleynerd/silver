@@ -214,11 +214,12 @@ values has a known fixed length. A dynamic initializer must have exactly one dyn
 occurrence and no nonempty non-input contribution, since it executes before guards
 and must fit for every `d <= 4096`. Such an object and `D` share the symbolic
 selected-input length `d`; each object's bounds remain fixed during that execution.
-This length relationship survives copies, including mutable-source snapshots. Native
-binding storage has `4096 / 7 = 585` slots because even `A:S:=0;`, using a
-one-letter named subtype, consumes seven source bytes. This is capacity derived
-from the complete-source bound, not an
-independent declaration-count restriction.
+This length relationship survives copies, including mutable-source snapshots.
+Native String binding storage retains `4096 / 12 = 341` slots. Scalar storage
+has `4096 / 7 = 585` slots because even `A:S:=0;`, using a one-letter named
+subtype, consumes seven source bytes. Both capacities follow from the complete
+source bound and minimum declaration spellings; they are not independent
+language restrictions on declaration counts.
 
 <a id="immutable-integer-expressions-and-comparisons"></a>
 

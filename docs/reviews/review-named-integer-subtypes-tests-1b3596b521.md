@@ -51,10 +51,10 @@ contradictory-guard regression preserves the #284 composition case.
 The Sum of squares task (cached revision 415389) requires an empty-vector result
 of zero. The sample's fixed-capacity representation uses logical count zero for
 that case; its separate nonempty traversal computes
-`3² + 1² + 4² + 1² + 5² + 9² = 133`. The addition threshold is Integer'Max minus
+`3² + 1² + 4² + 1² + 5² + 9² = 133`. The addition threshold is Integer'Last minus
 81, and every square lies in `0..81`. The Sum and product task (revision 413444)
 uses the actual array `1..10`; its results are 55 and 3628800. Its sum and product
-thresholds are Integer'Max minus 10 and floor(Integer'Max / 10), respectively.
+thresholds are Integer'Last minus 10 and floor(Integer'Last / 10), respectively.
 No sample overflow guard can fail for the selected data. Manifest output bytes
 include the required Integer Image leading spaces and final newlines.
 
