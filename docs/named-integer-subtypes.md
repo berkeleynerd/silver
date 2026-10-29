@@ -1,0 +1,67 @@
+# Named Integer subtypes and bounded array components
+
+Status: owner-authorized proposal, not yet supported. [Milestone 13](https://github.com/berkeleynerd/silver/milestone/13)
+contains one coherent work package, [#286](https://github.com/berkeleynerd/silver/issues/286).
+The [2026-10-29 authorization](session-memory.md#2026-10-29--named-integer-subtypes-and-bounded-array-components-authorized)
+covers implementation through complete assurance, validation, independent review
+and feature PR publication. The feature PR remains subject to the owner's merge
+instruction.
+
+## Selected scope
+
+The driver is Rosetta [Sum of squares](../rosetta/s/sum-of-squares/task.wiki).
+The proposed declaration is `subtype S is Integer range staticLo .. staticHi;`.
+Require nonempty static bounds contained in Integer, and permit earlier named
+subtypes in initialized scalar objects and the component indication of existing
+anonymous fixed arrays. Subtype declarations name Integer directly; subtype alias
+chains remain excluded. An optional scalar object-local range may further narrow
+the named subtype to a nonempty subset, subject to native design confirmation. Preserve the inherited Ada/SPARK meaning: a subtype
+constrains Integer values; it does not create a distinct Integer type.
+
+Every initialized or subsequently stored value must respect its declared subtype.
+The declared component bounds inform array reads and constant-array foreach
+body reasoning, so arithmetic such as a bounded component square can be admitted
+without silently widening the component to the full Integer interval. Establish
+these invariants for every permitted composition, including existing guards,
+scalar and indexed assignment, loops and name hiding. Preserve the author's
+actual source bytes through proof and build.
+
+Retain the current 4,096-byte source, 63-operator and 64-leaf budgets, existing
+array index rules and constant-iterable restriction. Conversions, derived types,
+functions/procedures, dynamic bounds and general arrays are outside this package.
+This proposal admits no syntax until implementation and required assurance are
+complete; current support remains defined by [language.md](../language.md).
+
+## Design and completion obligations
+
+Settle the exact static-bound grammar, declaration identity/order and visibility,
+scalar initializer/assignment rules, component interval propagation and permitted
+compositions before declaring support. Inspect actual native producer obligations
+and any new report routes, advisories or feature-local report-capacity effects.
+An accepted obligation class needs its semantic and automatic-discharge argument;
+report acceptance and passing examples alone do not establish that guarantee.
+
+Extend native Bronze/Silver verification and Lean decidable membership,
+composition, semantic preservation, termination, automatic-discharge and
+actual-source correspondence across the resulting admitted language. Reuse
+applicable existing proofs and evidence while discharging every newly affected
+obligation. Keep the Oracle and trusted-boundary claims accurate; do not suppress
+checks or narrow domains to make proof succeed.
+
+Add boundary, rejection and interaction regressions and a faithful Sum of squares
+sample. Update language, catalogue, sample manifest, capability and roadmap
+records together. Reconcile the exact fragment with broad stages #11/#12 in the
+Rosetta assessment, supported identifiers, current-language description and
+rendered progression. Their broad remaining scope stays Open/Backlog.
+
+Complete the required native proof/coverage/provenance, build, Lean/source/module/
+axiom and full regression validation on identified final inputs, followed by
+independent review and feature PR publication. No validation or assurance result
+is claimed by this initial planning record.
+
+## Work round
+
+Authorization recording used selected GPT-6.1 Sol / High for this bounded planning
+subthread. Runtime model confirmation and token/cost measurements are unavailable.
+The deliverable is the authorization-only planning PR and one milestone/package;
+feature design, implementation, proofs and validation belong to #286.
