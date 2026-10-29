@@ -60,10 +60,16 @@ def subtypeDeclarationEquation (calls : Calls) (text : Source) (state : ParserSt
   else
     let hidden (op : Names.Operation) := state.subtypeNames.hiddenCalls.get op ||
       calls.function .nameIs text first after op.name
-    { state with position := following,
-      subtypeNames := { items := state.subtypeNames.items ++ [⟨first,after,constraint.bounds⟩],
-        hiddenCalls := {output := hidden .output, partialOutput := hidden .partialOutput,
-          argument := hidden .argument, validity := hidden .validity, reject := hidden .reject} } }
+    { state with
+      position := following
+      subtypeNames := {
+        items := state.subtypeNames.items ++ [⟨first,after,constraint.bounds⟩]
+        hiddenCalls := {
+          output := hidden .output
+          partialOutput := hidden .partialOutput
+          argument := hidden .argument
+          validity := hidden .validity
+          reject := hidden .reject } } }
 
 theorem scalarType_denotation (calls : Calls) (text : Source) (state : ParserState) (position : Nat) :
     scalarTypeBody.eval calls (Context.locals {text,state,position}) = scalarTypeEquation calls text state position := by rfl
