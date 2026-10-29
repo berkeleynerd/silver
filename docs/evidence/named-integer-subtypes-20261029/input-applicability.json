@@ -1,6 +1,6 @@
 {
   "implementation_commit": "97312a790fb11a83a9607ad48ddab491711f2c3d",
-  "scope": "Input comparison only; complete validation outcomes remain pending.",
+  "scope": "Historical input comparison against pre-repair implementation97312a790f. Its full native run failed and complete Lean run was interrupted. See repair-input-applicability.json for the repaired source target.",
   "lean": {
     "run_id": "20261029T161817-0a8089cd7dc3",
     "captured_count": 653,

@@ -205,7 +205,8 @@ they do not themselves establish final authoritative-source assurance.
 ## Delivery assurance and validation
 
 The [final packet](evidence/named-integer-subtypes-20261029/README.md) is being
-assembled for implementation/review target `97312a790f`. Complete Lean run
+assembled for repaired implementation/review target `6020416906`, extending
+the previously reviewed `97312a790f`. Complete Lean run
 `20261029T161817-0a8089cd7dc3` captured 653 matching inputs but was deliberately
 interrupted at 20:40 UTC after the native failure required a source repair.
 Its completed artifacts and original outcome are retained; no complete Lean
@@ -224,20 +225,36 @@ complete coverage/provenance audit did not run and no success manifest exists.
 The [failed native packet](evidence/named-integer-subtypes-20261029/native-full-reuse/failed-full/README.md)
 and [diagnostic](evidence/named-integer-subtypes-20261029/native-full-reuse/body-tail-diagnostic/README.md)
 retain that outcome and the exact failed equality. A focused ghost-equality
-repair is being tested in an isolated workspace without changing contracts or
+repair passed in an isolated workspace without changing contracts or
 prover settings. The repair changes the complete output source pin, invalidating
 both expensive source-candidate checks. Finishing the old-input Lean run would
 not establish repaired-source correspondence, so it was stopped before
 integration. Unaffected completed objects remain available for the next managed
 complete checkpoint.
 
+Source repair `5e836b27d6` adds only Static ghost equality guidance; the
+authoritative output pin/certificate refresh is `6020416906`. Focused run
+`20261029T203414-0517c9b1e3dd` passed all 62 proof and 287 flow checks, including
+all 330 Body_Tail session goals, in 1,179.240 s. The
+[repair review](reviews/review-named-integer-subtypes-body-tail-equality-20261029.md)
+confirms unchanged endpoints and runtime behavior, the exact source refresh,
+and the corrected retained focused reports. No new recursive scan copy enters
+the runtime build under the pinned Static erasure rules.
+
+Complete Lean run `20261029T205735-bb72d0625415` is active on all 653 matching
+repaired inputs. Native build `20261029T210150-1086727daf3c` passed on matching
+governed inputs. The new complete native audit and affected regressions remain
+required; focused proof success does not replace either complete checkpoint.
+
 Full regression run `20261029T153819-5626949ad567` passed all 555 test identities
 in 5,255.763 s, including 52 sample sources and 108 executions. The
 [independent integration review](reviews/review-named-integer-subtypes-final-integration-97312a790f.md)
 identified two test modules affected by the final five proof edits. Runs
 `20261029T170712-d9dc75fa5629` and `20261029T170846-5ccd1f3667b8` passed their
-12 and 16 tests. The final inventory is therefore covered by 527 applicable
-full-suite results and 28 refreshed results. There are 546 distinct methods
+12 and 16 tests. The pre-repair inventory was therefore covered by 527 applicable
+full-suite results and 28 refreshed results. The repair review requires
+46 refreshed identities and permits retaining the other 509; those new reruns
+are in progress. There are 546 distinct methods
 after excluding nine previously disclosed duplicate executions through separate
 shared-binding import names. Final Rosetta delivery metadata and evidence
 confirmation await complete assurance; PR #289 remains a draft.
@@ -246,3 +263,4 @@ confirmation await complete assurance; PR #289 remains a draft.
 | --- | --- | --- |
 | Final regression reconciliation and native workspace reuse | Lead runtime settings unavailable; native worker GPT-6 Astra / Extra High; delivery documentation GPT-6.1 Sol / High | Full suite passed in 5,259.531 s managed time; both affected modules passed. Native reuse preserves prior sessions and exact input comparisons; complete native and Lean checks remain active. Token/cost measurements unavailable. |
 | Complete-native failure diagnosis | Native continuation selected GPT-6 Astra / Extra High; source-impact assessment selected GPT-6.1 Sol / Extra High | The full native run ended after 13,129.891 s with one static result/model equality unresolved. Original reports and inputs are retained; focused repair and affected-source validation remain required. Earlier provisional session-progress observations were incomplete, not successful full validation. |
+| Body_Tail equality repair and reviewed applicability | Native repair and independent reviewer selected GPT-6 Astra / Extra High; regression refresh selected GPT-6.1 Sol / Extra High | Focused native proof passed in 1,179.240 s; the eight-line Static-only repair and mechanical pin/certificate refresh are reviewed. New complete Lean run is active, native build passed, and 46 affected tests are being refreshed. An empty focused-report archive was corrected and independently verified without a proof rerun. |
