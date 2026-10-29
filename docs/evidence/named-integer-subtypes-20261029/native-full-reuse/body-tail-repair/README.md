@@ -35,7 +35,13 @@ All 2,580 captured native inputs matched at retention, captured tool executable
 hashes were verified, and all 143 tracked native inputs match the source-only
 commit. The packet preserves the patch, source, complete focused reports,
 task, session, shapes, input/tool snapshot, native log and managed ledger.
-Retained report copies and archived hashes were compared directly.
+The archive contains exactly `silver_output_profile.spark`, `gnatprove.out`
+and `gnatprove.sarif`; all three archived hashes match the actual focused
+output. Successful exploratory runs do not populate the ledger's separate
+`retained_reports` list. Independent review caught an initial empty archive
+caused by relying on that list; the packet was repaired from the untouched
+focused output and rechecked with explicit three-file coverage. No proof was
+rerun for this packaging correction.
 
 Runtime erasure follows the pinned SPARK 16.1 rules. The
 [assertion-policy rules](../../../../../references/spark/16.1/docs/lrm/source/exceptions.rst)
