@@ -2,6 +2,7 @@ module
 
 public import Silver.ComposeModelCalls
 public import Silver.ComposeEvaluation
+public import Silver.ComposeSubtypeLookupLegal
 
 @[expose] public section
 
@@ -47,10 +48,10 @@ private theorem fixed_legal (text : Source) (valid : ValidText text)
   exact ⟨⟨lexical_cursor valid bound nonzero, lexical_trivia valid bound nonzero,
     token_spelling token tokenValid⟩, fun _ => lexical_cursor valid bound nonzero⟩
 
-private theorem model_legal_callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames arrays,
+private theorem model_legal_callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames arrays subtypeHidden,
     ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
     ArrayBindings.ValidMetadata text arrays → ValidCursor text position →
-    callAfterBody.Legal modelCalls (Context.locals {text,scalarNames,arrays,names,position,operation}) := by
+    callAfterBody.Legal modelCalls (Context.locals {text,scalarNames,arrays,names,position,operation,subtypeHidden}) := by
   intros
   dsimp +instances only [callAfterBody, Expr.Legal, Function.isLexical] <;> simp +instances
 
@@ -144,13 +145,32 @@ private theorem model_legal_stringDeclaration : ∀ text, ValidText text → ∀
   intros
   dsimp +instances only [stringDeclarationBody, Expr.Legal, Expr.eval, Function.isLexical, Context.locals, Locals.set, Field.get] <;> simp +instances
 
-private theorem model_legal_scalarConstraint : ∀ text, ValidText text → ∀ position scalarNames,
+private theorem model_legal_scalarConstraint : ∀ text, ValidText text → ∀ position scalarNames baseBounds,
     ValidCursor text position → ScalarExpression.ValidEnvironment text scalarNames →
-    scalarConstraintBody.Legal modelCalls (Context.locals {text,position,scalarNames}) := by
+    baseBounds.Bounded →
+    scalarConstraintBody.Legal modelCalls (Context.locals {text,position,scalarNames,baseBounds}) := by
   intros
   generalize modelCalls = calls
   generalize Context.locals _ = locals
   dsimp +instances only [scalarConstraintBody, Expr.Legal, Function.isLexical]
+  simp only [and_self, implies_true, ite_self]
+
+private theorem model_legal_scalarType : ∀ text, ValidText text → ∀ state position,
+    ValidState text state → ValidCursor text position →
+    scalarTypeBody.Legal modelCalls (Context.locals {text,state,position}) := by
+  intros
+  generalize modelCalls = calls
+  generalize Context.locals _ = locals
+  dsimp +instances only [scalarTypeBody, Expr.Legal, Function.isLexical]
+  simp only [and_self, implies_true, ite_self]
+
+private theorem model_legal_subtypeDeclaration : ∀ text, ValidText text → ∀ state arguments,
+    ValidState text state →
+    subtypeDeclarationBody.Legal modelCalls (Context.locals {text,state,arguments}) := by
+  intros
+  generalize modelCalls = calls
+  generalize Context.locals _ = locals
+  dsimp +instances only [subtypeDeclarationBody, Expr.Legal, Function.isLexical]
   simp only [and_self, implies_true, ite_self]
 
 private theorem model_legal_scalarDeclaration : ∀ text, ValidText text → ∀ state arguments,
@@ -314,6 +334,9 @@ theorem model_legal : LegalBodies modelCalls where
   addBinding := model_legal_addBinding
   stringDeclaration := model_legal_stringDeclaration
   scalarConstraint := model_legal_scalarConstraint
+  subtypeLookupModel := model_legal_subtypeLookupModel
+  scalarType := model_legal_scalarType
+  subtypeDeclaration := model_legal_subtypeDeclaration
   scalarDeclaration := model_legal_scalarDeclaration
   declaration := model_legal_declaration
   argument := model_legal_argument
