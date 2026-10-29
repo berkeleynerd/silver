@@ -384,6 +384,36 @@ theorem initialValue_inRange {values : Initials} (valid : ValidInitials values) 
   | none => decide +kernel
   | some value => exact valid.2 value (List.mem_of_getElem? found)
 
+/-- Appending a fresh segment retains every earlier component subtype and
+establishes the new segment's interval from its checked initializer values. -/
+theorem initialsFit_append {names : Metadata} {values : Initials} {item : Binding} {items : List Int}
+    (fits : InitialsFit names values)
+    (occupied : ∀ entry ∈ names, entry.offset + entry.descriptor.length ≤ values.length)
+    (offset : item.offset = values.length) (count : items.length = item.descriptor.length)
+    (bounded : item.componentBounds.Bounded)
+    (safe : ∀ value ∈ items, item.componentBounds.Contains value) :
+    InitialsFit (names ++ [item]) (values ++ items) := by
+  intro entry member
+  rcases List.mem_append.mp member with old | fresh
+  · refine ⟨(fits entry old).1, ?_⟩
+    intro index within
+    have indexBound := List.mem_range.mp within
+    have before : entry.offset + 1 + index - 1 < values.length := by
+      have last := occupied entry old
+      omega
+    simpa only [initialValue, List.getD_eq_getElem?_getD, List.getElem?_append_left before] using
+      (fits entry old).2 index within
+  · have same := List.mem_singleton.mp fresh
+    subst entry
+    refine ⟨bounded, ?_⟩
+    intro index within
+    have indexBound : index < items.length := by simpa only [count] using List.mem_range.mp within
+    have after : values.length ≤ item.offset + 1 + index - 1 := by omega
+    have relative : item.offset + 1 + index - 1 - values.length = index := by omega
+    simp only [initialValue, List.getD_eq_getElem?_getD, List.getElem?_append_right after,
+      relative, List.getElem?_eq_getElem indexBound, Option.getD_some]
+    exact safe _ (List.getElem_mem (l := items) (n := index) (h := indexBound))
+
 theorem body_ranges_fits (names : Metadata) {values : Initials} (initials : InitialsFit names values)
     {rangesBefore : Integer.Ranges} {valuesBefore : Integer.Store}
     (fits : Integer.Fits rangesBefore valuesBefore) :
