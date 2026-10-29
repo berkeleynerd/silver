@@ -213,6 +213,59 @@ class ScalarGuardTests(unittest.TestCase):
         self.check(program(declarations, b'if ' + predicate + b' then null;end if;'))
         self.check(program(declarations, b'X:=0;' + b'null;' * 700 + b'X:=(X + 1);'))
 
+    def test_native_contradictory_guard_preserves_original_source(self) -> None:
+        # Exact #284 counterexample: proving it used to precede a frontend error.
+        source = (b'with Silver_IO;procedure Main is pragma SPARK_Mode(On);'
+                  b'X:Integer:=0;R:Integer range 0..9:=0;begin '
+                  b'if X>=0 and then X<=9 then if X=99 then R:=X;end if;'
+                  b'end if;end Main;\n')
+        executable, _ = self.compile(source, 'static')
+        self.assertEqual(self.source.read_bytes(), source)
+        project = (executable.parent.parent / 'program.gpr').read_text()
+        self.assertRegex(project,
+                         r'for Default_Switches\s*\("Ada"\)\s+use\s*\([^;]*"-gnatdM"')
+        self.run_program(executable, b'')
+
+    def test_native_contradictory_guard_forms_and_live_scalar_updates(self) -> None:
+        declarations = (b'Y:Integer:=99;K:constant Integer:=Y;X:Integer:=0;'
+                        b'R:Integer range 0..9:=0;D:Integer range 0..9:=0;')
+        body = (b'Y:=7;if 0<=X and then X<=9 then '
+                b'if 99=(X + 0) then R:=X;end if;'
+                b'if ((X))=99 then R:=X;end if;'
+                b'if X=K then R:=X;end if;'
+                b'if X/=99 then null;else R:=X;end if;'
+                b'if not (X/=99) then R:=X;end if;'
+                b'if X=99 and then X>=0 then R:=X;end if;'
+                b'if X/=99 or else X<0 then null;else R:=X;end if;'
+                b'if X<9 then X:=(X + 1);end if;'
+                b'if X/=0 and then (9 / X)>0 then D:=(9 / X);end if;'
+                b'if X=0 or else (9 / X)>0 then R:=X;end if;end if;'
+                + output(b"Integer'Image(R)&Integer'Image(D)&Integer'Image(X)"
+                         b"&Integer'Image(K)&Integer'Image(Y)"))
+        executable, _ = self.compile(program(declarations, body), 'static')
+        self.run_program(executable, b' 1 9 1 99 7\n')
+
+    def test_native_contradictory_guards_compose_with_argument_array_loops(self) -> None:
+        declarations = (b'A:constant array(1..3)of Integer:=(0,1,2);'
+                        b'B:array(0..2)of Integer:=(0,0,0);'
+                        b'X:Integer:=0;R:Integer range 0..2:=0;')
+        body = (b'for E of reverse A loop if E>=0 and then E<=2 then '
+                b'if E=99 then R:=E;B(E):=E;end if;'
+                b'for I in 1..2 loop X:=E;'
+                b'if X>=0 and then X<=2 then '
+                b'if X=99 then R:=X;B(X):=X;end if;'
+                b'B(X):=(E + I);end if;end loop;R:=E;end if;end loop;'
+                + output(b'Input')
+                + output(b"Integer'Image(B(0))&Integer'Image(B(1))&Integer'Image(B(2))"
+                         b"&Integer'Image(R)&Integer'Image(X)"))
+        executable, _ = self.compile(program(declarations, body, arguments=True), 'selected')
+        result = b' 2 3 4 0 0\n'
+        self.run_program(executable, b'old\n' + result)
+        self.run_program(executable, b'new\n' + result, (b'new',))
+        self.run_program(executable, b'\n' + result, (b'',))
+        self.run_program(executable, b'', (b'one', b'two'), 1)
+        self.run_program(executable, b'', (b'\x01',), 1)
+
     def test_native_guarded_updates_division_and_captured_bounds(self) -> None:
         declarations = (b'X:Integer range 0..9:=9;D:Integer range -9..9:=0;'
                         b'N:Integer range 1..3:=3;R:Integer range 0..3:=0;')
