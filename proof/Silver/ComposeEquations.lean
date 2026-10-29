@@ -16,11 +16,11 @@ attribute [local irreducible] ScalarExpression.read scalarConstraintAt
 
 private theorem state_array_metadata {text : Source} {state : ParserState}
     (valid : ValidState text state) : ArrayBindings.ValidMetadata text state.arrayNames.names :=
-  valid.2.2.2.2.2.2.1
+  valid.2.2.2.2.2.2.1.1
 
 private theorem state_array_initials {text : Source} {state : ParserState}
     (valid : ValidState text state) : ArrayBindings.ValidInitials state.arrayNames.values :=
-  valid.2.2.2.2.2.2.2.2.1
+  valid.2.2.2.2.2.2.1.2.2.1
 
 @[simp] theorem interpreted_declaration (calls : Calls) (equations : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (state : ParserState) (arguments : Bool)
@@ -28,7 +28,7 @@ private theorem state_array_initials {text : Source} {state : ParserState}
     calls.function .declaration text state arguments = declarationAt text state arguments := by
   rw [equations.declaration text valid state arguments stateValid]
   dsimp +instances only [declarationBody, Expr.eval, Context.locals, Locals.set, lexical, Calls.get, Field.get]
-  simp only [reduceCtorEq, String.reduceEq, ↓reduceIte, ↓reduceDIte, interpreted_scalarDeclaration calls equations text valid state arguments stateValid, interpreted_stringDeclaration calls equations text valid state arguments stateValid, interpreted_arrayDeclaration calls equations text valid state arguments stateValid, decide_eq_true_eq]
+  simp only [reduceCtorEq, String.reduceEq, ↓reduceIte, ↓reduceDIte, interpreted_subtypeDeclaration calls equations text valid state arguments stateValid, interpreted_scalarDeclaration calls equations text valid state arguments stateValid, interpreted_stringDeclaration calls equations text valid state arguments stateValid, interpreted_arrayDeclaration calls equations text valid state arguments stateValid, decide_eq_true_eq]
   rfl
 
 set_option backward.dsimp.instances true in
