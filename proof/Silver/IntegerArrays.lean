@@ -265,6 +265,33 @@ theorem arrayComponentsFit_sound {ranges : Ranges} {components : Interval} {expr
       simp only [inferred] at inside
       exact Interval.included_sound inside (Expr.infer_sound inferred fits).1
 
+theorem arrayInitialValues_components {ranges : Ranges} {components : Interval}
+    {expressions : List Expr} {items : List Int}
+    (checked : arrayInitialValues ranges expressions = some items)
+    (contained : arrayComponentsFit ranges components expressions = true) :
+    ∀ value ∈ items, components.Contains value := by
+  induction expressions generalizing items with
+  | nil =>
+      simp only [arrayInitialValues, Option.some.injEq] at checked
+      subst items
+      simp
+  | cons expression rest ih =>
+      simp only [arrayInitialValues, Option.bind_eq_some_iff] at checked
+      obtain ⟨bounds, inferred, checked⟩ := checked
+      split at checked
+      · rename_i singleton
+        simp only [Option.map_eq_some_iff] at checked
+        obtain ⟨tail, remaining, rfl⟩ := checked
+        simp only [arrayComponentsFit, List.all_cons, Bool.and_eq_true, inferred] at contained
+        have head := Interval.included_sound contained.1
+          (show bounds.Contains bounds.lower from ⟨Int.le_refl _, by omega⟩)
+        have following := ih remaining contained.2
+        intro value member
+        rcases List.mem_cons.mp member with rfl | member
+        · exact head
+        · exact following value member
+      · contradiction
+
 def ArrayDeclaration.check (ranges : Ranges) (declaration : ArrayDeclaration) : Option (List Int) :=
   if declaration.array.Valid ∧ declaration.array.ComponentValid ∧
       declaration.values.length = declaration.array.length ∧

@@ -10,30 +10,30 @@ maintains an exact prefix and ordered, disjoint allocation. -/
 namespace Silver.Compose
 open Expressions
 
-theorem arrayValues_fields {text source result position length parsed expressions final}
-    (reading : ArrayValuesAt text source result position length parsed expressions final) :
+theorem arrayValues_fields {text source componentBounds result position length parsed expressions final}
+    (reading : ArrayValuesAt text source componentBounds result position length parsed expressions final) :
     final = {result with position := final.position, arrayNames := {result.arrayNames with
       used := final.arrayNames.used, values := final.arrayNames.values}} := by
   induction reading with
   | done => rfl
-  | next _ _ _ _ _ _ ih => exact ih
+  | next _ _ _ _ _ _ _ ih => exact ih
 
-theorem arrayValues_used {text source result position length parsed expressions final}
-    (reading : ArrayValuesAt text source result position length parsed expressions final) :
+theorem arrayValues_used {text source componentBounds result position length parsed expressions final}
+    (reading : ArrayValuesAt text source componentBounds result position length parsed expressions final) :
     final.arrayNames.used = result.arrayNames.used + (length - parsed) := by
   induction reading with
   | done _ finished => dsimp only; omega
-  | next _ remaining _ _ _ _ ih => dsimp only at ih; omega
+  | next _ remaining _ _ _ _ _ ih => dsimp only at ih; omega
 
-theorem arrayValues_canonical {text source result position length parsed expressions final}
-    (reading : ArrayValuesAt text source result position length parsed expressions final)
+theorem arrayValues_canonical {text source componentBounds result position length parsed expressions final}
+    (reading : ArrayValuesAt text source componentBounds result position length parsed expressions final)
     (canonical : result.arrayNames.values.length = result.arrayNames.used) :
     ∃ items, Integer.arrayInitialValues (declarationRanges source) expressions = some items ∧
       final.arrayNames.values = result.arrayNames.values ++ items ∧
       final.arrayNames.values.length = final.arrayNames.used := by
   induction reading with
   | done => exact ⟨[], rfl, by simp, canonical⟩
-  | @next result final position length parsed expression value rest _ _ reading _ singleton tail ih =>
+  | @next result final position length parsed expression value rest _ _ reading _ singleton _ tail ih =>
       have append : ArrayBindings.putInitial result.arrayNames.values (result.arrayNames.used + 1)
           value.bounds.lower = result.arrayNames.values ++ [value.bounds.lower] := by
         rw [← canonical, ArrayBindings.putInitial_append]
@@ -59,53 +59,73 @@ theorem putInitial_valid {values : ArrayBindings.Initials} {slot : Nat} {value :
   · have prior := ArrayBindings.initialValue_inRange valid (offset + 1)
     simpa only [ArrayBindings.initialValue, Nat.add_sub_cancel] using prior
 
-theorem arrayValues_initials_valid {text source result position length parsed expressions final}
-    (reading : ArrayValuesAt text source result position length parsed expressions final)
+theorem arrayValues_initials_valid {text source componentBounds result position length parsed expressions final}
+    (reading : ArrayValuesAt text source componentBounds result position length parsed expressions final)
     (valid : ArrayBindings.ValidInitials result.arrayNames.values)
     (capacity : result.arrayNames.used + (length - parsed) ≤ ArrayBindings.maxElements) :
     ArrayBindings.ValidInitials final.arrayNames.values := by
   induction reading with
   | done => exact valid
-  | next _ remaining reading _ _ _ ih =>
+  | next _ remaining reading _ _ _ _ ih =>
       apply ih
       · exact putInitial_valid valid (by omega) (Integer.Expr.infer_bounded reading.inferred).1
       · dsimp only; omega
 
 theorem array_declaration_binding_valid {text arguments state parts lower upper}
     (ready : ArrayDeclarationReady text state arguments parts)
+    (typeMark : ScalarTypeAt text state parts.typeFirst ⟨parts.typeAfter, parts.componentBounds⟩)
     (low : ScalarExpression.At text state.scalarNames (fixedAfter text parts.arrayAfter "(" false) lower parts.lower
       (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true))
     (high : ScalarExpression.At text state.scalarNames (fixedAfter text parts.lower.after ".." false) upper parts.upper
-      (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true)) :
+      (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true))
+    (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames) :
     ArrayBindings.ValidBinding (parts.binding state) := by
   rcases ready with ⟨_, _, _, _, _, _, _, _, _, _, _, _, _, ordered, capacity, _, _, _⟩
   have lowSafe := (Integer.Expr.infer_bounded low.inferred).1
   have highSafe := (Integer.Expr.infer_bounded high.inferred).1
   simp only [ArrayBindings.ValidBinding, ArrayDeclarationParts.binding, ArrayDeclarationParts.length]
-  exact ⟨⟨lowSafe, highSafe⟩, ordered, by omega, by omega, by omega⟩
+  exact ⟨⟨lowSafe, highSafe⟩, ordered, by omega, by omega, by omega,
+    typeMark.bounded subtypes, typeMark.nonempty subtypes⟩
+
+theorem arrayValues_componentFit {text source componentBounds result position length parsed expressions final}
+    (reading : ArrayValuesAt text source componentBounds result position length parsed expressions final) :
+    Integer.arrayComponentsFit (declarationRanges source) componentBounds expressions = true := by
+  induction reading with
+  | done => rfl
+  | @next result final position length parsed expression value rest _ _ reading nonempty _ contained _ ih =>
+      have included : value.bounds.included componentBounds = true := by
+        simp only [Integer.Interval.included, nonempty, Bool.false_or, decide_eq_true_eq]
+        exact contained
+      have inferred : expression.infer (declarationRanges source) = some value.bounds := reading.inferred
+      simp only [Integer.arrayComponentsFit, List.all_cons, inferred, included, Bool.true_and]
+      exact ih
 
 theorem array_declaration_checked {text arguments state declaration final}
-    (reading : ArrayDeclarationAt text arguments state declaration final) :
+    (reading : ArrayDeclarationAt text arguments state declaration final)
+    (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames) :
     ∃ items, declaration.check (declarationRanges state) = some items := by
   cases reading with
-  | declaration _ ready low high _ values _ _ =>
-      have bindingValid := array_declaration_binding_valid ready low high
+  | declaration _ ready typeMark low high _ values _ _ =>
+      have bindingValid := array_declaration_binding_valid ready typeMark low high subtypes
       have descriptorValid := ArrayBindings.binding_descriptor_valid bindingValid
       have count := arrayValues_length values
       obtain ⟨items, checked⟩ := arrayValues_initialValues values
       refine ⟨items, ?_⟩
       simp only [Integer.ArrayDeclaration.check]
-      rw [ite_eq_left ⟨descriptorValid, by simpa only [ArrayBindings.Binding.descriptor, Integer.ArrayDescriptor.length,
-        ArrayDeclarationParts.binding, ArrayDeclarationParts.length, Nat.sub_zero] using count⟩]
+      rw [ite_eq_left ⟨descriptorValid, ArrayBindings.binding_component_valid bindingValid,
+        by simpa only [ArrayBindings.Binding.descriptor, Integer.ArrayDescriptor.length,
+          ArrayDeclarationParts.binding, ArrayDeclarationParts.length, Nat.sub_zero] using count,
+        arrayValues_componentFit values⟩]
       exact checked
 
 theorem array_declaration_array_valid {text arguments state declaration final}
     (reading : ArrayDeclarationAt text arguments state declaration final)
-    (valid : ArrayBindings.ValidEnvironment text state.arrayNames) :
+    (valid : ArrayBindings.ValidEnvironment text state.arrayNames)
+    (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames) :
     ArrayBindings.ValidEnvironment text final.arrayNames := by
   cases reading with
-  | @declaration values parts lower upper position following expressions partsEq ready low high _ valuesRead _ _ =>
-      have bindingValid := array_declaration_binding_valid ready low high
+  | @declaration values parts lower upper position following expressions partsEq ready typeMark low high _ valuesRead _ _ =>
+      have bindingValid := array_declaration_binding_valid ready typeMark low high subtypes
       have fields := arrayValues_fields valuesRead
       have metadata : values.arrayNames.names = state.arrayNames.names := congrArg (fun s => s.arrayNames.names) fields
       have used : values.arrayNames.used = state.arrayNames.used + parts.length := by
@@ -121,15 +141,22 @@ theorem array_declaration_array_valid {text arguments state declaration final}
         have available := ready.2.2.2.2.1
         have bounded := valid.1.1
         omega
-      refine ⟨⟨?_, ?_⟩, ?_, initials, ?_⟩
+      refine ⟨⟨?_, ?_, ?_⟩, ?_, initials, ?_⟩
       · dsimp only
         rw [metadata, List.length_append, List.length_singleton]
         omega
       · intro item member
         simp only [List.mem_append, List.mem_singleton] at member
         rcases member with member | rfl
-        · exact valid.1.2 item (metadata ▸ member)
+        · exact valid.1.2.1 item (metadata ▸ member)
         · exact ⟨by change 0 < parts.first; omega, allowed.1.1.1.2, nameBound, bindingValid⟩
+      · dsimp only
+        rw [metadata, List.pairwise_append]
+        refine ⟨valid.1.2.2, by simp, ?_⟩
+        intro left member right last
+        have same := List.mem_singleton.mp last
+        subst right
+        exact valid.2.2.2 left member
       · dsimp only; rw [used]; exact capacity
       · intro item member
         simp only [List.mem_append, List.mem_singleton] at member
@@ -141,42 +168,61 @@ theorem array_declaration_array_valid {text arguments state declaration final}
 
 theorem array_declaration_source_ready {text arguments state declaration final}
     (reading : ArrayDeclarationAt text arguments state declaration final)
-    (ready : ArrayBindings.SourceReady text state.arrayNames) :
+    (ready : ArrayBindings.SourceReady text state.arrayNames)
+    (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames) :
     ArrayBindings.SourceReady text final.arrayNames := by
-  have valid := array_declaration_array_valid reading ready.1
+  have valid := array_declaration_array_valid reading ready.1 subtypes
   cases reading with
-  | @declaration values parts lower upper position following expressions _ _ _ _ _ valuesRead _ _ =>
-      obtain ⟨items, _, _, canonical⟩ := arrayValues_canonical valuesRead ready.2.1
+  | @declaration values parts lower upper position following expressions _ allowed typeMark low high _ valuesRead _ _ =>
+      obtain ⟨items, checked, table, canonical⟩ := arrayValues_canonical valuesRead ready.2.1
       have metadata : values.arrayNames.names = state.arrayNames.names :=
         congrArg (fun s => s.arrayNames.names) (arrayValues_fields valuesRead)
-      refine ⟨valid, canonical, ?_⟩
-      dsimp only
-      rw [metadata, List.pairwise_append]
-      refine ⟨ready.2.2, by simp, ?_⟩
-      intro left member right last
-      simp only [List.mem_singleton] at last
-      subst right
-      exact ready.1.2.2.2 left member
+      have count : items.length = parts.length := by
+        have used := arrayValues_used valuesRead
+        rw [table, List.length_append, ready.2.1] at canonical
+        simp only [Nat.sub_zero] at used
+        omega
+      have bindingValid := array_declaration_binding_valid allowed typeMark low high subtypes
+      refine ⟨valid, ?_, valid.1.2.2, ?_⟩
+      · exact (arrayValues_canonical valuesRead ready.2.1).choose_spec.2.2
+      · change ArrayBindings.InitialsFit (values.arrayNames.names ++ [parts.binding state]) values.arrayNames.values
+        rw [metadata, table]
+        apply ArrayBindings.initialsFit_append ready.2.2.2
+        · intro entry member
+          rw [ArrayBindings.binding_descriptor_length ((ready.1.1.2.1 entry member).2.2.2), ready.2.1]
+          exact ready.1.2.2.2 entry member
+        · exact ready.2.1.symm
+        · rw [ArrayBindings.binding_descriptor_length bindingValid]
+          exact count
+        · exact bindingValid.2.2.2.2.2.1
+        · exact Integer.arrayInitialValues_components checked (arrayValues_componentFit valuesRead)
 
 theorem array_declaration_advances {text arguments state declaration final}
     (reading : ArrayDeclarationAt text arguments state declaration final) :
     state.position < final.position := by
   cases reading with
-  | declaration _ _ _ _ _ _ _ advances => exact advances
+  | declaration _ _ _ _ _ _ _ _ advances => exact advances
 
 theorem array_declaration_fields {text arguments state declaration final}
     (reading : ArrayDeclarationAt text arguments state declaration final) :
     final.capacity = state.capacity ∧ final.target = state.target ∧
       final.dynamicFirst = state.dynamicFirst ∧ final.dynamicAfter = state.dynamicAfter := by
   cases reading with
-  | declaration _ _ _ _ _ values _ _ =>
+  | declaration _ _ _ _ _ _ values _ _ =>
       have fields := arrayValues_fields values
       exact ⟨congrArg (fun s => s.capacity) fields, congrArg (fun s => s.target) fields,
         congrArg (fun s => s.dynamicFirst) fields, congrArg (fun s => s.dynamicAfter) fields⟩
 
-theorem arrayValues_unique {text source result position length parsed left right firstFinal secondFinal}
-    (first : ArrayValuesAt text source result position length parsed left firstFinal)
-    (second : ArrayValuesAt text source result position length parsed right secondFinal) :
+theorem array_declaration_subtypes {text arguments state declaration final}
+    (reading : ArrayDeclarationAt text arguments state declaration final) :
+    final.subtypeNames = state.subtypeNames := by
+  cases reading with
+  | declaration _ _ _ _ _ _ values _ _ =>
+      exact congrArg (fun s => s.subtypeNames) (arrayValues_fields values)
+
+theorem arrayValues_unique {text source componentBounds result position length parsed left right firstFinal secondFinal}
+    (first : ArrayValuesAt text source componentBounds result position length parsed left firstFinal)
+    (second : ArrayValuesAt text source componentBounds result position length parsed right secondFinal) :
     left = right ∧ firstFinal = secondFinal := by
   have states := (arrayValues_complete first).symm.trans (arrayValues_complete second)
   refine ⟨?_, states⟩
@@ -184,11 +230,11 @@ theorem arrayValues_unique {text source result position length parsed left right
   | done _ finished =>
       cases second with
       | done => rfl
-      | next _ remaining _ _ _ _ => omega
-  | next _ remaining reading _ _ _ ih =>
+      | next _ remaining _ _ _ _ _ => omega
+  | next _ remaining reading _ _ _ _ ih =>
       cases second with
       | done _ finished => omega
-      | next _ _ other _ _ tail =>
+      | next _ _ other _ _ _ tail =>
           obtain ⟨rfl, rfl⟩ := ScalarExpression.at_unique reading other
           rw [ih tail states]
 
@@ -199,9 +245,9 @@ theorem array_declaration_unique {text arguments state left right firstFinal sec
   have states := (array_declaration_complete first).symm.trans (array_declaration_complete second)
   refine ⟨?_, states⟩
   cases first with
-  | declaration parts _ _ _ aggregate values _ _ =>
+  | declaration parts _ _ _ _ aggregate values _ _ =>
       cases second with
-      | declaration otherParts _ _ _ otherAggregate otherValues _ _ =>
+      | declaration otherParts _ _ _ _ otherAggregate otherValues _ _ =>
           have sameParts := parts.symm.trans otherParts
           cases sameParts
           have samePosition := (arrayAggregate_complete aggregate).symm.trans (arrayAggregate_complete otherAggregate)

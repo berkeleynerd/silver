@@ -48,7 +48,7 @@ private theorem array_store_append {text : Source} {environment : ArrayBindings.
     split
     · rename_i covered
       obtain ⟨old, member, oldInside⟩ := (ArrayBindings.covers_iff _ _).mp covered
-      have oldValid := (ready.1.1.2 old member).2.2.2
+      have oldValid := (ready.1.1.2.1 old member).2.2.2
       have oldLength := ArrayBindings.binding_descriptor_length oldValid
       have oldEnd := ready.1.2.2.2 old member
       have inPrefix : cell - ArrayBindings.scalarLimit - 1 < environment.values.length := by
@@ -63,11 +63,12 @@ private theorem array_store_append {text : Source} {environment : ArrayBindings.
 theorem array_declaration_execute {text arguments state declaration final}
     (reading : ArrayDeclarationAt text arguments state declaration final)
     (static : ScalarExpression.StaticEnvironment state.scalarNames)
-    (ready : ArrayBindings.SourceReady text state.arrayNames) :
+    (ready : ArrayBindings.SourceReady text state.arrayNames)
+    (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames) :
     declaration.execute (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values) =
       frozenIntegers final.scalarNames final.arrayNames.names final.arrayNames.values := by
   cases reading with
-  | @declaration values parts lower upper position following expressions _ allowed low high _ valuesRead _ _ =>
+  | @declaration values parts lower upper position following expressions _ allowed typeMark low high _ valuesRead _ _ =>
       obtain ⟨items, checked, table, _⟩ := arrayValues_canonical valuesRead ready.2.1
       have evaluated := (Integer.arrayInitialValues_sound checked (frozenIntegers_fits static)).1
       have count : items.length = parts.length := by
@@ -82,6 +83,6 @@ theorem array_declaration_execute {text arguments state declaration final}
       rw [← evaluated]
       dsimp only [frozenIntegers]
       rw [scalars, names, table]
-      exact (array_store_append items _ ready (array_declaration_binding_valid allowed low high) rfl count).symm
+      exact (array_store_append items _ ready (array_declaration_binding_valid allowed typeMark low high subtypes) rfl count).symm
 
 end Silver.Compose
