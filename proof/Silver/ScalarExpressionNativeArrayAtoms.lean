@@ -28,6 +28,7 @@ theorem summarizeArrays_nil (names : Environment) (initials : ArrayBindings.Init
 theorem indexed_summary_correspondence {text : Source} {names : Environment}
     {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {target : Nat}
     (capacity : names.length ≤ ArrayBindings.scalarLimit)
+    (metadata : ArrayBindings.ValidMetadata text arrays)
     (initialsValid : ArrayBindings.ValidInitials initials)
     (member : ArrayBindings.binding arrays target ∈ arrays)
     (itemValid : ArrayBindings.ValidBinding (ArrayBindings.binding arrays target))
@@ -87,7 +88,9 @@ theorem indexed_summary_correspondence {text : Source} {names : Environment}
                   rw [← ArrayBindings.contains_indexCheck itemValid]; exact inside
                 simp [Integer.arrayReadRange, rejected]
             | true =>
-                rw [ArrayBindings.readBounds_correspondence initialsValid member itemValid inside elaborating]
+                rw [ArrayBindings.readBounds_correspondence initialsValid
+                  (fun entry present => (metadata.2.1 entry present).2.2.2)
+                  metadata.2.2 member itemValid inside elaborating]
                 simp [isStatic, Nat.add_comm]
 
 theorem lookup_after_zero (text : Source) (names : Environment) (first : Nat) :
@@ -151,6 +154,7 @@ theorem arraysAtomStep_dispatch (recurse : Reader) (text : Source) (position : N
 theorem arrayAtomStep_correspondence {text : Source} {names : Environment}
     (valid : ValidEnvironment text names) {arrays : ArrayBindings.Metadata}
     {initials : ArrayBindings.Initials} {target : Nat}
+    (metadata : ArrayBindings.ValidMetadata text arrays)
     (initialsValid : ArrayBindings.ValidInitials initials)
     (member : ArrayBindings.binding arrays target ∈ arrays)
     (itemValid : ArrayBindings.ValidBinding (ArrayBindings.binding arrays target))
@@ -175,7 +179,7 @@ theorem arrayAtomStep_correspondence {text : Source} {names : Environment}
     | some index =>
         have bounds := parseFuel_bounds opening.2 parsed
         have reads := syntax_readsOnly (parseFuel_sound opening.2 parsed)
-        exact indexed_summary_correspondence valid.1 initialsValid member itemValid elaborating
+        exact indexed_summary_correspondence valid.1 metadata initialsValid member itemValid elaborating
           position afterName index before (by omega) bounds.2 reads
 
 theorem arraysAtom_correspondence {text : Source} {names : Environment}
@@ -210,7 +214,7 @@ theorem arraysAtom_correspondence {text : Source} {names : Environment}
         simpa only [nameAfter, firstPositive, ↓reduceIte] using identifier
       have targetPositive : 0 < ArrayBindings.lookup text arrays (skip text position) (nameAfter text (skip text position)) := by omega
       have member := ArrayBindings.Native.binding_mem targetPositive (ArrayBindings.Native.lookup_bound text arrays _ _)
-      exact arrayAtomStep_correspondence valid initialsValid member (metadata.2 _ member).2.2.2
+      exact arrayAtomStep_correspondence valid metadata initialsValid member (metadata.2.1 _ member).2.2.2
         fuel position _ maskFirst maskAfter elaborating (by omega) namedBounds.2
 
 end Silver.ScalarExpression.Native

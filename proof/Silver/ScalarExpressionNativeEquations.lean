@@ -257,9 +257,10 @@ theorem interpreted_arrayAtom (calls : Calls) (primitives : Primitives calls) (e
       · exact (read_bounds opening.2 zero).2.1
     rw [interpreted_symbol calls primitives equations text valid _ 41 childBound (by decide)]
     have member := ArrayBindings.Native.binding_mem targetPositive targetBound
-    have itemValid := (metadata.2 _ member).2.2.2
+    have itemValid := (metadata.2.1 _ member).2.2.2
     have itemType : ArrayBindings.Native.BindingType (ArrayBindings.binding arrays target) :=
-      ⟨itemValid.1, by have cap := itemValid.2.2.2.1; omega, by have cap := itemValid.2.2.2.1; omega⟩
+      ⟨itemValid.1, by have cap := itemValid.2.2.2.1; omega,
+        by have cap := itemValid.2.2.2.1; omega, itemValid.2.2.2.2.2.1⟩
     rw [ArrayBindings.Native.interpreted_contains calls.arrays primitives.arrayPrimitives primitives.arrayEquations
       _ _ itemType childType.2.1]
     split

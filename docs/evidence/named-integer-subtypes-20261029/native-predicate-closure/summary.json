@@ -1,0 +1,39 @@
+{
+  "run_id": "20261029T161019-1954ab856759",
+  "mode": "focused",
+  "host": "linux-x86_64",
+  "targets": [
+    "Silver.ScalarExpressionNativeArrayRecursion",
+    "Silver.PredicateNativeLibraries",
+    "Silver.PredicateBasicHelpers",
+    "Silver.PredicateBasicLibraries",
+    "Silver.PredicateLoopHelpers"
+  ],
+  "elapsed_seconds": 107.102,
+  "phases": [
+    {
+      "phase": "build",
+      "started_at": "2026-10-29T16:10:33.489616+00:00",
+      "finished_at": "2026-10-29T16:11:50.489488+00:00",
+      "elapsed_seconds": 77.0,
+      "exit_code": 0
+    },
+    {
+      "phase": "audit",
+      "started_at": "2026-10-29T16:11:51.794702+00:00",
+      "finished_at": "2026-10-29T16:12:04.437705+00:00",
+      "elapsed_seconds": 12.643,
+      "exit_code": 0
+    }
+  ],
+  "axiom_audit": "passed",
+  "workers": 2,
+  "threads_per_process": 1,
+  "memory_mb_per_process": 4096,
+  "changed_sources": {
+    "proof/Silver/ScalarExpressionNativeArrayAtoms.lean": "4ca04118f2dab57712133699e73c28d8803ca6abfb12ae1e25ff026f725ef058",
+    "proof/Silver/ScalarExpressionNativeEquations.lean": "aac58aa0de1e66434890acaa757bf3acb6b13b4621210951c52fb0a64403a4ae"
+  },
+  "selected_model_effort": "GPT-6 Astra / Extra High as assigned; runtime confirmation and token/cost measurements unavailable",
+  "remaining_scope": "Complete source/Lean audit, including PredicateInheritedReady, belongs to final integration. Full native audit is separate and still active."
+}
