@@ -13,6 +13,7 @@ namespace Silver.Integer
 structure ArrayDescriptor where
   base : Nat
   bounds : Interval
+  componentBounds : Interval := .full
   deriving DecidableEq, Repr
 
 namespace ArrayDescriptor
@@ -97,11 +98,17 @@ theorem write_preserves_other {array other : ArrayDescriptor} {values : Nat → 
     other.project (array.write values index value) queried = other.project values queried := by
   simp [project, write, disjoint_addresses apart hq hi]
 
+def ComponentValid (array : ArrayDescriptor) : Prop :=
+  array.componentBounds.Bounded ∧ array.componentBounds.lower ≤ array.componentBounds.upper
+
+instance (array : ArrayDescriptor) : Decidable array.ComponentValid :=
+  inferInstanceAs (Decidable (_ ∧ _))
+
 def Fits (array : ArrayDescriptor) (values : Nat → Int) : Prop :=
-  ∀ index, array.bounds.Contains index → InRange (array.project values index)
+  ∀ index, array.bounds.Contains index → array.componentBounds.Contains (array.project values index)
 
 theorem write_fits {array : ArrayDescriptor} {values : Nat → Int} {index value : Int}
-    (fits : array.Fits values) (inside : array.bounds.Contains index) (safe : InRange value) :
+    (fits : array.Fits values) (inside : array.bounds.Contains index) (safe : array.componentBounds.Contains value) :
     array.Fits (array.write values index value) := by
   intro other ho
   by_cases same : other = index
@@ -128,7 +135,7 @@ theorem initialize_preserves_scalar {array : ArrayDescriptor} {values : Nat → 
   simp [initializeValues, below]
 
 theorem initialize_fits {array : ArrayDescriptor} {values : Nat → Int} {items : List Int}
-    (count : items.length = array.length) (safe : ∀ value ∈ items, InRange value) :
+    (count : items.length = array.length) (safe : ∀ value ∈ items, array.componentBounds.Contains value) :
     array.Fits (array.initializeValues values items) := by
   intro index inside
   let offset := (index - array.bounds.lower).toNat

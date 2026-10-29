@@ -6,7 +6,7 @@ public import Silver.IntegerArraySnapshots
 @[expose] public section
 
 /-! Array elaboration and indexed mutation on the shared Integer store. Exact
-initializer ranges and body Full ranges are explicit state transformations.
+initializer ranges and declared component ranges are explicit state transformations.
 The source layer owns allocation, mutability and scalar/index separation. -/
 namespace Silver.Integer
 
@@ -32,7 +32,7 @@ theorem initialRanges_fits (array : ArrayDescriptor) {ranges : Ranges} {values :
     exact fits cell bounds found
 
 def bodyRanges (array : ArrayDescriptor) (ranges : Ranges) : Ranges :=
-  fun cell => if array.ContainsCell cell then some Interval.full else ranges cell
+  fun cell => if array.ContainsCell cell then some array.componentBounds else ranges cell
 
 theorem bodyRanges_fits {array : ArrayDescriptor} {ranges : Ranges} {values : Store}
     (fits : Integer.Fits ranges values) (arrayFits : array.Fits values) :
@@ -50,11 +50,11 @@ theorem bodyRanges_fits {array : ArrayDescriptor} {ranges : Ranges} {values : St
     have cellEq : array.base + (cell - array.base) = cell := by
       simp only [ContainsCell] at inside
       omega
-    simpa only [project, address_offset, cellEq, Interval.full_contains] using safe
+    simpa only [project, address_offset, cellEq] using safe
   · exact fits cell bounds found
 
-def FullRanges (array : ArrayDescriptor) (ranges : Ranges) : Prop :=
-  ∀ index, array.bounds.Contains index → ranges (array.address index) = some Interval.full
+def ComponentRanges (array : ArrayDescriptor) (ranges : Ranges) : Prop :=
+  ∀ index, array.bounds.Contains index → ranges (array.address index) = some array.componentBounds
 
 def allCells (array : ArrayDescriptor) (predicate : Nat → Bool) : Bool :=
   (List.range array.length).all fun offset => predicate (array.base + offset)
@@ -75,12 +75,12 @@ theorem allCells_iff (array : ArrayDescriptor) (predicate : Nat → Bool) :
   · intro all offset inside
     exact all (array.base + offset) (by simp only [ContainsCell]; omega)
 
-def fullRanges (array : ArrayDescriptor) (ranges : Ranges) : Bool :=
-  array.allCells fun cell => decide (ranges cell = some Interval.full)
+def componentRanges (array : ArrayDescriptor) (ranges : Ranges) : Bool :=
+  array.allCells fun cell => decide (ranges cell = some array.componentBounds)
 
-theorem fullRanges_iff (array : ArrayDescriptor) (ranges : Ranges) :
-    array.fullRanges ranges = true ↔ array.FullRanges ranges := by
-  simp only [fullRanges, allCells_iff, decide_eq_true_eq, FullRanges]
+theorem componentRanges_iff (array : ArrayDescriptor) (ranges : Ranges) :
+    array.componentRanges ranges = true ↔ array.ComponentRanges ranges := by
+  simp only [componentRanges, allCells_iff, decide_eq_true_eq, ComponentRanges]
   constructor
   · intro full index inside
     exact full _ (address_within inside)
@@ -94,8 +94,8 @@ theorem fullRanges_iff (array : ArrayDescriptor) (ranges : Ranges) :
     simpa only [address_offset, same] using
       full (array.bounds.lower + ((cell - array.base : Nat) : Int)) (offset_within offsetBound)
 
-theorem bodyRanges_full (array : ArrayDescriptor) (ranges : Ranges) :
-    array.FullRanges (array.bodyRanges ranges) := by
+theorem bodyRanges_components (array : ArrayDescriptor) (ranges : Ranges) :
+    array.ComponentRanges (array.bodyRanges ranges) := by
   intro index inside
   simp only [bodyRanges, address_within inside, ↓reduceIte]
 
@@ -111,46 +111,54 @@ theorem initialize_preserves_other {array other : ArrayDescriptor} {values : Sto
   simp only [project, initializeValues, outside, ↓reduceIte]
 
 theorem write_preserves_ranges {array : ArrayDescriptor} {ranges : Ranges} {values : Store}
-    {index value : Int} (fits : Integer.Fits ranges values) (full : array.FullRanges ranges)
-    (inside : array.bounds.Contains index) (safe : InRange value) :
+    {index value : Int} (fits : Integer.Fits ranges values) (full : array.ComponentRanges ranges)
+    (inside : array.bounds.Contains index) (safe : array.componentBounds.Contains value) :
     Integer.Fits ranges (array.write values index value) := by
   intro cell bounds found
   by_cases same : cell = array.address index
   · subst cell
     rw [full index inside] at found
     cases found
-    simpa only [write, ↓reduceIte, Interval.full_contains] using safe
+    simpa only [write, ↓reduceIte] using safe
   · simpa only [write, same, ↓reduceIte] using fits cell bounds found
 
 end ArrayDescriptor
 
-theorem arraySpanRange_full {ranges : Ranges} {first count : Nat} (nonempty : 0 < count)
-    (full : ∀ offset, offset < count → ranges (first + offset) = some Interval.full) :
-    arraySpanRange ranges first count = some Interval.full := by
+theorem arraySpanRange_constant {ranges : Ranges} {first count : Nat} {bounds : Interval}
+    (nonempty : 0 < count) (present : bounds.isEmpty = false)
+    (uniform : ∀ offset, offset < count → ranges (first + offset) = some bounds) :
+    arraySpanRange ranges first count = some bounds := by
   induction count generalizing first with
   | zero => omega
   | succ count ih =>
-      have head := full 0 (by omega)
+      have head := uniform 0 (by omega)
       simp only [Nat.add_zero] at head
       cases count with
-      | zero => simp only [arraySpanRange, head, Option.bind_some, Option.map_some]; decide +kernel
+      | zero =>
+          simp only [arraySpanRange, head, Option.bind_some, Option.map_some]
+          simp only [Interval.join, present, show Interval.empty.isEmpty = true from rfl,
+            Bool.false_eq_true, ↓reduceIte]
       | succ count =>
-          have tail : arraySpanRange ranges (first + 1) (count + 1) = some Interval.full := by
+          have tail : arraySpanRange ranges (first + 1) (count + 1) = some bounds := by
             apply ih (by omega)
             intro offset inside
-            simpa only [Nat.add_assoc, Nat.add_comm 1] using full (offset + 1) (by omega)
+            simpa only [Nat.add_assoc, Nat.add_comm 1] using uniform (offset + 1) (by omega)
           rw [arraySpanRange, head, Option.bind_some, tail, Option.map_some]
-          decide +kernel
+          simp [Interval.join, present]
 
-theorem arrayReadRange_full {ranges : Ranges} {array : ArrayDescriptor} {indices : Interval}
-    (checked : arrayIndexCheck array indices = true) (full : array.FullRanges ranges) :
-    arrayReadRange ranges array indices = some Interval.full := by
+theorem arrayReadRange_components {ranges : Ranges} {array : ArrayDescriptor} {indices : Interval}
+    (checked : arrayIndexCheck array indices = true) (uniform : array.ComponentRanges ranges)
+    (components : array.ComponentValid) :
+    arrayReadRange ranges array indices = some array.componentBounds := by
   have ready := checked
   simp only [arrayIndexCheck, decide_eq_true_eq] at ready
   have positive : 0 < (indices.upper - indices.lower + 1).toNat := by omega
+  have present : array.componentBounds.isEmpty = false := by
+    simp only [Interval.isEmpty, decide_eq_false_iff_not, Int.not_lt]
+    exact components.2
   have span : arraySpanRange ranges (array.address indices.lower)
-      (indices.upper - indices.lower + 1).toNat = some Interval.full := by
-    apply arraySpanRange_full positive
+      (indices.upper - indices.lower + 1).toNat = some array.componentBounds := by
+    apply arraySpanRange_constant positive present
     intro offset inside
     have indexInside : array.bounds.Contains (indices.lower + (offset : Int)) := by
       simp only [Interval.Contains]
@@ -160,9 +168,10 @@ theorem arrayReadRange_full {ranges : Ranges} {array : ArrayDescriptor} {indices
       simp only [ArrayDescriptor.address]
       omega
     rw [← addressEq]
-    exact full _ indexInside
+    exact uniform _ indexInside
   simp only [arrayReadRange, checked, ↓reduceIte, span, Option.bind_some]
-  decide +kernel
+  simp only [Integer.checked, present, Bool.false_eq_true, ↓reduceIte, components.1,
+    Integer.accepted]
 
 theorem arrayReadRange_singleton {ranges : Ranges} {array : ArrayDescriptor} {index value : Int}
     (valid : array.Valid) (inside : array.bounds.Contains index) (safe : InRange value)
@@ -236,8 +245,30 @@ structure ArrayDeclaration where
   values : List Expr
   deriving DecidableEq, Repr
 
+/-- Every initializer interval is contained in the declared component subtype. -/
+def arrayComponentsFit (ranges : Ranges) (components : Interval) (expressions : List Expr) : Bool :=
+  expressions.all fun expression =>
+    match expression.infer ranges with
+    | some bounds => bounds.included components
+    | none => false
+
+theorem arrayComponentsFit_sound {ranges : Ranges} {components : Interval} {expressions : List Expr}
+    (checked : arrayComponentsFit ranges components expressions = true) {values : Store}
+    (fits : Fits ranges values) :
+    ∀ expression ∈ expressions, components.Contains (expression.evaluate values) := by
+  simp only [arrayComponentsFit, List.all_eq_true] at checked
+  intro expression member
+  have inside := checked expression member
+  cases inferred : expression.infer ranges with
+  | none => simp [inferred] at inside
+  | some bounds =>
+      simp only [inferred] at inside
+      exact Interval.included_sound inside (Expr.infer_sound inferred fits).1
+
 def ArrayDeclaration.check (ranges : Ranges) (declaration : ArrayDeclaration) : Option (List Int) :=
-  if declaration.array.Valid ∧ declaration.values.length = declaration.array.length
+  if declaration.array.Valid ∧ declaration.array.ComponentValid ∧
+      declaration.values.length = declaration.array.length ∧
+      arrayComponentsFit ranges declaration.array.componentBounds declaration.values = true
   then arrayInitialValues ranges declaration.values else none
 
 def ArrayDeclaration.execute (values : Store) (declaration : ArrayDeclaration) : Store :=
@@ -254,8 +285,14 @@ theorem ArrayDeclaration.check_sound {ranges : Ranges} {values : Store}
   unfold check at checked
   split at checked
   · rename_i ready
-    obtain ⟨same, safe, itemSafe⟩ := arrayInitialValues_sound checked fits
-    have count : items.length = declaration.array.length := by rw [same, List.length_map]; exact ready.2
+    obtain ⟨same, safe, _⟩ := arrayInitialValues_sound checked fits
+    have count : items.length = declaration.array.length := by rw [same, List.length_map]; exact ready.2.2.1
+    have components := arrayComponentsFit_sound ready.2.2.2 fits
+    have itemSafe : ∀ value ∈ items, declaration.array.componentBounds.Contains value := by
+      rw [same]
+      intro value member
+      obtain ⟨expression, belongs, rfl⟩ := List.mem_map.mp member
+      exact components expression belongs
     refine ⟨ready.1, count, same, safe, ?_, ?_⟩
     · simpa only [execute, ← same] using declaration.array.initialize_fits (values := values) count itemSafe
     · simpa only [execute, ← same] using declaration.array.initialRanges_fits fits items
@@ -268,9 +305,10 @@ structure ArrayAssignment where
   deriving DecidableEq, Repr
 
 def ArrayAssignment.check (ranges : Ranges) (mutable : Mutability) (update : ArrayAssignment) : Bool :=
-  update.array.fullRanges ranges && (update.array.allCells mutable &&
+  update.array.componentRanges ranges && (update.array.allCells mutable &&
     match update.index.infer ranges, update.value.infer ranges with
-    | some indices, some values => arrayIndexCheck update.array indices && !values.isEmpty
+    | some indices, some values => arrayIndexCheck update.array indices &&
+        (!values.isEmpty && values.included update.array.componentBounds)
     | _, _ => false)
 
 /-- Outside the safe domain, use identity as the mathematical totalization.
@@ -284,7 +322,8 @@ def ArrayAssignment.execute (values : Store) (update : ArrayAssignment) : Store 
 def ArrayAssignment.checkedExecute (values : Store) (update : ArrayAssignment) : Option Store :=
   (update.index.checkedEvaluate values).bind fun index =>
     if update.array.bounds.Contains index then
-      (update.value.checkedEvaluate values).map fun value => update.array.write values index value
+      (update.value.checkedEvaluate values).bind fun value =>
+        if update.array.componentBounds.Contains value then some (update.array.write values index value) else none
     else none
 
 theorem ArrayAssignment.check_sound {ranges : Ranges} {values : Store}
@@ -295,7 +334,7 @@ theorem ArrayAssignment.check_sound {ranges : Ranges} {values : Store}
       Fits ranges (update.execute values) ∧
       update.checkedExecute values = some (update.execute values) := by
   simp only [check, Bool.and_eq_true] at checked
-  have full := (ArrayDescriptor.fullRanges_iff _ _).mp checked.1
+  have full := (ArrayDescriptor.componentRanges_iff _ _).mp checked.1
   have accepted := checked.2.2
   split at accepted
   · rename_i indices results indexKnown valueKnown
@@ -306,12 +345,25 @@ theorem ArrayAssignment.check_sound {ranges : Ranges} {values : Store}
       have inIndices := indexSound.1
       simp only [Interval.Contains] at *
       omega
+    have component := Interval.included_sound accepted.2.2 valueSound.1
     refine ⟨indexSound.2, valueSound.2, within, ?_, ?_⟩
     · simpa only [execute, within, ↓reduceIte] using
-        update.array.write_preserves_ranges fits full within (Expr.safe_value valueSound.2)
+        update.array.write_preserves_ranges fits full within component
     · simp only [checkedExecute, Expr.checkedEvaluate_agrees indexSound.2,
         Option.bind_some, Expr.checkedEvaluate_agrees valueSound.2,
-        Option.map_some, execute, within, ↓reduceIte]
+        Option.bind_some, execute, within, component, ↓reduceIte]
+  · contradiction
+
+theorem ArrayAssignment.component_sound {ranges : Ranges} {values : Store}
+    {mutable : Mutability} {update : ArrayAssignment}
+    (checked : update.check ranges mutable = true) (fits : Fits ranges values) :
+    update.array.componentBounds.Contains (update.value.evaluate values) := by
+  simp only [check, Bool.and_eq_true] at checked
+  have accepted := checked.2.2
+  split at accepted
+  · rename_i indices results _ inferred
+    simp only [Bool.and_eq_true] at accepted
+    exact Interval.included_sound accepted.2.2 (Expr.infer_sound inferred fits).1
   · contradiction
 
 theorem ArrayAssignment.unchanged_scalar {update : ArrayAssignment} {values : Store}
@@ -341,7 +393,8 @@ theorem ArrayAssignment.unchanged {update : ArrayAssignment} {ranges : Ranges}
 
 def ArrayAssignment.obligations (ranges : Ranges) (update : ArrayAssignment) : List Obligation :=
   update.index.obligations ranges ++ update.value.obligations ranges ++
-    [unaryObligation (Obligation.arrayIndex update.array) (update.index.infer ranges)]
+    [unaryObligation (Obligation.arrayIndex update.array) (update.index.infer ranges),
+     unaryObligation (fun value => Obligation.within value update.array.componentBounds) (update.value.infer ranges)]
 
 theorem ArrayAssignment.obligations_discharge {ranges : Ranges} {mutable : Mutability}
     {update : ArrayAssignment} (checked : update.check ranges mutable = true) :
@@ -353,11 +406,12 @@ theorem ArrayAssignment.obligations_discharge {ranges : Ranges} {mutable : Mutab
     simp only [Bool.and_eq_true] at good
     rw [obligations, discharged_append, discharged_append,
       Expr.obligations_discharge indexKnown, Expr.obligations_discharge valueKnown]
-    simp [indexKnown, unaryObligation, discharged, Obligation.discharge, good.1]
+    simp [indexKnown, unaryObligation, discharged, Obligation.discharge, good.1, valueKnown, good.2.2]
   · contradiction
 
 def ArrayDeclaration.obligations (ranges : Ranges) (declaration : ArrayDeclaration) : List Obligation :=
-  declaration.values.flatMap (Expr.obligations ranges) ++
+  declaration.values.flatMap (fun expression => expression.obligations ranges ++
+    [unaryObligation (fun value => Obligation.within value declaration.array.componentBounds) (expression.infer ranges)]) ++
     [.arrayIndex declaration.array declaration.array.bounds,
       .arrayLength declaration.values.length declaration.array.length]
 
@@ -376,6 +430,22 @@ theorem arrayInitialValues_obligations {ranges : Ranges} {expressions : List Exp
           ih checkedRest, Bool.and_self]
       · contradiction
 
+theorem arrayComponentsFit_obligations {ranges : Ranges} {components : Interval} {expressions : List Expr}
+    (checked : arrayComponentsFit ranges components expressions = true) :
+    discharged (expressions.flatMap fun expression => expression.obligations ranges ++
+      [unaryObligation (fun value => Obligation.within value components) (expression.infer ranges)]) = true := by
+  simp only [arrayComponentsFit, List.all_eq_true] at checked
+  simp only [discharged, List.all_flatMap, List.all_append, List.all_eq_true]
+  intro expression member
+  have inside := checked expression member
+  cases inferred : expression.infer ranges with
+  | none => simp [inferred] at inside
+  | some bounds =>
+      simp only [inferred] at inside
+      have safe := Expr.obligations_discharge inferred
+      simpa only [discharged, inferred, unaryObligation, List.all_cons, List.all_nil,
+        Bool.and_true, Obligation.discharge, inside] using safe
+
 theorem ArrayDeclaration.obligations_discharge {ranges : Ranges} {declaration : ArrayDeclaration}
     {items : List Int} (checked : declaration.check ranges = some items) :
     discharged (declaration.obligations ranges) = true := by
@@ -385,8 +455,8 @@ theorem ArrayDeclaration.obligations_discharge {ranges : Ranges} {declaration : 
     have indexCheck : arrayIndexCheck declaration.array declaration.array.bounds = true := by
       simp only [arrayIndexCheck, decide_eq_true_eq]
       exact ⟨ready.1, ready.1.2, Int.le_refl _, Int.le_refl _⟩
-    rw [obligations, discharged_append, arrayInitialValues_obligations checked]
-    simp [discharged, Obligation.discharge, indexCheck, ready.2]
+    rw [obligations, discharged_append, arrayComponentsFit_obligations ready.2.2.2]
+    simp [discharged, Obligation.discharge, indexCheck, ready.2.2.1]
   · contradiction
 
 end Silver.Integer
