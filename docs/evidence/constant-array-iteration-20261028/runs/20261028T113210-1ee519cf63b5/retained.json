@@ -1,0 +1,52 @@
+{
+  "run_id": "20261028T113210-1ee519cf63b5",
+  "finished": {
+    "duration_seconds": 9028.671099038,
+    "error": "KeyboardInterrupt: ",
+    "event": "finished",
+    "evidence": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-source/.silver/linux-x86_64/lean-focused.log",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-source/.silver/linux-x86_64/lean-focused.log"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-source/.silver/linux-x86_64/lean-focused-evidence.json",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-source/.silver/linux-x86_64/lean-focused-evidence.json"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261028T113210-1ee519cf63b5/previous-evidence/lean-focused.log",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261028T113210-1ee519cf63b5/previous-evidence/lean-focused.log"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261028T113210-1ee519cf63b5/previous-evidence/lean-focused-evidence.json",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261028T113210-1ee519cf63b5/previous-evidence/lean-focused-evidence.json"
+      }
+    ],
+    "failure_keys": [],
+    "monotonic_ns": 435919835391055,
+    "outcome": "interrupted",
+    "retained_reports": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-source/.silver/linux-x86_64/lean-focused.log",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261028T113210-1ee519cf63b5/reports/0/lean-focused.log"
+      }
+    ],
+    "returncode": null,
+    "run_id": "20261028T113210-1ee519cf63b5",
+    "utc": "2026-10-28T14:02:44.373471+00:00"
+  },
+  "files": [
+    {
+      "path": "events.jsonl.gz",
+      "bytes": 75685,
+      "sha256": "4d5e2adfe7eef5f315f29b009e35938545a28d8ebd81d66fd3ea378afc73ac43",
+      "compressed_sha256": "623c517acf1bfedf15717e741ad89de0591b07b68c2fc5e59a07e0f09121f9c7"
+    },
+    {
+      "path": "reports/0/lean-focused.log.gz",
+      "bytes": 1800,
+      "sha256": "15d0b791e051b09373decdffaac651a47d04ba98e5c6885c74d78784a454d1de",
+      "compressed_sha256": "b1c012357765835d7c33fff1fc85ccbe0503d7e4249ca27676c6de12a96191ab"
+    }
+  ]
+}

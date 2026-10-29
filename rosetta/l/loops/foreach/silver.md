@@ -1,19 +1,21 @@
 # Loops/Foreach
 
-**Candidate: proofs likely to discharge automatically.** Every check follows from the array's declared bounds and a for loop over its own range, and nothing is carried between iterations. The only new surface is arrays, for loops, and integer-to-text conversion.
+**Candidate: proofs likely to discharge automatically.** The exact source uses a nonempty explicitly initialized constant Integer array and an immutable, nonstatic foreach element with full Integer entry bounds. Integer Image accepts every such value. The five output lines are -1, then 0, 1, 2 and 3 with Ada's leading space on each non-negative value; each line ends with LF. Broader arrays remain unsupported. Assurance and validation status is recorded separately in docs/constant-array-iteration.md; this static assessment establishes no native or universal validation evidence.
 
-Position 54 in the [progression](../../../progression.md#stage-3), in stage 3, which adds arrays.
+Position 13 in the [progression](../../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
-Embed the collection as a constant array of Integer indexed 1..5 with an aggregate, then iterate with a for loop over the array's own index range, printing each element as text via 'Image. Each element goes out on its own line with Put_Line, or via Put with spaces if line-less output is added, and no guards are needed because the loop index is the array's range. About 14 lines.
+Declare Values : constant array (1 .. 5) of Integer := (-1, 0, 1, 2, 3), then use for Value of Values loop and Silver_IO.Put_Line (Integer'Image (Value)). This is samples/rosetta_loops_foreach.adb: Ada's foreach visits every element in collection order, without an indexed-loop substitute or a user-defined procedure. About 9 lines.
 
 ## Language surface recorded by this assessment
 
-Integers, arrays, for loops, 'Image of scalars, Put without a newline and procedures.
+Fixed-size Integer arrays, constant Integer-array iteration and Integer image.
 
 ## External effects
 
 - **console output** (allowed): Prints each element of the collection to standard output.
 
-Assessed on 2026-10-15 against page revision 415246 of the [task](https://rosettacode.org/wiki/Loops/Foreach) by claude-sonnet-5-5 at medium effort; confidence high. The inclusion policy is in `rosetta/coverage.json`.
+Initially assessed on 2026-10-15 against page revision 415246 of the [task](https://rosettacode.org/wiki/Loops/Foreach) by claude-sonnet-5-5 at medium effort; current confidence high. The inclusion policy is in `rosetta/coverage.json`.
+
+Revised on 2026-10-28 by Codex through targeted source review; see the [review record](../../../assessment-constant-array-iteration-20261028.md).

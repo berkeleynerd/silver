@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every intermediate sum is at most 21 and the modulo divisor is literal 2. The loops enumerate exactly the fourteen task triples without mutable objects, declared subtypes or scalar refinement.
 
-Position 33 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 34 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

@@ -25,7 +25,7 @@ mutual
     | .scalarAssign _ | .arrayAssign _ => flag == .assignment
     | .reject => false
     | .choice _ yes tail => flag.sources yes || flag.alternative tail
-    | .forLoop _ _ _ _ body => flag.sources body
+    | .forLoop _ _ _ _ body | .arrayLoop _ _ _ body => flag.sources body
   termination_by item => sizeOf item
   def Flag.alternative (flag : Flag) : SourceAlternative → Bool
     | .absent => false
@@ -120,6 +120,7 @@ mutual
     | basic _ _ _ reading _ => exact basic_flags reading flag
     | choice _ _ reading _ => exact choice_flags reading flag
     | loop _ _ _ reading _ => exact loop_flags reading flag
+    | arrayLoop _ _ _ reading _ => exact arrayLoop_flags reading flag
   termination_by (bodyRemaining text scan, 2)
   decreasing_by all_goals subst_vars; all_goals first | exact Prod.Lex.left _ _ (by assumption) | exact Prod.Lex.right _ (by decide)
 
@@ -127,6 +128,19 @@ mutual
       (parsed : LoopAt text context scan lower upper body result) (flag : Flag) :
       flag.observe result = (flag.observe scan || flag.source
         (.forLoop (context.scalarNames.length + 1) (loopHeader text context scan).reverse lower upper body)) := by
+    cases parsed with
+    | loop _ _ _ _ _ bodyRead resultEq _ _ =>
+        have observed := body_flags bodyRead flag
+        rw [resultEq, bodyTokens_flags]
+        cases flag <;> simpa only [Flag.observe, Flag.source, loopHeader] using observed
+  termination_by (bodyRemaining text scan, 1)
+  decreasing_by all_goals subst_vars; all_goals first | exact Prod.Lex.left _ _ (by assumption) | exact Prod.Lex.right _ (by decide)
+
+  theorem arrayLoop_flags {text context scan body result}
+      (parsed : ArrayLoopAt text context scan body result) (flag : Flag) :
+      flag.observe result = (flag.observe scan || flag.source
+        (.arrayLoop (context.scalarNames.length + 1) (loopHeader text context scan).reverse
+          (ArrayBindings.binding context.arrayNames (loopArrayTarget text context scan)).descriptor body)) := by
     cases parsed with
     | loop _ _ _ _ bodyRead resultEq _ _ =>
         have observed := body_flags bodyRead flag

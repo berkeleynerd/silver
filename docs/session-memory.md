@@ -20,6 +20,61 @@ unrelated and deferred work remains out of scope. No Oracle amendment, clean
 rebuild, mandatory kernel replay or new language feature is selected. No harness
 goal exists; CLI memory is unavailable.
 
+## 2026-10-28 — Constant Integer-array iteration delivery checkpoint
+
+The authorized #264 implementation and #267 catalogue correction have passed
+complete Linux native and Lean/source assurance. The
+[delivery record](constant-array-iteration.md#delivery-assurance-and-validation)
+retains the exact inputs, cache reuse, reviewed regression coverage and
+independent reviews. The narrow Rosetta mapping admits only constant Integer-array
+element iteration and its Loops/Foreach driver; mutable iterables, general
+iterators, broader arrays and existing deferred work remain separate.
+
+Publication is through stacked PR #266 against the preserved arrays branch.
+Leave that PR and milestone 11 open pending merge under the owner's instruction;
+completion does not authorize merging or starting another feature. Earlier failed
+and pause-interrupted runs remain recorded with their original outcomes. No
+Oracle amendment or new assurance mode was introduced. No harness goal exists;
+CLI memory remains unavailable and was not updated.
+
+## 2026-10-28 — Constant-array iteration resumed after VM upgrade
+
+The owner instructed **“Please continue.”** after the upgrade pause. Resume
+#264/#267 through the remaining complete native and Lean/source validation,
+final evidence review and stacked PR delivery. PR #266 must remain open; the
+parent's external review still does not authorize merging the successor.
+
+All five worktrees and their caches survived. Captured input checks confirmed
+all 647 Lean source inputs and all 143 tracked native provenance inputs still
+match the integration branch. Successful certificate and bridge artifacts were
+transferred between idle worktrees after matching their dependencies, allowing
+one complete Lean run to reuse the composition candidate and rebuild the
+unfinished predicate module. Native validation resumes with saved sessions and
+the restored parent solver cache. The two pause-interrupted runs remain
+interrupted. The [capability record](constant-array-iteration.md) carries current
+run IDs; the [pause handoff](constant-array-iteration-pause-20261028.md) and local
+backup remain historical recovery records. No harness goal was created; CLI
+memory remains unavailable.
+
+## 2026-10-28 — Constant-array iteration paused for VM upgrade
+
+The owner requested pausing at the next opportunity for the sbx VM upgrade to
+`.50`, with possible restart and loss of temporary directories. All active
+feature validation was interrupted cleanly; no further feature work is selected
+until the owner resumes it. PR #266 remains draft and open, with #264/#267
+unfinished. No harness goal exists.
+
+Implementation, focused semantic/typed/source reviews and reviewed regression
+coverage are preserved. The byte-exact output certificate and authoritative
+source bridges passed. The composition candidate built successfully inside an
+interrupted focused run; the predicate candidate and complete native audit did
+not finish. Complete project assurance and delivery metadata remain pending.
+The [pause handoff](constant-array-iteration-pause-20261028.md) identifies exact
+commits, interrupted and successful runs, preserved caches/toolchains outside
+`tmp`, and the smallest required continuation. Successful modules remain reusable;
+interrupted runs are not relabelled successful. The existing instruction to leave
+the stacked PR open during the parent review still applies.
+
 ## 2026-10-28 — Constant Integer-array iteration authorized as a stacked PR
 
 After PR #263 delivered fixed-size Integer arrays, the owner requested:

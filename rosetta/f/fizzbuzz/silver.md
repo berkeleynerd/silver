@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The static 1 through 100 loop and literal nonzero divisors 15, 5 and 3 fit the delivered interval-integer-division rules. The branch order distinguishes multiples of both before either individual divisor. The external review confirmed admission of this approach. This is a current-language assessment, not a delivered manifest sample or a new proof/build/execution record.
 
-Position 28 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 29 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

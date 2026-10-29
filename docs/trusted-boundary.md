@@ -144,6 +144,20 @@ Main's 32 MiB retained report storage covers the 25,084,928-byte producer envelo
 including repeated nested-loop notes. Runtime/null report limits and the
 language's source/operator budgets remain unchanged.
 
+The [constant-iteration extension](constant-array-iteration.md) retains these
+premises. Ada's element denotes the actual component of the selected constant
+array; it does not snapshot the array. The semantic proof establishes component
+preservation through nested bodies and separation from scoped scalar identities.
+The [producer account](constant-array-iteration-report-capacity.md) inspects
+GNAT's hidden index loop and component renaming. Its 31,269,376-byte envelope
+includes implicit index accesses and the shorter source syntax within the same
+32 MiB allocation. The extension's
+[complete Linux checkpoint](constant-array-iteration.md#delivery-assurance-and-validation)
+records native obligation coverage, authoritative source correspondence and the
+whole-project Lean/module/axiom audit. Producer probes corroborate the inspected
+routes; they do not replace those arguments. The existing frontend, tool, local
+cache and environmental premises remain unchanged.
+
 ## Scalar guard refinement boundary
 
 The [guard delivery](scalar-guard-refinement.md#delivery-assurance-and-validation)

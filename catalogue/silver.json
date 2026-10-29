@@ -108,7 +108,7 @@
         "copy_semantics": "snapshot of the earlier initialized value; later source assignments do not change the copy",
         "unused_allowed": true,
         "argument_initializer_position": "first and unique binding in argument-bearing forms only",
-        "shared_name_environment": "String, Integer and Integer-array declarations; scoped loop indexes may hide them in bodies",
+        "shared_name_environment": "String, Integer and Integer-array declarations; scoped loop indexes and elements may hide them in bodies",
         "integer_type_hiding": "a String binding named Integer hides the Image type mark in its own initializer and later source",
         "initializer_image_length": "non-input minimum and maximum must agree; Image captures exact initial values of earlier Integer objects"
       }
@@ -281,7 +281,7 @@
         "bounds": "fixed by initialized value",
         "copy_semantics": "snapshot of the earlier initialized value; later source assignments do not change the copy",
         "unused_allowed": true,
-        "shared_name_environment": "String, Integer and Integer-array declarations; scoped loop indexes may hide them in bodies",
+        "shared_name_environment": "String, Integer and Integer-array declarations; scoped loop indexes and elements may hide them in bodies",
         "integer_type_hiding": "a String binding named Integer hides the Image type mark in its own initializer and later source",
         "initializer_image_length": "non-input minimum and maximum must agree; Image captures exact initial values of earlier Integer objects"
       }
@@ -447,7 +447,8 @@
           "expression_output",
           "string_choice",
           "argument_rejection",
-          "for_loop"
+          "for_loop",
+          "integer_array_iteration"
         ],
         "minimum": 1,
         "count": "finite_within_complete_source_bound",
@@ -610,7 +611,7 @@
         "exclude_ada_2022_reserved_words": true,
         "case_insensitive_binding": true,
         "all_declared_names_distinct_ignoring_case": true,
-        "shared_name_environment": "String, Integer and Integer-array declarations; scoped loop indexes may hide them in bodies",
+        "shared_name_environment": "String, Integer and Integer-array declarations; scoped loop indexes and elements may hide them in bodies",
         "type_mark_visible": true,
         "declaration_context": "every output shell; after the first argument binding in argument shells",
         "count": "finite_within_complete_source_bound",
@@ -648,7 +649,7 @@
         "exclude_ada_2022_reserved_words": true,
         "case_insensitive_binding": true,
         "all_declared_names_distinct_ignoring_case": true,
-        "shared_name_environment": "String, Integer and Integer-array declarations; scoped loop indexes may hide them in bodies",
+        "shared_name_environment": "String, Integer and Integer-array declarations; scoped loop indexes and elements may hide them in bodies",
         "type_mark_visible": true,
         "declaration_context": "every output shell; after the first argument binding in argument shells",
         "count": "finite_within_complete_source_bound",
@@ -677,7 +678,7 @@
           -2147483648,
           2147483647
         ],
-        "staticness": "mutable objects, loop indexes and constants initialized from them cannot supply endpoints",
+        "staticness": "mutable objects, loop indexes, loop elements and constants initialized from them cannot supply endpoints",
         "operator_budget": "shares the complete-program 63-operator budget",
         "named_types_or_subtypes": false,
         "dynamic_constraints": false
@@ -687,7 +688,7 @@
       "id": "integer_assignment",
       "ada_kind": "assignment_statement",
       "conditions": {
-        "target": "visible initialized mutable Integer object; constants and loop indexes excluded, including in empty loops and unreachable arms",
+        "target": "visible initialized mutable Integer object; constants, loop indexes and loop elements excluded, including in empty loops and unreachable arms",
         "value": "integer_expression",
         "evaluation": "RHS reads the pre-assignment scalar store; update only the target",
         "interval_inclusion": "every RHS intermediate fits Integer; whole RHS interval is nonempty and lies in target declared range",
@@ -753,6 +754,7 @@
           "visible_integer_constant",
           "visible_mutable_integer",
           "scoped_for_index",
+          "scoped_for_element",
           "integer_array_read"
         ],
         "min_operands": 1,
@@ -831,8 +833,8 @@
       "ada_kind": "flow_analysis",
       "conditions": {
         "grammar_change": false,
-        "target": "bare visible mutable Integer name or loop-index name, resolved by binding identity",
-        "threshold": "Ada-static nonempty singleton Integer expression in either operand order; nonstatic snapshots and singleton indexes are not thresholds",
+        "target": "bare visible mutable Integer name, loop-index name or loop-element name, resolved by binding identity",
+        "threshold": "Ada-static nonempty singleton Integer expression in either operand order; nonstatic snapshots, singleton indexes and singleton elements are not thresholds",
         "operators": [
           "=",
           "/=",
@@ -851,7 +853,7 @@
         "branch_join": "componentwise scalar hulls; elsif receives previous false flow; omitted else contributes false flow",
         "assignments": "replace only written identity with inferred RHS after declared-range containment; preserve other scalar and immutable input-length facts",
         "string_writes": "preserve scalar facts; snapshots do not alias live scalar/Image reads",
-        "loops": "capture bounds in entry flow, then widen mutables at body entry and possible execution exit; preserve entry immutable/outer-index facts; empty loops restore entry",
+        "loops": "capture bounds in entry flow, then widen mutables at body entry and possible execution exit; preserve entry immutable/outer-index/outer-element facts; empty loops restore entry",
         "scalar_impossibility_prunes_input_path": false,
         "nonempty_assignment_rhs_required": true,
         "admission_monotonicity_claim": false
@@ -890,6 +892,45 @@
         "expanded_standard_prefix": false,
         "source_rewriting": false,
         "snapshots": "declaration initializers capture exact earlier scalar values; body Image reads use current scalar flow, including within reached short-circuit String expressions; no persistent relation to later live Images"
+      }
+    },
+    {
+      "id": "integer_array_iteration",
+      "ada_kind": "loop_statement",
+      "conditions": {
+        "iterable": "one visible existing constant anonymous fixed-size Integer-array object",
+        "directions": [
+          "forward",
+          "reverse"
+        ],
+        "order": "increasing array index; decreasing with reverse",
+        "iterable_identity_and_bounds_evaluated_once": true,
+        "element_semantics": "actual constant component, not an array snapshot",
+        "element_immutable": true,
+        "element_static": false,
+        "element_interval": "full predefined Integer range on each iteration entry",
+        "element_refinement": "existing bare-name scalar guards within that iteration only; no array-cell refinement",
+        "element_scope": "body only; own name hidden in iterable specification; restore outer binding on exit",
+        "name_rules": "same as counted-loop indexes, including String/Integer names and operation/type hiding",
+        "body": [
+          "statement_sequence"
+        ],
+        "body_minimum": 1,
+        "nested": true,
+        "definitely_nonempty": true,
+        "path_facts_after_loop": "body exit facts",
+        "scalar_body_flow": "widen mutable scalars; retain entry immutable and enclosing-loop facts; append Full-range element",
+        "scalar_exit_flow": "widen mutables; restore entry immutable and enclosing-loop facts; remove element identity",
+        "other_object_writes": "carry across iterations and after the loop",
+        "iteration_enumeration_required": false,
+        "termination": "finite nonempty declared array index range",
+        "mutable_iterables": false,
+        "element_assignment": false,
+        "subtype_indications": false,
+        "filters": false,
+        "general_iterators": false,
+        "source_rewriting": false,
+        "count_and_nesting": "limited by complete source size"
       }
     },
     {
@@ -935,8 +976,8 @@
         "count_and_nesting": "limited by complete source size",
         "termination": "finite predefined Integer range",
         "scalar_writes": "carry across iterations and out of loops; writes to bound objects do not change captured iteration bounds",
-        "scalar_body_flow": "widen every mutable scalar to declared range; retain entry immutable and outer-index facts; append captured new index; no loop-carried scalar invariant",
-        "scalar_exit_flow": "empty restores entry; possibly executing widens mutables and restores entry immutable/outer-index facts; remove new index; body-derived outer-index refinements do not escape",
+        "scalar_body_flow": "widen every mutable scalar to declared range; retain entry immutable, outer-index and outer-element facts; append captured new index; no loop-carried scalar invariant",
+        "scalar_exit_flow": "empty restores entry; possibly executing widens mutables and restores entry immutable/outer-index/outer-element facts; remove new index; body-derived outer-index/outer-element refinements do not escape",
         "intentional_empty_loop_exclusion": "precise entry bounds can reveal an empty index-dependent assignment RHS, which remains excluded even if earlier wider analysis admitted it"
       }
     }
@@ -1131,6 +1172,8 @@
   "scalar_relation_tokens": ["<integer_expression>","<scalar_comparison>","<integer_expression>"],
   "for_loop_tokens": ["for","<index_name>","in","<integer_expression>","..","<integer_expression>","loop","<statements>","end","loop",";"],
   "reverse_for_loop_tokens": ["for","<index_name>","in","reverse","<integer_expression>","..","<integer_expression>","loop","<statements>","end","loop",";"],
+  "integer_array_iteration_tokens": ["for","<element_name>","of","<constant_integer_array_name>","loop","<statements>","end","loop",";"],
+  "reverse_integer_array_iteration_tokens": ["for","<element_name>","of","reverse","<constant_integer_array_name>","loop","<statements>","end","loop",";"],
   "output_tokens": ["<context_clauses>","procedure","main","is","pragma","spark_mode","(","on",")",";","<declarations>","begin","<statements>","end","main",";"],
   "argument_tokens": ["<context_clauses>","procedure","main","is","pragma","spark_mode","(","on",")",";","<argument_declaration>","<declarations>","begin","<statements>","end","main",";"]
 }

@@ -25,7 +25,7 @@ theorem loopBody_flowReady (text : Source) (context : ParseContext) (scan : Body
         · split
           · exact invalidBody_flowReady ready
           · apply bodyTokens_flowReady
-            exact loopAfterFlow_flowReady base ready environment _ _ _
+            exact loopAfterHeader_flowReady base ready environment _ _
       · exact invalidBody_flowReady ready
 
 mutual

@@ -143,10 +143,18 @@ anonymous one-dimensional arrays with nonempty static bounds, explicit
 initialization and checked indexed reads and writes. Declaration snapshots stay
 exact; body reads use full Integer intervals. The
 [rotation sample](samples/rosetta_shift_list_left_3.adb) moves the first three
-values to the end. Named array types, array attributes, whole-array operations
-and foreach remain outside this fragment. The
+values to the end. Named array types, array attributes and whole-array
+operations remain outside this fragment. The
 [delivery evidence](docs/fixed-integer-arrays.md#delivery-assurance-and-validation)
 records its assurance and validation scope.
+
+The [constant Integer-array iteration increment](docs/constant-array-iteration.md#delivery-assurance-and-validation)
+adds `for E of A loop` with optional `reverse` for these constant arrays.
+The immutable scoped element denotes each actual component in index order;
+existing statements compose in the body. Mutable iterables and general
+iterators remain excluded. The
+[Loops/Foreach sample](samples/rosetta_loops_foreach.adb) exercises ordered output.
+Source, expression and operator limits are unchanged.
 
 The [Find square difference sample](samples/find_square_difference.adb) stores
 the first matching index and prints ` 501` followed by a newline.

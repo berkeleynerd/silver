@@ -17,11 +17,11 @@ mutual
         cases b with
         | basic _ _ _ other _ => exact (basic_unique reading other).1
         | choice _ found => exact False.elim (found noIf)
-        | loop _ _ found => exact False.elim (found noFor)
+        | loop _ _ found | arrayLoop _ _ found => exact False.elim (found noFor)
     | choice _ found reading _ =>
         cases b with
         | basic _ noIf => exact False.elim (found noIf)
-        | loop _ noIf => exact False.elim (found noIf)
+        | loop _ noIf | arrayLoop _ noIf => exact False.elim (found noIf)
         | choice _ _ other _ =>
             obtain ⟨rfl, rfl, rfl⟩ := choice_unique reading other
             rfl
@@ -32,6 +32,21 @@ mutual
         | loop _ _ _ other _ =>
             obtain ⟨rfl, rfl, rfl⟩ := loop_unique reading other
             rfl
+        | arrayLoop _ _ _ other _ =>
+            cases reading with
+            | loop counted => cases other with
+              | loop iterable => simp [counted] at iterable
+    | arrayLoop _ noIf found reading _ =>
+        cases b with
+        | basic _ _ noFor => exact False.elim (found noFor)
+        | choice _ found => exact False.elim (found noIf)
+        | loop _ _ _ other _ =>
+            cases reading with
+            | loop iterable => cases other with
+              | loop counted => simp [counted] at iterable
+        | arrayLoop _ _ _ other _ =>
+            cases arrayLoop_unique reading other
+            rfl
   termination_by (bodyRemaining text scan, 2)
 
   theorem loop_unique {text context scan leftLower rightLower leftUpper rightUpper leftBody rightBody first second}
@@ -39,11 +54,20 @@ mutual
       (b : LoopAt text context scan rightLower rightUpper rightBody second) :
       leftLower = rightLower ∧ leftUpper = rightUpper ∧ leftBody = rightBody := by
     cases a with
-    | loop _ lowerRead upperRead _ bodyRead _ _ _ =>
+    | loop _ _ lowerRead upperRead _ bodyRead _ _ _ =>
         cases b with
-        | loop _ otherLower otherUpper _ otherBody _ _ _ =>
+        | loop _ _ otherLower otherUpper _ otherBody _ _ _ =>
             exact ⟨(ScalarExpression.at_unique lowerRead otherLower).1,
               (ScalarExpression.at_unique upperRead otherUpper).1, body_unique bodyRead otherBody⟩
+  termination_by (bodyRemaining text scan, 1)
+
+  theorem arrayLoop_unique {text context scan leftBody rightBody first second}
+      (a : ArrayLoopAt text context scan leftBody first)
+      (b : ArrayLoopAt text context scan rightBody second) : leftBody = rightBody := by
+    cases a with
+    | loop _ _ _ _ bodyRead _ _ _ =>
+        cases b with
+        | loop _ _ _ _ otherBody _ _ _ => exact body_unique bodyRead otherBody
   termination_by (bodyRemaining text scan, 1)
 
   theorem choice_unique {text context scan leftCondition rightCondition leftYes rightYes leftTail rightTail first second}

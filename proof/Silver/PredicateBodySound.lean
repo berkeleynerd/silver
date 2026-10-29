@@ -67,8 +67,12 @@ mutual
       by_cases loopFound : fixedAfter text scan.position "for" true ≠ 0
       · have equation : statementBody text context scan = loopBody text context scan := by
           rw [statementBody]; simp [positive, found, loopFound, ↓reduceIte]
-        obtain ⟨lower, upper, body, parsed⟩ := loop_sound text context scan tv nv (equation ▸ accepted)
-        exact ⟨_, .loop positive missing loopFound (equation ▸ parsed) rfl⟩
+        by_cases iterable : loopIsArray text scan = true
+        · obtain ⟨body, parsed⟩ := arrayLoop_sound text context scan tv nv iterable (equation ▸ accepted)
+          exact ⟨_, .arrayLoop positive missing loopFound (equation ▸ parsed) rfl⟩
+        · obtain ⟨lower, upper, body, parsed⟩ := loop_sound text context scan tv nv
+            (Bool.eq_false_iff.mpr iterable) (equation ▸ accepted)
+          exact ⟨_, .loop positive missing loopFound (equation ▸ parsed) rfl⟩
       · have noLoop : fixedAfter text scan.position "for" true = 0 := by simpa using loopFound
         have equation : statementBody text context scan = basicBody text context scan := by
           rw [statementBody]; simp [positive, found, loopFound, ↓reduceIte]
@@ -78,14 +82,32 @@ mutual
 
   theorem loop_sound (text : Source) (context : ParseContext) (scan : BodyScan)
       (tv : ValidText text) (nv : ValidNames text context.names)
+      (counted : loopIsArray text scan = false)
       (accepted : (loopBody text context scan).position ≠ 0) :
       ∃ lower upper body, LoopAt text context scan lower upper body (loopBody text context scan) := by
     obtain ⟨allowed, entryForward, advanced, bodyForward, equation, _⟩ := loopBody_shape accepted
-    obtain ⟨lower, upper, lowerRead, upperRead⟩ := loopHeader_readings (by omega :
+    obtain ⟨lower, upper, lowerRead, upperRead⟩ := loopHeader_readings counted (by omega :
       (loopHeader text context scan).entry.position ≠ 0)
     obtain ⟨body, bodyRead⟩ := body_sound text (loopInner context (loopHeader text context scan))
       (loopHeader text context scan).entry .endOnly tv nv (loopHeader_bound text context scan) (by omega)
-    exact ⟨lower, upper, body, .loop allowed lowerRead upperRead advanced bodyRead equation accepted rfl⟩
+    exact ⟨lower, upper, body, .loop counted allowed lowerRead upperRead advanced bodyRead equation accepted rfl⟩
+  termination_by (bodyRemaining text scan, 1)
+
+  theorem arrayLoop_sound (text : Source) (context : ParseContext) (scan : BodyScan)
+      (tv : ValidText text) (nv : ValidNames text context.names)
+      (iterable : loopIsArray text scan = true)
+      (accepted : (loopBody text context scan).position ≠ 0) :
+      ∃ body, ArrayLoopAt text context scan body (loopBody text context scan) := by
+    obtain ⟨allowed, entryForward, advanced, bodyForward, equation, _⟩ := loopBody_shape accepted
+    have validArray : loopArrayAllowed text context scan = true := by
+      by_cases present : loopArrayAllowed text context scan = true
+      · exact present
+      · have zero : (loopHeader text context scan).entry.position = 0 := by
+          simp only [loopHeader, iterable, ↓reduceIte, present, Bool.false_eq_true]
+        omega
+    obtain ⟨body, bodyRead⟩ := body_sound text (loopInner context (loopHeader text context scan))
+      (loopHeader text context scan).entry .endOnly tv nv (loopHeader_bound text context scan) (by omega)
+    exact ⟨body, .loop iterable allowed validArray advanced bodyRead equation accepted rfl⟩
   termination_by (bodyRemaining text scan, 1)
 
   theorem choice_sound (text : Source) (context : ParseContext) (scan : BodyScan)

@@ -1,0 +1,60 @@
+{
+  "run_id": "20261028T103900-407484c4629b",
+  "finished": {
+    "duration_seconds": 10742.628469474,
+    "event": "finished",
+    "evidence": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-core/.silver/linux-x86_64/lean-focused.log",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-core/.silver/linux-x86_64/lean-focused.log"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-core/.silver/linux-x86_64/lean-focused-evidence.json",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-core/.silver/linux-x86_64/lean-focused-evidence.json"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261028T103900-407484c4629b/previous-evidence/lean-focused.log",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261028T103900-407484c4629b/previous-evidence/lean-focused.log"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261028T103900-407484c4629b/previous-evidence/lean-focused-evidence.json",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261028T103900-407484c4629b/previous-evidence/lean-focused-evidence.json"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261028T103900-407484c4629b/lean-focused.log",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261028T103900-407484c4629b/lean-focused.log"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261028T103900-407484c4629b/lean-focused-evidence.json",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261028T103900-407484c4629b/lean-focused-evidence.json"
+      }
+    ],
+    "failure_keys": [],
+    "monotonic_ns": 434441006984069,
+    "outcome": "success",
+    "retained_reports": [],
+    "returncode": null,
+    "run_id": "20261028T103900-407484c4629b",
+    "utc": "2026-10-28T13:38:05.545086+00:00"
+  },
+  "files": [
+    {
+      "path": "events.jsonl.gz",
+      "bytes": 76444,
+      "sha256": "ab2d86ba2045e0c73caa2fbaf178ccbbc7bab95496f5efabc2e135a2242e1b60",
+      "compressed_sha256": "05d993e7f29b3444555c882d7c03590157e291c1116e994fa5c6e57a2911c2f1"
+    },
+    {
+      "path": "lean-focused-evidence.json.gz",
+      "bytes": 1551,
+      "sha256": "2472266240b6ab058041af3bf489329698e0b8c7358588fec33eac70a4b5345d",
+      "compressed_sha256": "f568c2812d2082aae425049230923f6e94752855611223d345d0454dfef9563c"
+    },
+    {
+      "path": "lean-focused.log.gz",
+      "bytes": 1387,
+      "sha256": "fe19319accfc8762401cfdb690d0685099409052cd91e32dd721e269406e3a63",
+      "compressed_sha256": "320fd63a7f458ddc370c331fe71c7fef1face89c74cbc500bdad5b279e21b08c"
+    }
+  ]
+}

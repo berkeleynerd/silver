@@ -24,6 +24,8 @@ model is one interpretation; source bridges supply the actual interpretation. -/
   nameAfter : Source → Nat → Nat
   forbidden : Source → Nat → Nat → Bool
   nameIs : Source → Nat → Nat → String → Bool
+  equalName : Source → Nat → Nat → Nat → Nat → Bool
+  arrayTarget : Source → Native.Context → Nat → Nat
   readScalar : Source → Native.Context → Nat → ActiveFlow → Nat → Nat → ScalarExpression.Result
   widen : Native.Context → ActiveFlow → ActiveFlow
   append : ScalarExpression.Environment → ScalarExpression.Binding → ScalarExpression.Environment
@@ -31,6 +33,7 @@ model is one interpretation; source bridges supply the actual interpretation. -/
   normalize : Integer.Interval → Integer.Interval
   join : PathFacts.Context → PathFacts.Context → PathFacts.Context
   emptyBounds : Integer.Interval
+  fullBounds : Integer.Interval
   emptyFacts : PathFacts.Context
 
 def modelImports : Imports where
@@ -41,6 +44,8 @@ def modelImports : Imports where
   nameAfter := Compose.nameAfter
   forbidden := Named.forbiddenName
   nameIs := fun text first after word => Named.nameIs text first after (word.toList.map Char.toNat)
+  equalName := Named.equalName
+  arrayTarget := fun text context position => Predicate.arrayTarget text context.model position
   readScalar := fun text context position facts first after =>
     ScalarExpression.read text position (context.model.readingNames facts) first after (arrays := context.arrayNames)
   widen := fun context facts => ActiveFlow.widen context.scalarNames facts
@@ -49,6 +54,7 @@ def modelImports : Imports where
   normalize := Integer.Interval.normalize
   join := PathFacts.Context.join
   emptyBounds := Integer.Interval.empty
+  fullBounds := Integer.Interval.full
   emptyFacts := PathFacts.Context.empty
 
 structure Frame where
@@ -64,9 +70,12 @@ structure Frame where
   high : ScalarExpression.Result := ScalarExpression.invalid
   bounds : Integer.Interval := Integer.Interval.empty
   definite : Bool := false
+  arrayFirst : Nat := 0
+  arrayAfter : Nat := 0
+  arrayTarget : Nat := 0
 
 inductive Test
-  | invalidName | reverse | nonadvancing | innerNonadvancing | empty | definite
+  | invalidName | array | invalidArray | reverse | nonadvancing | innerNonadvancing | empty | definite
   deriving DecidableEq
 
 def Test.eval (frame : Frame) : Test → Bool
@@ -76,6 +85,10 @@ def Test.eval (frame : Frame) : Test → Bool
       (decide (frame.context.dynamicFirst ≠ 0) &&
         Named.nameIs frame.text frame.first frame.after ("silver_arguments".toList.map Char.toNat)) ||
       decide (frame.context.scalarNames.length = ScalarExpression.maxBindings)
+  | .array => decide (fixedAfter frame.text frame.after "of" true ≠ 0)
+  | .invalidArray => decide (frame.arrayFirst = 0 ∨ frame.arrayAfter ≤ frame.arrayFirst) ||
+      Named.equalName frame.text frame.first frame.after frame.arrayFirst frame.arrayAfter ||
+      decide (frame.arrayTarget = 0) || (ArrayBindings.binding frame.context.arrayNames frame.arrayTarget).mutable
   | .reverse => decide (fixedAfter frame.text frame.result.position "reverse" true ≠ 0)
   | .nonadvancing => decide (frame.result.position ≤ frame.scan.position)
   | .innerNonadvancing => decide (frame.innerScan.position ≤ frame.scan.position)
@@ -89,6 +102,10 @@ def Test.evalWith (imports : Imports) (frame : Frame) : Test → Bool
       (decide (frame.context.dynamicFirst ≠ 0) &&
         imports.nameIs frame.text frame.first frame.after "silver_arguments") ||
       decide (frame.context.scalarNames.length = ScalarExpression.maxBindings)
+  | .array => decide (imports.token frame.text frame.after (.word "of") ≠ 0)
+  | .invalidArray => decide (frame.arrayFirst = 0 ∨ frame.arrayAfter ≤ frame.arrayFirst) ||
+      imports.equalName frame.text frame.first frame.after frame.arrayFirst frame.arrayAfter ||
+      decide (frame.arrayTarget = 0) || (ArrayBindings.binding frame.context.arrayNames frame.arrayTarget).mutable
   | .reverse => decide (imports.token frame.text frame.result.position (.word "reverse") ≠ 0)
   | .nonadvancing => decide (frame.result.position ≤ frame.scan.position)
   | .innerNonadvancing => decide (frame.innerScan.position ≤ frame.scan.position)
@@ -107,6 +124,10 @@ def Test.render : Test → List String
       "context", ".", "dynamic_first", "/=", "0", "and", "then"] ++
       call "name_is" [["text"], ["first"], ["after"], ["\"silver_arguments\""]] ++ [")", "or", "else",
       "context", ".", "scalar_names", ".", "count", "=", "scalar_expressions", ".", "max_bindings"]
+  | .array => call "take_token" [["text"], ["after"], ["of_keyword"]] ++ ["/=", "0"]
+  | .invalidArray => ["array_first", "=", "0", "or", "else", "array_after", "<=", "array_first", "or", "else"] ++
+      call "equal_name" [["text"], ["first"], ["after"], ["array_first"], ["array_after"]] ++
+      ["or", "else", "target", "=", "0", "or", "else", "context", ".", "array_names", ".", "items", "(", "target", ")", ".", "mutable"]
   | .reverse => call "take_token" [["text"], ["result", ".", "position"], ["reverse_keyword"]] ++ ["/=", "0"]
   | .nonadvancing => ["result", ".", "position", "<=", "scan", ".", "position"]
   | .innerNonadvancing => ["inner_scan", ".", "position", "<=", "scan", ".", "position"]
@@ -168,8 +189,22 @@ def freshInnerScan (scan : BodyScan) : BodyScan :=
 def enterScope (frame : Frame) : Frame :=
   {frame with inner := frame.context, innerScan := freshInnerScan frame.scan}
 
+def enterArray (frame : Frame) : Frame :=
+  let first := skipAt frame.text frame.result.position
+  {frame with
+    arrayFirst := first
+    arrayAfter := nameAfter frame.text first
+    arrayTarget := Predicate.arrayTarget frame.text frame.context.model frame.result.position}
+
+def enterArrayWith (imports : Imports) (frame : Frame) : Frame :=
+  let first := imports.skip frame.text frame.result.position
+  {frame with
+    arrayFirst := first
+    arrayAfter := imports.nameAfter frame.text first
+    arrayTarget := imports.arrayTarget frame.text frame.context frame.result.position}
+
 inductive Update
-  | inside | reverse | low | delimiter | high | opening | bounds | definite | widen | inner
+  | inside | iterable | reverse | low | delimiter | high | opening | arrayOpening | bounds | arrayBounds | definite | arrayDefinite | widen | inner
   | copyToInner (field : ScanField) | copyFromInner (field : ScanField)
   | innerPath | clearInnerValues | copyInnerValues | indexValue
   | restoreFacts | bodyPath | joinFacts | readBody | token (value : ShellToken)
@@ -181,6 +216,7 @@ check, and native verification must discharge their obligations; no constructor
 accepts arbitrary ignored source. -/
 def Update.eval (read : Reader) (frame : Frame) : Update → Frame
   | .inside => {frame with result := {frame.result with position := fixedAfter frame.text frame.after "in" true}}
+  | .iterable => {frame with result := {frame.result with position := fixedAfter frame.text frame.after "of" true}}
   | .reverse => {frame with result := bodyToken frame.text frame.result (.word "reverse")}
   | .low => {frame with low := (ScalarExpression.read frame.text frame.result.position
       (frame.context.model.readingNames frame.scan.facts) frame.first frame.after (arrays := frame.context.arrayNames))}
@@ -188,8 +224,11 @@ def Update.eval (read : Reader) (frame : Frame) : Update → Frame
   | .high => {frame with high := (ScalarExpression.read frame.text frame.result.position
       (frame.context.model.readingNames frame.scan.facts) frame.first frame.after (arrays := frame.context.arrayNames))}
   | .opening => {frame with result := {frame.result with position := fixedAfter frame.text frame.high.after "loop" true}}
+  | .arrayOpening => {frame with result := {frame.result with position := fixedAfter frame.text frame.arrayAfter "loop" true}}
   | .bounds => {frame with bounds := Integer.loopBounds frame.low.bounds frame.high.bounds}
+  | .arrayBounds => {frame with bounds := Integer.Interval.full}
   | .definite => {frame with definite := Integer.loopDefinite frame.low.bounds frame.high.bounds}
+  | .arrayDefinite => {frame with definite := true}
   | .widen => {frame with result := {frame.result with facts := ActiveFlow.widen frame.context.scalarNames frame.result.facts}}
   | .inner => {frame with inner := {frame.inner with scalarNames := frame.context.scalarNames ++
       [⟨frame.first, frame.after, frame.bounds, false, frame.bounds, false⟩]}}
@@ -212,15 +251,19 @@ def Update.eval (read : Reader) (frame : Frame) : Update → Frame
 
 def Update.evalWith (imports : Imports) (read : Reader) (frame : Frame) : Update → Frame
   | .inside => {frame with result := {frame.result with position := imports.token frame.text frame.after (.word "in")}}
+  | .iterable => {frame with result := {frame.result with position := imports.token frame.text frame.after (.word "of")}}
   | .reverse => {frame with result := {frame.result with position := imports.token frame.text frame.result.position (.word "reverse")}}
   | .low => {frame with low := imports.readScalar frame.text frame.context frame.result.position frame.scan.facts frame.first frame.after}
   | .delimiter => {frame with result := {frame.result with position := imports.token frame.text frame.low.after (.symbol "..")}}
   | .high => {frame with high := imports.readScalar frame.text frame.context frame.result.position frame.scan.facts frame.first frame.after}
   | .opening => {frame with result := {frame.result with position := imports.token frame.text frame.high.after (.word "loop")}}
+  | .arrayOpening => {frame with result := {frame.result with position := imports.token frame.text frame.arrayAfter (.word "loop")}}
   | .bounds => {frame with bounds := if imports.isEmpty frame.low.bounds || imports.isEmpty frame.high.bounds
       then imports.emptyBounds else imports.normalize ⟨frame.low.bounds.lower, frame.high.bounds.upper⟩}
+  | .arrayBounds => {frame with bounds := imports.fullBounds}
   | .definite => {frame with definite := (!imports.isEmpty frame.low.bounds && !imports.isEmpty frame.high.bounds &&
       decide (frame.low.bounds.upper ≤ frame.high.bounds.lower))}
+  | .arrayDefinite => {frame with definite := true}
   | .widen => {frame with result := {frame.result with facts := imports.widen frame.context frame.result.facts}}
   | .inner => {frame with inner := {frame.inner with scalarNames := (imports.append frame.context.scalarNames
       ⟨frame.first, frame.after, frame.bounds, false, frame.bounds, false⟩)}}
@@ -248,6 +291,7 @@ def emptyBounds (side : String) : List String := ["scalars", "."] ++ call "is_em
 
 def Update.render : Update → List String
   | .inside => ["result", ".", "position", ":="] ++ call "take_token" [["text"], ["after"], ["in_keyword"]] ++ [";"]
+  | .iterable => ["result", ".", "position", ":="] ++ call "take_token" [["text"], ["after"], ["of_keyword"]] ++ [";"]
   | .reverse => ["result", ".", "position", ":="] ++ call "take_token" [["text"], ["result", ".", "position"], ["reverse_keyword"]] ++ [";"]
   | .low => ["low", ":="] ++ call "read_scalar_in_flow"
       [["text"], ["context"], ["result", ".", "position"], ["scan", ".", "facts"], ["first"], ["after"]] ++ [";"]
@@ -255,11 +299,14 @@ def Update.render : Update → List String
   | .high => ["high", ":="] ++ call "read_scalar_in_flow"
       [["text"], ["context"], ["result", ".", "position"], ["scan", ".", "facts"], ["first"], ["after"]] ++ [";"]
   | .opening => ["result", ".", "position", ":="] ++ call "take_token" [["text"], ["high", ".", "after"], ["loop_keyword"]] ++ [";"]
+  | .arrayOpening => ["result", ".", "position", ":="] ++ call "take_token" [["text"], ["array_after"], ["loop_keyword"]] ++ [";"]
   | .bounds => ["index_bounds", ":=", "(", "if"] ++ emptyBounds "low" ++ ["or", "else"] ++ emptyBounds "high" ++
       ["then", "scalars", ".", "empty", "else", "scalars", "."] ++
       call "normalize" [["(", "low", ".", "bounds", ".", "lower", ",", "high", ".", "bounds", ".", "upper", ")"]] ++ [")", ";"]
+  | .arrayBounds => ["index_bounds", ":=", "scalars", ".", "full", ";"]
   | .definite => ["definite", ":=", "not"] ++ emptyBounds "low" ++ ["and", "then", "not"] ++ emptyBounds "high" ++
       ["and", "then", "low", ".", "bounds", ".", "upper", "<=", "high", ".", "bounds", ".", "lower", ";"]
+  | .arrayDefinite => ["definite", ":=", "true", ";"]
   | .widen => call "widen_into" [["context"], ["result", ".", "facts"]] ++ [";"] ++
       ["pragma", "assert", "(", "static", "=>"] ++
       call "valid_flow" [["context"], ["result", ".", "facts"]] ++ [")", ";"]
@@ -309,6 +356,7 @@ def Update.render : Update → List String
 inductive Command
   | nothing | update (value : Update) | invalid | result
   | scope (body : Command)
+  | arrayScope (body : Command)
   | sequence (first second : Command) | choose (test : Test) (yes no : Command)
   deriving DecidableEq
 
@@ -318,6 +366,7 @@ def Command.eval (read : Reader) (frame : Frame) (next : Frame → BodyScan) : C
   | .invalid => invalidBody frame.scan
   | .result => frame.result
   | .scope body => body.eval read (enterScope frame) next
+  | .arrayScope body => body.eval read (enterArray frame) next
   | .sequence first second => first.eval read frame (fun updated => second.eval read updated next)
   | .choose test yes no => if test.eval frame then yes.eval read frame next else no.eval read frame next
 
@@ -327,6 +376,7 @@ def Command.evalWith (imports : Imports) (read : Reader) (frame : Frame) (next :
   | .invalid => imports.invalid frame.scan
   | .result => frame.result
   | .scope body => body.evalWith imports read (enterScope frame) next
+  | .arrayScope body => body.evalWith imports read (enterArrayWith imports frame) next
   | .sequence first second => first.evalWith imports read frame
       (fun updated => second.evalWith imports read updated next)
   | .choose test yes no => if test.evalWith imports frame then yes.evalWith imports read frame next
@@ -339,6 +389,7 @@ def Command.evalWith (imports : Imports) (read : Reader) (frame : Frame) (next :
   | sequence first second ihFirst ihSecond => simp only [evalWith, eval, ihFirst, ihSecond]
   | choose test yes no ihYes ihNo => simp only [evalWith, eval, Test.evalWith_model, ihYes, ihNo]
   | scope body ih => exact ih (enterScope frame) next
+  | arrayScope body ih => exact ih (enterArray frame) next
   | invalid => rfl
   | _ => simp only [evalWith, eval, Update.evalWith_model]
 
@@ -348,6 +399,11 @@ mutual
     | .invalid => ["return", "invalid_body", "(", "scan", ")", ";"] | .result => ["return", "result", ";"]
     | .scope body => ["declare", "inner", ":", "body_context", ":=", "context", ";",
         "inner_scan", ":", "body_scan", "(", "scan", ".", "count", "+", "1", ")", ";", "begin"] ++ body.render ++ ["end", ";"]
+    | .arrayScope body => ["declare", "array_first", ":", "constant", "literal_position", ":="] ++
+        call "skip_at" [["text"], ["result", ".", "position"]] ++
+        [";", "array_after", ":", "constant", "literal_position", ":="] ++ call "name_after" [["text"], ["array_first"]] ++
+        [";", "target", ":", "constant", "array_bindings", ".", "binding_count", ":="] ++
+        call "array_target" [["text"], ["context"], ["result", ".", "position"]] ++ [";", "begin"] ++ body.render ++ ["end", ";"]
     | .sequence first second => first.render ++ second.render
     | .choose test yes no => ["if"] ++ test.render ++ ["then"] ++ yes.render ++ no.renderElse ++ ["end", "if", ";"]
   def Command.renderElse : Command → List String
@@ -359,9 +415,15 @@ end
 def Command.list (commands : List Command) : Command := commands.foldr .sequence .nothing
 def guard (test : Test) : Command := .choose test .invalid .nothing
 
-def commands : Command := .list [guard .invalidName, .update .inside,
-  .choose .reverse (.update .reverse) .nothing, .update .low, .update .delimiter, .update .high,
-  .update .opening, guard .nonadvancing, .update .bounds, .update .definite, .update .widen,
+def commands : Command := .list [guard .invalidName,
+  .choose .array
+    (.list [.update .iterable, .choose .reverse (.update .reverse) .nothing,
+      .arrayScope (.list [guard .invalidArray, .update .arrayOpening]),
+      .update .arrayBounds, .update .arrayDefinite])
+    (.list [.update .inside, .choose .reverse (.update .reverse) .nothing,
+      .update .low, .update .delimiter, .update .high, .update .opening,
+      .update .bounds, .update .definite]),
+  guard .nonadvancing, .update .widen,
   .scope (.list [.update .inner,
     .update (.copyToInner .position), .update (.copyToInner .target), .update (.copyToInner .capacity),
     .update (.copyToInner .assigned), .update (.copyToInner .output),
@@ -415,7 +477,7 @@ def equation (read : Reader) (text : Source) (context : Native.Context) (scan : 
     let body := read text (inner context header) header.entry .endOnly
     if body.position ≤ scan.position then invalidBody scan else
     let result := bodyTokens text
-      {body with facts := loopAfterFlow context.model scan.facts body.facts header.lower.bounds header.upper.bounds}
+      {body with facts := loopAfterHeader context.model scan.facts body.facts header}
       [.word "end", .word "loop", .symbol ";"]
     if result.position ≤ scan.position then invalidBody scan else result
 
@@ -435,41 +497,245 @@ theorem invalidName_allowed (text : Source) (context : Native.Context) (scan : B
     (nameAfter text (skipAt text (fixedAfter text scan.position "for" true))) <;>
     simp_all [decide_eq_true_eq, decide_eq_false_iff_not] <;> omega
 
+private def tailCommands : Command := .list [
+  guard .nonadvancing, .update .widen,
+  .scope (.list [.update .inner,
+    .update (.copyToInner .position), .update (.copyToInner .target), .update (.copyToInner .capacity),
+    .update (.copyToInner .assigned), .update (.copyToInner .output),
+    .update .innerPath, .update .clearInnerValues, .update .copyInnerValues, .update .indexValue,
+    .update .readBody, guard .innerNonadvancing,
+    .update (.copyFromInner .position), .update (.copyFromInner .target), .update (.copyFromInner .capacity),
+    .update (.copyFromInner .assigned), .update (.copyFromInner .output),
+    .choose .empty (.update .restoreFacts) (.choose .definite (.update .bodyPath) (.update .joinFacts))]),
+  .update (.token (.word "end")), .update (.token (.word "loop")), .update (.token (.symbol ";")),
+  guard .nonadvancing, .result]
+
+private def tailEquation (read : Reader) (frame : Frame) : BodyScan :=
+  if frame.result.position ≤ frame.scan.position then invalidBody frame.scan else
+  let inner := {frame.context with scalarNames := frame.context.scalarNames ++
+    [⟨frame.first, frame.after, frame.bounds, false, frame.bounds, false⟩]}
+  let widened := ActiveFlow.widen frame.context.scalarNames frame.scan.facts
+  let entry := {frame.result with facts := {widened.append frame.bounds with
+    path := loopContext frame.scan.facts.path frame.bounds}}
+  let body := read frame.text inner entry .endOnly
+  if body.position ≤ frame.scan.position then invalidBody frame.scan else
+  let facts := if frame.bounds.isEmpty then frame.scan.facts else
+    ⟨if frame.definite then body.facts.path else frame.scan.facts.path.join body.facts.path,
+      widened.values⟩
+  let result := bodyTokens frame.text {body with facts := facts}
+    [.word "end", .word "loop", .symbol ";"]
+  if result.position ≤ frame.scan.position then invalidBody frame.scan else result
+
+private theorem tail_eval (read : Reader) (frame : Frame) (next : Frame → BodyScan)
+    (facts : frame.result.facts = frame.scan.facts)
+    (count : frame.scan.facts.count = frame.context.scalarNames.length) :
+    tailCommands.eval read frame next = tailEquation read frame := by
+  have widenedCount : (ActiveFlow.widen frame.context.scalarNames frame.scan.facts).values.length = frame.scan.count :=
+    ActiveFlow.widen_count frame.context.scalarNames frame.scan.facts count
+  have copied : copyValuesInto (ActiveFlow.widen frame.context.scalarNames frame.scan.facts).values
+      (List.replicate (frame.scan.count + 1) Integer.Interval.empty) =
+      (ActiveFlow.widen frame.context.scalarNames frame.scan.facts).values ++ [Integer.Interval.empty] := by
+    rw [← widenedCount, List.replicate_succ', copyValuesInto_prefix]
+  simp only [tailCommands, Command.list, List.foldr_cons, List.foldr_nil, guard, Command.eval]
+  dsimp only [Update.eval, Test.eval, enterScope, freshInnerScan, ScanField.copy]
+  simp only [facts, BodyScan.count, ActiveFlow.count] at copied widenedCount ⊢
+  simp only [List.length_replicate, copyValuesInto_count, Nat.add_sub_cancel]
+  rw [copied]
+  rw [← widenedCount, set_last]
+  simp only [ActiveFlow.widen_path, decide_eq_true_eq]
+  unfold tailEquation
+  simp only [ActiveFlow.append, loopContext, ActiveFlow.widen_path, bodyTokens, List.foldl_cons,
+    List.foldl_nil, bodyToken]
+  repeat' first | rfl | (simp_all +instances; done) | split
+
+private def arrayCommands : Command := .list [
+  .update .iterable, .choose .reverse (.update .reverse) .nothing,
+  .arrayScope (.list [guard .invalidArray, .update .arrayOpening]),
+  .update .arrayBounds, .update .arrayDefinite]
+
+private def countedCommands : Command := .list [
+  .update .inside, .choose .reverse (.update .reverse) .nothing,
+  .update .low, .update .delimiter, .update .high, .update .opening,
+  .update .bounds, .update .definite]
+
+private def arrayFrame (text : Source) (context : Native.Context) (scan : BodyScan) : Frame :=
+  {initial text context scan with
+    result := {scan with position := (loopHeader text context.model scan).entry.position}
+    bounds := Integer.Interval.full
+    definite := true
+    arrayFirst := skipAt text (loopLowerPosition text scan)
+    arrayAfter := nameAfter text (skipAt text (loopLowerPosition text scan))
+    arrayTarget := loopArrayTarget text context.model scan}
+
+private def countedFrame (text : Source) (context : Native.Context) (scan : BodyScan) : Frame :=
+  let header := loopHeader text context.model scan
+  {initial text context scan with
+    result := {scan with position := header.entry.position}
+    low := header.lower
+    high := header.upper
+    bounds := header.bounds
+    definite := Integer.loopDefinite header.lower.bounds header.upper.bounds}
+
+private theorem invalid_array_guard (first after target : Nat) (equal mutable : Bool) :
+    (decide (first = 0 ∨ after ≤ first) || equal || decide (target = 0) || mutable) =
+      !(decide (first ≠ 0 ∧ first < after ∧ target ≠ 0) && !mutable && !equal) := by
+  apply Bool.eq_iff_iff.mpr
+  cases equal <;> cases mutable <;>
+    simp [Bool.or_eq_true, decide_eq_true_eq, decide_eq_false_iff_not] <;> omega
+
+private def iteratorFrame (text : Source) (context : Native.Context) (scan : BodyScan) : Frame :=
+  {initial text context scan with result := {scan with position := loopLowerPosition text scan}}
+
+private def reverseFrame (frame : Frame) : Frame :=
+  let position := if fixedAfter frame.text frame.result.position "reverse" true ≠ 0 then
+    fixedAfter frame.text frame.result.position "reverse" true else frame.result.position
+  {frame with result := {frame.result with position := position}}
+
+private theorem reverse_eval (read : Reader) (frame : Frame) (next : Frame → BodyScan) :
+    (Command.choose .reverse (.update .reverse) .nothing).eval read frame next =
+      next (reverseFrame frame) := by
+  simp only [Command.eval, Test.eval, Update.eval, bodyToken, tokenAfter, ShellToken.word,
+    reverseFrame, decide_eq_true_eq]
+  split <;> rfl
+
+private theorem iterator_invalid (text : Source) (context : Native.Context) (scan : BodyScan) :
+    Test.invalidArray.eval (enterArray (iteratorFrame text context scan)) =
+      !loopArrayAllowed text context.model scan := by
+  exact invalid_array_guard (skipAt text (loopLowerPosition text scan))
+    (nameAfter text (skipAt text (loopLowerPosition text scan))) (loopArrayTarget text context.model scan)
+    (Named.equalName text (loopFirst text scan) (loopNameAfter text scan)
+      (skipAt text (loopLowerPosition text scan)) (nameAfter text (skipAt text (loopLowerPosition text scan))))
+    (ArrayBindings.binding context.arrayNames (loopArrayTarget text context.model scan)).mutable
+
+private theorem array_eval (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan)
+    (next : Frame → BodyScan) (iterable : loopIsArray text scan = true) :
+    arrayCommands.eval read (initial text context scan) next =
+      if loopArrayAllowed text context.model scan then next (arrayFrame text context scan)
+      else invalidBody scan := by
+  change (Command.choose .reverse (.update .reverse) .nothing).eval read
+    (Update.iterable.eval read (initial text context scan))
+    (fun frame => (Command.arrayScope (.list [guard .invalidArray, .update .arrayOpening])).eval read frame
+      (fun frame => next (Update.arrayDefinite.eval read (Update.arrayBounds.eval read frame)))) = _
+  rw [reverse_eval]
+  have cursor : reverseFrame (Update.iterable.eval read (initial text context scan)) =
+      iteratorFrame text context scan := by
+    simp only [reverseFrame, iteratorFrame, loopLowerPosition, loopReverse, loopInAfter,
+      iterable, ↓reduceIte, decide_eq_true_eq]
+    rfl
+  rw [cursor]
+  simp only [Command.eval, Command.list, List.foldr_cons, List.foldr_nil, guard]
+  rw [iterator_invalid]
+  cases permitted : loopArrayAllowed text context.model scan with
+  | false => simp only [Bool.not_false, Bool.false_eq_true, ↓reduceIte]; rfl
+  | true =>
+      simp only [Bool.not_true, Bool.false_eq_true, ↓reduceIte]
+      congr 1
+      simp only [Update.eval, enterArray, iteratorFrame, arrayFrame, loopHeader, iterable, permitted, ↓reduceIte]
+      rfl
+
+private theorem counted_eval (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan)
+    (next : Frame → BodyScan) (counted : loopIsArray text scan = false) :
+    countedCommands.eval read (initial text context scan) next = next (countedFrame text context scan) := by
+  simp only [countedCommands, Command.list, List.foldr_cons, List.foldr_nil, Command.eval]
+  dsimp only [Update.eval, Test.eval, initial]
+  unfold countedFrame
+  simp only [loopHeader, LoopHeader.bounds, counted, Bool.false_eq_true, ↓reduceIte, loopInAfter,
+    loopLowerPosition, loopReverse, loopNameAfter, loopFirst, initial, bodyToken, tokenAfter, ShellToken.word]
+  by_cases reverse : fixedAfter text (fixedAfter text (nameAfter text
+      (skipAt text (fixedAfter text scan.position "for" true))) "in" true) "reverse" true ≠ 0
+  all_goals try simp_all +instances
+  all_goals rfl
+
+private def headerFrame (text : Source) (context : Native.Context) (scan : BodyScan) : Frame :=
+  let header := loopHeader text context.model scan
+  {initial text context scan with
+    result := {scan with position := header.entry.position}
+    bounds := header.bounds
+    definite := if header.isArray then true else Integer.loopDefinite header.lower.bounds header.upper.bounds}
+
+private def headerContinuation (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan) : BodyScan :=
+  let header := loopHeader text context.model scan
+  if header.entry.position ≤ scan.position then invalidBody scan else
+    let body := read text (inner context header) header.entry .endOnly
+    if body.position ≤ scan.position then invalidBody scan else
+    let result := bodyTokens text
+      {body with facts := loopAfterHeader context.model scan.facts body.facts header}
+      [.word "end", .word "loop", .symbol ";"]
+    if result.position ≤ scan.position then invalidBody scan else result
+
+private theorem header_exit (context : Native.Context) (before after : ActiveFlow) (header : LoopHeader) :
+    (if header.bounds.isEmpty then before else
+      ⟨if (if header.isArray then true else Integer.loopDefinite header.lower.bounds header.upper.bounds) then
+        after.path else before.path.join after.path,
+        (ActiveFlow.widen context.scalarNames before).values⟩) =
+      loopAfterHeader context.model before after header := by
+  have fullNonempty : Integer.Interval.full.isEmpty = false := by decide +kernel
+  cases array : header.isArray with
+  | true => simp only [LoopHeader.bounds, loopAfterHeader, array, ↓reduceIte, fullNonempty, Bool.false_eq_true]; rfl
+  | false =>
+      simp only [LoopHeader.bounds, loopAfterHeader, array, Bool.false_eq_true, ↓reduceIte,
+        loopAfterFlow, loopAfter]
+      split <;> rfl
+
+private theorem header_tail (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan) :
+    tailEquation read (headerFrame text context scan) = headerContinuation read text context scan := by
+  unfold tailEquation headerFrame
+  dsimp only [initial]
+  rw [header_exit]
+  rfl
+
+private theorem array_tail (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan)
+    (iterable : loopIsArray text scan = true) :
+    tailEquation read (arrayFrame text context scan) = headerContinuation read text context scan := by
+  rw [← header_tail]
+  have selected : (loopHeader text context.model scan).isArray = true := iterable
+  simp only [tailEquation, arrayFrame, headerFrame, LoopHeader.bounds, selected, ↓reduceIte]
+
+private theorem counted_tail (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan)
+    (counted : loopIsArray text scan = false) :
+    tailEquation read (countedFrame text context scan) = headerContinuation read text context scan := by
+  rw [← header_tail]
+  have selected : (loopHeader text context.model scan).isArray = false := counted
+  simp only [tailEquation, countedFrame, headerFrame, selected, Bool.false_eq_true, ↓reduceIte]
+  rfl
+
+private theorem commands_decompose :
+    commands = .sequence (guard .invalidName)
+      (.sequence (.choose .array arrayCommands countedCommands) tailCommands) := rfl
+
+attribute [local irreducible] tailCommands arrayCommands countedCommands
+
 theorem eval_equation (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan)
     (count : scan.facts.count = context.scalarNames.length) :
     eval read text context scan = equation read text context scan := by
-  have widenedCount : (ActiveFlow.widen context.scalarNames scan.facts).values.length = scan.count :=
-    ActiveFlow.widen_count context.scalarNames scan.facts count
-  have copied : copyValuesInto (ActiveFlow.widen context.scalarNames scan.facts).values
-      (List.replicate (scan.count + 1) Integer.Interval.empty) =
-      (ActiveFlow.widen context.scalarNames scan.facts).values ++ [Integer.Interval.empty] := by
-    rw [← widenedCount, List.replicate_succ', copyValuesInto_prefix]
-  simp only [eval, commands, Command.list, List.foldr_cons, List.foldr_nil,
-    guard, Command.eval]
-  rw [invalidName_allowed]
-  unfold equation
+  rw [eval, commands_decompose]
+  change (guard .invalidName).eval read (initial text context scan)
+    (fun frame => (Command.choose .array arrayCommands countedCommands).eval read frame
+      (fun frame => tailCommands.eval read frame (fun _ => invalidBody scan))) =
+    (if !loopNameAllowed text context.model (loopHeader text context.model scan) then invalidBody scan
+     else headerContinuation read text context scan)
+  simp only [guard, Command.eval, invalidName_allowed]
   by_cases allowed : loopNameAllowed text context.model (loopHeader text context.model scan) = true
   · simp only [allowed, Bool.not_true, Bool.false_eq_true, ↓reduceIte]
-    by_cases reversed : fixedAfter text (loopInAfter text scan) "reverse" true ≠ 0
-    all_goals dsimp +instances only [Update.eval, Test.eval, initial, enterScope, freshInnerScan, ScanField.copy,
-      loopHeader, loopFirst, loopNameAfter, loopInAfter, loopReverse, loopLowerPosition,
-      loopContext, loopAfterFlow, loopAfter, inner, loopInner, Native.Context.model, ActiveFlow.append,
-      bodyToken, bodyTokens, List.foldl_cons, List.foldl_nil, tokenAfter, ShellToken.word, ShellToken.symbol]
-    all_goals simp only [BodyScan.count, ActiveFlow.count] at copied ⊢
-    all_goals simp only [ActiveFlow.widen_path]
-    all_goals simp only [loopInAfter, loopNameAfter, loopFirst] at reversed
-    all_goals generalize hf : skipAt text (fixedAfter text scan.position "for" true) = first at *
-    all_goals generalize ha : nameAfter text first = after at *
-    all_goals generalize hi : fixedAfter text after "in" true = inside at *
-    all_goals generalize hr : fixedAfter text inside "reverse" true = rev at *
-    all_goals simp +instances (config := {maxSteps := 500000}) [reversed]
-    all_goals generalize hl : ScalarExpression.read text inside (context.model.readingNames scan.facts) first after (arrays := context.arrayNames) = low at *
-    all_goals generalize hlr : ScalarExpression.read text rev (context.model.readingNames scan.facts) first after (arrays := context.arrayNames) = lowRev at *
-    all_goals generalize hu : ScalarExpression.read text (fixedAfter text low.after ".." false) (context.model.readingNames scan.facts) first after (arrays := context.arrayNames) = high at *
-    all_goals generalize hur : ScalarExpression.read text (fixedAfter text lowRev.after ".." false) (context.model.readingNames scan.facts) first after (arrays := context.arrayNames) = highRev at *
-    all_goals repeat' first | rfl | (simp_all +instances; done) | split
+    have arrayTest : Test.array.eval (initial text context scan) = loopIsArray text scan := rfl
+    rw [arrayTest]
+    by_cases iterable : loopIsArray text scan = true
+    · simp only [iterable, ↓reduceIte]
+      rw [array_eval read text context scan _ iterable]
+      by_cases valid : loopArrayAllowed text context.model scan = true
+      · simp only [valid, ↓reduceIte]
+        rw [tail_eval read _ _ rfl count, array_tail read text context scan iterable]
+      · simp only [valid, Bool.false_eq_true, ↓reduceIte]
+        have zero : (loopHeader text context.model scan).entry.position = 0 := by
+          simp only [loopHeader, iterable, ↓reduceIte, valid, Bool.false_eq_true]
+        simp only [headerContinuation, zero, Nat.zero_le, ↓reduceIte]
+    · have counted := Bool.eq_false_iff.mpr iterable
+      simp only [counted, Bool.false_eq_true, ↓reduceIte]
+      rw [counted_eval read text context scan _ counted]
+      rw [tail_eval read _ _ rfl count, counted_tail read text context scan counted]
   · have disallowed := Bool.eq_false_iff.mpr allowed
     simp only [disallowed, Bool.not_false, ↓reduceIte]
     rfl
+
 
 end Silver.Predicate.LoopNative

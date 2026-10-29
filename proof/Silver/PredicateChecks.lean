@@ -128,4 +128,54 @@ theorem mutable_nested_index_scope_preserves_writes :
       (Integer.put (Integer.put Integer.emptyStore 2 9) 4 8)
     result.integers 1 = 7 ∧ result.integers 2 = 9 ∧ result.integers 3 = 4 ∧ result.integers 4 = 8 := by decide +kernel
 
+/-- This descriptor deliberately uses an arbitrary generic store identity;
+readiness cannot obtain its binder-separation premise from a native limit. -/
+def constantIterationArray : Integer.ArrayDescriptor := ⟨100, ⟨-1, 1⟩⟩
+
+def constantIterationAnalysis : Integer.Analysis :=
+  ⟨constantIterationArray.bodyRanges (Integer.put Integer.emptyRanges 1 (some Integer.Interval.full)),
+    Integer.put Integer.immutable 1 true, Integer.immutable, Integer.put Integer.immutable 1 true⟩
+
+def constantIterationFlow : Flow :=
+  ⟨⟨some ⟨0, 0⟩, false, false⟩, constantIterationAnalysis.declared⟩
+
+def constantIterationWitness (reverse : Bool) : Statement :=
+  .arrayLoop 2 reverse constantIterationArray [.scalarAssign ⟨1, .name 2, .full⟩]
+
+theorem constant_iteration_forward_reverse_and_restore :
+    let initial := constantIterationArray.initializeValues (Integer.put Integer.emptyStore 2 9) [-1, 0, 1]
+    let forward := (constantIterationWitness false).execute [] true Bindings.emptyValues initial
+    let reverse := (constantIterationWitness true).execute [] true Bindings.emptyValues initial
+    forward.integers 1 = 1 ∧ reverse.integers 1 = -1 ∧
+      forward.integers 2 = 9 ∧ reverse.integers 2 = 9 ∧
+      constantIterationArray.project forward.integers (-1) = -1 ∧
+      constantIterationArray.project reverse.integers 1 = 1 := by decide +kernel
+
+/-- Full entry intervals need a fresh guard before incrementing the element. -/
+theorem constant_iteration_guard_refines_element :
+    ((Statement.arrayLoop 2 false constantIterationArray
+      [.choice (.scalarCompare .lt (.name 2) (.literal Integer.maxValue))
+        [.scalarAssign ⟨1, .add (.name 2) (.literal 1), .full⟩] []]).check
+      (fun _ => none) constantIterationAnalysis constantIterationFlow).isSome = true := by decide +kernel
+
+theorem constant_iteration_rejects_unguarded_increment :
+    (Statement.arrayLoop 2 false constantIterationArray
+      [.scalarAssign ⟨1, .add (.name 2) (.literal 1), .full⟩]).check
+      (fun _ => none) constantIterationAnalysis constantIterationFlow = none := by decide +kernel
+
+/-- A nested loop must not transiently replace a constant component, even
+though its ordinary scoped restoration would repair the final store. -/
+theorem constant_iteration_rejects_nested_binder_collision :
+    (Statement.arrayLoop 2 false constantIterationArray
+      [.forLoop 100 false (.literal 0) (.literal 0) [.simple .null]]).check
+      (fun _ => none) constantIterationAnalysis constantIterationFlow = none := by decide +kernel
+
+theorem constant_iteration_rejects_nested_element_collision :
+    statementsBindersApart constantIterationArray
+      [.arrayLoop 101 false ⟨200, ⟨1, 1⟩⟩ [.simple .null]] = false := by decide +kernel
+
+theorem constant_iteration_full_domain_extreme_singletons :
+    Integer.iterationValues false Integer.minValue Integer.minValue = [Integer.minValue] ∧
+      Integer.iterationValues true Integer.maxValue Integer.maxValue = [Integer.maxValue] := by decide +kernel
+
 end Silver.Predicate

@@ -122,13 +122,10 @@ theorem loopHeader_flowReady {text : Source} {context : ParseContext} {scan : Bo
     ScalarMetadata.FlowReady (loopInner context (loopHeader text context scan)).scalarNames
       (loopInner context (loopHeader text context scan)).declarationCount
       (loopHeader text context scan).entry.facts := by
-  obtain ⟨lower, upper, lowerRead, upperRead⟩ := loopHeader_readings positive
-  have typed := Integer.loopBounds_bounded (Integer.Expr.infer_bounded lowerRead.inferred)
-    (Integer.Expr.infer_bounded upperRead.inferred)
+  have typed := loopHeader_bounds_bounded positive
   let header := loopHeader text context scan
   let item : ScalarExpression.Binding :=
-    ⟨header.first, header.after, Integer.loopBounds header.lower.bounds header.upper.bounds, false,
-      Integer.loopBounds header.lower.bounds header.upper.bounds, false⟩
+    ⟨header.first, header.after, header.bounds, false, header.bounds, false⟩
   exact (ScalarMetadata.FlowReady.append_immutable base
     (ScalarMetadata.FlowReady.widen base ready environment) item rfl typed).withPath _
 
@@ -144,5 +141,17 @@ theorem loopAfterFlow_flowReady {text : Source} {context : ParseContext} {before
   split
   · exact ready.withPath _
   · exact (ScalarMetadata.FlowReady.widen base ready environment).withPath _
+
+theorem loopAfterHeader_flowReady {text : Source} {context : ParseContext} {before : ActiveFlow}
+    (base : ScalarMetadata.BaseReady context.scalarNames context.declarationCount)
+    (ready : ScalarMetadata.FlowReady context.scalarNames context.declarationCount before)
+    (environment : ScalarExpression.ValidEnvironment text context.scalarNames)
+    (after : ActiveFlow) (header : LoopHeader) :
+    ScalarMetadata.FlowReady context.scalarNames context.declarationCount
+      (loopAfterHeader context before after header) := by
+  unfold loopAfterHeader
+  split
+  · exact (ScalarMetadata.FlowReady.widen base ready environment).withPath _
+  · exact loopAfterFlow_flowReady base ready environment _ _ _
 
 end Silver.Predicate

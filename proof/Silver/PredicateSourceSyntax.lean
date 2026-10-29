@@ -18,6 +18,7 @@ mutual
     | reject
     | choice (condition : Condition) (yes : List SourceStatement) (tail : SourceAlternative)
     | forLoop (index : Nat) (reverse : Bool) (lower upper : Integer.Expr) (body : List SourceStatement)
+    | arrayLoop (index : Nat) (reverse : Bool) (array : Integer.ArrayDescriptor) (body : List SourceStatement)
     deriving Repr
   inductive SourceAlternative
     | absent
@@ -34,6 +35,7 @@ mutual
     | .reject => .reject
     | .choice condition yes tail => .choice condition (lowerStatements yes) tail.lower
     | .forLoop index reverse lower upper body => .forLoop index reverse lower upper (lowerStatements body)
+    | .arrayLoop index reverse array body => .arrayLoop index reverse array (lowerStatements body)
   termination_by item => sizeOf item
   def SourceAlternative.lower : SourceAlternative → List Statement
     | .absent => []
@@ -62,6 +64,12 @@ mutual
           let result := executeSourceStatements input valid current body (Integer.put currentIntegers index value)
           result.restoreIndex index currentIntegers) values integers
           (Integer.iterationValues reverse (lower.evaluate integers) (upper.evaluate integers))
+    | .arrayLoop index reverse array body =>
+        executeIterations (fun current currentIntegers component =>
+          let result := executeSourceStatements input valid current body
+            (Integer.put currentIntegers index (array.project currentIntegers component))
+          result.restoreIndex index currentIntegers) values integers
+          (Integer.iterationValues reverse array.bounds.lower array.bounds.upper)
   termination_by sizeOf item
   def SourceAlternative.execute (input : Source) (valid : Bool) (values : Values) (tail : SourceAlternative)
       (integers : Integer.Store := Integer.emptyStore) : Execution :=
@@ -101,6 +109,12 @@ mutual
         congr 1
         funext current currentIntegers value
         rw [lowerStatements_execute body input valid current (Integer.put currentIntegers index value)]
+    | arrayLoop index reverse array body =>
+        simp only [SourceStatement.lower, Statement.execute, SourceStatement.execute]
+        congr 1
+        funext current currentIntegers component
+        rw [lowerStatements_execute body input valid current
+          (Integer.put currentIntegers index (array.project currentIntegers component))]
   termination_by sizeOf item
   theorem SourceAlternative.lower_execute (tail : SourceAlternative) (input : Source) (valid : Bool) (values : Values)
       (integers : Integer.Store := Integer.emptyStore) :
@@ -140,7 +154,8 @@ mutual
     | .reject => hasArguments = true
     | .choice condition yes tail => condition.Grammatical ∧ condition.Readable hasArguments shape ∧
         yes ≠ [] ∧ SourceStatementsWellFormed hasArguments shape yes ∧ tail.WellFormed hasArguments shape
-    | .forLoop index _ _ _ body => index ≠ 0 ∧ body ≠ [] ∧ SourceStatementsWellFormed hasArguments shape body
+    | .forLoop index _ _ _ body | .arrayLoop index _ _ body =>
+        index ≠ 0 ∧ body ≠ [] ∧ SourceStatementsWellFormed hasArguments shape body
   termination_by item => sizeOf item
   def SourceAlternative.WellFormed (hasArguments : Bool) (shape : Shape) : SourceAlternative → Prop
     | .absent => True
@@ -167,7 +182,7 @@ mutual
         simp only [SourceStatement.lower, Statement.WellFormed]
         exact ⟨valid.1, valid.2.1, lowerStatements_nonempty valid.2.2.1,
           lowerStatements_wellFormed valid.2.2.2.1, SourceAlternative.lower_wellFormed valid.2.2.2.2⟩
-    | forLoop index reverse lower upper body =>
+    | forLoop index reverse lower upper body | arrayLoop index reverse array body =>
         simp only [SourceStatement.WellFormed] at valid
         simp only [SourceStatement.lower, Statement.WellFormed]
         exact ⟨valid.1, lowerStatements_nonempty valid.2.1, lowerStatements_wellFormed valid.2.2⟩

@@ -1,6 +1,10 @@
 # Constant Integer-array iteration
 
-Status: authorized implementation; not supported yet.
+Status: supported; complete Linux native and Lean/source assurance and final
+review are recorded in [delivery assurance and validation](#delivery-assurance-and-validation).
+PR #266 remains open under the owner's review instruction. The
+[pause handoff](constant-array-iteration-pause-20261028.md) retains the historical
+recovery snapshot; partial, failed and interrupted runs keep their original outcomes.
 
 The [2026-10-28 owner instruction](session-memory.md#2026-10-28--constant-integer-array-iteration-authorized-as-a-stacked-pr)
 authorizes [#264](https://github.com/berkeleynerd/silver/issues/264) under
@@ -22,7 +26,9 @@ The driver is Rosetta [Loops/Foreach](../rosetta/l/loops/foreach/task.wiki): pri
 each collection element in order using the language's foreach construct. A
 constant array `(-1, 0, 1, 2, 3)` and `Integer'Image (Value)` give a faithful
 small example. The task requires neither input nor mutable-element writes.
-The old indexed-loop assessment must be reconciled because Ada provides `of`.
+The narrow `constant-integer-array-iteration` Rosetta mapping reconciles the
+old indexed-loop assessment with Ada's `of` syntax; broad iterators remain outside
+that mapping.
 
 The scoped element binding is immutable, nonstatic and refinable by the existing
 scalar guards. Its entry interval is the full Integer range, consistent with
@@ -59,7 +65,10 @@ The shorter syntax changes the feature-local report envelope. The minimum
 `for E of A loop` prefix is 15 bytes, so the previous `27*L + 8*W <= S` charge
 for all loops cannot be inherited unchanged. Recheck the conservative combined
 `24*L + 8*W <= S` charge, diagnostic multiplicity and implicit iterator checks
-against the current 32 MiB Main allocation. This is required feature-local
+against the current 32 MiB Main allocation. The
+[producer/capacity account](constant-array-iteration-report-capacity.md) records
+the inspected expansion, production-setting probe and revised 31,269,376-byte
+envelope, within that unchanged allocation. This is required feature-local
 accounting within the unchanged source limit, not a reopening of #119.
 
 Completion requires agreement of native/compiler/catalogue/specification,
@@ -73,3 +82,196 @@ introduce a general iterator framework or assurance mode.
 | --- | --- | --- |
 | Driver and scope selection | GPT-6.1 Sol / Extra High | The cached task requires ordered foreach output, not mutable iteration; a small constant Integer-array driver is faithful. Procedures/named subtypes would add independent call/alias/type machinery. Runtime settings and token/cost measurements unavailable. |
 | Semantics and assurance design | GPT-6 Astra / Extra High | Confirmed constant-component semantics, preservation and hiding obligations, source-derived binder separation and the shorter-loop capacity premise. Existing reverse enumeration is reusable. Read-only; no proof/probe run or performance claim. Runtime settings and token/cost measurements unavailable. |
+
+## Implementation checkpoint, 2026-10-28
+
+The planning authorization reached main through PR #265 (`a2bb0a9f65`).
+Implementation remains on `feat/constant-array-iteration`, with isolated native,
+core-proof and source-correspondence worktrees. The stacked PR is not complete
+or supported yet. The focused implementation and regression layers are reviewed;
+complete native and Lean/source assurance and final delivery review remain
+outstanding, as detailed below.
+
+The native change is a direct `of` branch in `Loop_Body`, sharing the existing
+body flow logic with counted loops. The mathematical core has a dedicated
+`arrayLoop` constructor. It captures the descriptor and index sequence once,
+reads the actual component on each iteration and restores the scoped binder.
+Its checker requires Full-range readonly array cells and binder separation,
+including every nested body's lexical binders. The source proof derives that
+separation from the existing allocation rules rather than assuming a native
+bound on arbitrary mathematical identities.
+
+| Round | Selected model/effort | Result and measurement limits |
+| --- | --- | --- |
+| Planning review | GPT-6.1 Sol / High | No actionable scope, authorization or premature-support finding. Reviewed the three planning files before PR #265. Runtime setting and token/cost measurements unavailable. |
+| Native implementation and producer discovery | GPT-6.1 Sol / Extra High | Original-source branch and focused admission regressions; production no-unrolling probe passed with existing check/advisory classes. Self-hiding was rejected by the pinned Ada frontend. Two initial regression expectations were corrected: Reject returns, and an Integer-named element is legal while hiding the Image type mark. Complete validation remains pending. |
+| Universal core extension | GPT-6 Astra / Extra High | Focused Statements, Execution, Obligations and SourceSyntax build/audit passed at `c679325e27`, 1 worker/thread, 8,192 MiB threshold; build 60.296 s, audit 9.245 s, 10,096 declarations. This is partial evidence; recursive component-preservation refinements and source integration continue. |
+| Source correspondence | GPT-6 Astra / Extra High | Array/count header model and cursor/count/flow invariants passed focused checks at `23f6b82f82`. Parsed readings, meaning and typed native interpretation remain in progress. Runtime setting and token/cost measurements unavailable. |
+
+The [report-capacity record](constant-array-iteration-report-capacity.md) retains
+the precise source inputs and probe evidence. Native build
+`20261028T102103-f46e6228b43e` and focused admission run
+`20261028T102312-96fa6ff1dcfb` passed. These do not replace the final checkpoint.
+
+The subsequent core checkpoint `73a40b56e5` passed fresh audit of 10,227
+declarations in run `20261028T102938-f47d9f9056b0`. It includes recursive
+component stability, ordered/unique enumeration and extreme-endpoint witnesses.
+The source-model checkpoint `b7649bafed` passed its seven targets and fresh
+16,468-declaration audit in `20261028T103509-43b36c151ccb` (249.614 s total).
+The [independent core/source review](reviews/review-constant-array-iteration-core-20261028.md)
+found no actionable defect in either layer; typed native interpretation and final
+actual-source validation remain outside that verdict.
+
+Native `Loop_Body` focused proof passed all 89 checks in
+`20261028T102351-2fc5f52c3651`. The complete ten-method new regression file passed
+in `20261028T103521-e9ff9a0ca62d`, including original-source native compile,
+prove and execution in the argument shell. The native source was frozen at
+SHA-256 `09858656aa96cdff7cc6f1ebc6683ce70885840e94df9706420b4c4e45ed6abc`
+before the isolated output-certificate and complete native checkpoint began.
+
+Independent integration review R1 found that existing catalogue expression and
+guard entries omitted scoped elements even though the new iteration entry and
+implementation admitted them. [#267](https://github.com/berkeleynerd/silver/issues/267)
+records the correction to both catalogue copies and related language summaries.
+The reviewer confirmed the repaired meanings; build
+`20261028T110633-769e6cd4dab7` and catalogue byte-parity regression
+`20261028T110712-42bfb28a9731` passed. The recognizer and output certificate are
+unchanged. The first native checkpoint retained its original catalogue inputs.
+The final native checkpoint described below includes the corrected catalogue.
+
+The final typed bridge at `3255e9ddecae` proves the unchanged
+`LoopNative.eval_equation` by separating header selection from the shared body
+and exit transfer. Native, Imports, Helpers, Sizing and exact loop rendering
+passed together in `20261028T112717-49ee7b84b5ec`: 169.896 s build,
+26.155 s fresh audit, 34,099 declarations and only the three approved
+foundations. This focused run does not establish complete source correspondence.
+The [integration review](reviews/review-constant-array-iteration-integration-20261028.md)
+independently confirmed the final proof, source rendering and exact evidence
+inputs without an actionable remaining defect in that bounded layer.
+
+This round used GPT-6 Astra / Extra High for the equation repair and independent
+review, and GPT-6.1 Sol / Extra High for bridge integration. The first broad
+normalization attempt was deliberately interrupted; smaller private staging
+lemmas closed the same statement. No native behavior, theorem assumption,
+source representation or kernel-check policy was changed. Selected settings
+are recorded; runtime confirmation and token/cost measurements are unavailable.
+Complete native, source-certificate and whole-project checkpoints remain
+pending. The reviewed regression coverage is recorded below.
+
+The complete 540-test run `20261028T110929-97e25e5a798e` retained 539
+successes and one symlinked-TMPDIR fixture timeout at 180 seconds. All 788
+captured inputs still matched before final proof integration. The only subsequent
+governed changes were the four reviewed typed Lean files. Source-policy run
+`20261028T123939-44279f5d51d8` passed 12 tests; platform run
+`20261028T131129-d738104f578d` passed 16, including the timeout case with its
+original timeout and assertions. Independent review accounts for all 540 IDs:
+512 applicable retained passes and 28 successful reruns. The original complete
+run remains failed. All 50 manifest samples and 106 executions passed.
+
+The first complete native attempt was deliberately interrupted after discovering
+that the private worktree lacked the retained parent solver cache. Of its first
+26,847 generated cache keys, 25,857 already existed in the parent. Its completed
+work and 27 partial report files were preserved. With native processes stopped,
+59,719 missing parent entries were copied without overwriting current entries;
+the Alire lock matched, and GNATprove retains responsibility for cache matching.
+The [cache record](evidence/constant-array-iteration-20261028/native-cache-reuse.json)
+keeps this setup correction distinct from assurance success. The final native
+checkpoint uses the reviewed catalogue correction at `d155e60ccc`; its tracked
+source, scripts and project inputs match the integration branch.
+
+The byte-exact output-body certificate passed in
+`20261028T103900-407484c4629b`: 10,706.620 s build and 24.945 s fresh
+axiom audit of 28,400 declarations with only the approved foundations. It used
+one worker/thread and a 16,384 MiB per-process threshold. This focused result
+will be reused by the complete source checkpoint after matching its dependencies;
+it is not a whole-project result or isolated performance baseline.
+
+The remaining authoritative bridge chain passed in
+`20261028T134726-e1a9c7080656` at `12ae7f13bd`, after the certificate
+worktree received the final reviewed token shape. Output, named, argument and
+lexical source bridges passed together with a fresh 48,060-declaration axiom
+audit using only the approved foundations. Their transitive source dependencies
+match the final validation snapshot. This required work overlapped the independent
+predicate candidate; complete project validation remains pending.
+
+## Owner-requested pause, 2026-10-28
+
+The two active runs stopped cleanly at 14:02:44 UTC for the VM upgrade.
+`20261028T113210-1ee519cf63b5` remains interrupted after 9,028.671 seconds:
+the composition candidate built in 6,034 seconds, but the predicate candidate
+and focused audit did not finish. `20261028T131912-7b62c2a618ba` remains
+interrupted after 2,609.255 seconds, without a complete native audit/provenance
+manifest. The latter's 75 partial reports and completed solver work are retained.
+Neither interruption is a proof failure or a successful checkpoint.
+
+The [pause handoff](constant-array-iteration-pause-20261028.md) records preserved
+workspaces, toolchains, complete Lake artifacts and native solver caches outside
+`tmp`. The next feature work requires the owner's resumption. No support metadata
+was promoted and PR #266 remains draft and open.
+
+## Resumed complete checkpoint, 2026-10-28
+
+On the owner's “Please continue,” the existing worktrees and caches were
+verified and reused. Native run `20261028T142028-347f04375d6c` resumes complete
+proof/audit with four workers. Lean run `20261028T142057-dfe6a5552d65` checks
+the complete final project with one worker/thread and a 24,576 MiB process
+threshold. Both remain pending until their terminal evidence and audits pass.
+
+The [artifact transfer](evidence/constant-array-iteration-20261028/certificate-transfer.json)
+compares the successful certificate/bridge source and tool dependencies and
+preserves all seven module families, including private/server objects, IR and
+Lake metadata. Both worktrees were idle at transfer. The old candidate-success
+guard was replaced by its terminal interrupted state because the owner pause
+had released that workspace; no unfinished predicate artifact was transferred.
+The complete run reuses the successfully built composition candidate and rebuilds
+the unfinished predicate module before its whole-project fresh audit.
+
+The [independent delivery review](reviews/review-constant-array-iteration-delivery-20261028.md)
+confirmed all 87 transfer dependencies and 119 artifact files, with no actionable
+transfer defect. This bounded Astra / Extra High review took 131 seconds through
+its final comparisons; runtime confirmation and token/cost data are unavailable.
+Complete native/Lean results and final metadata remain outside that verdict.
+
+## Delivery assurance and validation
+
+The completed Linux checkpoint covers the admitted forward/reverse constant-array
+iteration fragment and every permitted body composition. Universal execution,
+component preservation, flow transfer and automatic-discharge proofs join the
+native implementation through authoritative source checks and the byte-exact
+certificate. Samples exercise these rules; they do not establish the universal
+guarantee. The [trusted boundary](trusted-boundary.md#fixed-size-integer-array-boundary)
+retains the existing frontend, solver-completion, runtime and environmental premises.
+
+The [retained evidence packet](evidence/constant-array-iteration-20261028/README.md)
+identifies exact final inputs, results and applicability. Final implementation
+input: `fd9761af5c`; final delivery review:
+[independent delivery review](reviews/review-constant-array-iteration-delivery-20261028.md).
+
+| Checkpoint | Actual evidence and limits |
+| --- | --- |
+| Complete native proof/audit | `20261028T142028-347f04375d6c`: 16,711 required checks proved; complete coverage audit and provenance passed in 11,887.177 s. Four workers; retained solver cache. |
+| Native build | `20261028T110633-769e6cd4dab7`: passed on final applicable native inputs. |
+| Complete Lean/source | `20261028T142057-dfe6a5552d65`: build passed in 8,523.114 s; fresh whole-project audit passed in 15.738 s across 112,705 declarations and 532 modules, using only `[propext, Classical.choice, Quot.sound]`. One worker/thread, 24,576 MiB process threshold. |
+| Reviewed regression coverage | All 540 test IDs covered: 509 applicable retained passes plus 31 successful reruns; the original full run remains failed. All 50 manifest samples and 106 executions retain applicable successful evidence. |
+| Rosetta mapping | Prepared commit `c5a23c13f4` integrated as `d9e83fcf02`; three affected tests passed in `20261028T173937-7305e9754f59`. Only the exact constant Integer-array foreach approach is promoted. |
+
+The complete native run reuses retained completed solver work; the Lean run
+reuses dependency-matched certificate/bridge artifacts and completed composition
+work, rebuilds unfinished dependencies and performs a fresh whole-project audit.
+These are cached/incremental Linux results, not clean rebuilds, independent kernel
+replays, isolated performance benchmarks, macOS validation or hosted CI results.
+The historical 540-test full-suite run remains failed; reviewed retained passes
+and successful reruns establish final coverage without relabeling that run.
+
+No source/expression/operator budget, Main report allocation, runtime library,
+diagnostic acceptance policy or Oracle guarantee changes. Mutable iterables,
+writes through elements, general iterators and broader arrays remain excluded.
+Implementation and validation are complete; milestone 11 and PR #266 remain
+open pending merge. This checkpoint does not authorize merging the PR or starting
+another feature.
+
+Closing documentation used GPT-6.1 Sol / High; independent evidence and delivery
+review used GPT-6 Astra / Extra High. Selected settings and measured review times
+are retained in the review report; runtime confirmation and token/cost data are
+unavailable. No successful proof checkpoint was repeated for these documentation
+and Rosetta-only closing changes.

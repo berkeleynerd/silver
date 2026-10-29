@@ -1,6 +1,6 @@
 module
 
-public import Silver.PredicateBodyReadings
+public import Silver.PredicateBodyBinderSeparation
 public import Silver.PredicateConditionValidity
 public import Silver.PredicateBodyBounds
 public import Silver.PredicateBodyFlow
@@ -55,7 +55,7 @@ theorem loopInner_analysis {context : ParseContext} (header : LoopHeader)
     (declarationsBound : context.declarationCount ≤ context.scalarNames.length)
     (space : context.scalarNames.length + 1 ≤ ArrayBindings.scalarLimit) :
     (loopInner context header).analysis = context.analysis.withIndex (context.scalarNames.length + 1)
-      (Integer.loopBounds header.lower.bounds header.upper.bounds) := by
+      header.bounds := by
   change ArrayFlow.analysis context.arrayNames (ScalarMetadata.analysis _ _) = _
   dsimp only [loopInner]
   rw [analysis_append_index _ _ _ declarationsBound rfl rfl]
@@ -89,10 +89,8 @@ theorem loopHeader_scalar_model {text : Source} {context : ParseContext} {scan :
     (count : scan.count = context.scalarNames.length) :
     (loopHeader text context scan).entry.facts.model =
       loopEntry (ScalarMetadata.analysis context.scalarNames context.declarationCount) scan.facts.model (context.scalarNames.length + 1)
-        (Integer.loopBounds (loopHeader text context scan).lower.bounds
-          (loopHeader text context scan).upper.bounds) := by
-  let bounds := Integer.loopBounds (loopHeader text context scan).lower.bounds
-    (loopHeader text context scan).upper.bounds
+        (loopHeader text context scan).bounds := by
+  let bounds := (loopHeader text context scan).bounds
   change scan.facts.count = context.scalarNames.length at count
   change (⟨loopContext scan.facts.path bounds,
     ((ActiveFlow.widen context.scalarNames scan.facts).append bounds).model.scalars⟩ : Flow) = _
@@ -107,10 +105,8 @@ theorem loopHeader_model {text : Source} {context : ParseContext} {scan : BodySc
     (space : context.scalarNames.length + 1 ≤ ArrayBindings.scalarLimit) :
     context.flow (loopHeader text context scan).entry.facts =
       loopEntry context.analysis (context.flow scan.facts) (context.scalarNames.length + 1)
-        (Integer.loopBounds (loopHeader text context scan).lower.bounds
-          (loopHeader text context scan).upper.bounds) := by
-  let bounds := Integer.loopBounds (loopHeader text context scan).lower.bounds
-    (loopHeader text context scan).upper.bounds
+        (loopHeader text context scan).bounds := by
+  let bounds := (loopHeader text context scan).bounds
   change scan.facts.count = context.scalarNames.length at count
   change context.flow { (scan.facts.widen context.scalarNames).append bounds with
     path := loopContext scan.facts.path bounds } = _
@@ -165,6 +161,53 @@ theorem loopAfterFlow_model {context : ParseContext} {before after : ActiveFlow}
       simp only [loopAfterFlow, loopExit, empty, Bool.false_eq_true, ↓reduceIte,
         ParseContext.flow, ArrayFlow.flow]
       exact congrArg (fun ranges => Flow.mk (loopAfter before.path after.path lower upper) ranges) widened
+
+theorem loopAfterHeader_model {context : ParseContext} {before after : ActiveFlow}
+    (ready : ScalarExpression.BodyReady context.scalarNames)
+    (count : before.count = context.scalarNames.length) (header : LoopHeader) :
+    context.flow (loopAfterHeader context before after header) =
+      if header.isArray then arrayLoopExit context.analysis (context.flow before) (context.flow after)
+      else loopExit context.analysis (context.flow before) (context.flow after) header.lower.bounds header.upper.bounds := by
+  unfold loopAfterHeader
+  split
+  · have widened := congrArg Flow.scalars
+      (ArrayFlow.flow_widen context.arrayNames context.scalarNames context.declarationCount before count ready)
+    exact congrArg (fun ranges => Flow.mk after.path ranges) widened
+  · exact loopAfterFlow_model ready count _ _
+
+/-- Separation follows from the concrete allocation layout and the source
+scanner's capacity guard, never from a bound assumed for generic core names. -/
+theorem arrayBinding_scalar_apart (item : ArrayBindings.Binding) (index : Nat)
+    (low : index ≤ ArrayBindings.scalarLimit) : ¬item.descriptor.ContainsCell index := by
+  intro inside
+  simp only [ArrayBindings.Binding.descriptor, Integer.ArrayDescriptor.ContainsCell] at inside
+  omega
+
+theorem loopArrayReady {text : Source} {context : ParseContext} {scan : BodyScan}
+    (arraysReady : context.ArraysReady text)
+    (space : context.scalarNames.length + 1 ≤ ArrayBindings.scalarLimit)
+    (allowed : loopArrayAllowed text context scan = true) :
+    arrayLoopReady context.analysis (context.flow scan.facts) (context.scalarNames.length + 1)
+      (ArrayBindings.binding context.arrayNames (loopArrayTarget text context scan)).descriptor = true := by
+  have constraints := allowed
+  simp only [loopArrayAllowed, Bool.and_eq_true, Bool.not_eq_true', decide_eq_true_eq] at constraints
+  have nonzero : loopArrayTarget text context scan ≠ 0 := constraints.1.1.2.2
+  have immutable : (ArrayBindings.binding context.arrayNames (loopArrayTarget text context scan)).mutable = false :=
+    constraints.1.2
+  have targetBound : loopArrayTarget text context scan ≤ context.arrayNames.length := by
+    unfold loopArrayTarget arrayTarget
+    dsimp only
+    split
+    · exact Nat.zero_le _
+    · exact ArrayBindings.Native.lookup_bound ..
+  have member := ArrayBindings.Native.binding_mem (Nat.pos_of_ne_zero nonzero) targetBound
+  have valid := (arraysReady.1.2 _ member).2.2.2
+  apply (arrayLoopReady_iff _ _ _ _).mpr
+  refine ⟨ArrayBindings.binding_descriptor_valid valid, arrayBinding_scalar_apart _ _ space,
+    ArrayBindings.body_ranges_full member [] _, ArrayBindings.body_ranges_full member [] _, ?_⟩
+  intro cell inside
+  exact (ArrayBindings.ordered_mutability (fun entry found => (arraysReady.1.2 entry found).2.2.2)
+    arraysReady.2 member inside _).trans immutable
 
 private theorem checked_statement_compatible {context : ParseContext} {before after : ActiveFlow}
     {item : Statement} (base : ScalarMetadata.BaseReady context.scalarNames context.declarationCount)
@@ -248,6 +291,7 @@ mutual
         exact ⟨meaning.1, meaning.2, basic_bounded bounded reading⟩
     | choice _ _ reading _ => exact choice_meaning normal base arraysReady nv compatible bounded reading
     | loop _ _ _ reading _ => exact loop_meaning normal base arraysReady nv compatible bounded reading
+    | arrayLoop _ _ _ reading _ => exact arrayLoop_meaning normal base arraysReady nv compatible bounded reading
   termination_by (bodyRemaining text scan, 2)
 
   theorem loop_meaning {text context scan lower upper body result}
@@ -263,7 +307,7 @@ mutual
         lower upper body).lower.check context.names.shape context.analysis (context.flow scan.facts) =
           some (context.flow result.facts) ∧ result.facts.path.Bounded := by
     cases parsed with
-    | loop allowed lowerRead upperRead _ bodyRead resultEq _ _ =>
+    | loop counted allowed lowerRead upperRead _ bodyRead resultEq _ _ =>
         have space := loopNameAllowed_space base.size allowed
         have bodyGood := body_meaning (context := loopInner context (loopHeader text context scan))
           (scan := (loopHeader text context scan).entry) normal
@@ -282,11 +326,65 @@ mutual
           have checked := bodyGood.2.1
           simp only [loopInner_flow] at checked
           rw [loopInner_analysis _ base.count space, loopHeader_model base.body compatible.count space] at checked
+          simp only [LoopHeader.bounds, show (loopHeader text context scan).isArray = false from counted,
+            Bool.false_eq_true, ↓reduceIte] at checked
           simp only [loopInner] at checked
           rw [checked]
-          simp only [Option.map_some, factsEq, loopAfterFlow_model base.body compatible.count]
+          simp only [Option.map_some, factsEq, loopAfterHeader_model base.body compatible.count,
+            show (loopHeader text context scan).isArray = false from counted, Bool.false_eq_true, ↓reduceIte]
         · rw [factsEq]
-          exact loopAfter_bounded bounded bodyGood.2.2 _ _
+          exact loopAfterHeader_bounded bounded bodyGood.2.2 _
+  termination_by (bodyRemaining text scan, 1)
+
+  theorem arrayLoop_meaning {text context scan body result}
+      (normal : NamesNormal context.names)
+      (base : ScalarMetadata.BaseReady context.scalarNames context.declarationCount)
+      (arraysReady : context.ArraysReady text)
+      (nv : Compose.Expressions.ValidNames text context.names)
+      (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount scan.facts)
+      (bounded : scan.facts.path.Bounded) (parsed : ArrayLoopAt text context scan body result) :
+      (SourceStatement.arrayLoop (context.scalarNames.length + 1) (loopHeader text context scan).reverse
+        (ArrayBindings.binding context.arrayNames (loopArrayTarget text context scan)).descriptor body).WellFormed
+          context.hasArguments context.names.shape ∧
+      (SourceStatement.arrayLoop (context.scalarNames.length + 1) (loopHeader text context scan).reverse
+        (ArrayBindings.binding context.arrayNames (loopArrayTarget text context scan)).descriptor body).lower.check
+          context.names.shape context.analysis (context.flow scan.facts) = some (context.flow result.facts) ∧
+      result.facts.path.Bounded := by
+    cases parsed with
+    | loop iterable allowed arrayAllowed _ bodyRead resultEq _ _ =>
+        have space := loopNameAllowed_space base.size allowed
+        have bodyGood := body_meaning (context := loopInner context (loopHeader text context scan))
+          (scan := (loopHeader text context scan).entry) normal
+          (loopInner_baseReady _ base space) (loopInner_arraysReady _ arraysReady) nv
+          (loopHeader_compatible base compatible) (loopContext_bounded bounded _) bodyRead
+        have ready := loopArrayReady arraysReady space arrayAllowed
+        have innerLow : (loopInner context (loopHeader text context scan)).scalarNames.length ≤ ArrayBindings.scalarLimit := by
+          simpa only [loopInner, List.length_append, List.length_singleton] using space
+        have apart := body_bindersApart innerLow (arrayBinding_scalar_apart
+          (ArrayBindings.binding context.arrayNames (loopArrayTarget text context scan))) bodyRead
+        have factsEq : result.facts = _ := congrArg BodyScan.facts resultEq
+        simp only [bodyTokens_facts] at factsEq
+        have isArray : (loopHeader text context scan).isArray = true := iterable
+        have full : (loopHeader text context scan).bounds = Integer.Interval.full := by
+          simp only [LoopHeader.bounds, isArray, ↓reduceIte]
+        refine ⟨?_, ?_, ?_⟩
+        · simp only [SourceStatement.WellFormed]
+          exact ⟨by omega, body_nonempty bodyRead, bodyGood.1⟩
+        · simp only [SourceStatement.lower, Statement.check, ready, apart, Bool.and_self, ↓reduceIte]
+          have checked := bodyGood.2.1
+          simp only [loopInner_flow] at checked
+          rw [loopInner_analysis _ base.count space, loopHeader_model base.body compatible.count space,
+            full] at checked
+          have entry : loopEntry context.analysis (context.flow scan.facts) (context.scalarNames.length + 1)
+              Integer.Interval.full = arrayLoopEntry context.analysis (context.flow scan.facts)
+                (context.scalarNames.length + 1) := by rfl
+          rw [entry] at checked
+          simp only [loopInner] at checked
+          rw [checked]
+          simp only [Option.map_some, factsEq, loopAfterHeader_model base.body compatible.count,
+            isArray, ↓reduceIte]
+        · rw [factsEq]
+          exact loopAfterHeader_bounded bounded bodyGood.2.2 _
   termination_by (bodyRemaining text scan, 1)
 
   theorem choice_meaning {text context scan condition yes tail result}

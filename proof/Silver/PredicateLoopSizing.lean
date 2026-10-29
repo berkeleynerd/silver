@@ -36,6 +36,7 @@ def Command.Sized (imports : Imports) (read : Reader) (frame : Frame)
   | .result => frame.result.count = frame.scan.count
   | .scope body => frame.scan.count + 1 ≤ ScalarExpression.maxBindings ∧
       body.Sized imports read (enterScope frame) next
+  | .arrayScope body => body.Sized imports read (enterArrayWith imports frame) next
   | .sequence first second => first.Sized imports read frame
       (fun updated => second.Sized imports read updated next)
   | .choose test yes no => if test.evalWith imports frame then
@@ -90,7 +91,7 @@ theorem model_sizedLoop (text : Source) (context : Native.Context) (scan : BodyS
       change scan.count + 1 ≤ ScalarExpression.maxBindings
       omega
     simp only [allowed, Bool.not_true, Bool.false_eq_true, ↓reduceIte]
-    dsimp +instances only [Update.Sized, Update.eval, Test.eval, initial, enterScope,
+    dsimp +instances only [Update.Sized, Update.eval, Test.eval, initial, enterScope, enterArrayWith, enterArray,
       freshInnerScan, ScanField.copy, modelImports, bodyToken, invalidBody, ActiveFlow.invalid]
     simp only [BodyScan.count, ActiveFlow.count] at same widened ⊢
     simp_all [copyValuesInto_count, modelRead_values_length]

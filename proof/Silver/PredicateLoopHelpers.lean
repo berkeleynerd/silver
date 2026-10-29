@@ -8,6 +8,7 @@ public import Silver.PredicateBodyWrappers
 public import Silver.ComposeModelCalls
 public import Silver.ComposeLexical
 public import Silver.ScalarExpressionNativeEquations
+public import Silver.PredicateArrayBodySource
 
 @[expose] public section
 namespace Silver.Predicate.LoopNative
@@ -17,18 +18,18 @@ attribute [local irreducible] ScalarExpression.read
 
 theorem loopToken_valid (token : ShellToken) (valid : token ∈ loopTokens) : Compose.Expressions.ValidToken token := by
   simp only [loopTokens, List.mem_cons, List.mem_nil_iff, or_false] at valid
-  rcases valid with rfl | rfl | rfl | rfl | rfl | rfl | rfl <;>
+  rcases valid with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl <;>
     simp [Compose.Expressions.ValidToken, Compose.Expressions.allTokens]
 
 theorem loopToken_model (text : Source) (position : Nat) (token : ShellToken)
     (valid : token ∈ loopTokens) :
     fixedAfter text position (Compose.Expressions.spelling token) (Compose.Expressions.isWord token) = tokenAfter text position token := by
   simp only [loopTokens, List.mem_cons, List.mem_nil_iff, or_false] at valid
-  rcases valid with rfl | rfl | rfl | rfl | rfl | rfl | rfl <;> rfl
+  rcases valid with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl <;> rfl
 
 theorem loopToken_fixed (token : ShellToken) (valid : token ∈ loopTokens) : Adapter.FixedToken token := by
   simp only [loopTokens, List.mem_cons, List.mem_nil_iff, or_false] at valid
-  rcases valid with rfl | rfl | rfl | rfl | rfl | rfl | rfl <;>
+  rcases valid with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl <;>
     simp [Adapter.FixedToken, ShellToken.word, ShellToken.symbol]
 
 theorem loop_token_calls_fixed :
@@ -51,6 +52,10 @@ structure Links (imports : Imports) (inherited : Compose.Expressions.Calls)
   nameAfter : imports.nameAfter = inherited.function .nameAfter
   forbidden : imports.forbidden = inherited.primitive.forbidden
   nameIs : imports.nameIs = inherited.function .nameIs
+  equalName : imports.equalName = inherited.primitive.equal
+  arrayTarget : ∃ scalar string calls,
+    FlowReaders.Links inherited scalar string ∧ ArrayBodyNative.Links inherited scalar calls ∧
+    imports.arrayTarget = calls.target
   readScalar : ∃ reading,
     FlowSourceBridge.InterpretedReadingNames reading ∧
     FlowReaders.ScalarRefinement (FlowReaders.inheritedCalls reading inherited scalars) imports.readScalar
@@ -66,6 +71,7 @@ structure Links (imports : Imports) (inherited : Compose.Expressions.Calls)
       (PathFacts.Native.joinBody.eval
         ({leftFacts := left, rightFacts := right} : Native.Libraries.PathInputs).locals).model
   emptyBounds : imports.emptyBounds = ⟨1, 0⟩
+  fullBounds : imports.fullBounds = ⟨-2147483648, 2147483647⟩
   emptyFacts : imports.emptyFacts = PathFacts.Native.empty.model
 
 theorem ImportsMeaning.of_inherited {imports : Imports} {inherited : Compose.Expressions.Calls}
@@ -102,6 +108,14 @@ theorem ImportsMeaning.of_inherited {imports : Imports} {inherited : Compose.Exp
   nameIs text first after word valid := by
     rw [links.nameIs]
     exact source.nameIs text valid.1.1 first after word valid.1.2 valid.2.1 valid.2.2
+  equalName text first after otherFirst otherAfter valid := by
+    rw [links.equalName]
+    exact lexical.equal text valid.1.1.1 valid.1.1.2 first after otherFirst otherAfter
+      valid.1.2.1 valid.1.2.2.1 valid.1.2.2.2 valid.2.1 valid.2.2.1 valid.2.2.2
+  arrayTarget text context position valid := by
+    obtain ⟨scalar, string, calls, flow, arrays, observed⟩ := links.arrayTarget
+    rw [observed]
+    exact ArrayBodyNative.linked_target source flow arrays text context position valid
   readScalar text context position facts first after valid := by
     obtain ⟨reading, readingSource, wrapperSource⟩ := links.readScalar
     exact FlowReaders.scalar_meaning
@@ -129,6 +143,7 @@ theorem ImportsMeaning.of_inherited {imports : Imports} {inherited : Compose.Exp
     simpa only [PathFacts.Native.joinBody_eval, Native.Libraries.PathInputs.locals,
       PathFacts.Native.join_model, Native.Libraries.reify_model] using equation
   emptyBounds := links.emptyBounds
+  fullBounds := links.fullBounds
   emptyFacts := links.emptyFacts
 
 theorem model_links {domain : Compose.Expressions.StateDomain}
@@ -145,6 +160,11 @@ theorem model_links {domain : Compose.Expressions.StateDomain}
   nameAfter := rfl
   forbidden := rfl
   nameIs := rfl
+  equalName := rfl
+  arrayTarget := by
+    have flow := Native.Libraries.model_links.readers
+    exact ⟨Native.modelCalls.scalarInFlow, Native.modelCalls.stringInFlow, ArrayBodyNative.modelCalls,
+      flow, ArrayBodyNative.model_links source flow, rfl⟩
   readScalar := by
     refine ⟨FlowSourceBridge.readingStorage, FlowSourceBridge.model_reading_interpreted, ⟨?_⟩⟩
     intro inputs legal _mask
@@ -167,6 +187,7 @@ theorem model_links {domain : Compose.Expressions.StateDomain}
     rw [PathFacts.Native.joinBody_eval]
     exact (PathFacts.Native.join_model left right).symm
   emptyBounds := rfl
+  fullBounds := rfl
   emptyFacts := rfl
 
 end Silver.Predicate.LoopNative

@@ -12,7 +12,7 @@ attribute [local irreducible] ScalarExpression.read
 
 /-- These are all token constants used by the checked loop body. -/
 def loopTokens : List ShellToken :=
-  [.word "for", .word "in", .word "reverse", .symbol "..", .word "loop", .word "end", .symbol ";"]
+  [.word "for", .word "in", .word "of", .word "reverse", .symbol "..", .word "loop", .word "end", .symbol ";"]
 
 def CursorDomain (text : Source) (position : Nat) : Prop :=
   Expressions.ValidText text ∧ Expressions.ValidCursor text position
@@ -30,6 +30,12 @@ def NameDomain (text : Source) (first after : Nat) : Prop :=
 
 def WordDomain (text : Source) (first after : Nat) (word : String) : Prop :=
   NameDomain text first after ∧ 0 < word.toList.length ∧ word.toList.length ≤ 16
+
+def EqualNameDomain (text : Source) (first after otherFirst otherAfter : Nat) : Prop :=
+  NameDomain text first after ∧ Expressions.ValidName text otherFirst otherAfter
+
+def ArrayTargetDomain (text : Source) (context : Native.Context) (position : Nat) : Prop :=
+  Expressions.ValidText text ∧ Native.ValidContext text context ∧ Expressions.ValidCursor text position
 
 def FlowDomain (text : Source) (context : Native.Context) (facts : ActiveFlow) : Prop :=
   Expressions.ValidText text ∧ Native.ValidContext text context ∧ Native.ValidFlow context facts
@@ -55,6 +61,10 @@ structure ImportsMeaning (imports : Imports) : Prop where
     imports.forbidden text first after = Named.forbiddenName text first after
   nameIs : ∀ text first after word, WordDomain text first after word →
     imports.nameIs text first after word = Named.nameIs text first after (word.toList.map Char.toNat)
+  equalName : ∀ text first after otherFirst otherAfter, EqualNameDomain text first after otherFirst otherAfter →
+    imports.equalName text first after otherFirst otherAfter = Named.equalName text first after otherFirst otherAfter
+  arrayTarget : ∀ text context position, ArrayTargetDomain text context position →
+    imports.arrayTarget text context position = Predicate.arrayTarget text context.model position
   readScalar : ∀ text context position facts first after, ScalarDomain text context position facts first after →
     imports.readScalar text context position facts first after =
       ScalarExpression.read text position (context.model.readingNames facts) first after (arrays := context.arrayNames)
@@ -65,6 +75,7 @@ structure ImportsMeaning (imports : Imports) : Prop where
   normalize : ∀ value, value.Bounded → imports.normalize value = value.normalize
   join : ∀ left right, imports.join left right = left.join right
   emptyBounds : imports.emptyBounds = Integer.Interval.empty
+  fullBounds : imports.fullBounds = Integer.Interval.full
   emptyFacts : imports.emptyFacts = PathFacts.Context.empty
 
 /-- Formal extension beyond the checked call domains. It retains every legal
@@ -80,6 +91,10 @@ noncomputable def totalizeImports (imports : Imports) : Imports := by
     nameAfter := fun text position => if CursorDomain text position then imports.nameAfter text position else modelImports.nameAfter text position
     forbidden := fun text first after => if NameDomain text first after then imports.forbidden text first after else modelImports.forbidden text first after
     nameIs := fun text first after word => if WordDomain text first after word then imports.nameIs text first after word else modelImports.nameIs text first after word
+    equalName := fun text first after otherFirst otherAfter => if EqualNameDomain text first after otherFirst otherAfter then
+      imports.equalName text first after otherFirst otherAfter else modelImports.equalName text first after otherFirst otherAfter
+    arrayTarget := fun text context position => if ArrayTargetDomain text context position then
+      imports.arrayTarget text context position else modelImports.arrayTarget text context position
     readScalar := fun text context position facts first after =>
       if ScalarDomain text context position facts first after then imports.readScalar text context position facts first after
       else modelImports.readScalar text context position facts first after
@@ -89,6 +104,7 @@ noncomputable def totalizeImports (imports : Imports) : Imports := by
     normalize := fun value => if value.Bounded then imports.normalize value else modelImports.normalize value
     join := imports.join
     emptyBounds := imports.emptyBounds
+    fullBounds := imports.fullBounds
     emptyFacts := imports.emptyFacts }
 
 theorem totalizeImports_token (imports : Imports) (text : Source) (position : Nat) (token : ShellToken)
@@ -131,6 +147,16 @@ theorem totalizeImports_readScalar (imports : Imports) (text : Source) (context 
     (valid : ScalarDomain text context position facts first after) :
     (totalizeImports imports).readScalar text context position facts first after =
       imports.readScalar text context position facts first after := by
+  simp only [totalizeImports, valid, ↓reduceIte]
+
+theorem totalizeImports_equalName (imports : Imports) (text : Source) (first after otherFirst otherAfter : Nat)
+    (valid : EqualNameDomain text first after otherFirst otherAfter) :
+    (totalizeImports imports).equalName text first after otherFirst otherAfter = imports.equalName text first after otherFirst otherAfter := by
+  simp only [totalizeImports, valid, ↓reduceIte]
+
+theorem totalizeImports_arrayTarget (imports : Imports) (text : Source) (context : Native.Context) (position : Nat)
+    (valid : ArrayTargetDomain text context position) :
+    (totalizeImports imports).arrayTarget text context position = imports.arrayTarget text context position := by
   simp only [totalizeImports, valid, ↓reduceIte]
 
 theorem totalizeImports_widen (imports : Imports) (context : Native.Context) (facts : ActiveFlow)
@@ -191,6 +217,16 @@ theorem totalizeImports_eq_model {imports : Imports} (meaning : ImportsMeaning i
     split
     · exact meaning.nameIs text first after word ‹_›
     · rfl
+  · funext text first after otherFirst otherAfter
+    dsimp only [totalizeImports]
+    split
+    · exact meaning.equalName text first after otherFirst otherAfter ‹_›
+    · rfl
+  · funext text context position
+    dsimp only [totalizeImports]
+    split
+    · exact meaning.arrayTarget text context position ‹_›
+    · rfl
   · funext text context position facts first after
     dsimp only [totalizeImports]
     split
@@ -218,6 +254,7 @@ theorem totalizeImports_eq_model {imports : Imports} (meaning : ImportsMeaning i
     · rfl
   · exact funext fun left => funext fun right => meaning.join left right
   · exact meaning.emptyBounds
+  · exact meaning.fullBounds
   · exact meaning.emptyFacts
 
 theorem evalWith_of_meaning {imports : Imports} (meaning : ImportsMeaning imports)
@@ -233,6 +270,8 @@ theorem model_imports_meaning : ImportsMeaning modelImports where
   nameAfter _ _ _ := rfl
   forbidden _ _ _ _ := rfl
   nameIs _ _ _ _ _ := rfl
+  equalName _ _ _ _ _ _ := rfl
+  arrayTarget _ _ _ _ := rfl
   readScalar _ _ _ _ _ _ _ := rfl
   widen _ _ _ := rfl
   append _ _ _ := rfl
@@ -240,18 +279,19 @@ theorem model_imports_meaning : ImportsMeaning modelImports where
   normalize _ _ := rfl
   join _ _ := rfl
   emptyBounds := rfl
+  fullBounds := rfl
   emptyFacts := rfl
 
 def Test.tokenCalls : Test → List ShellToken
-  | .reverse => [.word "reverse"] | _ => []
+  | .array => [.word "of"] | .reverse => [.word "reverse"] | _ => []
 
 def Update.tokenCalls : Update → List ShellToken
-  | .inside => [.word "in"] | .reverse => [.word "reverse"] | .delimiter => [.symbol ".."]
-  | .opening => [.word "loop"] | .token tok => [tok] | _ => []
+  | .inside => [.word "in"] | .iterable => [.word "of"] | .reverse => [.word "reverse"] | .delimiter => [.symbol ".."]
+  | .opening | .arrayOpening => [.word "loop"] | .token tok => [tok] | _ => []
 
 def Command.tokenCalls : Command → List ShellToken
   | .update value => value.tokenCalls
-  | .scope body => body.tokenCalls
+  | .scope body | .arrayScope body => body.tokenCalls
   | .sequence first second => first.tokenCalls ++ second.tokenCalls
   | .choose test yes no => test.tokenCalls ++ yes.tokenCalls ++ no.tokenCalls
   | _ => []
