@@ -9,17 +9,19 @@ Every recursive/helper call remains arbitrary until its domain-restricted
 source equation is used. -/
 namespace Silver.ArrayBindings.Native
 
-inductive Ty | number | integer | truth | source | binding | metadata | initials | interval
+inductive Ty | number | integer | truth | source | binding | metadata | initials | interval | environment
   | arrow (domain codomain : Ty)
   deriving DecidableEq
 @[reducible] def Ty.meaning : Ty → Type
   | .number => Nat | .integer => Int | .truth => Bool | .source => Source
   | .binding => Binding | .metadata => Metadata | .initials => Initials | .interval => Integer.Interval
+  | .environment => Env
   | .arrow a b => a.meaning → b.meaning
 
 def Ty.default : (ty : Ty) → ty.meaning
   | .number => 0 | .integer => 0 | .truth => false | .source => [] | .binding => emptyBinding
   | .metadata => [] | .initials => [] | .interval => Integer.Interval.empty
+  | .environment => {}
   | .arrow _ b => fun _ => b.default
 
 structure Calls where
@@ -33,40 +35,54 @@ structure Calls where
   isEmpty : Integer.Interval → Bool
   singleton : Int → Integer.Interval
   join : Integer.Interval → Integer.Interval → Integer.Interval
+  validNameState : Source → Nat → Nat → Bool
+  validBinding : Binding → Bool
+  validMetadata : Source → Metadata → Bool
 
 inductive Function | lookupModel | hullModel | equalName | isEmpty | singleton | join
+  | validNameState | validBinding | validMetadata
   deriving DecidableEq
 
 def Function.name : Function → List String
   | .lookupModel => ["lookup_model"] | .hullModel => ["hull_model"] | .equalName => ["equal_name"]
   | .isEmpty => ["scalars", ".", "is_empty"] | .singleton => ["scalars", ".", "singleton"]
   | .join => ["scalars", ".", "join"]
+  | .validNameState => ["valid_name_state"] | .validBinding => ["valid_binding"]
+  | .validMetadata => ["valid_metadata"]
 def Function.type : Function → Ty
   | .lookupModel => .arrow .source (.arrow .metadata (.arrow .number (.arrow .number (.arrow .number .number))))
   | .hullModel => .arrow .initials (.arrow .number (.arrow .number .interval))
   | .equalName => .arrow .source (.arrow .number (.arrow .number (.arrow .number (.arrow .number .truth))))
   | .isEmpty => .arrow .interval .truth | .singleton => .arrow .integer .interval
   | .join => .arrow .interval (.arrow .interval .interval)
+  | .validNameState => .arrow .source (.arrow .number (.arrow .number .truth))
+  | .validBinding => .arrow .binding .truth
+  | .validMetadata => .arrow .source (.arrow .metadata .truth)
 def Calls.get (calls : Calls) : (fn : Function) → fn.type.meaning
   | .lookupModel => calls.lookupModel | .hullModel => calls.hullModel | .equalName => calls.equalName
   | .isEmpty => calls.isEmpty | .singleton => calls.singleton | .join => calls.join
+  | .validNameState => calls.validNameState | .validBinding => calls.validBinding
+  | .validMetadata => calls.validMetadata
 
 inductive Field : Ty → Ty → Type
   | first : Field .binding .number | after : Field .binding .number
   | offset : Field .binding .number | length : Field .binding .number
   | bounds : Field .binding .interval | count : Field .metadata .number
   | componentBounds : Field .binding .interval
+  | environmentNames : Field .environment .metadata | used : Field .environment .number
   | lower : Field .interval .integer | upper : Field .interval .integer
 
 def Field.name : Field a b → String
   | .first => "first" | .after => "after" | .offset => "offset" | .length => "length"
   | .bounds => "bounds" | .count => "count" | .lower => "lower" | .upper => "upper"
   | .componentBounds => "component_bounds"
+  | .environmentNames => "names" | .used => "used"
 def Field.get : Field a b → a.meaning → b.meaning
   | .first, item => item.first | .after, item => item.after | .offset, item => item.offset
   | .length, item => item.length | .bounds, item => item.bounds | .count, names => names.length
   | .lower, interval => interval.lower | .upper, interval => interval.upper
   | .componentBounds, item => item.componentBounds
+  | .environmentNames, environment => environment.names | .used, environment => environment.used
 
 inductive Expr : Ty → Type
   | number (value : Nat) : Expr .number
@@ -80,12 +96,14 @@ inductive Expr : Ty → Type
   | wideInt : Expr .integer → Expr .integer
   | elementIndex : Expr .integer → Expr .number
   | natSub : Expr .number → Expr .number → Expr .number
+  | natAdd : Expr .number → Expr .number → Expr .number
   | intAdd : Expr .integer → Expr .integer → Expr .integer
   | intSub : Expr .integer → Expr .integer → Expr .integer
   | intOne : Expr .integer
   | maxElements : Expr .number
   | eq : Expr .number → Expr .number → Expr .truth
   | le : Expr .number → Expr .number → Expr .truth
+  | ge : Expr .number → Expr .number → Expr .truth
   | gt : Expr .number → Expr .number → Expr .truth
   | intEq : Expr .integer → Expr .integer → Expr .truth
   | intLe : Expr .integer → Expr .integer → Expr .truth
@@ -96,8 +114,14 @@ inductive Expr : Ty → Type
   | group : Expr a → Expr a
   | ite : Expr .truth → Expr a → Expr a → Expr a
   | elsif : Expr .truth → Expr a → Expr a → Expr a
+  | guarded : Expr .truth → Expr .truth → Expr .truth
+  | forAllItems (name : String) : Expr .metadata → Expr .truth → Expr .truth
 
 abbrev Locals := (ty : Ty) → String → ty.meaning
+
+def Locals.withIndex (locals : Locals) (name : String) (index : Nat) : Locals
+  | .number, other => if other = name then index else locals .number other
+  | ty, other => locals ty other
 
 def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .number value => value | .variable name => locals _ name | .function fn => calls.get fn
@@ -108,11 +132,13 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .wideNat value => Int.ofNat (value.eval calls locals) | .wideInt value => value.eval calls locals
   | .elementIndex value => (value.eval calls locals).toNat
   | .natSub a b => a.eval calls locals - b.eval calls locals
+  | .natAdd a b => a.eval calls locals + b.eval calls locals
   | .intAdd a b => a.eval calls locals + b.eval calls locals
   | .intSub a b => a.eval calls locals - b.eval calls locals
   | .intOne => 1 | .maxElements => ArrayBindings.maxElements
   | .eq a b => decide (a.eval calls locals = b.eval calls locals)
   | .le a b => decide (a.eval calls locals ≤ b.eval calls locals)
+  | .ge a b => decide (a.eval calls locals ≥ b.eval calls locals)
   | .gt a b => decide (a.eval calls locals > b.eval calls locals)
   | .intEq a b => decide (a.eval calls locals = b.eval calls locals)
   | .intLe a b => decide (a.eval calls locals ≤ b.eval calls locals)
@@ -121,6 +147,10 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .orElse a b => a.eval calls locals || b.eval calls locals
   | .not a => !a.eval calls locals | .group a => a.eval calls locals
   | .ite c a b | .elsif c a b => if c.eval calls locals then a.eval calls locals else b.eval calls locals
+  | .guarded c a => !c.eval calls locals || a.eval calls locals
+  | .forAllItems name names body =>
+      (List.range (names.eval calls locals).length).all fun index =>
+        body.eval calls (locals.withIndex name (index + 1))
 
 def Expr.render : Expr ty → List String
   | .number value => [toString value] | .variable name => [name] | .function fn => fn.name
@@ -133,10 +163,11 @@ def Expr.render : Expr ty → List String
   | .wideNat value | .wideInt value => ["scalars", ".", "wide", "("] ++ value.render ++ [")"]
   | .elementIndex value => ["element_index", "("] ++ value.render ++ [")"]
   | .natSub a b | .intSub a b => a.render ++ ["-"] ++ b.render
-  | .intAdd a b => a.render ++ ["+"] ++ b.render
+  | .intAdd a b | .natAdd a b => a.render ++ ["+"] ++ b.render
   | .intOne => ["1"] | .maxElements => ["max_elements"]
   | .eq a b | .intEq a b => a.render ++ ["="] ++ b.render
   | .le a b | .intLe a b => a.render ++ ["<="] ++ b.render
+  | .ge a b => a.render ++ [">="] ++ b.render
   | .gt a b => a.render ++ [">"] ++ b.render
   | .intGe a b => a.render ++ [">="] ++ b.render
   | .andThen a b => a.render ++ ["and", "then"] ++ b.render
@@ -147,6 +178,9 @@ def Expr.render : Expr ty → List String
       (match b with | .elsif _ _ _ => b.render | _ => ["else"] ++ b.render)
   | .elsif c a b => ["elsif"] ++ c.render ++ ["then"] ++ a.render ++
       (match b with | .elsif _ _ _ => b.render | _ => ["else"] ++ b.render)
+  | .guarded c a => ["if"] ++ c.render ++ ["then"] ++ a.render
+  | .forAllItems name names body => ["for", "all", name, "in", "1", ".."] ++
+      names.render ++ [".", "count", "=>"] ++ body.render
 
 def apply2 (fn : Expr (.arrow a (.arrow b c))) (x : Expr a) (y : Expr b) : Expr c := .app (.app fn x) y
 def apply3 (fn : Expr (.arrow a (.arrow b (.arrow c d)))) (x : Expr a) (y : Expr b) (z : Expr c) : Expr d :=
@@ -196,6 +230,28 @@ def validBindingBody : Expr .truth :=
       (.intSub (.wideNat (.field .length item)) .intOne)))
     (.not (.app (.function .isEmpty) (.field .componentBounds item)))
 
+def validMetadataBody : Expr .truth :=
+  let text : Expr .source := .variable "text"
+  let names : Expr .metadata := .variable "names"
+  let index : Expr .number := .variable "index"
+  let item := Expr.binding names index
+  let previous := Expr.binding names (.natSub index (.number 1))
+  .forAllItems "index" names <|
+    .andThen (.andThen (.andThen (.gt (.field .first item) (.number 0))
+      (apply3 (.function .validNameState) text (.field .first item) (.field .after item)))
+      (.app (.function .validBinding) item))
+      (.group <| .guarded (.gt index (.number 1))
+        (.ge (.field .offset item) (.natAdd (.field .offset previous) (.field .length previous))))
+
+def validEnvironmentBody : Expr .truth :=
+  let text : Expr .source := .variable "text"
+  let environment : Expr .environment := .variable "names"
+  let names := Expr.field .environmentNames environment
+  let item := Expr.binding names (.variable "index")
+  .andThen (apply2 (.function .validMetadata) text names)
+    (.group <| .forAllItems "index" names <|
+      .le (.natAdd (.field .offset item) (.field .length item)) (.field .used environment))
+
 structure Context where
   text : Source := []
   names : Metadata := []
@@ -207,6 +263,7 @@ structure Context where
   index : Nat := 0
   indexValue : Int := 0
   last : Nat := 0
+  environment : Env := {}
 
 def Context.locals (context : Context) : Locals
   | .source, "text" => context.text
@@ -217,6 +274,7 @@ def Context.locals (context : Context) : Locals
   | .number, "first" => context.first | .number, "after" => context.after
   | .number, "index" => context.index | .number, "last" => context.last
   | .integer, "index" => context.indexValue
+  | .environment, "names" => context.environment
   | ty, _ => ty.default
 
 def Expr.scoped (locals : List (String × Ty)) : Expr ty → Bool
@@ -225,10 +283,11 @@ def Expr.scoped (locals : List (String × Ty)) : Expr ty → Bool
   | .app fn arg => fn.scoped locals && arg.scoped locals
   | .field _ value | .wideNat value | .wideInt value | .elementIndex value
   | .not value | .group value => value.scoped locals
-  | .binding a b | .initial a b | .natSub a b | .intSub a b | .intAdd a b
-  | .eq a b | .le a b | .gt a b | .intEq a b | .intLe a b | .intGe a b
-  | .andThen a b | .orElse a b => a.scoped locals && b.scoped locals
+  | .binding a b | .initial a b | .natSub a b | .natAdd a b | .intSub a b | .intAdd a b
+  | .eq a b | .le a b | .ge a b | .gt a b | .intEq a b | .intLe a b | .intGe a b
+  | .andThen a b | .orElse a b | .guarded a b => a.scoped locals && b.scoped locals
   | .ite c a b | .elsif c a b => c.scoped locals && a.scoped locals && b.scoped locals
+  | .forAllItems name names body => names.scoped locals && body.scoped ((name, .number) :: locals)
 
 /-- Explicit categories keep new constructors out of primary positions until
 reviewed. Function arguments admit full expressions; arithmetic and logical
@@ -240,11 +299,11 @@ def Expr.primary : Expr ty → Bool
   | _ => false
 
 def Expr.simple : Expr ty → Bool
-  | .natSub _ _ | .intSub _ _ | .intAdd _ _ | .not _ => true
+  | .natSub _ _ | .natAdd _ _ | .intSub _ _ | .intAdd _ _ | .not _ => true
   | value => value.primary
 
 def Expr.relation : Expr ty → Bool
-  | .eq _ _ | .le _ _ | .gt _ _ | .intEq _ _ | .intLe _ _ | .intGe _ _ => true
+  | .eq _ _ | .le _ _ | .ge _ _ | .gt _ _ | .intEq _ _ | .intLe _ _ | .intGe _ _ => true
   | value => value.simple
 
 def Expr.expression : Expr ty → Bool
@@ -259,7 +318,9 @@ def Expr.orLeft : Expr .truth → Bool
   | .orElse _ _ => true
   | value => value.relation
 
-def Expr.isConditional : Expr ty → Bool | .ite _ _ _ => true | _ => false
+def Expr.isConditional : Expr ty → Bool | .ite _ _ _ | .guarded _ _ => true | _ => false
+
+def Expr.isQuantified : Expr ty → Bool | .forAllItems _ _ _ => true | _ => false
 
 def Expr.isElsif : Expr ty → Bool | .elsif _ _ _ => true | _ => false
 
@@ -275,15 +336,17 @@ def Expr.wellFormed : Expr ty → Bool
   | .binding names index | .initial names index =>
       names.primary && names.wellFormed && index.expression && index.wellFormed
   | .wideNat value | .wideInt value | .elementIndex value => value.expression && value.wellFormed
-  | .natSub a b | .intSub a b | .intAdd a b => a.simple && b.primary && a.wellFormed && b.wellFormed
-  | .eq a b | .le a b | .gt a b | .intEq a b | .intLe a b | .intGe a b =>
+  | .natSub a b | .natAdd a b | .intSub a b | .intAdd a b => a.simple && b.primary && a.wellFormed && b.wellFormed
+  | .eq a b | .le a b | .ge a b | .gt a b | .intEq a b | .intLe a b | .intGe a b =>
       a.simple && b.simple && a.wellFormed && b.wellFormed
   | .not value => value.primary && value.wellFormed
   | .andThen a b => a.andLeft && b.relation && a.wellFormed && b.wellFormed
   | .orElse a b => a.orLeft && b.relation && a.wellFormed && b.wellFormed
-  | .group value => (value.expression || value.isConditional) && value.wellFormed
+  | .group value => (value.expression || value.isConditional || value.isQuantified) && value.wellFormed
   | .ite c a b | .elsif c a b => c.expression && a.expression && (b.expression || b.isElsif) &&
       c.wellFormed && a.wellFormed && b.wellFormed
+  | .guarded c a => c.expression && a.expression && c.wellFormed && a.wellFormed
+  | .forAllItems _ names body => names.primary && names.wellFormed && body.expression && body.wellFormed
 
 def WellFormedTrees : Prop :=
   (lookupBody.wellFormed && lookupBody.scoped [("text", .source), ("names", .metadata), ("first", .number),
@@ -291,9 +354,11 @@ def WellFormedTrees : Prop :=
   (hullBody.wellFormed && hullBody.scoped [("values", .initials), ("first", .number), ("last", .number)]) = true ∧
   (containsBody.wellFormed && containsBody.scoped [("item", .binding), ("index", .interval)]) = true ∧
   (elementSlotBody.wellFormed && elementSlotBody.scoped [("item", .binding), ("index", .integer)]) = true ∧
-  (validBindingBody.wellFormed && validBindingBody.scoped [("item", .binding)]) = true
+  (validBindingBody.wellFormed && validBindingBody.scoped [("item", .binding)]) = true ∧
+  (validMetadataBody.wellFormed && validMetadataBody.scoped [("text", .source), ("names", .metadata)]) = true ∧
+  (validEnvironmentBody.wellFormed && validEnvironmentBody.scoped [("text", .source), ("names", .environment)]) = true
 
-instance : Decidable WellFormedTrees := inferInstanceAs (Decidable (_ ∧ _ ∧ _ ∧ _ ∧ _))
+instance : Decidable WellFormedTrees := inferInstanceAs (Decidable (_ ∧ _ ∧ _ ∧ _ ∧ _ ∧ _ ∧ _))
 
 theorem trees_wellFormed : WellFormedTrees := by decide +kernel
 
