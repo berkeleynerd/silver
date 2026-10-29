@@ -222,8 +222,9 @@ class ScalarGuardTests(unittest.TestCase):
         executable, _ = self.compile(source, 'static')
         self.assertEqual(self.source.read_bytes(), source)
         project = (executable.parent.parent / 'program.gpr').read_text()
-        self.assertRegex(project,
-                         r'for Default_Switches\s*\("Ada"\)\s+use\s*\([^;]*"-gnatdM"')
+        self.assertNotIn('-gnatdM', project)  # Proof options stay unchanged.
+        native_options = (executable.parent.parent / 'obj/main~1.ali').read_text()
+        self.assertIn('A -gnatdM\n', native_options)
         self.run_program(executable, b'')
 
     def test_native_contradictory_guard_forms_and_live_scalar_updates(self) -> None:

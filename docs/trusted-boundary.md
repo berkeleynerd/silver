@@ -67,16 +67,17 @@ The [indexed Main repair](indexed-main-discovery.md) records the relevant source
 route, installed observations and exact artifact mapping. No external tool was
 modified and no comment form was removed from the language.
 
-The generated application project also selects `-gnatdM` with `-gnat2022`,
-`-gnata` and `-gnato`. In the pinned GNAT 16.1 frontend this internal,
+The application build command adds `-cargs:Ada -gnatdM` to native compilation,
+retaining the project's `-gnat2022`, `-gnata` and `-gnato`. In the pinned GNAT 16.1
+frontend this internal,
 source-documented option disables current-value replacement: otherwise an inner
 contradictory guard can replace a variable by an out-of-range literal while
 losing the enclosing path facts, causing rejection of unreachable but valid
 Silver assignments. It does not disable static legality checks, runtime checks,
-assertions, overflow checking or required proof obligations. The same project
-is used for proof and native build, including the selected libraries; GNATprove
-already disables condition-based value substitution, but its frontend mode is
-not otherwise identical to this option. The
+assertions or overflow checking. The generated project and GNATprove options
+remain unchanged; the added flag applies only to native compilation of Main
+and the selected libraries. The native option is not a claim that GNAT and
+GNATprove have identical frontend modes. The
 [scalar-guard repair record](scalar-guard-frontend-repair.md) records the pinned
 source analysis, controls and validation scope. This configuration belongs to
 the existing external frontend premise and must be reconsidered with a toolchain

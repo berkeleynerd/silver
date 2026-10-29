@@ -117,10 +117,7 @@ procedure Silver with SPARK_Mode => On is
            "      for Body (""Main"") use ""main.adb"" at 1;" & LF &
            "   end Naming;" & LF &
            "   package Compiler is" & LF &
-           --  The pinned GNAT frontend must not replace a variable by an
-           --  inner guard's value while losing its enclosing path facts.
-           --  -gnatdM disables that optimization; runtime checks stay enabled.
-           "      for Default_Switches (""Ada"") use (""-gnat2022"", ""-gnata"", ""-gnato"", ""-gnatdM"");" & LF &
+           "      for Default_Switches (""Ada"") use (""-gnat2022"", ""-gnata"", ""-gnato"");" & LF &
            "   end Compiler;" & LF &
            "end Program;" & LF;
          Proof_Command : constant String :=
@@ -130,8 +127,12 @@ procedure Silver with SPARK_Mode => On is
            " --checks-as-errors=on" &
            " --level=2 --prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=1000 -j0" &
            " --no-loop-unrolling";
+         --  The pinned native frontend must not replace a variable by an
+         --  inner guard's value while losing its enclosing path facts.
+         --  -gnatdM disables that optimization; runtime checks stay enabled.
+         --  Apply it only to native compilation, not GNATprove's frontend.
          Build_Command : constant String :=
-           Silver_Build.Alire_Exec & "gprbuild -P " & Shell_Directory & "/program.gpr -p";
+           Silver_Build.Alire_Exec & "gprbuild -P " & Shell_Directory & "/program.gpr -p -cargs:Ada -gnatdM";
          Observed : String (1 .. Silver_Profile.Max_Source_Length) :=
            (others => Character'Val (0));
          Observed_Last : Natural := 0;

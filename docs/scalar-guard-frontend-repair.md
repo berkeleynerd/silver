@@ -38,12 +38,12 @@ failure; in `SPARK_Mode (On)` GNAT promotes that diagnostic to a hard error.
 GNATprove already disables this condition-based substitution, which explains
 why proof succeeds before native compilation rejects the same source.
 
-The generated application project now adds **`-gnatdM`**, alongside its existing
-`-gnat2022`, `-gnata` and `-gnato`. This internal GNAT flag disables current-value
+The application build command now adds **`-cargs:Ada -gnatdM`** to native
+compilation, retaining the project's `-gnat2022`, `-gnata` and `-gnato`. This internal GNAT flag disables current-value
 replacement. It preserves static-expression evaluation and runtime checks, and
-changes neither Silver's admission rules nor the author's source. The project
-is shared by proof and compilation, including the selected library files. The
-compiler's own `silver.gpr` does not change.
+changes neither Silver's admission rules nor the author's source. It applies
+to native compilation of Main and the selected library files. The generated
+project, GNATprove options and compiler's own `silver.gpr` do not change.
 
 The flag is source-documented, not a stable public compiler-option interface.
 Its use is bound to the pinned GNAT release and needs review when that toolchain
@@ -106,7 +106,7 @@ GCC sources or a formal proof of every native behavior.
 
 Managed frontend matrix `20261029T075208-6adf393e2b65` compared the existing flags
 with `-gnatdM` across 30 exact sources: 27 admitted shapes and three rejected
-controls. Eighteen admitted cases failed native compilation with the original
+controls. Seventeen admitted cases failed native compilation with the original
 flags; all 27 compiled with M. Cases include operand order, parentheses,
 identity arithmetic, a nonstatic threshold snapshot, false and short-circuit
 flows, overflow, array indexing, counted loops and constant-array iteration.
@@ -122,10 +122,17 @@ shared compile helper checks byte-identical captured source and complete Main
 and selected-library reports, before execution checks observable output and
 argument rejection. Native execution of these tests is pending in this record.
 
-The separate dynamic range/overflow controls check that inadmissible programs
-still raise `Constraint_Error` and retain unproved GNATprove obligations with M.
-Their managed outcomes, focused driver proof/build, regression results and
-independent review will be recorded before handoff. Complete native and
+Dynamic range/overflow controls in `20261029T080007-5833f73fad3f` both raised
+`Constraint_Error` and retained unproved GNATprove obligations. Those controls
+used the initially proposed shared-project flag, so their proof configuration
+is diagnostic evidence, not the selected final configuration. Independent review
+identified that the native flag audit does not cover GNATprove's separate
+frontend; the correction therefore applies M only to the native build command.
+The persistent original-source regression checks both that the generated
+project omits M and that the native Main ALI records it. The initial controls
+launch `20261029T075930-4fd40342a996` failed on a relative harness path before
+executing the experiment; it remains failed. Focused driver proof/build,
+regression results and final review will be recorded before handoff. Complete native and
 Lean/source/module/axiom checkpoints remain mandatory before merge, after the
 applicable external feedback is integrated. Earlier successful evidence does
 not cover changed driver inputs merely because parser sources are unchanged.
@@ -135,7 +142,7 @@ not cover changed driver inputs merely because parser sources are unchanged.
 | Initial reproduction, 2026-10-28 | Astra / Extra High for bounded read-only rule/history review; lead runtime settings unavailable | Array-free failure and passing control reproduced with unchanged compiler options. No source repair or full project proof run. |
 | Frontend rule and repair design, 2026-10-29 | GPT-6 Astra / Extra High for each of two bounded threads | Completed pinned producer/flag analysis and minimal repair assessment. The 30-case frontend matrix supports the selected configuration. |
 | Implementation and focused validation, 2026-10-29 | GPT-6.1 Sol / Extra High for test implementation; lead settings unavailable | Three compact native regressions added; focused driver/configuration validation in progress. |
-| Independent critical review, 2026-10-29 | GPT-6 Astra / Extra High | In progress: actual patch, pinned flag semantics, check preservation and regression coverage. |
+| Independent critical review, 2026-10-29 | GPT-6 Astra / Extra High | Identified the shared-project flag's unreviewed proof-frontend scope; narrowed the repair to native compilation. Final validation/review pending. |
 
 Selected settings are not independently confirmed runtime settings. Token/cost
 measurements are unavailable. Detailed probe times belong with their evidence.

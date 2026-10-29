@@ -903,7 +903,7 @@ preservation; neither follows from an empty Main report. `model_tool_contract`
 shows that the interface is jointly inhabited, not that physical tools have
 been verified. The null specialization retains its empty-obligation argument.
 
-The physical `buildCompletes` premise includes the generated application's
+The physical `buildCompletes` premise includes the application build's
 reviewed frontend options. [Blocker #284](scalar-guard-frontend-repair.md) exposed
 an admitted contradictory-guard assignment whose runtime interval theorem is
 valid but which GNAT's current-value replacement rejected. The repair selects
