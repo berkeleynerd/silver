@@ -130,3 +130,35 @@ driver defect was found in that slice. Managed driver run
 `20261029T145959-ad36e50b8dc3` separately admitted, proved, compiled and executed
 both new samples with byte-identical source and the exact manifest outputs.
 The run and its retained workspaces remain local pending the final packet.
+
+The [critical correspondence review](reviews/review-named-integer-subtypes-critical-4224e6caf2.md)
+found no actionable mismatch in the changed expression trees, precedence guards
+or native domains at `4224e6caf2`. Its capacity/annotation follow-up confirmed
+the 31,822,336-byte Main envelope and the ghost-only visibility equality repair.
+It found a stale capacity regression using the predecessor's `/13` declaration
+allowance; [#288](https://github.com/berkeleynerd/silver/issues/288) records the
+`/7` correction in `ad2bb41d47`. Managed run
+`20261029T153154-c4df9862d2d0` passed all three capacity tests. The same review
+corrected an evidence-summary error: the focused native report contains 50
+warning entries, not zero; its original report is preserved and the categories
+are disclosed in the [annotation record](evidence/named-integer-subtypes-20261029/native-logical-equality/README.md).
+
+That annotation repair passed focused native run `20261029T151702-6fc5f2e5c88c`:
+both targeted logical-equality obligations and 287 unit flow checks passed.
+This restricted check is not a complete native audit. Build
+`20261029T153109-c0a06d180fd0` rebuilt the compiler after the repair. The five
+changed generated certificates and the reviewed output pin were refreshed with
+the actual source change; run `20261029T153446-d943972d9cb8` confirms byte parity
+for all 28 certificates. Kernel checking of the final authoritative-source
+closure remains outstanding.
+
+Helper interpretation run `20261029T152349-f75d7ed9d693` passed the focused
+`Silver.ComposeHelperEquations` build and a fresh 10,591-declaration axiom audit.
+The repair normalizes Boolean conditions and local aliases without changing
+the theorem statements or endpoint premises. Its retained preceding attempts
+remain failed. Array/composition callers and the shared Sequence model are the
+next focused checks, before complete assurance and the full regression suite.
+
+| Round | Selected settings | Result and remaining work |
+| --- | --- | --- |
+| Helper normalization, native annotation and capacity follow-up | Lead runtime settings unavailable; native worker and independent reviewer selected GPT-6 Astra / Extra High | Helper build 365.821 s plus fresh audit 43.968 s passed; native restricted check 507.443 s passed its two proof and 287 flow checks. Capacity regression 3/3 and certificate parity passed. Complete checkpoints remain pending; token/cost measurements unavailable. |
