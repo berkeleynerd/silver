@@ -1,5 +1,25 @@
 # Session memory
 
+## 2026-10-29 — Complete combined array validation and merge authorized
+
+The owner instructed **“Proceed to drive us to merge.”** This authorizes
+integrating the reviewed scalar-guard frontend repair [#284](https://github.com/berkeleynerd/silver/issues/284)
+into the fixed-array review response [#283](https://github.com/berkeleynerd/silver/pull/283),
+completing final native proof/coverage/provenance, Lean/source/module/axiom and
+regression validation on stable combined inputs, resolving any resulting defects,
+and merging the constant-array iteration [#266](https://github.com/berkeleynerd/silver/pull/266)
+and its response once the required checks pass. Update completion records,
+issues, milestones and the board in the same delivery.
+
+This supersedes the earlier instruction to keep the two review targets frozen
+and defer the expensive checkpoint. The final external report for iteration and
+the combined tree has not been supplied; do not claim external approval or invent
+its findings. Use all received feedback, retain the independent implementation
+reviews, and complete the integration/evidence review before merge. Existing
+unrelated and deferred work remains out of scope. No Oracle amendment, clean
+rebuild, mandatory kernel replay or new language feature is selected. No harness
+goal exists; CLI memory is unavailable.
+
 ## 2026-10-28 — Constant Integer-array iteration delivery checkpoint
 
 The authorized #264 implementation and #267 catalogue correction have passed
