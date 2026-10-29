@@ -1,0 +1,69 @@
+{
+  "binary": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/bin/silver",
+  "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/range-subtypes-native/docs/evidence/named-integer-subtypes-20261029/stack/foreach.adb",
+  "bytes": 4096,
+  "binary_sha256": "1de16686281847520e05eb0225979664ffd4dbfea409fbb57c1eca7b577d3573",
+  "source_sha256": "d895c99fc49e4251acad37a3300dd91ab4304ec7266a353b3520e8079ec81582",
+  "stack_kib": 8192,
+  "cpu_affinity": [
+    0,
+    1
+  ],
+  "shell_text": "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+  "observations": [
+    {
+      "name": "check",
+      "command": [
+        "bash",
+        "-c",
+        "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+        "silver-stack-observation",
+        "taskset",
+        "-c",
+        "0,1",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/bin/silver",
+        "check",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/range-subtypes-native/docs/evidence/named-integer-subtypes-20261029/stack/foreach.adb"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 0.22298324201256037,
+      "output_file": "check.log"
+    },
+    {
+      "name": "compile",
+      "command": [
+        "bash",
+        "-c",
+        "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+        "silver-stack-observation",
+        "taskset",
+        "-c",
+        "0,1",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/bin/silver",
+        "compile",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/range-subtypes-native/docs/evidence/named-integer-subtypes-20261029/stack/foreach.adb"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 39.1269943810039,
+      "output_file": "compile.log"
+    },
+    {
+      "name": "execute",
+      "command": [
+        "bash",
+        "-c",
+        "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+        "silver-stack-observation",
+        "taskset",
+        "-c",
+        "0,1",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/program-JoQ7jK/bin/main"
+      ],
+      "returncode": -15,
+      "elapsed_seconds": 81.35583606500586,
+      "output_file": "execute.log"
+    }
+  ],
+  "executable": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/program-JoQ7jK/bin/main",
+  "workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/program-JoQ7jK"
+}

@@ -1,0 +1,69 @@
+{
+  "binary": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/bin/silver",
+  "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/range-subtypes-native/docs/evidence/named-integer-subtypes-20261029/stack/conditional.adb",
+  "bytes": 4096,
+  "binary_sha256": "1de16686281847520e05eb0225979664ffd4dbfea409fbb57c1eca7b577d3573",
+  "source_sha256": "d43a257ba9ac8b0be6f77873f5da69686fe5eb16323bbf0b87a3ac1695337b8c",
+  "stack_kib": 8192,
+  "cpu_affinity": [
+    0,
+    1
+  ],
+  "shell_text": "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+  "observations": [
+    {
+      "name": "check",
+      "command": [
+        "bash",
+        "-c",
+        "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+        "silver-stack-observation",
+        "taskset",
+        "-c",
+        "0,1",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/bin/silver",
+        "check",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/range-subtypes-native/docs/evidence/named-integer-subtypes-20261029/stack/conditional.adb"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 0.11350479400425684,
+      "output_file": "check.log"
+    },
+    {
+      "name": "compile",
+      "command": [
+        "bash",
+        "-c",
+        "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+        "silver-stack-observation",
+        "taskset",
+        "-c",
+        "0,1",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/bin/silver",
+        "compile",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/range-subtypes-native/docs/evidence/named-integer-subtypes-20261029/stack/conditional.adb"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 31.50016189199232,
+      "output_file": "compile.log"
+    },
+    {
+      "name": "execute",
+      "command": [
+        "bash",
+        "-c",
+        "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+        "silver-stack-observation",
+        "taskset",
+        "-c",
+        "0,1",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/program-hUrBoD/bin/main"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 0.0035391900019021705,
+      "output_file": "execute.log"
+    }
+  ],
+  "executable": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/program-hUrBoD/bin/main",
+  "workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/program-hUrBoD"
+}

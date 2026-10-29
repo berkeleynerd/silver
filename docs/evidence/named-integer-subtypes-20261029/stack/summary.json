@@ -1,0 +1,467 @@
+{
+  "implementation_commit": "a0d1a6946364dd035d562135fbbcfb0d5d328b8f",
+  "regression_revision": "39d96fa9e5",
+  "platform": "linux-x86_64",
+  "managed_workers_each": 2,
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_confirmation": "unavailable",
+  "token_cost_evidence": "unavailable",
+  "claim_scope": "Three concrete 4096-byte fixtures complete admission, proof, compilation and execution under 8192KiB stack. No universal maximum depth, stack or runtime bound is claimed.",
+  "harness": "../../array-review-response-20261028/stack/observe.py",
+  "runs": [
+    {
+      "fixture": "foreach",
+      "run_id": "20261029T144933-25b55aa85c06",
+      "managed_state": "failure",
+      "managed_duration_seconds": 129.385995179,
+      "source_bytes_match_generated": true,
+      "source_sha256": "d895c99fc49e4251acad37a3300dd91ab4304ec7266a353b3520e8079ec81582",
+      "binary_sha256": "1de16686281847520e05eb0225979664ffd4dbfea409fbb57c1eca7b577d3573",
+      "stack_kib": 8192,
+      "affinity_cpus": [
+        0,
+        1
+      ],
+      "proof_records": 47,
+      "unproved_records": [],
+      "warning_records": 0,
+      "observations": [
+        {
+          "name": "check",
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+            "silver-stack-observation",
+            "taskset",
+            "-c",
+            "0,1",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/bin/silver",
+            "check",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/range-subtypes-native/docs/evidence/named-integer-subtypes-20261029/stack/foreach.adb"
+          ],
+          "returncode": 0,
+          "elapsed_seconds": 0.22298324201256037,
+          "output_file": "check.log"
+        },
+        {
+          "name": "compile",
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+            "silver-stack-observation",
+            "taskset",
+            "-c",
+            "0,1",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/bin/silver",
+            "compile",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/range-subtypes-native/docs/evidence/named-integer-subtypes-20261029/stack/foreach.adb"
+          ],
+          "returncode": 0,
+          "elapsed_seconds": 39.1269943810039,
+          "output_file": "compile.log"
+        },
+        {
+          "name": "execute",
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+            "silver-stack-observation",
+            "taskset",
+            "-c",
+            "0,1",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/program-JoQ7jK/bin/main"
+          ],
+          "returncode": -15,
+          "elapsed_seconds": 81.35583606500586,
+          "output_file": "execute.log"
+        }
+      ],
+      "workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/program-JoQ7jK",
+      "native_ali_options": {
+        "silver_output_libc.ali": [
+          "A -gnatA",
+          "A -gnat2022",
+          "A -gnata",
+          "A -gnato",
+          "A -gnatdM",
+          "A -mtune=generic",
+          "A -march=x86-64"
+        ],
+        "silver_io.ali": [
+          "A -gnatA",
+          "A -gnat2022",
+          "A -gnata",
+          "A -gnato",
+          "A -gnatdM",
+          "A -mtune=generic",
+          "A -march=x86-64"
+        ],
+        "b__main~1.ali": [
+          "A -gnatA",
+          "A -gnatA",
+          "A -gnatWb",
+          "A -gnatiw",
+          "A -gnatws",
+          "A -mtune=generic",
+          "A -march=x86-64"
+        ],
+        "main~1.ali": [
+          "A -gnatA",
+          "A -gnat2022",
+          "A -gnata",
+          "A -gnato",
+          "A -gnatdM",
+          "A -gnateI1",
+          "A -mtune=generic",
+          "A -march=x86-64"
+        ]
+      },
+      "execution_disposition": "Terminated with SIGTERM after recognizing 2^158 null-body iterations; retained successful admission and compilation. Runtime completion is not claimed.",
+      "flow_records": 19
+    },
+    {
+      "fixture": "counted",
+      "run_id": "20261029T145147-a08224bc1901",
+      "managed_state": "success",
+      "managed_duration_seconds": 50.414561489,
+      "source_bytes_match_generated": true,
+      "source_sha256": "9d6ff3adb364f806f08feb491a34993805b526682b497271a42e8f06bb190e5f",
+      "binary_sha256": "1de16686281847520e05eb0225979664ffd4dbfea409fbb57c1eca7b577d3573",
+      "stack_kib": 8192,
+      "affinity_cpus": [
+        0,
+        1
+      ],
+      "proof_records": 47,
+      "unproved_records": [],
+      "warning_records": 0,
+      "observations": [
+        {
+          "name": "check",
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+            "silver-stack-observation",
+            "taskset",
+            "-c",
+            "0,1",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/bin/silver",
+            "check",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/range-subtypes-native/docs/evidence/named-integer-subtypes-20261029/stack/counted.adb"
+          ],
+          "returncode": 0,
+          "elapsed_seconds": 0.15411218799999915,
+          "output_file": "check.log"
+        },
+        {
+          "name": "compile",
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+            "silver-stack-observation",
+            "taskset",
+            "-c",
+            "0,1",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/bin/silver",
+            "compile",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/range-subtypes-native/docs/evidence/named-integer-subtypes-20261029/stack/counted.adb"
+          ],
+          "returncode": 0,
+          "elapsed_seconds": 40.43807320500491,
+          "output_file": "compile.log"
+        },
+        {
+          "name": "execute",
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+            "silver-stack-observation",
+            "taskset",
+            "-c",
+            "0,1",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/program-kBmQlO/bin/main"
+          ],
+          "returncode": 0,
+          "elapsed_seconds": 0.07063735500560142,
+          "output_file": "execute.log"
+        }
+      ],
+      "workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/program-kBmQlO",
+      "native_ali_options": {
+        "silver_output_libc.ali": [
+          "A -gnatA",
+          "A -gnat2022",
+          "A -gnata",
+          "A -gnato",
+          "A -gnatdM",
+          "A -mtune=generic",
+          "A -march=x86-64"
+        ],
+        "silver_io.ali": [
+          "A -gnatA",
+          "A -gnat2022",
+          "A -gnata",
+          "A -gnato",
+          "A -gnatdM",
+          "A -mtune=generic",
+          "A -march=x86-64"
+        ],
+        "b__main~1.ali": [
+          "A -gnatA",
+          "A -gnatA",
+          "A -gnatWb",
+          "A -gnatiw",
+          "A -gnatws",
+          "A -mtune=generic",
+          "A -march=x86-64"
+        ],
+        "main~1.ali": [
+          "A -gnatA",
+          "A -gnat2022",
+          "A -gnata",
+          "A -gnato",
+          "A -gnatdM",
+          "A -gnateI1",
+          "A -mtune=generic",
+          "A -march=x86-64"
+        ]
+      },
+      "flow_records": 19
+    },
+    {
+      "fixture": "conditional",
+      "run_id": "20261029T145241-692b2df52550",
+      "managed_state": "success",
+      "managed_duration_seconds": 39.661432479,
+      "source_bytes_match_generated": true,
+      "source_sha256": "d43a257ba9ac8b0be6f77873f5da69686fe5eb16323bbf0b87a3ac1695337b8c",
+      "binary_sha256": "1de16686281847520e05eb0225979664ffd4dbfea409fbb57c1eca7b577d3573",
+      "stack_kib": 8192,
+      "affinity_cpus": [
+        0,
+        1
+      ],
+      "proof_records": 47,
+      "unproved_records": [],
+      "warning_records": 0,
+      "observations": [
+        {
+          "name": "check",
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+            "silver-stack-observation",
+            "taskset",
+            "-c",
+            "0,1",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/bin/silver",
+            "check",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/range-subtypes-native/docs/evidence/named-integer-subtypes-20261029/stack/conditional.adb"
+          ],
+          "returncode": 0,
+          "elapsed_seconds": 0.11350479400425684,
+          "output_file": "check.log"
+        },
+        {
+          "name": "compile",
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+            "silver-stack-observation",
+            "taskset",
+            "-c",
+            "0,1",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/bin/silver",
+            "compile",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/range-subtypes-native/docs/evidence/named-integer-subtypes-20261029/stack/conditional.adb"
+          ],
+          "returncode": 0,
+          "elapsed_seconds": 31.50016189199232,
+          "output_file": "compile.log"
+        },
+        {
+          "name": "execute",
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+            "silver-stack-observation",
+            "taskset",
+            "-c",
+            "0,1",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/program-hUrBoD/bin/main"
+          ],
+          "returncode": 0,
+          "elapsed_seconds": 0.0035391900019021705,
+          "output_file": "execute.log"
+        }
+      ],
+      "workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/program-hUrBoD",
+      "native_ali_options": {
+        "silver_output_libc.ali": [
+          "A -gnatA",
+          "A -gnat2022",
+          "A -gnata",
+          "A -gnato",
+          "A -gnatdM",
+          "A -mtune=generic",
+          "A -march=x86-64"
+        ],
+        "silver_io.ali": [
+          "A -gnatA",
+          "A -gnat2022",
+          "A -gnata",
+          "A -gnato",
+          "A -gnatdM",
+          "A -mtune=generic",
+          "A -march=x86-64"
+        ],
+        "b__main~1.ali": [
+          "A -gnatA",
+          "A -gnatA",
+          "A -gnatWb",
+          "A -gnatiw",
+          "A -gnatws",
+          "A -mtune=generic",
+          "A -march=x86-64"
+        ],
+        "main~1.ali": [
+          "A -gnatA",
+          "A -gnat2022",
+          "A -gnata",
+          "A -gnato",
+          "A -gnatdM",
+          "A -gnateI1",
+          "A -mtune=generic",
+          "A -march=x86-64"
+        ]
+      },
+      "flow_records": 19
+    },
+    {
+      "fixture": "foreach-singleton",
+      "run_id": "20261029T145414-d47d27d98ec3",
+      "managed_state": "success",
+      "managed_duration_seconds": 40.045860107,
+      "source_bytes_match_generated": true,
+      "source_sha256": "ae91c2316e004cfee11062ec96d9df7d36277d5eec01d9efe45d6185879b115a",
+      "binary_sha256": "1de16686281847520e05eb0225979664ffd4dbfea409fbb57c1eca7b577d3573",
+      "stack_kib": 8192,
+      "affinity_cpus": [
+        0,
+        1
+      ],
+      "proof_records": 47,
+      "unproved_records": [],
+      "warning_records": 0,
+      "observations": [
+        {
+          "name": "check",
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+            "silver-stack-observation",
+            "taskset",
+            "-c",
+            "0,1",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/bin/silver",
+            "check",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/range-subtypes-native/docs/evidence/named-integer-subtypes-20261029/stack/foreach-singleton.adb"
+          ],
+          "returncode": 0,
+          "elapsed_seconds": 0.12807300800341181,
+          "output_file": "check.log"
+        },
+        {
+          "name": "compile",
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+            "silver-stack-observation",
+            "taskset",
+            "-c",
+            "0,1",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/bin/silver",
+            "compile",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/range-subtypes-native/docs/evidence/named-integer-subtypes-20261029/stack/foreach-singleton.adb"
+          ],
+          "returncode": 0,
+          "elapsed_seconds": 33.31792224998935,
+          "output_file": "compile.log"
+        },
+        {
+          "name": "execute",
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+            "silver-stack-observation",
+            "taskset",
+            "-c",
+            "0,1",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/program-HnDwIY/bin/main"
+          ],
+          "returncode": 0,
+          "elapsed_seconds": 0.005892326997127384,
+          "output_file": "execute.log"
+        }
+      ],
+      "workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/program-HnDwIY",
+      "native_ali_options": {
+        "silver_output_libc.ali": [
+          "A -gnatA",
+          "A -gnat2022",
+          "A -gnata",
+          "A -gnato",
+          "A -gnatdM",
+          "A -mtune=generic",
+          "A -march=x86-64"
+        ],
+        "silver_io.ali": [
+          "A -gnatA",
+          "A -gnat2022",
+          "A -gnata",
+          "A -gnato",
+          "A -gnatdM",
+          "A -mtune=generic",
+          "A -march=x86-64"
+        ],
+        "b__main~1.ali": [
+          "A -gnatA",
+          "A -gnatA",
+          "A -gnatWb",
+          "A -gnatiw",
+          "A -gnatws",
+          "A -mtune=generic",
+          "A -march=x86-64"
+        ],
+        "main~1.ali": [
+          "A -gnatA",
+          "A -gnat2022",
+          "A -gnata",
+          "A -gnato",
+          "A -gnatdM",
+          "A -gnateI1",
+          "A -mtune=generic",
+          "A -march=x86-64"
+        ]
+      },
+      "flow_records": 19
+    }
+  ],
+  "preflight_failure": {
+    "run_id": "20261029T144841-86003a7117b0",
+    "reason": "Fixture copy used the regression working directory; missing declared fixture was detected before invoking the harness. Corrected absolute paths."
+  }
+}
