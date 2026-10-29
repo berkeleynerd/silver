@@ -152,7 +152,7 @@ theorem interpreted_arrayParts (calls : Calls) (equations : HelperEquations call
   have etypeFirst : calls.function .skip text ofAfter = typeFirst := interpreted_skip calls equations text valid ofAfter bof
   have etypeMark : calls.function .scalarType text state typeFirst = typeMark :=
     interpreted_scalarType calls equations text valid state typeFirst stateValid btypeFirst
-  have eassigned : calls.function .takeToken text typeAfter (.symbol ":=") = assigned := interpreted_take calls equations text valid typeAfter (.symbol ":=") btypeAfter (by unfold ValidToken; decide)
+  have eassigned : calls.function .takeToken text typeMark.after (.symbol ":=") = assigned := interpreted_take calls equations text valid typeAfter (.symbol ":=") btypeAfter (by unfold ValidToken; decide)
   have eposition : calls.function .takeToken text assigned (.symbol "(") = position := interpreted_take calls equations text valid assigned (.symbol "(") bassigned (by unfold ValidToken; decide)
   simp only [arrayPartsEquation, decideIf, efirst, eafter, ecolon, econstant, earray,
     elowStart, elow, ehighStart, ehigh, eclose, eof, etypeFirst, etypeMark, eassigned, eposition]
