@@ -588,16 +588,16 @@ private theorem declarationGate {α : Type} (a : Bool) (b c : Prop) [Decidable b
       decide (ScalarExpression.lookup text state.scalarNames first after ≠ 0) ||
       decide (ArrayBindings.lookup text state.arrayNames.names first after ≠ 0)
     then _ else _) = _
-  simp only [Bool.or_eq_true, decide_eq_true_eq]
+  simp only [Bool.or_eq_true, decide_eq_true_eq, or_assoc]
   split
   · rename_i rejected
     dsimp only [after, first] at rejected
-    simpa only [scalarTypeAt, rejected, ↓reduceIte]
+    simp only [scalarTypeAt, rejected, ↓reduceIte]
   · rename_i admitted
     have nameValid : ValidName text first after := ⟨by omega, by omega, afterBound⟩
     rw [equations.nameIs text valid first after "integer" nameValid (by decide) (by decide)]
     dsimp only [after, first] at admitted
-    simp only [scalarTypeAt, admitted, ↓reduceIte]
+    simp only [scalarTypeAt, admitted, ↓reduceIte, after, first]
 
 @[simp] theorem interpreted_subtypeDeclaration (calls : Calls) (equations : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (state : ParserState) (arguments : Bool)
