@@ -131,10 +131,20 @@ theorem initial_valid (text : Source) : ValidState text initialState := by
   simp [Compose.Expressions.ValidState, Compose.Expressions.ValidCursor, Compose.Expressions.ValidNames,
     Named.NameState.Valid, initialState, maxSourceLength, maxBindings,
     ScalarExpression.ValidEnvironment, ScalarExpression.maxBindings,
-    ArrayBindings.ValidEnvironment, ArrayBindings.ValidMetadata, ArrayBindings.ValidInitials]
+    ArrayBindings.ValidEnvironment, ArrayBindings.ValidMetadata, ArrayBindings.ValidInitials,
+    IntegerSubtypes.ValidEnvironment]
 
 theorem invalid_valid (text : Source) : ValidState text invalidState :=
   ⟨Compose.Expressions.model_invalid_state_valid text, ScalarMetadata.headerReady_empty⟩
+
+theorem subtypeDeclaration_ready (text : Source) (state : ParserState) (arguments : Bool)
+    (ready : ScalarMetadata.HeaderReady state.scalarNames) :
+    ScalarMetadata.HeaderReady (subtypeDeclarationAt text state arguments).scalarNames := by
+  unfold subtypeDeclarationAt
+  dsimp only
+  split
+  · exact ScalarMetadata.headerReady_empty
+  · exact ready
 
 theorem scalarDeclaration_ready (text : Source) (state : ParserState) (arguments : Bool)
     (ready : ScalarMetadata.HeaderReady state.scalarNames) :
@@ -182,12 +192,14 @@ theorem declaration_ready (text : Source) (state : ParserState) (arguments : Boo
   unfold declarationAt
   dsimp only
   split
-  · exact scalarDeclaration_ready text state arguments ready
+  · exact subtypeDeclaration_ready text state arguments ready
   · split
-    · rename_i accepted
-      rw [(arrayDeclarationAt_count accepted).2.1]
-      exact ready
-    · exact stringDeclaration_ready text state arguments ready
+    · exact scalarDeclaration_ready text state arguments ready
+    · split
+      · rename_i accepted
+        rw [(arrayDeclarationAt_count accepted).2.1]
+        exact ready
+      · exact stringDeclaration_ready text state arguments ready
 
 private theorem declarationsLoop_ready (text : Source) (arguments : Bool) (fuel : Nat) (state : ParserState)
     (ready : ScalarMetadata.HeaderReady state.scalarNames) :
