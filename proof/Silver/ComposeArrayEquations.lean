@@ -16,11 +16,11 @@ attribute [local irreducible] ScalarExpression.read scalarConstraintAt
 
 private theorem state_array_metadata {text : Source} {state : ParserState}
     (valid : ValidState text state) : ArrayBindings.ValidMetadata text state.arrayNames.names :=
-  valid.2.2.2.2.2.2.1
+  valid.2.2.2.2.2.2.1.1
 
 private theorem state_array_initials {text : Source} {state : ParserState}
     (valid : ValidState text state) : ArrayBindings.ValidInitials state.arrayNames.values :=
-  valid.2.2.2.2.2.2.2.2.1
+  valid.2.2.2.2.2.2.1.2.2.1
 
 private theorem decideIf {α : Type} (p : Prop) [Decidable p] (yes no : α) :
     (if decide p then yes else no) = (if p then yes else no) := by simp
@@ -28,11 +28,12 @@ private theorem decideIf {α : Type} (p : Prop) [Decidable p] (yes no : α) :
 theorem interpreted_arrayValuesModel (calls : Calls)
     (equations : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (source result : ParserState)
-    (position length parsed : Nat)
+    (position length parsed : Nat) (componentBounds : Integer.Interval)
+    (componentsBounded : componentBounds.Bounded)
     (context : ArrayValuesDomain text source result position length parsed domain) :
-    calls.function .arrayValuesModel text source result position length parsed =
-      arrayValuesModel text source result position length parsed := by
-  rw [equations.arrayValuesModel text valid source result position length parsed context,
+    calls.function .arrayValuesModel text source result position length parsed componentBounds =
+      arrayValuesModel text source result position length parsed componentBounds := by
+  rw [equations.arrayValuesModel text valid source result position length parsed componentBounds componentsBounded context,
     arrayValues_denotation]
   conv => rhs; rw [arrayValuesModel]
   unfold arrayValuesEquation
@@ -55,8 +56,11 @@ theorem interpreted_arrayValuesModel (calls : Calls)
           (state_array_metadata context.sourceValid) (state_array_initials context.sourceValid)
       rw [same]
       change (if decide (value.after = 0) || calls.function .scalarEmpty value.bounds ||
-          decide (value.bounds.lower ≠ value.bounds.upper) then invalidState else _) =
-        (if value.after = 0 ∨ value.bounds.isEmpty = true ∨ value.bounds.lower ≠ value.bounds.upper
+          decide (value.bounds.lower ≠ value.bounds.upper) ||
+          decide (value.bounds.lower < componentBounds.lower) ||
+          decide (value.bounds.upper > componentBounds.upper) then invalidState else _) =
+        (if value.after = 0 ∨ value.bounds.isEmpty = true ∨ value.bounds.lower ≠ value.bounds.upper ∨
+          value.bounds.lower < componentBounds.lower ∨ componentBounds.upper < value.bounds.upper
           then invalidState else _)
       by_cases absent : value.after = 0
       · simp only [absent, decide_true, Bool.true_or, ↓reduceIte, true_or]
@@ -64,7 +68,8 @@ theorem interpreted_arrayValuesModel (calls : Calls)
         have bounded : value.bounds.Bounded := Integer.Expr.infer_bounded reading.inferred
         rw [equations.scalarEmpty value.bounds bounded]
         simp only [Bool.or_eq_true, decide_eq_true_eq, or_assoc]
-        by_cases rejected : value.after = 0 ∨ value.bounds.isEmpty = true ∨ value.bounds.lower ≠ value.bounds.upper
+        by_cases rejected : value.after = 0 ∨ value.bounds.isEmpty = true ∨ value.bounds.lower ≠ value.bounds.upper ∨
+          value.bounds.lower < componentBounds.lower ∨ componentBounds.upper < value.bounds.upper
         · simp only [rejected, ↓reduceIte]
         · simp only [rejected, ↓reduceIte]
           have written := equations.arrayPut result value.bounds.lower (context.room remaining) bounded.1
@@ -80,7 +85,7 @@ theorem interpreted_arrayValuesModel (calls : Calls)
             · exact model_fixed_valid text value.after "," false reading.cursorBounds.2.2
             · exact reading.cursorBounds.2.2
           exact interpreted_arrayValuesModel calls equations text valid source
-            (putArrayValue result value.bounds.lower) following length (parsed + 1)
+            (putArrayValue result value.bounds.lower) following length (parsed + 1) componentBounds componentsBounded
             (context.next remaining bounded.1 nextPosition)
 termination_by length - parsed
 decreasing_by omega
@@ -88,12 +93,13 @@ decreasing_by omega
 theorem interpreted_arrayValues (calls : Calls)
     (equations : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (source result : ParserState)
-    (position length parsed : Nat)
+    (position length parsed : Nat) (componentBounds : Integer.Interval)
+    (componentsBounded : componentBounds.Bounded)
     (context : ArrayValuesDomain text source result position length parsed domain) :
-    calls.function .arrayValues text source result position length parsed =
-      arrayValuesModel text source result position length parsed :=
-  (equations.arrayValues text valid source result position length parsed context).trans
-    (interpreted_arrayValuesModel calls equations text valid source result position length parsed context)
+    calls.function .arrayValues text source result position length parsed componentBounds =
+      arrayValuesModel text source result position length parsed componentBounds :=
+  (equations.arrayValues text valid source result position length parsed componentBounds componentsBounded context).trans
+    (interpreted_arrayValuesModel calls equations text valid source result position length parsed componentBounds componentsBounded context)
 
 theorem interpreted_arrayParts (calls : Calls) (equations : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (state : ParserState)
@@ -113,7 +119,8 @@ theorem interpreted_arrayParts (calls : Calls) (equations : HelperEquations call
   let close := fixedAfter text high.after ")" false
   let ofAfter := fixedAfter text close "of" true
   let typeFirst := skipAt text ofAfter
-  let typeAfter := fixedAfter text typeFirst "integer" true
+  let typeMark := scalarTypeAt text state typeFirst
+  let typeAfter := typeMark.after
   let assigned := fixedAfter text typeAfter ":=" false
   let position := fixedAfter text assigned "(" false
   have bfirst : ValidCursor text first := model_skip_valid text state.position (domain.valid text state stateValid).1
@@ -129,7 +136,7 @@ theorem interpreted_arrayParts (calls : Calls) (equations : HelperEquations call
   have bclose : ValidCursor text close := model_fixed_valid text high.after ")" false bhigh.1
   have bof : ValidCursor text ofAfter := model_fixed_valid text close "of" true bclose
   have btypeFirst : ValidCursor text typeFirst := model_skip_valid text ofAfter bof
-  have btypeAfter : ValidCursor text typeAfter := model_fixed_valid text typeFirst "integer" true btypeFirst
+  have btypeAfter : ValidCursor text typeAfter := scalarTypeAt_position_valid text state typeFirst
   have bassigned : ValidCursor text assigned := model_fixed_valid text typeAfter ":=" false btypeAfter
   have efirst : calls.function .skip text state.position = first := interpreted_skip calls equations text valid state.position (domain.valid text state stateValid).1
   have eafter : calls.function .nameAfter text first = after := interpreted_name calls equations text valid first bfirst
@@ -143,11 +150,12 @@ theorem interpreted_arrayParts (calls : Calls) (equations : HelperEquations call
   have eclose : calls.function .takeToken text high.after (.symbol ")") = close := interpreted_take calls equations text valid high.after (.symbol ")") bhigh.1 (by unfold ValidToken; decide)
   have eof : calls.function .takeToken text close (.word "of") = ofAfter := interpreted_take calls equations text valid close (.word "of") bclose (by unfold ValidToken; decide)
   have etypeFirst : calls.function .skip text ofAfter = typeFirst := interpreted_skip calls equations text valid ofAfter bof
-  have etypeAfter : calls.function .takeToken text typeFirst (.word "integer") = typeAfter := interpreted_take calls equations text valid typeFirst (.word "integer") btypeFirst (by unfold ValidToken; decide)
+  have etypeMark : calls.function .scalarType text state typeFirst = typeMark :=
+    interpreted_scalarType calls equations text valid state typeFirst stateValid btypeFirst
   have eassigned : calls.function .takeToken text typeAfter (.symbol ":=") = assigned := interpreted_take calls equations text valid typeAfter (.symbol ":=") btypeAfter (by unfold ValidToken; decide)
   have eposition : calls.function .takeToken text assigned (.symbol "(") = position := interpreted_take calls equations text valid assigned (.symbol "(") bassigned (by unfold ValidToken; decide)
   simp only [arrayPartsEquation, decideIf, efirst, eafter, ecolon, econstant, earray,
-    elowStart, elow, ehighStart, ehigh, eclose, eof, etypeFirst, etypeAfter, eassigned, eposition]
+    elowStart, elow, ehighStart, ehigh, eclose, eof, etypeFirst, etypeMark, eassigned, eposition]
   rfl
 
 
@@ -167,7 +175,7 @@ theorem interpreted_arrayDeclaration (calls : Calls) (equations : HelperEquation
   generalize partsEq : arrayDeclarationParts text state = parts
   have positions : ArrayPartsBounds text parts := by
     rw [← partsEq]
-    exact model_arrayParts_valid text state vstate.1
+    exact model_arrayParts_valid text state vstate.1 vstate.2.2.2.2.2.2.2
   have ename := interpreted_newName calls equations text valid state parts.first parts.after arguments
     stateValid positions.first positions.after
   have estring := interpreted_lookup calls equations text valid state.names parts.typeFirst parts.typeAfter
@@ -190,12 +198,23 @@ theorem interpreted_arrayDeclaration (calls : Calls) (equations : HelperEquation
       have ready : ArrayDeclarationReady text state arguments parts := by
         simpa [ArrayDeclarationReady, allowed, Bool.or_eq_true, not_or, Nat.not_le,
           Int.not_lt, Int.not_le, and_assoc] using good
+      have typePositive : (scalarTypeAt text state parts.typeFirst).after ≠ 0 := by
+        have pos := ready.2.2.2.1
+        rw [← partsEq] at pos ⊢
+        exact model_fixed_input_nonzero text _ ":=" false
+          (model_fixed_input_nonzero text _ "(" false pos)
+      have typeEq : scalarTypeAt text state parts.typeFirst = ⟨parts.typeAfter, parts.componentBounds⟩ := by
+        rw [← partsEq]
+        rfl
+      have typeReading : ScalarTypeAt text state parts.typeFirst ⟨parts.typeAfter, parts.componentBounds⟩ :=
+        typeEq ▸ scalarTypeAt_sound text state _ typePositive
       have bindingValid : ArrayBindings.ValidBinding (parts.binding state) := by
         rcases ready with ⟨_, _, _, _, _, _, _, _, _, _, _, _, _, ordered, capacity, _, _, _⟩
         have lowSafe := positions.lowerBounds.1
         have highSafe := positions.upperBounds.1
         simp only [ArrayBindings.ValidBinding, ArrayDeclarationParts.binding, ArrayDeclarationParts.length]
-        exact ⟨⟨lowSafe, highSafe⟩, ordered, by omega, by omega, by omega⟩
+        exact ⟨⟨lowSafe, highSafe⟩, ordered, by omega, by omega, by omega,
+          positions.componentBounds, typeReading.nonempty vstate.2.2.2.2.2.2.2⟩
       have capacity : state.arrayNames.used + parts.length ≤ ArrayBindings.maxElements := bindingValid.2.2.2.1
       have initialContext (position : Nat) (bounded : ValidCursor text position) :
           ArrayValuesDomain text state state position parts.length 0 domain :=
@@ -226,11 +245,11 @@ theorem interpreted_arrayDeclaration (calls : Calls) (equations : HelperEquation
         · exact model_fixed_valid text choice.after "=>" false choiceValid.1
         · exact positions.position
       have context := initialContext position positionValid
-      have evalues := interpreted_arrayValues calls equations text valid state state position parts.length 0 context
+      have evalues := interpreted_arrayValues calls equations text valid state state position parts.length 0 parts.componentBounds positions.componentBounds context
       dsimp only [position, choice, ArrayDeclarationParts.length] at evalues
       rw [evalues]
-      let values := arrayValuesModel text state state position parts.length 0
-      have valuesValid := model_arrayValues_valid text state state position parts.length 0 context
+      let values := arrayValuesModel text state state position parts.length 0 parts.componentBounds
+      have valuesValid := model_arrayValues_valid text state state position parts.length 0 parts.componentBounds context
       have closeValid := model_fixed_valid text values.position ")" false valuesValid.1
       have eclose := interpreted_take calls equations text valid values.position (.symbol ")") valuesValid.1
         (by unfold ValidToken; decide)
@@ -249,12 +268,17 @@ theorem interpreted_arrayDeclaration (calls : Calls) (equations : HelperEquation
         have room : values.arrayNames.names.length < ArrayBindings.maxBindings := by
           have oldBound := (state_array_metadata vstate).1
           have available := ready.2.2.2.2.1
-          rw [preserved.2.2]
+          rw [preserved.2.2.1]
           omega
+        have appendOrder : ArrayAddDomain values.arrayNames.names state.arrayNames.used := by
+          intro last isLast
+          rw [preserved.2.2.1] at isLast
+          exact vstate.2.2.2.2.2.2.1.2.2.2 last (List.mem_of_getLast? isLast)
         have ending := model_fixed_valid text (fixedAfter text values.position ")" false) ";" false closeValid
         have added := equations.arrayAdd text valid values parts.first parts.after
           ⟨parts.lower.bounds.lower, parts.upper.bounds.lower⟩ state.arrayNames.used parts.length
-          (decide (parts.constantAfter = 0)) _ valuesContext nameValid bindingValid room (by omega) ending
+          (decide (parts.constantAfter = 0)) _ parts.componentBounds
+          valuesContext nameValid bindingValid room (by omega) appendOrder ending
         rw [arrayAdd_denotation] at added
         dsimp only [values, position, choice, ArrayDeclarationParts.length] at added
         rw [added]
