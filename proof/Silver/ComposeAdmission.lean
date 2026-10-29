@@ -1167,7 +1167,7 @@ theorem declarationAt_count {text : Source} {state : ParserState} {arguments : B
       state.names.length + state.scalarNames.length + state.arrayNames.names.length + state.subtypeNames.items.length + 1 := by
   by_cases subtype : (subtypeDeclarationAt text state arguments).position ≠ 0
   · have selected : declarationAt text state arguments = subtypeDeclarationAt text state arguments := by
-      simp only [declarationAt, subtype, ↓reduceIte]
+      simp only [declarationAt]; split <;> simp_all
     rw [selected]
     unfold subtypeDeclarationAt at subtype ⊢
     dsimp only at subtype ⊢
