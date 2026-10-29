@@ -42,6 +42,16 @@ def Expr.Legal (calls : Calls) (locals : Locals) : Expr ty → Prop
   | .lexAllowed a => a.Legal calls locals ∧
       True
   | .defaultFalse f => f.Legal calls locals
+  | .defaultFull f => f.Legal calls locals
+  | .subtypeCount x => x.Legal calls locals
+  | .subtypeItem x i => x.Legal calls locals ∧ i.Legal calls locals
+  | .hiddenFlag x i => x.Legal calls locals ∧ i.Legal calls locals
+  | .operationName x => x.Legal calls locals
+  | .subtypeAppend a b c d e => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals ∧ e.Legal calls locals
+  | .stateSubtype a b c => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals
+  | .forOperations name body => ∀ operation, body.Legal calls (locals.set .operation name operation)
+  | .maxSubtypeBindings => True
+
   | .app f x => f.Legal calls locals ∧ x.Legal calls locals
   | .field _ x => x.Legal calls locals
   | .count x => x.Legal calls locals
@@ -115,7 +125,7 @@ def Expr.Legal (calls : Calls) (locals : Locals) : Expr ty → Prop
   | .arrayNamesOnly a b => a.Legal calls locals ∧ b.Legal calls locals
   | .stateArray a b => a.Legal calls locals ∧ b.Legal calls locals
   | .statePositionArray a b c => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals
-  | .arrayAppend a b c d e f g => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals ∧ e.Legal calls locals ∧ f.Legal calls locals ∧ g.Legal calls locals
+  | .arrayAppend a b c d e f g h => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals ∧ e.Legal calls locals ∧ f.Legal calls locals ∧ g.Legal calls locals ∧ h.Legal calls locals
   | .maxArrayBindings | .maxArrayElements | .invalidScalar | .integerNumber _ => True
   | .maxScalarBindings => True
   | .maxOperands  => True
@@ -280,6 +290,73 @@ theorem Expr.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning cal
     rw [established]
     rw [h0]
     all_goals rfl
+
+  | .defaultFull f, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals f legal
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    all_goals rfl
+
+  | .subtypeCount x, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals x legal
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    all_goals rfl
+
+  | .subtypeItem x i, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals x legal.1
+    have h1 := Expr.eval_lexical calls meaning locals i legal.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0, h1]
+    all_goals rfl
+
+  | .hiddenFlag x i, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals x legal.1
+    have h1 := Expr.eval_lexical calls meaning locals i legal.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0, h1]
+    all_goals rfl
+
+  | .operationName x, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals x legal
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    all_goals rfl
+
+  | .subtypeAppend a b c d e, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2.1
+    have h2 := Expr.eval_lexical calls meaning locals c legal.2.2.1
+    have h3 := Expr.eval_lexical calls meaning locals d legal.2.2.2.1
+    have h4 := Expr.eval_lexical calls meaning locals e legal.2.2.2.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0, h1, h2, h3, h4]
+    all_goals rfl
+
+  | .stateSubtype a b c, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2.1
+    have h2 := Expr.eval_lexical calls meaning locals c legal.2.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0, h1, h2]
+    all_goals rfl
+
+  | .forOperations name body, legal => by
+    have output := Expr.eval_lexical calls meaning (locals.set .operation name .output) body (legal .output)
+    have partialOutput :=  Expr.eval_lexical calls meaning (locals.set .operation name .partialOutput) body (legal .partialOutput)
+    have argument := Expr.eval_lexical calls meaning (locals.set .operation name .argument) body (legal .argument)
+    have validity := Expr.eval_lexical calls meaning (locals.set .operation name .validity) body (legal .validity)
+    have reject := Expr.eval_lexical calls meaning (locals.set .operation name .reject) body (legal .reject)
+    dsimp only [Expr.eval]
+    rw [output, partialOutput, argument, validity, reject]
+  | .maxSubtypeBindings, _ => rfl
 
   | .defaultFalse f, legal => by
     have same := Expr.eval_lexical calls meaning locals f legal
@@ -909,7 +986,7 @@ theorem Expr.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning cal
     rw [h2]
     all_goals rfl
 
-  | .arrayAppend a b c d e f g, legal => by
+  | .arrayAppend a b c d e f g h, legal => by
     dsimp only [Expr.Legal] at legal
     have h0 := Expr.eval_lexical calls meaning locals a legal.1
     have h1 := Expr.eval_lexical calls meaning locals b legal.2.1
@@ -917,7 +994,8 @@ theorem Expr.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning cal
     have h3 := Expr.eval_lexical calls meaning locals d legal.2.2.2.1
     have h4 := Expr.eval_lexical calls meaning locals e legal.2.2.2.2.1
     have h5 := Expr.eval_lexical calls meaning locals f legal.2.2.2.2.2.1
-    have h6 := Expr.eval_lexical calls meaning locals g legal.2.2.2.2.2.2
+    have h6 := Expr.eval_lexical calls meaning locals g legal.2.2.2.2.2.2.1
+    have h7 := Expr.eval_lexical calls meaning locals h legal.2.2.2.2.2.2.2
     dsimp only [Expr.eval, lexical]
     rw [h0]
     rw [h1]
@@ -981,10 +1059,10 @@ theorem Expr.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning cal
 /-- Native SPARK establishes the domains of executed lexical calls in these
 bodies. No field asserts equality to the membership or semantic model. -/
 structure LegalHelpers (calls : Calls) (domain : StateDomain := .basic) : Prop where
-  callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames arrays,
+  callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames arrays subtypeHidden,
     ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
     ArrayBindings.ValidMetadata text arrays → ValidCursor text position →
-    callAfterBody.Legal calls (Context.locals {text,scalarNames,arrays,names,position,operation})
+    callAfterBody.Legal calls (Context.locals {text,scalarNames,arrays,names,position,operation,subtypeHidden})
   skip : ∀ text, ValidText text → ∀ position,
     ValidCursor text position →
     skipBody.Legal calls (Context.locals {text,position})
@@ -1023,9 +1101,20 @@ structure LegalHelpers (calls : Calls) (domain : StateDomain := .basic) : Prop w
   stringDeclaration : ∀ text, ValidText text → ∀ state arguments,
     domain.holds text state →
     stringDeclarationBody.Legal calls (Context.locals {text,state,arguments})
-  scalarConstraint : ∀ text, ValidText text → ∀ position scalarNames,
+  scalarConstraint : ∀ text, ValidText text → ∀ position scalarNames baseBounds,
     ValidCursor text position → ScalarExpression.ValidEnvironment text scalarNames →
-    scalarConstraintBody.Legal calls (Context.locals {text,position,scalarNames})
+    baseBounds.Bounded →
+    scalarConstraintBody.Legal calls (Context.locals {text,position,scalarNames,baseBounds})
+  subtypeLookupModel : ∀ text, ValidText text → ∀ subtypeNames first after index,
+    IntegerSubtypes.ValidEnvironment text subtypeNames → ValidCursor text first → ValidCursor text after →
+    index ≤ subtypeNames.items.length →
+    subtypeLookupModelBody.Legal calls (Context.locals {text,subtypeNames,first,after,index})
+  scalarType : ∀ text, ValidText text → ∀ state position,
+    domain.holds text state → ValidCursor text position →
+    scalarTypeBody.Legal calls (Context.locals {text,state,position})
+  subtypeDeclaration : ∀ text, ValidText text → ∀ state arguments,
+    domain.holds text state →
+    subtypeDeclarationBody.Legal calls (Context.locals {text,state,arguments})
   scalarDeclaration : ∀ text, ValidText text → ∀ state arguments,
     domain.holds text state →
     scalarDeclarationBody.Legal calls (Context.locals {text,state,arguments})
@@ -1209,6 +1298,25 @@ theorem normalized_helpers {domain : StateDomain} (calls : Calls)
     · apply source.scalarConstraint <;> assumption
     · apply Expr.eval_lexical calls meaning
       apply legal.scalarConstraint <;> assumption
+  subtypeLookupModel := by
+    intros
+    apply Eq.trans
+    · apply source.subtypeLookupModel <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.subtypeLookupModel <;> assumption
+  scalarType := by
+    intros
+    apply Eq.trans
+    · apply source.scalarType <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.scalarType <;> assumption
+  subtypeDeclaration := by
+    intros
+    apply Eq.trans
+    · apply source.subtypeDeclaration <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.subtypeDeclaration <;> assumption
+  subtypeLookup := source.subtypeLookup
   scalarDeclaration := by
     intros
     apply Eq.trans
