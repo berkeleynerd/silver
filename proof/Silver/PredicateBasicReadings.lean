@@ -311,6 +311,8 @@ theorem basic_meaning {text context scan item result}
           simp only [not_or, Bool.not_eq_true', Int.not_lt] at constraints
           simp only [Integer.Interval.included, notEmpty, Bool.false_or, decide_eq_true_eq]
           exact ⟨constraints.2.2.2.2.2.2.1, constraints.2.2.2.2.2.2.2⟩
+        change (readScalarInFlow text context (arrayValueStart text context scan) scan.facts).bounds.included
+          (ArrayBindings.binding context.arrayNames (arrayTarget text context scan.position)).descriptor.componentBounds = true at included
         have checkedIndex : Integer.arrayIndexCheck
             (ArrayBindings.binding context.arrayNames (arrayTarget text context scan.position)).descriptor
             (arrayIndex text context scan).bounds = true := by

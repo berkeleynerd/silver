@@ -369,7 +369,7 @@ mutual
         have isArray : (loopHeader text context scan).isArray = true := iterable
         have components : (loopHeader text context scan).bounds =
             (ArrayBindings.binding context.arrayNames (loopArrayTarget text context scan)).componentBounds := by
-          simp only [LoopHeader.bounds, isArray, ↓reduceIte, loopHeader]
+          simp only [LoopHeader.bounds, loopHeader, iterable, ↓reduceIte]
         have componentValid := ((arrayLoopReady_iff _ _ _ _).mp ready).2.2.2.2.2
         have nonempty : (ArrayBindings.binding context.arrayNames (loopArrayTarget text context scan)).componentBounds.isEmpty = false := by
           simp only [Integer.Interval.isEmpty, decide_eq_false_iff_not, Int.not_lt]
@@ -389,6 +389,7 @@ mutual
               simp only [loopEntry, arrayLoopEntry, loopContext, nonempty, Bool.false_eq_true, ↓reduceIte]
           rw [entry] at checked
           simp only [loopInner] at checked
+          simp only [ArrayBindings.Binding.descriptor] at checked ⊢
           rw [checked]
           simp only [Option.map_some, factsEq, loopAfterHeader_model base.body compatible.count,
             isArray, ↓reduceIte]
