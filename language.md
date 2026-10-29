@@ -20,6 +20,8 @@ bounded array increment and its implementation/validation status.
 The [constant-array iteration record](docs/constant-array-iteration.md#delivery-assurance-and-validation)
 records complete Linux native and Lean/source assurance for forward/reverse
 element iteration over these constant arrays, including existing body compositions.
+The [named Integer-subtype record](docs/named-integer-subtypes.md) describes
+static named scalar ranges and bounded components of these fixed arrays.
 The [machine-readable
 catalogue](catalogue/silver.json), compiler, and this specification must agree. A
 discrepancy is a defect to resolve, not an extension of the language. Membership
@@ -168,7 +170,8 @@ followed by letters or digits, optionally separated by single underscores, witho
 trailing underscore. The 74 Ada 2022 reserved words, `String` and `Silver_IO` are
 excluded ignoring ASCII case. In an argument-bearing shell, `Silver_Arguments` is
 also excluded for **every** declaration. Names in the ordered declaration region must
-be distinct ignoring ASCII case across String, Integer and Integer-array declarations. Loop indexes and elements
+be distinct ignoring ASCII case across String objects, Integer objects, named
+Integer subtypes and Integer-array declarations. Loop indexes and elements
 have the scoped hiding rules below. `Main` is legal; `Silver_Arguments` remains legal
 in the static shell. Every reference matches the entire declared identifier ignoring
 ASCII case. There is no additional identifier-length limit beyond the complete source
@@ -180,13 +183,16 @@ After the pragma, each nonargument output form has zero or more declarations:
 
 ```text
 declaration ::= name ":" [ "constant" ] "String" ":=" expression ";"
-              | name ":" [ "constant" ] "Integer"
+              | name ":" [ "constant" ] integer_subtype_mark
                 [ "range" static_scalar_expression ".." static_scalar_expression ]
                 ":=" scalar_expression ";"
+              | "subtype" name "is" "Integer" "range"
+                static_scalar_expression ".." static_scalar_expression ";"
               | integer_array_declaration
+integer_subtype_mark ::= "Integer" | earlier_named_integer_subtype
 ```
 
-Each declaration introduces exactly one name. Every initializer is required;
+Each declaration introduces exactly one name. Every object initializer is required;
 a String initializer may read earlier String constants or mutable objects and
 use Integer Image; an Integer initializer may read earlier initialized Integer
 constants or mutable objects, including earlier initialized array components.
@@ -209,8 +215,9 @@ occurrence and no nonempty non-input contribution, since it executes before guar
 and must fit for every `d <= 4096`. Such an object and `D` share the symbolic
 selected-input length `d`; each object's bounds remain fixed during that execution.
 This length relationship survives copies, including mutable-source snapshots. Native
-binding storage has `4096 / 12 = 341` slots because even `A:String:=B;` consumes
-twelve source bytes. This is capacity derived from the complete-source bound, not an
+binding storage has `4096 / 7 = 585` slots because even `A:S:=0;`, using a
+one-letter named subtype, consumes seven source bytes. This is capacity derived
+from the complete-source bound, not an
 independent declaration-count restriction.
 
 <a id="immutable-integer-expressions-and-comparisons"></a>
@@ -218,13 +225,23 @@ independent declaration-count restriction.
 ### Integer objects, expressions and comparisons
 
 The predefined `Integer` range on the pinned native targets is -2147483648
-through 2147483647. Every Integer declaration requires an initializer and may be
-constant or mutable. An optional object-local `range L .. U` constrains either
-kind of object; without it, the declared range is the full Integer range.
-Both endpoints must fit Integer and satisfy `L <= U`. They use the scalar
+through 2147483647. A named subtype declaration has the form
+`subtype S is Integer range L .. U;`. It must name the visible predefined
+Integer directly, and introduces a static nonempty range contained in Integer.
+It constrains Integer values without creating a distinct type. Earlier named
+subtypes may be used in scalar constant or mutable declarations and as fixed
+array component marks. Subtype alias chains, derived types, conversions and
+subtype attributes, including `S'Image`, are excluded.
+
+Every scalar object declaration requires an initializer and may be constant or
+mutable. Its subtype mark is the visible Integer or an earlier named Integer
+subtype. An optional object-local `range L .. U` further constrains either kind
+of object; without it, the declared range is the range of its subtype mark.
+Both endpoints must fit that range and satisfy `L <= U`. Subtype and object
+range endpoints use the scalar
 expression grammar below, restricted to literals and earlier Ada-static Integer
-constants. Every bound-expression intermediate must fit Integer. Named scalar
-types/subtypes, dynamic range constraints and conversions remain excluded.
+constants. Every bound-expression intermediate must fit Integer. Dynamic range
+constraints remain excluded.
 Requiring static endpoints is a current Silver scope restriction, not an Ada
 requirement: Ada permits dynamic object constraints. Admitting those would need
 an elaboration and bound-lifetime argument for captured bounds.
@@ -238,6 +255,15 @@ changes neither snapshot. Knowing the initial value does not make A or K
 Ada-static. Static range endpoints may use only constants whose subtype and
 initializer are recursively static under Ada RM 4.9; mutable objects, loop
 indexes and constants initialized from them cannot supply an endpoint.
+Constants declared with a named subtype and a recursively Ada-static initializer
+remain Ada-static. An exact snapshot of a mutable object or an array component
+does not become static by using a named subtype.
+
+A subtype name is metadata, never a scalar or String value, an assignment
+target, an iterable or an expression operand. Its declaration follows the
+same ordering, case-insensitive uniqueness and reserved-name rules as objects.
+It can hide a use-visible operation, and a loop index or element can hide its
+spelling in the loop body. These rules do not create subtype conversions.
 
 ```text
 scalar_expression ::= scalar_unsigned | sign scalar_integer_literal
@@ -341,11 +367,12 @@ alternative outcomes join each scalar identity by interval hull; an omitted
 else contributes the false flow. These rules add no grammar or relational facts
 between different objects.
 
-The type mark `Integer` must be visible in declarations and Image expressions.
-An Integer or Integer-array object cannot itself be named `Integer`. A String object named
+The type mark used in a declaration must be visible; `Integer` must be visible
+in Integer Image expressions and as the parent of a subtype declaration.
+An Integer object, Integer-array object or subtype cannot itself be named `Integer`. A String object named
 `Integer` remains legal, but hides the type in its own initializer and later
-source; scalar declarations and array component declarations cannot use that
-hidden type mark.
+source. An earlier named subtype remains usable for scalar objects and array
+components when a String object later hides the predefined Integer mark.
 
 ### Fixed-size Integer arrays
 
@@ -354,7 +381,7 @@ The ordered declaration region admits anonymous, one-dimensional arrays:
 ```text
 integer_array_declaration ::= name ":" [ "constant" ] "array" "("
                               static_scalar_expression ".." static_scalar_expression
-                              ")" "of" "Integer" ":=" integer_array_aggregate ";"
+                              ")" "of" integer_subtype_mark ":=" integer_array_aggregate ";"
 integer_array_aggregate   ::= "(" scalar_expression "," scalar_expression
                               { "," scalar_expression } ")"
                             | "(" static_scalar_expression "=>" scalar_expression ")"
@@ -367,8 +394,9 @@ productions, omitting the `indexed_integer_component` alternative from
 `scalar_unsigned`.
 
 Both index bounds must be Ada-static, fit Integer and form a nonempty range.
-Each declaration creates its own anonymous Ada array type. Components have the
-full predefined Integer subtype. Named array types, component constraints,
+Each declaration creates its own anonymous Ada array type. Components use the
+full predefined Integer range or the range of an earlier visible named Integer
+subtype, according to the component mark. Named array types, inline component constraints,
 multiple dimensions, null arrays and dynamic index bounds are outside this
 fragment. These are Silver scope restrictions, not Ada requirements.
 
@@ -382,7 +410,8 @@ are also outside this fragment: the bounded aggregate reader handles the two
 listed outer forms directly. Ada permits additional aggregate forms; these
 exclusions keep this initial reader and its correspondence argument small.
 Every component expression passes the usual
-Integer intermediate checks and evaluates to an exact initialized value.
+Integer intermediate checks and evaluates to an exact initialized value within
+the declared component range.
 Expressions can read earlier declarations, including earlier array components;
 self, cyclic and forward references remain excluded. There are no side effects
 inside an initializer expression. Subsequent component writes do not change
@@ -411,8 +440,9 @@ The array name and all subscript operands count toward the enclosing scalar
 expression's 64-operand limit; arithmetic shares the existing 63-operator budget.
 
 Declaration elaboration reads the exact initialized component values. In the
-body, every array read contributes the full Integer interval, including reads
-from constant arrays. Array elements receive no per-element flow refinement.
+body, every array read contributes the declared component interval, including
+reads from constant arrays. `of Integer` retains the full Integer interval;
+`of S` contributes S's declared range. Array elements receive no per-element flow refinement.
 This conservative body rule keeps array-cell facts independent of scalar guards,
 component writes and loop composition; tracking individual cell values through
 control flow is outside this fragment.
@@ -424,7 +454,8 @@ element does not narrow a later read of that element.
 An indexed assignment has the form
 `A(scalar_index_expression) := scalar_expression;`. Only visible mutable arrays can
 be targets. The index passes the same check as a read, and the RHS must have a
-nonempty inferred interval with every intermediate fitting Integer. Both use
+nonempty inferred interval contained in the declared component range, with every
+intermediate fitting Integer. Both use
 the incoming state; the assignment replaces precisely the selected component.
 Other elements, array bounds, scalar-flow facts, String/input facts and earlier
 snapshots are preserved. Array writes carry across loop iterations. Loop bounds
@@ -511,8 +542,9 @@ selected once on entry. The element denotes the actual component under Ada's
 iterator semantics; the array is constant and no admitted operation can change
 its components. No array snapshot or source rewriting is involved.
 
-The scoped element is immutable and nonstatic. Its entry interval is the full
-predefined Integer range, even when all initializer values are small. A guard
+The scoped element is immutable and nonstatic. Its entry interval is the
+declared component range: full Integer for `of Integer`, or the named subtype's
+range for `of S`, independent of the particular initializer values. A guard
 on its bare name may refine its reads in that iteration, under the existing
 scalar-guard rules. It neither refines array cells nor supplies an Ada-static
 threshold. Element facts do not carry into another iteration or escape the loop.
@@ -890,8 +922,9 @@ The catalogue uses these construct identifiers:
 | `string_copy` | Snapshot initialization and current name reads for compatible assignments. |
 | `string_expression`, `string_concatenation` | One through sixty-four literal/name/Image leaves; sixty-three operators shared with scalar arithmetic. |
 | `scalar_integer_literal`, `named_integer_constant`, `named_integer_variable`, `integer_range_constraint`, `integer_expression`, `integer_assignment` | Scalar numerals, initialized Integer objects, optional static object constraints, checked interval arithmetic and range-preserving assignments. |
+| `named_integer_subtype` | Direct Integer subtype declarations with nonempty static ranges, scalar object subtype marks and bounded fixed-array component marks. |
 | `integer_array_object`, `integer_array_read`, `integer_array_assignment` | Explicitly initialized anonymous fixed-size Integer arrays, nonempty interval-checked subscripts and component-preserving indexed assignment. |
-| `integer_array_iteration` | Forward/reverse iteration over constant Integer arrays, with immutable nonstatic elements, full Integer entry bounds and existing guard/statement compositions. |
+| `integer_array_iteration` | Forward/reverse iteration over constant Integer arrays, with immutable nonstatic elements, declared component entry bounds and existing guard/statement compositions. |
 | `integer_comparison`, `scalar_guard_refinement`, `integer_image`, `for_loop` | Bare mutable/index/element names against static thresholds, current read intervals with assignment replacement and branch hulls, standard decimal Image and scoped finite loops with captured bounds and mutable widening. |
 | `expression_output`, `literal_output`, `named_output`, `concatenated_output` | Returning output calls with qualified or visible unqualified names and positional or `Item =>` actuals. |
 | `argument_initialization`, `input_guard`, `capacity_guard`, `argument_rejection` | First/unique immutable input with positional or `Default =>` literal, path-derived validity/capacity and returning rejection; existing calls follow the shared visibility rules. |
@@ -900,7 +933,7 @@ The catalogue uses these construct identifiers:
 | `string_assignment` | Fixed-bound assignment, including self-copy and path-established length equality. |
 | `statement_sequence`, `basic_statement_sequence` | Nonempty finite ordered statements; basic sequences contain null, assignment, output and argument-shell Reject; general sequences also contain choices and loops. |
 
-Everything else is excluded, including named scalar types/subtypes, conversions,
+Everything else is excluded, including derived scalar types, subtype alias chains, conversions,
 other loop forms,
 Boolean values outside the specified predicate grammar,
 additional declaration regions, resizable strings, other array
