@@ -2,8 +2,10 @@
 
 Final validation is in progress for [#286](https://github.com/berkeleynerd/silver/issues/286)
 and [draft PR #289](https://github.com/berkeleynerd/silver/pull/289). The complete
-native proof/audit and Lean/source/module/axiom check remain pending. The full
-regression suite and final proof-reading reruns have passed.
+native run failed on one static result/model equality; its complete audit did
+not run. Lean/source/module/axiom validation remains pending. The full
+regression suite and final proof-reading reruns have passed on the implementation
+target below; any proof repair still requires an applicability assessment.
 The authorized delivery ends with a
 reviewable feature PR; merging it awaits the owner's instruction.
 
@@ -12,6 +14,23 @@ The implementation and final code-review target is
 only. The [integration review](../../reviews/review-named-integer-subtypes-final-integration-97312a790f.md)
 covers the final proof repairs and regression applicability; its final evidence
 confirmation remains pending.
+
+## Failed complete native checkpoint
+
+Run `20261029T165015-c6b111fb4f2a` finished at 20:29 UTC with tool exit 1 after
+13,129.891 s. Exactly one of 15,385 proof entries remains unresolved:
+`Body_Tail`'s static equality to `Body_Tail_Model`, at
+`src/silver_output_profile.adb:3414:20`. The 1,432 flow entries passed, and all
+76 unit reports were emitted. This is not a complete native success: the final
+coverage/provenance audit did not run and no success manifest was produced.
+
+The [failed packet](native-full-reuse/failed-full/README.md) retains the original
+reports, inputs, tool identities and managed outcome. The
+[diagnostic](native-full-reuse/body-tail-diagnostic/README.md) records the failed
+Why3 goal and corrects the provisional completed-session observation. A focused
+ghost-equality repair is in progress in an isolated workspace. The current
+Lean run keeps its captured inputs unchanged; those inputs will need replacing
+at a new complete checkpoint if the repair changes the authoritative source.
 
 ## Retained completed checks
 

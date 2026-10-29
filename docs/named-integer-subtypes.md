@@ -60,14 +60,18 @@ axiom and full regression validation on identified final inputs, followed by
 independent review and feature PR publication. No validation or assurance result
 is claimed by this initial planning record.
 
-## Work round
+## Planning round
 
 Authorization recording used selected GPT-6.1 Sol / High for this bounded planning
 subthread. Runtime model confirmation and token/cost measurements are unavailable.
 The deliverable is the authorization-only planning PR and one milestone/package;
 feature design, implementation, proofs and validation belong to #286.
 
-## Implementation decisions and current checks
+## Implementation decisions and validation history
+
+The checks below record each development round and its state at that time.
+The [delivery section](#delivery-assurance-and-validation) gives the current
+validation status.
 
 Subtype declarations use a separate compact metadata table, preserving existing
 scalar cell identities and static-value invariants. Five operation-hiding flags
@@ -176,9 +180,11 @@ records reuse of that checked closure in the integration workspace; complete
 source checking is still outstanding.
 
 Complete native run `20261029T154107-1e953acac4e4` and regression run
-`20261029T153819-5626949ad567` started on stable compiler inputs. Their outcomes
-are pending. Remaining scalar-native correspondence repairs use the existing
-valid-metadata and component-bound facts without changing endpoint domains.
+`20261029T153819-5626949ad567` started on stable compiler inputs. The native run
+was subsequently interrupted in favor of the retained-workspace run identified
+below; the regression run passed. At this round, the remaining scalar-native
+correspondence repairs used the existing valid-metadata and component-bound
+facts without changing endpoint domains.
 Focused run `20261029T154909-06ffd07f35c4` was interrupted when an inherited-model
 target unexpectedly pulled in the expensive source chain; completed lower
 objects are retained, but no successful focused audit is claimed for that run.
@@ -207,7 +213,17 @@ all 143 tracked native inputs. The earlier full run was deliberately interrupted
 to avoid re-proving unchanged units in a fresh workspace; its original outcome,
 sessions and evidence remain preserved in the
 [reuse record](evidence/named-integer-subtypes-20261029/native-full-reuse/README.md).
-Both complete proof outcomes remain pending.
+The native run finished unsuccessfully at 20:29 UTC after 13,129.891 s. Its
+76 unit reports contain 15,385 proof entries, with exactly one unresolved
+postcondition: `Body_Tail'Result = Body_Tail_Model (Text, Context, Scan, Stop)`
+at `silver_output_profile.adb:3414:20`. All 1,432 flow entries passed, but the
+complete coverage/provenance audit did not run and no success manifest exists.
+The [failed native packet](evidence/named-integer-subtypes-20261029/native-full-reuse/failed-full/README.md)
+and [diagnostic](evidence/named-integer-subtypes-20261029/native-full-reuse/body-tail-diagnostic/README.md)
+retain that outcome and the exact failed equality. A focused ghost-equality
+repair is being tested in an isolated workspace without changing contracts or
+prover settings. Complete Lean validation is still active on the pre-repair
+inputs; it cannot establish source correspondence for a later source edit.
 
 Full regression run `20261029T153819-5626949ad567` passed all 555 test identities
 in 5,255.763 s, including 52 sample sources and 108 executions. The
@@ -223,3 +239,4 @@ confirmation await complete assurance; PR #289 remains a draft.
 | Round | Selected settings | Result and remaining work |
 | --- | --- | --- |
 | Final regression reconciliation and native workspace reuse | Lead runtime settings unavailable; native worker GPT-6 Astra / Extra High; delivery documentation GPT-6.1 Sol / High | Full suite passed in 5,259.531 s managed time; both affected modules passed. Native reuse preserves prior sessions and exact input comparisons; complete native and Lean checks remain active. Token/cost measurements unavailable. |
+| Complete-native failure diagnosis | Native continuation selected GPT-6 Astra / Extra High; source-impact assessment selected GPT-6.1 Sol / Extra High | The full native run ended after 13,129.891 s with one static result/model equality unresolved. Original reports and inputs are retained; focused repair and affected-source validation remain required. Earlier provisional session-progress observations were incomplete, not successful full validation. |
