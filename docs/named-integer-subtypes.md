@@ -243,8 +243,11 @@ the runtime build under the pinned Static erasure rules.
 
 Complete Lean run `20261029T205735-bb72d0625415` is active on all 653 matching
 repaired inputs. Native build `20261029T210150-1086727daf3c` passed on matching
-governed inputs. The new complete native audit and affected regressions remain
-required; focused proof success does not replace either complete checkpoint.
+governed inputs. Complete native run `20261029T211041-a76eb6753f23` is active
+with four workers in the retained native workspace and all 143 tracked inputs
+matching the repaired target. The [46-test refresh](evidence/named-integer-subtypes-20261029/repair-regression/README.md)
+passed. Complete native and Lean outcomes remain pending; focused proof success
+does not replace either complete checkpoint.
 
 Full regression run `20261029T153819-5626949ad567` passed all 555 test identities
 in 5,255.763 s, including 52 sample sources and 108 executions. The
@@ -253,8 +256,8 @@ identified two test modules affected by the final five proof edits. Runs
 `20261029T170712-d9dc75fa5629` and `20261029T170846-5ccd1f3667b8` passed their
 12 and 16 tests. The pre-repair inventory was therefore covered by 527 applicable
 full-suite results and 28 refreshed results. The repair review requires
-46 refreshed identities and permits retaining the other 509; those new reruns
-are in progress. There are 546 distinct methods
+46 refreshed identities and permits retaining the other 509; all 46 new reruns
+passed, with no missing or failed identity. There are 546 distinct methods
 after excluding nine previously disclosed duplicate executions through separate
 shared-binding import names. Final Rosetta delivery metadata and evidence
 confirmation await complete assurance; PR #289 remains a draft.
@@ -263,4 +266,4 @@ confirmation await complete assurance; PR #289 remains a draft.
 | --- | --- | --- |
 | Final regression reconciliation and native workspace reuse | Lead runtime settings unavailable; native worker GPT-6 Astra / Extra High; delivery documentation GPT-6.1 Sol / High | Full suite passed in 5,259.531 s managed time; both affected modules passed. Native reuse preserves prior sessions and exact input comparisons; complete native and Lean checks remain active. Token/cost measurements unavailable. |
 | Complete-native failure diagnosis | Native continuation selected GPT-6 Astra / Extra High; source-impact assessment selected GPT-6.1 Sol / Extra High | The full native run ended after 13,129.891 s with one static result/model equality unresolved. Original reports and inputs are retained; focused repair and affected-source validation remain required. Earlier provisional session-progress observations were incomplete, not successful full validation. |
-| Body_Tail equality repair and reviewed applicability | Native repair and independent reviewer selected GPT-6 Astra / Extra High; regression refresh selected GPT-6.1 Sol / Extra High | Focused native proof passed in 1,179.240 s; the eight-line Static-only repair and mechanical pin/certificate refresh are reviewed. New complete Lean run is active, native build passed, and 46 affected tests are being refreshed. An empty focused-report archive was corrected and independently verified without a proof rerun. |
+| Body_Tail equality repair and reviewed applicability | Native repair and independent reviewer selected GPT-6 Astra / Extra High; regression refresh selected GPT-6.1 Sol / Extra High | Focused native proof passed in 1,179.240 s; the eight-line Static-only repair and mechanical pin/certificate refresh are reviewed. Repaired complete native/Lean runs are active; native build and all 46 affected tests passed. An empty focused-report archive was corrected and independently verified without a proof rerun. |

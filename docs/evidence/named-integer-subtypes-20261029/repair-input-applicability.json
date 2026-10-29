@@ -1,7 +1,7 @@
 {
   "implementation_commit": "6020416906b5fc3d2bd10d012e70937c80f0617c",
   "pre_repair_implementation_commit": "97312a790fb11a83a9607ad48ddab491711f2c3d",
-  "scope": "Input identity and review applicability only. Complete repaired native and Lean assurance and the 46 affected regression results remain pending.",
+  "scope": "Repaired input identity and reviewed regression applicability. All 46 affected tests passed; complete repaired native and Lean outcomes remain pending.",
   "source_delta": {
     "proof/Silver/OutputBodyCertificate.lean": {
       "before_sha256": "dad4e37a2c1f27398d6f4aba079aa9ff7e4705bedf98e6b5d9dd8028bfa7269b",
@@ -26,5 +26,13 @@
   },
   "applicability_review": "../../reviews/review-named-integer-subtypes-body-tail-equality-20261029.md",
   "required_refreshed_test_count": 46,
-  "retained_test_count_subject_to_review": 509
+  "retained_test_count_subject_to_review": 509,
+  "native_run_id": "20261029T211041-a76eb6753f23",
+  "regression_packet": "repair-regression/README.md",
+  "regression_coverage": {
+    "retained": 509,
+    "refreshed": 46,
+    "total": 555,
+    "missing_or_failed": []
+  }
 }

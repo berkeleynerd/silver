@@ -5,7 +5,7 @@ and [draft PR #289](https://github.com/berkeleynerd/silver/pull/289). The comple
 native proof and Lean/source/module/axiom validation remain pending on the
 repaired source. The one failed native equality has passed focused validation
 and independent review. The original full regression suite passed; the
-46 results affected by the proof repair are being refreshed.
+46 results affected by the proof repair have passed their final-input reruns.
 The authorized delivery ends with a
 reviewable feature PR; merging it awaits the owner's instruction.
 
@@ -58,8 +58,12 @@ Complete Lean run `20261029T205735-bb72d0625415` now checks the repaired source
 with one worker/thread and 24,576 MiB per-process allowance. All 653 captured
 inputs match `6020416906`; the [repair input comparison](repair-input-applicability.json)
 identifies the three changed files. Native build `20261029T210150-1086727daf3c`
-passed on matching governed inputs. Complete native proof/audit and the final
-46-test refresh remain outstanding; focused success is not full assurance.
+passed on matching governed inputs. All 46 affected tests passed; their
+[repair regression packet](repair-regression/README.md) accounts for 509
+applicable original results plus 46 refreshed results, covering all 555
+identities. Complete native run `20261029T211041-a76eb6753f23` is active with
+four workers in the retained native workspace; all 143 tracked inputs match
+`6020416906`. Complete native and Lean outcomes remain pending.
 
 ## Retained completed checks
 
@@ -68,15 +72,15 @@ passed on matching governed inputs. Complete native proof/audit and the final
 | `20261029T144520-fb1a3732d7f3` | New subtype regressions on the earlier native draft | Ten tests passed, including native proof/build/execution; superseded inputs remain identified by the run |
 | `20261029T145959-ad36e50b8dc3` | Sum of squares and Sum and product drivers | Admission, proof, compilation and execution passed with the manifest outputs |
 | `20261029T152349-f75d7ed9d693` | Interpreted Compose helpers | Passed; fresh audit of 10,591 declarations |
-| `20261029T153109-c0a06d180fd0` | Final native build after the ghost equality repair | Passed, 12.178 s |
+| `20261029T153109-c0a06d180fd0` | Pre-repair native build after the earlier ghost equality repair | Passed, 12.178 s |
 | `20261029T153154-c4df9862d2d0` | Corrected capacity regression | Three tests passed |
 | `20261029T153446-d943972d9cb8` | Generated certificate parity | All 28 certificates regenerate byte-identically |
 | `20261029T153928-8c628fb8b8bb` | Shared composition equations | Passed; fresh audit of 10,653 declarations |
 | `20261029T154650-8200a2184daf` | Recognition/model equations and retained Sequence model | Passed; fresh audit of 20,836 declarations |
 | `20261029T161019-1954ab856759` | Scalar-array recursion and native Predicate helper/library closure | Passed; fresh audit of 35,005 declarations |
 | `20261029T153819-5626949ad567` | Full regression and sample suite | Passed: 555 tests, 5,255.763 s unittest time / 5,259.531 s managed duration |
-| `20261029T170712-d9dc75fa5629` | Final proof-source tests, including certificate parity | Passed: 12 tests |
-| `20261029T170846-5ccd1f3667b8` | Platform fixtures using the final proof tree | Passed: 16 tests; platform behavior is mocked, not native macOS validation |
+| `20261029T170712-d9dc75fa5629` | Pre-repair proof-source tests, including certificate parity | Passed: 12 tests |
+| `20261029T170846-5ccd1f3667b8` | Platform fixtures using the pre-repair proof tree | Passed: 16 tests; platform behavior is mocked, not native macOS validation |
 
 `runs/` contains original managed events and available outputs, compressed without
 changing their decompressed bytes. Each `retained.json` gives the original source
@@ -121,16 +125,20 @@ reruns below refresh applicability after the later proof edits.
 
 The independent integration review required `test_lean_source.py` and
 `test_platforms.py` to run again on the five pre-repair proof edits. Both reruns passed
-on matching inputs. The original [reconciliation](test-reconciliation.json)
-accounts for 527 applicable full-suite results plus 28 freshly rerun results,
+on matching inputs. The [original reconciliation](repair-regression/prior-test-reconciliation.json)
+accounted for 527 applicable full-suite results plus 28 freshly rerun results,
 covered all 555 identities at `97312a790f` with none missing or failed.
 The repair review subsequently requires 46 refreshed identities: those same
 28 tests, all 17 output-integrity fixtures, and the single Silver integration
 fixture that rebuilds current sources while exercising tool/source failures.
 The other 509 results remain applicable because the repair is erased Static
 code and its source/proof dependencies are identified in that review. The
-46 repaired-input results are still pending; the original passing runs retain
-their outcomes and input scope.
+46 repaired-input results have now passed. The current
+[reconciliation](test-reconciliation.json) records 509 retained results plus
+46 new passes, with no missing or failed identity. All 792 tracked inputs in
+each of the four reruns match `6020416906`; the original passing runs retain
+their outcomes and input scope. Run `20261029T210251-939fbc67799b` includes
+final byte parity for all 28 generated certificates.
 The [discovery inventory](test-inventory.json)
 contains 555 unique unittest identities, including nine shared-binding methods
 executed through two module import names: 546 methods after excluding those
