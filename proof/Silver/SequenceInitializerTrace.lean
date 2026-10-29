@@ -1,6 +1,6 @@
 module
 
-public import Silver.SequenceTokens
+public import Silver.SequenceSubtypeReady
 public import Silver.ComposeInitializerTrace
 
 @[expose] public section
@@ -27,9 +27,10 @@ theorem step_initializer_trace {text form token state next event}
 
 theorem initializer_step_discharge {text form token state next checks}
     (trace : InitializerStepAt text form token state checks next)
-    (normal : NamesNormal state.names) : Integer.discharged checks = true := by
+    (normal : NamesNormal state.names)
+    (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames) : Integer.discharged checks = true := by
   cases trace with
-  | declarations reading => exact initializer_checks_discharge normal reading
+  | declarations reading => exact initializer_checks_discharge normal reading subtypes
   | other => rfl
 
 theorem initializer_step_unique {text form token state next left right}
@@ -65,20 +66,22 @@ theorem tokens_initializer_trace {text form tokens state events final}
 
 theorem initializer_tokens_discharge {text form tokens state checks final}
     (domain : text.length ≤ maxSourceLength)
-    (trace : InitializerTokensAt text form tokens state checks final) (valid : StateValid state) :
+    (trace : InitializerTokensAt text form tokens state checks final) (valid : StateValid state)
+    (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames) :
     Integer.discharged checks = true := by
   induction trace with
   | done => rfl
   | next parsed first rest ih =>
-      rw [Integer.discharged_append, initializer_step_discharge first valid.1,
-        ih (step_valid domain valid parsed).1]
+      rw [Integer.discharged_append, initializer_step_discharge first valid.1 subtypes,
+        ih (step_valid domain valid parsed).1 (step_subtypes_valid parsed subtypes)]
       rfl
 
 theorem initializer_tokens_valid {text form tokens state checks final}
     (domain : text.length ≤ maxSourceLength)
-    (trace : InitializerTokensAt text form tokens state checks final) (valid : StateValid state) :
+    (trace : InitializerTokensAt text form tokens state checks final) (valid : StateValid state)
+    (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames) :
     ∀ check ∈ checks, check.Valid := by
-  have all := List.all_eq_true.mp (initializer_tokens_discharge domain trace valid)
+  have all := List.all_eq_true.mp (initializer_tokens_discharge domain trace valid subtypes)
   exact fun check member => Integer.Obligation.discharge_sound (all check member)
 
 theorem initializer_tokens_unique {text form tokens state left right final}
