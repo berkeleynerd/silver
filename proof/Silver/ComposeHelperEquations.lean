@@ -121,11 +121,9 @@ decreasing_by omega
   | succ index =>
     rw [IntegerSubtypes.lookupFrom]
     by_cases absent : first = 0 ∨ after ≤ first
-    · simp only [Bool.or_eq_true, decide_eq_true_eq]
-      simp [absent, or_assoc]
-    · simp only [Bool.or_eq_true, decide_eq_true_eq]
-      simp only [show ¬(first = 0 ∨ after ≤ first ∨ index + 1 = 0) by omega,
-        absent, ↓reduceIte]
+    · simp only [Bool.or_eq_true, decide_eq_true_eq, absent, true_or, ↓reduceIte]
+    · simp only [Bool.or_eq_true, decide_eq_true_eq, absent, false_or,
+        show index + 1 ≠ 0 by omega, ↓reduceIte]
       split
       · rfl
       · simpa only [Nat.add_sub_cancel] using
@@ -570,8 +568,10 @@ private theorem declarationGate {α : Type} (a : Bool) (b c : Prop) [Decidable b
   let after := nameAfter text first
   have firstBound : ValidCursor text first := model_skip_valid text position bound
   have afterBound : ValidCursor text after := model_name_valid text first
-  have es := interpreted_skip calls equations text valid position bound
-  have en := interpreted_name calls equations text valid first firstBound
+  have es : calls.function .skip text position = first :=
+    interpreted_skip calls equations text valid position bound
+  have en : calls.function .nameAfter text first = after :=
+    interpreted_name calls equations text valid first firstBound
   have el := interpreted_lookup calls equations text valid state.names first after
     (domain.valid text state stateValid).2.1 firstBound afterBound
   have ec := equations.scalarLookup text valid state.scalarNames first after
@@ -591,37 +591,37 @@ private theorem declarationGate {α : Type} (a : Bool) (b c : Prop) [Decidable b
   simp only [Bool.or_eq_true, decide_eq_true_eq]
   split
   · rename_i rejected
-    simp only [scalarTypeAt, first, after, Bool.or_eq_true, decide_eq_true_eq]
-    simp_all [or_assoc]
+    dsimp only [after, first] at rejected
+    simpa only [scalarTypeAt, rejected, ↓reduceIte]
   · rename_i admitted
     have nameValid : ValidName text first after := ⟨by omega, by omega, afterBound⟩
     rw [equations.nameIs text valid first after "integer" nameValid (by decide) (by decide)]
-    simp only [scalarTypeAt, first, after, Bool.or_eq_true, decide_eq_true_eq]
-    simp_all [or_assoc]
+    dsimp only [after, first] at admitted
+    simp only [scalarTypeAt, admitted, ↓reduceIte]
 
 @[simp] theorem interpreted_subtypeDeclaration (calls : Calls) (equations : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (state : ParserState) (arguments : Bool)
     (stateValid : domain.holds text state) :
     calls.function .subtypeDeclaration text state arguments = subtypeDeclarationAt text state arguments := by
-  let prefix := fixedAfter text state.position "subtype" true
-  let first := skipAt text prefix
+  let subtypeAfter := fixedAfter text state.position "subtype" true
+  let first := skipAt text subtypeAfter
   let after := nameAfter text first
   let marker := fixedAfter text after "is" true
   let typeFirst := skipAt text marker
   let typeAfter := fixedAfter text typeFirst "integer" true
   let constraint := scalarConstraintAt text typeAfter state.scalarNames
   let following := fixedAfter text constraint.after ";" false
-  have bp : ValidCursor text prefix := model_fixed_valid text state.position "subtype" true (domain.valid text state stateValid).1
-  have bf : ValidCursor text first := model_skip_valid text prefix bp
+  have bp : ValidCursor text subtypeAfter := model_fixed_valid text state.position "subtype" true (domain.valid text state stateValid).1
+  have bf : ValidCursor text first := model_skip_valid text subtypeAfter bp
   have ba : ValidCursor text after := model_name_valid text first
   have bm : ValidCursor text marker := model_fixed_valid text after "is" true ba
   have btf : ValidCursor text typeFirst := model_skip_valid text marker bm
   have bta : ValidCursor text typeAfter := model_fixed_valid text typeFirst "integer" true btf
   have bc : ValidCursor text constraint.after := scalarConstraintAt_position_valid text typeAfter state.scalarNames bta
   have cp : constraint.bounds.Bounded := scalarConstraintAt_bounded_all text typeAfter state.scalarNames bta Integer.Interval.full_bounded
-  have ep : calls.function .takeToken text state.position (.word "subtype") = prefix :=
+  have ep : calls.function .takeToken text state.position (.word "subtype") = subtypeAfter :=
     interpreted_take calls equations text valid state.position (.word "subtype") (domain.valid text state stateValid).1 (by unfold ValidToken; decide)
-  have ef : calls.function .skip text prefix = first := interpreted_skip calls equations text valid prefix bp
+  have ef : calls.function .skip text subtypeAfter = first := interpreted_skip calls equations text valid subtypeAfter bp
   have ea : calls.function .nameAfter text first = after := interpreted_name calls equations text valid first bf
   have em : calls.function .takeToken text after (.word "is") = marker :=
     interpreted_take calls equations text valid after (.word "is") ba (by unfold ValidToken; decide)
@@ -655,11 +655,13 @@ private theorem declarationGate {α : Type} (a : Bool) (b c : Prop) [Decidable b
     simp only [operations]
     dsimp only [subtypeDeclarationAt, subtypeDeclarationParts, addSubtypeBinding,
       IntegerSubtypes.append, IntegerSubtypes.CallHiding.add, IntegerSubtypes.CallHiding.get,
-      prefix, first, after, marker, typeFirst, typeAfter, constraint, following]
+      spelling, isWord, ShellToken.word,
+      subtypeAfter, first, after, marker, typeFirst, typeAfter, constraint, following]
     simp only [Bool.decide_or, Bool.or_assoc]
   · have rejected : newNameAllowed text state first after arguments = false := Bool.eq_false_iff.mpr allowed
     simp only [rejected, Bool.not_false, Bool.true_or, ↓reduceIte]
-    simp only [subtypeDeclarationAt, subtypeDeclarationParts, ← prefix, ← first, ← after,
+    dsimp only [after, first, subtypeAfter] at rejected
+    simp only [subtypeDeclarationAt, subtypeDeclarationParts,
       rejected, Bool.not_false, Bool.true_or, ↓reduceIte]
 
 @[simp] theorem interpreted_scalarDeclaration (calls : Calls) (equations : HelperEquations calls (domain := domain))
@@ -702,6 +704,7 @@ private theorem declarationGate {α : Type} (a : Bool) (b c : Prop) [Decidable b
   have etypeFirst : calls.function .skip text (if constant ≠ 0 then constant else colon) = typeFirst := interpreted_skip calls equations text valid _ bchoice
   have etypeMark : calls.function .scalarType text state typeFirst = typeMark :=
     interpreted_scalarType calls equations text valid state typeFirst stateValid btypeFirst
+  have typeAfter_eq : typeMark.after = typeAfter := rfl
   have econstraint : calls.function .scalarConstraint text typeAfter state.scalarNames typeMark.bounds = constraint := interpreted_scalarConstraint calls equations text valid typeAfter state.scalarNames btypeAfter (domain.valid text state stateValid).2.2.2.2.2.1 typeMark.bounds baseValid
   have eposition : calls.function .takeToken text constraint.after (.symbol ":=") = position := interpreted_take calls equations text valid constraint.after (.symbol ":=") bconstraint (by unfold ValidToken; decide)
   have evalue : calls.function .scalarRead text position state.scalarNames state.arrayNames.names state.arrayNames.values true = value := equations.scalarRead text valid position state.scalarNames state.arrayNames.names state.arrayNames.values true bposition (domain.valid text state stateValid).2.2.2.2.2.1 (state_array_metadata (domain.valid text state stateValid)) (state_array_initials (domain.valid text state stateValid))
@@ -713,7 +716,7 @@ private theorem declarationGate {α : Type} (a : Bool) (b c : Prop) [Decidable b
   have eempty := equations.scalarEmpty value.bounds bvalue.2
   rw [equations.scalarDeclaration text valid state arguments stateValid, scalarDeclaration_denotation]
   change scalarDeclarationEquation calls text state arguments = _
-  simp only [scalarDeclarationEquation, decideIf, efirst, eafter, ecolon, econstant, etypeFirst, etypeMark, econstraint, eposition, evalue,
+  simp only [scalarDeclarationEquation, decideIf, efirst, eafter, ecolon, econstant, etypeFirst, etypeMark, typeAfter_eq, econstraint, eposition, evalue,
     efollowing, ename, estring, escalar, earray, eempty]
   by_cases allowed : newNameAllowed text state first after arguments = true
   · have nameValid := model_new_name_valid text state first after arguments bafter allowed
@@ -721,7 +724,7 @@ private theorem declarationGate {α : Type} (a : Bool) (b c : Prop) [Decidable b
     rw [declaration_nameIs_integer text state arguments first after rfl rfl allowed]
     by_cases full : state.scalarNames.length = ScalarExpression.maxBindings
     · simp [full, scalarDeclarationAt, scalarDeclarationParts, first, after, typeFirst, typeAfter, typeMark,
-        constraint, position, value, following, maxBindings, ScalarExpression.maxBindings, maxSourceLength]
+        constraint, position, value, following, ScalarExpression.maxBindings]
     · have room : state.scalarNames.length < ScalarExpression.maxBindings := by
         have bound := (domain.valid text state stateValid).2.2.2.2.2.1.1
         omega
