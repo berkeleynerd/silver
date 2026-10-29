@@ -215,27 +215,120 @@ def Context.locals (context : Context) : Locals
   | .integer, "index" => context.indexValue
   | ty, _ => ty.default
 
-def Expr.wellFormed (locals : List (String × Ty)) : Expr ty → Bool
+def Expr.scoped (locals : List (String × Ty)) : Expr ty → Bool
   | .variable name => locals.lookup name == some ty
   | .number _ | .function _ | .intOne | .maxElements => true
-  | .app fn arg => fn.wellFormed locals && arg.wellFormed locals
+  | .app fn arg => fn.scoped locals && arg.scoped locals
   | .field _ value | .wideNat value | .wideInt value | .elementIndex value
-  | .not value | .group value => value.wellFormed locals
+  | .not value | .group value => value.scoped locals
   | .binding a b | .initial a b | .natSub a b | .intSub a b | .intAdd a b
   | .eq a b | .le a b | .gt a b | .intEq a b | .intLe a b | .intGe a b
-  | .andThen a b | .orElse a b => a.wellFormed locals && b.wellFormed locals
-  | .ite c a b | .elsif c a b => c.wellFormed locals && a.wellFormed locals && b.wellFormed locals
+  | .andThen a b | .orElse a b => a.scoped locals && b.scoped locals
+  | .ite c a b | .elsif c a b => c.scoped locals && a.scoped locals && b.scoped locals
+
+/-- Explicit categories keep new constructors out of primary positions until
+reviewed. Function arguments admit full expressions; arithmetic and logical
+operators retain the association of the rendered source. -/
+def Expr.primary : Expr ty → Bool
+  | .number _ | .variable _ | .function _ | .app _ _ | .field _ _
+  | .binding _ _ | .initial _ _ | .wideNat _ | .wideInt _ | .elementIndex _
+  | .intOne | .maxElements | .group _ => true
+  | _ => false
+
+def Expr.simple : Expr ty → Bool
+  | .natSub _ _ | .intSub _ _ | .intAdd _ _ | .not _ => true
+  | value => value.primary
+
+def Expr.relation : Expr ty → Bool
+  | .eq _ _ | .le _ _ | .gt _ _ | .intEq _ _ | .intLe _ _ | .intGe _ _ => true
+  | value => value.simple
+
+def Expr.expression : Expr ty → Bool
+  | .andThen _ _ | .orElse _ _ => true
+  | value => value.relation
+
+def Expr.andLeft : Expr .truth → Bool
+  | .andThen _ _ => true
+  | value => value.relation
+
+def Expr.orLeft : Expr .truth → Bool
+  | .orElse _ _ => true
+  | value => value.relation
+
+def Expr.isConditional : Expr ty → Bool | .ite _ _ _ => true | _ => false
+
+def Expr.isElsif : Expr ty → Bool | .elsif _ _ _ => true | _ => false
+
+def Expr.functionSpine : Expr ty → Bool
+  | .function _ => true
+  | .app fn _ => fn.functionSpine
+  | _ => false
+
+def Expr.wellFormed : Expr ty → Bool
+  | .number _ | .variable _ | .function _ | .intOne | .maxElements => true
+  | .app fn arg => fn.functionSpine && fn.wellFormed && arg.expression && arg.wellFormed
+  | .field _ value => value.primary && value.wellFormed
+  | .binding names index | .initial names index =>
+      names.primary && names.wellFormed && index.expression && index.wellFormed
+  | .wideNat value | .wideInt value | .elementIndex value => value.expression && value.wellFormed
+  | .natSub a b | .intSub a b | .intAdd a b => a.simple && b.primary && a.wellFormed && b.wellFormed
+  | .eq a b | .le a b | .gt a b | .intEq a b | .intLe a b | .intGe a b =>
+      a.simple && b.simple && a.wellFormed && b.wellFormed
+  | .not value => value.primary && value.wellFormed
+  | .andThen a b => a.andLeft && b.relation && a.wellFormed && b.wellFormed
+  | .orElse a b => a.orLeft && b.relation && a.wellFormed && b.wellFormed
+  | .group value => (value.expression || value.isConditional) && value.wellFormed
+  | .ite c a b | .elsif c a b => c.expression && a.expression && (b.expression || b.isElsif) &&
+      c.wellFormed && a.wellFormed && b.wellFormed
 
 def WellFormedTrees : Prop :=
-  lookupBody.wellFormed [("text", .source), ("names", .metadata), ("first", .number),
-    ("after", .number), ("index", .number)] = true ∧
-  hullBody.wellFormed [("values", .initials), ("first", .number), ("last", .number)] = true ∧
-  containsBody.wellFormed [("item", .binding), ("index", .interval)] = true ∧
-  elementSlotBody.wellFormed [("item", .binding), ("index", .integer)] = true ∧
-  validBindingBody.wellFormed [("item", .binding)] = true
+  (lookupBody.wellFormed && lookupBody.scoped [("text", .source), ("names", .metadata), ("first", .number),
+    ("after", .number), ("index", .number)]) = true ∧
+  (hullBody.wellFormed && hullBody.scoped [("values", .initials), ("first", .number), ("last", .number)]) = true ∧
+  (containsBody.wellFormed && containsBody.scoped [("item", .binding), ("index", .interval)]) = true ∧
+  (elementSlotBody.wellFormed && elementSlotBody.scoped [("item", .binding), ("index", .integer)]) = true ∧
+  (validBindingBody.wellFormed && validBindingBody.scoped [("item", .binding)]) = true
 
 instance : Decidable WellFormedTrees := inferInstanceAs (Decidable (_ ∧ _ ∧ _ ∧ _ ∧ _))
 
 theorem trees_wellFormed : WellFormedTrees := by decide +kernel
+
+namespace PrecedenceChecks
+
+private def rightSub : Expr .integer := .intSub (.wideNat (.number 10))
+  (.intSub (.wideNat (.number 3)) .intOne)
+private def leftSub : Expr .integer := .intSub
+  (.intSub (.wideNat (.number 10)) (.wideNat (.number 3))) .intOne
+private def condition : Expr .truth := .eq (.number 0) (.number 0)
+private def choice : Expr .integer := .ite condition .intOne (.wideNat (.number 0))
+
+private theorem subtraction_collision (calls : Calls) (locals : Locals) :
+    rightSub.render = leftSub.render ∧ rightSub.eval calls locals = 8 ∧ leftSub.eval calls locals = 6 := by
+  exact ⟨rfl, rfl, rfl⟩
+
+private theorem arithmetic_categories :
+    rightSub.wellFormed = false ∧ leftSub.wellFormed = true ∧
+    (Expr.intSub (.wideNat (.number 10)) (.group (.intSub (.wideNat (.number 3)) .intOne))).wellFormed = true ∧
+    (Expr.intAdd .intOne (.intAdd .intOne .intOne)).wellFormed = false ∧
+    (Expr.intAdd .intOne (.group (.intAdd .intOne .intOne))).wellFormed = true ∧
+    (Expr.natSub (.number 3) (.natSub (.number 2) (.number 1))).wellFormed = false ∧
+    (Expr.intGe choice .intOne).wellFormed = false ∧
+    (Expr.intGe (.group choice) .intOne).wellFormed = true ∧
+    (apply3 (.function .hullModel) (.variable "values") (.number 1)
+      (.natSub (.number 3) (.number 1))).wellFormed = true := by decide +kernel
+
+private theorem logical_categories :
+    (Expr.not condition).wellFormed = false ∧
+    (Expr.not (.group condition)).wellFormed = true ∧
+    (Expr.andThen (.orElse condition condition) condition).wellFormed = false ∧
+    (Expr.andThen (.group (.orElse condition condition)) condition).wellFormed = true ∧
+    (Expr.ite condition choice .intOne).wellFormed = false ∧
+    (Expr.ite condition (.group choice) .intOne).wellFormed = true ∧
+    (Expr.group (.elsif condition .intOne .intOne)).wellFormed = false ∧
+    (Expr.ite condition .intOne (.elsif condition .intOne .intOne)).wellFormed = true ∧
+    (Expr.variable (ty := .integer) "index").scoped [] = false ∧
+    (Expr.variable (ty := .integer) "index").scoped [("index", .integer)] = true := by decide +kernel
+
+end PrecedenceChecks
 
 end Silver.ArrayBindings.Native

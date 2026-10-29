@@ -359,7 +359,12 @@ integer_array_aggregate   ::= "(" scalar_expression "," scalar_expression
                               { "," scalar_expression } ")"
                             | "(" static_scalar_expression "=>" scalar_expression ")"
 indexed_integer_component ::= integer_array_name "(" scalar_index_expression ")"
+scalar_index_expression   ::= scalar_expression excluding indexed_integer_component
 ```
+
+`scalar_index_expression` reuses `scalar_expression` and its recursive
+productions, omitting the `indexed_integer_component` alternative from
+`scalar_unsigned`.
 
 Both index bounds must be Ada-static, fit Integer and form a nonempty range.
 Each declaration creates its own anonymous Ada array type. Components have the
@@ -372,7 +377,11 @@ exactly one positional expression per component, in increasing index order.
 A one-element array uses one named association whose Ada-static choice equals
 its sole index; `(E)` alone is an ordinary parenthesized expression, not an
 array aggregate. `others`, range choices, mixed associations, brackets and
-aggregate expansion are excluded. Every component expression passes the usual
+aggregate expansion are excluded. Extra parentheses around the entire aggregate
+are also outside this fragment: the bounded aggregate reader handles the two
+listed outer forms directly. Ada permits additional aggregate forms; these
+exclusions keep this initial reader and its correspondence argument small.
+Every component expression passes the usual
 Integer intermediate checks and evaluates to an exact initialized value.
 Expressions can read earlier declarations, including earlier array components;
 self, cyclic and forward references remain excluded. There are no side effects
@@ -392,20 +401,28 @@ values and loop bounds. A subscript uses the existing scalar grammar with
 array reads excluded; therefore `A((I + 1))` is permitted when its interval is
 safe, but `A(B(I))` is outside this first fragment. Every inferred subscript
 interval must be nonempty and lie inside the declared index range, including
-in unreachable arms and empty loops. Static illegal expressions remain excluded.
+in unreachable arms and empty loops. This also preserves frontend acceptance:
+the pinned GNAT frontend rejects some out-of-range subscripts even in dead
+arms or null loops, including a null loop range wholly outside the array bounds.
+Silver applies one uniform interval rule rather than tracking which unreachable
+shapes the frontend accepts; the rule also excludes some Ada-legal shapes.
+Static illegal expressions remain excluded.
 The array name and all subscript operands count toward the enclosing scalar
 expression's 64-operand limit; arithmetic shares the existing 63-operator budget.
 
 Declaration elaboration reads the exact initialized component values. In the
 body, every array read contributes the full Integer interval, including reads
 from constant arrays. Array elements receive no per-element flow refinement.
+This conservative body rule keeps array-cell facts independent of scalar guards,
+component writes and loop composition; tracking individual cell values through
+control flow is outside this fragment.
 An indexed read is never Ada-static; a constant initialized from `A(1)` is an
 exact snapshot but cannot supply a static range endpoint or guard threshold.
 Scalar guards can establish a safe index interval, but a comparison of an array
 element does not narrow a later read of that element.
 
 An indexed assignment has the form
-`A(index_expression) := scalar_expression;`. Only visible mutable arrays can
+`A(scalar_index_expression) := scalar_expression;`. Only visible mutable arrays can
 be targets. The index passes the same check as a read, and the RHS must have a
 nonempty inferred interval with every intermediate fitting Integer. Both use
 the incoming state; the assignment replaces precisely the selected component.

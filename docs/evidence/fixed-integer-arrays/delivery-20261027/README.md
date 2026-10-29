@@ -12,6 +12,12 @@ plus the Lean evidence JSON when applicable, compressed without altering the
 decompressed bytes. `retained.json` records the original finished event and
 file hashes. Events retain the captured input maps and selected commands.
 
+The response also retains the [earlier advisory discovery](advisory-discovery/retained.json)
+from `20261027T075301-f654f3d5d925`: source, SPARK/SARIF reports, producer output
+and managed events/log. That historical run failed because the then-current
+auditor rejected two array-initialization notes despite all 71 checks proving.
+It is not a successful delivery checkpoint.
+
 | Run | Scope | Outcome |
 | --- | --- | --- |
 | `20261027T113126-109aa8ee133a` | Native build in the regression snapshot | Success |
@@ -55,16 +61,56 @@ a [4,375.007-second resource suspension](output-certificates/resource-suspension
 and concurrent host work; it is not an isolated timing baseline. The
 [artifact inventory](output-certificates/artifact-manifest.json) and
 [integration transfer](output-certificates/root-transfer.json) identify the
-68 verified output-module files reused for the complete checkpoint, with
-matching source and tool inputs. The complete checkpoint used those certificates.
+68 verified output-module files reused for the complete checkpoint (50 copied
+and 18 already matching), with ten matching dependency paths. The originating
+run’s [events](runs/20261027T104437-61ba627463df/events.jsonl.gz) retain the
+complete 642-entry `started.inputs.sources` map. Its SHA-256, calculated as
+`sha256(json.dumps(sources, sort_keys=True).encode())`, is
+`ece72b6440531cb05382b62ccc596d698681ae95d22426e85ab26177d204f50b`.
+That is the originating input identity, not a claim that every source input
+remained unchanged in the final integration. The transfer compares its actual
+dependencies. The complete checkpoint used those certificates.
+
+Cache provenance has a separate limitation. The external review of
+`10cdcd274c` reconstructs four final module rebuilds and 527 reused modules:
+257 without a contemporaneous seed-copy inventory and 270 other reused modules.
+Its separate origin count identifies 261 from other workspaces: those 257 plus
+four recorded output binding/certificate modules within the 270. The two counts
+describe overlapping categories, not additional modules. Those historical seed
+origins are reviewer-reported; the retained
+packet does not independently identify the source and copy time for each of
+the 257 modules. No retrospective copy manifest or fresh-build claim is
+inferred from that count.
+
+Successful modules from failed runs were also reused. The external review
+identifies six final reused objects from failed runs `20261027T104101-ac593bb25952`
+and `20261027T113341-7baf6c78f64b`, including the #262 caller-domain repairs.
+Their original local managed logs under the shared Git directory’s
+`silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/<run-id>/reports/0/lean-focused.log`
+record successful prerequisite builds while the overall runs failed. These
+logs were inspected during the response, but the six-object subset is the
+external review’s census, not a newly reconstructed object-origin manifest.
+The complete successful checkpoint freshly audits all 531 modules; it neither
+turns those failed runs into successes nor proves missing historical seed
+origins.
 
 [Native input applicability](native-input-applicability.json) verifies all 143
 tracked provenance inputs against the delivered tree and all 78 retained report
 digests. The native run's compressed `proof-evidence/` files include original
 reports, input inventory and provenance. [Lean input applicability](lean-input-applicability.json)
-verifies all 646 captured source inputs. The final Lean build took 39.708 s and
+verifies all 646 captured source inputs. These inputs exclude the 28 generated
+certificate modules, which the runner regenerates in its workspace. Of the 531
+audited project modules, 503 have captured Lean-source hashes; the remaining
+28 are regenerated certificates. The source-certificate parity tests passed in
+`20261027T124103-ca072dcceb1a`; hashing 646 inputs does not mean hashing every
+audited generated module. The final Lean build took 39.708 s and
 its fresh audit 10.449 s because the earlier successful modules were cached.
-These are complete-scope incremental checks, not clean-build timing baselines.
+The native provenance instead records `mode: full` and an initial state with
+`sessions_present: false` and `cache_entries_present: false`; its 28,417.217-second
+duration includes the complete coverage/provenance audit without initial native
+sessions or solver-cache entries.
+Lean results are complete-scope incremental checks, not clean-build timing
+baselines. Native and Lean cache conditions must not be conflated.
 No independent kernel replay, macOS or hosted CI result is claimed.
 
 The [final delivery review](../../../reviews/review-fixed-arrays-delivery-20261028.md)

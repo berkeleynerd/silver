@@ -1,0 +1,83 @@
+{
+  "scope": "independently reconstructed case; managed success means the expected rejection/control contrast was observed, not that the rejected program compiled",
+  "observations": [
+    {
+      "fixture": "contradiction",
+      "observations": [
+        {
+          "action": "check",
+          "returncode": 0,
+          "elapsed_seconds": 0.08128825899984804,
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; exec \"$@\"",
+            "guard-frontend-probe",
+            "taskset",
+            "-c",
+            "0,1",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/bin/silver",
+            "check",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-candidate-20261028/contradiction.adb"
+          ]
+        },
+        {
+          "action": "compile",
+          "returncode": 3,
+          "elapsed_seconds": 25.233792127000925,
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; exec \"$@\"",
+            "guard-frontend-probe",
+            "taskset",
+            "-c",
+            "0,1",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/bin/silver",
+            "compile",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-candidate-20261028/contradiction.adb"
+          ]
+        }
+      ]
+    },
+    {
+      "fixture": "control",
+      "observations": [
+        {
+          "action": "check",
+          "returncode": 0,
+          "elapsed_seconds": 0.04276995899999747,
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; exec \"$@\"",
+            "guard-frontend-probe",
+            "taskset",
+            "-c",
+            "0,1",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/bin/silver",
+            "check",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-candidate-20261028/control.adb"
+          ]
+        },
+        {
+          "action": "compile",
+          "returncode": 0,
+          "elapsed_seconds": 25.40414585200051,
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; exec \"$@\"",
+            "guard-frontend-probe",
+            "taskset",
+            "-c",
+            "0,1",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/bin/silver",
+            "compile",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-candidate-20261028/control.adb"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -148,7 +148,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""argument_initializer_position"": ""first and unique binding in argument-bearing forms only"",");
       Put_Line ("        ""shared_name_environment"": ""String, Integer and Integer-array declarations; scoped loop indexes and elements may hide them in bodies"",");
       Put_Line ("        ""integer_type_hiding"": ""a String binding named Integer hides the Image type mark in its own initializer and later source"",");
-      Put_Line ("        ""initializer_image_length"": ""non-input minimum and maximum must agree; Image captures exact initial values of earlier Integer objects""");
+      Put_Line ("        ""initializer_image_length"": ""non-input minimum and maximum must agree; Image captures exact initial values of earlier Integer objects and array components""");
       Put_Line ("      }");
       Put_Line ("    },");
       Put_Line ("    {");
@@ -321,7 +321,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""unused_allowed"": true,");
       Put_Line ("        ""shared_name_environment"": ""String, Integer and Integer-array declarations; scoped loop indexes and elements may hide them in bodies"",");
       Put_Line ("        ""integer_type_hiding"": ""a String binding named Integer hides the Image type mark in its own initializer and later source"",");
-      Put_Line ("        ""initializer_image_length"": ""non-input minimum and maximum must agree; Image captures exact initial values of earlier Integer objects""");
+      Put_Line ("        ""initializer_image_length"": ""non-input minimum and maximum must agree; Image captures exact initial values of earlier Integer objects and array components""");
       Put_Line ("      }");
       Put_Line ("    },");
       Put_Line ("    {");
@@ -636,7 +636,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("          ""integer_expression""");
       Put_Line ("        ],");
       Put_Line ("        ""initializer_required"": true,");
-      Put_Line ("        ""initializer_visibility"": ""earlier initialized Integer constants or mutable objects; no self, forward or cyclic reference"",");
+      Put_Line ("        ""initializer_visibility"": ""earlier initialized Integer constants or mutable objects, including array components; no self, forward or cyclic reference"",");
       Put_Line ("        ""identifier_pattern"": ""[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*"",");
       Put_Line ("        ""excluded_names"": [");
       Put_Line ("          ""String"",");
@@ -674,7 +674,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("          ""integer_expression""");
       Put_Line ("        ],");
       Put_Line ("        ""initializer_required"": true,");
-      Put_Line ("        ""initializer_visibility"": ""earlier initialized Integer constants or mutable objects; no self, forward or cyclic reference"",");
+      Put_Line ("        ""initializer_visibility"": ""earlier initialized Integer constants or mutable objects, including array components; no self, forward or cyclic reference"",");
       Put_Line ("        ""identifier_pattern"": ""[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*"",");
       Put_Line ("        ""excluded_names"": [");
       Put_Line ("          ""String"",");
@@ -994,7 +994,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""nested"": true,");
       Put_Line ("        ""index_immutable"": true,");
       Put_Line ("        ""index_scope"": ""body only; own name hidden in both bounds, including outer homonyms; restore only the scoped index on exit"",");
-      Put_Line ("        ""bound_visibility"": ""initialized Integer objects and differently named enclosing indexes"",");
+      Put_Line ("        ""bound_visibility"": ""initialized Integer objects and array components, and differently named enclosing indexes and elements"",");
       Put_Line ("        ""identifier_pattern"": ""[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*"",");
       Put_Line ("        ""excluded_names"": [");
       Put_Line ("          ""Silver_IO""");

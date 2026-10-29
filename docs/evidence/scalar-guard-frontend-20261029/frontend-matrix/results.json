@@ -1,0 +1,1142 @@
+[
+  {
+    "name": "original",
+    "admission_exit": 0,
+    "builds": {
+      "baseline": {
+        "returncode": 4,
+        "seconds": 0.856862516993715,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/baseline/original/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q"
+        ],
+        "diagnostic": "main.adb:1:142: error: value not in range of subtype of \"Standard.Integer\" defined at line 1\nmain.adb:1:142: error: Constraint_Error would have been raised at run time\ngprbuild: *** compilation phase failed\n"
+      },
+      "no_current_value": {
+        "returncode": 0,
+        "seconds": 0.8927981099986937,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/no_current_value/original/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q",
+          "-cargs",
+          "-gnatdM"
+        ],
+        "diagnostic": ""
+      }
+    }
+  },
+  {
+    "name": "control",
+    "admission_exit": 0,
+    "builds": {
+      "baseline": {
+        "returncode": 0,
+        "seconds": 0.8962809619988548,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/baseline/control/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q"
+        ],
+        "diagnostic": ""
+      },
+      "no_current_value": {
+        "returncode": 0,
+        "seconds": 1.0420564329979243,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/no_current_value/control/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q",
+          "-cargs",
+          "-gnatdM"
+        ],
+        "diagnostic": ""
+      }
+    }
+  },
+  {
+    "name": "reverse_outer",
+    "admission_exit": 0,
+    "builds": {
+      "baseline": {
+        "returncode": 0,
+        "seconds": 0.834848389000399,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/baseline/reverse_outer/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q"
+        ],
+        "diagnostic": ""
+      },
+      "no_current_value": {
+        "returncode": 0,
+        "seconds": 0.8740392000036081,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/no_current_value/reverse_outer/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q",
+          "-cargs",
+          "-gnatdM"
+        ],
+        "diagnostic": ""
+      }
+    }
+  },
+  {
+    "name": "reverse_equality",
+    "admission_exit": 0,
+    "builds": {
+      "baseline": {
+        "returncode": 4,
+        "seconds": 0.8626859910000348,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/baseline/reverse_equality/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q"
+        ],
+        "diagnostic": "main.adb:1:142: error: value not in range of subtype of \"Standard.Integer\" defined at line 1\nmain.adb:1:142: error: Constraint_Error would have been raised at run time\ngprbuild: *** compilation phase failed\n"
+      },
+      "no_current_value": {
+        "returncode": 0,
+        "seconds": 0.8568612349990872,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/no_current_value/reverse_equality/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q",
+          "-cargs",
+          "-gnatdM"
+        ],
+        "diagnostic": ""
+      }
+    }
+  },
+  {
+    "name": "group_name",
+    "admission_exit": 0,
+    "builds": {
+      "baseline": {
+        "returncode": 4,
+        "seconds": 0.7649868549997336,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/baseline/group_name/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q"
+        ],
+        "diagnostic": "main.adb:1:144: error: value not in range of subtype of \"Standard.Integer\" defined at line 1\nmain.adb:1:144: error: Constraint_Error would have been raised at run time\ngprbuild: *** compilation phase failed\n"
+      },
+      "no_current_value": {
+        "returncode": 0,
+        "seconds": 0.8167634380006348,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/no_current_value/group_name/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q",
+          "-cargs",
+          "-gnatdM"
+        ],
+        "diagnostic": ""
+      }
+    }
+  },
+  {
+    "name": "group_name_twice",
+    "admission_exit": 0,
+    "builds": {
+      "baseline": {
+        "returncode": 4,
+        "seconds": 0.8341837580010178,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/baseline/group_name_twice/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q"
+        ],
+        "diagnostic": "main.adb:1:146: error: value not in range of subtype of \"Standard.Integer\" defined at line 1\nmain.adb:1:146: error: Constraint_Error would have been raised at run time\ngprbuild: *** compilation phase failed\n"
+      },
+      "no_current_value": {
+        "returncode": 0,
+        "seconds": 0.7463799280012609,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/no_current_value/group_name_twice/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q",
+          "-cargs",
+          "-gnatdM"
+        ],
+        "diagnostic": ""
+      }
+    }
+  },
+  {
+    "name": "false_inequality",
+    "admission_exit": 0,
+    "builds": {
+      "baseline": {
+        "returncode": 4,
+        "seconds": 0.9169728479973855,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/baseline/false_inequality/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q"
+        ],
+        "diagnostic": "main.adb:1:153: error: value not in range of subtype of \"Standard.Integer\" defined at line 1\nmain.adb:1:153: error: Constraint_Error would have been raised at run time\ngprbuild: *** compilation phase failed\n"
+      },
+      "no_current_value": {
+        "returncode": 0,
+        "seconds": 0.9641121170061524,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/no_current_value/false_inequality/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q",
+          "-cargs",
+          "-gnatdM"
+        ],
+        "diagnostic": ""
+      }
+    }
+  },
+  {
+    "name": "not_inequality",
+    "admission_exit": 0,
+    "builds": {
+      "baseline": {
+        "returncode": 4,
+        "seconds": 0.8552311439998448,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/baseline/not_inequality/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q"
+        ],
+        "diagnostic": "main.adb:1:149: error: value not in range of subtype of \"Standard.Integer\" defined at line 1\nmain.adb:1:149: error: Constraint_Error would have been raised at run time\ngprbuild: *** compilation phase failed\n"
+      },
+      "no_current_value": {
+        "returncode": 0,
+        "seconds": 0.9238804740016349,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/no_current_value/not_inequality/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q",
+          "-cargs",
+          "-gnatdM"
+        ],
+        "diagnostic": ""
+      }
+    }
+  },
+  {
+    "name": "ordered_comparison",
+    "admission_exit": 0,
+    "builds": {
+      "baseline": {
+        "returncode": 0,
+        "seconds": 0.9031007449957542,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/baseline/ordered_comparison/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q"
+        ],
+        "diagnostic": ""
+      },
+      "no_current_value": {
+        "returncode": 0,
+        "seconds": 0.9373964839978726,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/no_current_value/ordered_comparison/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q",
+          "-cargs",
+          "-gnatdM"
+        ],
+        "diagnostic": ""
+      }
+    }
+  },
+  {
+    "name": "equal_bounds",
+    "admission_exit": 0,
+    "builds": {
+      "baseline": {
+        "returncode": 0,
+        "seconds": 0.902803622004285,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/baseline/equal_bounds/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q"
+        ],
+        "diagnostic": ""
+      },
+      "no_current_value": {
+        "returncode": 0,
+        "seconds": 0.7545564280007966,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/no_current_value/equal_bounds/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q",
+          "-cargs",
+          "-gnatdM"
+        ],
+        "diagnostic": ""
+      }
+    }
+  },
+  {
+    "name": "short_circuit",
+    "admission_exit": 0,
+    "builds": {
+      "baseline": {
+        "returncode": 4,
+        "seconds": 0.8051839559993823,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/baseline/short_circuit/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q"
+        ],
+        "diagnostic": "main.adb:1:156: error: value not in range of subtype of \"Standard.Integer\" defined at line 1\nmain.adb:1:156: error: Constraint_Error would have been raised at run time\ngprbuild: *** compilation phase failed\n"
+      },
+      "no_current_value": {
+        "returncode": 0,
+        "seconds": 0.8227731529987068,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/no_current_value/short_circuit/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q",
+          "-cargs",
+          "-gnatdM"
+        ],
+        "diagnostic": ""
+      }
+    }
+  },
+  {
+    "name": "else_false_or",
+    "admission_exit": 0,
+    "builds": {
+      "baseline": {
+        "returncode": 0,
+        "seconds": 0.8702739869986544,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/baseline/else_false_or/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q"
+        ],
+        "diagnostic": ""
+      },
+      "no_current_value": {
+        "returncode": 0,
+        "seconds": 0.8743696899982751,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/no_current_value/else_false_or/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q",
+          "-cargs",
+          "-gnatdM"
+        ],
+        "diagnostic": ""
+      }
+    }
+  },
+  {
+    "name": "add_zero",
+    "admission_exit": 0,
+    "builds": {
+      "baseline": {
+        "returncode": 4,
+        "seconds": 0.9110823190058,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/baseline/add_zero/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q"
+        ],
+        "diagnostic": "main.adb:1:148: error: value not in range of subtype of \"Standard.Integer\" defined at line 1\nmain.adb:1:148: error: Constraint_Error would have been raised at run time\ngprbuild: *** compilation phase failed\n"
+      },
+      "no_current_value": {
+        "returncode": 0,
+        "seconds": 0.8609703940019244,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/no_current_value/add_zero/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q",
+          "-cargs",
+          "-gnatdM"
+        ],
+        "diagnostic": ""
+      }
+    }
+  },
+  {
+    "name": "zero_add",
+    "admission_exit": 0,
+    "builds": {
+      "baseline": {
+        "returncode": 4,
+        "seconds": 0.782994517001498,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/baseline/zero_add/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q"
+        ],
+        "diagnostic": "main.adb:1:148: error: value not in range of subtype of \"Standard.Integer\" defined at line 1\nmain.adb:1:148: error: Constraint_Error would have been raised at run time\ngprbuild: *** compilation phase failed\n"
+      },
+      "no_current_value": {
+        "returncode": 0,
+        "seconds": 0.96864653800003,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/no_current_value/zero_add/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q",
+          "-cargs",
+          "-gnatdM"
+        ],
+        "diagnostic": ""
+      }
+    }
+  },
+  {
+    "name": "divide_one",
+    "admission_exit": 0,
+    "builds": {
+      "baseline": {
+        "returncode": 4,
+        "seconds": 0.8556028559978586,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/baseline/divide_one/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q"
+        ],
+        "diagnostic": "main.adb:1:148: error: value not in range of subtype of \"Standard.Integer\" defined at line 1\nmain.adb:1:148: error: Constraint_Error would have been raised at run time\ngprbuild: *** compilation phase failed\n"
+      },
+      "no_current_value": {
+        "returncode": 0,
+        "seconds": 0.8790183699966292,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/no_current_value/divide_one/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q",
+          "-cargs",
+          "-gnatdM"
+        ],
+        "diagnostic": ""
+      }
+    }
+  },
+  {
+    "name": "multiply_one",
+    "admission_exit": 0,
+    "builds": {
+      "baseline": {
+        "returncode": 4,
+        "seconds": 0.8846546979984851,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/baseline/multiply_one/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q"
+        ],
+        "diagnostic": "main.adb:1:148: error: value not in range of subtype of \"Standard.Integer\" defined at line 1\nmain.adb:1:148: error: Constraint_Error would have been raised at run time\ngprbuild: *** compilation phase failed\n"
+      },
+      "no_current_value": {
+        "returncode": 0,
+        "seconds": 0.8262055400045938,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/no_current_value/multiply_one/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q",
+          "-cargs",
+          "-gnatdM"
+        ],
+        "diagnostic": ""
+      }
+    }
+  },
+  {
+    "name": "one_multiply",
+    "admission_exit": 0,
+    "builds": {
+      "baseline": {
+        "returncode": 4,
+        "seconds": 0.6941620580037124,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/baseline/one_multiply/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q"
+        ],
+        "diagnostic": "main.adb:1:148: error: value not in range of subtype of \"Standard.Integer\" defined at line 1\nmain.adb:1:148: error: Constraint_Error would have been raised at run time\ngprbuild: *** compilation phase failed\n"
+      },
+      "no_current_value": {
+        "returncode": 0,
+        "seconds": 0.8713902509989566,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/no_current_value/one_multiply/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q",
+          "-cargs",
+          "-gnatdM"
+        ],
+        "diagnostic": ""
+      }
+    }
+  },
+  {
+    "name": "correlated_identity",
+    "admission_exit": 0,
+    "builds": {
+      "baseline": {
+        "returncode": 0,
+        "seconds": 0.841629976996046,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/baseline/correlated_identity/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q"
+        ],
+        "diagnostic": ""
+      },
+      "no_current_value": {
+        "returncode": 0,
+        "seconds": 0.9274021579985856,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/no_current_value/correlated_identity/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q",
+          "-cargs",
+          "-gnatdM"
+        ],
+        "diagnostic": ""
+      }
+    }
+  },
+  {
+    "name": "declared_subtype",
+    "admission_exit": 0,
+    "builds": {
+      "baseline": {
+        "returncode": 0,
+        "seconds": 0.7385859790010727,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/baseline/declared_subtype/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q"
+        ],
+        "diagnostic": ""
+      },
+      "no_current_value": {
+        "returncode": 0,
+        "seconds": 0.7865110220009228,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/no_current_value/declared_subtype/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q",
+          "-cargs",
+          "-gnatdM"
+        ],
+        "diagnostic": ""
+      }
+    }
+  },
+  {
+    "name": "snapshot_threshold",
+    "admission_exit": 0,
+    "builds": {
+      "baseline": {
+        "returncode": 4,
+        "seconds": 0.7875066790002165,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/baseline/snapshot_threshold/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q"
+        ],
+        "diagnostic": "main.adb:1:177: error: value not in range of subtype of \"Standard.Integer\" defined at line 1\nmain.adb:1:177: error: Constraint_Error would have been raised at run time\ngprbuild: *** compilation phase failed\n"
+      },
+      "no_current_value": {
+        "returncode": 0,
+        "seconds": 0.9588870789957582,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/no_current_value/snapshot_threshold/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q",
+          "-cargs",
+          "-gnatdM"
+        ],
+        "diagnostic": ""
+      }
+    }
+  },
+  {
+    "name": "mutable_threshold",
+    "admission_exit": 0,
+    "builds": {
+      "baseline": {
+        "returncode": 0,
+        "seconds": 0.9460569529983331,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/baseline/mutable_threshold/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q"
+        ],
+        "diagnostic": ""
+      },
+      "no_current_value": {
+        "returncode": 0,
+        "seconds": 0.8674922780046472,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/no_current_value/mutable_threshold/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q",
+          "-cargs",
+          "-gnatdM"
+        ],
+        "diagnostic": ""
+      }
+    }
+  },
+  {
+    "name": "overflow",
+    "admission_exit": 0,
+    "builds": {
+      "baseline": {
+        "returncode": 4,
+        "seconds": 0.8750962500052992,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/baseline/overflow/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q"
+        ],
+        "diagnostic": "main.adb:1:123: error: value not in range of type \"Standard.Integer\"\nmain.adb:1:123: error: Constraint_Error would have been raised at run time\ngprbuild: *** compilation phase failed\n"
+      },
+      "no_current_value": {
+        "returncode": 0,
+        "seconds": 0.8683051159969182,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/no_current_value/overflow/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q",
+          "-cargs",
+          "-gnatdM"
+        ],
+        "diagnostic": ""
+      }
+    }
+  },
+  {
+    "name": "division_zero",
+    "admission_exit": 0,
+    "builds": {
+      "baseline": {
+        "returncode": 0,
+        "seconds": 0.7126986830044189,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/baseline/division_zero/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q"
+        ],
+        "diagnostic": ""
+      },
+      "no_current_value": {
+        "returncode": 0,
+        "seconds": 0.7584899520006729,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/no_current_value/division_zero/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q",
+          "-cargs",
+          "-gnatdM"
+        ],
+        "diagnostic": ""
+      }
+    }
+  },
+  {
+    "name": "array_index",
+    "admission_exit": 0,
+    "builds": {
+      "baseline": {
+        "returncode": 4,
+        "seconds": 0.6740329449967248,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/baseline/array_index/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q"
+        ],
+        "diagnostic": "main.adb:1:173: error: value not in range of subtype of \"Standard.Integer\" defined at line 1\nmain.adb:1:173: error: Constraint_Error would have been raised at run time\ngprbuild: *** compilation phase failed\n"
+      },
+      "no_current_value": {
+        "returncode": 0,
+        "seconds": 0.8777647480019368,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/no_current_value/array_index/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q",
+          "-cargs",
+          "-gnatdM"
+        ],
+        "diagnostic": ""
+      }
+    }
+  },
+  {
+    "name": "image_length",
+    "admission_exit": 0,
+    "builds": {
+      "baseline": {
+        "returncode": 0,
+        "seconds": 0.727919965996989,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/baseline/image_length/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q"
+        ],
+        "diagnostic": ""
+      },
+      "no_current_value": {
+        "returncode": 0,
+        "seconds": 0.709115589997964,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/no_current_value/image_length/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q",
+          "-cargs",
+          "-gnatdM"
+        ],
+        "diagnostic": ""
+      }
+    }
+  },
+  {
+    "name": "count_loop",
+    "admission_exit": 0,
+    "builds": {
+      "baseline": {
+        "returncode": 4,
+        "seconds": 0.8111129560056725,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/baseline/count_loop/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q"
+        ],
+        "diagnostic": "main.adb:1:161: error: value not in range of subtype of \"Standard.Integer\" defined at line 1\nmain.adb:1:161: error: Constraint_Error would have been raised at run time\ngprbuild: *** compilation phase failed\n"
+      },
+      "no_current_value": {
+        "returncode": 0,
+        "seconds": 0.8679207039967878,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/no_current_value/count_loop/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q",
+          "-cargs",
+          "-gnatdM"
+        ],
+        "diagnostic": ""
+      }
+    }
+  },
+  {
+    "name": "foreach_loop",
+    "admission_exit": 0,
+    "builds": {
+      "baseline": {
+        "returncode": 4,
+        "seconds": 0.820062765997136,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/baseline/foreach_loop/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q"
+        ],
+        "diagnostic": "main.adb:1:199: error: value not in range of subtype of \"Standard.Integer\" defined at line 1\nmain.adb:1:199: error: Constraint_Error would have been raised at run time\ngprbuild: *** compilation phase failed\n"
+      },
+      "no_current_value": {
+        "returncode": 0,
+        "seconds": 0.921643914996821,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/no_current_value/foreach_loop/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q",
+          "-cargs",
+          "-gnatdM"
+        ],
+        "diagnostic": ""
+      }
+    }
+  },
+  {
+    "name": "static_range_error",
+    "admission_exit": 2,
+    "builds": {
+      "baseline": {
+        "returncode": 4,
+        "seconds": 0.7997399289961322,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/baseline/static_range_error/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q"
+        ],
+        "diagnostic": "main.adb:1:89: error: value not in range of subtype of \"Standard.Integer\" defined at line 1\nmain.adb:1:89: error: Constraint_Error would have been raised at run time\ngprbuild: *** compilation phase failed\n"
+      },
+      "no_current_value": {
+        "returncode": 4,
+        "seconds": 0.8616013689970714,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/no_current_value/static_range_error/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q",
+          "-cargs",
+          "-gnatdM"
+        ],
+        "diagnostic": "main.adb:1:89: error: value not in range of subtype of \"Standard.Integer\" defined at line 1\nmain.adb:1:89: error: Constraint_Error would have been raised at run time\ngprbuild: *** compilation phase failed\n"
+      }
+    }
+  },
+  {
+    "name": "runtime_range_error",
+    "admission_exit": 2,
+    "builds": {
+      "baseline": {
+        "returncode": 4,
+        "seconds": 0.8019860339991283,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/baseline/runtime_range_error/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q"
+        ],
+        "diagnostic": "main.adb:1:103: error: value not in range of subtype of \"Standard.Integer\" defined at line 1\nmain.adb:1:103: error: Constraint_Error would have been raised at run time\ngprbuild: *** compilation phase failed\n"
+      },
+      "no_current_value": {
+        "returncode": 0,
+        "seconds": 0.8752788649944705,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/no_current_value/runtime_range_error/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q",
+          "-cargs",
+          "-gnatdM"
+        ],
+        "diagnostic": ""
+      }
+    }
+  },
+  {
+    "name": "static_division_error",
+    "admission_exit": 2,
+    "builds": {
+      "baseline": {
+        "returncode": 0,
+        "seconds": 0.9153278599987971,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/baseline/static_division_error/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q"
+        ],
+        "diagnostic": "main.adb:1:83: warning: division by zero [enabled by default]\nmain.adb:1:83: warning: Constraint_Error will be raised at run time [enabled by default]\n"
+      },
+      "no_current_value": {
+        "returncode": 0,
+        "seconds": 0.7902482680001413,
+        "command": [
+          "gprbuild",
+          "-P",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-repair-20261029/work/no_current_value/static_division_error/program.gpr",
+          "-c",
+          "-u",
+          "main.adb",
+          "-p",
+          "-q",
+          "-cargs",
+          "-gnatdM"
+        ],
+        "diagnostic": "main.adb:1:83: warning: division by zero [enabled by default]\nmain.adb:1:83: warning: Constraint_Error will be raised at run time [enabled by default]\n"
+      }
+    }
+  }
+]

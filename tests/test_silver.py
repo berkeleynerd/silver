@@ -174,6 +174,13 @@ class SilverIntegrationTests(unittest.TestCase):
             self.assertIs(conditions["initializer_expressions"], True)
             self.assertEqual(conditions["initializer_capacity"], 4096)
             self.assertIs(conditions["later_guards_justify_initializers"], False)
+            self.assertEqual(conditions["initializer_image_length"],
+                             "non-input minimum and maximum must agree; Image captures exact "
+                             "initial values of earlier Integer objects and array components")
+        for name in ("named_integer_constant", "named_integer_variable"):
+            self.assertEqual(constructs[name]["conditions"]["initializer_visibility"],
+                             "earlier initialized Integer constants or mutable objects, including "
+                             "array components; no self, forward or cyclic reference")
         equality = constructs["string_equality"]["conditions"]
         self.assertEqual(equality["operands"], ["string_expression", "string_expression"])
         self.assertIs(equality["at_least_one_bound_name_or_image_across_operands"], True)
@@ -213,6 +220,9 @@ class SilverIntegrationTests(unittest.TestCase):
         self.assertIn("integer_image", expression["operand_kinds"])
         self.assertEqual(constructs["integer_image"]["conditions"]["length_range"], [2, 11])
         loop = constructs["for_loop"]["conditions"]
+        self.assertEqual(loop["bound_visibility"],
+                         "initialized Integer objects and array components, and differently named "
+                         "enclosing indexes and elements")
         self.assertEqual(loop["directions"], ["forward", "reverse"])
         self.assertTrue(loop["index_immutable"])
         self.assertFalse(loop["iteration_enumeration_required"])

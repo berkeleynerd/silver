@@ -1,0 +1,34 @@
+{
+  "run_id": "20261028T183918-0e17269350ef",
+  "finished": {
+    "duration_seconds": 43.121345524,
+    "event": "finished",
+    "evidence": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261028T183918-0e17269350ef/native.log",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261028T183918-0e17269350ef/native.log"
+      }
+    ],
+    "failure_keys": [],
+    "monotonic_ns": 15834450779212,
+    "outcome": "success",
+    "retained_reports": [],
+    "returncode": null,
+    "run_id": "20261028T183918-0e17269350ef",
+    "utc": "2026-10-28T18:40:04.264298+00:00"
+  },
+  "files": [
+    {
+      "path": "events.jsonl.gz",
+      "bytes": 39581,
+      "sha256": "4960ae1b2274495f06cc136cd15be49fdcd9b1b9e2594e1b3ceae2eb5245d321",
+      "compressed_sha256": "e465e2784322c684422d0072bd507c1ecd3f238bfe24b0ca00dbb40bfa38f7fc"
+    },
+    {
+      "path": "native.log.gz",
+      "bytes": 6561,
+      "sha256": "bfeb9707541ccd58050c186c33e6caf9f5c570511f50b548a97b2e71ad03a2fd",
+      "compressed_sha256": "e8fd800592076068e0a517a8f728375d44f134e30ec2a00c2aac75a83768edad"
+    }
+  ]
+}

@@ -26,7 +26,7 @@ The implementation scope is:
   Bounds are nonempty Ada-static Integer expressions. Every component is
   explicit and the count must equal `U-L+1`. A singleton uses `(L => E)`, with
   the static choice equal to its sole index; `(E)` alone is a scalar expression.
-- Indexed reads `A(index_expression)` in the ordinary scalar expression
+- Indexed reads `A(scalar_index_expression)` in the ordinary scalar expression
   positions, including later initializers, Image, comparisons and loop bounds.
   The subscript uses the pre-array scalar grammar: no array read inside a
   subscript. Every inferred index interval must be nonempty and contained in
@@ -122,9 +122,13 @@ capability requires it.
 | --- | --- | --- | --- |
 | Initial design | GPT-6 Astra / Extra High for assurance; GPT-6.1 Sol / Extra High for driver/native design | Select a faithful driver and a compositional fragment | Rotation selected; explicit initialization, non-nested subscripts and uniform full-range body reads bound the fragment. Lead runtime setting and token/cost measurements are unavailable. |
 | Authorization review | GPT-6.1 Sol / High | Check the three planning files against the owner instruction and current sequence | No blocking finding; one wording clarification applied. Relative links and whitespace checked. Runtime settings and elapsed/token/cost measurements are unavailable. |
-| Core implementation | GPT-6.1 Sol / Extra High native; GPT-6 Astra / Extra High core and composition | Implement indexed storage and preserve existing compositions | Core array projection/expression/assignment/obligation modules passed focused Lean checks; native admission and exact initializer-hull probes passed. A real producer warning corrected the initial capacity conclusion; full integration remains pending. Elapsed/token/cost measurements unavailable. |
+| Core implementation | GPT-6.1 Sol / Extra High native; GPT-6 Astra / Extra High core and composition | Implement indexed storage and preserve existing compositions | Core array projection/expression/assignment/obligation modules passed focused Lean checks; native admission and exact initializer-hull probes passed. A real producer warning corrected the initial capacity conclusion; full integration was pending at this intermediate checkpoint and is completed below. Elapsed/token/cost measurements unavailable. |
 | Aggregate-loop diagnostic review | GPT-6 Astra / Extra High | Identify the remaining recursive-model proof obstacle before another native retry | Read-only review of `20261027T091926-c04248446233` found distinct internal array-update maps despite identical bounded element equations. The recursive unfolding was already present. The repair shares one pure `Put_Array_Value` expression between the model and runtime; its focused native check passed in `20261027T092828-bc511f2ddc79`, followed by the exact loop refinement in `20261027T092945-c19ef466ed7d` (359 checks). No extra equality lemma was needed. About seven minutes for the review; runtime model settings and token/cost measurements unavailable. |
-| Array source and language integration | GPT-6 Astra / Extra High for core and composition subthreads | Connect indexed reads, declaration snapshots and nested control flow to current assurance | Exact scalar-expression source bridge passed (`20261027T101109-bca7c1bbb6c8`, 50.106 s build, 6.575 s audit); mathematical `Current` and selector endpoints passed (`20261027T101357-1cc770acdc6a`, 34.517 s build, 6.380 s audit). The Compose declaration model also passed a focused check after its raw helper equations were derived. Native declaration refinement and the remaining source/caller integration are pending; these are not a complete checkpoint. Runtime settings and token/cost measurements unavailable. |
+| Array source and language integration | GPT-6 Astra / Extra High for core and composition subthreads | Connect indexed reads, declaration snapshots and nested control flow to current assurance | Exact scalar-expression source bridge passed (`20261027T101109-bca7c1bbb6c8`, 50.106 s build, 6.575 s audit); mathematical `Current` and selector endpoints passed (`20261027T101357-1cc770acdc6a`, 34.517 s build, 6.380 s audit). The Compose declaration model also passed a focused check after its raw helper equations were derived. Native declaration refinement and the remaining source/caller integration were pending at this intermediate checkpoint and were completed in the delivery checkpoint below. Runtime settings and token/cost measurements unavailable. |
+| Caller-domain repair and regression closure, 2026-10-27 | Domain and regression reviewers selected GPT-6 Astra / Extra High; implementation selection not recorded | Resolve #262 and account for the complete test inventory | The domain review found missing native scalar-state conditions; `123f84ec2a` repaired them. Focused integration passed. Three fixture failures and two deadline errors were covered by successful reruns; the independently reviewed census was 73 fresh + 457 retained = 530 identities. Exact runs and durations are below; runtime confirmation and token/cost measurements unavailable. |
+| Source memory/header repair, 2026-10-27 | Header reviewer selected GPT-6 Astra / Extra High; implementation selection not recorded | Complete the same source equalities within available memory | The composition candidate failed at its 24 GiB threshold. The four literal-header changes preserved token equality; the 4 GiB probe passed. The output certificate completed after its recorded suspension. The complete source candidates subsequently passed in the first complete attempt. Timings and cache transfers are below; runtime confirmation and token/cost measurements unavailable. |
+| Sequence integration repair, 2026-10-27–28 | Sequence reviewer selected GPT-6 Astra / Extra High; implementation selection not recorded | Close retained Sequence consumers of the changed shared state | The complete run exposed an omitted array environment; the repair preserved arbitrary environments and strengthened context equality. A second failed attempt exposed the remaining initial-state case, then the complete checkpoint passed. The interval between these attempts is elapsed time, not a measured continuous proof effort. Exact evidence is below; runtime confirmation and token/cost measurements unavailable. |
+| Complete delivery and Rosetta reconciliation, 2026-10-28 | Lead selection not recorded; closing reviewer selected GPT-6 Astra / Extra High | Confirm native, source/Lean, regression and metadata assurance | Passed: 16,697 native checks; 531 Lean modules / 112,162 declarations; all 530 identities covered, with the final three Rosetta passes yielding 76 fresh + 454 retained. The closing review relied on the earlier scoped reviews; the later external review found latent M1. Exact runs, durations and cache conditions are below; runtime confirmation and token/cost measurements unavailable. |
 
 The diagnostic review used the retained source with SHA-256
 `d4222ef6c64f0becbcd59bd725c0dda1156450c1a08acf451e83eca6675409da`
@@ -186,7 +190,14 @@ accounts for every one of the 530 tests at `899a15a5a0`: 73 successful focused
 results and 457 retained successful results. The
 [retained evidence](evidence/fixed-integer-arrays/delivery-20261027/README.md)
 keeps the original full run `20261027T113223-c732210ca335` labelled failed
-(three failures and two errors; 6,818.245 s test time).
+(three failures and two errors; 6,818.245 s test time). The linked closing
+review retains its preliminary 13:13:31 UTC timestamp, while its completed census
+and the two later native test reruns come from the follow-up recorded in its
+“Completed regression census and repair evidence” section. The final 73/457
+accounting uses that follow-up, not only the preliminary pass. The contemporaneous
+`tmp/fixed-integer-arrays/.silver/linux-x86_64/array-proof-stage/progress-1338.md`
+agent checkpoint also records that completed partition; the exact interval of
+the follow-up review is not retained in the linked report.
 
 The three failures came from omitted array bindings in the test fixture lists;
 the corrected source/evidence modules passed all 12 and 49 tests. The division
@@ -211,7 +222,13 @@ kernel-memory threshold: the `expression_at` prototype check and two array-helpe
 header checks could not finish. Its failed build and diagnostics are retained;
 no fresh axiom audit ran. The output-certificate worker was suspended while the
 composition check occupied memory, then resumed on the same inputs and process.
-Its 4,375.007-second suspension is part of the recorded wall time.
+Its 4,375.007-second suspension is part of the recorded wall time. The retained
+`failure-checkpoint.json` and `compose-memory-observations.json` are
+agent-written diagnostic records, not runner-generated manifests. Their input
+paths refer to the original `tmp/fixed-arrays-core-proof` worktree. The 150
+periodic process/host memory samples establish sampled maxima and minima,
+including 24,577.8 MiB sampled RSS; they do not establish an unsampled process
+peak or prove which host resource caused every failure.
 
 The [reviewed repair](reviews/review-fixed-arrays-header-literals-5dd2c43b58.md)
 at `24452b335a` replaces four uses of long expected-header strings with literal
@@ -267,10 +284,24 @@ linked above, with the three Rosetta results replacing their retained entries.
 All 49 manifest samples, including the rotation, and all 12 array regressions
 passed in the retained full run. The [final delivery review](reviews/review-fixed-arrays-delivery-20261028.md)
 confirms applicability of the last proof-only changes, the complete evidence
-and the delivery record, with no remaining consequential finding. This closes
+and the delivery record, with no remaining consequential finding in that closing
+scope. The closing reviews are confirmations that rely on the earlier scoped
+semantic/source reviews; they are not independent rederivations of every
+argument. The later external review of `10cdcd274c` identified precedence
+finding M1, which those confirmations had not identified. This delivery checkpoint closes
 #260 and the complete-source validation condition of #262.
 
-These are complete-scope incremental checks with native/Lake cache reuse,
-not clean-build measurements. No independent kernel replay, native macOS or
-hosted CI result is claimed. The output certificate's recorded suspension
+The subsequent [external-review response](reviews/review-10cdcd274c.md)
+repairs M1 and reconciles the selected records in PR #283. Its
+[combined validation packet](evidence/array-final-validation-20261029/README.md)
+also covers constant-array iteration and frontend blocker #284; it is distinct
+from the original #263 checkpoint retained here.
+
+The native provenance records `mode: full` with both
+`initial_state.sessions_present: false` and `cache_entries_present: false`. Its
+28,417.217 seconds therefore describe a complete native run without initial
+sessions or solver-cache entries, including the coverage/provenance audit;
+they are not a cached native timing. The Lean checkpoint is complete-scope
+incremental validation with Lake cache reuse, not a clean-build measurement.
+No independent kernel replay, native macOS or hosted CI result is claimed. The output certificate's recorded suspension
 remains included in its wall time.

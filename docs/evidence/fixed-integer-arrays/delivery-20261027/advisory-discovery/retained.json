@@ -1,0 +1,42 @@
+{
+  "run_id": "20261027T075301-f654f3d5d925",
+  "outcome": "historical discovery failure: then-current auditor rejected two array-initialization notes",
+  "files": [
+    {
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/fixed-arrays-native/.silver/linux-x86_64/program-YO21S8/main.adb",
+      "retained": "main.adb.gz",
+      "bytes": 779,
+      "sha256": "09eb2e1d16e32eb162aee54f8ee6d35ca2b7e84b30c2d758685d72fc539e1c0d"
+    },
+    {
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/fixed-arrays-native/.silver/linux-x86_64/program-YO21S8/obj/gnatprove/main~1.spark",
+      "retained": "main~1.spark.gz",
+      "bytes": 22708,
+      "sha256": "008fcd78576784a0ff4bd2d1b8194fc35e54f5f212cee8a3ab3fdd04743e9053"
+    },
+    {
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/fixed-arrays-native/.silver/linux-x86_64/program-YO21S8/obj/gnatprove/gnatprove.sarif",
+      "retained": "gnatprove.sarif.gz",
+      "bytes": 59802,
+      "sha256": "7e744373a8978c7c8e91838324fd2ce1664b730fef3b7616a2de81399334a101"
+    },
+    {
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/fixed-arrays-native/.silver/linux-x86_64/program-YO21S8/obj/gnatprove/gnatprove.out",
+      "retained": "gnatprove.out.gz",
+      "bytes": 4649,
+      "sha256": "cbbc2db0e7004517e5fa3d336986c7019ca2f35edfdfb5ba40f45b476b5677d1"
+    },
+    {
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261027T075301-f654f3d5d925/events.jsonl",
+      "retained": "events.jsonl.gz",
+      "bytes": 136072,
+      "sha256": "db78fe9adb20ea19d5449735e44d72c2ac7eabf003d636da3e9776bea47ab556"
+    },
+    {
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261027T075301-f654f3d5d925/native.log",
+      "retained": "native.log.gz",
+      "bytes": 34340,
+      "sha256": "af6d4eb73cb6a2aa23e32845325222bce23551e35fcdadbee9ecd43e8ae2c9d1"
+    }
+  ]
+}

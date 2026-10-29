@@ -94,6 +94,39 @@ class DevRunTests(unittest.TestCase):
         self.assertIn("-j2", command)
         self.assertNotIn("-j", command)
 
+    def rosetta_test_inputs(self):
+        paths = [self.root / "rosetta" / name
+                 for name in ("refresh.py", "manifest.json", "coverage.json")]
+        for path in paths:
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text("fixture Rosetta input\n")
+        return paths
+
+    def test_test_command_captures_only_rosetta_test_dependencies(self):
+        paths = self.rosetta_test_inputs()
+        (self.root / "rosetta/unrelated-downloaded-page.html").write_text("not a test input\n")
+        with mock.patch.object(dev, "invoke"):
+            self.main(["test", "--jobs", "2", "--", "-p", "test_rosetta.py"])
+        record, = self.records()
+        self.assertEqual(record["state"], "success")
+        captured = record["inputs"]["inputs_sha256"]
+        self.assertEqual({name: value for name, value in captured.items()
+                          if Path(name).is_relative_to(self.root / "rosetta")},
+                         {str(path): proof_provenance.digest(path) for path in paths})
+
+    def test_rosetta_test_dependency_drift_cannot_finish_successfully(self):
+        for path in self.rosetta_test_inputs():
+            with self.subTest(path=path.name):
+                original = proof_provenance.digest(path)
+                with mock.patch.object(dev, "invoke", side_effect=lambda *args, **kwargs:
+                                       path.write_text("changed during execution\n")) as invoke:
+                    with self.assertRaisesRegex(RuntimeError, "declared run inputs changed"):
+                        self.main(["test", "--jobs", "2", "--", "-p", "test_rosetta.py"])
+                self.assertEqual(invoke.call_count, 1)
+                record = self.records()[-1]
+                self.assertEqual(record["state"], "failure")
+                self.assertEqual(record["inputs"]["inputs_sha256"][str(path)], original)
+
     def test_full_success_requires_reason_before_replacing_evidence(self):
         arguments = ["prove", "--full", "--jobs", "2", "--task", "#39"]
         with self.simulated_proof() as invoke:

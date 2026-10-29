@@ -1,0 +1,54 @@
+{
+  "run_id": "20261028T222332-125b175a567b",
+  "scope": "confirmed rejection/control experiment; not a successful compilation of contradiction.adb",
+  "files": [
+    {
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/program-dk9yoQ/main.adb",
+      "retained": "rejected-workspace/main.adb.gz",
+      "sha256": "f2a955b60673781a08e98cab32b20c305d930cd1fb8d22c9c6a265a696c9633b",
+      "bytes": 167
+    },
+    {
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/program-dk9yoQ/program.gpr",
+      "retained": "rejected-workspace/program.gpr.gz",
+      "sha256": "3e99dd2e5c909ebfba6a7d8554d034bcc497b32f275e9a9aad3bd290221725ff",
+      "bytes": 541
+    },
+    {
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/program-dk9yoQ/obj/gnatprove/main~1.spark",
+      "retained": "rejected-workspace/obj/gnatprove/main~1.spark.gz",
+      "sha256": "0af4e30b3a5255d9944f6a59c2b9e8ebb1228284b06831ac5a42d0294f6ecfd5",
+      "bytes": 4826
+    },
+    {
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/program-dk9yoQ/obj/gnatprove/gnatprove.sarif",
+      "retained": "rejected-workspace/obj/gnatprove/gnatprove.sarif.gz",
+      "sha256": "198b4a39874e37ec09708d50d3a22cad7c2cd238465c0dc1a1c3f09b77c86903",
+      "bytes": 51163
+    },
+    {
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/program-dk9yoQ/obj/gnatprove/gnatprove.out",
+      "retained": "rejected-workspace/obj/gnatprove/gnatprove.out.gz",
+      "sha256": "c49d7b00443f85a8a6b2cd821f61204ae207e6f279f5d96a972a47931443c602",
+      "bytes": 4498
+    },
+    {
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/program-dk9yoQ/obj/gnatprove/data_representation_generation.log",
+      "retained": "rejected-workspace/obj/gnatprove/data_representation_generation.log.gz",
+      "sha256": "2251eafae09d68ca2b1564d68d029a13db288b7e6b4fe0da722967b6e80f1dbf",
+      "bytes": 168
+    },
+    {
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261028T222332-125b175a567b/events.jsonl",
+      "retained": "events.jsonl.gz",
+      "sha256": "0f22335ac4d54ddad0c8db9b956169d3bc19fa456716c353a70bde54e2bec4de",
+      "bytes": 37889
+    },
+    {
+      "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261028T222332-125b175a567b/native.log",
+      "retained": "native.log.gz",
+      "sha256": "e421554b124a39175d62fb36acad5e91f50a8f4d58dbd245ac78e02e264dab24",
+      "bytes": 2482
+    }
+  ]
+}

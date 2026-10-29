@@ -1,5 +1,34 @@
 # Session memory
 
+## 2026-10-29 — Combined array delivery complete
+
+The owner-authorized constant Integer-array iteration and catalogue correction
+[#264](https://github.com/berkeleynerd/silver/issues/264)/[#267](https://github.com/berkeleynerd/silver/issues/267)
+are complete through [PR #266](https://github.com/berkeleynerd/silver/pull/266).
+The fixed-array external review response, including precedence finding #268,
+required record/tooling corrections #269–#282 and scalar-guard frontend blocker
+[#284](https://github.com/berkeleynerd/silver/issues/284), is complete through
+[PR #283](https://github.com/berkeleynerd/silver/pull/283). These deliveries
+complete the bounded milestones 11 and 12 under the authorization recorded by
+[PR #285](https://github.com/berkeleynerd/silver/pull/285).
+
+The [final combined packet](evidence/array-final-validation-20261029/README.md)
+retains the stable inputs, complete native proof/coverage/provenance and build,
+complete Lean/source/module/axiom assurance, fresh full regressions and refreshed
+8 MiB counted/foreach stack observations. The
+[integration/evidence review](reviews/review-array-final-integration-20261029.md)
+confirms the implementation and completed evidence. Reused caches and source
+certificates retain their actual dependency and platform scope; earlier failed
+and interrupted runs keep their original outcomes. No clean rebuild,
+independent kernel replay, macOS or hosted CI result is claimed.
+
+The final external iteration/combined-tree report was not supplied; no external
+approval is claimed. Broad stages #11/#12 remain Open/Backlog, and existing
+optional regressions, cleanup, general capacity/assurance modes and further
+language capabilities remain unselected. No Oracle amendment or new assurance
+mode was introduced. No harness goal exists; CLI memory is unavailable and was
+not updated.
+
 ## 2026-10-29 — Complete combined array validation and merge authorized
 
 The owner instructed **“Proceed to drive us to merge.”** This authorizes
@@ -19,6 +48,70 @@ reviews, and complete the integration/evidence review before merge. Existing
 unrelated and deferred work remains out of scope. No Oracle amendment, clean
 rebuild, mandatory kernel replay or new language feature is selected. No harness
 goal exists; CLI memory is unavailable.
+
+## 2026-10-29 — Scalar-guard frontend blocker repair authorized
+
+The owner said **“Proceed”** with the proposed repair of
+[#284](https://github.com/berkeleynerd/silver/issues/284): characterize the pinned
+frontend's rejection, select the smallest justified correction, update the
+implementation and its assurance together, and add end-to-end regressions.
+The [repair record](scalar-guard-frontend-repair.md) distinguishes the confirmed
+array-free failure from candidate fixes and validation still required.
+
+Develop in an isolated branch based on the published review target
+`88c127b631`. Keep #266 and #283 open and their current review target fixed while
+the external review proceeds. Integrate relevant feedback deliberately, then
+complete native and Lean/source assurance on stable final inputs before merge.
+Focused investigation, implementation and validation are authorized now; do
+not restart the expensive complete checkpoint before the feedback is batched.
+Preserve the author's source and runtime meaning, with no check/obligation
+suppression or Oracle amendment. Document any necessary admission change
+explicitly. No next language feature, general GNAT model or compiler redesign
+is selected. The isolated repair now selects native-only `-gnatdM`, preserving
+proof options and language membership; its focused validation and independent
+review are recorded in the linked repair record. It does not close #284 or
+replace the deferred complete assurance checkpoint. No harness goal exists;
+CLI memory remains unavailable.
+
+## 2026-10-28 — Review the array revisions before the complete Lean checkpoint
+
+The owner proposed submitting the revisions for review, incorporating relevant
+feedback, and then performing the final Lean validation before merge. Adopt that
+sequence for the [external-array response](reviews/review-10cdcd274c.md).
+The revisions remain in [PR #283](https://github.com/berkeleynerd/silver/pull/283),
+stacked on the already-validated #266, consistent with the earlier placement
+decision. Both PRs remain open; neither this review checkpoint nor earlier
+successful focused checks authorize a merge or substitute for complete assurance.
+
+The full Lean run was interrupted cleanly after about nine minutes, preserving
+completed caches and its interrupted record. Native assurance, build, focused
+guard/source proofs, independent code review, the two stack observations and
+affected regression checks have passed. The [response packet](evidence/array-review-response-20261028/README.md)
+records the exact implementation and remaining validation. Integrate applicable
+review feedback, then run the complete Lean/source/module/axiom checkpoint on
+stable final inputs and refresh any other checks invalidated by those changes
+before merge. Do not start another expensive run merely while awaiting feedback.
+No harness goal exists; CLI memory is unavailable and was not updated.
+
+## 2026-10-28 — Fixed-array external review response authorized
+
+The owner supplied the complete external review of `10cdcd274c` / PR #263 and
+selected **“Separate response PR stacked on #266 (recommended)”**. This authorizes
+the bounded [milestone 12 response](https://github.com/berkeleynerd/silver/milestone/12):
+repair M1's expression-tree precedence guards, correct the catalogue and Rosetta
+test-input capture, reconcile required records/bookkeeping, observe the counted
+and constant-array loop shapes under an 8 MiB stack, and complete one combined
+validation checkpoint with independent review. The
+[retained review and dispositions](reviews/review-10cdcd274c.md) distinguish the
+external findings from the selected response and deferred informational work.
+
+Base the response on #266 at `873f5910d2`. Keep both PRs open and do not merge.
+The original fixed-array and constant-array-iteration support claims stand;
+the existing trees have correct association, but fix the guard before any new
+tree relies on it. No next language feature, Oracle amendment, general capacity
+redesign, new assurance mode or mandatory replay is selected. Keep failed and
+interrupted evidence historical. No harness goal was created; CLI memory is
+unavailable and was not updated.
 
 ## 2026-10-28 — Constant Integer-array iteration delivery checkpoint
 

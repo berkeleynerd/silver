@@ -233,16 +233,17 @@ native package is `libc6-dev`.
 
 Use the validated **8 MiB process stack** configuration for the compiler on Linux
 (`ulimit -s 8192` in a shell where that limit is permitted). Retained application
-audit data uses a 16 MiB library-level buffer, and the auditor reads that buffer
+audit data uses a 32 MiB library-level buffer, and the auditor reads that buffer
 without a report-sized stack copy. A streaming reader validates and omits only
 unaudited proof-tree metadata; original reports remain on disk. The earlier
 2 MiB stack allocation produced
 `Storage_Error` with a 2 MiB stack even for the null and Hello World samples;
 that historical result predates the [capacity repair](docs/report-capacity.md).
-The recursive statement/predicate recognizer still uses the stack: a review's
-deepest 4096-byte check needed about 3.6 MiB, and compiling its deepest parse
-passed at 6 MiB but failed at 5.5 MiB. These observations do not establish a
-universal exact minimum. Adequate memory and normal runtime
+The recursive statement/predicate recognizer still uses the stack, and fixed-array
+metadata increased its loop frames. The [current stack observations](docs/evidence/array-review-response-20261028/README.md#stack-observations)
+admitted, compiled and executed a 143-level counted-loop program and a
+159-level constant-array foreach program at 8 MiB. These observations do not
+establish a universal exact minimum. Adequate memory and normal runtime
 startup remain [environmental requirements](docs/trusted-boundary.md#trusted-computing-base).
 
 ```sh

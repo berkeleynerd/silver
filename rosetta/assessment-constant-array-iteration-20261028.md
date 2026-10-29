@@ -30,7 +30,7 @@ identifier. Broad `arrays` and issue #12 remain open. The current-language
 assessor description includes constant forward/reverse iteration, nonstatic
 full-range elements, captured identity, hiding and scalar/String flow limits.
 
-This preparation branch is for lead integration only after the complete
+At this preparation checkpoint, the branch was for lead integration only after the complete
 native/Lean/source/regression assurance checkpoint. Its support metadata is not
 a separate delivery decision. This record and review establish no compiler,
 native proof, Lean, build, admission-probe or test-suite evidence. Validation
@@ -52,3 +52,15 @@ from 14 to 13. The 41 other changed task pages update positions only;
 Segmentation fault protection gains the broad-array stage-driver label. All
 construct-stage mappings remain unchanged: closed #9/#10 stay Stage 1, #11
 stays Stage 2, and open broad arrays #12 stays Stage 3.
+
+## Delivery integration
+
+The prepared metadata was integrated as `d9e83fcf02` in
+[PR #266](https://github.com/berkeleynerd/silver/pull/266). The
+[capability record](../docs/constant-array-iteration.md#delivery-assurance-and-validation)
+records the completed 2026-10-28 Linux native, Lean/source and regression
+checkpoint, including the final Rosetta rerun. The later review repairs and
+frontend configuration change have their own
+[combined checkpoint](../docs/evidence/array-final-validation-20261029/README.md).
+The narrow supported mapping is delivered metadata; the earlier static
+assessment above is not its assurance evidence. Broad arrays remain separate.

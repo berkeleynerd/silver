@@ -206,6 +206,128 @@ def assignmentBody : Expr BodyScan :=
 
 def assignmentRender : List String := assignmentBody.render ++ ["end", "array_assignment_body", ";"]
 
+/-- Categories are explicit: declaration and statement fragments are never
+primaries, even when their result has the same Lean type as an expression. -/
+def Expr.primary : Expr α → Bool
+  | .inputPosition | .scanPosition | .localFirst | .localAfter | .localTarget
+  | .zero | .maxOperands | .localSubscript | .localValue | .skip _ | .nameAfter _
+  | .scalarLookup _ _ | .arrayLookup _ _ | .arrayTarget _ | .token _ _
+  | .readIndex _ | .readValue _ | .binding _ | .mutable _ | .resultAfter _
+  | .operands _ | .resultBounds _ | .contains _ _ | .isEmpty _
+  | .invalid | .assigned _ | .group _ => true
+  | _ => false
+
+def Expr.relation : Expr α → Bool
+  | .eqNat _ _ | .neNat _ _ | .leNat _ _ | .not _ => true
+  | value => value.primary
+
+def Expr.expression : Expr α → Bool
+  | .orElse _ _ => true
+  | value => value.relation
+
+def Expr.groupable : Expr α → Bool
+  | .choose _ _ _ | .locals _ => true
+  | value => value.expression
+
+def Expr.isDeclaration : Expr α → Bool
+  | .letFirst _ _ | .letAfter _ _ | .letTarget _ _ | .letSubscript _ _ | .letValue _ _ => true
+  | _ => false
+
+def Expr.isReturn : Expr α → Bool | .guardReturn _ _ _ => true | _ => false
+
+/-- A declare expression ends in an expression; the ordinary function body
+ends in its guarded return statements. Neither admits a nested bare declaration
+or a statement in an expression position. -/
+def Expr.declarationSequence (returning : Bool) : Expr α → Bool
+  | .letFirst _ body | .letAfter _ body | .letTarget _ body
+  | .letSubscript _ body | .letValue _ body => body.declarationSequence returning
+  | .beginValue body => if returning then body.isReturn else body.expression
+  | _ => false
+
+def Expr.wellFormed : Expr α → Bool
+  | .inputPosition | .scanPosition | .localFirst | .localAfter | .localTarget
+  | .zero | .maxOperands | .localSubscript | .localValue | .invalid => true
+  | .skip value | .nameAfter value | .arrayTarget value | .token value _
+  | .readIndex value | .readValue value | .binding value | .assigned value =>
+      value.expression && value.wellFormed
+  | .scalarLookup a b | .arrayLookup a b | .contains a b =>
+      a.expression && b.expression && a.wellFormed && b.wellFormed
+  | .mutable value | .resultAfter value | .operands value | .resultBounds value =>
+      value.primary && value.wellFormed
+  | .isEmpty value => value.expression && value.wellFormed
+  | .eqNat a b | .neNat a b | .leNat a b => a.primary && b.primary && a.wellFormed && b.wellFormed
+  | .not value => value.primary && value.wellFormed
+  | .orElse a b => a.expression && b.relation && a.wellFormed && b.wellFormed
+  | .choose c a b | .guardReturn c a b => c.expression && a.expression && b.expression &&
+      c.wellFormed && a.wellFormed && b.wellFormed
+  | .group value => value.groupable && value.wellFormed
+  | .locals body => body.isDeclaration && body.declarationSequence false && body.wellFormed
+  | .beginValue body => (body.expression || body.isReturn) && body.wellFormed
+  | .letFirst value body | .letAfter value body | .letTarget value body
+  | .letSubscript value body | .letValue value body =>
+      value.expression && value.wellFormed && body.wellFormed
+
+def Expr.expressionBody (body : Expr α) : Bool := body.groupable && body.wellFormed
+
+def Expr.functionBody (body : Expr BodyScan) : Bool :=
+  body.isDeclaration && body.declarationSequence true && body.wellFormed
+
+abbrev WellFormedTrees : Prop :=
+  targetBody.expressionBody = true ∧ assignmentBody.functionBody = true
+
+theorem checked_precedence : WellFormedTrees := by decide +kernel
+
+namespace PrecedenceChecks
+
+private def condition : Expr Bool := .eqNat .zero .zero
+private def booleanAtom : Expr Bool := .isEmpty (.resultBounds .localValue)
+private def choice : Expr Nat := .choose condition .zero .inputPosition
+private def returned : Expr BodyScan := .guardReturn condition .invalid .invalid
+private def declared : Expr Nat := .locals (.letFirst .zero (.beginValue .localFirst))
+
+/-- The alternate tree is well formed and has the shared tokens' Ada
+association. A true Boolean primary makes the two meanings different. -/
+private theorem negation_collision (imports : Imports) (target : TargetCall) (frame : Frame)
+    (positive : booleanAtom.eval imports target frame = true) :
+    (Expr.not (.orElse booleanAtom booleanAtom)).render =
+      (Expr.orElse (.not booleanAtom) booleanAtom).render ∧
+    (Expr.not (.orElse booleanAtom booleanAtom)).eval imports target frame = false ∧
+    (Expr.orElse (.not booleanAtom) booleanAtom).eval imports target frame = true := by
+  refine ⟨rfl, ?_, ?_⟩
+  · change (!(booleanAtom.eval imports target frame || booleanAtom.eval imports target frame)) = false
+    simp [positive]
+  · change (!booleanAtom.eval imports target frame || booleanAtom.eval imports target frame) = true
+    simp [positive]
+
+private theorem expression_categories :
+    (Expr.not condition).wellFormed = false ∧
+    (Expr.not (.group condition)).wellFormed = true ∧
+    (Expr.not (.orElse condition condition)).wellFormed = false ∧
+    (Expr.not (.group (.orElse condition condition))).wellFormed = true ∧
+    (Expr.not (.orElse booleanAtom booleanAtom)).wellFormed = false ∧
+    (Expr.not (.group (.orElse booleanAtom booleanAtom))).wellFormed = true ∧
+    (Expr.orElse (.not booleanAtom) booleanAtom).wellFormed = true ∧
+    (Expr.eqNat choice .zero).wellFormed = false ∧
+    (Expr.eqNat (.group choice) .zero).wellFormed = true ∧
+    (Expr.choose condition choice .zero).wellFormed = false ∧
+    (Expr.choose condition (.group choice) .zero).wellFormed = true ∧
+    (Expr.skip declared).wellFormed = false ∧
+    (Expr.skip (.group declared)).wellFormed = true := by decide +kernel
+
+private theorem statement_placement :
+    returned.expressionBody = false ∧
+    (Expr.group returned).expressionBody = false ∧
+    (Expr.choose condition returned .invalid).expressionBody = false ∧
+    (Expr.locals (.letFirst .zero (.beginValue returned))).expressionBody = false ∧
+    (Expr.letFirst .zero (.beginValue returned)).functionBody = true ∧
+    (Expr.letFirst .zero (.beginValue .invalid)).functionBody = false ∧
+    declared.expressionBody = true ∧
+    (Expr.group declared).expressionBody = true ∧
+    (Expr.locals (.beginValue (.zero : Expr Nat))).expressionBody = false ∧
+    (Expr.group (.letFirst .zero (.beginValue (.zero : Expr Nat)))).expressionBody = false := by decide +kernel
+
+end PrecedenceChecks
+
 def targetEval (imports : Imports) (text : Source) (context : Native.Context) (position : Nat) : Nat :=
   targetBody.eval imports (fun _ _ _ => 0) {text, context, position}
 

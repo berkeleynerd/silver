@@ -1,0 +1,8 @@
+{
+  "scope": "focused producer-report inspection, not complete dependency/provenance audit",
+  "flow_checks": 29,
+  "proof_checks": 104,
+  "covered_entities": 10,
+  "warn_error_records": 7,
+  "full_audit": "pending complete checkpoint; single-unit audit failed on omitted owned dependency Silver_Libraries.Capture_And_Snapshot"
+}

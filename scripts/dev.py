@@ -482,6 +482,9 @@ def main(arguments: list[str] | None = None) -> None:
             if args.action == "test":
                 selected += [host.root / item for item in ("tests", "src", "proof", "samples", "catalogue")
                              if (host.root / item).exists()]
+                selected += [host.root / "rosetta" / name
+                             for name in ("refresh.py", "manifest.json", "coverage.json")
+                             if (host.root / "rosetta" / name).exists()]
                 selected += [path for path in (host.compiler / "bin/silver", host.root / "silver.gpr",
                                                host.root / "alire.toml", host.generated, host.context)
                              if path.exists()]

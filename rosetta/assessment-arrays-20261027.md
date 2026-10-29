@@ -16,8 +16,9 @@ index `I`. Both source and destination intervals are within `1..9`, and the two 
 the complete result without overlap. The print loops expose both lists.
 No named type, attributes, helper procedure or modulo is needed. The narrow
 `fixed-integer-arrays` identifier describes this source; broader `arrays`
-remains unsupported. The capability record retains implementation and pending
-[delivery obligations](../docs/fixed-integer-arrays.md#delivery-obligations).
+remains unsupported. The capability record retains the completed
+[delivery assurance and validation](../docs/fixed-integer-arrays.md#delivery-assurance-and-validation);
+the initial planning checkpoint preceded that completion.
 
 **Even or odd** needs remainder by two over a fixed range including negatives
 and zero. **FizzBuzz** needs modulo by 15, 5 and 3 over `1..100`, testing 15
@@ -29,16 +30,25 @@ neither needs `abs` or broader integer division. The
 admission. Retagging closes the stale mapping identified by #255 without
 creating new samples or claiming new proof/build/execution evidence.
 
-The initial assessment dates and model attributions remain historical.
+**2026-10-28 completion and provenance note.** The initial assessment dates
+and model attributions remain historical.
+The earlier 2026-10-25 review of both Even or odd and FizzBuzz, retained in
+[assessment-division-20261025.md](assessment-division-20261025.md), selected
+GPT-6.1 Sol / High (`gpt-6.1-sol`, `high`); runtime settings were not independently
+exposed. Its method was targeted task, current-language and retained-prototype
+review, with no new native admission, proof, build or execution. That review
+attribution predates and remains distinct from this 2026-10-27 reconciliation,
+whose review objects replace the earlier objects in `coverage.json`.
 `coverage.json` records this targeted revision under `review`; generated pages
 are produced by the ordinary renderer at the delivery checkpoint.
 
 ## Delivery metadata reconciliation
 
-This bounded reconciliation prepares the narrow `fixed-integer-arrays` support
-mapping for #260. Its integration depends on the complete native/Lean delivery
-checkpoint tracked in the [capability record](../docs/fixed-integer-arrays.md).
-The reconciliation itself makes no completed validation claim.
+This bounded reconciliation prepared the narrow `fixed-integer-arrays` support
+mapping for #260. Its integration was completed after the native/Lean delivery
+checkpoint recorded in the [capability record](../docs/fixed-integer-arrays.md#delivery-assurance-and-validation).
+The planning assessment itself supplied no native/Lean validation; the linked
+2026-10-28 delivery record supplies the completed evidence.
 
 Exact inputs: integration commit `899a15a5a0`, the downloaded driver task at page
 revision 406577, `language.md#fixed-size-integer-arrays`, the 21-line driver
@@ -53,8 +63,10 @@ execution or source-correspondence proof.
 
 The supported list gains only `fixed-integer-arrays`; only the statically
 reviewed exact rotation assessment uses that narrow identifier. Broad `arrays` and
-its stage issue #12 stay open. Loops/Foreach retains its broad assessment: an
-index loop does not establish support for Ada's distinct foreach form. The
+its stage issue #12 stay open. At this array-delivery checkpoint, Loops/Foreach
+retained its broad assessment: an index loop does not establish support for
+Ada's distinct foreach form. The later [constant-array iteration delivery](../docs/constant-array-iteration.md#delivery-assurance-and-validation)
+separately admits that bounded form. The
 assessor's current-language description now includes the bounded array rules,
 including singleton initialization, scalar-only checked subscripts, declaration
 snapshots and full-Integer body reads. The rotation summary and review metadata

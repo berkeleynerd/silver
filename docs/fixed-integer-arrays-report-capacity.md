@@ -33,6 +33,8 @@ not installed-binary attestation. Producer files are retained beneath
 | `src/spark/spark_definition.adb` | `d8d9203d847f4673be7be8bef8f006d90e5d0da9365e30e2eed311540bda934e` |
 | `src/flow/flow-control_flow_graph.adb` | `d6d903a8f15e645e1de51c2b74c8b61288885b34c88e9b2ac1f5469a801684b7` |
 | `src/utils/errout_wrapper.adb` | `d117c09ba360c274d453dbfb90c6cc61b5ff6c008b75f97abddab15442579a20` |
+| `src/flow/flow-analysis.adb` | `10dab62c866ca03c5fd9dfefc2f70ea348797f18fb4703ffa69be1ceb9ff9c94` |
+| `src/why/gnat2why-driver.adb` | `b3a37440a935dd9e4c8840c41807b0894a4ad710c63ceb9d344a3db804ebe304` |
 | frontend `sem_ch3.adb` | `198190171bcd99d293c3ec86a2ffe4ffb4a29276bfd205ebc4b9f0aea87d263f` |
 | frontend `exp_spark.adb` | `509e27a893828c31e7148f29470ab1fcbacd879242a1066dd22bdc3a6cf0fbfb` |
 | frontend `expander.adb` | `5cbfe2783201ea57d9d93290187daa0a24d71757b82b2a49c9280704b148b461` |
@@ -133,11 +135,18 @@ excluded.
 
 The initial review incorrectly concluded that there was no additional accepted
 diagnostic and that the 15,142,912-byte subtotal was complete. The later actual
-rotation report `tmp/fixed-arrays-native/.silver/linux-x86_64/program-YO21S8/obj/gnatprove/main~1.spark`
+rotation [report](evidence/fixed-integer-arrays/delivery-20261027/advisory-discovery/main~1.spark.gz)
+from managed run `20261027T075301-f654f3d5d925`
 refuted that conclusion: it contains two `array-initialization` warnings. All
 71 application/runtime checks were proved, but the then-current Main auditor
 rejected these warnings. The original conclusion is retained here as refuted
 history, not accepted capacity evidence.
+
+The [retained inventory](evidence/fixed-integer-arrays/delivery-20261027/advisory-discovery/retained.json)
+binds the original source, SPARK report, SARIF mirror and producer output by
+SHA-256, alongside the original managed events/log. These are the bytes from
+`program-YO21S8`, retained during the external-review response; no discovery run
+was repeated or relabelled successful.
 
 The [earlier compiler assessment](reviews/review-scalar-guard-array-initialization-advisory-20261026.md)
 reviews the same pinned producer mechanism; its compiler-only policy did not

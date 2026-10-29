@@ -1,0 +1,14 @@
+project Program is
+   for Languages use ("Ada");
+   for Source_Dirs use (".");
+   for Source_Files use ("main.adb", "silver_io.ads", "silver_io.adb", "silver_output_libc.ads", "silver_arguments.ads", "silver_arguments.adb", "silver_runtime.ads");
+   for Main use ("main.adb");
+   for Object_Dir use "obj";
+   for Exec_Dir use "bin";
+   package Naming is
+      for Body ("Main") use "main.adb" at 1;
+   end Naming;
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnat2022", "-gnata", "-gnato");
+   end Compiler;
+end Program;

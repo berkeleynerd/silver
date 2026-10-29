@@ -67,6 +67,22 @@ The [indexed Main repair](indexed-main-discovery.md) records the relevant source
 route, installed observations and exact artifact mapping. No external tool was
 modified and no comment form was removed from the language.
 
+The application build command adds `-cargs:Ada -gnatdM` to native compilation,
+retaining the project's `-gnat2022`, `-gnata` and `-gnato`. In the pinned GNAT 16.1
+frontend this internal,
+source-documented option disables current-value replacement: otherwise an inner
+contradictory guard can replace a variable by an out-of-range literal while
+losing the enclosing path facts, causing rejection of unreachable but valid
+Silver assignments. It does not disable static legality checks, runtime checks,
+assertions or overflow checking. The generated project and GNATprove options
+remain unchanged; the added flag applies only to native compilation of Main
+and the selected libraries. The native option is not a claim that GNAT and
+GNATprove have identical frontend modes. The
+[scalar-guard repair record](scalar-guard-frontend-repair.md) records the pinned
+source analysis, controls and validation scope. This configuration belongs to
+the existing external frontend premise and must be reconsidered with a toolchain
+change; it is not a general public-option guarantee or a proof of GNAT.
+
 GNAT always recognizes bracket wide-character encodings, including under other
 character-encoding switches. A literal ending in `[` immediately before a
 closing quote and an ASCII identifier character can therefore fail code generation.
@@ -90,9 +106,17 @@ measured a 143-loop source with the delivered environment records: recognition
 failed with `Storage_Error` and exit 1 at a 4,200 KiB stack limit and passed at
 4,600 KiB; an independent reviewer measured 4,411 KiB versus 3,196 KiB for a
 pre-PR-shaped binary. This exceeds the earlier recognizer observation but
-remains below 8 MiB. These are input/build-specific observations, not a proved
-worst-case bound. Per-level environment-copy redesign and a new stack regression
-remain deferred. The external
+remained below 8 MiB. Fixed-array metadata subsequently added 4,764 bytes to
+the copied body context. The [external array review](reviews/review-10cdcd274c.md)
+reports loop-frame growth from 29,184 to about 33,950 bytes and recognition of
+143 nested loops needing about 5.2–5.3 MiB. Those are reviewer measurements;
+the response did not retain a fresh compiler frame-size report.
+The [2026-10-28 managed observations](evidence/array-review-response-20261028/README.md#stack-observations)
+then admitted, compiled and executed a 4,079-byte/143-level counted-loop program
+and a 4,091-byte/159-level constant-array foreach program under an actual
+8 MiB process stack. These are input/build-specific observations, not a proved
+worst-case bound. Per-level environment-copy redesign remains deferred with #119.
+The external
 [sequencing review](reviews/review-9b99d52.md) observed `Storage_Error` and exit
 status 1 with a 2 MiB stack before the report-storage repair. Such resource exceptions are
 not currently mapped to the driver's normal infrastructure-error status 3.
@@ -968,7 +992,7 @@ source grammar used for admission: static, argument, assigned or selected
 output. Its independent ghost policy and executable traversal require completed
 Main analysis, full Main coverage and no skipped/assumed/suppressed checks. Every
 emitted safety record must be proved/info `VC_RANGE_CHECK`, `VC_LENGTH_CHECK`,
-`VC_OVERFLOW_CHECK` or `VC_DIVISION_CHECK`,
+`VC_OVERFLOW_CHECK`, `VC_DIVISION_CHECK` or `VC_INDEX_CHECK`,
 with prover completion, Main filename/entity and a positive location. Static
 folding may leave no safety checks. Static/assigned report shapes contain Main
 with neither, either or both of Put and Put_Line. Argument/selected shapes additionally

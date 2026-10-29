@@ -1,0 +1,204 @@
+{
+  "implementation_commit": "039daa30341e6a2e042c9e930568ef16eff97bf3",
+  "target": "b87f215bb9af13c85caca7e2cf36658de6120df9",
+  "platform": "linux-x86_64",
+  "selected_model": "GPT-6.1 Sol",
+  "selected_effort": "High",
+  "runtime_model_confirmation": "unavailable",
+  "token_cost_evidence": "unavailable",
+  "stack_kib": 8192,
+  "managed_workers_each": 2,
+  "affinity_cpus": [
+    8,
+    9
+  ],
+  "claim_scope": "Two retained concrete fixtures admitted, proved, natively compiled and executed under final native-only -gnatdM; no universal stack or maximal-runtime claim.",
+  "runs": [
+    {
+      "fixture": "count-143",
+      "run_id": "20261029T100555-f5c87f40820d",
+      "state": "success",
+      "managed_duration_seconds": 31.498478637,
+      "source_sha256": "475f33910742bdbedfc105d599b08c4907c22de09380807c253efbd3c11e67aa",
+      "binary_sha256": "ef51d93c5d05c5b4499946e6bd68e879cdd9988caabb82c6858d2938bc547355",
+      "observations": [
+        {
+          "name": "check",
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+            "silver-stack-observation",
+            "taskset",
+            "-c",
+            "8,9",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/bin/silver",
+            "check",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/docs/evidence/array-review-response-20261028/stack/count-143.adb"
+          ],
+          "returncode": 0,
+          "elapsed_seconds": 0.09515513299265876,
+          "output_file": "check.log"
+        },
+        {
+          "name": "compile",
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+            "silver-stack-observation",
+            "taskset",
+            "-c",
+            "8,9",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/bin/silver",
+            "compile",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/docs/evidence/array-review-response-20261028/stack/count-143.adb"
+          ],
+          "returncode": 0,
+          "elapsed_seconds": 25.226710082992213,
+          "output_file": "compile.log"
+        },
+        {
+          "name": "execute",
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+            "silver-stack-observation",
+            "taskset",
+            "-c",
+            "8,9",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/program-Lvy4BQ/bin/main"
+          ],
+          "returncode": 0,
+          "elapsed_seconds": 0.005436907988041639,
+          "output_file": "execute.log"
+        }
+      ],
+      "workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/program-Lvy4BQ",
+      "native_ali_options": {
+        "main~1.ali": [
+          "-gnatA",
+          "-gnat2022",
+          "-gnata",
+          "-gnato",
+          "-gnatdM",
+          "-gnateI1",
+          "-mtune=generic",
+          "-march=x86-64"
+        ],
+        "silver_io.ali": [
+          "-gnatA",
+          "-gnat2022",
+          "-gnata",
+          "-gnato",
+          "-gnatdM",
+          "-mtune=generic",
+          "-march=x86-64"
+        ],
+        "silver_output_libc.ali": [
+          "-gnatA",
+          "-gnat2022",
+          "-gnata",
+          "-gnato",
+          "-gnatdM",
+          "-mtune=generic",
+          "-march=x86-64"
+        ]
+      }
+    },
+    {
+      "fixture": "foreach-source-bound",
+      "run_id": "20261029T100655-bb6b5cba328f",
+      "state": "success",
+      "managed_duration_seconds": 34.934268941,
+      "source_sha256": "65f28f97b35fb6f6e1867e93129612b00a225d22f34e6a6a14f32a0785dd03c4",
+      "binary_sha256": "ef51d93c5d05c5b4499946e6bd68e879cdd9988caabb82c6858d2938bc547355",
+      "observations": [
+        {
+          "name": "check",
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+            "silver-stack-observation",
+            "taskset",
+            "-c",
+            "8,9",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/bin/silver",
+            "check",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/docs/evidence/array-review-response-20261028/stack/foreach-source-bound.adb"
+          ],
+          "returncode": 0,
+          "elapsed_seconds": 0.10753642300551292,
+          "output_file": "check.log"
+        },
+        {
+          "name": "compile",
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+            "silver-stack-observation",
+            "taskset",
+            "-c",
+            "8,9",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/bin/silver",
+            "compile",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/docs/evidence/array-review-response-20261028/stack/foreach-source-bound.adb"
+          ],
+          "returncode": 0,
+          "elapsed_seconds": 29.056499565995182,
+          "output_file": "compile.log"
+        },
+        {
+          "name": "execute",
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+            "silver-stack-observation",
+            "taskset",
+            "-c",
+            "8,9",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/program-LUcGN2/bin/main"
+          ],
+          "returncode": 0,
+          "elapsed_seconds": 0.003531324997311458,
+          "output_file": "execute.log"
+        }
+      ],
+      "workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/program-LUcGN2",
+      "native_ali_options": {
+        "main~1.ali": [
+          "-gnatA",
+          "-gnat2022",
+          "-gnata",
+          "-gnato",
+          "-gnatdM",
+          "-gnateI1",
+          "-mtune=generic",
+          "-march=x86-64"
+        ],
+        "silver_io.ali": [
+          "-gnatA",
+          "-gnat2022",
+          "-gnata",
+          "-gnato",
+          "-gnatdM",
+          "-mtune=generic",
+          "-march=x86-64"
+        ],
+        "silver_output_libc.ali": [
+          "-gnatA",
+          "-gnat2022",
+          "-gnata",
+          "-gnato",
+          "-gnatdM",
+          "-mtune=generic",
+          "-march=x86-64"
+        ]
+      }
+    }
+  ]
+}
