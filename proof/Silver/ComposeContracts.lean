@@ -135,19 +135,27 @@ theorem ArrayValuesDomain.resultValid {domain : StateDomain}
     (context : ArrayValuesDomain text source result position length parsed domain) :
     ValidState text result := domain.valid text result context.resultContext
 
+/-- The native append precondition compares the new segment with the last
+allocated descriptor; valid metadata already orders all earlier segments. -/
+def ArrayAddDomain (names : ArrayBindings.Metadata) (offset : Nat) : Prop :=
+  ∀ last, names.getLast? = some last → last.offset + last.length ≤ offset
+
 def arrayPutLocals (state : ParserState) (value : Int) : Locals :=
   (Context.locals {state}).set .integer "value" value
 
 def arrayAddLocals (text : Source) (state : ParserState) (first after : Nat)
-    (bounds : Integer.Interval) (offset length : Nat) (mutable : Bool) (following : Nat) : Locals :=
+    (bounds : Integer.Interval) (offset length : Nat) (mutable : Bool) (following : Nat)
+    (componentBounds : Integer.Interval) : Locals :=
   ((Context.locals {text,state,first,after,length,mutable,following}).set .interval "bounds" bounds)
     |>.set .number "offset" offset
+    |>.set .interval "component_bounds" componentBounds
 
 /-- Source state and result accumulator are separate native arguments. -/
 def arrayValuesLocals (text : Source) (source result : ParserState)
-    (position length parsed : Nat) : Locals :=
+    (position length parsed : Nat) (componentBounds : Integer.Interval) : Locals :=
   ((Context.locals {text,position,length}).set .state "source_state" source).set .state "result_state" result
     |>.set .number "parsed" parsed
+    |>.set .interval "component_bounds" componentBounds
 
 /-- Consequences of the native subtype declarations and proved routine contracts.
 Only result bounds/state preservation occur here, never admission correctness. -/
@@ -333,24 +341,25 @@ structure HelperEquations (calls : Calls) (evaluator : Calls := lexical calls)
   scalarDeclaration : ∀ text, ValidText text → ∀ state arguments,
     domain.holds text state → calls.function .scalarDeclaration text state arguments =
       scalarDeclarationBody.eval evaluator (Context.locals {text,state,arguments})
-  arrayAdd : ∀ text, ValidText text → ∀ state first after bounds offset length mutable following,
+  arrayAdd : ∀ text, ValidText text → ∀ state first after bounds offset length mutable following componentBounds,
     domain.holds text state → ValidName text first after →
-    ArrayBindings.ValidBinding ⟨first, after, bounds, offset, length, mutable⟩ →
+    ArrayBindings.ValidBinding ⟨first, after, bounds, offset, length, mutable, componentBounds⟩ →
     state.arrayNames.names.length < ArrayBindings.maxBindings →
-    offset + length ≤ state.arrayNames.used → ValidCursor text following →
-    calls.function .arrayAdd text state first after bounds offset length mutable following =
-      arrayAddBody.eval evaluator (arrayAddLocals text state first after bounds offset length mutable following)
+    offset + length ≤ state.arrayNames.used → ArrayAddDomain state.arrayNames.names offset →
+    ValidCursor text following →
+    calls.function .arrayAdd text state first after bounds offset length mutable following componentBounds =
+      arrayAddBody.eval evaluator (arrayAddLocals text state first after bounds offset length mutable following componentBounds)
   arrayPut : ∀ state value, state.arrayNames.used < ArrayBindings.maxElements →
     Integer.InRange value →
     calls.function .arrayPut state value = arrayPutBody.eval evaluator (arrayPutLocals state value)
-  arrayValuesModel : ∀ text, ValidText text → ∀ source result position length parsed,
-    ArrayValuesDomain text source result position length parsed domain →
-    calls.function .arrayValuesModel text source result position length parsed =
-      arrayValuesModelBody.eval evaluator (arrayValuesLocals text source result position length parsed)
-  arrayValues : ∀ text, ValidText text → ∀ source result position length parsed,
-    ArrayValuesDomain text source result position length parsed domain →
-    calls.function .arrayValues text source result position length parsed =
-      calls.function .arrayValuesModel text source result position length parsed
+  arrayValuesModel : ∀ text, ValidText text → ∀ source result position length parsed componentBounds,
+    componentBounds.Bounded → ArrayValuesDomain text source result position length parsed domain →
+    calls.function .arrayValuesModel text source result position length parsed componentBounds =
+      arrayValuesModelBody.eval evaluator (arrayValuesLocals text source result position length parsed componentBounds)
+  arrayValues : ∀ text, ValidText text → ∀ source result position length parsed componentBounds,
+    componentBounds.Bounded → ArrayValuesDomain text source result position length parsed domain →
+    calls.function .arrayValues text source result position length parsed componentBounds =
+      calls.function .arrayValuesModel text source result position length parsed componentBounds
   arrayDeclaration : ∀ text, ValidText text → ∀ state arguments,
     domain.holds text state →
     calls.function .arrayDeclaration text state arguments =

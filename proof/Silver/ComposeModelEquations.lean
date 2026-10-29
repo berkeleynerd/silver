@@ -52,29 +52,32 @@ private theorem model_definition_arrayPut : ∀ state value,
   rfl
 
 private theorem model_definition_arrayAdd : ∀ text, ValidText text →
-    ∀ state first after bounds offset length mutable following,
+    ∀ state first after bounds offset length mutable following componentBounds,
     ValidState text state → ValidName text first after →
-    ArrayBindings.ValidBinding ⟨first, after, bounds, offset, length, mutable⟩ →
+    ArrayBindings.ValidBinding ⟨first, after, bounds, offset, length, mutable, componentBounds⟩ →
     state.arrayNames.names.length < ArrayBindings.maxBindings →
-    offset + length ≤ state.arrayNames.used → ValidCursor text following →
-    modelCalls.function .arrayAdd text state first after bounds offset length mutable following =
-      arrayAddBody.eval modelCalls (arrayAddLocals text state first after bounds offset length mutable following) := by
+    offset + length ≤ state.arrayNames.used → ArrayAddDomain state.arrayNames.names offset →
+    ValidCursor text following →
+    modelCalls.function .arrayAdd text state first after bounds offset length mutable following componentBounds =
+      arrayAddBody.eval modelCalls (arrayAddLocals text state first after bounds offset length mutable following componentBounds) := by
   intros
   rw [arrayAdd_denotation]
   rfl
 
 private theorem model_definition_arrayValuesModel : ∀ text, ValidText text →
-    ∀ source result position length parsed, ArrayValuesDomain text source result position length parsed →
-    modelCalls.function .arrayValuesModel text source result position length parsed =
-      arrayValuesModelBody.eval modelCalls (arrayValuesLocals text source result position length parsed) := by
-  intro text _ source result position length parsed domain
-  rw [arrayValues_denotation, model_arrayValues_equation text source result position length parsed domain.parsedBound]
+    ∀ source result position length parsed componentBounds,
+    componentBounds.Bounded → ArrayValuesDomain text source result position length parsed →
+    modelCalls.function .arrayValuesModel text source result position length parsed componentBounds =
+      arrayValuesModelBody.eval modelCalls (arrayValuesLocals text source result position length parsed componentBounds) := by
+  intro text _ source result position length parsed componentBounds _ domain
+  rw [arrayValues_denotation, model_arrayValues_equation text source result position length parsed componentBounds domain.parsedBound]
   rfl
 
 private theorem model_definition_arrayValues : ∀ text, ValidText text →
-    ∀ source result position length parsed, ArrayValuesDomain text source result position length parsed →
-    modelCalls.function .arrayValues text source result position length parsed =
-      modelCalls.function .arrayValuesModel text source result position length parsed := by
+    ∀ source result position length parsed componentBounds,
+    componentBounds.Bounded → ArrayValuesDomain text source result position length parsed →
+    modelCalls.function .arrayValues text source result position length parsed componentBounds =
+      modelCalls.function .arrayValuesModel text source result position length parsed componentBounds := by
   intros
   rfl
 

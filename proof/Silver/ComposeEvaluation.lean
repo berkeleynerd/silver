@@ -1102,17 +1102,17 @@ theorem normalized_helpers {domain : StateDomain} (calls : Calls)
   scalarRead := source.scalarRead
   arrayLookup := source.arrayLookup
   arrayAdd := by
-    intro text valid state first after bounds offset length mutable following stateValid nameValid bindingValid room allocated ending
-    exact (source.arrayAdd text valid state first after bounds offset length mutable following
-      stateValid nameValid bindingValid room allocated ending).trans
-        (arrayAdd_eval_lexical calls text state first after bounds offset length mutable following).symm
+    intro text valid state first after bounds offset length mutable following componentBounds stateValid nameValid bindingValid room allocated ordered ending
+    exact (source.arrayAdd text valid state first after bounds offset length mutable following componentBounds
+      stateValid nameValid bindingValid room allocated ordered ending).trans
+        (arrayAdd_eval_lexical calls text state first after bounds offset length mutable following componentBounds).symm
   arrayPut := by
     intro state value room safe
     exact (source.arrayPut state value room safe).trans (arrayPut_eval_lexical calls state value).symm
   arrayValuesModel := by
-    intro text valid sourceState result position length parsed context
-    exact (source.arrayValuesModel text valid sourceState result position length parsed context).trans
-      (arrayValues_eval_lexical calls text sourceState result position length parsed).symm
+    intro text valid sourceState result position length parsed componentBounds bounded context
+    exact (source.arrayValuesModel text valid sourceState result position length parsed componentBounds bounded context).trans
+      (arrayValues_eval_lexical calls text sourceState result position length parsed componentBounds).symm
   arrayValues := source.arrayValues
   arrayDeclaration := by
     intro text valid state arguments context
