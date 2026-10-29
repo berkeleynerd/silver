@@ -70,7 +70,7 @@ theorem loopHeader_bounds_bounded {text : Source} {context : ParseContext} {scan
     (positive : (loopHeader text context scan).entry.position ≠ 0) :
     (loopHeader text context scan).bounds.Bounded := by
   by_cases isArray : loopIsArray text scan = true
-  · simpa only [LoopHeader.bounds, loopHeader, isArray, ↓reduceIte] using
+  · simpa only [LoopHeader.bounds, loopHeader, isArray, ↓reduceIte, ArrayBindings.Binding.descriptor] using
       (ArrayBindings.binding_components_valid (fun entry found => (arrays.2.1 entry found).2.2.2)
         (loopArrayTarget text context scan)).1
   · have counted := Bool.eq_false_iff.mpr isArray
