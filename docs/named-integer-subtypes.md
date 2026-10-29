@@ -195,3 +195,31 @@ retains preceding failed and interrupted checks. The
 records the matching 206-module closure reused by integration. These results
 close the known focused proof repairs and permit the complete checkpoint;
 they do not themselves establish final authoritative-source assurance.
+
+## Delivery assurance and validation
+
+The [final packet](evidence/named-integer-subtypes-20261029/README.md) is being
+assembled for implementation/review target `97312a790f`. Complete Lean run
+`20261029T161817-0a8089cd7dc3` remains active on 653 matching captured inputs.
+Native full run `20261029T165015-c6b111fb4f2a` uses the preceding delivery's
+validated workspace after synchronizing six changed source files and comparing
+all 143 tracked native inputs. The earlier full run was deliberately interrupted
+to avoid re-proving unchanged units in a fresh workspace; its original outcome,
+sessions and evidence remain preserved in the
+[reuse record](evidence/named-integer-subtypes-20261029/native-full-reuse/README.md).
+Both complete proof outcomes remain pending.
+
+Full regression run `20261029T153819-5626949ad567` passed all 555 test identities
+in 5,255.763 s, including 52 sample sources and 108 executions. The
+[independent integration review](reviews/review-named-integer-subtypes-final-integration-97312a790f.md)
+identified two test modules affected by the final five proof edits. Runs
+`20261029T170712-d9dc75fa5629` and `20261029T170846-5ccd1f3667b8` passed their
+12 and 16 tests. The final inventory is therefore covered by 527 applicable
+full-suite results and 28 refreshed results. There are 546 distinct methods
+after excluding nine previously disclosed duplicate executions through separate
+shared-binding import names. Final Rosetta delivery metadata and evidence
+confirmation await complete assurance; PR #289 remains a draft.
+
+| Round | Selected settings | Result and remaining work |
+| --- | --- | --- |
+| Final regression reconciliation and native workspace reuse | Lead runtime settings unavailable; native worker GPT-6 Astra / Extra High; delivery documentation GPT-6.1 Sol / High | Full suite passed in 5,259.531 s managed time; both affected modules passed. Native reuse preserves prior sessions and exact input comparisons; complete native and Lean checks remain active. Token/cost measurements unavailable. |

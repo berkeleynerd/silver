@@ -2,8 +2,9 @@
 
 Final validation is in progress for [#286](https://github.com/berkeleynerd/silver/issues/286)
 and [draft PR #289](https://github.com/berkeleynerd/silver/pull/289). The complete
-native proof/audit, Lean/source/module/axiom check and regression suite have not
-yet established a completed capability. The authorized delivery ends with a
+native proof/audit and Lean/source/module/axiom check remain pending. The full
+regression suite and final proof-reading reruns have passed.
+The authorized delivery ends with a
 reviewable feature PR; merging it awaits the owner's instruction.
 
 The implementation and final code-review target is
@@ -25,6 +26,9 @@ confirmation remains pending.
 | `20261029T153928-8c628fb8b8bb` | Shared composition equations | Passed; fresh audit of 10,653 declarations |
 | `20261029T154650-8200a2184daf` | Recognition/model equations and retained Sequence model | Passed; fresh audit of 20,836 declarations |
 | `20261029T161019-1954ab856759` | Scalar-array recursion and native Predicate helper/library closure | Passed; fresh audit of 35,005 declarations |
+| `20261029T153819-5626949ad567` | Full regression and sample suite | Passed: 555 tests, 5,255.763 s unittest time / 5,259.531 s managed duration |
+| `20261029T170712-d9dc75fa5629` | Final proof-source tests, including certificate parity | Passed: 12 tests |
+| `20261029T170846-5ccd1f3667b8` | Platform fixtures using the final proof tree | Passed: 16 tests; platform behavior is mocked, not native macOS validation |
 
 `runs/` contains original managed events and available outputs, compressed without
 changing their decompressed bytes. Each `retained.json` gives the original source
@@ -53,7 +57,7 @@ validation, not a clean build or independent kernel replay.
 
 ## Regression applicability
 
-Full suite `20261029T153819-5626949ad567` runs on validation commit
+Full suite `20261029T153819-5626949ad567` passed on validation commit
 `671a4e7931d25dc1d1bc3d2591c1f5bca25a646b`, whose tree equals implementation
 checkpoint `2a4cdceb0c3f645d8b5f1b852fb33fbae6cec935`. Of its 800 captured inputs,
 787 tracked files match the final implementation, five Lean files changed, and
@@ -61,14 +65,23 @@ eight identify workspace/generated/tool inputs. The exact differences are in
 the input comparison. Compiler sources, scripts, tests, samples, catalogue and
 captured Rosetta inputs match.
 
-The independent integration review requires `test_lean_source.py` and
-`test_platforms.py` to run again on the five final proof edits. These 28 test
-identities and any failed or incomplete full-suite identities remain outstanding
-until their reruns complete. The [discovery inventory](test-inventory.json)
+The log reconciles exactly with all 555 identities in the discovery inventory;
+each has an explicit successful outcome. The manifest test admitted, proved,
+compiled and executed all 52 sample sources, covering 108 executions including
+argument cases. The full suite retains its successful outcome; the two module
+reruns below refresh applicability after the later proof edits.
+
+The independent integration review required `test_lean_source.py` and
+`test_platforms.py` to run again on the five final proof edits. Both reruns passed
+on matching final inputs. The [reconciliation](test-reconciliation.json)
+accounts for 527 applicable full-suite results plus 28 freshly rerun results,
+covering all 555 final identities with none missing or failed.
+The [discovery inventory](test-inventory.json)
 contains 555 unique unittest identities, including nine shared-binding methods
 executed through two module import names: 546 methods after excluding those
-duplicate executions. Final accounting must preserve each original outcome and
-identify every applicable replacement result.
+duplicate executions. The original full suite remains successful; the
+reconciliation identifies all replacement results. Any later Rosetta delivery
+metadata edits will receive their affected renderer tests.
 
 The full suite reserves four workers. Its agent-authored
 [affinity record](regression-affinity.json) records restricting unittest and its
