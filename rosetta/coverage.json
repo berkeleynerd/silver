@@ -21,7 +21,8 @@
   "interval-integer-division",
   "scalar-guard-refinement",
   "fixed-integer-arrays",
-  "constant-integer-array-iteration"
+  "constant-integer-array-iteration",
+  "named-integer-subtypes"
  ],
  "tasks": {
   "100 doors": {
@@ -69434,32 +69435,29 @@
     }
    ],
    "surface": [
-    "integers",
-    "integer-division",
-    "arrays",
-    "for-loops",
-    "scalar-image",
-    "booleans"
+    "bounded-mutable-integers",
+    "fixed-integer-arrays",
+    "constant-integer-array-iteration",
+    "integer-image",
+    "scalar-guard-refinement",
+    "named-integer-subtypes"
    ],
-   "outlook": "plausible",
+   "outlook": "likely",
    "risks": [
     {
      "obligation": "overflow",
-     "explanation": "Sum and product are loop-carried Integer values with no invariant, so each addition and multiplication is preceded by a guard comparing the accumulator with Integer'Last or Integer'First divided by the element, and an overflow sets a flag that selects a visible 'overflow' output instead of a wrong result."
-    },
-    {
-     "obligation": "division",
-     "explanation": "The guard divides by the element, so it is placed under a test that the element is nonzero (zero is handled separately because it leaves the product at zero)."
-    },
-    {
-     "obligation": "length",
-     "explanation": "The output string is formed by concatenating literals with Integer'Image results, whose bounded length the prover must see against the declared String size."
+     "explanation": "The component subtype 1..10 bounds each operand. Guards Sum <= 2147483637 and Product <= 214748364 precede addition and multiplication; the alternative arms print explicit overflow messages. Neither guard fails for the embedded vector 1 through 10."
     }
    ],
-   "size": 45,
-   "approach": "An embedded constant array of ten Integers (1 to 10) is traversed by for loops over its own range, accumulating the sum and product in Integer variables. Before each addition and multiplication a guard checks that the result stays in Integer range; on failure a Boolean flag is set and the program prints an explicit overflow message instead of a result. Otherwise it prints both values with Integer'Image concatenated into text.",
-   "summary": "Indexing is safe because the loops run over the array's own range, but the loop-carried sum and product need explicit overflow guards with visible failure output since no invariant can be written. This is routine guarded arithmetic with no annotation needed.",
-   "confidence": "high"
+   "size": 23,
+   "approach": "Main embeds the constant vector 1 through 10 in an anonymous fixed array whose component subtype is Integer range 1..10. One foreach loop updates guarded Integer sum and product accumulators, then prints 55 and 3628800. Constant thresholds follow from the component upper bound, so no division, Boolean object, procedure or array attribute is needed.",
+   "summary": "The bounded component subtype supplies the operand range for guarded sum and product updates. The embedded ten-element example is computed by iteration over the actual array, with standard Integer Image output.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-29",
+    "record": "assessment-named-integer-subtypes-20261029.md",
+    "method": "Targeted task and candidate sample review; original assessment attribution preserved. Validation and independent review remain in the capability record."
+   }
   },
   "Sum and product puzzle": {
    "revision": 414529,
@@ -69862,24 +69860,30 @@
     }
    ],
    "surface": [
-    "integers",
-    "ranged-subtypes",
-    "arrays",
-    "for-loops",
-    "procedures",
-    "scalar-image"
+    "bounded-mutable-integers",
+    "fixed-integer-arrays",
+    "constant-integer-array-iteration",
+    "integer-image",
+    "scalar-guard-refinement",
+    "named-integer-subtypes",
+    "integer-for-loops"
    ],
    "outlook": "likely",
    "risks": [
     {
      "obligation": "overflow",
-     "explanation": "The loop-carried Sum is known only by its type after the first iteration, so an explicit guard before each addition rejects with a visible message if the sum would exceed the Integer limit, which is unreachable for the bounded elements but provable."
+     "explanation": "Component subtype 0..9 bounds each square by 81. Before adding it, the program checks Sum <= 2147483566, with a visible overflow message in the alternative arm."
     }
    ],
-   "size": 35,
-   "approach": "The vector is a fixed-capacity array of a ranged element subtype (for example -1000..1000) plus a Count in 0..capacity, so a zero-length vector is Count = 0. A procedure loops with a for loop over 1..Count, squares each element (bounded by the subtype), guards the accumulation against exceeding Integer'Last by reporting a rejection, and prints the result with Integer'Image. The main program calls it on an empty vector and on the sample 3,1,4,1,5,9 giving 133.",
-   "summary": "Element squares are bounded by the declared element subtype and indexes by Count's range, and the only loop-carried value (the sum) is protected by one guard just before the addition, so everything discharges without annotations. Integers stand in for the numeric vector, avoiding floating-point proof difficulty.",
-   "confidence": "high"
+   "size": 29,
+   "approach": "Main declares a constant six-element array of an Integer subtype 0..9, initialized to 3,1,4,1,5,9, plus a Count in 0..6. Count = 0 represents an empty vector; an index loop over 1..Count executes zero times and prints 0. After resetting Sum, a foreach loop squares each actual component and accumulates it under an explicit range guard, printing 133. No helper procedure, null array or subtype conversion is needed.",
+   "summary": "Named component bounds make both indexed and foreach squares safe. A fixed-capacity vector with Count = 0 handles the required empty case, and executable guards establish accumulator containment. The driver uses only the narrow named Integer subtype and existing array/loop fragment.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-29",
+    "record": "assessment-named-integer-subtypes-20261029.md",
+    "method": "Targeted task and candidate sample review; original assessment attribution preserved. Validation and independent review remain in the capability record."
+   }
   },
   "Sum of the digits of n is substring of n": {
    "revision": 411292,

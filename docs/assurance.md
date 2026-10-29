@@ -64,6 +64,44 @@ The assurance targets are the User's Guide definitions of
 The [trusted boundary](trusted-boundary.md) names the frontend, proof tools,
 runtime imports, ABI and environmental assumptions used throughout.
 
+## Named Integer subtypes and bounded components
+
+The [capability record](named-integer-subtypes.md) tracks this extension's
+implementation and required complete checkpoint; final source validation is
+still pending. Named subtypes carry nonempty static Integer bounds in a separate
+metadata environment. They allocate no runtime value cells and preserve Integer's
+operations and meaning. `IntegerSubtypeBindings` models ordered lookup and the
+operation-hiding flags; `ComposeSubtypeDeclarations` connects subtype and type-mark
+readings to the parsed bounds, including optional narrower object constraints.
+`ComposeSubtypeChecks` retains and discharges both endpoint expressions' raw
+arithmetic obligations. `ComposeInitializerTrace` and `SequenceSubtypeReady`
+carry validity and hiding facts through the complete ordered declaration trace.
+
+Each array descriptor now carries its component interval. `IntegerArrays`
+checks every initializer and indexed write against that interval and proves
+preservation through the actual component update. `ArrayBindingsOrdered` and
+`ArrayBindingsRead` connect disjoint storage segments, initialized-value
+containment and subsequent body ranges. Constant-array iteration uses the same
+component interval for its immutable nonstatic element. Scalar guard refinement,
+mutable widening and scoped identity restoration retain their existing rules.
+The endpoint statement gains no owner-supplied assumption or annotation.
+
+Typed subtype lookup/type-mark/declaration trees and the array helper trees must
+pass the same source-token, precedence, scope and interpreted-equation checks
+as the existing constructs. The array metadata and environment predicates now
+have rendered trees and domain-implies-precondition theorems in
+`ArrayBindingsNativeEquations` and `ArrayBindingsSourceChecks`, tying the
+strengthened mathematical allocation domain to the checked native predicate.
+These helper results retain the integration scope described below; they do not
+replace the complete authoritative-source checkpoint.
+
+The [producer and report account](named-integer-subtypes-report-capacity.md)
+retains the existing accepted check classes. Static subtype declarations add no
+new runtime proof entity; bounded components use the existing range-check route.
+Shorter scalar declarations raise the conservative Main envelope to
+31,822,336 bytes, within the existing 32 MiB allocation. The source, operator and
+operand budgets and the frontend/tool premises remain unchanged.
+
 ## Fixed-size Integer arrays
 
 The [delivery assurance and validation record](fixed-integer-arrays.md#delivery-assurance-and-validation)
@@ -74,11 +112,11 @@ initialization, component update and disjoint-cell preservation. Indexed
 `Integer.Expr` checks a nonempty subscript interval contained in the descriptor
 bounds and joins the addressed cell ranges. `IntegerChecks.lean` retains index
 and aggregate-length obligations. `IntegerArrays.lean` requires mutability and
-full Integer ranges for every target cell before indexed assignment, deriving
+the declared component range for every target cell and RHS containment before indexed assignment, deriving
 store-fit preservation while leaving other cells unchanged.
 
 Declaration elaboration uses exact initialized components; indexed snapshots
-remain nonstatic. Body reads use full Integer ranges, with no element-wise flow
+remain nonstatic. Body reads use declared component ranges, with no element-wise flow
 refinement. The parsed header supplies the array environment, initial store and
 source-derived scalar/index bounds used to separate array, scalar and loop
 identities. Loop execution captures its bounds before iteration and threads
@@ -130,7 +168,7 @@ The predicate core's
 `arrayLoop` retains the resolved array descriptor, direction and fresh element
 identity. Execution captures the finite index sequence once and reads the actual
 component at each step. It restores the scoped binder while retaining writes to
-other objects. The core requires valid nonempty bounds, Full component ranges,
+other objects. The core requires valid nonempty bounds, declared component ranges,
 readonly component cells and separation from both the element binder and every
 nested loop binder.
 
@@ -205,7 +243,7 @@ interval in the guard body analysis. Input-length facts survive scalar
 writes; live mutable Image equalities are not retained.
 
 `ScalarConstraintAt` independently reads optional declared constraints: absent
-`range` denotes the full Integer bounds; a present range has source readings of
+`range` denotes the selected type mark's bounds (full Integer for `Integer`); a present range has source readings of
 both static endpoint expressions, exact delimiter/cursor positions and bounds
 equal to their evaluations in the elaboration store. This relation is required
 by `ScalarDeclarationAt`; `scalar_declaration_checked` consumes its endpoint

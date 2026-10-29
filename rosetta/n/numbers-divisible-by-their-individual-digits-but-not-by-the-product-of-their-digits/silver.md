@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All values are bounded by types (N <= 999, digits <= 9, product <= 729) and every division is guarded by a nonzero test, with no loop-carried accumulator, so the checks should discharge from types and guards alone.
 
-Position 137 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 138 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

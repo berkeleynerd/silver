@@ -321,6 +321,7 @@ SURFACE_LABELS = {"integer-for-loops": "Integer range for loops",
                   "interval-integer-division": "interval-checked Integer division",
                   "fixed-integer-arrays": "fixed-size Integer arrays",
                   "constant-integer-array-iteration": "constant Integer-array iteration",
+                  "named-integer-subtypes": "named Integer subtypes and bounded components",
                   "integer-object-size-read": "Integer object Size attribute reads",
                   "integer-image": "Integer image", "booleans": "Boolean objects",
                   "multidim-arrays": "multidimensional arrays",
@@ -369,6 +370,7 @@ ADMISSION = {
     "exponentiation": "Which base and exponent bounds make every ** provably free of overflow?",
     "modular-types": "Which modular types, bitwise operations and shifts are admitted, and how do conversions "
                      "between modular and signed types stay in range?",
+    "named-integer-subtypes": "How do static direct-Integer subtype bounds, ordered name visibility, scalar initialization and assignment, and declared array component intervals establish range safety and automatic discharge through guards, nested loops and constant-array iteration?",
     "ranged-subtypes": "Which type and subtype declarations and conversions are admitted, and how is every "
                        "range check at assignment and conversion discharged?",
     "booleans": "Which Boolean objects, operators and Boolean-valued functions are admitted beyond today's "

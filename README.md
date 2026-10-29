@@ -141,7 +141,7 @@ validation, and the scoped independent reviews.
 The [fixed-size Integer-array increment](docs/fixed-integer-arrays.md) adds
 anonymous one-dimensional arrays with nonempty static bounds, explicit
 initialization and checked indexed reads and writes. Declaration snapshots stay
-exact; body reads use full Integer intervals. The
+exact; body reads use declared component intervals (full Integer for `of Integer`). The
 [rotation sample](samples/rosetta_shift_list_left_3.adb) moves the first three
 values to the end. Named array types, array attributes and whole-array
 operations remain outside this fragment. The
@@ -155,6 +155,14 @@ existing statements compose in the body. Mutable iterables and general
 iterators remain excluded. The
 [Loops/Foreach sample](samples/rosetta_loops_foreach.adb) exercises ordered output.
 Source, expression and operator limits are unchanged.
+
+The [named Integer subtype increment](docs/named-integer-subtypes.md), currently
+under validation, adds static `subtype S is Integer range L .. H;` declarations
+for scalar objects and fixed-array components. Bounded components retain their
+ranges in indexed reads and constant-array iteration, enabling the
+[Sum of squares](samples/rosetta_sum_of_squares.adb) and
+[Sum and product](samples/rosetta_sum_and_product.adb) examples. Subtype aliases,
+conversions, derived types and general arrays remain outside this fragment.
 
 The [Find square difference sample](samples/find_square_difference.adb) stores
 the first matching index and prints ` 501` followed by a newline.

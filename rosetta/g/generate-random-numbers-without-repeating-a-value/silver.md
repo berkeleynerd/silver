@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from declared subtypes, for-loop indexes over the array's own range, and a mod whose divisor is provably positive, and no loop-carried value needs an invariant because the generator state is reduced by mod into its declared range each step. Fisher-Yates guarantees uniqueness by construction, so no retry loop or termination argument is needed.
 
-Position 122 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 123 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

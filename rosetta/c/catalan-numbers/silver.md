@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is plain bounded integer arithmetic with 15 iterations, and the overflow and range checks discharge from the wide temporary type plus an explicit guard before the assignment. Nonlinear multiply and divide on loop-carried values make it depend on careful program shape rather than being routine.
 
-Position 152 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 153 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 
