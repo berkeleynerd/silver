@@ -1,6 +1,7 @@
 # Named Integer subtypes and bounded array components
 
-Status: implementation and assurance integration in progress; not yet supported. [Milestone 13](https://github.com/berkeleynerd/silver/milestone/13)
+Status: implementation and assurance integration in progress in
+[draft PR #289](https://github.com/berkeleynerd/silver/pull/289); not yet supported. [Milestone 13](https://github.com/berkeleynerd/silver/milestone/13)
 contains one coherent work package, [#286](https://github.com/berkeleynerd/silver/issues/286).
 The [2026-10-29 authorization](session-memory.md#2026-10-29--named-integer-subtypes-and-bounded-array-components-authorized)
 covers implementation through complete assurance, validation, independent review
@@ -162,3 +163,23 @@ next focused checks, before complete assurance and the full regression suite.
 | Round | Selected settings | Result and remaining work |
 | --- | --- | --- |
 | Helper normalization, native annotation and capacity follow-up | Lead runtime settings unavailable; native worker and independent reviewer selected GPT-6 Astra / Extra High | Helper build 365.821 s plus fresh audit 43.968 s passed; native restricted check 507.443 s passed its two proof and 287 flow checks. Capacity regression 3/3 and certificate parity passed. Complete checkpoints remain pending; token/cost measurements unavailable. |
+
+The shared composition checkpoint `20261029T153928-8c628fb8b8bb` subsequently
+passed a fresh 10,653-declaration audit. Its termination proof now counts all
+four declaration kinds and their respective capacities. Source-model run
+`20261029T154650-8200a2184daf` then passed `ComposeModelEquations`,
+`ComposeRecognitionEquations` and `SequenceModel`, with 128 build jobs and a
+fresh 20,836-declaration audit (665.771 s build, 20.681 s audit). The two
+initial-state proof repairs explicitly establish the empty subtype environment.
+The [model-cache transfer](evidence/named-integer-subtypes-20261029/model-cache-transfer.json)
+records reuse of that checked closure in the integration workspace; complete
+source checking is still outstanding.
+
+Complete native run `20261029T154107-1e953acac4e4` and regression run
+`20261029T153819-5626949ad567` started on stable compiler inputs. Their outcomes
+are pending. Remaining scalar-native correspondence repairs use the existing
+valid-metadata and component-bound facts without changing endpoint domains.
+Focused run `20261029T154909-06ffd07f35c4` was interrupted when an inherited-model
+target unexpectedly pulled in the expensive source chain; completed lower
+objects are retained, but no successful focused audit is claimed for that run.
+The replacement target set excludes that source dependency.
