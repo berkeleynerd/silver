@@ -136,6 +136,21 @@ theorem scalarConstraintAt_bounded (text : Source) (position : Nat)
     (scalarConstraintAt text position names baseBounds).bounds.Bounded :=
   (scalarConstraintAt_sound text position names bound positive).bounded bounded
 
+/-- Rejected optional ranges also return a bounded interval. -/
+theorem scalarConstraintAt_bounded_all (text : Source) (position : Nat)
+    (names : ScalarExpression.Environment) {baseBounds : Integer.Interval}
+    (bound : position ≤ text.length + 1) (bounded : baseBounds.Bounded) :
+    (scalarConstraintAt text position names baseBounds).bounds.Bounded := by
+  by_cases positive : (scalarConstraintAt text position names baseBounds).after ≠ 0
+  · exact scalarConstraintAt_bounded text position names bound positive bounded
+  · unfold scalarConstraintAt at positive ⊢
+    dsimp only at positive ⊢
+    split
+    · exact bounded
+    · split
+      · exact Integer.Interval.empty_bounded
+      · simp_all
+
 theorem scalarTypeAt_position_valid (text : Source) (state : ParserState) (position : Nat) :
     (scalarTypeAt text state position).after ≤ text.length + 1 := by
   have bound := model_name_valid text (skipAt text position)
@@ -149,7 +164,7 @@ theorem scalarTypeAt_position_valid (text : Source) (state : ParserState) (posit
       · exact bound
       · simp
 
-private theorem subtypeBinding_mem {environment : IntegerSubtypes.Environment} {index : Nat}
+theorem subtypeBinding_mem {environment : IntegerSubtypes.Environment} {index : Nat}
     (positive : 0 < index) (bound : index ≤ environment.items.length) :
     IntegerSubtypes.binding environment index ∈ environment.items := by
   have within : index - 1 < environment.items.length := by omega
