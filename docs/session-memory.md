@@ -1,5 +1,25 @@
 # Session memory
 
+## 2026-10-29 — Scalar-guard frontend blocker repair authorized
+
+The owner said **“Proceed”** with the proposed repair of
+[#284](https://github.com/berkeleynerd/silver/issues/284): characterize the pinned
+frontend's rejection, select the smallest justified correction, update the
+implementation and its assurance together, and add end-to-end regressions.
+The [repair record](scalar-guard-frontend-repair.md) distinguishes the confirmed
+array-free failure from candidate fixes and validation still required.
+
+Develop in an isolated branch based on the published review target
+`88c127b631`. Keep #266 and #283 open and their current review target fixed while
+the external review proceeds. Integrate relevant feedback deliberately, then
+complete native and Lean/source assurance on stable final inputs before merge.
+Focused investigation, implementation and validation are authorized now; do
+not restart the expensive complete checkpoint before the feedback is batched.
+Preserve the author's source and runtime meaning, with no check/obligation
+suppression or Oracle amendment. Document any necessary admission change
+explicitly. No next language feature, general GNAT model or compiler redesign
+is selected. No harness goal exists; CLI memory remains unavailable.
+
 ## 2026-10-28 — Review the array revisions before the complete Lean checkpoint
 
 The owner proposed submitting the revisions for review, incorporating relevant
