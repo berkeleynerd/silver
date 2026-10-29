@@ -14,6 +14,37 @@ next capability while retaining full assurance for the current language.
 
 ## Current development sequence
 
+### Named Integer subtypes and bounded array components
+
+**Authorized, 2026-10-29; proposed support, not yet admitted.**
+
+The owner selected the next coherent feature, driven by Rosetta Sum of squares:
+[Milestone 13](https://github.com/berkeleynerd/silver/milestone/13), one work
+package [#286](https://github.com/berkeleynerd/silver/issues/286). The
+[authorization](docs/session-memory.md#2026-10-29--named-integer-subtypes-and-bounded-array-components-authorized)
+covers implementation, complete assurance, regressions, independent review and
+feature PR publication. The [capability proposal](docs/named-integer-subtypes.md)
+records the scope and design questions.
+
+Admit named static Integer range subtypes for initialized scalar objects and
+components of existing anonymous fixed arrays. Stored values retain the declared
+bounds; body and constant-array foreach reasoning use those component bounds.
+Work proceeds as one package: settle precise rules and producer obligations,
+implement the native and universal/actual-source assurance together, then
+complete regressions, Rosetta records, full validation, review and PR delivery.
+Exact bound syntax, visibility and compositions remain design work within this
+scope. Existing source/operator/operand budgets remain unchanged. Conversions,
+derived types, functions/procedures, dynamic bounds and general arrays remain
+excluded.
+
+This selects only the named Integer subtype fragment within broad ranged-subtype
+stage #11 and bounded component use within broad arrays stage #12. Both broad
+stages remain Open/Backlog; at delivery, split or reconcile their assessed
+identifiers accurately before any supported promotion. No whole broad identifier
+is admitted by this planning record. The previous array merge authorization does
+not authorize merging this feature PR. Deferred capacity and assurance-mode work
+retains its existing triggers.
+
 ### Fixed-array external review response
 
 **Complete on Linux, 2026-10-29 ([PR #283](https://github.com/berkeleynerd/silver/pull/283),

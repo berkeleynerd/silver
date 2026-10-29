@@ -1,5 +1,37 @@
 # Session memory
 
+## 2026-10-29 — Named Integer subtypes and bounded array components authorized
+
+The owner accepted the recommendation to implement named Integer range subtypes,
+including bounded array components, as the next coherent language feature driven
+by Rosetta **Sum of squares**, and instructed **“Please proceed.”**
+[Milestone 13](https://github.com/berkeleynerd/silver/milestone/13) contains one
+work package, [#286](https://github.com/berkeleynerd/silver/issues/286). The
+[capability proposal](named-integer-subtypes.md) records the bounded scope and
+remaining design work; it does not claim current support.
+
+This authorizes design and implementation, complete native Bronze/Silver and
+Lean universal/actual-source assurance, boundary and composition regressions,
+the faithful driver, synchronized language/catalogue/Rosetta records, full
+required validation, independent review and publication of the feature PR.
+Record this authorization on `main` through the routine planning PR before
+claiming #286 on `feat/named-integer-subtypes`. Merging this authorization record
+is authorized; merging the feature PR is not inferred from the earlier
+**“drive us to merge”** instruction for the completed array deliveries.
+
+Selected scope is `subtype S is Integer range staticLo .. staticHi;`, with
+nonempty Integer-contained static bounds and earlier named subtype use in
+initialized scalar objects and existing anonymous fixed arrays. Subtype
+declarations name Integer directly; alias chains remain excluded. Ordinary
+optional scalar object-local ranges may further narrow the named subtype, subject
+to native design confirmation. Every stored value must respect its declared subtype; body and constant-array foreach
+reasoning use the component bounds. Settle exact decidable rules and permitted
+compositions during design under the unchanged Oracle, without another routine
+approval ceremony. Retain the 4,096-byte source, 63-operator and 64-leaf limits.
+Conversions, derived types, functions/procedures, dynamic bounds and general
+arrays remain excluded. Broad stages #11/#12 remain Open/Backlog; their remaining
+scope and the deferred capacity/assurance-mode work are not selected.
+
 ## 2026-10-29 — Combined array delivery complete
 
 The owner-authorized constant Integer-array iteration and catalogue correction
