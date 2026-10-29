@@ -1,0 +1,41 @@
+{
+  "source_directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261029T153928-8c628fb8b8bb",
+  "sha256_uncompressed": {
+    "events.jsonl": "41622e43029edf815a2f145f797db481a56d2759e00c18aed46c414eba0eed10",
+    "lean-focused-evidence.json": "b2bd4e6440a29f24b18636281e3114a42280c3bb18ee0bb7ae6752e19ef388db",
+    "lean-focused.log": "10b454602aff84e9694dcf9c42642e7d0ebbcc23f988ae6deffe869d5b856b50"
+  },
+  "finished": {
+    "duration_seconds": 290.22178457,
+    "event": "finished",
+    "evidence": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/lean-focused.log",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/lean-focused.log"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/lean-focused-evidence.json",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/lean-focused-evidence.json"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261029T153928-8c628fb8b8bb/previous-evidence/lean-focused.log",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261029T153928-8c628fb8b8bb/previous-evidence/lean-focused.log"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261029T153928-8c628fb8b8bb/lean-focused.log",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261029T153928-8c628fb8b8bb/lean-focused.log"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261029T153928-8c628fb8b8bb/lean-focused-evidence.json",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261029T153928-8c628fb8b8bb/lean-focused-evidence.json"
+      }
+    ],
+    "failure_keys": [],
+    "monotonic_ns": 91691370041797,
+    "outcome": "success",
+    "retained_reports": [],
+    "returncode": null,
+    "run_id": "20261029T153928-8c628fb8b8bb",
+    "utc": "2026-10-29T15:44:21.383838+00:00"
+  }
+}
