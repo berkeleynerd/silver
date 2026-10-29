@@ -264,6 +264,12 @@ theorem scalar_declaration_declared_bounds {text : Source} {arguments : Bool} {s
       apply ScalarExpression.declaredBoundsValid_append valid
       exact constraint.bounded subtypes
 
+theorem scalar_declaration_subtypes {text arguments state next declaration}
+    (reading : ScalarDeclarationAt text arguments state declaration next) :
+    next.subtypeNames = state.subtypeNames := by
+  cases reading
+  rfl
+
 theorem scalar_declaration_unique {text : Source} {arguments : Bool} {state leftState rightState : ParserState}
     {left right : Integer.Declaration} (first : ScalarDeclarationAt text arguments state left leftState)
     (second : ScalarDeclarationAt text arguments state right rightState) : left = right ∧ leftState = rightState := by
