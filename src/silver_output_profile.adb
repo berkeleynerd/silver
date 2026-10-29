@@ -23,6 +23,7 @@ is
    package Scalar_Expressions renames Silver_Scalar_Expressions;
    package Array_Bindings renames Silver_Array_Bindings;
    use type Scalars.Wide;
+   use type Names.Operation_Kind;
    use type Scalar_Expressions.Binding;
    use type Array_Bindings.Binding;
    package Image_Lengths renames Silver_Integer_Image;
@@ -1146,7 +1147,7 @@ is
        Post => Valid_State (Text, Add_Array_Binding'Result)
          and then Add_Array_Binding'Result.Position = Following;
 
-   --  Keep the four fixed-array extensionality checks separate from the
+   --  Keep the fixed-array extensionality checks separate from the
    --  enclosing parser record's logical equality check.
    function Same_Parser_String_Items (Left, Right : Binding_Array) return Boolean is
      (Left'First = Right'First and then Left'Last = Right'Last
@@ -1177,6 +1178,13 @@ is
       and then (for all Index in Subtype_Index => Left (Index) = Right (Index)))
      with Ghost => Static, Global => null,
        Annotate => (GNATprove, Logical_Equal);
+   function Same_Parser_Subtype_Visibility
+     (Left, Right : Subtype_Visibility) return Boolean is
+     (Left'First = Right'First and then Left'Last = Right'Last
+      and then (for all Operation in Names.Operation_Kind =>
+        Left (Operation) = Right (Operation)))
+     with Ghost => Static, Global => null,
+       Annotate => (GNATprove, Logical_Equal);
    function Same_Parser_State (Left, Right : Parser_State) return Boolean is
      (Left.Position = Right.Position
       and then Left.Names.Count = Right.Names.Count
@@ -1189,7 +1197,8 @@ is
       and then Same_Parser_Elements (Left.Array_Names.Values, Right.Array_Names.Values)
       and then Left.Subtype_Names.Count = Right.Subtype_Names.Count
       and then Same_Parser_Subtype_Items (Left.Subtype_Names.Items, Right.Subtype_Names.Items)
-      and then Left.Subtype_Names.Hidden_Calls = Right.Subtype_Names.Hidden_Calls
+      and then Same_Parser_Subtype_Visibility
+        (Left.Subtype_Names.Hidden_Calls, Right.Subtype_Names.Hidden_Calls)
       and then Left.Dynamic_First = Right.Dynamic_First and then Left.Dynamic_After = Right.Dynamic_After
       and then Left.Target = Right.Target and then Left.Capacity = Right.Capacity)
      with Ghost => Static, Global => null,
