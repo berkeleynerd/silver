@@ -51,3 +51,27 @@ The complete native audit must apply the existing warning/advisory policy. `afte
 complete focused report/log plus the two successful Why3 sessions. The
 `Same_Parser_State` annotation at line 1205 is the repaired form of the original
 failed line 1196 obligation. No broader proof scope is inferred from this result.
+
+## Complete-audit preparation
+
+`pre-full-input-comparison.json` records equality of all 143 tracked native
+provenance inputs with the integration checkout plus the annotation repair.
+The subtype catalogue/test commit was integrated locally before the complete
+native run. Build and image configurations differ from the regression worktree
+only in embedded worktree paths; native registry inputs are recorded as their
+actual bytes by normal provenance, with no hash exclusions.
+
+`cache-seed.json` records reuse of the previous production cache and the retained
+separate exploratory cache. Tool executable hashes match exactly; the recorded
+versions agree after normalizing only checkout prefixes, and solver settings
+remain level 2, CVC5/Z3/Alt-Ergo, timeout 30. Source inputs differ, so ordinary
+tool cache matching and complete current proof/report/provenance checks remain
+required. No reports or sessions were transplanted, and no cold-run claim is made.
+
+The initial flat-cache copy stopped on a preexisting nested namespace directory;
+an initial continuation then rejected retained GNAT temporary files before any
+copy. Both failed preparation logs remain here. The successful continuation
+`20261029T153936-ea31b17035b3` preserved completed copies, copied only the remaining
+direct keys, and checked complete key coverage. It leaves the nested directory
+and original temporary files intact. These preparation records establish no
+proof result.

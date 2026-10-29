@@ -1,0 +1,56 @@
+{
+  "native_head": "5bb3c7a0a26b0d5f593030477ef90d52805666d4",
+  "integration_head": "ad2bb41d47fbfb4773472a64eafdd4d33ef0d8a4",
+  "integration_annotation": "90cceaa467",
+  "checked_tracked_input_count": 143,
+  "differences": [],
+  "note": "Integration worktree has no native toolchain; compare tracked inputs against its current bytes plus annotation, and generated configuration against the native regression workspace. Normal full-run preflight still required.",
+  "untracked_configuration_inputs": 2437,
+  "untracked_configuration_equal": 2414,
+  "untracked_configuration_different": 23,
+  "core_generated_configuration": [
+    {
+      "path": ".silver/linux-x86_64/generated/silver_build.ads",
+      "native": "468ab9169906b5e427924e102b9addd5478c9860a09e8f5a59ac9f7c5a7e82a1",
+      "regression": "5764e27d4d7622accb86cfce3e6350df21e0290c9bc44925b836476f2476d9e1",
+      "same": false,
+      "same_after_worktree_path_normalization": true
+    },
+    {
+      "path": ".silver/linux-x86_64/generated/silver_image_config.ads",
+      "native": "e4d4c8a13b05a61887ee3b2b383f8429162952a5eaf40b98e9c464cfce8793b5",
+      "regression": "e2c24a351858ba4df9bb7f57ed7092c2f777f4025be2af80fb5aa58d66284fd6",
+      "same": false,
+      "same_after_worktree_path_normalization": true
+    },
+    {
+      "path": ".silver/linux-x86_64/generated/silver_library_sources.ads",
+      "native": "be5a0d9ee5d93e6fe08d4b5c653ae1a1a497fbb52191f7bb393c9d1b6bc182bf",
+      "regression": "be5a0d9ee5d93e6fe08d4b5c653ae1a1a497fbb52191f7bb393c9d1b6bc182bf",
+      "same": true,
+      "same_after_worktree_path_normalization": true
+    },
+    {
+      "path": ".silver/linux-x86_64/toolchain/alire/alire.lock",
+      "native": "ea6aba21eca447a9c8473fc1c3ea0300b03a95ce919d8a326f68a67989029329",
+      "regression": "ea6aba21eca447a9c8473fc1c3ea0300b03a95ce919d8a326f68a67989029329",
+      "same": true,
+      "same_after_worktree_path_normalization": true
+    },
+    {
+      "path": ".silver/linux-x86_64/toolchain/alire/settings.toml",
+      "native": "bd556e5161cf0b4d53f6dac0d6c1b26b3afb659c04ff474e9f3830489f161bcd",
+      "regression": "bd556e5161cf0b4d53f6dac0d6c1b26b3afb659c04ff474e9f3830489f161bcd",
+      "same": true,
+      "same_after_worktree_path_normalization": true
+    },
+    {
+      "path": ".silver/linux-x86_64/toolchain/alire.toml",
+      "native": "5f5e5e459ad972ce7d5f2db631f5140ae6820971ca8927bc07a306981a9570fd",
+      "regression": "5f5e5e459ad972ce7d5f2db631f5140ae6820971ca8927bc07a306981a9570fd",
+      "same": true,
+      "same_after_worktree_path_normalization": true
+    }
+  ],
+  "registry_differences": "Alire registry inventory/provider metadata differ between bootstrapped worktrees; full provenance captures actual current native inputs. No equivalence claim or hash exclusion is made."
+}
