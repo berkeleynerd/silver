@@ -202,6 +202,15 @@ theorem binding_descriptor_length {item : Binding} (valid : ValidBinding item) :
 theorem binding_component_valid {item : Binding} (valid : ValidBinding item) :
     item.descriptor.ComponentValid := valid.2.2.2.2.2
 
+theorem binding_components_valid {names : Metadata}
+    (valid : ∀ entry ∈ names, ValidBinding entry) (target : Nat) :
+    (binding names target).descriptor.ComponentValid := by
+  unfold binding
+  simp only [List.getD_eq_getElem?_getD]
+  cases found : names[target - 1]? with
+  | none => exact ⟨Integer.Interval.full_bounded, by decide⟩
+  | some item => exact binding_component_valid (valid item (List.mem_of_getElem? found))
+
 theorem ordered_componentRange {names : Metadata} {item : Binding} {cell : Nat}
     (valid : ∀ entry ∈ names, ValidBinding entry)
     (ordered : names.Pairwise (fun left right => left.offset + left.length ≤ right.offset))
