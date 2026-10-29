@@ -1003,7 +1003,7 @@ theorem Expr.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning cal
     rw [h3]
     rw [h4]
     rw [h5]
-    rw [h6]
+    rw [h6, h7]
     all_goals rfl
 
   | .maxArrayBindings, _ | .maxArrayElements, _ | .invalidScalar, _ | .integerNumber _, _ => rfl
