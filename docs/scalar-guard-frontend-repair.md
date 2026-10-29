@@ -120,7 +120,11 @@ normalized, snapshot and false-flow variants with live scalar updates; and
 argument input with arrays, counted loops and reverse element iteration. The
 shared compile helper checks byte-identical captured source and complete Main
 and selected-library reports, before execution checks observable output and
-argument rejection. Native execution of these tests is pending in this record.
+argument rejection. All 23 scalar-guard tests passed in managed run
+`20261029T080947-da66ebf18023` (80.912 s in unittest), including five native
+compile/prove/execute tests. The exact original source now proves, compiles,
+links and runs; the retained 100-doors and guarded arithmetic tests also pass.
+Final native-only driver build `20261029T080837-11b8a871e914` passed in 8.516 s.
 
 Dynamic range/overflow controls in `20261029T080007-5833f73fad3f` both raised
 `Constraint_Error` and retained unproved GNATprove obligations. Those controls
@@ -131,8 +135,18 @@ frontend; the correction therefore applies M only to the native build command.
 The persistent original-source regression checks both that the generated
 project omits M and that the native Main ALI records it. The initial controls
 launch `20261029T075930-4fd40342a996` failed on a relative harness path before
-executing the experiment; it remains failed. Focused driver proof/build,
-regression results and final review will be recorded before handoff. Complete native and
+executing the experiment; it remains failed. Focused driver run
+`20261029T081206-84390bb82d97` passed all 133 checks (29 flow, 104 proof; ten
+covered entities) in 362.070 s, with fresh solver work and four workers. A
+single-unit invocation of the complete auditor,
+`20261029T081909-3d2bc739e22c`, failed because the focused packet omits owned
+dependency reports, first `Silver_Libraries.Capture_And_Snapshot`. That failed
+attempt is retained; it is not a complete dependency/provenance audit. No audit
+rule changed, and the required complete audit remains with the final checkpoint. The
+[independent review](reviews/review-guard-frontend-repair-20261029.md) found no
+unresolved implementation finding at `039daa3034`; its earlier configuration
+scope finding was repaired. The [evidence packet](evidence/scalar-guard-frontend-20261029/README.md)
+retains exact sources, pinned source analysis, commands and outputs. Complete native and
 Lean/source/module/axiom checkpoints remain mandatory before merge, after the
 applicable external feedback is integrated. Earlier successful evidence does
 not cover changed driver inputs merely because parser sources are unchanged.
@@ -141,8 +155,8 @@ not cover changed driver inputs merely because parser sources are unchanged.
 | --- | --- | --- |
 | Initial reproduction, 2026-10-28 | Astra / Extra High for bounded read-only rule/history review; lead runtime settings unavailable | Array-free failure and passing control reproduced with unchanged compiler options. No source repair or full project proof run. |
 | Frontend rule and repair design, 2026-10-29 | GPT-6 Astra / Extra High for each of two bounded threads | Completed pinned producer/flag analysis and minimal repair assessment. The 30-case frontend matrix supports the selected configuration. |
-| Implementation and focused validation, 2026-10-29 | GPT-6.1 Sol / Extra High for test implementation; lead settings unavailable | Three compact native regressions added; focused driver/configuration validation in progress. |
-| Independent critical review, 2026-10-29 | GPT-6 Astra / Extra High | Identified the shared-project flag's unreviewed proof-frontend scope; narrowed the repair to native compilation. Final validation/review pending. |
+| Implementation and focused validation, 2026-10-29 | GPT-6.1 Sol / Extra High for test implementation; lead settings unavailable | Three compact native regressions added; build, all 23 scalar-guard tests and 133 focused driver checks pass. Complete dependency/provenance audit remains deferred. |
+| Independent critical review, 2026-10-29 | GPT-6 Astra / Extra High | Identified the shared-project flag's unreviewed proof-frontend scope; narrowed the repair to native compilation. Final implementation review has no unresolved finding; focused validation passed afterward, with complete assurance still pending. |
 
 Selected settings are not independently confirmed runtime settings. Token/cost
 measurements are unavailable. Detailed probe times belong with their evidence.

@@ -31,6 +31,14 @@ focused proof and affected regression checks passed; complete source assurance
 on the response remains required after feedback and before merge. Both PRs
 remain open; broader language, capacity and optional refactors are not selected.
 
+The subsequently confirmed scalar-guard frontend blocker
+[#284](https://github.com/berkeleynerd/silver/issues/284) predates arrays. Its
+[isolated repair](docs/scalar-guard-frontend-repair.md) corrects native compiler
+configuration without changing admission. Keep both published review targets
+fixed while review proceeds, then integrate the repair and applicable feedback
+before the final combined assurance checkpoint. Earlier complete evidence does
+not establish coverage of the changed driver configuration.
+
 **Sequence since 2026-10-24.** Language development resumes first, following the
 [Rosetta progression](rosetta/progression.md) at the current 4,096-byte strict
 language: stage [#9](https://github.com/berkeleynerd/silver/issues/9), whose sample delivery

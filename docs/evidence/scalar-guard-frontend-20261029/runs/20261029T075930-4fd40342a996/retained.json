@@ -1,0 +1,25 @@
+{
+  "source_directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261029T075930-4fd40342a996",
+  "sha256_uncompressed": {
+    "events.jsonl": "95b4615303dabf478b767d9f989197b49f90ff3cee5199ffb84f3eb6c4701327",
+    "native.log": "d6c28a7e657e0d066f7c353ad521e9f90ad610034485bc66ab6966212b1a2bdb"
+  },
+  "finished": {
+    "duration_seconds": 4.988535314,
+    "error": "CalledProcessError: Command '['/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.tools/linux-x86_64/alr/bin/alr', '-s', '/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.tools/linux-x86_64/alire/settings', '-C', '/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/toolchain', '-n', '--no-tty', 'exec', '--', 'taskset', '-c', '0,1', 'python3', '.silver/linux-x86_64/guard-frontend-controls-20261029/probe.py', '/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/bin/silver']' returned non-zero exit status 1.",
+    "event": "finished",
+    "evidence": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261029T075930-4fd40342a996/native.log",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261029T075930-4fd40342a996/native.log"
+      }
+    ],
+    "failure_keys": [],
+    "monotonic_ns": 63807386937318,
+    "outcome": "failure",
+    "retained_reports": [],
+    "returncode": 1,
+    "run_id": "20261029T075930-4fd40342a996",
+    "utc": "2026-10-29T07:59:37.400743+00:00"
+  }
+}

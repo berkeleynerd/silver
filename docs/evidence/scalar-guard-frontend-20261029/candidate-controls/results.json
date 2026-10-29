@@ -1,0 +1,388 @@
+[
+  {
+    "name": "runtime_range_error",
+    "commands": [
+      {
+        "label": "admission",
+        "command": [
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/bin/silver",
+          "check",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-controls-20261029/work/runtime_range_error/main.adb"
+        ],
+        "exit": 2,
+        "seconds": 0.028447904995118733,
+        "output": "Rejected: source is outside the Silver catalogue.\n"
+      },
+      {
+        "label": "build",
+        "command": [
+          "gprbuild",
+          "-P",
+          "program.gpr",
+          "-p",
+          "-q"
+        ],
+        "exit": 0,
+        "seconds": 1.4385173609989579,
+        "output": ""
+      },
+      {
+        "label": "execute",
+        "command": [
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-controls-20261029/work/runtime_range_error/bin/main"
+        ],
+        "exit": 1,
+        "seconds": 0.004182863005553372,
+        "output": "\nraised CONSTRAINT_ERROR : main.adb:1 range check failed\n"
+      },
+      {
+        "label": "prove",
+        "command": [
+          "gnatprove",
+          "-P",
+          "program.gpr",
+          "-U",
+          "--mode=all",
+          "--report=all",
+          "--warnings=continue",
+          "--checks-as-errors=on",
+          "--level=2",
+          "--prover=cvc5,z3,altergo",
+          "--steps=100000",
+          "--timeout=0",
+          "--memlimit=1000",
+          "-j0",
+          "--no-loop-unrolling"
+        ],
+        "exit": 1,
+        "seconds": 139.9217911099986,
+        "output": "Phase 1 of 3: generation of data representation information ...\nPhase 2 of 3: generation of Global contracts ...\nPhase 3 of 3: flow analysis and proof ...\n info: implicit aspect Always_Terminates on \"Is_Message\" has been proved, subprogram will terminate\n--> silver_arguments.adb:5:13\n\n info: range check proved\n--> silver_arguments.adb:6:11\n\n info: precondition proved\n--> silver_arguments.adb:14:43\n\n info: range check proved\n--> silver_arguments.adb:26:20\n\n info: range check proved\n--> silver_arguments.adb:26:49\n\n info: length check proved\n--> silver_arguments.adb:26:61\n\n info: precondition proved\n--> silver_arguments.adb:30:53\n\n info: range check proved\n--> silver_arguments.adb:33:23\n\n info: range check proved\n--> silver_arguments.adb:33:49\n\n info: length check proved\n--> silver_arguments.adb:33:61\n\n info: implicit aspect Always_Terminates on \"Input_Is_Valid\" has been proved, subprogram will terminate\n--> silver_arguments.ads:9:13\n\n info: data dependencies proved\n--> silver_arguments.ads:9:48\n\n info: implicit aspect Always_Terminates on \"First_Or_Default\" has been proved, subprogram will terminate\n--> silver_arguments.ads:13:13\n\n info: data dependencies proved\n--> silver_arguments.ads:14:11\n\n info: postcondition proved\n--> silver_arguments.ads:15:19\n\n info: range check proved\n--> silver_arguments.ads:16:45\n\n info: aspect Always_Terminates on \"Reject\" has been proved, subprogram will terminate\n--> silver_arguments.ads:21:14\n\n info: data dependencies proved\n--> silver_arguments.ads:22:11\n info: initialization of \"Status\" proved\n--> silver_io.adb:7:07\n\n info: range check proved\n--> silver_io.adb:13:14\n\n info: loop invariant initialization proved\n--> silver_io.adb:19:43\n\n info: loop invariant preservation proved\n--> silver_io.adb:19:43\n\n info: overflow check proved\n--> silver_io.adb:19:65\n\n info: loop invariant initialization proved\n--> silver_io.adb:21:23\n\n info: loop invariant preservation proved\n--> silver_io.adb:21:23\n\n info: index check proved\n--> silver_io.adb:22:30\n\n info: overflow check proved\n--> silver_io.adb:22:57\n\n info: index check proved\n--> silver_io.adb:22:57\n\n info: range check proved\n--> silver_io.adb:29:41\n\n info: index check proved\n--> silver_io.adb:30:25\n\n info: range check proved\n--> silver_io.adb:37:38\n\n info: index check proved\n--> silver_io.adb:38:22\n\n info: initialization of \"Status\" proved\n--> silver_io.adb:50:07\n\n info: range check proved\n--> silver_io.adb:56:14\n\n info: loop invariant initialization proved\n--> silver_io.adb:62:43\n\n info: loop invariant preservation proved\n--> silver_io.adb:62:43\n\n info: overflow check proved\n--> silver_io.adb:62:65\n\n info: loop invariant initialization proved\n--> silver_io.adb:64:23\n\n info: loop invariant preservation proved\n--> silver_io.adb:64:23\n\n info: index check proved\n--> silver_io.adb:65:30\n\n info: overflow check proved\n--> silver_io.adb:65:57\n\n info: index check proved\n--> silver_io.adb:65:57\n\n info: range check proved\n--> silver_io.adb:72:41\n\n info: index check proved\n--> silver_io.adb:73:25\n\n info: data dependencies proved\n--> silver_io.ads:19:11\n\n info: initialization of \"Written_Bytes\" proved\n--> silver_io.ads:20:33\n\n info: initialization of \"Written_Count\" proved\n--> silver_io.ads:20:48\n\n info: initialization of \"Flushed\" proved\n--> silver_io.ads:20:63\n\n info: initialization of \"Succeeded\" proved\n--> silver_io.ads:20:72\n\n info: postcondition proved\n--> silver_io.ads:22:30\n\n info: range check proved\n--> silver_io.ads:23:45\n\n info: range check proved\n--> silver_io.ads:24:44\n\n info: overflow check proved\n--> silver_io.ads:24:52\n\n info: range check proved\n--> silver_io.ads:25:24\n\n info: range check proved\n--> silver_io.ads:25:48\n\n info: index check proved\n--> silver_io.ads:26:39\n\n info: data dependencies proved\n--> silver_io.ads:30:11\n\n info: initialization of \"Written_Bytes\" proved\n--> silver_io.ads:31:33\n\n info: initialization of \"Written_Count\" proved\n--> silver_io.ads:31:48\n\n info: initialization of \"Flushed\" proved\n--> silver_io.ads:31:63\n\n info: initialization of \"Succeeded\" proved\n--> silver_io.ads:31:72\n\n info: postcondition proved\n--> silver_io.ads:33:30\n\n info: range check proved\n--> silver_io.ads:34:45\n\n info: range check proved\n--> silver_io.ads:35:44\n\n info: range check proved\n--> silver_io.ads:36:24\n\n info: range check proved\n--> silver_io.ads:36:48\n warning: initialization of \"R\" has no effect\n--> main.adb:1:70\n    1 |    with Silver_IO;procedure Main is pragma SPARK_Mode(On);X:Integer:=99;R:Integer range 0..9:=0;begin R:=X;Silver_IO.Put_Line(Integer'Image(R));end Main;\n      |                                                                         ^~~~~~~~~~~~~~~~~~~~~~~\n\n high: range check might fail, cannot prove upper bound for X\n--> main.adb:1:103\n    1 |    with Silver_IO;procedure Main is pragma SPARK_Mode(On);X:Integer:=99;R:Integer range 0..9:=0;begin R:=X;Silver_IO.Put_Line(Integer'Image(R));end Main;\n      |                                                                                                          ^\n      + e.g. when X = 99\n      + reason for check: value must fit in the target type of the assignment\n      + provers reached step limit before completing the proof\nSummary logged in /home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-controls-20261029/work/runtime_range_error/obj/gnatprove/gnatprove.out\ngnatprove: unproved check messages considered as errors\n"
+      }
+    ],
+    "unproved_checks": [
+      {
+        "check_col": 103,
+        "check_file": "main.adb",
+        "check_line": 1,
+        "check_tree": [
+          {
+            "proof_attempts": {
+              "CVC5": {
+                "result": "Unknown\n(unknown + incomplete)",
+                "steps": 1,
+                "time": 0.009922
+              },
+              "Z3": {
+                "result": "Step limit\nexceeded",
+                "steps": 100001,
+                "time": 118.42
+              },
+              "altergo": {
+                "result": "Unknown\n(unknown)",
+                "steps": 20,
+                "time": 0.045259
+              }
+            },
+            "transformations": {
+              "introduce_premises": [
+                {
+                  "proof_attempts": {
+                    "CVC5_CE": {
+                      "result": "Unknown\n(unknown + incomplete)",
+                      "steps": 1,
+                      "time": 0.023003
+                    }
+                  },
+                  "transformations": {}
+                }
+              ]
+            }
+          },
+          {
+            "proof_attempts": {
+              "CVC5": {
+                "result": "Valid",
+                "steps": 1,
+                "time": 0.047201
+              },
+              "Z3": {
+                "result": "Valid",
+                "steps": 1,
+                "time": 0.003956
+              },
+              "altergo": {
+                "result": "High failure (signaled)",
+                "steps": 1,
+                "time": 0.006378
+              }
+            },
+            "transformations": {}
+          }
+        ],
+        "cntexmp": {
+          "main.adb": {
+            "current": {
+              "1": [
+                {
+                  "kind": "variable",
+                  "name": "X",
+                  "value": "99"
+                }
+              ]
+            },
+            "previous": {}
+          }
+        },
+        "cntexmp_value": {
+          "inputs": [
+            {
+              "kind": "variable",
+              "name": "Flushed",
+              "value": "FALSE"
+            },
+            {
+              "kind": "variable",
+              "name": "Succeeded",
+              "value": "FALSE"
+            },
+            {
+              "kind": "variable",
+              "name": "Written_Bytes",
+              "value": {
+                "aggregate": {
+                  "others": "\u0000"
+                },
+                "dimensions": [
+                  {
+                    "First": "1",
+                    "Last": "4097"
+                  }
+                ],
+                "sizes": [
+                  "4097"
+                ]
+              }
+            },
+            {
+              "kind": "variable",
+              "name": "Written_Count",
+              "value": "0"
+            }
+          ],
+          "subp_file": "main.adb",
+          "subp_line": 1
+        },
+        "col": 103,
+        "entity": 1,
+        "file": "main.adb",
+        "how_proved": "prover",
+        "line": 1,
+        "message": {
+          "text": "range check might fail, cannot prove upper bound for X"
+        },
+        "msg_id": 1,
+        "rule": "VC_RANGE_CHECK",
+        "severity": "high",
+        "unproved_status": {
+          "memory": false,
+          "status": "limit",
+          "steps": true,
+          "time": false
+        }
+      }
+    ]
+  },
+  {
+    "name": "runtime_overflow",
+    "commands": [
+      {
+        "label": "admission",
+        "command": [
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/bin/silver",
+          "check",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-controls-20261029/work/runtime_overflow/main.adb"
+        ],
+        "exit": 2,
+        "seconds": 0.06698561299708672,
+        "output": "Rejected: source is outside the Silver catalogue.\n"
+      },
+      {
+        "label": "build",
+        "command": [
+          "gprbuild",
+          "-P",
+          "program.gpr",
+          "-p",
+          "-q"
+        ],
+        "exit": 0,
+        "seconds": 1.5915243409981485,
+        "output": "main.adb:1:102: warning: Constraint_Error will be raised at run time [enabled by default]\n"
+      },
+      {
+        "label": "execute",
+        "command": [
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-controls-20261029/work/runtime_overflow/bin/main"
+        ],
+        "exit": 1,
+        "seconds": 0.0024348700026166625,
+        "output": "\nraised CONSTRAINT_ERROR : main.adb:1 overflow check failed\n"
+      },
+      {
+        "label": "prove",
+        "command": [
+          "gnatprove",
+          "-P",
+          "program.gpr",
+          "-U",
+          "--mode=all",
+          "--report=all",
+          "--warnings=continue",
+          "--checks-as-errors=on",
+          "--level=2",
+          "--prover=cvc5,z3,altergo",
+          "--steps=100000",
+          "--timeout=0",
+          "--memlimit=1000",
+          "-j0",
+          "--no-loop-unrolling"
+        ],
+        "exit": 1,
+        "seconds": 143.86906594199536,
+        "output": "Phase 1 of 3: generation of data representation information ...\nPhase 2 of 3: generation of Global contracts ...\nPhase 3 of 3: flow analysis and proof ...\n info: implicit aspect Always_Terminates on \"Is_Message\" has been proved, subprogram will terminate\n--> silver_arguments.adb:5:13\n\n info: range check proved\n--> silver_arguments.adb:6:11\n\n info: precondition proved\n--> silver_arguments.adb:14:43\n\n info: range check proved\n--> silver_arguments.adb:26:20\n\n info: range check proved\n--> silver_arguments.adb:26:49\n\n info: length check proved\n--> silver_arguments.adb:26:61\n\n info: precondition proved\n--> silver_arguments.adb:30:53\n\n info: range check proved\n--> silver_arguments.adb:33:23\n\n info: range check proved\n--> silver_arguments.adb:33:49\n\n info: length check proved\n--> silver_arguments.adb:33:61\n\n info: implicit aspect Always_Terminates on \"Input_Is_Valid\" has been proved, subprogram will terminate\n--> silver_arguments.ads:9:13\n\n info: data dependencies proved\n--> silver_arguments.ads:9:48\n\n info: implicit aspect Always_Terminates on \"First_Or_Default\" has been proved, subprogram will terminate\n--> silver_arguments.ads:13:13\n\n info: data dependencies proved\n--> silver_arguments.ads:14:11\n\n info: postcondition proved\n--> silver_arguments.ads:15:19\n\n info: range check proved\n--> silver_arguments.ads:16:45\n\n info: aspect Always_Terminates on \"Reject\" has been proved, subprogram will terminate\n--> silver_arguments.ads:21:14\n\n info: data dependencies proved\n--> silver_arguments.ads:22:11\n info: initialization of \"Status\" proved\n--> silver_io.adb:7:07\n\n info: range check proved\n--> silver_io.adb:13:14\n\n info: loop invariant initialization proved\n--> silver_io.adb:19:43\n\n info: loop invariant preservation proved\n--> silver_io.adb:19:43\n\n info: overflow check proved\n--> silver_io.adb:19:65\n\n info: loop invariant initialization proved\n--> silver_io.adb:21:23\n\n info: loop invariant preservation proved\n--> silver_io.adb:21:23\n\n info: index check proved\n--> silver_io.adb:22:30\n\n info: overflow check proved\n--> silver_io.adb:22:57\n\n info: index check proved\n--> silver_io.adb:22:57\n\n info: range check proved\n--> silver_io.adb:29:41\n\n info: index check proved\n--> silver_io.adb:30:25\n\n info: range check proved\n--> silver_io.adb:37:38\n\n info: index check proved\n--> silver_io.adb:38:22\n\n info: initialization of \"Status\" proved\n--> silver_io.adb:50:07\n\n info: range check proved\n--> silver_io.adb:56:14\n\n info: loop invariant initialization proved\n--> silver_io.adb:62:43\n\n info: loop invariant preservation proved\n--> silver_io.adb:62:43\n\n info: overflow check proved\n--> silver_io.adb:62:65\n\n info: loop invariant initialization proved\n--> silver_io.adb:64:23\n\n info: loop invariant preservation proved\n--> silver_io.adb:64:23\n\n info: index check proved\n--> silver_io.adb:65:30\n\n info: overflow check proved\n--> silver_io.adb:65:57\n\n info: index check proved\n--> silver_io.adb:65:57\n\n info: range check proved\n--> silver_io.adb:72:41\n\n info: index check proved\n--> silver_io.adb:73:25\n\n info: data dependencies proved\n--> silver_io.ads:19:11\n\n info: initialization of \"Written_Bytes\" proved\n--> silver_io.ads:20:33\n\n info: initialization of \"Written_Count\" proved\n--> silver_io.ads:20:48\n\n info: initialization of \"Flushed\" proved\n--> silver_io.ads:20:63\n\n info: initialization of \"Succeeded\" proved\n--> silver_io.ads:20:72\n\n info: postcondition proved\n--> silver_io.ads:22:30\n\n info: range check proved\n--> silver_io.ads:23:45\n\n info: range check proved\n--> silver_io.ads:24:44\n\n info: overflow check proved\n--> silver_io.ads:24:52\n\n info: range check proved\n--> silver_io.ads:25:24\n\n info: range check proved\n--> silver_io.ads:25:48\n\n info: index check proved\n--> silver_io.ads:26:39\n\n info: data dependencies proved\n--> silver_io.ads:30:11\n\n info: initialization of \"Written_Bytes\" proved\n--> silver_io.ads:31:33\n\n info: initialization of \"Written_Count\" proved\n--> silver_io.ads:31:48\n\n info: initialization of \"Flushed\" proved\n--> silver_io.ads:31:63\n\n info: initialization of \"Succeeded\" proved\n--> silver_io.ads:31:72\n\n info: postcondition proved\n--> silver_io.ads:33:30\n\n info: range check proved\n--> silver_io.ads:34:45\n\n info: range check proved\n--> silver_io.ads:35:44\n\n info: range check proved\n--> silver_io.ads:36:24\n\n info: range check proved\n--> silver_io.ads:36:48\n warning: initialization of \"R\" has no effect\n--> main.adb:1:78\n    1 |    with Silver_IO;procedure Main is pragma SPARK_Mode(On);X:Integer:=2147483647;R:Integer:=0;begin R:=(X+1);Silver_IO.Put_Line(Integer'Image(R));end Main;\n      |                                                                                 ^~~~~~~~~~~~\n\n high: overflow check might fail, cannot prove upper bound for (X+1)\n--> main.adb:1:102\n    1 |    with Silver_IO;procedure Main is pragma SPARK_Mode(On);X:Integer:=2147483647;R:Integer:=0;begin R:=(X+1);Silver_IO.Put_Line(Integer'Image(R));end Main;\n      |                                                                                                       ~~^~~\n      + e.g. when X = Integer'Last\n      + reason for check: result of addition must fit in a 32-bits machine integer\n      + provers reached step limit before completing the proof\nSummary logged in /home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/guard-frontend-controls-20261029/work/runtime_overflow/obj/gnatprove/gnatprove.out\ngnatprove: unproved check messages considered as errors\n"
+      }
+    ],
+    "unproved_checks": [
+      {
+        "check_col": 102,
+        "check_file": "main.adb",
+        "check_line": 1,
+        "check_tree": [
+          {
+            "proof_attempts": {
+              "CVC5": {
+                "result": "Unknown\n(unknown + incomplete)",
+                "steps": 1,
+                "time": 0.009549
+              },
+              "Z3": {
+                "result": "Step limit\nexceeded",
+                "steps": 100001,
+                "time": 121.038
+              },
+              "altergo": {
+                "result": "Unknown\n(unknown)",
+                "steps": 20,
+                "time": 0.077531
+              }
+            },
+            "transformations": {
+              "introduce_premises": [
+                {
+                  "proof_attempts": {
+                    "CVC5_CE": {
+                      "result": "Unknown\n(unknown + incomplete)",
+                      "steps": 1,
+                      "time": 0.029631
+                    }
+                  },
+                  "transformations": {}
+                }
+              ]
+            }
+          },
+          {
+            "proof_attempts": {
+              "CVC5": {
+                "result": "Valid",
+                "steps": 1,
+                "time": 0.039068
+              },
+              "Z3": {
+                "result": "High failure (signaled)",
+                "steps": 1,
+                "time": 0.006833
+              },
+              "altergo": {
+                "result": "High failure (signaled)",
+                "steps": 1,
+                "time": 1e-06
+              }
+            },
+            "transformations": {}
+          }
+        ],
+        "cntexmp": {
+          "main.adb": {
+            "current": {
+              "1": [
+                {
+                  "kind": "variable",
+                  "name": "X",
+                  "value": "Integer'Last"
+                }
+              ]
+            },
+            "previous": {}
+          }
+        },
+        "cntexmp_value": {
+          "inputs": [
+            {
+              "kind": "variable",
+              "name": "Flushed",
+              "value": "FALSE"
+            },
+            {
+              "kind": "variable",
+              "name": "Succeeded",
+              "value": "FALSE"
+            },
+            {
+              "kind": "variable",
+              "name": "Written_Bytes",
+              "value": {
+                "aggregate": {
+                  "others": "\u0000"
+                },
+                "dimensions": [
+                  {
+                    "First": "1",
+                    "Last": "4097"
+                  }
+                ],
+                "sizes": [
+                  "4097"
+                ]
+              }
+            },
+            {
+              "kind": "variable",
+              "name": "Written_Count",
+              "value": "0"
+            }
+          ],
+          "subp_file": "main.adb",
+          "subp_line": 1
+        },
+        "col": 102,
+        "entity": 1,
+        "file": "main.adb",
+        "how_proved": "prover",
+        "line": 1,
+        "message": {
+          "text": "overflow check might fail, cannot prove upper bound for (X+1)"
+        },
+        "msg_id": 1,
+        "rule": "VC_OVERFLOW_CHECK",
+        "severity": "high",
+        "unproved_status": {
+          "memory": false,
+          "status": "limit",
+          "steps": true,
+          "time": false
+        }
+      }
+    ]
+  }
+]

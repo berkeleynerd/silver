@@ -1,0 +1,11 @@
+{
+  "implementation": "039daa30341e6a2e042c9e930568ef16eff97bf3",
+  "validation_worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration",
+  "selected_sha256": {
+    "src/silver.adb": "27691202434b602abb1278a9eeaf99bd3a451142a74a65446b3a6f2885f4df7c",
+    "tests/test_scalar_guards.py": "c5a1b0c7ff186daf7fe687b7735beb28b6fcf6dcbf5488a3806efb4e252b889d",
+    "proof/Silver/Current.lean": "6b4549d196a2de354c7dbf7909f773de22f83c59368271b45c5ccb4349ffdfae",
+    "native_binary_sha256": "ef51d93c5d05c5b4499946e6bd68e879cdd9988caabb82c6858d2938bc547355"
+  },
+  "comparison": "All tracked Ada/Python/Lean src/scripts/tests/proof files compared byte-identical between repair and validation worktrees."
+}

@@ -18,7 +18,11 @@ not restart the expensive complete checkpoint before the feedback is batched.
 Preserve the author's source and runtime meaning, with no check/obligation
 suppression or Oracle amendment. Document any necessary admission change
 explicitly. No next language feature, general GNAT model or compiler redesign
-is selected. No harness goal exists; CLI memory remains unavailable.
+is selected. The isolated repair now selects native-only `-gnatdM`, preserving
+proof options and language membership; its focused validation and independent
+review are recorded in the linked repair record. It does not close #284 or
+replace the deferred complete assurance checkpoint. No harness goal exists;
+CLI memory remains unavailable.
 
 ## 2026-10-28 — Review the array revisions before the complete Lean checkpoint
 
