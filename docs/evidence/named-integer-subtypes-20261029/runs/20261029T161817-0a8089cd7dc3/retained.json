@@ -1,0 +1,36 @@
+{
+  "source_directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261029T161817-0a8089cd7dc3",
+  "sha256_uncompressed": {
+    "events.jsonl": "46118347e6b281304b67e5751605d2f8db302982e5709e6b34a327cd07eff2b9",
+    "lean-proof.log": "c7362663b6eb48575f9b9adb75e18eade46451a2cbf09bf68baf5cc11cdac369",
+    "launcher.log": "505e254a38c076f91589727fa6d1c9a994cce52690cbe6deb7df4f8a0db73c1a"
+  },
+  "finished": {
+    "duration_seconds": 15742.411839578,
+    "error": "KeyboardInterrupt: ",
+    "event": "finished",
+    "evidence": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/lean-proof.log",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/lean-proof.log"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/lean-evidence.json",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/lean-evidence.json"
+      }
+    ],
+    "failure_keys": [],
+    "monotonic_ns": 109473057012469,
+    "outcome": "interrupted",
+    "retained_reports": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/lean-proof.log",
+        "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261029T161817-0a8089cd7dc3/reports/0/lean-proof.log"
+      }
+    ],
+    "returncode": null,
+    "run_id": "20261029T161817-0a8089cd7dc3",
+    "utc": "2026-10-29T20:40:43.070772+00:00"
+  },
+  "retention_note": "Agent retained the unchanged-input interrupted run before integrating the required Body_Tail native proof repair. Canonical log and launcher output are named explicitly; no complete Lean success or audit is claimed."
+}

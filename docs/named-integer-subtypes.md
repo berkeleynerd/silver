@@ -206,7 +206,10 @@ they do not themselves establish final authoritative-source assurance.
 
 The [final packet](evidence/named-integer-subtypes-20261029/README.md) is being
 assembled for implementation/review target `97312a790f`. Complete Lean run
-`20261029T161817-0a8089cd7dc3` remains active on 653 matching captured inputs.
+`20261029T161817-0a8089cd7dc3` captured 653 matching inputs but was deliberately
+interrupted at 20:40 UTC after the native failure required a source repair.
+Its completed artifacts and original outcome are retained; no complete Lean
+success or whole-project audit is claimed for that run.
 Native full run `20261029T165015-c6b111fb4f2a` uses the preceding delivery's
 validated workspace after synchronizing six changed source files and comparing
 all 143 tracked native inputs. The earlier full run was deliberately interrupted
@@ -222,8 +225,11 @@ The [failed native packet](evidence/named-integer-subtypes-20261029/native-full-
 and [diagnostic](evidence/named-integer-subtypes-20261029/native-full-reuse/body-tail-diagnostic/README.md)
 retain that outcome and the exact failed equality. A focused ghost-equality
 repair is being tested in an isolated workspace without changing contracts or
-prover settings. Complete Lean validation is still active on the pre-repair
-inputs; it cannot establish source correspondence for a later source edit.
+prover settings. The repair changes the complete output source pin, invalidating
+both expensive source-candidate checks. Finishing the old-input Lean run would
+not establish repaired-source correspondence, so it was stopped before
+integration. Unaffected completed objects remain available for the next managed
+complete checkpoint.
 
 Full regression run `20261029T153819-5626949ad567` passed all 555 test identities
 in 5,255.763 s, including 52 sample sources and 108 executions. The
