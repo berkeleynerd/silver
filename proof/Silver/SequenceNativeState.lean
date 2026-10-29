@@ -1,7 +1,7 @@
 module
 
 public import Silver.SequenceAdmission
-public import Silver.ComposeEquations
+public import Silver.ComposeContracts
 
 @[expose] public section
 
@@ -20,6 +20,7 @@ structure Context where
   dynamicAfter : Nat
   scalarNames : ScalarExpression.Environment
   arrayNames : ArrayBindings.Env
+  subtypeNames : IntegerSubtypes.Environment
   deriving DecidableEq, Repr
 
 structure Scan where
@@ -34,14 +35,14 @@ def invalid : Scan := ⟨0, 0, 0, false, false⟩
 
 def contextOf (scan : ScanResult) : Context :=
   ⟨scan.state.names, scan.state.dynamicFirst, scan.state.dynamicAfter,
-    scan.state.scalarNames, scan.state.arrayNames⟩
+    scan.state.scalarNames, scan.state.arrayNames, scan.state.subtypeNames⟩
 
 def bodyOf (scan : ScanResult) : Scan :=
   ⟨scan.state.position, scan.state.target, scan.state.capacity, scan.assigned, scan.output⟩
 
 def expand (context : Context) (scan : Scan) : ScanResult :=
   ⟨⟨scan.position, context.names, context.dynamicFirst, context.dynamicAfter,
-      scan.target, scan.capacity, context.scalarNames, context.arrayNames⟩, scan.assigned, scan.output⟩
+      scan.target, scan.capacity, context.scalarNames, context.arrayNames, context.subtypeNames⟩, scan.assigned, scan.output⟩
 
 def compact (context : Context) (scan : ScanResult) : Scan :=
   if scan.state.position = 0 ∨ context.names.length < scan.state.target then invalid
@@ -54,7 +55,8 @@ def ValidContext (text : Source) (context : Context) : Prop :=
   Compose.Expressions.ValidNames text context.names ∧
     (⟨context.dynamicFirst, context.dynamicAfter⟩ : Named.NameState).Valid text ∧
     ScalarExpression.ValidEnvironment text context.scalarNames ∧
-    ArrayBindings.ValidEnvironment text context.arrayNames
+    ArrayBindings.ValidEnvironment text context.arrayNames ∧
+    IntegerSubtypes.ValidEnvironment text context.subtypeNames
 
 def ValidScan (text : Source) (context : Context) (scan : Scan) : Prop :=
   scan.position ≤ text.length + 1 ∧ scan.target ≤ context.names.length ∧
