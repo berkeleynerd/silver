@@ -85,7 +85,10 @@ theorem contains_indexCheck {item : Binding} (valid : ValidBinding item) (indice
   rfl
 
 theorem readBounds_correspondence {names : Metadata} {values : Initials} {target : Nat}
-    (valuesValid : ValidInitials values) (member : binding names target ∈ names)
+    (valuesValid : ValidInitials values)
+    (metadata : ∀ entry ∈ names, ValidBinding entry)
+    (ordered : names.Pairwise (fun left right => left.offset + left.length ≤ right.offset))
+    (member : binding names target ∈ names)
     (itemValid : ValidBinding (binding names target)) {indices : Integer.Interval}
     (inside : contains (binding names target) indices = true) (elaborating : Bool)
     (scalars : Integer.Ranges) :
@@ -94,7 +97,9 @@ theorem readBounds_correspondence {names : Metadata} {values : Initials} {target
   have checked : Integer.arrayIndexCheck (binding names target).descriptor indices = true := by
     rw [← contains_indexCheck itemValid]; exact inside
   cases elaborating with
-  | false => exact Integer.arrayReadRange_full checked (body_ranges_full member values scalars)
+  | false =>
+      exact Integer.arrayReadRange_components checked
+        (body_ranges_components metadata ordered member values scalars) (binding_component_valid itemValid)
   | true =>
       have bounds := inside
       simp only [contains, decide_eq_true_eq] at bounds
