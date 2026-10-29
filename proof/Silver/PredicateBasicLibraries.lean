@@ -55,10 +55,10 @@ structure Links (primitive : Primitives) (inherited : Expressions.Calls) : Prop 
 theorem HelperMeaning.of_inherited {primitive : Primitives} {inherited : Expressions.Calls}
     (source : Expressions.HelperEquations inherited (domain := domain)) (links : Links primitive inherited) :
     HelperMeaning primitive where
-  callAfter text names position operation scalarNames arrays valid := by
+  callAfter text names position operation scalarNames arrays hidden valid := by
     rw [links.callAfter]
     exact Expressions.interpreted_callAfter inherited source text valid.1 names position operation
-      valid.2.2.1 valid.2.1 valid.2.2.2.1 valid.2.2.2.2
+      valid.2.2.1 valid.2.1 valid.2.2.2.1 valid.2.2.2.2 hidden
   associationAfter text position formal valid bounded := by
     rw [links.associationAfter]
     exact Names.interpreted_association inherited.names source.names text valid position formal bounded

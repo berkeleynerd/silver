@@ -51,7 +51,7 @@ def Ty.default : (ty : Ty) → ty.meaning
   | .scalarNames => []
   | .arrays => []
   | .scalarResult => ScalarExpression.invalid
-  | .context => ⟨[], 0, 0, [], 0, []⟩
+  | .context => ⟨[], 0, 0, [], 0, [], {}⟩
   | .result => Compose.invalidExpression
   | .literal => IntegerLiteral.invalid
   | .length => ⟨0, .fixed 0⟩
@@ -101,7 +101,7 @@ def Function.name : Function → List String
   | .join => ["joined"]
 
 @[reducible] def Function.type : Function → Ty
-  | .callAfter => .arrow .source (.arrow .names (.arrow .number (.arrow .operation (.arrow .scalarNames (.arrow .arrays .number)))))
+  | .callAfter => .arrow .source (.arrow .names (.arrow .number (.arrow .operation (.arrow .scalarNames (.arrow .arrays (.arrow .truth .number))))))
   | .take => .arrow .source (.arrow .number (.arrow .token (.number)))
   | .skip => .arrow .source (.arrow .number (.number))
   | .nameAfter => .arrow .source (.arrow .number (.number))
@@ -134,7 +134,7 @@ def Function.name : Function → List String
   | .join => .arrow .facts (.arrow .facts (.facts))
 
 structure Calls where
-  callAfter : Source → Compose.BindingEnvironment → Nat → Names.Operation → ScalarExpression.Environment → ArrayBindings.Metadata → Nat
+  callAfter : Source → Compose.BindingEnvironment → Nat → Names.Operation → ScalarExpression.Environment → ArrayBindings.Metadata → Bool → Nat
   take : Source → Nat → Token → Nat
   skip : Source → Nat → Nat
   nameAfter : Source → Nat → Nat
@@ -292,6 +292,7 @@ inductive Expr : Ty → Type
   | function (symbol : Function) : Expr symbol.type
   | app : Expr (.arrow a b) → Expr a → Expr b
   | field : Field a b → Expr a → Expr b
+  | subtypeHidden : Expr .context → Expr .operation → Expr .truth
   | bindingAt : Expr .names → Expr .number → Expr .binding
   | eq : Expr .number → Expr .number → Expr .truth
   | ne : Expr .number → Expr .number → Expr .truth
@@ -346,6 +347,7 @@ def Expr.render : Expr ty → List String
     | .app _ _ => fn.render.dropLast ++ [","] ++ argument.render ++ [")"]
     | _ => fn.render ++ ["("] ++ argument.render ++ [")"]
   | .field projection value => value.render ++ [".", projection.name]
+  | .subtypeHidden context operation => context.render ++ [".", "subtype_hiding", "("] ++ operation.render ++ [")"]
   | .bindingAt names index => names.render ++ [".", "items", "("] ++ index.render ++ [")"]
   | .eq left right | .tokenEq left right | .comparisonEq left right => left.render ++ ["="] ++ right.render
   | .ne left right | .tokenNe left right => left.render ++ ["/="] ++ right.render
@@ -388,6 +390,7 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .function symbol => calls.get symbol
   | .app fn argument => fn.eval calls locals (argument.eval calls locals)
   | .field projection value => projection.get (value.eval calls locals)
+  | .subtypeHidden context operation => (context.eval calls locals).subtypeHiding.get (operation.eval calls locals)
   | .bindingAt names index => ((names.eval calls locals).get (index.eval calls locals)).getD {}
   | .eq left right => decide (left.eval calls locals = right.eval calls locals)
   | .ne left right => decide (left.eval calls locals ≠ right.eval calls locals)
@@ -416,8 +419,8 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .invalid facts => calls.invalidCondition (facts.eval calls locals)
 
 namespace Expr
-def callOperation (text : Expr .source) (names : Expr .names) (position : Expr .number) (operation : Expr .operation) (scalarNames : Expr .scalarNames) (arrays : Expr .arrays) : Expr .number :=
-  .app (.app (.app (.app (.app (.app (.function .callAfter) text) names) position) operation) scalarNames) arrays
+def callOperation (text : Expr .source) (names : Expr .names) (position : Expr .number) (operation : Expr .operation) (scalarNames : Expr .scalarNames) (arrays : Expr .arrays) (subtypeHidden : Expr .truth) : Expr .number :=
+  .app (.app (.app (.app (.app (.app (.app (.function .callAfter) text) names) position) operation) scalarNames) arrays) subtypeHidden
 
 def callTake (x0 : Expr .source) (x1 : Expr .number) (x2 : Expr .token) : Expr .number :=
   .app (.app (.app (.function .take) x0) x1) x2

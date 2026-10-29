@@ -69,6 +69,9 @@ inductive Expr : Type → Type 1
   | readValue (position : Expr Nat) : Expr ScalarExpression.Result
   | binding (target : Expr Nat) : Expr ArrayBindings.Binding
   | mutable (item : Expr ArrayBindings.Binding) : Expr Bool
+  | componentBounds (item : Expr ArrayBindings.Binding) : Expr Integer.Interval
+  | lower (bounds : Expr Integer.Interval) : Expr Int
+  | upper (bounds : Expr Integer.Interval) : Expr Int
   | resultAfter (value : Expr ScalarExpression.Result) : Expr Nat
   | operands (value : Expr ScalarExpression.Result) : Expr Nat
   | resultBounds (value : Expr ScalarExpression.Result) : Expr Integer.Interval
@@ -77,6 +80,8 @@ inductive Expr : Type → Type 1
   | eqNat (left right : Expr Nat) : Expr Bool
   | neNat (left right : Expr Nat) : Expr Bool
   | leNat (left right : Expr Nat) : Expr Bool
+  | ltInt (left right : Expr Int) : Expr Bool
+  | gtInt (left right : Expr Int) : Expr Bool
   | not (value : Expr Bool) : Expr Bool
   | orElse (left right : Expr Bool) : Expr Bool
   | invalid : Expr BodyScan
@@ -114,6 +119,9 @@ def Expr.eval (imports : Imports) (target : TargetCall) (frame : Frame) : Expr �
   | .readValue position => imports.readValue frame.text frame.context (position.eval imports target frame) frame.scan.facts
   | .binding index => ArrayBindings.binding frame.context.arrayNames (index.eval imports target frame)
   | .mutable item => (item.eval imports target frame).mutable
+  | .componentBounds item => (item.eval imports target frame).componentBounds
+  | .lower bounds => (bounds.eval imports target frame).lower
+  | .upper bounds => (bounds.eval imports target frame).upper
   | .resultAfter value => (value.eval imports target frame).after
   | .operands value => (value.eval imports target frame).operands
   | .resultBounds value => (value.eval imports target frame).bounds
@@ -122,6 +130,8 @@ def Expr.eval (imports : Imports) (target : TargetCall) (frame : Frame) : Expr �
   | .eqNat left right => decide (left.eval imports target frame = right.eval imports target frame)
   | .neNat left right => decide (left.eval imports target frame ≠ right.eval imports target frame)
   | .leNat left right => decide (left.eval imports target frame ≤ right.eval imports target frame)
+  | .ltInt left right => decide (left.eval imports target frame < right.eval imports target frame)
+  | .gtInt left right => decide (left.eval imports target frame > right.eval imports target frame)
   | .not value => !value.eval imports target frame
   | .orElse left right => left.eval imports target frame || right.eval imports target frame
   | .invalid => imports.invalid frame.scan
@@ -161,6 +171,9 @@ def Expr.render : Expr α → List String
   | .readValue position => call "read_scalar_in_flow" [["text"], ["context"], position.render, ["scan", ".", "facts"]]
   | .binding index => ["context", ".", "array_names", ".", "items", "("] ++ index.render ++ [")"]
   | .mutable item => item.render ++ [".", "mutable"]
+  | .componentBounds item => item.render ++ [".", "component_bounds"]
+  | .lower bounds => bounds.render ++ [".", "lower"]
+  | .upper bounds => bounds.render ++ [".", "upper"]
   | .resultAfter value => value.render ++ [".", "after"]
   | .operands value => value.render ++ [".", "operands"]
   | .resultBounds value => value.render ++ [".", "bounds"]
@@ -169,6 +182,8 @@ def Expr.render : Expr α → List String
   | .eqNat left right => left.render ++ ["="] ++ right.render
   | .neNat left right => left.render ++ ["/="] ++ right.render
   | .leNat left right => left.render ++ ["<="] ++ right.render
+  | .ltInt left right => left.render ++ ["<"] ++ right.render
+  | .gtInt left right => left.render ++ [">"] ++ right.render
   | .not value => ["not"] ++ value.render
   | .orElse left right => left.render ++ ["or", "else"] ++ right.render
   | .invalid => call "invalid_body" [["scan"]]
@@ -197,11 +212,13 @@ def assignmentBody : Expr BodyScan :=
   .letSubscript (.readIndex (.token .localAfter (.symbol "("))) <|
   .letValue (.readValue (.token (.token (.resultAfter .localSubscript) (.symbol ")")) (.symbol ":="))) <|
   .beginValue <| .guardReturn
-    (.orElse (.orElse (.orElse (.orElse (.orElse
+    (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse
       (.eqNat .localTarget .zero) (.not (.mutable (.binding .localTarget))))
       (.not (.contains (.binding .localTarget) (.resultBounds .localSubscript))))
       (.eqNat (.operands .localSubscript) .maxOperands))
       (.leNat (.resultAfter .localValue) .scanPosition)) (.isEmpty (.resultBounds .localValue)))
+      (.ltInt (.lower (.resultBounds .localValue)) (.lower (.componentBounds (.binding .localTarget)))))
+      (.gtInt (.upper (.resultBounds .localValue)) (.upper (.componentBounds (.binding .localTarget)))))
     .invalid (.assigned (.resultAfter .localValue))
 
 def assignmentRender : List String := assignmentBody.render ++ ["end", "array_assignment_body", ";"]
@@ -213,12 +230,13 @@ def Expr.primary : Expr α → Bool
   | .zero | .maxOperands | .localSubscript | .localValue | .skip _ | .nameAfter _
   | .scalarLookup _ _ | .arrayLookup _ _ | .arrayTarget _ | .token _ _
   | .readIndex _ | .readValue _ | .binding _ | .mutable _ | .resultAfter _
+  | .componentBounds _ | .lower _ | .upper _
   | .operands _ | .resultBounds _ | .contains _ _ | .isEmpty _
   | .invalid | .assigned _ | .group _ => true
   | _ => false
 
 def Expr.relation : Expr α → Bool
-  | .eqNat _ _ | .neNat _ _ | .leNat _ _ | .not _ => true
+  | .eqNat _ _ | .neNat _ _ | .leNat _ _ | .ltInt _ _ | .gtInt _ _ | .not _ => true
   | value => value.primary
 
 def Expr.expression : Expr α → Bool
@@ -252,10 +270,11 @@ def Expr.wellFormed : Expr α → Bool
       value.expression && value.wellFormed
   | .scalarLookup a b | .arrayLookup a b | .contains a b =>
       a.expression && b.expression && a.wellFormed && b.wellFormed
-  | .mutable value | .resultAfter value | .operands value | .resultBounds value =>
+  | .mutable value | .componentBounds value | .lower value | .upper value
+  | .resultAfter value | .operands value | .resultBounds value =>
       value.primary && value.wellFormed
   | .isEmpty value => value.expression && value.wellFormed
-  | .eqNat a b | .neNat a b | .leNat a b => a.primary && b.primary && a.wellFormed && b.wellFormed
+  | .eqNat a b | .neNat a b | .leNat a b | .ltInt a b | .gtInt a b => a.primary && b.primary && a.wellFormed && b.wellFormed
   | .not value => value.primary && value.wellFormed
   | .orElse a b => a.expression && b.relation && a.wellFormed && b.wellFormed
   | .choose c a b | .guardReturn c a b => c.expression && a.expression && b.expression &&

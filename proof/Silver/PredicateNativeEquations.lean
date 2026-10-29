@@ -64,7 +64,7 @@ def primaryEquation (calls : Calls) (text : Source) (context : Context) (positio
     if close = 0 then calls.invalidCondition facts else {result with after := close}
   else if context.dynamicFirst = 0 then calls.invalidCondition facts
   else
-    let afterCall := calls.callAfter text context.names position .validity context.scalarNames context.arrayNames
+    let afterCall := calls.callAfter text context.names position .validity context.scalarNames context.arrayNames (context.subtypeHiding.get .validity)
     if afterCall = 0 then calls.invalidCondition facts else
       ⟨afterCall, {facts with path := calls.assumeValid facts.path},
         {facts with path := calls.assumeInvalid facts.path}⟩

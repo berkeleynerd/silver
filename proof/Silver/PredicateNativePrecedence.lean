@@ -38,6 +38,7 @@ def Expr.wellFormed : Expr ty → Bool
   | .operation _ | .number _ | .truth _ | .token _ | .comparison _ | .variable _ | .function _ => true
   | .app fn arg => fn.callSpine && fn.wellFormed && arg.primary && arg.wellFormed
   | .field _ value => value.primary && value.wellFormed
+  | .subtypeHidden context operation => context.primary && context.wellFormed && operation.wellFormed
   | .bindingAt names index => names.primary && names.wellFormed && index.primary && index.wellFormed
   | .eq left right | .ne left right | .le left right | .tokenEq left right | .tokenNe left right
   | .comparisonEq left right => left.primary && right.primary && left.wellFormed && right.wellFormed
@@ -68,7 +69,7 @@ def Expr.scoped (scope : Scope) : Expr ty → Bool
   | .operation _ | .number _ | .truth _ | .token _ | .comparison _ | .function _ => true
   | .app fn arg => fn.scoped scope && arg.scoped scope
   | .invalid value | .field _ value | .notEquality value | .notChain value | .not value | .group value | .old value | .locals value => value.scoped scope
-  | .bindingAt left right | .eq left right | .ne left right | .le left right | .tokenEq left right
+  | .subtypeHidden left right | .bindingAt left right | .eq left right | .ne left right | .le left right | .tokenEq left right
   | .tokenNe left right | .comparisonEq left right | .andThen left right | .orElse left right
   | .bound left right | .compared left right | .length left right
   | .updateAfter left right | .updatePath left right => left.scoped scope && right.scoped scope

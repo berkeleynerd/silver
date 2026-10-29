@@ -16,7 +16,7 @@ def Expr.Sized (calls : Calls) (locals : Locals) : Expr ty → Prop
   | .app fn arg => fn.Sized calls locals ∧ arg.Sized calls locals
   | .field _ value | .notEquality value | .notChain value | .not value | .group value | .old value | .locals value =>
       value.Sized calls locals
-  | .bindingAt left right | .eq left right | .ne left right | .le left right | .tokenEq left right
+  | .subtypeHidden left right | .bindingAt left right | .eq left right | .ne left right | .le left right | .tokenEq left right
   | .tokenNe left right | .comparisonEq left right | .andThen left right | .orElse left right
   | .bound left right | .compared left right | .length left right
   | .updateAfter left right | .updatePath left right => left.Sized calls locals ∧ right.Sized calls locals

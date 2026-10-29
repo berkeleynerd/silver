@@ -64,8 +64,8 @@ theorem model_equations : Equations modelCalls where
     all_goals by_cases loopFound : fixedAfter text scan.position "for" true ≠ 0
     all_goals simp +instances [modelCalls, statementBody, statementEval, Test.eval, ScanExpr.eval,
       modelPrimitives, tokenAfter, ShellToken.word, zero, found, loopFound] <;> simp_all
-  loop text _ context _ scan sv := by
-    rw [LoopNative.eval_equation _ text context scan sv.2.2.2.compatible.count]
+  loop text _ context cv scan sv := by
+    rw [LoopNative.eval_equation _ text context scan sv.2.2.2.compatible.count cv.arrays]
     exact model_loop_equation text context scan
   conditional text tv context cv scan sv := by
     rw [conditional_eval]
@@ -108,7 +108,7 @@ mutual
       (scan : BodyScan) (sv : ValidScan text context scan) :
       calls.loop text context scan = loopBody text context.model scan := by
     rw [equations.loop text tv context cv scan sv,
-      LoopNative.eval_equation calls.read text context scan sv.2.2.2.compatible.count,
+      LoopNative.eval_equation calls.read text context scan sv.2.2.2.compatible.count cv.arrays,
       model_loop_equation text context scan]
     unfold LoopNative.equation
     dsimp only [modelCalls]

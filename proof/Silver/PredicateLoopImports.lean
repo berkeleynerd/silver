@@ -70,12 +70,10 @@ structure ImportsMeaning (imports : Imports) : Prop where
       ScalarExpression.read text position (context.model.readingNames facts) first after (arrays := context.arrayNames)
   widen : ∀ context facts, WidenDomain context facts →
     imports.widen context facts = ActiveFlow.widen context.scalarNames facts
-  append : ∀ names item, names.length < ScalarExpression.maxBindings → imports.append names item = names ++ [item]
   isEmpty : ∀ value, value.Bounded → imports.isEmpty value = value.isEmpty
   normalize : ∀ value, value.Bounded → imports.normalize value = value.normalize
   join : ∀ left right, imports.join left right = left.join right
   emptyBounds : imports.emptyBounds = Integer.Interval.empty
-  fullBounds : imports.fullBounds = Integer.Interval.full
   emptyFacts : imports.emptyFacts = PathFacts.Context.empty
 
 /-- Formal extension beyond the checked call domains. It retains every legal
@@ -99,12 +97,10 @@ noncomputable def totalizeImports (imports : Imports) : Imports := by
       if ScalarDomain text context position facts first after then imports.readScalar text context position facts first after
       else modelImports.readScalar text context position facts first after
     widen := fun context facts => if WidenDomain context facts then imports.widen context facts else modelImports.widen context facts
-    append := fun names item => if names.length < ScalarExpression.maxBindings then imports.append names item else modelImports.append names item
     isEmpty := fun value => if value.Bounded then imports.isEmpty value else modelImports.isEmpty value
     normalize := fun value => if value.Bounded then imports.normalize value else modelImports.normalize value
     join := imports.join
     emptyBounds := imports.emptyBounds
-    fullBounds := imports.fullBounds
     emptyFacts := imports.emptyFacts }
 
 theorem totalizeImports_token (imports : Imports) (text : Source) (position : Nat) (token : ShellToken)
@@ -162,11 +158,6 @@ theorem totalizeImports_arrayTarget (imports : Imports) (text : Source) (context
 theorem totalizeImports_widen (imports : Imports) (context : Native.Context) (facts : ActiveFlow)
     (valid : WidenDomain context facts) :
     (totalizeImports imports).widen context facts = imports.widen context facts := by
-  simp only [totalizeImports, valid, ↓reduceIte]
-
-theorem totalizeImports_append (imports : Imports) (names : ScalarExpression.Environment) (item : ScalarExpression.Binding)
-    (valid : names.length < ScalarExpression.maxBindings) :
-    (totalizeImports imports).append names item = imports.append names item := by
   simp only [totalizeImports, valid, ↓reduceIte]
 
 theorem totalizeImports_isEmpty (imports : Imports) (value : Integer.Interval)
@@ -237,11 +228,6 @@ theorem totalizeImports_eq_model {imports : Imports} (meaning : ImportsMeaning i
     split
     · exact meaning.widen context facts ‹_›
     · rfl
-  · funext names item
-    dsimp only [totalizeImports]
-    split
-    · exact meaning.append names item ‹_›
-    · rfl
   · funext value
     dsimp only [totalizeImports]
     split
@@ -254,7 +240,6 @@ theorem totalizeImports_eq_model {imports : Imports} (meaning : ImportsMeaning i
     · rfl
   · exact funext fun left => funext fun right => meaning.join left right
   · exact meaning.emptyBounds
-  · exact meaning.fullBounds
   · exact meaning.emptyFacts
 
 theorem evalWith_of_meaning {imports : Imports} (meaning : ImportsMeaning imports)
@@ -274,12 +259,10 @@ theorem model_imports_meaning : ImportsMeaning modelImports where
   arrayTarget _ _ _ _ := rfl
   readScalar _ _ _ _ _ _ _ := rfl
   widen _ _ _ := rfl
-  append _ _ _ := rfl
   isEmpty _ _ := rfl
   normalize _ _ := rfl
   join _ _ := rfl
   emptyBounds := rfl
-  fullBounds := rfl
   emptyFacts := rfl
 
 def Test.tokenCalls : Test → List ShellToken
