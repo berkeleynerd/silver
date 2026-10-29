@@ -1,6 +1,6 @@
 # Named Integer subtypes and bounded array components
 
-Status: owner-authorized proposal, not yet supported. [Milestone 13](https://github.com/berkeleynerd/silver/milestone/13)
+Status: implementation and assurance integration in progress; not yet supported. [Milestone 13](https://github.com/berkeleynerd/silver/milestone/13)
 contains one coherent work package, [#286](https://github.com/berkeleynerd/silver/issues/286).
 The [2026-10-29 authorization](session-memory.md#2026-10-29--named-integer-subtypes-and-bounded-array-components-authorized)
 covers implementation through complete assurance, validation, independent review
@@ -15,7 +15,7 @@ Require nonempty static bounds contained in Integer, and permit earlier named
 subtypes in initialized scalar objects and the component indication of existing
 anonymous fixed arrays. Subtype declarations name Integer directly; subtype alias
 chains remain excluded. An optional scalar object-local range may further narrow
-the named subtype to a nonempty subset, subject to native design confirmation. Preserve the inherited Ada/SPARK meaning: a subtype
+the named subtype to a nonempty subset. Preserve the inherited Ada/SPARK meaning: a subtype
 constrains Integer values; it does not create a distinct Integer type.
 
 Every initialized or subsequently stored value must respect its declared subtype.
@@ -65,3 +65,42 @@ Authorization recording used selected GPT-6.1 Sol / High for this bounded planni
 subthread. Runtime model confirmation and token/cost measurements are unavailable.
 The deliverable is the authorization-only planning PR and one milestone/package;
 feature design, implementation, proofs and validation belong to #286.
+
+## Implementation decisions and current checks
+
+Subtype declarations use a separate compact metadata table, preserving existing
+scalar cell identities and static-value invariants. Five operation-hiding flags
+enter recursive body contexts; the whole subtype table stays in declaration
+state. The source-derived subtype capacity is `4096 / 32`, from the shortest
+accepted declaration. Scalar capacity becomes `4096 / 7` because `A:S:=0;` is
+seven bytes; String capacity stays `4096 / 12`, and array capacity stays
+`4096 / 24` (the shortest complete new array declaration is 25 bytes).
+
+Array descriptors carry declared component intervals. Initialization and writes
+must establish interval containment; reads and constant-array iteration use that
+interval. Ordered, disjoint array allocation and initialized-value containment
+are explicit proof obligations. They cannot be assumed for arbitrary native
+metadata merely because actual source allocation is ordered.
+
+The native draft builds and eight admission test methods pass. The Sum of squares
+driver is accepted and has independently derived expected lines `0` and `133`;
+its complete proof/build/execution remains pending. Focused Lean checks have
+proved the component semantics, ordered metadata/read model and separate subtype
+metadata with fresh axiom audits. These are partial checks, not a delivery claim.
+The first deepest foreach probe under 8 MiB exposed a larger native stack frame;
+removing a redundant binding-array copy is under investigation. No source limit
+or environmental stack assumption has been changed.
+
+| Round | Selected settings | Result and remaining work |
+| --- | --- | --- |
+| Native implementation, producer and resource checks | GPT-6 Astra / Extra High | Draft builds; native obligation, producer and stack checks remain in progress. |
+| Array semantic proofs | GPT-6 Astra / Extra High | Core component and ordered-metadata checkpoints passed; composed body integration remains. |
+| Tests, specification, catalogue and driver | GPT-6.1 Sol / Extra High | Eight admission methods passed in 2.836 s; native integration and delivery rendering remain. |
+| Declaration and source correspondence | GPT-6 Astra / Extra High | Integration in progress; no complete-source result claimed. |
+
+Runtime settings and token/cost measurements are not independently available.
+The integration proof workspace reuses a copied complete Lake artifact family
+from `tmp/constant-array-source`, whose final successful baseline is run
+`20261029T084327-720db926b71b` in the preceding delivery packet. The managed runner
+synchronizes source inputs and freshly audits each selected import closure;
+this is ordinary incremental reuse, not a clean build or kernel replay.

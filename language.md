@@ -232,6 +232,9 @@ It constrains Integer values without creating a distinct type. Earlier named
 subtypes may be used in scalar constant or mutable declarations and as fixed
 array component marks. Subtype alias chains, derived types, conversions and
 subtype attributes, including `S'Image`, are excluded.
+The new subtype's name cannot be `Integer`, ignoring case. This is a Silver
+scope restriction that keeps the predefined parent distinct from declared
+subtypes; it does not introduce a new Ada naming rule.
 
 Every scalar object declaration requires an initializer and may be constant or
 mutable. Its subtype mark is the visible Integer or an earlier named Integer
