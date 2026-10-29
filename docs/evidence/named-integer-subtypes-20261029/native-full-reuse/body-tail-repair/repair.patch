@@ -1,0 +1,29 @@
+diff --git a/src/silver_output_profile.adb b/src/silver_output_profile.adb
+index 8f13ac708a..b0302cbda9 100644
+--- a/src/silver_output_profile.adb
++++ b/src/silver_output_profile.adb
+@@ -3452,9 +3452,12 @@ is
+          end;
+       end loop;
+       declare
++         Original_Tail : constant Body_Scan (Scan.Count) :=
++           Body_Tail_Model (Text, Context, Scan, Stop) with Ghost => Static;
+          Tail : constant Body_Scan (Scan.Count) :=
+            Body_Tail_Model (Text, Context, Result, Stop) with Ghost => Static;
+       begin
++         pragma Assert (Static => Original_Tail = Tail);
+          if Result.Position = 0 then
+             pragma Assert
+               (Static => Tail = Body_Tail_Model (Text, Context, Result, Stop)
+@@ -3463,6 +3466,11 @@ is
+          end if;
+          pragma Assert (Static => Tail = Body_Tail_Model (Text, Context, Result, Stop)
+            and then Tail = Result);
++         --  Expose transitive equality of the interval array separately from
++         --  the surrounding scan fields before discharging model equality.
++         Lemma_Flow_Equality (Original_Tail.Facts, Tail.Facts);
++         Lemma_Flow_Equality (Tail.Facts, Result.Facts);
++         pragma Assert (Static => Original_Tail = Result);
+          return Result;
+       end;
+    end Body_Tail;
