@@ -248,10 +248,13 @@ unaudited proof-tree metadata; original reports remain on disk. The earlier
 `Storage_Error` with a 2 MiB stack even for the null and Hello World samples;
 that historical result predates the [capacity repair](docs/report-capacity.md).
 The recursive statement/predicate recognizer still uses the stack, and fixed-array
-metadata increased its loop frames. The [current stack observations](docs/evidence/array-review-response-20261028/README.md#stack-observations)
-admitted, compiled and executed a 143-level counted-loop program and a
-159-level constant-array foreach program at 8 MiB. These observations do not
-establish a universal exact minimum. Adequate memory and normal runtime
+metadata increased its loop frames. The [2026-10-29 subtype stack observations](docs/evidence/named-integer-subtypes-20261029/stack/README.md)
+admitted, proved, compiled and executed three 4,096-byte programs under an actual
+8 MiB process stack: 141 counted-loop levels, 158 singleton constant-array
+foreach levels and 208 conditional levels. These input/build-specific observations
+used native source `a0d1a69463` and the binary rebuilt at `39d96fa9e5`, before the
+later ghost logical-equality annotation repair. They do not measure the final
+binary or establish a universal worst-case bound. Adequate memory and normal runtime
 startup remain [environmental requirements](docs/trusted-boundary.md#trusted-computing-base).
 
 ```sh

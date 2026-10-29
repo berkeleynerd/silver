@@ -115,7 +115,14 @@ The [2026-10-28 managed observations](evidence/array-review-response-20261028/RE
 then admitted, compiled and executed a 4,079-byte/143-level counted-loop program
 and a 4,091-byte/159-level constant-array foreach program under an actual
 8 MiB process stack. These are input/build-specific observations, not a proved
-worst-case bound. Per-level environment-copy redesign remains deferred with #119.
+worst-case bound. The [2026-10-29 subtype observations](evidence/named-integer-subtypes-20261029/stack/README.md)
+then admitted, proved, compiled and executed three 4,096-byte sources under an
+actual 8 MiB process stack: 141 counted-loop levels, 158 singleton constant-array
+foreach levels and 208 conditional levels. They measured native source
+`a0d1a69463` with the binary rebuilt at `39d96fa9e5`, before the later ghost
+logical-equality annotation repair. They retain their input/build-specific scope;
+they do not measure the final binary or establish a universal worst-case bound.
+Per-level environment-copy redesign remains deferred with #119.
 The external
 [sequencing review](reviews/review-9b99d52.md) observed `Storage_Error` and exit
 status 1 with a 2 MiB stack before the report-storage repair. Such resource exceptions are
