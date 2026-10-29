@@ -55,15 +55,18 @@ inductive Field : Ty → Ty → Type
   | first : Field .binding .number | after : Field .binding .number
   | offset : Field .binding .number | length : Field .binding .number
   | bounds : Field .binding .interval | count : Field .metadata .number
+  | componentBounds : Field .binding .interval
   | lower : Field .interval .integer | upper : Field .interval .integer
 
 def Field.name : Field a b → String
   | .first => "first" | .after => "after" | .offset => "offset" | .length => "length"
   | .bounds => "bounds" | .count => "count" | .lower => "lower" | .upper => "upper"
+  | .componentBounds => "component_bounds"
 def Field.get : Field a b → a.meaning → b.meaning
   | .first, item => item.first | .after, item => item.after | .offset, item => item.offset
   | .length, item => item.length | .bounds, item => item.bounds | .count, names => names.length
   | .lower, interval => interval.lower | .upper, interval => interval.upper
+  | .componentBounds, item => item.componentBounds
 
 inductive Expr : Ty → Type
   | number (value : Nat) : Expr .number
@@ -186,11 +189,12 @@ def elementSlotBody : Expr .number :=
 
 def validBindingBody : Expr .truth :=
   let item : Expr .binding := .variable "item"
-  .andThen (.andThen (.andThen (.not (.app (.function .isEmpty) (.field .bounds item)))
+  .andThen (.andThen (.andThen (.andThen (.not (.app (.function .isEmpty) (.field .bounds item)))
     (.gt (.field .length item) (.number 0)))
     (.le (.field .offset item) (.natSub .maxElements (.field .length item))))
     (.intEq (.intSub (.wideInt (.field .upper (.field .bounds item))) (.wideInt (.field .lower (.field .bounds item))))
-      (.intSub (.wideNat (.field .length item)) .intOne))
+      (.intSub (.wideNat (.field .length item)) .intOne)))
+    (.not (.app (.function .isEmpty) (.field .componentBounds item)))
 
 structure Context where
   text : Source := []

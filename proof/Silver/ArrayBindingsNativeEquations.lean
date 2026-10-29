@@ -14,7 +14,8 @@ def Span (text : Source) (first after : Nat) : Prop :=
   0 < first ∧ first < after ∧ after ≤ text.length + 1
 
 def BindingType (item : Binding) : Prop :=
-  item.bounds.Bounded ∧ item.offset ≤ maxElements ∧ item.length ≤ maxElements
+  item.bounds.Bounded ∧ item.offset ≤ maxElements ∧ item.length ≤ maxElements ∧
+    item.componentBounds.Bounded
 
 structure Primitives (calls : Calls) : Prop where
   equalName : ∀ text, ValidText text → ∀ first after otherFirst otherAfter,
@@ -45,7 +46,7 @@ structure Equations (calls : Calls) : Prop where
       if elaborating then calls.hullModel values
         (calls.elementSlot (binding names target) indices.lower)
         (calls.elementSlot (binding names target) indices.upper)
-      else Integer.Interval.full
+      else (binding names target).componentBounds
 
 def lookupEquation (calls : Calls) (text : Source) (names : Metadata) (first after index : Nat) : Nat :=
   if first = 0 ∨ after ≤ first ∨ index = 0 then 0
@@ -119,7 +120,7 @@ theorem interpreted_lookupModel (calls : Calls) (primitives : Primitives calls) 
         lookup_denotation]
       by_cases bad : first = 0 ∨ after ≤ first
       · simp [lookupEquation, lookupFrom, bad]
-      · have itemValid := metadata.2 _ (binding_mem (by omega) indexBound)
+      · have itemValid := metadata.2.1 _ (binding_mem (by omega) indexBound)
         have compared := primitives.equalName text valid (binding names (index + 1)).first
           (binding names (index + 1)).after first after
           ⟨itemValid.1,itemValid.2.1,itemValid.2.2.1⟩ ⟨by omega,by omega,afterBound⟩
@@ -217,18 +218,20 @@ theorem model_primitives : Primitives modelCalls where
 theorem validBinding_meaning (calls : Calls) (primitives : Primitives calls)
     (item : Binding) (typed : BindingType item) :
     validBindingBody.eval calls ({item} : Context).locals = true ↔ ValidBinding item := by
-  change ((!calls.isEmpty item.bounds && decide (item.length > 0) &&
+  change (((!calls.isEmpty item.bounds && decide (item.length > 0) &&
     decide (item.offset ≤ maxElements - item.length)) &&
-    decide (item.bounds.upper - item.bounds.lower = (item.length : Int) - 1)) = true ↔ ValidBinding item
-  rw [primitives.isEmpty item.bounds typed.1]
+    decide (item.bounds.upper - item.bounds.lower = (item.length : Int) - 1)) &&
+    !calls.isEmpty item.componentBounds) = true ↔ ValidBinding item
+  rw [primitives.isEmpty item.bounds typed.1,
+    primitives.isEmpty item.componentBounds typed.2.2.2]
   simp only [Bool.and_eq_true, Integer.Interval.isEmpty, not_decide_eq_true,
     decide_eq_true_eq, ValidBinding, and_assoc]
-  have lengthBound := typed.2.2
+  have lengthBound := typed.2.2.1
   constructor
-  · rintro ⟨nonempty, positive, capacity, exact⟩
-    exact ⟨typed.1, by omega, positive, by omega, exact⟩
-  · rintro ⟨_, nonempty, positive, capacity, exact⟩
-    exact ⟨by omega, positive, by omega, exact⟩
+  · rintro ⟨nonempty, positive, capacity, exact, componentNonempty⟩
+    exact ⟨typed.1, by omega, positive, by omega, exact, typed.2.2.2, by omega⟩
+  · rintro ⟨_, nonempty, positive, capacity, exact, _, componentNonempty⟩
+    exact ⟨by omega, positive, by omega, exact, by omega⟩
 
 theorem model_equations : Equations modelCalls where
   lookupModel text _ names _ first after index _ _ _ := by
