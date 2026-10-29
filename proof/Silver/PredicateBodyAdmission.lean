@@ -76,7 +76,8 @@ def arrayAssignmentBody (text : Source) (context : ParseContext) (scan : BodySca
   let value := readScalarInFlow text context (arrayValueStart text context scan) scan.facts
   let binding := ArrayBindings.binding context.arrayNames target
   if target = 0 ∨ !binding.mutable ∨ !ArrayBindings.contains binding subscript.bounds ∨
-      subscript.operands = ScalarExpression.maxOperands ∨ value.after ≤ scan.position ∨ value.bounds.isEmpty
+      subscript.operands = ScalarExpression.maxOperands ∨ value.after ≤ scan.position ∨ value.bounds.isEmpty ∨
+      value.bounds.lower < binding.componentBounds.lower ∨ value.bounds.upper > binding.componentBounds.upper
   then invalidBody scan else {scan with position := value.after, assigned := true}
 
 inductive BasicKind | null | output | put | reject | scalarAssignment | arrayAssignment | assignment
@@ -84,9 +85,9 @@ inductive BasicKind | null | output | put | reject | scalarAssignment | arrayAss
 
 def basicKind (text : Source) (context : ParseContext) (scan : BodyScan) : BasicKind :=
   if fixedAfter text scan.position "null" true ≠ 0 then .null
-  else if callAfter text context.names scan.position .output context.scalarNames context.arrayNames ≠ 0 then .output
-  else if callAfter text context.names scan.position .partialOutput context.scalarNames context.arrayNames ≠ 0 then .put
-  else if context.hasArguments && decide (callAfter text context.names scan.position .reject context.scalarNames context.arrayNames ≠ 0)
+  else if callAfter text context.names scan.position .output context.scalarNames context.arrayNames (context.subtypeHiding.get .output) ≠ 0 then .output
+  else if callAfter text context.names scan.position .partialOutput context.scalarNames context.arrayNames (context.subtypeHiding.get .partialOutput) ≠ 0 then .put
+  else if context.hasArguments && decide (callAfter text context.names scan.position .reject context.scalarNames context.arrayNames (context.subtypeHiding.get .reject) ≠ 0)
     then .reject
   else if scalarTarget text context scan.position ≠ 0 then .scalarAssignment
   else if arrayTarget text context scan.position ≠ 0 then .arrayAssignment
@@ -96,21 +97,21 @@ def basicRaw (text : Source) (context : ParseContext) (scan : BodyScan) : BodySc
   match basicKind text context scan with
   | .null => bodyToken text scan (.word "null")
   | .output =>
-      let call := {scan with position := Names.associationAfter text (fixedAfter text (callAfter text context.names scan.position .output context.scalarNames context.arrayNames) "(" false) false}
+      let call := {scan with position := Names.associationAfter text (fixedAfter text (callAfter text context.names scan.position .output context.scalarNames context.arrayNames (context.subtypeHiding.get .output)) "(" false) false}
       let value := expressionAt text call.position context.names (context.readingNames call.facts) (arrays := context.arrayNames)
       if value.after = 0 ∨ call.facts.path.invalidReachable ∨ !fitsLengthSummary call.facts.path (summaryOf value)
       then invalidBody scan else
       let result := bodyToken text {call with position := value.after} (.symbol ")")
       {result with output := true}
   | .put =>
-      let call := {scan with position := Names.associationAfter text (fixedAfter text (callAfter text context.names scan.position .partialOutput context.scalarNames context.arrayNames) "(" false) false}
+      let call := {scan with position := Names.associationAfter text (fixedAfter text (callAfter text context.names scan.position .partialOutput context.scalarNames context.arrayNames (context.subtypeHiding.get .partialOutput)) "(" false) false}
       let value := expressionAt text call.position context.names (context.readingNames call.facts) (arrays := context.arrayNames)
       if value.after = 0 ∨ call.facts.path.invalidReachable ∨ !fitsLengthSummary call.facts.path (summaryOf value)
       then invalidBody scan else
       let result := bodyToken text {call with position := value.after} (.symbol ")")
       {result with output := true}
   | .reject =>
-      let call := {scan with position := callAfter text context.names scan.position .reject context.scalarNames context.arrayNames}
+      let call := {scan with position := callAfter text context.names scan.position .reject context.scalarNames context.arrayNames (context.subtypeHiding.get .reject)}
       {call with facts := {call.facts with path := call.facts.path.reject}}
   | .scalarAssignment => scalarAssignmentBody text context scan
   | .arrayAssignment => arrayAssignmentBody text context scan
@@ -158,6 +159,7 @@ structure LoopHeader where
   entry : BodyScan
   isArray : Bool := false
   arrayTarget : Nat := 0
+  componentBounds : Integer.Interval := .full
   deriving Repr
 
 def loopFirst (text : Source) (scan : BodyScan) : Nat :=
@@ -194,7 +196,7 @@ def loopArrayAllowed (text : Source) (context : ParseContext) (scan : BodyScan) 
     !Named.equalName text (loopFirst text scan) (loopNameAfter text scan) first after
 
 def LoopHeader.bounds (header : LoopHeader) : Integer.Interval :=
-  if header.isArray then Integer.Interval.full else Integer.loopBounds header.lower.bounds header.upper.bounds
+  if header.isArray then header.componentBounds else Integer.loopBounds header.lower.bounds header.upper.bounds
 
 def loopHeader (text : Source) (context : ParseContext) (scan : BodyScan) : LoopHeader :=
   let first := loopFirst text scan
@@ -204,7 +206,8 @@ def loopHeader (text : Source) (context : ParseContext) (scan : BodyScan) : Loop
     ScalarExpression.read text (loopLowerPosition text scan) (context.readingNames scan.facts) first after (arrays := context.arrayNames)
   let upper := if isArray then ScalarExpression.invalid else
     ScalarExpression.read text (fixedAfter text lower.after ".." false) (context.readingNames scan.facts) first after (arrays := context.arrayNames)
-  let bounds := if isArray then Integer.Interval.full else Integer.loopBounds lower.bounds upper.bounds
+  let components := (ArrayBindings.binding context.arrayNames (loopArrayTarget text context scan)).componentBounds
+  let bounds := if isArray then components else Integer.loopBounds lower.bounds upper.bounds
   let opening := if isArray then
     if loopArrayAllowed text context scan then
       fixedAfter text (nameAfter text (skipAt text (loopLowerPosition text scan))) "loop" true
@@ -214,7 +217,7 @@ def loopHeader (text : Source) (context : ParseContext) (scan : BodyScan) : Loop
     {scan with
       position := opening,
       facts := {(ActiveFlow.widen context.scalarNames scan.facts).append bounds with
-        path := loopContext scan.facts.path bounds}}, isArray, loopArrayTarget text context scan⟩
+        path := loopContext scan.facts.path bounds}}, isArray, loopArrayTarget text context scan, components⟩
 
 def loopNameAllowed (text : Source) (context : ParseContext) (header : LoopHeader) : Bool :=
   decide (header.first ≠ 0 ∧ header.first < header.after) &&
@@ -355,7 +358,7 @@ def initialFacts (arguments : Bool) : Context :=
 
 def contextOf (scan : ScanResult) : ParseContext :=
   ⟨scan.state.names, decide (scan.state.dynamicFirst ≠ 0),
-    ScalarExpression.bodyEnvironment scan.state.scalarNames, scan.state.scalarNames.length, scan.state.arrayNames.names⟩
+    ScalarExpression.bodyEnvironment scan.state.scalarNames, scan.state.scalarNames.length, scan.state.arrayNames.names, scan.state.subtypeNames.hiddenCalls⟩
 
 def bodyOf (scan : ScanResult) : BodyScan :=
   ⟨scan.state.position, scan.state.target, scan.state.capacity,

@@ -101,7 +101,7 @@ theorem form_reading_valid {source : Source} {form : Form} {events : List Event}
   have arguments := prefix_arguments parsed.header
   obtain ⟨program, decoded, programValid⟩ := prefix_decoded_valid form events items scalars
     (ScalarExpression.constants (prefixScan source form).state.scalarNames) checks
-    (prefixScan source form).state.arrayNames (prefix_array_ready parsed.header).1.2.2.1
+    (prefixScan source form).state.arrayNames (prefix_array_ready parsed.header).1.2.2.1 (prefix_array_ready parsed.header).2.2.2
     (Sequence.tokens_kinds parsed.header)
     (by simpa only [initialState, empty_names_shape, List.append_nil] using stream [] trivial)
     (body_nonempty parsed.statements)

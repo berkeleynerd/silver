@@ -66,10 +66,13 @@ theorem loopHeader_readings {text : Source} {context : ParseContext} {scan : Bod
   exact ⟨lower, upper, lowerRead, upperRead⟩
 
 theorem loopHeader_bounds_bounded {text : Source} {context : ParseContext} {scan : BodyScan}
+    (arrays : ArrayBindings.ValidMetadata text context.arrayNames)
     (positive : (loopHeader text context scan).entry.position ≠ 0) :
     (loopHeader text context scan).bounds.Bounded := by
   by_cases isArray : loopIsArray text scan = true
-  · simpa only [LoopHeader.bounds, loopHeader, isArray, ↓reduceIte] using Integer.Interval.full_bounded
+  · simpa only [LoopHeader.bounds, loopHeader, isArray, ↓reduceIte] using
+      (ArrayBindings.binding_components_valid (fun entry found => (arrays.2.1 entry found).2.2.2)
+        (loopArrayTarget text context scan)).1
   · have counted := Bool.eq_false_iff.mpr isArray
     obtain ⟨lower, upper, lowerRead, upperRead⟩ := loopHeader_readings counted positive
     simpa only [LoopHeader.bounds, loopHeader, counted, Bool.false_eq_true, ↓reduceIte] using
@@ -92,11 +95,12 @@ theorem loopInner_arraysReady {text : Source} {context : ParseContext} (header :
     (ready : context.ArraysReady text) : (loopInner context header).ArraysReady text := ready
 
 theorem loopInner_valid_environment {text : Source} {context : ParseContext} {scan : BodyScan}
+    (arrays : ArrayBindings.ValidMetadata text context.arrayNames)
     (valid : ScalarExpression.ValidEnvironment text context.scalarNames)
     (allowed : loopNameAllowed text context (loopHeader text context scan) = true)
     (positive : (loopHeader text context scan).entry.position ≠ 0) :
     ScalarExpression.ValidEnvironment text (loopInner context (loopHeader text context scan)).scalarNames := by
-  have typed := loopHeader_bounds_bounded positive
+  have typed := loopHeader_bounds_bounded arrays positive
   simp only [loopNameAllowed, Bool.and_eq_true, decide_eq_true_eq] at allowed
   have firstPositive := allowed.1.1.1.1
   have ordered := allowed.1.1.1.2

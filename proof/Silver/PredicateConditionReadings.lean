@@ -35,9 +35,9 @@ mutual
           {result with after := fixedAfter text result.after ")" false}
     | valid {position facts} : position ≠ 0 → fixedAfter text position "(" false = 0 →
         context.hasArguments = true →
-        callAfter (arrays := context.arrayNames) text context.names position .validity context.scalarNames ≠ 0 →
+        callAfter (arrays := context.arrayNames) (subtypeHidden := context.subtypeHiding.get .validity) text context.names position .validity context.scalarNames ≠ 0 →
         PrimaryAt text context position facts .inputValid
-          ⟨callAfter (arrays := context.arrayNames) text context.names position .validity context.scalarNames, {facts with path := facts.path.assumeValid}, {facts with path := facts.path.assumeInvalid}⟩
+          ⟨callAfter (arrays := context.arrayNames) (subtypeHidden := context.subtypeHiding.get .validity) text context.names position .validity context.scalarNames, {facts with path := facts.path.assumeValid}, {facts with path := facts.path.assumeInvalid}⟩
 
   inductive RelationAt (text : Source) (context : ParseContext) : Nat → ActiveFlow → Condition → ConditionResult → Prop
     | negated {position facts inner result} : position ≠ 0 →

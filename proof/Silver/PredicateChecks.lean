@@ -130,7 +130,7 @@ theorem mutable_nested_index_scope_preserves_writes :
 
 /-- This descriptor deliberately uses an arbitrary generic store identity;
 readiness cannot obtain its binder-separation premise from a native limit. -/
-def constantIterationArray : Integer.ArrayDescriptor := ⟨100, ⟨-1, 1⟩⟩
+def constantIterationArray : Integer.ArrayDescriptor := ⟨100, ⟨-1, 1⟩, .full⟩
 
 def constantIterationAnalysis : Integer.Analysis :=
   ⟨constantIterationArray.bodyRanges (Integer.put Integer.emptyRanges 1 (some Integer.Interval.full)),
@@ -172,10 +172,31 @@ theorem constant_iteration_rejects_nested_binder_collision :
 
 theorem constant_iteration_rejects_nested_element_collision :
     statementsBindersApart constantIterationArray
-      [.arrayLoop 101 false ⟨200, ⟨1, 1⟩⟩ [.simple .null]] = false := by decide +kernel
+      [.arrayLoop 101 false ⟨200, ⟨1, 1⟩, .full⟩ [.simple .null]] = false := by decide +kernel
 
 theorem constant_iteration_full_domain_extreme_singletons :
     Integer.iterationValues false Integer.minValue Integer.minValue = [Integer.minValue] ∧
       Integer.iterationValues true Integer.maxValue Integer.maxValue = [Integer.maxValue] := by decide +kernel
+
+/-- Bounded component subtypes make element multiplication safe without an
+extra guard, while the existing immutable-array and binder rules still apply. -/
+def boundedComponentArray : Integer.ArrayDescriptor := ⟨100, ⟨1, 3⟩, ⟨0, 3⟩⟩
+
+theorem bounded_components_enable_element_square :
+    let analysis : Integer.Analysis :=
+      ⟨boundedComponentArray.bodyRanges (Integer.put Integer.emptyRanges 1 (some .full)),
+        Integer.put Integer.immutable 1 true, Integer.immutable, Integer.put Integer.immutable 1 true⟩
+    (Statement.arrayLoop 2 false boundedComponentArray
+      [.scalarAssign ⟨1, .multiply (.name 2) (.name 2), .full⟩]).check
+      (fun _ => none) analysis ⟨⟨some ⟨0, 0⟩, false, false⟩, analysis.declared⟩ |>.isSome = true := by
+  decide +kernel
+
+theorem bounded_components_reject_initializer_outside_subtype :
+    (⟨boundedComponentArray, [.literal 0, .literal 4, .literal 1]⟩ : Integer.ArrayDeclaration).check
+      Integer.emptyRanges = none := by decide +kernel
+
+theorem bounded_components_reject_write_outside_subtype :
+    (⟨boundedComponentArray, .literal 1, .literal 4⟩ : Integer.ArrayAssignment).check
+      (boundedComponentArray.bodyRanges Integer.emptyRanges) (fun _ => true) = false := by decide +kernel
 
 end Silver.Predicate

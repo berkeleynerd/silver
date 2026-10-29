@@ -136,7 +136,7 @@ theorem prefix_baseReady {source form values}
 theorem prefix_arraysReady {source form events}
     (parsed : Sequence.TokensAt source form.helper form.prefix initialState events (prefixScan source form).state) :
     (contextOf (prefixScan source form)).ArraysReady source :=
-  ⟨(prefix_array_ready parsed).1.1, (prefix_array_ready parsed).2.2⟩
+  ⟨(prefix_array_ready parsed).1.1, (prefix_array_ready parsed).2.2.1⟩
 
 theorem bodyOf_compatible (scan : ScanResult) :
     ScalarMetadata.OverlayCompatible (contextOf scan).scalarNames (contextOf scan).declarationCount
