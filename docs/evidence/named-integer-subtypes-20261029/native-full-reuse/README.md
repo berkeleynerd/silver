@@ -34,5 +34,14 @@ No sessions were copied, and no second proof ran concurrently with the first.
 The replacement invocation is the normal managed `dev.py prove --full` with four
 workers and unchanged strict production proof settings. Complete obligation,
 coverage, report and provenance auditing remains mandatory. Existing workspace
-reuse is neither a cold run nor a replay-only assurance claim. Final results
-will be retained here when that audit completes.
+reuse is neither a cold run nor a replay-only assurance claim.
+
+The [2026-10-29 20:28 UTC diagnostic](body-tail-diagnostic/README.md) records
+one unresolved `Body_Tail` static postcondition found while the replacement
+run was still active. Earlier all-proved session progress did not establish
+that session's completed result. The [terminal failed packet](failed-full/README.md)
+retains all 78 emitted reports, inputs and logs: the run ended at 20:29 UTC with
+15,384 of 15,385 proof entries and every one of 1,432 flow entries proved.
+The one static equality obligation prevents complete native assurance; no
+complete audit or success manifest was produced. Original sessions, caches and
+stable source inputs remain intact.

@@ -1,0 +1,1238 @@
+{
+  "silver.spark": {
+    "flow": 29,
+    "flow_by_severity": {
+      "info": 29
+    },
+    "proof": 104,
+    "proof_by_severity": {
+      "info": 104
+    },
+    "warn_error": 7,
+    "warn_error_by_rule": {
+      "contracts-recursive": 1,
+      "error": 4,
+      "numeric-variant": 2
+    },
+    "warn_error_by_severity": {
+      "info": 1,
+      "warning": 6
+    }
+  },
+  "silver_arguments.spark": {
+    "flow": 7,
+    "flow_by_severity": {
+      "info": 7
+    },
+    "proof": 11,
+    "proof_by_severity": {
+      "info": 11
+    },
+    "warn_error": 0,
+    "warn_error_by_rule": {},
+    "warn_error_by_severity": {}
+  },
+  "silver_array_bindings.spark": {
+    "flow": 16,
+    "flow_by_severity": {
+      "info": 16
+    },
+    "proof": 63,
+    "proof_by_severity": {
+      "info": 63
+    },
+    "warn_error": 4,
+    "warn_error_by_rule": {
+      "contracts-recursive": 2,
+      "numeric-variant": 2
+    },
+    "warn_error_by_severity": {
+      "warning": 4
+    }
+  },
+  "silver_build.spark": {
+    "flow": 0,
+    "flow_by_severity": {},
+    "proof": 0,
+    "proof_by_severity": {},
+    "warn_error": 0,
+    "warn_error_by_rule": {},
+    "warn_error_by_severity": {}
+  },
+  "silver_catalogue.spark": {
+    "flow": 6,
+    "flow_by_severity": {
+      "info": 6
+    },
+    "proof": 27,
+    "proof_by_severity": {
+      "info": 27
+    },
+    "warn_error": 6,
+    "warn_error_by_rule": {
+      "error": 6
+    },
+    "warn_error_by_severity": {
+      "info": 6
+    }
+  },
+  "silver_image_adapter.spark": {
+    "flow": 10,
+    "flow_by_severity": {
+      "info": 10
+    },
+    "proof": 102,
+    "proof_by_severity": {
+      "info": 102
+    },
+    "warn_error": 3,
+    "warn_error_by_rule": {
+      "error": 3
+    },
+    "warn_error_by_severity": {
+      "warning": 3
+    }
+  },
+  "silver_image_config.spark": {
+    "flow": 0,
+    "flow_by_severity": {},
+    "proof": 0,
+    "proof_by_severity": {},
+    "warn_error": 0,
+    "warn_error_by_rule": {},
+    "warn_error_by_severity": {}
+  },
+  "silver_image_files.spark": {
+    "flow": 65,
+    "flow_by_severity": {
+      "info": 65
+    },
+    "proof": 129,
+    "proof_by_severity": {
+      "info": 129
+    },
+    "warn_error": 49,
+    "warn_error_by_rule": {
+      "error": 49
+    },
+    "warn_error_by_severity": {
+      "warning": 49
+    }
+  },
+  "silver_image_install.spark": {
+    "flow": 16,
+    "flow_by_severity": {
+      "info": 16
+    },
+    "proof": 36,
+    "proof_by_severity": {
+      "info": 36
+    },
+    "warn_error": 0,
+    "warn_error_by_rule": {},
+    "warn_error_by_severity": {}
+  },
+  "silver_image_libc.spark": {
+    "flow": 0,
+    "flow_by_severity": {},
+    "proof": 0,
+    "proof_by_severity": {},
+    "warn_error": 0,
+    "warn_error_by_rule": {},
+    "warn_error_by_severity": {}
+  },
+  "silver_image_model.spark": {
+    "flow": 12,
+    "flow_by_severity": {
+      "info": 12
+    },
+    "proof": 180,
+    "proof_by_severity": {
+      "info": 180
+    },
+    "warn_error": 44,
+    "warn_error_by_rule": {
+      "error": 44
+    },
+    "warn_error_by_severity": {
+      "info": 44
+    }
+  },
+  "silver_image_model_templates.spark": {
+    "flow": 4,
+    "flow_by_severity": {
+      "info": 4
+    },
+    "proof": 15,
+    "proof_by_severity": {
+      "info": 15
+    },
+    "warn_error": 0,
+    "warn_error_by_rule": {},
+    "warn_error_by_severity": {}
+  },
+  "silver_image_runtime.spark": {
+    "flow": 0,
+    "flow_by_severity": {},
+    "proof": 0,
+    "proof_by_severity": {},
+    "warn_error": 0,
+    "warn_error_by_rule": {},
+    "warn_error_by_severity": {}
+  },
+  "silver_image_theory.spark": {
+    "flow": 0,
+    "flow_by_severity": {},
+    "proof": 0,
+    "proof_by_severity": {},
+    "warn_error": 0,
+    "warn_error_by_rule": {},
+    "warn_error_by_severity": {}
+  },
+  "silver_integer_image.spark": {
+    "flow": 3,
+    "flow_by_severity": {
+      "info": 3
+    },
+    "proof": 0,
+    "proof_by_severity": {},
+    "warn_error": 0,
+    "warn_error_by_rule": {},
+    "warn_error_by_severity": {}
+  },
+  "silver_integer_literals.spark": {
+    "flow": 25,
+    "flow_by_severity": {
+      "info": 25
+    },
+    "proof": 115,
+    "proof_by_severity": {
+      "info": 115
+    },
+    "warn_error": 3,
+    "warn_error_by_rule": {
+      "contracts-recursive": 1,
+      "numeric-variant": 2
+    },
+    "warn_error_by_severity": {
+      "warning": 3
+    }
+  },
+  "silver_io.spark": {
+    "flow": 12,
+    "flow_by_severity": {
+      "info": 12
+    },
+    "proof": 36,
+    "proof_by_severity": {
+      "info": 36
+    },
+    "warn_error": 0,
+    "warn_error_by_rule": {},
+    "warn_error_by_severity": {}
+  },
+  "silver_length_intervals.spark": {
+    "flow": 11,
+    "flow_by_severity": {
+      "info": 11
+    },
+    "proof": 9,
+    "proof_by_severity": {
+      "info": 9
+    },
+    "warn_error": 0,
+    "warn_error_by_rule": {},
+    "warn_error_by_severity": {}
+  },
+  "silver_libc.spark": {
+    "flow": 0,
+    "flow_by_severity": {},
+    "proof": 0,
+    "proof_by_severity": {},
+    "warn_error": 0,
+    "warn_error_by_rule": {},
+    "warn_error_by_severity": {}
+  },
+  "silver_libraries.spark": {
+    "flow": 44,
+    "flow_by_severity": {
+      "info": 44
+    },
+    "proof": 45,
+    "proof_by_severity": {
+      "info": 45
+    },
+    "warn_error": 6,
+    "warn_error_by_rule": {
+      "contracts-recursive": 1,
+      "error": 3,
+      "numeric-variant": 2
+    },
+    "warn_error_by_severity": {
+      "warning": 6
+    }
+  },
+  "silver_library_reports.spark": {
+    "flow": 284,
+    "flow_by_severity": {
+      "info": 284
+    },
+    "proof": 2906,
+    "proof_by_severity": {
+      "info": 2906
+    },
+    "warn_error": 710,
+    "warn_error_by_rule": {
+      "contracts-recursive": 9,
+      "error": 682,
+      "numeric-variant": 19
+    },
+    "warn_error_by_severity": {
+      "warning": 710
+    }
+  },
+  "silver_library_sources.spark": {
+    "flow": 0,
+    "flow_by_severity": {},
+    "proof": 0,
+    "proof_by_severity": {},
+    "warn_error": 0,
+    "warn_error_by_rule": {},
+    "warn_error_by_severity": {}
+  },
+  "silver_names.spark": {
+    "flow": 21,
+    "flow_by_severity": {
+      "info": 21
+    },
+    "proof": 87,
+    "proof_by_severity": {
+      "info": 87
+    },
+    "warn_error": 6,
+    "warn_error_by_rule": {
+      "contracts-recursive": 3,
+      "numeric-variant": 3
+    },
+    "warn_error_by_severity": {
+      "warning": 6
+    }
+  },
+  "silver_numbers.spark": {
+    "flow": 4,
+    "flow_by_severity": {
+      "info": 4
+    },
+    "proof": 14,
+    "proof_by_severity": {
+      "info": 14
+    },
+    "warn_error": 2,
+    "warn_error_by_rule": {
+      "error": 1,
+      "numeric-variant": 1
+    },
+    "warn_error_by_severity": {
+      "info": 1,
+      "warning": 1
+    }
+  },
+  "silver_output_lexical.spark": {
+    "flow": 43,
+    "flow_by_severity": {
+      "info": 43
+    },
+    "proof": 279,
+    "proof_by_severity": {
+      "info": 279
+    },
+    "warn_error": 12,
+    "warn_error_by_rule": {
+      "contracts-recursive": 6,
+      "numeric-variant": 6
+    },
+    "warn_error_by_severity": {
+      "warning": 12
+    }
+  },
+  "silver_output_libc.spark": {
+    "flow": 0,
+    "flow_by_severity": {},
+    "proof": 0,
+    "proof_by_severity": {},
+    "warn_error": 0,
+    "warn_error_by_rule": {},
+    "warn_error_by_severity": {}
+  },
+  "silver_output_profile.spark": {
+    "flow": 287,
+    "flow_by_severity": {
+      "info": 287
+    },
+    "proof": 2134,
+    "proof_by_severity": {
+      "info": 2133,
+      "medium": 1
+    },
+    "warn_error": 50,
+    "warn_error_by_rule": {
+      "array-initialization": 5,
+      "contracts-recursive": 26,
+      "numeric-variant": 19
+    },
+    "warn_error_by_severity": {
+      "warning": 50
+    }
+  },
+  "silver_path_facts.spark": {
+    "flow": 22,
+    "flow_by_severity": {
+      "info": 22
+    },
+    "proof": 10,
+    "proof_by_severity": {
+      "info": 10
+    },
+    "warn_error": 0,
+    "warn_error_by_rule": {},
+    "warn_error_by_severity": {}
+  },
+  "silver_platform.spark": {
+    "flow": 36,
+    "flow_by_severity": {
+      "info": 36
+    },
+    "proof": 132,
+    "proof_by_severity": {
+      "info": 132
+    },
+    "warn_error": 0,
+    "warn_error_by_rule": {},
+    "warn_error_by_severity": {}
+  },
+  "silver_process_runtime.spark": {
+    "flow": 0,
+    "flow_by_severity": {},
+    "proof": 1,
+    "proof_by_severity": {
+      "info": 1
+    },
+    "warn_error": 0,
+    "warn_error_by_rule": {},
+    "warn_error_by_severity": {}
+  },
+  "silver_profile.spark": {
+    "flow": 34,
+    "flow_by_severity": {
+      "info": 34
+    },
+    "proof": 151,
+    "proof_by_severity": {
+      "info": 151
+    },
+    "warn_error": 5,
+    "warn_error_by_rule": {
+      "contracts-recursive": 2,
+      "numeric-variant": 3
+    },
+    "warn_error_by_severity": {
+      "warning": 5
+    }
+  },
+  "silver_report_observation_assembly.spark": {
+    "flow": 3,
+    "flow_by_severity": {
+      "info": 3
+    },
+    "proof": 263,
+    "proof_by_severity": {
+      "info": 263
+    },
+    "warn_error": 239,
+    "warn_error_by_rule": {
+      "contracts-recursive": 2,
+      "error": 235,
+      "numeric-variant": 2
+    },
+    "warn_error_by_severity": {
+      "warning": 239
+    }
+  },
+  "silver_report_observation_composition.spark": {
+    "flow": 7,
+    "flow_by_severity": {
+      "info": 7
+    },
+    "proof": 302,
+    "proof_by_severity": {
+      "info": 302
+    },
+    "warn_error": 198,
+    "warn_error_by_rule": {
+      "contracts-recursive": 1,
+      "error": 196,
+      "numeric-variant": 1
+    },
+    "warn_error_by_severity": {
+      "warning": 198
+    }
+  },
+  "silver_report_observation_items.spark": {
+    "flow": 4,
+    "flow_by_severity": {
+      "info": 4
+    },
+    "proof": 231,
+    "proof_by_severity": {
+      "info": 231
+    },
+    "warn_error": 215,
+    "warn_error_by_rule": {
+      "contracts-recursive": 2,
+      "error": 211,
+      "numeric-variant": 2
+    },
+    "warn_error_by_severity": {
+      "warning": 215
+    }
+  },
+  "silver_report_observation_traversal.spark": {
+    "flow": 3,
+    "flow_by_severity": {
+      "info": 3
+    },
+    "proof": 126,
+    "proof_by_severity": {
+      "info": 126
+    },
+    "warn_error": 112,
+    "warn_error_by_rule": {
+      "contracts-recursive": 2,
+      "error": 108,
+      "numeric-variant": 2
+    },
+    "warn_error_by_severity": {
+      "warning": 112
+    }
+  },
+  "silver_report_observation_windows.spark": {
+    "flow": 14,
+    "flow_by_severity": {
+      "info": 14
+    },
+    "proof": 792,
+    "proof_by_severity": {
+      "info": 792
+    },
+    "warn_error": 598,
+    "warn_error_by_rule": {
+      "contracts-recursive": 2,
+      "error": 594,
+      "numeric-variant": 2
+    },
+    "warn_error_by_severity": {
+      "warning": 598
+    }
+  },
+  "silver_report_observations.spark": {
+    "flow": 19,
+    "flow_by_severity": {
+      "info": 19
+    },
+    "proof": 292,
+    "proof_by_severity": {
+      "info": 292
+    },
+    "warn_error": 210,
+    "warn_error_by_rule": {
+      "contracts-recursive": 2,
+      "error": 206,
+      "numeric-variant": 2
+    },
+    "warn_error_by_severity": {
+      "warning": 210
+    }
+  },
+  "silver_report_projection.spark": {
+    "flow": 7,
+    "flow_by_severity": {
+      "info": 7
+    },
+    "proof": 66,
+    "proof_by_severity": {
+      "info": 66
+    },
+    "warn_error": 0,
+    "warn_error_by_rule": {},
+    "warn_error_by_severity": {}
+  },
+  "silver_report_projection_audit.spark": {
+    "flow": 2,
+    "flow_by_severity": {
+      "info": 2
+    },
+    "proof": 16,
+    "proof_by_severity": {
+      "info": 16
+    },
+    "warn_error": 21,
+    "warn_error_by_rule": {
+      "contracts-recursive": 3,
+      "error": 11,
+      "numeric-variant": 7
+    },
+    "warn_error_by_severity": {
+      "warning": 21
+    }
+  },
+  "silver_report_projection_bridge.spark": {
+    "flow": 7,
+    "flow_by_severity": {
+      "info": 7
+    },
+    "proof": 228,
+    "proof_by_severity": {
+      "info": 228
+    },
+    "warn_error": 135,
+    "warn_error_by_rule": {
+      "contracts-recursive": 2,
+      "error": 131,
+      "numeric-variant": 2
+    },
+    "warn_error_by_severity": {
+      "warning": 135
+    }
+  },
+  "silver_report_projection_composition.spark": {
+    "flow": 6,
+    "flow_by_severity": {
+      "info": 6
+    },
+    "proof": 297,
+    "proof_by_severity": {
+      "info": 297
+    },
+    "warn_error": 190,
+    "warn_error_by_rule": {
+      "contracts-recursive": 3,
+      "error": 180,
+      "numeric-variant": 7
+    },
+    "warn_error_by_severity": {
+      "warning": 190
+    }
+  },
+  "silver_report_projection_container_mapping.spark": {
+    "flow": 2,
+    "flow_by_severity": {
+      "info": 2
+    },
+    "proof": 130,
+    "proof_by_severity": {
+      "info": 130
+    },
+    "warn_error": 86,
+    "warn_error_by_rule": {
+      "contracts-recursive": 2,
+      "error": 81,
+      "numeric-variant": 3
+    },
+    "warn_error_by_severity": {
+      "warning": 86
+    }
+  },
+  "silver_report_projection_continuations.spark": {
+    "flow": 3,
+    "flow_by_severity": {
+      "info": 3
+    },
+    "proof": 307,
+    "proof_by_severity": {
+      "info": 307
+    },
+    "warn_error": 221,
+    "warn_error_by_rule": {
+      "contracts-recursive": 2,
+      "error": 217,
+      "numeric-variant": 2
+    },
+    "warn_error_by_severity": {
+      "warning": 221
+    }
+  },
+  "silver_report_projection_emissions.spark": {
+    "flow": 5,
+    "flow_by_severity": {
+      "info": 5
+    },
+    "proof": 21,
+    "proof_by_severity": {
+      "info": 21
+    },
+    "warn_error": 0,
+    "warn_error_by_rule": {},
+    "warn_error_by_severity": {}
+  },
+  "silver_report_projection_entry.spark": {
+    "flow": 2,
+    "flow_by_severity": {
+      "info": 2
+    },
+    "proof": 30,
+    "proof_by_severity": {
+      "info": 30
+    },
+    "warn_error": 17,
+    "warn_error_by_rule": {
+      "contracts-recursive": 1,
+      "error": 15,
+      "numeric-variant": 1
+    },
+    "warn_error_by_severity": {
+      "warning": 17
+    }
+  },
+  "silver_report_projection_item_mapping.spark": {
+    "flow": 5,
+    "flow_by_severity": {
+      "info": 5
+    },
+    "proof": 382,
+    "proof_by_severity": {
+      "info": 382
+    },
+    "warn_error": 296,
+    "warn_error_by_rule": {
+      "contracts-recursive": 3,
+      "error": 289,
+      "numeric-variant": 4
+    },
+    "warn_error_by_severity": {
+      "warning": 296
+    }
+  },
+  "silver_report_projection_keys.spark": {
+    "flow": 11,
+    "flow_by_severity": {
+      "info": 11
+    },
+    "proof": 428,
+    "proof_by_severity": {
+      "info": 428
+    },
+    "warn_error": 249,
+    "warn_error_by_rule": {
+      "contracts-recursive": 2,
+      "error": 245,
+      "numeric-variant": 2
+    },
+    "warn_error_by_severity": {
+      "warning": 249
+    }
+  },
+  "silver_report_projection_lists.spark": {
+    "flow": 4,
+    "flow_by_severity": {
+      "info": 4
+    },
+    "proof": 197,
+    "proof_by_severity": {
+      "info": 197
+    },
+    "warn_error": 136,
+    "warn_error_by_rule": {
+      "contracts-recursive": 3,
+      "error": 127,
+      "numeric-variant": 6
+    },
+    "warn_error_by_severity": {
+      "warning": 136
+    }
+  },
+  "silver_report_projection_mapping.spark": {
+    "flow": 11,
+    "flow_by_severity": {
+      "info": 11
+    },
+    "proof": 207,
+    "proof_by_severity": {
+      "info": 207
+    },
+    "warn_error": 137,
+    "warn_error_by_rule": {
+      "contracts-recursive": 1,
+      "error": 134,
+      "numeric-variant": 2
+    },
+    "warn_error_by_severity": {
+      "warning": 137
+    }
+  },
+  "silver_report_projection_member_bounds.spark": {
+    "flow": 6,
+    "flow_by_severity": {
+      "info": 6
+    },
+    "proof": 209,
+    "proof_by_severity": {
+      "info": 209
+    },
+    "warn_error": 149,
+    "warn_error_by_rule": {
+      "contracts-recursive": 3,
+      "error": 143,
+      "numeric-variant": 3
+    },
+    "warn_error_by_severity": {
+      "warning": 149
+    }
+  },
+  "silver_report_projection_member_mapping.spark": {
+    "flow": 4,
+    "flow_by_severity": {
+      "info": 4
+    },
+    "proof": 226,
+    "proof_by_severity": {
+      "info": 226
+    },
+    "warn_error": 161,
+    "warn_error_by_rule": {
+      "contracts-recursive": 3,
+      "error": 154,
+      "numeric-variant": 4
+    },
+    "warn_error_by_severity": {
+      "warning": 161
+    }
+  },
+  "silver_report_projection_member_steps.spark": {
+    "flow": 11,
+    "flow_by_severity": {
+      "info": 11
+    },
+    "proof": 60,
+    "proof_by_severity": {
+      "info": 60
+    },
+    "warn_error": 34,
+    "warn_error_by_rule": {
+      "contracts-recursive": 2,
+      "error": 30,
+      "numeric-variant": 2
+    },
+    "warn_error_by_severity": {
+      "warning": 34
+    }
+  },
+  "silver_report_projection_members.spark": {
+    "flow": 19,
+    "flow_by_severity": {
+      "info": 19
+    },
+    "proof": 995,
+    "proof_by_severity": {
+      "info": 995
+    },
+    "warn_error": 672,
+    "warn_error_by_rule": {
+      "contracts-recursive": 3,
+      "error": 666,
+      "numeric-variant": 3
+    },
+    "warn_error_by_severity": {
+      "warning": 672
+    }
+  },
+  "silver_report_projection_model.spark": {
+    "flow": 68,
+    "flow_by_severity": {
+      "info": 68
+    },
+    "proof": 240,
+    "proof_by_severity": {
+      "info": 240
+    },
+    "warn_error": 97,
+    "warn_error_by_rule": {
+      "contracts-recursive": 1,
+      "error": 94,
+      "numeric-variant": 2
+    },
+    "warn_error_by_severity": {
+      "warning": 97
+    }
+  },
+  "silver_report_projection_nonobjects.spark": {
+    "flow": 4,
+    "flow_by_severity": {
+      "info": 4
+    },
+    "proof": 55,
+    "proof_by_severity": {
+      "info": 55
+    },
+    "warn_error": 39,
+    "warn_error_by_rule": {
+      "contracts-recursive": 2,
+      "error": 34,
+      "numeric-variant": 3
+    },
+    "warn_error_by_severity": {
+      "warning": 39
+    }
+  },
+  "silver_report_projection_observations.spark": {
+    "flow": 13,
+    "flow_by_severity": {
+      "info": 13
+    },
+    "proof": 148,
+    "proof_by_severity": {
+      "info": 148
+    },
+    "warn_error": 118,
+    "warn_error_by_rule": {
+      "contracts-recursive": 2,
+      "error": 111,
+      "numeric-variant": 5
+    },
+    "warn_error_by_severity": {
+      "warning": 118
+    }
+  },
+  "silver_report_projection_parents.spark": {
+    "flow": 11,
+    "flow_by_severity": {
+      "info": 11
+    },
+    "proof": 86,
+    "proof_by_severity": {
+      "info": 86
+    },
+    "warn_error": 61,
+    "warn_error_by_rule": {
+      "contracts-recursive": 1,
+      "error": 59,
+      "numeric-variant": 1
+    },
+    "warn_error_by_severity": {
+      "warning": 61
+    }
+  },
+  "silver_report_projection_records.spark": {
+    "flow": 7,
+    "flow_by_severity": {
+      "info": 7
+    },
+    "proof": 306,
+    "proof_by_severity": {
+      "info": 306
+    },
+    "warn_error": 205,
+    "warn_error_by_rule": {
+      "contracts-recursive": 3,
+      "error": 197,
+      "numeric-variant": 5
+    },
+    "warn_error_by_severity": {
+      "warning": 205
+    }
+  },
+  "silver_report_projection_representation.spark": {
+    "flow": 1,
+    "flow_by_severity": {
+      "info": 1
+    },
+    "proof": 11,
+    "proof_by_severity": {
+      "info": 11
+    },
+    "warn_error": 4,
+    "warn_error_by_rule": {
+      "error": 4
+    },
+    "warn_error_by_severity": {
+      "warning": 4
+    }
+  },
+  "silver_report_projection_roots.spark": {
+    "flow": 5,
+    "flow_by_severity": {
+      "info": 5
+    },
+    "proof": 85,
+    "proof_by_severity": {
+      "info": 85
+    },
+    "warn_error": 68,
+    "warn_error_by_rule": {
+      "contracts-recursive": 2,
+      "error": 63,
+      "numeric-variant": 3
+    },
+    "warn_error_by_severity": {
+      "warning": 68
+    }
+  },
+  "silver_report_projection_separators.spark": {
+    "flow": 5,
+    "flow_by_severity": {
+      "info": 5
+    },
+    "proof": 154,
+    "proof_by_severity": {
+      "info": 154
+    },
+    "warn_error": 106,
+    "warn_error_by_rule": {
+      "contracts-recursive": 2,
+      "error": 102,
+      "numeric-variant": 2
+    },
+    "warn_error_by_severity": {
+      "warning": 106
+    }
+  },
+  "silver_report_projection_spans.spark": {
+    "flow": 6,
+    "flow_by_severity": {
+      "info": 6
+    },
+    "proof": 158,
+    "proof_by_severity": {
+      "info": 158
+    },
+    "warn_error": 119,
+    "warn_error_by_rule": {
+      "contracts-recursive": 1,
+      "error": 116,
+      "numeric-variant": 2
+    },
+    "warn_error_by_severity": {
+      "warning": 119
+    }
+  },
+  "silver_report_projection_structure.spark": {
+    "flow": 10,
+    "flow_by_severity": {
+      "info": 10
+    },
+    "proof": 42,
+    "proof_by_severity": {
+      "info": 42
+    },
+    "warn_error": 0,
+    "warn_error_by_rule": {},
+    "warn_error_by_severity": {}
+  },
+  "silver_report_projection_syntax.spark": {
+    "flow": 2,
+    "flow_by_severity": {
+      "info": 2
+    },
+    "proof": 152,
+    "proof_by_severity": {
+      "info": 152
+    },
+    "warn_error": 100,
+    "warn_error_by_rule": {
+      "contracts-recursive": 2,
+      "error": 96,
+      "numeric-variant": 2
+    },
+    "warn_error_by_severity": {
+      "warning": 100
+    }
+  },
+  "silver_report_projection_tokens.spark": {
+    "flow": 7,
+    "flow_by_severity": {
+      "info": 7
+    },
+    "proof": 361,
+    "proof_by_severity": {
+      "info": 361
+    },
+    "warn_error": 252,
+    "warn_error_by_rule": {
+      "contracts-recursive": 2,
+      "error": 248,
+      "numeric-variant": 2
+    },
+    "warn_error_by_severity": {
+      "warning": 252
+    }
+  },
+  "silver_report_projection_types.spark": {
+    "flow": 0,
+    "flow_by_severity": {},
+    "proof": 0,
+    "proof_by_severity": {},
+    "warn_error": 0,
+    "warn_error_by_rule": {},
+    "warn_error_by_severity": {}
+  },
+  "silver_report_projection_value_mapping.spark": {
+    "flow": 3,
+    "flow_by_severity": {
+      "info": 3
+    },
+    "proof": 120,
+    "proof_by_severity": {
+      "info": 120
+    },
+    "warn_error": 84,
+    "warn_error_by_rule": {
+      "contracts-recursive": 2,
+      "error": 79,
+      "numeric-variant": 3
+    },
+    "warn_error_by_severity": {
+      "warning": 84
+    }
+  },
+  "silver_report_projection_values.spark": {
+    "flow": 9,
+    "flow_by_severity": {
+      "info": 9
+    },
+    "proof": 415,
+    "proof_by_severity": {
+      "info": 415
+    },
+    "warn_error": 273,
+    "warn_error_by_rule": {
+      "contracts-recursive": 2,
+      "error": 268,
+      "numeric-variant": 3
+    },
+    "warn_error_by_severity": {
+      "warning": 273
+    }
+  },
+  "silver_report_projection_windows.spark": {
+    "flow": 3,
+    "flow_by_severity": {
+      "info": 3
+    },
+    "proof": 56,
+    "proof_by_severity": {
+      "info": 56
+    },
+    "warn_error": 52,
+    "warn_error_by_rule": {
+      "contracts-recursive": 1,
+      "error": 49,
+      "numeric-variant": 2
+    },
+    "warn_error_by_severity": {
+      "warning": 52
+    }
+  },
+  "silver_report_reader.spark": {
+    "flow": 15,
+    "flow_by_severity": {
+      "info": 15
+    },
+    "proof": 51,
+    "proof_by_severity": {
+      "info": 51
+    },
+    "warn_error": 6,
+    "warn_error_by_rule": {
+      "contracts-recursive": 1,
+      "error": 3,
+      "numeric-variant": 2
+    },
+    "warn_error_by_severity": {
+      "warning": 6
+    }
+  },
+  "silver_report_storage.spark": {
+    "flow": 0,
+    "flow_by_severity": {},
+    "proof": 0,
+    "proof_by_severity": {},
+    "warn_error": 0,
+    "warn_error_by_rule": {},
+    "warn_error_by_severity": {}
+  },
+  "silver_reports.spark": {
+    "flow": 27,
+    "flow_by_severity": {
+      "info": 27
+    },
+    "proof": 229,
+    "proof_by_severity": {
+      "info": 229
+    },
+    "warn_error": 6,
+    "warn_error_by_rule": {
+      "contracts-recursive": 3,
+      "numeric-variant": 3
+    },
+    "warn_error_by_severity": {
+      "warning": 6
+    }
+  },
+  "silver_runtime.spark": {
+    "flow": 0,
+    "flow_by_severity": {},
+    "proof": 0,
+    "proof_by_severity": {},
+    "warn_error": 0,
+    "warn_error_by_rule": {},
+    "warn_error_by_severity": {}
+  },
+  "silver_scalar_expressions.spark": {
+    "flow": 38,
+    "flow_by_severity": {
+      "info": 38
+    },
+    "proof": 190,
+    "proof_by_severity": {
+      "info": 190
+    },
+    "warn_error": 22,
+    "warn_error_by_rule": {
+      "contracts-recursive": 12,
+      "numeric-variant": 10
+    },
+    "warn_error_by_severity": {
+      "warning": 22
+    }
+  },
+  "silver_scalar_literals.spark": {
+    "flow": 25,
+    "flow_by_severity": {
+      "info": 25
+    },
+    "proof": 118,
+    "proof_by_severity": {
+      "info": 118
+    },
+    "warn_error": 3,
+    "warn_error_by_rule": {
+      "contracts-recursive": 1,
+      "numeric-variant": 2
+    },
+    "warn_error_by_severity": {
+      "warning": 3
+    }
+  },
+  "silver_scalars.spark": {
+    "flow": 27,
+    "flow_by_severity": {
+      "info": 27
+    },
+    "proof": 17,
+    "proof_by_severity": {
+      "info": 17
+    },
+    "warn_error": 0,
+    "warn_error_by_rule": {},
+    "warn_error_by_severity": {}
+  }
+}
