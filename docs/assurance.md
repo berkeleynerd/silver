@@ -903,6 +903,15 @@ preservation; neither follows from an empty Main report. `model_tool_contract`
 shows that the interface is jointly inhabited, not that physical tools have
 been verified. The null specialization retains its empty-obligation argument.
 
+The physical `buildCompletes` premise includes the generated application's
+reviewed frontend options. [Blocker #284](scalar-guard-frontend-repair.md) exposed
+an admitted contradictory-guard assignment whose runtime interval theorem is
+valid but which GNAT's current-value replacement rejected. The repair selects
+the pinned frontend's `-gnatdM` option to disable that optimization, retaining
+the same author source, admission rules, runtime checks and obligation policy.
+This is a correction to the external-tool configuration; it neither strengthens
+the Lean theorem into a verified GNAT result nor weakens its completion premise.
+
 In particular, automatic discharge by the pinned proof portfolio within the application
 configuration's 100,000 normalized steps and 1,000 MiB per-prover-process memory
 limit, with sufficient environmental resources, remains an explicit premise.

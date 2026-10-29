@@ -117,7 +117,10 @@ procedure Silver with SPARK_Mode => On is
            "      for Body (""Main"") use ""main.adb"" at 1;" & LF &
            "   end Naming;" & LF &
            "   package Compiler is" & LF &
-           "      for Default_Switches (""Ada"") use (""-gnat2022"", ""-gnata"", ""-gnato"");" & LF &
+           --  The pinned GNAT frontend must not replace a variable by an
+           --  inner guard's value while losing its enclosing path facts.
+           --  -gnatdM disables that optimization; runtime checks stay enabled.
+           "      for Default_Switches (""Ada"") use (""-gnat2022"", ""-gnata"", ""-gnato"", ""-gnatdM"");" & LF &
            "   end Compiler;" & LF &
            "end Program;" & LF;
          Proof_Command : constant String :=

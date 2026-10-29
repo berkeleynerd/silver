@@ -205,7 +205,9 @@ The pinned solvers must finish this concrete fragment. This is an external
 completion premise, not a theorem about the solver implementation or a measured
 universal step bound. Compilation consumes the same source and preserves and
 realizes the checked runtime semantics under the documented external-call
-interpretation. -/
+interpretation. Physical build completion also depends on the reviewed frontend
+configuration (including the pinned current-value-replacement correction in
+docs/scalar-guard-frontend-repair.md); this contract does not verify GNAT. -/
 structure ToolContract {Artifact : Type} (tools : Tools Artifact) : Prop where
   parseCompletes : ∀ source program, SourceMeaning source program →
     ∃ steps, tools.parse source program steps
