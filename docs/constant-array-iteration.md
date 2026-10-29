@@ -1,18 +1,22 @@
 # Constant Integer-array iteration
 
-Status: supported; complete Linux native and Lean/source assurance and final
-review are recorded in [delivery assurance and validation](#delivery-assurance-and-validation).
-PR #266 remains open under the owner's review instruction. The
+Status: supported; complete on Linux, 2026-10-29, through
+[PR #266](https://github.com/berkeleynerd/silver/pull/266). The original complete
+assurance and review are recorded in [delivery assurance and validation](#delivery-assurance-and-validation).
+The [final combined packet](evidence/array-final-validation-20261029/README.md)
+records the subsequent review response and frontend repair delivered through
+[PR #283](https://github.com/berkeleynerd/silver/pull/283). The
 [pause handoff](constant-array-iteration-pause-20261028.md) retains the historical
 recovery snapshot; partial, failed and interrupted runs keep their original outcomes.
 
 The [2026-10-28 owner instruction](session-memory.md#2026-10-28--constant-integer-array-iteration-authorized-as-a-stacked-pr)
-authorizes [#264](https://github.com/berkeleynerd/silver/issues/264) under
+authorized [#264](https://github.com/berkeleynerd/silver/issues/264) under
 [milestone 11](https://github.com/berkeleynerd/silver/milestone/11), as a stacked
 successor to PR #263. The parent implementation is `0a85336c83`, merged as
-`10cdcd274c`. Its preserved feature branch remains the successor PR base during
-external review; successor implementation and publication do not modify that
-review target or authorize merging the new feature during the review.
+`10cdcd274c`. The [2026-10-29 authorization](session-memory.md#2026-10-29--complete-combined-array-validation-and-merge-authorized)
+subsequently selected complete combined validation and merge. The original
+review target remains historical; the final packet identifies the integrated
+implementation, exact inputs and completed evidence.
 
 ## Selected scope
 
@@ -266,9 +270,16 @@ and successful reruns establish final coverage without relabeling that run.
 No source/expression/operator budget, Main report allocation, runtime library,
 diagnostic acceptance policy or Oracle guarantee changes. Mutable iterables,
 writes through elements, general iterators and broader arrays remain excluded.
-Implementation and validation are complete; milestone 11 and PR #266 remain
-open pending merge. This checkpoint does not authorize merging the PR or starting
-another feature.
+Milestone 11 is complete and delivered through
+[PR #266](https://github.com/berkeleynerd/silver/pull/266). The 2026-10-29
+[final combined packet](evidence/array-final-validation-20261029/README.md)
+records the completed native, Lean/source/module/axiom, fresh regression and
+stack validation for the review response and frontend repair in
+[PR #283](https://github.com/berkeleynerd/silver/pull/283). The
+[integration/evidence review](reviews/review-array-final-integration-20261029.md)
+confirms that checkpoint. No further language feature is selected; the final
+external iteration/combined-tree report was not supplied and no external
+approval is claimed.
 
 Closing documentation used GPT-6.1 Sol / High; independent evidence and delivery
 review used GPT-6 Astra / Extra High. Selected settings and measured review times

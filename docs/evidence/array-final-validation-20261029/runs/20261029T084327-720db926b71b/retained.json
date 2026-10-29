@@ -1,0 +1,41 @@
+{
+  "source_directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261029T084327-720db926b71b",
+  "sha256_uncompressed": {
+    "events.jsonl": "621d396e475bb532b6189b714219c41f5bf0891ad90e99b24def26f8cf907f9d",
+    "lean-proof.log": "5cb522a8a13f90a351d0fbdcc8dc48139451ce6b005e4d97f33406c97a0fe46d",
+    "lean-evidence.json": "db8fba8177c4cec415bde4d8758231e73776e8d47308bea3910719a3ef4943e1"
+  },
+  "finished": {
+    "duration_seconds": 10874.418674439,
+    "event": "finished",
+    "evidence": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-source/.silver/linux-x86_64/lean-proof.log",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-source/.silver/linux-x86_64/lean-proof.log"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-source/.silver/linux-x86_64/lean-evidence.json",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-source/.silver/linux-x86_64/lean-evidence.json"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261029T084327-720db926b71b/previous-evidence/lean-proof.log",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261029T084327-720db926b71b/previous-evidence/lean-proof.log"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261029T084327-720db926b71b/lean-proof.log",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261029T084327-720db926b71b/lean-proof.log"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261029T084327-720db926b71b/lean-evidence.json",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261029T084327-720db926b71b/lean-evidence.json"
+      }
+    ],
+    "failure_keys": [],
+    "monotonic_ns": 77314332732207,
+    "outcome": "success",
+    "retained_reports": [],
+    "returncode": null,
+    "run_id": "20261029T084327-720db926b71b",
+    "utc": "2026-10-29T11:44:44.346499+00:00"
+  }
+}

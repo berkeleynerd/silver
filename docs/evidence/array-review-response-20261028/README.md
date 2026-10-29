@@ -1,5 +1,11 @@
 # Fixed-array external review response evidence
 
+Historical review checkpoint, 2026-10-28. The subsequently integrated frontend
+repair #284 and owner-authorized final merge use the
+[combined validation packet](../array-final-validation-20261029/README.md).
+That later packet records current outcomes; the interrupted run and earlier
+configuration-specific results below retain their original scope and status.
+
 This packet records the response to [review-10cdcd274c](../../reviews/review-10cdcd274c.md),
 stacked above PR #266 at `873f5910d2`. The implementation snapshot is
 `5e53345a00`, published for review in [PR #283](https://github.com/berkeleynerd/silver/pull/283).

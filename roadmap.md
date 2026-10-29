@@ -16,28 +16,30 @@ next capability while retaining full assurance for the current language.
 
 ### Fixed-array external review response
 
-The owner selected a separate response PR stacked on #266 for the
-[external review of PR #263](docs/reviews/review-10cdcd274c.md), under
-[milestone 12](https://github.com/berkeleynerd/silver/milestone/12).
-One coordinated increment repairs the latent precedence/association guard
-[#268](https://github.com/berkeleynerd/silver/issues/268), catalogue and managed
-Rosetta-input capture, required records and two stack observations, followed by
-one stable complete assurance checkpoint and independent review. Findings
-#269–#282 track the other required corrections; existing issues retain the
-bookkeeping and optional follow-ups. The revisions are in
-[PR #283](https://github.com/berkeleynerd/silver/pull/283) for review before the
-complete Lean checkpoint, following the owner's updated sequence. Native,
-focused proof and affected regression checks passed; complete source assurance
-on the response remains required after feedback and before merge. Both PRs
-remain open; broader language, capacity and optional refactors are not selected.
+**Complete on Linux, 2026-10-29 ([PR #283](https://github.com/berkeleynerd/silver/pull/283),
+following [PR #266](https://github.com/berkeleynerd/silver/pull/266)).**
 
-The subsequently confirmed scalar-guard frontend blocker
+[Milestone 12](https://github.com/berkeleynerd/silver/milestone/12) completes the
+owner-selected response to the [external review of PR #263](docs/reviews/review-10cdcd274c.md):
+precedence/association guards [#268](https://github.com/berkeleynerd/silver/issues/268),
+catalogue and managed Rosetta-input capture, required records and the two stack
+observations. Findings #269–#282 track the other required corrections; existing
+issues retain the bookkeeping and optional follow-ups.
+
+The later scalar-guard frontend blocker
 [#284](https://github.com/berkeleynerd/silver/issues/284) predates arrays. Its
-[isolated repair](docs/scalar-guard-frontend-repair.md) corrects native compiler
-configuration without changing admission. Keep both published review targets
-fixed while review proceeds, then integrate the repair and applicable feedback
-before the final combined assurance checkpoint. Earlier complete evidence does
-not establish coverage of the changed driver configuration.
+[repair](docs/scalar-guard-frontend-repair.md) corrects native compiler
+configuration without changing admission and is delivered through #283.
+The owner authorized the final combined validation and merge through
+[PR #285](https://github.com/berkeleynerd/silver/pull/285).
+
+The [final packet](docs/evidence/array-final-validation-20261029/README.md) records
+complete native proof/coverage/provenance, native build, Lean/source/module/axiom
+assurance, fresh full regressions and refreshed 8 MiB stack observations on the
+combined inputs. The [integration/evidence review](docs/reviews/review-array-final-integration-20261029.md)
+confirms the implementation and final evidence. The final external iteration and
+combined-tree report was not supplied; no external approval is claimed. Broader
+language, capacity and optional refactors remain unselected.
 
 **Sequence since 2026-10-24.** Language development resumes first, following the
 [Rosetta progression](rosetta/progression.md) at the current 4,096-byte strict
@@ -87,10 +89,11 @@ stage number does not authorize implementation.
 
 ### Constant Integer-array iteration
 
-The owner [authorized the next feature as a stacked PR](docs/session-memory.md#2026-10-28--constant-integer-array-iteration-authorized-as-a-stacked-pr)
-while PR #263 receives external review. [Milestone 11](https://github.com/berkeleynerd/silver/milestone/11)
-contains one bounded increment, [#264](https://github.com/berkeleynerd/silver/issues/264),
-whose implementation and validation are complete:
+**Complete on Linux, 2026-10-29 ([PR #266](https://github.com/berkeleynerd/silver/pull/266)).**
+
+The owner [authorized the feature as a stacked PR](docs/session-memory.md#2026-10-28--constant-integer-array-iteration-authorized-as-a-stacked-pr)
+while PR #263 was under external review. [Milestone 11](https://github.com/berkeleynerd/silver/milestone/11)
+delivers one bounded increment, [#264](https://github.com/berkeleynerd/silver/issues/264):
 `for E of [reverse] A loop`, where `A` is an existing constant anonymous
 fixed-size Integer array. Brackets denote optional syntax. The faithful driver
 is Rosetta Loops/Foreach. The
@@ -100,12 +103,13 @@ coverage and independent review. The
 [recovery handoff](docs/constant-array-iteration-pause-20261028.md) retains the
 historical VM-upgrade pause; interrupted runs remain interrupted.
 
-Milestone 11 and [PR #266](https://github.com/berkeleynerd/silver/pull/266)
-remain open pending merge. The PR remains against the preserved arrays feature
-branch under the owner's review instruction.
-Mutable iteration, general iterators, broad arrays #12, procedures/named
-subtypes in #11, capacity/assurance modes and proof-performance follow-ups remain
-separate. Source, expression and operator limits are unchanged.
+[PR #283](https://github.com/berkeleynerd/silver/pull/283) follows #266 with the
+review response and scalar-guard frontend repair. The
+[final combined packet](docs/evidence/array-final-validation-20261029/README.md)
+records the completed validation of that configuration. Mutable iteration,
+general iterators, broad arrays #12, procedures/named subtypes in #11,
+capacity/assurance modes and proof-performance follow-ups remain separate.
+Source, expression and operator limits are unchanged.
 
 ### Fixed-size Integer arrays
 

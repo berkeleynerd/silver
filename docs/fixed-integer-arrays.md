@@ -291,6 +291,12 @@ argument. The later external review of `10cdcd274c` identified precedence
 finding M1, which those confirmations had not identified. This delivery checkpoint closes
 #260 and the complete-source validation condition of #262.
 
+The subsequent [external-review response](reviews/review-10cdcd274c.md)
+repairs M1 and reconciles the selected records in PR #283. Its
+[combined validation packet](evidence/array-final-validation-20261029/README.md)
+also covers constant-array iteration and frontend blocker #284; it is distinct
+from the original #263 checkpoint retained here.
+
 The native provenance records `mode: full` with both
 `initial_state.sessions_present: false` and `cache_entries_present: false`. Its
 28,417.217 seconds therefore describe a complete native run without initial

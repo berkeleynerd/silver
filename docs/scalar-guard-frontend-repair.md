@@ -1,11 +1,17 @@
 # Scalar guard frontend repair — 2026-10-29
 
-The owner authorized repair of [blocker #284](https://github.com/berkeleynerd/silver/issues/284).
-The current published response target is `88c127b631`, stacked above #266.
-This isolated work changes neither published PR while external review proceeds.
-The blocker remains open pending review and final combined assurance. The isolated
-repair selects the pinned frontend configuration described below; no complete
-validation is claimed yet.
+Status: complete on Linux, 2026-10-29. The owner-authorized repair of
+[blocker #284](https://github.com/berkeleynerd/silver/issues/284), implementation
+`039daa3034`, is delivered through
+[PR #283](https://github.com/berkeleynerd/silver/pull/283) following
+[PR #266](https://github.com/berkeleynerd/silver/pull/266), under the subsequent
+[merge authorization](session-memory.md#2026-10-29--complete-combined-array-validation-and-merge-authorized).
+The independent implementation review found no unresolved finding. The
+[final combined packet](evidence/array-final-validation-20261029/README.md)
+records complete native, Lean/source/module/axiom, fresh full regression and
+stack validation; the [integration/evidence review](reviews/review-array-final-integration-20261029.md)
+confirms the final evidence. The final external iteration/combined-tree report
+was not supplied; no external approval is claimed.
 
 ## Confirmed counterexample
 
@@ -102,7 +108,7 @@ unmaterialized identifiers, so it does not recover the contradictory singleton
 through that route. This inspection covers the named frontend sources, not all
 GCC sources or a formal proof of every native behavior.
 
-## Focused evidence and remaining validation
+## Focused evidence and validation history
 
 Managed frontend matrix `20261029T075208-6adf393e2b65` compared the existing flags
 with `-gnatdM` across 30 exact sources: 27 admitted shapes and three rejected
@@ -142,21 +148,35 @@ single-unit invocation of the complete auditor,
 `20261029T081909-3d2bc739e22c`, failed because the focused packet omits owned
 dependency reports, first `Silver_Libraries.Capture_And_Snapshot`. That failed
 attempt is retained; it is not a complete dependency/provenance audit. No audit
-rule changed, and the required complete audit remains with the final checkpoint. The
+rule changed. The final combined checkpoint below completes the owned-dependency
+coverage and provenance audit. The
 [independent review](reviews/review-guard-frontend-repair-20261029.md) found no
 unresolved implementation finding at `039daa3034`; its earlier configuration
 scope finding was repaired. The [evidence packet](evidence/scalar-guard-frontend-20261029/README.md)
-retains exact sources, pinned source analysis, commands and outputs. Complete native and
-Lean/source/module/axiom checkpoints remain mandatory before merge, after the
-applicable external feedback is integrated. Earlier successful evidence does
-not cover changed driver inputs merely because parser sources are unchanged.
+retains exact sources, pinned source analysis, commands and outputs. These
+focused results retain their original scope.
+
+**Final combined completion, 2026-10-29.**
+[PR #283](https://github.com/berkeleynerd/silver/pull/283) delivers the repair
+following constant-array iteration in [PR #266](https://github.com/berkeleynerd/silver/pull/266).
+The [final combined packet](evidence/array-final-validation-20261029/README.md)
+records complete native proof/coverage/provenance, native build,
+Lean/source/module/axiom assurance, fresh full regressions and refreshed 8 MiB
+stack observations on the final configuration. The
+[integration/evidence review](reviews/review-array-final-integration-20261029.md)
+confirms the implementation and completed evidence. The complete native audit
+includes the dependencies missing from the earlier focused packet; the failed
+single-unit audit and original counterexample observation retain their actual
+outcomes. No final external iteration/combined-tree report was supplied and no
+external approval is claimed.
 
 | Round | Selected settings | Result and limits |
 | --- | --- | --- |
 | Initial reproduction, 2026-10-28 | Astra / Extra High for bounded read-only rule/history review; lead runtime settings unavailable | Array-free failure and passing control reproduced with unchanged compiler options. No source repair or full project proof run. |
 | Frontend rule and repair design, 2026-10-29 | GPT-6 Astra / Extra High for each of two bounded threads | Completed pinned producer/flag analysis and minimal repair assessment. The 30-case frontend matrix supports the selected configuration. |
 | Implementation and focused validation, 2026-10-29 | GPT-6.1 Sol / Extra High for test implementation; lead settings unavailable | Three compact native regressions added; build, all 23 scalar-guard tests and 133 focused driver checks pass. Complete dependency/provenance audit remains deferred. |
-| Independent critical review, 2026-10-29 | GPT-6 Astra / Extra High | Identified the shared-project flag's unreviewed proof-frontend scope; narrowed the repair to native compilation. Final implementation review has no unresolved finding; focused validation passed afterward, with complete assurance still pending. |
+| Independent critical review, 2026-10-29 | GPT-6 Astra / Extra High | Identified the shared-project flag's unreviewed proof-frontend scope; narrowed the repair to native compilation. Final implementation review has no unresolved finding; focused validation passed afterward, with complete assurance still pending at that checkpoint. |
+| Final combined validation and delivery, 2026-10-29 | Validation/review settings are recorded in the final packet and integration/evidence review; documentation reconciliation selected GPT-6.1 Sol / Extra High | Complete combined native, Lean/source/module/axiom, fresh regression and refreshed stack validation passed. The linked records retain exact inputs, outcomes, resource settings and measurement limits; earlier failed/interrupted runs remain historical. |
 
 Selected settings are not independently confirmed runtime settings. Token/cost
 measurements are unavailable. Detailed probe times belong with their evidence.

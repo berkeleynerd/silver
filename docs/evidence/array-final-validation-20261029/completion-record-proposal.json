@@ -1,0 +1,143 @@
+{
+  "draft_status": "CONDITIONAL: root applies only after successful terminal Lean/source/module/axiom validation, successful refreshed stack observations, exact final input correspondence, and completed integration/evidence confirmation. Native/build/full regressions were reported passed by root; this read-only draft performs no validation and claims no present Lean/stack success.",
+  "prepared_at_utc": "2026-10-29T10:11:37+00:00",
+  "selected_settings": {
+    "model": "GPT-6.1 Sol",
+    "effort": "Extra High",
+    "runtime_independently_confirmed": false,
+    "token_cost_measurements": "unavailable"
+  },
+  "scope": "Five governed documentation files only; final packet/final integration review and root-added completion links in other records are untouched. Historical failure/pause sections are preserved. No merge SHA is invented and no volatile totals are copied.",
+  "placeholders": "None. Every proposed completion assertion is conditional on the successful final checkpoint above. Outcome counts and source/run identities stay in the final packet.",
+  "source_sha256": {
+    "roadmap.md": "31176e094f43ecb4c0ba6da962f78511b0499a3096141b512535bfdb2e80ba7c",
+    "docs/constant-array-iteration.md": "682c92a21c47f9f8753fdf91d10cb151e89986873ac8a0eb24850e2727653fee",
+    "docs/scalar-guard-frontend-repair.md": "a07f905c3335dd745875bd0cf2ecd912bd8e1ca1197dfca2ac2ab3dfcd030752",
+    "docs/reviews/review-10cdcd274c.md": "8433228d23f6f7e6dbf84b51363410c08e80e92c36f255daebfcfa64393f8e4e",
+    "docs/session-memory.md": "32061d9081b1287fc3c6ca5f951c258297cbbef30eec5240e41f9867654271f6"
+  },
+  "replacements": [
+    {
+      "file": "roadmap.md",
+      "old": "### Fixed-array external review response\n\nThe owner selected a separate response PR stacked on #266 for the\n[external review of PR #263](docs/reviews/review-10cdcd274c.md), under\n[milestone 12](https://github.com/berkeleynerd/silver/milestone/12).\nOne coordinated increment repairs the latent precedence/association guard\n[#268](https://github.com/berkeleynerd/silver/issues/268), catalogue and managed\nRosetta-input capture, required records and two stack observations, followed by\none stable complete assurance checkpoint and independent review. Findings\n#269–#282 track the other required corrections; existing issues retain the\nbookkeeping and optional follow-ups. The revisions are in\n[PR #283](https://github.com/berkeleynerd/silver/pull/283). The initial review\ncheckpoint retained successful native, focused proof and affected regression\nchecks; the owner subsequently authorized completing combined validation and\nmerging both PRs through [PR #285](https://github.com/berkeleynerd/silver/pull/285).\nThe [final packet](docs/evidence/array-final-validation-20261029/README.md) records\nthe combined inputs and actual outcomes. Broader language, capacity and optional\nrefactors are not selected.\n\nThe subsequently confirmed scalar-guard frontend blocker\n[#284](https://github.com/berkeleynerd/silver/issues/284) predates arrays. Its\n[repair](docs/scalar-guard-frontend-repair.md) corrects native compiler\nconfiguration without changing admission and is integrated into #283. The final\ncombined checkpoint includes complete native and Lean/source assurance, a fresh\nfull regression suite and refreshed stack observations for this configuration.\nEarlier complete evidence alone does not establish coverage of the changed driver.\n",
+      "new": "### Fixed-array external review response\n\n**Complete on Linux, 2026-10-29 ([PR #283](https://github.com/berkeleynerd/silver/pull/283),\nfollowing [PR #266](https://github.com/berkeleynerd/silver/pull/266)).**\n\n[Milestone 12](https://github.com/berkeleynerd/silver/milestone/12) completes the\nowner-selected response to the [external review of PR #263](docs/reviews/review-10cdcd274c.md):\nprecedence/association guards [#268](https://github.com/berkeleynerd/silver/issues/268),\ncatalogue and managed Rosetta-input capture, required records and the two stack\nobservations. Findings #269–#282 track the other required corrections; existing\nissues retain the bookkeeping and optional follow-ups.\n\nThe later scalar-guard frontend blocker\n[#284](https://github.com/berkeleynerd/silver/issues/284) predates arrays. Its\n[repair](docs/scalar-guard-frontend-repair.md) corrects native compiler\nconfiguration without changing admission and is delivered through #283.\nThe owner authorized the final combined validation and merge through\n[PR #285](https://github.com/berkeleynerd/silver/pull/285).\n\nThe [final packet](docs/evidence/array-final-validation-20261029/README.md) records\ncomplete native proof/coverage/provenance, native build, Lean/source/module/axiom\nassurance, fresh full regressions and refreshed 8 MiB stack observations on the\ncombined inputs. The [integration/evidence review](docs/reviews/review-array-final-integration-20261029.md)\nconfirms the implementation and final evidence. The final external iteration and\ncombined-tree report was not supplied; no external approval is claimed. Broader\nlanguage, capacity and optional refactors remain unselected.\n"
+    },
+    {
+      "file": "roadmap.md",
+      "old": "### Constant Integer-array iteration\n\nThe owner [authorized the next feature as a stacked PR](docs/session-memory.md#2026-10-28--constant-integer-array-iteration-authorized-as-a-stacked-pr)\nwhile PR #263 receives external review. [Milestone 11](https://github.com/berkeleynerd/silver/milestone/11)\ncontains one bounded increment, [#264](https://github.com/berkeleynerd/silver/issues/264),\nwhose implementation and validation are complete:\n`for E of [reverse] A loop`, where `A` is an existing constant anonymous\nfixed-size Integer array. Brackets denote optional syntax. The faithful driver\nis Rosetta Loops/Foreach. The\n[delivery record](docs/constant-array-iteration.md#delivery-assurance-and-validation)\nidentifies complete Linux native and Lean/source assurance, reviewed regression\ncoverage and independent review. The\n[recovery handoff](docs/constant-array-iteration-pause-20261028.md) retains the\nhistorical VM-upgrade pause; interrupted runs remain interrupted.\n\nMilestone 11 and [PR #266](https://github.com/berkeleynerd/silver/pull/266)\nremain open pending the authorized final merge. The PR now targets main;\nthe response in #283 follows it in merge order.\nMutable iteration, general iterators, broad arrays #12, procedures/named\nsubtypes in #11, capacity/assurance modes and proof-performance follow-ups remain\nseparate. Source, expression and operator limits are unchanged.\n",
+      "new": "### Constant Integer-array iteration\n\n**Complete on Linux, 2026-10-29 ([PR #266](https://github.com/berkeleynerd/silver/pull/266)).**\n\nThe owner [authorized the feature as a stacked PR](docs/session-memory.md#2026-10-28--constant-integer-array-iteration-authorized-as-a-stacked-pr)\nwhile PR #263 was under external review. [Milestone 11](https://github.com/berkeleynerd/silver/milestone/11)\ndelivers one bounded increment, [#264](https://github.com/berkeleynerd/silver/issues/264):\n`for E of [reverse] A loop`, where `A` is an existing constant anonymous\nfixed-size Integer array. Brackets denote optional syntax. The faithful driver\nis Rosetta Loops/Foreach. The\n[delivery record](docs/constant-array-iteration.md#delivery-assurance-and-validation)\nidentifies complete Linux native and Lean/source assurance, reviewed regression\ncoverage and independent review. The\n[recovery handoff](docs/constant-array-iteration-pause-20261028.md) retains the\nhistorical VM-upgrade pause; interrupted runs remain interrupted.\n\n[PR #283](https://github.com/berkeleynerd/silver/pull/283) follows #266 with the\nreview response and scalar-guard frontend repair. The\n[final combined packet](docs/evidence/array-final-validation-20261029/README.md)\nrecords the completed validation of that configuration. Mutable iteration,\ngeneral iterators, broad arrays #12, procedures/named subtypes in #11,\ncapacity/assurance modes and proof-performance follow-ups remain separate.\nSource, expression and operator limits are unchanged.\n"
+    },
+    {
+      "file": "docs/constant-array-iteration.md",
+      "old": "Status: supported; complete Linux native and Lean/source assurance and final\nreview are recorded in [delivery assurance and validation](#delivery-assurance-and-validation).\nPR #266 remains open under the owner's review instruction. The\n[pause handoff](constant-array-iteration-pause-20261028.md) retains the historical\nrecovery snapshot; partial, failed and interrupted runs keep their original outcomes.\n\nThe [2026-10-28 owner instruction](session-memory.md#2026-10-28--constant-integer-array-iteration-authorized-as-a-stacked-pr)\nauthorizes [#264](https://github.com/berkeleynerd/silver/issues/264) under\n[milestone 11](https://github.com/berkeleynerd/silver/milestone/11), as a stacked\nsuccessor to PR #263. The parent implementation is `0a85336c83`, merged as\n`10cdcd274c`. Its preserved feature branch remains the successor PR base during\nexternal review; successor implementation and publication do not modify that\nreview target or authorize merging the new feature during the review.\n",
+      "new": "Status: supported; complete on Linux, 2026-10-29, through\n[PR #266](https://github.com/berkeleynerd/silver/pull/266). The original complete\nassurance and review are recorded in [delivery assurance and validation](#delivery-assurance-and-validation).\nThe [final combined packet](evidence/array-final-validation-20261029/README.md)\nrecords the subsequent review response and frontend repair delivered through\n[PR #283](https://github.com/berkeleynerd/silver/pull/283). The\n[pause handoff](constant-array-iteration-pause-20261028.md) retains the historical\nrecovery snapshot; partial, failed and interrupted runs keep their original outcomes.\n\nThe [2026-10-28 owner instruction](session-memory.md#2026-10-28--constant-integer-array-iteration-authorized-as-a-stacked-pr)\nauthorized [#264](https://github.com/berkeleynerd/silver/issues/264) under\n[milestone 11](https://github.com/berkeleynerd/silver/milestone/11), as a stacked\nsuccessor to PR #263. The parent implementation is `0a85336c83`, merged as\n`10cdcd274c`. The [2026-10-29 authorization](session-memory.md#2026-10-29--complete-combined-array-validation-and-merge-authorized)\nsubsequently selected complete combined validation and merge. The original\nreview target remains historical; the final packet identifies the integrated\nimplementation, exact inputs and completed evidence.\n"
+    },
+    {
+      "file": "docs/constant-array-iteration.md",
+      "old": "Implementation and validation are complete; milestone 11 and PR #266 remain\nopen pending merge. This checkpoint does not authorize merging the PR or starting\nanother feature.\n",
+      "new": "Milestone 11 is complete and delivered through\n[PR #266](https://github.com/berkeleynerd/silver/pull/266). The 2026-10-29\n[final combined packet](evidence/array-final-validation-20261029/README.md)\nrecords the completed native, Lean/source/module/axiom, fresh regression and\nstack validation for the review response and frontend repair in\n[PR #283](https://github.com/berkeleynerd/silver/pull/283). The\n[integration/evidence review](reviews/review-array-final-integration-20261029.md)\nconfirms that checkpoint. No further language feature is selected; the final\nexternal iteration/combined-tree report was not supplied and no external\napproval is claimed.\n"
+    },
+    {
+      "file": "docs/scalar-guard-frontend-repair.md",
+      "old": "The owner authorized repair of [blocker #284](https://github.com/berkeleynerd/silver/issues/284).\nImplementation `039daa3034` is integrated into response PR #283 above #266.\nThe owner's subsequent [merge authorization](session-memory.md#2026-10-29--complete-combined-array-validation-and-merge-authorized)\nselects final combined assurance and delivery. The independent implementation\nreview found no unresolved finding; the complete native audit has passed.\nThe [combined checkpoint](evidence/array-final-validation-20261029/README.md)\nrecords the remaining Lean/source, full regression and stack validation. The\nblocker remains open until those checks pass and the repair reaches main.\n",
+      "new": "Status: complete on Linux, 2026-10-29. The owner-authorized repair of\n[blocker #284](https://github.com/berkeleynerd/silver/issues/284), implementation\n`039daa3034`, is delivered through\n[PR #283](https://github.com/berkeleynerd/silver/pull/283) following\n[PR #266](https://github.com/berkeleynerd/silver/pull/266), under the subsequent\n[merge authorization](session-memory.md#2026-10-29--complete-combined-array-validation-and-merge-authorized).\nThe independent implementation review found no unresolved finding. The\n[final combined packet](evidence/array-final-validation-20261029/README.md)\nrecords complete native, Lean/source/module/axiom, fresh full regression and\nstack validation; the [integration/evidence review](reviews/review-array-final-integration-20261029.md)\nconfirms the final evidence. The final external iteration/combined-tree report\nwas not supplied; no external approval is claimed.\n"
+    },
+    {
+      "file": "docs/scalar-guard-frontend-repair.md",
+      "old": "## Focused evidence and remaining validation\n",
+      "new": "## Focused evidence and validation history\n"
+    },
+    {
+      "file": "docs/scalar-guard-frontend-repair.md",
+      "old": "attempt is retained; it is not a complete dependency/provenance audit. No audit\nrule changed, and the required complete audit remains with the final checkpoint. The\n",
+      "new": "attempt is retained; it is not a complete dependency/provenance audit. No audit\nrule changed. The final combined checkpoint below completes the owned-dependency\ncoverage and provenance audit. The\n"
+    },
+    {
+      "file": "docs/scalar-guard-frontend-repair.md",
+      "old": "retains exact sources, pinned source analysis, commands and outputs. Complete native and\nLean/source/module/axiom checkpoints remain mandatory before merge, after the\napplicable external feedback is integrated. Earlier successful evidence does\nnot cover changed driver inputs merely because parser sources are unchanged.\n",
+      "new": "retains exact sources, pinned source analysis, commands and outputs. These\nfocused results retain their original scope.\n\n**Final combined completion, 2026-10-29.**\n[PR #283](https://github.com/berkeleynerd/silver/pull/283) delivers the repair\nfollowing constant-array iteration in [PR #266](https://github.com/berkeleynerd/silver/pull/266).\nThe [final combined packet](evidence/array-final-validation-20261029/README.md)\nrecords complete native proof/coverage/provenance, native build,\nLean/source/module/axiom assurance, fresh full regressions and refreshed 8 MiB\nstack observations on the final configuration. The\n[integration/evidence review](reviews/review-array-final-integration-20261029.md)\nconfirms the implementation and completed evidence. The complete native audit\nincludes the dependencies missing from the earlier focused packet; the failed\nsingle-unit audit and original counterexample observation retain their actual\noutcomes. No final external iteration/combined-tree report was supplied and no\nexternal approval is claimed.\n"
+    },
+    {
+      "file": "docs/scalar-guard-frontend-repair.md",
+      "old": "| Independent critical review, 2026-10-29 | GPT-6 Astra / Extra High | Identified the shared-project flag's unreviewed proof-frontend scope; narrowed the repair to native compilation. Final implementation review has no unresolved finding; focused validation passed afterward, with complete assurance still pending. |\n",
+      "new": "| Independent critical review, 2026-10-29 | GPT-6 Astra / Extra High | Identified the shared-project flag's unreviewed proof-frontend scope; narrowed the repair to native compilation. Final implementation review has no unresolved finding; focused validation passed afterward, with complete assurance still pending at that checkpoint. |\n| Final combined validation and delivery, 2026-10-29 | Validation/review settings are recorded in the final packet and integration/evidence review; documentation reconciliation selected GPT-6.1 Sol / Extra High | Complete combined native, Lean/source/module/axiom, fresh regression and refreshed stack validation passed. The linked records retain exact inputs, outcomes, resource settings and measurement limits; earlier failed/interrupted runs remain historical. |\n"
+    },
+    {
+      "file": "docs/reviews/review-10cdcd274c.md",
+      "old": "The owner chose **“Separate response PR stacked on #266 (recommended)”** on\n2026-10-28. [Milestone 12](https://github.com/berkeleynerd/silver/milestone/12)\ncontains one coordinated response: M1, the required low corrections, the two\nstack observations, and the dispositions above. The initial instruction kept\n#266 and the response PR open for review; the 2026-10-29\n[authorization](../session-memory.md#2026-10-29--complete-combined-array-validation-and-merge-authorized)\nsupersedes that hold and selects final validation and merge. No Oracle amendment, new language capability, cache-security framework,\nindependent kernel replay or general #119 capacity redesign is selected.\n",
+      "new": "The owner chose **“Separate response PR stacked on #266 (recommended)”** on\n2026-10-28. [Milestone 12](https://github.com/berkeleynerd/silver/milestone/12)\nis complete on Linux, 2026-10-29, through\n[PR #283](https://github.com/berkeleynerd/silver/pull/283), following\n[PR #266](https://github.com/berkeleynerd/silver/pull/266). The coordinated\nresponse covers M1, the required low corrections, the two stack observations\nand the dispositions above. The initial review hold was superseded by the\n2026-10-29 [authorization](../session-memory.md#2026-10-29--complete-combined-array-validation-and-merge-authorized)\nfor final validation and merge. No Oracle amendment, new language capability,\ncache-security framework, independent kernel replay or general #119 capacity\nredesign was selected.\n"
+    },
+    {
+      "file": "docs/reviews/review-10cdcd274c.md",
+      "old": "The response is published for review in [PR #283](https://github.com/berkeleynerd/silver/pull/283),\nstacked on #266. Implementation integration, complete native validation, focused\nproofs, independent code review, both stack observations and the affected\nregressions have passed. The owner then proposed incorporating review feedback\nbefore the final Lean checkpoint; that full run was interrupted cleanly.\nComplete Lean/source validation remains required before merge. Existing source\ncertificates remain reusable when their Ada and generator inputs match. The\n[response packet](../evidence/array-review-response-20261028/README.md) records\nthe completed affected regressions and remaining complete Lean/source checkpoint.\nNo original failure or interrupted run will be relabelled successful.\n\nThe later scalar-guard frontend blocker #284 is repaired in the combined tree.\nThe [final combined packet](../evidence/array-final-validation-20261029/README.md)\nand [integration/evidence review](review-array-final-integration-20261029.md)\nrecord the subsequent validation on stable inputs. The final external report\nfor constant-array iteration and the combined features was not supplied; no\nexternal approval is inferred from the fixed-array review or the team's checks.\n",
+      "new": "The response and the later scalar-guard frontend blocker #284 repair are\ncomplete through [PR #283](https://github.com/berkeleynerd/silver/pull/283).\nThe [final combined packet](../evidence/array-final-validation-20261029/README.md)\nrecords complete native proof/coverage/provenance, native build,\nLean/source/module/axiom assurance, fresh full regressions and refreshed 8 MiB\nstack observations on stable combined inputs. The\n[integration/evidence review](review-array-final-integration-20261029.md)\nconfirms the implementation and final evidence.\n\nThe [initial response packet](../evidence/array-review-response-20261028/README.md)\nretains the earlier focused checks, affected regressions and complete Lean run\ninterrupted for review-first sequencing. Existing source certificates were\nreused only with matching dependencies; no original failure or interrupted run\nis relabelled successful. The final external report for constant-array iteration\nand the combined features was not supplied; no external approval is inferred\nfrom the fixed-array review or the team's checks.\n"
+    },
+    {
+      "file": "docs/session-memory.md",
+      "old": "# Session memory\n\n",
+      "new": "# Session memory\n\n## 2026-10-29 — Combined array delivery complete\n\nThe owner-authorized constant Integer-array iteration and catalogue correction\n[#264](https://github.com/berkeleynerd/silver/issues/264)/[#267](https://github.com/berkeleynerd/silver/issues/267)\nare complete through [PR #266](https://github.com/berkeleynerd/silver/pull/266).\nThe fixed-array external review response, including precedence finding #268,\nrequired record/tooling corrections #269–#282 and scalar-guard frontend blocker\n[#284](https://github.com/berkeleynerd/silver/issues/284), is complete through\n[PR #283](https://github.com/berkeleynerd/silver/pull/283). These deliveries\ncomplete the bounded milestones 11 and 12 under the authorization recorded by\n[PR #285](https://github.com/berkeleynerd/silver/pull/285).\n\nThe [final combined packet](evidence/array-final-validation-20261029/README.md)\nretains the stable inputs, complete native proof/coverage/provenance and build,\ncomplete Lean/source/module/axiom assurance, fresh full regressions and refreshed\n8 MiB counted/foreach stack observations. The\n[integration/evidence review](reviews/review-array-final-integration-20261029.md)\nconfirms the implementation and completed evidence. Reused caches and source\ncertificates retain their actual dependency and platform scope; earlier failed\nand interrupted runs keep their original outcomes. No clean rebuild,\nindependent kernel replay, macOS or hosted CI result is claimed.\n\nThe final external iteration/combined-tree report was not supplied; no external\napproval is claimed. Broad stages #11/#12 remain Open/Backlog, and existing\noptional regressions, cleanup, general capacity/assurance modes and further\nlanguage capabilities remain unselected. No Oracle amendment or new assurance\nmode was introduced. No harness goal exists; CLI memory is unavailable and was\nnot updated.\n\n"
+    }
+  ],
+  "assertions": [
+    {
+      "replacement_index": 0,
+      "old_occurrences_in_source": 1,
+      "old_occurrences_at_application_step": 1
+    },
+    {
+      "replacement_index": 1,
+      "old_occurrences_in_source": 1,
+      "old_occurrences_at_application_step": 1
+    },
+    {
+      "replacement_index": 2,
+      "old_occurrences_in_source": 1,
+      "old_occurrences_at_application_step": 1
+    },
+    {
+      "replacement_index": 3,
+      "old_occurrences_in_source": 1,
+      "old_occurrences_at_application_step": 1
+    },
+    {
+      "replacement_index": 4,
+      "old_occurrences_in_source": 1,
+      "old_occurrences_at_application_step": 1
+    },
+    {
+      "replacement_index": 5,
+      "old_occurrences_in_source": 1,
+      "old_occurrences_at_application_step": 1
+    },
+    {
+      "replacement_index": 6,
+      "old_occurrences_in_source": 1,
+      "old_occurrences_at_application_step": 1
+    },
+    {
+      "replacement_index": 7,
+      "old_occurrences_in_source": 1,
+      "old_occurrences_at_application_step": 1
+    },
+    {
+      "replacement_index": 8,
+      "old_occurrences_in_source": 1,
+      "old_occurrences_at_application_step": 1
+    },
+    {
+      "replacement_index": 9,
+      "old_occurrences_in_source": 1,
+      "old_occurrences_at_application_step": 1
+    },
+    {
+      "replacement_index": 10,
+      "old_occurrences_in_source": 1,
+      "old_occurrences_at_application_step": 1
+    },
+    {
+      "replacement_index": 11,
+      "old_occurrences_in_source": 1,
+      "old_occurrences_at_application_step": 1
+    }
+  ]
+}

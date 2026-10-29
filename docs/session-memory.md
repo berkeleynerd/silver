@@ -1,5 +1,34 @@
 # Session memory
 
+## 2026-10-29 — Combined array delivery complete
+
+The owner-authorized constant Integer-array iteration and catalogue correction
+[#264](https://github.com/berkeleynerd/silver/issues/264)/[#267](https://github.com/berkeleynerd/silver/issues/267)
+are complete through [PR #266](https://github.com/berkeleynerd/silver/pull/266).
+The fixed-array external review response, including precedence finding #268,
+required record/tooling corrections #269–#282 and scalar-guard frontend blocker
+[#284](https://github.com/berkeleynerd/silver/issues/284), is complete through
+[PR #283](https://github.com/berkeleynerd/silver/pull/283). These deliveries
+complete the bounded milestones 11 and 12 under the authorization recorded by
+[PR #285](https://github.com/berkeleynerd/silver/pull/285).
+
+The [final combined packet](evidence/array-final-validation-20261029/README.md)
+retains the stable inputs, complete native proof/coverage/provenance and build,
+complete Lean/source/module/axiom assurance, fresh full regressions and refreshed
+8 MiB counted/foreach stack observations. The
+[integration/evidence review](reviews/review-array-final-integration-20261029.md)
+confirms the implementation and completed evidence. Reused caches and source
+certificates retain their actual dependency and platform scope; earlier failed
+and interrupted runs keep their original outcomes. No clean rebuild,
+independent kernel replay, macOS or hosted CI result is claimed.
+
+The final external iteration/combined-tree report was not supplied; no external
+approval is claimed. Broad stages #11/#12 remain Open/Backlog, and existing
+optional regressions, cleanup, general capacity/assurance modes and further
+language capabilities remain unselected. No Oracle amendment or new assurance
+mode was introduced. No harness goal exists; CLI memory is unavailable and was
+not updated.
+
 ## 2026-10-29 — Complete combined array validation and merge authorized
 
 The owner instructed **“Proceed to drive us to merge.”** This authorizes

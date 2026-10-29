@@ -173,10 +173,15 @@ do not justify new gates or infrastructure.
 
 The owner chose **“Separate response PR stacked on #266 (recommended)”** on
 2026-10-28. [Milestone 12](https://github.com/berkeleynerd/silver/milestone/12)
-contains one coordinated response: M1, the required low corrections, the two
-stack observations, and the dispositions above. Keep #266 and the response PR
-open. No Oracle amendment, new language capability, cache-security framework,
-independent kernel replay or general #119 capacity redesign is selected.
+is complete on Linux, 2026-10-29, through
+[PR #283](https://github.com/berkeleynerd/silver/pull/283), following
+[PR #266](https://github.com/berkeleynerd/silver/pull/266). The coordinated
+response covers M1, the required low corrections, the two stack observations
+and the dispositions above. The initial review hold was superseded by the
+2026-10-29 [authorization](../session-memory.md#2026-10-29--complete-combined-array-validation-and-merge-authorized)
+for final validation and merge. No Oracle amendment, new language capability,
+cache-security framework, independent kernel replay or general #119 capacity
+redesign was selected.
 
 The external timing recommendations preceded #266's completion. Its full native
 audit passed at 17:38 UTC and its final Rosetta tests passed afterward. L8 remains
@@ -185,16 +190,22 @@ reviewed applicability remains historical evidence. The two latest source
 candidates took 6,034 and 6,859 seconds at one worker/thread, so the older
 8,900-second rebuild estimate is not a current baseline.
 
-The response is published for review in [PR #283](https://github.com/berkeleynerd/silver/pull/283),
-stacked on #266. Implementation integration, complete native validation, focused
-proofs, independent code review, both stack observations and the affected
-regressions have passed. The owner then proposed incorporating review feedback
-before the final Lean checkpoint; the active full run was interrupted cleanly
-and complete Lean/source validation remains required before merge. Existing source
-certificates remain reusable when their Ada and generator inputs match. The
-[response packet](../evidence/array-review-response-20261028/README.md) records
-the completed affected regressions and remaining complete Lean/source checkpoint.
-No original failure or interrupted run will be relabelled successful.
+The response and the later scalar-guard frontend blocker #284 repair are
+complete through [PR #283](https://github.com/berkeleynerd/silver/pull/283).
+The [final combined packet](../evidence/array-final-validation-20261029/README.md)
+records complete native proof/coverage/provenance, native build,
+Lean/source/module/axiom assurance, fresh full regressions and refreshed 8 MiB
+stack observations on stable combined inputs. The
+[integration/evidence review](review-array-final-integration-20261029.md)
+confirms the implementation and final evidence.
+
+The [initial response packet](../evidence/array-review-response-20261028/README.md)
+retains the earlier focused checks, affected regressions and complete Lean run
+interrupted for review-first sequencing. Existing source certificates were
+reused only with matching dependencies; no original failure or interrupted run
+is relabelled successful. The final external report for constant-array iteration
+and the combined features was not supplied; no external approval is inferred
+from the fixed-array review or the team's checks.
 
 | Round | Selected model/effort | Result and measurement limits |
 | --- | --- | --- |
