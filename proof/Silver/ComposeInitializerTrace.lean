@@ -1,6 +1,7 @@
 module
 
 public import Silver.ComposeDeclarations
+public import Silver.ComposeSubtypeChecks
 public import Silver.ComposeArrayChecks
 public import Silver.StringObligations
 
@@ -81,6 +82,7 @@ inductive InitializerChecksAt (text : Source) (arguments : Bool) :
   | string {state middle final : ParserState} {declaration : Declaration}
       {checks rest : List Integer.Obligation} :
       state.position ≠ 0 → fixedAfter text state.position "begin" true = 0 →
+      (subtypeDeclarationAt text state arguments).position = 0 →
       (scalarDeclarationAt text state arguments).position = 0 →
       (arrayDeclarationAt text state arguments).position = 0 →
       DeclarationAt text arguments state declaration middle →
@@ -90,6 +92,7 @@ inductive InitializerChecksAt (text : Source) (arguments : Bool) :
   | scalar {state middle final : ParserState} {declaration : Integer.Declaration}
       {checks rest : List Integer.Obligation} :
       state.position ≠ 0 → fixedAfter text state.position "begin" true = 0 →
+      (subtypeDeclarationAt text state arguments).position = 0 →
       ScalarDeclarationAt text arguments state declaration middle →
       ScalarDeclarationChecksAt text state declaration checks →
       InitializerChecksAt text arguments middle rest final →
@@ -97,9 +100,17 @@ inductive InitializerChecksAt (text : Source) (arguments : Bool) :
   | array {state middle final : ParserState} {declaration : Integer.ArrayDeclaration}
       {checks rest : List Integer.Obligation} :
       state.position ≠ 0 → fixedAfter text state.position "begin" true = 0 →
+      (subtypeDeclarationAt text state arguments).position = 0 →
       (scalarDeclarationAt text state arguments).position = 0 →
       ArrayDeclarationAt text arguments state declaration middle →
       ArrayDeclarationChecksAt text state declaration checks →
+      InitializerChecksAt text arguments middle rest final →
+      InitializerChecksAt text arguments state (checks ++ rest) final
+
+  | subtype {state middle final : ParserState} {checks rest : List Integer.Obligation} :
+      state.position ≠ 0 → fixedAfter text state.position "begin" true = 0 →
+      SubtypeDeclarationAt text arguments state middle →
+      SubtypeDeclarationChecksAt text state checks →
       InitializerChecksAt text arguments middle rest final →
       InitializerChecksAt text arguments state (checks ++ rest) final
 
@@ -108,43 +119,54 @@ theorem declarations_image_trace {text : Source} {arguments : Bool} {state final
     ∃ checks, InitializerChecksAt text arguments state checks final := by
   induction parsed with
   | done positive stop => exact ⟨[], .done positive stop⟩
-  | next positive more noScalar noArray first rest ih =>
+  | next positive more noSubtype noScalar noArray first rest ih =>
       obtain ⟨checks, trace⟩ := declaration_image_trace first
       obtain ⟨remaining, following⟩ := ih
-      exact ⟨checks ++ remaining, .string positive more noScalar noArray first trace following⟩
-  | scalar positive more first rest ih =>
+      exact ⟨checks ++ remaining, .string positive more noSubtype noScalar noArray first trace following⟩
+  | scalar positive more noSubtype first rest ih =>
       obtain ⟨checks, trace⟩ := scalar_declaration_checks_trace first
       obtain ⟨remaining, following⟩ := ih
-      exact ⟨checks ++ remaining, .scalar positive more first trace following⟩
-  | array positive more noScalar first rest ih =>
+      exact ⟨checks ++ remaining, .scalar positive more noSubtype first trace following⟩
+  | array positive more noSubtype noScalar first rest ih =>
       obtain ⟨checks, trace⟩ := array_declaration_checks_trace first
       obtain ⟨remaining, following⟩ := ih
-      exact ⟨checks ++ remaining, .array positive more noScalar first trace following⟩
+      exact ⟨checks ++ remaining, .array positive more noSubtype noScalar first trace following⟩
+  | subtype positive more first rest ih =>
+      obtain ⟨checks, trace⟩ := subtype_declaration_checks_trace first
+      obtain ⟨remaining, following⟩ := ih
+      exact ⟨checks ++ remaining, .subtype positive more first trace following⟩
 
 theorem initializer_checks_discharge {text : Source} {arguments : Bool} {state final : ParserState}
     {checks : List Integer.Obligation} (normal : NamesNormal state.names)
-    (trace : InitializerChecksAt text arguments state checks final) :
+    (trace : InitializerChecksAt text arguments state checks final)
+    (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames) :
     Integer.discharged checks = true := by
   induction trace with
   | done => rfl
-  | string _ _ _ _ declaration checks _ ih =>
+  | string _ _ _ _ _ declaration checks _ ih =>
       rw [Integer.discharged_append, declaration_image_checks normal checks,
-        ih (declaration_normal normal declaration)]
+        ih (declaration_normal normal declaration) (by cases declaration; exact subtypes)]
       rfl
-  | scalar _ _ declaration checks _ ih =>
+  | scalar _ _ _ declaration checks _ ih =>
       rw [Integer.discharged_append, scalar_declaration_checks_discharge checks]
       cases declaration
-      simpa only [Bool.true_and] using ih normal
-  | array _ _ _ declaration checks _ ih =>
-      rw [Integer.discharged_append, array_declaration_checks_discharge declaration checks]
-      rw [(array_declaration_preserves declaration).1] at ih
-      simpa only [Bool.true_and] using ih normal
+      simpa only [Bool.true_and] using ih normal subtypes
+  | array _ _ _ _ declaration checks _ ih =>
+      rw [Integer.discharged_append, array_declaration_checks_discharge declaration checks subtypes]
+      rw [(array_declaration_preserves declaration).1, array_declaration_subtypes declaration] at ih
+      simpa only [Bool.true_and] using ih normal subtypes
+  | subtype _ _ declaration checks _ ih =>
+      rw [Integer.discharged_append, subtype_declaration_checks_discharge checks]
+      have nextSubtypes := subtype_declaration_valid declaration subtypes
+      cases declaration
+      simpa only [Bool.true_and] using ih normal nextSubtypes
 
 theorem initializer_checks_valid {text : Source} {arguments : Bool} {state final : ParserState}
     {checks : List Integer.Obligation} (normal : NamesNormal state.names)
-    (trace : InitializerChecksAt text arguments state checks final) :
+    (trace : InitializerChecksAt text arguments state checks final)
+    (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames) :
     ∀ check ∈ checks, check.Valid := by
-  have all := List.all_eq_true.mp (initializer_checks_discharge normal trace)
+  have all := List.all_eq_true.mp (initializer_checks_discharge normal trace subtypes)
   exact fun check member => Integer.Obligation.discharge_sound (all check member)
 
 theorem initializer_trace_unique {text : Source} {arguments : Bool} {state leftState rightState : ParserState}
@@ -154,50 +176,79 @@ theorem initializer_trace_unique {text : Source} {arguments : Bool} {state leftS
   | done positive stop =>
       cases second with
       | done => exact ⟨rfl, rfl⟩
-      | string _ more _ _ _ _ _ | scalar _ more _ _ _ | array _ more _ _ _ _ => exact False.elim (stop more)
-  | string positive more noScalar noArray parsed checks rest ih =>
+      | string _ more _ _ _ _ _ _ | scalar _ more _ _ _ _ | array _ more _ _ _ _ _ | subtype _ more _ _ _ => exact False.elim (stop more)
+  | string positive more noSubtype noScalar noArray parsed checks rest ih =>
       cases second with
       | done _ stop => exact False.elim (stop more)
-      | string _ _ _ _ other otherChecks remaining =>
+      | string _ _ _ _ _ other otherChecks remaining =>
           obtain ⟨rfl, rfl⟩ := declaration_unique parsed other
           have same := declaration_image_unique checks otherChecks
           obtain ⟨rfl, rfl⟩ := ih remaining
           exact ⟨congrArg (fun initial => initial ++ _) same, rfl⟩
-      | scalar _ _ other _ _ =>
+      | scalar _ _ _ other _ _ =>
           have accepted := scalar_declaration_positive other
           rw [← scalar_declaration_complete other, noScalar] at accepted
           contradiction
-      | array _ _ _ other _ _ =>
+      | array _ _ _ _ other _ _ =>
           have accepted := array_declaration_positive other
           rw [← array_declaration_complete other, noArray] at accepted
           contradiction
-  | scalar positive more parsed checks rest ih =>
+      | subtype _ _ other _ _ =>
+          have accepted := subtype_declaration_positive other
+          rw [← subtype_declaration_complete other, noSubtype] at accepted
+          contradiction
+
+  | scalar positive more noSubtype parsed checks rest ih =>
       cases second with
       | done _ stop => exact False.elim (stop more)
-      | string _ _ noScalar _ _ _ _ | array _ _ noScalar _ _ _ =>
+      | string _ _ _ noScalar _ _ _ _ | array _ _ _ noScalar _ _ _ =>
           have accepted := scalar_declaration_positive parsed
           rw [← scalar_declaration_complete parsed, noScalar] at accepted
           contradiction
-      | scalar _ _ other otherChecks remaining =>
+      | scalar _ _ _ other otherChecks remaining =>
           obtain ⟨rfl, rfl⟩ := scalar_declaration_unique parsed other
           have same := scalar_declaration_checks_unique checks otherChecks
           obtain ⟨rfl, rfl⟩ := ih remaining
           exact ⟨congrArg (fun initial => initial ++ _) same, rfl⟩
-  | array positive more noScalar parsed checks rest ih =>
+      | subtype _ _ other _ _ =>
+          have accepted := subtype_declaration_positive other
+          rw [← subtype_declaration_complete other, noSubtype] at accepted
+          contradiction
+
+  | array positive more noSubtype noScalar parsed checks rest ih =>
       cases second with
       | done _ stop => exact False.elim (stop more)
-      | string _ _ _ noArray _ _ _ =>
+      | string _ _ _ _ noArray _ _ _ =>
           have accepted := array_declaration_positive parsed
           rw [← array_declaration_complete parsed, noArray] at accepted
           contradiction
-      | scalar _ _ other _ _ =>
+      | scalar _ _ _ other _ _ =>
           have accepted := scalar_declaration_positive other
           rw [← scalar_declaration_complete other, noScalar] at accepted
           contradiction
-      | array _ _ _ other otherChecks remaining =>
+      | array _ _ _ _ other otherChecks remaining =>
           obtain ⟨rfl, rfl⟩ := array_declaration_unique parsed other
           have same := array_declaration_checks_unique checks otherChecks
           obtain ⟨rfl, rfl⟩ := ih remaining
           exact ⟨congrArg (fun initial => initial ++ _) same, rfl⟩
+
+      | subtype _ _ other _ _ =>
+          have accepted := subtype_declaration_positive other
+          rw [← subtype_declaration_complete other, noSubtype] at accepted
+          contradiction
+
+  | subtype positive more parsed checks rest ih =>
+      cases second with
+      | done _ stop => exact False.elim (stop more)
+      | string _ _ noSubtype _ _ _ _ _ | scalar _ _ noSubtype _ _ _ | array _ _ noSubtype _ _ _ _ =>
+          have accepted := subtype_declaration_positive parsed
+          rw [← subtype_declaration_complete parsed, noSubtype] at accepted
+          contradiction
+      | subtype _ _ other otherChecks remaining =>
+          have same := subtype_declaration_unique parsed other
+          cases same
+          have sameChecks := subtype_declaration_checks_unique checks otherChecks
+          obtain ⟨rfl, rfl⟩ := ih remaining
+          exact ⟨congrArg (fun initial => initial ++ _) sameChecks, rfl⟩
 
 end Silver.Compose
