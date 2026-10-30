@@ -241,6 +241,7 @@ def tailBody : Expr .condition :=
   let result : Expr .condition := .variable "result"
   let initials : Expr .initials := .variable "initials"
   let incoming : Expr .facts := .variable "incoming"
+  let originalStart : Expr .number := .variable "original_start"
   let count := Expr.field .conditionCount result
   let invalid := Expr.invalid (.field .whenTrue result)
   let selected : Expr .chain := .variable "selected"
@@ -256,15 +257,19 @@ def tailBody : Expr .condition :=
   .ite (.eq (.field .conditionAfter result) (.number 0)) invalid <|
     .declared "selected" ["chain_kind"] (.callChainToken text (.field .conditionAfter result)) <|
     .group <| .ite (.chainEq selected (.chain .noChain)) result
-      (.elsif (.andThen (.variable "chained") (.chainNe (.variable "operator") selected)) invalid
+      (.elsif (.orElse (.group (.andThen (.variable "chained") (.chainNe (.variable "operator") selected)))
+          (.group (.andThen (.chainEq selected (.chain .eagerXor))
+            (.not (.callXorFree text originalStart (.field .conditionAfter result)))))) invalid
         (.declared "after" ["literal_position"] (.callChainAfter text (.field .conditionAfter result) selected) <|
           .group <| .ite (.eq after (.number 0)) invalid
             (.declaredCondition "right" count
               (.callRelation text context after
                 (.group (.ite (.chainEq selected (.chain .shortAnd)) (.field .whenTrue result)
                   (.elsif (.chainEq selected (.chain .shortOr)) (.field .whenFalse result) incoming))) initials) <|
-              .group <| .ite (.eq (.field .conditionAfter right) (.number 0)) invalid
-                (.callTail text context next selected (.truth true) initials incoming))))
+              .group <| .ite (.orElse (.eq (.field .conditionAfter right) (.number 0))
+                  (.group (.andThen (.chainEq selected (.chain .eagerXor))
+                    (.not (.callXorFree text after (.field .conditionAfter right)))))) invalid
+                (.callTail text context next selected (.truth true) initials incoming originalStart))))
 
 def modelBody : Expr .condition :=
   let result : Expr .condition := .variable "result"
@@ -275,7 +280,7 @@ def modelBody : Expr .condition :=
     (.callRelation (.variable "text") (.variable "context") (.variable "position") facts initials) <|
     .group <| .ite (.eq (.field .conditionAfter result) (.number 0)) (.invalid facts)
       (.declaredCondition "final" (.field .flowCount facts)
-        (.callTail (.variable "text") (.variable "context") result (.chain .shortAnd) (.truth false) initials facts) <|
+        (.callTail (.variable "text") (.variable "context") result (.chain .shortAnd) (.truth false) initials facts (.variable "position")) <|
         .group <| .ite (.eq (.field .conditionAfter final) (.number 0)) (.invalid facts) final)
 
 /-- The exact Static equality RHS of Read_Condition_Into. -/

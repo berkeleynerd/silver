@@ -36,40 +36,58 @@ def length_at_impl_header : List String :=
   ["(", "text", ":", "string", ";", "context", ":", "body_context", ";", "position", ":", "literal_position", ";", "literal", ":", "boolean", ")", "return", "length_result"]
 
 def primary_model_spec_header : List String :=
-  (Source.lexLine "(Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow) return Condition_Result with Ghost => Static, Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Position <= Text'Last + 1 and then Valid_Context (Text, Context) and then Valid_Flow (Context, Facts), Post => Primary_Model'Result.Count = Facts.Count and then Valid_Condition (Context, Primary_Model'Result) and then (Primary_Model'Result.After = 0 or else Primary_Model'Result.After in Position + 1 .. Text'Last + 1), Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => 1)").getD []
+  (Source.lexLine "(Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow; Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values) return Condition_Result with Ghost => Static, Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Position <= Text'Last + 1 and then Valid_Context (Text, Context) and then Valid_Flow (Context, Facts), Post => Primary_Model'Result.Count = Facts.Count and then Valid_Condition (Context, Primary_Model'Result) and then (Primary_Model'Result.After = 0 or else Primary_Model'Result.After in Position + 1 .. Text'Last + 1), Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => 1)").getD []
 
 def primary_model_impl_header : List String :=
-  (Source.lexLine "(Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow) return Condition_Result").getD []
+  (Source.lexLine "(Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow; Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values) return Condition_Result").getD []
 
 def relation_model_spec_header : List String :=
-  (Source.lexLine "(Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow) return Condition_Result with Ghost => Static, Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Position <= Text'Last + 1 and then Valid_Context (Text, Context) and then Valid_Flow (Context, Facts), Post => Relation_Model'Result.Count = Facts.Count and then Valid_Condition (Context, Relation_Model'Result) and then (Relation_Model'Result.After = 0 or else Relation_Model'Result.After in Position + 1 .. Text'Last + 1), Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => 2)").getD []
+  (Source.lexLine "(Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow; Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values) return Condition_Result with Ghost => Static, Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Position <= Text'Last + 1 and then Valid_Context (Text, Context) and then Valid_Flow (Context, Facts), Post => Relation_Model'Result.Count = Facts.Count and then Valid_Condition (Context, Relation_Model'Result) and then (Relation_Model'Result.After = 0 or else Relation_Model'Result.After in Position + 1 .. Text'Last + 1), Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => 4)").getD []
 
 def relation_model_impl_header : List String :=
-  (Source.lexLine "(Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow) return Condition_Result").getD []
+  (Source.lexLine "(Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow; Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values) return Condition_Result").getD []
 
 def chain_token_spec_header : List String :=
-  ["(", "text", ":", "string", ";", "position", ":", "literal_position", ")", "return", "token_kind", "with", "global", "=>", "null", ",", "pre", "=>", "text", "'", "first", "=", "1", "and", "then", "text", "'", "length", "in", "1", "..", "max_source_length", "and", "then", "position", "<=", "text", "'", "last", "+", "1"]
+  (Source.lexLine "(Text : String; Position : Literal_Position) return Chain_Kind with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Position <= Text'Last + 1").getD []
 
 def chain_token_impl_header : List String :=
-  ["(", "text", ":", "string", ";", "position", ":", "literal_position", ")", "return", "token_kind"]
+  (Source.lexLine "(Text : String; Position : Literal_Position) return Chain_Kind").getD []
 
 def chain_after_spec_header : List String :=
-  ["(", "text", ":", "string", ";", "position", ":", "literal_position", ";", "operator", ":", "token_kind", ")", "return", "literal_position", "with", "global", "=>", "null", ",", "pre", "=>", "text", "'", "first", "=", "1", "and", "then", "text", "'", "length", "in", "1", "..", "max_source_length", "and", "then", "position", "<=", "text", "'", "last", "+", "1", "and", "then", "operator", "in", "and_keyword", "|", "or_keyword", ",", "post", "=>", "chain_after", "'", "result", "=", "0", "or", "else", "chain_after", "'", "result", "in", "position", "+", "1", "..", "text", "'", "last", "+", "1"]
+  (Source.lexLine "(Text : String; Position : Literal_Position; Operator : Chain_Kind) return Literal_Position with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Position <= Text'Last + 1 and then Operator /= No_Chain, Post => Chain_After'Result = 0 or else Chain_After'Result in Position + 1 .. Text'Last + 1").getD []
 
 def chain_after_impl_header : List String :=
-  ["(", "text", ":", "string", ";", "position", ":", "literal_position", ";", "operator", ":", "token_kind", ")", "return", "literal_position"]
+  (Source.lexLine "(Text : String; Position : Literal_Position; Operator : Chain_Kind) return Literal_Position").getD []
 
 def condition_tail_spec_header : List String :=
-  (Source.lexLine "(Text : String; Context : Body_Context; Result : Condition_Result; Operator : Token_Kind; Chained : Boolean) return Condition_Result with Ghost => Static, Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Result.After <= Text'Last + 1 and then Valid_Context (Text, Context) and then Valid_Condition (Context, Result) and then Operator in And_Keyword | Or_Keyword, Post => Condition_Tail'Result.Count = Result.Count and then Valid_Condition (Context, Condition_Tail'Result) and then (Condition_Tail'Result.After = 0 or else Condition_Tail'Result.After in Result.After .. Text'Last + 1), Subprogram_Variant => (Decreases => (Text'Last + 1) - Result.After, Decreases => 4)").getD []
+  (Source.lexLine "(Text : String; Context : Body_Context; Result : Condition_Result; Operator : Chain_Kind; Chained : Boolean; Incoming : Scalar_Flow; Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values; Original_Start : Literal_Position) return Condition_Result with Ghost => Static, Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Result.After <= Text'Last + 1 and then Valid_Context (Text, Context) and then Valid_Condition (Context, Result) and then Operator /= No_Chain and then Valid_Flow (Context, Incoming) and then Incoming.Count = Result.Count and then Original_Start <= Text'Last + 1, Post => Condition_Tail'Result.Count = Result.Count and then Valid_Condition (Context, Condition_Tail'Result) and then (Condition_Tail'Result.After = 0 or else Condition_Tail'Result.After in Result.After .. Text'Last + 1), Subprogram_Variant => (Decreases => (Text'Last + 1) - Result.After, Decreases => 6)").getD []
 
 def condition_tail_impl_header : List String :=
-  (Source.lexLine "(Text : String; Context : Body_Context; Result : Condition_Result; Operator : Token_Kind; Chained : Boolean) return Condition_Result").getD []
+  (Source.lexLine "(Text : String; Context : Body_Context; Result : Condition_Result; Operator : Chain_Kind; Chained : Boolean; Incoming : Scalar_Flow; Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values; Original_Start : Literal_Position) return Condition_Result").getD []
 
 def condition_model_spec_header : List String :=
-  (Source.lexLine "(Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow) return Condition_Result with Ghost => Static, Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Position <= Text'Last + 1 and then Valid_Context (Text, Context) and then Valid_Flow (Context, Facts), Post => Condition_Model'Result.Count = Facts.Count and then Valid_Condition (Context, Condition_Model'Result) and then (Condition_Model'Result.After = 0 or else Condition_Model'Result.After in Position + 1 .. Text'Last + 1), Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => 3)").getD []
+  (Source.lexLine "(Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow; Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values) return Condition_Result with Ghost => Static, Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Position <= Text'Last + 1 and then Valid_Context (Text, Context) and then Valid_Flow (Context, Facts), Post => Condition_Model'Result.Count = Facts.Count and then Valid_Condition (Context, Condition_Model'Result) and then (Condition_Model'Result.After = 0 or else Condition_Model'Result.After in Position + 1 .. Text'Last + 1), Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => 5)").getD []
 
 def condition_model_impl_header : List String :=
-  (Source.lexLine "(Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow) return Condition_Result").getD []
+  (Source.lexLine "(Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow; Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values) return Condition_Result").getD []
+
+def boolean_atom_after_spec_header : List String :=
+  (Source.lexLine "(Text : String; Context : Body_Context; Position : Literal_Position) return Literal_Position with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Position <= Text'Last + 1 and then Valid_Context (Text, Context), Post => Boolean_Atom_After'Result = 0 or else Boolean_Atom_After'Result in Position + 1 .. Text'Last + 1").getD []
+
+def boolean_atom_after_impl_header : List String :=
+  (Source.lexLine "(Text : String; Context : Body_Context; Position : Literal_Position) return Literal_Position").getD []
+
+def boolean_factor_model_spec_header : List String :=
+  (Source.lexLine "(Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow; Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values) return Condition_Result with Ghost => Static, Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Position <= Text'Last + 1 and then Valid_Context (Text, Context) and then Valid_Flow (Context, Facts), Post => Boolean_Factor_Model'Result.Count = Facts.Count and then Valid_Condition (Context, Boolean_Factor_Model'Result) and then (Boolean_Factor_Model'Result.After = 0 or else Boolean_Factor_Model'Result.After in Position + 1 .. Text'Last + 1), Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => 2)").getD []
+
+def boolean_factor_model_impl_header : List String :=
+  (Source.lexLine "(Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow; Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values) return Condition_Result").getD []
+
+def boolean_relation_model_spec_header : List String :=
+  (Source.lexLine "(Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow; Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values) return Condition_Result with Ghost => Static, Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Position <= Text'Last + 1 and then Valid_Context (Text, Context) and then Valid_Flow (Context, Facts), Post => Boolean_Relation_Model'Result.Count = Facts.Count and then Valid_Condition (Context, Boolean_Relation_Model'Result) and then (Boolean_Relation_Model'Result.After = 0 or else Boolean_Relation_Model'Result.After in Position + 1 .. Text'Last + 1), Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => 3)").getD []
+
+def boolean_relation_model_impl_header : List String :=
+  (Source.lexLine "(Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow; Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values) return Condition_Result").getD []
 
 def comparison_result_declaration : List String :=
   ["record", "after", ":", "literal_position", ";", "operator", ":", "paths", ".", "comparison", ";", "end", "record"]
@@ -126,7 +144,11 @@ def lemma_condition_equality_impl : List String :=
 def lemma_flow_equality_impl : List String :=
   ["(", "left", ",", "right", ":", "scalar_flow", ")", "with", "ghost", "=>", "static", ",", "global", "=>", "null", ",", "pre", "=>", "left", "=", "right", ",", "post", "=>", "same_flow", "(", "left", ",", "right", ")"]
 
+def chain_kind_declaration : List String :=
+  ["(", "no_chain", ",", "short_and", ",", "short_or", ",", "eager_and", ",", "eager_or", ",", "eager_xor", ")"]
+
 structure Checked (tokens : List String) : Prop where
+  chain_kind_declaration : typeDeclaration "chain_kind" tokens = some chain_kind_declaration
   flow : FlowSourceBridge.Checked tokens
   readers : FlowReaders.Checked tokens
   scalarHelpers : Native.ScalarHelpers.Checked tokens
@@ -150,6 +172,9 @@ structure Checked (tokens : List String) : Prop where
   binding_summary_body : qualifiedExpressionBody "binding_summary" tokens = some ((bindingSummaryBody.render.drop 1).dropLast)
   scalar_comparison_at_body : Source.expressionBody "scalar_comparison_at" tokens = some (comparisonBody.render)
   length_at_body : Source.expressionBody "length_at" tokens = some (lengthBody.render)
+  boolean_atom_after_body : Source.expressionBody "boolean_atom_after" tokens = some (booleanAtomBody.render)
+  boolean_factor_model_body : Source.expressionBody "boolean_factor_model" tokens = some (booleanFactorBody.render)
+  boolean_relation_model_body : Source.expressionBody "boolean_relation_model" tokens = some (booleanRelationBody.render)
   primary_model_body : Source.expressionBody "primary_model" tokens = some (primaryBody.render)
   relation_model_body : Source.expressionBody "relation_model" tokens = some (relationBody.render)
   chain_token_body : Source.expressionBody "chain_token" tokens = some (chainTokenBody.render)
@@ -163,6 +188,12 @@ structure Checked (tokens : List String) : Prop where
   scalar_comparison_at_impl_header : functionHeader "scalar_comparison_at" "is" tokens = some scalar_comparison_at_impl_header
   length_at_spec_header : functionHeader "length_at" ";" tokens = some length_at_spec_header
   length_at_impl_header : functionHeader "length_at" "is" tokens = some length_at_impl_header
+  boolean_atom_after_spec_header : functionHeader "boolean_atom_after" ";" tokens = some boolean_atom_after_spec_header
+  boolean_atom_after_impl_header : functionHeader "boolean_atom_after" "is" tokens = some boolean_atom_after_impl_header
+  boolean_factor_model_spec_header : functionHeader "boolean_factor_model" ";" tokens = some boolean_factor_model_spec_header
+  boolean_factor_model_impl_header : functionHeader "boolean_factor_model" "is" tokens = some boolean_factor_model_impl_header
+  boolean_relation_model_spec_header : functionHeader "boolean_relation_model" ";" tokens = some boolean_relation_model_spec_header
+  boolean_relation_model_impl_header : functionHeader "boolean_relation_model" "is" tokens = some boolean_relation_model_impl_header
   primary_model_spec_header : functionHeader "primary_model" ";" tokens = some primary_model_spec_header
   primary_model_impl_header : functionHeader "primary_model" "is" tokens = some primary_model_impl_header
   relation_model_spec_header : functionHeader "relation_model" ";" tokens = some relation_model_spec_header

@@ -107,7 +107,7 @@ abbrev WellScopedTrees : Prop :=
   relationBody.scoped [(.source, "text"), (.context, "context"), (.number, "position"), (.facts, "facts"), (.initials, "initials")] = true ∧
   chainTokenBody.scoped [(.source, "text"), (.number, "position")] = true ∧
   chainAfterBody.scoped [(.source, "text"), (.number, "position"), (.chain, "operator")] = true ∧
-  tailBody.scoped [(.source, "text"), (.context, "context"), (.condition, "result"), (.chain, "operator"), (.truth, "chained"), (.initials, "initials"), (.facts, "incoming")] = true ∧
+  tailBody.scoped [(.source, "text"), (.context, "context"), (.condition, "result"), (.chain, "operator"), (.truth, "chained"), (.initials, "initials"), (.facts, "incoming"), (.number, "original_start")] = true ∧
   modelBody.scoped [(.source, "text"), (.context, "context"), (.number, "position"), (.facts, "facts"), (.initials, "initials")] = true ∧
   conditionBody.scoped [(.source, "text"), (.context, "context"), (.number, "position"), (.facts, "facts"), (.initials, "initials")] = true
 

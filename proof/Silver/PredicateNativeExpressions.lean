@@ -72,10 +72,11 @@ def Ty.default : (ty : Ty) → ty.meaning
   | .arrow _ b => fun _ => b.default
 
 inductive Function
-  | callAfter | equalName | nameIs | arrayLookup | booleanLookup | booleanAtom | booleanFactor | booleanRelation | take | skip | nameAfter | lookup | scalarLookup | scalarRead | scalarInFlow | stringInFlow | scalarCondition | invalidCondition | integer | expression | summary | bound | bindingSummary | comparison | length | primary | relation | condition | model | chainToken | chainAfter | tail | assumeValid | assumeInvalid | refineBounds | fits | refineEqual | join
+  | xorFree | callAfter | equalName | nameIs | arrayLookup | booleanLookup | booleanAtom | booleanFactor | booleanRelation | take | skip | nameAfter | lookup | scalarLookup | scalarRead | scalarInFlow | stringInFlow | scalarCondition | invalidCondition | integer | expression | summary | bound | bindingSummary | comparison | length | primary | relation | condition | model | chainToken | chainAfter | tail | assumeValid | assumeInvalid | refineBounds | fits | refineEqual | join
   deriving DecidableEq, Repr
 
 def Function.name : Function → List String
+  | .xorFree => ["xor_free"]
   | .callAfter => ["call_after"]
   | .equalName => ["equal_name"]
   | .nameIs => ["name_is"]
@@ -116,6 +117,7 @@ def Function.name : Function → List String
   | .join => ["joined"]
 
 @[reducible] def Function.type : Function → Ty
+  | .xorFree => .arrow .source (.arrow .number (.arrow .number .truth))
   | .callAfter => .arrow .source (.arrow .names (.arrow .number (.arrow .operation (.arrow .scalarNames (.arrow .arrays (.arrow .truth (.arrow .booleanNames .number)))))))
   | .equalName => .arrow .source (.arrow .number (.arrow .number (.arrow .number (.arrow .number .truth))))
   | .nameIs => .arrow .source (.arrow .number (.arrow .number (.arrow .word .truth)))
@@ -146,7 +148,7 @@ def Function.name : Function → List String
   | .model => .arrow .source (.arrow .context (.arrow .number (.arrow .facts (.arrow .initials .condition))))
   | .chainToken => .arrow .source (.arrow .number .chain)
   | .chainAfter => .arrow .source (.arrow .number (.arrow .chain .number))
-  | .tail => .arrow .source (.arrow .context (.arrow .condition (.arrow .chain (.arrow .truth (.arrow .initials (.arrow .facts .condition))))))
+  | .tail => .arrow .source (.arrow .context (.arrow .condition (.arrow .chain (.arrow .truth (.arrow .initials (.arrow .facts (.arrow .number .condition)))))))
   | .assumeValid => .arrow .path .path
   | .assumeInvalid => .arrow .path .path
   | .refineBounds => .arrow .path (.arrow .comparison (.arrow .bound (.arrow .bound (.arrow .truth .path))))
@@ -155,6 +157,7 @@ def Function.name : Function → List String
   | .join => .arrow .facts (.arrow .facts (.facts))
 
 structure Calls where
+  xorFree : Source → Nat → Nat → Bool
   callAfter : Source → Compose.BindingEnvironment → Nat → Names.Operation → ScalarExpression.Environment → ArrayBindings.Metadata → Bool → BooleanBindings.Environment → Nat
   equalName : Source → Nat → Nat → Nat → Nat → Bool
   nameIs : Source → Nat → Nat → String → Bool
@@ -186,7 +189,7 @@ structure Calls where
   model : Source → Context → Nat → ActiveFlow → ArrayBindings.Initials → ConditionResult
   chainToken : Source → Nat → ChainKind
   chainAfter : Source → Nat → ChainKind → Nat
-  tail : Source → Context → ConditionResult → ChainKind → Bool → ArrayBindings.Initials → ActiveFlow → ConditionResult
+  tail : Source → Context → ConditionResult → ChainKind → Bool → ArrayBindings.Initials → ActiveFlow → Nat → ConditionResult
   assumeValid : PathFacts.Context → PathFacts.Context
   assumeInvalid : PathFacts.Context → PathFacts.Context
   refineBounds : PathFacts.Context → Comparison → Bindings.Bound → Bindings.Bound → Bool → PathFacts.Context
@@ -195,6 +198,7 @@ structure Calls where
   join : ActiveFlow → ActiveFlow → ActiveFlow
 
 def Calls.get (calls : Calls) : (f : Function) → f.type.meaning
+  | .xorFree => calls.xorFree
   | .callAfter => calls.callAfter
   | .equalName => calls.equalName
   | .nameIs => calls.nameIs
@@ -604,11 +608,14 @@ def callChainToken (text : Expr .source) (position : Expr .number) : Expr .chain
 def callChainAfter (text : Expr .source) (position : Expr .number) (operator : Expr .chain) : Expr .number :=
   .app (.app (.app (.function .chainAfter) text) position) operator
 
+def callXorFree (text : Expr .source) (first after : Expr .number) : Expr .truth :=
+  .app (.app (.app (.function .xorFree) text) first) after
+
 def callTail (text : Expr .source) (context : Expr .context) (result : Expr .condition)
     (operator : Expr .chain) (chained : Expr .truth) (initials : Expr .initials)
-    (incoming : Expr .facts) : Expr .condition :=
-  .appNamed (.appNamed (.app (.app (.app (.app (.app (.function .tail) text) context) result)
-    operator) chained) "initials" initials) "incoming" incoming
+    (incoming : Expr .facts) (originalStart : Expr .number) : Expr .condition :=
+  .appNamed (.appNamed (.appNamed (.app (.app (.app (.app (.app (.function .tail) text) context) result)
+    operator) chained) "initials" initials) "incoming" incoming) "original_start" originalStart
 
 def callAssumeValid (facts : Expr .path) : Expr .path := .app (.function .assumeValid) facts
 

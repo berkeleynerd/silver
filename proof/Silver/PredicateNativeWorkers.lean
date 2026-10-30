@@ -16,7 +16,7 @@ structure Outputs where
   booleanRelation : Source → Context → Nat → ActiveFlow → Nat → ArrayBindings.Initials → ConditionResult
   relation : Source → Context → Nat → ActiveFlow → Nat → ArrayBindings.Initials → ConditionResult
   condition : Source → Context → Nat → ActiveFlow → Nat → ArrayBindings.Initials → ConditionResult
-  chain : Source → Context → ConditionResult → ActiveFlow → ArrayBindings.Initials → ConditionResult
+  chain : Source → Context → ConditionResult → ActiveFlow → ArrayBindings.Initials → Nat → ConditionResult
 
 def primaryRhs : Expr .condition :=
   .callPrimary (.variable "text") (.variable "context") (.variable "position") (.variable "facts") (.variable "initials")
@@ -34,10 +34,10 @@ def conditionRhs : Expr .condition := conditionBody
 
 def chainRhs : Expr .condition :=
   .callTail (.variable "text") (.variable "context") (.old (.variable "result"))
-    (.chain .shortAnd) (.truth false) (.variable "initials") (.variable "incoming")
+    (.chain .shortAnd) (.truth false) (.variable "initials") (.variable "incoming") (.variable "original_start")
 
 abbrev InputDomain := Source → Context → Nat → ActiveFlow → Prop
-abbrev ChainDomain := Source → Context → ConditionResult → ActiveFlow → Prop
+abbrev ChainDomain := Source → Context → ConditionResult → ActiveFlow → Nat → Prop
 
 /-- Exact Static postcondition equations on the native precondition domains.
 ValidInitials interprets the fixed Element_Array type, separately from Ada Pre;
@@ -59,9 +59,9 @@ structure Refinement (legal : InputDomain) (chainLegal : ChainDomain)
   condition : ∀ text context position facts count initials, legal text context position facts → ArrayBindings.ValidInitials initials → count = facts.count →
     outputs.condition text context position facts count initials =
       conditionRhs.eval calls ({text, context, position, facts, initials} : Inputs).locals
-  chain : ∀ text context result incoming initials, chainLegal text context result incoming → ArrayBindings.ValidInitials initials →
-    outputs.chain text context result incoming initials =
-      chainRhs.eval calls ({text, context, result, incoming, initials} : Inputs).locals
+  chain : ∀ text context result incoming initials originalStart, chainLegal text context result incoming originalStart → ArrayBindings.ValidInitials initials →
+    outputs.chain text context result incoming initials originalStart =
+      chainRhs.eval calls ({text, context, result, incoming, initials, originalStart} : Inputs).locals
 
 def observe (calls : Native.Calls) (outputs : Outputs) : Native.Calls :=
   {calls with condition := fun text context position facts initials =>
@@ -99,9 +99,9 @@ theorem relation_refines {legal chainLegal calls outputs}
 
 theorem chain_refines {legal chainLegal calls outputs}
     (verified : Refinement legal chainLegal calls outputs)
-    {text context result incoming initials} (allowed : chainLegal text context result incoming) (iv : ArrayBindings.ValidInitials initials) :
-    outputs.chain text context result incoming initials = calls.tail text context result .shortAnd false initials incoming :=
-  verified.chain text context result incoming initials allowed iv
+    {text context result incoming initials originalStart} (allowed : chainLegal text context result incoming originalStart) (iv : ArrayBindings.ValidInitials initials) :
+    outputs.chain text context result incoming initials originalStart = calls.tail text context result .shortAnd false initials incoming originalStart :=
+  verified.chain text context result incoming initials originalStart allowed iv
 
 def modelOutputs (calls : Native.Calls) : Outputs where
   primary text context position facts _ initials := calls.primary text context position facts initials
@@ -109,7 +109,7 @@ def modelOutputs (calls : Native.Calls) : Outputs where
   booleanRelation text context position facts _ initials := calls.booleanRelation text context position facts initials
   relation text context position facts _ initials := calls.relation text context position facts initials
   condition text context position facts _ initials := calls.model text context position facts initials
-  chain text context result incoming initials := calls.tail text context result .shortAnd false initials incoming
+  chain text context result incoming initials originalStart := calls.tail text context result .shortAnd false initials incoming originalStart
 
 theorem model_refinement (legal : InputDomain) (chainLegal : ChainDomain) (calls : Native.Calls) :
     Refinement legal chainLegal calls (modelOutputs calls) := by
@@ -127,11 +127,11 @@ def outputSpec (rhs : Expr .condition) (rank : Nat) : List String :=
     ("), Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => " ++ toString rank ++ ")")
 
 def chainHeader : List String := expectedTokens
-  "(Text : String; Context : Body_Context; Result : in out Condition_Result; Incoming : Scalar_Flow; Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values)"
+  "(Text : String; Context : Body_Context; Result : in out Condition_Result; Incoming : Scalar_Flow; Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values; Original_Start : Literal_Position)"
 
 def chainSpec : List String :=
   chainHeader ++ expectedTokens
-    "with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Result.After in 1 .. Text'Last + 1 and then Valid_Context (Text, Context) and then Valid_Condition (Context, Result) and then Valid_Flow (Context, Incoming) and then Incoming.Count = Result.Count and then Chain_Token (Text, Result.After) /= No_Chain, Post => (Runtime => Valid_Condition (Context, Result) and then (Result.After = 0 or else Result.After in Result.After'Old .. Text'Last + 1), Static => Result =" ++
+    "with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Result.After in 1 .. Text'Last + 1 and then Valid_Context (Text, Context) and then Valid_Condition (Context, Result) and then Valid_Flow (Context, Incoming) and then Incoming.Count = Result.Count and then Original_Start <= Text'Last + 1 and then Chain_Token (Text, Result.After) /= No_Chain, Post => (Runtime => Valid_Condition (Context, Result) and then (Result.After = 0 or else Result.After in Result.After'Old .. Text'Last + 1), Static => Result =" ++
   chainRhs.render ++ expectedTokens
     "), Subprogram_Variant => (Decreases => (Text'Last + 1) - Result.After, Decreases => 6)"
 
