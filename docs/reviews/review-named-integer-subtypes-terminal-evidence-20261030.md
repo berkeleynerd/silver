@@ -1,8 +1,10 @@
 # Named Integer subtypes: terminal evidence review — 2026-10-30
 
 **Draft: complete native, build and repaired-input regression evidence confirmed;
-final Lean and Rosetta evidence confirmation remains pending.** No actionable
-discrepancy was found in the completed evidence inspected here. This bounded
+the later source-literal repair is reviewed, with final Lean and Rosetta
+confirmation pending.** The initial completed-evidence check found no actionable
+discrepancy. The later completion-assurance finding #290 and its reviewed repair
+are recorded below. This bounded
 review concerns owner-authorized #286 and draft PR #289; it neither authorizes
 merging nor substitutes for the prior scoped code reviews or external approval.
 
@@ -114,14 +116,104 @@ log/event digests match the retention record. Its actual terminal event remains
 `interrupted` at 20:40:43 UTC on October 29, after 15,742.412 seconds. That
 run supplies neither a completed final source check nor a fresh complete audit.
 
+## Source-literal repair review — 2026-10-30
+
+**Finding [#290](https://github.com/berkeleynerd/silver/issues/290): independently
+confirmed, severity: blocker for capability-completion assurance; bounded repair
+reviewed, authoritative validation pending.** This is an actual-source
+correspondence defect, not a demonstrated native/runtime defect. Complete run
+`20261029T205735-bb72d0625415` reports false propositions in
+`ScalarExpressionSourceChecks` (lines 23 and 73),
+`PredicateBasicSourceCandidate` (22), `PredicateLoopCandidate` (21), and
+`PredicateAdapterSourceCandidate` (18, 35 and 60). Those failures prevent a
+successful complete checkpoint even while independent modules finish.
+
+Reviewed repair `d4e2be67b5de7fcc2919cf9eac6efb217e5ca672`, based on
+`288337f8ce7eb3aa4baebed58156138862afbc76`, directly in the isolated
+`tmp/subtypes-source-literal-repair` worktree. Reviewed the actual failing log
+at `tmp/named-integer-subtypes/tmp/subtypes-repaired-lean.log`, the exact diff,
+relevant authoritative Ada, typed render/evaluation definitions, model equations,
+source-extraction requirements, dependency graph and regression fixtures. The
+worker's handoff was supporting context; this verdict follows direct inspection.
+Selected reviewer remained GPT-6 Astra / Extra High; runtime confirmation and
+token/cost measurements remain unavailable. Substantive inspection ran
+01:27:41–01:32:31 UTC (290 seconds), followed by report preparation. No proof,
+native build or regression test was run by the reviewer.
+
+Only five proof files change, comprising seven literal-line replacements:
+
+- `ScalarExpressionSourceShape.spec` and
+  `ScalarExpressionSourceChecks.Declarations` replace the stale divisor 12 with
+  7. The Ada declaration, `ScalarExpressionEnvironment.maxBindings`, and
+  `ScalarEnvironmentSourceBridge.Checked.maximum` already use 7: the existing
+  585-slot capacity and semantic domain do not change. The complete scalar spec
+  pin now matches all 820 source tokens; its unchanged body pin matches 3,496.
+- `PredicateBasicSourceCandidate` gains the six actual subtype-hiding arguments
+  on the test and update calls for output, partial output and rejection. Existing
+  `Test.eval/render` and `Update.eval/render` already select the same operation's
+  visibility bit. The repaired candidate matches all 783 source tokens.
+- `PredicateLoopCandidate` replaces the old full-range literal with the actual
+  array component interval, inside the target's scope, and replaces the obsolete
+  whole-environment `Append` call with the actual count increment and fresh-slot
+  assignment. Existing `Update.arrayBounds` evaluation/rendering, `commands`,
+  `array_tail` and `Update.inner` already model these operations. Scope entry
+  copies the context; the modeled retained prefix and new last binding match
+  those assignments. The repaired candidate matches all 1,165 source tokens.
+- `PredicateAdapterSourceCandidate` adds the actual hidden-call projection to
+  `Context_Of`, subtype environment to `Expand_Body`, and fourth subtype argument
+  to the `Read_Statements` call. Existing `contextOf`, `expand`, `adapterEval`,
+  typed expressions/renderers and evaluation/model equations already carry these
+  fields. The three repaired candidates match 68, 67 and 95 source tokens.
+
+Independently extracted those tokens from authoritative source with the existing
+untrusted lexical helper and compared each complete candidate, selecting actual
+implementations rather than forward declarations. This is a review check, not a
+Lean proof. All nonliteral file content is unchanged; the only other textual
+change is the `/7` declaration expectation itself. No Ada, runtime behavior,
+semantic model, endpoint domain, theorem proof script, assumption, source
+extractor, generator, audit or tool setting changes. The source-check conclusion
+is intentionally corrected to the already admitted declaration.
+
+The final chain still requires both typed-render equality and extraction from
+the authoritative source: `PredicateSourceRequirements` and
+`PredicateSourceCandidate` retain their basic/loop/adapter extraction obligations;
+scalar checks retain complete source-shape, declaration and expression checks.
+Thus this repair aligns stale literals with the existing semantic argument; it
+does not treat refreshing a pin as a substitute for source correspondence.
+No actionable defect was found in this exact patch. Focused kernel checks and
+the complete source/module/axiom checkpoint must still establish its results.
+
+### Invalidation and regression applicability
+
+Read-only traversal of actual imports found none of the five changed modules in
+the dependency closures of `OutputBodyCertificate`, `ComposeSourceCandidate` or
+`PredicateScalarBodyCandidate`. Their source/generator/model inputs are unchanged;
+their successful objects remain applicable under ordinary Lake dependency checks.
+The ongoing independent scalar-body build need not be interrupted for this repair.
+The three Predicate candidates feed `PredicateSourceRequirements` and then
+`PredicateSourceCandidate`; the scalar files feed `ScalarExpressionSourceBridge`.
+`PredicateSourceBridge` consumes both routes. Those affected source checks and the
+fresh complete module/axiom audit remain required; a focused pass is insufficient.
+
+For exactly these five changed proof literals, refresh the **12
+`test_lean_source.py` identities and 16 `test_platforms.py` identities**. The
+first family scans actual proof sources/imports; every platform fixture copies
+the current complete Lean tree. Their 28 identities match the established
+inventory. Other Lean tests consume unchanged audit, binding, Lake/toolchain
+inputs or synthetic fixtures. Native/output-integrity/sample fixtures do not
+consume these proof literals. Consequently the verified native checkpoint,
+compiler build, 509 applicable original test results and 18 repaired native
+fixture results remain applicable. The 28 proof-tree results require replacement
+again; original outcomes stay intact. Later Rosetta metadata changes require
+their own affected-test results and final identity reconciliation.
+
 ## Outstanding terminal confirmation
 
-Complete Lean run `20261029T205735-bb72d0625415` and final Rosetta metadata/test
-records have not yet been supplied as terminal evidence. No complete-Lean
-success is inferred from its completed output certificate, active source
-candidate, retained model proofs or the completed native result. Final
-confirmation must inspect the whole-project source/module/axiom outcome, exact
-captured-input binding, final metadata delta and affected renderer-test outcomes,
-then reconcile any replacements against the same final test inventory. The
-reviewer is paused pending those records; no proof/test polling or rerun is
-needed for this evidence review.
+Run `20261029T205735-bb72d0625415` has known source-literal failures and must
+retain its actual terminal outcome. No complete-Lean success is inferred from
+its successful independent modules or the completed native result. After the
+reviewed repair, final confirmation must inspect the repaired whole-project
+source/module/axiom outcome, exact captured-input binding, 28 refreshed proof-tree
+results, final Rosetta metadata delta and affected renderer-test outcomes, then
+reconcile all 555 identities. The reviewer is paused pending those records;
+no proof/test polling or rerun is needed for this evidence review.
