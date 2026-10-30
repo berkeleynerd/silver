@@ -55,7 +55,7 @@ theorem booleanAtom_sound {text context position}
   unfold booleanAtomAfter at accepted ⊢
   dsimp only at accepted ⊢
   split
-  · simp_all only [Bool.false_eq_true, ↓reduceIte, ne_eq, not_true_eq_false]
+  · simp_all only [↓reduceIte, ne_eq, not_true_eq_false]
   · rename_i allowed
     have firstNonzero : skipAt text position ≠ 0 := fun bad => allowed (Or.inl bad)
     have afterNonzero : nameAfter text (skipAt text position) ≠ 0 := by
@@ -159,7 +159,7 @@ mutual
          else if operator.operator ≠ .eq ∧ operator.operator ≠ .ne then invalidCondition facts
          else if _ : remainingAt text operator.after < remainingAt text position then
            if right.after = 0 then invalidCondition facts else ⟨right.after, facts, facts⟩
-         else invalidCondition facts) := by rw [readBooleanRelation]; rfl
+         else invalidCondition facts) := by rw [readBooleanRelation]
     have positive : left.after ≠ 0 := by
       intro failed
       rw [equation] at accepted
@@ -172,7 +172,7 @@ mutual
     · have allowed : ¬(operator.operator ≠ .eq ∧ operator.operator ≠ .ne) := by
         intro bad
         rw [equation] at accepted
-        simp only [positive, noComparison, bad, ↓reduceIte, invalidCondition, ne_eq, not_true_eq_false] at accepted
+        simp [positive, noComparison, bad, invalidCondition] at accepted
       have advanced : remainingAt text operator.after < remainingAt text position := by
         by_cases good : remainingAt text operator.after < remainingAt text position
         · exact good
@@ -209,7 +209,7 @@ mutual
       · have positive : (readBooleanRelation text context position facts initials).after ≠ 0 := by
           simpa only [readRelation, zero, negation, ne_eq, not_true_eq_false, not_false_eq_true, ↓reduceIte] using accepted
         obtain ⟨⟨condition, parsed⟩, bound⟩ := booleanRelation_sound text context position facts textValid namesValid bounded positive
-        simp only [readRelation, zero, negation, ne_eq, not_true_eq_false, ↓reduceIte]
+        simp only [readRelation, zero, negation, ne_eq, ↓reduceIte]
         exact ⟨⟨condition, .booleanNot zero negation parsed⟩, bound⟩
       · have noNot : fixedAfter text position "not" true = 0 := by omega
         by_cases lengthPresent : (lengthAt text context position false).after ≠ 0

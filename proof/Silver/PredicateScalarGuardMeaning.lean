@@ -320,7 +320,7 @@ theorem scalarCondition_outcome_model {text : Source} {context : ParseContext} {
           then rightResult.bounds.lower else leftResult.bounds.lower) truth := by
     cases truth <;> simp only [scalarCondition, Bool.false_eq_true, ↓reduceIte,
       leftTarget, rightTarget, leftStatic, rightStatic]
-  rw [selected, ParseContext.flow_refine]
+  rw [selected, ParseContext.flow_refine (initials := initials)]
   case low =>
     split
     · exact Nat.le_trans (guardTarget_bound context left) size
