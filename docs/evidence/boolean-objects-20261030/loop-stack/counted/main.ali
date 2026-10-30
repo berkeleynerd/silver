@@ -1,0 +1,197 @@
+V "GNAT Lib v16"
+M P W=b
+A -gnatA
+A -gnat2022
+A -gnata
+A -gnato
+A -gnatdM
+A -gnateI1
+A -mtune=generic
+A -march=x86-64
+P ZX
+
+RN
+RV NO_IMPLEMENTATION_PRAGMAS
+
+U main%b		main.adb		284cf0b0 NE OO SU
+Z ada.strings.text_buffers%s  a-sttebu.adb	a-sttebu.ali
+W silver_io%s		silver_io.adb		silver_io.ali
+
+D ada.ads		20260430083320 76789da1 ada%s
+D a-except.ads		20260430083320 8699d7ff ada.exceptions%s
+D a-ioexce.ads		20260430083320 40018c65 ada.io_exceptions%s
+D a-stream.ads		20260430083320 cb01a8f8 ada.streams%s
+D a-string.ads		20260430083320 90ac6797 ada.strings%s
+D a-sttebu.ads		20260430083320 f1ad67a2 ada.strings.text_buffers%s
+D a-stuten.ads		20260430083320 c6ced0ae ada.strings.utf_encoding%s
+D a-tags.ads		20260430083320 2dbf449c ada.tags%s
+D a-textio.ads		20260430083320 34ef47de ada.text_io%s
+D a-unccon.ads		20260430083320 0e9b276f ada.unchecked_conversion%s
+D interfac.ads		20260430083320 9111f9c1 interfaces%s
+D i-cstrea.ads		20260430083320 ffd01b9d interfaces.c_streams%s
+D main.adb		20261030131936 f2a7f916 main%b
+D silver_io.ads		20261030131936 daeb09a6 silver_io%s
+D system.ads		20260430083320 e2b7c99d system%s
+D s-crtl.ads		20260430083320 823b6536 system.crtl%s
+D s-exctab.ads		20260430083320 91bef6ef system.exception_table%s
+D s-ficobl.ads		20260430083320 dc5161d4 system.file_control_block%s
+D s-parame.ads		20260430083320 a1aeab5c system.parameters%s
+D s-putima.ads		20260430083320 1b989439 system.put_images%s
+D s-secsta.ads		20260430083320 578279f5 system.secondary_stack%s
+D s-soflin.ads		20260430083320 5d88fdea system.soft_links%s
+D s-stache.ads		20260430083320 0b81c1fe system.stack_checking%s
+D s-stalib.ads		20260430083320 1c9580f6 system.standard_library%s
+D s-stoele.ads		20260430083320 ccded4e8 system.storage_elements%s
+D s-traent.ads		20260430083320 c81cbf8c system.traceback_entries%s
+D s-unstyp.ads		20260430083320 fa2a7f59 system.unsigned_types%s
+D s-wchcon.ads		20260430083320 d9032363 system.wch_con%s
+G a e
+G c Z b b [main standard 1 26 none]
+X 13 main.adb
+1U26*Main 1b26 1l4085 1t4089
+1I64 S{integer} 1r113
+1a88 A(1I64)
+1i132 I{integer}
+1i151 I{integer}
+1i170 I{integer}
+1i189 I{integer}
+1i208 I{integer}
+1i227 I{integer}
+1i246 I{integer}
+1i265 I{integer}
+1i284 I{integer}
+1i303 I{integer}
+1i322 I{integer}
+1i341 I{integer}
+1i360 I{integer}
+1i379 I{integer}
+1i398 I{integer}
+1i417 I{integer}
+1i436 I{integer}
+1i455 I{integer}
+1i474 I{integer}
+1i493 I{integer}
+1i512 I{integer}
+1i531 I{integer}
+1i550 I{integer}
+1i569 I{integer}
+1i588 I{integer}
+1i607 I{integer}
+1i626 I{integer}
+1i645 I{integer}
+1i664 I{integer}
+1i683 I{integer}
+1i702 I{integer}
+1i721 I{integer}
+1i740 I{integer}
+1i759 I{integer}
+1i778 I{integer}
+1i797 I{integer}
+1i816 I{integer}
+1i835 I{integer}
+1i854 I{integer}
+1i873 I{integer}
+1i892 I{integer}
+1i911 I{integer}
+1i930 I{integer}
+1i949 I{integer}
+1i968 I{integer}
+1i987 I{integer}
+1i1006 I{integer}
+1i1025 I{integer}
+1i1044 I{integer}
+1i1063 I{integer}
+1i1082 I{integer}
+1i1101 I{integer}
+1i1120 I{integer}
+1i1139 I{integer}
+1i1158 I{integer}
+1i1177 I{integer}
+1i1196 I{integer}
+1i1215 I{integer}
+1i1234 I{integer}
+1i1253 I{integer}
+1i1272 I{integer}
+1i1291 I{integer}
+1i1310 I{integer}
+1i1329 I{integer}
+1i1348 I{integer}
+1i1367 I{integer}
+1i1386 I{integer}
+1i1405 I{integer}
+1i1424 I{integer}
+1i1443 I{integer}
+1i1462 I{integer}
+1i1481 I{integer}
+1i1500 I{integer}
+1i1519 I{integer}
+1i1538 I{integer}
+1i1557 I{integer}
+1i1576 I{integer}
+1i1595 I{integer}
+1i1614 I{integer}
+1i1633 I{integer}
+1i1652 I{integer}
+1i1671 I{integer}
+1i1690 I{integer}
+1i1709 I{integer}
+1i1728 I{integer}
+1i1747 I{integer}
+1i1766 I{integer}
+1i1785 I{integer}
+1i1804 I{integer}
+1i1823 I{integer}
+1i1842 I{integer}
+1i1861 I{integer}
+1i1880 I{integer}
+1i1899 I{integer}
+1i1918 I{integer}
+1i1937 I{integer}
+1i1956 I{integer}
+1i1975 I{integer}
+1i1994 I{integer}
+1i2013 I{integer}
+1i2032 I{integer}
+1i2051 I{integer}
+1i2070 I{integer}
+1i2089 I{integer}
+1i2108 I{integer}
+1i2127 I{integer}
+1i2146 I{integer}
+1i2165 I{integer}
+1i2184 I{integer}
+1i2203 I{integer}
+1i2222 I{integer}
+1i2241 I{integer}
+1i2260 I{integer}
+1i2279 I{integer}
+1i2298 I{integer}
+1i2317 I{integer}
+1i2336 I{integer}
+1i2355 I{integer}
+1i2374 I{integer}
+1i2393 I{integer}
+1i2412 I{integer}
+1i2431 I{integer}
+1i2450 I{integer}
+1i2469 I{integer}
+1i2488 I{integer}
+1i2507 I{integer}
+1i2526 I{integer}
+1i2545 I{integer}
+1i2564 I{integer}
+1i2583 I{integer}
+1i2602 I{integer}
+1i2621 I{integer}
+1i2640 I{integer}
+1i2659 I{integer}
+1i2678 I{integer}
+1i2697 I{integer}
+1i2716 I{integer}
+1i2735 I{integer}
+1i2754 I{integer}
+1i2773 I{integer}
+1i2792 I{integer}
+X 14 silver_io.ads
+2K9*Silver_IO 13|1w6 14|37e14
+

@@ -1,0 +1,28 @@
+{
+  "counted": {
+    "units": 5,
+    "entities": 17,
+    "flow_checks": 19,
+    "proof_checks": 47,
+    "limitation_notes": 0,
+    "imported_entities": 6,
+    "trusted_math_notes": 0,
+    "vendor_spec_entities": 0,
+    "array_initialization_advisories": 0,
+    "assignment_advisories": 0,
+    "image_advisories": 0
+  },
+  "foreach-singleton": {
+    "units": 5,
+    "entities": 17,
+    "flow_checks": 19,
+    "proof_checks": 47,
+    "limitation_notes": 0,
+    "imported_entities": 6,
+    "trusted_math_notes": 0,
+    "vendor_spec_entities": 0,
+    "array_initialization_advisories": 0,
+    "assignment_advisories": 0,
+    "image_advisories": 0
+  }
+}
