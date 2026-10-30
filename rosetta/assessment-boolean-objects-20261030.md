@@ -1,17 +1,20 @@
 # Boolean scalar driver reconciliation
 
-Delivery metadata prepared on 2026-10-30 for
-[#291](https://github.com/berkeleynerd/silver/issues/291), in an unmerged
-Rosetta-only patch. Its `scalar-boolean-objects` support promotion is contingent
-on the complete assurance, native validation and independent review checkpoint.
-The patch must remain separate until the lead integrates that evidence and
-synchronizes the capability record, language, catalogue and samples. This static
-record claims no completed native validation or universal assurance. The
-[capability record](../docs/boolean-objects.md) records the authorization and
-remaining completion requirements.
+The `scalar-boolean-objects` promotion for
+[#291](https://github.com/berkeleynerd/silver/issues/291) is integrated on the
+Boolean feature branch through `d6f8da17a9` / `927cc5e178`. Complete native and
+Lean/source validation remains pending. The
+[capability record](../docs/boolean-objects.md) tracks the exact scope and current
+assurance status. Stacked Boolean [PR #295](https://github.com/berkeleynerd/silver/pull/295)
+and subtype [PR #289](https://github.com/berkeleynerd/silver/pull/289) remain open;
+neither feature PR is authorized to merge. Integrated Rosetta metadata does not
+establish completed capability support.
 
-The source reconciliation below and its recorded inputs/settings are historical
-prepared-review provenance. The delivery round is recorded separately below.
+The source reconciliation and its recorded settings below are historical
+prepared-review provenance. The contingent delivery round also retains its
+original scope. The [current metadata reconciliation](#current-metadata-reconciliation--2026-10-30)
+records the present source/task mapping separately from native and universal
+assurance.
 
 The bounded subthread selected GPT-6.1 Sol / Extra High through explicit spawn
 controls. Runtime settings, whole-round elapsed time and token/cost measurements
@@ -136,3 +139,38 @@ broad Boolean, logical-operator and Boolean-flag issues open for their remaining
 forms. #291 remains the owner-selected work package; its closure requires the
 complete checkpoint and delivery, not this re-render. No new stage issue or
 next-stage authorization is implied by this patch.
+
+## Current metadata reconciliation — 2026-10-30
+
+Inputs are implementation/proof target `b6aeb9f978` and integration tree
+`59cfd9c3dc`, the three driver sources and cached task descriptions, their
+existing coverage records and the precise scalar Boolean scope. Source/task
+inspection confirms bounded trial division over 2..100, the first 30 squares
+that are not cubes, and the given three-list intersection streamed in first-list
+order. The xor restriction changes none of these mappings. No algorithm,
+supported identifier, sample or stage assignment changes in this round.
+
+The three summary suffixes now point to current scope and validation status;
+their review methods identify this reconciliation and track native/universal
+assurance separately. Both earlier rounds above retain their dates, settings,
+measurements and input provenance. Complete native and Lean/source checkpoints
+remain pending; rendering and these tests establish no universal assurance.
+
+Selected updater settings: GPT-6.1 Sol / High through bounded subthread controls.
+Runtime confirmation and whole-round elapsed/token/cost measurements are
+unavailable. The intended result is accurate integrated metadata and a focused
+compiler-independent render/test checkpoint, with no feature completion or merge.
+
+Linux x86_64 validation: one `python3 rosetta/refresh.py --render` run rendered
+all 1,782 cached tasks. The progression retains 1,576 candidates, 44 stages,
+56 stage-1 assessments, two unlikely assessments, 203 exclusions and one
+design-pending assessment. Only the three driver pages changed; no task moved
+stage. Managed run `20261030T194532-f1646bc0e6be`, with one reserved worker,
+passed all three `test_rosetta.py` tests in 4.815 seconds (7.928 seconds for the
+managed run). Its input inventory, events and log are retained in the managed
+registry. `git diff --check` passed. These are compiler-independent checks;
+native and complete Lean/source assurance remain pending.
+
+The tests and managed input capture read `refresh.py`, `manifest.json` and
+`coverage.json`; they do not read this assessment Markdown. A later status-only
+update here does not change the tested Rosetta inputs.

@@ -1,6 +1,6 @@
 # Square but not cube
 
-**Candidate: proofs likely to discharge automatically.** All products fit the declared small Integer ranges, and the direct Count<30 guard justifies the increment. Cubes include every candidate cube up to 1600; scanning increasing square roots and stopping output after 30 qualifying values gives the required prefix through 1089. Independent expected output uses square/cube set difference. The delivery mapping is staged contingent on the complete #291 assurance, native validation and independent review checkpoint; this static reconciliation supplies no such evidence.
+**Candidate: proofs likely to discharge automatically.** All products fit the declared small Integer ranges, and the direct Count<30 guard justifies the increment. Cubes include every candidate cube up to 1600; scanning increasing square roots and stopping output after 30 qualifying values gives the required prefix through 1089. Independent expected output uses square/cube set difference. Scope and validation status are recorded in docs/boolean-objects.md and the linked assessment record.
 
 Position 43 in the [progression](../../progression.md#stage-1), in stage 1.
 

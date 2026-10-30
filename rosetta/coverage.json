@@ -12486,7 +12486,7 @@
    "risks": [],
    "size": 35,
    "approach": "The driver samples/rosetta_common_list_elements.adb embeds exactly the task lists (2,5,1,3,8,9,4,6), (3,5,6,2,9,8,4) and (1,3,7,6,9) as constant arrays with component subtype 1..9. For each first-list element, nested foreach loops compute two Boolean membership flags. Their eager conjunction selects common elements. A separate Printed flag controls commas while Put streams a bracketed list in first-list order: 3,9,6, the same set as the task example 3,6,9.",
-   "summary": "Direct streaming needs no result buffer, dynamic String building or user procedure. Constant-array iteration supplies bounded component values, and all tests and output use the existing finite bodies. Independent expected output uses set intersection and first-list ordering. A no-match regression exercises both false flags and empty output. The delivery mapping is staged contingent on the complete #291 assurance, native validation and independent review checkpoint; this static reconciliation supplies no such evidence.",
+   "summary": "Direct streaming needs no result buffer, dynamic String building or user procedure. Constant-array iteration supplies bounded component values, and all tests and output use the existing finite bodies. Independent expected output uses set intersection and first-list ordering. A no-match regression exercises both false flags and empty output. Scope and validation status are recorded in docs/boolean-objects.md and the linked assessment record.",
    "confidence": "high",
    "review": {
     "date": "2026-10-30",
@@ -12494,7 +12494,7 @@
     "model": "gpt-6.1-sol",
     "effort": "high",
     "setting_evidence": "Selected setting through bounded subthread controls; runtime model and effort not independently exposed",
-    "method": "Static delivery-metadata reconciliation and Rosetta rendering; prior prepared-review provenance retained in the linked record; no native or Lean runner; integration contingent on complete #291 evidence"
+    "method": "Current source/task/scope reconciliation at tree 59cfd9c3dc, implementation/proof input b6aeb9f978; prior prepared-review and contingent-render provenance retained in the linked record; universal and native assurance tracked separately in docs/boolean-objects.md"
    }
   },
   "Common sorted list": {
@@ -61047,7 +61047,7 @@
    "risks": [],
    "size": 17,
    "approach": "The driver samples/rosetta_sequence_of_primes_by_trial_division.adb scans Candidate in 2..100. It resets a Boolean Prime flag, tries every Divisor in 2..(Candidate - 1), clears the flag when Candidate mod Divisor = 0 and prints each surviving candidate with Integer Image. The inner loop is empty for 2. It uses the task-permitted finite bound and actual trial division.",
-   "summary": "The source uses finite Integer loops and a Boolean flag; divisor bounds exclude zero, including the empty first inner loop. The expected 25 primes through 100 are derived independently by marking composite multiples. The delivery mapping is staged contingent on the complete #291 assurance, native validation and independent review checkpoint; this static reconciliation supplies no such evidence.",
+   "summary": "The source uses finite Integer loops and a Boolean flag; divisor bounds exclude zero, including the empty first inner loop. The expected 25 primes through 100 are derived independently by marking composite multiples. Scope and validation status are recorded in docs/boolean-objects.md and the linked assessment record.",
    "confidence": "high",
    "review": {
     "date": "2026-10-30",
@@ -61055,7 +61055,7 @@
     "model": "gpt-6.1-sol",
     "effort": "high",
     "setting_evidence": "Selected setting through bounded subthread controls; runtime model and effort not independently exposed",
-    "method": "Static delivery-metadata reconciliation and Rosetta rendering; prior prepared-review provenance retained in the linked record; no native or Lean runner; integration contingent on complete #291 evidence"
+    "method": "Current source/task/scope reconciliation at tree 59cfd9c3dc, implementation/proof input b6aeb9f978; prior prepared-review and contingent-render provenance retained in the linked record; universal and native assurance tracked separately in docs/boolean-objects.md"
    }
   },
   "Sequence of primorial primes": {
@@ -67059,7 +67059,7 @@
    ],
    "size": 22,
    "approach": "The driver samples/rosetta_square_but_not_cube.adb computes Root*Root for Root in 1..40. It scans Trial in 1..13 and sets a Boolean Cube flag if Trial*Trial*Trial equals the square. When not Cube and then Count<30 it increments the bounded counter and streams the square with Put and Integer Image. A final empty Put_Line ends the line. It prints exactly the required first 30 values; the optional common squares and cubes are omitted.",
-   "summary": "All products fit the declared small Integer ranges, and the direct Count<30 guard justifies the increment. Cubes include every candidate cube up to 1600; scanning increasing square roots and stopping output after 30 qualifying values gives the required prefix through 1089. Independent expected output uses square/cube set difference. The delivery mapping is staged contingent on the complete #291 assurance, native validation and independent review checkpoint; this static reconciliation supplies no such evidence.",
+   "summary": "All products fit the declared small Integer ranges, and the direct Count<30 guard justifies the increment. Cubes include every candidate cube up to 1600; scanning increasing square roots and stopping output after 30 qualifying values gives the required prefix through 1089. Independent expected output uses square/cube set difference. Scope and validation status are recorded in docs/boolean-objects.md and the linked assessment record.",
    "confidence": "high",
    "review": {
     "date": "2026-10-30",
@@ -67067,7 +67067,7 @@
     "model": "gpt-6.1-sol",
     "effort": "high",
     "setting_evidence": "Selected setting through bounded subthread controls; runtime model and effort not independently exposed",
-    "method": "Static delivery-metadata reconciliation and Rosetta rendering; prior prepared-review provenance retained in the linked record; no native or Lean runner; integration contingent on complete #291 evidence"
+    "method": "Current source/task/scope reconciliation at tree 59cfd9c3dc, implementation/proof input b6aeb9f978; prior prepared-review and contingent-render provenance retained in the linked record; universal and native assurance tracked separately in docs/boolean-objects.md"
    }
   },
   "Square form factorization": {
