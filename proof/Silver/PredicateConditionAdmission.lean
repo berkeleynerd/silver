@@ -70,7 +70,8 @@ theorem ParseContext.flow_join (context : ParseContext) (left right : ActiveFlow
     context.flow (left.join right) initials = (context.flow left initials).join (context.flow right initials) := by
   have scalars := congrArg Flow.scalars (ActiveFlow.join_model left right)
   simp only [Flow.join] at scalars
-  simp only [ParseContext.flow, Flow.join, ActiveFlow.join_path]
+  have path : (left.join right).path = left.path.join right.path := rfl
+  simp only [ParseContext.flow, Flow.join, path]
   congr 1
   rw [scalars]
   funext cell
@@ -106,7 +107,7 @@ theorem ParseContext.flow_refine (context : ParseContext) (facts : ActiveFlow)
 def readScalarInFlow (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
     (maskFirst maskAfter : Nat := 0) (initials : ArrayBindings.Initials := []) : ScalarExpression.Result :=
   ScalarExpression.read text position (context.readingNames facts) maskFirst maskAfter
-    context.arrayNames initials context.elaborating
+    (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating)
 
 def readStringInFlow (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
     (initials : ArrayBindings.Initials := []) : ExpressionResult :=
