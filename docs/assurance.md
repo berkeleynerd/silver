@@ -66,9 +66,12 @@ runtime imports, ABI and environmental assumptions used throughout.
 
 ## Named Integer subtypes and bounded components
 
-The [capability record](named-integer-subtypes.md) tracks this extension's
-implementation and required complete checkpoint; final source validation is
-still pending. Named subtypes carry nonempty static Integer bounds in a separate
+The [delivery record](named-integer-subtypes.md#delivery-assurance-and-validation)
+identifies this extension's implementation/review target, complete Linux native
+and Lean/source audits, retained regressions with the repaired-source refresh,
+and scoped independent reviews. The feature is implemented and validated in
+[PR #289](https://github.com/berkeleynerd/silver/pull/289), awaiting the owner's
+merge instruction. Named subtypes carry nonempty static Integer bounds in a separate
 metadata environment. They allocate no runtime value cells and preserve Integer's
 operations and meaning. `IntegerSubtypeBindings` models ordered lookup and the
 operation-hiding flags; `ComposeSubtypeDeclarations` connects subtype and type-mark

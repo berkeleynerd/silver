@@ -156,11 +156,13 @@ iterators remain excluded. The
 [Loops/Foreach sample](samples/rosetta_loops_foreach.adb) exercises ordered output.
 Source, expression and operator limits are unchanged.
 
-The [named Integer subtype increment](docs/named-integer-subtypes.md), currently
-under validation, adds static `subtype S is Integer range L .. H;` declarations
-for scalar objects and fixed-array components. Bounded components retain their
-ranges in indexed reads and constant-array iteration, enabling the
-[Sum of squares](samples/rosetta_sum_of_squares.adb) and
+The [named Integer subtype increment](docs/named-integer-subtypes.md#delivery-assurance-and-validation)
+is implemented and validated on Linux in [PR #289](https://github.com/berkeleynerd/silver/pull/289),
+awaiting the owner's merge instruction. It adds static
+`subtype S is Integer range L .. H;` declarations for initialized scalar objects
+and fixed-array components, with optional narrower static scalar object ranges.
+Bounded components retain their ranges in indexed reads and constant-array
+iteration, enabling the [Sum of squares](samples/rosetta_sum_of_squares.adb) and
 [Sum and product](samples/rosetta_sum_and_product.adb) examples. Subtype aliases,
 conversions, derived types and general arrays remain outside this fragment.
 

@@ -16,34 +16,38 @@ next capability while retaining full assurance for the current language.
 
 ### Named Integer subtypes and bounded array components
 
-**Authorized, 2026-10-29; proposed support, not yet admitted.**
+**Implemented and validated on Linux, 2026-10-30
+([PR #289](https://github.com/berkeleynerd/silver/pull/289)); awaiting the owner's merge instruction.**
 
-The owner selected the next coherent feature, driven by Rosetta Sum of squares:
-[Milestone 13](https://github.com/berkeleynerd/silver/milestone/13), one work
-package [#286](https://github.com/berkeleynerd/silver/issues/286). The
-[authorization](docs/session-memory.md#2026-10-29--named-integer-subtypes-and-bounded-array-components-authorized)
+[Milestone 13](https://github.com/berkeleynerd/silver/milestone/13) delivers one
+coherent work package, [#286](https://github.com/berkeleynerd/silver/issues/286),
+driven by Rosetta Sum of squares. The
+[2026-10-29 authorization](docs/session-memory.md#2026-10-29--named-integer-subtypes-and-bounded-array-components-authorized)
 covers implementation, complete assurance, regressions, independent review and
-feature PR publication. The [capability proposal](docs/named-integer-subtypes.md)
-records the scope and design questions.
+feature PR publication. The [delivery record](docs/named-integer-subtypes.md#delivery-assurance-and-validation)
+identifies the implementation/review target, complete Linux native and Lean/source
+audits, retained regression coverage with the repaired-source refresh, and the
+scoped independent reviews. It preserves the earlier failed native and Lean
+runs and the interrupted Lean run as historical outcomes.
 
-Admit named static Integer range subtypes for initialized scalar objects and
-components of existing anonymous fixed arrays. Stored values retain the declared
-bounds; body and constant-array foreach reasoning use those component bounds.
-Work proceeds as one package: settle precise rules and producer obligations,
-implement the native and universal/actual-source assurance together, then
-complete regressions, Rosetta records, full validation, review and PR delivery.
-Exact bound syntax, visibility and compositions remain design work within this
-scope. Existing source/operator/operand budgets remain unchanged. Conversions,
-derived types, functions/procedures, dynamic bounds and general arrays remain
-excluded.
+The increment admits direct named static Integer range subtypes for initialized
+scalar objects and components of existing anonymous fixed arrays. Optional
+static scalar object constraints may narrow the named range. Stored values
+respect their declared bounds; body reads and constant-array foreach elements
+use the declared component interval. Existing source/operator/operand budgets
+remain unchanged. Subtype aliases, conversions, derived types,
+functions/procedures, dynamic bounds and general arrays remain excluded. The
+Static-only Body_Tail equality repair is runtime-erased and source/pin/certificate
+reviewed; it adds no obligation class or Oracle amendment.
 
-This selects only the named Integer subtype fragment within broad ranged-subtype
-stage #11 and bounded component use within broad arrays stage #12. Both broad
-stages remain Open/Backlog; at delivery, split or reconcile their assessed
-identifiers accurately before any supported promotion. No whole broad identifier
-is admitted by this planning record. The previous array merge authorization does
-not authorize merging this feature PR. Deferred capacity and assurance-mode work
-retains its existing triggers.
+Rosetta promotes only the two authorized Sum of squares and Sum and product
+approaches through the narrow `named-integer-subtypes` identifier. The broad
+`ranged-subtypes` and `arrays` identifiers remain unsupported; stage issues
+[#11](https://github.com/berkeleynerd/silver/issues/11) and
+[#12](https://github.com/berkeleynerd/silver/issues/12) remain Open/Backlog at
+rendered stages 2 and 3. Delivery through PR #289 does not place this feature on
+`main` or authorize its merge. Deferred capacity and assurance-mode work retains
+its existing triggers.
 
 ### Fixed-array external review response
 
@@ -138,8 +142,8 @@ historical VM-upgrade pause; interrupted runs remain interrupted.
 review response and scalar-guard frontend repair. The
 [final combined packet](docs/evidence/array-final-validation-20261029/README.md)
 records the completed validation of that configuration. Mutable iteration,
-general iterators, broad arrays #12, procedures/named subtypes in #11,
-capacity/assurance modes and proof-performance follow-ups remain separate.
+general iterators, broad arrays #12 and the remaining procedures/ranged-subtype
+forms in #11, capacity/assurance modes and proof-performance follow-ups remain separate.
 Source, expression and operator limits are unchanged.
 
 ### Fixed-size Integer arrays
@@ -160,8 +164,9 @@ regression results and independent review.
 The fragment admits anonymous one-dimensional constant or mutable Integer
 arrays, nonempty static bounds, mandatory explicit initialization and scalar-only
 checked subscripts for reads and writes. Declaration snapshots retain exact
-values; body reads use full Integer intervals. Indexed writes preserve other
-components, existing String/input facts and captured loop bounds. The source
+values; body reads use declared component intervals (full Integer for
+`of Integer`). Indexed writes preserve other components, existing String/input
+facts and captured loop bounds. The source
 and operator budgets are unchanged.
 
 Rosetta support is limited to `fixed-integer-arrays` and the exact rotation
@@ -551,8 +556,9 @@ reverse countdown. The step example multiplies the index by a constant; it
 adds no stride clause. Colour bars/Display remains future file output, based
 on its faithful image-file assessment. At that milestone, mutable integers,
 custom subtypes, conversions, division and other scalar images were excluded.
-The [bounded mutable extension](#bounded-mutable-integers) above now covers the
-selected initialized-object and assignment forms; the other exclusions remain.
+The later increments above cover selected initialized-object, assignment,
+division and named Integer-subtype forms; the remaining exclusions keep their
+own scope.
 
 The coordinated Rosetta delivery supports only `integer-for-loops`,
 `immutable-integers` and `integer-image`. Their three reviewed drivers are
@@ -782,6 +788,7 @@ sequence.
 | Scalar guard refinement | Supported | Bare mutable/index comparisons against static thresholds, assignment replacement, branch hulls and captured bounds with mutable loop widening; [Linux validation and assurance](docs/scalar-guard-refinement.md#delivery-assurance-and-validation). | [100 doors](samples/rosetta_100_doors.adb) |
 | Fixed-size Integer arrays | Supported | Anonymous one-dimensional Integer arrays with nonempty static bounds, explicit initialization, checked scalar-only subscripts, exact declaration snapshots and component-preserving writes; [delivery assurance and validation](docs/fixed-integer-arrays.md#delivery-assurance-and-validation). Broad arrays remain separate. | [Left rotation by three](samples/rosetta_shift_list_left_3.adb) |
 | Constant Integer-array iteration | Supported | Forward/reverse element iteration over existing constant anonymous fixed-size Integer arrays, immutable scoped elements and existing body compositions; [delivery assurance and validation](docs/constant-array-iteration.md#delivery-assurance-and-validation). Mutable iteration and general iterators remain separate. | [Loops/Foreach](samples/rosetta_loops_foreach.adb) |
+| Named Integer subtypes and bounded components | Supported in PR #289; awaiting owner merge instruction | Direct static Integer range subtypes for initialized scalar objects and existing fixed-array components, optional narrower scalar object ranges, and declared component bounds in body reads and foreach elements; [complete Linux assurance and validation](docs/named-integer-subtypes.md#delivery-assurance-and-validation). Broad ranged subtypes and arrays remain separate. | [Sum of squares](samples/rosetta_sum_of_squares.adb), [Sum and product](samples/rosetta_sum_and_product.adb) |
 
 The output target covers admitted literals and bounded command-line
 messages; the text `Hello, world!` receives no special treatment. String literals do not imply support for

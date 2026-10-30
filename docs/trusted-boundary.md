@@ -197,8 +197,12 @@ body reads and constant-array loop elements; they do not change Integer's
 arithmetic meaning. The [producer account](named-integer-subtypes-report-capacity.md)
 rechecks the static subtype routes and shorter scalar declarations, yielding a
 31,822,336-byte Main envelope in the same 32 MiB allocation. No diagnostic class,
-trusted runtime import or source budget is added. Its complete validation remains
-tracked separately in the capability record.
+trusted runtime import or source budget is added. The
+[complete Linux checkpoint](named-integer-subtypes.md#delivery-assurance-and-validation)
+records native obligation coverage, authoritative-source correspondence and the
+whole-project Lean/module/axiom audit for the implemented feature in
+[PR #289](https://github.com/berkeleynerd/silver/pull/289), awaiting the owner's
+merge instruction. Earlier stack observations retain their exact measured inputs.
 
 ## Scalar guard refinement boundary
 

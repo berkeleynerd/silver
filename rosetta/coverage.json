@@ -69456,7 +69456,7 @@
    "review": {
     "date": "2026-10-29",
     "record": "assessment-named-integer-subtypes-20261029.md",
-    "method": "Targeted task and candidate sample review; original assessment attribution preserved. Validation and independent review remain in the capability record."
+    "method": "Targeted task and sample source review on 2026-10-29; original assessment attribution preserved. Delivery confirmation 2026-10-30: implemented and validated on Linux in PR #289, awaiting owner merge instruction. Complete native/Lean assurance, execution evidence and scoped independent reviews are linked from the capability record; this confirmation is not independent or external review."
    }
   },
   "Sum and product puzzle": {
@@ -69882,7 +69882,7 @@
    "review": {
     "date": "2026-10-29",
     "record": "assessment-named-integer-subtypes-20261029.md",
-    "method": "Targeted task and candidate sample review; original assessment attribution preserved. Validation and independent review remain in the capability record."
+    "method": "Targeted task and sample source review on 2026-10-29; original assessment attribution preserved. Delivery confirmation 2026-10-30: implemented and validated on Linux in PR #289, awaiting owner merge instruction. Complete native/Lean assurance, execution evidence and scoped independent reviews are linked from the capability record; this confirmation is not independent or external review."
    }
   },
   "Sum of the digits of n is substring of n": {

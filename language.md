@@ -20,8 +20,12 @@ bounded array increment and its implementation/validation status.
 The [constant-array iteration record](docs/constant-array-iteration.md#delivery-assurance-and-validation)
 records complete Linux native and Lean/source assurance for forward/reverse
 element iteration over these constant arrays, including existing body compositions.
-The [named Integer-subtype record](docs/named-integer-subtypes.md) describes
-static named scalar ranges and bounded components of these fixed arrays.
+The [named Integer-subtype delivery record](docs/named-integer-subtypes.md#delivery-assurance-and-validation)
+records complete Linux native and Lean/source assurance for static named scalar
+ranges, optional narrower scalar object constraints and bounded components of
+these fixed arrays. The feature is implemented and validated in
+[PR #289](https://github.com/berkeleynerd/silver/pull/289), awaiting the owner's
+merge instruction.
 The [machine-readable
 catalogue](catalogue/silver.json), compiler, and this specification must agree. A
 discrepancy is a defect to resolve, not an extension of the language. Membership
