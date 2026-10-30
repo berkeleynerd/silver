@@ -1785,7 +1785,6 @@
     },
     {
       "source": "rosetta_sequence_of_primes_by_trial_division.adb",
-      "delivery_status": "pending_complete_assurance_and_delivery",
       "capabilities": [
         "main_procedure",
         "spark_mode_on",
@@ -1809,7 +1808,6 @@
     },
     {
       "source": "rosetta_square_but_not_cube.adb",
-      "delivery_status": "pending_complete_assurance_and_delivery",
       "capabilities": [
         "main_procedure",
         "spark_mode_on",
@@ -1835,7 +1833,6 @@
     },
     {
       "source": "rosetta_common_list_elements.adb",
-      "delivery_status": "pending_complete_assurance_and_delivery",
       "capabilities": [
         "main_procedure",
         "spark_mode_on",

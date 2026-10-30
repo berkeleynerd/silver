@@ -97,18 +97,17 @@ Ada name visibility, unchanged budgets and xor restriction. Assessment summaries
 now describe the actual drivers without treating this metadata preparation as
 native evidence. No new metadata schema is introduced.
 
-At this checkpoint the three sample `delivery_status` fields remain
-`pending_complete_assurance_and_delivery` in `samples/manifest.json`. There are
-no matching pending-delivery flags in `catalogue/silver.json` or its native
-producer `src/silver_catalogue.adb` at the named input. The lead owns those files
-and must synchronize actual delivery status before the final source checkpoint;
-this Rosetta patch changes none of them. Prior statements that new catalogue
-entries themselves retained that pending marker were inaccurate.
+The lead integrated this delivery metadata as the final regression candidate
+and removed the three sample pending-status fields. The capability record and
+language introduction still mark complete assurance as pending; this prepared
+render is not a completion claim. No matching pending-delivery flags existed in
+`catalogue/silver.json` or its native producer at the named input. Earlier
+statements that catalogue entries retained that marker were inaccurate.
 
 Static output derivation and rendering establish no native admission,
 compilation, execution or universal assurance claim. The lead retains
 responsibility for complete evidence, independent review, capability status and
-stage-issue bookkeeping before integrating this support promotion.
+stage-issue bookkeeping before declaring this feature complete.
 
 Delivery-round validation on Linux x86_64: `python3 rosetta/refresh.py --render`
 rendered all 1,782 cached tasks. The three Rosetta tests plus the independent
