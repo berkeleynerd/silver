@@ -90,17 +90,48 @@ class BooleanObjectTests(unittest.TestCase):
         declarations = b'A:Boolean:=True;B:Boolean:=False;C:Boolean:=True;'
         for condition in (b'True', b'False', b'not True', b'A=B', b'A/=False',
                           b'(A and B)=C', b'not A=True', b'A=not B',
-                          b'A and B and C', b'A or B or C', b'A xor B xor C',
+                          b'A and B and C', b'A or B or C', b'A xor B',
                           b'A and then B and then C', b'A or else B or else C',
                           b'(A and B) or (C xor False)', b'not (A=B)',
                           b'(A and then B) or else not C'):
             with self.subTest(condition=condition):
                 self.check(program(declarations, b'if ' + condition + b' then null;end if;'))
         for condition in (b'A and B or C', b'A or B xor C', b'A and then B and C',
+                          b'A xor B xor C',
                           b'A=B=C', b'A<False', b'not not A', b'not ()',
                           b'True(1)', b'Boolean', b'A and', b'xor A'):
             with self.subTest(condition=condition):
                 self.check(program(declarations, b'if ' + condition + b' then null;end if;'), 2)
+
+    def test_xor_operand_spans_ignore_strings_comments_and_identifier_parts(self) -> None:
+        declarations = (b'A:Boolean:=True;B:Boolean:=False;C:Boolean:=True;'
+                        b'Xor_Value:Boolean:=False;Myxor:Boolean:=True;Xor1:Boolean:=True;S:String:="xor";')
+        accepted = (
+            b'A XoR B', b'(A xor B) and (C xor False)',
+            b'(A xor B)=(C xor False)', b'Xor_Value xor Myxor', b'A xor Xor1',
+            b'(S="xor") xor A', b'A xor ("XOR"=S)',
+            b'(S="x""xor""y") xor A',
+            b'A xor ("-- xor"=S)',
+            b'(A -- xor in a comment\n) xor B',
+            b'A xor (-- XoR in a comment\n B)',
+            b'(A -- " xor\n) xor (B -- xor "\n)',
+        )
+        rejected = (
+            b'A xor B xor C', b'A xor (B xor C)', b'(A xor B) xor C',
+            b'A xor (B XoR C)', b'A xor (B and (A xor C))',
+            b'((A xor B)=C) xor A', b'A xor ((B xor C)=A)',
+            b'A xor (B -- ignored xor\n xor C)',
+        )
+        for condition in accepted + rejected:
+            status = 0 if condition in accepted else 2
+            with self.subTest(condition=condition):
+                self.check(program(declarations + b'Flag:Boolean:=' + condition + b';',
+                                   b'if Flag then null;end if;'), status)
+                self.check(program(declarations, b'A:=' + condition + b';'), status)
+                self.check(program(declarations, b'if ' + condition + b' then null;end if;'), status)
+        # The span starts at each new expression, so an earlier xor cannot leak in.
+        self.check(program(declarations + b'First:Boolean:=A xor B;Second:Boolean:=B xor C;',
+                           b'A:=First xor Second;B:=A xor C;if B xor C then null;end if;'))
 
     def test_eager_rhs_requires_its_own_incoming_safety(self) -> None:
         declarations = b'D:Integer range 0..1:=0;Flag:Boolean:=False;'
