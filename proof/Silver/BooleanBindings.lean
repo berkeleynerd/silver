@@ -36,6 +36,9 @@ def analysis (names : Environment) : Boolean.Analysis :=
   { initialized := fun index => decide (0 < index ∧ index ≤ names.length)
     mutable := fun index => decide (0 < index ∧ index ≤ names.length) && (binding names index).mutable }
 
+def hidesInteger (text : Source) (names : Environment) : Bool :=
+  names.any fun item => Named.nameIs text item.first item.after ("integer".toList.map Char.toNat)
+
 def ValidEnvironment (text : Source) (names : Environment) : Prop :=
   names.length ≤ maxBindings ∧ ∀ item ∈ names,
     0 < item.first ∧ item.first < item.after ∧ item.after ≤ text.length + 1

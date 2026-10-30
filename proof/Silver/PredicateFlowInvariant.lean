@@ -29,12 +29,31 @@ structure BaseReady (names : Environment) (declarations : Nat) : Prop where
     (binding names index).mutable = true → (binding names index).bounds.isEmpty = false
   size : names.length ≤ ArrayBindings.scalarLimit
 
+/-- Scalar clauses of native Valid_Context in both initializer and body mode.
+The fixed native table capacity is part of the type interpretation. -/
+structure ContextReady (names : Environment) (declarations : Nat) (elaborating : Bool) : Prop where
+  body : elaborating = false → BodyReady names
+  count : declarations ≤ names.length
+  declarationsNonempty : DeclarationsNonempty names declarations
+  mutableBounds : ValidMutableBounds names
+  size : names.length ≤ ArrayBindings.scalarLimit
+
+theorem ContextReady.toBaseReady {names declarations}
+    (ready : ContextReady names declarations false) : BaseReady names declarations :=
+  ⟨ready.body rfl, ready.count, ready.declarationsNonempty,
+    fun index positive bounded mutable => (ready.mutableBounds index positive bounded mutable).1,
+    ready.size⟩
+
 theorem BaseReady.mutable_bounds {names : Environment} {declarations : Nat}
     (ready : BaseReady names declarations) : ValidMutableBounds names := by
   intro index positive bounded mutable
   refine ⟨ready.mutableNonempty index positive bounded mutable, ?_⟩
   rw [bodyReady_binding ready.body positive bounded mutable]
   exact ⟨Int.le_refl _, Int.le_refl _⟩
+
+theorem BaseReady.toContextReady {names declarations}
+    (ready : BaseReady names declarations) : ContextReady names declarations false :=
+  ⟨fun _ => ready.body, ready.count, ready.declarationsNonempty, ready.mutable_bounds, ready.size⟩
 
 /-- Native Valid_Context supplies all four clauses. Conversely, body metadata
 uses equal mutable Bounds/Declared_Bounds, so their containment inequalities

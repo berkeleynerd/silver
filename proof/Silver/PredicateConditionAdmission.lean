@@ -23,13 +23,20 @@ structure ParseContext where
   declarationCount : Nat := 0
   arrayNames : ArrayBindings.Metadata := []
   subtypeHiding : IntegerSubtypes.CallHiding := {}
+  booleanNames : BooleanBindings.Environment := []
+  trueHidden : Bool := false
+  falseHidden : Bool := false
+  elaborating : Bool := false
+  maskFirst : Nat := 0
+  maskAfter : Nat := 0
   deriving Repr
 
 def ParseContext.analysis (context : ParseContext) : Integer.Analysis :=
   ArrayFlow.analysis context.arrayNames (ScalarMetadata.analysis context.scalarNames context.declarationCount)
 
-def ParseContext.flow (context : ParseContext) (facts : ActiveFlow) : Flow :=
-  ArrayFlow.flow context.arrayNames facts
+def ParseContext.flow (context : ParseContext) (facts : ActiveFlow)
+    (initials : ArrayBindings.Initials := []) : Flow :=
+  ⟨facts.path, ArrayBindings.ranges context.arrayNames initials context.elaborating facts.model.scalars⟩
 
 def ParseContext.readingNames (context : ParseContext) (facts : ActiveFlow) : ScalarExpression.Environment :=
   ScalarMetadata.readingNames context.scalarNames context.declarationCount facts
@@ -39,41 +46,75 @@ def ParseContext.ArraysReady (context : ParseContext) (text : Source) : Prop :=
     context.arrayNames.Pairwise (fun left right => left.offset + left.length ≤ right.offset)
 
 theorem ParseContext.reading_ranges {context : ParseContext} {facts : ActiveFlow}
-    (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount facts) :
-    ArrayBindings.ranges context.arrayNames [] false (ScalarExpression.ranges (context.readingNames facts)) =
-      (context.flow facts).scalars := by
+    (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount facts)
+    (initials : ArrayBindings.Initials := []) :
+    ArrayBindings.ranges context.arrayNames initials context.elaborating
+        (ScalarExpression.ranges (context.readingNames facts)) =
+      (context.flow facts initials).scalars := by
   unfold ParseContext.readingNames
   rw [ScalarMetadata.readingNames_ranges compatible]
   rfl
 
-@[simp] theorem ParseContext.flow_path (context : ParseContext) (facts : ActiveFlow) :
-    (context.flow facts).path = facts.path := rfl
+@[simp] theorem ParseContext.flow_path (context : ParseContext) (facts : ActiveFlow)
+    (initials : ArrayBindings.Initials := []) :
+    (context.flow facts initials).path = facts.path := rfl
 
 theorem ParseContext.flow_scalar (context : ParseContext) (facts : ActiveFlow)
-    {index : Nat} (low : index ≤ ArrayBindings.scalarLimit) :
-    (context.flow facts).scalars index = facts.model.scalars index :=
-  ArrayFlow.ranges_scalar context.arrayNames facts.model.scalars low
+    {index : Nat} (low : index ≤ ArrayBindings.scalarLimit)
+    (initials : ArrayBindings.Initials := []) :
+    (context.flow facts initials).scalars index = facts.model.scalars index :=
+  ArrayBindings.ranges_scalar context.arrayNames initials context.elaborating facts.model.scalars low
 
-theorem ParseContext.flow_join (context : ParseContext) (left right : ActiveFlow) :
-    context.flow (left.join right) = (context.flow left).join (context.flow right) :=
-  ArrayFlow.flow_join context.arrayNames left right
+theorem ParseContext.flow_join (context : ParseContext) (left right : ActiveFlow)
+    (initials : ArrayBindings.Initials := []) :
+    context.flow (left.join right) initials = (context.flow left initials).join (context.flow right initials) := by
+  have scalars := congrArg Flow.scalars (ActiveFlow.join_model left right)
+  simp only [Flow.join] at scalars
+  simp only [ParseContext.flow, Flow.join, ActiveFlow.join_path]
+  congr 1
+  rw [scalars]
+  funext cell
+  unfold ArrayBindings.ranges Integer.Ranges.join
+  cases covered : ArrayBindings.covers context.arrayNames cell with
+  | true =>
+    simp only [covered, ↓reduceIte]
+    cases context.elaborating
+    · exact congrArg some (ArrayBindings.componentRange_join_self context.arrayNames cell).symm
+    · simp [Integer.Interval.join, Integer.Interval.singleton, Integer.Interval.isEmpty]
+  | false => simp only [covered, Bool.false_eq_true, ↓reduceIte]
 
 theorem ParseContext.flow_refine (context : ParseContext) (facts : ActiveFlow)
     (index : Nat) (operator : Integer.Comparison) (threshold : Int) (truth : Bool)
-    (low : index ≤ ArrayBindings.scalarLimit) :
-    context.flow (facts.refine index operator threshold truth) =
-      ⟨facts.path, (context.flow facts).scalars.refineName index operator threshold truth⟩ :=
-  ArrayFlow.flow_refine context.arrayNames facts index operator threshold truth low
+    (low : index ≤ ArrayBindings.scalarLimit) (initials : ArrayBindings.Initials := []) :
+    context.flow (facts.refine index operator threshold truth) initials =
+      ⟨facts.path, (context.flow facts initials).scalars.refineName index operator threshold truth⟩ := by
+  have scalars := congrArg Flow.scalars (ActiveFlow.refine_model facts index operator threshold truth)
+  simp only at scalars
+  simp only [ParseContext.flow, ActiveFlow.refine_path]
+  congr 1
+  rw [scalars]
+  unfold Integer.Ranges.refineName
+  rw [ArrayBindings.ranges_scalar context.arrayNames initials context.elaborating facts.model.scalars low]
+  cases facts.model.scalars index with
+  | none => rfl
+  | some bounds => exact ArrayBindings.ranges_put context.arrayNames initials context.elaborating _ low _
 
 @[simp] theorem ParseContext.flow_withPath (context : ParseContext) (facts : ActiveFlow)
-    (path : Context) : context.flow {facts with path} = {context.flow facts with path} := rfl
+    (path : Context) (initials : ArrayBindings.Initials := []) :
+    context.flow {facts with path} initials = {context.flow facts initials with path} := rfl
 
 def readScalarInFlow (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
-    (maskFirst maskAfter : Nat := 0) : ScalarExpression.Result :=
-  ScalarExpression.read text position (context.readingNames facts) maskFirst maskAfter (arrays := context.arrayNames)
+    (maskFirst maskAfter : Nat := 0) (initials : ArrayBindings.Initials := []) : ScalarExpression.Result :=
+  ScalarExpression.read text position (context.readingNames facts) maskFirst maskAfter
+    context.arrayNames initials context.elaborating
 
-def readStringInFlow (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow) :
-    ExpressionResult := expressionAt text position context.names (context.readingNames facts) (arrays := context.arrayNames)
+def readStringInFlow (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
+    (initials : ArrayBindings.Initials := []) : ExpressionResult :=
+  expressionAt text position context.names (context.readingNames facts)
+    (BooleanBindings.hidesInteger text context.booleanNames ||
+      (decide (context.maskFirst ≠ 0) &&
+        Named.nameIs text context.maskFirst context.maskAfter ("integer".toList.map Char.toNat)))
+    context.arrayNames initials context.elaborating
 
 def Comparison.toInteger : Comparison → Integer.Comparison
   | .eq => .eq | .ne => .ne | .lt => .lt | .le => .le | .gt => .gt | .ge => .ge
@@ -144,50 +185,106 @@ def summaryOf (value : ExpressionResult) : LengthSummary := value.lengthSummary
 
 def remainingAt (text : Source) (position : Nat) : Nat := text.length + 1 - position
 
-/-- `some true` records an `and then` chain, `some false` an `or else`
-chain; `none` permits the first operator to select the chain kind. -/
-def chainOperator (text : Source) (position : Nat) : Option Bool :=
-  if fixedAfter text position "and" true ≠ 0 then some true
-  else if fixedAfter text position "or" true ≠ 0 then some false
+/-- The five Ada logical chains; mixing unparenthesized categories is rejected. -/
+inductive ChainKind
+  | shortAnd | shortOr | eagerAnd | eagerOr | eagerXor
+  deriving DecidableEq, Repr
+
+def chainOperator (text : Source) (position : Nat) : Option ChainKind :=
+  if fixedAfter text position "and" true ≠ 0 then
+    if fixedAfter text (fixedAfter text position "and" true) "then" true ≠ 0
+    then some .shortAnd else some .eagerAnd
+  else if fixedAfter text position "or" true ≠ 0 then
+    if fixedAfter text (fixedAfter text position "or" true) "else" true ≠ 0
+    then some .shortOr else some .eagerOr
+  else if fixedAfter text position "xor" true ≠ 0 then some .eagerXor
   else none
 
-def chainAfter (text : Source) (position : Nat) (andThen : Bool) : Nat :=
-  fixedAfter text (fixedAfter text position (if andThen then "and" else "or") true)
-    (if andThen then "then" else "else") true
+def chainAfter (text : Source) (position : Nat) : ChainKind → Nat
+  | .shortAnd => fixedAfter text (fixedAfter text position "and" true) "then" true
+  | .shortOr => fixedAfter text (fixedAfter text position "or" true) "else" true
+  | .eagerAnd => fixedAfter text position "and" true
+  | .eagerOr => fixedAfter text position "or" true
+  | .eagerXor => fixedAfter text position "xor" true
 
-def chainContext (result : ConditionResult) (andThen : Bool) : ActiveFlow :=
-  if andThen then result.whenTrue else result.whenFalse
+def chainContext (result : ConditionResult) (operator : ChainKind) (incoming : ActiveFlow) : ActiveFlow :=
+  match operator with
+  | .shortAnd => result.whenTrue
+  | .shortOr => result.whenFalse
+  | _ => incoming
 
-def chainJoin (left right : ConditionResult) (andThen : Bool) : ConditionResult :=
-  if andThen then ⟨right.after, right.whenTrue, left.whenFalse.join right.whenFalse⟩
-  else ⟨right.after, left.whenTrue.join right.whenTrue, right.whenFalse⟩
+def chainJoin (left right : ConditionResult) (operator : ChainKind) (incoming : ActiveFlow) : ConditionResult :=
+  match operator with
+  | .shortAnd => ⟨right.after, right.whenTrue, left.whenFalse.join right.whenFalse⟩
+  | .shortOr => ⟨right.after, left.whenTrue.join right.whenTrue, right.whenFalse⟩
+  | _ => ⟨right.after, incoming, incoming⟩
+
+def booleanAtomAfter (text : Source) (context : ParseContext) (position : Nat) : Nat :=
+  let first := skipAt text position
+  let after := nameAfter text first
+  if first = 0 ∨ after ≤ first ∨
+      (context.maskFirst ≠ 0 ∧ Named.equalName text context.maskFirst context.maskAfter first after) ∨
+      ScalarExpression.lookup text context.scalarNames first after ≠ 0 ∨
+      lookupName text context.names first after ≠ 0 ∨
+      ArrayBindings.lookup text context.arrayNames first after ≠ 0 then 0
+  else if BooleanBindings.lookup text context.booleanNames first after ≠ 0 then after
+  else if (Named.nameIs text first after ("true".toList.map Char.toNat) && !context.trueHidden) ||
+      (Named.nameIs text first after ("false".toList.map Char.toNat) && !context.falseHidden)
+    then after else 0
 
 mutual
-  def readPrimary (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow) : ConditionResult :=
+  def readPrimary (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
+      (initials : ArrayBindings.Initials := []) : ConditionResult :=
     if position = 0 then invalidCondition facts else
     let after := fixedAfter text position "(" false
     if after ≠ 0 then
       if _advanced : remainingAt text after < remainingAt text position then
-        let result := readCondition text context after facts
+        let result := readCondition text context after facts initials
         let close := fixedAfter text result.after ")" false
         if close = 0 then invalidCondition facts else {result with after := close}
       else invalidCondition facts
+    else if booleanAtomAfter text context position ≠ 0 then
+      ⟨booleanAtomAfter text context position, facts, facts⟩
     else if !context.hasArguments then invalidCondition facts
     else
-      let afterCall := callAfter text context.names position .validity context.scalarNames context.arrayNames (context.subtypeHiding.get .validity)
+      let afterCall := callAfter text context.names position .validity context.scalarNames context.arrayNames
+        (context.subtypeHiding.get .validity || (decide (context.maskFirst ≠ 0) &&
+          Named.nameIs text context.maskFirst context.maskAfter ("input_is_valid".toList.map Char.toNat))) context.booleanNames
       if afterCall = 0 then invalidCondition facts else
         ⟨afterCall, {facts with path := facts.path.assumeValid}, {facts with path := facts.path.assumeInvalid}⟩
-  termination_by remainingAt text position * 5 + 1
+  termination_by remainingAt text position * 7 + 1
   decreasing_by all_goals simp_wf; all_goals try dsimp (config := {zetaDelta := true}) only at *; all_goals omega
 
-  def readRelation (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow) : ConditionResult :=
+  def readBooleanFactor (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
+      (initials : ArrayBindings.Initials := []) : ConditionResult :=
+    let after := fixedAfter text position "not" true
+    if after = 0 then readPrimary text context position facts initials
+    else if _advanced : remainingAt text after < remainingAt text position then
+      let result := readPrimary text context after facts initials
+      ⟨result.after, result.whenFalse, result.whenTrue⟩
+    else invalidCondition facts
+  termination_by remainingAt text position * 7 + 2
+  decreasing_by all_goals simp_wf; all_goals try dsimp (config := {zetaDelta := true}) only at *; all_goals omega
+
+  def readBooleanRelation (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
+      (initials : ArrayBindings.Initials := []) : ConditionResult :=
+    let left := readBooleanFactor text context position facts initials
+    let operator := comparisonAt text left.after
+    if left.after = 0 then invalidCondition facts
+    else if operator.after = 0 then left
+    else if operator.operator ≠ .eq ∧ operator.operator ≠ .ne then invalidCondition facts
+    else if _advanced : remainingAt text operator.after < remainingAt text position then
+      let right := readBooleanFactor text context operator.after facts initials
+      if right.after = 0 then invalidCondition facts else ⟨right.after, facts, facts⟩
+    else invalidCondition facts
+  termination_by remainingAt text position * 7 + 3
+  decreasing_by all_goals simp_wf; all_goals try dsimp (config := {zetaDelta := true}) only at *; all_goals omega
+
+  def readRelation (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
+      (initials : ArrayBindings.Initials := []) : ConditionResult :=
     if position = 0 then invalidCondition facts else
     let after := fixedAfter text position "not" true
-    if after ≠ 0 then
-      if _advanced : remainingAt text after < remainingAt text position then
-        let result := readPrimary text context after facts
-        ⟨result.after, result.whenFalse, result.whenTrue⟩
-      else invalidCondition facts
+    if after ≠ 0 then readBooleanRelation text context position facts initials
     else
       let leftLength := lengthAt text context position false
       if leftLength.after ≠ 0 then
@@ -198,31 +295,32 @@ mutual
           refineFlowBounds facts operator.operator leftLength.value rightLength.value true,
           refineFlowBounds facts operator.operator leftLength.value rightLength.value false⟩
       else
-        let leftScalar := ScalarExpression.read text position (context.readingNames facts) (arrays := context.arrayNames)
+        let leftScalar := readScalarInFlow text context position facts (initials := initials)
         if leftScalar.after ≠ 0 then
           let operator := comparisonAt text leftScalar.after
-          let rightScalar := ScalarExpression.read text operator.after (context.readingNames facts) (arrays := context.arrayNames)
+          let rightScalar := readScalarInFlow text context operator.after facts (initials := initials)
           if rightScalar.after ≤ position then invalidCondition facts
           else scalarCondition text context position operator.after facts leftScalar rightScalar operator.operator
         else
-        let left := expressionAt text position context.names (context.readingNames facts) (arrays := context.arrayNames)
+        let left := readStringInFlow text context position facts initials
         if left.after ≠ 0 then
           let operator := comparisonAt text left.after
           if operator.after = 0 ∨ (operator.operator ≠ .eq ∧ operator.operator ≠ .ne) then invalidCondition facts
           else
-            let right := expressionAt text operator.after context.names (context.readingNames facts) (arrays := context.arrayNames)
+            let right := readStringInFlow text context operator.after facts initials
             if right.after ≤ position ∨ !(left.namedSeen || right.namedSeen) ∨
                 !fitsLengthSummary facts.path (summaryOf left) ∨ !fitsLengthSummary facts.path (summaryOf right) then invalidCondition facts
             else
               let equalFacts := {facts with path := refineLengthOverlap facts.path (summaryOf left) (summaryOf right)}
               ⟨right.after, if operator.operator == .eq then equalFacts else facts,
                 if operator.operator == .eq then facts else equalFacts⟩
-        else readPrimary text context position facts
-  termination_by remainingAt text position * 5 + 2
+        else readBooleanRelation text context position facts initials
+  termination_by remainingAt text position * 7 + 4
   decreasing_by all_goals simp_wf; all_goals try dsimp (config := {zetaDelta := true}) only at *; all_goals omega
 
   def conditionTail (text : Source) (context : ParseContext) (result : ConditionResult)
-      (chained : Option Bool) : ConditionResult :=
+      (chained : Option ChainKind) (incoming : ActiveFlow)
+      (initials : ArrayBindings.Initials := []) : ConditionResult :=
     if result.after = 0 then invalidCondition result.whenTrue else
     match chainOperator text result.after with
     | none => result
@@ -231,24 +329,25 @@ mutual
         let after := chainAfter text result.after operator
         if after = 0 then invalidCondition result.whenTrue else
         if _advanced : remainingAt text after < remainingAt text result.after then
-          let right := readRelation text context after (chainContext result operator)
+          let right := readRelation text context after (chainContext result operator incoming) initials
           if right.after = 0 then invalidCondition result.whenTrue else
-          let next := chainJoin result right operator
+          let next := chainJoin result right operator incoming
           if _rightAdvanced : remainingAt text next.after < remainingAt text result.after then
-            conditionTail text context next (some operator)
+            conditionTail text context next (some operator) incoming initials
           else invalidCondition result.whenTrue
         else invalidCondition result.whenTrue
-  termination_by remainingAt text result.after * 5 + 4
+  termination_by remainingAt text result.after * 7 + 6
   decreasing_by all_goals simp_wf; all_goals try dsimp (config := {zetaDelta := true}) only at *; all_goals omega
 
-  def readCondition (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow) : ConditionResult :=
-    let result := readRelation text context position facts
+  def readCondition (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
+      (initials : ArrayBindings.Initials := []) : ConditionResult :=
+    let result := readRelation text context position facts initials
     if result.after = 0 then invalidCondition facts else
     if _advanced : remainingAt text result.after < remainingAt text position then
-      let final := conditionTail text context result none
+      let final := conditionTail text context result none facts initials
       if final.after = 0 then invalidCondition facts else final
     else invalidCondition facts
-  termination_by remainingAt text position * 5 + 3
+  termination_by remainingAt text position * 7 + 5
   decreasing_by all_goals simp_wf; all_goals try dsimp (config := {zetaDelta := true}) only at *; all_goals omega
 end
 
