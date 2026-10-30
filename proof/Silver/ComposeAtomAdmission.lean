@@ -6,6 +6,7 @@ public import Silver.ScalarExpressionAdmission
 public import Silver.StringLengths
 public import Silver.ArrayBindings
 public import Silver.IntegerSubtypeBindings
+public import Silver.BooleanBindings
 public import Silver.ScalarExpressionEnvironment
 
 @[expose] public section
@@ -66,6 +67,7 @@ structure ParserState where
   scalarNames : ScalarExpression.Environment := []
   arrayNames : ArrayBindings.Env := {}
   subtypeNames : IntegerSubtypes.Environment := {}
+  booleanNames : BooleanBindings.Environment := []
   deriving DecidableEq, Repr
 
 def initialState : ParserState := {}

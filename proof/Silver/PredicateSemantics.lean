@@ -24,40 +24,56 @@ def LengthOperand.evaluate (values : Values) : LengthOperand → Nat
   | .binding index => (values index).length
 
 def Condition.evaluate (values : Values) (input : Source) (inputValid : Bool)
-    (integers : Integer.Store := Integer.emptyStore) : Condition → Bool
+    (integers : Integer.Store := Integer.emptyStore)
+    (booleans : Boolean.Store := Boolean.emptyStore) : Condition → Bool
   | .stringCompare unequal left right =>
       if unequal then decide (left.evaluate values input integers ≠ right.evaluate values input integers)
       else decide (left.evaluate values input integers = right.evaluate values input integers)
   | .lengthCompare operator left right => operator.evaluate (values left).length (right.evaluate values)
   | .scalarCompare operator left right => operator.evaluate (left.evaluate integers) (right.evaluate integers)
   | .inputValid => inputValid
-  | .parenthesized inner => inner.evaluate values input inputValid integers
-  | .negated inner => !(inner.evaluate values input inputValid integers)
+  | .booleanLiteral value => value
+  | .booleanName index => booleans index
+  | .parenthesized inner => inner.evaluate values input inputValid integers booleans
+  | .negated inner => !(inner.evaluate values input inputValid integers booleans)
   | .andThen left right =>
-      if left.evaluate values input inputValid integers then right.evaluate values input inputValid integers else false
+      if left.evaluate values input inputValid integers booleans then right.evaluate values input inputValid integers booleans else false
   | .orElse left right =>
-      if left.evaluate values input inputValid integers then true else right.evaluate values input inputValid integers
+      if left.evaluate values input inputValid integers booleans then true else right.evaluate values input inputValid integers booleans
+
+  | .eager operator left right =>
+      operator.evaluate (left.evaluate values input inputValid integers booleans)
+        (right.evaluate values input inputValid integers booleans)
+  | .booleanCompare unequal left right =>
+      if unequal then left.evaluate values input inputValid integers booleans != right.evaluate values input inputValid integers booleans
+      else left.evaluate values input inputValid integers booleans == right.evaluate values input inputValid integers booleans
 
 /-- Bounds are required precisely on paths which evaluate an operand. Name and
 grammar checking remain separate unconditional admission obligations. -/
 def Condition.Safe (shape : Shape) (values : Values) (input : Source) (inputValid : Bool)
-    (integers : Integer.Store := Integer.emptyStore) : Condition → Prop
+    (integers : Integer.Store := Integer.emptyStore)
+    (booleans : Boolean.Store := Boolean.emptyStore) : Condition → Prop
   | .stringCompare _ left right =>
       left.RuntimeSafe values input integers ∧ right.RuntimeSafe values input integers
   | .lengthCompare _ left right =>
       (values left).length ≤ maxSourceLength ∧ right.evaluate values ≤ maxSourceLength
   | .scalarCompare _ left right => left.Safe integers ∧ right.Safe integers
-  | .inputValid => True
-  | .parenthesized inner | .negated inner => inner.Safe shape values input inputValid integers
+  | .inputValid | .booleanLiteral _ | .booleanName _ => True
+  | .parenthesized inner | .negated inner => inner.Safe shape values input inputValid integers booleans
   | .andThen left right =>
-      left.Safe shape values input inputValid integers ∧
-        (left.evaluate values input inputValid integers = true → right.Safe shape values input inputValid integers)
+      left.Safe shape values input inputValid integers booleans ∧
+        (left.evaluate values input inputValid integers booleans = true → right.Safe shape values input inputValid integers booleans)
   | .orElse left right =>
-      left.Safe shape values input inputValid integers ∧
-        (left.evaluate values input inputValid integers = false → right.Safe shape values input inputValid integers)
+      left.Safe shape values input inputValid integers booleans ∧
+        (left.evaluate values input inputValid integers booleans = false → right.Safe shape values input inputValid integers booleans)
+
+  | .eager _ left right | .booleanCompare _ left right =>
+      left.Safe shape values input inputValid integers booleans ∧
+        right.Safe shape values input inputValid integers booleans
 
 def Condition.checkedEvaluate (values : Values) (input : Source) (inputValid : Bool)
-    (integers : Integer.Store := Integer.emptyStore) : Condition → Option Bool
+    (integers : Integer.Store := Integer.emptyStore)
+    (booleans : Boolean.Store := Boolean.emptyStore) : Condition → Option Bool
   | .stringCompare unequal left right =>
       (left.checkedEvaluate values input integers).bind fun a =>
         (right.checkedEvaluate values input integers).map fun b =>
@@ -69,12 +85,22 @@ def Condition.checkedEvaluate (values : Values) (input : Source) (inputValid : B
   | .scalarCompare operator left right => (left.checkedEvaluate integers).bind fun a =>
       (right.checkedEvaluate integers).map fun b => operator.evaluate a b
   | .inputValid => some inputValid
-  | .parenthesized inner => inner.checkedEvaluate values input inputValid integers
-  | .negated inner => (inner.checkedEvaluate values input inputValid integers).map Bool.not
-  | .andThen left right => (left.checkedEvaluate values input inputValid integers).bind fun result =>
-      if result then right.checkedEvaluate values input inputValid integers else some false
-  | .orElse left right => (left.checkedEvaluate values input inputValid integers).bind fun result =>
-      if result then some true else right.checkedEvaluate values input inputValid integers
+  | .booleanLiteral value => some value
+  | .booleanName index => some (booleans index)
+  | .parenthesized inner => inner.checkedEvaluate values input inputValid integers booleans
+  | .negated inner => (inner.checkedEvaluate values input inputValid integers booleans).map Bool.not
+  | .andThen left right => (left.checkedEvaluate values input inputValid integers booleans).bind fun result =>
+      if result then right.checkedEvaluate values input inputValid integers booleans else some false
+  | .orElse left right => (left.checkedEvaluate values input inputValid integers booleans).bind fun result =>
+      if result then some true else right.checkedEvaluate values input inputValid integers booleans
+
+  | .eager operator left right =>
+      (left.checkedEvaluate values input inputValid integers booleans).bind fun a =>
+        (right.checkedEvaluate values input inputValid integers booleans).map fun b => operator.evaluate a b
+  | .booleanCompare unequal left right =>
+      (left.checkedEvaluate values input inputValid integers booleans).bind fun a =>
+        (right.checkedEvaluate values input inputValid integers booleans).map fun b =>
+          if unequal then a != b else a == b
 
 theorem LengthOperand.evaluate_summary {operand : LengthOperand} {shape : Shape}
     {values : Values} {input : Source} {summary : Summary}
@@ -88,10 +114,10 @@ theorem LengthOperand.evaluate_summary {operand : LengthOperand} {shape : Shape}
       simpa only [evaluate, Bound.summary_length] using (state index info found).1
 
 theorem Condition.checkedEvaluate_refines {condition : Condition} {shape : Shape}
-    {values : Values} {input : Source} {inputValid : Bool} {integers : Integer.Store}
-    (safe : condition.Safe shape values input inputValid integers) (_state : Fits shape input values) :
-    condition.checkedEvaluate values input inputValid integers =
-      some (condition.evaluate values input inputValid integers) := by
+    {values : Values} {input : Source} {inputValid : Bool} {integers : Integer.Store} {booleans : Boolean.Store}
+    (safe : condition.Safe shape values input inputValid integers booleans) (_state : Fits shape input values) :
+    condition.checkedEvaluate values input inputValid integers booleans =
+      some (condition.evaluate values input inputValid integers booleans) := by
   induction condition with
   | stringCompare unequal left right =>
       simp only [checkedEvaluate, Expression.checkedEvaluate_agrees safe.1,
@@ -102,7 +128,7 @@ theorem Condition.checkedEvaluate_refines {condition : Condition} {shape : Shape
   | scalarCompare operator left right =>
       simp only [checkedEvaluate, Integer.Expr.checkedEvaluate_agrees safe.1,
         Integer.Expr.checkedEvaluate_agrees safe.2, Option.bind_some, Option.map_some, evaluate]
-  | inputValid => rfl
+  | inputValid | booleanLiteral _ | booleanName _ => rfl
   | parenthesized inner ih => exact ih safe
   | negated inner ih => simp only [checkedEvaluate, ih safe, Option.map_some, evaluate]
   | andThen left right ihl ihr =>
@@ -116,8 +142,11 @@ theorem Condition.checkedEvaluate_refines {condition : Condition} {shape : Shape
       split
       · rfl
       · rename_i skipped
-        have falseLeft : left.evaluate values input inputValid integers = false := Bool.eq_false_iff.mpr skipped
+        have falseLeft : left.evaluate values input inputValid integers booleans = false := Bool.eq_false_iff.mpr skipped
         exact ihr (safe.2 falseLeft)
+
+  | eager operator left right ihl ihr | booleanCompare operator left right ihl ihr =>
+      simp only [checkedEvaluate, ihl safe.1, ihr safe.2, Option.bind_some, Option.map_some, evaluate]
 
 /-- Equal String bytes imply equal affine lengths. A false String equality
 deliberately supplies no inequality about lengths. -/
