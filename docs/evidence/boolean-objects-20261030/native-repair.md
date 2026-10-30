@@ -193,3 +193,42 @@ that creates the same literal identity barrier as the now-repaired string
 reader. The completed session, shapes, gnat-json and frozen source identity are
 retained in `native-repair/read-primary-into/`. No primary repair or rerun has yet
 been made. The old unit source and cache remain unchanged.
+
+## Primary-reader literal diagnosis and bounded experiment
+
+A no-prover print of the original annotated gnat-json identifies the failing
+branch assertion as `GP_Check:1472:VC_ASSERT:silver_output_profile.adb:2880:35`.
+The native call uses `temp___String_Literal_21591`; the expanded Primary_Model
+uses `temp___String_Literal_10182`. Their declarations specify the same 14
+characters, `input_is_valid`, as separate arrays. The complete printed task is
+retained in `native-repair/read-primary-into/no-prover-task.txt.gz`; no solver
+was invoked to inspect it.
+
+The next bounded hypothesis adds a shared `Validity_Call_Word` String constant
+with that exact value, then substitutes its name at only the model and native
+input-validity mask checks. The existing result assertion, exact contract,
+full native precondition and strict prover settings stay intact. There is no
+additional assumed helper fact. The source subthread owns explicit typed-word
+rendering and an exact constant-declaration check, rather than changing the
+generic literal renderer to disguise the new identifier spelling. The lead
+approved the bounded repair after reviewing this diagnosis. One focused primary
+reader check will test it; final source correspondence and complete native
+validation remain outstanding.
+
+## Primary-reader constant repair result
+
+Run `20261030T123417-c0207905bf52` passed all 79 selected checks in
+2162.692 s under the unchanged strict native settings. Both the
+previously unresolved input-validity assertion and the full postcondition proved.
+The three-line source delta consists only of the fixed `Validity_Call_Word`
+declaration and the two explicit substitutions. The complete passing artifacts
+and exact candidate are retained in `native-repair/primary-word/`. All 131 shared
+root source files were restored exactly afterward. The source subthread's
+explicit word-node and constant-declaration checks passed its fresh 37,361-
+declaration audit in run `20261030T125139-6833062de0b7`; authoritative actual-source
+extraction remains part of the lead's final checkpoint.
+
+The preserved older pre-xor unit also completed `Read_Relation_Into` with all 711
+Why3 goals proved. It remains active; these focused repairs do not claim a
+complete final-source native proof. Final catalogue changes occurred in the
+separate native branch during this run and did not alter its frozen inputs.

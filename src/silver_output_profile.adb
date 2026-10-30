@@ -1367,6 +1367,7 @@ is
                  (Text, Source_State, Next_State, Next_Position, Length, Parsed + 1, Component_Bounds)))));
 
    Integer_Type_Word : constant String := "integer";
+   Validity_Call_Word : constant String := "input_is_valid";
 
    function Array_Declaration_Model
      (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State
@@ -2572,7 +2573,7 @@ is
               (declare After_Call : constant Literal_Position :=
                  Call_After (Text, Context.Names, Position, Names.Validity_Call, Context.Scalar_Names, Context.Array_Names, (Context.Subtype_Hiding (Names.Validity_Call)
                    or else (Context.Mask_First /= 0 and then Name_Is
-                     (Text, Context.Mask_First, Context.Mask_After, "input_is_valid"))), Context.Boolean_Names);
+                     (Text, Context.Mask_First, Context.Mask_After, Validity_Call_Word))), Context.Boolean_Names);
                begin (if After_Call = 0 then Invalid_Condition (Facts) else
                  (Count => Facts.Count, After => After_Call,
                   When_True => (Facts with delta Path => Paths.Assume_Valid (Facts.Path)),
@@ -2981,7 +2982,7 @@ is
       else
          Result.After := Call_After (Text, Context.Names, Position, Names.Validity_Call, Context.Scalar_Names, Context.Array_Names, (Context.Subtype_Hiding (Names.Validity_Call)
                    or else (Context.Mask_First /= 0 and then Name_Is
-                     (Text, Context.Mask_First, Context.Mask_After, "input_is_valid"))), Context.Boolean_Names);
+                     (Text, Context.Mask_First, Context.Mask_After, Validity_Call_Word))), Context.Boolean_Names);
          Result.When_True := Facts;
          Result.When_False := Facts;
          if Result.After = 0 then

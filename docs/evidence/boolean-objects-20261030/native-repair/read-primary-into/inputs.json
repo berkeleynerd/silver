@@ -6,6 +6,10 @@
   },
   "primitive": "def'vc.355",
   "transformed": "def'vc.355.0",
-  "source": "Result = Primary_Model in the input-validity branch; precise assertion versus postcondition location pending label inspection",
-  "unit_status": "still active"
+  "source": "silver_output_profile.adb:2880:35:VC_ASSERT (GP_Check1472), input-validity branch exact Result = Primary_Model",
+  "unit_status": "still active",
+  "literal_objects": {
+    "model": "temp___String_Literal_10182",
+    "native": "temp___String_Literal_21591"
+  }
 }
