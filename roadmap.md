@@ -12,6 +12,38 @@ changes to earlier rules and examples must be explicit and consistent. The
 [development policy](development.md) prioritizes foundations needed for the
 next capability while retaining full assurance for the current language.
 
+## Near-term feature queue
+
+**Owner-selected planning order, 2026-10-30.** Prioritize useful Rosetta
+expansion and reuse of the existing language machinery. Revisit the order after
+each delivery; the linked issues hold scope and completion criteria.
+
+| Position | Feature | Motivating Rosetta candidates |
+| --- | --- | --- |
+| Now | [Boolean scalar objects and expressions #291](https://github.com/berkeleynerd/silver/issues/291), stacked on the named-subtype delivery [#286](https://github.com/berkeleynerd/silver/issues/286) | Sequence of primes by trial division; Square but not cube; Common list elements |
+| Next (1) | [Bounded String indexing and character operations #296](https://github.com/berkeleynerd/silver/issues/296) | Reverse a string; Palindrome detection; character replacement |
+| Later (2) | [Fixed-size Boolean arrays #297](https://github.com/berkeleynerd/silver/issues/297) | Sieve of Eratosthenes; elementary cellular automata |
+| Later (3) | [Small nonrecursive functions #298](https://github.com/berkeleynerd/silver/issues/298) | Reusable primality tests, GCD and numeric search helpers |
+
+The next feature starts with fixed-bound Strings: indexed reads and element
+writes, Character literals/temporaries/comparisons, and bounded slice expressions
+with length-compatible use. Its main assurance question is how existing interval
+and guard reasoning establishes every index, slice and destination-length check
+while preserving Ada semantics, including mutation and dead-code frontend checks.
+General dynamic-length indexing, resizing, Unicode processing and general String
+libraries are outside that initial proposal.
+
+Boolean arrays reuse bounded array storage and scalar Boolean semantics.
+Functions start with scalar parameters/results, an acyclic call graph and no
+caller-visible mutation. Their detailed design follows the preceding deliveries.
+
+These three items are **Backlog proposals**, not implementation authorizations
+or support claims. Candidate samples need faithful implementations before any
+coverage gain is claimed. The [planning decision](docs/session-memory.md#2026-10-30--near-term-language-feature-queue-recorded)
+does not change the current feature or merge authorizations. Existing source and
+expression budgets, assurance requirements, broad stages and deferred capacity
+work retain their scope.
+
 ## Current development sequence
 
 ### Boolean scalar objects and expressions

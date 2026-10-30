@@ -1,5 +1,24 @@
 # Session memory
 
+## 2026-10-30 — Near-term language feature queue recorded
+
+The owner asked to concretize the roadmap for the next few features and
+instructed **“Proceed to make this happen.”** Record the
+[ordered queue](../roadmap.md#near-term-feature-queue) after the active Boolean
+scalar feature: bounded String indexing and character operations
+[#296](https://github.com/berkeleynerd/silver/issues/296), fixed-size Boolean
+arrays [#297](https://github.com/berkeleynerd/silver/issues/297), then small
+nonrecursive functions [#298](https://github.com/berkeleynerd/silver/issues/298).
+The first proposal has a concrete fixed-bound scope and assurance question;
+the later proposals remain brief. Revisit ordering after each delivery based
+on faithful Rosetta gains and implementation experience.
+
+This authorizes the planning records and board updates. The three feature
+issues remain Backlog; implementation milestones are created when their work
+is authorized. The existing Boolean implementation and subtype/feature merge
+instructions are unchanged. This queue claims no new language support and
+selects no deferred capacity or assurance-mode work.
+
 ## 2026-10-30 — Boolean scalar objects and expressions authorized
 
 The owner approved **initialized Boolean constants and variables, assignment,
