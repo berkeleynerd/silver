@@ -1183,10 +1183,10 @@ structure LegalBodies (calls : Calls) : Prop extends LegalHelpers calls where
 
 /-- Normalize only retained lexical meanings. All new helper calls stay
 arbitrary until their checked equations and terminating recursion determine them. -/
-theorem normalized_helpers {domain : StateDomain} (calls : Calls)
+theorem normalized_rawHelpers {domain : StateDomain} (calls : Calls)
     (meaning : Compose.Lexical.Meaning calls.primitive)
-    (source : HelperEquations calls calls domain) (legal : LegalHelpers calls domain) :
-    HelperEquations calls (domain := domain) where
+    (source : RawHelperEquations calls calls domain) (legal : LegalHelpers calls domain) :
+    RawHelperEquations calls (domain := domain) where
   ranges := source.ranges
   names := source.names
   scalarLookup := source.scalarLookup
@@ -1194,7 +1194,6 @@ theorem normalized_helpers {domain : StateDomain} (calls : Calls)
   arrayLookup := source.arrayLookup
   booleanLookup := source.booleanLookup
   booleanHidesInteger := source.booleanHidesInteger
-  booleanDeclaration := source.booleanDeclaration
   arrayAdd := by
     intro text valid state first after bounds offset length mutable following componentBounds stateValid nameValid bindingValid room allocated ordered ending
     exact (source.arrayAdd text valid state first after bounds offset length mutable following componentBounds
@@ -1418,6 +1417,13 @@ theorem normalized_helpers {domain : StateDomain} (calls : Calls)
     · apply source.workBudget <;> assumption
     · apply Expr.eval_lexical calls meaning
       apply legal.workBudget <;> assumption
+
+theorem normalized_helpers {domain : StateDomain} (calls : Calls)
+    (meaning : Compose.Lexical.Meaning calls.primitive)
+    (source : HelperEquations calls calls domain) (legal : LegalHelpers calls domain) :
+    HelperEquations calls (domain := domain) where
+  toRawHelperEquations := normalized_rawHelpers calls meaning source.toRawHelperEquations legal
+  booleanDeclaration := source.booleanDeclaration
 
 theorem normalized_definitions (calls : Calls)
     (meaning : Compose.Lexical.Meaning calls.primitive)

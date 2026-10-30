@@ -43,11 +43,12 @@ def allTokens : List ShellToken :=
    .symbol "(", .symbol ")", .symbol ";", .symbol ".", .literal, .symbol ":", .word "constant",
    .word "string", .symbol ":=", .word "silver_arguments", .word "first_or_default", .word "if",
    .word "input_is_valid", .word "then", .word "else", .word "elsif", .word "reject", .symbol "&", .word "and",
-   .word "or", .word "not", .word "xor", .word "boolean", .symbol "/=", .symbol "<", .symbol ">", .symbol ">=",
+   .word "or", .word "not", .symbol "/=", .symbol "<", .symbol ">", .symbol ">=",
    .symbol "'", .word "length", .symbol "<=", .capacity, .symbol "=", .argumentDeclaration,
    .declarations, .assignmentTarget, .targetReference, .dynamicReference, .assignmentValue,
    .outputExpression, .comparisonExpression, .word "null", .contextClauses,
-   .word "integer", .word "for", .word "in", .word "reverse", .word "loop", .symbol "..", .word "range", .word "subtype", .word "array", .word "of", .symbol ",", .symbol "=>"]
+   .word "integer", .word "for", .word "in", .word "reverse", .word "loop", .symbol "..", .word "range", .word "subtype", .word "array", .word "of", .symbol ",", .symbol "=>",
+   .word "boolean", .word "true", .word "false", .word "xor"]
 
 def ValidToken (token : ShellToken) : Prop := token ∈ allTokens
 
@@ -233,7 +234,7 @@ structure RangeContracts (calls : Calls) : Prop extends HelperRanges calls where
 
 /-- Equations of checked expression bodies or exact executable-refinement
 postconditions. The evaluator's primitive meanings may be normalized later. -/
-structure HelperEquations (calls : Calls) (evaluator : Calls := lexical calls)
+structure RawHelperEquations (calls : Calls) (evaluator : Calls := lexical calls)
     (domain : StateDomain := .basic) : Prop where
   ranges : HelperRanges calls domain
   names : Names.InterpretedSource calls.names
@@ -248,10 +249,6 @@ structure HelperEquations (calls : Calls) (evaluator : Calls := lexical calls)
   booleanHidesInteger : ∀ text, ValidText text → ∀ booleans,
     BooleanBindings.ValidEnvironment text booleans →
     calls.function .booleanHidesInteger text booleans = BooleanBindings.hidesInteger text booleans
-  /-- Discharged by the downstream Boolean-declaration source bridge, which
-  interprets the native condition reader on the full initializer domain. -/
-  booleanDeclaration : ∀ text, ValidText text → ∀ state arguments,
-    domain.holds text state → calls.function .booleanDeclaration text state arguments = booleanDeclarationAt text state arguments
   booleanLookup : ∀ text, ValidText text → ∀ booleans first after,
     BooleanBindings.ValidEnvironment text booleans → ValidCursor text first → ValidCursor text after →
     calls.function .booleanLookup text booleans first after = BooleanBindings.lookup text booleans first after
@@ -434,6 +431,16 @@ structure HelperEquations (calls : Calls) (evaluator : Calls := lexical calls)
       capacityBody.eval evaluator (Context.locals {text,state})
   readDeclarations : ∀ text, ValidText text → ∀ state arguments, domain.holds text state →
     calls.function .readDeclarations text state arguments = calls.function .declarations text state arguments
+
+/-- Complete helper laws. The Boolean declaration law is derived separately
+from its typed native body and the interpreted condition reader; it is not a
+primitive assumption of the actual-source bridge. -/
+structure HelperEquations (calls : Calls) (evaluator : Calls := lexical calls)
+    (domain : StateDomain := .basic) : Prop extends RawHelperEquations calls evaluator domain where
+  /-- Discharged by the downstream Boolean-declaration source bridge, which
+  interprets the native condition reader on the full initializer domain. -/
+  booleanDeclaration : ∀ text, ValidText text → ∀ state arguments,
+    domain.holds text state → calls.function .booleanDeclaration text state arguments = booleanDeclarationAt text state arguments
 
 /-- The previous fixed-form model retains its own abstract equations. These
 are not assertions about the current statement scanner. -/
