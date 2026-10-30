@@ -69,27 +69,32 @@ def Check.toObligation (check : Check) : Semantics.Obligation := ⟨.runTimeSafe
 def Program.checks (program : Program) : List Check :=
   (declarationChecks program).map Check.declaration ++
     (integerDeclarationChecks program ++ program.initializerChecks).map Check.scalarDeclaration ++
-    (statementsObligations program.names.shape program.bodyAnalysis program.initialFlow program.statements).map Check.path
+    ((program.booleanInitializerChecks ++ booleanDeclarationObligations program.names.shape
+      Integer.Analysis.empty program.booleanInitialFlow 0 program.booleanDeclarations).map Check.path) ++
+    (statementsObligations program.names.shape program.bodyAnalysis program.initialFlow program.statements program.bodyBooleanAnalysis).map Check.path
 
 theorem Program.declaration_checks_fragment {program : Program} (valid : program.Valid) :
     ∀ check ∈ declarationChecks program, check.InFragment := by
   intro check member
   rcases List.mem_append.mp member with range | length
   · obtain ⟨schema, present, rfl⟩ := List.mem_map.mp range
-    exact ⟨_, by simp [Compose.uniformRangeObligations], Compose.declaration_schemas valid.1 schema present⟩
+    exact ⟨_, by simp [Compose.uniformRangeObligations], Compose.declaration_schemas valid.1.1 schema present⟩
   · obtain ⟨schema, present, rfl⟩ := List.mem_map.mp length
-    have discharged := (Compose.LengthObligation.discharge_iff schema).mpr (Compose.declaration_lengths_valid valid.1 schema present)
+    have discharged := (Compose.LengthObligation.discharge_iff schema).mpr (Compose.declaration_lengths_valid valid.1.1 schema present)
     simpa [Compose.Check.InFragment, Compose.LengthObligation.discharge] using discharged
 
 theorem Program.checks_fragment {program : Program} (valid : program.Valid) :
     ∀ check ∈ program.checks, check.InFragment := by
   intro check member
   rcases List.mem_append.mp member with declarations | path
-  · rcases List.mem_append.mp declarations with declaration | scalar
-    · obtain ⟨schema, present, rfl⟩ := List.mem_map.mp declaration
-      exact program.declaration_checks_fragment valid schema present
-    · obtain ⟨schema, present, rfl⟩ := List.mem_map.mp scalar
-      exact List.all_eq_true.mp (program.scalar_checks_discharge valid) schema present
+  · rcases List.mem_append.mp declarations with declarations | boolean
+    · rcases List.mem_append.mp declarations with declaration | scalar
+      · obtain ⟨schema, present, rfl⟩ := List.mem_map.mp declaration
+        exact program.declaration_checks_fragment valid schema present
+      · obtain ⟨schema, present, rfl⟩ := List.mem_map.mp scalar
+        exact List.all_eq_true.mp (program.scalar_checks_discharge valid) schema present
+    · obtain ⟨schema, present, rfl⟩ := List.mem_map.mp boolean
+      exact List.all_eq_true.mp (program.boolean_initializer_checks_discharge valid) schema present
   · obtain ⟨schema, present, rfl⟩ := List.mem_map.mp path
     obtain ⟨after, checked, _⟩ := valid.2.2.2.2.2
     have bodyChecked := ((program.checkBody_iff after).mp checked).2.2.2

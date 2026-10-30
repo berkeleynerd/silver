@@ -47,7 +47,7 @@ private theorem declarations_staticFlags {text arguments state final values}
       Integer.declarationStaticFlags (state.scalarNames.map (·.isStatic)) values := by
   induction parsed with
   | done => rfl
-  | string _ _ _ _ _ first _ ih =>
+  | string _ _ _ _ _ _ first _ ih =>
       cases first
       exact ih
   | scalar _ _ _ first _ ih =>
@@ -58,6 +58,9 @@ private theorem declarations_staticFlags {text arguments state final values}
       exact ih
   | subtype _ _ first _ ih =>
       rw [(subtype_declaration_preserves first).2.1] at ih
+      exact ih
+  | boolean _ _ _ _ _ first _ ih =>
+      rw [(boolean_declaration_preserves first).2.1] at ih
       exact ih
 
 private theorem scalar_step_staticFlags {text form token state next values}
@@ -148,7 +151,7 @@ theorem bodyOf_compatible (scan : ScanResult) :
 theorem bodyOf_model (scan : ScanResult) :
     (contextOf scan).flow (bodyOf scan).facts =
       Flow.initial (contextOf scan).analysis (initialFacts (contextOf scan).hasArguments) := by
-  simp only [ParseContext.flow, ArrayFlow.flow, bodyOf, ActiveFlow.initial_model, Flow.initial,
+  simp only [ParseContext.flow, bodyOf, ActiveFlow.initial_model, Flow.initial,
     contextOf, ParseContext.analysis, ArrayFlow.analysis, ScalarMetadata.analysis]
   rfl
 

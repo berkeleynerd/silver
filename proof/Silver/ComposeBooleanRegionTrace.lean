@@ -216,4 +216,104 @@ theorem boolean_declarations_valid {text arguments state final declarations chec
       · rw [Predicate.discharged_append, rawChecked, following.2.2]
         rfl
 
+theorem boolean_declarations_unique {text arguments state leftState rightState left right leftChecks rightChecks}
+    (first : BooleanDeclarationsAt text arguments state left leftChecks leftState)
+    (second : BooleanDeclarationsAt text arguments state right rightChecks rightState) :
+    left = right ∧ leftChecks = rightChecks ∧ leftState = rightState := by
+  induction first generalizing right rightChecks rightState with
+  | done positive stop =>
+      cases second with
+      | done => exact ⟨rfl, rfl, rfl⟩
+      | string _ more _ _ _ _ _ _ | scalar _ more _ _ _ | array _ more _ _ _ _ | subtype _ more _ _ | boolean _ more _ _ _ _ _ _ => exact False.elim (stop more)
+  | string positive more noSubtype noScalar noArray noBoolean parsed rest ih =>
+      cases second with
+      | done _ stop => exact False.elim (stop more)
+      | string _ _ _ _ _ _ other remaining =>
+          obtain ⟨rfl, rfl⟩ := declaration_unique parsed other
+          exact ih remaining
+      | scalar _ _ _ other _ =>
+          have accepted := scalar_declaration_positive other
+          rw [← scalar_declaration_complete other, noScalar] at accepted
+          contradiction
+      | array _ _ _ _ other _ =>
+          have accepted := array_declaration_positive other
+          rw [← array_declaration_complete other, noArray] at accepted
+          contradiction
+      | boolean _ _ _ _ _ other _ _ =>
+          have accepted := boolean_declaration_positive other
+          rw [← boolean_declaration_complete other, noBoolean] at accepted
+          contradiction
+      | subtype _ _ other _ =>
+          have accepted := subtype_declaration_positive other
+          rw [← subtype_declaration_complete other, noSubtype] at accepted
+          contradiction
+  | scalar positive more noSubtype parsed rest ih =>
+      cases second with
+      | done _ stop => exact False.elim (stop more)
+      | string _ _ _ noScalar _ _ _ _ | array _ _ _ noScalar _ _ | boolean _ _ _ noScalar _ _ _ _ =>
+          have accepted := scalar_declaration_positive parsed
+          rw [← scalar_declaration_complete parsed, noScalar] at accepted
+          contradiction
+      | scalar _ _ _ other remaining =>
+          obtain ⟨rfl, rfl⟩ := scalar_declaration_unique parsed other
+          exact ih remaining
+      | subtype _ _ other _ =>
+          have accepted := subtype_declaration_positive other
+          rw [← subtype_declaration_complete other, noSubtype] at accepted
+          contradiction
+  | array positive more noSubtype noScalar parsed rest ih =>
+      cases second with
+      | done _ stop => exact False.elim (stop more)
+      | string _ _ _ _ noArray _ _ _ | boolean _ _ _ _ noArray _ _ _ =>
+          have accepted := array_declaration_positive parsed
+          rw [← array_declaration_complete parsed, noArray] at accepted
+          contradiction
+      | scalar _ _ _ other _ =>
+          have accepted := scalar_declaration_positive other
+          rw [← scalar_declaration_complete other, noScalar] at accepted
+          contradiction
+      | array _ _ _ _ other remaining =>
+          obtain ⟨rfl, rfl⟩ := array_declaration_unique parsed other
+          exact ih remaining
+      | subtype _ _ other _ =>
+          have accepted := subtype_declaration_positive other
+          rw [← subtype_declaration_complete other, noSubtype] at accepted
+          contradiction
+  | subtype positive more parsed rest ih =>
+      cases second with
+      | done _ stop => exact False.elim (stop more)
+      | string _ _ noSubtype _ _ _ _ _ | scalar _ _ noSubtype _ _ | array _ _ noSubtype _ _ _ | boolean _ _ noSubtype _ _ _ _ _ =>
+          have accepted := subtype_declaration_positive parsed
+          rw [← subtype_declaration_complete parsed, noSubtype] at accepted
+          contradiction
+      | subtype _ _ other remaining =>
+          have same := subtype_declaration_unique parsed other
+          cases same
+          exact ih remaining
+  | boolean positive more noSubtype noScalar noArray parsed checks rest ih =>
+      cases second with
+      | done _ stop => exact False.elim (stop more)
+      | string _ _ _ _ _ noBoolean _ _ =>
+          have accepted := boolean_declaration_positive parsed
+          rw [← boolean_declaration_complete parsed, noBoolean] at accepted
+          contradiction
+      | scalar _ _ _ other _ =>
+          have accepted := scalar_declaration_positive other
+          rw [← scalar_declaration_complete other, noScalar] at accepted
+          contradiction
+      | array _ _ _ _ other _ =>
+          have accepted := array_declaration_positive other
+          rw [← array_declaration_complete other, noArray] at accepted
+          contradiction
+      | subtype _ _ other _ =>
+          have accepted := subtype_declaration_positive other
+          rw [← subtype_declaration_complete other, noSubtype] at accepted
+          contradiction
+      | boolean _ _ _ _ _ other otherChecks remaining =>
+          have same := boolean_declaration_unique parsed other
+          cases same
+          obtain ⟨rfl, rfl⟩ := boolean_declaration_checks_unique checks otherChecks
+          obtain ⟨rfl, rfl, rfl⟩ := ih remaining
+          exact ⟨rfl, rfl, rfl⟩
+
 end Silver.Compose

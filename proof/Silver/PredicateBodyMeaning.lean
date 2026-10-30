@@ -330,7 +330,6 @@ mutual
         have factsEq : result.facts = _ := congrArg BodyScan.facts resultEq
         simp only [bodyTokens_facts] at factsEq
         have ranges := context.reading_ranges compatible
-        simp only [bodyMode] at ranges
         have lowerInferred := lowerRead.inferred
         have upperInferred := upperRead.inferred
         rw [ranges] at lowerInferred upperInferred
