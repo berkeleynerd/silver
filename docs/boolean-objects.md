@@ -139,6 +139,14 @@ flow facts must be contained in declared bounds even when an initializer's
 snapshot is narrower. The repair must cover that full native domain before
 the feature's actual-source assurance can complete.
 
+The broader integration check also exposed an auxiliary scalar-declaration
+equation with an extra rejection clause, filed as
+[#294](https://github.com/berkeleynerd/silver/issues/294). The
+[review](reviews/review-boolean-scalar-equation-33649e1ee5.md) distinguishes the
+transcription error from the consistent Ada, typed body and admission model.
+The failed elaboration experiments are retained; increasing their limits did
+not repair the mismatch.
+
 Remaining: the complete Compose and Predicate actual-source joins, including
 the exact Boolean declaration interpretation and #293; final native proof,
 full regression and Lean validation, independent review, and stacked PR
