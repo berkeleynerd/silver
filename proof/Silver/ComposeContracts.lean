@@ -19,7 +19,8 @@ def ValidState (text : Source) (state : ParserState) : Prop :=
     state.target ≤ state.names.length ∧ state.capacity ≤ maxSourceLength ∧
     ScalarExpression.ValidEnvironment text state.scalarNames ∧
     ArrayBindings.ValidEnvironment text state.arrayNames ∧
-    IntegerSubtypes.ValidEnvironment text state.subtypeNames
+    IntegerSubtypes.ValidEnvironment text state.subtypeNames ∧
+    BooleanBindings.ValidEnvironment text state.booleanNames
 
 /-- The state precondition actually provided by an interpreted native caller.
 The base domain remains available for the independent mathematical model. -/
@@ -42,7 +43,7 @@ def allTokens : List ShellToken :=
    .symbol "(", .symbol ")", .symbol ";", .symbol ".", .literal, .symbol ":", .word "constant",
    .word "string", .symbol ":=", .word "silver_arguments", .word "first_or_default", .word "if",
    .word "input_is_valid", .word "then", .word "else", .word "elsif", .word "reject", .symbol "&", .word "and",
-   .word "or", .word "not", .symbol "/=", .symbol "<", .symbol ">", .symbol ">=",
+   .word "or", .word "not", .word "xor", .word "boolean", .symbol "/=", .symbol "<", .symbol ">", .symbol ">=",
    .symbol "'", .word "length", .symbol "<=", .capacity, .symbol "=", .argumentDeclaration,
    .declarations, .assignmentTarget, .targetReference, .dynamicReference, .assignmentValue,
    .outputExpression, .comparisonExpression, .word "null", .contextClauses,
