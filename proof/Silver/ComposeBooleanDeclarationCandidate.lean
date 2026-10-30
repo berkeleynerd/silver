@@ -1,0 +1,20 @@
+module
+
+public import Silver.ComposeBooleanDeclarationSource
+import all Init.Data.Repr
+
+@[expose] public section
+
+namespace Silver.Compose.BooleanDeclarationNative.SourceChecks
+
+set_option maxRecDepth 10000
+set_option maxHeartbeats 2000000
+
+/-- Independently extracted native body; final certification additionally
+checks this complete block within the authoritative source tokens. -/
+def candidate : List String :=
+  ["first", ":", "constant", "literal_position", ":=", "skip_at", "(", "text", ",", "state", ".", "position", ")", ";", "after", ":", "constant", "literal_position", ":=", "name_after", "(", "text", ",", "first", ")", ";", "colon_after", ":", "constant", "literal_position", ":=", "take_token", "(", "text", ",", "after", ",", "colon", ")", ";", "constant_after", ":", "constant", "literal_position", ":=", "take_token", "(", "text", ",", "colon_after", ",", "constant_keyword", ")", ";", "type_first", ":", "constant", "literal_position", ":=", "skip_at", "(", "text", ",", "(", "if", "constant_after", "/=", "0", "then", "constant_after", "else", "colon_after", ")", ")", ";", "type_after", ":", "constant", "literal_position", ":=", "take_token", "(", "text", ",", "type_first", ",", "boolean_name", ")", ";", "value_first", ":", "constant", "literal_position", ":=", "take_token", "(", "text", ",", "type_after", ",", "assignment", ")", ";", "context", ":", "body_context", ":=", "context_of", "(", "(", "state", ",", "false", ",", "false", ")", ")", ";", "value", ":", "condition_result", "(", "state", ".", "scalar_names", ".", "count", ")", ";", "following", ":", "literal_position", ";", "begin", "if", "not", "new_name_allowed", "(", "text", ",", "state", ",", "first", ",", "after", ",", "arguments", ")", "or", "else", "type_after", "=", "0", "or", "else", "value_first", "=", "0", "or", "else", "state", ".", "boolean_names", ".", "count", "=", "max_boolean_bindings", "or", "else", "name_is", "(", "text", ",", "first", ",", "after", ",", "\"boolean\"", ")", "or", "else", "lookup_name", "(", "text", ",", "state", ".", "names", ",", "type_first", ",", "type_after", ")", "/=", "0", "or", "else", "scalar_expressions", ".", "lookup", "(", "text", ",", "state", ".", "scalar_names", ",", "type_first", ",", "type_after", ")", "/=", "0", "or", "else", "array_bindings", ".", "lookup", "(", "text", ",", "state", ".", "array_names", ".", "names", ",", "type_first", ",", "type_after", ")", "/=", "0", "or", "else", "lookup_subtype", "(", "text", ",", "state", ".", "subtype_names", ",", "type_first", ",", "type_after", ")", "/=", "0", "or", "else", "lookup_boolean", "(", "text", ",", "state", ".", "boolean_names", ",", "type_first", ",", "type_after", ")", "/=", "0", "then", "return", "invalid_state", ";", "end", "if", ";", "context", ".", "scalar_names", ":=", "state", ".", "scalar_names", ";", "context", ".", "elaborating", ":=", "true", ";", "context", ".", "mask_first", ":=", "first", ";", "context", ".", "mask_after", ":=", "after", ";", "read_condition_into", "(", "text", ",", "context", ",", "value_first", ",", "initial_flow", "(", "context", ")", ",", "value", ",", "state", ".", "array_names", ".", "values", ")", ";", "following", ":=", "take_token", "(", "text", ",", "value", ".", "after", ",", "semicolon", ")", ";", "if", "following", "<=", "state", ".", "position", "then", "return", "invalid_state", ";", "end", "if", ";", "return", "(", "state", "with", "delta", "position", "=>", "following", ",", "boolean_names", "=>", "(", "count", "=>", "state", ".", "boolean_names", ".", "count", "+", "1", ",", "items", "=>", "(", "state", ".", "boolean_names", ".", "items", "with", "delta", "state", ".", "boolean_names", ".", "count", "+", "1", "=>", "(", "first", ",", "after", ",", "constant_after", "=", "0", ")", ")", ")", ")", ";", "end", "boolean_declaration_at", ";"]
+
+theorem candidate_matches : rendered = candidate := by decide +kernel
+
+end Silver.Compose.BooleanDeclarationNative.SourceChecks
