@@ -106,8 +106,7 @@ def scalarDeclarationEquation (calls : Calls) (text : Source) (state : ParserSta
       calls.function .nameIs text first after "integer" ||
       decide (calls.function .lookupName text state.names typeFirst typeAfter ≠ 0) ||
       decide (calls.function .scalarLookup text state.scalarNames typeFirst typeAfter ≠ 0) ||
-      decide (calls.function .arrayLookup text state.arrayNames.names typeFirst typeAfter ≠ 0) ||
-      decide (calls.function .booleanLookup text state.booleanNames typeFirst typeAfter ≠ 0)
+      decide (calls.function .arrayLookup text state.arrayNames.names typeFirst typeAfter ≠ 0)
     then invalidState
     else {state with position := following, scalarNames := (calls.function .scalarAppend state.scalarNames ⟨first, after, value.bounds, decide (constant ≠ 0) && value.isStatic, constraint.bounds, decide (constant = 0)⟩)}
 
