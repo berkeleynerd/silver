@@ -253,8 +253,8 @@ mutual
       (base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)
       (valid : result.FlowReady context)
       (incomingReady : ScalarMetadata.FlowReady context.scalarNames context.declarationCount incoming)
-      (initials : ArrayBindings.Initials := []) :
-      (conditionTail text context result chained incoming initials).FlowReady context := by
+      (initials : ArrayBindings.Initials := []) (originalStart : Nat := 0) :
+      (conditionTail text context result chained incoming initials originalStart).FlowReady context := by
     have invalid := invalidCondition_flowReady valid.1
     rw [conditionTail]
     split
@@ -277,7 +277,7 @@ mutual
                     (chainJoin_flowReady base valid
                       (relation_flowReady text context _ _ base
                         (chainContext_flowReady valid _ incoming incomingReady) initials)
-                      _ incoming incomingReady) incomingReady initials
+                      _ incoming incomingReady) incomingReady initials originalStart
                 · exact invalid
             · exact invalid
   termination_by (remainingAt text result.after, 6)
@@ -294,7 +294,7 @@ mutual
       · try dsimp only
         split
         · exact invalidCondition_flowReady ready
-        · exact tail_flowReady text context _ none facts base (relation_flowReady text context position facts base ready initials) ready initials
+        · exact tail_flowReady text context _ none facts base (relation_flowReady text context position facts base ready initials) ready initials position
       · exact invalidCondition_flowReady ready
   termination_by (remainingAt text position, 5)
 end

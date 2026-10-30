@@ -6,6 +6,7 @@ public import Silver.IntegerLiteral
 public import Silver.PredicateFlowOverlay
 public import Silver.PredicateArrayFlow
 public import Silver.IntegerSubtypeBindings
+public import Silver.PredicateXorAdmission
 
 @[expose] public section
 
@@ -326,20 +327,21 @@ mutual
 
   def conditionTail (text : Source) (context : ParseContext) (result : ConditionResult)
       (chained : Option ChainKind) (incoming : ActiveFlow)
-      (initials : ArrayBindings.Initials := []) : ConditionResult :=
+      (initials : ArrayBindings.Initials := []) (originalStart : Nat := 0) : ConditionResult :=
     if result.after = 0 then invalidCondition result.whenTrue else
     match chainOperator text result.after with
     | none => result
     | some operator =>
-        if chained.isSome && decide (chained ≠ some operator) then invalidCondition result.whenTrue else
+        if (chained.isSome && decide (chained ≠ some operator)) ||
+            (decide (operator = .eagerXor) && !xorFree text originalStart result.after) then invalidCondition result.whenTrue else
         let after := chainAfter text result.after operator
         if after = 0 then invalidCondition result.whenTrue else
         if _advanced : remainingAt text after < remainingAt text result.after then
           let right := readRelation text context after (chainContext result operator incoming) initials
-          if right.after = 0 then invalidCondition result.whenTrue else
+          if right.after = 0 ∨ (operator = .eagerXor ∧ xorFree text after right.after = false) then invalidCondition result.whenTrue else
           let next := chainJoin result right operator incoming
           if _rightAdvanced : remainingAt text next.after < remainingAt text result.after then
-            conditionTail text context next (some operator) incoming initials
+            conditionTail text context next (some operator) incoming initials originalStart
           else invalidCondition result.whenTrue
         else invalidCondition result.whenTrue
   termination_by remainingAt text result.after * 7 + 6
@@ -350,7 +352,7 @@ mutual
     let result := readRelation text context position facts initials
     if result.after = 0 then invalidCondition facts else
     if _advanced : remainingAt text result.after < remainingAt text position then
-      let final := conditionTail text context result none facts initials
+      let final := conditionTail text context result none facts initials position
       if final.after = 0 then invalidCondition facts else final
     else invalidCondition facts
   termination_by remainingAt text position * 7 + 5

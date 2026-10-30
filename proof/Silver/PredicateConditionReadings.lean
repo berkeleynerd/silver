@@ -144,21 +144,23 @@ mutual
         RelationAtCore text context initials position facts inner result
 
   inductive ChainAtCore (text : Source) (context : ParseContext) (initials : ArrayBindings.Initials) :
-      ActiveFlow → Condition → ConditionResult → Option ChainKind → Condition → ConditionResult → Prop
-    | done {incoming condition result chained} : result.after ≠ 0 → chainOperator text result.after = none →
-        ChainAtCore text context initials incoming condition result chained condition result
-    | next {incoming condition result chained operator right rightResult final finalResult} :
-        conditionTail text context result chained incoming initials = finalResult →
+      ActiveFlow → Nat → Condition → ConditionResult → Option ChainKind → Condition → ConditionResult → Prop
+    | done {incoming originalStart condition result chained} : result.after ≠ 0 → chainOperator text result.after = none →
+        ChainAtCore text context initials incoming originalStart condition result chained condition result
+    | next {incoming originalStart condition result chained operator right rightResult final finalResult} :
+        conditionTail text context result chained incoming initials originalStart = finalResult →
         result.after ≠ 0 → chainOperator text result.after = some operator →
         ¬(chained.isSome = true ∧ chained ≠ some operator) →
+        (operator = .eagerXor → xorFree text originalStart result.after = true) →
         chainAfter text result.after operator ≠ 0 →
         remainingAt text (chainAfter text result.after operator) < remainingAt text result.after →
         RelationAtCore text context initials (chainAfter text result.after operator) (chainContext result operator incoming) right rightResult →
         rightResult.after ≠ 0 →
+        (operator = .eagerXor → xorFree text (chainAfter text result.after operator) rightResult.after = true) →
         remainingAt text (chainJoin result rightResult operator incoming).after < remainingAt text result.after →
-        ChainAtCore text context initials incoming (chainCondition condition right operator)
+        ChainAtCore text context initials incoming originalStart (chainCondition condition right operator)
           (chainJoin result rightResult operator incoming) (some operator) final finalResult →
-        ChainAtCore text context initials incoming condition result chained final finalResult
+        ChainAtCore text context initials incoming originalStart condition result chained final finalResult
 
   inductive ConditionAtCore (text : Source) (context : ParseContext) (initials : ArrayBindings.Initials) :
       Nat → ActiveFlow → Condition → ConditionResult → Prop
@@ -166,7 +168,7 @@ mutual
         readCondition text context position facts initials = final →
         RelationAtCore text context initials position facts first result → result.after ≠ 0 →
         remainingAt text result.after < remainingAt text position →
-        ChainAtCore text context initials facts first result none condition final →
+        ChainAtCore text context initials facts position first result none condition final →
         ConditionAtCore text context initials position facts condition final
 end
 
@@ -184,8 +186,8 @@ abbrev RelationAt (text : Source) (context : ParseContext) (position : Nat) (fac
   RelationAtCore text context initials position facts condition result
 abbrev ChainAt (text : Source) (context : ParseContext) (condition : Condition) (result : ConditionResult)
     (chained : Option ChainKind) (final : Condition) (finalResult : ConditionResult)
-    (incoming : ActiveFlow) (initials : ArrayBindings.Initials := []) : Prop :=
-  ChainAtCore text context initials incoming condition result chained final finalResult
+    (incoming : ActiveFlow) (initials : ArrayBindings.Initials := []) (originalStart : Nat := 0) : Prop :=
+  ChainAtCore text context initials incoming originalStart condition result chained final finalResult
 abbrev ConditionAt (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
     (condition : Condition) (result : ConditionResult) (initials : ArrayBindings.Initials := []) : Prop :=
   ConditionAtCore text context initials position facts condition result
@@ -224,8 +226,8 @@ theorem booleanRelation_complete {text context position facts condition result i
   cases parsed with
   | factor inner nonzero noComparison =>
       simp only [readBooleanRelation, booleanFactor_complete inner, nonzero, noComparison, ↓reduceIte]
-  | comparison left nonzero hasComparison allowed advanced right rightNonzero =>
-      have admitted : ¬((comparisonAt text _).operator ≠ .eq ∧ (comparisonAt text _).operator ≠ .ne) := by
+  | @comparison position facts leftExpr rightExpr leftResult rightResult left nonzero hasComparison allowed advanced right rightNonzero =>
+      have admitted : ¬((comparisonAt text leftResult.after).operator ≠ .eq ∧ (comparisonAt text leftResult.after).operator ≠ .ne) := by
         rcases allowed with equal | unequal
         · exact fun bad => bad.1 equal
         · exact fun bad => bad.2 unequal
@@ -266,9 +268,9 @@ theorem relation_complete {text context position facts condition result initials
       simp only [readRelation, positive, noNot, noLength, noScalar, noExpression, ne_eq, not_true_eq_false,
         ↓reduceIte, booleanRelation_complete primary]
 
-theorem chain_complete {text context condition result chained final finalResult incoming initials}
-    (parsed : ChainAt text context condition result chained final finalResult incoming initials) :
-    conditionTail text context result chained incoming initials = finalResult := by
+theorem chain_complete {text context condition result chained final finalResult incoming initials originalStart}
+    (parsed : ChainAt text context condition result chained final finalResult incoming initials originalStart) :
+    conditionTail text context result chained incoming initials originalStart = finalResult := by
   cases parsed with
   | done positive done => simp only [conditionTail, positive, done, ↓reduceIte]
   | next scanned => exact scanned

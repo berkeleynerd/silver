@@ -128,8 +128,8 @@ mutual
   theorem conditionTail_bounded (text : Source) (context : ParseContext) (result : ConditionResult)
       (chained : Option ChainKind) (incoming : ActiveFlow)
       (valid : result.Bounded) (incomingBounded : incoming.path.Bounded)
-      (initials : ArrayBindings.Initials := []) :
-      (conditionTail text context result chained incoming initials).Bounded := by
+      (initials : ArrayBindings.Initials := []) (originalStart : Nat := 0) :
+      (conditionTail text context result chained incoming initials originalStart).Bounded := by
     have invalid := invalidCondition_bounded result.whenTrue
     rw [conditionTail]
     split
@@ -167,7 +167,7 @@ mutual
       · try dsimp only
         split
         · exact invalidCondition_bounded facts
-        · exact conditionTail_bounded text context _ none facts (readRelation_bounded text context position facts bounded initials) bounded initials
+        · exact conditionTail_bounded text context _ none facts (readRelation_bounded text context position facts bounded initials) bounded initials position
       · exact invalidCondition_bounded facts
   termination_by (remainingAt text position, 5)
 end

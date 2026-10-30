@@ -137,8 +137,8 @@ mutual
   theorem tail_counts (text : Source) (context : ParseContext) (result : ConditionResult)
       (chained : Option ChainKind) (incoming : ActiveFlow) {count : Nat}
       (valid : result.Counts count) (incomingCount : incoming.count = count)
-      (initials : ArrayBindings.Initials := []) :
-      (conditionTail text context result chained incoming initials).Counts count := by
+      (initials : ArrayBindings.Initials := []) (originalStart : Nat := 0) :
+      (conditionTail text context result chained incoming initials originalStart).Counts count := by
     have invalid : (invalidCondition result.whenTrue).Counts count := by
       simpa only [valid.1] using invalidCondition_counts result.whenTrue
     rw [conditionTail]
@@ -177,7 +177,7 @@ mutual
       · try dsimp only
         split
         · exact invalidCondition_counts facts
-        · exact tail_counts text context _ none facts (relation_counts text context position facts initials) rfl initials
+        · exact tail_counts text context _ none facts (relation_counts text context position facts initials) rfl initials position
       · exact invalidCondition_counts facts
   termination_by (remainingAt text position, 5)
 end
