@@ -41,11 +41,11 @@ theorem interpreted_step (calls : Calls) (source : DefinitionEquations calls)
   have output := interpreted_output calls source.toHelperEquations text valid state context
   have comparison := interpreted_comparison calls source.toHelperEquations text valid state context
   have capacity := interpreted_capacity calls source.toHelperEquations text valid state context
-  have skipped := interpreted_skip calls source.toHelperEquations text valid state.position context.1
+  have skipped := interpreted_skip calls source.toHelperEquations.toRawHelperEquations text valid state.position context.1
   have skipDomain := source.ranges.skip text valid state.position context.1
   rw [skipped] at skipDomain
-  have literal := interpreted_literal calls source.toHelperEquations text valid (skipAt text state.position) skipDomain
-  have taken := interpreted_take calls source.toHelperEquations text valid state.position token context.1 tokenValid
+  have literal := interpreted_literal calls source.toHelperEquations.toRawHelperEquations text valid (skipAt text state.position) skipDomain
+  have taken := interpreted_take calls source.toHelperEquations.toRawHelperEquations text valid state.position token context.1 tokenValid
   dsimp +instances only [stepBody, Expr.eval, Calls.get, Field.get, Context.locals, lexical, modelPrimitives]
   rw [skipped, literal, argument, read, target, targetSame, dynamic, assignment, output, comparison, capacity, taken, contextAfter]
   cases token <;> simp +instances [step, spelling, isWord, BEq.beq]
@@ -116,7 +116,7 @@ decreasing_by omega
 private theorem initial_valid (text : Source) : ValidState text initialState := by
   simp +instances [ValidState, ValidCursor, ValidNames, initialState, NameState.Valid, maxBindings, maxSourceLength, ScalarExpression.ValidEnvironment, ScalarExpression.maxBindings,
     ArrayBindings.ValidEnvironment, ArrayBindings.ValidMetadata, ArrayBindings.ValidInitials,
-    ArrayBindings.maxBindings, ArrayBindings.maxElements, IntegerSubtypes.valid_empty]
+    ArrayBindings.maxBindings, ArrayBindings.maxElements, IntegerSubtypes.valid_empty, BooleanBindings.valid_empty]
 
 theorem interpreted_form (calls : Calls) (source : DefinitionEquations calls)
     (text : Source) (form : Form) : calls.function .formMember text form = formAccepts text form := by
@@ -125,7 +125,7 @@ theorem interpreted_form (calls : Calls) (source : DefinitionEquations calls)
   by_cases valid : ValidText text
   · have suffix := interpreted_suffix calls source text valid form 1 initialState (initial_valid text)
       (by omega) (by omega)
-    have budget := interpreted_workBudget calls source.toHelperEquations text valid
+    have budget := interpreted_workBudget calls source.toHelperEquations.toRawHelperEquations text valid
     have positive : 1 ≤ text.length := valid.1
     simp +instances [formAccepts, budget, suffix, suffixAtIndex, positive, valid.1, valid.2]
   · have invalid : ¬(1 ≤ text.length ∧ text.length ≤ maxSourceLength) := valid

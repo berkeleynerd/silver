@@ -3,6 +3,8 @@ module
 public import Silver.PredicateNativeSourceChecks
 public import Silver.PredicateBasicSourceCandidate
 public import Silver.PredicateBooleanBodySource
+public import Silver.BooleanBindingsSourceChecks
+public import Silver.PredicateXorSourceBridge
 public import Silver.PredicateScalarBodySource
 public import Silver.PredicateArrayBodySource
 public import Silver.PredicateBodyWrappers
@@ -313,6 +315,8 @@ structure Checked (specTokens bodyTokens : List String) : Prop where
   spec_shape : specTokens = SourceShape.specTokens
   body_shape : bodyTokens = SourceShape.bodyTokens
   native : NativeSourceChecks.Checked bodyTokens
+  booleanBindings : BooleanBindings.SourceChecks.Checked bodyTokens
+  xorScanner : XorSourceBridge.Checked bodyTokens
   booleanBodies : BooleanBodyNative.SourceChecks.Checked bodyTokens
   scalarBodies : ScalarBodyNative.SourceChecks.Checked bodyTokens
   array_helpers : ArrayBodyNative.SourceChecks.Checked bodyTokens

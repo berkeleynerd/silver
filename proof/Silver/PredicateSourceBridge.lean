@@ -56,7 +56,7 @@ and its call preconditions. Worker-only equality helpers have exact Static,
 purity and Logical_Equal source checks; their annotations and
 Lemma_Condition_Equality still require complete native verification. -/
 structure InterpretedSource (calls : Implementation.Calls) : Prop where
-  helpers : Compose.SourceBridge.InterpretedSource calls.outer.helpers OuterReadiness.domain
+  helpers : Compose.SourceBridge.InterpretedSource calls.outer.helpers
   definitions : Implementation.Definitions calls
 
 theorem interpreted_helpers (calls : Implementation.Calls) (source : InterpretedSource calls) :

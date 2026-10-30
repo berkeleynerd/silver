@@ -57,4 +57,9 @@ theorem actual_adapters : AdapterTranslation := actual_checked.2.2.2.2.1
 
 theorem actual_array_helpers : ArrayHelperTranslation := actual_checked.2.2.2.2.2
 
+theorem actual_boolean_declaration :
+    BooleanDeclarationNative.SourceChecks.Checked Source.outputBodyTokens := by
+  rw [Output.SourceBridge.actual_complete_shape.2.1]
+  exact candidate_boolean_declaration
+
 end Silver.Compose.SourceBridge

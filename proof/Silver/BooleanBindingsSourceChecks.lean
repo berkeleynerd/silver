@@ -24,6 +24,12 @@ def hidesSpec : List String := hidesImpl ++ tokens
 
 structure Checked (source : List String) : Prop where
   capacity : Source.declaration "max_boolean_bindings" source = some (tokens "constant Positive := max_source_length / 13")
+  countType : Lexical.SourceBridge.subtypeDeclaration "boolean_count" source =
+    some (tokens "natural range 0 .. max_boolean_bindings")
+  indexType : Lexical.SourceBridge.subtypeDeclaration "boolean_index" source =
+    some (tokens "positive range 1 .. max_boolean_bindings")
+  tableType : typeDeclaration "boolean_binding_array" source =
+    some (tokens "array (boolean_index) of boolean_binding")
   bindingRecord : Lexical.SourceBridge.recordDeclaration "boolean_binding" source =
     some (tokens "record First, After : Literal_Position; Mutable : Boolean; end record")
   environmentRecord : Lexical.SourceBridge.recordDeclaration "boolean_environment" source =

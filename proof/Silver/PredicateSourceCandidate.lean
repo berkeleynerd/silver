@@ -13,6 +13,12 @@ open Silver.SourceBridge Native NativeSourceChecks
 /-! The complete reviewed source shape supplies every syntactic requirement.
 The final bridge proves equality with freshly certified authoritative tokens. -/
 
+private theorem boolean_bindings_checked : BooleanBindings.SourceChecks.Checked SourceShape.bodyTokens := by
+  constructor <;> decide +kernel
+
+private theorem xor_scanner_checked : XorSourceBridge.Checked SourceShape.bodyTokens := by
+  constructor <;> decide +kernel
+
 private theorem native_flow_checked : FlowSourceBridge.Checked SourceShape.bodyTokens := by
   constructor <;> decide +kernel
 
@@ -208,6 +214,7 @@ private theorem native_chain_kind_declaration : typeDeclaration "chain_kind" Sou
   decide +kernel
 
 private theorem native_checked : NativeSourceChecks.Checked SourceShape.bodyTokens where
+  validityCallWord := by decide +kernel
   chain_kind_declaration := native_chain_kind_declaration
   flow := native_flow_checked
   readers := native_readers_checked
@@ -620,6 +627,8 @@ theorem candidate_checked : Checked SourceShape.specTokens SourceShape.bodyToken
   spec_shape := rfl
   body_shape := rfl
   native := native_checked
+  booleanBindings := boolean_bindings_checked
+  xorScanner := xor_scanner_checked
   booleanBodies := BooleanBodyNative.SourceChecks.candidate_checked
   scalarBodies := ScalarBodyNative.SourceChecks.candidate_checked
   array_helpers := ArrayBodyNative.SourceChecks.candidate_checked

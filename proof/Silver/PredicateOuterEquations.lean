@@ -158,7 +158,7 @@ theorem interpreted_form (calls : Calls) (helpers : HelperMeaning calls) (body :
   by_cases valid : ValidText text
   · have suffix := interpreted_suffix calls helpers body equations text valid form 1 initialScan (initial_valid text)
       (by omega) (by omega)
-    have budget := Compose.Expressions.interpreted_workBudget calls.helpers helpers.equations text valid
+    have budget := Compose.Expressions.interpreted_workBudget calls.helpers helpers.equations.toRawHelperEquations text valid
     simp [Predicate.formResult, budget, suffix, suffixAtIndex, valid.1, valid.2]
   · have invalid : ¬(1 ≤ text.length ∧ text.length ≤ maxSourceLength) := valid
     simp [Predicate.formResult, invalid, Nat.lt_iff_add_one_le]

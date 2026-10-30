@@ -2,6 +2,7 @@ module
 
 public import Silver.SourceDeclarations
 public import Silver.ComposeContracts
+public import Silver.ComposeBooleanDeclarationSource
 public import Silver.ReviewedOutputShape
 import all Init.Data.Repr
 
@@ -211,7 +212,8 @@ def wordTokenAlternatives : List ShellToken :=
    .word "if", .word "input_is_valid", .word "then", .word "else", .word "elsif", .word "reject",
    .word "and", .word "length", .word "or", .word "not", .word "null",
    .word "integer", .word "for", .word "in", .word "reverse", .word "loop", .word "range",
-   .word "array", .word "of", .word "subtype"]
+   .word "array", .word "of", .word "subtype",
+   .word "boolean", .word "true", .word "false", .word "xor"]
 
 def wordTokens : List ShellToken := allTokens.take 11 ++ wordTokenAlternatives
 
@@ -226,15 +228,19 @@ def quoted (text : String) : String :=
 
 /-- Statements is a scanner nonterminal; all lexical/helper tokens retain
 an exact named representation in the native enumeration. -/
+def booleanTokens : List ShellToken := [.word "boolean", .word "true", .word "false", .word "xor"]
+
+def earlierTokens : List ShellToken := allTokens.take (allTokens.length - booleanTokens.length)
+
 def nativeTokenNames : List String :=
   ((allTokens.take 50).map Expressions.tokenName) ++ ["statements", "context_clauses"] ++
-    (((allTokens.drop 51).filter (· != ShellToken.word "subtype")).map Expressions.tokenName) ++
-    [Expressions.tokenName (.word "subtype")]
+    (((earlierTokens.drop 51).filter (· != ShellToken.word "subtype")).map Expressions.tokenName) ++
+    [Expressions.tokenName (.word "subtype")] ++ booleanTokens.map Expressions.tokenName
 
 def spellingBody : List String := ["case", "token", "is"] ++
   List.flatten (((allTokens.take 41 ++ [ShellToken.word "null"] ++
-      ((allTokens.drop 51).filter (· != ShellToken.word "subtype")).flatMap
-        (fun token => if token == ShellToken.word "of" then [ShellToken.word "subtype", token] else [token])).map fun token =>
+      ((earlierTokens.drop 51).filter (· != ShellToken.word "subtype")).flatMap
+        (fun token => if token == ShellToken.word "of" then [ShellToken.word "subtype"] ++ booleanTokens ++ [token] else [token])).map fun token =>
     ["when", Expressions.tokenName token, "=>", quoted (Expressions.spelling token)]).intersperse [","]) ++
   [",", "when"] ++
   List.flatten ((((allTokens.drop 41).take 8).map Expressions.tokenName ++ ["statements", "context_clauses"]).map
@@ -298,18 +304,18 @@ abbrev DeclarationsFor (specTokens bodyTokens : List String) : Prop :=
   Lexical.SourceBridge.subtypeDeclaration "token_index" bodyTokens = some (expectedTokens "positive range 1 .. 101") ∧
   Lexical.SourceBridge.recordDeclaration "binding_info" bodyTokens = some (expectedTokens "record first , after , value_first : literal_position ; static_length : capacity_value ; dynamic , mutable : boolean ; end record") ∧
   Lexical.SourceBridge.recordDeclaration "binding_environment" bodyTokens = some (expectedTokens "record count : binding_count ; items : binding_array ; end record") ∧
-  Lexical.SourceBridge.recordDeclaration "parser_state" bodyTokens = some (expectedTokens "record position : literal_position ; names : binding_environment ; scalar_names : scalar_expressions . environment ; array_names : array_bindings . environment ; subtype_names : subtype_environment ; dynamic_first , dynamic_after : literal_position ; target : binding_count ; capacity : capacity_value ; end record") ∧
+  Lexical.SourceBridge.recordDeclaration "parser_state" bodyTokens = some (expectedTokens "record position : literal_position ; names : binding_environment ; scalar_names : scalar_expressions . environment ; array_names : array_bindings . environment ; subtype_names : subtype_environment ; boolean_names : boolean_environment ; dynamic_first , dynamic_after : literal_position ; target : binding_count ; capacity : capacity_value ; end record") ∧
   Lexical.SourceBridge.recordDeclaration "value_result" bodyTokens = some (expectedTokens "record after , value_first : literal_position ; minimum_length , static_length : capacity_value ; dynamic_seen , nonliteral_seen , empty_value : boolean ; reference : binding_count ; end record") ∧
   Lexical.SourceBridge.recordDeclaration "expression_result" bodyTokens = some (expectedTokens "record after : literal_position ; minimum_length , static_length : capacity_value ; dynamic_count : operand_count ; named_seen , empty_value : boolean ; end record") ∧
   typeDeclaration "binding_array" bodyTokens = some (expectedTokens "array (Binding_Index) of Binding_Info") ∧
   Source.declaration "empty_binding" bodyTokens = some (expectedTokens "constant binding_info := ( first => 0 , after => 0 , value_first => 0 , static_length => 0 , dynamic => false , mutable => false )") ∧
   Source.declaration "empty_environment" bodyTokens = some (expectedTokens "constant binding_environment := ( count => 0 , items => ( others => empty_binding ) )") ∧
-  Source.declaration "initial_state" bodyTokens = some (expectedTokens "constant parser_state := ( position => 1 , names => empty_environment , scalar_names => scalar_expressions . empty_environment , array_names => array_bindings . empty_environment , subtype_names => empty_subtypes , dynamic_first => 0 , dynamic_after => 0 , target => 0 , capacity => max_source_length )") ∧
-  Source.declaration "invalid_state" bodyTokens = some (expectedTokens "constant parser_state := ( position => 0 , names => empty_environment , scalar_names => scalar_expressions . empty_environment , array_names => array_bindings . empty_environment , subtype_names => empty_subtypes , dynamic_first => 0 , dynamic_after => 0 , target => 0 , capacity => 0 )") ∧
+  Source.declaration "initial_state" bodyTokens = some (expectedTokens "constant parser_state := ( position => 1 , names => empty_environment , scalar_names => scalar_expressions . empty_environment , array_names => array_bindings . empty_environment , subtype_names => empty_subtypes , boolean_names => empty_booleans , dynamic_first => 0 , dynamic_after => 0 , target => 0 , capacity => max_source_length )") ∧
+  Source.declaration "invalid_state" bodyTokens = some (expectedTokens "constant parser_state := ( position => 0 , names => empty_environment , scalar_names => scalar_expressions . empty_environment , array_names => array_bindings . empty_environment , subtype_names => empty_subtypes , boolean_names => empty_booleans , dynamic_first => 0 , dynamic_after => 0 , target => 0 , capacity => 0 )") ∧
   Source.declaration "invalid_value" bodyTokens = some (expectedTokens "constant value_result := ( after => 0 , value_first => 0 , minimum_length => 0 , static_length => 0 , dynamic_seen => false , nonliteral_seen => false , empty_value => false , reference => 0 )") ∧
   Source.declaration "invalid_expression" bodyTokens = some (expectedTokens "constant expression_result := ( after => 0 , minimum_length => 0 , static_length => 0 , dynamic_count => 0 , named_seen => false , empty_value => false )") ∧
   Source.expressionBody "valid_names" bodyTokens = some (expectedTokens "for all I in 1 .. Names.Count => Names.Items (I).First > 0 and then Valid_Name_State (Text, Names.Items (I).First, Names.Items (I).After) and then Names.Items (I).Value_First <= Text'Last + 1") ∧
-  Source.expressionBody "valid_state" bodyTokens = some (expectedTokens "state . position <= text ' last + 1 and then valid_names ( text , state . names ) and then scalar_expressions . valid_environment ( text , state . scalar_names ) and then array_bindings . valid_environment ( text , state . array_names ) and then valid_subtypes ( text , state . subtype_names ) and then valid_mutable_bounds ( state . scalar_names ) and then valid_declaration_values ( state . scalar_names , state . scalar_names . count ) and then valid_name_state ( text , state . dynamic_first , state . dynamic_after ) and then state . target <= state . names . count") ∧
+  Source.expressionBody "valid_state" bodyTokens = some (expectedTokens "state . position <= text ' last + 1 and then valid_names ( text , state . names ) and then scalar_expressions . valid_environment ( text , state . scalar_names ) and then array_bindings . valid_environment ( text , state . array_names ) and then valid_subtypes ( text , state . subtype_names ) and then valid_booleans ( text , state . boolean_names ) and then valid_mutable_bounds ( state . scalar_names ) and then valid_declaration_values ( state . scalar_names , state . scalar_names . count ) and then valid_name_state ( text , state . dynamic_first , state . dynamic_after ) and then state . target <= state . names . count") ∧
   maxConcatenations = 63 ∧
   Lexical.SourceBridge.subtypeDeclaration "concatenation_count" bodyTokens = some (expectedTokens "natural range 0 .. max_concatenations") ∧
   Source.declaration "max_concatenations" specTokens = some (expectedTokens "constant positive := 63") ∧
@@ -335,9 +341,9 @@ abbrev DeclarationsFor (specTokens bodyTokens : List String) : Prop :=
   typeDeclaration "subtype_visibility" bodyTokens =
     some (expectedTokens "array ( names . operation_kind ) of boolean") ∧
   Lexical.SourceBridge.recordDeclaration "subtype_environment" bodyTokens =
-    some (expectedTokens "record count : subtype_count ; items : subtype_binding_array ; hidden_calls : subtype_visibility ; end record") ∧
+    some (expectedTokens "record count : subtype_count ; items : subtype_binding_array ; hidden_calls : subtype_visibility ; true_hidden , false_hidden : boolean ; end record") ∧
   Source.declaration "empty_subtypes" bodyTokens =
-    some (expectedTokens "constant subtype_environment := ( 0 , ( others => empty_subtype_binding ) , ( others => false ) )") ∧
+    some (expectedTokens "constant subtype_environment := ( 0 , ( others => empty_subtype_binding ) , ( others => false ) , false , false )") ∧
   functionHeader "valid_subtypes" ";" bodyTokens =
     some (expectedTokens "( text : string ; subtypes : subtype_environment ) return boolean with global => null , pre => text ' first = 1 and then text ' length in 1 .. max_source_length") ∧
   functionHeader "valid_subtypes" "is" bodyTokens =
@@ -381,7 +387,7 @@ private theorem declaration_fact_10 :
   Lexical.SourceBridge.recordDeclaration "binding_environment" Output.SourceShape.outputImplementation = some (expectedTokens "record count : binding_count ; items : binding_array ; end record") := by decide +kernel
 
 private theorem declaration_fact_11 :
-  Lexical.SourceBridge.recordDeclaration "parser_state" Output.SourceShape.outputImplementation = some (expectedTokens "record position : literal_position ; names : binding_environment ; scalar_names : scalar_expressions . environment ; array_names : array_bindings . environment ; subtype_names : subtype_environment ; dynamic_first , dynamic_after : literal_position ; target : binding_count ; capacity : capacity_value ; end record") := by decide +kernel
+  Lexical.SourceBridge.recordDeclaration "parser_state" Output.SourceShape.outputImplementation = some (expectedTokens "record position : literal_position ; names : binding_environment ; scalar_names : scalar_expressions . environment ; array_names : array_bindings . environment ; subtype_names : subtype_environment ; boolean_names : boolean_environment ; dynamic_first , dynamic_after : literal_position ; target : binding_count ; capacity : capacity_value ; end record") := by decide +kernel
 
 private theorem declaration_fact_12 :
   Lexical.SourceBridge.recordDeclaration "value_result" Output.SourceShape.outputImplementation = some (expectedTokens "record after , value_first : literal_position ; minimum_length , static_length : capacity_value ; dynamic_seen , nonliteral_seen , empty_value : boolean ; reference : binding_count ; end record") := by decide +kernel
@@ -399,10 +405,10 @@ private theorem declaration_fact_16 :
   Source.declaration "empty_environment" Output.SourceShape.outputImplementation = some (expectedTokens "constant binding_environment := ( count => 0 , items => ( others => empty_binding ) )") := by decide +kernel
 
 private theorem declaration_fact_17 :
-  Source.declaration "initial_state" Output.SourceShape.outputImplementation = some (expectedTokens "constant parser_state := ( position => 1 , names => empty_environment , scalar_names => scalar_expressions . empty_environment , array_names => array_bindings . empty_environment , subtype_names => empty_subtypes , dynamic_first => 0 , dynamic_after => 0 , target => 0 , capacity => max_source_length )") := by decide +kernel
+  Source.declaration "initial_state" Output.SourceShape.outputImplementation = some (expectedTokens "constant parser_state := ( position => 1 , names => empty_environment , scalar_names => scalar_expressions . empty_environment , array_names => array_bindings . empty_environment , subtype_names => empty_subtypes , boolean_names => empty_booleans , dynamic_first => 0 , dynamic_after => 0 , target => 0 , capacity => max_source_length )") := by decide +kernel
 
 private theorem declaration_fact_18 :
-  Source.declaration "invalid_state" Output.SourceShape.outputImplementation = some (expectedTokens "constant parser_state := ( position => 0 , names => empty_environment , scalar_names => scalar_expressions . empty_environment , array_names => array_bindings . empty_environment , subtype_names => empty_subtypes , dynamic_first => 0 , dynamic_after => 0 , target => 0 , capacity => 0 )") := by decide +kernel
+  Source.declaration "invalid_state" Output.SourceShape.outputImplementation = some (expectedTokens "constant parser_state := ( position => 0 , names => empty_environment , scalar_names => scalar_expressions . empty_environment , array_names => array_bindings . empty_environment , subtype_names => empty_subtypes , boolean_names => empty_booleans , dynamic_first => 0 , dynamic_after => 0 , target => 0 , capacity => 0 )") := by decide +kernel
 
 private theorem declaration_fact_19 :
   Source.declaration "invalid_value" Output.SourceShape.outputImplementation = some (expectedTokens "constant value_result := ( after => 0 , value_first => 0 , minimum_length => 0 , static_length => 0 , dynamic_seen => false , nonliteral_seen => false , empty_value => false , reference => 0 )") := by decide +kernel
@@ -414,7 +420,7 @@ private theorem declaration_fact_21 :
   Source.expressionBody "valid_names" Output.SourceShape.outputImplementation = some (expectedTokens "for all I in 1 .. Names.Count => Names.Items (I).First > 0 and then Valid_Name_State (Text, Names.Items (I).First, Names.Items (I).After) and then Names.Items (I).Value_First <= Text'Last + 1") := by decide +kernel
 
 private theorem declaration_fact_22 :
-  Source.expressionBody "valid_state" Output.SourceShape.outputImplementation = some (expectedTokens "state . position <= text ' last + 1 and then valid_names ( text , state . names ) and then scalar_expressions . valid_environment ( text , state . scalar_names ) and then array_bindings . valid_environment ( text , state . array_names ) and then valid_subtypes ( text , state . subtype_names ) and then valid_mutable_bounds ( state . scalar_names ) and then valid_declaration_values ( state . scalar_names , state . scalar_names . count ) and then valid_name_state ( text , state . dynamic_first , state . dynamic_after ) and then state . target <= state . names . count") := by decide +kernel
+  Source.expressionBody "valid_state" Output.SourceShape.outputImplementation = some (expectedTokens "state . position <= text ' last + 1 and then valid_names ( text , state . names ) and then scalar_expressions . valid_environment ( text , state . scalar_names ) and then array_bindings . valid_environment ( text , state . array_names ) and then valid_subtypes ( text , state . subtype_names ) and then valid_booleans ( text , state . boolean_names ) and then valid_mutable_bounds ( state . scalar_names ) and then valid_declaration_values ( state . scalar_names , state . scalar_names . count ) and then valid_name_state ( text , state . dynamic_first , state . dynamic_after ) and then state . target <= state . names . count") := by decide +kernel
 
 private theorem declaration_fact_23 :
   maxConcatenations = 63 := by decide +kernel
@@ -476,11 +482,11 @@ private theorem declaration_subtype_fact_07 :
 
 private theorem declaration_subtype_fact_08 :
   Lexical.SourceBridge.recordDeclaration "subtype_environment" Output.SourceShape.outputImplementation =
-    some (expectedTokens "record count : subtype_count ; items : subtype_binding_array ; hidden_calls : subtype_visibility ; end record") := by decide +kernel
+    some (expectedTokens "record count : subtype_count ; items : subtype_binding_array ; hidden_calls : subtype_visibility ; true_hidden , false_hidden : boolean ; end record") := by decide +kernel
 
 private theorem declaration_subtype_fact_09 :
   Source.declaration "empty_subtypes" Output.SourceShape.outputImplementation =
-    some (expectedTokens "constant subtype_environment := ( 0 , ( others => empty_subtype_binding ) , ( others => false ) )") := by decide +kernel
+    some (expectedTokens "constant subtype_environment := ( 0 , ( others => empty_subtype_binding ) , ( others => false ) , false , false )") := by decide +kernel
 
 private theorem declaration_subtype_fact_10 :
   functionHeader "valid_subtypes" ";" Output.SourceShape.outputImplementation =
@@ -550,7 +556,7 @@ abbrev RefinementFor (bodyTokens : List String) : Prop :=
   functionHeader "image_at" ";" bodyTokens = some (expectedTokens "( text : string ; position : literal_position ; names : binding_environment ; scalar_names : scalar_expressions . environment ; integer_hidden : boolean ; arrays : array_bindings . metadata ; initials : array_bindings . element_array ; elaborating : boolean ) return value_result with global => null , pre => text ' first = 1 and then text ' length in 1 .. max_source_length and then position <= text ' last + 1 and then valid_names ( text , names ) and then scalar_expressions . valid_environment ( text , scalar_names ) and then array_bindings . valid_metadata ( text , arrays ) , post => image_at ' result . value_first = 0 and then image_at ' result . reference = 0 and then ( image_at ' result . after = 0 or else image_at ' result . after in position + 1 .. text ' last + 1 )") ∧
   functionHeader "string_declaration_at" ";" bodyTokens = some (expectedTokens "( text : string ; state : parser_state ; arguments : boolean ) return parser_state with global => null , pre => text ' first = 1 and then text ' length in 1 .. max_source_length and then valid_state ( text , state ) , post => valid_state ( text , string_declaration_at ' result ) and then ( string_declaration_at ' result . position = 0 or else string_declaration_at ' result . position > state . position )") ∧
   functionHeader "scalar_declaration_at" ";" bodyTokens = some (expectedTokens "( text : string ; state : parser_state ; arguments : boolean ) return parser_state with global => null , pre => text ' first = 1 and then text ' length in 1 .. max_source_length and then valid_state ( text , state ) , post => valid_state ( text , scalar_declaration_at ' result ) and then ( scalar_declaration_at ' result . position = 0 or else scalar_declaration_at ' result . position > state . position )") ∧
-  functionHeader "call_after" ";" bodyTokens = some (expectedTokens "( text : string ; environment : binding_environment ; position : literal_position ; operation : names . operation_kind ; scalar_names : scalar_expressions . environment := scalar_expressions . empty_environment ; arrays : array_bindings . metadata := array_bindings . empty_metadata ; subtype_hidden : boolean := false ) return literal_position with global => null , pre => text ' first = 1 and then text ' length in 1 .. max_source_length and then valid_names ( text , environment ) and then scalar_expressions . valid_environment ( text , scalar_names ) and then array_bindings . valid_metadata ( text , arrays ) and then position <= text ' last + 1 , post => call_after ' result = 0 or else call_after ' result in position + 1 .. text ' last + 1") ∧
+  functionHeader "call_after" ";" bodyTokens = some (expectedTokens "( text : string ; environment : binding_environment ; position : literal_position ; operation : names . operation_kind ; scalar_names : scalar_expressions . environment := scalar_expressions . empty_environment ; arrays : array_bindings . metadata := array_bindings . empty_metadata ; subtype_hidden : boolean := false ; booleans : boolean_environment := empty_booleans ) return literal_position with global => null , pre => text ' first = 1 and then text ' length in 1 .. max_source_length and then valid_names ( text , environment ) and then scalar_expressions . valid_environment ( text , scalar_names ) and then array_bindings . valid_metadata ( text , arrays ) and then valid_booleans ( text , booleans ) and then position <= text ' last + 1 , post => call_after ' result = 0 or else call_after ' result in position + 1 .. text ' last + 1") ∧
   functionHeader "skip_at" ";" bodyTokens = some (expectedTokens "( text : string ; position : literal_position ) return literal_position with global => null , pre => text ' first = 1 and then text ' length in 1 .. max_source_length and then position <= text ' last + 1 , post => ( static => skip_at ' result <= text ' last + 1 and then ( skip_at ' result = ( if position = 0 then 0 else trivia_end ( text , position ) ) ) )") ∧
   functionHeader "name_after" ";" bodyTokens = some (expectedTokens "( text : string ; position : literal_position ) return literal_position with global => null , pre => text ' first = 1 and then text ' length in 1 .. max_source_length and then position <= text ' last + 1 , post => ( static => ( name_after ' result = 0 or else name_after ' result in position + 1 .. text ' last + 1 ) and then ( name_after ' result = ( if position = 0 then 0 else identifier_end ( text , position ) ) ) )") ∧
   functionHeader "take_token" ";" bodyTokens = some (expectedTokens "( text : string ; position : literal_position ; token : token_kind ) return literal_position with global => null , pre => text ' first = 1 and then text ' length in 1 .. max_source_length and then position <= text ' last + 1 , post => ( static => ( take_token ' result = 0 or else take_token ' result in position + 1 .. text ' last + 1 ) and then ( take_token ' result = fixed_after ( text , position , token ) ) )") ∧
@@ -593,7 +599,7 @@ abbrev RefinementFor (bodyTokens : List String) : Prop :=
     some (expectedTokens "( text : string ; state : parser_state ; arguments : boolean ) return parser_state")
 
 private theorem refinement_call_after :
-  functionHeader "call_after" ";" Output.SourceShape.outputImplementation = some (expectedTokens "( text : string ; environment : binding_environment ; position : literal_position ; operation : names . operation_kind ; scalar_names : scalar_expressions . environment := scalar_expressions . empty_environment ; arrays : array_bindings . metadata := array_bindings . empty_metadata ; subtype_hidden : boolean := false ) return literal_position with global => null , pre => text ' first = 1 and then text ' length in 1 .. max_source_length and then valid_names ( text , environment ) and then scalar_expressions . valid_environment ( text , scalar_names ) and then array_bindings . valid_metadata ( text , arrays ) and then position <= text ' last + 1 , post => call_after ' result = 0 or else call_after ' result in position + 1 .. text ' last + 1") := by decide +kernel
+  functionHeader "call_after" ";" Output.SourceShape.outputImplementation = some (expectedTokens "( text : string ; environment : binding_environment ; position : literal_position ; operation : names . operation_kind ; scalar_names : scalar_expressions . environment := scalar_expressions . empty_environment ; arrays : array_bindings . metadata := array_bindings . empty_metadata ; subtype_hidden : boolean := false ; booleans : boolean_environment := empty_booleans ) return literal_position with global => null , pre => text ' first = 1 and then text ' length in 1 .. max_source_length and then valid_names ( text , environment ) and then scalar_expressions . valid_environment ( text , scalar_names ) and then array_bindings . valid_metadata ( text , arrays ) and then valid_booleans ( text , booleans ) and then position <= text ' last + 1 , post => call_after ' result = 0 or else call_after ' result in position + 1 .. text ' last + 1") := by decide +kernel
 
 private theorem refinement_fact_05 :
   functionHeader "skip_at" ";" Output.SourceShape.outputImplementation = some (expectedTokens "( text : string ; position : literal_position ) return literal_position with global => null , pre => text ' first = 1 and then text ' length in 1 .. max_source_length and then position <= text ' last + 1 , post => ( static => skip_at ' result <= text ' last + 1 and then ( skip_at ' result = ( if position = 0 then 0 else trivia_end ( text , position ) ) ) )") := by decide +kernel
@@ -873,5 +879,11 @@ theorem candidate_checked :
     ArrayHelperTranslationFor Output.SourceShape.outputImplementation :=
   ⟨candidate_expressions, candidate_catalogue, candidate_declarations,
     candidate_refinement, candidate_adapters, candidate_array_helpers⟩
+
+/-- The complete ordinary declaration body, including scope, precedence and
+native contracts, independently matched against the reviewed complete source. -/
+theorem candidate_boolean_declaration :
+    BooleanDeclarationNative.SourceChecks.Checked Output.SourceShape.outputImplementation := by
+  constructor <;> decide +kernel
 
 end Silver.Compose.SourceBridge

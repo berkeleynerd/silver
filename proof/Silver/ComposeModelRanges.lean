@@ -52,9 +52,9 @@ theorem model_ranges : RangeContracts modelCalls where
   scalarType := by
     intro text _ state position stateValid positionValid
     refine ⟨scalarTypeAt_position_valid text state position,
-      scalarTypeAt_bounded text state position stateValid.2.2.2.2.2.2.2, ?_⟩
+      scalarTypeAt_bounded text state position stateValid.2.2.2.2.2.2.2.1, ?_⟩
     intro positive
-    exact (scalarTypeAt_sound text state position positive).nonempty stateValid.2.2.2.2.2.2.2
+    exact (scalarTypeAt_sound text state position positive).nonempty stateValid.2.2.2.2.2.2.2.1
   scalarDeclaration := by
     intro text _ state arguments stateValid
     refine ⟨model_scalar_declaration_valid text state arguments stateValid, ?_⟩
