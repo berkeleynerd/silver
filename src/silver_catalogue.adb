@@ -603,7 +603,9 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("          ""Boolean ordering"",");
       Put_Line ("          ""general enumeration iteration"",");
       Put_Line ("          ""Boolean-valued user routines""");
-      Put_Line ("        ]");
+      Put_Line ("        ],");
+      Put_Line ("        ""xor_operands"": ""neither operand may contain xor; strings, comments and identifier substrings do not count; independent xor expressions remain permitted"",");
+      Put_Line ("        ""xor_scope_purpose"": ""avoid repeated formula multiplication in the pinned proof producer; not an Ada restriction""");
       Put_Line ("      }");
       Put_Line ("    },");
       Put_Line ("    {");
@@ -653,7 +655,9 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""right_operand_path"": ""left true for and then; left false for or else; original incoming full flow for eager and/or/xor and Boolean equality/inequality"",");
       Put_Line ("        ""boolean_literals"": true,");
       Put_Line ("        ""eager_operators"": true,");
-      Put_Line ("        ""scope_purpose"": ""short-circuit predicates retain reached-path facts; stored Boolean values and eager outcomes retain no derived scalar or String/input facts""");
+      Put_Line ("        ""scope_purpose"": ""short-circuit predicates retain reached-path facts; stored Boolean values and eager outcomes retain no derived scalar or String/input facts"",");
+      Put_Line ("        ""xor_operands"": ""neither operand may contain xor; strings, comments and identifier substrings do not count; independent xor expressions remain permitted"",");
+      Put_Line ("        ""xor_scope_purpose"": ""avoid repeated formula multiplication in the pinned proof producer; not an Ada restriction""");
       Put_Line ("      }");
       Put_Line ("    },");
       Put_Line ("    {");

@@ -565,7 +565,9 @@
           "Boolean ordering",
           "general enumeration iteration",
           "Boolean-valued user routines"
-        ]
+        ],
+        "xor_operands": "neither operand may contain xor; strings, comments and identifier substrings do not count; independent xor expressions remain permitted",
+        "xor_scope_purpose": "avoid repeated formula multiplication in the pinned proof producer; not an Ada restriction"
       }
     },
     {
@@ -615,7 +617,9 @@
         "right_operand_path": "left true for and then; left false for or else; original incoming full flow for eager and/or/xor and Boolean equality/inequality",
         "boolean_literals": true,
         "eager_operators": true,
-        "scope_purpose": "short-circuit predicates retain reached-path facts; stored Boolean values and eager outcomes retain no derived scalar or String/input facts"
+        "scope_purpose": "short-circuit predicates retain reached-path facts; stored Boolean values and eager outcomes retain no derived scalar or String/input facts",
+        "xor_operands": "neither operand may contain xor; strings, comments and identifier substrings do not count; independent xor expressions remain permitted",
+        "xor_scope_purpose": "avoid repeated formula multiplication in the pinned proof producer; not an Ada restriction"
       }
     },
     {
