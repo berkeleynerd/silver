@@ -106,7 +106,7 @@ theorem scalarAssignment_flowReady (text : Source) (context : ParseContext) (sca
       (Integer.Expr.infer_bounded parsed.inferred) nonempty
     intro value within
     rcases within with ⟨lo, hi⟩
-    dsimp only [scalarAssignmentStart] at low high
+    dsimp only [scalarAssignmentStart, readScalarInFlow] at low high
     constructor <;> omega
 
 theorem basicRaw_flowReady (text : Source) (context : ParseContext) (scan : BodyScan)
