@@ -47,10 +47,10 @@ mutual
     rw [readPrimary]
     split
     · exact invalidCondition_counts facts
-    · dsimp only
+    · try dsimp only
       split
       · split
-        · dsimp only
+        · try dsimp only
           split
           · exact invalidCondition_counts facts
           · exact condition_counts text context _ facts initials
@@ -59,7 +59,7 @@ mutual
         · exact ⟨rfl, rfl⟩
         · split
           · exact invalidCondition_counts facts
-          · dsimp only
+          · try dsimp only
             split
             · exact invalidCondition_counts facts
             · exact ⟨rfl, rfl⟩
@@ -81,7 +81,7 @@ mutual
       (initials : ArrayBindings.Initials := []) :
       (readBooleanRelation text context position facts initials).Counts facts.count := by
     rw [readBooleanRelation]
-    dsimp only
+    try dsimp only
     split
     · exact invalidCondition_counts facts
     · split
@@ -89,7 +89,7 @@ mutual
       · split
         · exact invalidCondition_counts facts
         · split
-          · dsimp only
+          · try dsimp only
             split
             · exact invalidCondition_counts facts
             · exact ⟨rfl, rfl⟩
@@ -102,30 +102,30 @@ mutual
     rw [readRelation]
     split
     · exact invalidCondition_counts facts
-    · dsimp only
+    · try dsimp only
       split
       · exact booleanRelation_counts text context position facts initials
-      · dsimp only
+      · try dsimp only
         split
-        · dsimp only
+        · try dsimp only
           split
           · exact invalidCondition_counts facts
           · exact ⟨rfl, rfl⟩
-        · dsimp only
+        · try dsimp only
           split
-          · dsimp only
+          · try dsimp only
             split
             · exact invalidCondition_counts facts
             · exact scalarCondition_counts ..
-          · dsimp only
+          · try dsimp only
             split
-            · dsimp only
+            · try dsimp only
               split
               · exact invalidCondition_counts facts
-              · dsimp only
+              · try dsimp only
                 split
                 · exact invalidCondition_counts facts
-                · dsimp only
+                · try dsimp only
                   by_cases equal : (comparisonAt text (readStringInFlow text context position facts initials).after).operator == Comparison.eq
                   · simp only [equal, ↓reduceIte]
                     exact ⟨rfl, rfl⟩
@@ -146,17 +146,17 @@ mutual
     · exact invalid
     · split
       · exact valid
-      · dsimp only
+      · try dsimp only
         split
         · exact invalid
-        · dsimp only
+        · try dsimp only
           split
           · exact invalid
           · split
-            · dsimp only
+            · try dsimp only
               split
               · exact invalid
-              · dsimp only
+              · try dsimp only
                 split
                 · apply tail_counts
                   · apply chainJoin_counts valid _ _ incoming incomingCount
@@ -174,7 +174,7 @@ mutual
     split
     · exact invalidCondition_counts facts
     · split
-      · dsimp only
+      · try dsimp only
         split
         · exact invalidCondition_counts facts
         · exact tail_counts text context _ none facts (relation_counts text context position facts initials) rfl initials

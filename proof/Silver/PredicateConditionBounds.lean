@@ -33,14 +33,14 @@ theorem chainJoin_bounded {left right : ConditionResult} (a : left.Bounded) (b :
 mutual
   theorem readPrimary_bounded (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
       (bounded : facts.path.Bounded) (initials : ArrayBindings.Initials := []) :
-      (readPrimary text context position facts bounded initials).Bounded := by
+      (readPrimary text context position facts initials).Bounded := by
     rw [readPrimary]
     split
     · exact invalidCondition_bounded facts
-    · dsimp only
+    · try dsimp only
       split
       · split
-        · dsimp only
+        · try dsimp only
           split
           · exact invalidCondition_bounded facts
           · exact readCondition_bounded text context _ facts bounded initials
@@ -49,7 +49,7 @@ mutual
         · exact ⟨bounded, bounded⟩
         · split
           · exact invalidCondition_bounded facts
-          · dsimp only
+          · try dsimp only
             split
             · exact invalidCondition_bounded facts
             · exact ⟨Context.assumeValid_bounded bounded, Context.assumeInvalid_bounded _⟩
@@ -57,7 +57,7 @@ mutual
 
   theorem readBooleanFactor_bounded (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
       (bounded : facts.path.Bounded) (initials : ArrayBindings.Initials := []) :
-      (readBooleanFactor text context position facts bounded initials).Bounded := by
+      (readBooleanFactor text context position facts initials).Bounded := by
     rw [readBooleanFactor]
     split
     · exact readPrimary_bounded text context position facts bounded initials
@@ -69,9 +69,9 @@ mutual
 
   theorem readBooleanRelation_bounded (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
       (bounded : facts.path.Bounded) (initials : ArrayBindings.Initials := []) :
-      (readBooleanRelation text context position facts bounded initials).Bounded := by
+      (readBooleanRelation text context position facts initials).Bounded := by
     rw [readBooleanRelation]
-    dsimp only
+    try dsimp only
     split
     · exact invalidCondition_bounded facts
     · split
@@ -79,7 +79,7 @@ mutual
       · split
         · exact invalidCondition_bounded facts
         · split
-          · dsimp only
+          · try dsimp only
             split
             · exact invalidCondition_bounded facts
             · exact ⟨bounded, bounded⟩
@@ -88,35 +88,35 @@ mutual
 
   theorem readRelation_bounded (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
       (bounded : facts.path.Bounded) (initials : ArrayBindings.Initials := []) :
-      (readRelation text context position facts bounded initials).Bounded := by
+      (readRelation text context position facts initials).Bounded := by
     rw [readRelation]
     split
     · exact invalidCondition_bounded facts
-    · dsimp only
+    · try dsimp only
       split
       · exact readBooleanRelation_bounded text context position facts bounded initials
-      · dsimp only
+      · try dsimp only
         split
-        · dsimp only
+        · try dsimp only
           split
           · exact invalidCondition_bounded facts
           · exact ⟨refineBounds_bounded bounded _ _ _ _, refineBounds_bounded bounded _ _ _ _⟩
-        · dsimp only
+        · try dsimp only
           split
-          · dsimp only
+          · try dsimp only
             split
             · exact invalidCondition_bounded facts
             · unfold scalarCondition ConditionResult.Bounded
               simpa only [ActiveFlow.refine_path] using And.intro bounded bounded
-          · dsimp only
+          · try dsimp only
             split
-            · dsimp only
+            · try dsimp only
               split
               · exact invalidCondition_bounded facts
-              · dsimp only
+              · try dsimp only
                 split
                 · exact invalidCondition_bounded facts
-                · dsimp only
+                · try dsimp only
                   by_cases equal : (comparisonAt text (readStringInFlow text context position facts bounded initials).after).operator == Comparison.eq
                   · simp only [equal, ↓reduceIte]
                     exact ⟨refineLengthOverlap_bounded bounded _ _, bounded⟩
@@ -136,17 +136,17 @@ mutual
     · exact invalid
     · split
       · exact valid
-      · dsimp only
+      · try dsimp only
         split
         · exact invalid
-        · dsimp only
+        · try dsimp only
           split
           · exact invalid
           · split
-            · dsimp only
+            · try dsimp only
               split
               · exact invalid
-              · dsimp only
+              · try dsimp only
                 split
                 · apply conditionTail_bounded
                   · exact chainJoin_bounded valid
@@ -159,12 +159,12 @@ mutual
 
   theorem readCondition_bounded (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
       (bounded : facts.path.Bounded) (initials : ArrayBindings.Initials := []) :
-      (readCondition text context position facts bounded initials).Bounded := by
+      (readCondition text context position facts initials).Bounded := by
     rw [readCondition]
     split
     · exact invalidCondition_bounded facts
     · split
-      · dsimp only
+      · try dsimp only
         split
         · exact invalidCondition_bounded facts
         · exact conditionTail_bounded text context _ none facts (readRelation_bounded text context position facts bounded initials) bounded initials

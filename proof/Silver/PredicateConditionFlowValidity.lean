@@ -108,7 +108,7 @@ private theorem bareTarget_allowed (text : Source) (context : ParseContext) (pos
       (ScalarExpression.binding context.scalarNames (bareTarget text context position after)).mutable = true ∨
       context.declarationCount < bareTarget text context position after := by
   unfold bareTarget
-  dsimp only
+  try dsimp only
   split
   · rename_i selected
     exact Or.inr (by simpa only [Bool.or_eq_true, decide_eq_true_eq] using selected.2.2)
@@ -118,7 +118,7 @@ theorem scalarCondition_flowReady {text context position rightPosition facts lef
     (ready : ScalarMetadata.FlowReady context.scalarNames context.declarationCount facts) :
     (scalarCondition text context position rightPosition facts left right operator).FlowReady context := by
   unfold scalarCondition ConditionResult.FlowReady
-  dsimp only
+  try dsimp only
   constructor <;> apply ScalarMetadata.FlowReady.refine ready
   all_goals
     split
@@ -151,14 +151,14 @@ mutual
       (base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)
       (ready : ScalarMetadata.FlowReady context.scalarNames context.declarationCount facts)
       (initials : ArrayBindings.Initials := []) :
-      (readPrimary text context position facts base ready initials).FlowReady context := by
+      (readPrimary text context position facts initials).FlowReady context := by
     rw [readPrimary]
     split
     · exact invalidCondition_flowReady ready
-    · dsimp only
+    · try dsimp only
       split
       · split
-        · dsimp only
+        · try dsimp only
           split
           · exact invalidCondition_flowReady ready
           · exact condition_flowReady text context _ facts base ready initials
@@ -167,7 +167,7 @@ mutual
         · exact ⟨ready, ready⟩
         · split
           · exact invalidCondition_flowReady ready
-          · dsimp only
+          · try dsimp only
             split
             · exact invalidCondition_flowReady ready
             · exact ⟨ready.withPath _, ready.withPath _⟩
@@ -177,7 +177,7 @@ mutual
       (base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)
       (ready : ScalarMetadata.FlowReady context.scalarNames context.declarationCount facts)
       (initials : ArrayBindings.Initials := []) :
-      (readBooleanFactor text context position facts base ready initials).FlowReady context := by
+      (readBooleanFactor text context position facts initials).FlowReady context := by
     rw [readBooleanFactor]
     split
     · exact primary_flowReady text context position facts base ready initials
@@ -191,9 +191,9 @@ mutual
       (base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)
       (ready : ScalarMetadata.FlowReady context.scalarNames context.declarationCount facts)
       (initials : ArrayBindings.Initials := []) :
-      (readBooleanRelation text context position facts base ready initials).FlowReady context := by
+      (readBooleanRelation text context position facts initials).FlowReady context := by
     rw [readBooleanRelation]
-    dsimp only
+    try dsimp only
     split
     · exact invalidCondition_flowReady ready
     · split
@@ -201,7 +201,7 @@ mutual
       · split
         · exact invalidCondition_flowReady ready
         · split
-          · dsimp only
+          · try dsimp only
             split
             · exact invalidCondition_flowReady ready
             · exact ⟨ready, ready⟩
@@ -212,34 +212,34 @@ mutual
       (base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)
       (ready : ScalarMetadata.FlowReady context.scalarNames context.declarationCount facts)
       (initials : ArrayBindings.Initials := []) :
-      (readRelation text context position facts base ready initials).FlowReady context := by
+      (readRelation text context position facts initials).FlowReady context := by
     rw [readRelation]
     split
     · exact invalidCondition_flowReady ready
-    · dsimp only
+    · try dsimp only
       split
       · exact booleanRelation_flowReady text context position facts base ready initials
-      · dsimp only
+      · try dsimp only
         split
-        · dsimp only
+        · try dsimp only
           split
           · exact invalidCondition_flowReady ready
           · exact ⟨ready.withPath _, ready.withPath _⟩
-        · dsimp only
+        · try dsimp only
           split
-          · dsimp only
+          · try dsimp only
             split
             · exact invalidCondition_flowReady ready
             · exact scalarCondition_flowReady ready
-          · dsimp only
+          · try dsimp only
             split
-            · dsimp only
+            · try dsimp only
               split
               · exact invalidCondition_flowReady ready
-              · dsimp only
+              · try dsimp only
                 split
                 · exact invalidCondition_flowReady ready
-                · dsimp only
+                · try dsimp only
                   by_cases equal : (comparisonAt text (readStringInFlow text context position facts base ready initials).after).operator == Comparison.eq
                   · simp only [equal, ↓reduceIte]
                     exact ⟨ready.withPath _, ready⟩
@@ -261,17 +261,17 @@ mutual
     · exact invalid
     · split
       · exact valid
-      · dsimp only
+      · try dsimp only
         split
         · exact invalid
-        · dsimp only
+        · try dsimp only
           split
           · exact invalid
           · split
-            · dsimp only
+            · try dsimp only
               split
               · exact invalid
-              · dsimp only
+              · try dsimp only
                 split
                 · exact tail_flowReady text context _ _ incoming base
                     (chainJoin_flowReady base valid
@@ -286,12 +286,12 @@ mutual
       (base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)
       (ready : ScalarMetadata.FlowReady context.scalarNames context.declarationCount facts)
       (initials : ArrayBindings.Initials := []) :
-      (readCondition text context position facts base ready initials).FlowReady context := by
+      (readCondition text context position facts initials).FlowReady context := by
     rw [readCondition]
     split
     · exact invalidCondition_flowReady ready
     · split
-      · dsimp only
+      · try dsimp only
         split
         · exact invalidCondition_flowReady ready
         · exact tail_flowReady text context _ none facts base (relation_flowReady text context position facts base ready initials) ready initials
