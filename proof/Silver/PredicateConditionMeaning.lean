@@ -11,7 +11,8 @@ structure ConditionMeaning (context : ParseContext) (facts : ActiveFlow)
     (condition : Condition) (result : ConditionResult) (initials : ArrayBindings.Initials := []) : Prop where
   grammatical : condition.Grammatical
   readable : condition.Readable context.hasArguments context.names.shape (BooleanBindings.analysis context.booleanNames)
-  checked : condition.checkBounds context.names.shape context.analysis (context.flow facts initials) = true
+  checked : condition.checkBounds context.names.shape context.analysis (context.flow facts initials)
+    (BooleanBindings.analysis context.booleanNames) = true
   whenTrue : (context.flow result.whenTrue initials) = condition.refine context.names.shape context.analysis (context.flow facts initials) true
   whenFalse : (context.flow result.whenFalse initials) = condition.refine context.names.shape context.analysis (context.flow facts initials) false
 
@@ -82,17 +83,17 @@ theorem ConditionMeaning.chain {context facts left leftResult right rightResult 
       refine ⟨⟨head, relation, leftMeaning.grammatical, rightMeaning.grammatical⟩,
         ⟨leftMeaning.readable, rightMeaning.readable⟩, ?_, ?_, ?_⟩
       · simp only [chainCondition, Condition.checkBounds, leftMeaning.checked, checkedRight, Bool.and_self]
-      · simp only [chainJoin, chainCondition, Condition.refine, trueRight]
+      · simp only [chainJoin, chainCondition, Condition.refine, trueRight, ↓reduceIte]
       · simp only [chainJoin, chainCondition, Condition.refine, ParseContext.flow_join,
-          leftMeaning.whenFalse, falseRight]
+          leftMeaning.whenFalse, falseRight, Bool.false_eq_true, ↓reduceIte]
   | shortOr =>
       simp only [chainContext, leftMeaning.whenFalse] at checkedRight trueRight falseRight
       refine ⟨⟨head, relation, leftMeaning.grammatical, rightMeaning.grammatical⟩,
         ⟨leftMeaning.readable, rightMeaning.readable⟩, ?_, ?_, ?_⟩
       · simp only [chainCondition, Condition.checkBounds, leftMeaning.checked, checkedRight, Bool.and_self]
       · simp only [chainJoin, chainCondition, Condition.refine, ParseContext.flow_join,
-          leftMeaning.whenTrue, trueRight]
-      · simp only [chainJoin, chainCondition, Condition.refine, falseRight]
+          leftMeaning.whenTrue, trueRight, ↓reduceIte]
+      · simp only [chainJoin, chainCondition, Condition.refine, falseRight, Bool.false_eq_true, ↓reduceIte]
   | eagerAnd | eagerOr | eagerXor =>
       simp only [chainContext] at checkedRight
       refine ⟨⟨head, relation, leftMeaning.grammatical, rightMeaning.grammatical⟩,

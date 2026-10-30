@@ -238,9 +238,9 @@ theorem inferred_staticness {names : ScalarExpression.Environment} {arrays : Arr
       obtain ⟨a, l, b, r, _⟩ := found
       simp only [ScalarExpression.isStatic, Integer.Expr.isStatic, ihl l, ihr r]
 
-theorem scalarAt_staticness {text : Source} {context : ParseContext} {facts : ActiveFlow}
+theorem scalarAt_staticness {text : Source} {context : ParseContext} {facts : ActiveFlow} {initials : ArrayBindings.Initials}
     {position : Nat} {expression : Integer.Expr} {result : ScalarExpression.Result}
-    (parsed : ScalarExpression.At (arrays := context.arrayNames) text (context.readingNames facts) position expression result) :
+    (parsed : ScalarExpression.At (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating) text (context.readingNames facts) position expression result) :
     result.isStatic = expression.isStatic context.analysis.static := by
   rw [parsed.staticValue, inferred_staticness parsed.inferred]
   simp only [ParseContext.readingNames, ScalarMetadata.readingNames_staticness]
@@ -288,18 +288,18 @@ theorem guardTarget_bound (context : ParseContext) (expression : Integer.Expr) :
       exact refinable.1.2
   · omega
 
-theorem scalarCondition_outcome_model {text : Source} {context : ParseContext} {facts : ActiveFlow}
+theorem scalarCondition_outcome_model {text : Source} {context : ParseContext} {facts : ActiveFlow} {initials : ArrayBindings.Initials}
     {position rightPosition : Nat} {left right : Integer.Expr}
     {leftResult rightResult : ScalarExpression.Result} {operator : Comparison}
     (size : context.scalarNames.length ≤ ArrayBindings.scalarLimit)
     (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount facts)
-    (leftRead : ScalarExpression.At (arrays := context.arrayNames) text (context.readingNames facts) position left leftResult)
-    (rightRead : ScalarExpression.At (arrays := context.arrayNames) text (context.readingNames facts) rightPosition right rightResult)
+    (leftRead : ScalarExpression.At (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating) text (context.readingNames facts) position left leftResult)
+    (rightRead : ScalarExpression.At (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating) text (context.readingNames facts) rightPosition right rightResult)
     (truth : Bool) :
     context.flow (if truth then (scalarCondition text context position rightPosition facts leftResult rightResult operator).whenTrue
-      else (scalarCondition text context position rightPosition facts leftResult rightResult operator).whenFalse) =
-      (Condition.scalarCompare operator.toInteger left right).refine context.names.shape context.analysis (context.flow facts) truth := by
-  have ranges := context.reading_ranges compatible
+      else (scalarCondition text context position rightPosition facts leftResult rightResult operator).whenFalse) initials =
+      (Condition.scalarCompare operator.toInteger left right).refine context.names.shape context.analysis (context.flow facts initials) truth := by
+  have ranges := context.reading_ranges compatible initials
   have l := leftRead.inferred
   have r := rightRead.inferred
   rw [ranges] at l r
@@ -308,7 +308,7 @@ theorem scalarCondition_outcome_model {text : Source} {context : ParseContext} {
   have leftStatic := scalarAt_staticness leftRead
   have rightStatic := scalarAt_staticness rightRead
   have selected : (if truth then (scalarCondition text context position rightPosition facts leftResult rightResult operator).whenTrue
-      else (scalarCondition text context position rightPosition facts leftResult rightResult operator).whenFalse) =
+      else (scalarCondition text context position rightPosition facts leftResult rightResult operator).whenFalse) initials =
       facts.refine
         (if guardTarget context left ≠ 0 ∧ right.isStatic context.analysis.static = true ∧ rightResult.bounds.lower = rightResult.bounds.upper
           then guardTarget context left
@@ -338,30 +338,30 @@ theorem scalarCondition_outcome_model {text : Source} {context : ParseContext} {
     · simp only [ite_eq_right chooseLeft, ite_eq_left chooseRight]
       rfl
     · simp only [chooseLeft, chooseRight, ↓reduceIte, Integer.Ranges.refineName,
-        ParseContext.flow, ArrayFlow.flow, ArrayFlow.ranges,
+        ParseContext.flow,
         ArrayBindings.ranges_scalar _ _ _ _ (show 0 ≤ ArrayBindings.scalarLimit by decide),
         ActiveFlow.model, ActiveFlow.ranges, ↓reduceIte]
 
-theorem scalarCondition_whenTrue_model {text : Source} {context : ParseContext} {facts : ActiveFlow}
+theorem scalarCondition_whenTrue_model {text : Source} {context : ParseContext} {facts : ActiveFlow} {initials : ArrayBindings.Initials}
     {position rightPosition : Nat} {left right : Integer.Expr}
     {leftResult rightResult : ScalarExpression.Result} {operator : Comparison}
     (size : context.scalarNames.length ≤ ArrayBindings.scalarLimit)
     (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount facts)
-    (leftRead : ScalarExpression.At (arrays := context.arrayNames) text (context.readingNames facts) position left leftResult)
-    (rightRead : ScalarExpression.At (arrays := context.arrayNames) text (context.readingNames facts) rightPosition right rightResult) :
-    context.flow (scalarCondition text context position rightPosition facts leftResult rightResult operator).whenTrue =
-      (Condition.scalarCompare operator.toInteger left right).refine context.names.shape context.analysis (context.flow facts) true :=
+    (leftRead : ScalarExpression.At (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating) text (context.readingNames facts) position left leftResult)
+    (rightRead : ScalarExpression.At (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating) text (context.readingNames facts) rightPosition right rightResult) :
+    context.flow (scalarCondition text context position rightPosition facts leftResult rightResult operator).whenTrue initials =
+      (Condition.scalarCompare operator.toInteger left right).refine context.names.shape context.analysis (context.flow facts initials) true :=
   scalarCondition_outcome_model size compatible leftRead rightRead true
 
-theorem scalarCondition_whenFalse_model {text : Source} {context : ParseContext} {facts : ActiveFlow}
+theorem scalarCondition_whenFalse_model {text : Source} {context : ParseContext} {facts : ActiveFlow} {initials : ArrayBindings.Initials}
     {position rightPosition : Nat} {left right : Integer.Expr}
     {leftResult rightResult : ScalarExpression.Result} {operator : Comparison}
     (size : context.scalarNames.length ≤ ArrayBindings.scalarLimit)
     (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount facts)
-    (leftRead : ScalarExpression.At (arrays := context.arrayNames) text (context.readingNames facts) position left leftResult)
-    (rightRead : ScalarExpression.At (arrays := context.arrayNames) text (context.readingNames facts) rightPosition right rightResult) :
-    context.flow (scalarCondition text context position rightPosition facts leftResult rightResult operator).whenFalse =
-      (Condition.scalarCompare operator.toInteger left right).refine context.names.shape context.analysis (context.flow facts) false :=
+    (leftRead : ScalarExpression.At (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating) text (context.readingNames facts) position left leftResult)
+    (rightRead : ScalarExpression.At (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating) text (context.readingNames facts) rightPosition right rightResult) :
+    context.flow (scalarCondition text context position rightPosition facts leftResult rightResult operator).whenFalse initials =
+      (Condition.scalarCompare operator.toInteger left right).refine context.names.shape context.analysis (context.flow facts initials) false :=
   scalarCondition_outcome_model size compatible leftRead rightRead false
 
 end Silver.Predicate
