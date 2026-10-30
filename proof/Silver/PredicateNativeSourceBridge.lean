@@ -43,32 +43,41 @@ theorem length_correct (source : InterpretedSource tokens calls) (text : Source)
     calls.length text context position literal = lengthAt text context.model position literal :=
   length_meaning source.helpers source.definitions text tv context cv position literal bounded
 
+theorem booleanAtom_correct (source : InterpretedSource tokens calls) (text : Source)
+    (tv : ValidText text) (context : Native.Context) (cv : ValidContext text context)
+    (position : Nat) (bounded : position ≤ text.length + 1) :
+    calls.booleanAtom text context position = booleanAtomAfter text context.model position :=
+  booleanAtom_meaning source.helpers source.definitions text tv context cv position bounded
+
 theorem chainToken_correct (source : InterpretedSource tokens calls) (text : Source)
     (tv : ValidText text) (position : Nat) (bounded : position ≤ text.length + 1) :
     calls.chainToken text position = chainTokenModel text position :=
   chainToken_meaning source.helpers source.definitions text tv position bounded
 
 theorem chainAfter_correct (source : InterpretedSource tokens calls) (text : Source)
-    (tv : ValidText text) (position : Nat) (operator : Native.Token)
+    (tv : ValidText text) (position : Nat) (operator : Native.ChainKind)
     (bounded : position ≤ text.length + 1) (valid : operator.isChain = true) :
-    calls.chainAfter text position operator = Predicate.chainAfter text position operator.chain :=
-  chainAfter_meaning source.helpers source.definitions text tv position operator bounded valid
+    calls.chainAfter text position operator = Predicate.chainAfter text position operator.predicate := by
+  rw [chainAfter_meaning source.helpers source.definitions text tv position operator bounded valid]
+  cases operator <;> simp_all [Native.ChainKind.isChain, chainAfterModel]
 
 theorem condition_correct (source : InterpretedSource tokens calls) (text : Source)
     (tv : ValidText text) (context : Native.Context) (cv : ValidContext text context)
     (position : Nat) (bounded : position ≤ text.length + 1)
-    (facts : ActiveFlow) (fv : ValidFlow context facts) :
-    calls.condition text context position facts = readCondition text context.model position facts :=
+    (facts : ActiveFlow) (fv : ValidFlow context facts)
+    (initials : ArrayBindings.Initials) (iv : ArrayBindings.ValidInitials initials) :
+    calls.condition text context position facts initials = readCondition text context.model position facts initials :=
   condition_of_source_equations source.helpers source.definitions source.contracts
-    text tv context cv position bounded facts fv
+    text tv context cv position bounded facts fv initials iv
 
 theorem condition_valid (source : InterpretedSource tokens calls) (text : Source)
     (tv : ValidText text) (context : Native.Context) (cv : ValidContext text context)
     (position : Nat) (bounded : position ≤ text.length + 1)
-    (facts : ActiveFlow) (fv : ValidFlow context facts) :
-    ValidResult text context (calls.condition text context position facts) := by
-  rw [condition_correct source text tv context cv position bounded facts fv]
-  exact model_condition_valid text tv context cv position bounded facts fv
+    (facts : ActiveFlow) (fv : ValidFlow context facts)
+    (initials : ArrayBindings.Initials) (iv : ArrayBindings.ValidInitials initials) :
+    ValidResult text context (calls.condition text context position facts initials) := by
+  rw [condition_correct source text tv context cv position bounded facts fv initials iv]
+  exact model_condition_valid text tv context cv position bounded facts fv initials
 
 theorem model_interpreted (checked : NativeSourceChecks.Checked tokens) :
     InterpretedSource tokens modelCalls :=
