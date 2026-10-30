@@ -55,7 +55,7 @@ theorem booleanAtom_sound {text context position}
   unfold booleanAtomAfter at accepted ⊢
   dsimp only at accepted ⊢
   split
-  · simp_all only [↓reduceIte, ne_eq, not_true_eq_false]
+  · simp_all only [Bool.false_eq_true, ↓reduceIte, ne_eq, not_true_eq_false]
   · rename_i allowed
     have firstNonzero : skipAt text position ≠ 0 := fun bad => allowed (Or.inl bad)
     have afterNonzero : nameAfter text (skipAt text position) ≠ 0 := by
@@ -79,7 +79,7 @@ theorem booleanAtom_sound {text context position}
             model_name_valid text _⟩
         · exact ⟨⟨.booleanLiteral false, .literal parsed noName falseName.1⟩,
             model_name_valid text _⟩
-      · simp_all only [↓reduceIte, ne_eq, not_true_eq_false]
+      · simp_all only [Bool.false_eq_true, ↓reduceIte, ne_eq, not_true_eq_false]
 
 mutual
   theorem primary_sound (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
@@ -152,34 +152,37 @@ mutual
         (readBooleanRelation text context position facts initials).after ≤ text.length + 1 := by
     let left := readBooleanFactor text context position facts initials
     let operator := comparisonAt text left.after
+    let right := readBooleanFactor text context operator.after facts initials
+    have equation : readBooleanRelation text context position facts initials =
+        (if left.after = 0 then invalidCondition facts
+         else if operator.after = 0 then left
+         else if operator.operator ≠ .eq ∧ operator.operator ≠ .ne then invalidCondition facts
+         else if _ : remainingAt text operator.after < remainingAt text position then
+           if right.after = 0 then invalidCondition facts else ⟨right.after, facts, facts⟩
+         else invalidCondition facts) := by rw [readBooleanRelation]; rfl
     have positive : left.after ≠ 0 := by
       intro failed
-      simp only [readBooleanRelation, show (readBooleanFactor text context position facts initials).after = 0 from failed,
-        ↓reduceIte, invalidCondition, ne_eq, not_true_eq_false] at accepted
+      rw [equation] at accepted
+      simp only [failed, ↓reduceIte, invalidCondition, ne_eq, not_true_eq_false] at accepted
     obtain ⟨⟨leftCondition, leftRead⟩, leftBound⟩ := booleanFactor_sound text context position facts textValid namesValid bounded positive
     by_cases noComparison : operator.after = 0
-    · simp only [readBooleanRelation, show (readBooleanFactor text context position facts initials).after ≠ 0 from positive,
-        show (comparisonAt text (readBooleanFactor text context position facts initials).after).after = 0 from noComparison, ↓reduceIte]
+    · rw [equation]
+      simp only [positive, noComparison, ↓reduceIte]
       exact ⟨⟨leftCondition, .factor leftRead positive noComparison⟩, leftBound⟩
     · have allowed : ¬(operator.operator ≠ .eq ∧ operator.operator ≠ .ne) := by
         intro bad
-        simp only [readBooleanRelation] at accepted
-        change ((if left.after = 0 then _ else if operator.after = 0 then _ else if _ then _ else _) : ConditionResult).after ≠ 0 at accepted
+        rw [equation] at accepted
         simp only [positive, noComparison, bad, ↓reduceIte, invalidCondition, ne_eq, not_true_eq_false] at accepted
       have advanced : remainingAt text operator.after < remainingAt text position := by
         by_cases good : remainingAt text operator.after < remainingAt text position
         · exact good
-        · simp only [readBooleanRelation] at accepted
-          change ((if left.after = 0 then _ else if operator.after = 0 then _ else if _ then _ else _) : ConditionResult).after ≠ 0 at accepted
+        · rw [equation] at accepted
           simp only [positive, noComparison, allowed, good, ↓reduceIte, ↓reduceDIte, invalidCondition, ne_eq, not_true_eq_false] at accepted
-      let right := readBooleanFactor text context operator.after facts initials
       have rightPositive : right.after ≠ 0 := by
         intro bad
-        simp only [readBooleanRelation] at accepted
-        change ((if left.after = 0 then _ else if operator.after = 0 then _ else if _ then _ else _) : ConditionResult).after ≠ 0 at accepted
-        simp only [positive, noComparison, allowed, advanced, ↓reduceIte, ↓reduceDIte] at accepted
-        change ((if right.after = 0 then _ else _) : ConditionResult).after ≠ 0 at accepted
-        simp only [bad, ↓reduceIte, invalidCondition, ne_eq, not_true_eq_false] at accepted
+        rw [equation] at accepted
+        simp only [positive, noComparison, allowed, advanced, bad, ↓reduceIte, ↓reduceDIte,
+          invalidCondition, ne_eq, not_true_eq_false] at accepted
       obtain ⟨⟨rightCondition, rightRead⟩, rightBound⟩ := booleanFactor_sound text context operator.after facts textValid namesValid
         (comparison_bound text left.after leftBound) rightPositive
       have kinds : operator.operator = .eq ∨ operator.operator = .ne := by
@@ -188,13 +191,8 @@ mutual
         · by_cases unequal : operator.operator = .ne
           · exact Or.inr unequal
           · exact False.elim (allowed ⟨equal, unequal⟩)
-      rw [readBooleanRelation]
-      change (∃ condition, BooleanRelationAt text context position facts condition
-        (if left.after = 0 then _ else if operator.after = 0 then _ else if _ then _ else _) initials) ∧ _
-      simp only [positive, noComparison, allowed, advanced, ↓reduceIte, ↓reduceDIte]
-      change (∃ condition, BooleanRelationAt text context position facts condition
-        (if right.after = 0 then _ else _) initials) ∧ _
-      simp only [rightPositive, ↓reduceIte]
+      rw [equation]
+      simp only [positive, noComparison, allowed, advanced, rightPositive, ↓reduceIte, ↓reduceDIte]
       exact ⟨⟨_, .comparison leftRead positive noComparison kinds advanced rightRead rightPositive⟩, rightBound⟩
   termination_by (remainingAt text position, 3)
   decreasing_by all_goals first | exact Prod.Lex.left _ _ (by assumption) | exact Prod.Lex.right _ (by decide)
@@ -211,7 +209,7 @@ mutual
       · have positive : (readBooleanRelation text context position facts initials).after ≠ 0 := by
           simpa only [readRelation, zero, negation, ne_eq, not_true_eq_false, not_false_eq_true, ↓reduceIte] using accepted
         obtain ⟨⟨condition, parsed⟩, bound⟩ := booleanRelation_sound text context position facts textValid namesValid bounded positive
-        simp only [readRelation, zero, negation, ne_eq, not_true_eq_false, not_false_eq_true, ↓reduceIte]
+        simp only [readRelation, zero, negation, ne_eq, not_true_eq_false, ↓reduceIte]
         exact ⟨⟨condition, .booleanNot zero negation parsed⟩, bound⟩
       · have noNot : fixedAfter text position "not" true = 0 := by omega
         by_cases lengthPresent : (lengthAt text context position false).after ≠ 0

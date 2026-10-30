@@ -308,7 +308,7 @@ theorem scalarCondition_outcome_model {text : Source} {context : ParseContext} {
   have leftStatic := scalarAt_staticness leftRead
   have rightStatic := scalarAt_staticness rightRead
   have selected : (if truth then (scalarCondition text context position rightPosition facts leftResult rightResult operator).whenTrue
-      else (scalarCondition text context position rightPosition facts leftResult rightResult operator).whenFalse) initials =
+      else (scalarCondition text context position rightPosition facts leftResult rightResult operator).whenFalse) =
       facts.refine
         (if guardTarget context left ≠ 0 ∧ right.isStatic context.analysis.static = true ∧ rightResult.bounds.lower = rightResult.bounds.upper
           then guardTarget context left
