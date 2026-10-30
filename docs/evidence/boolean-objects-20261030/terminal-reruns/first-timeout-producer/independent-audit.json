@@ -1,0 +1,30 @@
+{
+  "audited_at": "2026-10-30T15:42:13.342144+00:00",
+  "workspace": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/program-ZviwDT",
+  "source_sha256": "3dfeee525b935212f90c161d4eadc87ac1707aa1f33f347bcc008b2ef75ffbae",
+  "byte_identical_source": true,
+  "independent_report_audit": {
+    "units": 5,
+    "entities": 17,
+    "flow_checks": 19,
+    "proof_checks": 110,
+    "limitation_notes": 0,
+    "imported_entities": 6,
+    "trusted_math_notes": 0,
+    "vendor_spec_entities": 0,
+    "array_initialization_advisories": 0,
+    "assignment_advisories": 0,
+    "image_advisories": 0
+  },
+  "report_sha256": {
+    "silver_output_libc.spark": "87a15773be22e6b07c53c8ba6a1596361ce549568bc5ecd8c9cc7ae3f6e50ac7",
+    "silver_io.spark": "8fd513cbaedbba41ae108f7ad3308051011d30711d57b8fea56b08e560f200bd",
+    "silver_runtime.spark": "603c0bb9b34e106ffbd1ccc8aad268442a905b194e6fd7c1d068e32b4542a615",
+    "silver_arguments.spark": "ba4a029ec039e33ab78972b7bd521491e85e714d724f3c4acf9cb83eee903fcd",
+    "main~1.spark": "21384e1dc1719cdc224256cacaa3f0810f4c6cea2182dc23f497a8fe3433b643",
+    "gnatprove.out": "d17af55aa47c185b6e4262e1228f8ed7c6564bad97fd11bd06bf7f99b85e0905",
+    "gnatprove.sarif": "b15eca327e6d58844b966e83c8bea56e67f3f8b5125ec31fb5d6247504a3c083"
+  },
+  "compilation_test_passed": false,
+  "note": "Producer reports completed after the existing test deadline; the test still requires an unchanged-deadline compile/execute rerun after the full suite terminates."
+}

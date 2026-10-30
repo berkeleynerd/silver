@@ -1,0 +1,11 @@
+{
+  "original_snapshot": "927cc5e17848bcb76e811d176dbd1425d3cd4b35",
+  "override_commit": "29bc1d44d7",
+  "original_sha256": "fc8da3e247ba5ee717db5ce7d9faa8102b62af9250c4786988325699cce72220",
+  "validation_sha256": "be16a4293c65e2feff11b290f9568c0de4eb289607f58dcbac662c230d2e3252",
+  "required_ids": [
+    "test_branching.BranchingTests.test_admitted_literals_binding_and_layout",
+    "test_branching.BranchingTests.test_rejected_guard_equality_and_branch_neighbours",
+    "test_samples.SupportedSampleTests.test_maximum_dynamic_expression"
+  ]
+}
