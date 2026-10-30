@@ -14,7 +14,7 @@ abbrev TargetCall := Source → Native.Context → Nat → Nat
 
 def modelTarget : TargetCall := fun text context position => booleanTarget text context.model position
 
-structure Imports where
+@[ext] structure Imports where
   skip : Source → Nat → Nat
   nameAfter : Source → Nat → Nat
   scalarLookup : Source → ScalarExpression.Environment → Nat → Nat → Nat

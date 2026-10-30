@@ -29,7 +29,7 @@ def modelImports : Imports where
   lookup := ScalarExpression.lookup
   stringLookup := lookupName
   assignment := fun text position => fixedAfter text position ":=" false
-  read := fun text context position facts => ScalarExpression.read text position (context.model.readingNames facts) (arrays := context.arrayNames)
+  read := fun text context position facts => readScalarInFlow text context.model position facts
   invalidModel := invalidBody
   isEmpty := Integer.Interval.isEmpty
 

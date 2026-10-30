@@ -1,6 +1,7 @@
 module
 
 public import Silver.PredicateBodyAdmission
+public import Silver.PredicateBooleanBodyNative
 public import Silver.PredicateScalarBodyNative
 public import Silver.PredicateArrayBodyNative
 public import Silver.PredicateNativeState
@@ -12,7 +13,7 @@ namespace Silver.Predicate.BasicNative
 open Compose Bindings
 
 structure Primitives where
-  callAfter : Source → Compose.BindingEnvironment → Nat → Names.Operation → ScalarExpression.Environment → ArrayBindings.Metadata → Bool → Nat
+  callAfter : Source → Compose.BindingEnvironment → Nat → Names.Operation → ScalarExpression.Environment → ArrayBindings.Metadata → Bool → BooleanBindings.Environment → Nat
   associationAfter : Source → Nat → Bool → Nat
   token : Source → Nat → ShellToken → Nat
   expression : Source → Native.Context → Nat → ActiveFlow → ExpressionResult
@@ -21,6 +22,8 @@ structure Primitives where
   invalid : BodyScan → BodyScan
   scalarTarget : Source → Native.Context → Nat → Nat
   scalarAssignment : Source → Native.Context → BodyScan → BodyScan
+  booleanTarget : Source → Native.Context → Nat → Nat
+  booleanAssignment : Source → Native.Context → BodyScan → BodyScan
   arrayTarget : Source → Native.Context → Nat → Nat
   arrayAssignment : Source → Native.Context → BodyScan → BodyScan
   fits : PathFacts.Context → LengthSummary → Bool
@@ -40,11 +43,11 @@ def bindingSummary (info : Compose.BindingInfo) : LengthSummary := .ofExact info
 inductive Test
   | operation (value : Names.Operation)
   | zeroResult | nonadvancing | present (token : ShellToken) | hasArguments
-  | zeroValue | invalidInput | notFits | zeroTarget | notSameLength | scalarTarget | arrayTarget
+  | zeroValue | invalidInput | notFits | zeroTarget | notSameLength | scalarTarget | booleanTarget | arrayTarget
   | orElse (left right : Test) | andThen (left right : Test)
 
 def Test.eval (primitive : Primitives) (frame : Frame) : Test → Bool
-  | .operation value => decide (primitive.callAfter frame.text frame.context.names frame.result.position value frame.context.scalarNames frame.context.arrayNames (frame.context.subtypeHiding.get value) ≠ 0)
+  | .operation value => decide (primitive.callAfter frame.text frame.context.names frame.result.position value frame.context.scalarNames frame.context.arrayNames (frame.context.subtypeHiding.get value) frame.context.booleanNames ≠ 0)
   | .zeroResult => decide (frame.result.position = 0)
   | .nonadvancing => decide (frame.result.position ≤ frame.scan.position)
   | .present token => decide (primitive.token frame.text frame.result.position token ≠ 0)
@@ -53,6 +56,7 @@ def Test.eval (primitive : Primitives) (frame : Frame) : Test → Bool
   | .invalidInput => frame.result.facts.path.invalidReachable
   | .notFits => !primitive.fits frame.result.facts.path (summaryOf frame.value)
   | .scalarTarget => decide (primitive.scalarTarget frame.text frame.context frame.result.position ≠ 0)
+  | .booleanTarget => decide (primitive.booleanTarget frame.text frame.context frame.result.position ≠ 0)
   | .arrayTarget => decide (primitive.arrayTarget frame.text frame.context frame.result.position ≠ 0)
   | .zeroTarget => decide (frame.result.target = 0)
   | .notSameLength => !primitive.sameLength frame.result.facts.path (summaryOf frame.value)
@@ -63,7 +67,7 @@ def Test.eval (primitive : Primitives) (frame : Frame) : Test → Bool
 def call := Compose.Expressions.call
 
 def Test.render : Test → List String
-  | .operation value => call "call_after" [["text"], ["context", ".", "names"], ["result", ".", "position"], (Compose.Expressions.Expr.operation value).render, ["context", ".", "scalar_names"], ["context", ".", "array_names"], ["context", ".", "subtype_hiding", "("] ++ (Compose.Expressions.Expr.operation value).render ++ [")"]] ++ ["/=", "0"]
+  | .operation value => call "call_after" [["text"], ["context", ".", "names"], ["result", ".", "position"], (Compose.Expressions.Expr.operation value).render, ["context", ".", "scalar_names"], ["context", ".", "array_names"], ["context", ".", "subtype_hiding", "("] ++ (Compose.Expressions.Expr.operation value).render ++ [")"], ["context", ".", "boolean_names"]] ++ ["/=", "0"]
   | .zeroResult => ["result", ".", "position", "=", "0"]
   | .nonadvancing => ["result", ".", "position", "<=", "scan", ".", "position"]
   | .present token => call "take_token" [["text"], ["result", ".", "position"], [Compose.Expressions.tokenName token]] ++ ["/=", "0"]
@@ -73,6 +77,7 @@ def Test.render : Test → List String
   | .notFits => ["not", "length_intervals", "."] ++ call "fits"
       [["result", ".", "facts", ".", "path"], call "summary_of" [["value"]]]
   | .scalarTarget => call "scalar_target" [["text"], ["context"], ["result", ".", "position"]] ++ ["/=", "0"]
+  | .booleanTarget => call "boolean_target" [["text"], ["context"], ["result", ".", "position"]] ++ ["/=", "0"]
   | .arrayTarget => call "array_target" [["text"], ["context"], ["result", ".", "position"]] ++ ["/=", "0"]
   | .zeroTarget => ["result", ".", "target", "=", "0"]
   | .notSameLength => ["not", "length_intervals", "."] ++ call "same_length"
@@ -84,13 +89,14 @@ def Test.render : Test → List String
 inductive Update
   | operation (value : Names.Operation) | association
   | token (token : ShellToken)
-  | valueAfter | statePosition | stateTarget | output | assigned | rejected | scalarAssignment | arrayAssignment
+  | valueAfter | statePosition | stateTarget | output | assigned | rejected | scalarAssignment | booleanAssignment | arrayAssignment
 
 def Update.eval (primitive : Primitives) (frame : Frame) : Update → BodyScan
-  | .operation value => {frame.result with position := primitive.callAfter frame.text frame.context.names frame.result.position value frame.context.scalarNames frame.context.arrayNames (frame.context.subtypeHiding.get value)}
+  | .operation value => {frame.result with position := primitive.callAfter frame.text frame.context.names frame.result.position value frame.context.scalarNames frame.context.arrayNames (frame.context.subtypeHiding.get value) frame.context.booleanNames}
   | .association => {frame.result with position := primitive.associationAfter frame.text frame.result.position false}
   | .token tok => primitive.bodyToken frame.text frame.context frame.result tok
   | .scalarAssignment => primitive.scalarAssignment frame.text frame.context frame.result
+  | .booleanAssignment => primitive.booleanAssignment frame.text frame.context frame.result
   | .arrayAssignment => primitive.arrayAssignment frame.text frame.context frame.result
   | .valueAfter => {frame.result with position := frame.value.after}
   | .statePosition => {frame.result with position := frame.target.after}
@@ -100,11 +106,12 @@ def Update.eval (primitive : Primitives) (frame : Frame) : Update → BodyScan
   | .rejected => {frame.result with facts := {frame.result.facts with path := primitive.reject frame.result.facts.path}}
 
 def Update.render : Update → List String
-  | .operation value => ["result", ".", "position", ":="] ++ call "call_after" [["text"], ["context", ".", "names"], ["result", ".", "position"], (Compose.Expressions.Expr.operation value).render, ["context", ".", "scalar_names"], ["context", ".", "array_names"], ["context", ".", "subtype_hiding", "("] ++ (Compose.Expressions.Expr.operation value).render ++ [")"]] ++ [";"]
+  | .operation value => ["result", ".", "position", ":="] ++ call "call_after" [["text"], ["context", ".", "names"], ["result", ".", "position"], (Compose.Expressions.Expr.operation value).render, ["context", ".", "scalar_names"], ["context", ".", "array_names"], ["context", ".", "subtype_hiding", "("] ++ (Compose.Expressions.Expr.operation value).render ++ [")"], ["context", ".", "boolean_names"]] ++ [";"]
   | .association => ["result", ".", "position", ":=", "names", "."] ++ call "association_after" [["text"], ["result", ".", "position"], ["false"]] ++ [";"]
   | .token tok => ["result", ":="] ++ call "body_token"
       [["text"], ["context"], ["result"], [Compose.Expressions.tokenName tok]] ++ [";"]
   | .scalarAssignment => ["result", ":="] ++ call "scalar_assignment_body" [["text"], ["context"], ["result"]] ++ [";"]
+  | .booleanAssignment => ["result", ":="] ++ call "boolean_assignment_body" [["text"], ["context"], ["result"]] ++ [";"]
   | .arrayAssignment => ["result", ":="] ++ call "array_assignment_body" [["text"], ["context"], ["result"]] ++ [";"]
   | .valueAfter => ["result", ".", "position", ":=", "value", ".", "after", ";"]
   | .statePosition => ["result", ".", "position", ":=", "target", ".", "after", ";"]
@@ -166,7 +173,8 @@ def dispatchCommands : Command :=
       (.choose (.operation .partialOutput) putCommands
         (.choose (.andThen .hasArguments (.operation .reject)) rejectCommands
           (.choose .scalarTarget (.update .scalarAssignment)
-            (.choose .arrayTarget (.update .arrayAssignment) assignmentCommands)))))
+            (.choose .arrayTarget (.update .arrayAssignment)
+              (.choose .booleanTarget (.update .booleanAssignment) assignmentCommands))))))
 def basicCommands : Command := .list [guard .zeroResult, dispatchCommands,
   .update (.token (.symbol ";")), guard .nonadvancing, .returnResult]
 
@@ -178,15 +186,17 @@ def basicEval (primitive : Primitives) (text : Source) (context : Native.Context
   basicCommands.eval primitive ⟨text, context, scan, scan, {}, {}⟩ (fun _ => primitive.invalid scan)
 
 def modelPrimitives : Primitives where
-  callAfter := fun text names position operation scalarNames arrays hidden => Compose.callAfter text names position operation scalarNames arrays hidden
+  callAfter := fun text names position operation scalarNames arrays hidden booleans => Compose.callAfter text names position operation scalarNames arrays hidden booleans
   associationAfter := Names.associationAfter
   token := tokenAfter
-  expression := fun text context position facts => expressionAt text position context.names (context.model.readingNames facts) (arrays := context.arrayNames)
+  expression := fun text context position facts => readStringInFlow text context.model position facts
   target := ScalarBodyNative.stringTargetEval ScalarBodyNative.modelImports
   bodyToken := fun text _ scan token => Predicate.bodyToken text scan token
   invalid := invalidBody
   scalarTarget := fun text context position => Predicate.scalarTarget text context.model position
   scalarAssignment := fun text context scan => scalarAssignmentBody text context.model scan
+  booleanTarget := fun text context position => Predicate.booleanTarget text context.model position
+  booleanAssignment := fun text context scan => booleanAssignmentBody text context.model scan
   arrayTarget := fun text context position => Predicate.arrayTarget text context.model position
   arrayAssignment := fun text context scan => arrayAssignmentBody text context.model scan
   fits := fitsLengthSummary
