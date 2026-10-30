@@ -174,7 +174,41 @@ private theorem native_comparison_result_declaration : Lexical.SourceBridge.reco
 private theorem native_length_result_declaration : Lexical.SourceBridge.recordDeclaration "length_result" SourceShape.bodyTokens = some length_result_declaration := by
   decide +kernel
 
+private theorem native_boolean_atom_after_body : Source.expressionBody "boolean_atom_after" SourceShape.bodyTokens = some (booleanAtomBody.render) := by
+  simp only [booleanAtomBody, Expr.render, Expr.declared, Expr.declaredCondition]
+  decide +kernel
+
+private theorem native_boolean_atom_after_spec_header : functionHeader "boolean_atom_after" ";" SourceShape.bodyTokens = some boolean_atom_after_spec_header := by
+  decide +kernel
+
+private theorem native_boolean_atom_after_impl_header : functionHeader "boolean_atom_after" "is" SourceShape.bodyTokens = some boolean_atom_after_impl_header := by
+  decide +kernel
+
+private theorem native_boolean_factor_model_body : Source.expressionBody "boolean_factor_model" SourceShape.bodyTokens = some (booleanFactorBody.render) := by
+  simp only [booleanFactorBody, Expr.render, Expr.declared, Expr.declaredCondition]
+  decide +kernel
+
+private theorem native_boolean_factor_model_spec_header : functionHeader "boolean_factor_model" ";" SourceShape.bodyTokens = some boolean_factor_model_spec_header := by
+  decide +kernel
+
+private theorem native_boolean_factor_model_impl_header : functionHeader "boolean_factor_model" "is" SourceShape.bodyTokens = some boolean_factor_model_impl_header := by
+  decide +kernel
+
+private theorem native_boolean_relation_model_body : Source.expressionBody "boolean_relation_model" SourceShape.bodyTokens = some (booleanRelationBody.render) := by
+  simp only [booleanRelationBody, Expr.render, Expr.declared, Expr.declaredCondition]
+  decide +kernel
+
+private theorem native_boolean_relation_model_spec_header : functionHeader "boolean_relation_model" ";" SourceShape.bodyTokens = some boolean_relation_model_spec_header := by
+  decide +kernel
+
+private theorem native_boolean_relation_model_impl_header : functionHeader "boolean_relation_model" "is" SourceShape.bodyTokens = some boolean_relation_model_impl_header := by
+  decide +kernel
+
+private theorem native_chain_kind_declaration : typeDeclaration "chain_kind" SourceShape.bodyTokens = some chain_kind_declaration := by
+  decide +kernel
+
 private theorem native_checked : NativeSourceChecks.Checked SourceShape.bodyTokens where
+  chain_kind_declaration := native_chain_kind_declaration
   flow := native_flow_checked
   readers := native_readers_checked
   scalarHelpers := native_scalarHelpers_checked
@@ -198,6 +232,15 @@ private theorem native_checked : NativeSourceChecks.Checked SourceShape.bodyToke
   binding_summary_body := native_binding_summary_body
   scalar_comparison_at_body := native_scalar_comparison_at_body
   length_at_body := native_length_at_body
+  boolean_atom_after_body := native_boolean_atom_after_body
+  boolean_atom_after_spec_header := native_boolean_atom_after_spec_header
+  boolean_atom_after_impl_header := native_boolean_atom_after_impl_header
+  boolean_factor_model_body := native_boolean_factor_model_body
+  boolean_factor_model_spec_header := native_boolean_factor_model_spec_header
+  boolean_factor_model_impl_header := native_boolean_factor_model_impl_header
+  boolean_relation_model_body := native_boolean_relation_model_body
+  boolean_relation_model_spec_header := native_boolean_relation_model_spec_header
+  boolean_relation_model_impl_header := native_boolean_relation_model_impl_header
   primary_model_body := native_primary_model_body
   relation_model_body := native_relation_model_body
   chain_token_body := native_chain_token_body
@@ -577,6 +620,7 @@ theorem candidate_checked : Checked SourceShape.specTokens SourceShape.bodyToken
   spec_shape := rfl
   body_shape := rfl
   native := native_checked
+  booleanBodies := BooleanBodyNative.SourceChecks.candidate_checked
   scalarBodies := ScalarBodyNative.SourceChecks.candidate_checked
   array_helpers := ArrayBodyNative.SourceChecks.candidate_checked
   bodyWrappers := candidate_bodyWrappers
