@@ -1,11 +1,13 @@
 module
 
-public import Silver.PredicateAdmission
+public import Silver.PredicateConditionAdmission
+public import Silver.PredicateFlowInvariant
+public import Silver.PredicateConditionFlowValidity
+public import Silver.PathBounds
+public import Silver.BooleanBindings
 public import Silver.IntegerSubtypeBindings
 public import Silver.ComposeContracts
 public import Silver.ScalarExpressionEnvironment
-public import Silver.PredicateConditionFlowValidity
-public import Silver.PredicateConditionBounds
 
 @[expose] public section
 
@@ -22,6 +24,12 @@ structure Context where
   declarationCount : Nat := 0
   arrayNames : ArrayBindings.Metadata := []
   subtypeHiding : IntegerSubtypes.CallHiding := {}
+  booleanNames : BooleanBindings.Environment := []
+  trueHidden : Bool := false
+  falseHidden : Bool := false
+  elaborating : Bool := false
+  maskFirst : Nat := 0
+  maskAfter : Nat := 0
   deriving DecidableEq, Repr
 
 def Context.model (context : Context) : ParseContext :=
@@ -64,7 +72,7 @@ theorem ValidFlow.join {context : Context} {left right : ActiveFlow}
 inductive Token
   | leftParenthesis | rightParenthesis | argumentsName | dot | inputIsValid
   | apostrophe | lengthName | notEqual | lessEqual | greaterEqual | equal | less | greater
-  | notKeyword | andKeyword | orKeyword | thenKeyword | elseKeyword | endKeyword
+  | notKeyword | andKeyword | orKeyword | xorKeyword | thenKeyword | elseKeyword | endKeyword
   deriving DecidableEq, Repr
 
 def Token.name : Token → String
@@ -73,6 +81,7 @@ def Token.name : Token → String
   | .apostrophe => "apostrophe" | .lengthName => "length_name" | .notEqual => "not_equal"
   | .lessEqual => "less_equal" | .greaterEqual => "greater_equal" | .equal => "equal"
   | .less => "less" | .greater => "greater" | .notKeyword => "not_keyword"
+  | .xorKeyword => "xor_keyword"
   | .andKeyword => "and_keyword" | .orKeyword => "or_keyword" | .thenKeyword => "then_keyword"
   | .elseKeyword => "else_keyword" | .endKeyword => "end_keyword"
 
@@ -82,14 +91,21 @@ def Token.shell : Token → Compose.ShellToken
   | .apostrophe => .symbol "'" | .lengthName => .word "length" | .notEqual => .symbol "/="
   | .lessEqual => .symbol "<=" | .greaterEqual => .symbol ">=" | .equal => .symbol "="
   | .less => .symbol "<" | .greater => .symbol ">" | .notKeyword => .word "not"
+  | .xorKeyword => .word "xor"
   | .andKeyword => .word "and" | .orKeyword => .word "or" | .thenKeyword => .word "then"
   | .elseKeyword => .word "else" | .endKeyword => .word "end"
 
 def Token.isChain (token : Token) : Bool := token == .andKeyword || token == .orKeyword
 
-def Token.chain (token : Token) : Bool := token == .andKeyword
+/-- The scanner's operator category is distinct from its lexical token kind. -/
+inductive ChainKind
+  | noChain | shortAnd | shortOr | eagerAnd | eagerOr | eagerXor
+  deriving DecidableEq, Repr
 
-def chainState (operator : Token) (chained : Bool) : Option Bool :=
-  if chained then some operator.chain else none
+def ChainKind.name : ChainKind → String
+  | .noChain => "no_chain" | .shortAnd => "short_and" | .shortOr => "short_or"
+  | .eagerAnd => "eager_and" | .eagerOr => "eager_or" | .eagerXor => "eager_xor"
+
+def ChainKind.isChain (operator : ChainKind) : Bool := operator != .noChain
 
 end Silver.Predicate.Native

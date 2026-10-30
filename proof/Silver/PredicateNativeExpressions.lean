@@ -12,13 +12,17 @@ arbitrary until their source equations or inherited contracts are applied. -/
 namespace Silver.Predicate.Native
 
 inductive Ty
-  | number | truth | source | token | operation | comparison | binding | names | scalarNames | arrays | scalarResult | context | result | literal | length | compared | condition | summary | bound | facts | path | arrow (domain codomain : Ty)
+  | number | truth | word | source | token | chain | booleanNames | initials | operation | comparison | binding | names | scalarNames | arrays | scalarResult | context | result | literal | length | compared | condition | summary | bound | facts | path | arrow (domain codomain : Ty)
   deriving DecidableEq, Repr
 
 @[reducible] def Ty.meaning : Ty → Type
   | .number => Nat
   | .truth => Bool
+  | .word => String
   | .source => Source
+  | .chain => ChainKind
+  | .booleanNames => BooleanBindings.Environment
+  | .initials => ArrayBindings.Initials
   | .operation => Names.Operation
   | .token => Token
   | .comparison => Comparison
@@ -42,7 +46,11 @@ inductive Ty
 def Ty.default : (ty : Ty) → ty.meaning
   | .number => 0
   | .truth => false
+  | .word => ""
   | .source => []
+  | .chain => .noChain
+  | .booleanNames => []
+  | .initials => []
   | .operation => .validity
   | .token => .endKeyword
   | .comparison => .eq
@@ -51,7 +59,7 @@ def Ty.default : (ty : Ty) → ty.meaning
   | .scalarNames => []
   | .arrays => []
   | .scalarResult => ScalarExpression.invalid
-  | .context => ⟨[], 0, 0, [], 0, [], {}⟩
+  | .context => { names := [], dynamicFirst := 0, dynamicAfter := 0 }
   | .result => Compose.invalidExpression
   | .literal => IntegerLiteral.invalid
   | .length => ⟨0, .fixed 0⟩
@@ -64,11 +72,18 @@ def Ty.default : (ty : Ty) → ty.meaning
   | .arrow _ b => fun _ => b.default
 
 inductive Function
-  | callAfter | take | skip | nameAfter | lookup | scalarLookup | scalarRead | scalarInFlow | stringInFlow | scalarCondition | invalidCondition | integer | expression | summary | bound | bindingSummary | comparison | length | primary | relation | condition | model | chainToken | chainAfter | tail | assumeValid | assumeInvalid | refineBounds | fits | refineEqual | join
+  | callAfter | equalName | nameIs | arrayLookup | booleanLookup | booleanAtom | booleanFactor | booleanRelation | take | skip | nameAfter | lookup | scalarLookup | scalarRead | scalarInFlow | stringInFlow | scalarCondition | invalidCondition | integer | expression | summary | bound | bindingSummary | comparison | length | primary | relation | condition | model | chainToken | chainAfter | tail | assumeValid | assumeInvalid | refineBounds | fits | refineEqual | join
   deriving DecidableEq, Repr
 
 def Function.name : Function → List String
   | .callAfter => ["call_after"]
+  | .equalName => ["equal_name"]
+  | .nameIs => ["name_is"]
+  | .arrayLookup => ["array_bindings", ".", "lookup"]
+  | .booleanLookup => ["lookup_boolean"]
+  | .booleanAtom => ["boolean_atom_after"]
+  | .booleanFactor => ["boolean_factor_model"]
+  | .booleanRelation => ["boolean_relation_model"]
   | .take => ["take_token"]
   | .skip => ["skip_at"]
   | .nameAfter => ["name_after"]
@@ -101,15 +116,21 @@ def Function.name : Function → List String
   | .join => ["joined"]
 
 @[reducible] def Function.type : Function → Ty
-  | .callAfter => .arrow .source (.arrow .names (.arrow .number (.arrow .operation (.arrow .scalarNames (.arrow .arrays (.arrow .truth .number))))))
+  | .callAfter => .arrow .source (.arrow .names (.arrow .number (.arrow .operation (.arrow .scalarNames (.arrow .arrays (.arrow .truth (.arrow .booleanNames .number)))))))
+  | .equalName => .arrow .source (.arrow .number (.arrow .number (.arrow .number (.arrow .number .truth))))
+  | .nameIs => .arrow .source (.arrow .number (.arrow .number (.arrow .word .truth)))
+  | .arrayLookup => .arrow .source (.arrow .arrays (.arrow .number (.arrow .number .number)))
+  | .booleanLookup => .arrow .source (.arrow .booleanNames (.arrow .number (.arrow .number .number)))
+  | .booleanAtom => .arrow .source (.arrow .context (.arrow .number .number))
+  | .booleanFactor | .booleanRelation => .arrow .source (.arrow .context (.arrow .number (.arrow .facts (.arrow .initials .condition))))
   | .take => .arrow .source (.arrow .number (.arrow .token (.number)))
   | .skip => .arrow .source (.arrow .number (.number))
   | .nameAfter => .arrow .source (.arrow .number (.number))
   | .lookup => .arrow .source (.arrow .names (.arrow .number (.arrow .number (.number))))
   | .scalarLookup => .arrow .source (.arrow .scalarNames (.arrow .number (.arrow .number .number)))
   | .scalarRead => .arrow .source (.arrow .number (.arrow .scalarNames .scalarResult))
-  | .scalarInFlow => .arrow .source (.arrow .context (.arrow .number (.arrow .facts .scalarResult)))
-  | .stringInFlow => .arrow .source (.arrow .context (.arrow .number (.arrow .facts .result)))
+  | .scalarInFlow => .arrow .source (.arrow .context (.arrow .number (.arrow .facts (.arrow .initials .scalarResult))))
+  | .stringInFlow => .arrow .source (.arrow .context (.arrow .number (.arrow .facts (.arrow .initials .result))))
   | .scalarCondition => .arrow .source (.arrow .context (.arrow .number (.arrow .number (.arrow .facts (.arrow .scalarResult (.arrow .scalarResult (.arrow .comparison .condition)))))))
   | .invalidCondition => .arrow .facts .condition
   | .integer => .arrow .source (.arrow .number (.literal))
@@ -119,13 +140,13 @@ def Function.name : Function → List String
   | .bindingSummary => .arrow .binding (.summary)
   | .comparison => .arrow .source (.arrow .number (.compared))
   | .length => .arrow .source (.arrow .context (.arrow .number (.arrow .truth (.length))))
-  | .primary => .arrow .source (.arrow .context (.arrow .number (.arrow .facts (.condition))))
-  | .relation => .arrow .source (.arrow .context (.arrow .number (.arrow .facts (.condition))))
-  | .condition => .arrow .source (.arrow .context (.arrow .number (.arrow .facts (.condition))))
-  | .model => .arrow .source (.arrow .context (.arrow .number (.arrow .facts (.condition))))
-  | .chainToken => .arrow .source (.arrow .number (.token))
-  | .chainAfter => .arrow .source (.arrow .number (.arrow .token (.number)))
-  | .tail => .arrow .source (.arrow .context (.arrow .condition (.arrow .token (.arrow .truth (.condition)))))
+  | .primary => .arrow .source (.arrow .context (.arrow .number (.arrow .facts (.arrow .initials .condition))))
+  | .relation => .arrow .source (.arrow .context (.arrow .number (.arrow .facts (.arrow .initials .condition))))
+  | .condition => .arrow .source (.arrow .context (.arrow .number (.arrow .facts (.arrow .initials .condition))))
+  | .model => .arrow .source (.arrow .context (.arrow .number (.arrow .facts (.arrow .initials .condition))))
+  | .chainToken => .arrow .source (.arrow .number .chain)
+  | .chainAfter => .arrow .source (.arrow .number (.arrow .chain .number))
+  | .tail => .arrow .source (.arrow .context (.arrow .condition (.arrow .chain (.arrow .truth (.arrow .initials (.arrow .facts .condition))))))
   | .assumeValid => .arrow .path .path
   | .assumeInvalid => .arrow .path .path
   | .refineBounds => .arrow .path (.arrow .comparison (.arrow .bound (.arrow .bound (.arrow .truth .path))))
@@ -134,15 +155,22 @@ def Function.name : Function → List String
   | .join => .arrow .facts (.arrow .facts (.facts))
 
 structure Calls where
-  callAfter : Source → Compose.BindingEnvironment → Nat → Names.Operation → ScalarExpression.Environment → ArrayBindings.Metadata → Bool → Nat
+  callAfter : Source → Compose.BindingEnvironment → Nat → Names.Operation → ScalarExpression.Environment → ArrayBindings.Metadata → Bool → BooleanBindings.Environment → Nat
+  equalName : Source → Nat → Nat → Nat → Nat → Bool
+  nameIs : Source → Nat → Nat → String → Bool
+  arrayLookup : Source → ArrayBindings.Metadata → Nat → Nat → Nat
+  booleanLookup : Source → BooleanBindings.Environment → Nat → Nat → Nat
+  booleanAtom : Source → Context → Nat → Nat
+  booleanFactor : Source → Context → Nat → ActiveFlow → ArrayBindings.Initials → ConditionResult
+  booleanRelation : Source → Context → Nat → ActiveFlow → ArrayBindings.Initials → ConditionResult
   take : Source → Nat → Token → Nat
   skip : Source → Nat → Nat
   nameAfter : Source → Nat → Nat
   lookup : Source → Compose.BindingEnvironment → Nat → Nat → Nat
   scalarLookup : Source → ScalarExpression.Environment → Nat → Nat → Nat
   scalarRead : Source → Nat → ScalarExpression.Environment → ScalarExpression.Result
-  scalarInFlow : Source → Context → Nat → ActiveFlow → ScalarExpression.Result
-  stringInFlow : Source → Context → Nat → ActiveFlow → Compose.ExpressionResult
+  scalarInFlow : Source → Context → Nat → ActiveFlow → ArrayBindings.Initials → ScalarExpression.Result
+  stringInFlow : Source → Context → Nat → ActiveFlow → ArrayBindings.Initials → Compose.ExpressionResult
   scalarCondition : Source → Context → Nat → Nat → ActiveFlow → ScalarExpression.Result → ScalarExpression.Result → Comparison → ConditionResult
   invalidCondition : ActiveFlow → ConditionResult
   integer : Source → Nat → IntegerLiteral.Result
@@ -152,13 +180,13 @@ structure Calls where
   bindingSummary : Bindings.BindingInfo → Compose.LengthSummary
   comparison : Source → Nat → ComparisonResult
   length : Source → Context → Nat → Bool → LengthResult
-  primary : Source → Context → Nat → ActiveFlow → ConditionResult
-  relation : Source → Context → Nat → ActiveFlow → ConditionResult
-  condition : Source → Context → Nat → ActiveFlow → ConditionResult
-  model : Source → Context → Nat → ActiveFlow → ConditionResult
-  chainToken : Source → Nat → Token
-  chainAfter : Source → Nat → Token → Nat
-  tail : Source → Context → ConditionResult → Token → Bool → ConditionResult
+  primary : Source → Context → Nat → ActiveFlow → ArrayBindings.Initials → ConditionResult
+  relation : Source → Context → Nat → ActiveFlow → ArrayBindings.Initials → ConditionResult
+  condition : Source → Context → Nat → ActiveFlow → ArrayBindings.Initials → ConditionResult
+  model : Source → Context → Nat → ActiveFlow → ArrayBindings.Initials → ConditionResult
+  chainToken : Source → Nat → ChainKind
+  chainAfter : Source → Nat → ChainKind → Nat
+  tail : Source → Context → ConditionResult → ChainKind → Bool → ArrayBindings.Initials → ActiveFlow → ConditionResult
   assumeValid : PathFacts.Context → PathFacts.Context
   assumeInvalid : PathFacts.Context → PathFacts.Context
   refineBounds : PathFacts.Context → Comparison → Bindings.Bound → Bindings.Bound → Bool → PathFacts.Context
@@ -168,6 +196,13 @@ structure Calls where
 
 def Calls.get (calls : Calls) : (f : Function) → f.type.meaning
   | .callAfter => calls.callAfter
+  | .equalName => calls.equalName
+  | .nameIs => calls.nameIs
+  | .arrayLookup => calls.arrayLookup
+  | .booleanLookup => calls.booleanLookup
+  | .booleanAtom => calls.booleanAtom
+  | .booleanFactor => calls.booleanFactor
+  | .booleanRelation => calls.booleanRelation
   | .take => calls.take
   | .skip => calls.skip
   | .nameAfter => calls.nameAfter
@@ -200,6 +235,12 @@ def Calls.get (calls : Calls) : (f : Function) → f.type.meaning
   | .join => calls.join
 
 inductive Field : Ty → Ty → Type
+  | contextBooleans : Field .context .booleanNames
+  | contextTrueHidden : Field .context .truth
+  | contextFalseHidden : Field .context .truth
+  | contextElaborating : Field .context .truth
+  | contextMaskFirst : Field .context .number
+  | contextMaskAfter : Field .context .number
   | contextNames : Field .context .names
   | contextScalarNames : Field .context .scalarNames
   | contextArrays : Field .context .arrays
@@ -228,6 +269,12 @@ inductive Field : Ty → Ty → Type
   | whenFalse : Field .condition .facts
 
 def Field.name : Field a b → String
+  | .contextBooleans => "boolean_names"
+  | .contextTrueHidden => "true_hidden"
+  | .contextFalseHidden => "false_hidden"
+  | .contextElaborating => "elaborating"
+  | .contextMaskFirst => "mask_first"
+  | .contextMaskAfter => "mask_after"
   | .contextNames => "names"
   | .contextScalarNames => "scalar_names"
   | .contextArrays => "array_names"
@@ -255,6 +302,12 @@ def Field.name : Field a b → String
   | .whenFalse => "when_false"
 
 def Field.get : Field a b → a.meaning → b.meaning
+  | .contextBooleans, value => value.booleanNames
+  | .contextTrueHidden, value => value.trueHidden
+  | .contextFalseHidden, value => value.falseHidden
+  | .contextElaborating, value => value.elaborating
+  | .contextMaskFirst, value => value.maskFirst
+  | .contextMaskAfter, value => value.maskAfter
   | .contextNames, value => value.names
   | .contextScalarNames, value => value.scalarNames
   | .contextArrays, value => value.arrayNames
@@ -287,16 +340,22 @@ inductive Expr : Ty → Type
   | number (value : Nat) : Expr .number
   | truth (value : Bool) : Expr .truth
   | token (value : Token) : Expr .token
+  | chain (value : ChainKind) : Expr .chain
+  | word (value : String) : Expr .word
   | comparison (value : Comparison) : Expr .comparison
   | variable (name : String) : Expr ty
   | function (symbol : Function) : Expr symbol.type
   | app : Expr (.arrow a b) → Expr a → Expr b
+  | appNamed : Expr (.arrow a b) → String → Expr a → Expr b
   | field : Field a b → Expr a → Expr b
   | subtypeHidden : Expr .context → Expr .operation → Expr .truth
   | bindingAt : Expr .names → Expr .number → Expr .binding
   | eq : Expr .number → Expr .number → Expr .truth
   | ne : Expr .number → Expr .number → Expr .truth
   | le : Expr .number → Expr .number → Expr .truth
+  | chainEq : Expr .chain → Expr .chain → Expr .truth
+  | chainNe : Expr .chain → Expr .chain → Expr .truth
+  | chainCase : Expr .chain → Expr a → Expr a → Expr a → Expr a → Expr a → Expr a → Expr a
   | tokenEq : Expr .token → Expr .token → Expr .truth
   | tokenNe : Expr .token → Expr .token → Expr .truth
   | comparisonEq : Expr .comparison → Expr .comparison → Expr .truth
@@ -340,17 +399,29 @@ def Expr.render : Expr ty → List String
   | .number value => [toString value]
   | .truth value => [if value then "true" else "false"]
   | .token value => [value.name]
+  | .chain value => [value.name]
+  | .word value => ["\"" ++ value ++ "\""]
   | .comparison value => ["paths", ".", comparisonName value]
   | .variable name => [name]
   | .function symbol => symbol.name
   | .app fn argument => match fn with
     | .app _ _ => fn.render.dropLast ++ [","] ++ argument.render ++ [")"]
     | _ => fn.render ++ ["("] ++ argument.render ++ [")"]
+  | .appNamed fn name argument => match fn with
+    | .app _ _ | .appNamed _ _ _ => fn.render.dropLast ++ [",", name, "=>"] ++ argument.render ++ [")"]
+    | _ => fn.render ++ ["(", name, "=>"] ++ argument.render ++ [")"]
+  | .chainCase value no shortAnd shortOr eagerAnd eagerOr eagerXor =>
+      ["case"] ++ value.render ++ ["is", "when", "no_chain", "=>"] ++ no.render ++
+      [",", "when", "short_and", "=>"] ++ shortAnd.render ++
+      [",", "when", "short_or", "=>"] ++ shortOr.render ++
+      [",", "when", "eager_and", "=>"] ++ eagerAnd.render ++
+      [",", "when", "eager_or", "=>"] ++ eagerOr.render ++
+      [",", "when", "eager_xor", "=>"] ++ eagerXor.render
   | .field projection value => value.render ++ [".", projection.name]
   | .subtypeHidden context op => context.render ++ [".", "subtype_hiding", "("] ++ op.render ++ [")"]
   | .bindingAt names index => names.render ++ [".", "items", "("] ++ index.render ++ [")"]
-  | .eq left right | .tokenEq left right | .comparisonEq left right => left.render ++ ["="] ++ right.render
-  | .ne left right | .tokenNe left right => left.render ++ ["/="] ++ right.render
+  | .eq left right | .tokenEq left right | .chainEq left right | .comparisonEq left right => left.render ++ ["="] ++ right.render
+  | .ne left right | .tokenNe left right | .chainNe left right => left.render ++ ["/="] ++ right.render
   | .le left right => left.render ++ ["<="] ++ right.render
   | .notEquality value => value.render ++ ["not", "in", "paths", ".", "equal", "|", "paths", ".", "unequal"]
   | .notChain value => value.render ++ ["not", "in", "and_keyword", "|", "or_keyword"]
@@ -385,16 +456,28 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .number value => value
   | .truth value => value
   | .token value => value
+  | .chain value => value
+  | .word value => value
   | .comparison value => value
   | .variable name => locals _ name
   | .function symbol => calls.get symbol
-  | .app fn argument => fn.eval calls locals (argument.eval calls locals)
+  | .app fn argument | .appNamed fn _ argument => fn.eval calls locals (argument.eval calls locals)
+  | .chainCase value no shortAnd shortOr eagerAnd eagerOr eagerXor =>
+      match value.eval calls locals with
+      | .noChain => no.eval calls locals
+      | .shortAnd => shortAnd.eval calls locals
+      | .shortOr => shortOr.eval calls locals
+      | .eagerAnd => eagerAnd.eval calls locals
+      | .eagerOr => eagerOr.eval calls locals
+      | .eagerXor => eagerXor.eval calls locals
   | .field projection value => projection.get (value.eval calls locals)
   | .subtypeHidden context op => (context.eval calls locals).subtypeHiding.get (op.eval calls locals)
   | .bindingAt names index => ((names.eval calls locals).get (index.eval calls locals)).getD {}
   | .eq left right => decide (left.eval calls locals = right.eval calls locals)
   | .ne left right => decide (left.eval calls locals ≠ right.eval calls locals)
   | .le left right => decide (left.eval calls locals ≤ right.eval calls locals)
+  | .chainEq left right => decide (left.eval calls locals = right.eval calls locals)
+  | .chainNe left right => decide (left.eval calls locals ≠ right.eval calls locals)
   | .tokenEq left right => decide (left.eval calls locals = right.eval calls locals)
   | .tokenNe left right => decide (left.eval calls locals ≠ right.eval calls locals)
   | .comparisonEq left right => decide (left.eval calls locals = right.eval calls locals)
@@ -419,20 +502,47 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .invalid facts => calls.invalidCondition (facts.eval calls locals)
 
 namespace Expr
-def callOperation (text : Expr .source) (names : Expr .names) (position : Expr .number) (operation : Expr .operation) (scalarNames : Expr .scalarNames) (arrays : Expr .arrays) (subtypeHidden : Expr .truth) : Expr .number :=
-  .app (.app (.app (.app (.app (.app (.app (.function .callAfter) text) names) position) operation) scalarNames) arrays) subtypeHidden
 
-def callTake (x0 : Expr .source) (x1 : Expr .number) (x2 : Expr .token) : Expr .number :=
-  .app (.app (.app (.function .take) x0) x1) x2
+def callOperation (text : Expr .source) (names : Expr .names) (position : Expr .number)
+    (operation : Expr .operation) (scalarNames : Expr .scalarNames) (arrays : Expr .arrays)
+    (hidden : Expr .truth) (booleans : Expr .booleanNames) : Expr .number :=
+  .app (.app (.app (.app (.app (.app (.app (.app (.function .callAfter) text) names)
+    position) operation) scalarNames) arrays) hidden) booleans
 
-def callSkip (x0 : Expr .source) (x1 : Expr .number) : Expr .number :=
-  .app (.app (.function .skip) x0) x1
+def callEqualName (text : Expr .source) (first after otherFirst otherAfter : Expr .number) : Expr .truth :=
+  .app (.app (.app (.app (.app (.function .equalName) text) first) after) otherFirst) otherAfter
 
-def callNameAfter (x0 : Expr .source) (x1 : Expr .number) : Expr .number :=
-  .app (.app (.function .nameAfter) x0) x1
+def callNameIs (text : Expr .source) (first after : Expr .number) (word : Expr .word) : Expr .truth :=
+  .app (.app (.app (.app (.function .nameIs) text) first) after) word
 
-def callLookup (x0 : Expr .source) (x1 : Expr .names) (x2 : Expr .number) (x3 : Expr .number) : Expr .number :=
-  .app (.app (.app (.app (.function .lookup) x0) x1) x2) x3
+def callArrayLookup (text : Expr .source) (names : Expr .arrays) (first after : Expr .number) : Expr .number :=
+  .app (.app (.app (.app (.function .arrayLookup) text) names) first) after
+
+def callBooleanLookup (text : Expr .source) (names : Expr .booleanNames) (first after : Expr .number) : Expr .number :=
+  .app (.app (.app (.app (.function .booleanLookup) text) names) first) after
+
+def callBooleanAtom (text : Expr .source) (context : Expr .context) (position : Expr .number) : Expr .number :=
+  .app (.app (.app (.function .booleanAtom) text) context) position
+
+def callBooleanFactor (text : Expr .source) (context : Expr .context) (position : Expr .number)
+    (facts : Expr .facts) (initials : Expr .initials) : Expr .condition :=
+  .app (.app (.app (.app (.app (.function .booleanFactor) text) context) position) facts) initials
+
+def callBooleanRelation (text : Expr .source) (context : Expr .context) (position : Expr .number)
+    (facts : Expr .facts) (initials : Expr .initials) : Expr .condition :=
+  .app (.app (.app (.app (.app (.function .booleanRelation) text) context) position) facts) initials
+
+def callTake (text : Expr .source) (position : Expr .number) (token : Expr .token) : Expr .number :=
+  .app (.app (.app (.function .take) text) position) token
+
+def callSkip (text : Expr .source) (position : Expr .number) : Expr .number :=
+  .app (.app (.function .skip) text) position
+
+def callNameAfter (text : Expr .source) (position : Expr .number) : Expr .number :=
+  .app (.app (.function .nameAfter) text) position
+
+def callLookup (text : Expr .source) (names : Expr .names) (first after : Expr .number) : Expr .number :=
+  .app (.app (.app (.app (.function .lookup) text) names) first) after
 
 def callScalarLookup (text : Expr .source) (names : Expr .scalarNames) (first after : Expr .number) : Expr .number :=
   .app (.app (.app (.app (.function .scalarLookup) text) names) first) after
@@ -440,75 +550,81 @@ def callScalarLookup (text : Expr .source) (names : Expr .scalarNames) (first af
 def callScalarRead (text : Expr .source) (position : Expr .number) (names : Expr .scalarNames) : Expr .scalarResult :=
   .app (.app (.app (.function .scalarRead) text) position) names
 
-def callScalarInFlow (text : Expr .source) (context : Expr .context) (position : Expr .number) (facts : Expr .facts) : Expr .scalarResult :=
-  .app (.app (.app (.app (.function .scalarInFlow) text) context) position) facts
+def callScalarInFlow (text : Expr .source) (context : Expr .context) (position : Expr .number)
+    (facts : Expr .facts) (initials : Expr .initials) : Expr .scalarResult :=
+  .appNamed (.app (.app (.app (.app (.function .scalarInFlow) text) context) position) facts) "initials" initials
 
-def callStringInFlow (text : Expr .source) (context : Expr .context) (position : Expr .number) (facts : Expr .facts) : Expr .result :=
-  .app (.app (.app (.app (.function .stringInFlow) text) context) position) facts
+def callStringInFlow (text : Expr .source) (context : Expr .context) (position : Expr .number)
+    (facts : Expr .facts) (initials : Expr .initials) : Expr .result :=
+  .appNamed (.app (.app (.app (.app (.function .stringInFlow) text) context) position) facts) "initials" initials
 
 def callScalarCondition (text : Expr .source) (context : Expr .context) (position rightPosition : Expr .number)
     (facts : Expr .facts) (left right : Expr .scalarResult) (operator : Expr .comparison) : Expr .condition :=
   .app (.app (.app (.app (.app (.app (.app (.app (.function .scalarCondition) text) context) position) rightPosition) facts) left) right) operator
 
-def callInteger (x0 : Expr .source) (x1 : Expr .number) : Expr .literal :=
-  .app (.app (.function .integer) x0) x1
+def callInteger (text : Expr .source) (position : Expr .number) : Expr .literal :=
+  .app (.app (.function .integer) text) position
 
-def callExpression (x0 : Expr .source) (x1 : Expr .number) (x2 : Expr .names) (scalarNames : Expr .scalarNames) : Expr .result :=
-  .app (.app (.app (.app (.function .expression) x0) x1) x2) scalarNames
+def callExpression (text : Expr .source) (position : Expr .number) (names : Expr .names)
+    (scalarNames : Expr .scalarNames) : Expr .result :=
+  .app (.app (.app (.app (.function .expression) text) position) names) scalarNames
 
-def callSummary (x0 : Expr .result) : Expr .summary :=
-  .app (.function .summary) x0
+def callSummary (value : Expr .result) : Expr .summary := .app (.function .summary) value
 
-def callBound (x0 : Expr .binding) : Expr .bound :=
-  .app (.function .bound) x0
+def callBound (value : Expr .binding) : Expr .bound := .app (.function .bound) value
 
-def callBindingSummary (x0 : Expr .binding) : Expr .summary :=
-  .app (.function .bindingSummary) x0
+def callBindingSummary (value : Expr .binding) : Expr .summary := .app (.function .bindingSummary) value
 
-def callComparison (x0 : Expr .source) (x1 : Expr .number) : Expr .compared :=
-  .app (.app (.function .comparison) x0) x1
+def callComparison (text : Expr .source) (position : Expr .number) : Expr .compared :=
+  .app (.app (.function .comparison) text) position
 
-def callLength (x0 : Expr .source) (x1 : Expr .context) (x2 : Expr .number) (x3 : Expr .truth) : Expr .length :=
-  .app (.app (.app (.app (.function .length) x0) x1) x2) x3
+def callLength (text : Expr .source) (context : Expr .context) (position : Expr .number)
+    (literal : Expr .truth) : Expr .length :=
+  .app (.app (.app (.app (.function .length) text) context) position) literal
 
-def callPrimary (x0 : Expr .source) (x1 : Expr .context) (x2 : Expr .number) (x3 : Expr .facts) : Expr .condition :=
-  .app (.app (.app (.app (.function .primary) x0) x1) x2) x3
+def callPrimary (text : Expr .source) (context : Expr .context) (position : Expr .number)
+    (facts : Expr .facts) (initials : Expr .initials) : Expr .condition :=
+  .appNamed (.app (.app (.app (.app (.function .primary) text) context) position) facts) "initials" initials
 
-def callRelation (x0 : Expr .source) (x1 : Expr .context) (x2 : Expr .number) (x3 : Expr .facts) : Expr .condition :=
-  .app (.app (.app (.app (.function .relation) x0) x1) x2) x3
+def callRelation (text : Expr .source) (context : Expr .context) (position : Expr .number)
+    (facts : Expr .facts) (initials : Expr .initials) : Expr .condition :=
+  .appNamed (.app (.app (.app (.app (.function .relation) text) context) position) facts) "initials" initials
 
-def callCondition (x0 : Expr .source) (x1 : Expr .context) (x2 : Expr .number) (x3 : Expr .facts) : Expr .condition :=
-  .app (.app (.app (.app (.function .condition) x0) x1) x2) x3
+def callCondition (text : Expr .source) (context : Expr .context) (position : Expr .number)
+    (facts : Expr .facts) (initials : Expr .initials) : Expr .condition :=
+  .appNamed (.app (.app (.app (.app (.function .condition) text) context) position) facts) "initials" initials
 
-def callModel (x0 : Expr .source) (x1 : Expr .context) (x2 : Expr .number) (x3 : Expr .facts) : Expr .condition :=
-  .app (.app (.app (.app (.function .model) x0) x1) x2) x3
+def callModel (text : Expr .source) (context : Expr .context) (position : Expr .number)
+    (facts : Expr .facts) (initials : Expr .initials) : Expr .condition :=
+  .appNamed (.app (.app (.app (.app (.function .model) text) context) position) facts) "initials" initials
 
-def callChainToken (x0 : Expr .source) (x1 : Expr .number) : Expr .token :=
-  .app (.app (.function .chainToken) x0) x1
+def callChainToken (text : Expr .source) (position : Expr .number) : Expr .chain :=
+  .app (.app (.function .chainToken) text) position
 
-def callChainAfter (x0 : Expr .source) (x1 : Expr .number) (x2 : Expr .token) : Expr .number :=
-  .app (.app (.app (.function .chainAfter) x0) x1) x2
+def callChainAfter (text : Expr .source) (position : Expr .number) (operator : Expr .chain) : Expr .number :=
+  .app (.app (.app (.function .chainAfter) text) position) operator
 
-def callTail (x0 : Expr .source) (x1 : Expr .context) (x2 : Expr .condition) (x3 : Expr .token) (x4 : Expr .truth) : Expr .condition :=
-  .app (.app (.app (.app (.app (.function .tail) x0) x1) x2) x3) x4
+def callTail (text : Expr .source) (context : Expr .context) (result : Expr .condition)
+    (operator : Expr .chain) (chained : Expr .truth) (initials : Expr .initials)
+    (incoming : Expr .facts) : Expr .condition :=
+  .appNamed (.appNamed (.app (.app (.app (.app (.app (.function .tail) text) context) result)
+    operator) chained) "initials" initials) "incoming" incoming
 
-def callAssumeValid (x0 : Expr .path) : Expr .path :=
-  .app (.function .assumeValid) x0
+def callAssumeValid (facts : Expr .path) : Expr .path := .app (.function .assumeValid) facts
 
-def callAssumeInvalid (x0 : Expr .path) : Expr .path :=
-  .app (.function .assumeInvalid) x0
+def callAssumeInvalid (facts : Expr .path) : Expr .path := .app (.function .assumeInvalid) facts
 
-def callRefineBounds (x0 : Expr .path) (x1 : Expr .comparison) (x2 : Expr .bound) (x3 : Expr .bound) (x4 : Expr .truth) : Expr .path :=
-  .app (.app (.app (.app (.app (.function .refineBounds) x0) x1) x2) x3) x4
+def callRefineBounds (facts : Expr .path) (operator : Expr .comparison) (left right : Expr .bound)
+    (truth : Expr .truth) : Expr .path :=
+  .app (.app (.app (.app (.app (.function .refineBounds) facts) operator) left) right) truth
 
-def callFits (x0 : Expr .path) (x1 : Expr .summary) : Expr .truth :=
-  .app (.app (.function .fits) x0) x1
+def callFits (facts : Expr .path) (value : Expr .summary) : Expr .truth :=
+  .app (.app (.function .fits) facts) value
 
-def callRefineEqual (x0 : Expr .path) (x1 : Expr .summary) (x2 : Expr .summary) : Expr .path :=
-  .app (.app (.app (.function .refineEqual) x0) x1) x2
+def callRefineEqual (facts : Expr .path) (left right : Expr .summary) : Expr .path :=
+  .app (.app (.app (.function .refineEqual) facts) left) right
 
-def callJoin (x0 : Expr .facts) (x1 : Expr .facts) : Expr .facts :=
-  .app (.app (.function .join) x0) x1
+def callJoin (left right : Expr .facts) : Expr .facts := .app (.app (.function .join) left) right
 
 end Expr
 

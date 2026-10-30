@@ -12,14 +12,23 @@ active vectors before projecting a native condition record. A constrained
 local also checks the complete result of its initializing call. This is an
 additional interpretation obligation, separate from precedence and scope. -/
 def Expr.Sized (calls : Calls) (locals : Locals) : Expr ty → Prop
-  | .operation _ | .number _ | .truth _ | .token _ | .comparison _ | .variable _ | .function _ => True
-  | .app fn arg => fn.Sized calls locals ∧ arg.Sized calls locals
+  | .operation _ | .number _ | .truth _ | .word _ | .token _ | .chain _ | .comparison _ | .variable _ | .function _ => True
+  | .app fn arg | .appNamed fn _ arg => fn.Sized calls locals ∧ arg.Sized calls locals
   | .field _ value | .notEquality value | .notChain value | .not value | .group value | .old value | .locals value =>
       value.Sized calls locals
   | .subtypeHidden left right | .bindingAt left right | .eq left right | .ne left right | .le left right | .tokenEq left right
-  | .tokenNe left right | .comparisonEq left right | .andThen left right | .orElse left right
+  | .chainEq left right | .chainNe left right | .tokenNe left right | .comparisonEq left right | .andThen left right | .orElse left right
   | .bound left right | .compared left right | .length left right
   | .updateAfter left right | .updatePath left right => left.Sized calls locals ∧ right.Sized calls locals
+  | .chainCase value no shortAnd shortOr eagerAnd eagerOr eagerXor =>
+      value.Sized calls locals ∧
+        match value.eval calls locals with
+        | .noChain => no.Sized calls locals
+        | .shortAnd => shortAnd.Sized calls locals
+        | .shortOr => shortOr.Sized calls locals
+        | .eagerAnd => eagerAnd.Sized calls locals
+        | .eagerOr => eagerOr.Sized calls locals
+        | .eagerXor => eagerXor.Sized calls locals
   | .ite guard yes no | .elsif guard yes no =>
       guard.Sized calls locals ∧
         (if guard.eval calls locals then yes.Sized calls locals else no.Sized calls locals)
