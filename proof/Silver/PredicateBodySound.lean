@@ -76,7 +76,7 @@ mutual
       · have noLoop : fixedAfter text scan.position "for" true = 0 := by simpa using loopFound
         have equation : statementBody text context scan = basicBody text context scan := by
           rw [statementBody]; simp [positive, found, loopFound, ↓reduceIte]
-        obtain ⟨item, parsed⟩ := basic_sound (equation ▸ accepted)
+        obtain ⟨item, parsed⟩ := basic_sound tv nv (equation ▸ accepted)
         exact ⟨item, .basic positive missing noLoop (equation ▸ parsed) rfl⟩
   termination_by (bodyRemaining text scan, 2)
 

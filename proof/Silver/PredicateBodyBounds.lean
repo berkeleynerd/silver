@@ -32,6 +32,12 @@ theorem basicRaw_factsBounded (text : Source) (context : ParseContext) (scan : B
       split
       · exact Context.empty_bounded
       · exact bounded
+  | booleanAssignment =>
+      unfold booleanAssignmentBody
+      dsimp only
+      split
+      · exact Context.empty_bounded
+      · exact bounded
   | assignment =>
       dsimp only
       split
