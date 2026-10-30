@@ -154,13 +154,25 @@ not repair the mismatch. Removing the extra clause restored the original
 `20261030T120915-bfba5cd5f580` passed its focused build and fresh audit of
 10,643 declarations.
 
-Remaining: the complete Compose and Predicate actual-source joins, including
-the exact Boolean declaration interpretation and #293; final native proof,
-full regression and Lean validation, independent review, and stacked PR
-publication. The earlier native unit run uses pre-xor inputs and cannot
-establish final assurance.
+The derived Boolean declaration library and final helper libraries now pass
+their focused audits. The retained Compose and Sequence models also pass after
+propagating the Boolean environment through their contexts and initial states.
+The ordinary array declaration wrapper has a checked interpretation preserving
+its original initializer value and exact Static assertion/return tokens.
+The [evidence index](evidence/boolean-objects-20261030/README.md) records these
+checks and the actual incremental cache transfers.
+
+Independent admission and proof/source argument reviews found no new defect in
+their stated scopes; they did not claim complete validation. The complete Lean
+checkpoint is running on `5198f2b7b5`. Final regression metadata at `927cc5e178`
+prepares the three Rosetta drivers and the 53-to-56 stage-1 progression while
+this capability remains pending. Complete native proof, full regression and
+Lean/source validation, terminal review and stacked PR publication remain.
+The earlier native unit run uses pre-xor inputs and cannot establish final
+assurance. Neither feature PR is authorized to merge.
 
 | Round | Selected settings | Result and remaining work | Measurement scope |
 | --- | --- | --- | --- |
 | Boolean semantic/source integration, 2026-10-30 | Existing proof/source/native subthreads: GPT-6 Astra / Extra High. Lead runtime setting and whole-team token/cost totals unavailable. | Condition validity/uniqueness, exact declaration payloads, assignment typed source and body semantic checkpoints passed; complete source/capability integration remains open. | Final combined body/helper focused build 41.019 s plus fresh audit 7.139 s; preceding development failures retained in the managed ledger. These are native tool times, not total implementation time. |
 | Helper/domain integration, 2026-10-30 | Continuing source, proof-architecture and native subthreads: previously selected GPT-6 Astra / Extra High; runtime confirmation and whole-team token/cost totals unavailable. | #293 native-domain repair and #294 scalar equation repair passed focused checks. Raw helper equations are separated from the Boolean declaration law, which the source bridge derives from interpreted callees. Final source/model integration remains unchecked. | Scalar denotation build 336.697 s and audit 6.120 s. String native repair 65.257 s. Shared helper build 337 s; later dependency failures remain recorded as failed runs. |
+| Stable source checkpoint, 2026-10-30 | Independent admission and correspondence reviewers: GPT-6 Astra / Extra High, explicitly selected. Rosetta preparation: GPT-6.1 Sol / High. Lead runtime setting and token/cost totals unavailable. | Focused helper, declaration and retained model checks passed; complete source checkpoint started. Two independent scoped reviews found no new defect. The new hiding regression fixture was corrected after its expected output overlooked its own shadowed `True` binding. | Review windows 4m32s and 5m04s. Final model build 27.025 s / audit 6.231 s; wrapper build 75.964 s / audit 5.198 s. Rosetta preparation about six minutes; four compiler-independent tests passed in 46.620 s. |
