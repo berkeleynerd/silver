@@ -1,0 +1,83 @@
+{
+  "duration_seconds": 1716.743777388,
+  "error": "KeyboardInterrupt: ",
+  "event": "finished",
+  "evidence": [
+    {
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/obj/gnatprove",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/obj/gnatprove"
+    },
+    {
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261030T135033-a26eefd72a3a/native.log",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261030T135033-a26eefd72a3a/native.log"
+    },
+    {
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/obj/gnatprove/proof-provenance.json",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/obj/gnatprove/proof-provenance.json"
+    }
+  ],
+  "failure_keys": [],
+  "monotonic_ns": 172982613060023,
+  "outcome": "interrupted",
+  "retained_reports": [
+    {
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/obj/gnatprove/silver_arguments.spark",
+      "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261030T135033-a26eefd72a3a/reports/0/silver_arguments.spark"
+    },
+    {
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/obj/gnatprove/silver_build.spark",
+      "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261030T135033-a26eefd72a3a/reports/0/silver_build.spark"
+    },
+    {
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/obj/gnatprove/silver_image_config.spark",
+      "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261030T135033-a26eefd72a3a/reports/0/silver_image_config.spark"
+    },
+    {
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/obj/gnatprove/silver_libc.spark",
+      "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261030T135033-a26eefd72a3a/reports/0/silver_libc.spark"
+    },
+    {
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/obj/gnatprove/silver_library_sources.spark",
+      "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261030T135033-a26eefd72a3a/reports/0/silver_library_sources.spark"
+    },
+    {
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/obj/gnatprove/silver_output_libc.spark",
+      "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261030T135033-a26eefd72a3a/reports/0/silver_output_libc.spark"
+    },
+    {
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/obj/gnatprove/silver_process_runtime.spark",
+      "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261030T135033-a26eefd72a3a/reports/0/silver_process_runtime.spark"
+    },
+    {
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/obj/gnatprove/silver_report_observations.spark",
+      "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261030T135033-a26eefd72a3a/reports/0/silver_report_observations.spark"
+    },
+    {
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/obj/gnatprove/silver_report_projection.spark",
+      "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261030T135033-a26eefd72a3a/reports/0/silver_report_projection.spark"
+    },
+    {
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/obj/gnatprove/silver_report_projection_members.spark",
+      "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261030T135033-a26eefd72a3a/reports/0/silver_report_projection_members.spark"
+    },
+    {
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/obj/gnatprove/silver_report_projection_parents.spark",
+      "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261030T135033-a26eefd72a3a/reports/0/silver_report_projection_parents.spark"
+    },
+    {
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/obj/gnatprove/silver_report_projection_spans.spark",
+      "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261030T135033-a26eefd72a3a/reports/0/silver_report_projection_spans.spark"
+    },
+    {
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/obj/gnatprove/silver_runtime.spark",
+      "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261030T135033-a26eefd72a3a/reports/0/silver_runtime.spark"
+    },
+    {
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/obj/gnatprove/silver_scalars.spark",
+      "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261030T135033-a26eefd72a3a/reports/0/silver_scalars.spark"
+    }
+  ],
+  "returncode": null,
+  "run_id": "20261030T135033-a26eefd72a3a",
+  "utc": "2026-10-30T14:19:12.777615+00:00"
+}
