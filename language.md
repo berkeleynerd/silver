@@ -1007,6 +1007,7 @@ The catalogue uses these construct identifiers:
 | `named_integer_subtype` | Direct Integer subtype declarations with nonempty static ranges, scalar object subtype marks and bounded fixed-array component marks. |
 | `integer_array_object`, `integer_array_read`, `integer_array_assignment` | Explicitly initialized anonymous fixed-size Integer arrays, nonempty interval-checked subscripts and component-preserving indexed assignment. |
 | `integer_array_iteration` | Forward/reverse iteration over constant Integer arrays, with immutable nonstatic elements, declared component entry bounds and existing guard/statement compositions. |
+| `named_boolean_constant`, `named_boolean_variable`, `boolean_assignment`, `boolean_expression`, `boolean_comparison` | Initialized scalar Boolean objects, snapshot copies, assignment, logical expressions and Boolean equality/inequality under the visibility, evaluation and xor restrictions above; stored flags retain no scalar or String/input facts. |
 | `integer_comparison`, `scalar_guard_refinement`, `integer_image`, `for_loop` | Bare mutable/index/element names against static thresholds, current read intervals with assignment replacement and branch hulls, standard decimal Image and scoped finite loops with captured bounds and mutable widening. |
 | `expression_output`, `literal_output`, `named_output`, `concatenated_output` | Returning output calls with qualified or visible unqualified names and positional or `Item =>` actuals. |
 | `argument_initialization`, `input_guard`, `capacity_guard`, `argument_rejection` | First/unique immutable input with positional or `Default =>` literal, path-derived validity/capacity and returning rejection; existing calls follow the shared visibility rules. |
@@ -1017,7 +1018,7 @@ The catalogue uses these construct identifiers:
 
 Everything else is excluded, including derived scalar types, subtype alias chains, conversions,
 other loop forms,
-Boolean values outside the specified predicate grammar,
+Boolean arrays and Boolean operations outside the specified fragment,
 additional declaration regions, resizable strings, other array
 operations, access types and file handles.
 The catalogue's token arrays are informative skeletons, including qualified,

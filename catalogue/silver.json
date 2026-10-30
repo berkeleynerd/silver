@@ -487,7 +487,6 @@
       "id": "named_boolean_constant",
       "ada_kind": "object_declaration",
       "conditions": {
-        "delivery_status": "pending_complete_assurance_and_delivery",
         "type": "visible predefined Boolean",
         "constant": true,
         "initializer_required": true,
@@ -504,7 +503,6 @@
       "id": "named_boolean_variable",
       "ada_kind": "object_declaration",
       "conditions": {
-        "delivery_status": "pending_complete_assurance_and_delivery",
         "type": "visible predefined Boolean",
         "constant": false,
         "initializer_required": true,
@@ -521,7 +519,6 @@
       "id": "boolean_assignment",
       "ada_kind": "assignment_statement",
       "conditions": {
-        "delivery_status": "pending_complete_assurance_and_delivery",
         "target": "visible initialized mutable Boolean object",
         "rhs": "boolean_expression",
         "constant_index_or_element_target": false,
@@ -533,7 +530,6 @@
       "id": "boolean_expression",
       "ada_kind": "expression",
       "conditions": {
-        "delivery_status": "pending_complete_assurance_and_delivery",
         "positions": [
           "boolean_initializer",
           "boolean_assignment_rhs",
@@ -576,7 +572,6 @@
       "id": "boolean_comparison",
       "ada_kind": "relation",
       "conditions": {
-        "delivery_status": "pending_complete_assurance_and_delivery",
         "operators": [
           "=",
           "/="
@@ -620,8 +615,7 @@
         "right_operand_path": "left true for and then; left false for or else; original incoming full flow for eager and/or/xor and Boolean equality/inequality",
         "boolean_literals": true,
         "eager_operators": true,
-        "scope_purpose": "short-circuit predicates retain reached-path facts; stored Boolean values and eager outcomes retain no derived scalar or String/input facts; Boolean extension pending complete assurance and delivery",
-        "boolean_extension_status": "pending_complete_assurance_and_delivery"
+        "scope_purpose": "short-circuit predicates retain reached-path facts; stored Boolean values and eager outcomes retain no derived scalar or String/input facts"
       }
     },
     {

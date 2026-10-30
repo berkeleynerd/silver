@@ -525,7 +525,6 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("      ""id"": ""named_boolean_constant"",");
       Put_Line ("      ""ada_kind"": ""object_declaration"",");
       Put_Line ("      ""conditions"": {");
-      Put_Line ("        ""delivery_status"": ""pending_complete_assurance_and_delivery"",");
       Put_Line ("        ""type"": ""visible predefined Boolean"",");
       Put_Line ("        ""constant"": true,");
       Put_Line ("        ""initializer_required"": true,");
@@ -542,7 +541,6 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("      ""id"": ""named_boolean_variable"",");
       Put_Line ("      ""ada_kind"": ""object_declaration"",");
       Put_Line ("      ""conditions"": {");
-      Put_Line ("        ""delivery_status"": ""pending_complete_assurance_and_delivery"",");
       Put_Line ("        ""type"": ""visible predefined Boolean"",");
       Put_Line ("        ""constant"": false,");
       Put_Line ("        ""initializer_required"": true,");
@@ -559,7 +557,6 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("      ""id"": ""boolean_assignment"",");
       Put_Line ("      ""ada_kind"": ""assignment_statement"",");
       Put_Line ("      ""conditions"": {");
-      Put_Line ("        ""delivery_status"": ""pending_complete_assurance_and_delivery"",");
       Put_Line ("        ""target"": ""visible initialized mutable Boolean object"",");
       Put_Line ("        ""rhs"": ""boolean_expression"",");
       Put_Line ("        ""constant_index_or_element_target"": false,");
@@ -571,7 +568,6 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("      ""id"": ""boolean_expression"",");
       Put_Line ("      ""ada_kind"": ""expression"",");
       Put_Line ("      ""conditions"": {");
-      Put_Line ("        ""delivery_status"": ""pending_complete_assurance_and_delivery"",");
       Put_Line ("        ""positions"": [");
       Put_Line ("          ""boolean_initializer"",");
       Put_Line ("          ""boolean_assignment_rhs"",");
@@ -614,7 +610,6 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("      ""id"": ""boolean_comparison"",");
       Put_Line ("      ""ada_kind"": ""relation"",");
       Put_Line ("      ""conditions"": {");
-      Put_Line ("        ""delivery_status"": ""pending_complete_assurance_and_delivery"",");
       Put_Line ("        ""operators"": [");
       Put_Line ("          ""="",");
       Put_Line ("          ""/=""");
@@ -658,8 +653,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""right_operand_path"": ""left true for and then; left false for or else; original incoming full flow for eager and/or/xor and Boolean equality/inequality"",");
       Put_Line ("        ""boolean_literals"": true,");
       Put_Line ("        ""eager_operators"": true,");
-      Put_Line ("        ""scope_purpose"": ""short-circuit predicates retain reached-path facts; stored Boolean values and eager outcomes retain no derived scalar or String/input facts; Boolean extension pending complete assurance and delivery"",");
-      Put_Line ("        ""boolean_extension_status"": ""pending_complete_assurance_and_delivery""");
+      Put_Line ("        ""scope_purpose"": ""short-circuit predicates retain reached-path facts; stored Boolean values and eager outcomes retain no derived scalar or String/input facts""");
       Put_Line ("      }");
       Put_Line ("    },");
       Put_Line ("    {");
