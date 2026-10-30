@@ -77,7 +77,7 @@ def Expr.render : Expr ty → List String
       Expressions.call "boolean_hides_integer" [textExpr.render, contextExpr.render ++ [".", "boolean_names"]] ++
       ["or", "else", "("] ++ contextExpr.render ++ [".", "mask_first", "/=", "0", "and", "then"] ++
       Expressions.call "name_is" [textExpr.render, contextExpr.render ++ [".", "mask_first"],
-        contextExpr.render ++ [".", "mask_after"], ["\"integer\""]] ++ [")"]
+        contextExpr.render ++ [".", "mask_after"], ["integer_type_word"]] ++ [")"]
   | .reading contextExpr flowExpr => Expressions.call "reading_names" [contextExpr.render, flowExpr.render]
   | .scalar textExpr positionExpr environmentExpr startExpr endExpr arraysExpr initialsExpr elaboratingExpr =>
       ["scalar_expressions", "."] ++ Expressions.call "read_expression"
@@ -124,7 +124,7 @@ structure Meaning (calls : Calls) : Prop where
   reading : FlowSourceBridge.InterpretedReadingNames calls.reading
   booleanHidesInteger : ∀ text, ValidText text → ∀ booleans, BooleanBindings.ValidEnvironment text booleans →
     calls.booleanHidesInteger text booleans = BooleanBindings.hidesInteger text booleans
-  nameIs : ∀ text, ValidText text → ∀ first after, (⟨first, after⟩ : Named.NameState).Valid text →
+  nameIs : ∀ text, ValidText text → ∀ first after, Expressions.ValidName text first after →
     calls.nameIs text first after "integer" = Named.nameIs text first after ("integer".toList.map Char.toNat)
   scalar : ∀ text, ValidText text → ∀ position names first after arrays initials elaborating,
     position ≤ text.length + 1 → ScalarExpression.ValidEnvironment text names →
@@ -178,9 +178,18 @@ theorem string_meaning {calls wrapper} (meaning : Meaning calls) (verified : Str
         (integerHidden inputs.text inputs.context) (arrays := inputs.context.arrayNames)
         (initials := inputs.initials) (elaborating := inputs.context.elaborating) := by
   rw [verified.equation inputs legal]
-  simp only [stringRhs, Expr.eval, overlay_meaning meaning.reading legal.context legal.flow]
-  rw [meaning.booleanHidesInteger inputs.text legal.text _ legal.context.booleans,
-    meaning.nameIs inputs.text legal.text _ _ legal.context.mask]
+  dsimp +instances only [stringRhs, Expr.eval]
+  rw [overlay_meaning meaning.reading legal.context legal.flow]
+  have maskedName :
+      (decide (inputs.context.maskFirst ≠ 0) &&
+        calls.nameIs inputs.text inputs.context.maskFirst inputs.context.maskAfter "integer") =
+      (decide (inputs.context.maskFirst ≠ 0) &&
+        Named.nameIs inputs.text inputs.context.maskFirst inputs.context.maskAfter ("integer".toList.map Char.toNat)) := by
+    rcases legal.context.mask with empty | present
+    · have zero : inputs.context.maskFirst = 0 := empty.1
+      simp [zero]
+    · rw [meaning.nameIs inputs.text legal.text _ _ present]
+  rw [meaning.booleanHidesInteger inputs.text legal.text _ legal.context.booleans, maskedName]
   apply meaning.string inputs.text legal.text _ _ _ _ _ _ _ legal.position legal.context.1 _ legal.context.arrays legal.initials
   exact ScalarMetadata.readingNames_valid legal.context.2.2.1
     legal.flow.2.compatible.count legal.flow.2.bounded
@@ -222,6 +231,8 @@ def stringSpec : List String := stringHeader ++ expectedTokens
   stringRhs.render ++ [")"]
 
 structure Checked (tokens : List String) : Prop where
+  integerTypeWord : Source.declaration "integer_type_word" tokens =
+    some (expectedTokens "constant String := \"integer\"")
   scalarSpec : Silver.SourceBridge.functionHeader "read_scalar_in_flow" ";" tokens = some scalarSpec
   scalarBody : Silver.SourceBridge.functionHeader "read_scalar_in_flow" "is" tokens = some scalarHeader
   stringSpec : Silver.SourceBridge.functionHeader "read_string_in_flow" ";" tokens = some stringSpec

@@ -148,6 +148,8 @@ def chain_kind_declaration : List String :=
   ["(", "no_chain", ",", "short_and", ",", "short_or", ",", "eager_and", ",", "eager_or", ",", "eager_xor", ")"]
 
 structure Checked (tokens : List String) : Prop where
+  validityCallWord : Source.declaration "validity_call_word" tokens =
+    some ["constant", "string", ":=", "\"input_is_valid\""]
   chain_kind_declaration : typeDeclaration "chain_kind" tokens = some chain_kind_declaration
   flow : FlowSourceBridge.Checked tokens
   readers : FlowReaders.Checked tokens
