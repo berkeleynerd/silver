@@ -29,6 +29,11 @@ at 19:57:36 UTC because the selected Ada annotation changes will invalidate its
 captured source. Completed objects remain retained; complete validation will
 resume on reviewed, stable repaired inputs. The regression review below applies
 to `cff54ae34d`; any integrated repair needs an input-applicability check.
+The first annotation candidate's
+[focused relation check](terminal-native-repair/README.md) also failed, on all
+four added equality assertions. It remains a retained experiment, not the
+integration source or a validation success. Generated-obligation diagnosis
+precedes the next focused attempt.
 
 - [Producer review](producer-review.md): observed Boolean obligation routes and
   the explicit restriction on nested xor operands.

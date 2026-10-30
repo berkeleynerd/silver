@@ -241,3 +241,10 @@ required before integration. The lead stopped the complete Lean run at
 annotation repair changes its captured source. Source pins/certificates and
 affected validation will be refreshed together after the native repair passes;
 no capability completion is claimed.
+
+The first candidate's [focused check](evidence/boolean-objects-20261030/terminal-native-repair/README.md)
+failed after 1,025.978 s: all four new `Same_Condition` assertions reached
+solver limits. Its downstream postcondition result depends on those unmet
+assertions and is not a completed proof. The candidate remains unintegrated.
+A bounded independent diagnosis, selected GPT-6 Astra / Max for this equality
+problem, is examining the generated obligations before another attempt.

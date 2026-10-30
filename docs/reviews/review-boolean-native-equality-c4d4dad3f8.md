@@ -71,3 +71,12 @@ argument; Rosetta dependencies are unchanged. Rebuild the final native compiler.
 Successful complete native proof/audit and Lean/source/module/axiom checkpoints
 remain mandatory. Neither the failed full run nor focused success substitutes
 for them.
+
+## Subsequent validation outcome
+
+The focused relation run `20261030T200101-c56457a2df8d` subsequently failed
+on all four added equality assertions. The
+[retained experiment](../evidence/boolean-objects-20261030/terminal-native-repair/README.md)
+records that outcome. The static review above does not establish discharge;
+this candidate was not integrated. A revised proof candidate needs its own
+focused validation and review of the changed reasoning.
