@@ -37,7 +37,7 @@ structure ImportsMeaning (imports : Imports) : Prop where
   assignment : ∀ text position, CursorDomain text position →
     imports.assignment text position = fixedAfter text position ":=" false
   read : ∀ text context position facts, ReadDomain text context position facts →
-    imports.read text context position facts = ScalarExpression.read text position (context.model.readingNames facts) (arrays := context.arrayNames)
+    imports.read text context position facts = readScalarInFlow text context.model position facts
   invalidModel : ∀ scan, scan.count ≤ ScalarExpression.maxBindings → imports.invalidModel scan = invalidBody scan
   isEmpty : ∀ bounds, bounds.Bounded → imports.isEmpty bounds = bounds.isEmpty
 
@@ -131,7 +131,7 @@ def inheritedImports (calls : Expressions.Calls) (scalar : FlowReaders.DefaultSc
   isEmpty := calls.function .scalarEmpty
 
 theorem inherited_meaning {calls : Expressions.Calls} {scalar string body}
-    (source : Expressions.HelperEquations calls (domain := domain))
+    (source : Expressions.RawHelperEquations calls (domain := domain))
     (flow : FlowReaders.Links calls scalar string) (invalid : BodyWrappers.DefinitionEquations body) :
     ImportsMeaning (inheritedImports calls scalar body) where
   skip text position valid := Expressions.interpreted_skip calls source text valid.1 position valid.2

@@ -40,7 +40,7 @@ structure ImportsMeaning (imports : Imports) : Prop where
     imports.readIndex text context position facts = ScalarExpression.read text position (context.model.readingNames facts)
   readValue : ∀ text context position facts, ReadDomain text context position facts →
     imports.readValue text context position facts =
-      ScalarExpression.read text position (context.model.readingNames facts) (arrays := context.arrayNames)
+      readScalarInFlow text context.model position facts
   contains : ∀ item indices, ArrayBindings.Native.BindingType item → indices.Bounded →
     imports.contains item indices = ArrayBindings.contains item indices
   isEmpty : ∀ bounds, bounds.Bounded → imports.isEmpty bounds = bounds.isEmpty
@@ -169,7 +169,7 @@ def inheritedImports (calls : Expressions.Calls) (scalar : FlowReaders.DefaultSc
   invalid := body.invalid
 
 theorem inherited_meaning {calls scalar string reading arrays body}
-    (source : Expressions.HelperEquations calls (domain := domain))
+    (source : Expressions.RawHelperEquations calls (domain := domain))
     (flow : FlowReaders.Links calls scalar string)
     (readingSource : FlowSourceBridge.InterpretedReadingNames reading)
     (arrayPrimitives : ArrayBindings.Native.Primitives arrays)
@@ -190,9 +190,9 @@ theorem inherited_meaning {calls scalar string reading arrays body}
         (by unfold Expressions.ValidToken; decide)
   readIndex text context position facts valid := by
     change calls.function .scalarRead text position (FlowReaders.overlay reading context facts) [] [] false = _
-    rw [FlowReaders.overlay_meaning readingSource valid.2.1 valid.2.2.1]
-    exact source.scalarRead text valid.1 position _ [] [] false valid.2.2.2
-      (ScalarMetadata.readingNames_valid valid.2.1.2.2.1 valid.2.2.1.2.compatible.count valid.2.2.1.2.bounded)
+    rw [FlowReaders.overlay_meaning readingSource valid.context valid.flow]
+    exact source.scalarRead text valid.text position _ [] [] false valid.position
+      (ScalarMetadata.readingNames_valid valid.context.2.2.1 valid.flow.2.compatible.count valid.flow.2.bounded)
       (by simp [ArrayBindings.ValidMetadata, ArrayBindings.maxBindings])
       (by simp [ArrayBindings.ValidInitials, ArrayBindings.maxElements])
   readValue text context position facts valid := FlowReaders.linked_scalar source flow {text,context,position,facts} valid
@@ -239,7 +239,7 @@ structure Links (composed : Expressions.Calls) (scalar : FlowReaders.DefaultScal
     DefinitionEquations (inheritedImports composed scalar reading arrays body) calls
 
 theorem linked_target {composed scalar string calls}
-    (source : Expressions.HelperEquations composed (domain := domain))
+    (source : Expressions.RawHelperEquations composed (domain := domain))
     (flow : FlowReaders.Links composed scalar string) (links : Links composed scalar calls)
     (text : Source) (context : Native.Context) (position : Nat)
     (valid : TargetDomain text context position) :
@@ -249,7 +249,7 @@ theorem linked_target {composed scalar string calls}
     definitions text context position valid
 
 theorem linked_assignment {composed scalar string calls}
-    (source : Expressions.HelperEquations composed (domain := domain))
+    (source : Expressions.RawHelperEquations composed (domain := domain))
     (flow : FlowReaders.Links composed scalar string) (links : Links composed scalar calls)
     (text : Source) (context : Native.Context) (scan : BodyScan)
     (valid : AssignmentDomain text context scan) :
@@ -259,7 +259,7 @@ theorem linked_assignment {composed scalar string calls}
     definitions text context scan valid
 
 theorem model_links {scalar string}
-    (source : Expressions.HelperEquations Expressions.modelCalls (domain := domain))
+    (source : Expressions.RawHelperEquations Expressions.modelCalls (domain := domain))
     (flow : FlowReaders.Links Expressions.modelCalls scalar string) :
     Links Expressions.modelCalls scalar modelCalls := by
   have meaning := inherited_meaning source flow FlowSourceBridge.model_reading_interpreted

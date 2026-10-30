@@ -1,7 +1,8 @@
 module
 
 public import Silver.PredicateBasicSizing
-public import Silver.PredicateNativeLibraries
+public import Silver.PredicateFlowReaderLibraries
+public import Silver.PredicateBooleanBodyHelpers
 public import Silver.PredicateScalarBodyHelpers
 public import Silver.PredicateArrayBodySource
 
@@ -17,9 +18,10 @@ def basicTokens : List ShellToken :=
 def TokenDomain (text : Source) (position : Nat) (token : ShellToken) : Prop :=
   Expressions.ValidText text ∧ Expressions.ValidCursor text position ∧ token ∈ basicTokens
 
-def ExpressionDomain (text : Source) (position : Nat) (names : Compose.BindingEnvironment) (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Metadata) : Prop :=
+def ExpressionDomain (text : Source) (position : Nat) (names : Compose.BindingEnvironment) (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Metadata) (booleans : BooleanBindings.Environment) : Prop :=
   Expressions.ValidText text ∧ Expressions.ValidCursor text position ∧ Expressions.ValidNames text names ∧
-    ScalarExpression.ValidEnvironment text scalarNames ∧ ArrayBindings.ValidMetadata text arrays
+    ScalarExpression.ValidEnvironment text scalarNames ∧ ArrayBindings.ValidMetadata text arrays ∧
+    BooleanBindings.ValidEnvironment text booleans
 
 abbrev TargetDomain := ScalarBodyNative.TargetDomain
 abbrev ScalarTargetDomain := TargetDomain
@@ -32,14 +34,14 @@ def FlowDomain (text : Source) (context : Native.Context) (position : Nat) (fact
   FlowReaders.Legal {text,context,position,facts}
 
 structure HelperMeaning (primitive : Primitives) : Prop where
-  callAfter : ∀ text names position operation scalarNames arrays hidden, ExpressionDomain text position names scalarNames arrays →
-    primitive.callAfter text names position operation scalarNames arrays hidden = Compose.callAfter text names position operation scalarNames arrays hidden
+  callAfter : ∀ text names position operation scalarNames arrays hidden booleans, ExpressionDomain text position names scalarNames arrays booleans →
+    primitive.callAfter text names position operation scalarNames arrays hidden booleans = Compose.callAfter text names position operation scalarNames arrays hidden booleans
   associationAfter : ∀ text position formal, Expressions.ValidText text → Expressions.ValidCursor text position →
     primitive.associationAfter text position formal = Names.associationAfter text position formal
   token : ∀ text position token, TokenDomain text position token →
     primitive.token text position token = tokenAfter text position token
   expression : ∀ text context position facts, FlowDomain text context position facts →
-    primitive.expression text context position facts = expressionAt text position context.names (context.model.readingNames facts) (arrays := context.arrayNames)
+    primitive.expression text context position facts = readStringInFlow text context.model position facts
   target : ∀ text context position, TargetDomain text context position →
     primitive.target text context position = ScalarBodyNative.stringTargetEval ScalarBodyNative.modelImports text context position
   bodyToken : ∀ text context scan token, BodyTokenDomain text context scan token →
@@ -49,6 +51,10 @@ structure HelperMeaning (primitive : Primitives) : Prop where
     primitive.scalarTarget text context position = Predicate.scalarTarget text context.model position
   scalarAssignment : ∀ text context scan, ScalarAssignmentDomain text context scan →
     primitive.scalarAssignment text context scan = scalarAssignmentBody text context.model scan
+  booleanTarget : ∀ text context position, TargetDomain text context position →
+    primitive.booleanTarget text context position = Predicate.booleanTarget text context.model position
+  booleanAssignment : ∀ text context scan, ScalarAssignmentDomain text context scan →
+    primitive.booleanAssignment text context scan = booleanAssignmentBody text context.model scan
   arrayTarget : ∀ text context position, TargetDomain text context position →
     primitive.arrayTarget text context position = Predicate.arrayTarget text context.model position
   arrayAssignment : ∀ text context scan, ScalarAssignmentDomain text context scan →
@@ -62,14 +68,14 @@ Its legal values and every complete flow record remain unchanged. -/
 noncomputable def totalize (primitive : Primitives) : Primitives := by
   classical
   exact {
-    callAfter := fun text names position operation scalarNames arrays hidden => if ExpressionDomain text position names scalarNames arrays then
-      primitive.callAfter text names position operation scalarNames arrays hidden else Compose.callAfter text names position operation scalarNames arrays hidden
+    callAfter := fun text names position operation scalarNames arrays hidden booleans => if ExpressionDomain text position names scalarNames arrays booleans then
+      primitive.callAfter text names position operation scalarNames arrays hidden booleans else Compose.callAfter text names position operation scalarNames arrays hidden booleans
     associationAfter := fun text position formal => if Expressions.ValidText text ∧ Expressions.ValidCursor text position then
       primitive.associationAfter text position formal else Names.associationAfter text position formal
     token := fun text position token => if TokenDomain text position token then
       primitive.token text position token else tokenAfter text position token
     expression := fun text context position facts => if FlowDomain text context position facts then
-      primitive.expression text context position facts else expressionAt text position context.names (context.model.readingNames facts) (arrays := context.arrayNames)
+      primitive.expression text context position facts else readStringInFlow text context.model position facts
     target := fun text context position => if TargetDomain text context position then
       primitive.target text context position else ScalarBodyNative.stringTargetEval ScalarBodyNative.modelImports text context position
     bodyToken := fun text context scan token => if BodyTokenDomain text context scan token then
@@ -79,6 +85,10 @@ noncomputable def totalize (primitive : Primitives) : Primitives := by
       primitive.scalarTarget text context position else Predicate.scalarTarget text context.model position
     scalarAssignment := fun text context scan => if ScalarAssignmentDomain text context scan then
       primitive.scalarAssignment text context scan else scalarAssignmentBody text context.model scan
+    booleanTarget := fun text context position => if TargetDomain text context position then
+      primitive.booleanTarget text context position else Predicate.booleanTarget text context.model position
+    booleanAssignment := fun text context scan => if ScalarAssignmentDomain text context scan then
+      primitive.booleanAssignment text context scan else booleanAssignmentBody text context.model scan
     arrayTarget := fun text context position => if TargetDomain text context position then
       primitive.arrayTarget text context position else Predicate.arrayTarget text context.model position
     arrayAssignment := fun text context scan => if ScalarAssignmentDomain text context scan then
@@ -90,10 +100,10 @@ noncomputable def totalize (primitive : Primitives) : Primitives := by
 theorem totalize_equations {primitive : Primitives} (meaning : HelperMeaning primitive) :
     PrimitiveEquations (totalize primitive) where
   callAfter := by
-    funext text names position operation scalarNames arrays hidden
+    funext text names position operation scalarNames arrays hidden booleans
     dsimp only [totalize]
     split
-    · exact meaning.callAfter text names position operation scalarNames arrays hidden ‹_›
+    · exact meaning.callAfter text names position operation scalarNames arrays hidden booleans ‹_›
     · rfl
   associationAfter := by
     funext text position formal
@@ -143,6 +153,18 @@ theorem totalize_equations {primitive : Primitives} (meaning : HelperMeaning pri
     split
     · exact meaning.scalarAssignment text context scan ‹_›
     · rfl
+  booleanTarget := by
+    funext text context position
+    dsimp only [totalize]
+    split
+    · exact meaning.booleanTarget text context position ‹_›
+    · rfl
+  booleanAssignment := by
+    funext text context scan
+    dsimp only [totalize]
+    split
+    · exact meaning.booleanAssignment text context scan ‹_›
+    · rfl
   arrayTarget := by
     funext text context position
     dsimp only [totalize]
@@ -168,7 +190,7 @@ theorem basicEval_normalized {primitive : Primitives} (meaning : HelperMeaning p
   basicEval_of_equations (totalize_equations meaning) text context scan
 
 theorem model_helper_meaning : HelperMeaning modelPrimitives where
-  callAfter _ _ _ _ _ _ _ _ := rfl
+  callAfter _ _ _ _ _ _ _ _ _ := rfl
   associationAfter _ _ _ _ _ := rfl
   token _ _ _ _ := rfl
   expression _ _ _ _ _ := rfl
@@ -177,6 +199,8 @@ theorem model_helper_meaning : HelperMeaning modelPrimitives where
   invalid _ _ := rfl
   scalarTarget _ _ _ _ := rfl
   scalarAssignment _ _ _ _ := rfl
+  booleanTarget _ _ _ _ := rfl
+  booleanAssignment _ _ _ _ := rfl
   arrayTarget _ _ _ _ := rfl
   arrayAssignment _ _ _ _ := rfl
   fits _ _ := rfl

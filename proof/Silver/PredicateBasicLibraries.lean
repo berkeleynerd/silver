@@ -1,6 +1,8 @@
 module
 
+public import Silver.PredicateBooleanBodyLibraries
 public import Silver.PredicateBasicHelpers
+public import Silver.PredicateNativeLibraries
 public import Silver.PredicateAdapterEnvironment
 
 @[expose] public section
@@ -8,7 +10,7 @@ public import Silver.PredicateAdapterEnvironment
 namespace Silver.Predicate.BasicNative
 open Compose
 
-variable {domain : Expressions.StateDomain}
+variable {domain : Compose.Expressions.StateDomain}
 
 theorem basicToken_fixed (token : ShellToken) (valid : token ∈ basicTokens) : Adapter.FixedToken token := by
   simp only [basicTokens, List.mem_cons, List.mem_nil_iff, or_false] at valid
@@ -24,7 +26,7 @@ theorem basic_token_calls_fixed :
 /-- Every Basic_Body callee is linked to its own typed source definition or
 runtime wrapper contract. The complete scalar assignment and String target
 meanings are derived from those component definitions. -/
-structure Links (primitive : Primitives) (inherited : Expressions.Calls) : Prop where
+structure Links (primitive : Primitives) (inherited : Compose.Expressions.Calls) (predicate : Native.Calls) : Prop where
   callAfter : primitive.callAfter = inherited.function .callAfter
   associationAfter : primitive.associationAfter = inherited.names.associationAfter
   token : primitive.token = inherited.function .takeToken
@@ -34,6 +36,10 @@ structure Links (primitive : Primitives) (inherited : Expressions.Calls) : Prop 
     ScalarBodyNative.DefinitionEquations (ScalarBodyNative.inheritedImports inherited scalar body) calls ∧
     primitive.target = calls.stringTarget ∧ primitive.scalarTarget = calls.target ∧
     primitive.scalarAssignment = calls.assignment ∧ primitive.invalid = body.invalid
+  booleanBodies : ∃ body calls,
+    BodyWrappers.DefinitionEquations body ∧
+    BooleanBodyNative.DefinitionEquations (BooleanBodyNative.inheritedImports inherited predicate body) calls ∧
+    primitive.booleanTarget = calls.target ∧ primitive.booleanAssignment = calls.assignment
   arrayBodies : ∃ scalar calls,
     FlowReaders.Links inherited scalar primitive.expression ∧
     ArrayBodyNative.Links inherited scalar calls ∧
@@ -52,18 +58,21 @@ structure Links (primitive : Primitives) (inherited : Expressions.Calls) : Prop 
     primitive.reject facts.model =
       (PathFacts.Native.rejectedBody.eval ({facts} : Native.Libraries.PathInputs).locals).model
 
-theorem HelperMeaning.of_inherited {primitive : Primitives} {inherited : Expressions.Calls}
-    (source : Expressions.HelperEquations inherited (domain := domain)) (links : Links primitive inherited) :
+theorem HelperMeaning.of_inherited {primitive : Primitives} {inherited : Compose.Expressions.Calls} {predicate : Native.Calls}
+    (source : Compose.Expressions.RawHelperEquations inherited (domain := domain))
+    (predicateHelpers : Native.HelperMeaning predicate)
+    (predicateDefinitions : Native.DefinitionEquations predicate) (predicateContracts : Native.Contracts predicate)
+    (links : Links primitive inherited predicate) :
     HelperMeaning primitive where
-  callAfter text names position operation scalarNames arrays hidden valid := by
+  callAfter text names position operation scalarNames arrays hidden booleans valid := by
     rw [links.callAfter]
-    exact Expressions.interpreted_callAfter inherited source text valid.1 names position operation
-      valid.2.2.1 valid.2.1 valid.2.2.2.1 valid.2.2.2.2 hidden
+    exact Compose.Expressions.interpreted_callAfter inherited source text valid.1 names position operation
+      valid.2.2.1 valid.2.1 valid.2.2.2.1 valid.2.2.2.2.1 hidden booleans valid.2.2.2.2.2
   associationAfter text position formal valid bounded := by
     rw [links.associationAfter]
     exact Names.interpreted_association inherited.names source.names text valid position formal bounded
   token text position token valid := by
-    rw [links.token, Expressions.interpreted_take inherited source text valid.1 position token
+    rw [links.token, Compose.Expressions.interpreted_take inherited source text valid.1 position token
       valid.2.1 (basicToken_valid token valid.2.2)]
     exact basicToken_model text position token valid.2.2
   expression text context position facts valid := by
@@ -95,6 +104,18 @@ theorem HelperMeaning.of_inherited {primitive : Primitives} {inherited : Express
     rw [observed]
     exact ScalarBodyNative.assignment_meaning (ScalarBodyNative.inherited_meaning source flow invalid)
       definitions text context scan valid
+  booleanTarget text context position valid := by
+    obtain ⟨body, calls, invalid, definitions, observed, _⟩ := links.booleanBodies
+    rw [observed]
+    exact BooleanBodyNative.target_meaning
+      (BooleanBodyNative.inherited_meaning source predicateHelpers predicateDefinitions predicateContracts invalid)
+      definitions text context position valid
+  booleanAssignment text context scan valid := by
+    obtain ⟨body, calls, invalid, definitions, _, observed⟩ := links.booleanBodies
+    rw [observed]
+    exact BooleanBodyNative.assignment_meaning
+      (BooleanBodyNative.inherited_meaning source predicateHelpers predicateDefinitions predicateContracts invalid)
+      definitions text context scan valid
   arrayTarget text context position valid := by
     obtain ⟨scalar, calls, flow, arrays, observed, _⟩ := links.arrayBodies
     rw [observed]
@@ -119,22 +140,22 @@ theorem HelperMeaning.of_inherited {primitive : Primitives} {inherited : Express
 
 /-- A simultaneous witness for the complete callee wiring. The inherited
 reader theorem is parameterized by the selected state domain. -/
-theorem model_links (source : Expressions.HelperEquations Expressions.modelCalls (domain := domain)) :
+theorem model_links (source : Compose.Expressions.RawHelperEquations Compose.Expressions.modelCalls (domain := domain)) :
     Links {modelPrimitives with
-      token := Expressions.modelCalls.function .takeToken
-      bodyToken := (Adapter.Wrappers.modelCalls BodyNative.modelCalls).token} Expressions.modelCalls where
+      token := Compose.Expressions.modelCalls.function .takeToken
+      bodyToken := (Adapter.Wrappers.modelCalls BodyNative.modelCalls).token} Compose.Expressions.modelCalls Native.modelCalls where
   callAfter := rfl
   associationAfter := rfl
   token := rfl
   scalarBodies := by
-    have flow : FlowReaders.Links Expressions.modelCalls Native.modelCalls.scalarInFlow modelPrimitives.expression :=
-      Native.Libraries.model_links.readers
-    let imported := ScalarBodyNative.inheritedImports Expressions.modelCalls
-      Native.modelCalls.scalarInFlow BodyWrappers.modelCalls
+    have flow : FlowReaders.Links Compose.Expressions.modelCalls (fun text context position facts => Native.modelCalls.scalarInFlow text context position facts []) modelPrimitives.expression :=
+      Native.Libraries.model_links.readers.defaults
+    let imported := ScalarBodyNative.inheritedImports Compose.Expressions.modelCalls
+      (fun text context position facts => Native.modelCalls.scalarInFlow text context position facts []) BodyWrappers.modelCalls
     have normalized : ScalarBodyNative.totalize imported = ScalarBodyNative.modelImports :=
       ScalarBodyNative.totalize_eq_model
         (ScalarBodyNative.inherited_meaning source flow BodyWrappers.model_definitions)
-    refine ⟨Native.modelCalls.scalarInFlow, BodyWrappers.modelCalls, ScalarBodyNative.modelCalls,
+    refine ⟨(fun text context position facts => Native.modelCalls.scalarInFlow text context position facts []), BodyWrappers.modelCalls, ScalarBodyNative.modelCalls,
       flow, BodyWrappers.model_definitions, ?_, rfl, rfl, rfl, rfl⟩
     exact {
       target := fun text context position _ => by
@@ -148,10 +169,12 @@ theorem model_links (source : Expressions.HelperEquations Expressions.modelCalls
         rw [normalized]
         exact (ScalarBodyNative.assignmentEval_model ..).symm
       assignment := fun _ _ _ _ => rfl }
+  booleanBodies := ⟨BodyWrappers.modelCalls, BooleanBodyNative.modelCalls,
+    BodyWrappers.model_definitions, BooleanBodyNative.inherited_model_definitions source, rfl, rfl⟩
   arrayBodies := by
-    have flow : FlowReaders.Links Expressions.modelCalls Native.modelCalls.scalarInFlow modelPrimitives.expression :=
-      Native.Libraries.model_links.readers
-    exact ⟨Native.modelCalls.scalarInFlow, ArrayBodyNative.modelCalls, flow,
+    have flow : FlowReaders.Links Compose.Expressions.modelCalls (fun text context position facts => Native.modelCalls.scalarInFlow text context position facts []) modelPrimitives.expression :=
+      Native.Libraries.model_links.readers.defaults
+    exact ⟨(fun text context position facts => Native.modelCalls.scalarInFlow text context position facts []), ArrayBodyNative.modelCalls, flow,
       ArrayBodyNative.model_links source flow, rfl, rfl⟩
   bodyToken := ⟨Adapter.Wrappers.modelCalls BodyNative.modelCalls,
     Adapter.Wrappers.modelCalls BodyNative.modelCalls, BodyNative.modelCalls,

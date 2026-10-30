@@ -56,9 +56,12 @@ structure Links (imports : Imports) (inherited : Compose.Expressions.Calls)
   arrayTarget : ∃ scalar string calls,
     FlowReaders.Links inherited scalar string ∧ ArrayBodyNative.Links inherited scalar calls ∧
     imports.arrayTarget = calls.target
-  readScalar : ∃ reading,
+  readScalar : ∃ reading wrapper booleans,
     FlowSourceBridge.InterpretedReadingNames reading ∧
-    FlowReaders.ScalarRefinement (FlowReaders.inheritedCalls reading inherited scalars) imports.readScalar
+    FlowReaders.ScalarRefinement
+      (FlowReaders.inheritedCalls reading inherited scalars booleans) wrapper ∧
+    ∀ text context position facts first after, ScalarDomain text context position facts first after →
+      imports.readScalar text context position facts first after = wrapper text context position facts first after []
   widen : ∃ operation, FlowSourceBridge.InterpretedWidenInto operation ∧
     ∀ context facts, WidenDomain context facts →
       imports.widen context facts =
@@ -74,7 +77,7 @@ structure Links (imports : Imports) (inherited : Compose.Expressions.Calls)
 
 theorem ImportsMeaning.of_inherited {imports : Imports} {inherited : Compose.Expressions.Calls}
     {scalars : ScalarExpression.Native.Calls} {domain : Compose.Expressions.StateDomain}
-    (source : Compose.Expressions.HelperEquations inherited (domain := domain))
+    (source : Compose.Expressions.RawHelperEquations inherited (domain := domain))
     (lexical : Compose.Lexical.Meaning inherited.primitive)
     (scalarPrimitives : ScalarExpression.Native.Primitives scalars)
     (scalarEquations : ScalarExpression.Native.Equations scalars)
@@ -115,11 +118,13 @@ theorem ImportsMeaning.of_inherited {imports : Imports} {inherited : Compose.Exp
     rw [observed]
     exact ArrayBodyNative.linked_target source flow arrays text context position valid
   readScalar text context position facts first after valid := by
-    obtain ⟨reading, readingSource, wrapperSource⟩ := links.readScalar
+    obtain ⟨reading, wrapper, booleans, readingSource, wrapperSource, observed⟩ := links.readScalar
+    rw [observed text context position facts first after valid]
     exact FlowReaders.scalar_meaning
-      (FlowReaders.inherited_meaning readingSource source scalarPrimitives scalarEquations) wrapperSource
-      ⟨text, context, position, facts, first, after⟩
-      ⟨valid.1.1, valid.1.2.1, valid.1.2.2, valid.2.1⟩ valid.2.2
+      (FlowReaders.inherited_meaning booleans readingSource source scalarPrimitives scalarEquations) wrapperSource
+      ⟨text, context, position, facts, first, after, []⟩
+      ⟨valid.1.1, valid.1.2.1, valid.1.2.2, valid.2.1,
+        by simp [ArrayBindings.ValidInitials, ArrayBindings.maxElements]⟩ valid.2.2
   widen context facts valid := by
     obtain ⟨operation, operationSource, observed⟩ := links.widen
     rw [observed context facts valid]
@@ -141,7 +146,7 @@ theorem ImportsMeaning.of_inherited {imports : Imports} {inherited : Compose.Exp
   emptyFacts := links.emptyFacts
 
 theorem model_links {domain : Compose.Expressions.StateDomain}
-    (source : Compose.Expressions.HelperEquations Compose.Expressions.modelCalls (domain := domain)) :
+    (source : Compose.Expressions.RawHelperEquations Compose.Expressions.modelCalls (domain := domain)) :
     Links {modelImports with bodyToken := (Adapter.Wrappers.modelCalls BodyNative.modelCalls).token}
       Compose.Expressions.modelCalls ScalarExpression.Native.modelCalls where
   token text position token valid := (loopToken_model text position token valid).symm
@@ -156,15 +161,23 @@ theorem model_links {domain : Compose.Expressions.StateDomain}
   nameIs := rfl
   equalName := rfl
   arrayTarget := by
-    have flow := Native.Libraries.model_links.readers
-    exact ⟨Native.modelCalls.scalarInFlow, Native.modelCalls.stringInFlow, ArrayBodyNative.modelCalls,
+    have flow := Native.Libraries.model_links.readers.defaults
+    exact ⟨(fun t c p f => Native.modelCalls.scalarInFlow t c p f []),
+      (fun t c p f => Native.modelCalls.stringInFlow t c p f []), ArrayBodyNative.modelCalls,
       flow, ArrayBodyNative.model_links source flow, rfl⟩
   readScalar := by
-    refine ⟨FlowSourceBridge.readingStorage, FlowSourceBridge.model_reading_interpreted, ⟨?_⟩⟩
-    intro inputs legal _mask
-    simp only [FlowReaders.scalarRhs, FlowReaders.Expr.eval, FlowReaders.inheritedCalls,
-      ScalarExpression.Native.modelCalls,
-      FlowReaders.overlay_meaning FlowSourceBridge.model_reading_interpreted legal.2.1 legal.2.2.1] <;> rfl
+    let calls := FlowReaders.inheritedCalls FlowSourceBridge.readingStorage
+      Compose.Expressions.modelCalls ScalarExpression.Native.modelCalls BooleanBindings.SourceBridge.modelSource
+    refine ⟨FlowSourceBridge.readingStorage, FlowReaders.modelScalar calls, BooleanBindings.SourceBridge.modelSource,
+      FlowSourceBridge.model_reading_interpreted, FlowReaders.model_scalar_refinement calls, ?_⟩
+    intro text context position facts first after valid
+    exact (FlowReaders.scalar_meaning
+      (FlowReaders.inherited_meaning BooleanBindings.SourceBridge.modelSource
+        FlowSourceBridge.model_reading_interpreted source ScalarExpression.Native.model_primitives
+        ScalarExpression.Native.model_equations)
+      (FlowReaders.model_scalar_refinement calls) {text, context, position, facts, maskFirst := first, maskAfter := after}
+      ⟨valid.1.1, valid.1.2.1, valid.1.2.2, valid.2.1,
+        by simp [ArrayBindings.ValidInitials, ArrayBindings.maxElements]⟩ valid.2.2).symm
   widen := by
     refine ⟨FlowSourceBridge.widenedStorage, FlowSourceBridge.model_widen_interpreted, ?_⟩
     intro context facts valid

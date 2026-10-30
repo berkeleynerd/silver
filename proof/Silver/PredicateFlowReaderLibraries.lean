@@ -2,7 +2,7 @@ module
 
 public import Silver.PredicateFlowReaders
 public import Silver.ScalarExpressionNativeEquations
-public import Silver.ComposeEquations
+public import Silver.ComposeHelperEquations
 public import Silver.ComposeModelCalls
 public import Silver.BooleanBindingsSourceBridge
 
@@ -28,7 +28,7 @@ def inheritedCalls
 theorem inherited_meaning {reading composed scalars}
     (booleans : BooleanBindings.SourceBridge.InterpretedSource)
     (readingSource : FlowSourceBridge.InterpretedReadingNames reading)
-    (composedEquations : Expressions.HelperEquations composed (domain := domain))
+    (composedEquations : Expressions.RawHelperEquations composed (domain := domain))
     (primitives : ScalarExpression.Native.Primitives scalars)
     (equations : ScalarExpression.Native.Equations scalars) :
     Meaning (inheritedCalls reading composed scalars booleans) where
@@ -57,17 +57,18 @@ structure FullLinks (composed : Expressions.Calls) (scalar : FullScalarWrapper)
     ∀ text context position facts initials, Legal {text, context, position, facts, initials} →
       scalar text context position facts initials = wrapper text context position facts 0 0 initials
 
-theorem linked_scalar_full {composed scalar string} (equations : Expressions.HelperEquations composed (domain := domain))
+theorem linked_scalar_full {composed scalar string} (equations : Expressions.RawHelperEquations composed (domain := domain))
     (links : FullLinks composed scalar string) (inputs : Inputs) (legal : Legal inputs) :
     scalar inputs.text inputs.context inputs.position inputs.facts inputs.initials =
       readScalarInFlow inputs.text inputs.context.model inputs.position inputs.facts (initials := inputs.initials) := by
   obtain ⟨reading, scalars, wrapper, booleans, readingSource, primitives, definitions, scalarSource, _, observed⟩ := links.source
-  have defaultLegal : Legal {inputs with maskFirst := 0, maskAfter := 0} := legal
-  rw [observed inputs.text inputs.context inputs.position inputs.facts inputs.initials legal]
+  have defaultLegal : Legal {inputs with maskFirst := 0, maskAfter := 0} :=
+    ⟨legal.text, legal.context, legal.flow, legal.position, legal.initials⟩
+  rw [observed inputs.text inputs.context inputs.position inputs.facts inputs.initials defaultLegal]
   exact scalar_meaning (inherited_meaning booleans readingSource equations primitives definitions) scalarSource
     {inputs with maskFirst := 0, maskAfter := 0} defaultLegal (Or.inl ⟨rfl, rfl⟩)
 
-theorem linked_string_full {composed scalar string} (equations : Expressions.HelperEquations composed (domain := domain))
+theorem linked_string_full {composed scalar string} (equations : Expressions.RawHelperEquations composed (domain := domain))
     (links : FullLinks composed scalar string) (inputs : Inputs) (legal : Legal inputs) :
     string inputs.text inputs.context inputs.position inputs.facts inputs.initials =
       readStringInFlow inputs.text inputs.context.model inputs.position inputs.facts inputs.initials := by
@@ -85,7 +86,7 @@ theorem FullLinks.defaults {composed scalar string} (links : FullLinks composed 
       (fun text context position facts => string text context position facts []) :=
   ⟨⟨scalar, string, links, rfl, rfl⟩⟩
 
-theorem linked_scalar {composed scalar string} (equations : Expressions.HelperEquations composed (domain := domain))
+theorem linked_scalar {composed scalar string} (equations : Expressions.RawHelperEquations composed (domain := domain))
     (links : Links composed scalar string) (inputs : Inputs)
     (legal : Legal {inputs with initials := []}) :
     scalar inputs.text inputs.context inputs.position inputs.facts =
@@ -94,7 +95,7 @@ theorem linked_scalar {composed scalar string} (equations : Expressions.HelperEq
   rw [observed]
   exact linked_scalar_full equations full {inputs with initials := []} legal
 
-theorem linked_string {composed scalar string} (equations : Expressions.HelperEquations composed (domain := domain))
+theorem linked_string {composed scalar string} (equations : Expressions.RawHelperEquations composed (domain := domain))
     (links : Links composed scalar string) (inputs : Inputs)
     (legal : Legal {inputs with initials := []}) :
     string inputs.text inputs.context inputs.position inputs.facts =
