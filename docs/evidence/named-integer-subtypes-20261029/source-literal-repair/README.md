@@ -44,9 +44,13 @@ their logs, prior history and the applicable 18 earlier repair results plus
 509 original results, covering all 555 identities. Native assurance and the
 compiler build remain applicable because every native input is unchanged.
 
-Focused run `20261030T020329-280326d88dbd` is checking the four formerly failing
-source modules and their fresh import-closure audit. Complete repaired
-Lean/source/module/axiom validation and the final Rosetta refresh remain pending.
+Focused run `20261030T020329-280326d88dbd` passed the four formerly failing
+source modules and a fresh 139-module / 25,036-declaration audit. Build time was
+143.665 s, audit time 10.634 s and managed duration 168.692 s; all 653 captured
+inputs match `d4e2be67b5`. Its [original records](../runs/20261030T020329-280326d88dbd/retained.json)
+are retained. Complete run `20261030T020720-944618f28c05` now checks the repaired
+whole project with normal Lake reuse. Complete source/module/axiom validation
+and the final Rosetta refresh remain pending.
 
 Implementation selected GPT-6.1 Sol / Extra High; independent review selected
 GPT-6 Astra / Extra High. Runtime settings and token/cost measurements are not

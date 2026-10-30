@@ -85,8 +85,10 @@ into agreement with the existing Ada and semantic models without changing
 runtime behavior, domains or endpoints. Independent source/semantic review
 confirmed the repair. All 28 affected proof-tree/platform tests passed again;
 the other 18 earlier repair results and 509 original results remain applicable.
-Focused Lean run `20261030T020329-280326d88dbd` is active. Complete repaired
-Lean/source assurance and the final Rosetta delivery refresh remain pending.
+Focused Lean run `20261030T020329-280326d88dbd` passed the four repaired modules
+and a fresh audit of 139 modules / 25,036 declarations. Complete run
+`20261030T020720-944618f28c05` is active on 653 matching repaired inputs.
+Complete Lean/source assurance and the final Rosetta delivery refresh remain pending.
 
 ## Retained completed checks
 

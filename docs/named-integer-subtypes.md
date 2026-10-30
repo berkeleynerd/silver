@@ -262,8 +262,11 @@ retains the failed run and exact changes. The output certificate (9,606 s),
 composition source candidate (5,694 s), scalar-body candidate (426 s) and
 other independently completed modules remain available for normal Lake reuse.
 All 28 newly affected regressions passed again; native/build and the other
-18 earlier repair results remain applicable. Focused source checks and the
-complete repaired Lean checkpoint remain pending.
+18 earlier repair results remain applicable. Focused run
+`20261030T020329-280326d88dbd` then passed all four formerly failing modules and
+a fresh audit of 139 modules / 25,036 declarations (168.692 s managed duration).
+Complete run `20261030T020720-944618f28c05` is active on all 653 matching repaired
+inputs; its complete source/module/axiom result remains pending.
 
 Full regression run `20261029T153819-5626949ad567` passed all 555 test identities
 in 5,255.763 s, including 52 sample sources and 108 executions. The
