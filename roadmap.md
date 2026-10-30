@@ -14,6 +14,39 @@ next capability while retaining full assurance for the current language.
 
 ## Current development sequence
 
+### Boolean scalar objects and expressions
+
+**Authorized, 2026-10-30; proposed support, not yet admitted.**
+
+The owner selected this coherent feature, driven by Rosetta **Sequence of primes
+by trial division** (lead), **Square but not cube**, and **Common list elements**:
+[Milestone 14](https://github.com/berkeleynerd/silver/milestone/14), one work
+package [#291](https://github.com/berkeleynerd/silver/issues/291). The
+[authorization](docs/session-memory.md#2026-10-30--boolean-scalar-objects-and-expressions-authorized)
+covers implementation, complete assurance, regressions, independent review and
+stacked feature PR publication. The [capability proposal](docs/boolean-objects.md)
+records scope and the design obligations.
+
+Admit initialized Boolean constants and variables, assignment, `True`/`False`,
+`not`, eager `and`/`or`/`xor`, and Boolean expressions in existing conditions with
+short-circuit `and then`/`or else`. Work proceeds as one package: settle exact
+decidable native rules and producer obligations; implement native and universal/
+actual-source assurance together; complete faithful drivers, regressions,
+Rosetta records, full required validation, review and PR delivery. The rules
+must address inherited Ada name hiding of `True`/`False`/`Boolean`, both eager
+operands versus path-dependent short-circuit checks, and no retained scalar
+facts behind stored flags. Existing source/operator/operand budgets remain
+unchanged. Boolean arrays, callable routines and enumeration iteration remain
+excluded.
+
+Stack the feature on open subtype [PR #289](https://github.com/berkeleynerd/silver/pull/289)
+at `fa6b5e982cad5662b18f498e75cafbac9fb07cc9`, preserving that PR and its review
+target. Neither feature PR may be merged under this authorization. Broad
+Rosetta identifiers such as `booleans`, `logical-operators` and `boolean-flags`
+are not automatically supported: reconcile or split their assessed uses at
+delivery before promotion. Existing broader stages and deferred capacity/
+assurance-mode work retain their current scope and triggers.
+
 ### Named Integer subtypes and bounded array components
 
 **Implemented and validated on Linux, 2026-10-30
