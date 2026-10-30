@@ -83,15 +83,17 @@ class BranchingTests(unittest.TestCase):
         longest_name = source_for(b'', b'', b'', b'', name)
         cases.append(longest_name + b' ' * (4096 - len(longest_name)))
         cases += [canonical.replace(b'Mode="verbose"', predicate) for predicate in
-                  (b'Mode/="verbose"', b'(Mode="verbose")')]
+                  (b'Mode/="verbose"', b'(Mode="verbose")',
+                   b'Mode="verbose" and then True', b'True')]
+        cases.append(canonical.replace(b' then if Mode', b' then if True then if Mode')
+                              .replace(b';else Silver_Arguments', b';end if;else Silver_Arguments'))
         self.check_sources(cases, 0)
 
     def test_rejected_guard_equality_and_branch_neighbours(self) -> None:
         canonical = source_for()
         cases = [source_for(reference=b'Other'), source_for(reference=b'Mode_2')]
         cases += [canonical.replace(b'Mode="verbose"', replacement) for replacement in
-                  (b'Mode=="verbose"', b'Mode:="verbose"',
-                   b'Mode="verbose" and then True', b'True', b'not Mode="verbose"')]
+                  (b'Mode=="verbose"', b'Mode:="verbose"', b'not Mode="verbose"')]
         cases += [canonical.replace(b'with Silver_Arguments;', b''),
                   b'use Silver_Arguments;' + canonical,
                   canonical.replace(b':constant String', b':String'),
@@ -113,8 +115,6 @@ class BranchingTests(unittest.TestCase):
                   canonical.replace(b'Silver_IO.Put_Line("Ready.");',
                                     b'Mode:="other";'),
                   canonical.replace(b';end Main;', b';Silver_IO.Put_Line("after");end Main;'),
-                  canonical.replace(b' then if Mode', b' then if True then if Mode')
-                           .replace(b';else Silver_Arguments', b';end if;else Silver_Arguments'),
                   canonical + b'--\x0b hidden',
                   canonical + b' ' * (4097 - len(canonical))]
         for index in range(4):
