@@ -243,11 +243,15 @@ the runtime build under the pinned Static erasure rules.
 
 Complete Lean run `20261029T205735-bb72d0625415` is active on all 653 matching
 repaired inputs. Native build `20261029T210150-1086727daf3c` passed on matching
-governed inputs. Complete native run `20261029T211041-a76eb6753f23` is active
-with four workers in the retained native workspace and all 143 tracked inputs
-matching the repaired target. The [46-test refresh](evidence/named-integer-subtypes-20261029/repair-regression/README.md)
-passed. Complete native and Lean outcomes remain pending; focused proof success
-does not replace either complete checkpoint.
+governed inputs. Complete native run `20261029T211041-a76eb6753f23` passed at
+2026-10-30 00:32:43 UTC after 12,119.996 s with four workers: 16,825 checks
+(1,432 flow and 15,393 proof), 76 units and 1,075 entities, followed by the
+complete coverage/provenance audit. All 143 tracked inputs match the repaired
+target. The [native packet](evidence/named-integer-subtypes-20261029/native-full/README.md)
+retains original reports, warning classifications, input identity and existing
+session/cache reuse. The [46-test refresh](evidence/named-integer-subtypes-20261029/repair-regression/README.md)
+passed. Complete Lean remains pending; the refreshed source certificate passed
+in 9,606 s and downstream source checks continue.
 
 Full regression run `20261029T153819-5626949ad567` passed all 555 test identities
 in 5,255.763 s, including 52 sample sources and 108 executions. The
@@ -267,3 +271,4 @@ confirmation await complete assurance; PR #289 remains a draft.
 | Final regression reconciliation and native workspace reuse | Lead runtime settings unavailable; native worker GPT-6 Astra / Extra High; delivery documentation GPT-6.1 Sol / High | Full suite passed in 5,259.531 s managed time; both affected modules passed. Native reuse preserves prior sessions and exact input comparisons; complete native and Lean checks remain active. Token/cost measurements unavailable. |
 | Complete-native failure diagnosis | Native continuation selected GPT-6 Astra / Extra High; source-impact assessment selected GPT-6.1 Sol / Extra High | The full native run ended after 13,129.891 s with one static result/model equality unresolved. Original reports and inputs are retained; focused repair and affected-source validation remain required. Earlier provisional session-progress observations were incomplete, not successful full validation. |
 | Body_Tail equality repair and reviewed applicability | Native repair and independent reviewer selected GPT-6 Astra / Extra High; regression refresh selected GPT-6.1 Sol / Extra High | Focused native proof passed in 1,179.240 s; the eight-line Static-only repair and mechanical pin/certificate refresh are reviewed. Repaired complete native/Lean runs are active; native build and all 46 affected tests passed. An empty focused-report archive was corrected and independently verified without a proof rerun. |
+| Repaired complete native checkpoint, 2026-10-30 | Native continuation selected GPT-6 Astra / Extra High; lead runtime settings unavailable | Full native proof/coverage/provenance passed in 12,119.996 s; retained reports recount to 16,825 checks. The native agent hit a model-capacity limit, but its OS proof and retention processes continued unchanged and the lead integrated the result. Lean's output certificate passed in 9,606 s; remaining source checks and final evidence confirmation continue. Token/cost measurements unavailable. |

@@ -1,7 +1,7 @@
 {
   "implementation_commit": "6020416906b5fc3d2bd10d012e70937c80f0617c",
   "pre_repair_implementation_commit": "97312a790fb11a83a9607ad48ddab491711f2c3d",
-  "scope": "Repaired input identity and reviewed regression applicability. All 46 affected tests passed; complete repaired native and Lean outcomes remain pending.",
+  "scope": "Repaired input identity and reviewed regression applicability. All 46 affected tests and complete repaired native proof/coverage/provenance passed; complete Lean remains pending.",
   "source_delta": {
     "proof/Silver/OutputBodyCertificate.lean": {
       "before_sha256": "dad4e37a2c1f27398d6f4aba079aa9ff7e4705bedf98e6b5d9dd8028bfa7269b",
@@ -22,7 +22,7 @@
     "matching_tracked_count": 653,
     "changed_tracked_inputs": {},
     "inputs_digest_sha256": "2d7a1b7219adba29378351f9a190c61d7abb3d822ac6ae03f552df1e6f562103",
-    "certificate_scope": "28 generated certificates are regenerated rather than included in the653 captured inputs; output body certificate changed with this repair."
+    "certificate_scope": "28 generated certificates are regenerated rather than included in the 653 captured inputs; output body certificate changed with this repair."
   },
   "applicability_review": "../../reviews/review-named-integer-subtypes-body-tail-equality-20261029.md",
   "required_refreshed_test_count": 46,

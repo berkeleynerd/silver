@@ -2,9 +2,10 @@
 
 Final validation is in progress for [#286](https://github.com/berkeleynerd/silver/issues/286)
 and [draft PR #289](https://github.com/berkeleynerd/silver/pull/289). The complete
-native proof and Lean/source/module/axiom validation remain pending on the
-repaired source. The one failed native equality has passed focused validation
-and independent review. The original full regression suite passed; the
+native proof/coverage/provenance checkpoint passed on the repaired source;
+complete Lean/source/module/axiom validation remains pending. The one failed
+native equality passed both focused and complete validation, with independent
+review of its repair. The original full regression suite passed; the
 46 results affected by the proof repair have passed their final-input reruns.
 The authorized delivery ends with a
 reviewable feature PR; merging it awaits the owner's instruction.
@@ -30,7 +31,7 @@ The [failed packet](native-full-reuse/failed-full/README.md) retains the origina
 reports, inputs, tool identities and managed outcome. The
 [diagnostic](native-full-reuse/body-tail-diagnostic/README.md) records the failed
 Why3 goal and corrects the provisional completed-session observation. A focused
-ghost-equality repair is in progress in an isolated workspace. The pre-repair
+ghost-equality repair subsequently passed in an isolated workspace. The pre-repair
 Lean run was cleanly interrupted at 20:40:43 UTC after 15,742.412 s, before any
 captured input changed. Its [original logs and event record](runs/20261029T161817-0a8089cd7dc3/retained.json)
 retain the interrupted outcome. The output body certificate completed, but
@@ -61,9 +62,14 @@ identifies the three changed files. Native build `20261029T210150-1086727daf3c`
 passed on matching governed inputs. All 46 affected tests passed; their
 [repair regression packet](repair-regression/README.md) accounts for 509
 applicable original results plus 46 refreshed results, covering all 555
-identities. Complete native run `20261029T211041-a76eb6753f23` is active with
-four workers in the retained native workspace; all 143 tracked inputs match
-`6020416906`. Complete native and Lean outcomes remain pending.
+identities. Complete native run `20261029T211041-a76eb6753f23` passed at
+2026-10-30 00:32:43 UTC with four workers in the retained native workspace:
+16,825 checks (1,432 flow and 15,393 proof), 76 units and 1,075 entities,
+followed by the complete coverage/provenance audit. All 143 tracked inputs match
+`6020416906`. The [complete native packet](native-full/README.md) retains the
+reports, warning inventory, input identities and checked archive. Existing
+sessions/cache were reused; this was not a cold run. Complete Lean remains
+pending; its refreshed output certificate passed in 9,606 s.
 
 ## Retained completed checks
 
