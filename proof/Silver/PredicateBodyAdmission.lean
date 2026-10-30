@@ -219,9 +219,9 @@ def loopHeader (text : Source) (context : ParseContext) (scan : BodyScan) : Loop
   let after := loopNameAfter text scan
   let isArray := loopIsArray text scan
   let lower := if isArray then ScalarExpression.invalid else
-    ScalarExpression.read text (loopLowerPosition text scan) (context.readingNames scan.facts) first after (arrays := context.arrayNames)
+    readScalarInFlow text context (loopLowerPosition text scan) scan.facts first after
   let upper := if isArray then ScalarExpression.invalid else
-    ScalarExpression.read text (fixedAfter text lower.after ".." false) (context.readingNames scan.facts) first after (arrays := context.arrayNames)
+    readScalarInFlow text context (fixedAfter text lower.after ".." false) scan.facts first after
   let components := (ArrayBindings.binding context.arrayNames (loopArrayTarget text context scan)).componentBounds
   let bounds := if isArray then components else Integer.loopBounds lower.bounds upper.bounds
   let opening := if isArray then

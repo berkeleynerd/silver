@@ -40,25 +40,25 @@ theorem loopHeader_bound (text : Source) (context : ParseContext) (scan : BodySc
     · exact model_fixed_valid text _ "loop" true (model_name_valid text _)
     · exact Nat.zero_le _
   · have counted : loopIsArray text scan = false := Bool.eq_false_iff.mpr isArray
-    have lower := scalarRead_bound text (loopLowerPosition text scan) (context.readingNames scan.facts)
+    have lower := scalarRead_bound (elaborating := context.elaborating) text (loopLowerPosition text scan) (context.readingNames scan.facts)
       (loopFirst text scan) (loopNameAfter text scan) context.arrayNames (loopLowerPosition_bound text scan)
     have delimiter := model_fixed_valid text _ ".." false lower
-    have upper := scalarRead_bound text _ (context.readingNames scan.facts)
+    have upper := scalarRead_bound (elaborating := context.elaborating) text _ (context.readingNames scan.facts)
       (loopFirst text scan) (loopNameAfter text scan) context.arrayNames delimiter
-    simpa only [loopHeader, counted, Bool.false_eq_true, ↓reduceIte, ValidCursor] using
+    simpa only [loopHeader, readScalarInFlow, counted, Bool.false_eq_true, ↓reduceIte, ValidCursor] using
       model_fixed_valid text _ "loop" true upper
 
 theorem loopHeader_readings {text : Source} {context : ParseContext} {scan : BodyScan}
     (counted : loopIsArray text scan = false) (positive : (loopHeader text context scan).entry.position ≠ 0) :
     ∃ lower upper,
-      ScalarExpression.At (arrays := context.arrayNames) text (context.readingNames scan.facts) (loopLowerPosition text scan)
+      ScalarExpression.At (arrays := context.arrayNames) (elaborating := context.elaborating) text (context.readingNames scan.facts) (loopLowerPosition text scan)
         lower (loopHeader text context scan).lower (loopFirst text scan) (loopNameAfter text scan) ∧
-      ScalarExpression.At (arrays := context.arrayNames) text (context.readingNames scan.facts)
+      ScalarExpression.At (arrays := context.arrayNames) (elaborating := context.elaborating) text (context.readingNames scan.facts)
         (fixedAfter text (loopHeader text context scan).lower.after ".." false)
         upper (loopHeader text context scan).upper (loopFirst text scan) (loopNameAfter text scan) := by
   simp only [loopHeader, counted, Bool.false_eq_true, ↓reduceIte] at positive ⊢
   have upperPositive := fixedAfter_nonzero positive
-  have lowerBound := scalarRead_bound text (loopLowerPosition text scan) (context.readingNames scan.facts)
+  have lowerBound := scalarRead_bound (elaborating := context.elaborating) text (loopLowerPosition text scan) (context.readingNames scan.facts)
     (loopFirst text scan) (loopNameAfter text scan) context.arrayNames (loopLowerPosition_bound text scan)
   have delimiter := model_fixed_valid text _ ".." false lowerBound
   obtain ⟨upper, upperRead⟩ := ScalarExpression.read_sound delimiter upperPositive

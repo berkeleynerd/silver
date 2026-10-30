@@ -45,7 +45,7 @@ def modelImports : Imports where
   equalName := Named.equalName
   arrayTarget := fun text context position => Predicate.arrayTarget text context.model position
   readScalar := fun text context position facts first after =>
-    ScalarExpression.read text position (context.model.readingNames facts) first after (arrays := context.arrayNames)
+    readScalarInFlow text context.model position facts first after
   widen := fun context facts => ActiveFlow.widen context.scalarNames facts
   isEmpty := Integer.Interval.isEmpty
   normalize := Integer.Interval.normalize
