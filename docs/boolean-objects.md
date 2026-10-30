@@ -187,6 +187,7 @@ assurance. Neither feature PR is authorized to merge.
 | Terminal regression coverage, 2026-10-30 | Native continuation and independent applicability review selected GPT-6 Astra / Extra High; fixture review selected GPT-6.1 Sol / Extra High; delivery-document preparation selected GPT-6.1 Sol / High. Runtime confirmation and whole-team token/cost totals unavailable. | Reviewed fixture repair and unchanged maximum-expression rerun close all 568 identities. Two-CPU attempts retain their deadline failures; the eight-CPU isolated test passes with unchanged assertions and production options. Native and complete Lean checkpoints remain active. | Full suite 7,866.238 s; three-ID rerun 302.871 s (failed overall, both branching methods passed); isolated successful test 150.108 s. Terminal review 2m48s, following preliminary 3m42s. These are actual tool/review intervals, not a controlled speed comparison. |
 | Source-proof repair and interrupted native recovery, 2026-10-30 | Certificate diagnosis, wrapper/adapter repairs, native recovery and independent combined review selected GPT-6 Astra / Extra High; lead runtime setting and whole-team token/cost totals unavailable. | The failed complete Lean run exposed a large-list elaborator limit, omitted wrapper parentheses and an opaque zero conversion. Three proof-only repairs preserve Ada, domains and theorem statements; focused checks and independent review passed. All 28 affected source/platform tests passed. Interrupted native work is retained and resumed with unchanged inputs/cache; repaired complete Lean remains required. | Failed complete run 18,628.882 s. Exact-token diagnostic: checked witness 12.95 s versus reproduced `rfl` failure 14.78 s after fixture preparation. Wrapper focused/token checks 33.403/8.609 s; adapter check 52.232 s. Source tests 82.533 s and platform tests 274.264 s. Independent combined review 5m26s. |
 | Host-restart recovery, 2026-10-30 | Native recovery selected GPT-6 Astra / Extra High; delivery-record preparation selected GPT-6.1 Sol / High. Lead runtime setting and token/cost totals unavailable. | The 19:37 UTC host restart interrupted both complete checks. Their logs and partial work were retained, unchanged inputs verified, and both managed checks restarted with the existing caches and settings. Complete assurance remains pending. | Replacement Lean build began at 19:41:28 UTC; native run began at 19:41:45 UTC. Interrupted runs have no recorded terminal time or exit code. |
+| Final regression reconciliation, 2026-10-30 | Rosetta update selected GPT-6.1 Sol / High; independent applicability confirmation selected GPT-6 Astra / Extra High. Runtime confirmation and token/cost totals unavailable. | Accurate current Rosetta metadata and three renderer tests passed. Independent review confirms disjoint coverage of all 568 identities by 534 retained and 34 refreshed passes. Native and complete Lean assurance remain pending. | Rosetta tests 4.815 s / managed run 7.928 s; independent review 1m15s. |
 
 ## Repaired complete checkpoint
 
@@ -198,10 +199,12 @@ with proved core lemmas. The
 [independent review](reviews/review-boolean-proof-repairs-b6aeb9f978.md)
 confirms unchanged theorem statements, source bytes, models and domains.
 
-All 12 source-certificate and 16 platform tests passed. Together with the earlier
-three repair passes, 537 retained plus 31 refreshed results cover all 568
-identities. Final Rosetta wording still needs its three focused tests. These
-results do not replace the complete source/module/axiom audit.
+All 12 source-certificate, 16 platform and three final Rosetta tests passed.
+The [final applicability review](reviews/review-boolean-final-regression-cff54ae34d.md)
+confirms that 534 retained results plus 34 refreshed results, including the
+three earlier repairs, cover all 568 identities. The Rosetta summaries now
+point to current validation status without claiming complete assurance.
+These results do not replace the complete source/module/axiom audit.
 
 Repaired complete Lean run `20261030T190042-c50bf05fd9bc` began its build at
 19:00:54 UTC with one worker/thread and the existing 24 GiB threshold. A launch

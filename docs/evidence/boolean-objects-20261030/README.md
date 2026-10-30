@@ -37,12 +37,16 @@ has passed yet.
   failed runs remain failed; the maximum-expression test passed with eight CPUs
   and unchanged source, deadline and production proof options. The
   [applicability review](../../reviews/review-boolean-regression-37c0babc64.md)
-  covers target `37c0babc64`. Final Rosetta metadata will receive its three
-  affected test reruns before delivery.
+  covers target `37c0babc64`; the later source/platform/Rosetta refreshes below
+  establish applicability to the current inputs.
 - [Certificate repair tests](source-integration/certificate-repair-tests/README.md)
   and [platform refresh](source-integration/platform-refresh/README.md): 12 and
-  16 fresh passes after the proof-only repairs. Current coverage is 537 retained
-  plus 31 refreshed results; final Rosetta metadata still needs its three tests.
+  16 fresh passes after the proof-only repairs.
+- [Rosetta metadata refresh](rosetta-refresh/README.md): all three tests passed
+  on the integrated metadata. The
+  [final applicability review](../../reviews/review-boolean-final-regression-cff54ae34d.md)
+  confirms 534 retained plus 34 refreshed results cover all 568 identities.
+  Complete native and Lean/source assurance remain pending.
 - [Declaration interpretation](declaration-body/README.md) and
   [header integration](header-program/README.md): typed declaration meaning,
   actual native domains and ordered declaration composition.
