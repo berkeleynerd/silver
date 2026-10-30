@@ -1,6 +1,6 @@
 # Boolean scalar objects and expressions
 
-Status: implementation and focused assurance in progress; not yet supported.
+Status: final validation in progress; not yet supported.
 [Milestone 14](https://github.com/berkeleynerd/silver/milestone/14) contains one
 coherent work package, [#291](https://github.com/berkeleynerd/silver/issues/291).
 The [2026-10-30 authorization](session-memory.md#2026-10-30--boolean-scalar-objects-and-expressions-authorized)
@@ -166,8 +166,16 @@ Independent admission and proof/source argument reviews found no new defect in
 their stated scopes; they did not claim complete validation. The complete Lean
 checkpoint is running on `5198f2b7b5`. Final regression metadata at `927cc5e178`
 prepares the three Rosetta drivers and the 53-to-56 stage-1 progression while
-this capability remains pending. Complete native proof, full regression and
-Lean/source validation, terminal review and stacked PR publication remain.
+this capability remains pending. The completed full suite and reviewed repair
+reruns now cover all 568 test identities (559 distinct methods), including all
+55 manifest samples and 111 executions. The
+[regression record](evidence/boolean-objects-20261030/full-suite/README.md) and
+[independent applicability review](reviews/review-boolean-regression-37c0babc64.md)
+retain the failures, exact input comparison and 565 retained plus three fresh
+passing results. Final Rosetta wording still needs its three focused tests.
+Complete native proof and Lean/source validation, terminal evidence confirmation
+and final publication remain. [PR #295](https://github.com/berkeleynerd/silver/pull/295)
+is open as a draft on the unchanged subtype PR.
 The earlier native unit run uses pre-xor inputs and cannot establish final
 assurance. Neither feature PR is authorized to merge.
 
@@ -176,3 +184,4 @@ assurance. Neither feature PR is authorized to merge.
 | Boolean semantic/source integration, 2026-10-30 | Existing proof/source/native subthreads: GPT-6 Astra / Extra High. Lead runtime setting and whole-team token/cost totals unavailable. | Condition validity/uniqueness, exact declaration payloads, assignment typed source and body semantic checkpoints passed; complete source/capability integration remains open. | Final combined body/helper focused build 41.019 s plus fresh audit 7.139 s; preceding development failures retained in the managed ledger. These are native tool times, not total implementation time. |
 | Helper/domain integration, 2026-10-30 | Continuing source, proof-architecture and native subthreads: previously selected GPT-6 Astra / Extra High; runtime confirmation and whole-team token/cost totals unavailable. | #293 native-domain repair and #294 scalar equation repair passed focused checks. Raw helper equations are separated from the Boolean declaration law, which the source bridge derives from interpreted callees. Final source/model integration remains unchecked. | Scalar denotation build 336.697 s and audit 6.120 s. String native repair 65.257 s. Shared helper build 337 s; later dependency failures remain recorded as failed runs. |
 | Stable source checkpoint, 2026-10-30 | Independent admission and correspondence reviewers: GPT-6 Astra / Extra High, explicitly selected. Rosetta preparation: GPT-6.1 Sol / High. Lead runtime setting and token/cost totals unavailable. | Focused helper, declaration and retained model checks passed; complete source checkpoint started. Two independent scoped reviews found no new defect. The new hiding regression fixture was corrected after its expected output overlooked its own shadowed `True` binding. | Review windows 4m32s and 5m04s. Final model build 27.025 s / audit 6.231 s; wrapper build 75.964 s / audit 5.198 s. Rosetta preparation about six minutes; four compiler-independent tests passed in 46.620 s. |
+| Terminal regression coverage, 2026-10-30 | Native continuation and independent applicability review selected GPT-6 Astra / Extra High; fixture review selected GPT-6.1 Sol / Extra High; delivery-document preparation selected GPT-6.1 Sol / High. Runtime confirmation and whole-team token/cost totals unavailable. | Reviewed fixture repair and unchanged maximum-expression rerun close all 568 identities. Two-CPU attempts retain their deadline failures; the eight-CPU isolated test passes with unchanged assertions and production options. Native and complete Lean checkpoints remain active. | Full suite 7,866.238 s; three-ID rerun 302.871 s (failed overall, both branching methods passed); isolated successful test 150.108 s. Terminal review 2m48s, following preliminary 3m42s. These are actual tool/review intervals, not a controlled speed comparison. |

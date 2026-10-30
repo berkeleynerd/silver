@@ -14,6 +14,15 @@ source correspondence or feature support.
   [final loop-stack observations](loop-stack/README.md): matched final native
   build, catalogue parity, corrected hiding fixture and both retained deepest
   loop programs under an actual 8 MiB process stack.
+- [Complete regression coverage](full-suite/README.md) and
+  [terminal reruns](terminal-reruns/README.md): 565 independently reviewed retained
+  passes plus three fresh passes cover all 568 unittest identities (559 distinct
+  methods). The manifest test passed all 55 sources and 111 executions. Both
+  failed runs remain failed; the maximum-expression test passed with eight CPUs
+  and unchanged source, deadline and production proof options. The
+  [applicability review](../../reviews/review-boolean-regression-37c0babc64.md)
+  covers target `37c0babc64`. Final Rosetta metadata will receive its three
+  affected test reruns before delivery.
 - [Declaration interpretation](declaration-body/README.md) and
   [header integration](header-program/README.md): typed declaration meaning,
   actual native domains and ordered declaration composition.
