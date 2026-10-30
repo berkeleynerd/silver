@@ -14,7 +14,9 @@ def context_ofCandidate : List String :=
 
 theorem context_of_candidate : contextExpr.render = context_ofCandidate := by
   unfold context_ofCandidate
-  simp only [contextExpr, Expr.render, Field.name, record]
+  simp only [contextExpr, Expr.render, Field.name, record, Nat.toString_eq_repr,
+    Nat.repr_of_lt (by decide : 0 < 10), (Nat.digitChar_eq_zero).2 rfl,
+    String.singleton_eq_ofList]
   decide +kernel
 
 
