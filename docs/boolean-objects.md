@@ -125,11 +125,25 @@ and interpretation proofs are checked, while instantiation against authoritative
 source tokens remains part of the pending complete source checkpoint. These
 results are focused assurance, not complete language support.
 
-Remaining: aggregate declaration/token/header integration, the complete Compose
-and Predicate actual-source joins, final native proof (including investigation
-of the array-declaration Static record-equality timeout), full regression and
-Lean validation, independent review, and stacked PR publication. The earlier
-native unit run uses pre-xor inputs and cannot establish final assurance.
+The array-declaration Static equality repair passed its focused native check
+with the exact original contract retained; the
+[repair record](evidence/boolean-objects-20261030/native-repair.md) also records
+the remaining String flow-reader equality obligation. Ordered Boolean header
+and program integration passed a focused 156-module / 17,972-declaration audit
+in run `20261030T112011-d69c83717868`.
+
+Source integration found an initializer-domain mismatch, independently
+confirmed against Ada and filed as [#293](https://github.com/berkeleynerd/silver/issues/293).
+The [review](reviews/review-boolean-flow-domain-201d7e7cfc.md) explains why mutable
+flow facts must be contained in declared bounds even when an initializer's
+snapshot is narrower. The repair must cover that full native domain before
+the feature's actual-source assurance can complete.
+
+Remaining: the complete Compose and Predicate actual-source joins, including
+the exact Boolean declaration interpretation and #293; final native proof,
+full regression and Lean validation, independent review, and stacked PR
+publication. The earlier native unit run uses pre-xor inputs and cannot
+establish final assurance.
 
 | Round | Selected settings | Result and remaining work | Measurement scope |
 | --- | --- | --- | --- |
