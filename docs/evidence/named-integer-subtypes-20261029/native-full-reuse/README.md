@@ -45,3 +45,25 @@ retains all 78 emitted reports, inputs and logs: the run ended at 20:29 UTC with
 The one static equality obligation prevents complete native assurance; no
 complete audit or success manifest was produced. Original sessions, caches and
 stable source inputs remain intact.
+
+After the [focused Body_Tail repair](body-tail-repair/README.md) passed, the
+lead integrated repaired implementation `6020416906b5fc3d2bd10d012e70937c80f0617c`.
+The [repaired preflight](repaired-preflight.json) checked all 143 tracked native
+inputs against the previous implementation before synchronizing only
+`src/silver_output_profile.adb`. All 143 then matched the repaired implementation;
+the complete 2,561-input maps differed only in that file. The unrelated dirty
+files and original sessions/cache remained intact. Compressed before/after maps
+are retained alongside the preflight.
+
+The final build and all 46 affected regression tests passed before the new full
+native run started. Run `20261029T211041-a76eb6753f23` began at 21:10:43 UTC in
+the same established workspace with four workers and unchanged strict options.
+The earlier failed and interrupted outcomes retain their original status;
+the new run must independently complete every obligation and the complete
+coverage/provenance audit before native assurance is established.
+
+That [complete repaired run](../native-full/README.md) subsequently passed at
+2026-10-30 00:32:43 UTC: 16,825 checks and the complete coverage/provenance
+audit, with all 143 tracked inputs matching the repaired implementation.
+Its original reports, manifest, inputs and logs are retained separately;
+no earlier failed or interrupted outcome is relabelled.
