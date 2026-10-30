@@ -32,7 +32,7 @@ metadata capacity is `floor(4096/13)`. The existing combined declaration/root
 allowances already include the shorter seven-byte named Integer subtype object
 and five-byte assignment forms. The named-subtype retained Main envelope is
 31,822,336 bytes within its 33,554,432-byte allocation. Reusing that numerical
-envelope for Boolean values requires the expression-shape restriction proposed
+envelope for Boolean values requires the expression-shape restriction agreed
 below and the complete semantic/source assurance checkpoint.
 No report-policy or allocation change has been made.
 
@@ -85,13 +85,16 @@ inequality take `Transform_Comparison` and `Transform_Compare_Op`, which create
 one comparison (or predicate equivalence) node with each operand once; the
 bounded equality/inequality observations show no xor-like expansion.
 
-The proposed restriction is structural: neither operand of an xor may contain
+The lead agreed the structural restriction on 2026-10-30: neither operand of an xor may contain
 another xor, including the implicit left operand in a homogeneous xor chain.
 `A xor B`, `(N=0) xor (M=0)` and independent `(A xor B) and (C xor D)` remain
 available. `A xor B xor C` and `A xor (B xor C)` are excluded. Authors can express
 multi-input parity through ordinary initialized Boolean temporaries in their
 actual Ada source. This removes repeated xor multiplication without setting an
 arbitrary observed runtime threshold or changing the existing source/operator/
-leaf budgets. The lead must agree the restriction and its final parser/model/
-specification implementation before this account is closed. No such restriction
-is claimed in the current implementation checkpoint 828dd16e6e.
+leaf budgets. The native parser now checks both exact operand spans with a lexical scanner
+that ignores strings, doubled quote escapes, comments and identifier substrings.
+A ghost functional scanner and exact native postcondition connect its behavior to
+the source model. Complete parser/model/specification integration and the final
+assurance checkpoint remain pending; the earlier checkpoint 828dd16e6e alone
+does not contain this restriction.

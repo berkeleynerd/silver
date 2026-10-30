@@ -2673,6 +2673,104 @@ is
                                    When_False => (Facts with delta Path =>
                                      (if Operator.Operator = Paths.Equal then Facts.Path else Equal_Facts))))))))
                   else Boolean_Relation_Model (Text, Context, Position, Facts, Initials))))));
+   --  The producer expands xor by duplicating both operands. Excluding an xor
+   --  inside either operand prevents repeated multiplication of that expansion.
+   --  Scan only this expression span; comments, quoted strings and identifier
+   --  substrings are not operators.
+   function Xor_Free_Model
+     (Text : String; Position, After : Literal_Position;
+      Quoted, Comment, Word_Start : Boolean) return Boolean
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1 and then After <= Text'Last + 1,
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - Position);
+   function Xor_Free_Model
+     (Text : String; Position, After : Literal_Position;
+      Quoted, Comment, Word_Start : Boolean) return Boolean is
+     (if Position = 0 or else Position > After then False
+      elsif Position = After then True
+      elsif Comment then
+        Xor_Free_Model (Text, Position + 1, After, False,
+          not Is_Comment_End (Text (Position)), True)
+      elsif Quoted then
+        (if Text (Position) = Character'Val (34) then
+           (if Position + 1 < After and then Text (Position + 1) = Character'Val (34)
+            then Xor_Free_Model (Text, Position + 2, After, True, False, True)
+            else Xor_Free_Model (Text, Position + 1, After, False, False, True))
+         else Xor_Free_Model (Text, Position + 1, After, True, False, True))
+      elsif Text (Position) = '-' and then Position + 1 < After
+        and then Text (Position + 1) = '-' then
+        Xor_Free_Model (Text, Position + 2, After, False, True, True)
+      elsif Text (Position) = Character'Val (34) then
+        Xor_Free_Model (Text, Position + 1, After, True, False, True)
+      elsif Word_Start and then After - Position >= 3
+        and then Lowercase (Text (Position)) = 'x'
+        and then Lowercase (Text (Position + 1)) = 'o'
+        and then Lowercase (Text (Position + 2)) = 'r'
+        and then (Position + 3 = After
+          or else not Is_Identifier_Character (Text (Position + 3))) then False
+      else Xor_Free_Model (Text, Position + 1, After, False, False,
+        not Is_Identifier_Character (Text (Position))));
+
+   function Xor_Free (Text : String; First, After : Literal_Position) return Boolean
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then First <= Text'Last + 1 and then After <= Text'Last + 1,
+       Post => (Static => Xor_Free'Result =
+         Xor_Free_Model (Text, First, After, False, False, True));
+   function Xor_Free (Text : String; First, After : Literal_Position) return Boolean is
+      Position : Literal_Position := First;
+      Quoted, Comment : Boolean := False;
+      Word_Start : Boolean := True;
+   begin
+      if First = 0 or else First > After then return False; end if;
+      while Position < After loop
+         pragma Loop_Invariant (Position in First .. After);
+         pragma Loop_Invariant (Static =>
+           Xor_Free_Model (Text, First, After, False, False, True) =
+             Xor_Free_Model (Text, Position, After, Quoted, Comment, Word_Start));
+         pragma Loop_Variant (Increases => Position);
+         if Comment then
+            Comment := not Is_Comment_End (Text (Position));
+            Quoted := False;
+            Word_Start := True;
+            Position := Position + 1;
+         elsif Quoted then
+            if Text (Position) = Character'Val (34) then
+               if Position + 1 < After and then Text (Position + 1) = Character'Val (34) then
+                  Position := Position + 2;
+               else
+                  Quoted := False;
+                  Position := Position + 1;
+               end if;
+            else
+               Position := Position + 1;
+            end if;
+            Word_Start := True;
+         elsif Text (Position) = '-' and then Position + 1 < After
+           and then Text (Position + 1) = '-' then
+            Comment := True;
+            Word_Start := True;
+            Position := Position + 2;
+         elsif Text (Position) = Character'Val (34) then
+            Quoted := True;
+            Word_Start := True;
+            Position := Position + 1;
+         elsif Word_Start and then After - Position >= 3
+           and then Lowercase (Text (Position)) = 'x'
+           and then Lowercase (Text (Position + 1)) = 'o'
+           and then Lowercase (Text (Position + 2)) = 'r'
+           and then (Position + 3 = After
+             or else not Is_Identifier_Character (Text (Position + 3))) then
+            return False;
+         else
+            Word_Start := not Is_Identifier_Character (Text (Position));
+            Position := Position + 1;
+         end if;
+      end loop;
+      return True;
+   end Xor_Free;
+
    type Chain_Kind is (No_Chain, Short_And, Short_Or, Eager_And, Eager_Or, Eager_Xor);
    function Chain_Token (Text : String; Position : Literal_Position) return Chain_Kind
      with Global => null,
@@ -2706,12 +2804,14 @@ is
    function Condition_Tail
      (Text : String; Context : Body_Context; Result : Condition_Result;
       Operator : Chain_Kind; Chained : Boolean; Incoming : Scalar_Flow;
-      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values) return Condition_Result
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values;
+      Original_Start : Literal_Position) return Condition_Result
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Result.After <= Text'Last + 1 and then Valid_Context (Text, Context)
          and then Valid_Condition (Context, Result) and then Operator /= No_Chain
-         and then Valid_Flow (Context, Incoming) and then Incoming.Count = Result.Count,
+         and then Valid_Flow (Context, Incoming) and then Incoming.Count = Result.Count
+         and then Original_Start <= Text'Last + 1,
        Post => Condition_Tail'Result.Count = Result.Count
          and then Valid_Condition (Context, Condition_Tail'Result)
          and then (Condition_Tail'Result.After = 0
@@ -2720,12 +2820,16 @@ is
    function Condition_Tail
      (Text : String; Context : Body_Context; Result : Condition_Result;
       Operator : Chain_Kind; Chained : Boolean; Incoming : Scalar_Flow;
-      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values) return Condition_Result is
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values;
+      Original_Start : Literal_Position) return Condition_Result is
      (if Result.After = 0 then Invalid_Condition (Result.When_True) else
         (declare Selected : constant Chain_Kind := Chain_Token (Text, Result.After);
          begin
            (if Selected = No_Chain then Result
-            elsif Chained and then Operator /= Selected then Invalid_Condition (Result.When_True)
+            elsif (Chained and then Operator /= Selected)
+              or else (Selected = Eager_Xor
+                and then not Xor_Free (Text, Original_Start, Result.After))
+            then Invalid_Condition (Result.When_True)
             else
               (declare After : constant Literal_Position := Chain_After (Text, Result.After, Selected);
                begin
@@ -2734,14 +2838,15 @@ is
                        (if Selected = Short_And then Result.When_True
                         elsif Selected = Short_Or then Result.When_False else Incoming), Initials => Initials);
                      begin
-                       (if Right.After = 0 then Invalid_Condition (Result.When_True) else
+                       (if Right.After = 0 or else (Selected = Eager_Xor
+                         and then not Xor_Free (Text, After, Right.After)) then Invalid_Condition (Result.When_True) else
                           Condition_Tail (Text, Context,
                             (if Selected = Short_And then
                                (Result.Count, Right.After, Right.When_True, Joined (Result.When_False, Right.When_False))
                              elsif Selected = Short_Or then
                                (Result.Count, Right.After, Joined (Result.When_True, Right.When_True), Right.When_False)
                              else (Result.Count, Right.After, Incoming, Incoming)),
-                            Selected, True, Initials => Initials, Incoming => Incoming))))))));
+                            Selected, True, Initials => Initials, Incoming => Incoming, Original_Start => Original_Start))))))));
    function Condition_Model
      (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow;
       Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values)
@@ -2749,7 +2854,7 @@ is
      (declare Result : constant Condition_Result (Facts.Count) := Relation_Model (Text, Context, Position, Facts, Initials => Initials);
       begin (if Result.After = 0 then Invalid_Condition (Facts) else
         (declare Final : constant Condition_Result (Facts.Count) :=
-           Condition_Tail (Text, Context, Result, Short_And, False, Initials => Initials, Incoming => Facts);
+           Condition_Tail (Text, Context, Result, Short_And, False, Initials => Initials, Incoming => Facts, Original_Start => Position);
          begin (if Final.After = 0 then Invalid_Condition (Facts) else Final))));
    procedure Read_Condition_Into
      (Text : String; Context : Body_Context; Position : Literal_Position;
@@ -2789,16 +2894,18 @@ is
        Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => 4);
    procedure Read_Chain_Into
      (Text : String; Context : Body_Context; Result : in out Condition_Result; Incoming : Scalar_Flow;
-      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values)
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values;
+      Original_Start : Literal_Position)
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Result.After in 1 .. Text'Last + 1 and then Valid_Context (Text, Context)
          and then Valid_Condition (Context, Result)
          and then Valid_Flow (Context, Incoming) and then Incoming.Count = Result.Count
+         and then Original_Start <= Text'Last + 1
          and then Chain_Token (Text, Result.After) /= No_Chain,
        Post => (Runtime => Valid_Condition (Context, Result)
          and then (Result.After = 0 or else Result.After in Result.After'Old .. Text'Last + 1),
-         Static => Result = Condition_Tail (Text, Context, Result'Old, Short_And, False, Initials => Initials, Incoming => Incoming)),
+         Static => Result = Condition_Tail (Text, Context, Result'Old, Short_And, False, Initials => Initials, Incoming => Incoming, Original_Start => Original_Start)),
        Subprogram_Variant => (Decreases => (Text'Last + 1) - Result.After, Decreases => 6);
    procedure Read_Primary_Into
      (Text : String; Context : Body_Context; Position : Literal_Position;
@@ -3186,7 +3293,8 @@ is
    end Read_Relation_Into;
    procedure Read_Chain_Into
      (Text : String; Context : Body_Context; Result : in out Condition_Result; Incoming : Scalar_Flow;
-      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values) is
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values;
+      Original_Start : Literal_Position) is
       Active_Count : constant Scalar_Expressions.Binding_Count := Result.Count;
       Right : Condition_Result (Active_Count);
       Operator : Chain_Kind := Short_And;
@@ -3200,16 +3308,16 @@ is
          pragma Loop_Invariant (Operator /= No_Chain);
          pragma Loop_Invariant (Result.After >= Result'Loop_Entry.After);
          pragma Loop_Invariant (Static =>
-           Condition_Tail (Text, Context, Result'Loop_Entry, Short_And, False, Initials => Initials, Incoming => Incoming) =
-             Condition_Tail (Text, Context, Result, Operator, Chained, Initials => Initials, Incoming => Incoming));
+           Condition_Tail (Text, Context, Result'Loop_Entry, Short_And, False, Initials => Initials, Incoming => Incoming, Original_Start => Original_Start) =
+             Condition_Tail (Text, Context, Result, Operator, Chained, Initials => Initials, Incoming => Incoming, Original_Start => Original_Start));
          pragma Loop_Invariant (Static => Same_Condition
-           (Condition_Tail (Text, Context, Result'Loop_Entry, Short_And, False, Initials => Initials, Incoming => Incoming),
-            Condition_Tail (Text, Context, Result, Operator, Chained, Initials => Initials, Incoming => Incoming)));
+           (Condition_Tail (Text, Context, Result'Loop_Entry, Short_And, False, Initials => Initials, Incoming => Incoming, Original_Start => Original_Start),
+            Condition_Tail (Text, Context, Result, Operator, Chained, Initials => Initials, Incoming => Incoming, Original_Start => Original_Start)));
          pragma Loop_Variant (Increases => Result.After);
          declare
             Before : constant Condition_Result (Active_Count) := Result with Ghost => Static;
             Tail : constant Condition_Result (Active_Count) :=
-              Condition_Tail (Text, Context, Before, Operator, Chained, Initials => Initials, Incoming => Incoming) with Ghost => Static;
+              Condition_Tail (Text, Context, Before, Operator, Chained, Initials => Initials, Incoming => Incoming, Original_Start => Original_Start) with Ghost => Static;
          begin
             --  The checked logical equality retains the bounds of every array
             --  when the saved input is substituted into a model application.
@@ -3219,10 +3327,12 @@ is
                pragma Assert (Static => Tail = Before);
                pragma Assert (Static => Same_Condition (Tail, Result));
                pragma Assert (Static =>
-                 Condition_Tail (Text, Context, Before, Operator, Chained, Initials => Initials, Incoming => Incoming) = Before);
+                 Condition_Tail (Text, Context, Before, Operator, Chained, Initials => Initials, Incoming => Incoming, Original_Start => Original_Start) = Before);
                exit;
             end if;
-            if Chained and then Operator /= Selected then
+            if (Chained and then Operator /= Selected)
+              or else (Selected = Eager_Xor
+                and then not Xor_Free (Text, Original_Start, Result.After)) then
                Result.After := 0;
                Result.When_True.Path := Paths.Empty_Context;
                Result.When_False := Result.When_True;
@@ -3230,7 +3340,7 @@ is
                pragma Assert (Static => Tail = Invalid_Condition (Before.When_True));
                pragma Assert (Static => Same_Condition (Result, Tail));
                pragma Assert (Static =>
-                 Result = Condition_Tail (Text, Context, Before, Operator, Chained, Initials => Initials, Incoming => Incoming));
+                 Result = Condition_Tail (Text, Context, Before, Operator, Chained, Initials => Initials, Incoming => Incoming, Original_Start => Original_Start));
                return;
             end if;
             After := Chain_After (Text, Result.After, Selected);
@@ -3242,7 +3352,7 @@ is
                pragma Assert (Static => Tail = Invalid_Condition (Before.When_True));
                pragma Assert (Static => Same_Condition (Result, Tail));
                pragma Assert (Static =>
-                 Result = Condition_Tail (Text, Context, Before, Operator, Chained, Initials => Initials, Incoming => Incoming));
+                 Result = Condition_Tail (Text, Context, Before, Operator, Chained, Initials => Initials, Incoming => Incoming, Original_Start => Original_Start));
                return;
             end if;
             declare
@@ -3284,7 +3394,8 @@ is
                pragma Assert (Static => Right = Relation_Model (Text, Context, After,
                  (if Selected = Short_And then Before.When_True
                     elsif Selected = Short_Or then Before.When_False else Incoming), Initials => Initials));
-               if Right.After = 0 then
+               if Right.After = 0 or else (Selected = Eager_Xor
+                         and then not Xor_Free (Text, After, Right.After)) then
                   Result.After := 0;
                   Result.When_True.Path := Paths.Empty_Context;
                   Result.When_False := Result.When_True;
@@ -3292,7 +3403,7 @@ is
                   pragma Assert (Static => Tail = Invalid_Condition (Before.When_True));
                   pragma Assert (Static => Same_Condition (Result, Tail));
                   pragma Assert (Static =>
-                    Result = Condition_Tail (Text, Context, Before, Operator, Chained, Initials => Initials, Incoming => Incoming));
+                    Result = Condition_Tail (Text, Context, Before, Operator, Chained, Initials => Initials, Incoming => Incoming, Original_Start => Original_Start));
                   return;
                end if;
                declare
@@ -3361,12 +3472,12 @@ is
                        (Active_Count, Right.After, Joined (Before.When_True, Right.When_True), Right.When_False)
                      else (Active_Count, Right.After, Incoming, Incoming)));
                   pragma Assert (Static => Tail =
-                    Condition_Tail (Text, Context, Combined, Selected, True, Initials => Initials, Incoming => Incoming));
+                    Condition_Tail (Text, Context, Combined, Selected, True, Initials => Initials, Incoming => Incoming, Original_Start => Original_Start));
                   pragma Assert (Static => Same_Condition
-                    (Tail, Condition_Tail (Text, Context, Result, Selected, True, Initials => Initials, Incoming => Incoming)));
+                    (Tail, Condition_Tail (Text, Context, Result, Selected, True, Initials => Initials, Incoming => Incoming, Original_Start => Original_Start)));
                   pragma Assert (Static =>
-                    Condition_Tail (Text, Context, Before, Operator, Chained, Initials => Initials, Incoming => Incoming) =
-                      Condition_Tail (Text, Context, Result, Selected, True, Initials => Initials, Incoming => Incoming));
+                    Condition_Tail (Text, Context, Before, Operator, Chained, Initials => Initials, Incoming => Incoming, Original_Start => Original_Start) =
+                      Condition_Tail (Text, Context, Result, Selected, True, Initials => Initials, Incoming => Incoming, Original_Start => Original_Start));
                end;
             end;
             Operator := Selected;
@@ -3384,7 +3495,7 @@ is
       --  tail call as the model; a failed relation keeps its initial record.
       Final_Result : constant Condition_Result (Facts.Count) :=
         (if Initial_Result.After = 0 then Initial_Result
-         else Condition_Tail (Text, Context, Initial_Result, Short_And, False, Initials => Initials, Incoming => Facts))
+         else Condition_Tail (Text, Context, Initial_Result, Short_And, False, Initials => Initials, Incoming => Facts, Original_Start => Position))
         with Ghost => Static;
       Expected : constant Condition_Result (Facts.Count) :=
         Condition_Model (Text, Context, Position, Facts, Initials => Initials) with Ghost => Static;
@@ -3407,33 +3518,33 @@ is
       if Result.After /= 0 then
          declare
             Tail_Result : constant Condition_Result (Facts.Count) :=
-              Condition_Tail (Text, Context, Initial_Result, Short_And, False, Initials => Initials, Incoming => Facts)
+              Condition_Tail (Text, Context, Initial_Result, Short_And, False, Initials => Initials, Incoming => Facts, Original_Start => Position)
               with Ghost => Static;
          begin
             Lemma_Condition_Equality
-              (Tail_Result, Condition_Tail (Text, Context, Initial_Result, Short_And, False, Initials => Initials, Incoming => Facts));
+              (Tail_Result, Condition_Tail (Text, Context, Initial_Result, Short_And, False, Initials => Initials, Incoming => Facts, Original_Start => Position));
             --  Select Final_Result's nonzero branch before the buffer changes.
             pragma Assert (Static => Initial_Result.After /= 0);
             pragma Assert (Static => Final_Result = Tail_Result);
             Lemma_Condition_Equality (Final_Result, Tail_Result);
             if Chain_Token (Text, Result.After) /= No_Chain then
-               Read_Chain_Into (Text, Context, Result, Initials => Initials, Incoming => Facts);
+               Read_Chain_Into (Text, Context, Result, Initials => Initials, Incoming => Facts, Original_Start => Position);
                --  The exact chain post now transports across logical equality
                --  of its saved input and the already interpreted relation result.
                pragma Assert (Static =>
-                 Result = Condition_Tail (Text, Context, Initial_Result, Short_And, False, Initials => Initials, Incoming => Facts));
+                 Result = Condition_Tail (Text, Context, Initial_Result, Short_And, False, Initials => Initials, Incoming => Facts, Original_Start => Position));
                pragma Assert (Static => Valid_Flow (Context, Result.When_True));
                pragma Assert (Static => Valid_Flow (Context, Result.When_False));
             else
                pragma Assert (Static =>
-                 Condition_Tail (Text, Context, Initial_Result, Short_And, False, Initials => Initials, Incoming => Facts) = Initial_Result);
+                 Condition_Tail (Text, Context, Initial_Result, Short_And, False, Initials => Initials, Incoming => Facts, Original_Start => Position) = Initial_Result);
                pragma Assert (Static => Valid_Flow (Context, Result.When_True));
                pragma Assert (Static => Valid_Flow (Context, Result.When_False));
             end if;
             pragma Assert (Static =>
-              Result = Condition_Tail (Text, Context, Initial_Result, Short_And, False, Initials => Initials, Incoming => Facts));
+              Result = Condition_Tail (Text, Context, Initial_Result, Short_And, False, Initials => Initials, Incoming => Facts, Original_Start => Position));
             Lemma_Condition_Equality
-              (Result, Condition_Tail (Text, Context, Initial_Result, Short_And, False, Initials => Initials, Incoming => Facts));
+              (Result, Condition_Tail (Text, Context, Initial_Result, Short_And, False, Initials => Initials, Incoming => Facts, Original_Start => Position));
             pragma Assert (Static => Same_Condition (Result, Tail_Result));
             pragma Assert (Static => Result = Tail_Result);
             Lemma_Condition_Equality (Result, Tail_Result);
