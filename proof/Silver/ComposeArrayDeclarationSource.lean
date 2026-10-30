@@ -17,8 +17,8 @@ structure Body where
   initializer : Expressions.Expr .state
 
 def Body.render (body : Body) : List String :=
-  ["result", ":", "constant", "parser_state", ":="] ++ body.initializer.render ++
-  [";", "begin", "pragma", "assert", "(", "static", "=>", "same_parser_state", "(",
+  ["result", ":", "constant", "parser_state", ":=", "("] ++ body.initializer.render ++
+  [")", ";", "begin", "pragma", "assert", "(", "static", "=>", "same_parser_state", "(",
    "result", ",", "array_declaration_model", "(", "text", ",", "state", ",", "arguments", ")",
    ")", ")", ";", "return", "result", ";", "end", "array_declaration_at", ";"]
 
