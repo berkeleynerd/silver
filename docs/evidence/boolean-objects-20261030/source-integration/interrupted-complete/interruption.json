@@ -1,0 +1,15 @@
+{
+  "run_id": "20261030T190042-c50bf05fd9bc",
+  "outcome": "interrupted",
+  "observed_at": "2026-10-30T19:41:05.171498+00:00",
+  "host_boot_id": "47d19072-dd1f-422f-b1e3-1461a2b4a13c",
+  "host_boot_time_utc": "2026-10-30T19:37:00+00:00",
+  "terminal_event_present": false,
+  "exit_code": null,
+  "finished_at": null,
+  "verified_source_count": 687,
+  "verified_tool_count": 2,
+  "source_mismatches": [],
+  "implementation_target": "b6aeb9f978597ac025de21a8574c76c42389cf82",
+  "recovery": "Reuse retained Lake objects, unchanged inputs and same one-worker/one-thread 24576 MiB settings; no clean build or optional replay."
+}

@@ -8,12 +8,18 @@ source correspondence or feature support.
 The first complete Lean run [finished failed](source-integration/failed-complete/README.md).
 The three source-proof repairs at `b6aeb9f978` passed focused checks and
 [independent review](../../reviews/review-boolean-proof-repairs-b6aeb9f978.md).
-Repaired complete run `20261030T190042-c50bf05fd9bc` is active with one worker,
-one thread and a 24 GiB threshold. Native run `20261030T142912-eb0b24fc2191`
-was interrupted without a terminal audit; recovered run
-`20261030T185133-160271e45fa1` reuses its retained work and unchanged 2,561
-preflight inputs, with four workers instead of two. Neither checkpoint has
-completed successfully yet.
+The host restart at 19:37 UTC interrupted repaired complete Lean run
+`20261030T190042-c50bf05fd9bc` and native run
+`20261030T185133-160271e45fa1` before their terminal audits. The
+[Lean interruption record](source-integration/interrupted-complete/README.md)
+retains the logs and verifies all 687 source and two tool hashes. Replacement
+Lean run `20261030T194116-3d6d1353e52b` reuses the existing Lake workspace with
+one worker, one thread and the same 24 GiB threshold. Replacement native run
+`20261030T194142-1f663fdf10c2` retains four workers and the same strict options,
+cache and 2,561 preflight input hashes. Native run
+`20261030T142912-eb0b24fc2191` was also interrupted earlier, without a terminal
+audit. All interrupted records retain that outcome; neither complete checkpoint
+has passed yet.
 
 - [Producer review](producer-review.md): observed Boolean obligation routes and
   the explicit restriction on nested xor operands.

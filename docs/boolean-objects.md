@@ -186,6 +186,7 @@ assurance. Neither feature PR is authorized to merge.
 | Stable source checkpoint, 2026-10-30 | Independent admission and correspondence reviewers: GPT-6 Astra / Extra High, explicitly selected. Rosetta preparation: GPT-6.1 Sol / High. Lead runtime setting and token/cost totals unavailable. | Focused helper, declaration and retained model checks passed; complete source checkpoint started. Two independent scoped reviews found no new defect. The new hiding regression fixture was corrected after its expected output overlooked its own shadowed `True` binding. | Review windows 4m32s and 5m04s. Final model build 27.025 s / audit 6.231 s; wrapper build 75.964 s / audit 5.198 s. Rosetta preparation about six minutes; four compiler-independent tests passed in 46.620 s. |
 | Terminal regression coverage, 2026-10-30 | Native continuation and independent applicability review selected GPT-6 Astra / Extra High; fixture review selected GPT-6.1 Sol / Extra High; delivery-document preparation selected GPT-6.1 Sol / High. Runtime confirmation and whole-team token/cost totals unavailable. | Reviewed fixture repair and unchanged maximum-expression rerun close all 568 identities. Two-CPU attempts retain their deadline failures; the eight-CPU isolated test passes with unchanged assertions and production options. Native and complete Lean checkpoints remain active. | Full suite 7,866.238 s; three-ID rerun 302.871 s (failed overall, both branching methods passed); isolated successful test 150.108 s. Terminal review 2m48s, following preliminary 3m42s. These are actual tool/review intervals, not a controlled speed comparison. |
 | Source-proof repair and interrupted native recovery, 2026-10-30 | Certificate diagnosis, wrapper/adapter repairs, native recovery and independent combined review selected GPT-6 Astra / Extra High; lead runtime setting and whole-team token/cost totals unavailable. | The failed complete Lean run exposed a large-list elaborator limit, omitted wrapper parentheses and an opaque zero conversion. Three proof-only repairs preserve Ada, domains and theorem statements; focused checks and independent review passed. All 28 affected source/platform tests passed. Interrupted native work is retained and resumed with unchanged inputs/cache; repaired complete Lean remains required. | Failed complete run 18,628.882 s. Exact-token diagnostic: checked witness 12.95 s versus reproduced `rfl` failure 14.78 s after fixture preparation. Wrapper focused/token checks 33.403/8.609 s; adapter check 52.232 s. Source tests 82.533 s and platform tests 274.264 s. Independent combined review 5m26s. |
+| Host-restart recovery, 2026-10-30 | Native recovery selected GPT-6 Astra / Extra High; delivery-record preparation selected GPT-6.1 Sol / High. Lead runtime setting and token/cost totals unavailable. | The 19:37 UTC host restart interrupted both complete checks. Their logs and partial work were retained, unchanged inputs verified, and both managed checks restarted with the existing caches and settings. Complete assurance remains pending. | Replacement Lean build began at 19:41:28 UTC; native run began at 19:41:45 UTC. Interrupted runs have no recorded terminal time or exit code. |
 
 ## Repaired complete checkpoint
 
@@ -205,8 +206,15 @@ results do not replace the complete source/module/axiom audit.
 Repaired complete Lean run `20261030T190042-c50bf05fd9bc` began its build at
 19:00:54 UTC with one worker/thread and the existing 24 GiB threshold. A launch
 just before it waited on the platform test's workspace lease and did no build.
-The native checkpoint was interrupted without producing its final output-profile
-report or terminal audit. Its partial sessions, reports and cache are preserved;
-recovered run `20261030T185133-160271e45fa1` uses identical preflight inputs and
-strict options/cache, with four workers instead of two. Both complete results
-remain pending. Neither feature PR is authorized to merge.
+The host restarted at 19:37 UTC, interrupting that run and recovered native run
+`20261030T185133-160271e45fa1` without terminal audits. The earlier native run
+`20261030T142912-eb0b24fc2191` was also interrupted; partial sessions, reports
+and caches remain retained work, not a complete result.
+
+Replacement Lean run `20261030T194116-3d6d1353e52b` began its build at
+19:41:28 UTC with the same settings and retained Lake objects. All 687 captured
+source hashes and both tool hashes still match the repaired target. Native run
+`20261030T194142-1f663fdf10c2` reuses the same strict options/cache and four
+workers, with all 2,561 preflight hashes unchanged from its predecessor. The
+[evidence packet](evidence/boolean-objects-20261030/README.md) retains the recovery.
+Both complete results remain pending. Neither feature PR is authorized to merge.

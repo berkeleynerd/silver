@@ -1,0 +1,21 @@
+{
+  "pid": 857335,
+  "started_at": "2026-10-30T19:00:41.640841+00:00",
+  "implementation_commit": "b6aeb9f978597ac025de21a8574c76c42389cf82",
+  "command": [
+    "/usr/bin/python3",
+    "scripts/check_lean.py",
+    "--task",
+    "#291-complete-lean-repaired",
+    "--reason",
+    "Complete Boolean source and module/axiom validation after reviewed flattened-list witness, array-wrapper grouping and adapter numeral repairs; failed132736 retained; platform regression lease now released",
+    "--workers",
+    "1",
+    "--threads",
+    "1",
+    "--memory-mb",
+    "24576"
+  ],
+  "log": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/tmp/boolean-complete-lean-repaired.log",
+  "launch": "detached session; normal managed runner and evidence"
+}
