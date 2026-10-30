@@ -12,10 +12,24 @@ compiler switches plus `-fstack-usage`, with one worker and an isolated output
 directory. The exact source hashes, command/events, native log, `.ali` and `.su`
 are retained under `baseline/`.
 
-Final build `20261030T131151-8f53eb3ec741` passed with the same stack-usage flag.
+Final build `20261030T131151-8f53eb3ec741` passed in 10.566 s with the same
+stack-usage flag.
 Its 131 source hashes match the integrated final source at `927cc5e178`; the
 native repair commit is `37b6e4777b`. Exact source and binary identities,
 command/events, compiler log, `.ali` and `.su` are under `final-build/`.
+
+This managed `dev.py tool` build covers the usual `dev.py build` outputs and
+options: the same Alire context and `gprbuild -P ../../../silver.gpr -p -j2
+-XSILVER_HOST=linux-x86_64` select both project mains. The only extra compiler
+option is `-fstack-usage`, introduced by `-cargs:Ada` and terminated by `-gargs`;
+it adds the retained stack metadata without changing the normal project check
+switches. The actual log records recompilation of `silver_catalogue.adb` and
+`silver_output_profile.adb`, binding and linking `silver`, and
+`silver_image_adapter` already up to date. This is an incremental final build,
+not a clean rebuild. Its exact binary is used by the focused observations and
+full regression suite. Repeating the standard wrapper would add no missing
+build coverage, so no duplicate build or expensive proof was run for this
+applicability clarification.
 
 | Ada function | Baseline `.su` entries | Final `.su` entries |
 | --- | --- | --- |
