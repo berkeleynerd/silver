@@ -89,16 +89,15 @@ theorem scalarAssignment_flowReady (text : Source) (context : ParseContext) (sca
       ScalarExpression.lookup_bound ..
     have mutable : (ScalarExpression.binding context.scalarNames (scalarTarget text context scan.position)).mutable = true :=
       true_of_not_neg (fun bad => good (Or.inr (Or.inl bad)))
-    have nonempty : (ScalarExpression.read (arrays := context.arrayNames) text (scalarAssignmentStart text scan) (context.readingNames scan.facts)).bounds.isEmpty = false :=
+    have nonempty : (readScalarInFlow text context (scalarAssignmentStart text scan) scan.facts).bounds.isEmpty = false :=
       Bool.eq_false_iff.mpr (fun bad => good (Or.inr (Or.inr (Or.inr (Or.inl bad)))))
-    have low : ¬ (ScalarExpression.read (arrays := context.arrayNames) text (scalarAssignmentStart text scan) (context.readingNames scan.facts)).bounds.lower <
+    have low : ¬ (readScalarInFlow text context (scalarAssignmentStart text scan) scan.facts).bounds.lower <
         (ScalarExpression.binding context.scalarNames (scalarTarget text context scan.position)).declaredBounds.lower :=
       fun bad => good (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl bad)))))
-    have high : ¬ (ScalarExpression.read (arrays := context.arrayNames) text (scalarAssignmentStart text scan) (context.readingNames scan.facts)).bounds.upper >
+    have high : ¬ (readScalarInFlow text context (scalarAssignmentStart text scan) scan.facts).bounds.upper >
         (ScalarExpression.binding context.scalarNames (scalarTarget text context scan.position)).declaredBounds.upper :=
       fun bad => good (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr bad)))))
-    have positive : (ScalarExpression.read (arrays := context.arrayNames) text (scalarAssignmentStart text scan)
-        (context.readingNames scan.facts)).after ≠ 0 := by
+    have positive : (readScalarInFlow text context (scalarAssignmentStart text scan) scan.facts).after ≠ 0 := by
       intro zero
       exact good (Or.inr (Or.inr (Or.inl (by omega))))
     obtain ⟨expression, parsed⟩ := ScalarExpression.read_sound
@@ -134,6 +133,12 @@ theorem basicRaw_flowReady (text : Source) (context : ParseContext) (scan : Body
       split
       · exact invalidBody_flowReady ready
       · exact ready
+  | booleanAssignment =>
+      unfold booleanAssignmentBody
+      dsimp only
+      split
+      · exact invalidBody_flowReady ready
+      · exact ready
   | assignment =>
       try dsimp only
       split
@@ -155,7 +160,9 @@ theorem branchStart_flowReady (text : Source) (context : ParseContext) (scan : B
     (base : ScalarMetadata.BaseReady context.scalarNames context.declarationCount)
     (ready : scan.FlowReady context) :
     (branchStart text context scan keyword).1.FlowReady context ∧
-      ScalarMetadata.FlowReady context.scalarNames context.declarationCount (branchStart text context scan keyword).2 :=
-  condition_flowReady text context (bodyToken text scan (.word keyword)).position scan.facts base ready
+      ScalarMetadata.FlowReady context.scalarNames context.declarationCount (branchStart text context scan keyword).2 := by
+  have contextReady : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating :=
+    ⟨fun _ => base.body, base.count, base.declarationsNonempty, base.mutable_bounds, base.size⟩
+  exact condition_flowReady text context (bodyToken text scan (.word keyword)).position scan.facts contextReady ready
 
 end Silver.Predicate
