@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is for loops over fixed arrays and buffers in procedures, with the only non-routine checks being guarded integer additions, a guarded float power accumulation with a rounding conversion, and a capacity guard on string building, so no annotation is needed.
 
-Position 867 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 870 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

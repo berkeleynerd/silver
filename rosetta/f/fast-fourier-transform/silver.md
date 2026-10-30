@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Iterative FFT over a fixed 8-point embedded input with constant twiddles uses only for loops and bounded float types, so checks follow from per-stage type ranges, though floating-point range reasoning and float-to-text formatting need careful shape. No annotations or recursion are required, and no Oracle rule is broken.
 
-Position 1078 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1081 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

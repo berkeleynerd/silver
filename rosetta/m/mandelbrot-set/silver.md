@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task only asks for the set to be generated and drawn, so text art satisfies it, and an integer fixed-point iteration with an escape guard and a constant iteration cap keeps every check dischargeable without annotations. The nonlinear arithmetic on loop-carried values makes it plausible rather than likely.
 
-Position 450 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 453 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

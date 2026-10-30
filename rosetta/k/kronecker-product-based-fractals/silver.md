@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is fixed-size array indexing with for loops over constant ranges and div/mod by 3, so run-time checks follow from types and loop bounds with no recursion, while loops or loop-carried unbounded values.
 
-Position 659 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 662 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

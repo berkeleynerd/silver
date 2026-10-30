@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from declared ranges on node indexes and lengths, for loops over static arrays and pointer ranges, and explicit guards before buffer appends and digit accumulation, so no annotation is needed and outlook is likely.
 
-Position 1170 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1173 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

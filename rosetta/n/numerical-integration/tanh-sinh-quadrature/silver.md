@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Control flow is just bounded for loops, but floating-point hyperbolic functions and a loop-carried accumulator need an admitted math library with range contracts and careful range subtypes, so discharge is plausible rather than routine.
 
-Position 1504 in the [progression](../../../progression.md#stage-29), in stage 29.
+Position 1507 in the [progression](../../../progression.md#stage-29), in stage 29.
 
 ## Approach
 

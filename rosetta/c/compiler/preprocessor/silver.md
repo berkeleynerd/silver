@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks reduce to bounded buffer indexing and length guards placed before each append, and recursion is avoided by an explicit include stack and fixed capacities, so nothing needs an annotation; the heavy loop-carried cursor state and string building make discharge depend on careful program shape.
 
-Position 1450 in the [progression](../../../progression.md#stage-26), in stage 26.
+Position 1453 in the [progression](../../../progression.md#stage-26), in stage 26.
 
 ## Failure paths to test
 

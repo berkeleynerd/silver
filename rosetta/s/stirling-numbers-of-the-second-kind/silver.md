@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexes come from for-loop ranges over a fixed 13x13 table and the largest entry (1379400) is small, so the only non-routine checks are the loop-carried overflow guard and padded-text formatting, none needing an annotation.
 
-Position 676 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 679 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

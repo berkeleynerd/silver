@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Ada array and record assignment is already a deep copy, and index-based links keep cycles without access types. Every check follows from ranged index subtypes and static bounds, so proof should discharge without annotations.
 
-Position 1153 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1156 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

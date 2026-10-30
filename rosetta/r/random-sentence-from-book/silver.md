@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check reduces to fixed-capacity array indexes, ranged counters and modular PRNG arithmetic with guards before each use, and all loops live in procedures, so no annotation is needed, but the many loop-carried counters and table lookups make discharge depend on careful program shape.
 
-Position 1487 in the [progression](../../progression.md#stage-28), in stage 28.
+Position 1490 in the [progression](../../progression.md#stage-28), in stage 28.
 
 ## Failure paths to test
 

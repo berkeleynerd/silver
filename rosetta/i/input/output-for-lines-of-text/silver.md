@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from a ranged count subtype, a fixed-capacity line buffer with library-reported length and status, and a for loop that needs no invariant, so proofs should discharge once Silver gains the stdin line-reading and number-parsing operations.
 
-Position 1205 in the [progression](../../../progression.md#stage-20), in stage 20.
+Position 1208 in the [progression](../../../progression.md#stage-20), in stage 20.
 
 ## Failure paths to test
 

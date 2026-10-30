@@ -1,12 +1,12 @@
 # Sequence of primes by trial division
 
-**Candidate: proofs likely to discharge automatically.** The source uses finite Integer loops and a Boolean flag; divisor bounds exclude zero, including the empty first inner loop. The expected 25 primes through 100 are derived independently by marking composite multiples. This assessment is prepared for owner-authorized #291; native admission/proof/build/execution and complete language assurance remain pending. The new scalar-boolean-objects identifier is not yet supported.
+**Candidate: proofs likely to discharge automatically.** The source uses finite Integer loops and a Boolean flag; divisor bounds exclude zero, including the empty first inner loop. The expected 25 primes through 100 are derived independently by marking composite multiples. The delivery mapping is staged contingent on the complete #291 assurance, native validation and independent review checkpoint; this static reconciliation supplies no such evidence.
 
-Position 1564 in the [progression](../../progression.md#stage-37), in stage 37, which adds scalar Boolean objects and expressions.
+Position 33 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
-The prepared driver samples/rosetta_sequence_of_primes_by_trial_division.adb scans Candidate in 2..100. It resets a Boolean Prime flag, tries every Divisor in 2..(Candidate - 1), clears the flag when Candidate mod Divisor = 0 and prints each surviving candidate with Integer Image. The inner loop is empty for 2. It uses the task-permitted finite bound and actual trial division. About 17 lines.
+The driver samples/rosetta_sequence_of_primes_by_trial_division.adb scans Candidate in 2..100. It resets a Boolean Prime flag, tries every Divisor in 2..(Candidate - 1), clears the flag when Candidate mod Divisor = 0 and prints each surviving candidate with Integer Image. The inner loop is empty for 2. It uses the task-permitted finite bound and actual trial division. About 17 lines.
 
 ## Language surface recorded by this assessment
 

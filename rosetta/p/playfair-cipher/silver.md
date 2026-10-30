@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is bounded array and character work whose indexes follow from small subtypes and capacity guards, with no recursion or functions needing variants, so proofs should discharge routinely.
 
-Position 1435 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1438 in the [progression](../../progression.md#stage-26), in stage 26.
 
 ## Failure paths to test
 

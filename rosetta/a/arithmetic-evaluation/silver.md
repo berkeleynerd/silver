@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** A shunting-yard parser with explicit stacks plus postorder array evaluation avoids recursion, heap use and while loops in functions. Every check rests on a guard placed just before the operation or on 64-bit arithmetic over 32-bit-ranged operands, but there are many loop-carried stack tops and counters and one nonlinear multiply, so discharge depends on careful program shape.
 
-Position 1134 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1137 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 

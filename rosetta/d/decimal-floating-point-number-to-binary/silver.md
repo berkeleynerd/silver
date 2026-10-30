@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check reduces to bounded digit arrays and capacity guards placed before each write, with no recursion, heap, or float, but the many loop-carried carries and lengths need careful guarded program shape, so discharge is plausible rather than routine. The pi example forces a declared bit-count limit with an explicit truncation outcome.
 
-Position 1135 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1138 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 

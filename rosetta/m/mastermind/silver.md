@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from ranged subtypes, fixed array bounds and explicit input guards, and all unbounded loops sit in procedures where no termination proof is demanded. The main cost is new surface (stdin parsing, 2D arrays, string building), not proof difficulty.
 
-Position 1221 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1224 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Failure paths to test
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task asks for parallel processes but allows coroutines, so a deterministic interleaved state-machine simulation avoids tasking and every check follows from subtypes, array ranges and bounded for loops. Outlook is plausible rather than likely because the many state transitions and trace string lengths need careful range sizing.
 
-Position 819 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 822 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

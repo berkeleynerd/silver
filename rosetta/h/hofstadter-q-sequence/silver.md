@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Iterative table filling replaces the recursive memoized solution, and every index and range check is covered by a guard placed immediately before use, so no invariant is needed. The guards never fire for this sequence at the required sizes, and rejection is a specified outcome if they did.
 
-Position 67 in the [progression](../../progression.md#stage-3), in stage 3.
+Position 70 in the [progression](../../progression.md#stage-3), in stage 3.
 
 ## Approach
 

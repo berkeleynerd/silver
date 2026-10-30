@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index and value is bounded by static ranges and for loops over constant bounds, so all run-time checks follow from types and no loop-carried fact needs an invariant. The only added surface is integers, mod/div, a character buffer and for/procedure support, all with routine checks.
 
-Position 488 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 491 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

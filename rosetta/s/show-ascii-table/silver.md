@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over constant ranges with no loop-carried state beyond the freshly rewritten row buffer, so every index, range and division check follows from the types and the loop bounds.
 
-Position 487 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 490 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

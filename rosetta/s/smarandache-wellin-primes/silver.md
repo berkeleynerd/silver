@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The required first three S-W primes (2, 23, 2357) and first three derived primes (the third is about 5.5e14) fit in a declared 64-bit-range integer, so only guarded loop-carried arithmetic needs care and no annotation is required. The big-integer stretch is optional and left out.
 
-Position 280 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 283 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

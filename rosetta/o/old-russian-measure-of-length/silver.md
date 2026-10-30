@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic can be kept in capped 64-bit integers with constant nonzero divisors, so only the parsing and formatting loops need careful guards and nothing needs an annotation. Floating point is avoided by fixed-scale integer output, which still meets the task's linear conversion.
 
-Position 1441 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1444 in the [progression](../../progression.md#stage-26), in stage 26.
 
 ## Failure paths to test
 

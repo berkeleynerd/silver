@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from the array's static bounds, a validated 1..9 subtype for the player's count and a capped counter, and the only unbounded loop sits in a procedure, so no annotation is needed. The one faithfulness cost is a fixed starting permutation instead of a shuffle, which a deterministic generator could replace.
 
-Position 1214 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1217 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Failure paths to test
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from a subtype bound of 10**9 on the operands (so fact * i stays below 64-bit range), a for loop, and an n >= 2 guard before rem, so no annotation is needed.
 
-Position 503 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 506 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

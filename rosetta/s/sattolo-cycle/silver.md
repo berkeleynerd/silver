@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from array index subtypes, a reverse for loop with a nonzero modulus and a fixed-size output buffer, so no loop invariant is needed.
 
-Position 1266 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1269 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

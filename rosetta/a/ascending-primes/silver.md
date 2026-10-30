@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed array bounds, ranged subtypes and guards placed before each push or multiplication, and all loops sit in a procedure so no variants are needed, though several loop-carried indices and values need careful guards.
 
-Position 800 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 803 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

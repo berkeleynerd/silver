@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks are range or guard checks on indices and arithmetic, but the loop-carried matrix entries have no invariants, so each nonlinear operation needs an explicit magnitude guard with a visible rejection, which makes discharge plausible rather than likely.
 
-Position 749 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 752 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

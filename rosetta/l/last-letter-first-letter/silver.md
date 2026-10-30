@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs no recursion because backtracking can use an explicit bounded stack in a procedure, and all indexes are typed ranges or guarded before use, so no annotation is needed. The risk lies in loop-carried stack depth and cursor values needing careful subtypes and guards.
 
-Position 569 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 572 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

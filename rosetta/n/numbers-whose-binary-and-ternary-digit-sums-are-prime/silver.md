@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All values are small and bounded by declared ranges (n below 200, sums at most 10), and every loop is a for loop with a static bound, so the checks follow from types and one accumulator guard. No annotation is needed.
 
-Position 314 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 317 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

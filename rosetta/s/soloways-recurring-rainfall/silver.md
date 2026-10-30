@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged value types, guarded accumulation limits and a count guard before division, with no annotation needed. The main work is careful program shape for the loop-carried sum, count and text buffer, so discharge is plausible rather than routine.
 
-Position 1226 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1229 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Failure paths to test
 

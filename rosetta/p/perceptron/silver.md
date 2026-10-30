@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything uses bounded integers, constant-size arrays and for loops inside procedures, so checks follow from types and a few visible guards, but loop-carried weight updates require careful bound guards and scaled-integer arithmetic in place of floating point.
 
-Position 460 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 463 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

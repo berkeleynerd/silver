@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check comes from fixed string bounds, a Boolean carry and a digit guard placed just before each character arithmetic step, so no loop invariant is needed. The program avoids Integer'Value, which would raise on bad text, and uses digit-wise increment instead.
 
-Position 483 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 486 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

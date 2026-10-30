@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the for-loop index range, the character guard before digit conversion, and the mod-10 running sum that stays within a small subtype, so no invariant is required and loops sit in a function with only for loops (no termination obligation).
 
-Position 959 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 962 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

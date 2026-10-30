@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are bounded for loops in a procedure over constant ranges, so only the floating-point math and float-to-index conversion need attention, and both are handled with bounded types and explicit guards before use. Floating-point elementary functions are the only non-routine part, which makes discharge plausible rather than likely.
 
-Position 860 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 863 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

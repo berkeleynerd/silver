@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Forward specifications, default parameters and named association are plain Ada declarations with no loops, recursion or contracts, and bounded parameter subtypes make the few arithmetic checks follow from types alone.
 
-Position 311 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 314 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

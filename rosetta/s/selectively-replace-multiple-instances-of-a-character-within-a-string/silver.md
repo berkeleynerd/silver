@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index comes from a for loop over the string's own range and the counter is bounded by the string length, so all checks follow from types and loop bounds with no annotations needed. The program has no recursion, heap use or user input.
 
-Position 486 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 489 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

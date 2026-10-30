@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Recursive Tarjan converts to an iterative procedure over fixed-size arrays whose indexes and counters are bounded by subtypes and capacity guards, so the checks should discharge without invariants, though many loop-carried stack pointers make the program shape delicate.
 
-Position 717 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 720 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

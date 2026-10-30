@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Fixed-capacity decimal big-number arithmetic with for loops and range-typed accumulators lets every check follow from types and guards, but nested loop-carried sums and carries require careful shaping, so discharge is plausible rather than routine.
 
-Position 1374 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1377 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from bounded integer subtypes and guards before each buffer access and digit accumulation, but the hand-written parser with loop-carried values needs careful guard placement, and Silver needs stdin line reading plus text parsing first.
 
-Position 1346 in the [progression](../../../progression.md#stage-23), in stage 23.
+Position 1349 in the [progression](../../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops with static bounds, so there are no termination or invariant needs, and arithmetic is bounded by declared ranges. The only non-routine parts are the nonlinear D*D, handled by loop-index bounds, and number-to-text formatting.
 
-Position 522 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 525 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

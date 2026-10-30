@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Recursion is replaced by an explicit-stack loop inside a procedure over fixed-size arrays, so all indexing and counter checks follow from subtypes and local guards without annotations, though many loop-carried stack pointers require careful guarding.
 
-Position 735 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 738 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

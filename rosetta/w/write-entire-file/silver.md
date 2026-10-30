@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is a single library call with constant data and no loops or arithmetic, so every check is trivial and the only missing piece is an admitted file-writing operation with specified failure outcomes. The Ada solution's exception handler for Name_Error is replaced by the library's status result.
 
-Position 1406 in the [progression](../../progression.md#stage-25), in stage 25, which adds file output.
+Position 1409 in the [progression](../../progression.md#stage-25), in stage 25, which adds file output.
 
 ## Failure paths to test
 

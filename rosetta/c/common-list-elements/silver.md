@@ -1,12 +1,12 @@
 # Common list elements
 
-**Candidate: proofs likely to discharge automatically.** Direct streaming needs no result buffer, dynamic String building or user procedure. Constant-array iteration supplies bounded component values, and all tests and output use the existing finite bodies. Independent expected output uses set intersection and first-list ordering. A no-match variant is prepared to exercise both false flags and empty output. This is pending #291 delivery; native validation and complete assurance are not yet claimed, and scalar-boolean-objects remains unsupported.
+**Candidate: proofs likely to discharge automatically.** Direct streaming needs no result buffer, dynamic String building or user procedure. Constant-array iteration supplies bounded component values, and all tests and output use the existing finite bodies. Independent expected output uses set intersection and first-list ordering. A no-match regression exercises both false flags and empty output. The delivery mapping is staged contingent on the complete #291 assurance, native validation and independent review checkpoint; this static reconciliation supplies no such evidence.
 
-Position 1566 in the [progression](../../progression.md#stage-37), in stage 37.
+Position 54 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
-The prepared driver samples/rosetta_common_list_elements.adb embeds exactly the task lists (2,5,1,3,8,9,4,6), (3,5,6,2,9,8,4) and (1,3,7,6,9) as constant arrays with component subtype 1..9. For each first-list element, nested foreach loops compute two Boolean membership flags. Their eager conjunction selects common elements. A separate Printed flag controls commas while Put streams a bracketed list in first-list order: 3,9,6, the same set as the task example 3,6,9. About 35 lines.
+The driver samples/rosetta_common_list_elements.adb embeds exactly the task lists (2,5,1,3,8,9,4,6), (3,5,6,2,9,8,4) and (1,3,7,6,9) as constant arrays with component subtype 1..9. For each first-list element, nested foreach loops compute two Boolean membership flags. Their eager conjunction selects common elements. A separate Printed flag controls commas while Put streams a bracketed list in first-list order: 3,9,6, the same set as the task example 3,6,9. About 35 lines.
 
 ## Language surface recorded by this assessment
 

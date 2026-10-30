@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indexes and lengths are bounded by constant string lengths and for-loop ranges, so every check follows from types and guards without invariants. The separator is a Character constant and the whole computation can sit in the main procedure or a plain procedure with no recursion.
 
-Position 495 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 498 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

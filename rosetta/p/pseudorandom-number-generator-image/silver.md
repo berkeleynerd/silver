@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The checks that matter are the modular arithmetic, which wraps and never overflows, the mod-256 conversion, which has a static range, and the for loops, which have static bounds, so every proof obligation is routine. What Silver lacks is surface, chiefly modular types and named-file output, not provability.
 
-Position 1410 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1413 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Failure paths to test
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from the declared 0..255 ranges, the fixed array bounds and for-loop indexes over those bounds, and the integer luminance formula avoids floating point and stays far below the Integer limit. No loop-carried value needs an invariant.
 
-Position 654 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 657 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

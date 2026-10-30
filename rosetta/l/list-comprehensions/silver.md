@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The only loop-carried value is the Count, which is guarded against capacity, and all arithmetic is bounded by small subtype ranges so every check follows from types and local guards; the list comprehension itself is rendered as nested for loops since Ada has no such construct.
 
-Position 579 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 582 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from fixed-size arrays, for-loop indexes and a length guard before concatenation, and there are no while loops, recursion or annotations needed, so proofs should discharge.
 
-Position 964 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 967 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

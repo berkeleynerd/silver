@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded string scanning and integer stepping that guards and declared limits can cover, but the many loop-carried indexes and the capacity and overflow guards make the shape delicate, with no need for annotations.
 
-Position 1138 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1141 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 

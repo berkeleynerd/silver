@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The tables are simple bounded integer prefix sums that discharge with range guards, but the real-valued roots need floating-point arithmetic and formatting that depend on careful range guarding, so the outlook is plausible rather than likely.
 
-Position 1087 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1090 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

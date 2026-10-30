@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs only bounded integer parsing, arrays and string building, but a hand-written rational parser with many loop-carried values needs careful guards at every arithmetic step, so discharge is plausible without annotations rather than routine.
 
-Position 1509 in the [progression](../../progression.md#stage-29), in stage 29.
+Position 1512 in the [progression](../../progression.md#stage-29), in stage 29.
 
 ## Approach
 

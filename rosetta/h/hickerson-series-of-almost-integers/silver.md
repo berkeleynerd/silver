@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The program needs more than 64-bit precision, so it uses fixed-capacity big numbers with a rapidly convergent integer series that avoids floating point, recursion and annotations; every operation is a bounded for loop over limbs, but carry-propagating loops make proof discharge depend on careful program shape.
 
-Position 1383 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1386 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Approach
 

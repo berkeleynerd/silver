@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Six terms need only sums up to about 18.9 million and numbers below about 6,500, so a fixed sieve and 64-bit sums fit, and each loop-carried check is covered by an explicit capacity or cap guard without annotations. The loop-carried pointers and sums make shape matter, hence plausible rather than likely.
 
-Position 237 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 240 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

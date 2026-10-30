@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded by ranged types, a fixed-size table and fixed-size windows, with only for loops and simple guards, so no annotation should be needed. It is plausible rather than likely because of the loop-carried count, the segment arithmetic and the roughly 10^9-iteration run that must stay within declared ranges.
 
-Position 382 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 385 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

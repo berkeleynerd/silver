@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Integer search state is bounded by types and guards, and the float matrix multiplication can be range-bounded with a visible rejection outcome, so no annotations are needed, but loop-carried float sums and the search-shape guards make discharge depend on careful program structure.
 
-Position 1105 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1108 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

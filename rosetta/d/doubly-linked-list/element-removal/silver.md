@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is bounded array and index arithmetic over declared subtypes with explicit guards before each access, so all checks follow from types and guards without any invariants.
 
-Position 599 in the [progression](../../../progression.md#stage-11), in stage 11.
+Position 602 in the [progression](../../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

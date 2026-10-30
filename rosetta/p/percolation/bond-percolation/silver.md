@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed grid bounds, guarded neighbour indexes and ranged integer types, and the only unbounded-looking loop is a while loop in a procedure, so no annotation is needed. It is plausible rather than likely because of the nonlinear PRNG arithmetic and the several loop-carried counters that need careful typing.
 
-Position 723 in the [progression](../../../progression.md#stage-12), in stage 12.
+Position 726 in the [progression](../../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

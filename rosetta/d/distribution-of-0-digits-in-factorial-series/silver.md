@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded-range integer and float arithmetic in for/while loops inside a procedure, with a fixed-capacity digit array whose growth is guarded, so no annotation is needed, but loop-carried carry, length and float sum need careful typing and guards.
 
-Position 1058 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1061 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

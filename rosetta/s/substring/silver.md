@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All five cases use a short constant string with static bounds, for loops over the array's own range and guards placed just before each slice, so every index and overflow check follows from types and guards. No loop invariant, recursion or while loop is needed.
 
-Position 962 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 965 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

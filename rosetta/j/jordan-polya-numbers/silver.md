@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged types and guards before each multiplication and append, with loops confined to procedures, but the loop-carried counters and the dedupe-and-sort shape need careful guarding, so discharge is plausible rather than routine.
 
-Position 250 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 253 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

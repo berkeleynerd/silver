@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is a fixed-size, input-free text rendering of a 9x9x9 voxel pattern, so every check follows from loop ranges and ranged subtypes. The task's 'draw on this page' wording is met by text art, and nothing needs an invariant or variant.
 
-Position 651 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 654 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

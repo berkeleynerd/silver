@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from the constant string's static bounds, for-loop indexes over its own range, and a guard before each counter increment, so no annotation is needed. The only care is the loop-carried counters and the fixed-width text formatting.
 
-Position 763 in the [progression](../../../progression.md#stage-13), in stage 13.
+Position 766 in the [progression](../../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

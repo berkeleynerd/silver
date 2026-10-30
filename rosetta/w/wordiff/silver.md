@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed-capacity buffers, for-loop scans and length guards placed before indexing, and the game loop lives in a procedure so no termination annotation is needed; the main work is careful guarding of the one-edit comparison and the bounded history. The timing stretch goals are optional and omitted, and the embedded dictionary replaces file reading.
 
-Position 1238 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1241 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Failure paths to test
 

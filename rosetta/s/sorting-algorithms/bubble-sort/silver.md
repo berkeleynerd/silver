@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from static array bounds and for-loop ranges, the swap involves no arithmetic on elements, and the unannotated while-style outer loop sits in a procedure where no termination proof is demanded, so it should discharge automatically.
 
-Position 194 in the [progression](../../../progression.md#stage-7), in stage 7.
+Position 197 in the [progression](../../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

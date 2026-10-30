@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from declared ranges, loop-index bounds and a guard on the divisor-sum accumulator, but the loop-carried sum and bounded string assembly require careful program shape, and the optional 15355717786080 case is omitted.
 
-Position 405 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 408 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are bounded for loops over ranged subtypes and every index is guarded by a length comparison just before use, so the checks follow from types and guards without any annotation. The new needs are small: records, arrays of records, character indexing, slices and non-terminating Put output.
 
-Position 604 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 607 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

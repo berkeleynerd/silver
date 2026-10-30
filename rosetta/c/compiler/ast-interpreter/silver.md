@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Nothing needs an annotation because recursion is replaced by explicit stacks in procedures and all arithmetic, indexes and buffers are bounded by types and guards, but the many guarded loop-carried indexes and the text parsing make discharge depend on careful program shape.
 
-Position 1248 in the [progression](../../../progression.md#stage-20), in stage 20.
+Position 1251 in the [progression](../../../progression.md#stage-20), in stage 20.
 
 ## Failure paths to test
 

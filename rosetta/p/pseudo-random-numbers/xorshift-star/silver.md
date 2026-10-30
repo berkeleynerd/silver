@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything reduces to modular 64-bit arithmetic and a bounded for loop with a small guarded counter array, so all checks follow from types and literal bounds without annotations. The task's float step is replaced by an exactly equivalent integer computation, and the Ada solution's Unseeded_Error exception is not needed because the seeds are fixed nonzero constants.
 
-Position 1262 in the [progression](../../../progression.md#stage-21), in stage 21.
+Position 1265 in the [progression](../../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

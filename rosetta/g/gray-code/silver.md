@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is on a wraparound 5-bit modular type with only for loops over static ranges and fixed-size strings indexed by loop variables over their own range, so every check follows from types and no annotation is needed.
 
-Position 1260 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1263 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is fixed-size arrays and enumerations with index checks that follow from types and sentinel guards, and the only loop-carried state (proposal counters, free flags) is range-typed, so no annotation is needed. Plausible rather than likely because of the nested-array aggregates, the sentinel handling and the 'Image-based output strings.
 
-Position 1542 in the [progression](../../progression.md#stage-32), in stage 32.
+Position 1545 in the [progression](../../progression.md#stage-32), in stage 32.
 
 ## Approach
 

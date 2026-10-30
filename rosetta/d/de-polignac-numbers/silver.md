@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded by declared ranges and the search ceiling, and the loops are for loops, so checks follow from types and guards; the plausibility rating reflects nonlinear D*D and the loop-carried counter needing careful guards.
 
-Position 372 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 375 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

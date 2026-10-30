@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded arrays and nested for/while loops in procedures, so checks follow from range subtypes and capacity guards without annotations. The main uncertainty is the loop-carried queue and parent indexes plus the dictionary file-reading library operation, which needs specified failure outcomes.
 
-Position 1329 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1332 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Failure paths to test
 

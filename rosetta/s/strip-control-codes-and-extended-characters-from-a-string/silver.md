@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded character-by-character filtering in a for loop, so checks follow from types and one guard on the loop-carried count, with no recursion or annotations needed (the Ada solution's recursive function would be replaced by iteration).
 
-Position 539 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 542 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

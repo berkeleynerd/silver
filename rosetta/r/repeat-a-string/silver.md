@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is just bounded string building with nested for loops, and the type-bounded indexes (Count and Len ranged, buffer sized as their product) discharge every check without invariants or recursion.
 
-Position 485 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 488 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

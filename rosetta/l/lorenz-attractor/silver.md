@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Fixed-iteration for loops, fixed grid bounds and guarded float steps mean every check follows from types or a guard just before the use, but the floating-point Euler recurrence needs careful magnitude guards because no loop invariant can be written. No annotations or recursion are needed, so discharge is plausible rather than certain.
 
-Position 900 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 903 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

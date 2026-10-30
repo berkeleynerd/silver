@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Primality by trial division over static ranges in for loops needs no loop-carried facts, so all range, overflow and division checks follow from subtype bounds and the loop index guards.
 
-Position 871 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 874 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

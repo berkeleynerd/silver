@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task asks only for a drawn torus, which text art satisfies, and a table-driven integer renderer needs only for loops with types, ranges and guards just before each division and index, so it should discharge without annotations although the many nonlinear products make it dependent on careful range declarations.
 
-Position 694 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 697 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

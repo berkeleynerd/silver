@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every loop is a for loop over static ranges with all indexes bounded by subtypes or guards, so no invariants or variants are needed and the sieve and truncation checks should discharge routinely.
 
-Position 148 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 151 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

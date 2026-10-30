@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from declared subtypes, fixed capacities with explicit reject guards, and loops in procedures, but it needs a file-reading library operation, string ordering and careful guard placement in the sort and the counting loops.
 
-Position 1481 in the [progression](../../progression.md#stage-28), in stage 28.
+Position 1484 in the [progression](../../progression.md#stage-28), in stage 28.
 
 ## Failure paths to test
 

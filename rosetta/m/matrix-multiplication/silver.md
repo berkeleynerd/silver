@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indices come from the arrays' own ranges and the bounded element subtype makes every product sum overflow-free without an invariant, so the checks are routine; the open work is admitting multidimensional arrays and number formatting.
 
-Position 645 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 648 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

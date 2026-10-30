@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is small enumerations, bounded counters and a procedure-hosted while loop with explicit guards, so all checks follow from types and guards, though the new stdin line reading and enumeration/array surface must exist first.
 
-Position 1218 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1221 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Failure paths to test
 

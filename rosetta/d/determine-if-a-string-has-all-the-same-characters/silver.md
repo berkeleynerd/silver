@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check derives from the string's own index range and a 0..255 character position, with no loop-carried arithmetic beyond a Natural index, so it should discharge without annotations. Silver just needs strings with indexing, for loops, procedures, and Put plus 'Image output.
 
-Position 765 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 768 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

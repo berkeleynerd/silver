@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is a nested for loop over fixed ranges with a validated order, so index and range checks follow from types and guards, and the only new needs are file output and text parsing; no loop-carried value needs an invariant.
 
-Position 1416 in the [progression](../../../progression.md#stage-25), in stage 25.
+Position 1419 in the [progression](../../../progression.md#stage-25), in stage 25.
 
 ## Failure paths to test
 

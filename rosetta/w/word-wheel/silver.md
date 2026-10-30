@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from small array bounds, a 0..9 count subtype and guards placed immediately before each decrement or index, and the while loop is in a procedure so there is no termination obligation; the only new needs are line-by-line file reading and character-indexed arrays.
 
-Position 1316 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1319 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Failure paths to test
 

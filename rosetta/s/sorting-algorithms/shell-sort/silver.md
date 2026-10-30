@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The only non-static checks are the index J - Gap and the update of J, and the while guard J > Gap written just before them discharges both. The while loop sits in the Main procedure, so it gets no termination check, and elements are only compared and moved, never computed with arithmetic.
 
-Position 184 in the [progression](../../../progression.md#stage-7), in stage 7.
+Position 187 in the [progression](../../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

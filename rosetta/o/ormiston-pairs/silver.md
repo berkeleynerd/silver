@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from fixed array bounds, for-loop indexes and guards before the sieve step and signature accumulation, with no annotation needed, but the loop-carried signature and sieve stride need careful guard placement.
 
-Position 377 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 380 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

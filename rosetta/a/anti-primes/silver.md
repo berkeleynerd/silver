@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is for loops and mod on guarded ranged integers with a fixed-size result array, so no annotation is needed, but the loop-carried counters need careful guards and the scan limit must be big enough to reach the twentieth anti-prime (7560).
 
-Position 360 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 363 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check comes from the for-loop range, a 'Length guard just before each character read, and the library's bound on argument length. No loop-carried arithmetic or termination obligation remains, so proof should discharge without annotations.
 
-Position 1432 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1435 in the [progression](../../progression.md#stage-26), in stage 26.
 
 ## Failure paths to test
 

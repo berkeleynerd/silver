@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexing follows from for-loop ranges and while-condition guards, but the loop-carried best length/start and match counter need careful guards since no invariants exist, so discharge depends on program shape. No annotation, recursion or non-trivial arithmetic is required.
 
-Position 538 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 541 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check is an index or range check on scan variables bounded by subtypes and guarded by and then tests, in plain procedure-level while loops, so no annotation is needed. The only new surface is Character comparison, String slicing and while loops.
 
-Position 479 in the [progression](../../../progression.md#stage-10), in stage 10.
+Position 482 in the [progression](../../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

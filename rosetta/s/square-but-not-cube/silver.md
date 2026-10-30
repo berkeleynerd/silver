@@ -1,12 +1,12 @@
 # Square but not cube
 
-**Candidate: proofs likely to discharge automatically.** All products fit the declared small Integer ranges, and the direct Count<30 guard justifies the increment. Cubes include every candidate cube up to 1600; scanning increasing square roots and stopping output after 30 qualifying values gives the required prefix through 1089. Independent expected output uses square/cube set difference. This is prepared reconciliation for #291; implementation validation and complete assurance remain pending, and scalar-boolean-objects is not yet supported.
+**Candidate: proofs likely to discharge automatically.** All products fit the declared small Integer ranges, and the direct Count<30 guard justifies the increment. Cubes include every candidate cube up to 1600; scanning increasing square roots and stopping output after 30 qualifying values gives the required prefix through 1089. Independent expected output uses square/cube set difference. The delivery mapping is staged contingent on the complete #291 assurance, native validation and independent review checkpoint; this static reconciliation supplies no such evidence.
 
-Position 1565 in the [progression](../../progression.md#stage-37), in stage 37.
+Position 43 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
-The prepared driver samples/rosetta_square_but_not_cube.adb computes Root*Root for Root in 1..40. It scans Trial in 1..13 and sets a Boolean Cube flag if Trial*Trial*Trial equals the square. When not Cube and then Count<30 it increments the bounded counter and streams the square with Put and Integer Image. A final empty Put_Line ends the line. It prints exactly the required first 30 values; the optional common squares and cubes are omitted. About 22 lines.
+The driver samples/rosetta_square_but_not_cube.adb computes Root*Root for Root in 1..40. It scans Trial in 1..13 and sets a Boolean Cube flag if Trial*Trial*Trial equals the square. When not Cube and then Count<30 it increments the bounded counter and streams the square with Put and Integer Image. A final empty Put_Line ends the line. It prints exactly the required first 30 values; the optional common squares and cubes are omitted. About 22 lines.
 
 ## Proof obligations to watch
 

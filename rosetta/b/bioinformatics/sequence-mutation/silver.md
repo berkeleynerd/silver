@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything uses bounded arrays, for loops and procedures with guards before each shift or index, so no annotation is needed, but the LCG arithmetic and length-tracking shifts need careful shape, hence plausible.
 
-Position 1181 in the [progression](../../../progression.md#stage-19), in stage 19.
+Position 1184 in the [progression](../../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

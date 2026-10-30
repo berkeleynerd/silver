@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The program is straight-line floating-point code with no loops, so every check is a range, division or sqrt-domain check dischargeable by bounded subtypes and local guards, but it hinges on a new floating-point type, an admitted Sqrt with a contract, and float formatting.
 
-Position 1039 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1042 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

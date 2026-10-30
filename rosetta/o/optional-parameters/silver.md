@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from declared ranges: indexes come from for loops over static bounds or from a parameter of the index subtype, and a cell's trimmed length is bounded by the cell size. No while loop or recursion is needed, so nothing requires an annotation.
 
-Position 1473 in the [progression](../../progression.md#stage-28), in stage 28.
+Position 1476 in the [progression](../../progression.md#stage-28), in stage 28.
 
 ## Approach
 

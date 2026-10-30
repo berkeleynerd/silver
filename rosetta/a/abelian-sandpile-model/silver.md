@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every index and increment can be guarded just before use because cell values are only known by type after the first iteration, so discharge depends on careful guard placement but needs no annotation.
 
-Position 1420 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1423 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Failure paths to test
 

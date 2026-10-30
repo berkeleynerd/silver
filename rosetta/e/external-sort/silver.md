@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded arrays, ranged integers and procedure loops, so checks follow from types and guards, but the multi-file I/O with failure handling and a k-way merge with several loop-carried indexes needs careful shape and an admitted file library.
 
-Position 1426 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1429 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Failure paths to test
 

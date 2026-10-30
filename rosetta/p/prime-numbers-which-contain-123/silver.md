@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from a ranged array, ranged subtypes and guards placed immediately before each addition or index, and no loop needs an invariant because loop-carried values are either type-bounded or tested by the loop condition. Only the loop-carried counter and sieve step need a little care in program shape.
 
-Position 336 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 339 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is bounded by small constants (values below 25000, 32 digits suffice for base 2), and every loop is a for loop, so checks follow from types and guards without annotations.
 
-Position 313 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 316 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

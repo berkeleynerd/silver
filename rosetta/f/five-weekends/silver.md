@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from subtype ranges, mod 7 and guarded counters, with no recursion, while loops or annotations needed, so proofs should discharge, though loop-carried counters need careful guards.
 
-Position 156 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 159 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

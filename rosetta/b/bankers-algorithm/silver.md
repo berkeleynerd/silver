@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is bounded array arithmetic on embedded data with nested for loops and one while loop in a procedure, so every check follows from ranged subtypes and explicit guards, and nothing needs a variant or invariant.
 
-Position 1160 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1163 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

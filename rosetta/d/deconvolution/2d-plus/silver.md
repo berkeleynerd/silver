@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is integer arithmetic over fixed-size arrays with for loops in procedures, so checks follow from ranged types and explicit guards before each accumulation, division and assignment, but the many loop-carried sums and shifted indexes need careful guard placement.
 
-Position 1539 in the [progression](../../../progression.md#stage-32), in stage 32.
+Position 1542 in the [progression](../../../progression.md#stage-32), in stage 32.
 
 ## Approach
 

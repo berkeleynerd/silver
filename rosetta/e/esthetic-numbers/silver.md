@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every operation is bounded integer arithmetic or indexing on small fixed-size arrays and ranged subtypes, with loops that are for loops or while loops inside procedures, so checks follow from types and nearby guards; the care needed is in carrying counts and digit buffers through nested loops without invariants.
 
-Position 914 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 917 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is a 100-term floating-point harmonic sum that needs only a for loop, a nonzero divisor from the index range and one overflow guard on the accumulator, so no annotation is needed; the main uncertainty is the float overflow check on the loop-carried accumulator.
 
-Position 1028 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1031 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

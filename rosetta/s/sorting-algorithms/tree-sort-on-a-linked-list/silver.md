@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexing is typed by a ranged index subtype and null-guarded, and loops live in procedures so no variants are needed, but the traversal stack bound and loop-carried cursor indices depend on careful guard placement rather than invariants.
 
-Position 257 in the [progression](../../../progression.md#stage-7), in stage 7.
+Position 260 in the [progression](../../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

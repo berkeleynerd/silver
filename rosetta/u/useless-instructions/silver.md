@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task only asks to showcase a redundant language feature, which fits entirely inside today's Silver surface with no loops or arithmetic, so every check is trivial and nothing needs an annotation.
 
-Position 47 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 49 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

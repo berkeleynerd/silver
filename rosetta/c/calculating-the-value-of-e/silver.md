@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Integer fixed-point series over a bounded for loop keeps every operand within declared ranges, so all checks follow from types and one guard, giving a plausible outlook; floating point is avoided since the task only asks for the value of e, not a specific method.
 
-Position 534 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 537 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

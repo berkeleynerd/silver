@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs no recursion, annotations or unavailable effects, only console output and fixed-capacity big-number arithmetic of up to about 4000 bits, which is loop-heavy but expressible with range-bounded limbs and for loops. The proof burden lies in carry and index checks across many nested big-number loops, so it is plausible but not routine.
 
-Position 1399 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1402 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Approach
 

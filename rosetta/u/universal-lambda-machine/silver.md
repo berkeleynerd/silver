@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The interpreter needs only bounded arrays, records and procedure loops with explicit capacity guards, so no annotation is needed, but the many loop-carried pool indices and the pointer-to-index redesign make careful program shape necessary. Non-halting or oversized programs end through a specified resource-limit outcome rather than a hidden failure.
 
-Position 1449 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1452 in the [progression](../../progression.md#stage-26), in stage 26.
 
 ## Failure paths to test
 

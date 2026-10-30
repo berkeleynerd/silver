@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indices and levels come from for-loop ranges over constant bounds and explicit clamps, so no loop-carried value needs an invariant and the animation is a finite, fixed-length text rendering.
 
-Position 657 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 660 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is bounded by static subtype ranges and every loop is a for loop, so checks follow from types and no variant or invariant is required. Only integers, for loops, a Boolean function and integer-to-text output must be added to Silver.
 
-Position 877 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 880 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

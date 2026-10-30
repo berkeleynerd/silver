@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check (index, range of the computed character, array bounds) follows from a for loop over the array's own range and static type bounds, so no loop-carried value needs an invariant.
 
-Position 426 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 429 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

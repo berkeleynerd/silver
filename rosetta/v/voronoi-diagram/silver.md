@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is a nested for-loop nearest-site search over bounded integer coordinates with squared distances, so all checks follow from declared ranges and for-loop indexes and no loop invariant, floating point or recursion is needed. The only new needs are arrays, records, bounded text building and an admitted file-writing operation.
 
-Position 1418 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1421 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Failure paths to test
 

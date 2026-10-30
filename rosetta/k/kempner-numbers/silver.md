@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The first fifty values need only small bounded modular arithmetic inside for loops, so every check follows from declared ranges and the static loop bounds. The 64-bit stretch with prime factorization is optional and left out.
 
-Position 870 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 873 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

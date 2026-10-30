@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Recursion and pointers in the original are replaceable by an index-based array tree with an explicit bounded path stack, so every check follows from ranged link types and guards placed before pushes and allocation, though the rebalancing loops need careful shape.
 
-Position 1183 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1186 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

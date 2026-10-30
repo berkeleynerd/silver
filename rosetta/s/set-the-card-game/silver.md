@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from subtype ranges, for-loop indexes and constant divisors, with no recursion, no loop-carried unbounded value and no heap use, so proofs should discharge without annotations. The only careful shape is keeping the generator state in a bounded subtype.
 
-Position 792 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 795 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from ranged index subtypes, modular label types and guards, and loops sit in procedures, but many loop-carried indices and bit-shift amounts need careful guarding and no annotation is needed. The recursive traversal is rewritten iteratively, so nothing needs a variant.
 
-Position 1305 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1308 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

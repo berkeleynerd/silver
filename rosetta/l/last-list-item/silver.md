@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from ranged subtypes, for-loops over the array's own range and one explicit sum guard, with the outer while loop in a procedure, but the text-building of each step line is the fiddly part. Nothing needs an annotation, so discharge is plausible rather than certain.
 
-Position 251 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 254 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

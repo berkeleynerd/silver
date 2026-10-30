@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged subtypes, a bounded for loop over fixed-length data and a guard before each store or use of the loop-carried word count, so no annotation is needed. It is plausible rather than likely because the index arithmetic over carried word positions depends on careful guard placement.
 
-Position 1013 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 1016 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

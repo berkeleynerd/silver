@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from fixed-capacity arrays, ranged indices and capacity guards, but the explicit-stack parser replacing recursion is a large loop-heavy program whose index and loop-carried bounds need careful guarding, so it is plausible rather than likely.
 
-Position 1251 in the [progression](../../../progression.md#stage-20), in stage 20.
+Position 1254 in the [progression](../../../progression.md#stage-20), in stage 20.
 
 ## Failure paths to test
 

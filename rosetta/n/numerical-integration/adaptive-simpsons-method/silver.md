@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is plain bounded floating-point arithmetic with recursion convertible to an explicit stack in a procedure, so no annotation is needed, but float range proofs through loop-carried values need careful guarding. The expected output 0.459698 is a bounded computation with depth cap, so it is faithful under the Oracle.
 
-Position 1081 in the [progression](../../../progression.md#stage-17), in stage 17.
+Position 1084 in the [progression](../../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
