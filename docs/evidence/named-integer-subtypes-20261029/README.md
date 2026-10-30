@@ -11,12 +11,15 @@ The authorized delivery ends with a
 reviewable feature PR; merging it awaits the owner's instruction.
 
 The implementation and final code-review target is
+`d4e2be67b5de7fcc2919cf9eac6efb217e5ca672`. Its Ada inputs are identical to
 `6020416906b5fc3d2bd10d012e70937c80f0617c`. The
 [integration review](../../reviews/review-named-integer-subtypes-final-integration-97312a790f.md)
 covers the preceding implementation `97312a790f`. The
 [Body_Tail repair review](../../reviews/review-named-integer-subtypes-body-tail-equality-20261029.md)
 covers the final source change, its mechanical pin/certificate refresh and
-regression applicability. Final complete-evidence confirmation remains pending.
+regression applicability. The [terminal/source review](../../reviews/review-named-integer-subtypes-terminal-evidence-20261030.md)
+confirms native and regression evidence and the later source-literal repair;
+final complete Lean evidence confirmation remains pending.
 
 ## Failed complete native checkpoint
 
@@ -69,7 +72,21 @@ followed by the complete coverage/provenance audit. All 143 tracked inputs match
 `6020416906`. The [complete native packet](native-full/README.md) retains the
 reports, warning inventory, input identities and checked archive. Existing
 sessions/cache were reused; this was not a cold run. Complete Lean remains
-pending; its refreshed output certificate passed in 9,606 s.
+pending. That Lean run subsequently finished failed at 2026-10-30 02:01:47 UTC,
+with seven false source-correspondence propositions in four modules. Its
+successfully built certificate, composition source candidate and independent
+modules remain reusable; no whole-project audit ran.
+
+## Reviewed source-literal repair
+
+The [#290 diagnostic and repair](source-literal-repair/README.md) identifies five
+stale expected-source files. Repair `d4e2be67b5` brings their literal expectations
+into agreement with the existing Ada and semantic models without changing
+runtime behavior, domains or endpoints. Independent source/semantic review
+confirmed the repair. All 28 affected proof-tree/platform tests passed again;
+the other 18 earlier repair results and 509 original results remain applicable.
+Focused Lean run `20261030T020329-280326d88dbd` is active. Complete repaired
+Lean/source assurance and the final Rosetta delivery refresh remain pending.
 
 ## Retained completed checks
 

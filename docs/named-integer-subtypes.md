@@ -205,8 +205,9 @@ they do not themselves establish final authoritative-source assurance.
 ## Delivery assurance and validation
 
 The [final packet](evidence/named-integer-subtypes-20261029/README.md) is being
-assembled for repaired implementation/review target `6020416906`, extending
-the previously reviewed `97312a790f`. Complete Lean run
+assembled for repaired implementation/review target `d4e2be67b5`, extending
+`6020416906` with five proof-literal corrections. Its Ada sources are unchanged
+from that preceding reviewed target. Complete Lean run
 `20261029T161817-0a8089cd7dc3` captured 653 matching inputs but was deliberately
 interrupted at 20:40 UTC after the native failure required a source repair.
 Its completed artifacts and original outcome are retained; no complete Lean
@@ -241,8 +242,9 @@ confirms unchanged endpoints and runtime behavior, the exact source refresh,
 and the corrected retained focused reports. No new recursive scan copy enters
 the runtime build under the pinned Static erasure rules.
 
-Complete Lean run `20261029T205735-bb72d0625415` is active on all 653 matching
-repaired inputs. Native build `20261029T210150-1086727daf3c` passed on matching
+Complete Lean run `20261029T205735-bb72d0625415` checked all 653 matching
+`6020416906` inputs and subsequently finished failed as recorded below.
+Native build `20261029T210150-1086727daf3c` passed on matching
 governed inputs. Complete native run `20261029T211041-a76eb6753f23` passed at
 2026-10-30 00:32:43 UTC after 12,119.996 s with four workers: 16,825 checks
 (1,432 flow and 15,393 proof), 76 units and 1,075 entities, followed by the
@@ -250,8 +252,18 @@ complete coverage/provenance audit. All 143 tracked inputs match the repaired
 target. The [native packet](evidence/named-integer-subtypes-20261029/native-full/README.md)
 retains original reports, warning classifications, input identity and existing
 session/cache reuse. The [46-test refresh](evidence/named-integer-subtypes-20261029/repair-regression/README.md)
-passed. Complete Lean remains pending; the refreshed source certificate passed
-in 9,606 s and downstream source checks continue.
+passed. That Lean run finished failed at 2026-10-30 02:01:47 UTC after
+18,249.514 s managed time. Seven source-shape propositions in four modules
+still expected predecessor literals. Independent review confirmed completion
+blocker [#290](https://github.com/berkeleynerd/silver/issues/290) and reviewed
+the five-file proof-only repair `d4e2be67b5` against authoritative source and
+existing typed semantics. The [repair packet](evidence/named-integer-subtypes-20261029/source-literal-repair/README.md)
+retains the failed run and exact changes. The output certificate (9,606 s),
+composition source candidate (5,694 s), scalar-body candidate (426 s) and
+other independently completed modules remain available for normal Lake reuse.
+All 28 newly affected regressions passed again; native/build and the other
+18 earlier repair results remain applicable. Focused source checks and the
+complete repaired Lean checkpoint remain pending.
 
 Full regression run `20261029T153819-5626949ad567` passed all 555 test identities
 in 5,255.763 s, including 52 sample sources and 108 executions. The
@@ -272,3 +284,4 @@ confirmation await complete assurance; PR #289 remains a draft.
 | Complete-native failure diagnosis | Native continuation selected GPT-6 Astra / Extra High; source-impact assessment selected GPT-6.1 Sol / Extra High | The full native run ended after 13,129.891 s with one static result/model equality unresolved. Original reports and inputs are retained; focused repair and affected-source validation remain required. Earlier provisional session-progress observations were incomplete, not successful full validation. |
 | Body_Tail equality repair and reviewed applicability | Native repair and independent reviewer selected GPT-6 Astra / Extra High; regression refresh selected GPT-6.1 Sol / Extra High | Focused native proof passed in 1,179.240 s; the eight-line Static-only repair and mechanical pin/certificate refresh are reviewed. Repaired complete native/Lean runs are active; native build and all 46 affected tests passed. An empty focused-report archive was corrected and independently verified without a proof rerun. |
 | Repaired complete native checkpoint, 2026-10-30 | Native continuation selected GPT-6 Astra / Extra High; lead runtime settings unavailable | Full native proof/coverage/provenance passed in 12,119.996 s; retained reports recount to 16,825 checks. The native agent hit a model-capacity limit, but its OS proof and retention processes continued unchanged and the lead integrated the result. Lean's output certificate passed in 9,606 s; remaining source checks and final evidence confirmation continue. Token/cost measurements unavailable. |
+| Source-literal completion repair, 2026-10-30 | Implementation/regression refresh selected GPT-6.1 Sol / Extra High; independent review selected GPT-6 Astra / Extra High | Complete Lean run failed on seven stale-source propositions after 18,249.514 s, with independent successful modules retained. #290 records the reviewed five-file literal repair; all 28 affected tests passed. Native assurance and runtime sources are unchanged. Focused source checks and complete Lean remain pending; token/cost measurements unavailable. |
