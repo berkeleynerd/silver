@@ -70,6 +70,8 @@ class BooleanObjectTests(unittest.TestCase):
             (b'Boolean:String:="x";Flag:Boolean:=True;', b'null;'),
             (b'Boolean:Boolean:=True;', b'null;'),
             (b'Integer:Boolean:=True;', output(b"Integer'Image(0)")),
+            (b'Integer:Boolean:=Integer\'Image(0)=" 0";', b'null;'),
+            (b'Integer:Boolean:=True;S:String:=Integer\'Image(0);', b'null;'),
             (b'Flag:Boolean:=True;', b'for Flag in 1..1 loop Flag:=False;end loop;'),
             (b'Flag:Boolean:=True;', b'for True in 1..1 loop Flag:=True;end loop;'),
             (b'Flag:Boolean:=True;', b'for False in False..1 loop null;end loop;'),
@@ -85,6 +87,34 @@ class BooleanObjectTests(unittest.TestCase):
             source = source.replace(b'with Silver_Arguments;',
                                     b'with Silver_Arguments;use Silver_Arguments;')
             self.check(source, status)
+
+        for operation in (b'Put', b'Put_Line'):
+            declaration = operation + b':Boolean:=True;'
+            prefix = operation + b':=False;if ' + operation + b' then null;end if;'
+            for call, status in ((operation, 2), (b'Silver_IO.' + operation, 0)):
+                source = program(declaration, prefix + call + b'("ok");')
+                source = source.replace(b'with Silver_IO;', b'with Silver_IO;use Silver_IO;')
+                self.check(source, status)
+        for rejection, status in ((b'Reject', 2), (b'Silver_Arguments.Reject', 0)):
+            source = argument_program(b'Reject:Boolean:=True;',
+                b'if Silver_Arguments.Input_Is_Valid then Reject:=False;'
+                b'if Reject then null;end if;else ' + rejection + b';end if;')
+            source = source.replace(b'with Silver_Arguments;',
+                                    b'with Silver_Arguments;use Silver_Arguments;')
+            self.check(source, status)
+
+    def test_native_boolean_hiding_and_loop_scope_restoration(self) -> None:
+        declarations = (b'True:Boolean:=False;False:Boolean:=not True;'
+                        b'Put:Boolean:=True;Put_Line:Boolean:=False;')
+        body = (b'for True in 1..2 loop '
+                b'if True=1 then Put_Line:=Put;end if;end loop;'
+                b'if (not True) and False and Put_Line then '
+                b'Silver_IO.Put("scope");Silver_IO.Put_Line(" restored");'
+                b'else Silver_IO.Put_Line("bad");end if;')
+        source = program(declarations, body).replace(
+            b'with Silver_IO;', b'with Silver_IO;use Silver_IO;')
+        executable, _ = self.compile(source, 'assigned')
+        self.run_program(executable, b'scope restored\n')
 
     def test_homogeneous_chains_and_boolean_equality(self) -> None:
         declarations = b'A:Boolean:=True;B:Boolean:=False;C:Boolean:=True;'
