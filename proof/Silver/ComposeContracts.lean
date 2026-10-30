@@ -245,6 +245,13 @@ structure HelperEquations (calls : Calls) (evaluator : Calls := lexical calls)
     ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials →
     calls.function .scalarRead text position names arrays initials elaborating =
       ScalarExpression.read text position names 0 0 true arrays initials elaborating
+  booleanHidesInteger : ∀ text, ValidText text → ∀ booleans,
+    BooleanBindings.ValidEnvironment text booleans →
+    calls.function .booleanHidesInteger text booleans = BooleanBindings.hidesInteger text booleans
+  /-- Discharged by the downstream Boolean-declaration source bridge, which
+  interprets the native condition reader on the full initializer domain. -/
+  booleanDeclaration : ∀ text, ValidText text → ∀ state arguments,
+    domain.holds text state → calls.function .booleanDeclaration text state arguments = booleanDeclarationAt text state arguments
   booleanLookup : ∀ text, ValidText text → ∀ booleans first after,
     BooleanBindings.ValidEnvironment text booleans → ValidCursor text first → ValidCursor text after →
     calls.function .booleanLookup text booleans first after = BooleanBindings.lookup text booleans first after

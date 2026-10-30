@@ -62,6 +62,8 @@ theorem model_definitions :
   scalarRead := base_definitions.scalarRead
   arrayLookup := base_definitions.arrayLookup
   booleanLookup := base_definitions.booleanLookup
+  booleanHidesInteger := base_definitions.booleanHidesInteger
+  booleanDeclaration text tv state arguments sv := base_definitions.booleanDeclaration text tv state arguments sv.1
   scalarLiteral := base_definitions.scalarLiteral
   scalarAppend := base_definitions.scalarAppend
   scalarEmpty := base_definitions.scalarEmpty

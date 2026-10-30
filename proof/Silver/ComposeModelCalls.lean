@@ -53,6 +53,8 @@ def modelCalls : Calls where
     | .scalarDeclaration => scalarDeclarationAt
     | .scalarLookup => ScalarExpression.lookup
     | .scalarRead => fun text position names arrays initials elaborating => ScalarExpression.read text position names 0 0 true arrays initials elaborating
+    | .booleanHidesInteger => BooleanBindings.hidesInteger
+    | .booleanDeclaration => booleanDeclarationAt
     | .booleanLookup => BooleanBindings.lookup
     | .arrayLookup => ArrayBindings.lookup
     | .arrayDeclaration => arrayDeclarationAt

@@ -47,7 +47,7 @@ def Expr.Legal (calls : Calls) (locals : Locals) : Expr ty → Prop
   | .subtypeItem x i => x.Legal calls locals ∧ i.Legal calls locals
   | .hiddenFlag x i => x.Legal calls locals ∧ i.Legal calls locals
   | .operationName x => x.Legal calls locals
-  | .subtypeAppend a b c d e => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals ∧ e.Legal calls locals
+  | .subtypeAppend a b c d e f g => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals ∧ e.Legal calls locals ∧ f.Legal calls locals ∧ g.Legal calls locals
   | .stateSubtype a b c => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals
   | .forOperations name body => ∀ operation, body.Legal calls (locals.set .operation name operation)
   | .maxSubtypeBindings => True
@@ -328,15 +328,17 @@ theorem Expr.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning cal
     rw [h0]
     all_goals rfl
 
-  | .subtypeAppend a b c d e, legal => by
+  | .subtypeAppend a b c d e f g, legal => by
     dsimp only [Expr.Legal] at legal
     have h0 := Expr.eval_lexical calls meaning locals a legal.1
     have h1 := Expr.eval_lexical calls meaning locals b legal.2.1
     have h2 := Expr.eval_lexical calls meaning locals c legal.2.2.1
     have h3 := Expr.eval_lexical calls meaning locals d legal.2.2.2.1
-    have h4 := Expr.eval_lexical calls meaning locals e legal.2.2.2.2
+    have h4 := Expr.eval_lexical calls meaning locals e legal.2.2.2.2.1
+    have h5 := Expr.eval_lexical calls meaning locals f legal.2.2.2.2.2.1
+    have h6 := Expr.eval_lexical calls meaning locals g legal.2.2.2.2.2.2
     dsimp only [Expr.eval, lexical]
-    rw [h0, h1, h2, h3, h4]
+    rw [h0, h1, h2, h3, h4, h5, h6]
     all_goals rfl
 
   | .stateSubtype a b c, legal => by
@@ -1191,6 +1193,8 @@ theorem normalized_helpers {domain : StateDomain} (calls : Calls)
   scalarRead := source.scalarRead
   arrayLookup := source.arrayLookup
   booleanLookup := source.booleanLookup
+  booleanHidesInteger := source.booleanHidesInteger
+  booleanDeclaration := source.booleanDeclaration
   arrayAdd := by
     intro text valid state first after bounds offset length mutable following componentBounds stateValid nameValid bindingValid room allocated ordered ending
     exact (source.arrayAdd text valid state first after bounds offset length mutable following componentBounds

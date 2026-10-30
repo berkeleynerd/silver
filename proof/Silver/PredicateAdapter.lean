@@ -17,11 +17,12 @@ set_option maxHeartbeats 1000000
 
 def contextOf (scan : ScanResult) : Native.Context :=
   ⟨scan.state.names, scan.state.dynamicFirst, scan.state.dynamicAfter,
-    ScalarExpression.bodyEnvironment scan.state.scalarNames, scan.state.scalarNames.length, scan.state.arrayNames.names, scan.state.subtypeNames.hiddenCalls⟩
+    ScalarExpression.bodyEnvironment scan.state.scalarNames, scan.state.scalarNames.length, scan.state.arrayNames.names, scan.state.subtypeNames.hiddenCalls,
+    scan.state.booleanNames, scan.state.subtypeNames.trueHidden, scan.state.subtypeNames.falseHidden, false, 0, 0⟩
 
 def expand (context : Native.Context) (scan : BodyScan) (arrays : ArrayBindings.Env) (subtypes : IntegerSubtypes.Environment) : ScanResult :=
   ⟨⟨scan.position, context.names, context.dynamicFirst, context.dynamicAfter,
-    scan.target, scan.capacity, context.scalarNames, arrays, subtypes⟩, scan.assigned, scan.output⟩
+    scan.target, scan.capacity, context.scalarNames, arrays, subtypes, context.booleanNames⟩, scan.assigned, scan.output⟩
 
 def stopOf (token : ShellToken) : BodyStop :=
   if token = .word "else" then .elseOnly else .endOnly
@@ -52,7 +53,8 @@ theorem initialFacts_bounded (arguments : Bool) : (initialFacts arguments).Bound
 theorem context_valid (text : Source) (scan : ScanResult)
     (valid : OuterReadiness.ValidState text scan.state) : Native.ValidContext text (contextOf scan) :=
   ⟨valid.1.2.1, valid.1.2.2.1, ScalarExpression.bodyEnvironment_valid valid.1.2.2.2.2.2.1,
-    valid.2.baseReady valid.1.2.2.2.2.2.1.1, valid.1.2.2.2.2.2.2.1.1⟩
+    (valid.2.baseReady valid.1.2.2.2.2.2.1.1).toContextReady,
+    valid.1.2.2.2.2.2.2.1.1, valid.1.2.2.2.2.2.2.2.2, Or.inl ⟨rfl, rfl⟩⟩
 
 theorem initial_flow_valid (text : Source) (scan : ScanResult)
     (valid : OuterReadiness.ValidState text scan.state) :
@@ -72,7 +74,7 @@ theorem expand_valid (text : Source) (context : Native.Context) (scan : BodyScan
     (arrays : ArrayBindings.Env) (av : ArrayBindings.ValidEnvironment text arrays)
     (subtypes : IntegerSubtypes.Environment) (stv : IntegerSubtypes.ValidEnvironment text subtypes) :
     Expressions.ValidState text (expand context scan arrays subtypes).state :=
-  ⟨sv.1, cv.1, cv.2.1, sv.2.1.1, sv.2.1.2, cv.2.2.1, av, stv⟩
+  ⟨sv.1, cv.1, cv.2.1, sv.2.1.1, sv.2.1.2, cv.2.2.1, av, stv, cv.booleans⟩
 
 theorem invalidScan_valid (text : Source) : OuterReadiness.ValidState text invalidScan.state :=
   OuterReadiness.invalid_valid text
@@ -102,7 +104,7 @@ theorem model_adapter_valid (text : Source) (tv : Expressions.ValidText text)
   · exact ⟨expand_valid text _ _ (context_valid text scan sv)
       (BodyNative.model_read_valid text tv _ (context_valid text scan sv) _ _ (body_valid text scan sv))
       scan.state.arrayNames sv.1.2.2.2.2.2.2.1
-      scan.state.subtypeNames sv.1.2.2.2.2.2.2.2,
+      scan.state.subtypeNames sv.1.2.2.2.2.2.2.2.1,
       sv.2.bodyEnvironment⟩
 
 theorem readStatements_valid (text : Source) (tv : Expressions.ValidText text)
@@ -122,6 +124,10 @@ inductive Field : Type → Type → Type
   | stateScalarNames : Field ParserState ScalarExpression.Environment
   | stateArrays : Field ParserState ArrayBindings.Env
   | stateSubtypes : Field ParserState IntegerSubtypes.Environment
+  | stateBooleans : Field ParserState BooleanBindings.Environment
+  | contextBooleans : Field Native.Context BooleanBindings.Environment
+  | subtypeTrueHidden : Field IntegerSubtypes.Environment Bool
+  | subtypeFalseHidden : Field IntegerSubtypes.Environment Bool
   | subtypeHiding : Field IntegerSubtypes.Environment IntegerSubtypes.CallHiding
   | arrayMetadata : Field ArrayBindings.Env ArrayBindings.Metadata
   | stateFirst : Field ParserState Nat
@@ -145,6 +151,9 @@ def Field.eval : Field α β → α → β
   | .scanState => ScanResult.state | .scanAssigned => ScanResult.assigned | .scanOutput => ScanResult.output
   | .stateScalarNames => ParserState.scalarNames
   | .stateArrays => ParserState.arrayNames | .arrayMetadata => ArrayBindings.Env.names
+  | .stateBooleans => ParserState.booleanNames | .contextBooleans => Native.Context.booleanNames
+  | .subtypeTrueHidden => IntegerSubtypes.Environment.trueHidden
+  | .subtypeFalseHidden => IntegerSubtypes.Environment.falseHidden
   | .stateSubtypes => ParserState.subtypeNames | .subtypeHiding => IntegerSubtypes.Environment.hiddenCalls
   | .contextScalarNames => Native.Context.scalarNames
   | .contextDeclarationCount => Native.Context.declarationCount
@@ -161,6 +170,8 @@ def Field.name : Field α β → String
   | .scanState => "state" | .scanAssigned => "assigned" | .scanOutput => "output"
   | .stateScalarNames | .contextScalarNames => "scalar_names"
   | .stateArrays => "array_names" | .arrayMetadata => "names"
+  | .stateBooleans | .contextBooleans => "boolean_names"
+  | .subtypeTrueHidden => "true_hidden" | .subtypeFalseHidden => "false_hidden"
   | .stateSubtypes => "subtype_names" | .subtypeHiding => "hidden_calls"
   | .contextDeclarationCount => "declaration_count"
   | .statePosition => "position" | .stateNames => "names" | .stateFirst => "dynamic_first"
@@ -184,6 +195,7 @@ structure Frame where
 
 inductive Expr : Type → Type 1
   | scan : Expr ScanResult | body : Expr BodyScan | context : Expr Native.Context
+  | truth (value : Bool) : Expr Bool | number (value : Nat) : Expr Nat
   | arrays : Expr ArrayBindings.Env
   | subtypes : Expr IntegerSubtypes.Environment
   | result : Expr BodyScan | position : Expr Nat | token : Expr ShellToken | stop : Expr BodyStop
@@ -202,11 +214,13 @@ inductive Expr : Type → Type 1
   | bodyEnvironment (names : Expr ScalarExpression.Environment) : Expr ScalarExpression.Environment
   | contextValue (names : Expr BindingEnvironment) (scalarNames : Expr ScalarExpression.Environment)
       (arrays : Expr ArrayBindings.Metadata) (hiddenCalls : Expr IntegerSubtypes.CallHiding)
-      (declarations first after : Expr Nat) : Expr Native.Context
+      (booleans : Expr BooleanBindings.Environment) (trueHidden falseHidden elaborating : Expr Bool)
+      (maskFirst maskAfter declarations first after : Expr Nat) : Expr Native.Context
   | bodyValue (count : Expr Nat) (facts : Expr ActiveFlow) (position target capacity : Expr Nat)
       (assigned output : Expr Bool) : Expr BodyScan
   | stateValue (position : Expr Nat) (names : Expr BindingEnvironment) (scalarNames : Expr ScalarExpression.Environment) (arrays : Expr ArrayBindings.Env)
-      (subtypes : Expr IntegerSubtypes.Environment) (first after target capacity : Expr Nat) : Expr ParserState
+      (subtypes : Expr IntegerSubtypes.Environment) (booleans : Expr BooleanBindings.Environment)
+      (first after target capacity : Expr Nat) : Expr ParserState
   | scanValue (state : Expr ParserState) (assigned output : Expr Bool) : Expr ScanResult
   | bodyToken (scan : Expr BodyScan) (token : Expr ShellToken) : Expr BodyScan
   | takeToken (position : Expr Nat) (token : ShellToken) : Expr Nat
@@ -239,6 +253,7 @@ def Expr.eval (calls : BodyNative.Calls) (frame : Frame)
     (bodyOfCall : ScanResult → BodyScan := Predicate.bodyOf)
     (initialFlowCall : Native.Context → ActiveFlow := Adapter.initialFlow)
     (takeTokenCall : Source → Nat → ShellToken → Nat := takeTokenModel) : Expr α → α
+  | .truth value => value | .number value => value
   | .scan => frame.scan | .body => frame.body | .context => frame.context | .result => frame.result
   | .arrays => frame.arrays
   | .subtypes => frame.subtypes
@@ -256,15 +271,22 @@ def Expr.eval (calls : BodyNative.Calls) (frame : Frame)
   | .nameCount names => (names.eval calls frame bodyOfCall initialFlowCall takeTokenCall).length
   | .completed facts => Predicate.completed (facts.eval calls frame bodyOfCall initialFlowCall takeTokenCall)
   | .bodyEnvironment names => ScalarExpression.bodyEnvironment (names.eval calls frame bodyOfCall initialFlowCall takeTokenCall)
-  | .contextValue names scalarNames arrayNames hiddenCalls declarations first after =>
+  | .contextValue names scalarNames arrayNames hiddenCalls booleans trueHidden falseHidden elaborating maskFirst maskAfter declarations first after =>
       ⟨names.eval calls frame bodyOfCall initialFlowCall takeTokenCall, first.eval calls frame bodyOfCall initialFlowCall takeTokenCall, after.eval calls frame bodyOfCall initialFlowCall takeTokenCall,
-        scalarNames.eval calls frame bodyOfCall initialFlowCall takeTokenCall, declarations.eval calls frame bodyOfCall initialFlowCall takeTokenCall, arrayNames.eval calls frame bodyOfCall initialFlowCall takeTokenCall, hiddenCalls.eval calls frame bodyOfCall initialFlowCall takeTokenCall⟩
+        scalarNames.eval calls frame bodyOfCall initialFlowCall takeTokenCall, declarations.eval calls frame bodyOfCall initialFlowCall takeTokenCall, arrayNames.eval calls frame bodyOfCall initialFlowCall takeTokenCall, hiddenCalls.eval calls frame bodyOfCall initialFlowCall takeTokenCall,
+        booleans.eval calls frame bodyOfCall initialFlowCall takeTokenCall,
+        trueHidden.eval calls frame bodyOfCall initialFlowCall takeTokenCall,
+        falseHidden.eval calls frame bodyOfCall initialFlowCall takeTokenCall,
+        elaborating.eval calls frame bodyOfCall initialFlowCall takeTokenCall,
+        maskFirst.eval calls frame bodyOfCall initialFlowCall takeTokenCall,
+        maskAfter.eval calls frame bodyOfCall initialFlowCall takeTokenCall⟩
   | .bodyValue _ facts pos target capacity assigned output =>
       ⟨pos.eval calls frame bodyOfCall initialFlowCall takeTokenCall, target.eval calls frame bodyOfCall initialFlowCall takeTokenCall, capacity.eval calls frame bodyOfCall initialFlowCall takeTokenCall,
         facts.eval calls frame bodyOfCall initialFlowCall takeTokenCall, assigned.eval calls frame bodyOfCall initialFlowCall takeTokenCall, output.eval calls frame bodyOfCall initialFlowCall takeTokenCall⟩
-  | .stateValue pos names scalarNames arrayEnvironment subtypeEnvironment first after target capacity =>
+  | .stateValue pos names scalarNames arrayEnvironment subtypeEnvironment booleans first after target capacity =>
       ⟨pos.eval calls frame bodyOfCall initialFlowCall takeTokenCall, names.eval calls frame bodyOfCall initialFlowCall takeTokenCall, first.eval calls frame bodyOfCall initialFlowCall takeTokenCall,
-        after.eval calls frame bodyOfCall initialFlowCall takeTokenCall, target.eval calls frame bodyOfCall initialFlowCall takeTokenCall, capacity.eval calls frame bodyOfCall initialFlowCall takeTokenCall, scalarNames.eval calls frame bodyOfCall initialFlowCall takeTokenCall, arrayEnvironment.eval calls frame bodyOfCall initialFlowCall takeTokenCall, subtypeEnvironment.eval calls frame bodyOfCall initialFlowCall takeTokenCall⟩
+        after.eval calls frame bodyOfCall initialFlowCall takeTokenCall, target.eval calls frame bodyOfCall initialFlowCall takeTokenCall, capacity.eval calls frame bodyOfCall initialFlowCall takeTokenCall, scalarNames.eval calls frame bodyOfCall initialFlowCall takeTokenCall, arrayEnvironment.eval calls frame bodyOfCall initialFlowCall takeTokenCall, subtypeEnvironment.eval calls frame bodyOfCall initialFlowCall takeTokenCall,
+        booleans.eval calls frame bodyOfCall initialFlowCall takeTokenCall⟩
   | .scanValue state assigned output => ⟨state.eval calls frame bodyOfCall initialFlowCall takeTokenCall, assigned.eval calls frame bodyOfCall initialFlowCall takeTokenCall, output.eval calls frame bodyOfCall initialFlowCall takeTokenCall⟩
   | .bodyToken input tok =>
       let scan := input.eval calls frame bodyOfCall initialFlowCall takeTokenCall
@@ -282,6 +304,7 @@ def record (fields : List (String × List String)) : List String :=
   ["("] ++ List.intercalate [","] (fields.map fun (name, value) => [name, "=>"] ++ value) ++ [")"]
 
 def Expr.render : Expr α → List String
+  | .truth value => [if value then "true" else "false"] | .number value => [toString value]
   | .scan => ["scan"] | .body => ["scan"] | .context => ["context"] | .result => ["result"]
   | .arrays => ["arrays"]
   | .subtypes => ["subtypes"]
@@ -299,14 +322,16 @@ def Expr.render : Expr α → List String
   | .nameCount names => names.render ++ [".", "count"]
   | .completed facts => ["paths", "."] ++ Expressions.call "completed" [facts.render]
   | .bodyEnvironment names => ["scalar_expressions", "."] ++ Expressions.call "body_environment" [names.render]
-  | .contextValue names scalarNames arrayNames hiddenCalls declarations first after => record [("names", names.render),
-      ("scalar_names", scalarNames.render), ("array_names", arrayNames.render), ("subtype_hiding", hiddenCalls.render), ("declaration_count", declarations.render),
+  | .contextValue names scalarNames arrayNames hiddenCalls booleans trueHidden falseHidden elaborating maskFirst maskAfter declarations first after => record [("names", names.render),
+      ("scalar_names", scalarNames.render), ("array_names", arrayNames.render), ("subtype_hiding", hiddenCalls.render), ("boolean_names", booleans.render),
+      ("true_hidden", trueHidden.render), ("false_hidden", falseHidden.render), ("elaborating", elaborating.render),
+      ("mask_first", maskFirst.render), ("mask_after", maskAfter.render), ("declaration_count", declarations.render),
       ("dynamic_first", first.render), ("dynamic_after", after.render)]
   | .bodyValue count facts pos target capacity assigned output => record [("count", count.render), ("facts", facts.render),
       ("position", pos.render), ("target", target.render), ("capacity", capacity.render),
       ("assigned", assigned.render), ("output", output.render)]
-  | .stateValue pos names scalarNames arrayEnvironment subtypeEnvironment first after target capacity => record [("position", pos.render),
-      ("names", names.render), ("scalar_names", scalarNames.render), ("array_names", arrayEnvironment.render), ("subtype_names", subtypeEnvironment.render), ("dynamic_first", first.render), ("dynamic_after", after.render),
+  | .stateValue pos names scalarNames arrayEnvironment subtypeEnvironment booleans first after target capacity => record [("position", pos.render),
+      ("names", names.render), ("scalar_names", scalarNames.render), ("array_names", arrayEnvironment.render), ("subtype_names", subtypeEnvironment.render), ("boolean_names", booleans.render), ("dynamic_first", first.render), ("dynamic_after", after.render),
       ("target", target.render), ("capacity", capacity.render)]
   | .scanValue state assigned output => record [("state", state.render), ("assigned", assigned.render), ("output", output.render)]
   | .bodyToken input tok => ["("] ++ input.render ++ ["with", "delta", "position", "=>"] ++
@@ -324,6 +349,10 @@ def contextExpr : Expr Native.Context :=
   .contextValue (.field .stateNames (.field .scanState .scan)) (.bodyEnvironment (.field .stateScalarNames (.field .scanState .scan)))
     (.field .arrayMetadata (.field .stateArrays (.field .scanState .scan)))
     (.field .subtypeHiding (.field .stateSubtypes (.field .scanState .scan)))
+    (.field .stateBooleans (.field .scanState .scan))
+    (.field .subtypeTrueHidden (.field .stateSubtypes (.field .scanState .scan)))
+    (.field .subtypeFalseHidden (.field .stateSubtypes (.field .scanState .scan)))
+    (.truth false) (.number 0) (.number 0)
     (.nameCount (.field .stateScalarNames (.field .scanState .scan)))
     (.field .stateFirst (.field .scanState .scan)) (.field .stateAfter (.field .scanState .scan))
 
@@ -333,7 +362,7 @@ def bodyExpr : Expr BodyScan :=
     (.field .stateCapacity (.field .scanState .scan)) (.field .scanAssigned .scan) (.field .scanOutput .scan)
 
 def expandExpr : Expr ScanResult :=
-  .scanValue (.stateValue (.field .bodyPosition .body) (.field .contextNames .context) (.field .contextScalarNames .context) .arrays .subtypes
+  .scanValue (.stateValue (.field .bodyPosition .body) (.field .contextNames .context) (.field .contextScalarNames .context) .arrays .subtypes (.field .contextBooleans .context)
     (.field .contextFirst .context) (.field .contextAfter .context)
     (.field .bodyTarget .body) (.field .bodyCapacity .body))
     (.field .bodyAssigned .body) (.field .bodyOutput .body)

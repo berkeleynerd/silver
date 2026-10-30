@@ -382,6 +382,8 @@ theorem model_definitions (ranges : RangeContracts modelCalls) :
   scalarRead := model_definition_scalarRead
   arrayLookup := model_definition_arrayLookup
   booleanLookup := by intros; rfl
+  booleanHidesInteger := by intros; rfl
+  booleanDeclaration := by intros; rfl
   arrayPut := model_definition_arrayPut
   arrayAdd := model_definition_arrayAdd
   arrayValuesModel := model_definition_arrayValuesModel

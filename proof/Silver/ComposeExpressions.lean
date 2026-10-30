@@ -92,7 +92,7 @@ inductive Function
   | declaration
   | stringDeclaration | scalarConstraint | scalarDeclaration | scalarLookup | scalarRead | scalarAppend | scalarEmpty | scalarLiteral | nameIs
   | subtypeLookup | subtypeLookupModel | scalarType | subtypeDeclaration
-  | booleanLookup | arrayLookup | arrayDeclaration | arrayValuesModel | arrayValues | arrayPut | arrayAdd
+  | booleanHidesInteger | booleanDeclaration | booleanLookup | arrayLookup | arrayDeclaration | arrayValuesModel | arrayValues | arrayPut | arrayAdd
   | argument
   | declarations
   | readDeclarations
@@ -157,6 +157,8 @@ def Function.name : Function → String
   | .scalarEmpty => "scalars.is_empty"
   | .scalarLiteral => "silver_scalar_literals.read_integer"
   | .nameIs => "name_is"
+  | .booleanHidesInteger => "boolean_hides_integer"
+  | .booleanDeclaration => "boolean_declaration_at"
   | .booleanLookup => "lookup_boolean"
   | .arrayLookup => "array_bindings.lookup"
   | .arrayDeclaration => "array_declaration_at"
@@ -227,6 +229,8 @@ def Function.name : Function → String
   | .scalarEmpty => .arrow .interval .truth
   | .scalarLiteral => .arrow .source (.arrow .number .scalarLiteral)
   | .nameIs => .arrow .source (.arrow .number (.arrow .number (.arrow .spelling .truth)))
+  | .booleanHidesInteger => .arrow .source (.arrow .booleanNames .truth)
+  | .booleanDeclaration => .arrow .source (.arrow .state (.arrow .truth .state))
   | .booleanLookup => .arrow .source (.arrow .booleanNames (.arrow .number (.arrow .number .number)))
   | .arrayLookup => .arrow .source (.arrow .arrayMetadata (.arrow .number (.arrow .number .number)))
   | .arrayDeclaration => .arrow .source (.arrow .state (.arrow .truth .state))
@@ -305,6 +309,8 @@ def Calls.get (calls : Calls) : (symbol : Function) → symbol.type.meaning
   | .scalarEmpty => calls.function .scalarEmpty
   | .scalarLiteral => calls.function .scalarLiteral
   | .nameIs => calls.function .nameIs
+  | .booleanHidesInteger => calls.function .booleanHidesInteger
+  | .booleanDeclaration => calls.function .booleanDeclaration
   | .booleanLookup => calls.function .booleanLookup
   | .arrayLookup => calls.function .arrayLookup
   | .arrayDeclaration => calls.function .arrayDeclaration
@@ -350,6 +356,8 @@ inductive Field : Ty → Ty → Type
   | stateNames : Field .state .names
   | stateScalarNames : Field .state .scalarNames
   | stateArrayNames : Field .state .arrayEnv
+  | stateBooleanNames : Field .state .booleanNames
+  | subtypeTrueHidden : Field .subtypeNames .truth | subtypeFalseHidden : Field .subtypeNames .truth
   | stateSubtypeNames : Field .state .subtypeNames
   | subtypeFirst : Field .subtypeBinding .number | subtypeAfter : Field .subtypeBinding .number
   | subtypeBounds : Field .subtypeBinding .interval | subtypeHiding : Field .subtypeNames .callHiding
@@ -405,6 +413,8 @@ def Field.name : Field a b → String
   | .statePosition => "position"
   | .stateNames => "names"
   | .stateScalarNames => "scalar_names"
+  | .stateBooleanNames => "boolean_names"
+  | .subtypeTrueHidden => "true_hidden" | .subtypeFalseHidden => "false_hidden"
   | .stateSubtypeNames => "subtype_names" | .subtypeFirst => "first" | .subtypeAfter => "after"
   | .subtypeBounds => "bounds" | .subtypeHiding => "hidden_calls"
   | .stateArrayNames => "array_names" | .arrayNames => "names" | .arrayValues => "values"
@@ -455,6 +465,8 @@ def Field.get : Field a b → a.meaning → b.meaning
   | .stateNames, value => value.names
   | .stateScalarNames, value => value.scalarNames
   | .stateArrayNames, value => value.arrayNames
+  | .stateBooleanNames, value => value.booleanNames
+  | .subtypeTrueHidden, value => value.trueHidden | .subtypeFalseHidden, value => value.falseHidden
   | .stateSubtypeNames, value => value.subtypeNames | .subtypeFirst, value => value.first
   | .subtypeAfter, value => value.after | .subtypeBounds, value => value.bounds
   | .subtypeHiding, value => value.hiddenCalls
@@ -514,7 +526,7 @@ inductive Expr : Ty → Type
   | hiddenFlag : Expr .callHiding → Expr .operation → Expr .truth
   | operationName : Expr .operation → Expr .spelling
   | forOperations (name : String) : Expr .truth → Expr .callHiding
-  | subtypeAppend : Expr .subtypeNames → Expr .number → Expr .number → Expr .interval → Expr .callHiding → Expr .subtypeNames
+  | subtypeAppend : Expr .subtypeNames → Expr .number → Expr .number → Expr .interval → Expr .truth → Expr .truth → Expr .callHiding → Expr .subtypeNames
   | stateSubtype : Expr .state → Expr .number → Expr .subtypeNames → Expr .state
   | maxSubtypeBindings : Expr .number
   | scalarReadDefault : Expr .source → Expr .number → Expr .scalarNames → Expr .scalarResult
@@ -712,11 +724,11 @@ def Expr.render : Expr ty → List String
       "when", "names", ".", "validity_call", "=>", "\"input_is_valid\"", ",",
       "when", "names", ".", "reject_call", "=>", "\"reject\"", ")"]
   | .forOperations name body => ["(", "for", name, "in", "names", ".", "operation_kind", "=>"] ++ body.render ++ [")"]
-  | .subtypeAppend names first after bounds flags =>
+  | .subtypeAppend names first after bounds trueHidden falseHidden flags =>
       let count := names.render ++ [".", "count", "+", "1"]
       aggregate [("count", count), ("items", ["("] ++ names.render ++ [".", "items", "with", "delta"] ++
         count ++ ["=>", "("] ++ first.render ++ [","] ++ after.render ++ [","] ++ bounds.render ++ [")", ")"]),
-        ("hidden_calls", flags.render)]
+        ("true_hidden", trueHidden.render), ("false_hidden", falseHidden.render), ("hidden_calls", flags.render)]
   | .stateSubtype state position names => updated state.render [("position",position.render),("subtype_names",names.render)]
   | .maxSubtypeBindings => ["max_subtype_bindings"]
   | .scalarReadDefault t p n => ["scalar_expressions", "."] ++ call "read_expression" [t.render, p.render, n.render]
@@ -878,9 +890,11 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
         argument := body.eval calls (locals.set .operation name .argument)
         validity := body.eval calls (locals.set .operation name .validity)
         reject := body.eval calls (locals.set .operation name .reject) }
-  | .subtypeAppend names first after bounds flags =>
+  | .subtypeAppend names first after bounds trueHidden falseHidden flags =>
       { items := (names.eval calls locals).items ++ [⟨first.eval calls locals, after.eval calls locals, bounds.eval calls locals⟩]
-        hiddenCalls := flags.eval calls locals }
+        hiddenCalls := flags.eval calls locals
+        trueHidden := trueHidden.eval calls locals
+        falseHidden := falseHidden.eval calls locals }
   | .stateSubtype state position names => {state.eval calls locals with position := position.eval calls locals, subtypeNames := names.eval calls locals}
   | .maxSubtypeBindings => IntegerSubtypes.maxBindings
   | .scalarReadDefault t p n => calls.function .scalarRead
@@ -1107,13 +1121,14 @@ def newNameBody : Expr .truth :=
   let state : Expr .state := .variable "state"
   let first : Expr .number := .variable "first"
   let after : Expr .number := .variable "after"
-  .andThen (.andThen (.andThen (.andThen (.andThen (.andThen (.andThen
+  .andThen (.andThen (.andThen (.andThen (.andThen (.andThen (.andThen (.andThen
     (.ne first (.number 0)) (.gt after first))
     (.not (.lexForbidden text first after)))
     (.group (.orElse (.not (.variable "arguments")) (.not (.lexForbiddenArgument text first after)))))
     (.eq (.app (.app (.app (.app (.function .lookupName) text) (.field .stateNames state)) first) after) (.number 0)))
     (.eq (.app (.app (.app (.app (.function .scalarLookup) text) (.field .stateScalarNames state)) first) after) (.number 0)))
     (.eq (.app (.app (.app (.app (.function .arrayLookup) text) (.field .arrayNames (.field .stateArrayNames state))) first) after) (.number 0)))
+    (.eq (.app (.app (.app (.app (.function .booleanLookup) text) (.field .stateBooleanNames state)) first) after) (.number 0)))
     (.eq (.app (.app (.app (.app (.function .subtypeLookup) text) (.field .stateSubtypeNames state)) first) after) (.number 0))
 
 def addBindingBody : Expr .state :=
@@ -1134,7 +1149,8 @@ def stringDeclarationBody : Expr .state :=
       (.variable "constant_after") (.variable "colon_after")) (.word "string")) <|
     .local "value" "expression_result" (.app (.app (.app (.app (.app (.app (.app (.app (.function .expression) text)
       (take (.variable "type_after") (.symbol ":="))) (.field .stateNames state)) (.field .stateScalarNames state))
-      (.andThen (.andThen (.ne first (.number 0)) (.gt after first)) (.eq (take first (.word "integer")) after))) (.field .arrayNames (.field .stateArrayNames state))) (.field .arrayValues (.field .stateArrayNames state))) (.truth true)) <|
+      (.orElse (.group (.andThen (.andThen (.ne first (.number 0)) (.gt after first)) (.eq (take first (.word "integer")) after)))
+        (.app (.app (.function .booleanHidesInteger) text) (.field .stateBooleanNames state)))) (.field .arrayNames (.field .stateArrayNames state))) (.field .arrayValues (.field .stateArrayNames state))) (.truth true)) <|
     .local "following" "literal_position" (take (.field .resultAfter value) (.symbol ";")) <|
     .group <| .ite (.orElse (.orElse (.orElse (.orElse (.orElse
       (.not <| .app (.app (.app (.app (.app (.function .newName) text) state) first) after) (.variable "arguments"))
@@ -1201,10 +1217,11 @@ def scalarTypeBody : Expr .scalarConstraint :=
     .local "after" "literal_position" (.app (.app (.function .nameAfter) text) first) <|
     .local "target" "subtype_count" (.app (.app (.app (.app (.function .subtypeLookup) text) (.field .stateSubtypeNames state)) first) after) <|
     .group <| .ite
-      (.orElse (.orElse (.orElse (.orElse (.eq first (.number 0)) (.le after first))
+      (.orElse (.orElse (.orElse (.orElse (.orElse (.eq first (.number 0)) (.le after first))
         (.ne (.app (.app (.app (.app (.function .lookupName) text) (.field .stateNames state)) first) after) (.number 0)))
         (.ne (.app (.app (.app (.app (.function .scalarLookup) text) (.field .stateScalarNames state)) first) after) (.number 0)))
         (.ne (.app (.app (.app (.app (.function .arrayLookup) text) (.field .arrayNames (.field .stateArrayNames state))) first) after) (.number 0)))
+    (.ne (.app (.app (.app (.app (.function .booleanLookup) text) (.field .stateBooleanNames state)) first) after) (.number 0)))
       (.constraint (.number 0) .emptyInterval)
       (.elsif (.app (.app (.app (.app (.function .nameIs) text) first) after) (.word "integer")) (.constraint after .fullInterval)
         (.elsif (.ne target (.number 0)) (.constraint after (.field .subtypeBounds (.subtypeItem (.field .stateSubtypeNames state) target)))
@@ -1230,7 +1247,7 @@ def subtypeDeclarationBody : Expr .state :=
     .local "constraint" "scalar_constraint_result" (.defaultFull (.app (.app (.app (.function .scalarConstraint) text) typeAfter) (.field .stateScalarNames state))) <|
     .local "following" "literal_position" (take (.field .constraintAfter constraint) (.symbol ";")) <|
     .group <| .ite
-      (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse
+      (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse
         (.not (.app (.app (.app (.app (.app (.function .newName) text) state) first) after) (.variable "arguments")))
         (.app (.app (.app (.app (.function .nameIs) text) first) after) (.word "integer")))
         (.eq (.subtypeCount subtypes) .maxSubtypeBindings))
@@ -1240,8 +1257,11 @@ def subtypeDeclarationBody : Expr .state :=
         (.ne (.app (.app (.app (.app (.function .lookupName) text) (.field .stateNames state)) typeFirst) typeAfter) (.number 0)))
         (.ne (.app (.app (.app (.app (.function .scalarLookup) text) (.field .stateScalarNames state)) typeFirst) typeAfter) (.number 0)))
         (.ne (.app (.app (.app (.app (.function .arrayLookup) text) (.field .arrayNames (.field .stateArrayNames state))) typeFirst) typeAfter) (.number 0)))
+    (.ne (.app (.app (.app (.app (.function .booleanLookup) text) (.field .stateBooleanNames state)) typeFirst) typeAfter) (.number 0)))
       .invalid
       (.stateSubtype state following (.subtypeAppend subtypes first after (.field .constraintBounds constraint)
+        (.orElse (.field .subtypeTrueHidden subtypes) (.app (.app (.app (.app (.function .nameIs) text) first) after) (.word "true")))
+        (.orElse (.field .subtypeFalseHidden subtypes) (.app (.app (.app (.app (.function .nameIs) text) first) after) (.word "false")))
         (.forOperations "operation" (.orElse (.hiddenFlag flags operation)
           (.app (.app (.app (.app (.function .nameIs) text) first) after) (.operationName operation))))))
 
@@ -1299,10 +1319,12 @@ def declarationBody : Expr .state :=
   let array : Expr .state := .variable "array_state"
   .locals <| .local "subtype_state" "parser_state" (.app (.app (.app (.function .subtypeDeclaration) text) state) arguments) <| .local "scalar_state" "parser_state" (.app (.app (.app (.function .scalarDeclaration) text) state) arguments) <|
     .local "array_state" "parser_state" (.app (.app (.app (.function .arrayDeclaration) text) state) arguments) <|
+    .local "boolean_state" "parser_state" (.app (.app (.app (.function .booleanDeclaration) text) state) arguments) <|
     .group <| .ite (.ne (.field .statePosition (.variable "subtype_state")) (.number 0)) (.variable "subtype_state")
       (.elsif (.ne (.field .statePosition scalar) (.number 0)) scalar
       (.elsif (.ne (.field .statePosition array) (.number 0)) array
-      (.app (.app (.app (.function .stringDeclaration) text) state) arguments)))
+      (.elsif (.ne (.field .statePosition (.variable "boolean_state")) (.number 0)) (.variable "boolean_state")
+      (.app (.app (.app (.function .stringDeclaration) text) state) arguments))))
 
 def callAfterBody : Expr .number :=
   let text : Expr .source := .variable "text"
@@ -1528,7 +1550,7 @@ def Expr.primary : Expr ty → Bool
   | .arrayPut _ _ _ | .arrayUsedValues _ _ _ | .arrayNamesOnly _ _ | .stateArray _ _
   | .statePositionArray _ _ _ | .arrayAppend _ _ _ _ _ _ _ _ | .maxScalarBindings
   | .defaultFull _ | .subtypeCount _ | .subtypeItem _ _ | .hiddenFlag _ _ | .operationName _
-  | .forOperations _ _ | .subtypeAppend _ _ _ _ _ | .stateSubtype _ _ _ | .maxSubtypeBindings
+  | .forOperations _ _ | .subtypeAppend _ _ _ _ _ _ _ | .stateSubtype _ _ _ | .maxSubtypeBindings
   | .fullInterval | .emptyInterval | .interval _ _ | .constraint _ _
   | .scalarBinding _ _ _ _ _ _ | .stateScalar _ _ _ | .item _ _ | .group _
   | .byteAt _ _ | .sourceLast _ | .sourceLength _ | .characterVal _
@@ -1626,9 +1648,10 @@ def Expr.wellFormed : Expr ty → Bool
   | .hiddenFlag flags op => flags.wellFormed && flags.primary && op.wellFormed && op.expression
   | .operationName op => op.wellFormed && op.expression
   | .forOperations _ body => body.wellFormed && body.expression
-  | .subtypeAppend names first after bounds flags => names.wellFormed && names.primary &&
+  | .subtypeAppend names first after bounds trueHidden falseHidden flags => names.wellFormed && names.primary &&
       first.wellFormed && first.expression && after.wellFormed && after.expression &&
-      bounds.wellFormed && bounds.expression && flags.wellFormed && flags.expression
+      bounds.wellFormed && bounds.expression && trueHidden.wellFormed && trueHidden.expression &&
+      falseHidden.wellFormed && falseHidden.expression && flags.wellFormed && flags.expression
   | .stateSubtype state position names => state.wellFormed && state.primary && position.wellFormed && position.expression && names.wellFormed && names.expression
   | .maxSubtypeBindings => true
   | .scalarReadDefault t p n => t.wellFormed && p.wellFormed && n.wellFormed && t.expression && p.expression && n.expression
@@ -1854,7 +1877,7 @@ def Expr.scoped (scope : Scope) : Expr ty → Bool
   | .hiddenFlag flags op => flags.scoped scope && op.scoped scope
   | .operationName op => op.scoped scope
   | .forOperations name body => body.scoped ((name, .operation) :: scope)
-  | .subtypeAppend names first after bounds flags => names.scoped scope && first.scoped scope && after.scoped scope && bounds.scoped scope && flags.scoped scope
+  | .subtypeAppend names first after bounds trueHidden falseHidden flags => names.scoped scope && first.scoped scope && after.scoped scope && bounds.scoped scope && trueHidden.scoped scope && falseHidden.scoped scope && flags.scoped scope
   | .stateSubtype state position names => state.scoped scope && position.scoped scope && names.scoped scope
   | .maxSubtypeBindings => true
   | .scalarReadDefault t p n => t.scoped scope && p.scoped scope && n.scoped scope
