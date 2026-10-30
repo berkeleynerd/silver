@@ -556,5 +556,12 @@
     "test_string_assignment.StringAssignmentTests.test_native_replacement_boundaries_and_output_failure",
     "test_string_assignment.StringAssignmentTests.test_rejected_lengths_bindings_and_compositions",
     "test_string_assignment.StringAssignmentTests.test_shared_binding_lists_self_copy_and_independent_output"
+  ],
+  "implementation_commit": "d4e2be67b5de7fcc2919cf9eac6efb217e5ca672",
+  "native_source_commit": "6020416906b5fc3d2bd10d012e70937c80f0617c",
+  "identities_unchanged": true,
+  "literal_repair_run_ids": [
+    "20261030T013443-d9556926db16",
+    "20261030T013608-6b001884b330"
   ]
 }

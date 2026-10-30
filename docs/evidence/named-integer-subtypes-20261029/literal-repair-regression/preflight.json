@@ -1,0 +1,16 @@
+{
+  "observed_utc": "2026-10-30T01:34:35.752166+00:00",
+  "baseline": "6020416906b5fc3d2bd10d012e70937c80f0617c",
+  "implementation_commit": "d4e2be67b5de7fcc2919cf9eac6efb217e5ca672",
+  "validation_before": "b05fc811831934057b47f2aa8b662c2f9be72b2b",
+  "governed_inputs_checked": 787,
+  "unexpected_drift": [],
+  "synchronized": {
+    "proof/Silver/ScalarExpressionSourceShape.lean": "ec4bba7fdecb383e664880583eb187774daa4b014a7edd9764c12821892f5938",
+    "proof/Silver/ScalarExpressionSourceChecks.lean": "983576a17b462f1c6c94e030353407f2cb4ea7dff4065caef141c3e682e65acb",
+    "proof/Silver/PredicateBasicSourceCandidate.lean": "7a485013edafc872ac68392278cd05e9a31297c1fee74a4fa1c80a689f439d79",
+    "proof/Silver/PredicateLoopCandidate.lean": "690ffd7695cda2ccc08980bee7952516b5f837bdac48bbfc9eb4a8073209991e",
+    "proof/Silver/PredicateAdapterSourceCandidate.lean": "b2ca7daba87e051b1a11cd66e820cc5923f87ba780c404228d59c6d5ecb0e08b"
+  },
+  "native_source_sha256": "84779089d15b9e7990fd806de3a8965edfb5bdeacac2c02544cb0c9d28ba6a8a"
+}

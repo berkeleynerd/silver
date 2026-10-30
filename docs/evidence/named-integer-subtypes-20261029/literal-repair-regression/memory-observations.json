@@ -1,0 +1,20 @@
+[
+  {
+    "utc": "2026-10-30T01:35:28.223153+00:00",
+    "meminfo_kib": {
+      "MemTotal": 32950036,
+      "MemAvailable": 31168300,
+      "SwapTotal": 0,
+      "SwapFree": 0
+    }
+  },
+  {
+    "utc": "2026-10-30T01:38:27.156016+00:00",
+    "meminfo_kib": {
+      "MemTotal": 32950036,
+      "MemAvailable": 29786592,
+      "SwapTotal": 0,
+      "SwapFree": 0
+    }
+  }
+]
