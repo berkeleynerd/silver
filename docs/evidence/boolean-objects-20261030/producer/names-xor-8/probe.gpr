@@ -1,0 +1,7 @@
+project Probe is
+   for Source_Dirs use (".");
+   for Object_Dir use "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/boolean-producer/names-xor-8";
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnat2022", "-gnata", "-gnato");
+   end Compiler;
+end Probe;

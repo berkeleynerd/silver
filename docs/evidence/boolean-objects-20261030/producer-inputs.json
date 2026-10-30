@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-30",
+  "scope": "Producer source input identities for Boolean objects and expressions. Bounded xor/equality producer observations retained separately; source correspondence and complete native assurance remain required.",
+  "spark_revision": "42554fc241fcd1fdf08d3a2feccb3f86912acbc0",
+  "why3_revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "gcc_revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "files": {
+    "gnat2why-expr.adb": {
+      "path": "tmp/review-capacity-343c2f8/tmp/producer-source/src/why/gnat2why-expr.adb",
+      "sha256": "750ed73091af62c0b522077c2e59e10f496b91a4bee323b3b822fba15094dd14"
+    },
+    "why-gen-expr.adb": {
+      "path": "tmp/review-capacity-343c2f8/tmp/producer-source/src/why/why-gen-expr.adb",
+      "sha256": "9891d54331f76713685fce8f21501d549485a46c35593ac68ba572c9f0f5a432"
+    },
+    "why-atree-to_json.adb-tmpl": {
+      "path": "tmp/review-capacity-343c2f8/tmp/producer-source/src/why/xgen/why-atree-to_json.adb-tmpl",
+      "sha256": "634f218e59e225ced82095a509f1e074a5681d5143e71f2a32dd886f3882465e"
+    },
+    "gnat_checks.ml": {
+      "path": "tmp/review-capacity-343c2f8/tmp/producer-source/why3/src/gnat/gnat_checks.ml",
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "gnat_report.ml": {
+      "path": "tmp/review-capacity-343c2f8/tmp/producer-source/why3/src/gnat/gnat_report.ml",
+      "sha256": "05f1b53ec047dfb80b80419d3f29ac88669a16bbeefe0e8ddd49ae7a1369ed01"
+    },
+    "flow-analysis.adb": {
+      "path": "tmp/review-capacity-343c2f8/tmp/producer-source/src/flow/flow-analysis.adb",
+      "sha256": "10dab62c866ca03c5fd9dfefc2f70ea348797f18fb4703ffa69be1ceb9ff9c94"
+    },
+    "exp_ch4.adb": {
+      "path": "tmp/frontend-capacity-20261016/exp_ch4.adb",
+      "sha256": "f18358be377c888d5f7f6e810bce48981b006358858985457c2b35d182fe5669"
+    }
+  }
+}
