@@ -105,7 +105,7 @@ class BooleanObjectTests(unittest.TestCase):
 
     def test_native_boolean_hiding_and_loop_scope_restoration(self) -> None:
         declarations = (b'True:Boolean:=False;False:Boolean:=not True;'
-                        b'Put:Boolean:=True;Put_Line:Boolean:=False;')
+                        b'Put:Boolean:=not True;Put_Line:Boolean:=True;')
         body = (b'for True in 1..2 loop '
                 b'if True=1 then Put_Line:=Put;end if;end loop;'
                 b'if (not True) and False and Put_Line then '
