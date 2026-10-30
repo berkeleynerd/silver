@@ -26,7 +26,7 @@ private theorem decideIf {α : Type} (p : Prop) [Decidable p] (yes no : α) :
     (if decide p then yes else no) = (if p then yes else no) := by simp
 
 theorem interpreted_arrayValuesModel (calls : Calls)
-    (equations : HelperEquations calls (domain := domain))
+    (equations : RawHelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (source result : ParserState)
     (position length parsed : Nat) (componentBounds : Integer.Interval)
     (componentsBounded : componentBounds.Bounded)
@@ -91,7 +91,7 @@ termination_by length - parsed
 decreasing_by omega
 
 theorem interpreted_arrayValues (calls : Calls)
-    (equations : HelperEquations calls (domain := domain))
+    (equations : RawHelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (source result : ParserState)
     (position length parsed : Nat) (componentBounds : Integer.Interval)
     (componentsBounded : componentBounds.Bounded)
@@ -101,7 +101,7 @@ theorem interpreted_arrayValues (calls : Calls)
   (equations.arrayValues text valid source result position length parsed componentBounds componentsBounded context).trans
     (interpreted_arrayValuesModel calls equations text valid source result position length parsed componentBounds componentsBounded context)
 
-theorem interpreted_arrayParts (calls : Calls) (equations : HelperEquations calls (domain := domain))
+theorem interpreted_arrayParts (calls : Calls) (equations : RawHelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (state : ParserState)
     (stateValid : domain.holds text state) :
     arrayPartsEquation calls text state = arrayDeclarationParts text state := by
@@ -159,7 +159,7 @@ theorem interpreted_arrayParts (calls : Calls) (equations : HelperEquations call
   rfl
 
 
-theorem interpreted_arrayDeclaration (calls : Calls) (equations : HelperEquations calls (domain := domain))
+theorem interpreted_arrayDeclaration (calls : Calls) (equations : RawHelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (state : ParserState) (arguments : Bool)
     (stateValid : domain.holds text state) :
     calls.function .arrayDeclaration text state arguments = arrayDeclarationAt text state arguments := by
@@ -175,7 +175,7 @@ theorem interpreted_arrayDeclaration (calls : Calls) (equations : HelperEquation
   generalize partsEq : arrayDeclarationParts text state = parts
   have positions : ArrayPartsBounds text parts := by
     rw [← partsEq]
-    exact model_arrayParts_valid text state vstate.1 vstate.2.2.2.2.2.2.2
+    exact model_arrayParts_valid text state vstate.1 vstate.2.2.2.2.2.2.2.1
   have ename := interpreted_newName calls equations text valid state parts.first parts.after arguments
     stateValid positions.first positions.after
   have estring := interpreted_lookup calls equations text valid state.names parts.typeFirst parts.typeAfter
@@ -214,7 +214,7 @@ theorem interpreted_arrayDeclaration (calls : Calls) (equations : HelperEquation
         have highSafe := positions.upperBounds.1
         simp only [ArrayBindings.ValidBinding, ArrayDeclarationParts.binding, ArrayDeclarationParts.length]
         exact ⟨⟨lowSafe, highSafe⟩, ordered, by omega, by omega, by omega,
-          positions.componentBounds, typeReading.nonempty vstate.2.2.2.2.2.2.2⟩
+          positions.componentBounds, typeReading.nonempty vstate.2.2.2.2.2.2.2.1⟩
       have capacity : state.arrayNames.used + parts.length ≤ ArrayBindings.maxElements := bindingValid.2.2.2.1
       have initialContext (position : Nat) (bounded : ValidCursor text position) :
           ArrayValuesDomain text state state position parts.length 0 domain :=

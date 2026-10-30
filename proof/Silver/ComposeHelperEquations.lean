@@ -700,7 +700,7 @@ private theorem declarationGate {α : Type} (a : Bool) (b c : Prop) [Decidable b
     split <;> assumption
   have btypeFirst : ValidCursor text typeFirst := model_skip_valid text _ bchoice
   have btypeAfter : ValidCursor text typeAfter := scalarTypeAt_position_valid text state typeFirst
-  have baseValid : typeMark.bounds.Bounded := scalarTypeAt_bounded text state typeFirst (domain.valid text state stateValid).2.2.2.2.2.2.2
+  have baseValid : typeMark.bounds.Bounded := scalarTypeAt_bounded text state typeFirst (domain.valid text state stateValid).2.2.2.2.2.2.2.1
   have bconstraint : ValidCursor text constraint.after := scalarConstraintAt_position_valid text typeAfter state.scalarNames btypeAfter
   have bposition : ValidCursor text position := model_fixed_valid text constraint.after ":=" false bconstraint
   have bvalue : ValidCursor text value.after ∧ value.bounds.Bounded := by

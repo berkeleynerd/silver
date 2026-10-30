@@ -185,7 +185,7 @@ structure Frame where
   text : Source := []
   scan : ScanResult := invalidScan
   body : BodyScan := ⟨0, 0, 0, ⟨PathFacts.Context.empty, []⟩, false, false⟩
-  context : Native.Context := ⟨[], 0, 0, [], 0, [], {}⟩
+  context : Native.Context := {names := [], dynamicFirst := 0, dynamicAfter := 0}
   arrays : ArrayBindings.Env := {}
   subtypes : IntegerSubtypes.Environment := {}
   result : BodyScan := ⟨0, 0, 0, ⟨PathFacts.Context.empty, []⟩, false, false⟩
