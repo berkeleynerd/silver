@@ -1,0 +1,41 @@
+{
+  "run_id": "20261030T205242-3d1308b90ec1",
+  "terminal_all_input_hashes_match": true,
+  "input_count": 2561,
+  "candidate_sha256": "88b54a1df3e6cb1b59c482d36cd29a9f15c2506c69227fbef78c9ab93ab67ddb",
+  "files": {
+    "events.jsonl": {
+      "sha256": "ab18eee004ac1c36fc82e17787b2b7cd924c2f74763df1c7895728863cca2c9a",
+      "bytes": 444652
+    },
+    "native.log": {
+      "sha256": "b9a95e757510c9f43414aed4c74e7b129e023c685a1d7f2dc05337ce4c75d68d",
+      "bytes": 14125
+    },
+    "gnatprove.out": {
+      "sha256": "83299dd23ae2411cae88000e59d7d2346979b732d1b6315dd849f2824eb17c64",
+      "bytes": 3047
+    },
+    "silver_output_profile.spark": {
+      "sha256": "72c777367e41fb0ac43acd10fe6da67309e8835fb748f752e0e82d4a1744720e",
+      "bytes": 634073
+    },
+    "silver_output_profile.adb": {
+      "sha256": "88b54a1df3e6cb1b59c482d36cd29a9f15c2506c69227fbef78c9ab93ab67ddb",
+      "bytes": 262244
+    },
+    "why3session.xml": {
+      "sha256": "51348506244eecceea74ca354d885a693dd6c8f3885e83892bd2b88987f39207",
+      "bytes": 235296
+    },
+    "why3shapes": {
+      "sha256": "c1624030777b96cc4222dc452febdf896eafec1b10167909a9df5d3526573956",
+      "bytes": 1076377
+    },
+    "silver_output_profile__read_chain_into.gnat-json": {
+      "sha256": "fa26d1cf37ea6c36be6e703aa6063e4eaa4bb32efb3d15330bbe2ad26aa0d443",
+      "bytes": 18027097,
+      "retained_locally": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261030T205242-3d1308b90ec1/supplemental-focused-task/silver_output_profile__read_chain_into.gnat-json.gz"
+    }
+  }
+}

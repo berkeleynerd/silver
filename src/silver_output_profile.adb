@@ -3090,25 +3090,60 @@ is
       Facts : Scalar_Flow; Result : out Condition_Result;
       Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values) is
       Operator : Comparison_Result;
+      Expected : constant Condition_Result (Facts.Count) :=
+        Boolean_Relation_Model (Text, Context, Position, Facts, Initials) with Ghost => Static;
    begin
+      Lemma_Condition_Equality
+        (Expected, Boolean_Relation_Model (Text, Context, Position, Facts, Initials));
       Read_Boolean_Factor_Into (Text, Context, Position, Facts, Result, Initials);
+      Lemma_Condition_Equality
+        (Result, Boolean_Factor_Model (Text, Context, Position, Facts, Initials));
       if Result.After = 0 then
+         pragma Assert (Static => Same_Condition (Expected, Invalid_Condition (Facts)));
          Invalidate_Condition (Facts, Result);
+         Lemma_Condition_Equality (Result, Invalid_Condition (Facts));
+         pragma Assert (Static => Same_Condition (Result, Expected));
          return;
       end if;
       Operator := Scalar_Comparison_At (Text, Result.After);
-      if Operator.After = 0 then return; end if;
-      if Operator.Operator not in Paths.Equal | Paths.Unequal then
-         Invalidate_Condition (Facts, Result);
+      if Operator.After = 0 then
+         pragma Assert (Static => Same_Condition (Result, Expected));
          return;
       end if;
-      Read_Boolean_Factor_Into (Text, Context, Operator.After, Facts, Result, Initials);
-      if Result.After = 0 then
+      if Operator.Operator not in Paths.Equal | Paths.Unequal then
+         pragma Assert (Static => Same_Condition (Expected, Invalid_Condition (Facts)));
          Invalidate_Condition (Facts, Result);
-      else
-         Result.When_True := Facts;
-         Result.When_False := Facts;
+         Lemma_Condition_Equality (Result, Invalid_Condition (Facts));
+         pragma Assert (Static => Same_Condition (Result, Expected));
+         return;
       end if;
+      declare
+         Right_Model : constant Condition_Result (Facts.Count) :=
+           Boolean_Factor_Model (Text, Context, Operator.After, Facts, Initials) with Ghost => Static;
+         Branch_Result : constant Condition_Result (Facts.Count) :=
+           (if Right_Model.After = 0 then Invalid_Condition (Facts)
+            else (Facts.Count, Right_Model.After, Facts, Facts)) with Ghost => Static;
+      begin
+         Lemma_Condition_Equality
+           (Right_Model, Boolean_Factor_Model (Text, Context, Operator.After, Facts, Initials));
+         Lemma_Condition_Equality
+           (Branch_Result, (if Right_Model.After = 0 then Invalid_Condition (Facts)
+                            else (Facts.Count, Right_Model.After, Facts, Facts)));
+         pragma Assert (Static => Same_Condition (Expected, Branch_Result));
+         Read_Boolean_Factor_Into (Text, Context, Operator.After, Facts, Result, Initials);
+         Lemma_Condition_Equality
+           (Result, Boolean_Factor_Model (Text, Context, Operator.After, Facts, Initials));
+         pragma Assert (Static => Same_Condition (Result, Right_Model));
+         if Result.After = 0 then
+            Invalidate_Condition (Facts, Result);
+            Lemma_Condition_Equality (Result, Invalid_Condition (Facts));
+         else
+            Result.When_True := Facts;
+            Result.When_False := Facts;
+         end if;
+         pragma Assert (Static => Same_Condition (Result, Branch_Result));
+      end;
+      pragma Assert (Static => Same_Condition (Result, Expected));
    end Read_Boolean_Relation_Into;
    procedure Read_Relation_Into
      (Text : String; Context : Body_Context; Position : Literal_Position;
@@ -3393,7 +3428,7 @@ is
                else
                   Read_Relation_Into (Text, Context, After, Incoming, Right, Initials);
                   Lemma_Condition_Equality
-                    (Right, Relation_Model (Text, Context, After, Incoming, Initials));
+                    (Right, Right_Model);
                   pragma Assert (Static => Same_Condition (Right, Right_Model));
                end if;
                pragma Assert (Static => Right = Right_Model);

@@ -40,3 +40,67 @@ Selected native worker: GPT-6 Astra / Extra High. Runtime model confirmation and
 token/cost measurements are unavailable. The measured duration above is managed
 native execution; the unresolved equality transport is being independently
 reviewed before another expensive focused attempt.
+
+## First-branch equality transports: passed
+
+Run `20261030T202646-fa34b49690a8` passed in 787.882 s on candidate
+`32b2915b2b66bc6e506549c2fb021c9e81814d413b76b4ff9f96b87918efb2c8`.
+Its selected region, lines 3093–3105, covers the Expected/model equality helper,
+first factor/model helper, checked invalid-branch model fact, invalidator-result
+helper and final first-branch equality assertion. GNATprove reports 336 checks:
+323 unit flow checks and 13 selected proof checks, all proved. All 2,561 terminal
+input hashes match the captured inputs. Original solver settings were retained.
+
+This establishes the selected first branch and its new helper preconditions;
+it does not establish the unselected reader branches. The `relation-transport-first/`
+packet retains the original reports, session, source and input verification.
+Region selection still processes unrelated generated unit tasks; the installed
+tool makes subprogram and region selectors mutually exclusive. The run was
+preserved rather than restarted. Subsequent whole-reader validation uses the
+subprogram selector. Checked transports have now been extended across the
+remaining branches for the next complete reader check.
+
+## Complete Boolean relation reader: passed
+
+Run `20261030T204257-8cba82ab7a71` passed all 56 checks (3 flow and 53 proof)
+in 570.866 s. It selected the complete `Read_Boolean_Relation_Into` subprogram,
+including its original exact Static postcondition and every added helper
+precondition/assertion. Candidate source SHA-256 is
+`88b54a1df3e6cb1b59c482d36cd29a9f15c2506c69227fbef78c9ab93ab67ddb`;
+all 2,561 terminal input hashes match. The `relation-full/` packet retains the
+source, reports, session and verification record.
+
+The final relation change explicitly transports the constrained Expected,
+Right_Model and Branch_Result values through the already verified equality
+helper. Factor-reader and invalidator results receive the same checked
+conversion from Ada record equality to logical identity. Each model branch is
+established before changing the corresponding runtime result. No contract,
+helper domain, runtime statement sequence or proof limit changed. Independent
+static review of these exact bytes found no issue. The complete chain result
+follows below.
+
+## Complete chain reader: passed
+
+Run `20261030T205242-3d1308b90ec1` passed all 204 checks (4 flow and 200 proof)
+in 3020.054 s on the same `88b54a1d` candidate. It selected the complete
+`Read_Chain_Into`, including the original exact postcondition, every existing
+assertion, and the changed equality-helper call. Its eager branch now supplies
+the already established `Right_Model` ghost value, preserving the helper's exact
+Ada-equality precondition and logical-equality postcondition. All 2,561 terminal
+input hashes match; the `chain/` packet retains the exact source, reports,
+session and verification record. Large generated tasks remain in the local
+managed ledger with explicit hashes and paths, rather than duplicated in Git.
+
+Both complete focused readers now pass under the original level-2,
+30-second, CVC5/Z3/Alt-Ergo settings, with four reserved workers. Independent
+Astra/Extra High static review of the exact source found no issue. The successful
+round used the same selected native worker, GPT-6 Astra / Extra High; runtime
+model confirmation and token/cost measurements remain unavailable. Durations
+above measure individual managed native runs, not total team elapsed time or
+controlled cache-performance comparisons.
+
+The source repair is ready for integration and source-pin/certificate refresh.
+A matching compiler build, complete strict native audit, complete Lean source
+correspondence and the reviewed regression scope remain required. The installed
+native worktree retains this frozen validation source until the complete native
+result is retained and its two original temporary replacements are restored.

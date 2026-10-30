@@ -1,0 +1,25 @@
+{
+  "duration_seconds": 3020.053665398,
+  "event": "finished",
+  "evidence": [
+    {
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/obj/explore/boolean-terminal-repair-chain/gnatprove",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/obj/explore/boolean-terminal-repair-chain/gnatprove"
+    },
+    {
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261030T205242-3d1308b90ec1/native.log",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261030T205242-3d1308b90ec1/native.log"
+    },
+    {
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261030T205242-3d1308b90ec1/exploratory-evidence",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261030T205242-3d1308b90ec1/exploratory-evidence"
+    }
+  ],
+  "failure_keys": [],
+  "monotonic_ns": 7564720190878,
+  "outcome": "success",
+  "retained_reports": [],
+  "returncode": null,
+  "run_id": "20261030T205242-3d1308b90ec1",
+  "utc": "2026-10-30T21:43:05.673325+00:00"
+}
