@@ -256,7 +256,13 @@ admitted, proved, compiled and executed three 4,096-byte programs under an actua
 foreach levels and 208 conditional levels. These input/build-specific observations
 used native source `a0d1a69463` and the binary rebuilt at `39d96fa9e5`, before the
 later ghost logical-equality annotation repair. They do not measure the final
-binary or establish a universal worst-case bound. Adequate memory and normal runtime
+subtype binary or establish a universal worst-case bound. The
+[2026-10-30 Boolean observations](docs/evidence/boolean-objects-20261030/loop-stack/README.md)
+repeat the 141-level counted and 158-level singleton-foreach checks, proof-backed
+compiles and executions on the final Boolean native source under 8 MiB.
+The compiler's reported fixed portion of the dynamic loop frame grows from
+31,968 to 35,776 bytes; this figure is not a total stack bound.
+Adequate memory and normal runtime
 startup remain [environmental requirements](docs/trusted-boundary.md#trusted-computing-base).
 
 ```sh

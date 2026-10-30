@@ -121,7 +121,15 @@ actual 8 MiB process stack: 141 counted-loop levels, 158 singleton constant-arra
 foreach levels and 208 conditional levels. They measured native source
 `a0d1a69463` with the binary rebuilt at `39d96fa9e5`, before the later ghost
 logical-equality annotation repair. They retain their input/build-specific scope;
-they do not measure the final binary or establish a universal worst-case bound.
+they do not measure the final subtype binary or establish a universal worst-case bound.
+The [2026-10-30 Boolean observations](evidence/boolean-objects-20261030/loop-stack/README.md)
+compare parent `fa6b5e982c` with the final Boolean native source. The reported
+fixed portion of the dynamic `Loop_Body` frame grows from 31,968 to 35,776 bytes.
+Both retained 4,096-byte loop fixtures (141 counted levels and 158 singleton
+foreach levels) pass admission, proof-backed compilation and execution at an
+actual 8,192 KiB stack. Each report set passes an independent 66-check audit.
+These observations do not bound all dynamic stack allocations or establish a
+universal stack limit.
 Per-level environment-copy redesign remains deferred with #119.
 The external
 [sequencing review](reviews/review-9b99d52.md) observed `Storage_Error` and exit

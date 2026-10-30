@@ -10,6 +10,10 @@ source correspondence or feature support.
 - [Native validation](native-validation.md) and [repairs](native-repair.md):
   builds, focused regressions, stack observations and native proof experiments,
   with failed attempts retained as failed.
+- [Final focused tests](final-focused/README.md) and
+  [final loop-stack observations](loop-stack/README.md): matched final native
+  build, catalogue parity, corrected hiding fixture and both retained deepest
+  loop programs under an actual 8 MiB process stack.
 - [Declaration interpretation](declaration-body/README.md) and
   [header integration](header-program/README.md): typed declaration meaning,
   actual native domains and ordered declaration composition.
