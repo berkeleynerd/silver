@@ -128,7 +128,9 @@ results are focused assurance, not complete language support.
 The array-declaration Static equality repair passed its focused native check
 with the exact original contract retained; the
 [repair record](evidence/boolean-objects-20261030/native-repair.md) also records
-the remaining String flow-reader equality obligation. Ordered Boolean header
+the String flow-reader equality repair. Reusing the existing
+`Integer_Type_Word` constant at its two identical literal sites passed all
+18 focused checks in `20261030T122217-a1313f11b288`, retaining the exact contract. Ordered Boolean header
 and program integration passed a focused 156-module / 17,972-declaration audit
 in run `20261030T112011-d69c83717868`.
 
@@ -136,8 +138,10 @@ Source integration found an initializer-domain mismatch, independently
 confirmed against Ada and filed as [#293](https://github.com/berkeleynerd/silver/issues/293).
 The [review](reviews/review-boolean-flow-domain-201d7e7cfc.md) explains why mutable
 flow facts must be contained in declared bounds even when an initializer's
-snapshot is narrower. The repair must cover that full native domain before
-the feature's actual-source assurance can complete.
+snapshot is narrower. The repaired flow domain, preservation and initial-flow proofs now pass focused
+checks, as do the native predicate model, correspondence and contracts on that
+domain. The issue remains open until the complete actual-source checkpoint
+consumes the repair.
 
 The broader integration check also exposed an auxiliary scalar-declaration
 equation with an extra rejection clause, filed as
@@ -145,7 +149,10 @@ equation with an extra rejection clause, filed as
 [review](reviews/review-boolean-scalar-equation-33649e1ee5.md) distinguishes the
 transcription error from the consistent Ada, typed body and admission model.
 The failed elaboration experiments are retained; increasing their limits did
-not repair the mismatch.
+not repair the mismatch. Removing the extra clause restored the original
+`by rfl` proof under its original limit. Managed run
+`20261030T120915-bfba5cd5f580` passed its focused build and fresh audit of
+10,643 declarations.
 
 Remaining: the complete Compose and Predicate actual-source joins, including
 the exact Boolean declaration interpretation and #293; final native proof,
@@ -156,3 +163,4 @@ establish final assurance.
 | Round | Selected settings | Result and remaining work | Measurement scope |
 | --- | --- | --- | --- |
 | Boolean semantic/source integration, 2026-10-30 | Existing proof/source/native subthreads: GPT-6 Astra / Extra High. Lead runtime setting and whole-team token/cost totals unavailable. | Condition validity/uniqueness, exact declaration payloads, assignment typed source and body semantic checkpoints passed; complete source/capability integration remains open. | Final combined body/helper focused build 41.019 s plus fresh audit 7.139 s; preceding development failures retained in the managed ledger. These are native tool times, not total implementation time. |
+| Helper/domain integration, 2026-10-30 | Continuing source, proof-architecture and native subthreads: previously selected GPT-6 Astra / Extra High; runtime confirmation and whole-team token/cost totals unavailable. | #293 native-domain repair and #294 scalar equation repair passed focused checks. Raw helper equations are separated from the Boolean declaration law, which the source bridge derives from interpreted callees. Final source/model integration remains unchecked. | Scalar denotation build 336.697 s and audit 6.120 s. String native repair 65.257 s. Shared helper build 337 s; later dependency failures remain recorded as failed runs. |

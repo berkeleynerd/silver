@@ -204,6 +204,26 @@ whole-project Lean/module/axiom audit for the implemented feature in
 [PR #289](https://github.com/berkeleynerd/silver/pull/289), awaiting the owner's
 merge instruction. Earlier stack observations retain their exact measured inputs.
 
+## Boolean scalar boundary
+
+The pending [Boolean extension](boolean-objects.md) retains the pinned Ada,
+SPARK, Why3 and solver premises, the existing runtime imports and report policy.
+Boolean values use predefined Standard.Boolean meaning. Eager logical operators
+evaluate both operands; short-circuit operators preserve Ada's conditional
+evaluation. Stored flags do not assert relations to other values or to external
+input validity.
+
+The [producer review](evidence/boolean-objects-20261030/producer-review.md)
+identifies Boolean logical, comparison, conversion and flow-advisory routes.
+They use existing operand obligations and introduce no new root safety class.
+The xor producer expands each operand twice, so the language excludes an xor
+inside either operand of another xor. This is a restriction for the pinned
+toolchain's formula capacity, not an Ada requirement. Independent xor operations
+and ordinary Boolean temporaries remain admitted by the implementation target.
+The existing source and arithmetic budgets and 32 MiB report allocation remain
+unchanged. Final native, source-correspondence and regression evidence is still
+required before the capability is described as supported.
+
 ## Scalar guard refinement boundary
 
 The [guard delivery](scalar-guard-refinement.md#delivery-assurance-and-validation)

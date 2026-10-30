@@ -64,6 +64,48 @@ The assurance targets are the User's Guide definitions of
 The [trusted boundary](trusted-boundary.md) names the frontend, proof tools,
 runtime imports, ABI and environmental assumptions used throughout.
 
+## Boolean scalar objects and expressions
+
+The [Boolean capability](boolean-objects.md) is pending its complete validation
+checkpoint. The following describes the implemented proof structure; focused
+checks do not yet establish completed support.
+
+`BooleanBindings` separates initialized Boolean storage and visibility from
+Integer and String bindings. The ordered declaration semantics preserve the
+initializer's value, including immutable snapshots. `ComposeBooleanDeclarations`
+and the predicate model use earlier declarations' exact elaboration values;
+body reads and writes retain the declared scalar and array domains. A stored
+Boolean value carries no relation to the Integer, String or argument-validity
+facts from which it was computed. Boolean assignment therefore cannot recover
+an earlier guard or justify a later unsafe operation.
+
+The predicate semantics distinguish eager `and`, `or` and `xor` from
+`and then` and `or else`. Eager operands must both be safe under the incoming
+facts, and their result contributes no operand-derived refinement. Short-circuit
+forms pass the appropriate outcome facts to their right operand. Boolean
+negation swaps outcomes; Boolean equality compares values without retaining
+relations to the expressions that produced them. Existing scalar, String,
+argument-validity and loop-composition arguments apply through the extended
+condition and body models.
+
+Actual-source interpretation uses typed Boolean declaration and assignment
+bodies, checked precedence and scope, and authoritative token equality.
+`ComposeBooleanDeclarationLibraries` connects each raw declaration callee to its
+checked lexical, binding, initial-flow or condition-reader interpretation on the
+native ready domain. The declaration equation follows from those meanings; it
+is not an assumed equality between the compiler scanner and the admission model.
+`PredicateFlowBounds` permits mutable flow facts within their declared bounds,
+including during elaboration, matching the native precondition. The Boolean
+binding and xor lexical-scanner checks join the complete source requirements.
+
+The [producer account](evidence/boolean-objects-20261030/producer-review.md)
+uses the existing safety classes and report envelope. Nested xor is excluded
+because the pinned producer duplicates its operand formulas; each xor operand
+must contain no xor. The source restriction is checked lexically, ignoring
+strings, comments and identifier substrings, and is reflected in admission and
+source correspondence. Independent xor expressions remain available. No report
+policy, source budget or required obligation is relaxed.
+
 ## Named Integer subtypes and bounded components
 
 The [delivery record](named-integer-subtypes.md#delivery-assurance-and-validation)
