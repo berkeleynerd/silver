@@ -1,6 +1,6 @@
 module
 
-public import Silver.PredicateAdmission
+public import Silver.PredicateConditionAdmission
 public import Silver.PredicateStatements
 public import Silver.ComposeBounds
 
@@ -119,10 +119,10 @@ theorem lengthAt_unique {text context position literal left right leftResult rig
             omega⟩)
       | binding _ otherEq _ _ _ _ _ => exact congrArg LengthOperand.binding (indexEq.trans otherEq.symm)
 
-theorem expression_reading_ready {text names scalarNames arrays position expression result}
-    (normal : NamesNormal names) (parsed : ExpressionAt (scalarNames := scalarNames) (arrays := arrays) text names position expression result) :
+theorem expression_reading_ready {text names scalarNames integerHidden arrays initials elaborating position expression result}
+    (normal : NamesNormal names) (parsed : ExpressionAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position expression result) :
     ExpressionReady names.shape expression ∧
-      expression.inferLength names.shape (ArrayBindings.ranges arrays [] false (ScalarExpression.ranges scalarNames)) = some result.lengthSummary := by
+      expression.inferLength names.shape (ArrayBindings.ranges arrays initials elaborating (ScalarExpression.ranges scalarNames)) = some result.lengthSummary := by
   have readable := expressionTail_readable parsed
   have count := expressionTail_count normal (by simp) parsed
   have nonempty := expressionTail_nonempty normal (by simp) rfl rfl parsed

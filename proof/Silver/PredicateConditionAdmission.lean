@@ -109,13 +109,19 @@ def readScalarInFlow (text : Source) (context : ParseContext) (position : Nat) (
   ScalarExpression.read text position (context.readingNames facts) maskFirst maskAfter
     (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating)
 
+def ParseContext.integerHidden (context : ParseContext) (text : Source) : Bool :=
+  BooleanBindings.hidesInteger text context.booleanNames ||
+      (decide (context.maskFirst ≠ 0) &&
+        Named.nameIs text context.maskFirst context.maskAfter ("integer".toList.map Char.toNat))
+
+def ParseContext.validityHidden (context : ParseContext) (text : Source) : Bool :=
+  context.subtypeHiding.get .validity || (decide (context.maskFirst ≠ 0) &&
+    Named.nameIs text context.maskFirst context.maskAfter ("input_is_valid".toList.map Char.toNat))
+
 def readStringInFlow (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
     (initials : ArrayBindings.Initials := []) : ExpressionResult :=
   expressionAt text position context.names (context.readingNames facts)
-    (BooleanBindings.hidesInteger text context.booleanNames ||
-      (decide (context.maskFirst ≠ 0) &&
-        Named.nameIs text context.maskFirst context.maskAfter ("integer".toList.map Char.toNat)))
-    context.arrayNames initials context.elaborating
+    (context.integerHidden text) context.arrayNames initials context.elaborating
 
 def Comparison.toInteger : Comparison → Integer.Comparison
   | .eq => .eq | .ne => .ne | .lt => .lt | .le => .le | .gt => .gt | .ge => .ge
@@ -249,8 +255,7 @@ mutual
     else if !context.hasArguments then invalidCondition facts
     else
       let afterCall := callAfter text context.names position .validity context.scalarNames context.arrayNames
-        (context.subtypeHiding.get .validity || (decide (context.maskFirst ≠ 0) &&
-          Named.nameIs text context.maskFirst context.maskAfter ("input_is_valid".toList.map Char.toNat))) context.booleanNames
+        (context.validityHidden text) context.booleanNames
       if afterCall = 0 then invalidCondition facts else
         ⟨afterCall, {facts with path := facts.path.assumeValid}, {facts with path := facts.path.assumeInvalid}⟩
   termination_by remainingAt text position * 7 + 1

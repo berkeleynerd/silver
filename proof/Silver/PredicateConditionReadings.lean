@@ -21,128 +21,235 @@ def stringResult (facts : ActiveFlow) (left right : ExpressionResult) (operator 
   ⟨right.after, if operator.operator == .eq then equalFacts else facts,
     if operator.operator == .eq then facts else equalFacts⟩
 
-def chainCondition (left right : Condition) (andThen : Bool) : Condition :=
-  if andThen then .andThen left right else .orElse left right
+def chainCondition (left right : Condition) : ChainKind → Condition
+  | .shortAnd => .andThen left right
+  | .shortOr => .orElse left right
+  | .eagerAnd => .eager .and left right
+  | .eagerOr => .eager .or left right
+  | .eagerXor => .eager .xor left right
+
+/-- The atomic meaning is a source identifier lookup or a predefined literal.
+The enclosing admission clause separately checks lexical hiding and masks. -/
+inductive BooleanAtomAt (text : Source) (context : ParseContext) (position : Nat) :
+    Condition → Nat → Prop
+  | name {spelling} :
+      Named.IdentifierAt text (skipAt text position) spelling (nameAfter text (skipAt text position)) →
+      BooleanBindings.lookup text context.booleanNames (skipAt text position) (nameAfter text (skipAt text position)) ≠ 0 →
+      BooleanAtomAt text context position
+        (.booleanName (BooleanBindings.lookup text context.booleanNames (skipAt text position) (nameAfter text (skipAt text position))))
+        (nameAfter text (skipAt text position))
+  | literal {value spelling} :
+      Named.IdentifierAt text (skipAt text position) spelling (nameAfter text (skipAt text position)) →
+      BooleanBindings.lookup text context.booleanNames (skipAt text position) (nameAfter text (skipAt text position)) = 0 →
+      Named.nameIs text (skipAt text position) (nameAfter text (skipAt text position))
+        ((if value then "true" else "false").toList.map Char.toNat) = true →
+      BooleanAtomAt text context position (.booleanLiteral value) (nameAfter text (skipAt text position))
 
 mutual
-  inductive PrimaryAt (text : Source) (context : ParseContext) : Nat → ActiveFlow → Condition → ConditionResult → Prop
+  inductive PrimaryAtCore (text : Source) (context : ParseContext) (initials : ArrayBindings.Initials) :
+      Nat → ActiveFlow → Condition → ConditionResult → Prop
     | group {position facts inner result} : position ≠ 0 →
         fixedAfter text position "(" false ≠ 0 →
         remainingAt text (fixedAfter text position "(" false) < remainingAt text position →
-        ConditionAt text context (fixedAfter text position "(" false) facts inner result →
+        ConditionAtCore text context initials (fixedAfter text position "(" false) facts inner result →
         fixedAfter text result.after ")" false ≠ 0 →
-        PrimaryAt text context position facts (.parenthesized inner)
+        PrimaryAtCore text context initials position facts (.parenthesized inner)
           {result with after := fixedAfter text result.after ")" false}
+    | boolean {position facts atom after} : position ≠ 0 → fixedAfter text position "(" false = 0 →
+        booleanAtomAfter text context position = after → after ≠ 0 →
+        BooleanAtomAt text context position atom after →
+        PrimaryAtCore text context initials position facts atom ⟨after, facts, facts⟩
     | valid {position facts} : position ≠ 0 → fixedAfter text position "(" false = 0 →
-        context.hasArguments = true →
-        callAfter (arrays := context.arrayNames) (subtypeHidden := context.subtypeHiding.get .validity) text context.names position .validity context.scalarNames ≠ 0 →
-        PrimaryAt text context position facts .inputValid
-          ⟨callAfter (arrays := context.arrayNames) (subtypeHidden := context.subtypeHiding.get .validity) text context.names position .validity context.scalarNames, {facts with path := facts.path.assumeValid}, {facts with path := facts.path.assumeInvalid}⟩
+        booleanAtomAfter text context position = 0 → context.hasArguments = true →
+        callAfter text context.names position .validity context.scalarNames context.arrayNames
+          (context.validityHidden text) context.booleanNames ≠ 0 →
+        PrimaryAtCore text context initials position facts .inputValid
+          ⟨callAfter text context.names position .validity context.scalarNames context.arrayNames
+            (context.validityHidden text) context.booleanNames,
+            {facts with path := facts.path.assumeValid}, {facts with path := facts.path.assumeInvalid}⟩
 
-  inductive RelationAt (text : Source) (context : ParseContext) : Nat → ActiveFlow → Condition → ConditionResult → Prop
-    | negated {position facts inner result} : position ≠ 0 →
-        fixedAfter text position "not" true ≠ 0 →
+  inductive BooleanFactorAtCore (text : Source) (context : ParseContext) (initials : ArrayBindings.Initials) :
+      Nat → ActiveFlow → Condition → ConditionResult → Prop
+    | primary {position facts inner result} : fixedAfter text position "not" true = 0 →
+        PrimaryAtCore text context initials position facts inner result →
+        BooleanFactorAtCore text context initials position facts inner result
+    | negated {position facts inner result} : fixedAfter text position "not" true ≠ 0 →
         remainingAt text (fixedAfter text position "not" true) < remainingAt text position →
-        PrimaryAt text context (fixedAfter text position "not" true) facts inner result →
-        RelationAt text context position facts (.negated inner) ⟨result.after, result.whenFalse, result.whenTrue⟩
+        PrimaryAtCore text context initials (fixedAfter text position "not" true) facts inner result →
+        BooleanFactorAtCore text context initials position facts (.negated inner)
+          ⟨result.after, result.whenFalse, result.whenTrue⟩
+
+  inductive BooleanRelationAtCore (text : Source) (context : ParseContext) (initials : ArrayBindings.Initials) :
+      Nat → ActiveFlow → Condition → ConditionResult → Prop
+    | factor {position facts inner result} :
+        BooleanFactorAtCore text context initials position facts inner result → result.after ≠ 0 →
+        (comparisonAt text result.after).after = 0 →
+        BooleanRelationAtCore text context initials position facts inner result
+    | comparison {position facts left right leftResult rightResult} :
+        BooleanFactorAtCore text context initials position facts left leftResult → leftResult.after ≠ 0 →
+        (comparisonAt text leftResult.after).after ≠ 0 →
+        ((comparisonAt text leftResult.after).operator = .eq ∨ (comparisonAt text leftResult.after).operator = .ne) →
+        remainingAt text (comparisonAt text leftResult.after).after < remainingAt text position →
+        BooleanFactorAtCore text context initials (comparisonAt text leftResult.after).after facts right rightResult →
+        rightResult.after ≠ 0 →
+        BooleanRelationAtCore text context initials position facts
+          (.booleanCompare ((comparisonAt text leftResult.after).operator != .eq) left right)
+          ⟨rightResult.after, facts, facts⟩
+
+  inductive RelationAtCore (text : Source) (context : ParseContext) (initials : ArrayBindings.Initials) :
+      Nat → ActiveFlow → Condition → ConditionResult → Prop
+    | booleanNot {position facts inner result} : position ≠ 0 →
+        fixedAfter text position "not" true ≠ 0 →
+        BooleanRelationAtCore text context initials position facts inner result →
+        RelationAtCore text context initials position facts inner result
     | length {position facts left right leftResult rightResult} : position ≠ 0 →
-        fixedAfter text position "not" true = 0 →
-        leftResult.after ≠ 0 →
+        fixedAfter text position "not" true = 0 → leftResult.after ≠ 0 →
         LengthAt text context position false (.binding left) leftResult →
         LengthAt text context (comparisonAt text leftResult.after).after true right rightResult →
         position < rightResult.after →
-        RelationAt text context position facts (.lengthCompare (comparisonAt text leftResult.after).operator left right)
+        RelationAtCore text context initials position facts (.lengthCompare (comparisonAt text leftResult.after).operator left right)
           ⟨rightResult.after,
             refineFlowBounds facts (comparisonAt text leftResult.after).operator leftResult.value rightResult.value true,
             refineFlowBounds facts (comparisonAt text leftResult.after).operator leftResult.value rightResult.value false⟩
     | scalars {position facts left right leftResult rightResult} : position ≠ 0 →
         fixedAfter text position "not" true = 0 → (lengthAt text context position false).after = 0 →
         leftResult.after ≠ 0 →
-        ScalarExpression.At (arrays := context.arrayNames) text (context.readingNames facts) position left leftResult →
-        ScalarExpression.At (arrays := context.arrayNames) text (context.readingNames facts) (comparisonAt text leftResult.after).after right rightResult →
+        ScalarExpression.At text (context.readingNames facts) position left leftResult
+          (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating) →
+        ScalarExpression.At text (context.readingNames facts) (comparisonAt text leftResult.after).after right rightResult
+          (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating) →
         position < rightResult.after →
-        RelationAt text context position facts
+        RelationAtCore text context initials position facts
           (.scalarCompare (comparisonAt text leftResult.after).operator.toInteger left right)
           (scalarCondition text context position (comparisonAt text leftResult.after).after
             facts leftResult rightResult (comparisonAt text leftResult.after).operator)
     | strings {position facts left right leftResult rightResult} : position ≠ 0 →
         fixedAfter text position "not" true = 0 → (lengthAt text context position false).after = 0 →
-        (ScalarExpression.read (arrays := context.arrayNames) text position (context.readingNames facts)).after = 0 →
-        ExpressionAt (scalarNames := context.readingNames facts) (arrays := context.arrayNames) text context.names position left leftResult →
-        ExpressionAt (scalarNames := context.readingNames facts) (arrays := context.arrayNames) text context.names (comparisonAt text leftResult.after).after right rightResult →
+        (readScalarInFlow text context position facts (initials := initials)).after = 0 →
+        ExpressionAt text context.names position left leftResult (scalarNames := context.readingNames facts)
+          (integerHidden := context.integerHidden text) (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating) →
+        ExpressionAt text context.names (comparisonAt text leftResult.after).after right rightResult
+          (scalarNames := context.readingNames facts) (integerHidden := context.integerHidden text)
+          (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating) →
         StringRelationReady facts leftResult rightResult (comparisonAt text leftResult.after) →
         position < rightResult.after →
-        RelationAt text context position facts
+        RelationAtCore text context initials position facts
           (.stringCompare ((comparisonAt text leftResult.after).operator != .eq) left right)
           (stringResult facts leftResult rightResult (comparisonAt text leftResult.after))
     | primary {position facts inner result} : position ≠ 0 →
         fixedAfter text position "not" true = 0 → (lengthAt text context position false).after = 0 →
-        (ScalarExpression.read (arrays := context.arrayNames) text position (context.readingNames facts)).after = 0 →
-        (expressionAt (arrays := context.arrayNames) text position context.names (context.readingNames facts)).after = 0 →
-        PrimaryAt text context position facts inner result →
-        RelationAt text context position facts inner result
+        (readScalarInFlow text context position facts (initials := initials)).after = 0 →
+        (readStringInFlow text context position facts initials).after = 0 →
+        BooleanRelationAtCore text context initials position facts inner result →
+        RelationAtCore text context initials position facts inner result
 
-  inductive ChainAt (text : Source) (context : ParseContext) :
-      Condition → ConditionResult → Option Bool → Condition → ConditionResult → Prop
+  inductive ChainAtCore (text : Source) (context : ParseContext) (initials : ArrayBindings.Initials)
+      (incoming : ActiveFlow) : Condition → ConditionResult → Option ChainKind → Condition → ConditionResult → Prop
     | done {condition result chained} : result.after ≠ 0 → chainOperator text result.after = none →
-        ChainAt text context condition result chained condition result
+        ChainAtCore text context initials incoming condition result chained condition result
     | next {condition result chained operator right rightResult final finalResult} :
-        conditionTail text context result chained = finalResult →
+        conditionTail text context result chained incoming initials = finalResult →
         result.after ≠ 0 → chainOperator text result.after = some operator →
         ¬(chained.isSome = true ∧ chained ≠ some operator) →
         chainAfter text result.after operator ≠ 0 →
         remainingAt text (chainAfter text result.after operator) < remainingAt text result.after →
-        RelationAt text context (chainAfter text result.after operator) (chainContext result operator) right rightResult →
+        RelationAtCore text context initials (chainAfter text result.after operator) (chainContext result operator incoming) right rightResult →
         rightResult.after ≠ 0 →
-        remainingAt text (chainJoin result rightResult operator).after < remainingAt text result.after →
-        ChainAt text context (chainCondition condition right operator) (chainJoin result rightResult operator)
-          (some operator) final finalResult →
-        ChainAt text context condition result chained final finalResult
+        remainingAt text (chainJoin result rightResult operator incoming).after < remainingAt text result.after →
+        ChainAtCore text context initials incoming (chainCondition condition right operator)
+          (chainJoin result rightResult operator incoming) (some operator) final finalResult →
+        ChainAtCore text context initials incoming condition result chained final finalResult
 
-  inductive ConditionAt (text : Source) (context : ParseContext) : Nat → ActiveFlow → Condition → ConditionResult → Prop
+  inductive ConditionAtCore (text : Source) (context : ParseContext) (initials : ArrayBindings.Initials) :
+      Nat → ActiveFlow → Condition → ConditionResult → Prop
     | condition {position facts first result condition final} :
-        readCondition text context position facts = final →
-        RelationAt text context position facts first result → result.after ≠ 0 →
+        readCondition text context position facts initials = final →
+        RelationAtCore text context initials position facts first result → result.after ≠ 0 →
         remainingAt text result.after < remainingAt text position →
-        ChainAt text context first result none condition final →
-        ConditionAt text context position facts condition final
+        ChainAtCore text context initials facts first result none condition final →
+        ConditionAtCore text context initials position facts condition final
 end
 
-theorem condition_complete {text context position facts condition result}
-    (parsed : ConditionAt text context position facts condition result) :
-    readCondition text context position facts = result := by
+abbrev PrimaryAt (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
+    (condition : Condition) (result : ConditionResult) (initials : ArrayBindings.Initials := []) : Prop :=
+  PrimaryAtCore text context initials position facts condition result
+abbrev BooleanFactorAt (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
+    (condition : Condition) (result : ConditionResult) (initials : ArrayBindings.Initials := []) : Prop :=
+  BooleanFactorAtCore text context initials position facts condition result
+abbrev BooleanRelationAt (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
+    (condition : Condition) (result : ConditionResult) (initials : ArrayBindings.Initials := []) : Prop :=
+  BooleanRelationAtCore text context initials position facts condition result
+abbrev RelationAt (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
+    (condition : Condition) (result : ConditionResult) (initials : ArrayBindings.Initials := []) : Prop :=
+  RelationAtCore text context initials position facts condition result
+abbrev ChainAt (text : Source) (context : ParseContext) (condition : Condition) (result : ConditionResult)
+    (chained : Option ChainKind) (final : Condition) (finalResult : ConditionResult)
+    (incoming : ActiveFlow) (initials : ArrayBindings.Initials := []) : Prop :=
+  ChainAtCore text context initials incoming condition result chained final finalResult
+abbrev ConditionAt (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
+    (condition : Condition) (result : ConditionResult) (initials : ArrayBindings.Initials := []) : Prop :=
+  ConditionAtCore text context initials position facts condition result
+
+theorem condition_complete {text context position facts condition result initials}
+    (parsed : ConditionAt text context position facts condition result initials) :
+    readCondition text context position facts initials = result := by
   cases parsed with | condition scanned => exact scanned
 
-theorem primary_complete {text context position facts condition result}
-    (parsed : PrimaryAt text context position facts condition result) :
-    readPrimary text context position facts = result := by
+theorem primary_complete {text context position facts condition result initials}
+    (parsed : PrimaryAt text context position facts condition result initials) :
+    readPrimary text context position facts initials = result := by
   cases parsed with
   | group positive opening advanced inner closed =>
       rw [readPrimary]
       simp [positive, opening, advanced, condition_complete inner, closed]
-  | valid positive noOpening arguments accepted =>
-      simp only [readPrimary, positive, noOpening, arguments, Bool.not_true, Bool.false_eq_true,
+  | boolean positive noOpening afterEq nonzero atom =>
+      simp only [readPrimary, positive, noOpening, afterEq, nonzero, ne_eq,
+        not_true_eq_false, not_false_eq_true, ↓reduceIte]
+  | valid positive noOpening noAtom arguments accepted =>
+      simp only [readPrimary, positive, noOpening, noAtom, arguments, Bool.not_true, Bool.false_eq_true,
         ne_eq, not_true_eq_false, ↓reduceIte, accepted]
 
-
-theorem relation_complete {text context position facts condition result}
-    (parsed : RelationAt text context position facts condition result) :
-    readRelation text context position facts = result := by
+theorem booleanFactor_complete {text context position facts condition result initials}
+    (parsed : BooleanFactorAt text context position facts condition result initials) :
+    readBooleanFactor text context position facts initials = result := by
   cases parsed with
-  | negated positive opening advanced inner =>
+  | primary noNot inner => simp only [readBooleanFactor, noNot, ↓reduceIte, primary_complete inner]
+  | negated opening advanced inner =>
+      rw [readBooleanFactor]
+      simp [opening, advanced, primary_complete inner]
+
+theorem booleanRelation_complete {text context position facts condition result initials}
+    (parsed : BooleanRelationAt text context position facts condition result initials) :
+    readBooleanRelation text context position facts initials = result := by
+  cases parsed with
+  | factor inner nonzero noComparison =>
+      simp only [readBooleanRelation, booleanFactor_complete inner, nonzero, noComparison, ↓reduceIte]
+  | comparison left nonzero hasComparison allowed advanced right rightNonzero =>
+      have admitted : ¬((comparisonAt text _).operator ≠ .eq ∧ (comparisonAt text _).operator ≠ .ne) := by
+        rcases allowed with equal | unequal
+        · exact fun bad => bad.1 equal
+        · exact fun bad => bad.2 unequal
+      simp only [readBooleanRelation, booleanFactor_complete left, nonzero, hasComparison, admitted,
+        advanced, booleanFactor_complete right, rightNonzero, ↓reduceIte, ↓reduceDIte]
+
+theorem relation_complete {text context position facts condition result initials}
+    (parsed : RelationAt text context position facts condition result initials) :
+    readRelation text context position facts initials = result := by
+  cases parsed with
+  | booleanNot positive opening inner =>
       rw [readRelation]
-      simp [positive, opening, advanced, primary_complete inner]
+      simp [positive, opening, booleanRelation_complete inner]
   | length positive noNot leftPositive left right advanced =>
       rw [readRelation]
       simp [positive, noNot, lengthAt_complete left, leftPositive, lengthAt_complete right, Nat.not_le.mpr advanced]
   | scalars positive noNot noLength leftPositive left right advanced =>
       rw [readRelation]
-      simp only [positive, noNot, noLength, ScalarExpression.read_complete left,
+      simp only [readScalarInFlow, positive, noNot, noLength, ScalarExpression.read_complete left,
         leftPositive, ScalarExpression.read_complete right, Nat.not_le.mpr advanced,
         ne_eq, not_true_eq_false, not_false_eq_true, ↓reduceIte]
   | @strings position facts leftExpr rightExpr leftResult rightResult positive noNot noLength noScalar left right ready advanced =>
-      have leftEq : expressionAt (arrays := context.arrayNames) text position context.names (context.readingNames facts) = leftResult := expressionTail_complete left
-      have rightEq : expressionAt (arrays := context.arrayNames) text (comparisonAt text leftResult.after).after context.names (context.readingNames facts) = rightResult := expressionTail_complete right
+      have leftEq : readStringInFlow text context position facts initials = leftResult := expressionTail_complete left
+      have rightEq : readStringInFlow text context (comparisonAt text leftResult.after).after facts initials = rightResult := expressionTail_complete right
       have operatorAllowed : ¬((comparisonAt text leftResult.after).after = 0 ∨
           ((comparisonAt text leftResult.after).operator ≠ .eq ∧ (comparisonAt text leftResult.after).operator ≠ .ne)) := by
         rcases ready with ⟨_, present, kind, _⟩
@@ -152,18 +259,16 @@ theorem relation_complete {text context position facts condition result}
           · exact different.1 equal
           · exact different.2 unequal
       simp only [readRelation, positive, noNot, noLength, noScalar, ne_eq, not_true_eq_false, ↓reduceIte,
-        leftEq, ready.1,
-        operatorAllowed, rightEq,
+        leftEq, ready.1, operatorAllowed, rightEq,
         Nat.not_le.mpr advanced, ready.2.2.2.2.1, ready.2.2.2.2.2.1, ready.2.2.2.2.2.2,
         Bool.not_true, Bool.false_eq_true, or_self, not_false_eq_true, stringResult]
   | primary positive noNot noLength noScalar noExpression primary =>
       simp only [readRelation, positive, noNot, noLength, noScalar, noExpression, ne_eq, not_true_eq_false,
-        ↓reduceIte, primary_complete primary]
+        ↓reduceIte, booleanRelation_complete primary]
 
-
-theorem chain_complete {text context condition result chained final finalResult}
-    (parsed : ChainAt text context condition result chained final finalResult) :
-    conditionTail text context result chained = finalResult := by
+theorem chain_complete {text context condition result chained final finalResult incoming initials}
+    (parsed : ChainAt text context condition result chained final finalResult incoming initials) :
+    conditionTail text context result chained incoming initials = finalResult := by
   cases parsed with
   | done positive done => simp only [conditionTail, positive, done, ↓reduceIte]
   | next scanned => exact scanned
