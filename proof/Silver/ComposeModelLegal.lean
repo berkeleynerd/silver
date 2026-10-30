@@ -48,10 +48,10 @@ private theorem fixed_legal (text : Source) (valid : ValidText text)
   exact ⟨⟨lexical_cursor valid bound nonzero, lexical_trivia valid bound nonzero,
     token_spelling token tokenValid⟩, fun _ => lexical_cursor valid bound nonzero⟩
 
-private theorem model_legal_callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames arrays subtypeHidden,
+private theorem model_legal_callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames arrays subtypeHidden booleans,
     ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
-    ArrayBindings.ValidMetadata text arrays → ValidCursor text position →
-    callAfterBody.Legal modelCalls (Context.locals {text,scalarNames,arrays,names,position,operation,subtypeHidden}) := by
+    ArrayBindings.ValidMetadata text arrays → BooleanBindings.ValidEnvironment text booleans → ValidCursor text position →
+    callAfterBody.Legal modelCalls (Context.locals {text,scalarNames,arrays,names,position,operation,subtypeHidden,booleans}) := by
   intros
   dsimp +instances only [callAfterBody, Expr.Legal, Function.isLexical] <;> simp +instances
 

@@ -28,8 +28,8 @@ def modelCalls : Calls where
     | .contextAfter => Names.contextAfter
     | .operationAfter => Names.operationAfter
     | .associationAfter => Names.associationAfter
-    | .callAfter => fun text names position operation scalarNames arrays subtypeHidden =>
-      callAfter text names position operation scalarNames arrays subtypeHidden
+    | .callAfter => fun text names position operation scalarNames arrays subtypeHidden booleans =>
+      callAfter text names position operation scalarNames arrays subtypeHidden booleans
     | .skip => skipAt
     | .nameAfter => nameAfter
     | .fixedAfter => fun text position token => fixedAfter text position (spelling token) (isWord token)
@@ -53,6 +53,7 @@ def modelCalls : Calls where
     | .scalarDeclaration => scalarDeclarationAt
     | .scalarLookup => ScalarExpression.lookup
     | .scalarRead => fun text position names arrays initials elaborating => ScalarExpression.read text position names 0 0 true arrays initials elaborating
+    | .booleanLookup => BooleanBindings.lookup
     | .arrayLookup => ArrayBindings.lookup
     | .arrayDeclaration => arrayDeclarationAt
     | .arrayValuesModel | .arrayValues => fun text source result position length parsed bounds =>

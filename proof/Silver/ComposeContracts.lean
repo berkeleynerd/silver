@@ -69,6 +69,7 @@ structure Context where
   nextToken : Nat := 1
   names : BindingEnvironment := []
   scalarNames : ScalarExpression.Environment := []
+  booleans : BooleanBindings.Environment := []
   arrays : ArrayBindings.Metadata := []
   initials : ArrayBindings.Initials := []
   elaborating : Bool := false
@@ -102,6 +103,7 @@ def Context.locals (ctx : Context) : Locals
     | "integer_hidden" => ctx.integerHidden | "elaborating" => ctx.elaborating | _ => false
   | .names, _ => ctx.names
   | .scalarNames, _ => ctx.scalarNames
+  | .booleanNames, _ => ctx.booleans
   | .arrayMetadata, _ => ctx.arrays
   | .subtypeNames, _ => ctx.subtypeNames
   | .interval, "base_bounds" => ctx.baseBounds
@@ -243,6 +245,9 @@ structure HelperEquations (calls : Calls) (evaluator : Calls := lexical calls)
     ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials →
     calls.function .scalarRead text position names arrays initials elaborating =
       ScalarExpression.read text position names 0 0 true arrays initials elaborating
+  booleanLookup : ∀ text, ValidText text → ∀ booleans first after,
+    BooleanBindings.ValidEnvironment text booleans → ValidCursor text first → ValidCursor text after →
+    calls.function .booleanLookup text booleans first after = BooleanBindings.lookup text booleans first after
   arrayLookup : ∀ text, ValidText text → ∀ arrays first after,
     ArrayBindings.ValidMetadata text arrays → ValidCursor text first → ValidCursor text after →
     calls.function .arrayLookup text arrays first after = ArrayBindings.lookup text arrays first after
@@ -259,11 +264,11 @@ structure HelperEquations (calls : Calls) (evaluator : Calls := lexical calls)
   nameIs : ∀ text, ValidText text → ∀ first after word,
     ValidName text first after → 0 < word.toList.length → word.toList.length ≤ 16 →
     calls.function .nameIs text first after word = Named.nameIs text first after (word.toList.map Char.toNat)
-  callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames arrays subtypeHidden,
+  callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames arrays subtypeHidden booleans,
     ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
-    ArrayBindings.ValidMetadata text arrays → ValidCursor text position →
-    calls.function .callAfter text names position operation scalarNames arrays subtypeHidden =
-      callAfterBody.eval evaluator (Context.locals {text,scalarNames,arrays,names,position,operation,subtypeHidden})
+    ArrayBindings.ValidMetadata text arrays → BooleanBindings.ValidEnvironment text booleans → ValidCursor text position →
+    calls.function .callAfter text names position operation scalarNames arrays subtypeHidden booleans =
+      callAfterBody.eval evaluator (Context.locals {text,scalarNames,arrays,names,position,operation,subtypeHidden,booleans})
   skip : ∀ text, ValidText text → ∀ position,
     ValidCursor text position →
     calls.function .skip text position =

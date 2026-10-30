@@ -31,7 +31,7 @@ inductive Ty
   | binding | names | state | value | result | scan | decimal
   | scalarNames | scalarBinding | scalarResult | scalarLiteral | interval | scalarConstraint
   | arrayMetadata | arrayInitials | arrayEnv
-  | subtypeNames | subtypeBinding | callHiding
+  | subtypeNames | subtypeBinding | callHiding | booleanNames
   | arrow (domain codomain : Ty)
   deriving DecidableEq, Repr
 
@@ -48,6 +48,7 @@ inductive Ty
   | .arrayEnv => ArrayBindings.Env
   | .subtypeNames => IntegerSubtypes.Environment | .subtypeBinding => IntegerSubtypes.Binding
   | .callHiding => IntegerSubtypes.CallHiding
+  | .booleanNames => BooleanBindings.Environment
   | .arrow a b => a.meaning → b.meaning
 
 def Ty.default : (ty : Ty) → ty.meaning
@@ -59,7 +60,7 @@ def Ty.default : (ty : Ty) → ty.meaning
   | Ty.scalarResult => ScalarExpression.invalid | Ty.scalarLiteral => ScalarLiteral.invalid
   | Ty.interval => Integer.Interval.empty | Ty.scalarConstraint => ⟨0, Integer.Interval.empty⟩
   | Ty.arrayMetadata => [] | Ty.arrayInitials => [] | Ty.arrayEnv => {}
-  | Ty.subtypeNames => {} | Ty.subtypeBinding => {} | Ty.callHiding => {}
+  | Ty.subtypeNames => {} | Ty.subtypeBinding => {} | Ty.callHiding => {} | Ty.booleanNames => []
   | Ty.arrow _ b => fun _ => b.default
 
 inductive Function
@@ -91,7 +92,7 @@ inductive Function
   | declaration
   | stringDeclaration | scalarConstraint | scalarDeclaration | scalarLookup | scalarRead | scalarAppend | scalarEmpty | scalarLiteral | nameIs
   | subtypeLookup | subtypeLookupModel | scalarType | subtypeDeclaration
-  | arrayLookup | arrayDeclaration | arrayValuesModel | arrayValues | arrayPut | arrayAdd
+  | booleanLookup | arrayLookup | arrayDeclaration | arrayValuesModel | arrayValues | arrayPut | arrayAdd
   | argument
   | declarations
   | readDeclarations
@@ -156,6 +157,7 @@ def Function.name : Function → String
   | .scalarEmpty => "scalars.is_empty"
   | .scalarLiteral => "silver_scalar_literals.read_integer"
   | .nameIs => "name_is"
+  | .booleanLookup => "lookup_boolean"
   | .arrayLookup => "array_bindings.lookup"
   | .arrayDeclaration => "array_declaration_at"
   | .arrayValuesModel => "array_values_model"
@@ -197,7 +199,7 @@ def Function.name : Function → String
   | .contextAfter => .arrow .source (.arrow .truth .number)
   | .operationAfter => .arrow .source (.arrow .number (.arrow .operation (.arrow .truth .number)))
   | .associationAfter => .arrow .source (.arrow .number (.arrow .truth .number))
-  | .callAfter => .arrow .source (.arrow .names (.arrow .number (.arrow .operation (.arrow .scalarNames (.arrow .arrayMetadata (.arrow .truth .number))))))
+  | .callAfter => .arrow .source (.arrow .names (.arrow .number (.arrow .operation (.arrow .scalarNames (.arrow .arrayMetadata (.arrow .truth (.arrow .booleanNames .number)))))))
   | .skip => .arrow .source (.arrow .number (.number))
   | .nameAfter => .arrow .source (.arrow .number (.number))
   | .fixedAfter => .arrow .source (.arrow .number (.arrow .token (.number)))
@@ -225,6 +227,7 @@ def Function.name : Function → String
   | .scalarEmpty => .arrow .interval .truth
   | .scalarLiteral => .arrow .source (.arrow .number .scalarLiteral)
   | .nameIs => .arrow .source (.arrow .number (.arrow .number (.arrow .spelling .truth)))
+  | .booleanLookup => .arrow .source (.arrow .booleanNames (.arrow .number (.arrow .number .number)))
   | .arrayLookup => .arrow .source (.arrow .arrayMetadata (.arrow .number (.arrow .number .number)))
   | .arrayDeclaration => .arrow .source (.arrow .state (.arrow .truth .state))
   | .arrayValuesModel | .arrayValues => .arrow .source (.arrow .state (.arrow .state
@@ -302,6 +305,7 @@ def Calls.get (calls : Calls) : (symbol : Function) → symbol.type.meaning
   | .scalarEmpty => calls.function .scalarEmpty
   | .scalarLiteral => calls.function .scalarLiteral
   | .nameIs => calls.function .nameIs
+  | .booleanLookup => calls.function .booleanLookup
   | .arrayLookup => calls.function .arrayLookup
   | .arrayDeclaration => calls.function .arrayDeclaration
   | .arrayValuesModel => calls.function .arrayValuesModel
@@ -1307,8 +1311,9 @@ def callAfterBody : Expr .number :=
   .locals <| .local "first" "literal_position" (.app (.app (.function .skip) text) (.variable "position")) <|
     .local "after" "literal_position" (.app (.app (.function .nameAfter) text) first) <|
     .app (.app (.app (.app (.function .operationAfter) text) (.variable "position")) (.variable "operation"))
-      (.orElse (.orElse (.orElse (.ne (.app (.app (.app (.app (.function .lookupName) text) (.variable "environment")) first) after) (.number 0)) (.ne (.app (.app (.app (.app (.function .scalarLookup) text) (.variable "scalar_names")) first) after) (.number 0)))
-        (.ne (.app (.app (.app (.app (.function .arrayLookup) text) (.variable "arrays")) first) after) (.number 0))) (.variable "subtype_hidden"))
+      (.orElse (.orElse (.orElse (.orElse (.ne (.app (.app (.app (.app (.function .lookupName) text) (.variable "environment")) first) after) (.number 0)) (.ne (.app (.app (.app (.app (.function .scalarLookup) text) (.variable "scalar_names")) first) after) (.number 0)))
+        (.ne (.app (.app (.app (.app (.function .arrayLookup) text) (.variable "arrays")) first) after) (.number 0)))
+        (.ne (.app (.app (.app (.app (.function .booleanLookup) text) (.variable "booleans")) first) after) (.number 0))) (.variable "subtype_hidden"))
 
 def argumentBody : Expr .state :=
   let text : Expr .source := .variable "text"
@@ -1943,7 +1948,7 @@ abbrev WellScopedTrees : Prop :=
   subtypeLookupModelBody.scoped [("text", .source), ("subtypes", .subtypeNames), ("first", .number), ("after", .number), ("index", .number)] = true ∧
   scalarTypeBody.scoped [("text", .source), ("state", .state), ("position", .number)] = true ∧
   subtypeDeclarationBody.scoped [("text", .source), ("state", .state), ("arguments", .truth)] = true ∧
-  callAfterBody.scoped [("subtype_hidden", .truth), ("arrays", .arrayMetadata), ("scalar_names", .scalarNames), ("text", .source), ("environment", .names), ("position", .number), ("operation", .operation)] = true ∧
+  callAfterBody.scoped [("booleans", .booleanNames), ("subtype_hidden", .truth), ("arrays", .arrayMetadata), ("scalar_names", .scalarNames), ("text", .source), ("environment", .names), ("position", .number), ("operation", .operation)] = true ∧
   skipBody.scoped [("text", .source), ("position", .number)] = true ∧
   nameBody.scoped [("text", .source), ("position", .number)] = true ∧
   fixedBody.scoped [("text", .source), ("position", .number), ("token", .token)] = true ∧

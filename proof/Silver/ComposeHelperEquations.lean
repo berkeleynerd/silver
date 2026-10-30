@@ -145,8 +145,9 @@ termination_by index
 @[simp] theorem interpreted_callAfter (calls : Calls) (equations : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (names : BindingEnvironment) (position : Nat)
     (operation : Names.Operation) {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Metadata} (namesValid : ValidNames text names) (bound : ValidCursor text position) (scalarValid : ScalarExpression.ValidEnvironment text scalarNames)
-    (arraysValid : ArrayBindings.ValidMetadata text arrays) (subtypeHidden : Bool) :
-    calls.function .callAfter text names position operation scalarNames arrays subtypeHidden = callAfter text names position operation scalarNames arrays subtypeHidden := by
+    (arraysValid : ArrayBindings.ValidMetadata text arrays) (subtypeHidden : Bool)
+    (booleans : BooleanBindings.Environment) (booleansValid : BooleanBindings.ValidEnvironment text booleans) :
+    calls.function .callAfter text names position operation scalarNames arrays subtypeHidden booleans = callAfter text names position operation scalarNames arrays subtypeHidden booleans := by
   let first := calls.function .skip text position
   let after := calls.function .nameAfter text first
   have firstBound := equations.ranges.skip text valid position bound
@@ -154,16 +155,18 @@ termination_by index
   have firstEq : first = skipAt text position := interpreted_skip calls equations text valid position bound
   have afterEq : after = nameAfter text first := interpreted_name calls equations text valid first firstBound
   have lookupEq := interpreted_lookup calls equations text valid names first after namesValid firstBound afterBound
-  rw [equations.callAfter text valid names position operation scalarNames arrays subtypeHidden namesValid scalarValid arraysValid bound]
+  rw [equations.callAfter text valid names position operation scalarNames arrays subtypeHidden booleans namesValid scalarValid arraysValid booleansValid bound]
   dsimp +instances only [callAfterBody, Expr.eval, Context.locals, Locals.set, lexical, Calls.get]
   simp only [reduceCtorEq, String.reduceEq, ↓reduceIte, ↓reduceDIte]
   rw [Names.interpreted_operation calls.names equations.names text valid position operation _ bound]
   change Names.operationAfter text position operation
     (decide (calls.function .lookupName text names first after ≠ 0) ||
       decide (calls.function .scalarLookup text scalarNames first after ≠ 0) ||
-      decide (calls.function .arrayLookup text arrays first after ≠ 0) || subtypeHidden) = _
+      decide (calls.function .arrayLookup text arrays first after ≠ 0) ||
+      decide (calls.function .booleanLookup text booleans first after ≠ 0) || subtypeHidden) = _
   rw [lookupEq, equations.scalarLookup text valid scalarNames first after scalarValid firstBound afterBound,
-    equations.arrayLookup text valid arrays first after arraysValid firstBound afterBound, afterEq, firstEq]
+    equations.arrayLookup text valid arrays first after arraysValid firstBound afterBound,
+    equations.booleanLookup text valid booleans first after booleansValid firstBound afterBound, afterEq, firstEq]
   simp only [callAfter, Bool.decide_or, Bool.or_assoc]
 
 @[simp] theorem interpreted_workTail (calls : Calls) (equations : HelperEquations calls (domain := domain))

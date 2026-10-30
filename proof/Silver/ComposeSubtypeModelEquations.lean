@@ -63,10 +63,10 @@ theorem model_definition_subtypeDeclaration : ∀ text, ValidText text → ∀ s
     IntegerSubtypes.CallHiding.get, spelling, isWord, ShellToken.word, ShellToken.symbol]
   simp only [Bool.decide_or, Bool.or_assoc]
 
-theorem model_definition_callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames arrays subtypeHidden,
-    ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames → ArrayBindings.ValidMetadata text arrays → ValidCursor text position →
-    modelCalls.function .callAfter text names position operation scalarNames arrays subtypeHidden =
-      callAfterBody.eval modelCalls (Context.locals {text,scalarNames,arrays,names,position,operation,subtypeHidden}) := by
+theorem model_definition_callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames arrays subtypeHidden booleans,
+    ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames → ArrayBindings.ValidMetadata text arrays → BooleanBindings.ValidEnvironment text booleans → ValidCursor text position →
+    modelCalls.function .callAfter text names position operation scalarNames arrays subtypeHidden booleans =
+      callAfterBody.eval modelCalls (Context.locals {text,scalarNames,arrays,names,position,operation,subtypeHidden,booleans}) := by
   intros
   dsimp +instances only [modelCalls, Names.modelCalls, Context.locals, Expr.eval, Calls.get, Locals.set, callAfterBody, callAfter] <;> simp +instances [Bool.or_assoc]
 

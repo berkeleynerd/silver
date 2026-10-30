@@ -61,6 +61,7 @@ theorem model_definitions :
   scalarLookup := base_definitions.scalarLookup
   scalarRead := base_definitions.scalarRead
   arrayLookup := base_definitions.arrayLookup
+  booleanLookup := base_definitions.booleanLookup
   scalarLiteral := base_definitions.scalarLiteral
   scalarAppend := base_definitions.scalarAppend
   scalarEmpty := base_definitions.scalarEmpty

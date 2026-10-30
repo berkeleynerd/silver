@@ -1059,10 +1059,10 @@ theorem Expr.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning cal
 /-- Native SPARK establishes the domains of executed lexical calls in these
 bodies. No field asserts equality to the membership or semantic model. -/
 structure LegalHelpers (calls : Calls) (domain : StateDomain := .basic) : Prop where
-  callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames arrays subtypeHidden,
+  callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames arrays subtypeHidden booleans,
     ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
-    ArrayBindings.ValidMetadata text arrays → ValidCursor text position →
-    callAfterBody.Legal calls (Context.locals {text,scalarNames,arrays,names,position,operation,subtypeHidden})
+    ArrayBindings.ValidMetadata text arrays → BooleanBindings.ValidEnvironment text booleans → ValidCursor text position →
+    callAfterBody.Legal calls (Context.locals {text,scalarNames,arrays,names,position,operation,subtypeHidden,booleans})
   skip : ∀ text, ValidText text → ∀ position,
     ValidCursor text position →
     skipBody.Legal calls (Context.locals {text,position})
@@ -1190,6 +1190,7 @@ theorem normalized_helpers {domain : StateDomain} (calls : Calls)
   scalarLookup := source.scalarLookup
   scalarRead := source.scalarRead
   arrayLookup := source.arrayLookup
+  booleanLookup := source.booleanLookup
   arrayAdd := by
     intro text valid state first after bounds offset length mutable following componentBounds stateValid nameValid bindingValid room allocated ordered ending
     exact (source.arrayAdd text valid state first after bounds offset length mutable following componentBounds
