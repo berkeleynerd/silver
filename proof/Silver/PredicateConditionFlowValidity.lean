@@ -240,7 +240,7 @@ mutual
                 split
                 · exact invalidCondition_flowReady ready
                 · try dsimp only
-                  by_cases equal : (comparisonAt text (readStringInFlow text context position facts base ready initials).after).operator == Comparison.eq
+                  by_cases equal : (comparisonAt text (readStringInFlow text context position facts initials).after).operator == Comparison.eq
                   · simp only [equal, ↓reduceIte]
                     exact ⟨ready.withPath _, ready⟩
                   · simp only [equal, Bool.false_eq_true, ↓reduceIte]

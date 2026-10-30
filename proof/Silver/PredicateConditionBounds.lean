@@ -117,7 +117,7 @@ mutual
                 split
                 · exact invalidCondition_bounded facts
                 · try dsimp only
-                  by_cases equal : (comparisonAt text (readStringInFlow text context position facts bounded initials).after).operator == Comparison.eq
+                  by_cases equal : (comparisonAt text (readStringInFlow text context position facts initials).after).operator == Comparison.eq
                   · simp only [equal, ↓reduceIte]
                     exact ⟨refineLengthOverlap_bounded bounded _ _, bounded⟩
                   · simp only [equal, Bool.false_eq_true, ↓reduceIte]
