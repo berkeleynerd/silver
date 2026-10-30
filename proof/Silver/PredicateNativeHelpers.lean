@@ -16,10 +16,25 @@ set_option maxHeartbeats 2000000
 No predicate parser equivalence occurs in this interface. The path operations
 are total mathematical interpretations of the checked native projections. -/
 structure HelperMeaning (calls : Calls) : Prop where
-  callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames arrays hidden,
+  xorFree : ∀ text, ValidText text → ∀ first after,
+    first ≤ text.length + 1 → after ≤ text.length + 1 →
+    calls.xorFree text first after = Predicate.xorFree text first after
+  equalName : ∀ text, ValidText text → ∀ first after otherFirst otherAfter,
+    Compose.Expressions.ValidName text first after → Compose.Expressions.ValidName text otherFirst otherAfter →
+    calls.equalName text first after otherFirst otherAfter = Named.equalName text first after otherFirst otherAfter
+  nameIs : ∀ text, ValidText text → ∀ first after word,
+    Compose.Expressions.ValidName text first after → 0 < word.toList.length → word.toList.length ≤ 16 →
+    calls.nameIs text first after word = Named.nameIs text first after (word.toList.map Char.toNat)
+  arrayLookup : ∀ text, ValidText text → ∀ names first after,
+    ArrayBindings.ValidMetadata text names → first ≤ text.length + 1 → after ≤ text.length + 1 →
+    calls.arrayLookup text names first after = ArrayBindings.lookup text names first after
+  booleanLookup : ∀ text, ValidText text → ∀ names first after,
+    BooleanBindings.ValidEnvironment text names → first ≤ text.length + 1 → after ≤ text.length + 1 →
+    calls.booleanLookup text names first after = BooleanBindings.lookup text names first after
+  callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames arrays hidden booleans,
     ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
-    ArrayBindings.ValidMetadata text arrays → position ≤ text.length + 1 →
-    calls.callAfter text names position operation scalarNames arrays hidden = Compose.callAfter text names position operation scalarNames arrays hidden
+    ArrayBindings.ValidMetadata text arrays → BooleanBindings.ValidEnvironment text booleans → position ≤ text.length + 1 →
+    calls.callAfter text names position operation scalarNames arrays hidden booleans = Compose.callAfter text names position operation scalarNames arrays hidden booleans
   take : ∀ text, ValidText text → ∀ position token, position ≤ text.length + 1 →
     calls.take text position token = takeModel text position token
   skip : ∀ text, ValidText text → ∀ position, position ≤ text.length + 1 →
@@ -37,10 +52,12 @@ structure HelperMeaning (calls : Calls) : Prop where
     calls.scalarRead text position names = ScalarExpression.read text position names
   scalarInFlow : ∀ text, ValidText text → ∀ context, ValidContext text context →
     ∀ position facts, position ≤ text.length + 1 → ValidFlow context facts →
-    calls.scalarInFlow text context position facts = readScalarInFlow text context.model position facts
+    ∀ initials, ArrayBindings.ValidInitials initials →
+    calls.scalarInFlow text context position facts initials = readScalarInFlow text context.model position facts (initials := initials)
   stringInFlow : ∀ text, ValidText text → ∀ context, ValidContext text context →
     ∀ position facts, position ≤ text.length + 1 → ValidFlow context facts →
-    calls.stringInFlow text context position facts = readStringInFlow text context.model position facts
+    ∀ initials, ArrayBindings.ValidInitials initials →
+    calls.stringInFlow text context position facts initials = readStringInFlow text context.model position facts initials
   scalarCondition : ∀ text, ValidText text → ∀ context, ValidContext text context →
     ∀ position rightPosition, position ≤ text.length + 1 → rightPosition ≤ text.length + 1 →
     ∀ facts, ValidFlow context facts → ∀ left right, left.after ≤ text.length + 1 → right.after ≤ text.length + 1 →
@@ -65,9 +82,11 @@ structure HelperMeaning (calls : Calls) : Prop where
 def workerInput (text : Source) (context : Context) (position : Nat) (facts : ActiveFlow) : Prop :=
   ValidText text ∧ ValidContext text context ∧ position ≤ text.length + 1 ∧ ValidFlow context facts
 
-def workerChainInput (text : Source) (context : Context) (result : ConditionResult) : Prop :=
+def workerChainInput (text : Source) (context : Context) (result : ConditionResult)
+    (incoming : ActiveFlow) (originalStart : Nat) : Prop :=
   ValidText text ∧ ValidContext text context ∧ ValidResult text context result ∧
-    result.after ≠ 0 ∧ (chainTokenModel text result.after).isChain = true
+    result.after ≠ 0 ∧ (chainTokenModel text result.after).isChain = true ∧
+    ValidFlow context incoming ∧ originalStart ≤ text.length + 1
 
 /-- Arbitrary-callee equations obtained by evaluating the exact checked source
 expression trees, including the direct executable condition wrapper. -/
@@ -84,31 +103,44 @@ structure DefinitionEquations (calls : Calls) : Prop where
     calls.chainToken text position = chainTokenBody.eval calls ({text, position} : Inputs).locals
   chainAfter : ∀ text, ValidText text → ∀ position operator, position ≤ text.length + 1 → operator.isChain = true →
     calls.chainAfter text position operator = chainAfterBody.eval calls ({text, position, operator} : Inputs).locals
+  booleanAtom : ∀ text, ValidText text → ∀ context, ValidContext text context → ∀ position,
+    position ≤ text.length + 1 →
+    calls.booleanAtom text context position = booleanAtomBody.eval calls ({text, context, position} : Inputs).locals
   primary : ∀ text, ValidText text → ∀ context, ValidContext text context → ∀ position,
-    position ≤ text.length + 1 → ∀ facts, ValidFlow context facts →
-    calls.primary text context position facts = primaryBody.eval calls ({text, context, position, facts} : Inputs).locals
+    position ≤ text.length + 1 → ∀ facts, ValidFlow context facts → ∀ initials, ArrayBindings.ValidInitials initials →
+    calls.primary text context position facts initials = primaryBody.eval calls ({text, context, position, facts, initials} : Inputs).locals
+  booleanFactor : ∀ text, ValidText text → ∀ context, ValidContext text context → ∀ position,
+    position ≤ text.length + 1 → ∀ facts, ValidFlow context facts → ∀ initials, ArrayBindings.ValidInitials initials →
+    calls.booleanFactor text context position facts initials = booleanFactorBody.eval calls ({text, context, position, facts, initials} : Inputs).locals
+  booleanRelation : ∀ text, ValidText text → ∀ context, ValidContext text context → ∀ position,
+    position ≤ text.length + 1 → ∀ facts, ValidFlow context facts → ∀ initials, ArrayBindings.ValidInitials initials →
+    calls.booleanRelation text context position facts initials = booleanRelationBody.eval calls ({text, context, position, facts, initials} : Inputs).locals
   relation : ∀ text, ValidText text → ∀ context, ValidContext text context → ∀ position,
-    position ≤ text.length + 1 → ∀ facts, ValidFlow context facts →
-    calls.relation text context position facts = relationBody.eval calls ({text, context, position, facts} : Inputs).locals
+    position ≤ text.length + 1 → ∀ facts, ValidFlow context facts → ∀ initials, ArrayBindings.ValidInitials initials →
+    calls.relation text context position facts initials = relationBody.eval calls ({text, context, position, facts, initials} : Inputs).locals
   model : ∀ text, ValidText text → ∀ context, ValidContext text context → ∀ position,
-    position ≤ text.length + 1 → ∀ facts, ValidFlow context facts →
-    calls.model text context position facts = modelBody.eval calls ({text, context, position, facts} : Inputs).locals
+    position ≤ text.length + 1 → ∀ facts, ValidFlow context facts → ∀ initials, ArrayBindings.ValidInitials initials →
+    calls.model text context position facts initials = modelBody.eval calls ({text, context, position, facts, initials} : Inputs).locals
   workers : ∃ outputs : Workers.Outputs,
     Workers.Refinement workerInput workerChainInput calls outputs ∧
-      ∀ text context position facts, workerInput text context position facts →
-        calls.condition text context position facts = outputs.condition text context position facts facts.count
+      ∀ text context position facts initials, workerInput text context position facts → ArrayBindings.ValidInitials initials →
+        calls.condition text context position facts initials = outputs.condition text context position facts facts.count initials
   tail : ∀ text, ValidText text → ∀ context, ValidContext text context → ∀ result,
     ValidResult text context result → ∀ operator, operator.isChain = true → ∀ chained,
-    calls.tail text context result operator chained = tailBody.eval calls ({text, context, result, operator, chained} : Inputs).locals
+    ∀ initials, ArrayBindings.ValidInitials initials → ∀ incoming, ValidFlow context incoming →
+    ∀ originalStart, originalStart ≤ text.length + 1 →
+    calls.tail text context result operator chained initials incoming originalStart =
+      tailBody.eval calls ({text, context, result, operator, chained, initials, incoming, originalStart} : Inputs).locals
 
 theorem DefinitionEquations.condition {calls : Calls} (defs : DefinitionEquations calls)
     (text : Source) (tv : ValidText text) (context : Context) (cv : ValidContext text context)
-    (position : Nat) (bounded : position ≤ text.length + 1) (facts : ActiveFlow) (fv : ValidFlow context facts) :
-    calls.condition text context position facts = conditionBody.eval calls ({text, context, position, facts} : Inputs).locals := by
+    (position : Nat) (bounded : position ≤ text.length + 1) (facts : ActiveFlow) (fv : ValidFlow context facts)
+    (initials : ArrayBindings.Initials) (iv : ArrayBindings.ValidInitials initials) :
+    calls.condition text context position facts initials = conditionBody.eval calls ({text, context, position, facts, initials} : Inputs).locals := by
   have legal : workerInput text context position facts := ⟨tv, cv, bounded, fv⟩
   obtain ⟨outputs, verified, observed⟩ := defs.workers
-  exact (observed text context position facts legal).trans
-    (verified.condition text context position facts facts.count legal rfl)
+  exact (observed text context position facts initials legal iv).trans
+    (verified.condition text context position facts facts.count initials legal iv rfl)
 
 section
 variable {calls : Calls} (helpers : HelperMeaning calls) (defs : DefinitionEquations calls)
@@ -153,39 +185,104 @@ theorem chainToken_meaning (text : Source) (tv : ValidText text) (position : Nat
     calls.chainToken text position = chainTokenModel text position := by
   rw [defs.chainToken text tv position bounded, chainToken_denotation]
   unfold chainTokenEquation
-  rw [helpers.take text tv position .andKeyword bounded, helpers.take text tv position .orKeyword bounded]
+  simp only [helpers.take text tv position _ bounded,
+    helpers.take text tv _ .thenKeyword (takeModel_valid text position .andKeyword bounded),
+    helpers.take text tv _ .elseKeyword (takeModel_valid text position .orKeyword bounded)]
   rfl
 
-theorem chainAfter_meaning (text : Source) (tv : ValidText text) (position : Nat) (operator : Token)
+theorem chainAfter_meaning (text : Source) (tv : ValidText text) (position : Nat) (operator : ChainKind)
     (bounded : position ≤ text.length + 1) (valid : operator.isChain = true) :
-    calls.chainAfter text position operator = Predicate.chainAfter text position operator.chain := by
+    calls.chainAfter text position operator = chainAfterModel text position operator := by
   rw [defs.chainAfter text tv position operator bounded valid, chainAfter_denotation]
   unfold chainAfterEquation
-  rw [helpers.take text tv position operator bounded,
-    helpers.take text tv _ _ (takeModel_valid text position operator bounded)]
-  rcases chain_cases valid with rfl | rfl <;> rfl
+  simp only [helpers.take text tv position _ bounded,
+    helpers.take text tv _ .thenKeyword (takeModel_valid text position .andKeyword bounded),
+    helpers.take text tv _ .elseKeyword (takeModel_valid text position .orKeyword bounded)]
+  cases operator <;> rfl
+
+theorem booleanAtom_meaning (text : Source) (tv : ValidText text)
+    (context : Context) (cv : ValidContext text context) (position : Nat) (bounded : position ≤ text.length + 1) :
+    calls.booleanAtom text context position = booleanAtomAfter text context.model position := by
+  rw [defs.booleanAtom text tv context cv position bounded, booleanAtom_denotation]
+  unfold booleanAtomEquation booleanAtomAfter
+  dsimp only
+  rw [helpers.skip text tv position bounded]
+  have firstBound := model_skip_valid text position bounded
+  rw [helpers.name text tv _ firstBound]
+  have afterBound := model_name_valid text (skipAt text position)
+  by_cases zero : skipAt text position = 0
+  · simp [zero]
+  · by_cases ordered : nameAfter text (skipAt text position) ≤ skipAt text position
+    · simp [ordered]
+    · have nameValid : Compose.Expressions.ValidName text (skipAt text position) (nameAfter text (skipAt text position)) :=
+        ⟨by omega, by omega, afterBound⟩
+      rw [helpers.lookup text tv context.names _ _ cv.1 firstBound afterBound,
+        helpers.scalarLookup text tv context.scalarNames _ _ cv.2.2.1 firstBound afterBound,
+        helpers.arrayLookup text tv context.arrayNames _ _ cv.arrays firstBound afterBound,
+        helpers.booleanLookup text tv context.booleanNames _ _ cv.booleans firstBound afterBound,
+        helpers.nameIs text tv _ _ "true" nameValid (by decide) (by decide),
+        helpers.nameIs text tv _ _ "false" nameValid (by decide) (by decide)]
+      by_cases maskZero : context.maskFirst = 0
+      · simp [Context.model, maskZero]
+      · have maskValid : Compose.Expressions.ValidName text context.maskFirst context.maskAfter := by
+          rcases cv.mask with absent | present
+          · exact False.elim (maskZero absent.1)
+          · exact present
+        rw [helpers.equalName text tv _ _ _ _ maskValid nameValid]
+        rfl
 
 theorem primary_normalized (contracts : Contracts calls) (text : Source) (tv : ValidText text)
     (context : Context) (cv : ValidContext text context) (position : Nat) (bounded : position ≤ text.length + 1)
-    (facts : ActiveFlow) (fv : ValidFlow context facts) :
-    calls.primary text context position facts = primaryEquation (interpreted calls) text context position facts := by
-  rw [defs.primary text tv context cv position bounded facts fv, primary_denotation]
+    (facts : ActiveFlow) (fv : ValidFlow context facts) (initials : ArrayBindings.Initials) (iv : ArrayBindings.ValidInitials initials) :
+    calls.primary text context position facts initials = primaryEquation (interpreted calls) text context position facts initials := by
+  rw [defs.primary text tv context cv position bounded facts fv initials iv, primary_denotation]
   unfold primaryEquation
   dsimp only [interpreted]
   rw [helpers.take text tv position .leftParenthesis bounded]
   have openingBound := takeModel_valid text position .leftParenthesis bounded
-  have innerBound := (contracts.model text tv context cv _ openingBound facts fv).1.1
+  have innerBound := (contracts.model text tv context cv _ openingBound facts fv initials iv).1.1
   rw [helpers.take text tv _ .rightParenthesis innerBound,
-    helpers.callAfter text tv context.names position .validity context.scalarNames context.arrayNames (context.subtypeHiding.get .validity) cv.1 cv.2.2.1 cv.arrays bounded,
+    booleanAtom_meaning helpers defs text tv context cv position bounded]
+  have masked : (decide (context.maskFirst ≠ 0) && calls.nameIs text context.maskFirst context.maskAfter "input_is_valid") =
+      (decide (context.maskFirst ≠ 0) && Named.nameIs text context.maskFirst context.maskAfter ("input_is_valid".toList.map Char.toNat)) := by
+    by_cases zero : context.maskFirst = 0
+    · simp [zero]
+    · have valid : Compose.Expressions.ValidName text context.maskFirst context.maskAfter := by
+        rcases cv.mask with absent | present
+        · exact False.elim (zero absent.1)
+        · exact present
+      rw [helpers.nameIs text tv _ _ _ valid (by decide) (by decide)]
+  rw [masked, helpers.callAfter text tv context.names position .validity context.scalarNames context.arrayNames _ context.booleanNames cv.1 cv.2.2.1 cv.arrays cv.booleans bounded,
     helpers.assumeValid, helpers.assumeInvalid]
+  simp only [helpers.invalidCondition facts (fv.count_le cv)]
+  rfl
+
+theorem booleanFactor_normalized (text : Source) (tv : ValidText text)
+    (context : Context) (cv : ValidContext text context) (position : Nat) (bounded : position ≤ text.length + 1)
+    (facts : ActiveFlow) (fv : ValidFlow context facts) (initials : ArrayBindings.Initials) (iv : ArrayBindings.ValidInitials initials) :
+    calls.booleanFactor text context position facts initials = booleanFactorEquation (interpreted calls) text context position facts initials := by
+  rw [defs.booleanFactor text tv context cv position bounded facts fv initials iv, booleanFactor_denotation]
+  unfold booleanFactorEquation
+  simp only [helpers.take text tv position .notKeyword bounded]
+  rfl
+
+theorem booleanRelation_normalized (contracts : Contracts calls) (text : Source) (tv : ValidText text)
+    (context : Context) (cv : ValidContext text context) (position : Nat) (bounded : position ≤ text.length + 1)
+    (facts : ActiveFlow) (fv : ValidFlow context facts) (initials : ArrayBindings.Initials) (iv : ArrayBindings.ValidInitials initials) :
+    calls.booleanRelation text context position facts initials = booleanRelationEquation (interpreted calls) text context position facts initials := by
+  rw [defs.booleanRelation text tv context cv position bounded facts fv initials iv, booleanRelation_denotation]
+  unfold booleanRelationEquation
+  dsimp only [interpreted]
+  have leftBound := (contracts.booleanFactor text tv context cv position bounded facts fv initials iv).1.1
+  rw [comparison_meaning helpers defs text tv _ leftBound]
   simp only [helpers.invalidCondition facts (fv.count_le cv)]
   rfl
 
 theorem relation_normalized (text : Source) (tv : ValidText text)
     (context : Context) (cv : ValidContext text context) (position : Nat) (bounded : position ≤ text.length + 1)
-    (facts : ActiveFlow) (fv : ValidFlow context facts) :
-    calls.relation text context position facts = relationEquation (interpreted calls) text context position facts := by
-  rw [defs.relation text tv context cv position bounded facts fv, relation_denotation]
+    (facts : ActiveFlow) (fv : ValidFlow context facts) (initials : ArrayBindings.Initials) (iv : ArrayBindings.ValidInitials initials) :
+    calls.relation text context position facts initials = relationEquation (interpreted calls) text context position facts initials := by
+  rw [defs.relation text tv context cv position bounded facts fv initials iv, relation_denotation]
   unfold relationEquation
   dsimp only [interpreted]
   rw [helpers.take text tv position .notKeyword bounded,
@@ -195,77 +292,89 @@ theorem relation_normalized (text : Source) (tv : ValidText text)
   have compareLengthBound := Predicate.comparison_bound text _ lengthBound
   rw [length_meaning helpers defs text tv context cv _ true compareLengthBound]
   simp only [helpers.refineBounds]
-  rw [helpers.scalarInFlow text tv context cv position facts bounded fv]
-  have scalarBound : (readScalarInFlow text context.model position facts).after ≤ text.length + 1 := by
-    by_cases zero : (readScalarInFlow text context.model position facts).after = 0
+  rw [helpers.scalarInFlow text tv context cv position facts bounded fv initials iv]
+  have scalarBound : (readScalarInFlow text context.model position facts (initials := initials)).after ≤ text.length + 1 := by
+    by_cases zero : (readScalarInFlow text context.model position facts (initials := initials)).after = 0
     · simp [zero]
     · exact (ScalarExpression.read_arrays_bounds bounded zero).2.1
   rw [comparison_meaning helpers defs text tv _ scalarBound]
   have scalarComparisonBound := Predicate.comparison_bound text _ scalarBound
-  rw [helpers.scalarInFlow text tv context cv _ facts scalarComparisonBound fv]
+  rw [helpers.scalarInFlow text tv context cv _ facts scalarComparisonBound fv initials iv]
   have rightScalarBound : (readScalarInFlow text context.model
-      (comparisonAt text (readScalarInFlow text context.model position facts).after).after
-      facts).after ≤ text.length + 1 := by
+      (comparisonAt text (readScalarInFlow text context.model position facts (initials := initials)).after).after
+      facts (initials := initials)).after ≤ text.length + 1 := by
     by_cases zero : (readScalarInFlow text context.model
-        (comparisonAt text (readScalarInFlow text context.model position facts).after).after
-        facts).after = 0
+        (comparisonAt text (readScalarInFlow text context.model position facts (initials := initials)).after).after
+        facts (initials := initials)).after = 0
     · simp [zero]
     · exact (ScalarExpression.read_arrays_bounds scalarComparisonBound zero).2.1
   rw [helpers.scalarCondition text tv context cv position _ bounded scalarComparisonBound facts fv _ _ scalarBound rightScalarBound _
     (ScalarExpression.Native.read_type tv bounded).2.1
     (ScalarExpression.Native.read_type tv scalarComparisonBound).2.1]
-  rw [helpers.stringInFlow text tv context cv position facts bounded fv]
-  have expressionBound : (readStringInFlow text context.model position facts).after ≤ text.length + 1 :=
+  rw [helpers.stringInFlow text tv context cv position facts bounded fv initials iv]
+  have expressionBound : (readStringInFlow text context.model position facts initials).after ≤ text.length + 1 :=
     (model_expression_valid (scalarNames := context.model.readingNames facts)
-    (integerHidden := false) (arrays := context.arrayNames) (initials := []) (elaborating := false)
+    (integerHidden := context.model.integerHidden text) (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating)
     text tv position context.names bounded cv.1).1
   rw [comparison_meaning helpers defs text tv _ expressionBound]
   have comparisonBound := Predicate.comparison_bound text _ expressionBound
-  rw [helpers.stringInFlow text tv context cv _ facts comparisonBound fv]
+  rw [helpers.stringInFlow text tv context cv _ facts comparisonBound fv initials iv]
   simp only [summary_meaning defs, helpers.fits, helpers.refineEqual,
     helpers.invalidCondition facts (fv.count_le cv)]
   rfl
 
 theorem tail_normalized (contracts : Contracts calls) (text : Source) (tv : ValidText text)
     (context : Context) (cv : ValidContext text context) (result : ConditionResult) (rv : ValidResult text context result)
-    (operator : Token) (valid : operator.isChain = true) (chained : Bool) :
-    calls.tail text context result operator chained = tailEquation (interpreted calls) text context result operator chained := by
-  rw [defs.tail text tv context cv result rv operator valid chained, tail_denotation]
+    (operator : ChainKind) (valid : operator.isChain = true) (chained : Bool)
+    (initials : ArrayBindings.Initials) (iv : ArrayBindings.ValidInitials initials)
+    (incoming : ActiveFlow) (incomingValid : ValidFlow context incoming)
+    (originalStart : Nat) (startBound : originalStart ≤ text.length + 1) :
+    calls.tail text context result operator chained initials incoming originalStart =
+      tailEquation (interpreted calls) text context result operator chained initials incoming originalStart := by
+  rw [defs.tail text tv context cv result rv operator valid chained initials iv incoming incomingValid originalStart startBound, tail_denotation]
   unfold tailEquation
   dsimp only [interpreted]
   rw [chainToken_meaning helpers defs text tv result.after rv.1]
-  by_cases selected : (chainTokenModel text result.after).isChain = true
-  · have normalized : calls.chainAfter text result.after (chainTokenModel text result.after) =
+  by_cases absent : chainTokenModel text result.after = .noChain
+  · simp [absent, helpers.invalidCondition result.whenTrue (rv.2.1.count_le cv), modelCalls]
+  · have selected : (chainTokenModel text result.after).isChain = true := by simp [ChainKind.isChain, absent]
+    have normalized : calls.chainAfter text result.after (chainTokenModel text result.after) =
         modelCalls.chainAfter text result.after (chainTokenModel text result.after) :=
       chainAfter_meaning helpers defs text tv result.after _ rv.1 selected
     rw [normalized]
-    let selectedFacts := if chainTokenModel text result.after = .andKeyword then result.whenTrue else result.whenFalse
+    let selectedFacts := if chainTokenModel text result.after = .shortAnd then result.whenTrue
+      else if chainTokenModel text result.after = .shortOr then result.whenFalse else incoming
     have selectedValid : ValidFlow context selectedFacts := by
       dsimp only [selectedFacts]
-      split <;> first | exact rv.2.1 | exact rv.2.2
-    have afterBound := Predicate.chainAfter_bound text result.after (chainTokenModel text result.after).chain rv.1
+      split
+      · exact rv.2.1
+      · split
+        · exact rv.2.2
+        · exact incomingValid
+    have afterBound : modelCalls.chainAfter text result.after (chainTokenModel text result.after) ≤ text.length + 1 := by
+      simp only [modelCalls, chainAfterModel, absent, ↓reduceIte]
+      exact Predicate.chainAfter_bound text result.after (chainTokenModel text result.after).predicate rv.1
     let right := calls.relation text context
-      (modelCalls.chainAfter text result.after (chainTokenModel text result.after)) selectedFacts
+      (modelCalls.chainAfter text result.after (chainTokenModel text result.after)) selectedFacts initials
     have rightValid : ValidResult text context right :=
-      (contracts.relation text tv context cv _ afterBound selectedFacts selectedValid).1
+      (contracts.relation text tv context cv _ afterBound selectedFacts selectedValid initials iv).1
     have yesSame := rv.2.1.2.compatible.count.trans rightValid.2.1.2.compatible.count.symm
     have noSame := rv.2.2.2.compatible.count.trans rightValid.2.2.2.compatible.count.symm
     have joinedYes := helpers.join result.whenTrue right.whenTrue (rv.2.1.count_le cv) yesSame
     have joinedNo := helpers.join result.whenFalse right.whenFalse (rv.2.2.count_le cv) noSame
-    dsimp only [right, selectedFacts] at joinedYes joinedNo
-    rw [joinedYes, joinedNo]
+    have rightXor := helpers.xorFree text tv _ right.after afterBound rightValid.1
+    dsimp only [right, selectedFacts] at joinedYes joinedNo rightXor
+    rw [joinedYes, joinedNo, rightXor, helpers.xorFree text tv originalStart result.after startBound rv.1]
     simp only [helpers.invalidCondition result.whenTrue (rv.2.1.count_le cv)]
-    rfl
-  · have noChain : (chainTokenModel text result.after).isChain = false := Bool.eq_false_iff.mpr selected
-    simp only [show modelCalls.chainToken = chainTokenModel from rfl, noChain, Bool.not_false, ↓reduceIte,
-      helpers.invalidCondition result.whenTrue (rv.2.1.count_le cv)]
     rfl
 
 theorem equations_of_definitions (contracts : Contracts calls) : Equations calls where
   primary := primary_normalized helpers defs contracts
+  booleanFactor := booleanFactor_normalized helpers defs
+  booleanRelation := booleanRelation_normalized helpers defs contracts
   relation := relation_normalized helpers defs
-  model text tv context cv position bounded facts fv := by
-    rw [defs.model text tv context cv position bounded facts fv, model_denotation]
+  model text tv context cv position bounded facts fv initials iv := by
+    rw [defs.model text tv context cv position bounded facts fv initials iv, model_denotation]
     simp only [modelEquation, helpers.invalidCondition facts (fv.count_le cv)]
     rfl
   condition := defs.condition
@@ -275,32 +384,37 @@ theorem equations_of_definitions (contracts : Contracts calls) : Equations calls
 all source equations, helper meanings and checked contracts are discharged. -/
 theorem condition_of_source_equations (contracts : Contracts calls) (text : Source) (tv : ValidText text)
     (context : Context) (cv : ValidContext text context) (position : Nat) (bounded : position ≤ text.length + 1)
-    (facts : ActiveFlow) (fv : ValidFlow context facts) :
-    calls.condition text context position facts = readCondition text context.model position facts :=
-  condition_unique calls (equations_of_definitions helpers defs contracts) text tv context cv position bounded facts fv
+    (facts : ActiveFlow) (fv : ValidFlow context facts) (initials : ArrayBindings.Initials) (iv : ArrayBindings.ValidInitials initials) :
+    calls.condition text context position facts initials = readCondition text context.model position facts initials :=
+  condition_unique calls (equations_of_definitions helpers defs contracts) text tv context cv position bounded facts fv initials iv
 
 end
 
 theorem model_helper_meaning : HelperMeaning modelCalls where
-  callAfter _ _ _ _ _ _ _ _ _ _ _ _ := rfl
-  take _ _ _ _ _ := rfl
-  skip _ _ _ _ := rfl
-  name _ _ _ _ := rfl
-  lookup _ _ _ _ _ _ _ _ := rfl
-  scalarLookup _ _ _ _ _ _ _ _ := rfl
-  scalarRead _ _ _ _ _ _ := rfl
-  scalarInFlow _ _ _ _ _ _ _ _ := rfl
-  stringInFlow _ _ _ _ _ _ _ _ := rfl
-  scalarCondition _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ := rfl
-  invalidCondition _ _ := rfl
-  integer _ _ _ _ := rfl
-  expression _ _ _ _ _ _ _ _ := rfl
-  assumeValid _ := rfl
-  assumeInvalid _ := rfl
-  refineBounds _ _ _ _ _ := rfl
-  fits _ _ := rfl
-  refineEqual _ _ _ := rfl
-  join _ _ _ _ := rfl
+  xorFree := by intros; rfl
+  equalName := by intros; rfl
+  nameIs := by intros; rfl
+  arrayLookup := by intros; rfl
+  booleanLookup := by intros; rfl
+  callAfter := by intros; rfl
+  take := by intros; rfl
+  skip := by intros; rfl
+  name := by intros; rfl
+  lookup := by intros; rfl
+  scalarLookup := by intros; rfl
+  scalarRead := by intros; rfl
+  scalarInFlow := by intros; rfl
+  stringInFlow := by intros; rfl
+  scalarCondition := by intros; rfl
+  invalidCondition := by intros; rfl
+  integer := by intros; rfl
+  expression := by intros; rfl
+  assumeValid := by intros; rfl
+  assumeInvalid := by intros; rfl
+  refineBounds := by intros; rfl
+  fits := by intros; rfl
+  refineEqual := by intros; rfl
+  join := by intros; rfl
 
 theorem model_definition_equations : DefinitionEquations modelCalls where
   sized := model_sizedModels
@@ -319,20 +433,29 @@ theorem model_definition_equations : DefinitionEquations modelCalls where
   chainAfter text _ position operator _ valid := by
     rw [chainAfter_denotation]
     exact model_chainAfter_equation text position operator valid
-  primary text _ context _ position bounded facts _ := by
+  booleanAtom text _ context _ position _ := by
+    rw [booleanAtom_denotation]
+    exact model_booleanAtom_equation text context position
+  primary text _ context _ position bounded facts _ initials _ := by
     rw [primary_denotation]
-    exact model_primary_equation text context position facts bounded
-  relation text _ context _ position bounded facts _ := by
+    exact model_primary_equation text context position facts initials bounded
+  booleanFactor text _ context _ position bounded facts _ initials _ := by
+    rw [booleanFactor_denotation]
+    exact model_booleanFactor_equation text context position facts initials bounded
+  booleanRelation text tv context cv position bounded facts _ initials _ := by
+    rw [booleanRelation_denotation]
+    exact model_booleanRelation_equation text context position facts initials tv cv.1 bounded
+  relation text _ context _ position bounded facts _ initials _ := by
     rw [relation_denotation]
-    exact model_relation_equation text context position facts bounded
-  model text tv context cv position bounded facts _ := by
+    exact model_relation_equation text context position facts initials bounded
+  model text tv context cv position bounded facts _ initials _ := by
     rw [model_denotation]
-    exact model_model_equation text context position facts tv cv bounded
+    exact model_model_equation text context position facts initials tv cv bounded
   workers := ⟨Workers.modelOutputs modelCalls,
-    Workers.model_refinement workerInput workerChainInput modelCalls, fun _ _ _ _ _ => rfl⟩
-  tail text tv context cv result rv operator valid chained := by
+    Workers.model_refinement workerInput workerChainInput modelCalls, fun _ _ _ _ _ _ _ => rfl⟩
+  tail text tv context cv result rv operator valid chained initials _ incoming _ originalStart _ := by
     rw [tail_denotation]
-    exact model_tail_equation text context result operator chained tv cv rv.1 valid
+    exact model_tail_equation text context result operator chained initials incoming originalStart tv cv rv.1 valid
 
 /-- The complete source-equation and contract interface is inhabited. -/
 theorem source_interface_inhabited : ∃ calls, HelperMeaning calls ∧ DefinitionEquations calls ∧ Contracts calls :=
