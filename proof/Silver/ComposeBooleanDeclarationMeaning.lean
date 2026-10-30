@@ -57,6 +57,7 @@ structure ImportsMeaning (imports : Imports) (text : Source) (state : ParserStat
   newName : let p := booleanDeclarationParts text state
     imports.newName text state p.first p.after arguments = newNameAllowed text state p.first p.after arguments
   nameIsBoolean : let p := booleanDeclarationParts text state
+    newNameAllowed text state p.first p.after arguments = true →
     imports.nameIsBoolean text p.first p.after = Named.nameIs text p.first p.after ("boolean".toList.map Char.toNat)
   lookup : ∀ kind, let p := booleanDeclarationParts text state
     imports.lookup kind text state p.typeFirst p.typeAfter = BooleanDeclarationNative.lookup kind text state p.typeFirst p.typeAfter
@@ -77,7 +78,12 @@ theorem reject_meaning (imports : Imports) (text : Source) (state : ParserState)
       !booleanDeclarationReady text state arguments (booleanDeclarationParts text state) := by
   rw [← model_reject]
   dsimp +instances only [reject, modelImports]
-  simp only [meaning.newName, meaning.nameIsBoolean, meaning.lookup]
+  by_cases allowed : newNameAllowed text state (booleanDeclarationParts text state).first
+      (booleanDeclarationParts text state).after arguments = true
+  · simp only [meaning.newName, meaning.nameIsBoolean allowed, meaning.lookup]
+  · have rejected : newNameAllowed text state (booleanDeclarationParts text state).first
+        (booleanDeclarationParts text state).after arguments = false := Bool.eq_false_iff.mpr allowed
+    simp only [meaning.newName, rejected, Bool.not_false, Bool.true_or]
 
 theorem imports_meaning (imports : Imports) (text : Source) (state : ParserState) (arguments : Bool)
     (meaning : ImportsMeaning imports text state arguments) :
