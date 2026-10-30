@@ -1,10 +1,13 @@
 # Named Integer subtypes: terminal evidence review — 2026-10-30
 
-**Draft: complete native, build and repaired-input regression evidence confirmed;
-the later source-literal repair is reviewed, with final Lean and Rosetta
-confirmation pending.** The initial completed-evidence check found no actionable
-discrepancy. The later completion-assurance finding #290 and its reviewed repair
-are recorded below. This bounded
+**Terminal evidence confirmed: complete native proof/audit, compiler build,
+complete Lean source/module/axiom audit and all 555 regression identities are
+covered on their applicable final inputs. No actionable finding remains from
+this bounded review.** Completion-assurance finding #290 is independently
+confirmed, repaired and validated; its failed original run remains history.
+Final governed implementation is `d4e2be67b5de7fcc2919cf9eac6efb217e5ca672`,
+with delivery metadata `1d6d1b4ffde8b0cdc24212b6c6dd3842880a7cc2` and final
+Rosetta evidence integrated as `31c9e6d915`. This bounded
 review concerns owner-authorized #286 and draft PR #289; it neither authorizes
 merging nor substitutes for the prior scoped code reviews or external approval.
 
@@ -118,9 +121,11 @@ run supplies neither a completed final source check nor a fresh complete audit.
 
 ## Source-literal repair review — 2026-10-30
 
-**Finding [#290](https://github.com/berkeleynerd/silver/issues/290): independently
-confirmed, severity: blocker for capability-completion assurance; bounded repair
-reviewed, authoritative validation pending.** This is an actual-source
+**Historical 01:32 UTC review boundary: finding
+[#290](https://github.com/berkeleynerd/silver/issues/290) independently confirmed,
+severity: blocker for capability-completion assurance; bounded repair reviewed,
+authoritative validation then pending.** The completed validation below closes
+that obligation. This is an actual-source
 correspondence defect, not a demonstrated native/runtime defect. Complete run
 `20261029T205735-bb72d0625415` reports false propositions in
 `ScalarExpressionSourceChecks` (lines 23 and 73),
@@ -207,13 +212,98 @@ fixture results remain applicable. The 28 proof-tree results require replacement
 again; original outcomes stay intact. Later Rosetta metadata changes require
 their own affected-test results and final identity reconciliation.
 
-## Outstanding terminal confirmation
+## Repaired complete Lean and regression confirmation
 
-Run `20261029T205735-bb72d0625415` has known source-literal failures and must
-retain its actual terminal outcome. No complete-Lean success is inferred from
-its successful independent modules or the completed native result. After the
-reviewed repair, final confirmation must inspect the repaired whole-project
-source/module/axiom outcome, exact captured-input binding, 28 refreshed proof-tree
-results, final Rosetta metadata delta and affected renderer-test outcomes, then
-reconcile all 555 identities. The reviewer is paused pending those records;
-no proof/test polling or rerun is needed for this evidence review.
+**The reviewed #290 repair has passed complete source/module/axiom validation.**
+Inspected the final Lean packet committed as `d5320f8d85`, the literal-repair
+regression and failed-run records at `32bdf6b4a9`, and the delivery metadata delta
+`1d6d1b4ffd`, against governed implementation
+`d4e2be67b5de7fcc2919cf9eac6efb217e5ca672`. Selected reviewer remained GPT-6 Astra /
+Extra High; runtime confirmation and token/cost measurements remain unavailable.
+This substantive terminal inspection ran 03:12:42–03:16:07 UTC (205 seconds),
+followed by metadata review and report preparation. No proofs or tests were rerun.
+
+Independently verified every retained uncompressed log/event/evidence digest for
+the focused and complete repaired runs; matched actual terminal events; compared
+all 653 captured input hashes directly with Git blobs at the governed target;
+and recomputed their aggregate input digest. The focused run
+`20261030T020329-280326d88dbd` passed the four repaired modules and its fresh
+139-module / 25,036-declaration audit. It remains focused evidence.
+
+Complete run
+[`20261030T020720-944618f28c05`](../evidence/named-integer-subtypes-20261029/runs/20261030T020720-944618f28c05/retained.json)
+finished successfully at 03:07:31 UTC. The actual build and separate fresh audit
+both exited 0. The build took 3,584.991 seconds and the audit 10.826 seconds;
+managed duration was 3,608.781 seconds and the runner's broader elapsed measurement
+was 3,611.322 seconds. These measurements are distinct. The raw fresh-audit log
+contains exactly the full **538-module** source set, including root `Silver`,
+and audits **115,128 declarations**, reporting only `propext`, `Classical.choice`
+and `Quot.sound`. Recomputed the expected module set from the actual committed
+Lean file inventory and matched it to both the emitted imports and evidence.
+Tool digests agree between preflight and final evidence. Settings are the pinned
+Lean 4.34.1, one worker/thread and 24,576 MiB per-process allowance.
+
+This is a complete incremental build and fresh whole-project audit, with normal
+dependency-checked reuse. It is neither a clean build nor independent kernel
+replay. The failed prior run's successful independent modules were retained;
+the repaired `PredicateSourceCandidate` and downstream source route now pass.
+The initial native checkpoint and compiler build remain applicable because the
+later repair changes only the five reviewed Lean literals/checks.
+
+The earlier complete run `20261029T205735-bb72d0625415` retains its actual
+`failure` at 02:01:47 UTC after 18,249.514 seconds. Independently checked both
+retained hashes, all 653 original-target input hashes, the seven exact errors
+listed above and absence of a whole-project audit. Its outcome is not relabeled
+by the later success.
+
+For the [literal-repair regressions](../evidence/named-integer-subtypes-20261029/literal-repair-regression/README.md),
+verified all 15 packet digests, the original decompressed logs/events, successful
+terminal outcomes and test-phase return code 0. Run
+`20261030T013443-d9556926db16` explicitly passes all 12 source identities in
+82.157 managed seconds; `20261030T013608-6b001884b330` explicitly passes all 16
+platform identities in 253.865 seconds. All 792 tracked inputs in each run match
+the repaired target. The eight other input hashes agree across both runs and
+with the earlier 18 compiler-fixture results, including the native executable.
+The exact disjoint sets reconcile **509 original results + 18 retained repair
+fixture results + 28 new proof-tree results = 555 identities**. No identity is
+missing or failing. This confirms the earlier applicability review on actual
+final proof bytes.
+
+## Final Rosetta and inventory confirmation
+
+Reviewed the [final Rosetta packet](../evidence/named-integer-subtypes-20261029/final-rosetta/README.md)
+and revised reconciliation at `31c9e6d915`, integrated from
+`78d1416d850b1364058e33b2d8d3782e75a193ab`. Selected reviewer remained GPT-6
+Astra / Extra High, with runtime confirmation and token/cost measurements
+unavailable. This final inspection ran 06:44:35–06:45:52 UTC (77 seconds),
+followed by report preparation; the intervening wait is not review execution.
+No build, proof or test was rerun by the reviewer.
+
+Verified all eight packet digests and both decompressed log/event digests.
+Managed run `20261030T031457-868467f2105b` has a successful terminal event,
+test-phase return code 0, and an explicit successful outcome for each of the
+three identities, including their multiline descriptions. Its managed duration
+is 8.008 seconds; unittest reports 4.499 seconds. All 792 captured tracked hashes
+match actual Git blobs at metadata snapshot `1d6d1b4ffd`; all eight other input
+hashes match both latest proof-tree runs. The source, proof, scripts, tests,
+samples, catalogue and project inputs remain unchanged from `d4e2be67b5`.
+
+The metadata delta preserves original assessment attribution and describes the
+two already implemented drivers' delivery confirmation separately from scoped
+independent review and external approval. The three renderer tests cover the
+actual current assessment data across hash seeds and the two existing fixtures.
+This is Linux renderer evidence, not a new native proof or application run.
+
+Independently reconciled the exact sets and preserved prior inventory and
+reconciliation bytes. The final disjoint partition is **506 applicable original
+results + 28 latest proof-tree passes + 18 earlier compiler-fixture passes + 3
+final Rosetta passes = 555 identities**, representing 546 distinct methods after
+the nine imported duplicate executions. All five replacement-run sets match
+their covered identities, with no missing or failed identity. The 52 sample
+sources and 108 application executions retain their previously reviewed results.
+
+The complete native and Lean claims, regression reuse and historical unsuccessful
+outcomes are consistent with the actual inputs and retained terminal records.
+This completes the requested evidence confirmation and the #290 repair review.
+It establishes no native macOS run, hosted CI result, clean rebuild, cold proof,
+independent kernel replay, external approval or authorization to merge PR #289.
