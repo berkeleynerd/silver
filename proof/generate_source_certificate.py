@@ -12,6 +12,11 @@ import argparse
 import json
 from pathlib import Path
 
+# Large flattened lists exceed elaborator conversion depth with `rfl`.
+# The existing explicit-witness helper checks the same equality in the kernel;
+# preserve smaller certificates so their checked objects remain reusable.
+_RFL_TOKEN_LIMIT = 32_768
+
 SOURCE_BINDINGS = (
     ("silver_array_bindings.ads", "arrayBindingsSpec", "arrayBindingsSpecTokens"),
     ("silver_array_bindings.adb", "arrayBindingsBody", "arrayBindingsBodyTokens"),
@@ -174,6 +179,8 @@ def generate(source: str, profile: str, prefix: str) -> list[str]:
         return name
 
     tree = reconstruction(0, len(lines))
+    values_proof = ("rfl" if len(all_tokens) <= _RFL_TOKEN_LIMIT
+                    else f"kernel_exact (Eq.refl {prefix})")
     output.extend([
         f"def {prefix}_certificates : List LineCertificate :=",
         f"  {tree}.lines",
@@ -186,7 +193,7 @@ def generate(source: str, profile: str, prefix: str) -> list[str]:
         f"  exact {tree}.correct",
         "",
         f"theorem {prefix}_values :",
-        f"    {prefix}_certificates.flatMap (·.tokens) = {prefix} := by rfl",
+        f"    {prefix}_certificates.flatMap (·.tokens) = {prefix} := by {values_proof}",
         "",
         f"theorem {prefix}_correct : lex {profile} = some {prefix} := by",
         f"  rw [← {prefix}_source, reconstructed_source_lex {prefix}_certificates",

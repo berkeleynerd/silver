@@ -65972,7 +65972,7 @@ theorem outputBodyTokens_source :
   exact outputBodyTokens_block_0_4396.correct
 
 theorem outputBodyTokens_values :
-    outputBodyTokens_certificates.flatMap (·.tokens) = outputBodyTokens := by rfl
+    outputBodyTokens_certificates.flatMap (·.tokens) = outputBodyTokens := by kernel_exact (Eq.refl outputBodyTokens)
 
 theorem outputBodyTokens_correct : lex outputProfileBody = some outputBodyTokens := by
   rw [← outputBodyTokens_source, reconstructed_source_lex outputBodyTokens_certificates
