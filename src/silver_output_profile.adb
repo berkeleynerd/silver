@@ -1557,6 +1557,7 @@ is
          Static => Array_Declaration_At'Result = Array_Declaration_Model (Text, State, Arguments));
    function Array_Declaration_At
      (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State is
+      Result : constant Parser_State :=
      (declare First : constant Literal_Position := Skip_At (Text, State.Position);
               After : constant Literal_Position := Name_After (Text, First);
               Colon_After : constant Literal_Position := Take_Token (Text, After, Colon);
@@ -1616,6 +1617,11 @@ is
                      else Add_Array_Binding
                        (Text, Values, First, After, (Low.Bounds.Lower, High.Bounds.Lower),
                         State.Array_Names.Used, Length, Constant_After = 0, Following, Type_Mark.Bounds)))))));
+   begin
+      pragma Assert (Static => Same_Parser_State
+        (Result, Array_Declaration_Model (Text, State, Arguments)));
+      return Result;
+   end Array_Declaration_At;
 
    function Boolean_Declaration_At
      (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State
