@@ -221,3 +221,23 @@ source hashes and both tool hashes still match the repaired target. Native run
 workers, with all 2,561 preflight hashes unchanged from its predecessor. The
 [evidence packet](evidence/boolean-objects-20261030/README.md) retains the recovery.
 Both complete results remain pending. Neither feature PR is authorized to merge.
+
+### Native equality-proof repair
+
+The [native checkpoint](evidence/boolean-objects-20261030/full-native-failed-194142/README.md)
+finished failed at 19:52:53 UTC after 667.844 s. GNATprove reports 17,192 checks:
+1,468 flow, 15,722 proved and two unproved. Complete report/provenance auditing
+did not run. The remaining checks are the exact Static equality postcondition
+of `Read_Boolean_Relation_Into` and an equality-lemma precondition in the eager
+chain branch of `Read_Chain_Into`. The solvers reached time/memory limits;
+no counterexample was reported, and the executable reader preconditions passed.
+
+The selected candidate adds checked branch equality steps and uses the existing
+named right-hand model value in the eager branch's ghost lemma call. Executable
+behavior, complete preconditions, exact postconditions and production proof
+settings must remain unchanged. Focused validation and independent review are
+required before integration. The lead stopped the complete Lean run at
+19:57:36 UTC, retaining its inputs, logs and completed objects, because the Ada
+annotation repair changes its captured source. Source pins/certificates and
+affected validation will be refreshed together after the native repair passes;
+no capability completion is claimed.

@@ -18,6 +18,11 @@ After the owner's further continuation request, a host restart was found to
 have interrupted both complete checks. Their inputs still match; retained
 proof work is being reused for replacement managed checks. This is recovery
 of the same authorized delivery, with no new feature or merge authorization.
+The replacement native check then exposed two unresolved ghost equality
+proofs. Their reports are retained in the capability packet; a focused repair
+preserving the contracts is underway. The complete Lean run was stopped before
+the corresponding source update. Complete assurance remains required after
+the repaired inputs stabilize.
 
 ## 2026-10-30 — Boolean scalar objects and expressions authorized
 

@@ -21,6 +21,15 @@ cache and 2,561 preflight input hashes. Native run
 audit. All interrupted records retain that outcome; neither complete checkpoint
 has passed yet.
 
+Native run `20261030T194142-1f663fdf10c2` subsequently
+[finished failed](full-native-failed-194142/README.md) on two ghost equality
+checks. A focused annotation repair is being checked. The lead
+[stopped Lean run `194116`](source-integration/native-repair-stop/README.md)
+at 19:57:36 UTC because the selected Ada annotation changes will invalidate its
+captured source. Completed objects remain retained; complete validation will
+resume on reviewed, stable repaired inputs. The regression review below applies
+to `cff54ae34d`; any integrated repair needs an input-applicability check.
+
 - [Producer review](producer-review.md): observed Boolean obligation routes and
   the explicit restriction on nested xor operands.
 - [Native validation](native-validation.md) and [repairs](native-repair.md):
