@@ -563,5 +563,8 @@
   "literal_repair_run_ids": [
     "20261030T013443-d9556926db16",
     "20261030T013608-6b001884b330"
-  ]
+  ],
+  "frozen_implementation_commit": "d4e2be67b5de7fcc2919cf9eac6efb217e5ca672",
+  "delivery_metadata_commit": "1d6d1b4ffde8b0cdc24212b6c6dd3842880a7cc2",
+  "final_rosetta_run": "20261030T031457-868467f2105b"
 }

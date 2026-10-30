@@ -7,8 +7,8 @@
   "sample_sources": 52,
   "sample_executions": 108,
   "distinct_methods_excluding_import_duplicates": 546,
-  "retained_final_results": 509,
-  "fresh_final_results": 46,
+  "retained_final_results": 506,
+  "fresh_final_results": 49,
   "total_final_coverage": 555,
   "missing_or_failed": [],
   "replacement_runs": {
@@ -81,6 +81,15 @@
       ],
       "managed_duration_seconds": 253.86506372,
       "unittest_duration_seconds": 250.766
+    },
+    "20261030T031457-868467f2105b": {
+      "identities": [
+        "test_rosetta.RosettaRenderTests.test_pending_design_has_no_stage_and_is_not_an_oracle_exclusion",
+        "test_rosetta.RosettaRenderTests.test_render_is_identical_across_hash_seeds",
+        "test_rosetta.RosettaRenderTests.test_risk_counts_are_per_sample_and_ties_are_alphabetical"
+      ],
+      "managed_duration_seconds": 8.007633918,
+      "unittest_duration_seconds": 4.499
     }
   },
   "full_run_timing": {
@@ -88,9 +97,9 @@
     "unittest_duration_seconds": 5255.763
   },
   "applicability_review": "../../reviews/review-named-integer-subtypes-terminal-evidence-20261030.md",
-  "scope": "Final proof-literal repair has 509 applicable original results plus 46 refreshed identities: 28 new proof-source/platform passes and 18 retained repaired-source compiler-fixture passes. Earlier outcomes remain history; complete proof assurance is separate.",
-  "coverage": "literal-repair-regression/coverage.json",
-  "prior_reconciliation": "literal-repair-regression/prior-test-reconciliation.json",
+  "scope": "Final delivery metadata has 506 applicable original full-suite results plus 28 latest proof-tree passes, 18 earlier compiler-fixture passes and 3 final Rosetta passes. Earlier successes remain history; complete native/Lean assurance is reported separately.",
+  "coverage": "final-rosetta/coverage.json",
+  "prior_reconciliation": "final-rosetta/prior-test-reconciliation.json",
   "history": [
     {
       "implementation_commit": "97312a790fb11a83a9607ad48ddab491711f2c3d",
@@ -107,8 +116,21 @@
       "retained_final_results": 509,
       "fresh_final_results": 46,
       "reconciliation": "literal-repair-regression/prior-test-reconciliation.json"
+    },
+    {
+      "implementation_commit": "d4e2be67b5de7fcc2919cf9eac6efb217e5ca672",
+      "retained_final_results": 509,
+      "fresh_final_results": 46,
+      "reconciliation": "final-rosetta/prior-test-reconciliation.json"
     }
   ],
   "native_source_commit": "6020416906b5fc3d2bd10d012e70937c80f0617c",
-  "proof_literal_applicability": "literal-repair-regression/README.md"
+  "proof_literal_applicability": "literal-repair-regression/README.md",
+  "delivery_metadata_commit": "1d6d1b4ffde8b0cdc24212b6c6dd3842880a7cc2",
+  "coverage_components": {
+    "original_full_suite": 506,
+    "latest_proof_tree": 28,
+    "earlier_compiler_fixtures": 18,
+    "final_rosetta": 3
+  }
 }

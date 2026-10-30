@@ -1,0 +1,25 @@
+{
+  "observed_utc": "2026-10-30T03:14:57.181328+00:00",
+  "frozen_implementation_commit": "d4e2be67b5de7fcc2919cf9eac6efb217e5ca672",
+  "delivery_metadata_commit": "1d6d1b4ffde8b0cdc24212b6c6dd3842880a7cc2",
+  "validation_before": "4a0d7ebf85ee2d1b8ce5db0ece91f546eac57ecb",
+  "governed_inputs_checked": 787,
+  "unexpected_drift": [],
+  "metadata": {
+    "rosetta/refresh.py": {
+      "before_sha256": "ece2c6843bf3a326fa305c96edd82f8aaf702856160d8705e3671abd0aeccde6",
+      "final_sha256": "ece2c6843bf3a326fa305c96edd82f8aaf702856160d8705e3671abd0aeccde6",
+      "changed": false
+    },
+    "rosetta/manifest.json": {
+      "before_sha256": "c007b4a67439be22b242e6104f5e41998d5aa3ca1a7174cfe3cc6de7927b452f",
+      "final_sha256": "c007b4a67439be22b242e6104f5e41998d5aa3ca1a7174cfe3cc6de7927b452f",
+      "changed": false
+    },
+    "rosetta/coverage.json": {
+      "before_sha256": "04146263ccbaf1187c7d85cdafc38da1bb1960cbab5b275c6c3b04a43548c1ec",
+      "final_sha256": "938be4285c1c5132c5cb73b9c493b416c3e053870e8318cbfdfdb7b90b3412f8",
+      "changed": true
+    }
+  }
+}
