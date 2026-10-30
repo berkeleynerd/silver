@@ -311,10 +311,10 @@ mutual
   decreasing_by all_goals first | exact Prod.Lex.left _ _ (by assumption) | exact Prod.Lex.right _ (by decide)
 
   theorem chain_sound (text : Source) (context : ParseContext) (condition : Condition) (result : ConditionResult)
-      (chained : Option ChainKind) (incoming : ActiveFlow) {initials : ArrayBindings.Initials} (textValid : ValidText text) (namesValid : ValidNames text context.names)
-      (bounded : result.after ≤ text.length + 1) (accepted : (conditionTail text context result chained incoming initials).after ≠ 0) :
-      (∃ final, ChainAt text context condition result chained final (conditionTail text context result chained incoming initials) incoming initials) ∧
-        (conditionTail text context result chained incoming initials).after ≤ text.length + 1 := by
+      (chained : Option ChainKind) (incoming : ActiveFlow) (originalStart : Nat) {initials : ArrayBindings.Initials} (textValid : ValidText text) (namesValid : ValidNames text context.names)
+      (bounded : result.after ≤ text.length + 1) (accepted : (conditionTail text context result chained incoming initials originalStart).after ≠ 0) :
+      (∃ final, ChainAt text context condition result chained final (conditionTail text context result chained incoming initials originalStart) incoming initials originalStart) ∧
+        (conditionTail text context result chained incoming initials originalStart).after ≤ text.length + 1 := by
     by_cases zero : result.after = 0
     · simp [conditionTail, zero, invalidCondition] at accepted
     · cases operatorEq : chainOperator text result.after with
@@ -322,56 +322,77 @@ mutual
           simp only [conditionTail, zero, operatorEq, ↓reduceIte]
           exact ⟨⟨condition, .done zero operatorEq⟩, bounded⟩
       | some operator =>
-          by_cases compatible : (chained.isSome && decide (chained ≠ some operator)) = true
+          by_cases rejected : ((chained.isSome && decide (chained ≠ some operator)) ||
+              (decide (operator = .eagerXor) && !xorFree text originalStart result.after)) = true
           · rw [conditionTail] at accepted
-            simp only [zero, operatorEq, compatible, ↓reduceIte, invalidCondition, ne_eq, not_true_eq_false] at accepted
-          · by_cases afterZero : chainAfter text result.after operator = 0
+            simp only [zero, operatorEq, rejected, ↓reduceIte, invalidCondition, ne_eq, not_true_eq_false] at accepted
+          · have compatible : ¬(chained.isSome = true ∧ chained ≠ some operator) := by
+              intro bad
+              apply rejected
+              simp only [Bool.or_eq_true, Bool.and_eq_true, decide_eq_true_eq]
+              exact Or.inl bad
+            have leftFree : operator = .eagerXor → xorFree text originalStart result.after = true := by
+              intro selected
+              cases free : xorFree text originalStart result.after with
+              | true => rfl
+              | false => simp [selected, free] at rejected
+            by_cases afterZero : chainAfter text result.after operator = 0
             · rw [conditionTail] at accepted
-              simp only [zero, operatorEq, compatible, Bool.false_eq_true, afterZero, ↓reduceIte, invalidCondition, ne_eq, not_true_eq_false] at accepted
+              simp only [zero, operatorEq, rejected, Bool.false_eq_true, afterZero, ↓reduceIte, invalidCondition, ne_eq, not_true_eq_false] at accepted
             · by_cases advanced : remainingAt text (chainAfter text result.after operator) < remainingAt text result.after
               · let right := readRelation text context (chainAfter text result.after operator) (chainContext result operator incoming) initials
-                by_cases rightZero : right.after = 0
+                by_cases rightRejected : right.after = 0 ∨
+                    (operator = .eagerXor ∧ xorFree text (chainAfter text result.after operator) right.after = false)
                 · rw [conditionTail] at accepted
-                  simp only [zero, operatorEq, compatible, Bool.false_eq_true, afterZero, advanced, ↓reduceIte, ↓reduceDIte] at accepted
-                  change (if right.after = 0 then invalidCondition result.whenTrue else _).after ≠ 0 at accepted
-                  simp only [rightZero, ↓reduceIte, invalidCondition, ne_eq, not_true_eq_false] at accepted
-                · let next := chainJoin result right operator incoming
+                  simp only [zero, operatorEq, rejected, Bool.false_eq_true, afterZero, advanced, ↓reduceIte, ↓reduceDIte] at accepted
+                  change (if right.after = 0 ∨ (operator = .eagerXor ∧
+                    xorFree text (chainAfter text result.after operator) right.after = false) then invalidCondition result.whenTrue else _).after ≠ 0 at accepted
+                  simp only [rightRejected, ↓reduceIte, invalidCondition, ne_eq, not_true_eq_false] at accepted
+                · have rightZero : right.after ≠ 0 := fun bad => rightRejected (Or.inl bad)
+                  have rightFree : operator = .eagerXor → xorFree text (chainAfter text result.after operator) right.after = true := by
+                    intro selected
+                    cases free : xorFree text (chainAfter text result.after operator) right.after with
+                    | true => rfl
+                    | false => exact False.elim (rightRejected (Or.inr ⟨selected, free⟩))
+                  let next := chainJoin result right operator incoming
                   by_cases nextAdvanced : remainingAt text next.after < remainingAt text result.after
-                  · have recursivePositive : (conditionTail text context next (some operator) incoming initials).after ≠ 0 := by
+                  · have recursivePositive : (conditionTail text context next (some operator) incoming initials originalStart).after ≠ 0 := by
                       rw [conditionTail] at accepted
-                      simp only [zero, operatorEq, compatible, Bool.false_eq_true, afterZero, advanced,
+                      simp only [zero, operatorEq, rejected, Bool.false_eq_true, afterZero, advanced,
                         ↓reduceIte, ↓reduceDIte] at accepted
-                      change (if right.after = 0 then invalidCondition result.whenTrue else
+                      change (if right.after = 0 ∨ (operator = .eagerXor ∧
+                    xorFree text (chainAfter text result.after operator) right.after = false) then invalidCondition result.whenTrue else
                         if _ : remainingAt text next.after < remainingAt text result.after then _ else invalidCondition result.whenTrue).after ≠ 0 at accepted
-                      simpa only [rightZero, nextAdvanced, ↓reduceIte, ↓reduceDIte] using accepted
+                      simpa only [rightRejected, nextAdvanced, ↓reduceIte, ↓reduceDIte] using accepted
                     have rightReading := relation_sound text context (chainAfter text result.after operator)
                       (chainContext result operator incoming) textValid namesValid (chainAfter_bound text result.after operator bounded) rightZero
                     obtain ⟨rightCondition, rightRead⟩ := rightReading.1
                     have nextBound : next.after ≤ text.length + 1 := by
                       cases operator <;> exact rightReading.2
                     have recursive := chain_sound text context (chainCondition condition rightCondition operator) next
-                      (some operator) incoming textValid namesValid nextBound recursivePositive
+                      (some operator) incoming originalStart textValid namesValid nextBound recursivePositive
                     obtain ⟨final, finalRead⟩ := recursive.1
-                    have equation : conditionTail text context result chained incoming initials = conditionTail text context next (some operator) incoming initials := by
+                    have equation : conditionTail text context result chained incoming initials originalStart = conditionTail text context next (some operator) incoming initials originalStart := by
                       rw [conditionTail]
-                      simp only [zero, operatorEq, compatible, Bool.false_eq_true, afterZero, advanced,
+                      simp only [zero, operatorEq, rejected, Bool.false_eq_true, afterZero, advanced,
                         ↓reduceIte, ↓reduceDIte]
-                      change (if right.after = 0 then invalidCondition result.whenTrue else
+                      change (if right.after = 0 ∨ (operator = .eagerXor ∧
+                    xorFree text (chainAfter text result.after operator) right.after = false) then invalidCondition result.whenTrue else
                         if _ : remainingAt text next.after < remainingAt text result.after then _ else invalidCondition result.whenTrue) = _
-                      simp only [rightZero, nextAdvanced, ↓reduceIte, ↓reduceDIte]
+                      simp only [rightRejected, nextAdvanced, ↓reduceIte, ↓reduceDIte]
                       rfl
                     rw [equation]
                     exact ⟨⟨final, .next equation zero operatorEq
-                      (by simpa only [Bool.and_eq_true, decide_eq_true_eq] using compatible)
-                      afterZero advanced rightRead rightZero nextAdvanced finalRead⟩, recursive.2⟩
+                      compatible leftFree afterZero advanced rightRead rightZero rightFree nextAdvanced finalRead⟩, recursive.2⟩
                   · rw [conditionTail] at accepted
-                    simp only [zero, operatorEq, compatible, Bool.false_eq_true, afterZero, advanced,
+                    simp only [zero, operatorEq, rejected, Bool.false_eq_true, afterZero, advanced,
                       ↓reduceIte, ↓reduceDIte] at accepted
-                    change (if right.after = 0 then invalidCondition result.whenTrue else
+                    change (if right.after = 0 ∨ (operator = .eagerXor ∧
+                    xorFree text (chainAfter text result.after operator) right.after = false) then invalidCondition result.whenTrue else
                       if _ : remainingAt text next.after < remainingAt text result.after then _ else invalidCondition result.whenTrue).after ≠ 0 at accepted
-                    simp only [rightZero, nextAdvanced, ↓reduceIte, ↓reduceDIte, invalidCondition, ne_eq, not_true_eq_false] at accepted
+                    simp only [rightRejected, nextAdvanced, ↓reduceIte, ↓reduceDIte, invalidCondition, ne_eq, not_true_eq_false] at accepted
               · rw [conditionTail] at accepted
-                simp only [zero, operatorEq, compatible, Bool.false_eq_true, afterZero, advanced, ↓reduceIte, ↓reduceDIte, invalidCondition, ne_eq, not_true_eq_false] at accepted
+                simp only [zero, operatorEq, rejected, Bool.false_eq_true, afterZero, advanced, ↓reduceIte, ↓reduceDIte, invalidCondition, ne_eq, not_true_eq_false] at accepted
   termination_by (remainingAt text result.after, 6)
   decreasing_by all_goals exact Prod.Lex.left _ _ (by assumption)
 
@@ -386,14 +407,14 @@ mutual
     · by_cases advanced : remainingAt text (readRelation text context position facts initials).after < remainingAt text position
       · have first := relation_sound text context position facts textValid namesValid bounded zero
         obtain ⟨condition, firstRead⟩ := first.1
-        have tailPositive : (conditionTail text context (readRelation text context position facts initials) none facts initials).after ≠ 0 := by
+        have tailPositive : (conditionTail text context (readRelation text context position facts initials) none facts initials position).after ≠ 0 := by
           intro failed
           simp only [readCondition, zero, advanced, ↓reduceIte, ↓reduceDIte,
             failed, invalidCondition, ne_eq, not_true_eq_false] at accepted
-        have tail := chain_sound text context condition (readRelation text context position facts initials) none facts
+        have tail := chain_sound text context condition (readRelation text context position facts initials) none facts position
           textValid namesValid first.2 tailPositive
         obtain ⟨final, finalRead⟩ := tail.1
-        have equation : readCondition text context position facts initials = conditionTail text context (readRelation text context position facts initials) none facts initials := by
+        have equation : readCondition text context position facts initials = conditionTail text context (readRelation text context position facts initials) none facts initials position := by
           simp only [readCondition, zero, advanced, ↓reduceIte, ↓reduceDIte, tailPositive]
         rw [equation]
         exact ⟨⟨final, .condition equation firstRead zero advanced finalRead⟩, tail.2⟩

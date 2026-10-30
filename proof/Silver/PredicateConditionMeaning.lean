@@ -94,6 +94,7 @@ theorem ConditionMeaning.chain {context facts left leftResult right rightResult 
           leftMeaning.whenTrue, trueRight]
       · simp only [chainJoin, chainCondition, Condition.refine, falseRight]
   | eagerAnd | eagerOr | eagerXor =>
+      simp only [chainContext] at checkedRight
       refine ⟨⟨head, relation, leftMeaning.grammatical, rightMeaning.grammatical⟩,
         ⟨leftMeaning.readable, rightMeaning.readable⟩, ?_, rfl, rfl⟩
       simp only [chainCondition, Condition.checkBounds, leftMeaning.checked, checkedRight, Bool.and_self]
