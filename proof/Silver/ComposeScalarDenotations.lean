@@ -117,6 +117,7 @@ theorem scalarConstraint_denotation (calls : Calls) (text : Source) (position : 
       scalarConstraintEquation calls text position scalarNames baseBounds := by
   rfl
 
+set_option maxHeartbeats 4000000 in
 theorem scalarDeclaration_denotation (calls : Calls) (text : Source) (state : ParserState)
     (arguments : Bool) :
     scalarDeclarationBody.eval calls (Context.locals {text,state,arguments}) =
