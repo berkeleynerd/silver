@@ -1,7 +1,6 @@
 module
 
-public import Silver.PredicateConditionFlowValidity
-public import Silver.PredicateScalarHeaderReady
+public import Silver.PredicateInitialFlowValidity
 public import Silver.ComposeStateBounds
 public import Silver.ComposeScalarDeclarations
 
@@ -12,40 +11,6 @@ open Compose
 
 attribute [local irreducible] ScalarExpression.read
 
-namespace ScalarMetadata
-
-theorem ranges_bounded {text : Source} {names : ScalarExpression.Environment}
-    (valid : ScalarExpression.ValidEnvironment text names) : (ScalarExpression.ranges names).Bounded := by
-  intro index bounds found
-  unfold ScalarExpression.ranges at found
-  split at found
-  · rename_i active
-    cases found
-    have within : index - 1 < names.length := by omega
-    have member : ScalarExpression.binding names index ∈ names := by
-      simp only [ScalarExpression.binding, List.getD_eq_getElem?_getD,
-        List.getElem?_eq_getElem within, Option.getD_some]
-      exact List.getElem_mem within
-    exact (valid.2 _ member).2.2.2.1
-  · contradiction
-
-theorem HeaderReady.initial {text : Source} {names : ScalarExpression.Environment}
-    (ready : HeaderReady names) (valid : ScalarExpression.ValidEnvironment text names)
-    (path : PathFacts.Context) : FlowReady names names.length (ActiveFlow.initial names path) := by
-  refine ⟨initial_compatible .., ?_, ?_, ?_⟩
-  · simpa only [ActiveFlow.initial_model] using ranges_bounded valid
-  · simpa only [ActiveFlow.initial_model, analysis] using Integer.Ranges.refines_refl (ScalarExpression.ranges names)
-  · intro index bounds mutable found
-    rw [ActiveFlow.initial_model] at found
-    change ScalarExpression.ranges names index = some bounds at found
-    unfold ScalarExpression.ranges at found
-    split at found
-    · rename_i active
-      cases found
-      exact (ready.binding index active.1 active.2).1
-    · contradiction
-
-end ScalarMetadata
 
 namespace OuterReadiness
 
