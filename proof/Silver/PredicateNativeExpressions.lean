@@ -346,6 +346,7 @@ inductive Expr : Ty → Type
   | token (value : Token) : Expr .token
   | chain (value : ChainKind) : Expr .chain
   | word (value : String) : Expr .word
+  | validityCallWord : Expr .word
   | comparison (value : Comparison) : Expr .comparison
   | variable (name : String) : Expr ty
   | function (symbol : Function) : Expr symbol.type
@@ -405,6 +406,7 @@ def Expr.render : Expr ty → List String
   | .token value => [value.name]
   | .chain value => [value.name]
   | .word value => ["\"" ++ value ++ "\""]
+  | .validityCallWord => ["validity_call_word"]
   | .comparison value => ["paths", ".", comparisonName value]
   | .variable name => [name]
   | .function symbol => symbol.name
@@ -462,6 +464,7 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .token value => value
   | .chain value => value
   | .word value => value
+  | .validityCallWord => "input_is_valid"
   | .comparison value => value
   | .variable name => locals _ name
   | .function symbol => calls.get symbol

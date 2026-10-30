@@ -35,7 +35,7 @@ def Expr.callSpine : Expr ty → Bool
   | .function _ => true | .app fn _ | .appNamed fn _ _ => fn.callSpine | _ => false
 
 def Expr.wellFormed : Expr ty → Bool
-  | .operation _ | .number _ | .truth _ | .word _ | .token _ | .chain _ | .comparison _ | .variable _ | .function _ => true
+  | .operation _ | .number _ | .truth _ | .word _ | .validityCallWord | .token _ | .chain _ | .comparison _ | .variable _ | .function _ => true
   | .app fn arg | .appNamed fn _ arg => fn.callSpine && fn.wellFormed && arg.primary && arg.wellFormed
   | .field _ value => value.primary && value.wellFormed
   | .subtypeHidden context op => context.primary && context.wellFormed && op.wellFormed
@@ -71,7 +71,7 @@ abbrev Scope := List (Ty × String)
 
 def Expr.scoped (scope : Scope) : Expr ty → Bool
   | .variable (ty := ty) name => (ty, name) ∈ scope
-  | .operation _ | .number _ | .truth _ | .word _ | .token _ | .chain _ | .comparison _ | .function _ => true
+  | .operation _ | .number _ | .truth _ | .word _ | .validityCallWord | .token _ | .chain _ | .comparison _ | .function _ => true
   | .app fn arg | .appNamed fn _ arg => fn.scoped scope && arg.scoped scope
   | .invalid value | .field _ value | .notEquality value | .notChain value | .not value | .group value | .old value | .locals value => value.scoped scope
   | .subtypeHidden left right | .bindingAt left right | .eq left right | .ne left right | .le left right | .tokenEq left right

@@ -108,7 +108,7 @@ def primaryBody : Expr .condition :=
             (.field .contextScalarNames context) (.field .contextArrays context)
             (.group (.orElse (.subtypeHidden context (.operation .validity))
               (.group (.andThen (.ne (.field .contextMaskFirst context) (.number 0))
-                (.callNameIs text (.field .contextMaskFirst context) (.field .contextMaskAfter context) (.word "input_is_valid"))))))
+                (.callNameIs text (.field .contextMaskFirst context) (.field .contextMaskAfter context) .validityCallWord)))))
             (.field .contextBooleans context)) <|
           .group <| .ite (.eq afterCall (.number 0)) (.invalid facts)
             (.condition true (.field .flowCount facts) afterCall
