@@ -11,9 +11,10 @@ open Compose Bindings PathFacts Compose.Expressions
 attribute [local irreducible] ScalarExpression.read
 
 theorem scalarRead_bound (text : Source) (position : Nat) (names : ScalarExpression.Environment)
-    (first after : Nat) (arrays : ArrayBindings.Metadata := []) (bounded : position ≤ text.length + 1) :
-    (ScalarExpression.read (arrays := arrays) text position names first after).after ≤ text.length + 1 := by
-  by_cases zero : (ScalarExpression.read (arrays := arrays) text position names first after).after = 0
+    (first after : Nat) (arrays : ArrayBindings.Metadata := []) (bounded : position ≤ text.length + 1)
+    (initials : ArrayBindings.Initials := []) (elaborating : Bool := false) :
+    (ScalarExpression.read (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names first after).after ≤ text.length + 1 := by
+  by_cases zero : (ScalarExpression.read (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names first after).after = 0
   · simp [zero]
   · obtain ⟨expression, parsed⟩ := ScalarExpression.read_sound bounded zero
     exact parsed.cursorBounds.2.2
