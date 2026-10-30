@@ -97,3 +97,99 @@ shapes, gnat-json, native log and managed events are retained in
 `native-repair/array-cut/`. The shared checkout's 131 source files were then
 restored byte-for-byte from the original backup. This is a focused repair result;
 complete unit validation and the separate string-reader equality remain pending.
+
+## First string-reader experiment
+
+After the array cut passed, the next candidate adds a checked Static assertion
+that the local Overlay count and complete fixed-array items agree logically with
+`Reading_Names(Context,Facts)`. The existing Same_Parser_Scalar_Items helper
+provides the already checked logical-array identity. The executable return
+expression and original Static postcondition are unchanged; these assertions
+introduce no runtime work. Source review confirmed that the FlowReaders bridge
+uses the exact Static contract and implementation header, both unchanged.
+One focused check of Read_String_In_Flow will test this congruence hypothesis
+under the same native prover settings, after retaining its existing failed goal.
+
+## Overlay experiment result and next diagnosis
+
+Run `20261030T113626-d7b8aad7d3c5` failed after 535.146 s.
+The new overlay count/items assertion proved; the sole remaining primitive goal
+is still the final Static result/Expression_At equality (`def'vc.81` and `.81.0`,
+source line 2190). Thus overlay logical identity alone is insufficient. The
+returned Expression_Result is a flat six-field record, while Expression_At's
+checked contract equates it to the recursive expression-tail model. The next
+specific hypothesis is to split the final expression-result identity through a
+checked Logical_Equal helper over those six fields and assert it before return,
+as the successful array declaration repair does for Parser_State. The helper's
+own annotation must be proved separately or in the same focused region; it is
+not an unchecked axiom. The original exact wrapper postcondition stays unchanged.
+The failed overlay-only assertion will be removed from the new candidate.
+
+The failed experiment's exact source hashes and complete proof artifacts are in
+`native-repair/string-overlay/`. The shared root source was restored exactly after
+this run. No duplicate run or relaxed prover budget was used.
+
+## Result-cut experiment and literal-array diagnosis
+
+Run `20261030T115004-8f4e263b7fc5` finished naturally with a managed failure
+after 1823.034 s. The six-field `Same_Expression_Result` helper's annotation
+proved (all three helper session goals). The wrapper has two unresolved primitive
+goals: `.73`, the new checked result assertion at line 2219, and `.110`, the
+original exact Static postcondition at line 2200. Their transformed children
+`.73.0` and `.110.0` also time out. All other selected checks passed. Unattempted
+goals from unselected functions in this region-limited run are not counted as
+additional failures. The run was not interrupted.
+
+The retained final live SMT task and version-6 shape table narrow the issue to
+otherwise-identical calls containing independently generated String arrays for
+`Name_Is(..., "integer")`. The executable call, assertion and final postcondition
+use distinct literal objects; the retained target shows the assertion's object
+`temp___String_Literal_20397` versus the postcondition's
+`temp___String_Literal_8314`. Both specify the same seven characters, but their
+whole-array identities are distinct. This is a prover congruence hypothesis, not
+a demonstrated difference in executable language semantics.
+
+The next candidate removes the unsuccessful result-cut scaffold and changes
+only the two original reader occurrences of `"integer"` to the existing package
+constant `Integer_Type_Word`, whose declaration is exactly
+`constant String := "integer"`. The original wrapper body, exact result equality,
+precondition domain and native proof settings are retained. The source subthread
+owns the matching FlowReaders render-token and exact constant-declaration check;
+this adds no helper-meaning premise. The lead approved this bounded repair.
+
+Complete reports, selected sessions/shapes/gnat-json, captured source hashes,
+failed candidate source, live SMT task and managed logs are in
+`native-repair/string-result-cut/`. All 131 shared root source files were restored
+byte-for-byte before preparing the next experiment. The next check selects the
+original wrapper directly with `--limit-subp`, avoiding the additional
+unselected-function processing observed with `--limit-region`.
+
+## Minimal string-reader repair result
+
+Run `20261030T122217-a1313f11b288` passed all 18 selected checks in 65.257 s
+with the original strict native prover settings. The two uses of the existing
+`Integer_Type_Word` constant are the entire reader change; no result helper,
+local result record or additional assertion remains. This supports the
+literal-identity diagnosis while preserving the exact result contract and native
+domain. The change from region to subprogram selection also reduced unrelated
+processing, so the elapsed-time difference does not isolate either effect.
+The passing artifacts and exact candidate are in `native-repair/string-word/`.
+The shared checkout's 131 source files were again restored exactly.
+
+## Additional unit-run diagnostic: primary reader
+
+The preserved pre-xor unit run has now completed `Read_Condition_Into` with all
+480 Why3 session goals proved. `Read_Primary_Into` completed with 403 goals and
+one unresolved primitive `.355`, plus transformed `.355.0` and its enclosing
+root. Shape 420, checksum `64c9bfecea7b29157124e3d1f4254f6a`, is the exact
+`Result = Primary_Model` equality after the input-validity branch updates
+`When_True.Path` and `When_False.Path`. The exact assertion-versus-postcondition
+location is still being mapped; neither a broader runtime-state defect nor a
+complete unit result is claimed.
+
+Both the native and model calls in this branch contain a separate
+`Name_Is(..., "input_is_valid")` literal. The specific next question is whether
+that creates the same literal identity barrier as the now-repaired string
+reader. The completed session, shapes, gnat-json and frozen source identity are
+retained in `native-repair/read-primary-into/`. No primary repair or rerun has yet
+been made. The old unit source and cache remain unchanged.

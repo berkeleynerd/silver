@@ -2191,7 +2191,7 @@ is
            (Text, Position, Context.Names, Reading_Names (Context, Facts),
             Integer_Hidden => Boolean_Hides_Integer (Text, Context.Boolean_Names)
               or else (Context.Mask_First /= 0 and then
-                Name_Is (Text, Context.Mask_First, Context.Mask_After, "integer")), Arrays => Context.Array_Names,
+                Name_Is (Text, Context.Mask_First, Context.Mask_After, Integer_Type_Word)), Arrays => Context.Array_Names,
             Initials => Initials, Elaborating => Context.Elaborating));
    pragma No_Inline (Read_String_In_Flow);
    function Read_String_In_Flow
@@ -2203,7 +2203,7 @@ is
       return Expression_At (Text, Position, Context.Names, Overlay,
          Integer_Hidden => Boolean_Hides_Integer (Text, Context.Boolean_Names)
            or else (Context.Mask_First /= 0 and then
-             Name_Is (Text, Context.Mask_First, Context.Mask_After, "integer")), Arrays => Context.Array_Names,
+             Name_Is (Text, Context.Mask_First, Context.Mask_After, Integer_Type_Word)), Arrays => Context.Array_Names,
             Initials => Initials, Elaborating => Context.Elaborating);
    end Read_String_In_Flow;
 
