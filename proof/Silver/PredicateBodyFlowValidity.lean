@@ -12,7 +12,7 @@ open Compose
 namespace ScalarMetadata
 
 theorem FlowReady.replace {names declarations flow}
-    (base : BaseReady names declarations) (ready : FlowReady names declarations flow)
+    (ready : FlowReady names declarations flow)
     (index : Nat) (bounds : Integer.Interval) (positive : 0 < index)
     (bounded : index ≤ names.length) (mutable : (ScalarExpression.binding names index).mutable = true)
     (typed : bounds.Bounded) (nonempty : bounds.isEmpty = false)
@@ -37,13 +37,13 @@ theorem FlowReady.replace {names declarations flow}
     rw [model]
     by_cases same : other = index
     · subst other
-      have bindingFound : (analysis names declarations).declared index =
-          some (ScalarExpression.binding names index).bounds := by
-        simp only [analysis, ScalarExpression.ranges, positive, bounded, and_self, ↓reduceIte]
+      have bindingFound : flowBounds names index =
+          some (ScalarExpression.binding names index).declaredBounds := by
+        rw [flowBounds_active names index positive bounded, mutable]
+        rfl
       rw [bindingFound] at found
       cases found
       refine ⟨bounds, by simp only [Integer.put, ↓reduceIte], ?_⟩
-      rw [ScalarExpression.bodyReady_binding base.body positive bounded mutable]
       exact included
     · obtain ⟨incoming, present, subset⟩ := ready.contained other target found
       exact ⟨incoming, by simpa only [Integer.put, same, ↓reduceIte] using present, subset⟩
@@ -77,7 +77,7 @@ private theorem true_of_not_neg {value : Bool} (known : ¬(!value) = true) : val
   cases value <;> simp_all
 
 theorem scalarAssignment_flowReady (text : Source) (context : ParseContext) (scan : BodyScan)
-    (base : ScalarMetadata.BaseReady context.scalarNames context.declarationCount)
+    (_base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)
     (ready : scan.FlowReady context) : (scalarAssignmentBody text context scan).FlowReady context := by
   unfold scalarAssignmentBody
   dsimp only
@@ -102,7 +102,7 @@ theorem scalarAssignment_flowReady (text : Source) (context : ParseContext) (sca
       exact good (Or.inr (Or.inr (Or.inl (by omega))))
     obtain ⟨expression, parsed⟩ := ScalarExpression.read_sound
       (Compose.Expressions.model_fixed_valid text _ ":=" false (Compose.Expressions.model_name_valid text _)) positive
-    apply ScalarMetadata.FlowReady.replace base ready _ _ (Nat.pos_of_ne_zero nonzero) targetBound mutable
+    apply ScalarMetadata.FlowReady.replace ready _ _ (Nat.pos_of_ne_zero nonzero) targetBound mutable
       (Integer.Expr.infer_bounded parsed.inferred) nonempty
     intro value within
     rcases within with ⟨lo, hi⟩
@@ -110,7 +110,7 @@ theorem scalarAssignment_flowReady (text : Source) (context : ParseContext) (sca
     constructor <;> omega
 
 theorem basicRaw_flowReady (text : Source) (context : ParseContext) (scan : BodyScan)
-    (base : ScalarMetadata.BaseReady context.scalarNames context.declarationCount)
+    (base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)
     (ready : scan.FlowReady context) : (basicRaw text context scan).FlowReady context := by
   unfold basicRaw
   cases basicKind text context scan with
@@ -146,7 +146,7 @@ theorem basicRaw_flowReady (text : Source) (context : ParseContext) (scan : Body
       · exact ready
 
 theorem basic_flowReady (text : Source) (context : ParseContext) (scan : BodyScan)
-    (base : ScalarMetadata.BaseReady context.scalarNames context.declarationCount)
+    (base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)
     (ready : scan.FlowReady context) : (basicBody text context scan).FlowReady context := by
   unfold basicBody
   split
@@ -157,12 +157,10 @@ theorem basic_flowReady (text : Source) (context : ParseContext) (scan : BodySca
     · exact bodyToken_flowReady (basicRaw_flowReady text context scan base ready) text _
 
 theorem branchStart_flowReady (text : Source) (context : ParseContext) (scan : BodyScan) (keyword : String)
-    (base : ScalarMetadata.BaseReady context.scalarNames context.declarationCount)
+    (base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)
     (ready : scan.FlowReady context) :
     (branchStart text context scan keyword).1.FlowReady context ∧
       ScalarMetadata.FlowReady context.scalarNames context.declarationCount (branchStart text context scan keyword).2 := by
-  have contextReady : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating :=
-    ⟨fun _ => base.body, base.count, base.declarationsNonempty, base.mutable_bounds, base.size⟩
-  exact condition_flowReady text context (bodyToken text scan (.word keyword)).position scan.facts contextReady ready
+  exact condition_flowReady text context (bodyToken text scan (.word keyword)).position scan.facts base ready
 
 end Silver.Predicate

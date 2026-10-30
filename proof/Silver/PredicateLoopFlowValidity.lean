@@ -28,52 +28,59 @@ theorem environment_ranges_bounded {text : Source} {names : Environment}
   · contradiction
 
 theorem FlowReady.widen {text : Source} {names : Environment} {declarations : Nat} {flow : ActiveFlow}
-    (base : BaseReady names declarations) (ready : FlowReady names declarations flow)
+    (_base : ContextReady names declarations elaborating) (ready : FlowReady names declarations flow)
     (environment : ValidEnvironment text names) : FlowReady names declarations (ActiveFlow.widen names flow) := by
-  have model := ActiveFlow.widen_model names declarations flow ready.compatible.count base.body
+  have model := ActiveFlow.widen_flow_model names declarations flow ready.compatible.count
   refine ⟨?_, ?_, ?_, ?_⟩
   · apply overlayCompatible_of_preserved ready.compatible
       ((ActiveFlow.widen_count names flow ready.compatible.count).trans ready.compatible.count)
     intro index positive bounded immutable _declared
     rw [model]
-    simp only [analysis, Integer.Analysis.widen, mutability, positive, bounded, and_self,
+    simp only [analysis, Integer.Analysis.widen, bodyEnvironment_mutability, mutability, positive, bounded, and_self,
       decide_true, Bool.true_and, immutable, Bool.false_eq_true, ↓reduceIte]
   · rw [model]
-    exact Integer.Analysis.widen_bounded ready.bounded (environment_ranges_bounded environment)
+    exact Integer.Analysis.widen_bounded ready.bounded (environment_ranges_bounded (bodyEnvironment_valid environment))
   · rw [model]
     exact Integer.Analysis.widen_refines ready.contained
   · intro index bounds mutable found
     rw [model] at found
-    change (if mutability names index then (ranges names) index else flow.model.scalars index) = some bounds at found
-    simp only [mutable, ↓reduceIte] at found
+    change (if mutability (bodyEnvironment names) index then (ranges (bodyEnvironment names)) index else flow.model.scalars index) = some bounds at found
+    simp only [bodyEnvironment_mutability, mutable, ↓reduceIte] at found
     obtain ⟨incoming, present, included⟩ := ready.contained index bounds found
     have nonempty := ready.mutableNonempty index incoming mutable present
     apply Integer.Interval.contains_nonempty (included incoming.lower ?_)
     simp only [Integer.Interval.isEmpty, decide_eq_false_iff_not] at nonempty
     exact ⟨Int.le_refl _, by omega⟩
 
-theorem BaseReady.append_immutable {names : Environment} {declarations : Nat}
-    (base : BaseReady names declarations) (item : Binding) (immutable : item.mutable = false)
+theorem ContextReady.append_immutable {names : Environment} {declarations : Nat} {elaborating : Bool}
+    (base : ContextReady names declarations elaborating) (item : Binding) (immutable : item.mutable = false)
     (space : names.length + 1 ≤ ArrayBindings.scalarLimit) :
-    BaseReady (names ++ [item]) declarations where
-  body := bodyReady_append_immutable base.body immutable
+    ContextReady (names ++ [item]) declarations elaborating where
+  body mode := bodyReady_append_immutable (base.body mode) immutable
   size := by simpa only [List.length_append, List.length_singleton] using space
   count := by simp only [List.length_append, List.length_singleton]; have := base.count; omega
   declarationsNonempty index positive declared := by
     rw [binding_append_old names item index positive (Nat.le_trans declared base.count)]
     exact base.declarationsNonempty index positive declared
-  mutableNonempty index positive bounded mutable := by
+  mutableBounds index positive bounded mutable := by
     by_cases old : index ≤ names.length
     · rw [binding_append_old names item index positive old] at mutable ⊢
-      exact base.mutableNonempty index positive old mutable
+      exact base.mutableBounds index positive old mutable
     · have fresh : index = names.length + 1 := by
         simp only [List.length_append, List.length_singleton] at bounded
         omega
       subst index
       simp only [binding_append_new, immutable, Bool.false_eq_true] at mutable
 
+theorem flowBounds_append_immutable (names : Environment) (item : Binding)
+    (immutable : item.mutable = false) :
+    flowBounds (names ++ [item]) = Integer.put (flowBounds names) (names.length + 1) (some item.bounds) := by
+  simp only [flowBounds, bodyEnvironment, List.map_append, List.map_cons, List.map_nil]
+  rw [ranges_append]
+  simp only [List.length_map, bodyBinding, immutable, Bool.false_eq_true, ↓reduceIte]
+
 theorem FlowReady.append_immutable {names : Environment} {declarations : Nat} {flow : ActiveFlow}
-    (base : BaseReady names declarations) (ready : FlowReady names declarations flow)
+    (base : ContextReady names declarations elaborating) (ready : FlowReady names declarations flow)
     (item : Binding) (immutable : item.mutable = false) (typed : item.bounds.Bounded) :
     FlowReady (names ++ [item]) declarations (flow.append item.bounds) := by
   have model := ActiveFlow.append_model flow item.bounds
@@ -93,8 +100,8 @@ theorem FlowReady.append_immutable {names : Environment} {declarations : Nat} {f
     exact Integer.Ranges.put_bounded ready.bounded typed
   · rw [model]
     change Integer.Ranges.Refines (Integer.put flow.model.scalars (flow.count + 1) (some item.bounds))
-      (ranges (names ++ [item]))
-    rw [ranges_append, count]
+      (flowBounds (names ++ [item]))
+    rw [flowBounds_append_immutable names item immutable, count]
     exact Integer.Ranges.put_refines ready.contained
   · intro index bounds mutable found
     rw [mutability_append] at mutable
@@ -109,14 +116,15 @@ theorem FlowReady.append_immutable {names : Environment} {declarations : Nat} {f
 end ScalarMetadata
 
 theorem nativeLoopInner_baseReady {context : ParseContext}
-    (base : ScalarMetadata.BaseReady context.scalarNames context.declarationCount)
+    (base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)
     (header : LoopHeader) (space : context.scalarNames.length + 1 ≤ ArrayBindings.scalarLimit) :
-    ScalarMetadata.BaseReady (loopInner context header).scalarNames (loopInner context header).declarationCount :=
+    ScalarMetadata.ContextReady (loopInner context header).scalarNames (loopInner context header).declarationCount
+      (loopInner context header).elaborating :=
   base.append_immutable _ rfl space
 
 theorem loopHeader_flowReady {text : Source} {context : ParseContext} {scan : BodyScan}
     (arrays : ArrayBindings.ValidMetadata text context.arrayNames)
-    (base : ScalarMetadata.BaseReady context.scalarNames context.declarationCount)
+    (base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)
     (ready : ScalarMetadata.FlowReady context.scalarNames context.declarationCount scan.facts)
     (environment : ScalarExpression.ValidEnvironment text context.scalarNames)
     (positive : (loopHeader text context scan).entry.position ≠ 0) :
@@ -131,7 +139,7 @@ theorem loopHeader_flowReady {text : Source} {context : ParseContext} {scan : Bo
     (ScalarMetadata.FlowReady.widen base ready environment) item rfl typed).withPath _
 
 theorem loopAfterFlow_flowReady {text : Source} {context : ParseContext} {before : ActiveFlow}
-    (base : ScalarMetadata.BaseReady context.scalarNames context.declarationCount)
+    (base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)
     (ready : ScalarMetadata.FlowReady context.scalarNames context.declarationCount before)
     (environment : ScalarExpression.ValidEnvironment text context.scalarNames)
     (after : ActiveFlow) (lower upper : Integer.Interval) :
@@ -144,7 +152,7 @@ theorem loopAfterFlow_flowReady {text : Source} {context : ParseContext} {before
   · exact (ScalarMetadata.FlowReady.widen base ready environment).withPath _
 
 theorem loopAfterHeader_flowReady {text : Source} {context : ParseContext} {before : ActiveFlow}
-    (base : ScalarMetadata.BaseReady context.scalarNames context.declarationCount)
+    (base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)
     (ready : ScalarMetadata.FlowReady context.scalarNames context.declarationCount before)
     (environment : ScalarExpression.ValidEnvironment text context.scalarNames)
     (after : ActiveFlow) (header : LoopHeader) :

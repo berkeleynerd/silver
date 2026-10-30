@@ -1,7 +1,7 @@
 module
 
 public import Silver.PredicateConditionFlow
-public import Silver.PredicateFlowInvariant
+public import Silver.PredicateFlowBounds
 
 @[expose] public section
 
@@ -16,7 +16,7 @@ structure FlowReady (names : ScalarExpression.Environment) (declarations : Nat)
     (flow : ActiveFlow) : Prop where
   compatible : OverlayCompatible names declarations flow
   bounded : flow.model.scalars.Bounded
-  contained : flow.model.scalars.Refines (analysis names declarations).declared
+  contained : flow.model.scalars.Refines (flowBounds names)
   mutableNonempty : ∀ index bounds, ScalarExpression.mutability names index = true →
     flow.model.scalars index = some bounds → bounds.isEmpty = false
 
