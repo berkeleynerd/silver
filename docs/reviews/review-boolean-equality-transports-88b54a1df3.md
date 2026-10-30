@@ -68,3 +68,15 @@ cover all 568 identities. Other runtime/sample results remain applicable through
 ghost erasure; Rosetta dependencies are unchanged. Rebuild the final compiler
 from matching inputs. Complete native proof/audit and Lean/source/module/axiom
 validation remain mandatory.
+
+## Lead integration check
+
+The same source hash passed both complete-reader focused checks and was
+integrated as `4283c58900`. Binding commit `87dd912436` refreshes only
+`ReviewedOutputShape.outputImplementation` and `OutputBodyCertificate.lean`.
+The lead compared the 45,196-token pin with the authoritative source and
+regenerated all 28 certificates with the existing generator and exact
+`check_lean.CANDIDATES` mapping; the other 27 certificates remained byte-identical.
+This supplements the static review with mechanical parity, not a complete
+kernel/source result. Complete native and Lean checkpoints and the 46-test
+refresh remain pending.

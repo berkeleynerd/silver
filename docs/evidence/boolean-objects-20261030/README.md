@@ -5,6 +5,22 @@ and the [capability record](../../boolean-objects.md). Complete assurance and
 delivery remain pending. Focused successes below do not establish complete
 source correspondence or feature support.
 
+Current implementation/proof target: `87dd912436e35569f12cf95be639e4a534dea978`.
+The [native equality repair packet](terminal-native-repair/README.md) now
+includes successful complete-reader checks: 56 relation checks and 204 chain
+checks, after the retained failed first candidate. Its
+[independent source review](../../reviews/review-boolean-equality-transports-88b54a1df3.md)
+confirms unchanged contracts and executable behavior. The matching output
+pin and regenerated certificate are integrated; 27 other certificates remain
+byte-identical. Native build `20261030T214749-120a2c44c6f6` passed.
+Complete native `20261030T214853-f14ff090b11a` and complete Lean
+`20261030T214845-59a80335a9ac` are running on frozen inputs. The 46 affected
+regression reruns and terminal applicability confirmation are still pending.
+The earlier coverage below applies to its identified inputs, not automatically
+to this repaired target.
+
+## Earlier checkpoints
+
 The first complete Lean run [finished failed](source-integration/failed-complete/README.md).
 The three source-proof repairs at `b6aeb9f978` passed focused checks and
 [independent review](../../reviews/review-boolean-proof-repairs-b6aeb9f978.md).
@@ -23,17 +39,17 @@ has passed yet.
 
 Native run `20261030T194142-1f663fdf10c2` subsequently
 [finished failed](full-native-failed-194142/README.md) on two ghost equality
-checks. A focused annotation repair is being checked. The lead
+checks. Focused annotation repair followed. The lead
 [stopped Lean run `194116`](source-integration/native-repair-stop/README.md)
 at 19:57:36 UTC because the selected Ada annotation changes will invalidate its
 captured source. Completed objects remain retained; complete validation will
-resume on reviewed, stable repaired inputs. The regression review below applies
+resume on reviewed, stable repaired inputs as recorded above. The regression review below applies
 to `cff54ae34d`; any integrated repair needs an input-applicability check.
 The first annotation candidate's
 [focused relation check](terminal-native-repair/README.md) also failed, on all
 four added equality assertions. It remains a retained experiment, not the
 integration source or a validation success. Generated-obligation diagnosis
-precedes the next focused attempt.
+preceded the successful focused checks recorded above.
 
 - [Producer review](producer-review.md): observed Boolean obligation routes and
   the explicit restriction on nested xor operands.

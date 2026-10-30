@@ -254,3 +254,35 @@ present. A first-branch diagnostic using the existing proved equality helper
 is running under unchanged limits; its terminal result and complete-reader
 checks remain required before integration. Routine native work continues at
 the existing Extra High setting.
+
+### Integrated equality repair and resumed complete validation
+
+Implementation/proof target `87dd912436e35569f12cf95be639e4a534dea978`
+integrates the [reviewed equality transports](reviews/review-boolean-equality-transports-88b54a1df3.md).
+The exact source body hashes to
+`88b54a1df3e6cb1b59c482d36cd29a9f15c2506c69227fbef78c9ab93ab67ddb`.
+Focused relation run `20261030T204257-8cba82ab7a71` passed 56 checks
+(3 flow and 53 proof) in 570.866 s; chain run
+`20261030T205242-3d1308b90ec1` passed 204 (4 flow and 200 proof) in
+3,020.054 s. Both terminal comparisons verified all 2,561 captured inputs.
+These checks resolve the two native obligations above without changing
+contracts, admission domains, models or executable behavior. Their
+[packet](evidence/boolean-objects-20261030/terminal-native-repair/README.md)
+retains the unsuccessful first candidate separately.
+
+The matching handwritten output pin contains 45,196 tokens. All 28 source
+certificates were regenerated; only `OutputBodyCertificate.lean` changed.
+This is a mechanical parity check, not completed kernel/source assurance.
+The compiler rebuild `20261030T214749-120a2c44c6f6` passed in 10.742 s.
+Complete native run `20261030T214853-f14ff090b11a` then started with four
+workers and unchanged production settings/cache. Complete Lean run
+`20261030T214845-59a80335a9ac` began its build at 21:49:01 UTC, retaining
+the existing Lake objects and one worker/thread with a 24 GiB threshold.
+Both complete results remain pending on frozen inputs.
+
+The reviewed annotation and source-binding delta requires 46 refreshed
+regression identities: 12 source, 16 platform, 17 output-integrity and one
+Silver tool/source-change fixture. Their successful reruns and final input
+verification would complete coverage with 522 applicable retained results.
+Those reruns, complete native and Lean/source audits, and terminal evidence
+confirmation remain required before delivery.
