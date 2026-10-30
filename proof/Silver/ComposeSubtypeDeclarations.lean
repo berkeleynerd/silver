@@ -199,6 +199,7 @@ inductive ScalarTypeAt (text : Source) (state : ParserState) (position : Nat) :
       lookupName text state.names first after = 0 →
       ScalarExpression.lookup text state.scalarNames first after = 0 →
       ArrayBindings.lookup text state.arrayNames.names first after = 0 →
+      BooleanBindings.lookup text state.booleanNames first after = 0 →
       Named.nameIs text first after ("integer".toList.map Char.toNat) = true →
       ScalarTypeAt text state position ⟨after, .full⟩
   | named {first after target : Nat} :
@@ -207,6 +208,7 @@ inductive ScalarTypeAt (text : Source) (state : ParserState) (position : Nat) :
       lookupName text state.names first after = 0 →
       ScalarExpression.lookup text state.scalarNames first after = 0 →
       ArrayBindings.lookup text state.arrayNames.names first after = 0 →
+      BooleanBindings.lookup text state.booleanNames first after = 0 →
       Named.nameIs text first after ("integer".toList.map Char.toNat) = false →
       target = IntegerSubtypes.lookup text state.subtypeNames first after → target ≠ 0 →
       ScalarTypeAt text state position ⟨after, (IntegerSubtypes.binding state.subtypeNames target).bounds⟩
@@ -223,21 +225,21 @@ theorem scalarTypeAt_sound (text : Source) (state : ParserState) (position : Nat
     simp only [not_or, Nat.not_le, ne_eq, Decidable.not_not] at good
     split
     · rename_i integer
-      exact .integer rfl rfl good.1 good.2.1 good.2.2.1 good.2.2.2.1 good.2.2.2.2 integer
+      exact .integer rfl rfl good.1 good.2.1 good.2.2.1 good.2.2.2.1 good.2.2.2.2.1 good.2.2.2.2.2 integer
     · rename_i named
       split
       · rename_i found
-        exact .named rfl rfl good.1 good.2.1 good.2.2.1 good.2.2.2.1 good.2.2.2.2
+        exact .named rfl rfl good.1 good.2.1 good.2.2.1 good.2.2.2.1 good.2.2.2.2.1 good.2.2.2.2.2
           (Bool.eq_false_iff.mpr named) rfl found
       · simp_all
 
 theorem scalarTypeAt_complete {text state position result}
     (reading : ScalarTypeAt text state position result) : scalarTypeAt text state position = result := by
   cases reading with
-  | integer first after positive advance strings scalars arrays integer =>
+  | integer first after positive advance strings scalars arrays booleans integer =>
       subst first; subst after
       simp_all [scalarTypeAt, Nat.not_le.mpr advance]
-  | named first after positive advance strings scalars arrays integer target nonzero =>
+  | named first after positive advance strings scalars arrays booleans integer target nonzero =>
       subst first; subst after; subst target
       simp_all [scalarTypeAt, Nat.not_le.mpr advance]
 
@@ -252,7 +254,7 @@ theorem ScalarTypeAt.nonempty {text state position result}
     (valid : IntegerSubtypes.ValidEnvironment text state.subtypeNames) : result.bounds.lower ≤ result.bounds.upper := by
   cases reading with
   | integer => exact (by decide : Integer.Interval.full.lower ≤ Integer.Interval.full.upper)
-  | @named first after target _ _ _ _ _ _ _ _ found nonzero =>
+  | @named first after target _ _ _ _ _ _ _ _ _ found nonzero =>
       have bound := IntegerSubtypes.lookup_bound text state.subtypeNames first after
       rw [← found] at bound
       exact (valid.2 _ (subtypeBinding_mem (by omega) bound)).2.2.2.2
@@ -269,7 +271,8 @@ def SubtypeDeclarationReady (text : Source) (state : ParserState) (arguments : B
     parts.constraint.bounds.isEmpty = false ∧
     lookupName text state.names parts.typeFirst parts.typeAfter = 0 ∧
     ScalarExpression.lookup text state.scalarNames parts.typeFirst parts.typeAfter = 0 ∧
-    ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter = 0
+    ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter = 0 ∧
+    BooleanBindings.lookup text state.booleanNames parts.typeFirst parts.typeAfter = 0
 
 inductive SubtypeDeclarationAt (text : Source) (arguments : Bool) :
     ParserState → ParserState → Prop
@@ -282,7 +285,7 @@ theorem subtype_declaration_complete {text arguments state next}
     (reading : SubtypeDeclarationAt text arguments state next) : subtypeDeclarationAt text state arguments = next := by
   cases reading with
   | declaration parts ready _ =>
-      rcases ready with ⟨allowed, own, count, after, range, constraint, following, nonempty, strings, scalars, arrays⟩
+      rcases ready with ⟨allowed, own, count, after, range, constraint, following, nonempty, strings, scalars, arrays, booleans⟩
       simp_all [subtypeDeclarationAt, Nat.not_le.mpr following]
 
 theorem subtype_declaration_sound (text : Source) (state : ParserState) (arguments : Bool)
