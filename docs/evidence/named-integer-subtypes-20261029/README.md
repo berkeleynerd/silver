@@ -1,14 +1,12 @@
-# Named Integer subtypes validation — 2026-10-29
+# Named Integer subtypes validation — 2026-10-29–30
 
-Final validation is in progress for [#286](https://github.com/berkeleynerd/silver/issues/286)
-and [draft PR #289](https://github.com/berkeleynerd/silver/pull/289). The complete
-native proof/coverage/provenance checkpoint passed on the repaired source;
-complete Lean/source/module/axiom validation remains pending. The one failed
-native equality passed both focused and complete validation, with independent
-review of its repair. The original full regression suite passed; the
-46 results affected by the proof repair have passed their final-input reruns.
-The authorized delivery ends with a
-reviewable feature PR; merging it awaits the owner's instruction.
+Complete Linux native and Lean/source/module/axiom validation passed for
+[#286](https://github.com/berkeleynerd/silver/issues/286) and
+[PR #289](https://github.com/berkeleynerd/silver/pull/289). The original full
+regression suite passed; reviewed affected-test reruns account for later source,
+proof and Rosetta changes. The authorized delivery ends with a reviewable feature
+PR; merging it awaits the owner's instruction. Earlier failed and interrupted
+runs retain their original outcomes.
 
 The implementation and final code-review target is
 `d4e2be67b5de7fcc2919cf9eac6efb217e5ca672`. Its Ada inputs are identical to
@@ -18,10 +16,28 @@ covers the preceding implementation `97312a790f`. The
 [Body_Tail repair review](../../reviews/review-named-integer-subtypes-body-tail-equality-20261029.md)
 covers the final source change, its mechanical pin/certificate refresh and
 regression applicability. The [terminal/source review](../../reviews/review-named-integer-subtypes-terminal-evidence-20261030.md)
-confirms native and regression evidence and the later source-literal repair;
-final complete Lean evidence confirmation remains pending.
+confirms the source-literal repair and checks the completed native, Lean and
+regression evidence; its dated passes distinguish each inspected checkpoint.
 
-## Failed complete native checkpoint
+## Final complete Lean checkpoint
+
+Run `20261030T020720-944618f28c05` passed at **2026-10-30 03:07:31 UTC**:
+538 modules / 115,128 declarations, foundations exactly `propext`,
+`Classical.choice` and `Quot.sound`. All 653 captured input hashes and their
+combined digest match final governed target `d4e2be67b5`. The expected module set
+matches the 537 files under `proof/Silver/` plus root `proof/Silver.lean`.
+Build time was 3,584.991 s, fresh audit 10.826 s and managed duration 3,608.781 s.
+`PredicateSourceCandidate` completed in 3,529 s.
+
+The [retained record](runs/20261030T020720-944618f28c05/retained.json) binds the
+original events, log and evidence JSON by their uncompressed hashes. This was a
+complete-scope incremental build with normal Lake dependency checks, not a clean
+build or independent kernel replay. Applicable successful objects from the
+failed preceding run were reused; their source/dependency basis is recorded
+below. The 28 generated certificates are regenerated rather than hash-captured;
+run `20261030T013443-d9556926db16` separately confirms byte parity for all 28.
+
+## Historical failed complete native checkpoint
 
 Run `20261029T165015-c6b111fb4f2a` finished at 20:29 UTC with tool exit 1 after
 13,129.891 s. Exactly one of 15,385 proof entries remains unresolved:
@@ -43,7 +59,7 @@ did not finish. Both expensive source candidates depend on the complete output
 pin, so finishing those old-input checks would not validate the required source
 repair. Completed objects remain preserved for normal dependency-checked reuse.
 
-## Repaired source checkpoint
+## Native source repair and preceding checkpoints
 
 The repair adds eight lines to `Body_Tail`: six Static ghost/assertion/call lines
 and two comments. Existing flow-equality lemmas make the final scan equality
@@ -58,10 +74,11 @@ three report files, 50 classified warning entries, input identities and exact
 erasure references. Independent review found and corrected an initially empty
 report archive; it confirmed the corrected packet without rerunning proofs.
 
-Complete Lean run `20261029T205735-bb72d0625415` now checks the repaired source
+Complete Lean run `20261029T205735-bb72d0625415` checked the repaired source
 with one worker/thread and 24,576 MiB per-process allowance. All 653 captured
-inputs match `6020416906`; the [repair input comparison](repair-input-applicability.json)
-identifies the three changed files. Native build `20261029T210150-1086727daf3c`
+inputs match `6020416906`; the historical [Body_Tail repair input comparison](repair-input-applicability.json)
+identifies the three changed files at that checkpoint, before the later five-file
+literal repair. Native build `20261029T210150-1086727daf3c`
 passed on matching governed inputs. All 46 affected tests passed; their
 [repair regression packet](repair-regression/README.md) accounts for 509
 applicable original results plus 46 refreshed results, covering all 555
@@ -71,8 +88,8 @@ identities. Complete native run `20261029T211041-a76eb6753f23` passed at
 followed by the complete coverage/provenance audit. All 143 tracked inputs match
 `6020416906`. The [complete native packet](native-full/README.md) retains the
 reports, warning inventory, input identities and checked archive. Existing
-sessions/cache were reused; this was not a cold run. Complete Lean remains
-pending. That Lean run subsequently finished failed at 2026-10-30 02:01:47 UTC,
+sessions/cache were reused; this was forced full analysis, not a cold run.
+That Lean run subsequently finished failed at 2026-10-30 02:01:47 UTC,
 with seven false source-correspondence propositions in four modules. Its
 successfully built certificate, composition source candidate and independent
 modules remain reusable; no whole-project audit ran.
@@ -87,8 +104,10 @@ confirmed the repair. All 28 affected proof-tree/platform tests passed again;
 the other 18 earlier repair results and 509 original results remain applicable.
 Focused Lean run `20261030T020329-280326d88dbd` passed the four repaired modules
 and a fresh audit of 139 modules / 25,036 declarations. Complete run
-`20261030T020720-944618f28c05` is active on 653 matching repaired inputs.
-Complete Lean/source assurance and the final Rosetta delivery refresh remain pending.
+`20261030T020720-944618f28c05` then passed on 653 matching repaired inputs,
+closing complete Lean/source assurance. The five-file delta is recorded in
+[source-literal-repair/input-delta.json](source-literal-repair/input-delta.json);
+the final Rosetta refresh is accounted for below.
 
 ## Retained completed checks
 
@@ -158,23 +177,54 @@ The repair review subsequently requires 46 refreshed identities: those same
 fixture that rebuilds current sources while exercising tool/source failures.
 The other 509 results remain applicable because the repair is erased Static
 code and its source/proof dependencies are identified in that review. The
-46 repaired-input results have now passed. The current
-[reconciliation](test-reconciliation.json) records 509 retained results plus
-46 new passes, with no missing or failed identity. All 792 tracked inputs in
+46 repaired-input results passed at that checkpoint. Its retained
+[reconciliation](literal-repair-regression/prior-test-reconciliation.json)
+records 509 retained results plus 46 repair passes, with no missing or failed
+identity. All 792 tracked inputs in
 each of the four reruns match `6020416906`; the original passing runs retain
 their outcomes and input scope. Run `20261029T210251-939fbc67799b` includes
-final byte parity for all 28 generated certificates.
+byte parity for all 28 generated certificates at that checkpoint; the later
+literal-repair run `20261030T013443-d9556926db16` refreshed that result.
 The [discovery inventory](test-inventory.json)
 contains 555 unique unittest identities, including nine shared-binding methods
 executed through two module import names: 546 methods after excluding those
 duplicate executions. The original full suite remains successful; the
-reconciliation identifies all replacement results. Any later Rosetta delivery
-metadata edits will receive their affected renderer tests.
+reconciliation identifies all replacement results. Final Rosetta delivery
+metadata and its three refreshed renderer tests are recorded below.
 
 The full suite reserves four workers. Its agent-authored
 [affinity record](regression-affinity.json) records restricting unittest and its
 descendants to CPUs 8–11 while the managed runner retains host affinity. The
 production application's `-j0` setting is unchanged.
+
+## Final regression reconciliation and Rosetta metadata
+
+The final [reconciliation](test-reconciliation.json), [inventory](test-inventory.json)
+and [Rosetta packet](final-rosetta/README.md) cover all **555 identities**, with
+no missing or failing result: **506 original + 28 latest proof-tree + 18 earlier
+compiler-fixture repair + 3 final Rosetta**. The 546 distinct methods and nine
+duplicate imported executions remain disclosed. The 52 sample sources / 108
+application executions are applicable retained results, not a fresh post-repair
+sample run.
+
+The 28 proof-tree results are runs `20261030T013443-d9556926db16` (12 tests,
+including all-28-certificate parity) and `20261030T013608-6b001884b330` (16 tests).
+All 792 tracked hashes match `d4e2be67b5`, with the eight other workspace/tool
+hashes matching the earlier repaired compiler-fixture runs. The [literal-repair
+packet](literal-repair-regression/README.md) retains their original outcomes.
+The 18 earlier applicable compiler-fixture results are runs
+`20261029T210832-732f9cd37a16` and `20261029T210920-b4b0cd40fe3c`; the proof-only
+literal repair changes none of their dependencies.
+
+Final Rosetta run `20261030T031457-868467f2105b` passed all three tests on
+metadata snapshot `1d6d1b4ffd`, in 8.008 s managed / 4.499 s unittest time, using
+one worker. Its 792 tracked hashes match that snapshot, and its eight other
+hashes match the proof-tree reruns. The changed delivery metadata is confined
+to two review-method strings in `rosetta/coverage.json`; rendering all 1,782
+tasks produced no generated diff. The frozen governed target remains
+`d4e2be67b5`. Final source/input binding, completed outcomes and the disjoint
+identity partition are independently checked by the
+[terminal evidence review](../../reviews/review-named-integer-subtypes-terminal-evidence-20261030.md).
 
 ## Resource observations and limits
 

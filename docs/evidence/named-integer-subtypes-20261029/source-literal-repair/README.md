@@ -35,7 +35,7 @@ The failed run completed `OutputBodyCertificate` (9,606 s),
 other independent modules. None of the five repairs is in those three modules'
 import closures. Their successful objects remain in the same Lake workspace
 for ordinary dependency-checked reuse. `PredicateSourceCandidate` depends on
-the repaired Predicate literals and still requires validation. There was no
+the repaired Predicate literals and passed in the final complete run below. There was no
 cache transfer or clean rebuild for this repair.
 
 All 28 affected regressions passed on exact repaired inputs: the
@@ -48,9 +48,13 @@ Focused run `20261030T020329-280326d88dbd` passed the four formerly failing
 source modules and a fresh 139-module / 25,036-declaration audit. Build time was
 143.665 s, audit time 10.634 s and managed duration 168.692 s; all 653 captured
 inputs match `d4e2be67b5`. Its [original records](../runs/20261030T020329-280326d88dbd/retained.json)
-are retained. Complete run `20261030T020720-944618f28c05` now checks the repaired
-whole project with normal Lake reuse. Complete source/module/axiom validation
-and the final Rosetta refresh remain pending.
+are retained. Complete run `20261030T020720-944618f28c05` passed at 03:07:31 UTC:
+538 modules / 115,128 declarations, with only `propext`, `Classical.choice` and
+`Quot.sound`. All 653 captured inputs match the repaired target. Its build took
+3,584.991 s, fresh audit 10.826 s and managed duration 3,608.781 s;
+`PredicateSourceCandidate` completed in 3,529 s. The [complete retained record](../runs/20261030T020720-944618f28c05/retained.json)
+closes #290's assurance requirement. The [delivery packet](../README.md) records
+the subsequent Rosetta refresh and final regression reconciliation separately.
 
 Implementation selected GPT-6.1 Sol / Extra High; independent review selected
 GPT-6 Astra / Extra High. Runtime settings and token/cost measurements are not

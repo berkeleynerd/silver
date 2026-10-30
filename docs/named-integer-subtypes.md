@@ -1,7 +1,8 @@
 # Named Integer subtypes and bounded array components
 
-Status: implementation and assurance integration in progress in
-[draft PR #289](https://github.com/berkeleynerd/silver/pull/289); not yet supported. [Milestone 13](https://github.com/berkeleynerd/silver/milestone/13)
+Status: implemented and validated on Linux, 2026-10-30, in
+[PR #289](https://github.com/berkeleynerd/silver/pull/289); awaiting the owner's
+merge instruction. [Milestone 13](https://github.com/berkeleynerd/silver/milestone/13)
 contains one coherent work package, [#286](https://github.com/berkeleynerd/silver/issues/286).
 The [2026-10-29 authorization](session-memory.md#2026-10-29--named-integer-subtypes-and-bounded-array-components-authorized)
 covers implementation through complete assurance, validation, independent review
@@ -11,7 +12,7 @@ instruction.
 ## Selected scope
 
 The driver is Rosetta [Sum of squares](../rosetta/s/sum-of-squares/task.wiki).
-The proposed declaration is `subtype S is Integer range staticLo .. staticHi;`.
+The admitted declaration is `subtype S is Integer range staticLo .. staticHi;`.
 Require nonempty static bounds contained in Integer, and permit earlier named
 subtypes in initialized scalar objects and the component indication of existing
 anonymous fixed arrays. Subtype declarations name Integer directly; subtype alias
@@ -30,10 +31,12 @@ actual source bytes through proof and build.
 Retain the current 4,096-byte source, 63-operator and 64-leaf budgets, existing
 array index rules and constant-iterable restriction. Conversions, derived types,
 functions/procedures, dynamic bounds and general arrays are outside this package.
-This proposal admits no syntax until implementation and required assurance are
-complete; current support remains defined by [language.md](../language.md).
+The exact admitted rules are defined by [language.md](../language.md).
 
-## Design and completion obligations
+## Original design and completion obligations
+
+The following checklist guided implementation; the completed results are in the
+[delivery section](#delivery-assurance-and-validation).
 
 Settle the exact static-bound grammar, declaration identity/order and visibility,
 scalar initializer/assignment rules, component interval propagation and permitted
@@ -57,8 +60,8 @@ rendered progression. Their broad remaining scope stays Open/Backlog.
 
 Complete the required native proof/coverage/provenance, build, Lean/source/module/
 axiom and full regression validation on identified final inputs, followed by
-independent review and feature PR publication. No validation or assurance result
-is claimed by this initial planning record.
+independent review and feature PR publication. This checklist was recorded before
+implementation and made no validation claim at that time.
 
 ## Planning round
 
@@ -204,8 +207,60 @@ they do not themselves establish final authoritative-source assurance.
 
 ## Delivery assurance and validation
 
-The [final packet](evidence/named-integer-subtypes-20261029/README.md) is being
-assembled for repaired implementation/review target `d4e2be67b5`, extending
+**Complete on Linux, 2026-10-30; PR #289 remains open for owner review and merge
+instruction.** The final implementation and code-review target is
+`d4e2be67b5de7fcc2919cf9eac6efb217e5ca672`. Subsequent changes retain evidence
+and synchronize delivery records and Rosetta metadata. Ada sources remain
+identical to `6020416906`; the five later proof-literal corrections are reviewed
+against the existing authoritative source and semantic models.
+
+The [final packet](evidence/named-integer-subtypes-20261029/README.md) records:
+
+- Complete native run `20261029T211041-a76eb6753f23`: **16,825 checks**
+  (1,432 flow + 15,393 proof), 76 units / 1,075 entities, followed by complete
+  coverage/provenance auditing. All 143 tracked native inputs match. Forced full
+  analysis used four workers and existing sessions/cache; it was not cold.
+- Native build `20261029T210150-1086727daf3c`: passed in 13.114 s on unchanged
+  final compiler inputs.
+- Complete Lean run `20261030T020720-944618f28c05`: **538 modules / 115,128
+  declarations**, all 653 captured inputs matching, with foundations exactly
+  `propext`, `Classical.choice` and `Quot.sound`. Build 3,584.991 s, fresh audit
+  10.826 s, managed duration 3,608.781 s. The module inventory includes the root
+  `Silver` module and all 537 modules beneath it. This was an incremental build
+  with applicable successful objects retained from prior runs, not a clean build
+  or independent kernel replay. All 28 regenerated certificates have separate
+  parity coverage in run `20261030T013443-d9556926db16`.
+
+Final [regression reconciliation](evidence/named-integer-subtypes-20261029/test-reconciliation.json)
+covers **555 test identities**: 506 applicable original full-suite results,
+28 latest proof-tree passes, 18 applicable earlier compiler-fixture repair passes
+and three final Rosetta passes. These represent 546 distinct methods; nine
+shared-binding methods are still executed under two imported module names.
+Final Rosetta run `20261030T031457-868467f2105b` passed all three tests on
+metadata snapshot `1d6d1b4ffd`, taking 8.008 s managed / 4.499 s unittest time.
+Its 792 tracked hashes match that snapshot; the eight workspace/tool hashes
+match the repaired proof-tree runs. No result is missing or failing.
+
+The full suite's 52 sample sources / 108 executions remain applicable under the reviewed Static-erasure argument; they
+were not all executed again after the repair. Scoped independent reviews cover
+implementation, domains, precedence, resource capacity and both assurance repairs. The [terminal evidence confirmation](reviews/review-named-integer-subtypes-terminal-evidence-20261030.md)
+checks the retained outcomes, exact input binding and complete regression
+partition; it is a closing confirmation, not an additional broad code review.
+No native macOS, hosted CI or external approval is claimed.
+
+Finding [#288](https://github.com/berkeleynerd/silver/issues/288) is repaired by
+the source-derived `/7` capacity regression and its successful tests. Finding
+[#290](https://github.com/berkeleynerd/silver/issues/290) is repaired by the
+reviewed five-file literal correction and successful focused and complete source
+checks. The unsuccessful earlier native/Lean runs remain recorded as failures;
+no unresolved assurance finding is carried into this delivery. Issues #286,
+#288 and #290 and milestone 13 remain open until the completing commit reaches
+`main`. Broad stages #11/#12 remain Open/Backlog at stages 2/3.
+
+### Historical checkpoints and repairs
+
+The following chronology preserves each earlier outcome and the work remaining
+at that time. The final packet covers repaired target `d4e2be67b5`, extending
 `6020416906` with five proof-literal corrections. Its Ada sources are unchanged
 from that preceding reviewed target. Complete Lean run
 `20261029T161817-0a8089cd7dc3` captured 653 matching inputs but was deliberately
@@ -265,8 +320,9 @@ All 28 newly affected regressions passed again; native/build and the other
 18 earlier repair results remain applicable. Focused run
 `20261030T020329-280326d88dbd` then passed all four formerly failing modules and
 a fresh audit of 139 modules / 25,036 declarations (168.692 s managed duration).
-Complete run `20261030T020720-944618f28c05` is active on all 653 matching repaired
-inputs; its complete source/module/axiom result remains pending.
+Complete run `20261030T020720-944618f28c05` subsequently passed at 03:07:31 UTC
+on all 653 matching repaired inputs, closing the complete source/module/axiom
+requirement. Its `PredicateSourceCandidate` check completed in 3,529 s.
 
 Full regression run `20261029T153819-5626949ad567` passed all 555 test identities
 in 5,255.763 s, including 52 sample sources and 108 executions. The
@@ -278,8 +334,10 @@ full-suite results and 28 refreshed results. The repair review requires
 46 refreshed identities and permits retaining the other 509; all 46 new reruns
 passed, with no missing or failed identity. There are 546 distinct methods
 after excluding nine previously disclosed duplicate executions through separate
-shared-binding import names. Final Rosetta delivery metadata and evidence
-confirmation await complete assurance; PR #289 remains a draft.
+shared-binding import names. The later literal repair refreshes those 28
+proof-tree tests again and retains the 18 compiler-fixture repair passes. Final
+Rosetta coverage and terminal confirmation are recorded in the delivery summary
+above.
 
 | Round | Selected settings | Result and remaining work |
 | --- | --- | --- |
@@ -288,3 +346,4 @@ confirmation await complete assurance; PR #289 remains a draft.
 | Body_Tail equality repair and reviewed applicability | Native repair and independent reviewer selected GPT-6 Astra / Extra High; regression refresh selected GPT-6.1 Sol / Extra High | Focused native proof passed in 1,179.240 s; the eight-line Static-only repair and mechanical pin/certificate refresh are reviewed. Repaired complete native/Lean runs are active; native build and all 46 affected tests passed. An empty focused-report archive was corrected and independently verified without a proof rerun. |
 | Repaired complete native checkpoint, 2026-10-30 | Native continuation selected GPT-6 Astra / Extra High; lead runtime settings unavailable | Full native proof/coverage/provenance passed in 12,119.996 s; retained reports recount to 16,825 checks. The native agent hit a model-capacity limit, but its OS proof and retention processes continued unchanged and the lead integrated the result. Lean's output certificate passed in 9,606 s; remaining source checks and final evidence confirmation continue. Token/cost measurements unavailable. |
 | Source-literal completion repair, 2026-10-30 | Implementation/regression refresh selected GPT-6.1 Sol / Extra High; independent review selected GPT-6 Astra / Extra High | Complete Lean run failed on seven stale-source propositions after 18,249.514 s, with independent successful modules retained. #290 records the reviewed five-file literal repair; all 28 affected tests passed. Native assurance and runtime sources are unchanged. Focused source checks and complete Lean remain pending; token/cost measurements unavailable. |
+| Final complete assurance and delivery, 2026-10-30 | Delivery documentation selected GPT-6.1 Sol / High; regression refresh selected GPT-6.1 Sol / Extra High; independent terminal reviewer selected GPT-6 Astra / Extra High; lead runtime settings unavailable | Complete Lean passed in 3,608.781 s managed time with 538 modules / 115,128 declarations. Three final Rosetta tests passed in 8.008 s managed time; final coverage is 506 + 28 + 18 + 3 = 555 identities. The terminal review confirms retained evidence and applicability. PR #289 is ready for owner review and remains unmerged; token/cost measurements unavailable. |
