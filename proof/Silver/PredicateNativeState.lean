@@ -34,22 +34,33 @@ structure Context where
 
 def Context.model (context : Context) : ParseContext :=
   ⟨context.names, decide (context.dynamicFirst ≠ 0), context.scalarNames,
-    context.declarationCount, context.arrayNames, context.subtypeHiding⟩
+    context.declarationCount, context.arrayNames, context.subtypeHiding, context.booleanNames,
+    context.trueHidden, context.falseHidden, context.elaborating, context.maskFirst, context.maskAfter⟩
 
 def ValidContext (text : Source) (context : Context) : Prop :=
   Compose.Expressions.ValidNames text context.names ∧
     (⟨context.dynamicFirst, context.dynamicAfter⟩ : Named.NameState).Valid text ∧
     ScalarExpression.ValidEnvironment text context.scalarNames ∧
-    ScalarMetadata.BaseReady context.scalarNames context.declarationCount ∧
-    ArrayBindings.ValidMetadata text context.arrayNames
+    ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating ∧
+    ArrayBindings.ValidMetadata text context.arrayNames ∧
+    BooleanBindings.ValidEnvironment text context.booleanNames ∧
+    (⟨context.maskFirst, context.maskAfter⟩ : Named.NameState).Valid text
 
 theorem ValidContext.base {text : Source} {context : Context}
     (valid : ValidContext text context) :
-    ScalarMetadata.BaseReady context.scalarNames context.declarationCount := valid.2.2.2.1
+    ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating := valid.2.2.2.1
 
 theorem ValidContext.arrays {text : Source} {context : Context}
     (valid : ValidContext text context) :
-    ArrayBindings.ValidMetadata text context.arrayNames := valid.2.2.2.2
+    ArrayBindings.ValidMetadata text context.arrayNames := valid.2.2.2.2.1
+
+theorem ValidContext.booleans {text : Source} {context : Context}
+    (valid : ValidContext text context) :
+    BooleanBindings.ValidEnvironment text context.booleanNames := valid.2.2.2.2.2.1
+
+theorem ValidContext.mask {text : Source} {context : Context}
+    (valid : ValidContext text context) :
+    (⟨context.maskFirst, context.maskAfter⟩ : Named.NameState).Valid text := valid.2.2.2.2.2.2
 
 /-- The native array and interval types contribute the bounded domains; the
 checked Valid_Flow predicate contributes active extent, immutable cells,
@@ -64,10 +75,10 @@ theorem ValidFlow.count_le {text : Source} {context : Context} {facts : ActiveFl
   exact cv.2.2.1.1
 
 theorem ValidFlow.join {context : Context} {left right : ActiveFlow}
-    (base : ScalarMetadata.BaseReady context.scalarNames context.declarationCount)
+    (base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)
     (a : ValidFlow context left) (b : ValidFlow context right) :
     ValidFlow context (left.join right) :=
-  ⟨PathFacts.Context.join_bounded a.1 b.1, ScalarMetadata.FlowReady.join base a.2 b.2⟩
+  ⟨PathFacts.Context.join_bounded a.1 b.1, ScalarMetadata.FlowReady.join_context base a.2 b.2⟩
 
 inductive Token
   | leftParenthesis | rightParenthesis | argumentsName | dot | inputIsValid
