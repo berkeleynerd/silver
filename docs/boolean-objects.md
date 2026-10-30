@@ -246,5 +246,11 @@ The first candidate's [focused check](evidence/boolean-objects-20261030/terminal
 failed after 1,025.978 s: all four new `Same_Condition` assertions reached
 solver limits. Its downstream postcondition result depends on those unmet
 assertions and is not a completed proof. The candidate remains unintegrated.
-A bounded independent diagnosis, selected GPT-6 Astra / Max for this equality
-problem, is examining the generated obligations before another attempt.
+A bounded [independent diagnosis](reviews/review-boolean-equality-transport-diagnosis.md),
+selected GPT-6 Astra / Max for this equality problem, identified missing
+transports from Ada record equality to logical equality, including the
+constrained `Expected` snapshot. The model's branch expansion was already
+present. A first-branch diagnostic using the existing proved equality helper
+is running under unchanged limits; its terminal result and complete-reader
+checks remain required before integration. Routine native work continues at
+the existing Extra High setting.
