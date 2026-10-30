@@ -1,5 +1,19 @@
 # Session memory
 
+## 2026-10-30 — Boolean validation recovery
+
+The owner requested continuation and status; no new feature merge authorization
+was given. Keep subtype PR #289 unchanged and both feature PRs open. The first
+complete Boolean Lean check failed on three source-proof integration details.
+Reviewed proof-only repairs and their affected regressions have passed focused
+checks; complete source assurance remains pending. A turn interruption also
+stopped native validation before its terminal audit. Its partial work was
+preserved and the strict checkpoint restarted using retained proof work.
+The [capability checkpoint](boolean-objects.md#repaired-complete-checkpoint) and
+[evidence index](evidence/boolean-objects-20261030/README.md) carry exact targets,
+runs, coverage and outstanding validation. No support or merge is claimed by
+this recovery entry.
+
 ## 2026-10-30 — Boolean scalar objects and expressions authorized
 
 The owner approved **initialized Boolean constants and variables, assignment,

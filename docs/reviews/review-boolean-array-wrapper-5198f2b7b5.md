@@ -37,3 +37,18 @@ Inputs also included `ComposeBooleanDeclarationSource`, `ComposeContracts`,
 the relevant source-check bridges and `silver_output_profile.adb`'s declaration
 wrapper and named constants. Completion of the active full source check remains
 separate evidence; this review does not close #293, #294 or #291.
+
+## Correction after complete source checking
+
+The complete run `20261030T132736-e452c95bd00d` subsequently refuted the
+exact-rendering part of this review. The ordinary-function wrapper omitted the
+outer parentheses around `Result`'s declare-expression initializer; the
+expression-function extractor previously removed that pair. The evaluator and
+domains were unchanged, but the actual token proposition was false and Lean
+rejected it. The earlier scoped review missed this syntax mismatch.
+
+Repair `4538f7adc6` adds only those two tokens. The
+[retained focused checks](../evidence/boolean-objects-20261030/source-integration/array-wrapper-repair/README.md)
+and [independent combined review](review-boolean-proof-repairs-b6aeb9f978.md)
+confirm exact body/function tokens and unchanged semantics. Complete integrated
+source validation remains a separate requirement.

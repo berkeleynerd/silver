@@ -5,6 +5,16 @@ and the [capability record](../../boolean-objects.md). Complete assurance and
 delivery remain pending. Focused successes below do not establish complete
 source correspondence or feature support.
 
+The first complete Lean run [finished failed](source-integration/failed-complete/README.md).
+The three source-proof repairs at `b6aeb9f978` passed focused checks and
+[independent review](../../reviews/review-boolean-proof-repairs-b6aeb9f978.md).
+Repaired complete run `20261030T190042-c50bf05fd9bc` is active with one worker,
+one thread and a 24 GiB threshold. Native run `20261030T142912-eb0b24fc2191`
+was interrupted without a terminal audit; recovered run
+`20261030T185133-160271e45fa1` reuses its retained work and unchanged 2,561
+preflight inputs, with four workers instead of two. Neither checkpoint has
+completed successfully yet.
+
 - [Producer review](producer-review.md): observed Boolean obligation routes and
   the explicit restriction on nested xor operands.
 - [Native validation](native-validation.md) and [repairs](native-repair.md):
@@ -23,6 +33,10 @@ source correspondence or feature support.
   [applicability review](../../reviews/review-boolean-regression-37c0babc64.md)
   covers target `37c0babc64`. Final Rosetta metadata will receive its three
   affected test reruns before delivery.
+- [Certificate repair tests](source-integration/certificate-repair-tests/README.md)
+  and [platform refresh](source-integration/platform-refresh/README.md): 12 and
+  16 fresh passes after the proof-only repairs. Current coverage is 537 retained
+  plus 31 refreshed results; final Rosetta metadata still needs its three tests.
 - [Declaration interpretation](declaration-body/README.md) and
   [header integration](header-program/README.md): typed declaration meaning,
   actual native domains and ordered declaration composition.
@@ -65,9 +79,10 @@ were preserved. Transfers are cache reuse, not separate audits. Managed checks
 rehash their inputs and freshly audit imported declarations. No clean rebuild
 or independent kernel replay is claimed.
 
-The complete checkpoint started on implementation/proof snapshot `5198f2b7b5`
+The first complete checkpoint started on implementation/proof snapshot `5198f2b7b5`
 with one Lake worker, one thread and a 24 GiB per-process Lean threshold. The
 host has 31 GiB RAM and no swap; expensive source candidates are serialized.
 Subsequent Rosetta/sample metadata at `927cc5e178` prepares the final regression
-inputs without changing that source/proof snapshot. Terminal evidence will
-replace this pending checkpoint description before delivery.
+inputs without changing that source/proof snapshot. That run failed as retained
+above; independently completed objects remain available to the repaired
+checkpoint. Terminal successful evidence is still required before delivery.

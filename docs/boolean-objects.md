@@ -164,7 +164,7 @@ checks and the actual incremental cache transfers.
 
 Independent admission and proof/source argument reviews found no new defect in
 their stated scopes; they did not claim complete validation. The complete Lean
-checkpoint is running on `5198f2b7b5`. Final regression metadata at `927cc5e178`
+checkpoint on `5198f2b7b5` subsequently failed as recorded below. Regression metadata at `927cc5e178`
 prepares the three Rosetta drivers and the 53-to-56 stage-1 progression while
 this capability remains pending. The completed full suite and reviewed repair
 reruns now cover all 568 test identities (559 distinct methods), including all
@@ -185,3 +185,28 @@ assurance. Neither feature PR is authorized to merge.
 | Helper/domain integration, 2026-10-30 | Continuing source, proof-architecture and native subthreads: previously selected GPT-6 Astra / Extra High; runtime confirmation and whole-team token/cost totals unavailable. | #293 native-domain repair and #294 scalar equation repair passed focused checks. Raw helper equations are separated from the Boolean declaration law, which the source bridge derives from interpreted callees. Final source/model integration remains unchecked. | Scalar denotation build 336.697 s and audit 6.120 s. String native repair 65.257 s. Shared helper build 337 s; later dependency failures remain recorded as failed runs. |
 | Stable source checkpoint, 2026-10-30 | Independent admission and correspondence reviewers: GPT-6 Astra / Extra High, explicitly selected. Rosetta preparation: GPT-6.1 Sol / High. Lead runtime setting and token/cost totals unavailable. | Focused helper, declaration and retained model checks passed; complete source checkpoint started. Two independent scoped reviews found no new defect. The new hiding regression fixture was corrected after its expected output overlooked its own shadowed `True` binding. | Review windows 4m32s and 5m04s. Final model build 27.025 s / audit 6.231 s; wrapper build 75.964 s / audit 5.198 s. Rosetta preparation about six minutes; four compiler-independent tests passed in 46.620 s. |
 | Terminal regression coverage, 2026-10-30 | Native continuation and independent applicability review selected GPT-6 Astra / Extra High; fixture review selected GPT-6.1 Sol / Extra High; delivery-document preparation selected GPT-6.1 Sol / High. Runtime confirmation and whole-team token/cost totals unavailable. | Reviewed fixture repair and unchanged maximum-expression rerun close all 568 identities. Two-CPU attempts retain their deadline failures; the eight-CPU isolated test passes with unchanged assertions and production options. Native and complete Lean checkpoints remain active. | Full suite 7,866.238 s; three-ID rerun 302.871 s (failed overall, both branching methods passed); isolated successful test 150.108 s. Terminal review 2m48s, following preliminary 3m42s. These are actual tool/review intervals, not a controlled speed comparison. |
+| Source-proof repair and interrupted native recovery, 2026-10-30 | Certificate diagnosis, wrapper/adapter repairs, native recovery and independent combined review selected GPT-6 Astra / Extra High; lead runtime setting and whole-team token/cost totals unavailable. | The failed complete Lean run exposed a large-list elaborator limit, omitted wrapper parentheses and an opaque zero conversion. Three proof-only repairs preserve Ada, domains and theorem statements; focused checks and independent review passed. All 28 affected source/platform tests passed. Interrupted native work is retained and resumed with unchanged inputs/cache; repaired complete Lean remains required. | Failed complete run 18,628.882 s. Exact-token diagnostic: checked witness 12.95 s versus reproduced `rfl` failure 14.78 s after fixture preparation. Wrapper focused/token checks 33.403/8.609 s; adapter check 52.232 s. Source tests 82.533 s and platform tests 274.264 s. Independent combined review 5m26s. |
+
+## Repaired complete checkpoint
+
+The [failed complete run](evidence/boolean-objects-20261030/source-integration/failed-complete/README.md)
+retains its three failures. Repair target `b6aeb9f978` uses the existing checked
+explicit witness only for large flattened token lists, restores the array
+initializer's exact grouping tokens, and normalizes the adapter's zero numeral
+with proved core lemmas. The
+[independent review](reviews/review-boolean-proof-repairs-b6aeb9f978.md)
+confirms unchanged theorem statements, source bytes, models and domains.
+
+All 12 source-certificate and 16 platform tests passed. Together with the earlier
+three repair passes, 537 retained plus 31 refreshed results cover all 568
+identities. Final Rosetta wording still needs its three focused tests. These
+results do not replace the complete source/module/axiom audit.
+
+Repaired complete Lean run `20261030T190042-c50bf05fd9bc` began its build at
+19:00:54 UTC with one worker/thread and the existing 24 GiB threshold. A launch
+just before it waited on the platform test's workspace lease and did no build.
+The native checkpoint was interrupted without producing its final output-profile
+report or terminal audit. Its partial sessions, reports and cache are preserved;
+recovered run `20261030T185133-160271e45fa1` uses identical preflight inputs and
+strict options/cache, with four workers instead of two. Both complete results
+remain pending. Neither feature PR is authorized to merge.

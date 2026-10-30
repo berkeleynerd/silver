@@ -1,0 +1,38 @@
+{
+  "duration_seconds": 18628.881766395,
+  "event": "finished",
+  "evidence": [
+    {
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/lean-proof.log",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/lean-proof.log"
+    },
+    {
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/lean-evidence.json",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/lean-evidence.json"
+    },
+    {
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261030T132736-e452c95bd00d/previous-evidence/lean-proof.log",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261030T132736-e452c95bd00d/previous-evidence/lean-proof.log"
+    },
+    {
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261030T132736-e452c95bd00d/previous-evidence/lean-evidence.json",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261030T132736-e452c95bd00d/previous-evidence/lean-evidence.json"
+    }
+  ],
+  "failure_keys": [
+    "lean:build:Silver/ComposeSourceCandidate.lean:869:12:Tactic `decide` proved that the proposition",
+    "lean:build:Silver/OutputBodyCertificate.lean:65975:78:maximum recursion depth has been reached",
+    "lean:build:Silver/PredicateAdapterSourceCandidate.lean:18:2:Tactic `decide` failed for proposition"
+  ],
+  "monotonic_ns": 188517388907332,
+  "outcome": "failure",
+  "retained_reports": [
+    {
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/lean-proof.log",
+      "retained": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261030T132736-e452c95bd00d/reports/0/lean-proof.log"
+    }
+  ],
+  "returncode": 1,
+  "run_id": "20261030T132736-e452c95bd00d",
+  "utc": "2026-10-30T18:38:07.553519+00:00"
+}
