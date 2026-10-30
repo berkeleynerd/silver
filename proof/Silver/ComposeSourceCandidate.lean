@@ -1,6 +1,7 @@
 module
 
 public import Silver.SourceDeclarations
+public import Silver.ComposeArrayDeclarationSource
 public import Silver.ComposeContracts
 public import Silver.ComposeBooleanDeclarationSource
 public import Silver.ReviewedOutputShape
@@ -840,8 +841,7 @@ abbrev ArrayHelperTranslationFor (bodyTokens : List String) : Prop :=
     some (Expressions.arrayValuesModelBody.render, []) ∧
   expressionDeclaration "array_declaration_model" bodyTokens =
     some ((Expressions.arrayDeclarationBody false).render, []) ∧
-  expressionDeclaration "array_declaration_at" bodyTokens =
-    some ((Expressions.arrayDeclarationBody true).render, []) ∧
+  ArrayDeclarationNative.SourceChecks.Checked bodyTokens ∧
   functionHeader "put_array_value" "is" bodyTokens =
     some (expectedTokens "( state : parser_state ; value : scalars . value ) return parser_state") ∧
   functionHeader "add_array_binding" "is" bodyTokens =
