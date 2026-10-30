@@ -887,6 +887,13 @@ negation requires grouping. Eager `and`, `or` and `xor` evaluate both operands.
 Each operand must be safe under the original incoming facts, independently of
 the other operand's outcome; neither can guard the other. Both result outcomes
 conservatively retain the original incoming scalar and String/input facts.
+Neither operand of `xor` may contain another `xor`, including the implicit left
+operand of a chain. Thus `A xor B` and independent `(A xor B) and (C xor D)`
+are permitted, but `A xor B xor C` and `A xor (B xor C)` are excluded. Operator
+spellings inside quoted strings, comments or longer identifiers do not count.
+This Silver resource restriction prevents repeated duplication by the pinned
+proof producer's xor expansion; Ada itself allows the excluded forms. Multiple
+parity steps can use ordinary Boolean assignments or initializers.
 For example, `D /= 0 and (1 / D) = 1` cannot use the left test to justify its
 division, whereas `D /= 0 and then (1 / D) = 1` can when the established interval
 excludes zero. Parentheses and `not` retain existing short-circuit transfer rules.

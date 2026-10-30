@@ -1,6 +1,6 @@
 # Boolean scalar objects and expressions
 
-Status: owner-authorized proposal, not yet supported.
+Status: implementation and focused assurance in progress; not yet supported.
 [Milestone 14](https://github.com/berkeleynerd/silver/milestone/14) contains one
 coherent work package, [#291](https://github.com/berkeleynerd/silver/issues/291).
 The [2026-10-30 authorization](session-memory.md#2026-10-30--boolean-scalar-objects-and-expressions-authorized)
@@ -102,3 +102,35 @@ required assurance belong to #291. Planning outcome and handoff are recorded
 on that issue. The milestone/package and three planning documents are prepared;
 local link checks and `git diff --check` pass, with no material scope rework.
 CLI memory is unavailable and was not updated.
+
+## Integration checkpoint — 2026-10-30
+
+The native compiler implements the selected Boolean declarations, assignments
+and condition forms. Twelve focused Boolean regression methods, including the
+new xor lexical controls, have passed on the restricted implementation. The
+[producer review](evidence/boolean-objects-20261030/producer-review.md) records
+the discovered exponential xor formula expansion and the selected structural
+restriction: neither operand of xor may itself contain xor. Independent xor
+expressions remain permitted. The restriction is a pinned-tool capacity policy,
+not an Ada restriction; no source/operator/leaf budget or report policy changed.
+The [native validation record](evidence/boolean-objects-20261030/native-validation.md)
+retains the source identities, build, focused regressions and stack observations.
+
+Focused Lean checkpoints establish Boolean declaration admission and state
+preservation; exact raw initializer conditions and frozen-value validity;
+condition meaning and unique source readings; and Boolean assignment/body
+semantics. The latest combined body checkpoint passed a fresh audit of 16,678
+declarations with only the three approved foundations. Its Boolean helper trees
+and interpretation proofs are checked, while instantiation against authoritative
+source tokens remains part of the pending complete source checkpoint. These
+results are focused assurance, not complete language support.
+
+Remaining: aggregate declaration/token/header integration, the complete Compose
+and Predicate actual-source joins, final native proof (including investigation
+of the array-declaration Static record-equality timeout), full regression and
+Lean validation, independent review, and stacked PR publication. The earlier
+native unit run uses pre-xor inputs and cannot establish final assurance.
+
+| Round | Selected settings | Result and remaining work | Measurement scope |
+| --- | --- | --- | --- |
+| Boolean semantic/source integration, 2026-10-30 | Existing proof/source/native subthreads: GPT-6 Astra / Extra High. Lead runtime setting and whole-team token/cost totals unavailable. | Condition validity/uniqueness, exact declaration payloads, assignment typed source and body semantic checkpoints passed; complete source/capability integration remains open. | Final combined body/helper focused build 41.019 s plus fresh audit 7.139 s; preceding development failures retained in the managed ledger. These are native tool times, not total implementation time. |
