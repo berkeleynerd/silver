@@ -143,11 +143,11 @@ mutual
         BooleanRelationAtCore text context initials position facts inner result →
         RelationAtCore text context initials position facts inner result
 
-  inductive ChainAtCore (text : Source) (context : ParseContext) (initials : ArrayBindings.Initials)
-      (incoming : ActiveFlow) : Condition → ConditionResult → Option ChainKind → Condition → ConditionResult → Prop
-    | done {condition result chained} : result.after ≠ 0 → chainOperator text result.after = none →
+  inductive ChainAtCore (text : Source) (context : ParseContext) (initials : ArrayBindings.Initials) :
+      ActiveFlow → Condition → ConditionResult → Option ChainKind → Condition → ConditionResult → Prop
+    | done {incoming condition result chained} : result.after ≠ 0 → chainOperator text result.after = none →
         ChainAtCore text context initials incoming condition result chained condition result
-    | next {condition result chained operator right rightResult final finalResult} :
+    | next {incoming condition result chained operator right rightResult final finalResult} :
         conditionTail text context result chained incoming initials = finalResult →
         result.after ≠ 0 → chainOperator text result.after = some operator →
         ¬(chained.isSome = true ∧ chained ≠ some operator) →
