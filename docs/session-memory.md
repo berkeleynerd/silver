@@ -1,5 +1,39 @@
 # Session memory
 
+## 2026-10-30 — Boolean scalar objects and expressions authorized
+
+The owner approved **initialized Boolean constants and variables, assignment,
+Boolean logical expressions and conditions** as the next coherent feature.
+The drivers are Rosetta **Sequence of primes by trial division** (lead),
+**Square but not cube**, and **Common list elements**.
+[Milestone 14](https://github.com/berkeleynerd/silver/milestone/14) contains one
+work package, [#291](https://github.com/berkeleynerd/silver/issues/291). The
+[capability proposal](boolean-objects.md) records the selected scope and remaining
+design obligations; it does not claim current support.
+
+Authorization covers design and implementation, complete native Bronze/Silver
+and Lean universal/actual-source assurance, boundary and composition regressions,
+faithful driver samples, synchronized language/catalogue/Rosetta records, full
+required validation, independent review and publication of a stacked feature PR.
+Record this authorization on `main` through the routine planning PR before
+claiming #291. Publishing and merging that authorization-only planning PR are
+authorized. **Feature merge is not authorized.** Keep subtype
+[PR #289](https://github.com/berkeleynerd/silver/pull/289) open at
+`fa6b5e982cad5662b18f498e75cafbac9fb07cc9`; stack the Boolean feature on it without
+changing or merging that PR, and keep the Boolean feature PR open for review.
+
+Selected scope includes scalar `Boolean`, `True`/`False`, initialized constants
+and variables, assignment, `not`, eager `and`/`or`/`xor`, and Boolean expressions
+in existing conditions with short-circuit `and then`/`or else`. Settle exact
+decidable native rules under the unchanged Oracle, including inherited Ada
+name hiding of `True`/`False`/`Boolean`, eager versus short-circuit evaluation,
+and no retained scalar facts behind stored flags. Retain the 4,096-byte source,
+63-operator and 64-leaf budgets. Boolean arrays, callable routines and enumeration
+iteration remain excluded. Broad Rosetta identifiers are not automatically
+promoted; reconcile the delivered fragment accurately. Deferred capacity and
+assurance-mode work retains its existing triggers. No harness goal exists;
+CLI memory is unavailable and was not updated.
+
 ## 2026-10-29 — Named Integer subtypes and bounded array components authorized
 
 The owner accepted the recommendation to implement named Integer range subtypes,
