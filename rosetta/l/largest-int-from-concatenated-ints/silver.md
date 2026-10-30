@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from the Item subtype bound and for-loop ranges with no loop-carried accumulators, and there are no while loops or recursion, so no annotation is needed. Arithmetic comparison of cross-concatenations avoids building strings and keeps overflow trivially bounded.
 
-Position 971 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 968 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

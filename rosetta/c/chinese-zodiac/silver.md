@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is small bounded integer work on a ranged year subtype with case statements over mod results, so every check follows from types and static bounds with no loop-carried values or recursion.
 
-Position 782 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 779 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

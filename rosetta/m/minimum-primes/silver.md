@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is bounded by declared integer ranges and for-loop indexes, but the prime search and trial division carry loop values through while loops that need guards and must sit in procedures, so discharge depends on careful program shape.
 
-Position 908 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 905 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

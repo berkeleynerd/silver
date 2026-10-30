@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything uses fixed 15-element arrays with indexes drawn from a 1..15 subtype and loops confined to procedures, so checks follow from types and bounded guards without annotations; the main care is loop-carried counters and the lcm arithmetic.
 
-Position 748 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 745 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

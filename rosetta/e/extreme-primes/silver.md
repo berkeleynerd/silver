@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is plain integer arithmetic with types and cap guards bounding the loop-carried sum and divisors, and the loops can be shaped as for loops in functions or while loops in procedures, so no annotation is needed. The main burden is careful range subtypes for the accumulators and number-to-text output.
 
-Position 813 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 810 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

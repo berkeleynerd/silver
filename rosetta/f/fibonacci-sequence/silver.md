@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Iterative Fibonacci uses a for loop with a guard before each addition, so overflow checks discharge without invariants and no recursion, while loops or annotations are needed. The 92-term limit is a documented resource bound with a specified rejection outcome.
 
-Position 296 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 293 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

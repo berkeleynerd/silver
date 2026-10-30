@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from bounded buffer types, a Has_Item guard before every comparison, and a while loop confined to a procedure, so no annotation is needed once Silver gains file reading, string ordering and extra arguments.
 
-Position 1477 in the [progression](../../progression.md#stage-28), in stage 28.
+Position 1474 in the [progression](../../progression.md#stage-28), in stage 28.
 
 ## Failure paths to test
 

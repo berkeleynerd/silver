@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is under-specified, so a small embedded grayscale image with text-art output is faithful, and everything is for loops over fixed bounds with integer arithmetic clamped by guards. Discharge depends on careful clamping of loop-carried error values since there are no invariants, hence plausible rather than likely.
 
-Position 806 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 803 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

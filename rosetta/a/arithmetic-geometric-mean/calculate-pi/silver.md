@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is integer arithmetic on fixed-capacity limb arrays in procedures with for loops and capped while loops, so checks follow from types and bounds, but multi-limb carries and big square root and division make the shape delicate.
 
-Position 1397 in the [progression](../../../progression.md#stage-24), in stage 24.
+Position 1394 in the [progression](../../../progression.md#stage-24), in stage 24.
 
 ## Approach
 

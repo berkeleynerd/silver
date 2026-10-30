@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index I and I+1 lies within the static range 1..32 because the for loops run over literal bounds inside the string's own range, and the outer loop sits in a procedure with only a Boolean carried across iterations, so no invariant is needed.
 
-Position 483 in the [progression](../../../progression.md#stage-10), in stage 10.
+Position 480 in the [progression](../../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

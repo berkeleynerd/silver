@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from declared integer ranges, for-loop indexes over array ranges and a guard before each window store, but 64-bit nonlinear products and the string and 'Image output machinery make it depend on careful program shape. No annotation is needed because all loops are for loops or sit inside procedures.
 
-Position 396 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 393 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

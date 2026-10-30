@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All data is fixed and small, so every arithmetic result is bounded by declared ranges and every array index comes from for-loop ranges over the array, with no recursion, while loops or floating point needed.
 
-Position 792 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 789 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

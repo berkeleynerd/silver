@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is a single for loop that filters characters into a bounded buffer, so every check follows from the array range, the Count type and one capacity guard before the append, and no invariant is needed. The only non-routine part is the loop-carried Count, which the guard makes safe.
 
-Position 964 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 961 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

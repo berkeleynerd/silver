@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program produces actual coloured bars in an image file, rather than replacing colour with labels, and needs file output that Silver has not admitted.
 
-Position 1411 in the [progression](../../../progression.md#stage-25), in stage 25.
+Position 1408 in the [progression](../../../progression.md#stage-25), in stage 25.
 
 ## Failure paths to test
 

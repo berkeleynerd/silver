@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are bounded for loops over fixed arrays and every value is range-typed or guarded, so checks follow from types and guards, but the scaled nonlinear H arithmetic and loop-carried counters need careful shaping.
 
-Position 1304 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1301 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is bounded array arithmetic with for loops, so all checks come from subtypes and guards, but loop-carried row growth and the special cases mean the guards must be placed carefully; integer scaling avoids floating point and division.
 
-Position 937 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 934 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

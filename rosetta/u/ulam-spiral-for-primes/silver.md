@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything uses static bounds, for loops and a small fixed grid, so only the nonlinear spiral index formula and sieve index arithmetic need guard-shaped code, with no annotations required.
 
-Position 905 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 902 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

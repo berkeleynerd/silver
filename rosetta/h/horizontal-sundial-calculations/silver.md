@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** No contracts or recursion are needed and every loop is a bounded for loop in a procedure, but floating-point trigonometry with no prover-visible bounds on Tan and hand-written decimal parsing make discharge depend on careful range guards.
 
-Position 1232 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1229 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Failure paths to test
 

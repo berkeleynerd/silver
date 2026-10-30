@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is integer arithmetic with bounded subtypes, and the only non-routine items are the nonzero-gcd divisor and the product bound, both handled by a guard and a range choice; the while loop sits in a procedure so no termination check applies. It is plausible rather than likely because the gcd's nonzero-ness is not inferable without an invariant and must be guarded.
 
-Position 211 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 208 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

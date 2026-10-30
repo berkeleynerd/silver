@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic stays within small declared ranges (n up to about 1.1 million, divisors up to about 1,010, a sieve to 10,000) using only for loops and guards in procedures, so every check follows from types and guards and no annotation is needed.
 
-Position 1539 in the [progression](../../progression.md#stage-32), in stage 32.
+Position 1536 in the [progression](../../progression.md#stage-32), in stage 32.
 
 ## Approach
 

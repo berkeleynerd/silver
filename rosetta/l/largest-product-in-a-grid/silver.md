@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index is a for-loop variable over a fixed subtype range with offsets of at most 3 inside the 20-wide array, and the product is bounded by the cell subtype, so all checks follow from types and no loop invariant is needed.
 
-Position 652 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 649 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

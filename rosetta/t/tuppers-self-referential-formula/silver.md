@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged digit and bit subtypes, for-loop indexes over static bounds and a guard before each remainder update, and no annotation is needed because all loops are for loops in procedures. It is plausible rather than likely because fixed-capacity big-number arithmetic with loop-carried carries and remainders is carried through nested loops.
 
-Position 1367 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1364 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Approach
 

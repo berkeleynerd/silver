@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from declared ranges, for-loop indexes and a guard before each counter increment, and no while loop or recursion is needed, so proofs should discharge without annotations. The required output is small and the optional million-scale stretch parts are omitted.
 
-Position 338 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 335 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexes and counters can be bounded by ranged types or by guards placed immediately before use, and no recursion or functions with while loops are needed, so no annotation is required, though the parser's loop-carried cursor and counters make the program shape matter.
 
-Position 1139 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1136 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 

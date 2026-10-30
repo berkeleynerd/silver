@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is fixed-size array loops over embedded data with for loops in procedures, so index and termination checks are routine, but floating-point range bounds and the Hommel index arithmetic need careful guards, and fixed-decimal formatting of floats needs a custom routine, making discharge plausible rather than likely.
 
-Position 1197 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1194 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are for loops over fixed-capacity arrays and the arithmetic is bounded integer math, so checks follow from types plus a few guards (capacity, nonzero denominator, range), though the nonlinear scaled-integer intersection needs careful bounds to discharge. Extra credit graphics are optional and skipped.
 
-Position 624 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 621 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

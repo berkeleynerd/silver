@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** This should prove automatically (outlook likely). The program only declares static floating-point constants and prints them, so no run-time check can fail and none needs an annotation. All it adds to today's Silver is floating-point types and float-to-text formatting.
 
-Position 1028 in the [progression](../../../progression.md#stage-17), in stage 17.
+Position 1025 in the [progression](../../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

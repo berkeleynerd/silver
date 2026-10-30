@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is integer arithmetic in procedures with for loops or procedure-only while loops, and the loop-carried overflow and zero-division risks are handled by visible guards, so no annotation is needed, but it takes careful program shape.
 
-Position 938 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 935 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

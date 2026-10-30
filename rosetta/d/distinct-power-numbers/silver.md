@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task has only bounded loops over constant ranges, small integer powers and a fixed-size sort, so every check follows from types and for-loop ranges with no loop-carried unbounded values or annotations.
 
-Position 1499 in the [progression](../../progression.md#stage-29), in stage 29.
+Position 1496 in the [progression](../../progression.md#stage-29), in stage 29.
 
 ## Approach
 

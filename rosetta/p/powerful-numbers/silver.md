@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Only four primes can contribute, so the generation is a small bounded enumeration whose arithmetic is protected by ranged subtypes and division guards, and the only loop-carried index work is the array fill and the insertion sort in procedures.
 
-Position 281 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 278 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

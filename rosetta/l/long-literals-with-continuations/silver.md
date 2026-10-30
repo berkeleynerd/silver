@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check comes from a static constant string, a for-loop index over that string's own range, and one guard placed just before the counter increment, so no annotation is needed. The only new surface is integers, characters, string indexing and slicing, for loops and 'Image.
 
-Position 503 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 500 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

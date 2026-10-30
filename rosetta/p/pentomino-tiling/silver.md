@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded arrays and small ranged integers, and the search can be turned into an iterative procedure with explicit stack and guards, so no annotations are needed, but the loop-carried indices and the backtracking state require careful program shape.
 
-Position 858 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 855 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over static or bounded ranges inside procedures, and every array write is guarded by a capacity check, so the checks follow from types and guards without any invariant. The task's callback/closure-based generality is met with a case-statement interpreter over the embedded rabbit example, which needs no unsupported language feature.
 
-Position 772 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 769 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

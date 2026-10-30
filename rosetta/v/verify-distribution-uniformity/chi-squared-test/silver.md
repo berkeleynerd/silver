@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs only bounded integer arithmetic if the statistic is computed by the exact integer identity and a scaled critical-value table, so all checks follow from type caps and pre-use guards. Loop-carried accumulators need explicit guards, which makes discharge plausible rather than routine.
 
-Position 382 in the [progression](../../../progression.md#stage-8), in stage 8.
+Position 379 in the [progression](../../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

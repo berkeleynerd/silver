@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index and arithmetic check follows from the array bounds, the bounded Gap subtype and for-loop ranges, with the only unbounded loop in a procedure where termination is not checked. The data are small fixed integers, so no annotation is needed.
 
-Position 186 in the [progression](../../../progression.md#stage-7), in stage 7.
+Position 183 in the [progression](../../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs only fixed-size arrays, bounded float arithmetic and iterative traversal, with no annotations required, but float range guards and fixed-width decimal formatting make discharge depend on careful program shape.
 
-Position 1192 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1189 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

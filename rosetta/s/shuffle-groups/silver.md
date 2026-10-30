@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from declared ranges, fixed for-loop bounds and a few guards on loop-carried counters, with no recursion or heap use, so it is plausible rather than routine; the core task needs only values under about 1.5 million while the 10-digit exactly-4 stretch is both too slow and outside the chosen range.
 
-Position 836 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 833 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

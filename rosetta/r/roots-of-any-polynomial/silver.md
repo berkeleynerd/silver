@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The program needs only bounded loops, fixed arrays and bounded-float complex arithmetic, so no annotation is needed, but floating-point nonlinear range and overflow checks across nested iteration loops depend on careful guard placement and may stress the provers.
 
-Position 1110 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1107 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

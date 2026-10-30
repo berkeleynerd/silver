@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is fixed-size for-loop and mod arithmetic over small declared ranges, so index and range checks follow from types, but the loop-carried Siamese position and swap indexes need careful subtyping, hence plausible rather than likely.
 
-Position 685 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 682 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

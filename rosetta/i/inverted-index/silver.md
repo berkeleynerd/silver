@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The program is bounded loops over fixed-capacity arrays with guards before each index, so it likely proves without annotations, but tokenizing, table capacity limits and loop-carried counters make it depend on careful program shape. It also needs a large new surface (file and stdin input, strings, arrays, records).
 
-Position 1487 in the [progression](../../progression.md#stage-28), in stage 28.
+Position 1484 in the [progression](../../progression.md#stage-28), in stage 28.
 
 ## Failure paths to test
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the bounded Value subtype and the explicit guards before the single addition, and invalid ranges get a visible error message rather than a changed result. The only loop is a while loop inside a procedure, so no variant is needed.
 
-Position 595 in the [progression](../../../progression.md#stage-11), in stage 11.
+Position 592 in the [progression](../../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

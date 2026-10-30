@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is small and bounded by declared ranges, and the only loop-carried values (sigma sum, gcd pair, counters) can be tamed with simple guards or type ranges, so no annotation is needed. The work is mostly new surface (integers, loops, arrays, image-based string building), hence plausible rather than likely.
 
-Position 916 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 913 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

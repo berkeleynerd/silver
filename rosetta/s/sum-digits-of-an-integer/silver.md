@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from subtype ranges for Base and a guard before the accumulator addition, and the loop sits in a procedure so no variant is needed; the only care needed is the loop-carried Sum overflow guard.
 
-Position 216 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 213 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

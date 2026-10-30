@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded text scanning and small-integer parsing in procedures, so all checks follow from types and guards without annotations, but Silver needs file I/O, argument access, string building and a fair amount of loop-carried index and sum guarding. The main work is the new library surface, not proof difficulty.
 
-Position 1445 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1442 in the [progression](../../progression.md#stage-26), in stage 26.
 
 ## Failure paths to test
 

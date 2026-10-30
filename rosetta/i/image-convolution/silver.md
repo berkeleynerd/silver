@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from small declared ranges, border guards placed just before indexing, and an unrolled nine-term sum with no loop-carried accumulator, so no annotation is needed; the main care is keeping integer kernel coefficients (real-valued kernels replaced by scaled integers) tightly bounded.
 
-Position 700 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 697 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

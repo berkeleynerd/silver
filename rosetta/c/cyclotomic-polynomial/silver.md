@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The mathematics is plain integer array loops with static capacity, so checks follow from types and guards, but loop-carried coefficient arithmetic over a degree of several thousand needs careful per-operation guards, making discharge plausible rather than likely.
 
-Position 940 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 937 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

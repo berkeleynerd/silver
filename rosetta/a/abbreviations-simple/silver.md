@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is an index or length bound on a fixed-size string and the number accumulation is capped by a guard, but tokenizer positions are loop-carried and need careful guards, so the program needs a deliberate shape and no annotation.
 
-Position 1019 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 1016 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

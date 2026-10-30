@@ -1,23 +1,25 @@
 # Square but not cube
 
-**Candidate: proofs likely to discharge automatically.** All arithmetic sits in small constant for-loop ranges and the only loop-carried counter is guarded before its increment, so every check follows from types and guards. No while loops, functions or recursion are involved, so there are no termination obligations.
+**Candidate: proofs likely to discharge automatically.** All products fit the declared small Integer ranges, and the direct Count<30 guard justifies the increment. Cubes include every candidate cube up to 1600; scanning increasing square roots and stopping output after 30 qualifying values gives the required prefix through 1089. Independent expected output uses square/cube set difference. This is prepared reconciliation for #291; implementation validation and complete assurance remain pending, and scalar-boolean-objects is not yet supported.
 
-Position 88 in the [progression](../../progression.md#stage-5), in stage 5, which adds Boolean objects.
+Position 1565 in the [progression](../../progression.md#stage-37), in stage 37.
 
 ## Approach
 
-Main runs a for loop of N over 1 .. 40, computes Sq := N*N, and uses an inner for loop of I over 1 .. 13 to set a Boolean flag when I*I*I = Sq. If the square is not a cube and Count < 30, it increments Count and prints the number with Integer'Image through Put; a final empty Put_Line ends the line. Everything is bounded by constant ranges, so no loop invariant is needed, and the optional square-and-cube part is omitted. About 25 lines.
+The prepared driver samples/rosetta_square_but_not_cube.adb computes Root*Root for Root in 1..40. It scans Trial in 1..13 and sets a Boolean Cube flag if Trial*Trial*Trial equals the square. When not Cube and then Count<30 it increments the bounded counter and streams the square with Put and Integer Image. A final empty Put_Line ends the line. It prints exactly the required first 30 values; the optional common squares and cubes are omitted. About 22 lines.
 
 ## Proof obligations to watch
 
-- **overflow**: The loop-carried Count is incremented only under an explicit Count < 30 guard, and N*N and I*I*I are bounded by the for-loop ranges (N up to 40, I up to 13), so no overflow check can fail.
+- **range**: Square fits 1..1600 from Root in 1..40; each cube product fits Integer from Trial in 1..13; the direct Count<30 guard makes the increment fit 0..30.
 
 ## Language surface recorded by this assessment
 
-Integers, Boolean objects, for loops, 'Image of scalars and Put without a newline.
+Scalar Boolean objects and expressions, bounded mutable Integer objects, scalar guard refinement, Integer range for loops, Integer image and Put without a newline.
 
 ## External effects
 
 - **console output** (allowed): Prints the 30 qualifying squares on one line.
 
-Assessed on 2026-10-15 against page revision 415318 of the [task](https://rosettacode.org/wiki/Square_but_not_cube) by claude-sonnet-5-5 at medium effort; confidence high. The inclusion policy is in `rosetta/coverage.json`.
+Initially assessed on 2026-10-15 against page revision 415318 of the [task](https://rosettacode.org/wiki/Square_but_not_cube) by claude-sonnet-5-5 at medium effort; current confidence high. The inclusion policy is in `rosetta/coverage.json`.
+
+Revised on 2026-10-30 by Codex through targeted source review; see the [review record](../../../rosetta/assessment-boolean-objects-20261030.md).

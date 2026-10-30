@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Index-based trees with iterative stack-driven traversal need only type-range and pre-push guards, with no recursion, heap or tasks, so no annotation is required; the number of loop-carried indices (stack top, two iterators) makes discharge depend on careful program shape. The task allows any solution, so the concurrency in the Ada version is not required.
 
-Position 727 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 724 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

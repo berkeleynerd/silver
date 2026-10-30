@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** A plain two-field record over a bounded integer subtype involves only static ranges and literal values, so every range and initialization check follows from types and discharges automatically.
 
-Position 575 in the [progression](../../progression.md#stage-11), in stage 11, which adds records.
+Position 572 in the [progression](../../progression.md#stage-11), in stage 11, which adds records.
 
 ## Approach
 

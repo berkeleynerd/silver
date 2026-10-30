@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every array index and counter is bounded by a fixed-length index subtype and the loop-carried position can be guarded in the loop condition, so no annotation is needed. The procedure form avoids termination checks, and the only care needed is the duplicate-skip and cycle-rotation guards.
 
-Position 1530 in the [progression](../../../progression.md#stage-31), in stage 31.
+Position 1527 in the [progression](../../../progression.md#stage-31), in stage 31.
 
 ## Approach
 

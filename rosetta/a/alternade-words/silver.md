@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every index and length is bounded by declared subtypes and explicit capacity guards, and all while loops are in procedures, so no annotation is needed, though the file-reading loop and binary-search bounds need careful shaping.
 
-Position 1478 in the [progression](../../progression.md#stage-28), in stage 28.
+Position 1475 in the [progression](../../progression.md#stage-28), in stage 28.
 
 ## Failure paths to test
 

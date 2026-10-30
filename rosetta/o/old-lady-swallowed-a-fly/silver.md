@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Fixed embedded text, for loops over a static range 1..8 and case statements over a bounded subtype need no loop-carried values, so every check follows from types and static bounds.
 
-Position 778 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 775 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

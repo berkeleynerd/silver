@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything reduces to bounded string scanning, integer-tenths parsing and line output in procedures, so no annotation should be needed, but the file-reading library operation and validated number parsing must exist in Silver and the digit accumulation needs careful guards.
 
-Position 1324 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1321 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Failure paths to test
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from fixed-capacity arrays, range-typed counters and guards before each index or pad computation, but many loop-carried positions and widths need careful shaping, so the outlook is plausible rather than likely.
 
-Position 616 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 613 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

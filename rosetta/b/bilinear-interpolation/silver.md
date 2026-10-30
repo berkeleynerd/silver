@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are for loops over fixed ranges with no loop-carried values, and every index, overflow and division check follows from ranged subtypes plus a clamp guard, but the nonlinear integer interpolation arithmetic needs careful bounding so the outlook is plausible rather than likely. The embedded image and text PPM output stand in for opening and saving an image file, which keeps it free of file effects.
 
-Position 694 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 691 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

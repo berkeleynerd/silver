@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index is the loop variable over the string's own range, and each Character'Val argument is bounded by the guard on the character just before the shift, so no loop-carried value needs an invariant. Rot-13 is a pure per-character mapping, so there is no recursion, while loop or accumulator.
 
-Position 476 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 473 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

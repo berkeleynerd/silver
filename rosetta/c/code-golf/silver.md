@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task needs only fixed output of nine characters through a for loop over a constant array, with every check following from the component subtype and the array's own index range, so the proofs discharge routinely once an unterminated Put exists. Shortest-program golfing and the executable-size extra credit are not program requirements, so nothing conflicts with the Oracle.
 
-Position 426 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 423 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

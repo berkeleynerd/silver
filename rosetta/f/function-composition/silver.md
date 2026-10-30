@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** In Ada, composing functions with generic formal subprograms needs no closures or access values, and GNATprove analyzes each instance with checks that follow from the declared ranges, so every check should discharge without annotations. The functions are non-recursive and use only for loops, so the termination checks are trivial.
 
-Position 1515 in the [progression](../../progression.md#stage-30), in stage 30.
+Position 1512 in the [progression](../../progression.md#stage-30), in stage 30.
 
 ## Approach
 

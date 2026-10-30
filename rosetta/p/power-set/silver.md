@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over static ranges, the mask copy stays within 0..15 by its subtype and division by the literal 2 cannot fail, so every check follows from types and bounds. Output is by Put and Put_Line in the Main procedure, so no function termination or contract is needed.
 
-Position 480 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 477 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged float subtypes, library contracts and guards before Sqrt and ArcSin, with no loops or recursion, but the floating-point reasoning and the dependence on an admitted elementary-functions library make discharge depend on careful program shape rather than being routine.
 
-Position 1039 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1036 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

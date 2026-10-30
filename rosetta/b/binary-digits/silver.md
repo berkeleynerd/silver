@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over static ranges and every arithmetic result is bounded by the subtype, so overflow, range and index checks follow from types and the loop index, with no loop invariant needed. Only the slice bounds need a small guard, which the loop index and the zero branch provide.
 
-Position 949 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 946 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is a fixed-count for loop over bounded floats with no loop-carried values beyond bracket endpoints whose subtype range keeps arithmetic safe, so it should prove without annotations, but floating-point range bounding and float output make it need careful shaping.
 
-Position 1069 in the [progression](../../../progression.md#stage-17), in stage 17.
+Position 1066 in the [progression](../../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from declared coordinate and channel ranges plus guards before divisions, but integer angle approximation and fixed-point products need careful shape, so discharge is plausible rather than routine; floating point and the numerics library are avoided entirely.
 
-Position 1427 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1424 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Failure paths to test
 

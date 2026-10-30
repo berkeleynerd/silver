@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check is an index or slice bound derived from for-loop indexes over the string's own range, and there are no function loops, recursion or arithmetic beyond small index steps, so proofs should discharge unaided. The program must trim whitespace (the current task rules), which is done with simple for loops rather than a loop-carried while scan.
 
-Position 958 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 955 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

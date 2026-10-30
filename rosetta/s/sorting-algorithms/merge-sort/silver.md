@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is a fixed-size array sorted by index arithmetic in procedures, so checks reduce to guarded cursor comparisons and bounded subtypes, though several loop-carried indices need careful guard placement without invariants.
 
-Position 911 in the [progression](../../../progression.md#stage-15), in stage 15.
+Position 908 in the [progression](../../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed array bounds, for-loop indexes and a saturating cap on the accumulator, so only the nonlinear index i*k and the large sieve size need careful shaping; no annotation is needed, but counts at 10,000 and above are impractical and are treated as optional.
 
-Position 263 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 260 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

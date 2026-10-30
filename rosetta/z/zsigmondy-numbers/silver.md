@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from subtype ranges and guards just before each multiply, divide and gcd step, and the divide-out method avoids divisor enumeration, but loop-carried accumulators in nested while loops make discharge depend on careful guard placement. The largest value, 7**20, fits in 64 bits, so the required 10 terms per radix set need no big numbers.
 
-Position 706 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 703 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

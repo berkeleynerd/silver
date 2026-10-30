@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task only needs fixed-size text art, and every index and divisor follows from for-loop ranges and subtype bounds, so no loop invariant or other annotation is needed. Drawing to a real display is replaced by console text art, which the task permits.
 
-Position 487 in the [progression](../../../progression.md#stage-10), in stage 10.
+Position 484 in the [progression](../../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

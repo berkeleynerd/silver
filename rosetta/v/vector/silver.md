@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks are range and division-by-zero obligations discharged by guards placed just before each operation, with no loops or recursion, so no annotation is needed; integer components stand in for floats to keep the proofs routine.
 
-Position 600 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 597 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

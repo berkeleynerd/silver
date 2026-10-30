@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is plain console input of a string and an integer, and with an admitted bounded line reader and validating integer parser every check is a type or guard, so no annotation is needed.
 
-Position 1207 in the [progression](../../../progression.md#stage-20), in stage 20.
+Position 1204 in the [progression](../../../progression.md#stage-20), in stage 20.
 
 ## Failure paths to test
 

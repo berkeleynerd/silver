@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** No Oracle rule is broken and no annotation is needed because every stack, index, arithmetic and parsing check can be guarded just before use with a visible fault outcome, but the many loop-carried values (sp, pc, accumulators) and the wide-type overflow handling make careful program shape necessary.
 
-Position 1562 in the [progression](../../../progression.md#stage-35), in stage 35.
+Position 1559 in the [progression](../../../progression.md#stage-35), in stage 35.
 
 ## Failure paths to test
 

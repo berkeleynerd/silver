@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every access is an index or length computation on bounded buffers that explicit guards before each splice can discharge, and non-halting rulesets are handled by a visible step-limit and capacity rejection, so no annotation is needed. It is plausible rather than likely because the nested matching and splicing loops carry many loop-carried indices that each need a guard.
 
-Position 855 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 852 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

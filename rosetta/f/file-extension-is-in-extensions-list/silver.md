@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from a length guard before indexing and for loops over the extension's own range, no loop-carried value needs an invariant, and functions contain only terminating for loops.
 
-Position 980 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 977 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

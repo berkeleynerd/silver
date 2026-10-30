@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All task data fit a scaled-integer representation, so every check follows from ranged types, for-loop indexes and capacity guards without needing loop invariants. Floating point is avoided, leaving only the loop-carried write index and text buffer length as guard-dependent obligations.
 
-Position 936 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 933 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged integers and for-loop bounds with guards before table writes, but the nested enumeration, multiplication of bounded values and several loop-carried counters need careful program shape and a long runtime in the prover-friendly style.
 
-Position 942 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 939 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

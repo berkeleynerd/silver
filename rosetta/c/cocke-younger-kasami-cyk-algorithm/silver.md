@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The whole algorithm is nested for loops over fixed-size Boolean arrays with indexes derived from loop variables, so every check follows from types and bounds, with no loop-carried values needing invariants.
 
-Position 1170 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1167 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

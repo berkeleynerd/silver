@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The testing library is replaced by plain executable checks over a simple for-loop palindrome function, whose index and overflow checks follow from the loop range and Text'Length without annotations. The loop is terminating by construction and the test counter is bounded by the fixed number of cases, so nothing needs an invariant.
 
-Position 1339 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1336 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All values are bounded by the 101..499 loop range and digit sums of at most 18, every loop is a terminating for loop, and the only loop-carried value is a counter that a guard keeps in range, so checks follow from types and guards.
 
-Position 323 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 320 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

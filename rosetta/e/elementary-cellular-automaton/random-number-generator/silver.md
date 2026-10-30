@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every loop is a bounded for loop and needs no invariant: the byte accumulator is modular, every neighbor index is guarded at the boundary, and the arrays are initialized by aggregates, so all checks follow from types and local guards.
 
-Position 1261 in the [progression](../../../progression.md#stage-21), in stage 21.
+Position 1258 in the [progression](../../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything uses for loops over fixed bounds in a procedure with integer-scaled frequencies, so the checks follow from ranged subtypes and mod 26 or key-length indexing, but the nested loops with loop-carried score sums need carefully sized subtypes and no annotation is required.
 
-Position 838 in the [progression](../../../progression.md#stage-13), in stage 13.
+Position 835 in the [progression](../../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

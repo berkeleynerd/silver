@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Only the count is required and it follows from a bounded iterative DP, but the arithmetic is nonlinear big-number work carried through nested loops with no invariants, so it needs careful guarding yet no annotation. The optional ASCII-art enumeration is left out.
 
-Position 1379 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1376 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Failure paths to test
 

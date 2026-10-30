@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every loop is a bounded for loop and all values have declared ranges, so overflow, index and range checks follow from types and no variant is needed. The only non-routine point is the nonlinear d*d, which declared bounds keep small.
 
-Position 775 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 772 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

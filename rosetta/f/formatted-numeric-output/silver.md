@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index is a static loop bound, and the digit is N mod 10 (so always 0..9) before Character'Val, so the checks follow from types and no annotation is needed. The values are small and bounded, so there is no nonlinear arithmetic and no overflow risk.
 
-Position 471 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 468 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

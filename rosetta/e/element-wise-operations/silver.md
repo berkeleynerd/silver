@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexes come from the arrays' own ranges and every arithmetic result is guarded against the declared Element range before storing, so only the exponentiation loop and the text-building need careful shaping, with no annotations required.
 
-Position 829 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 826 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

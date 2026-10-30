@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Replacing the recursive search with an explicit bounded stack in a procedure keeps every index and arithmetic check derivable from ranged types or an adjacent guard, so no annotation is needed, though the stack-depth and position guards require careful shape.
 
-Position 715 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 712 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded by float subtypes and fixed-count for loops with no annotations, but proving float range/overflow on a loop-carried iterate through nonlinear arithmetic depends on careful clamping, so it is plausible rather than likely.
 
-Position 1060 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1057 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the array's declared character-subtype index, a guard before each counter increment, and a for loop over the array's own range, with the only loop being a while loop in a procedure. The remaining dependence is on an admitted file-reading library with specified failure outcomes, which Silver lacks today.
 
-Position 1338 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1335 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The program is straight-line code calling SPARK-annotated Ada.Numerics.Elementary_Functions on literal in-domain arguments, so no loop-carried facts are needed; the only uncertainty is floating-point finiteness checks and whether the admitted library exposes the Ada.Numerics functions and Float'Image.
 
-Position 1034 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1031 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

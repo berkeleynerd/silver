@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded for loops over fixed ranges with no loop-carried accumulators, so only the floating-point power and its finiteness need care, which range-constrained Float operands make plausible rather than certain.
 
-Position 861 in the [progression](../../progression.md#stage-14), in stage 14, which adds floating point.
+Position 858 in the [progression](../../progression.md#stage-14), in stage 14, which adds floating point.
 
 ## Approach
 

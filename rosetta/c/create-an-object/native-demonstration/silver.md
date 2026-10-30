@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index is of the key enumeration type and every value is a bounded Integer, so all checks follow from declared types and the for loop over the enumeration, and no loop-carried facts are needed. Ada has no magic methods, so the program only demonstrates the required fixed-key, reset-on-delete behavior, which the task treats as optional.
 
-Position 1153 in the [progression](../../../progression.md#stage-19), in stage 19.
+Position 1150 in the [progression](../../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

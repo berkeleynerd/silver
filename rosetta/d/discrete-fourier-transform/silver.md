@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are for loops over static array ranges so indexes and termination are routine, but float accumulation across loop-carried sums and trig functions need bounded float types and admitted contracted math, making discharge depend on careful shape.
 
-Position 1533 in the [progression](../../progression.md#stage-31), in stage 31.
+Position 1530 in the [progression](../../progression.md#stage-31), in stage 31.
 
 ## Approach
 

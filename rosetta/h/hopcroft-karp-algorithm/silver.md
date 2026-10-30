@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every array index and counter is bounded by ranged subtypes and capacity guards, so checks are routine, but the recursive DFS must be restructured into an explicit-stack procedure whose loop-carried state needs careful guards, with no annotation required.
 
-Position 723 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 720 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

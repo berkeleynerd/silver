@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All values fit in 64 bits and every operation can be guarded from the type range, so no annotation is needed, but loop-carried array values, nonlinear arithmetic and the long trial-division loop make discharge depend on careful guard placement.
 
-Position 378 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 375 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All values for bases 2 to 12 fit in a bounded 64-bit range, and every loop-carried value (root, counter, buffer position) is bounded by its subtype or a guard just before use, so no annotation is needed, though the several loop-carried guards make discharge depend on careful program shape.
 
-Position 1007 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 1004 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

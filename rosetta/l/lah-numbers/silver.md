@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every Lah number up to L(12,12) is at most about 4.4e9, so a 64-bit ranged array with explicit guards proves overflow and index freedom without annotations, though the loop-carried table entries make it depend on careful guard placement.
 
-Position 678 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 675 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

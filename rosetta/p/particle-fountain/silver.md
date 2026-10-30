@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is integer fixed-point arithmetic over declared ranges with bounds guards before each array index and only for loops in procedures, so no annotation is needed. Plausible rather than likely because many loop-carried position and velocity values each need a clamp or guard to stay in range.
 
-Position 1297 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1294 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is fixed-capacity digit-array arithmetic with for loops and ranged digit types, so checks follow from types and guards with no annotations needed. Outlook is plausible rather than likely because carry and alignment indexes are loop-carried and need guards, and the task asks for a generic package.
 
-Position 1521 in the [progression](../../progression.md#stage-30), in stage 30.
+Position 1518 in the [progression](../../progression.md#stage-30), in stage 30.
 
 ## Approach
 

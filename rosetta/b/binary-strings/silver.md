@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every operation is a bounded array scan whose indexes are range-typed and guarded just before use, with capacity overflow producing a visible outcome, so no annotation is needed. The loop-carried positions in replace-all and join make discharge depend on careful guard placement rather than being routine.
 
-Position 623 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 620 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The answer is a product of binomial coefficients over bounded arrays with for loops, so checks follow from types and guards, but the loop-carried accumulator needs an explicit overflow guard and the input must be parsed and validated, which makes discharge depend on careful program shape.
 
-Position 1352 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1349 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 

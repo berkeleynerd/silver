@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indexing and arithmetic are bounded by static array ranges, for-loop indexes and a 0..1 cell subtype, so no invariant or variant is needed and the work lives in procedures using only for loops.
 
-Position 656 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 653 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** A hand-written test driver needs only bounded integer arithmetic, Boolean flags, straight-line calls and if comparisons, with no loops or loop-carried values, so every check follows from declared ranges. Assertions and contracts are not needed because failures are detected by explicit comparisons with visible outcomes.
 
-Position 1340 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1337 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 

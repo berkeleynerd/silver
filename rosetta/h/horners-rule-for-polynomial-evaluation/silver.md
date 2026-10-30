@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Index checks discharge from the reverse for loop over Coeffs'Range. The only non-routine checks are overflow and range checks on the loop-carried accumulator's nonlinear multiply-add, and a guard on the accumulator placed just before each step makes them provable without an invariant.
 
-Position 991 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 988 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

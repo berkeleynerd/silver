@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The algorithm is three nested for loops over constant bounds, so index and termination checks are routine, but float overflow on loop-carried sums and the square-root precondition need explicit guards and an admitted Sqrt, which makes discharge depend on careful program shape.
 
-Position 1076 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1073 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

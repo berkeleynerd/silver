@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every operation is bounded by types and explicit saturation or limit guards on loop-carried values, so no annotation is needed, but the accumulators and the unbounded-looking search loop need careful shaping.
 
-Position 366 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 363 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

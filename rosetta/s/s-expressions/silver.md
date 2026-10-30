@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from bounded array and subtype indices with guards before each access, and nothing needs recursion, heap or an annotation because the nested structure is flattened into a depth-tagged node array; the loop-carried scanner positions and counters need careful guarding, hence plausible rather than likely.
 
-Position 633 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 630 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

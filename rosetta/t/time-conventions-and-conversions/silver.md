@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer arithmetic with constant-table lookups through for loops and no recursion, so checks follow from range subtypes and guards, but careful range sizing, negative floor division and leap-boundary handling make it plausible rather than likely.
 
-Position 468 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 465 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed-range for loops, bounded subtypes and small guards on the loop-carried counts, with no annotations or recursion, though the guard shape needs care; the answer 142857 lies well within the documented limit.
 
-Position 904 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 901 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

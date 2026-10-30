@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Integer arithmetic in tenths with small declared ranges avoids floating point, and the sort and greedy fill are bounded loops over a fixed 9-element array with guards before each access, so checks follow from types and guards. Output formatting needs integer-to-text conversion but nothing needs an annotation.
 
-Position 793 in the [progression](../../../progression.md#stage-13), in stage 13.
+Position 790 in the [progression](../../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded by declared ranges and divisors are provably nonzero, with fixed-count for loops inside procedures, so the proofs should go through, but the loop-carried digit counters and the 64-bit product bounds need careful guards.
 
-Position 939 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 936 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

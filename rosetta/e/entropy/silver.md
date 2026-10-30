@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every index, division and logarithm argument is bounded by types, static string length or an adjacent guard, so no annotation is needed, but the loop-carried float accumulator and the dependence on an admitted logarithm and float-formatting library with contracts make discharge depend on careful shape.
 
-Position 1036 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1033 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from subtype ranges and guards placed just before the multiplication, append or increment, and all unbounded loops live in procedures, but several loop-carried 19-digit values and nonlinear guards make discharge dependent on careful program shape. The stretch goal for 65 and the impossible HP49 goal are optional and omitted.
 
-Position 411 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 408 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

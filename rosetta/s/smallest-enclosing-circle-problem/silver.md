@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from bounded integer subtypes and a determinant guard, but nonlinear products and the float formatting of the radius need careful range shaping, and a brute-force search avoids recursion and invariants.
 
-Position 1105 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1102 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

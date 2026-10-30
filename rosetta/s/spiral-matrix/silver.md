@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every cell is computed independently from its indices with small ranged arithmetic and explicit side guards inside for loops over the array's own range, so checks follow from types and guards without loop invariants.
 
-Position 879 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 876 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

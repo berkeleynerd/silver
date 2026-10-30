@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is bounded integer arithmetic over embedded constant dates with subtype-limited ranges, plus case statements for names and for loops over a constant array, so all checks follow from types and static bounds. No while loops, recursion, parsing or heap are needed, and the year restriction keeps the day count nonnegative so mod and division are well defined.
 
-Position 794 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 791 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
