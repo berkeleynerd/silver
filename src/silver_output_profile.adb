@@ -35,7 +35,8 @@ is
         | Input_Is_Valid_Name | Then_Keyword | Else_Keyword | Elsif_Keyword | Reject_Name
         | And_Keyword | Length_Name | Or_Keyword | Not_Keyword | Null_Keyword
         | Integer_Name | For_Keyword | In_Keyword | Reverse_Keyword | Loop_Keyword | Range_Keyword
-        | Array_Keyword | Of_Keyword | Subtype_Keyword);
+        | Array_Keyword | Of_Keyword | Subtype_Keyword
+        | Boolean_Name | True_Name | False_Name | Xor_Keyword);
 
    function Spelling (Token : Token_Kind) return String is
      (case Token is
@@ -90,6 +91,10 @@ is
          when Range_Keyword => "range",
          when Array_Keyword => "array",
          when Subtype_Keyword => "subtype",
+         when Boolean_Name => "boolean",
+         when True_Name => "true",
+         when False_Name => "false",
+         when Xor_Keyword => "xor",
          when Of_Keyword => "of",
          when Comma => ",",
          when Arrow => "=>",
@@ -142,6 +147,32 @@ is
    Empty_Environment : constant Binding_Environment :=
      (Count => 0, Items => (others => Empty_Binding));
 
+   --  A:Boolean:=B; consumes thirteen bytes. Boolean metadata is immutable;
+   --  no snapshot stores a predicate's scalar or String refinement facts.
+   Max_Boolean_Bindings : constant Positive := Max_Source_Length / 13;
+   subtype Boolean_Count is Natural range 0 .. Max_Boolean_Bindings;
+   subtype Boolean_Index is Positive range 1 .. Max_Boolean_Bindings;
+   type Boolean_Binding is record
+      First, After : Literal_Position;
+      Mutable : Boolean;
+   end record;
+   Empty_Boolean_Binding : constant Boolean_Binding := (0, 0, False);
+   type Boolean_Binding_Array is array (Boolean_Index) of Boolean_Binding;
+   type Boolean_Environment is record
+      Count : Boolean_Count;
+      Items : Boolean_Binding_Array;
+   end record;
+   Empty_Booleans : constant Boolean_Environment :=
+     (0, (others => Empty_Boolean_Binding));
+   function Valid_Booleans (Text : String; Booleans : Boolean_Environment) return Boolean
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length;
+   function Valid_Booleans (Text : String; Booleans : Boolean_Environment) return Boolean is
+     (for all Index in 1 .. Booleans.Count =>
+        Booleans.Items (Index).First > 0
+        and then Valid_Name_State
+          (Text, Booleans.Items (Index).First, Booleans.Items (Index).After));
+
    function Valid_Names (Text : String; Names : Binding_Environment) return Boolean
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length;
@@ -168,9 +199,10 @@ is
       Count : Subtype_Count;
       Items : Subtype_Binding_Array;
       Hidden_Calls : Subtype_Visibility;
+      True_Hidden, False_Hidden : Boolean;
    end record;
    Empty_Subtypes : constant Subtype_Environment :=
-     (0, (others => Empty_Subtype_Binding), (others => False));
+     (0, (others => Empty_Subtype_Binding), (others => False), False, False);
    function Valid_Subtypes (Text : String; Subtypes : Subtype_Environment) return Boolean
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length;
@@ -187,6 +219,7 @@ is
       Scalar_Names : Scalar_Expressions.Environment;
       Array_Names : Array_Bindings.Environment;
       Subtype_Names : Subtype_Environment;
+      Boolean_Names : Boolean_Environment;
       Dynamic_First, Dynamic_After : Literal_Position;
       Target : Binding_Count;
       Capacity : Capacity_Value;
@@ -194,12 +227,14 @@ is
    Initial_State : constant Parser_State :=
      (Position => 1, Names => Empty_Environment,
       Scalar_Names => Scalar_Expressions.Empty_Environment,
-      Array_Names => Array_Bindings.Empty_Environment, Subtype_Names => Empty_Subtypes, Dynamic_First => 0,
+      Array_Names => Array_Bindings.Empty_Environment, Subtype_Names => Empty_Subtypes,
+      Boolean_Names => Empty_Booleans, Dynamic_First => 0,
       Dynamic_After => 0, Target => 0, Capacity => Max_Source_Length);
    Invalid_State : constant Parser_State :=
      (Position => 0, Names => Empty_Environment,
       Scalar_Names => Scalar_Expressions.Empty_Environment,
-      Array_Names => Array_Bindings.Empty_Environment, Subtype_Names => Empty_Subtypes, Dynamic_First => 0,
+      Array_Names => Array_Bindings.Empty_Environment, Subtype_Names => Empty_Subtypes,
+      Boolean_Names => Empty_Booleans, Dynamic_First => 0,
       Dynamic_After => 0, Target => 0, Capacity => 0);
 
    function Valid_Mutable_Bounds (Scalar_Names : Scalar_Expressions.Environment) return Boolean is
@@ -222,6 +257,7 @@ is
       and then Scalar_Expressions.Valid_Environment (Text, State.Scalar_Names)
       and then Array_Bindings.Valid_Environment (Text, State.Array_Names)
       and then Valid_Subtypes (Text, State.Subtype_Names)
+      and then Valid_Booleans (Text, State.Boolean_Names)
       and then Valid_Mutable_Bounds (State.Scalar_Names)
       and then Valid_Declaration_Values (State.Scalar_Names, State.Scalar_Names.Count)
       and then Valid_Name_State (Text, State.Dynamic_First, State.Dynamic_After)
@@ -426,17 +462,73 @@ is
       return 0;
    end Lookup_Subtype;
 
+   function Lookup_Boolean_Model
+     (Text : String; Booleans : Boolean_Environment; First, After : Literal_Position;
+      Index : Boolean_Count) return Boolean_Count
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_Booleans (Text, Booleans) and then Index <= Booleans.Count
+         and then First <= Text'Last + 1 and then After <= Text'Last + 1,
+       Post => Lookup_Boolean_Model'Result <= Index,
+       Subprogram_Variant => (Decreases => Index);
+   function Lookup_Boolean_Model
+     (Text : String; Booleans : Boolean_Environment; First, After : Literal_Position;
+      Index : Boolean_Count) return Boolean_Count is
+     (if First = 0 or else After <= First or else Index = 0 then 0
+      elsif Equal_Name (Text, Booleans.Items (Index).First, Booleans.Items (Index).After,
+                        First, After)
+      then Index else Lookup_Boolean_Model (Text, Booleans, First, After, Index - 1));
+   function Lookup_Boolean
+     (Text : String; Booleans : Boolean_Environment; First, After : Literal_Position)
+      return Boolean_Count
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_Booleans (Text, Booleans)
+         and then First <= Text'Last + 1 and then After <= Text'Last + 1,
+       Post => (Runtime => Lookup_Boolean'Result <= Booleans.Count,
+         Static => Lookup_Boolean'Result =
+           Lookup_Boolean_Model (Text, Booleans, First, After, Booleans.Count));
+   function Lookup_Boolean
+     (Text : String; Booleans : Boolean_Environment; First, After : Literal_Position)
+      return Boolean_Count is
+      Index : Boolean_Count := Booleans.Count;
+   begin
+      if First = 0 or else After <= First then return 0; end if;
+      while Index > 0 loop
+         pragma Loop_Invariant (Index <= Booleans.Count);
+         pragma Loop_Invariant (Static =>
+           Lookup_Boolean_Model (Text, Booleans, First, After, Booleans.Count)
+             = Lookup_Boolean_Model (Text, Booleans, First, After, Index));
+         pragma Loop_Variant (Decreases => Index);
+         if Equal_Name (Text, Booleans.Items (Index).First, Booleans.Items (Index).After,
+                        First, After)
+         then return Index; end if;
+         Index := Index - 1;
+      end loop;
+      return 0;
+   end Lookup_Boolean;
+
+   function Boolean_Hides_Integer (Text : String; Booleans : Boolean_Environment) return Boolean
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_Booleans (Text, Booleans);
+   function Boolean_Hides_Integer (Text : String; Booleans : Boolean_Environment) return Boolean is
+     (for some Index in 1 .. Booleans.Count =>
+        Name_Is (Text, Booleans.Items (Index).First, Booleans.Items (Index).After, "integer"));
+
    function Call_After
      (Text : String; Environment : Binding_Environment; Position : Literal_Position;
       Operation : Names.Operation_Kind;
       Scalar_Names : Scalar_Expressions.Environment := Scalar_Expressions.Empty_Environment;
       Arrays : Array_Bindings.Metadata := Array_Bindings.Empty_Metadata;
-      Subtype_Hidden : Boolean := False) return Literal_Position
+      Subtype_Hidden : Boolean := False;
+      Booleans : Boolean_Environment := Empty_Booleans) return Literal_Position
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Valid_Names (Text, Environment)
          and then Scalar_Expressions.Valid_Environment (Text, Scalar_Names)
-         and then Array_Bindings.Valid_Metadata (Text, Arrays) and then Position <= Text'Last + 1,
+         and then Array_Bindings.Valid_Metadata (Text, Arrays)
+         and then Valid_Booleans (Text, Booleans) and then Position <= Text'Last + 1,
        Post => Call_After'Result = 0
          or else Call_After'Result in Position + 1 .. Text'Last + 1;
    function Call_After
@@ -444,13 +536,15 @@ is
       Operation : Names.Operation_Kind;
       Scalar_Names : Scalar_Expressions.Environment := Scalar_Expressions.Empty_Environment;
       Arrays : Array_Bindings.Metadata := Array_Bindings.Empty_Metadata;
-      Subtype_Hidden : Boolean := False) return Literal_Position is
+      Subtype_Hidden : Boolean := False;
+      Booleans : Boolean_Environment := Empty_Booleans) return Literal_Position is
      (declare First : constant Literal_Position := Skip_At (Text, Position);
               After : constant Literal_Position := Name_After (Text, First);
       begin Names.Operation_After
         (Text, Position, Operation, Lookup_Name (Text, Environment, First, After) /= 0
           or else Scalar_Expressions.Lookup (Text, Scalar_Names, First, After) /= 0
           or else Array_Bindings.Lookup (Text, Arrays, First, After) /= 0
+          or else Lookup_Boolean (Text, Booleans, First, After) /= 0
           or else Subtype_Hidden));
 
    type Value_Result is record
@@ -908,6 +1002,7 @@ is
       and then Lookup_Name (Text, State.Names, First, After) = 0
       and then Scalar_Expressions.Lookup (Text, State.Scalar_Names, First, After) = 0
       and then Array_Bindings.Lookup (Text, State.Array_Names.Names, First, After) = 0
+      and then Lookup_Boolean (Text, State.Boolean_Names, First, After) = 0
       and then Lookup_Subtype (Text, State.Subtype_Names, First, After) = 0);
 
    function Add_Binding
@@ -987,6 +1082,7 @@ is
            or else Lookup_Name (Text, State.Names, First, After) /= 0
            or else Scalar_Expressions.Lookup (Text, State.Scalar_Names, First, After) /= 0
            or else Array_Bindings.Lookup (Text, State.Array_Names.Names, First, After) /= 0
+           or else Lookup_Boolean (Text, State.Boolean_Names, First, After) /= 0
          then (0, Scalars.Empty)
          elsif Name_Is (Text, First, After, "integer") then (After, Scalars.Full)
          elsif Target /= 0 then (After, State.Subtype_Names.Items (Target).Bounds)
@@ -1021,12 +1117,15 @@ is
            or else Lookup_Name (Text, State.Names, Type_First, Type_After) /= 0
            or else Scalar_Expressions.Lookup (Text, State.Scalar_Names, Type_First, Type_After) /= 0
            or else Array_Bindings.Lookup (Text, State.Array_Names.Names, Type_First, Type_After) /= 0
+           or else Lookup_Boolean (Text, State.Boolean_Names, Type_First, Type_After) /= 0
          then Invalid_State
          else (State with delta Position => Following,
            Subtype_Names =>
              (Count => State.Subtype_Names.Count + 1,
               Items => (State.Subtype_Names.Items with delta State.Subtype_Names.Count + 1 =>
                 (First, After, Constraint.Bounds)),
+              True_Hidden => State.Subtype_Names.True_Hidden or else Name_Is (Text, First, After, "true"),
+              False_Hidden => State.Subtype_Names.False_Hidden or else Name_Is (Text, First, After, "false"),
               Hidden_Calls =>
                 (for Operation in Names.Operation_Kind =>
                   State.Subtype_Names.Hidden_Calls (Operation) or else
@@ -1100,8 +1199,10 @@ is
                 (if Constant_After /= 0 then Constant_After else Colon_After), String_Name);
               Value : constant Expression_Result := Expression_At
                 (Text, Take_Token (Text, Type_After, Assignment), State.Names, State.Scalar_Names,
-                 First /= 0 and then After > First
-                   and then Take_Token (Text, First, Integer_Name) = After, State.Array_Names.Names, State.Array_Names.Values, True);
+                 (First /= 0 and then After > First
+                   and then Take_Token (Text, First, Integer_Name) = After)
+                   or else Boolean_Hides_Integer (Text, State.Boolean_Names),
+                 State.Array_Names.Names, State.Array_Names.Values, True);
               Following : constant Literal_Position := Take_Token (Text, Value.After, Semicolon);
       begin
         (if not New_Name_Allowed (Text, State, First, After, Arguments)
@@ -1185,6 +1286,12 @@ is
         Left (Operation) = Right (Operation)))
      with Ghost => Static, Global => null,
        Annotate => (GNATprove, Logical_Equal);
+   function Same_Parser_Boolean_Items
+     (Left, Right : Boolean_Binding_Array) return Boolean is
+     (Left'First = Right'First and then Left'Last = Right'Last
+      and then (for all Index in Boolean_Index => Left (Index) = Right (Index)))
+     with Ghost => Static, Global => null,
+       Annotate => (GNATprove, Logical_Equal);
    function Same_Parser_State (Left, Right : Parser_State) return Boolean is
      (Left.Position = Right.Position
       and then Left.Names.Count = Right.Names.Count
@@ -1199,6 +1306,10 @@ is
       and then Same_Parser_Subtype_Items (Left.Subtype_Names.Items, Right.Subtype_Names.Items)
       and then Same_Parser_Subtype_Visibility
         (Left.Subtype_Names.Hidden_Calls, Right.Subtype_Names.Hidden_Calls)
+      and then Left.Subtype_Names.True_Hidden = Right.Subtype_Names.True_Hidden
+      and then Left.Subtype_Names.False_Hidden = Right.Subtype_Names.False_Hidden
+      and then Left.Boolean_Names.Count = Right.Boolean_Names.Count
+      and then Same_Parser_Boolean_Items (Left.Boolean_Names.Items, Right.Boolean_Names.Items)
       and then Left.Dynamic_First = Right.Dynamic_First and then Left.Dynamic_After = Right.Dynamic_After
       and then Left.Target = Right.Target and then Left.Capacity = Right.Capacity)
      with Ghost => Static, Global => null,
@@ -1506,6 +1617,15 @@ is
                        (Text, Values, First, After, (Low.Bounds.Lower, High.Bounds.Lower),
                         State.Array_Names.Used, Length, Constant_After = 0, Following, Type_Mark.Bounds)))))));
 
+   function Boolean_Declaration_At
+     (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, State),
+       Post => Valid_State (Text, Boolean_Declaration_At'Result)
+         and then (Boolean_Declaration_At'Result.Position = 0
+           or else Boolean_Declaration_At'Result.Position > State.Position);
+
    function Declaration_At
      (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State
      with Global => null,
@@ -1519,9 +1639,11 @@ is
      (declare Subtype_State : constant Parser_State := Subtype_Declaration_At (Text, State, Arguments);
               Scalar_State : constant Parser_State := Scalar_Declaration_At (Text, State, Arguments);
               Array_State : constant Parser_State := Array_Declaration_At (Text, State, Arguments);
+              Boolean_State : constant Parser_State := Boolean_Declaration_At (Text, State, Arguments);
       begin (if Subtype_State.Position /= 0 then Subtype_State
              elsif Scalar_State.Position /= 0 then Scalar_State
              elsif Array_State.Position /= 0 then Array_State
+             elsif Boolean_State.Position /= 0 then Boolean_State
              else String_Declaration_At (Text, State, Arguments)));
 
    function Argument_At (Text : String; State : Parser_State) return Parser_State
@@ -1731,6 +1853,9 @@ is
       Scalar_Names : Scalar_Expressions.Environment;
       Array_Names : Array_Bindings.Metadata;
       Subtype_Hiding : Subtype_Visibility;
+      Boolean_Names : Boolean_Environment;
+      True_Hidden, False_Hidden, Elaborating : Boolean;
+      Mask_First, Mask_After : Literal_Position;
       Declaration_Count : Scalar_Expressions.Binding_Count;
       Dynamic_First, Dynamic_After : Literal_Position;
    end record;
@@ -1759,6 +1884,10 @@ is
       Scalar_Names => Scalar_Expressions.Body_Environment (Scan.State.Scalar_Names),
       Array_Names => Scan.State.Array_Names.Names,
       Subtype_Hiding => Scan.State.Subtype_Names.Hidden_Calls,
+      Boolean_Names => Scan.State.Boolean_Names,
+      True_Hidden => Scan.State.Subtype_Names.True_Hidden,
+      False_Hidden => Scan.State.Subtype_Names.False_Hidden,
+      Elaborating => False, Mask_First => 0, Mask_After => 0,
       Declaration_Count => Scan.State.Scalar_Names.Count,
       Dynamic_First => Scan.State.Dynamic_First,
       Dynamic_After => Scan.State.Dynamic_After);
@@ -1832,7 +1961,7 @@ is
      (Context : Body_Context; Scan : Body_Scan; Arrays : Array_Bindings.Environment;
       Subtypes : Subtype_Environment) return Scan_Result is
      (State => (Position => Scan.Position, Names => Context.Names, Scalar_Names => Context.Scalar_Names,
-       Array_Names => Arrays, Subtype_Names => Subtypes,
+       Array_Names => Arrays, Subtype_Names => Subtypes, Boolean_Names => Context.Boolean_Names,
        Dynamic_First => Context.Dynamic_First, Dynamic_After => Context.Dynamic_After,
        Target => Scan.Target, Capacity => Scan.Capacity),
       Assigned => Scan.Assigned, Output => Scan.Output);
@@ -1843,10 +1972,12 @@ is
      (Valid_Names (Text, Context.Names)
       and then Scalar_Expressions.Valid_Environment (Text, Context.Scalar_Names)
       and then Array_Bindings.Valid_Metadata (Text, Context.Array_Names)
+      and then Valid_Booleans (Text, Context.Boolean_Names)
+      and then Valid_Name_State (Text, Context.Mask_First, Context.Mask_After)
       and then Valid_Declaration_Values (Context.Scalar_Names, Context.Declaration_Count)
       and then Valid_Mutable_Bounds (Context.Scalar_Names)
       and then (for all Index in 1 .. Context.Scalar_Names.Count =>
-        (if Context.Scalar_Names.Items (Index).Mutable then
+        (if Context.Scalar_Names.Items (Index).Mutable and then not Context.Elaborating then
            Context.Scalar_Names.Items (Index).Bounds = Context.Scalar_Names.Items (Index).Declared_Bounds))
       and then Valid_Name_State (Text, Context.Dynamic_First, Context.Dynamic_After));
    function Included (Value, Bounds : Scalars.Interval) return Boolean is
@@ -2016,7 +2147,8 @@ is
    end Reading_Names;
    function Read_Scalar_In_Flow
      (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow;
-      Mask_First : Literal_Position := 0; Mask_After : Literal_Position := 0)
+      Mask_First : Literal_Position := 0; Mask_After : Literal_Position := 0;
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values)
       return Scalar_Expressions.Expression_Result
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
@@ -2026,18 +2158,22 @@ is
          or else (Read_Scalar_In_Flow'Result.After in Position + 1 .. Text'Last + 1
            and then Read_Scalar_In_Flow'Result.Operands > 0),
          Static => Read_Scalar_In_Flow'Result = Scalar_Expressions.Read_Expression
-           (Text, Position, Reading_Names (Context, Facts), Mask_First, Mask_After, Arrays => Context.Array_Names));
+           (Text, Position, Reading_Names (Context, Facts), Mask_First, Mask_After, Arrays => Context.Array_Names,
+            Initials => Initials, Elaborating => Context.Elaborating));
    pragma No_Inline (Read_Scalar_In_Flow);
    function Read_Scalar_In_Flow
      (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow;
-      Mask_First : Literal_Position := 0; Mask_After : Literal_Position := 0)
+      Mask_First : Literal_Position := 0; Mask_After : Literal_Position := 0;
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values)
       return Scalar_Expressions.Expression_Result is
       Overlay : constant Scalar_Expressions.Environment := Reading_Names (Context, Facts);
    begin
-      return Scalar_Expressions.Read_Expression (Text, Position, Overlay, Mask_First, Mask_After, Arrays => Context.Array_Names);
+      return Scalar_Expressions.Read_Expression (Text, Position, Overlay, Mask_First, Mask_After, Arrays => Context.Array_Names,
+            Initials => Initials, Elaborating => Context.Elaborating);
    end Read_Scalar_In_Flow;
    function Read_String_In_Flow
-     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow)
+     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow;
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values)
       return Expression_Result
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
@@ -2046,14 +2182,23 @@ is
        Post => (Runtime => Read_String_In_Flow'Result.After = 0
          or else Read_String_In_Flow'Result.After in Position + 1 .. Text'Last + 1,
          Static => Read_String_In_Flow'Result = Expression_At
-           (Text, Position, Context.Names, Reading_Names (Context, Facts), Arrays => Context.Array_Names));
+           (Text, Position, Context.Names, Reading_Names (Context, Facts),
+            Integer_Hidden => Boolean_Hides_Integer (Text, Context.Boolean_Names)
+              or else (Context.Mask_First /= 0 and then
+                Name_Is (Text, Context.Mask_First, Context.Mask_After, "integer")), Arrays => Context.Array_Names,
+            Initials => Initials, Elaborating => Context.Elaborating));
    pragma No_Inline (Read_String_In_Flow);
    function Read_String_In_Flow
-     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow)
+     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow;
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values)
       return Expression_Result is
       Overlay : constant Scalar_Expressions.Environment := Reading_Names (Context, Facts);
    begin
-      return Expression_At (Text, Position, Context.Names, Overlay, Arrays => Context.Array_Names);
+      return Expression_At (Text, Position, Context.Names, Overlay,
+         Integer_Hidden => Boolean_Hides_Integer (Text, Context.Boolean_Names)
+           or else (Context.Mask_First /= 0 and then
+             Name_Is (Text, Context.Mask_First, Context.Mask_After, "integer")), Arrays => Context.Array_Names,
+            Initials => Initials, Elaborating => Context.Elaborating);
    end Read_String_In_Flow;
 
    function Body_Token_Model
@@ -2338,8 +2483,35 @@ is
         (Count => Facts.Count, After => Right.After,
          When_True => Refined_Flow (Facts, Target, Selected, Threshold, True),
          When_False => Refined_Flow (Facts, Target, Selected, Threshold, False)));
+   function Boolean_Atom_After
+     (Text : String; Context : Body_Context; Position : Literal_Position)
+      return Literal_Position
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1 and then Valid_Context (Text, Context),
+       Post => Boolean_Atom_After'Result = 0
+         or else Boolean_Atom_After'Result in Position + 1 .. Text'Last + 1;
+   function Boolean_Atom_After
+     (Text : String; Context : Body_Context; Position : Literal_Position)
+      return Literal_Position is
+     (declare First : constant Literal_Position := Skip_At (Text, Position);
+              After : constant Literal_Position := Name_After (Text, First);
+      begin
+        (if First = 0 or else After <= First
+           or else (Context.Mask_First /= 0 and then Equal_Name
+             (Text, Context.Mask_First, Context.Mask_After, First, After))
+           or else Scalar_Expressions.Lookup (Text, Context.Scalar_Names, First, After) /= 0
+           or else Lookup_Name (Text, Context.Names, First, After) /= 0
+           or else Array_Bindings.Lookup (Text, Context.Array_Names, First, After) /= 0
+         then 0
+         elsif Lookup_Boolean (Text, Context.Boolean_Names, First, After) /= 0 then After
+         elsif (Name_Is (Text, First, After, "true") and then not Context.True_Hidden)
+           or else (Name_Is (Text, First, After, "false") and then not Context.False_Hidden)
+         then After else 0));
+
    function Condition_Model
-     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow)
+     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow;
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values)
       return Condition_Result
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
@@ -2349,9 +2521,10 @@ is
          and then Valid_Condition (Context, Condition_Model'Result)
          and then (Condition_Model'Result.After = 0
            or else Condition_Model'Result.After in Position + 1 .. Text'Last + 1),
-       Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => 3);
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => 5);
    function Primary_Model
-     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow)
+     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow;
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values)
       return Condition_Result
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
@@ -2363,7 +2536,8 @@ is
            or else Primary_Model'Result.After in Position + 1 .. Text'Last + 1),
        Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => 1);
    function Relation_Model
-     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow)
+     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow;
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values)
       return Condition_Result
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
@@ -2373,37 +2547,91 @@ is
          and then Valid_Condition (Context, Relation_Model'Result)
          and then (Relation_Model'Result.After = 0
            or else Relation_Model'Result.After in Position + 1 .. Text'Last + 1),
-       Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => 2);
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => 4);
    function Primary_Model
-     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow)
+     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow;
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values)
       return Condition_Result is
      (if Position = 0 then Invalid_Condition (Facts) else
         (declare After : constant Literal_Position := Take_Token (Text, Position, Left_Parenthesis);
          begin
            (if After /= 0 then
-              (declare Result : constant Condition_Result (Facts.Count) := Condition_Model (Text, Context, After, Facts);
+              (declare Result : constant Condition_Result (Facts.Count) := Condition_Model (Text, Context, After, Facts, Initials => Initials);
                Close : constant Literal_Position := Take_Token (Text, Result.After, Right_Parenthesis);
                begin (if Close = 0 then Invalid_Condition (Facts) else (Result with delta After => Close)))
+            elsif Boolean_Atom_After (Text, Context, Position) /= 0 then
+              (Facts.Count, Boolean_Atom_After (Text, Context, Position), Facts, Facts)
             elsif Context.Dynamic_First = 0 then Invalid_Condition (Facts)
             else
               (declare After_Call : constant Literal_Position :=
-                 Call_After (Text, Context.Names, Position, Names.Validity_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Validity_Call));
+                 Call_After (Text, Context.Names, Position, Names.Validity_Call, Context.Scalar_Names, Context.Array_Names, (Context.Subtype_Hiding (Names.Validity_Call)
+                   or else (Context.Mask_First /= 0 and then Name_Is
+                     (Text, Context.Mask_First, Context.Mask_After, "input_is_valid"))), Context.Boolean_Names);
                begin (if After_Call = 0 then Invalid_Condition (Facts) else
                  (Count => Facts.Count, After => After_Call,
                   When_True => (Facts with delta Path => Paths.Assume_Valid (Facts.Path)),
                   When_False => (Facts with delta Path => Paths.Assume_Invalid (Facts.Path))))))));
+   function Boolean_Factor_Model
+     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow;
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values)
+      return Condition_Result
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1 and then Valid_Context (Text, Context)
+         and then Valid_Flow (Context, Facts),
+       Post => Boolean_Factor_Model'Result.Count = Facts.Count
+         and then Valid_Condition (Context, Boolean_Factor_Model'Result)
+         and then (Boolean_Factor_Model'Result.After = 0
+           or else Boolean_Factor_Model'Result.After in Position + 1 .. Text'Last + 1),
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => 2);
+   function Boolean_Relation_Model
+     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow;
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values)
+      return Condition_Result
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1 and then Valid_Context (Text, Context)
+         and then Valid_Flow (Context, Facts),
+       Post => Boolean_Relation_Model'Result.Count = Facts.Count
+         and then Valid_Condition (Context, Boolean_Relation_Model'Result)
+         and then (Boolean_Relation_Model'Result.After = 0
+           or else Boolean_Relation_Model'Result.After in Position + 1 .. Text'Last + 1),
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => 3);
+   function Boolean_Factor_Model
+     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow;
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values)
+      return Condition_Result is
+     (declare After : constant Literal_Position := Take_Token (Text, Position, Not_Keyword);
+      begin (if After = 0 then Primary_Model (Text, Context, Position, Facts, Initials)
+        else (declare Result : constant Condition_Result (Facts.Count) :=
+                Primary_Model (Text, Context, After, Facts, Initials);
+              begin (Result.Count, Result.After, Result.When_False, Result.When_True))));
+   function Boolean_Relation_Model
+     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow;
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values)
+      return Condition_Result is
+     (declare Left : constant Condition_Result (Facts.Count) :=
+                Boolean_Factor_Model (Text, Context, Position, Facts, Initials);
+              Operator : constant Comparison_Result := Scalar_Comparison_At (Text, Left.After);
+      begin (if Left.After = 0 then Invalid_Condition (Facts)
+        elsif Operator.After = 0 then Left
+        elsif Operator.Operator not in Paths.Equal | Paths.Unequal then Invalid_Condition (Facts)
+        else (declare Right : constant Condition_Result (Facts.Count) :=
+                Boolean_Factor_Model (Text, Context, Operator.After, Facts, Initials);
+              begin (if Right.After = 0 then Invalid_Condition (Facts)
+                else (Facts.Count, Right.After, Facts, Facts)))));
    function Relation_Model
-     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow)
+     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow;
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values)
       return Condition_Result is
      (if Position = 0 then Invalid_Condition (Facts) else
         (declare
            After : constant Literal_Position := Take_Token (Text, Position, Not_Keyword);
            Left_Length : constant Length_Result := Length_At (Text, Context, Position, False);
-           Left_Scalar : constant Scalar_Expressions.Expression_Result := Read_Scalar_In_Flow (Text, Context, Position, Facts);
+           Left_Scalar : constant Scalar_Expressions.Expression_Result := Read_Scalar_In_Flow (Text, Context, Position, Facts, Initials => Initials);
          begin
            (if After /= 0 then
-              (declare Result : constant Condition_Result (Facts.Count) := Primary_Model (Text, Context, After, Facts);
-               begin (Result.Count, Result.After, Result.When_False, Result.When_True))
+              Boolean_Relation_Model (Text, Context, Position, Facts, Initials)
             elsif Left_Length.After /= 0 then
               (declare
                  Operator : constant Comparison_Result := Scalar_Comparison_At (Text, Left_Length.After);
@@ -2419,19 +2647,19 @@ is
               (declare
                  Operator : constant Comparison_Result := Scalar_Comparison_At (Text, Left_Scalar.After);
                  Right_Scalar : constant Scalar_Expressions.Expression_Result :=
-                   Read_Scalar_In_Flow (Text, Context, Operator.After, Facts);
+                   Read_Scalar_In_Flow (Text, Context, Operator.After, Facts, Initials => Initials);
                begin
                  (if Right_Scalar.After <= Position then Invalid_Condition (Facts)
                   else Scalar_Condition (Text, Context, Position, Operator.After, Facts, Left_Scalar, Right_Scalar, Operator.Operator)))
             else
-              (declare Left : constant Expression_Result := Read_String_In_Flow (Text, Context, Position, Facts);
+              (declare Left : constant Expression_Result := Read_String_In_Flow (Text, Context, Position, Facts, Initials => Initials);
                begin
                  (if Left.After /= 0 then
                     (declare Operator : constant Comparison_Result := Scalar_Comparison_At (Text, Left.After);
                      begin
                        (if Operator.After = 0 or else Operator.Operator not in Paths.Equal | Paths.Unequal
                         then Invalid_Condition (Facts) else
-                          (declare Right : constant Expression_Result := Read_String_In_Flow (Text, Context, Operator.After, Facts);
+                          (declare Right : constant Expression_Result := Read_String_In_Flow (Text, Context, Operator.After, Facts, Initials => Initials);
                            begin
                              (if Right.After <= Position or else not (Left.Named_Seen or else Right.Named_Seen)
                                 or else not Length_Intervals.Fits (Facts.Path, Summary_Of (Left))
@@ -2444,115 +2672,138 @@ is
                                      (if Operator.Operator = Paths.Equal then Equal_Facts else Facts.Path)),
                                    When_False => (Facts with delta Path =>
                                      (if Operator.Operator = Paths.Equal then Facts.Path else Equal_Facts))))))))
-                  else Primary_Model (Text, Context, Position, Facts))))));
-   function Chain_Token (Text : String; Position : Literal_Position) return Token_Kind
+                  else Boolean_Relation_Model (Text, Context, Position, Facts, Initials))))));
+   type Chain_Kind is (No_Chain, Short_And, Short_Or, Eager_And, Eager_Or, Eager_Xor);
+   function Chain_Token (Text : String; Position : Literal_Position) return Chain_Kind
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Position <= Text'Last + 1;
-   function Chain_Token (Text : String; Position : Literal_Position) return Token_Kind is
-     (if Take_Token (Text, Position, And_Keyword) /= 0 then And_Keyword
-      elsif Take_Token (Text, Position, Or_Keyword) /= 0 then Or_Keyword
-      else End_Keyword);
-
-   function Chain_After (Text : String; Position : Literal_Position; Operator : Token_Kind)
+   function Chain_Token (Text : String; Position : Literal_Position) return Chain_Kind is
+     (if Take_Token (Text, Position, And_Keyword) /= 0 then
+        (if Take_Token (Text, Take_Token (Text, Position, And_Keyword), Then_Keyword) /= 0
+         then Short_And else Eager_And)
+      elsif Take_Token (Text, Position, Or_Keyword) /= 0 then
+        (if Take_Token (Text, Take_Token (Text, Position, Or_Keyword), Else_Keyword) /= 0
+         then Short_Or else Eager_Or)
+      elsif Take_Token (Text, Position, Xor_Keyword) /= 0 then Eager_Xor
+      else No_Chain);
+   function Chain_After (Text : String; Position : Literal_Position; Operator : Chain_Kind)
       return Literal_Position
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
-         and then Position <= Text'Last + 1 and then Operator in And_Keyword | Or_Keyword,
+         and then Position <= Text'Last + 1 and then Operator /= No_Chain,
        Post => Chain_After'Result = 0 or else Chain_After'Result in Position + 1 .. Text'Last + 1;
-   function Chain_After (Text : String; Position : Literal_Position; Operator : Token_Kind)
+   function Chain_After (Text : String; Position : Literal_Position; Operator : Chain_Kind)
       return Literal_Position is
-     (Take_Token (Text, Take_Token (Text, Position, Operator),
-                  (if Operator = And_Keyword then Then_Keyword else Else_Keyword)));
+     (case Operator is
+        when No_Chain => 0,
+        when Short_And => Take_Token (Text, Take_Token (Text, Position, And_Keyword), Then_Keyword),
+        when Short_Or => Take_Token (Text, Take_Token (Text, Position, Or_Keyword), Else_Keyword),
+        when Eager_And => Take_Token (Text, Position, And_Keyword),
+        when Eager_Or => Take_Token (Text, Position, Or_Keyword),
+        when Eager_Xor => Take_Token (Text, Position, Xor_Keyword));
 
    function Condition_Tail
      (Text : String; Context : Body_Context; Result : Condition_Result;
-      Operator : Token_Kind; Chained : Boolean) return Condition_Result
+      Operator : Chain_Kind; Chained : Boolean; Incoming : Scalar_Flow;
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values) return Condition_Result
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Result.After <= Text'Last + 1 and then Valid_Context (Text, Context)
-         and then Valid_Condition (Context, Result) and then Operator in And_Keyword | Or_Keyword,
+         and then Valid_Condition (Context, Result) and then Operator /= No_Chain
+         and then Valid_Flow (Context, Incoming) and then Incoming.Count = Result.Count,
        Post => Condition_Tail'Result.Count = Result.Count
          and then Valid_Condition (Context, Condition_Tail'Result)
          and then (Condition_Tail'Result.After = 0
            or else Condition_Tail'Result.After in Result.After .. Text'Last + 1),
-       Subprogram_Variant => (Decreases => (Text'Last + 1) - Result.After, Decreases => 4);
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - Result.After, Decreases => 6);
    function Condition_Tail
      (Text : String; Context : Body_Context; Result : Condition_Result;
-      Operator : Token_Kind; Chained : Boolean) return Condition_Result is
+      Operator : Chain_Kind; Chained : Boolean; Incoming : Scalar_Flow;
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values) return Condition_Result is
      (if Result.After = 0 then Invalid_Condition (Result.When_True) else
-        (declare Selected : constant Token_Kind := Chain_Token (Text, Result.After);
+        (declare Selected : constant Chain_Kind := Chain_Token (Text, Result.After);
          begin
-           (if Selected not in And_Keyword | Or_Keyword then Result
+           (if Selected = No_Chain then Result
             elsif Chained and then Operator /= Selected then Invalid_Condition (Result.When_True)
             else
               (declare After : constant Literal_Position := Chain_After (Text, Result.After, Selected);
                begin
                  (if After = 0 then Invalid_Condition (Result.When_True) else
                     (declare Right : constant Condition_Result (Result.Count) := Relation_Model (Text, Context, After,
-                       (if Selected = And_Keyword then Result.When_True else Result.When_False));
+                       (if Selected = Short_And then Result.When_True
+                        elsif Selected = Short_Or then Result.When_False else Incoming), Initials => Initials);
                      begin
                        (if Right.After = 0 then Invalid_Condition (Result.When_True) else
                           Condition_Tail (Text, Context,
-                            (if Selected = And_Keyword then
+                            (if Selected = Short_And then
                                (Result.Count, Right.After, Right.When_True, Joined (Result.When_False, Right.When_False))
-                             else (Result.Count, Right.After, Joined (Result.When_True, Right.When_True), Right.When_False)),
-                            Selected, True))))))));
+                             elsif Selected = Short_Or then
+                               (Result.Count, Right.After, Joined (Result.When_True, Right.When_True), Right.When_False)
+                             else (Result.Count, Right.After, Incoming, Incoming)),
+                            Selected, True, Initials => Initials, Incoming => Incoming))))))));
    function Condition_Model
-     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow)
+     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow;
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values)
       return Condition_Result is
-     (declare Result : constant Condition_Result (Facts.Count) := Relation_Model (Text, Context, Position, Facts);
+     (declare Result : constant Condition_Result (Facts.Count) := Relation_Model (Text, Context, Position, Facts, Initials => Initials);
       begin (if Result.After = 0 then Invalid_Condition (Facts) else
         (declare Final : constant Condition_Result (Facts.Count) :=
-           Condition_Tail (Text, Context, Result, And_Keyword, False);
+           Condition_Tail (Text, Context, Result, Short_And, False, Initials => Initials, Incoming => Facts);
          begin (if Final.After = 0 then Invalid_Condition (Facts) else Final))));
    procedure Read_Condition_Into
      (Text : String; Context : Body_Context; Position : Literal_Position;
-      Facts : Scalar_Flow; Result : out Condition_Result)
+      Facts : Scalar_Flow; Result : out Condition_Result;
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values)
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Position <= Text'Last + 1 and then Valid_Context (Text, Context)
          and then Valid_Flow (Context, Facts) and then Result.Count = Facts.Count,
        Post => (Runtime => Valid_Condition (Context, Result)
          and then (Result.After = 0 or else Result.After in Position + 1 .. Text'Last + 1),
-         Static => Result = Condition_Model (Text, Context, Position, Facts)),
-       Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => 5);
+         Static => Result = Condition_Model (Text, Context, Position, Facts, Initials => Initials)),
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => 7);
    procedure Read_Primary_Into
      (Text : String; Context : Body_Context; Position : Literal_Position;
-      Facts : Scalar_Flow; Result : out Condition_Result)
+      Facts : Scalar_Flow; Result : out Condition_Result;
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values)
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Position <= Text'Last + 1 and then Valid_Context (Text, Context)
          and then Valid_Flow (Context, Facts) and then Result.Count = Facts.Count,
        Post => (Runtime => Valid_Condition (Context, Result)
          and then (Result.After = 0 or else Result.After in Position + 1 .. Text'Last + 1),
-         Static => Result = Primary_Model (Text, Context, Position, Facts)),
+         Static => Result = Primary_Model (Text, Context, Position, Facts, Initials => Initials)),
        Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => 1);
    procedure Read_Relation_Into
      (Text : String; Context : Body_Context; Position : Literal_Position;
-      Facts : Scalar_Flow; Result : out Condition_Result)
+      Facts : Scalar_Flow; Result : out Condition_Result;
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values)
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Position <= Text'Last + 1 and then Valid_Context (Text, Context)
          and then Valid_Flow (Context, Facts) and then Result.Count = Facts.Count,
        Post => (Runtime => Valid_Condition (Context, Result)
          and then (Result.After = 0 or else Result.After in Position + 1 .. Text'Last + 1),
-         Static => Result = Relation_Model (Text, Context, Position, Facts)),
-       Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => 2);
+         Static => Result = Relation_Model (Text, Context, Position, Facts, Initials => Initials)),
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => 4);
    procedure Read_Chain_Into
-     (Text : String; Context : Body_Context; Result : in out Condition_Result)
+     (Text : String; Context : Body_Context; Result : in out Condition_Result; Incoming : Scalar_Flow;
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values)
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Result.After in 1 .. Text'Last + 1 and then Valid_Context (Text, Context)
          and then Valid_Condition (Context, Result)
-         and then Chain_Token (Text, Result.After) in And_Keyword | Or_Keyword,
+         and then Valid_Flow (Context, Incoming) and then Incoming.Count = Result.Count
+         and then Chain_Token (Text, Result.After) /= No_Chain,
        Post => (Runtime => Valid_Condition (Context, Result)
          and then (Result.After = 0 or else Result.After in Result.After'Old .. Text'Last + 1),
-         Static => Result = Condition_Tail (Text, Context, Result'Old, And_Keyword, False)),
-       Subprogram_Variant => (Decreases => (Text'Last + 1) - Result.After, Decreases => 4);
+         Static => Result = Condition_Tail (Text, Context, Result'Old, Short_And, False, Initials => Initials, Incoming => Incoming)),
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - Result.After, Decreases => 6);
    procedure Read_Primary_Into
      (Text : String; Context : Body_Context; Position : Literal_Position;
-      Facts : Scalar_Flow; Result : out Condition_Result) is
+      Facts : Scalar_Flow; Result : out Condition_Result;
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values) is
       After : constant Literal_Position := Take_Token (Text, Position, Left_Parenthesis);
    begin
       if Position = 0 then
@@ -2565,11 +2816,11 @@ is
             --  Name the recursive model input and the closing cursor before
             --  transporting either through the caller's mutable result.
             Inner : constant Condition_Result (Facts.Count) :=
-              Condition_Model (Text, Context, After, Facts) with Ghost => Static;
+              Condition_Model (Text, Context, After, Facts, Initials => Initials) with Ghost => Static;
             Close : constant Literal_Position :=
               Take_Token (Text, Inner.After, Right_Parenthesis) with Ghost => Static;
             Expected : constant Condition_Result (Facts.Count) :=
-              Primary_Model (Text, Context, Position, Facts) with Ghost => Static;
+              Primary_Model (Text, Context, Position, Facts, Initials => Initials) with Ghost => Static;
          begin
             --  Discharge the selected model branch before the runtime call.
             --  Logical equality retains nested array bounds as well as values.
@@ -2580,8 +2831,8 @@ is
             pragma Assert (Static => Expected.After = Close);
 
             --  Grouping forwards the caller's buffer; no runtime vector is local.
-            Read_Condition_Into (Text, Context, After, Facts, Result);
-            pragma Assert (Static => Result = Condition_Model (Text, Context, After, Facts));
+            Read_Condition_Into (Text, Context, After, Facts, Result, Initials => Initials);
+            pragma Assert (Static => Result = Condition_Model (Text, Context, After, Facts, Initials => Initials));
             pragma Assert (Static => Result = Inner);
             Lemma_Condition_Equality (Result, Inner);
             pragma Assert (Static => Same_Condition (Result, Inner));
@@ -2593,25 +2844,31 @@ is
                pragma Assert (Static => Same_Condition (Result, Invalid_Condition (Facts)));
             else
                pragma Assert (Static => Result =
-                 (Condition_Model (Text, Context, After, Facts) with delta After => Result.After));
+                 (Condition_Model (Text, Context, After, Facts, Initials => Initials) with delta After => Result.After));
                pragma Assert (Static => Same_Flow (Result.When_True, Inner.When_True));
                pragma Assert (Static => Same_Flow (Result.When_False, Inner.When_False));
                pragma Assert (Static => Same_Condition (Result, (Inner with delta After => Close)));
             end if;
             pragma Assert (Static => Same_Condition (Result, Expected));
             pragma Assert (Static => Result = Expected);
-            pragma Assert (Static => Result = Primary_Model (Text, Context, Position, Facts));
+            pragma Assert (Static => Result = Primary_Model (Text, Context, Position, Facts, Initials => Initials));
          end;
          --  Parenthesized condition.
          pragma Assert (Static => Valid_Flow (Context, Result.When_True));
          pragma Assert (Static => Valid_Flow (Context, Result.When_False));
+      elsif Boolean_Atom_After (Text, Context, Position) /= 0 then
+         Result.After := Boolean_Atom_After (Text, Context, Position);
+         Result.When_True := Facts;
+         Result.When_False := Facts;
       elsif Context.Dynamic_First = 0 then
          Invalidate_Condition (Facts, Result);
          --  No dynamic argument context.
          pragma Assert (Static => Valid_Flow (Context, Result.When_True));
          pragma Assert (Static => Valid_Flow (Context, Result.When_False));
       else
-         Result.After := Call_After (Text, Context.Names, Position, Names.Validity_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Validity_Call));
+         Result.After := Call_After (Text, Context.Names, Position, Names.Validity_Call, Context.Scalar_Names, Context.Array_Names, (Context.Subtype_Hiding (Names.Validity_Call)
+                   or else (Context.Mask_First /= 0 and then Name_Is
+                     (Text, Context.Mask_First, Context.Mask_After, "input_is_valid"))), Context.Boolean_Names);
          Result.When_True := Facts;
          Result.When_False := Facts;
          if Result.After = 0 then
@@ -2620,40 +2877,57 @@ is
             Result.When_True.Path := Paths.Assume_Valid (Facts.Path);
             Result.When_False.Path := Paths.Assume_Invalid (Facts.Path);
          end if;
-         pragma Assert (Static => Result = Primary_Model (Text, Context, Position, Facts));
+         pragma Assert (Static => Result = Primary_Model (Text, Context, Position, Facts, Initials => Initials));
          --  Input validity predicate.
          pragma Assert (Static => Valid_Flow (Context, Result.When_True));
          pragma Assert (Static => Valid_Flow (Context, Result.When_False));
       end if;
    end Read_Primary_Into;
-   procedure Read_Relation_Into
+   procedure Read_Boolean_Factor_Into
      (Text : String; Context : Body_Context; Position : Literal_Position;
-      Facts : Scalar_Flow; Result : out Condition_Result) is
+      Facts : Scalar_Flow; Result : out Condition_Result;
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values)
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1 and then Valid_Context (Text, Context)
+         and then Valid_Flow (Context, Facts) and then Result.Count = Facts.Count,
+       Post => (Runtime => Valid_Condition (Context, Result)
+         and then (Result.After = 0 or else Result.After in Position + 1 .. Text'Last + 1),
+         Static => Result = Boolean_Factor_Model (Text, Context, Position, Facts, Initials)),
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => 2);
+   procedure Read_Boolean_Relation_Into
+     (Text : String; Context : Body_Context; Position : Literal_Position;
+      Facts : Scalar_Flow; Result : out Condition_Result;
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values)
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1 and then Valid_Context (Text, Context)
+         and then Valid_Flow (Context, Facts) and then Result.Count = Facts.Count,
+       Post => (Runtime => Valid_Condition (Context, Result)
+         and then (Result.After = 0 or else Result.After in Position + 1 .. Text'Last + 1),
+         Static => Result = Boolean_Relation_Model (Text, Context, Position, Facts, Initials)),
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => 3);
+   procedure Read_Boolean_Factor_Into
+     (Text : String; Context : Body_Context; Position : Literal_Position;
+      Facts : Scalar_Flow; Result : out Condition_Result;
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values) is
       After : constant Literal_Position := Take_Token (Text, Position, Not_Keyword);
-      Left_Length : constant Length_Result := Length_At (Text, Context, Position, False);
-      Left_Scalar : constant Scalar_Expressions.Expression_Result := Read_Scalar_In_Flow (Text, Context, Position, Facts);
       Temporary_Path : Paths.Context;
       Temporary_Value : Scalars.Interval;
       Expected : constant Condition_Result (Facts.Count) :=
-        Relation_Model (Text, Context, Position, Facts) with Ghost => Static;
+        Boolean_Factor_Model (Text, Context, Position, Facts, Initials) with Ghost => Static;
    begin
-      Lemma_Condition_Equality
-        (Expected, Relation_Model (Text, Context, Position, Facts));
-      if Position = 0 then
-         Invalidate_Condition (Facts, Result);
-         --  Invalid input: isolate both flow-validity obligations at this branch exit.
-         pragma Assert (Static => Valid_Flow (Context, Result.When_True));
-         pragma Assert (Static => Valid_Flow (Context, Result.When_False));
-         pragma Assert (Static => Result = Expected);
-      elsif After /= 0 then
+      if After = 0 then
+         Read_Primary_Into (Text, Context, Position, Facts, Result, Initials);
+      else
          declare
             Inner : constant Condition_Result (Facts.Count) :=
-              Primary_Model (Text, Context, After, Facts) with Ghost => Static;
+              Primary_Model (Text, Context, After, Facts, Initials => Initials) with Ghost => Static;
          begin
             --  Establish the selected model branch before changing the buffer.
             pragma Assert (Static => Same_Condition
               (Expected, (Facts.Count, Inner.After, Inner.When_False, Inner.When_True)));
-            Read_Primary_Into (Text, Context, After, Facts, Result);
+            Read_Primary_Into (Text, Context, After, Facts, Result, Initials => Initials);
             Lemma_Condition_Equality (Result, Inner);
             Temporary_Path := Result.When_True.Path;
             Result.When_True.Path := Result.When_False.Path;
@@ -2695,6 +2969,54 @@ is
          pragma Assert (Static => Valid_Flow (Context, Result.When_True));
          pragma Assert (Static => Valid_Flow (Context, Result.When_False));
          pragma Assert (Static => Result = Expected);
+      end if;
+   end Read_Boolean_Factor_Into;
+   procedure Read_Boolean_Relation_Into
+     (Text : String; Context : Body_Context; Position : Literal_Position;
+      Facts : Scalar_Flow; Result : out Condition_Result;
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values) is
+      Operator : Comparison_Result;
+   begin
+      Read_Boolean_Factor_Into (Text, Context, Position, Facts, Result, Initials);
+      if Result.After = 0 then
+         Invalidate_Condition (Facts, Result);
+         return;
+      end if;
+      Operator := Scalar_Comparison_At (Text, Result.After);
+      if Operator.After = 0 then return; end if;
+      if Operator.Operator not in Paths.Equal | Paths.Unequal then
+         Invalidate_Condition (Facts, Result);
+         return;
+      end if;
+      Read_Boolean_Factor_Into (Text, Context, Operator.After, Facts, Result, Initials);
+      if Result.After = 0 then
+         Invalidate_Condition (Facts, Result);
+      else
+         Result.When_True := Facts;
+         Result.When_False := Facts;
+      end if;
+   end Read_Boolean_Relation_Into;
+   procedure Read_Relation_Into
+     (Text : String; Context : Body_Context; Position : Literal_Position;
+      Facts : Scalar_Flow; Result : out Condition_Result;
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values) is
+      After : constant Literal_Position := Take_Token (Text, Position, Not_Keyword);
+      Left_Length : constant Length_Result := Length_At (Text, Context, Position, False);
+      Left_Scalar : constant Scalar_Expressions.Expression_Result := Read_Scalar_In_Flow (Text, Context, Position, Facts, Initials => Initials);
+      Expected : constant Condition_Result (Facts.Count) :=
+        Relation_Model (Text, Context, Position, Facts, Initials => Initials) with Ghost => Static;
+   begin
+      Lemma_Condition_Equality
+        (Expected, Relation_Model (Text, Context, Position, Facts, Initials => Initials));
+      if Position = 0 then
+         Invalidate_Condition (Facts, Result);
+         --  Invalid input: isolate both flow-validity obligations at this branch exit.
+         pragma Assert (Static => Valid_Flow (Context, Result.When_True));
+         pragma Assert (Static => Valid_Flow (Context, Result.When_False));
+         pragma Assert (Static => Result = Expected);
+      elsif After /= 0 then
+         Read_Boolean_Relation_Into (Text, Context, Position, Facts, Result, Initials);
+         pragma Assert (Static => Result = Expected);
       elsif Left_Length.After /= 0 then
          declare
             Operator : constant Comparison_Result := Scalar_Comparison_At (Text, Left_Length.After);
@@ -2732,7 +3054,7 @@ is
          declare
             Operator : constant Comparison_Result := Scalar_Comparison_At (Text, Left_Scalar.After);
             Right_Scalar : constant Scalar_Expressions.Expression_Result :=
-              Read_Scalar_In_Flow (Text, Context, Operator.After, Facts);
+              Read_Scalar_In_Flow (Text, Context, Operator.After, Facts, Initials => Initials);
             Left_Target : constant Scalar_Expressions.Binding_Count := Bare_Target (Text, Context, Position, Left_Scalar.After);
             Right_Target : constant Scalar_Expressions.Binding_Count := Bare_Target (Text, Context, Operator.After, Right_Scalar.After);
             Target : Scalar_Expressions.Binding_Count := 0;
@@ -2806,7 +3128,7 @@ is
          pragma Assert (Static => Valid_Flow (Context, Result.When_False));
          pragma Assert (Static => Result = Expected);
       else
-         declare Left : constant Expression_Result := Read_String_In_Flow (Text, Context, Position, Facts);
+         declare Left : constant Expression_Result := Read_String_In_Flow (Text, Context, Position, Facts, Initials => Initials);
          begin
             if Left.After /= 0 then
                declare Operator : constant Comparison_Result := Scalar_Comparison_At (Text, Left.After);
@@ -2816,7 +3138,7 @@ is
                      Invalidate_Condition (Facts, Result);
                      Lemma_Condition_Equality (Result, Invalid_Condition (Facts));
                   else
-                     declare Right : constant Expression_Result := Read_String_In_Flow (Text, Context, Operator.After, Facts);
+                     declare Right : constant Expression_Result := Read_String_In_Flow (Text, Context, Operator.After, Facts, Initials => Initials);
                      begin
                         if Right.After <= Position or else not (Left.Named_Seen or else Right.Named_Seen)
                           or else not Length_Intervals.Fits (Facts.Path, Summary_Of (Left))
@@ -2849,9 +3171,9 @@ is
                   end if;
                end;
             else
-               pragma Assert (Static => Same_Condition (Expected, Primary_Model (Text, Context, Position, Facts)));
-               Read_Primary_Into (Text, Context, Position, Facts, Result);
-               Lemma_Condition_Equality (Result, Primary_Model (Text, Context, Position, Facts));
+               pragma Assert (Static => Same_Condition (Expected, Boolean_Relation_Model (Text, Context, Position, Facts, Initials)));
+               Read_Boolean_Relation_Into (Text, Context, Position, Facts, Result, Initials);
+               Lemma_Condition_Equality (Result, Boolean_Relation_Model (Text, Context, Position, Facts, Initials));
             end if;
             pragma Assert (Static => Same_Condition (Result, Expected));
          end;
@@ -2860,43 +3182,44 @@ is
          pragma Assert (Static => Valid_Flow (Context, Result.When_False));
          pragma Assert (Static => Result = Expected);
       end if;
-      pragma Assert (Static => Result = Relation_Model (Text, Context, Position, Facts));
+      pragma Assert (Static => Result = Relation_Model (Text, Context, Position, Facts, Initials => Initials));
    end Read_Relation_Into;
    procedure Read_Chain_Into
-     (Text : String; Context : Body_Context; Result : in out Condition_Result) is
+     (Text : String; Context : Body_Context; Result : in out Condition_Result; Incoming : Scalar_Flow;
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values) is
       Active_Count : constant Scalar_Expressions.Binding_Count := Result.Count;
       Right : Condition_Result (Active_Count);
-      Operator : Token_Kind := And_Keyword;
+      Operator : Chain_Kind := Short_And;
       Chained : Boolean := False;
-      Selected : Token_Kind;
+      Selected : Chain_Kind;
       After : Literal_Position;
    begin
       loop
          pragma Loop_Invariant (Result.After in 1 .. Text'Last + 1);
          pragma Loop_Invariant (Valid_Condition (Context, Result));
-         pragma Loop_Invariant (Operator in And_Keyword | Or_Keyword);
+         pragma Loop_Invariant (Operator /= No_Chain);
          pragma Loop_Invariant (Result.After >= Result'Loop_Entry.After);
          pragma Loop_Invariant (Static =>
-           Condition_Tail (Text, Context, Result'Loop_Entry, And_Keyword, False) =
-             Condition_Tail (Text, Context, Result, Operator, Chained));
+           Condition_Tail (Text, Context, Result'Loop_Entry, Short_And, False, Initials => Initials, Incoming => Incoming) =
+             Condition_Tail (Text, Context, Result, Operator, Chained, Initials => Initials, Incoming => Incoming));
          pragma Loop_Invariant (Static => Same_Condition
-           (Condition_Tail (Text, Context, Result'Loop_Entry, And_Keyword, False),
-            Condition_Tail (Text, Context, Result, Operator, Chained)));
+           (Condition_Tail (Text, Context, Result'Loop_Entry, Short_And, False, Initials => Initials, Incoming => Incoming),
+            Condition_Tail (Text, Context, Result, Operator, Chained, Initials => Initials, Incoming => Incoming)));
          pragma Loop_Variant (Increases => Result.After);
          declare
             Before : constant Condition_Result (Active_Count) := Result with Ghost => Static;
             Tail : constant Condition_Result (Active_Count) :=
-              Condition_Tail (Text, Context, Before, Operator, Chained) with Ghost => Static;
+              Condition_Tail (Text, Context, Before, Operator, Chained, Initials => Initials, Incoming => Incoming) with Ghost => Static;
          begin
             --  The checked logical equality retains the bounds of every array
             --  when the saved input is substituted into a model application.
             pragma Assert (Static => Same_Condition (Result, Before));
             Selected := Chain_Token (Text, Result.After);
-            if Selected not in And_Keyword | Or_Keyword then
+            if Selected = No_Chain then
                pragma Assert (Static => Tail = Before);
                pragma Assert (Static => Same_Condition (Tail, Result));
                pragma Assert (Static =>
-                 Condition_Tail (Text, Context, Before, Operator, Chained) = Before);
+                 Condition_Tail (Text, Context, Before, Operator, Chained, Initials => Initials, Incoming => Incoming) = Before);
                exit;
             end if;
             if Chained and then Operator /= Selected then
@@ -2907,7 +3230,7 @@ is
                pragma Assert (Static => Tail = Invalid_Condition (Before.When_True));
                pragma Assert (Static => Same_Condition (Result, Tail));
                pragma Assert (Static =>
-                 Result = Condition_Tail (Text, Context, Before, Operator, Chained));
+                 Result = Condition_Tail (Text, Context, Before, Operator, Chained, Initials => Initials, Incoming => Incoming));
                return;
             end if;
             After := Chain_After (Text, Result.After, Selected);
@@ -2919,40 +3242,48 @@ is
                pragma Assert (Static => Tail = Invalid_Condition (Before.When_True));
                pragma Assert (Static => Same_Condition (Result, Tail));
                pragma Assert (Static =>
-                 Result = Condition_Tail (Text, Context, Before, Operator, Chained));
+                 Result = Condition_Tail (Text, Context, Before, Operator, Chained, Initials => Initials, Incoming => Incoming));
                return;
             end if;
             declare
                Right_Model : constant Condition_Result (Active_Count) :=
                  Relation_Model (Text, Context, After,
-                   (if Selected = And_Keyword then Before.When_True else Before.When_False))
+                   (if Selected = Short_And then Before.When_True
+                    elsif Selected = Short_Or then Before.When_False else Incoming), Initials => Initials)
                  with Ghost => Static;
             begin
                --  Transport the ghost initializer before selecting a runtime input.
                Lemma_Condition_Equality
                  (Right_Model, Relation_Model (Text, Context, After,
-                   (if Selected = And_Keyword then Before.When_True else Before.When_False)));
-               if Selected = And_Keyword then
+                   (if Selected = Short_And then Before.When_True
+                    elsif Selected = Short_Or then Before.When_False else Incoming), Initials => Initials));
+               if Selected = Short_And then
                   pragma Assert (Static => Same_Flow (Result.When_True, Before.When_True));
                   pragma Assert (Static => Same_Condition
-                    (Right_Model, Relation_Model (Text, Context, After, Result.When_True)));
-                  Read_Relation_Into (Text, Context, After, Result.When_True, Right);
+                    (Right_Model, Relation_Model (Text, Context, After, Result.When_True, Initials => Initials)));
+                  Read_Relation_Into (Text, Context, After, Result.When_True, Right, Initials => Initials);
                   Lemma_Condition_Equality
-                    (Right, Relation_Model (Text, Context, After, Result.When_True));
+                    (Right, Relation_Model (Text, Context, After, Result.When_True, Initials => Initials));
                   pragma Assert (Static => Same_Condition (Right, Right_Model));
-               else
+               elsif Selected = Short_Or then
                   pragma Assert (Static => Same_Flow (Result.When_False, Before.When_False));
                   pragma Assert (Static => Same_Condition
-                    (Right_Model, Relation_Model (Text, Context, After, Result.When_False)));
-                  Read_Relation_Into (Text, Context, After, Result.When_False, Right);
+                    (Right_Model, Relation_Model (Text, Context, After, Result.When_False, Initials => Initials)));
+                  Read_Relation_Into (Text, Context, After, Result.When_False, Right, Initials => Initials);
                   Lemma_Condition_Equality
-                    (Right, Relation_Model (Text, Context, After, Result.When_False));
+                    (Right, Relation_Model (Text, Context, After, Result.When_False, Initials => Initials));
+                  pragma Assert (Static => Same_Condition (Right, Right_Model));
+               else
+                  Read_Relation_Into (Text, Context, After, Incoming, Right, Initials);
+                  Lemma_Condition_Equality
+                    (Right, Relation_Model (Text, Context, After, Incoming, Initials));
                   pragma Assert (Static => Same_Condition (Right, Right_Model));
                end if;
                pragma Assert (Static => Right = Right_Model);
                pragma Assert (Static => Same_Condition (Right, Right_Model));
                pragma Assert (Static => Right = Relation_Model (Text, Context, After,
-                 (if Selected = And_Keyword then Before.When_True else Before.When_False)));
+                 (if Selected = Short_And then Before.When_True
+                    elsif Selected = Short_Or then Before.When_False else Incoming), Initials => Initials));
                if Right.After = 0 then
                   Result.After := 0;
                   Result.When_True.Path := Paths.Empty_Context;
@@ -2961,25 +3292,27 @@ is
                   pragma Assert (Static => Tail = Invalid_Condition (Before.When_True));
                   pragma Assert (Static => Same_Condition (Result, Tail));
                   pragma Assert (Static =>
-                    Result = Condition_Tail (Text, Context, Before, Operator, Chained));
+                    Result = Condition_Tail (Text, Context, Before, Operator, Chained, Initials => Initials, Incoming => Incoming));
                   return;
                end if;
                declare
                   Combined : constant Condition_Result (Active_Count) :=
-                    (if Selected = And_Keyword then
+                    (if Selected = Short_And then
                        (Active_Count, Right.After, Right.When_True, Joined (Before.When_False, Right.When_False))
-                     else
-                       (Active_Count, Right.After, Joined (Before.When_True, Right.When_True), Right.When_False))
+                     elsif Selected = Short_Or then
+                       (Active_Count, Right.After, Joined (Before.When_True, Right.When_True), Right.When_False)
+                     else (Active_Count, Right.After, Incoming, Incoming))
                     with Ghost => Static;
                begin
                   --  Preserve logical identity of the aggregate's joined flows.
                   Lemma_Condition_Equality
                     (Combined,
-                     (if Selected = And_Keyword then
+                     (if Selected = Short_And then
                         (Active_Count, Right.After, Right.When_True, Joined (Before.When_False, Right.When_False))
-                      else
-                        (Active_Count, Right.After, Joined (Before.When_True, Right.When_True), Right.When_False)));
-                  if Selected = And_Keyword then
+                      elsif Selected = Short_Or then
+                        (Active_Count, Right.After, Joined (Before.When_True, Right.When_True), Right.When_False)
+                      else (Active_Count, Right.After, Incoming, Incoming)));
+                  if Selected = Short_And then
                      pragma Assert (Static => Same_Flow (Result.When_False, Before.When_False));
                      pragma Assert (Static => Same_Flow (Combined.When_True, Right.When_True));
                      pragma Assert (Static => Same_Flow
@@ -2994,7 +3327,7 @@ is
                        Result.When_False = Joined (Before.When_False, Right.When_False));
                      Lemma_Flow_Equality
                        (Result.When_False, Joined (Before.When_False, Right.When_False));
-                  else
+                  elsif Selected = Short_Or then
                      pragma Assert (Static => Same_Flow (Result.When_True, Before.When_True));
                      pragma Assert (Static => Same_Flow
                        (Combined.When_True, Joined (Before.When_True, Right.When_True)));
@@ -3009,6 +3342,11 @@ is
                        (Result.When_True, Joined (Before.When_True, Right.When_True));
                      Result.When_False := Right.When_False;
                      Lemma_Flow_Equality (Result.When_False, Right.When_False);
+                  else
+                     Result.When_True := Incoming;
+                     Result.When_False := Incoming;
+                     Lemma_Flow_Equality (Result.When_True, Incoming);
+                     Lemma_Flow_Equality (Result.When_False, Incoming);
                   end if;
                   pragma Assert (Static => Same_Flow (Result.When_True, Combined.When_True));
                   pragma Assert (Static => Same_Flow (Result.When_False, Combined.When_False));
@@ -3017,17 +3355,18 @@ is
                   pragma Assert (Static => Same_Condition (Result, Combined));
                   pragma Assert (Static => Valid_Condition (Context, Result));
                   pragma Assert (Static => Result =
-                    (if Selected = And_Keyword then
+                    (if Selected = Short_And then
                        (Active_Count, Right.After, Right.When_True, Joined (Before.When_False, Right.When_False))
-                     else
-                       (Active_Count, Right.After, Joined (Before.When_True, Right.When_True), Right.When_False)));
+                     elsif Selected = Short_Or then
+                       (Active_Count, Right.After, Joined (Before.When_True, Right.When_True), Right.When_False)
+                     else (Active_Count, Right.After, Incoming, Incoming)));
                   pragma Assert (Static => Tail =
-                    Condition_Tail (Text, Context, Combined, Selected, True));
+                    Condition_Tail (Text, Context, Combined, Selected, True, Initials => Initials, Incoming => Incoming));
                   pragma Assert (Static => Same_Condition
-                    (Tail, Condition_Tail (Text, Context, Result, Selected, True)));
+                    (Tail, Condition_Tail (Text, Context, Result, Selected, True, Initials => Initials, Incoming => Incoming)));
                   pragma Assert (Static =>
-                    Condition_Tail (Text, Context, Before, Operator, Chained) =
-                      Condition_Tail (Text, Context, Result, Selected, True));
+                    Condition_Tail (Text, Context, Before, Operator, Chained, Initials => Initials, Incoming => Incoming) =
+                      Condition_Tail (Text, Context, Result, Selected, True, Initials => Initials, Incoming => Incoming));
                end;
             end;
             Operator := Selected;
@@ -3037,17 +3376,18 @@ is
    end Read_Chain_Into;
    procedure Read_Condition_Into
      (Text : String; Context : Body_Context; Position : Literal_Position;
-      Facts : Scalar_Flow; Result : out Condition_Result) is
+      Facts : Scalar_Flow; Result : out Condition_Result;
+      Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values) is
       Initial_Result : constant Condition_Result (Facts.Count) :=
-        Relation_Model (Text, Context, Position, Facts) with Ghost => Static;
+        Relation_Model (Text, Context, Position, Facts, Initials => Initials) with Ghost => Static;
       --  The raw result before the final invalidation follows the same guarded
       --  tail call as the model; a failed relation keeps its initial record.
       Final_Result : constant Condition_Result (Facts.Count) :=
         (if Initial_Result.After = 0 then Initial_Result
-         else Condition_Tail (Text, Context, Initial_Result, And_Keyword, False))
+         else Condition_Tail (Text, Context, Initial_Result, Short_And, False, Initials => Initials, Incoming => Facts))
         with Ghost => Static;
       Expected : constant Condition_Result (Facts.Count) :=
-        Condition_Model (Text, Context, Position, Facts) with Ghost => Static;
+        Condition_Model (Text, Context, Position, Facts, Initials => Initials) with Ghost => Static;
    begin
       --  Isolate the model definition from the runtime result's later updates.
       pragma Assert (Static => Expected =
@@ -3058,7 +3398,7 @@ is
       pragma Assert (Static => Same_Condition
         (Expected,
          (if Final_Result.After = 0 then Invalid_Condition (Facts) else Final_Result)));
-      Read_Relation_Into (Text, Context, Position, Facts, Result);
+      Read_Relation_Into (Text, Context, Position, Facts, Result, Initials => Initials);
       pragma Assert (Static => Result = Initial_Result);
       Lemma_Condition_Equality (Result, Initial_Result);
       pragma Assert (Static => Same_Condition (Result, Initial_Result));
@@ -3067,33 +3407,33 @@ is
       if Result.After /= 0 then
          declare
             Tail_Result : constant Condition_Result (Facts.Count) :=
-              Condition_Tail (Text, Context, Initial_Result, And_Keyword, False)
+              Condition_Tail (Text, Context, Initial_Result, Short_And, False, Initials => Initials, Incoming => Facts)
               with Ghost => Static;
          begin
             Lemma_Condition_Equality
-              (Tail_Result, Condition_Tail (Text, Context, Initial_Result, And_Keyword, False));
+              (Tail_Result, Condition_Tail (Text, Context, Initial_Result, Short_And, False, Initials => Initials, Incoming => Facts));
             --  Select Final_Result's nonzero branch before the buffer changes.
             pragma Assert (Static => Initial_Result.After /= 0);
             pragma Assert (Static => Final_Result = Tail_Result);
             Lemma_Condition_Equality (Final_Result, Tail_Result);
-            if Chain_Token (Text, Result.After) in And_Keyword | Or_Keyword then
-               Read_Chain_Into (Text, Context, Result);
+            if Chain_Token (Text, Result.After) /= No_Chain then
+               Read_Chain_Into (Text, Context, Result, Initials => Initials, Incoming => Facts);
                --  The exact chain post now transports across logical equality
                --  of its saved input and the already interpreted relation result.
                pragma Assert (Static =>
-                 Result = Condition_Tail (Text, Context, Initial_Result, And_Keyword, False));
+                 Result = Condition_Tail (Text, Context, Initial_Result, Short_And, False, Initials => Initials, Incoming => Facts));
                pragma Assert (Static => Valid_Flow (Context, Result.When_True));
                pragma Assert (Static => Valid_Flow (Context, Result.When_False));
             else
                pragma Assert (Static =>
-                 Condition_Tail (Text, Context, Initial_Result, And_Keyword, False) = Initial_Result);
+                 Condition_Tail (Text, Context, Initial_Result, Short_And, False, Initials => Initials, Incoming => Facts) = Initial_Result);
                pragma Assert (Static => Valid_Flow (Context, Result.When_True));
                pragma Assert (Static => Valid_Flow (Context, Result.When_False));
             end if;
             pragma Assert (Static =>
-              Result = Condition_Tail (Text, Context, Initial_Result, And_Keyword, False));
+              Result = Condition_Tail (Text, Context, Initial_Result, Short_And, False, Initials => Initials, Incoming => Facts));
             Lemma_Condition_Equality
-              (Result, Condition_Tail (Text, Context, Initial_Result, And_Keyword, False));
+              (Result, Condition_Tail (Text, Context, Initial_Result, Short_And, False, Initials => Initials, Incoming => Facts));
             pragma Assert (Static => Same_Condition (Result, Tail_Result));
             pragma Assert (Static => Result = Tail_Result);
             Lemma_Condition_Equality (Result, Tail_Result);
@@ -3123,8 +3463,102 @@ is
       end if;
       pragma Assert (Static => Same_Condition (Result, Expected));
       pragma Assert (Static => Result = Expected);
-      pragma Assert (Static => Result = Condition_Model (Text, Context, Position, Facts));
+      pragma Assert (Static => Result = Condition_Model (Text, Context, Position, Facts, Initials => Initials));
    end Read_Condition_Into;
+
+   function Boolean_Declaration_At
+     (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State is
+      First : constant Literal_Position := Skip_At (Text, State.Position);
+      After : constant Literal_Position := Name_After (Text, First);
+      Colon_After : constant Literal_Position := Take_Token (Text, After, Colon);
+      Constant_After : constant Literal_Position := Take_Token (Text, Colon_After, Constant_Keyword);
+      Type_First : constant Literal_Position := Skip_At
+        (Text, (if Constant_After /= 0 then Constant_After else Colon_After));
+      Type_After : constant Literal_Position := Take_Token (Text, Type_First, Boolean_Name);
+      Value_First : constant Literal_Position := Take_Token (Text, Type_After, Assignment);
+      Context : Body_Context := Context_Of ((State, False, False));
+      Value : Condition_Result (State.Scalar_Names.Count);
+      Following : Literal_Position;
+   begin
+      if not New_Name_Allowed (Text, State, First, After, Arguments)
+        or else Type_After = 0 or else Value_First = 0
+        or else State.Boolean_Names.Count = Max_Boolean_Bindings
+        or else Name_Is (Text, First, After, "boolean")
+        or else Lookup_Name (Text, State.Names, Type_First, Type_After) /= 0
+        or else Scalar_Expressions.Lookup (Text, State.Scalar_Names, Type_First, Type_After) /= 0
+        or else Array_Bindings.Lookup (Text, State.Array_Names.Names, Type_First, Type_After) /= 0
+        or else Lookup_Subtype (Text, State.Subtype_Names, Type_First, Type_After) /= 0
+        or else Lookup_Boolean (Text, State.Boolean_Names, Type_First, Type_After) /= 0
+      then return Invalid_State; end if;
+      Context.Scalar_Names := State.Scalar_Names;
+      Context.Elaborating := True;
+      Context.Mask_First := First;
+      Context.Mask_After := After;
+      Read_Condition_Into
+        (Text, Context, Value_First, Initial_Flow (Context), Value, State.Array_Names.Values);
+      Following := Take_Token (Text, Value.After, Semicolon);
+      if Following <= State.Position then return Invalid_State; end if;
+      return (State with delta Position => Following,
+        Boolean_Names =>
+          (Count => State.Boolean_Names.Count + 1,
+           Items => (State.Boolean_Names.Items with delta State.Boolean_Names.Count + 1 =>
+             (First, After, Constant_After = 0))));
+   end Boolean_Declaration_At;
+
+   function Boolean_Target
+     (Text : String; Context : Body_Context; Position : Literal_Position) return Boolean_Count
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_Context (Text, Context) and then Position <= Text'Last + 1,
+       Post => Boolean_Target'Result <= Context.Boolean_Names.Count;
+   function Boolean_Target
+     (Text : String; Context : Body_Context; Position : Literal_Position) return Boolean_Count is
+     (declare First : constant Literal_Position := Skip_At (Text, Position);
+              After : constant Literal_Position := Name_After (Text, First);
+      begin (if Scalar_Expressions.Lookup (Text, Context.Scalar_Names, First, After) /= 0
+        then 0 else Lookup_Boolean (Text, Context.Boolean_Names, First, After)));
+
+   function Boolean_Assignment_Model
+     (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan),
+       Post => Valid_Body (Text, Context, Boolean_Assignment_Model'Result)
+         and then (Boolean_Assignment_Model'Result.Position = 0
+           or else Boolean_Assignment_Model'Result.Position > Scan.Position);
+   function Boolean_Assignment_Model
+     (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan is
+     (declare First : constant Literal_Position := Skip_At (Text, Scan.Position);
+              After : constant Literal_Position := Name_After (Text, First);
+              Target : constant Boolean_Count := Boolean_Target (Text, Context, Scan.Position);
+              Value : constant Condition_Result (Scan.Count) := Condition_Model
+                (Text, Context, Take_Token (Text, After, Assignment), Scan.Facts);
+      begin (if Target = 0 or else not Context.Boolean_Names.Items (Target).Mutable
+        or else Value.After <= Scan.Position then Invalid_Body_Model (Scan)
+        else (Scan with delta Position => Value.After, Assigned => True)));
+
+   function Boolean_Assignment_Body
+     (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan),
+       Post => (Runtime => Valid_Body (Text, Context, Boolean_Assignment_Body'Result)
+         and then (Boolean_Assignment_Body'Result.Position = 0
+           or else Boolean_Assignment_Body'Result.Position > Scan.Position),
+         Static => Boolean_Assignment_Body'Result = Boolean_Assignment_Model (Text, Context, Scan));
+   function Boolean_Assignment_Body
+     (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan is
+      First : constant Literal_Position := Skip_At (Text, Scan.Position);
+      After : constant Literal_Position := Name_After (Text, First);
+      Target : constant Boolean_Count := Boolean_Target (Text, Context, Scan.Position);
+      Value : Condition_Result (Scan.Count);
+   begin
+      Read_Condition_Into (Text, Context, Take_Token (Text, After, Assignment), Scan.Facts, Value);
+      if Target = 0 or else not Context.Boolean_Names.Items (Target).Mutable
+        or else Value.After <= Scan.Position
+      then return Invalid_Body (Scan); end if;
+      return (Scan with delta Position => Value.After, Assigned => True);
+   end Boolean_Assignment_Body;
 
    function Scalar_Target
      (Text : String; Context : Body_Context; Position : Literal_Position)
@@ -3283,8 +3717,8 @@ is
       if Result.Position = 0 then return Invalid_Body (Scan); end if;
       if Take_Token (Text, Result.Position, Null_Keyword) /= 0 then
          Result := Body_Token (Text, Context, Result, Null_Keyword);
-      elsif Call_After (Text, Context.Names, Result.Position, Names.Output_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Output_Call)) /= 0 then
-         Result.Position := Call_After (Text, Context.Names, Result.Position, Names.Output_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Output_Call));
+      elsif Call_After (Text, Context.Names, Result.Position, Names.Output_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Output_Call), Context.Boolean_Names) /= 0 then
+         Result.Position := Call_After (Text, Context.Names, Result.Position, Names.Output_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Output_Call), Context.Boolean_Names);
          Result := Body_Token (Text, Context, Result, Left_Parenthesis);
          Result.Position := Names.Association_After (Text, Result.Position, False);
          Value := Read_String_In_Flow (Text, Context, Result.Position, Result.Facts);
@@ -3294,8 +3728,8 @@ is
          Result.Position := Value.After;
          Result := Body_Token (Text, Context, Result, Right_Parenthesis);
          Result.Output := True;
-      elsif Call_After (Text, Context.Names, Result.Position, Names.Partial_Output_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Partial_Output_Call)) /= 0 then
-         Result.Position := Call_After (Text, Context.Names, Result.Position, Names.Partial_Output_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Partial_Output_Call));
+      elsif Call_After (Text, Context.Names, Result.Position, Names.Partial_Output_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Partial_Output_Call), Context.Boolean_Names) /= 0 then
+         Result.Position := Call_After (Text, Context.Names, Result.Position, Names.Partial_Output_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Partial_Output_Call), Context.Boolean_Names);
          Result := Body_Token (Text, Context, Result, Left_Parenthesis);
          Result.Position := Names.Association_After (Text, Result.Position, False);
          Value := Read_String_In_Flow (Text, Context, Result.Position, Result.Facts);
@@ -3306,14 +3740,16 @@ is
          Result := Body_Token (Text, Context, Result, Right_Parenthesis);
          Result.Output := True;
       elsif Context.Dynamic_First /= 0
-        and then Call_After (Text, Context.Names, Result.Position, Names.Reject_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Reject_Call)) /= 0
+        and then Call_After (Text, Context.Names, Result.Position, Names.Reject_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Reject_Call), Context.Boolean_Names) /= 0
       then
-         Result.Position := Call_After (Text, Context.Names, Result.Position, Names.Reject_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Reject_Call));
+         Result.Position := Call_After (Text, Context.Names, Result.Position, Names.Reject_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Reject_Call), Context.Boolean_Names);
          Result.Facts.Path := Paths.Rejected (Result.Facts.Path);
       elsif Scalar_Target (Text, Context, Result.Position) /= 0 then
          Result := Scalar_Assignment_Body (Text, Context, Result);
       elsif Array_Target (Text, Context, Result.Position) /= 0 then
          Result := Array_Assignment_Body (Text, Context, Result);
+      elsif Boolean_Target (Text, Context, Result.Position) /= 0 then
+         Result := Boolean_Assignment_Body (Text, Context, Result);
       else
          Target := Body_String_Target (Text, Context, Result.Position);
          Result.Position := Target.After;
