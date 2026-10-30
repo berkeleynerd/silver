@@ -179,6 +179,14 @@ private theorem infer_singleton {ranges : Integer.Ranges} {expression : Integer.
       have same := checked_singleton checked
       simp [same, Integer.Interval.singleton]
 
+/-- Exact cells remain exact under every admitted arithmetic operation. This
+generic form also applies to declaration-time Boolean predicate snapshots. -/
+theorem inference_singleton {ranges : Integer.Ranges} {expression : Integer.Expr}
+    {bounds : Integer.Interval}
+    (singletons : ∀ index interval, ranges index = some interval → interval.lower = interval.upper)
+    (found : expression.infer ranges = some bounds) : bounds.lower = bounds.upper :=
+  infer_singleton singletons found
+
 theorem static_inference {names : Environment} {expression : Integer.Expr}
     {bounds : Integer.Interval} (static : StaticEnvironment names)
     (found : expression.infer (ranges names) = some bounds) : bounds.lower = bounds.upper := by
