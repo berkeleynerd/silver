@@ -4,6 +4,7 @@ public import Silver.PredicateExecution
 public import Silver.PredicateObligations
 public import Silver.SequenceEffects
 public import Silver.PredicateArrayFlow
+public import Silver.BooleanDeclarationObligations
 
 @[expose] public section
 
@@ -25,6 +26,8 @@ structure Program where
   integerConstants : Integer.Constants := []
   initializerChecks : List Integer.Obligation := []
   arrays : ArrayBindings.Env := {}
+  booleanDeclarations : List BooleanDeclaration := []
+  booleanInitializerChecks : List Obligation := []
   deriving Repr
 
 def Program.initialContext (program : Program) : Context :=
@@ -43,6 +46,16 @@ def Program.initialValues (program : Program) (arguments : Arguments.Runtime.Arg
 def Program.initialIntegers (program : Program) : Integer.Store :=
   ArrayBindings.store program.arrays.names program.arrays.values
     (Integer.executeDeclarations [] program.integerDeclarations).store
+
+def Program.bodyBooleanAnalysis (program : Program) : Boolean.Analysis :=
+  booleanBodyAnalysis program.booleanDeclarations
+
+def Program.booleanInitialFlow (program : Program) : Flow :=
+  ⟨program.initialContext, Integer.emptyRanges⟩
+
+def Program.initialBooleans (program : Program) (arguments : Arguments.Runtime.Arguments) : Boolean.Store :=
+  executeBooleanDeclarations (program.initialValues arguments) (program.input arguments)
+    (program.inputValid arguments) Integer.emptyStore 0 program.booleanDeclarations Boolean.emptyStore
 
 def Program.bodyBindings (program : Program) : Integer.ObjectBindings :=
   Integer.elaborate [] program.integerDeclarations
@@ -68,7 +81,7 @@ def Program.checkBody (program : Program) : Option Flow :=
       Integer.discharged program.initializerChecks = true ∧
       (ArrayBindings.ValidInitials program.arrays.values ∧
         ArrayBindings.InitialsFit program.arrays.names program.arrays.values) then
-    checkStatements program.names.shape program.bodyAnalysis program.initialFlow program.statements
+    checkStatements program.names.shape program.bodyAnalysis program.initialFlow program.statements program.bodyBooleanAnalysis
   else none
 
 theorem Program.checkBody_iff (program : Program) (after : Flow) :
@@ -77,22 +90,28 @@ theorem Program.checkBody_iff (program : Program) (after : Flow) :
       Integer.discharged program.initializerChecks = true ∧
       (ArrayBindings.ValidInitials program.arrays.values ∧
         ArrayBindings.InitialsFit program.arrays.names program.arrays.values) ∧
-      checkStatements program.names.shape program.bodyAnalysis program.initialFlow program.statements = some after := by
+      checkStatements program.names.shape program.bodyAnalysis program.initialFlow program.statements program.bodyBooleanAnalysis = some after := by
   simp only [checkBody]
   split <;> simp_all
 
 def Program.execute (program : Program) (arguments : Arguments.Runtime.Arguments) : Execution :=
   executeStatements (program.input arguments) (program.inputValid arguments)
-    (program.initialValues arguments) program.statements program.initialIntegers
+    (program.initialValues arguments) program.statements program.initialIntegers (program.initialBooleans arguments)
 
 def Program.checkedExecute (program : Program) (arguments : Arguments.Runtime.Arguments) : Option Execution :=
   checkedStatements (program.input arguments) (program.inputValid arguments)
-    (program.initialValues arguments) program.statements program.initialIntegers
+    (program.initialValues arguments) program.statements program.initialIntegers (program.initialBooleans arguments)
+
+def Program.InitializersValid (program : Program) : Prop :=
+  DeclarationsValid emptyShape program.declarations program.names.shape ∧
+    BooleanDeclarationsWellFormed program.hasArguments program.names.shape 0 program.booleanDeclarations ∧
+    checkBooleanDeclarations program.names.shape Integer.Analysis.empty program.booleanInitialFlow
+      0 program.booleanDeclarations = true ∧ discharged program.booleanInitializerChecks = true
 
 def Program.Valid (program : Program) : Prop :=
-  DeclarationsValid emptyShape program.declarations program.names.shape ∧
+  program.InitializersValid ∧
     Bindings.Printable program.fallback ∧ program.fallback.length ≤ maxSourceLength ∧
-    program.statements ≠ [] ∧ StatementsWellFormed program.hasArguments program.names.shape program.statements ∧
+    program.statements ≠ [] ∧ StatementsWellFormed program.hasArguments program.names.shape program.statements program.bodyBooleanAnalysis ∧
     ∃ after, program.checkBody = some after ∧ completed after.path = true
 
 theorem selected_invalid (fallback : Source) (arguments : Arguments.Runtime.Arguments)
@@ -127,7 +146,17 @@ theorem Program.initial_allowed (program : Program) (arguments : Arguments.Runti
 theorem Program.initial_fits {program : Program} (valid : program.Valid)
     (arguments : Arguments.Runtime.Arguments) :
     Fits program.names.shape (program.input arguments) (program.initialValues arguments) :=
-  declarations_preserve valid.1 _ (program.input_domain arguments).2 _ (empty_fits _)
+  declarations_preserve valid.1.1 _ (program.input_domain arguments).2 _ (empty_fits _)
+
+theorem Program.boolean_initializers_safe {program : Program} (valid : program.Valid)
+    (arguments : Arguments.Runtime.Arguments) :
+    BooleanDeclarationsSafe program.names.shape (program.initialValues arguments) (program.input arguments)
+      (program.inputValid arguments) Integer.emptyStore 0 program.booleanDeclarations Boolean.emptyStore ∧
+    checkedBooleanDeclarations (program.initialValues arguments) (program.input arguments)
+      (program.inputValid arguments) Integer.emptyStore 0 program.booleanDeclarations Boolean.emptyStore =
+        some (program.initialBooleans arguments) := by
+  apply boolean_declarations_sound valid.1.2.1 valid.1.2.2.1 (program.initial_fits valid arguments)
+  exact ⟨program.initial_allowed arguments, fun _ _ absent => by cases absent⟩
 
 theorem Program.initial_integers {program : Program} (valid : program.Valid) :
     program.initialIntegers = ArrayBindings.store program.arrays.names program.arrays.values program.integerConstants.store ∧
@@ -168,7 +197,7 @@ theorem Program.execution_sound {program : Program} (valid : program.Valid)
       program.checkedExecute arguments = some (program.execute arguments) := by
   obtain ⟨after, checked, _⟩ := valid.2.2.2.2.2
   have bodyChecked := ((program.checkBody_iff after).mp checked).2.2.2
-  have sound := statements_execution_sound valid.2.2.2.2.1 bodyChecked
+  have sound := statements_execution_sound (booleans := program.initialBooleans arguments) valid.2.2.2.2.1 bodyChecked
     (program.initial_fits valid arguments) (program.input_domain arguments).2
     ⟨program.initial_allowed arguments, program.initial_integer_fits valid⟩ (program.initial_integer_fits valid)
   exact ⟨sound.state, sound.effects, sound.agreement⟩
@@ -178,7 +207,7 @@ theorem Program.scalar_execution_invariant {program : Program} (valid : program.
     Integer.Fits program.bodyRanges (program.execute arguments).integers := by
   obtain ⟨after, checked, _⟩ := valid.2.2.2.2.2
   have bodyChecked := ((program.checkBody_iff after).mp checked).2.2.2
-  exact (statements_execution_sound valid.2.2.2.2.1 bodyChecked
+  exact (statements_execution_sound (booleans := program.initialBooleans arguments) valid.2.2.2.2.1 bodyChecked
     (program.initial_fits valid arguments) (program.input_domain arguments).2
     ⟨program.initial_allowed arguments, program.initial_integer_fits valid⟩ (program.initial_integer_fits valid)).declared
 
@@ -187,7 +216,7 @@ theorem Program.current_scalar_execution_invariant {program : Program} (valid : 
     (arguments : Arguments.Runtime.Arguments) :
     Integer.Fits after.scalars (program.execute arguments).integers := by
   have bodyChecked := ((program.checkBody_iff after).mp checked).2.2.2
-  exact (statements_execution_sound valid.2.2.2.2.1 bodyChecked
+  exact (statements_execution_sound (booleans := program.initialBooleans arguments) valid.2.2.2.2.1 bodyChecked
     (program.initial_fits valid arguments) (program.input_domain arguments).2
     ⟨program.initial_allowed arguments, program.initial_integer_fits valid⟩
     (program.initial_integer_fits valid)).scalars
@@ -200,6 +229,13 @@ theorem Program.immutable_snapshot_preserved {program : Program} (valid : progra
   have bodyChecked := ((program.checkBody_iff after).mp checked).2.2.2
   exact statements_unchanged bodyChecked readonly
 
+theorem Program.immutable_boolean_preserved {program : Program} (valid : program.Valid)
+    {index : Nat} (readonly : program.bodyBooleanAnalysis.mutable index = false)
+    (arguments : Arguments.Runtime.Arguments) :
+    (program.execute arguments).booleans index = program.initialBooleans arguments index := by
+  obtain ⟨after, checked, _⟩ := valid.2.2.2.2.2
+  exact statements_booleans_unchanged (((program.checkBody_iff after).mp checked).2.2.2) readonly
+
 theorem Program.invalid_trace {program : Program} (valid : program.Valid)
     (arguments : Arguments.Runtime.Arguments) (invalid : program.inputValid arguments = false) :
     Effect.reject ∈ (program.execute arguments).effects ∧ NoOutput (program.execute arguments).effects := by
@@ -207,7 +243,7 @@ theorem Program.invalid_trace {program : Program} (valid : program.Valid)
   have allowed := program.initial_allowed arguments
   rw [invalid] at allowed
   have bodyChecked := ((program.checkBody_iff after).mp checked).2.2.2
-  have behavior := completed_invalid_rejected valid.2.2.2.2.1 bodyChecked
+  have behavior := completed_invalid_rejected (booleans := program.initialBooleans arguments) valid.2.2.2.2.1 bodyChecked
     (program.initial_fits valid arguments) (program.input_domain arguments).2
     ⟨allowed, program.initial_integer_fits valid⟩ finished (program.initial_integer_fits valid)
   simpa only [Program.execute, invalid] using behavior
@@ -277,17 +313,19 @@ def scalarObligation (check : Integer.Obligation) : Semantics.Obligation :=
 def Program.obligations (program : Program) : List Semantics.Obligation :=
   (declarationChecks program).map Compose.Check.toObligation ++
     (integerDeclarationChecks program ++ program.initializerChecks).map scalarObligation ++
-    modeledObligations program.names.shape program.bodyAnalysis program.initialFlow program.statements
+    ((program.booleanInitializerChecks ++ booleanDeclarationObligations program.names.shape
+      Integer.Analysis.empty program.booleanInitialFlow 0 program.booleanDeclarations).map Obligation.toObligation) ++
+    modeledObligations program.names.shape program.bodyAnalysis program.initialFlow program.statements program.bodyBooleanAnalysis
 
 theorem Program.declaration_checks_valid {program : Program} (valid : program.Valid) :
     ∀ check ∈ declarationChecks program, check.Valid := by
   intro check member
   rcases List.mem_append.mp member with range | length
   · obtain ⟨schema, present, rfl⟩ := List.mem_map.mp range
-    apply Guarded.RangeObligation.valid_of_refines (Compose.declaration_schemas valid.1 schema present)
+    apply Guarded.RangeObligation.valid_of_refines (Compose.declaration_schemas valid.1.1 schema present)
     exact Compose.uniform_range_valid _ (by simp [Compose.uniformRangeObligations])
   · obtain ⟨schema, present, rfl⟩ := List.mem_map.mp length
-    exact Compose.declaration_lengths_valid valid.1 schema present
+    exact Compose.declaration_lengths_valid valid.1.1 schema present
 
 theorem Program.integer_declaration_checks_discharge {program : Program} (valid : program.Valid) :
     Integer.discharged (integerDeclarationChecks program) = true := by
@@ -305,16 +343,25 @@ theorem Program.scalar_checks_discharge {program : Program} (valid : program.Val
     program.initializer_checks_discharge valid]
   rfl
 
+theorem Program.boolean_initializer_checks_discharge {program : Program} (valid : program.Valid) :
+    discharged (program.booleanInitializerChecks ++ booleanDeclarationObligations program.names.shape
+      Integer.Analysis.empty program.booleanInitialFlow 0 program.booleanDeclarations) = true := by
+  rw [discharged_append, valid.1.2.2.2, boolean_declaration_obligations_exact, valid.1.2.2.1]
+  rfl
+
 theorem Program.all_obligations_discharge {program : Program} (valid : program.Valid) :
     Semantics.discharge program.obligations = true := by
   apply (Semantics.discharge_iff _).mpr
   intro check member
   rcases List.mem_append.mp member with declarations | body
-  · rcases List.mem_append.mp declarations with declaration | scalar
-    · obtain ⟨schema, present, rfl⟩ := List.mem_map.mp declaration
-      exact (Compose.Check.discharge_iff _).mpr (program.declaration_checks_valid valid schema present)
-    · obtain ⟨schema, present, rfl⟩ := List.mem_map.mp scalar
-      exact List.all_eq_true.mp (program.scalar_checks_discharge valid) schema present
+  · rcases List.mem_append.mp declarations with earlier | booleans
+    · rcases List.mem_append.mp earlier with declaration | scalar
+      · obtain ⟨schema, present, rfl⟩ := List.mem_map.mp declaration
+        exact (Compose.Check.discharge_iff _).mpr (program.declaration_checks_valid valid schema present)
+      · obtain ⟨schema, present, rfl⟩ := List.mem_map.mp scalar
+        exact List.all_eq_true.mp (program.scalar_checks_discharge valid) schema present
+    · obtain ⟨schema, present, rfl⟩ := List.mem_map.mp booleans
+      exact List.all_eq_true.mp (program.boolean_initializer_checks_discharge valid) schema present
   · obtain ⟨after, checked, _⟩ := valid.2.2.2.2.2
     have bodyChecked := ((program.checkBody_iff after).mp checked).2.2.2
     exact (Semantics.discharge_iff _).mp (all_modeled_obligations_discharge bodyChecked) check body
@@ -322,20 +369,22 @@ theorem Program.all_obligations_discharge {program : Program} (valid : program.V
 /-- Source-reading rules can retain omitted `else` while lowering its meaning
 without inventing an effect or bypassing the false path. -/
 theorem omitted_else_meaning (condition : Condition) (yes : List Statement)
-    (input : Source) (valid : Bool) (values : Values) (integers : Integer.Store := Integer.emptyStore) :
-    (Statement.choice condition yes []).execute input valid values integers =
-      if condition.evaluate values input valid integers then executeStatements input valid values yes integers
-      else ⟨values, [], integers⟩ := by
+    (input : Source) (valid : Bool) (values : Values) (integers : Integer.Store := Integer.emptyStore)
+    (booleans : Boolean.Store := Boolean.emptyStore) :
+    (Statement.choice condition yes []).execute input valid values integers booleans =
+      if condition.evaluate values input valid integers booleans then executeStatements input valid values yes integers booleans
+      else ⟨values, [], integers, booleans⟩ := by
   simp only [Statement.execute, executeStatements]
 
 /-- An `elsif` tests its predicate only after all preceding tests were false;
 its normalized representation preserves that evaluation order. -/
 theorem elsif_meaning (condition next : Condition) (yes following no : List Statement)
-    (input : Source) (valid : Bool) (values : Values) (integers : Integer.Store := Integer.emptyStore) :
-    (Statement.choice condition yes [.choice next following no]).execute input valid values integers =
-      if condition.evaluate values input valid integers then executeStatements input valid values yes integers
-      else if next.evaluate values input valid integers then executeStatements input valid values following integers
-      else executeStatements input valid values no integers := by
+    (input : Source) (valid : Bool) (values : Values) (integers : Integer.Store := Integer.emptyStore)
+    (booleans : Boolean.Store := Boolean.emptyStore) :
+    (Statement.choice condition yes [.choice next following no]).execute input valid values integers booleans =
+      if condition.evaluate values input valid integers booleans then executeStatements input valid values yes integers booleans
+      else if next.evaluate values input valid integers booleans then executeStatements input valid values following integers booleans
+      else executeStatements input valid values no integers booleans := by
   simp only [Statement.execute, executeStatements, List.append_nil]
 
 end Silver.Predicate

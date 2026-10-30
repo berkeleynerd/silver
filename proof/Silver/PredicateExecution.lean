@@ -259,6 +259,91 @@ mutual
   termination_by sizeOf items
 end
 
+/-- Boolean cells are independent of lexical Integer loop bindings. -/
+theorem iterations_booleans_unchanged {step : Values → Integer.Store → Boolean.Store → Int → Execution}
+    {values : Values} {integers : Integer.Store} {booleans : Boolean.Store} {indices : List Int} {index : Nat}
+    (unchanged : ∀ current scalars flags value, (step current scalars flags value).booleans index = flags index) :
+    (executeIterations step values integers booleans indices).booleans index = booleans index := by
+  induction indices generalizing values integers booleans with
+  | nil => rfl
+  | cons value rest ih =>
+      exact (ih (values := (step values integers booleans value).values)
+        (integers := (step values integers booleans value).integers)
+        (booleans := (step values integers booleans value).booleans)).trans
+          (unchanged values integers booleans value)
+
+mutual
+  theorem statement_booleans_unchanged {shape : Shape} {analysis : Integer.Analysis}
+      {booleanAnalysis : Boolean.Analysis} {before after : Flow} {item : Statement}
+      {input : Source} {valid : Bool} {values : Values} {integers : Integer.Store} {booleans : Boolean.Store}
+      {index : Nat} (checked : item.check shape analysis before booleanAnalysis = some after)
+      (readonly : booleanAnalysis.mutable index = false) :
+      (item.execute input valid values integers booleans).booleans index = booleans index := by
+    cases item with
+    | simple item => cases item <;> simp only [Statement.execute, executeSimpleStatement]
+    | scalarAssign | arrayAssign | reject => simp only [Statement.execute]
+    | booleanAssign update =>
+        simp only [Statement.check] at checked
+        split at checked
+        · rename_i good
+          have writable := Boolean.canWrite_mutable (Bool.and_eq_true_iff.mp good).1
+          have different : index ≠ update.target := by
+            intro same
+            rw [← same, readonly] at writable
+            contradiction
+          simpa only [Statement.execute] using Boolean.put_other booleans update.target
+            (update.value.evaluate values input valid integers booleans) index different
+        · contradiction
+    | choice condition yes no =>
+        simp only [Statement.check] at checked
+        split at checked
+        · simp only [Option.bind_eq_some_iff, Option.map_eq_some_iff] at checked
+          obtain ⟨afterYes, yesChecked, afterNo, noChecked, _⟩ := checked
+          simp only [Statement.execute]
+          split
+          · exact statements_booleans_unchanged yesChecked readonly
+          · exact statements_booleans_unchanged noChecked readonly
+        · contradiction
+    | forLoop binder reverse lower upper body =>
+        simp only [Statement.check, Option.bind_eq_some_iff, Option.map_eq_some_iff] at checked
+        obtain ⟨a, _, b, _, bodyAfter, bodyChecked, _⟩ := checked
+        simp only [Statement.execute]
+        apply iterations_booleans_unchanged
+        intro current scalars flags value
+        exact statements_booleans_unchanged bodyChecked readonly
+    | arrayLoop binder reverse array body =>
+        simp only [Statement.check] at checked
+        split at checked
+        · simp only [Option.map_eq_some_iff] at checked
+          obtain ⟨bodyAfter, bodyChecked, _⟩ := checked
+          simp only [Statement.execute]
+          apply iterations_booleans_unchanged
+          intro current scalars flags value
+          exact statements_booleans_unchanged bodyChecked readonly
+        · contradiction
+  termination_by sizeOf item
+
+  theorem statements_booleans_unchanged {shape : Shape} {analysis : Integer.Analysis}
+      {booleanAnalysis : Boolean.Analysis} {before after : Flow} {items : List Statement}
+      {input : Source} {valid : Bool} {values : Values} {integers : Integer.Store} {booleans : Boolean.Store}
+      {index : Nat} (checked : checkStatements shape analysis before items booleanAnalysis = some after)
+      (readonly : booleanAnalysis.mutable index = false) :
+      (executeStatements input valid values items integers booleans).booleans index = booleans index := by
+    cases items with
+    | nil => simp only [executeStatements]
+    | cons item rest =>
+        simp only [checkStatements, Option.bind_eq_some_iff] at checked
+        obtain ⟨middle, firstChecked, restChecked⟩ := checked
+        have first := statement_booleans_unchanged (input := input) (valid := valid)
+          (values := values) (integers := integers) (booleans := booleans) firstChecked readonly
+        have following := statements_booleans_unchanged (input := input) (valid := valid)
+          (values := (item.execute input valid values integers booleans).values)
+          (integers := (item.execute input valid values integers booleans).integers)
+          (booleans := (item.execute input valid values integers booleans).booleans) restChecked readonly
+        simpa only [executeStatements] using following.trans first
+  termination_by sizeOf items
+end
+
 /-- Constant arrays retain their actual components across every admitted body,
 including nested loops, branches, other-array writes and returning Reject. -/
 theorem statements_constant_components {shape : Shape} {analysis : Integer.Analysis} {booleanAnalysis : Boolean.Analysis}
