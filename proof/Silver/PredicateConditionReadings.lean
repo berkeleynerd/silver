@@ -1,6 +1,7 @@
 module
 
 public import Silver.PredicateReadings
+public import Silver.PredicateCharacterReadings
 
 @[expose] public section
 
@@ -136,10 +137,17 @@ mutual
         RelationAtCore text context initials position facts
           (.stringCompare ((comparisonAt text leftResult.after).operator != .eq) left right)
           (stringResult facts leftResult rightResult (comparisonAt text leftResult.after))
+    | character {position facts inner result} : position ≠ 0 →
+        fixedAfter text position "not" true = 0 → (lengthAt text context position false).after = 0 →
+        (readScalarInFlow text context position facts (initials := initials)).after = 0 →
+        (readStringInFlow text context position facts initials).after = 0 →
+        CharacterRelationAt text context position facts initials inner result →
+        RelationAtCore text context initials position facts inner result
     | primary {position facts inner result} : position ≠ 0 →
         fixedAfter text position "not" true = 0 → (lengthAt text context position false).after = 0 →
         (readScalarInFlow text context position facts (initials := initials)).after = 0 →
         (readStringInFlow text context position facts initials).after = 0 →
+        (characterCondition text context position facts initials).after = 0 →
         BooleanRelationAtCore text context initials position facts inner result →
         RelationAtCore text context initials position facts inner result
 
@@ -264,9 +272,13 @@ theorem relation_complete {text context position facts condition result initials
         leftEq, ready.1, operatorAllowed, rightEq,
         Nat.not_le.mpr advanced, ready.2.2.2.2.1, ready.2.2.2.2.2.1, ready.2.2.2.2.2.2,
         Bool.not_true, Bool.false_eq_true, or_self, not_false_eq_true, stringResult]
-  | primary positive noNot noLength noScalar noExpression primary =>
-      simp only [readRelation, positive, noNot, noLength, noScalar, noExpression, ne_eq, not_true_eq_false,
-        ↓reduceIte, booleanRelation_complete primary]
+  | character positive noNot noLength noScalar noExpression inner =>
+      simp only [readRelation, positive, noNot, noLength, noScalar, noExpression,
+        ne_eq, not_true_eq_false, ↓reduceIte]
+      rw [characterRelation_complete inner, ite_eq_left (characterRelation_positive inner)]
+  | primary positive noNot noLength noScalar noExpression noCharacter inner =>
+      simp only [readRelation, positive, noNot, noLength, noScalar, noExpression,
+        noCharacter, ne_eq, not_true_eq_false, ↓reduceIte, booleanRelation_complete inner]
 
 theorem chain_complete {text context condition result chained final finalResult incoming initials originalStart}
     (parsed : ChainAt text context condition result chained final finalResult incoming initials originalStart) :

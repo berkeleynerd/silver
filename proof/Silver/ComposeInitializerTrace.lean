@@ -13,37 +13,66 @@ Image operands, including their actual visibility and arithmetic syntax. -/
 namespace Silver.Compose
 open Bindings
 
-def DeclarationChecksAt (text : Source) (state : ParserState) (declaration : Declaration)
-    (checks : List Integer.Obligation) : Prop :=
-  ∃ raw result,
-    ExpressionAt text state.names (declarationValuePosition text state) raw result state.scalarNames
-      (declarationIntegerHidden text state)
-      state.arrayNames.names state.arrayNames.values true ∧
-    declaration.initializer = raw.freezeImages (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values) ∧
-    checks = raw.imageObligations (ArrayBindings.ranges state.arrayNames.names state.arrayNames.values true
-      (ScalarExpression.ranges state.scalarNames)) state.names.shape
+set_option maxHeartbeats 1000000
+
+inductive DeclarationChecksAt (text : Source) (arguments : Bool) (state : ParserState)
+    (declaration : Declaration) : List Integer.Obligation → Prop
+  | string {raw result} :
+      (characterDeclarationAt text state arguments).position = 0 →
+      ExpressionAt text state.names (declarationValuePosition text state) raw result state.scalarNames
+        (declarationIntegerHidden text state) state.arrayNames.names state.arrayNames.values true →
+      declaration.initializer = raw.freezeImages
+        (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values) →
+      DeclarationChecksAt text arguments state declaration
+        (raw.imageObligations (ArrayBindings.ranges state.arrayNames.names state.arrayNames.values true
+          (ScalarExpression.ranges state.scalarNames)) state.names.shape)
+  | character {raw result} :
+      (characterDeclarationAt text state arguments).position ≠ 0 →
+      CharacterAt text state.names state.scalarNames state.arrayNames.names state.arrayNames.values true
+        (fixedAfter text (characterDeclarationParts text state).typeAfter ":=" false) raw result →
+      declaration.initializer = Expression.freezeImages [Value.character raw]
+        (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values) →
+      DeclarationChecksAt text arguments state declaration
+        (Expression.imageObligations [Value.character raw]
+          (ArrayBindings.ranges state.arrayNames.names state.arrayNames.values true
+            (ScalarExpression.ranges state.scalarNames)) state.names.shape)
 
 theorem declaration_image_trace {text : Source} {arguments : Bool} {state next : ParserState}
     {declaration : Declaration} (parsed : DeclarationAt text arguments state declaration next) :
-    ∃ checks, DeclarationChecksAt text state declaration checks := by
+    ∃ checks, DeclarationChecksAt text arguments state declaration checks := by
   cases parsed with
-  | declaration parts allowed following count bounded nonempty exact value =>
-      exact ⟨_, _, _, value, rfl, rfl⟩
+  | string noCharacter source =>
+      cases source with
+      | declaration _ _ _ _ _ _ _ _ value => exact ⟨_, .string noCharacter value rfl⟩
+  | character source =>
+      have positive : (characterDeclarationAt text state arguments).position ≠ 0 := by
+        rw [character_declaration_complete source]
+        exact character_declaration_positive source
+      cases source with
+      | declaration parts _ _ value =>
+          exact ⟨_, .character positive (by simpa only [parts] using value) rfl⟩
 
-theorem declaration_image_checks {text : Source} {state : ParserState}
+theorem declaration_image_checks {text : Source} {arguments : Bool} {state : ParserState}
     {declaration : Declaration} {checks : List Integer.Obligation}
-    (normal : NamesNormal state.names) (trace : DeclarationChecksAt text state declaration checks) :
-    Integer.discharged checks = true := by
-  obtain ⟨raw, result, parsed, _, rfl⟩ := trace
-  exact Expression.image_obligations_discharge (expressionAt_inferLength normal parsed)
+    (normal : NamesNormal state.names)
+    (trace : DeclarationChecksAt text arguments state declaration checks) : Integer.discharged checks = true := by
+  cases trace with
+  | string _ parsed _ => exact Expression.image_obligations_discharge (expressionAt_inferLength normal parsed)
+  | character _ parsed _ => exact Expression.image_obligations_discharge (characterExpression_inferLength normal parsed)
 
-theorem declaration_image_unique {text : Source} {state : ParserState} {declaration : Declaration}
-    {first second : List Integer.Obligation}
-    (left : DeclarationChecksAt text state declaration first)
-    (right : DeclarationChecksAt text state declaration second) : first = second := by
-  obtain ⟨raw, result, parsed, _, rfl⟩ := left
-  obtain ⟨other, otherResult, otherParsed, _, rfl⟩ := right
-  rw [(expressionTail_unique parsed otherParsed).1]
+theorem declaration_image_unique {text : Source} {arguments : Bool} {state : ParserState}
+    {declaration : Declaration} {first second : List Integer.Obligation}
+    (left : DeclarationChecksAt text arguments state declaration first)
+    (right : DeclarationChecksAt text arguments state declaration second) : first = second := by
+  cases left with
+  | string absent parsed _ =>
+      cases right with
+      | string _ other _ => rw [(expressionTail_unique parsed other).1]
+      | character present _ _ => exact False.elim (present absent)
+  | character present parsed _ =>
+      cases right with
+      | string absent _ _ => exact False.elim (present absent)
+      | character _ other _ => rw [(character_unique parsed other).1]
 
 /-- The scalar projection may freeze array reads, but its complete raw
 initializer stays in the obligation trace, including arithmetic and indexing. -/
@@ -87,7 +116,7 @@ inductive InitializerChecksAt (text : Source) (arguments : Bool) :
       (arrayDeclarationAt text state arguments).position = 0 →
       (booleanDeclarationAt text state arguments).position = 0 →
       DeclarationAt text arguments state declaration middle →
-      DeclarationChecksAt text state declaration checks →
+      DeclarationChecksAt text arguments state declaration checks →
       InitializerChecksAt text arguments middle rest final →
       InitializerChecksAt text arguments state (checks ++ rest) final
   | scalar {state middle final : ParserState} {declaration : Integer.Declaration}
@@ -159,7 +188,10 @@ theorem initializer_checks_discharge {text : Source} {arguments : Bool} {state f
   | done => rfl
   | string _ _ _ _ _ _ declaration checks _ ih =>
       rw [Integer.discharged_append, declaration_image_checks normal checks,
-        ih (declaration_normal normal declaration) (by cases declaration; exact subtypes)]
+        ih (declaration_normal normal declaration) (by
+          cases declaration with
+          | string _ source => cases source; exact subtypes
+          | character source => cases source; exact subtypes)]
       rfl
   | scalar _ _ _ declaration checks _ ih =>
       rw [Integer.discharged_append, scalar_declaration_checks_discharge checks]

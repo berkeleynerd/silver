@@ -1,7 +1,7 @@
 module
 
 public import Silver.PredicateConditionAdmission
-public import Silver.ComposeCharacterReading
+public import Silver.ComposeCharacterProperties
 public import Silver.PathBounds
 
 @[expose] public section
@@ -89,6 +89,27 @@ theorem characterRelation_meaning {text context position facts initials conditio
       have rightChecked := character_check normal right
       rw [context.reading_ranges compatible initials] at leftChecked rightChecked
       simp only [Condition.checkBounds, leftChecked, rightChecked, Bool.and_self]
+
+theorem characterRelation_positive {text context position facts initials condition result}
+    (parsed : CharacterRelationAt text context position facts initials condition result) : result.after ≠ 0 := by
+  cases parsed with
+  | comparison _ _ _ _ progress _ => simp only; omega
+
+theorem characterRelation_after_bounded {text context position facts initials condition result}
+    (parsed : CharacterRelationAt text context position facts initials condition result) : result.after ≤ text.length + 1 := by
+  cases parsed with
+  | comparison _ right _ _ _ _ => exact character_after_bounded right
+
+theorem characterRelation_unique {text context position facts initials left right leftResult rightResult}
+    (first : CharacterRelationAt text context position facts initials left leftResult)
+    (second : CharacterRelationAt text context position facts initials right rightResult) : left = right := by
+  cases first with
+  | comparison leftRead rightRead _ _ _ _ =>
+      cases second with
+      | comparison otherLeft otherRight _ _ _ _ =>
+          obtain ⟨rfl, rfl⟩ := character_unique leftRead otherLeft
+          obtain ⟨rfl, rfl⟩ := character_unique rightRead otherRight
+          rfl
 
 theorem characterCondition_bounded (text : Source) (context : ParseContext) (position : Nat)
     (facts : ActiveFlow) (initials : ArrayBindings.Initials) (bounded : facts.path.Bounded) :

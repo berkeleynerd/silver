@@ -289,8 +289,8 @@ def EventValid (state next : ParserState) (event : Option Event) : Prop :=
 
 theorem initial_valid : StateValid initialState := by
   refine ⟨?_, Nat.le_refl _, Or.inl rfl, ScalarExpression.static_empty⟩
-  intro index info present
-  simp [initialState, BindingEnvironment.get] at present
+  constructor <;> intro index info present <;>
+    simp [initialState, BindingEnvironment.get] at present
 
 theorem assignment_safe {text : Source} {state : ParserState} {value : Expression}
     (normal : NamesNormal state.names) (static : ScalarExpression.StaticEnvironment state.scalarNames)
@@ -305,14 +305,14 @@ theorem assignment_safe {text : Source} {state : ParserState} {value : Expressio
   generalize infoEq : (state.names.get state.target).getD {} = info
   have observed : assignmentAt text state =
       if !fits result state.capacity || result.emptyValue || decide (result.minimumLength ≠ result.staticLength ∨ state.target = 0 ∨ result.staticLength ≠ info.staticLength ∨
-          result.dynamicCount ≠ (if info.dynamic then 1 else 0)) then invalidState
+          result.dynamicCount ≠ (if info.dynamic then 1 else 0) ∨ info.isCharacter = true) then invalidState
       else {state with position := result.after} := by simp only [assignmentAt, valueEq, infoEq]
   have bounded : fits result state.capacity = true := by
     by_cases good : fits result state.capacity = true
     · exact good
     · simp [observed, good, invalidState] at accepted
   have correct : ¬(result.minimumLength ≠ result.staticLength ∨ state.target = 0 ∨ result.staticLength ≠ info.staticLength ∨
-      result.dynamicCount ≠ (if info.dynamic then 1 else 0)) := by
+      result.dynamicCount ≠ (if info.dynamic then 1 else 0) ∨ info.isCharacter = true) := by
     intro bad
     simp [observed, bad, invalidState] at accepted
   have nonempty : result.emptyValue = false := by

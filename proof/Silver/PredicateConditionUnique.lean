@@ -103,7 +103,7 @@ mutual
     | booleanNot _ opening inner =>
         cases second with
         | booleanNot _ _ other => exact booleanRelation_unique inner other
-        | length _ noNot | scalars _ noNot | strings _ noNot | primary _ noNot => exact False.elim (opening noNot)
+        | length _ noNot | scalars _ noNot | strings _ noNot | character _ noNot | primary _ noNot => exact False.elim (opening noNot)
     | length _ noNot leftPositive leftRead rightRead _ =>
         cases second with
         | booleanNot _ opening => exact False.elim (opening noNot)
@@ -114,7 +114,7 @@ mutual
             have rightSame := (lengthAt_unique rightRead otherRight).1
             cases rightSame
             rfl
-        | scalars _ _ noLength | strings _ _ noLength | primary _ _ noLength =>
+        | scalars _ _ noLength | strings _ _ noLength | character _ _ noLength | primary _ _ noLength =>
             rw [lengthAt_complete leftRead] at noLength
             exact False.elim (leftPositive noLength)
     | scalars _ noNot noLength leftPositive leftRead rightRead _ =>
@@ -127,7 +127,7 @@ mutual
             obtain ⟨rfl, rfl⟩ := ScalarExpression.at_unique leftRead otherLeft
             obtain ⟨rfl, _⟩ := ScalarExpression.at_unique rightRead otherRight
             rfl
-        | strings _ _ _ noScalar | primary _ _ _ noScalar =>
+        | strings _ _ _ noScalar | character _ _ _ noScalar | primary _ _ _ noScalar =>
             change (ScalarExpression.read text position (context.readingNames facts) (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating)).after = 0 at noScalar
             rw [ScalarExpression.read_complete leftRead] at noScalar
             exact False.elim (leftPositive noScalar)
@@ -145,10 +145,10 @@ mutual
             obtain ⟨rfl, rfl⟩ := expressionTail_unique leftRead otherLeft
             obtain ⟨rfl, _⟩ := expressionTail_unique rightRead otherRight
             rfl
-        | primary _ _ _ _ noExpression =>
+        | character _ _ _ _ noExpression | primary _ _ _ _ noExpression =>
             rw [show readStringInFlow text context position facts initials = _ from expressionTail_complete leftRead] at noExpression
             exact False.elim (ready.1 noExpression)
-    | primary _ noNot noLength noScalar noExpression inner =>
+    | character _ noNot noLength noScalar noExpression inner =>
         cases second with
         | booleanNot _ opening => exact False.elim (opening noNot)
         | length _ _ leftPositive left _ _ =>
@@ -161,7 +161,29 @@ mutual
         | strings _ _ _ _ left _ ready _ =>
             rw [show readStringInFlow text context position facts initials = _ from expressionTail_complete left] at noExpression
             exact False.elim (ready.1 noExpression)
-        | primary _ _ _ _ _ other => exact booleanRelation_unique inner other
+        | character _ _ _ _ _ other => exact characterRelation_unique inner other
+        | primary _ _ _ _ _ noCharacter _ =>
+            have positive := characterRelation_positive inner
+            rw [← characterRelation_complete inner, noCharacter] at positive
+            contradiction
+    | primary _ noNot noLength noScalar noExpression noCharacter inner =>
+        cases second with
+        | booleanNot _ opening => exact False.elim (opening noNot)
+        | length _ _ leftPositive left _ _ =>
+            rw [lengthAt_complete left] at noLength
+            exact False.elim (leftPositive noLength)
+        | scalars _ _ _ leftPositive left _ _ =>
+            change (ScalarExpression.read text position (context.readingNames facts) (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating)).after = 0 at noScalar
+            rw [ScalarExpression.read_complete left] at noScalar
+            exact False.elim (leftPositive noScalar)
+        | strings _ _ _ _ left _ ready _ =>
+            rw [show readStringInFlow text context position facts initials = _ from expressionTail_complete left] at noExpression
+            exact False.elim (ready.1 noExpression)
+        | character _ _ _ _ _ other =>
+            have positive := characterRelation_positive other
+            rw [← characterRelation_complete other, noCharacter] at positive
+            contradiction
+        | primary _ _ _ _ _ _ other => exact booleanRelation_unique inner other
 
   termination_by (remainingAt text position, 4)
   decreasing_by all_goals first | exact Prod.Lex.left _ _ (by assumption) | exact Prod.Lex.right _ (by decide)

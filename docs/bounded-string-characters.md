@@ -162,3 +162,16 @@ checks do not establish complete source correspondence. The core worker's
 Character predicate/Boolean composition check passed 11666 declarations against
 its exact `179f73e009` inputs. Complete native proof, full Lean source/module/
 axiom audit, final regression inventory and independent review remain required.
+
+The next source-proof integration round retains the selected Astra / Extra High
+lead and semantic worker and Sol / Extra High native worker; runtime settings
+and token/cost totals remain unavailable. Actual-bound metadata and grouped
+concatenation safety passed focused Linux checking (72 jobs, fresh audit of
+8419 declarations). The integrated typed String/Character declaration-list
+proof at `d133dd2de8` passed 82 jobs and a fresh audit of 8833 declarations
+(build 7.949 seconds, audit 5.884 seconds, using retained compiled dependencies).
+These are focused results, not complete feature or source-correspondence
+assurance. Raw initializer traces, condition/assignment source composition,
+ordered bound preservation and exact native typed-source rendering remain
+under integration. A requested fourth thread was unavailable because the
+session's agent limit was reached; work stays with the existing team.
