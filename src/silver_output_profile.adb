@@ -1058,7 +1058,9 @@ is
       if Left.Operands = 0
         or else (Left.Static_Length = 0 and then Left.Dynamic_Count = 0)
       then return Right.Last_Index; end if;
-      if Scalars.Is_Empty (First) or else Low < Scalars.Minimum or else High > Scalars.Maximum
+      if Scalars.Is_Empty (First)
+        or else Low < Scalars.Minimum or else Low > Scalars.Maximum
+        or else High < Scalars.Minimum or else High > Scalars.Maximum
       then return Scalars.Empty; end if;
       Result := (Scalars.Value (Low), Scalars.Value (High));
       if Minimum = 0 then Result := Scalars.Join (Result, Right.Last_Index); end if;
