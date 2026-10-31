@@ -175,6 +175,48 @@ theorem model_image_valid (text : Source) (position : Nat) (names : BindingEnvir
     unfold LengthSummary.ofImage
     split <;> simp only <;> unfold maxSourceLength maxBindings <;> omega
 
+theorem model_indexed_valid (text : Source) (position : Nat) (names : BindingEnvironment)
+    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Metadata}
+    {initials : ArrayBindings.Initials} {elaborating element : Bool} (namesValid : ValidNames text names) :
+    ValidValue text (indexedAt text position names scalarNames arrays initials elaborating element) := by
+  have following : (indexedParts text position names scalarNames arrays initials elaborating element).following ≤ text.length + 1 :=
+    fixedAfter_result_bound text _ ")" false (by decide)
+  have target : (indexedParts text position names scalarNames arrays initials elaborating element).target ≤ maxBindings :=
+    Nat.le_trans (model_lookup_valid text names _ _) namesValid.1
+  unfold indexedAt
+  dsimp only
+  split
+  · simp [invalidValue, ValidValue]
+  · rename_i ready
+    split
+    · split
+      · simp [invalidValue, ValidValue]
+      · dsimp only [ValidValue]
+        exact ⟨following, by omega, by decide, target, by decide⟩
+    · split
+      · simp [invalidValue, ValidValue]
+      · rename_i allowed
+        split
+        · simp [invalidValue, ValidValue]
+        · rename_i maximum
+          have lowerNonempty : (indexedParts text position names scalarNames arrays initials elaborating element).lower.bounds.isEmpty = false := by
+            simp only [not_or, Bool.not_eq_true] at ready
+            exact ready.2.2.2.2.2
+          have upperNonempty : (indexedParts text position names scalarNames arrays initials elaborating element).upper.bounds.isEmpty = false := by
+            simp only [not_or, Bool.not_eq_true] at allowed
+            exact allowed.2.1
+          have lengths : StringIndexing.sliceMinimum
+              (indexedParts text position names scalarNames arrays initials elaborating element).lower.bounds
+              (indexedParts text position names scalarNames arrays initials elaborating element).upper.bounds ≤
+              StringIndexing.sliceMaximum
+              (indexedParts text position names scalarNames arrays initials elaborating element).lower.bounds
+              (indexedParts text position names scalarNames arrays initials elaborating element).upper.bounds := by
+            simp only [Integer.Interval.isEmpty, decide_eq_false_iff_not] at lowerNonempty upperNonempty
+            simp only [StringIndexing.sliceMinimum, StringIndexing.sliceMaximum, StringIndexing.sliceLength]
+            omega
+          dsimp only [ValidValue]
+          exact ⟨following, by omega, by omega, target, by omega⟩
+
 theorem model_value_valid (text : Source) (valid : ValidText text) (position : Nat)
     (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
     {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool} (namesValid : ValidNames text names) :
@@ -184,43 +226,52 @@ theorem model_value_valid (text : Source) (valid : ValidText text) (position : N
   split
   · exact model_literal_valid text valid _
   · split
-    · rename_i found
-      obtain ⟨_, _, info, present, _⟩ := lookupName_found found.1
-      have member : info ∈ names := by
-        exact List.mem_of_getElem? (by simpa [Bindings.BindingEnvironment.get, found.1] using present)
-      have infoValid := namesValid.2 info member
-      have indexBound := model_lookup_valid text names (skipAt text position) (nameAfter text (skipAt text position))
-      simp only [present, Option.getD_some, ValidValue]
-      exact ⟨model_name_valid text _, infoValid.2.1, infoValid.2.2,
-        Nat.le_trans indexBound namesValid.1, infoValid.2.2⟩
-    · exact model_image_valid text position names scalarNames integerHidden arrays initials elaborating
+    · exact model_indexed_valid text position names namesValid
+    · split
+      · rename_i found
+        obtain ⟨_, _, info, present, _⟩ := lookupName_found found.1
+        have member : info ∈ names := by
+          exact List.mem_of_getElem? (by simpa [Bindings.BindingEnvironment.get, found.1] using present)
+        have infoValid := namesValid.2 info member
+        have indexBound := model_lookup_valid text names (skipAt text position) (nameAfter text (skipAt text position))
+        simp only [present, Option.getD_some, ValidValue]
+        exact ⟨model_name_valid text _, infoValid.2.1, infoValid.2.2,
+          Nat.le_trans indexBound namesValid.1, infoValid.2.2⟩
+      · exact model_image_valid text position names scalarNames integerHidden arrays initials elaborating
+
+theorem value_source_advances {text : Source} {position : Nat} {names : BindingEnvironment}
+    {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
+    {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool}
+    {value : Operand} {result : ValueResult} (bound : ValidCursor text position)
+    (parsed : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays)
+      (initials := initials) (elaborating := elaborating) text names position value result) :
+    position < result.after := by
+  cases parsed with
+  | literal positive literalBound quote source =>
+      rename_i after bytes
+      change position < after
+      have skipped := skipAt_advances text position bound positive
+      have advance := Output.literalAt_bounds source
+      omega
+  | reference positive source _ _ _ _ _ _ =>
+      have skipped := skipAt_advances text position bound positive
+      have complete := identifierEnd_complete source
+      have accepted : identifierEnd text (skipAt text position) ≠ 0 := by
+        rw [complete]
+        have advance := identifier_bounds source
+        omega
+      have advance := identifierEnd_bounds text _ accepted
+      simp only [stringReferenceValue]
+      omega
+  | slice _ _ source => exact source.following
+  | image _ _ _ source => exact source.following
 
 theorem model_value_advances (text : Source) (position : Nat) (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
     {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool}
     (bound : ValidCursor text position) (nonzero : (valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names).after ≠ 0) :
     position < (valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text position names).after := by
-  by_cases quoted : (literalAt text (skipAt text position)).after ≠ 0
-  · have literalAdvance := literalAt_advances text (skipAt text position) quoted
-    have startNonzero : skipAt text position ≠ 0 := by
-      intro zero
-      simp [literalAt, zero, invalidValue] at quoted
-    have skipped := skipAt_advances text position bound startNonzero
-    unfold valueAt
-    dsimp only
-    rw [ite_eq_left quoted]
-    exact Nat.lt_of_le_of_lt skipped literalAdvance
-  · by_cases found : lookupName text names (skipAt text position) (nameAfter text (skipAt text position)) ≠ 0 ∧
-        ScalarExpression.lookup text scalarNames (skipAt text position) (nameAfter text (skipAt text position)) = 0
-    · have name := lookupName_found found.1
-      have skipped := skipAt_advances text position bound name.1
-      unfold valueAt
-      dsimp only
-      rw [ite_eq_right quoted, ite_eq_left found]
-      exact Nat.lt_of_le_of_lt skipped name.2.1
-    · have accepted : (imageAt text position names scalarNames integerHidden arrays initials elaborating).after ≠ 0 := by
-        simpa [valueAt, quoted, found] using nonzero
-      obtain ⟨expression, parsed⟩ := image_sound accepted
-      simpa [valueAt, quoted, found, image_complete parsed, imageValue] using parsed.following
+  obtain ⟨value, parsed⟩ := value_sound text position names nonzero
+  exact value_source_advances bound parsed
 
 theorem model_invalid_scan_valid (text : Source) : ValidScan text invalidExpressionState := by
   simp [ValidScan, ValidCursor, invalidExpressionState]
@@ -260,6 +311,8 @@ theorem model_scan_valid (text : Source) (valid : ValidText text)
           · rename_i admitted
             have nonempty : (valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text scan.position names).after ≠ 0 := by omega
             have advance := atomAdvance nonempty
+            obtain ⟨atom, parsed⟩ := value_sound text scan.position names nonempty
+            have positiveOperands := (value_operands parsed).2.1
             simp only [ValidScan, ValidCursor, ValidValue] at scanValid atomValid ⊢
             split <;> exact ⟨by omega, Or.inr (Or.inr advance)⟩
       · split
