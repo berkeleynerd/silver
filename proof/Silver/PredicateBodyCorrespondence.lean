@@ -122,7 +122,7 @@ mutual
           ⟨cv.1, cv.2.1,
             loopInner_valid_environment (text := text) (context := context.model) (scan := scan) cv.arrays cv.2.2.1 allowed positive,
             nativeLoopInner_baseReady (context := context.model) cv.base (loopHeader text context.model scan)
-              (loopNameAllowed_space cv.base.size allowed), cv.arrays, cv.booleans, cv.mask⟩
+              (loopNameAllowed_space cv.base.size allowed), cv.arrays, cv.booleans, cv.mask, cv.bounds⟩
         have entryValid : ValidScan text (LoopNative.inner context (loopHeader text context.model scan))
             (loopHeader text context.model scan).entry :=
           by
