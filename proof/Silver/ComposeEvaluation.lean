@@ -89,6 +89,8 @@ def Expr.Legal (calls : Calls) (locals : Locals) : Expr ty → Prop
   | .hasArguments x => x.Legal calls locals
   | .tokensLast x => x.Legal calls locals
   | .tokenIndex x i => x.Legal calls locals ∧ i.Legal calls locals
+  | .ge a b => a.Legal calls locals ∧ b.Legal calls locals
+  | .integerLe a b => a.Legal calls locals ∧ b.Legal calls locals
   | .nativeBinding a b c d e f g h i => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals ∧ e.Legal calls locals ∧ f.Legal calls locals ∧ g.Legal calls locals ∧ h.Legal calls locals ∧ i.Legal calls locals
   | .nativeValue a b c d e f g h i j k => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals ∧ e.Legal calls locals ∧ f.Legal calls locals ∧ g.Legal calls locals ∧ h.Legal calls locals ∧ i.Legal calls locals ∧ j.Legal calls locals ∧ k.Legal calls locals
   | .nativeResult a b c d e f g h => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals ∧ e.Legal calls locals ∧ f.Legal calls locals ∧ g.Legal calls locals ∧ h.Legal calls locals
@@ -675,6 +677,22 @@ theorem Expr.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning cal
     dsimp only [Expr.eval, lexical]
     rw [h0]
     rw [h1]
+    all_goals rfl
+
+  | .ge a b, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0, h1]
+    all_goals rfl
+
+  | .integerLe a b, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0, h1]
     all_goals rfl
 
   | .nativeBinding a b c d e f g h i, legal => by
