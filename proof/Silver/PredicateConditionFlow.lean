@@ -16,6 +16,15 @@ def ConditionResult.Counts (result : ConditionResult) (count : Nat) : Prop :=
 theorem invalidCondition_counts (facts : ActiveFlow) :
     (invalidCondition facts).Counts facts.count := ⟨rfl, rfl⟩
 
+theorem characterCondition_counts (text : Source) (context : ParseContext) (position : Nat)
+    (facts : ActiveFlow) (initials : ArrayBindings.Initials := []) :
+    (characterCondition text context position facts initials).Counts facts.count := by
+  unfold characterCondition
+  dsimp only
+  split
+  · exact invalidCondition_counts facts
+  · exact ⟨rfl, rfl⟩
+
 theorem scalarCondition_counts (text : Source) (context : ParseContext) (position rightPosition : Nat)
     (facts : ActiveFlow) (left right : ScalarExpression.Result) (operator : Comparison) :
     (scalarCondition text context position rightPosition facts left right operator).Counts facts.count := by
@@ -131,7 +140,10 @@ mutual
                     exact ⟨rfl, rfl⟩
                   · simp only [equal, Bool.false_eq_true, ↓reduceIte]
                     exact ⟨rfl, rfl⟩
-            · exact booleanRelation_counts text context position facts initials
+            · try dsimp only
+              split
+              · exact characterCondition_counts text context position facts initials
+              · exact booleanRelation_counts text context position facts initials
   termination_by (remainingAt text position, 4)
 
   theorem tail_counts (text : Source) (context : ParseContext) (result : ConditionResult)

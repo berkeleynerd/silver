@@ -505,7 +505,7 @@ def assignmentAt (text : Source) (state : ParserState) : ParserState :=
     state.arrayNames.names state.arrayNames.values true
   let target := (state.names.get state.target).getD {}
   if !fits value state.capacity || value.emptyValue || decide (value.minimumLength ≠ value.staticLength ∨ state.target = 0 ∨ value.staticLength ≠ target.staticLength ∨
-      value.dynamicCount ≠ (if target.dynamic then 1 else 0)) then invalidState
+      value.dynamicCount ≠ (if target.dynamic then 1 else 0) ∨ target.isCharacter = true) then invalidState
   else {state with position := value.after}
 
 def outputAt (text : Source) (state : ParserState) : ParserState :=

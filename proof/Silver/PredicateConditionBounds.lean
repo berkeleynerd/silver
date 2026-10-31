@@ -1,6 +1,6 @@
 module
 
-public import Silver.PredicateConditionAdmission
+public import Silver.PredicateCharacterReadings
 public import Silver.PredicateFlowOperations
 public import Silver.PathBounds
 
@@ -122,7 +122,10 @@ mutual
                     exact ⟨refineLengthOverlap_bounded bounded _ _, bounded⟩
                   · simp only [equal, Bool.false_eq_true, ↓reduceIte]
                     exact ⟨bounded, refineLengthOverlap_bounded bounded _ _⟩
-            · exact readBooleanRelation_bounded text context position facts bounded initials
+            · try dsimp only
+              split
+              · exact characterCondition_bounded text context position facts initials bounded
+              · exact readBooleanRelation_bounded text context position facts bounded initials
   termination_by (remainingAt text position, 4)
 
   theorem conditionTail_bounded (text : Source) (context : ParseContext) (result : ConditionResult)
