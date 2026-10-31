@@ -89,6 +89,22 @@ def Expr.Legal (calls : Calls) (locals : Locals) : Expr ty → Prop
   | .hasArguments x => x.Legal calls locals
   | .tokensLast x => x.Legal calls locals
   | .tokenIndex x i => x.Legal calls locals ∧ i.Legal calls locals
+  | .nativeBinding a b c d e f g h i => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals ∧ e.Legal calls locals ∧ f.Legal calls locals ∧ g.Legal calls locals ∧ h.Legal calls locals ∧ i.Legal calls locals
+  | .nativeValue a b c d e f g h i j k => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals ∧ e.Legal calls locals ∧ f.Legal calls locals ∧ g.Legal calls locals ∧ h.Legal calls locals ∧ i.Legal calls locals ∧ j.Legal calls locals ∧ k.Legal calls locals
+  | .nativeResult a b c d e f g h => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals ∧ e.Legal calls locals ∧ f.Legal calls locals ∧ g.Legal calls locals ∧ h.Legal calls locals
+  | .nativeScan a b c d e f g h i j k l => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals ∧ e.Legal calls locals ∧ f.Legal calls locals ∧ g.Legal calls locals ∧ h.Legal calls locals ∧ i.Legal calls locals ∧ j.Legal calls locals ∧ k.Legal calls locals ∧ l.Legal calls locals
+  | .nativeScanAtom a b c d e f g h i j => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals ∧ e.Legal calls locals ∧ f.Legal calls locals ∧ g.Legal calls locals ∧ h.Legal calls locals ∧ i.Legal calls locals ∧ j.Legal calls locals
+  | .valueAfter a b => a.Legal calls locals ∧ b.Legal calls locals
+  | .integerMul a b => a.Legal calls locals ∧ b.Legal calls locals
+  | .integerEq a b => a.Legal calls locals ∧ b.Legal calls locals
+  | .wideMaximum a b => a.Legal calls locals ∧ b.Legal calls locals
+  | .valueNumber a => a.Legal calls locals
+  | .valueInteger a => a.Legal calls locals
+  | .capacityInteger a => a.Legal calls locals
+  | .singleton a => a.Legal calls locals
+  | .joinInterval a b => a.Legal calls locals ∧ b.Legal calls locals
+  | .minimumInteger => True
+  | .maximumInteger => True
   | .binding a b c d e f => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals ∧ e.Legal calls locals ∧ f.Legal calls locals
   | .value a b c d e f g h => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals ∧ e.Legal calls locals ∧ f.Legal calls locals ∧ g.Legal calls locals ∧ h.Legal calls locals
   | .result a b c d e f => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals ∧ e.Legal calls locals ∧ f.Legal calls locals
@@ -661,6 +677,158 @@ theorem Expr.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning cal
     rw [h1]
     all_goals rfl
 
+  | .nativeBinding a b c d e f g h i, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2.1
+    have h2 := Expr.eval_lexical calls meaning locals c legal.2.2.1
+    have h3 := Expr.eval_lexical calls meaning locals d legal.2.2.2.1
+    have h4 := Expr.eval_lexical calls meaning locals e legal.2.2.2.2.1
+    have h5 := Expr.eval_lexical calls meaning locals f legal.2.2.2.2.2.1
+    have h6 := Expr.eval_lexical calls meaning locals g legal.2.2.2.2.2.2.1
+    have h7 := Expr.eval_lexical calls meaning locals h legal.2.2.2.2.2.2.2.1
+    have h8 := Expr.eval_lexical calls meaning locals i legal.2.2.2.2.2.2.2.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0, h1, h2, h3, h4, h5, h6, h7, h8]
+    all_goals rfl
+
+  | .nativeValue a b c d e f g h i j k, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2.1
+    have h2 := Expr.eval_lexical calls meaning locals c legal.2.2.1
+    have h3 := Expr.eval_lexical calls meaning locals d legal.2.2.2.1
+    have h4 := Expr.eval_lexical calls meaning locals e legal.2.2.2.2.1
+    have h5 := Expr.eval_lexical calls meaning locals f legal.2.2.2.2.2.1
+    have h6 := Expr.eval_lexical calls meaning locals g legal.2.2.2.2.2.2.1
+    have h7 := Expr.eval_lexical calls meaning locals h legal.2.2.2.2.2.2.2.1
+    have h8 := Expr.eval_lexical calls meaning locals i legal.2.2.2.2.2.2.2.2.1
+    have h9 := Expr.eval_lexical calls meaning locals j legal.2.2.2.2.2.2.2.2.2.1
+    have h10 := Expr.eval_lexical calls meaning locals k legal.2.2.2.2.2.2.2.2.2.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0, h1, h2, h3, h4, h5, h6, h7, h8, h9, h10]
+    all_goals rfl
+
+  | .nativeResult a b c d e f g h, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2.1
+    have h2 := Expr.eval_lexical calls meaning locals c legal.2.2.1
+    have h3 := Expr.eval_lexical calls meaning locals d legal.2.2.2.1
+    have h4 := Expr.eval_lexical calls meaning locals e legal.2.2.2.2.1
+    have h5 := Expr.eval_lexical calls meaning locals f legal.2.2.2.2.2.1
+    have h6 := Expr.eval_lexical calls meaning locals g legal.2.2.2.2.2.2.1
+    have h7 := Expr.eval_lexical calls meaning locals h legal.2.2.2.2.2.2.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0, h1, h2, h3, h4, h5, h6, h7]
+    all_goals rfl
+
+  | .nativeScan a b c d e f g h i j k l, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2.1
+    have h2 := Expr.eval_lexical calls meaning locals c legal.2.2.1
+    have h3 := Expr.eval_lexical calls meaning locals d legal.2.2.2.1
+    have h4 := Expr.eval_lexical calls meaning locals e legal.2.2.2.2.1
+    have h5 := Expr.eval_lexical calls meaning locals f legal.2.2.2.2.2.1
+    have h6 := Expr.eval_lexical calls meaning locals g legal.2.2.2.2.2.2.1
+    have h7 := Expr.eval_lexical calls meaning locals h legal.2.2.2.2.2.2.2.1
+    have h8 := Expr.eval_lexical calls meaning locals i legal.2.2.2.2.2.2.2.2.1
+    have h9 := Expr.eval_lexical calls meaning locals j legal.2.2.2.2.2.2.2.2.2.1
+    have h10 := Expr.eval_lexical calls meaning locals k legal.2.2.2.2.2.2.2.2.2.2.1
+    have h11 := Expr.eval_lexical calls meaning locals l legal.2.2.2.2.2.2.2.2.2.2.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0, h1, h2, h3, h4, h5, h6, h7, h8, h9, h10, h11]
+    all_goals rfl
+
+  | .nativeScanAtom a b c d e f g h i j, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2.1
+    have h2 := Expr.eval_lexical calls meaning locals c legal.2.2.1
+    have h3 := Expr.eval_lexical calls meaning locals d legal.2.2.2.1
+    have h4 := Expr.eval_lexical calls meaning locals e legal.2.2.2.2.1
+    have h5 := Expr.eval_lexical calls meaning locals f legal.2.2.2.2.2.1
+    have h6 := Expr.eval_lexical calls meaning locals g legal.2.2.2.2.2.2.1
+    have h7 := Expr.eval_lexical calls meaning locals h legal.2.2.2.2.2.2.2.1
+    have h8 := Expr.eval_lexical calls meaning locals i legal.2.2.2.2.2.2.2.2.1
+    have h9 := Expr.eval_lexical calls meaning locals j legal.2.2.2.2.2.2.2.2.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0, h1, h2, h3, h4, h5, h6, h7, h8, h9]
+    all_goals rfl
+
+  | .valueAfter a b, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0, h1]
+    all_goals rfl
+
+  | .integerMul a b, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0, h1]
+    all_goals rfl
+
+  | .integerEq a b, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0, h1]
+    all_goals rfl
+
+  | .wideMaximum a b, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0, h1]
+    all_goals rfl
+
+  | .valueNumber a, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    all_goals rfl
+
+  | .valueInteger a, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    all_goals rfl
+
+  | .capacityInteger a, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    all_goals rfl
+
+  | .singleton a, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    all_goals rfl
+
+  | .joinInterval a b, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0, h1]
+    all_goals rfl
+
+  | .minimumInteger, _ => rfl
+
+  | .maximumInteger, _ => rfl
+
   | .binding a b c d e f, legal => by
     dsimp only [Expr.Legal] at legal
     have h0 := Expr.eval_lexical calls meaning locals a legal.1
@@ -1062,7 +1230,7 @@ theorem Expr.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning cal
 bodies. No field asserts equality to the membership or semantic model. -/
 structure LegalHelpers (calls : Calls) (domain : StateDomain := .basic) : Prop where
   callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames arrays subtypeHidden booleans,
-    ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
+    NativeNames text names → ScalarExpression.ValidEnvironment text scalarNames →
     ArrayBindings.ValidMetadata text arrays → BooleanBindings.ValidEnvironment text booleans → ValidCursor text position →
     callAfterBody.Legal calls (Context.locals {text,scalarNames,arrays,names,position,operation,subtypeHidden,booleans})
   skip : ∀ text, ValidText text → ∀ position,
@@ -1078,30 +1246,32 @@ structure LegalHelpers (calls : Calls) (domain : StateDomain := .basic) : Prop w
     ValidCursor text position → ValidToken token →
     fixedBody.Legal calls (Context.locals {text,position,token})
   lookupFrom : ∀ text, ValidText text → ∀ names first after index,
-    ValidNames text names → ValidName text first after → 1 ≤ index → index ≤ names.length + 1 →
+    NativeNames text names → ValidName text first after → 1 ≤ index → index ≤ names.length + 1 →
     lookupFromBody.Legal calls (Context.locals {text,names,first,after,index})
   lookup : ∀ text, ValidText text → ∀ names first after,
-    ValidNames text names → ValidCursor text first → ValidCursor text after →
+    NativeNames text names → ValidCursor text first → ValidCursor text after →
     lookupBody.Legal calls (Context.locals {text,names,first,after})
   literal : ∀ text, ValidText text → ∀ position,
     ValidCursor text position →
     literalBody.Legal calls (Context.locals {text,position})
   image : ∀ text, ValidText text → ∀ position names scalarNames integerHidden arrays initials elaborating,
-    ValidCursor text position → ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
+    ValidCursor text position → NativeNames text names → ScalarExpression.ValidEnvironment text scalarNames →
     ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials →
     imageBody.Legal calls (Context.locals {text,scalarNames,integerHidden,arrays,initials,elaborating,position,names})
   value : ∀ text, ValidText text → ∀ position names scalarNames integerHidden arrays initials elaborating,
-    ValidCursor text position → ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
+    ValidCursor text position → NativeNames text names → ScalarExpression.ValidEnvironment text scalarNames →
     ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials →
     valueBody.Legal calls (Context.locals {text,scalarNames,integerHidden,arrays,initials,elaborating,position,names})
   newName : ∀ text, ValidText text → ∀ state first after arguments,
-    domain.holds text state → ValidCursor text first → ValidCursor text after →
+    NativeState domain text state → ValidCursor text first → ValidCursor text after →
     newNameBody.Legal calls (Context.locals {text,state,first,after,arguments})
   addBinding : ∀ text, ValidText text → ∀ state first after value mutable following,
-    domain.holds text state → ValidCursor text first → ValidCursor text after → ValidValue text value → ValidCursor text following → state.names.length < maxBindings →
+    NativeState domain text state → ValidCursor text first → ValidCursor text after → NativeValue text value → ValidCursor text following → state.names.length < maxBindings →
+    fixedBoundsValid value.staticLength value.dynamicSeen false value.firstIndex.lower
+      value.lastIndex.lower (state.names.length + 1) = true →
     addBindingBody.Legal calls (Context.locals {text,state,first,after,value,mutable,following})
   stringDeclaration : ∀ text, ValidText text → ∀ state arguments,
-    domain.holds text state →
+    NativeState domain text state →
     stringDeclarationBody.Legal calls (Context.locals {text,state,arguments})
   scalarConstraint : ∀ text, ValidText text → ∀ position scalarNames baseBounds,
     ValidCursor text position → ScalarExpression.ValidEnvironment text scalarNames →
@@ -1112,55 +1282,55 @@ structure LegalHelpers (calls : Calls) (domain : StateDomain := .basic) : Prop w
     index ≤ subtypeNames.items.length →
     subtypeLookupModelBody.Legal calls (Context.locals {text,subtypeNames,first,after,index})
   scalarType : ∀ text, ValidText text → ∀ state position,
-    domain.holds text state → ValidCursor text position →
+    NativeState domain text state → ValidCursor text position →
     scalarTypeBody.Legal calls (Context.locals {text,state,position})
   subtypeDeclaration : ∀ text, ValidText text → ∀ state arguments,
-    domain.holds text state →
+    NativeState domain text state →
     subtypeDeclarationBody.Legal calls (Context.locals {text,state,arguments})
   scalarDeclaration : ∀ text, ValidText text → ∀ state arguments,
-    domain.holds text state →
+    NativeState domain text state →
     scalarDeclarationBody.Legal calls (Context.locals {text,state,arguments})
   declaration : ∀ text, ValidText text → ∀ state arguments,
-    domain.holds text state →
+    NativeState domain text state →
     declarationBody.Legal calls (Context.locals {text,state,arguments})
   argument : ∀ text, ValidText text → ∀ state,
-    domain.holds text state →
+    NativeState domain text state →
     argumentBody.Legal calls (Context.locals {text,state})
   declarations : ∀ text, ValidText text → ∀ state arguments,
-    domain.holds text state →
+    NativeState domain text state →
     declarationsBody.Legal calls (Context.locals {text,state,arguments})
   expressionStep : ∀ text, ValidText text → ∀ names scan scalarNames integerHidden arrays initials elaborating,
-    ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
-    ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials → ValidScan text scan →
+    NativeNames text names → ScalarExpression.ValidEnvironment text scalarNames →
+    ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials → NativeScan text scan →
     expressionStepBody.Legal calls (Context.locals {text,scalarNames,integerHidden,arrays,initials,elaborating,names,scan})
   tail : ∀ text, ValidText text → ∀ names scan scalarNames integerHidden arrays initials elaborating,
-    ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
-    ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials → ValidScan text scan →
+    NativeNames text names → ScalarExpression.ValidEnvironment text scalarNames →
+    ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials → NativeScan text scan →
     tailBody.Legal calls (Context.locals {text,scalarNames,integerHidden,arrays,initials,elaborating,names,scan})
   fits : ∀ text, ValidText text → ∀ result capacity,
-    ValidResult text result → capacity ≤ maxSourceLength →
+    NativeResult text result → capacity ≤ maxSourceLength →
     fitsBody.Legal calls (Context.locals {text,result,capacity})
   comparison : ∀ text, ValidText text → ∀ state,
-    domain.holds text state →
+    NativeState domain text state →
     comparisonBody.Legal calls (Context.locals {text,state})
   expression : ∀ text, ValidText text → ∀ position names scalarNames integerHidden arrays initials elaborating,
-    ValidCursor text position → ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
+    ValidCursor text position → NativeNames text names → ScalarExpression.ValidEnvironment text scalarNames →
     ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials →
     expressionBody.Legal calls (Context.locals {text,scalarNames,integerHidden,arrays,initials,elaborating,position,names})
   target : ∀ text, ValidText text → ∀ state sameTarget,
-    domain.holds text state →
+    NativeState domain text state →
     targetBody.Legal calls (Context.locals {text,state,sameTarget})
   dynamic : ∀ text, ValidText text → ∀ state,
-    domain.holds text state →
+    NativeState domain text state →
     dynamicBody.Legal calls (Context.locals {text,state})
   assignmentValue : ∀ text, ValidText text → ∀ state,
-    domain.holds text state →
+    NativeState domain text state →
     assignmentBody.Legal calls (Context.locals {text,state})
   output : ∀ text, ValidText text → ∀ state,
-    domain.holds text state →
+    NativeState domain text state →
     outputBody.Legal calls (Context.locals {text,state})
   capacity : ∀ text, ValidText text → ∀ state,
-    domain.holds text state →
+    NativeState domain text state →
     capacityBody.Legal calls (Context.locals {text,state})
   workTail : ∀ text, ValidText text → ∀ position remaining,
     ValidCursor text position → remaining ≤ maxConcatenations →

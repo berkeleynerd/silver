@@ -49,7 +49,7 @@ private theorem fixed_legal (text : Source) (valid : ValidText text)
     token_spelling token tokenValid⟩, fun _ => lexical_cursor valid bound nonzero⟩
 
 private theorem model_legal_callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames arrays subtypeHidden booleans,
-    ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
+    NativeNames text names → ScalarExpression.ValidEnvironment text scalarNames →
     ArrayBindings.ValidMetadata text arrays → BooleanBindings.ValidEnvironment text booleans → ValidCursor text position →
     callAfterBody.Legal modelCalls (Context.locals {text,scalarNames,arrays,names,position,operation,subtypeHidden,booleans}) := by
   intros
@@ -80,7 +80,7 @@ private theorem model_legal_take : ∀ text, ValidText text → ∀ position tok
   exact fixed_legal
 
 private theorem model_legal_lookupFrom : ∀ text, ValidText text → ∀ names first after index,
-    ValidNames text names → ValidName text first after → 1 ≤ index → index ≤ names.length + 1 →
+    NativeNames text names → ValidName text first after → 1 ≤ index → index ≤ names.length + 1 →
     lookupFromBody.Legal modelCalls (Context.locals {text,names,first,after,index}) := by
   intro text valid names first after index namesValid nameValid positive _
   dsimp +instances only [lookupFromBody, Expr.Legal, Expr.eval, Function.isLexical, Context.locals, Field.get] <;> simp +instances
@@ -89,10 +89,10 @@ private theorem model_legal_lookupFrom : ∀ text, ValidText text → ∀ names 
     have nonzero : index ≠ 0 := by omega
     have below : index - 1 < names.length := by omega
     simp +instances [Bindings.BindingEnvironment.get, nonzero, List.getElem?_eq_getElem below]
-  exact ⟨lexical_name valid (namesValid.2 _ member).1, lexical_name valid nameValid⟩
+  exact ⟨lexical_name valid (namesValid.base.2 _ member).1, lexical_name valid nameValid⟩
 
 private theorem model_legal_lookup : ∀ text, ValidText text → ∀ names first after,
-    ValidNames text names → ValidCursor text first → ValidCursor text after →
+    NativeNames text names → ValidCursor text first → ValidCursor text after →
     lookupBody.Legal modelCalls (Context.locals {text,names,first,after}) := by
   intros
   dsimp +instances only [lookupBody, Expr.Legal, Expr.eval, Function.isLexical, Context.locals] <;> simp +instances
@@ -109,21 +109,21 @@ private theorem model_legal_literal : ∀ text, ValidText text → ∀ position,
     exact ⟨valid.1, valid.2, Nat.succ_pos _, Nat.add_le_add_right inside 1⟩
 
 private theorem model_legal_image : ∀ text, ValidText text → ∀ position names scalarNames integerHidden arrays initials elaborating,
-    ValidCursor text position → ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
+    ValidCursor text position → NativeNames text names → ScalarExpression.ValidEnvironment text scalarNames →
     ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials →
     imageBody.Legal modelCalls (Context.locals {text,scalarNames,integerHidden,arrays,initials,elaborating,position,names}) := by
   intros
   dsimp +instances only [imageBody, Expr.Legal, Expr.eval, Function.isLexical, Context.locals, Locals.set, Field.get] <;> simp +instances
 
 private theorem model_legal_value : ∀ text, ValidText text → ∀ position names scalarNames integerHidden arrays initials elaborating,
-    ValidCursor text position → ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
+    ValidCursor text position → NativeNames text names → ScalarExpression.ValidEnvironment text scalarNames →
     ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials →
     valueBody.Legal modelCalls (Context.locals {text,scalarNames,integerHidden,arrays,initials,elaborating,position,names}) := by
   intros
   dsimp +instances only [valueBody, Expr.Legal, Expr.eval, Function.isLexical, Context.locals, Locals.set, Field.get] <;> simp +instances
 
 private theorem model_legal_newName : ∀ text, ValidText text → ∀ state first after arguments,
-    ValidState text state → ValidCursor text first → ValidCursor text after →
+    NativeState .basic text state → ValidCursor text first → ValidCursor text after →
     newNameBody.Legal modelCalls (Context.locals {text,state,first,after,arguments}) := by
   intro text valid state first after arguments _ _ afterBound
   dsimp +instances only [newNameBody, Expr.Legal, Expr.eval, Function.isLexical, Context.locals] <;> simp +instances
@@ -134,13 +134,15 @@ private theorem model_legal_newName : ∀ text, ValidText text → ∀ state fir
     exact ⟨valid.1, valid.2, Nat.pos_of_ne_zero nonzero, ordered, afterBound⟩
 
 private theorem model_legal_addBinding : ∀ text, ValidText text → ∀ state first after value mutable following,
-    ValidState text state → ValidCursor text first → ValidCursor text after → ValidValue text value → ValidCursor text following → state.names.length < maxBindings →
+    NativeState .basic text state → ValidCursor text first → ValidCursor text after → NativeValue text value → ValidCursor text following → state.names.length < maxBindings →
+    fixedBoundsValid value.staticLength value.dynamicSeen false value.firstIndex.lower
+      value.lastIndex.lower (state.names.length + 1) = true →
     addBindingBody.Legal modelCalls (Context.locals {text,state,first,after,value,mutable,following}) := by
   intros
   dsimp +instances only [addBindingBody, Expr.Legal] <;> simp +instances
 
 private theorem model_legal_stringDeclaration : ∀ text, ValidText text → ∀ state arguments,
-    ValidState text state →
+    NativeState .basic text state →
     stringDeclarationBody.Legal modelCalls (Context.locals {text,state,arguments}) := by
   intros
   dsimp +instances only [stringDeclarationBody, Expr.Legal, Expr.eval, Function.isLexical, Context.locals, Locals.set, Field.get] <;> simp +instances
@@ -156,7 +158,7 @@ private theorem model_legal_scalarConstraint : ∀ text, ValidText text → ∀ 
   simp only [and_self, implies_true, ite_self]
 
 private theorem model_legal_scalarType : ∀ text, ValidText text → ∀ state position,
-    ValidState text state → ValidCursor text position →
+    NativeState .basic text state → ValidCursor text position →
     scalarTypeBody.Legal modelCalls (Context.locals {text,state,position}) := by
   intros
   generalize modelCalls = calls
@@ -165,7 +167,7 @@ private theorem model_legal_scalarType : ∀ text, ValidText text → ∀ state 
   simp only [and_self, implies_true, ite_self]
 
 private theorem model_legal_subtypeDeclaration : ∀ text, ValidText text → ∀ state arguments,
-    ValidState text state →
+    NativeState .basic text state →
     subtypeDeclarationBody.Legal modelCalls (Context.locals {text,state,arguments}) := by
   intros
   generalize modelCalls = calls
@@ -174,7 +176,7 @@ private theorem model_legal_subtypeDeclaration : ∀ text, ValidText text → �
   simp only [and_self, implies_true, ite_self]
 
 private theorem model_legal_scalarDeclaration : ∀ text, ValidText text → ∀ state arguments,
-    ValidState text state →
+    NativeState .basic text state →
     scalarDeclarationBody.Legal modelCalls (Context.locals {text,state,arguments}) := by
   intros
   generalize modelCalls = calls
@@ -183,64 +185,64 @@ private theorem model_legal_scalarDeclaration : ∀ text, ValidText text → ∀
   simp only [and_self, implies_true, ite_self]
 
 private theorem model_legal_declaration : ∀ text, ValidText text → ∀ state arguments,
-    ValidState text state →
+    NativeState .basic text state →
     declarationBody.Legal modelCalls (Context.locals {text,state,arguments}) := by
   intros
   dsimp +instances only [declarationBody, Expr.Legal, Expr.eval, Function.isLexical, Context.locals, Locals.set, Field.get] <;> simp +instances
 
 private theorem model_legal_argument : ∀ text, ValidText text → ∀ state,
-    ValidState text state →
+    NativeState .basic text state →
     argumentBody.Legal modelCalls (Context.locals {text,state}) := by
   intros
   dsimp +instances only [argumentBody, Expr.Legal, Expr.eval, Function.isLexical, Context.locals, Locals.set, Field.get] <;> simp +instances
 
 private theorem model_legal_declarations : ∀ text, ValidText text → ∀ state arguments,
-    ValidState text state →
+    NativeState .basic text state →
     declarationsBody.Legal modelCalls (Context.locals {text,state,arguments}) := by
   intros
   dsimp +instances only [declarationsBody, Expr.Legal, Expr.eval, Function.isLexical, Context.locals, Field.get] <;> simp +instances
 
 private theorem model_legal_expressionStep : ∀ text, ValidText text → ∀ names scan scalarNames integerHidden arrays initials elaborating,
-    ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
-    ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials → ValidScan text scan →
+    NativeNames text names → ScalarExpression.ValidEnvironment text scalarNames →
+    ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials → NativeScan text scan →
     expressionStepBody.Legal modelCalls (Context.locals {text,scalarNames,integerHidden,arrays,initials,elaborating,names,scan}) := by
   intros
   dsimp +instances only [expressionStepBody, Expr.Legal, Expr.eval, Function.isLexical, Context.locals, Locals.set, Field.get] <;> simp +instances
 
 private theorem model_legal_tail : ∀ text, ValidText text → ∀ names scan scalarNames integerHidden arrays initials elaborating,
-    ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
-    ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials → ValidScan text scan →
+    NativeNames text names → ScalarExpression.ValidEnvironment text scalarNames →
+    ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials → NativeScan text scan →
     tailBody.Legal modelCalls (Context.locals {text,scalarNames,integerHidden,arrays,initials,elaborating,names,scan}) := by
   intros
   dsimp +instances only [tailBody, Expr.Legal, Expr.eval, Function.isLexical, Context.locals, Locals.set, Field.get] <;> simp +instances
 
 private theorem model_legal_fits : ∀ text, ValidText text → ∀ result capacity,
-    ValidResult text result → capacity ≤ maxSourceLength →
+    NativeResult text result → capacity ≤ maxSourceLength →
     fitsBody.Legal modelCalls (Context.locals {text,result,capacity}) := by
   intros
   dsimp +instances only [fitsBody, Expr.Legal, Expr.eval, Context.locals, Field.get] <;> simp +instances
 
 private theorem model_legal_comparison : ∀ text, ValidText text → ∀ state,
-    ValidState text state →
+    NativeState .basic text state →
     comparisonBody.Legal modelCalls (Context.locals {text,state}) := by
   intros
   dsimp +instances only [comparisonBody, Expr.Legal, Expr.eval, Function.isLexical, Context.locals, Locals.set, Field.get] <;> simp +instances
 
 private theorem model_legal_expression : ∀ text, ValidText text → ∀ position names scalarNames integerHidden arrays initials elaborating,
-    ValidCursor text position → ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
+    ValidCursor text position → NativeNames text names → ScalarExpression.ValidEnvironment text scalarNames →
     ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials →
     expressionBody.Legal modelCalls (Context.locals {text,scalarNames,integerHidden,arrays,initials,elaborating,position,names}) := by
   intros
   dsimp +instances only [expressionBody, Expr.Legal, Function.isLexical] <;> simp +instances
 
 private theorem model_legal_target : ∀ text, ValidText text → ∀ state sameTarget,
-    ValidState text state →
+    NativeState .basic text state →
     targetBody.Legal modelCalls (Context.locals {text,state,sameTarget}) := by
   intros
   dsimp +instances only [targetBody, Expr.Legal, Expr.eval, Function.isLexical, Context.locals, Locals.set, Field.get] <;> simp +instances
 
 private theorem model_legal_dynamic : ∀ text, ValidText text → ∀ state,
-    ValidState text state →
+    NativeState .basic text state →
     dynamicBody.Legal modelCalls (Context.locals {text,state}) := by
   intro text valid state stateValid
   dsimp +instances only [dynamicBody, Expr.Legal, Expr.eval, Function.isLexical, Context.locals, Locals.set, Field.get, Calls.get, modelCalls, modelPrimitives] <;> simp +instances
@@ -248,7 +250,7 @@ private theorem model_legal_dynamic : ∀ text, ValidText text → ∀ state,
   have firstPositive : 0 < skipAt text state.position := Nat.pos_of_ne_zero firstNonzero
   have afterBounds := Named.identifierEnd_bounds text (skipAt text state.position)
     (by simpa [nameAfter, firstNonzero] using afterNonzero)
-  have dynamicValid := stateValid.2.2.1
+  have dynamicValid := stateValid.valid.2.2.1
   rcases dynamicValid with absent | present
   · exact False.elim (dynamicNonzero absent.1)
   · exact ⟨lexical_name valid present,
@@ -256,25 +258,25 @@ private theorem model_legal_dynamic : ∀ text, ValidText text → ∀ state,
         by simpa [nameAfter, firstNonzero] using afterBounds⟩⟩
 
 private theorem model_legal_assignmentValue : ∀ text, ValidText text → ∀ state,
-    ValidState text state →
+    NativeState .basic text state →
     assignmentBody.Legal modelCalls (Context.locals {text,state}) := by
   intros
   dsimp +instances only [assignmentBody, Expr.Legal, Expr.eval, Function.isLexical, Context.locals, Locals.set, Field.get] <;> simp +instances
 
 private theorem model_legal_output : ∀ text, ValidText text → ∀ state,
-    ValidState text state →
+    NativeState .basic text state →
     outputBody.Legal modelCalls (Context.locals {text,state}) := by
   intros
   dsimp +instances only [outputBody, Expr.Legal, Expr.eval, Function.isLexical, Context.locals, Locals.set, Field.get] <;> simp +instances
 
 private theorem model_legal_capacity : ∀ text, ValidText text → ∀ state,
-    ValidState text state →
+    NativeState .basic text state →
     capacityBody.Legal modelCalls (Context.locals {text,state}) := by
   intro text valid state stateValid
   dsimp +instances only [capacityBody, Expr.Legal, Expr.eval, Context.locals, Field.get] <;> simp +instances
   intro nonzero
-  have domains := And.intro (lexical_cursor valid stateValid.1 nonzero)
-    (lexical_trivia valid stateValid.1 nonzero)
+  have domains := And.intro (lexical_cursor valid stateValid.valid.1 nonzero)
+    (lexical_trivia valid stateValid.valid.1 nonzero)
   exact ⟨domains, fun _ => domains⟩
 
 private theorem model_legal_step : ∀ text, ValidText text → ∀ form token state,
