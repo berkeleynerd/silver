@@ -1,0 +1,10 @@
+{
+  "baseline_commit": "b6aeb9f978597ac025de21a8574c76c42389cf82",
+  "current_source_commit": "598a56b969cc0f5b68de7f674ac8bd9c48b602fd",
+  "body_tail_model_spec_body_identical": true,
+  "region_sha256": "183dd82bf942309b3186112a4444d1650255772214a441283ba9b1c2c25c2b77",
+  "failed_check": "silver_output_profile.adb:4003:20:VC_POSTCONDITION",
+  "failed_primitive_goal": "def'vc.360",
+  "introduced_counterexample_goal": "def'vc.360.0",
+  "branches_localized": false
+}

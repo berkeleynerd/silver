@@ -1,0 +1,137 @@
+{
+  "check_col": 28,
+  "check_file": "silver_output_profile.adb",
+  "check_line": 4001,
+  "check_tree": [
+    {
+      "proof_attempts": {
+        "CVC5": {
+          "result": "Timeout",
+          "steps": 1,
+          "time": 30
+        },
+        "Z3": {
+          "result": "Out of\nmemory",
+          "steps": 1,
+          "time": 15.7749
+        },
+        "altergo": {
+          "result": "Timeout",
+          "steps": 1,
+          "time": 30
+        }
+      },
+      "transformations": {
+        "introduce_premises": [
+          {
+            "proof_attempts": {
+              "CVC5_CE": {
+                "result": "Timeout",
+                "steps": 1,
+                "time": 10
+              }
+            },
+            "transformations": {}
+          }
+        ]
+      }
+    },
+    {
+      "proof_attempts": {
+        "CVC5": {
+          "result": "Valid",
+          "steps": 2247,
+          "time": 1.04646
+        },
+        "Z3": {
+          "result": "Valid",
+          "steps": 372,
+          "time": 0.482796
+        },
+        "altergo": {
+          "result": "Valid",
+          "steps": 62564,
+          "time": 11.2095
+        }
+      },
+      "transformations": {}
+    },
+    {
+      "proof_attempts": {
+        "CVC5": {
+          "result": "High failure (signaled)",
+          "steps": 1,
+          "time": 0.005616
+        },
+        "Z3": {
+          "result": "Valid",
+          "steps": 1633,
+          "time": 1.19273
+        },
+        "altergo": {
+          "result": "High failure (signaled)",
+          "steps": 1,
+          "time": 0.006578
+        }
+      },
+      "transformations": {}
+    },
+    {
+      "proof_attempts": {
+        "CVC5": {
+          "result": "Valid",
+          "steps": 10065,
+          "time": 7.76315
+        },
+        "Z3": {
+          "result": "Valid",
+          "steps": 410,
+          "time": 0.52423
+        },
+        "altergo": {
+          "result": "Valid",
+          "steps": 57895,
+          "time": 9.80186
+        }
+      },
+      "transformations": {}
+    },
+    {
+      "proof_attempts": {
+        "CVC5": {
+          "result": "Valid",
+          "steps": 10060,
+          "time": 6.63269
+        },
+        "Z3": {
+          "result": "Valid",
+          "steps": 409,
+          "time": 0.443661
+        },
+        "altergo": {
+          "result": "Valid",
+          "steps": 42115,
+          "time": 7.16913
+        }
+      },
+      "transformations": {}
+    }
+  ],
+  "col": 20,
+  "entity": 60,
+  "file": "silver_output_profile.adb",
+  "how_proved": "prover",
+  "line": 4003,
+  "message": {
+    "text": "postcondition might fail, cannot prove Body_Tail'Result = Body_Tail_Model (Text, Context, Scan, Stop)"
+  },
+  "msg_id": 2792,
+  "rule": "VC_POSTCONDITION",
+  "severity": "medium",
+  "unproved_status": {
+    "memory": true,
+    "status": "limit",
+    "steps": false,
+    "time": true
+  }
+}

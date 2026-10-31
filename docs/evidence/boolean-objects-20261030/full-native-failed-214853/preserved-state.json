@@ -1,0 +1,47 @@
+{
+  "observed_at": "2026-10-30T21:53:53.802815+00:00",
+  "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration",
+  "preserved_dirty_files": {
+    "catalogue/silver.json": {
+      "status": " M",
+      "sha256": "419909e6196c88837511794303a85f6adae8403e37979430680c353ae630c5f2",
+      "mode": "0o644"
+    },
+    "samples/manifest.json": {
+      "status": " M",
+      "sha256": "42b82581659dcadffa792232436c92fe0a4ff107efa1a280c0236229ed2b230c",
+      "mode": "0o644"
+    },
+    "src/silver_output_profile.ads": {
+      "status": " M",
+      "sha256": "c95d491236b211e775fb3f33b468113f56c58be6db120d172e4318054c5e42c6",
+      "mode": "0o644"
+    },
+    "samples/rosetta_common_list_elements.adb": {
+      "status": "??",
+      "sha256": "bca79951d0d2396e727660b5bbaf1e537ae501a05093edf3eaf9ca66f6302c01",
+      "mode": "0o644"
+    },
+    "samples/rosetta_sequence_of_primes_by_trial_division.adb": {
+      "status": "??",
+      "sha256": "88ac06037a11ea72bc2a47180e587aeae4d25bfd36a9acadc3158191a177279d",
+      "mode": "0o644"
+    },
+    "samples/rosetta_square_but_not_cube.adb": {
+      "status": "??",
+      "sha256": "f220c917a8da360d621ac360dbd712e9c1fadf787625fc863c2f693b910aa6b9",
+      "mode": "0o644"
+    },
+    "tests/test_boolean_objects.py": {
+      "status": "??",
+      "sha256": "b0e27ab6f4799accadc58ae4ec46d8b6a9c90398cdd4b242b017151f5fdeae16",
+      "mode": "0o644"
+    }
+  },
+  "temporary_replacements": [
+    "src/silver_catalogue.adb",
+    "src/silver_output_profile.adb"
+  ],
+  "scratch_excluded": "tmp/",
+  "git_status_before_restoration": " M catalogue/silver.json\n M samples/manifest.json\n M src/silver_catalogue.adb\n M src/silver_output_profile.adb\n M src/silver_output_profile.ads\n?? samples/rosetta_common_list_elements.adb\n?? samples/rosetta_sequence_of_primes_by_trial_division.adb\n?? samples/rosetta_square_but_not_cube.adb\n?? tests/test_boolean_objects.py\n?? tmp/\n"
+}

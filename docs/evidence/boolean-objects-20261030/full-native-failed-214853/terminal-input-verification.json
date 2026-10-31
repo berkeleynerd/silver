@@ -1,0 +1,13 @@
+{
+  "run_id": "20261030T214853-f14ff090b11a",
+  "input_count": 2561,
+  "terminal_all_input_hashes_match": true,
+  "tracked_native_input_count": 143,
+  "tracked_inputs_match_snapshot": true,
+  "original_backups_unchanged": true,
+  "unrelated_dirty_files_unchanged": 7,
+  "source_sha256": "88b54a1df3e6cb1b59c482d36cd29a9f15c2506c69227fbef78c9ab93ab67ddb",
+  "complete_audit_ran": false,
+  "source_restored": false,
+  "verified_at": "2026-10-31T02:09:40.021788+00:00"
+}

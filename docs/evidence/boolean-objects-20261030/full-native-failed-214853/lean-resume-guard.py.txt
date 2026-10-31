@@ -1,0 +1,25 @@
+from pathlib import Path
+import datetime,json,os,signal,time
+root=Path('/home/canto/src/github.com/berkeleynerd/silver')
+record=root/'tmp/boolean-validation-memory-coordination.json'
+events=root/'.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261030T214853-f14ff090b11a/events.jsonl'
+print('Waiting for native terminal to resume preserved Lean process group',flush=True)
+while True:
+ v=json.loads(record.read_text())
+ if v['status']=='suspended':break
+ if v['status']!='prepared':raise SystemExit('Pause was not armed: '+v['status'])
+ time.sleep(1)
+while True:
+ terminal=next((e for e in reversed([json.loads(s) for s in events.read_text().splitlines()]) if e.get('event')=='finished'),None)
+ if terminal:break
+ time.sleep(10)
+pid=v['lean_pid'];p=Path('/proc')/str(pid)
+text=(p/'stat').read_text();start=text[text.rfind(')')+2:].split()[19]
+assert start==v['lean_start_ticks'] and os.getpgid(pid)==v['lean_pgid'],'Lean process identity changed; no signal sent'
+os.killpg(v['lean_pgid'],signal.SIGCONT)
+v['status']='resumed'
+v['resumed_at']=datetime.datetime.now(datetime.timezone.utc).isoformat()
+v['native_terminal']=terminal
+v['pause_duration_seconds']=(datetime.datetime.fromisoformat(v['resumed_at'])-datetime.datetime.fromisoformat(v['suspended_at'])).total_seconds()
+record.write_text(json.dumps(v,indent=2)+'\n')
+print('Resumed Lean process group',v['lean_pgid'],'after native',terminal['outcome'],'pause seconds',v['pause_duration_seconds'],flush=True)
