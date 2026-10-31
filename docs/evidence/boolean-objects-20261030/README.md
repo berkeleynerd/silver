@@ -5,8 +5,24 @@ and the [capability record](../../boolean-objects.md). Complete assurance and
 delivery remain pending. Focused successes below do not establish complete
 source correspondence or feature support.
 
+The final stable implementation/proof target is
+`91de078ed81d102485c7dd286758e127630b01d6`. Complete
+[native verification](full-native/README.md) passed all 17,234 checks and the
+strict coverage/provenance audit on its exact 143 native inputs. The matching
+[build](full-native-build-bb3bd71e/README.md) passed. The reviewed Body_Tail
+source is integrated with its 45,259-token pin; regeneration of all 28
+certificates changed only the output body. The
+[source-refresh record](source-integration/body-tail-source-refresh.json) and
+[native-input comparison](source-integration/final-native-input-parity.json)
+retain exact correspondence checks. Complete Lean run
+`20261031T062232-72f05d92e6aa` is active on these frozen inputs, and the 46
+affected regressions are being refreshed. Complete source/module/axiom assurance
+and terminal applicability confirmation remain required before support.
+
+## Native reader-repair checkpoint
+
 The native reader-repair implementation/proof target was
-`87dd912436e35569f12cf95be639e4a534dea978`; the proof-only repair below follows it.
+`87dd912436e35569f12cf95be639e4a534dea978`.
 The [native equality repair packet](terminal-native-repair/README.md) now
 includes successful complete-reader checks: 56 relation checks and 204 chain
 checks, after the retained failed first candidate. Its
@@ -19,8 +35,8 @@ Complete native `20261030T214853-f14ff090b11a`
 unproved; both repaired condition readers passed. The
 [Body_Tail diagnosis/review](../../reviews/review-boolean-body-tail-20261031.md)
 and successful 74-check focused repair are recorded in the capability update.
-The candidate's complete native run `20261031T022711-e4258c225793` is active
-in the isolated native workspace. Complete Lean `20261030T214845-59a80335a9ac`
+The candidate's complete native run `20261031T022711-e4258c225793` subsequently
+passed as recorded above. Complete Lean `20261030T214845-59a80335a9ac`
 [finished failed](source-integration/failed-transports/README.md) on four
 source-candidate lint errors and missing condition-reader initializer arguments.
 Its completed output certificate and source modules remain cached. The

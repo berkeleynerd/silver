@@ -360,3 +360,30 @@ The independent applied-patch review took 1m29s. The native verification subthre
 continued the unchanged complete checkpoint; the documentation subthread's
 contingent final-record preparation selected GPT-6.1 Sol / High. No complete
 Boolean support or merge is claimed.
+
+### Native-validated final source checkpoint
+
+Complete native run `20261031T022711-e4258c225793`
+[passed](evidence/boolean-objects-20261030/full-native/README.md) at 06:20:19 UTC
+on 2026-10-31: 17,234 checks (1,468 flow and 15,766 proof), 76 units and 1,091
+entities, with strict coverage and provenance audits. Its managed time was
+13,985.692 s. All 2,561 captured inputs matched before the installed workspace's
+two original files were restored; seven unrelated dirty files were preserved.
+The previous failed and interrupted runs retain their outcomes.
+
+The final stable integration target is
+`91de078ed81d102485c7dd286758e127630b01d6`, including the reviewed Body_Tail
+source and the proof-only body-call/lint repairs above. All 143 native
+source/script/project inputs match both the successful capture and its retained
+archive. The output pin now contains 45,259 tokens. Regenerating all 28
+certificates changed only `OutputBodyCertificate.lean`; the other 27 remain
+byte-identical. This is mechanical correspondence evidence, not a replacement
+for complete kernel/source checking.
+
+Complete Lean run `20261031T062232-72f05d92e6aa` started at 06:22:35 UTC with
+one worker/thread and a 24 GiB process threshold, reusing completed Lake objects.
+Its captured inputs are frozen. The installed native workspace was explicitly
+released after restoration for the same 46-regression refresh on a new snapshot
+of this final target. Complete Lean/source/module/axiom validation, those tests
+and terminal independent evidence/applicability confirmation remain pending.
+No completed Boolean support or merge is claimed at this checkpoint.
