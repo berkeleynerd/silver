@@ -15,9 +15,11 @@ certificates changed only the output body. The
 [source-refresh record](source-integration/body-tail-source-refresh.json) and
 [native-input comparison](source-integration/final-native-input-parity.json)
 retain exact correspondence checks. Complete Lean run
-`20261031T062232-72f05d92e6aa` is active on these frozen inputs, and the 46
-affected regressions are being refreshed. Complete source/module/axiom assurance
-and terminal applicability confirmation remain required before support.
+`20261031T062232-72f05d92e6aa` is active on these frozen inputs. All 46
+[affected regressions](annotation-repair-regressions-91de078e/README.md) passed
+with no skips, including the kernel fixture, and the installed workspace was
+restored exactly. Complete source/module/axiom assurance and terminal
+applicability confirmation remain required before support.
 
 ## Native reader-repair checkpoint
 

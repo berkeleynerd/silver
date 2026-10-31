@@ -384,6 +384,11 @@ Complete Lean run `20261031T062232-72f05d92e6aa` started at 06:22:35 UTC with
 one worker/thread and a 24 GiB process threshold, reusing completed Lake objects.
 Its captured inputs are frozen. The installed native workspace was explicitly
 released after restoration for the same 46-regression refresh on a new snapshot
-of this final target. Complete Lean/source/module/axiom validation, those tests
+of this final target. All 46 [refreshed tests](evidence/boolean-objects-20261030/annotation-repair-regressions-91de078e/README.md)
+passed with no skips, including the kernel fixture. All four 838-input maps
+and 830 snapshot files matched before exact restoration of the 864 original
+nodes; unrelated dirty files, binaries and native reports were preserved.
+The mechanical inventory accounts for all 568 IDs / 559 methods as 46 refreshed
+plus 522 applicable retained results. Complete Lean/source/module/axiom validation
 and terminal independent evidence/applicability confirmation remain pending.
 No completed Boolean support or merge is claimed at this checkpoint.
