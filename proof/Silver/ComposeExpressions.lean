@@ -973,14 +973,25 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .initial => initialState | .invalid => invalidState
   | .invalidValue => Compose.invalidValue | .invalidResult => invalidExpression
   | .invalidScan => invalidExpressionState
-  | .binding a b c d e f => ⟨a.eval calls locals,b.eval calls locals,c.eval calls locals,d.eval calls locals,e.eval calls locals,f.eval calls locals⟩
-  | .value a b m c d n e r => ⟨a.eval calls locals,b.eval calls locals,m.eval calls locals,
-      c.eval calls locals,d.eval calls locals,n.eval calls locals,e.eval calls locals,r.eval calls locals⟩
-  | .result a m b c d e => ⟨a.eval calls locals,m.eval calls locals,b.eval calls locals,
-      c.eval calls locals,d.eval calls locals,e.eval calls locals⟩
-  | .scan p m l d o depth named need complete empty => ⟨p.eval calls locals,m.eval calls locals,
-      l.eval calls locals,d.eval calls locals,o.eval calls locals,depth.eval calls locals,named.eval calls locals,
-      need.eval calls locals,complete.eval calls locals,empty.eval calls locals⟩
+  -- These existing constructors specify their original fields; the newly
+  -- introduced Character and String-index fields retain record defaults.
+  -- Their expanded native aggregates require separate renderer integration.
+  | .binding a b c d e f => {first := a.eval calls locals, after := b.eval calls locals,
+      valueFirst := c.eval calls locals, staticLength := d.eval calls locals,
+      dynamic := e.eval calls locals, mutable := f.eval calls locals}
+  | .value a b m c d n e r => {after := a.eval calls locals, valueFirst := b.eval calls locals,
+      minimumLength := m.eval calls locals, staticLength := c.eval calls locals,
+      dynamicSeen := d.eval calls locals, nonliteralSeen := n.eval calls locals,
+      emptyValue := e.eval calls locals, reference := r.eval calls locals}
+  | .result a m b c d e => {after := a.eval calls locals, minimumLength := m.eval calls locals,
+      staticLength := b.eval calls locals, dynamicCount := c.eval calls locals,
+      namedSeen := d.eval calls locals, emptyValue := e.eval calls locals}
+  | .scan p m l d o depth named need complete empty => {position := p.eval calls locals,
+      minimumLength := m.eval calls locals, staticLength := l.eval calls locals,
+      dynamicCount := d.eval calls locals, operands := o.eval calls locals,
+      depth := depth.eval calls locals, namedSeen := named.eval calls locals,
+      needOperand := need.eval calls locals, complete := complete.eval calls locals,
+      emptyValue := empty.eval calls locals}
   | .scanDepth s p d => {(s.eval calls locals) with position := p.eval calls locals, depth := d.eval calls locals}
   | .scanAtom s p m l d o n e => {(s.eval calls locals) with
       position := p.eval calls locals,
