@@ -645,6 +645,7 @@ inductive Expr : Ty → Type
   | emptyInterval : Expr .interval
   | interval : Expr .integer → Expr .integer → Expr .interval
   | integerNe : Expr .integer → Expr .integer → Expr .truth
+  | integerLe : Expr .integer → Expr .integer → Expr .truth
   | integerLt : Expr .integer → Expr .integer → Expr .truth
   | constraint : Expr .number → Expr .interval → Expr .scalarConstraint
   | scalarBinding : Expr .number → Expr .number → Expr .interval → Expr .truth → Expr .interval → Expr .truth → Expr .scalarBinding
@@ -657,6 +658,7 @@ inductive Expr : Ty → Type
   | ne : Expr .number → Expr .number → Expr .truth
   | boolNe : Expr .truth → Expr .truth → Expr .truth
   | lt : Expr .number → Expr .number → Expr .truth
+  | ge : Expr .number → Expr .number → Expr .truth
   | le : Expr .number → Expr .number → Expr .truth
   | gt : Expr .number → Expr .number → Expr .truth
   | range : Expr .number → Expr .number → Expr .number → Expr .truth
@@ -873,6 +875,7 @@ def Expr.render : Expr ty → List String
   | .emptyInterval => ["scalars", ".", "empty"]
   | .interval a b => ["("] ++ a.render ++ [","] ++ b.render ++ [")"]
   | .integerNe a b => a.render ++ ["/="] ++ b.render
+  | .integerLe a b => a.render ++ ["<="] ++ b.render
   | .integerLt a b => a.render ++ ["<"] ++ b.render
   | .constraint a b => ["("] ++ a.render ++ [","] ++ b.render ++ [")"]
   | .scalarBinding a b c d e f => ["("] ++ a.render ++ [","] ++ b.render ++ [","] ++ c.render ++ [","] ++ d.render ++ [","] ++ e.render ++ [","] ++ f.render ++ [")"]
@@ -886,6 +889,7 @@ def Expr.render : Expr ty → List String
   | .ne x y => x.render ++ ["/="] ++ y.render
   | .boolNe x y => x.render ++ ["/="] ++ y.render
   | .lt x y => x.render ++ ["<"] ++ y.render
+  | .ge x y => x.render ++ [">="] ++ y.render
   | .le x y => x.render ++ ["<="] ++ y.render
   | .gt x y => x.render ++ [">"] ++ y.render
   | .range x a b => x.render ++ ["in"] ++ a.render ++ [".."] ++ b.render
@@ -1049,6 +1053,7 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .emptyInterval => Integer.Interval.empty
   | .interval a b => ⟨a.eval calls locals, b.eval calls locals⟩
   | .integerNe a b => decide (a.eval calls locals ≠ b.eval calls locals)
+  | .integerLe a b => decide (a.eval calls locals ≤ b.eval calls locals)
   | .integerLt a b => decide (a.eval calls locals < b.eval calls locals)
   | .constraint a b => ⟨a.eval calls locals, b.eval calls locals⟩
   | .scalarBinding a b c d e f => ⟨a.eval calls locals, b.eval calls locals, c.eval calls locals, d.eval calls locals, e.eval calls locals, f.eval calls locals⟩
@@ -1062,6 +1067,7 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .ne x y => decide (x.eval calls locals ≠ y.eval calls locals)
   | .boolNe x y => x.eval calls locals != y.eval calls locals
   | .lt x y => decide (x.eval calls locals < y.eval calls locals)
+  | .ge x y => decide (x.eval calls locals ≥ y.eval calls locals)
   | .le x y => decide (x.eval calls locals ≤ y.eval calls locals)
   | .gt x y => decide (x.eval calls locals > y.eval calls locals)
   | .range x a b => decide (a.eval calls locals ≤ x.eval calls locals ∧ x.eval calls locals ≤ b.eval calls locals)
@@ -1717,8 +1723,8 @@ def Expr.simple : Expr ty → Bool
 
 def Expr.relation : Expr ty → Bool
   | .integerEq _ _ => true
-  | .integerNe _ _ | .integerLt _ _ | .integerGt _ _ | .integerGe _ _
-  | .eq _ _ | .ne _ _ | .boolNe _ _ | .lt _ _ | .le _ _ | .gt _ _
+  | .integerNe _ _ | .integerLt _ _ | .integerLe _ _ | .integerGt _ _ | .integerGe _ _
+  | .eq _ _ | .ne _ _ | .boolNe _ _ | .lt _ _ | .le _ _ | .ge _ _ | .gt _ _
   | .operatorByte _ | .range _ _ _ | .tokenEq _ _ => true
   | x => x.simple
 
@@ -1839,7 +1845,7 @@ def Expr.wellFormed : Expr ty → Bool
   | .operatorByte x => x.wellFormed && x.simple
   | .fullInterval | .emptyInterval => true
   | .interval a b => a.wellFormed && b.wellFormed
-  | .integerNe a b | .integerLt a b => a.wellFormed && b.wellFormed && a.simple && b.simple
+  | .integerNe a b | .integerLt a b | .integerLe a b => a.wellFormed && b.wellFormed && a.simple && b.simple
   | .constraint a b => a.wellFormed && b.wellFormed
   | .scalarBinding a b c d e f => a.wellFormed && b.wellFormed && c.wellFormed && d.wellFormed && e.wellFormed && f.wellFormed
   | .stateScalar a b c => a.wellFormed && b.wellFormed && c.wellFormed
@@ -1852,6 +1858,7 @@ def Expr.wellFormed : Expr ty → Bool
   | .ne x y => x.wellFormed && y.wellFormed && x.simple && y.simple
   | .boolNe x y => x.wellFormed && y.wellFormed && x.simple && y.simple
   | .lt x y => x.wellFormed && y.wellFormed && x.simple && y.simple
+  | .ge x y => x.wellFormed && y.wellFormed && x.simple && y.simple
   | .le x y => x.wellFormed && y.wellFormed && x.simple && y.simple
   | .gt x y => x.wellFormed && y.wellFormed && x.simple && y.simple
   | .range x a b => x.wellFormed && a.wellFormed && b.wellFormed && x.simple && a.simple && b.simple
@@ -2093,6 +2100,7 @@ def Expr.scoped (scope : Scope) : Expr ty → Bool
   | .ne x y => x.scoped scope && y.scoped scope
   | .boolNe x y => x.scoped scope && y.scoped scope
   | .lt x y => x.scoped scope && y.scoped scope
+  | .ge x y => x.scoped scope && y.scoped scope
   | .le x y => x.scoped scope && y.scoped scope
   | .gt x y => x.scoped scope && y.scoped scope
   | .range x a b => x.scoped scope && a.scoped scope && b.scoped scope
