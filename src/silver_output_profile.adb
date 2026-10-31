@@ -649,7 +649,14 @@ is
        Post => Indexed_At'Result.Value_First <= Text'Last + 1
          and then Indexed_At'Result.Reference <= Names.Count
          and then (Indexed_At'Result.After = 0
-           or else Indexed_At'Result.After in Position + 1 .. Text'Last + 1);
+           or else (Indexed_At'Result.After in Position + 1 .. Text'Last + 1
+             and then Indexed_At'Result.Operands > 0
+             and then (if Character_Element then
+               Indexed_At'Result.Minimum_Length = 1
+               and then Indexed_At'Result.Static_Length = 1
+               and then not Indexed_At'Result.Dynamic_Seen
+               and then Indexed_At'Result.First_Index = Scalars.Singleton (1)
+               and then Indexed_At'Result.Last_Index = Scalars.Singleton (1))));
    function Indexed_At
      (Text : String; Position : Literal_Position; Names : Binding_Environment;
       Scalar_Names : Scalar_Expressions.Environment;
@@ -674,7 +681,7 @@ is
       then return Invalid_Value; end if;
       if Character_Element then
          Following := Take_Token (Text, Low.After, Right_Parenthesis);
-         if Following = 0 or else Low.Operands = Max_Expression_Operands
+         if Following <= Position or else Low.Operands = Max_Expression_Operands
            or else Low.Bounds.Lower < Names.Items (Target).First_Index
            or else Low.Bounds.Upper > Names.Items (Target).Last_Index
          then return Invalid_Value; end if;
@@ -688,7 +695,7 @@ is
         (Text, Take_Token (Text, Low.After, Range_Delimiter), Scalar_Names,
          Arrays => Arrays, Initials => Initials, Elaborating => Elaborating);
       Following := Take_Token (Text, High.After, Right_Parenthesis);
-      if Following = 0 or else Scalars.Is_Empty (High.Bounds)
+      if Following <= Position or else Scalars.Is_Empty (High.Bounds)
         or else Low.Operands + High.Operands >= Max_Expression_Operands
         or else (Low.Bounds.Lower <= High.Bounds.Upper
           and then (Low.Bounds.Lower < Names.Items (Target).First_Index

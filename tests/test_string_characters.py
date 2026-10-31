@@ -114,6 +114,15 @@ class StringCharacterTests(unittest.TestCase):
         declarations = b'S:String:="ab";'
         self.check(program(declarations, output(b'&'.join([b'""'] * 61 + [b'S(1..2)']))))
         self.check(program(declarations, output(b'&'.join([b'""'] * 62 + [b'S(1..2)']))), 2)
+        index = b'1'
+        for _ in range(62):
+            index = b'(' + index + b' + 0)'
+        declarations = b'S:String:="x";C:Character:=\' \';'
+        self.check(program(declarations, b'C:=S(' + index + b');'))
+        self.check(program(declarations, b'S(' + index + b"):=C;"))
+        index = b'(' + index + b' + 0)'
+        self.check(program(declarations, b'C:=S(' + index + b');'), 2)
+        self.check(program(declarations, b'S(' + index + b"):=C;"), 2)
         source = program(b"C:Character:='x';", b'null;')
         self.check(source + b' ' * (4096 - len(source)))
         self.check(source + b' ' * (4097 - len(source)), 2)
@@ -126,3 +135,12 @@ class StringCharacterTests(unittest.TestCase):
                 b"if Saved='b' and C='x' then " + output(b'Copy&"/"&T&Z') + b'end if;')
         executable, _ = self.compile(program(declarations, body), 'assigned')
         self.run_program(executable, b'bc/ab\n')
+
+    def test_native_argument_copy_index_and_invalid_printable_boundary(self) -> None:
+        declarations = b'Work:String:="abc";C:Character:=\' \';'
+        body = (b"if Input'Length=3 then Work:=Input;C:=Work(1);"
+                b"if C='z' then " + output(b'Work')
+                + b'else ' + output(b'"other"') + b'end if;end if;')
+        executable, _ = self.compile(program(declarations, body, arguments=True), 'selected')
+        self.run_program(executable, b'zoo\n', (b'zoo',))
+        self.run_program(executable, b'', (b'\xffxx',), 1)
