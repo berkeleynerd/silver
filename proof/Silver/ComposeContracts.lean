@@ -368,6 +368,8 @@ structure RawHelperEquations (calls : Calls) (evaluator : Calls := lexical calls
       newNameBody.eval evaluator (Context.locals {text,state,first,after,arguments})
   addBinding : ∀ text, ValidText text → ∀ state first after value mutable following,
     NativeState domain text state → ValidCursor text first → ValidCursor text after → NativeValue text value → ValidCursor text following → state.names.length < maxBindings →
+    fixedBoundsValid value.staticLength value.dynamicSeen false value.firstIndex.lower value.lastIndex.lower
+      (state.names.length + 1) = true →
     calls.function .addBinding state first after value mutable following =
       addBindingBody.eval evaluator (Context.locals {text,state,first,after,value,mutable,following})
   stringDeclaration : ∀ text, ValidText text → ∀ state arguments,

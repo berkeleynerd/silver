@@ -774,8 +774,8 @@ def Expr.render : Expr ty → List String
   | .integerMul left right => left.render ++ ["*"] ++ right.render
   | .integerEq left right => left.render ++ ["="] ++ right.render
   | .wideMaximum left right => ["scalars", ".", "wide", "'", "max", "("] ++ left.render ++ [","] ++ right.render ++ [")"]
-  | .valueNumber localValue => ["scalars", ".", "localValue", "("] ++ localValue.render ++ [")"]
-  | .valueInteger localValue => ["scalars", ".", "localValue", "("] ++ localValue.render ++ [")"]
+  | .valueNumber localValue => ["scalars", ".", "value", "("] ++ localValue.render ++ [")"]
+  | .valueInteger localValue => ["scalars", ".", "value", "("] ++ localValue.render ++ [")"]
   | .capacityInteger localValue => ["capacity_value", "("] ++ localValue.render ++ [")"]
   | .singleton localValue => ["scalars", "."] ++ call "singleton" [localValue.render]
   | .joinInterval left right => ["scalars", "."] ++ call "join" [left.render,right.render]
