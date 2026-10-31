@@ -20,7 +20,8 @@ def newNameAllowed (text : Source) (state : ParserState) (first after : Nat) (ar
 def addBinding (state : ParserState) (first after : Nat) (value : ValueResult)
     (mutable : Bool) (following : Nat) : ParserState :=
   {state with position := following, names := state.names ++
-    [⟨first, after, value.valueFirst, value.staticLength, value.dynamicSeen, mutable⟩]}
+    [{first := first, after := after, valueFirst := value.valueFirst,
+      staticLength := value.staticLength, dynamic := value.dynamicSeen, mutable := mutable}]}
 
 structure DeclarationParts where
   first : Nat
