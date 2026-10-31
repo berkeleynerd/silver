@@ -3,6 +3,7 @@ module
 public import Silver.PredicateBodyAdmission
 public import Silver.PredicateLoopProperties
 public import Silver.PredicateBodyFlow
+public import Silver.ComposeCharacterBounds
 
 @[expose] public section
 namespace Silver.Predicate
@@ -68,6 +69,18 @@ theorem condition_bound (text : Source) (context : ParseContext) (position : Nat
   · simp [zero]
   · exact (condition_sound text context position facts textValid namesValid bounded zero).2
 
+private theorem bodyChoicePosition_bound (test : Prop) [Decidable test] (yes no : BodyScan) (limit : Nat)
+    (yesBound : yes.position ≤ limit) (noBound : no.position ≤ limit) :
+    (if test then yes else no).position ≤ limit := by
+  split <;> assumption
+
+theorem characterRead_bound (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow) :
+    (characterAt text position context.names (context.readingNames facts) context.arrayNames).after ≤ text.length + 1 := by
+  by_cases zero : (characterAt text position context.names (context.readingNames facts) context.arrayNames).after = 0
+  · rw [zero]; omega
+  · obtain ⟨value, reading⟩ := character_sound _ zero
+    exact character_after_bounded reading
+
 theorem basicRaw_bound (text : Source) (context : ParseContext) (scan : BodyScan)
     (textValid : ValidText text) (namesValid : ValidNames text context.names)
     (bounded : scan.position ≤ text.length + 1) :
@@ -118,17 +131,28 @@ theorem basicRaw_bound (text : Source) (context : ParseContext) (scan : BodyScan
             (scalarRead_bound text _ (context.readingNames scan.facts) 0 0 []
               (model_fixed_valid text _ "(" false (model_name_valid text _)))))
   | assignment =>
-      have targetBound : (targetAt text (parserState context scan) false).position ≤ text.length + 1 := by
-        unfold targetAt
-        try dsimp only
+      have targetBound : (stringAssignmentTarget text context scan).position ≤ text.length + 1 := by
+        unfold stringAssignmentTarget targetAt
+        dsimp only
         split
         · exact Nat.zero_le _
         · exact model_name_valid text _
-      try dsimp only
-      split
+      unfold stringAssignmentBody
+      dsimp only
+      apply bodyChoicePosition_bound
       · exact Nat.zero_le _
-      · exact (model_expression_valid (arrays := context.arrayNames) (scalarNames := context.readingNames scan.facts) text textValid _ context.names
-          (bodyToken_bound text _ _ targetBound) namesValid).1
+      · cases stringAssignmentKind text context scan with
+        | character | element =>
+            apply bodyChoicePosition_bound
+            · exact Nat.zero_le _
+            · exact characterRead_bound text context _ scan.facts
+        | whole =>
+            apply bodyChoicePosition_bound
+            · exact Nat.zero_le _
+            · exact (model_expression_valid (integerHidden := context.integerHidden text)
+                (elaborating := context.elaborating) (arrays := context.arrayNames)
+                (scalarNames := context.readingNames scan.facts) text textValid _ context.names
+                (bodyToken_bound text _ _ targetBound) namesValid).1
 
 theorem basicBody_bound (text : Source) (context : ParseContext) (scan : BodyScan)
     (textValid : ValidText text) (namesValid : ValidNames text context.names)
