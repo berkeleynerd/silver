@@ -22,6 +22,9 @@ def xorFreeModel (text : Source) (position after : Nat)
     else xorFreeModel text (position + 1) after true false true
   else if Cursor.byteAt text position = 45 ∧ position + 1 < after ∧ Cursor.byteAt text (position + 1) = 45 then
     xorFreeModel text (position + 2) after false true true
+  else if Compose.characterLiteralAfter text position ≠ 0 ∧
+      Compose.characterLiteralAfter text position ≤ after then
+    xorFreeModel text (Compose.characterLiteralAfter text position) after false false true
   else if Cursor.byteAt text position = 34 then
     xorFreeModel text (position + 1) after true false true
   else if wordStart ∧ after - position ≥ 3 ∧
@@ -31,7 +34,10 @@ def xorFreeModel (text : Source) (position after : Nat)
       (position + 3 = after ∨ !identifierCharacter (Cursor.byteAt text (position + 3))) then false
   else xorFreeModel text (position + 1) after false false (!identifierCharacter (Cursor.byteAt text position))
 termination_by after - position
-decreasing_by all_goals omega
+decreasing_by
+  all_goals try omega
+  have advances := Compose.characterLiteralAfter_bounds (text := text) (position := position) (by omega)
+  omega
 
 def xorFree (text : Source) (first after : Nat) : Bool :=
   xorFreeModel text first after false false true
