@@ -68,6 +68,15 @@ theorem stringDeclaration_ready (text : Source) (state : ParserState) (arguments
   · exact ScalarMetadata.headerReady_empty
   · exact ready
 
+theorem characterDeclaration_ready (text : Source) (state : ParserState) (arguments : Bool)
+    (ready : ScalarMetadata.HeaderReady state.scalarNames) :
+    ScalarMetadata.HeaderReady (characterDeclarationAt text state arguments).scalarNames := by
+  unfold characterDeclarationAt
+  dsimp only
+  split
+  · exact ScalarMetadata.headerReady_empty
+  · exact ready
+
 theorem arrayDeclaration_ready (text : Source) (state : ParserState) (arguments : Bool)
     (ready : ScalarMetadata.HeaderReady state.scalarNames) :
     ScalarMetadata.HeaderReady (arrayDeclarationAt text state arguments).scalarNames := by
@@ -111,7 +120,9 @@ theorem declaration_ready (text : Source) (state : ParserState) (arguments : Boo
         exact ready
       · split
         · exact booleanDeclaration_ready text state arguments ready
-        · exact stringDeclaration_ready text state arguments ready
+        · split
+          · exact characterDeclaration_ready text state arguments ready
+          · exact stringDeclaration_ready text state arguments ready
 
 private theorem declarationsLoop_ready (text : Source) (arguments : Bool) (fuel : Nat) (state : ParserState)
     (ready : ScalarMetadata.HeaderReady state.scalarNames) :
