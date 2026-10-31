@@ -14,6 +14,16 @@ def modelCalls : Calls where
   names := Names.modelCalls
   primitive := modelPrimitives
   function
+    | .fixedBoundsValid => fixedBoundsValid
+    | .characterLiteral => characterLiteralAfter
+    | .indexed => indexedAt
+    | .characterValue => fun text position names scalarNames arrays initials elaborating =>
+        characterAt text position names scalarNames arrays initials elaborating
+    | .concatenatedFirst => concatenatedFirst
+    | .concatenatedLast => concatenatedLast
+    | .characterDeclaration => characterDeclarationAt
+    | .addBindingWithCharacter => fun state first after value mutable following characterObject =>
+        addBinding state first after value mutable following characterObject
     | .trivia => Cursor.triviaPosition
     | .literalEnd => Output.literalEnd
     | .literalLength => Guarded.literalLength
