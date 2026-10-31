@@ -1,6 +1,6 @@
 module
 
-public import Silver.ComposeAtomReading
+public import Silver.ComposeAtoms
 public import Silver.ComposeBindingBounds
 public import Silver.PredicateConditionAdmission
 
