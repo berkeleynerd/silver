@@ -1485,11 +1485,13 @@ def declarationBody : Expr .state :=
   .locals <| .local "subtype_state" "parser_state" (.app (.app (.app (.function .subtypeDeclaration) text) state) arguments) <| .local "scalar_state" "parser_state" (.app (.app (.app (.function .scalarDeclaration) text) state) arguments) <|
     .local "array_state" "parser_state" (.app (.app (.app (.function .arrayDeclaration) text) state) arguments) <|
     .local "boolean_state" "parser_state" (.app (.app (.app (.function .booleanDeclaration) text) state) arguments) <|
+    .local "character_state" "parser_state" (.app (.app (.app (.function .characterDeclaration) text) state) arguments) <|
     .group <| .ite (.ne (.field .statePosition (.variable "subtype_state")) (.number 0)) (.variable "subtype_state")
       (.elsif (.ne (.field .statePosition scalar) (.number 0)) scalar
       (.elsif (.ne (.field .statePosition array) (.number 0)) array
       (.elsif (.ne (.field .statePosition (.variable "boolean_state")) (.number 0)) (.variable "boolean_state")
-      (.app (.app (.app (.function .stringDeclaration) text) state) arguments))))
+      (.elsif (.ne (.field .statePosition (.variable "character_state")) (.number 0)) (.variable "character_state")
+      (.app (.app (.app (.function .stringDeclaration) text) state) arguments)))))
 
 def callAfterBody : Expr .number :=
   let text : Expr .source := .variable "text"

@@ -135,6 +135,39 @@ def constant (type : Ty) (name : String) (typeName : List String) (value : Expr 
 def uninitialized (type : Ty) (names : List String) (typeName : List String) : Declaration :=
   ⟨type, names, typeName, none⟩
 
+def fixedBoundsBody : Expr .truth :=
+  let length : Expr .number := .variable "length"
+  let dynamic : Expr .truth := .variable "dynamic"
+  let first : Expr .integer := .variable "first_index"
+  let last : Expr .integer := .variable "last_index"
+  .ite (.variable "is_character")
+    (.andThen (.andThen (.andThen (.not dynamic) (.eq length (.number 1)))
+      (.integerEq first (.integerNumber 1))) (.integerEq last (.integerNumber 1))) <|
+  .elsif dynamic (.eq length (.number 0)) <|
+  .elsif (.eq length (.number 0)) (.integerGt first last) <|
+    .andThen (.andThen (.andThen (.integerGe first (.integerNumber 1)) (.integerGe last first))
+      (.integerEq (.integerAdd (.integerSub (.wideInteger last) (.wideInteger first)) (.integerNumber 1)) (.wideNumber length)))
+      (.integerLe (.wideInteger last) (.integerMul (.wideNumber (.variable "slot")) (.wideNumber .maxLength)))
+
+def characterLiteralBody : Expr .number :=
+  let text : Expr .source := .variable "text"
+  let position : Expr .number := .variable "position"
+  .ite (.andThen (.andThen (.andThen (.andThen (.ne position (.number 0))
+    (.le (.add position (.number 2)) (.sourceLast text)))
+    (.eq (.byteAt text position) (.characterVal (.number 39))))
+    (.range (.byteAt text (.add position (.number 1))) (.character 32) (.character 126)))
+    (.eq (.byteAt text (.add position (.number 2))) (.characterVal (.number 39))))
+    (.add position (.number 3)) (.number 0)
+
+def concatenatedFirstBody : Expr .interval :=
+  let left : Expr .scan := .variable "left"
+  let right : Expr .value := .variable "right"
+  .ite (.orElse (.eq (.field .scanOperands left) (.number 0))
+    (.group <| .andThen (.eq (.field .scanLength left) (.number 0)) (.eq (.field .scanDynamic left) (.number 0))))
+    (.field .valueFirstIndex right) <|
+  .elsif (.gt (.field .scanMinimum left) (.number 0)) (.field .scanFirstIndex left)
+    (.joinInterval (.field .scanFirstIndex left) (.field .valueFirstIndex right))
+
 def concatenatedLastBody : Body .interval :=
   let left : Expr .scan := .variable "left"
   let right : Expr .value := .variable "right"

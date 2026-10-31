@@ -1,6 +1,7 @@
 module
 
 public import Silver.ComposeExpressions
+public import Silver.ComposeStringNative
 public import Silver.ComposeArrayExpressions
 public import Silver.ComposeBounds
 
@@ -93,7 +94,7 @@ def allTokens : List ShellToken :=
    .declarations, .assignmentTarget, .targetReference, .dynamicReference, .assignmentValue,
    .outputExpression, .comparisonExpression, .word "null", .contextClauses,
    .word "integer", .word "for", .word "in", .word "reverse", .word "loop", .symbol "..", .word "range", .word "subtype", .word "array", .word "of", .symbol ",", .symbol "=>",
-   .word "boolean", .word "true", .word "false", .word "xor"]
+   .word "boolean", .word "true", .word "false", .word "xor", .word "character"]
 
 def ValidToken (token : ShellToken) : Prop := token ∈ allTokens
 
@@ -119,6 +120,12 @@ structure Context where
   arrays : ArrayBindings.Metadata := []
   initials : ArrayBindings.Initials := []
   elaborating : Bool := false
+  characterElement : Bool := false
+  characterObject : Bool := false
+  isCharacter : Bool := false
+  firstIndex : Int := 1
+  lastIndex : Int := 0
+  slot : Nat := 1
   state : ParserState := initialState
   value : ValueResult := invalidValue
   result : ExpressionResult := invalidExpression
@@ -141,8 +148,10 @@ def Context.locals (ctx : Context) : Locals
   | .number, name => match name with
     | "position" => ctx.position | "first" => ctx.first | "after" => ctx.after
     | "index" => ctx.index | "length" => ctx.length | "remaining" => ctx.remaining
-    | "following" => ctx.following | "next_token" => ctx.nextToken | "capacity" => ctx.capacity | _ => 0
+    | "slot" => ctx.slot | "following" => ctx.following | "next_token" => ctx.nextToken | "capacity" => ctx.capacity | _ => 0
   | .truth, name => match name with
+    | "character_element" => ctx.characterElement | "character_object" => ctx.characterObject
+    | "is_character" => ctx.isCharacter | "dynamic" => ctx.dynamicSeen
     | "arguments" => ctx.arguments | "mutable" => ctx.mutable
     | "same_target" => ctx.sameTarget | "dynamic_seen" => ctx.dynamicSeen
     | "subtype_hidden" => ctx.subtypeHidden
@@ -152,6 +161,8 @@ def Context.locals (ctx : Context) : Locals
   | .booleanNames, _ => ctx.booleans
   | .arrayMetadata, _ => ctx.arrays
   | .subtypeNames, _ => ctx.subtypeNames
+  | .integer, "first_index" => ctx.firstIndex
+  | .integer, "last_index" => ctx.lastIndex
   | .interval, "base_bounds" => ctx.baseBounds
   | .arrayInitials, _ => ctx.initials
   | .state, _ => ctx.state
@@ -283,6 +294,43 @@ structure RawHelperEquations (calls : Calls) (evaluator : Calls := lexical calls
     (domain : StateDomain := .basic) : Prop where
   ranges : HelperRanges calls domain
   names : Names.InterpretedSource calls.names
+  fixedBounds : ∀ length dynamic isCharacter firstIndex lastIndex slot,
+    length ≤ maxSourceLength → Integer.InRange firstIndex → Integer.InRange lastIndex →
+    1 ≤ slot → slot ≤ maxBindings →
+    calls.function .fixedBoundsValid length dynamic isCharacter firstIndex lastIndex slot =
+      StringNative.fixedBoundsBody.eval evaluator
+        (Context.locals {length,dynamicSeen := dynamic,isCharacter,firstIndex,lastIndex,slot})
+  characterLiteral : ∀ text, ValidText text → ∀ position, ValidCursor text position →
+    calls.function .characterLiteral text position =
+      StringNative.characterLiteralBody.eval evaluator (Context.locals {text,position})
+  indexed : ∀ text, ValidText text → ∀ position names scalarNames arrays initials elaborating characterElement,
+    ValidCursor text position → NativeNames text names → ScalarExpression.ValidEnvironment text scalarNames →
+    ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials →
+    calls.function .indexed text position names scalarNames arrays initials elaborating characterElement =
+      StringNative.indexedBody.eval evaluator
+        (Context.locals {text,position,names,scalarNames,arrays,initials,elaborating,characterElement})
+  characterValue : ∀ text, ValidText text → ∀ position names scalarNames arrays initials elaborating,
+    ValidCursor text position → NativeNames text names → ScalarExpression.ValidEnvironment text scalarNames →
+    ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials →
+    calls.function .characterValue text position names scalarNames arrays initials elaborating =
+      StringNative.characterBody.eval evaluator
+        (Context.locals {text,position,names,scalarNames,arrays,initials,elaborating})
+  concatenatedFirst : ∀ text left right, NativeScan text left → NativeValue text right →
+    calls.function .concatenatedFirst left right =
+      StringNative.concatenatedFirstBody.eval evaluator (Context.locals {scan := left,value := right})
+  concatenatedLast : ∀ text left right, NativeScan text left → NativeValue text right →
+    calls.function .concatenatedLast left right =
+      StringNative.concatenatedLastBody.eval evaluator (Context.locals {scan := left,value := right})
+  addBindingWithCharacter : ∀ text, ValidText text → ∀ state first after value mutable following characterObject,
+    NativeState domain text state → ValidCursor text first → ValidCursor text after →
+    NativeValue text value → ValidCursor text following → state.names.length < maxBindings →
+    fixedBoundsValid value.staticLength value.dynamicSeen characterObject value.firstIndex.lower value.lastIndex.lower
+      (state.names.length + 1) = true →
+    calls.function .addBindingWithCharacter state first after value mutable following characterObject =
+      addBindingBody.eval evaluator (Context.locals {text,state,first,after,value,mutable,following,characterObject})
+  characterDeclaration : ∀ text, ValidText text → ∀ state arguments,
+    NativeState domain text state → calls.function .characterDeclaration text state arguments =
+      StringNative.characterDeclarationBody.eval evaluator (Context.locals {text,state,arguments})
   scalarLookup : ∀ text, ValidText text → ∀ names first after,
     ScalarExpression.ValidEnvironment text names → ValidCursor text first → ValidCursor text after →
     calls.function .scalarLookup text names first after = ScalarExpression.lookup text names first after
