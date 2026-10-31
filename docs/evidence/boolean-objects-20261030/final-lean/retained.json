@@ -1,0 +1,48 @@
+{
+  "run_id": "20261031T104817-379c11d51394",
+  "implementation_proof_target": "8f676fc40975781cdcaa50772d4d95f7e40054a1",
+  "source_and_regression_target": "91de078ed81d102485c7dd286758e127630b01d6",
+  "outcome": "success",
+  "scope": "complete",
+  "mode": "incremental",
+  "modules": 572,
+  "declarations": 122964,
+  "allowed_foundations": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "source_inputs_verified": 687,
+  "tool_inputs_verified": 2,
+  "checked_in_and_generated_certificates_equal": 28,
+  "changes_from_regression_snapshot": [
+    "proof/Silver/Audit.lean"
+  ],
+  "authoritative_source_link": "verified exact resolved src",
+  "phases": [
+    {
+      "phase": "build",
+      "started_at": "2026-10-31T10:48:23.188045+00:00",
+      "finished_at": "2026-10-31T10:48:35.240386+00:00",
+      "elapsed_seconds": 12.052,
+      "exit_code": 0
+    },
+    {
+      "phase": "audit",
+      "started_at": "2026-10-31T10:48:36.364567+00:00",
+      "finished_at": "2026-10-31T10:48:43.083445+00:00",
+      "elapsed_seconds": 6.719,
+      "exit_code": 0
+    }
+  ],
+  "managed_duration_seconds": 25.155052202,
+  "sha256_uncompressed": {
+    "events.jsonl": "153f4f8b061aeb12f798c7ec153d9d0d635be573df44722794a61239e30d3c3f",
+    "lean-proof.log": "dcfd178744ad27a61749b8c1e06a0ee6af32dcbb6f5d28fc0bd91eda3d810989",
+    "lean-evidence.json": "136b7b84178cd941c220fe6790c682c179dc75b59f79e1354092b7a1f72bb260",
+    "launch.json": "6ad619819c26f6d3bab79b3f09dd90b1446200e14acd4f3c5d33c56af9b57857"
+  },
+  "inputs_digest_sha256": "a8ddafbfc7071b0b7f0a878e10f9f84def62aaa4303b2eaa3934026f0bd3cdf8",
+  "clean_build": false,
+  "kernel_recheck": null
+}
