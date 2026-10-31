@@ -37,6 +37,30 @@ def StateDomain.basic : StateDomain where
   valid := fun _ _ valid => valid
   transportScalar := fun _ _ _ _ valid _ _ => valid
 
+/-- Native Valid_Names includes the exact String/Character metadata predicate.
+The independent mathematical table-validity predicate remains unchanged. -/
+structure NativeNames (text : Source) (names : BindingEnvironment) : Prop where
+  base : ValidNames text names
+  bounds : NamesBoundsValid names
+
+/-- The complete Value_Result record domain, including the newly represented
+operand subtype and both machine Integer interval fields. -/
+structure NativeValue (text : Source) (value : ValueResult) : Prop where
+  base : ValidValue text value
+  operands : value.operands ≤ maxExpressionOperands
+  firstIndex : value.firstIndex.Bounded
+  lastIndex : value.lastIndex.Bounded
+
+structure NativeResult (text : Source) (result : ExpressionResult) : Prop where
+  base : ValidResult text result
+  firstIndex : result.firstIndex.Bounded
+  lastIndex : result.lastIndex.Bounded
+
+structure NativeScan (text : Source) (scan : ExpressionState) : Prop where
+  base : ValidScan text scan
+  firstIndex : scan.firstIndex.Bounded
+  lastIndex : scan.lastIndex.Bounded
+
 def allTokens : List ShellToken :=
   [.word "with", .word "silver_io", .word "procedure", .word "main", .word "is",
    .word "pragma", .word "spark_mode", .word "on", .word "begin", .word "put_line", .word "end",
