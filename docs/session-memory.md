@@ -1,46 +1,68 @@
 # Session memory
 
-## 2026-10-31 — Boolean scalar delivery status
+## 2026-10-31 — Boolean validation complete; ordered delivery underway
 
-The owner-authorized #291 package is implemented and validated on Linux in stacked
-[PR #295](https://github.com/berkeleynerd/silver/pull/295).
-The [delivery record](boolean-objects.md#delivery-assurance-and-validation) and
-[evidence packet](evidence/boolean-objects-20261030/README.md) identify the final
-implementation/review targets, compiler build, complete Linux native and
-Lean/actual-source assurance, regression
-applicability and technical issue dispositions.
-Failed/interrupted runs and diagnostic experiments retain their outcomes.
+The owner-authorized #291 package is implemented and validated on Linux in
+[PR #295](https://github.com/berkeleynerd/silver/pull/295). The
+[delivery record](boolean-objects.md#delivery-assurance-and-validation),
+[evidence packet](evidence/boolean-objects-20261030/README.md) and
+[closing review](reviews/review-boolean-closing-7560531370.md) identify the exact
+implementation/review targets, complete native and Lean/actual-source assurance,
+regression applicability, resolved findings and retained failed attempts.
 
-Final implementation/proof target: `8f676fc40975781cdcaa50772d4d95f7e40054a1`. The native and
-46-regression snapshot remains `91de078ed81d102485c7dd286758e127630b01d6`.
-Run `062232` built the final source but failed strict module coverage; the
-single Audit import repair was checked by complete cached run
-`20261031T104817-379c11d51394`, with a fresh 572-module / 122,964-declaration
-audit and only the three approved Lean foundations. The terminal independent
-review passed on `7560531370904bb677e6a5e7de7aaa441c9faf50`.
+Under the authorization below, subtype PR #289 merged as
+`7477cb58e05fdc2c9a9d11e6f0b0867f114edccc`; its three issues and milestone 13
+are closed, with the board marked Done. PR #295 is ready for the second merge.
+Its completion closes #291/#293/#294 and milestone 14 with the corresponding
+board updates. The precise scalar Boolean Rosetta mapping covers the three
+selected drivers; broad forms and the planning queue remain separate.
+No next feature, Oracle change or assurance mode is selected. No harness goal
+exists; CLI memory is unavailable and was not updated.
 
-The reviewed ghost equality repair preserves executable meaning, contracts and
-domains. Stored flags remain conservative; neither xor operand may contain xor.
-Budgets and the Oracle are unchanged. Rosetta retains only the precise scalar
-Boolean mapping for the three selected drivers; broad forms remain separate.
-No next language capability or assurance-mode expansion is selected.
+## 2026-10-31 — Named subtype and Boolean validation and merge authorized
 
-On 2026-10-31, the owner said, **“OK, please continue monitoring and driving
-toward merging the two outstanding PRs.”** This supersedes the earlier merge
-holds and authorizes continued validation and ordered merges after required checks: PR #289, then
-PR #295. [authorization on main](https://github.com/berkeleynerd/silver/blob/d71fff53702b7ed1a66b46c3090a6aaf326621ab/docs/session-memory.md#2026-10-31--named-subtype-and-boolean-validation-and-merge-authorized), recorded through [PR #301](https://github.com/berkeleynerd/silver/pull/301) (documentation commit `9f649adb2022177c097380a4f10c09ca71d10bab`). The Boolean feature was developed against
-subtype PR #289 at `fa6b5e982cad5662b18f498e75cafbac9fb07cc9`.
-Merge execution/results: Pending ordered execution at the validated publication
-checkpoint: PR #289 first, then PR #295, under the owner authorization recorded by PR
-#301. Neither feature merge is claimed by this checkpoint; the subsequent main-side
-handoff records actual merge hashes and closeout.
-Issue and milestone handoff: At the validated publication checkpoint, #291/#293/#294
-are In review pending the authorized ordered merges, and milestone 14 remains open
-until delivery closeout. The completing commit uses `Fixes #291`, `Fixes #293` and
-`Fixes #294`; closure occurs on main. The integration owner drives PR #289 then PR
-#295 and the associated issue, milestone and board closeout under the recorded
-authorization. No harness goal exists. CLI memory is unavailable and was not updated;
-this checked-in dated record is the durable handoff.
+The owner instructed **“OK, please continue monitoring and driving toward merging
+the two outstanding PRs.”** This authorizes completing the remaining Boolean
+validation, necessary repairs, independent integration/evidence review and
+delivery records, then merging named Integer subtypes
+[PR #289](https://github.com/berkeleynerd/silver/pull/289) followed by Boolean
+scalar objects and expressions
+[PR #295](https://github.com/berkeleynerd/silver/pull/295) after their required
+checks pass. Complete the associated issue, milestone and board bookkeeping
+as part of that delivery.
+
+This supersedes the earlier instruction to keep both feature PRs open. Preserve
+the reviewed implementation and evidence identities while reconciling the
+planning records added on `main`; documentation-only integration does not
+invalidate applicable native or Lean results. Keep active validation inputs
+stable and complete every required native, Lean/source and regression check
+before claiming delivery. The named-subtype review target remains
+`fa6b5e982cad5662b18f498e75cafbac9fb07cc9` even if merge preparation advances
+its documentation.
+
+The near-term feature queue and deferred capacity work retain their existing
+scope. The discussion of proof scaling does not start a performance project
+or another language feature. No Oracle amendment or additional assurance mode
+is selected. No harness goal exists; CLI memory is unavailable and was not updated.
+
+## 2026-10-30 — Near-term language feature queue recorded
+
+The owner asked to concretize the roadmap for the next few features and
+instructed **“Proceed to make this happen.”** Record the
+[ordered queue](../roadmap.md#near-term-feature-queue) after the active Boolean
+scalar feature: bounded String indexing and character operations
+[#296](https://github.com/berkeleynerd/silver/issues/296), fixed-size Boolean
+arrays [#297](https://github.com/berkeleynerd/silver/issues/297), then small
+nonrecursive functions [#298](https://github.com/berkeleynerd/silver/issues/298).
+The first proposal has a concrete fixed-bound scope and assurance question;
+the later proposals remain brief. Revisit ordering after each delivery based
+on faithful Rosetta gains and implementation experience.
+
+This authorizes the planning records and board updates. The three feature
+issues remain Backlog; implementation milestones are created when their work
+is authorized. The existing Boolean implementation and subtype/feature merge
+instructions are unchanged. This queue claims no new language support and
+selects no deferred capacity or assurance-mode work.
 
 ## 2026-10-30 — Boolean validation recovery
 

@@ -209,8 +209,7 @@ trusted runtime import or source budget is added. The
 [complete Linux checkpoint](named-integer-subtypes.md#delivery-assurance-and-validation)
 records native obligation coverage, authoritative-source correspondence and the
 whole-project Lean/module/axiom audit for the implemented feature in
-[PR #289](https://github.com/berkeleynerd/silver/pull/289), whose merge is
-authorized before PR #295 after required checks. [authorization on main](https://github.com/berkeleynerd/silver/blob/d71fff53702b7ed1a66b46c3090a6aaf326621ab/docs/session-memory.md#2026-10-31--named-subtype-and-boolean-validation-and-merge-authorized), recorded through [PR #301](https://github.com/berkeleynerd/silver/pull/301) (documentation commit `9f649adb2022177c097380a4f10c09ca71d10bab`). Earlier stack observations retain their exact measured inputs.
+[PR #289](https://github.com/berkeleynerd/silver/pull/289), merged on 2026-10-31. Earlier stack observations retain their exact measured inputs.
 
 ## Boolean scalar boundary
 

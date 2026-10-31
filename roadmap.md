@@ -12,11 +12,43 @@ changes to earlier rules and examples must be explicit and consistent. The
 [development policy](development.md) prioritizes foundations needed for the
 next capability while retaining full assurance for the current language.
 
+## Near-term feature queue
+
+**Owner-selected planning order, 2026-10-30.** Prioritize useful Rosetta
+expansion and reuse of the existing language machinery. Revisit the order after
+each delivery; the linked issues hold scope and completion criteria.
+
+| Position | Feature | Motivating Rosetta candidates |
+| --- | --- | --- |
+| Now | [Boolean scalar objects and expressions #291](https://github.com/berkeleynerd/silver/issues/291), stacked on the named-subtype delivery [#286](https://github.com/berkeleynerd/silver/issues/286) | Sequence of primes by trial division; Square but not cube; Common list elements |
+| Next (1) | [Bounded String indexing and character operations #296](https://github.com/berkeleynerd/silver/issues/296) | Reverse a string; Palindrome detection; character replacement |
+| Later (2) | [Fixed-size Boolean arrays #297](https://github.com/berkeleynerd/silver/issues/297) | Sieve of Eratosthenes; elementary cellular automata |
+| Later (3) | [Small nonrecursive functions #298](https://github.com/berkeleynerd/silver/issues/298) | Reusable primality tests, GCD and numeric search helpers |
+
+The next feature starts with fixed-bound Strings: indexed reads and element
+writes, Character literals/temporaries/comparisons, and bounded slice expressions
+with length-compatible use. Its main assurance question is how existing interval
+and guard reasoning establishes every index, slice and destination-length check
+while preserving Ada semantics, including mutation and dead-code frontend checks.
+General dynamic-length indexing, resizing, Unicode processing and general String
+libraries are outside that initial proposal.
+
+Boolean arrays reuse bounded array storage and scalar Boolean semantics.
+Functions start with scalar parameters/results, an acyclic call graph and no
+caller-visible mutation. Their detailed design follows the preceding deliveries.
+
+These three items are **Backlog proposals**, not implementation authorizations
+or support claims. Candidate samples need faithful implementations before any
+coverage gain is claimed. The [planning decision](docs/session-memory.md#2026-10-30--near-term-language-feature-queue-recorded)
+does not change the current feature or merge authorizations. Existing source and
+expression budgets, assurance requirements, broad stages and deferred capacity
+work retain their scope.
+
 ## Current development sequence
 
 ### Boolean scalar objects and expressions
 
-**implemented and validated on Linux, 2026-10-31
+**Implemented and validated on Linux, 2026-10-31
 ([PR #295](https://github.com/berkeleynerd/silver/pull/295)); merge authorized
 after PR #289 on 2026-10-31.**
 
@@ -37,31 +69,19 @@ producer's formula expansion. Source/operator/leaf limits and the Oracle remain
 unchanged. Boolean arrays, callable routines and enumeration iteration remain
 excluded.
 
-The feature was developed on subtype
-[PR #289](https://github.com/berkeleynerd/silver/pull/289) at
-`fa6b5e982cad5662b18f498e75cafbac9fb07cc9`. On 2026-10-31, the owner authorized
-continued validation and merging PR #289 followed by PR #295 after their required checks pass.
-[authorization on
-main](https://github.com/berkeleynerd/silver/blob/d71fff53702b7ed1a66b46c3090a6aaf326621ab/docs/session-memory.md#2026-10-31--named-subtype-and-boolean-validation-and-merge-authorized),
-recorded through [PR #301](https://github.com/berkeleynerd/silver/pull/301)
-(documentation commit `9f649adb2022177c097380a4f10c09ca71d10bab`). Merge
-execution/results: Pending ordered execution at the validated publication checkpoint:
-PR #289 first, then PR #295, under the owner authorization recorded by PR #301.
-Neither feature merge is claimed by this checkpoint; the subsequent main-side handoff
-records actual merge hashes and closeout.
-Rosetta promotes only the precise `scalar-boolean-objects` identifier for
-the three drivers; broad Boolean/logical-operator/Boolean-flag uses remain
-separate. Broad stage issues #11/#12 remain Open/Backlog at rendered stages 2/3. Only
-the precise scalar Boolean identifier and its three selected drivers are promoted.
-Queue #296/#297/#298 remains unselected in Backlog; no next feature or deferred
-capacity/assurance-mode work is started. Deferred capacity and assurance-mode work
-retains its existing scope and triggers; no next feature is authorized.
+The feature was developed on the validated subtype baseline
+`fa6b5e982cad5662b18f498e75cafbac9fb07cc9`. The owner
+[authorized ordered merge](docs/session-memory.md#2026-10-31--named-subtype-and-boolean-validation-and-merge-authorized)
+on 2026-10-31; PR #289 has merged and PR #295 is ready for merge.
+Rosetta promotes only `scalar-boolean-objects` for the three selected drivers.
+Broad Boolean/logical-operator/Boolean-flag uses remain separate, and stage
+issues #11/#12 remain Open/Backlog at rendered stages 2/3. The queue above and
+deferred capacity/assurance-mode work retain their existing scope.
 
 ### Named Integer subtypes and bounded array components
 
 **Implemented and validated on Linux, 2026-10-30
-([PR #289](https://github.com/berkeleynerd/silver/pull/289)); merge authorized
-first on 2026-10-31.**
+([PR #289](https://github.com/berkeleynerd/silver/pull/289)); merged 2026-10-31.**
 
 [Milestone 13](https://github.com/berkeleynerd/silver/milestone/13) delivers one
 coherent work package, [#286](https://github.com/berkeleynerd/silver/issues/286),
@@ -89,8 +109,7 @@ approaches through the narrow `named-integer-subtypes` identifier. The broad
 `ranged-subtypes` and `arrays` identifiers remain unsupported; stage issues
 [#11](https://github.com/berkeleynerd/silver/issues/11) and
 [#12](https://github.com/berkeleynerd/silver/issues/12) remain Open/Backlog at
-rendered stages 2 and 3. PR #289 was validated before the owner's 2026-10-31
-merge authorization; its actual merge outcome is recorded above. Deferred
+rendered stages 2 and 3. PR #289 merged on 2026-10-31. Deferred
 capacity and assurance-mode work retains
 its existing triggers.
 
@@ -833,8 +852,8 @@ sequence.
 | Scalar guard refinement | Supported | Bare mutable/index comparisons against static thresholds, assignment replacement, branch hulls and captured bounds with mutable loop widening; [Linux validation and assurance](docs/scalar-guard-refinement.md#delivery-assurance-and-validation). | [100 doors](samples/rosetta_100_doors.adb) |
 | Fixed-size Integer arrays | Supported | Anonymous one-dimensional Integer arrays with nonempty static bounds, explicit initialization, checked scalar-only subscripts, exact declaration snapshots and component-preserving writes; [delivery assurance and validation](docs/fixed-integer-arrays.md#delivery-assurance-and-validation). Broad arrays remain separate. | [Left rotation by three](samples/rosetta_shift_list_left_3.adb) |
 | Constant Integer-array iteration | Supported | Forward/reverse element iteration over existing constant anonymous fixed-size Integer arrays, immutable scoped elements and existing body compositions; [delivery assurance and validation](docs/constant-array-iteration.md#delivery-assurance-and-validation). Mutable iteration and general iterators remain separate. | [Loops/Foreach](samples/rosetta_loops_foreach.adb) |
-| Named Integer subtypes and bounded components | Supported in PR #289; merge authorized first | Direct static Integer range subtypes for initialized scalar objects and existing fixed-array components, optional narrower scalar object ranges, and declared component bounds in body reads and foreach elements; [complete Linux assurance and validation](docs/named-integer-subtypes.md#delivery-assurance-and-validation). Broad ranged subtypes and arrays remain separate. | [Sum of squares](samples/rosetta_sum_of_squares.adb), [Sum and product](samples/rosetta_sum_and_product.adb) |
-| Boolean scalar objects and expressions | implemented and validated on Linux in PR #295; merge authorized after #289 | Initialized scalar Boolean objects, assignment and eager/short-circuit expressions; no retained scalar predicate facts through flags, no xor inside xor operands; [delivery assurance and validation](docs/boolean-objects.md#delivery-assurance-and-validation). | [Sequence of primes](samples/rosetta_sequence_of_primes_by_trial_division.adb), [Square but not cube](samples/rosetta_square_but_not_cube.adb), [Common list elements](samples/rosetta_common_list_elements.adb) |
+| Named Integer subtypes and bounded components | Supported | Direct static Integer range subtypes for initialized scalar objects and existing fixed-array components, optional narrower scalar object ranges, and declared component bounds in body reads and foreach elements; [complete Linux assurance and validation](docs/named-integer-subtypes.md#delivery-assurance-and-validation). Broad ranged subtypes and arrays remain separate. | [Sum of squares](samples/rosetta_sum_of_squares.adb), [Sum and product](samples/rosetta_sum_and_product.adb) |
+| Boolean scalar objects and expressions | Supported on Linux in PR #295 | Initialized scalar Boolean objects, assignment and eager/short-circuit expressions; no retained scalar predicate facts through flags, no xor inside xor operands; [delivery assurance and validation](docs/boolean-objects.md#delivery-assurance-and-validation). | [Sequence of primes](samples/rosetta_sequence_of_primes_by_trial_division.adb), [Square but not cube](samples/rosetta_square_but_not_cube.adb), [Common list elements](samples/rosetta_common_list_elements.adb) |
 
 The output target covers admitted literals and bounded command-line
 messages; the text `Hello, world!` receives no special treatment. String literals do not imply support for

@@ -1,16 +1,9 @@
 # Boolean scalar objects and expressions
 
-Status: implemented and validated on Linux, 2026-10-31, in stacked
-[PR #295](https://github.com/berkeleynerd/silver/pull/295). On 2026-10-31, the owner
-authorized continued validation and merging PR #289 followed by PR #295 after their required checks pass.
-[authorization on
-main](https://github.com/berkeleynerd/silver/blob/d71fff53702b7ed1a66b46c3090a6aaf326621ab/docs/session-memory.md#2026-10-31--named-subtype-and-boolean-validation-and-merge-authorized),
-recorded through [PR #301](https://github.com/berkeleynerd/silver/pull/301)
-(documentation commit `9f649adb2022177c097380a4f10c09ca71d10bab`). Merge
-execution/results: Pending ordered execution at the validated publication checkpoint:
-PR #289 first, then PR #295, under the owner authorization recorded by PR #301.
-Neither feature merge is claimed by this checkpoint; the subsequent main-side handoff
-records actual merge hashes and closeout.
+Status: implemented and validated on Linux, 2026-10-31, in
+[PR #295](https://github.com/berkeleynerd/silver/pull/295), ready for the
+[authorized merge](session-memory.md#2026-10-31--named-subtype-and-boolean-validation-and-merge-authorized)
+after the completed subtype delivery in PR #289.
 The [delivery section](#delivery-assurance-and-validation)
 identifies final inputs and evidence; earlier checkpoints retain their outcomes.
 [Milestone 14](https://github.com/berkeleynerd/silver/milestone/14) contains one
@@ -470,22 +463,12 @@ target:
 independent review target is `7560531370904bb677e6a5e7de7aaa441c9faf50`. Later
 record-only commits retain
 their actual scope. The feature was developed against PR #289 at
-`fa6b5e982cad5662b18f498e75cafbac9fb07cc9`. The owner authorized continued
-validation and merging PR #289 followed by PR #295 on 2026-10-31.
-[authorization on
-main](https://github.com/berkeleynerd/silver/blob/d71fff53702b7ed1a66b46c3090a6aaf326621ab/docs/session-memory.md#2026-10-31--named-subtype-and-boolean-validation-and-merge-authorized),
-recorded through [PR #301](https://github.com/berkeleynerd/silver/pull/301)
-(documentation commit `9f649adb2022177c097380a4f10c09ca71d10bab`). Merge
-execution/results: Pending ordered execution at the validated publication checkpoint:
-PR #289 first, then PR #295, under the owner authorization recorded by PR #301.
-Neither feature merge is claimed by this checkpoint; the subsequent main-side handoff
-records actual merge hashes and closeout.
-Issue and milestone handoff: At the validated publication checkpoint, #291/#293/#294
-are In review pending the authorized ordered merges, and milestone 14 remains open
-until delivery closeout. The completing commit uses `Fixes #291`, `Fixes #293` and
-`Fixes #294`; closure occurs on main. The integration owner drives PR #289 then PR
-#295 and the associated issue, milestone and board closeout under the recorded
-authorization.
+`fa6b5e982cad5662b18f498e75cafbac9fb07cc9`. The owner
+[authorized ordered merge](session-memory.md#2026-10-31--named-subtype-and-boolean-validation-and-merge-authorized)
+on 2026-10-31. PR #289 merged as `7477cb58e05fdc2c9a9d11e6f0b0867f114edccc`;
+PR #295 is ready for merge at this validated publication checkpoint. The
+completing commit closes #291/#293/#294 on main; milestone 14 and board closeout
+follow that merge.
 
 - Final source repair, reviewed pin and regenerated certificate: reviewed Body_Tail
   source plus body-call/lint repairs integrated in `91de078e`; the output pin contains
@@ -585,3 +568,21 @@ used 331.742 s summed unittest time and 340.698 s summed managed time; the
 snapshot-manifest-to-restoration interval was 448.751 s. Runtime confirmation
 and token/cost measurements were unavailable. These measured scopes exclude
 earlier planning/model time and the final Lean/review round above.
+
+### Publication integration — 2026-10-31
+
+The final review is retained in `9a65dd8022`; delivery records are integrated in
+`3cdb5126ba`. Reconciliation with the merged subtype branch preserves all
+implementation, proof, tooling, test, sample, catalogue and renderer inputs
+from the closing review target. The only non-Markdown change replaces one
+stale delivery-status sentence in `rosetta/assess.js`; no admission rule,
+assessment or task mapping changes. The required Rosetta render completed with
+no generated-file changes. All 36 newly introduced local links and anchors
+resolved, and `git diff --check` passed. This documentation integration needs
+no repeat native, Lean or regression run.
+
+Documentation preparation selected GPT-6.1 Sol / High; the closing review
+selected GPT-6 Astra / Extra High as reported above. Publication integration
+inherited the existing session; live settings and separate elapsed/token/cost
+measurements are unavailable. These checks establish publication consistency,
+not an additional assurance result.

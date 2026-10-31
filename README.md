@@ -157,8 +157,8 @@ iterators remain excluded. The
 Source, expression and operator limits are unchanged.
 
 The [named Integer subtype increment](docs/named-integer-subtypes.md#delivery-assurance-and-validation)
-is implemented and validated on Linux in [PR #289](https://github.com/berkeleynerd/silver/pull/289),
-whose merge is authorized before PR #295. It adds static
+was delivered on Linux through [PR #289](https://github.com/berkeleynerd/silver/pull/289).
+It adds static
 `subtype S is Integer range L .. H;` declarations for initialized scalar objects
 and fixed-array components, with optional narrower static scalar object ranges.
 Bounded components retain their ranges in indexed reads and constant-array
@@ -167,17 +167,8 @@ iteration, enabling the [Sum of squares](samples/rosetta_sum_of_squares.adb) and
 conversions, derived types and general arrays remain outside this fragment.
 
 The [Boolean scalar increment](docs/boolean-objects.md#delivery-assurance-and-validation)
-is implemented and validated on Linux through
-[PR #295](https://github.com/berkeleynerd/silver/pull/295). On 2026-10-31, the owner
-authorized continued validation and merging PR #289 followed by PR #295 after their required checks pass.
-[authorization on
-main](https://github.com/berkeleynerd/silver/blob/d71fff53702b7ed1a66b46c3090a6aaf326621ab/docs/session-memory.md#2026-10-31--named-subtype-and-boolean-validation-and-merge-authorized),
-recorded through [PR #301](https://github.com/berkeleynerd/silver/pull/301)
-(documentation commit `9f649adb2022177c097380a4f10c09ca71d10bab`). Merge
-execution/results: Pending ordered execution at the validated publication checkpoint:
-PR #289 first, then PR #295, under the owner authorization recorded by PR #301.
-Neither feature merge is claimed by this checkpoint; the subsequent main-side handoff
-records actual merge hashes and closeout.
+is implemented and validated on Linux in
+[PR #295](https://github.com/berkeleynerd/silver/pull/295).
 It adds initialized Boolean constants and variables,
 assignment, `not`, eager `and`/`or`/`xor` and Boolean expressions in existing
 short-circuit conditions. Stored flags retain no scalar predicate facts; neither

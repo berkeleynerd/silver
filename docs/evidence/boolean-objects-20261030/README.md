@@ -5,13 +5,6 @@ and the [capability delivery record](../../boolean-objects.md#delivery-assurance
 Status: implemented and validated on Linux, 2026-10-31, on
 `8f676fc40975781cdcaa50772d4d95f7e40054a1`.
 
-On 2026-10-31, the owner authorized continued validation and merging PR #289
-followed by PR #295 after their required checks pass. [authorization on main](https://github.com/berkeleynerd/silver/blob/d71fff53702b7ed1a66b46c3090a6aaf326621ab/docs/session-memory.md#2026-10-31--named-subtype-and-boolean-validation-and-merge-authorized), recorded through [PR #301](https://github.com/berkeleynerd/silver/pull/301) (documentation commit `9f649adb2022177c097380a4f10c09ca71d10bab`).
-Merge execution/results: Pending ordered execution at the validated publication
-checkpoint: PR #289 first, then PR #295, under the owner authorization recorded by PR
-#301. Neither feature merge is claimed by this checkpoint; the subsequent main-side
-handoff records actual merge hashes and closeout.
-
 ## Final checkpoint
 
 - Final source/pin/certificate integration: reviewed Body_Tail source plus

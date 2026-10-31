@@ -23,19 +23,12 @@ element iteration over these constant arrays, including existing body compositio
 The [named Integer-subtype delivery record](docs/named-integer-subtypes.md#delivery-assurance-and-validation)
 records complete Linux native and Lean/source assurance for static named scalar
 ranges, optional narrower scalar object constraints and bounded components of
-these fixed arrays. The feature is implemented and validated in
-[PR #289](https://github.com/berkeleynerd/silver/pull/289), whose merge is
-authorized before the Boolean feature PR.
+these fixed arrays. The feature was delivered through
+[PR #289](https://github.com/berkeleynerd/silver/pull/289).
 The [Boolean scalar delivery](docs/boolean-objects.md#delivery-assurance-and-validation)
-records complete Linux native and Lean/actual-source assurance for initialized Boolean
-objects, assignment and
-the logical expressions below, composed with the existing language. [PR #295](https://github.com/berkeleynerd/silver/pull/295) remains stacked
-on PR #289. On 2026-10-31, the owner authorized continued validation and merging
-PR #289 followed by PR #295 after their required checks pass. [authorization on main](https://github.com/berkeleynerd/silver/blob/d71fff53702b7ed1a66b46c3090a6aaf326621ab/docs/session-memory.md#2026-10-31--named-subtype-and-boolean-validation-and-merge-authorized), recorded through [PR #301](https://github.com/berkeleynerd/silver/pull/301) (documentation commit `9f649adb2022177c097380a4f10c09ca71d10bab`).
-Merge execution/results: Pending ordered execution at the validated publication
-checkpoint: PR #289 first, then PR #295, under the owner authorization recorded by PR
-#301. Neither feature merge is claimed by this checkpoint; the subsequent main-side
-handoff records actual merge hashes and closeout.
+records complete Linux native and Lean/actual-source assurance for initialized
+Boolean objects, assignment and the logical expressions below, composed with
+the existing language.
 The [machine-readable
 catalogue](catalogue/silver.json), compiler, and this specification must agree. A
 discrepancy is a defect to resolve, not an extension of the language. Membership
