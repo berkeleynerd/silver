@@ -117,7 +117,10 @@ theorem relation_progress (text : Source) (context : ParseContext) (position : N
   | length _ _ _ _ _ advanced => exact advanced
   | scalars _ _ _ _ _ _ advanced => exact advanced
   | strings _ _ _ _ _ _ _ advanced => exact advanced
-  | primary _ _ _ _ _ inner =>
+  | character _ _ _ _ _ inner =>
+    cases inner with
+    | comparison _ _ _ _ advanced _ => exact advanced
+  | primary _ _ _ _ _ _ inner =>
     rw [← booleanRelation_complete inner] at accepted ⊢
     exact booleanRelation_progress text context position facts textValid namesValid bounded accepted
 

@@ -35,7 +35,7 @@ def Expr.callSpine : Expr ty → Bool
   | .function _ => true | .app fn _ | .appNamed fn _ _ => fn.callSpine | _ => false
 
 def Expr.wellFormed : Expr ty → Bool
-  | .operation _ | .number _ | .truth _ | .word _ | .validityCallWord | .token _ | .chain _ | .comparison _ | .variable _ | .function _ => true
+  | .operation _ | .number _ | .truth _ | .word _ | .emptyPath | .validityCallWord | .token _ | .chain _ | .comparison _ | .variable _ | .function _ => true
   | .app fn arg | .appNamed fn _ arg => fn.callSpine && fn.wellFormed && arg.primary && arg.wellFormed
   | .field _ value => value.primary && value.wellFormed
   | .subtypeHidden context op => context.primary && context.wellFormed && op.wellFormed
@@ -71,7 +71,7 @@ abbrev Scope := List (Ty × String)
 
 def Expr.scoped (scope : Scope) : Expr ty → Bool
   | .variable (ty := ty) name => (ty, name) ∈ scope
-  | .operation _ | .number _ | .truth _ | .word _ | .validityCallWord | .token _ | .chain _ | .comparison _ | .function _ => true
+  | .operation _ | .number _ | .truth _ | .word _ | .emptyPath | .validityCallWord | .token _ | .chain _ | .comparison _ | .function _ => true
   | .app fn arg | .appNamed fn _ arg => fn.scoped scope && arg.scoped scope
   | .invalid value | .field _ value | .notEquality value | .notChain value | .not value | .group value | .old value | .locals value => value.scoped scope
   | .subtypeHidden left right | .bindingAt left right | .eq left right | .ne left right | .le left right | .tokenEq left right
@@ -90,6 +90,7 @@ def Expr.scoped (scope : Scope) : Expr ty → Bool
       rest.scoped ((ty, name) :: scope.filter (fun entry => entry.2 != name))
 
 abbrev WellFormedTrees : Prop :=
+  characterBody.wellFormed = true ∧
   summaryBody.wellFormed = true ∧ bindingSummaryBody.wellFormed = true ∧ boundBody.wellFormed = true ∧ comparisonBody.wellFormed = true ∧
   lengthBody.wellFormed = true ∧ booleanAtomBody.wellFormed = true ∧
   booleanFactorBody.wellFormed = true ∧ booleanRelationBody.wellFormed = true ∧ primaryBody.wellFormed = true ∧ relationBody.wellFormed = true ∧
@@ -97,6 +98,7 @@ abbrev WellFormedTrees : Prop :=
   modelBody.wellFormed = true ∧ conditionBody.wellFormed = true
 
 abbrev WellScopedTrees : Prop :=
+  characterBody.scoped [(.source, "text"), (.context, "context"), (.number, "position"), (.facts, "facts"), (.initials, "initials")] = true ∧
   summaryBody.scoped [(.result, "value")] = true ∧ bindingSummaryBody.scoped [(.binding, "value")] = true ∧ boundBody.scoped [(.binding, "value")] = true ∧
   comparisonBody.scoped [(.source, "text"), (.number, "position")] = true ∧
   lengthBody.scoped [(.source, "text"), (.context, "context"), (.number, "position"), (.truth, "literal")] = true ∧

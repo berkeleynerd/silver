@@ -12,12 +12,13 @@ arbitrary until their source equations or inherited contracts are applied. -/
 namespace Silver.Predicate.Native
 
 inductive Ty
-  | number | truth | word | source | token | chain | booleanNames | initials | operation | comparison | binding | names | scalarNames | arrays | scalarResult | context | result | literal | length | compared | condition | summary | bound | facts | path | arrow (domain codomain : Ty)
+  | number | truth | word | value | source | token | chain | booleanNames | initials | operation | comparison | binding | names | scalarNames | arrays | scalarResult | context | result | literal | length | compared | condition | summary | bound | facts | path | arrow (domain codomain : Ty)
   deriving DecidableEq, Repr
 
 @[reducible] def Ty.meaning : Ty → Type
   | .number => Nat
   | .truth => Bool
+  | .value => Compose.ValueResult
   | .word => String
   | .source => Source
   | .chain => ChainKind
@@ -46,6 +47,7 @@ inductive Ty
 def Ty.default : (ty : Ty) → ty.meaning
   | .number => 0
   | .truth => false
+  | .value => Compose.invalidValue
   | .word => ""
   | .source => []
   | .chain => .noChain
@@ -72,10 +74,13 @@ def Ty.default : (ty : Ty) → ty.meaning
   | .arrow _ b => fun _ => b.default
 
 inductive Function
-  | xorFree | callAfter | equalName | nameIs | arrayLookup | booleanLookup | booleanAtom | booleanFactor | booleanRelation | take | skip | nameAfter | lookup | scalarLookup | scalarRead | scalarInFlow | stringInFlow | scalarCondition | invalidCondition | integer | expression | summary | bound | bindingSummary | comparison | length | primary | relation | condition | model | chainToken | chainAfter | tail | assumeValid | assumeInvalid | refineBounds | fits | refineEqual | join
+  | readingNames | characterAt | characterCondition | xorFree | callAfter | equalName | nameIs | arrayLookup | booleanLookup | booleanAtom | booleanFactor | booleanRelation | take | skip | nameAfter | lookup | scalarLookup | scalarRead | scalarInFlow | stringInFlow | scalarCondition | invalidCondition | integer | expression | summary | bound | bindingSummary | comparison | length | primary | relation | condition | model | chainToken | chainAfter | tail | assumeValid | assumeInvalid | refineBounds | fits | refineEqual | join
   deriving DecidableEq, Repr
 
 def Function.name : Function → List String
+  | .readingNames => ["reading_names"]
+  | .characterAt => ["character_at"]
+  | .characterCondition => ["character_condition"]
   | .xorFree => ["xor_free"]
   | .callAfter => ["call_after"]
   | .equalName => ["equal_name"]
@@ -117,6 +122,9 @@ def Function.name : Function → List String
   | .join => ["joined"]
 
 @[reducible] def Function.type : Function → Ty
+  | .readingNames => .arrow .context (.arrow .facts .scalarNames)
+  | .characterAt => .arrow .source (.arrow .number (.arrow .names (.arrow .scalarNames (.arrow .arrays (.arrow .initials (.arrow .truth .value))))))
+  | .characterCondition => .arrow .source (.arrow .context (.arrow .number (.arrow .facts (.arrow .initials .condition))))
   | .xorFree => .arrow .source (.arrow .number (.arrow .number .truth))
   | .callAfter => .arrow .source (.arrow .names (.arrow .number (.arrow .operation (.arrow .scalarNames (.arrow .arrays (.arrow .truth (.arrow .booleanNames .number)))))))
   | .equalName => .arrow .source (.arrow .number (.arrow .number (.arrow .number (.arrow .number .truth))))
@@ -157,6 +165,9 @@ def Function.name : Function → List String
   | .join => .arrow .facts (.arrow .facts (.facts))
 
 structure Calls where
+  readingNames : Context → ActiveFlow → ScalarExpression.Environment
+  characterAt : Source → Nat → Compose.BindingEnvironment → ScalarExpression.Environment → ArrayBindings.Metadata → ArrayBindings.Initials → Bool → Compose.ValueResult
+  characterCondition : Source → Context → Nat → ActiveFlow → ArrayBindings.Initials → ConditionResult
   xorFree : Source → Nat → Nat → Bool
   callAfter : Source → Compose.BindingEnvironment → Nat → Names.Operation → ScalarExpression.Environment → ArrayBindings.Metadata → Bool → BooleanBindings.Environment → Nat
   equalName : Source → Nat → Nat → Nat → Nat → Bool
@@ -198,6 +209,9 @@ structure Calls where
   join : ActiveFlow → ActiveFlow → ActiveFlow
 
 def Calls.get (calls : Calls) : (f : Function) → f.type.meaning
+  | .readingNames => calls.readingNames
+  | .characterAt => calls.characterAt
+  | .characterCondition => calls.characterCondition
   | .xorFree => calls.xorFree
   | .callAfter => calls.callAfter
   | .equalName => calls.equalName
@@ -239,6 +253,9 @@ def Calls.get (calls : Calls) : (f : Function) → f.type.meaning
   | .join => calls.join
 
 inductive Field : Ty → Ty → Type
+  | valueAfter : Field .value .number
+  | valueNonliteral : Field .value .truth
+  | bindingCharacter : Field .binding .truth
   | contextBooleans : Field .context .booleanNames
   | contextTrueHidden : Field .context .truth
   | contextFalseHidden : Field .context .truth
@@ -273,6 +290,9 @@ inductive Field : Ty → Ty → Type
   | whenFalse : Field .condition .facts
 
 def Field.name : Field a b → String
+  | .valueAfter => "after"
+  | .valueNonliteral => "nonliteral_seen"
+  | .bindingCharacter => "is_character"
   | .contextBooleans => "boolean_names"
   | .contextTrueHidden => "true_hidden"
   | .contextFalseHidden => "false_hidden"
@@ -306,6 +326,9 @@ def Field.name : Field a b → String
   | .whenFalse => "when_false"
 
 def Field.get : Field a b → a.meaning → b.meaning
+  | .valueAfter, value => value.after
+  | .valueNonliteral, value => value.nonliteralSeen
+  | .bindingCharacter, value => value.isCharacter
   | .contextBooleans, value => value.booleanNames
   | .contextTrueHidden, value => value.trueHidden
   | .contextFalseHidden, value => value.falseHidden
@@ -346,6 +369,7 @@ inductive Expr : Ty → Type
   | token (value : Token) : Expr .token
   | chain (value : ChainKind) : Expr .chain
   | word (value : String) : Expr .word
+  | emptyPath : Expr .path
   | validityCallWord : Expr .word
   | comparison (value : Comparison) : Expr .comparison
   | variable (name : String) : Expr ty
@@ -406,6 +430,7 @@ def Expr.render : Expr ty → List String
   | .token value => [value.name]
   | .chain value => [value.name]
   | .word value => ["\"" ++ value ++ "\""]
+  | .emptyPath => ["paths", ".", "empty_context"]
   | .validityCallWord => ["validity_call_word"]
   | .comparison value => ["paths", ".", comparisonName value]
   | .variable name => [name]
@@ -464,6 +489,7 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .token value => value
   | .chain value => value
   | .word value => value
+  | .emptyPath => PathFacts.Context.empty
   | .validityCallWord => "input_is_valid"
   | .comparison value => value
   | .variable name => locals _ name
@@ -534,6 +560,18 @@ def callBooleanAtom (text : Expr .source) (context : Expr .context) (position : 
 def callBooleanFactor (text : Expr .source) (context : Expr .context) (position : Expr .number)
     (facts : Expr .facts) (initials : Expr .initials) : Expr .condition :=
   .app (.app (.app (.app (.app (.function .booleanFactor) text) context) position) facts) initials
+
+def callReadingNames (context : Expr .context) (facts : Expr .facts) : Expr .scalarNames :=
+  .app (.app (.function .readingNames) context) facts
+
+def callCharacterAt (text : Expr .source) (position : Expr .number) (names : Expr .names)
+    (scalars : Expr .scalarNames) (arrays : Expr .arrays) (initials : Expr .initials)
+    (elaborating : Expr .truth) : Expr .value :=
+  .app (.app (.app (.app (.app (.app (.app (.function .characterAt) text) position) names) scalars) arrays) initials) elaborating
+
+def callCharacterCondition (text : Expr .source) (context : Expr .context) (position : Expr .number)
+    (facts : Expr .facts) (initials : Expr .initials) : Expr .condition :=
+  .app (.app (.app (.app (.app (.function .characterCondition) text) context) position) facts) initials
 
 def callBooleanRelation (text : Expr .source) (context : Expr .context) (position : Expr .number)
     (facts : Expr .facts) (initials : Expr .initials) : Expr .condition :=

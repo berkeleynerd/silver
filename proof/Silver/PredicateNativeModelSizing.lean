@@ -10,6 +10,10 @@ namespace Silver.Predicate.Native
 /-- The interpretation of each constrained native model checks its allocation
 and aggregate extents before projecting the redundant discriminant. -/
 structure SizedModels (calls : Calls) : Prop where
+  character : ∀ text, ValidText text → ∀ context, ValidContext text context → ∀ position,
+    position ≤ text.length + 1 → ∀ facts, ValidFlow context facts →
+    ∀ initials, ArrayBindings.ValidInitials initials →
+    characterBody.Sized calls ({text, context, position, facts, initials} : Inputs).locals
   primary : ∀ text, ValidText text → ∀ context, ValidContext text context → ∀ position,
     position ≤ text.length + 1 → ∀ facts, ValidFlow context facts →
     ∀ initials, ArrayBindings.ValidInitials initials →
@@ -64,6 +68,11 @@ set_option maxRecDepth 10000
 set_option maxHeartbeats 2000000
 
 theorem model_sizedModels : SizedModels modelCalls where
+  character text _ context _ position _ facts _ initials _ := by
+    simp only [characterBody, Expr.Sized, Expr.eval,
+      Inputs.locals, Locals.set, Calls.get, Field.get, modelCalls,
+      Expr.callReadingNames, Expr.callCharacterAt, Expr.callComparison, count_with_path]
+    simp
   primary text _ context _ position _ facts _ initials _ := by
     simp only [primaryBody, Expr.Sized, Expr.declared, Expr.eval,
       Inputs.locals, Locals.set, Calls.get, Field.get, modelCalls,
@@ -85,7 +94,7 @@ theorem model_sizedModels : SizedModels modelCalls where
   relation text _ context _ position _ facts _ initials _ := by
     simp only [relationBody, Expr.Sized, Expr.declared, Expr.eval,
       Inputs.locals, Locals.set, Calls.get, Field.get, modelCalls,
-      Expr.callTake, Expr.callLength, Expr.callScalarInFlow, Expr.callBooleanRelation,
+      Expr.callTake, Expr.callLength, Expr.callScalarInFlow, Expr.callBooleanRelation, Expr.callCharacterCondition,
       Expr.callStringInFlow, Expr.callComparison, Expr.callScalarCondition, Expr.callSummary,
       Expr.callFits, Expr.callRefineEqual, Expr.callRefineBounds,
       invalidCondition_counts, count_with_path]

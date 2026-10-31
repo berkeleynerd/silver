@@ -56,7 +56,7 @@ def lengthBody : Expr .length :=
     .local "number" ["silver_integer_literals", ".", "literal_result"] (.callInteger text first) <|
     .group <| .ite (.andThen (.variable "literal") (.ne (.field .literalAfter number) (.number 0)))
       (.length (.field .literalAfter number) (.bound (.field .literalValue number) (.truth false)))
-      (.elsif (.orElse (.eq index (.number 0))
+      (.elsif (.orElse (.orElse (.eq index (.number 0)) (.field .bindingCharacter (.bindingAt names index)))
         (.ne (.callScalarLookup text (.field .contextScalarNames context) first after) (.number 0))) (.length (.number 0) (.bound (.number 0) (.truth false)))
         (.length (.callTake text (.callTake text after (.token .apostrophe)) (.token .lengthName))
           (.callBound (.bindingAt names index))))
@@ -150,6 +150,29 @@ def booleanRelationBody : Expr .condition :=
             .group <| .ite (.eq (.field .conditionAfter right) (.number 0)) (.invalid facts)
               (.condition false (.field .flowCount facts) (.field .conditionAfter right) facts facts))))
 
+def characterBody : Expr .condition :=
+  let text : Expr .source := .variable "text"
+  let context : Expr .context := .variable "context"
+  let position : Expr .number := .variable "position"
+  let facts : Expr .facts := .variable "facts"
+  let overlay : Expr .scalarNames := .variable "overlay"
+  let left : Expr .value := .variable "left"
+  let right : Expr .value := .variable "right"
+  let operator : Expr .compared := .variable "operator"
+  let read (cursor : Expr .number) := Expr.callCharacterAt text cursor (.field .contextNames context)
+    overlay (.field .contextArrays context) (.variable "initials") (.field .contextElaborating context)
+  let empty := Expr.updatePath facts .emptyPath
+  .locals <| .local "overlay" ["scalar_expressions", ".", "environment"] (.callReadingNames context facts) <|
+    .local "left" ["value_result"] (read position) <|
+    .local "operator" ["comparison_result"] (.callComparison text (.field .valueAfter left)) <|
+    .local "right" ["value_result"] (read (.field .comparedAfter operator)) <|
+    .group <| .ite
+      (.orElse (.orElse (.orElse (.eq (.field .valueAfter left) (.number 0))
+        (.eq (.field .comparedAfter operator) (.number 0))) (.le (.field .valueAfter right) position))
+        (.not (.group (.orElse (.field .valueNonliteral left) (.field .valueNonliteral right)))))
+      (.condition true (.field .flowCount facts) (.number 0) empty empty)
+      (.condition true (.field .flowCount facts) (.field .valueAfter right) facts facts)
+
 def relationBody : Expr .condition :=
   let text : Expr .source := .variable "text"
   let context : Expr .context := .variable "context"
@@ -181,13 +204,18 @@ def relationBody : Expr .condition :=
           (.not (.group (.orElse (.field .resultNamed left) (.field .resultNamed right)))))
           (.not (.callFits path (.callSummary left)))) (.not (.callFits path (.callSummary right))))
         (.invalid facts) stringResult
+  let characterCase : Expr .condition :=
+    .declared "character_result" ["condition_result"]
+      (.callCharacterCondition text context position facts (.variable "initials")) <|
+      .group <| .ite (.ne (.field .conditionAfter (.variable "character_result")) (.number 0))
+        (.variable "character_result") (.callBooleanRelation text context position facts (.variable "initials"))
   let stringCase : Expr .condition :=
     .declared "left" ["expression_result"] (.callStringInFlow text context position facts (.variable "initials")) <|
       .group <| .ite (.ne (.field .resultAfter left) (.number 0))
         (.declared "operator" ["comparison_result"] (.callComparison text (.field .resultAfter left)) <|
           .group <| .ite (.orElse (.eq (.field .comparedAfter operator) (.number 0)) (.notEquality operation))
             (.invalid facts) readRight)
-        (.callBooleanRelation text context position facts (.variable "initials"))
+        characterCase
   let scalarCase : Expr .condition :=
     .group <| .locals <|
       .local "operator" ["comparison_result"] (.callComparison text (.field .scalarAfter leftScalar)) <|
