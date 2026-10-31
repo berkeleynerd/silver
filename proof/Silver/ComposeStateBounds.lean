@@ -4,6 +4,8 @@ public import Silver.ComposeContracts
 public import Silver.ComposeScalarDeclarations
 public import Silver.ComposeArrayElaboration
 public import Silver.ComposeBooleanDeclarations
+public import Silver.ComposeObjectDeclarations
+public import Silver.ComposeCharacterBounds
 
 @[expose] public section
 
@@ -39,8 +41,8 @@ theorem model_add_binding_valid (text : Source) (state : ParserState)
     (first after : Nat) (value : ValueResult) (mutable : Bool) (following : Nat)
     (stateValid : ValidState text state) (nameValid : ValidName text first after)
     (valueValid : ValidValue text value) (followingValid : ValidCursor text following)
-    (room : state.names.length < maxBindings) :
-    ValidState text (addBinding state first after value mutable following) := by
+    (room : state.names.length < maxBindings) (characterObject : Bool := false) :
+    ValidState text (addBinding state first after value mutable following characterObject) := by
   refine ⟨followingValid, ⟨?_, ?_⟩, stateValid.2.2.1, ?_, stateValid.2.2.2.2⟩
   · simp only [addBinding, List.length_append, List.length_singleton]
     omega
@@ -78,7 +80,7 @@ theorem model_string_declaration_valid (text : Source) (valid : ValidText text)
     simp only [Bool.or_eq_true, Bool.not_eq_true', decide_eq_true_eq, not_or] at admitted
     apply model_add_binding_valid text state _ _ _ _ _ stateValid
     · apply model_new_name_valid text state _ _ arguments nameBound
-      simpa using admitted.1.1.1.1
+      simpa using admitted.1.1.1.1.1
     · exact ⟨resultBound.1, by simp [ExpressionResult.value], resultBound.2.1, by simp [ExpressionResult.value], resultBound.2.2.2⟩
     · exact followingBound
     · have bound := stateValid.2.1.1
@@ -112,7 +114,7 @@ theorem model_string_declaration_advances (text : Source) (valid : ValidText tex
       model_fixed_advances text _ ";" false resultBound.1 (by decide) nonzero
     simp only [Bool.or_eq_true, Bool.not_eq_true', decide_eq_true_eq, not_or] at admitted
     have nameValid : ValidName text (declarationParts text state).first (declarationParts text state).after :=
-      model_new_name_valid text state _ _ arguments sourceNameBound (by simpa using admitted.1.1.1.1)
+      model_new_name_valid text state _ _ arguments sourceNameBound (by simpa using admitted.1.1.1.1.1)
     have firstNonzero : declarationFirst text state ≠ 0 := Nat.ne_of_gt nameValid.1
     have skipped : state.position ≤ declarationFirst text state := skipAt_advances text _ stateValid.1 firstNonzero
     have nameForward : state.position < declarationAfter text state := Nat.lt_of_le_of_lt skipped nameValid.2.1
@@ -344,6 +346,132 @@ theorem model_boolean_declaration_advances (text : Source) (state : ParserState)
     state.position < (booleanDeclarationAt text state arguments).position :=
   boolean_declaration_progress (boolean_declaration_sound text state arguments positive)
 
+theorem model_character_reading_valid {text : Source} {state next : ParserState} {arguments : Bool}
+    {declaration : Bindings.Declaration} (stateValid : ValidState text state)
+    (parsed : CharacterDeclarationAt text arguments state declaration next) : ValidState text next := by
+  cases parsed with
+  | @declaration parts value partsEq ready following source =>
+      have nameBound : ValidCursor text parts.after := by
+        rw [← partsEq]
+        exact model_name_valid text _
+      have allowed : newNameAllowed text state parts.first parts.after arguments = true := by
+        cases checked : newNameAllowed text state parts.first parts.after arguments with
+        | true => rfl
+        | false => simp [characterDeclarationRejected, checked] at ready
+      have room : state.names.length < maxBindings := by
+        have notFull : state.names.length ≠ maxBindings := by
+          intro full
+          simp [characterDeclarationRejected, full] at ready
+        have count := stateValid.2.1.1
+        omega
+      have followingBound : ValidCursor text parts.following := by
+        rw [← partsEq]
+        exact fixedAfter_result_bound text _ ";" false (by decide)
+      exact model_add_binding_valid text state parts.first parts.after parts.value
+        (decide (parts.constantAfter = 0)) parts.following stateValid
+        (model_new_name_valid text state _ _ arguments nameBound allowed)
+        (character_value_valid source stateValid.2.1.1) followingBound room true
+
+theorem model_character_declaration_valid (text : Source) (state : ParserState) (arguments : Bool)
+    (stateValid : ValidState text state) : ValidState text (characterDeclarationAt text state arguments) := by
+  by_cases positive : (characterDeclarationAt text state arguments).position ≠ 0
+  · obtain ⟨declaration, source⟩ := character_declaration_sound text state arguments positive
+    exact model_character_reading_valid stateValid source
+  · unfold characterDeclarationAt
+    dsimp only
+    split
+    · exact model_invalid_state_valid text
+    · rename_i ready
+      have readyFalse : characterDeclarationRejected text state arguments
+          (characterDeclarationParts text state) = false := Bool.eq_false_iff.mpr ready
+      have following : (characterDeclarationParts text state).following ≠ 0 := by
+        intro zero
+        simp [characterDeclarationRejected, zero] at readyFalse
+      have successful : (characterDeclarationAt text state arguments).position ≠ 0 := by
+        simp only [characterDeclarationAt, readyFalse, Bool.false_eq_true, ↓reduceIte, addBinding]
+        exact following
+      exact False.elim (positive successful)
+
+theorem model_object_reading_valid {text state next arguments declaration}
+    (textValid : ValidText text) (stateValid : ValidState text state)
+    (parsed : DeclarationAt text arguments state declaration next) : ValidState text next := by
+  cases parsed with
+  | string _ source =>
+      rw [← string_declaration_complete source]
+      exact model_string_declaration_valid text textValid state arguments stateValid
+  | character source => exact model_character_reading_valid stateValid source
+
+theorem model_character_reading_advances {text : Source} {state next : ParserState} {arguments : Bool}
+    {declaration : Bindings.Declaration} (stateValid : ValidState text state)
+    (source : CharacterDeclarationAt text arguments state declaration next) : state.position < next.position := by
+  cases source with
+  | @declaration parts value partsEq ready following source =>
+      have valueBound := character_after_bounded source
+      have startBound := fixedAfter_result_bound text parts.typeAfter ":=" false (by decide)
+      have valueForward := character_advances source startBound
+      have valueNonzero := character_input_nonzero source
+      have typeNonzero := model_fixed_input_nonzero text _ ":=" false valueNonzero
+      have followingEq : parts.following = fixedAfter text parts.value.after ";" false := by
+        rw [← partsEq]
+        rfl
+      have finalForward := model_fixed_advances text _ ";" false valueBound (by decide)
+        (followingEq ▸ following)
+      have afterBound : ValidCursor text parts.after := by
+        rw [← partsEq]
+        exact model_name_valid text _
+      have allowed : newNameAllowed text state parts.first parts.after arguments = true := by
+        cases checked : newNameAllowed text state parts.first parts.after arguments with
+        | true => rfl
+        | false => simp [characterDeclarationRejected, checked] at ready
+      have nameValid := model_new_name_valid text state _ _ arguments afterBound allowed
+      have firstNonzero : declarationFirst text state ≠ 0 := by
+        simpa only [← partsEq, characterDeclarationParts, declarationFirst] using Nat.ne_of_gt nameValid.1
+      have nameForward : state.position < declarationAfter text state := by
+        have skipped := skipAt_advances text _ stateValid.1 firstNonzero
+        have named : declarationFirst text state < declarationAfter text state := by
+          simpa only [← partsEq, characterDeclarationParts, declarationFirst, declarationAfter] using nameValid.2.1
+        exact Nat.lt_of_le_of_lt skipped named
+      let base := if declarationConstantAfter text state ≠ 0 then declarationConstantAfter text state
+        else declarationColonAfter text state
+      have sourceNameBound : ValidCursor text (declarationAfter text state) := model_name_valid text _
+      have colonBound := model_fixed_valid text (declarationAfter text state) ":" false sourceNameBound
+      have constantBound := model_fixed_valid text (declarationColonAfter text state) "constant" true colonBound
+      have baseBound : ValidCursor text base := by unfold base; split <;> assumption
+      have typeEq : parts.typeAfter = fixedAfter text (skipAt text base) "character" true := by
+        rw [← partsEq]
+        rfl
+      have typeStartNonzero := model_fixed_input_nonzero text (skipAt text base) "character" true (typeEq ▸ typeNonzero)
+      have baseNonzero : base ≠ 0 := by intro zero; simp [zero, skipAt] at typeStartNonzero
+      have baseForward : declarationAfter text state < base := by
+        unfold base at baseNonzero ⊢
+        split at baseNonzero
+        · rename_i present
+          rw [ite_eq_left present]
+          have colonNonzero := model_fixed_input_nonzero text _ "constant" true present
+          exact Nat.lt_trans (model_fixed_advances text _ ":" false sourceNameBound (by decide) colonNonzero)
+            (model_fixed_advances text _ "constant" true colonBound (by decide) present)
+        · rename_i absent
+          rw [ite_eq_right absent]
+          exact model_fixed_advances text _ ":" false sourceNameBound (by decide) baseNonzero
+      have typeStartBound := model_skip_valid text base baseBound
+      have typeStartForward := skipAt_advances text base baseBound typeStartNonzero
+      have typeForward := model_fixed_advances text (skipAt text base) "character" true typeStartBound (by decide) (typeEq ▸ typeNonzero)
+      have typeBound : ValidCursor text parts.typeAfter := by
+        rw [typeEq]
+        exact model_fixed_valid text (skipAt text base) "character" true typeStartBound
+      have startForward := model_fixed_advances text parts.typeAfter ":=" false typeBound (by decide) valueNonzero
+      simp only [addBinding]
+      rw [followingEq]
+      rw [← typeEq] at typeForward
+      omega
+
+theorem model_character_declaration_advances (text : Source) (state : ParserState) (arguments : Bool)
+    (stateValid : ValidState text state)
+    (positive : (characterDeclarationAt text state arguments).position ≠ 0) :
+    state.position < (characterDeclarationAt text state arguments).position := by
+  obtain ⟨declaration, source⟩ := character_declaration_sound text state arguments positive
+  exact model_character_reading_advances stateValid source
+
 theorem model_declaration_valid (text : Source) (valid : ValidText text)
     (state : ParserState) (arguments : Bool) (stateValid : ValidState text state) :
     ValidState text (declarationAt text state arguments) := by
@@ -357,7 +485,9 @@ theorem model_declaration_valid (text : Source) (valid : ValidText text)
       · exact model_array_declaration_valid text state arguments stateValid
       · split
         · exact model_boolean_declaration_valid text state arguments stateValid
-        · exact model_string_declaration_valid text valid state arguments stateValid
+        · split
+          · exact model_character_declaration_valid text state arguments stateValid
+          · exact model_string_declaration_valid text valid state arguments stateValid
 
 theorem model_declaration_advances (text : Source) (valid : ValidText text)
     (state : ParserState) (arguments : Bool) (stateValid : ValidState text state)
@@ -386,15 +516,21 @@ theorem model_declaration_advances (text : Source) (valid : ValidText text)
             simp only [declarationAt]; split <;> simp_all
           rw [selected]
           exact model_boolean_declaration_advances text state arguments boolean
-        · have selected : declarationAt text state arguments = stringDeclarationAt text state arguments := by
-            dsimp only [declarationAt]
-            rw [ite_eq_right subtype, ite_eq_right scalar, ite_eq_right array, ite_eq_right boolean]
-          rw [selected] at nonzero ⊢
-          exact model_string_declaration_advances text valid state arguments stateValid nonzero
+        · by_cases character : (characterDeclarationAt text state arguments).position ≠ 0
+          · have selected : declarationAt text state arguments = characterDeclarationAt text state arguments := by
+              dsimp only [declarationAt]
+              rw [ite_eq_right subtype, ite_eq_right scalar, ite_eq_right array, ite_eq_right boolean, ite_eq_left character]
+            rw [selected]
+            exact model_character_declaration_advances text state arguments stateValid character
+          · have selected : declarationAt text state arguments = stringDeclarationAt text state arguments := by
+              dsimp only [declarationAt]
+              rw [ite_eq_right subtype, ite_eq_right scalar, ite_eq_right array, ite_eq_right boolean, ite_eq_right character]
+            rw [selected] at nonzero ⊢
+            exact model_string_declaration_advances text valid state arguments stateValid nonzero
 
 theorem model_dynamic_value_valid (text : Source) (following : Nat)
     (bound : ValidCursor text following) :
-    ValidValue text ⟨following, 0, 0, 0, true, true, false, 0⟩ :=
+    ValidValue text ⟨following, 0, 0, 0, true, true, false, 0, 1, .singleton 1, ⟨0, maxSourceLength⟩⟩ :=
   ⟨bound, by simp, by simp, by simp, by simp⟩
 
 theorem model_argument_valid (text : Source) (valid : ValidText text)
@@ -421,7 +557,7 @@ theorem model_argument_valid (text : Source) (valid : ValidText text)
       have empty : state.names.length = 0 := by omega
       simp [empty, maxBindings, maxSourceLength]
     have added := model_add_binding_valid text state (argumentFirst text state) (argumentAfter text state)
-      ⟨following, 0, 0, 0, true, true, false, 0⟩ false following stateValid nameValid
+      ⟨following, 0, 0, 0, true, true, false, 0, 1, .singleton 1, ⟨0, maxSourceLength⟩⟩ false following stateValid nameValid
       (model_dynamic_value_valid text following followingBound) followingBound room
     exact ⟨added.1, added.2.1, Or.inr nameValid, added.2.2.2⟩
 
