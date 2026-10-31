@@ -49,8 +49,18 @@ theorem basicRaw_count (text : Source) (context : ParseContext) (scan : BodyScan
       dsimp only
       split <;> rfl
   | assignment =>
-      try dsimp only
-      split <;> rfl
+      have countIf (condition : Prop) [Decidable condition] (left right : BodyScan)
+          (leftCount : left.count = scan.count) (rightCount : right.count = scan.count) :
+          (if condition then left else right).count = scan.count := by
+        by_cases chosen : condition
+        · simpa only [chosen, ↓reduceIte] using leftCount
+        · simpa only [chosen, ↓reduceIte] using rightCount
+      cases kind : stringAssignmentKind text context scan
+      all_goals
+        simp only [stringAssignmentBody, kind]
+        apply countIf
+        · rfl
+        · apply countIf <;> rfl
 
 theorem basic_count (text : Source) (context : ParseContext) (scan : BodyScan) :
     (basicBody text context scan).count = scan.count := by
