@@ -2087,7 +2087,7 @@ def Expr.scoped (scope : Scope) : Expr ty → Bool
   | .word _ | .integerTypeWord | .maxScalarBindings => true
   | .operatorByte x => x.scoped scope
   | .fullInterval | .emptyInterval => true
-  | .interval a b | .integerNe a b | .integerLt a b => a.scoped scope && b.scoped scope
+  | .interval a b | .integerNe a b | .integerLt a b | .integerLe a b => a.scoped scope && b.scoped scope
   | .constraint a b => a.scoped scope && b.scoped scope
   | .scalarBinding a b c d e f => a.scoped scope && b.scoped scope && c.scoped scope && d.scoped scope && e.scoped scope && f.scoped scope
   | .stateScalar a b c => a.scoped scope && b.scoped scope && c.scoped scope
