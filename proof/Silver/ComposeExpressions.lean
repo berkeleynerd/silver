@@ -582,6 +582,8 @@ inductive Expr : Ty → Type
   | joinInterval : Expr .interval → Expr .interval → Expr .interval
   | minimumInteger : Expr .integer
   | maximumInteger : Expr .integer
+  /-- Implicit Integer interpretation of the native Max_Source_Length constant. -/
+  | maximumLength : Expr .integer
   | lexTrivia : Expr .source → Expr .number → Expr .number
   | lexLiteralEnd : Expr .source → Expr .number → Expr .number
   | lexLiteralLength : Expr .source → Expr .number → Expr .number
@@ -784,6 +786,7 @@ def Expr.render : Expr ty → List String
   | .joinInterval left right => ["scalars", "."] ++ call "join" [left.render,right.render]
   | .minimumInteger => ["scalars", ".", "minimum"]
   | .maximumInteger => ["scalars", ".", "maximum"]
+  | .maximumLength => ["max_source_length"]
   | .lexTrivia a b => call "trivia_end" [a.render, b.render]
   | .lexLiteralEnd a b => call "literal_end" [a.render, b.render]
   | .lexLiteralLength a b => call "literal_length" [a.render, b.render]
@@ -982,6 +985,7 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .joinInterval left right => (left.eval calls locals).join (right.eval calls locals)
   | .minimumInteger => Integer.minValue
   | .maximumInteger => Integer.maxValue
+  | .maximumLength => maxSourceLength
   | .lexTrivia a b => calls.primitive.trivia (a.eval calls locals) (b.eval calls locals)
   | .lexLiteralEnd a b => calls.primitive.literal (a.eval calls locals) (b.eval calls locals)
   | .lexLiteralLength a b => calls.primitive.length (a.eval calls locals) (b.eval calls locals)
@@ -1260,7 +1264,7 @@ def valueBody : Expr .value :=
       (.nativeValue after (.field .bindingValueFirst info) (.field .bindingLength info) (.field .bindingLength info)
         (.field .bindingDynamic info) (.truth true) (.truth false) index (.number 1)
         (.singleton (.field .bindingFirstIndex info))
-        (.group <| .ite (.field .bindingDynamic info) (.interval (.integerNumber 0) (.wideNumber .maxLength))
+        (.group <| .ite (.field .bindingDynamic info) (.interval (.integerNumber 0) .maximumLength)
           (.singleton (.field .bindingLastIndex info))))
       (.app (.app (.app (.app (.app (.app (.app (.app (.function .image) text) position) names)
         (.variable "scalar_names")) (.variable "integer_hidden")) (.variable "arrays")) (.variable "initials")) (.variable "elaborating"))
@@ -1527,7 +1531,7 @@ def argumentBody : Expr .state :=
       (.eq following (.number 0))) (.ne (.count (.field .stateNames state)) (.number 0))) .invalid
       (.stateDynamic (.app (.app (.app (.app (.app (.app (.function .addBinding) state) first) after)
         (.nativeValue following (.number 0) (.number 0) (.number 0) (.truth true) (.truth true) (.truth false) (.number 0) (.number 1)
-          (.singleton (.integerNumber 1)) (.singleton (.integerNumber 0)))) (.truth false)) following) first after)
+          (.singleton (.integerNumber 1)) (.interval (.integerNumber 0) .maximumLength))) (.truth false)) following) first after)
 
 def declarationsBody : Expr .state :=
   (.ite (.eq (.field .statePosition (.variable "state")) (.number 0)) (.invalid) (.elsif (.ne (.app (.app (.app (.function .takeToken) (.variable "text")) (.field .statePosition (.variable "state"))) (.token (.fixed "begin" true))) (.number 0)) (.variable "state") (.elsif (.eq (.field .statePosition (.app (.app (.app (.function .declaration) (.variable "text")) (.variable "state")) (.variable "arguments"))) (.number 0)) (.invalid) (.app (.app (.app (.function .declarations) (.variable "text")) (.app (.app (.app (.function .declaration) (.variable "text")) (.variable "state")) (.variable "arguments"))) (.variable "arguments")))))
@@ -1733,7 +1737,7 @@ def Expr.primary : Expr ty → Bool
   | .singleton _ => true
   | .joinInterval _ _ => true
   | .minimumInteger => true
-  | .maximumInteger => true
+  | .maximumInteger | .maximumLength => true
   | .lexTrivia _ _ | .lexLiteralEnd _ _ | .lexLiteralLength _ _ | .lexIdentifier _ _
   | .lexForbidden _ _ _ | .lexForbiddenArgument _ _ _ | .lexEqual _ _ _ _ _
   | .lexDecimal _ _ | .lexTokenAt _ _ _ _ | .lexNormalize _ | .lexAllowed _
@@ -1841,7 +1845,7 @@ def Expr.wellFormed : Expr ty → Bool
   | .singleton localValue => localValue.wellFormed
   | .joinInterval left right => left.wellFormed && right.wellFormed
   | .minimumInteger => true
-  | .maximumInteger => true
+  | .maximumInteger | .maximumLength => true
   | .lexTrivia a b => a.wellFormed && b.wellFormed
   | .lexLiteralEnd a b => a.wellFormed && b.wellFormed
   | .lexLiteralLength a b => a.wellFormed && b.wellFormed
@@ -2087,7 +2091,7 @@ def Expr.scoped (scope : Scope) : Expr ty → Bool
   | .singleton localValue => localValue.scoped scope
   | .joinInterval left right => left.scoped scope && right.scoped scope
   | .minimumInteger => true
-  | .maximumInteger => true
+  | .maximumInteger | .maximumLength => true
   | .lexTrivia a b => a.scoped scope && b.scoped scope
   | .lexLiteralEnd a b => a.scoped scope && b.scoped scope
   | .lexLiteralLength a b => a.scoped scope && b.scoped scope
