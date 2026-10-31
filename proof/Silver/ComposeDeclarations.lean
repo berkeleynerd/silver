@@ -1,6 +1,6 @@
 module
 
-public import Silver.ComposeFrozenSemantics
+public import Silver.ComposeObjectDeclarations
 public import Silver.ComposeScalarDeclarations
 public import Silver.ComposeArrayElaboration
 public import Silver.ComposeBooleanDeclarations
@@ -12,168 +12,6 @@ String declaration region. Later body guards supply no declaration-time facts. -
 
 namespace Silver.Compose
 open Named Bindings
-
-theorem declarationParts_value (text : Source) (state : ParserState) :
-    (declarationParts text state).value = expressionAt text (declarationValuePosition text state) state.names state.scalarNames (declarationIntegerHidden text state)
-      state.arrayNames.names state.arrayNames.values true := by
-  simp only [declarationParts]
-
-theorem fixedAfter_nonzero {text : Source} {position : Nat} {spelling : String} {word : Bool}
-    (accepted : fixedAfter text position spelling word ≠ 0) : position ≠ 0 := by
-  intro zero
-  simp [fixedAfter, zero] at accepted
-
-theorem declarationParts_following (text : Source) (state : ParserState) :
-    (declarationParts text state).following = fixedAfter text (declarationParts text state).value.after ";" false := by
-  simp only [declarationParts]
-
-inductive DeclarationAt (text : Source) (arguments : Bool) : ParserState → Declaration → ParserState → Prop
-  | declaration {state : ParserState} {parts : DeclarationParts} {value : Expression} :
-      declarationParts text state = parts →
-      newNameAllowed text state parts.first parts.after arguments = true →
-      parts.following ≠ 0 → state.names.length ≠ maxBindings →
-      fits parts.value maxSourceLength = true →
-      parts.value.emptyValue = false → parts.value.minimumLength = parts.value.staticLength →
-      ExpressionAt text state.names (declarationValuePosition text state) value parts.value state.scalarNames
-        (declarationIntegerHidden text state)
-      state.arrayNames.names state.arrayNames.values true →
-      DeclarationAt text arguments state
-        ⟨state.names.length + 1, decide (parts.constantAfter = 0), value.freezeImages (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values)⟩
-        (addBinding state parts.first parts.after parts.value.value (decide (parts.constantAfter = 0)) parts.following)
-
-theorem declaration_complete {text : Source} {arguments : Bool} {state next : ParserState}
-    {declaration : Declaration} (parsed : DeclarationAt text arguments state declaration next) :
-    stringDeclarationAt text state arguments = next := by
-  cases parsed with
-  | declaration parts allowed following count bounded nonempty exact _ =>
-      simp [stringDeclarationAt, parts, allowed, following, count, bounded, nonempty, exact]
-
-theorem declaration_sound (text : Source) (state : ParserState) (arguments : Bool)
-    (accepted : (stringDeclarationAt text state arguments).position ≠ 0) :
-    ∃ declaration, DeclarationAt text arguments state declaration (stringDeclarationAt text state arguments) := by
-  generalize partsEq : declarationParts text state = parts
-  have observed : stringDeclarationAt text state arguments =
-      if !newNameAllowed text state parts.first parts.after arguments ||
-          decide (parts.following = 0 ∨ state.names.length = maxBindings) || !fits parts.value maxSourceLength ||
-          parts.value.emptyValue || decide (parts.value.minimumLength ≠ parts.value.staticLength)
-      then invalidState
-      else addBinding state parts.first parts.after parts.value.value (decide (parts.constantAfter = 0)) parts.following := by
-    simp only [stringDeclarationAt, partsEq]
-  have allowed : newNameAllowed text state parts.first parts.after arguments = true := by
-    by_cases good : newNameAllowed text state parts.first parts.after arguments = true
-    · exact good
-    · simp [observed, good, invalidState] at accepted
-  have following : parts.following ≠ 0 := by
-    intro zero
-    simp [observed, zero, invalidState] at accepted
-  have count : state.names.length ≠ maxBindings := by
-    intro full
-    simp [observed, full, invalidState] at accepted
-  have bounded : fits parts.value maxSourceLength = true := by
-    by_cases good : fits parts.value maxSourceLength = true
-    · exact good
-    · simp [observed, good, invalidState] at accepted
-  have nonempty : parts.value.emptyValue = false := by
-    cases empty : parts.value.emptyValue with
-    | false => rfl
-    | true => simp [observed, empty, invalidState] at accepted
-  have exact : parts.value.minimumLength = parts.value.staticLength := by
-    by_cases same : parts.value.minimumLength = parts.value.staticLength
-    · exact same
-    · simp [observed, same, invalidState] at accepted
-  have valueEq := declarationParts_value text state
-  rw [partsEq] at valueEq
-  have valueNonzero : parts.value.after ≠ 0 := (decide_eq_true_eq.mp bounded).1
-  rw [valueEq] at valueNonzero
-  obtain ⟨value, parsed⟩ := expressionAt_sound (scalarNames := state.scalarNames) (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true) (integerHidden := declarationIntegerHidden text state) text state.names (declarationValuePosition text state) valueNonzero
-  refine ⟨⟨state.names.length + 1, decide (parts.constantAfter = 0), value.freezeImages (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values)⟩, ?_⟩
-  rw [observed]
-  simp only [allowed, Bool.not_true, following, count, or_self,
-    decide_false, bounded, nonempty, exact, ne_eq, not_true_eq_false, Bool.false_eq_true, Bool.or_self, ↓reduceIte]
-  exact .declaration partsEq allowed following count bounded nonempty exact (valueEq.symm ▸ parsed)
-
-theorem declaration_positive {text : Source} {arguments : Bool} {state next : ParserState}
-    {declaration : Declaration} (parsed : DeclarationAt text arguments state declaration next) :
-    next.position ≠ 0 := by
-  cases parsed with
-  | declaration _ _ following _ _ _ _ _ => simpa only [addBinding] using following
-
-theorem expressionResult_coefficients {result : ExpressionResult}
-    (bounded : fits result maxSourceLength = true) (nonempty : result.emptyValue = false) :
-    result.dynamicCount ≤ 1 ∧ (result.dynamicCount = 1 → result.staticLength = 0) := by
-  have bound : result.staticLength + result.dynamicCount * maxSourceLength ≤ maxSourceLength := by
-    simpa [nonempty] using (decide_eq_true_eq.mp bounded).2
-  simp only [maxSourceLength] at bound
-  omega
-
-def ExpressionResult.bound (result : ExpressionResult) : Bindings.Bound := result.value.bound
-
-theorem expressionResult_summary {result : ExpressionResult}
-    (bounded : fits result maxSourceLength = true) (nonempty : result.emptyValue = false) :
-    result.bound.summary = ⟨result.staticLength, result.dynamicCount⟩ ∧
-      result.bound.length maxSourceLength ≤ maxSourceLength := by
-  have coefficients := expressionResult_coefficients bounded nonempty
-  have bound : result.staticLength + result.dynamicCount * maxSourceLength ≤ maxSourceLength := by
-    simpa [nonempty] using (decide_eq_true_eq.mp bounded).2
-  by_cases dynamic : result.dynamicCount = 1
-  · simp [ExpressionResult.bound, ExpressionResult.value, ValueResult.bound,
-      Bindings.Bound.summary, Bindings.Bound.length, dynamic, coefficients.2 dynamic]
-  · have zero : result.dynamicCount = 0 := by omega
-    simpa [ExpressionResult.bound, ExpressionResult.value, ValueResult.bound,
-      Bindings.Bound.summary, Bindings.Bound.length, zero] using bound
-
-theorem declaration_shape {text : Source} {arguments : Bool} {state next : ParserState}
-    {declaration : Declaration} (normal : NamesNormal state.names)
-    (static : ScalarExpression.StaticEnvironment state.scalarNames)
-    (parsed : DeclarationAt text arguments state declaration next) :
-    ∃ bound, declaration.Valid state.names.shape bound ∧
-      next.names.shape = declaration.extend state.names.shape bound := by
-  cases parsed with
-  | declaration parts allowed following count bounded nonempty exact value =>
-      have coefficients := expressionResult_summary bounded nonempty
-      have safe := expressionAt_safe normal static value bounded
-      have summary := expressionAt_frozen_summary normal static value exact
-      refine ⟨_, ⟨environment_fresh _, ?_, safe.2.1, safe.2.2.1, safe.2.2.2.1, coefficients.2⟩, ?_⟩
-      · exact Expression.infer_iff.mpr ⟨safe.1, summary.trans coefficients.1.symm⟩
-      · simp only [addBinding, environment_append, Declaration.extend, BindingInfo.cell,
-          BindingInfo.bound, ExpressionResult.bound, ExpressionResult.value, ValueResult.bound]
-        rfl
-
-theorem declaration_scalarNames {text : Source} {arguments : Bool} {state next : ParserState}
-    {declaration : Declaration} (parsed : DeclarationAt text arguments state declaration next) :
-    next.scalarNames = state.scalarNames := by
-  cases parsed
-  rfl
-
-theorem get_append_new {names : BindingEnvironment} {info : BindingInfo} {index : Nat}
-    {found : BindingInfo} (present : (names ++ [info]).get index = some found) :
-    names.get index = some found ∨ (index = names.length + 1 ∧ found = info) := by
-  by_cases zero : index = 0
-  · simp [BindingEnvironment.get, zero] at present
-  · by_cases before : index - 1 < names.length
-    · left
-      simpa [BindingEnvironment.get, zero, List.getElem?_append_left before] using present
-    · right
-      have after : names.length ≤ index - 1 := by omega
-      simp only [BindingEnvironment.get, zero, ↓reduceIte, List.getElem?_append_right after] at present
-      have within := (List.getElem?_eq_some_iff.mp present).1
-      have same : index = names.length + 1 := by simp only [List.length_singleton] at within; omega
-      subst index
-      have reversed : info = found := by simpa using present
-      exact ⟨rfl, reversed.symm⟩
-
-theorem declaration_normal {text : Source} {arguments : Bool} {state next : ParserState}
-    {declaration : Declaration} (normal : NamesNormal state.names)
-    (parsed : DeclarationAt text arguments state declaration next) : NamesNormal next.names := by
-  cases parsed with
-  | declaration _ _ _ _ bounded nonempty exact value =>
-      intro index info present dynamic
-      obtain prior | ⟨_, same⟩ := get_append_new present
-      · exact normal index info prior dynamic
-      · subst info
-        have coefficient := expressionResult_coefficients bounded nonempty
-        have one : _ = 1 := of_decide_eq_true dynamic
-        exact coefficient.2 one
 
 inductive DeclarationsAt (text : Source) (arguments : Bool) :
     ParserState → List Declaration → ParserState → Prop
@@ -271,12 +109,13 @@ theorem declarationsLoop_sound (text : Source) (arguments : Bool) (fuel : Nat) (
                     refine ⟨rest, ?_⟩
                     simpa [declarationsLoop, positive, stop, selected, boolean] using
                       DeclarationsAt.boolean positive (by omega) (by omega) (by omega) (by omega) parsed parsedRest
-                  · have selected : declarationAt text state arguments = stringDeclarationAt text state arguments := by
+                  · have selected : declarationAt text state arguments = objectDeclarationAt text state arguments := by
                       dsimp only [declarationAt]
                       rw [ite_eq_right subtype, ite_eq_right scalar, ite_eq_right array, ite_eq_right boolean]
-                    have stringPositive : (stringDeclarationAt text state arguments).position ≠ 0 := selected ▸ failed
+                      rfl
+                    have stringPositive : (objectDeclarationAt text state arguments).position ≠ 0 := selected ▸ failed
                     obtain ⟨declaration, parsed⟩ := declaration_sound text state arguments stringPositive
-                    have remaining : (declarationsLoop text arguments fuel (stringDeclarationAt text state arguments)).position ≠ 0 := by
+                    have remaining : (declarationsLoop text arguments fuel (objectDeclarationAt text state arguments)).position ≠ 0 := by
                       simpa [declarationsLoop, positive, stop, selected, stringPositive] using accepted
                     obtain ⟨rest, parsedRest⟩ := ih _ remaining
                     refine ⟨declaration :: rest, ?_⟩
@@ -295,8 +134,7 @@ theorem declarations_count {text : Source} {arguments : Bool} {state final : Par
   induction parsed with
   | done => simp
   | next _ _ _ _ _ _ first _ ih =>
-      have count := stringDeclarationAt_count ((declaration_complete first).symm ▸ declaration_positive first)
-      rw [declaration_complete first] at count
+      have count := declaration_count first
       simpa only [List.length_cons, count, Nat.add_assoc, Nat.add_comm, Nat.add_left_comm] using ih
   | scalar _ _ _ first _ ih =>
       cases first
@@ -367,7 +205,7 @@ inductive LiteralReading (text : Source) : Nat → Source → ValueResult → Pr
   | literal {position after : Nat} {bytes : Source} :
       position ≠ 0 → position ≤ text.length → Cursor.byteAt text position = 34 →
       Output.LiteralAt text (position + 1) bytes after →
-      LiteralReading text position bytes ⟨after, position + 1, bytes.length, bytes.length, false, false, false, 0⟩
+      LiteralReading text position bytes ⟨after, position + 1, bytes.length, bytes.length, false, false, false, 0, 1, .singleton 1, .singleton bytes.length⟩
 
 theorem literalReading_complete {text bytes : Source} {position : Nat} {result : ValueResult}
     (parsed : LiteralReading text position bytes result) : literalAt text position = result := by
@@ -386,7 +224,7 @@ theorem literalReading_sound (text : Source) (position : Nat)
   · obtain ⟨bytes, parsed⟩ := Output.literalAt_sound text _ conditions.2.2.2
     refine ⟨bytes, ?_⟩
     have observed : literalAt text position =
-        ⟨Output.literalEnd text (position + 1), position + 1, bytes.length, bytes.length, false, false, false, 0⟩ := by
+        ⟨Output.literalEnd text (position + 1), position + 1, bytes.length, bytes.length, false, false, false, 0, 1, .singleton 1, .singleton bytes.length⟩ := by
       simp [literalAt, conditions, Guarded.literalLength_decodes parsed]
     rw [observed]
     exact .literal conditions.1 conditions.2.1 conditions.2.2.1 parsed
@@ -417,7 +255,7 @@ inductive ArgumentAt (text : Source) : ParserState → Source → ParserState �
       LiteralReading text (argumentDefaultPosition text state) fallback parts.fallback →
       ArgumentAt text state fallback
         {addBinding state parts.first parts.after
-          ⟨parts.following, 0, 0, 0, true, true, false, 0⟩ false parts.following with
+          ⟨parts.following, 0, 0, 0, true, true, false, 0, 1, .singleton 1, ⟨0, maxSourceLength⟩⟩ false parts.following with
           dynamicFirst := parts.first, dynamicAfter := parts.after}
 
 theorem argument_complete {text fallback : Source} {state next : ParserState}
@@ -432,7 +270,7 @@ theorem argument_sound (text : Source) (state : ParserState)
   have observed : argumentAt text state =
       if !newNameAllowed text state parts.first parts.after true ||
           decide (parts.following = 0 ∨ state.names.length ≠ 0) then invalidState
-      else {addBinding state parts.first parts.after ⟨parts.following, 0, 0, 0, true, true, false, 0⟩ false parts.following with
+      else {addBinding state parts.first parts.after ⟨parts.following, 0, 0, 0, true, true, false, 0, 1, .singleton 1, ⟨0, maxSourceLength⟩⟩ false parts.following with
         dynamicFirst := parts.first, dynamicAfter := parts.after} := by
     simp only [argumentAt, partsEq]
   by_cases allowed : newNameAllowed text state parts.first parts.after true = true
@@ -484,16 +322,14 @@ theorem argument_normal {text fallback : Source} {state next : ParserState}
     (parsed : ArgumentAt text state fallback next) : NamesNormal next.names := by
   cases parsed with
   | argument _ _ _ empty _ =>
-      intro index info present dynamic
-      simp only [addBinding, empty, List.nil_append] at present
-      by_cases zero : index = 0
-      · simp [BindingEnvironment.get, zero] at present
-      · have inside := (List.getElem?_eq_some_iff.mp (by simpa [BindingEnvironment.get, zero] using present)).1
-        have same : index = 1 := by simp only [List.length_singleton] at inside; omega
-        subst index
-        simp [BindingEnvironment.get] at present
-        subst info
-        rfl
+      apply namesNormal_append (slot := 1)
+      · rw [empty]
+        constructor
+        · intro index info present
+          simp [BindingEnvironment.get] at present
+        · intro index info present
+          simp [BindingEnvironment.get] at present
+      · simp [fixedBoundsValid]
 
 theorem literalReading_unique {text : Source} {position : Nat} {left right : Source}
     {firstResult secondResult : ValueResult}
@@ -503,20 +339,6 @@ theorem literalReading_unique {text : Source} {position : Nat} {left right : Sou
   | literal _ _ _ parsed =>
       cases second with
       | literal _ _ _ other => exact (Output.literalAt_unique parsed other).1
-
-theorem declaration_unique {text : Source} {arguments : Bool} {state leftState rightState : ParserState}
-    {left right : Declaration} (first : DeclarationAt text arguments state left leftState)
-    (second : DeclarationAt text arguments state right rightState) : left = right ∧ leftState = rightState := by
-  have states := (declaration_complete first).symm.trans (declaration_complete second)
-  refine ⟨?_, states⟩
-  cases first with
-  | declaration partsEq _ _ _ _ _ _ value =>
-      cases second with
-      | declaration otherEq _ _ _ _ _ _ other =>
-          have same := partsEq.symm.trans otherEq
-          cases same
-          obtain ⟨rfl, _⟩ := expressionTail_unique value other
-          rfl
 
 theorem declarations_unique {text : Source} {arguments : Bool} {state leftState rightState : ParserState}
     {left right : List Declaration} (first : DeclarationsAt text arguments state left leftState)
@@ -636,8 +458,9 @@ theorem declarations_fields {text : Source} {arguments : Bool} {state final : Pa
   induction parsed with
   | done => exact ⟨rfl, rfl, rfl, rfl⟩
   | next _ _ _ _ _ _ first _ ih =>
-      cases first
-      exact ih
+      cases first with
+      | string _ source => cases source; exact ih
+      | character source => cases source; exact ih
   | scalar _ _ _ first _ ih =>
       cases first
       exact ih
@@ -661,7 +484,10 @@ theorem declarations_subtypes_valid {text arguments state final declarations}
     IntegerSubtypes.ValidEnvironment text final.subtypeNames := by
   induction parsed with
   | done => exact valid
-  | next _ _ _ _ _ _ first _ ih => cases first; exact ih valid
+  | next _ _ _ _ _ _ first _ ih =>
+      cases first with
+      | string _ source => cases source; exact ih valid
+      | character source => cases source; exact ih valid
   | scalar _ _ _ first _ ih => cases first; exact ih valid
   | boolean _ _ _ _ _ first _ ih => cases first; exact ih valid
   | subtype _ _ first _ ih => exact ih (subtype_declaration_valid first valid)
@@ -675,7 +501,10 @@ theorem declarations_subtypes_hiding {text arguments state final declarations}
     IntegerSubtypes.HidingCorrect text final.subtypeNames := by
   induction parsed with
   | done => exact correct
-  | next _ _ _ _ _ _ first _ ih => cases first; exact ih correct
+  | next _ _ _ _ _ _ first _ ih =>
+      cases first with
+      | string _ source => cases source; exact ih correct
+      | character source => cases source; exact ih correct
   | scalar _ _ _ first _ ih => cases first; exact ih correct
   | boolean _ _ _ _ _ first _ ih => cases first; exact ih correct
   | subtype _ _ first _ ih => exact ih (subtype_declaration_hiding first correct)
@@ -690,7 +519,10 @@ theorem declarations_array_ready {text arguments state final declarations}
     ArrayBindings.SourceReady text final.arrayNames := by
   induction parsed with
   | done => exact ready
-  | next _ _ _ _ _ _ first _ ih => cases first; exact ih ready subtypes
+  | next _ _ _ _ _ _ first _ ih =>
+      cases first with
+      | string _ source => cases source; exact ih ready subtypes
+      | character source => cases source; exact ih ready subtypes
   | scalar _ _ _ first _ ih => cases first; exact ih ready subtypes
   | boolean _ _ _ _ _ first _ ih => cases first; exact ih ready subtypes
   | subtype _ _ first _ ih =>

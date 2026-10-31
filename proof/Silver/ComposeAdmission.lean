@@ -60,18 +60,21 @@ def declarationParts (text : Source) (state : ParserState) : DeclarationParts :=
     fixedAfter text (expressionAt text (declarationValuePosition text state) state.names state.scalarNames (declarationIntegerHidden text state)
       state.arrayNames.names state.arrayNames.values true).after ";" false⟩
 
+def fixedDeclarationBounds (value : ExpressionResult) (slot : Nat) : Bool :=
+  !(decide (value.dynamicCount = 0) &&
+    (value.firstIndex.isEmpty || value.lastIndex.isEmpty ||
+      decide (value.firstIndex.lower ≠ value.firstIndex.upper ∨
+        value.lastIndex.lower ≠ value.lastIndex.upper))) &&
+  fixedBoundsValid value.staticLength (decide (value.dynamicCount = 1)) false
+    value.firstIndex.lower value.lastIndex.lower slot
+
 def stringDeclarationAt (text : Source) (state : ParserState) (arguments : Bool) : ParserState :=
   let parts := declarationParts text state
   if !newNameAllowed text state parts.first parts.after arguments ||
       decide (parts.following = 0 ∨ state.names.length = maxBindings) ||
       !fits parts.value maxSourceLength || parts.value.emptyValue ||
       decide (parts.value.minimumLength ≠ parts.value.staticLength) ||
-      (decide (parts.value.dynamicCount = 0) &&
-        (parts.value.firstIndex.isEmpty || parts.value.lastIndex.isEmpty ||
-          decide (parts.value.firstIndex.lower ≠ parts.value.firstIndex.upper ∨
-            parts.value.lastIndex.lower ≠ parts.value.lastIndex.upper))) ||
-      !fixedBoundsValid parts.value.staticLength (decide (parts.value.dynamicCount = 1)) false
-        parts.value.firstIndex.lower parts.value.lastIndex.lower (state.names.length + 1)
+      !fixedDeclarationBounds parts.value (state.names.length + 1)
   then invalidState
   else addBinding state parts.first parts.after parts.value.value (decide (parts.constantAfter = 0)) parts.following
 
@@ -95,18 +98,21 @@ def characterDeclarationParts (text : Source) (state : ParserState) : CharacterD
     state.arrayNames.names state.arrayNames.values true
   ⟨first, after, constantAfter, typeFirst, typeAfter, value, fixedAfter text value.after ";" false⟩
 
+def characterDeclarationRejected (text : Source) (state : ParserState) (arguments : Bool)
+    (parts : CharacterDeclarationParts) : Bool :=
+  !newNameAllowed text state parts.first parts.after arguments ||
+    decide (parts.typeAfter = 0 ∨ parts.following = 0 ∨ state.names.length = maxBindings) ||
+    Named.nameIs text parts.first parts.after ("character".toList.map Char.toNat) ||
+    decide (lookupName text state.names parts.typeFirst parts.typeAfter ≠ 0 ∨
+      ScalarExpression.lookup text state.scalarNames parts.typeFirst parts.typeAfter ≠ 0 ∨
+      ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter ≠ 0 ∨
+      IntegerSubtypes.lookup text state.subtypeNames parts.typeFirst parts.typeAfter ≠ 0 ∨
+      BooleanBindings.lookup text state.booleanNames parts.typeFirst parts.typeAfter ≠ 0)
+
 def characterDeclarationAt (text : Source) (state : ParserState) (arguments : Bool) : ParserState :=
   let parts := characterDeclarationParts text state
-  if !newNameAllowed text state parts.first parts.after arguments ||
-      decide (parts.typeAfter = 0 ∨ parts.following = 0 ∨ state.names.length = maxBindings) ||
-      Named.nameIs text parts.first parts.after ("character".toList.map Char.toNat) ||
-      decide (lookupName text state.names parts.typeFirst parts.typeAfter ≠ 0 ∨
-        ScalarExpression.lookup text state.scalarNames parts.typeFirst parts.typeAfter ≠ 0 ∨
-        ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter ≠ 0 ∨
-        IntegerSubtypes.lookup text state.subtypeNames parts.typeFirst parts.typeAfter ≠ 0 ∨
-        BooleanBindings.lookup text state.booleanNames parts.typeFirst parts.typeAfter ≠ 0)
-  then invalidState else addBinding state parts.first parts.after parts.value
-    (decide (parts.constantAfter = 0)) parts.following true
+  if characterDeclarationRejected text state arguments parts then invalidState
+  else addBinding state parts.first parts.after parts.value (decide (parts.constantAfter = 0)) parts.following true
 
 structure ScalarConstraintResult where
   after : Nat
