@@ -127,6 +127,22 @@ class StringCharacterTests(unittest.TestCase):
         self.check(source + b' ' * (4096 - len(source)))
         self.check(source + b' ' * (4097 - len(source)), 2)
 
+    def test_admission_nested_character_and_dense_comparison_boundaries(self) -> None:
+        body = output(b'"ok"')
+        base = program(b"C:Character:='x';", body)
+        depth = (4096 - len(base)) // 2
+        declaration = b'C:Character:=' + b'(' * depth + b"'x'" + b')' * depth + b';'
+        source = program(declaration, body)
+        self.check(source + b' ' * (4096 - len(source)))
+
+        declarations = b'S:String:="aaaa";'
+        statement = b"if S(I)='a'then S(I):='b';end if;"
+        prefix = b'for I in 1..4 loop '
+        suffix = b'end loop;' + output(b'S')
+        count = (4096 - len(program(declarations, prefix + suffix))) // len(statement)
+        source = program(declarations, prefix + statement * count + suffix)
+        self.check(source + b' ' * (4096 - len(source)))
+
     def test_native_character_snapshots_bounds_nulls_and_sliding(self) -> None:
         declarations = (b'S:String:="abcd";T:String:=S(2..3);Copy:constant String:=T;'
                         b'C:Character:=T(2);Saved:constant Character:=C;'

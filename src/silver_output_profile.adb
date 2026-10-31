@@ -2062,6 +2062,7 @@ is
            Initials => State.Array_Names.Values, Elaborating => True);
       begin
         (if not Fits (Value, State.Capacity) or else State.Target = 0
+           or else State.Names.Items (State.Target).Is_Character
            or else Value.Empty_Value or else Value.Minimum_Length /= Value.Static_Length
            or else Value.Static_Length /= State.Names.Items (State.Target).Static_Length
            or else Value.Dynamic_Count /=
