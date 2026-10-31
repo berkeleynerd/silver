@@ -417,7 +417,8 @@ def concatenatedLast (left : ExpressionState) (right : ValueResult) : Integer.In
   let low := first.lower + minimum - 1
   let high := first.upper + maximum - 1
   if left.operands = 0 ∨ (left.staticLength = 0 ∧ left.dynamicCount = 0) then right.lastIndex
-  else if first.isEmpty = true ∨ low < Integer.minValue ∨ high > Integer.maxValue then .empty
+  else if first.isEmpty = true ∨ low < Integer.minValue ∨ low > Integer.maxValue ∨
+      high < Integer.minValue ∨ high > Integer.maxValue then .empty
   else if minimum = 0 then (Integer.Interval.mk low high).join right.lastIndex
   else ⟨low, high⟩
 

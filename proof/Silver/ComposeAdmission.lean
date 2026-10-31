@@ -17,11 +17,24 @@ def newNameAllowed (text : Source) (state : ParserState) (first after : Nat) (ar
       BooleanBindings.lookup text state.booleanNames first after = 0 ∧
       IntegerSubtypes.lookup text state.subtypeNames first after = 0)
 
+/-- Native declaration-slot invariant. Null Strings retain both Ada bounds;
+only nonempty values contribute to the derived source-sized upper ceiling. -/
+def fixedBoundsValid (length : Nat) (dynamic isCharacter : Bool)
+    (firstIndex lastIndex : Int) (slot : Nat) : Bool :=
+  if isCharacter then !dynamic && decide (length = 1 ∧ firstIndex = 1 ∧ lastIndex = 1)
+  else if dynamic then decide (length = 0)
+  else if length = 0 then decide (firstIndex > lastIndex)
+  else decide (firstIndex ≥ 1 ∧ lastIndex ≥ firstIndex ∧
+    lastIndex - firstIndex + 1 = (length : Int) ∧
+    lastIndex ≤ (slot : Int) * maxSourceLength)
+
 def addBinding (state : ParserState) (first after : Nat) (value : ValueResult)
-    (mutable : Bool) (following : Nat) : ParserState :=
+    (mutable : Bool) (following : Nat) (characterObject : Bool := false) : ParserState :=
   {state with position := following, names := state.names ++
     [{first := first, after := after, valueFirst := value.valueFirst,
-      staticLength := value.staticLength, dynamic := value.dynamicSeen, mutable := mutable}]}
+      staticLength := value.staticLength, dynamic := value.dynamicSeen, mutable := mutable,
+      isCharacter := characterObject, firstIndex := value.firstIndex.lower,
+      lastIndex := value.lastIndex.lower}]}
 
 structure DeclarationParts where
   first : Nat
@@ -62,8 +75,48 @@ def stringDeclarationAt (text : Source) (state : ParserState) (arguments : Bool)
   if !newNameAllowed text state parts.first parts.after arguments ||
       decide (parts.following = 0 ∨ state.names.length = maxBindings) ||
       !fits parts.value maxSourceLength || parts.value.emptyValue ||
-      decide (parts.value.minimumLength ≠ parts.value.staticLength) then invalidState
+      decide (parts.value.minimumLength ≠ parts.value.staticLength) ||
+      (decide (parts.value.dynamicCount = 0) &&
+        (parts.value.firstIndex.isEmpty || parts.value.lastIndex.isEmpty ||
+          decide (parts.value.firstIndex.lower ≠ parts.value.firstIndex.upper ∨
+            parts.value.lastIndex.lower ≠ parts.value.lastIndex.upper))) ||
+      !fixedBoundsValid parts.value.staticLength (decide (parts.value.dynamicCount = 1)) false
+        parts.value.firstIndex.lower parts.value.lastIndex.lower (state.names.length + 1)
+  then invalidState
   else addBinding state parts.first parts.after parts.value.value (decide (parts.constantAfter = 0)) parts.following
+
+structure CharacterDeclarationParts where
+  first : Nat
+  after : Nat
+  constantAfter : Nat
+  typeFirst : Nat
+  typeAfter : Nat
+  value : ValueResult
+  following : Nat
+  deriving DecidableEq, Repr
+
+def characterDeclarationParts (text : Source) (state : ParserState) : CharacterDeclarationParts :=
+  let first := declarationFirst text state
+  let after := declarationAfter text state
+  let constantAfter := declarationConstantAfter text state
+  let typeFirst := skipAt text (if constantAfter ≠ 0 then constantAfter else declarationColonAfter text state)
+  let typeAfter := fixedAfter text typeFirst "character" true
+  let value := characterAt text (fixedAfter text typeAfter ":=" false) state.names state.scalarNames
+    state.arrayNames.names state.arrayNames.values true
+  ⟨first, after, constantAfter, typeFirst, typeAfter, value, fixedAfter text value.after ";" false⟩
+
+def characterDeclarationAt (text : Source) (state : ParserState) (arguments : Bool) : ParserState :=
+  let parts := characterDeclarationParts text state
+  if !newNameAllowed text state parts.first parts.after arguments ||
+      decide (parts.typeAfter = 0 ∨ parts.following = 0 ∨ state.names.length = maxBindings) ||
+      Named.nameIs text parts.first parts.after ("character".toList.map Char.toNat) ||
+      decide (lookupName text state.names parts.typeFirst parts.typeAfter ≠ 0 ∨
+        ScalarExpression.lookup text state.scalarNames parts.typeFirst parts.typeAfter ≠ 0 ∨
+        ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter ≠ 0 ∨
+        IntegerSubtypes.lookup text state.subtypeNames parts.typeFirst parts.typeAfter ≠ 0 ∨
+        BooleanBindings.lookup text state.booleanNames parts.typeFirst parts.typeAfter ≠ 0)
+  then invalidState else addBinding state parts.first parts.after parts.value
+    (decide (parts.constantAfter = 0)) parts.following true
 
 structure ScalarConstraintResult where
   after : Nat
@@ -341,10 +394,12 @@ def declarationAt (text : Source) (state : ParserState) (arguments : Bool) : Par
   let scalar := scalarDeclarationAt text state arguments
   let array := arrayDeclarationAt text state arguments
   let boolean := booleanDeclarationAt text state arguments
+  let character := characterDeclarationAt text state arguments
   if subtype.position ≠ 0 then subtype
   else if scalar.position ≠ 0 then scalar
   else if array.position ≠ 0 then array
-  else if boolean.position ≠ 0 then boolean else stringDeclarationAt text state arguments
+  else if boolean.position ≠ 0 then boolean
+  else if character.position ≠ 0 then character else stringDeclarationAt text state arguments
 
 structure ArgumentParts where
   first : Nat
@@ -378,7 +433,7 @@ def argumentAt (text : Source) (state : ParserState) : ParserState :=
   let parts := argumentParts text state
   if !newNameAllowed text state parts.first parts.after true ||
       decide (parts.following = 0 ∨ state.names.length ≠ 0) then invalidState
-  else {addBinding state parts.first parts.after ⟨parts.following, 0, 0, 0, true, true, false, 0⟩ false parts.following with
+  else {addBinding state parts.first parts.after ⟨parts.following, 0, 0, 0, true, true, false, 0, 1, .singleton 1, ⟨0, maxSourceLength⟩⟩ false parts.following with
     dynamicFirst := parts.first, dynamicAfter := parts.after}
 
 def declarationsLoop (text : Source) (arguments : Bool) : Nat → ParserState → ParserState
@@ -993,17 +1048,29 @@ theorem declarationAt_count {text : Source} {state : ParserState} {arguments : B
             · rename_i advance
               simp only [advance, ↓reduceIte, addBooleanBinding, List.length_append, List.length_singleton]
               omega
-        · have selected : declarationAt text state arguments = stringDeclarationAt text state arguments := by
-            simp only [declarationAt, subtype, ↓reduceIte]; split <;> simp_all
-          rw [selected] at accepted ⊢
-          unfold stringDeclarationAt at accepted ⊢
-          dsimp only at accepted ⊢
-          split at accepted
-          · simp [invalidState] at accepted
-          · rename_i good
-            simp only [good, Bool.false_eq_true, ↓reduceIte, addBinding,
-              List.length_append, List.length_singleton]
-            omega
+        · by_cases character : (characterDeclarationAt text state arguments).position ≠ 0
+          · have selected : declarationAt text state arguments = characterDeclarationAt text state arguments := by
+              simp only [declarationAt]; split <;> simp_all
+            rw [selected]
+            unfold characterDeclarationAt at character ⊢
+            dsimp only at character ⊢
+            split at character
+            · simp [invalidState] at character
+            · rename_i good
+              simp only [good, Bool.false_eq_true, ↓reduceIte, addBinding,
+                List.length_append, List.length_singleton]
+              omega
+          · have selected : declarationAt text state arguments = stringDeclarationAt text state arguments := by
+              simp only [declarationAt]; split <;> simp_all
+            rw [selected] at accepted ⊢
+            unfold stringDeclarationAt at accepted ⊢
+            dsimp only at accepted ⊢
+            split at accepted
+            · simp [invalidState] at accepted
+            · rename_i good
+              simp only [good, Bool.false_eq_true, ↓reduceIte, addBinding,
+                List.length_append, List.length_singleton]
+              omega
 
 
 theorem declarationsAt_equation (text : Source) (state : ParserState) (arguments : Bool)
