@@ -21,7 +21,7 @@ def DeclarationChecksAt (text : Source) (state : ParserState) (declaration : Dec
       state.arrayNames.names state.arrayNames.values true ∧
     declaration.initializer = raw.freezeImages (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values) ∧
     checks = raw.imageObligations (ArrayBindings.ranges state.arrayNames.names state.arrayNames.values true
-      (ScalarExpression.ranges state.scalarNames))
+      (ScalarExpression.ranges state.scalarNames)) state.names.shape
 
 theorem declaration_image_trace {text : Source} {arguments : Bool} {state next : ParserState}
     {declaration : Declaration} (parsed : DeclarationAt text arguments state declaration next) :
