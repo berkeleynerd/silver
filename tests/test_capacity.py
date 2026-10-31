@@ -107,9 +107,10 @@ def main_envelope() -> int:
     # Nested loops can repeat the array note once per enclosing loop/write pair;
     # 24*loops + 8*writes <= source bytes. Each element reference and the
     # generated component renaming can add an index check; each reference
-    # consumes an identifier byte and a following separator. See
-    # docs/constant-array-iteration-report-capacity.md.
-    checks = (SOURCE_BYTES // 2 + 3 * 63 + SOURCE_BYTES // 13
+    # consumes an identifier byte and a following separator. Named subtype
+    # objects can use seven-byte declarations (A:S:=0;). See
+    # docs/named-integer-subtypes-report-capacity.md.
+    checks = (SOURCE_BYTES // 2 + 3 * 63 + SOURCE_BYTES // 7
               + 3 * (SOURCE_BYTES // 15) + SOURCE_BYTES // 2)
     image_warnings = 2 * (SOURCE_BYTES // 16)
     array_warnings = SOURCE_BYTES ** 2 // (4 * 24 * 8)
@@ -170,7 +171,7 @@ class CapacityEnvelopeTests(unittest.TestCase):
         index = maximal_retained_record()
         index.update(rule="VC_INDEX_CHECK", message={"text": "index check proved"})
         self.assertLessEqual(embedded_record_bytes(index), MAIN_RECORD_BYTES)
-        self.assertEqual(main_envelope(), 31_269_376)
+        self.assertEqual(main_envelope(), 31_822_336)
         self.assertEqual(metadata_envelope(), 55_712)
         self.assertLessEqual(metadata_envelope(), METADATA_BYTES)
         specification = (ROOT / "src/silver_library_reports.ads").read_text()

@@ -18,7 +18,8 @@ def ValidState (text : Source) (state : ParserState) : Prop :=
     (⟨state.dynamicFirst,state.dynamicAfter⟩ : NameState).Valid text ∧
     state.target ≤ state.names.length ∧ state.capacity ≤ maxSourceLength ∧
     ScalarExpression.ValidEnvironment text state.scalarNames ∧
-    ArrayBindings.ValidEnvironment text state.arrayNames
+    ArrayBindings.ValidEnvironment text state.arrayNames ∧
+    IntegerSubtypes.ValidEnvironment text state.subtypeNames
 
 /-- The state precondition actually provided by an interpreted native caller.
 The base domain remains available for the independent mathematical model. -/
@@ -45,7 +46,7 @@ def allTokens : List ShellToken :=
    .symbol "'", .word "length", .symbol "<=", .capacity, .symbol "=", .argumentDeclaration,
    .declarations, .assignmentTarget, .targetReference, .dynamicReference, .assignmentValue,
    .outputExpression, .comparisonExpression, .word "null", .contextClauses,
-   .word "integer", .word "for", .word "in", .word "reverse", .word "loop", .symbol "..", .word "range", .word "array", .word "of", .symbol ",", .symbol "=>"]
+   .word "integer", .word "for", .word "in", .word "reverse", .word "loop", .symbol "..", .word "range", .word "subtype", .word "array", .word "of", .symbol ",", .symbol "=>"]
 
 def ValidToken (token : ShellToken) : Prop := token ∈ allTokens
 
@@ -83,6 +84,9 @@ structure Context where
   sameTarget : Bool := false
   dynamicSeen : Bool := false
   integerHidden : Bool := false
+  subtypeHidden : Bool := false
+  subtypeNames : IntegerSubtypes.Environment := {}
+  baseBounds : Integer.Interval := Integer.Interval.full
 
 def Context.locals (ctx : Context) : Locals
   | .source, _ => ctx.text
@@ -93,10 +97,13 @@ def Context.locals (ctx : Context) : Locals
   | .truth, name => match name with
     | "arguments" => ctx.arguments | "mutable" => ctx.mutable
     | "same_target" => ctx.sameTarget | "dynamic_seen" => ctx.dynamicSeen
+    | "subtype_hidden" => ctx.subtypeHidden
     | "integer_hidden" => ctx.integerHidden | "elaborating" => ctx.elaborating | _ => false
   | .names, _ => ctx.names
   | .scalarNames, _ => ctx.scalarNames
   | .arrayMetadata, _ => ctx.arrays
+  | .subtypeNames, _ => ctx.subtypeNames
+  | .interval, "base_bounds" => ctx.baseBounds
   | .arrayInitials, _ => ctx.initials
   | .state, _ => ctx.state
   | .value, _ => ctx.value
@@ -128,19 +135,27 @@ theorem ArrayValuesDomain.resultValid {domain : StateDomain}
     (context : ArrayValuesDomain text source result position length parsed domain) :
     ValidState text result := domain.valid text result context.resultContext
 
+/-- The native append precondition compares the new segment with the last
+allocated descriptor; valid metadata already orders all earlier segments. -/
+def ArrayAddDomain (names : ArrayBindings.Metadata) (offset : Nat) : Prop :=
+  ∀ last, names.getLast? = some last → last.offset + last.length ≤ offset
+
 def arrayPutLocals (state : ParserState) (value : Int) : Locals :=
   (Context.locals {state}).set .integer "value" value
 
 def arrayAddLocals (text : Source) (state : ParserState) (first after : Nat)
-    (bounds : Integer.Interval) (offset length : Nat) (mutable : Bool) (following : Nat) : Locals :=
+    (bounds : Integer.Interval) (offset length : Nat) (mutable : Bool) (following : Nat)
+    (componentBounds : Integer.Interval) : Locals :=
   ((Context.locals {text,state,first,after,length,mutable,following}).set .interval "bounds" bounds)
     |>.set .number "offset" offset
+    |>.set .interval "component_bounds" componentBounds
 
 /-- Source state and result accumulator are separate native arguments. -/
 def arrayValuesLocals (text : Source) (source result : ParserState)
-    (position length parsed : Nat) : Locals :=
+    (position length parsed : Nat) (componentBounds : Integer.Interval) : Locals :=
   ((Context.locals {text,position,length}).set .state "source_state" source).set .state "result_state" result
     |>.set .number "parsed" parsed
+    |>.set .interval "component_bounds" componentBounds
 
 /-- Consequences of the native subtype declarations and proved routine contracts.
 Only result bounds/state preservation occur here, never admission correctness. -/
@@ -169,6 +184,17 @@ structure HelperRanges (calls : Calls) (domain : StateDomain := .basic) : Prop w
     domain.holds text (calls.function .stringDeclaration text state arguments) ∧
       ((calls.function .stringDeclaration text state arguments).position = 0 ∨
         state.position < (calls.function .stringDeclaration text state arguments).position)
+  subtypeDeclaration : ∀ text, ValidText text → ∀ state arguments, domain.holds text state →
+    domain.holds text (calls.function .subtypeDeclaration text state arguments) ∧
+      ((calls.function .subtypeDeclaration text state arguments).position = 0 ∨
+        state.position < (calls.function .subtypeDeclaration text state arguments).position)
+  scalarType : ∀ text, ValidText text → ∀ state position, domain.holds text state →
+    ValidCursor text position →
+    ValidCursor text (calls.function .scalarType text state position).after ∧
+      (calls.function .scalarType text state position).bounds.Bounded ∧
+      ((calls.function .scalarType text state position).after ≠ 0 →
+        (calls.function .scalarType text state position).bounds.lower ≤
+          (calls.function .scalarType text state position).bounds.upper)
   scalarDeclaration : ∀ text, ValidText text → ∀ state arguments, domain.holds text state →
     domain.holds text (calls.function .scalarDeclaration text state arguments) ∧
       ((calls.function .scalarDeclaration text state arguments).position = 0 ∨
@@ -232,11 +258,11 @@ structure HelperEquations (calls : Calls) (evaluator : Calls := lexical calls)
   nameIs : ∀ text, ValidText text → ∀ first after word,
     ValidName text first after → 0 < word.toList.length → word.toList.length ≤ 16 →
     calls.function .nameIs text first after word = Named.nameIs text first after (word.toList.map Char.toNat)
-  callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames arrays,
+  callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames arrays subtypeHidden,
     ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
     ArrayBindings.ValidMetadata text arrays → ValidCursor text position →
-    calls.function .callAfter text names position operation scalarNames arrays =
-      callAfterBody.eval evaluator (Context.locals {text,scalarNames,arrays,names,position,operation})
+    calls.function .callAfter text names position operation scalarNames arrays subtypeHidden =
+      callAfterBody.eval evaluator (Context.locals {text,scalarNames,arrays,names,position,operation,subtypeHidden})
   skip : ∀ text, ValidText text → ∀ position,
     ValidCursor text position →
     calls.function .skip text position =
@@ -292,31 +318,48 @@ structure HelperEquations (calls : Calls) (evaluator : Calls := lexical calls)
   stringDeclaration : ∀ text, ValidText text → ∀ state arguments,
     domain.holds text state → calls.function .stringDeclaration text state arguments =
       stringDeclarationBody.eval evaluator (Context.locals {text,state,arguments})
-  scalarConstraint : ∀ text, ValidText text → ∀ position scalarNames,
-    ValidCursor text position → ScalarExpression.ValidEnvironment text scalarNames →
-    calls.function .scalarConstraint text position scalarNames =
-      scalarConstraintBody.eval evaluator (Context.locals {text,position,scalarNames})
+  scalarConstraint : ∀ text, ValidText text → ∀ position scalarNames baseBounds,
+    ValidCursor text position → ScalarExpression.ValidEnvironment text scalarNames → baseBounds.Bounded →
+    calls.function .scalarConstraint text position scalarNames baseBounds =
+      scalarConstraintBody.eval evaluator (Context.locals {text,position,scalarNames,baseBounds})
+  subtypeLookupModel : ∀ text, ValidText text → ∀ subtypeNames first after index,
+    IntegerSubtypes.ValidEnvironment text subtypeNames → ValidCursor text first → ValidCursor text after →
+    index ≤ subtypeNames.items.length →
+    calls.function .subtypeLookupModel text subtypeNames first after index =
+      subtypeLookupModelBody.eval evaluator (Context.locals {text,subtypeNames,first,after,index})
+  subtypeLookup : ∀ text, ValidText text → ∀ subtypeNames first after,
+    IntegerSubtypes.ValidEnvironment text subtypeNames → ValidCursor text first → ValidCursor text after →
+    calls.function .subtypeLookup text subtypeNames first after =
+      calls.function .subtypeLookupModel text subtypeNames first after subtypeNames.items.length
+  scalarType : ∀ text, ValidText text → ∀ state position,
+    domain.holds text state → ValidCursor text position →
+    calls.function .scalarType text state position =
+      scalarTypeBody.eval evaluator (Context.locals {text,state,position})
+  subtypeDeclaration : ∀ text, ValidText text → ∀ state arguments,
+    domain.holds text state → calls.function .subtypeDeclaration text state arguments =
+      subtypeDeclarationBody.eval evaluator (Context.locals {text,state,arguments})
   scalarDeclaration : ∀ text, ValidText text → ∀ state arguments,
     domain.holds text state → calls.function .scalarDeclaration text state arguments =
       scalarDeclarationBody.eval evaluator (Context.locals {text,state,arguments})
-  arrayAdd : ∀ text, ValidText text → ∀ state first after bounds offset length mutable following,
+  arrayAdd : ∀ text, ValidText text → ∀ state first after bounds offset length mutable following componentBounds,
     domain.holds text state → ValidName text first after →
-    ArrayBindings.ValidBinding ⟨first, after, bounds, offset, length, mutable⟩ →
+    ArrayBindings.ValidBinding ⟨first, after, bounds, offset, length, mutable, componentBounds⟩ →
     state.arrayNames.names.length < ArrayBindings.maxBindings →
-    offset + length ≤ state.arrayNames.used → ValidCursor text following →
-    calls.function .arrayAdd text state first after bounds offset length mutable following =
-      arrayAddBody.eval evaluator (arrayAddLocals text state first after bounds offset length mutable following)
+    offset + length ≤ state.arrayNames.used → ArrayAddDomain state.arrayNames.names offset →
+    ValidCursor text following →
+    calls.function .arrayAdd text state first after bounds offset length mutable following componentBounds =
+      arrayAddBody.eval evaluator (arrayAddLocals text state first after bounds offset length mutable following componentBounds)
   arrayPut : ∀ state value, state.arrayNames.used < ArrayBindings.maxElements →
     Integer.InRange value →
     calls.function .arrayPut state value = arrayPutBody.eval evaluator (arrayPutLocals state value)
-  arrayValuesModel : ∀ text, ValidText text → ∀ source result position length parsed,
-    ArrayValuesDomain text source result position length parsed domain →
-    calls.function .arrayValuesModel text source result position length parsed =
-      arrayValuesModelBody.eval evaluator (arrayValuesLocals text source result position length parsed)
-  arrayValues : ∀ text, ValidText text → ∀ source result position length parsed,
-    ArrayValuesDomain text source result position length parsed domain →
-    calls.function .arrayValues text source result position length parsed =
-      calls.function .arrayValuesModel text source result position length parsed
+  arrayValuesModel : ∀ text, ValidText text → ∀ source result position length parsed componentBounds,
+    componentBounds.Bounded → ArrayValuesDomain text source result position length parsed domain →
+    calls.function .arrayValuesModel text source result position length parsed componentBounds =
+      arrayValuesModelBody.eval evaluator (arrayValuesLocals text source result position length parsed componentBounds)
+  arrayValues : ∀ text, ValidText text → ∀ source result position length parsed componentBounds,
+    componentBounds.Bounded → ArrayValuesDomain text source result position length parsed domain →
+    calls.function .arrayValues text source result position length parsed componentBounds =
+      calls.function .arrayValuesModel text source result position length parsed componentBounds
   arrayDeclaration : ∀ text, ValidText text → ∀ state arguments,
     domain.holds text state →
     calls.function .arrayDeclaration text state arguments =

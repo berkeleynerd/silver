@@ -12,7 +12,7 @@ namespace Silver.ArrayBindings
 
 def maxBindings : Nat := 4096 / 24
 def maxElements : Nat := 4096 / 2
-def scalarLimit : Nat := 4096 / 12
+def scalarLimit : Nat := 4096 / 7
 
 structure Binding where
   first : Nat
@@ -21,6 +21,7 @@ structure Binding where
   offset : Nat
   length : Nat
   mutable : Bool
+  componentBounds : Integer.Interval := .full
   deriving DecidableEq, Repr
 
 abbrev Metadata := List Binding
@@ -32,11 +33,11 @@ structure Env where
   values : Initials := []
   deriving DecidableEq, Repr
 
-def emptyBinding : Binding := ⟨0, 0, Integer.Interval.empty, 0, 0, false⟩
+def emptyBinding : Binding := ⟨0, 0, Integer.Interval.empty, 0, 0, false, .full⟩
 def binding (names : Metadata) (index : Nat) : Binding := names.getD (index - 1) emptyBinding
 
 def Binding.descriptor (item : Binding) : Integer.ArrayDescriptor :=
-  ⟨scalarLimit + 1 + item.offset, item.bounds⟩
+  ⟨scalarLimit + 1 + item.offset, item.bounds, item.componentBounds⟩
 
 def initialValue (values : Initials) (slot : Nat) : Int := values.getD (slot - 1) 0
 
@@ -83,14 +84,17 @@ theorem putInitial_append (values : Initials) (value : Int) :
 def ValidBinding (item : Binding) : Prop :=
   item.bounds.Bounded ∧ item.bounds.lower ≤ item.bounds.upper ∧
     0 < item.length ∧ item.offset + item.length ≤ maxElements ∧
-    item.bounds.upper - item.bounds.lower = (item.length : Int) - 1
+    item.bounds.upper - item.bounds.lower = (item.length : Int) - 1 ∧
+    item.componentBounds.Bounded ∧ item.componentBounds.lower ≤ item.componentBounds.upper
 
 instance (item : Binding) : Decidable (ValidBinding item) :=
-  inferInstanceAs (Decidable (_ ∧ _ ∧ _ ∧ _ ∧ _))
+  inferInstanceAs (Decidable (_ ∧ _ ∧ _ ∧ _ ∧ _ ∧ _ ∧ _))
 
 def ValidMetadata (text : Source) (names : Metadata) : Prop :=
-  names.length ≤ maxBindings ∧ ∀ item ∈ names,
-    0 < item.first ∧ item.first < item.after ∧ item.after ≤ text.length + 1 ∧ ValidBinding item
+  names.length ≤ maxBindings ∧
+    (∀ item ∈ names, 0 < item.first ∧ item.first < item.after ∧
+      item.after ≤ text.length + 1 ∧ ValidBinding item) ∧
+    names.Pairwise (fun left right => left.offset + left.length ≤ right.offset)
 
 def ValidInitials (values : Initials) : Prop :=
   values.length ≤ maxElements ∧ ∀ value ∈ values, Integer.InRange value
@@ -100,11 +104,22 @@ def ValidEnvironment (text : Source) (environment : Env) : Prop :=
     ValidInitials environment.values ∧
     ∀ item ∈ environment.names, item.offset + item.length ≤ environment.used
 
-/-- Stronger source allocation facts are not silently included in the native
-helper's Valid_Metadata contract. -/
+/-- Exact initial values fit every declared component interval. This source
+elaboration property is distinct from the native table's integer-value domain. -/
+def InitialsFit (names : Metadata) (values : Initials) : Prop :=
+  ∀ item ∈ names, item.componentBounds.Bounded ∧
+    ∀ offset ∈ List.range item.descriptor.length,
+      item.componentBounds.Contains (initialValue values (item.offset + 1 + offset))
+
+instance (names : Metadata) (values : Initials) : Decidable (InitialsFit names values) :=
+  inferInstanceAs (Decidable (∀ item ∈ names, _ ∧ ∀ offset ∈ List.range item.descriptor.length, _))
+
+/-- Source elaboration additionally maintains a canonical table prefix and
+exact values within each declared component subtype. -/
 def SourceReady (text : Source) (environment : Env) : Prop :=
   ValidEnvironment text environment ∧ environment.values.length = environment.used ∧
-    environment.names.Pairwise (fun left right => left.offset + left.length ≤ right.offset)
+    environment.names.Pairwise (fun left right => left.offset + left.length ≤ right.offset) ∧
+    InitialsFit environment.names environment.values
 
 def lookupFrom (text : Source) (names : Metadata) (first after : Nat) : Nat → Nat
   | 0 => 0
@@ -137,16 +152,21 @@ def readBounds (names : Metadata) (values : Initials) (elaborating : Bool)
   if elaborating then
     hullModel values (elementSlot (binding names target) indices.lower)
       (elementSlot (binding names target) indices.upper)
-  else Integer.Interval.full
+  else (binding names target).componentBounds
 
 def covers (names : Metadata) (cell : Nat) : Bool :=
   names.any fun item => decide (item.descriptor.ContainsCell cell)
+
+def componentRange (names : Metadata) (cell : Nat) : Integer.Interval :=
+  match names.find? (fun item => decide (item.descriptor.ContainsCell cell)) with
+  | some item => item.componentBounds.normalize
+  | none => .full
 
 def ranges (names : Metadata) (values : Initials) (elaborating : Bool)
     (scalars : Integer.Ranges) : Integer.Ranges := fun cell =>
   if covers names cell then some
     (if elaborating then Integer.Interval.singleton (initialValue values (cell - scalarLimit))
-     else Integer.Interval.full)
+     else componentRange names cell)
   else scalars cell
 
 def store (names : Metadata) (values : Initials) (scalars : Integer.Store) : Integer.Store := fun cell =>
@@ -176,8 +196,67 @@ theorem binding_descriptor_valid {item : Binding} (valid : ValidBinding item) : 
 theorem binding_descriptor_length {item : Binding} (valid : ValidBinding item) :
     item.descriptor.length = item.length := by
   simp only [Binding.descriptor, Integer.ArrayDescriptor.length]
-  have exactLength := valid.2.2.2.2
+  have exactLength := valid.2.2.2.2.1
   omega
+
+theorem binding_component_valid {item : Binding} (valid : ValidBinding item) :
+    item.descriptor.ComponentValid := valid.2.2.2.2.2
+
+theorem binding_components_valid {names : Metadata}
+    (valid : ∀ entry ∈ names, ValidBinding entry) (target : Nat) :
+    (binding names target).descriptor.ComponentValid := by
+  unfold binding
+  simp only [List.getD_eq_getElem?_getD]
+  cases found : names[target - 1]? with
+  | none => exact ⟨Integer.Interval.full_bounded, by decide⟩
+  | some item => exact binding_component_valid (valid item (List.mem_of_getElem? found))
+
+theorem ordered_componentRange {names : Metadata} {item : Binding} {cell : Nat}
+    (valid : ∀ entry ∈ names, ValidBinding entry)
+    (ordered : names.Pairwise (fun left right => left.offset + left.length ≤ right.offset))
+    (member : item ∈ names) (inside : item.descriptor.ContainsCell cell) :
+    componentRange names cell = item.componentBounds := by
+  induction names with
+  | nil => simp at member
+  | cons head tail ih =>
+      have order := List.pairwise_cons.mp ordered
+      rcases List.mem_cons.mp member with same | member
+      · subst item
+        have nonempty : head.componentBounds.isEmpty = false := by
+          simp only [Integer.Interval.isEmpty, decide_eq_false_iff_not, Int.not_lt]
+          exact (valid head (by simp)).2.2.2.2.2.2
+        simp only [componentRange, List.find?_cons, inside, decide_true,
+          Integer.Interval.normalize, nonempty, Bool.false_eq_true, ↓reduceIte]
+      · have separate := order.1 item member
+        have headLength := binding_descriptor_length (valid head (by simp))
+        have absent : ¬head.descriptor.ContainsCell cell := by
+          intro contained
+          simp only [Integer.ArrayDescriptor.ContainsCell] at contained inside
+          rw [headLength] at contained
+          dsimp only [Binding.descriptor] at contained inside
+          omega
+        have rest := ih (fun entry found => valid entry (by simp [found])) order.2 member
+        simpa only [componentRange, List.find?_cons, absent, decide_false, Bool.false_eq_true, ↓reduceIte] using rest
+
+theorem componentRange_bounded {names : Metadata} {values : Initials}
+    (fits : InitialsFit names values) (cell : Nat) : (componentRange names cell).Bounded := by
+  unfold componentRange
+  cases found : names.find? (fun item => decide (item.descriptor.ContainsCell cell)) with
+  | none => exact Integer.Interval.full_bounded
+  | some item => exact Integer.Interval.normalize_bounded (fits item (List.mem_of_find?_eq_some found)).1
+
+theorem componentRange_join_self (names : Metadata) (cell : Nat) :
+    (componentRange names cell).join (componentRange names cell) = componentRange names cell := by
+  unfold componentRange
+  cases found : names.find? (fun item => decide (item.descriptor.ContainsCell cell)) with
+  | none => decide +kernel
+  | some item =>
+      simp only [Integer.Interval.normalize]
+      split
+      · decide +kernel
+      · rename_i present
+        have nonempty : item.componentBounds.isEmpty = false := by simpa using present
+        simp [Integer.Interval.join, nonempty]
 
 theorem elementSlot_address (item : Binding) (index : Int) :
     item.descriptor.address index = scalarLimit + elementSlot item index := by
@@ -205,7 +284,7 @@ theorem ranges_of_covered {names : Metadata} {cell : Nat} (covered : covers name
     (values : Initials) (elaborating : Bool) (scalars : Integer.Ranges) :
     ranges names values elaborating scalars cell = some
       (if elaborating then Integer.Interval.singleton (initialValue values (cell - scalarLimit))
-       else Integer.Interval.full) := by simp only [ranges, covered, ↓reduceIte]
+       else componentRange names cell) := by simp only [ranges, covered, ↓reduceIte]
 
 theorem ranges_of_not_covered {names : Metadata} {cell : Nat} (absent : covers names cell = false)
     (values : Initials) (elaborating : Bool) (scalars : Integer.Ranges) :
@@ -305,7 +384,37 @@ theorem initialValue_inRange {values : Initials} (valid : ValidInitials values) 
   | none => decide +kernel
   | some value => exact valid.2 value (List.mem_of_getElem? found)
 
-theorem body_ranges_fits (names : Metadata) {values : Initials} (valid : ValidInitials values)
+/-- Appending a fresh segment retains every earlier component subtype and
+establishes the new segment's interval from its checked initializer values. -/
+theorem initialsFit_append {names : Metadata} {values : Initials} {item : Binding} {items : List Int}
+    (fits : InitialsFit names values)
+    (occupied : ∀ entry ∈ names, entry.offset + entry.descriptor.length ≤ values.length)
+    (offset : item.offset = values.length) (count : items.length = item.descriptor.length)
+    (bounded : item.componentBounds.Bounded)
+    (safe : ∀ value ∈ items, item.componentBounds.Contains value) :
+    InitialsFit (names ++ [item]) (values ++ items) := by
+  intro entry member
+  rcases List.mem_append.mp member with old | fresh
+  · refine ⟨(fits entry old).1, ?_⟩
+    intro index within
+    have indexBound := List.mem_range.mp within
+    have before : entry.offset + 1 + index - 1 < values.length := by
+      have last := occupied entry old
+      omega
+    simpa only [initialValue, List.getD_eq_getElem?_getD, List.getElem?_append_left before] using
+      (fits entry old).2 index within
+  · have same := List.mem_singleton.mp fresh
+    subst entry
+    refine ⟨bounded, ?_⟩
+    intro index within
+    have indexBound : index < items.length := by simpa only [count] using List.mem_range.mp within
+    have after : values.length ≤ item.offset + 1 + index - 1 := by omega
+    have relative : item.offset + 1 + index - 1 - values.length = index := by omega
+    simp only [initialValue, List.getD_eq_getElem?_getD, List.getElem?_append_right after,
+      relative, List.getElem?_eq_getElem indexBound, Option.getD_some]
+    exact safe _ (List.getElem_mem (l := items) (n := index) (h := indexBound))
+
+theorem body_ranges_fits (names : Metadata) {values : Initials} (initials : InitialsFit names values)
     {rangesBefore : Integer.Ranges} {valuesBefore : Integer.Store}
     (fits : Integer.Fits rangesBefore valuesBefore) :
     Integer.Fits (ranges names values false rangesBefore) (store names values valuesBefore) := by
@@ -316,17 +425,42 @@ theorem body_ranges_fits (names : Metadata) {values : Initials} (valid : ValidIn
   · rename_i covered
     simp only [Bool.false_eq_true, ↓reduceIte, Option.some.injEq] at found
     subst bounds
-    simp only [covered, ↓reduceIte, Integer.Interval.full_contains]
-    exact initialValue_inRange valid _
+    simp only [covered, ↓reduceIte]
+    unfold componentRange
+    cases selected : names.find? (fun item => decide (item.descriptor.ContainsCell cell)) with
+    | none =>
+        have missing := List.find?_eq_none.mp selected
+        obtain ⟨item, member, inside⟩ := (covers_iff names cell).mp covered
+        have impossible := missing item member
+        exact False.elim (impossible (by simp only [inside, decide_true]))
+    | some item =>
+        have member := List.mem_of_find?_eq_some selected
+        have inside : item.descriptor.ContainsCell cell := by
+          have foundTrue := List.find?_some (p := fun (entry : Binding) => decide (entry.descriptor.ContainsCell cell)) selected
+          exact of_decide_eq_true foundTrue
+        have offset : cell - item.descriptor.base < item.descriptor.length := by
+          simp only [Integer.ArrayDescriptor.ContainsCell] at inside
+          omega
+        have cellEq : item.offset + 1 + (cell - item.descriptor.base) = cell - scalarLimit := by
+          simp only [Integer.ArrayDescriptor.ContainsCell, Binding.descriptor] at inside ⊢
+          omega
+        apply Integer.Interval.normalize_contains
+        simpa only [cellEq] using (initials item member).2
+          (cell - item.descriptor.base) (List.mem_range.mpr offset)
   · rename_i absent
     simp only [absent]
     exact fits cell bounds found
 
-theorem body_ranges_full {names : Metadata} {item : Binding} (member : item ∈ names)
-    (values : Initials) (scalars : Integer.Ranges) :
-    item.descriptor.FullRanges (ranges names values false scalars) := by
+theorem body_ranges_components {names : Metadata} {item : Binding}
+    (valid : ∀ entry ∈ names, ValidBinding entry)
+    (ordered : names.Pairwise (fun left right => left.offset + left.length ≤ right.offset))
+    (member : item ∈ names) (values : Initials) (scalars : Integer.Ranges) :
+    item.descriptor.ComponentRanges (ranges names values false scalars) := by
   intro index inside
-  have covered := (covers_iff names _).mpr ⟨item, member, item.descriptor.address_within inside⟩
-  simp only [ranges, covered, ↓reduceIte, Bool.false_eq_true]
+  have atCell := item.descriptor.address_within inside
+  have covered := (covers_iff names _).mpr ⟨item, member, atCell⟩
+  change ranges names values false scalars (item.descriptor.address index) = some item.componentBounds
+  simp only [ranges, covered, ↓reduceIte, Bool.false_eq_true,
+    ordered_componentRange valid ordered member atCell]
 
 end Silver.ArrayBindings

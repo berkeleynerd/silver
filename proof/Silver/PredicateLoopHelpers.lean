@@ -63,7 +63,6 @@ structure Links (imports : Imports) (inherited : Compose.Expressions.Calls)
     ∀ context facts, WidenDomain context facts →
       imports.widen context facts =
         (operation (FlowReaders.storageContext context) (FlowSourceBridge.ofFlow facts)).active
-  append : imports.append = inherited.function .scalarAppend
   isEmpty : imports.isEmpty = inherited.function .scalarEmpty
   normalize : imports.normalize = scalars.scalars.normalize
   join : ∀ left right : PathFacts.Native.Context,
@@ -71,7 +70,6 @@ structure Links (imports : Imports) (inherited : Compose.Expressions.Calls)
       (PathFacts.Native.joinBody.eval
         ({leftFacts := left, rightFacts := right} : Native.Libraries.PathInputs).locals).model
   emptyBounds : imports.emptyBounds = ⟨1, 0⟩
-  fullBounds : imports.fullBounds = ⟨-2147483648, 2147483647⟩
   emptyFacts : imports.emptyFacts = PathFacts.Native.empty.model
 
 theorem ImportsMeaning.of_inherited {imports : Imports} {inherited : Compose.Expressions.Calls}
@@ -129,9 +127,6 @@ theorem ImportsMeaning.of_inherited {imports : Imports} {inherited : Compose.Exp
       FlowSourceBridge.ofFlow_active] using
       FlowSourceBridge.interpreted_widenInto operation operationSource
         (FlowReaders.storageContext context) (FlowSourceBridge.ofFlow facts) valid.2 valid.1
-  append names item space := by
-    rw [links.append]
-    exact source.scalarAppend names item space
   isEmpty value bounded := by
     rw [links.isEmpty]
     exact source.scalarEmpty value bounded
@@ -143,7 +138,6 @@ theorem ImportsMeaning.of_inherited {imports : Imports} {inherited : Compose.Exp
     simpa only [PathFacts.Native.joinBody_eval, Native.Libraries.PathInputs.locals,
       PathFacts.Native.join_model, Native.Libraries.reify_model] using equation
   emptyBounds := links.emptyBounds
-  fullBounds := links.fullBounds
   emptyFacts := links.emptyFacts
 
 theorem model_links {domain : Compose.Expressions.StateDomain}
@@ -180,14 +174,12 @@ theorem model_links {domain : Compose.Expressions.StateDomain}
       FlowSourceBridge.interpreted_widenInto FlowSourceBridge.widenedStorage
         FlowSourceBridge.model_widen_interpreted (FlowReaders.storageContext context)
         (FlowSourceBridge.ofFlow facts) valid.2 valid.1
-  append := rfl
   isEmpty := rfl
   normalize := rfl
   join left right := by
     rw [PathFacts.Native.joinBody_eval]
     exact (PathFacts.Native.join_model left right).symm
   emptyBounds := rfl
-  fullBounds := rfl
   emptyFacts := rfl
 
 end Silver.Predicate.LoopNative

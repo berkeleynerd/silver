@@ -6,7 +6,9 @@ with Silver_Array_Bindings;
 package Silver_Scalar_Expressions with SPARK_Mode => On is
    use Silver_Profile;
    use Silver_Output_Lexical;
-   Max_Bindings : constant Positive := Max_Source_Length / 12;
+   --  A named-subtype object can occupy only seven bytes: A:S:=0;.
+   --  Every declaration and scoped binder consumes at least this much source.
+   Max_Bindings : constant Positive := Max_Source_Length / 7;
    Max_Operands : constant Positive := 64;
    subtype Binding_Count is Natural range 0 .. Max_Bindings;
    subtype Binding_Index is Positive range 1 .. Max_Bindings;

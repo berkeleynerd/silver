@@ -1,0 +1,26 @@
+[
+  {
+    "kind": "foreach",
+    "depth": 158,
+    "bytes": 4096,
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "\nraised STORAGE_ERROR : stack overflow or erroneous memory access\n"
+  },
+  {
+    "kind": "counted",
+    "depth": 141,
+    "bytes": 4096,
+    "returncode": 0,
+    "stdout": "Accepted: silver.\n",
+    "stderr": ""
+  },
+  {
+    "kind": "conditional",
+    "depth": 208,
+    "bytes": 4096,
+    "returncode": 0,
+    "stdout": "Accepted: silver.\n",
+    "stderr": ""
+  }
+]

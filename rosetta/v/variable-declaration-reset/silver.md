@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check is an index in the array's own for-loop range or a plain Integer comparison, so nothing needs an invariant or annotation.
 
-Position 56 in the [progression](../../progression.md#stage-3), in stage 3.
+Position 58 in the [progression](../../progression.md#stage-3), in stage 3.
 
 ## Approach
 

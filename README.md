@@ -141,7 +141,7 @@ validation, and the scoped independent reviews.
 The [fixed-size Integer-array increment](docs/fixed-integer-arrays.md) adds
 anonymous one-dimensional arrays with nonempty static bounds, explicit
 initialization and checked indexed reads and writes. Declaration snapshots stay
-exact; body reads use full Integer intervals. The
+exact; body reads use declared component intervals (full Integer for `of Integer`). The
 [rotation sample](samples/rosetta_shift_list_left_3.adb) moves the first three
 values to the end. Named array types, array attributes and whole-array
 operations remain outside this fragment. The
@@ -155,6 +155,16 @@ existing statements compose in the body. Mutable iterables and general
 iterators remain excluded. The
 [Loops/Foreach sample](samples/rosetta_loops_foreach.adb) exercises ordered output.
 Source, expression and operator limits are unchanged.
+
+The [named Integer subtype increment](docs/named-integer-subtypes.md#delivery-assurance-and-validation)
+is implemented and validated on Linux in [PR #289](https://github.com/berkeleynerd/silver/pull/289).
+It adds static
+`subtype S is Integer range L .. H;` declarations for initialized scalar objects
+and fixed-array components, with optional narrower static scalar object ranges.
+Bounded components retain their ranges in indexed reads and constant-array
+iteration, enabling the [Sum of squares](samples/rosetta_sum_of_squares.adb) and
+[Sum and product](samples/rosetta_sum_and_product.adb) examples. Subtype aliases,
+conversions, derived types and general arrays remain outside this fragment.
 
 The [Find square difference sample](samples/find_square_difference.adb) stores
 the first matching index and prints ` 501` followed by a newline.
@@ -240,10 +250,13 @@ unaudited proof-tree metadata; original reports remain on disk. The earlier
 `Storage_Error` with a 2 MiB stack even for the null and Hello World samples;
 that historical result predates the [capacity repair](docs/report-capacity.md).
 The recursive statement/predicate recognizer still uses the stack, and fixed-array
-metadata increased its loop frames. The [current stack observations](docs/evidence/array-review-response-20261028/README.md#stack-observations)
-admitted, compiled and executed a 143-level counted-loop program and a
-159-level constant-array foreach program at 8 MiB. These observations do not
-establish a universal exact minimum. Adequate memory and normal runtime
+metadata increased its loop frames. The [2026-10-29 subtype stack observations](docs/evidence/named-integer-subtypes-20261029/stack/README.md)
+admitted, proved, compiled and executed three 4,096-byte programs under an actual
+8 MiB process stack: 141 counted-loop levels, 158 singleton constant-array
+foreach levels and 208 conditional levels. These input/build-specific observations
+used native source `a0d1a69463` and the binary rebuilt at `39d96fa9e5`, before the
+later ghost logical-equality annotation repair. They do not measure the final
+binary or establish a universal worst-case bound. Adequate memory and normal runtime
 startup remain [environmental requirements](docs/trusted-boundary.md#trusted-computing-base).
 
 ```sh

@@ -165,38 +165,39 @@ def loopExit (analysis : Integer.Analysis) (before after : Flow)
     else analysis.widen before.scalars⟩
 
 /-- A generic core identity need not obey native allocation limits. Require
-binder/storage separation directly, alongside constant Full component cells. -/
+binder/storage separation directly, alongside constant cells within their declared component interval. -/
 def arrayLoopReady (analysis : Integer.Analysis) (flow : Flow) (index : Nat)
     (array : Integer.ArrayDescriptor) : Bool :=
   decide (array.Valid ∧ ¬array.ContainsCell index) &&
-    (array.fullRanges flow.scalars && (array.fullRanges analysis.declared &&
-      array.allCells (fun cell => !analysis.mutable cell)))
+    (array.componentRanges flow.scalars && (array.componentRanges analysis.declared &&
+      (array.allCells (fun cell => !analysis.mutable cell) && decide array.ComponentValid)))
 
 theorem arrayLoopReady_iff (analysis : Integer.Analysis) (flow : Flow) (index : Nat)
     (array : Integer.ArrayDescriptor) :
     arrayLoopReady analysis flow index array = true ↔
-      array.Valid ∧ ¬array.ContainsCell index ∧ array.FullRanges flow.scalars ∧
-      array.FullRanges analysis.declared ∧
-      (∀ cell, array.ContainsCell cell → analysis.mutable cell = false) := by
+      array.Valid ∧ ¬array.ContainsCell index ∧ array.ComponentRanges flow.scalars ∧
+      array.ComponentRanges analysis.declared ∧
+      (∀ cell, array.ContainsCell cell → analysis.mutable cell = false) ∧ array.ComponentValid := by
   simp only [arrayLoopReady, Bool.and_eq_true, decide_eq_true_eq,
-    Integer.ArrayDescriptor.fullRanges_iff, Integer.ArrayDescriptor.allCells_iff,
+    Integer.ArrayDescriptor.componentRanges_iff, Integer.ArrayDescriptor.allCells_iff,
     Bool.not_eq_true', and_assoc]
 
 /-- Every component exists, and entry facts describe the current component's
-full Integer domain. Mutable scalar facts are widened before every body. -/
-def arrayLoopEntry (analysis : Integer.Analysis) (flow : Flow) (index : Nat) : Flow :=
-  ⟨flow.path, Integer.put (analysis.widen flow.scalars) index (some Integer.Interval.full)⟩
+declared component domain. Mutable scalar facts are widened before every body. -/
+def arrayLoopEntry (analysis : Integer.Analysis) (flow : Flow) (index : Nat)
+    (components : Integer.Interval := .full) : Flow :=
+  ⟨flow.path, Integer.put (analysis.widen flow.scalars) index (some components)⟩
 
 /-- Nonempty array iteration retains the definitely-executed body's input flow;
 component refinements and mutable scalar facts do not escape. -/
 def arrayLoopExit (analysis : Integer.Analysis) (before after : Flow) : Flow :=
   ⟨after.path, analysis.widen before.scalars⟩
 
-/-- Array components remain Full in both flow and declaration environments.
+/-- Array components retain their subtype in flow and declaration environments.
 The core check also requires the complete target segment to be mutable. -/
 def checkArrayAssignment (analysis : Integer.Analysis) (flow : Flow)
     (update : Integer.ArrayAssignment) : Bool :=
-  update.check flow.scalars analysis.mutable && update.array.fullRanges analysis.declared
+  update.check flow.scalars analysis.mutable && update.array.componentRanges analysis.declared
 
 mutual
   def Statement.check (shape : Shape) (analysis : Integer.Analysis) (flow : Flow)
@@ -222,8 +223,8 @@ mutual
             (loopEntry analysis flow index bounds) body).map fun after => loopExit analysis flow after a b
     | .arrayLoop index _ array body =>
         if arrayLoopReady analysis flow index array && statementsBindersApart array body then
-          (checkStatements shape (analysis.withIndex index Integer.Interval.full)
-            (arrayLoopEntry analysis flow index) body).map fun after => arrayLoopExit analysis flow after
+          (checkStatements shape (analysis.withIndex index array.componentBounds)
+            (arrayLoopEntry analysis flow index array.componentBounds) body).map fun after => arrayLoopExit analysis flow after
         else none
   termination_by sizeOf item
   def checkStatements (shape : Shape) (analysis : Integer.Analysis) (flow : Flow)

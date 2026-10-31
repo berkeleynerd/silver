@@ -79,6 +79,32 @@ promoted; reconcile the delivered fragment accurately. Deferred capacity and
 assurance-mode work retains its existing triggers. No harness goal exists;
 CLI memory is unavailable and was not updated.
 
+## 2026-10-30 — Named Integer subtype delivery ready for review
+
+The owner-authorized [#286](https://github.com/berkeleynerd/silver/issues/286)
+increment is implemented and validated on Linux in
+[PR #289](https://github.com/berkeleynerd/silver/pull/289), ready for owner review
+and left open. It admits named static Integer range subtypes in initialized
+scalar objects and existing fixed-array components, with the Sum of squares and
+Sum and product drivers. The [capability record](named-integer-subtypes.md#delivery-assurance-and-validation)
+and [evidence packet](evidence/named-integer-subtypes-20261029/README.md) identify
+the final implementation/review target, complete native and Lean/source audits,
+reviewed regression reuse and final Rosetta refresh. Independent scoped code
+reviews and terminal evidence confirmation are retained separately.
+
+The capacity regression finding [#288](https://github.com/berkeleynerd/silver/issues/288)
+and stale source-literal finding [#290](https://github.com/berkeleynerd/silver/issues/290)
+are repaired and validated. Earlier failed and interrupted runs retain their
+outcomes; cached results and fresh checks retain their actual scope. No clean
+rebuild, independent kernel replay, native macOS, hosted CI or external approval
+is claimed.
+
+This finishes the authorized implementation and publication work. PR #289,
+issues #286/#288/#290 and milestone 13 stay open pending the owner's merge
+instruction; no new language feature is selected. Broad stages #11/#12 remain
+Open/Backlog at stages 2/3. No Oracle amendment or additional assurance mode was
+introduced. No harness goal exists; CLI memory is unavailable and was not updated.
+
 ## 2026-10-29 — Named Integer subtypes and bounded array components authorized
 
 The owner accepted the recommendation to implement named Integer range subtypes,

@@ -1,0 +1,38 @@
+{
+  "created_utc": "2026-10-29T15:40:07.797956+00:00",
+  "destination": "/home/canto/src/github.com/berkeleynerd/silver/tmp/range-subtypes-native/.silver/linux-x86_64/proof-cache/gnatprove/ea6aba21eca447a9c8473fc1c3ea0300b03a95ce919d8a326f68a67989029329",
+  "baseline_direct_entries": 149341,
+  "exploratory_direct_entries": 167111,
+  "overlapping_keys": 149272,
+  "union_entries": 167180,
+  "completion_entries_copied": 14145,
+  "ignored_exploratory_subdirectory": "/home/canto/src/github.com/berkeleynerd/silver/tmp/range-subtypes-native/tmp/native-explore-cache/ea6aba21eca447a9c8473fc1c3ea0300b03a95ce919d8a326f68a67989029329",
+  "non_key_temporary_entries": 92,
+  "continuation_preflight": "An initial continuation rejected92 GNAT-TEMP files before copying; this completed continuation recognizes them as temporary non-key entries. Original files remain preserved.",
+  "preparation_run": "20261029T152732-8243efd23dff",
+  "preparation_failure": "Initial flat-cache copy rejected a preexisting nested namespace directory after completing baseline and lexically earlier exploratory keys. Completed copies were preserved; this continuation copies remaining direct keys and checks complete key coverage. Nested directory is preserved but not imported.",
+  "baseline_manifest_sha256": "92e7d6208d755f9fdb892aeb0ce15dda2dfe4af929d0e305b3169696f079abae",
+  "current_focused_run": "20261029T151702-6fc5f2e5c88c",
+  "tool_hashes": {
+    "alr": "2e2b8de009b793ad2aed10096e162649bbcc5b0711e3c21785ebe8a1261c5d64",
+    "alt-ergo": "b21825912f28802662caee0005e4ea761a5087ce8c21f4dae510ae21bcc34189",
+    "cvc5": "eb2f46a6bc5fb8a3c81b3387fecb0e68ef5ed1a0c0c5908557254ceb8091b232",
+    "gcc": "238f4adafcb1425c84da6519068fdfcf33e57e406fc793e2958a9238789900de",
+    "gnat2why": "343682de485bb151e1817615acebab5b185504efdf2b082f1647cd41a14241f1",
+    "gnatls": "cdd3e2c74ca7d1f1e395d25523c3e233b206a880e4064e822f8015044d1715e2",
+    "gnatprove": "544e6da2eedc24ce87d9200d44f61e8e789726466e81e68bf8935489d7f5323e",
+    "gnatwhy3": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368",
+    "gprbuild": "aff9fde5ca766d5497da9dec185cb8b96878206a0d02512aa5685e1e56d0a4d3",
+    "python": "b8d8288faefdd300201f43fcf00f6f539a27218eeed3a3dff5ab10b9c4c99700",
+    "why3server": "143e182d167d3e290c974770d0b84b5f59cf70bf331de5208a36bd650b386a80",
+    "z3": "44c00197fc576e02775a493dad255a20bb41fa5b4c47378a5f9d090cbc1a25c5"
+  },
+  "tool_versions": "Initial preparation verified every current/baseline executable hash exactly and versions identical after normalizing only checkout prefixes in gnatprove version text.",
+  "solver_settings": [
+    "--level=2",
+    "--prover=cvc5,z3,altergo",
+    "--timeout=30"
+  ],
+  "source_caveat": "Baseline and exploratory source inputs differ. No source equivalence or proof result is claimed by cache reuse. GNATprove owns task/cache matching; normal current complete proof, report coverage and provenance audit are required.",
+  "mode": "cache-assisted full, not cold; no reports or sessions transplanted"
+}

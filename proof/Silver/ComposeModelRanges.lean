@@ -43,6 +43,18 @@ theorem model_ranges : RangeContracts modelCalls where
     by_cases zero : (stringDeclarationAt text state arguments).position = 0
     · exact Or.inl zero
     · exact Or.inr (model_string_declaration_advances text valid state arguments stateValid zero)
+  subtypeDeclaration := by
+    intro text _ state arguments stateValid
+    refine ⟨model_subtype_declaration_valid text state arguments stateValid, ?_⟩
+    by_cases zero : (subtypeDeclarationAt text state arguments).position = 0
+    · exact Or.inl zero
+    · exact Or.inr (model_subtype_declaration_advances text state arguments zero)
+  scalarType := by
+    intro text _ state position stateValid positionValid
+    refine ⟨scalarTypeAt_position_valid text state position,
+      scalarTypeAt_bounded text state position stateValid.2.2.2.2.2.2.2, ?_⟩
+    intro positive
+    exact (scalarTypeAt_sound text state position positive).nonempty stateValid.2.2.2.2.2.2.2
   scalarDeclaration := by
     intro text _ state arguments stateValid
     refine ⟨model_scalar_declaration_valid text state arguments stateValid, ?_⟩

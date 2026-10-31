@@ -23,7 +23,7 @@ def chainTokenModel (text : Source) (position : Nat) : Token :=
   else .endKeyword
 
 def modelCalls : Calls where
-  callAfter := fun text names position operation scalarNames arrays => Compose.callAfter text names position operation scalarNames arrays
+  callAfter := fun text names position operation scalarNames arrays hidden => Compose.callAfter text names position operation scalarNames arrays hidden
   take := takeModel
   skip := skipAt
   nameAfter := Compose.nameAfter

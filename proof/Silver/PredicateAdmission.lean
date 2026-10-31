@@ -5,6 +5,7 @@ public import Silver.PredicateChecking
 public import Silver.IntegerLiteral
 public import Silver.PredicateFlowOverlay
 public import Silver.PredicateArrayFlow
+public import Silver.IntegerSubtypeBindings
 
 @[expose] public section
 
@@ -21,6 +22,7 @@ structure ParseContext where
   scalarNames : ScalarExpression.Environment := []
   declarationCount : Nat := 0
   arrayNames : ArrayBindings.Metadata := []
+  subtypeHiding : IntegerSubtypes.CallHiding := {}
   deriving Repr
 
 def ParseContext.analysis (context : ParseContext) : Integer.Analysis :=
@@ -172,7 +174,7 @@ mutual
       else invalidCondition facts
     else if !context.hasArguments then invalidCondition facts
     else
-      let afterCall := callAfter text context.names position .validity context.scalarNames context.arrayNames
+      let afterCall := callAfter text context.names position .validity context.scalarNames context.arrayNames (context.subtypeHiding.get .validity)
       if afterCall = 0 then invalidCondition facts else
         ⟨afterCall, {facts with path := facts.path.assumeValid}, {facts with path := facts.path.assumeInvalid}⟩
   termination_by remainingAt text position * 5 + 1

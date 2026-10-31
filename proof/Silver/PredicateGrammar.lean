@@ -29,7 +29,8 @@ private theorem initial_ranges (source : Source) : Compose.Expressions.ValidStat
   simp [Compose.Expressions.ValidState, Compose.Expressions.ValidCursor, Compose.Expressions.ValidNames,
     Named.NameState.Valid, initialState, maxSourceLength, maxBindings,
     ScalarExpression.ValidEnvironment, ScalarExpression.maxBindings, ArrayBindings.ValidEnvironment,
-    ArrayBindings.ValidMetadata, ArrayBindings.ValidInitials, ArrayBindings.maxBindings, ArrayBindings.maxElements]
+    ArrayBindings.ValidMetadata, ArrayBindings.ValidInitials, ArrayBindings.maxBindings, ArrayBindings.maxElements,
+    IntegerSubtypes.ValidEnvironment]
 
 private theorem initialFacts_bounded (arguments : Bool) : (initialFacts arguments).Bounded := by
   cases arguments
@@ -101,7 +102,7 @@ theorem form_reading_valid {source : Source} {form : Form} {events : List Event}
   have arguments := prefix_arguments parsed.header
   obtain ⟨program, decoded, programValid⟩ := prefix_decoded_valid form events items scalars
     (ScalarExpression.constants (prefixScan source form).state.scalarNames) checks
-    (prefixScan source form).state.arrayNames (prefix_array_ready parsed.header).1.2.2.1
+    (prefixScan source form).state.arrayNames (prefix_array_ready parsed.header).1.2.2.1 (prefix_array_ready parsed.header).2.2.2
     (Sequence.tokens_kinds parsed.header)
     (by simpa only [initialState, empty_names_shape, List.append_nil] using stream [] trivial)
     (body_nonempty parsed.statements)

@@ -13,11 +13,11 @@ open Compose Bindings PathFacts
 abbrev outputStart (text : Source) (context : ParseContext) (scan : BodyScan) : BodyScan :=
   {scan with
     position := Names.associationAfter text
-      (fixedAfter text (callAfter (arrays := context.arrayNames) text context.names scan.position .output context.scalarNames) "(" false) false}
+      (fixedAfter text (callAfter (arrays := context.arrayNames) (subtypeHidden := context.subtypeHiding.get .output) text context.names scan.position .output context.scalarNames) "(" false) false}
 abbrev putStart (text : Source) (context : ParseContext) (scan : BodyScan) : BodyScan :=
   {scan with
     position := Names.associationAfter text
-      (fixedAfter text (callAfter (arrays := context.arrayNames) text context.names scan.position .partialOutput context.scalarNames) "(" false) false}
+      (fixedAfter text (callAfter (arrays := context.arrayNames) (subtypeHidden := context.subtypeHiding.get .partialOutput) text context.names scan.position .partialOutput context.scalarNames) "(" false) false}
 abbrev assignmentTarget (text : Source) (context : ParseContext) (scan : BodyScan) : ParserState :=
   targetAt text (parserState context scan) false
 abbrev assignmentStart (text : Source) (context : ParseContext) (scan : BodyScan) : BodyScan :=
@@ -296,7 +296,7 @@ theorem basic_meaning {text context scan item result}
           · exact Nat.zero_le _
           · exact ArrayBindings.Native.lookup_bound ..
         have member := ArrayBindings.Native.binding_mem (Nat.pos_of_ne_zero nonzero) targetBound
-        have valid := (arraysReady.1.2 _ member).2.2.2
+        have valid := (arraysReady.1.2.1 _ member).2.2.2
         have mutable : (ArrayBindings.binding context.arrayNames (arrayTarget text context scan.position)).mutable = true :=
           true_of_not_neg (fun bad => good (Or.inr (Or.inl bad)))
         have contained : ArrayBindings.contains
@@ -304,7 +304,15 @@ theorem basic_meaning {text context scan item result}
             (arrayIndex text context scan).bounds = true :=
           true_of_not_neg (fun bad => good (Or.inr (Or.inr (Or.inl bad))))
         have notEmpty : (readScalarInFlow text context (arrayValueStart text context scan) scan.facts).bounds.isEmpty = false :=
-          Bool.eq_false_iff.mpr (fun bad => good (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr bad))))))
+          Bool.eq_false_iff.mpr (fun bad => good (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl bad)))))))
+        have included : (readScalarInFlow text context (arrayValueStart text context scan) scan.facts).bounds.included
+            (ArrayBindings.binding context.arrayNames (arrayTarget text context scan.position)).componentBounds = true := by
+          have constraints := good
+          simp only [not_or, Bool.not_eq_true', Int.not_lt] at constraints
+          simp only [Integer.Interval.included, notEmpty, Bool.false_or, decide_eq_true_eq]
+          exact ⟨constraints.2.2.2.2.2.2.1, constraints.2.2.2.2.2.2.2⟩
+        change (readScalarInFlow text context (arrayValueStart text context scan) scan.facts).bounds.included
+          (ArrayBindings.binding context.arrayNames (arrayTarget text context scan.position)).descriptor.componentBounds = true at included
         have checkedIndex : Integer.arrayIndexCheck
             (ArrayBindings.binding context.arrayNames (arrayTarget text context scan.position)).descriptor
             (arrayIndex text context scan).bounds = true := by
@@ -325,22 +333,24 @@ theorem basic_meaning {text context scan item result}
         have indexInferred := overlay.trans indexInference
         have inferred := expression.inferred
         rw [rangesEq] at inferred
-        have fullFlow : (ArrayBindings.binding context.arrayNames (arrayTarget text context scan.position)).descriptor.fullRanges
+        have fullFlow : (ArrayBindings.binding context.arrayNames (arrayTarget text context scan.position)).descriptor.componentRanges
             (context.flow scan.facts).scalars = true :=
-          (Integer.ArrayDescriptor.fullRanges_iff _ _).mpr (ArrayBindings.body_ranges_full member [] _)
-        have fullDeclared : (ArrayBindings.binding context.arrayNames (arrayTarget text context scan.position)).descriptor.fullRanges
+          (Integer.ArrayDescriptor.componentRanges_iff _ _).mpr (ArrayBindings.body_ranges_components
+            (fun entry found => (arraysReady.1.2.1 entry found).2.2.2) arraysReady.2 member [] _)
+        have fullDeclared : (ArrayBindings.binding context.arrayNames (arrayTarget text context scan.position)).descriptor.componentRanges
             context.analysis.declared = true :=
-          (Integer.ArrayDescriptor.fullRanges_iff _ _).mpr (ArrayBindings.body_ranges_full member [] _)
+          (Integer.ArrayDescriptor.componentRanges_iff _ _).mpr (ArrayBindings.body_ranges_components
+            (fun entry found => (arraysReady.1.2.1 entry found).2.2.2) arraysReady.2 member [] _)
         have writable : (ArrayBindings.binding context.arrayNames (arrayTarget text context scan.position)).descriptor.allCells
             context.analysis.mutable = true :=
-          ArrayBindings.ordered_allCells (fun entry found => (arraysReady.1.2 entry found).2.2.2)
+          ArrayBindings.ordered_allCells (fun entry found => (arraysReady.1.2.1 entry found).2.2.2)
             arraysReady.2 member mutable _
         have factsEq : scan.facts = result.facts := by
           simpa only [bodyToken_facts] using congrArg BodyScan.facts resultEq
         refine ⟨by simp only [SourceStatement.WellFormed], ?_⟩
         rw [← factsEq]
         simp only [SourceStatement.lower, Statement.check, checkArrayAssignment, Integer.ArrayAssignment.check,
-          fullFlow, fullDeclared, writable, indexInferred, inferred, checkedIndex, notEmpty,
+          fullFlow, fullDeclared, writable, indexInferred, inferred, checkedIndex, notEmpty, included,
           Bool.not_false, Bool.and_self, ↓reduceIte]
   | assignment kind target expression =>
       have ready := expression_reading_ready normal expression

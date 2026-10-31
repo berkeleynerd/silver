@@ -28,12 +28,10 @@ model is one interpretation; source bridges supply the actual interpretation. -/
   arrayTarget : Source → Native.Context → Nat → Nat
   readScalar : Source → Native.Context → Nat → ActiveFlow → Nat → Nat → ScalarExpression.Result
   widen : Native.Context → ActiveFlow → ActiveFlow
-  append : ScalarExpression.Environment → ScalarExpression.Binding → ScalarExpression.Environment
   isEmpty : Integer.Interval → Bool
   normalize : Integer.Interval → Integer.Interval
   join : PathFacts.Context → PathFacts.Context → PathFacts.Context
   emptyBounds : Integer.Interval
-  fullBounds : Integer.Interval
   emptyFacts : PathFacts.Context
 
 def modelImports : Imports where
@@ -49,12 +47,10 @@ def modelImports : Imports where
   readScalar := fun text context position facts first after =>
     ScalarExpression.read text position (context.model.readingNames facts) first after (arrays := context.arrayNames)
   widen := fun context facts => ActiveFlow.widen context.scalarNames facts
-  append := fun names item => names ++ [item]
   isEmpty := Integer.Interval.isEmpty
   normalize := Integer.Interval.normalize
   join := PathFacts.Context.join
   emptyBounds := Integer.Interval.empty
-  fullBounds := Integer.Interval.full
   emptyFacts := PathFacts.Context.empty
 
 structure Frame where
@@ -226,11 +222,11 @@ def Update.eval (read : Reader) (frame : Frame) : Update → Frame
   | .opening => {frame with result := {frame.result with position := fixedAfter frame.text frame.high.after "loop" true}}
   | .arrayOpening => {frame with result := {frame.result with position := fixedAfter frame.text frame.arrayAfter "loop" true}}
   | .bounds => {frame with bounds := Integer.loopBounds frame.low.bounds frame.high.bounds}
-  | .arrayBounds => {frame with bounds := Integer.Interval.full}
+  | .arrayBounds => {frame with bounds := (ArrayBindings.binding frame.context.arrayNames frame.arrayTarget).componentBounds}
   | .definite => {frame with definite := Integer.loopDefinite frame.low.bounds frame.high.bounds}
   | .arrayDefinite => {frame with definite := true}
   | .widen => {frame with result := {frame.result with facts := ActiveFlow.widen frame.context.scalarNames frame.result.facts}}
-  | .inner => {frame with inner := {frame.inner with scalarNames := frame.context.scalarNames ++
+  | .inner => {frame with inner := {frame.inner with scalarNames := frame.inner.scalarNames.take frame.context.scalarNames.length ++
       [⟨frame.first, frame.after, frame.bounds, false, frame.bounds, false⟩]}}
   | .copyToInner field => {frame with innerScan := field.copy frame.result frame.innerScan}
   | .copyFromInner field => {frame with result := field.copy frame.innerScan frame.result}
@@ -260,13 +256,13 @@ def Update.evalWith (imports : Imports) (read : Reader) (frame : Frame) : Update
   | .arrayOpening => {frame with result := {frame.result with position := imports.token frame.text frame.arrayAfter (.word "loop")}}
   | .bounds => {frame with bounds := if imports.isEmpty frame.low.bounds || imports.isEmpty frame.high.bounds
       then imports.emptyBounds else imports.normalize ⟨frame.low.bounds.lower, frame.high.bounds.upper⟩}
-  | .arrayBounds => {frame with bounds := imports.fullBounds}
+  | .arrayBounds => {frame with bounds := (ArrayBindings.binding frame.context.arrayNames frame.arrayTarget).componentBounds}
   | .definite => {frame with definite := (!imports.isEmpty frame.low.bounds && !imports.isEmpty frame.high.bounds &&
       decide (frame.low.bounds.upper ≤ frame.high.bounds.lower))}
   | .arrayDefinite => {frame with definite := true}
   | .widen => {frame with result := {frame.result with facts := imports.widen frame.context frame.result.facts}}
-  | .inner => {frame with inner := {frame.inner with scalarNames := (imports.append frame.context.scalarNames
-      ⟨frame.first, frame.after, frame.bounds, false, frame.bounds, false⟩)}}
+  | .inner => {frame with inner := {frame.inner with scalarNames := frame.inner.scalarNames.take frame.context.scalarNames.length ++
+      [⟨frame.first, frame.after, frame.bounds, false, frame.bounds, false⟩]}}
   | .copyToInner field => {frame with innerScan := field.copy frame.result frame.innerScan}
   | .copyFromInner field => {frame with result := field.copy frame.innerScan frame.result}
   | .innerPath => {frame with innerScan := {frame.innerScan with facts := {frame.innerScan.facts with
@@ -303,15 +299,16 @@ def Update.render : Update → List String
   | .bounds => ["index_bounds", ":=", "(", "if"] ++ emptyBounds "low" ++ ["or", "else"] ++ emptyBounds "high" ++
       ["then", "scalars", ".", "empty", "else", "scalars", "."] ++
       call "normalize" [["(", "low", ".", "bounds", ".", "lower", ",", "high", ".", "bounds", ".", "upper", ")"]] ++ [")", ";"]
-  | .arrayBounds => ["index_bounds", ":=", "scalars", ".", "full", ";"]
+  | .arrayBounds => ["index_bounds", ":=", "context", ".", "array_names", ".", "items", "(", "target", ")", ".", "component_bounds", ";"]
   | .definite => ["definite", ":=", "not"] ++ emptyBounds "low" ++ ["and", "then", "not"] ++ emptyBounds "high" ++
       ["and", "then", "low", ".", "bounds", ".", "upper", "<=", "high", ".", "bounds", ".", "lower", ";"]
   | .arrayDefinite => ["definite", ":=", "true", ";"]
   | .widen => call "widen_into" [["context"], ["result", ".", "facts"]] ++ [";"] ++
       ["pragma", "assert", "(", "static", "=>"] ++
       call "valid_flow" [["context"], ["result", ".", "facts"]] ++ [")", ";"]
-  | .inner => ["inner", ".", "scalar_names", ":=", "scalar_expressions", "."] ++
-      call "append" [["context", ".", "scalar_names"], ["(", "first", ",", "after", ",", "index_bounds", ",", "false", ",", "index_bounds", ",", "false", ")"]] ++ [";"]
+  | .inner => ["inner", ".", "scalar_names", ".", "count", ":=", "context", ".", "scalar_names", ".", "count", "+", "1", ";",
+      "inner", ".", "scalar_names", ".", "items", "(", "inner", ".", "scalar_names", ".", "count", ")", ":=",
+      "(", "first", ",", "after", ",", "index_bounds", ",", "false", ",", "index_bounds", ",", "false", ")", ";"]
   | .copyToInner field => ["inner_scan", ".", field.name, ":=", "result", ".", field.name, ";"]
   | .copyFromInner field => ["result", ".", field.name, ":=", "inner_scan", ".", field.name, ";"]
   | .innerPath => ["inner_scan", ".", "facts", ".", "path", ":=", "(", "if", "scalars", "."] ++
@@ -418,8 +415,8 @@ def guard (test : Test) : Command := .choose test .invalid .nothing
 def commands : Command := .list [guard .invalidName,
   .choose .array
     (.list [.update .iterable, .choose .reverse (.update .reverse) .nothing,
-      .arrayScope (.list [guard .invalidArray, .update .arrayOpening]),
-      .update .arrayBounds, .update .arrayDefinite])
+      .arrayScope (.list [guard .invalidArray, .update .arrayOpening, .update .arrayBounds]),
+      .update .arrayDefinite])
     (.list [.update .inside, .choose .reverse (.update .reverse) .nothing,
       .update .low, .update .delimiter, .update .high, .update .opening,
       .update .bounds, .update .definite]),
@@ -538,7 +535,7 @@ private theorem tail_eval (read : Reader) (frame : Frame) (next : Frame → Body
     rw [← widenedCount, List.replicate_succ', copyValuesInto_prefix]
   simp only [tailCommands, Command.list, List.foldr_cons, List.foldr_nil, guard, Command.eval]
   dsimp only [Update.eval, Test.eval, enterScope, freshInnerScan, ScanField.copy]
-  simp only [facts, BodyScan.count, ActiveFlow.count] at copied widenedCount ⊢
+  simp only [facts, BodyScan.count, ActiveFlow.count, List.take_length] at copied widenedCount ⊢
   simp only [List.length_replicate, copyValuesInto_count, Nat.add_sub_cancel]
   rw [copied]
   rw [← widenedCount, set_last]
@@ -550,8 +547,8 @@ private theorem tail_eval (read : Reader) (frame : Frame) (next : Frame → Body
 
 private def arrayCommands : Command := .list [
   .update .iterable, .choose .reverse (.update .reverse) .nothing,
-  .arrayScope (.list [guard .invalidArray, .update .arrayOpening]),
-  .update .arrayBounds, .update .arrayDefinite]
+  .arrayScope (.list [guard .invalidArray, .update .arrayOpening, .update .arrayBounds]),
+  .update .arrayDefinite]
 
 private def countedCommands : Command := .list [
   .update .inside, .choose .reverse (.update .reverse) .nothing,
@@ -561,7 +558,7 @@ private def countedCommands : Command := .list [
 private def arrayFrame (text : Source) (context : Native.Context) (scan : BodyScan) : Frame :=
   {initial text context scan with
     result := {scan with position := (loopHeader text context.model scan).entry.position}
-    bounds := Integer.Interval.full
+    bounds := (ArrayBindings.binding context.arrayNames (loopArrayTarget text context.model scan)).componentBounds
     definite := true
     arrayFirst := skipAt text (loopLowerPosition text scan)
     arrayAfter := nameAfter text (skipAt text (loopLowerPosition text scan))
@@ -614,8 +611,8 @@ private theorem array_eval (read : Reader) (text : Source) (context : Native.Con
       else invalidBody scan := by
   change (Command.choose .reverse (.update .reverse) .nothing).eval read
     (Update.iterable.eval read (initial text context scan))
-    (fun frame => (Command.arrayScope (.list [guard .invalidArray, .update .arrayOpening])).eval read frame
-      (fun frame => next (Update.arrayDefinite.eval read (Update.arrayBounds.eval read frame)))) = _
+    (fun frame => (Command.arrayScope (.list [guard .invalidArray, .update .arrayOpening, .update .arrayBounds])).eval read frame
+      (fun frame => next (Update.arrayDefinite.eval read frame))) = _
   rw [reverse_eval]
   have cursor : reverseFrame (Update.iterable.eval read (initial text context scan)) =
       iteratorFrame text context scan := by
@@ -663,38 +660,53 @@ private def headerContinuation (read : Reader) (text : Source) (context : Native
       [.word "end", .word "loop", .symbol ";"]
     if result.position ≤ scan.position then invalidBody scan else result
 
-private theorem header_exit (context : Native.Context) (before after : ActiveFlow) (header : LoopHeader) :
+private theorem header_exit (context : Native.Context) (before after : ActiveFlow) (header : LoopHeader)
+    (nonempty : header.isArray = true → header.componentBounds.isEmpty = false) :
     (if header.bounds.isEmpty then before else
       ⟨if (if header.isArray then true else Integer.loopDefinite header.lower.bounds header.upper.bounds) then
         after.path else before.path.join after.path,
         (ActiveFlow.widen context.scalarNames before).values⟩) =
       loopAfterHeader context.model before after header := by
-  have fullNonempty : Integer.Interval.full.isEmpty = false := by decide +kernel
   cases array : header.isArray with
-  | true => simp only [LoopHeader.bounds, loopAfterHeader, array, ↓reduceIte, fullNonempty, Bool.false_eq_true]; rfl
+  | true => simp only [LoopHeader.bounds, loopAfterHeader, array, ↓reduceIte, nonempty array, Bool.false_eq_true]; rfl
   | false =>
       simp only [LoopHeader.bounds, loopAfterHeader, array, Bool.false_eq_true, ↓reduceIte,
         loopAfterFlow, loopAfter]
       split <;> rfl
 
-private theorem header_tail (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan) :
+private theorem header_components_nonempty (text : Source) (context : Native.Context) (scan : BodyScan)
+    (metadata : ArrayBindings.ValidMetadata text context.arrayNames) :
+    (loopHeader text context.model scan).componentBounds.isEmpty = false := by
+  have valid := ArrayBindings.binding_components_valid
+    (fun item member => (metadata.2.1 item member).2.2.2)
+    (loopArrayTarget text context.model scan)
+  change (ArrayBindings.binding context.arrayNames (loopArrayTarget text context.model scan)).componentBounds.isEmpty = false
+  simp only [Integer.Interval.isEmpty, decide_eq_false_iff_not, Int.not_lt]
+  simpa only [ArrayBindings.Binding.descriptor] using valid.2
+
+private theorem header_tail (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan)
+    (metadata : ArrayBindings.ValidMetadata text context.arrayNames) :
     tailEquation read (headerFrame text context scan) = headerContinuation read text context scan := by
   unfold tailEquation headerFrame
   dsimp only [initial]
-  rw [header_exit]
+  rw [header_exit _ _ _ _ (fun _ => header_components_nonempty text context scan metadata)]
   rfl
 
 private theorem array_tail (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan)
-    (iterable : loopIsArray text scan = true) :
+    (iterable : loopIsArray text scan = true)
+    (metadata : ArrayBindings.ValidMetadata text context.arrayNames) :
     tailEquation read (arrayFrame text context scan) = headerContinuation read text context scan := by
-  rw [← header_tail]
+  rw [← header_tail read text context scan metadata]
   have selected : (loopHeader text context.model scan).isArray = true := iterable
-  simp only [tailEquation, arrayFrame, headerFrame, LoopHeader.bounds, selected, ↓reduceIte]
+  have components : (loopHeader text context.model scan).componentBounds =
+      (ArrayBindings.binding context.arrayNames (loopArrayTarget text context.model scan)).componentBounds := rfl
+  simp only [tailEquation, arrayFrame, headerFrame, LoopHeader.bounds, selected, ↓reduceIte, components]
 
 private theorem counted_tail (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan)
-    (counted : loopIsArray text scan = false) :
+    (counted : loopIsArray text scan = false)
+    (metadata : ArrayBindings.ValidMetadata text context.arrayNames) :
     tailEquation read (countedFrame text context scan) = headerContinuation read text context scan := by
-  rw [← header_tail]
+  rw [← header_tail read text context scan metadata]
   have selected : (loopHeader text context.model scan).isArray = false := counted
   simp only [tailEquation, countedFrame, headerFrame, selected, Bool.false_eq_true, ↓reduceIte]
   rfl
@@ -706,7 +718,8 @@ private theorem commands_decompose :
 attribute [local irreducible] tailCommands arrayCommands countedCommands
 
 theorem eval_equation (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan)
-    (count : scan.facts.count = context.scalarNames.length) :
+    (count : scan.facts.count = context.scalarNames.length)
+    (metadata : ArrayBindings.ValidMetadata text context.arrayNames) :
     eval read text context scan = equation read text context scan := by
   rw [eval, commands_decompose]
   change (guard .invalidName).eval read (initial text context scan)
@@ -724,7 +737,7 @@ theorem eval_equation (read : Reader) (text : Source) (context : Native.Context)
       rw [array_eval read text context scan _ iterable]
       by_cases valid : loopArrayAllowed text context.model scan = true
       · simp only [valid, ↓reduceIte]
-        rw [tail_eval read _ _ rfl count, array_tail read text context scan iterable]
+        rw [tail_eval read _ _ rfl count, array_tail read text context scan iterable metadata]
       · simp only [valid, Bool.false_eq_true, ↓reduceIte]
         have zero : (loopHeader text context.model scan).entry.position = 0 := by
           simp only [loopHeader, iterable, ↓reduceIte, valid, Bool.false_eq_true]
@@ -732,7 +745,7 @@ theorem eval_equation (read : Reader) (text : Source) (context : Native.Context)
     · have counted := Bool.eq_false_iff.mpr iterable
       simp only [counted, Bool.false_eq_true, ↓reduceIte]
       rw [counted_eval read text context scan _ counted]
-      rw [tail_eval read _ _ rfl count, counted_tail read text context scan counted]
+      rw [tail_eval read _ _ rfl count, counted_tail read text context scan counted metadata]
   · have disallowed := Bool.eq_false_iff.mpr allowed
     simp only [disallowed, Bool.not_false, ↓reduceIte]
     rfl

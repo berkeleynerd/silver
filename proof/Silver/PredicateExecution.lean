@@ -176,7 +176,7 @@ mutual
         split at checked
         · rename_i good
           have both : update.check before.scalars analysis.mutable = true ∧
-              update.array.fullRanges analysis.declared = true := by
+              update.array.componentRanges analysis.declared = true := by
             simpa only [checkArrayAssignment, Bool.and_eq_true] using good
           have accepted := both.1
           simpa only [Statement.execute] using
@@ -218,7 +218,7 @@ mutual
           by_cases same : index = binder
           · subst index
             simp only [Execution.restoreIndex, Integer.restore, Integer.put, ↓reduceIte]
-          · have readonlyBody : (analysis.withIndex binder Integer.Interval.full).mutable index = false := by
+          · have readonlyBody : (analysis.withIndex binder array.componentBounds).mutable index = false := by
               simpa only [Integer.Analysis.withIndex, Integer.put, same, ↓reduceIte] using readonly
             have preserved := statements_unchanged (input := input) (valid := valid)
               (values := current) (integers := Integer.put scalars binder (array.project scalars component))
@@ -363,7 +363,7 @@ theorem arrayLoop_components_stable {shape : Shape} {analysis : Integer.Analysis
   · rename_i ready
     have both := Bool.and_eq_true_iff.mp ready
     have properties := (arrayLoopReady_iff analysis before index array).mp both.1
-    apply statement_components_stable checked properties.2.2.2.2
+    apply statement_components_stable checked properties.2.2.2.2.1
     simp only [Statement.bindersApart, Bool.and_eq_true, decide_eq_true_eq]
     exact ⟨properties.2.1, both.2⟩
   · contradiction
@@ -374,19 +374,19 @@ theorem arrayLoop_body_actual_component {shape : Shape} {analysis : Integer.Anal
     {flow after : Flow} {index : Nat} {array : Integer.ArrayDescriptor} {body : List Statement}
     {input : Source} {valid : Bool} {values : Values} {integers : Integer.Store} {component : Int}
     (ready : arrayLoopReady analysis flow index array = true)
-    (checked : checkStatements shape (analysis.withIndex index Integer.Interval.full)
-      (arrayLoopEntry analysis flow index) body = some after)
+    (checked : checkStatements shape (analysis.withIndex index array.componentBounds)
+      (arrayLoopEntry analysis flow index array.componentBounds) body = some after)
     (inside : array.bounds.Contains component) :
     let result := executeStatements input valid values body
       (Integer.put integers index (array.project integers component))
     result.integers index = array.project result.integers component := by
   have properties := (arrayLoopReady_iff analysis flow index array).mp ready
   have readonlyBody : ∀ cell, array.ContainsCell cell →
-      (analysis.withIndex index Integer.Interval.full).mutable cell = false := by
+      (analysis.withIndex index array.componentBounds).mutable cell = false := by
     intro cell cellInside
     have different : cell ≠ index := fun same => properties.2.1 (same ▸ cellInside)
     simpa only [Integer.Analysis.withIndex, Integer.put, different, ↓reduceIte]
-      using properties.2.2.2.2 cell cellInside
+      using properties.2.2.2.2.1 cell cellInside
   have componentPreserved := statements_constant_components (input := input) (valid := valid)
     (values := values) (integers := Integer.put integers index (array.project integers component))
     checked readonlyBody inside
@@ -543,15 +543,15 @@ mutual
         · rename_i good
           cases checked
           have both : update.check before.scalars analysis.mutable = true ∧
-              update.array.fullRanges analysis.declared = true := by
+              update.array.componentRanges analysis.declared = true := by
             simpa only [checkArrayAssignment, Bool.and_eq_true] using good
           have accepted := both.1
-          have full := (Integer.ArrayDescriptor.fullRanges_iff _ _).mp both.2
+          have full := (Integer.ArrayDescriptor.componentRanges_iff _ _).mp both.2
           have sound := update.check_sound accepted allowed.2
           have declared : Integer.Fits analysis.declared (update.execute integers) := by
             simpa only [Integer.ArrayAssignment.execute, sound.2.2.1, ↓reduceIte] using
               update.array.write_preserves_ranges declaredState full sound.2.2.1
-                (Integer.Expr.safe_value sound.2.1)
+                (update.component_sound accepted allowed.2)
           simp only [Statement.execute, Statement.checkedExecute]
           refine ⟨state, by simp [EffectsValid], by simp [NoOutput], ?_, ?_, sound.2.2.2.1, declared⟩
           · simpa [rejectedAfter] using allowed.1
@@ -705,11 +705,11 @@ mutual
               (analysis.widen_fits allowed.2 declaredState) declaredState
             intro component member current scalars already currentState currentAllowed currentScalars currentDeclared
             have inside : array.bounds.Contains component := Integer.iterationValues_contains member
-            have valueWithin : Integer.Interval.full.Contains (array.project scalars component) :=
+            have valueWithin : array.componentBounds.Contains (array.project scalars component) :=
               currentDeclared _ _ (properties.2.2.2.1 component inside)
             have valueSafe : Integer.InRange (array.project scalars component) :=
-              by simpa only [Integer.Interval.full_contains] using valueWithin
-            have bodyAllowed : (arrayLoopEntry analysis before index).Allows
+              Integer.Interval.bounded_contains properties.2.2.2.2.2.1 valueWithin
+            have bodyAllowed : (arrayLoopEntry analysis before index array.componentBounds).Allows
                 valid input.length already (Integer.put scalars index (array.project scalars component)) :=
               ⟨currentAllowed, Integer.put_fits currentScalars valueWithin⟩
             have bodySound := statements_execution_sound wellFormed.2.2 bodyChecked currentState printable bodyAllowed
@@ -723,7 +723,7 @@ mutual
               by_cases same : other = index
               · subst other
                 simp only [Integer.restore, Integer.put, ↓reduceIte]
-              · have readBody : (analysis.withIndex index Integer.Interval.full).mutable other = false := by
+              · have readBody : (analysis.withIndex index array.componentBounds).mutable other = false := by
                   simpa only [Integer.Analysis.withIndex, Integer.put, same, ↓reduceIte] using readonly
                 have unchanged := statements_unchanged (input := input) (valid := valid)
                   (values := current) (integers := Integer.put scalars index (array.project scalars component))

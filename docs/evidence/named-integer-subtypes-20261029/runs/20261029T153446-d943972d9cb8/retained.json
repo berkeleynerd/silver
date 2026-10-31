@@ -1,0 +1,24 @@
+{
+  "source_directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261029T153446-d943972d9cb8",
+  "sha256_uncompressed": {
+    "events.jsonl": "a0f113e3c5e3ec1afb4793f3b4f7daa9b828a4f4c6440e6b0d7366ea291c0182",
+    "native.log": "d7685e58cdb3466ef5f866fc7cda383dd651e644d967b9dc3585a8c0b94f691c"
+  },
+  "finished": {
+    "duration_seconds": 8.337125688,
+    "event": "finished",
+    "evidence": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261029T153446-d943972d9cb8/native.log",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261029T153446-d943972d9cb8/native.log"
+      }
+    ],
+    "failure_keys": [],
+    "monotonic_ns": 91127596596901,
+    "outcome": "success",
+    "retained_reports": [],
+    "returncode": null,
+    "run_id": "20261029T153446-d943972d9cb8",
+    "utc": "2026-10-29T15:34:57.610376+00:00"
+  }
+}

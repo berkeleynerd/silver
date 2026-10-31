@@ -1,0 +1,26 @@
+[
+  {
+    "fixture": "foreach.adb",
+    "bytes": 4096,
+    "nesting_depth": 158,
+    "sha256": "d895c99fc49e4251acad37a3300dd91ab4304ec7266a353b3520e8079ec81582"
+  },
+  {
+    "fixture": "counted.adb",
+    "bytes": 4096,
+    "nesting_depth": 141,
+    "sha256": "9d6ff3adb364f806f08feb491a34993805b526682b497271a42e8f06bb190e5f"
+  },
+  {
+    "fixture": "conditional.adb",
+    "bytes": 4096,
+    "nesting_depth": 208,
+    "sha256": "d43a257ba9ac8b0be6f77873f5da69686fe5eb16323bbf0b87a3ac1695337b8c"
+  },
+  {
+    "fixture": "foreach-singleton.adb",
+    "bytes": 4096,
+    "nesting_depth": 158,
+    "sha256": "ae91c2316e004cfee11062ec96d9df7d36277d5eec01d9efe45d6185879b115a"
+  }
+]

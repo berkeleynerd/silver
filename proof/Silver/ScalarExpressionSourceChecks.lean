@@ -44,7 +44,7 @@ theorem actual_expressions : ExpressionTranslation := by decide +kernel
 
 abbrev Declarations : Prop :=
   Source.declaration "max_bindings" Source.scalarExpressionSpecTokens =
-    some (expectedTokens "constant Positive := Max_Source_Length / 12") ∧
+    some (expectedTokens "constant Positive := Max_Source_Length / 7") ∧
   Source.declaration "max_operands" Source.scalarExpressionSpecTokens =
     some (expectedTokens "constant Positive := 64") ∧
   subtypeDeclaration "binding_count" Source.scalarExpressionSpecTokens =

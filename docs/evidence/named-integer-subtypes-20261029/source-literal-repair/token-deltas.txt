@@ -1,0 +1,28 @@
+proof/Silver/PredicateBasicSourceCandidate.lean:candidateBody: 729 -> 783 tokens; STALE
+  insert old[87:87]=[] actual[87:96]=[",", "context", ".", "subtype_hiding", "(", "names", ".", "output_call", ")"]
+  insert old[118:118]=[] actual[127:136]=[",", "context", ".", "subtype_hiding", "(", "names", ".", "output_call", ")"]
+  insert old[261:261]=[] actual[279:288]=[",", "context", ".", "subtype_hiding", "(", "names", ".", "partial_output_call", ")"]
+  insert old[292:292]=[] actual[319:328]=[",", "context", ".", "subtype_hiding", "(", "names", ".", "partial_output_call", ")"]
+  insert old[442:442]=[] actual[478:487]=[",", "context", ".", "subtype_hiding", "(", "names", ".", "reject_call", ")"]
+  insert old[473:473]=[] actual[518:527]=[",", "context", ".", "subtype_hiding", "(", "names", ".", "reject_call", ")"]
+proof/Silver/PredicateLoopCandidate.lean:candidateBody: 1144 -> 1165 tokens; STALE
+  delete old[307:309]=["end", ";"] actual[307:307]=[]
+  replace old[311:312]=["scalars"] actual[309:310]=["context"]
+  replace old[313:314]=["full"] actual[311:321]=["array_names", ".", "items", "(", "target", ")", ".", "component_bounds", ";", "end"]
+  insert old[587:587]=[] actual[594:596]=[".", "count"]
+  delete old[588:592]=["scalar_expressions", ".", "append", "("] actual[597:597]=[]
+  replace old[595:596]=[","] actual[600:618]=[".", "count", "+", "1", ";", "inner", ".", "scalar_names", ".", "items", "(", "inner", ".", "scalar_names", ".", "count", ")", ":="]
+  delete old[608:609]=[")"] actual[630:630]=[]
+proof/Silver/PredicateAdapterSourceCandidate.lean:context_ofCandidate: 58 -> 68 tokens; STALE
+  insert old[32:32]=[] actual[32:42]=["subtype_hiding", "=>", "scan", ".", "state", ".", "subtype_names", ".", "hidden_calls", ","]
+proof/Silver/PredicateAdapterSourceCandidate.lean:body_ofCandidate: 57 -> 57 tokens; MATCH
+proof/Silver/PredicateAdapterSourceCandidate.lean:expand_bodyCandidate: 63 -> 67 tokens; STALE
+  insert old[25:25]=[] actual[25:29]=[",", "subtype_names", "=>", "subtypes"]
+proof/Silver/PredicateAdapterSourceCandidate.lean:body_tokenCandidate: 17 -> 17 tokens; MATCH
+proof/Silver/PredicateAdapterSourceCandidate.lean:at_body_stopCandidate: 70 -> 70 tokens; MATCH
+proof/Silver/PredicateAdapterSourceCandidate.lean:read_statementsCandidate: 89 -> 95 tokens; STALE
+  insert old[83:83]=[] actual[83:89]=[",", "scan", ".", "state", ".", "subtype_names"]
+ScalarExpressionSourceShape:spec: 820 -> 820 tokens; STALE
+  replace old[32:33]=["12"] actual[32:33]=["7"]
+ScalarExpressionSourceShape:body: 3496 -> 3496 tokens; MATCH
+Adjacent literal headers checked: 56; composite/nonliteral headers excluded: ['same_interval_header', 'same_path_header', 'same_values_header', 'same_flow_header', 'same_condition_header', 'lemma_condition_equality_impl', 'lemma_flow_equality_impl', 'valid_condition_header', 'summary_of_impl_header', 'bound_of_impl_header', 'binding_summary_impl_header', 'scalar_comparison_at_spec_header', 'scalar_comparison_at_impl_header', 'length_at_spec_header', 'length_at_impl_header', 'primary_model_spec_header', 'primary_model_impl_header', 'relation_model_spec_header', 'relation_model_impl_header', 'chain_token_spec_header', 'chain_token_impl_header', 'chain_after_spec_header', 'chain_after_impl_header', 'condition_tail_spec_header', 'condition_tail_impl_header', 'condition_model_spec_header', 'condition_model_impl_header', 'lemma_joined_flow_spec', 'lemma_joined_flow_header', 'body_body_tail_model_spec_header', 'body_body_tail_spec_header', 'body_read_body_spec_header', 'body_body_token_spec_header']

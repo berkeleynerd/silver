@@ -148,9 +148,9 @@ theorem helper_meaning (calls : Native.Calls) (composed : Compose.Expressions.Ca
     (refinement : ∀ text, IntegerLiteral.Native.ValidText text → ∀ position, position ≤ text.length + 1 →
       integer text position = literals.model text position)
     (links : Links calls composed integer) : HelperMeaning calls where
-  callAfter text tv names position operation scalarNames arrays nv sv av pv := by
+  callAfter text tv names position operation scalarNames arrays hidden nv sv av pv := by
     rw [links.callAfter]
-    exact Compose.Expressions.interpreted_callAfter composed composedEquations text tv names position operation nv pv sv av
+    exact Compose.Expressions.interpreted_callAfter composed composedEquations text tv names position operation nv pv sv av hidden
   take text tv position token bounded := by
     rw [links.take text tv position token bounded,
       Compose.Expressions.interpreted_take composed composedEquations text tv position token.shell bounded (token_valid token)]

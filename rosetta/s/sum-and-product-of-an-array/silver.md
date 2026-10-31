@@ -1,25 +1,25 @@
 # Sum and product of an array
 
-**Candidate: proofs plausibly discharge automatically.** Indexing is safe because the loops run over the array's own range, but the loop-carried sum and product need explicit overflow guards with visible failure output since no invariant can be written. This is routine guarded arithmetic with no annotation needed.
+**Candidate: proofs likely to discharge automatically.** The bounded component subtype supplies the operand range for guarded sum and product updates. The embedded ten-element example is computed by iteration over the actual array, with standard Integer Image output.
 
-Position 162 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 42 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
-An embedded constant array of ten Integers (1 to 10) is traversed by for loops over its own range, accumulating the sum and product in Integer variables. Before each addition and multiplication a guard checks that the result stays in Integer range; on failure a Boolean flag is set and the program prints an explicit overflow message instead of a result. Otherwise it prints both values with Integer'Image concatenated into text. About 45 lines.
+Main embeds the constant vector 1 through 10 in an anonymous fixed array whose component subtype is Integer range 1..10. One foreach loop updates guarded Integer sum and product accumulators, then prints 55 and 3628800. Constant thresholds follow from the component upper bound, so no division, Boolean object, procedure or array attribute is needed. About 23 lines.
 
 ## Proof obligations to watch
 
-- **overflow**: Sum and product are loop-carried Integer values with no invariant, so each addition and multiplication is preceded by a guard comparing the accumulator with Integer'Last or Integer'First divided by the element, and an overflow sets a flag that selects a visible 'overflow' output instead of a wrong result.
-- **division**: The guard divides by the element, so it is placed under a test that the element is nonzero (zero is handled separately because it leaves the product at zero).
-- **length**: The output string is formed by concatenating literals with Integer'Image results, whose bounded length the prover must see against the declared String size.
+- **overflow**: The component subtype 1..10 bounds each operand. Guards Sum <= 2147483637 and Product <= 214748364 precede addition and multiplication; the alternative arms print explicit overflow messages. Neither guard fails for the embedded vector 1 through 10.
 
 ## Language surface recorded by this assessment
 
-Integers, integer division, arrays, for loops, 'Image of scalars and Boolean objects.
+Bounded mutable Integer objects, fixed-size Integer arrays, constant Integer-array iteration, Integer image, scalar guard refinement and named Integer subtypes and bounded components.
 
 ## External effects
 
 - **console output** (allowed): Prints the sum and product with Silver_IO.Put_Line.
 
-Assessed on 2026-10-15 against page revision 413444 of the [task](https://rosettacode.org/wiki/Sum_and_product_of_an_array) by claude-sonnet-5-5 at medium effort; confidence high. The inclusion policy is in `rosetta/coverage.json`.
+Initially assessed on 2026-10-15 against page revision 413444 of the [task](https://rosettacode.org/wiki/Sum_and_product_of_an_array) by claude-sonnet-5-5 at medium effort; current confidence high. The inclusion policy is in `rosetta/coverage.json`.
+
+Revised on 2026-10-29 by Codex through targeted source review; see the [review record](../../assessment-named-integer-subtypes-20261029.md).

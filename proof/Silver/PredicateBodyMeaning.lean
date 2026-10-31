@@ -201,12 +201,14 @@ theorem loopArrayReady {text : Source} {context : ParseContext} {scan : BodyScan
     · exact Nat.zero_le _
     · exact ArrayBindings.Native.lookup_bound ..
   have member := ArrayBindings.Native.binding_mem (Nat.pos_of_ne_zero nonzero) targetBound
-  have valid := (arraysReady.1.2 _ member).2.2.2
+  have valid := (arraysReady.1.2.1 _ member).2.2.2
   apply (arrayLoopReady_iff _ _ _ _).mpr
   refine ⟨ArrayBindings.binding_descriptor_valid valid, arrayBinding_scalar_apart _ _ space,
-    ArrayBindings.body_ranges_full member [] _, ArrayBindings.body_ranges_full member [] _, ?_⟩
+    ArrayBindings.body_ranges_components
+      (fun entry found => (arraysReady.1.2.1 entry found).2.2.2) arraysReady.2 member [] _, ArrayBindings.body_ranges_components
+      (fun entry found => (arraysReady.1.2.1 entry found).2.2.2) arraysReady.2 member [] _, ?_, ArrayBindings.binding_component_valid valid⟩
   intro cell inside
-  exact (ArrayBindings.ordered_mutability (fun entry found => (arraysReady.1.2 entry found).2.2.2)
+  exact (ArrayBindings.ordered_mutability (fun entry found => (arraysReady.1.2.1 entry found).2.2.2)
     arraysReady.2 member inside _).trans immutable
 
 private theorem checked_statement_compatible {context : ParseContext} {before after : ActiveFlow}
@@ -365,8 +367,13 @@ mutual
         have factsEq : result.facts = _ := congrArg BodyScan.facts resultEq
         simp only [bodyTokens_facts] at factsEq
         have isArray : (loopHeader text context scan).isArray = true := iterable
-        have full : (loopHeader text context scan).bounds = Integer.Interval.full := by
-          simp only [LoopHeader.bounds, isArray, ↓reduceIte]
+        have components : (loopHeader text context scan).bounds =
+            (ArrayBindings.binding context.arrayNames (loopArrayTarget text context scan)).componentBounds := by
+          simp only [LoopHeader.bounds, loopHeader, iterable, ↓reduceIte]
+        have componentValid := ((arrayLoopReady_iff _ _ _ _).mp ready).2.2.2.2.2
+        have nonempty : (ArrayBindings.binding context.arrayNames (loopArrayTarget text context scan)).componentBounds.isEmpty = false := by
+          simp only [Integer.Interval.isEmpty, decide_eq_false_iff_not, Int.not_lt]
+          exact componentValid.2
         refine ⟨?_, ?_, ?_⟩
         · simp only [SourceStatement.WellFormed]
           exact ⟨by omega, body_nonempty bodyRead, bodyGood.1⟩
@@ -374,12 +381,15 @@ mutual
           have checked := bodyGood.2.1
           simp only [loopInner_flow] at checked
           rw [loopInner_analysis _ base.count space, loopHeader_model base.body compatible.count space,
-            full] at checked
+            components] at checked
           have entry : loopEntry context.analysis (context.flow scan.facts) (context.scalarNames.length + 1)
-              Integer.Interval.full = arrayLoopEntry context.analysis (context.flow scan.facts)
-                (context.scalarNames.length + 1) := by rfl
+              (ArrayBindings.binding context.arrayNames (loopArrayTarget text context scan)).componentBounds =
+              arrayLoopEntry context.analysis (context.flow scan.facts) (context.scalarNames.length + 1)
+                (ArrayBindings.binding context.arrayNames (loopArrayTarget text context scan)).componentBounds := by
+              simp only [loopEntry, arrayLoopEntry, loopContext, nonempty, Bool.false_eq_true, ↓reduceIte]
           rw [entry] at checked
           simp only [loopInner] at checked
+          simp only [ArrayBindings.Binding.descriptor] at checked ⊢
           rw [checked]
           simp only [Option.map_some, factsEq, loopAfterHeader_model base.body compatible.count,
             isArray, ↓reduceIte]

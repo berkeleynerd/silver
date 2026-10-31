@@ -5,7 +5,7 @@ public import Silver.PredicateFlowWidening
 
 @[expose] public section
 
-/-! Array cells carry Full Integer body ranges independently of the finite
+/-! Array cells carry their declared component ranges independently of the finite
 scalar flow vector. Scalar updates and lexical indexes remain in the reserved
 low identity range. -/
 namespace Silver.Predicate.ArrayFlow
@@ -27,13 +27,14 @@ theorem ranges_scalar (arrays : ArrayBindings.Metadata) (scalars : Integer.Range
     {index : Nat} (low : index ≤ ArrayBindings.scalarLimit) : ranges arrays scalars index = scalars index :=
   ArrayBindings.ranges_scalar arrays [] false scalars low
 
-theorem ranges_bounded (arrays : ArrayBindings.Metadata) {scalars : Integer.Ranges}
+theorem ranges_bounded (arrays : ArrayBindings.Metadata) {values : ArrayBindings.Initials}
+    (initials : ArrayBindings.InitialsFit arrays values) {scalars : Integer.Ranges}
     (bounded : scalars.Bounded) : (ranges arrays scalars).Bounded := by
   intro cell bounds found
-  change (if ArrayBindings.covers arrays cell then some Integer.Interval.full else scalars cell) = some bounds at found
+  change (if ArrayBindings.covers arrays cell then some (ArrayBindings.componentRange arrays cell) else scalars cell) = some bounds at found
   split at found
   · cases found
-    exact Integer.Interval.full_bounded
+    exact ArrayBindings.componentRange_bounded initials cell
   · exact bounded cell bounds found
 
 theorem ranges_put (arrays : ArrayBindings.Metadata) (scalars : Integer.Ranges)
@@ -46,7 +47,9 @@ theorem ranges_join (arrays : ArrayBindings.Metadata) (left right : Integer.Rang
   funext cell
   unfold ranges ArrayBindings.ranges Integer.Ranges.join
   cases covered : ArrayBindings.covers arrays cell with
-  | true => simp only [covered, ↓reduceIte, Bool.false_eq_true]; rfl
+  | true =>
+      simp only [covered, ↓reduceIte, Bool.false_eq_true]
+      exact congrArg some (ArrayBindings.componentRange_join_self arrays cell).symm
   | false => simp only [covered, Bool.false_eq_true, ↓reduceIte]
 
 theorem ranges_refine (arrays : ArrayBindings.Metadata) (scalars : Integer.Ranges)

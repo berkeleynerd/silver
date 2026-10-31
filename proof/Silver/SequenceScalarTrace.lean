@@ -1,6 +1,6 @@
 module
 
-public import Silver.SequenceTokens
+public import Silver.SequenceSubtypeReady
 public import Silver.ComposeScalarTrace
 
 @[expose] public section
@@ -72,29 +72,32 @@ theorem scalar_step_count_bound {text form token state next values}
 theorem scalar_step_checked {text form token state next values}
     (trace : ScalarStepAt text form token state values next)
     (static : ScalarExpression.StaticEnvironment state.scalarNames)
-    (bounded : state.scalarNames.length ≤ ArrayBindings.scalarLimit) :
+    (bounded : state.scalarNames.length ≤ ArrayBindings.scalarLimit)
+    (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames) :
     Integer.checkDeclarations (ScalarExpression.constants state.scalarNames) values =
       some (ScalarExpression.constants next.scalarNames) := by
   cases trace with
-  | declarations reading => exact scalar_declarations_checked reading static bounded
+  | declarations reading => exact scalar_declarations_checked reading static bounded subtypes
   | other _ same => simp only [Integer.checkDeclarations, same]
 
 theorem scalar_step_objects {text form token state next values}
     (trace : ScalarStepAt text form token state values next)
     (exact : ScalarExpression.ElaboratedEnvironment state.scalarNames)
-    (bounded : state.scalarNames.length ≤ ArrayBindings.scalarLimit) :
+    (bounded : state.scalarNames.length ≤ ArrayBindings.scalarLimit)
+    (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames) :
     ScalarExpression.objectBindings next.scalarNames = ScalarExpression.objectBindings state.scalarNames ++
       Integer.elaborate (ScalarExpression.constants state.scalarNames) values := by
   cases trace with
-  | declarations reading => exact scalar_declarations_objects reading exact bounded
+  | declarations reading => exact scalar_declarations_objects reading exact bounded subtypes
   | other _ same => simp only [same, Integer.elaborate, List.append_nil]
 
 theorem scalar_step_declared_bounds {text form token state next values}
     (trace : ScalarStepAt text form token state values next)
-    (valid : ScalarExpression.DeclaredBoundsValid state.scalarNames) :
+    (valid : ScalarExpression.DeclaredBoundsValid state.scalarNames)
+    (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames) :
     ScalarExpression.DeclaredBoundsValid next.scalarNames := by
   cases trace with
-  | declarations reading => exact scalar_declarations_declared_bounds reading valid
+  | declarations reading => exact scalar_declarations_declared_bounds reading valid subtypes
   | other _ same => simpa only [same] using valid
 
 theorem scalar_step_unique {text form token state next left right}
@@ -159,39 +162,42 @@ theorem scalar_tokens_count_bound {text form tokens state values final}
 theorem scalar_tokens_checked {text form tokens state values final}
     (trace : ScalarTokensAt text form tokens state values final)
     (static : ScalarExpression.StaticEnvironment state.scalarNames)
-    (bounded : state.scalarNames.length ≤ ArrayBindings.scalarLimit) :
+    (bounded : state.scalarNames.length ≤ ArrayBindings.scalarLimit)
+    (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames) :
     Integer.checkDeclarations (ScalarExpression.constants state.scalarNames) values =
       some (ScalarExpression.constants final.scalarNames) ∧
       ScalarExpression.StaticEnvironment final.scalarNames := by
   induction trace with
   | done => exact ⟨rfl, static⟩
   | next head reading rest ih =>
-      obtain ⟨checked, finalStatic⟩ := ih (scalar_step_static reading static) (scalar_step_count_bound reading bounded)
+      obtain ⟨checked, finalStatic⟩ := ih (scalar_step_static reading static) (scalar_step_count_bound reading bounded) (step_subtypes_valid head subtypes)
       refine ⟨?_, finalStatic⟩
-      rw [check_append, scalar_step_checked reading static bounded]
+      rw [check_append, scalar_step_checked reading static bounded subtypes]
       exact checked
 
 theorem scalar_tokens_objects {text form tokens state values final}
     (trace : ScalarTokensAt text form tokens state values final)
     (exact : ScalarExpression.ElaboratedEnvironment state.scalarNames)
-    (bounded : state.scalarNames.length ≤ ArrayBindings.scalarLimit) :
+    (bounded : state.scalarNames.length ≤ ArrayBindings.scalarLimit)
+    (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames) :
     ScalarExpression.objectBindings final.scalarNames = ScalarExpression.objectBindings state.scalarNames ++
       Integer.elaborate (ScalarExpression.constants state.scalarNames) values := by
   induction trace with
   | done => simp [Integer.elaborate]
   | next head reading rest ih =>
-      have objects := scalar_step_objects reading exact bounded
-      have values := (Integer.declarations_sound (scalar_step_checked reading exact bounded)).1
-      rw [ih (scalar_step_static reading exact) (scalar_step_count_bound reading bounded), objects, Integer.elaborate_append, values]
+      have objects := scalar_step_objects reading exact bounded subtypes
+      have values := (Integer.declarations_sound (scalar_step_checked reading exact bounded subtypes)).1
+      rw [ih (scalar_step_static reading exact) (scalar_step_count_bound reading bounded) (step_subtypes_valid head subtypes), objects, Integer.elaborate_append, values]
       simp only [List.append_assoc]
 
 theorem scalar_tokens_declared_bounds {text form tokens state values final}
     (trace : ScalarTokensAt text form tokens state values final)
-    (valid : ScalarExpression.DeclaredBoundsValid state.scalarNames) :
+    (valid : ScalarExpression.DeclaredBoundsValid state.scalarNames)
+    (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames) :
     ScalarExpression.DeclaredBoundsValid final.scalarNames := by
   induction trace with
   | done => exact valid
-  | next _ reading _ ih => exact ih (scalar_step_declared_bounds reading valid)
+  | next head reading _ ih => exact ih (scalar_step_declared_bounds reading valid subtypes) (step_subtypes_valid head subtypes)
 
 theorem scalar_tokens_unique {text form tokens state left right leftState rightState}
     (first : ScalarTokensAt text form tokens state left leftState)

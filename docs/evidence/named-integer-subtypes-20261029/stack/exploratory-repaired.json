@@ -1,0 +1,20 @@
+[
+  {
+    "kind": "foreach",
+    "returncode": 0,
+    "stdout": "Accepted: silver.\n",
+    "stderr": ""
+  },
+  {
+    "kind": "counted",
+    "returncode": 0,
+    "stdout": "Accepted: silver.\n",
+    "stderr": ""
+  },
+  {
+    "kind": "conditional",
+    "returncode": 0,
+    "stdout": "Accepted: silver.\n",
+    "stderr": ""
+  }
+]

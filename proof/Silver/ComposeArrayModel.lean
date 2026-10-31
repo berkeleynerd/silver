@@ -18,8 +18,8 @@ theorem model_arrayParts_equation (text : Source) (state : ParserState) :
     spelling, isWord, ShellToken.word, ShellToken.symbol]
   simp only [decide_eq_true_eq]
 
-theorem model_arrayValues_zero (text : Source) (source result : ParserState) (length parsed : Nat) :
-    arrayValuesModel text source result 0 length parsed = invalidState := by
+theorem model_arrayValues_zero (text : Source) (source result : ParserState) (length parsed : Nat) (componentBounds : Integer.Interval) :
+    arrayValuesModel text source result 0 length parsed componentBounds = invalidState := by
   rw [arrayValuesModel]
   simp only [↓reduceIte]
 

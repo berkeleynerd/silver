@@ -15,39 +15,41 @@ attribute [local irreducible] ScalarExpression.read
 
 theorem arrayAdd_denotation (calls : Calls) (text : Source) (state : ParserState)
     (first after : Nat) (bounds : Integer.Interval) (offset length : Nat)
-    (mutable : Bool) (following : Nat) :
-    arrayAddBody.eval calls (arrayAddLocals text state first after bounds offset length mutable following) =
-      addArrayBinding state first after bounds offset length mutable following := by rfl
+    (mutable : Bool) (following : Nat) (componentBounds : Integer.Interval) :
+    arrayAddBody.eval calls (arrayAddLocals text state first after bounds offset length mutable following componentBounds) =
+      addArrayBinding state first after bounds offset length mutable following componentBounds := by rfl
 
 theorem arrayPut_denotation (calls : Calls) (state : ParserState) (value : Int) :
     arrayPutBody.eval calls (arrayPutLocals state value) = putArrayValue state value := by
   rfl
 
 def arrayValuesEquation (calls : Calls) (text : Source) (source result : ParserState)
-    (position length parsed : Nat) : ParserState :=
+    (position length parsed : Nat) (componentBounds : Integer.Interval) : ParserState :=
   if decide (position = 0) then invalidState
   else if decide (parsed = length) then {result with position}
   else
     let value := calls.function .scalarRead text position source.scalarNames
       source.arrayNames.names source.arrayNames.values true
     if decide (value.after = 0) || calls.function .scalarEmpty value.bounds ||
-        decide (value.bounds.lower ≠ value.bounds.upper) then invalidState
+        decide (value.bounds.lower ≠ value.bounds.upper) ||
+        decide (value.bounds.lower < componentBounds.lower) ||
+        decide (value.bounds.upper > componentBounds.upper) then invalidState
     else
       let next := calls.function .arrayPut result value.bounds.lower
       let following := if decide (parsed + 1 < length) then
         calls.function .takeToken text value.after (.symbol ",") else value.after
-      calls.function .arrayValuesModel text source next following length (parsed + 1)
+      calls.function .arrayValuesModel text source next following length (parsed + 1) componentBounds
 
 theorem arrayValues_denotation (calls : Calls) (text : Source) (source result : ParserState)
-    (position length parsed : Nat) :
-    arrayValuesModelBody.eval calls (arrayValuesLocals text source result position length parsed) =
-      arrayValuesEquation calls text source result position length parsed := by
+    (position length parsed : Nat) (componentBounds : Integer.Interval) :
+    arrayValuesModelBody.eval calls (arrayValuesLocals text source result position length parsed componentBounds) =
+      arrayValuesEquation calls text source result position length parsed componentBounds := by
   rfl
 
 theorem model_arrayValues_equation (text : Source) (source result : ParserState)
-    (position length parsed : Nat) (bounded : parsed ≤ length) :
-    arrayValuesEquation modelCalls text source result position length parsed =
-      arrayValuesModel text source result position length parsed := by
+    (position length parsed : Nat) (componentBounds : Integer.Interval) (bounded : parsed ≤ length) :
+    arrayValuesEquation modelCalls text source result position length parsed componentBounds =
+      arrayValuesModel text source result position length parsed componentBounds := by
   conv => rhs; rw [arrayValuesModel]
   unfold arrayValuesEquation
   simp only [decide_eq_true_eq]
@@ -74,9 +76,10 @@ def arrayPartsEquation (calls : Calls) (text : Source) (state : ParserState) : A
   let low := read (take arrayAfter (.symbol "("))
   let high := read (take low.after (.symbol ".."))
   let typeFirst := calls.function .skip text (take (take high.after (.symbol ")")) (.word "of"))
-  let typeAfter := take typeFirst (.word "integer")
+  let typeMark := calls.function .scalarType text state typeFirst
+  let typeAfter := typeMark.after
   let position := take (take typeAfter (.symbol ":=")) (.symbol "(")
-  ⟨first, after, constant, arrayAfter, low, high, typeFirst, typeAfter, position⟩
+  ⟨first, after, constant, arrayAfter, low, high, typeFirst, typeAfter, typeMark.bounds, position⟩
 
 def arrayDeclarationEquation (calls : Calls) (executable : Bool)
     (text : Source) (state : ParserState) (arguments : Bool) : ParserState :=
@@ -114,11 +117,11 @@ def arrayDeclarationEquation (calls : Calls) (executable : Bool)
           decide (choice.bounds.lower ≠ low.bounds.lower) || decide (choice.bounds.upper ≠ low.bounds.lower))
     then invalidState else
       let values := (if executable then calls.function .arrayValues else calls.function .arrayValuesModel)
-        text state state valuesFirst length 0
+        text state state valuesFirst length 0 parts.componentBounds
       let following := take (take values.position (.symbol ")")) (.symbol ";")
       if decide (values.position = 0) || decide (following ≤ state.position) then invalidState else
         calls.function .arrayAdd text values first after ⟨low.bounds.lower, high.bounds.lower⟩
-          state.arrayNames.used length (decide (constant = 0)) following
+          state.arrayNames.used length (decide (constant = 0)) following parts.componentBounds
 
 private theorem arrayDeclaration_false_denotation : ∀ (calls : Calls)
     (text : Source) (state : ParserState) (arguments : Bool),
@@ -144,18 +147,18 @@ theorem arrayDeclaration_denotation (calls : Calls) (executable : Bool)
 
 theorem arrayAdd_eval_lexical (calls : Calls) (text : Source) (state : ParserState)
     (first after : Nat) (bounds : Integer.Interval) (offset length : Nat)
-    (mutable : Bool) (following : Nat) :
-    arrayAddBody.eval (lexical calls) (arrayAddLocals text state first after bounds offset length mutable following) =
-      arrayAddBody.eval calls (arrayAddLocals text state first after bounds offset length mutable following) := by rfl
+    (mutable : Bool) (following : Nat) (componentBounds : Integer.Interval) :
+    arrayAddBody.eval (lexical calls) (arrayAddLocals text state first after bounds offset length mutable following componentBounds) =
+      arrayAddBody.eval calls (arrayAddLocals text state first after bounds offset length mutable following componentBounds) := by rfl
 
 theorem arrayPut_eval_lexical (calls : Calls) (state : ParserState) (value : Int) :
     arrayPutBody.eval (lexical calls) (arrayPutLocals state value) =
       arrayPutBody.eval calls (arrayPutLocals state value) := by rfl
 
 theorem arrayValues_eval_lexical (calls : Calls) (text : Source) (source result : ParserState)
-    (position length parsed : Nat) :
-    arrayValuesModelBody.eval (lexical calls) (arrayValuesLocals text source result position length parsed) =
-      arrayValuesModelBody.eval calls (arrayValuesLocals text source result position length parsed) := by
+    (position length parsed : Nat) (componentBounds : Integer.Interval) :
+    arrayValuesModelBody.eval (lexical calls) (arrayValuesLocals text source result position length parsed componentBounds) =
+      arrayValuesModelBody.eval calls (arrayValuesLocals text source result position length parsed componentBounds) := by
   rw [arrayValues_denotation, arrayValues_denotation]
   rfl
 

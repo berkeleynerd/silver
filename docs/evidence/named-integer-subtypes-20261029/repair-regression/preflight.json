@@ -1,0 +1,15 @@
+{
+  "observed_utc": "2026-10-29T21:01:42.885354+00:00",
+  "baseline": "97312a790fb11a83a9607ad48ddab491711f2c3d",
+  "implementation_commit": "6020416906b5fc3d2bd10d012e70937c80f0617c",
+  "validation_before": "31c55b8cc38716ca3d350672634df833542062dd",
+  "governed_inputs_checked": 787,
+  "unexpected_drift": [],
+  "synchronized": {
+    "src/silver_output_profile.adb": "84779089d15b9e7990fd806de3a8965edfb5bdeacac2c02544cb0c9d28ba6a8a",
+    "proof/Silver/ReviewedOutputShape.lean": "dbfbec6d594896b227dffb8cdec21c4b129b0ba7deb326b29c51aaa32bb3a1ad",
+    "proof/Silver/OutputBodyCertificate.lean": "3f9d06ae63a75479c101e8b3baf4f08a98c2615f97cf24818c88b701a6586ab0"
+  },
+  "validation_snapshot": "b05fc81183",
+  "records_base": "32880032da"
+}

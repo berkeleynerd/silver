@@ -1,0 +1,54 @@
+{
+  "aggregate_goal_proved": false,
+  "captured_utc": "2026-10-29T20:28:55.727299+00:00",
+  "check_label": "GP_Check:2041:VC_POSTCONDITION:silver_output_profile.adb:3412:28",
+  "correction": "Earlier all-proved progress samples did not establish completion of this session. The current XML is unproved; its old all-proved .bak dates to 2026-10-28 and is not evidence for these new inputs.",
+  "input_implementation_commit": "97312a790fb11a83a9607ad48ddab491711f2c3d",
+  "inputs": {
+    "silver_output_profile.adb": {
+      "compressed_sha256": "65943f97aca8d500ad015f01b05bff072de1c5b1e597ff6b9f136c39a6cec6b9",
+      "mtime_utc": "2026-10-29T15:31:34.917589+00:00",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-native/src/silver_output_profile.adb",
+      "sha256": "241637c5043dc66776a4a9715e7703abb9602c6323fa0d12a5375959790e4f07"
+    },
+    "silver_output_profile__body_tail.gnat-json": {
+      "compressed_sha256": "4f9881ef4b66a1cd01b46a7f7c49dfb09c7371a7b9e3260f7002b6f0828598b1",
+      "mtime_utc": "2026-10-29T17:45:24.287933+00:00",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-native/.silver/linux-x86_64/compiler/obj/gnatprove/silver_output_profile__body_tail.gnat-json",
+      "sha256": "8687c8d3f51f85cebf4bf43668650e97948a79e204849eab5776b0326dc6b744"
+    },
+    "why3session.xml": {
+      "compressed_sha256": "4e27fc10c8aee28541b73118442774e522fa67b5b0a385674a2f15236ff9a5d8",
+      "mtime_utc": "2026-10-29T20:22:09.818630+00:00",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-native/.silver/linux-x86_64/compiler/obj/gnatprove/silver_output_profile__body_tail/why3session.xml",
+      "sha256": "a9a954cdd82da82069853a26ddb45cbde035d12c36a654c06862813430e07f04"
+    },
+    "why3shapes": {
+      "compressed_sha256": "f07c04ec6df3ff8fc6dd35175c3acbf6e377673126d827814195c6ad04235756",
+      "mtime_utc": "2026-10-29T20:22:09.818630+00:00",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-native/.silver/linux-x86_64/compiler/obj/gnatprove/silver_output_profile__body_tail/why3shapes",
+      "sha256": "d4d801d6dc294b25c8b73186f06e35a6681756f935b76fd3485fc001e42b30a5"
+    }
+  },
+  "mapping_basis": "Why3 shape records align one-to-one with XML goal traversal; def'vc.304 references shape341, whose conclusion is body_scan bool_eq(Result, Body_Tail_Model(Text,Context,Scan,Stop)); translated GNAT JSON places this conjunct under GP_Check2041.",
+  "proposed_next_step": "After terminal native outcome, test the smallest explicit Body_Scan equality bridge through existing Same_Flow/Lemma_Flow_Equality or a proved Same_Body_Scan Logical_Equal helper; retain static model equality and all runtime obligations. No repair has been applied or validated.",
+  "proved_split_children": 304,
+  "run_id": "20261029T165015-c6b111fb4f2a",
+  "run_status_at_capture": "active; Read_Form processing; no final output-profile report or complete audit",
+  "runtime_model_confirmation": null,
+  "selected_effort": "Extra High",
+  "selected_model": "GPT-6 Astra",
+  "shape_record": "4f42922dd18932068ce2091d2a9712d3 1H341",
+  "shape_references": [
+    341
+  ],
+  "shape_text": [
+    "a=abool_eqV22eabody_tail_model__function_guardV28atextV27V26astopAa=V28abody_tail_modelatextV27V26astopLacontextLascanaTrueLV22LV22Iia=V22V97LV97Lato_baseV95LV95La__rep'mkaresult____split_discrsV51LV51Aa=abool_eqato_base1atailato_basea__rep'mkaresult____split_discrsV51aTrueAa=abool_eqato_base1ataileabody_tail_model__function_guardV101atextV100V99astopAa=V101abody_tail_modelatextV100V99astopLacontextLato_basea__rep'mkaresult____split_discrsV51aTruea=V22V107LV107Aa=ato_reparec__silver_scalars__interval__uppera__split_fieldsagetato_arrayarec__silver_output_profile__scalar_flow__valuesa__split_fields1arec__silver_output_profile__body_scan__factsa__split_fields2V107V109ato_reparec__silver_scalars__interval__uppera__split_fieldsagetato_arrayarec__silver_output_profile__scalar_flow__valuesa__split_fields1arec__silver_output_profile__body_scan__factsa__split_fields2V105V109Aa=ato_reparec__silver_scalars__interval__lowera__split_fieldsagetato_arrayarec__silver_output_profile__scalar_flow__valuesa__split_fields1arec__silver_output_profile__body_scan__facts"
+  ],
+  "split_children": 305,
+  "subclause": "Static => Body_Tail'Result = Body_Tail_Model (Text, Context, Scan, Stop)",
+  "subclause_line": 3414,
+  "token_and_cost_measurements": null,
+  "unproved_goal": "def'vc.304",
+  "unproved_goal_xml": "<goal name=\"def'vc.304\">\n  <proof prover=\"0\"><result status=\"timeout\" /></proof>\n  <proof prover=\"1\"><result status=\"timeout\" /></proof>\n  <proof prover=\"2\"><result status=\"timeout\" /></proof>\n  <transf name=\"introduce_premises\">\n   <goal name=\"def'vc.304.0\">\n   <proof prover=\"4\"><result status=\"timeout\" /></proof>\n   </goal>\n  </transf>\n  </goal>\n "
+}

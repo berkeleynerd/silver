@@ -24,6 +24,11 @@ theorem model_ranges : HelperRanges Compose.Expressions.modelCalls OuterReadines
   stringDeclaration text tv state arguments sv := by
     have bounded := Compose.Expressions.model_ranges.stringDeclaration text tv state arguments sv.1
     exact ⟨⟨bounded.1, OuterReadiness.stringDeclaration_ready text state arguments sv.2⟩, bounded.2⟩
+  subtypeDeclaration text tv state arguments sv := by
+    have bounded := Compose.Expressions.model_ranges.subtypeDeclaration text tv state arguments sv.1
+    exact ⟨⟨bounded.1, OuterReadiness.subtypeDeclaration_ready text state arguments sv.2⟩, bounded.2⟩
+  scalarType text tv state position sv pv :=
+    Compose.Expressions.model_ranges.scalarType text tv state position sv.1 pv
   scalarDeclaration text tv state arguments sv := by
     have bounded := Compose.Expressions.model_ranges.scalarDeclaration text tv state arguments sv.1
     exact ⟨⟨bounded.1, OuterReadiness.scalarDeclaration_ready text state arguments sv.2⟩, bounded.2⟩
@@ -81,16 +86,22 @@ theorem model_definitions :
   stringDeclaration text tv state arguments sv :=
     base_definitions.stringDeclaration text tv state arguments sv.1
   scalarConstraint := base_definitions.scalarConstraint
+  subtypeLookupModel := base_definitions.subtypeLookupModel
+  subtypeLookup := base_definitions.subtypeLookup
+  scalarType text tv state position sv pv :=
+    base_definitions.scalarType text tv state position sv.1 pv
+  subtypeDeclaration text tv state arguments sv :=
+    base_definitions.subtypeDeclaration text tv state arguments sv.1
   scalarDeclaration text tv state arguments sv :=
     base_definitions.scalarDeclaration text tv state arguments sv.1
   arrayPut := base_definitions.arrayPut
-  arrayAdd text tv state first after bounds offset length mutable following sv nv bv room extent cursor :=
-    base_definitions.arrayAdd text tv state first after bounds offset length mutable following
-      sv.1 nv bv room extent cursor
-  arrayValuesModel text tv source result position length parsed valid :=
-    base_definitions.arrayValuesModel text tv source result position length parsed (base_array_domain valid)
-  arrayValues text tv source result position length parsed valid :=
-    base_definitions.arrayValues text tv source result position length parsed (base_array_domain valid)
+  arrayAdd text tv state first after bounds offset length mutable following componentBounds sv nv bv room extent ordered cursor :=
+    base_definitions.arrayAdd text tv state first after bounds offset length mutable following componentBounds
+      sv.1 nv bv room extent ordered cursor
+  arrayValuesModel text tv source result position length parsed componentBounds bounded valid :=
+    base_definitions.arrayValuesModel text tv source result position length parsed componentBounds bounded (base_array_domain valid)
+  arrayValues text tv source result position length parsed componentBounds bounded valid :=
+    base_definitions.arrayValues text tv source result position length parsed componentBounds bounded (base_array_domain valid)
   arrayDeclaration text tv state arguments sv :=
     base_definitions.arrayDeclaration text tv state arguments sv.1
   declaration text tv state arguments sv :=
@@ -136,6 +147,11 @@ theorem model_legal : LegalHelpers Compose.Expressions.modelCalls OuterReadiness
   stringDeclaration text tv state arguments sv :=
     Compose.Expressions.model_legal.stringDeclaration text tv state arguments sv.1
   scalarConstraint := Compose.Expressions.model_legal.scalarConstraint
+  subtypeLookupModel := Compose.Expressions.model_legal.subtypeLookupModel
+  scalarType text tv state position sv pv :=
+    Compose.Expressions.model_legal.scalarType text tv state position sv.1 pv
+  subtypeDeclaration text tv state arguments sv :=
+    Compose.Expressions.model_legal.subtypeDeclaration text tv state arguments sv.1
   scalarDeclaration text tv state arguments sv :=
     Compose.Expressions.model_legal.scalarDeclaration text tv state arguments sv.1
   declaration text tv state arguments sv :=

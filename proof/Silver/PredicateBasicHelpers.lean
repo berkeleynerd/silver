@@ -32,8 +32,8 @@ def FlowDomain (text : Source) (context : Native.Context) (position : Nat) (fact
   FlowReaders.Legal {text,context,position,facts}
 
 structure HelperMeaning (primitive : Primitives) : Prop where
-  callAfter : ∀ text names position operation scalarNames arrays, ExpressionDomain text position names scalarNames arrays →
-    primitive.callAfter text names position operation scalarNames arrays = Compose.callAfter text names position operation scalarNames arrays
+  callAfter : ∀ text names position operation scalarNames arrays hidden, ExpressionDomain text position names scalarNames arrays →
+    primitive.callAfter text names position operation scalarNames arrays hidden = Compose.callAfter text names position operation scalarNames arrays hidden
   associationAfter : ∀ text position formal, Expressions.ValidText text → Expressions.ValidCursor text position →
     primitive.associationAfter text position formal = Names.associationAfter text position formal
   token : ∀ text position token, TokenDomain text position token →
@@ -62,8 +62,8 @@ Its legal values and every complete flow record remain unchanged. -/
 noncomputable def totalize (primitive : Primitives) : Primitives := by
   classical
   exact {
-    callAfter := fun text names position operation scalarNames arrays => if ExpressionDomain text position names scalarNames arrays then
-      primitive.callAfter text names position operation scalarNames arrays else Compose.callAfter text names position operation scalarNames arrays
+    callAfter := fun text names position operation scalarNames arrays hidden => if ExpressionDomain text position names scalarNames arrays then
+      primitive.callAfter text names position operation scalarNames arrays hidden else Compose.callAfter text names position operation scalarNames arrays hidden
     associationAfter := fun text position formal => if Expressions.ValidText text ∧ Expressions.ValidCursor text position then
       primitive.associationAfter text position formal else Names.associationAfter text position formal
     token := fun text position token => if TokenDomain text position token then
@@ -90,10 +90,10 @@ noncomputable def totalize (primitive : Primitives) : Primitives := by
 theorem totalize_equations {primitive : Primitives} (meaning : HelperMeaning primitive) :
     PrimitiveEquations (totalize primitive) where
   callAfter := by
-    funext text names position operation scalarNames arrays
+    funext text names position operation scalarNames arrays hidden
     dsimp only [totalize]
     split
-    · exact meaning.callAfter text names position operation scalarNames arrays ‹_›
+    · exact meaning.callAfter text names position operation scalarNames arrays hidden ‹_›
     · rfl
   associationAfter := by
     funext text position formal
@@ -168,7 +168,7 @@ theorem basicEval_normalized {primitive : Primitives} (meaning : HelperMeaning p
   basicEval_of_equations (totalize_equations meaning) text context scan
 
 theorem model_helper_meaning : HelperMeaning modelPrimitives where
-  callAfter _ _ _ _ _ _ _ := rfl
+  callAfter _ _ _ _ _ _ _ _ := rfl
   associationAfter _ _ _ _ _ := rfl
   token _ _ _ _ := rfl
   expression _ _ _ _ _ := rfl

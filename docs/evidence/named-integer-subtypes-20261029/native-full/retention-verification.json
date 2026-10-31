@@ -1,0 +1,18 @@
+{
+  "verified_utc": "2026-10-30T00:32:58.105777+00:00",
+  "run_id": "20261029T211041-a76eb6753f23",
+  "verification": "separate retained-archive member, payload, count and ledger checks",
+  "independent_reviewer": false,
+  "complete_archive_members": 80,
+  "spark_reports": 76,
+  "report_hashes_verified": 78,
+  "snapshot_input_hashes_verified": 149,
+  "tracked_input_comparisons_verified": 143,
+  "artifact_hashes_verified": 9,
+  "totals": {
+    "proof": 15393,
+    "flow": 1432,
+    "warn_error": 6598
+  },
+  "passed": true
+}

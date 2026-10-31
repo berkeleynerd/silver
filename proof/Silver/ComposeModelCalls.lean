@@ -28,8 +28,8 @@ def modelCalls : Calls where
     | .contextAfter => Names.contextAfter
     | .operationAfter => Names.operationAfter
     | .associationAfter => Names.associationAfter
-    | .callAfter => fun text names position operation scalarNames arrays =>
-      callAfter text names position operation scalarNames arrays
+    | .callAfter => fun text names position operation scalarNames arrays subtypeHidden =>
+      callAfter text names position operation scalarNames arrays subtypeHidden
     | .skip => skipAt
     | .nameAfter => nameAfter
     | .fixedAfter => fun text position token => fixedAfter text position (spelling token) (isWord token)
@@ -47,13 +47,16 @@ def modelCalls : Calls where
     | .newName => newNameAllowed
     | .addBinding => addBinding
     | .stringDeclaration => stringDeclarationAt
-    | .scalarConstraint => scalarConstraintAt
+    | .scalarConstraint => fun text position names bounds => scalarConstraintAt text position names bounds
+    | .subtypeLookup => IntegerSubtypes.lookup | .subtypeLookupModel => IntegerSubtypes.lookupFrom
+    | .scalarType => scalarTypeAt | .subtypeDeclaration => subtypeDeclarationAt
     | .scalarDeclaration => scalarDeclarationAt
     | .scalarLookup => ScalarExpression.lookup
     | .scalarRead => fun text position names arrays initials elaborating => ScalarExpression.read text position names 0 0 true arrays initials elaborating
     | .arrayLookup => ArrayBindings.lookup
     | .arrayDeclaration => arrayDeclarationAt
-    | .arrayValuesModel | .arrayValues => arrayValuesModel
+    | .arrayValuesModel | .arrayValues => fun text source result position length parsed bounds =>
+        arrayValuesModel text source result position length parsed bounds
     | .arrayPut => putArrayValue
     | .arrayAdd => fun _text => addArrayBinding
     | .scalarAppend => fun names item => names ++ [item]

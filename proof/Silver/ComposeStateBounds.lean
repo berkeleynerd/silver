@@ -19,7 +19,8 @@ set_option maxHeartbeats 2000000
 attribute [local irreducible] ScalarExpression.read
 
 theorem model_invalid_state_valid (text : Source) : ValidState text invalidState := by
-  simp [ValidState, ValidCursor, ValidNames, NameState.Valid, invalidState, ScalarExpression.ValidEnvironment, ScalarExpression.maxBindings, ArrayBindings.ValidEnvironment, ArrayBindings.ValidMetadata, ArrayBindings.ValidInitials]
+  simp [ValidState, ValidCursor, ValidNames, NameState.Valid, invalidState, ScalarExpression.ValidEnvironment, ScalarExpression.maxBindings, ArrayBindings.ValidEnvironment, ArrayBindings.ValidMetadata, ArrayBindings.ValidInitials,
+    IntegerSubtypes.ValidEnvironment, IntegerSubtypes.maxBindings]
 
 theorem model_state_position_valid (text : Source) (state : ParserState)
     (valid : ValidState text state) (position : Nat) (bound : ValidCursor text position) :
@@ -170,7 +171,7 @@ theorem model_scalar_reading_valid {text : Source} {state next : ParserState} {a
       have scalars := ScalarExpression.validEnvironment_append stateValid.2.2.2.2.2.1 room
         (item := ⟨parts.first, parts.after, parts.value.bounds, decide (parts.constantAfter ≠ 0) && parts.value.isStatic, parts.constraint.bounds, decide (parts.constantAfter = 0)⟩)
         ⟨nameValid.1, nameValid.2.1, nameValid.2.2, Integer.Expr.infer_bounded reading.inferred,
-          constraint.bounded⟩
+          constraint.bounded stateValid.2.2.2.2.2.2.2⟩
       exact ⟨following, stateValid.2.1, stateValid.2.2.1,
         stateValid.2.2.2.1, stateValid.2.2.2.2.1, scalars, stateValid.2.2.2.2.2.2⟩
 
@@ -208,11 +209,12 @@ theorem model_scalar_declaration_advances (text : Source) (state : ParserState) 
 theorem model_array_reading_valid {text : Source} {state next : ParserState} {arguments : Bool}
     {declaration : Integer.ArrayDeclaration} (stateValid : ValidState text state)
     (parsed : ArrayDeclarationAt text arguments state declaration next) : ValidState text next := by
-  have arrays := array_declaration_array_valid parsed stateValid.2.2.2.2.2.2
+  have arrays := array_declaration_array_valid parsed stateValid.2.2.2.2.2.2.1
+    stateValid.2.2.2.2.2.2.2
   cases parsed with
-  | declaration _ _ _ _ _ values following _ =>
+  | declaration _ _ _ _ _ _ values following _ =>
       have fields := arrayValues_fields values
-      refine ⟨?_, ?_, ?_, ?_, ?_, ?_, arrays⟩
+      refine ⟨?_, ?_, ?_, ?_, ?_, ?_, arrays, ?_⟩
       · rw [following]
         exact fixedAfter_result_bound text _ ";" false (by decide)
       · rw [show _ = state.names from congrArg (fun s => s.names) fields]
@@ -227,6 +229,8 @@ theorem model_array_reading_valid {text : Source} {state next : ParserState} {ar
         exact stateValid.2.2.2.2.1
       · rw [show _ = state.scalarNames from congrArg (fun s => s.scalarNames) fields]
         exact stateValid.2.2.2.2.2.1
+      · rw [show _ = state.subtypeNames from congrArg (fun s => s.subtypeNames) fields]
+        exact stateValid.2.2.2.2.2.2.2
 
 theorem model_array_declaration_valid (text : Source) (state : ParserState) (arguments : Bool)
     (stateValid : ValidState text state) : ValidState text (arrayDeclarationAt text state arguments) := by
@@ -254,36 +258,87 @@ theorem model_array_declaration_advances (text : Source) (state : ParserState) (
   obtain ⟨declaration, reading⟩ := array_declaration_sound text state arguments positive
   exact array_declaration_advances reading
 
+theorem model_subtype_reading_valid {text arguments state next}
+    (stateValid : ValidState text state)
+    (parsed : SubtypeDeclarationAt text arguments state next) : ValidState text next := by
+  have subtypes := subtype_declaration_valid parsed stateValid.2.2.2.2.2.2.2
+  cases parsed with
+  | declaration partsEq _ _ =>
+      refine ⟨?_, stateValid.2.1, stateValid.2.2.1, stateValid.2.2.2.1,
+        stateValid.2.2.2.2.1, stateValid.2.2.2.2.2.1, stateValid.2.2.2.2.2.2.1, subtypes⟩
+      rw [← partsEq]
+      exact fixedAfter_result_bound text _ ";" false (by decide)
+
+theorem model_subtype_declaration_valid (text : Source) (state : ParserState) (arguments : Bool)
+    (stateValid : ValidState text state) : ValidState text (subtypeDeclarationAt text state arguments) := by
+  by_cases positive : (subtypeDeclarationAt text state arguments).position ≠ 0
+  · exact model_subtype_reading_valid stateValid (subtype_declaration_sound text state arguments positive)
+  · unfold subtypeDeclarationAt
+    dsimp only
+    split
+    · exact model_invalid_state_valid text
+    · rename_i good
+      have ready : SubtypeDeclarationReady text state arguments (subtypeDeclarationParts text state) := by
+        simpa [SubtypeDeclarationReady, Bool.or_eq_true, not_or, Nat.not_le, and_assoc] using good
+      have advance := ready.2.2.2.2.2.2.1
+      simp only [subtypeDeclarationAt, good, Bool.false_eq_true, ↓reduceIte, addSubtypeBinding] at positive
+      omega
+
+theorem model_subtype_declaration_advances (text : Source) (state : ParserState) (arguments : Bool)
+    (positive : (subtypeDeclarationAt text state arguments).position ≠ 0) :
+    state.position < (subtypeDeclarationAt text state arguments).position := by
+  unfold subtypeDeclarationAt at positive ⊢
+  dsimp only at positive ⊢
+  split at positive
+  · simp only [invalidState] at positive
+    contradiction
+  · rename_i good
+    rw [ite_eq_right good]
+    have ready : SubtypeDeclarationReady text state arguments (subtypeDeclarationParts text state) := by
+      simpa [SubtypeDeclarationReady, Bool.or_eq_true, not_or, Nat.not_le, and_assoc] using good
+    exact ready.2.2.2.2.2.2.1
+
 theorem model_declaration_valid (text : Source) (valid : ValidText text)
     (state : ParserState) (arguments : Bool) (stateValid : ValidState text state) :
     ValidState text (declarationAt text state arguments) := by
   unfold declarationAt
   dsimp only
   split
-  · exact model_scalar_declaration_valid text state arguments stateValid
+  · exact model_subtype_declaration_valid text state arguments stateValid
   · split
-    · exact model_array_declaration_valid text state arguments stateValid
-    · exact model_string_declaration_valid text valid state arguments stateValid
+    · exact model_scalar_declaration_valid text state arguments stateValid
+    · split
+      · exact model_array_declaration_valid text state arguments stateValid
+      · exact model_string_declaration_valid text valid state arguments stateValid
 
 theorem model_declaration_advances (text : Source) (valid : ValidText text)
     (state : ParserState) (arguments : Bool) (stateValid : ValidState text state)
     (nonzero : (declarationAt text state arguments).position ≠ 0) :
     state.position < (declarationAt text state arguments).position := by
-  by_cases scalar : (scalarDeclarationAt text state arguments).position ≠ 0
-  · have selected : declarationAt text state arguments = scalarDeclarationAt text state arguments := ite_eq_left scalar
+  by_cases subtype : (subtypeDeclarationAt text state arguments).position ≠ 0
+  · have selected : declarationAt text state arguments = subtypeDeclarationAt text state arguments := by
+      dsimp only [declarationAt]
+      rw [ite_eq_left subtype]
     rw [selected]
-    exact model_scalar_declaration_advances text state arguments scalar
-  · by_cases array : (arrayDeclarationAt text state arguments).position ≠ 0
-    · have selected : declarationAt text state arguments = arrayDeclarationAt text state arguments := by
+    exact model_subtype_declaration_advances text state arguments subtype
+  · by_cases scalar : (scalarDeclarationAt text state arguments).position ≠ 0
+    · have selected : declarationAt text state arguments = scalarDeclarationAt text state arguments := by
         dsimp only [declarationAt]
-        rw [ite_eq_right scalar, ite_eq_left array]
+        rw [ite_eq_right subtype, ite_eq_left scalar]
       rw [selected]
-      exact model_array_declaration_advances text state arguments array
-    · have selected : declarationAt text state arguments = stringDeclarationAt text state arguments := by
-        dsimp only [declarationAt]
-        rw [ite_eq_right scalar, ite_eq_right array]
-      rw [selected] at nonzero ⊢
-      exact model_string_declaration_advances text valid state arguments stateValid nonzero
+      exact model_scalar_declaration_advances text state arguments scalar
+    · by_cases array : (arrayDeclarationAt text state arguments).position ≠ 0
+      · have selected : declarationAt text state arguments = arrayDeclarationAt text state arguments := by
+          dsimp only [declarationAt]
+          rw [ite_eq_right subtype, ite_eq_right scalar, ite_eq_left array]
+        rw [selected]
+        exact model_array_declaration_advances text state arguments array
+      · have selected : declarationAt text state arguments = stringDeclarationAt text state arguments := by
+          dsimp only [declarationAt]
+          rw [ite_eq_right subtype, ite_eq_right scalar, ite_eq_right array]
+        rw [selected] at nonzero ⊢
+        exact model_string_declaration_advances text valid state arguments stateValid nonzero
+
 
 theorem model_dynamic_value_valid (text : Source) (following : Nat)
     (bound : ValidCursor text following) :

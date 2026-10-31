@@ -12,8 +12,8 @@ outer or inner Count. Scalar-independent field copies cannot alter the extent. -
 def Update.Sized (imports : Imports) (read : Reader) (frame : Frame) : Update → Prop
   | .widen => (imports.widen frame.context frame.result.facts).count = frame.result.count
   | .inner => frame.context.scalarNames.length < ScalarExpression.maxBindings ∧
-      (imports.append frame.context.scalarNames
-        ⟨frame.first, frame.after, frame.bounds, false, frame.bounds, false⟩).length = frame.scan.count + 1
+      (frame.inner.scalarNames.take frame.context.scalarNames.length ++
+        [(⟨frame.first, frame.after, frame.bounds, false, frame.bounds, false⟩ : ScalarExpression.Binding)]).length = frame.scan.count + 1
   | .clearInnerValues =>
       (List.replicate frame.innerScan.count imports.emptyBounds).length = frame.scan.count + 1
   | .copyInnerValues => frame.result.count ≤ frame.innerScan.count ∧

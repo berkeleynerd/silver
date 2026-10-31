@@ -73,12 +73,12 @@ mutual
           cases arguments : context.hasArguments with
           | false => simp [readPrimary, zero, noOpening, arguments, invalidCondition] at accepted
           | true => rfl
-        have finalPositive : callAfter (arrays := context.arrayNames) text context.names position .validity context.scalarNames ≠ 0 := by
+        have finalPositive : callAfter (arrays := context.arrayNames) (subtypeHidden := context.subtypeHiding.get .validity) text context.names position .validity context.scalarNames ≠ 0 := by
           intro failed
           simp [readPrimary, zero, noOpening, arguments, failed, invalidCondition] at accepted
         simp [readPrimary, zero, noOpening, arguments, finalPositive]
         exact ⟨⟨.inputValid, .valid zero noOpening arguments finalPositive⟩,
-          model_callAfter_valid (arrays := context.arrayNames) (scalarNames := context.scalarNames) text context.names position .validity bounded⟩
+          model_callAfter_valid (arrays := context.arrayNames) (scalarNames := context.scalarNames) (subtypeHidden := context.subtypeHiding.get .validity) text context.names position .validity bounded⟩
   termination_by (remainingAt text position, 1)
   decreasing_by all_goals exact Prod.Lex.left _ _ (by assumption)
 

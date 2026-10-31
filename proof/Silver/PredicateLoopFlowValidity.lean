@@ -115,6 +115,7 @@ theorem nativeLoopInner_baseReady {context : ParseContext}
   base.append_immutable _ rfl space
 
 theorem loopHeader_flowReady {text : Source} {context : ParseContext} {scan : BodyScan}
+    (arrays : ArrayBindings.ValidMetadata text context.arrayNames)
     (base : ScalarMetadata.BaseReady context.scalarNames context.declarationCount)
     (ready : ScalarMetadata.FlowReady context.scalarNames context.declarationCount scan.facts)
     (environment : ScalarExpression.ValidEnvironment text context.scalarNames)
@@ -122,7 +123,7 @@ theorem loopHeader_flowReady {text : Source} {context : ParseContext} {scan : Bo
     ScalarMetadata.FlowReady (loopInner context (loopHeader text context scan)).scalarNames
       (loopInner context (loopHeader text context scan)).declarationCount
       (loopHeader text context scan).entry.facts := by
-  have typed := loopHeader_bounds_bounded positive
+  have typed := loopHeader_bounds_bounded arrays positive
   let header := loopHeader text context scan
   let item : ScalarExpression.Binding :=
     ⟨header.first, header.after, header.bounds, false, header.bounds, false⟩

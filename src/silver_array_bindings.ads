@@ -8,8 +8,8 @@ package Silver_Array_Bindings with SPARK_Mode => On is
    package Scalars renames Silver_Scalars;
    use type Scalars.Wide;
    use type Scalars.Interval;
-   --  Even the incomplete spelling A:array(..)of Integer:=(); needs at least 24 bytes;
-   --  every admitted declaration additionally supplies bounds and components.
+   --  The shortest two-component spelling A:array(0..1)of S:=(0,0);
+   --  needs 25 bytes; a single-component named association needs more.
    Max_Bindings : constant Positive := Max_Source_Length / 24;
    --  Each explicitly initialized component consumes a scalar token and an
    --  aggregate delimiter. No admitted initializer expands an omitted suffix.
@@ -24,9 +24,10 @@ package Silver_Array_Bindings with SPARK_Mode => On is
       Bounds : Scalars.Interval;
       Offset, Length : Element_Count;
       Mutable : Boolean;
+      Component_Bounds : Scalars.Interval;
    end record;
    Empty_Binding : constant Binding :=
-     (0, 0, Scalars.Empty, 0, 0, False);
+     (0, 0, Scalars.Empty, 0, 0, False, Scalars.Full);
    type Binding_Array is array (Binding_Index) of Binding;
    type Metadata is record
       Count : Binding_Count;
@@ -46,7 +47,8 @@ package Silver_Array_Bindings with SPARK_Mode => On is
       and then Item.Length > 0
       and then Item.Offset <= Max_Elements - Item.Length
       and then Scalars.Wide (Item.Bounds.Upper) - Scalars.Wide (Item.Bounds.Lower)
-        = Scalars.Wide (Item.Length) - 1);
+        = Scalars.Wide (Item.Length) - 1
+      and then not Scalars.Is_Empty (Item.Component_Bounds));
    function Valid_Metadata (Text : String; Names : Metadata) return Boolean
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length;
@@ -55,7 +57,9 @@ package Silver_Array_Bindings with SPARK_Mode => On is
         Names.Items (Index).First > 0
         and then Valid_Name_State
           (Text, Names.Items (Index).First, Names.Items (Index).After)
-        and then Valid_Binding (Names.Items (Index)));
+        and then Valid_Binding (Names.Items (Index))
+        and then (if Index > 1 then Names.Items (Index).Offset >=
+          Names.Items (Index - 1).Offset + Names.Items (Index - 1).Length));
    function Valid_Environment (Text : String; Names : Environment) return Boolean
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length;
@@ -108,5 +112,5 @@ package Silver_Array_Bindings with SPARK_Mode => On is
            (if Elaborating then Hull_Model
               (Values, Element_Slot (Names.Items (Target), Index.Lower),
                Element_Slot (Names.Items (Target), Index.Upper))
-            else Scalars.Full));
+            else Names.Items (Target).Component_Bounds));
 end Silver_Array_Bindings;

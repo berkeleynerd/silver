@@ -1,23 +1,25 @@
 # Sum of squares
 
-**Candidate: proofs likely to discharge automatically.** Element squares are bounded by the declared element subtype and indexes by Count's range, and the only loop-carried value (the sum) is protected by one guard just before the addition, so everything discharges without annotations. Integers stand in for the numeric vector, avoiding floating-point proof difficulty.
+**Candidate: proofs likely to discharge automatically.** Named component bounds make both indexed and foreach squares safe. A fixed-capacity vector with Count = 0 handles the required empty case, and executable guards establish accumulator containment. The driver uses only the narrow named Integer subtype and existing array/loop fragment.
 
-Position 60 in the [progression](../../progression.md#stage-3), in stage 3.
+Position 49 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
-The vector is a fixed-capacity array of a ranged element subtype (for example -1000..1000) plus a Count in 0..capacity, so a zero-length vector is Count = 0. A procedure loops with a for loop over 1..Count, squares each element (bounded by the subtype), guards the accumulation against exceeding Integer'Last by reporting a rejection, and prints the result with Integer'Image. The main program calls it on an empty vector and on the sample 3,1,4,1,5,9 giving 133. About 35 lines.
+Main declares a constant six-element array of an Integer subtype 0..9, initialized to 3,1,4,1,5,9, plus a Count in 0..6. Count = 0 represents an empty vector; an index loop over 1..Count executes zero times and prints 0. After resetting Sum, a foreach loop squares each actual component and accumulates it under an explicit range guard, printing 133. No helper procedure, null array or subtype conversion is needed. About 29 lines.
 
 ## Proof obligations to watch
 
-- **overflow**: The loop-carried Sum is known only by its type after the first iteration, so an explicit guard before each addition rejects with a visible message if the sum would exceed the Integer limit, which is unreachable for the bounded elements but provable.
+- **overflow**: Component subtype 0..9 bounds each square by 81. Before adding it, the program checks Sum <= 2147483566, with a visible overflow message in the alternative arm.
 
 ## Language surface recorded by this assessment
 
-Integers, ranged subtypes, arrays, for loops, procedures and 'Image of scalars.
+Bounded mutable Integer objects, fixed-size Integer arrays, constant Integer-array iteration, Integer image, scalar guard refinement, named Integer subtypes and bounded components and Integer range for loops.
 
 ## External effects
 
 - **console output** (allowed): Prints the sum of squares for an empty vector and for an embedded sample vector.
 
-Assessed on 2026-10-15 against page revision 415389 of the [task](https://rosettacode.org/wiki/Sum_of_squares) by claude-sonnet-5-5 at medium effort; confidence high. The inclusion policy is in `rosetta/coverage.json`.
+Initially assessed on 2026-10-15 against page revision 415389 of the [task](https://rosettacode.org/wiki/Sum_of_squares) by claude-sonnet-5-5 at medium effort; current confidence high. The inclusion policy is in `rosetta/coverage.json`.
+
+Revised on 2026-10-29 by Codex through targeted source review; see the [review record](../../assessment-named-integer-subtypes-20261029.md).

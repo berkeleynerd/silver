@@ -1,0 +1,114 @@
+{
+  "implementation_commit": "d4e2be67b5de7fcc2919cf9eac6efb217e5ca672",
+  "full_run": "20261029T153819-5626949ad567",
+  "full_suite_outcome": "success",
+  "full_suite_logged_identities": 555,
+  "inventory_matches_log": true,
+  "sample_sources": 52,
+  "sample_executions": 108,
+  "distinct_methods_excluding_import_duplicates": 546,
+  "retained_final_results": 509,
+  "fresh_final_results": 46,
+  "total_final_coverage": 555,
+  "missing_or_failed": [],
+  "replacement_runs": {
+    "20261029T210832-732f9cd37a16": {
+      "identities": [
+        "test_output_integrity.OutputIntegrityTests.test_application_report_capacity_accepts_exact_bound_without_truncation",
+        "test_output_integrity.OutputIntegrityTests.test_artifact_symlink_does_not_redirect_runtime_source_selection",
+        "test_output_integrity.OutputIntegrityTests.test_dense_review_construction_accepts_maximal_credit_report",
+        "test_output_integrity.OutputIntegrityTests.test_divergent_installed_source_stops_before_proof",
+        "test_output_integrity.OutputIntegrityTests.test_every_library_snapshot_change_during_build_stops_before_publication",
+        "test_output_integrity.OutputIntegrityTests.test_every_library_snapshot_change_during_proof_stops_before_build",
+        "test_output_integrity.OutputIntegrityTests.test_large_argument_vector_with_eight_mib_stack",
+        "test_output_integrity.OutputIntegrityTests.test_large_opaque_proof_trees_preserve_complete_original_reports",
+        "test_output_integrity.OutputIntegrityTests.test_malformed_opaque_proof_tree_stops_before_build",
+        "test_output_integrity.OutputIntegrityTests.test_missing_application_keeps_ambiguous_runtime_status",
+        "test_output_integrity.OutputIntegrityTests.test_missing_runtime_report_stops_before_build",
+        "test_output_integrity.OutputIntegrityTests.test_present_but_rejected_runtime_report_stops_before_build",
+        "test_output_integrity.OutputIntegrityTests.test_run_abnormal_exit_reports_process_failure",
+        "test_output_integrity.OutputIntegrityTests.test_run_forwards_exact_argument_vector",
+        "test_output_integrity.OutputIntegrityTests.test_run_preserves_application_exit_status",
+        "test_output_integrity.OutputIntegrityTests.test_selected_compiler_accepts_output_source",
+        "test_output_integrity.OutputIntegrityTests.test_success_uses_fixed_library_selection_and_runs"
+      ],
+      "managed_duration_seconds": 44.924815907,
+      "unittest_duration_seconds": 41.819
+    },
+    "20261029T210920-b4b0cd40fe3c": {
+      "identities": [
+        "test_silver.SilverIntegrationTests.test_tool_failures_and_source_changes_do_not_report_success"
+      ],
+      "managed_duration_seconds": 17.219991103,
+      "unittest_duration_seconds": 14.634
+    },
+    "20261030T013443-d9556926db16": {
+      "identities": [
+        "test_lean_source.CompilerSourcePolicyTests.test_all_bytes_have_the_explicit_compiler_alphabet",
+        "test_lean_source.CompilerSourcePolicyTests.test_authoritative_bindings_are_not_generated",
+        "test_lean_source.CompilerSourcePolicyTests.test_checked_in_certificates_equal_regeneration",
+        "test_lean_source.CompilerSourcePolicyTests.test_compose_candidate_has_no_authoritative_source_dependencies",
+        "test_lean_source.CompilerSourcePolicyTests.test_compose_source_checks_retain_authoritative_dependencies",
+        "test_lean_source.CompilerSourcePolicyTests.test_current_compiler_sources_satisfy_byte_policy",
+        "test_lean_source.CompilerSourcePolicyTests.test_embedded_source_lists_and_lake_dependencies_agree",
+        "test_lean_source.CompilerSourcePolicyTests.test_hidden_declarations_fail_before_certificate_generation",
+        "test_lean_source.CompilerSourcePolicyTests.test_include_str_is_confined_to_the_source_bindings",
+        "test_lean_source.CompilerSourcePolicyTests.test_only_audit_roots_use_legacy_full_imports",
+        "test_lean_source.CompilerSourcePolicyTests.test_unsupported_literal_syntax_cannot_hide_declarations",
+        "test_lean_source.NativeCertificateTests.test_generated_certificates_and_witnesses_remain_kernel_checked"
+      ],
+      "managed_duration_seconds": 82.156542425,
+      "unittest_duration_seconds": 79.349
+    },
+    "20261030T013608-6b001884b330": {
+      "identities": [
+        "test_platforms.InstallationEnvironmentTests.test_bootstrap_requires_complete_bounded_runtime_sources",
+        "test_platforms.InstallationEnvironmentTests.test_bootstrap_reserves_the_library_evidence_precondition_suffix",
+        "test_platforms.InstallationEnvironmentTests.test_generated_tool_command_anchors_and_quotes_installation",
+        "test_platforms.InstallationEnvironmentTests.test_symlinked_tmpdir_preserves_platform_setup_and_routing",
+        "test_platforms.PlatformIsolationTests.test_cached_build_log_cannot_replace_fresh_lean_audit",
+        "test_platforms.PlatformIsolationTests.test_concurrent_different_host_setups_do_not_collide",
+        "test_platforms.PlatformIsolationTests.test_development_commands_keep_project_outputs_and_audit_in_native_host",
+        "test_platforms.PlatformIsolationTests.test_development_output_overrides_fail_before_invoking_tools",
+        "test_platforms.PlatformIsolationTests.test_each_host_setup_preserves_other_hosts_and_shared_inputs",
+        "test_platforms.PlatformIsolationTests.test_failed_proof_invalidates_only_its_host_evidence",
+        "test_platforms.PlatformIsolationTests.test_foreign_execution_is_rejected_before_side_effects",
+        "test_platforms.PlatformIsolationTests.test_lean_auto_and_explicit_resources_are_recorded_and_isolated",
+        "test_platforms.PlatformIsolationTests.test_lean_full_and_clean_modes_record_their_actual_checks",
+        "test_platforms.PlatformIsolationTests.test_legacy_archives_are_read_only_inputs",
+        "test_platforms.PlatformIsolationTests.test_platform_aliases_and_disjoint_paths",
+        "test_platforms.PlatformIsolationTests.test_unchanged_context_setup_preserves_generated_file_mtimes"
+      ],
+      "managed_duration_seconds": 253.86506372,
+      "unittest_duration_seconds": 250.766
+    }
+  },
+  "full_run_timing": {
+    "managed_duration_seconds": 5259.531061167,
+    "unittest_duration_seconds": 5255.763
+  },
+  "applicability_review": "../../reviews/review-named-integer-subtypes-terminal-evidence-20261030.md",
+  "scope": "Final proof-literal repair has 509 applicable original results plus 46 refreshed identities: 28 new proof-source/platform passes and 18 retained repaired-source compiler-fixture passes. Earlier outcomes remain history; complete proof assurance is separate.",
+  "coverage": "literal-repair-regression/coverage.json",
+  "prior_reconciliation": "literal-repair-regression/prior-test-reconciliation.json",
+  "history": [
+    {
+      "implementation_commit": "97312a790fb11a83a9607ad48ddab491711f2c3d",
+      "retained_final_results": 527,
+      "fresh_final_results": 28,
+      "replacement_run_ids": [
+        "20261029T170712-d9dc75fa5629",
+        "20261029T170846-5ccd1f3667b8"
+      ],
+      "reconciliation": "repair-regression/prior-test-reconciliation.json"
+    },
+    {
+      "implementation_commit": "6020416906b5fc3d2bd10d012e70937c80f0617c",
+      "retained_final_results": 509,
+      "fresh_final_results": 46,
+      "reconciliation": "literal-repair-regression/prior-test-reconciliation.json"
+    }
+  ],
+  "native_source_commit": "6020416906b5fc3d2bd10d012e70937c80f0617c",
+  "proof_literal_applicability": "literal-repair-regression/README.md"
+}

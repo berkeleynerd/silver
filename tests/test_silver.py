@@ -81,7 +81,7 @@ class SilverIntegrationTests(unittest.TestCase):
         self.assertTrue({"string_expression", "expression_output", "string_choice", "statement_sequence",
                          "length_predicate", "boolean_predicate", "integer_literal",
                          "scalar_integer_literal", "named_integer_constant", "named_integer_variable",
-                         "integer_range_constraint", "integer_assignment", "integer_expression",
+                         "integer_range_constraint", "named_integer_subtype", "integer_assignment", "integer_expression",
                          "integer_array_object", "integer_array_read", "integer_array_assignment",
                          "integer_comparison", "scalar_guard_refinement", "integer_image",
                          "for_loop"} <= set(constructs))
@@ -151,7 +151,7 @@ class SilverIntegrationTests(unittest.TestCase):
             declarations = composition["declaration_list"]
             self.assertEqual(declarations["items"],
                              ["named_string_constant", "named_string_variable", "named_integer_constant",
-                              "named_integer_variable", "integer_array_object"])
+                              "named_integer_variable", "named_integer_subtype", "integer_array_object"])
             self.assertEqual(declarations["minimum"], 0)
             self.assertEqual(declarations["count"], "finite_within_complete_source_bound")
             self.assertEqual(declarations["initializers"], [*initializers, "integer_expression", "explicit_integer_array_aggregate"])

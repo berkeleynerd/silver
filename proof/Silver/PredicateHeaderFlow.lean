@@ -47,14 +47,17 @@ private theorem declarations_staticFlags {text arguments state final values}
       Integer.declarationStaticFlags (state.scalarNames.map (·.isStatic)) values := by
   induction parsed with
   | done => rfl
-  | string _ _ _ _ first _ ih =>
+  | string _ _ _ _ _ first _ ih =>
       cases first
       exact ih
-  | scalar _ _ first _ ih =>
+  | scalar _ _ _ first _ ih =>
       rw [ih, declaration_staticFlags first]
       rfl
-  | array _ _ _ first _ ih =>
+  | array _ _ _ _ first _ ih =>
       rw [(array_declaration_preserves first).2] at ih
+      exact ih
+  | subtype _ _ first _ ih =>
+      rw [(subtype_declaration_preserves first).2.1] at ih
       exact ih
 
 private theorem scalar_step_staticFlags {text form token state next values}
@@ -136,7 +139,7 @@ theorem prefix_baseReady {source form values}
 theorem prefix_arraysReady {source form events}
     (parsed : Sequence.TokensAt source form.helper form.prefix initialState events (prefixScan source form).state) :
     (contextOf (prefixScan source form)).ArraysReady source :=
-  ⟨(prefix_array_ready parsed).1.1, (prefix_array_ready parsed).2.2⟩
+  ⟨(prefix_array_ready parsed).1.1, (prefix_array_ready parsed).2.2.1⟩
 
 theorem bodyOf_compatible (scan : ScanResult) :
     ScalarMetadata.OverlayCompatible (contextOf scan).scalarNames (contextOf scan).declarationCount

@@ -31,11 +31,11 @@ theorem basicEval_model (text : Source) (context : Native.Context) (scan : BodyS
   case' neg =>
     by_cases nullToken : fixedAfter text scan.position "null" true ≠ 0
     case' neg =>
-      by_cases outputCall : callAfter text context.names scan.position .output context.scalarNames context.arrayNames ≠ 0
+      by_cases outputCall : callAfter text context.names scan.position .output context.scalarNames context.arrayNames (context.subtypeHiding.get .output) ≠ 0
       case' neg =>
-        by_cases putCall : callAfter text context.names scan.position .partialOutput context.scalarNames context.arrayNames ≠ 0
+        by_cases putCall : callAfter text context.names scan.position .partialOutput context.scalarNames context.arrayNames (context.subtypeHiding.get .partialOutput) ≠ 0
         case' neg =>
-          by_cases rejectCall : context.dynamicFirst ≠ 0 ∧ callAfter text context.names scan.position .reject context.scalarNames context.arrayNames ≠ 0
+          by_cases rejectCall : context.dynamicFirst ≠ 0 ∧ callAfter text context.names scan.position .reject context.scalarNames context.arrayNames (context.subtypeHiding.get .reject) ≠ 0
           case' neg =>
             by_cases scalar : scalarTarget text context.model scan.position ≠ 0
             case' neg =>
@@ -54,7 +54,7 @@ theorem basicEval_model (text : Source) (context : Native.Context) (scan : BodyS
 /-- Calls in the typed block are connected to already checked source primitives.
 The model below is an explicit inhabitant, rather than an assumed equation set. -/
 structure PrimitiveEquations (primitive : Primitives) : Prop where
-  callAfter : primitive.callAfter = (fun text names position operation scalarNames arrays => Compose.callAfter text names position operation scalarNames arrays)
+  callAfter : primitive.callAfter = (fun text names position operation scalarNames arrays hidden => Compose.callAfter text names position operation scalarNames arrays hidden)
   associationAfter : primitive.associationAfter = Names.associationAfter
   token : primitive.token = tokenAfter
   expression : primitive.expression = (fun text context position facts => expressionAt text position context.names (context.model.readingNames facts) (arrays := context.arrayNames))

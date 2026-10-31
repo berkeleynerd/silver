@@ -1,0 +1,32 @@
+{
+  "source_target": "6020416906b5fc3d2bd10d012e70937c80f0617c",
+  "repaired_target": "d4e2be67b5de7fcc2919cf9eac6efb217e5ca672",
+  "changed_governed_files": {
+    "proof/Silver/PredicateAdapterSourceCandidate.lean": {
+      "before": "1edd57bdbcf2be00078196610044041c5cb3b83737327fa58424d9fec8ff344e",
+      "after": "b2ca7daba87e051b1a11cd66e820cc5923f87ba780c404228d59c6d5ecb0e08b"
+    },
+    "proof/Silver/PredicateBasicSourceCandidate.lean": {
+      "before": "76f695a8d1c43f17c518512463a71a1bfc8710407f70d10041d762675f0abc41",
+      "after": "7a485013edafc872ac68392278cd05e9a31297c1fee74a4fa1c80a689f439d79"
+    },
+    "proof/Silver/PredicateLoopCandidate.lean": {
+      "before": "c6de6cf2a3692e58f89caf9e6be9237e95e16771b0b4dc841321fe2a204acb6e",
+      "after": "690ffd7695cda2ccc08980bee7952516b5f837bdac48bbfc9eb4a8073209991e"
+    },
+    "proof/Silver/ScalarExpressionSourceChecks.lean": {
+      "before": "1dc73f8a4e050f5704100fda7d57e9bfa7e2748e78aaf73ed8f940d115611f44",
+      "after": "983576a17b462f1c6c94e030353407f2cb4ea7dff4065caef141c3e682e65acb"
+    },
+    "proof/Silver/ScalarExpressionSourceShape.lean": {
+      "before": "65e99a23c5cae7a7282c5e648691fe9222e8f343762df098a71119e0db072c03",
+      "after": "ec4bba7fdecb383e664880583eb187774daa4b014a7edd9764c12821892f5938"
+    }
+  },
+  "native_inputs_unchanged": true,
+  "unchanged_expensive_dependencies": [
+    "Silver.OutputBodyCertificate",
+    "Silver.ComposeSourceCandidate",
+    "Silver.PredicateScalarBodyCandidate"
+  ]
+}

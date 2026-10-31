@@ -65,15 +65,16 @@ theorem array_declaration_checks_trace {text arguments state declaration final}
     (reading : ArrayDeclarationAt text arguments state declaration final) :
     ∃ checks, ArrayDeclarationChecksAt text state declaration checks := by
   cases reading with
-  | declaration parts _ low high aggregate _ _ _ =>
+  | declaration parts _ _ low high aggregate _ _ _ =>
       obtain ⟨association, trace⟩ := arrayAggregate_checks_trace aggregate
       exact ⟨_, _, _, _, association, parts, low, high, trace, rfl⟩
 
 theorem array_declaration_checks_discharge {text arguments state declaration final checks}
     (reading : ArrayDeclarationAt text arguments state declaration final)
-    (trace : ArrayDeclarationChecksAt text state declaration checks) : Integer.discharged checks = true := by
+    (trace : ArrayDeclarationChecksAt text state declaration checks)
+    (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames) : Integer.discharged checks = true := by
   obtain ⟨parts, lower, upper, association, _, low, high, aggregate, rfl⟩ := trace
-  obtain ⟨items, checked⟩ := array_declaration_checked reading
+  obtain ⟨items, checked⟩ := array_declaration_checked reading subtypes
   have lowChecks : Integer.discharged (lower.obligations (declarationRanges state)) = true :=
     Integer.Expr.obligations_discharge low.inferred
   have highChecks : Integer.discharged (upper.obligations (declarationRanges state)) = true :=

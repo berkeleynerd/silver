@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from fixed for-loop ranges, a static array bound and one explicit guard before the indexed store, and no loop-carried value needs an invariant. The only new work is arrays, for loops, integer arithmetic and integer-to-text conversion.
 
-Position 111 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 112 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

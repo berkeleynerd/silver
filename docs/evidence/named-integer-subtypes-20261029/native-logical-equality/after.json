@@ -1,0 +1,50 @@
+{
+  "run_id": "20261029T151702-6fc5f2e5c88c",
+  "outcome": "success",
+  "completed_utc": "2026-10-29T15:25:32.540342+00:00",
+  "managed_duration_seconds": 507.44265314,
+  "source_sha256": "241637c5043dc66776a4a9715e7703abb9602c6323fa0d12a5375959790e4f07",
+  "proof_checks": 2,
+  "flow_checks": 287,
+  "warnings": 50,
+  "unproved": 0,
+  "scope": "Only Logical_Equal proof checks at1187:8 and1205:8, with unit flow checks; not complete native assurance.",
+  "snapshots": [
+    {
+      "path": "native-equality-second.log",
+      "sha256": "e5cd68ef72f79818b8590a97dbb176f51b4fedf44eae95a4d65caf118b7b027d",
+      "bytes": 1184,
+      "snapshot": "focused-success.log.gz"
+    },
+    {
+      "path": ".silver/linux-x86_64/compiler/obj/explore/subtype-equality/gnatprove/silver_output_profile.spark",
+      "sha256": "3169ced60407cc0dcae4ed4d2123854ed5e4eef233109bf6c5557de281b78c8d",
+      "bytes": 235891,
+      "snapshot": "focused-success.spark.gz"
+    },
+    {
+      "path": ".silver/linux-x86_64/compiler/obj/explore/subtype-equality/gnatprove/gnatprove.out",
+      "sha256": "e5d7dc9948797ed92a02d65034698525cef9a2519fa39ff6a00eadd2bd482ffe",
+      "bytes": 26176,
+      "snapshot": "focused-success.out.gz"
+    },
+    {
+      "path": ".silver/linux-x86_64/compiler/obj/explore/subtype-equality/gnatprove/silver_output_profile__same_parser_subtype_visibility/why3session.xml",
+      "sha256": "db4f32a88ffd4aa864ebc9167e56b8727f9402b1edd7d0a960bc8ae580ac11e8",
+      "bytes": 1316,
+      "snapshot": "same_parser_subtype_visibility-success.xml.gz"
+    },
+    {
+      "path": ".silver/linux-x86_64/compiler/obj/explore/subtype-equality/gnatprove/silver_output_profile__same_parser_state/why3session.xml",
+      "sha256": "6f4dd4b89b7c76dcf619e0bb263f6255cd3880d8e605bb94f379cf8e03b2f6a9",
+      "bytes": 2110,
+      "snapshot": "same_parser_state-success.xml.gz"
+    }
+  ],
+  "warnings_by_rule": {
+    "array-initialization": 5,
+    "contracts-recursive": 26,
+    "numeric-variant": 19
+  },
+  "warning_scope": "The focused .spark report retains these unit warnings; the complete production audit must apply the existing warning/advisory policy. The initial no-warning summary was incorrect and has been corrected without modifying the report."
+}

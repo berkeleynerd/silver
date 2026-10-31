@@ -31,22 +31,24 @@ def arrayPutBody : Expr .state :=
     (.arrayPut (arrayStateValues state) next (.variable "value")))
 
 def addArrayBinding (state : ParserState) (first after : Nat) (bounds : Integer.Interval)
-    (offset length : Nat) (mutable : Bool) (following : Nat) : ParserState :=
+    (offset length : Nat) (mutable : Bool) (following : Nat)
+    (componentBounds : Integer.Interval) : ParserState :=
   {state with position := following, arrayNames := {state.arrayNames with
-    names := state.arrayNames.names ++ [⟨first, after, bounds, offset, length, mutable⟩]}}
+    names := state.arrayNames.names ++ [⟨first, after, bounds, offset, length, mutable, componentBounds⟩]}}
 
 def arrayAddBody : Expr .state :=
   let state : Expr .state := .variable "state"
   .statePositionArray state (.variable "following")
     (.arrayNamesOnly (.field .stateArrayNames state)
       (.arrayAppend (arrayStateNames state) (.variable "first") (.variable "after")
-        (.variable "bounds") (.variable "offset") (.variable "length") (.variable "mutable")))
+        (.variable "bounds") (.variable "offset") (.variable "length") (.variable "mutable")
+        (.variable "component_bounds")))
 
 def arrayAddCall (text : Expr .source) (state : Expr .state) (first after : Expr .number)
     (bounds : Expr .interval) (offset length : Expr .number) (mutable : Expr .truth)
-    (following : Expr .number) : Expr .state :=
-  .app (.app (.app (.app (.app (.app (.app (.app (.app
-    (.function .arrayAdd) text) state) first) after) bounds) offset) length) mutable) following
+    (following : Expr .number) (componentBounds : Expr .interval) : Expr .state :=
+  .app (.app (.app (.app (.app (.app (.app (.app (.app (.app
+    (.function .arrayAdd) text) state) first) after) bounds) offset) length) mutable) following) componentBounds
 
 def arrayRead (text : Expr .source) (position : Expr .number)
     (state : Expr .state) : Expr .scalarResult :=
@@ -58,11 +60,12 @@ def arrayTake (text : Expr .source) (position : Expr .number)
   .app (.app (.app (.function .takeToken) text) position) (.token token)
 
 def arrayValuesCall (executable : Bool) (text : Expr .source)
-    (source result : Expr .state) (position length parsed : Expr .number) : Expr .state :=
+    (source result : Expr .state) (position length parsed : Expr .number)
+    (componentBounds : Expr .interval) : Expr .state :=
   let callee : Expr (.arrow .source (.arrow .state (.arrow .state
-      (.arrow .number (.arrow .number (.arrow .number .state)))))) :=
+      (.arrow .number (.arrow .number (.arrow .number (.arrow .interval .state))))))) :=
     if executable then .function .arrayValues else .function .arrayValuesModel
-  .app (.app (.app (.app (.app (.app callee text) source) result) position) length) parsed
+  .app (.app (.app (.app (.app (.app (.app callee text) source) result) position) length) parsed) componentBounds
 
 def arrayValuesModelBody : Expr .state :=
   let text : Expr .source := .variable "text"
@@ -73,14 +76,17 @@ def arrayValuesModelBody : Expr .state :=
   let parsed : Expr .number := .variable "parsed"
   let value : Expr .scalarResult := .variable "value"
   let bounds := Expr.field .scalarBounds value
+  let components : Expr .interval := .variable "component_bounds"
   .ite (.eq position (.number 0)) .invalid <|
   .elsif (.eq parsed length) (.statePosition result position) <|
   .group <| .locals <|
     .local "value" "scalar_expressions.expression_result" (arrayRead text position source) <|
     .group <| .ite
-      (.orElse (.orElse (.eq (.field .scalarAfter value) (.number 0))
+      (.orElse (.orElse (.orElse (.orElse (.eq (.field .scalarAfter value) (.number 0))
         (.app (.function .scalarEmpty) bounds))
         (.integerNe (.field .intervalLower bounds) (.field .intervalUpper bounds)))
+        (.integerLt (.field .intervalLower bounds) (.field .intervalLower components)))
+        (.integerGt (.field .intervalUpper bounds) (.field .intervalUpper components)))
       .invalid <|
     .group <| .locals <|
       .local "next_state" "parser_state"
@@ -89,7 +95,7 @@ def arrayValuesModelBody : Expr .state :=
         (.group <| .ite (.lt (.add parsed (.number 1)) length)
           (arrayTake text (.field .scalarAfter value) (.symbol ",")) (.field .scalarAfter value)) <|
       arrayValuesCall false text source (.variable "next_state") (.variable "next_position")
-        length (.add parsed (.number 1))
+        length (.add parsed (.number 1)) components
 
 /-- The runtime wrapper has the same expression tree, calling the native
 aggregate helper instead of its ghost recursive model. -/
@@ -146,7 +152,9 @@ def arrayDeclarationBody (executable : Bool) : Expr .state :=
       (arrayRead text (take (.field .scalarAfter lower) (.symbol "..")) state) <|
     .local "type_first" "literal_position"
       (skip (take (take (.field .scalarAfter upper) (.symbol ")")) (.word "of"))) <|
-    .local "type_after" "literal_position" (take (.variable "type_first") (.word "integer")) <|
+    .local "type_mark" "scalar_constraint_result"
+      (.app (.app (.app (.function .scalarType) text) state) (.variable "type_first")) <|
+    .local "type_after" "literal_position" (.field .constraintAfter (.variable "type_mark")) <|
     .local "position" "literal_position"
       (take (take (.variable "type_after") (.symbol ":=")) (.symbol "(")) <|
     .group <| .ite rejected .invalid <|
@@ -168,13 +176,15 @@ def arrayDeclarationBody (executable : Bool) : Expr .state :=
             (.integerNe (.field .intervalUpper (.field .scalarBounds choice)) low))) .invalid <|
       .group <| .locals <|
         .local "values" "parser_state"
-          (arrayValuesCall executable text state state (.variable "values_first") length (.number 0)) <|
+          (arrayValuesCall executable text state state (.variable "values_first") length (.number 0)
+            (.field .constraintBounds (.variable "type_mark"))) <|
         .local "following" "literal_position"
           (take (take (.field .statePosition values) (.symbol ")")) (.symbol ";")) <|
         .group <| .ite (.orElse (.eq (.field .statePosition values) (.number 0))
             (.le following (.field .statePosition state))) .invalid <|
           arrayAddCall text values first after (.interval low high)
             (arrayStateUsed state) length (.eq constant (.number 0)) following
+            (.field .constraintBounds (.variable "type_mark"))
 
 theorem arrayValues_precedence : arrayValuesModelBody.wellFormed = true := by decide +kernel
 
@@ -184,7 +194,7 @@ theorem arrayDeclaration_precedence :
 
 theorem arrayValues_scope : arrayValuesModelBody.scoped
     [("text", .source), ("source_state", .state), ("result_state", .state),
-     ("position", .number), ("length", .number), ("parsed", .number)] = true := by decide +kernel
+     ("position", .number), ("length", .number), ("parsed", .number), ("component_bounds", .interval)] = true := by decide +kernel
 
 theorem arrayDeclaration_scope :
     (arrayDeclarationBody false).scoped [("text", .source), ("state", .state), ("arguments", .truth)] = true ∧
@@ -205,9 +215,9 @@ abbrev ArrayWellScopedTrees : Prop :=
   arrayPutBody.scoped [("state", .state), ("value", .integer)] = true ∧
   arrayAddBody.scoped [("text", .source), ("state", .state), ("first", .number),
     ("after", .number), ("bounds", .interval), ("offset", .number), ("length", .number),
-    ("mutable", .truth), ("following", .number)] = true ∧
+    ("mutable", .truth), ("following", .number), ("component_bounds", .interval)] = true ∧
   arrayValuesModelBody.scoped [("text", .source), ("source_state", .state),
-    ("result_state", .state), ("position", .number), ("length", .number), ("parsed", .number)] = true ∧
+    ("result_state", .state), ("position", .number), ("length", .number), ("parsed", .number), ("component_bounds", .interval)] = true ∧
   (arrayDeclarationBody false).scoped [("text", .source), ("state", .state), ("arguments", .truth)] = true ∧
   (arrayDeclarationBody true).scoped [("text", .source), ("state", .state), ("arguments", .truth)] = true
 

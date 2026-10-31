@@ -1,0 +1,52 @@
+{
+  "source_directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261029T210832-732f9cd37a16",
+  "sha256_uncompressed": {
+    "events.jsonl": "af7242137d80a7248af73ce859a5ca845530c1e93e9c4a6069336797a7cae1a0",
+    "native.log": "8488c8617a9f1d6e992fe61bf461bd4688813387f39d5ef67b9c9c770d687f63"
+  },
+  "finished": {
+    "duration_seconds": 44.924815907,
+    "event": "finished",
+    "evidence": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261029T210832-732f9cd37a16/native.log",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261029T210832-732f9cd37a16/native.log"
+      }
+    ],
+    "failure_keys": [],
+    "monotonic_ns": 111189932538758,
+    "outcome": "success",
+    "retained_reports": [],
+    "returncode": null,
+    "run_id": "20261029T210832-732f9cd37a16",
+    "utc": "2026-10-29T21:09:19.946339+00:00"
+  },
+  "summary": {
+    "label": "output-integrity",
+    "run_id": "20261029T210832-732f9cd37a16",
+    "outcome": "success",
+    "managed_duration_seconds": 44.924815907,
+    "unittest_duration_seconds": 41.819,
+    "identities": [
+      "test_output_integrity.OutputIntegrityTests.test_application_report_capacity_accepts_exact_bound_without_truncation",
+      "test_output_integrity.OutputIntegrityTests.test_artifact_symlink_does_not_redirect_runtime_source_selection",
+      "test_output_integrity.OutputIntegrityTests.test_dense_review_construction_accepts_maximal_credit_report",
+      "test_output_integrity.OutputIntegrityTests.test_divergent_installed_source_stops_before_proof",
+      "test_output_integrity.OutputIntegrityTests.test_every_library_snapshot_change_during_build_stops_before_publication",
+      "test_output_integrity.OutputIntegrityTests.test_every_library_snapshot_change_during_proof_stops_before_build",
+      "test_output_integrity.OutputIntegrityTests.test_large_argument_vector_with_eight_mib_stack",
+      "test_output_integrity.OutputIntegrityTests.test_large_opaque_proof_trees_preserve_complete_original_reports",
+      "test_output_integrity.OutputIntegrityTests.test_malformed_opaque_proof_tree_stops_before_build",
+      "test_output_integrity.OutputIntegrityTests.test_missing_application_keeps_ambiguous_runtime_status",
+      "test_output_integrity.OutputIntegrityTests.test_missing_runtime_report_stops_before_build",
+      "test_output_integrity.OutputIntegrityTests.test_present_but_rejected_runtime_report_stops_before_build",
+      "test_output_integrity.OutputIntegrityTests.test_run_abnormal_exit_reports_process_failure",
+      "test_output_integrity.OutputIntegrityTests.test_run_forwards_exact_argument_vector",
+      "test_output_integrity.OutputIntegrityTests.test_run_preserves_application_exit_status",
+      "test_output_integrity.OutputIntegrityTests.test_selected_compiler_accepts_output_source",
+      "test_output_integrity.OutputIntegrityTests.test_success_uses_fixed_library_selection_and_runs"
+    ],
+    "workers": 4,
+    "fingerprint": "e03f7cc7a3adf5aeadbb2635533930cffe1b52ca9f97becd6992984271d8cea3"
+  }
+}

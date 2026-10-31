@@ -23,6 +23,7 @@ is
    package Scalar_Expressions renames Silver_Scalar_Expressions;
    package Array_Bindings renames Silver_Array_Bindings;
    use type Scalars.Wide;
+   use type Names.Operation_Kind;
    use type Scalar_Expressions.Binding;
    use type Array_Bindings.Binding;
    package Image_Lengths renames Silver_Integer_Image;
@@ -34,7 +35,7 @@ is
         | Input_Is_Valid_Name | Then_Keyword | Else_Keyword | Elsif_Keyword | Reject_Name
         | And_Keyword | Length_Name | Or_Keyword | Not_Keyword | Null_Keyword
         | Integer_Name | For_Keyword | In_Keyword | Reverse_Keyword | Loop_Keyword | Range_Keyword
-        | Array_Keyword | Of_Keyword);
+        | Array_Keyword | Of_Keyword | Subtype_Keyword);
 
    function Spelling (Token : Token_Kind) return String is
      (case Token is
@@ -88,6 +89,7 @@ is
          when Range_Delimiter => "..",
          when Range_Keyword => "range",
          when Array_Keyword => "array",
+         when Subtype_Keyword => "subtype",
          when Of_Keyword => "of",
          when Comma => ",",
          when Arrow => "=>",
@@ -149,11 +151,42 @@ is
         and then Valid_Name_State (Text, Names.Items (I).First, Names.Items (I).After)
         and then Names.Items (I).Value_First <= Text'Last + 1);
 
+   --  Every subtype declaration consumes at least the 32 bytes in
+   --  subtype S is Integer range 0..0;. The table is declaration metadata;
+   --  only its five call-hiding bits enter recursive statement contexts.
+   Max_Subtype_Bindings : constant Positive := Max_Source_Length / 32;
+   subtype Subtype_Count is Natural range 0 .. Max_Subtype_Bindings;
+   subtype Subtype_Index is Positive range 1 .. Max_Subtype_Bindings;
+   type Subtype_Binding is record
+      First, After : Literal_Position;
+      Bounds : Scalars.Interval;
+   end record;
+   Empty_Subtype_Binding : constant Subtype_Binding := (0, 0, Scalars.Empty);
+   type Subtype_Binding_Array is array (Subtype_Index) of Subtype_Binding;
+   type Subtype_Visibility is array (Names.Operation_Kind) of Boolean;
+   type Subtype_Environment is record
+      Count : Subtype_Count;
+      Items : Subtype_Binding_Array;
+      Hidden_Calls : Subtype_Visibility;
+   end record;
+   Empty_Subtypes : constant Subtype_Environment :=
+     (0, (others => Empty_Subtype_Binding), (others => False));
+   function Valid_Subtypes (Text : String; Subtypes : Subtype_Environment) return Boolean
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length;
+   function Valid_Subtypes (Text : String; Subtypes : Subtype_Environment) return Boolean is
+     (for all Index in 1 .. Subtypes.Count =>
+        Subtypes.Items (Index).First > 0
+        and then Valid_Name_State
+          (Text, Subtypes.Items (Index).First, Subtypes.Items (Index).After)
+        and then not Scalars.Is_Empty (Subtypes.Items (Index).Bounds));
+
    type Parser_State is record
       Position : Literal_Position;
       Names : Binding_Environment;
       Scalar_Names : Scalar_Expressions.Environment;
       Array_Names : Array_Bindings.Environment;
+      Subtype_Names : Subtype_Environment;
       Dynamic_First, Dynamic_After : Literal_Position;
       Target : Binding_Count;
       Capacity : Capacity_Value;
@@ -161,12 +194,12 @@ is
    Initial_State : constant Parser_State :=
      (Position => 1, Names => Empty_Environment,
       Scalar_Names => Scalar_Expressions.Empty_Environment,
-      Array_Names => Array_Bindings.Empty_Environment, Dynamic_First => 0,
+      Array_Names => Array_Bindings.Empty_Environment, Subtype_Names => Empty_Subtypes, Dynamic_First => 0,
       Dynamic_After => 0, Target => 0, Capacity => Max_Source_Length);
    Invalid_State : constant Parser_State :=
      (Position => 0, Names => Empty_Environment,
       Scalar_Names => Scalar_Expressions.Empty_Environment,
-      Array_Names => Array_Bindings.Empty_Environment, Dynamic_First => 0,
+      Array_Names => Array_Bindings.Empty_Environment, Subtype_Names => Empty_Subtypes, Dynamic_First => 0,
       Dynamic_After => 0, Target => 0, Capacity => 0);
 
    function Valid_Mutable_Bounds (Scalar_Names : Scalar_Expressions.Environment) return Boolean is
@@ -188,6 +221,7 @@ is
       and then Valid_Names (Text, State.Names)
       and then Scalar_Expressions.Valid_Environment (Text, State.Scalar_Names)
       and then Array_Bindings.Valid_Environment (Text, State.Array_Names)
+      and then Valid_Subtypes (Text, State.Subtype_Names)
       and then Valid_Mutable_Bounds (State.Scalar_Names)
       and then Valid_Declaration_Values (State.Scalar_Names, State.Scalar_Names.Count)
       and then Valid_Name_State (Text, State.Dynamic_First, State.Dynamic_After)
@@ -346,11 +380,58 @@ is
       return 0;
    end Lookup_Name;
 
+   function Lookup_Subtype_Model
+     (Text : String; Subtypes : Subtype_Environment; First, After : Literal_Position;
+      Index : Subtype_Count) return Subtype_Count
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_Subtypes (Text, Subtypes) and then Index <= Subtypes.Count
+         and then First <= Text'Last + 1 and then After <= Text'Last + 1,
+       Post => Lookup_Subtype_Model'Result <= Index,
+       Subprogram_Variant => (Decreases => Index);
+   function Lookup_Subtype_Model
+     (Text : String; Subtypes : Subtype_Environment; First, After : Literal_Position;
+      Index : Subtype_Count) return Subtype_Count is
+     (if First = 0 or else After <= First or else Index = 0 then 0
+      elsif Equal_Name (Text, Subtypes.Items (Index).First, Subtypes.Items (Index).After,
+                        First, After)
+      then Index else Lookup_Subtype_Model (Text, Subtypes, First, After, Index - 1));
+   function Lookup_Subtype
+     (Text : String; Subtypes : Subtype_Environment; First, After : Literal_Position)
+      return Subtype_Count
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_Subtypes (Text, Subtypes)
+         and then First <= Text'Last + 1 and then After <= Text'Last + 1,
+       Post => (Runtime => Lookup_Subtype'Result <= Subtypes.Count,
+         Static => Lookup_Subtype'Result =
+           Lookup_Subtype_Model (Text, Subtypes, First, After, Subtypes.Count));
+   function Lookup_Subtype
+     (Text : String; Subtypes : Subtype_Environment; First, After : Literal_Position)
+      return Subtype_Count is
+      Index : Subtype_Count := Subtypes.Count;
+   begin
+      if First = 0 or else After <= First then return 0; end if;
+      while Index > 0 loop
+         pragma Loop_Invariant (Index <= Subtypes.Count);
+         pragma Loop_Invariant (Static =>
+           Lookup_Subtype_Model (Text, Subtypes, First, After, Subtypes.Count)
+             = Lookup_Subtype_Model (Text, Subtypes, First, After, Index));
+         pragma Loop_Variant (Decreases => Index);
+         if Equal_Name (Text, Subtypes.Items (Index).First, Subtypes.Items (Index).After,
+                        First, After)
+         then return Index; end if;
+         Index := Index - 1;
+      end loop;
+      return 0;
+   end Lookup_Subtype;
+
    function Call_After
      (Text : String; Environment : Binding_Environment; Position : Literal_Position;
       Operation : Names.Operation_Kind;
       Scalar_Names : Scalar_Expressions.Environment := Scalar_Expressions.Empty_Environment;
-      Arrays : Array_Bindings.Metadata := Array_Bindings.Empty_Metadata) return Literal_Position
+      Arrays : Array_Bindings.Metadata := Array_Bindings.Empty_Metadata;
+      Subtype_Hidden : Boolean := False) return Literal_Position
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Valid_Names (Text, Environment)
@@ -362,13 +443,15 @@ is
      (Text : String; Environment : Binding_Environment; Position : Literal_Position;
       Operation : Names.Operation_Kind;
       Scalar_Names : Scalar_Expressions.Environment := Scalar_Expressions.Empty_Environment;
-      Arrays : Array_Bindings.Metadata := Array_Bindings.Empty_Metadata) return Literal_Position is
+      Arrays : Array_Bindings.Metadata := Array_Bindings.Empty_Metadata;
+      Subtype_Hidden : Boolean := False) return Literal_Position is
      (declare First : constant Literal_Position := Skip_At (Text, Position);
               After : constant Literal_Position := Name_After (Text, First);
       begin Names.Operation_After
         (Text, Position, Operation, Lookup_Name (Text, Environment, First, After) /= 0
           or else Scalar_Expressions.Lookup (Text, Scalar_Names, First, After) /= 0
-          or else Array_Bindings.Lookup (Text, Arrays, First, After) /= 0));
+          or else Array_Bindings.Lookup (Text, Arrays, First, After) /= 0
+          or else Subtype_Hidden));
 
    type Value_Result is record
       After, Value_First : Literal_Position;
@@ -824,7 +907,8 @@ is
       and then (not Arguments or else not Forbidden_Argument_Name (Text, First, After))
       and then Lookup_Name (Text, State.Names, First, After) = 0
       and then Scalar_Expressions.Lookup (Text, State.Scalar_Names, First, After) = 0
-      and then Array_Bindings.Lookup (Text, State.Array_Names.Names, First, After) = 0);
+      and then Array_Bindings.Lookup (Text, State.Array_Names.Names, First, After) = 0
+      and then Lookup_Subtype (Text, State.Subtype_Names, First, After) = 0);
 
    function Add_Binding
      (State : Parser_State; First, After : Literal_Position;
@@ -849,7 +933,8 @@ is
    end record;
    function Scalar_Constraint_At
      (Text : String; Position : Literal_Position;
-      Scalar_Names : Scalar_Expressions.Environment) return Scalar_Constraint_Result
+      Scalar_Names : Scalar_Expressions.Environment;
+      Base_Bounds : Scalars.Interval := Scalars.Full) return Scalar_Constraint_Result
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Position <= Text'Last + 1
@@ -858,7 +943,8 @@ is
          or else Scalar_Constraint_At'Result.After in Position .. Text'Last + 1;
    function Scalar_Constraint_At
      (Text : String; Position : Literal_Position;
-      Scalar_Names : Scalar_Expressions.Environment) return Scalar_Constraint_Result is
+      Scalar_Names : Scalar_Expressions.Environment;
+      Base_Bounds : Scalars.Interval := Scalars.Full) return Scalar_Constraint_Result is
      (declare Range_After : constant Literal_Position := Take_Token (Text, Position, Range_Keyword);
       Low : constant Scalar_Expressions.Expression_Result :=
         Scalar_Expressions.Read_Expression (Text, Range_After, Scalar_Names);
@@ -868,15 +954,89 @@ is
         Scalar_Expressions.Read_Expression
           (Text, Delimiter_After, Scalar_Names);
       begin
-        (if Range_After = 0 then (Position, Scalars.Full)
+        (if Range_After = 0 then (Position, Base_Bounds)
          elsif Low.After = 0 or else Delimiter_After = 0 or else High.After = 0
            or else not Low.Static or else not High.Static
            or else Scalars.Is_Empty (Low.Bounds) or else Scalars.Is_Empty (High.Bounds)
            or else Low.Bounds.Lower /= Low.Bounds.Upper
            or else High.Bounds.Lower /= High.Bounds.Upper
            or else High.Bounds.Lower < Low.Bounds.Lower
+           or else Low.Bounds.Lower < Base_Bounds.Lower
+           or else High.Bounds.Lower > Base_Bounds.Upper
          then (0, Scalars.Empty)
          else (High.After, (Low.Bounds.Lower, High.Bounds.Lower))));
+
+   function Scalar_Type_At
+     (Text : String; State : Parser_State; Position : Literal_Position)
+      return Scalar_Constraint_Result
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, State) and then Position <= Text'Last + 1,
+       Post => Scalar_Type_At'Result.After = 0
+         or else (Scalar_Type_At'Result.After in Position + 1 .. Text'Last + 1
+           and then not Scalars.Is_Empty (Scalar_Type_At'Result.Bounds));
+   function Scalar_Type_At
+     (Text : String; State : Parser_State; Position : Literal_Position)
+      return Scalar_Constraint_Result is
+     (declare First : constant Literal_Position := Skip_At (Text, Position);
+              After : constant Literal_Position := Name_After (Text, First);
+              Target : constant Subtype_Count :=
+                Lookup_Subtype (Text, State.Subtype_Names, First, After);
+      begin
+        (if First = 0 or else After <= First
+           or else Lookup_Name (Text, State.Names, First, After) /= 0
+           or else Scalar_Expressions.Lookup (Text, State.Scalar_Names, First, After) /= 0
+           or else Array_Bindings.Lookup (Text, State.Array_Names.Names, First, After) /= 0
+         then (0, Scalars.Empty)
+         elsif Name_Is (Text, First, After, "integer") then (After, Scalars.Full)
+         elsif Target /= 0 then (After, State.Subtype_Names.Items (Target).Bounds)
+         else (0, Scalars.Empty)));
+
+   function Subtype_Declaration_At
+     (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, State),
+       Post => Valid_State (Text, Subtype_Declaration_At'Result)
+         and then (Subtype_Declaration_At'Result.Position = 0
+           or else Subtype_Declaration_At'Result.Position > State.Position);
+   function Subtype_Declaration_At
+     (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State is
+     (declare First : constant Literal_Position :=
+                Skip_At (Text, Take_Token (Text, State.Position, Subtype_Keyword));
+              After : constant Literal_Position := Name_After (Text, First);
+              Type_First : constant Literal_Position :=
+                Skip_At (Text, Take_Token (Text, After, Is_Keyword));
+              Type_After : constant Literal_Position := Take_Token (Text, Type_First, Integer_Name);
+              Constraint : constant Scalar_Constraint_Result :=
+                Scalar_Constraint_At (Text, Type_After, State.Scalar_Names);
+              Following : constant Literal_Position := Take_Token (Text, Constraint.After, Semicolon);
+      begin
+        (if not New_Name_Allowed (Text, State, First, After, Arguments)
+           or else Name_Is (Text, First, After, "integer")
+           or else State.Subtype_Names.Count = Max_Subtype_Bindings
+           or else Type_After = 0 or else Take_Token (Text, Type_After, Range_Keyword) = 0
+           or else Constraint.After = 0 or else Following <= State.Position
+           or else Scalars.Is_Empty (Constraint.Bounds)
+           or else Lookup_Name (Text, State.Names, Type_First, Type_After) /= 0
+           or else Scalar_Expressions.Lookup (Text, State.Scalar_Names, Type_First, Type_After) /= 0
+           or else Array_Bindings.Lookup (Text, State.Array_Names.Names, Type_First, Type_After) /= 0
+         then Invalid_State
+         else (State with delta Position => Following,
+           Subtype_Names =>
+             (Count => State.Subtype_Names.Count + 1,
+              Items => (State.Subtype_Names.Items with delta State.Subtype_Names.Count + 1 =>
+                (First, After, Constraint.Bounds)),
+              Hidden_Calls =>
+                (for Operation in Names.Operation_Kind =>
+                  State.Subtype_Names.Hidden_Calls (Operation) or else
+                    Name_Is (Text, First, After,
+                      (case Operation is
+                        when Names.Output_Call => "put_line",
+                        when Names.Partial_Output_Call => "put",
+                        when Names.Argument_Call => "first_or_default",
+                        when Names.Validity_Call => "input_is_valid",
+                        when Names.Reject_Call => "reject")))))));
 
    function Scalar_Declaration_At
      (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State
@@ -894,9 +1054,10 @@ is
       Constant_After : constant Literal_Position := Take_Token (Text, Colon_After, Constant_Keyword);
       Type_First : constant Literal_Position := Skip_At (Text,
         (if Constant_After /= 0 then Constant_After else Colon_After));
-      Type_After : constant Literal_Position := Take_Token (Text, Type_First, Integer_Name);
+      Type_Mark : constant Scalar_Constraint_Result := Scalar_Type_At (Text, State, Type_First);
+      Type_After : constant Literal_Position := Type_Mark.After;
       Constraint : constant Scalar_Constraint_Result :=
-        Scalar_Constraint_At (Text, Type_After, State.Scalar_Names);
+        Scalar_Constraint_At (Text, Type_After, State.Scalar_Names, Type_Mark.Bounds);
       Value : constant Scalar_Expressions.Expression_Result :=
         Scalar_Expressions.Read_Expression
           (Text, Take_Token (Text, Constraint.After, Assignment), State.Scalar_Names,
@@ -965,24 +1126,28 @@ is
    function Add_Array_Binding
      (Text : String; State : Parser_State; First, After : Literal_Position;
       Bounds : Scalars.Interval; Offset, Length : Array_Bindings.Element_Count;
-      Mutable : Boolean; Following : Literal_Position) return Parser_State is
+      Mutable : Boolean; Following : Literal_Position;
+      Component_Bounds : Scalars.Interval) return Parser_State is
      (State with delta Position => Following,
        Array_Names => (State.Array_Names with delta Names =>
          (Count => State.Array_Names.Names.Count + 1,
           Items => (State.Array_Names.Names.Items with delta State.Array_Names.Names.Count + 1 =>
-            (First, After, Bounds, Offset, Length, Mutable)))))
+            (First, After, Bounds, Offset, Length, Mutable, Component_Bounds)))))
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Valid_State (Text, State)
          and then State.Array_Names.Names.Count < Array_Bindings.Max_Bindings
          and then First > 0 and then Valid_Name_State (Text, First, After)
-         and then Array_Bindings.Valid_Binding ((First, After, Bounds, Offset, Length, Mutable))
+         and then Array_Bindings.Valid_Binding ((First, After, Bounds, Offset, Length, Mutable, Component_Bounds))
          and then Offset + Length <= State.Array_Names.Used
+         and then (if State.Array_Names.Names.Count > 0 then Offset >=
+           State.Array_Names.Names.Items (State.Array_Names.Names.Count).Offset
+             + State.Array_Names.Names.Items (State.Array_Names.Names.Count).Length)
          and then Following <= Text'Last + 1,
        Post => Valid_State (Text, Add_Array_Binding'Result)
          and then Add_Array_Binding'Result.Position = Following;
 
-   --  Keep the four fixed-array extensionality checks separate from the
+   --  Keep the fixed-array extensionality checks separate from the
    --  enclosing parser record's logical equality check.
    function Same_Parser_String_Items (Left, Right : Binding_Array) return Boolean is
      (Left'First = Right'First and then Left'Last = Right'Last
@@ -1007,6 +1172,19 @@ is
       and then (for all Index in Array_Bindings.Element_Index => Left (Index) = Right (Index)))
      with Ghost => Static, Global => null,
        Annotate => (GNATprove, Logical_Equal);
+   function Same_Parser_Subtype_Items
+     (Left, Right : Subtype_Binding_Array) return Boolean is
+     (Left'First = Right'First and then Left'Last = Right'Last
+      and then (for all Index in Subtype_Index => Left (Index) = Right (Index)))
+     with Ghost => Static, Global => null,
+       Annotate => (GNATprove, Logical_Equal);
+   function Same_Parser_Subtype_Visibility
+     (Left, Right : Subtype_Visibility) return Boolean is
+     (Left'First = Right'First and then Left'Last = Right'Last
+      and then (for all Operation in Names.Operation_Kind =>
+        Left (Operation) = Right (Operation)))
+     with Ghost => Static, Global => null,
+       Annotate => (GNATprove, Logical_Equal);
    function Same_Parser_State (Left, Right : Parser_State) return Boolean is
      (Left.Position = Right.Position
       and then Left.Names.Count = Right.Names.Count
@@ -1017,6 +1195,10 @@ is
       and then Same_Parser_Array_Items (Left.Array_Names.Names.Items, Right.Array_Names.Names.Items)
       and then Left.Array_Names.Used = Right.Array_Names.Used
       and then Same_Parser_Elements (Left.Array_Names.Values, Right.Array_Names.Values)
+      and then Left.Subtype_Names.Count = Right.Subtype_Names.Count
+      and then Same_Parser_Subtype_Items (Left.Subtype_Names.Items, Right.Subtype_Names.Items)
+      and then Same_Parser_Subtype_Visibility
+        (Left.Subtype_Names.Hidden_Calls, Right.Subtype_Names.Hidden_Calls)
       and then Left.Dynamic_First = Right.Dynamic_First and then Left.Dynamic_After = Right.Dynamic_After
       and then Left.Target = Right.Target and then Left.Capacity = Right.Capacity)
      with Ghost => Static, Global => null,
@@ -1024,7 +1206,8 @@ is
 
    function Array_Values_Model
      (Text : String; Source_State, Result_State : Parser_State;
-      Position : Literal_Position; Length, Parsed : Array_Bindings.Element_Count)
+      Position : Literal_Position; Length, Parsed : Array_Bindings.Element_Count;
+      Component_Bounds : Scalars.Interval)
       return Parser_State
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
@@ -1046,7 +1229,8 @@ is
        Subprogram_Variant => (Decreases => Length - Parsed);
    function Array_Values_Model
      (Text : String; Source_State, Result_State : Parser_State;
-      Position : Literal_Position; Length, Parsed : Array_Bindings.Element_Count)
+      Position : Literal_Position; Length, Parsed : Array_Bindings.Element_Count;
+      Component_Bounds : Scalars.Interval)
       return Parser_State is
      (if Position = 0 then Invalid_State
       elsif Parsed = Length then (Result_State with delta Position => Position)
@@ -1059,6 +1243,8 @@ is
          begin
            (if Value.After = 0 or else Scalars.Is_Empty (Value.Bounds)
               or else Value.Bounds.Lower /= Value.Bounds.Upper
+              or else Value.Bounds.Lower < Component_Bounds.Lower
+              or else Value.Bounds.Upper > Component_Bounds.Upper
             then Invalid_State
             else
               (declare Next_State : constant Parser_State :=
@@ -1067,7 +1253,7 @@ is
                          (if Parsed + 1 < Length then Take_Token (Text, Value.After, Comma)
                           else Value.After);
                begin Array_Values_Model
-                 (Text, Source_State, Next_State, Next_Position, Length, Parsed + 1)))));
+                 (Text, Source_State, Next_State, Next_Position, Length, Parsed + 1, Component_Bounds)))));
 
    Integer_Type_Word : constant String := "integer";
 
@@ -1095,7 +1281,8 @@ is
                  Arrays => State.Array_Names.Names, Initials => State.Array_Names.Values, Elaborating => True);
               Type_First : constant Literal_Position := Skip_At (Text, Take_Token (Text,
                 Take_Token (Text, High.After, Right_Parenthesis), Of_Keyword));
-              Type_After : constant Literal_Position := Take_Token (Text, Type_First, Integer_Name);
+              Type_Mark : constant Scalar_Constraint_Result := Scalar_Type_At (Text, State, Type_First);
+              Type_After : constant Literal_Position := Type_Mark.After;
               Position : constant Literal_Position := Take_Token (Text,
                 Take_Token (Text, Type_After, Assignment), Left_Parenthesis);
       begin
@@ -1131,18 +1318,19 @@ is
                then Invalid_State
                else
                  (declare Values : constant Parser_State :=
-                    Array_Values_Model (Text, State, State, Values_First, Length, 0);
+                    Array_Values_Model (Text, State, State, Values_First, Length, 0, Type_Mark.Bounds);
                           Following : constant Literal_Position := Take_Token
                             (Text, Take_Token (Text, Values.Position, Right_Parenthesis), Semicolon);
                   begin
                     (if Values.Position = 0 or else Following <= State.Position then Invalid_State
                      else Add_Array_Binding
                        (Text, Values, First, After, (Low.Bounds.Lower, High.Bounds.Lower),
-                        State.Array_Names.Used, Length, Constant_After = 0, Following)))))));
+                        State.Array_Names.Used, Length, Constant_After = 0, Following, Type_Mark.Bounds)))))));
 
    function Array_Values_At
      (Text : String; Source_State, Result_State : Parser_State;
-      Position : Literal_Position; Length, Parsed : Array_Bindings.Element_Count)
+      Position : Literal_Position; Length, Parsed : Array_Bindings.Element_Count;
+      Component_Bounds : Scalars.Interval)
       return Parser_State
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
@@ -1162,12 +1350,13 @@ is
              Array_Values_At'Result.Array_Names.Values (Slot) =
                Result_State.Array_Names.Values (Slot))),
          Static => Array_Values_At'Result = Array_Values_Model
-           (Text, Source_State, Result_State, Position, Length, Parsed)
+           (Text, Source_State, Result_State, Position, Length, Parsed, Component_Bounds)
          and then Same_Parser_State (Array_Values_At'Result, Array_Values_Model
-           (Text, Source_State, Result_State, Position, Length, Parsed)));
+           (Text, Source_State, Result_State, Position, Length, Parsed, Component_Bounds)));
    function Array_Values_At
      (Text : String; Source_State, Result_State : Parser_State;
-      Position : Literal_Position; Length, Parsed : Array_Bindings.Element_Count)
+      Position : Literal_Position; Length, Parsed : Array_Bindings.Element_Count;
+      Component_Bounds : Scalars.Interval)
       return Parser_State is
       Result : Parser_State := Result_State;
       Current : Literal_Position := Position;
@@ -1188,11 +1377,11 @@ is
            (for all Slot in 1 .. Result_State.Array_Names.Used =>
              Result.Array_Names.Values (Slot) = Result_State.Array_Names.Values (Slot));
          pragma Loop_Invariant (Static =>
-           Array_Values_Model (Text, Source_State, Result_State, Position, Length, Parsed)
-             = Array_Values_Model (Text, Source_State, Result, Current, Length, Parsed_Count));
+           Array_Values_Model (Text, Source_State, Result_State, Position, Length, Parsed, Component_Bounds)
+             = Array_Values_Model (Text, Source_State, Result, Current, Length, Parsed_Count, Component_Bounds));
          pragma Loop_Invariant (Static => Same_Parser_State
-           (Array_Values_Model (Text, Source_State, Result_State, Position, Length, Parsed),
-            Array_Values_Model (Text, Source_State, Result, Current, Length, Parsed_Count)));
+           (Array_Values_Model (Text, Source_State, Result_State, Position, Length, Parsed, Component_Bounds),
+            Array_Values_Model (Text, Source_State, Result, Current, Length, Parsed_Count, Component_Bounds)));
          pragma Loop_Variant (Increases => Parsed_Count);
          declare
             Before : constant Parser_State := Result with Ghost => Static;
@@ -1201,12 +1390,14 @@ is
                 (Text, Current, Source_State.Scalar_Names, Arrays => Source_State.Array_Names.Names,
                  Initials => Source_State.Array_Names.Values, Elaborating => True);
             Tail : constant Parser_State :=
-              Array_Values_Model (Text, Source_State, Before, Current, Length, Parsed_Count)
+              Array_Values_Model (Text, Source_State, Before, Current, Length, Parsed_Count, Component_Bounds)
                 with Ghost => Static;
          begin
             pragma Assert (Static => Same_Parser_State (Result, Before));
             if Value.After = 0 or else Scalars.Is_Empty (Value.Bounds)
               or else Value.Bounds.Lower /= Value.Bounds.Upper
+              or else Value.Bounds.Lower < Component_Bounds.Lower
+              or else Value.Bounds.Upper > Component_Bounds.Upper
             then return Invalid_State; end if;
             declare
                Next_State : constant Parser_State :=
@@ -1218,7 +1409,7 @@ is
                  with Ghost => Static;
             begin
                pragma Assert (Static => Tail =
-                 Array_Values_Model (Text, Source_State, Next_State, Next_Position, Length, Next_Parsed));
+                 Array_Values_Model (Text, Source_State, Next_State, Next_Position, Length, Next_Parsed, Component_Bounds));
                Parsed_Count := Parsed_Count + 1;
                Result := Put_Array_Value (Result, Value.Bounds.Lower);
                Current := Value.After;
@@ -1230,13 +1421,13 @@ is
                  and then Current = Next_Position and then Parsed_Count = Next_Parsed);
                pragma Assert (Static => Same_Parser_State (Result, Next_State));
                pragma Assert (Static => Tail =
-                 Array_Values_Model (Text, Source_State, Result, Current, Length, Parsed_Count));
+                 Array_Values_Model (Text, Source_State, Result, Current, Length, Parsed_Count, Component_Bounds));
             end;
          end;
       end loop;
       declare
          Completed : constant Parser_State :=
-           Array_Values_Model (Text, Source_State, Result, Current, Length, Parsed_Count)
+           Array_Values_Model (Text, Source_State, Result, Current, Length, Parsed_Count, Component_Bounds)
              with Ghost => Static;
       begin
          pragma Assert (Static => Completed = (Result with delta Position => Current));
@@ -1269,7 +1460,8 @@ is
                  Arrays => State.Array_Names.Names, Initials => State.Array_Names.Values, Elaborating => True);
               Type_First : constant Literal_Position := Skip_At (Text, Take_Token (Text,
                 Take_Token (Text, High.After, Right_Parenthesis), Of_Keyword));
-              Type_After : constant Literal_Position := Take_Token (Text, Type_First, Integer_Name);
+              Type_Mark : constant Scalar_Constraint_Result := Scalar_Type_At (Text, State, Type_First);
+              Type_After : constant Literal_Position := Type_Mark.After;
               Position : constant Literal_Position := Take_Token (Text,
                 Take_Token (Text, Type_After, Assignment), Left_Parenthesis);
       begin
@@ -1305,14 +1497,14 @@ is
                then Invalid_State
                else
                  (declare Values : constant Parser_State :=
-                    Array_Values_At (Text, State, State, Values_First, Length, 0);
+                    Array_Values_At (Text, State, State, Values_First, Length, 0, Type_Mark.Bounds);
                           Following : constant Literal_Position := Take_Token
                             (Text, Take_Token (Text, Values.Position, Right_Parenthesis), Semicolon);
                   begin
                     (if Values.Position = 0 or else Following <= State.Position then Invalid_State
                      else Add_Array_Binding
                        (Text, Values, First, After, (Low.Bounds.Lower, High.Bounds.Lower),
-                        State.Array_Names.Used, Length, Constant_After = 0, Following)))))));
+                        State.Array_Names.Used, Length, Constant_After = 0, Following, Type_Mark.Bounds)))))));
 
    function Declaration_At
      (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State
@@ -1324,9 +1516,11 @@ is
            or else Declaration_At'Result.Position > State.Position);
    function Declaration_At
      (Text : String; State : Parser_State; Arguments : Boolean) return Parser_State is
-     (declare Scalar_State : constant Parser_State := Scalar_Declaration_At (Text, State, Arguments);
+     (declare Subtype_State : constant Parser_State := Subtype_Declaration_At (Text, State, Arguments);
+              Scalar_State : constant Parser_State := Scalar_Declaration_At (Text, State, Arguments);
               Array_State : constant Parser_State := Array_Declaration_At (Text, State, Arguments);
-      begin (if Scalar_State.Position /= 0 then Scalar_State
+      begin (if Subtype_State.Position /= 0 then Subtype_State
+             elsif Scalar_State.Position /= 0 then Scalar_State
              elsif Array_State.Position /= 0 then Array_State
              else String_Declaration_At (Text, State, Arguments)));
 
@@ -1536,6 +1730,7 @@ is
       Names : Binding_Environment;
       Scalar_Names : Scalar_Expressions.Environment;
       Array_Names : Array_Bindings.Metadata;
+      Subtype_Hiding : Subtype_Visibility;
       Declaration_Count : Scalar_Expressions.Binding_Count;
       Dynamic_First, Dynamic_After : Literal_Position;
    end record;
@@ -1563,6 +1758,7 @@ is
      (Names => Scan.State.Names,
       Scalar_Names => Scalar_Expressions.Body_Environment (Scan.State.Scalar_Names),
       Array_Names => Scan.State.Array_Names.Names,
+      Subtype_Hiding => Scan.State.Subtype_Names.Hidden_Calls,
       Declaration_Count => Scan.State.Scalar_Names.Count,
       Dynamic_First => Scan.State.Dynamic_First,
       Dynamic_After => Scan.State.Dynamic_After);
@@ -1633,9 +1829,10 @@ is
       end return;
    end Invalid_Body;
    function Expand_Body
-     (Context : Body_Context; Scan : Body_Scan; Arrays : Array_Bindings.Environment) return Scan_Result is
+     (Context : Body_Context; Scan : Body_Scan; Arrays : Array_Bindings.Environment;
+      Subtypes : Subtype_Environment) return Scan_Result is
      (State => (Position => Scan.Position, Names => Context.Names, Scalar_Names => Context.Scalar_Names,
-       Array_Names => Arrays,
+       Array_Names => Arrays, Subtype_Names => Subtypes,
        Dynamic_First => Context.Dynamic_First, Dynamic_After => Context.Dynamic_After,
        Target => Scan.Target, Capacity => Scan.Capacity),
       Assigned => Scan.Assigned, Output => Scan.Output);
@@ -2190,7 +2387,7 @@ is
             elsif Context.Dynamic_First = 0 then Invalid_Condition (Facts)
             else
               (declare After_Call : constant Literal_Position :=
-                 Call_After (Text, Context.Names, Position, Names.Validity_Call, Context.Scalar_Names, Context.Array_Names);
+                 Call_After (Text, Context.Names, Position, Names.Validity_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Validity_Call));
                begin (if After_Call = 0 then Invalid_Condition (Facts) else
                  (Count => Facts.Count, After => After_Call,
                   When_True => (Facts with delta Path => Paths.Assume_Valid (Facts.Path)),
@@ -2414,7 +2611,7 @@ is
          pragma Assert (Static => Valid_Flow (Context, Result.When_True));
          pragma Assert (Static => Valid_Flow (Context, Result.When_False));
       else
-         Result.After := Call_After (Text, Context.Names, Position, Names.Validity_Call, Context.Scalar_Names, Context.Array_Names);
+         Result.After := Call_After (Text, Context.Names, Position, Names.Validity_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Validity_Call));
          Result.When_True := Facts;
          Result.When_False := Facts;
          if Result.After = 0 then
@@ -3063,6 +3260,8 @@ is
         or else not Array_Bindings.Contains (Context.Array_Names.Items (Target), Subscript.Bounds)
         or else Subscript.Operands = Scalar_Expressions.Max_Operands
         or else Value.After <= Scan.Position or else Scalars.Is_Empty (Value.Bounds)
+        or else Value.Bounds.Lower < Context.Array_Names.Items (Target).Component_Bounds.Lower
+        or else Value.Bounds.Upper > Context.Array_Names.Items (Target).Component_Bounds.Upper
       then return Invalid_Body (Scan); end if;
       return (Scan with delta Position => Value.After, Assigned => True);
    end Array_Assignment_Body;
@@ -3084,8 +3283,8 @@ is
       if Result.Position = 0 then return Invalid_Body (Scan); end if;
       if Take_Token (Text, Result.Position, Null_Keyword) /= 0 then
          Result := Body_Token (Text, Context, Result, Null_Keyword);
-      elsif Call_After (Text, Context.Names, Result.Position, Names.Output_Call, Context.Scalar_Names, Context.Array_Names) /= 0 then
-         Result.Position := Call_After (Text, Context.Names, Result.Position, Names.Output_Call, Context.Scalar_Names, Context.Array_Names);
+      elsif Call_After (Text, Context.Names, Result.Position, Names.Output_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Output_Call)) /= 0 then
+         Result.Position := Call_After (Text, Context.Names, Result.Position, Names.Output_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Output_Call));
          Result := Body_Token (Text, Context, Result, Left_Parenthesis);
          Result.Position := Names.Association_After (Text, Result.Position, False);
          Value := Read_String_In_Flow (Text, Context, Result.Position, Result.Facts);
@@ -3095,8 +3294,8 @@ is
          Result.Position := Value.After;
          Result := Body_Token (Text, Context, Result, Right_Parenthesis);
          Result.Output := True;
-      elsif Call_After (Text, Context.Names, Result.Position, Names.Partial_Output_Call, Context.Scalar_Names, Context.Array_Names) /= 0 then
-         Result.Position := Call_After (Text, Context.Names, Result.Position, Names.Partial_Output_Call, Context.Scalar_Names, Context.Array_Names);
+      elsif Call_After (Text, Context.Names, Result.Position, Names.Partial_Output_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Partial_Output_Call)) /= 0 then
+         Result.Position := Call_After (Text, Context.Names, Result.Position, Names.Partial_Output_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Partial_Output_Call));
          Result := Body_Token (Text, Context, Result, Left_Parenthesis);
          Result.Position := Names.Association_After (Text, Result.Position, False);
          Value := Read_String_In_Flow (Text, Context, Result.Position, Result.Facts);
@@ -3107,9 +3306,9 @@ is
          Result := Body_Token (Text, Context, Result, Right_Parenthesis);
          Result.Output := True;
       elsif Context.Dynamic_First /= 0
-        and then Call_After (Text, Context.Names, Result.Position, Names.Reject_Call, Context.Scalar_Names, Context.Array_Names) /= 0
+        and then Call_After (Text, Context.Names, Result.Position, Names.Reject_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Reject_Call)) /= 0
       then
-         Result.Position := Call_After (Text, Context.Names, Result.Position, Names.Reject_Call, Context.Scalar_Names, Context.Array_Names);
+         Result.Position := Call_After (Text, Context.Names, Result.Position, Names.Reject_Call, Context.Scalar_Names, Context.Array_Names, Context.Subtype_Hiding (Names.Reject_Call));
          Result.Facts.Path := Paths.Rejected (Result.Facts.Path);
       elsif Scalar_Target (Text, Context, Result.Position) /= 0 then
          Result := Scalar_Assignment_Body (Text, Context, Result);
@@ -3253,9 +3452,12 @@ is
          end;
       end loop;
       declare
+         Original_Tail : constant Body_Scan (Scan.Count) :=
+           Body_Tail_Model (Text, Context, Scan, Stop) with Ghost => Static;
          Tail : constant Body_Scan (Scan.Count) :=
            Body_Tail_Model (Text, Context, Result, Stop) with Ghost => Static;
       begin
+         pragma Assert (Static => Original_Tail = Tail);
          if Result.Position = 0 then
             pragma Assert
               (Static => Tail = Body_Tail_Model (Text, Context, Result, Stop)
@@ -3264,6 +3466,11 @@ is
          end if;
          pragma Assert (Static => Tail = Body_Tail_Model (Text, Context, Result, Stop)
            and then Tail = Result);
+         --  Expose transitive equality of the interval array separately from
+         --  the surrounding scan fields before discharging model equality.
+         Lemma_Flow_Equality (Original_Tail.Facts, Tail.Facts);
+         Lemma_Flow_Equality (Tail.Facts, Result.Facts);
+         pragma Assert (Static => Original_Tail = Result);
          return Result;
       end;
    end Body_Tail;
@@ -3332,9 +3539,8 @@ is
               or else Target = 0 or else Context.Array_Names.Items (Target).Mutable
             then return Invalid_Body (Scan); end if;
             Result.Position := Take_Token (Text, Array_After, Loop_Keyword);
+            Index_Bounds := Context.Array_Names.Items (Target).Component_Bounds;
          end;
-         --  Components have the full Integer subtype, including in constants.
-         Index_Bounds := Scalars.Full;
          Definite := True;
       else
          Result.Position := Take_Token (Text, After, In_Keyword);
@@ -3359,8 +3565,12 @@ is
          Inner : Body_Context := Context;
          Inner_Scan : Body_Scan (Scan.Count + 1);
       begin
-         Inner.Scalar_Names := Scalar_Expressions.Append
-           (Context.Scalar_Names, (First, After, Index_Bounds, False, Index_Bounds, False));
+         --  Update the copied environment in place. Returning a complete
+         --  fixed-size environment from Append adds one large stack temporary
+         --  per nested loop, although only this last slot changes.
+         Inner.Scalar_Names.Count := Context.Scalar_Names.Count + 1;
+         Inner.Scalar_Names.Items (Inner.Scalar_Names.Count) :=
+           (First, After, Index_Bounds, False, Index_Bounds, False);
          Inner_Scan.Position := Result.Position;
          Inner_Scan.Target := Result.Target;
          Inner_Scan.Capacity := Result.Capacity;
@@ -3493,7 +3703,7 @@ is
         (Text, Context, Body_Of (Scan), (if Stop = Else_Keyword then Else_Only else End_Only));
    begin
       return (if Result.Position = 0 or else not Paths.Completed (Result.Facts.Path)
-              then Invalid_Scan else Expand_Body (Context, Result, Scan.State.Array_Names));
+              then Invalid_Scan else Expand_Body (Context, Result, Scan.State.Array_Names, Scan.State.Subtype_Names));
    end Read_Statements;
 
    function Scan_Step

@@ -54,7 +54,7 @@ package body Silver_Array_Bindings with SPARK_Mode => On is
             return Hull;
          end;
       else
-         return Scalars.Full;
+         return Item.Component_Bounds;
       end if;
    end Read_Bounds;
 end Silver_Array_Bindings;

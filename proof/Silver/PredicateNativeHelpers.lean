@@ -16,10 +16,10 @@ set_option maxHeartbeats 2000000
 No predicate parser equivalence occurs in this interface. The path operations
 are total mathematical interpretations of the checked native projections. -/
 structure HelperMeaning (calls : Calls) : Prop where
-  callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames arrays,
+  callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames arrays hidden,
     ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
     ArrayBindings.ValidMetadata text arrays → position ≤ text.length + 1 →
-    calls.callAfter text names position operation scalarNames arrays = Compose.callAfter text names position operation scalarNames arrays
+    calls.callAfter text names position operation scalarNames arrays hidden = Compose.callAfter text names position operation scalarNames arrays hidden
   take : ∀ text, ValidText text → ∀ position token, position ≤ text.length + 1 →
     calls.take text position token = takeModel text position token
   skip : ∀ text, ValidText text → ∀ position, position ≤ text.length + 1 →
@@ -176,7 +176,7 @@ theorem primary_normalized (contracts : Contracts calls) (text : Source) (tv : V
   have openingBound := takeModel_valid text position .leftParenthesis bounded
   have innerBound := (contracts.model text tv context cv _ openingBound facts fv).1.1
   rw [helpers.take text tv _ .rightParenthesis innerBound,
-    helpers.callAfter text tv context.names position .validity context.scalarNames context.arrayNames cv.1 cv.2.2.1 cv.arrays bounded,
+    helpers.callAfter text tv context.names position .validity context.scalarNames context.arrayNames (context.subtypeHiding.get .validity) cv.1 cv.2.2.1 cv.arrays bounded,
     helpers.assumeValid, helpers.assumeInvalid]
   simp only [helpers.invalidCondition facts (fv.count_le cv)]
   rfl
@@ -282,7 +282,7 @@ theorem condition_of_source_equations (contracts : Contracts calls) (text : Sour
 end
 
 theorem model_helper_meaning : HelperMeaning modelCalls where
-  callAfter _ _ _ _ _ _ _ _ _ _ _ := rfl
+  callAfter _ _ _ _ _ _ _ _ _ _ _ _ := rfl
   take _ _ _ _ _ := rfl
   skip _ _ _ _ := rfl
   name _ _ _ _ := rfl

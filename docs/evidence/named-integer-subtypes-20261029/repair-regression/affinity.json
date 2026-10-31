@@ -1,0 +1,179 @@
+{
+  "raw_observations": "affinity-observations.json.gz",
+  "sha256_uncompressed": "38aaf8044051bbe3b80869194c0e20dd1a1a9a877e83143dd861708efdf41b20",
+  "scope": "Unittest and descendants restricted to CPUs 8-11; managed runners retain host affinity. Every observed descendant effective affinity and original observation remains in the compressed record.",
+  "runs": [
+    {
+      "label": "lean-source",
+      "run_id": "20261029T210251-939fbc67799b",
+      "runner_pid": 464781,
+      "runner_affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "unittest_pid": 464783,
+      "cpus": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "started_at": "2026-10-29T21:02:51.542651+00:00",
+      "finished_at": "2026-10-29T21:04:09.135845+00:00",
+      "returncode": 0,
+      "observed_processes": 54,
+      "observed_inherited_affinities": [
+        "[8, 9, 10, 11]"
+      ],
+      "unittest_affinity_observation": {
+        "pid": 464783,
+        "cpus": [
+          8,
+          9,
+          10,
+          11
+        ],
+        "utc": "2026-10-29T21:02:56.716661+00:00"
+      }
+    },
+    {
+      "label": "platforms",
+      "run_id": "20261029T210409-2c895b357da6",
+      "runner_pid": 465040,
+      "runner_affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "unittest_pid": 465047,
+      "cpus": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "started_at": "2026-10-29T21:04:09.136631+00:00",
+      "finished_at": "2026-10-29T21:08:31.956093+00:00",
+      "returncode": 0,
+      "observed_processes": 874,
+      "observed_inherited_affinities": [
+        "[8, 9, 10, 11]"
+      ],
+      "unittest_affinity_observation": {
+        "pid": 465047,
+        "cpus": [
+          8,
+          9,
+          10,
+          11
+        ],
+        "utc": "2026-10-29T21:04:13.439770+00:00"
+      }
+    },
+    {
+      "label": "output-integrity",
+      "run_id": "20261029T210832-732f9cd37a16",
+      "runner_pid": 466655,
+      "runner_affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "unittest_pid": 466659,
+      "cpus": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "started_at": "2026-10-29T21:08:31.958153+00:00",
+      "finished_at": "2026-10-29T21:09:19.995181+00:00",
+      "returncode": 0,
+      "observed_processes": 321,
+      "observed_inherited_affinities": [
+        "[8, 9, 10, 11]"
+      ],
+      "unittest_affinity_observation": {
+        "pid": 466659,
+        "cpus": [
+          8,
+          9,
+          10,
+          11
+        ],
+        "utc": "2026-10-29T21:08:37.632347+00:00"
+      }
+    },
+    {
+      "label": "silver-tool-failures",
+      "run_id": "20261029T210920-b4b0cd40fe3c",
+      "runner_pid": 467039,
+      "runner_affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "unittest_pid": 467049,
+      "cpus": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "started_at": "2026-10-29T21:09:19.997430+00:00",
+      "finished_at": "2026-10-29T21:09:39.356777+00:00",
+      "returncode": 0,
+      "observed_processes": 166,
+      "observed_inherited_affinities": [
+        "[8, 9, 10, 11]"
+      ],
+      "unittest_affinity_observation": {
+        "pid": 467049,
+        "cpus": [
+          8,
+          9,
+          10,
+          11
+        ],
+        "utc": "2026-10-29T21:09:24.189296+00:00"
+      }
+    }
+  ]
+}

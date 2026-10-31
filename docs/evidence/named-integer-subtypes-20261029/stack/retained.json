@@ -1,0 +1,146 @@
+[
+  {
+    "path": "foreach/reports/gnatprove.out.gz",
+    "original_bytes": 4498,
+    "original_sha256": "0a3df28e237b0c8d559d7f54f67ef65829009a6dd6f3bf7df2c7aab3ef9ac44c",
+    "compressed_sha256": "37cb25ae97081e61fd6f3b1d8f1c970533eec7abbdc673287565f78ad8d22b73"
+  },
+  {
+    "path": "foreach/reports/main~1.spark.gz",
+    "original_bytes": 1019,
+    "original_sha256": "c29226a4f4c940f2c721b998403219a57b27055b97969b66e4fcc7dcb04f8973",
+    "compressed_sha256": "4118d60e97a68a6c30bebe6a8bd667d0351123704c05de066a465f88e329e881"
+  },
+  {
+    "path": "foreach/reports/silver_arguments.spark.gz",
+    "original_bytes": 33836,
+    "original_sha256": "8029fc1b4433c773b54afcaa4735e07c9c38a7e841765a68a25db5af4e553ac8",
+    "compressed_sha256": "370caf36698a3cb7dee21591a302d5710577ad1fcffa79d9da893f9596f1af0c"
+  },
+  {
+    "path": "foreach/reports/silver_io.spark.gz",
+    "original_bytes": 83131,
+    "original_sha256": "2bb4fdc742cb345f989648cc5561353b16f02f9d9a6cfced00574d56542d68de",
+    "compressed_sha256": "2bf32d70c51d80e88b52094df6c25504f42a23520d3e32b420f519aacd8f2c30"
+  },
+  {
+    "path": "foreach/reports/silver_output_libc.spark.gz",
+    "original_bytes": 1715,
+    "original_sha256": "e4bd96754379d13f363a234b5231f0de8eb73f298ccbfcfec536872531b11d03",
+    "compressed_sha256": "01c933f7da6bfe49b707f65d7394a0a0cbb6432119ff7292db4dc8101f9c4729"
+  },
+  {
+    "path": "foreach/reports/silver_runtime.spark.gz",
+    "original_bytes": 1692,
+    "original_sha256": "13b577f77409b7387c4d8032dba5dccb1e6a486aa5c40dff92c800bbd092e1b2",
+    "compressed_sha256": "0529d968939867464f5b87788dbb7136c88c3d0bf88a14af86366366d5f2c4b5"
+  },
+  {
+    "path": "counted/reports/gnatprove.out.gz",
+    "original_bytes": 4317,
+    "original_sha256": "ce6e71dce6048d232621abf69576da90d401aea0879443b8aa0890bc4674c2cf",
+    "compressed_sha256": "944cb1da9a883405d582877d509e3ce5770ef4e8293a08585db05e11ab6ed4a5"
+  },
+  {
+    "path": "counted/reports/main~1.spark.gz",
+    "original_bytes": 1019,
+    "original_sha256": "f81a1bc17992da3909da29f223f585de5814c8e7afba3171f373b02e3d4bd012",
+    "compressed_sha256": "5f3fd32896418e55b7dab5e6c9e063214cc3a498e3bc9c325b179ca79ea41250"
+  },
+  {
+    "path": "counted/reports/silver_arguments.spark.gz",
+    "original_bytes": 33819,
+    "original_sha256": "a9ac3d15f05bd56d978fb35f2bdfaf20534079e6da9004386f2ea734b7656814",
+    "compressed_sha256": "410102abc8b5a6888fa9f955b2c854c47a75c6fa2e9eb796561e233dc97c4de2"
+  },
+  {
+    "path": "counted/reports/silver_io.spark.gz",
+    "original_bytes": 82868,
+    "original_sha256": "f309577c7114338b85dbd8cc1621cb4c3a44c5b1e7e15ef124d1004a2e02915a",
+    "compressed_sha256": "7e61b319db82d84f7a59387733ccff4065441946c32cff0e53361e9e0b34dda3"
+  },
+  {
+    "path": "counted/reports/silver_output_libc.spark.gz",
+    "original_bytes": 1715,
+    "original_sha256": "927d44c12c9a0c4088ee3e3b591d451abf82bca3484ccec74ffdf4549dd0a42b",
+    "compressed_sha256": "1bd4acda8a4fdd74ed2ae7175e1e6507d3c99d003823f12418fe3bec669a8fd1"
+  },
+  {
+    "path": "counted/reports/silver_runtime.spark.gz",
+    "original_bytes": 1692,
+    "original_sha256": "f4fa4bf4611ff048fa3589cc1a6428d34019c521ff1111b2e956b6245f70433c",
+    "compressed_sha256": "ff7a1f70e51484d676d82d051be1463bd803c38c7242b77ec51814893950307a"
+  },
+  {
+    "path": "conditional/reports/gnatprove.out.gz",
+    "original_bytes": 4452,
+    "original_sha256": "28215533e401c82a60a53e2bbd84b27556b3cf25ce61f0a362971cc390ed28e0",
+    "compressed_sha256": "5c40a5211a9895efb1cbd23687e708ad4f03411378d542667114358267b45711"
+  },
+  {
+    "path": "conditional/reports/main~1.spark.gz",
+    "original_bytes": 1019,
+    "original_sha256": "50939b373835ff02cdbaf7025997c6f7ebcd177a4b5c693f490a1a5c02ad5c9b",
+    "compressed_sha256": "78bce2beceb4967d6d832aac877bd98f11ddc5be0729a6523ebd58d0613896c9"
+  },
+  {
+    "path": "conditional/reports/silver_arguments.spark.gz",
+    "original_bytes": 33718,
+    "original_sha256": "bc9bda12b2ccfa05139978a5507f7176272c1f0af02cd385522bfc08c03e95a7",
+    "compressed_sha256": "0ff7899c750157e8cca0ead40156789a1b3dc01a078e671505f003772fdcb799"
+  },
+  {
+    "path": "conditional/reports/silver_io.spark.gz",
+    "original_bytes": 82886,
+    "original_sha256": "273e424908ec77cf9ce912fd3f3ddfd69f4e21feb1fe8ff3cd46d9a09ddc154b",
+    "compressed_sha256": "d4f0ff435a0c3821687640645ce4ff3db600bf1e132dcfcc1336c4447f80fe68"
+  },
+  {
+    "path": "conditional/reports/silver_output_libc.spark.gz",
+    "original_bytes": 1715,
+    "original_sha256": "84f512d11f9b35a030f53e5e5d1b88f228a52069c940561cf481a7b5f987b3f1",
+    "compressed_sha256": "6c2929f7d730b57c6b910622dea65e19a2111ec37d6666ecd795dc343e4bd557"
+  },
+  {
+    "path": "conditional/reports/silver_runtime.spark.gz",
+    "original_bytes": 1692,
+    "original_sha256": "462432c9ffb0c974c16e1de4641855215023f6966a6b58a123ff7a63a25754df",
+    "compressed_sha256": "42cc03651a6cecb7246b09a70fce58a3e6dfce57b352c89935612059e7711598"
+  },
+  {
+    "path": "foreach-singleton/reports/gnatprove.out.gz",
+    "original_bytes": 4498,
+    "original_sha256": "4268cf7f4d1f3e192d95083b35f50ae1a5747f81edd21428e2506522bbdc8291",
+    "compressed_sha256": "79c281923cac92d5a934fc4c30ea5dd4a43ec21342fa3daf753f1467c905cf94"
+  },
+  {
+    "path": "foreach-singleton/reports/main~1.spark.gz",
+    "original_bytes": 1019,
+    "original_sha256": "59f5ef1f05910e3b5c2437e68b8a7fe51c9a78ad4cb3917200dc02485572796e",
+    "compressed_sha256": "4d853d46178f532a290f3af4b73ec1500bdb0c5c846d87fc41625d456606e198"
+  },
+  {
+    "path": "foreach-singleton/reports/silver_arguments.spark.gz",
+    "original_bytes": 33698,
+    "original_sha256": "0b4b329cdbad39659c81f8578d5f76934a9637442301c030c5776905b6b126f0",
+    "compressed_sha256": "aeb0d7da7d969094201905382a5ec18441e00a9f45eb1eff8a394e5f4e1ac32d"
+  },
+  {
+    "path": "foreach-singleton/reports/silver_io.spark.gz",
+    "original_bytes": 82977,
+    "original_sha256": "04233940528a11c3b08f6e490a5e66b5697f6279fa8c718a494a8a20181e7065",
+    "compressed_sha256": "7db3bf915003211e400fad445312b306ff034262616729d9255ca82879fbd5c8"
+  },
+  {
+    "path": "foreach-singleton/reports/silver_output_libc.spark.gz",
+    "original_bytes": 1715,
+    "original_sha256": "e2b9139c6328e14161daf0c417ad3db8d6989e9cf6b6629e65835e239624c851",
+    "compressed_sha256": "0d90728efc6df2b3e2ece458aac72e71d1b40b4a4185258ca8ad456cfe526672"
+  },
+  {
+    "path": "foreach-singleton/reports/silver_runtime.spark.gz",
+    "original_bytes": 1692,
+    "original_sha256": "b10885774458434e45c23d9731f294678a9cb2cc3b30cb0f1acbf4a648e372bc",
+    "compressed_sha256": "3b2e73785567ee142a92c260077f9641bb1bd0b3b7ea1a1855ee7fed3549a281"
+  }
+]

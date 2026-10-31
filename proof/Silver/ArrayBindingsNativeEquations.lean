@@ -14,7 +14,8 @@ def Span (text : Source) (first after : Nat) : Prop :=
   0 < first ∧ first < after ∧ after ≤ text.length + 1
 
 def BindingType (item : Binding) : Prop :=
-  item.bounds.Bounded ∧ item.offset ≤ maxElements ∧ item.length ≤ maxElements
+  item.bounds.Bounded ∧ item.offset ≤ maxElements ∧ item.length ≤ maxElements ∧
+    item.componentBounds.Bounded
 
 structure Primitives (calls : Calls) : Prop where
   equalName : ∀ text, ValidText text → ∀ first after otherFirst otherAfter,
@@ -45,7 +46,7 @@ structure Equations (calls : Calls) : Prop where
       if elaborating then calls.hullModel values
         (calls.elementSlot (binding names target) indices.lower)
         (calls.elementSlot (binding names target) indices.upper)
-      else Integer.Interval.full
+      else (binding names target).componentBounds
 
 def lookupEquation (calls : Calls) (text : Source) (names : Metadata) (first after index : Nat) : Nat :=
   if first = 0 ∨ after ≤ first ∨ index = 0 then 0
@@ -119,7 +120,7 @@ theorem interpreted_lookupModel (calls : Calls) (primitives : Primitives calls) 
         lookup_denotation]
       by_cases bad : first = 0 ∨ after ≤ first
       · simp [lookupEquation, lookupFrom, bad]
-      · have itemValid := metadata.2 _ (binding_mem (by omega) indexBound)
+      · have itemValid := metadata.2.1 _ (binding_mem (by omega) indexBound)
         have compared := primitives.equalName text valid (binding names (index + 1)).first
           (binding names (index + 1)).after first after
           ⟨itemValid.1,itemValid.2.1,itemValid.2.2.1⟩ ⟨by omega,by omega,afterBound⟩
@@ -196,6 +197,9 @@ theorem interpreted_readBounds (calls : Calls) (primitives : Primitives calls) (
   rw [interpreted_hullModel calls primitives equations values valuesValid _ _ firstSlot.1 order lastSlot.2]
   rfl
 
+instance (text : Source) (names : Metadata) : Decidable (ValidMetadata text names) :=
+  inferInstanceAs (Decidable (_ ∧ (∀ item ∈ names, _ ∧ _ ∧ _ ∧ _) ∧ _))
+
 def modelCalls : Calls where
   lookupModel := lookupFrom
   lookup := ArrayBindings.lookup
@@ -207,6 +211,10 @@ def modelCalls : Calls where
   isEmpty := Integer.Interval.isEmpty
   singleton := Integer.Interval.singleton
   join := Integer.Interval.join
+  validNameState := fun text first after => decide
+    ((first = 0 ∧ after = 0) ∨ (0 < first ∧ first < after ∧ after ≤ text.length + 1))
+  validBinding := fun item => decide (ValidBinding item)
+  validMetadata := fun text names => decide (ValidMetadata text names)
 
 theorem model_primitives : Primitives modelCalls where
   equalName _ _ _ _ _ _ _ _ := rfl
@@ -217,18 +225,20 @@ theorem model_primitives : Primitives modelCalls where
 theorem validBinding_meaning (calls : Calls) (primitives : Primitives calls)
     (item : Binding) (typed : BindingType item) :
     validBindingBody.eval calls ({item} : Context).locals = true ↔ ValidBinding item := by
-  change ((!calls.isEmpty item.bounds && decide (item.length > 0) &&
+  change (((!calls.isEmpty item.bounds && decide (item.length > 0) &&
     decide (item.offset ≤ maxElements - item.length)) &&
-    decide (item.bounds.upper - item.bounds.lower = (item.length : Int) - 1)) = true ↔ ValidBinding item
-  rw [primitives.isEmpty item.bounds typed.1]
+    decide (item.bounds.upper - item.bounds.lower = (item.length : Int) - 1)) &&
+    !calls.isEmpty item.componentBounds) = true ↔ ValidBinding item
+  rw [primitives.isEmpty item.bounds typed.1,
+    primitives.isEmpty item.componentBounds typed.2.2.2]
   simp only [Bool.and_eq_true, Integer.Interval.isEmpty, not_decide_eq_true,
     decide_eq_true_eq, ValidBinding, and_assoc]
-  have lengthBound := typed.2.2
+  have lengthBound := typed.2.2.1
   constructor
-  · rintro ⟨nonempty, positive, capacity, exact⟩
-    exact ⟨typed.1, by omega, positive, by omega, exact⟩
-  · rintro ⟨_, nonempty, positive, capacity, exact⟩
-    exact ⟨by omega, positive, by omega, exact⟩
+  · rintro ⟨nonempty, positive, capacity, exact, componentNonempty⟩
+    exact ⟨typed.1, by omega, positive, by omega, exact, typed.2.2.2, by omega⟩
+  · rintro ⟨_, nonempty, positive, capacity, exact, _, componentNonempty⟩
+    exact ⟨by omega, positive, by omega, exact, by omega⟩
 
 theorem model_equations : Equations modelCalls where
   lookupModel text _ names _ first after index _ _ _ := by
@@ -249,5 +259,50 @@ theorem model_equations : Equations modelCalls where
     simp only [elementSlot, Integer.Interval.Contains] at *
     omega
   readBounds _ _ _ _ _ _ _ _ _ _ _ := rfl
+
+/-- The mathematical metadata domain supplies every test in the rendered
+native precondition, including adjacent allocation separation. -/
+theorem validMetadata_model_precondition (text : Source) (names : Metadata)
+    (valid : ValidMetadata text names) :
+    validMetadataBody.eval modelCalls ({text,names} : Context).locals = true := by
+  dsimp +instances only [validMetadataBody, Expr.eval, Context.locals, Calls.get,
+    Field.get, Locals.withIndex, apply3, apply2]
+  simp only [List.all_eq_true, List.mem_range]
+  intro index bound
+  have member := binding_mem (names := names) (index := index + 1) (by omega) (by omega)
+  have itemValid := valid.2.1 _ member
+  have nameValid : modelCalls.validNameState text (binding names (index + 1)).first
+      (binding names (index + 1)).after = true := by
+    simp only [modelCalls, decide_eq_true_eq]
+    exact .inr ⟨itemValid.1, itemValid.2.1, itemValid.2.2.1⟩
+  have bindingValid : modelCalls.validBinding (binding names (index + 1)) = true := by
+    simpa only [modelCalls, decide_eq_true_eq] using itemValid.2.2.2
+  have separated : index + 1 > 1 →
+      (binding names (index + 1)).offset ≥
+        (binding names index).offset + (binding names index).length := by
+    intro positive
+    have priorBound : index - 1 < names.length := by omega
+    have relation := valid.2.2.rel_getElem_of_lt priorBound bound (by omega)
+    simpa only [binding, Nat.add_sub_cancel, List.getD_eq_getElem?_getD,
+      List.getElem?_eq_getElem priorBound, List.getElem?_eq_getElem bound,
+      Option.getD_some] using relation
+  by_cases more : index + 1 > 1
+  · have relation := separated more
+    simp [nameValid, bindingValid, itemValid.1, more, relation]
+  · simp [nameValid, bindingValid, itemValid.1, more]
+
+/-- The native environment predicate requires metadata validity and that every
+allocated cell lies in the initialized prefix. These facts follow from its
+mathematical domain; value containment is the separate SourceReady invariant. -/
+theorem validEnvironment_model_precondition (text : Source) (environment : Env)
+    (valid : ValidEnvironment text environment) :
+    validEnvironmentBody.eval modelCalls ({text,environment} : Context).locals = true := by
+  dsimp +instances only [validEnvironmentBody, Expr.eval, Context.locals, Calls.get,
+    Field.get, Locals.withIndex, apply2]
+  simp only [Bool.and_eq_true, modelCalls, decide_eq_true_eq, List.all_eq_true, List.mem_range]
+  refine ⟨valid.1, ?_⟩
+  intro index bound
+  have member := binding_mem (names := environment.names) (index := index + 1) (by omega) (by omega)
+  exact valid.2.2.2 _ member
 
 end Silver.ArrayBindings.Native

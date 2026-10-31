@@ -1,0 +1,38 @@
+{
+  "implementation_commit": "6020416906b5fc3d2bd10d012e70937c80f0617c",
+  "pre_repair_implementation_commit": "97312a790fb11a83a9607ad48ddab491711f2c3d",
+  "scope": "Repaired input identity and reviewed regression applicability. All 46 affected tests and complete repaired native proof/coverage/provenance passed; complete Lean remains pending.",
+  "source_delta": {
+    "proof/Silver/OutputBodyCertificate.lean": {
+      "before_sha256": "dad4e37a2c1f27398d6f4aba079aa9ff7e4705bedf98e6b5d9dd8028bfa7269b",
+      "after_sha256": "3f9d06ae63a75479c101e8b3baf4f08a98c2615f97cf24818c88b701a6586ab0"
+    },
+    "proof/Silver/ReviewedOutputShape.lean": {
+      "before_sha256": "837962add6955cd16eda2c0fa53abfdc4e76bd6e0855331498811a07f53357f9",
+      "after_sha256": "dbfbec6d594896b227dffb8cdec21c4b129b0ba7deb326b29c51aaa32bb3a1ad"
+    },
+    "src/silver_output_profile.adb": {
+      "before_sha256": "241637c5043dc66776a4a9715e7703abb9602c6323fa0d12a5375959790e4f07",
+      "after_sha256": "84779089d15b9e7990fd806de3a8965edfb5bdeacac2c02544cb0c9d28ba6a8a"
+    }
+  },
+  "lean": {
+    "run_id": "20261029T205735-bb72d0625415",
+    "captured_count": 653,
+    "matching_tracked_count": 653,
+    "changed_tracked_inputs": {},
+    "inputs_digest_sha256": "2d7a1b7219adba29378351f9a190c61d7abb3d822ac6ae03f552df1e6f562103",
+    "certificate_scope": "28 generated certificates are regenerated rather than included in the 653 captured inputs; output body certificate changed with this repair."
+  },
+  "applicability_review": "../../reviews/review-named-integer-subtypes-body-tail-equality-20261029.md",
+  "required_refreshed_test_count": 46,
+  "retained_test_count_subject_to_review": 509,
+  "native_run_id": "20261029T211041-a76eb6753f23",
+  "regression_packet": "repair-regression/README.md",
+  "regression_coverage": {
+    "retained": 509,
+    "refreshed": 46,
+    "total": 555,
+    "missing_or_failed": []
+  }
+}

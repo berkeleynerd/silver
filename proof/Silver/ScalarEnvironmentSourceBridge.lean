@@ -241,7 +241,7 @@ structure Checked (tokens : List String) : Prop where
   index : Lexical.SourceBridge.subtypeDeclaration "binding_index" tokens =
     some (expectedTokens "Positive range 1 .. Max_Bindings")
   maximum : Source.declaration "max_bindings" tokens =
-    some (expectedTokens "constant Positive := Max_Source_Length / 12")
+    some (expectedTokens "constant Positive := Max_Source_Length / 7")
   items : typeDeclaration "binding_array" tokens =
     some (expectedTokens "array (Binding_Index) of Binding")
   environment : Lexical.SourceBridge.recordDeclaration "environment" tokens =

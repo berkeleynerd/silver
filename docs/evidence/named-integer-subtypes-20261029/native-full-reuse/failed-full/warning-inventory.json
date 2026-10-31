@@ -1,0 +1,50 @@
+[
+  {
+    "count": 5,
+    "message": "initialization of an array in FOR loop is handled imprecisely [array-initialization]",
+    "rule": "array-initialization",
+    "severity": "warning"
+  },
+  {
+    "count": 104,
+    "message": "function contract might not be available on recursive calls [contracts-recursive]",
+    "rule": "contracts-recursive",
+    "severity": "warning"
+  },
+  {
+    "count": 31,
+    "message": "implicit function contract might not be available on recursive calls [contracts-recursive]",
+    "rule": "contracts-recursive",
+    "severity": "warning"
+  },
+  {
+    "count": 5,
+    "message": "cannot unroll loop (too many loop iterations) [info-unrolling-inlining]",
+    "rule": "error",
+    "severity": "info"
+  },
+  {
+    "count": 5,
+    "message": "local subprogram {0} only analyzed in the context of calls [info-unrolling-inlining]",
+    "rule": "error",
+    "severity": "info"
+  },
+  {
+    "count": 42,
+    "message": "unrolling loop [info-unrolling-inlining]",
+    "rule": "error",
+    "severity": "info"
+  },
+  {
+    "count": 6236,
+    "message": "function Is_Valid is assumed to return True",
+    "rule": "error",
+    "severity": "warning"
+  },
+  {
+    "count": 170,
+    "message": "expression function body of subprograms with a numeric variant might not be available on recursive calls [numeric-variant]",
+    "rule": "numeric-variant",
+    "severity": "warning"
+  }
+]

@@ -64,8 +64,8 @@ theorem model_equations : Equations modelCalls where
     all_goals by_cases loopFound : fixedAfter text scan.position "for" true ≠ 0
     all_goals simp +instances [modelCalls, statementBody, statementEval, Test.eval, ScanExpr.eval,
       modelPrimitives, tokenAfter, ShellToken.word, zero, found, loopFound] <;> simp_all
-  loop text _ context _ scan sv := by
-    rw [LoopNative.eval_equation _ text context scan sv.2.2.2.compatible.count]
+  loop text _ context cv scan sv := by
+    rw [LoopNative.eval_equation _ text context scan sv.2.2.2.compatible.count cv.arrays]
     exact model_loop_equation text context scan
   conditional text tv context cv scan sv := by
     rw [conditional_eval]
@@ -108,7 +108,7 @@ mutual
       (scan : BodyScan) (sv : ValidScan text context scan) :
       calls.loop text context scan = loopBody text context.model scan := by
     rw [equations.loop text tv context cv scan sv,
-      LoopNative.eval_equation calls.read text context scan sv.2.2.2.compatible.count,
+      LoopNative.eval_equation calls.read text context scan sv.2.2.2.compatible.count cv.arrays,
       model_loop_equation text context scan]
     unfold LoopNative.equation
     dsimp only [modelCalls]
@@ -120,7 +120,7 @@ mutual
         have positive : (loopHeader text context.model scan).entry.position ≠ 0 := by omega
         have innerValid : Native.ValidContext text (LoopNative.inner context (loopHeader text context.model scan)) :=
           ⟨cv.1, cv.2.1,
-            loopInner_valid_environment (text := text) (context := context.model) (scan := scan) cv.2.2.1 allowed positive,
+            loopInner_valid_environment (text := text) (context := context.model) (scan := scan) cv.arrays cv.2.2.1 allowed positive,
             nativeLoopInner_baseReady (context := context.model) cv.base (loopHeader text context.model scan)
               (loopNameAllowed_space cv.base.size allowed), cv.arrays⟩
         have entryValid : ValidScan text (LoopNative.inner context (loopHeader text context.model scan))
@@ -130,7 +130,7 @@ mutual
           · exact sv.2.1
           · exact ⟨loopContext_bounded sv.2.2.1
               (loopHeader text context.model scan).bounds,
-              loopHeader_flowReady cv.base sv.2.2.2 cv.2.2.1 positive⟩
+              loopHeader_flowReady cv.arrays cv.base sv.2.2.2 cv.2.2.1 positive⟩
         have advanced := remaining_lt entryValid.1 (Nat.lt_of_not_ge failed)
         rw [read_unique calls equations text tv _ innerValid _ .endOnly entryValid]
     · have disallowed := Bool.eq_false_iff.mpr allowed

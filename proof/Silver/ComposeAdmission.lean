@@ -5,6 +5,8 @@ public import Silver.Names
 public import Silver.ScalarExpressionAdmission
 public import Silver.StringLengths
 public import Silver.ArrayBindings
+public import Silver.IntegerSubtypeBindings
+public import Silver.ScalarExpressionEnvironment
 
 @[expose] public section
 
@@ -63,6 +65,7 @@ structure ParserState where
   capacity : Nat := maxSourceLength
   scalarNames : ScalarExpression.Environment := []
   arrayNames : ArrayBindings.Env := {}
+  subtypeNames : IntegerSubtypes.Environment := {}
   deriving DecidableEq, Repr
 
 def initialState : ParserState := {}
@@ -132,11 +135,11 @@ def lookupName (text : Source) (names : BindingEnvironment) (first after : Nat) 
 
 def callAfter (text : Source) (names : BindingEnvironment) (position : Nat)
     (operation : Names.Operation) (scalarNames : ScalarExpression.Environment := [])
-    (arrays : ArrayBindings.Metadata := []) : Nat :=
+    (arrays : ArrayBindings.Metadata := []) (subtypeHidden : Bool := false) : Nat :=
   let first := skipAt text position
   let after := nameAfter text first
   Names.operationAfter text position operation (decide (lookupName text names first after ≠ 0 ∨ ScalarExpression.lookup text scalarNames first after ≠ 0 ∨
-    ArrayBindings.lookup text arrays first after ≠ 0))
+    ArrayBindings.lookup text arrays first after ≠ 0) || subtypeHidden)
 
 
 def literalAt (text : Source) (position : Nat) : ValueResult :=
@@ -351,7 +354,8 @@ def newNameAllowed (text : Source) (state : ParserState) (first after : Nat) (ar
     (!arguments || !Arguments.forbiddenName text first after) &&
     decide (lookupName text state.names first after = 0 ∧
       ScalarExpression.lookup text state.scalarNames first after = 0 ∧
-      ArrayBindings.lookup text state.arrayNames.names first after = 0)
+      ArrayBindings.lookup text state.arrayNames.names first after = 0 ∧
+      IntegerSubtypes.lookup text state.subtypeNames first after = 0)
 
 def addBinding (state : ParserState) (first after : Nat) (value : ValueResult)
     (mutable : Bool) (following : Nat) : ParserState :=
@@ -405,17 +409,63 @@ structure ScalarConstraintResult where
   deriving DecidableEq, Repr
 
 def scalarConstraintAt (text : Source) (position : Nat)
-    (names : ScalarExpression.Environment) : ScalarConstraintResult :=
+    (names : ScalarExpression.Environment) (baseBounds : Integer.Interval := .full) : ScalarConstraintResult :=
   let rangeAfter := fixedAfter text position "range" true
-  if rangeAfter = 0 then ⟨position, .full⟩ else
+  if rangeAfter = 0 then ⟨position, baseBounds⟩ else
     let lower := ScalarExpression.read text rangeAfter names
     let delimiter := fixedAfter text lower.after ".." false
     let upper := ScalarExpression.read text delimiter names
     if lower.after = 0 ∨ delimiter = 0 ∨ upper.after = 0 ∨ lower.isStatic = false ∨ upper.isStatic = false ∨
         lower.bounds.isEmpty = true ∨ upper.bounds.isEmpty = true ∨
         lower.bounds.lower ≠ lower.bounds.upper ∨ upper.bounds.lower ≠ upper.bounds.upper ∨
-        upper.bounds.lower < lower.bounds.lower
+        upper.bounds.lower < lower.bounds.lower ∨ lower.bounds.lower < baseBounds.lower ∨
+        baseBounds.upper < upper.bounds.lower
     then ⟨0, .empty⟩ else ⟨upper.after, ⟨lower.bounds.lower, upper.bounds.lower⟩⟩
+
+def scalarTypeAt (text : Source) (state : ParserState) (position : Nat) : ScalarConstraintResult :=
+  let first := skipAt text position
+  let after := nameAfter text first
+  let target := IntegerSubtypes.lookup text state.subtypeNames first after
+  if first = 0 ∨ after ≤ first ∨ lookupName text state.names first after ≠ 0 ∨
+      ScalarExpression.lookup text state.scalarNames first after ≠ 0 ∨
+      ArrayBindings.lookup text state.arrayNames.names first after ≠ 0
+  then ⟨0, .empty⟩
+  else if Named.nameIs text first after ("integer".toList.map Char.toNat) then ⟨after, .full⟩
+  else if target ≠ 0 then ⟨after, (IntegerSubtypes.binding state.subtypeNames target).bounds⟩
+  else ⟨0, .empty⟩
+
+structure SubtypeDeclarationParts where
+  first : Nat
+  after : Nat
+  typeFirst : Nat
+  typeAfter : Nat
+  constraint : ScalarConstraintResult
+  following : Nat
+  deriving DecidableEq, Repr
+
+def subtypeDeclarationParts (text : Source) (state : ParserState) : SubtypeDeclarationParts :=
+  let first := skipAt text (fixedAfter text state.position "subtype" true)
+  let after := nameAfter text first
+  let typeFirst := skipAt text (fixedAfter text after "is" true)
+  let typeAfter := fixedAfter text typeFirst "integer" true
+  let constraint := scalarConstraintAt text typeAfter state.scalarNames
+  ⟨first, after, typeFirst, typeAfter, constraint, fixedAfter text constraint.after ";" false⟩
+
+def addSubtypeBinding (text : Source) (state : ParserState) (parts : SubtypeDeclarationParts) : ParserState :=
+  {state with position := parts.following, subtypeNames := IntegerSubtypes.append text state.subtypeNames ⟨parts.first, parts.after, parts.constraint.bounds⟩}
+
+def subtypeDeclarationAt (text : Source) (state : ParserState) (arguments : Bool) : ParserState :=
+  let parts := subtypeDeclarationParts text state
+  if !newNameAllowed text state parts.first parts.after arguments ||
+      Named.nameIs text parts.first parts.after ("integer".toList.map Char.toNat) ||
+      decide (state.subtypeNames.items.length = IntegerSubtypes.maxBindings ∨
+        parts.typeAfter = 0 ∨ fixedAfter text parts.typeAfter "range" true = 0 ∨
+        parts.constraint.after = 0 ∨ parts.following ≤ state.position) ||
+      parts.constraint.bounds.isEmpty ||
+      decide (lookupName text state.names parts.typeFirst parts.typeAfter ≠ 0 ∨
+        ScalarExpression.lookup text state.scalarNames parts.typeFirst parts.typeAfter ≠ 0 ∨
+        ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter ≠ 0)
+  then invalidState else addSubtypeBinding text state parts
 
 structure ScalarDeclarationParts where
   first : Nat
@@ -433,17 +483,19 @@ def scalarDeclarationTypeFirst (text : Source) (state : ParserState) : Nat :=
     else declarationColonAfter text state)
 
 def scalarDeclarationTypeAfter (text : Source) (state : ParserState) : Nat :=
-  fixedAfter text (scalarDeclarationTypeFirst text state) "integer" true
+  (scalarTypeAt text state (scalarDeclarationTypeFirst text state)).after
 
 def scalarDeclarationValuePosition (text : Source) (state : ParserState) : Nat :=
-  fixedAfter text (scalarConstraintAt text (scalarDeclarationTypeAfter text state) state.scalarNames).after ":=" false
+  fixedAfter text (scalarConstraintAt text (scalarDeclarationTypeAfter text state) state.scalarNames
+    (scalarTypeAt text state (scalarDeclarationTypeFirst text state)).bounds).after ":=" false
 
 def scalarDeclarationParts (text : Source) (state : ParserState) : ScalarDeclarationParts :=
   let value := ScalarExpression.read text (scalarDeclarationValuePosition text state) state.scalarNames
     (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true)
   ⟨declarationFirst text state, declarationAfter text state, declarationConstantAfter text state,
     scalarDeclarationTypeFirst text state, scalarDeclarationTypeAfter text state,
-    scalarConstraintAt text (scalarDeclarationTypeAfter text state) state.scalarNames, value,
+    scalarConstraintAt text (scalarDeclarationTypeAfter text state) state.scalarNames
+    (scalarTypeAt text state (scalarDeclarationTypeFirst text state)).bounds, value,
     fixedAfter text value.after ";" false⟩
 
 def addScalarBinding (state : ParserState) (parts : ScalarDeclarationParts) : ParserState :=
@@ -456,7 +508,7 @@ def scalarDeclarationAt (text : Source) (state : ParserState) (arguments : Bool)
   let parts := scalarDeclarationParts text state
   if !newNameAllowed text state parts.first parts.after arguments ||
       decide (parts.typeAfter = 0 ∨ parts.constraint.after = 0 ∨
-        parts.following ≤ state.position ∨ state.scalarNames.length = maxBindings) ||
+        parts.following ≤ state.position ∨ state.scalarNames.length = ScalarExpression.maxBindings) ||
       parts.value.bounds.isEmpty ||
       decide (parts.value.bounds.lower ≠ parts.value.bounds.upper ∨
         parts.value.bounds.lower < parts.constraint.bounds.lower ∨
@@ -476,6 +528,7 @@ structure ArrayDeclarationParts where
   upper : ScalarExpression.Result
   typeFirst : Nat
   typeAfter : Nat
+  componentBounds : Integer.Interval
   position : Nat
   deriving DecidableEq, Repr
 
@@ -488,9 +541,10 @@ def arrayDeclarationParts (text : Source) (state : ParserState) : ArrayDeclarati
   let upper := ScalarExpression.read text (fixedAfter text lower.after ".." false) state.scalarNames
     (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true)
   let typeFirst := skipAt text (fixedAfter text (fixedAfter text upper.after ")" false) "of" true)
-  let typeAfter := fixedAfter text typeFirst "integer" true
+  let typeMark := scalarTypeAt text state typeFirst
+  let typeAfter := typeMark.after
   ⟨declarationFirst text state, declarationAfter text state, declarationConstantAfter text state,
-    arrayAfter, lower, upper, typeFirst, typeAfter,
+    arrayAfter, lower, upper, typeFirst, typeAfter, typeMark.bounds,
     fixedAfter text (fixedAfter text typeAfter ":=" false) "(" false⟩
 
 def arrayAggregatePosition (text : Source) (state : ParserState)
@@ -508,18 +562,19 @@ def arrayAggregatePosition (text : Source) (state : ParserState)
 from the incoming declaration state; the accumulator receives only flat values.
 The source readiness proof separately establishes `values.length = used`. -/
 def arrayValuesModel (text : Source) (source result : ParserState)
-    (position length parsed : Nat) : ParserState :=
+    (position length parsed : Nat) (componentBounds : Integer.Interval := .full) : ParserState :=
   if position = 0 then invalidState else
   if _remaining : parsed < length then
     let value := ScalarExpression.read text position source.scalarNames
       (arrays := source.arrayNames.names) (initials := source.arrayNames.values) (elaborating := true)
-    if value.after = 0 ∨ value.bounds.isEmpty = true ∨ value.bounds.lower ≠ value.bounds.upper then invalidState
+    if value.after = 0 ∨ value.bounds.isEmpty = true ∨ value.bounds.lower ≠ value.bounds.upper ∨
+        value.bounds.lower < componentBounds.lower ∨ componentBounds.upper < value.bounds.upper then invalidState
     else
       let next := {result with arrayNames := {result.arrayNames with
         used := result.arrayNames.used + 1,
         values := ArrayBindings.putInitial result.arrayNames.values (result.arrayNames.used + 1) value.bounds.lower}}
       let following := if parsed + 1 < length then fixedAfter text value.after "," false else value.after
-      arrayValuesModel text source next following length (parsed + 1)
+      arrayValuesModel text source next following length (parsed + 1) componentBounds
   else {result with position := position}
 termination_by length - parsed
 decreasing_by omega
@@ -542,19 +597,21 @@ def arrayDeclarationAt (text : Source) (state : ParserState) (arguments : Bool) 
     let length := (parts.upper.bounds.lower - parts.lower.bounds.lower + 1).toNat
     let position := arrayAggregatePosition text state parts length
     if position = 0 then invalidState else
-      let result := arrayValuesModel text state state position length 0
+      let result := arrayValuesModel text state state position length 0 parts.componentBounds
       if result.position = 0 then invalidState else
         let following := fixedAfter text (fixedAfter text result.position ")" false) ";" false
         if following ≤ state.position then invalidState else
           {result with position := following, arrayNames := {result.arrayNames with
             names := result.arrayNames.names ++ [⟨parts.first, parts.after,
               ⟨parts.lower.bounds.lower, parts.upper.bounds.lower⟩,
-              state.arrayNames.used, length, decide (parts.constantAfter = 0)⟩]}}
+              state.arrayNames.used, length, decide (parts.constantAfter = 0), parts.componentBounds⟩]}}
 
 def declarationAt (text : Source) (state : ParserState) (arguments : Bool) : ParserState :=
+  let subtype := subtypeDeclarationAt text state arguments
   let scalar := scalarDeclarationAt text state arguments
   let array := arrayDeclarationAt text state arguments
-  if scalar.position ≠ 0 then scalar
+  if subtype.position ≠ 0 then subtype
+  else if scalar.position ≠ 0 then scalar
   else if array.position ≠ 0 then array else stringDeclarationAt text state arguments
 
 structure ArgumentParts where
@@ -602,8 +659,8 @@ def declarationsLoop (text : Source) (arguments : Bool) : Nat → ParserState �
 
 def declarationsAt (text : Source) (state : ParserState) (arguments : Bool) : ParserState :=
   declarationsLoop text arguments
-    (2 * maxBindings + ArrayBindings.maxBindings + 1 -
-      (state.names.length + state.scalarNames.length + state.arrayNames.names.length)) state
+    (maxBindings + ScalarExpression.maxBindings + ArrayBindings.maxBindings + IntegerSubtypes.maxBindings + 1 -
+      (state.names.length + state.scalarNames.length + state.arrayNames.names.length + state.subtypeNames.items.length)) state
 
 -- The shell tables retain current control flow. Only declaration slots become
 -- a finite list, and assignment names resolve against its shared environment.
@@ -1045,11 +1102,12 @@ theorem stringDeclarationAt_count {text : Source} {state : ParserState} {argumen
   · simp [addBinding]
 
 theorem arrayValuesModel_preserves (text : Source) (source result : ParserState)
-    (position length parsed : Nat)
-    (accepted : (arrayValuesModel text source result position length parsed).position ≠ 0) :
-    (arrayValuesModel text source result position length parsed).names = result.names ∧
-      (arrayValuesModel text source result position length parsed).scalarNames = result.scalarNames ∧
-      (arrayValuesModel text source result position length parsed).arrayNames.names = result.arrayNames.names := by
+    (position length parsed : Nat) {componentBounds : Integer.Interval}
+    (accepted : (arrayValuesModel text source result position length parsed componentBounds).position ≠ 0) :
+    (arrayValuesModel text source result position length parsed componentBounds).names = result.names ∧
+      (arrayValuesModel text source result position length parsed componentBounds).scalarNames = result.scalarNames ∧
+      (arrayValuesModel text source result position length parsed componentBounds).arrayNames.names = result.arrayNames.names ∧
+      (arrayValuesModel text source result position length parsed componentBounds).subtypeNames = result.subtypeNames := by
   rw [arrayValuesModel] at accepted ⊢
   by_cases zero : position = 0
   · simp only [zero, ↓reduceIte, invalidState, ne_eq, not_true_eq_false] at accepted
@@ -1059,7 +1117,8 @@ theorem arrayValuesModel_preserves (text : Source) (source result : ParserState)
       generalize valueEq : ScalarExpression.read text position source.scalarNames
         (arrays := source.arrayNames.names) (initials := source.arrayNames.values)
         (elaborating := true) = value at accepted ⊢
-      by_cases bad : value.after = 0 ∨ value.bounds.isEmpty = true ∨ value.bounds.lower ≠ value.bounds.upper
+      by_cases bad : value.after = 0 ∨ value.bounds.isEmpty = true ∨ value.bounds.lower ≠ value.bounds.upper ∨
+        value.bounds.lower < componentBounds.lower ∨ componentBounds.upper < value.bounds.upper
       · simp only [bad, ↓reduceIte, invalidState, ne_eq, not_true_eq_false] at accepted
       · simp only [bad, ↓reduceIte] at accepted ⊢
         exact arrayValuesModel_preserves text source _ _ length (parsed + 1) accepted
@@ -1072,7 +1131,8 @@ theorem arrayDeclarationAt_count {text : Source} {state : ParserState} {argument
     (accepted : (arrayDeclarationAt text state arguments).position ≠ 0) :
     (arrayDeclarationAt text state arguments).names = state.names ∧
       (arrayDeclarationAt text state arguments).scalarNames = state.scalarNames ∧
-      (arrayDeclarationAt text state arguments).arrayNames.names.length = state.arrayNames.names.length + 1 := by
+      (arrayDeclarationAt text state arguments).arrayNames.names.length = state.arrayNames.names.length + 1 ∧
+      (arrayDeclarationAt text state arguments).subtypeNames = state.subtypeNames := by
   unfold arrayDeclarationAt at accepted ⊢
   dsimp only at accepted ⊢
   split at accepted
@@ -1096,54 +1156,68 @@ theorem arrayDeclarationAt_count {text : Source} {state : ParserState} {argument
         · rename_i following
           simp only [following, ↓reduceIte, List.length_append, List.length_singleton]
           have preserved := arrayValuesModel_preserves text state state _ _ 0 values
-          exact ⟨preserved.1, preserved.2.1, by rw [preserved.2.2]⟩
+          exact ⟨preserved.1, preserved.2.1, by rw [preserved.2.2.1], preserved.2.2.2⟩
 
 theorem declarationAt_count {text : Source} {state : ParserState} {arguments : Bool}
     (accepted : (declarationAt text state arguments).position ≠ 0) :
     (declarationAt text state arguments).names.length +
       (declarationAt text state arguments).scalarNames.length +
-      (declarationAt text state arguments).arrayNames.names.length =
-      state.names.length + state.scalarNames.length + state.arrayNames.names.length + 1 := by
-  by_cases scalar : (scalarDeclarationAt text state arguments).position ≠ 0
-  · have selected : declarationAt text state arguments = scalarDeclarationAt text state arguments := by
+      (declarationAt text state arguments).arrayNames.names.length +
+      (declarationAt text state arguments).subtypeNames.items.length =
+      state.names.length + state.scalarNames.length + state.arrayNames.names.length + state.subtypeNames.items.length + 1 := by
+  by_cases subtype : (subtypeDeclarationAt text state arguments).position ≠ 0
+  · have selected : declarationAt text state arguments = subtypeDeclarationAt text state arguments := by
       simp only [declarationAt]; split <;> simp_all
     rw [selected]
-    unfold scalarDeclarationAt at scalar ⊢
-    dsimp only at scalar ⊢
-    split at scalar
-    · simp [invalidState] at scalar
+    unfold subtypeDeclarationAt at subtype ⊢
+    dsimp only at subtype ⊢
+    split at subtype
+    · simp [invalidState] at subtype
     · rename_i good
-      simp only [good, Bool.false_eq_true, ↓reduceIte, addScalarBinding,
+      simp only [good, Bool.false_eq_true, ↓reduceIte, addSubtypeBinding, IntegerSubtypes.append,
         List.length_append, List.length_singleton]
       omega
-  · by_cases array : (arrayDeclarationAt text state arguments).position ≠ 0
-    · have selected : declarationAt text state arguments = arrayDeclarationAt text state arguments := by
-        simp only [declarationAt]; split <;> simp_all
+  · by_cases scalar : (scalarDeclarationAt text state arguments).position ≠ 0
+    · have selected : declarationAt text state arguments = scalarDeclarationAt text state arguments := by
+        simp only [declarationAt, subtype, ↓reduceIte]; split <;> simp_all
       rw [selected]
-      have count := arrayDeclarationAt_count array
-      rw [count.1, count.2.1, count.2.2]
-      omega
-    · have selected : declarationAt text state arguments = stringDeclarationAt text state arguments := by
-        simp only [declarationAt]; split <;> simp_all
-      rw [selected] at accepted ⊢
-      unfold stringDeclarationAt at accepted ⊢
-      dsimp only at accepted ⊢
-      split at accepted
-      · simp [invalidState] at accepted
+      unfold scalarDeclarationAt at scalar ⊢
+      dsimp only at scalar ⊢
+      split at scalar
+      · simp [invalidState] at scalar
       · rename_i good
-        simp only [good, Bool.false_eq_true, ↓reduceIte, addBinding,
+        simp only [good, Bool.false_eq_true, ↓reduceIte, addScalarBinding,
           List.length_append, List.length_singleton]
         omega
+    · by_cases array : (arrayDeclarationAt text state arguments).position ≠ 0
+      · have selected : declarationAt text state arguments = arrayDeclarationAt text state arguments := by
+          simp only [declarationAt, subtype, ↓reduceIte]; split <;> simp_all
+        rw [selected]
+        have count := arrayDeclarationAt_count array
+        rw [count.1, count.2.1, count.2.2.1, count.2.2.2]
+        omega
+      · have selected : declarationAt text state arguments = stringDeclarationAt text state arguments := by
+          simp only [declarationAt, subtype, ↓reduceIte]; split <;> simp_all
+        rw [selected] at accepted ⊢
+        unfold stringDeclarationAt at accepted ⊢
+        dsimp only at accepted ⊢
+        split at accepted
+        · simp [invalidState] at accepted
+        · rename_i good
+          simp only [good, Bool.false_eq_true, ↓reduceIte, addBinding,
+            List.length_append, List.length_singleton]
+          omega
+  
 
 theorem declarationsAt_equation (text : Source) (state : ParserState) (arguments : Bool)
-    (bounded : state.names.length + state.scalarNames.length + state.arrayNames.names.length ≤ (2 * maxBindings + ArrayBindings.maxBindings)) :
+    (bounded : state.names.length + state.scalarNames.length + state.arrayNames.names.length + state.subtypeNames.items.length ≤ (maxBindings + ScalarExpression.maxBindings + ArrayBindings.maxBindings + IntegerSubtypes.maxBindings)) :
     declarationsAt text state arguments =
       if state.position = 0 then invalidState
       else if fixedAfter text state.position "begin" true ≠ 0 then state
       else if (declarationAt text state arguments).position = 0 then invalidState
       else declarationsAt text (declarationAt text state arguments) arguments := by
-  have fuel : (2 * maxBindings + ArrayBindings.maxBindings) + 1 - (state.names.length + state.scalarNames.length + state.arrayNames.names.length) =
-      ((2 * maxBindings + ArrayBindings.maxBindings) - (state.names.length + state.scalarNames.length + state.arrayNames.names.length)) + 1 := by omega
+  have fuel : (maxBindings + ScalarExpression.maxBindings + ArrayBindings.maxBindings + IntegerSubtypes.maxBindings) + 1 - (state.names.length + state.scalarNames.length + state.arrayNames.names.length + state.subtypeNames.items.length) =
+      ((maxBindings + ScalarExpression.maxBindings + ArrayBindings.maxBindings + IntegerSubtypes.maxBindings) - (state.names.length + state.scalarNames.length + state.arrayNames.names.length + state.subtypeNames.items.length)) + 1 := by omega
   unfold declarationsAt
   rw [fuel, declarationsLoop]
   by_cases empty : state.position = 0

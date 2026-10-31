@@ -65,7 +65,9 @@ instance validArrayInitialsDecidable (values : ArrayBindings.Initials) : Decidab
 
 def Program.checkBody (program : Program) : Option Flow :=
   if Integer.checkDeclarations [] program.integerDeclarations = some program.integerConstants ∧
-      Integer.discharged program.initializerChecks = true ∧ ArrayBindings.ValidInitials program.arrays.values then
+      Integer.discharged program.initializerChecks = true ∧
+      (ArrayBindings.ValidInitials program.arrays.values ∧
+        ArrayBindings.InitialsFit program.arrays.names program.arrays.values) then
     checkStatements program.names.shape program.bodyAnalysis program.initialFlow program.statements
   else none
 
@@ -73,7 +75,8 @@ theorem Program.checkBody_iff (program : Program) (after : Flow) :
     program.checkBody = some after ↔
       Integer.checkDeclarations [] program.integerDeclarations = some program.integerConstants ∧
       Integer.discharged program.initializerChecks = true ∧
-      ArrayBindings.ValidInitials program.arrays.values ∧
+      (ArrayBindings.ValidInitials program.arrays.values ∧
+        ArrayBindings.InitialsFit program.arrays.names program.arrays.values) ∧
       checkStatements program.names.shape program.bodyAnalysis program.initialFlow program.statements = some after := by
   simp only [checkBody]
   split <;> simp_all
@@ -141,14 +144,15 @@ theorem Program.initial_integer_fits {program : Program} (valid : program.Valid)
   have declarations := ((program.checkBody_iff after).mp checked).1
   have arrays := ((program.checkBody_iff after).mp checked).2.2.1
   rw [initialIntegers, Integer.elaborate_initial_store]
-  exact ArrayBindings.body_ranges_fits program.arrays.names arrays
+  exact ArrayBindings.body_ranges_fits program.arrays.names arrays.2
     (Integer.ObjectBindings.fits (Integer.elaborate_valid declarations))
 
 theorem Program.body_ranges_bounded {program : Program} (valid : program.Valid) :
     program.bodyAnalysis.declared.Bounded := by
   obtain ⟨after, checked, _⟩ := valid.2.2.2.2.2
   have declarations := ((program.checkBody_iff after).mp checked).1
-  exact ArrayFlow.ranges_bounded _ (Integer.ObjectBindings.ranges_bounded (Integer.elaborate_valid declarations))
+  exact ArrayFlow.ranges_bounded _ (((program.checkBody_iff after).mp checked).2.2.1.2)
+    (Integer.ObjectBindings.ranges_bounded (Integer.elaborate_valid declarations))
 
 theorem Program.body_flow_invariant {program : Program} (valid : program.Valid) {after : Flow}
     (checked : program.checkBody = some after) :

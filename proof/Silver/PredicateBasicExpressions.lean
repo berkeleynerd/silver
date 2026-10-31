@@ -12,7 +12,7 @@ namespace Silver.Predicate.BasicNative
 open Compose Bindings
 
 structure Primitives where
-  callAfter : Source → Compose.BindingEnvironment → Nat → Names.Operation → ScalarExpression.Environment → ArrayBindings.Metadata → Nat
+  callAfter : Source → Compose.BindingEnvironment → Nat → Names.Operation → ScalarExpression.Environment → ArrayBindings.Metadata → Bool → Nat
   associationAfter : Source → Nat → Bool → Nat
   token : Source → Nat → ShellToken → Nat
   expression : Source → Native.Context → Nat → ActiveFlow → ExpressionResult
@@ -44,7 +44,7 @@ inductive Test
   | orElse (left right : Test) | andThen (left right : Test)
 
 def Test.eval (primitive : Primitives) (frame : Frame) : Test → Bool
-  | .operation value => decide (primitive.callAfter frame.text frame.context.names frame.result.position value frame.context.scalarNames frame.context.arrayNames ≠ 0)
+  | .operation value => decide (primitive.callAfter frame.text frame.context.names frame.result.position value frame.context.scalarNames frame.context.arrayNames (frame.context.subtypeHiding.get value) ≠ 0)
   | .zeroResult => decide (frame.result.position = 0)
   | .nonadvancing => decide (frame.result.position ≤ frame.scan.position)
   | .present token => decide (primitive.token frame.text frame.result.position token ≠ 0)
@@ -63,7 +63,7 @@ def Test.eval (primitive : Primitives) (frame : Frame) : Test → Bool
 def call := Compose.Expressions.call
 
 def Test.render : Test → List String
-  | .operation value => call "call_after" [["text"], ["context", ".", "names"], ["result", ".", "position"], (Compose.Expressions.Expr.operation value).render, ["context", ".", "scalar_names"], ["context", ".", "array_names"]] ++ ["/=", "0"]
+  | .operation value => call "call_after" [["text"], ["context", ".", "names"], ["result", ".", "position"], (Compose.Expressions.Expr.operation value).render, ["context", ".", "scalar_names"], ["context", ".", "array_names"], ["context", ".", "subtype_hiding", "("] ++ (Compose.Expressions.Expr.operation value).render ++ [")"]] ++ ["/=", "0"]
   | .zeroResult => ["result", ".", "position", "=", "0"]
   | .nonadvancing => ["result", ".", "position", "<=", "scan", ".", "position"]
   | .present token => call "take_token" [["text"], ["result", ".", "position"], [Compose.Expressions.tokenName token]] ++ ["/=", "0"]
@@ -87,7 +87,7 @@ inductive Update
   | valueAfter | statePosition | stateTarget | output | assigned | rejected | scalarAssignment | arrayAssignment
 
 def Update.eval (primitive : Primitives) (frame : Frame) : Update → BodyScan
-  | .operation value => {frame.result with position := primitive.callAfter frame.text frame.context.names frame.result.position value frame.context.scalarNames frame.context.arrayNames}
+  | .operation value => {frame.result with position := primitive.callAfter frame.text frame.context.names frame.result.position value frame.context.scalarNames frame.context.arrayNames (frame.context.subtypeHiding.get value)}
   | .association => {frame.result with position := primitive.associationAfter frame.text frame.result.position false}
   | .token tok => primitive.bodyToken frame.text frame.context frame.result tok
   | .scalarAssignment => primitive.scalarAssignment frame.text frame.context frame.result
@@ -100,7 +100,7 @@ def Update.eval (primitive : Primitives) (frame : Frame) : Update → BodyScan
   | .rejected => {frame.result with facts := {frame.result.facts with path := primitive.reject frame.result.facts.path}}
 
 def Update.render : Update → List String
-  | .operation value => ["result", ".", "position", ":="] ++ call "call_after" [["text"], ["context", ".", "names"], ["result", ".", "position"], (Compose.Expressions.Expr.operation value).render, ["context", ".", "scalar_names"], ["context", ".", "array_names"]] ++ [";"]
+  | .operation value => ["result", ".", "position", ":="] ++ call "call_after" [["text"], ["context", ".", "names"], ["result", ".", "position"], (Compose.Expressions.Expr.operation value).render, ["context", ".", "scalar_names"], ["context", ".", "array_names"], ["context", ".", "subtype_hiding", "("] ++ (Compose.Expressions.Expr.operation value).render ++ [")"]] ++ [";"]
   | .association => ["result", ".", "position", ":=", "names", "."] ++ call "association_after" [["text"], ["result", ".", "position"], ["false"]] ++ [";"]
   | .token tok => ["result", ":="] ++ call "body_token"
       [["text"], ["context"], ["result"], [Compose.Expressions.tokenName tok]] ++ [";"]
@@ -178,7 +178,7 @@ def basicEval (primitive : Primitives) (text : Source) (context : Native.Context
   basicCommands.eval primitive ⟨text, context, scan, scan, {}, {}⟩ (fun _ => primitive.invalid scan)
 
 def modelPrimitives : Primitives where
-  callAfter := fun text names position operation scalarNames arrays => Compose.callAfter text names position operation scalarNames arrays
+  callAfter := fun text names position operation scalarNames arrays hidden => Compose.callAfter text names position operation scalarNames arrays hidden
   associationAfter := Names.associationAfter
   token := tokenAfter
   expression := fun text context position facts => expressionAt text position context.names (context.model.readingNames facts) (arrays := context.arrayNames)

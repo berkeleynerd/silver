@@ -1,6 +1,6 @@
 module
 
-public import Silver.SequenceTokens
+public import Silver.SequenceSubtypeReady
 public import Silver.ComposeArrayElaboration
 
 @[expose] public section
@@ -32,25 +32,27 @@ private theorem step_array_preserved {text form token state next event}
 
 theorem step_array_ready {text form token state next event}
     (parsed : StepAt text form token state next event)
-    (ready : ArrayBindings.SourceReady text state.arrayNames) :
+    (ready : ArrayBindings.SourceReady text state.arrayNames)
+    (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames) :
     ArrayBindings.SourceReady text next.arrayNames := by
   by_cases declaration : token = .declarations
   · subst token
     obtain ⟨values, reading, _⟩ := parsed.payload
-    exact declarations_array_ready reading ready
+    exact declarations_array_ready reading ready subtypes
   · rw [step_array_preserved declaration parsed]
     exact ready
 
 theorem tokens_array_ready {text form tokens state events final}
     (parsed : TokensAt text form tokens state events final)
-    (ready : ArrayBindings.SourceReady text state.arrayNames) :
+    (ready : ArrayBindings.SourceReady text state.arrayNames)
+    (subtypes : IntegerSubtypes.ValidEnvironment text state.subtypeNames) :
     ArrayBindings.SourceReady text final.arrayNames := by
   induction parsed with
   | done => exact ready
-  | next first _ ih => exact ih (step_array_ready first ready)
+  | next first _ ih => exact ih (step_array_ready first ready subtypes) (step_subtypes_valid first subtypes)
 
 theorem initial_array_ready (text : Source) : ArrayBindings.SourceReady text initialState.arrayNames := by
   simp [initialState, ArrayBindings.SourceReady, ArrayBindings.ValidEnvironment,
-    ArrayBindings.ValidMetadata, ArrayBindings.ValidInitials]
+    ArrayBindings.ValidMetadata, ArrayBindings.ValidInitials, ArrayBindings.InitialsFit]
 
 end Silver.Sequence

@@ -1,0 +1,29 @@
+[
+  {
+    "utc": "2026-10-29T21:04:12.557783+00:00",
+    "meminfo_kib": {
+      "MemTotal": 32950036,
+      "MemAvailable": 30560644,
+      "SwapTotal": 0,
+      "SwapFree": 0
+    }
+  },
+  {
+    "utc": "2026-10-29T21:05:52.019913+00:00",
+    "meminfo_kib": {
+      "MemTotal": 32950036,
+      "MemAvailable": 30242836,
+      "SwapTotal": 0,
+      "SwapFree": 0
+    }
+  },
+  {
+    "utc": "2026-10-29T21:09:20.630516+00:00",
+    "meminfo_kib": {
+      "MemTotal": 32950036,
+      "MemAvailable": 30770080,
+      "SwapTotal": 0,
+      "SwapFree": 0
+    }
+  }
+]

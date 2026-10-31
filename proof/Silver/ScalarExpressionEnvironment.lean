@@ -6,7 +6,7 @@ public import Silver.ScalarExpression
 
 namespace Silver.ScalarExpression
 
-def maxBindings : Nat := 4096 / 12
+def maxBindings : Nat := 4096 / 7
 
 /-- The fixed native representation supplies finite Integer endpoints even
 when an interval is empty. Source Valid_Environment additionally checks each

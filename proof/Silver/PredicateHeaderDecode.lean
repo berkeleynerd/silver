@@ -26,6 +26,7 @@ theorem prefix_decoded_valid (form : Form) (events : List Event) (items : List S
     (integerDeclarations : List Integer.Declaration) (integerConstants : Integer.Constants)
     (initializerChecks : List Integer.Obligation) (arrays : ArrayBindings.Env)
     (arraysValid : ArrayBindings.ValidInitials arrays.values)
+    (arraysFit : ArrayBindings.InitialsFit arrays.names arrays.values)
     (shape : events.map Event.kind = form.prefix.filterMap ShellToken.eventKind)
     (stream : StreamValid emptyShape maxSourceLength events)
     (nonempty : items ≠ [])
@@ -48,7 +49,7 @@ theorem prefix_decoded_valid (form : Form) (events : List Event) (items : List S
       refine ⟨stream.1, by simp [Bindings.Printable], by simp [maxSourceLength],
         lowerStatements_nonempty nonempty, lowerStatements_wellFormed body, ?_⟩
       obtain ⟨after, bodyChecked, completed⟩ := checked
-      exact ⟨after, (Program.checkBody_iff _ after).mpr ⟨scalars, initializers, arraysValid, bodyChecked⟩, completed⟩
+      exact ⟨after, (Program.checkBody_iff _ after).mpr ⟨scalars, initializers, ⟨arraysValid, arraysFit⟩, bodyChecked⟩, completed⟩
   | argument =>
       change events.map Event.kind = [.argument, .declarations] at shape
       obtain ⟨fallback, rest, rfl, shape0⟩ := (argument_event_shape _ _).mp shape
@@ -59,7 +60,7 @@ theorem prefix_decoded_valid (form : Form) (events : List Event) (items : List S
       refine ⟨prepend_argument stream.2.2.1, stream.1, stream.2.1,
         lowerStatements_nonempty nonempty, lowerStatements_wellFormed body, ?_⟩
       obtain ⟨after, bodyChecked, completed⟩ := checked
-      exact ⟨after, (Program.checkBody_iff _ after).mpr ⟨scalars, initializers, arraysValid, bodyChecked⟩, completed⟩
+      exact ⟨after, (Program.checkBody_iff _ after).mpr ⟨scalars, initializers, ⟨arraysValid, arraysFit⟩, bodyChecked⟩, completed⟩
 
 
 theorem decoded_initializer_checks {form events items scalars constants checks arrays program}

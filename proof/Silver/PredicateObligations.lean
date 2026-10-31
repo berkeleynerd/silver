@@ -199,8 +199,8 @@ mutual
           | _, _ => [.impossible]
     | .arrayLoop index _ array body =>
         [.scalar (.arrayIndex array array.bounds)] ++
-          statementsObligations shape (analysis.withIndex index Integer.Interval.full)
-            (arrayLoopEntry analysis flow index) body
+          statementsObligations shape (analysis.withIndex index array.componentBounds)
+            (arrayLoopEntry analysis flow index array.componentBounds) body
   termination_by sizeOf item
   def statementsObligations (shape : Shape) (analysis : Integer.Analysis) (flow : Flow)
       (items : List Statement) : List Obligation :=
@@ -234,7 +234,7 @@ mutual
         split at checked
         · rename_i good
           have both : update.check before.scalars analysis.mutable = true ∧
-              update.array.fullRanges analysis.declared = true := by
+              update.array.componentRanges analysis.declared = true := by
             simpa only [checkArrayAssignment, Bool.and_eq_true] using good
           have accepted := both.1
           simpa only [Statement.obligations, scalar_discharged] using update.obligations_discharge accepted

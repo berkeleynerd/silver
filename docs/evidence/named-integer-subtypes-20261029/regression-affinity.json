@@ -1,0 +1,21 @@
+{
+  "observed_utc": "2026-10-29T15:38:42Z",
+  "unittest_pid": 251677,
+  "cpus": [
+    8,
+    9,
+    10,
+    11
+  ],
+  "pids_set": [
+    251677,
+    251758,
+    252189,
+    252190,
+    252193,
+    252241,
+    252242,
+    252243
+  ],
+  "scope": "unittest and existing descendants; later children inherit affinity; managed runner retains host affinity and four-worker reservation"
+}

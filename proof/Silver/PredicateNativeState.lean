@@ -1,6 +1,7 @@
 module
 
 public import Silver.PredicateAdmission
+public import Silver.IntegerSubtypeBindings
 public import Silver.ComposeContracts
 public import Silver.ScalarExpressionEnvironment
 public import Silver.PredicateConditionFlowValidity
@@ -20,11 +21,12 @@ structure Context where
   scalarNames : ScalarExpression.Environment := []
   declarationCount : Nat := 0
   arrayNames : ArrayBindings.Metadata := []
+  subtypeHiding : IntegerSubtypes.CallHiding := {}
   deriving DecidableEq, Repr
 
 def Context.model (context : Context) : ParseContext :=
   ⟨context.names, decide (context.dynamicFirst ≠ 0), context.scalarNames,
-    context.declarationCount, context.arrayNames⟩
+    context.declarationCount, context.arrayNames, context.subtypeHiding⟩
 
 def ValidContext (text : Source) (context : Context) : Prop :=
   Compose.Expressions.ValidNames text context.names ∧
