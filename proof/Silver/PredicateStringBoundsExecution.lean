@@ -63,25 +63,40 @@ mutual
   termination_by sizeOf items
 end
 
-theorem simple_objectBoundsSafe {names : Compose.BindingEnvironment} {flow : Flow}
+theorem simple_objectBoundsSafe {program : Program} {names : Compose.BindingEnvironment} {flow : Flow}
     {item : Sequence.SimpleStatement} {values : Values} {input : Source}
     {integers : Integer.Store} {valid rejected : Bool}
-    (count : names.length ≤ maxBindings) (metadata : NamesBoundsValid names)
+    (_count : names.length ≤ maxBindings) (metadata : NamesBoundsValid names)
     (origin : SimpleBoundsOrigin names item)
     (checked : checkSimple names.shape flow.path item flow.scalars = true)
-    (state : Fits names.shape input values) (allowed : flow.Allows valid input.length rejected integers) :
+    (state : Fits names.shape input values) (allowed : flow.Allows valid input.length rejected integers)
+    (certificates : RawBooleanBoundsCertificates program names (simpleObligations names.shape flow.path item flow.scalars)) :
     SimpleObjectBoundsSafe names values input integers item := by
   cases item with
   | null => trivial
   | assign update =>
-      exact expression_objectBoundsSafe_of_safe count metadata state origin
-        (assignment_checked_safe state allowed.2 allowed.1 checked)
+      have safe := assignment_checked_safe state allowed.2 allowed.1 checked
+      simp only [checkSimple, checkAssignment] at checked
+      split at checked
+      · rename_i bound summary target known
+        obtain ⟨certificate, countEq, lengthEq, _, _, endpoint⟩ := certificates flow.path summary
+          (by simp [simpleObligations, target, known])
+        apply StringBoundsObligation.expression_safe endpoint (Nat.le_of_eq countEq.symm)
+          metadata state origin safe
+        rw [lengthEq]
+        exact ⟨allowed.1, _, (Expression.inferLength_sound known state allowed.2).1, Nat.le_refl _⟩
+      · contradiction
   | output expression | put expression =>
       simp only [checkSimple] at checked
       split at checked
       · rename_i summary known
         simp only [Bool.and_eq_true] at checked
-        exact path_expression_objectBounds count metadata origin known checked.1 state allowed.2 allowed.1
+        obtain ⟨certificate, countEq, lengthEq, _, _, endpoint⟩ := certificates flow.path summary
+          (by simp [simpleObligations, known])
+        apply StringBoundsObligation.expression_safe endpoint (Nat.le_of_eq countEq.symm)
+          metadata state origin (expression_safe_on_path known state allowed.2 allowed.1 checked.1)
+        rw [lengthEq]
+        exact ⟨allowed.1, _, (Expression.inferLength_sound known state allowed.2).1, Nat.le_refl _⟩
       · contradiction
 
 private theorem iterations_objectBoundsSafe {shape : Shape} {ranges declared : Integer.Ranges}
@@ -108,7 +123,7 @@ private theorem iterations_objectBoundsSafe {shape : Shape} {ranges declared : I
 
 
 mutual
-  theorem statement_objectBoundsSafe {names : Compose.BindingEnvironment} {before after : Flow}
+  theorem statement_objectBoundsSafe {program : Program} {names : Compose.BindingEnvironment} {before after : Flow}
       {hasArguments : Bool} {analysis : Integer.Analysis} {booleanAnalysis : Boolean.Analysis}
       {integers : Integer.Store} {booleans : Boolean.Store} {item : Statement}
       {input : Source} {values : Values} {valid rejected : Bool}
@@ -118,30 +133,35 @@ mutual
       (checked : item.check names.shape analysis before booleanAnalysis = some after)
       (state : Fits names.shape input values) (printable : Bindings.Printable input)
       (allowed : before.Allows valid input.length rejected integers)
-      (declaredState : Integer.Fits analysis.declared integers) :
+      (declaredState : Integer.Fits analysis.declared integers)
+      (certificates : RawBooleanBoundsCertificates program names (item.obligations names.shape analysis before booleanAnalysis)) :
       item.ObjectBoundsSafe names input valid values integers booleans := by
     cases item with
     | simple item =>
+        simp only [Statement.obligations] at certificates
         simp only [Statement.BoundsOrigin] at origin
         simp only [Statement.check] at checked
         split at checked
         · rename_i good
           simp only [Statement.ObjectBoundsSafe]
-          exact simple_objectBoundsSafe count metadata origin good state allowed
+          exact simple_objectBoundsSafe count metadata origin good state allowed certificates
         · contradiction
     | scalarAssign | arrayAssign | reject => simp only [Statement.ObjectBoundsSafe]
     | booleanAssign update =>
+        simp only [Statement.obligations] at certificates
         simp only [Statement.BoundsOrigin] at origin
         simp only [Statement.WellFormed] at wellFormed
         simp only [Statement.check] at checked
         split at checked
         · rename_i good
           simp only [Statement.ObjectBoundsSafe]
-          exact Condition.objectBoundsSafe_of_safe count metadata state origin
-            (update.value.checkBounds_sound (booleans := booleans) state wellFormed.2.2 allowed
-              (Bool.and_eq_true_iff.mp good).2)
+          apply condition_objectBounds_from_raw_certificates metadata state origin wellFormed.2.2 allowed
+            (Bool.and_eq_true_iff.mp good).2
+          intro context summary member
+          exact certificates context summary (List.mem_append_right _ member)
         · contradiction
     | choice condition yes no =>
+        simp only [Statement.obligations] at certificates
         simp only [Statement.WellFormed] at wellFormed
         simp only [Statement.BoundsOrigin] at origin
         simp only [Statement.check] at checked
@@ -150,8 +170,9 @@ mutual
           simp only [Option.bind_eq_some_iff, Option.map_eq_some_iff] at checked
           obtain ⟨afterYes, yesChecked, afterNo, noChecked, rfl⟩ := checked
           simp only [Statement.ObjectBoundsSafe]
-          refine ⟨Condition.objectBoundsSafe_of_safe count metadata state origin.1
-            (condition.checkBounds_sound (booleans := booleans) state wellFormed.2.1 allowed bounded), ?_⟩
+          refine ⟨condition_objectBounds_from_raw_certificates metadata state origin.1 wellFormed.2.1 allowed bounded
+            (fun context summary member => certificates context summary
+              (List.mem_append_left _ (List.mem_append_left _ member))), ?_⟩
           have refined := condition.refine_sound (analysis := analysis) (booleans := booleans)
             state wellFormed.2.1 allowed
           cases outcome : condition.evaluate values input valid integers booleans with
@@ -160,13 +181,17 @@ mutual
               simp only [↓reduceIte]
               exact statements_objectBoundsSafe count metadata origin.2.1 wellFormed.2.2.2.1 yesChecked
                 state printable refined declaredState
+                (fun context summary member => certificates context summary
+                  (List.mem_append_left _ (List.mem_append_right _ member)))
           | false =>
               simp only [outcome] at refined
               simp only [Bool.false_eq_true, ↓reduceIte]
               exact statements_objectBoundsSafe count metadata origin.2.2 wellFormed.2.2.2.2 noChecked
                 state printable refined declaredState
+                (fun context summary member => certificates context summary (List.mem_append_right _ member))
         · contradiction
     | forLoop index reverse lower upper body =>
+        simp only [Statement.obligations] at certificates
         simp only [Statement.BoundsOrigin] at origin
         simp only [Statement.WellFormed] at wellFormed
         simp only [Statement.check, Option.bind_eq_some_iff, Option.map_eq_some_iff] at checked
@@ -185,8 +210,15 @@ mutual
             using currentAllowed
         have sound := statements_execution_sound (booleans := flags) wellFormed.2.2 bodyChecked currentState
           printable bodyAllowed (Integer.put_fits currentDeclared within)
+        have bodyCertificates : RawBooleanBoundsCertificates program names
+            (statementsObligations names.shape (analysis.withIndex index (Integer.loopBounds a b))
+              (loopEntry analysis before index (Integer.loopBounds a b)) body booleanAnalysis) := by
+          intro context summary member
+          apply certificates context summary
+          simpa only [Statement.obligations, lowerFound, upperFound] using List.mem_append_right
+            ((lower.obligations before.scalars ++ upper.obligations before.scalars).map Obligation.scalar) member
         have safe := statements_objectBoundsSafe (booleans := flags) count metadata origin wellFormed.2.2 bodyChecked currentState
-          printable bodyAllowed (Integer.put_fits currentDeclared within)
+          printable bodyAllowed (Integer.put_fits currentDeclared within) bodyCertificates
         have restoredDeclared := Integer.restore_fits currentDeclared sound.declared
         have restoredCurrent : Integer.Fits (analysis.widen before.scalars)
             (Integer.restore scalars (executeStatements input valid current body
@@ -203,6 +235,7 @@ mutual
             simpa only [Integer.restore, Integer.put, same, ↓reduceIte] using unchanged
         exact ⟨safe, sound.state, restoredCurrent, restoredDeclared⟩
     | arrayLoop index reverse array body =>
+        simp only [Statement.obligations] at certificates
         simp only [Statement.BoundsOrigin] at origin
         simp only [Statement.WellFormed] at wellFormed
         simp only [Statement.check] at checked
@@ -225,6 +258,7 @@ mutual
             printable bodyAllowed (Integer.put_fits currentDeclared valueWithin)
           have safe := statements_objectBoundsSafe (booleans := flags) count metadata origin wellFormed.2.2 bodyChecked currentState
             printable bodyAllowed (Integer.put_fits currentDeclared valueWithin)
+            (fun context summary member => certificates context summary (List.mem_append_right _ member))
           have restoredDeclared := Integer.restore_fits currentDeclared sound.declared
           have restoredCurrent : Integer.Fits (analysis.widen before.scalars)
               (Integer.restore scalars (executeStatements input valid current body
@@ -244,7 +278,7 @@ mutual
         · contradiction
   termination_by sizeOf item
 
-  theorem statements_objectBoundsSafe {names : Compose.BindingEnvironment} {before after : Flow}
+  theorem statements_objectBoundsSafe {program : Program} {names : Compose.BindingEnvironment} {before after : Flow}
       {hasArguments : Bool} {analysis : Integer.Analysis} {booleanAnalysis : Boolean.Analysis}
       {integers : Integer.Store} {booleans : Boolean.Store} {items : List Statement}
       {input : Source} {values : Values} {valid rejected : Bool}
@@ -254,7 +288,8 @@ mutual
       (checked : checkStatements names.shape analysis before items booleanAnalysis = some after)
       (state : Fits names.shape input values) (printable : Bindings.Printable input)
       (allowed : before.Allows valid input.length rejected integers)
-      (declaredState : Integer.Fits analysis.declared integers) :
+      (declaredState : Integer.Fits analysis.declared integers)
+      (certificates : RawBooleanBoundsCertificates program names (statementsObligations names.shape analysis before items booleanAnalysis)) :
       StatementsObjectBoundsSafe names input valid values items integers booleans := by
     cases items with
     | nil => simp only [StatementsObjectBoundsSafe]
@@ -265,9 +300,19 @@ mutual
         obtain ⟨middle, firstChecked, restChecked⟩ := checked
         have sound := statement_execution_sound (booleans := booleans) wellFormed.1 firstChecked state printable allowed declaredState
         simp only [StatementsObjectBoundsSafe]
-        exact ⟨statement_objectBoundsSafe count metadata origin.1 wellFormed.1 firstChecked state printable allowed declaredState,
+        simp only [statementsObligations, firstChecked] at certificates
+        have firstCertificates : RawBooleanBoundsCertificates program names
+            (item.obligations names.shape analysis before booleanAnalysis) :=
+          fun context summary member => certificates context summary (List.mem_append_left _ member)
+        have restCertificates : RawBooleanBoundsCertificates program names
+            (statementsObligations names.shape analysis middle rest booleanAnalysis) := by
+          intro context summary member
+          apply certificates context summary
+          simpa only [statementsObligations, firstChecked] using List.mem_append_right
+            (item.obligations names.shape analysis before booleanAnalysis) member
+        exact ⟨statement_objectBoundsSafe count metadata origin.1 wellFormed.1 firstChecked state printable allowed declaredState firstCertificates,
           statements_objectBoundsSafe count metadata origin.2 wellFormed.2 restChecked sound.state printable
-            ⟨sound.next, sound.scalars⟩ sound.declared⟩
+            ⟨sound.next, sound.scalars⟩ sound.declared restCertificates⟩
   termination_by sizeOf items
 end
 
