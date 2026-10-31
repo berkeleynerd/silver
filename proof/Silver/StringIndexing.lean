@@ -26,6 +26,12 @@ theorem indexCheck_sound {base : Int} {length : Nat} {indices : Integer.Interval
   simp only [indexCheck, decide_eq_true_eq, Integer.Interval.Contains, indexValid] at *
   omega
 
+theorem indexCheck_singleton {base index : Int} {length : Nat}
+    (valid : indexValid base length index) :
+    indexCheck base length (Integer.Interval.singleton index) = true := by
+  simp only [indexCheck, Integer.Interval.singleton, decide_eq_true_eq, indexValid] at *
+  omega
+
 def offset (base index : Int) : Nat := (index - base).toNat
 
 theorem offset_lt {base index : Int} {length : Nat} (valid : indexValid base length index) :
@@ -56,6 +62,12 @@ theorem sliceCheck_sound {base : Int} {length : Nat} {lower upper : Integer.Inte
     (checked : sliceCheck base length lower upper = true)
     (left : lower.Contains a) (right : upper.Contains b) : sliceValid base length a b := by
   simp only [sliceCheck, decide_eq_true_eq, Integer.Interval.Contains, sliceValid] at *
+  omega
+
+theorem sliceCheck_singletons {base lower upper : Int} {length : Nat}
+    (valid : sliceValid base length lower upper) :
+    sliceCheck base length (Integer.Interval.singleton lower) (Integer.Interval.singleton upper) = true := by
+  simp only [sliceCheck, Integer.Interval.singleton, decide_eq_true_eq, sliceValid] at *
   omega
 
 def sliceLength (lower upper : Int) : Nat := (upper - lower + 1).toNat

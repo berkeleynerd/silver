@@ -160,4 +160,27 @@ theorem Expr.freeze_safe {expression : Expr} {values : Values} {before : Integer
   | indexed target base index => exact ⟨Integer.Expr.safe_value safe.1, safe.2⟩
   | parenthesized inner ih => exact ih safe
 
+theorem snapshot_infer {value : Int} (bounded : Integer.InRange value) (ranges : Integer.Ranges) :
+    (Integer.Expr.snapshot value).infer ranges = some (Integer.Interval.singleton value) := by
+  simp [Integer.Expr.infer, Integer.accepted, Integer.checked, Integer.Interval.isEmpty,
+    Integer.Interval.singleton, Integer.Interval.Bounded, bounded]
+
+theorem Expr.freeze_check {expression : Expr} {lengths : Lengths} {ranges : Integer.Ranges}
+    {integers : Integer.Store} (checked : expression.check lengths ranges = true)
+    (scalars : Integer.Fits ranges integers) (after : Integer.Ranges) :
+    (expression.freeze integers).check lengths after = true := by
+  induction expression with
+  | literal | reference => exact checked
+  | indexed target base index =>
+      simp only [check] at checked
+      split at checked
+      · rename_i length indices targetFound indexFound
+        have inferred := Integer.Expr.infer_sound indexFound scalars
+        have safe := StringIndexing.indexCheck_singleton
+          (StringIndexing.indexCheck_sound checked inferred.1)
+        simpa only [freeze, check, targetFound,
+          snapshot_infer (Integer.Expr.safe_value inferred.2), Integer.Expr.evaluate] using safe
+      · contradiction
+  | parenthesized inner ih => exact ih checked
+
 end Silver.Character
