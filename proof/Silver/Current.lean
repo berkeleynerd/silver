@@ -1,6 +1,6 @@
 module
 
-public import Silver.PredicateChecks
+public import Silver.PredicateStringActualAssurance
 public import Silver.PredicateGrammar
 public import Silver.Cursor
 
@@ -113,6 +113,23 @@ theorem all_obligations_discharge {source : Source} {program : Program}
 
 abbrev Environment := Sequence.Environment
 
+def SourceBoundsRefinement (source : Source) : Program → Prop
+  | .nullMain => True
+  | .sequence program => Predicate.SourceBoundsRefinement source program
+
+def StringBoundsSafe (source : Source) (environment : Environment) : Program → Prop
+  | .nullMain => True
+  | .sequence program => program.CompleteStringBoundsSafe source environment.arguments
+
+theorem source_string_bounds_assured {source : Source} {program : Program}
+    (meaning : SourceMeaning source program) :
+    SourceBoundsRefinement source program ∧ ∀ environment, StringBoundsSafe source environment program := by
+  cases meaning with
+  | nullMain => exact ⟨trivial, fun _ => trivial⟩
+  | sequence meaning =>
+      have assured := Predicate.source_actual_string_bounds_assured meaning
+      exact ⟨assured.1, fun environment => assured.2 environment.arguments⟩
+
 def effects (environment : Environment) : Program → List Sequence.Effect
   | .nullMain => []
   | .sequence program => (program.execute environment.arguments).effects
@@ -160,23 +177,29 @@ theorem admitted_assurance {source : Source} (member : Member source) :
       Semantics.discharge (obligations program) = true ∧
       (∃ steps, steps ≤ (obligations program).length + 1 ∧
         Semantics.DischargeSteps (obligations program) true steps) ∧
-      ∀ environment, SpecifiedOutcome environment program (execute environment program) := by
+      SourceBoundsRefinement source program ∧
+      ∀ environment, StringBoundsSafe source environment program ∧
+        SpecifiedOutcome environment program (execute environment program) := by
   obtain ⟨program, meaning⟩ := member_has_meaning member
   have checked := all_obligations_discharge meaning
-  exact ⟨automatic_discharge_complete member, program, meaning, checked.1, checked.2,
-    fun environment => execution_specified environment program⟩
+  have bounds := source_string_bounds_assured meaning
+  exact ⟨automatic_discharge_complete member, program, meaning, checked.1, checked.2, bounds.1,
+    fun environment => ⟨bounds.2 environment, execution_specified environment program⟩⟩
 
 theorem every_meaning_assured {source : Source} {program : Program}
     (meaning : SourceMeaning source program) :
     Semantics.discharge (obligations program) = true ∧
     (∃ steps, steps ≤ (obligations program).length + 1 ∧
       Semantics.DischargeSteps (obligations program) true steps) ∧
-    ∀ environment, SpecifiedOutcome environment program (execute environment program) ∧
+    SourceBoundsRefinement source program ∧
+    ∀ environment, StringBoundsSafe source environment program ∧
+      SpecifiedOutcome environment program (execute environment program) ∧
       (environment.Healthy →
         execute environment program = ⟨expectedStatus environment program, intendedBytes environment program⟩) := by
   have checked := all_obligations_discharge meaning
-  exact ⟨checked.1, checked.2, fun environment =>
-    ⟨execution_specified environment program, healthy_execution meaning environment⟩⟩
+  have bounds := source_string_bounds_assured meaning
+  exact ⟨checked.1, checked.2, bounds.1, fun environment =>
+    ⟨bounds.2 environment, execution_specified environment program, healthy_execution meaning environment⟩⟩
 
 structure Tools (Artifact : Type) where
   parse : Source → Program → Nat → Prop
