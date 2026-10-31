@@ -1,5 +1,8 @@
 # Body_Tail return assertions — 2026-10-31
 
+The later [complete native run](../full-native/README.md) passed on this repair;
+the focused-round account below preserves the evidence available at that point.
+
 For [#291](https://github.com/berkeleynerd/silver/issues/291), three checked
 `Static` assertions now state the exact original output/model equality before
 each unchanged return in `Body_Tail`. This decomposes the previously merged
@@ -79,5 +82,5 @@ The native subthread's selected setting is GPT-6 Astra / Extra High; runtime
 confirmation and token/cost measurements are unavailable. The intended outcome
 was to identify a failing return before proposing a broader repair. The achieved
 result is complete focused discharge with three local checked assertions and
-unchanged solver policy. Native tool wall time is reported above; it is not a
+unchanged solver policy. Managed native run wall time is reported above; it is not a
 whole-team cost measurement. No further proof run was launched in this round.

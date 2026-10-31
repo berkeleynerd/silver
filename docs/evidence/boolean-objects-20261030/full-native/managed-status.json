@@ -1,0 +1,71 @@
+{
+  "observed_at": "2026-10-31T06:22:13.970134+00:00",
+  "registry": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1",
+  "host": "linux-x86_64",
+  "machine": "codex-silver",
+  "run": {
+    "run_id": "20261031T022711-e4258c225793",
+    "task": "#291-final-native",
+    "kind": "prove",
+    "scope": [
+      "compiler"
+    ],
+    "state": "success",
+    "active": false,
+    "workers": 4,
+    "directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261031T022711-e4258c225793",
+    "fingerprint": "ba4b476b1c3ee92ba4ca68a740bb525effa86c7fcd0ddec32fbcf9df3df9672d",
+    "command": [
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.tools/linux-x86_64/alr/bin/alr",
+      "-s",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.tools/linux-x86_64/alire/settings",
+      "-C",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/toolchain",
+      "-n",
+      "--no-tty",
+      "exec",
+      "--",
+      "gnatprove",
+      "-P",
+      "../../../silver.gpr",
+      "-U",
+      "--mode=all",
+      "--report=all",
+      "--warnings=error",
+      "--checks-as-errors=on",
+      "--level=2",
+      "--prover=cvc5,z3,altergo",
+      "--timeout=30",
+      "-j",
+      "4",
+      "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/proof-cache/gnatprove/ea6aba21eca447a9c8473fc1c3ea0300b03a95ce919d8a326f68a67989029329",
+      "-f",
+      "-XSILVER_HOST=linux-x86_64"
+    ],
+    "reason": "Complete strict native proof and provenance on reviewed Body_Tail repair f5ab46cdef / bb3bd71e after matching build and all 74 focused checks passed; all 143 native inputs match; original production limits and managed cache unchanged; integration/Lean remain frozen until native success",
+    "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration",
+    "resources": [
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/toolchain",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/obj",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/bin",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/proof-containers/obj",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/proof-cache/gnatprove"
+    ],
+    "started_at": "2026-10-31T02:27:13.876174+00:00",
+    "finished_at": "2026-10-31T06:20:19.526471+00:00",
+    "duration_seconds": 13985.692110148,
+    "returncode": null,
+    "error": null,
+    "failure_keys": [],
+    "evidence": [
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/obj/gnatprove",
+      "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261031T022711-e4258c225793/native.log",
+      "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261031T022711-e4258c225793/previous-reports",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/obj/gnatprove/proof-provenance.json",
+      "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261031T022711-e4258c225793/proof-evidence"
+    ],
+    "retained_report_count": 0
+  },
+  "reserved_workers": 0,
+  "diagnostics_required": []
+}

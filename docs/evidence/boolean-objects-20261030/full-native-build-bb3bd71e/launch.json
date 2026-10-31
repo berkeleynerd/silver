@@ -1,0 +1,23 @@
+{
+  "source_commit": "f5ab46cdeff361c8072e089c0ae52619e70aba2a",
+  "output_profile_sha256": "bb3bd71eb53e7f0637ed27ac4b5eb7c283b66dc0fb81131ebe73543c3950d01f",
+  "tracked_native_input_count": 143,
+  "all_tracked_native_inputs_match_commit": true,
+  "original_backups_unchanged": true,
+  "manifest_before": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/tmp/boolean-final-proof-backup/manifest-before-f5ab46cdef.json",
+  "build_pid": 97669,
+  "build_command": [
+    "/usr/bin/python3",
+    "-u",
+    "scripts/dev.py",
+    "build",
+    "--jobs",
+    "4",
+    "--task",
+    "#291-final-native",
+    "--reason",
+    "Build reviewed Body_Tail three-assertion repair f5ab46cdef after complete focused success; all 143 tracked native inputs match, original backups preserved, complete strict proof follows with original settings/cache"
+  ],
+  "build_log": "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-final-native-build-bb3bd71e.log",
+  "started_at": "2026-10-31T02:26:12.773381+00:00"
+}

@@ -1,0 +1,14 @@
+{
+  "run_id": "20261031T022711-e4258c225793",
+  "source_commit": "f5ab46cdeff361c8072e089c0ae52619e70aba2a",
+  "output_profile_sha256": "bb3bd71eb53e7f0637ed27ac4b5eb7c283b66dc0fb81131ebe73543c3950d01f",
+  "preflight_hash_count": 2561,
+  "terminal_all_hashes_match": true,
+  "tracked_native_input_count": 143,
+  "tracked_native_inputs_match_snapshot": true,
+  "original_backups_unchanged": true,
+  "unrelated_dirty_files_hashes_and_modes_unchanged": 7,
+  "verified_at": "2026-10-31T06:20:27.792432+00:00",
+  "complete_provenance_report_hashes_match": true,
+  "strict_audit_phase_completed": true
+}

@@ -1,0 +1,15 @@
+{
+  "restored_files": {
+    "src/silver_catalogue.adb": {
+      "original_sha256": "d36a719505ec5a487aae39e5d0f5854662b8de4e8dd5aa5633eb9bd25b467e48",
+      "validation_sha256": "6ee71ca548909b066e7bda7d8925808f21fbccdebacb9a39cbc388d8260db443"
+    },
+    "src/silver_output_profile.adb": {
+      "original_sha256": "4b36552d8678a1d4ba27bda841de1025a770ac4c30658de6b43e533b5eb1d9a8",
+      "validation_sha256": "bb3bd71eb53e7f0637ed27ac4b5eb7c283b66dc0fb81131ebe73543c3950d01f"
+    }
+  },
+  "preserved_exploratory_reports_and_cache": true,
+  "unrelated_dirty_files_unchanged": 7,
+  "regression_handoff_pending_final_integrated_source_pin_certificate_commit": true
+}

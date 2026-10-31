@@ -1,0 +1,11 @@
+{
+  "run_id": "20261031T022711-e4258c225793",
+  "entity": "Body_Tail",
+  "source_sha256": "bb3bd71eb53e7f0637ed27ac4b5eb7c283b66dc0fb81131ebe73543c3950d01f",
+  "session_sha256": "ba6e24785989e7ee4b304d58612127b8657c7e3e8ac005ab4f5ee7e63c8b9b38",
+  "session_mtime": "2026-10-31T06:16:24.178331+00:00",
+  "goal_nodes": 421,
+  "all_goal_nodes_proved": true,
+  "whole_run_terminal": false,
+  "observed_at": "2026-10-31T06:18:20.082546+00:00"
+}
