@@ -1797,6 +1797,7 @@ theorem normalized_definitions (calls : Calls)
     (source : DefinitionEquations calls calls) (legal : LegalBodies calls) :
     DefinitionEquations calls where
   toHelperEquations := normalized_helpers calls meaning source.toHelperEquations legal.toLegalHelpers
+  legacy := source.legacy
   stepRange := source.stepRange
   step := by
     intros

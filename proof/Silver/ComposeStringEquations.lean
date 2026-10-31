@@ -1,0 +1,129 @@
+module
+
+public import Silver.ComposeContracts
+
+@[expose] public section
+
+namespace Silver.Compose.Expressions
+open StringNative
+set_option maxRecDepth 10000
+set_option maxHeartbeats 2000000
+set_option backward.dsimp.instances true
+
+/-- Staged interpretation of the declarations and returns of the native index reader. -/
+def indexedEquation (calls : Calls) (text : Source) (position : Nat) (names : BindingEnvironment)
+    (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Metadata)
+    (initials : ArrayBindings.Initials) (elaborating element : Bool) : ValueResult :=
+  let take := calls.function .takeToken text
+  let first := calls.function .skip text position
+  let after := calls.function .nameAfter text first
+  let target := calls.function .lookupName text names first after
+  let low := calls.function .scalarRead text (take after (.symbol "(")) scalarNames arrays initials elaborating
+  let info := (names.get target).getD {}
+  if decide (target = 0) || info.isCharacter || info.dynamic ||
+      decide (calls.function .scalarLookup text scalarNames first after ≠ 0) ||
+      decide (low.after = 0) || calls.function .scalarEmpty low.bounds then invalidValue
+  else if element then
+    let following := take low.after (.symbol ")")
+    if decide (following ≤ position) || decide (low.operands = maxExpressionOperands) ||
+        decide (low.bounds.lower < info.firstIndex) || decide (low.bounds.upper > info.lastIndex)
+    then invalidValue
+    else ⟨following, 0, 1, 1, false, true, false, target, low.operands + 1, .singleton 1, .singleton 1⟩
+  else
+    let high := calls.function .scalarRead text (take low.after (.symbol "..")) scalarNames arrays initials elaborating
+    let following := take high.after (.symbol ")")
+    let operands := low.operands + high.operands
+    if decide (following ≤ position) || calls.function .scalarEmpty high.bounds ||
+        decide (operands ≥ maxExpressionOperands) ||
+        (decide (low.bounds.lower ≤ high.bounds.upper) &&
+          (decide (low.bounds.lower < info.firstIndex) || decide (high.bounds.upper > info.lastIndex)))
+    then invalidValue
+    else
+      let minimum := max 0 (high.bounds.lower - low.bounds.upper + 1)
+      let maximum := max 0 (high.bounds.upper - low.bounds.lower + 1)
+      if decide (maximum > (maxSourceLength : Int)) then invalidValue
+      else ⟨following, 0, minimum.toNat, maximum.toNat, false, true, false, target,
+        operands + 1, low.bounds, high.bounds⟩
+
+theorem indexed_denotation (calls : Calls) (text : Source) (position : Nat) (names : BindingEnvironment)
+    (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Metadata)
+    (initials : ArrayBindings.Initials) (elaborating element : Bool) :
+    indexedBody.eval calls
+      (Context.locals {text,position,names,scalarNames,arrays,initials,elaborating,characterElement := element}) =
+      indexedEquation calls text position names scalarNames arrays initials elaborating element := by
+  rfl
+
+/-- The recursive call is an explicit callee, with its returned cursor updated in place. -/
+def characterEquation (calls : Calls) (text : Source) (position : Nat) (names : BindingEnvironment)
+    (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Metadata)
+    (initials : ArrayBindings.Initials) (elaborating : Bool) : ValueResult :=
+  let first := calls.function .skip text position
+  let quoted := calls.function .characterLiteral text first
+  let after := calls.function .nameAfter text first
+  let target := calls.function .lookupName text names first after
+  let openAfter := calls.function .takeToken text first (.symbol "(")
+  if decide (openAfter ≠ 0) then
+    let value := calls.function .characterValue text openAfter names scalarNames arrays initials elaborating
+    {value with after := calls.function .takeToken text value.after (.symbol ")")}
+  else if decide (quoted ≠ 0) then
+    ⟨quoted, 0, 1, 1, false, false, false, 0, 1, .singleton 1, .singleton 1⟩
+  else if decide (target ≠ 0) && ((names.get target).getD {}).isCharacter &&
+      decide (calls.function .scalarLookup text scalarNames first after = 0) then
+    ⟨after, 0, 1, 1, false, true, false, target, 1, .singleton 1, .singleton 1⟩
+  else calls.function .indexed text position names scalarNames arrays initials elaborating true
+
+theorem character_denotation (calls : Calls) (text : Source) (position : Nat) (names : BindingEnvironment)
+    (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Metadata)
+    (initials : ArrayBindings.Initials) (elaborating : Bool) :
+    characterBody.eval calls (Context.locals {text,position,names,scalarNames,arrays,initials,elaborating}) =
+      characterEquation calls text position names scalarNames arrays initials elaborating := by
+  rfl
+
+def concatenatedLastEquation (calls : Calls) (left : ExpressionState) (right : ValueResult) : Integer.Interval :=
+  let first := calls.function .concatenatedFirst left right
+  let minimum : Int := (left.minimumLength : Int) + right.minimumLength
+  let maximum : Int := (left.staticLength : Int) + right.staticLength +
+    ((left.dynamicCount : Int) + (if right.dynamicSeen then 1 else 0)) * maxSourceLength
+  let low := first.lower + minimum - 1
+  let high := first.upper + maximum - 1
+  if decide (left.operands = 0) || (decide (left.staticLength = 0) && decide (left.dynamicCount = 0))
+  then right.lastIndex
+  else if calls.function .scalarEmpty first || decide (low < Integer.minValue) ||
+      decide (low > Integer.maxValue) || decide (high < Integer.minValue) || decide (high > Integer.maxValue)
+  then .empty
+  else if decide (minimum = 0) then (Integer.Interval.mk low high).join right.lastIndex
+  else ⟨low, high⟩
+
+theorem concatenatedLast_denotation (calls : Calls) (left : ExpressionState) (right : ValueResult) :
+    concatenatedLastBody.eval calls (Context.locals {scan := left,value := right}) =
+      concatenatedLastEquation calls left right := by
+  rfl
+
+def characterDeclarationEquation (calls : Calls) (text : Source) (state : ParserState) (arguments : Bool) : ParserState :=
+  let take := calls.function .takeToken text
+  let first := calls.function .skip text state.position
+  let after := calls.function .nameAfter text first
+  let colonAfter := take after (.symbol ":")
+  let constantAfter := take colonAfter (.word "constant")
+  let typeFirst := calls.function .skip text (if decide (constantAfter ≠ 0) then constantAfter else colonAfter)
+  let typeAfter := take typeFirst (.word "character")
+  let value := calls.function .characterValue text (take typeAfter (.symbol ":=")) state.names state.scalarNames
+    state.arrayNames.names state.arrayNames.values true
+  let following := take value.after (.symbol ";")
+  if !calls.function .newName text state first after arguments ||
+      decide (typeAfter = 0) || decide (following = 0) || decide (state.names.length = maxBindings) ||
+      calls.function .nameIs text first after "character" ||
+      decide (calls.function .lookupName text state.names typeFirst typeAfter ≠ 0) ||
+      decide (calls.function .scalarLookup text state.scalarNames typeFirst typeAfter ≠ 0) ||
+      decide (calls.function .arrayLookup text state.arrayNames.names typeFirst typeAfter ≠ 0) ||
+      decide (calls.function .subtypeLookup text state.subtypeNames typeFirst typeAfter ≠ 0) ||
+      decide (calls.function .booleanLookup text state.booleanNames typeFirst typeAfter ≠ 0)
+  then invalidState
+  else calls.function .addBindingWithCharacter state first after value (decide (constantAfter = 0)) following true
+
+theorem characterDeclaration_denotation (calls : Calls) (text : Source) (state : ParserState) (arguments : Bool) :
+    characterDeclarationBody.eval calls (Context.locals {text,state,arguments}) =
+      characterDeclarationEquation calls text state arguments := by
+  rfl
+
+end Silver.Compose.Expressions
