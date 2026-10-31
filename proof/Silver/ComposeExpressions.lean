@@ -1615,9 +1615,10 @@ def assignmentBody : Expr .state :=
   let target := Expr.item (.field .stateNames state) (.field .stateTarget state)
   .locals <| .local "value" "expression_result"
     (.expressionArrays text (.field .statePosition state) (.field .stateNames state) (.field .stateScalarNames state) (.field .arrayNames (.field .stateArrayNames state)) (.field .arrayValues (.field .stateArrayNames state)) (.truth true)) <|
-    .group <| .ite (.orElse (.orElse (.orElse (.orElse (.orElse
+    .group <| .ite (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse
       (.not <| .app (.app (.function .fits) value) (.field .stateCapacity state))
       (.eq (.field .stateTarget state) (.number 0)))
+      (.field .bindingCharacter target))
       (.field .resultEmpty value))
       (.ne (.field .resultMinimum value) (.field .resultLength value)))
       (.ne (.field .resultLength value) (.field .bindingLength target)))
