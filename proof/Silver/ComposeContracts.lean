@@ -43,6 +43,27 @@ structure NativeNames (text : Source) (names : BindingEnvironment) : Prop where
   base : ValidNames text names
   bounds : NamesBoundsValid names
 
+/-- A native source state call carries the caller's chosen mathematical
+domain and the exact String-table subtype invariant independently. -/
+structure NativeState (domain : StateDomain) (text : Source) (state : ParserState) : Prop where
+  base : domain.holds text state
+  bounds : NamesBoundsValid state.names
+
+theorem NativeState.valid {domain : StateDomain} {text state}
+    (context : NativeState domain text state) : ValidState text state :=
+  domain.valid text state context.base
+
+theorem NativeState.nativeNames {domain : StateDomain} {text state}
+    (context : NativeState domain text state) : NativeNames text state.names :=
+  ⟨context.valid.2.1, context.bounds⟩
+
+theorem NativeState.transportScalar {domain : StateDomain} {text before after}
+    (context : NativeState domain text before) (valid : ValidState text after)
+    (scalars : after.scalarNames = before.scalarNames) (names : after.names = before.names) :
+    NativeState domain text after :=
+  ⟨domain.transportScalar text before after context.base valid scalars names,
+    names ▸ context.bounds⟩
+
 /-- The complete Value_Result record domain, including the newly represented
 operand subtype and both machine Integer interval fields. -/
 structure NativeValue (text : Source) (value : ValueResult) : Prop where
