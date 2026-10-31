@@ -24,13 +24,18 @@ The [named Integer-subtype delivery record](docs/named-integer-subtypes.md#deliv
 records complete Linux native and Lean/source assurance for static named scalar
 ranges, optional narrower scalar object constraints and bounded components of
 these fixed arrays. The feature is implemented and validated in
-[PR #289](https://github.com/berkeleynerd/silver/pull/289), awaiting the owner's
-merge instruction.
-The Boolean additions in this feature worktree are prepared for
-[#291](https://github.com/berkeleynerd/silver/issues/291) and remain **pending
-complete assurance and delivery**. Their grammar and catalogue entries below
-describe the implementation target; they do not yet claim completed support.
-The [Boolean capability record](docs/boolean-objects.md) tracks that delivery.
+[PR #289](https://github.com/berkeleynerd/silver/pull/289), whose merge is
+authorized before the Boolean feature PR.
+The [Boolean scalar delivery](docs/boolean-objects.md#delivery-assurance-and-validation)
+records complete Linux native and Lean/actual-source assurance for initialized Boolean
+objects, assignment and
+the logical expressions below, composed with the existing language. [PR #295](https://github.com/berkeleynerd/silver/pull/295) remains stacked
+on PR #289. On 2026-10-31, the owner authorized continued validation and merging
+PR #289 followed by PR #295 after their required checks pass. [authorization on main](https://github.com/berkeleynerd/silver/blob/d71fff53702b7ed1a66b46c3090a6aaf326621ab/docs/session-memory.md#2026-10-31--named-subtype-and-boolean-validation-and-merge-authorized), recorded through [PR #301](https://github.com/berkeleynerd/silver/pull/301) (documentation commit `9f649adb2022177c097380a4f10c09ca71d10bab`).
+Merge execution/results: Pending ordered execution at the validated publication
+checkpoint: PR #289 first, then PR #295, under the owner authorization recorded by PR
+#301. Neither feature merge is claimed by this checkpoint; the subsequent main-side
+handoff records actual merge hashes and closeout.
 The [machine-readable
 catalogue](catalogue/silver.json), compiler, and this specification must agree. A
 discrepancy is a defect to resolve, not an extension of the language. Membership
@@ -392,7 +397,6 @@ components when a String object later hides the predefined Integer mark.
 
 ### Boolean objects and expressions
 
-The following extension is prepared pending complete assurance and delivery.
 Every Boolean object has the predefined type `Boolean`, an initializer, and
 optional `constant`. There are no Boolean subtype declarations, range constraints,
 arrays, Image operations or enumeration loops. A Boolean value is admitted in a
@@ -875,8 +879,7 @@ compare Boolean factors; ordering is excluded. The optional `not` belongs to its
 factor, so `not Flag = True` compares `(not Flag)` with `True`, following Ada.
 Comparing Boolean factors conservatively returns unchanged incoming facts on
 both outcomes; facts established while evaluating a factor do not escape the
-comparison. Boolean values and eager operators in this grammar remain pending
-complete assurance and delivery as described above.
+comparison.
 
 `and then` evaluates its right operand only after a true left operand; `or else`
 evaluates it only after a false left operand. That path's facts justify the right

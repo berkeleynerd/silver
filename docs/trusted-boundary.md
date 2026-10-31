@@ -209,12 +209,12 @@ trusted runtime import or source budget is added. The
 [complete Linux checkpoint](named-integer-subtypes.md#delivery-assurance-and-validation)
 records native obligation coverage, authoritative-source correspondence and the
 whole-project Lean/module/axiom audit for the implemented feature in
-[PR #289](https://github.com/berkeleynerd/silver/pull/289), awaiting the owner's
-merge instruction. Earlier stack observations retain their exact measured inputs.
+[PR #289](https://github.com/berkeleynerd/silver/pull/289), whose merge is
+authorized before PR #295 after required checks. [authorization on main](https://github.com/berkeleynerd/silver/blob/d71fff53702b7ed1a66b46c3090a6aaf326621ab/docs/session-memory.md#2026-10-31--named-subtype-and-boolean-validation-and-merge-authorized), recorded through [PR #301](https://github.com/berkeleynerd/silver/pull/301) (documentation commit `9f649adb2022177c097380a4f10c09ca71d10bab`). Earlier stack observations retain their exact measured inputs.
 
 ## Boolean scalar boundary
 
-The pending [Boolean extension](boolean-objects.md) retains the pinned Ada,
+The [Boolean extension](boolean-objects.md#delivery-assurance-and-validation) retains the pinned Ada,
 SPARK, Why3 and solver premises, the existing runtime imports and report policy.
 Boolean values use predefined Standard.Boolean meaning. Eager logical operators
 evaluate both operands; short-circuit operators preserve Ada's conditional
@@ -227,10 +227,12 @@ They use existing operand obligations and introduce no new root safety class.
 The xor producer expands each operand twice, so the language excludes an xor
 inside either operand of another xor. This is a restriction for the pinned
 toolchain's formula capacity, not an Ada requirement. Independent xor operations
-and ordinary Boolean temporaries remain admitted by the implementation target.
-The existing source and arithmetic budgets and 32 MiB report allocation remain
-unchanged. Final native, source-correspondence and regression evidence is still
-required before the capability is described as supported.
+and ordinary Boolean temporaries remain admitted. The existing source and
+arithmetic budgets and 32 MiB report allocation are unchanged. The linked
+delivery checkpoint records complete Linux native and Lean/actual-source assurance on
+`8f676fc40975781cdcaa50772d4d95f7e40054a1`, including
+the reviewed ghost equality repairs and regression applicability. The repairs add
+no trusted assumption or unchecked obligation path.
 
 ## Scalar guard refinement boundary
 

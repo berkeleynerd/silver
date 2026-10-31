@@ -2,12 +2,15 @@
 
 The `scalar-boolean-objects` promotion for
 [#291](https://github.com/berkeleynerd/silver/issues/291) is integrated on the
-Boolean feature branch through `d6f8da17a9` / `927cc5e178`. Complete native and
-Lean/source validation remains pending. The
-[capability record](../docs/boolean-objects.md) tracks the exact scope and current
-assurance status. Stacked Boolean [PR #295](https://github.com/berkeleynerd/silver/pull/295)
-and subtype [PR #289](https://github.com/berkeleynerd/silver/pull/289) remain open;
-neither feature PR is authorized to merge. Integrated Rosetta metadata does not
+Boolean feature branch through `d6f8da17a9` / `927cc5e178`. The
+[capability delivery record](../docs/boolean-objects.md#delivery-assurance-and-validation)
+records complete Linux native and Lean/actual-source assurance on
+`8f676fc40975781cdcaa50772d4d95f7e40054a1` and its
+exact scope. The historical static rounds below retain their own inputs. Stacked
+Boolean [PR #295](https://github.com/berkeleynerd/silver/pull/295)
+and subtype [PR #289](https://github.com/berkeleynerd/silver/pull/289) have owner
+authorization for ordered merges on 2026-10-31: PR #289 followed by PR #295 after their required checks pass.
+[authorization on main](https://github.com/berkeleynerd/silver/blob/d71fff53702b7ed1a66b46c3090a6aaf326621ab/docs/session-memory.md#2026-10-31--named-subtype-and-boolean-validation-and-merge-authorized), recorded through [PR #301](https://github.com/berkeleynerd/silver/pull/301) (documentation commit `9f649adb2022177c097380a4f10c09ca71d10bab`). Integrated Rosetta metadata does not
 establish completed capability support.
 
 The source reconciliation and its recorded settings below are historical
@@ -142,6 +145,9 @@ next-stage authorization is implied by this patch.
 
 ## Current metadata reconciliation — 2026-10-30
 
+This section retains the metadata update's original input and validation status;
+the capability delivery record gives the subsequent assurance result.
+
 Inputs are implementation/proof target `b6aeb9f978` and integration tree
 `59cfd9c3dc`, the three driver sources and cached task descriptions, their
 existing coverage records and the precise scalar Boolean scope. Source/task
@@ -154,7 +160,7 @@ The three summary suffixes now point to current scope and validation status;
 their review methods identify this reconciliation and track native/universal
 assurance separately. Both earlier rounds above retain their dates, settings,
 measurements and input provenance. Complete native and Lean/source checkpoints
-remain pending; rendering and these tests establish no universal assurance.
+were pending at that stage; rendering and these tests establish no universal assurance.
 
 Selected updater settings: GPT-6.1 Sol / High through bounded subthread controls.
 Runtime confirmation and whole-round elapsed/token/cost measurements are
@@ -169,8 +175,24 @@ stage. Managed run `20261030T194532-f1646bc0e6be`, with one reserved worker,
 passed all three `test_rosetta.py` tests in 4.815 seconds (7.928 seconds for the
 managed run). Its input inventory, events and log are retained in the managed
 registry. `git diff --check` passed. These are compiler-independent checks;
-native and complete Lean/source assurance remain pending.
+native and complete Lean/source assurance were pending at that checkpoint.
 
 The tests and managed input capture read `refresh.py`, `manifest.json` and
 `coverage.json`; they do not read this assessment Markdown. A later status-only
 update here does not change the tested Rosetta inputs.
+
+## Delivery status
+
+As of 2026-10-31, the linked capability record identifies
+`8f676fc40975781cdcaa50772d4d95f7e40054a1`
+and complete Linux native and Lean/actual-source assurance, regression applicability
+and independent review. This status-only Markdown update changes no tested Rosetta
+input, task
+mapping or render. The three retained renderer passes remain applicable.
+Broad stage issues #11/#12 remain Open/Backlog at rendered stages 2/3. Only the
+precise scalar Boolean identifier and its three selected drivers are promoted. Queue
+#296/#297/#298 remains unselected in Backlog; no next feature or deferred
+capacity/assurance-mode work is started. Merge execution/results: Pending ordered
+execution at the validated publication checkpoint: PR #289 first, then PR #295, under
+the owner authorization recorded by PR #301. Neither feature merge is claimed by this
+checkpoint; the subsequent main-side handoff records actual merge hashes and closeout.

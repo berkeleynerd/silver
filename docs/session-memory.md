@@ -1,6 +1,51 @@
 # Session memory
 
+## 2026-10-31 — Boolean scalar delivery status
+
+The owner-authorized #291 package is implemented and validated on Linux in stacked
+[PR #295](https://github.com/berkeleynerd/silver/pull/295).
+The [delivery record](boolean-objects.md#delivery-assurance-and-validation) and
+[evidence packet](evidence/boolean-objects-20261030/README.md) identify the final
+implementation/review targets, compiler build, complete Linux native and
+Lean/actual-source assurance, regression
+applicability and technical issue dispositions.
+Failed/interrupted runs and diagnostic experiments retain their outcomes.
+
+Final implementation/proof target: `8f676fc40975781cdcaa50772d4d95f7e40054a1`. The native and
+46-regression snapshot remains `91de078ed81d102485c7dd286758e127630b01d6`.
+Run `062232` built the final source but failed strict module coverage; the
+single Audit import repair was checked by complete cached run
+`20261031T104817-379c11d51394`, with a fresh 572-module / 122,964-declaration
+audit and only the three approved Lean foundations. The terminal independent
+review passed on `7560531370904bb677e6a5e7de7aaa441c9faf50`.
+
+The reviewed ghost equality repair preserves executable meaning, contracts and
+domains. Stored flags remain conservative; neither xor operand may contain xor.
+Budgets and the Oracle are unchanged. Rosetta retains only the precise scalar
+Boolean mapping for the three selected drivers; broad forms remain separate.
+No next language capability or assurance-mode expansion is selected.
+
+On 2026-10-31, the owner said, **“OK, please continue monitoring and driving
+toward merging the two outstanding PRs.”** This supersedes the earlier merge
+holds and authorizes continued validation and ordered merges after required checks: PR #289, then
+PR #295. [authorization on main](https://github.com/berkeleynerd/silver/blob/d71fff53702b7ed1a66b46c3090a6aaf326621ab/docs/session-memory.md#2026-10-31--named-subtype-and-boolean-validation-and-merge-authorized), recorded through [PR #301](https://github.com/berkeleynerd/silver/pull/301) (documentation commit `9f649adb2022177c097380a4f10c09ca71d10bab`). The Boolean feature was developed against
+subtype PR #289 at `fa6b5e982cad5662b18f498e75cafbac9fb07cc9`.
+Merge execution/results: Pending ordered execution at the validated publication
+checkpoint: PR #289 first, then PR #295, under the owner authorization recorded by PR
+#301. Neither feature merge is claimed by this checkpoint; the subsequent main-side
+handoff records actual merge hashes and closeout.
+Issue and milestone handoff: At the validated publication checkpoint, #291/#293/#294
+are In review pending the authorized ordered merges, and milestone 14 remains open
+until delivery closeout. The completing commit uses `Fixes #291`, `Fixes #293` and
+`Fixes #294`; closure occurs on main. The integration owner drives PR #289 then PR
+#295 and the associated issue, milestone and board closeout under the recorded
+authorization. No harness goal exists. CLI memory is unavailable and was not updated;
+this checked-in dated record is the durable handoff.
+
 ## 2026-10-30 — Boolean validation recovery
+
+This entry records recovery before the final delivery above; its pending work
+and intermediate results retain that historical scope.
 
 The owner requested continuation and status; no new feature merge authorization
 was given. Keep subtype PR #289 unchanged and both feature PRs open. The first

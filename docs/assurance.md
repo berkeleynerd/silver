@@ -66,9 +66,13 @@ runtime imports, ABI and environmental assumptions used throughout.
 
 ## Boolean scalar objects and expressions
 
-The [Boolean capability](boolean-objects.md) is pending its complete validation
-checkpoint. The following describes the implemented proof structure; focused
-checks do not yet establish completed support.
+The [Boolean delivery checkpoint](boolean-objects.md#delivery-assurance-and-validation)
+records complete Linux native and Lean/actual-source assurance on
+`8f676fc40975781cdcaa50772d4d95f7e40054a1`, with exact
+native, actual-
+source/module/axiom and regression evidence in the linked packet. The arguments
+below cover the resulting language and its permitted compositions. Focused checks
+and samples remain corroborating evidence.
 
 `BooleanBindings` separates initialized Boolean storage and visibility from
 Integer and String bindings. The ordered declaration semantics preserve the
@@ -112,8 +116,8 @@ The [delivery record](named-integer-subtypes.md#delivery-assurance-and-validatio
 identifies this extension's implementation/review target, complete Linux native
 and Lean/source audits, retained regressions with the repaired-source refresh,
 and scoped independent reviews. The feature is implemented and validated in
-[PR #289](https://github.com/berkeleynerd/silver/pull/289), awaiting the owner's
-merge instruction. Named subtypes carry nonempty static Integer bounds in a separate
+[PR #289](https://github.com/berkeleynerd/silver/pull/289), whose merge is
+authorized before PR #295 after required checks. [authorization on main](https://github.com/berkeleynerd/silver/blob/d71fff53702b7ed1a66b46c3090a6aaf326621ab/docs/session-memory.md#2026-10-31--named-subtype-and-boolean-validation-and-merge-authorized), recorded through [PR #301](https://github.com/berkeleynerd/silver/pull/301) (documentation commit `9f649adb2022177c097380a4f10c09ca71d10bab`). Named subtypes carry nonempty static Integer bounds in a separate
 metadata environment. They allocate no runtime value cells and preserve Integer's
 operations and meaning. `IntegerSubtypeBindings` models ordered lookup and the
 operation-hiding flags; `ComposeSubtypeDeclarations` connects subtype and type-mark
