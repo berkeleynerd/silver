@@ -1,24 +1,21 @@
 # Common list elements
 
-**Candidate: proofs likely to discharge automatically.** Every index comes from for-loop ranges over the arrays themselves and the single loop-carried counter is bounded by its subtype and a guard, so all checks discharge without annotations. No while loops, recursion or functions with loops are needed.
+**Candidate: proofs likely to discharge automatically.** Direct streaming needs no result buffer, dynamic String building or user procedure. Constant-array iteration supplies bounded component values, and all tests and output use the existing finite bodies. Independent expected output uses set intersection and first-list ordering. A no-match regression exercises both false flags and empty output. Scope and validation status are recorded in docs/boolean-objects.md and the linked assessment record.
 
-Position 95 in the [progression](../../progression.md#stage-5), in stage 5.
+Position 54 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
-The three example lists are constant Integer arrays embedded in the program, and the result is a fixed-capacity array of 8 with a Count of type 0 .. 8. Nested for loops over each array's own range test whether each element of the first list appears in the second and third using Boolean flags set inside the inner loops. Matches are appended under a capacity guard, and the output is built with Put and the integer image, with commas between elements (the matches come out in first-list order as 3, 9, 6, which is the same set as the example's [3,6,9]). About 45 lines.
-
-## Proof obligations to watch
-
-- **index**: The result counter is a loop-carried value, so the program guards each append with a test of Count against the array capacity (8, equal to the length of the first list) just before the indexed store.
-- **range**: Count is declared with a subtype 0 .. 8 and incremented only inside that guard, so the increment's range check follows from the guard and the type.
+The driver samples/rosetta_common_list_elements.adb embeds exactly the task lists (2,5,1,3,8,9,4,6), (3,5,6,2,9,8,4) and (1,3,7,6,9) as constant arrays with component subtype 1..9. For each first-list element, nested foreach loops compute two Boolean membership flags. Their eager conjunction selects common elements. A separate Printed flag controls commas while Put streams a bracketed list in first-list order: 3,9,6, the same set as the task example 3,6,9. About 35 lines.
 
 ## Language surface recorded by this assessment
 
-Integers, ranged subtypes, Boolean objects, arrays, for loops, 'Image of scalars, string building, Put without a newline and procedures.
+Scalar Boolean objects and expressions, named Integer subtypes and bounded components, fixed-size Integer arrays, constant Integer-array iteration, Integer image and Put without a newline.
 
 ## External effects
 
 - **console output** (allowed): Prints the common elements as a bracketed list on standard output.
 
-Assessed on 2026-10-15 against page revision 406865 of the [task](https://rosettacode.org/wiki/Common_list_elements) by claude-sonnet-5-5 at medium effort; confidence high. The inclusion policy is in `rosetta/coverage.json`.
+Initially assessed on 2026-10-15 against page revision 406865 of the [task](https://rosettacode.org/wiki/Common_list_elements) by claude-sonnet-5-5 at medium effort; current confidence high. The inclusion policy is in `rosetta/coverage.json`.
+
+Revised on 2026-10-30 by Codex through targeted source review; see the [review record](../../../rosetta/assessment-boolean-objects-20261030.md).

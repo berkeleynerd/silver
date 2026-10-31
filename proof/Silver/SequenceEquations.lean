@@ -152,9 +152,9 @@ theorem interpreted_basic (calls : Calls) (helpers : HelperMeaning calls)
     (scan : ScanResult) (context : ValidScan text scan) :
     calls.basic text scan = basicStatementAt text scan := by
   rw [equations.basic text valid scan context, basic_eval]
-  have nullToken := Compose.Expressions.interpreted_take calls.helpers helpers.equations
+  have nullToken := Compose.Expressions.interpreted_take calls.helpers helpers.equations.toRawHelperEquations
     text valid scan.state.position (.word "null") context.1 (by simp [Compose.Expressions.ValidToken, Compose.Expressions.allTokens])
-  have ioToken := Compose.Expressions.interpreted_take calls.helpers helpers.equations
+  have ioToken := Compose.Expressions.interpreted_take calls.helpers helpers.equations.toRawHelperEquations
     text valid scan.state.position (.word "silver_io") context.1 (by simp [Compose.Expressions.ValidToken, Compose.Expressions.allTokens])
   have scanned := fun kind => (interpreted_tokens calls helpers equations text valid kind.tokens scan context
     (basic_tokens_valid kind)).1
@@ -175,7 +175,7 @@ theorem interpreted_stop (calls : Calls) (helpers : HelperMeaning calls)
     (stop : ShellToken) (stopValid : ValidStop stop) :
     calls.helpers.function .takeToken text scan.state.position stop = tokenAfter text scan.state.position stop := by
   rcases stopValid with rfl | rfl <;>
-    exact Compose.Expressions.interpreted_take calls.helpers helpers.equations text valid scan.state.position _ context.1 (by unfold Compose.Expressions.ValidToken; decide)
+    exact Compose.Expressions.interpreted_take calls.helpers helpers.equations.toRawHelperEquations text valid scan.state.position _ context.1 (by unfold Compose.Expressions.ValidToken; decide)
 
 /-- Uniqueness for the cursor-decreasing list equation. The native contract
 supplies progress, so the model's totalizing measure guard is always satisfied. -/
@@ -241,7 +241,7 @@ theorem body_primitives (calls : Calls) (helpers : HelperMeaning calls)
     (equations : DefinitionEquations calls) :
     Native.PrimitiveAgreement calls.bodyPrimitives Native.modelPrimitives where
   take text valid position token bound tokenValid :=
-    Compose.Expressions.interpreted_take calls.helpers helpers.equations text valid position token bound tokenValid
+    Compose.Expressions.interpreted_take calls.helpers helpers.equations.toRawHelperEquations text valid position token bound tokenValid
   token text valid scan token scanValid tokenValid :=
     interpreted_scanToken calls helpers equations text valid scan token scanValid tokenValid
   basic text valid scan scanValid :=
@@ -360,7 +360,7 @@ private theorem initial_valid (text : Source) : ValidScan text initialScan := by
   simp [ValidScan, Compose.Expressions.ValidState, Compose.Expressions.ValidCursor,
     Compose.Expressions.ValidNames, initialScan, initialState, Named.NameState.Valid, maxBindings, maxSourceLength,
     ScalarExpression.validEnvironment_empty, ArrayBindings.ValidEnvironment,
-    ArrayBindings.ValidMetadata, ArrayBindings.ValidInitials, IntegerSubtypes.valid_empty]
+    ArrayBindings.ValidMetadata, ArrayBindings.ValidInitials, IntegerSubtypes.valid_empty, BooleanBindings.valid_empty]
 
 theorem interpreted_form (calls : Calls) (helpers : HelperMeaning calls)
     (equations : DefinitionEquations calls) (text : Source) (form : Form) :
@@ -370,7 +370,7 @@ theorem interpreted_form (calls : Calls) (helpers : HelperMeaning calls)
   by_cases valid : ValidText text
   · have suffix := interpreted_suffix calls helpers equations text valid form 1 initialScan (initial_valid text)
       (by omega) (by omega)
-    have budget := Compose.Expressions.interpreted_workBudget calls.helpers helpers.equations text valid
+    have budget := Compose.Expressions.interpreted_workBudget calls.helpers helpers.equations.toRawHelperEquations text valid
     simp [Sequence.formResult, budget, suffix, suffixAtIndex, valid.1, valid.2]
   · have invalid : ¬(1 ≤ text.length ∧ text.length ≤ maxSourceLength) := valid
     simp [Sequence.formResult, invalid, Nat.lt_iff_add_one_le]

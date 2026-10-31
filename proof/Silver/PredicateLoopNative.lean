@@ -45,7 +45,7 @@ def modelImports : Imports where
   equalName := Named.equalName
   arrayTarget := fun text context position => Predicate.arrayTarget text context.model position
   readScalar := fun text context position facts first after =>
-    ScalarExpression.read text position (context.model.readingNames facts) first after (arrays := context.arrayNames)
+    readScalarInFlow text context.model position facts first after
   widen := fun context facts => ActiveFlow.widen context.scalarNames facts
   isEmpty := Integer.Interval.isEmpty
   normalize := Integer.Interval.normalize
@@ -214,11 +214,11 @@ def Update.eval (read : Reader) (frame : Frame) : Update → Frame
   | .inside => {frame with result := {frame.result with position := fixedAfter frame.text frame.after "in" true}}
   | .iterable => {frame with result := {frame.result with position := fixedAfter frame.text frame.after "of" true}}
   | .reverse => {frame with result := bodyToken frame.text frame.result (.word "reverse")}
-  | .low => {frame with low := (ScalarExpression.read frame.text frame.result.position
-      (frame.context.model.readingNames frame.scan.facts) frame.first frame.after (arrays := frame.context.arrayNames))}
+  | .low => {frame with low := (readScalarInFlow frame.text frame.context.model frame.result.position
+      frame.scan.facts frame.first frame.after)}
   | .delimiter => {frame with result := {frame.result with position := fixedAfter frame.text frame.low.after ".." false}}
-  | .high => {frame with high := (ScalarExpression.read frame.text frame.result.position
-      (frame.context.model.readingNames frame.scan.facts) frame.first frame.after (arrays := frame.context.arrayNames))}
+  | .high => {frame with high := (readScalarInFlow frame.text frame.context.model frame.result.position
+      frame.scan.facts frame.first frame.after)}
   | .opening => {frame with result := {frame.result with position := fixedAfter frame.text frame.high.after "loop" true}}
   | .arrayOpening => {frame with result := {frame.result with position := fixedAfter frame.text frame.arrayAfter "loop" true}}
   | .bounds => {frame with bounds := Integer.loopBounds frame.low.bounds frame.high.bounds}

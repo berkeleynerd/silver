@@ -38,6 +38,12 @@ theorem basicRaw_controls (text : Source) (context : ParseContext) (scan : BodyS
       split
       · exact ⟨Nat.zero_le _, Nat.zero_le _⟩
       · exact valid
+  | booleanAssignment =>
+      unfold booleanAssignmentBody
+      dsimp only
+      split
+      · exact ⟨Nat.zero_le _, Nat.zero_le _⟩
+      · exact valid
   | arrayAssignment =>
       unfold arrayAssignmentBody
       dsimp only

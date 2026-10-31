@@ -42,6 +42,8 @@ def CallHiding.add (flags : CallHiding) (text : Source) (first after : Nat) : Ca
 structure Environment where
   items : List Binding := []
   hiddenCalls : CallHiding := {}
+  trueHidden : Bool := false
+  falseHidden : Bool := false
   deriving DecidableEq, Repr
 
 def binding (environment : Environment) (index : Nat) : Binding :=
@@ -60,7 +62,9 @@ def lookup (text : Source) (environment : Environment) (first after : Nat) : Nat
 
 def append (text : Source) (environment : Environment) (item : Binding) : Environment :=
   { items := environment.items ++ [item]
-    hiddenCalls := environment.hiddenCalls.add text item.first item.after }
+    hiddenCalls := environment.hiddenCalls.add text item.first item.after
+    trueHidden := environment.trueHidden || Named.nameIs text item.first item.after ("true".toList.map Char.toNat)
+    falseHidden := environment.falseHidden || Named.nameIs text item.first item.after ("false".toList.map Char.toNat) }
 
 def ValidEnvironment (text : Source) (environment : Environment) : Prop :=
   environment.items.length ≤ maxBindings ∧ ∀ item ∈ environment.items,
@@ -115,5 +119,19 @@ theorem hiding_append {text : Source} {environment : Environment}
   cases operation <;>
     simpa [append, CallHiding.add, CallHiding.get, List.any_append] using appended
 
+
+def LiteralHidingCorrect (text : Source) (environment : Environment) : Prop :=
+  environment.trueHidden = environment.items.any
+      (fun item => Named.nameIs text item.first item.after ("true".toList.map Char.toNat)) ∧
+    environment.falseHidden = environment.items.any
+      (fun item => Named.nameIs text item.first item.after ("false".toList.map Char.toNat))
+
+theorem literal_hiding_empty (text : Source) : LiteralHidingCorrect text {} := ⟨rfl, rfl⟩
+
+theorem literal_hiding_append {text : Source} {environment : Environment}
+    (correct : LiteralHidingCorrect text environment) (item : Binding) :
+    LiteralHidingCorrect text (append text environment item) := by
+  simp only [LiteralHidingCorrect, append, List.any_append, List.any_cons, List.any_nil,
+    Bool.or_false, correct.1, correct.2, and_self]
 
 end Silver.IntegerSubtypes

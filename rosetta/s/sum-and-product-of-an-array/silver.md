@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The bounded component subtype supplies the operand range for guarded sum and product updates. The embedded ten-element example is computed by iteration over the actual array, with standard Integer Image output.
 
-Position 42 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 44 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

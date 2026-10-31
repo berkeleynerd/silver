@@ -48,43 +48,40 @@ work retain their scope.
 
 ### Boolean scalar objects and expressions
 
-**Authorized, 2026-10-30; proposed support, not yet admitted.**
+**Implemented and validated on Linux, 2026-10-31
+([PR #295](https://github.com/berkeleynerd/silver/pull/295)); merge authorized
+after PR #289 on 2026-10-31.**
 
-The owner selected this coherent feature, driven by Rosetta **Sequence of primes
-by trial division** (lead), **Square but not cube**, and **Common list elements**:
-[Milestone 14](https://github.com/berkeleynerd/silver/milestone/14), one work
-package [#291](https://github.com/berkeleynerd/silver/issues/291). The
-[authorization](docs/session-memory.md#2026-10-30--boolean-scalar-objects-and-expressions-authorized)
-covers implementation, complete assurance, regressions, independent review and
-stacked feature PR publication. The [capability proposal](docs/boolean-objects.md)
-records scope and the design obligations.
+[Milestone 14](https://github.com/berkeleynerd/silver/milestone/14) contains one
+coherent work package, [#291](https://github.com/berkeleynerd/silver/issues/291),
+driven by Sequence of primes by trial division, Square but not cube and Common
+list elements. The [delivery record](docs/boolean-objects.md#delivery-assurance-and-validation)
+records complete Linux native and Lean/actual-source assurance against the
+implementation and review inputs,
+with exact native/Lean results, regression applicability and evidence limits.
 
-Admit initialized Boolean constants and variables, assignment, `True`/`False`,
-`not`, eager `and`/`or`/`xor`, and Boolean expressions in existing conditions with
-short-circuit `and then`/`or else`. Work proceeds as one package: settle exact
-decidable native rules and producer obligations; implement native and universal/
-actual-source assurance together; complete faithful drivers, regressions,
-Rosetta records, full required validation, review and PR delivery. The rules
-must address inherited Ada name hiding of `True`/`False`/`Boolean`, both eager
-operands versus path-dependent short-circuit checks, and no retained scalar
-facts behind stored flags. Existing source/operator/operand budgets remain
+The fragment adds initialized scalar Boolean constants and variables,
+assignment, `True`/`False`, `not`, eager `and`/`or`/`xor`, and Boolean expressions
+in existing short-circuit conditions. Ada visibility governs predefined names.
+Both eager operands need incoming safety facts; stored flags preserve no scalar
+predicate facts. Neither xor operand may contain xor, bounding the pinned
+producer's formula expansion. Source/operator/leaf limits and the Oracle remain
 unchanged. Boolean arrays, callable routines and enumeration iteration remain
 excluded.
 
-The feature is stacked on subtype [PR #289](https://github.com/berkeleynerd/silver/pull/289),
-whose implementation review target is `fa6b5e982cad5662b18f498e75cafbac9fb07cc9`.
-The owner [authorized final validation and ordered merge on 2026-10-31](docs/session-memory.md#2026-10-31--named-subtype-and-boolean-validation-and-merge-authorized):
-complete the required assurance and review, then merge #289 followed by Boolean
-[PR #295](https://github.com/berkeleynerd/silver/pull/295). Broad
-Rosetta identifiers such as `booleans`, `logical-operators` and `boolean-flags`
-are not automatically supported: reconcile or split their assessed uses at
-delivery before promotion. Existing broader stages and deferred capacity/
-assurance-mode work retain their current scope and triggers.
+The feature was developed on the validated subtype baseline
+`fa6b5e982cad5662b18f498e75cafbac9fb07cc9`. The owner
+[authorized ordered merge](docs/session-memory.md#2026-10-31--named-subtype-and-boolean-validation-and-merge-authorized)
+on 2026-10-31; PR #289 has merged and PR #295 is ready for merge.
+Rosetta promotes only `scalar-boolean-objects` for the three selected drivers.
+Broad Boolean/logical-operator/Boolean-flag uses remain separate, and stage
+issues #11/#12 remain Open/Backlog at rendered stages 2/3. The queue above and
+deferred capacity/assurance-mode work retain their existing scope.
 
 ### Named Integer subtypes and bounded array components
 
 **Implemented and validated on Linux, 2026-10-30
-([PR #289](https://github.com/berkeleynerd/silver/pull/289)).**
+([PR #289](https://github.com/berkeleynerd/silver/pull/289)); merged 2026-10-31.**
 
 [Milestone 13](https://github.com/berkeleynerd/silver/milestone/13) delivers one
 coherent work package, [#286](https://github.com/berkeleynerd/silver/issues/286),
@@ -112,8 +109,8 @@ approaches through the narrow `named-integer-subtypes` identifier. The broad
 `ranged-subtypes` and `arrays` identifiers remain unsupported; stage issues
 [#11](https://github.com/berkeleynerd/silver/issues/11) and
 [#12](https://github.com/berkeleynerd/silver/issues/12) remain Open/Backlog at
-rendered stages 2 and 3. Delivery through PR #289 does not place this feature on
-`main` or authorize its merge. Deferred capacity and assurance-mode work retains
+rendered stages 2 and 3. PR #289 merged on 2026-10-31. Deferred
+capacity and assurance-mode work retains
 its existing triggers.
 
 ### Fixed-array external review response
@@ -855,7 +852,8 @@ sequence.
 | Scalar guard refinement | Supported | Bare mutable/index comparisons against static thresholds, assignment replacement, branch hulls and captured bounds with mutable loop widening; [Linux validation and assurance](docs/scalar-guard-refinement.md#delivery-assurance-and-validation). | [100 doors](samples/rosetta_100_doors.adb) |
 | Fixed-size Integer arrays | Supported | Anonymous one-dimensional Integer arrays with nonempty static bounds, explicit initialization, checked scalar-only subscripts, exact declaration snapshots and component-preserving writes; [delivery assurance and validation](docs/fixed-integer-arrays.md#delivery-assurance-and-validation). Broad arrays remain separate. | [Left rotation by three](samples/rosetta_shift_list_left_3.adb) |
 | Constant Integer-array iteration | Supported | Forward/reverse element iteration over existing constant anonymous fixed-size Integer arrays, immutable scoped elements and existing body compositions; [delivery assurance and validation](docs/constant-array-iteration.md#delivery-assurance-and-validation). Mutable iteration and general iterators remain separate. | [Loops/Foreach](samples/rosetta_loops_foreach.adb) |
-| Named Integer subtypes and bounded components | Supported on Linux in PR #289 | Direct static Integer range subtypes for initialized scalar objects and existing fixed-array components, optional narrower scalar object ranges, and declared component bounds in body reads and foreach elements; [complete Linux assurance and validation](docs/named-integer-subtypes.md#delivery-assurance-and-validation). Broad ranged subtypes and arrays remain separate. | [Sum of squares](samples/rosetta_sum_of_squares.adb), [Sum and product](samples/rosetta_sum_and_product.adb) |
+| Named Integer subtypes and bounded components | Supported | Direct static Integer range subtypes for initialized scalar objects and existing fixed-array components, optional narrower scalar object ranges, and declared component bounds in body reads and foreach elements; [complete Linux assurance and validation](docs/named-integer-subtypes.md#delivery-assurance-and-validation). Broad ranged subtypes and arrays remain separate. | [Sum of squares](samples/rosetta_sum_of_squares.adb), [Sum and product](samples/rosetta_sum_and_product.adb) |
+| Boolean scalar objects and expressions | Supported on Linux in PR #295 | Initialized scalar Boolean objects, assignment and eager/short-circuit expressions; no retained scalar predicate facts through flags, no xor inside xor operands; [delivery assurance and validation](docs/boolean-objects.md#delivery-assurance-and-validation). | [Sequence of primes](samples/rosetta_sequence_of_primes_by_trial_division.adb), [Square but not cube](samples/rosetta_square_but_not_cube.adb), [Common list elements](samples/rosetta_common_list_elements.adb) |
 
 The output target covers admitted literals and bounded command-line
 messages; the text `Hello, world!` receives no special treatment. String literals do not imply support for

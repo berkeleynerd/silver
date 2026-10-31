@@ -1,0 +1,67 @@
+error: Silver/PredicateAdapterSourceCandidate.lean:18:2: Tactic `decide` failed for proposition
+  ["("] ++
+        [","].intercalate
+          (List.map (fun x => [x.fst, "=>"] ++ x.snd)
+            [("names", ["scan"] ++ [".", "state"] ++ [".", "names"]),
+              ("scalar_names",
+                ["scalar_expressions", "."] ++
+                  Expressions.call "body_environment" [["scan"] ++ [".", "state"] ++ [".", "scalar_names"]]),
+              ("array_names", ["scan"] ++ [".", "state"] ++ [".", "array_names"] ++ [".", "names"]),
+              ("subtype_hiding", ["scan"] ++ [".", "state"] ++ [".", "subtype_names"] ++ [".", "hidden_calls"]),
+              ("boolean_names", ["scan"] ++ [".", "state"] ++ [".", "boolean_names"]),
+              ("true_hidden", ["scan"] ++ [".", "state"] ++ [".", "subtype_names"] ++ [".", "true_hidden"]),
+              ("false_hidden", ["scan"] ++ [".", "state"] ++ [".", "subtype_names"] ++ [".", "false_hidden"]),
+              ("elaborating", [if false = true then "true" else "false"]), ("mask_first", [toString 0]),
+              ("mask_after", [toString 0]),
+              ("declaration_count", ["scan"] ++ [".", "state"] ++ [".", "scalar_names"] ++ [".", "count"]),
+              ("dynamic_first", ["scan"] ++ [".", "state"] ++ [".", "dynamic_first"]),
+              ("dynamic_after", ["scan"] ++ [".", "state"] ++ [".", "dynamic_after"])]) ++
+      [")"] =
+    ["(", "names", "=>", "scan", ".", "state", ".", "names", ",", "scalar_names", "=>", "scalar_expressions", ".",
+      "body_environment", "(", "scan", ".", "state", ".", "scalar_names", ")", ",", "array_names", "=>", "scan", ".",
+      "state", ".", "array_names", ".", "names", ",", "subtype_hiding", "=>", "scan", ".", "state", ".",
+      "subtype_names", ".", "hidden_calls", ",", "boolean_names", "=>", "scan", ".", "state", ".", "boolean_names", ",",
+      ⋯]
+because its `Decidable` instance
+  instDecidableEqList
+    (["("] ++
+        [","].intercalate
+          (List.map (fun x => [x.fst, "=>"] ++ x.snd)
+            [("names", ["scan"] ++ [".", "state"] ++ [".", "names"]),
+              ("scalar_names",
+                ["scalar_expressions", "."] ++
+                  Expressions.call "body_environment" [["scan"] ++ [".", "state"] ++ [".", "scalar_names"]]),
+              ("array_names", ["scan"] ++ [".", "state"] ++ [".", "array_names"] ++ [".", "names"]),
+              ("subtype_hiding", ["scan"] ++ [".", "state"] ++ [".", "subtype_names"] ++ [".", "hidden_calls"]),
+              ("boolean_names", ["scan"] ++ [".", "state"] ++ [".", "boolean_names"]),
+              ("true_hidden", ["scan"] ++ [".", "state"] ++ [".", "subtype_names"] ++ [".", "true_hidden"]),
+              ("false_hidden", ["scan"] ++ [".", "state"] ++ [".", "subtype_names"] ++ [".", "false_hidden"]),
+              ("elaborating", [if false = true then "true" else "false"]), ("mask_first", [toString 0]),
+              ("mask_after", [toString 0]),
+              ("declaration_count", ["scan"] ++ [".", "state"] ++ [".", "scalar_names"] ++ [".", "count"]),
+              ("dynamic_first", ["scan"] ++ [".", "state"] ++ [".", "dynamic_first"]),
+              ("dynamic_after", ["scan"] ++ [".", "state"] ++ [".", "dynamic_after"])]) ++
+      [")"])
+    ["(", "names", "=>", "scan", ".", "state", ".", "names", ",", "scalar_names", "=>", "scalar_expressions", ".",
+      "body_environment", "(", "scan", ".", "state", ".", "scalar_names", ")", ",", "array_names", "=>", "scan", ".",
+      "state", ".", "array_names", ".", "names", ",", "subtype_hiding", "=>", "scan", ".", "state", ".",
+      "subtype_names", ".", "hidden_calls", ",", "boolean_names", "=>", "scan", ".", "state", ".", "boolean_names", ",",
+      ⋯]
+did not reduce to `isTrue` or `isFalse`.
+
+Reduction got stuck at the `Decidable` instance
+  match (Nat.repr 0).1.1.toList with
+  | [] =>
+    match #[].toList.concat (UInt8.ofNat '0'.val.toNat) with
+    | [] => isTrue ⋯
+    | head :: tail => isFalse ⋯
+  | a :: as =>
+    match #[].toList.concat (UInt8.ofNat '0'.val.toNat) with
+    | [] => isFalse ⋯
+    | b :: bs =>
+      match decEq a b with
+      | isTrue hab =>
+        match as.hasDecEq bs with
+        | isTrue habs => isTrue ⋯
+        | isFalse nabs => isFalse ⋯
+      | isFalse nab => isFalse ⋯

@@ -1,0 +1,22 @@
+{
+  "base_commit": "d2db22c443df3434f1b82644886d0c71ccb886e1",
+  "changed_inputs": [
+    "proof/Silver/PredicateAdapterSourceCandidate.lean"
+  ],
+  "run_id": "20261030T184802-f5496b2d5331",
+  "inputs_sha256": {
+    "proof/Silver/PredicateAdapterSourceCandidate.lean": "e39674214e5518ea7bb6ee7a1195ab749fb317382158b37c09a3cc480e537930",
+    "proof/Silver/PredicateAdapter.lean": "a13bba4805be949ee962511448e5481047c70ab672ea24366a3c927ac3cd1178",
+    "proof/Silver/PredicateAdapterEnvironment.lean": "aee8d6b3784e5d278a1596f42625190d0705f154e322545df2998f35471a75a6",
+    "proof/Silver/ComposeBooleanDeclarationNative.lean": "8916b1ae012a30e27c103a995974074d716d849db936cbd6a28fc52f0b7f5700",
+    "proof/Silver/ComposeBooleanDeclarationDomain.lean": "0e5e2642d8cefa180f24227e09dffea64cab97ccd44d8789549a553d00e70707",
+    "proof/Silver/PredicateSourceCandidate.lean": "54b9233e326297dc809be63f6bb682eb67934dc172cdfc108074cb8bf003f56c",
+    "src/silver_output_profile.adb": "9542d721cb1d63f936704058e6e0705b615fdce9e86d08397a2384c7714cc4a0"
+  },
+  "cache_reuse": {
+    "source_worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes",
+    "source_terminal_run": "20261030T132736-e452c95bd00d",
+    "method": "copied complete proof workspace into isolated worktree; focused managed runner rehashed dependencies, applied current captured inputs and audited selected import closure",
+    "tools": "same pinned Lean/Lake executables via read-only use of existing installation; hashes recorded by runner"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "released_at": "2026-10-31T06:33:44.524491+00:00",
+  "workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration",
+  "regression_executor": "/root/boolean_delivery_prep",
+  "restoration_verified": true,
+  "original_nodes": 864,
+  "all_nine_dirty_file_hashes_and_modes_preserved": true,
+  "seven_unrelated_dirty_nodes_preserved": true,
+  "native_report_files_rechecked": 80,
+  "native_report_hash_mismatches": [],
+  "observed_kernel_tool_unchanged": true,
+  "managed_input_maps_checked_before_restoration": 4,
+  "input_count_each": 838,
+  "further_installed_workspace_writes_planned": false,
+  "logical_ownership_released_to": "/root/boolean_finish"
+}

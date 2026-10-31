@@ -15,10 +15,16 @@ output effects. Source `elsif` lowers to a choice in the false arm; an omitted
 namespace Silver.Predicate
 open Bindings Compose PathFacts
 
+structure BooleanAssignment where
+  target : Nat
+  value : Condition
+  deriving Repr
+
 inductive Statement
   | simple (item : Sequence.SimpleStatement)
   | scalarAssign (update : Integer.Assignment)
   | arrayAssign (update : Integer.ArrayAssignment)
+  | booleanAssign (update : BooleanAssignment)
   | reject
   | choice (condition : Condition) (yes no : List Statement)
   | forLoop (index : Nat) (reverse : Bool) (lower upper : Integer.Expr) (body : List Statement)
@@ -30,7 +36,7 @@ Restoring a nested binder only at loop exit would not establish Ada's alias
 semantics during the nested body. This check covers both loop constructors. -/
 mutual
   def Statement.bindersApart (array : Integer.ArrayDescriptor) : Statement → Bool
-    | .simple _ | .scalarAssign _ | .arrayAssign _ | .reject => true
+    | .simple _ | .scalarAssign _ | .arrayAssign _ | .booleanAssign _ | .reject => true
     | .choice _ yes no => statementsBindersApart array yes && statementsBindersApart array no
     | .forLoop index _ _ _ body | .arrayLoop index _ _ body =>
         decide (¬array.ContainsCell index) && statementsBindersApart array body
@@ -52,21 +58,27 @@ def SimpleWellFormed (shape : Shape) : Sequence.SimpleStatement → Prop
   | .output expression | .put expression => ExpressionReady shape expression
 
 mutual
-  def Statement.WellFormed (hasArguments : Bool) (shape : Shape) : Statement → Prop
+  def Statement.WellFormed (hasArguments : Bool) (shape : Shape) (item : Statement)
+      (booleans : Boolean.Analysis := {}) : Prop :=
+    match item with
     | .simple item => SimpleWellFormed shape item
     | .scalarAssign update => update.target ≠ 0
     | .arrayAssign _ => True
+    | .booleanAssign update => booleans.canWrite update.target = true ∧
+        update.value.Grammatical ∧ update.value.Readable hasArguments shape booleans
     | .reject => hasArguments = true
     | .choice condition yes no =>
-        condition.Grammatical ∧ condition.Readable hasArguments shape ∧ yes ≠ [] ∧
-          StatementsWellFormed hasArguments shape yes ∧ StatementsWellFormed hasArguments shape no
+        condition.Grammatical ∧ condition.Readable hasArguments shape booleans ∧ yes ≠ [] ∧
+          StatementsWellFormed hasArguments shape yes booleans ∧ StatementsWellFormed hasArguments shape no booleans
     | .forLoop index _ _ _ body | .arrayLoop index _ _ body =>
-        index ≠ 0 ∧ body ≠ [] ∧ StatementsWellFormed hasArguments shape body
-  termination_by item => sizeOf item
-  def StatementsWellFormed (hasArguments : Bool) (shape : Shape) : List Statement → Prop
+        index ≠ 0 ∧ body ≠ [] ∧ StatementsWellFormed hasArguments shape body booleans
+  termination_by sizeOf item
+  def StatementsWellFormed (hasArguments : Bool) (shape : Shape) (items : List Statement)
+      (booleans : Boolean.Analysis := {}) : Prop :=
+    match items with
     | [] => True
-    | item :: rest => item.WellFormed hasArguments shape ∧ StatementsWellFormed hasArguments shape rest
-  termination_by items => sizeOf items
+    | item :: rest => item.WellFormed hasArguments shape booleans ∧ StatementsWellFormed hasArguments shape rest booleans
+  termination_by sizeOf items
 end
 
 /-- Check an assignment's affine equality at both endpoints of each reachable
@@ -201,7 +213,7 @@ def checkArrayAssignment (analysis : Integer.Analysis) (flow : Flow)
 
 mutual
   def Statement.check (shape : Shape) (analysis : Integer.Analysis) (flow : Flow)
-      (item : Statement) : Option Flow :=
+      (item : Statement) (booleans : Boolean.Analysis := {}) : Option Flow :=
     match item with
     | .simple item => if checkSimple shape flow.path item flow.scalars then some flow else none
     | .scalarAssign update =>
@@ -209,38 +221,41 @@ mutual
         then some {flow with scalars := update.after flow.scalars} else none
     | .arrayAssign update =>
         if checkArrayAssignment analysis flow update then some flow else none
+    | .booleanAssign update =>
+        if booleans.canWrite update.target && update.value.checkBounds shape analysis flow booleans
+        then some flow else none
     | .reject => some {flow with path := flow.path.reject}
     | .choice condition yes no =>
-        if condition.checkBounds shape analysis flow then
-          (checkStatements shape analysis (condition.refine shape analysis flow true) yes).bind fun afterYes =>
-            (checkStatements shape analysis (condition.refine shape analysis flow false) no).map fun afterNo =>
+        if condition.checkBounds shape analysis flow booleans then
+          (checkStatements shape analysis (condition.refine shape analysis flow true) yes booleans).bind fun afterYes =>
+            (checkStatements shape analysis (condition.refine shape analysis flow false) no booleans).map fun afterNo =>
               afterYes.join afterNo
         else none
     | .forLoop index _ lower upper body =>
         (lower.infer flow.scalars).bind fun a => (upper.infer flow.scalars).bind fun b =>
           let bounds := Integer.loopBounds a b
           (checkStatements shape (analysis.withIndex index bounds)
-            (loopEntry analysis flow index bounds) body).map fun after => loopExit analysis flow after a b
+            (loopEntry analysis flow index bounds) body booleans).map fun after => loopExit analysis flow after a b
     | .arrayLoop index _ array body =>
         if arrayLoopReady analysis flow index array && statementsBindersApart array body then
           (checkStatements shape (analysis.withIndex index array.componentBounds)
-            (arrayLoopEntry analysis flow index array.componentBounds) body).map fun after => arrayLoopExit analysis flow after
+            (arrayLoopEntry analysis flow index array.componentBounds) body booleans).map fun after => arrayLoopExit analysis flow after
         else none
   termination_by sizeOf item
   def checkStatements (shape : Shape) (analysis : Integer.Analysis) (flow : Flow)
-      (items : List Statement) : Option Flow :=
+      (items : List Statement) (booleans : Boolean.Analysis := {}) : Option Flow :=
     match items with
     | [] => some flow
-    | item :: rest => (item.check shape analysis flow).bind fun next => checkStatements shape analysis next rest
+    | item :: rest => (item.check shape analysis flow booleans).bind fun next => checkStatements shape analysis next rest booleans
   termination_by sizeOf items
 end
 
 /- Admission preserves abstract containment in immutable declaration ranges,
 including through precise assignments, branch hulls and conservative loop exits. -/
 mutual
-  theorem statement_ranges_invariant {shape : Shape} {analysis : Integer.Analysis}
+  theorem statement_ranges_invariant {shape : Shape} {analysis : Integer.Analysis} {booleans : Boolean.Analysis}
       {before after : Flow} {item : Statement}
-      (checked : item.check shape analysis before = some after)
+      (checked : item.check shape analysis before booleans = some after)
       (refined : before.scalars.Refines analysis.declared)
       (bounded : before.scalars.Bounded) (declared : analysis.declared.Bounded) :
       after.scalars.Refines analysis.declared ∧ after.scalars.Bounded := by
@@ -257,7 +272,7 @@ mutual
           cases checked
           exact ⟨update.after_refines good refined, update.after_bounded bounded⟩
         · contradiction
-    | arrayAssign update =>
+    | arrayAssign update | booleanAssign update =>
         simp only [Statement.check] at checked
         split at checked
         · cases checked; exact ⟨refined, bounded⟩
@@ -293,9 +308,9 @@ mutual
         · contradiction
   termination_by sizeOf item
 
-  theorem statements_ranges_invariant {shape : Shape} {analysis : Integer.Analysis}
+  theorem statements_ranges_invariant {shape : Shape} {analysis : Integer.Analysis} {booleans : Boolean.Analysis}
       {before after : Flow} {items : List Statement}
-      (checked : checkStatements shape analysis before items = some after)
+      (checked : checkStatements shape analysis before items booleans = some after)
       (refined : before.scalars.Refines analysis.declared)
       (bounded : before.scalars.Bounded) (declared : analysis.declared.Bounded) :
       after.scalars.Refines analysis.declared ∧ after.scalars.Bounded := by
@@ -316,9 +331,9 @@ end
 separate mutability and refinability premises exclude writes and guard updates;
 nonemptiness makes branch hulls literally preserve the incoming interval. -/
 mutual
-  theorem statement_preserves_fixed {shape : Shape} {analysis : Integer.Analysis}
+  theorem statement_preserves_fixed {shape : Shape} {analysis : Integer.Analysis} {booleans : Boolean.Analysis}
       {before after : Flow} {item : Statement} {index : Nat} {bounds : Integer.Interval}
-      (checked : item.check shape analysis before = some after)
+      (checked : item.check shape analysis before booleans = some after)
       (readonly : analysis.mutable index = false) (fixed : analysis.refinable index = false)
       (incoming : before.scalars index = some bounds) (nonempty : bounds.isEmpty = false) :
       after.scalars index = some bounds := by
@@ -342,7 +357,7 @@ mutual
             contradiction
           simpa only [Integer.Assignment.after, Integer.put, distinct, ↓reduceIte] using incoming
         · contradiction
-    | arrayAssign update =>
+    | arrayAssign update | booleanAssign update =>
         simp only [Statement.check] at checked
         split at checked
         · cases checked; exact incoming
@@ -378,9 +393,9 @@ mutual
         · contradiction
   termination_by sizeOf item
 
-  theorem statements_preserves_fixed {shape : Shape} {analysis : Integer.Analysis}
+  theorem statements_preserves_fixed {shape : Shape} {analysis : Integer.Analysis} {booleans : Boolean.Analysis}
       {before after : Flow} {items : List Statement} {index : Nat} {bounds : Integer.Interval}
-      (checked : checkStatements shape analysis before items = some after)
+      (checked : checkStatements shape analysis before items booleans = some after)
       (readonly : analysis.mutable index = false) (fixed : analysis.refinable index = false)
       (incoming : before.scalars index = some bounds) (nonempty : bounds.isEmpty = false) :
       after.scalars index = some bounds := by

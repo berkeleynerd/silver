@@ -1,0 +1,14 @@
+{
+  "run_id": "20261030T194532-f1646bc0e6be",
+  "outcome": "success",
+  "duration_seconds": 7.928362828,
+  "input_count": 831,
+  "workers": 1,
+  "fingerprint": "2577b15ac7cbd27b693e820af9623b6dd0a221e6a8110c04bb7aa6261d8e95a7",
+  "rosetta_inputs": {
+    "coverage.json": "72071f461eed2230d5e15af50676620bf57cfdf94d8583fd8dd4bbf604aefe06",
+    "manifest.json": "c007b4a67439be22b242e6104f5e41998d5aa3ca1a7174cfe3cc6de7927b452f",
+    "refresh.py": "0b0102f3376d90236c0dde1af731fd5f3dbc9460b943656cbd899cfc538f208b"
+  },
+  "test_sha256": "3a6349b7a1253d8d81fd618060d10ffb10b6213d19828c31b8f96d840c831c96"
+}

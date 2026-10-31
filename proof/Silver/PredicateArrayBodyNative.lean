@@ -31,7 +31,7 @@ def modelImports : Imports where
   readIndex := fun text context position facts =>
     ScalarExpression.read text position (context.model.readingNames facts)
   readValue := fun text context position facts =>
-    ScalarExpression.read text position (context.model.readingNames facts) (arrays := context.arrayNames)
+    readScalarInFlow text context.model position facts
   contains := ArrayBindings.contains
   isEmpty := Integer.Interval.isEmpty
   invalid := invalidBody

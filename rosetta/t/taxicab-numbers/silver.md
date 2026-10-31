@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over array ranges and all values are bounded by subtypes, so every check follows from types and static bounds with no invariants. The only effort is writing the sort and scan with the I+1 index guarded by loop ranges.
 
-Position 84 in the [progression](../../progression.md#stage-4), in stage 4.
+Position 87 in the [progression](../../progression.md#stage-4), in stage 4.
 
 ## Approach
 

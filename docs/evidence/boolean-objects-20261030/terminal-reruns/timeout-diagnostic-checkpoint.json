@@ -1,0 +1,12 @@
+{
+  "event": "diagnostic",
+  "run_id": "20261030T155127-bf12fb89db9a",
+  "task": "#291-terminal-reruns",
+  "kind": "test",
+  "scope": [
+    "-p",
+    "test_boolean_terminal_reruns.py"
+  ],
+  "summary": "Maximum dynamic expression hit the unchanged 300-second unittest deadline twice under a temporary two-CPU affinity limit. Both corrected branching methods passed; all 839 captured rerun hashes remained unchanged. The first producer later completed 5 units, 19 flow checks and 110 proof checks without advisories. Low per-prover CPU shares show contention; no application memcached option was present, so cache reuse is not assumed.",
+  "next_step": "Remaining producer descendants have exited. With about 24 GiB available and current Lean certificate near 5.5 GiB, rerun only the unchanged maximum-expression method on 8 CPUs with a managed 8-worker reservation. Keep the 300-second test deadline and all production proof settings unchanged. Reuse the two successful branching methods."
+}

@@ -264,6 +264,7 @@ def Condition.refine (shape : Shape) (analysis : Integer.Analysis) (condition : 
   | .scalarCompare operator left right =>
       {flow with scalars := Integer.refineComparison analysis flow.scalars operator left right truth}
   | .inputValid => {flow with path := if truth then flow.path.assumeValid else flow.path.assumeInvalid}
+  | .booleanLiteral _ | .booleanName _ | .eager _ _ _ | .booleanCompare _ _ _ => flow
   | .parenthesized inner => inner.refine shape analysis flow truth
   | .negated inner => inner.refine shape analysis flow (!truth)
   | .andThen left right =>
@@ -280,9 +281,10 @@ Every reached short-circuit operand receives that complete intermediate flow. -/
 theorem Condition.refine_sound {condition : Condition} {shape : Shape} {hasArguments : Bool}
     {analysis : Integer.Analysis} {flow : Flow} {integers : Integer.Store}
     {values : Values} {input : Source} {valid rejected : Bool}
-    (state : Fits shape input values) (readable : condition.Readable hasArguments shape)
+    {booleanAnalysis : Boolean.Analysis} {booleans : Boolean.Store}
+    (state : Fits shape input values) (readable : condition.Readable hasArguments shape booleanAnalysis)
     (allowed : flow.Allows valid input.length rejected integers) :
-    (condition.refine shape analysis flow (condition.evaluate values input valid integers)).Allows
+    (condition.refine shape analysis flow (condition.evaluate values input valid integers booleans)).Allows
       valid input.length rejected integers := by
   induction condition generalizing flow with
   | stringCompare unequal left right =>
@@ -296,11 +298,12 @@ theorem Condition.refine_sound {condition : Condition} {shape : Shape} {hasArgum
       cases valid with
       | true => exact (Context.assumeValid_iff _ _ _ _).mpr ⟨allowed.1, rfl⟩
       | false => exact (Context.assumeInvalid_iff _ _ _ _).mpr ⟨allowed.1, rfl⟩
+  | booleanLiteral | booleanName | eager | booleanCompare => exact allowed
   | parenthesized inner ih => exact ih readable allowed
   | negated inner ih => simpa only [refine, evaluate, Bool.not_not] using ih readable allowed
   | andThen left right ihl ihr =>
       have leftAllowed := ihl readable.1 allowed
-      cases outcome : left.evaluate values input valid integers with
+      cases outcome : left.evaluate values input valid integers booleans with
       | false =>
           simp only [outcome] at leftAllowed
           simpa only [refine, evaluate, outcome, Bool.false_eq_true, ↓reduceIte] using
@@ -309,7 +312,7 @@ theorem Condition.refine_sound {condition : Condition} {shape : Shape} {hasArgum
       | true =>
           simp only [outcome] at leftAllowed
           have rightAllowed := ihr readable.2 leftAllowed
-          cases rightOutcome : right.evaluate values input valid integers with
+          cases rightOutcome : right.evaluate values input valid integers booleans with
           | false =>
               simp only [rightOutcome] at rightAllowed
               simpa only [refine, evaluate, outcome, rightOutcome, Bool.false_eq_true, ↓reduceIte] using
@@ -317,7 +320,7 @@ theorem Condition.refine_sound {condition : Condition} {shape : Shape} {hasArgum
           | true => simpa only [refine, evaluate, outcome, rightOutcome, ↓reduceIte] using rightAllowed
   | orElse left right ihl ihr =>
       have leftAllowed := ihl readable.1 allowed
-      cases outcome : left.evaluate values input valid integers with
+      cases outcome : left.evaluate values input valid integers booleans with
       | true =>
           simp only [outcome] at leftAllowed
           simpa only [refine, evaluate, outcome, ↓reduceIte] using
@@ -326,7 +329,7 @@ theorem Condition.refine_sound {condition : Condition} {shape : Shape} {hasArgum
       | false =>
           simp only [outcome] at leftAllowed
           have rightAllowed := ihr readable.2 leftAllowed
-          cases rightOutcome : right.evaluate values input valid integers with
+          cases rightOutcome : right.evaluate values input valid integers booleans with
           | true =>
               simp only [rightOutcome] at rightAllowed
               simpa only [refine, evaluate, outcome, rightOutcome, Bool.false_eq_true, ↓reduceIte] using
@@ -338,7 +341,7 @@ theorem Condition.refine_refines {shape : Shape} {analysis : Integer.Analysis}
     (refined : flow.scalars.Refines declared) :
     (condition.refine shape analysis flow truth).scalars.Refines declared := by
   induction condition generalizing flow truth with
-  | stringCompare | lengthCompare | inputValid => exact refined
+  | stringCompare | lengthCompare | inputValid | booleanLiteral | booleanName | eager | booleanCompare => exact refined
   | scalarCompare => exact Integer.refineComparison_refines refined
   | parenthesized _ ih | negated _ ih => exact ih refined
   | andThen left right ihl ihr | orElse left right ihl ihr =>
@@ -352,7 +355,7 @@ theorem Condition.refine_scalars_bounded {shape : Shape} {analysis : Integer.Ana
     (bounded : flow.scalars.Bounded) :
     (condition.refine shape analysis flow truth).scalars.Bounded := by
   induction condition generalizing flow truth with
-  | stringCompare | lengthCompare | inputValid => exact bounded
+  | stringCompare | lengthCompare | inputValid | booleanLiteral | booleanName | eager | booleanCompare => exact bounded
   | scalarCompare => exact Integer.refineComparison_bounded bounded
   | parenthesized _ ih | negated _ ih => exact ih bounded
   | andThen left right ihl ihr | orElse left right ihl ihr =>
@@ -369,7 +372,7 @@ theorem Condition.refine_nonempty {shape : Shape} {analysis : Integer.Analysis}
     ∃ bounds, (condition.refine shape analysis flow truth).scalars index = some bounds ∧
       bounds.isEmpty = false := by
   induction condition generalizing flow truth with
-  | stringCompare | lengthCompare | inputValid => exact nonempty
+  | stringCompare | lengthCompare | inputValid | booleanLiteral | booleanName | eager | booleanCompare => exact nonempty
   | scalarCompare => exact Integer.refineComparison_nonempty nonempty
   | parenthesized _ ih | negated _ ih => exact ih nonempty
   | andThen left right ihl ihr | orElse left right ihl ihr =>
@@ -386,7 +389,7 @@ theorem Condition.refine_preserves_fixed {shape : Shape} {analysis : Integer.Ana
     (incoming : flow.scalars index = some bounds) (nonempty : bounds.isEmpty = false) :
     (condition.refine shape analysis flow truth).scalars index = some bounds := by
   induction condition generalizing flow truth with
-  | stringCompare | lengthCompare | inputValid => exact incoming
+  | stringCompare | lengthCompare | inputValid | booleanLiteral | booleanName | eager | booleanCompare => exact incoming
   | scalarCompare => exact (Integer.refineComparison_preserves_fixed readonly).trans incoming
   | parenthesized _ ih | negated _ ih => exact ih incoming
   | andThen left right ihl ihr | orElse left right ihl ihr =>
@@ -401,7 +404,7 @@ theorem Condition.refine_preserves_none {shape : Shape} {analysis : Integer.Anal
     (absent : flow.scalars index = none) :
     (condition.refine shape analysis flow truth).scalars index = none := by
   induction condition generalizing flow truth with
-  | stringCompare | lengthCompare | inputValid => exact absent
+  | stringCompare | lengthCompare | inputValid | booleanLiteral | booleanName | eager | booleanCompare => exact absent
   | scalarCompare => exact Integer.refineComparison_preserves_none absent
   | parenthesized _ ih | negated _ ih => exact ih absent
   | andThen left right ihl ihr | orElse left right ihl ihr =>
@@ -454,7 +457,7 @@ theorem fitsLengthSummary_sound {context : Context} {summary : LengthSummary}
   exact fitsSummary_sound allowed bound
 
 def Condition.checkBounds (shape : Shape) (analysis : Integer.Analysis) (condition : Condition)
-    (flow : Flow) : Bool :=
+    (flow : Flow) (booleans : Boolean.Analysis := {}) : Bool :=
   match condition with
   | .stringCompare _ left right =>
       match left.inferLength shape flow.scalars, right.inferLength shape flow.scalars with
@@ -465,24 +468,29 @@ def Condition.checkBounds (shape : Shape) (analysis : Integer.Analysis) (conditi
       | some info, some bound => fitsSummary flow.path info.bound.summary && fitsSummary flow.path bound.summary
       | _, _ => false
   | .scalarCompare _ left right => (left.infer flow.scalars).isSome && (right.infer flow.scalars).isSome
-  | .inputValid => true
-  | .parenthesized inner | .negated inner => inner.checkBounds shape analysis flow
+  | .inputValid | .booleanLiteral _ => true
+  | .booleanName index => booleans.initialized index
+  | .parenthesized inner | .negated inner => inner.checkBounds shape analysis flow booleans
   | .andThen left right =>
-      left.checkBounds shape analysis flow &&
-        right.checkBounds shape analysis (left.refine shape analysis flow true)
+      left.checkBounds shape analysis flow booleans &&
+        right.checkBounds shape analysis (left.refine shape analysis flow true) booleans
   | .orElse left right =>
-      left.checkBounds shape analysis flow &&
-        right.checkBounds shape analysis (left.refine shape analysis flow false)
+      left.checkBounds shape analysis flow booleans &&
+        right.checkBounds shape analysis (left.refine shape analysis flow false) booleans
+
+  | .eager _ left right | .booleanCompare _ left right =>
+      left.checkBounds shape analysis flow booleans && right.checkBounds shape analysis flow booleans
 
 /-- Operand checks use the incoming flow, before any refinement by that
 comparison. Static illegal subtrees therefore cannot be hidden by its result. -/
 theorem Condition.checkBounds_sound {condition : Condition} {shape : Shape} {hasArguments : Bool}
     {analysis : Integer.Analysis} {flow : Flow} {integers : Integer.Store}
     {values : Values} {input : Source} {valid rejected : Bool}
-    (state : Fits shape input values) (readable : condition.Readable hasArguments shape)
+    {booleanAnalysis : Boolean.Analysis} {booleans : Boolean.Store}
+    (state : Fits shape input values) (readable : condition.Readable hasArguments shape booleanAnalysis)
     (allowed : flow.Allows valid input.length rejected integers)
-    (checked : condition.checkBounds shape analysis flow = true) :
-    condition.Safe shape values input valid integers := by
+    (checked : condition.checkBounds shape analysis flow booleanAnalysis = true) :
+    condition.Safe shape values input valid integers booleans := by
   induction condition generalizing flow with
   | stringCompare unequal left right =>
       simp only [checkBounds] at checked
@@ -511,7 +519,7 @@ theorem Condition.checkBounds_sound {condition : Condition} {shape : Shape} {has
       obtain ⟨⟨leftBounds, leftFound⟩, ⟨rightBounds, rightFound⟩⟩ := checked
       exact ⟨(Integer.Expr.infer_sound leftFound allowed.2).2,
         (Integer.Expr.infer_sound rightFound allowed.2).2⟩
-  | inputValid => trivial
+  | inputValid | booleanLiteral _ | booleanName _ => trivial
   | parenthesized inner ih => exact ih readable allowed checked
   | negated inner ih => exact ih readable allowed checked
   | andThen left right ihl ihr =>
@@ -519,23 +527,28 @@ theorem Condition.checkBounds_sound {condition : Condition} {shape : Shape} {has
       refine ⟨ihl readable.1 allowed checked.1, ?_⟩
       intro reached
       apply ihr readable.2 _ checked.2
-      have next := left.refine_sound (analysis := analysis) state readable.1 allowed
+      have next := left.refine_sound (analysis := analysis) (booleans := booleans) state readable.1 allowed
       simpa only [reached] using next
   | orElse left right ihl ihr =>
       simp only [checkBounds, Bool.and_eq_true] at checked
       refine ⟨ihl readable.1 allowed checked.1, ?_⟩
       intro reached
       apply ihr readable.2 _ checked.2
-      have next := left.refine_sound (analysis := analysis) state readable.1 allowed
+      have next := left.refine_sound (analysis := analysis) (booleans := booleans) state readable.1 allowed
       simpa only [reached] using next
+
+  | eager operator left right ihl ihr | booleanCompare operator left right ihl ihr =>
+      simp only [checkBounds, Bool.and_eq_true] at checked
+      exact ⟨ihl readable.1 allowed checked.1, ihr readable.2 allowed checked.2⟩
 
 theorem Condition.checkedEvaluate_of_checkBounds {condition : Condition} {shape : Shape}
     {hasArguments : Bool} {analysis : Integer.Analysis} {flow : Flow} {integers : Integer.Store}
     {values : Values} {input : Source} {valid rejected : Bool}
-    (state : Fits shape input values) (readable : condition.Readable hasArguments shape)
+    {booleanAnalysis : Boolean.Analysis} {booleans : Boolean.Store}
+    (state : Fits shape input values) (readable : condition.Readable hasArguments shape booleanAnalysis)
     (allowed : flow.Allows valid input.length rejected integers)
-    (checked : condition.checkBounds shape analysis flow = true) :
-    condition.checkedEvaluate values input valid integers = some (condition.evaluate values input valid integers) :=
+    (checked : condition.checkBounds shape analysis flow booleanAnalysis = true) :
+    condition.checkedEvaluate values input valid integers booleans = some (condition.evaluate values input valid integers booleans) :=
   Condition.checkedEvaluate_refines (condition.checkBounds_sound state readable allowed checked) state
 
 end Silver.Predicate

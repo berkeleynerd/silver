@@ -10,11 +10,13 @@ namespace Silver.Predicate.Adapter
 /-- Exact isolated native candidate blocks. Final authoritative extraction is integrated separately. -/
 
 def context_ofCandidate : List String :=
-  ["(", "names", "=>", "scan", ".", "state", ".", "names", ",", "scalar_names", "=>", "scalar_expressions", ".", "body_environment", "(", "scan", ".", "state", ".", "scalar_names", ")", ",", "array_names", "=>", "scan", ".", "state", ".", "array_names", ".", "names", ",", "subtype_hiding", "=>", "scan", ".", "state", ".", "subtype_names", ".", "hidden_calls", ",", "declaration_count", "=>", "scan", ".", "state", ".", "scalar_names", ".", "count", ",", "dynamic_first", "=>", "scan", ".", "state", ".", "dynamic_first", ",", "dynamic_after", "=>", "scan", ".", "state", ".", "dynamic_after", ")"]
+  ["(", "names", "=>", "scan", ".", "state", ".", "names", ",", "scalar_names", "=>", "scalar_expressions", ".", "body_environment", "(", "scan", ".", "state", ".", "scalar_names", ")", ",", "array_names", "=>", "scan", ".", "state", ".", "array_names", ".", "names", ",", "subtype_hiding", "=>", "scan", ".", "state", ".", "subtype_names", ".", "hidden_calls", ",", "boolean_names", "=>", "scan", ".", "state", ".", "boolean_names", ",", "true_hidden", "=>", "scan", ".", "state", ".", "subtype_names", ".", "true_hidden", ",", "false_hidden", "=>", "scan", ".", "state", ".", "subtype_names", ".", "false_hidden", ",", "elaborating", "=>", "false", ",", "mask_first", "=>", "0", ",", "mask_after", "=>", "0", ",", "declaration_count", "=>", "scan", ".", "state", ".", "scalar_names", ".", "count", ",", "dynamic_first", "=>", "scan", ".", "state", ".", "dynamic_first", ",", "dynamic_after", "=>", "scan", ".", "state", ".", "dynamic_after", ")"]
 
 theorem context_of_candidate : contextExpr.render = context_ofCandidate := by
   unfold context_ofCandidate
-  simp only [contextExpr, Expr.render, Field.name, record]
+  simp only [contextExpr, Expr.render, Field.name, record, Nat.toString_eq_repr,
+    Nat.repr_of_lt (by decide : 0 < 10), (Nat.digitChar_eq_zero).2 rfl,
+    String.singleton_eq_ofList]
   decide +kernel
 
 
@@ -28,7 +30,7 @@ theorem body_of_candidate : bodyExpr.render = body_ofCandidate := by
 
 
 def expand_bodyCandidate : List String :=
-  ["(", "state", "=>", "(", "position", "=>", "scan", ".", "position", ",", "names", "=>", "context", ".", "names", ",", "scalar_names", "=>", "context", ".", "scalar_names", ",", "array_names", "=>", "arrays", ",", "subtype_names", "=>", "subtypes", ",", "dynamic_first", "=>", "context", ".", "dynamic_first", ",", "dynamic_after", "=>", "context", ".", "dynamic_after", ",", "target", "=>", "scan", ".", "target", ",", "capacity", "=>", "scan", ".", "capacity", ")", ",", "assigned", "=>", "scan", ".", "assigned", ",", "output", "=>", "scan", ".", "output", ")"]
+  ["(", "state", "=>", "(", "position", "=>", "scan", ".", "position", ",", "names", "=>", "context", ".", "names", ",", "scalar_names", "=>", "context", ".", "scalar_names", ",", "array_names", "=>", "arrays", ",", "subtype_names", "=>", "subtypes", ",", "boolean_names", "=>", "context", ".", "boolean_names", ",", "dynamic_first", "=>", "context", ".", "dynamic_first", ",", "dynamic_after", "=>", "context", ".", "dynamic_after", ",", "target", "=>", "scan", ".", "target", ",", "capacity", "=>", "scan", ".", "capacity", ")", ",", "assigned", "=>", "scan", ".", "assigned", ",", "output", "=>", "scan", ".", "output", ")"]
 
 theorem expand_body_candidate : expandExpr.render = expand_bodyCandidate := by
   simp only [expandExpr, Expr.render, Field.name, record]

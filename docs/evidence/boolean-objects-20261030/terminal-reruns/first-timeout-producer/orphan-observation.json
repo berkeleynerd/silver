@@ -1,0 +1,11 @@
+{
+  "observed_at": "2026-10-30T15:40:52.680078+00:00",
+  "workspace": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/program-ZviwDT",
+  "candidate_roots": [],
+  "processes": [],
+  "source_sha256": {
+    "main.adb": "3dfeee525b935212f90c161d4eadc87ac1707aa1f33f347bcc008b2ef75ffbae",
+    "program.gpr": "3e99dd2e5c909ebfba6a7d8554d034bcc497b32f275e9a9aad3bd290221725ff"
+  },
+  "note": "By this capture, the previously observed workspace-specific GNATprove descendants had exited; exclude the observer shell/Python command from matching. No signal was sent."
+}

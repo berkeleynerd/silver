@@ -1,0 +1,22 @@
+{
+  "cwd": "/home/canto/src/github.com/berkeleynerd/silver",
+  "command": [
+    ".tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3",
+    "prove",
+    "-L",
+    ".tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/share/spark/theories",
+    "-L",
+    ".tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories",
+    "-F",
+    "gnat-json",
+    "-a",
+    "split_goal_wp_conj",
+    "--debug=print_attributes,print_locs",
+    "-g",
+    "silver_output_profile.adb:2880",
+    "tmp/constant-array-iteration/.silver/linux-x86_64/compiler/obj/explore/boolean-objects/gnatprove/silver_output_profile__read_primary_into.gnat-json"
+  ],
+  "prover_selected": false,
+  "returncode": 0,
+  "result": "Complete annotated task retained; GP_Check1472 identifies input-validity assertion, with separate model/native literal objects."
+}

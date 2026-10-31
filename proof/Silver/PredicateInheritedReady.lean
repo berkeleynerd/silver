@@ -2,6 +2,7 @@ module
 
 public import Silver.PredicateOuterReadiness
 public import Silver.ComposeModel
+public import Silver.ComposeSourceBridge
 
 @[expose] public section
 
@@ -61,6 +62,9 @@ theorem model_definitions :
   scalarLookup := base_definitions.scalarLookup
   scalarRead := base_definitions.scalarRead
   arrayLookup := base_definitions.arrayLookup
+  booleanLookup := base_definitions.booleanLookup
+  booleanHidesInteger := base_definitions.booleanHidesInteger
+  booleanDeclaration text tv state arguments sv := base_definitions.booleanDeclaration text tv state arguments sv.1
   scalarLiteral := base_definitions.scalarLiteral
   scalarAppend := base_definitions.scalarAppend
   scalarEmpty := base_definitions.scalarEmpty
@@ -183,14 +187,32 @@ theorem model_legal : LegalHelpers Compose.Expressions.modelCalls OuterReadiness
 The final arbitrary-callee endpoint uses this domain directly, and does not
 assume equations for native calls outside their preconditions. -/
 theorem model_interpreted :
-    Compose.SourceBridge.InterpretedSource Compose.Expressions.modelCalls OuterReadiness.domain where
-  imageLengths := Compose.SourceBridge.model_interpreted.imageLengths
-  lexical := Compose.SourceBridge.model_interpreted.lexical
-  definitions := model_definitions
+    Compose.SourceBridge.InterpretedSource Compose.Expressions.modelCalls where
+  imageLengths := by
+    refine ⟨Integer.Image.Native.modelCalls, Integer.Native.Function.eval,
+      Integer.Image.NativeSource.model_interpreted, ?_⟩
+    intro bounds bounded
+    have minimum := Integer.Image.Native.minimumLength_eq bounds bounded
+    have maximum := Integer.Image.Native.maximumLength_eq bounds bounded
+    change (LengthSummary.ofImage bounds).minimumLength = Integer.Image.Native.minimumLength bounds ∧
+      (LengthSummary.ofImage bounds).staticLength = Integer.Image.Native.maximumLength bounds
+    rw [minimum, maximum]
+    unfold LengthSummary.ofImage
+    split <;> exact ⟨rfl, rfl⟩
+  lexical := ⟨Guarded.Expressions.modelCalls, fixedAt, rfl, Lexical.model_interpreted⟩
+  definitions := model_definitions.toRawHelperEquations
+  booleanDeclaration := by
+    refine { source := ?_ }
+    refine ⟨Compose.BooleanDeclarationNative.modelImports, Native.modelCalls,
+      Native.model_helper_meaning, Native.model_definition_equations, Native.model_contracts,
+      Compose.BooleanDeclarationNative.Libraries.model_links, ?_⟩
+    intro text valid state arguments ready
+    exact (Compose.BooleanDeclarationNative.model_meaning text state arguments).symm
   legal := model_legal
-  step text tv form token state native tokenValid sv :=
-    Compose.SourceBridge.model_interpreted.step text tv form token state native tokenValid sv.1
-  stepLegal text tv form token state native tokenValid sv :=
-    Compose.SourceBridge.model_interpreted.stepLegal text tv form token state native tokenValid sv.1
+  step text tv form token state _ tokenValid sv :=
+    (Compose.Expressions.model_definitions Compose.Expressions.model_ranges).step
+      text tv form token state tokenValid sv.1
+  stepLegal text tv form token state _ tokenValid sv :=
+    Compose.Expressions.model_legal.step text tv form token state tokenValid sv.1
 
 end Silver.Predicate.InheritedReady

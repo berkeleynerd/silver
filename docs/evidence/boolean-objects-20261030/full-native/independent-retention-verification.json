@@ -1,0 +1,21 @@
+{
+  "verified_at": "2026-10-31T06:22:13.970864+00:00",
+  "source_commit": "f5ab46cdeff361c8072e089c0ae52619e70aba2a",
+  "tracked_native_archive_files_verified_against_manifest_and_commit": 143,
+  "complete_retained_reports_decompressed_and_rehashed": 80,
+  "complete_provenance_report_count": 78,
+  "preflight_provenance_input_count": 2561,
+  "provenance_inputs_equal_preflight": true,
+  "strict_audit_completed": true,
+  "journal_and_native_log_equal_managed_originals": true,
+  "current_inputs_equal_validation_except_two_intentional_restorations": true,
+  "original_backups_and_restored_files_verified": 2,
+  "unrelated_dirty_hashes_and_modes_verified": 7,
+  "body_tail_session_sha256": "ba6e24785989e7ee4b304d58612127b8657c7e3e8ac005ab4f5ee7e63c8b9b38",
+  "body_tail_proved_goal_nodes": 421,
+  "matching_build_compressed_artifacts_verified": 2,
+  "matching_build_binaries_verified": 2,
+  "managed_native_run_inactive": true,
+  "reserved_workers_at_verification": 0,
+  "regression_handoff_pending_final_integrated_commit": true
+}

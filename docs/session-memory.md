@@ -1,5 +1,24 @@
 # Session memory
 
+## 2026-10-31 — Boolean validation complete; ordered delivery underway
+
+The owner-authorized #291 package is implemented and validated on Linux in
+[PR #295](https://github.com/berkeleynerd/silver/pull/295). The
+[delivery record](boolean-objects.md#delivery-assurance-and-validation),
+[evidence packet](evidence/boolean-objects-20261030/README.md) and
+[closing review](reviews/review-boolean-closing-7560531370.md) identify the exact
+implementation/review targets, complete native and Lean/actual-source assurance,
+regression applicability, resolved findings and retained failed attempts.
+
+Under the authorization below, subtype PR #289 merged as
+`7477cb58e05fdc2c9a9d11e6f0b0867f114edccc`; its three issues and milestone 13
+are closed, with the board marked Done. PR #295 is ready for the second merge.
+Its completion closes #291/#293/#294 and milestone 14 with the corresponding
+board updates. The precise scalar Boolean Rosetta mapping covers the three
+selected drivers; broad forms and the planning queue remain separate.
+No next feature, Oracle change or assurance mode is selected. No harness goal
+exists; CLI memory is unavailable and was not updated.
+
 ## 2026-10-31 — Named subtype and Boolean validation and merge authorized
 
 The owner instructed **“OK, please continue monitoring and driving toward merging
@@ -44,6 +63,33 @@ issues remain Backlog; implementation milestones are created when their work
 is authorized. The existing Boolean implementation and subtype/feature merge
 instructions are unchanged. This queue claims no new language support and
 selects no deferred capacity or assurance-mode work.
+
+## 2026-10-30 — Boolean validation recovery
+
+This entry records recovery before the final delivery above; its pending work
+and intermediate results retain that historical scope.
+
+The owner requested continuation and status; no new feature merge authorization
+was given. Keep subtype PR #289 unchanged and both feature PRs open. The first
+complete Boolean Lean check failed on three source-proof integration details.
+Reviewed proof-only repairs and their affected regressions have passed focused
+checks; complete source assurance remains pending. A turn interruption also
+stopped native validation before its terminal audit. Its partial work was
+preserved and the strict checkpoint restarted using retained proof work.
+The [capability checkpoint](boolean-objects.md#repaired-complete-checkpoint) and
+[evidence index](evidence/boolean-objects-20261030/README.md) carry exact targets,
+runs, coverage and outstanding validation. No support or merge is claimed by
+this recovery entry.
+
+After the owner's further continuation request, a host restart was found to
+have interrupted both complete checks. Their inputs still match; retained
+proof work is being reused for replacement managed checks. This is recovery
+of the same authorized delivery, with no new feature or merge authorization.
+The replacement native check then exposed two unresolved ghost equality
+proofs. Their reports are retained in the capability packet; a focused repair
+preserving the contracts is underway. The complete Lean run was stopped before
+the corresponding source update. Complete assurance remains required after
+the repaired inputs stabilize.
 
 ## 2026-10-30 — Boolean scalar objects and expressions authorized
 

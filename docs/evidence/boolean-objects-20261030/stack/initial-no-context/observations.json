@@ -1,0 +1,71 @@
+{
+  "binary": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/compiler/bin/silver",
+  "binary_sha256": "13589fe8f17001bf12f1bc928022317f0aaccbd6b7c9c00e046ee4d820d01a5d",
+  "stack_kib": 8192,
+  "cases": [
+    {
+      "name": "grouped_initializer",
+      "bytes": 4096,
+      "source_sha256": "94705c867816364c9b9936e9afe54c75fbe96be2cbf981bb709fc0bc90226def",
+      "returncode": 2,
+      "elapsed_seconds": 0.056660574016859755,
+      "command": [
+        "bash",
+        "-c",
+        "ulimit -s 8192 || exit; exec \"$@\"",
+        "boolean-stack",
+        "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/compiler/bin/silver",
+        "check",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-native/docs/evidence/boolean-objects-20261030/stack/grouped_initializer.adb"
+      ]
+    },
+    {
+      "name": "negated_initializer",
+      "bytes": 4096,
+      "source_sha256": "a38100245e89112981290e53f5147e8e6540ba20a495900bbadb4b9550dd3703",
+      "returncode": 2,
+      "elapsed_seconds": 0.06740321099641733,
+      "command": [
+        "bash",
+        "-c",
+        "ulimit -s 8192 || exit; exec \"$@\"",
+        "boolean-stack",
+        "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/compiler/bin/silver",
+        "check",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-native/docs/evidence/boolean-objects-20261030/stack/negated_initializer.adb"
+      ]
+    },
+    {
+      "name": "metadata_and_groups",
+      "bytes": 4096,
+      "source_sha256": "e7f5d1cd6a68c31d699a0bdb6c5cea107e3e755565507fe5df1e39178c912951",
+      "returncode": 2,
+      "elapsed_seconds": 0.02927358099259436,
+      "command": [
+        "bash",
+        "-c",
+        "ulimit -s 8192 || exit; exec \"$@\"",
+        "boolean-stack",
+        "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/compiler/bin/silver",
+        "check",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-native/docs/evidence/boolean-objects-20261030/stack/metadata_and_groups.adb"
+      ]
+    },
+    {
+      "name": "scalar_flow_and_groups",
+      "bytes": 4096,
+      "source_sha256": "8d826df4dacd95eae62f68e85c7a2b877678541dceaa56111585fd7c75136e7e",
+      "returncode": 2,
+      "elapsed_seconds": 0.04391939801280387,
+      "command": [
+        "bash",
+        "-c",
+        "ulimit -s 8192 || exit; exec \"$@\"",
+        "boolean-stack",
+        "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/compiler/bin/silver",
+        "check",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-native/docs/evidence/boolean-objects-20261030/stack/scalar_flow_and_groups.adb"
+      ]
+    }
+  ]
+}

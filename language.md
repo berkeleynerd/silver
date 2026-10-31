@@ -23,8 +23,12 @@ element iteration over these constant arrays, including existing body compositio
 The [named Integer-subtype delivery record](docs/named-integer-subtypes.md#delivery-assurance-and-validation)
 records complete Linux native and Lean/source assurance for static named scalar
 ranges, optional narrower scalar object constraints and bounded components of
-these fixed arrays. The feature is implemented and validated in
+these fixed arrays. The feature was delivered through
 [PR #289](https://github.com/berkeleynerd/silver/pull/289).
+The [Boolean scalar delivery](docs/boolean-objects.md#delivery-assurance-and-validation)
+records complete Linux native and Lean/actual-source assurance for initialized
+Boolean objects, assignment and the logical expressions below, composed with
+the existing language.
 The [machine-readable
 catalogue](catalogue/silver.json), compiler, and this specification must agree. A
 discrepancy is a defect to resolve, not an extension of the language. Membership
@@ -173,7 +177,7 @@ followed by letters or digits, optionally separated by single underscores, witho
 trailing underscore. The 74 Ada 2022 reserved words, `String` and `Silver_IO` are
 excluded ignoring ASCII case. In an argument-bearing shell, `Silver_Arguments` is
 also excluded for **every** declaration. Names in the ordered declaration region must
-be distinct ignoring ASCII case across String objects, Integer objects, named
+be distinct ignoring ASCII case across String, Integer and Boolean objects, named
 Integer subtypes and Integer-array declarations. Loop indexes and elements
 have the scoped hiding rules below. `Main` is legal; `Silver_Arguments` remains legal
 in the static shell. Every reference matches the entire declared identifier ignoring
@@ -186,6 +190,7 @@ After the pragma, each nonargument output form has zero or more declarations:
 
 ```text
 declaration ::= name ":" [ "constant" ] "String" ":=" expression ";"
+              | name ":" [ "constant" ] "Boolean" ":=" condition ";"
               | name ":" [ "constant" ] integer_subtype_mark
                 [ "range" static_scalar_expression ".." static_scalar_expression ]
                 ":=" scalar_expression ";"
@@ -199,7 +204,9 @@ Each declaration introduces exactly one name. Every object initializer is requir
 a String initializer may read earlier String constants or mutable objects and
 use Integer Image; an Integer initializer may read earlier initialized Integer
 constants or mutable objects, including earlier initialized array components.
-Forward, cyclic and self-initializer references are excluded. Each String
+A Boolean initializer uses the condition grammar below and may read earlier
+initialized Boolean objects and existing Integer, String, length and validity
+predicates. Forward, cyclic and self-initializer references are excluded. Each String
 initializer evaluates its literals, earlier names, images and concatenations
 immediately; parenthesized subexpressions preserve their grouping. A name
 contributes the source object's current bytes:
@@ -252,7 +259,7 @@ constraints remain excluded.
 Requiring static endpoints is a current Silver scope restriction, not an Ada
 requirement: Ada permits dynamic object constraints. Admitting those would need
 an elaboration and bound-lifetime argument for captured bounds.
-Integer and String values are distinct, with no implicit conversion.
+Integer, Boolean and String values are distinct, with no implicit conversion.
 
 Declaration elaboration computes each exact initial value in order and checks
 that it lies within the declared range. Later initializers capture that value:
@@ -380,6 +387,45 @@ An Integer object, Integer-array object or subtype cannot itself be named `Integ
 `Integer` remains legal, but hides the type in its own initializer and later
 source. An earlier named subtype remains usable for scalar objects and array
 components when a String object later hides the predefined Integer mark.
+
+### Boolean objects and expressions
+
+Every Boolean object has the predefined type `Boolean`, an initializer, and
+optional `constant`. There are no Boolean subtype declarations, range constraints,
+arrays, Image operations or enumeration loops. A Boolean value is admitted in a
+Boolean initializer, Boolean assignment RHS or existing condition position;
+output and Integer/String expressions retain their own types.
+
+`Boolean`, `True` and `False` are ordinary predefined names, not reserved words.
+The `Boolean` type mark must be visible at the declaration; a different-kind
+declaration named `Boolean` hides it. A Boolean object cannot itself be named
+`Boolean`, because its declaration hides that type mark. Declarations of other
+kinds named `True` or `False` hide those literals. Boolean objects may have those
+names when the initializer does not refer to the new object:
+`True : Boolean := False` is permitted; `True : Boolean := True` is an excluded
+self-reference. Lookup is case-insensitive and follows the same ordered
+declaration and scoped loop hiding rules as other names.
+A Boolean object named `Integer` hides the predefined Integer mark, including
+in its own initializer and later Image expressions. An Integer index or element
+named `True`, `False` or a Boolean object's name denotes that Integer binding
+within its scope. Leaving the loop restores the outer visibility.
+
+Initialization evaluates and stores the current Boolean value. Later initializers
+capture that value; changing the original does not change a constant or mutable
+copy. Assignment requires a visible mutable Boolean target and Boolean RHS,
+and changes only that target's value. Constants and Integer loop binders cannot
+be Boolean assignment targets, even in an empty loop or unreachable arm.
+
+A Boolean literal or stored Boolean name contributes the incoming scalar and
+String/input facts unchanged to both outcomes. It retains no relationship with
+the predicate that computed its value. Consequently, saving `D /= 0` in a flag
+does not justify later division under that flag, even before a later write to D.
+Saving an input-length or validity predicate likewise does not establish those
+facts when the stored flag is subsequently read. Boolean initialization and
+assignment preserve the existing Integer intervals, String bounds and input
+facts; evaluating their RHS still requires every reached expression to be safe.
+Declaration checks use the exact initialized values of earlier Integer objects
+and array components; body checks retain the existing flow and component rules.
 
 ### Fixed-size Integer arrays
 
@@ -650,7 +696,9 @@ arithmetic**: every `&`, unary or binary `+`/`-`, `*`, `/`, `mod` and `rem` acro
 range constraints, loop bounds, all statements and predicate operands in every arm counts. Operator
 characters in literals/comments and a numeric exponent's `+` do not count.
 Each whole `mod`/`rem` keyword counts once. Copies, parentheses, comparisons
-(including `/=`) and Image itself consume no operator budget.
+(including `/=`), Boolean logical operators and Image itself consume no operator
+budget. Boolean literal/name leaves do not create a separate Boolean operand
+limit; each embedded Integer or String expression retains its own 64-leaf limit.
 This explicit proof-work policy permits a maximal 64-leaf expression or the
 same operator total distributed across positions. The expression and source
 budgets do not bound iteration count, elapsed execution or total proof cost.
@@ -672,6 +720,7 @@ basic_statement  ::= "null" ";"
                    | reject_name ";"
                    | mutable_name ":=" expression ";"
                    | mutable_integer_name ":=" scalar_expression ";"
+                   | mutable_boolean_name ":=" condition ";"
                    | mutable_integer_array_name "(" scalar_index_expression ")"
                      ":=" scalar_expression ";"
                    | output_name "(" [ "Item" "=>" ] expression ")" ";"
@@ -787,11 +836,16 @@ failed compilation of admitted source is still a defect, never nonmembership.
 ```text
 condition        ::= relation { "and" "then" relation }
                    | relation { "or" "else" relation }
+                   | relation { "and" relation }
+                   | relation { "or" relation }
+                   | relation { "xor" relation }
 relation         ::= expression ( "=" | "/=" ) expression
                    | scalar_expression comparison scalar_expression
                    | name "'" "Length" comparison length_operand
-                   | primary | "not" primary
+                   | boolean_factor [ ( "=" | "/=" ) boolean_factor ]
+boolean_factor   ::= primary | "not" primary
 primary          ::= validity_name
+                   | visible_boolean_name | visible_boolean_literal
                    | "(" condition ")"
 comparison       ::= "=" | "/=" | "<" | "<=" | ">" | ">="
 length_operand   ::= integer_literal | name "'" "Length"
@@ -812,16 +866,33 @@ other than Length are excluded from these length operands; the separate scalar
 comparison grammar above admits Integer arithmetic. Ordering String bytes is excluded
 because this fragment refines lengths, not lexical order. These are current scope
 limits, not inherited Ada restrictions. The validity query is available only in the
-argument-input shell and has no parentheses of its own. Boolean literals are not
-admitted; True and False remain legal binding names. Predicates have no separate
-Boolean value-expression grammar.
+argument-input shell and has no parentheses of its own. Visible predefined
+`True` and `False` denote Boolean literals. Boolean equality and inequality
+compare Boolean factors; ordering is excluded. The optional `not` belongs to its
+factor, so `not Flag = True` compares `(not Flag)` with `True`, following Ada.
+Comparing Boolean factors conservatively returns unchanged incoming facts on
+both outcomes; facts established while evaluating a factor do not escape the
+comparison.
 
 `and then` evaluates its right operand only after a true left operand; `or else`
 evaluates it only after a false left operand. That path's facts justify the right
-operand. Mixing these operators requires parentheses, following Ada's grammar.
-`not` takes a primary, so write `not (A = B)`, not `not A = B`. Eager `and`, `or`
-and `xor` remain excluded because the current predicate fragment models
-short-circuit facts and has no need for their separate evaluation rules.
+operand. A chain uses exactly one of `and then`, `or else`, `and`, `or` or `xor`;
+mixing them requires parentheses, following Ada's grammar. `not` takes one
+primary, so a String or Integer comparison requires `not (A = B)` and repeated
+negation requires grouping. Eager `and`, `or` and `xor` evaluate both operands.
+Each operand must be safe under the original incoming facts, independently of
+the other operand's outcome; neither can guard the other. Both result outcomes
+conservatively retain the original incoming scalar and String/input facts.
+Neither operand of `xor` may contain another `xor`, including the implicit left
+operand of a chain. Thus `A xor B` and independent `(A xor B) and (C xor D)`
+are permitted, but `A xor B xor C` and `A xor (B xor C)` are excluded. Operator
+spellings inside quoted strings, comments or longer identifiers do not count.
+This Silver resource restriction prevents repeated duplication by the pinned
+proof producer's xor expansion; Ada itself allows the excluded forms. Multiple
+parity steps can use ordinary Boolean assignments or initializers.
+For example, `D /= 0 and (1 / D) = 1` cannot use the left test to justify its
+division, whereas `D /= 0 and then (1 / D) = 1` can when the established interval
+excludes zero. Parentheses and `not` retain existing short-circuit transfer rules.
 
 A conditional executes the first true arm, its optional else, or no statements
 if every condition is false and else is absent. Each written arm is nonempty and
@@ -932,6 +1003,7 @@ The catalogue uses these construct identifiers:
 | `named_integer_subtype` | Direct Integer subtype declarations with nonempty static ranges, scalar object subtype marks and bounded fixed-array component marks. |
 | `integer_array_object`, `integer_array_read`, `integer_array_assignment` | Explicitly initialized anonymous fixed-size Integer arrays, nonempty interval-checked subscripts and component-preserving indexed assignment. |
 | `integer_array_iteration` | Forward/reverse iteration over constant Integer arrays, with immutable nonstatic elements, declared component entry bounds and existing guard/statement compositions. |
+| `named_boolean_constant`, `named_boolean_variable`, `boolean_assignment`, `boolean_expression`, `boolean_comparison` | Initialized scalar Boolean objects, snapshot copies, assignment, logical expressions and Boolean equality/inequality under the visibility, evaluation and xor restrictions above; stored flags retain no scalar or String/input facts. |
 | `integer_comparison`, `scalar_guard_refinement`, `integer_image`, `for_loop` | Bare mutable/index/element names against static thresholds, current read intervals with assignment replacement and branch hulls, standard decimal Image and scoped finite loops with captured bounds and mutable widening. |
 | `expression_output`, `literal_output`, `named_output`, `concatenated_output` | Returning output calls with qualified or visible unqualified names and positional or `Item =>` actuals. |
 | `argument_initialization`, `input_guard`, `capacity_guard`, `argument_rejection` | First/unique immutable input with positional or `Default =>` literal, path-derived validity/capacity and returning rejection; existing calls follow the shared visibility rules. |
@@ -942,7 +1014,7 @@ The catalogue uses these construct identifiers:
 
 Everything else is excluded, including derived scalar types, subtype alias chains, conversions,
 other loop forms,
-Boolean values outside the specified predicate grammar,
+Boolean arrays and Boolean operations outside the specified fragment,
 additional declaration regions, resizable strings, other array
 operations, access types and file handles.
 The catalogue's token arrays are informative skeletons, including qualified,

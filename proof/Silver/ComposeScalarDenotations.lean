@@ -34,7 +34,8 @@ def scalarTypeEquation (calls : Calls) (text : Source) (state : ParserState) (po
   if decide (first = 0) || decide (after ≤ first) ||
       decide (calls.function .lookupName text state.names first after ≠ 0) ||
       decide (calls.function .scalarLookup text state.scalarNames first after ≠ 0) ||
-      decide (calls.function .arrayLookup text state.arrayNames.names first after ≠ 0)
+      decide (calls.function .arrayLookup text state.arrayNames.names first after ≠ 0) ||
+      decide (calls.function .booleanLookup text state.booleanNames first after ≠ 0)
   then ⟨0, .empty⟩
   else if calls.function .nameIs text first after "integer" then ⟨after, .full⟩
   else if decide (target ≠ 0) then ⟨after, (IntegerSubtypes.binding state.subtypeNames target).bounds⟩
@@ -55,7 +56,8 @@ def subtypeDeclarationEquation (calls : Calls) (text : Source) (state : ParserSt
       calls.function .scalarEmpty constraint.bounds ||
       decide (calls.function .lookupName text state.names typeFirst typeAfter ≠ 0) ||
       decide (calls.function .scalarLookup text state.scalarNames typeFirst typeAfter ≠ 0) ||
-      decide (calls.function .arrayLookup text state.arrayNames.names typeFirst typeAfter ≠ 0)
+      decide (calls.function .arrayLookup text state.arrayNames.names typeFirst typeAfter ≠ 0) ||
+      decide (calls.function .booleanLookup text state.booleanNames typeFirst typeAfter ≠ 0)
   then invalidState
   else
     let hidden (op : Names.Operation) := state.subtypeNames.hiddenCalls.get op ||
@@ -64,6 +66,8 @@ def subtypeDeclarationEquation (calls : Calls) (text : Source) (state : ParserSt
       position := following
       subtypeNames := {
         items := state.subtypeNames.items ++ [⟨first,after,constraint.bounds⟩]
+        trueHidden := state.subtypeNames.trueHidden || calls.function .nameIs text first after "true"
+        falseHidden := state.subtypeNames.falseHidden || calls.function .nameIs text first after "false"
         hiddenCalls := {
           output := hidden .output
           partialOutput := hidden .partialOutput

@@ -47,7 +47,7 @@ theorem accepted_form_unique {source : Source} {first second : Form}
 mutual
   def Flag.statement (flag : Flag) : Statement → Bool
     | .simple item => flag.simple item
-    | .scalarAssign _ | .arrayAssign _ => flag == .assignment
+    | .scalarAssign _ | .arrayAssign _ | .booleanAssign _ => flag == .assignment
     | .reject => false
     | .choice _ yes no => flag.statements yes || flag.statements no
     | .forLoop _ _ _ _ body | .arrayLoop _ _ _ body => flag.statements body
@@ -64,6 +64,7 @@ mutual
     cases item with
     | simple item => simp only [SourceStatement.lower, Flag.statement, Flag.source]
     | scalarAssign update => simp only [SourceStatement.lower, Flag.statement, Flag.source]
+    | booleanAssign update => simp only [SourceStatement.lower, Flag.statement, Flag.source]
     | arrayAssign update => simp only [SourceStatement.lower, Flag.statement, Flag.source]
     | reject => simp only [SourceStatement.lower, Flag.statement, Flag.source]
     | choice condition yes tail =>
@@ -91,8 +92,8 @@ mutual
   termination_by sizeOf items
 end
 
-theorem decoded_body {form events items scalars constants checks arrays program}
-    (decoded : decodePrefix form events items scalars constants checks arrays = some program) :
+theorem decoded_body {form events items scalars constants checks arrays booleans booleanChecks program}
+    (decoded : decodePrefix form events items scalars constants checks arrays booleans booleanChecks = some program) :
     program.statements = lowerStatements items ∧ program.hasArguments = form.hasArguments := by
   unfold decodePrefix at decoded
   split at decoded <;> cases decoded
@@ -116,7 +117,7 @@ theorem meaning_selectors {source : Source} {program : Program}
     hasArguments source = program.hasArguments ∧
       hasAssignment source = Flag.assignment.statements program.statements ∧
       hasOutput source = Flag.output.statements program.statements := by
-  obtain ⟨form, events, items, _, _, domain, _, parsed, _, _, decoded⟩ := meaning
+  obtain ⟨form, events, items, _, _, _, _, domain, _, parsed, _, _, _, decoded⟩ := meaning
   have accepted := form_reading_complete ⟨domain, events, items, parsed⟩
   have body := decoded_body decoded
   refine ⟨(any_form_flag accepted Form.hasArguments).trans body.2.symm, ?_, ?_⟩

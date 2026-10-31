@@ -1,0 +1,16 @@
+Lean concurrency: 1 Lake workers, 1 threads per Lean process (12 available CPUs).
+Lean phase build started at 2026-10-30T19:41:27.991622+00:00
++ /home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.tools/linux-x86_64/lean/bin/lake --rehash --reconfigure -K silverThreads=1 -K silverMemoryMb=24576 build Silver.Audit
+
+Lean phase build interrupted after 968.018s: KeyboardInterrupt
+Traceback (most recent call last):
+  File "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/scripts/check_lean.py", line 613, in <module>
+    main()
+    ~~~~^^
+  File "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/scripts/check_lean.py", line 540, in main
+    result = run_logged(command, cwd=host.proof, env=environment,
+                        destination=destination, pass_fds=run.pass_fds)
+  File "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/scripts/check_lean.py", line 341, in run_logged
+    while chunk := process.stdout.read1(65536):
+                   ~~~~~~~~~~~~~~~~~~~~^^^^^^^
+KeyboardInterrupt

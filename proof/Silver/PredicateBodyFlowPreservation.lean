@@ -9,7 +9,7 @@ namespace Silver.Predicate
 open Compose
 
 theorem loopBody_flowReady (text : Source) (context : ParseContext) (scan : BodyScan)
-    (base : ScalarMetadata.BaseReady context.scalarNames context.declarationCount)
+    (base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)
     (ready : scan.FlowReady context)
     (environment : ScalarExpression.ValidEnvironment text context.scalarNames) :
     (loopBody text context scan).FlowReady context := by
@@ -30,7 +30,7 @@ theorem loopBody_flowReady (text : Source) (context : ParseContext) (scan : Body
 
 mutual
   theorem statementBody_flowReady (text : Source) (context : ParseContext) (scan : BodyScan)
-      (base : ScalarMetadata.BaseReady context.scalarNames context.declarationCount)
+      (base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)
       (ready : scan.FlowReady context)
       (environment : ScalarExpression.ValidEnvironment text context.scalarNames) :
       (statementBody text context scan).FlowReady context := by
@@ -45,7 +45,7 @@ mutual
   termination_by (bodyRemaining text scan, 2)
 
   theorem conditionalBody_flowReady (text : Source) (context : ParseContext) (scan : BodyScan)
-      (base : ScalarMetadata.BaseReady context.scalarNames context.declarationCount)
+      (base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)
       (ready : scan.FlowReady context)
       (environment : ScalarExpression.ValidEnvironment text context.scalarNames) :
       (conditionalBody text context scan).FlowReady context := by
@@ -67,13 +67,13 @@ mutual
                 {readBody text context (branchStart text context scan "if").1 .arm with
                   facts := (branchStart text context scan "if").2} base branches.2 environment
               apply bodyTokens_flowReady
-              exact ScalarMetadata.FlowReady.join base yes no
+              exact ScalarMetadata.FlowReady.join_context base yes no
           · exact invalidBody_flowReady ready
       · exact invalidBody_flowReady ready
   termination_by (bodyRemaining text scan, 1)
 
   theorem alternativeBody_flowReady (text : Source) (context : ParseContext) (scan : BodyScan)
-      (base : ScalarMetadata.BaseReady context.scalarNames context.declarationCount)
+      (base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)
       (ready : scan.FlowReady context)
       (environment : ScalarExpression.ValidEnvironment text context.scalarNames) :
       (alternativeBody text context scan).FlowReady context := by
@@ -94,7 +94,7 @@ mutual
                 have no := alternativeBody_flowReady text context
                   {readBody text context (branchStart text context scan "elsif").1 .arm with
                     facts := (branchStart text context scan "elsif").2} base branches.2 environment
-                exact ScalarMetadata.FlowReady.join base yes no
+                exact ScalarMetadata.FlowReady.join_context base yes no
               · exact invalidBody_flowReady ready
           · exact invalidBody_flowReady ready
       · split
@@ -110,7 +110,7 @@ mutual
   termination_by (bodyRemaining text scan, 1)
 
   theorem bodyTail_flowReady (text : Source) (context : ParseContext) (scan : BodyScan) (stop : BodyStop)
-      (base : ScalarMetadata.BaseReady context.scalarNames context.declarationCount)
+      (base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)
       (ready : scan.FlowReady context)
       (environment : ScalarExpression.ValidEnvironment text context.scalarNames) :
       (bodyTail text context scan stop).FlowReady context := by
@@ -129,7 +129,7 @@ mutual
   termination_by (bodyRemaining text scan, 3)
 
   theorem readBody_flowReady (text : Source) (context : ParseContext) (scan : BodyScan) (stop : BodyStop)
-      (base : ScalarMetadata.BaseReady context.scalarNames context.declarationCount)
+      (base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)
       (ready : scan.FlowReady context)
       (environment : ScalarExpression.ValidEnvironment text context.scalarNames) :
       (readBody text context scan stop).FlowReady context := by

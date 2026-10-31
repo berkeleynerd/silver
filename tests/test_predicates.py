@@ -55,12 +55,14 @@ class PredicateTests(unittest.TestCase):
                     b'A=B and then (A="old" or else B="new")',
                     b'not (A=B or else A="new")',
                     b'(not (A=B)) or else not (A="new")',
-                    b"A'Length>=1 AnD-- operator\r\nThEn A'Length<=4")
+                    b"A'Length>=1 AnD-- operator\r\nThEn A'Length<=4",
+                    b'A=B and A="old"', b'A=B or A="old"', b'A=B xor A="old"',
+                    b'True', b'False', b'not True')
         rejected = (b'A=B and then A="old" or else B="new"',
                     b'A=B or else A="old" and then B="new"',
-                    b'A=B and A="old"', b'A=B or A="old"', b'A=B xor A="old"',
+                    b'A=B and A="old" or A="new"',
                     b'A=B and then', b'or else A=B', b'not not (A=B)',
-                    b'not ()', b'((A=B)', b'A=B)', b'True', b'False', b'not True')
+                    b'not ()', b'((A=B)', b'A=B)', b'True="yes"', b'not False="no"')
         for expected, predicates in ((0, admitted), (2, rejected)):
             for predicate in predicates:
                 with self.subTest(predicate=predicate):

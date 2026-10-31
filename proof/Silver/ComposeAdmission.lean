@@ -1,353 +1,12 @@
 module
 
-public import Silver.ComposeExpression
-public import Silver.Names
-public import Silver.ScalarExpressionAdmission
-public import Silver.StringLengths
-public import Silver.ArrayBindings
-public import Silver.IntegerSubtypeBindings
-public import Silver.ScalarExpressionEnvironment
+public import Silver.ComposeAtomAdmission
+public import Silver.PredicateConditionAdmission
 
 @[expose] public section
 
-/-! Ordered declaration/name admission and the retained body-shell grammar.
-Source names resolve to initialized bindings. The recognizer retains fixed
-bounds; the independent value semantics retain declaration and assignment reads. -/
-
 namespace Silver.Compose
-
 open Named Bindings
-
-abbrev BindingInfo := Bindings.BindingInfo
-abbrev BindingEnvironment := Bindings.BindingEnvironment
-
-def maxBindings : Nat := maxSourceLength / 12
-
-structure ValueResult where
-  after : Nat := 0
-  valueFirst : Nat := 0
-  minimumLength : Nat := 0
-  staticLength : Nat := 0
-  dynamicSeen : Bool := false
-  nonliteralSeen : Bool := false
-  emptyValue : Bool := false
-  reference : Nat := 0
-  deriving DecidableEq, Repr
-
-structure ExpressionResult where
-  after : Nat := 0
-  minimumLength : Nat := 0
-  staticLength : Nat := 0
-  dynamicCount : Nat := 0
-  namedSeen : Bool := false
-  emptyValue : Bool := false
-  deriving DecidableEq, Repr
-
-structure ExpressionState where
-  position : Nat := 0
-  minimumLength : Nat := 0
-  staticLength : Nat := 0
-  dynamicCount : Nat := 0
-  operands : Nat := 0
-  depth : Nat := 0
-  namedSeen : Bool := false
-  needOperand : Bool := true
-  complete : Bool := false
-  emptyValue : Bool := false
-  deriving DecidableEq, Repr
-
-structure ParserState where
-  position : Nat := 1
-  names : BindingEnvironment := []
-  dynamicFirst : Nat := 0
-  dynamicAfter : Nat := 0
-  target : Nat := 0
-  capacity : Nat := maxSourceLength
-  scalarNames : ScalarExpression.Environment := []
-  arrayNames : ArrayBindings.Env := {}
-  subtypeNames : IntegerSubtypes.Environment := {}
-  deriving DecidableEq, Repr
-
-def initialState : ParserState := {}
-def invalidState : ParserState := {position := 0, capacity := 0}
-def invalidValue : ValueResult := {}
-def invalidExpression : ExpressionResult := {}
-def invalidExpressionState : ExpressionState := {}
-
-inductive Form
-  | direct | assignment | argument | guardedArgument | branching | guardedBranching | result | guardedResult
-  deriving DecidableEq, Repr
-
-def allForms : List Form :=
-  [.direct, .assignment, .argument, .guardedArgument, .branching, .guardedBranching, .result, .guardedResult]
-
-def Form.hasArguments : Form → Bool
-  | .direct | .assignment => false
-  | _ => true
-
-def Form.hasAssignment : Form → Bool
-  | .assignment | .result | .guardedResult => true
-  | _ => false
-
-inductive ShellToken
-  | fixed (spelling : String) (word : Bool)
-  | contextClauses | declarations | argumentDeclaration | assignmentTarget | targetReference | dynamicReference
-  | assignmentValue | outputExpression | comparisonExpression | literal | capacity
-  deriving DecidableEq, Repr
-
-def ShellToken.word (spelling : String) : ShellToken := .fixed spelling true
-def ShellToken.symbol (spelling : String) : ShellToken := .fixed spelling false
-
-def fixedAt (text : Source) (position : Nat) (spelling : String) (word : Bool) : Bool :=
-  let bytes := spelling.toList.map Char.toNat
-  decide (bytes.length ≤ text.length + 1 - position) &&
-    decide (∀ index : Fin bytes.length,
-      lowercase (Cursor.byteAt text (position + index.val)) = bytes[index.val]) &&
-    (!word || decide (position + bytes.length > text.length) ||
-      !identifierCharacter (Cursor.byteAt text (position + bytes.length)))
-
-def skipAt (text : Source) (position : Nat) : Nat :=
-  if position = 0 then 0 else Cursor.triviaPosition text position
-
-def nameAfter (text : Source) (position : Nat) : Nat :=
-  if position = 0 then 0 else identifierEnd text position
-
-def fixedAfter (text : Source) (position : Nat) (spelling : String) (word : Bool) : Nat :=
-  if position = 0 then 0
-  else if fixedAt text (Cursor.triviaPosition text position) spelling word then
-    Cursor.triviaPosition text position + spelling.toList.length else 0
-
-def tokenAfter (text : Source) (position : Nat) : ShellToken → Nat
-  | .fixed spelling word => fixedAfter text position spelling word
-  | _ => 0
-
-def lookupList (text : Source) (first after index : Nat) : BindingEnvironment → Nat
-  | [] => 0
-  | info :: rest =>
-      if equalName text info.first info.after first after then index
-      else lookupList text first after (index + 1) rest
-
-def lookupFrom (text : Source) (names : BindingEnvironment) (first after index : Nat) : Nat :=
-  lookupList text first after index (names.drop (index - 1))
-
-def lookupName (text : Source) (names : BindingEnvironment) (first after : Nat) : Nat :=
-  if first = 0 ∨ after ≤ first then 0 else lookupFrom text names first after 1
-
-def callAfter (text : Source) (names : BindingEnvironment) (position : Nat)
-    (operation : Names.Operation) (scalarNames : ScalarExpression.Environment := [])
-    (arrays : ArrayBindings.Metadata := []) (subtypeHidden : Bool := false) : Nat :=
-  let first := skipAt text position
-  let after := nameAfter text first
-  Names.operationAfter text position operation (decide (lookupName text names first after ≠ 0 ∨ ScalarExpression.lookup text scalarNames first after ≠ 0 ∨
-    ArrayBindings.lookup text arrays first after ≠ 0) || subtypeHidden)
-
-
-def literalAt (text : Source) (position : Nat) : ValueResult :=
-  if position ≠ 0 ∧ position ≤ text.length ∧ Cursor.byteAt text position = 34 ∧
-      Output.literalEnd text (position + 1) ≠ 0 then
-    ⟨Output.literalEnd text (position + 1), position + 1,
-      Guarded.literalLength text (position + 1), Guarded.literalLength text (position + 1),
-      false, false, false, 0⟩
-  else invalidValue
-
-def ValueResult.lengthSummary (result : ValueResult) : LengthSummary :=
-  ⟨result.minimumLength, result.staticLength, if result.dynamicSeen then 1 else 0, result.emptyValue⟩
-
-def ExpressionResult.lengthSummary (result : ExpressionResult) : LengthSummary :=
-  ⟨result.minimumLength, result.staticLength, result.dynamicCount, result.emptyValue⟩
-
-def ExpressionState.lengthSummary (state : ExpressionState) : LengthSummary :=
-  ⟨state.minimumLength, state.staticLength, state.dynamicCount, state.emptyValue⟩
-
-structure ImageParts where
-  first : Nat
-  typeAfter : Nat
-  attributeFirst : Nat
-  attributeAfter : Nat
-  scalarPosition : Nat
-  scalar : ScalarExpression.Result
-  following : Nat
-  deriving DecidableEq, Repr
-
-def imageParts (text : Source) (position : Nat) (scalarNames : ScalarExpression.Environment)
-    (arrays : ArrayBindings.Metadata := []) (initials : ArrayBindings.Initials := [])
-    (elaborating : Bool := false) : ImageParts :=
-  let first := skipAt text position
-  let typeAfter := fixedAfter text first "integer" true
-  let attributeFirst := skipAt text (fixedAfter text typeAfter "'" false)
-  let attributeAfter := nameAfter text attributeFirst
-  let scalarPosition := fixedAfter text attributeAfter "(" false
-  let scalar := ScalarExpression.read text scalarPosition scalarNames (arrays := arrays)
-    (initials := initials) (elaborating := elaborating)
-  ⟨first, typeAfter, attributeFirst, attributeAfter, scalarPosition, scalar,
-    fixedAfter text scalar.after ")" false⟩
-
-def imageValue (parts : ImageParts) : ValueResult :=
-  let lengths := LengthSummary.ofImage parts.scalar.bounds
-  ⟨parts.following, 0, lengths.minimumLength, lengths.staticLength, false, true, lengths.empty, 0⟩
-
-def imageAt (text : Source) (position : Nat) (names : BindingEnvironment)
-    (scalarNames : ScalarExpression.Environment) (integerHidden : Bool)
-    (arrays : ArrayBindings.Metadata := []) (initials : ArrayBindings.Initials := [])
-    (elaborating : Bool := false) : ValueResult :=
-  let parts := imageParts text position scalarNames arrays initials elaborating
-  if integerHidden || decide (parts.typeAfter = 0 ∨
-      lookupName text names parts.first parts.typeAfter ≠ 0 ∨
-      ScalarExpression.lookup text scalarNames parts.first parts.typeAfter ≠ 0 ∨
-      ArrayBindings.lookup text arrays parts.first parts.typeAfter ≠ 0 ∨
-      parts.attributeFirst = 0 ∨ parts.attributeAfter ≤ parts.attributeFirst) ||
-      !Named.nameIs text parts.attributeFirst parts.attributeAfter ("image".toList.map Char.toNat) ||
-      decide (parts.following ≤ position)
-  then invalidValue else imageValue parts
-
-def valueAt (text : Source) (position : Nat) (names : BindingEnvironment)
-    (scalarNames : ScalarExpression.Environment := []) (integerHidden : Bool := false)
-    (arrays : ArrayBindings.Metadata := []) (initials : ArrayBindings.Initials := [])
-    (elaborating : Bool := false) : ValueResult :=
-  let first := skipAt text position
-  let quoted := literalAt text first
-  let after := nameAfter text first
-  let index := lookupName text names first after
-  if quoted.after ≠ 0 then quoted
-  else if index ≠ 0 ∧ ScalarExpression.lookup text scalarNames first after = 0 then
-    let info := (names.get index).getD {}
-    ⟨after, info.valueFirst, info.staticLength, info.staticLength, info.dynamic, true, false, index⟩
-  else imageAt text position names scalarNames integerHidden arrays initials elaborating
-
-/-- Share one 64-leaf expression's operator allowance across all source
-positions. Integer arithmetic and String concatenation use one proof-work budget. -/
-def maxConcatenations : Nat := 63
-
-/-- Count only operator tokens: trivia skips comments and a quoted literal is
-consumed whole, including doubled quotes. Identifiers are consumed whole before
-numerals, so a suffix such as `1E` cannot hide the `+` following `N1E`.
-The extra decreasing test only makes
-this source scanner total outside the native routine's verified domains. -/
-def workTail (text : Source) (position remaining : Nat) : Bool :=
-  let first := skipAt text position
-  let quoted := literalAt text first
-  let afterName := nameAfter text first
-  let number := ScalarLiteral.read text first
-  if first = 0 then false
-  else if first > text.length then true
-  else if Cursor.byteAt text first = 34 then
-    if quoted.after = 0 then false
-    else if _advancing : text.length + 1 - quoted.after < text.length + 1 - position then
-      workTail text quoted.after remaining
-    else false
-  else if afterName ≠ 0 then
-    if Named.nameIs text first afterName ("mod".toList.map Char.toNat) || Named.nameIs text first afterName ("rem".toList.map Char.toNat) then
-      if remaining = 0 then false
-      else if _advancing : text.length + 1 - afterName < text.length + 1 - position then
-        workTail text afterName (remaining - 1)
-      else false
-    else if _advancing : text.length + 1 - afterName < text.length + 1 - position then
-      workTail text afterName remaining
-    else false
-  else if number.after ≠ 0 then
-    if _advancing : text.length + 1 - number.after < text.length + 1 - position then
-      workTail text number.after remaining
-    else false
-  else if Cursor.byteAt text first = 47 ∧ first < text.length ∧ Cursor.byteAt text (first + 1) = 61 then
-    if _advancing : text.length + 1 - (first + 2) < text.length + 1 - position then
-      workTail text (first + 2) remaining
-    else false
-  else if Cursor.byteAt text first = 38 ∨ Cursor.byteAt text first = 43 ∨
-      Cursor.byteAt text first = 45 ∨ Cursor.byteAt text first = 42 ∨ Cursor.byteAt text first = 47 then
-    if remaining = 0 then false
-    else if _advancing : text.length + 1 - (first + 1) < text.length + 1 - position then
-      workTail text (first + 1) (remaining - 1)
-    else false
-  else if _advancing : text.length + 1 - (first + 1) < text.length + 1 - position then
-    workTail text (first + 1) remaining
-  else false
-termination_by text.length + 1 - position
-
-def withinWorkBudget (text : Source) : Bool := workTail text 1 maxConcatenations
-
-theorem skipAt_advances (text : Source) (position : Nat)
-    (bound : position ≤ text.length + 1) (nonzero : skipAt text position ≠ 0) :
-    position ≤ skipAt text position := by
-  have positive : position ≠ 0 := by intro zero; simp [skipAt, zero] at nonzero
-  simp only [skipAt, positive, ↓reduceIte]
-  exact (Cursor.triviaPosition_bounds text position (by omega) bound).1
-
-theorem literalAt_advances (text : Source) (position : Nat)
-    (nonzero : (literalAt text position).after ≠ 0) :
-    position < (literalAt text position).after := by
-  unfold literalAt at nonzero ⊢
-  split
-  · rename_i conditions
-    have bounds := Output.literalEnd_bounds text (position + 1) conditions.2.2.2
-    simp only
-    omega
-  · rename_i missing
-    simp [missing, invalidValue] at nonzero
-
-def ValidExpressionState (text : Source) (state : ExpressionState) : Prop :=
-  state.position ≤ text.length + 1 ∧ state.dynamicCount ≤ state.operands ∧
-    (state.position = 0 ∨ state.depth < state.position)
-
-def expressionStep (text : Source) (names : BindingEnvironment) (state : ExpressionState)
-    (scalarNames : ScalarExpression.Environment := []) (integerHidden : Bool := false)
-    (arrays : ArrayBindings.Metadata := []) (initials : ArrayBindings.Initials := [])
-    (elaborating : Bool := false) : ExpressionState :=
-  let openAfter := fixedAfter text state.position "(" false
-  let atom := valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text state.position names
-  let joinAfter := fixedAfter text state.position "&" false
-  let closeAfter := fixedAfter text state.position ")" false
-  if state.position = 0 then invalidExpressionState
-  else if state.complete then state
-  else if state.needOperand then
-    if openAfter ≠ 0 then {state with position := openAfter, depth := state.depth + 1}
-    else if state.operands = maxExpressionOperands ∨ atom.after = 0 ∨
-        atom.staticLength > maxSourceLength - state.staticLength ∨
-        atom.minimumLength > maxSourceLength - state.minimumLength then invalidExpressionState
-    else {state with
-      position := atom.after
-      minimumLength := state.minimumLength + atom.minimumLength
-      staticLength := state.staticLength + atom.staticLength
-      dynamicCount := state.dynamicCount + (if atom.dynamicSeen then 1 else 0)
-      operands := state.operands + 1
-      namedSeen := state.namedSeen || atom.nonliteralSeen
-      emptyValue := state.emptyValue || atom.emptyValue
-      needOperand := false}
-  else if joinAfter ≠ 0 then {state with position := joinAfter, needOperand := true}
-  else if closeAfter ≠ 0 ∧ state.depth ≠ 0 then {state with position := closeAfter, depth := state.depth - 1}
-  else if state.depth = 0 then {state with complete := true}
-  else invalidExpressionState
-
-def ExpressionState.result (state : ExpressionState) : ExpressionResult :=
-  ⟨state.position, state.minimumLength, state.staticLength, state.dynamicCount, state.namedSeen, state.emptyValue⟩
-
-def expressionTail (text : Source) (names : BindingEnvironment) (state : ExpressionState)
-    (scalarNames : ScalarExpression.Environment := []) (integerHidden : Bool := false)
-    (arrays : ArrayBindings.Metadata := []) (initials : ArrayBindings.Initials := [])
-    (elaborating : Bool := false) : ExpressionResult :=
-  if state.position = 0 then invalidExpression
-  else if state.complete then state.result
-  else
-    let next := expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names state
-    if next.position = 0 then invalidExpression
-    else if next.complete then next.result
-    else if _advancing : text.length + 1 - next.position < text.length + 1 - state.position then
-      expressionTail (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names next
-    else invalidExpression
-termination_by text.length + 1 - state.position
-decreasing_by exact _advancing
-
-def expressionAt (text : Source) (position : Nat) (names : BindingEnvironment)
-    (scalarNames : ScalarExpression.Environment := []) (integerHidden : Bool := false)
-    (arrays : ArrayBindings.Metadata := []) (initials : ArrayBindings.Initials := [])
-    (elaborating : Bool := false) : ExpressionResult :=
-  expressionTail (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text names {position := position}
-
-def fits (result : ExpressionResult) (capacity : Nat) : Bool :=
-  decide (result.after ≠ 0 ∧ (result.emptyValue = true ∨ result.staticLength + result.dynamicCount * capacity ≤ maxSourceLength))
-
-def ExpressionResult.value (result : ExpressionResult) : ValueResult :=
-  ⟨result.after, 0, result.minimumLength, result.staticLength, decide (result.dynamicCount = 1),
-    result.namedSeen, result.emptyValue, 0⟩
 
 def newNameAllowed (text : Source) (state : ParserState) (first after : Nat) (arguments : Bool) : Bool :=
   decide (first ≠ 0 ∧ after > first) && !forbiddenName text first after &&
@@ -355,6 +14,7 @@ def newNameAllowed (text : Source) (state : ParserState) (first after : Nat) (ar
     decide (lookupName text state.names first after = 0 ∧
       ScalarExpression.lookup text state.scalarNames first after = 0 ∧
       ArrayBindings.lookup text state.arrayNames.names first after = 0 ∧
+      BooleanBindings.lookup text state.booleanNames first after = 0 ∧
       IntegerSubtypes.lookup text state.subtypeNames first after = 0)
 
 def addBinding (state : ParserState) (first after : Nat) (value : ValueResult)
@@ -386,7 +46,8 @@ def declarationValuePosition (text : Source) (state : ParserState) : Nat :=
 
 def declarationIntegerHidden (text : Source) (state : ParserState) : Bool :=
   decide (declarationFirst text state ≠ 0 ∧ declarationAfter text state > declarationFirst text state ∧
-    fixedAfter text (declarationFirst text state) "integer" true = declarationAfter text state)
+    fixedAfter text (declarationFirst text state) "integer" true = declarationAfter text state) ||
+    BooleanBindings.hidesInteger text state.booleanNames
 
 def declarationParts (text : Source) (state : ParserState) : DeclarationParts :=
   ⟨declarationFirst text state, declarationAfter text state, declarationConstantAfter text state,
@@ -428,7 +89,8 @@ def scalarTypeAt (text : Source) (state : ParserState) (position : Nat) : Scalar
   let target := IntegerSubtypes.lookup text state.subtypeNames first after
   if first = 0 ∨ after ≤ first ∨ lookupName text state.names first after ≠ 0 ∨
       ScalarExpression.lookup text state.scalarNames first after ≠ 0 ∨
-      ArrayBindings.lookup text state.arrayNames.names first after ≠ 0
+      ArrayBindings.lookup text state.arrayNames.names first after ≠ 0 ∨
+      BooleanBindings.lookup text state.booleanNames first after ≠ 0
   then ⟨0, .empty⟩
   else if Named.nameIs text first after ("integer".toList.map Char.toNat) then ⟨after, .full⟩
   else if target ≠ 0 then ⟨after, (IntegerSubtypes.binding state.subtypeNames target).bounds⟩
@@ -464,7 +126,8 @@ def subtypeDeclarationAt (text : Source) (state : ParserState) (arguments : Bool
       parts.constraint.bounds.isEmpty ||
       decide (lookupName text state.names parts.typeFirst parts.typeAfter ≠ 0 ∨
         ScalarExpression.lookup text state.scalarNames parts.typeFirst parts.typeAfter ≠ 0 ∨
-        ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter ≠ 0)
+        ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter ≠ 0 ∨
+        BooleanBindings.lookup text state.booleanNames parts.typeFirst parts.typeAfter ≠ 0)
   then invalidState else addSubtypeBinding text state parts
 
 structure ScalarDeclarationParts where
@@ -606,13 +269,81 @@ def arrayDeclarationAt (text : Source) (state : ParserState) (arguments : Bool) 
               ⟨parts.lower.bounds.lower, parts.upper.bounds.lower⟩,
               state.arrayNames.used, length, decide (parts.constantAfter = 0), parts.componentBounds⟩]}}
 
+structure BooleanDeclarationParts where
+  first : Nat
+  after : Nat
+  constantAfter : Nat
+  typeFirst : Nat
+  typeAfter : Nat
+  valueFirst : Nat
+  deriving DecidableEq, Repr
+
+def booleanDeclarationParts (text : Source) (state : ParserState) : BooleanDeclarationParts :=
+  let first := skipAt text state.position
+  let after := nameAfter text first
+  let colonAfter := fixedAfter text after ":" false
+  let constantAfter := fixedAfter text colonAfter "constant" true
+  let typeFirst := skipAt text (if constantAfter ≠ 0 then constantAfter else colonAfter)
+  let typeAfter := fixedAfter text typeFirst "boolean" true
+  ⟨first, after, constantAfter, typeFirst, typeAfter, fixedAfter text typeAfter ":=" false⟩
+
+def booleanDeclarationReady (text : Source) (state : ParserState) (arguments : Bool)
+    (parts : BooleanDeclarationParts) : Bool :=
+  newNameAllowed text state parts.first parts.after arguments &&
+    decide (parts.typeAfter ≠ 0 ∧ parts.valueFirst ≠ 0 ∧ state.booleanNames.length ≠ BooleanBindings.maxBindings) &&
+    !Named.nameIs text parts.first parts.after ("boolean".toList.map Char.toNat) &&
+    decide (lookupName text state.names parts.typeFirst parts.typeAfter = 0 ∧
+      ScalarExpression.lookup text state.scalarNames parts.typeFirst parts.typeAfter = 0 ∧
+      ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter = 0 ∧
+      IntegerSubtypes.lookup text state.subtypeNames parts.typeFirst parts.typeAfter = 0 ∧
+      BooleanBindings.lookup text state.booleanNames parts.typeFirst parts.typeAfter = 0)
+
+def booleanDeclarationContext (state : ParserState) (parts : BooleanDeclarationParts) : Predicate.ParseContext :=
+  { names := state.names
+    hasArguments := decide (state.dynamicFirst ≠ 0)
+    scalarNames := state.scalarNames
+    declarationCount := state.scalarNames.length
+    arrayNames := state.arrayNames.names
+    subtypeHiding := state.subtypeNames.hiddenCalls
+    booleanNames := state.booleanNames
+    trueHidden := state.subtypeNames.trueHidden
+    falseHidden := state.subtypeNames.falseHidden
+    elaborating := true
+    maskFirst := parts.first
+    maskAfter := parts.after }
+
+def booleanDeclarationFacts (state : ParserState) : Predicate.ActiveFlow :=
+  Predicate.ActiveFlow.initial state.scalarNames
+    (if state.dynamicFirst ≠ 0 then PathFacts.Context.initial maxSourceLength
+      else ⟨some ⟨0, 0⟩, false, false⟩)
+
+def booleanDeclarationValue (text : Source) (state : ParserState) : Predicate.ConditionResult :=
+  let parts := booleanDeclarationParts text state
+  Predicate.readCondition text (booleanDeclarationContext state parts) parts.valueFirst
+    (booleanDeclarationFacts state) state.arrayNames.values
+
+def booleanDeclarationFollowing (text : Source) (state : ParserState) : Nat :=
+  fixedAfter text (booleanDeclarationValue text state).after ";" false
+
+def addBooleanBinding (state : ParserState) (parts : BooleanDeclarationParts) (following : Nat) : ParserState :=
+  {state with position := following, booleanNames := state.booleanNames ++
+    [⟨parts.first, parts.after, decide (parts.constantAfter = 0)⟩]}
+
+def booleanDeclarationAt (text : Source) (state : ParserState) (arguments : Bool) : ParserState :=
+  let parts := booleanDeclarationParts text state
+  if !booleanDeclarationReady text state arguments parts then invalidState else
+    let following := booleanDeclarationFollowing text state
+    if following ≤ state.position then invalidState else addBooleanBinding state parts following
+
 def declarationAt (text : Source) (state : ParserState) (arguments : Bool) : ParserState :=
   let subtype := subtypeDeclarationAt text state arguments
   let scalar := scalarDeclarationAt text state arguments
   let array := arrayDeclarationAt text state arguments
+  let boolean := booleanDeclarationAt text state arguments
   if subtype.position ≠ 0 then subtype
   else if scalar.position ≠ 0 then scalar
-  else if array.position ≠ 0 then array else stringDeclarationAt text state arguments
+  else if array.position ≠ 0 then array
+  else if boolean.position ≠ 0 then boolean else stringDeclarationAt text state arguments
 
 structure ArgumentParts where
   first : Nat
@@ -659,8 +390,8 @@ def declarationsLoop (text : Source) (arguments : Bool) : Nat → ParserState �
 
 def declarationsAt (text : Source) (state : ParserState) (arguments : Bool) : ParserState :=
   declarationsLoop text arguments
-    (maxBindings + ScalarExpression.maxBindings + ArrayBindings.maxBindings + IntegerSubtypes.maxBindings + 1 -
-      (state.names.length + state.scalarNames.length + state.arrayNames.names.length + state.subtypeNames.items.length)) state
+    (maxBindings + ScalarExpression.maxBindings + ArrayBindings.maxBindings + IntegerSubtypes.maxBindings + BooleanBindings.maxBindings + 1 -
+      (state.names.length + state.scalarNames.length + state.arrayNames.names.length + state.subtypeNames.items.length + state.booleanNames.length)) state
 
 -- The shell tables retain current control flow. Only declaration slots become
 -- a finite list, and assignment names resolve against its shared environment.
@@ -1127,6 +858,28 @@ theorem arrayValuesModel_preserves (text : Source) (source result : ParserState)
 termination_by length - parsed
 decreasing_by omega
 
+theorem arrayValuesModel_booleanNames (text : Source) (source result : ParserState)
+    (position length parsed : Nat) {componentBounds : Integer.Interval}
+    (accepted : (arrayValuesModel text source result position length parsed componentBounds).position ≠ 0) :
+    (arrayValuesModel text source result position length parsed componentBounds).booleanNames = result.booleanNames := by
+  rw [arrayValuesModel] at accepted ⊢
+  by_cases zero : position = 0
+  · simp only [zero, ↓reduceIte, invalidState, ne_eq, not_true_eq_false] at accepted
+  · simp only [zero, ↓reduceIte] at accepted ⊢
+    by_cases remaining : parsed < length
+    · simp only [remaining, ↓reduceDIte] at accepted ⊢
+      generalize valueEq : ScalarExpression.read text position source.scalarNames
+        (arrays := source.arrayNames.names) (initials := source.arrayNames.values)
+        (elaborating := true) = value at accepted ⊢
+      by_cases bad : value.after = 0 ∨ value.bounds.isEmpty = true ∨ value.bounds.lower ≠ value.bounds.upper ∨
+        value.bounds.lower < componentBounds.lower ∨ componentBounds.upper < value.bounds.upper
+      · simp only [bad, ↓reduceIte, invalidState, ne_eq, not_true_eq_false] at accepted
+      · simp only [bad, ↓reduceIte] at accepted ⊢
+        exact arrayValuesModel_booleanNames text source _ _ length (parsed + 1) accepted
+    · simp only [remaining, ↓reduceDIte]
+termination_by length - parsed
+decreasing_by omega
+
 theorem arrayDeclarationAt_count {text : Source} {state : ParserState} {arguments : Bool}
     (accepted : (arrayDeclarationAt text state arguments).position ≠ 0) :
     (arrayDeclarationAt text state arguments).names = state.names ∧
@@ -1158,13 +911,41 @@ theorem arrayDeclarationAt_count {text : Source} {state : ParserState} {argument
           have preserved := arrayValuesModel_preserves text state state _ _ 0 values
           exact ⟨preserved.1, preserved.2.1, by rw [preserved.2.2.1], preserved.2.2.2⟩
 
+theorem arrayDeclarationAt_booleanNames {text : Source} {state : ParserState} {arguments : Bool}
+    (accepted : (arrayDeclarationAt text state arguments).position ≠ 0) :
+    (arrayDeclarationAt text state arguments).booleanNames = state.booleanNames := by
+  unfold arrayDeclarationAt at accepted ⊢
+  dsimp only at accepted ⊢
+  split at accepted
+  · simp only [invalidState] at accepted
+    contradiction
+  · rename_i ready
+    simp only [ready, Bool.false_eq_true, ↓reduceIte]
+    split at accepted
+    · simp only [invalidState] at accepted
+      contradiction
+    · rename_i start
+      simp only [start, ↓reduceIte]
+      split at accepted
+      · simp only [invalidState] at accepted
+        contradiction
+      · rename_i values
+        simp only [values, ↓reduceIte]
+        split at accepted
+        · simp only [invalidState] at accepted
+          contradiction
+        · rename_i following
+          simp only [following, ↓reduceIte]
+          exact arrayValuesModel_booleanNames text state state _ _ 0 values
+
 theorem declarationAt_count {text : Source} {state : ParserState} {arguments : Bool}
     (accepted : (declarationAt text state arguments).position ≠ 0) :
     (declarationAt text state arguments).names.length +
       (declarationAt text state arguments).scalarNames.length +
       (declarationAt text state arguments).arrayNames.names.length +
-      (declarationAt text state arguments).subtypeNames.items.length =
-      state.names.length + state.scalarNames.length + state.arrayNames.names.length + state.subtypeNames.items.length + 1 := by
+      (declarationAt text state arguments).subtypeNames.items.length +
+      (declarationAt text state arguments).booleanNames.length =
+      state.names.length + state.scalarNames.length + state.arrayNames.names.length + state.subtypeNames.items.length + state.booleanNames.length + 1 := by
   by_cases subtype : (subtypeDeclarationAt text state arguments).position ≠ 0
   · have selected : declarationAt text state arguments = subtypeDeclarationAt text state arguments := by
       simp only [declarationAt]; split <;> simp_all
@@ -1194,30 +975,45 @@ theorem declarationAt_count {text : Source} {state : ParserState} {arguments : B
           simp only [declarationAt, subtype, ↓reduceIte]; split <;> simp_all
         rw [selected]
         have count := arrayDeclarationAt_count array
-        rw [count.1, count.2.1, count.2.2.1, count.2.2.2]
+        rw [count.1, count.2.1, count.2.2.1, count.2.2.2, arrayDeclarationAt_booleanNames array]
         omega
-      · have selected : declarationAt text state arguments = stringDeclarationAt text state arguments := by
-          simp only [declarationAt, subtype, ↓reduceIte]; split <;> simp_all
-        rw [selected] at accepted ⊢
-        unfold stringDeclarationAt at accepted ⊢
-        dsimp only at accepted ⊢
-        split at accepted
-        · simp [invalidState] at accepted
-        · rename_i good
-          simp only [good, Bool.false_eq_true, ↓reduceIte, addBinding,
-            List.length_append, List.length_singleton]
-          omega
-  
+      · by_cases boolean : (booleanDeclarationAt text state arguments).position ≠ 0
+        · have selected : declarationAt text state arguments = booleanDeclarationAt text state arguments := by
+            simp only [declarationAt]; split <;> simp_all
+          rw [selected]
+          unfold booleanDeclarationAt at boolean ⊢
+          dsimp only at boolean ⊢
+          split at boolean
+          · simp [invalidState] at boolean
+          · rename_i ready
+            simp only [ready, Bool.false_eq_true, ↓reduceIte]
+            split at boolean
+            · simp [invalidState] at boolean
+            · rename_i advance
+              simp only [advance, ↓reduceIte, addBooleanBinding, List.length_append, List.length_singleton]
+              omega
+        · have selected : declarationAt text state arguments = stringDeclarationAt text state arguments := by
+            simp only [declarationAt, subtype, ↓reduceIte]; split <;> simp_all
+          rw [selected] at accepted ⊢
+          unfold stringDeclarationAt at accepted ⊢
+          dsimp only at accepted ⊢
+          split at accepted
+          · simp [invalidState] at accepted
+          · rename_i good
+            simp only [good, Bool.false_eq_true, ↓reduceIte, addBinding,
+              List.length_append, List.length_singleton]
+            omega
+
 
 theorem declarationsAt_equation (text : Source) (state : ParserState) (arguments : Bool)
-    (bounded : state.names.length + state.scalarNames.length + state.arrayNames.names.length + state.subtypeNames.items.length ≤ (maxBindings + ScalarExpression.maxBindings + ArrayBindings.maxBindings + IntegerSubtypes.maxBindings)) :
+    (bounded : state.names.length + state.scalarNames.length + state.arrayNames.names.length + state.subtypeNames.items.length + state.booleanNames.length ≤ (maxBindings + ScalarExpression.maxBindings + ArrayBindings.maxBindings + IntegerSubtypes.maxBindings + BooleanBindings.maxBindings)) :
     declarationsAt text state arguments =
       if state.position = 0 then invalidState
       else if fixedAfter text state.position "begin" true ≠ 0 then state
       else if (declarationAt text state arguments).position = 0 then invalidState
       else declarationsAt text (declarationAt text state arguments) arguments := by
-  have fuel : (maxBindings + ScalarExpression.maxBindings + ArrayBindings.maxBindings + IntegerSubtypes.maxBindings) + 1 - (state.names.length + state.scalarNames.length + state.arrayNames.names.length + state.subtypeNames.items.length) =
-      ((maxBindings + ScalarExpression.maxBindings + ArrayBindings.maxBindings + IntegerSubtypes.maxBindings) - (state.names.length + state.scalarNames.length + state.arrayNames.names.length + state.subtypeNames.items.length)) + 1 := by omega
+  have fuel : (maxBindings + ScalarExpression.maxBindings + ArrayBindings.maxBindings + IntegerSubtypes.maxBindings + BooleanBindings.maxBindings) + 1 - (state.names.length + state.scalarNames.length + state.arrayNames.names.length + state.subtypeNames.items.length + state.booleanNames.length) =
+      ((maxBindings + ScalarExpression.maxBindings + ArrayBindings.maxBindings + IntegerSubtypes.maxBindings + BooleanBindings.maxBindings) - (state.names.length + state.scalarNames.length + state.arrayNames.names.length + state.subtypeNames.items.length + state.booleanNames.length)) + 1 := by omega
   unfold declarationsAt
   rw [fuel, declarationsLoop]
   by_cases empty : state.position = 0

@@ -1,0 +1,452 @@
+{
+  "registry": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1",
+  "host": "linux-x86_64",
+  "machine": "codex-silver",
+  "runs": [
+    {
+      "run_id": "20261030T142409-b2e896030eb2",
+      "task": "#291-final-native",
+      "kind": "prove",
+      "scope": [
+        "compiler"
+      ],
+      "state": "interrupted",
+      "active": false,
+      "workers": 2,
+      "directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261030T142409-b2e896030eb2",
+      "fingerprint": "286740a0d0d202e7371a98df5334a5485a0002df4560d119900e8e6ef6d79bda",
+      "command": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.tools/linux-x86_64/alr/bin/alr",
+        "-s",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.tools/linux-x86_64/alire/settings",
+        "-C",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/toolchain",
+        "-n",
+        "--no-tty",
+        "exec",
+        "--",
+        "gnatprove",
+        "-P",
+        "../../../silver.gpr",
+        "-U",
+        "--mode=all",
+        "--report=all",
+        "--warnings=error",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--timeout=30",
+        "-j",
+        "2",
+        "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/proof-cache/gnatprove/ea6aba21eca447a9c8473fc1c3ea0300b03a95ce919d8a326f68a67989029329",
+        "-f",
+        "-XSILVER_HOST=linux-x86_64"
+      ],
+      "reason": "Resume identical final Boolean strict proof after retaining interrupted135033 and merging absent completed subtype solver cache entries under the same lock namespace; exact recent key overlap showed avoidable repeated report proofs; source143 inputs and strict policy unchanged",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration",
+      "resources": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/toolchain",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/obj",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/bin",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/proof-containers/obj",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/proof-cache/gnatprove"
+      ],
+      "started_at": "2026-10-30T14:24:18.816103+00:00",
+      "finished_at": "2026-10-30T14:27:35.215096+00:00",
+      "duration_seconds": 196.405075563,
+      "returncode": null,
+      "error": "KeyboardInterrupt: ",
+      "failure_keys": [],
+      "evidence": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/obj/gnatprove",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261030T142409-b2e896030eb2/native.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261030T142409-b2e896030eb2/previous-reports",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/obj/gnatprove/proof-provenance.json"
+      ],
+      "retained_report_count": 20
+    },
+    {
+      "run_id": "20261030T155127-bf12fb89db9a",
+      "task": "#291-terminal-reruns",
+      "kind": "test",
+      "scope": [
+        "-p",
+        "test_boolean_terminal_reruns.py"
+      ],
+      "state": "failure",
+      "active": false,
+      "workers": 2,
+      "directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261030T155127-bf12fb89db9a",
+      "fingerprint": "41c7e6693eb042a6c372a2f49b189a956d879be3f4cf295040df27564a982fa4",
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v",
+        "-p",
+        "test_boolean_terminal_reruns.py"
+      ],
+      "reason": "After exact terminal839managed/12053snapshot/wrapper/inventory/binary verification, apply reviewed29bc branching-only fixture correction and rerun its2methods plus unchanged maximum-expression300s deadline case; original failed suite and later129-check producer audit retained",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver",
+      "resources": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64"
+      ],
+      "started_at": "2026-10-30T15:51:30.031480+00:00",
+      "finished_at": "2026-10-30T15:56:36.515985+00:00",
+      "duration_seconds": 306.48430601,
+      "returncode": 1,
+      "error": "CalledProcessError: Command '['/usr/bin/python3', '-m', 'unittest', 'discover', '-s', 'tests', '-v', '-p', 'test_boolean_terminal_reruns.py']' returned non-zero exit status 1.",
+      "failure_keys": [],
+      "evidence": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261030T155127-bf12fb89db9a/native.log"
+      ],
+      "retained_report_count": 0
+    },
+    {
+      "run_id": "20261030T132736-e452c95bd00d",
+      "task": "#291-complete-lean",
+      "kind": "lean",
+      "scope": "complete",
+      "state": "active",
+      "active": true,
+      "workers": 1,
+      "directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261030T132736-e452c95bd00d",
+      "fingerprint": "706656dee6b4778fbc8379c659af64d01620dd3981463e525d01d2cc87bdd0c6",
+      "command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/scripts/check_lean.py",
+        "--task",
+        "#291-complete-lean",
+        "--reason",
+        "Complete Boolean source correspondence and whole-project module/axiom audit after focused native repairs, reviewed typed integration and final source-certificate refresh",
+        "--workers",
+        "1",
+        "--threads",
+        "1",
+        "--memory-mb",
+        "24576"
+      ],
+      "reason": "Complete Boolean source correspondence and whole-project module/axiom audit after focused native repairs, reviewed typed integration and final source-certificate refresh",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes",
+      "resources": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/proof",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/lean-proof.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/lean-evidence.json"
+      ],
+      "started_at": "2026-10-30T13:27:38.670397+00:00",
+      "finished_at": null,
+      "duration_seconds": null,
+      "returncode": null,
+      "error": null,
+      "failure_keys": [],
+      "evidence": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/lean-proof.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/lean-evidence.json"
+      ],
+      "retained_report_count": 0
+    },
+    {
+      "run_id": "20261030T142912-eb0b24fc2191",
+      "task": "#291-final-native",
+      "kind": "prove",
+      "scope": [
+        "compiler"
+      ],
+      "state": "active",
+      "active": true,
+      "workers": 2,
+      "directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261030T142912-eb0b24fc2191",
+      "fingerprint": "286740a0d0d202e7371a98df5334a5485a0002df4560d119900e8e6ef6d79bda",
+      "command": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.tools/linux-x86_64/alr/bin/alr",
+        "-s",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.tools/linux-x86_64/alire/settings",
+        "-C",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/toolchain",
+        "-n",
+        "--no-tty",
+        "exec",
+        "--",
+        "gnatprove",
+        "-P",
+        "../../../silver.gpr",
+        "-U",
+        "--mode=all",
+        "--report=all",
+        "--warnings=error",
+        "--checks-as-errors=on",
+        "--level=2",
+        "--prover=cvc5,z3,altergo",
+        "--timeout=30",
+        "-j",
+        "2",
+        "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/proof-cache/gnatprove/ea6aba21eca447a9c8473fc1c3ea0300b03a95ce919d8a326f68a67989029329",
+        "-f",
+        "-XSILVER_HOST=linux-x86_64"
+      ],
+      "reason": "Finish unchanged final Boolean full strict proof after completed bounded cache correction: retained interrupted135033/142409, merged absent completed subtype and all3 successful final-repair donor entries, preserved newly computed results; all143 tracked inputs and strict policy unchanged",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration",
+      "resources": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/toolchain",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/obj",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/bin",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/proof-containers/obj",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/proof-cache/gnatprove"
+      ],
+      "started_at": "2026-10-30T14:29:14.675249+00:00",
+      "finished_at": null,
+      "duration_seconds": null,
+      "returncode": null,
+      "error": null,
+      "failure_keys": [],
+      "evidence": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/obj/gnatprove"
+      ],
+      "retained_report_count": 0
+    }
+  ],
+  "notes": [
+    {
+      "event": "checkpoint",
+      "monotonic_ns": 92759891255570,
+      "next_check": "Repair scalar-native array helper transport from caller ValidMetadata, align exact three shared Model files, and check only source-independent Predicate targets. Leave InheritedReady/source pass to final root complete checkpoint.",
+      "summary": "Focused Lean20261029T154909-06ffd07f35c4 found ScalarExpressionNativeArrayAtoms missing existing ValidMetadata/order transport; useful lower Predicate objects completed including LoopNative179s. Parent identified InheritedReady imports full ComposeSourceBridge and stale source candidates; stopping only this focused Lean run now to avoid duplicate final source validation. Full native20261029T154107-1e953acac4e4 remains active and untouched.",
+      "task": "#286-native",
+      "utc": "2026-10-29T16:02:09.905012+00:00",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/range-subtypes-native"
+    },
+    {
+      "event": "checkpoint",
+      "monotonic_ns": 95569141302382,
+      "next_check": "Stop only the current full-native runner cleanly, preserve unrelated dirty files in constant-array-native, synchronize final six native source files after exact input parity, then run normal managed prove --full with4workers and complete coverage/provenance.",
+      "summary": "Full native20261029T154107-1e953acac4e4 is being interrupted for established-workspace reuse, not a proof failure. Current reports/sessions/log/input snapshot retained under docs/evidence/named-integer-subtypes-20261029/native-full-reuse; original native workspace and all successful objects remain in place. Existing constant-array-native full435.871s run has matching current input/report hashes and411sessions;51unchanged units remain to be regenerated in this new workspace.",
+      "task": "#286-native",
+      "utc": "2026-10-29T16:48:59.155075+00:00",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/range-subtypes-native"
+    },
+    {
+      "event": "diagnostic",
+      "kind": "prove",
+      "monotonic_ns": 95572751345409,
+      "next_step": "Parent authorized reuse of constant-array-native after exact final native-input synchronization and preservation of dirty PredicateLoopCandidate/silver.adb. Normal full audit remains mandatory; no cold or replay-only claim.",
+      "run_id": "20261029T154107-1e953acac4e4",
+      "scope": [
+        "compiler"
+      ],
+      "summary": "Performance checkpoint: current run is still regenerating unchanged units; no failed obligation identified. Prior established-workspace full20261029T084357-2ecc23128d69 completed435.871s and its complete manifest still matches all current workspace inputs/reports.51remaining source-independent units account for10333prior proof checks; current new-feature output-profile sessions have not started. Preserve completed evidence and avoid duplicating that unchanged work.",
+      "task": "#286-native",
+      "utc": "2026-10-29T16:49:02.765115+00:00"
+    },
+    {
+      "event": "checkpoint",
+      "monotonic_ns": 96949931355516,
+      "next_check": "Finish platform test, retain both reruns and reconcile555=527retained+28fresh identities. Monitor unchanged complete native/Lean runs without repeating successes. After both pass, finalize capability/evidence and delivery docs/Rosetta, run affected Rosetta tests, request final evidence confirmation from range_subtypes_critical_review, commit/publish ready PR289 and issue/stage handoff; leave feature PR open for owner merge instruction.",
+      "summary": "Feature implementation/review target97312a790f remains unchanged; PR289 published through4317fd492e. Full suite20261029T153819-5626949ad567 passed555 identities in5255.763s, including52samples/108executions; log reconciles exactly to saved inventory. Its final delta is5Lean files covered by reviewed28test replacements. Final-source run20261029T170712-d9dc75fa5629 passed12tests; platform run20261029T170846-5ccd1f3667b8 active in validation/named-integer-subtypes. Complete Lean20261029T161817-0a8089cd7dc3 active on653matching inputs, body certificate still running. Native agent cleanly interrupted fresh-workspace run154107 and owns replacement20261029T165015-c6b111fb4f2a in constant-array-native after143tracked inputs matched; reuse/interruption preserved in4317fd492e. Documentation subagent prepared precise final Rosetta/status edits in tmp/subtypes-delivery-records, no completion claims yet. Root has uncommitted retained full-suite evidence/README update. No goal exists; feature merge not authorized.",
+      "task": "#286",
+      "utc": "2026-10-29T17:11:59.945052+00:00",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes"
+    },
+    {
+      "event": "checkpoint",
+      "monotonic_ns": 98125744893869,
+      "next_check": "Wait for unchanged native and complete Lean checkpoints; preserve caches. Retain terminal proof evidence and input comparison. Follow up subtypes_delivery_records for final status/Rosetta edits using capability anchor delivery-assurance-and-validation; run affected Rosetta tests afterward. Request final evidence confirmation from range_subtypes_critical_review, then commit/publish PR #289 ready for review with Fixes #286/#288 and issue/stage handoff. Do not merge. Git SSH push fails host-key setup here: authenticated HTTPS via gh credential helper works. gh pr edit hits deprecated classic-project lookup: use REST PATCH pulls/289 with JSON body input.",
+      "summary": "Regression checkpoint is complete and published in ced8d0d799 on PR #289. Full suite 20261029T153819-5626949ad567 passed all 555 identities (52 samples / 108 executions); final proof-source rerun 20261029T170712-d9dc75fa5629 passed 12 tests and platform rerun 20261029T170846-5ccd1f3667b8 passed 16. Exact final accounting: 527 applicable full-suite results plus 28 refreshed results, no missing/failed identity. Inputs remain implementation/review target 97312a790f. Native full 20261029T165015-c6b111fb4f2a has 75/76 successful current unit reports, output_profile and final audit pending; native subagent owns monitoring and retention. Complete Lean 20261029T161817-0a8089cd7dc3 continues OutputBodyCertificate; no failed result. Feature worktree clean except unrelated tmp/. Current PR body records test success and pending proof checks.",
+      "task": "#286",
+      "utc": "2026-10-29T17:31:35.758681+00:00",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes"
+    },
+    {
+      "event": "checkpoint",
+      "monotonic_ns": 104517126026680,
+      "next_check": "Continue the active proof runs and retain outcomes. Native subagent owns native reports/retention; critical reviewer has confirmed regressions and can confirm native/Lean terminal evidence when available. Delivery-doc agent owns README/roadmap/language status, Rosetta records/rendering and assurance/trusted-boundary final status, but support completion must wait for both proofs. Finalize root capability/evidence/session handoff, run affected Rosetta tests after metadata edits, obtain final evidence confirmation, commit/push ready PR289 with Fixes286/288 and leave it open for owner merge instruction.",
+      "summary": "Major complete-Lean phase passed without input changes: run 20261029T161817-0a8089cd7dc3 compiled OutputBodyCertificate in 9710s, SourceCertificates/Source and ReviewedOutputShape; ComposeSourceCandidate is now active (PID439204 at this checkpoint). Keep completed cache and the running checkpoint. Native replacement run20261029T165015-c6b111fb4f2a remains active on final143 tracked inputs,75/76 unit reports complete; condition/primary/relation parser imports passed, now Read_Chain_Into. Full native and complete Lean audits remain pending. Regression full555 plus12+16 affected reruns are complete and independently confirmed in report commit2ec4f41992; 527 retained+28 refreshed identities,52samples/108executions. PR289 head a58f070b8c additionally corrects README/trusted-boundary stack links to the exact earlier subtype observations; no governed input changed. Feature worktree clean except tmp/. No model or native option changes, no new validation runs.",
+      "task": "#286",
+      "utc": "2026-10-29T19:18:07.139781+00:00",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes"
+    },
+    {
+      "event": "checkpoint",
+      "monotonic_ns": 108798681411815,
+      "next_check": "Preserve current full run and inputs to terminal outcome; inspect final output-profile report, then test the smallest explicit Body_Scan/Facts equality bridge without dropping any obligation. No rerun or source edit authorized for this monitoring subthread.",
+      "summary": "Read-only recovery found active full run20261029T165015-c6b111fb4f2a Body_Tail session has304of305 split goals proved;def'vc.304 static model equality at silver_output_profile.adb3412:28 remains unresolved after all normal provers and counterexample timeout. Exact task/XML/shapes/source retained in native-full-reuse/body-tail-diagnostic. Earlier all-proved progress did not establish completed-session success.75emitted unit reports have no unresolved proof/flow entries; Read_Form remains active.",
+      "task": "#286-native",
+      "utc": "2026-10-29T20:29:28.695145+00:00",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/range-subtypes-native"
+    },
+    {
+      "event": "checkpoint",
+      "monotonic_ns": 110476839189902,
+      "next_check": "Lead reviews and integrates the source-only repair plus evidence, refreshes affected source binding/certificate inputs, then coordinates complete native and Lean validation and affected regressions on stable repaired bytes. Preserve both native workspaces, sessions and caches; do not rerun unchanged successful evidence without a concrete reason.",
+      "summary": "Original full run 20261029T165015-c6b111fb4f2a ended failed after 13,129.891 s with one Body_Tail static equality obligation; all 78 emitted reports and exact inputs retained in evidence commit 8c3eeec12f. First isolated repair d1c90fbbb6 adds six Static proof lines and two comments, using existing flow equality lemmas. Focused run 20261029T203414-0517c9b1e3dd passed all 62 proof and 287 flow entries, with 50 retained warnings and all 330 session goals proved, in 1,179.240 s. Focused packet committed 5e6eea53e0; no complete native assurance claimed.",
+      "task": "#286-native",
+      "utc": "2026-10-29T20:57:26.852964+00:00",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/range-subtypes-native"
+    },
+    {
+      "event": "checkpoint",
+      "monotonic_ns": 111172967356213,
+      "next_check": "Preserve active repaired Lean run. Finish46-test refresh and retain509+46=555 reconciliation; then native agent starts full proof using retained sessions/cache, strict options. Integrate owned evidence-only commits. Complete native and Lean audits and independent final evidence confirmation remain mandatory. After both pass, finish support/Rosetta/assurance records in a separate delivery-doc worktree, run affected3 Rosetta tests, update final reconciliation/handoffs, publish PR289 ready for review and leave open. Old agents disappeared at20:24 server restart; new agents are range_subtypes_native_finish, subtypes_repair_source_impact, and completed subtypes_body_tail_review. Actual OS proof processes survived restart. Merge of this feature is not authorized.",
+      "summary": "Repaired implementation/review target is 6020416906; current integration head1c5bfe0004 adds records only. Full native20261029T165015-c6b111fb4f2a failed exactly one Body_Tail static equality; all original reports retained. Source-only repair5e836b27d6 adds8 Static-only lines with unchanged contracts/runtime/options; focused native203414-0517c9b1e3dd passed62proof+287flow/all330goals, independently reviewed in32880032da. Empty focused-report archive was corrected in540ffe6110 and reverified. Old complete Lean161817 was cleanly interrupted20:40 because pin-dependent candidates invalidate; original interrupted outcome/cache retained. New complete Lean20261029T205735-bb72d0625415 is active in integration,1worker/thread,24576MiB,653matchinginputs; do not mutate governed inputs. Native build210150 passed. Sol ExtraHigh agent subtypes_repair_source_impact owns46 refreshes in constant-array-iteration and separate records worktree; source12 passed, platform16 active, integrity17+single Silver test remain. Astra ExtraHigh range_subtypes_native_finish prepared constant-array-native: all143 inputs match602 afterone-file sync, unrelateddirtyfiles preserved; full4worker proof starts only after46tests pass. Independent body-tail reviewer completed report; no code defect. No feature merge authorized, no harness goal.",
+      "task": "#286",
+      "utc": "2026-10-29T21:09:02.981135+00:00",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes"
+    },
+    {
+      "event": "checkpoint",
+      "monotonic_ns": 113263384533155,
+      "next_check": "Preserve both active proof runs. Retain native terminal evidence from its agent and complete Lean logs/events/evidence using integration tmp/retain-final-lean.py (updated to new run ID). Complete audits remain mandatory. Agent subtypes_delivery_finish prepared a conditional seven-file documentation/Rosetta patch, preserved under tmp/subtypes-delivery-finish/tmp; apply only after both complete audits pass, using actual completion date. Root owns capability/evidence/session records. Then run the three affected Rosetta tests, reconcile final inventory, obtain final evidence confirmation from subtypes_body_tail_review, commit/push completion and make PR #289 ready for review. Leave PR/issues/milestone unmerged/open pending owner merge instruction. No harness goal exists.",
+      "summary": "Published PR #289 head is 96365a31c3; stable repaired implementation/review target is 6020416906. Complete Lean run 20261029T205735-bb72d0625415 is active in named-integer-subtypes, one worker/thread and 24576 MiB; OutputBodyCertificate process 461784 was active at this checkpoint. Complete native run 20261029T211041-a76eb6753f23 is active in constant-array-native, four workers and unchanged strict options; native agent range_subtypes_native_finish owns monitoring/retention. All 143 native inputs and 653 captured Lean inputs match the repaired target. Final build and all 46 refreshed tests passed: 509 retained plus 46 fresh covers 555 identities, no missing/failing tests, evidence integrated in 7b5bac8e17. Body_Tail repair/source refresh and focused proof were independently reviewed in 32880032da. Original failed native 165015 and interrupted Lean 161817 remain correctly retained. No source changes are pending; integration is clean except tmp/.",
+      "task": "#286",
+      "utc": "2026-10-29T21:43:53.398305+00:00",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes"
+    },
+    {
+      "event": "diagnostic",
+      "kind": "lean",
+      "monotonic_ns": 159355265878599,
+      "next_step": "Prove the residual conjunction explicitly using condition_counts and case split; keep Basic target out until semantic BodyFlow is integrated.",
+      "run_id": "20261030T103024-947c39a4362b",
+      "scope": [
+        "Silver.PredicateBasicSourceCandidate",
+        "Silver.PredicateBooleanBodyNative",
+        "Silver.PredicateBooleanBodySource",
+        "Silver.PredicateNativeWorkers"
+      ],
+      "summary": "Boolean assignment sizing reduced to condition Counts plus a conditional whose two branches are True. Two simplifier-based repairs left that conjunction; parser and NativeWorkers compiled. BasicSourceCandidate additionally exposed the pending semantic BodyFlow Boolean case.",
+      "task": "#291",
+      "utc": "2026-10-30T10:32:05.430435+00:00"
+    },
+    {
+      "event": "diagnostic",
+      "kind": "lean",
+      "monotonic_ns": 160528277457180,
+      "next_step": "Keep readScalarInFlow opaque for branch selection, then unfold it in selected hypotheses; recheck Basic and the separate Boolean helper model.",
+      "run_id": "20261030T104927-c6c6c2bfa969",
+      "scope": [
+        "Silver.BooleanBindingsSourceBridge",
+        "Silver.PredicateBasicReadings",
+        "Silver.PredicateBodyMeaning",
+        "Silver.PredicateBodySound"
+      ],
+      "summary": "Scalar basic-reading proof split failed after unfolding readScalarInFlow inside the conditional decision instance. The original opaque call split succeeds; normalize its call only after selecting the branch. Boolean native lookup induction passes; separate small quantifier/model witness proof edits remain.",
+      "task": "#291-basic-integration",
+      "utc": "2026-10-30T10:51:38.442033+00:00"
+    },
+    {
+      "event": "checkpoint",
+      "monotonic_ns": 161838592747722,
+      "next_check": "After checked CallAfter, XOR bridge and NativeHelpers arrive, compile LoopNative, FlowReaderLibraries, BasicHelpers, BooleanBodyLibraries, NativeLibraries and source helper consumers with 2 workers/1 thread/8192MiB.",
+      "summary": "Source continuation: imported checked BooleanBindings, Contracts Boolean state validity and native model/progress/ranges. Loop direct Update.eval now forwards elaborating mode; runner interrupted after stale Contracts dependency failure, successful artifacts retained. NativeLibraries transfer drafted against precise helper domains.",
+      "task": "#291",
+      "utc": "2026-10-30T11:13:28.757303+00:00",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-predicate-source"
+    },
+    {
+      "event": "diagnostic",
+      "kind": "lean",
+      "monotonic_ns": 162058416785906,
+      "next_step": "Forward context.elaborating in both LoopAt bound readings, then replay Current and PredicateSelectors with the prepared header/SourceMeaning/check-inventory integration; preserve explicit bodyMode=false at semantic use.",
+      "run_id": "20261030T110818-e1c575689ff7",
+      "scope": [
+        "Silver.PredicateBooleanHeader"
+      ],
+      "summary": "HeaderDecode and ordered Boolean trace compile. The accepted loop producer now retains context.elaborating, but LoopAt still defaulted its two bound premises to false; BodySound failed at that mismatch. BodyMeaning otherwise compiled.",
+      "task": "#291-header",
+      "utc": "2026-10-30T11:17:08.581331+00:00"
+    },
+    {
+      "event": "diagnostic",
+      "kind": "lean",
+      "monotonic_ns": 162334421115703,
+      "next_step": "Reduce the typed evaluator and dependent instances together with dsimp +instances before Boolean normalization, then prove recursive equality with the unchanged scanner recurrence and cursor bounds.",
+      "run_id": "20261030T111909-c68ba3d6c034",
+      "scope": [
+        "Silver.PredicateXorSourceBridge"
+      ],
+      "summary": "The xor tree is typed, but interpretation simplification leaves decidable instances attached to unreduced frame projections. Repeated branch splitting then creates mismatched tests and spurious arithmetic branches.",
+      "task": "#291-xor-source",
+      "utc": "2026-10-30T11:21:44.585591+00:00"
+    },
+    {
+      "event": "diagnostic",
+      "kind": "lean",
+      "monotonic_ns": 163241281204371,
+      "next_step": "Rename constructor-like pattern variables and compile the same low module; then resolve only remaining denotation/model goals. No source semantics or native domain changes.",
+      "run_id": "20261030T113456-043a08c7d199",
+      "scope": [
+        "Silver.ComposeBooleanDeclarationNative"
+      ],
+      "summary": "Untracked declaration interpreter initial compile failed; after source Scan/record syntax fixes, dependent match errors persisted in Expr eval/render. Pattern variables arguments/context match nullary constructors of Expr, causing nested impossible Bool=Nat elimination.",
+      "task": "#291-declaration",
+      "utc": "2026-10-30T11:36:51.445746+00:00"
+    },
+    {
+      "event": "diagnostic",
+      "kind": "lean",
+      "monotonic_ns": 163824132245242,
+      "next_step": "Retain the original definitional proof with a local four-million-heartbeat limit; if that still fails, use a sharing-preserving staged evaluator reduction rather than expanding all local environments.",
+      "run_id": "20261030T113918-fdfdfa1fd9de",
+      "scope": [
+        "Silver.ComposeEvaluation",
+        "Silver.ComposeHelperEquations",
+        "Silver.ComposeScalarDenotations"
+      ],
+      "summary": "The scalar declaration evaluator denotation exceeded the prior rfl cost after eager dsimp expansion: interrupted after about six minutes with about 5.7 GiB RSS. Other dependency modules completed and remain cached. The original rfl attempt reached the two-million-heartbeat elaboration limit; no semantic disagreement was reported.",
+      "task": "#291-raw-helper-integration",
+      "utc": "2026-10-30T11:46:34.296714+00:00"
+    },
+    {
+      "event": "diagnostic",
+      "kind": "lean",
+      "monotonic_ns": 164431639853591,
+      "next_step": "Preserve the theorem statement and use memoized simplification with zeta disabled, retaining local let sharing while reducing the typed evaluator. Check ScalarDenotations alone before rebuilding consumers.",
+      "run_id": "20261030T114803-ff4a28cb94ce",
+      "scope": [
+        "Silver.ComposeHelperEquations",
+        "Silver.ComposeScalarDenotations",
+        "Silver.PredicateAdapterSourceCandidate"
+      ],
+      "summary": "ScalarDeclaration denotation rfl still reached its local four-million-heartbeat limit after 440 seconds. Eager dsimp previously expanded to about 5.7 GiB without completion. Other reported failures are the separately owned BodyCorrespondence context constructor and the now-integrated initializer-domain repair.",
+      "task": "#291-compose-denotation",
+      "utc": "2026-10-30T11:56:41.804402+00:00"
+    },
+    {
+      "event": "diagnostic",
+      "kind": "tool-gnatprove",
+      "monotonic_ns": 165942536753769,
+      "next_step": "Remove unsuccessful result-cut scaffold and reuse existing Integer_Type_Word at the two original wrapper sites; check only Read_String_In_Flow under unchanged proof settings and coordinate exact source constant/render checks.",
+      "run_id": "20261030T115004-8f4e263b7fc5",
+      "scope": [
+        "mode:all",
+        "project:../../../silver.gpr",
+        "silver_output_profile.adb",
+        "--limit-region=silver_output_profile.adb:2180:2226"
+      ],
+      "summary": "Result-cut helper proved; selected assertion .73 and exact final post .110 timed out. Retained task shows distinct generated integer String literal arrays across otherwise identical calls. Full focused run terminal failure after 1823 seconds; all evidence retained and root source restored.",
+      "task": "#291-string-equality-repair",
+      "utc": "2026-10-30T12:21:52.701327+00:00"
+    },
+    {
+      "event": "diagnostic",
+      "kind": "test",
+      "monotonic_ns": 179272038718811,
+      "next_step": "Remaining producer descendants have exited. With about 24 GiB available and current Lean certificate near 5.5 GiB, rerun only the unchanged maximum-expression method on 8 CPUs with a managed 8-worker reservation. Keep the 300-second test deadline and all production proof settings unchanged. Reuse the two successful branching methods.",
+      "run_id": "20261030T155127-bf12fb89db9a",
+      "scope": [
+        "-p",
+        "test_boolean_terminal_reruns.py"
+      ],
+      "summary": "Maximum dynamic expression hit the unchanged 300-second unittest deadline twice under a temporary two-CPU affinity limit. Both corrected branching methods passed; all 839 captured rerun hashes remained unchanged. The first producer later completed 5 units, 19 flow checks and 110 proof checks without advisories. Low per-prover CPU shares show contention; no application memcached option was present, so cache reuse is not assumed.",
+      "task": "#291-terminal-reruns",
+      "utc": "2026-10-30T16:04:02.203289+00:00"
+    }
+  ],
+  "available_cpus": 12,
+  "reserved_workers": 3,
+  "diagnostics_required": [],
+  "total_runs": 1664,
+  "omitted_completed_runs": 1660
+}

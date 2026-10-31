@@ -1,11 +1,13 @@
 module
 
-public import Silver.PredicateAdmission
+public import Silver.PredicateConditionAdmission
+public import Silver.PredicateFlowInvariant
+public import Silver.PredicateConditionFlowValidity
+public import Silver.PathBounds
+public import Silver.BooleanBindings
 public import Silver.IntegerSubtypeBindings
 public import Silver.ComposeContracts
 public import Silver.ScalarExpressionEnvironment
-public import Silver.PredicateConditionFlowValidity
-public import Silver.PredicateConditionBounds
 
 @[expose] public section
 
@@ -22,26 +24,43 @@ structure Context where
   declarationCount : Nat := 0
   arrayNames : ArrayBindings.Metadata := []
   subtypeHiding : IntegerSubtypes.CallHiding := {}
+  booleanNames : BooleanBindings.Environment := []
+  trueHidden : Bool := false
+  falseHidden : Bool := false
+  elaborating : Bool := false
+  maskFirst : Nat := 0
+  maskAfter : Nat := 0
   deriving DecidableEq, Repr
 
 def Context.model (context : Context) : ParseContext :=
   ⟨context.names, decide (context.dynamicFirst ≠ 0), context.scalarNames,
-    context.declarationCount, context.arrayNames, context.subtypeHiding⟩
+    context.declarationCount, context.arrayNames, context.subtypeHiding, context.booleanNames,
+    context.trueHidden, context.falseHidden, context.elaborating, context.maskFirst, context.maskAfter⟩
 
 def ValidContext (text : Source) (context : Context) : Prop :=
   Compose.Expressions.ValidNames text context.names ∧
     (⟨context.dynamicFirst, context.dynamicAfter⟩ : Named.NameState).Valid text ∧
     ScalarExpression.ValidEnvironment text context.scalarNames ∧
-    ScalarMetadata.BaseReady context.scalarNames context.declarationCount ∧
-    ArrayBindings.ValidMetadata text context.arrayNames
+    ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating ∧
+    ArrayBindings.ValidMetadata text context.arrayNames ∧
+    BooleanBindings.ValidEnvironment text context.booleanNames ∧
+    (⟨context.maskFirst, context.maskAfter⟩ : Named.NameState).Valid text
 
 theorem ValidContext.base {text : Source} {context : Context}
     (valid : ValidContext text context) :
-    ScalarMetadata.BaseReady context.scalarNames context.declarationCount := valid.2.2.2.1
+    ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating := valid.2.2.2.1
 
 theorem ValidContext.arrays {text : Source} {context : Context}
     (valid : ValidContext text context) :
-    ArrayBindings.ValidMetadata text context.arrayNames := valid.2.2.2.2
+    ArrayBindings.ValidMetadata text context.arrayNames := valid.2.2.2.2.1
+
+theorem ValidContext.booleans {text : Source} {context : Context}
+    (valid : ValidContext text context) :
+    BooleanBindings.ValidEnvironment text context.booleanNames := valid.2.2.2.2.2.1
+
+theorem ValidContext.mask {text : Source} {context : Context}
+    (valid : ValidContext text context) :
+    (⟨context.maskFirst, context.maskAfter⟩ : Named.NameState).Valid text := valid.2.2.2.2.2.2
 
 /-- The native array and interval types contribute the bounded domains; the
 checked Valid_Flow predicate contributes active extent, immutable cells,
@@ -56,15 +75,15 @@ theorem ValidFlow.count_le {text : Source} {context : Context} {facts : ActiveFl
   exact cv.2.2.1.1
 
 theorem ValidFlow.join {context : Context} {left right : ActiveFlow}
-    (base : ScalarMetadata.BaseReady context.scalarNames context.declarationCount)
+    (base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)
     (a : ValidFlow context left) (b : ValidFlow context right) :
     ValidFlow context (left.join right) :=
-  ⟨PathFacts.Context.join_bounded a.1 b.1, ScalarMetadata.FlowReady.join base a.2 b.2⟩
+  ⟨PathFacts.Context.join_bounded a.1 b.1, ScalarMetadata.FlowReady.join_context base a.2 b.2⟩
 
 inductive Token
   | leftParenthesis | rightParenthesis | argumentsName | dot | inputIsValid
   | apostrophe | lengthName | notEqual | lessEqual | greaterEqual | equal | less | greater
-  | notKeyword | andKeyword | orKeyword | thenKeyword | elseKeyword | endKeyword
+  | notKeyword | andKeyword | orKeyword | xorKeyword | thenKeyword | elseKeyword | endKeyword
   deriving DecidableEq, Repr
 
 def Token.name : Token → String
@@ -73,6 +92,7 @@ def Token.name : Token → String
   | .apostrophe => "apostrophe" | .lengthName => "length_name" | .notEqual => "not_equal"
   | .lessEqual => "less_equal" | .greaterEqual => "greater_equal" | .equal => "equal"
   | .less => "less" | .greater => "greater" | .notKeyword => "not_keyword"
+  | .xorKeyword => "xor_keyword"
   | .andKeyword => "and_keyword" | .orKeyword => "or_keyword" | .thenKeyword => "then_keyword"
   | .elseKeyword => "else_keyword" | .endKeyword => "end_keyword"
 
@@ -82,14 +102,21 @@ def Token.shell : Token → Compose.ShellToken
   | .apostrophe => .symbol "'" | .lengthName => .word "length" | .notEqual => .symbol "/="
   | .lessEqual => .symbol "<=" | .greaterEqual => .symbol ">=" | .equal => .symbol "="
   | .less => .symbol "<" | .greater => .symbol ">" | .notKeyword => .word "not"
+  | .xorKeyword => .word "xor"
   | .andKeyword => .word "and" | .orKeyword => .word "or" | .thenKeyword => .word "then"
   | .elseKeyword => .word "else" | .endKeyword => .word "end"
 
 def Token.isChain (token : Token) : Bool := token == .andKeyword || token == .orKeyword
 
-def Token.chain (token : Token) : Bool := token == .andKeyword
+/-- The scanner's operator category is distinct from its lexical token kind. -/
+inductive ChainKind
+  | noChain | shortAnd | shortOr | eagerAnd | eagerOr | eagerXor
+  deriving DecidableEq, Repr
 
-def chainState (operator : Token) (chained : Bool) : Option Bool :=
-  if chained then some operator.chain else none
+def ChainKind.name : ChainKind → String
+  | .noChain => "no_chain" | .shortAnd => "short_and" | .shortOr => "short_or"
+  | .eagerAnd => "eager_and" | .eagerOr => "eager_or" | .eagerXor => "eager_xor"
+
+def ChainKind.isChain (operator : ChainKind) : Bool := operator != .noChain
 
 end Silver.Predicate.Native

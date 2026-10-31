@@ -1,0 +1,9 @@
+{
+  "adapter_sha256": "524f344475f1bb636826214b1f2113d0cf9e03839be65a05c8f389681b1ffcfc",
+  "backup": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/tmp/boolean-repair-regression-91de",
+  "commit": "91de078ed81d102485c7dd286758e127630b01d6",
+  "compiler_sha256": "69006d784a7fa256c3a7bd78db22a9003e9053b199c97b8c6a82e3bbe31cb506",
+  "files_checked": 830,
+  "installed_at": "2026-10-31T06:26:25.324615+00:00",
+  "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration"
+}

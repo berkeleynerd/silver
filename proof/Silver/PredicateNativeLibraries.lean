@@ -3,6 +3,9 @@ module
 public import Silver.PredicateNativeHelpers
 public import Silver.PredicateFlowReaderLibraries
 public import Silver.PredicateNativeScalarHelpers
+public import Silver.PredicateXorSourceBridge
+public import Silver.BooleanBindingsSourceBridge
+public import Silver.ComposeLexical
 public import Silver.ComposeModelCalls
 public import Silver.ComposeEquations
 public import Silver.IntegerLiteralEquations
@@ -77,7 +80,7 @@ structure ScalarLinks (calls : Native.Calls) (composed : Compose.Expressions.Cal
     calls.scalarCondition = helpers.scalarCondition ∧ calls.invalidCondition = helpers.invalid
 
 theorem scalar_primitives {helperCalls : ScalarHelpers.Calls} {composed : Compose.Expressions.Calls}
-    (equations : HelperEquations composed (domain := domain))
+    (equations : RawHelperEquations composed (domain := domain))
     (scalars : Integer.NativeSourceBridge.InterpretedSource helperCalls.scalars)
     (skip : helperCalls.skip = composed.function .skip)
     (name : helperCalls.nameAfter = composed.function .nameAfter)
@@ -99,6 +102,13 @@ functions; Read_Integer uses its runtime wrapper; path calls use the exact typed
 library bodies. No independent predicate meaning occurs in these links. -/
 structure Links (calls : Native.Calls) (composed : Compose.Expressions.Calls)
     (integer : Source → Nat → IntegerLiteral.Result) : Prop where
+  xorFree : ∃ source : XorSourceBridge.InterpretedSource, calls.xorFree = source.xorFree
+  equalName : ∃ lexical token, Compose.Lexical.InterpretedSource lexical token ∧
+    calls.equalName = (Compose.Lexical.primitives lexical token).equal
+  nameIs : calls.nameIs = composed.function .nameIs
+  arrayLookup : calls.arrayLookup = composed.function .arrayLookup
+  booleanLookup : ∃ source : BooleanBindings.SourceBridge.InterpretedSource,
+    calls.booleanLookup = source.lookup
   callAfter : calls.callAfter = composed.function .callAfter
   take : ∀ text, ValidText text → ∀ position token, position ≤ text.length + 1 →
     calls.take text position token = composed.function .takeToken text position token.shell
@@ -111,7 +121,7 @@ structure Links (calls : Native.Calls) (composed : Compose.Expressions.Calls)
     calls.lookup text names first after = composed.function .lookupName text names first after
   scalarLookup : calls.scalarLookup = composed.function .scalarLookup
   scalarRead : calls.scalarRead = fun text position names => composed.function .scalarRead text position names [] [] false
-  readers : FlowReaders.Links composed calls.scalarInFlow calls.stringInFlow
+  readers : FlowReaders.FullLinks composed calls.scalarInFlow calls.stringInFlow
   scalarHelpers : ScalarLinks calls composed
   integer : ∀ text, ValidText text → ∀ position, position ≤ text.length + 1 →
     calls.integer text position = integer text position
@@ -142,15 +152,35 @@ theorem token_valid (token : Token) : Compose.Expressions.ValidToken token.shell
   cases token <;> decide +kernel
 
 theorem helper_meaning (calls : Native.Calls) (composed : Compose.Expressions.Calls)
-    (composedEquations : Compose.Expressions.HelperEquations composed (domain := domain))
+    (composedEquations : Compose.Expressions.RawHelperEquations composed (domain := domain))
     (literals : IntegerLiteral.Native.Calls) (literalEquations : IntegerLiteral.Native.Equations literals)
     (integer : Source → Nat → IntegerLiteral.Result)
     (refinement : ∀ text, IntegerLiteral.Native.ValidText text → ∀ position, position ≤ text.length + 1 →
       integer text position = literals.model text position)
     (links : Links calls composed integer) : HelperMeaning calls where
-  callAfter text tv names position operation scalarNames arrays hidden nv sv av pv := by
+  xorFree text tv first after fb ab := by
+    obtain ⟨source, observed⟩ := links.xorFree
+    rw [observed]
+    exact source.xorFree_meaning text tv first after fb ab
+  equalName text tv first after otherFirst otherAfter leftValid rightValid := by
+    obtain ⟨lexical, token, source, observed⟩ := links.equalName
+    rw [observed]
+    exact (Compose.Lexical.interpreted_primitives lexical token source).equal
+      text tv.1 tv.2 first after otherFirst otherAfter
+      leftValid.1 leftValid.2.1 leftValid.2.2 rightValid.1 rightValid.2.1 rightValid.2.2
+  nameIs text tv first after word valid nonempty bounded := by
+    rw [links.nameIs]
+    exact composedEquations.nameIs text tv first after word valid nonempty bounded
+  arrayLookup text tv names first after nv fb ab := by
+    rw [links.arrayLookup]
+    exact composedEquations.arrayLookup text tv names first after nv fb ab
+  booleanLookup text tv names first after nv fb ab := by
+    obtain ⟨source, observed⟩ := links.booleanLookup
+    rw [observed]
+    exact source.lookup_meaning text tv names nv first after fb ab
+  callAfter text tv names position operation scalarNames arrays hidden booleans nv sv av bv pv := by
     rw [links.callAfter]
-    exact Compose.Expressions.interpreted_callAfter composed composedEquations text tv names position operation nv pv sv av hidden
+    exact Compose.Expressions.interpreted_callAfter composed composedEquations text tv names position operation nv pv sv av hidden booleans bv
   take text tv position token bounded := by
     rw [links.take text tv position token bounded,
       Compose.Expressions.interpreted_take composed composedEquations text tv position token.shell bounded (token_valid token)]
@@ -170,12 +200,12 @@ theorem helper_meaning (calls : Native.Calls) (composed : Compose.Expressions.Ca
     exact composedEquations.scalarRead text tv position names [] [] false pv nv
       (by simp [ArrayBindings.ValidMetadata, ArrayBindings.maxBindings])
       (by simp [ArrayBindings.ValidInitials, ArrayBindings.maxElements])
-  scalarInFlow text tv context cv position facts pv fv :=
-    FlowReaders.linked_scalar composedEquations links.readers {text, context, position, facts}
-      ⟨tv, cv, fv, pv⟩
-  stringInFlow text tv context cv position facts pv fv :=
-    FlowReaders.linked_string composedEquations links.readers {text, context, position, facts}
-      ⟨tv, cv, fv, pv⟩
+  scalarInFlow text tv context cv position facts pv fv initials iv :=
+    FlowReaders.linked_scalar_full composedEquations links.readers {text, context, position, facts, initials}
+      ⟨tv, cv, fv, pv, iv⟩
+  stringInFlow text tv context cv position facts pv fv initials iv :=
+    FlowReaders.linked_string_full composedEquations links.readers {text, context, position, facts, initials}
+      ⟨tv, cv, fv, pv, iv⟩
   scalarCondition text tv context cv position rightPosition pv rpv facts fv left right la ra operator lb rb := by
     obtain ⟨helpers, scalars, skip, name, lookup, definitions, condition, _⟩ := links.scalarHelpers.source
     rw [condition]
@@ -218,6 +248,11 @@ theorem helper_meaning (calls : Native.Calls) (composed : Compose.Expressions.Ca
 
 /-- The callee wiring itself has a concrete inhabitant. -/
 theorem model_links : Links Native.modelCalls Compose.Expressions.modelCalls IntegerLiteral.read where
+  xorFree := ⟨XorSourceBridge.modelSource, rfl⟩
+  equalName := ⟨Guarded.Expressions.modelCalls, fixedAt, Compose.Lexical.model_interpreted, rfl⟩
+  nameIs := rfl
+  arrayLookup := rfl
+  booleanLookup := ⟨BooleanBindings.SourceBridge.modelSource, rfl⟩
   callAfter := rfl
   take text _ position token _ := by cases token <;> rfl
   skip _ _ _ _ := rfl
@@ -227,20 +262,21 @@ theorem model_links : Links Native.modelCalls Compose.Expressions.modelCalls Int
   scalarRead := rfl
   readers := by
     let inherited := FlowReaders.inheritedCalls FlowSourceBridge.readingStorage
-      Compose.Expressions.modelCalls ScalarExpression.Native.modelCalls
+      Compose.Expressions.modelCalls ScalarExpression.Native.modelCalls BooleanBindings.SourceBridge.modelSource
     refine ⟨FlowSourceBridge.readingStorage, ScalarExpression.Native.modelCalls,
-      FlowReaders.modelScalar inherited, FlowSourceBridge.model_reading_interpreted,
+      FlowReaders.modelScalar inherited, BooleanBindings.SourceBridge.modelSource,
+      FlowSourceBridge.model_reading_interpreted,
       ScalarExpression.Native.model_primitives, ScalarExpression.Native.model_equations,
       FlowReaders.model_scalar_refinement inherited, ?_, ?_⟩
     · constructor
       intro inputs legal
       dsimp only [FlowReaders.stringRhs, FlowReaders.Expr.eval, inherited, FlowReaders.inheritedCalls]
-      rw [FlowReaders.overlay_meaning FlowSourceBridge.model_reading_interpreted legal.2.1 legal.2.2.1]
+      rw [FlowReaders.overlay_meaning FlowSourceBridge.model_reading_interpreted legal.context legal.flow]
       rfl
-    · intro text context position facts legal
+    · intro text context position facts initials legal
       exact (FlowReaders.scalar_meaning FlowReaders.model_meaning
         (FlowReaders.model_scalar_refinement FlowReaders.modelCalls)
-        {text, context, position, facts} legal (Or.inl ⟨rfl, rfl⟩)).symm
+        {text, context, position, facts, initials} legal (Or.inl ⟨rfl, rfl⟩)).symm
   scalarHelpers := ⟨ScalarHelpers.modelCalls, Integer.NativeSourceBridge.model_interpreted,
     rfl, rfl, rfl, ScalarHelpers.model_equations, rfl, rfl⟩
   integer _ _ _ _ := rfl

@@ -1,19 +1,21 @@
 # Sequence of primes by trial division
 
-**Candidate: proofs likely to discharge automatically.** Only for loops over statically bounded ranges are used, so termination needs no variant, the divisor D is at least 2 so the mod has no division-by-zero check to fail, and the loop-carried state is a Boolean.
+**Candidate: proofs likely to discharge automatically.** The source uses finite Integer loops and a Boolean flag; divisor bounds exclude zero, including the empty first inner loop. The expected 25 primes through 100 are derived independently by marking composite multiples. Scope and validation status are recorded in docs/boolean-objects.md and the linked assessment record.
 
-Position 108 in the [progression](../../progression.md#stage-6), in stage 6, which adds integer division.
+Position 33 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
-An embedded bounded range (for example 2 to 100, or 50 to 99 as in the sample) is walked by an outer for loop over a declared integer subtype, and an inner for loop tries every divisor D in 2 .. N-1, clearing a Boolean flag when N mod D = 0. Each prime is printed with Put_Line using Integer'Image, and no value is carried across iterations except the Boolean. About 22 lines.
+The driver samples/rosetta_sequence_of_primes_by_trial_division.adb scans Candidate in 2..100. It resets a Boolean Prime flag, tries every Divisor in 2..(Candidate - 1), clears the flag when Candidate mod Divisor = 0 and prints each surviving candidate with Integer Image. The inner loop is empty for 2. It uses the task-permitted finite bound and actual trial division. About 17 lines.
 
 ## Language surface recorded by this assessment
 
-Integers, integer division, ranged subtypes, Boolean objects, for loops and 'Image of scalars.
+Scalar Boolean objects and expressions, Integer range for loops, interval-checked Integer division and Integer image.
 
 ## External effects
 
 - **console output** (allowed): Prints each prime found in the embedded range to standard output.
 
-Assessed on 2026-10-15 against page revision 413905 of the [task](https://rosettacode.org/wiki/Sequence_of_primes_by_trial_division) by claude-sonnet-5-5 at medium effort; confidence high. The inclusion policy is in `rosetta/coverage.json`.
+Initially assessed on 2026-10-15 against page revision 413905 of the [task](https://rosettacode.org/wiki/Sequence_of_primes_by_trial_division) by claude-sonnet-5-5 at medium effort; current confidence high. The inclusion policy is in `rosetta/coverage.json`.
+
+Revised on 2026-10-30 by Codex through targeted source review; see the [review record](../../../rosetta/assessment-boolean-objects-20261030.md).

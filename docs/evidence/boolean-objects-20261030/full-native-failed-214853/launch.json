@@ -1,0 +1,25 @@
+{
+  "source_commit": "598a56b969cc0f5b68de7f674ac8bd9c48b602fd",
+  "output_profile_sha256": "88b54a1df3e6cb1b59c482d36cd29a9f15c2506c69227fbef78c9ab93ab67ddb",
+  "build_run_id": "20261030T214749-120a2c44c6f6",
+  "build_duration_seconds": 10.742097787,
+  "proof_pid": 22727,
+  "proof_command": [
+    "/usr/bin/python3",
+    "-u",
+    "scripts/dev.py",
+    "prove",
+    "--full",
+    "--jobs",
+    "4",
+    "--task",
+    "#291-final-native",
+    "--reason",
+    "Complete strict native proof and provenance for frozen repair 598a56b969 after matching build and both complete focused readers passed; all143 tracked native inputs match; original production limits and managed cache unchanged"
+  ],
+  "proof_log": "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-final-full-native-88b54a1d.log",
+  "started_at": "2026-10-30T21:48:53.390439+00:00",
+  "proof_run_id": "20261030T214853-f14ff090b11a",
+  "retainer_pid": 22979,
+  "retainer_log": "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-retain-full-native-88b54a1d.log"
+}

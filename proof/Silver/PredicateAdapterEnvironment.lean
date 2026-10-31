@@ -3,7 +3,7 @@ module
 public import Silver.PredicateAdapter
 public import Silver.ScalarEnvironmentSourceBridge
 public import Silver.PredicateFlowSourceBridge
-public import Silver.ComposeEquations
+public import Silver.ComposeHelperEquations
 public import Silver.ComposeModelCalls
 
 @[expose] public section
@@ -151,7 +151,7 @@ structure ModelEquations (models : Calls) (body : BodyNative.Calls)
 /-- Interpret the raw Take_Token callee on its complete native enum domain.
 No fixed-token restriction is needed until projection to the body semantics. -/
 theorem token_expression_projection {domain : Expressions.StateDomain} {inherited : Expressions.Calls}
-    (source : Expressions.HelperEquations inherited (domain := domain))
+    (source : Expressions.RawHelperEquations inherited (domain := domain))
     (body : BodyNative.Calls) (text : Source) (context : Native.Context)
     (scan : BodyScan) (token : ShellToken) (legal : TokenDomain text context scan token) :
     tokenExpr.eval body {text,context,body := scan,token}
@@ -164,7 +164,7 @@ theorem token_expression_projection {domain : Expressions.StateDomain} {inherite
   rfl
 
 theorem normalize_tokens {domain : Expressions.StateDomain} {inherited : Expressions.Calls}
-    (source : Expressions.HelperEquations inherited (domain := domain))
+    (source : Expressions.RawHelperEquations inherited (domain := domain))
     {models : Calls} {body : BodyNative.Calls} {initialFlowCall : Native.Context → ActiveFlow}
     (definitions : ModelEquations models body initialFlowCall (inherited.function .takeToken)) :
     ModelEquations models body initialFlowCall where
@@ -239,7 +239,7 @@ theorem model_equations (body : BodyNative.Calls) : ModelEquations (modelCalls b
 /-- The concrete full-enum model also inhabits the raw inherited-callee
 interface; this witness includes capacity/literal/pseudo token values. -/
 theorem model_raw_equations {domain : Expressions.StateDomain}
-    (source : Expressions.HelperEquations Expressions.modelCalls (domain := domain))
+    (source : Expressions.RawHelperEquations Expressions.modelCalls (domain := domain))
     (body : BodyNative.Calls) :
     ModelEquations (modelCalls body) body
       (takeTokenCall := Expressions.modelCalls.function .takeToken) where

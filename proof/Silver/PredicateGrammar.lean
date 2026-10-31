@@ -1,6 +1,7 @@
 module
 
 public import Silver.PredicateHeaderFlow
+public import Silver.PredicateBooleanHeader
 public import Silver.ComposeArrayStore
 
 @[expose] public section
@@ -30,7 +31,7 @@ private theorem initial_ranges (source : Source) : Compose.Expressions.ValidStat
     Named.NameState.Valid, initialState, maxSourceLength, maxBindings,
     ScalarExpression.ValidEnvironment, ScalarExpression.maxBindings, ArrayBindings.ValidEnvironment,
     ArrayBindings.ValidMetadata, ArrayBindings.ValidInitials, ArrayBindings.maxBindings, ArrayBindings.maxElements,
-    IntegerSubtypes.ValidEnvironment]
+    IntegerSubtypes.ValidEnvironment, BooleanBindings.ValidEnvironment, BooleanBindings.maxBindings]
 
 private theorem initialFacts_bounded (arguments : Bool) : (initialFacts arguments).Bounded := by
   cases arguments
@@ -84,48 +85,55 @@ instance memberDecidable (source : Source) : Decidable (Member source) :=
 
 theorem form_reading_valid {source : Source} {form : Form} {events : List Event} {items : List SourceStatement}
     (domain : SourceDomain source) (parsed : FormReading source form events items) :
-    ∃ scalars checks program,
+    ∃ scalars checks booleans booleanChecks program,
       Sequence.ScalarTokensAt source form.helper form.prefix initialState scalars (prefixScan source form).state ∧
       Sequence.InitializerTokensAt source form.helper form.prefix initialState checks (prefixScan source form).state ∧
+      BooleanHeaderAt source form booleans booleanChecks ∧
       decodePrefix form events items scalars
         (ScalarExpression.constants (prefixScan source form).state.scalarNames) checks
-        (prefixScan source form).state.arrayNames = some program ∧ program.Valid := by
+        (prefixScan source form).state.arrayNames booleans booleanChecks = some program ∧ program.Valid := by
   obtain ⟨scalars, scalarTrace⟩ := Sequence.tokens_scalar_trace parsed.header
   obtain ⟨checks, initializerTrace⟩ := Sequence.tokens_initializer_trace parsed.header
+  obtain ⟨booleans, booleanChecks, booleanTrace⟩ := prefix_boolean_trace ⟨domain.1, domain.2.1⟩ parsed.header
+  have booleansValid := prefix_boolean_valid ⟨domain.1, domain.2.1⟩ parsed.header booleanTrace
   have scalarChecked := prefix_scalar_checked scalarTrace
   obtain ⟨valid, stream⟩ := Sequence.tokens_valid domain.2.1 parsed.header Compose.initial_valid
   have ranges := scanTokens_ranges source form.helper form.prefix initialScan ⟨domain.1, domain.2.1⟩ (initial_ranges source)
-  have bodyValid := body_meaning valid.1 (prefix_baseReady scalarTrace) (prefix_arraysReady parsed.header) ranges.2.1
+  have bodyValid := body_meaning rfl valid.1 (prefix_baseReady scalarTrace) (prefix_arraysReady parsed.header) ranges.2.1
     (bodyOf_compatible _) (initialFacts_bounded _) parsed.statements
   have context := Sequence.tokens_context parsed.header
   simp only [initialState, empty_names_shape] at context
   have arguments := prefix_arguments parsed.header
   obtain ⟨program, decoded, programValid⟩ := prefix_decoded_valid form events items scalars
     (ScalarExpression.constants (prefixScan source form).state.scalarNames) checks
-    (prefixScan source form).state.arrayNames (prefix_array_ready parsed.header).1.2.2.1 (prefix_array_ready parsed.header).2.2.2
+    (prefixScan source form).state.arrayNames booleans booleanChecks
+    (by rw [context]; exact booleansValid.1)
+    (by rw [context]; exact booleansValid.2.1) booleansValid.2.2
+    (prefix_array_ready parsed.header).1.2.2.1 (prefix_array_ready parsed.header).2.2.2
     (Sequence.tokens_kinds parsed.header)
     (by simpa only [initialState, empty_names_shape, List.append_nil] using stream [] trivial)
     (body_nonempty parsed.statements)
-    (by rw [context, ← arguments]; exact bodyValid.1)
+    (by rw [context, ← arguments, ← prefix_boolean_analysis booleanTrace]; exact bodyValid.1)
     (by
       refine ⟨(contextOf (prefixScan source form)).flow (rawBody source form).facts, ?_, parsed.completed⟩
-      rw [context, ← arguments, ← prefix_analysis scalarTrace, ← bodyOf_model]
+      rw [context, ← arguments, ← prefix_analysis scalarTrace, ← bodyOf_model, ← prefix_boolean_analysis booleanTrace]
       exact bodyValid.2.1)
     scalarChecked.1 (prefix_initializer_checked domain.2.1 initializerTrace)
-  exact ⟨scalars, checks, program, scalarTrace, initializerTrace, decoded, programValid⟩
+  exact ⟨scalars, checks, booleans, booleanChecks, program, scalarTrace, initializerTrace, booleanTrace, decoded, programValid⟩
 
 def SourceMeaning (source : Source) (program : Program) : Prop :=
-  ∃ form events items scalars checks, SourceDomain source ∧ selectedForm source = some form ∧
+  ∃ form events items scalars checks booleans booleanChecks, SourceDomain source ∧ selectedForm source = some form ∧
     FormReading source form events items ∧
     Sequence.ScalarTokensAt source form.helper form.prefix initialState scalars (prefixScan source form).state ∧
     Sequence.InitializerTokensAt source form.helper form.prefix initialState checks (prefixScan source form).state ∧
+    BooleanHeaderAt source form booleans booleanChecks ∧
     decodePrefix form events items scalars
       (ScalarExpression.constants (prefixScan source form).state.scalarNames) checks
-        (prefixScan source form).state.arrayNames = some program
+        (prefixScan source form).state.arrayNames booleans booleanChecks = some program
 
 theorem meaning_member {source : Source} {program : Program}
     (meaning : SourceMeaning source program) : Member source := by
-  obtain ⟨form, events, items, _, _, domain, _, parsed, _, _, _⟩ := meaning
+  obtain ⟨form, events, items, _, _, _, _, domain, _, parsed, _, _, _, _⟩ := meaning
   exact ⟨form, domain, events, items, parsed⟩
 
 theorem member_has_meaning {source : Source} (member : Member source) :
@@ -135,19 +143,20 @@ theorem member_has_meaning {source : Source} (member : Member source) :
   have success := List.find?_some selected
   have formMember := form_reading_sound (of_decide_eq_true success)
   obtain ⟨domain, events, items, parsed⟩ := formMember
-  obtain ⟨scalars, checks, program, scalarTrace, initializerTrace, decoded, _⟩ := form_reading_valid domain parsed
-  exact ⟨program, form, events, items, scalars, checks, domain, selected, parsed, scalarTrace, initializerTrace, decoded⟩
+  obtain ⟨scalars, checks, booleans, booleanChecks, program, scalarTrace, initializerTrace, booleanTrace, decoded, _⟩ := form_reading_valid domain parsed
+  exact ⟨program, form, events, items, scalars, checks, booleans, booleanChecks, domain, selected, parsed, scalarTrace, initializerTrace, booleanTrace, decoded⟩
 
 theorem meaning_unique {source : Source} {left right : Program}
     (first : SourceMeaning source left) (second : SourceMeaning source right) : left = right := by
-  obtain ⟨form, events, items, scalars, checks, _, selected, parsed, scalarTrace, initializerTrace, decoded⟩ := first
-  obtain ⟨otherForm, otherEvents, otherItems, otherScalars, otherChecks, _, otherSelected, other, otherTrace, otherInitializerTrace, otherDecoded⟩ := second
+  obtain ⟨form, events, items, scalars, checks, booleans, booleanChecks, _, selected, parsed, scalarTrace, initializerTrace, booleanTrace, decoded⟩ := first
+  obtain ⟨otherForm, otherEvents, otherItems, otherScalars, otherChecks, otherBooleans, otherBooleanChecks, _, otherSelected, other, otherTrace, otherInitializerTrace, otherBooleanTrace, otherDecoded⟩ := second
   have formSame : form = otherForm := Option.some.inj (selected.symm.trans otherSelected)
   subst otherForm
   have eventsSame := (Sequence.tokens_unique parsed.header other.header).1
   have itemsSame := body_unique parsed.statements other.statements
   have scalarsSame := (Sequence.scalar_tokens_unique scalarTrace otherTrace).1
   have checksSame := Sequence.initializer_tokens_unique initializerTrace otherInitializerTrace
+  obtain ⟨rfl, rfl⟩ := boolean_header_unique booleanTrace otherBooleanTrace
   subst otherChecks
   subst otherEvents
   subst otherItems
@@ -156,10 +165,11 @@ theorem meaning_unique {source : Source} {left right : Program}
 
 theorem meaning_valid {source : Source} {program : Program}
     (meaning : SourceMeaning source program) : program.Valid := by
-  obtain ⟨_, _, _, scalars, checks, domain, _, parsed, scalarTrace, initializerTrace, decoded⟩ := meaning
-  obtain ⟨otherScalars, otherChecks, other, otherTrace, otherInitializerTrace, same, valid⟩ := form_reading_valid domain parsed
+  obtain ⟨_, _, _, scalars, checks, booleans, booleanChecks, domain, _, parsed, scalarTrace, initializerTrace, booleanTrace, decoded⟩ := meaning
+  obtain ⟨otherScalars, otherChecks, otherBooleans, otherBooleanChecks, other, otherTrace, otherInitializerTrace, otherBooleanTrace, same, valid⟩ := form_reading_valid domain parsed
   have scalarsSame := (Sequence.scalar_tokens_unique scalarTrace otherTrace).1
   have checksSame := Sequence.initializer_tokens_unique initializerTrace otherInitializerTrace
+  obtain ⟨rfl, rfl⟩ := boolean_header_unique booleanTrace otherBooleanTrace
   subst otherChecks
   subst otherScalars
   have equal := Option.some.inj (same.symm.trans decoded)
@@ -169,7 +179,7 @@ theorem meaning_valid {source : Source} {program : Program}
 come from the actual mixed declaration trace, including empty headers. -/
 theorem meaning_arrays_source_ready {source : Source} {program : Program}
     (meaning : SourceMeaning source program) : ArrayBindings.SourceReady source program.arrays := by
-  obtain ⟨form, events, items, scalars, checks, _, _, parsed, _, _, decoded⟩ := meaning
+  obtain ⟨form, events, items, scalars, checks, _, _, _, _, parsed, _, _, _, decoded⟩ := meaning
   rw [(decoded_integer_state decoded).2]
   exact prefix_array_ready parsed.header
 
@@ -183,7 +193,7 @@ theorem meaning_initial_integer_store {source : Source} {program : Program}
       program.initialIntegers = frozenIntegers (prefixScan source form).state.scalarNames
         (prefixScan source form).state.arrayNames.names (prefixScan source form).state.arrayNames.values := by
   have initial := (Program.initial_integers (meaning_valid meaning)).1
-  obtain ⟨form, events, items, scalars, checks, _, selected, _, _, _, decoded⟩ := meaning
+  obtain ⟨form, events, items, scalars, checks, _, _, _, selected, _, _, _, _, decoded⟩ := meaning
   have fields := decoded_integer_state decoded
   rw [fields.1, fields.2] at initial
   exact ⟨form, selected, initial⟩
@@ -194,7 +204,7 @@ has the predefined Integer bounds. This covers every decoded declaration. -/
 theorem meaning_scalar_source_bounds {source : Source} {program : Program}
     (meaning : SourceMeaning source program) :
     ∀ declaration ∈ program.integerDeclarations, Compose.ScalarDeclarationSourceBounds source declaration := by
-  obtain ⟨_, _, _, scalars, _, _, _, _, scalarTrace, _, decoded⟩ := meaning
+  obtain ⟨_, _, _, scalars, _, _, _, _, _, _, scalarTrace, _, _, decoded⟩ := meaning
   have bounds := Sequence.scalar_tokens_source_bounds scalarTrace ScalarExpression.static_empty
   have same : program.integerDeclarations = scalars := by
     unfold decodePrefix at decoded
@@ -209,8 +219,18 @@ theorem meaning_initializer_trace {source : Source} {program : Program}
     ∃ form, selectedForm source = some form ∧
       Sequence.InitializerTokensAt source form.helper form.prefix initialState program.initializerChecks
         (prefixScan source form).state := by
-  obtain ⟨form, _, _, _, checks, _, selected, _, _, trace, decoded⟩ := meaning
+  obtain ⟨form, _, _, _, checks, _, _, _, selected, _, _, trace, _, decoded⟩ := meaning
   exact ⟨form, selected, (decoded_initializer_checks decoded).symm ▸ trace⟩
+
+/-- The program retains the source-order Boolean declarations, mutability and
+all checks on the original initializers, including before Integer freezing. -/
+theorem meaning_boolean_header {source : Source} {program : Program}
+    (meaning : SourceMeaning source program) :
+    ∃ form, selectedForm source = some form ∧
+      BooleanHeaderAt source form program.booleanDeclarations program.booleanInitializerChecks := by
+  obtain ⟨form, _, _, _, _, _, _, _, selected, _, _, _, trace, decoded⟩ := meaning
+  have fields := decoded_boolean_state decoded
+  exact ⟨form, selected, by rw [fields.1, fields.2]; exact trace⟩
 
 theorem source_execution_sound {source : Source} {program : Program}
     (meaning : SourceMeaning source program) (arguments : Arguments.Runtime.Arguments) :

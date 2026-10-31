@@ -19,7 +19,8 @@ def ValidState (text : Source) (state : ParserState) : Prop :=
     state.target ≤ state.names.length ∧ state.capacity ≤ maxSourceLength ∧
     ScalarExpression.ValidEnvironment text state.scalarNames ∧
     ArrayBindings.ValidEnvironment text state.arrayNames ∧
-    IntegerSubtypes.ValidEnvironment text state.subtypeNames
+    IntegerSubtypes.ValidEnvironment text state.subtypeNames ∧
+    BooleanBindings.ValidEnvironment text state.booleanNames
 
 /-- The state precondition actually provided by an interpreted native caller.
 The base domain remains available for the independent mathematical model. -/
@@ -46,7 +47,8 @@ def allTokens : List ShellToken :=
    .symbol "'", .word "length", .symbol "<=", .capacity, .symbol "=", .argumentDeclaration,
    .declarations, .assignmentTarget, .targetReference, .dynamicReference, .assignmentValue,
    .outputExpression, .comparisonExpression, .word "null", .contextClauses,
-   .word "integer", .word "for", .word "in", .word "reverse", .word "loop", .symbol "..", .word "range", .word "subtype", .word "array", .word "of", .symbol ",", .symbol "=>"]
+   .word "integer", .word "for", .word "in", .word "reverse", .word "loop", .symbol "..", .word "range", .word "subtype", .word "array", .word "of", .symbol ",", .symbol "=>",
+   .word "boolean", .word "true", .word "false", .word "xor"]
 
 def ValidToken (token : ShellToken) : Prop := token ∈ allTokens
 
@@ -68,6 +70,7 @@ structure Context where
   nextToken : Nat := 1
   names : BindingEnvironment := []
   scalarNames : ScalarExpression.Environment := []
+  booleans : BooleanBindings.Environment := []
   arrays : ArrayBindings.Metadata := []
   initials : ArrayBindings.Initials := []
   elaborating : Bool := false
@@ -101,6 +104,7 @@ def Context.locals (ctx : Context) : Locals
     | "integer_hidden" => ctx.integerHidden | "elaborating" => ctx.elaborating | _ => false
   | .names, _ => ctx.names
   | .scalarNames, _ => ctx.scalarNames
+  | .booleanNames, _ => ctx.booleans
   | .arrayMetadata, _ => ctx.arrays
   | .subtypeNames, _ => ctx.subtypeNames
   | .interval, "base_bounds" => ctx.baseBounds
@@ -230,7 +234,7 @@ structure RangeContracts (calls : Calls) : Prop extends HelperRanges calls where
 
 /-- Equations of checked expression bodies or exact executable-refinement
 postconditions. The evaluator's primitive meanings may be normalized later. -/
-structure HelperEquations (calls : Calls) (evaluator : Calls := lexical calls)
+structure RawHelperEquations (calls : Calls) (evaluator : Calls := lexical calls)
     (domain : StateDomain := .basic) : Prop where
   ranges : HelperRanges calls domain
   names : Names.InterpretedSource calls.names
@@ -242,6 +246,12 @@ structure HelperEquations (calls : Calls) (evaluator : Calls := lexical calls)
     ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials →
     calls.function .scalarRead text position names arrays initials elaborating =
       ScalarExpression.read text position names 0 0 true arrays initials elaborating
+  booleanHidesInteger : ∀ text, ValidText text → ∀ booleans,
+    BooleanBindings.ValidEnvironment text booleans →
+    calls.function .booleanHidesInteger text booleans = BooleanBindings.hidesInteger text booleans
+  booleanLookup : ∀ text, ValidText text → ∀ booleans first after,
+    BooleanBindings.ValidEnvironment text booleans → ValidCursor text first → ValidCursor text after →
+    calls.function .booleanLookup text booleans first after = BooleanBindings.lookup text booleans first after
   arrayLookup : ∀ text, ValidText text → ∀ arrays first after,
     ArrayBindings.ValidMetadata text arrays → ValidCursor text first → ValidCursor text after →
     calls.function .arrayLookup text arrays first after = ArrayBindings.lookup text arrays first after
@@ -258,11 +268,11 @@ structure HelperEquations (calls : Calls) (evaluator : Calls := lexical calls)
   nameIs : ∀ text, ValidText text → ∀ first after word,
     ValidName text first after → 0 < word.toList.length → word.toList.length ≤ 16 →
     calls.function .nameIs text first after word = Named.nameIs text first after (word.toList.map Char.toNat)
-  callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames arrays subtypeHidden,
+  callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames arrays subtypeHidden booleans,
     ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
-    ArrayBindings.ValidMetadata text arrays → ValidCursor text position →
-    calls.function .callAfter text names position operation scalarNames arrays subtypeHidden =
-      callAfterBody.eval evaluator (Context.locals {text,scalarNames,arrays,names,position,operation,subtypeHidden})
+    ArrayBindings.ValidMetadata text arrays → BooleanBindings.ValidEnvironment text booleans → ValidCursor text position →
+    calls.function .callAfter text names position operation scalarNames arrays subtypeHidden booleans =
+      callAfterBody.eval evaluator (Context.locals {text,scalarNames,arrays,names,position,operation,subtypeHidden,booleans})
   skip : ∀ text, ValidText text → ∀ position,
     ValidCursor text position →
     calls.function .skip text position =
@@ -421,6 +431,16 @@ structure HelperEquations (calls : Calls) (evaluator : Calls := lexical calls)
       capacityBody.eval evaluator (Context.locals {text,state})
   readDeclarations : ∀ text, ValidText text → ∀ state arguments, domain.holds text state →
     calls.function .readDeclarations text state arguments = calls.function .declarations text state arguments
+
+/-- Complete helper laws. The Boolean declaration law is derived separately
+from its typed native body and the interpreted condition reader; it is not a
+primitive assumption of the actual-source bridge. -/
+structure HelperEquations (calls : Calls) (evaluator : Calls := lexical calls)
+    (domain : StateDomain := .basic) : Prop extends RawHelperEquations calls evaluator domain where
+  /-- Discharged by the downstream Boolean-declaration source bridge, which
+  interprets the native condition reader on the full initializer domain. -/
+  booleanDeclaration : ∀ text, ValidText text → ∀ state arguments,
+    domain.holds text state → calls.function .booleanDeclaration text state arguments = booleanDeclarationAt text state arguments
 
 /-- The previous fixed-form model retains its own abstract equations. These
 are not assertions about the current statement scanner. -/

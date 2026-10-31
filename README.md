@@ -157,7 +157,7 @@ iterators remain excluded. The
 Source, expression and operator limits are unchanged.
 
 The [named Integer subtype increment](docs/named-integer-subtypes.md#delivery-assurance-and-validation)
-is implemented and validated on Linux in [PR #289](https://github.com/berkeleynerd/silver/pull/289).
+was delivered on Linux through [PR #289](https://github.com/berkeleynerd/silver/pull/289).
 It adds static
 `subtype S is Integer range L .. H;` declarations for initialized scalar objects
 and fixed-array components, with optional narrower static scalar object ranges.
@@ -165,6 +165,17 @@ Bounded components retain their ranges in indexed reads and constant-array
 iteration, enabling the [Sum of squares](samples/rosetta_sum_of_squares.adb) and
 [Sum and product](samples/rosetta_sum_and_product.adb) examples. Subtype aliases,
 conversions, derived types and general arrays remain outside this fragment.
+
+The [Boolean scalar increment](docs/boolean-objects.md#delivery-assurance-and-validation)
+is implemented and validated on Linux in
+[PR #295](https://github.com/berkeleynerd/silver/pull/295).
+It adds initialized Boolean constants and variables,
+assignment, `not`, eager `and`/`or`/`xor` and Boolean expressions in existing
+short-circuit conditions. Stored flags retain no scalar predicate facts; neither
+xor operand may contain xor. The drivers are
+[Sequence of primes by trial division](samples/rosetta_sequence_of_primes_by_trial_division.adb),
+[Square but not cube](samples/rosetta_square_but_not_cube.adb), and
+[Common list elements](samples/rosetta_common_list_elements.adb).
 
 The [Find square difference sample](samples/find_square_difference.adb) stores
 the first matching index and prints ` 501` followed by a newline.
@@ -256,7 +267,13 @@ admitted, proved, compiled and executed three 4,096-byte programs under an actua
 foreach levels and 208 conditional levels. These input/build-specific observations
 used native source `a0d1a69463` and the binary rebuilt at `39d96fa9e5`, before the
 later ghost logical-equality annotation repair. They do not measure the final
-binary or establish a universal worst-case bound. Adequate memory and normal runtime
+subtype binary or establish a universal worst-case bound. The
+[2026-10-30 Boolean observations](docs/evidence/boolean-objects-20261030/loop-stack/README.md)
+repeat the 141-level counted and 158-level singleton-foreach checks, proof-backed
+compiles and executions on the final Boolean native source under 8 MiB.
+The compiler's reported fixed portion of the dynamic loop frame grows from
+31,968 to 35,776 bytes; this figure is not a total stack bound.
+Adequate memory and normal runtime
 startup remain [environmental requirements](docs/trusted-boundary.md#trusted-computing-base).
 
 ```sh

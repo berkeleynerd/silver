@@ -1,0 +1,23 @@
+{
+  "review_basis": [
+    "docs/reviews/review-boolean-admission-d8c65ba954.md",
+    "docs/reviews/review-boolean-correspondence-5ffdf80d06.md"
+  ],
+  "rows": [
+    {
+      "binding": "outputSpecification",
+      "source": "src/silver_output_profile.ads",
+      "source_sha256": "c95d491236b211e775fb3f33b468113f56c58be6db120d172e4318054c5e42c6",
+      "old_tokens": 568,
+      "new_tokens": 584
+    },
+    {
+      "binding": "outputImplementation",
+      "source": "src/silver_output_profile.adb",
+      "source_sha256": "9542d721cb1d63f936704058e6e0705b615fdce9e86d08397a2384c7714cc4a0",
+      "old_tokens": 38765,
+      "new_tokens": 44843
+    }
+  ],
+  "scope": "Reviewed full token literals refreshed alongside typed source/model integration. Actual certificate equality and complete audit remain pending; array runtime wrapper source join still in progress."
+}

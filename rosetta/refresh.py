@@ -322,6 +322,7 @@ SURFACE_LABELS = {"integer-for-loops": "Integer range for loops",
                   "fixed-integer-arrays": "fixed-size Integer arrays",
                   "constant-integer-array-iteration": "constant Integer-array iteration",
                   "named-integer-subtypes": "named Integer subtypes and bounded components",
+                  "scalar-boolean-objects": "scalar Boolean objects and expressions",
                   "integer-object-size-read": "Integer object Size attribute reads",
                   "integer-image": "Integer image", "booleans": "Boolean objects",
                   "multidim-arrays": "multidimensional arrays",
@@ -375,6 +376,7 @@ ADMISSION = {
                        "range check at assignment and conversion discharged?",
     "booleans": "Which Boolean objects, operators and Boolean-valued functions are admitted beyond today's "
                 "conditions?",
+    "scalar-boolean-objects": "How do initialized Boolean values, assignment, predefined-name visibility, eager operand safety, short-circuit path facts and conservative stored flags compose with all current checked predicates, arrays and loops while preserving automatic discharge and exact-source correspondence?",
     "characters": "Which Character values and attributes are admitted, and how is every 'Val range check "
                   "discharged?",
     "enumerations": "Which enumeration types and attributes are admitted, and how are 'Succ and 'Pred guarded "

@@ -63,10 +63,10 @@ theorem model_definition_subtypeDeclaration : ∀ text, ValidText text → ∀ s
     IntegerSubtypes.CallHiding.get, spelling, isWord, ShellToken.word, ShellToken.symbol]
   simp only [Bool.decide_or, Bool.or_assoc]
 
-theorem model_definition_callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames arrays subtypeHidden,
-    ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames → ArrayBindings.ValidMetadata text arrays → ValidCursor text position →
-    modelCalls.function .callAfter text names position operation scalarNames arrays subtypeHidden =
-      callAfterBody.eval modelCalls (Context.locals {text,scalarNames,arrays,names,position,operation,subtypeHidden}) := by
+theorem model_definition_callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames arrays subtypeHidden booleans,
+    ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames → ArrayBindings.ValidMetadata text arrays → BooleanBindings.ValidEnvironment text booleans → ValidCursor text position →
+    modelCalls.function .callAfter text names position operation scalarNames arrays subtypeHidden booleans =
+      callAfterBody.eval modelCalls (Context.locals {text,scalarNames,arrays,names,position,operation,subtypeHidden,booleans}) := by
   intros
   dsimp +instances only [modelCalls, Names.modelCalls, Context.locals, Expr.eval, Calls.get, Locals.set, callAfterBody, callAfter] <;> simp +instances [Bool.or_assoc]
 
@@ -137,7 +137,8 @@ theorem model_definition_declarations : ∀ text, ValidText text → ∀ state a
       have strings := stateValid.2.1.1
       have scalars := stateValid.2.2.2.2.2.1.1
       have arrays := stateValid.2.2.2.2.2.2.1.1.1
-      have subtypes := stateValid.2.2.2.2.2.2.2.1
+      have subtypes := stateValid.2.2.2.2.2.2.2.1.1
+      have booleans := stateValid.2.2.2.2.2.2.2.2.1
       omega)]
   dsimp +instances only [declarationsBody, Expr.eval, Context.locals, modelCalls, Calls.get, Field.get, spelling, isWord]
   simp only [decide_eq_true_eq, ite_not]

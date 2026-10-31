@@ -3,6 +3,7 @@ module
 public import Silver.ComposeFrozenSemantics
 public import Silver.ComposeScalarDeclarations
 public import Silver.ComposeArrayElaboration
+public import Silver.ComposeBooleanDeclarations
 
 @[expose] public section
 
@@ -183,6 +184,7 @@ inductive DeclarationsAt (text : Source) (arguments : Bool) :
       (subtypeDeclarationAt text state arguments).position = 0 →
       (scalarDeclarationAt text state arguments).position = 0 →
       (arrayDeclarationAt text state arguments).position = 0 →
+      (booleanDeclarationAt text state arguments).position = 0 →
       DeclarationAt text arguments state declaration middle →
       DeclarationsAt text arguments middle rest final →
       DeclarationsAt text arguments state (declaration :: rest) final
@@ -203,6 +205,15 @@ inductive DeclarationsAt (text : Source) (arguments : Bool) :
   | subtype {state middle final : ParserState} {rest : List Declaration} :
       state.position ≠ 0 → fixedAfter text state.position "begin" true = 0 →
       SubtypeDeclarationAt text arguments state middle →
+      DeclarationsAt text arguments middle rest final →
+      DeclarationsAt text arguments state rest final
+
+  | boolean {state middle final : ParserState} {rest : List Declaration} :
+      state.position ≠ 0 → fixedAfter text state.position "begin" true = 0 →
+      (subtypeDeclarationAt text state arguments).position = 0 →
+      (scalarDeclarationAt text state arguments).position = 0 →
+      (arrayDeclarationAt text state arguments).position = 0 →
+      BooleanDeclarationAt text arguments state middle →
       DeclarationsAt text arguments middle rest final →
       DeclarationsAt text arguments state rest final
 
@@ -250,17 +261,28 @@ theorem declarationsLoop_sound (text : Source) (arguments : Bool) (fuel : Nat) (
                   refine ⟨rest, ?_⟩
                   simpa [declarationsLoop, positive, stop, selected, array] using
                     DeclarationsAt.array positive (by omega) (by omega) (by omega) parsed parsedRest
-                · have selected : declarationAt text state arguments = stringDeclarationAt text state arguments := by
-                    dsimp only [declarationAt]
-                    rw [ite_eq_right subtype, ite_eq_right scalar, ite_eq_right array]
-                  have stringPositive : (stringDeclarationAt text state arguments).position ≠ 0 := selected ▸ failed
-                  obtain ⟨declaration, parsed⟩ := declaration_sound text state arguments stringPositive
-                  have remaining : (declarationsLoop text arguments fuel (stringDeclarationAt text state arguments)).position ≠ 0 := by
-                    simpa [declarationsLoop, positive, stop, selected, stringPositive] using accepted
-                  obtain ⟨rest, parsedRest⟩ := ih _ remaining
-                  refine ⟨declaration :: rest, ?_⟩
-                  simpa [declarationsLoop, positive, stop, selected, stringPositive] using
-                    DeclarationsAt.next positive (by omega) (by omega) (by omega) (by omega) parsed parsedRest
+                · by_cases boolean : (booleanDeclarationAt text state arguments).position ≠ 0
+                  · have selected : declarationAt text state arguments = booleanDeclarationAt text state arguments := by
+                      simp only [declarationAt]; split <;> simp_all
+                    have parsed := boolean_declaration_sound text state arguments boolean
+                    have remaining : (declarationsLoop text arguments fuel (booleanDeclarationAt text state arguments)).position ≠ 0 := by
+                      simpa [declarationsLoop, positive, stop, selected, boolean] using accepted
+                    obtain ⟨rest, parsedRest⟩ := ih _ remaining
+                    refine ⟨rest, ?_⟩
+                    simpa [declarationsLoop, positive, stop, selected, boolean] using
+                      DeclarationsAt.boolean positive (by omega) (by omega) (by omega) (by omega) parsed parsedRest
+                  · have selected : declarationAt text state arguments = stringDeclarationAt text state arguments := by
+                      dsimp only [declarationAt]
+                      rw [ite_eq_right subtype, ite_eq_right scalar, ite_eq_right array, ite_eq_right boolean]
+                    have stringPositive : (stringDeclarationAt text state arguments).position ≠ 0 := selected ▸ failed
+                    obtain ⟨declaration, parsed⟩ := declaration_sound text state arguments stringPositive
+                    have remaining : (declarationsLoop text arguments fuel (stringDeclarationAt text state arguments)).position ≠ 0 := by
+                      simpa [declarationsLoop, positive, stop, selected, stringPositive] using accepted
+                    obtain ⟨rest, parsedRest⟩ := ih _ remaining
+                    refine ⟨declaration :: rest, ?_⟩
+                    simpa [declarationsLoop, positive, stop, selected, stringPositive] using
+                      DeclarationsAt.next positive (by omega) (by omega) (by omega) (by omega) (by omega) parsed parsedRest
+
 
 theorem declarations_sound (text : Source) (state : ParserState) (arguments : Bool)
     (accepted : (declarationsAt text state arguments).position ≠ 0) :
@@ -272,7 +294,7 @@ theorem declarations_count {text : Source} {arguments : Bool} {state final : Par
     final.names.length = state.names.length + declarations.length := by
   induction parsed with
   | done => simp
-  | next _ _ _ _ _ first _ ih =>
+  | next _ _ _ _ _ _ first _ ih =>
       have count := stringDeclarationAt_count ((declaration_complete first).symm ▸ declaration_positive first)
       rw [declaration_complete first] at count
       simpa only [List.length_cons, count, Nat.add_assoc, Nat.add_comm, Nat.add_left_comm] using ih
@@ -284,6 +306,7 @@ theorem declarations_count {text : Source} {arguments : Bool} {state final : Par
       exact ih
 
   | subtype _ _ first _ ih => cases first; exact ih
+  | boolean _ _ _ _ _ first _ ih => cases first; exact ih
 
 theorem declarations_shape {text : Source} {arguments : Bool} {state final : ParserState}
     {declarations : List Declaration} (normal : NamesNormal state.names)
@@ -292,7 +315,7 @@ theorem declarations_shape {text : Source} {arguments : Bool} {state final : Par
     Bindings.DeclarationsValid state.names.shape declarations final.names.shape := by
   induction parsed with
   | done => exact .nil _
-  | next _ _ _ _ _ first _ ih =>
+  | next _ _ _ _ _ _ first _ ih =>
       obtain ⟨bound, valid, same⟩ := declaration_shape normal static first
       exact .cons valid (same ▸ ih (declaration_normal normal first)
         ((declaration_scalarNames first).symm ▸ static))
@@ -304,6 +327,7 @@ theorem declarations_shape {text : Source} {arguments : Bool} {state final : Par
       rw [(array_declaration_preserves first).1, (array_declaration_preserves first).2] at ih
       exact ih normal static
 
+  | boolean _ _ _ _ _ first _ ih => cases first; exact ih normal static
   | subtype _ _ first _ ih => cases first; exact ih normal static
 
 theorem declarations_normal {text : Source} {arguments : Bool} {state final : ParserState}
@@ -311,7 +335,7 @@ theorem declarations_normal {text : Source} {arguments : Bool} {state final : Pa
     (normal : NamesNormal state.names) : NamesNormal final.names := by
   induction parsed with
   | done => exact normal
-  | next _ _ _ _ _ first _ ih => exact ih (declaration_normal normal first)
+  | next _ _ _ _ _ _ first _ ih => exact ih (declaration_normal normal first)
   | scalar _ _ _ first _ ih =>
       cases first
       exact ih normal
@@ -320,6 +344,7 @@ theorem declarations_normal {text : Source} {arguments : Bool} {state final : Pa
       exact ih normal
 
 
+  | boolean _ _ _ _ _ first _ ih => cases first; exact ih normal
   | subtype _ _ first _ ih => cases first; exact ih normal
 
 theorem declarations_static {text : Source} {arguments : Bool} {state final : ParserState}
@@ -328,13 +353,14 @@ theorem declarations_static {text : Source} {arguments : Bool} {state final : Pa
     ScalarExpression.StaticEnvironment final.scalarNames := by
   induction parsed with
   | done => exact static
-  | next _ _ _ _ _ first _ ih => exact ih ((declaration_scalarNames first).symm ▸ static)
+  | next _ _ _ _ _ _ first _ ih => exact ih ((declaration_scalarNames first).symm ▸ static)
   | scalar _ _ _ first _ ih => exact ih (scalar_declaration_static static first)
   | array _ _ _ _ first _ ih =>
       rw [(array_declaration_preserves first).2] at ih
       exact ih static
 
 
+  | boolean _ _ _ _ _ first _ ih => cases first; exact ih static
   | subtype _ _ first _ ih => cases first; exact ih static
 
 inductive LiteralReading (text : Source) : Nat → Source → ValueResult → Prop
@@ -499,11 +525,11 @@ theorem declarations_unique {text : Source} {arguments : Bool} {state leftState 
   | done positive stop =>
       cases second with
       | done => exact ⟨rfl, rfl⟩
-      | next _ more _ _ _ _ _ | scalar _ more _ _ _ | array _ more _ _ _ _ | subtype _ more _ _ => exact False.elim (stop more)
-  | next positive more noSubtype noScalar noArray parsed rest ih =>
+      | next _ more _ _ _ _ _ _ | scalar _ more _ _ _ | array _ more _ _ _ _ | subtype _ more _ _ | boolean _ more _ _ _ _ _ => exact False.elim (stop more)
+  | next positive more noSubtype noScalar noArray noBoolean parsed rest ih =>
       cases second with
       | done _ stop => exact False.elim (stop more)
-      | next _ _ _ _ _ other remaining =>
+      | next _ _ _ _ _ _ other remaining =>
           obtain ⟨rfl, rfl⟩ := declaration_unique parsed other
           obtain ⟨rfl, rfl⟩ := ih remaining
           exact ⟨rfl, rfl⟩
@@ -515,6 +541,10 @@ theorem declarations_unique {text : Source} {arguments : Bool} {state leftState 
           have accepted := array_declaration_positive other
           rw [← array_declaration_complete other, noArray] at accepted
           contradiction
+      | boolean _ _ _ _ _ other _ =>
+          have accepted := boolean_declaration_positive other
+          rw [← boolean_declaration_complete other, noBoolean] at accepted
+          contradiction
       | subtype _ _ other _ =>
           have accepted := subtype_declaration_positive other
           rw [← subtype_declaration_complete other, noSubtype] at accepted
@@ -523,7 +553,7 @@ theorem declarations_unique {text : Source} {arguments : Bool} {state leftState 
   | scalar positive more noSubtype parsed rest ih =>
       cases second with
       | done _ stop => exact False.elim (stop more)
-      | next _ _ _ noScalar _ _ _ | array _ _ _ noScalar _ _ =>
+      | next _ _ _ noScalar _ _ _ _ | array _ _ _ noScalar _ _ | boolean _ _ _ noScalar _ _ _ =>
           have accepted := scalar_declaration_positive parsed
           rw [← scalar_declaration_complete parsed, noScalar] at accepted
           contradiction
@@ -538,7 +568,7 @@ theorem declarations_unique {text : Source} {arguments : Bool} {state leftState 
   | array positive more noSubtype noScalar parsed rest ih =>
       cases second with
       | done _ stop => exact False.elim (stop more)
-      | next _ _ _ _ noArray _ _ =>
+      | next _ _ _ _ noArray _ _ _ | boolean _ _ _ _ noArray _ _ =>
           have accepted := array_declaration_positive parsed
           rw [← array_declaration_complete parsed, noArray] at accepted
           contradiction
@@ -557,12 +587,36 @@ theorem declarations_unique {text : Source} {arguments : Bool} {state leftState 
   | subtype positive more parsed rest ih =>
       cases second with
       | done _ stop => exact False.elim (stop more)
-      | next _ _ noSubtype _ _ _ _ | scalar _ _ noSubtype _ _ | array _ _ noSubtype _ _ _ =>
+      | next _ _ noSubtype _ _ _ _ _ | scalar _ _ noSubtype _ _ | array _ _ noSubtype _ _ _ | boolean _ _ noSubtype _ _ _ _ =>
           have accepted := subtype_declaration_positive parsed
           rw [← subtype_declaration_complete parsed, noSubtype] at accepted
           contradiction
       | subtype _ _ other remaining =>
           have same := subtype_declaration_unique parsed other
+          cases same
+          exact ih remaining
+
+  | boolean positive more noSubtype noScalar noArray parsed rest ih =>
+      cases second with
+      | done _ stop => exact False.elim (stop more)
+      | next _ _ _ _ _ noBoolean _ _ =>
+          have accepted := boolean_declaration_positive parsed
+          rw [← boolean_declaration_complete parsed, noBoolean] at accepted
+          contradiction
+      | scalar _ _ _ other _ =>
+          have accepted := scalar_declaration_positive other
+          rw [← scalar_declaration_complete other, noScalar] at accepted
+          contradiction
+      | array _ _ _ _ other _ =>
+          have accepted := array_declaration_positive other
+          rw [← array_declaration_complete other, noArray] at accepted
+          contradiction
+      | subtype _ _ other _ =>
+          have accepted := subtype_declaration_positive other
+          rw [← subtype_declaration_complete other, noSubtype] at accepted
+          contradiction
+      | boolean _ _ _ _ _ other remaining =>
+          have same := boolean_declaration_unique parsed other
           cases same
           exact ih remaining
 
@@ -581,7 +635,7 @@ theorem declarations_fields {text : Source} {arguments : Bool} {state final : Pa
       final.dynamicFirst = state.dynamicFirst ∧ final.dynamicAfter = state.dynamicAfter := by
   induction parsed with
   | done => exact ⟨rfl, rfl, rfl, rfl⟩
-  | next _ _ _ _ _ first _ ih =>
+  | next _ _ _ _ _ _ first _ ih =>
       cases first
       exact ih
   | scalar _ _ _ first _ ih =>
@@ -593,6 +647,7 @@ theorem declarations_fields {text : Source} {arguments : Bool} {state final : Pa
         ih.2.2.1.trans fields.2.2.1, ih.2.2.2.trans fields.2.2.2⟩
 
   | subtype _ _ first _ ih => cases first; exact ih
+  | boolean _ _ _ _ _ first _ ih => cases first; exact ih
 
 theorem argument_fields {text fallback : Source} {state final : ParserState}
     (parsed : ArgumentAt text state fallback final) :
@@ -606,8 +661,9 @@ theorem declarations_subtypes_valid {text arguments state final declarations}
     IntegerSubtypes.ValidEnvironment text final.subtypeNames := by
   induction parsed with
   | done => exact valid
-  | next _ _ _ _ _ first _ ih => cases first; exact ih valid
+  | next _ _ _ _ _ _ first _ ih => cases first; exact ih valid
   | scalar _ _ _ first _ ih => cases first; exact ih valid
+  | boolean _ _ _ _ _ first _ ih => cases first; exact ih valid
   | subtype _ _ first _ ih => exact ih (subtype_declaration_valid first valid)
   | array _ _ _ _ first _ ih =>
       rw [array_declaration_subtypes first] at ih
@@ -619,8 +675,9 @@ theorem declarations_subtypes_hiding {text arguments state final declarations}
     IntegerSubtypes.HidingCorrect text final.subtypeNames := by
   induction parsed with
   | done => exact correct
-  | next _ _ _ _ _ first _ ih => cases first; exact ih correct
+  | next _ _ _ _ _ _ first _ ih => cases first; exact ih correct
   | scalar _ _ _ first _ ih => cases first; exact ih correct
+  | boolean _ _ _ _ _ first _ ih => cases first; exact ih correct
   | subtype _ _ first _ ih => exact ih (subtype_declaration_hiding first correct)
   | array _ _ _ _ first _ ih =>
       rw [array_declaration_subtypes first] at ih
@@ -633,8 +690,9 @@ theorem declarations_array_ready {text arguments state final declarations}
     ArrayBindings.SourceReady text final.arrayNames := by
   induction parsed with
   | done => exact ready
-  | next _ _ _ _ _ first _ ih => cases first; exact ih ready subtypes
+  | next _ _ _ _ _ _ first _ ih => cases first; exact ih ready subtypes
   | scalar _ _ _ first _ ih => cases first; exact ih ready subtypes
+  | boolean _ _ _ _ _ first _ ih => cases first; exact ih ready subtypes
   | subtype _ _ first _ ih =>
       have nextSubtypes := subtype_declaration_valid first subtypes
       cases first

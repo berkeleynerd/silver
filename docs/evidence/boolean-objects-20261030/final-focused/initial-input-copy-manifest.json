@@ -1,0 +1,285 @@
+{
+  "input_commit": "484b7e12ad",
+  "files": {
+    "tests/image_model_probe.adb": {
+      "existed": true,
+      "original_sha256": "68aa8277d473dbf76cdba13c3195207618880ecd6c544097b7813c766a07b6f9",
+      "validation_sha256": "68aa8277d473dbf76cdba13c3195207618880ecd6c544097b7813c766a07b6f9"
+    },
+    "tests/library_reports_probe.adb": {
+      "existed": true,
+      "original_sha256": "6ecdd115109bb45416ddf7f71a2ad7e53ffd437ec624fb5e87b89559bb71a23c",
+      "validation_sha256": "6ecdd115109bb45416ddf7f71a2ad7e53ffd437ec624fb5e87b89559bb71a23c"
+    },
+    "tests/report_projection_probe.adb": {
+      "existed": true,
+      "original_sha256": "c6df58a2c0814048e0dbca7fa2aa2db56b2d3c29db559bc5bad7de808814a046",
+      "validation_sha256": "c6df58a2c0814048e0dbca7fa2aa2db56b2d3c29db559bc5bad7de808814a046"
+    },
+    "tests/test_argument_bounds.py": {
+      "existed": true,
+      "original_sha256": "9a51d2256b5f055fa8c37d2d0172c50e20279f26208ffcd9bb47c72a3fe0a4df",
+      "validation_sha256": "9a51d2256b5f055fa8c37d2d0172c50e20279f26208ffcd9bb47c72a3fe0a4df"
+    },
+    "tests/test_arguments.py": {
+      "existed": true,
+      "original_sha256": "25cd05d020d1b58f89b81e5b3405687249284d6fe06cce1b8ffd17c415dce21e",
+      "validation_sha256": "25cd05d020d1b58f89b81e5b3405687249284d6fe06cce1b8ffd17c415dce21e"
+    },
+    "tests/test_boolean_objects.py": {
+      "existed": false,
+      "validation_sha256": "77c4997ea15cffe866c5f57cfea9a787576368df8e753d85d28d5562bd37e29b"
+    },
+    "tests/test_branching.py": {
+      "existed": true,
+      "original_sha256": "fc8da3e247ba5ee717db5ce7d9faa8102b62af9250c4786988325699cce72220",
+      "validation_sha256": "fc8da3e247ba5ee717db5ce7d9faa8102b62af9250c4786988325699cce72220"
+    },
+    "tests/test_capacity.py": {
+      "existed": true,
+      "original_sha256": "88f686b087c511c3f1df671a139d3a2a8fb836570778fdcb83d1579d195b24fc",
+      "validation_sha256": "7108a4ef2a8dda5c1ce8a39f6a157738b872dae35f9dfa2b95b3ab259b020752"
+    },
+    "tests/test_command_line_greeting.py": {
+      "existed": true,
+      "original_sha256": "986c47eb6c4e3debebc303f075bf0817a70324862a1a7733d8fb894ac3e22f1b",
+      "validation_sha256": "986c47eb6c4e3debebc303f075bf0817a70324862a1a7733d8fb894ac3e22f1b"
+    },
+    "tests/test_common_expressions.py": {
+      "existed": true,
+      "original_sha256": "d24c0eb19f07b8c7ad4b553a13cc2cb0794091961da76bfde4301fd33484484e",
+      "validation_sha256": "d24c0eb19f07b8c7ad4b553a13cc2cb0794091961da76bfde4301fd33484484e"
+    },
+    "tests/test_composed_results.py": {
+      "existed": true,
+      "original_sha256": "63dd72c5c340d8c449b7bb02e49d3793f61ed12cd90220dd702ae9daba2676c1",
+      "validation_sha256": "63dd72c5c340d8c449b7bb02e49d3793f61ed12cd90220dd702ae9daba2676c1"
+    },
+    "tests/test_conditionals.py": {
+      "existed": true,
+      "original_sha256": "dc8360f7d4f18b1523b7adde2e28e341f4370f5b6969d8f34b02c706fa692d07",
+      "validation_sha256": "dc8360f7d4f18b1523b7adde2e28e341f4370f5b6969d8f34b02c706fa692d07"
+    },
+    "tests/test_constant_array_iteration.py": {
+      "existed": true,
+      "original_sha256": "deb766a45a461cc9fcaf114193e44782cf6ad8ba0b7f44c856291fb1f1eae953",
+      "validation_sha256": "deb766a45a461cc9fcaf114193e44782cf6ad8ba0b7f44c856291fb1f1eae953"
+    },
+    "tests/test_copy_values.py": {
+      "existed": true,
+      "original_sha256": "8e935422070af56650a7b76fe127c9d51c8b69ae4b51b33918f12eb848bae8a6",
+      "validation_sha256": "8e935422070af56650a7b76fe127c9d51c8b69ae4b51b33918f12eb848bae8a6"
+    },
+    "tests/test_dev_runs.py": {
+      "existed": true,
+      "original_sha256": "213f3fec0dad4c5749416674ab66dfdfde327b9e01d4c4616d3538df420f5f60",
+      "validation_sha256": "213f3fec0dad4c5749416674ab66dfdfde327b9e01d4c4616d3538df420f5f60"
+    },
+    "tests/test_evidence.py": {
+      "existed": true,
+      "original_sha256": "ec7376444171824c5915dd0ce64bbb704999d6e9c3b32c27470dd09fe50a0f4e",
+      "validation_sha256": "ec7376444171824c5915dd0ce64bbb704999d6e9c3b32c27470dd09fe50a0f4e"
+    },
+    "tests/test_greeting.py": {
+      "existed": true,
+      "original_sha256": "0eda6bc7fcbd3aea37571b4bf8bb499edfd4e49588b8706b7f784471b344ac79",
+      "validation_sha256": "0eda6bc7fcbd3aea37571b4bf8bb499edfd4e49588b8706b7f784471b344ac79"
+    },
+    "tests/test_image_adapter.py": {
+      "existed": true,
+      "original_sha256": "c262a357442772a8a9bf0c5ea570fb2c2c7a53e6cd7a3129ca7b4bbc57417f7c",
+      "validation_sha256": "c262a357442772a8a9bf0c5ea570fb2c2c7a53e6cd7a3129ca7b4bbc57417f7c"
+    },
+    "tests/test_image_model.py": {
+      "existed": true,
+      "original_sha256": "d649ee22d8e3dfa636ae91d3cee01ee7a5c55e025dab4459078fe2f04c38dfa8",
+      "validation_sha256": "d649ee22d8e3dfa636ae91d3cee01ee7a5c55e025dab4459078fe2f04c38dfa8"
+    },
+    "tests/test_image_reports.py": {
+      "existed": true,
+      "original_sha256": "0b5ee9b42039532f173468e667f1dd17d0b1729e19cee725703ec7c183bf13bf",
+      "validation_sha256": "0b5ee9b42039532f173468e667f1dd17d0b1729e19cee725703ec7c183bf13bf"
+    },
+    "tests/test_image_setup.py": {
+      "existed": true,
+      "original_sha256": "4102363c4c889518c72514d59a2fc0e8c7b9df04bc542b196db37ae728b85205",
+      "validation_sha256": "4102363c4c889518c72514d59a2fc0e8c7b9df04bc542b196db37ae728b85205"
+    },
+    "tests/test_integer_arrays.py": {
+      "existed": true,
+      "original_sha256": "727f4c766422020a9fc34da17ebaa829af6b7a1cc3eca77b611c19057b3a4d89",
+      "validation_sha256": "727f4c766422020a9fc34da17ebaa829af6b7a1cc3eca77b611c19057b3a4d89"
+    },
+    "tests/test_integer_division.py": {
+      "existed": true,
+      "original_sha256": "5eafda85d5b8bf15aecc7ef18dfb8b036bed13332bdc3fddaee2b096aeafe184",
+      "validation_sha256": "5eafda85d5b8bf15aecc7ef18dfb8b036bed13332bdc3fddaee2b096aeafe184"
+    },
+    "tests/test_integer_image.py": {
+      "existed": true,
+      "original_sha256": "80ede386f4a9c66f34aa980b067c685735fd6a0bd868e4c18eda0ced5cbaadaa",
+      "validation_sha256": "80ede386f4a9c66f34aa980b067c685735fd6a0bd868e4c18eda0ced5cbaadaa"
+    },
+    "tests/test_integer_loops.py": {
+      "existed": true,
+      "original_sha256": "acd5dd95ea987c418e17bc45d26c5e2a12c70093ef980ce0686326870e3dbc03",
+      "validation_sha256": "acd5dd95ea987c418e17bc45d26c5e2a12c70093ef980ce0686326870e3dbc03"
+    },
+    "tests/test_lean_evidence.py": {
+      "existed": true,
+      "original_sha256": "c7bd7108f24d9c6e5070697572d187af23ce415fd54ae9fa077df03ea7cfb603",
+      "validation_sha256": "c7bd7108f24d9c6e5070697572d187af23ce415fd54ae9fa077df03ea7cfb603"
+    },
+    "tests/test_lean_modules.py": {
+      "existed": true,
+      "original_sha256": "15ec5b733b73734c49e7b110c5e119cae632679f408f3e13bdc4b11b5c146437",
+      "validation_sha256": "15ec5b733b73734c49e7b110c5e119cae632679f408f3e13bdc4b11b5c146437"
+    },
+    "tests/test_lean_run_history.py": {
+      "existed": true,
+      "original_sha256": "8ad59d45adb01aeed01a8414377c959b8af144362172c6eeca27102e9207d6bb",
+      "validation_sha256": "8ad59d45adb01aeed01a8414377c959b8af144362172c6eeca27102e9207d6bb"
+    },
+    "tests/test_lean_source.py": {
+      "existed": true,
+      "original_sha256": "efe26074e75878b87c9cdc17d5c464071901f8fded422a1e073ab703cc58a7dc",
+      "validation_sha256": "efe26074e75878b87c9cdc17d5c464071901f8fded422a1e073ab703cc58a7dc"
+    },
+    "tests/test_library_reports.py": {
+      "existed": true,
+      "original_sha256": "201c5d08554587e8ae81476381b46fe139c3a60680197bd91f4fddbf5402d74b",
+      "validation_sha256": "201c5d08554587e8ae81476381b46fe139c3a60680197bd91f4fddbf5402d74b"
+    },
+    "tests/test_main_discovery.py": {
+      "existed": true,
+      "original_sha256": "76d0a63f6abf2756eb8ebc7e678b5a124b1ade79b9ecb0f650de2cdbd0a0010a",
+      "validation_sha256": "76d0a63f6abf2756eb8ebc7e678b5a124b1ade79b9ecb0f650de2cdbd0a0010a"
+    },
+    "tests/test_mutable_integers.py": {
+      "existed": true,
+      "original_sha256": "3f62ed0c43b372f73bc7c2d35540115a6ae5fb400d6ba275230c04a10852b6c9",
+      "validation_sha256": "3f62ed0c43b372f73bc7c2d35540115a6ae5fb400d6ba275230c04a10852b6c9"
+    },
+    "tests/test_named_integer_subtypes.py": {
+      "existed": false,
+      "validation_sha256": "73cac028115e5f605a2da3ff202470fbf70a5589863c35ec2e90863c05a57ea9"
+    },
+    "tests/test_named_output.py": {
+      "existed": true,
+      "original_sha256": "3e61c58073a081bef7c8d4dadcf2b743277ebbe5e2b5864afefb5f34ef34fe03",
+      "validation_sha256": "3e61c58073a081bef7c8d4dadcf2b743277ebbe5e2b5864afefb5f34ef34fe03"
+    },
+    "tests/test_names_calls.py": {
+      "existed": true,
+      "original_sha256": "26e4d076d20c5cf9af663c96b63e58538acfcaf41f1222b78d62dbeca8d94547",
+      "validation_sha256": "26e4d076d20c5cf9af663c96b63e58538acfcaf41f1222b78d62dbeca8d94547"
+    },
+    "tests/test_output.py": {
+      "existed": true,
+      "original_sha256": "136d67963a1e0701233947788d91a357cf91fd0ba2978cfe328ac4f0fe722bba",
+      "validation_sha256": "136d67963a1e0701233947788d91a357cf91fd0ba2978cfe328ac4f0fe722bba"
+    },
+    "tests/test_output_integrity.py": {
+      "existed": true,
+      "original_sha256": "2809d371f0385c52d88e87d2f8d04cbadd4ecfe2ef73abe34cc5d71d53787e9f",
+      "validation_sha256": "2809d371f0385c52d88e87d2f8d04cbadd4ecfe2ef73abe34cc5d71d53787e9f"
+    },
+    "tests/test_partial_output.py": {
+      "existed": true,
+      "original_sha256": "9c533ea0d815e9da23e69bf9cb28d3e18061c905f00c6d38c1bca4d8ff99c681",
+      "validation_sha256": "9c533ea0d815e9da23e69bf9cb28d3e18061c905f00c6d38c1bca4d8ff99c681"
+    },
+    "tests/test_path_refinement.py": {
+      "existed": true,
+      "original_sha256": "5e50f60492ed0dd5f6e73bd793fcbb91209398dbb2c3729b66f0e05021ba5d8f",
+      "validation_sha256": "5e50f60492ed0dd5f6e73bd793fcbb91209398dbb2c3729b66f0e05021ba5d8f"
+    },
+    "tests/test_platforms.py": {
+      "existed": true,
+      "original_sha256": "da38b4055486b99dda5a1e6913f58e50ced265c0c8045f2cb95e58e3f2cfc1c3",
+      "validation_sha256": "da38b4055486b99dda5a1e6913f58e50ced265c0c8045f2cb95e58e3f2cfc1c3"
+    },
+    "tests/test_predicates.py": {
+      "existed": true,
+      "original_sha256": "b87ff1035da7c3a7d97384785a0e692dd5d53436394b1b808f4378cc502adba4",
+      "validation_sha256": "ae6f3c0d502dd138446e13aaaf2ed0d940ca1c112af0264b82c808f9a18dfdc5"
+    },
+    "tests/test_proof_provenance.py": {
+      "existed": true,
+      "original_sha256": "9f51c49c7b52a72e9d6f318eef23555bee8cb26bbcf7872450267f429d348cde",
+      "validation_sha256": "9f51c49c7b52a72e9d6f318eef23555bee8cb26bbcf7872450267f429d348cde"
+    },
+    "tests/test_report_projection.py": {
+      "existed": true,
+      "original_sha256": "00a8941a6e196107666be15c71788182a12741931792b3520042c863ac7094e9",
+      "validation_sha256": "00a8941a6e196107666be15c71788182a12741931792b3520042c863ac7094e9"
+    },
+    "tests/test_rosetta.py": {
+      "existed": true,
+      "original_sha256": "3a6349b7a1253d8d81fd618060d10ffb10b6213d19828c31b8f96d840c831c96",
+      "validation_sha256": "3a6349b7a1253d8d81fd618060d10ffb10b6213d19828c31b8f96d840c831c96"
+    },
+    "tests/test_run_history.py": {
+      "existed": true,
+      "original_sha256": "9ad9a5a77cd356da52ff7afd77fe85652a4c36a7bf9e998af98a530b713b3531",
+      "validation_sha256": "9ad9a5a77cd356da52ff7afd77fe85652a4c36a7bf9e998af98a530b713b3531"
+    },
+    "tests/test_samples.py": {
+      "existed": true,
+      "original_sha256": "bbaf6b2a313d7e492a23368a76bc4289c6dfe213fbd4b7cae41bb1f77a6b4545",
+      "validation_sha256": "6058d85671993fa62f56bd21e5a3e878db1d7392d947453f8185c46a32d73957"
+    },
+    "tests/test_scalar_guards.py": {
+      "existed": true,
+      "original_sha256": "c5a1b0c7ff186daf7fe687b7735beb28b6fcf6dcbf5488a3806efb4e252b889d",
+      "validation_sha256": "c5a1b0c7ff186daf7fe687b7735beb28b6fcf6dcbf5488a3806efb4e252b889d"
+    },
+    "tests/test_shared_bindings.py": {
+      "existed": true,
+      "original_sha256": "4708e6d6d449a1ff5108b54af4bcf68341fb6c5dfe7c82f16c4561ba66ba6ae8",
+      "validation_sha256": "4708e6d6d449a1ff5108b54af4bcf68341fb6c5dfe7c82f16c4561ba66ba6ae8"
+    },
+    "tests/test_silver.py": {
+      "existed": true,
+      "original_sha256": "ebf0b47ab88eea730c6a48254d565c312f31d5f27f5ad352ddb9f032e2e03d59",
+      "validation_sha256": "ca3c7627d034dd5ea80fb9c384fa1bd3f4d3132fe2f5575392f5c8a0903f9e74"
+    },
+    "tests/test_statement_sequencing.py": {
+      "existed": true,
+      "original_sha256": "d724457280dfb1f18065cabddec4c379e5c079f1442f7240a90ec3fcf2ad19d1",
+      "validation_sha256": "d724457280dfb1f18065cabddec4c379e5c079f1442f7240a90ec3fcf2ad19d1"
+    },
+    "tests/test_static_proof.py": {
+      "existed": true,
+      "original_sha256": "90023e22c879590f93165b6a00a2e0a58c85a969dc45e5ccb47d4195b43947a5",
+      "validation_sha256": "90023e22c879590f93165b6a00a2e0a58c85a969dc45e5ccb47d4195b43947a5"
+    },
+    "tests/test_string_assignment.py": {
+      "existed": true,
+      "original_sha256": "c056b7f8bd45ed84afac547a13d98a1528949e459f92b300921cb2b63477f1c7",
+      "validation_sha256": "c056b7f8bd45ed84afac547a13d98a1528949e459f92b300921cb2b63477f1c7"
+    },
+    "catalogue/silver.json": {
+      "existed": true,
+      "original_sha256": "b42c908240df8aa054bfcebff21565eaac967758fd0744ed330f03b7b8b36b8c",
+      "validation_sha256": "b74b3bd84601c3cb464ed2b55bb2e8a78e043fdcfec1c176476f600fdac0b3dc"
+    },
+    "samples/manifest.json": {
+      "existed": true,
+      "original_sha256": "2c9dd2db4ce6bc9351da76f65c4224df65c68442c84efdb53520f0acbbb57739",
+      "validation_sha256": "42b82581659dcadffa792232436c92fe0a4ff107efa1a280c0236229ed2b230c"
+    },
+    "samples/rosetta_common_list_elements.adb": {
+      "existed": false,
+      "validation_sha256": "bca79951d0d2396e727660b5bbaf1e537ae501a05093edf3eaf9ca66f6302c01"
+    },
+    "samples/rosetta_sequence_of_primes_by_trial_division.adb": {
+      "existed": false,
+      "validation_sha256": "88ac06037a11ea72bc2a47180e587aeae4d25bfd36a9acadc3158191a177279d"
+    },
+    "samples/rosetta_square_but_not_cube.adb": {
+      "existed": false,
+      "validation_sha256": "f220c917a8da360d621ac360dbd712e9c1fadf787625fc863c2f693b910aa6b9"
+    }
+  }
+}

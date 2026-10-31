@@ -1,0 +1,17 @@
+{
+  "run_id": "20261030T214749-120a2c44c6f6",
+  "source_commit": "598a56b969cc0f5b68de7f674ac8bd9c48b602fd",
+  "preflight_hash_count": 2561,
+  "terminal_all_hashes_match": true,
+  "binaries": {
+    ".silver/linux-x86_64/compiler/bin/silver": {
+      "sha256": "56af3bd83fcbdd257bc10655fdeb5e59c098ea861b2621103bb99c202b02491c",
+      "bytes": 2588560
+    },
+    ".silver/linux-x86_64/compiler/bin/silver_image_adapter": {
+      "sha256": "524f344475f1bb636826214b1f2113d0cf9e03839be65a05c8f389681b1ffcfc",
+      "bytes": 2018344
+    }
+  },
+  "verified_at": "2026-10-30T21:48:47.967126+00:00"
+}

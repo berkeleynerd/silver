@@ -31,15 +31,17 @@ theorem basicEval_model (text : Source) (context : Native.Context) (scan : BodyS
   case' neg =>
     by_cases nullToken : fixedAfter text scan.position "null" true ≠ 0
     case' neg =>
-      by_cases outputCall : callAfter text context.names scan.position .output context.scalarNames context.arrayNames (context.subtypeHiding.get .output) ≠ 0
+      by_cases outputCall : callAfter text context.names scan.position .output context.scalarNames context.arrayNames (context.subtypeHiding.get .output) context.booleanNames ≠ 0
       case' neg =>
-        by_cases putCall : callAfter text context.names scan.position .partialOutput context.scalarNames context.arrayNames (context.subtypeHiding.get .partialOutput) ≠ 0
+        by_cases putCall : callAfter text context.names scan.position .partialOutput context.scalarNames context.arrayNames (context.subtypeHiding.get .partialOutput) context.booleanNames ≠ 0
         case' neg =>
-          by_cases rejectCall : context.dynamicFirst ≠ 0 ∧ callAfter text context.names scan.position .reject context.scalarNames context.arrayNames (context.subtypeHiding.get .reject) ≠ 0
+          by_cases rejectCall : context.dynamicFirst ≠ 0 ∧ callAfter text context.names scan.position .reject context.scalarNames context.arrayNames (context.subtypeHiding.get .reject) context.booleanNames ≠ 0
           case' neg =>
             by_cases scalar : scalarTarget text context.model scan.position ≠ 0
             case' neg =>
               by_cases array : arrayTarget text context.model scan.position ≠ 0
+              case' neg =>
+                by_cases boolean : booleanTarget text context.model scan.position ≠ 0
   all_goals
     dsimp +instances only [basicEval, basicCommands, dispatchCommands, outputCommands, putCommands, rejectCommands,
       assignmentCommands, Command.list, List.foldr_cons, List.foldr_nil, guard,
@@ -54,15 +56,17 @@ theorem basicEval_model (text : Source) (context : Native.Context) (scan : BodyS
 /-- Calls in the typed block are connected to already checked source primitives.
 The model below is an explicit inhabitant, rather than an assumed equation set. -/
 structure PrimitiveEquations (primitive : Primitives) : Prop where
-  callAfter : primitive.callAfter = (fun text names position operation scalarNames arrays hidden => Compose.callAfter text names position operation scalarNames arrays hidden)
+  callAfter : primitive.callAfter = (fun text names position operation scalarNames arrays hidden booleans => Compose.callAfter text names position operation scalarNames arrays hidden booleans)
   associationAfter : primitive.associationAfter = Names.associationAfter
   token : primitive.token = tokenAfter
-  expression : primitive.expression = (fun text context position facts => expressionAt text position context.names (context.model.readingNames facts) (arrays := context.arrayNames))
+  expression : primitive.expression = (fun text context position facts => readStringInFlow text context.model position facts)
   target : primitive.target = ScalarBodyNative.stringTargetEval ScalarBodyNative.modelImports
   bodyToken : primitive.bodyToken = fun text _ scan token => Predicate.bodyToken text scan token
   invalid : primitive.invalid = invalidBody
   scalarTarget : primitive.scalarTarget = fun text context position => Predicate.scalarTarget text context.model position
   scalarAssignment : primitive.scalarAssignment = fun text context scan => scalarAssignmentBody text context.model scan
+  booleanTarget : primitive.booleanTarget = fun text context position => Predicate.booleanTarget text context.model position
+  booleanAssignment : primitive.booleanAssignment = fun text context scan => booleanAssignmentBody text context.model scan
   arrayTarget : primitive.arrayTarget = fun text context position => Predicate.arrayTarget text context.model position
   arrayAssignment : primitive.arrayAssignment = fun text context scan => arrayAssignmentBody text context.model scan
   fits : primitive.fits = fitsLengthSummary

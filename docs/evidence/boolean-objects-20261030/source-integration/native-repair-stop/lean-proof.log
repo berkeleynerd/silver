@@ -1,0 +1,4 @@
+Lean phase build started at 2026-10-30T19:41:27.991622+00:00
++ /home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.tools/linux-x86_64/lean/bin/lake --rehash --reconfigure -K silverThreads=1 -K silverMemoryMb=24576 build Silver.Audit
+
+Lean phase build interrupted after 968.018s: KeyboardInterrupt

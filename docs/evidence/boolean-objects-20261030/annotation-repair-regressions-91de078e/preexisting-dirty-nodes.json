@@ -1,0 +1,63 @@
+{
+  "beforeimages_archive_sha256": "8421a84cea4d3519cb8c28ab58231fd3fd659b87ed83a19c02269b589a6633c6",
+  "native_originals": [
+    "src/silver_catalogue.adb",
+    "src/silver_output_profile.adb"
+  ],
+  "nodes": {
+    "catalogue/silver.json": {
+      "kind": "file",
+      "mode": 420,
+      "sha256": "419909e6196c88837511794303a85f6adae8403e37979430680c353ae630c5f2"
+    },
+    "samples/manifest.json": {
+      "kind": "file",
+      "mode": 420,
+      "sha256": "42b82581659dcadffa792232436c92fe0a4ff107efa1a280c0236229ed2b230c"
+    },
+    "samples/rosetta_common_list_elements.adb": {
+      "kind": "file",
+      "mode": 420,
+      "sha256": "bca79951d0d2396e727660b5bbaf1e537ae501a05093edf3eaf9ca66f6302c01"
+    },
+    "samples/rosetta_sequence_of_primes_by_trial_division.adb": {
+      "kind": "file",
+      "mode": 420,
+      "sha256": "88ac06037a11ea72bc2a47180e587aeae4d25bfd36a9acadc3158191a177279d"
+    },
+    "samples/rosetta_square_but_not_cube.adb": {
+      "kind": "file",
+      "mode": 420,
+      "sha256": "f220c917a8da360d621ac360dbd712e9c1fadf787625fc863c2f693b910aa6b9"
+    },
+    "src/silver_catalogue.adb": {
+      "kind": "file",
+      "mode": 420,
+      "sha256": "d36a719505ec5a487aae39e5d0f5854662b8de4e8dd5aa5633eb9bd25b467e48"
+    },
+    "src/silver_output_profile.adb": {
+      "kind": "file",
+      "mode": 420,
+      "sha256": "4b36552d8678a1d4ba27bda841de1025a770ac4c30658de6b43e533b5eb1d9a8"
+    },
+    "src/silver_output_profile.ads": {
+      "kind": "file",
+      "mode": 420,
+      "sha256": "c95d491236b211e775fb3f33b468113f56c58be6db120d172e4318054c5e42c6"
+    },
+    "tests/test_boolean_objects.py": {
+      "kind": "file",
+      "mode": 420,
+      "sha256": "b0e27ab6f4799accadc58ae4ec46d8b6a9c90398cdd4b242b017151f5fdeae16"
+    }
+  },
+  "other_preserved_dirty_nodes": [
+    "catalogue/silver.json",
+    "samples/manifest.json",
+    "src/silver_output_profile.ads",
+    "samples/rosetta_common_list_elements.adb",
+    "samples/rosetta_sequence_of_primes_by_trial_division.adb",
+    "samples/rosetta_square_but_not_cube.adb",
+    "tests/test_boolean_objects.py"
+  ]
+}

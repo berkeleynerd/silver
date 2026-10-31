@@ -1,0 +1,24 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "scripts/dev.py",
+    "test",
+    "--task",
+    "#291",
+    "--jobs",
+    "1",
+    "--reason",
+    "Refresh tool-source regressions on final reviewed annotation-repair snapshot 91de078ed8",
+    "--",
+    "-p",
+    "test_silver.py",
+    "-k",
+    "test_tool_failures_and_source_changes_do_not_report_success"
+  ],
+  "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration",
+  "expected_ids": [
+    "test_silver.SilverIntegrationTests.test_tool_failures_and_source_changes_do_not_report_success"
+  ],
+  "mem_available": "   31123800 kB",
+  "swap_free": "              0 kB"
+}

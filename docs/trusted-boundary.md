@@ -121,7 +121,15 @@ actual 8 MiB process stack: 141 counted-loop levels, 158 singleton constant-arra
 foreach levels and 208 conditional levels. They measured native source
 `a0d1a69463` with the binary rebuilt at `39d96fa9e5`, before the later ghost
 logical-equality annotation repair. They retain their input/build-specific scope;
-they do not measure the final binary or establish a universal worst-case bound.
+they do not measure the final subtype binary or establish a universal worst-case bound.
+The [2026-10-30 Boolean observations](evidence/boolean-objects-20261030/loop-stack/README.md)
+compare parent `fa6b5e982c` with the final Boolean native source. The reported
+fixed portion of the dynamic `Loop_Body` frame grows from 31,968 to 35,776 bytes.
+Both retained 4,096-byte loop fixtures (141 counted levels and 158 singleton
+foreach levels) pass admission, proof-backed compilation and execution at an
+actual 8,192 KiB stack. Each report set passes an independent 66-check audit.
+These observations do not bound all dynamic stack allocations or establish a
+universal stack limit.
 Per-level environment-copy redesign remains deferred with #119.
 The external
 [sequencing review](reviews/review-9b99d52.md) observed `Storage_Error` and exit
@@ -201,8 +209,29 @@ trusted runtime import or source budget is added. The
 [complete Linux checkpoint](named-integer-subtypes.md#delivery-assurance-and-validation)
 records native obligation coverage, authoritative-source correspondence and the
 whole-project Lean/module/axiom audit for the implemented feature in
-[PR #289](https://github.com/berkeleynerd/silver/pull/289), awaiting the owner's
-merge instruction. Earlier stack observations retain their exact measured inputs.
+[PR #289](https://github.com/berkeleynerd/silver/pull/289), merged on 2026-10-31. Earlier stack observations retain their exact measured inputs.
+
+## Boolean scalar boundary
+
+The [Boolean extension](boolean-objects.md#delivery-assurance-and-validation) retains the pinned Ada,
+SPARK, Why3 and solver premises, the existing runtime imports and report policy.
+Boolean values use predefined Standard.Boolean meaning. Eager logical operators
+evaluate both operands; short-circuit operators preserve Ada's conditional
+evaluation. Stored flags do not assert relations to other values or to external
+input validity.
+
+The [producer review](evidence/boolean-objects-20261030/producer-review.md)
+identifies Boolean logical, comparison, conversion and flow-advisory routes.
+They use existing operand obligations and introduce no new root safety class.
+The xor producer expands each operand twice, so the language excludes an xor
+inside either operand of another xor. This is a restriction for the pinned
+toolchain's formula capacity, not an Ada requirement. Independent xor operations
+and ordinary Boolean temporaries remain admitted. The existing source and
+arithmetic budgets and 32 MiB report allocation are unchanged. The linked
+delivery checkpoint records complete Linux native and Lean/actual-source assurance on
+`8f676fc40975781cdcaa50772d4d95f7e40054a1`, including
+the reviewed ghost equality repairs and regression applicability. The repairs add
+no trusted assumption or unchecked obligation path.
 
 ## Scalar guard refinement boundary
 

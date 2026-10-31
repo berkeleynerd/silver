@@ -7,6 +7,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest import mock
 
 from scripts.bootstrap_lean import lean_environment
 from scripts.check_lean import CANDIDATES
@@ -346,6 +347,17 @@ class NativeCertificateTests(unittest.TestCase):
                 with self.subTest(case=name):
                     self.assertEqual(original.count(before), 1)
                     certificate(name, source, original.replace(before, after, 1), failure)
+
+            # Exercise the large-list proof path on a small, checked fixture.
+            with mock.patch.object(GENERATOR, "_RFL_TOKEN_LIMIT", 0):
+                explicit_values = generated(source)
+            certificate("explicit_values", source, explicit_values)
+            before = 'def fixtureTokens : Tokens :=\n  ["x", ";"]'
+            after = 'def fixtureTokens : Tokens :=\n  ["wrong", ";"]'
+            self.assertEqual(explicit_values.count(before), 1)
+            certificate("wrong_explicit_values", source,
+                        explicit_values.replace(before, after, 1),
+                        r"\(kernel\) declaration type mismatch")
 
             # Bypass Python's byte validation to exercise the independent Lean
             # alphabet and physical-line restrictions themselves.

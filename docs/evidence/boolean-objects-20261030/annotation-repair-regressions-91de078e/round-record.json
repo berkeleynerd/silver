@@ -1,0 +1,19 @@
+{
+  "selected_model": "GPT-6.1 Sol",
+  "selected_effort": "High",
+  "runtime_confirmation": "unavailable",
+  "token_cost_measurements": "unavailable",
+  "harness_goal": null,
+  "intent": "Refresh exactly 46 affected regression identities on frozen 91de078e after native success and restoration handoff",
+  "round_start_record": "2026-10-31T06:25:49.051760+00:00",
+  "authorization": "Explicit integration-owner GO plus native workspace-release.json; evidence-only commit; no source/proof/docs support changes, publication, merge or issue closure",
+  "workspace_ownership": "Exclusive temporary snapshot/run/restoration lease for /root/boolean_delivery_prep; integration Lean source/proof/scripts remain untouched",
+  "main_build_reuse": "20261031T022612-eb8a9047980e; exact compiler/adapter hashes match retained build, no duplicate build",
+  "progress": "Completed46/46 pass, no skips, all838 managed inputs per batch and830 snapshot files stable; exact864-node restoration, nine dirty hashes/modes and80 native report hashes verified; workspace released",
+  "material_findings_or_rework": "Setup-only initial0664 archive-mode versus0644 tar-filter sanitization check corrected to Git executable bits; no source/test delta or test rerun",
+  "managed_seconds_sum": 340.697539546,
+  "unittest_seconds_sum": 331.742,
+  "snapshot_manifest_to_restoration_seconds": 448.750678,
+  "timing_scope": "Sums describe four sequential managed/test commands; elapsed scope begins at snapshot manifest and ends at restoration, excluding prior planning/model time. Token/cost and runtime model confirmation unavailable.",
+  "memory_status": "CLI memory not updated by this bounded evidence task; durable task handoff delivered to integration owner."
+}

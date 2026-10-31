@@ -1,0 +1,17 @@
+{
+  "duration_seconds": 153.66915546,
+  "event": "finished",
+  "evidence": [
+    {
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261030T160408-2c742ff18bd0/native.log",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261030T160408-2c742ff18bd0/native.log"
+    }
+  ],
+  "failure_keys": [],
+  "monotonic_ns": 179434849694528,
+  "outcome": "success",
+  "retained_reports": [],
+  "returncode": null,
+  "run_id": "20261030T160408-2c742ff18bd0",
+  "utc": "2026-10-30T16:06:45.014303+00:00"
+}

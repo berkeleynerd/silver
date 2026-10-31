@@ -3,6 +3,7 @@ module
 public import Silver.ComposeContracts
 public import Silver.ComposeScalarDeclarations
 public import Silver.ComposeArrayElaboration
+public import Silver.ComposeBooleanDeclarations
 
 @[expose] public section
 
@@ -20,7 +21,8 @@ attribute [local irreducible] ScalarExpression.read
 
 theorem model_invalid_state_valid (text : Source) : ValidState text invalidState := by
   simp [ValidState, ValidCursor, ValidNames, NameState.Valid, invalidState, ScalarExpression.ValidEnvironment, ScalarExpression.maxBindings, ArrayBindings.ValidEnvironment, ArrayBindings.ValidMetadata, ArrayBindings.ValidInitials,
-    IntegerSubtypes.ValidEnvironment, IntegerSubtypes.maxBindings]
+    IntegerSubtypes.ValidEnvironment, IntegerSubtypes.maxBindings,
+    BooleanBindings.ValidEnvironment, BooleanBindings.maxBindings]
 
 theorem model_state_position_valid (text : Source) (state : ParserState)
     (valid : ValidState text state) (position : Nat) (bound : ValidCursor text position) :
@@ -171,7 +173,7 @@ theorem model_scalar_reading_valid {text : Source} {state next : ParserState} {a
       have scalars := ScalarExpression.validEnvironment_append stateValid.2.2.2.2.2.1 room
         (item := ⟨parts.first, parts.after, parts.value.bounds, decide (parts.constantAfter ≠ 0) && parts.value.isStatic, parts.constraint.bounds, decide (parts.constantAfter = 0)⟩)
         ⟨nameValid.1, nameValid.2.1, nameValid.2.2, Integer.Expr.infer_bounded reading.inferred,
-          constraint.bounded stateValid.2.2.2.2.2.2.2⟩
+          constraint.bounded stateValid.2.2.2.2.2.2.2.1⟩
       exact ⟨following, stateValid.2.1, stateValid.2.2.1,
         stateValid.2.2.2.1, stateValid.2.2.2.2.1, scalars, stateValid.2.2.2.2.2.2⟩
 
@@ -210,11 +212,11 @@ theorem model_array_reading_valid {text : Source} {state next : ParserState} {ar
     {declaration : Integer.ArrayDeclaration} (stateValid : ValidState text state)
     (parsed : ArrayDeclarationAt text arguments state declaration next) : ValidState text next := by
   have arrays := array_declaration_array_valid parsed stateValid.2.2.2.2.2.2.1
-    stateValid.2.2.2.2.2.2.2
+    stateValid.2.2.2.2.2.2.2.1
   cases parsed with
   | declaration _ _ _ _ _ _ values following _ =>
       have fields := arrayValues_fields values
-      refine ⟨?_, ?_, ?_, ?_, ?_, ?_, arrays, ?_⟩
+      refine ⟨?_, ?_, ?_, ?_, ?_, ?_, arrays, ?_, ?_⟩
       · rw [following]
         exact fixedAfter_result_bound text _ ";" false (by decide)
       · rw [show _ = state.names from congrArg (fun s => s.names) fields]
@@ -230,7 +232,9 @@ theorem model_array_reading_valid {text : Source} {state next : ParserState} {ar
       · rw [show _ = state.scalarNames from congrArg (fun s => s.scalarNames) fields]
         exact stateValid.2.2.2.2.2.1
       · rw [show _ = state.subtypeNames from congrArg (fun s => s.subtypeNames) fields]
-        exact stateValid.2.2.2.2.2.2.2
+        exact stateValid.2.2.2.2.2.2.2.1
+      · rw [show _ = state.booleanNames from congrArg (fun s => s.booleanNames) fields]
+        exact stateValid.2.2.2.2.2.2.2.2
 
 theorem model_array_declaration_valid (text : Source) (state : ParserState) (arguments : Bool)
     (stateValid : ValidState text state) : ValidState text (arrayDeclarationAt text state arguments) := by
@@ -261,11 +265,11 @@ theorem model_array_declaration_advances (text : Source) (state : ParserState) (
 theorem model_subtype_reading_valid {text arguments state next}
     (stateValid : ValidState text state)
     (parsed : SubtypeDeclarationAt text arguments state next) : ValidState text next := by
-  have subtypes := subtype_declaration_valid parsed stateValid.2.2.2.2.2.2.2
+  have subtypes := subtype_declaration_valid parsed stateValid.2.2.2.2.2.2.2.1
   cases parsed with
   | declaration partsEq _ _ =>
       refine ⟨?_, stateValid.2.1, stateValid.2.2.1, stateValid.2.2.2.1,
-        stateValid.2.2.2.2.1, stateValid.2.2.2.2.2.1, stateValid.2.2.2.2.2.2.1, subtypes⟩
+        stateValid.2.2.2.2.1, stateValid.2.2.2.2.2.1, stateValid.2.2.2.2.2.2.1, subtypes, stateValid.2.2.2.2.2.2.2.2⟩
       rw [← partsEq]
       exact fixedAfter_result_bound text _ ";" false (by decide)
 
@@ -298,6 +302,48 @@ theorem model_subtype_declaration_advances (text : Source) (state : ParserState)
       simpa [SubtypeDeclarationReady, Bool.or_eq_true, not_or, Nat.not_le, and_assoc] using good
     exact ready.2.2.2.2.2.2.1
 
+theorem model_boolean_reading_valid {text arguments state next}
+    (stateValid : ValidState text state)
+    (parsed : BooleanDeclarationAt text arguments state next) : ValidState text next := by
+  cases parsed with
+  | declaration ready advance =>
+      simp only [booleanDeclarationReady, Bool.and_eq_true, decide_eq_true_eq] at ready
+      have allowed : newNameAllowed text state (booleanDeclarationParts text state).first
+          (booleanDeclarationParts text state).after arguments = true := by
+        exact ready.1.1.1
+      have nameBound : ValidCursor text (booleanDeclarationParts text state).after := model_name_valid text _
+      have nameValid := model_new_name_valid text state _ _ arguments nameBound allowed
+      have room : state.booleanNames.length < BooleanBindings.maxBindings := by
+        have bound := stateValid.2.2.2.2.2.2.2.2.1
+        have available : state.booleanNames.length ≠ BooleanBindings.maxBindings := by
+          exact ready.1.1.2.2.2
+        omega
+      have booleans := BooleanBindings.valid_append stateValid.2.2.2.2.2.2.2.2 room
+        (item := ⟨(booleanDeclarationParts text state).first, (booleanDeclarationParts text state).after,
+          decide ((booleanDeclarationParts text state).constantAfter = 0)⟩) nameValid
+      exact ⟨fixedAfter_result_bound text _ ";" false (by decide), stateValid.2.1,
+        stateValid.2.2.1, stateValid.2.2.2.1, stateValid.2.2.2.2.1,
+        stateValid.2.2.2.2.2.1, stateValid.2.2.2.2.2.2.1, stateValid.2.2.2.2.2.2.2.1, booleans⟩
+
+theorem model_boolean_declaration_valid (text : Source) (state : ParserState) (arguments : Bool)
+    (stateValid : ValidState text state) : ValidState text (booleanDeclarationAt text state arguments) := by
+  unfold booleanDeclarationAt
+  dsimp only
+  split
+  · exact model_invalid_state_valid text
+  · rename_i ready
+    split
+    · exact model_invalid_state_valid text
+    · rename_i advance
+      have good : booleanDeclarationReady text state arguments (booleanDeclarationParts text state) = true := by
+        cases value : booleanDeclarationReady text state arguments (booleanDeclarationParts text state) <;> simp_all
+      exact model_boolean_reading_valid stateValid (.declaration good (Nat.lt_of_not_ge advance))
+
+theorem model_boolean_declaration_advances (text : Source) (state : ParserState) (arguments : Bool)
+    (positive : (booleanDeclarationAt text state arguments).position ≠ 0) :
+    state.position < (booleanDeclarationAt text state arguments).position :=
+  boolean_declaration_progress (boolean_declaration_sound text state arguments positive)
+
 theorem model_declaration_valid (text : Source) (valid : ValidText text)
     (state : ParserState) (arguments : Bool) (stateValid : ValidState text state) :
     ValidState text (declarationAt text state arguments) := by
@@ -309,7 +355,9 @@ theorem model_declaration_valid (text : Source) (valid : ValidText text)
     · exact model_scalar_declaration_valid text state arguments stateValid
     · split
       · exact model_array_declaration_valid text state arguments stateValid
-      · exact model_string_declaration_valid text valid state arguments stateValid
+      · split
+        · exact model_boolean_declaration_valid text state arguments stateValid
+        · exact model_string_declaration_valid text valid state arguments stateValid
 
 theorem model_declaration_advances (text : Source) (valid : ValidText text)
     (state : ParserState) (arguments : Bool) (stateValid : ValidState text state)
@@ -333,12 +381,16 @@ theorem model_declaration_advances (text : Source) (valid : ValidText text)
           rw [ite_eq_right subtype, ite_eq_right scalar, ite_eq_left array]
         rw [selected]
         exact model_array_declaration_advances text state arguments array
-      · have selected : declarationAt text state arguments = stringDeclarationAt text state arguments := by
-          dsimp only [declarationAt]
-          rw [ite_eq_right subtype, ite_eq_right scalar, ite_eq_right array]
-        rw [selected] at nonzero ⊢
-        exact model_string_declaration_advances text valid state arguments stateValid nonzero
-
+      · by_cases boolean : (booleanDeclarationAt text state arguments).position ≠ 0
+        · have selected : declarationAt text state arguments = booleanDeclarationAt text state arguments := by
+            simp only [declarationAt]; split <;> simp_all
+          rw [selected]
+          exact model_boolean_declaration_advances text state arguments boolean
+        · have selected : declarationAt text state arguments = stringDeclarationAt text state arguments := by
+            dsimp only [declarationAt]
+            rw [ite_eq_right subtype, ite_eq_right scalar, ite_eq_right array, ite_eq_right boolean]
+          rw [selected] at nonzero ⊢
+          exact model_string_declaration_advances text valid state arguments stateValid nonzero
 
 theorem model_dynamic_value_valid (text : Source) (following : Nat)
     (bound : ValidCursor text following) :

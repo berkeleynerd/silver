@@ -20,111 +20,122 @@ structure Execution where
   values : Values
   effects : List Effect
   integers : Integer.Store
+  booleans : Boolean.Store
 
 def Execution.restoreIndex (result : Execution) (index : Nat) (before : Integer.Store) : Execution :=
   {result with integers := Integer.restore before result.integers index}
 
 def executeSimpleStatement (input : Source) (values : Values) (item : Sequence.SimpleStatement)
-    (integers : Integer.Store) : Execution :=
+    (integers : Integer.Store) (booleans : Boolean.Store := Boolean.emptyStore) : Execution :=
   match item with
-  | .null => ⟨values, [], integers⟩
-  | .assign update => ⟨executeAssignment update values input integers, [], integers⟩
-  | .output expression => ⟨values, [.output (expression.evaluate values input integers)], integers⟩
-  | .put expression => ⟨values, [.put (expression.evaluate values input integers)], integers⟩
+  | .null => ⟨values, [], integers, booleans⟩
+  | .assign update => ⟨executeAssignment update values input integers, [], integers, booleans⟩
+  | .output expression => ⟨values, [.output (expression.evaluate values input integers)], integers, booleans⟩
+  | .put expression => ⟨values, [.put (expression.evaluate values input integers)], integers, booleans⟩
 
 def checkedSimpleStatement (input : Source) (values : Values) (item : Sequence.SimpleStatement)
-    (integers : Integer.Store) : Option Execution :=
+    (integers : Integer.Store) (booleans : Boolean.Store := Boolean.emptyStore) : Option Execution :=
   match item with
-  | .null => some ⟨values, [], integers⟩
+  | .null => some ⟨values, [], integers, booleans⟩
   | .assign update => (update.value.checkedEvaluate values input integers).bind fun value =>
       if value.length = (values update.target).length then
-        some ⟨Bindings.put values update.target value, [], integers⟩ else none
+        some ⟨Bindings.put values update.target value, [], integers, booleans⟩ else none
   | .output expression => (expression.checkedEvaluate values input integers).map fun value =>
-      ⟨values, [.output value], integers⟩
+      ⟨values, [.output value], integers, booleans⟩
   | .put expression => (expression.checkedEvaluate values input integers).map fun value =>
-      ⟨values, [.put value], integers⟩
+      ⟨values, [.put value], integers, booleans⟩
 
-def executeIterations (step : Values → Integer.Store → Int → Execution) :
-    Values → Integer.Store → List Int → Execution
-  | values, integers, [] => ⟨values, [], integers⟩
-  | values, integers, index :: rest =>
-      let first := step values integers index
-      let following := executeIterations step first.values first.integers rest
-      ⟨following.values, first.effects ++ following.effects, following.integers⟩
+def executeIterations (step : Values → Integer.Store → Boolean.Store → Int → Execution) :
+    Values → Integer.Store → Boolean.Store → List Int → Execution
+  | values, integers, booleans, [] => ⟨values, [], integers, booleans⟩
+  | values, integers, booleans, index :: rest =>
+      let first := step values integers booleans index
+      let following := executeIterations step first.values first.integers first.booleans rest
+      ⟨following.values, first.effects ++ following.effects, following.integers, following.booleans⟩
 
-def checkedIterations (step : Values → Integer.Store → Int → Option Execution) :
-    Values → Integer.Store → List Int → Option Execution
-  | values, integers, [] => some ⟨values, [], integers⟩
-  | values, integers, index :: rest => (step values integers index).bind fun first =>
-      (checkedIterations step first.values first.integers rest).map fun following =>
-        ⟨following.values, first.effects ++ following.effects, following.integers⟩
+def checkedIterations (step : Values → Integer.Store → Boolean.Store → Int → Option Execution) :
+    Values → Integer.Store → Boolean.Store → List Int → Option Execution
+  | values, integers, booleans, [] => some ⟨values, [], integers, booleans⟩
+  | values, integers, booleans, index :: rest => (step values integers booleans index).bind fun first =>
+      (checkedIterations step first.values first.integers first.booleans rest).map fun following =>
+        ⟨following.values, first.effects ++ following.effects, following.integers, following.booleans⟩
 
 mutual
   def Statement.execute (input : Source) (inputValid : Bool) (values : Values) (item : Statement)
-      (integers : Integer.Store := Integer.emptyStore) : Execution :=
+      (integers : Integer.Store := Integer.emptyStore)
+      (booleans : Boolean.Store := Boolean.emptyStore) : Execution :=
     match item with
-    | .simple item => executeSimpleStatement input values item integers
-    | .scalarAssign update => ⟨values, [], update.execute integers⟩
-    | .arrayAssign update => ⟨values, [], update.execute integers⟩
-    | .reject => ⟨values, [.reject], integers⟩
+    | .simple item => executeSimpleStatement input values item integers booleans
+    | .scalarAssign update => ⟨values, [], update.execute integers, booleans⟩
+    | .arrayAssign update => ⟨values, [], update.execute integers, booleans⟩
+    | .booleanAssign update =>
+        ⟨values, [], integers, Boolean.put booleans update.target
+          (update.value.evaluate values input inputValid integers booleans)⟩
+    | .reject => ⟨values, [.reject], integers, booleans⟩
     | .choice condition yes no =>
-        if condition.evaluate values input inputValid integers
-        then executeStatements input inputValid values yes integers
-        else executeStatements input inputValid values no integers
+        if condition.evaluate values input inputValid integers booleans
+        then executeStatements input inputValid values yes integers booleans
+        else executeStatements input inputValid values no integers booleans
     | .forLoop index reverse lower upper body =>
-        executeIterations (fun current scalars value =>
-          (executeStatements input inputValid current body (Integer.put scalars index value)).restoreIndex index scalars)
-          values integers (Integer.iterationValues reverse (lower.evaluate integers) (upper.evaluate integers))
+        executeIterations (fun current scalars flags value =>
+          (executeStatements input inputValid current body (Integer.put scalars index value) flags).restoreIndex index scalars)
+          values integers booleans (Integer.iterationValues reverse (lower.evaluate integers) (upper.evaluate integers))
     | .arrayLoop index reverse array body =>
-        executeIterations (fun current scalars component =>
+        executeIterations (fun current scalars flags component =>
           (executeStatements input inputValid current body
-            (Integer.put scalars index (array.project scalars component))).restoreIndex index scalars)
-          values integers (Integer.iterationValues reverse array.bounds.lower array.bounds.upper)
+            (Integer.put scalars index (array.project scalars component)) flags).restoreIndex index scalars)
+          values integers booleans (Integer.iterationValues reverse array.bounds.lower array.bounds.upper)
   termination_by sizeOf item
   def executeStatements (input : Source) (inputValid : Bool) (values : Values) (items : List Statement)
-      (integers : Integer.Store := Integer.emptyStore) : Execution :=
+      (integers : Integer.Store := Integer.emptyStore)
+      (booleans : Boolean.Store := Boolean.emptyStore) : Execution :=
     match items with
-    | [] => ⟨values, [], integers⟩
+    | [] => ⟨values, [], integers, booleans⟩
     | item :: rest =>
-        let first := item.execute input inputValid values integers
-        let following := executeStatements input inputValid first.values rest first.integers
-        ⟨following.values, first.effects ++ following.effects, following.integers⟩
+        let first := item.execute input inputValid values integers booleans
+        let following := executeStatements input inputValid first.values rest first.integers first.booleans
+        ⟨following.values, first.effects ++ following.effects, following.integers, following.booleans⟩
   termination_by sizeOf items
 end
 
 mutual
   def Statement.checkedExecute (input : Source) (inputValid : Bool) (values : Values) (item : Statement)
-      (integers : Integer.Store := Integer.emptyStore) : Option Execution :=
+      (integers : Integer.Store := Integer.emptyStore)
+      (booleans : Boolean.Store := Boolean.emptyStore) : Option Execution :=
     match item with
-    | .simple item => checkedSimpleStatement input values item integers
-    | .scalarAssign update => (update.checkedExecute integers).map fun scalars => ⟨values, [], scalars⟩
-    | .arrayAssign update => (update.checkedExecute integers).map fun scalars => ⟨values, [], scalars⟩
-    | .reject => some ⟨values, [.reject], integers⟩
+    | .simple item => checkedSimpleStatement input values item integers booleans
+    | .scalarAssign update => (update.checkedExecute integers).map fun scalars => ⟨values, [], scalars, booleans⟩
+    | .arrayAssign update => (update.checkedExecute integers).map fun scalars => ⟨values, [], scalars, booleans⟩
+    | .booleanAssign update =>
+        (update.value.checkedEvaluate values input inputValid integers booleans).map fun value =>
+          ⟨values, [], integers, Boolean.put booleans update.target value⟩
+    | .reject => some ⟨values, [.reject], integers, booleans⟩
     | .choice condition yes no =>
-        (condition.checkedEvaluate values input inputValid integers).bind fun outcome =>
-          if outcome then checkedStatements input inputValid values yes integers
-          else checkedStatements input inputValid values no integers
+        (condition.checkedEvaluate values input inputValid integers booleans).bind fun outcome =>
+          if outcome then checkedStatements input inputValid values yes integers booleans
+          else checkedStatements input inputValid values no integers booleans
     | .forLoop index reverse lower upper body =>
         (lower.checkedEvaluate integers).bind fun a => (upper.checkedEvaluate integers).bind fun b =>
-          checkedIterations (fun current scalars value =>
-            (checkedStatements input inputValid current body (Integer.put scalars index value)).map
+          checkedIterations (fun current scalars flags value =>
+            (checkedStatements input inputValid current body (Integer.put scalars index value) flags).map
               fun result => result.restoreIndex index scalars)
-            values integers (Integer.iterationValues reverse a b)
+            values integers booleans (Integer.iterationValues reverse a b)
     | .arrayLoop index reverse array body =>
-        checkedIterations (fun current scalars component =>
+        checkedIterations (fun current scalars flags component =>
           if array.bounds.Contains component then
             (Integer.checkedValue (array.project scalars component)).bind fun value =>
-              (checkedStatements input inputValid current body (Integer.put scalars index value)).map
+              (checkedStatements input inputValid current body (Integer.put scalars index value) flags).map
                 fun result => result.restoreIndex index scalars
-          else none) values integers (Integer.iterationValues reverse array.bounds.lower array.bounds.upper)
+          else none) values integers booleans (Integer.iterationValues reverse array.bounds.lower array.bounds.upper)
   termination_by sizeOf item
   def checkedStatements (input : Source) (inputValid : Bool) (values : Values) (items : List Statement)
-      (integers : Integer.Store := Integer.emptyStore) : Option Execution :=
+      (integers : Integer.Store := Integer.emptyStore)
+      (booleans : Boolean.Store := Boolean.emptyStore) : Option Execution :=
     match items with
-    | [] => some ⟨values, [], integers⟩
-    | item :: rest => (item.checkedExecute input inputValid values integers).bind fun first =>
-        (checkedStatements input inputValid first.values rest first.integers).map fun following =>
-          ⟨following.values, first.effects ++ following.effects, following.integers⟩
+    | [] => some ⟨values, [], integers, booleans⟩
+    | item :: rest => (item.checkedExecute input inputValid values integers booleans).bind fun first =>
+        (checkedStatements input inputValid first.values rest first.integers first.booleans).map fun following =>
+          ⟨following.values, first.effects ++ following.effects, following.integers, following.booleans⟩
   termination_by sizeOf items
 end
 
@@ -147,22 +158,23 @@ theorem noOutput_append {first following : List Effect} (left : NoOutput first) 
   · exact left effect member
   · exact right effect member
 
-theorem iterations_unchanged {step : Values → Integer.Store → Int → Execution}
-    {values : Values} {integers : Integer.Store} {indices : List Int} {index : Nat}
-    (unchanged : ∀ current scalars value, (step current scalars value).integers index = scalars index) :
-    (executeIterations step values integers indices).integers index = integers index := by
-  induction indices generalizing values integers with
+theorem iterations_unchanged {step : Values → Integer.Store → Boolean.Store → Int → Execution}
+    {values : Values} {integers : Integer.Store} {booleans : Boolean.Store} {indices : List Int} {index : Nat}
+    (unchanged : ∀ current scalars flags value, (step current scalars flags value).integers index = scalars index) :
+    (executeIterations step values integers booleans indices).integers index = integers index := by
+  induction indices generalizing values integers booleans with
   | nil => rfl
   | cons value rest ih =>
-      exact (ih (values := (step values integers value).values)
-        (integers := (step values integers value).integers)).trans (unchanged values integers value)
+      exact (ih (values := (step values integers booleans value).values)
+        (integers := (step values integers booleans value).integers)
+        (booleans := (step values integers booleans value).booleans)).trans (unchanged values integers booleans value)
 
 mutual
-  theorem statement_unchanged {shape : Shape} {analysis : Integer.Analysis} {before after : Flow}
-      {item : Statement} {input : Source} {valid : Bool} {values : Values} {integers : Integer.Store}
-      {index : Nat} (checked : item.check shape analysis before = some after)
+  theorem statement_unchanged {shape : Shape} {analysis : Integer.Analysis} {booleanAnalysis : Boolean.Analysis} {before after : Flow}
+      {item : Statement} {input : Source} {valid : Bool} {values : Values} {integers : Integer.Store} {booleans : Boolean.Store}
+      {index : Nat} (checked : item.check shape analysis before booleanAnalysis = some after)
       (readonly : analysis.mutable index = false) :
-      (item.execute input valid values integers).integers index = integers index := by
+      (item.execute input valid values integers booleans).integers index = integers index := by
     cases item with
     | simple item => cases item <;> simp only [Statement.execute, executeSimpleStatement]
     | scalarAssign update =>
@@ -182,7 +194,7 @@ mutual
           simpa only [Statement.execute] using
             update.unchanged (values := integers) accepted readonly
         · contradiction
-    | reject => simp only [Statement.execute]
+    | booleanAssign _ | reject => simp only [Statement.execute]
     | choice condition yes no =>
         simp only [Statement.check] at checked
         split at checked
@@ -198,14 +210,14 @@ mutual
         obtain ⟨a, _, b, _, bodyAfter, bodyChecked, _⟩ := checked
         simp only [Statement.execute]
         apply iterations_unchanged
-        intro current scalars value
+        intro current scalars flags value
         by_cases same : index = binder
         · subst index
           simp only [Execution.restoreIndex, Integer.restore, Integer.put, ↓reduceIte]
         · have readonlyBody : (analysis.withIndex binder (Integer.loopBounds a b)).mutable index = false := by
             simpa only [Integer.Analysis.withIndex, Integer.put, same, ↓reduceIte] using readonly
           have preserved := statements_unchanged (input := input) (valid := valid)
-            (values := current) (integers := Integer.put scalars binder value) bodyChecked readonlyBody
+            (values := current) (booleans := flags) (integers := Integer.put scalars binder value) bodyChecked readonlyBody
           simpa only [Execution.restoreIndex, Integer.restore, Integer.put, same, ↓reduceIte] using preserved
     | arrayLoop binder reverse array body =>
         simp only [Statement.check] at checked
@@ -214,47 +226,133 @@ mutual
           obtain ⟨bodyAfter, bodyChecked, _⟩ := checked
           simp only [Statement.execute]
           apply iterations_unchanged
-          intro current scalars component
+          intro current scalars flags component
           by_cases same : index = binder
           · subst index
             simp only [Execution.restoreIndex, Integer.restore, Integer.put, ↓reduceIte]
           · have readonlyBody : (analysis.withIndex binder array.componentBounds).mutable index = false := by
               simpa only [Integer.Analysis.withIndex, Integer.put, same, ↓reduceIte] using readonly
             have preserved := statements_unchanged (input := input) (valid := valid)
-              (values := current) (integers := Integer.put scalars binder (array.project scalars component))
+              (values := current) (booleans := flags) (integers := Integer.put scalars binder (array.project scalars component))
               bodyChecked readonlyBody
             simpa only [Execution.restoreIndex, Integer.restore, Integer.put, same, ↓reduceIte] using preserved
         · contradiction
   termination_by sizeOf item
 
-  theorem statements_unchanged {shape : Shape} {analysis : Integer.Analysis} {before after : Flow}
-      {items : List Statement} {input : Source} {valid : Bool} {values : Values} {integers : Integer.Store}
-      {index : Nat} (checked : checkStatements shape analysis before items = some after)
+  theorem statements_unchanged {shape : Shape} {analysis : Integer.Analysis} {booleanAnalysis : Boolean.Analysis} {before after : Flow}
+      {items : List Statement} {input : Source} {valid : Bool} {values : Values} {integers : Integer.Store} {booleans : Boolean.Store}
+      {index : Nat} (checked : checkStatements shape analysis before items booleanAnalysis = some after)
       (readonly : analysis.mutable index = false) :
-      (executeStatements input valid values items integers).integers index = integers index := by
+      (executeStatements input valid values items integers booleans).integers index = integers index := by
     cases items with
     | nil => simp only [executeStatements]
     | cons item rest =>
         simp only [checkStatements, Option.bind_eq_some_iff] at checked
         obtain ⟨middle, firstChecked, restChecked⟩ := checked
         have first := statement_unchanged (input := input) (valid := valid)
-          (values := values) (integers := integers) firstChecked readonly
+          (values := values) (integers := integers) (booleans := booleans) firstChecked readonly
         have following := statements_unchanged (input := input) (valid := valid)
-          (values := (item.execute input valid values integers).values)
-          (integers := (item.execute input valid values integers).integers) restChecked readonly
+          (values := (item.execute input valid values integers booleans).values)
+          (integers := (item.execute input valid values integers booleans).integers)
+          (booleans := (item.execute input valid values integers booleans).booleans) restChecked readonly
+        simpa only [executeStatements] using following.trans first
+  termination_by sizeOf items
+end
+
+/-- Boolean cells are independent of lexical Integer loop bindings. -/
+theorem iterations_booleans_unchanged {step : Values → Integer.Store → Boolean.Store → Int → Execution}
+    {values : Values} {integers : Integer.Store} {booleans : Boolean.Store} {indices : List Int} {index : Nat}
+    (unchanged : ∀ current scalars flags value, (step current scalars flags value).booleans index = flags index) :
+    (executeIterations step values integers booleans indices).booleans index = booleans index := by
+  induction indices generalizing values integers booleans with
+  | nil => rfl
+  | cons value rest ih =>
+      exact (ih (values := (step values integers booleans value).values)
+        (integers := (step values integers booleans value).integers)
+        (booleans := (step values integers booleans value).booleans)).trans
+          (unchanged values integers booleans value)
+
+mutual
+  theorem statement_booleans_unchanged {shape : Shape} {analysis : Integer.Analysis}
+      {booleanAnalysis : Boolean.Analysis} {before after : Flow} {item : Statement}
+      {input : Source} {valid : Bool} {values : Values} {integers : Integer.Store} {booleans : Boolean.Store}
+      {index : Nat} (checked : item.check shape analysis before booleanAnalysis = some after)
+      (readonly : booleanAnalysis.mutable index = false) :
+      (item.execute input valid values integers booleans).booleans index = booleans index := by
+    cases item with
+    | simple item => cases item <;> simp only [Statement.execute, executeSimpleStatement]
+    | scalarAssign | arrayAssign | reject => simp only [Statement.execute]
+    | booleanAssign update =>
+        simp only [Statement.check] at checked
+        split at checked
+        · rename_i good
+          have writable := Boolean.canWrite_mutable (Bool.and_eq_true_iff.mp good).1
+          have different : index ≠ update.target := by
+            intro same
+            rw [← same, readonly] at writable
+            contradiction
+          simpa only [Statement.execute] using Boolean.put_other booleans update.target
+            (update.value.evaluate values input valid integers booleans) index different
+        · contradiction
+    | choice condition yes no =>
+        simp only [Statement.check] at checked
+        split at checked
+        · simp only [Option.bind_eq_some_iff, Option.map_eq_some_iff] at checked
+          obtain ⟨afterYes, yesChecked, afterNo, noChecked, _⟩ := checked
+          simp only [Statement.execute]
+          split
+          · exact statements_booleans_unchanged yesChecked readonly
+          · exact statements_booleans_unchanged noChecked readonly
+        · contradiction
+    | forLoop binder reverse lower upper body =>
+        simp only [Statement.check, Option.bind_eq_some_iff, Option.map_eq_some_iff] at checked
+        obtain ⟨a, _, b, _, bodyAfter, bodyChecked, _⟩ := checked
+        simp only [Statement.execute]
+        apply iterations_booleans_unchanged
+        intro current scalars flags value
+        exact statements_booleans_unchanged bodyChecked readonly
+    | arrayLoop binder reverse array body =>
+        simp only [Statement.check] at checked
+        split at checked
+        · simp only [Option.map_eq_some_iff] at checked
+          obtain ⟨bodyAfter, bodyChecked, _⟩ := checked
+          simp only [Statement.execute]
+          apply iterations_booleans_unchanged
+          intro current scalars flags value
+          exact statements_booleans_unchanged bodyChecked readonly
+        · contradiction
+  termination_by sizeOf item
+
+  theorem statements_booleans_unchanged {shape : Shape} {analysis : Integer.Analysis}
+      {booleanAnalysis : Boolean.Analysis} {before after : Flow} {items : List Statement}
+      {input : Source} {valid : Bool} {values : Values} {integers : Integer.Store} {booleans : Boolean.Store}
+      {index : Nat} (checked : checkStatements shape analysis before items booleanAnalysis = some after)
+      (readonly : booleanAnalysis.mutable index = false) :
+      (executeStatements input valid values items integers booleans).booleans index = booleans index := by
+    cases items with
+    | nil => simp only [executeStatements]
+    | cons item rest =>
+        simp only [checkStatements, Option.bind_eq_some_iff] at checked
+        obtain ⟨middle, firstChecked, restChecked⟩ := checked
+        have first := statement_booleans_unchanged (input := input) (valid := valid)
+          (values := values) (integers := integers) (booleans := booleans) firstChecked readonly
+        have following := statements_booleans_unchanged (input := input) (valid := valid)
+          (values := (item.execute input valid values integers booleans).values)
+          (integers := (item.execute input valid values integers booleans).integers)
+          (booleans := (item.execute input valid values integers booleans).booleans) restChecked readonly
         simpa only [executeStatements] using following.trans first
   termination_by sizeOf items
 end
 
 /-- Constant arrays retain their actual components across every admitted body,
 including nested loops, branches, other-array writes and returning Reject. -/
-theorem statements_constant_components {shape : Shape} {analysis : Integer.Analysis}
+theorem statements_constant_components {shape : Shape} {analysis : Integer.Analysis} {booleanAnalysis : Boolean.Analysis}
     {before after : Flow} {items : List Statement} {input : Source} {valid : Bool}
-    {values : Values} {integers : Integer.Store} {array : Integer.ArrayDescriptor}
-    (checked : checkStatements shape analysis before items = some after)
+    {values : Values} {integers : Integer.Store} {booleans : Boolean.Store} {array : Integer.ArrayDescriptor}
+    (checked : checkStatements shape analysis before items booleanAnalysis = some after)
     (readonly : ∀ cell, array.ContainsCell cell → analysis.mutable cell = false)
     {component : Int} (inside : array.bounds.Contains component) :
-    array.project (executeStatements input valid values items integers).integers component =
+    array.project (executeStatements input valid values items integers booleans).integers component =
       array.project integers component :=
   statements_unchanged checked (readonly _ (array.address_within inside))
 
@@ -275,11 +373,11 @@ theorem arrayLoop_binding_component {analysis : Integer.Analysis} {flow : Flow} 
 alone would permit a transient binder collision; the loop clauses exclude it. -/
 mutual
   def Statement.ComponentsStable (array : Integer.ArrayDescriptor) (item : Statement) : Prop :=
-    (∀ input valid values integers component, array.bounds.Contains component →
-      array.project (item.execute input valid values integers).integers component =
+    (∀ input valid values integers booleans component, array.bounds.Contains component →
+      array.project (item.execute input valid values integers booleans).integers component =
         array.project integers component) ∧
     match item with
-    | .simple _ | .scalarAssign _ | .arrayAssign _ | .reject => True
+    | .simple _ | .scalarAssign _ | .arrayAssign _ | .booleanAssign _ | .reject => True
     | .choice _ yes no => StatementsComponentsStable array yes ∧ StatementsComponentsStable array no
     | .forLoop index _ _ _ body | .arrayLoop index _ _ body =>
         ¬array.ContainsCell index ∧ StatementsComponentsStable array body
@@ -291,16 +389,16 @@ mutual
 end
 
 mutual
-  theorem statement_components_stable {shape : Shape} {analysis : Integer.Analysis}
+  theorem statement_components_stable {shape : Shape} {analysis : Integer.Analysis} {booleanAnalysis : Boolean.Analysis}
       {before after : Flow} {item : Statement} {array : Integer.ArrayDescriptor}
-      (checked : item.check shape analysis before = some after)
+      (checked : item.check shape analysis before booleanAnalysis = some after)
       (readonly : ∀ cell, array.ContainsCell cell → analysis.mutable cell = false)
       (apart : item.bindersApart array = true) : item.ComponentsStable array := by
     rw [Statement.ComponentsStable.eq_def]
-    refine ⟨fun input valid values integers component inside =>
+    refine ⟨fun input valid values integers booleans component inside =>
       statement_unchanged checked (readonly _ (array.address_within inside)), ?_⟩
     cases item with
-    | simple | scalarAssign | arrayAssign | reject => trivial
+    | simple | scalarAssign | arrayAssign | booleanAssign | reject => trivial
     | choice condition yes no =>
         simp only [Statement.check] at checked
         simp only [Statement.bindersApart, Bool.and_eq_true] at apart
@@ -333,9 +431,9 @@ mutual
         · contradiction
   termination_by sizeOf item
 
-  theorem statements_components_stable {shape : Shape} {analysis : Integer.Analysis}
+  theorem statements_components_stable {shape : Shape} {analysis : Integer.Analysis} {booleanAnalysis : Boolean.Analysis}
       {before after : Flow} {items : List Statement} {array : Integer.ArrayDescriptor}
-      (checked : checkStatements shape analysis before items = some after)
+      (checked : checkStatements shape analysis before items booleanAnalysis = some after)
       (readonly : ∀ cell, array.ContainsCell cell → analysis.mutable cell = false)
       (apart : statementsBindersApart array items = true) : StatementsComponentsStable array items := by
     cases items with
@@ -352,10 +450,10 @@ end
 
 /-- Admission establishes component preservation at every nested body, as well
 as at the complete iteration boundary. No source identity bound is assumed. -/
-theorem arrayLoop_components_stable {shape : Shape} {analysis : Integer.Analysis}
+theorem arrayLoop_components_stable {shape : Shape} {analysis : Integer.Analysis} {booleanAnalysis : Boolean.Analysis}
     {before after : Flow} {index : Nat} {reverse : Bool} {array : Integer.ArrayDescriptor}
     {body : List Statement}
-    (checked : (Statement.arrayLoop index reverse array body).check shape analysis before = some after) :
+    (checked : (Statement.arrayLoop index reverse array body).check shape analysis before booleanAnalysis = some after) :
     (Statement.arrayLoop index reverse array body).ComponentsStable array := by
   have accepted := checked
   simp only [Statement.check] at accepted
@@ -370,15 +468,15 @@ theorem arrayLoop_components_stable {shape : Shape} {analysis : Integer.Analysis
 
 /-- The immutable scalar binding still denotes the actual component after the
 body. Recursive ComponentsStable additionally covers each nested body boundary. -/
-theorem arrayLoop_body_actual_component {shape : Shape} {analysis : Integer.Analysis}
+theorem arrayLoop_body_actual_component {shape : Shape} {analysis : Integer.Analysis} {booleanAnalysis : Boolean.Analysis}
     {flow after : Flow} {index : Nat} {array : Integer.ArrayDescriptor} {body : List Statement}
-    {input : Source} {valid : Bool} {values : Values} {integers : Integer.Store} {component : Int}
+    {input : Source} {valid : Bool} {values : Values} {integers : Integer.Store} {booleans : Boolean.Store} {component : Int}
     (ready : arrayLoopReady analysis flow index array = true)
     (checked : checkStatements shape (analysis.withIndex index array.componentBounds)
-      (arrayLoopEntry analysis flow index array.componentBounds) body = some after)
+      (arrayLoopEntry analysis flow index array.componentBounds) body booleanAnalysis = some after)
     (inside : array.bounds.Contains component) :
     let result := executeStatements input valid values body
-      (Integer.put integers index (array.project integers component))
+      (Integer.put integers index (array.project integers component)) booleans
     result.integers index = array.project result.integers component := by
   have properties := (arrayLoopReady_iff analysis flow index array).mp ready
   have readonlyBody : ∀ cell, array.ContainsCell cell →
@@ -388,12 +486,12 @@ theorem arrayLoop_body_actual_component {shape : Shape} {analysis : Integer.Anal
     simpa only [Integer.Analysis.withIndex, Integer.put, different, ↓reduceIte]
       using properties.2.2.2.2.1 cell cellInside
   have componentPreserved := statements_constant_components (input := input) (valid := valid)
-    (values := values) (integers := Integer.put integers index (array.project integers component))
+    (values := values) (booleans := booleans) (integers := Integer.put integers index (array.project integers component))
     checked readonlyBody inside
   have entry := arrayLoop_binding_component (integers := integers)
     (value := array.project integers component) ready inside
   have bindingPreserved := statements_unchanged (input := input) (valid := valid) (values := values)
-    (integers := Integer.put integers index (array.project integers component)) (index := index)
+    (integers := Integer.put integers index (array.project integers component)) (booleans := booleans) (index := index)
     checked (by simp only [Integer.Analysis.withIndex, Integer.put, ↓reduceIte])
   calc
     _ = (Integer.put integers index (array.project integers component)) index := bindingPreserved
@@ -411,14 +509,14 @@ structure ExecutionSound (shape : Shape) (analysis : Integer.Analysis) (flow : F
   declared : Integer.Fits analysis.declared result.integers
 
 theorem simple_execution_sound {shape : Shape} {analysis : Integer.Analysis} {flow : Flow}
-    {integers : Integer.Store}
+    {integers : Integer.Store} {booleans : Boolean.Store}
     {item : Sequence.SimpleStatement} {input : Source} {values : Values} {valid rejected : Bool}
     (wellFormed : SimpleWellFormed shape item) (checked : checkSimple shape flow.path item flow.scalars = true)
     (state : Fits shape input values) (printable : Bindings.Printable input)
     (allowed : flow.Allows valid input.length rejected integers)
     (declaredState : Integer.Fits analysis.declared integers) :
     ExecutionSound shape analysis flow input valid rejected
-      (executeSimpleStatement input values item integers) (checkedSimpleStatement input values item integers) := by
+      (executeSimpleStatement input values item integers booleans) (checkedSimpleStatement input values item integers booleans) := by
   cases item with
   | null =>
       exact ⟨state, by simp [executeSimpleStatement, EffectsValid],
@@ -466,34 +564,34 @@ theorem allows_after_effects {context : Context} {valid : Bool} {length : Nat} {
 
 theorem iterations_execution_sound {shape : Shape} {analysis : Integer.Analysis}
     {ranges : Integer.Ranges} {before after : Context}
-    {input : Source} {valid rejected : Bool} {values : Values} {integers : Integer.Store} {indices : List Int}
-    {step : Values → Integer.Store → Int → Execution}
-    {checkedStep : Values → Integer.Store → Int → Option Execution}
-    (bodies : ∀ index ∈ indices, ∀ current scalars already,
+    {input : Source} {valid rejected : Bool} {values : Values} {integers : Integer.Store} {booleans : Boolean.Store} {indices : List Int}
+    {step : Values → Integer.Store → Boolean.Store → Int → Execution}
+    {checkedStep : Values → Integer.Store → Boolean.Store → Int → Option Execution}
+    (bodies : ∀ index ∈ indices, ∀ current scalars flags already,
       Fits shape input current → before.Allows valid input.length already → Integer.Fits ranges scalars →
       Integer.Fits analysis.declared scalars →
       ExecutionSound shape analysis ⟨after, ranges⟩ input valid already
-        (step current scalars index) (checkedStep current scalars index))
+        (step current scalars flags index) (checkedStep current scalars flags index))
     (state : Fits shape input values) (allowed : before.Allows valid input.length rejected)
     (scalarState : Integer.Fits ranges integers) (declaredState : Integer.Fits analysis.declared integers) :
     ExecutionSound shape analysis ⟨if indices = [] then before else after, ranges⟩ input valid rejected
-      (executeIterations step values integers indices) (checkedIterations checkedStep values integers indices) := by
-  induction indices generalizing values integers rejected with
+      (executeIterations step values integers booleans indices) (checkedIterations checkedStep values integers booleans indices) := by
+  induction indices generalizing values integers booleans rejected with
   | nil =>
       exact ⟨state, by simp [executeIterations, EffectsValid],
         by simp [executeIterations, NoOutput],
         by simpa only [executeIterations, rejectedAfter, List.any_nil, Bool.or_false, ↓reduceIte] using allowed,
         rfl, scalarState, declaredState⟩
   | cons index rest ih =>
-      have first := bodies index (by simp) values integers rejected state allowed scalarState declaredState
-      have remaining : ∀ item ∈ rest, ∀ current scalars already,
+      have first := bodies index (by simp) values integers booleans rejected state allowed scalarState declaredState
+      have remaining : ∀ item ∈ rest, ∀ current scalars flags already,
           Fits shape input current → before.Allows valid input.length already → Integer.Fits ranges scalars →
           Integer.Fits analysis.declared scalars →
           ExecutionSound shape analysis ⟨after, ranges⟩ input valid already
-            (step current scalars item) (checkedStep current scalars item) :=
+            (step current scalars flags item) (checkedStep current scalars flags item) :=
         fun item member => bodies item (List.mem_cons_of_mem index member)
-      have following := ih remaining first.state
-        (allows_after_effects allowed (step values integers index).effects) first.scalars first.declared
+      have following := ih (booleans := (step values integers booleans index).booleans) remaining first.state
+        (allows_after_effects allowed (step values integers booleans index).effects) first.scalars first.declared
       refine ⟨following.state, ?_, ?_, ?_, ?_, following.scalars, following.declared⟩
       · exact Sequence.effects_valid_append first.effects following.effects
       · intro invalid
@@ -507,15 +605,15 @@ theorem iterations_execution_sound {shape : Shape} {analysis : Integer.Analysis}
 
 mutual
   theorem statement_execution_sound {shape : Shape} {before after : Flow} {hasArguments : Bool}
-      {analysis : Integer.Analysis} {integers : Integer.Store}
+      {analysis : Integer.Analysis} {booleanAnalysis : Boolean.Analysis} {integers : Integer.Store} {booleans : Boolean.Store}
       {item : Statement} {input : Source} {values : Values} {valid rejected : Bool}
-      (wellFormed : item.WellFormed hasArguments shape)
-      (checked : item.check shape analysis before = some after)
+      (wellFormed : item.WellFormed hasArguments shape booleanAnalysis)
+      (checked : item.check shape analysis before booleanAnalysis = some after)
       (state : Fits shape input values) (printable : Bindings.Printable input)
       (allowed : before.Allows valid input.length rejected integers)
       (declaredState : Integer.Fits analysis.declared integers) :
       ExecutionSound shape analysis after input valid rejected
-        (item.execute input valid values integers) (item.checkedExecute input valid values integers) := by
+        (item.execute input valid values integers booleans) (item.checkedExecute input valid values integers booleans) := by
     cases item with
     | simple item =>
         simp only [Statement.WellFormed] at wellFormed
@@ -557,6 +655,19 @@ mutual
           · simpa [rejectedAfter] using allowed.1
           · simp only [sound.2.2.2.2, Option.map_some]
         · contradiction
+    | booleanAssign update =>
+        simp only [Statement.WellFormed] at wellFormed
+        simp only [Statement.check] at checked
+        split at checked
+        · rename_i good
+          cases checked
+          have bounds := (Bool.and_eq_true_iff.mp good).2
+          have agreement := update.value.checkedEvaluate_of_checkBounds (booleans := booleans)
+            state wellFormed.2.2 allowed bounds
+          simp only [Statement.execute, Statement.checkedExecute, agreement, Option.map_some]
+          exact ⟨state, by simp [EffectsValid], by simp [NoOutput],
+            by simpa [rejectedAfter] using allowed.1, rfl, allowed.2, declaredState⟩
+        · contradiction
     | reject =>
         simp only [Statement.check, Option.some.injEq] at checked
         subst after
@@ -572,12 +683,12 @@ mutual
         · rename_i bounded
           simp only [Option.bind_eq_some_iff, Option.map_eq_some_iff] at checked
           obtain ⟨afterYes, yesChecked, afterNo, noChecked, rfl⟩ := checked
-          have comparison := condition.checkedEvaluate_of_checkBounds state wellFormed.2.1 allowed bounded
-          have refined := condition.refine_sound (analysis := analysis) state wellFormed.2.1 allowed
-          cases outcome : condition.evaluate values input valid integers with
+          have comparison := condition.checkedEvaluate_of_checkBounds (booleans := booleans) state wellFormed.2.1 allowed bounded
+          have refined := condition.refine_sound (analysis := analysis) (booleans := booleans) state wellFormed.2.1 allowed
+          cases outcome : condition.evaluate values input valid integers booleans with
           | true =>
               simp only [outcome] at refined
-              have selected := statements_execution_sound wellFormed.2.2.2.1 yesChecked state printable refined declaredState
+              have selected := statements_execution_sound (booleans := booleans) wellFormed.2.2.2.1 yesChecked state printable refined declaredState
               refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
               · simpa only [Statement.execute, outcome, ↓reduceIte] using selected.state
               · simpa only [Statement.execute, outcome, ↓reduceIte] using selected.effects
@@ -589,7 +700,7 @@ mutual
               · simpa only [Statement.execute, outcome, ↓reduceIte] using selected.declared
           | false =>
               simp only [outcome] at refined
-              have selected := statements_execution_sound wellFormed.2.2.2.2 noChecked state printable refined declaredState
+              have selected := statements_execution_sound (booleans := booleans) wellFormed.2.2.2.2 noChecked state printable refined declaredState
               refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
               · simpa only [Statement.execute, outcome, Bool.false_eq_true, ↓reduceIte] using selected.state
               · simpa only [Statement.execute, outcome, Bool.false_eq_true, ↓reduceIte] using selected.effects
@@ -612,27 +723,27 @@ mutual
         have highWithin := (Integer.Expr.infer_sound upperFound allowed.2).1
         have iterated : ExecutionSound shape analysis
             ⟨if indices = [] then before.path else bodyAfter.path, widened⟩ input valid rejected
-            (executeIterations (fun current scalars value =>
-              (executeStatements input valid current body (Integer.put scalars index value)).restoreIndex index scalars)
-              values integers indices)
-            (checkedIterations (fun current scalars value =>
-              (checkedStatements input valid current body (Integer.put scalars index value)).map
-                fun result => result.restoreIndex index scalars) values integers indices) := by
+            (executeIterations (fun current scalars flags value =>
+              (executeStatements input valid current body (Integer.put scalars index value) flags).restoreIndex index scalars)
+              values integers booleans indices)
+            (checkedIterations (fun current scalars flags value =>
+              (checkedStatements input valid current body (Integer.put scalars index value) flags).map
+                fun result => result.restoreIndex index scalars) values integers booleans indices) := by
           apply iterations_execution_sound _ state allowed.1
             (analysis.widen_fits allowed.2 declaredState) declaredState
-          intro value member current scalars already currentState currentAllowed currentScalars currentDeclared
+          intro value member current scalars flags already currentState currentAllowed currentScalars currentDeclared
           have within := Integer.loopBounds_contains lowWithin highWithin (Integer.iterationValues_contains member)
           have bodyAllowed : (loopEntry analysis before index (Integer.loopBounds a b)).Allows
               valid input.length already (Integer.put scalars index value) := by
             refine ⟨?_, Integer.put_fits currentScalars within⟩
             simpa only [loopEntry, loopContext, Integer.Interval.contains_nonempty within, Bool.false_eq_true, ↓reduceIte]
               using currentAllowed
-          have bodySound := statements_execution_sound wellFormed.2.2 bodyChecked currentState printable bodyAllowed
+          have bodySound := statements_execution_sound (booleans := flags) wellFormed.2.2 bodyChecked currentState printable bodyAllowed
             (Integer.put_fits currentDeclared within)
           have restoredDeclared := Integer.restore_fits currentDeclared bodySound.declared
           have restoredCurrent : Integer.Fits widened
               (Integer.restore scalars (executeStatements input valid current body
-                (Integer.put scalars index value)).integers index) := by
+                (Integer.put scalars index value) flags).integers index) := by
             apply analysis.widen_closed currentScalars restoredDeclared
             intro other readonly
             by_cases same : other = index
@@ -641,7 +752,7 @@ mutual
             · have readBody : (analysis.withIndex index (Integer.loopBounds a b)).mutable other = false := by
                 simpa only [Integer.Analysis.withIndex, Integer.put, same, ↓reduceIte] using readonly
               have unchanged := statements_unchanged (input := input) (valid := valid)
-                (values := current) (integers := Integer.put scalars index value) bodyChecked readBody
+                (values := current) (booleans := flags) (integers := Integer.put scalars index value) bodyChecked readBody
               simpa only [Integer.restore, Integer.put, same, ↓reduceIte] using unchanged
           exact ⟨bodySound.state, bodySound.effects, bodySound.invalid_no_output, bodySound.next,
             by rw [bodySound.agreement]; rfl, restoredCurrent, restoredDeclared⟩
@@ -675,7 +786,7 @@ mutual
           · rename_i empty
             have noIterations : indices = [] :=
               Integer.iterationValues_empty (Integer.loopBounds_empty lowWithin highWithin empty)
-            change Integer.Fits before.scalars (executeIterations _ values integers indices).integers
+            change Integer.Fits before.scalars (executeIterations _ values integers booleans indices).integers
             simpa only [noIterations, executeIterations] using allowed.2
           · exact iterated.scalars
     | arrayLoop index reverse array body =>
@@ -691,19 +802,19 @@ mutual
           have nonempty : indices ≠ [] := Integer.iterationValues_nonempty properties.1.2
           have iterated : ExecutionSound shape analysis
               ⟨if indices = [] then before.path else bodyAfter.path, widened⟩ input valid rejected
-              (executeIterations (fun current scalars component =>
+              (executeIterations (fun current scalars flags component =>
                 (executeStatements input valid current body
-                  (Integer.put scalars index (array.project scalars component))).restoreIndex index scalars)
-                values integers indices)
-              (checkedIterations (fun current scalars component =>
+                  (Integer.put scalars index (array.project scalars component)) flags).restoreIndex index scalars)
+                values integers booleans indices)
+              (checkedIterations (fun current scalars flags component =>
                 if array.bounds.Contains component then
                   (Integer.checkedValue (array.project scalars component)).bind fun value =>
-                    (checkedStatements input valid current body (Integer.put scalars index value)).map
+                    (checkedStatements input valid current body (Integer.put scalars index value) flags).map
                       fun result => result.restoreIndex index scalars
-                else none) values integers indices) := by
+                else none) values integers booleans indices) := by
             apply iterations_execution_sound _ state allowed.1
               (analysis.widen_fits allowed.2 declaredState) declaredState
-            intro component member current scalars already currentState currentAllowed currentScalars currentDeclared
+            intro component member current scalars flags already currentState currentAllowed currentScalars currentDeclared
             have inside : array.bounds.Contains component := Integer.iterationValues_contains member
             have valueWithin : array.componentBounds.Contains (array.project scalars component) :=
               currentDeclared _ _ (properties.2.2.2.1 component inside)
@@ -712,12 +823,12 @@ mutual
             have bodyAllowed : (arrayLoopEntry analysis before index array.componentBounds).Allows
                 valid input.length already (Integer.put scalars index (array.project scalars component)) :=
               ⟨currentAllowed, Integer.put_fits currentScalars valueWithin⟩
-            have bodySound := statements_execution_sound wellFormed.2.2 bodyChecked currentState printable bodyAllowed
+            have bodySound := statements_execution_sound (booleans := flags) wellFormed.2.2 bodyChecked currentState printable bodyAllowed
               (Integer.put_fits currentDeclared valueWithin)
             have restoredDeclared := Integer.restore_fits currentDeclared bodySound.declared
             have restoredCurrent : Integer.Fits widened
                 (Integer.restore scalars (executeStatements input valid current body
-                  (Integer.put scalars index (array.project scalars component))).integers index) := by
+                  (Integer.put scalars index (array.project scalars component)) flags).integers index) := by
               apply analysis.widen_closed currentScalars restoredDeclared
               intro other readonly
               by_cases same : other = index
@@ -726,7 +837,7 @@ mutual
               · have readBody : (analysis.withIndex index array.componentBounds).mutable other = false := by
                   simpa only [Integer.Analysis.withIndex, Integer.put, same, ↓reduceIte] using readonly
                 have unchanged := statements_unchanged (input := input) (valid := valid)
-                  (values := current) (integers := Integer.put scalars index (array.project scalars component))
+                  (values := current) (booleans := flags) (integers := Integer.put scalars index (array.project scalars component))
                   bodyChecked readBody
                 simpa only [Integer.restore, Integer.put, same, ↓reduceIte] using unchanged
             refine ⟨bodySound.state, bodySound.effects, bodySound.invalid_no_output, bodySound.next,
@@ -739,15 +850,15 @@ mutual
   termination_by sizeOf item
 
   theorem statements_execution_sound {shape : Shape} {before after : Flow} {hasArguments : Bool}
-      {analysis : Integer.Analysis} {integers : Integer.Store}
+      {analysis : Integer.Analysis} {booleanAnalysis : Boolean.Analysis} {integers : Integer.Store} {booleans : Boolean.Store}
       {items : List Statement} {input : Source} {values : Values} {valid rejected : Bool}
-      (wellFormed : StatementsWellFormed hasArguments shape items)
-      (checked : checkStatements shape analysis before items = some after)
+      (wellFormed : StatementsWellFormed hasArguments shape items booleanAnalysis)
+      (checked : checkStatements shape analysis before items booleanAnalysis = some after)
       (state : Fits shape input values) (printable : Bindings.Printable input)
       (allowed : before.Allows valid input.length rejected integers)
       (declaredState : Integer.Fits analysis.declared integers) :
       ExecutionSound shape analysis after input valid rejected
-        (executeStatements input valid values items integers) (checkedStatements input valid values items integers) := by
+        (executeStatements input valid values items integers booleans) (checkedStatements input valid values items integers booleans) := by
     cases items with
     | nil =>
         simp only [checkStatements, Option.some.injEq] at checked
@@ -759,8 +870,9 @@ mutual
         simp only [StatementsWellFormed] at wellFormed
         simp only [checkStatements, Option.bind_eq_some_iff] at checked
         obtain ⟨middle, firstChecked, restChecked⟩ := checked
-        have first := statement_execution_sound wellFormed.1 firstChecked state printable allowed declaredState
-        have following := statements_execution_sound wellFormed.2 restChecked first.state printable
+        have first := statement_execution_sound (booleans := booleans) wellFormed.1 firstChecked state printable allowed declaredState
+        have following := statements_execution_sound
+          (booleans := (item.execute input valid values integers booleans).booleans) wellFormed.2 restChecked first.state printable
           ⟨first.next, first.scalars⟩ first.declared
         refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
         · simpa only [executeStatements] using following.state
@@ -776,16 +888,16 @@ mutual
 end
 
 theorem completed_invalid_rejected {shape : Shape} {before after : Flow} {hasArguments : Bool}
-    {analysis : Integer.Analysis} {integers : Integer.Store}
+    {analysis : Integer.Analysis} {booleanAnalysis : Boolean.Analysis} {integers : Integer.Store} {booleans : Boolean.Store}
     {items : List Statement} {input : Source} {values : Values}
-    (wellFormed : StatementsWellFormed hasArguments shape items)
-    (checked : checkStatements shape analysis before items = some after)
+    (wellFormed : StatementsWellFormed hasArguments shape items booleanAnalysis)
+    (checked : checkStatements shape analysis before items booleanAnalysis = some after)
     (state : Fits shape input values) (printable : Bindings.Printable input)
     (allowed : before.Allows false input.length false integers) (finished : completed after.path = true)
     (declaredState : Integer.Fits analysis.declared integers) :
-    Effect.reject ∈ (executeStatements input false values items integers).effects ∧
-      NoOutput (executeStatements input false values items integers).effects := by
-  have sound := statements_execution_sound wellFormed checked state printable allowed declaredState
+    Effect.reject ∈ (executeStatements input false values items integers booleans).effects ∧
+      NoOutput (executeStatements input false values items integers booleans).effects := by
+  have sound := statements_execution_sound (booleans := booleans) wellFormed checked state printable allowed declaredState
   have reachable := sound.next.2.1
   have guaranteed : after.path.invalidRejected = true := by
     simpa only [completed, reachable, Bool.not_true, Bool.false_or] using finished
@@ -799,12 +911,13 @@ theorem completed_invalid_rejected {shape : Shape} {before after : Flow} {hasArg
   · exact sound.invalid_no_output rfl
 
 theorem execute_statements_append (input : Source) (valid : Bool) (values : Values)
-    (first following : List Statement) (integers : Integer.Store := Integer.emptyStore) :
-    executeStatements input valid values (first ++ following) integers =
-      let before := executeStatements input valid values first integers
-      let after := executeStatements input valid before.values following before.integers
-      ⟨after.values, before.effects ++ after.effects, after.integers⟩ := by
-  induction first generalizing values integers with
+    (first following : List Statement) (integers : Integer.Store := Integer.emptyStore)
+      (booleans : Boolean.Store := Boolean.emptyStore) :
+    executeStatements input valid values (first ++ following) integers booleans =
+      let before := executeStatements input valid values first integers booleans
+      let after := executeStatements input valid before.values following before.integers before.booleans
+      ⟨after.values, before.effects ++ after.effects, after.integers, after.booleans⟩ := by
+  induction first generalizing values integers booleans with
   | nil => simp [executeStatements]
   | cons item rest ih => simp [executeStatements, ih, List.append_assoc]
 

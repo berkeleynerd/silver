@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Row+Col lies in 2..16 and divisor 2 is nonzero. No array, declared subtype, mutable object or scalar refinement is needed; each output is a bounded literal.
 
-Position 33 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 34 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

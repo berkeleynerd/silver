@@ -60,6 +60,14 @@ theorem arrayValueStart_bound (text : Source) (context : ParseContext) (scan : B
   model_fixed_valid text _ ":=" false
     (model_fixed_valid text _ ")" false (arrayIndex_bound text context scan))
 
+theorem condition_bound (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
+    (textValid : ValidText text) (namesValid : ValidNames text context.names)
+    (bounded : position ≤ text.length + 1) :
+    (readCondition text context position facts).after ≤ text.length + 1 := by
+  by_cases zero : (readCondition text context position facts).after = 0
+  · simp [zero]
+  · exact (condition_sound text context position facts textValid namesValid bounded zero).2
+
 theorem basicRaw_bound (text : Source) (context : ParseContext) (scan : BodyScan)
     (textValid : ValidText text) (namesValid : ValidNames text context.names)
     (bounded : scan.position ≤ text.length + 1) :
@@ -75,7 +83,7 @@ theorem basicRaw_bound (text : Source) (context : ParseContext) (scan : BodyScan
         apply model_fixed_valid
         exact (model_expression_valid (arrays := context.arrayNames) (scalarNames := context.readingNames scan.facts) text textValid _ context.names
             (Names.associationAfter_bound text _ false
-              (model_fixed_valid text _ "(" false (model_callAfter_valid (arrays := context.arrayNames) (scalarNames := context.scalarNames) (subtypeHidden := context.subtypeHiding.get .output) text context.names scan.position .output bounded))) namesValid).1
+              (model_fixed_valid text _ "(" false (model_callAfter_valid (arrays := context.arrayNames) (scalarNames := context.scalarNames) (booleans := context.booleanNames) (subtypeHidden := context.subtypeHiding.get .output) text context.names scan.position .output bounded))) namesValid).1
   | put =>
       try dsimp only
       split
@@ -84,21 +92,28 @@ theorem basicRaw_bound (text : Source) (context : ParseContext) (scan : BodyScan
         apply model_fixed_valid
         exact (model_expression_valid (arrays := context.arrayNames) (scalarNames := context.readingNames scan.facts) text textValid _ context.names
             (Names.associationAfter_bound text _ false
-              (model_fixed_valid text _ "(" false (model_callAfter_valid (arrays := context.arrayNames) (scalarNames := context.scalarNames) (subtypeHidden := context.subtypeHiding.get .partialOutput) text context.names scan.position .partialOutput bounded))) namesValid).1
-  | reject => exact model_callAfter_valid (arrays := context.arrayNames) (scalarNames := context.scalarNames) (subtypeHidden := context.subtypeHiding.get .reject) text context.names scan.position .reject bounded
+              (model_fixed_valid text _ "(" false (model_callAfter_valid (arrays := context.arrayNames) (scalarNames := context.scalarNames) (booleans := context.booleanNames) (subtypeHidden := context.subtypeHiding.get .partialOutput) text context.names scan.position .partialOutput bounded))) namesValid).1
+  | reject => exact model_callAfter_valid (arrays := context.arrayNames) (scalarNames := context.scalarNames) (booleans := context.booleanNames) (subtypeHidden := context.subtypeHiding.get .reject) text context.names scan.position .reject bounded
   | scalarAssignment =>
       unfold scalarAssignmentBody
       dsimp only
       split
       · exact Nat.zero_le _
-      · exact scalarRead_bound text _ (context.readingNames scan.facts) 0 0 context.arrayNames
+      · exact scalarRead_bound (elaborating := context.elaborating) text _ (context.readingNames scan.facts) 0 0 context.arrayNames
+          (model_fixed_valid text _ ":=" false (model_name_valid text _))
+  | booleanAssignment =>
+      unfold booleanAssignmentBody
+      dsimp only
+      split
+      · exact Nat.zero_le _
+      · exact condition_bound text context _ scan.facts textValid namesValid
           (model_fixed_valid text _ ":=" false (model_name_valid text _))
   | arrayAssignment =>
       unfold arrayAssignmentBody
       dsimp only
       split
       · exact Nat.zero_le _
-      · exact scalarRead_bound text _ (context.readingNames scan.facts) 0 0 context.arrayNames
+      · exact scalarRead_bound (elaborating := context.elaborating) text _ (context.readingNames scan.facts) 0 0 context.arrayNames
           (model_fixed_valid text _ ":=" false (model_fixed_valid text _ ")" false
             (scalarRead_bound text _ (context.readingNames scan.facts) 0 0 []
               (model_fixed_valid text _ "(" false (model_name_valid text _)))))
@@ -142,14 +157,6 @@ theorem basicBody_progress (text : Source) (context : ParseContext) (scan : Body
 
 theorem basicBody_zero {text context scan} (zero : scan.position = 0) :
     basicBody text context scan = invalidBody scan := by simp [basicBody, zero]
-
-theorem condition_bound (text : Source) (context : ParseContext) (position : Nat) (facts : ActiveFlow)
-    (textValid : ValidText text) (namesValid : ValidNames text context.names)
-    (bounded : position ≤ text.length + 1) :
-    (readCondition text context position facts).after ≤ text.length + 1 := by
-  by_cases zero : (readCondition text context position facts).after = 0
-  · simp [zero]
-  · exact (condition_sound text context position facts textValid namesValid bounded zero).2
 
 @[simp] theorem branchStart_assigned (text : Source) (context : ParseContext) (scan : BodyScan) (keyword : String) :
     (branchStart text context scan keyword).1.assigned = scan.assigned := rfl

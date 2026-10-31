@@ -1,0 +1,9 @@
+{
+  "checked_at": "2026-10-30T16:15:07.315672+00:00",
+  "snapshot_files_checked": 12053,
+  "all_match": true,
+  "only_snapshot_override": "tests/test_branching.py",
+  "override_commit": "29bc1d44d7",
+  "override_sha256": "be16a4293c65e2feff11b290f9568c0de4eb289607f58dcbac662c230d2e3252",
+  "binary_sha256": "86617db42c93c7ecd98528e7e117210534e43305cce3ecf5241701014933f216"
+}

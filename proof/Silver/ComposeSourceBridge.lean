@@ -7,6 +7,7 @@ public import Silver.NamesSourceBridge
 public import Silver.ScalarExpressionSourceBridge
 public import Silver.ComposeEvaluation
 public import Silver.IntegerImageNativeSource
+public import Silver.ComposeBooleanDeclarationLibraries
 
 @[expose] public section
 
@@ -29,6 +30,7 @@ structure CheckedSource : Prop where
   inherited : Lexical.SourceBridge.CheckedSource
   expressions : ExpressionTranslation
   arrayHelpers : ArrayHelperTranslation
+  booleanDeclaration : BooleanDeclarationNative.SourceChecks.Checked Source.outputBodyTokens
   catalogue : HelperCatalogueTranslation
   tokens : TokenMapping
   declarations : Declarations
@@ -48,6 +50,7 @@ theorem checked_source : CheckedSource where
   inherited := Lexical.SourceBridge.checked_source
   expressions := actual_expressions
   arrayHelpers := actual_array_helpers
+  booleanDeclaration := actual_boolean_declaration
   catalogue := actual_catalogue
   tokens := finite_mapping
   declarations := actual_declarations
@@ -59,9 +62,22 @@ theorem checked_source : CheckedSource where
 
 def NativeForm (form : Form) : Prop := form ∈ helperForms
 
+/-- Interpretation of the ordinary Boolean declaration function and its
+native callees. Predicate meaning is derived from typed equations and verified
+contracts; no field assumes either scanner's equivalence to admission. -/
+structure BooleanDeclarationInterpretation (calls : Expressions.Calls) : Prop where
+  source : ∃ (imports : BooleanDeclarationNative.Imports) (predicate : Predicate.Native.Calls),
+    Predicate.Native.HelperMeaning predicate ∧
+    Predicate.Native.DefinitionEquations predicate ∧ Predicate.Native.Contracts predicate ∧
+    BooleanDeclarationNative.Libraries.Links imports calls predicate ∧
+    ∀ text, Expressions.ValidText text → ∀ state arguments,
+      Predicate.OuterReadiness.ValidState text state →
+      calls.function .booleanDeclaration text state arguments =
+        BooleanDeclarationNative.body.eval imports {text, state, arguments}
+
 /-- Helper definitions and executed lexical-call domains, with Step restricted
 to the two shell tags actually declared by the native implementation. -/
-structure InterpretedSource (calls : Expressions.Calls) (domain : StateDomain := .basic) : Prop where
+structure InterpretedSource (calls : Expressions.Calls) : Prop where
   imageLengths : ∃ (imageCalls : Integer.Image.Native.Calls) (scalarCalls : Integer.Native.Calls),
     Integer.Image.NativeSource.InterpretedSource imageCalls scalarCalls ∧
       ∀ bounds, bounds.Bounded →
@@ -71,24 +87,25 @@ structure InterpretedSource (calls : Expressions.Calls) (domain : StateDomain :=
       (token : Source → Nat → String → Bool → Bool),
     calls.primitive = Lexical.primitives helpers token ∧
       Lexical.InterpretedSource helpers token
-  definitions : Expressions.HelperEquations calls calls domain
-  legal : Expressions.LegalHelpers calls domain
+  definitions : Expressions.RawHelperEquations calls calls Predicate.OuterReadiness.domain
+  booleanDeclaration : BooleanDeclarationInterpretation calls
+  legal : Expressions.LegalHelpers calls Predicate.OuterReadiness.domain
   step : ∀ text, Expressions.ValidText text → ∀ form token state,
-    NativeForm form → Expressions.ValidToken token → domain.holds text state →
+    NativeForm form → Expressions.ValidToken token → Predicate.OuterReadiness.ValidState text state →
     calls.function .step text form token state =
       Expressions.stepBody.eval calls (Expressions.Context.locals {text,form,token,state})
   stepLegal : ∀ text, Expressions.ValidText text → ∀ form token state,
-    NativeForm form → Expressions.ValidToken token → domain.holds text state →
+    NativeForm form → Expressions.ValidToken token → Predicate.OuterReadiness.ValidState text state →
     Expressions.stepBody.Legal calls (Expressions.Context.locals {text,form,token,state})
 
-theorem interpreted_primitives {domain : StateDomain} (calls : Expressions.Calls)
-    (source : InterpretedSource calls domain) : Lexical.Meaning calls.primitive := by
+theorem interpreted_primitives (calls : Expressions.Calls)
+    (source : InterpretedSource calls) : Lexical.Meaning calls.primitive := by
   obtain ⟨helpers, token, same, interpreted⟩ := source.lexical
   rw [same]
   exact Lexical.interpreted_primitives helpers token interpreted
 
-theorem interpreted_equations {domain : StateDomain} (calls : Expressions.Calls)
-    (source : InterpretedSource calls domain) : Expressions.HelperEquations calls (domain := domain) := by
+theorem interpreted_equations (calls : Expressions.Calls)
+    (source : InterpretedSource calls) : Expressions.HelperEquations calls (domain := Predicate.OuterReadiness.domain) := by
   obtain ⟨imageCalls, scalarCalls, imageSource, linked⟩ := source.imageLengths
   have minimum : ∀ bounds, bounds.Bounded →
       calls.function .imageMinimum bounds = (LengthSummary.ofImage bounds).minimumLength := by
@@ -104,13 +121,21 @@ theorem interpreted_equations {domain : StateDomain} (calls : Expressions.Calls)
       Integer.Image.NativeSource.maximumLength_eq imageCalls scalarCalls imageSource bounds bounded]
     unfold LengthSummary.ofImage
     split <;> rfl
-  exact Expressions.normalized_helpers calls (interpreted_primitives calls source)
+  let raw := Expressions.normalized_rawHelpers calls (interpreted_primitives calls source)
     {source.definitions with imageMinimum := minimum, imageMaximum := maximum} source.legal
+  refine { toRawHelperEquations := raw, booleanDeclaration := ?_ }
+  obtain ⟨imports, predicate, helpers, definitions, contracts, links, equation⟩ :=
+    source.booleanDeclaration.source
+  intro text valid state arguments ready
+  exact (equation text valid state arguments ready).trans
+    (BooleanDeclarationNative.imports_meaning imports text state arguments
+      (BooleanDeclarationNative.Libraries.imports_meaning raw helpers definitions contracts links
+        text valid state arguments ready))
 
-theorem interpreted_step {domain : StateDomain} (calls : Expressions.Calls) (source : InterpretedSource calls domain)
+theorem interpreted_step (calls : Expressions.Calls) (source : InterpretedSource calls)
     (text : Source) (valid : Expressions.ValidText text) (form : Form) (token : ShellToken)
     (state : ParserState) (native : NativeForm form)
-    (tokenValid : Expressions.ValidToken token) (context : domain.holds text state) :
+    (tokenValid : Expressions.ValidToken token) (context : Predicate.OuterReadiness.ValidState text state) :
     calls.function .step text form token state = step text form token state := by
   let equations := interpreted_equations calls source
   have normalized := Expressions.Expr.eval_lexical calls (interpreted_primitives calls source)
@@ -128,11 +153,11 @@ theorem interpreted_step {domain : StateDomain} (calls : Expressions.Calls) (sou
   have output := interpreted_output calls equations text valid state context
   have comparison := interpreted_comparison calls equations text valid state context
   have capacity := interpreted_capacity calls equations text valid state context
-  have skipped := interpreted_skip calls equations text valid state.position (domain.valid text state context).1
-  have skipDomain := equations.ranges.skip text valid state.position (domain.valid text state context).1
+  have skipped := interpreted_skip calls equations.toRawHelperEquations text valid state.position context.1.1
+  have skipDomain := equations.ranges.skip text valid state.position context.1.1
   rw [skipped] at skipDomain
-  have literal := interpreted_literal calls equations text valid (skipAt text state.position) skipDomain
-  have taken := interpreted_take calls equations text valid state.position token (domain.valid text state context).1 tokenValid
+  have literal := interpreted_literal calls equations.toRawHelperEquations text valid (skipAt text state.position) skipDomain
+  have taken := interpreted_take calls equations.toRawHelperEquations text valid state.position token context.1.1 tokenValid
   dsimp +instances only [stepBody, Expr.eval, Calls.get, Field.get, Context.locals, lexical, modelPrimitives]
   rw [skipped, literal, argument, read, target, targetSame, dynamic, assignment, output, comparison, capacity, taken, contextAfter]
   cases token <;> simp +instances [step, spelling, isWord, BEq.beq]

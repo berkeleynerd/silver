@@ -1,0 +1,16 @@
+{
+  "source_sha256": "9542d721cb1d63f936704058e6e0705b615fdce9e86d08397a2384c7714cc4a0",
+  "full_source_token_count": 44843,
+  "pin_matches_full_actual_source_tokens": true,
+  "ordinary_implementation_count": 1,
+  "body_token_count": 800,
+  "initializer_unwrapped_token_count": 765,
+  "old_render_token_count": 798,
+  "first_mismatch_index": 5,
+  "actual_first_mismatch": "(",
+  "old_first_mismatch": "declare",
+  "missing_matching_close_index": 771,
+  "model_to_executable_substitution_count": 1,
+  "complete_repaired_body_equal": true,
+  "scope": "Python token diagnostic; full Lean source correspondence remains required"
+}

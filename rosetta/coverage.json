@@ -22,7 +22,8 @@
   "scalar-guard-refinement",
   "fixed-integer-arrays",
   "constant-integer-array-iteration",
-  "named-integer-subtypes"
+  "named-integer-subtypes",
+  "scalar-boolean-objects"
  ],
  "tasks": {
   "100 doors": {
@@ -1957,7 +1958,7 @@
    "summary": "All arithmetic and indexes are bounded by small fixed ranges and guards, and loops are in procedures, so no annotation is needed, but the transposition index bookkeeping needs careful guard placement.",
    "confidence": "medium"
   },
-  "Aho–Corasick algorithm": {
+  "Aho\u2013Corasick algorithm": {
    "revision": 413631,
    "assessed": "2026-10-15",
    "rubric": 2,
@@ -3371,7 +3372,7 @@
    "summary": "Every operation works on embedded constants or bounded real subtypes with no loops, so all float overflow and range checks follow from types and literals and no annotation is needed. The only unusual need is Long_Float arithmetic with Sqrt, which is routine once operands are range-bounded.",
    "confidence": "medium"
   },
-  "Apéry's constant": {
+  "Ap\u00e9ry's constant": {
    "revision": 413640,
    "assessed": "2026-10-15",
    "rubric": 2,
@@ -5894,7 +5895,7 @@
    "summary": "Every check follows from declared digit and count ranges plus a carry-out guard, and no loop needs an invariant, but the nested carry loops and guarded counters need careful shape; floating point is avoided with embedded expected constants.",
    "confidence": "medium"
   },
-  "Berlekamp–Massey algorithm": {
+  "Berlekamp\u2013Massey algorithm": {
    "revision": 414072,
    "assessed": "2026-10-15",
    "rubric": 2,
@@ -7027,7 +7028,7 @@
    "summary": "Integer Bresenham on a small fixed grid has all indexes and arithmetic bounded by 1..16 subtypes and for loops, so checks should discharge without annotations, though the nonlinear rounding division and subtype conversions need careful shaping. Silver today lacks arrays, loops, procedures, characters and integers, which are needed.",
    "confidence": "medium"
   },
-  "Bitmap/Bézier curves/Cubic": {
+  "Bitmap/B\u00e9zier curves/Cubic": {
    "revision": 414083,
    "assessed": "2026-10-15",
    "rubric": 2,
@@ -7069,7 +7070,7 @@
    "summary": "Every value is a function of a for-loop index over subtypes with small declared ranges, so all overflow, division and index checks follow from types and static bounds with no loop-carried state, though nonlinear integer arithmetic needs the ranges to be tight.",
    "confidence": "medium"
   },
-  "Bitmap/Bézier curves/Quadratic": {
+  "Bitmap/B\u00e9zier curves/Quadratic": {
    "revision": 414084,
    "assessed": "2026-10-15",
    "rubric": 2,
@@ -7890,7 +7891,7 @@
    "summary": "The program only needs Boolean declarations, if statements and string output, so every check is trivial and no loop or arithmetic is involved.",
    "confidence": "high"
   },
-  "Borůvka algorithm": {
+  "Bor\u016fvka algorithm": {
    "revision": 414091,
    "assessed": "2026-10-15",
    "rubric": 2,
@@ -8341,7 +8342,7 @@
    "summary": "All arithmetic stays within small declared ranges (n up to about 1.1 million, divisors up to about 1,010, a sieve to 10,000) using only for loops and guards in procedures, so every check follows from types and guards and no annotation is needed.",
    "confidence": "medium"
   },
-  "Bron–Kerbosch algorithm": {
+  "Bron\u2013Kerbosch algorithm": {
    "revision": 414095,
    "assessed": "2026-10-15",
    "rubric": 2,
@@ -8641,7 +8642,7 @@
    "summary": "All checks follow from fixed array bounds, small ranged subtypes and guards before each increment or parse, with no annotation required, but many loop-carried counters need careful guarding and stdin parsing support is needed.",
    "confidence": "medium"
   },
-  "Burrows–Wheeler transform": {
+  "Burrows\u2013Wheeler transform": {
    "revision": 412689,
    "assessed": "2026-10-15",
    "rubric": 2,
@@ -8694,7 +8695,7 @@
    "summary": "Everything is bounded for loops over fixed-capacity arrays with range-subtype indices and mod-based wraparound, so checks follow from types and guards, though the sort comparison and inverse mapping need careful shaping. No annotations are required, and the nested loops carry no facts beyond types.",
    "confidence": "medium"
   },
-  "Bézier curves/Intersections": {
+  "B\u00e9zier curves/Intersections": {
    "revision": 414097,
    "assessed": "2026-10-15",
    "rubric": 2,
@@ -9831,7 +9832,7 @@
    "summary": "The task asks only to draw a catenoid and the text-art rendering meets it, so there is no Oracle conflict. The floating-point trigonometry and hyperbolic functions are the only non-routine proof burden, which a range-limited library or series keeps dischargeable without annotations.",
    "confidence": "medium"
   },
-  "Catmull–Clark subdivision surface": {
+  "Catmull\u2013Clark subdivision surface": {
    "revision": 414106,
    "assessed": "2026-10-15",
    "rubric": 2,
@@ -11526,7 +11527,7 @@
    "summary": "The task's stated goal is to create independent closures, each capturing the value of a loop variable, which SPARK cannot express: it has no closures or anonymous functions, and access-to-subprogram values are restricted. The existing Ada answer works around this with an array of protected objects, which simulates closures rather than providing them, so the task is excluded as outside-spark.",
    "confidence": "medium"
   },
-  "Cocke–Younger–Kasami (CYK) Algorithm": {
+  "Cocke\u2013Younger\u2013Kasami (CYK) Algorithm": {
    "revision": 414115,
    "assessed": "2026-10-15",
    "rubric": 2,
@@ -11700,7 +11701,7 @@
    "summary": "Every check follows from the array's declared index range, a count typed with the capacity as its upper bound, a capacity guard just before each append, and a for loop over a bounded range, so no annotation is needed.",
    "confidence": "high"
   },
-  "Color Difference CIE ΔE2000": {
+  "Color Difference CIE \u0394E2000": {
    "revision": 407169,
    "assessed": "2026-10-15",
    "rubric": 2,
@@ -11711,7 +11712,7 @@
    "effects": [
     {
      "effect": "console-output",
-     "explanation": "Prints a table of the 15 input Lab pairs and their computed ΔE2000 values to standard output."
+     "explanation": "Prints a table of the 15 input Lab pairs and their computed \u0394E2000 values to standard output."
     }
    ],
    "surface": [
@@ -11752,7 +11753,7 @@
     }
    ],
    "size": 140,
-   "approach": "Test colors are embedded in a constant two-dimensional Long_Float array of ranged values, and a pure function computes ΔE2000 straight-line with Sqrt, Sin, Exp and Arctan from an admitted math library, with a hand-written atan2 using explicit branches on the sign of the x term. A for loop over the 15 rows calls the function, scales the result to an integer count of 1e-10 units under a range guard, and builds each output line in a bounded String buffer printed with Put_Line.",
+   "approach": "Test colors are embedded in a constant two-dimensional Long_Float array of ranged values, and a pure function computes \u0394E2000 straight-line with Sqrt, Sin, Exp and Arctan from an admitted math library, with a hand-written atan2 using explicit branches on the sign of the x term. A for loop over the 15 rows calls the function, scales the result to an integer count of 1e-10 units under a range guard, and builds each output line in a bounded String buffer printed with Put_Line.",
    "summary": "The algorithm is straight-line floating-point code with no loop-carried values, so every check depends only on declared input ranges and guards, but float nonlinear arithmetic, elementary-function contracts and 10-decimal formatting make discharge dependent on careful program shape.",
    "confidence": "medium"
   },
@@ -12474,31 +12475,27 @@
     }
    ],
    "surface": [
-    "integers",
-    "ranged-subtypes",
-    "booleans",
-    "arrays",
-    "for-loops",
-    "scalar-image",
-    "string-building",
-    "put",
-    "procedures"
+    "scalar-boolean-objects",
+    "named-integer-subtypes",
+    "fixed-integer-arrays",
+    "constant-integer-array-iteration",
+    "integer-image",
+    "put"
    ],
    "outlook": "likely",
-   "risks": [
-    {
-     "obligation": "index",
-     "explanation": "The result counter is a loop-carried value, so the program guards each append with a test of Count against the array capacity (8, equal to the length of the first list) just before the indexed store."
-    },
-    {
-     "obligation": "range",
-     "explanation": "Count is declared with a subtype 0 .. 8 and incremented only inside that guard, so the increment's range check follows from the guard and the type."
-    }
-   ],
-   "size": 45,
-   "approach": "The three example lists are constant Integer arrays embedded in the program, and the result is a fixed-capacity array of 8 with a Count of type 0 .. 8. Nested for loops over each array's own range test whether each element of the first list appears in the second and third using Boolean flags set inside the inner loops. Matches are appended under a capacity guard, and the output is built with Put and the integer image, with commas between elements (the matches come out in first-list order as 3, 9, 6, which is the same set as the example's [3,6,9]).",
-   "summary": "Every index comes from for-loop ranges over the arrays themselves and the single loop-carried counter is bounded by its subtype and a guard, so all checks discharge without annotations. No while loops, recursion or functions with loops are needed.",
-   "confidence": "high"
+   "risks": [],
+   "size": 35,
+   "approach": "The driver samples/rosetta_common_list_elements.adb embeds exactly the task lists (2,5,1,3,8,9,4,6), (3,5,6,2,9,8,4) and (1,3,7,6,9) as constant arrays with component subtype 1..9. For each first-list element, nested foreach loops compute two Boolean membership flags. Their eager conjunction selects common elements. A separate Printed flag controls commas while Put streams a bracketed list in first-list order: 3,9,6, the same set as the task example 3,6,9.",
+   "summary": "Direct streaming needs no result buffer, dynamic String building or user procedure. Constant-array iteration supplies bounded component values, and all tests and output use the existing finite bodies. Independent expected output uses set intersection and first-list ordering. A no-match regression exercises both false flags and empty output. Scope and validation status are recorded in docs/boolean-objects.md and the linked assessment record.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-30",
+    "record": "../rosetta/assessment-boolean-objects-20261030.md",
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setting_evidence": "Selected setting through bounded subthread controls; runtime model and effort not independently exposed",
+    "method": "Current source/task/scope reconciliation at tree 59cfd9c3dc, implementation/proof input b6aeb9f978; prior prepared-review and contingent-render provenance retained in the linked record; universal and native assurance tracked separately in docs/boolean-objects.md"
+   }
   },
   "Common sorted list": {
    "revision": 415200,
@@ -20876,7 +20873,7 @@
    "summary": "The algorithm is two for loops over an array's own range, so indexes and termination are routine, but the loop-carried sums need guards because no invariant can be written, which makes discharge depend on careful shape. Nothing needs an annotation, recursion or heap, so the outlook is plausible.",
    "confidence": "medium"
   },
-  "Erdös-Selfridge categorization of primes": {
+  "Erd\u00f6s-Selfridge categorization of primes": {
    "revision": 415458,
    "assessed": "2026-10-15",
    "rubric": 2,
@@ -20925,7 +20922,7 @@
    "summary": "Every check follows from subtype-bounded indices and guarded divisions in procedure loops with no recursion, but several loop-carried values need careful range typing and the large fixed tables raise a stack-size premise. No annotation is needed, so discharge is plausible rather than routine.",
    "confidence": "medium"
   },
-  "Erdős-Nicolas numbers": {
+  "Erd\u0151s-Nicolas numbers": {
    "revision": 412056,
    "assessed": "2026-10-15",
    "rubric": 2,
@@ -20936,7 +20933,7 @@
    "effects": [
     {
      "effect": "console-output",
-     "explanation": "Prints each Erdős–Nicolas number with its divisor count k, one line per result."
+     "explanation": "Prints each Erd\u0151s\u2013Nicolas number with its divisor count k, one line per result."
     }
    ],
    "surface": [
@@ -20974,7 +20971,7 @@
    "summary": "All arithmetic is bounded by array-bounds subtypes and fixed Limit and every check can be guarded just before use with a visible rejection, but the loop-carried sums and the multiple j need careful guards and a large fixed-capacity pair of arrays is needed.",
    "confidence": "medium"
   },
-  "Erdős-primes": {
+  "Erd\u0151s-primes": {
    "revision": 414184,
    "assessed": "2026-10-15",
    "rubric": 2,
@@ -20985,7 +20982,7 @@
    "effects": [
     {
      "effect": "console-output",
-     "explanation": "Prints the count and the list of Erdős primes below 2500 to standard output."
+     "explanation": "Prints the count and the list of Erd\u0151s primes below 2500 to standard output."
     }
    ],
    "surface": [
@@ -21021,11 +21018,11 @@
     }
    ],
    "size": 55,
-   "approach": "A Boolean array 0 .. 2499 is filled by a sieve of Eratosthenes using for loops, then for each prime P below 2500 a while loop in the main procedure walks the factorials 1!, 2!, 3!, ... while Fact < P and stops with a not-Erdős result as soon as P - Fact is prime. Qualifying primes are stored in a fixed 64-entry array with a guarded counter, then printed ten per line using 'Image text built in a bounded buffer with Put and New_Line, followed by the count; the 1,000,000 stretch goal is left out as optional.",
+   "approach": "A Boolean array 0 .. 2499 is filled by a sieve of Eratosthenes using for loops, then for each prime P below 2500 a while loop in the main procedure walks the factorials 1!, 2!, 3!, ... while Fact < P and stops with a not-Erd\u0151s result as soon as P - Fact is prime. Qualifying primes are stored in a fixed 64-entry array with a guarded counter, then printed ten per line using 'Image text built in a bounded buffer with Put and New_Line, followed by the count; the 1,000,000 stretch goal is left out as optional.",
    "summary": "All data is fixed-size with static bounds and the only loop-carried arithmetic is the factorial product, which a simple guard against the small limit keeps within range, so no annotation is needed but the nonlinear sieve index and product need careful shape.",
    "confidence": "medium"
   },
-  "Erdős–Woods numbers": {
+  "Erd\u0151s\u2013Woods numbers": {
    "revision": 414185,
    "assessed": "2026-10-15",
    "rubric": 2,
@@ -21036,7 +21033,7 @@
    "effects": [
     {
      "effect": "console-output",
-     "explanation": "Prints each Erdős–Woods number k with its smallest a, one line per result."
+     "explanation": "Prints each Erd\u0151s\u2013Woods number k with its smallest a, one line per result."
     }
    ],
    "surface": [
@@ -22160,7 +22157,7 @@
    "summary": "Every index and counter is range-typed or guarded just before use, cells wrap by a modular type, and the loop sits in a procedure with a step limit, so no annotation is needed, though careful guard placement across the loop-carried positions is required.",
    "confidence": "medium"
   },
-  "Experimental Verification of the NKT Law: Interpolating the Masses of 8 Planets Using NASA Data as of 30–31/12/2024": {
+  "Experimental Verification of the NKT Law: Interpolating the Masses of 8 Planets Using NASA Data as of 30\u201331/12/2024": {
    "revision": 398670,
    "assessed": "2026-10-15",
    "rubric": 2,
@@ -22171,7 +22168,7 @@
    "effects": [
     {
      "effect": "console-output",
-     "explanation": "Prints a table of planet names, interpolated masses, NASA masses and Δm with a pass/fail remark."
+     "explanation": "Prints a table of planet names, interpolated masses, NASA masses and \u0394m with a pass/fail remark."
     }
    ],
    "surface": [
@@ -22209,11 +22206,11 @@
     }
    ],
    "size": 70,
-   "approach": "Embed the eight planets' names, x, v, NKTg1 and NASA mass as constant arrays of a bounded Long_Float subtype (or a record array), and loop with a for loop over the array's own range. Each iteration guards that x*v is nonzero and in range, computes m = NKTg1/(x*v) and Δm = |m_NASA − m|, then prints the name, values and an 'approximately zero' verdict from a relative-tolerance comparison against the NASA mass, with a visible rejection line otherwise.",
+   "approach": "Embed the eight planets' names, x, v, NKTg1 and NASA mass as constant arrays of a bounded Long_Float subtype (or a record array), and loop with a for loop over the array's own range. Each iteration guards that x*v is nonzero and in range, computes m = NKTg1/(x*v) and \u0394m = |m_NASA \u2212 m|, then prints the name, values and an 'approximately zero' verdict from a relative-tolerance comparison against the NASA mass, with a visible rejection line otherwise.",
    "summary": "Everything is a fixed 8-element for loop over embedded constants with only multiply, divide and subtract on bounded floats, so no annotations are needed, but the floating-point range and division-by-zero checks plus float-to-text output depend on careful bounded subtypes and guards.",
    "confidence": "medium"
   },
-  "Experimental Verification of the NKTg Law in Earth Orbit Based on NASA’s 2025 Earth Dataset": {
+  "Experimental Verification of the NKTg Law in Earth Orbit Based on NASA\u2019s 2025 Earth Dataset": {
    "revision": 409786,
    "assessed": "2026-10-15",
    "rubric": 2,
@@ -22309,7 +22306,7 @@
    "summary": "All data are static and positive-ranged, so overflow and division checks follow from the subtypes and for-loop indexes over the array's own range, and nothing needs an annotation. The remaining uncertainty is the float provers on the product chain and the as-yet-absent float formatting library.",
    "confidence": "medium"
   },
-  "Experimental Verification of the NKTg Law Using NASA Neptune Data (2023–2024)": {
+  "Experimental Verification of the NKTg Law Using NASA Neptune Data (2023\u20132024)": {
    "revision": 401698,
    "assessed": "2026-10-15",
    "rubric": 2,
@@ -29534,7 +29531,7 @@
    "summary": "The task asks for a program that deliberately crashes, for example by raising Program_Error. Silver requires proof that no run-time error or exception can happen, so the task conflicts with that fixed Oracle rule and cannot be included.",
    "confidence": "high"
   },
-  "Hamiltonian Cycle via Chvátal Closure": {
+  "Hamiltonian Cycle via Chv\u00e1tal Closure": {
    "revision": 414243,
    "assessed": "2026-10-15",
    "rubric": 2,
@@ -30086,7 +30083,7 @@
    "summary": "Every check follows from ranged float subtypes, library contracts and guards before Sqrt and ArcSin, with no loops or recursion, but the floating-point reasoning and the dependence on an admitted elementary-functions library make discharge depend on careful program shape rather than being routine.",
    "confidence": "medium"
   },
-  "Held–Karp algorithm": {
+  "Held\u2013Karp algorithm": {
    "revision": 413741,
    "assessed": "2026-10-15",
    "rubric": 2,
@@ -33557,7 +33554,7 @@
     }
    ],
    "size": 90,
-   "approach": "Each of the six sets is a row in a constant 6x5 Integer table with a parallel array of element counts (A has 0), and the sets contain distinct values so the union size is |A|+|B|-|A∩B|. Nested for loops over the index ranges count the intersection with a guarded increment, a function returns the index as a scaled integer (guarding union=0 to give 1), and a procedure prints \"J(X,Y) = J(Y,X) = d.ddddddd\" using integer division and mod for the seven decimal digits and Character'Val for the set letters, for X<=Y over A..F.",
+   "approach": "Each of the six sets is a row in a constant 6x5 Integer table with a parallel array of element counts (A has 0), and the sets contain distinct values so the union size is |A|+|B|-|A\u2229B|. Nested for loops over the index ranges count the intersection with a guarded increment, a function returns the index as a scaled integer (guarding union=0 to give 1), and a procedure prints \"J(X,Y) = J(Y,X) = d.ddddddd\" using integer division and mod for the seven decimal digits and Character'Val for the set letters, for X<=Y over A..F.",
    "summary": "All checks follow from fixed array bounds, for-loop ranges over them and a zero-union guard, and the exact-decimal output via scaled integers avoids floating point; the only non-routine point is the loop-carried intersection counter, which a visible guard keeps in range.",
    "confidence": "high"
   },
@@ -33910,7 +33907,7 @@
    "summary": "Everything is bounded for loops over fixed-size arrays in procedures, so termination and indexing are routine, but loop-carried distance arithmetic needs explicit magnitude guards with a visible rejection outcome to discharge overflow without invariants.",
    "confidence": "medium"
   },
-  "Jordan-Pólya numbers": {
+  "Jordan-P\u00f3lya numbers": {
    "revision": 412861,
    "assessed": "2026-10-15",
    "rubric": 2,
@@ -34804,7 +34801,7 @@
    "summary": "Every check is an array index by Character or a guarded line index, with no contracts needed, since all loops are in procedures and the dispatch is a plain case statement. The GUI tag is satisfied by line-based key presses, so no window or raw keystrokes are required.",
    "confidence": "medium"
   },
-  "Kirkpatrick–Seidel algorithm": {
+  "Kirkpatrick\u2013Seidel algorithm": {
    "revision": 414285,
    "assessed": "2026-10-15",
    "rubric": 2,
@@ -36676,7 +36673,7 @@
    "summary": "All data is fixed-size arrays and ranged integers with explicit guards, and the recursion is replaced by an explicit stack in a procedure so no variant is needed, but the loop-carried stack top and signed accumulator need careful guard placement.",
    "confidence": "medium"
   },
-  "Lempel–Ziv complexity": {
+  "Lempel\u2013Ziv complexity": {
    "revision": 408001,
    "assessed": "2026-10-15",
    "rubric": 2,
@@ -43393,7 +43390,7 @@
    "summary": "The task requires mutual recursion. Written as functions it would need variant annotations, but written as procedures it has no termination check, and the one non-routine range fact (the inner result is at most N) is covered by a visible guard that never fires. Discharge therefore depends on careful program shape rather than annotations.",
    "confidence": "medium"
   },
-  "Möbius function": {
+  "M\u00f6bius function": {
    "revision": 412927,
    "assessed": "2026-10-15",
    "rubric": 2,
@@ -43404,7 +43401,7 @@
    "effects": [
     {
      "effect": "console-output",
-     "explanation": "Prints the grid of Möbius values to standard output."
+     "explanation": "Prints the grid of M\u00f6bius values to standard output."
     }
    ],
    "surface": [
@@ -43432,7 +43429,7 @@
    "summary": "Trial division with a for loop inside a procedure avoids function termination checks, and every value is bounded by declared subtypes, so all checks follow from types and loop ranges.",
    "confidence": "high"
   },
-  "Möbius strip": {
+  "M\u00f6bius strip": {
    "revision": 414810,
    "assessed": "2026-10-15",
    "rubric": 2,
@@ -54941,7 +54938,7 @@
    "summary": "A quine needs only constant strings, a quote character built from its code and bounded concatenation, so every check follows from static lengths and nothing requires an annotation or dynamic behavior. Self-reference is by construction rather than by reading files, so no Oracle rule is violated.",
    "confidence": "high"
   },
-  "Quine–McCluskey algorithm": {
+  "Quine\u2013McCluskey algorithm": {
    "revision": 413871,
    "assessed": "2026-10-15",
    "rubric": 2,
@@ -58260,7 +58257,7 @@
    "summary": "Everything is small enumerations, bounded counters and a procedure-hosted while loop with explicit guards, so all checks follow from types and guards, though the new stdin line reading and enumeration/array surface must exist first.",
    "confidence": "high"
   },
-  "Rodrigues’ rotation formula": {
+  "Rodrigues\u2019 rotation formula": {
    "revision": 391136,
    "assessed": "2026-10-15",
    "rubric": 2,
@@ -59141,7 +59138,7 @@
    "summary": "All indices come from for-loop ranges over a fixed 12-element array of a bounded subtype, with no while loops, recursion or loop-carried arithmetic, so every check follows from types and static bounds.",
    "confidence": "high"
   },
-  "Routh–Hurwitz stability criterion": {
+  "Routh\u2013Hurwitz stability criterion": {
    "revision": 413894,
    "assessed": "2026-10-15",
    "rubric": 2,
@@ -61041,19 +61038,25 @@
     }
    ],
    "surface": [
-    "integers",
-    "integer-division",
-    "ranged-subtypes",
-    "booleans",
-    "for-loops",
-    "scalar-image"
+    "scalar-boolean-objects",
+    "integer-for-loops",
+    "interval-integer-division",
+    "integer-image"
    ],
    "outlook": "likely",
    "risks": [],
-   "size": 22,
-   "approach": "An embedded bounded range (for example 2 to 100, or 50 to 99 as in the sample) is walked by an outer for loop over a declared integer subtype, and an inner for loop tries every divisor D in 2 .. N-1, clearing a Boolean flag when N mod D = 0. Each prime is printed with Put_Line using Integer'Image, and no value is carried across iterations except the Boolean.",
-   "summary": "Only for loops over statically bounded ranges are used, so termination needs no variant, the divisor D is at least 2 so the mod has no division-by-zero check to fail, and the loop-carried state is a Boolean.",
-   "confidence": "high"
+   "size": 17,
+   "approach": "The driver samples/rosetta_sequence_of_primes_by_trial_division.adb scans Candidate in 2..100. It resets a Boolean Prime flag, tries every Divisor in 2..(Candidate - 1), clears the flag when Candidate mod Divisor = 0 and prints each surviving candidate with Integer Image. The inner loop is empty for 2. It uses the task-permitted finite bound and actual trial division.",
+   "summary": "The source uses finite Integer loops and a Boolean flag; divisor bounds exclude zero, including the empty first inner loop. The expected 25 primes through 100 are derived independently by marking composite multiples. Scope and validation status are recorded in docs/boolean-objects.md and the linked assessment record.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-30",
+    "record": "../rosetta/assessment-boolean-objects-20261030.md",
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setting_evidence": "Selected setting through bounded subthread controls; runtime model and effort not independently exposed",
+    "method": "Current source/task/scope reconciliation at tree 59cfd9c3dc, implementation/proof input b6aeb9f978; prior prepared-review and contingent-render provenance retained in the linked record; universal and native assurance tracked separately in docs/boolean-objects.md"
+   }
   },
   "Sequence of primorial primes": {
    "revision": 413906,
@@ -63953,7 +63956,7 @@
    "summary": "Everything is bounded integer arithmetic in a procedure with nested for and while loops, so no recursion or termination proof is needed, but loop-carried accumulators and the shrinking quotient need careful range subtypes and guards because no invariants can be written.",
    "confidence": "medium"
   },
-  "Smith–Waterman algorithm": {
+  "Smith\u2013Waterman algorithm": {
    "revision": 414476,
    "assessed": "2026-10-15",
    "rubric": 2,
@@ -64829,7 +64832,7 @@
    "summary": "The task is a text-pattern parser plus a small linear solver that bounded enumeration can handle, so every check follows from fixed buffers, ranged subtypes and for loops; the many loop-carried token indices need careful guards, hence plausible rather than likely.",
    "confidence": "medium"
   },
-  "Sorensen–Dice coefficient": {
+  "Sorensen\u2013Dice coefficient": {
    "revision": 414482,
    "assessed": "2026-10-15",
    "rubric": 2,
@@ -67040,23 +67043,32 @@
     }
    ],
    "surface": [
-    "integers",
-    "booleans",
-    "for-loops",
-    "scalar-image",
+    "scalar-boolean-objects",
+    "bounded-mutable-integers",
+    "scalar-guard-refinement",
+    "integer-for-loops",
+    "integer-image",
     "put"
    ],
    "outlook": "likely",
    "risks": [
     {
-     "obligation": "overflow",
-     "explanation": "The loop-carried Count is incremented only under an explicit Count < 30 guard, and N*N and I*I*I are bounded by the for-loop ranges (N up to 40, I up to 13), so no overflow check can fail."
+     "obligation": "range",
+     "explanation": "Square fits 1..1600 from Root in 1..40; each cube product fits Integer from Trial in 1..13; the direct Count<30 guard makes the increment fit 0..30."
     }
    ],
-   "size": 25,
-   "approach": "Main runs a for loop of N over 1 .. 40, computes Sq := N*N, and uses an inner for loop of I over 1 .. 13 to set a Boolean flag when I*I*I = Sq. If the square is not a cube and Count < 30, it increments Count and prints the number with Integer'Image through Put; a final empty Put_Line ends the line. Everything is bounded by constant ranges, so no loop invariant is needed, and the optional square-and-cube part is omitted.",
-   "summary": "All arithmetic sits in small constant for-loop ranges and the only loop-carried counter is guarded before its increment, so every check follows from types and guards. No while loops, functions or recursion are involved, so there are no termination obligations.",
-   "confidence": "high"
+   "size": 22,
+   "approach": "The driver samples/rosetta_square_but_not_cube.adb computes Root*Root for Root in 1..40. It scans Trial in 1..13 and sets a Boolean Cube flag if Trial*Trial*Trial equals the square. When not Cube and then Count<30 it increments the bounded counter and streams the square with Put and Integer Image. A final empty Put_Line ends the line. It prints exactly the required first 30 values; the optional common squares and cubes are omitted.",
+   "summary": "All products fit the declared small Integer ranges, and the direct Count<30 guard justifies the increment. Cubes include every candidate cube up to 1600; scanning increasing square roots and stopping output after 30 qualifying values gives the required prefix through 1089. Independent expected output uses square/cube set difference. Scope and validation status are recorded in docs/boolean-objects.md and the linked assessment record.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-30",
+    "record": "../rosetta/assessment-boolean-objects-20261030.md",
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setting_evidence": "Selected setting through bounded subthread controls; runtime model and effort not independently exposed",
+    "method": "Current source/task/scope reconciliation at tree 59cfd9c3dc, implementation/proof input b6aeb9f978; prior prepared-review and contingent-render provenance retained in the linked record; universal and native assurance tracked separately in docs/boolean-objects.md"
+   }
   },
   "Square form factorization": {
    "revision": 413925,
@@ -68404,7 +68416,7 @@
     }
    ],
    "size": 35,
-   "approach": "The example strings (such as \"møøse\" and the non-BMP Unicode example) are embedded as constant Strings holding their UTF-8 bytes as Latin-1 characters, so the byte length is S'Length. The code point length is found by a for loop over S'Range that counts every byte except UTF-8 continuation bytes (Character'Pos between 128 and 191), guarding the counter before incrementing. Both lengths are printed with Put_Line using Natural'Image concatenated into short bounded strings.",
+   "approach": "The example strings (such as \"m\u00f8\u00f8se\" and the non-BMP Unicode example) are embedded as constant Strings holding their UTF-8 bytes as Latin-1 characters, so the byte length is S'Length. The code point length is found by a for loop over S'Range that counts every byte except UTF-8 continuation bytes (Character'Pos between 128 and 191), guarding the counter before incrementing. Both lengths are printed with Put_Line using Natural'Image concatenated into short bounded strings.",
    "summary": "Counting UTF-8 lead bytes with a for loop over the string's own range uses only types and a single counter guard, so the proofs should discharge without annotations; the grapheme count is optional and omitted.",
    "confidence": "medium"
   },
@@ -70715,7 +70727,7 @@
    "summary": "The task only asks the program to read the system clock and print the time with its units noted. That breaks no Oracle rule; Silver just needs an admitted clock library operation (such as Ada.Calendar.Clock with a formatting function) with a specified contract.",
    "confidence": "high"
   },
-  "Szymański's algorithm": {
+  "Szyma\u0144ski's algorithm": {
    "revision": 414540,
    "assessed": "2026-10-15",
    "rubric": 2,
@@ -73035,7 +73047,7 @@
    "summary": "This is a tiny recursive procedure whose only checks are a guarded decrement and concatenation of bounded image text, and procedures get no termination check, so proofs should discharge; the one soft spot is recursion depth, which the declared subtype bounds.",
    "confidence": "medium"
   },
-  "Trabb Pardo–Knuth algorithm": {
+  "Trabb Pardo\u2013Knuth algorithm": {
    "revision": 414553,
    "assessed": "2026-10-15",
    "rubric": 2,
@@ -74087,7 +74099,7 @@
    "summary": "The task is a tagged-dispatch print demo with no arithmetic, loops or recursion, so every check is trivially routine and no annotation is needed. It only requires enumerations, case statements and a procedure with a String parameter beyond today's Silver.",
    "confidence": "high"
   },
-  "Ukkonen’s suffix tree construction": {
+  "Ukkonen\u2019s suffix tree construction": {
    "revision": 414990,
    "assessed": "2026-10-15",
    "tier": "standard",
@@ -74561,7 +74573,7 @@
    "outlook": "likely",
    "risks": [],
    "size": 12,
-   "approach": "Declare Δ : Integer range 1 .. 2 := 1, increment it with Δ := (Δ + 1) inside if Δ < 2 then, and print Integer'Image (Δ). Accompany the source with the admitted encoding and Unicode identifier documentation; the guard makes the increment fit its range under delivered scalar guard refinement.",
+   "approach": "Declare \u0394 : Integer range 1 .. 2 := 1, increment it with \u0394 := (\u0394 + 1) inside if \u0394 < 2 then, and print Integer'Image (\u0394). Accompany the source with the admitted encoding and Unicode identifier documentation; the guard makes the increment fit its range under delivered scalar guard refinement.",
    "summary": "The bare-name/static-threshold increment fits the delivered scalar-guard-refinement fragment. Unicode identifiers are permitted by inherited Ada/SPARK but remain excluded by Silver ASCII source rules, so this task still requires explicit Unicode identifier support. No Unicode admission or task delivery is claimed.",
    "confidence": "high",
    "review": {
@@ -75232,7 +75244,7 @@
     }
    ],
    "size": 95,
-   "approach": "A procedure Decode takes an input String and fills a fixed-capacity output String buffer plus a ranged length, scanning with a while loop that maps '+' to space, '%XX' to the byte from two hex digits, and anything else to itself. Guards reject truncated or non-hex escapes and buffer overflow with a visible reject message, and the three test strings are embedded constants whose decoded results (including the UTF-8 bytes for 'á' and the %25%32%35 to %25 case with a single pass) are printed with Put_Line.",
+   "approach": "A procedure Decode takes an input String and fills a fixed-capacity output String buffer plus a ranged length, scanning with a while loop that maps '+' to space, '%XX' to the byte from two hex digits, and anything else to itself. Guards reject truncated or non-hex escapes and buffer overflow with a visible reject message, and the three test strings are embedded constants whose decoded results (including the UTF-8 bytes for '\u00e1' and the %25%32%35 to %25 case with a single pass) are printed with Put_Line.",
    "summary": "All checks come from ranged subtypes and guards placed just before each index or conversion, and the loop is in a procedure so no variant is needed; the loop-carried indices need careful guarding, hence plausible rather than likely.",
    "confidence": "medium"
   },
@@ -76409,7 +76421,7 @@
    "summary": "The task is a bulk file-renaming tool. It lists a directory to a text file, runs an external editor on it, then renames or deletes files to match the edit. None of this breaks an Oracle rule. It needs directory, file and process effects that Silver lacks today, and bounded string handling for parsing the edited lines. Invalid or mismatched edits can be rejected with a visible outcome.",
    "confidence": "high"
   },
-  "Vigenère cipher": {
+  "Vigen\u00e8re cipher": {
    "revision": 411838,
    "assessed": "2026-10-15",
    "rubric": 2,
@@ -76456,7 +76468,7 @@
    "summary": "Every check follows from bounded character arithmetic, for-loop indexes, and explicit guards on the output count and key length, so no invariant or variant is needed. Non-letters are discarded as the task specifies, with embedded data and no recursion or heap.",
    "confidence": "high"
   },
-  "Vigenère cipher/Cryptanalysis": {
+  "Vigen\u00e8re cipher/Cryptanalysis": {
    "revision": 414575,
    "assessed": "2026-10-15",
    "rubric": 2,

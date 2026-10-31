@@ -1,0 +1,10 @@
+{
+  "archive_to_installed_mode_counts": {
+    "664->644": 830
+  },
+  "git_mode_check": "all executable bits match; Git does not track group-write permission bits",
+  "setup_attempt_result": "bytes all matched; initial archive-mode comparison rejected sanitized group-write bits before tests",
+  "snapshot_byte_matches": 830,
+  "source_or_test_changes": false,
+  "tests_started": false
+}

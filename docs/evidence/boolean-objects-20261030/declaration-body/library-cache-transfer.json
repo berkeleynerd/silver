@@ -1,0 +1,648 @@
+{
+  "source_run": "20261030T124434-509822bae49c",
+  "source_workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-predicate-source/.silver/linux-x86_64/proof",
+  "destination_workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-proof/.silver/linux-x86_64/proof",
+  "modules": {
+    "Silver.Lexical": {
+      "source_sha256": "bd6025d6dc26fd8d984de90bc4a00b63e30d76c27e3db086358aeaa5712ad372",
+      "artifact_count": 15
+    },
+    "Silver.Admission": {
+      "source_sha256": "7c756102bc689b108aa0d5b2c41a68868d07f21230282891d776ef0994f2faf2",
+      "artifact_count": 15
+    },
+    "Silver.OutputLiteral": {
+      "source_sha256": "63719bdceb215f79a6fa02aec7bf41623d28aa844352f157ac40e1a4b679145d",
+      "artifact_count": 15
+    },
+    "Silver.Cursor": {
+      "source_sha256": "c5316bac7eb2a733fcda3787d23ee16e8e3b963ef31f6b7e26d285eb7e517ac3",
+      "artifact_count": 15
+    },
+    "Silver.OutputAdmission": {
+      "source_sha256": "b678cf9396870c7cb13ec37bdc354e889b2956c44c391849c68b6b7c522569db",
+      "artifact_count": 15
+    },
+    "Silver.NamedIdentifier": {
+      "source_sha256": "05ac428b0f75719c90e54029c534b3c6d6b1cd78546ba1cdf3825ca98e61c2a1",
+      "artifact_count": 15
+    },
+    "Silver.NamedAdmission": {
+      "source_sha256": "fbf7a0fb66379c528e6bc3029a091e6f4bc075251bc077836a57bf41950f3178",
+      "artifact_count": 15
+    },
+    "Silver.ArgumentsAdmission": {
+      "source_sha256": "b9bb6ac3b3c1205e0759a71da1c865825cbaab0bcb9c19b88a1036b280090a00",
+      "artifact_count": 15
+    },
+    "Silver.GuardedDecimal": {
+      "source_sha256": "f175f15079ce5de803b3c1046f96536da970408710c1a0e6f3470701f62d1403",
+      "artifact_count": 15
+    },
+    "Silver.OutputRuntime": {
+      "source_sha256": "8de398702eaafc91bfac211826d603884f33cf17ca8e978a1b20e7bede58a77b",
+      "artifact_count": 15
+    },
+    "Silver.ArgumentsRuntime": {
+      "source_sha256": "87867202b99df189cacd07b545355c20ddb05cc4ea0b8e3a37491513c79e9054",
+      "artifact_count": 15
+    },
+    "Silver.IntegerIntervals": {
+      "source_sha256": "d75b4e20c7ddbf859a78607fac5b707b240b33dfaa77d5f4d920a3ee5190350f",
+      "artifact_count": 15
+    },
+    "Silver.IntegerDivision": {
+      "source_sha256": "53106f91afee1972dda93d75d64d91aaf8717a1f4e8f5501b447f02ce041f2d0",
+      "artifact_count": 15
+    },
+    "Silver.ArrayLayout": {
+      "source_sha256": "84f698f992649e8e377d84cb8937edf51b5e049b8ad0804697f41f09d4d57044",
+      "artifact_count": 15
+    },
+    "Silver.IntegerExpressions": {
+      "source_sha256": "25523d4c176ddbc7530525f364a828dc4f01143b16488c9a9ae8c84e19246907",
+      "artifact_count": 15
+    },
+    "Silver.IntegerImage": {
+      "source_sha256": "c8f3b5076dc81e73ba7759d3e20c3d104f53073dec08f550a06de223b1464ad4",
+      "artifact_count": 15
+    },
+    "Silver.Bindings": {
+      "source_sha256": "0e70d382da5024d01aa6c26d322f75d26e4c3264b874df6b813034d3db89db07",
+      "artifact_count": 15
+    },
+    "Silver.ComposeExpression": {
+      "source_sha256": "cceafecb1769a4249bcd97261295cfbf5111dfb15e25a8b323809552bf9acd88",
+      "artifact_count": 15
+    },
+    "Silver.Names": {
+      "source_sha256": "20914a9928b59d1a6cd1763fdec318510760ff93791bcee3e2bb82f911f040d2",
+      "artifact_count": 15
+    },
+    "Silver.ScalarLiteral": {
+      "source_sha256": "7bbb337f2a7c0f781ea289dfe5196e5d2cc8868c5e609268808ae6b292112318",
+      "artifact_count": 15
+    },
+    "Silver.IntegerDeclarations": {
+      "source_sha256": "1359bdccac0003d5922bb4c08b6dd7e5ec9566451a5057538cef9b0e58c3cff9",
+      "artifact_count": 15
+    },
+    "Silver.IntegerMutable": {
+      "source_sha256": "facd1ae88ebccd51941d2c1e7f68b595c023aa7811f94eed3a4d31e51a7dae48",
+      "artifact_count": 15
+    },
+    "Silver.IntegerChecks": {
+      "source_sha256": "00dff8cfde57a64bc5438b9c4807e636f0f4c685d21bcab47b8d5476a02d965b",
+      "artifact_count": 15
+    },
+    "Silver.IntegerArraySnapshots": {
+      "source_sha256": "326803104de96f67b3ed84700821c666b859aa17ceeff9cabc299519b4cab1c4",
+      "artifact_count": 15
+    },
+    "Silver.IntegerArrays": {
+      "source_sha256": "255ed9952487935afb4cdf046a84e90ba592e66ee821c2118f96fc144912ea04",
+      "artifact_count": 15
+    },
+    "Silver.ArrayBindings": {
+      "source_sha256": "aaefae3ca87a35aae5cd035f6a6d5780897fc18e549638356521515b5e229549",
+      "artifact_count": 15
+    },
+    "Silver.ScalarExpression": {
+      "source_sha256": "9de8dfde0d91c475caed8073b13b1fccd2b5b9b2a833dbb07c34bd165dd9632c",
+      "artifact_count": 15
+    },
+    "Silver.ScalarExpressionBounds": {
+      "source_sha256": "9ca52e2a8f5a2412b01b9cc41552bcc57f1dcc7080cd7b1aea97418cbed2c9da",
+      "artifact_count": 15
+    },
+    "Silver.ScalarExpressionGrammar": {
+      "source_sha256": "db055790123a1bac88d9f77ec6255e97596e4eedeccf48f2e0b0e5fbb0f9e5df",
+      "artifact_count": 15
+    },
+    "Silver.ScalarExpressionRecognition": {
+      "source_sha256": "783ba3bc3e6336973eceb7fbc43dd6c0dfb99ec11dba1dee49b8049ba7182457",
+      "artifact_count": 15
+    },
+    "Silver.ScalarArrayExpressionGrammar": {
+      "source_sha256": "cdc76a1717a7b8f1a5d7cf1ecb05ece6e394ae4117363b0652b2a281aba28f3a",
+      "artifact_count": 15
+    },
+    "Silver.ScalarArrayExpressionRecognition": {
+      "source_sha256": "412b745f35d41b4453df91ff0aaacc22de38d8bbd01b836ae8b7de1371b4ee7d",
+      "artifact_count": 15
+    },
+    "Silver.ScalarExpressionEnvironment": {
+      "source_sha256": "c0ae219aacd60b4849e59d0155a6fc14eb4ea8673f575aee51ee8f5b20805042",
+      "artifact_count": 15
+    },
+    "Silver.ScalarExpressionAdmission": {
+      "source_sha256": "ef099320e31c1ddf2c505ff55438fa01eac2a3ee39464e01d46a870311bcff83",
+      "artifact_count": 15
+    },
+    "Silver.StringLengths": {
+      "source_sha256": "0e5a9ec3e5716f157adb490026a53177fab269ba4360548bec995081e9cd782e",
+      "artifact_count": 15
+    },
+    "Silver.IntegerSubtypeBindings": {
+      "source_sha256": "5e606b3656fc21910169c767a31eaa801988c8dcdad62b907ac44f3ceb339ecf",
+      "artifact_count": 15
+    },
+    "Silver.BooleanModel": {
+      "source_sha256": "ac14c181c2b44c931f83a5621fb1a31e92472aafa66a0c104190e6087114c2eb",
+      "artifact_count": 15
+    },
+    "Silver.BooleanBindings": {
+      "source_sha256": "76159a0d020f228a66a21717868b670a98562d4e1091ee9cdbd37c982c6730a8",
+      "artifact_count": 15
+    },
+    "Silver.ComposeAtomAdmission": {
+      "source_sha256": "df58d5f4dcbdf39c0499707baaf51366cafa160ac8d4669dfe13cbbc3f5cbd82",
+      "artifact_count": 15
+    },
+    "Silver.PathFacts": {
+      "source_sha256": "fe8a4ef0cec73dfe68a22b453cf78a7e3ea3e554947006075be41c1e649c3409",
+      "artifact_count": 15
+    },
+    "Silver.IntegerComparisons": {
+      "source_sha256": "58e226f99bbc7ccade007a927518a045b9b1d18c3e8f36b08a22ceb9a7236a0d",
+      "artifact_count": 15
+    },
+    "Silver.StringExecution": {
+      "source_sha256": "2ddb5bf08884034db458fa13de17fef93f7df3925834c74cd03bd9d8839c4cc4",
+      "artifact_count": 15
+    },
+    "Silver.PredicateSyntax": {
+      "source_sha256": "3d1b26fdb47c27e33ee2b88852e048d1b937ab2e1ab783b5433d3a7ca6128c14",
+      "artifact_count": 15
+    },
+    "Silver.PredicateSemantics": {
+      "source_sha256": "4b102cdf2cc32a74f648b3b891e9bbba7cad6f2d856790960bdec56a0a3de915",
+      "artifact_count": 15
+    },
+    "Silver.StringLengthRefinement": {
+      "source_sha256": "ee5c03f29b539116f5d50f598a9a1c07c970356e035041b756076b915ddbd4b9",
+      "artifact_count": 15
+    },
+    "Silver.ScalarFlow": {
+      "source_sha256": "3054302b0bfe8badc73424501218538762f02a1e2c4e3c23010830540fcd319b",
+      "artifact_count": 15
+    },
+    "Silver.PredicateChecking": {
+      "source_sha256": "92852be7973975d164237f3e6ec9d7767d8537c644303e5fb7d0a742650511b0",
+      "artifact_count": 15
+    },
+    "Silver.IntegerLiteral": {
+      "source_sha256": "df53e9ce3b7b9924c865683fc8944c0253676c5fbf0e09d99e5bead9dc35f843",
+      "artifact_count": 15
+    },
+    "Silver.PredicateFlowStorage": {
+      "source_sha256": "aab20ad5cb3d348dccdd516ee3be43b89eec71fce644c7d6091886143c81bfe7",
+      "artifact_count": 15
+    },
+    "Silver.PredicateFlowOverlay": {
+      "source_sha256": "a444dbaee65818a19efa5c4d5d4909640ddff113dd8e8f36a72a65dee4b12a75",
+      "artifact_count": 15
+    },
+    "Silver.PredicateFlowOperations": {
+      "source_sha256": "c08928fa90447ac0f24ce3f041194c865029b4497cf02ba4cd19b6f8f4b61d24",
+      "artifact_count": 15
+    },
+    "Silver.PredicateFlowInvariant": {
+      "source_sha256": "d9488ba538c5fd09ea5568e80c44731fdcfa2b3a1b06f20836a45266d891dc59",
+      "artifact_count": 15
+    },
+    "Silver.PredicateFlowWidening": {
+      "source_sha256": "347dd6f076f33bae631e8263edd1bc3c6d1e718c14fb74b47b6762a2dc0926e4",
+      "artifact_count": 15
+    },
+    "Silver.PredicateArrayFlow": {
+      "source_sha256": "789addb93bbcd1a9c6338826e26fba900fa60edfd3a70b7c775d5638093b63e8",
+      "artifact_count": 15
+    },
+    "Silver.PredicateXorAdmission": {
+      "source_sha256": "104e53b91e5d661d53dea134214195b9cc11e39857cf1b8ed94c095a48233300",
+      "artifact_count": 15
+    },
+    "Silver.PredicateConditionAdmission": {
+      "source_sha256": "0a175ec170073232fb9a62fbd568abc0869d06b20e97a120363db0c0fc81ab95",
+      "artifact_count": 15
+    },
+    "Silver.ComposeAdmission": {
+      "source_sha256": "13232d5d23ead05441286d6d1007a63ec8ab0d7e188a3b8ac0f619f35a5990e6",
+      "artifact_count": 15
+    },
+    "Silver.ComposeSemantics": {
+      "source_sha256": "5fb65845b68f787b0d5ba220a11d21396268b92ae9c99555e7d127f52779a4ca",
+      "artifact_count": 15
+    },
+    "Silver.StringFreezing": {
+      "source_sha256": "2a802071192aa1a69d8183cdb74b98f17346c6d9a0e52346b76afb22a1620519",
+      "artifact_count": 15
+    },
+    "Silver.ScalarExpressionConstants": {
+      "source_sha256": "9c4e7d989509ba18dd1114ba410226583db5e19d9d5e330aa31f4b1ebb08a844",
+      "artifact_count": 15
+    },
+    "Silver.ComposeFrozenSemantics": {
+      "source_sha256": "33acf42f2e1057cba61e7a3478fc957ff6a4b48b155a69c8fd90f8cb056312f8",
+      "artifact_count": 15
+    },
+    "Silver.ComposeBounds": {
+      "source_sha256": "9ee942eb1ef793ffbcf8323b5e0571aefa7e2cf53bc5d4203ed02ff6ff879252",
+      "artifact_count": 15
+    },
+    "Silver.ComposeSubtypeDeclarations": {
+      "source_sha256": "7c14b38bf7078ab7232515144c37f7d02d36df3fdde80e538909602f2d48c400",
+      "artifact_count": 15
+    },
+    "Silver.ComposeScalarDeclarations": {
+      "source_sha256": "6b1c79c429e9950e62ab2fd14ec5a25256ec999f8f0c95a594f07d2dc6b713a6",
+      "artifact_count": 15
+    },
+    "Silver.ComposeArrayDeclarations": {
+      "source_sha256": "7a550737ffbb3b7fbddd414992acc5677e8fae154b29a331b2c56e2277aa89db",
+      "artifact_count": 15
+    },
+    "Silver.ComposeArrayElaboration": {
+      "source_sha256": "fb9c7ff9cb561b516086a036c980a1c2c40375f3603fd84788243c6dfe28b0e9",
+      "artifact_count": 15
+    },
+    "Silver.ComposeBooleanDeclarations": {
+      "source_sha256": "4bd72ea355e0359399e0cf18e8e0bace208faed2456fc69d57b0910676e6b44a",
+      "artifact_count": 15
+    },
+    "Silver.ComposeDeclarations": {
+      "source_sha256": "ac2bfb3097b30e50a75a59df3fb95cc0035c93e846a742fcd4bb95e06623ee82",
+      "artifact_count": 15
+    },
+    "Silver.GuardedAdmission": {
+      "source_sha256": "8ee64282645d8ee75958f13bd441df12add230fcbaa2233fe821fbe97b09cc0b",
+      "artifact_count": 15
+    },
+    "Silver.NamedSemantics": {
+      "source_sha256": "beb0d6b4a811c1dd8837da572551b20c29555e548b5d9c1518164272c4817db6",
+      "artifact_count": 15
+    },
+    "Silver.GuardedSemantics": {
+      "source_sha256": "d4fbca0c34e1f68c9846d4712200e70bbe1a917e6be13f3c027d795742ef3a34",
+      "artifact_count": 15
+    },
+    "Silver.Semantics": {
+      "source_sha256": "e48c78320442bad705f45007677bb3adddabdf38e37bf61d9a2527319fe5d89c",
+      "artifact_count": 15
+    },
+    "Silver.GuardedObligations": {
+      "source_sha256": "faf60e9a3b6672f2e21a78c61736e451511c5f49f3b67f22f5be69aa00ed8912",
+      "artifact_count": 15
+    },
+    "Silver.ComposeMain": {
+      "source_sha256": "c0ff904479a340e02ecf2656550d7f3df133e3371a7053290437f00bc19bb9d3",
+      "artifact_count": 15
+    },
+    "Silver.ComposeGrammar": {
+      "source_sha256": "3b4bf0a3f1876ed6d5e295772720164e75a91b17e6c1a60a4faf998845f3fb10",
+      "artifact_count": 15
+    },
+    "Silver.PredicateAdmission": {
+      "source_sha256": "a8aa95c115af38b69d7597c09f42d56bf0ae724ac495d33951599835095b3487",
+      "artifact_count": 15
+    },
+    "Silver.SequenceSyntax": {
+      "source_sha256": "f0b84fc55c00a541a655b9f0f35d2989d5b3a0770bb720fc94f06127bcb2edea",
+      "artifact_count": 15
+    },
+    "Silver.IntegerIteration": {
+      "source_sha256": "fe67f12182c079c8c914f886fda3d57c6ab52c7e1c9bee9f290e4eeed017689d",
+      "artifact_count": 15
+    },
+    "Silver.PredicateStatements": {
+      "source_sha256": "d7f4fe301db1f99c47fda1850c441b43a41c09121de0cc60f0384ed72ae461fe",
+      "artifact_count": 15
+    },
+    "Silver.SequenceSemantics": {
+      "source_sha256": "8053806edce543e7b152afeddb242f45022eb798b8e2e7940cf8a6dcfcc28d5e",
+      "artifact_count": 15
+    },
+    "Silver.SequenceExecution": {
+      "source_sha256": "38ee34b2089186fcf550a762a18bad1c7e2c1e6d6a4520d107e10afe11786e6b",
+      "artifact_count": 15
+    },
+    "Silver.PredicateExecution": {
+      "source_sha256": "0b8132e8bdfb0441d19a66ab9c9cdf0112aa8e827363c6b05c0c15da7f1df373",
+      "artifact_count": 15
+    },
+    "Silver.ComposeObligations": {
+      "source_sha256": "72411195feb6de440ac7343378a90086f64c4895552d716a397bf3df173f3cb3",
+      "artifact_count": 15
+    },
+    "Silver.PredicateObligations": {
+      "source_sha256": "7827b51543042d99de51e1dd35a8c5fabf131e8f2947844511d0f230d90494aa",
+      "artifact_count": 15
+    },
+    "Silver.SequenceEffects": {
+      "source_sha256": "d186c8fd71598ddeecd8b8e60dd8ba07b4201e24a5905afccda79e47cb519d67",
+      "artifact_count": 15
+    },
+    "Silver.BooleanDeclarations": {
+      "source_sha256": "5c6acfc9dabb9730858684c7824cc0203a39a1b4f75dbf7b3555da55b0cdc900",
+      "artifact_count": 15
+    },
+    "Silver.BooleanDeclarationObligations": {
+      "source_sha256": "92af1f6a56bb5da3b5d029a17b53731ee7ad53be95dd9c933b13dd3f0902de87",
+      "artifact_count": 15
+    },
+    "Silver.PredicateComposition": {
+      "source_sha256": "070a3daab03783d3cd19056610c8b0c0f6c9805686a2b7d905cdfb5bb428d36e",
+      "artifact_count": 15
+    },
+    "Silver.PredicateSourceSyntax": {
+      "source_sha256": "e8bb657131f539518d4ee27926ea7e1de25b7f7324c8a5e9e37ebfdf18f6586a",
+      "artifact_count": 15
+    },
+    "Silver.PredicateBodyAdmission": {
+      "source_sha256": "47a1cf26d3995419781a741454adef638b3daef68018a3aa5bb199c62a5484c0",
+      "artifact_count": 15
+    },
+    "Silver.PredicateReadings": {
+      "source_sha256": "50011bee7fb29fc52ff3ba7dce505f0810b0dda955820297dbff0701fc840995",
+      "artifact_count": 15
+    },
+    "Silver.PredicateConditionReadings": {
+      "source_sha256": "55f1c7ea9a13caa5f200f5ef6eea4e81e419a4c2b09b7d99452fa01cbf4a92fa",
+      "artifact_count": 15
+    },
+    "Silver.PredicateConditionSound": {
+      "source_sha256": "44d833125335fc6c2417ea1511d66cce9d80baf665d1b16bc45198a84bb04379",
+      "artifact_count": 15
+    },
+    "Silver.PredicateLoopProperties": {
+      "source_sha256": "2d06471625a6ef35eb9e15901781f525c2bbbcad4c748004f0d31b7cc5d7f84a",
+      "artifact_count": 15
+    },
+    "Silver.PredicateConditionFlow": {
+      "source_sha256": "8691b58d4c9b75998cf602f185e26e22a5a3734d01f1d02ac09bb8de5fa249ca",
+      "artifact_count": 15
+    },
+    "Silver.PredicateBodyFlow": {
+      "source_sha256": "6a5a663b66ce03fef57769243c7c498ed53608125c7016c25d4c56732e3a796d",
+      "artifact_count": 15
+    },
+    "Silver.PredicateBodyProperties": {
+      "source_sha256": "01baf3edd60cd1f0a0b6e3b6f8c9684feb13e402e52da19c2465a8d164d30714",
+      "artifact_count": 15
+    },
+    "Silver.PredicateFlowBounds": {
+      "source_sha256": "ef7f47a64ff99e3f3bb25003ad1603633cc53a76633d6a98dfc789fb3ee50a84",
+      "artifact_count": 15
+    },
+    "Silver.PredicateConditionFlowValidity": {
+      "source_sha256": "10b11eea74915a78541d024cb26edaf44e93d6c1846dcb1553dd783867b51986",
+      "artifact_count": 15
+    },
+    "Silver.PathBounds": {
+      "source_sha256": "69384d94af86af6516d252e8b00855ec40bf9c7bec23f2435084d88897082b6c",
+      "artifact_count": 15
+    },
+    "Silver.Expressions": {
+      "source_sha256": "b621d8de046a9e7abaf77e581b9c300c8b57e826c3b832f9347db1e3ebea0f0e",
+      "artifact_count": 15
+    },
+    "Silver.NamesExpressions": {
+      "source_sha256": "49aec27e308e9b40a82d5ec43c76b609073711ec4814602ecbc94e14277150a9",
+      "artifact_count": 15
+    },
+    "Silver.NamesEquations": {
+      "source_sha256": "8a4c0cd2e7285b9f859914d91bfba3f3af156596ded481677eb3e3ccad0d1e43",
+      "artifact_count": 15
+    },
+    "Silver.ComposeExpressions": {
+      "source_sha256": "9ece73fa19e0ff80249a7ec3ace288f501d2f26a850a837ed271085ffdb08a09",
+      "artifact_count": 15
+    },
+    "Silver.ComposeArrayExpressions": {
+      "source_sha256": "ebacf6d03de2c298bd6de79540b043755ddbc87cc57bf3a72dce64f2210b19eb",
+      "artifact_count": 15
+    },
+    "Silver.ComposeContracts": {
+      "source_sha256": "c0b1ba53c32f02ba140aee46d01090375a2d2b7b1dc6f6ad03498d0fe53d3b92",
+      "artifact_count": 15
+    },
+    "Silver.PredicateNativeState": {
+      "source_sha256": "21ec513d2926390219329d3357dbb46fe472e0954a97adc4bb0d1eab0c0ff862",
+      "artifact_count": 15
+    },
+    "Silver.SourceLexer": {
+      "source_sha256": "6c2824f4ed5b303b3a3f3ec94d8cdb650ffbd86103eef842a32a3c6f3755a8eb",
+      "artifact_count": 15
+    },
+    "Silver.SourceDeclarations": {
+      "source_sha256": "8fa7137ece364ade168a57abb4532e4f108eb9794f287c8d7bc69e9e12cb4dee",
+      "artifact_count": 15
+    },
+    "Silver.PredicateBodyWrappers": {
+      "source_sha256": "bded87472824e18a7aea1887bfcddff3c1b7ad9de25e03959f169596749ef30f",
+      "artifact_count": 15
+    },
+    "Silver.PredicateFlowCopy": {
+      "source_sha256": "75a8c1186b15b00f800e80df0e40245433fc8ff427c3044f3da724c92aa197dc",
+      "artifact_count": 15
+    },
+    "Silver.PredicateLoopNative": {
+      "source_sha256": "d9be47a4c59a00c1f55826c2c4b01ef1ba54ad723cc7ac8f05f005471877c960",
+      "artifact_count": 15
+    },
+    "Silver.PredicateBodyExpressions": {
+      "source_sha256": "4941ac3c5e93d1b508d807a4354a9f9bc21de3108d4abcfd0a84854f085277b5",
+      "artifact_count": 15
+    },
+    "Silver.PredicateBodyEquations": {
+      "source_sha256": "cabfd6766081bf2537473fcfe176095c4813c1c084013b8d098b7828e0954671",
+      "artifact_count": 15
+    },
+    "Silver.PredicateBodyControls": {
+      "source_sha256": "dde47350ff91823ce8015758231f5bdf6dcd0669ece787f16b080364a50a98c7",
+      "artifact_count": 15
+    },
+    "Silver.PredicateConditionBounds": {
+      "source_sha256": "4f7d44e6ba1969e857328d415fdef39fe2fb5c7375a5f417052e34c254c2080d",
+      "artifact_count": 15
+    },
+    "Silver.PredicateBodyBounds": {
+      "source_sha256": "c6ed3b37ecc51d9c0e660f6678c25c0dc131608be28bb094596d956ffb1f4f6a",
+      "artifact_count": 15
+    },
+    "Silver.PredicateBodyFlowValidity": {
+      "source_sha256": "c147536969bd34569259fc707b8b29c703602638188550d894019390c3962d02",
+      "artifact_count": 15
+    },
+    "Silver.PredicateLoopFlowValidity": {
+      "source_sha256": "440e237916b6dacef992fbd18fc27ddf5dbb424c6948cd51668d33c04092e6e4",
+      "artifact_count": 15
+    },
+    "Silver.PredicateBodyFlowPreservation": {
+      "source_sha256": "3fdc0468a5ab3de043cdade5f3a55cd173fda75a17eac0723dd021bc4bc0426c",
+      "artifact_count": 15
+    },
+    "Silver.PredicateBodyCorrespondence": {
+      "source_sha256": "62747be66c619902e8723bb4a454206c514c393315c69739b209bc3548dbde90",
+      "artifact_count": 15
+    },
+    "Silver.PathNativeModel": {
+      "source_sha256": "485cf0fcdbd7914b0248e34e1dfe6651fb86d973f4654496b93d1da3c826ba1e",
+      "artifact_count": 15
+    },
+    "Silver.PredicateScalarHeaderReady": {
+      "source_sha256": "e6724d47712ff8e23326e35a35862e7aefab65400216831f5cdc140faa281ad4",
+      "artifact_count": 15
+    },
+    "Silver.PredicateInitialFlowValidity": {
+      "source_sha256": "559c5a4557b179ef110f18913f2b0b055d35068e6cb4fecf7f66b9d0206955b3",
+      "artifact_count": 15
+    },
+    "Silver.ComposeStateBounds": {
+      "source_sha256": "b64c9d0b9baa95823acd5e63575f0014332bb7bfdbcdba8f44012ab46f409daa",
+      "artifact_count": 15
+    },
+    "Silver.PredicateOuterReadiness": {
+      "source_sha256": "d1f593cf9a26a793b84255acc1350fcc9aade57153515f133e44707508406239",
+      "artifact_count": 15
+    },
+    "Silver.PredicateAdapter": {
+      "source_sha256": "a13bba4805be949ee962511448e5481047c70ab672ea24366a3c927ac3cd1178",
+      "artifact_count": 15
+    },
+    "Silver.ScalarExpressionSpecSource": {
+      "source_sha256": "a5bb2529faeb85767277305bc517fa176756f9646352a23e6657bfaf057263ae",
+      "artifact_count": 15
+    },
+    "Silver.ScalarExpressionSpecCertificate": {
+      "source_sha256": "2bfa41dd57c037ed3ff59103b37b062673229e4ae56bb503eb0681406845a82f",
+      "artifact_count": 15
+    },
+    "Silver.ScalarEnvironmentSourceBridge": {
+      "source_sha256": "61410af888437e30fc8d69d6075dad5294a62f898fe58b6e1847eadd3ae83a53",
+      "artifact_count": 15
+    },
+    "Silver.PredicateFlowSourceBridge": {
+      "source_sha256": "71e7a582c03b7cce4b25429a2145d9f748adca7dd3f4ea496b742a26dce03c0c",
+      "artifact_count": 15
+    },
+    "Silver.ComposeScalarDenotations": {
+      "source_sha256": "97cd5b1285702d1495be0387dbbe27616a2b70a13689f2d8d83e994cd6fd7d92",
+      "artifact_count": 15
+    },
+    "Silver.ComposeModelCalls": {
+      "source_sha256": "c4f1664ed39ab06d37e79c44e94a0dfc52537fd450398624360c2509c940ff1d",
+      "artifact_count": 15
+    },
+    "Silver.ComposeArrayDenotations": {
+      "source_sha256": "a48f8e61a89c1cf36fa127d302869bac8c1616915bf3f54a2f5ce7444c2b1db3",
+      "artifact_count": 15
+    },
+    "Silver.ComposeArrayNativeBounds": {
+      "source_sha256": "a72e053049567c0387d3dfa7fa62b43ad68c13080b8c56310c23a85429722195",
+      "artifact_count": 15
+    },
+    "Silver.ComposeArrayModel": {
+      "source_sha256": "53db530d021427e18f6048115c9530e6ca01213b54fbd5475d1c221dfdc51663",
+      "artifact_count": 15
+    },
+    "Silver.NamedDisjoint": {
+      "source_sha256": "f5fc316660f039cb72563c96c2c086f07bac26da59b83026c8bd649bae558c09",
+      "artifact_count": 15
+    },
+    "Silver.ComposeNameBridge": {
+      "source_sha256": "84cd002096084bb826c2188413a95a359bf5e08a5b95ec3ba8d05bbd890b9b4a",
+      "artifact_count": 15
+    },
+    "Silver.ArrayBindingsRead": {
+      "source_sha256": "db30f42fb8e6c60d21eb3723934512aa6c180993796e172c085a36bc09a495b9",
+      "artifact_count": 15
+    },
+    "Silver.ArrayBindingsNativeExpressions": {
+      "source_sha256": "00602b943fa8fc4b4e3ffac9a283938273a39c4f387014f5119ee7df541990d1",
+      "artifact_count": 15
+    },
+    "Silver.ArrayBindingsNativeEquations": {
+      "source_sha256": "b4f86453eb70774cd4cf4de6bc6e23ca7cc603da043825e3c163f24858031eb9",
+      "artifact_count": 15
+    },
+    "Silver.ScalarExpressionNativeModel": {
+      "source_sha256": "84793abace4fadae815b9d8cd230eef1dbb3621704f26ad80e932a721018a590",
+      "artifact_count": 15
+    },
+    "Silver.ScalarExpressionNativeAlgebra": {
+      "source_sha256": "50d5cee2035a2c85421942888b71092a5ca15888b0c585a5bb732fa3b14bbb65",
+      "artifact_count": 15
+    },
+    "Silver.ScalarExpressionNativeRecursion": {
+      "source_sha256": "baf0de859b5efa953c79a3020e3f38f4ff36e86119acebcd580a571e9b62ad12",
+      "artifact_count": 15
+    },
+    "Silver.ScalarExpressionNativeTypes": {
+      "source_sha256": "ba70f85fd88cd78493a6c745e6fe7dbad7915ca68403347efc639c70cd2c7058",
+      "artifact_count": 15
+    },
+    "Silver.ComposeHelperEquations": {
+      "source_sha256": "a91fabd1e64db91e98fe01b5f72c5be76078cd0fe025721036b887383aa137bb",
+      "artifact_count": 15
+    },
+    "Silver.PredicateAdapterEnvironment": {
+      "source_sha256": "aee8d6b3784e5d278a1596f42625190d0705f154e322545df2998f35471a75a6",
+      "artifact_count": 15
+    },
+    "Silver.PredicateNativeExpressions": {
+      "source_sha256": "ccf17a161b815d22375c8164255234a284d592e2ef34abb5ba25150c54cc38bd",
+      "artifact_count": 15
+    },
+    "Silver.PredicateNativeBodies": {
+      "source_sha256": "cf08cbc1d9f3b3d8c6f897c5a89e2a74e814df532aac7fa1464c04daeb1070ca",
+      "artifact_count": 15
+    },
+    "Silver.PredicateNativePrecedence": {
+      "source_sha256": "f4849caaab5605294b06b9ced4c86d869bc6253d9278e4e59436994d0b05c7cc",
+      "artifact_count": 15
+    },
+    "Silver.PredicateNativeEquations": {
+      "source_sha256": "1963572ff64135a410e3cbeca090b0dccb8598eba71599bb9ba114de4fe5823a",
+      "artifact_count": 15
+    },
+    "Silver.PredicateNativeRanges": {
+      "source_sha256": "30560a31bb6050ce81320908977213441ea5c53d74f9d0bf9b9ec31f69d98109",
+      "artifact_count": 15
+    },
+    "Silver.PredicateNativeProgress": {
+      "source_sha256": "e0a37a3254d33fb0d8fcfd83878eaecb5ec0e37642feba987e0222111a28f47d",
+      "artifact_count": 15
+    },
+    "Silver.PredicateNativeModel": {
+      "source_sha256": "2f9cbfb0d4464d460a4f9f9902916ae6dbaa895a354350f766631c8c761efa53",
+      "artifact_count": 15
+    },
+    "Silver.PredicateNativeCorrespondence": {
+      "source_sha256": "c96b0efe66117522acc32e75be108c55ba10962f4d025c9115b7faf53aaa42ee",
+      "artifact_count": 15
+    },
+    "Silver.PredicateNativeContracts": {
+      "source_sha256": "c573ec8b596b3d058a9e584b9f96ae435d4695abfaaaeadfe71a432a74d496ff",
+      "artifact_count": 15
+    },
+    "Silver.PredicateNativeSizing": {
+      "source_sha256": "8c8284bf551eb3cb7f289b31b0335f8657500ee28412b289aa55836f708d0fb1",
+      "artifact_count": 15
+    },
+    "Silver.PredicateNativeModelSizing": {
+      "source_sha256": "ec9fafcb9a56794925ecd3e606c1e18622c01c5aede4fa5ce885c38aa8227b14",
+      "artifact_count": 15
+    },
+    "Silver.PredicateNativeWorkers": {
+      "source_sha256": "5c737386697b33388534d45137e1ba33d1dda0d8fb949f4af07594b10e9217ac",
+      "artifact_count": 15
+    },
+    "Silver.PredicateNativeHelpers": {
+      "source_sha256": "5c48a926b67fc201e1340b372826f06018fa49e7f0ecc0125165769a8bf88517",
+      "artifact_count": 15
+    }
+  },
+  "artifact_policy": "Copied all source-workspace module artifact groups from lib/lean and ir, excluding setup JSON; exact transitive source bytes checked before transfer."
+}

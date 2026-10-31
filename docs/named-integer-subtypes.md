@@ -1,7 +1,7 @@
 # Named Integer subtypes and bounded array components
 
 Status: implemented and validated on Linux, 2026-10-30, in
-[PR #289](https://github.com/berkeleynerd/silver/pull/289).
+[PR #289](https://github.com/berkeleynerd/silver/pull/289), merged 2026-10-31.
 [Milestone 13](https://github.com/berkeleynerd/silver/milestone/13)
 contains one coherent work package, [#286](https://github.com/berkeleynerd/silver/issues/286).
 The [2026-10-29 authorization](session-memory.md#2026-10-29--named-integer-subtypes-and-bounded-array-components-authorized)
@@ -207,7 +207,7 @@ they do not themselves establish final authoritative-source assurance.
 
 ## Delivery assurance and validation
 
-**Complete on Linux, 2026-10-30; merge authorized on 2026-10-31.**
+**Complete on Linux, 2026-10-30; merged through PR #289 on 2026-10-31.**
 The final implementation and code-review target is
 `d4e2be67b5de7fcc2919cf9eac6efb217e5ca672`. Subsequent changes retain evidence
 and synchronize delivery records and Rosetta metadata. Ada sources remain

@@ -1,0 +1,19 @@
+{
+  "checked_at": "2026-10-30T15:49:39.951319+00:00",
+  "run_id": "20261030T133820-8804240ce92e",
+  "run_outcome": "failure",
+  "managed_inputs_checked": 839,
+  "managed_mismatches": [],
+  "snapshot_files_checked": 12053,
+  "snapshot_mismatches": [],
+  "wrapper_sha256": "9c303cfb49ec6a327b500c7aed1c3ba7895f68ada9a14cdffa842055f65040c8",
+  "wrapper_expected_sha256": "9c303cfb49ec6a327b500c7aed1c3ba7895f68ada9a14cdffa842055f65040c8",
+  "inventory_sha256": "0665c64d23d1ac813944682641e29dc13f9d3176e42466685619d65b89059235",
+  "inventory_expected_sha256": "0665c64d23d1ac813944682641e29dc13f9d3176e42466685619d65b89059235",
+  "binary_sha256": "86617db42c93c7ecd98528e7e117210534e43305cce3ecf5241701014933f216",
+  "binary_expected_sha256": "86617db42c93c7ecd98528e7e117210534e43305cce3ecf5241701014933f216",
+  "unique_unittest_ids": 568,
+  "distinct_test_methods": 559,
+  "preexisting_duplicate_executions": 9,
+  "all_match": true
+}

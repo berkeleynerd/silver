@@ -1,0 +1,9 @@
+{
+  "run_id": "20261030T194116-3d6d1353e52b",
+  "outcome": "interrupted",
+  "recorded_end_utc": "2026-10-30T19:57:36.010534+00:00",
+  "duration_seconds": 976.48213343,
+  "reason": "Lead sent SIGINT to the complete Lean process group after native194142 identified two equality proof failures and a ghost-annotation source repair was selected. The interrupted proof inputs remain unchanged; completed Lake artifacts are retained.",
+  "inputs_verified": 689,
+  "implementation_target": "b6aeb9f978597ac025de21a8574c76c42389cf82"
+}

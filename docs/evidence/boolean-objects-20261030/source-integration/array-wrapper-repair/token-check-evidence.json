@@ -1,0 +1,27 @@
+{
+  "run_id": "20261030T184922-9ba9fdaacabb",
+  "scope": "isolated kernel checks of repaired renderer against 800 actual Ada body tokens and Checked against 818 actual function tokens; full source check remains pending",
+  "inputs_sha256": {
+    "tmp/ArrayWrapperTokens.lean": "7c2f26ebb2d892b4dbfc343560e0e4bd3eae08923440cea45d48f1f6b5ea29b1",
+    "src/silver_output_profile.adb": "9542d721cb1d63f936704058e6e0705b615fdce9e86d08397a2384c7714cc4a0",
+    "proof/Silver/ComposeArrayDeclarationSource.lean": "aa510284c427cd2c109e1c384390c19ad605859c325546cb7cdc28e3b53ab8cc",
+    "proof/Silver/ComposeArrayExpressions.lean": "ebacf6d03de2c298bd6de79540b043755ddbc87cc57bf3a72dce64f2210b19eb",
+    "proof/Silver/ComposeBooleanDeclarationSource.lean": "bb0422a4319ef1fec5866dc5e66992b88a584d2c8b443aac337be5b6eba882c6"
+  },
+  "lean_sha256": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+  "wrapper_olean_sha256": "ad7d36cfe1466a776bbf76b94a9be69a8244152544b6487c83ab4cee66754ad7",
+  "workers": 1,
+  "threads": 1,
+  "memory_mib": 8192,
+  "command": [
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-array-wrapper-repair/.tools/linux-x86_64/lean/bin/lean",
+    "-j1",
+    "-M8192",
+    "-DwarningAsError=true",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-array-wrapper-repair/tmp/ArrayWrapperTokens.lean"
+  ],
+  "returncode": 0,
+  "duration_seconds": 8.608647874003509,
+  "output": "'wrapper_body_tokens' depends on axioms: [propext]\n'wrapper_checked_tokens' depends on axioms: [propext]\n'Silver.Compose.ArrayDeclarationNative.eval_eq_expression' depends on axioms: [propext, Classical.choice, Quot.sound]\n",
+  "limitation": "The frozen actual function tokens are kernel-compared locally; the complete candidate/source-correspondence and whole-project audit remain required."
+}

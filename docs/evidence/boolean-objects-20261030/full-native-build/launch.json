@@ -1,0 +1,22 @@
+{
+  "source_commit": "598a56b969cc0f5b68de7f674ac8bd9c48b602fd",
+  "native_input_count": 143,
+  "all_native_inputs_match_commit": true,
+  "original_backups_verified": true,
+  "output_profile_sha256": "88b54a1df3e6cb1b59c482d36cd29a9f15c2506c69227fbef78c9ab93ab67ddb",
+  "verified_at": "2026-10-30T21:47:48.907011+00:00",
+  "build_pid": 22535,
+  "build_command": [
+    "/usr/bin/python3",
+    "-u",
+    "scripts/dev.py",
+    "build",
+    "--jobs",
+    "4",
+    "--task",
+    "#291-final-native",
+    "--reason",
+    "Build frozen equality-transport repair 598a56b969 after both complete focused readers passed; all143 tracked native inputs match, original source backups preserved, full strict proof follows"
+  ],
+  "build_log": "/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-final-native-build-88b54a1d.log"
+}

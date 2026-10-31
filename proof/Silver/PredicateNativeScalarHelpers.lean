@@ -31,7 +31,7 @@ inductive Ty
 
 def Ty.default : (ty : Ty) → ty.meaning
   | .number => 0 | .value => 0 | .truth => false | .text => []
-  | .context => ⟨[], 0, 0, [], 0, [], {}⟩ | .flow => ⟨PathFacts.Context.empty, []⟩
+  | .context => {names := [], dynamicFirst := 0, dynamicAfter := 0} | .flow => ⟨PathFacts.Context.empty, []⟩
   | .result => ScalarExpression.invalid
   | .condition => Predicate.invalidCondition ⟨PathFacts.Context.empty, []⟩
   | .comparison => .eq | .scalarComparison => .eq | .interval => Integer.Interval.empty
@@ -308,7 +308,7 @@ def scalarConditionBody : Expr .condition :=
 
 structure Inputs where
   text : Source := []
-  context : Native.Context := ⟨[], 0, 0, [], 0, [], {}⟩
+  context : Native.Context := {names := [], dynamicFirst := 0, dynamicAfter := 0}
   facts : ActiveFlow := ⟨PathFacts.Context.empty, []⟩
   position : Nat := 0
   rightPosition : Nat := 0

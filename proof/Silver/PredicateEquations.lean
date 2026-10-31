@@ -37,7 +37,7 @@ def bodyPrimitives (calls : Calls) : BodyNative.Primitives where
   loop := calls.loopImports
   token := calls.outer.helpers.function .takeToken
   basic := calls.basic
-  predicate := calls.predicate.condition
+  predicate text context position facts := calls.predicate.condition text context position facts []
   bodyToken := calls.bodyWrappers.token
   invalidModel := calls.invalidBodies.invalidModel
   invalid := calls.invalidBodies.invalid
@@ -63,7 +63,7 @@ structure Definitions (calls : Calls) : Prop where
   libraries : Native.Libraries.Links calls.predicate calls.outer.helpers calls.integer
   predicates : Native.DefinitionEquations calls.predicate
   predicateContracts : Native.Contracts calls.predicate
-  basicLinks : BasicNative.Links calls.basicPrimitives calls.outer.helpers
+  basicLinks : BasicNative.Links calls.basicPrimitives calls.outer.helpers calls.predicate
   flowLibraries : FlowSourceBridge.CallsMeaning calls.flowLibraries
   initial : FlowSourceBridge.InterpretedInitial calls.flowLibraries calls.initial
   wrapperModels : Adapter.Wrappers.ModelEquations calls.bodyWrapperModels calls.outer.body
@@ -102,22 +102,24 @@ include helpers definitions
 
 theorem wrapper_models : Adapter.Wrappers.ModelEquations calls.bodyWrapperModels calls.outer.body :=
   Adapter.Wrappers.normalize_models calls.flowLibraries definitions.flowLibraries calls.initial
-    definitions.initial (Adapter.Wrappers.normalize_tokens helpers definitions.wrapperModels)
+    definitions.initial (Adapter.Wrappers.normalize_tokens helpers.toRawHelperEquations definitions.wrapperModels)
 
 theorem predicate_helpers : Native.HelperMeaning calls.predicate :=
-  Native.Libraries.helper_meaning calls.predicate calls.outer.helpers helpers calls.literals
+  Native.Libraries.helper_meaning calls.predicate calls.outer.helpers helpers.toRawHelperEquations calls.literals
     definitions.literals calls.integer definitions.literalRefinement definitions.libraries
 
 theorem basic_helpers : BasicNative.HelperMeaning calls.basicPrimitives :=
-  BasicNative.HelperMeaning.of_inherited helpers definitions.basicLinks
+  BasicNative.HelperMeaning.of_inherited helpers.toRawHelperEquations
+    (predicate_helpers calls helpers definitions) definitions.predicates definitions.predicateContracts
+    definitions.basicLinks
 
 theorem body_helpers (lexical : Compose.Lexical.Meaning calls.outer.helpers.primitive) :
     BodyNative.HelperMeaning (bodyPrimitives calls) where
-  loop := LoopNative.ImportsMeaning.of_inherited helpers lexical
+  loop := LoopNative.ImportsMeaning.of_inherited helpers.toRawHelperEquations lexical
     definitions.loopScalarPrimitives definitions.loopScalarEquations definitions.loopLinks
   token text tv position pv token valid := by
     dsimp only [bodyPrimitives]
-    rw [Compose.Expressions.interpreted_take calls.outer.helpers helpers text tv position token pv
+    rw [Compose.Expressions.interpreted_take calls.outer.helpers helpers.toRawHelperEquations text tv position token pv
       (BodyNative.bodyToken_valid token valid)]
     exact BodyNative.bodyToken_model text position token valid
   bodyToken text tv context cv scan sv token valid :=
@@ -130,6 +132,7 @@ theorem body_helpers (lexical : Compose.Lexical.Meaning calls.outer.helpers.prim
   predicate text tv context cv position pv facts fv :=
     Native.condition_of_source_equations (predicate_helpers calls helpers definitions)
       definitions.predicates definitions.predicateContracts text tv context cv position pv facts fv
+      [] (by simp [ArrayBindings.ValidInitials, ArrayBindings.maxElements])
   invalidModel scan capacity := BodyWrappers.invalidModel_meaning definitions.invalidBodies scan capacity
   invalid scan capacity := BodyWrappers.invalid_meaning definitions.invalidBodies scan capacity
   joinInto left right capacity same := by
@@ -184,14 +187,14 @@ def modelCalls : Calls where
   invalidBodies := BodyWrappers.modelCalls
   joinInto := ActiveFlow.join
 
-theorem model_basic_links : BasicNative.Links modelCalls.basicPrimitives modelCalls.outer.helpers :=
-  BasicNative.model_links Outer.model_helpers.equations
+theorem model_basic_links : BasicNative.Links modelCalls.basicPrimitives modelCalls.outer.helpers modelCalls.predicate :=
+  BasicNative.model_links Outer.model_helpers.equations.toRawHelperEquations
 
 theorem model_body_helpers : BodyNative.HelperMeaning (bodyPrimitives modelCalls) where
-  loop := LoopNative.ImportsMeaning.of_inherited Outer.model_helpers.equations
+  loop := LoopNative.ImportsMeaning.of_inherited Outer.model_helpers.equations.toRawHelperEquations
     (Compose.SourceBridge.interpreted_primitives Compose.Expressions.modelCalls InheritedReady.model_interpreted)
     ScalarExpression.Native.model_primitives ScalarExpression.Native.model_equations
-    (LoopNative.model_links Outer.model_helpers.equations)
+    (LoopNative.model_links Outer.model_helpers.equations.toRawHelperEquations)
   token text _ position _ token valid := BodyNative.bodyToken_model text position token valid
   bodyToken text tv context cv scan sv token valid :=
     Adapter.Wrappers.token_interpreted (Adapter.Wrappers.model_equations BodyNative.modelCalls)
@@ -219,7 +222,7 @@ theorem model_definitions : Definitions modelCalls where
       (FlowSourceBridge.model_initial_interpreted FlowSourceBridge.modelCalls)
       BodyNative.modelCalls {scan} legal).symm
     token := fun text context scan token legal =>
-      (Adapter.Wrappers.token_expression_projection Outer.model_helpers.equations
+      (Adapter.Wrappers.token_expression_projection Outer.model_helpers.equations.toRawHelperEquations
         BodyNative.modelCalls text context scan token legal).symm }
   wrappers := Adapter.Wrappers.model_refinement _
   invalidBodies := BodyWrappers.model_definitions
@@ -236,9 +239,10 @@ theorem model_definitions : Definitions modelCalls where
         (FlowSourceBridge.ofFlow left) (FlowSourceBridge.ofFlow right) capacity same
   loopScalarPrimitives := ScalarExpression.Native.model_primitives
   loopScalarEquations := ScalarExpression.Native.model_equations
-  loopLinks := LoopNative.model_links Outer.model_helpers.equations
+  loopLinks := LoopNative.model_links Outer.model_helpers.equations.toRawHelperEquations
   basicSized text _ context cv scan sv := by
-    rw [BasicNative.totalize_eq_model (BasicNative.HelperMeaning.of_inherited Outer.model_helpers.equations model_basic_links)]
+    rw [BasicNative.totalize_eq_model (BasicNative.HelperMeaning.of_inherited Outer.model_helpers.equations.toRawHelperEquations
+      Native.model_helper_meaning Native.model_definition_equations Native.model_contracts model_basic_links)]
     exact BasicNative.model_sizedBasic text context scan (sv.2.2.count_le cv)
   loopSized text _ context cv scan sv := by
     have importsMeaning : LoopNative.ImportsMeaning modelCalls.loopImports := model_body_helpers.loop
@@ -246,7 +250,8 @@ theorem model_definitions : Definitions modelCalls where
     exact LoopNative.model_sizedLoop text context scan sv.2.2.2.compatible.count cv.2.2.1.1
   basic text _ context _ scan _ :=
     (BasicNative.basicEval_normalized
-      (BasicNative.HelperMeaning.of_inherited Outer.model_helpers.equations model_basic_links) text context scan).symm
+      (BasicNative.HelperMeaning.of_inherited Outer.model_helpers.equations.toRawHelperEquations
+      Native.model_helper_meaning Native.model_definition_equations Native.model_contracts model_basic_links) text context scan).symm
   body := by
     have normalized := BodyNative.totalize_eq_model (bodyPrimitives modelCalls) model_body_helpers
     have bodySame : modelCalls.outer.body = BodyNative.modelCalls := rfl

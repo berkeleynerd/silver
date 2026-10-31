@@ -1,0 +1,18 @@
+{
+  "duration_seconds": 306.48430601,
+  "error": "CalledProcessError: Command '['/usr/bin/python3', '-m', 'unittest', 'discover', '-s', 'tests', '-v', '-p', 'test_boolean_terminal_reruns.py']' returned non-zero exit status 1.",
+  "event": "finished",
+  "evidence": [
+    {
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261030T155127-bf12fb89db9a/native.log",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261030T155127-bf12fb89db9a/native.log"
+    }
+  ],
+  "failure_keys": [],
+  "monotonic_ns": 178826351376569,
+  "outcome": "failure",
+  "retained_reports": [],
+  "returncode": 1,
+  "run_id": "20261030T155127-bf12fb89db9a",
+  "utc": "2026-10-30T15:56:36.515985+00:00"
+}

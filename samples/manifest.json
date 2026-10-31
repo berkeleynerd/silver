@@ -1782,6 +1782,79 @@
         "stderr": "",
         "exit_status": 0
       }
+    },
+    {
+      "source": "rosetta_sequence_of_primes_by_trial_division.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "named_boolean_variable",
+        "boolean_assignment",
+        "boolean_expression",
+        "boolean_predicate",
+        "string_choice",
+        "for_loop",
+        "integer_comparison",
+        "integer_image",
+        "integer_expression"
+      ],
+      "specification": "../language.md#boolean-objects-and-expressions",
+      "expected": {
+        "stdout": " 2\n 3\n 5\n 7\n 11\n 13\n 17\n 19\n 23\n 29\n 31\n 37\n 41\n 43\n 47\n 53\n 59\n 61\n 67\n 71\n 73\n 79\n 83\n 89\n 97\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    {
+      "source": "rosetta_square_but_not_cube.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "named_boolean_variable",
+        "boolean_assignment",
+        "boolean_expression",
+        "boolean_predicate",
+        "string_choice",
+        "for_loop",
+        "integer_comparison",
+        "integer_image",
+        "named_integer_variable",
+        "integer_assignment",
+        "integer_expression"
+      ],
+      "specification": "../language.md#boolean-objects-and-expressions",
+      "expected": {
+        "stdout": " 4 9 16 25 36 49 81 100 121 144 169 196 225 256 289 324 361 400 441 484 529 576 625 676 784 841 900 961 1024 1089\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    {
+      "source": "rosetta_common_list_elements.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "named_boolean_variable",
+        "boolean_assignment",
+        "boolean_expression",
+        "boolean_predicate",
+        "string_choice",
+        "for_loop",
+        "integer_comparison",
+        "integer_image",
+        "named_integer_subtype",
+        "integer_array_object",
+        "integer_array_iteration"
+      ],
+      "specification": "../language.md#boolean-objects-and-expressions",
+      "expected": {
+        "stdout": "[ 3, 9, 6]\n",
+        "stderr": "",
+        "exit_status": 0
+      }
     }
   ]
 }

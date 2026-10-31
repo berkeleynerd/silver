@@ -108,7 +108,7 @@
         "copy_semantics": "snapshot of the earlier initialized value; later source assignments do not change the copy",
         "unused_allowed": true,
         "argument_initializer_position": "first and unique binding in argument-bearing forms only",
-        "shared_name_environment": "String objects, Integer objects, named Integer subtypes and Integer-array declarations; scoped loop indexes and elements may hide them in bodies",
+        "shared_name_environment": "String, Integer and Boolean objects, named Integer subtypes and Integer-array declarations; scoped loop indexes and elements may hide them in bodies",
         "integer_type_hiding": "a String binding named Integer hides the Image type mark in its own initializer and later source",
         "initializer_image_length": "non-input minimum and maximum must agree; Image captures exact initial values of earlier Integer objects and array components"
       }
@@ -281,7 +281,7 @@
         "bounds": "fixed by initialized value",
         "copy_semantics": "snapshot of the earlier initialized value; later source assignments do not change the copy",
         "unused_allowed": true,
-        "shared_name_environment": "String objects, Integer objects, named Integer subtypes and Integer-array declarations; scoped loop indexes and elements may hide them in bodies",
+        "shared_name_environment": "String, Integer and Boolean objects, named Integer subtypes and Integer-array declarations; scoped loop indexes and elements may hide them in bodies",
         "integer_type_hiding": "a String binding named Integer hides the Image type mark in its own initializer and later source",
         "initializer_image_length": "non-input minimum and maximum must agree; Image captures exact initial values of earlier Integer objects and array components"
       }
@@ -400,6 +400,7 @@
           "null_statement",
           "string_assignment",
           "integer_assignment",
+          "boolean_assignment",
           "integer_array_assignment",
           "expression_output",
           "argument_rejection"
@@ -443,6 +444,7 @@
           "null_statement",
           "string_assignment",
           "integer_assignment",
+          "boolean_assignment",
           "integer_array_assignment",
           "expression_output",
           "string_choice",
@@ -482,6 +484,108 @@
       }
     },
     {
+      "id": "named_boolean_constant",
+      "ada_kind": "object_declaration",
+      "conditions": {
+        "type": "visible predefined Boolean",
+        "constant": true,
+        "initializer_required": true,
+        "initializer": "boolean_expression",
+        "declaration_context": "ordered declarations in either output shell",
+        "visibility": "earlier initialized values only; no self, forward or cyclic references; declarations hide predefined names in their own declaration",
+        "name_rules": "shared case-insensitive declaration uniqueness and reserved-name rules; Boolean object cannot be named Boolean; True and False remain legal names",
+        "copy_semantics": "snapshot of the initialized Boolean value; no retained predicate provenance",
+        "stored_value_flow": "literal or name yields unchanged incoming scalar and String/input facts on both outcomes",
+        "unused_allowed": true
+      }
+    },
+    {
+      "id": "named_boolean_variable",
+      "ada_kind": "object_declaration",
+      "conditions": {
+        "type": "visible predefined Boolean",
+        "constant": false,
+        "initializer_required": true,
+        "initializer": "boolean_expression",
+        "declaration_context": "ordered declarations in either output shell",
+        "visibility": "earlier initialized values only; no self, forward or cyclic references; declarations hide predefined names in their own declaration",
+        "name_rules": "shared case-insensitive declaration uniqueness and reserved-name rules; Boolean object cannot be named Boolean; True and False remain legal names",
+        "copy_semantics": "snapshot of the initialized Boolean value; no retained predicate provenance",
+        "stored_value_flow": "literal or name yields unchanged incoming scalar and String/input facts on both outcomes",
+        "unused_allowed": true
+      }
+    },
+    {
+      "id": "boolean_assignment",
+      "ada_kind": "assignment_statement",
+      "conditions": {
+        "target": "visible initialized mutable Boolean object",
+        "rhs": "boolean_expression",
+        "constant_index_or_element_target": false,
+        "effect": "evaluate RHS in incoming flow; replace only target Boolean value; preserve other objects and existing scalar and String/input facts",
+        "report_policy": "existing assigned or selected policy; no new accepted report class"
+      }
+    },
+    {
+      "id": "boolean_expression",
+      "ada_kind": "expression",
+      "conditions": {
+        "positions": [
+          "boolean_initializer",
+          "boolean_assignment_rhs",
+          "condition"
+        ],
+        "primaries": [
+          "visible predefined True or False",
+          "visible initialized Boolean object",
+          "input_guard",
+          "parenthesized_condition"
+        ],
+        "not": "one primary; repeated negation requires grouping",
+        "relations": "existing safe String, length and Integer comparisons, plus Boolean equality and inequality",
+        "chains": [
+          "and",
+          "or",
+          "xor",
+          "and then",
+          "or else"
+        ],
+        "mixed_operators_require_parentheses": true,
+        "eager_operand_safety": "each operand checked independently in original incoming scalar and String/input flow; both outcomes return that incoming flow",
+        "short_circuit_operand_safety": "and then RHS uses left-true flow; or else RHS uses left-false flow",
+        "literal_and_name_flow": "unchanged incoming facts on both outcomes; no saved scalar, String-length or validity relationship",
+        "initializer_checks": "exact initialized earlier Integer and array-component values; existing String/input initializer rules",
+        "body_checks": "existing scalar flow and declared array-component intervals",
+        "operator_accounting": "Boolean logic and comparisons do not consume the shared 63 String/scalar arithmetic operators",
+        "operand_accounting": "no separate Boolean leaf limit; each embedded scalar or String expression retains its 64-operand bound",
+        "excluded": [
+          "Boolean arrays",
+          "Boolean subtypes or range constraints",
+          "Boolean Image",
+          "Boolean ordering",
+          "general enumeration iteration",
+          "Boolean-valued user routines"
+        ],
+        "xor_operands": "neither operand may contain xor; strings, comments and identifier substrings do not count; independent xor expressions remain permitted",
+        "xor_scope_purpose": "avoid repeated formula multiplication in the pinned proof producer; not an Ada restriction"
+      }
+    },
+    {
+      "id": "boolean_comparison",
+      "ada_kind": "relation",
+      "conditions": {
+        "operators": [
+          "=",
+          "/="
+        ],
+        "operands": "Boolean factors: optional not followed by Boolean primary",
+        "association": "not belongs to its factor; not A=True compares (not A) and True",
+        "operand_safety": "both factors checked independently in incoming flow",
+        "result_flow": "unchanged incoming scalar and String/input facts on both outcomes; factor-derived facts do not escape",
+        "ordering": false
+      }
+    },
+    {
       "id": "boolean_predicate",
       "ada_kind": "condition",
       "conditions": {
@@ -491,21 +595,31 @@
           "integer_comparison",
           "input_guard",
           "parenthesized_condition",
-          "not_primary"
+          "not_primary",
+          "boolean_literal",
+          "boolean_name",
+          "boolean_comparison"
         ],
         "chains": [
           "and then",
-          "or else"
+          "or else",
+          "and",
+          "or",
+          "xor"
         ],
         "mixed_operators_require_parentheses": true,
         "not_operand": [
           "input_guard",
-          "parenthesized_condition"
+          "parenthesized_condition",
+          "boolean_literal",
+          "boolean_name"
         ],
-        "right_operand_path": "left true for and then; left false for or else",
-        "boolean_literals": false,
-        "eager_operators": false,
-        "scope_purpose": "short-circuit input and selected scalar flow refinement; reached RHSs use the corresponding full flow, including nested Image arguments; Boolean values and eager operators remain excluded"
+        "right_operand_path": "left true for and then; left false for or else; original incoming full flow for eager and/or/xor and Boolean equality/inequality",
+        "boolean_literals": true,
+        "eager_operators": true,
+        "scope_purpose": "short-circuit predicates retain reached-path facts; stored Boolean values and eager outcomes retain no derived scalar or String/input facts",
+        "xor_operands": "neither operand may contain xor; strings, comments and identifier substrings do not count; independent xor expressions remain permitted",
+        "xor_scope_purpose": "avoid repeated formula multiplication in the pinned proof producer; not an Ada restriction"
       }
     },
     {
@@ -611,7 +725,7 @@
         "exclude_ada_2022_reserved_words": true,
         "case_insensitive_binding": true,
         "all_declared_names_distinct_ignoring_case": true,
-        "shared_name_environment": "String objects, Integer objects, named Integer subtypes and Integer-array declarations; scoped loop indexes and elements may hide them in bodies",
+        "shared_name_environment": "String, Integer and Boolean objects, named Integer subtypes and Integer-array declarations; scoped loop indexes and elements may hide them in bodies",
         "type_mark_visible": true,
         "declaration_context": "every output shell; after the first argument binding in argument shells",
         "count": "finite_within_complete_source_bound",
@@ -649,7 +763,7 @@
         "exclude_ada_2022_reserved_words": true,
         "case_insensitive_binding": true,
         "all_declared_names_distinct_ignoring_case": true,
-        "shared_name_environment": "String objects, Integer objects, named Integer subtypes and Integer-array declarations; scoped loop indexes and elements may hide them in bodies",
+        "shared_name_environment": "String, Integer and Boolean objects, named Integer subtypes and Integer-array declarations; scoped loop indexes and elements may hide them in bodies",
         "type_mark_visible": true,
         "declaration_context": "every output shell; after the first argument binding in argument shells",
         "count": "finite_within_complete_source_bound",
@@ -1034,6 +1148,8 @@
           "named_string_variable",
           "named_integer_constant",
           "named_integer_variable",
+          "named_boolean_constant",
+          "named_boolean_variable",
           "named_integer_subtype",
           "integer_array_object"
         ],
@@ -1042,6 +1158,7 @@
         "initializers": [
           "string_expression",
           "integer_expression",
+          "boolean_expression",
           "explicit_integer_array_aggregate"
         ],
         "ordered": true,
@@ -1078,6 +1195,8 @@
           "named_string_variable",
           "named_integer_constant",
           "named_integer_variable",
+          "named_boolean_constant",
+          "named_boolean_variable",
           "named_integer_subtype",
           "integer_array_object"
         ],
@@ -1086,6 +1205,7 @@
         "initializers": [
           "string_expression",
           "integer_expression",
+          "boolean_expression",
           "explicit_integer_array_aggregate"
         ],
         "ordered": true,
