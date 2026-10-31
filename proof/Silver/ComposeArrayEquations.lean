@@ -103,7 +103,7 @@ theorem interpreted_arrayValues (calls : Calls)
 
 theorem interpreted_arrayParts (calls : Calls) (equations : RawHelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (state : ParserState)
-    (stateValid : domain.holds text state) :
+    (stateValid : NativeState domain text state) :
     arrayPartsEquation calls text state = arrayDeclarationParts text state := by
   let first := declarationFirst text state
   let after := declarationAfter text state
@@ -123,7 +123,7 @@ theorem interpreted_arrayParts (calls : Calls) (equations : RawHelperEquations c
   let typeAfter := typeMark.after
   let assigned := fixedAfter text typeAfter ":=" false
   let position := fixedAfter text assigned "(" false
-  have bfirst : ValidCursor text first := model_skip_valid text state.position (domain.valid text state stateValid).1
+  have bfirst : ValidCursor text first := model_skip_valid text state.position stateValid.valid.1
   have bafter : ValidCursor text after := model_name_valid text first
   have bcolon : ValidCursor text colon := model_fixed_valid text after ":" false bafter
   have bconstant : ValidCursor text constant := model_fixed_valid text colon "constant" true bcolon
@@ -138,15 +138,15 @@ theorem interpreted_arrayParts (calls : Calls) (equations : RawHelperEquations c
   have btypeFirst : ValidCursor text typeFirst := model_skip_valid text ofAfter bof
   have btypeAfter : ValidCursor text typeAfter := scalarTypeAt_position_valid text state typeFirst
   have bassigned : ValidCursor text assigned := model_fixed_valid text typeAfter ":=" false btypeAfter
-  have efirst : calls.function .skip text state.position = first := interpreted_skip calls equations text valid state.position (domain.valid text state stateValid).1
+  have efirst : calls.function .skip text state.position = first := interpreted_skip calls equations text valid state.position stateValid.valid.1
   have eafter : calls.function .nameAfter text first = after := interpreted_name calls equations text valid first bfirst
   have ecolon : calls.function .takeToken text after (.symbol ":") = colon := interpreted_take calls equations text valid after (.symbol ":") bafter (by unfold ValidToken; decide)
   have econstant : calls.function .takeToken text colon (.word "constant") = constant := interpreted_take calls equations text valid colon (.word "constant") bcolon (by unfold ValidToken; decide)
   have earray : calls.function .takeToken text (if constant ≠ 0 then constant else colon) (.word "array") = arrayAfter := interpreted_take calls equations text valid _ (.word "array") bselected (by unfold ValidToken; decide)
   have elowStart : calls.function .takeToken text arrayAfter (.symbol "(") = lowStart := interpreted_take calls equations text valid arrayAfter (.symbol "(") barray (by unfold ValidToken; decide)
-  have elow : calls.function .scalarRead text lowStart state.scalarNames state.arrayNames.names state.arrayNames.values true = low := equations.scalarRead text valid lowStart state.scalarNames state.arrayNames.names state.arrayNames.values true blowStart (domain.valid text state stateValid).2.2.2.2.2.1 (state_array_metadata (domain.valid text state stateValid)) (state_array_initials (domain.valid text state stateValid))
+  have elow : calls.function .scalarRead text lowStart state.scalarNames state.arrayNames.names state.arrayNames.values true = low := equations.scalarRead text valid lowStart state.scalarNames state.arrayNames.names state.arrayNames.values true blowStart stateValid.valid.2.2.2.2.2.1 (state_array_metadata stateValid.valid) (state_array_initials stateValid.valid)
   have ehighStart : calls.function .takeToken text low.after (.symbol "..") = highStart := interpreted_take calls equations text valid low.after (.symbol "..") blow.1 (by unfold ValidToken; decide)
-  have ehigh : calls.function .scalarRead text highStart state.scalarNames state.arrayNames.names state.arrayNames.values true = high := equations.scalarRead text valid highStart state.scalarNames state.arrayNames.names state.arrayNames.values true bhighStart (domain.valid text state stateValid).2.2.2.2.2.1 (state_array_metadata (domain.valid text state stateValid)) (state_array_initials (domain.valid text state stateValid))
+  have ehigh : calls.function .scalarRead text highStart state.scalarNames state.arrayNames.names state.arrayNames.values true = high := equations.scalarRead text valid highStart state.scalarNames state.arrayNames.names state.arrayNames.values true bhighStart stateValid.valid.2.2.2.2.2.1 (state_array_metadata stateValid.valid) (state_array_initials stateValid.valid)
   have eclose : calls.function .takeToken text high.after (.symbol ")") = close := interpreted_take calls equations text valid high.after (.symbol ")") bhigh.1 (by unfold ValidToken; decide)
   have eof : calls.function .takeToken text close (.word "of") = ofAfter := interpreted_take calls equations text valid close (.word "of") bclose (by unfold ValidToken; decide)
   have etypeFirst : calls.function .skip text ofAfter = typeFirst := interpreted_skip calls equations text valid ofAfter bof
@@ -161,9 +161,9 @@ theorem interpreted_arrayParts (calls : Calls) (equations : RawHelperEquations c
 
 theorem interpreted_arrayDeclaration (calls : Calls) (equations : RawHelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (state : ParserState) (arguments : Bool)
-    (stateValid : domain.holds text state) :
+    (stateValid : NativeState domain text state) :
     calls.function .arrayDeclaration text state arguments = arrayDeclarationAt text state arguments := by
-  have vstate := domain.valid text state stateValid
+  have vstate := stateValid.valid
   rw [equations.arrayDeclaration text valid state arguments stateValid, arrayDeclaration_denotation,
     ← model_arrayDeclaration_equation text state arguments true]
   change arrayDeclarationEquation calls true text state arguments =
@@ -179,7 +179,7 @@ theorem interpreted_arrayDeclaration (calls : Calls) (equations : RawHelperEquat
   have ename := interpreted_newName calls equations text valid state parts.first parts.after arguments
     stateValid positions.first positions.after
   have estring := interpreted_lookup calls equations text valid state.names parts.typeFirst parts.typeAfter
-    vstate.2.1 positions.typeFirst positions.typeAfter
+    stateValid.nativeNames positions.typeFirst positions.typeAfter
   have escalar := equations.scalarLookup text valid state.scalarNames parts.typeFirst parts.typeAfter
     vstate.2.2.2.2.2.1 positions.typeFirst positions.typeAfter
   have earray := equations.arrayLookup text valid state.arrayNames.names parts.typeFirst parts.typeAfter
@@ -261,7 +261,7 @@ theorem interpreted_arrayDeclaration (calls : Calls) (equations : RawHelperEquat
       · dsimp only [values, position, choice, ArrayDeclarationParts.length] at absent
         simp only [absent, decide_true, Bool.true_or, ↓reduceIte, ite_self]
       · have preserved := arrayValuesModel_preserves text state state position parts.length 0 absent
-        have valuesContext := domain.transportScalar text state values stateValid valuesValid preserved.2.1 preserved.1
+        have valuesContext := NativeState.transportScalar stateValid valuesValid preserved.2.1 preserved.1
         obtain ⟨expressions, reading⟩ := arrayValues_sound text state state position parts.length 0 positionValid absent
         have used : values.arrayNames.used = state.arrayNames.used + parts.length := by
           simpa only [Nat.sub_zero] using arrayValues_used reading
