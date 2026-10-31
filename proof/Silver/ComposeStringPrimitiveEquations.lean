@@ -27,4 +27,14 @@ set_option maxRecDepth 10000
   dsimp +instances only [StringNative.characterLiteralBody, Expr.eval, Context.locals, Calls.get]
   simp only [characterLiteralAfter, Bool.and_eq_true, decide_eq_true_eq, and_assoc]
 
+@[simp] theorem interpreted_concatenatedFirst (calls : Calls)
+    (equations : RawHelperEquations calls (domain := domain))
+    (text : Source) (left : ExpressionState) (right : ValueResult)
+    (leftValid : NativeScan text left) (rightValid : NativeValue text right) :
+    calls.function .concatenatedFirst left right = concatenatedFirst left right := by
+  rw [equations.concatenatedFirst text left right leftValid rightValid]
+  dsimp +instances only [StringNative.concatenatedFirstBody, Expr.eval, Context.locals,
+    Calls.get, Field.get]
+  simp only [concatenatedFirst, Bool.or_eq_true, Bool.and_eq_true, decide_eq_true_eq]
+
 end Silver.Compose.Expressions
