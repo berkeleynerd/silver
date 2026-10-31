@@ -1,6 +1,7 @@
 module
 
 public import Silver.PredicateComposition
+public import Silver.PredicateStringBoundChecks
 
 @[expose] public section
 
@@ -15,22 +16,26 @@ inductive Check
   | declaration (check : Compose.Check)
   | scalarDeclaration (check : Integer.Obligation)
   | path (check : Obligation)
+  | stringBounds (check : StringBoundsObligation)
   deriving DecidableEq, Repr
 
 def Check.Valid : Check → Prop
   | .declaration check => check.Valid
   | .scalarDeclaration check => check.Valid
   | .path check => check.Valid
+  | .stringBounds check => check.Valid
 
 def Check.discharge : Check → Bool
   | .declaration check => check.discharge
   | .scalarDeclaration check => check.discharge
   | .path check => check.discharge
+  | .stringBounds check => check.discharge
 
 def Check.InFragment : Check → Prop
   | .declaration check => check.InFragment
   | .scalarDeclaration check => check.discharge = true
   | .path check => check.discharge = true
+  | .stringBounds check => check.discharge = true
 
 /-- Optimized checks may be omitted or duplicated. Declaration ranges admit
 coefficient domination as before; path checks must retain the exact normalized
@@ -39,12 +44,18 @@ def Check.Refines : Check → Check → Prop
   | .declaration check, .declaration upper => check.Refines upper
   | .scalarDeclaration check, .scalarDeclaration upper => check = upper
   | .path check, .path upper => check = upper
+  | .stringBounds check, .declaration (.range upper) =>
+      check.bindingCount ≤ Compose.maxBindings ∧
+        ∃ lower, check.length = .declaration lower ∧ lower.Refines upper
+  | .stringBounds check, .path (.stringRange context summary) =>
+      check.bindingCount ≤ Compose.maxBindings ∧ check.length = .path context summary
+  | .stringBounds check, .stringBounds upper => check = upper
   | _, _ => False
 
 theorem Check.refines_refl (check : Check) : check.Refines check := by
   cases check with
   | declaration check => exact Compose.Check.refines_refl check
-  | scalarDeclaration | path => rfl
+  | scalarDeclaration | path | stringBounds => rfl
 
 theorem Check.fragment_of_refines {check upper : Check}
     (refined : check.Refines upper) (fragment : upper.InFragment) : check.InFragment := by
@@ -52,17 +63,35 @@ theorem Check.fragment_of_refines {check upper : Check}
   · exact Compose.Check.fragment_of_refines refined fragment
   · cases refined; exact fragment
   · cases refined; exact fragment
+  · rename_i check upper
+    cases upper with
+    | length => contradiction
+    | range upper =>
+        obtain ⟨count, lower, length, bounded⟩ := refined
+        have valid := Guarded.RangeObligation.valid_of_refines bounded
+          (Compose.Check.fragment_valid (check := .range upper) fragment)
+        have discharged := (Guarded.RangeObligation.discharge_iff lower).mpr valid
+        simp only [Check.InFragment, StringBoundsObligation.discharge, length,
+          StringLengthSchema.discharge, decide_eq_true count, discharged, Bool.and_self]
+  · rename_i check upper
+    cases upper <;> try contradiction
+    obtain ⟨count, length⟩ := refined
+    simp only [Check.InFragment, StringBoundsObligation.discharge, length,
+      StringLengthSchema.discharge, decide_eq_true count, Bool.true_and]
+    exact fragment
+  · cases refined; exact fragment
 
 theorem Check.fragment_valid {check : Check} (fragment : check.InFragment) : check.Valid := by
   cases check with
   | declaration => exact Compose.Check.fragment_valid fragment
   | scalarDeclaration => exact Integer.Obligation.discharge_sound fragment
   | path => exact Obligation.discharge_sound fragment
+  | stringBounds => exact StringBoundsObligation.discharge_sound fragment
 
 theorem Check.fragment_discharge {check : Check} (fragment : check.InFragment) : check.discharge = true := by
   cases check with
   | declaration check => exact (Compose.Check.discharge_iff check).mpr (Compose.Check.fragment_valid fragment)
-  | scalarDeclaration | path => exact fragment
+  | scalarDeclaration | path | stringBounds => exact fragment
 
 def Check.toObligation (check : Check) : Semantics.Obligation := ⟨.runTimeSafety, check.discharge⟩
 
