@@ -245,7 +245,14 @@ mutual
                     exact ⟨ready.withPath _, ready⟩
                   · simp only [equal, Bool.false_eq_true, ↓reduceIte]
                     exact ⟨ready, ready.withPath _⟩
-            · exact booleanRelation_flowReady text context position facts base ready initials
+            · try dsimp only
+              split
+              · unfold characterCondition
+                dsimp only
+                split
+                · exact invalidCondition_flowReady ready
+                · exact ⟨ready, ready⟩
+              · exact booleanRelation_flowReady text context position facts base ready initials
   termination_by (remainingAt text position, 4)
 
   theorem tail_flowReady (text : Source) (context : ParseContext) (result : ConditionResult)
