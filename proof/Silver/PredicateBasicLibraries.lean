@@ -23,13 +23,20 @@ theorem basic_token_calls_fixed :
     ∀ token ∈ basicCommands.tokenCalls, Adapter.FixedToken token :=
   fun token present => basicToken_fixed token (basic_tokens_complete token present)
 
-/-- Every Basic_Body callee is linked to its own typed source definition or
-runtime wrapper contract. The complete scalar assignment and String target
-meanings are derived from those component definitions. -/
+/-- Basic_Body callee wiring. Existing scalar assignment and String target
+meanings follow from component source definitions. Character and indexed
+readers are linked to their inherited typed source definitions and interpreted
+on their complete native call domains. -/
 structure Links (primitive : Primitives) (inherited : Compose.Expressions.Calls) (predicate : Native.Calls) : Prop where
   callAfter : primitive.callAfter = inherited.function .callAfter
   associationAfter : primitive.associationAfter = inherited.names.associationAfter
   token : primitive.token = inherited.function .takeToken
+  readingNames : ∃ reading, FlowSourceBridge.InterpretedReadingNames reading ∧
+    ∀ text context facts, FlowDomain text context 0 facts →
+      primitive.readingNames context facts = FlowReaders.overlay reading context facts
+  character : primitive.character = fun text position names scalarNames arrays =>
+    inherited.function .characterValue text position names scalarNames arrays [] false
+  indexed : primitive.indexed = inherited.function .indexed
   scalarBodies : ∃ scalar body calls,
     FlowReaders.Links inherited scalar primitive.expression ∧
     BodyWrappers.DefinitionEquations body ∧
@@ -78,6 +85,20 @@ theorem HelperMeaning.of_inherited {primitive : Primitives} {inherited : Compose
   expression text context position facts valid := by
     obtain ⟨scalar, body, calls, flow, _⟩ := links.scalarBodies
     exact FlowReaders.linked_string source flow {text,context,position,facts} valid
+  readingNames text context facts valid := by
+    obtain ⟨reading, interpreted, observed⟩ := links.readingNames
+    rw [observed text context facts valid]
+    exact FlowReaders.overlay_meaning interpreted valid.context valid.flow
+  character text position names scalarNames arrays valid := by
+    rw [links.character]
+    exact Compose.Expressions.interpreted_characterValue inherited source text valid.1 position names
+      scalarNames arrays [] false valid.2.1 ⟨valid.2.2.1, valid.2.2.2.1⟩
+      valid.2.2.2.2.1 valid.2.2.2.2.2 (by simp [ArrayBindings.ValidInitials])
+  indexed text position names scalarNames arrays initials elaborating element valid initialsValid := by
+    rw [links.indexed]
+    exact Compose.Expressions.interpreted_indexed inherited source text valid.1 position names
+      scalarNames arrays initials elaborating element valid.2.1 ⟨valid.2.2.1, valid.2.2.2.1⟩
+      valid.2.2.2.2.1 valid.2.2.2.2.2 initialsValid
   target text context position valid := by
     obtain ⟨scalar, body, calls, flow, invalid, definitions, target, _⟩ := links.scalarBodies
     rw [target, definitions.stringTarget text context position valid,
@@ -147,6 +168,13 @@ theorem model_links (source : Compose.Expressions.RawHelperEquations Compose.Exp
   callAfter := rfl
   associationAfter := rfl
   token := rfl
+  readingNames := by
+    refine ⟨FlowSourceBridge.readingStorage, FlowSourceBridge.model_reading_interpreted, ?_⟩
+    intro text context facts valid
+    exact (FlowReaders.overlay_meaning FlowSourceBridge.model_reading_interpreted
+      valid.context valid.flow).symm
+  character := rfl
+  indexed := rfl
   scalarBodies := by
     have flow : FlowReaders.Links Compose.Expressions.modelCalls (fun text context position facts => Native.modelCalls.scalarInFlow text context position facts []) modelPrimitives.expression :=
       Native.Libraries.model_links.readers.defaults
