@@ -31,16 +31,15 @@ theorem interpreted_step (calls : Calls) (source : DefinitionEquations calls)
     calls.function .step text form token state = step text form token state := by
   rw [source.step text valid form token state tokenValid context]
   have contextAfter := Names.interpreted_context calls.names source.toHelperEquations.names text valid form.hasArguments
-  have argument := interpreted_argument calls source.toHelperEquations text valid state context
-  have declarations := interpreted_declarations calls source.toHelperEquations text valid state form.hasArguments context
-  have read := (source.readDeclarations text valid state form.hasArguments context).trans declarations
-  have target := interpreted_target calls source.toHelperEquations text valid state false context
-  have targetSame := interpreted_target calls source.toHelperEquations text valid state true context
-  have dynamic := interpreted_dynamic calls source.toHelperEquations text valid state context
-  have assignment := interpreted_assignmentValue calls source.toHelperEquations text valid state context
-  have output := interpreted_output calls source.toHelperEquations text valid state context
-  have comparison := interpreted_comparison calls source.toHelperEquations text valid state context
-  have capacity := interpreted_capacity calls source.toHelperEquations text valid state context
+  have argument := source.legacy.argument text valid state context
+  have read := source.legacy.declarations text valid state form.hasArguments context
+  have target := source.legacy.target text valid state false context
+  have targetSame := source.legacy.target text valid state true context
+  have dynamic := source.legacy.dynamic text valid state context
+  have assignment := source.legacy.assignmentValue text valid state context
+  have output := source.legacy.output text valid state context
+  have comparison := source.legacy.comparison text valid state context
+  have capacity := source.legacy.capacity text valid state context
   have skipped := interpreted_skip calls source.toHelperEquations.toRawHelperEquations text valid state.position context.1
   have skipDomain := source.ranges.skip text valid state.position context.1
   rw [skipped] at skipDomain

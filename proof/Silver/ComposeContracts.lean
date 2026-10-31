@@ -537,10 +537,33 @@ structure HelperEquations (calls : Calls) (evaluator : Calls := lexical calls)
   booleanDeclaration : ∀ text, ValidText text → ∀ state arguments,
     NativeState domain text state → calls.function .booleanDeclaration text state arguments = booleanDeclarationAt text state arguments
 
+/-- Lower-level meanings for the independent historical fixed-form model.
+These laws cover its original mathematical state domain and are never premises
+of the current native actual-source bridge. Native helper interpretation uses
+`NativeState` separately. -/
+structure LegacyHelperMeaning (calls : Calls) : Prop where
+  argument : ∀ text, ValidText text → ∀ state, ValidState text state →
+    calls.function .argument text state = argumentAt text state
+  declarations : ∀ text, ValidText text → ∀ state arguments, ValidState text state →
+    calls.function .readDeclarations text state arguments = declarationsAt text state arguments
+  target : ∀ text, ValidText text → ∀ state sameTarget, ValidState text state →
+    calls.function .target text state sameTarget = targetAt text state sameTarget
+  dynamic : ∀ text, ValidText text → ∀ state, ValidState text state →
+    calls.function .dynamic text state = dynamicAt text state
+  assignmentValue : ∀ text, ValidText text → ∀ state, ValidState text state →
+    calls.function .assignmentValue text state = assignmentAt text state
+  output : ∀ text, ValidText text → ∀ state, ValidState text state →
+    calls.function .output text state = outputAt text state
+  comparison : ∀ text, ValidText text → ∀ state, ValidState text state →
+    calls.function .comparison text state = comparisonAt text state
+  capacity : ∀ text, ValidText text → ∀ state, ValidState text state →
+    calls.function .capacity text state = capacityAt text state
+
 /-- The previous fixed-form model retains its own abstract equations. These
 are not assertions about the current statement scanner. -/
 structure DefinitionEquations (calls : Calls) (evaluator : Calls := lexical calls)
     : Prop extends HelperEquations calls evaluator where
+  legacy : LegacyHelperMeaning calls
   stepRange : ∀ text, ValidText text → ∀ form token state,
     ValidToken token → ValidState text state →
     ValidState text (calls.function .step text form token state)
