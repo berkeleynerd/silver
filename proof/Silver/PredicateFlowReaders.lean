@@ -133,7 +133,7 @@ structure Meaning (calls : Calls) : Prop where
     calls.scalar text position names first after arrays initials elaborating =
       ScalarExpression.read text position names first after (arrays := arrays) (initials := initials) (elaborating := elaborating)
   string : ∀ text, ValidText text → ∀ position names scalars hidden arrays initials elaborating,
-    position ≤ text.length + 1 → Expressions.ValidNames text names → ScalarExpression.ValidEnvironment text scalars →
+    position ≤ text.length + 1 → Expressions.NativeNames text names → ScalarExpression.ValidEnvironment text scalars →
     ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials →
     calls.string text position names scalars hidden arrays initials elaborating =
       expressionAt text position names scalars hidden (arrays := arrays) (initials := initials) (elaborating := elaborating)
@@ -190,7 +190,7 @@ theorem string_meaning {calls wrapper} (meaning : Meaning calls) (verified : Str
       simp [zero]
     · rw [meaning.nameIs inputs.text legal.text _ _ present]
   rw [meaning.booleanHidesInteger inputs.text legal.text _ legal.context.booleans, maskedName]
-  apply meaning.string inputs.text legal.text _ _ _ _ _ _ _ legal.position legal.context.1 _ legal.context.arrays legal.initials
+  apply meaning.string inputs.text legal.text _ _ _ _ _ _ _ legal.position legal.context.nativeNames _ legal.context.arrays legal.initials
   exact ScalarMetadata.readingNames_valid legal.context.2.2.1
     legal.flow.2.compatible.count legal.flow.2.bounded
 
