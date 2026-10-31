@@ -108,6 +108,51 @@ def basicKind (text : Source) (context : ParseContext) (scan : BodyScan) : Basic
   else if booleanTarget text context scan.position ≠ 0 then .booleanAssignment
   else .assignment
 
+/-- These three source forms share the immutable String binding table, but
+preserve distinct Ada Character, indexed-component and whole-String types. -/
+inductive StringAssignmentKind | character | element | whole
+  deriving DecidableEq, Repr
+
+def stringAssignmentTarget (text : Source) (context : ParseContext) (scan : BodyScan) : ParserState :=
+  targetAt text (parserState context scan) false
+
+def stringAssignmentKind (text : Source) (context : ParseContext) (scan : BodyScan) : StringAssignmentKind :=
+  let target := stringAssignmentTarget text context scan
+  if ((context.names.get target.target).getD {}).isCharacter then .character
+  else if fixedAfter text target.position "(" false ≠ 0 then .element
+  else .whole
+
+def stringAssignmentStart (text : Source) (context : ParseContext) (scan : BodyScan) : BodyScan :=
+  let target := stringAssignmentTarget text context scan
+  {scan with position := target.position, target := target.target}
+
+def elementTargetRead (text : Source) (context : ParseContext) (scan : BodyScan) : ValueResult :=
+  indexedAt text scan.position context.names (context.readingNames scan.facts)
+    context.arrayNames [] false true
+
+def characterAssignmentPosition (text : Source) (context : ParseContext) (scan : BodyScan) : Nat :=
+  if stringAssignmentKind text context scan = .element then
+    fixedAfter text (elementTargetRead text context scan).after ":=" false
+  else fixedAfter text (stringAssignmentStart text context scan).position ":=" false
+
+def stringAssignmentBody (text : Source) (context : ParseContext) (scan : BodyScan) : BodyScan :=
+  let target := stringAssignmentStart text context scan
+  if target.target = 0 then invalidBody scan else
+  match stringAssignmentKind text context scan with
+  | .character | .element =>
+      let value := characterAt text (characterAssignmentPosition text context scan)
+        context.names (context.readingNames scan.facts) context.arrayNames
+      if value.after = 0 then invalidBody scan
+      else {target with position := value.after, assigned := true}
+  | .whole =>
+      let start := bodyToken text target (.symbol ":=")
+      let value := readStringInFlow text context start.position start.facts
+      let bound := ((context.names.get start.target).getD {}).bound
+      if value.after = 0 ∨ !fitsLengthSummary start.facts.path (summaryOf value) ∨
+          !equalLengthSummary start.facts.path (summaryOf value) bound.summary
+      then invalidBody scan
+      else {start with position := value.after, assigned := true}
+
 def basicRaw (text : Source) (context : ParseContext) (scan : BodyScan) : BodyScan :=
   match basicKind text context scan with
   | .null => bodyToken text scan (.word "null")
@@ -131,15 +176,7 @@ def basicRaw (text : Source) (context : ParseContext) (scan : BodyScan) : BodySc
   | .scalarAssignment => scalarAssignmentBody text context scan
   | .arrayAssignment => arrayAssignmentBody text context scan
   | .booleanAssignment => booleanAssignmentBody text context scan
-  | .assignment =>
-      let state := targetAt text (parserState context scan) false
-      let target := bodyToken text {scan with position := state.position, target := state.target} (.symbol ":=")
-      let value := readStringInFlow text context target.position target.facts
-      let bound := ((context.names.get target.target).getD {}).bound
-      if value.after = 0 ∨ target.target = 0 ∨ !fitsLengthSummary target.facts.path (summaryOf value) ∨
-          !equalLengthSummary target.facts.path (summaryOf value) bound.summary
-      then invalidBody scan
-      else {target with position := value.after, assigned := true}
+  | .assignment => stringAssignmentBody text context scan
 
 def basicBody (text : Source) (context : ParseContext) (scan : BodyScan) : BodyScan :=
   if scan.position = 0 then invalidBody scan else
