@@ -1,0 +1,22 @@
+{
+  "command_returncode": 0,
+  "expected_ids": [
+    "test_silver.SilverIntegrationTests.test_tool_failures_and_source_changes_do_not_report_success"
+  ],
+  "fingerprint": "f287bc7c0e76c1918272fcb6522dfc96d80f58fef7960646c97cc3e2488a0809",
+  "finished_at": "2026-10-31T06:32:57.148360+00:00",
+  "label": "tool-source",
+  "managed_input_count": 838,
+  "managed_input_mismatches": [],
+  "managed_seconds": 14.369777125,
+  "observed_ids": [
+    "test_silver.SilverIntegrationTests.test_tool_failures_and_source_changes_do_not_report_success"
+  ],
+  "outcome": "success",
+  "run_id": "20261031T063241-6a51163735a4",
+  "skipped": false,
+  "snapshot_files_checked": 830,
+  "snapshot_mismatches": [],
+  "unittest_seconds": 12.276,
+  "workers": 1
+}

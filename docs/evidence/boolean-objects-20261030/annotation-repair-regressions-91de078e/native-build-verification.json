@@ -1,0 +1,30 @@
+{
+  "run_id": "20261031T022612-eb8a9047980e",
+  "source_commit": "f5ab46cdeff361c8072e089c0ae52619e70aba2a",
+  "output_profile_sha256": "bb3bd71eb53e7f0637ed27ac4b5eb7c283b66dc0fb81131ebe73543c3950d01f",
+  "all_terminal_input_hashes_match": true,
+  "input_count": 2561,
+  "duration_seconds": 8.565982438,
+  "binaries": {
+    "silver": {
+      "sha256": "69006d784a7fa256c3a7bd78db22a9003e9053b199c97b8c6a82e3bbe31cb506",
+      "bytes": 2588552,
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/bin/silver"
+    },
+    "silver_image_adapter": {
+      "sha256": "524f344475f1bb636826214b1f2113d0cf9e03839be65a05c8f389681b1ffcfc",
+      "bytes": 2018344,
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration/.silver/linux-x86_64/compiler/bin/silver_image_adapter"
+    }
+  },
+  "retained": {
+    "events.jsonl": {
+      "sha256": "1618c824b1a79fb1b6996d9c888242f3ee84446b664dc20a107fb12639550f9f",
+      "bytes": 441213
+    },
+    "native.log": {
+      "sha256": "f5cba89c8c928f8e06d0f56f7152f385b971021e7cb064dd806421c469042a12",
+      "bytes": 195
+    }
+  }
+}

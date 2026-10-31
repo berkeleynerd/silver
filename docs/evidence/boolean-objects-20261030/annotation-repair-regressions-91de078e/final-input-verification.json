@@ -1,0 +1,22 @@
+{
+  "integrity": {
+    "input_count": 838,
+    "mismatches": [],
+    "run_id": "20261031T063136-92db46acc552"
+  },
+  "platform": {
+    "input_count": 838,
+    "mismatches": [],
+    "run_id": "20261031T062757-d817703939c6"
+  },
+  "source": {
+    "input_count": 838,
+    "mismatches": [],
+    "run_id": "20261031T062630-15922d8efdb5"
+  },
+  "tool-source": {
+    "input_count": 838,
+    "mismatches": [],
+    "run_id": "20261031T063241-6a51163735a4"
+  }
+}

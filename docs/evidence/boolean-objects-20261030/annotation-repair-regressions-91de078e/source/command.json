@@ -1,0 +1,33 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "scripts/dev.py",
+    "test",
+    "--task",
+    "#291",
+    "--jobs",
+    "1",
+    "--reason",
+    "Refresh source regressions on final reviewed annotation-repair snapshot 91de078ed8",
+    "--",
+    "-p",
+    "test_lean_source.py"
+  ],
+  "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration",
+  "expected_ids": [
+    "test_lean_source.CompilerSourcePolicyTests.test_all_bytes_have_the_explicit_compiler_alphabet",
+    "test_lean_source.CompilerSourcePolicyTests.test_authoritative_bindings_are_not_generated",
+    "test_lean_source.CompilerSourcePolicyTests.test_checked_in_certificates_equal_regeneration",
+    "test_lean_source.CompilerSourcePolicyTests.test_compose_candidate_has_no_authoritative_source_dependencies",
+    "test_lean_source.CompilerSourcePolicyTests.test_compose_source_checks_retain_authoritative_dependencies",
+    "test_lean_source.CompilerSourcePolicyTests.test_current_compiler_sources_satisfy_byte_policy",
+    "test_lean_source.CompilerSourcePolicyTests.test_embedded_source_lists_and_lake_dependencies_agree",
+    "test_lean_source.CompilerSourcePolicyTests.test_hidden_declarations_fail_before_certificate_generation",
+    "test_lean_source.CompilerSourcePolicyTests.test_include_str_is_confined_to_the_source_bindings",
+    "test_lean_source.CompilerSourcePolicyTests.test_only_audit_roots_use_legacy_full_imports",
+    "test_lean_source.CompilerSourcePolicyTests.test_unsupported_literal_syntax_cannot_hide_declarations",
+    "test_lean_source.NativeCertificateTests.test_generated_certificates_and_witnesses_remain_kernel_checked"
+  ],
+  "mem_available": "   31301396 kB",
+  "swap_free": "              0 kB"
+}

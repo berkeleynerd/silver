@@ -1,0 +1,38 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "scripts/dev.py",
+    "test",
+    "--task",
+    "#291",
+    "--jobs",
+    "2",
+    "--reason",
+    "Refresh integrity regressions on final reviewed annotation-repair snapshot 91de078ed8",
+    "--",
+    "-p",
+    "test_output_integrity.py"
+  ],
+  "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/constant-array-iteration",
+  "expected_ids": [
+    "test_output_integrity.OutputIntegrityTests.test_application_report_capacity_accepts_exact_bound_without_truncation",
+    "test_output_integrity.OutputIntegrityTests.test_artifact_symlink_does_not_redirect_runtime_source_selection",
+    "test_output_integrity.OutputIntegrityTests.test_dense_review_construction_accepts_maximal_credit_report",
+    "test_output_integrity.OutputIntegrityTests.test_divergent_installed_source_stops_before_proof",
+    "test_output_integrity.OutputIntegrityTests.test_every_library_snapshot_change_during_build_stops_before_publication",
+    "test_output_integrity.OutputIntegrityTests.test_every_library_snapshot_change_during_proof_stops_before_build",
+    "test_output_integrity.OutputIntegrityTests.test_large_argument_vector_with_eight_mib_stack",
+    "test_output_integrity.OutputIntegrityTests.test_large_opaque_proof_trees_preserve_complete_original_reports",
+    "test_output_integrity.OutputIntegrityTests.test_malformed_opaque_proof_tree_stops_before_build",
+    "test_output_integrity.OutputIntegrityTests.test_missing_application_keeps_ambiguous_runtime_status",
+    "test_output_integrity.OutputIntegrityTests.test_missing_runtime_report_stops_before_build",
+    "test_output_integrity.OutputIntegrityTests.test_present_but_rejected_runtime_report_stops_before_build",
+    "test_output_integrity.OutputIntegrityTests.test_run_abnormal_exit_reports_process_failure",
+    "test_output_integrity.OutputIntegrityTests.test_run_forwards_exact_argument_vector",
+    "test_output_integrity.OutputIntegrityTests.test_run_preserves_application_exit_status",
+    "test_output_integrity.OutputIntegrityTests.test_selected_compiler_accepts_output_source",
+    "test_output_integrity.OutputIntegrityTests.test_success_uses_fixed_library_selection_and_runs"
+  ],
+  "mem_available": "   31199712 kB",
+  "swap_free": "              0 kB"
+}
