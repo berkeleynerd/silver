@@ -111,15 +111,14 @@ theorem basic_flags {text context scan item result} (parsed : BasicAt text conte
         rw [← resultEq]
         simp only [bodyToken_flags, Flag.source]
         cases flag <;> simp [Flag.observe]
-  | assignment kind target expression =>
-      simp only [basicRaw, kind] at raw resultEq
-      split at raw
-      · exact False.elim (raw rfl)
-      · rename_i good
-        rw [ite_eq_right good] at resultEq
-        rw [← resultEq]
-        simp only [bodyToken_flags, Flag.source]
-        cases flag <;> simp only [Flag.observe, bodyToken_output, Flag.simple, Bool.or_true, Bool.or_false]
+  | assignment kind reading =>
+      have positive : (stringAssignmentBody text context scan).position ≠ 0 := by
+        simpa only [basicRaw, kind] using raw
+      have fields := stringAssignment_success_fields positive
+      rw [← resultEq]
+      simp only [basicRaw, kind, bodyToken_flags, Flag.source]
+      cases flag <;> simp only [Flag.observe, fields.2.2.2.1, fields.2.2.2.2,
+        Flag.simple, Bool.or_true, Bool.or_false]
 
 mutual
   theorem statement_flags {text context scan item result}

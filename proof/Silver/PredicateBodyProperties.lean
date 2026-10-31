@@ -4,6 +4,7 @@ public import Silver.PredicateBodyAdmission
 public import Silver.PredicateLoopProperties
 public import Silver.PredicateBodyFlow
 public import Silver.ComposeCharacterBounds
+public import Silver.PredicateStringAssignmentFields
 
 @[expose] public section
 namespace Silver.Predicate

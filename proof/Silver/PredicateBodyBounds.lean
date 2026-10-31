@@ -39,10 +39,11 @@ theorem basicRaw_factsBounded (text : Source) (context : ParseContext) (scan : B
       · exact Context.empty_bounded
       · exact bounded
   | assignment =>
-      dsimp only
-      split
-      · exact Context.empty_bounded
-      · exact bounded
+      rcases stringAssignment_fields text context scan with failed | fields
+      · rw [failed]
+        exact Context.empty_bounded
+      · rw [fields.2.2.1]
+        exact bounded
 
 theorem basicBody_factsBounded (text : Source) (context : ParseContext) (scan : BodyScan)
     (bounded : scan.facts.path.Bounded) : (basicBody text context scan).facts.path.Bounded := by

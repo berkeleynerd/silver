@@ -57,10 +57,12 @@ theorem basicRaw_controls (text : Source) (context : ParseContext) (scan : BodyS
         split
         · exact Nat.zero_le _
         · exact model_lookup_valid text context.names _ _
-      dsimp only
-      split
-      · exact ⟨Nat.zero_le _, Nat.zero_le _⟩
-      · exact ⟨targetBound, valid.2⟩
+      rcases stringAssignment_fields text context scan with failed | fields
+      · rw [failed]
+        exact ⟨Nat.zero_le _, Nat.zero_le _⟩
+      · change _ ∧ _
+        rw [fields.1, fields.2.1]
+        exact ⟨targetBound, valid.2⟩
 
 theorem basicBody_controls (text : Source) (context : ParseContext) (scan : BodyScan)
     (valid : Controls context scan) : Controls context (basicBody text context scan) := by
