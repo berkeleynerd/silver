@@ -4037,7 +4037,12 @@ is
               (Static => Body_Tail_Model (Text, Context, Scan, Stop) =
                 (if Result.Position <= Before then Invalid_Body_Model (Result)
                  else Body_Tail_Model (Text, Context, Result, Stop)));
-            if Result.Position <= Before then return Invalid_Body (Result); end if;
+            if Result.Position <= Before then
+               pragma Assert
+                 (Static => Invalid_Body (Result) =
+                    Body_Tail_Model (Text, Context, Scan, Stop));
+               return Invalid_Body (Result);
+            end if;
          end;
       end loop;
       declare
@@ -4051,6 +4056,9 @@ is
             pragma Assert
               (Static => Tail = Body_Tail_Model (Text, Context, Result, Stop)
                 and then Tail = Invalid_Body_Model (Result));
+            pragma Assert
+              (Static => Invalid_Body (Result) =
+                 Body_Tail_Model (Text, Context, Scan, Stop));
             return Invalid_Body (Result);
          end if;
          pragma Assert (Static => Tail = Body_Tail_Model (Text, Context, Result, Stop)
@@ -4060,6 +4068,8 @@ is
          Lemma_Flow_Equality (Original_Tail.Facts, Tail.Facts);
          Lemma_Flow_Equality (Tail.Facts, Result.Facts);
          pragma Assert (Static => Original_Tail = Result);
+         pragma Assert
+           (Static => Result = Body_Tail_Model (Text, Context, Scan, Stop));
          return Result;
       end;
    end Body_Tail;
