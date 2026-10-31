@@ -5,7 +5,8 @@ and the [capability record](../../boolean-objects.md). Complete assurance and
 delivery remain pending. Focused successes below do not establish complete
 source correspondence or feature support.
 
-Current implementation/proof target: `87dd912436e35569f12cf95be639e4a534dea978`.
+The native reader-repair implementation/proof target was
+`87dd912436e35569f12cf95be639e4a534dea978`; the proof-only repair below follows it.
 The [native equality repair packet](terminal-native-repair/README.md) now
 includes successful complete-reader checks: 56 relation checks and 204 chain
 checks, after the retained failed first candidate. Its
@@ -20,9 +21,14 @@ unproved; both repaired condition readers passed. The
 and successful 74-check focused repair are recorded in the capability update.
 The candidate's complete native run `20261031T022711-e4258c225793` is active
 in the isolated native workspace. Complete Lean `20261030T214845-59a80335a9ac`
-continues on frozen integration inputs after its recorded memory-scheduling
-suspension; the output-body certificate passed. The 46 affected regression
-reruns and terminal applicability confirmation are still pending.
+[finished failed](source-integration/failed-transports/README.md) on four
+source-candidate lint errors and missing condition-reader initializer arguments.
+Its completed output certificate and source modules remain cached. The
+[reviewed proof-only repair](../../reviews/review-boolean-body-condition-wiring-20261031.md)
+passed a focused [equations audit](source-integration/body-condition-wiring/README.md);
+the repaired source candidate and complete source/module/axiom checkpoint remain
+pending final native-validated bytes. The 46 affected regression reruns and
+terminal applicability confirmation are still pending.
 The earlier coverage below applies to its identified inputs, not automatically
 to this repaired target.
 

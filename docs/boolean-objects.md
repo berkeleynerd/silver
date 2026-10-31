@@ -278,7 +278,8 @@ Complete native run `20261030T214853-f14ff090b11a` then started with four
 workers and unchanged production settings/cache. Complete Lean run
 `20261030T214845-59a80335a9ac` began its build at 21:49:01 UTC, retaining
 the existing Lake objects and one worker/thread with a 24 GiB threshold.
-Both complete results remain pending on frozen inputs.
+Both complete results were pending at that checkpoint; their subsequent
+failures and repairs are retained below.
 
 The reviewed annotation and source-binding delta requires 46 refreshed
 regression identities: 12 source, 16 platform, 17 output-integrity and one
@@ -313,8 +314,9 @@ Complete native run `20261031T022711-e4258c225793` is now checking it with
 four workers and the unchanged production options/cache. Complete native
 success will precede integration and the next source-certificate rebuild.
 This sequencing responds to the repeated native annotation repairs; it adds
-no new completion requirement. The current Lean run remains on frozen
-`87dd912436` inputs while it checks remaining source integration.
+no new completion requirement. The Lean run continued on frozen
+`87dd912436` inputs to check remaining source integration; its terminal outcome
+is recorded below.
 
 That Lean run was temporarily suspended for memory scheduling from 00:29:35
 to 02:03:40 UTC, retaining its process, inputs and lease; it resumed normally.
@@ -324,3 +326,37 @@ requires only the output pin/certificate refresh and the same 46 regression
 identities. The prepared test archive for `87dd912436` is superseded for final
 testing; a new integrated snapshot will be supplied. Both feature PRs remain
 open, with no completed Boolean support claim.
+
+### Terminal Lean integration repair — 2026-10-31
+
+Complete run `20261030T214845-59a80335a9ac`
+[finished failed](evidence/boolean-objects-20261030/source-integration/failed-transports/README.md)
+at 05:26:23 UTC after 27,455.259 s managed time, including the recorded
+memory-scheduling suspension. All 687 source and two tool hashes still matched
+before repair. The output certificate, Compose candidate and source bridges,
+predicate adapter and scalar-body candidate passed; the whole-project audit
+did not run. Completed objects remain available for ordinary cache reuse.
+
+`PredicateSourceCandidate` failed only on four unused simplification arguments
+under warnings-as-errors. `PredicateEquations` omitted the initializer-storage
+argument after the native condition-reader interface was generalized. The
+[reviewed repair](reviews/review-boolean-body-condition-wiring-20261031.md)
+removes the unused arguments and applies the reader to `[]` at body calls,
+matching the actual Ada default all-zero storage. It proves that argument's
+validity while retaining arbitrary valid storage in the generalized reader.
+No native source, runtime behavior, theorem domain or proof policy changed.
+
+Focused run `20261031T053848-2f8f986ab6e3`
+[passed](evidence/boolean-objects-20261030/source-integration/body-condition-wiring/README.md)
+`PredicateEquations` and a fresh 309-module / 91,711-declaration audit in
+33.356 s managed time. This does not establish complete assurance. The source
+candidate and downstream consumers will be checked with the final native-validated
+source rather than repeating the expensive check on the obsolete source bytes.
+The same 46-test refresh and terminal applicability confirmation remain required.
+
+This bounded repair round selected GPT-6 Astra / Extra High for integration and
+independent review; runtime confirmation and token/cost totals were unavailable.
+The independent applied-patch review took 1m29s. The native verification subthread
+continued the unchanged complete checkpoint; the documentation subthread's
+contingent final-record preparation selected GPT-6.1 Sol / High. No complete
+Boolean support or merge is claimed.

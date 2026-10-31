@@ -181,7 +181,7 @@ private theorem native_length_result_declaration : Lexical.SourceBridge.recordDe
   decide +kernel
 
 private theorem native_boolean_atom_after_body : Source.expressionBody "boolean_atom_after" SourceShape.bodyTokens = some (booleanAtomBody.render) := by
-  simp only [booleanAtomBody, Expr.render, Expr.declared, Expr.declaredCondition]
+  simp only [booleanAtomBody, Expr.render]
   decide +kernel
 
 private theorem native_boolean_atom_after_spec_header : functionHeader "boolean_atom_after" ";" SourceShape.bodyTokens = some boolean_atom_after_spec_header := by
@@ -191,7 +191,7 @@ private theorem native_boolean_atom_after_impl_header : functionHeader "boolean_
   decide +kernel
 
 private theorem native_boolean_factor_model_body : Source.expressionBody "boolean_factor_model" SourceShape.bodyTokens = some (booleanFactorBody.render) := by
-  simp only [booleanFactorBody, Expr.render, Expr.declared, Expr.declaredCondition]
+  simp only [booleanFactorBody, Expr.render, Expr.declaredCondition]
   decide +kernel
 
 private theorem native_boolean_factor_model_spec_header : functionHeader "boolean_factor_model" ";" SourceShape.bodyTokens = some boolean_factor_model_spec_header := by
@@ -201,7 +201,7 @@ private theorem native_boolean_factor_model_impl_header : functionHeader "boolea
   decide +kernel
 
 private theorem native_boolean_relation_model_body : Source.expressionBody "boolean_relation_model" SourceShape.bodyTokens = some (booleanRelationBody.render) := by
-  simp only [booleanRelationBody, Expr.render, Expr.declared, Expr.declaredCondition]
+  simp only [booleanRelationBody, Expr.render, Expr.declaredCondition]
   decide +kernel
 
 private theorem native_boolean_relation_model_spec_header : functionHeader "boolean_relation_model" ";" SourceShape.bodyTokens = some boolean_relation_model_spec_header := by

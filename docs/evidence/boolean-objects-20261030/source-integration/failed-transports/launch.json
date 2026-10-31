@@ -1,0 +1,21 @@
+{
+  "pid": 22714,
+  "launched_at": "2026-10-30T21:48:44.889907+00:00",
+  "command": [
+    "/usr/bin/python3",
+    "scripts/check_lean.py",
+    "--task",
+    "#291-complete-lean-transports",
+    "--reason",
+    "Complete source/module/axiom checkpoint on87dd912436 after both native equality-reader repairs passed; exact reviewed source88b54a1d, matching handwritten pin and28 regenerated certificates; retain prior failed/interrupted work and existing Lake objects",
+    "--workers",
+    "1",
+    "--threads",
+    "1",
+    "--memory-mb",
+    "24576"
+  ],
+  "log": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/tmp/boolean-complete-lean-transports.log",
+  "implementation_target": "87dd912436e35569f12cf95be639e4a534dea978",
+  "source_sha256": "88b54a1df3e6cb1b59c482d36cd29a9f15c2506c69227fbef78c9ab93ab67ddb"
+}

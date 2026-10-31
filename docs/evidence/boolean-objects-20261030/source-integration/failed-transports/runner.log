@@ -1,0 +1,84 @@
+Lean concurrency: 1 Lake workers, 1 threads per Lean process (12 available CPUs).
+Lean phase build started at 2026-10-30T21:49:01.537897+00:00
++ /home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.tools/linux-x86_64/lean/bin/lake --rehash --reconfigure -K silverThreads=1 -K silverMemoryMb=24576 build Silver.Audit
+✔ [80/94] Built Silver.OutputProfileBodySource (1.0s)
+✔ [93/96] Built Silver.AuthoritativeSource (960ms)
+✔ [96/98] Built Silver.OutputBodyCertificate (15619s)
+✔ [103/105] Built Silver.SourceCertificates (2.8s)
+✔ [104/112] Built Silver.Source (1.6s)
+✔ [169/174] Built Silver.ReviewedOutputShape (94s)
+✔ [170/176] Built Silver.ComposeArrayDeclarationSource (1.2s)
+✔ [173/179] Built Silver.ComposeSourceCandidate (4965s)
+✔ [181/186] Built Silver.OutputSourceBridge (254s)
+✔ [183/190] Built Silver.ComposeSourceChecks (2.1s)
+✔ [212/220] Built Silver.NamedSourceBridge (36s)
+✔ [221/233] Built Silver.ArgumentsSourceBridge (84s)
+✔ [231/239] Built Silver.LexicalSourceBridge (122s)
+✔ [326/330] Built Silver.ComposeSourceBridge (4.2s)
+✔ [347/355] Built Silver.PredicateAdapterSourceCandidate (11s)
+✔ [350/355] Built Silver.PredicateSourceShape (918ms)
+✔ [351/355] Built Silver.PredicateScalarBodyCandidate (546s)
+✔ [352/360] Built Silver.PredicateSourceRequirements (3.3s)
+✖ [353/363] Building Silver.PredicateSourceCandidate (5659s)
+trace: .> LEAN_PATH=/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/proof/.lake/build/lib/lean /home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.tools/linux-x86_64/lean/bin/lean -j1 -M24576 -DwarningAsError=true /home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/proof/Silver/PredicateSourceCandidate.lean -o /home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateSourceCandidate.olean -i /home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateSourceCandidate.ilean -c /home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/proof/.lake/build/ir/Silver/PredicateSourceCandidate.c --setup /home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/proof/.lake/build/ir/Silver/PredicateSourceCandidate.setup.json --json
+error: Silver/PredicateSourceCandidate.lean:184:43: This simp argument is unused:
+  Expr.declared
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [booleanAtomBody, Expr.render, Expr.declaredCondition]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+error: Silver/PredicateSourceCandidate.lean:184:58: This simp argument is unused:
+  Expr.declaredCondition
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [booleanAtomBody, Expr.render, Expr.declared]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+error: Silver/PredicateSourceCandidate.lean:194:45: This simp argument is unused:
+  Expr.declared
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [booleanFactorBody, Expr.render, Expr.declaredCondition]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+error: Silver/PredicateSourceCandidate.lean:204:47: This simp argument is unused:
+  Expr.declared
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [booleanRelationBody, Expr.render, Expr.declaredCondition]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+✔ [390/394] Built Silver.PredicateInheritedReady (4.9s)
+✔ [391/394] Built Silver.PredicateOuterModel (6.5s)
+✖ [392/404] Building Silver.PredicateEquations (2.9s)
+trace: .> LEAN_PATH=/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/proof/.lake/build/lib/lean /home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.tools/linux-x86_64/lean/bin/lean -j1 -M24576 -DwarningAsError=true /home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/proof/Silver/PredicateEquations.lean -o /home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateEquations.olean -i /home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateEquations.ilean -c /home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/proof/.lake/build/ir/Silver/PredicateEquations.c --setup /home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/proof/.lake/build/ir/Silver/PredicateEquations.setup.json --json
+error: Silver/PredicateEquations.lean:40:15: Type mismatch
+  calls.predicate.condition
+has type
+  Source → Native.Context → Nat → ActiveFlow → ArrayBindings.Initials → ConditionResult
+but is expected to have type
+  Source → Native.Context → Nat → ActiveFlow → ConditionResult
+error: Silver/PredicateEquations.lean:133:4: Type mismatch
+  Native.condition_of_source_equations (predicate_helpers calls helpers definitions) definitions.predicates
+    definitions.predicateContracts text tv context cv position pv facts fv
+has type
+  ∀ (initials : ArrayBindings.Initials),
+    ArrayBindings.ValidInitials initials →
+      calls.predicate.condition text context position facts initials =
+        readCondition text context.model position facts initials
+but is expected to have type
+  (bodyPrimitives calls).predicate text context position facts = readCondition text context.model position facts
+error: Silver/PredicateEquations.lean:203:31: Type mismatch
+  rfl
+has type
+  ?m.56 = ?m.56
+but is expected to have type
+  (bodyPrimitives modelCalls).predicate x✝⁷ x✝⁵ x✝³ x✝¹ = readCondition x✝⁷ x✝⁵.model x✝³ x✝¹
+Some required targets logged failures:
+- Silver.PredicateSourceCandidate
+- Silver.PredicateEquations
+error: build failed
+
+Lean phase build finished at 2026-10-31T05:26:23.351692+00:00; elapsed 27441.814s; exit 1
+check_lean: Lean check failed; see /home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/lean-proof.log

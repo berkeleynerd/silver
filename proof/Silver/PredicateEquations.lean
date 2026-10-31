@@ -37,7 +37,7 @@ def bodyPrimitives (calls : Calls) : BodyNative.Primitives where
   loop := calls.loopImports
   token := calls.outer.helpers.function .takeToken
   basic := calls.basic
-  predicate := calls.predicate.condition
+  predicate text context position facts := calls.predicate.condition text context position facts []
   bodyToken := calls.bodyWrappers.token
   invalidModel := calls.invalidBodies.invalidModel
   invalid := calls.invalidBodies.invalid
@@ -132,6 +132,7 @@ theorem body_helpers (lexical : Compose.Lexical.Meaning calls.outer.helpers.prim
   predicate text tv context cv position pv facts fv :=
     Native.condition_of_source_equations (predicate_helpers calls helpers definitions)
       definitions.predicates definitions.predicateContracts text tv context cv position pv facts fv
+      [] (by simp [ArrayBindings.ValidInitials, ArrayBindings.maxElements])
   invalidModel scan capacity := BodyWrappers.invalidModel_meaning definitions.invalidBodies scan capacity
   invalid scan capacity := BodyWrappers.invalid_meaning definitions.invalidBodies scan capacity
   joinInto left right capacity same := by
