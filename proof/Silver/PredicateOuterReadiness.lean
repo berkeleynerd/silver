@@ -22,7 +22,7 @@ def domain : Compose.Expressions.StateDomain where
   holds := ValidState
   valid := fun _ _ valid => valid.1
   transportScalar := by
-    intro text before after context valid same
+    intro text before after context valid same _names
     exact ⟨valid, by rw [same]; exact context.2⟩
 
 theorem initial_valid (text : Source) : ValidState text initialState := by
