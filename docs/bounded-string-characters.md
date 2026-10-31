@@ -1,6 +1,6 @@
 # Bounded String indexing and character operations
 
-Status: owner-authorized on 2026-10-31; design and implementation pending.
+Status: owner-authorized on 2026-10-31; implementation and source-proof integration in progress.
 [Milestone 16](https://github.com/berkeleynerd/silver/milestone/16) contains one
 work package, [#296](https://github.com/berkeleynerd/silver/issues/296).
 The [authorization](session-memory.md#2026-10-31--bounded-string-indexing-and-character-operations-authorized)
@@ -92,7 +92,7 @@ Indexed reads and writes require a nonempty inferred Integer interval contained
 in the prefix's actual bounds, including unreachable arms and empty loops.
 Slice endpoints retain their ordinary scalar arithmetic checks. For independent
 nonempty endpoint intervals `[a,b]` and `[c,d]` and prefix bounds `B .. E`,
-the planned rule accepts either `a > d` (every slice is null), or
+the selected rule accepts either `a > d` (every slice is null), or
 `a >= B` and `d <= E` (every potentially nonnull slice is within the prefix).
 Its length interval is `max(0,c-b+1) .. max(0,d-a+1)`, computed in wide
 arithmetic. Endpoint and concatenation-bound proof integration remains pending.
@@ -137,3 +137,28 @@ status is claimed before that validation and review pass.
 | Date | Selected settings and intended result | Result and remaining work |
 | --- | --- | --- |
 | 2026-10-31 | Integration/design subthread selected GPT-6 Astra / Extra High; record scope and inspect the existing architecture. Lead runtime settings and token/cost totals are unavailable. | Authorization and initial proposal prepared; no implementation or validation result yet. Exact String/Character rules, native feasibility and the corresponding proof design are next. |
+
+| 2026-10-31 | Lead integration selected GPT-6 Astra / Extra High; native worker GPT-6.1 Sol / Extra High; semantic worker GPT-6 Astra / Extra High. Runtime model confirmation and token/cost totals unavailable. | Native implementation, core String/Character execution and obligations, Character predicate semantics and partial source models are integrated. Focused native helpers and eight exact application stress/driver cases passed; the native compiler checkpoint is pending. Source metadata must agree with actual bounds and Character kinds; ordered declaration and source-certificate integration remain open. |
+
+### Retained focused evidence
+
+The native application stress run `20261031T165409-9c2dd4f813bc` used native
+commit `9c4afd3c5b` and passed admission, build, complete application/runtime proof,
+strict Python report audit, the native application-report policy probe, exact
+execution and unchanged author-source hashes for eight cases. Inputs include a
+4096-byte source with 1992 nested Character groups, 64-leaf read/target/slice
+expressions, a 4096-byte comparison/write loop and the three prepared Rosetta
+drivers. Its dense Main report was 51,467 bytes. Summed case execution was
+42.507 seconds; this is not total agent elapsed time. The native lane retains
+`string-stress/summary.json`, exact inputs, reports and logs beneath its native
+`.silver/linux-x86_64/` directory. The earlier wrapper attempt stopped before
+proof analysis because its explicit solver-cache directory did not exist;
+that failure and original logs remain retained.
+
+Focused integration checks established the raw Character condition/scanner
+model (`89ba2351e3`, fresh audit 7504 declarations) and fixed declaration bound
+metadata (`d6d6eff5b1`, fresh audit 6057 declarations). These imported-module
+checks do not establish complete source correspondence. The core worker's
+Character predicate/Boolean composition check passed 11666 declarations against
+its exact `179f73e009` inputs. Complete native proof, full Lean source/module/
+axiom audit, final regression inventory and independent review remain required.

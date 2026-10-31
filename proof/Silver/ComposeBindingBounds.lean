@@ -1,6 +1,6 @@
 module
 
-public import Silver.ComposeAtomAdmission
+public import Silver.ComposeAtomReading
 public import Silver.StringObjectBounds
 
 @[expose] public section
@@ -95,5 +95,64 @@ theorem BindingInfo.boundsValid_firstBound {info : BindingInfo} {slot count : Na
       · exact Or.inl ((Bounds.null_iff_length_zero _).mpr (by rw [BindingInfo.boundsValid_length checked fixed, empty]))
       · have bound := fixedBoundsValid_nonempty (by simpa [fixed, character] using checked.2.2) empty
         exact Or.inr (by simp only [objectBounds, maxSourceLength] at *; omega)
+
+theorem BindingInfo.wellTyped_of_fixedBounds {info : BindingInfo} {slot : Nat}
+    (checked : fixedBoundsValid info.staticLength info.dynamic info.isCharacter
+      info.firstIndex info.lastIndex slot = true) : BindingInfo.WellTyped info := by
+  constructor
+  · intro character
+    have fields := fixedBoundsValid_character (by simpa [character] using checked)
+    exact ⟨fields.1, fields.2.1⟩
+  · intro fixed
+    cases character : info.isCharacter with
+    | false =>
+        exact (fixedBoundsValid_length (by simpa [fixed, character] using checked)).symm
+    | true =>
+        have fields := fixedBoundsValid_character (by simpa [character] using checked)
+        simp [fields.2.1, fields.2.2.1, fields.2.2.2]
+
+theorem BindingInfo.dynamicLength_of_fixedBounds {info : BindingInfo} {slot : Nat}
+    (checked : fixedBoundsValid info.staticLength info.dynamic info.isCharacter
+      info.firstIndex info.lastIndex slot = true) (dynamic : info.dynamic = true) :
+    info.staticLength = 0 := by
+  cases character : info.isCharacter with
+  | false => exact fixedBoundsValid_dynamic (by simpa [dynamic, character] using checked)
+  | true =>
+      have fields := fixedBoundsValid_character (by simpa [character] using checked)
+      simp [dynamic] at fields
+
+theorem NamesBoundsValid.normal {names : BindingEnvironment}
+    (bounded : NamesBoundsValid names) : NamesNormal names := by
+  refine ⟨?_, ?_⟩
+  · intro index info present dynamic
+    exact BindingInfo.dynamicLength_of_fixedBounds (bounded index info present).2.2 dynamic
+  · intro index info present
+    exact BindingInfo.wellTyped_of_fixedBounds (bounded index info present).2.2
+
+theorem namesNormal_append {names : BindingEnvironment} {info : BindingInfo} {slot : Nat}
+    (normal : NamesNormal names)
+    (checked : fixedBoundsValid info.staticLength info.dynamic info.isCharacter
+      info.firstIndex info.lastIndex slot = true) : NamesNormal (names ++ [info]) := by
+  have selected : ∀ index found, (names ++ [info]).get index = some found →
+      names.get index = some found ∨ found = info := by
+    intro index found present
+    by_cases zero : index = 0
+    · simp [BindingEnvironment.get, zero] at present
+    · by_cases before : index - 1 < names.length
+      · exact Or.inl (by simpa [BindingEnvironment.get, zero, List.getElem?_append_left before] using present)
+      · have after : names.length ≤ index - 1 := by omega
+        simp only [BindingEnvironment.get, zero, ↓reduceIte, List.getElem?_append_right after] at present
+        have within := (List.getElem?_eq_some_iff.mp present).1
+        have last : index - 1 - names.length = 0 := by simp only [List.length_singleton] at within; omega
+        exact Or.inr (by simpa [last] using present.symm)
+  refine ⟨?_, ?_⟩
+  · intro index found present dynamic
+    rcases selected index found present with old | rfl
+    · exact normal index found old dynamic
+    · exact BindingInfo.dynamicLength_of_fixedBounds checked dynamic
+  · intro index found present
+    rcases selected index found present with old | rfl
+    · exact normal.typed index found old
+    · exact BindingInfo.wellTyped_of_fixedBounds checked
 
 end Silver.Compose
