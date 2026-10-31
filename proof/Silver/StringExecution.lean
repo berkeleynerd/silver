@@ -11,6 +11,10 @@ open Bindings
 arithmetic node are checked by inferLength, including on an empty path. -/
 def Operand.StringReadable (shape : Shape) : Operand → Prop
   | .reference index => ∃ info, shape index = some info
+  | .slice target _ _ _ => ∃ length, shape.fixedLengths target = some length
+  | .character expression => expression.Readable shape.fixedLengths
+  | .replace target _ _ replacement =>
+      (∃ length, shape.fixedLengths target = some length) ∧ replacement.Readable shape.fixedLengths
   | _ => True
 
 def Expression.StringReadable (expression : Expression) (shape : Shape) : Prop :=
@@ -20,6 +24,15 @@ def Operand.checkedEvaluate (values : Values) (input : Source) (atom : Operand)
     (integers : Integer.Store := Integer.emptyStore) : Option Source :=
   match atom with
   | .image expression => (expression.checkedEvaluate integers).map Integer.Image.bytes
+  | .slice target base lower upper => (lower.checkedEvaluate integers).bind fun a =>
+      (upper.checkedEvaluate integers).bind fun b =>
+        if StringIndexing.sliceValid base (values target).length a b
+        then some (StringIndexing.slice (values target) base a b) else none
+  | .character expression => (expression.checkedEvaluate values integers).map fun byte => [byte]
+  | .replace target base index replacement => (index.checkedEvaluate integers).bind fun position =>
+      (replacement.checkedEvaluate values integers).bind fun byte =>
+        if StringIndexing.indexValid base (values target).length position
+        then some (StringIndexing.replace (values target) base position byte) else none
   | _ => some (atom.evaluate values input integers)
 
 def Expression.checkedEvaluate (values : Values) (input : Source) (expression : Expression)
@@ -32,15 +45,23 @@ def Expression.checkedEvaluate (values : Values) (input : Source) (expression : 
 
 def Expression.RuntimeSafe (expression : Expression) (values : Values) (input : Source)
     (integers : Integer.Store) : Prop :=
-  expression.ImagesSafe integers ∧ (expression.evaluate values input integers).length ≤ maxSourceLength
+  expression.ImagesSafe integers values ∧ (expression.evaluate values input integers).length ≤ maxSourceLength
 
 theorem Operand.checkedEvaluate_agrees {atom : Operand} {values : Values} {input : Source}
-    {integers : Integer.Store} (safe : atom.ImagesSafe integers) :
+    {integers : Integer.Store} (safe : atom.ImagesSafe integers values) :
     atom.checkedEvaluate values input integers = some (atom.evaluate values input integers) := by
   cases atom with
   | literal | reference | argument => rfl
   | image expression =>
       simp only [checkedEvaluate, Integer.Expr.checkedEvaluate_agrees safe, Option.map_some, Value.evaluate]
+  | slice target base lower upper =>
+      simp only [checkedEvaluate, Integer.Expr.checkedEvaluate_agrees safe.1,
+        Integer.Expr.checkedEvaluate_agrees safe.2.1, Option.bind_some, safe.2.2, ↓reduceIte, Value.evaluate]
+  | character expression =>
+      simp only [checkedEvaluate, Character.Expr.checkedEvaluate_agrees safe, Option.map_some, Value.evaluate]
+  | replace target base index replacement =>
+      simp only [checkedEvaluate, Integer.Expr.checkedEvaluate_agrees safe.1,
+        Character.Expr.checkedEvaluate_agrees safe.2.2, Option.bind_some, safe.2.1, ↓reduceIte, Value.evaluate]
 
 theorem Expression.checkedEvaluate_agrees {expression : Expression} {values : Values} {input : Source}
     {integers : Integer.Store} (safe : expression.RuntimeSafe values input integers) :
@@ -48,7 +69,7 @@ theorem Expression.checkedEvaluate_agrees {expression : Expression} {values : Va
   induction expression with
   | nil => rfl
   | cons atom rest ih =>
-      have first : atom.ImagesSafe integers := safe.1 atom (by simp)
+      have first : atom.ImagesSafe integers values := safe.1 atom (by simp)
       have remaining : Expression.RuntimeSafe rest values input integers := by
         refine ⟨fun item member => safe.1 item (by simp [member]), ?_⟩
         have bound := safe.2
@@ -79,6 +100,29 @@ theorem Operand.inferLength_readable {atom : Operand} {shape : Shape} {ranges : 
       simp only [inferLength, Value.infer, Option.map_map, Option.map_eq_some_iff] at known
       obtain ⟨info, found, _⟩ := known
       exact ⟨info, found⟩
+  | slice target base lower upper =>
+      simp only [inferLength, Option.map_eq_some_iff] at known
+      obtain ⟨bounds, found, _⟩ := known
+      simp only [Value.extraRange, Option.bind_eq_some_iff] at found
+      obtain ⟨length, targetFound, _⟩ := found
+      exact ⟨length, targetFound⟩
+  | character expression =>
+      simp only [inferLength, Option.map_eq_some_iff] at known
+      obtain ⟨bounds, found, _⟩ := known
+      simp only [Value.extraRange] at found
+      split at found
+      · exact Character.Expr.check_readable (by assumption)
+      · cases found
+  | replace target base index replacement =>
+      simp only [inferLength, Option.map_eq_some_iff] at known
+      obtain ⟨bounds, found, _⟩ := known
+      simp only [Value.extraRange, Option.bind_eq_some_iff] at found
+      obtain ⟨length, targetFound, indices, _, result⟩ := found
+      split at result
+      · rename_i checked
+        simp only [Bool.and_eq_true] at checked
+        exact ⟨⟨length, targetFound⟩, Character.Expr.check_readable checked.2⟩
+      · cases result
 
 theorem Expression.inferLength_readable {expression : Expression} {shape : Shape}
     {ranges : Integer.Ranges} {summary : LengthSummary}

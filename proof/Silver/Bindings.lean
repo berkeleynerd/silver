@@ -212,7 +212,7 @@ theorem Value.extraRange_sound {value : Value} {shape : Shape} {ranges : Integer
           rw [len]
           exact StringIndexing.sliceCheck_sound checked left.1 right.1
         have interval := StringIndexing.sliceLength_bounds left.1 right.1
-        simpa only [evaluate, StringIndexing.slice_length _ safe] using
+        simpa only [evaluate, ChecksSafe, StringIndexing.slice_length _ safe] using
           And.intro interval.1 (And.intro interval.2 (And.intro left.2 (And.intro right.2 safe)))
       · cases result
   | character expression =>
