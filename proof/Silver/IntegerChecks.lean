@@ -1,6 +1,7 @@
 module
 
 public import Silver.IntegerMutable
+public import Silver.StringIndexing
 
 @[expose] public section
 
@@ -15,6 +16,8 @@ inductive Obligation
   | range (bounds : Interval)
   | arrayIndex (array : ArrayDescriptor) (indices : Interval)
   | arrayLength (actual expected : Nat)
+  | stringIndex (base : Int) (length : Nat) (indices : Interval)
+  | stringSlice (base : Int) (length : Nat) (lower upper : Interval)
   | negate (bounds : Interval)
   | add (left right : Interval)
   | subtract (left right : Interval)
@@ -30,6 +33,8 @@ def Obligation.discharge : Obligation → Bool
   | .range bounds => (checked bounds).safe
   | .arrayIndex array indices => arrayIndexCheck array indices
   | .arrayLength actual expected => decide (actual = expected)
+  | .stringIndex base length indices => StringIndexing.indexCheck base length indices
+  | .stringSlice base length lower upper => StringIndexing.sliceCheck base length lower upper
   | .negate bounds => (checkedNegate bounds).safe
   | .add left right => (checkedAdd left right).safe
   | .subtract left right => (checkedSubtract left right).safe
@@ -44,6 +49,10 @@ def Obligation.Valid : Obligation → Prop
   | .range bounds => ∀ value, bounds.Contains value → InRange value
   | .arrayIndex array indices => ∀ index, indices.Contains index → array.bounds.Contains index
   | .arrayLength actual expected => actual = expected
+  | .stringIndex base length indices =>
+      ∀ index, indices.Contains index → StringIndexing.indexValid base length index
+  | .stringSlice base length lower upper =>
+      ∀ a b, lower.Contains a → upper.Contains b → StringIndexing.sliceValid base length a b
   | .negate bounds => ∀ value, bounds.Contains value → InRange (-value)
   | .add left right => ∀ a b, left.Contains a → right.Contains b → InRange (a + b)
   | .subtract left right => ∀ a b, left.Contains a → right.Contains b → InRange (a - b)
@@ -67,6 +76,8 @@ theorem Obligation.discharge_sound {obligation : Obligation} (proved : obligatio
       simp only [Interval.Contains] at *
       omega
   | arrayLength => simpa only [Obligation.discharge, Obligation.Valid, decide_eq_true_eq] using proved
+  | stringIndex => exact fun _ within => StringIndexing.indexCheck_sound proved within
+  | stringSlice => exact fun _ _ left right => StringIndexing.sliceCheck_sound proved left right
   | negate => exact fun _ within => (checkedNegate_sound proved within).2
   | add => exact fun _ _ left right => (checkedAdd_sound proved left right).2
   | subtract => exact fun _ _ left right => (checkedSubtract_sound proved left right).2
