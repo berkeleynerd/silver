@@ -1,5 +1,43 @@
 # Session memory
 
+## 2026-10-31 — Bounded String indexing and character operations authorized
+
+After the completed subtype and Boolean deliveries, the owner asked for the
+next roadmap item and instructed **“Please proceed”** with
+[bounded String indexing and character operations #296](https://github.com/berkeleynerd/silver/issues/296).
+[Milestone 16](https://github.com/berkeleynerd/silver/milestone/16) contains that
+one coherent work package. The [capability proposal](bounded-string-characters.md)
+records the initial scope and unresolved design questions; it makes no support
+claim.
+
+Authorization covers design and implementation, complete native Bronze/Silver
+and Lean universal/actual-source assurance, boundary and composition regressions,
+faithful Rosetta drivers, synchronized language/catalogue/Rosetta records,
+independent review and publication of the completed feature PR. Record this
+decision on `main` through the routine planning PR before claiming #296;
+publishing and merging that authorization-only PR are authorized. Keep the
+feature PR open for owner review. The earlier merge instruction covered the
+now-completed #289/#295 delivery and does not automatically select this merge.
+
+The initial scope is indexed reads and element writes on fixed-bound Strings,
+scalar Character literals, initialized objects, assignment and comparisons,
+and bounded slices usable in String expressions and length-compatible
+assignment. Settle exact decidable rules, including null slices, lower bounds,
+visibility, mutation, snapshots and dead-code frontend acceptance, under the
+unchanged Oracle. Preserve the current printable-ASCII policy and source,
+operator and operand budgets. General dynamic-length indexing, resizing,
+Unicode processing, general String libraries and capacity expansion remain
+outside this increment.
+
+The current instruction selects #296. The separate sample-expansion proposal
+and inventory [#300](https://github.com/berkeleynerd/silver/issues/300) remain
+pending; this feature does not start or discard that batch. Queued Boolean
+arrays #297 and functions #298 remain unselected. The proof-scaling discussion
+does not authorize a separate performance project; use proportionate factoring
+where needed for this capability. No Oracle amendment or additional assurance
+mode is selected. No harness goal exists; CLI memory is unavailable and was not
+updated.
+
 ## 2026-10-31 — Named subtype and Boolean deliveries complete
 
 The authorized ordered merges are complete:

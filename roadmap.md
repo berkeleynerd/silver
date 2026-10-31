@@ -21,9 +21,9 @@ each delivery; the linked issues hold scope and completion criteria.
 | Position | Feature | Motivating Rosetta candidates |
 | --- | --- | --- |
 | Delivered 2026-10-31 | [Boolean scalar objects and expressions #291](https://github.com/berkeleynerd/silver/issues/291), stacked on the named-subtype delivery [#286](https://github.com/berkeleynerd/silver/issues/286) | Sequence of primes by trial division; Square but not cube; Common list elements |
-| Next (1) | [Bounded String indexing and character operations #296](https://github.com/berkeleynerd/silver/issues/296) | Reverse a string; Palindrome detection; character replacement |
-| Later (2) | [Fixed-size Boolean arrays #297](https://github.com/berkeleynerd/silver/issues/297) | Sieve of Eratosthenes; elementary cellular automata |
-| Later (3) | [Small nonrecursive functions #298](https://github.com/berkeleynerd/silver/issues/298) | Reusable primality tests, GCD and numeric search helpers |
+| Now | [Bounded String indexing and character operations #296](https://github.com/berkeleynerd/silver/issues/296) | Reverse a string; Palindrome detection; character replacement |
+| Later (1) | [Fixed-size Boolean arrays #297](https://github.com/berkeleynerd/silver/issues/297) | Sieve of Eratosthenes; elementary cellular automata |
+| Later (2) | [Small nonrecursive functions #298](https://github.com/berkeleynerd/silver/issues/298) | Reusable primality tests, GCD and numeric search helpers |
 
 The next feature starts with fixed-bound Strings: indexed reads and element
 writes, Character literals/temporaries/comparisons, and bounded slice expressions
@@ -37,14 +37,42 @@ Boolean arrays reuse bounded array storage and scalar Boolean semantics.
 Functions start with scalar parameters/results, an acyclic call graph and no
 caller-visible mutation. Their detailed design follows the preceding deliveries.
 
-These three items are **Backlog proposals**, not implementation authorizations
-or support claims. Candidate samples need faithful implementations before any
-coverage gain is claimed. The [planning decision](docs/session-memory.md#2026-10-30--near-term-language-feature-queue-recorded)
-does not change the current feature or merge authorizations. Existing source and
-expression budgets, assurance requirements, broad stages and deferred capacity
-work retain their scope.
+#296 is [authorized for implementation on 2026-10-31](docs/session-memory.md#2026-10-31--bounded-string-indexing-and-character-operations-authorized).
+#297 and #298 remain **Backlog proposals**. Candidate samples need faithful
+implementations before any coverage gain is claimed. The separate sample-only
+proposal [#300](https://github.com/berkeleynerd/silver/issues/300) retains its
+pending scope and opportunity inventory; it is not part of this feature.
+Existing source and expression budgets, assurance requirements, broad stages
+and deferred capacity work retain their scope.
 
 ## Current development sequence
+
+### Bounded String indexing and character operations
+
+**Authorized, 2026-10-31; proposed support, not yet admitted.**
+
+[Milestone 16](https://github.com/berkeleynerd/silver/milestone/16) contains one
+coherent work package, [#296](https://github.com/berkeleynerd/silver/issues/296).
+The [authorization](docs/session-memory.md#2026-10-31--bounded-string-indexing-and-character-operations-authorized)
+covers design, implementation, complete native and Lean/source assurance,
+regressions, independent review and feature PR publication. The
+[capability proposal](docs/bounded-string-characters.md) tracks the exact design,
+evidence and remaining work. The feature PR stays open for owner review.
+
+Develop fixed-bound String indexed reads and element writes, scalar Character
+objects and comparisons, and bounded slices as one increment, motivated by
+Reverse a string, Palindrome detection and character replacement. Establish
+rules for bounds and lengths, including null slices and inherited Ada lower
+bounds, and compose them with current loops, guards, Booleans, snapshots and
+output. Implement the native recognizer and its universal/actual-source proofs
+together, then complete boundary tests, faithful samples and synchronized
+language/catalogue/Rosetta delivery records. Passing samples alone do not
+establish assurance or broader String support.
+
+Retain the current source/operator/operand budgets and printable-ASCII policy.
+General dynamic-length indexing, resizing, Unicode processing, general String
+libraries, Boolean arrays, callable routines and capacity-limit changes remain
+outside this increment. No separate proof-performance project is selected.
 
 ### Boolean scalar objects and expressions
 
