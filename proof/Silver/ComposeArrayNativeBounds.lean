@@ -40,7 +40,7 @@ theorem ArrayValuesDomain.next {text source result position length parsed value 
     ArrayValuesDomain text source (putArrayValue result value) following length (parsed + 1) domain where
   sourceContext := valid.sourceContext
   resultContext := domain.transportScalar text result _ valid.resultContext
-    (model_putArray_valid valid.resultValid (valid.room remaining) safe) rfl
+    (model_putArray_valid valid.resultValid (valid.room remaining) safe) rfl rfl
   positionValid := positionValid
   parsedBound := by omega
   capacity := valid.capacity

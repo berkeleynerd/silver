@@ -261,7 +261,7 @@ theorem interpreted_arrayDeclaration (calls : Calls) (equations : RawHelperEquat
       · dsimp only [values, position, choice, ArrayDeclarationParts.length] at absent
         simp only [absent, decide_true, Bool.true_or, ↓reduceIte, ite_self]
       · have preserved := arrayValuesModel_preserves text state state position parts.length 0 absent
-        have valuesContext := domain.transportScalar text state values stateValid valuesValid preserved.2.1
+        have valuesContext := domain.transportScalar text state values stateValid valuesValid preserved.2.1 preserved.1
         obtain ⟨expressions, reading⟩ := arrayValues_sound text state state position parts.length 0 positionValid absent
         have used : values.arrayNames.used = state.arrayNames.used + parts.length := by
           simpa only [Nat.sub_zero] using arrayValues_used reading

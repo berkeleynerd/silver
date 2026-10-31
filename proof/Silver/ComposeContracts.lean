@@ -27,15 +27,15 @@ The base domain remains available for the independent mathematical model. -/
 structure StateDomain where
   holds : Source → ParserState → Prop
   valid : ∀ text state, holds text state → ValidState text state
-  /-- Additional caller invariants depend only on scalar declarations. Native
-  validity supplies the bounds of all other fields after an array update. -/
+  /-- Array updates preserve the scalar declarations and String binding table.
+  Additional native caller invariants may depend on either immutable table. -/
   transportScalar : ∀ text before after, holds text before → ValidState text after →
-    after.scalarNames = before.scalarNames → holds text after
+    after.scalarNames = before.scalarNames → after.names = before.names → holds text after
 
 def StateDomain.basic : StateDomain where
   holds := ValidState
   valid := fun _ _ valid => valid
-  transportScalar := fun _ _ _ _ valid _ => valid
+  transportScalar := fun _ _ _ _ valid _ _ => valid
 
 def allTokens : List ShellToken :=
   [.word "with", .word "silver_io", .word "procedure", .word "main", .word "is",
