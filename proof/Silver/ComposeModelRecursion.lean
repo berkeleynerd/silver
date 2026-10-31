@@ -32,56 +32,62 @@ theorem model_workTail_equation (text : Source) (_valid : ValidText text)
     · have firstAdvance := skipAt_advances text position bound firstZero
       have plainDecrease : text.length - skipAt text position <
           text.length + 1 - position := by omega
-      by_cases isQuote : Cursor.byteAt text (skipAt text position) = 34
-      · by_cases absent : (literalAt text (skipAt text position)).after = 0
-        · simp [firstZero, finished, isQuote, absent]
-        · have quotedAdvance := literalAt_advances text (skipAt text position) absent
-          have quotedDecrease : text.length + 1 - (literalAt text (skipAt text position)).after <
-              text.length + 1 - position := by omega
-          simp [firstZero, finished, isQuote, absent, quotedDecrease]
-      · by_cases nameZero : nameAfter text (skipAt text position) = 0
-        · by_cases numberZero : (ScalarLiteral.read text (skipAt text position)).after = 0
-          · by_cases isComparison : Cursor.byteAt text (skipAt text position) = 47 ∧
-                skipAt text position < text.length ∧ Cursor.byteAt text (skipAt text position + 1) = 61
-            · have pairDecrease : text.length + 1 - (skipAt text position + 2) < text.length + 1 - position := by omega
-              simp [firstZero, finished, nameZero, numberZero, isComparison]
-              omega
-            · simp only [Bool.and_eq_true, decide_eq_true_eq, and_assoc, isComparison, ↓reduceIte]
-              by_cases isOperator : Cursor.byteAt text (skipAt text position) = 38 ∨
-                  Cursor.byteAt text (skipAt text position) = 43 ∨
-                  Cursor.byteAt text (skipAt text position) = 45 ∨
-                  Cursor.byteAt text (skipAt text position) = 42 ∨ Cursor.byteAt text (skipAt text position) = 47
-              · by_cases empty : remaining = 0
-                · simp [firstZero, finished, isQuote, nameZero, numberZero, isOperator, empty]
-                · simp [firstZero, finished, isQuote, nameZero, numberZero, isOperator, empty, plainDecrease]
-              · simp [firstZero, finished, isQuote, nameZero, numberZero, isOperator, plainDecrease]
-          · have numberBounds := ScalarLiteral.integer_bounds
-              (ScalarLiteral.read_sound (model_skip_valid text position bound) numberZero)
-            have numberDecrease :
-                text.length + 1 - (ScalarLiteral.read text (skipAt text position)).after <
-                  text.length + 1 - position := by omega
-            simp [firstZero, finished, isQuote, nameZero, numberZero, numberDecrease]
-        · have nameAdvance := model_name_advances text (skipAt text position) nameZero
-          have nameDecrease : text.length + 1 - nameAfter text (skipAt text position) <
+      by_cases characterZero : characterLiteralAfter text (skipAt text position) = 0
+      · simp only [characterZero, ne_eq, not_true_eq_false, ↓reduceIte]
+        by_cases isQuote : Cursor.byteAt text (skipAt text position) = 34
+        · by_cases absent : (literalAt text (skipAt text position)).after = 0
+          · simp [firstZero, finished, isQuote, absent]
+          · have quotedAdvance := literalAt_advances text (skipAt text position) absent
+            have quotedDecrease : text.length + 1 - (literalAt text (skipAt text position)).after <
                 text.length + 1 - position := by omega
-          simp only [firstZero, finished, isQuote, ne_eq, nameZero, not_false_eq_true,
-            nameDecrease, ↓reduceIte, ↓reduceDIte]
-          split
-          · by_cases empty : remaining = 0 <;> simp [empty]
-          · rfl
+            simp [firstZero, finished, isQuote, absent, quotedDecrease]
+        · by_cases nameZero : nameAfter text (skipAt text position) = 0
+          · by_cases numberZero : (ScalarLiteral.read text (skipAt text position)).after = 0
+            · by_cases isComparison : Cursor.byteAt text (skipAt text position) = 47 ∧
+                  skipAt text position < text.length ∧ Cursor.byteAt text (skipAt text position + 1) = 61
+              · have pairDecrease : text.length + 1 - (skipAt text position + 2) < text.length + 1 - position := by omega
+                simp [firstZero, finished, nameZero, numberZero, isComparison]
+                omega
+              · simp only [Bool.and_eq_true, decide_eq_true_eq, and_assoc, isComparison, ↓reduceIte]
+                by_cases isOperator : Cursor.byteAt text (skipAt text position) = 38 ∨
+                    Cursor.byteAt text (skipAt text position) = 43 ∨
+                    Cursor.byteAt text (skipAt text position) = 45 ∨
+                    Cursor.byteAt text (skipAt text position) = 42 ∨ Cursor.byteAt text (skipAt text position) = 47
+                · by_cases empty : remaining = 0
+                  · simp [firstZero, finished, isQuote, nameZero, numberZero, isOperator, empty]
+                  · simp [firstZero, finished, isQuote, nameZero, numberZero, isOperator, empty, plainDecrease]
+                · simp [firstZero, finished, isQuote, nameZero, numberZero, isOperator, plainDecrease]
+            · have numberBounds := ScalarLiteral.integer_bounds
+                (ScalarLiteral.read_sound (model_skip_valid text position bound) numberZero)
+              have numberDecrease :
+                  text.length + 1 - (ScalarLiteral.read text (skipAt text position)).after <
+                    text.length + 1 - position := by omega
+              simp [firstZero, finished, isQuote, nameZero, numberZero, numberDecrease]
+          · have nameAdvance := model_name_advances text (skipAt text position) nameZero
+            have nameDecrease : text.length + 1 - nameAfter text (skipAt text position) <
+                  text.length + 1 - position := by omega
+            simp only [firstZero, finished, isQuote, nameZero, not_false_eq_true,
+              nameDecrease, ↓reduceIte, ↓reduceDIte]
+            split
+            · by_cases empty : remaining = 0 <;> simp [empty]
+            · rfl
+      · have characterBounds := characterLiteralAfter_bounds characterZero
+        have characterDecrease : text.length + 1 - characterLiteralAfter text (skipAt text position) <
+            text.length + 1 - position := by omega
+        simp [firstZero, finished, characterZero, characterDecrease]
 
 theorem model_tail_equation (ranges : RangeContracts modelCalls)
     (text : Source) (valid : ValidText text) (names : BindingEnvironment)
     (scan : ExpressionState) (scalarNames : ScalarExpression.Environment) (integerHidden : Bool) (arrays : ArrayBindings.Metadata)
     (initials : ArrayBindings.Initials) (elaborating : Bool)
-    (namesValid : ValidNames text names)
+    (namesValid : NativeNames text names)
     (scalarNamesValid : ScalarExpression.ValidEnvironment text scalarNames)
     (arraysValid : ArrayBindings.ValidMetadata text arrays) (initialsValid : ArrayBindings.ValidInitials initials)
-    (scanValid : ValidScan text scan) :
+    (scanValid : NativeScan text scan) :
     modelCalls.function .tail text names scan scalarNames integerHidden arrays initials elaborating =
       tailBody.eval modelCalls (Context.locals {text,scalarNames,integerHidden,arrays,initials,elaborating,names,scan}) := by
   have nextRange := ranges.expressionStep text valid names scan scalarNames integerHidden arrays initials elaborating namesValid scalarNamesValid arraysValid initialsValid scanValid
-  change ValidScan text (expressionStep text names scan scalarNames integerHidden arrays initials elaborating) ∧
+  change NativeScan text (expressionStep text names scan scalarNames integerHidden arrays initials elaborating) ∧
     ((expressionStep text names scan scalarNames integerHidden arrays initials elaborating).position = 0 ∨
       (expressionStep text names scan scalarNames integerHidden arrays initials elaborating).complete = true ∨
       scan.position < (expressionStep text names scan scalarNames integerHidden arrays initials elaborating).position) at nextRange
@@ -103,7 +109,7 @@ theorem model_tail_equation (ranges : RangeContracts modelCalls)
             · exact False.elim (nextZero bad)
             · exact False.elim (nextComplete done)
             · exact progress
-          have bounded := nextRange.1.1
+          have bounded := nextRange.1.base.1
           have smaller : text.length + 1 - (expressionStep text names scan scalarNames integerHidden arrays initials elaborating).position <
               text.length + 1 - scan.position := by
             unfold ValidCursor at bounded

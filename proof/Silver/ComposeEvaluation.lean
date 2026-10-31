@@ -3,6 +3,7 @@ module
 public import Silver.ComposeLexical
 public import Silver.ComposeContracts
 public import Silver.ComposeArrayDenotations
+public import Silver.ComposeStringNative
 
 @[expose] public section
 
@@ -1244,6 +1245,135 @@ theorem Expr.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning cal
       rw [← hv]
       exact Expr.eval_lexical calls meaning _ rest legal.2
 
+end Silver.Compose.Expressions
+
+namespace Silver.Compose.StringNative
+open Silver.Compose.Expressions
+
+/-- These ordinary helpers contain no lexical primitive calls. Requiring the
+expression domains at every local store gives a compositional normalization
+rule for assignments, sequences and early returns. -/
+def Declaration.Legal (calls : Calls) (declaration : Declaration) : Prop :=
+  ∀ locals, match declaration.initial with
+    | some expression => expression.Legal calls locals
+    | none => True
+
+def Command.Legal (calls : Calls) : Command resultType → Prop
+  | .nothing => True
+  | .assign _ value => ∀ locals, value.Legal calls locals
+  | .assignAfter _ after => ∀ locals, after.Legal calls locals
+  | .sequence first rest => first.Legal calls ∧ rest.Legal calls
+  | .choose test yes no => (∀ locals, test.Legal calls locals) ∧ yes.Legal calls ∧ no.Legal calls
+  | .returned value => ∀ locals, value.Legal calls locals
+  | .returnNamedBoolean function _ argument =>
+      (∀ locals, function.Legal calls locals) ∧ (∀ locals, argument.Legal calls locals)
+
+def Body.Legal (calls : Calls) (body : Body resultType) : Prop :=
+  (∀ declaration ∈ body.declarations, declaration.Legal calls) ∧ body.commands.Legal calls
+
+theorem Declaration.eval_lexical (calls : Calls)
+    (meaning : Compose.Lexical.Meaning calls.primitive) (locals : Locals)
+    (declaration : Declaration) (legal : declaration.Legal calls) :
+    declaration.eval calls locals = declaration.eval (lexical calls) locals := by
+  cases declaration with
+  | mk type names typeName initial =>
+    cases initial with
+    | none => rfl
+    | some expression =>
+      dsimp only [Declaration.eval]
+      rw [Expr.eval_lexical calls meaning locals expression (legal locals)]
+
+theorem Command.eval_lexical (calls : Calls)
+    (meaning : Compose.Lexical.Meaning calls.primitive) (locals : Locals)
+    (next : Locals → resultType.meaning) :
+    ∀ command : Command resultType, command.Legal calls →
+      command.eval calls locals next = command.eval (lexical calls) locals next
+  | .nothing, _ => rfl
+  | .assign name value, legal => by
+    dsimp only [Command.eval]
+    rw [Expr.eval_lexical calls meaning locals value (legal locals)]
+  | .assignAfter name after, legal => by
+    dsimp only [Command.eval]
+    rw [Expr.eval_lexical calls meaning locals after (legal locals)]
+  | .sequence first rest, legal => by
+    dsimp only [Command.eval]
+    rw [Command.eval_lexical calls meaning locals _ first legal.1]
+    congr 1
+    funext updated
+    exact Command.eval_lexical calls meaning updated next rest legal.2
+  | .choose test yes no, legal => by
+    dsimp only [Command.eval]
+    rw [Expr.eval_lexical calls meaning locals test (legal.1 locals)]
+    split
+    · exact Command.eval_lexical calls meaning locals next yes legal.2.1
+    · exact Command.eval_lexical calls meaning locals next no legal.2.2
+  | .returned value, legal => Expr.eval_lexical calls meaning locals value (legal locals)
+  | .returnNamedBoolean function name argument, legal => by
+    dsimp only [Command.eval]
+    rw [Expr.eval_lexical calls meaning locals function (legal.1 locals),
+      Expr.eval_lexical calls meaning locals argument (legal.2 locals)]
+
+theorem declarations_eval_lexical (calls : Calls)
+    (meaning : Compose.Lexical.Meaning calls.primitive) :
+    ∀ declarations : List Declaration,
+      (∀ declaration ∈ declarations, declaration.Legal calls) → ∀ locals,
+      declarations.foldl (Declaration.eval calls) locals =
+        declarations.foldl (Declaration.eval (lexical calls)) locals
+  | [], _, _ => rfl
+  | first :: rest, legal, locals => by
+    simp only [List.foldl_cons]
+    rw [Declaration.eval_lexical calls meaning locals first (legal first (by simp))]
+    exact declarations_eval_lexical calls meaning rest
+      (fun declaration member => legal declaration (List.mem_cons_of_mem _ member)) _
+
+theorem Body.eval_lexical (calls : Calls)
+    (meaning : Compose.Lexical.Meaning calls.primitive) (locals : Locals)
+    (body : Body resultType) (legal : body.Legal calls) :
+    body.eval calls locals = body.eval (lexical calls) locals := by
+  unfold Body.eval
+  rw [declarations_eval_lexical calls meaning body.declarations legal.1 locals]
+  exact Command.eval_lexical calls meaning _ _ body.commands legal.2
+
+theorem fixedBoundsBody_legal (calls : Calls) (locals : Locals) : fixedBoundsBody.Legal calls locals := by
+  dsimp only [fixedBoundsBody, Expr.Legal, Function.isLexical]
+  simp
+
+theorem characterLiteralBody_legal (calls : Calls) (locals : Locals) : characterLiteralBody.Legal calls locals := by
+  dsimp only [characterLiteralBody, Expr.Legal, Function.isLexical]
+  simp
+
+theorem concatenatedFirstBody_legal (calls : Calls) (locals : Locals) : concatenatedFirstBody.Legal calls locals := by
+  dsimp only [concatenatedFirstBody, Expr.Legal, Function.isLexical]
+  simp
+
+theorem concatenatedLastBody_legal (calls : Calls) : concatenatedLastBody.Legal calls := by
+  simp only [Body.Legal, concatenatedLastBody, List.mem_cons, List.not_mem_nil, forall_eq_or_imp]
+  dsimp only [Declaration.Legal, constant, uninitialized, Command.list, List.foldr,
+    Command.Legal, guard, anyOf, allOf, List.foldl, Expr.Legal, Function.isLexical]
+  simp
+
+theorem indexedBody_legal (calls : Calls) : indexedBody.Legal calls := by
+  simp only [Body.Legal, indexedBody, List.mem_cons, List.not_mem_nil, forall_eq_or_imp]
+  dsimp only [Declaration.Legal, constant, uninitialized, Command.list, List.foldr,
+    Command.Legal, guard, anyOf, allOf, List.foldl, Expr.Legal, Function.isLexical]
+  simp
+
+theorem characterBody_legal (calls : Calls) : characterBody.Legal calls := by
+  simp only [Body.Legal, characterBody, List.mem_cons, List.not_mem_nil, forall_eq_or_imp]
+  dsimp only [Declaration.Legal, constant, uninitialized, Command.list, List.foldr,
+    Command.Legal, guard, anyOf, allOf, List.foldl, Expr.Legal, Function.isLexical]
+  simp
+
+theorem characterDeclarationBody_legal (calls : Calls) : characterDeclarationBody.Legal calls := by
+  simp only [Body.Legal, characterDeclarationBody, List.mem_cons, List.not_mem_nil, forall_eq_or_imp]
+  dsimp only [Declaration.Legal, constant, uninitialized, Command.list, List.foldr,
+    Command.Legal, guard, anyOf, allOf, List.foldl, Expr.Legal, Function.isLexical]
+  simp
+
+end Silver.Compose.StringNative
+
+namespace Silver.Compose.Expressions
+
 /-- Native SPARK establishes the domains of executed lexical calls in these
 bodies. No field asserts equality to the membership or semantic model. -/
 structure LegalHelpers (calls : Calls) (domain : StateDomain := .basic) : Prop where
@@ -1377,6 +1507,55 @@ theorem normalized_rawHelpers {domain : StateDomain} (calls : Calls)
     RawHelperEquations calls (domain := domain) where
   ranges := source.ranges
   names := source.names
+  fixedBounds := by
+    intros
+    apply Eq.trans
+    · apply source.fixedBounds <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      exact StringNative.fixedBoundsBody_legal calls _
+  characterLiteral := by
+    intros
+    apply Eq.trans
+    · apply source.characterLiteral <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      exact StringNative.characterLiteralBody_legal calls _
+  indexed := by
+    intros
+    apply Eq.trans
+    · apply source.indexed <;> assumption
+    · apply StringNative.Body.eval_lexical calls meaning
+      exact StringNative.indexedBody_legal calls
+  characterValue := by
+    intros
+    apply Eq.trans
+    · apply source.characterValue <;> assumption
+    · apply StringNative.Body.eval_lexical calls meaning
+      exact StringNative.characterBody_legal calls
+  concatenatedFirst := by
+    intros
+    apply Eq.trans
+    · apply source.concatenatedFirst <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      exact StringNative.concatenatedFirstBody_legal calls _
+  concatenatedLast := by
+    intros
+    apply Eq.trans
+    · apply source.concatenatedLast <;> assumption
+    · apply StringNative.Body.eval_lexical calls meaning
+      exact StringNative.concatenatedLastBody_legal calls
+  characterDeclaration := by
+    intros
+    apply Eq.trans
+    · apply source.characterDeclaration <;> assumption
+    · apply StringNative.Body.eval_lexical calls meaning
+      exact StringNative.characterDeclarationBody_legal calls
+  addBindingWithCharacter := by
+    intros
+    apply Eq.trans
+    · apply source.addBindingWithCharacter <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      dsimp only [addBindingBody, Expr.Legal]
+      simp
   scalarLookup := source.scalarLookup
   scalarRead := source.scalarRead
   arrayLookup := source.arrayLookup
