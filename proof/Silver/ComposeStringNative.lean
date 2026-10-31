@@ -361,7 +361,9 @@ def characterDeclarationBody : Body .state :=
       .returnNamedBoolean add "character_object" (.truth true)]⟩
 
 abbrev WellFormedTrees : Prop := indexedBody.wellFormed = true ∧ characterBody.wellFormed = true ∧
-  concatenatedLastBody.wellFormed = true ∧ characterDeclarationBody.wellFormed = true
+  concatenatedLastBody.wellFormed = true ∧ characterDeclarationBody.wellFormed = true ∧
+  fixedBoundsBody.wellFormed = true ∧ characterLiteralBody.wellFormed = true ∧
+  concatenatedFirstBody.wellFormed = true
 
 abbrev WellScopedTrees : Prop :=
   indexedBody.scoped [("text", .source), ("position", .number), ("names", .names),
@@ -371,7 +373,11 @@ abbrev WellScopedTrees : Prop :=
     ("scalar_names", .scalarNames), ("arrays", .arrayMetadata), ("initials", .arrayInitials),
     ("elaborating", .truth)] = true ∧
   concatenatedLastBody.scoped [("left", .scan), ("right", .value)] = true ∧
-  characterDeclarationBody.scoped [("text", .source), ("state", .state), ("arguments", .truth)] = true
+  characterDeclarationBody.scoped [("text", .source), ("state", .state), ("arguments", .truth)] = true ∧
+  fixedBoundsBody.scoped [("length", .number), ("dynamic", .truth), ("is_character", .truth),
+    ("first_index", .integer), ("last_index", .integer), ("slot", .number)] = true ∧
+  characterLiteralBody.scoped [("text", .source), ("position", .number)] = true ∧
+  concatenatedFirstBody.scoped [("left", .scan), ("right", .value)] = true
 
 theorem checked_precedence : WellFormedTrees := by decide +kernel
 
