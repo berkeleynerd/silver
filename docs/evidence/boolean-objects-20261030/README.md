@@ -13,9 +13,16 @@ checks, after the retained failed first candidate. Its
 confirms unchanged contracts and executable behavior. The matching output
 pin and regenerated certificate are integrated; 27 other certificates remain
 byte-identical. Native build `20261030T214749-120a2c44c6f6` passed.
-Complete native `20261030T214853-f14ff090b11a` and complete Lean
-`20261030T214845-59a80335a9ac` are running on frozen inputs. The 46 affected
-regression reruns and terminal applicability confirmation are still pending.
+Complete native `20261030T214853-f14ff090b11a`
+[failed](full-native-failed-214853/README.md) with one Body_Tail postcondition
+unproved; both repaired condition readers passed. The
+[Body_Tail diagnosis/review](../../reviews/review-boolean-body-tail-20261031.md)
+and successful 74-check focused repair are recorded in the capability update.
+The candidate's complete native run `20261031T022711-e4258c225793` is active
+in the isolated native workspace. Complete Lean `20261030T214845-59a80335a9ac`
+continues on frozen integration inputs after its recorded memory-scheduling
+suspension; the output-body certificate passed. The 46 affected regression
+reruns and terminal applicability confirmation are still pending.
 The earlier coverage below applies to its identified inputs, not automatically
 to this repaired target.
 

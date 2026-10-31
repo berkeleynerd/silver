@@ -286,3 +286,41 @@ Silver tool/source-change fixture. Their successful reruns and final input
 verification would complete coverage with 522 applicable retained results.
 Those reruns, complete native and Lean/source audits, and terminal evidence
 confirmation remain required before delivery.
+
+### Body_Tail postcondition and native-first completion
+
+Complete native run `20261030T214853-f14ff090b11a`
+[failed](evidence/boolean-objects-20261030/full-native-failed-214853/README.md)
+at 2026-10-31 02:03:39 UTC after 15,283.832 s. Both repaired readers passed;
+17,224 of 17,225 checks discharged. The remaining obligation was the exact
+Static `Body_Tail` result/model postcondition, with solver time/memory limits
+and no reported counterexample. Complete report/provenance auditing did not run.
+The unchanged Body_Tail region had passed in an earlier run; its merged
+postcondition did not identify a single failing return.
+
+[Independent diagnosis and candidate review](reviews/review-boolean-body-tail-20261031.md)
+selected three checked Static assertions, each stating the original exact
+postcondition before an unchanged return. Focused run
+`20261031T021634-ccc87594f70c` passed all 74 checks (3 flow, 71 proof) in
+372.167 s, with all 2,561 captured inputs matching at terminal. The candidate
+preserves contracts, domains, models and executable behavior. Source/evidence
+commit `f5ab46cdef`, body SHA-256
+`bb3bd71eb53e7f0637ed27ac4b5eb7c283b66dc0fb81131ebe73543c3950d01f`,
+remains isolated from the running integration checkpoint.
+
+Its matching build `20261031T022612-eb8a9047980e` passed in 8.566 s.
+Complete native run `20261031T022711-e4258c225793` is now checking it with
+four workers and the unchanged production options/cache. Complete native
+success will precede integration and the next source-certificate rebuild.
+This sequencing responds to the repeated native annotation repairs; it adds
+no new completion requirement. The current Lean run remains on frozen
+`87dd912436` inputs while it checks remaining source integration.
+
+That Lean run was temporarily suspended for memory scheduling from 00:29:35
+to 02:03:40 UTC, retaining its process, inputs and lease; it resumed normally.
+Its large output-body certificate passed, but complete source/module/axiom
+assurance remains pending. After native success, the reviewed Body_Tail delta
+requires only the output pin/certificate refresh and the same 46 regression
+identities. The prepared test archive for `87dd912436` is superseded for final
+testing; a new integrated snapshot will be supplied. Both feature PRs remain
+open, with no completed Boolean support claim.
