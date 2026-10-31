@@ -1,5 +1,84 @@
 # Session memory
 
+## 2026-10-31 — Named subtype and Boolean validation and merge authorized
+
+The owner instructed **“OK, please continue monitoring and driving toward merging
+the two outstanding PRs.”** This authorizes completing the remaining Boolean
+validation, necessary repairs, independent integration/evidence review and
+delivery records, then merging named Integer subtypes
+[PR #289](https://github.com/berkeleynerd/silver/pull/289) followed by Boolean
+scalar objects and expressions
+[PR #295](https://github.com/berkeleynerd/silver/pull/295) after their required
+checks pass. Complete the associated issue, milestone and board bookkeeping
+as part of that delivery.
+
+This supersedes the earlier instruction to keep both feature PRs open. Preserve
+the reviewed implementation and evidence identities while reconciling the
+planning records added on `main`; documentation-only integration does not
+invalidate applicable native or Lean results. Keep active validation inputs
+stable and complete every required native, Lean/source and regression check
+before claiming delivery. The named-subtype review target remains
+`fa6b5e982cad5662b18f498e75cafbac9fb07cc9` even if merge preparation advances
+its documentation.
+
+The near-term feature queue and deferred capacity work retain their existing
+scope. The discussion of proof scaling does not start a performance project
+or another language feature. No Oracle amendment or additional assurance mode
+is selected. No harness goal exists; CLI memory is unavailable and was not updated.
+
+## 2026-10-30 — Near-term language feature queue recorded
+
+The owner asked to concretize the roadmap for the next few features and
+instructed **“Proceed to make this happen.”** Record the
+[ordered queue](../roadmap.md#near-term-feature-queue) after the active Boolean
+scalar feature: bounded String indexing and character operations
+[#296](https://github.com/berkeleynerd/silver/issues/296), fixed-size Boolean
+arrays [#297](https://github.com/berkeleynerd/silver/issues/297), then small
+nonrecursive functions [#298](https://github.com/berkeleynerd/silver/issues/298).
+The first proposal has a concrete fixed-bound scope and assurance question;
+the later proposals remain brief. Revisit ordering after each delivery based
+on faithful Rosetta gains and implementation experience.
+
+This authorizes the planning records and board updates. The three feature
+issues remain Backlog; implementation milestones are created when their work
+is authorized. The existing Boolean implementation and subtype/feature merge
+instructions are unchanged. This queue claims no new language support and
+selects no deferred capacity or assurance-mode work.
+
+## 2026-10-30 — Boolean scalar objects and expressions authorized
+
+The owner approved **initialized Boolean constants and variables, assignment,
+Boolean logical expressions and conditions** as the next coherent feature.
+The drivers are Rosetta **Sequence of primes by trial division** (lead),
+**Square but not cube**, and **Common list elements**.
+[Milestone 14](https://github.com/berkeleynerd/silver/milestone/14) contains one
+work package, [#291](https://github.com/berkeleynerd/silver/issues/291). The
+[capability proposal](boolean-objects.md) records the selected scope and remaining
+design obligations; it does not claim current support.
+
+Authorization covers design and implementation, complete native Bronze/Silver
+and Lean universal/actual-source assurance, boundary and composition regressions,
+faithful driver samples, synchronized language/catalogue/Rosetta records, full
+required validation, independent review and publication of a stacked feature PR.
+Record this authorization on `main` through the routine planning PR before
+claiming #291. Publishing and merging that authorization-only planning PR are
+authorized. **Feature merge is not authorized.** Keep subtype
+[PR #289](https://github.com/berkeleynerd/silver/pull/289) open at
+`fa6b5e982cad5662b18f498e75cafbac9fb07cc9`; stack the Boolean feature on it without
+changing or merging that PR, and keep the Boolean feature PR open for review.
+
+Selected scope includes scalar `Boolean`, `True`/`False`, initialized constants
+and variables, assignment, `not`, eager `and`/`or`/`xor`, and Boolean expressions
+in existing conditions with short-circuit `and then`/`or else`. Settle exact
+decidable native rules under the unchanged Oracle, including inherited Ada
+name hiding of `True`/`False`/`Boolean`, eager versus short-circuit evaluation,
+and no retained scalar facts behind stored flags. Retain the 4,096-byte source,
+63-operator and 64-leaf budgets. Boolean arrays, callable routines and enumeration
+iteration remain excluded. Broad Rosetta identifiers are not automatically
+promoted; reconcile the delivered fragment accurately. Deferred capacity and
+assurance-mode work retains its existing triggers. No harness goal exists;
+CLI memory is unavailable and was not updated.
+
 ## 2026-10-30 — Named Integer subtype delivery ready for review
 
 The owner-authorized [#286](https://github.com/berkeleynerd/silver/issues/286)

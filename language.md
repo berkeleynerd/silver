@@ -24,8 +24,7 @@ The [named Integer-subtype delivery record](docs/named-integer-subtypes.md#deliv
 records complete Linux native and Lean/source assurance for static named scalar
 ranges, optional narrower scalar object constraints and bounded components of
 these fixed arrays. The feature is implemented and validated in
-[PR #289](https://github.com/berkeleynerd/silver/pull/289), awaiting the owner's
-merge instruction.
+[PR #289](https://github.com/berkeleynerd/silver/pull/289).
 The [machine-readable
 catalogue](catalogue/silver.json), compiler, and this specification must agree. A
 discrepancy is a defect to resolve, not an extension of the language. Membership

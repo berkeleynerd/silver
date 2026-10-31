@@ -157,8 +157,8 @@ iterators remain excluded. The
 Source, expression and operator limits are unchanged.
 
 The [named Integer subtype increment](docs/named-integer-subtypes.md#delivery-assurance-and-validation)
-is implemented and validated on Linux in [PR #289](https://github.com/berkeleynerd/silver/pull/289),
-awaiting the owner's merge instruction. It adds static
+is implemented and validated on Linux in [PR #289](https://github.com/berkeleynerd/silver/pull/289).
+It adds static
 `subtype S is Integer range L .. H;` declarations for initialized scalar objects
 and fixed-array components, with optional narrower static scalar object ranges.
 Bounded components retain their ranges in indexed reads and constant-array
