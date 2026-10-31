@@ -1,6 +1,7 @@
 module
 
 public import Silver.ComposeAtomReading
+public import Silver.ComposeBindingBounds
 public import Silver.PredicateConditionAdmission
 
 @[expose] public section
@@ -16,17 +17,6 @@ def newNameAllowed (text : Source) (state : ParserState) (first after : Nat) (ar
       ArrayBindings.lookup text state.arrayNames.names first after = 0 ∧
       BooleanBindings.lookup text state.booleanNames first after = 0 ∧
       IntegerSubtypes.lookup text state.subtypeNames first after = 0)
-
-/-- Native declaration-slot invariant. Null Strings retain both Ada bounds;
-only nonempty values contribute to the derived source-sized upper ceiling. -/
-def fixedBoundsValid (length : Nat) (dynamic isCharacter : Bool)
-    (firstIndex lastIndex : Int) (slot : Nat) : Bool :=
-  if isCharacter then !dynamic && decide (length = 1 ∧ firstIndex = 1 ∧ lastIndex = 1)
-  else if dynamic then decide (length = 0)
-  else if length = 0 then decide (firstIndex > lastIndex)
-  else decide (firstIndex ≥ 1 ∧ lastIndex ≥ firstIndex ∧
-    lastIndex - firstIndex + 1 = (length : Int) ∧
-    lastIndex ≤ (slot : Int) * maxSourceLength)
 
 def addBinding (state : ParserState) (first after : Nat) (value : ValueResult)
     (mutable : Bool) (following : Nat) (characterObject : Bool := false) : ParserState :=
