@@ -745,6 +745,7 @@ def tokenName : ShellToken → String
     | "if" => "if_keyword" | "input_is_valid" => "input_is_valid_name" | "then" => "then_keyword"
     | "else" => "else_keyword" | "elsif" => "elsif_keyword" | "reject" => "reject_name" | "&" => "ampersand"
     | "and" => "and_keyword" | "or" => "or_keyword" | "not" => "not_keyword"
+    | "character" => "character_name"
     | "boolean" => "boolean_name" | "true" => "true_name" | "false" => "false_name" | "xor" => "xor_keyword"
     | "/=" => "not_equal" | "<" => "less" | ">" => "greater" | ">=" => "greater_equal" | "'" => "apostrophe" | "length" => "length_name"
     | "<=" => "less_equal" | "null" => "null_keyword" | "integer" => "integer_name"
@@ -1155,8 +1156,9 @@ def literalBody : Expr .value :=
   .ite (.andThen (.andThen (.andThen (.ne position (.number 0)) (.le position (.sourceLast text)))
     (.eq (.byteAt text position) (.characterVal (.number 34))))
     (.ne (.lexLiteralEnd text start) (.number 0)))
-    (.value (.lexLiteralEnd text start) start (.lexLiteralLength text start) (.lexLiteralLength text start)
-      (.truth false) (.truth false) (.truth false) (.number 0)) .invalidValue
+    (.nativeValue (.lexLiteralEnd text start) start (.lexLiteralLength text start) (.lexLiteralLength text start)
+      (.truth false) (.truth false) (.truth false) (.number 0) (.number 1)
+      (.singleton (.integerNumber 1)) (.singleton (.valueNumber (.lexLiteralLength text start)))) .invalidValue
 
 def workTailBody : Expr .truth :=
   let text : Expr .source := .variable "text"
@@ -1172,6 +1174,8 @@ def workTailBody : Expr .truth :=
     .local "number" "silver_scalar_literals.literal_result" (.app (.app (.function .scalarLiteral) text) first) <|
     .group <| .ite (.eq first (.number 0)) (.truth false) <|
     .elsif (.gt first (.sourceLast text)) (.truth true) <|
+    .elsif (.ne (.app (.app (.function .characterLiteral) text) first) (.number 0))
+      (recurse (.app (.app (.function .characterLiteral) text) first) remaining) <|
     .elsif (.eq (.byteAt text first) (.characterVal (.number 34)))
       (.andThen (.ne (.field .valueAfter quoted) (.number 0))
         (recurse (.field .valueAfter quoted) remaining)) <|
@@ -1224,11 +1228,14 @@ def imageBody : Expr .value :=
         (.not <| .app (.app (.app (.app (.function .nameIs) text) attributeFirst) attributeAfter) (.word "image")))
         (.le following position))
       .invalidValue
-      (.value following (.number 0)
+      (.nativeValue following (.number 0)
         (.app (.function .imageMinimum) (.field .scalarBounds value))
         (.app (.function .imageMaximum) (.field .scalarBounds value))
         (.truth false) (.truth true)
-        (.app (.function .scalarEmpty) (.field .scalarBounds value)) (.number 0))
+        (.app (.function .scalarEmpty) (.field .scalarBounds value)) (.number 0) (.number 1)
+        (.singleton (.integerNumber 1))
+        (.interval (.valueNumber (.app (.function .imageMinimum) (.field .scalarBounds value)))
+          (.valueNumber (.app (.function .imageMaximum) (.field .scalarBounds value)))))
 
 def valueBody : Expr .value :=
   let text : Expr .source := .variable "text"
@@ -1244,10 +1251,17 @@ def valueBody : Expr .value :=
     .local "after" "literal_position" (.app (.app (.function .nameAfter) text) first) <|
     .local "index" "binding_count" (.app (.app (.app (.app (.function .lookupName) text) names) first) after) <|
     .group <| .ite (.ne (.field .valueAfter quoted) (.number 0)) quoted <|
-    .elsif (.andThen (.ne index (.number 0))
+    .elsif (.andThen (.andThen (.ne index (.number 0)) (.not (.field .bindingCharacter info)))
+      (.ne (.app (.app (.app (.function .takeToken) text) after) (.token (.symbol "("))) (.number 0)))
+      (.app (.app (.app (.app (.app (.app (.app (.app (.function .indexed) text) position) names)
+        (.variable "scalar_names")) (.variable "arrays")) (.variable "initials")) (.variable "elaborating")) (.truth false)) <|
+    .elsif (.andThen (.andThen (.ne index (.number 0)) (.not (.field .bindingCharacter info)))
       (.eq (.app (.app (.app (.app (.function .scalarLookup) text) (.variable "scalar_names")) first) after) (.number 0)))
-      (.value after (.field .bindingValueFirst info) (.field .bindingLength info) (.field .bindingLength info)
-        (.field .bindingDynamic info) (.truth true) (.truth false) index)
+      (.nativeValue after (.field .bindingValueFirst info) (.field .bindingLength info) (.field .bindingLength info)
+        (.field .bindingDynamic info) (.truth true) (.truth false) index (.number 1)
+        (.singleton (.field .bindingFirstIndex info))
+        (.group <| .ite (.field .bindingDynamic info) (.interval (.integerNumber 0) (.wideNumber .maxLength))
+          (.singleton (.field .bindingLastIndex info))))
       (.app (.app (.app (.app (.app (.app (.app (.app (.function .image) text) position) names)
         (.variable "scalar_names")) (.variable "integer_hidden")) (.variable "arrays")) (.variable "initials")) (.variable "elaborating"))
 
@@ -1267,7 +1281,12 @@ def newNameBody : Expr .truth :=
     (.eq (.app (.app (.app (.app (.function .subtypeLookup) text) (.field .stateSubtypeNames state)) first) after) (.number 0))
 
 def addBindingBody : Expr .state :=
-  (.stateBinding (.variable "state") (.variable "following") (.binding (.variable "first") (.variable "after") (.field .valueFirst (.variable "value")) (.field .valueLength (.variable "value")) (.field .valueDynamic (.variable "value")) (.variable "mutable")))
+  .stateBinding (.variable "state") (.variable "following")
+    (.nativeBinding (.variable "first") (.variable "after") (.field .valueFirst (.variable "value"))
+      (.field .valueLength (.variable "value")) (.field .valueDynamic (.variable "value"))
+      (.variable "mutable") (.variable "character_object")
+      (.field .intervalLower (.field .valueFirstIndex (.variable "value")))
+      (.field .intervalLower (.field .valueLastIndex (.variable "value"))))
 
 def stringDeclarationBody : Expr .state :=
   let text : Expr .source := .variable "text"
@@ -1287,16 +1306,27 @@ def stringDeclarationBody : Expr .state :=
       (.orElse (.group (.andThen (.andThen (.ne first (.number 0)) (.gt after first)) (.eq (take first (.word "integer")) after)))
         (.app (.app (.function .booleanHidesInteger) text) (.field .stateBooleanNames state)))) (.field .arrayNames (.field .stateArrayNames state))) (.field .arrayValues (.field .stateArrayNames state))) (.truth true)) <|
     .local "following" "literal_position" (take (.field .resultAfter value) (.symbol ";")) <|
-    .group <| .ite (.orElse (.orElse (.orElse (.orElse (.orElse
+    .group <| .ite (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse
       (.not <| .app (.app (.app (.app (.app (.function .newName) text) state) first) after) (.variable "arguments"))
       (.eq (.variable "following") (.number 0)))
       (.eq (.count (.field .stateNames state)) .maxBindings))
       (.not <| .app (.app (.function .fits) value) .maxLength))
       (.field .resultEmpty value))
-      (.ne (.field .resultMinimum value) (.field .resultLength value))) .invalid
+      (.ne (.field .resultMinimum value) (.field .resultLength value)))
+      (.group <| .andThen (.eq (.field .resultDynamic value) (.number 0))
+        (.group <| .orElse (.orElse (.orElse
+          (.app (.function .scalarEmpty) (.field .resultFirstIndex value))
+          (.app (.function .scalarEmpty) (.field .resultLastIndex value)))
+          (.integerNe (.field .intervalLower (.field .resultFirstIndex value)) (.field .intervalUpper (.field .resultFirstIndex value))))
+          (.integerNe (.field .intervalLower (.field .resultLastIndex value)) (.field .intervalUpper (.field .resultLastIndex value))))))
+      (.not <| .app (.app (.app (.app (.app (.app (.function .fixedBoundsValid)
+        (.field .resultLength value)) (.eq (.field .resultDynamic value) (.number 1))) (.truth false))
+        (.field .intervalLower (.field .resultFirstIndex value)))
+        (.field .intervalLower (.field .resultLastIndex value))) (.add (.count (.field .stateNames state)) (.number 1)))) .invalid
       (.app (.app (.app (.app (.app (.app (.function .addBinding) state) first) after)
-        (.value (.field .resultAfter value) (.number 0) (.field .resultMinimum value) (.field .resultLength value)
-          (.eq (.field .resultDynamic value) (.number 1)) (.field .resultNamed value) (.field .resultEmpty value) (.number 0)))
+        (.nativeValue (.field .resultAfter value) (.number 0) (.field .resultMinimum value) (.field .resultLength value)
+          (.eq (.field .resultDynamic value) (.number 1)) (.field .resultNamed value) (.field .resultEmpty value) (.number 0) (.number 1)
+          (.field .resultFirstIndex value) (.field .resultLastIndex value)))
         (.eq (.variable "constant_after") (.number 0))) (.variable "following"))
 
 def scalarConstraintBody : Expr .scalarConstraint :=
@@ -1494,7 +1524,8 @@ def argumentBody : Expr .state :=
       (.not <| .app (.app (.app (.app (.app (.function .newName) text) state) first) after) (.truth true))
       (.eq following (.number 0))) (.ne (.count (.field .stateNames state)) (.number 0))) .invalid
       (.stateDynamic (.app (.app (.app (.app (.app (.app (.function .addBinding) state) first) after)
-        (.value following (.number 0) (.number 0) (.number 0) (.truth true) (.truth true) (.truth false) (.number 0))) (.truth false)) following) first after)
+        (.nativeValue following (.number 0) (.number 0) (.number 0) (.truth true) (.truth true) (.truth false) (.number 0) (.number 1)
+          (.singleton (.integerNumber 1)) (.singleton (.integerNumber 0)))) (.truth false)) following) first after)
 
 def declarationsBody : Expr .state :=
   (.ite (.eq (.field .statePosition (.variable "state")) (.number 0)) (.invalid) (.elsif (.ne (.app (.app (.app (.function .takeToken) (.variable "text")) (.field .statePosition (.variable "state"))) (.token (.fixed "begin" true))) (.number 0)) (.variable "state") (.elsif (.eq (.field .statePosition (.app (.app (.app (.function .declaration) (.variable "text")) (.variable "state")) (.variable "arguments"))) (.number 0)) (.invalid) (.app (.app (.app (.function .declarations) (.variable "text")) (.app (.app (.app (.function .declaration) (.variable "text")) (.variable "state")) (.variable "arguments"))) (.variable "arguments")))))
@@ -1505,6 +1536,18 @@ def expressionStepBody : Expr .scan :=
   let atom : Expr .value := .variable "atom"
   let take (t : ShellToken) := Expr.app (.app (.app (.function .takeToken) text)
     (.field .scanPosition state)) (.token t)
+  let static : Expr .truth := .andThen
+    (.andThen (.variable "elaborating") (.eq (.field .scanDynamic state) (.number 0)))
+    (.not (.field .valueDynamic atom))
+  let first : Expr .interval := .app (.app (.function .concatenatedFirst) state) atom
+  let last : Expr .interval := .app (.app (.function .concatenatedLast) state) atom
+  let boundsFailure : Expr .truth := .group <| .andThen static
+    (.group <| .orElse (.app (.function .scalarEmpty) first) (.app (.function .scalarEmpty) last))
+  let rejected := Expr.orElse
+    (.orElse (.orElse (.orElse (.eq (.field .valueAfter atom) (.number 0))
+      (.gt (.field .valueOperands atom) (.sub .maxOperands (.field .scanOperands state)))) boundsFailure)
+      (.gt (.field .valueLength atom) (.sub .maxLength (.field .scanLength state))))
+    (.gt (.field .valueMinimum atom) (.sub .maxLength (.field .scanMinimum state)))
   .locals <| .local "open_after" "literal_position" (take (.symbol "(")) <|
     .local "atom" "value_result" (.app (.app (.app (.app (.app (.app (.app (.app (.function .value) text)
       (.field .scanPosition state)) (.variable "names")) (.variable "scalar_names")) (.variable "integer_hidden")) (.variable "arrays")) (.variable "initials")) (.variable "elaborating")) <|
@@ -1515,15 +1558,14 @@ def expressionStepBody : Expr .scan :=
     .elsif (.field .scanNeed state)
       (.group <| .ite (.ne (.variable "open_after") (.number 0))
         (.scanDepth state (.variable "open_after") (.add (.field .scanDepth state) (.number 1))) <|
-        .elsif (.orElse (.orElse (.orElse (.eq (.field .scanOperands state) .maxOperands)
-          (.eq (.field .valueAfter atom) (.number 0)))
-          (.gt (.field .valueLength atom) (.sub .maxLength (.field .scanLength state))))
-          (.gt (.field .valueMinimum atom) (.sub .maxLength (.field .scanMinimum state)))) .invalidScan <|
-        .scanAtom state (.field .valueAfter atom)
+        .elsif rejected .invalidScan <|
+        .nativeScanAtom state (.field .valueAfter atom)
           (.add (.field .scanMinimum state) (.field .valueMinimum atom))
           (.add (.field .scanLength state) (.field .valueLength atom))
           (.add (.field .scanDynamic state) (.group <| .ite (.field .valueDynamic atom) (.number 1) (.number 0)))
-          (.add (.field .scanOperands state) (.number 1))
+          (.add (.field .scanOperands state) (.field .valueOperands atom))
+          (.group <| .ite static first (.singleton (.integerNumber 1)))
+          (.group <| .ite static last (.singleton (.integerNumber 0)))
           (.orElse (.field .scanNamed state) (.field .valueNonliteral atom))
           (.orElse (.field .scanEmpty state) (.field .valueEmpty atom))) <|
     .elsif (.ne (.variable "join_after") (.number 0)) (.scanNeed state (.variable "join_after")) <|
@@ -1534,8 +1576,8 @@ def expressionStepBody : Expr .scan :=
 def tailBody : Expr .result :=
   let state : Expr .scan := .variable "state"
   let next : Expr .scan := .variable "next"
-  let result (s : Expr .scan) := Expr.result (.field .scanPosition s) (.field .scanMinimum s) (.field .scanLength s)
-    (.field .scanDynamic s) (.field .scanNamed s) (.field .scanEmpty s)
+  let result (s : Expr .scan) := Expr.nativeResult (.field .scanPosition s) (.field .scanMinimum s) (.field .scanLength s)
+    (.field .scanDynamic s) (.field .scanNamed s) (.field .scanEmpty s) (.field .scanFirstIndex s) (.field .scanLastIndex s)
   .ite (.eq (.field .scanPosition state) (.number 0)) .invalidResult <|
     .elsif (.field .scanComplete state) (result state) <|
     .group <| .locals <| .local "next" "expression_state"
@@ -1548,8 +1590,9 @@ def tailBody : Expr .result :=
 
 def expressionBody : Expr .result :=
   (.app (.app (.app (.app (.app (.app (.app (.app (.function .tail) (.variable "text")) (.variable "names"))
-    (.scan (.variable "position") (.number 0) (.number 0) (.number 0) (.number 0) (.number 0)
-      (.truth false) (.truth true) (.truth false) (.truth false))) (.variable "scalar_names")) (.variable "integer_hidden")) (.variable "arrays")) (.variable "initials")) (.variable "elaborating"))
+    (.nativeScan (.variable "position") (.number 0) (.number 0) (.number 0) (.number 0) (.number 0)
+      (.truth false) (.truth true) (.truth false) (.truth false)
+      (.singleton (.integerNumber 1)) (.singleton (.integerNumber 0)))) (.variable "scalar_names")) (.variable "integer_hidden")) (.variable "arrays")) (.variable "initials")) (.variable "elaborating"))
 
 def fitsBody : Expr .truth :=
   let value : Expr .result := .variable "value"
@@ -2168,7 +2211,7 @@ abbrev WellScopedTrees : Prop :=
   imageBody.scoped [("arrays", .arrayMetadata), ("initials", .arrayInitials), ("elaborating", .truth), ("integer_hidden", .truth), ("scalar_names", .scalarNames), ("text", .source), ("position", .number), ("names", .names)] = true ∧
   valueBody.scoped [("arrays", .arrayMetadata), ("initials", .arrayInitials), ("elaborating", .truth), ("integer_hidden", .truth), ("scalar_names", .scalarNames), ("text", .source), ("position", .number), ("names", .names)] = true ∧
   newNameBody.scoped [("text", .source), ("state", .state), ("first", .number), ("after", .number), ("arguments", .truth)] = true ∧
-  addBindingBody.scoped [("state", .state), ("first", .number), ("after", .number), ("value", .value), ("mutable", .truth), ("following", .number)] = true ∧
+  addBindingBody.scoped [("character_object", .truth), ("state", .state), ("first", .number), ("after", .number), ("value", .value), ("mutable", .truth), ("following", .number)] = true ∧
   stringDeclarationBody.scoped [("text", .source), ("state", .state), ("arguments", .truth)] = true ∧
   scalarConstraintBody.scoped [("base_bounds", .interval), ("text", .source), ("position", .number), ("scalar_names", .scalarNames)] = true ∧
   scalarDeclarationBody.scoped [("text", .source), ("state", .state), ("arguments", .truth)] = true ∧
