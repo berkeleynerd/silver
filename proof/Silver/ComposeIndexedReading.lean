@@ -171,4 +171,15 @@ theorem slice_check {text : Source} {names : BindingEnvironment}
   simp only [StringIndexing.sliceCheck, decide_eq_true_eq]
   rcases bounds.2.2.1 with empty | contained <;> omega
 
+theorem indexed_unique {text : Source} {names : BindingEnvironment}
+    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Metadata}
+    {initials : ArrayBindings.Initials} {elaborating element : Bool} {position : Nat}
+    {leftInfo rightInfo : BindingInfo} {leftLower leftUpper rightLower rightUpper : Integer.Expr}
+    (left : IndexedReading text names scalarNames arrays initials elaborating element position leftInfo leftLower leftUpper)
+    (right : IndexedReading text names scalarNames arrays initials elaborating element position rightInfo rightLower rightUpper) :
+    leftInfo = rightInfo ∧ leftLower = rightLower ∧ (element = false → leftUpper = rightUpper) := by
+  exact ⟨Option.some.inj (left.selected.symm.trans right.selected),
+    (ScalarExpression.at_unique left.lowerSource right.lowerSource).1,
+    fun slice => (ScalarExpression.at_unique (left.upperSource slice) (right.upperSource slice)).1⟩
+
 end Silver.Compose

@@ -221,4 +221,60 @@ theorem character_metadata {text : Source} {names : BindingEnvironment}
   | literal | reference | indexed => exact ⟨rfl, rfl, rfl, rfl, rfl, rfl⟩
   | parenthesized _ _ _ _ ih => exact ih
 
+theorem character_unique {text : Source} {names : BindingEnvironment}
+    {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Metadata}
+    {initials : ArrayBindings.Initials} {elaborating : Bool} {position : Nat}
+    {left right : Character.Expr} {leftResult rightResult : ValueResult}
+    (leftAt : CharacterAt text names scalarNames arrays initials elaborating position left leftResult)
+    (rightAt : CharacterAt text names scalarNames arrays initials elaborating position right rightResult) :
+    left = right ∧ leftResult = rightResult := by
+  refine ⟨?_, (character_complete leftAt).symm.trans (character_complete rightAt)⟩
+  induction leftAt generalizing right rightResult with
+  | literal noParen source =>
+      rename_i pos byte after
+      have nonzero : characterLiteralAfter text (skipAt text pos) ≠ 0 := by
+        rw [characterLiteral_complete source, source.following]
+        omega
+      cases rightAt with
+      | literal _ other => rw [← source.value, ← other.value]
+      | reference _ noLiteral | indexed _ noLiteral => exact False.elim (nonzero noLiteral)
+      | parenthesized openPresent => exact False.elim (openPresent noParen)
+  | reference noParen noLiteral selected nonzero present typed unmasked =>
+      rename_i pos index info
+      have named : characterReference text pos names scalarNames := by
+        unfold characterReference
+        simp [selected, nonzero, present, typed, unmasked]
+      cases rightAt with
+      | literal _ source =>
+          have same := (characterLiteral_complete source).symm.trans noLiteral
+          rw [source.following] at same
+          omega
+      | reference _ _ otherSelected =>
+          have same := selected.symm.trans otherSelected
+          cases same
+          rfl
+      | indexed _ _ noReference => exact False.elim (noReference named)
+      | parenthesized openPresent => exact False.elim (openPresent noParen)
+  | indexed noParen noLiteral noReference source =>
+      cases rightAt with
+      | literal _ other =>
+          have same := (characterLiteral_complete other).symm.trans noLiteral
+          rw [other.following] at same
+          omega
+      | reference _ _ selected nonzero present typed unmasked =>
+          apply False.elim
+          apply noReference
+          unfold characterReference
+          simp [selected, nonzero, present, typed, unmasked]
+      | indexed _ _ _ other =>
+          obtain ⟨sameInfo, sameLower, _⟩ := indexed_unique source other
+          cases sameInfo
+          cases sameLower
+          rfl
+      | parenthesized openPresent => exact False.elim (openPresent noParen)
+  | parenthesized openPresent advancing source closePresent ih =>
+      cases rightAt with
+      | literal noParen | reference noParen | indexed noParen => exact False.elim (openPresent noParen)
+      | parenthesized _ _ other => exact congrArg Character.Expr.parenthesized (ih other)
+
 end Silver.Compose
