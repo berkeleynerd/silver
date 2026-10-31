@@ -1,9 +1,8 @@
 # Boolean scalar objects and expressions
 
-Status: implemented and validated on Linux, 2026-10-31, in
-[PR #295](https://github.com/berkeleynerd/silver/pull/295), ready for the
-[authorized merge](session-memory.md#2026-10-31--named-subtype-and-boolean-validation-and-merge-authorized)
-after the completed subtype delivery in PR #289.
+Status: delivered on Linux, 2026-10-31, through
+[PR #295](https://github.com/berkeleynerd/silver/pull/295), merged after subtype
+PR #289 under the [recorded authorization](session-memory.md#2026-10-31--named-subtype-and-boolean-validation-and-merge-authorized).
 The [delivery section](#delivery-assurance-and-validation)
 identifies final inputs and evidence; earlier checkpoints retain their outcomes.
 [Milestone 14](https://github.com/berkeleynerd/silver/milestone/14) contains one
@@ -466,9 +465,10 @@ their actual scope. The feature was developed against PR #289 at
 `fa6b5e982cad5662b18f498e75cafbac9fb07cc9`. The owner
 [authorized ordered merge](session-memory.md#2026-10-31--named-subtype-and-boolean-validation-and-merge-authorized)
 on 2026-10-31. PR #289 merged as `7477cb58e05fdc2c9a9d11e6f0b0867f114edccc`;
-PR #295 is ready for merge at this validated publication checkpoint. The
-completing commit closes #291/#293/#294 on main; milestone 14 and board closeout
-follow that merge.
+PR #295 then merged as `b520e40e8d79c1bf2ccd5f808b5eab6dad7db377`.
+Issues #291/#293/#294 are closed with their board items Done; milestone 14 is
+closed. The [dated closeout](session-memory.md#2026-10-31--named-subtype-and-boolean-deliveries-complete)
+records the combined delivery.
 
 - Final source repair, reviewed pin and regenerated certificate: reviewed Body_Tail
   source plus body-call/lint repairs integrated in `91de078e`; the output pin contains
@@ -524,9 +524,8 @@ follow that merge.
   native-domain/source-consumer repair and #294 scalar-equation repair were consumed
   by complete actual-source assurance. The terminal reviewer confirmed the #293
   domain/native/source consumers and #294 `ComposeScalarDenotations` /
-  `ComposeSourceBridge` in the actual 572-module audit. Issues #291/#293/#294 are In
-  review pending merge; the completing commit uses `Fixes #291`, `Fixes #293` and
-  `Fixes #294` so they close on main.
+  `ComposeSourceBridge` in the actual 572-module audit. Issues #291/#293/#294
+  closed when the completing commit reached main through PR #295.
 
 The [evidence packet](evidence/boolean-objects-20261030/README.md) preserves the
 failed native and Lean runs, stopped/interrupted checks, scheduling suspension,
@@ -546,17 +545,13 @@ result or external approval. The timings describe their named phases and reuse; 
 establish no causal model-performance comparison.
 
 Rosetta retains the precise scalar Boolean mapping for the three selected
-drivers. Its neutral metadata and three renderer passes are unchanged by this
-documentation update. Broad Boolean/logical-operator/Boolean-flag forms retain
+drivers. Its assessed rules, renderer inputs and three renderer passes are
+unchanged by this delivery-status update. Broad Boolean/logical-operator/Boolean-flag forms retain
 remaining scope. Broad stage issues #11/#12 remain Open/Backlog at rendered stages
 2/3. Only the precise scalar Boolean identifier and its three selected drivers are
 promoted. Queue #296/#297/#298 remains unselected in Backlog; no next feature or
-deferred capacity/assurance-mode work is started. At the validated publication
-checkpoint, #291/#293/#294 are In review pending the authorized ordered merges, and
-milestone 14 remains open until delivery closeout. The completing commit uses `Fixes
-#291`, `Fixes #293` and `Fixes #294`; closure occurs on main. The integration owner
-drives PR #289 then PR #295 and the associated issue, milestone and board closeout
-under the recorded authorization.
+deferred capacity/assurance-mode work is started. Issues #291/#293/#294 and
+milestone 14 are closed, with the board marked Done.
 No next capability, budget expansion or additional assurance mode is authorized.
 
 | Round | Actual or selected settings | Result | Measurements |
@@ -586,3 +581,7 @@ selected GPT-6 Astra / Extra High as reported above. Publication integration
 inherited the existing session; live settings and separate elapsed/token/cost
 measurements are unavailable. These checks establish publication consistency,
 not an additional assurance result.
+
+The authorized merges completed in order: #289 at 10:58:02 UTC and #295 at
+11:05:46 UTC on 2026-10-31. Their six work/finding issues are closed and Done;
+milestones 13 and 14 are closed. Final closeout changes documentation only.

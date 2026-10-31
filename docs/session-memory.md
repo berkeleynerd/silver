@@ -1,23 +1,25 @@
 # Session memory
 
-## 2026-10-31 — Boolean validation complete; ordered delivery underway
+## 2026-10-31 — Named subtype and Boolean deliveries complete
 
-The owner-authorized #291 package is implemented and validated on Linux in
-[PR #295](https://github.com/berkeleynerd/silver/pull/295). The
-[delivery record](boolean-objects.md#delivery-assurance-and-validation),
-[evidence packet](evidence/boolean-objects-20261030/README.md) and
-[closing review](reviews/review-boolean-closing-7560531370.md) identify the exact
-implementation/review targets, complete native and Lean/actual-source assurance,
-regression applicability, resolved findings and retained failed attempts.
+The authorized ordered merges are complete:
+[PR #289](https://github.com/berkeleynerd/silver/pull/289) merged as
+`7477cb58e05fdc2c9a9d11e6f0b0867f114edccc`, followed by
+[PR #295](https://github.com/berkeleynerd/silver/pull/295) as
+`b520e40e8d79c1bf2ccd5f808b5eab6dad7db377`. Issues #286/#288/#290 and
+#291/#293/#294 are closed, their board items are Done, and milestones 13 and 14
+are closed. The [subtype](named-integer-subtypes.md#delivery-assurance-and-validation)
+and [Boolean](boolean-objects.md#delivery-assurance-and-validation) records retain
+implementation/review identities, complete Linux assurance and regression evidence,
+resolved findings and actual failed/interrupted outcomes. The
+[Boolean closing review](reviews/review-boolean-closing-7560531370.md) passed;
+publication reconciliation preserved its governed inputs.
 
-Under the authorization below, subtype PR #289 merged as
-`7477cb58e05fdc2c9a9d11e6f0b0867f114edccc`; its three issues and milestone 13
-are closed, with the board marked Done. PR #295 is ready for the second merge.
-Its completion closes #291/#293/#294 and milestone 14 with the corresponding
-board updates. The precise scalar Boolean Rosetta mapping covers the three
-selected drivers; broad forms and the planning queue remain separate.
-No next feature, Oracle change or assurance mode is selected. No harness goal
-exists; CLI memory is unavailable and was not updated.
+The precise scalar Boolean Rosetta mapping adds the three selected drivers.
+Broad stages #11/#12 remain Open/Backlog at stages 2/3. Queue #296/#297/#298
+remains unstarted in Backlog; no next feature, Oracle amendment, capacity work
+or assurance mode is selected. No harness goal exists. CLI memory is unavailable
+and was not updated; this dated record is the durable closeout.
 
 ## 2026-10-31 — Named subtype and Boolean validation and merge authorized
 

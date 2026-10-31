@@ -1,8 +1,8 @@
 # Boolean scalar driver reconciliation
 
 The `scalar-boolean-objects` promotion for
-[#291](https://github.com/berkeleynerd/silver/issues/291) is integrated on the
-Boolean feature branch through `d6f8da17a9` / `927cc5e178`. The
+[#291](https://github.com/berkeleynerd/silver/issues/291) was integrated through
+`d6f8da17a9` / `927cc5e178` and delivered on main by PR #295 on 2026-10-31. The
 [capability delivery record](../docs/boolean-objects.md#delivery-assurance-and-validation)
 records complete Linux native and Lean/actual-source assurance on
 `8f676fc40975781cdcaa50772d4d95f7e40054a1` and its
@@ -182,9 +182,9 @@ update here does not change the tested Rosetta inputs.
 As of 2026-10-31, the linked capability record identifies
 `8f676fc40975781cdcaa50772d4d95f7e40054a1`
 and complete Linux native and Lean/actual-source assurance, regression applicability
-and independent review. This status-only Markdown update changes no tested Rosetta
-input, task
-mapping or render. The three retained renderer passes remain applicable.
+and independent review. This status update and the assessor's delivery sentence
+change no tested renderer input or task mapping. The final render produced no
+changes, and the three retained renderer passes remain applicable.
 Broad stage issues #11/#12 remain Open/Backlog at rendered stages 2/3. Only the
 precise scalar Boolean identifier and its three selected drivers are promoted. Queue
 #296/#297/#298 remains unselected in Backlog; no next feature or deferred

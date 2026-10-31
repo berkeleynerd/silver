@@ -167,7 +167,7 @@ iteration, enabling the [Sum of squares](samples/rosetta_sum_of_squares.adb) and
 conversions, derived types and general arrays remain outside this fragment.
 
 The [Boolean scalar increment](docs/boolean-objects.md#delivery-assurance-and-validation)
-is implemented and validated on Linux in
+was delivered on Linux through
 [PR #295](https://github.com/berkeleynerd/silver/pull/295).
 It adds initialized Boolean constants and variables,
 assignment, `not`, eager `and`/`or`/`xor` and Boolean expressions in existing
