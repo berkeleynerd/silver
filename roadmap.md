@@ -71,9 +71,11 @@ facts behind stored flags. Existing source/operator/operand budgets remain
 unchanged. Boolean arrays, callable routines and enumeration iteration remain
 excluded.
 
-Stack the feature on open subtype [PR #289](https://github.com/berkeleynerd/silver/pull/289)
-at `fa6b5e982cad5662b18f498e75cafbac9fb07cc9`, preserving that PR and its review
-target. Neither feature PR may be merged under this authorization. Broad
+The feature is stacked on subtype [PR #289](https://github.com/berkeleynerd/silver/pull/289),
+whose implementation review target is `fa6b5e982cad5662b18f498e75cafbac9fb07cc9`.
+The owner [authorized final validation and ordered merge on 2026-10-31](docs/session-memory.md#2026-10-31--named-subtype-and-boolean-validation-and-merge-authorized):
+complete the required assurance and review, then merge #289 followed by Boolean
+[PR #295](https://github.com/berkeleynerd/silver/pull/295). Broad
 Rosetta identifiers such as `booleans`, `logical-operators` and `boolean-flags`
 are not automatically supported: reconcile or split their assessed uses at
 delivery before promotion. Existing broader stages and deferred capacity/

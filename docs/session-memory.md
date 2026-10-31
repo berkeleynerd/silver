@@ -1,5 +1,31 @@
 # Session memory
 
+## 2026-10-31 — Named subtype and Boolean validation and merge authorized
+
+The owner instructed **“OK, please continue monitoring and driving toward merging
+the two outstanding PRs.”** This authorizes completing the remaining Boolean
+validation, necessary repairs, independent integration/evidence review and
+delivery records, then merging named Integer subtypes
+[PR #289](https://github.com/berkeleynerd/silver/pull/289) followed by Boolean
+scalar objects and expressions
+[PR #295](https://github.com/berkeleynerd/silver/pull/295) after their required
+checks pass. Complete the associated issue, milestone and board bookkeeping
+as part of that delivery.
+
+This supersedes the earlier instruction to keep both feature PRs open. Preserve
+the reviewed implementation and evidence identities while reconciling the
+planning records added on `main`; documentation-only integration does not
+invalidate applicable native or Lean results. Keep active validation inputs
+stable and complete every required native, Lean/source and regression check
+before claiming delivery. The named-subtype review target remains
+`fa6b5e982cad5662b18f498e75cafbac9fb07cc9` even if merge preparation advances
+its documentation.
+
+The near-term feature queue and deferred capacity work retain their existing
+scope. The discussion of proof scaling does not start a performance project
+or another language feature. No Oracle amendment or additional assurance mode
+is selected. No harness goal exists; CLI memory is unavailable and was not updated.
+
 ## 2026-10-30 — Near-term language feature queue recorded
 
 The owner asked to concretize the roadmap for the next few features and
