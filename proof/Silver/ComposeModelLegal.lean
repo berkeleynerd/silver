@@ -145,7 +145,10 @@ private theorem model_legal_stringDeclaration : ∀ text, ValidText text → ∀
     NativeState .basic text state →
     stringDeclarationBody.Legal modelCalls (Context.locals {text,state,arguments}) := by
   intros
-  dsimp +instances only [stringDeclarationBody, Expr.Legal, Expr.eval, Function.isLexical, Context.locals, Locals.set, Field.get] <;> simp +instances
+  generalize modelCalls = calls
+  generalize Context.locals _ = locals
+  dsimp +instances only [stringDeclarationBody, Expr.Legal, Function.isLexical]
+  simp only [and_self, implies_true, ite_self]
 
 private theorem model_legal_scalarConstraint : ∀ text, ValidText text → ∀ position scalarNames baseBounds,
     ValidCursor text position → ScalarExpression.ValidEnvironment text scalarNames →

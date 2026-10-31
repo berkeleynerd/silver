@@ -130,6 +130,7 @@ def Expr.Legal (calls : Calls) (locals : Locals) : Expr ty → Prop
   | .truth b => True
   | .variable name => True
   | .maxLength  => True
+  | .maximumLength => True
   | .maxBindings  => True
   | .arrayCount a => a.Legal calls locals
   | .wideInteger a => a.Legal calls locals
@@ -1059,6 +1060,7 @@ theorem Expr.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning cal
   | .truth b, _ => rfl
   | .variable name, _ => rfl
   | .maxLength , _ => rfl
+  | .maximumLength, _ => rfl
   | .maxBindings , _ => rfl
   | .arrayCount a, legal => by
     dsimp only [Expr.Legal] at legal
