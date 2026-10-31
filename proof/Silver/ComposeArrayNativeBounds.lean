@@ -39,7 +39,7 @@ theorem ArrayValuesDomain.next {text source result position length parsed value 
     (positionValid : ValidCursor text following) :
     ArrayValuesDomain text source (putArrayValue result value) following length (parsed + 1) domain where
   sourceContext := valid.sourceContext
-  resultContext := domain.transportScalar text result _ valid.resultContext
+  resultContext := NativeState.transportScalar valid.resultContext
     (model_putArray_valid valid.resultValid (valid.room remaining) safe) rfl rfl
   positionValid := positionValid
   parsedBound := by omega
