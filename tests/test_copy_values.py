@@ -65,7 +65,7 @@ class CopyValuesTests(unittest.TestCase):
         self.assertEqual(set(HOST.artifacts.glob('program-*')), before)
 
     def test_literals_and_each_constant_at_every_copy_position(self) -> None:
-        cases = []
+        cases = [source_for(initial=b'Ready(1..5)')]
         constants = ((b'Ready', b'ready'), (b'Detailed', b'extra'))
         for count in range(3):
             bindings = constants[:count]
@@ -137,7 +137,7 @@ class CopyValuesTests(unittest.TestCase):
                  source_for(selected=True, assigned=b'Mode'),
                  source_for(selected=True, alternative=b'Mode'),
                  source_for(initial=b'Unknown'), source_for(assigned=b'Unknown'),
-                 source_for(initial=b'Ready(1..5)'), source_for(assigned=b'Ready_Extra'),
+                 source_for(initial=b'Ready(0..4)'), source_for(assigned=b'Ready_Extra'),
                  assignment.replace(b'Ready:constant String:="ready";',
                                     b'Ready:constant String:=Detailed;'),
                  assignment.replace(b'begin Result:=Detailed;', b'begin Ready:=Detailed;'),
