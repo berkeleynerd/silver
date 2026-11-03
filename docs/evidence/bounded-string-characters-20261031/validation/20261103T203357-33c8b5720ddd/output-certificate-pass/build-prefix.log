@@ -1,0 +1,11 @@
+Lean concurrency: 1 Lake workers, 1 threads per Lean process (12 available CPUs).
+Lean phase build started at 2026-11-03T20:34:03.524172+00:00
++ /home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.tools/linux-x86_64/lean/bin/lake --rehash --reconfigure -K silverThreads=1 -K silverMemoryMb=24576 build Silver.Audit
+✔ [80/95] Built Silver.OutputProfileBodySource (609ms)
+✔ [93/96] Built Silver.AuthoritativeSource (492ms)
+✔ [96/105] Built Silver.OutputBodyCertificate (5090s)
+✔ [103/105] Built Silver.SourceCertificates (1.6s)
+✔ [104/112] Built Silver.Source (1.1s)
+✔ [176/182] Built Silver.ReviewedOutputShape (65s)
+✔ [178/184] Built Silver.ComposeStringNative (4.4s)
+✔ [179/186] Built Silver.ComposeContracts (2.1s)

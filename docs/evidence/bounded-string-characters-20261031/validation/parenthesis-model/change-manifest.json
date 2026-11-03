@@ -1,0 +1,37 @@
+{
+  "baseline_sha256": "86c058ed691aab33f07020fc15b6a5ccf4adb12c7c9d95db42f80f08e16f6f6a",
+  "modified_sha256": "1b8c1d932eb496d6c75bc04a4be37b62c605dd946ee41ed5a1076576fe7315f4",
+  "changed_line_count": 7,
+  "group_wrapper_delta": 7,
+  "changes": [
+    {
+      "before": "      (.integerEq (.integerAdd (.integerSub (.wideInteger last) (.wideInteger first)) (.integerNumber 1)) (.wideNumber length)))",
+      "after": "      (.integerEq (.integerAdd (.group <| .integerSub (.wideInteger last) (.wideInteger first)) (.integerNumber 1)) (.wideNumber length)))"
+    },
+    {
+      "before": "      (.integerAdd (.integerAdd (.wideNumber (.field .scanLength left)) (.wideNumber (.field .valueLength right)))",
+      "after": "      (.integerAdd (.group <| .integerAdd (.wideNumber (.field .scanLength left)) (.wideNumber (.field .valueLength right)))"
+    },
+    {
+      "before": "      (.integerSub (.integerAdd (.wideInteger (.field .intervalLower first)) minimum) (.integerNumber 1)),",
+      "after": "      (.integerSub (.group <| .integerAdd (.wideInteger (.field .intervalLower first)) minimum) (.integerNumber 1)),"
+    },
+    {
+      "before": "      (.integerSub (.integerAdd (.wideInteger (.field .intervalUpper first)) maximum) (.integerNumber 1)),",
+      "after": "      (.integerSub (.group <| .integerAdd (.wideInteger (.field .intervalUpper first)) maximum) (.integerNumber 1)),"
+    },
+    {
+      "before": "        (.integerAdd (.integerSub (.wideInteger (lower high)) (.wideInteger (upper low))) (.integerNumber 1))),",
+      "after": "        (.integerAdd (.group <| .integerSub (.wideInteger (lower high)) (.wideInteger (upper low))) (.integerNumber 1))),"
+    },
+    {
+      "before": "        (.integerAdd (.integerSub (.wideInteger (upper high)) (.wideInteger (lower low))) (.integerNumber 1))),",
+      "after": "        (.integerAdd (.group <| .integerSub (.wideInteger (upper high)) (.wideInteger (lower low))) (.integerNumber 1))),"
+    },
+    {
+      "before": "        (.truth false) (.truth true) (.truth false) target (.add operands (.number 1)) (bounds low) (bounds high))]\u27e9",
+      "after": "        (.truth false) (.truth true) (.truth false) target (.add (.group operands) (.number 1)) (bounds low) (bounds high))]\u27e9"
+    }
+  ],
+  "scratch_equivalence_definitions": "Exact baseline fixedBoundsBody, concatenatedLastBody and indexedBody blocks; only names gain BeforeGrouping suffix; no production snapshots added"
+}

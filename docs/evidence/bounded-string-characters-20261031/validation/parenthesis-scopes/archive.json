@@ -1,0 +1,7 @@
+{
+  "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-native/tmp/native-resume-20261103/parenthesis-scopes/scoped-parenthesis-pass.tar.gz",
+  "bytes": 1945638,
+  "sha256": "4d6e1f460bf5071adb40f1b4013c24f4b1c6bd20478beb6f3e0617de0b847683",
+  "members": 49,
+  "state": "Canonical scoped proofs, matching build and affected runtime tests PASS; complete native/source assurance and full suite pending"
+}

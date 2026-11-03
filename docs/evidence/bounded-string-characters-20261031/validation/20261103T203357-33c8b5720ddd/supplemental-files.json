@@ -1,0 +1,49 @@
+{
+  "method": "Retained terminal managed records, old-source successful certificate identities, launch/interruption/resource records; no proof rerun",
+  "files": {
+    "terminal-input-comparison.json": {
+      "bytes": 296,
+      "sha256": "26888ce60c81a4238b5436e7e9e32327666e1b4e1f55a63ec32deb6e0c8e011c"
+    },
+    "intentional-interruption.json": {
+      "bytes": 2441,
+      "sha256": "db872b96365309196e334b2698abb0f95946ac505399a0d5a6b51612ac5edc00"
+    },
+    "terminal.json": {
+      "bytes": 77,
+      "sha256": "f80fa38ca6822e3cecb7c9c1b80c1dac6411b43155b07d7618e3c1077661eba8"
+    },
+    "launch.json": {
+      "bytes": 1098,
+      "sha256": "0782bcd3b2ca1e3a96d40021a79c2fef103fa5c7e4e5e87ff4c3316b631b5257"
+    },
+    "events.jsonl.gz": {
+      "bytes": 35835,
+      "sha256": "e3c3ab92753fbac6981607dd5743e3a8ca3064f73fbd8bd7520e67bdb949ae2c"
+    },
+    "index.json": {
+      "bytes": 1041,
+      "sha256": "932fc6b00fadc521c0e78e9c058213b26b635dc286e59740eb7c5f9d9a59a0e5"
+    },
+    "managed-start.json": {
+      "bytes": 2806,
+      "sha256": "d33b140273ecc4561eda9fa110d3ba98b7085e000696114f65e38cd5287533a5"
+    },
+    "resource-samples.jsonl": {
+      "bytes": 324871,
+      "sha256": "0e559dea39a2b377ada7b16e4aced756e5f549bec6ee7cf29faa38dbaf07efee"
+    },
+    "output-certificate-pass/build-prefix.log": {
+      "bytes": 756,
+      "sha256": "451de9fd964ad5d8b26659062c35db6afbf22ad064b9b0d6659f97505f974f99"
+    },
+    "output-certificate-pass/record.json": {
+      "bytes": 3920,
+      "sha256": "033573fb35084a6c76850ba5898c8490d6568f71c4df995501c8f6265de94fe4"
+    },
+    "reports/0/lean-proof.log.gz": {
+      "bytes": 1819,
+      "sha256": "2cc8f0bed693ed72e67759633e54843ba0dfea3932c8fee2822b388fff8426c9"
+    }
+  }
+}

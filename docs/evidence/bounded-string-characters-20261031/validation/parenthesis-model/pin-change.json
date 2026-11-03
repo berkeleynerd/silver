@@ -1,0 +1,228 @@
+{
+  "scope": "Scratch exact-byte seven-site parenthesis candidate and matching reviewed token pin; no kernel or complete native assurance claim",
+  "source_before_sha256": "757d2ae81671cb54839908cd8139cb3fdd0996be4876d2555f592e93c775e95f",
+  "source_after_sha256": "4a02223317f89de2653d89ac152ae9e66fb089a0cfa20cd3ecb4c8765d90c485",
+  "pin_before_sha256": "8c1a150ccff5de0f853f569d4213ccbd812c37c82b79f8bc621e8403806869ea",
+  "pin_after_sha256": "b483c104df7a18f6aa3abe48547ed29d0d491903da4efc66bf4aeccf662b577c",
+  "old_count": 49304,
+  "new_count": 49318,
+  "token_operations": [
+    {
+      "tag": "insert",
+      "old": [
+        915,
+        915
+      ],
+      "new": [
+        915,
+        916
+      ],
+      "old_tokens": [],
+      "new_tokens": [
+        "("
+      ]
+    },
+    {
+      "tag": "insert",
+      "old": [
+        927,
+        927
+      ],
+      "new": [
+        928,
+        929
+      ],
+      "old_tokens": [],
+      "new_tokens": [
+        ")"
+      ]
+    },
+    {
+      "tag": "insert",
+      "old": [
+        5918,
+        5918
+      ],
+      "new": [
+        5920,
+        5921
+      ],
+      "old_tokens": [],
+      "new_tokens": [
+        "("
+      ]
+    },
+    {
+      "tag": "insert",
+      "old": [
+        5939,
+        5939
+      ],
+      "new": [
+        5942,
+        5943
+      ],
+      "old_tokens": [],
+      "new_tokens": [
+        ")"
+      ]
+    },
+    {
+      "tag": "insert",
+      "old": [
+        5953,
+        5953
+      ],
+      "new": [
+        5957,
+        5958
+      ],
+      "old_tokens": [],
+      "new_tokens": [
+        "("
+      ]
+    },
+    {
+      "tag": "insert",
+      "old": [
+        5973,
+        5973
+      ],
+      "new": [
+        5978,
+        5979
+      ],
+      "old_tokens": [],
+      "new_tokens": [
+        ")"
+      ]
+    },
+    {
+      "tag": "insert",
+      "old": [
+        6036,
+        6036
+      ],
+      "new": [
+        6042,
+        6043
+      ],
+      "old_tokens": [],
+      "new_tokens": [
+        "("
+      ]
+    },
+    {
+      "tag": "insert",
+      "old": [
+        6043,
+        6043
+      ],
+      "new": [
+        6050,
+        6051
+      ],
+      "old_tokens": [],
+      "new_tokens": [
+        ")"
+      ]
+    },
+    {
+      "tag": "insert",
+      "old": [
+        9260,
+        9260
+      ],
+      "new": [
+        9268,
+        9269
+      ],
+      "old_tokens": [],
+      "new_tokens": [
+        "("
+      ]
+    },
+    {
+      "tag": "insert",
+      "old": [
+        9276,
+        9276
+      ],
+      "new": [
+        9285,
+        9286
+      ],
+      "old_tokens": [],
+      "new_tokens": [
+        ")"
+      ]
+    },
+    {
+      "tag": "insert",
+      "old": [
+        9314,
+        9314
+      ],
+      "new": [
+        9324,
+        9325
+      ],
+      "old_tokens": [],
+      "new_tokens": [
+        "("
+      ]
+    },
+    {
+      "tag": "insert",
+      "old": [
+        9324,
+        9324
+      ],
+      "new": [
+        9335,
+        9336
+      ],
+      "old_tokens": [],
+      "new_tokens": [
+        ")"
+      ]
+    },
+    {
+      "tag": "insert",
+      "old": [
+        9334,
+        9334
+      ],
+      "new": [
+        9346,
+        9347
+      ],
+      "old_tokens": [],
+      "new_tokens": [
+        "("
+      ]
+    },
+    {
+      "tag": "insert",
+      "old": [
+        9344,
+        9344
+      ],
+      "new": [
+        9357,
+        9358
+      ],
+      "old_tokens": [],
+      "new_tokens": [
+        ")"
+      ]
+    }
+  ],
+  "complete_pin_equals_lexed_native_candidate": true,
+  "other_pin_bytes_unchanged": true,
+  "generator_sha256": "52f4ee2dca6ffe39218118143c20e072bba7bb49d1bf49009bd2a6886fc0e50b",
+  "generated_before_sha256": "5d73f0a725a8dda382e2b14bb66cc7a033328d07a21639ab0213fc20365f2311",
+  "generated_candidate_sha256": "41caa18ac3460581962fd44cf36547f0ecc2cae4b5511a039bb9a2c1c22a39fe",
+  "generated_candidate_bytes": 24724156,
+  "native_integration_commit": "63288245a1194adfdd03328042ca64bd943fad42"
+}

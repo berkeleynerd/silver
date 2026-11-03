@@ -1,0 +1,76 @@
+{
+  "recorded_at": "2026-11-03T23:36:19.961329+00:00",
+  "commit": "ba5686cfaa34528f1cd0917bd48c97ce999def06",
+  "source_sha256": "4a02223317f89de2653d89ac152ae9e66fb089a0cfa20cd3ecb4c8765d90c485",
+  "state": "Canonical scoped proofs, matching build and affected runtime tests PASS; complete native/source assurance and full suite pending",
+  "proof_checks": 58,
+  "flow_checks": 11,
+  "scope_checks": 69,
+  "scopes": [
+    {
+      "name": "fixed-bounds",
+      "run_id": "20261103T233138-1aa86e9fc08c",
+      "proof_checks": 0,
+      "flow_checks": 1,
+      "duration_seconds": 5.543938279,
+      "source_sha256": "4a02223317f89de2653d89ac152ae9e66fb089a0cfa20cd3ecb4c8765d90c485",
+      "captured_inputs_verified": 2582,
+      "reassociation_diagnostics": 0,
+      "scope_only": true
+    },
+    {
+      "name": "indexed",
+      "run_id": "20261103T233219-87092b298de3",
+      "proof_checks": 27,
+      "flow_checks": 6,
+      "duration_seconds": 19.311333618,
+      "source_sha256": "4a02223317f89de2653d89ac152ae9e66fb089a0cfa20cd3ecb4c8765d90c485",
+      "captured_inputs_verified": 2582,
+      "reassociation_diagnostics": 0,
+      "scope_only": true
+    },
+    {
+      "name": "concatenated-last",
+      "run_id": "20261103T233240-8f2ba67b9283",
+      "proof_checks": 9,
+      "flow_checks": 2,
+      "duration_seconds": 10.498420462,
+      "source_sha256": "4a02223317f89de2653d89ac152ae9e66fb089a0cfa20cd3ecb4c8765d90c485",
+      "captured_inputs_verified": 2582,
+      "reassociation_diagnostics": 0,
+      "scope_only": true
+    },
+    {
+      "name": "character-progress",
+      "run_id": "20261103T233252-18c5c26c905d",
+      "proof_checks": 22,
+      "flow_checks": 2,
+      "duration_seconds": 41.645982636,
+      "source_sha256": "4a02223317f89de2653d89ac152ae9e66fb089a0cfa20cd3ecb4c8765d90c485",
+      "captured_inputs_verified": 2582,
+      "reassociation_diagnostics": 0,
+      "scope_only": true
+    }
+  ],
+  "build": {
+    "run_id": "20261103T233404-d80bccc33dbc",
+    "outcome": "success",
+    "duration_seconds": 4.944946125
+  },
+  "affected_tests": {
+    "run_id": "20261103T233411-962e761487e2",
+    "outcome": "success",
+    "methods": 10,
+    "test_seconds": 23.672,
+    "managed_seconds": 25.305683131
+  },
+  "binary_sha256": "0de970957e860e021214b9e97b7b9cf546a646a8b584bbc5831b54e4f626163b",
+  "policy": "Canonical 30s cvc5,z3,altergo, level2, mode/report all, warnings/checks as errors; one worker per isolated scope; strict audit/configuration unchanged",
+  "setup_failures_preserved": [
+    "Adjacent comment line selected instead of exact declaration; no checks generated",
+    "New isolated cache directory absent; created without altering/copying normal cache"
+  ],
+  "full_native_run_held": true,
+  "full_regression_suite_held": true,
+  "model_effort": "Inherited selected agent setting; runtime model/effort confirmation and token/cost evidence unavailable"
+}

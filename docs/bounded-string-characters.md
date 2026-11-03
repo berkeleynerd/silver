@@ -460,7 +460,8 @@ Sol / Extra High and semantic/integration work Astra / Extra High.
 
 Complete repaired Lean/source run `20261103T203357-33c8b5720ddd` started with
 one worker, one thread and 24 GiB on the committed integration. It passed the
-previous 8 GiB memory range without a diagnostic and remains active.
+previous 8 GiB memory range without a diagnostic; its later interruption is
+recorded below.
 
 At 21:58 UTC the growing source certificate and native parser proof reduced
 available host memory to 3.279 GiB. The native runner was gracefully interrupted
@@ -468,13 +469,13 @@ to preserve both streams' work. Run `20261103T201920-c39bcc381ac2` records
 **interrupted**, exit 130, after 5,922.615 seconds with no failure keys. All
 2,582 captured inputs remain unchanged; 75 partial SPARK reports and the native
 proof cache are retained. There is no completed native provenance manifest or
-audit claim. Source validation continues unchanged, and available memory
+audit claim. Source validation continued unchanged, and available memory
 recovered to about 9.5 GiB after the interruption. These are sampled observations,
 not measured peak requirements.
 
 The output-body certificate subsequently passed in 5,090 seconds, releasing
 that dense phase's memory. Its successful module build is retained while the
-complete source build and fresh whole-project audit continue; it is not a
+complete source build and fresh whole-project audit continued; it is not a
 complete source-assurance claim. The complete native check resumed as
 `20261103T220251-899976574bd0` with identical source/tool inputs and canonical
 settings. Retained native work returned it to the interrupted chain-reading
@@ -483,7 +484,7 @@ frontier in 53 seconds. The matching build was reused without repetition.
 The [interrupted native packet](evidence/bounded-string-characters-20261031/validation/20261103T201920-c39bcc381ac2/archive.json)
 retains the exact managed record, partial reports, input identities and sampled
 resource observations; every indexed archive member was hash-verified on export.
-The final native sync now matches all 886 validation inputs, all 578 test IDs
+At that checkpoint the native sync matched all 886 validation inputs, all 578 test IDs
 and all 50 reviewed fixture dependency paths. No captured native input changed.
 
 The suite remains held for the remaining dense source work: its sample compiler uses
@@ -491,3 +492,71 @@ The suite remains held for the remaining dense source work: its sample compiler 
 does not bound its total prover memory. Both complete checkpoints, final suite
 accounting, delivery/Rosetta synchronization and independent closing review
 remain required. PR #307 remains draft and open.
+
+### Arithmetic grouping audit diagnosis — 2026-11-03
+
+Native continuation `20261103T220251-899976574bd0` terminated after 4,638.447
+seconds with all 17,404 required checks proved: 15,916 proof checks and 1,488
+flow checks. Its strict audit nevertheless **failed** on seven
+`operator-reassociation` warnings in `silver_output_profile.adb`. No completed
+native provenance manifest was produced. The [failed packet](evidence/bounded-string-characters-20261031/validation/20261103T220251-899976574bd0/summary.json)
+retains all 76 SPARK reports, SARIF, exact source and managed records.
+
+A scratch diagnostic traversed the unchanged auditor while recording every
+failed predicate instead of stopping at the first. All 35 failed predicates
+concern the same seven warning records; there are no additional current audit
+blockers. The diagnostic does not change the reports or acceptance policy and
+is not a successful audit. All seven warnings are byte-identical to records in
+the earlier failed run `20261103T174729-ccb497165e31`: its initial diagnosis
+reported the sole unproved progress obligation but missed these independent
+audit failures. This corrects that incomplete diagnosis.
+
+Complete Lean run `20261103T203357-33c8b5720ddd` was intentionally interrupted at
+23:29:59 UTC after 10,560.372 managed seconds because this repair changes its
+certified source and the current Predicate candidate's dependencies. There was
+no memory or source-equality failure in that run. All 738 captured inputs were
+unchanged at termination. Its [retained record](evidence/bounded-string-characters-20261031/validation/20261103T203357-33c8b5720ddd/index.json)
+includes the successful old-source output-certificate identities, completed
+build log, sampled resources and interruption rationale.
+
+Integration `119cfa0c73` adds seven parenthesis pairs to make the intended
+left-associated arithmetic explicit in fixed-bound validation, slice length and
+operand counting, and concatenation endpoints. The typed model adds exactly
+seven identity group nodes. Warning policy, contracts and admission rules remain
+unchanged. The [scoped native packet](evidence/bounded-string-characters-20261031/validation/parenthesis-scopes/summary.json)
+records 69 canonical checks passed, a matching build and all ten affected
+StringCharacter regressions passed in 23.672 seconds. The two exploratory setup
+failures remain failures; their corrected scoped runs supply the proof evidence.
+
+The [model packet](evidence/bounded-string-characters-20261031/validation/parenthesis-model/index.json)
+records focused run `20261103T232749-c3db83b33386`: one worker, one thread,
+4 GiB, 121 modules and a fresh 14,821-declaration audit, with 597.257 seconds
+runner elapsed time and 595.741 seconds registry duration. Three additional
+whole-body evaluation equalities hold by `rfl` for
+arbitrary callees and locals, without added validity or admission premises.
+All three rendered helper bodies match the repaired pin. An initial scratch
+render-tactic failure is retained; explicit unfolding repaired only that scratch
+check. Production proof bodies did not change. All 121 model-module source
+identities match the lead integration; its 722 compiled artifact and 1,206
+metadata identities were verified on export.
+
+Fresh diagnostic generation matches all 28 checked-in candidates. The output
+specification pin still has 588 tokens; its implementation pin grows from
+49,304 to 49,318 solely by the seven parenthesis pairs. These checks do not
+replace complete source correspondence. Native and bounded model work selected
+GPT-6.1 Sol / Extra High; independent review selects GPT-6 Astra / Extra High.
+Runtime model confirmation and token/cost measurements are unavailable.
+
+The [independent bounded review](reviews/string-arithmetic-grouping-20261103.md)
+passed at `119cfa0c73`, after 211 seconds of read-only review. It checked native
+intermediate bounds, exact model equivalence and rendering, all changed
+certificate data, scoped evidence and final input identities. No further source
+repair was identified before complete validation. Complete Lean/source run
+`20261103T234536-1d74ad60229a` started on that committed target with one worker,
+one thread and 24 GiB; its captured inputs remain frozen during validation.
+Complete canonical native run `20261103T234601-0e070300d2d7` started with two
+workers and ordinary retained solver work. Its 2,582 native inputs match the
+prepared repaired-source capture and its tool identities remain unchanged.
+Complete native and Lean/source checkpoints must still validate these repaired
+bytes before delivery. The full regression suite remains coordinated separately
+from dense source validation.

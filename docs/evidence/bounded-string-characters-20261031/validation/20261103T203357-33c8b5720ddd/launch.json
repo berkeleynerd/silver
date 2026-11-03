@@ -1,0 +1,27 @@
+{
+  "utc": "2026-11-03T20:33:51.563052+00:00",
+  "head": "58b0d6ce2babb4bb817df89ffd4392c815d4ff06",
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--task",
+    "#296-complete-source-repaired",
+    "--workers",
+    "1",
+    "--threads",
+    "1",
+    "--memory-mb",
+    "24576",
+    "--provenance",
+    "--reason",
+    "Complete native-source correspondence and fresh whole-project audit on integrated Character progress repair58b0d6ce2b after focused14821-declaration semantic audit. Retain ordinary valid objects; earlier24GiB attempt intentionally interrupted for actual native source repair. Coordinate native full suite separately."
+  ],
+  "input_state": "committed governed source/proof/script inputs; no current changes",
+  "resources": "one worker/thread;24576MiB per process; concurrent native2workers;29GiB available at preflight",
+  "supervisor_pid": 59428,
+  "pid": 59429,
+  "exec_session_id": 84338,
+  "resource_monitor_session_id": 85781,
+  "review_commit": "8a3f2baf7a3c334328b3b98efe3b86a8ca4f4595",
+  "publication": "PR307 OPEN/DRAFT; issue296 comment6614843103"
+}
