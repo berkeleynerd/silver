@@ -400,8 +400,8 @@ theorem model_helpers (ranges : RangeContracts modelCalls) :
     intro text left right _ _
     exact (model_concatenatedLast_denotation left right).symm
   characterDeclaration := by
-    intro text _ state arguments _
-    exact (model_characterDeclaration_denotation text state arguments).symm
+    intro text _ state arguments context
+    exact (model_characterDeclaration_denotation text state arguments context.valid).symm
   concatenatedFirst := model_definition_concatenatedFirst
   addBindingWithCharacter := model_definition_addBindingWithCharacter
   scalarLookup := model_definition_scalarLookup

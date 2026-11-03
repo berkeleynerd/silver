@@ -378,7 +378,7 @@ termination_by text.length + 1 - position
     rw [equations.nameIs text valid parts.first parts.after "character" nameValid (by decide) (by decide)]
     have nativeGuard :
         (!newNameAllowed text state parts.first parts.after arguments ||
-          decide (parts.typeAfter = 0) || decide (parts.following = 0) ||
+          decide (parts.typeAfter = 0) || decide (parts.following ≤ state.position) ||
           decide (state.names.length = maxBindings) ||
           Named.nameIs text parts.first parts.after ("character".toList.map Char.toNat) ||
           decide (lookupName text state.names parts.typeFirst parts.typeAfter ≠ 0) ||
@@ -387,7 +387,7 @@ termination_by text.length + 1 - position
           decide (IntegerSubtypes.lookup text state.subtypeNames parts.typeFirst parts.typeAfter ≠ 0) ||
           decide (BooleanBindings.lookup text state.booleanNames parts.typeFirst parts.typeAfter ≠ 0)) =
           characterDeclarationRejected text state arguments parts := by
-      simp only [characterDeclarationRejected, Bool.decide_or, Bool.or_assoc]
+      exact characterDeclaration_progress_guard text state arguments context.valid
     simp only [Bool.or_assoc] at nativeGuard
     simp only [Bool.or_assoc]
     rw [nativeGuard]

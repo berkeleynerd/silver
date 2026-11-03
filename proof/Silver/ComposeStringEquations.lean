@@ -1,6 +1,7 @@
 module
 
 public import Silver.ComposeContracts
+public import Silver.ComposeStateBounds
 
 @[expose] public section
 
@@ -111,7 +112,7 @@ def characterDeclarationEquation (calls : Calls) (text : Source) (state : Parser
     state.arrayNames.names state.arrayNames.values true
   let following := take value.after (.symbol ";")
   if !calls.function .newName text state first after arguments ||
-      decide (typeAfter = 0) || decide (following = 0) || decide (state.names.length = maxBindings) ||
+      decide (typeAfter = 0) || decide (following ≤ state.position) || decide (state.names.length = maxBindings) ||
       calls.function .nameIs text first after "character" ||
       decide (calls.function .lookupName text state.names typeFirst typeAfter ≠ 0) ||
       decide (calls.function .scalarLookup text state.scalarNames typeFirst typeAfter ≠ 0) ||
@@ -125,5 +126,42 @@ theorem characterDeclaration_denotation (calls : Calls) (text : Source) (state :
     characterDeclarationBody.eval calls (Context.locals {text,state,arguments}) =
       characterDeclarationEquation calls text state arguments := by
   rfl
+
+/-- The executable progress guard preserves the existing admission rule on the
+native Valid_State domain. Successful model declarations already advance. -/
+theorem characterDeclaration_progress_guard (text : Source) (state : ParserState) (arguments : Bool)
+    (stateValid : ValidState text state) :
+    let parts := characterDeclarationParts text state
+    (!newNameAllowed text state parts.first parts.after arguments ||
+      decide (parts.typeAfter = 0) || decide (parts.following ≤ state.position) ||
+      decide (state.names.length = maxBindings) ||
+      Named.nameIs text parts.first parts.after ("character".toList.map Char.toNat) ||
+      decide (lookupName text state.names parts.typeFirst parts.typeAfter ≠ 0) ||
+      decide (ScalarExpression.lookup text state.scalarNames parts.typeFirst parts.typeAfter ≠ 0) ||
+      decide (ArrayBindings.lookup text state.arrayNames.names parts.typeFirst parts.typeAfter ≠ 0) ||
+      decide (IntegerSubtypes.lookup text state.subtypeNames parts.typeFirst parts.typeAfter ≠ 0) ||
+      decide (BooleanBindings.lookup text state.booleanNames parts.typeFirst parts.typeAfter ≠ 0)) =
+      characterDeclarationRejected text state arguments parts := by
+  generalize partsEq : characterDeclarationParts text state = parts
+  dsimp only
+  by_cases nonprogress : parts.following ≤ state.position
+  · have rejected : characterDeclarationRejected text state arguments parts = true := by
+      apply Bool.ne_false_iff.mp
+      intro notRejected
+      have following : parts.following ≠ 0 := by
+        intro zero
+        simp [characterDeclarationRejected, zero] at notRejected
+      have resultPosition : (characterDeclarationAt text state arguments).position = parts.following := by
+        simp only [characterDeclarationAt, partsEq, notRejected, Bool.false_eq_true, ↓reduceIte, addBinding]
+      have positive : (characterDeclarationAt text state arguments).position ≠ 0 := by
+        rw [resultPosition]
+        exact following
+      have advances := model_character_declaration_advances text state arguments stateValid positive
+      rw [resultPosition] at advances
+      omega
+    simp only [decide_eq_true nonprogress, Bool.or_true, Bool.true_or, rejected]
+  · have following : parts.following ≠ 0 := by omega
+    simp only [characterDeclarationRejected, Bool.decide_or, Bool.or_assoc,
+      decide_eq_false_iff_not.mpr nonprogress, decide_eq_false_iff_not.mpr following]
 
 end Silver.Compose.Expressions

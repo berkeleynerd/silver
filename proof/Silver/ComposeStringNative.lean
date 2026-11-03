@@ -351,7 +351,7 @@ def characterDeclarationBody : Body .state :=
     constant .number "following" ["literal_position"] (take (.field .valueAfter value) (.symbol ";"))],
     .list [guard (anyOf [
       .not (.app (.app (.app (.app (.app (.function .newName) text) state) first) after) (.variable "arguments")),
-      .eq typeAfter (.number 0), .eq following (.number 0), .eq (.count (.field .stateNames state)) .maxBindings,
+      .eq typeAfter (.number 0), .le following (.field .statePosition state), .eq (.count (.field .stateNames state)) .maxBindings,
       .app (.app (.app (.app (.function .nameIs) text) first) after) (.word "character"),
       lookup (.app (.app (.function .lookupName) text) (.field .stateNames state)),
       lookup (.app (.app (.function .scalarLookup) text) (.field .stateScalarNames state)),

@@ -60,13 +60,17 @@ theorem model_concatenatedLast_denotation (left : ExpressionState) (right : Valu
   dsimp only [concatenatedLastEquation, modelCalls, concatenatedLast]
   simp only [Bool.or_eq_true, Bool.and_eq_true, decide_eq_true_eq, or_assoc]
 
-theorem model_characterDeclaration_denotation (text : Source) (state : ParserState) (arguments : Bool) :
+theorem model_characterDeclaration_denotation (text : Source) (state : ParserState) (arguments : Bool)
+    (stateValid : ValidState text state) :
     characterDeclarationBody.eval modelCalls (Context.locals {text,state,arguments}) =
       characterDeclarationAt text state arguments := by
   rw [characterDeclaration_denotation]
-  dsimp only [characterDeclarationEquation, modelCalls, characterDeclarationAt, characterDeclarationRejected,
-    characterDeclarationParts, declarationFirst, declarationAfter, declarationColonAfter, declarationConstantAfter,
-    spelling, isWord, ShellToken.word, ShellToken.symbol]
-  simp only [Bool.or_eq_true, decide_eq_true_eq, Bool.not_eq_true', or_assoc]
+  dsimp only [characterDeclarationEquation, modelCalls, spelling, isWord, ShellToken.word, ShellToken.symbol]
+  simp only [decide_eq_true_eq]
+  have guard := characterDeclaration_progress_guard text state arguments stateValid
+  dsimp only [characterDeclarationParts, declarationFirst, declarationAfter,
+    declarationColonAfter, declarationConstantAfter] at guard
+  rw [guard]
+  rfl
 
 end Silver.Compose.Expressions
