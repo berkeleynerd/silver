@@ -146,7 +146,7 @@ def fixedBoundsBody : Expr .truth :=
   .elsif dynamic (.eq length (.number 0)) <|
   .elsif (.eq length (.number 0)) (.integerGt first last) <|
     .andThen (.andThen (.andThen (.integerGe first (.integerNumber 1)) (.integerGe last first))
-      (.integerEq (.integerAdd (.integerSub (.wideInteger last) (.wideInteger first)) (.integerNumber 1)) (.wideNumber length)))
+      (.integerEq (.integerAdd (.group <| .integerSub (.wideInteger last) (.wideInteger first)) (.integerNumber 1)) (.wideNumber length)))
       (.integerLe (.wideInteger last) (.integerMul (.wideNumber (.variable "slot")) (.wideNumber .maxLength)))
 
 def characterLiteralBody : Expr .number :=
@@ -183,14 +183,14 @@ def concatenatedLastBody : Body .interval :=
     constant .integer "minimum" ["scalars", ".", "wide"]
       (.integerAdd (.wideNumber (.field .scanMinimum left)) (.wideNumber (.field .valueMinimum right))),
     constant .integer "maximum" ["scalars", ".", "wide"]
-      (.integerAdd (.integerAdd (.wideNumber (.field .scanLength left)) (.wideNumber (.field .valueLength right)))
+      (.integerAdd (.group <| .integerAdd (.wideNumber (.field .scanLength left)) (.wideNumber (.field .valueLength right)))
         (.integerMul (.group <| .integerAdd (.wideNumber (.field .scanDynamic left))
           (.group <| .ite (.field .valueDynamic right) (.integerNumber 1) (.integerNumber 0)))
           (.wideNumber .maxLength))),
     constant .integer "low" ["scalars", ".", "wide"]
-      (.integerSub (.integerAdd (.wideInteger (.field .intervalLower first)) minimum) (.integerNumber 1)),
+      (.integerSub (.group <| .integerAdd (.wideInteger (.field .intervalLower first)) minimum) (.integerNumber 1)),
     constant .integer "high" ["scalars", ".", "wide"]
-      (.integerSub (.integerAdd (.wideInteger (.field .intervalUpper first)) maximum) (.integerNumber 1)),
+      (.integerSub (.group <| .integerAdd (.wideInteger (.field .intervalUpper first)) maximum) (.integerNumber 1)),
     uninitialized .interval ["result"] ["scalars", ".", "interval"]],
     .list [
       guard (.orElse (.eq (.field .scanOperands left) (.number 0))
@@ -269,12 +269,12 @@ def indexedBody : Body .value :=
           (.group <| .orElse (.integerLt (lower low) (.field .bindingFirstIndex info))
             (.integerGt (upper high) (.field .bindingLastIndex info)))]) .invalidValue,
       .assign "minimum" (.wideMaximum (.integerNumber 0)
-        (.integerAdd (.integerSub (.wideInteger (lower high)) (.wideInteger (upper low))) (.integerNumber 1))),
+        (.integerAdd (.group <| .integerSub (.wideInteger (lower high)) (.wideInteger (upper low))) (.integerNumber 1))),
       .assign "maximum" (.wideMaximum (.integerNumber 0)
-        (.integerAdd (.integerSub (.wideInteger (upper high)) (.wideInteger (lower low))) (.integerNumber 1))),
+        (.integerAdd (.group <| .integerSub (.wideInteger (upper high)) (.wideInteger (lower low))) (.integerNumber 1))),
       guard (.integerGt maximum (.wideNumber .maxLength)) .invalidValue,
       .returned (.nativeValue following (.number 0) (.capacityInteger minimum) (.capacityInteger maximum)
-        (.truth false) (.truth true) (.truth false) target (.add operands (.number 1)) (bounds low) (bounds high))]⟩
+        (.truth false) (.truth true) (.truth false) target (.add (.group operands) (.number 1)) (bounds low) (bounds high))]⟩
 
 def characterBody : Body .value :=
   let text : Expr .source := .variable "text"
