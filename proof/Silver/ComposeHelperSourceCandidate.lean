@@ -1,10 +1,5 @@
 module
 
-/-! UNVALIDATED SCRATCH PROPOSAL. Drop-in proof-body replacement for
-ComposeHelperSourceCandidate.lean after the active lead run reaches terminal.
-All original imports, public proposition definitions and public theorem types
-are preserved. No governed file has been changed. -/
-
 public import Silver.SourceDeclarations
 public import Silver.ComposeArrayDeclarationSource
 public import Silver.ComposeContracts
