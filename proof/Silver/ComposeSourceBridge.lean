@@ -29,6 +29,7 @@ structure CheckedSource : Prop where
   namesLexical : Names.fixedAt = Compose.fixedAt ∧ Names.take = Compose.fixedAfter
   inherited : Lexical.SourceBridge.CheckedSource
   expressions : ExpressionTranslation
+  stringHelpers : StringHelperTranslation
   arrayHelpers : ArrayHelperTranslation
   booleanDeclaration : BooleanDeclarationNative.SourceChecks.Checked Source.outputBodyTokens
   catalogue : HelperCatalogueTranslation
@@ -49,6 +50,7 @@ theorem checked_source : CheckedSource where
   namesLexical := ⟨rfl, rfl⟩
   inherited := Lexical.SourceBridge.checked_source
   expressions := actual_expressions
+  stringHelpers := actual_string_helpers
   arrayHelpers := actual_array_helpers
   booleanDeclaration := actual_boolean_declaration
   catalogue := actual_catalogue

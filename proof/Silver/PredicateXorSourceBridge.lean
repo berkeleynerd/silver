@@ -1,6 +1,7 @@
 module
 
 public import Silver.PredicateXorNative
+public import Silver.ComposeStringPrimitiveEquations
 
 @[expose] public section
 
@@ -19,6 +20,30 @@ theorem InterpretedSource.xorFree_meaning (source : InterpretedSource)
   rw [InterpretedSource.xorFree, source.equations.runtime text tv first after fb ab,
     XorNative.model_meaning source.calls source.equations text tv first after false false true fb ab]
   rfl
+
+/-- The new literal primitive inherits its meaning from the separately checked
+native Character_Literal_After body; the remaining premises are the exact xor
+model body and executable wrapper equations. No xor scanner meaning is assumed. -/
+def inheritedSource {domain : Compose.Expressions.StateDomain}
+    (calls : XorNative.Calls) (composed : Compose.Expressions.Calls)
+    (helpers : Compose.Expressions.RawHelperEquations composed (domain := domain))
+    (linked : calls.characterLiteral = composed.function .characterLiteral)
+    (model : ∀ text, XorNative.ValidText text → ∀ position after quoted comment wordStart,
+      position ≤ text.length + 1 → after ≤ text.length + 1 →
+      calls.model text position after quoted comment wordStart =
+        XorNative.body.eval calls ⟨text, position, after, quoted, comment, wordStart⟩)
+    (runtime : ∀ text, XorNative.ValidText text → ∀ first after,
+      first ≤ text.length + 1 → after ≤ text.length + 1 →
+      calls.xorFree text first after = calls.model text first after false false true) :
+    InterpretedSource where
+  calls := calls
+  equations := {
+    characterLiteral := by
+      intro text tv position pv
+      rw [linked]
+      exact Compose.Expressions.interpreted_characterLiteral composed helpers text tv position pv
+    model := model
+    runtime := runtime }
 
 def modelSource : InterpretedSource := ⟨XorNative.modelCalls, XorNative.model_equations⟩
 

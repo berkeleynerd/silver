@@ -68,7 +68,7 @@ theorem imports_meaning {imports composed condition}
   rcases valid.1 with ⟨position, names, dynamic, target, capacity, scalars, arrays, subtypes, booleans⟩
   refine ⟨lexical, position, ?_, ?_, ?_, ?_, ?_, ?_, ?_, links.invalid⟩
   · rw [links.newName]
-    exact interpreted_newName composed equations text tv state _ _ arguments valid bounds.first bounds.after
+    exact interpreted_newName composed equations text tv state _ _ arguments valid.nativeState bounds.first bounds.after
   · dsimp only
     intro allowed
     rw [links.nameIs]
@@ -78,7 +78,7 @@ theorem imports_meaning {imports composed condition}
     dsimp only
     rw [links.lookup]
     cases kind with
-    | string => exact interpreted_lookup composed equations text tv state.names _ _ names bounds.typeFirst bounds.typeAfter
+    | string => exact interpreted_lookup composed equations text tv state.names _ _ valid.nativeState.nativeNames bounds.typeFirst bounds.typeAfter
     | scalar => exact equations.scalarLookup text tv state.scalarNames _ _ scalars bounds.typeFirst bounds.typeAfter
     | array => exact equations.arrayLookup text tv state.arrayNames.names _ _ arrays.1 bounds.typeFirst bounds.typeAfter
     | subtype => exact interpreted_subtypeLookup composed equations text tv state.subtypeNames _ _ subtypes bounds.typeFirst bounds.typeAfter

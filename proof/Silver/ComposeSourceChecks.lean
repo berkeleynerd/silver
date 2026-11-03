@@ -27,6 +27,9 @@ abbrev Refinement : Prop :=
 abbrev AdapterTranslation : Prop :=
   AdapterTranslationFor Source.outputBodyTokens
 
+abbrev StringHelperTranslation : Prop :=
+  StringHelperTranslationFor Source.outputBodyTokens
+
 abbrev ArrayHelperTranslation : Prop :=
   ArrayHelperTranslationFor Source.outputBodyTokens
 
@@ -56,6 +59,10 @@ theorem actual_refinement : Refinement := actual_checked.2.2.2.1
 theorem actual_adapters : AdapterTranslation := actual_checked.2.2.2.2.1
 
 theorem actual_array_helpers : ArrayHelperTranslation := actual_checked.2.2.2.2.2
+
+theorem actual_string_helpers : StringHelperTranslation := by
+  rw [Output.SourceBridge.actual_complete_shape.2.1]
+  exact candidate_string_helpers
 
 theorem actual_boolean_declaration :
     BooleanDeclarationNative.SourceChecks.Checked Source.outputBodyTokens := by
