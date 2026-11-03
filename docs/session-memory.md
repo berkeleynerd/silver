@@ -1,5 +1,20 @@
 # Session memory
 
+## 2026-11-03 — Bounded String feature resumed
+
+The owner instructed **“Please resume”** for the already authorized
+[bounded String and Character feature #296](https://github.com/berkeleynerd/silver/issues/296).
+Continue its complete implementation, native and Lean actual-source assurance,
+regressions, independent review and synchronized delivery records. The preserved
+work is published in [draft PR #307](https://github.com/berkeleynerd/silver/pull/307)
+while validation continues. The [capability record](bounded-string-characters.md)
+distinguishes interrupted attempts, retained successes and outstanding checks.
+
+The feature PR must remain open for owner review after it is complete. This
+resumption does not authorize its merge or start #300, #297 or #298. No Oracle
+amendment, separate performance project or new assurance mode is selected.
+No harness goal exists; CLI memory is unavailable and was not updated.
+
 ## 2026-10-31 — Bounded String indexing and character operations authorized
 
 After the completed subtype and Boolean deliveries, the owner asked for the

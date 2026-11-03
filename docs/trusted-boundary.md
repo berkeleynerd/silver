@@ -1292,6 +1292,19 @@ models byte values and its SPARK contract establishes canonical lower bounds;
 path-justified fixed-length assignment and conservative branch joins preserve
 initialized bounds. A separate model or matching token-shape pin alone does not
 establish correspondence with the actual recognizer.
+
+The [bounded String and Character increment](bounded-string-characters.md),
+currently under validation, retains this frontend boundary for predefined
+Character ordering, String indexing and slicing, concatenation bounds, and
+assignment sliding. It adds no runtime library or external dependency. Its
+source-derived bounds argument preserves noncanonical and null intervals:
+valid null bounds may differ from metadata while denoting the same empty
+sequence; nonempty indexed or sliced prefixes require equal actual bounds.
+The implementation keeps Character values distinct from one-byte Strings and
+checks the exact native helper domains, bodies, precedence and identifier scope.
+These checked correspondences and complete native proof remain required;
+neither the frontend premise nor finite examples replace them.
+
 GNATprove establishes normalization, bounds and
 the executable `Accepts = Is_Member` refinement. The combined argument does not
 claim a verified arbitrary Ada parser, complete name-resolution semantics, or a

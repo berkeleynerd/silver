@@ -177,6 +177,15 @@ xor operand may contain xor. The drivers are
 [Square but not cube](samples/rosetta_square_but_not_cube.adb), and
 [Common list elements](samples/rosetta_common_list_elements.adb).
 
+The [bounded String and Character increment](docs/bounded-string-characters.md)
+is under validation in [PR #307](https://github.com/berkeleynerd/silver/pull/307).
+It adds indexed reads and element writes on Strings with statically known bounds,
+printable Character objects and comparisons, and bounded slices. Copies retain
+their bounds and values; whole-String assignment preserves destination bounds.
+The drivers cover [reversal](samples/rosetta_reverse_a_string.adb),
+[palindromes](samples/rosetta_palindrome_detection.adb) and
+[selective replacement](samples/rosetta_selective_character_replacement.adb).
+
 The [Find square difference sample](samples/find_square_difference.adb) stores
 the first matching index and prints ` 501` followed by a newline.
 
