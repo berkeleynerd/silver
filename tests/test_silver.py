@@ -85,7 +85,10 @@ class SilverIntegrationTests(unittest.TestCase):
                          "boolean_assignment", "boolean_comparison", "integer_range_constraint", "named_integer_subtype", "integer_assignment", "integer_expression",
                          "integer_array_object", "integer_array_read", "integer_array_assignment",
                          "integer_comparison", "scalar_guard_refinement", "integer_image",
-                         "for_loop"} <= set(constructs))
+                         "for_loop", "character_literal", "named_character_constant",
+                         "named_character_variable", "character_expression", "character_assignment",
+                         "character_comparison", "string_indexing", "string_element_assignment",
+                         "string_slice"} <= set(constructs))
         compositions = {item["name"]: item for item in catalogue["compositions"]}
         self.assertEqual(set(compositions), {"null", "static_statements", "argument_statements"})
         self.assertEqual(compositions["null"]["statements"], ["null_statement"])
@@ -129,7 +132,8 @@ class SilverIntegrationTests(unittest.TestCase):
                         ["own_binding_hides_unqualified_call"])
         sequence = constructs["statement_sequence"]["conditions"]
         self.assertEqual(sequence["minimum"], 1)
-        self.assertEqual(sequence["items"], ["null_statement", "string_assignment", "integer_assignment", "boolean_assignment", "integer_array_assignment", "expression_output",
+        self.assertEqual(sequence["items"], ["null_statement", "character_assignment", "string_element_assignment",
+                                         "string_assignment", "integer_assignment", "boolean_assignment", "integer_array_assignment", "expression_output",
                                          "string_choice", "argument_rejection", "for_loop", "integer_array_iteration"])
         self.assertEqual(sequence["argument_rejection_context"], "argument-input shell only")
         self.assertFalse(sequence["output_required"])
@@ -153,10 +157,12 @@ class SilverIntegrationTests(unittest.TestCase):
             self.assertEqual(declarations["items"],
                              ["named_string_constant", "named_string_variable", "named_integer_constant",
                               "named_integer_variable", "named_boolean_constant", "named_boolean_variable",
-                              "named_integer_subtype", "integer_array_object"])
+                              "named_integer_subtype", "integer_array_object",
+                              "named_character_constant", "named_character_variable"])
             self.assertEqual(declarations["minimum"], 0)
             self.assertEqual(declarations["count"], "finite_within_complete_source_bound")
-            self.assertEqual(declarations["initializers"], [*initializers, "integer_expression", "boolean_expression", "explicit_integer_array_aggregate"])
+            self.assertEqual(declarations["initializers"], [*initializers, "integer_expression", "boolean_expression",
+                                                          "explicit_integer_array_aggregate", "character_expression"])
             self.assertIn(composition["tokens"], catalogue)
         for key in ("dynamic_source", "mutable_source", "self_assignment", "snapshot_semantics",
                     "constant_to_constant_initialization"):
@@ -203,7 +209,7 @@ class SilverIntegrationTests(unittest.TestCase):
         self.assertTrue(boolean["eager_operators"])
         for identifier in ("boolean_expression", "boolean_predicate"):
             self.assertEqual(constructs[identifier]["conditions"]["xor_operands"],
-                             'neither operand may contain xor; strings, comments and identifier substrings do not count; independent xor expressions remain permitted')
+                             'neither operand may contain xor; String/Character literals, comments and identifier substrings do not count; independent xor expressions remain permitted')
         numeral = constructs["integer_literal"]["conditions"]
         self.assertEqual(numeral["value_range"], [0, 4096])
         self.assertEqual(numeral["forms"], ["decimal", "based"])
@@ -224,6 +230,8 @@ class SilverIntegrationTests(unittest.TestCase):
         self.assertEqual(scalar["scalar_guards_refine_intervals"],
                          "selected scalar_guard_refinement only")
         self.assertIn("integer_image", expression["operand_kinds"])
+        self.assertIn("string_slice", expression["operand_kinds"])
+        self.assertIn("string_slice", constructs["string_concatenation"]["conditions"]["operand_kinds"])
         self.assertEqual(constructs["integer_image"]["conditions"]["length_range"], [2, 11])
         loop = constructs["for_loop"]["conditions"]
         self.assertEqual(loop["bound_visibility"],
@@ -265,6 +273,9 @@ class SilverIntegrationTests(unittest.TestCase):
             if key.endswith("_tokens") and key != "word_tokens" and isinstance(tokens, list)
             for token in tokens if re.fullmatch(r'[a-z][a-z0-9_]*', token)
         }
+        # Boolean type/literal/operator words are represented by construct
+        # conditions rather than the top-level token templates.
+        grammar_words |= {"boolean", "true", "false", "xor"}
         self.assertEqual(set(catalogue["word_tokens"]), grammar_words)
         self.assertEqual(len(catalogue["word_tokens"]), len(grammar_words))
 
