@@ -163,7 +163,7 @@ is
       elsif Dynamic then Length = 0
       elsif Length = 0 then First_Index > Last_Index
       else First_Index >= 1 and then Last_Index >= First_Index
-        and then Scalars.Wide (Last_Index) - Scalars.Wide (First_Index) + 1 = Scalars.Wide (Length)
+        and then (Scalars.Wide (Last_Index) - Scalars.Wide (First_Index)) + 1 = Scalars.Wide (Length)
         and then Scalars.Wide (Last_Index) <= Scalars.Wide (Slot) * Scalars.Wide (Max_Source_Length));
 
    --  A:Boolean:=B; consumes thirteen bytes. Boolean metadata is immutable;
@@ -702,14 +702,14 @@ is
             or else High.Bounds.Upper > Names.Items (Target).Last_Index))
       then return Invalid_Value; end if;
       Minimum := Scalars.Wide'Max
-        (0, Scalars.Wide (High.Bounds.Lower) - Scalars.Wide (Low.Bounds.Upper) + 1);
+        (0, (Scalars.Wide (High.Bounds.Lower) - Scalars.Wide (Low.Bounds.Upper)) + 1);
       Maximum := Scalars.Wide'Max
-        (0, Scalars.Wide (High.Bounds.Upper) - Scalars.Wide (Low.Bounds.Lower) + 1);
+        (0, (Scalars.Wide (High.Bounds.Upper) - Scalars.Wide (Low.Bounds.Lower)) + 1);
       if Maximum > Scalars.Wide (Max_Source_Length) then return Invalid_Value; end if;
       return (After => Following, Value_First => 0,
         Minimum_Length => Capacity_Value (Minimum), Static_Length => Capacity_Value (Maximum),
         Dynamic_Seen => False, Nonliteral_Seen => True, Empty_Value => False,
-        Reference => Target, Operands => Low.Operands + High.Operands + 1,
+        Reference => Target, Operands => (Low.Operands + High.Operands) + 1,
         First_Index => Low.Bounds, Last_Index => High.Bounds);
    end Indexed_At;
 
@@ -1046,11 +1046,11 @@ is
       Minimum : constant Scalars.Wide :=
         Scalars.Wide (Left.Minimum_Length) + Scalars.Wide (Right.Minimum_Length);
       Maximum : constant Scalars.Wide :=
-        Scalars.Wide (Left.Static_Length) + Scalars.Wide (Right.Static_Length)
+        (Scalars.Wide (Left.Static_Length) + Scalars.Wide (Right.Static_Length))
           + (Scalars.Wide (Left.Dynamic_Count) + (if Right.Dynamic_Seen then 1 else 0))
             * Scalars.Wide (Max_Source_Length);
-      Low : constant Scalars.Wide := Scalars.Wide (First.Lower) + Minimum - 1;
-      High : constant Scalars.Wide := Scalars.Wide (First.Upper) + Maximum - 1;
+      Low : constant Scalars.Wide := (Scalars.Wide (First.Lower) + Minimum) - 1;
+      High : constant Scalars.Wide := (Scalars.Wide (First.Upper) + Maximum) - 1;
       Result : Scalars.Interval;
    begin
       --  Null concatenation returns its right operand, including arbitrary
