@@ -1,0 +1,118 @@
+{
+  "recorded_at": "2026-11-03T23:49:46.591581+00:00",
+  "source_commit": "119cfa0c73389d461f8e5bd6de465ed2fee7d368",
+  "synced_files": [
+    {
+      "path": "proof/Silver/ComposeStringNative.lean",
+      "old_sha256": "86c058ed691aab33f07020fc15b6a5ccf4adb12c7c9d95db42f80f08e16f6f6a",
+      "new_sha256": "1b8c1d932eb496d6c75bc04a4be37b62c605dd946ee41ed5a1076576fe7315f4",
+      "matches_governed_target": true
+    },
+    {
+      "path": "proof/Silver/ReviewedOutputShape.lean",
+      "old_sha256": "8c1a150ccff5de0f853f569d4213ccbd812c37c82b79f8bc621e8403806869ea",
+      "new_sha256": "b483c104df7a18f6aa3abe48547ed29d0d491903da4efc66bf4aeccf662b577c",
+      "matches_governed_target": true
+    },
+    {
+      "path": "proof/Silver/OutputBodyCertificate.lean",
+      "old_sha256": "5d73f0a725a8dda382e2b14bb66cc7a033328d07a21639ab0213fc20365f2311",
+      "new_sha256": "41caa18ac3460581962fd44cf36547f0ecc2cae4b5511a039bb9a2c1c22a39fe",
+      "matches_governed_target": true
+    }
+  ],
+  "preimages": {
+    "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-native/tmp/native-resume-20261103/pre-final3-Lean-sync.tar.gz",
+    "bytes": 1242502,
+    "sha256": "ba706658d39db4460b36b70f0c46af2e0612272040090d4a2fd221ac74056f86"
+  },
+  "native_provenance_still_valid": true,
+  "native_inputs_unchanged": 2582,
+  "test_ids": 578,
+  "test_file_hashes": 50,
+  "all_ids_match_original_lead_inventory": true,
+  "all_tests_match_governed_target": true,
+  "reviewed_fixture_dependency_paths": 50,
+  "reviewed_fixture_mapping_sha256": "cd10b45c8f9e09a16745e5482ec4e64c14d552aeaadc9cc317984c053342f9c6",
+  "reviewed_fixture_dependency_mismatches": [],
+  "all_fixture_dependencies_match_governed_target": true,
+  "approved_fixture_reuse_review_commit": "d3f8e099ed",
+  "approved_fixture_reuse_review_path": "docs/reviews/string-character-fixture-reuse-20261103.md",
+  "retained_fixture_coverage": {
+    "test_lean_evidence.LeanNativeAxiomAuditTests.test_actual_audit_accepts_foundations_and_rejects_other_assumptions": {
+      "run_id": "20261031T214130-1e0195247bd5",
+      "overall_run_returncode": 1,
+      "individual_result": "ok",
+      "log": "tmp/string-lean-fixtures/fixtures.log",
+      "input_mismatches": {
+        "tests/test_lean_modules.py": {
+          "recorded": "15ec5b733b73734c49e7b110c5e119cae632679f408f3e13bdc4b11b5c146437",
+          "current": "8e44ba7b958b0da6f13b3505e7f0dab5deab880675704f0d69ee38f185562ac3"
+        }
+      }
+    },
+    "test_lean_evidence.LeanNativeDependencyTests.test_changed_resource_settings_apply_without_discarding_cached_objects": {
+      "run_id": "20261031T214130-1e0195247bd5",
+      "overall_run_returncode": 1,
+      "individual_result": "ok",
+      "log": "tmp/string-lean-fixtures/fixtures.log",
+      "input_mismatches": {
+        "tests/test_lean_modules.py": {
+          "recorded": "15ec5b733b73734c49e7b110c5e119cae632679f408f3e13bdc4b11b5c146437",
+          "current": "8e44ba7b958b0da6f13b3505e7f0dab5deab880675704f0d69ee38f185562ac3"
+        }
+      }
+    },
+    "test_lean_evidence.LeanNativeDependencyTests.test_lake_tracks_embedded_ada_bytes_and_preserves_unchanged_objects": {
+      "run_id": "20261031T214130-1e0195247bd5",
+      "overall_run_returncode": 1,
+      "individual_result": "ok",
+      "log": "tmp/string-lean-fixtures/fixtures.log",
+      "input_mismatches": {
+        "tests/test_lean_modules.py": {
+          "recorded": "15ec5b733b73734c49e7b110c5e119cae632679f408f3e13bdc4b11b5c146437",
+          "current": "8e44ba7b958b0da6f13b3505e7f0dab5deab880675704f0d69ee38f185562ac3"
+        }
+      }
+    },
+    "test_lean_evidence.LeanNativeDependencyTests.test_removed_dependency_fails_closed_without_discarding_unrelated_objects": {
+      "run_id": "20261031T214130-1e0195247bd5",
+      "overall_run_returncode": 1,
+      "individual_result": "ok",
+      "log": "tmp/string-lean-fixtures/fixtures.log",
+      "input_mismatches": {
+        "tests/test_lean_modules.py": {
+          "recorded": "15ec5b733b73734c49e7b110c5e119cae632679f408f3e13bdc4b11b5c146437",
+          "current": "8e44ba7b958b0da6f13b3505e7f0dab5deab880675704f0d69ee38f185562ac3"
+        }
+      }
+    },
+    "test_lean_source.NativeCertificateTests.test_generated_certificates_and_witnesses_remain_kernel_checked": {
+      "run_id": "20261031T214130-1e0195247bd5",
+      "overall_run_returncode": 1,
+      "individual_result": "ok",
+      "log": "tmp/string-lean-fixtures/fixtures.log",
+      "input_mismatches": {
+        "tests/test_lean_modules.py": {
+          "recorded": "15ec5b733b73734c49e7b110c5e119cae632679f408f3e13bdc4b11b5c146437",
+          "current": "8e44ba7b958b0da6f13b3505e7f0dab5deab880675704f0d69ee38f185562ac3"
+        }
+      }
+    },
+    "test_lean_modules.LeanModuleTests.test_legacy_audits_reject_private_axiom_behind_module_import": {
+      "run_id": "20261031T215153-7280a74a41c2",
+      "overall_run_returncode": 0,
+      "individual_result": "ok",
+      "log": "tmp/string-lean-module-fixtures/fixtures.log",
+      "input_mismatches": {}
+    },
+    "test_lean_modules.LeanModuleTests.test_proof_reuse_and_public_source_invalidation": {
+      "run_id": "20261031T215153-7280a74a41c2",
+      "overall_run_returncode": 0,
+      "individual_result": "ok",
+      "log": "tmp/string-lean-module-fixtures/fixtures.log",
+      "input_mismatches": {}
+    }
+  },
+  "state": "Final native proof/candidate/test inputs synchronized and reviewed fixture reuse remains applicable; full suite still HELD for dense Lean source/resource coordination"
+}

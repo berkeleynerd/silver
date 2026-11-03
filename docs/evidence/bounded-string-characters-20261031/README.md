@@ -2,8 +2,8 @@
 
 This packet retains successful focused Linux observations for
 [#296](https://github.com/berkeleynerd/silver/issues/296). Complete native compiler
-proof/audit, complete Lean/source assurance, final regression coverage and
-independent delivery review are still outstanding. The
+proof/audit passed on the repaired source. Complete Lean/source assurance,
+final regression coverage and independent delivery review remain outstanding. The
 [capability record](../../bounded-string-characters.md) governs the current scope.
 
 | Packet | Exact scope |
@@ -44,8 +44,10 @@ bytes did not rerun validation. Failed runs retain their failed status.
 | [`20261103T203357-33c8b5720ddd`](validation/20261103T203357-33c8b5720ddd/index.json) | Intentionally interrupted after 10,560.372 seconds for the required seven-site native grouping/model/pin repair. The old-source output certificate passed in 5,090 seconds; complete build and fresh whole-project audit did not finish. All 738 captured inputs remained unchanged at termination. |
 | [Scoped arithmetic grouping repair](validation/parenthesis-scopes/summary.json) | Four canonical scoped native proofs passed 69 checks; matching build and all ten affected StringCharacter regressions passed. The packet retains both corrected setup failures and their actual successful reruns. Complete native audit remains separate. |
 | [Grouping model equivalence](validation/parenthesis-model/index.json) | Successful focused run `20261103T232749-c3db83b33386`: 121 modules and fresh 14,821-declaration audit, three unrestricted whole-body evaluation equalities, and three repaired-pin rendering checks. Initial scratch reduction failure retained. Fresh generator/pin diagnostics match the integrated four-file repair, accepted by the [independent bounded review](../../reviews/string-arithmetic-grouping-20261103.md); complete source correspondence remains separate. |
+| [`20261103T234601-0e070300d2d7`](validation/20261103T234601-0e070300d2d7/summary.json) | Complete canonical native proof, strict report audit and provenance passed: 76 units, 1,099 entities, 15,916 proof and 1,488 flow checks. Reused ordinary solver work; 87.226 managed seconds. Actual repaired source matches `119cfa0c73`; no reassociation warning. Matching build and ten affected tests remain applicable. The final 578-method inventory and seven-fixture dependency comparison are retained separately from pending suite execution. |
 | [Character progress equivalence](validation/character-progress-equivalence/index.json) | Successful focused run `20261103T202419-5f35a847709a`: both helper targets, fresh 14,821-declaration audit, exact provenance and retained failed development attempts. Accepted by the [bounded repair review](../../reviews/string-character-progress-guard-20261103.md); complete native/source assurance remains separate. |
 | `20261031T214130-1e0195247bd5` and `20261031T215153-7280a74a41c2` | The first installed-Lean fixture run failed one of seven methods; the subsequent two-method module-fixture repair passed. The [fixture packet](validation/installed-lean-fixtures/index.json) retains logs, exact inputs and the original prepared reuse account. The [independent bounded review](../../reviews/string-character-fixture-reuse-20261103.md) approves those seven results for the reviewed inputs. |
 
-These records do not yet include a successful complete native or Lean/source
-checkpoint, complete final regression coverage, or a closing delivery review.
+These records include a successful complete native checkpoint. Complete
+Lean/source assurance, final regression coverage and closing delivery review
+remain outstanding.

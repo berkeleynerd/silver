@@ -1,0 +1,93 @@
+{
+  "exported_at": "2026-11-03T23:48:58.199216+00:00",
+  "run_id": "20261103T234601-0e070300d2d7",
+  "managed_finished": {
+    "duration_seconds": 87.225982053,
+    "event": "finished",
+    "evidence": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-native/.silver/linux-x86_64/compiler/obj/gnatprove",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-native/.silver/linux-x86_64/compiler/obj/gnatprove"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261103T234601-0e070300d2d7/native.log",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261103T234601-0e070300d2d7/native.log"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261103T234601-0e070300d2d7/previous-reports",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261103T234601-0e070300d2d7/previous-reports"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-native/.silver/linux-x86_64/compiler/obj/gnatprove/proof-provenance.json",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-native/.silver/linux-x86_64/compiler/obj/gnatprove/proof-provenance.json"
+      },
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261103T234601-0e070300d2d7/proof-evidence",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261103T234601-0e070300d2d7/proof-evidence"
+      }
+    ],
+    "failure_keys": [],
+    "monotonic_ns": 22038151051625,
+    "outcome": "success",
+    "retained_reports": [],
+    "returncode": null,
+    "run_id": "20261103T234601-0e070300d2d7",
+    "utc": "2026-11-03T23:47:30.334637+00:00"
+  },
+  "observed_exec_session": 72866,
+  "observed_session_exit_code": 0,
+  "fresh_read_only_audit_stats": {
+    "units": 76,
+    "entities": 1099,
+    "flow_checks": 1488,
+    "proof_checks": 15916,
+    "limitation_notes": 313,
+    "imported_entities": 18,
+    "trusted_math_notes": 6236,
+    "vendor_spec_entities": 62,
+    "array_initialization_advisories": 5
+  },
+  "native_platform": "linux-x86_64",
+  "mode": "full",
+  "initial_state": {
+    "sessions_present": true,
+    "cache_entries_present": true
+  },
+  "canonical_command": [
+    "gnatprove",
+    "-P",
+    "../../../silver.gpr",
+    "-U",
+    "--mode=all",
+    "--report=all",
+    "--warnings=error",
+    "--checks-as-errors=on",
+    "--level=2",
+    "--prover=cvc5,z3,altergo",
+    "--timeout=30",
+    "-j",
+    "2",
+    "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/string-native/.silver/linux-x86_64/proof-cache/gnatprove/ea6aba21eca447a9c8473fc1c3ea0300b03a95ce919d8a326f68a67989029329",
+    "-f",
+    "-XSILVER_HOST=linux-x86_64"
+  ],
+  "captured_input_count": 2582,
+  "strict_report_artifacts": 78,
+  "source_sha256": "4a02223317f89de2653d89ac152ae9e66fb089a0cfa20cd3ecb4c8765d90c485",
+  "native_repair_commit": "ba5686cfaa34528f1cd0917bd48c97ce999def06",
+  "matching_integration_source_commit": "63288245a1194adfdd03328042ca64bd943fad42",
+  "earlier_guard_repair_commit": "954fd8eacb536f3e5c126427657b7a62190cbc7c",
+  "earlier_guard_semantic_review_target": "58b0d6ce2babb4bb817df89ffd4392c815d4ff06",
+  "earlier_guard_semantic_review_published": "8a3f2baf7a",
+  "parenthesis_source_semantic_review": "Lead-owned repair review and complete Lean/source correspondence are separate required integration evidence",
+  "repair_history_dispositions": {
+    "20261103T174729-ccb497165e31": "failed full native proof; unchanged progress postcondition unresolved, and seven reassociation warnings already present but missed by initial proof-only triage",
+    "20261103T195805-68f1968b62cb": "intentionally interrupted larger-budget diagnostic; neither failed nor successful proof",
+    "20261103T200910-01915a66a688": "scoped canonical repaired-source pass, 24 GNAT checks; not full assurance",
+    "20261103T201920-c39bcc381ac2": "intentionally interrupted at actual host resource threshold; all 2582 inputs unchanged and successful sessions/cache retained; not failed or completed proof",
+    "20261103T220251-899976574bd0": "all 17404 checks proved, but strict audit failed on seven unclassified reassociation warnings; no completed assurance/provenance",
+    "parenthesis-scopes": "four canonical isolated scopes prove 69 checks on seven-pair repair; matching build and ten affected methods pass; not complete assurance"
+  },
+  "limits": "Native compiler proof/audit only. Complete Lean/source and final regression accounting are separate required evidence.",
+  "model_effort": "Inherited agent model/effort; runtime settings and token/cost measurements unavailable"
+}

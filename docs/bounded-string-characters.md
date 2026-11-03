@@ -557,6 +557,18 @@ one thread and 24 GiB; its captured inputs remain frozen during validation.
 Complete canonical native run `20261103T234601-0e070300d2d7` started with two
 workers and ordinary retained solver work. Its 2,582 native inputs match the
 prepared repaired-source capture and its tool identities remain unchanged.
-Complete native and Lean/source checkpoints must still validate these repaired
-bytes before delivery. The full regression suite remains coordinated separately
-from dense source validation.
+The [complete native packet](evidence/bounded-string-characters-20261031/validation/20261103T234601-0e070300d2d7/summary.json)
+records success after 87.226 managed seconds: all 17,404 checks, complete strict
+report audit and provenance passed, covering 76 units and 1,099 entities, with
+no reassociation warnings. This reused the retained solver work; it is not a
+clean build or proof run. Every one of its 256 indexed archive members was
+hash-verified on export. The matching build and ten affected regressions remain
+applicable without repetition.
+
+The final three Lean-file sync is outside the native input set and preserves
+its complete provenance. All 578 test IDs and 50 test-file hashes match the
+lead; the seven retained fixtures' reviewed 50-path dependency closure is
+unchanged. This establishes applicability, not execution of the pending full
+suite. Complete Lean/source assurance, full regression accounting and final
+delivery review remain required. The suite is coordinated separately from dense
+source validation.
