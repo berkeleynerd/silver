@@ -1,5 +1,10 @@
 # Silver language specification
 
+The String indexing, Character and slice additions on this feature branch are
+under validation. Their [delivery record](docs/bounded-string-characters.md)
+tracks the remaining native, actual-source and regression checks; they are not
+yet a completed support claim.
+
 Silver is one evolving language before 1.0. This specification describes the
 predicate, path-sensitive and finite-loop language under the [Oracle](oracle.md),
 including the context, visibility and association rules validated in the [Names and
@@ -160,7 +165,7 @@ unqualified existing calls and named actuals.
 
 ### Literals and names
 
-A literal is enclosed in double quotes and decodes only printable ASCII bytes
+A String literal is enclosed in double quotes and decodes only printable ASCII bytes
 32 through 126. Doubled quotes encode one quote. Empty literals are allowed;
 literal case, spaces and `--` are preserved. Tabs and line breaks cannot occur
 inside a literal. All delimiters, escapes and trivia still count toward the
@@ -177,7 +182,7 @@ followed by letters or digits, optionally separated by single underscores, witho
 trailing underscore. The 74 Ada 2022 reserved words, `String` and `Silver_IO` are
 excluded ignoring ASCII case. In an argument-bearing shell, `Silver_Arguments` is
 also excluded for **every** declaration. Names in the ordered declaration region must
-be distinct ignoring ASCII case across String, Integer and Boolean objects, named
+be distinct ignoring ASCII case across String, Character, Integer and Boolean objects, named
 Integer subtypes and Integer-array declarations. Loop indexes and elements
 have the scoped hiding rules below. `Main` is legal; `Silver_Arguments` remains legal
 in the static shell. Every reference matches the entire declared identifier ignoring
@@ -190,6 +195,7 @@ After the pragma, each nonargument output form has zero or more declarations:
 
 ```text
 declaration ::= name ":" [ "constant" ] "String" ":=" expression ";"
+              | name ":" [ "constant" ] "Character" ":=" character_expression ";"
               | name ":" [ "constant" ] "Boolean" ":=" condition ";"
               | name ":" [ "constant" ] integer_subtype_mark
                 [ "range" static_scalar_expression ".." static_scalar_expression ]
@@ -201,13 +207,14 @@ integer_subtype_mark ::= "Integer" | earlier_named_integer_subtype
 ```
 
 Each declaration introduces exactly one name. Every object initializer is required;
-a String initializer may read earlier String constants or mutable objects and
+a String initializer may read or slice earlier String constants or mutable objects and
 use Integer Image; an Integer initializer may read earlier initialized Integer
 constants or mutable objects, including earlier initialized array components.
 A Boolean initializer uses the condition grammar below and may read earlier
-initialized Boolean objects and existing Integer, String, length and validity
-predicates. Forward, cyclic and self-initializer references are excluded. Each String
-initializer evaluates its literals, earlier names, images and concatenations
+initialized Boolean objects and existing Integer, String, Character, length and validity
+predicates. A Character initializer reads earlier Character objects or indexed
+fixed-bound Strings, or uses a printable Character literal. Forward, cyclic and self-initializer references are excluded. Each String
+initializer evaluates its literals, earlier names, slices, images and concatenations
 immediately; parenthesized subexpressions preserve their grouping. A name
 contributes the source object's current bytes:
 a later write to the source does not change its earlier copies. Constants are
@@ -220,7 +227,9 @@ that API are excluded in this milestone. Every declaration executes before
 body guards; later path facts cannot justify an earlier initializer.
 
 Initialization fixes each object's bounds. An initializer using only static-length
-values has a known fixed length. A dynamic initializer must have exactly one dynamic
+values has a known fixed length and singleton inferred first and last bounds.
+Copies and slices retain their actual bounds, including inverted null ranges.
+A dynamic initializer must have exactly one dynamic
 occurrence and no nonempty non-input contribution, since it executes before guards
 and must fit for every `d <= 4096`. Such an object and `D` share the symbolic
 selected-input length `d`; each object's bounds remain fixed during that execution.
@@ -259,7 +268,8 @@ constraints remain excluded.
 Requiring static endpoints is a current Silver scope restriction, not an Ada
 requirement: Ada permits dynamic object constraints. Admitting those would need
 an elaboration and bound-lifetime argument for captured bounds.
-Integer, Boolean and String values are distinct, with no implicit conversion.
+Integer, Boolean, Character and String values are distinct, with no implicit conversion.
+In particular, a one-byte String is not a Character.
 
 Declaration elaboration computes each exact initial value in order and checks
 that it lies within the declared range. Later initializers capture that value:
@@ -426,6 +436,59 @@ assignment preserve the existing Integer intervals, String bounds and input
 facts; evaluating their RHS still requires every reached expression to be safe.
 Declaration checks use the exact initialized values of earlier Integer objects
 and array components; body checks retain the existing flow and component rules.
+
+### Character objects and fixed-bound String indexing
+
+A Character literal is an apostrophe, one printable ASCII byte (32 through 126),
+and an apostrophe. The apostrophe character itself is written as three consecutive
+apostrophes, `'''`. Space, double quote and operator characters retain their byte
+values; their contents are not operators or comments. No escape notation, Unicode,
+Character conversion, Character attribute or Character subtype is admitted.
+
+```text
+character_expression ::= character_literal | initialized_character_name
+                       | fixed_bound_string_name "(" scalar_expression ")"
+                       | "(" character_expression ")"
+```
+
+A Character object has the visible predefined type `Character`, a required
+initializer and optional `constant`. It stores a snapshot of the initializer's
+one-byte value. The same declaration and scoped hiding rules apply as for other
+objects. `Character` is not reserved, but a declaration with that name hides the
+type mark, including in its own initializer. Character values cannot be used as
+Strings, Integer operands, output arguments or concatenation operands.
+
+An indexed prefix must name a visible initialized String whose actual first and
+last bounds are known at declaration elaboration. The subscript uses the ordinary
+Integer expression rules, including permitted Integer-array reads. Its inferred
+interval must be nonempty and contained in those actual bounds. This rule also
+applies in unreachable arms and empty loops, because the pinned frontend can
+reject predictable static index errors there. A length guard on an input-dependent
+String does not admit indexing: general dynamic-length indexing is outside this
+increment. A null String consequently has no admitted indexed read or write.
+
+A Character literal or name costs one expression leaf. An indexed read costs
+one prefix leaf plus every scalar subscript leaf. Parentheses add no leaves;
+each Character expression has at most 64 leaves. Arithmetic in subscripts shares
+the program's 63-operator budget.
+
+Character comparisons admit `=`, `/=`, `<`, `<=`, `>` and `>=` with predefined
+Character ordering. At least one operand, possibly parenthesized, must be a typed
+Character name or indexed String read. Two unqualified literals are excluded
+because the pinned Ada frontend cannot resolve their type. Both operands are
+checked in the incoming flow. Neither outcome adds byte-equality, ordering,
+Integer or String/input facts; a comparison can appear wherever the existing
+Boolean condition grammar permits it.
+
+Character assignment requires a visible mutable Character target and evaluates
+its RHS before replacing that one value. Indexed String assignment requires a
+visible mutable fixed-bound String, an admitted subscript and a Character RHS.
+Both the target index and RHS read the incoming store. The write replaces exactly
+one element, preserving the target bounds, length, other elements, other objects
+and earlier snapshots. The indexed target and RHS each have an independent
+64-leaf limit. Constants, hidden outer names and loop binders cannot be targets.
+Both assignment forms preserve existing Integer and String/input flow facts.
+Slice assignment targets, Character concatenation and resizing are excluded.
 
 ### Fixed-size Integer arrays
 
@@ -649,20 +712,44 @@ Initialization, assignment, both operands of String equality/inequality, and out
 expression ::= atom { "&" atom }
 atom       ::= L | initialized_string_name | "(" expression ")"
              | "Integer" "'" "Image" "(" scalar_expression ")"
+             | fixed_bound_string_name "(" scalar_expression ".." scalar_expression ")"
 ```
 
-A String expression has one through sixty-four literal/name/Image leaves. Each occurrence
-counts, including empty values and repeated names. Parentheses control grouping;
+A String expression has one through sixty-four leaves. A literal, name or Image
+counts as one; a slice counts its prefix name and every scalar leaf in both
+endpoint expressions. Each occurrence counts, including empty values and repeated names. Parentheses control grouping;
 unparenthesized concatenation associates to the left. The catalogue's `association`
 field for concatenation records this default; its separate parentheses flag
 permits explicit grouping. There is no independent
-parenthesis-depth limit beyond the complete-source bound. Indexing, slices,
-other operators and implicit conversion are excluded. References resolve to
+parenthesis-depth limit beyond the complete-source bound. An indexed read has
+Character type and cannot be a String atom. Other operators and implicit conversion
+are excluded. References resolve to
 initialized objects in the common declaration environment. The output may omit
 an assignment target entirely.
 
+A slice prefix follows the same fixed-bound String visibility rule as an indexed
+read. Its endpoint Integer expressions must each infer a nonempty interval and
+pass their ordinary arithmetic checks. For lower interval `[a,b]`, upper interval
+`[c,d]` and prefix bounds `B .. E`, admission requires either `a > d` (every
+possible slice is null), or `a >= B` and `d <= E` (every potentially nonnull
+slice stays in the prefix). Its length interval is
+`max(0,c-b+1) .. max(0,d-a+1)`, calculated in wide arithmetic. Null slices retain
+the requested inverted bounds, even outside the prefix; they are not rewritten
+to `1 .. 0`. For example, `S (0 .. -1)` is null. Nonnull slices retain their
+requested lower bound. Slices may be grouped, concatenated, compared, output
+and assigned under the ordinary String length rules.
+
+Concatenation retains a nonnull left operand's lower bound and has the sum of
+the operand lengths. If the left operand is null, the result takes the right
+operand's bounds, including its actual inverted bounds when both are null.
+Grouping preserves Ada's corresponding intermediate bounds. A fixed-length
+initializer must infer exact first and last bounds as well as exact length;
+this makes subsequent indexing decidable from stored declaration metadata.
+Whole-String assignment slides equal-length RHS bytes onto the target's unchanged
+bounds. Strings with different lower bounds can therefore be assigned or compared.
+
 Let `[M,N]` be the sum of the non-input length intervals: decoded literals,
-fixed-length String names and Image lengths. Let `K` count dynamic input-length
+fixed-length String names, slices and Image lengths. Let `K` count dynamic input-length
 occurrences, including aliases, and `d` be the selected argument length. The
 expression length lies in `[M + K*d, N + K*d]`; without a varying Image length,
 `M = N` and this is the earlier exact affine length. Concatenation sums both
@@ -693,12 +780,12 @@ Names, types, mutability and static scalar legality remain checked everywhere.
 
 The source has at most **63 operators shared by String concatenation and scalar
 arithmetic**: every `&`, unary or binary `+`/`-`, `*`, `/`, `mod` and `rem` across declarations,
-range constraints, loop bounds, all statements and predicate operands in every arm counts. Operator
-characters in literals/comments and a numeric exponent's `+` do not count.
+range constraints, subscripts, slice endpoints, loop bounds, all statements and predicate
+operands in every arm counts. Operator characters in String/Character literals and comments and a numeric exponent's `+` do not count.
 Each whole `mod`/`rem` keyword counts once. Copies, parentheses, comparisons
 (including `/=`), Boolean logical operators and Image itself consume no operator
 budget. Boolean literal/name leaves do not create a separate Boolean operand
-limit; each embedded Integer or String expression retains its own 64-leaf limit.
+limit; each embedded Integer, String or Character expression retains its own 64-leaf limit.
 This explicit proof-work policy permits a maximal 64-leaf expression or the
 same operator total distributed across positions. The expression and source
 budgets do not bound iteration count, elapsed execution or total proof cost.
@@ -719,6 +806,9 @@ basic_statements ::= basic_statement { basic_statement }
 basic_statement  ::= "null" ";"
                    | reject_name ";"
                    | mutable_name ":=" expression ";"
+                   | mutable_character_name ":=" character_expression ";"
+                   | mutable_fixed_bound_string_name "(" scalar_expression ")"
+                     ":=" character_expression ";"
                    | mutable_integer_name ":=" scalar_expression ";"
                    | mutable_boolean_name ":=" condition ";"
                    | mutable_integer_array_name "(" scalar_index_expression ")"
@@ -841,6 +931,7 @@ condition        ::= relation { "and" "then" relation }
                    | relation { "xor" relation }
 relation         ::= expression ( "=" | "/=" ) expression
                    | scalar_expression comparison scalar_expression
+                   | character_expression comparison character_expression
                    | name "'" "Length" comparison length_operand
                    | boolean_factor [ ( "=" | "/=" ) boolean_factor ]
 boolean_factor   ::= primary | "not" primary
@@ -854,12 +945,12 @@ length_operand   ::= integer_literal | name "'" "Length"
 `validity_name` follows the same context and hiding rules as the other calls.
 
 String equality/inequality compares current bytes, case-sensitively. Unequal lengths
-compare unequal. At least one operand must contain an initialized String name or
+compare unequal. At least one operand must contain an initialized String name, slice or
 Integer Image so Ada resolves the array type. Both operands must fit their incoming
 path bounds before the comparison can establish any further facts.
 
-Length predicates may read any earlier initialized binding, including an alias or
-mutable object. Length remains fixed after initialization. The left operand must be a
+Length predicates may read any earlier initialized String binding, including an alias or
+mutable object; Character objects have no Length. Length remains fixed after initialization. The left operand must be a
 binding's Length. Reversing a literal and Length is excluded to keep one canonical
 comparison orientation in this initial predicate fragment. Arithmetic and attributes
 other than Length are excluded from these length operands; the separate scalar
@@ -878,7 +969,7 @@ comparison.
 evaluates it only after a false left operand. That path's facts justify the right
 operand. A chain uses exactly one of `and then`, `or else`, `and`, `or` or `xor`;
 mixing them requires parentheses, following Ada's grammar. `not` takes one
-primary, so a String or Integer comparison requires `not (A = B)` and repeated
+primary, so a String, Character or Integer comparison requires `not (A = B)` and repeated
 negation requires grouping. Eager `and`, `or` and `xor` evaluate both operands.
 Each operand must be safe under the original incoming facts, independently of
 the other operand's outcome; neither can guard the other. Both result outcomes
@@ -886,7 +977,7 @@ conservatively retain the original incoming scalar and String/input facts.
 Neither operand of `xor` may contain another `xor`, including the implicit left
 operand of a chain. Thus `A xor B` and independent `(A xor B) and (C xor D)`
 are permitted, but `A xor B xor C` and `A xor (B xor C)` are excluded. Operator
-spellings inside quoted strings, comments or longer identifiers do not count.
+spellings inside String or Character literals, comments or longer identifiers do not count.
 This Silver resource restriction prevents repeated duplication by the pinned
 proof producer's xor expansion; Ada itself allows the excluded forms. Multiple
 parity steps can use ordinary Boolean assignments or initializers.
@@ -998,7 +1089,9 @@ The catalogue uses these construct identifiers:
 | `runtime_context`, `argument_context` | Grouped, reordered or repeated with/use clauses for the shell's exact package set; with precedes use. |
 | `string_literal`, `named_string_constant`, `named_string_variable` | Restricted literals and ordered initialized constant/mutable declarations. |
 | `string_copy` | Snapshot initialization and current name reads for compatible assignments. |
-| `string_expression`, `string_concatenation` | One through sixty-four literal/name/Image leaves; sixty-three operators shared with scalar arithmetic. |
+| `string_expression`, `string_concatenation` | One through sixty-four leaves, including slice endpoint leaves; sixty-three operators shared with scalar arithmetic. |
+| `character_literal`, `named_character_constant`, `named_character_variable`, `character_expression`, `character_comparison`, `character_assignment` | Printable Character values, initialized snapshots, assignment and all six comparisons with typed operands; no implicit String conversion or retained comparison facts. |
+| `string_indexing`, `string_element_assignment`, `string_slice` | Fixed-bound String reads, element writes and bounded slices, with nonempty inferred index/endpoint intervals, actual lower bounds and explicit null-slice rules. |
 | `scalar_integer_literal`, `named_integer_constant`, `named_integer_variable`, `integer_range_constraint`, `integer_expression`, `integer_assignment` | Scalar numerals, initialized Integer objects, optional static object constraints, checked interval arithmetic and range-preserving assignments. |
 | `named_integer_subtype` | Direct Integer subtype declarations with nonempty static ranges, scalar object subtype marks and bounded fixed-array component marks. |
 | `integer_array_object`, `integer_array_read`, `integer_array_assignment` | Explicitly initialized anonymous fixed-size Integer arrays, nonempty interval-checked subscripts and component-preserving indexed assignment. |

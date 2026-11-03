@@ -950,12 +950,24 @@ length, overflow or nonzero-divisor channel and its scalar, Image, loop or
 String/path schema;
 report acceptance is not that correspondence proof.
 
-The arithmetic argument bounds each admitted String value by 4096 bytes and
-accounts for predefined concatenation's range arithmetic. Its conservative
-range bound fits Ada's required minimum `Integer'Last` of 32767. The existing
-`Guarded.RangeObligation` theory decides the uniform bound and covers empty and
-nonempty ranges. Literal/object bounds and the normalized argument result supply
-the inherited lower-bound behavior. No fixed prefix/suffix grammar is required.
+The length argument bounds each admitted String value by 4096 bytes.
+`Guarded.RangeObligation` decides its conservative uniform length bound using
+Ada's required minimum `Integer'Last` of 32767. Actual endpoints of fixed-bound
+slices, copies and concatenations require an additional argument: source-derived
+metadata bounds each nonnull first index by a declaration-count-scaled ceiling,
+and the covered expression length bounds every grouped intermediate. The
+resulting endpoint bound uses the pinned signed-32-bit `Integer'Last` of
+2147483647, rather than 32767. The actual execution store retains null
+endpoints; dynamic metadata may use a different valid null interval. The checked
+repair relates these intervals by null equivalence, without assuming equal
+endpoints for every empty String.
+`Predicate.source_actual_string_bounds_assured` now derives the initialized
+bounds store from the source and connects these facts to the exact source-schema
+inventory, raw initializers, reached body expressions and every loop iteration.
+Both `Current.admitted_assurance` and `Current.every_meaning_assured` expose
+this guarantee. The [#304 semantic review](reviews/string-character-core-20261031.md)
+accepted that connection; the complete integrated native and actual-source
+checkpoint for this feature remains pending.
 
 `Current.all_obligations_discharge` proves terminating mathematical discharge
 for every admitted meaning; `fragment_checks_valid` supplies schema validity.

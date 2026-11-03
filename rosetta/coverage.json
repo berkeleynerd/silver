@@ -47944,34 +47944,28 @@
    "effects": [
     {
      "effect": "console-output",
-     "explanation": "Put_Line prints a verdict for each embedded sample string."
+     "explanation": "Prints the computed result or verdict with Silver_IO.Put_Line."
     }
    ],
    "surface": [
-    "functions",
-    "booleans",
-    "unconstrained-arrays",
-    "string-indexing",
-    "for-loops",
-    "integers",
-    "integer-division",
-    "characters"
+    "bounded-string-characters",
+    "scalar-boolean-objects",
+    "integer-for-loops"
    ],
    "outlook": "likely",
-   "risks": [
-    {
-     "obligation": "index",
-     "explanation": "Text (Text'First + Offset) and Text (Text'Last - Offset) stay in Text'Range because Offset is below Text'Length / 2, which the provers derive from the for-loop bounds with linear arithmetic only."
-    },
-    {
-     "obligation": "overflow",
-     "explanation": "Text'First + Offset never exceeds Text'Last and Text'Last - Offset never drops below Text'First, so the sums stay within Integer; the empty string gives the empty range 0 .. -1 and the loop never runs."
-    }
-   ],
-   "size": 35,
-   "approach": "A pure function Palindrome (Text : String) return Boolean runs a for loop from 0 to Text'Length / 2 - 1, compares the Character at Text'First + Offset with the one at Text'Last - Offset, and returns False on the first mismatch, otherwise True. Main embeds a few sample strings (palindromes, non-palindromes and the empty string) and prints a verdict line for each with Put_Line. The extra-credit parts (Unicode, inexact matching) are left out.",
-   "summary": "The only loop is a for loop, which terminates by itself, and every index is bounded by the loop range and the string's own bounds, so no annotation is needed.",
-   "confidence": "high"
+   "risks": [],
+   "size": 29,
+   "approach": "The driver samples/rosetta_palindrome_detection.adb embeds racecar and silver. It resets a Boolean flag for each String, scans the first three positions, compares each Character with its mirrored position (8-Index or 7-Index), and clears the flag on a mismatch. It prints a palindrome verdict for racecar and a non-palindrome verdict for silver. The task permits a program instead of a function; Unicode and inexact matching are optional and excluded.",
+   "summary": "Every read stays within its fixed String bounds. The Boolean accumulator is a stored value, and the algorithm checks actual bytes rather than comparing the input with a precomputed answer. Both positive and negative examples execute. The exact program was exercised by the native stress run; complete feature assurance and delivery remain pending in docs/bounded-string-characters.md.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-31",
+    "record": "assessment-bounded-string-characters-20261031.md",
+    "model": "gpt-6-astra",
+    "effort": "xhigh",
+    "setting_evidence": "Selected integration setting inherited from the bounded subthread; live model and effort not independently exposed",
+    "method": "Implementation assessment of cached task wording, exact bounded drivers and expected results; complete validation and independent review remain pending in the capability record"
+   }
   },
   "Palindromic gapful numbers": {
    "revision": 413827,
@@ -57732,22 +57726,27 @@
    "effects": [
     {
      "effect": "console-output",
-     "explanation": "The reversed string is printed with Silver_IO.Put_Line."
+     "explanation": "Prints the computed result or verdict with Silver_IO.Put_Line."
     }
    ],
    "surface": [
-    "integers",
-    "characters",
-    "string-indexing",
-    "for-loops",
-    "arrays"
+    "bounded-string-characters",
+    "integer-for-loops"
    ],
    "outlook": "likely",
    "risks": [],
    "size": 14,
-   "approach": "Embed \"asdf\" as a String constant with static bounds 1..4, declare a same-length String variable initialised with a placeholder aggregate, and run a for loop over the source's own index range copying Source (I) into Result (Source'Last - I + Source'First) before printing it. The mirrored index is always in range because I is bounded by the constant's static bounds, so no guard or loop invariant is needed.",
-   "summary": "Every index and arithmetic check follows from static string bounds and a for-loop over the array's own range, so the checks discharge without annotations; the Unicode combining-character extra credit is optional and omitted.",
-   "confidence": "high"
+   "approach": "The driver samples/rosetta_reverse_a_string.adb embeds silver in a mutable String and retains an immutable original snapshot. For Index in 1..3 it saves Text(Index) in a Character temporary, replaces that element with Text(7-Index), and restores the saved byte at the mirrored position. It prints silver -> revlis. This performs the required reversal in place; optional Unicode combining-character handling is excluded.",
+   "summary": "Both subscript intervals stay inside 1..6, and each swap reads the RHS before the write. The temporary preserves the byte overwritten by the first write and the earlier String copy preserves the original. The exact program was exercised by the native stress run; complete feature assurance and delivery remain pending in docs/bounded-string-characters.md.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-31",
+    "record": "assessment-bounded-string-characters-20261031.md",
+    "model": "gpt-6-astra",
+    "effort": "xhigh",
+    "setting_evidence": "Selected integration setting inherited from the bounded subthread; live model and effort not independently exposed",
+    "method": "Implementation assessment of cached task wording, exact bounded drivers and expected results; complete validation and independent review remain pending in the capability record"
+   }
   },
   "Reverse the gender of a string": {
    "revision": 414444,
@@ -60486,24 +60485,34 @@
    "effects": [
     {
      "effect": "console-output",
-     "explanation": "Prints the source and result strings with Put_Line."
+     "explanation": "Prints the computed result or verdict with Silver_IO.Put_Line."
     }
    ],
    "surface": [
-    "integers",
-    "ranged-subtypes",
-    "characters",
-    "string-indexing",
-    "for-loops",
-    "procedures",
-    "put"
+    "bounded-string-characters",
+    "bounded-mutable-integers",
+    "scalar-guard-refinement",
+    "integer-for-loops"
    ],
    "outlook": "likely",
-   "risks": [],
-   "size": 35,
-   "approach": "Embed \"abracadabra\" as a constant String and copy it into a fixed-length String variable Result. Replace is a procedure with parameters Letter, Occurrence (a Positive subtype), the replacement By and the String Result. It uses a for loop over the string's own index range with a Natural counter of matches seen, and on reaching the Occurrence-th match it overwrites that position and stops with an explicit flag. Missing occurrences leave the string unchanged, which is the task's specified outcome, and the program prints the source, \" => \" and the result.",
-   "summary": "Every index comes from a for loop over the string's own range and the counter is bounded by the string length, so all checks follow from types and loop bounds with no annotations needed. The program has no recursion, heap use or user input.",
-   "confidence": "high"
+   "risks": [
+    {
+     "obligation": "range",
+     "explanation": "Each occurrence counter is incremented only under a direct comparison with its declared maximum (5 for a, 2 for b and r)."
+    }
+   ],
+   "size": 42,
+   "approach": "The driver samples/rosetta_selective_character_replacement.adb scans the task String abracadabra once. A Character snapshot selects one of three bounded occurrence counters. It replaces a occurrences 1,2,4,5 by A,B,C,D, b occurrence 1 by E and r occurrence 2 by F; all other bytes remain. It prints the task-required AErBcadCbFD. Each counter increment is guarded by its declared maximum.",
+   "summary": "The fixed loop keeps all indexed reads and writes within 1..11. The current byte is captured before mutation, and occurrence counters implement the requested selection instead of hardcoding final positions or output. Guards establish counter range containment using the existing scalar-flow rules. The exact program was exercised by the native stress run; complete feature assurance and delivery remain pending in docs/bounded-string-characters.md.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-31",
+    "record": "assessment-bounded-string-characters-20261031.md",
+    "model": "gpt-6-astra",
+    "effort": "xhigh",
+    "setting_evidence": "Selected integration setting inherited from the bounded subthread; live model and effort not independently exposed",
+    "method": "Implementation assessment of cached task wording, exact bounded drivers and expected results; complete validation and independent review remain pending in the capability record"
+   }
   },
   "Self numbers": {
    "revision": 414015,
