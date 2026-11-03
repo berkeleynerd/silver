@@ -37,7 +37,8 @@ bytes did not rerun validation. Failed runs retain their failed status.
 | `20261103T174845-2485475c8238` | Isolated helper repair passed with a fresh 12,818-declaration audit. |
 | `20261103T190906-eeb647b2db40` | Integrated helper repair passed with the same fresh audit scope. This is partial validation. |
 | `20261103T175811-5ecfadfa25c5` | Failed Predicate candidate check at 4 GiB: scalar and Character candidate kernel memory limits. An unchanged-input retry is separately tracked. |
-| `20261031T214130-1e0195247bd5` and `20261031T215153-7280a74a41c2` | The first installed-Lean fixture run failed one of seven methods; the subsequent two-method module-fixture repair passed. The [fixture packet](validation/installed-lean-fixtures/index.json) retains logs, exact inputs and the prepared reuse account; final independent applicability review remains required. |
+| `20261103T182419-61bbb1c84d64` | Failed Predicate candidate retry at 8 GiB: scalar and Character subcandidates passed, but the final candidate reported eight kernel memory-limit diagnostics. No fresh audit ran. |
+| `20261031T214130-1e0195247bd5` and `20261031T215153-7280a74a41c2` | The first installed-Lean fixture run failed one of seven methods; the subsequent two-method module-fixture repair passed. The [fixture packet](validation/installed-lean-fixtures/index.json) retains logs, exact inputs and the original prepared reuse account. The [independent bounded review](../../reviews/string-character-fixture-reuse-20261103.md) approves those seven results for the reviewed inputs. |
 
 These records do not yet include a successful complete native or Lean/source
 checkpoint, complete final regression coverage, or a closing delivery review.

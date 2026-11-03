@@ -379,12 +379,12 @@ The integrated run took 346.975 managed seconds. These are focused results.
 
 An isolated Predicate-candidate check exposed scalar and Character certificate
 memory failures at 4 GiB. Those unchanged modules passed during the 8 GiB retry;
-its final candidate and fresh audit remain pending. The next complete cached
-Lean/source check is planned with one worker, one thread and 24 GiB after that
-dense job ends and host headroom is checked. Historical successful output-body
-and Predicate certificate records used that allowance; they do not establish
-a measured memory requirement. The native full regression suite will be
-coordinated separately because its peak memory is unknown.
+the final candidate subsequently failed as recorded below. The complete cached
+Lean/source check uses one worker, one thread and 24 GiB after that dense job
+ended and host headroom was checked. Historical successful output-body and
+Predicate certificate records used that allowance; they do not establish a
+measured memory requirement. The native full regression suite is coordinated
+separately because its peak memory is unknown.
 
 Pre-suite inspection also corrected three legacy test expectations that rejected
 now-admitted fixed-bound slices and aligned exact catalogue assertions. Positive
@@ -394,3 +394,32 @@ Lean proof inputs. Complete validation, independent final reuse/evidence review,
 Rosetta promotion and delivery remain outstanding. The selected integration and
 worker settings remain Astra / Extra High and Sol / Extra High respectively;
 runtime confirmation and token/cost measurements are unavailable.
+
+The subsequent Predicate retry `20261103T182419-61bbb1c84d64` terminated after
+3,683.624 managed seconds with eight explicit 8 GiB kernel memory-limit
+diagnostics in its final candidate. No source-equality mismatch was reported,
+and no fresh audit ran. Its failed record is retained separately. A bounded
+source/tool/artifact comparison selected ordinary incremental reuse: the
+Character object already matches the integration workspace, while five cheap
+Scalar dependencies differ. No objects were copied or traces rewritten.
+Complete cached run `20261103T192928-ecb0a9199439` started with one worker,
+one thread and 24 GiB; its outcome remains pending.
+
+### Independent installed-Lean fixture reuse review — 2026-11-03
+
+The [bounded independent review](reviews/string-character-fixture-reuse-20261103.md)
+accepts the seven retained installed-Lean fixture results at `53e2572ab4`, with
+no rerun required. It inspected the actual temporary-project dependencies and
+verified 50 unique input paths, including the generator omitted from the
+prepared dependency inventory. Five successful methods from the failed first
+run and both repaired module methods cover the seven required fixture IDs.
+The first run remains failed. The review selected GPT-6 Astra / Extra High and
+took 172 seconds; runtime model confirmation and token/cost measurements were
+unavailable.
+
+All 578 test IDs are unchanged. The lead inventory was refreshed after review
+to capture the four later slice/catalogue test repairs, preserving the historical
+inventory. Native synchronization and a refreshed exact-byte inventory remain
+required before its full suite. This closes only the bounded fixture-reuse
+question; final complete-suite accounting and independent delivery review remain
+outstanding.
