@@ -1461,7 +1461,7 @@ is
       Following : constant Literal_Position := Take_Token (Text, Value.After, Semicolon);
    begin
       if not New_Name_Allowed (Text, State, First, After, Arguments)
-        or else Type_After = 0 or else Following = 0 or else State.Names.Count = Max_Bindings
+        or else Type_After = 0 or else Following <= State.Position or else State.Names.Count = Max_Bindings
         or else Name_Is (Text, First, After, "character")
         or else Lookup_Name (Text, State.Names, Type_First, Type_After) /= 0
         or else Scalar_Expressions.Lookup (Text, State.Scalar_Names, Type_First, Type_After) /= 0
