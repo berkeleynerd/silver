@@ -459,7 +459,35 @@ runtime settings and token/cost totals were unavailable. Native work selected
 Sol / Extra High and semantic/integration work Astra / Extra High.
 
 Complete repaired Lean/source run `20261103T203357-33c8b5720ddd` started with
-one worker, one thread and 24 GiB on the committed integration. Both complete
-checkpoints remain pending. The native suite is held until the dense Lean phase
-ends, followed by final inventory accounting, delivery/Rosetta synchronization
-and independent closing review. PR #307 remains draft and open.
+one worker, one thread and 24 GiB on the committed integration. It passed the
+previous 8 GiB memory range without a diagnostic and remains active.
+
+At 21:58 UTC the growing source certificate and native parser proof reduced
+available host memory to 3.279 GiB. The native runner was gracefully interrupted
+to preserve both streams' work. Run `20261103T201920-c39bcc381ac2` records
+**interrupted**, exit 130, after 5,922.615 seconds with no failure keys. All
+2,582 captured inputs remain unchanged; 75 partial SPARK reports and the native
+proof cache are retained. There is no completed native provenance manifest or
+audit claim. Source validation continues unchanged, and available memory
+recovered to about 9.5 GiB after the interruption. These are sampled observations,
+not measured peak requirements.
+
+The output-body certificate subsequently passed in 5,090 seconds, releasing
+that dense phase's memory. Its successful module build is retained while the
+complete source build and fresh whole-project audit continue; it is not a
+complete source-assurance claim. The complete native check resumed as
+`20261103T220251-899976574bd0` with identical source/tool inputs and canonical
+settings. Retained native work returned it to the interrupted chain-reading
+frontier in 53 seconds. The matching build was reused without repetition.
+
+The [interrupted native packet](evidence/bounded-string-characters-20261031/validation/20261103T201920-c39bcc381ac2/archive.json)
+retains the exact managed record, partial reports, input identities and sampled
+resource observations; every indexed archive member was hash-verified on export.
+The final native sync now matches all 886 validation inputs, all 578 test IDs
+and all 50 reviewed fixture dependency paths. No captured native input changed.
+
+The suite remains held for the remaining dense source work: its sample compiler uses
+`-j0` independently of the managed test worker reservation, so that reservation
+does not bound its total prover memory. Both complete checkpoints, final suite
+accounting, delivery/Rosetta synchronization and independent closing review
+remain required. PR #307 remains draft and open.

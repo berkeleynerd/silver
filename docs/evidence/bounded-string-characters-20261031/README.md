@@ -27,8 +27,8 @@ source-derived reasoning separate from these finite observations.
 ## Resumed validation records
 
 The [validation directory](validation/) preserves terminal managed records,
-original logs and available detailed proof evidence. Each run's `index.json`
-records the original and compressed SHA-256 values. Exporting these existing
+original logs and available detailed proof evidence. Each packet's `index.json`
+or `archive.json`/`files.json` records its source and retained SHA-256 values. Exporting these existing
 bytes did not rerun validation. Failed runs retain their failed status.
 
 | Run | Result and scope |
@@ -39,6 +39,7 @@ bytes did not rerun validation. Failed runs retain their failed status.
 | `20261103T175811-5ecfadfa25c5` | Failed Predicate candidate check at 4 GiB: scalar and Character candidate kernel memory limits. An unchanged-input retry is separately tracked. |
 | `20261103T182419-61bbb1c84d64` | Failed Predicate candidate retry at 8 GiB: scalar and Character subcandidates passed, but the final candidate reported eight kernel memory-limit diagnostics. No fresh audit ran. |
 | `20261103T192928-ecb0a9199439` | Intentionally interrupted old-source 24 GiB check for the subsequent Character guard repair. No memory or source-equality failure occurred in this attempt. |
+| [`20261103T201920-c39bcc381ac2`](validation/20261103T201920-c39bcc381ac2/archive.json) | Native run intentionally interrupted when available host memory fell below 4 GiB during concurrent dense source validation. Exit 130, no failure keys, all 2,582 inputs unchanged; 75 partial SPARK reports and native cache retained. It is not a completed proof/audit. |
 | [Character progress equivalence](validation/character-progress-equivalence/index.json) | Successful focused run `20261103T202419-5f35a847709a`: both helper targets, fresh 14,821-declaration audit, exact provenance and retained failed development attempts. Accepted by the [bounded repair review](../../reviews/string-character-progress-guard-20261103.md); complete native/source assurance remains separate. |
 | `20261031T214130-1e0195247bd5` and `20261031T215153-7280a74a41c2` | The first installed-Lean fixture run failed one of seven methods; the subsequent two-method module-fixture repair passed. The [fixture packet](validation/installed-lean-fixtures/index.json) retains logs, exact inputs and the original prepared reuse account. The [independent bounded review](../../reviews/string-character-fixture-reuse-20261103.md) approves those seven results for the reviewed inputs. |
 

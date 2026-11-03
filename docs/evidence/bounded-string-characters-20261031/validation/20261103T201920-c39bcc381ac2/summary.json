@@ -1,0 +1,18 @@
+{
+  "prepared_at": "2026-11-03T21:59:45.757661+00:00",
+  "run_id": "20261103T201920-c39bcc381ac2",
+  "state": "Intentionally interrupted for actual host resource threshold; neither successful nor failed proof",
+  "finish_utc": "2026-11-03T21:58:04.989955+00:00",
+  "duration_seconds": 5922.614721327,
+  "observed_exec_session": 74844,
+  "observed_session_exit_code": 130,
+  "managed_outcome": "interrupted",
+  "native_input_count_verified": 2582,
+  "input_mismatches": 0,
+  "partial_spark_reports": 75,
+  "full_native_audit_complete": false,
+  "interruption_reason": "Host MemAvailable3.279GiB with ongoing growth, below lead-authorized4GiB threshold during concurrent dense Lean phase; SIGINT only to verified isolated nativePGID54656",
+  "preserved": "All normal proof sessions/cache and compiler object workspace remain intact locally; no cache injection, installations, moves, broad cleanup, solver/default changes or source input changes",
+  "next_step": "After dense Lean terminal, resume same-input canonical full native proof/audit using retained warm native sessions/cache; full regression suite remains held",
+  "model_effort": "Inherited current agent setting; runtime settings and token/cost measurements unavailable"
+}
