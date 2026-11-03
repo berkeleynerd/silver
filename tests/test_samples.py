@@ -97,10 +97,10 @@ class SupportedSampleTests(unittest.TestCase):
                 self.assertEqual(len(snapshots), 1, "missing byte-identical proof/build source")
                 reports = list(workspace.rglob("gnatprove.sarif"))
                 self.assertEqual(len(reports), 1)
-                # Boolean writes select the existing assignment policy and its
-                # advisories; they introduce no additional accepted report class.
+                # Every admitted write selects the existing assignment policy
+                # and its advisories, including Character and String elements.
                 assignment = bool({"string_assignment", "integer_assignment", "integer_array_assignment",
-                                   "boolean_assignment"}
+                                   "boolean_assignment", "character_assignment", "string_element_assignment"}
                                   & set(sample["capabilities"]))
                 output = "runtime_context" in sample["capabilities"]
                 self.assert_application_proof_policy(reports[0], output=output)

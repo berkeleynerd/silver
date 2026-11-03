@@ -140,10 +140,13 @@ class LeanModuleTests(unittest.TestCase):
                 'module\nimport Silver.Provider\n'
                 'public theorem Silver.consumer : True := Silver.api\n'),
             "Silver.lean": 'module\npublic import Silver.Consumer\n',
+            # The complete audit also imports this independent candidate.
+            "Silver/ComposeBooleanDeclarationCandidate.lean": 'module\n',
             "Silver/AxiomAudit.lean": (ROOT / "proof/Silver/AxiomAudit.lean").read_text(),
             "Silver/Audit.lean": (ROOT / "proof/Silver/Audit.lean").read_text(),
         })
-        self.assert_success(self.build("Silver", "Silver.AxiomAudit"))
+        self.assert_success(self.build("Silver", "Silver.ComposeBooleanDeclarationCandidate",
+                                       "Silver.AxiomAudit"))
         focused = self.host.proof / ".lake/silver-focused-audit.lean"
         focused.write_text("import Silver.Consumer\nimport Silver.AxiomAudit\n\n#silver_audit\n")
         for driver in ("Silver/Audit.lean", ".lake/silver-focused-audit.lean"):

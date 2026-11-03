@@ -1855,6 +1855,114 @@
         "stderr": "",
         "exit_status": 0
       }
+    },
+    {
+      "source": "rosetta_reverse_a_string.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "named_string_constant",
+        "named_string_variable",
+        "for_loop",
+        "integer_expression",
+        "string_indexing",
+        "character_literal",
+        "expression_output",
+        "named_character_variable",
+        "character_assignment",
+        "string_element_assignment",
+        "string_concatenation"
+      ],
+      "specification": "../language.md#character-objects-and-fixed-bound-string-indexing",
+      "expected": {
+        "stdout": "silver -> revlis\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    {
+      "source": "rosetta_palindrome_detection.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "named_string_constant",
+        "for_loop",
+        "integer_expression",
+        "string_indexing",
+        "character_comparison",
+        "expression_output",
+        "named_boolean_variable",
+        "boolean_assignment",
+        "boolean_expression",
+        "string_choice",
+        "string_concatenation"
+      ],
+      "specification": "../language.md#character-objects-and-fixed-bound-string-indexing",
+      "expected": {
+        "stdout": "racecar: palindrome\nsilver: not a palindrome\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    {
+      "source": "rosetta_selective_character_replacement.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "named_string_variable",
+        "for_loop",
+        "integer_expression",
+        "string_indexing",
+        "character_comparison",
+        "expression_output",
+        "named_character_variable",
+        "character_assignment",
+        "character_literal",
+        "string_element_assignment",
+        "named_integer_variable",
+        "integer_range_constraint",
+        "integer_assignment",
+        "scalar_guard_refinement",
+        "string_choice"
+      ],
+      "specification": "../language.md#character-objects-and-fixed-bound-string-indexing",
+      "expected": {
+        "stdout": "AErBcadCbFD\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    {
+      "source": "string_character_bounds.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "named_string_constant",
+        "named_string_variable",
+        "named_character_constant",
+        "named_character_variable",
+        "character_assignment",
+        "character_literal",
+        "character_comparison",
+        "string_indexing",
+        "string_element_assignment",
+        "string_slice",
+        "string_assignment",
+        "string_concatenation",
+        "string_choice",
+        "boolean_predicate",
+        "expression_output"
+      ],
+      "specification": "../language.md#character-objects-and-fixed-bound-string-indexing",
+      "expected": {
+        "stdout": "Xc\nab\n",
+        "stderr": "",
+        "exit_status": 0
+      }
     }
   ]
 }

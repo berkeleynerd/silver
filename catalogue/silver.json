@@ -50,10 +50,16 @@
       "id": "literal_output",
       "ada_kind": "procedure_call_statement",
       "conditions": {
-        "operations": ["Silver_IO.Put_Line", "Silver_IO.Put"],
+        "operations": [
+          "Silver_IO.Put_Line",
+          "Silver_IO.Put"
+        ],
         "qualification_required": false,
         "unqualified_requires": "use clause for operation package and no local same-name binding",
-        "parameter_associations": ["positional", "named"],
+        "parameter_associations": [
+          "positional",
+          "named"
+        ],
         "formal_parameter": "Item",
         "arguments": [
           "string_literal"
@@ -108,19 +114,26 @@
         "copy_semantics": "snapshot of the earlier initialized value; later source assignments do not change the copy",
         "unused_allowed": true,
         "argument_initializer_position": "first and unique binding in argument-bearing forms only",
-        "shared_name_environment": "String, Integer and Boolean objects, named Integer subtypes and Integer-array declarations; scoped loop indexes and elements may hide them in bodies",
+        "shared_name_environment": "String, Character, Integer and Boolean objects, named Integer subtypes and Integer-array declarations; scoped loop indexes and elements may hide them in bodies",
         "integer_type_hiding": "a String binding named Integer hides the Image type mark in its own initializer and later source",
-        "initializer_image_length": "non-input minimum and maximum must agree; Image captures exact initial values of earlier Integer objects and array components"
+        "initializer_image_length": "non-input minimum and maximum must agree; Image captures exact initial values of earlier Integer objects and array components",
+        "fixed_initializer_bounds": "first and last endpoint intervals must each be singleton; actual slice/copy/concatenation lower bounds retained, including arbitrary null bounds"
       }
     },
     {
       "id": "named_output",
       "ada_kind": "procedure_call_statement",
       "conditions": {
-        "operations": ["Silver_IO.Put_Line", "Silver_IO.Put"],
+        "operations": [
+          "Silver_IO.Put_Line",
+          "Silver_IO.Put"
+        ],
         "qualification_required": false,
         "unqualified_requires": "use clause for operation package and no local same-name binding",
-        "parameter_associations": ["positional", "named"],
+        "parameter_associations": [
+          "positional",
+          "named"
+        ],
         "formal_parameter": "Item",
         "arguments": [
           "declared_string_identifier"
@@ -156,7 +169,10 @@
         "operation": "Silver_Arguments.First_Or_Default",
         "qualification_required": false,
         "unqualified_requires": "use clause for Silver_Arguments and input binding not named First_Or_Default; later bindings do not hide this initializer",
-        "parameter_associations": ["positional", "named"],
+        "parameter_associations": [
+          "positional",
+          "named"
+        ],
         "formal_parameter": "Default",
         "own_binding_hides_unqualified_call": true,
         "arguments": [
@@ -207,7 +223,8 @@
         "operand_kinds": [
           "string_literal",
           "bound_string_name",
-          "integer_image"
+          "integer_image",
+          "string_slice"
         ],
         "association": "left",
         "min_operands": 2,
@@ -224,10 +241,16 @@
       "id": "concatenated_output",
       "ada_kind": "procedure_call_statement",
       "conditions": {
-        "operations": ["Silver_IO.Put_Line", "Silver_IO.Put"],
+        "operations": [
+          "Silver_IO.Put_Line",
+          "Silver_IO.Put"
+        ],
         "qualification_required": false,
         "unqualified_requires": "use clause for operation package and no local same-name binding",
-        "parameter_associations": ["positional", "named"],
+        "parameter_associations": [
+          "positional",
+          "named"
+        ],
         "formal_parameter": "Item",
         "arguments": [
           "string_concatenation"
@@ -281,9 +304,10 @@
         "bounds": "fixed by initialized value",
         "copy_semantics": "snapshot of the earlier initialized value; later source assignments do not change the copy",
         "unused_allowed": true,
-        "shared_name_environment": "String, Integer and Boolean objects, named Integer subtypes and Integer-array declarations; scoped loop indexes and elements may hide them in bodies",
+        "shared_name_environment": "String, Character, Integer and Boolean objects, named Integer subtypes and Integer-array declarations; scoped loop indexes and elements may hide them in bodies",
         "integer_type_hiding": "a String binding named Integer hides the Image type mark in its own initializer and later source",
-        "initializer_image_length": "non-input minimum and maximum must agree; Image captures exact initial values of earlier Integer objects and array components"
+        "initializer_image_length": "non-input minimum and maximum must agree; Image captures exact initial values of earlier Integer objects and array components",
+        "fixed_initializer_bounds": "first and last endpoint intervals must each be singleton; actual slice/copy/concatenation lower bounds retained, including arbitrary null bounds"
       }
     },
     {
@@ -298,7 +322,8 @@
         "output_must_reference_result": false,
         "self_assignment": true,
         "count": "finite_within_complete_source_bound",
-        "targets": "any initialized mutable String binding; targets may differ between statements and branches"
+        "targets": "any initialized mutable String binding; targets may differ between statements and branches",
+        "bounds_semantics": "equal-length RHS slides onto unchanged target bounds; evaluate RHS in incoming store before mutation"
       }
     },
     {
@@ -329,7 +354,8 @@
         "operand_kinds": [
           "string_literal",
           "bound_string_name",
-          "integer_image"
+          "integer_image",
+          "string_slice"
         ],
         "min_operands": 1,
         "max_operands": 64,
@@ -340,7 +366,7 @@
         "max_result_bytes": 4096,
         "static_references": "each static-length binding occurrence counted at its fixed length",
         "empty_operands_count": true,
-        "program_budget_counts": "all &, unary/binary + and -, and * in declarations, loop bounds, statements and predicates in every arm; numeric exponent signs and literal/comment bytes excluded",
+        "program_budget_counts": "all &, unary/binary + and -, *, /, mod and rem in declarations, indexes, slice endpoints, loop bounds, statements and predicates in every arm; numeric exponent signs and String/Character literal/comment bytes excluded",
         "dynamic_references": "counted with multiplicity at the maximum reachable input length; invalid initializer length is zero",
         "positions": [
           "initializer",
@@ -351,17 +377,26 @@
         "image_lengths": "minimum and maximum decimal Image length over the scalar interval; add both endpoints under concatenation",
         "program_operator_budget": 63,
         "length_summary": "[minimum_non_input + dynamic_count*d, maximum_non_input + dynamic_count*d]; d is selected input length",
-        "empty_image": "no possible value; other operands retain their length contributions and resource checks"
+        "empty_image": "no possible value; other operands retain their length contributions and resource checks",
+        "operand_accounting": "literal/name/Image: one leaf; slice: prefix name plus every scalar endpoint leaf; empty and repeated operands count",
+        "slice_lengths": "independent endpoint intervals [a,b] and [c,d] contribute [max(0,c-b+1), max(0,d-a+1)]",
+        "actual_bounds": "copies and slices retain actual bounds; concatenation retains a nonnull left operand first index, otherwise uses the right operand bounds"
       }
     },
     {
       "id": "expression_output",
       "ada_kind": "procedure_call_statement",
       "conditions": {
-        "operations": ["Silver_IO.Put_Line", "Silver_IO.Put"],
+        "operations": [
+          "Silver_IO.Put_Line",
+          "Silver_IO.Put"
+        ],
         "qualification_required": false,
         "unqualified_requires": "use clause for operation package and no local same-name binding",
-        "parameter_associations": ["positional", "named"],
+        "parameter_associations": [
+          "positional",
+          "named"
+        ],
         "formal_parameter": "Item",
         "arguments": [
           "string_expression"
@@ -425,7 +460,7 @@
         "else": [
           "statement_sequence"
         ],
-        "comparison": "predefined String equality/inequality, fixed Length comparisons, Integer comparisons and argument validity",
+        "comparison": "predefined String equality/inequality, Character ordering/equality, fixed Length comparisons, Integer comparisons and argument validity",
         "nested_equality_conditionals": true,
         "elsif_count": "finite_within_complete_source_bound",
         "nesting": "finite_within_complete_source_bound",
@@ -442,6 +477,8 @@
       "conditions": {
         "items": [
           "null_statement",
+          "character_assignment",
+          "string_element_assignment",
           "string_assignment",
           "integer_assignment",
           "boolean_assignment",
@@ -542,7 +579,7 @@
           "parenthesized_condition"
         ],
         "not": "one primary; repeated negation requires grouping",
-        "relations": "existing safe String, length and Integer comparisons, plus Boolean equality and inequality",
+        "relations": "existing safe String, Character, length and Integer comparisons, plus Boolean equality and inequality",
         "chains": [
           "and",
           "or",
@@ -566,7 +603,7 @@
           "general enumeration iteration",
           "Boolean-valued user routines"
         ],
-        "xor_operands": "neither operand may contain xor; strings, comments and identifier substrings do not count; independent xor expressions remain permitted",
+        "xor_operands": "neither operand may contain xor; String/Character literals, comments and identifier substrings do not count; independent xor expressions remain permitted",
         "xor_scope_purpose": "avoid repeated formula multiplication in the pinned proof producer; not an Ada restriction"
       }
     },
@@ -598,7 +635,8 @@
           "not_primary",
           "boolean_literal",
           "boolean_name",
-          "boolean_comparison"
+          "boolean_comparison",
+          "character_comparison"
         ],
         "chains": [
           "and then",
@@ -618,7 +656,7 @@
         "boolean_literals": true,
         "eager_operators": true,
         "scope_purpose": "short-circuit predicates retain reached-path facts; stored Boolean values and eager outcomes retain no derived scalar or String/input facts",
-        "xor_operands": "neither operand may contain xor; strings, comments and identifier substrings do not count; independent xor expressions remain permitted",
+        "xor_operands": "neither operand may contain xor; String/Character literals, comments and identifier substrings do not count; independent xor expressions remain permitted",
         "xor_scope_purpose": "avoid repeated formula multiplication in the pinned proof producer; not an Ada restriction"
       }
     },
@@ -725,7 +763,7 @@
         "exclude_ada_2022_reserved_words": true,
         "case_insensitive_binding": true,
         "all_declared_names_distinct_ignoring_case": true,
-        "shared_name_environment": "String, Integer and Boolean objects, named Integer subtypes and Integer-array declarations; scoped loop indexes and elements may hide them in bodies",
+        "shared_name_environment": "String, Character, Integer and Boolean objects, named Integer subtypes and Integer-array declarations; scoped loop indexes and elements may hide them in bodies",
         "type_mark_visible": true,
         "declaration_context": "every output shell; after the first argument binding in argument shells",
         "count": "finite_within_complete_source_bound",
@@ -763,7 +801,7 @@
         "exclude_ada_2022_reserved_words": true,
         "case_insensitive_binding": true,
         "all_declared_names_distinct_ignoring_case": true,
-        "shared_name_environment": "String, Integer and Boolean objects, named Integer subtypes and Integer-array declarations; scoped loop indexes and elements may hide them in bodies",
+        "shared_name_environment": "String, Character, Integer and Boolean objects, named Integer subtypes and Integer-array declarations; scoped loop indexes and elements may hide them in bodies",
         "type_mark_visible": true,
         "declaration_context": "every output shell; after the first argument binding in argument shells",
         "count": "finite_within_complete_source_bound",
@@ -1118,6 +1156,165 @@
         "scalar_exit_flow": "empty restores entry; possibly executing widens mutables and restores entry immutable/outer-index/outer-element facts; remove new index; body-derived outer-index/outer-element refinements do not escape",
         "intentional_empty_loop_exclusion": "precise entry bounds can reveal an empty index-dependent assignment RHS, which remains excluded even if earlier wider analysis admitted it"
       }
+    },
+    {
+      "id": "character_literal",
+      "ada_kind": "character_literal",
+      "conditions": {
+        "decoded_bytes": [
+          32,
+          126
+        ],
+        "spelling": "apostrophe, one printable ASCII byte, apostrophe; the quote character is three consecutive apostrophes",
+        "case_preserved": true,
+        "expression_leaves": 1
+      }
+    },
+    {
+      "id": "named_character_constant",
+      "ada_kind": "object_declaration",
+      "conditions": {
+        "type": "Character",
+        "constant": true,
+        "initializer": "character_expression",
+        "initializer_required": true,
+        "earlier_initialized_objects_only": true,
+        "self_or_forward_reference": false,
+        "type_mark_must_be_visible": true,
+        "name_hides_own_type_mark": true,
+        "shared_name_environment": "same case-insensitive ordered object/subtype environment; existing reserved and shell-package exclusions",
+        "copy_semantics": "one-byte snapshot; later source or indexed-element mutation does not change the copy"
+      }
+    },
+    {
+      "id": "named_character_variable",
+      "ada_kind": "object_declaration",
+      "conditions": {
+        "type": "Character",
+        "constant": false,
+        "initializer": "character_expression",
+        "initializer_required": true,
+        "earlier_initialized_objects_only": true,
+        "self_or_forward_reference": false,
+        "type_mark_must_be_visible": true,
+        "name_hides_own_type_mark": true,
+        "shared_name_environment": "same case-insensitive ordered object/subtype environment; existing reserved and shell-package exclusions",
+        "copy_semantics": "one-byte snapshot; later source or indexed-element mutation does not change the copy"
+      }
+    },
+    {
+      "id": "character_expression",
+      "ada_kind": "expression",
+      "conditions": {
+        "operand_kinds": [
+          "character_literal",
+          "initialized_character_name",
+          "string_indexing"
+        ],
+        "parentheses": true,
+        "max_operands": 64,
+        "index_operand_accounting": "one String prefix plus every scalar subscript leaf",
+        "distinct_from_one_byte_string": true,
+        "implicit_conversion": false,
+        "concatenation": false,
+        "arithmetic": false,
+        "direct_output": false
+      }
+    },
+    {
+      "id": "character_comparison",
+      "ada_kind": "relational_expression",
+      "conditions": {
+        "operators": [
+          "=",
+          "/=",
+          "<",
+          "<=",
+          ">",
+          ">="
+        ],
+        "operands": [
+          "character_expression",
+          "character_expression"
+        ],
+        "at_least_one_typed_name_or_indexed_operand": true,
+        "literal_only_scope_purpose": "the pinned Ada frontend treats two unqualified Character literals as ambiguous",
+        "ordering": "predefined Character ordering on printable ASCII",
+        "both_operands_checked": true,
+        "result_flow": "unchanged incoming scalar and String/input facts on both outcomes",
+        "positions": [
+          "boolean_initializer",
+          "boolean_assignment_rhs",
+          "condition"
+        ]
+      }
+    },
+    {
+      "id": "character_assignment",
+      "ada_kind": "assignment_statement",
+      "conditions": {
+        "target": "visible initialized mutable Character object",
+        "value": "character_expression",
+        "evaluate_before_mutation": true,
+        "effect": "replace exactly the target byte; preserve every other object and existing flow facts",
+        "loop_binder_hides_target": true
+      }
+    },
+    {
+      "id": "string_indexing",
+      "ada_kind": "indexed_component",
+      "conditions": {
+        "prefix": "visible initialized fixed-bound String object",
+        "index": "integer_expression",
+        "index_interval": "nonempty and contained in actual first..last bounds",
+        "scalar_array_reads_in_index": true,
+        "result_type": "Character",
+        "max_operands": 64,
+        "operand_accounting": "one String prefix plus every scalar index leaf",
+        "unreachable_paths": "same nonempty contained index rule, including empty loops",
+        "dynamic_input_length_indexing": false,
+        "scope_purpose": "explicit intervals establish all index checks and avoid dead-code frontend rejection; input-length guards do not admit general dynamic indexing"
+      }
+    },
+    {
+      "id": "string_element_assignment",
+      "ada_kind": "assignment_statement",
+      "conditions": {
+        "target": "mutable fixed-bound String indexed component",
+        "index_rules": "string_indexing",
+        "value": "character_expression",
+        "budgets": "target and RHS each have an independent 64-leaf budget; source operators share 63",
+        "evaluation": "target index and RHS read incoming values before replacing one element",
+        "preserves": "String first/last bounds and length, other elements, objects and earlier snapshots, scalar and input flow facts",
+        "slice_target": false
+      }
+    },
+    {
+      "id": "string_slice",
+      "ada_kind": "slice",
+      "conditions": {
+        "prefix": "visible initialized fixed-bound String object",
+        "endpoints": [
+          "integer_expression",
+          "integer_expression"
+        ],
+        "nonempty_endpoint_intervals": true,
+        "acceptance": "for inferred lower [a,b], upper [c,d], prefix B..E: a>d, or a>=B and d<=E",
+        "null_slice": "every slice null when a>d; inverted bounds retained even outside prefix bounds",
+        "length_interval": "max(0,c-b+1)..max(0,d-a+1), computed with wide arithmetic",
+        "max_operands": 64,
+        "operand_accounting": "one String prefix plus every leaf of both endpoint expressions",
+        "positions": [
+          "string_initializer",
+          "string_assignment_rhs",
+          "string_comparison_operand",
+          "output",
+          "concatenation_operand"
+        ],
+        "fixed_initializer": "exact length and singleton first/last bounds required",
+        "target_assignment": false,
+        "resizing": false
+      }
     }
   ],
   "compositions": [
@@ -1151,7 +1348,9 @@
           "named_boolean_constant",
           "named_boolean_variable",
           "named_integer_subtype",
-          "integer_array_object"
+          "integer_array_object",
+          "named_character_constant",
+          "named_character_variable"
         ],
         "minimum": 0,
         "count": "finite_within_complete_source_bound",
@@ -1159,7 +1358,8 @@
           "string_expression",
           "integer_expression",
           "boolean_expression",
-          "explicit_integer_array_aggregate"
+          "explicit_integer_array_aggregate",
+          "character_expression"
         ],
         "ordered": true,
         "distinct_names_ignoring_case": true
@@ -1198,7 +1398,9 @@
           "named_boolean_constant",
           "named_boolean_variable",
           "named_integer_subtype",
-          "integer_array_object"
+          "integer_array_object",
+          "named_character_constant",
+          "named_character_variable"
         ],
         "minimum": 0,
         "count": "finite_within_complete_source_bound",
@@ -1206,7 +1408,8 @@
           "string_expression",
           "integer_expression",
           "boolean_expression",
-          "explicit_integer_array_aggregate"
+          "explicit_integer_array_aggregate",
+          "character_expression"
         ],
         "ordered": true,
         "distinct_names_ignoring_case": true
@@ -1280,7 +1483,7 @@
   "identifier_bytes": [48,49,50,51,52,53,54,55,56,57,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,95,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122],
   "comment_prefix": "--",
   "comment_end_bytes": [10,13],
-  "word_tokens": ["procedure","main","is","pragma","spark_mode","on","begin","null","end","with","silver_io","put_line","constant","string","silver_arguments","first_or_default","if","input_is_valid","then","else","elsif","reject","and","or","not","length","integer","for","in","reverse","loop","use","item","default","put","image","range","array","of","subtype"],
+  "word_tokens": ["procedure", "main", "is", "pragma", "spark_mode", "on", "begin", "null", "end", "with", "silver_io", "put_line", "constant", "string", "silver_arguments", "first_or_default", "if", "input_is_valid", "then", "else", "elsif", "reject", "and", "or", "not", "length", "integer", "for", "in", "reverse", "loop", "use", "item", "default", "put", "image", "range", "array", "of", "subtype", "boolean", "true", "false", "xor", "character"],
   "casefold_bytes": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,225,226,227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255],
   "null_tokens": ["procedure","main","is","pragma","spark_mode","(","on",")",";","begin","null",";","end","main",";"],
   "with_clause_tokens": ["with","<package_list>",";"],
@@ -1322,5 +1525,12 @@
   "integer_array_iteration_tokens": ["for","<element_name>","of","<constant_integer_array_name>","loop","<statements>","end","loop",";"],
   "reverse_integer_array_iteration_tokens": ["for","<element_name>","of","reverse","<constant_integer_array_name>","loop","<statements>","end","loop",";"],
   "output_tokens": ["<context_clauses>","procedure","main","is","pragma","spark_mode","(","on",")",";","<declarations>","begin","<statements>","end","main",";"],
-  "argument_tokens": ["<context_clauses>","procedure","main","is","pragma","spark_mode","(","on",")",";","<argument_declaration>","<declarations>","begin","<statements>","end","main",";"]
+  "argument_tokens": ["<context_clauses>","procedure","main","is","pragma","spark_mode","(","on",")",";","<argument_declaration>","<declarations>","begin","<statements>","end","main",";"],
+  "character_constant_declaration_tokens": ["<declaration_name>", ":", "constant", "character", ":=", "<character_expression>", ";"],
+  "character_variable_declaration_tokens": ["<declaration_name>", ":", "character", ":=", "<character_expression>", ";"],
+  "character_assignment_tokens": ["<mutable_character_name>", ":=", "<character_expression>", ";"],
+  "character_relation_tokens": ["<character_expression>", "<character_comparison>", "<character_expression>"],
+  "string_index_tokens": ["<fixed_bound_string_name>", "(", "<integer_expression>", ")"],
+  "string_element_assignment_tokens": ["<mutable_fixed_bound_string_name>", "(", "<integer_expression>", ")", ":=", "<character_expression>", ";"],
+  "string_slice_tokens": ["<fixed_bound_string_name>", "(", "<integer_expression>", "..", "<integer_expression>", ")"]
 }

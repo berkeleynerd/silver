@@ -160,3 +160,15 @@ class StringCharacterTests(unittest.TestCase):
         executable, _ = self.compile(program(declarations, body, arguments=True), 'selected')
         self.run_program(executable, b'zoo\n', (b'zoo',))
         self.run_program(executable, b'', (b'\xffxx',), 1)
+
+    def test_native_dynamic_copies_with_noncanonical_null_bounds(self) -> None:
+        declarations = (b'S:constant String:="x";'
+                        b'H:constant String:=S(2147483647..2147483646);'
+                        b'D:String:=Input&H;Copy:constant String:=D;')
+        # Empty Input gives D the actual null bounds of H. Whole assignment
+        # retains D's target bounds; later concatenations must remain safe.
+        body = output(b'Copy&H') + b'D:=Input;' + output(b'D')
+        executable, _ = self.compile(program(declarations, body, arguments=True), 'selected')
+        self.run_program(executable, b'\n\n', (b'',))
+        self.run_program(executable, b'abc\nabc\n', (b'abc',))
+        self.run_program(executable, b'', (b'\xff',), 1)
