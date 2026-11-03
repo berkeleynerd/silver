@@ -403,7 +403,9 @@ source/tool/artifact comparison selected ordinary incremental reuse: the
 Character object already matches the integration workspace, while five cheap
 Scalar dependencies differ. No objects were copied or traces rewritten.
 Complete cached run `20261103T192928-ecb0a9199439` started with one worker,
-one thread and 24 GiB; its outcome remains pending.
+one thread and 24 GiB. It was intentionally interrupted for the native-source
+repair described below; no memory or source-equality failure occurred in that
+attempt.
 
 ### Independent installed-Lean fixture reuse review — 2026-11-03
 
@@ -423,3 +425,41 @@ inventory. Native synchronization and a refreshed exact-byte inventory remain
 required before its full suite. This closes only the bounded fixture-reuse
 question; final complete-suite accounting and independent delivery review remain
 outstanding.
+
+### Character progress repair and independent review — 2026-11-03
+
+Complete native run `20261103T174729-ccb497165e31` failed after 7,483.119 seconds
+with one unresolved Character declaration progress postcondition. Its failed
+reports and exact inputs are retained. A larger-timeout diagnostic was
+intentionally interrupted after 598.174 seconds; it is not a successful proof.
+The old-source Lean run `20261103T192928-ecb0a9199439` was intentionally stopped
+after 2,292.992 seconds because the repair changes its certified source.
+
+Native commit `d7299a81a2` changes only the local declaration guard from
+`Following = 0` to `Following <= State.Position`. Contracts and admission rules
+remain unchanged. Scoped canonical run `20261103T200910-01915a66a688` passed all
+24 checks; the matching build and all ten affected StringCharacter regressions
+also passed. The complete native audit restarted as
+`20261103T201920-c39bcc381ac2`, retaining ordinary native sessions and cache.
+
+Integration `58b0d6ce2b` includes the exact typed body/equation, an equivalence
+lemma over the existing valid-state domain, and corresponding source pin and
+certificate data. The unchanged model already proves that successful Character
+declarations advance. Focused run `20261103T202419-5f35a847709a` checked both
+helper targets and freshly audited 14,821 declarations in 121 modules; its
+build took 239.022 seconds and audit 3.561 seconds. Earlier failed development
+attempts remain in the [focused packet](evidence/bounded-string-characters-20261031/validation/character-progress-equivalence/index.json).
+
+The [independent repair review](reviews/string-character-progress-guard-20261103.md)
+passed at that exact integration target. It checked the complete state domain,
+absence of circular reasoning, generic arbitrary-callee equation, existing
+consumer premises, exact native/token/certificate changes and actual focused
+proof/build/test evidence. Selected Astra / Extra High review took 182 seconds;
+runtime settings and token/cost totals were unavailable. Native work selected
+Sol / Extra High and semantic/integration work Astra / Extra High.
+
+Complete repaired Lean/source run `20261103T203357-33c8b5720ddd` started with
+one worker, one thread and 24 GiB on the committed integration. Both complete
+checkpoints remain pending. The native suite is held until the dense Lean phase
+ends, followed by final inventory accounting, delivery/Rosetta synchronization
+and independent closing review. PR #307 remains draft and open.
