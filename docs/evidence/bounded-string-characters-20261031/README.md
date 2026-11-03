@@ -23,3 +23,21 @@ These results apply to their recorded inputs and native host. They are neither
 universal assurance nor a completed final compiler/feature checkpoint. The
 [producer account](../../bounded-string-characters-report-capacity.md) keeps the
 source-derived reasoning separate from these finite observations.
+
+## Resumed validation records
+
+The [validation directory](validation/) preserves terminal managed records,
+original logs and available detailed proof evidence. Each run's `index.json`
+records the original and compressed SHA-256 values. Exporting these existing
+bytes did not rerun validation. Failed runs retain their failed status.
+
+| Run | Result and scope |
+| --- | --- |
+| `20261103T174436-6fdd4028770c` | Failed focused source checkpoint: the output-body certificate reached its 8 GiB kernel memory allowance; the separate helper banner syntax defect was subsequently repaired. Successful other module builds do not make this a successful checkpoint. |
+| `20261103T174845-2485475c8238` | Isolated helper repair passed with a fresh 12,818-declaration audit. |
+| `20261103T190906-eeb647b2db40` | Integrated helper repair passed with the same fresh audit scope. This is partial validation. |
+| `20261103T175811-5ecfadfa25c5` | Failed Predicate candidate check at 4 GiB: scalar and Character candidate kernel memory limits. An unchanged-input retry is separately tracked. |
+| `20261031T214130-1e0195247bd5` and `20261031T215153-7280a74a41c2` | The first installed-Lean fixture run failed one of seven methods; the subsequent two-method module-fixture repair passed. The [fixture packet](validation/installed-lean-fixtures/index.json) retains logs, exact inputs and the prepared reuse account; final independent applicability review remains required. |
+
+These records do not yet include a successful complete native or Lean/source
+checkpoint, complete final regression coverage, or a closing delivery review.

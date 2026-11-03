@@ -1,0 +1,17 @@
+{
+  "run_id": "20261031T214130-1e0195247bd5",
+  "host": "linux-x86_64",
+  "outcome": "failure",
+  "duration_seconds": 545.386920219,
+  "method": "Exact existing managed records, gzip with mtime=0; no validation rerun",
+  "files": [
+    {
+      "original_relative_path": "events.jsonl",
+      "original_bytes": 4721,
+      "original_sha256": "68a638b3f22bb1ab1bd3bb86f71f561bff05bd1868bebbf03ad47dac3590df93",
+      "retained_relative_path": "20261031T214130-1e0195247bd5/events.jsonl.gz",
+      "retained_bytes": 1501,
+      "retained_sha256": "308377e753e28291b241469344a5c801f35e135dc87f5e9a6528fe7833875b14"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "scope": "Retained installed Lean fixture evidence; initial full seven-fixture run remains failed, two module repairs passed; independent reuse review outstanding",
+  "files": [
+    {
+      "original_path": "tmp/string-lean-fixtures/fixtures.log",
+      "original_sha256": "a6c8be5338ce366066650aaac0630d885b393beff4a0943dac81de42f0bb8039",
+      "retained_path": "string-lean-fixtures/fixtures.log.gz",
+      "retained_sha256": "4779d1349f5dd8f8de22f48b8d3ae6faf5b2344a4ef01dcf061337b790479267"
+    },
+    {
+      "original_path": "tmp/string-lean-fixtures/evidence.json",
+      "original_sha256": "99c90b274130d5299120d48ec9f28f2fa8b7a85ac3e3af3e131331cc1eafce58",
+      "retained_path": "string-lean-fixtures/evidence.json.gz",
+      "retained_sha256": "da0857ade0b5f29e2223248ff0563f62113a9c572b56a205997c4cebe78589f0"
+    },
+    {
+      "original_path": "tmp/string-lean-fixtures/reuse-account.json",
+      "original_sha256": "704c31d84094f70d39a292f784ca22970a3c20551cacd3485c84463ea4c2407d",
+      "retained_path": "string-lean-fixtures/reuse-account.json.gz",
+      "retained_sha256": "5e7882d10f4c2eb6fd1dc8300b08bb6ad6aa3d8ad45df9c73a16cad35ff3799a"
+    },
+    {
+      "original_path": "tmp/string-lean-module-fixtures/fixtures.log",
+      "original_sha256": "8ff0d8f2b25daf095c48a00e6cb6843a2fe966fb1de103cbfbaf79a1b27160ff",
+      "retained_path": "string-lean-module-fixtures/fixtures.log.gz",
+      "retained_sha256": "c70ea40b4f03f300ee26ef3734d9ce99ef4c582f85a5dcab865e4655be6c259b"
+    },
+    {
+      "original_path": "tmp/string-lean-module-fixtures/evidence.json",
+      "original_sha256": "c1b6b7fb219a5fc805cabe7f47c47357b92c20c343d0c587acb04cb5e90b6ef5",
+      "retained_path": "string-lean-module-fixtures/evidence.json.gz",
+      "retained_sha256": "4dc269635851dccbb19f1167c197ade3ef958d17b4513843b0cd95d15388dcde"
+    }
+  ]
+}

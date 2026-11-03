@@ -357,3 +357,40 @@ Extra High for native recovery and the isolated helper repair. Runtime model
 confirmation and token/cost measurements are unavailable. The feature PR is a
 draft while these checks remain outstanding and must remain open for owner
 review after completion. #300, #297 and #298 retain their separate scope.
+
+### Source memory diagnosis and helper repair — 2026-11-03
+
+The focused source run `20261103T174436-6fdd4028770c` terminated as a failure
+after 4,884 seconds. Its output-body certificate reported an explicit kernel
+memory-limit failure at the configured 8 GiB allowance; later metavariable
+diagnostics followed that failure. The already identified helper banner syntax
+error was a separate failure. All runnable contract, declaration, expression,
+catalogue, Character, model-assembly and native-bridge module builds completed,
+but this does not establish a successful source checkpoint or fresh whole-project
+audit. The [validation packet](evidence/bounded-string-characters-20261031/README.md#resumed-validation-records)
+retains the original failed record and logs.
+
+The helper repair removes only the obsolete five-line scratch comment before
+imports. It changes no expected source, theorem, proof body or admission domain.
+The isolated check at `389ab08bf4` passed, and integration commit `9eea1753bb`
+passed run `20261103T190906-eeb647b2db40`: one worker, one thread, 4 GiB allowance,
+and a fresh audit of 12,818 declarations using only the permitted foundations.
+The integrated run took 346.975 managed seconds. These are focused results.
+
+An isolated Predicate-candidate check exposed scalar and Character certificate
+memory failures at 4 GiB. Those unchanged modules passed during the 8 GiB retry;
+its final candidate and fresh audit remain pending. The next complete cached
+Lean/source check is planned with one worker, one thread and 24 GiB after that
+dense job ends and host headroom is checked. Historical successful output-body
+and Predicate certificate records used that allowance; they do not establish
+a measured memory requirement. The native full regression suite will be
+coordinated separately because its peak memory is unknown.
+
+Pre-suite inspection also corrected three legacy test expectations that rejected
+now-admitted fixed-bound slices and aligned exact catalogue assertions. Positive
+slice coverage and out-of-bounds rejection coverage remain; the final inventory
+still contains 578 methods. These test changes do not alter captured native or
+Lean proof inputs. Complete validation, independent final reuse/evidence review,
+Rosetta promotion and delivery remain outstanding. The selected integration and
+worker settings remain Astra / Extra High and Sol / Extra High respectively;
+runtime confirmation and token/cost measurements are unavailable.
