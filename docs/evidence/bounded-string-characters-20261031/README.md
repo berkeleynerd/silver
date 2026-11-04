@@ -74,3 +74,8 @@ audit-origin gaps. Final governed target is
 `90e9f4226835c53601050eb163b842d9aadf4444`; native source and scripts remain
 identical to the complete native checkpoint. This is cached complete validation,
 not a clean build or an independent `leanchecker` replay.
+
+The [independent source-integration review](../../reviews/string-source-integration-20261104.md)
+passed at `93a14bbb15`, including exact artifacts, full import/audit membership
+and the earlier scope corrections. Final regression and delivery review remain
+separate.
