@@ -1,17 +1,19 @@
 # Session memory
 
-## 2026-11-04 — Bounded String validation complete
+## 2026-11-04 — Bounded String ready for owner review
 
 The owner-authorized [bounded String/Character feature #296](https://github.com/berkeleynerd/silver/issues/296)
 has complete Linux native and Lean actual-source assurance and final regression
 coverage. The [delivery record](bounded-string-characters.md#delivery-assurance-and-validation)
 links the governed inputs, exact method accounting, retained failures and
-independent source review. Closing delivery review is pending. Only the precise
+independent source review. The [closing delivery review](reviews/string-delivery-closing-20261104.md)
+passed at `9111fbf88be337214278f185501d2f9de1761442`. Only the precise
 `bounded-string-characters` Rosetta identifier is promoted for its three drivers.
 
 [PR #307](https://github.com/berkeleynerd/silver/pull/307) remains open for owner
-review. The existing authorization covers completing the closing review and
-ready-for-review publication; its merge remains unauthorized. Milestone 16 and
+review, with implementation, validation and independent review complete.
+The existing authorization covers ready-for-review publication; its merge
+remains unauthorized. Milestone 16 and
 issues #296/#304/#305/#306 close only on a later owner-authorized merge. #300,
 #297 and #298 remain unselected. No Oracle amendment, new assurance mode or
 separate performance project is selected. No harness goal exists; CLI memory

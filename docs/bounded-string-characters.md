@@ -1,6 +1,6 @@
 # Bounded String indexing and character operations
 
-Status: implemented and validated on Linux on 2026-11-04; closing delivery review pending.
+Status: implemented, validated and reviewed on Linux on 2026-11-04; ready for owner review.
 [Milestone 16](https://github.com/berkeleynerd/silver/milestone/16) contains one
 work package, [#296](https://github.com/berkeleynerd/silver/issues/296).
 The [authorization](session-memory.md#2026-10-31--bounded-string-indexing-and-character-operations-authorized)
@@ -696,7 +696,7 @@ and synchronized delivery records still require the closing review.
 
 ## Delivery assurance and validation
 
-Implemented and validated on Linux on 2026-11-04, with
+Implemented, validated and reviewed on Linux on 2026-11-04, with
 [PR #307](https://github.com/berkeleynerd/silver/pull/307) open for owner review.
 The dated sections above preserve development history, including failed and
 interrupted attempts. This section records the final delivery state.
@@ -734,9 +734,12 @@ method coverage is not double-counted.
 The [complete source-integration review](reviews/string-source-integration-20261104.md)
 accepted the final four proof-file repairs and complete source evidence at
 `93a14bbb15c40a7c27a0eeee494fc1bca911716a`. It preserves the earlier accepted
-capacity, actual-bound, helper-inventory, progress and grouping reviews. The closing regression and delivery review is pending; its remaining scope is
-final method accounting, task correspondence, rendered support and synchronized
-delivery records. The bounded scratch-audit
+capacity, actual-bound, helper-inventory, progress and grouping reviews. The
+[closing regression and delivery review](reviews/string-delivery-closing-20261104.md)
+passed at `9111fbf88be337214278f185501d2f9de1761442`, confirming final method
+accounting, task correspondence, rendered support and synchronized delivery
+records. Follow-up changes record review completion and publication status only.
+The bounded scratch-audit
 scope corrections are retained; the complete project audit and provenance
 include every production proof module and the meta-import closure.
 

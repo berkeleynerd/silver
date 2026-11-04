@@ -29,5 +29,5 @@
   },
   "retained_fixture_dependency_paths": 50,
   "missing_or_unresolved_methods": [],
-  "applicability": "Only coverage.json and refresh.py differ among captured shared inputs; manifest.json is unchanged. All three consuming Rosetta methods passed on final inputs. test_dev_runs uses its own synthetic Rosetta files, not repository coverage; unchanged remaining tests/source/tooling and the independently reviewed 50-path fixture closure preserve the other results. Final independent closing review remains required."
+  "applicability": "Only coverage.json and refresh.py differ among captured shared inputs; manifest.json is unchanged. All three consuming Rosetta methods passed on final inputs. test_dev_runs uses its own synthetic Rosetta files, not repository coverage; unchanged remaining tests/source/tooling and the independently reviewed 50-path fixture closure preserve the other results. Independent closing review passed at 9111fbf88be337214278f185501d2f9de1761442; see docs/reviews/string-delivery-closing-20261104.md."
 }

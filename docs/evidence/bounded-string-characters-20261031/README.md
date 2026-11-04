@@ -3,7 +3,8 @@
 This packet records complete Linux native and Lean/source assurance and final
 regression coverage for [#296](https://github.com/berkeleynerd/silver/issues/296).
 The [delivery record](../../bounded-string-characters.md#delivery-assurance-and-validation)
-governs current support; closing delivery review is pending. Dated earlier
+governs current support; the [closing delivery review](../../reviews/string-delivery-closing-20261104.md)
+passed at `9111fbf88be337214278f185501d2f9de1761442`. Dated earlier
 records retain their original failed, interrupted and partial scopes.
 
 | Packet | Exact scope |
@@ -55,8 +56,8 @@ bytes did not rerun validation. Failed runs retain their failed status.
 | `20261031T214130-1e0195247bd5` and `20261031T215153-7280a74a41c2` | The first installed-Lean fixture run failed one of seven methods; the subsequent two-method module-fixture repair passed. The [fixture packet](validation/installed-lean-fixtures/index.json) retains logs, exact inputs and the original prepared reuse account. The [independent bounded review](../../reviews/string-character-fixture-reuse-20261103.md) approves those seven results for the reviewed inputs. |
 
 These records include a successful complete native checkpoint. Complete
-Lean/source assurance is now recorded below; final regression coverage and closing
-delivery review remain outstanding.
+Lean/source assurance, final regression coverage and closing delivery review
+are recorded below.
 
 ## Complete source checkpoint
 
@@ -99,5 +100,8 @@ tracked inputs compared with final delivery, only `rosetta/coverage.json` and
 fixture tests of runner input capture use synthetic Rosetta files. All 890 inputs
 captured for the final Rosetta check were independently matched.
 
-Closing review must confirm this accounting and the synchronized delivery record;
-the earlier source-integration review remains accepted.
+The [closing review](../../reviews/string-delivery-closing-20261104.md) confirms
+this accounting, exact input applicability, evidence integrity and synchronized
+delivery record at `9111fbf88be337214278f185501d2f9de1761442`. The earlier
+source-integration review remains accepted. The feature is ready for owner
+review; PR #307 remains open.

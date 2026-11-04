@@ -180,7 +180,8 @@ xor operand may contain xor. The drivers are
 The [bounded String and Character increment](docs/bounded-string-characters.md#delivery-assurance-and-validation)
 is implemented and validated on Linux in
 [PR #307](https://github.com/berkeleynerd/silver/pull/307), which remains open
-for owner review. Closing delivery review is pending.
+for owner review. The [closing delivery review](docs/reviews/string-delivery-closing-20261104.md)
+passed; the feature is ready for owner review.
 It adds indexed reads and element writes on Strings with statically known bounds,
 printable Character objects and comparisons, and bounded slices. Copies retain
 their bounds and values; whole-String assignment preserves destination bounds.

@@ -21,7 +21,7 @@ each delivery; the linked issues hold scope and completion criteria.
 | Position | Feature | Motivating Rosetta candidates |
 | --- | --- | --- |
 | Delivered 2026-10-31 | [Boolean scalar objects and expressions #291](https://github.com/berkeleynerd/silver/issues/291), stacked on the named-subtype delivery [#286](https://github.com/berkeleynerd/silver/issues/286) | Sequence of primes by trial division; Square but not cube; Common list elements |
-| Validated; closing review pending | [Bounded String indexing and character operations #296](https://github.com/berkeleynerd/silver/issues/296) | Reverse a string; Palindrome detection; character replacement |
+| Ready for owner review | [Bounded String indexing and character operations #296](https://github.com/berkeleynerd/silver/issues/296) | Reverse a string; Palindrome detection; character replacement |
 | Later (1) | [Fixed-size Boolean arrays #297](https://github.com/berkeleynerd/silver/issues/297) | Sieve of Eratosthenes; elementary cellular automata |
 | Later (2) | [Small nonrecursive functions #298](https://github.com/berkeleynerd/silver/issues/298) | Reusable primality tests, GCD and numeric search helpers |
 
@@ -48,7 +48,7 @@ and deferred capacity work retain their scope.
 
 ### Bounded String indexing and character operations
 
-**Implemented and validated on Linux, 2026-11-04; closing delivery review pending.
+**Implemented, validated and reviewed on Linux, 2026-11-04; ready for owner review.
 [PR #307](https://github.com/berkeleynerd/silver/pull/307) remains open.**
 
 [Milestone 16](https://github.com/berkeleynerd/silver/milestone/16) contains
@@ -56,7 +56,9 @@ and deferred capacity work retain their scope.
 and resumed on 2026-11-03. The [delivery record](docs/bounded-string-characters.md#delivery-assurance-and-validation)
 identifies the governed implementation and complete Linux native proof/audit,
 Lean actual-source/module/axiom assurance, final 578-method regression accounting
-and independent reviews. The original failed and interrupted runs remain recorded.
+and independent reviews. The [closing review](docs/reviews/string-delivery-closing-20261104.md)
+passed at `9111fbf88be337214278f185501d2f9de1761442`.
+The original failed and interrupted runs remain recorded.
 
 The fragment admits fixed-bound String indexed reads and element writes,
 printable-ASCII Character objects and typed comparisons, and bounded slices.
