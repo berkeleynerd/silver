@@ -1,0 +1,29 @@
+{
+  "scope": "Scratch exact module compiler artifacts, identities only; not transferred into production proof cache",
+  "artifacts": {
+    "ComposeSourceChecksProbe.ir": {
+      "bytes": 1496,
+      "sha256": "38e960b2dd6f40892b674ec70890a8db6573c2e8ec7ae0d06a51cfbae16230cf"
+    },
+    "ComposeSourceChecksProbe.olean.private": {
+      "bytes": 11856,
+      "sha256": "2a18512f64736c1a0fd0b4a84bfecb008b7c6c551adfcf2d71e462f20ada9487"
+    },
+    "ComposeSourceChecksProbe.ir.sig": {
+      "bytes": 176,
+      "sha256": "3a9f646abe1d0f5b7400b370b9ed3da425c5b143f5e127971ac5921935d8b232"
+    },
+    "ComposeSourceChecksProbe.olean.server": {
+      "bytes": 5432,
+      "sha256": "8a2c0086291e3572d7c6fe5c19fb7088831fcde4612f9ef324568843cede8522"
+    },
+    "ComposeSourceChecksProbe.ilean": {
+      "bytes": 12868,
+      "sha256": "6f14b08e9f4481703c18fb11a7b6bfabc4b95cffb9fc870ff427499cdf2ec77f"
+    },
+    "ComposeSourceChecksProbe.olean": {
+      "bytes": 11024,
+      "sha256": "7cc4c8c3b082163a580e52aea4f24a60eaaac1947ebc2d07c4c4cdff48c9b9e9"
+    }
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "scope": "Successful exact scratch module check of one-line explicit unfolding repair plus fresh scoped axiom audit; production repair pending until active input lease ends",
+  "run_id": "20261104T011006-21d49eb8b36b",
+  "fresh_declarations": 61362,
+  "method": "Exact records retained without proof rerun or proof-cache transfer",
+  "files": [
+    {
+      "source_file": "inputs.json",
+      "source_bytes": 132895,
+      "source_sha256": "61834c84af96e1a5f33558a46f1698eed22848157811db8a0998e2adee717a4f",
+      "retained_file": "inputs.json.gz",
+      "retained_bytes": 27869,
+      "retained_sha256": "b81b5d4a83324488c4e6a98bcd606a9eb7d959db0f33e1b9cce15014754510d6"
+    },
+    {
+      "source_file": "evidence.json",
+      "source_bytes": 134718,
+      "source_sha256": "3f25c42e82e489d1cea83674d55aeb977acc71517facd600e38992cab0da7cc9",
+      "retained_file": "evidence.json.gz",
+      "retained_bytes": 28331,
+      "retained_sha256": "990638a250a409bbd75f99487d34179af3e4c4f6cae005edd7ce47506e4db283"
+    },
+    {
+      "source_file": "diagnostic.json",
+      "source_bytes": 1076,
+      "source_sha256": "251cd954a9d73798fd3f48e5c48e2ccb5dc437f78749dd9116544c369cd60342",
+      "retained_file": "diagnostic.json",
+      "retained_bytes": 1076,
+      "retained_sha256": "251cd954a9d73798fd3f48e5c48e2ccb5dc437f78749dd9116544c369cd60342"
+    },
+    {
+      "source_file": "integration.patch",
+      "source_bytes": 405,
+      "source_sha256": "39488eac9361bd8f550f534c016f7fec1398d66737a67c1132cf4388a1386c5c",
+      "retained_file": "integration.patch",
+      "retained_bytes": 405,
+      "retained_sha256": "39488eac9361bd8f550f534c016f7fec1398d66737a67c1132cf4388a1386c5c"
+    },
+    {
+      "source_file": "ComposeSourceChecksProbe.lean",
+      "source_bytes": 2735,
+      "source_sha256": "1340e7dc4151dfa08c4b12a6de8692a4fce8563501adedca2c107300820ecb4c",
+      "retained_file": "ComposeSourceChecksProbe.lean.gz",
+      "retained_bytes": 720,
+      "retained_sha256": "19011a4ee021c1dca0fe3e9363111d59ab06e2518aa6ef49d4c45341d3220f0a"
+    },
+    {
+      "source_file": "ComposeSourceChecks.before.lean",
+      "source_bytes": 2675,
+      "source_sha256": "1f304ed016f92e6b3d3c465a1b8ffb9ef44c18b38695e475813f39ef8183988d",
+      "retained_file": "ComposeSourceChecks.before.lean.gz",
+      "retained_bytes": 712,
+      "retained_sha256": "734d64342034163dfb865bbf1fe5aa00f731a1f0ba47d3f2c40770b768dfdfe2"
+    },
+    {
+      "source_file": "AuditProbe.lean",
+      "source_bytes": 72,
+      "source_sha256": "fc722f79359ef779824f11689376cd81f64f42ff35ccb1b47b367aa4d5133c0c",
+      "retained_file": "AuditProbe.lean.gz",
+      "retained_bytes": 80,
+      "retained_sha256": "fec099d2c9c4c95d07086482b58a9a941dd2254ddd1560081cedd01ed8a3ae07"
+    },
+    {
+      "source_file": "check.py",
+      "source_bytes": 2842,
+      "source_sha256": "8f7e107c9fe426ec48d7555e620318829bbe3cbbd495e172e78d4c9d81bd9da0",
+      "retained_file": "check.py.gz",
+      "retained_bytes": 1371,
+      "retained_sha256": "aa3005ceac67037f36f85771a40c6694d6bb78d1572be450840d4f2dae6d8d8d"
+    },
+    {
+      "source_file": "check.log",
+      "source_bytes": 4711,
+      "source_sha256": "d09435eca9cc5fa99d6deb6601d76e44f3798ec19c8d20d6b95949a8f11c682b",
+      "retained_file": "check.log.gz",
+      "retained_bytes": 858,
+      "retained_sha256": "c08eb62360854aa2968599d5da36abdec50ebc79e70a7bf04421b7f35bf1f866"
+    },
+    {
+      "source_file": "setup-failure.py",
+      "source_bytes": 2841,
+      "source_sha256": "bded8b1923cd6495a63d7758e7b4950c04119acf3380c3b452dfe7633c779b75",
+      "retained_file": "setup-failure.py.gz",
+      "retained_bytes": 1371,
+      "retained_sha256": "b701fab119f8bb45b046448074a76fc65ce07742f0348ea4fceb2e6f5b9fffd0"
+    },
+    {
+      "source_file": "setup-failure.txt",
+      "source_bytes": 137,
+      "source_sha256": "6e43fd5859d4be70d9cea5793ab039f6c4dafdaf108a1f04309266d57a7462df",
+      "retained_file": "setup-failure.txt",
+      "retained_bytes": 137,
+      "retained_sha256": "6e43fd5859d4be70d9cea5793ab039f6c4dafdaf108a1f04309266d57a7462df"
+    },
+    {
+      "source_file": "probe-artifacts.json",
+      "source_bytes": 1061,
+      "source_sha256": "51f2d987121dbccb6bd051a0243f0bf69e50c2085962cca07cf22534945d08a5",
+      "retained_file": "probe-artifacts.json",
+      "retained_bytes": 1061,
+      "retained_sha256": "51f2d987121dbccb6bd051a0243f0bf69e50c2085962cca07cf22534945d08a5"
+    }
+  ]
+}

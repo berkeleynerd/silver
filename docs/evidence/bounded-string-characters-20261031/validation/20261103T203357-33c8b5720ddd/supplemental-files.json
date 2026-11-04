@@ -44,6 +44,10 @@
     "reports/0/lean-proof.log.gz": {
       "bytes": 1819,
       "sha256": "2cc8f0bed693ed72e67759633e54843ba0dfea3932c8fee2822b388fff8426c9"
+    },
+    "diagnostic-correction-20261104.json": {
+      "bytes": 1076,
+      "sha256": "251cd954a9d73798fd3f48e5c48e2ccb5dc437f78749dd9116544c369cd60342"
     }
   }
 }

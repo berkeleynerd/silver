@@ -514,8 +514,9 @@ audit failures. This corrects that incomplete diagnosis.
 Complete Lean run `20261103T203357-33c8b5720ddd` was intentionally interrupted at
 23:29:59 UTC after 10,560.372 managed seconds because this repair changes its
 certified source and the current Predicate candidate's dependencies. There was
-no memory or source-equality failure in that run. All 738 captured inputs were
-unchanged at termination. Its [retained record](evidence/bounded-string-characters-20261031/validation/20261103T203357-33c8b5720ddd/index.json)
+no memory-limit failure in that run. The later full-log diagnosis below identifies
+a proof-wrapper error missed by the initial monitoring. All 738 captured inputs
+were unchanged at termination. Its [retained record](evidence/bounded-string-characters-20261031/validation/20261103T203357-33c8b5720ddd/index.json)
 includes the successful old-source output-certificate identities, completed
 build log, sampled resources and interruption rationale.
 
@@ -572,3 +573,35 @@ unchanged. This establishes applicability, not execution of the pending full
 suite. Complete Lean/source assurance, full regression accounting and final
 delivery review remain required. The suite is coordinated separately from dense
 source validation.
+
+### Source-wrapper diagnosis — 2026-11-04
+
+The repaired-source output certificate passed in 3,530 seconds inside run
+`20261103T234536-1d74ad60229a`. All five Compose source candidates and
+`OutputSourceBridge` subsequently passed. The complete build then exposed a
+proof-wrapper error in `ComposeSourceChecks.actual_string_helpers`: its rewrite
+could not find `Source.outputBodyTokens` behind the `StringHelperTranslation`
+abbreviation. This is a failed module in the still-running complete build, not
+a successful complete checkpoint.
+
+Full-log inspection found the same error in the earlier interrupted run
+`20261103T203357-33c8b5720ddd`. The initial last-line monitoring missed it.
+The [historical correction](evidence/bounded-string-characters-20261031/validation/20261103T203357-33c8b5720ddd/diagnostic-correction-20261104.json)
+preserves that distinction and the original records. Monitoring now scans every
+new diagnostic line. The old run remains interrupted, with a failed module and
+retained successful objects.
+
+The checked repair adds only
+`change StringHelperTranslationFor Source.outputBodyTokens` before the existing
+rewrite. An exact scratch copy of the entire module passed run
+`20261104T011006-21d49eb8b36b`, followed by a fresh audit of 61,362 declarations,
+in 5.864 seconds at 4 GiB. The [packet](evidence/bounded-string-characters-20261031/validation/translation-unfold-20261104/index.json)
+retains the exact one-line patch, source/artifact identities and audit. Theorem
+statements, native source and all other production bytes are unchanged.
+
+The production proof edit is queued until the active build releases its captured
+inputs. The remaining Predicate candidate's dependency closure excludes this
+failed wrapper, so its useful expensive work continues with unchanged inputs.
+After applying the checked proof-body repair, complete cached validation and a
+fresh whole-project audit remain required. Native assurance remains applicable
+because its captured inputs are unaffected.
