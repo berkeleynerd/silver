@@ -61,6 +61,7 @@ theorem actual_adapters : AdapterTranslation := actual_checked.2.2.2.2.1
 theorem actual_array_helpers : ArrayHelperTranslation := actual_checked.2.2.2.2.2
 
 theorem actual_string_helpers : StringHelperTranslation := by
+  change StringHelperTranslationFor Source.outputBodyTokens
   rw [Output.SourceBridge.actual_complete_shape.2.1]
   exact candidate_string_helpers
 
