@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All values are small ranged integers and every array access can be guarded just before use, and the only loop-carried state is the pair of cursors, so discharge depends on careful shape but needs no annotation. The search is an iterative procedure, so there is no recursion or termination obligation.
 
-Position 229 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 232 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

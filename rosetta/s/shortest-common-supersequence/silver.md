@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is a plain dynamic-programming problem on small fixed strings that needs only bounded arrays, nested for loops and one guarded while loop in a procedure, so all checks follow from subtype ranges and local guards without annotations. It is plausible rather than likely because the backtrack's loop-carried indices and output position each need explicit guards.
 
-Position 689 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 690 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

@@ -1,11 +1,13 @@
 # Bounded String indexing and character operations
 
-Status: owner-authorized on 2026-10-31; implementation and source-proof integration in progress.
+Status: implemented and validated on Linux on 2026-11-04; closing delivery review pending.
 [Milestone 16](https://github.com/berkeleynerd/silver/milestone/16) contains one
 work package, [#296](https://github.com/berkeleynerd/silver/issues/296).
 The [authorization](session-memory.md#2026-10-31--bounded-string-indexing-and-character-operations-authorized)
 covers the complete implementation, assurance, review and feature PR delivery.
-This feature branch does not yet claim completed support.
+The [delivery assurance and validation](#delivery-assurance-and-validation) section
+records current support. Earlier dated sections preserve development history.
+PR #307 remains open for owner review.
 
 ## Initial scope
 
@@ -691,3 +693,64 @@ provenance closure, and the honest disposition of earlier audit scopes. The
 review distinguishes the three concrete example statement updates from the
 unchanged general bridge/domain theorem headers. Final full-suite accounting
 and synchronized delivery records still require the closing review.
+
+## Delivery assurance and validation
+
+Implemented and validated on Linux on 2026-11-04, with
+[PR #307](https://github.com/berkeleynerd/silver/pull/307) open for owner review.
+The dated sections above preserve development history, including failed and
+interrupted attempts. This section records the final delivery state.
+
+The fragment admits printable-ASCII Character literals, initialized scalar
+objects, assignment and typed comparisons; fixed-bound String indexed reads
+and element writes; and bounded slices in String expressions. It preserves
+actual lower bounds, noncanonical and null slices, assignment sliding,
+evaluation before mutation and snapshots. The existing 4,096-byte source,
+63-operator and 64-leaf limits remain. Dynamic-length indexing, Character
+concatenation, slice targets, resizing, Unicode and general libraries are
+outside this increment.
+
+The governed implementation/proof target is
+`90e9f4226835c53601050eb163b842d9aadf4444`. Later delivery changes update
+records and Rosetta rendering. The native implementation and native proof
+inputs remain identical to `119cfa0c73389d461f8e5bd6de465ed2fee7d368`.
+
+| Evidence | Final result and scope |
+| --- | --- |
+| [Complete native proof/audit](evidence/bounded-string-characters-20261031/validation/20261103T234601-0e070300d2d7/summary.json) | 17,404 checks: 15,916 proof and 1,488 flow; 76 units, 1,099 entities, complete strict report audit and provenance. Retained solver work was reused. Matching build `20261103T233404-d80bccc33dbc` and ten affected StringCharacter methods in `20261103T233411-962e761487e2` passed. |
+| [Complete Lean/source check](evidence/bounded-string-characters-20261031/validation/20261104T022554-32f68afc7380/summary.json) | 623 modules and a fresh audit of 128,840 declarations, only the three permitted foundations. All 738 authoritative inputs, 625 workspace inputs, two tools and 3,742 artifacts matched. This is a cached complete build and fresh audit, not a clean build or independent replay. |
+| [Completed full suite](evidence/bounded-string-characters-20261031/validation/20261104T023444-fd55f0e35ffc/summary.json) | The run remains **failed**: 570 passes, seven expected installed-Lean skips and one Rosetta renderer error. All 59 manifest samples and every StringCharacter test passed. Exact final input applicability is retained. |
+| [Final Rosetta check](evidence/bounded-string-characters-20261031/validation/20261104T030336-2d76f7fc2ec7/summary.json) | All three methods passed after adding the missing renderer admission-table entry and promoting/rendering only the bounded identifier. This replaces the two earlier Rosetta passes and its error. |
+| [Final method accounting](evidence/bounded-string-characters-20261031/validation/final-regression-accounting-20261104/summary.json) | All **578 unique methods** are covered: 568 applicable full-suite passes, three final Rosetta passes and seven independently reviewed retained installed-Lean results. No required method is missing or unresolved. |
+
+The seven installed-Lean results use five applicable successful methods from
+failed run `20261031T214130-1e0195247bd5` and both repaired module methods from
+successful run `20261031T215153-7280a74a41c2`. Their
+[independent reuse review](reviews/string-character-fixture-reuse-20261103.md)
+and final dependency comparison establish applicability. The failed run remains
+failed. Final Rosetta tests replace the corresponding earlier suite results;
+method coverage is not double-counted.
+
+The [complete source-integration review](reviews/string-source-integration-20261104.md)
+accepted the final four proof-file repairs and complete source evidence at
+`93a14bbb15c40a7c27a0eeee494fc1bca911716a`. It preserves the earlier accepted
+capacity, actual-bound, helper-inventory, progress and grouping reviews. The closing regression and delivery review is pending; its remaining scope is
+final method accounting, task correspondence, rendered support and synchronized
+delivery records. The bounded scratch-audit
+scope corrections are retained; the complete project audit and provenance
+include every production proof module and the meta-import closure.
+
+Findings #304, #305 and #306 are resolved in this delivery: source-derived actual
+String endpoints reach the discharge guarantee; the catalogue and native
+exporter include slice operands in concatenation; and the consumed helper
+inventories include all seven bodies with precedence and identifier scope.
+Their original review records and failed attempts remain available.
+
+Rosetta promotes only `bounded-string-characters` for the three faithful
+reversal, palindrome and selective-replacement drivers. The bounds/sliding
+sample is additional regression coverage, not another task gain. Broad
+`characters`, `string-indexing`, arrays and callable routines remain separate.
+Stage issues #11/#12 remain Open/Backlog at their final rendered positions;
+#296 records the narrow feature mapping. Milestone 16 and the feature issues
+remain open pending owner-authorized merge. No later feature or Oracle change
+is selected. macOS validation remains independent of this Linux delivery.

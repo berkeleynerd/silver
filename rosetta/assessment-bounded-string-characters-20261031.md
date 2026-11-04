@@ -1,8 +1,10 @@
 # Bounded String and Character driver assessment
 
-Prepared for [#296](https://github.com/berkeleynerd/silver/issues/296). This is
-an implementation assessment; complete feature validation and independent review
-remain pending in the [capability record](../docs/bounded-string-characters.md).
+Delivery correspondence for [#296](https://github.com/berkeleynerd/silver/issues/296),
+completed on 2026-11-04. The [capability record](../docs/bounded-string-characters.md#delivery-assurance-and-validation)
+records complete Linux assurance, final regression accounting and independent
+review. The initial assessment and native stress observations below retain their
+historical provenance.
 The selected integration setting was GPT-6 Astra / Extra High. Live model and
 effort were not independently exposed; whole-agent elapsed time and token/cost
 measurements are unavailable. Native execution timings have their separate scope
@@ -24,13 +26,20 @@ The first two tasks' Unicode extensions are optional and excluded. All three
 programs compute from their embedded input bytes. They use the narrow
 `bounded-string-characters` identifier, together with previously delivered loops,
 Boolean objects or bounded Integer refinement as needed. This does not promote
-broad `characters`, `string-indexing`, arrays, procedures or functions. The
-new identifier remains outside `supported` until complete feature delivery.
+broad `characters`, `string-indexing`, arrays, procedures or functions. Only this narrow identifier is added to `supported` for the completed delivery.
 
-The native worker's retained eight-case stress run already exercises the exact
-three driver sources, their execution output, proof reports and source identity.
-That evidence is neither an independent task review nor universal assurance.
-Final manifest-driven coverage, complete source correspondence and independent
-delivery review remain required. The separate `string_character_bounds.adb`
+The native worker's earlier eight-case stress run exercised these exact three
+driver sources, execution outputs, proof reports and source identities. The final
+full-suite run `20261104T023444-fd55f0e35ffc` passed the manifest method for all
+59 samples, including these drivers. That run retains its separate Rosetta
+renderer error; the final three Rosetta tests cover the repaired renderer and
+support promotion. Complete source run `20261104T022554-32f68afc7380` and the
+native checkpoint are recorded separately from these finite driver observations. The separate `string_character_bounds.adb`
 sample exercises slices, noncanonical bounds, null slices and assignment sliding;
 it claims no additional Rosetta task.
+
+The final metadata retains the original assessor model/date and updates only the
+three delivered task summaries and their review date/method. The existing
+`assess.js` current-language description already matches the delivered bounded
+fragment. The renderer's `ADMISSION` table now includes its precise identifier,
+repairing the missing-key error exposed by full regression validation.

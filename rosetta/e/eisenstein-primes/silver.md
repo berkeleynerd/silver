@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from declared ranges on a and b, a bounded norm search and a counter guarded before use, and the only loops are for loops, so no annotation is needed; the main effort is bounded string formatting of signed fixed-decimal values.
 
-Position 895 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 896 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

@@ -1,0 +1,33 @@
+{
+  "governed_target": "90e9f4226835c53601050eb163b842d9aadf4444",
+  "complete_unique_methods": 578,
+  "method_counts": {
+    "applicable_full_suite_method": 568,
+    "reviewed_installed_Lean_fixture": 7,
+    "fresh_final_rosetta": 3
+  },
+  "full_suite_run": "20261104T023444-fd55f0e35ffc",
+  "full_suite_overall_outcome": "failure",
+  "full_suite_original_counts": {
+    "pass": 570,
+    "skip": 7,
+    "error": 1
+  },
+  "final_rosetta_run": "20261104T030336-2d76f7fc2ec7",
+  "final_rosetta_overall_outcome": "success",
+  "verified_original_full_suite_input_paths": 894,
+  "shared_tracked_inputs_compared": 886,
+  "changed_shared_inputs": {
+    "rosetta/coverage.json": {
+      "full_suite": "c8e7f12bc2b8d4198ee2c08875d2cd447d29d20e8ff8cda482d5c06bd7e2bf93",
+      "final": "fa1ed5168759f9b4039c9daae55146cb5fd055c76b1b4059d157fdc40645ec60"
+    },
+    "rosetta/refresh.py": {
+      "full_suite": "3c2bb34e5df3fb3b4fc101440a510f42b300fd43ed0e4f1c116b9c259fa2caff",
+      "final": "4aca47f613d2c19a3a9d93eb11a63897dc908f580e1b1b636560253f7a491f7f"
+    }
+  },
+  "retained_fixture_dependency_paths": 50,
+  "missing_or_unresolved_methods": [],
+  "applicability": "Only coverage.json and refresh.py differ among captured shared inputs; manifest.json is unchanged. All three consuming Rosetta methods passed on final inputs. test_dev_runs uses its own synthetic Rosetta files, not repository coverage; unchanged remaining tests/source/tooling and the independently reviewed 50-path fixture closure preserve the other results. Final independent closing review remains required."
+}

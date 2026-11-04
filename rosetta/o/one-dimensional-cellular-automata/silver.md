@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index and length is determined by static array bounds and for-loop ranges over them, with Boolean-only cell arithmetic, so all checks follow from types and no annotation or while loop is needed.
 
-Position 505 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 506 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

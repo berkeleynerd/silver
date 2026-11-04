@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Only bounded for loops, mod and division by a nonzero loop index, and a range-limited counter are involved, so every check follows from types and a guard just before the increment.
 
-Position 141 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 144 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The pool is modeled as an index-handled array arena with a visible exhaustion outcome, so every check follows from ranged subtypes and a guard before indexing, and no real heap, access type or Storage_Pool is needed.
 
-Position 592 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 593 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

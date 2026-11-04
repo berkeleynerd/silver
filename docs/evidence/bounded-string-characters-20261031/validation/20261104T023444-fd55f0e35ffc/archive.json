@@ -1,0 +1,12 @@
+{
+  "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-native/tmp/native-resume-20261103/final-suite-20261104/final-suite-evidence.tar.gz",
+  "bytes": 148993,
+  "sha256": "65216fd56a7d3817a507aeb045050e58eb32181a9357a8fddcc06a58eee6c26e",
+  "members": 16,
+  "outcomes": {
+    "ok": 570,
+    "skipped": 7,
+    "ERROR": 1
+  },
+  "unique_ids": 578
+}

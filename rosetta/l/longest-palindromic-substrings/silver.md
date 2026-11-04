@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every loop is a for loop and all indexes derive from S'Range and the loop bounds, so the checks follow from types and loop ranges with no invariants or recursion; the only care needed is bounded subtypes for the loop-carried best start and length.
 
-Position 754 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 755 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

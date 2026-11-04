@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the declared state range, the for-loop indexes and the divisor 52 - i, with no loop-carried value needing a guard beyond its type, so the proofs should discharge without annotations.
 
-Position 512 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 513 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

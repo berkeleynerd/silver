@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arrays, tile indices and the LCG are bounded by declared ranges and explicit guards, and the collapse loop can be a fixed-count for loop in a procedure, so no annotation is needed, but the many loop-carried counters and computed indices make discharge depend on careful program shape.
 
-Position 745 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 746 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

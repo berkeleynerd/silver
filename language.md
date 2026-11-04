@@ -1,9 +1,9 @@
 # Silver language specification
 
-The String indexing, Character and slice additions on this feature branch are
-under validation. Their [delivery record](docs/bounded-string-characters.md)
-tracks the remaining native, actual-source and regression checks; they are not
-yet a completed support claim.
+The bounded String indexing, Character and slice additions are implemented and
+validated on Linux. Their [delivery record](docs/bounded-string-characters.md#delivery-assurance-and-validation)
+records complete native and actual-source assurance, final regression coverage
+and the closing delivery review. PR #307 remains open for owner review.
 
 Silver is one evolving language before 1.0. This specification describes the
 predicate, path-sensitive and finite-loop language under the [Oracle](oracle.md),

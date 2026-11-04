@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Exact singleton initialization gives denominator 11 and numerator -22, then x=-2 and y=5. The nonzero divisor and all intermediate ranges follow directly from those exact values; no declared subtype, guard narrowing or general solver procedure is required.
 
-Position 39 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 40 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

@@ -1293,8 +1293,8 @@ path-justified fixed-length assignment and conservative branch joins preserve
 initialized bounds. A separate model or matching token-shape pin alone does not
 establish correspondence with the actual recognizer.
 
-The [bounded String and Character increment](bounded-string-characters.md),
-currently under validation, retains this frontend boundary for predefined
+The [validated bounded String and Character increment](bounded-string-characters.md#delivery-assurance-and-validation)
+retains this frontend boundary for predefined
 Character ordering, String indexing and slicing, concatenation bounds, and
 assignment sliding. It adds no runtime library or external dependency. Its
 source-derived bounds argument preserves noncanonical and null intervals:

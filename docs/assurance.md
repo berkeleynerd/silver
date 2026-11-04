@@ -966,8 +966,9 @@ bounds store from the source and connects these facts to the exact source-schema
 inventory, raw initializers, reached body expressions and every loop iteration.
 Both `Current.admitted_assurance` and `Current.every_meaning_assured` expose
 this guarantee. The [#304 semantic review](reviews/string-character-core-20261031.md)
-accepted that connection; the complete integrated native and actual-source
-checkpoint for this feature remains pending.
+accepted that connection. The [delivery evidence](bounded-string-characters.md#delivery-assurance-and-validation)
+records the successful complete native and actual-source checkpoints, final
+regression coverage and independent source review.
 
 `Current.all_obligations_discharge` proves terminating mathematical discharge
 for every admitted meaning; `fragment_checks_valid` supplies schema validity.

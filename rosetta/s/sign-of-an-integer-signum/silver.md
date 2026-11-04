@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The function is a three-way comparison with no loop-carried values, so every check follows from types and guards. Integer has no signed zero, so the optional signed-zero clause does not apply and nothing conflicts with the Oracle.
 
-Position 753 in the [progression](../../progression.md#stage-13), in stage 13, which adds case statements.
+Position 754 in the [progression](../../progression.md#stage-13), in stage 13, which adds case statements.
 
 ## Approach
 

@@ -23,7 +23,8 @@
   "fixed-integer-arrays",
   "constant-integer-array-iteration",
   "named-integer-subtypes",
-  "scalar-boolean-objects"
+  "scalar-boolean-objects",
+  "bounded-string-characters"
  ],
  "tasks": {
   "100 doors": {
@@ -47956,15 +47957,15 @@
    "risks": [],
    "size": 29,
    "approach": "The driver samples/rosetta_palindrome_detection.adb embeds racecar and silver. It resets a Boolean flag for each String, scans the first three positions, compares each Character with its mirrored position (8-Index or 7-Index), and clears the flag on a mismatch. It prints a palindrome verdict for racecar and a non-palindrome verdict for silver. The task permits a program instead of a function; Unicode and inexact matching are optional and excluded.",
-   "summary": "Every read stays within its fixed String bounds. The Boolean accumulator is a stored value, and the algorithm checks actual bytes rather than comparing the input with a precomputed answer. Both positive and negative examples execute. The exact program was exercised by the native stress run; complete feature assurance and delivery remain pending in docs/bounded-string-characters.md.",
+   "summary": "Every read stays within its fixed String bounds. The Boolean accumulator is a stored value, and the algorithm checks actual bytes rather than comparing the input with a precomputed answer. Both positive and negative examples execute. The exact program passed the complete Linux manifest-driven regression check; complete native and actual-source assurance is recorded in docs/bounded-string-characters.md.",
    "confidence": "high",
    "review": {
-    "date": "2026-10-31",
+    "date": "2026-11-04",
     "record": "assessment-bounded-string-characters-20261031.md",
     "model": "gpt-6-astra",
     "effort": "xhigh",
     "setting_evidence": "Selected integration setting inherited from the bounded subthread; live model and effort not independently exposed",
-    "method": "Implementation assessment of cached task wording, exact bounded drivers and expected results; complete validation and independent review remain pending in the capability record"
+    "method": "Delivery correspondence assessment against cached task wording, exact bounded drivers and expected results, complete Linux native/source assurance and final regression coverage; independent closing review is recorded in the capability record"
    }
   },
   "Palindromic gapful numbers": {
@@ -57737,15 +57738,15 @@
    "risks": [],
    "size": 14,
    "approach": "The driver samples/rosetta_reverse_a_string.adb embeds silver in a mutable String and retains an immutable original snapshot. For Index in 1..3 it saves Text(Index) in a Character temporary, replaces that element with Text(7-Index), and restores the saved byte at the mirrored position. It prints silver -> revlis. This performs the required reversal in place; optional Unicode combining-character handling is excluded.",
-   "summary": "Both subscript intervals stay inside 1..6, and each swap reads the RHS before the write. The temporary preserves the byte overwritten by the first write and the earlier String copy preserves the original. The exact program was exercised by the native stress run; complete feature assurance and delivery remain pending in docs/bounded-string-characters.md.",
+   "summary": "Both subscript intervals stay inside 1..6, and each swap reads the RHS before the write. The temporary preserves the byte overwritten by the first write and the earlier String copy preserves the original. The exact program passed the complete Linux manifest-driven regression check; complete native and actual-source assurance is recorded in docs/bounded-string-characters.md.",
    "confidence": "high",
    "review": {
-    "date": "2026-10-31",
+    "date": "2026-11-04",
     "record": "assessment-bounded-string-characters-20261031.md",
     "model": "gpt-6-astra",
     "effort": "xhigh",
     "setting_evidence": "Selected integration setting inherited from the bounded subthread; live model and effort not independently exposed",
-    "method": "Implementation assessment of cached task wording, exact bounded drivers and expected results; complete validation and independent review remain pending in the capability record"
+    "method": "Delivery correspondence assessment against cached task wording, exact bounded drivers and expected results, complete Linux native/source assurance and final regression coverage; independent closing review is recorded in the capability record"
    }
   },
   "Reverse the gender of a string": {
@@ -60503,15 +60504,15 @@
    ],
    "size": 42,
    "approach": "The driver samples/rosetta_selective_character_replacement.adb scans the task String abracadabra once. A Character snapshot selects one of three bounded occurrence counters. It replaces a occurrences 1,2,4,5 by A,B,C,D, b occurrence 1 by E and r occurrence 2 by F; all other bytes remain. It prints the task-required AErBcadCbFD. Each counter increment is guarded by its declared maximum.",
-   "summary": "The fixed loop keeps all indexed reads and writes within 1..11. The current byte is captured before mutation, and occurrence counters implement the requested selection instead of hardcoding final positions or output. Guards establish counter range containment using the existing scalar-flow rules. The exact program was exercised by the native stress run; complete feature assurance and delivery remain pending in docs/bounded-string-characters.md.",
+   "summary": "The fixed loop keeps all indexed reads and writes within 1..11. The current byte is captured before mutation, and occurrence counters implement the requested selection instead of hardcoding final positions or output. Guards establish counter range containment using the existing scalar-flow rules. The exact program passed the complete Linux manifest-driven regression check; complete native and actual-source assurance is recorded in docs/bounded-string-characters.md.",
    "confidence": "high",
    "review": {
-    "date": "2026-10-31",
+    "date": "2026-11-04",
     "record": "assessment-bounded-string-characters-20261031.md",
     "model": "gpt-6-astra",
     "effort": "xhigh",
     "setting_evidence": "Selected integration setting inherited from the bounded subthread; live model and effort not independently exposed",
-    "method": "Implementation assessment of cached task wording, exact bounded drivers and expected results; complete validation and independent review remain pending in the capability record"
+    "method": "Delivery correspondence assessment against cached task wording, exact bounded drivers and expected results, complete Linux native/source assurance and final regression coverage; independent closing review is recorded in the capability record"
    }
   },
   "Self numbers": {

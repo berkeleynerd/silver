@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over static or loop-bounded ranges and every index and divisor is bounded by types and loop ranges, so only the counter needs a guard.
 
-Position 350 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 353 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

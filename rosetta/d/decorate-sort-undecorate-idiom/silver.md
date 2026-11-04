@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over fixed array ranges and all indexes and slice bounds follow from declared subtypes, so no loop invariant is needed; the new surface is only arrays, records, slicing and unterminated output.
 
-Position 586 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 587 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

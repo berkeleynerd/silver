@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is fixed-size arrays and range-typed indices with a procedure-only while loop, so checks follow from types and guards, but the odometer loop and buffer assembly need careful shaping to avoid loop-carried unknowns.
 
-Position 693 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 694 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

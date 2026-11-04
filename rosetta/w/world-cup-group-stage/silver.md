@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are for loops over fixed ranges inside procedures, so termination is free and the checks reduce to guarded accumulator increments and bounded array indexes. The nonroutine parts are loop-carried sums and counts plus text formatting, which need careful shape but no annotations.
 
-Position 812 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 813 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

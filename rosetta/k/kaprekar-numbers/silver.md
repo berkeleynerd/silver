@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is bounded by the declared ranges (squares below 10**8), and both loops are for loops over static ranges, so every check discharges without invariants and nothing needs termination proof. The optional million-number count and base 17 parts are left out.
 
-Position 124 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 127 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

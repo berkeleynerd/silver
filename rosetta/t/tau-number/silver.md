@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from ranged subtypes and guards just before each increment, and the only loops that need termination (while) sit in a procedure. The 100th Tau number is 1096, so a 2000 bound is ample, and the nested loops need no invariants.
 
-Position 326 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 329 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

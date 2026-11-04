@@ -1,0 +1,62 @@
+{
+  "installed-Lean-reuse-review.md": {
+    "bytes": 4256,
+    "sha256": "69e48b36d7c2a135a10191a755881c7a88cdd7ab5cd44ba128442dc1086a787e"
+  },
+  "managed/events.jsonl": {
+    "bytes": 156841,
+    "sha256": "870a20dfe10c08e12d43f5bdba6a4e6a0ce1d4a2513ec3815a28d4cfa37c094b"
+  },
+  "managed/native.log": {
+    "bytes": 1767330,
+    "sha256": "ba075cf9893a753b93aa602ca73ee17731f4629671027c17b52e8b4e9150bdf6"
+  },
+  "method-accounting.json": {
+    "bytes": 287439,
+    "sha256": "364d02c5283e966eb40a64854f628719820385b0bca15013a0934da5cad44db4"
+  },
+  "records/export_final_suite.py": {
+    "bytes": 9184,
+    "sha256": "becd8d0201c2f7cc9136a3e7590dfc36a158af75e7675db453565a04ea9a8cbc"
+  },
+  "records/final-four-sync-and-suite-preflight-20261104.json": {
+    "bytes": 2107,
+    "sha256": "f2b43c43607974d8c328a567b43b4edee338d7bcc59576cecf2e8a0053a0b744"
+  },
+  "records/final-suite-inventory-20261104.json": {
+    "bytes": 64525,
+    "sha256": "1c5609f2b5cff85c118c32a2f60773cd8956195388c949edfcb30945df5e4656"
+  },
+  "records/final-suite-launch-20261104.json": {
+    "bytes": 945,
+    "sha256": "535b03de42b6c9320518040f1336172705420da1add969b7165ad9838698bd5e"
+  },
+  "records/final-suite-observations-20261104.jsonl": {
+    "bytes": 87051,
+    "sha256": "f4fe7bbc41c0fedb2d1b351ab58013da08f36ea1b5970abd7aa61048db229bb8"
+  },
+  "records/final-three-sync-and-fixture-check.json": {
+    "bytes": 5527,
+    "sha256": "25f0ed0e1d45d89b11478cde09aadd0e9f9be966b921a4016edb2990b69e35d1"
+  },
+  "records/fixture-closure-current-check.json": {
+    "bytes": 5787,
+    "sha256": "75ccd87b3a441c265f2016f634c351fc7f6f7dfa0d1f79595e35b50d1bf552a3"
+  },
+  "records/last-final-suite-status.json": {
+    "bytes": 174057,
+    "sha256": "9cf9d1b2dbc4f04afbd09f8a9d7ec5f3e436df1d4f57cb68fbb4caad22f7cfa9"
+  },
+  "records/rosetta-cli-error-diagnostic-20261104.json": {
+    "bytes": 2138,
+    "sha256": "329661bc2280c73da04cbeb0ef2588f76ad17008cc315a91af6e258bfd9116ab"
+  },
+  "records/watch_final_suite.py": {
+    "bytes": 4674,
+    "sha256": "8a895a918e97ee77683a9d85f5d34a9e60a0c7e3da02018970cea68861434edb"
+  },
+  "summary.json": {
+    "bytes": 4197,
+    "sha256": "59ab709359129c800f65c0c4f0ad9015a3ce0f7f43f40aed5221a75c62766a34"
+  }
+}

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Simple nested for loops with static bounds and a guarded accumulator need no annotations, since the inner D range 1..N excludes zero and the sum is guarded before each addition. The only new needs are integer arithmetic, mod, for loops and integer-to-text output.
 
-Position 119 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 122 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

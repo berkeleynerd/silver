@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over array ranges and the data is fixed, so every index and arithmetic check follows from declared ranges and one clamp; text art satisfies the task since no display is required.
 
-Position 650 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 651 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

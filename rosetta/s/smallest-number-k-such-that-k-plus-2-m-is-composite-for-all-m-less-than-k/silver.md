@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is small bounded integer arithmetic with for loops over array ranges and one while loop in a procedure, so no annotation is needed, but shape-dependent range typing of residues and the 5000-bit numbers avoided via small-prime witnesses make discharge plausible rather than routine.
 
-Position 233 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 236 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

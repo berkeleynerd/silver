@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The program has no true closures or recursion, so the Oracle is not violated, but its iterative defunctionalised evaluator carries many loop-carried indices and values that each need hand-placed guards, making automatic discharge plausible but not routine. Fixed capacity (about 800 frames, depth about 1000) covers k = 10 where A is called 722 times, and larger k would be rejected visibly.
 
-Position 835 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 836 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

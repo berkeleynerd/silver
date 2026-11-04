@@ -21,17 +21,16 @@ each delivery; the linked issues hold scope and completion criteria.
 | Position | Feature | Motivating Rosetta candidates |
 | --- | --- | --- |
 | Delivered 2026-10-31 | [Boolean scalar objects and expressions #291](https://github.com/berkeleynerd/silver/issues/291), stacked on the named-subtype delivery [#286](https://github.com/berkeleynerd/silver/issues/286) | Sequence of primes by trial division; Square but not cube; Common list elements |
-| Now | [Bounded String indexing and character operations #296](https://github.com/berkeleynerd/silver/issues/296) | Reverse a string; Palindrome detection; character replacement |
+| Validated; closing review pending | [Bounded String indexing and character operations #296](https://github.com/berkeleynerd/silver/issues/296) | Reverse a string; Palindrome detection; character replacement |
 | Later (1) | [Fixed-size Boolean arrays #297](https://github.com/berkeleynerd/silver/issues/297) | Sieve of Eratosthenes; elementary cellular automata |
 | Later (2) | [Small nonrecursive functions #298](https://github.com/berkeleynerd/silver/issues/298) | Reusable primality tests, GCD and numeric search helpers |
 
-The next feature starts with fixed-bound Strings: indexed reads and element
-writes, Character literals/temporaries/comparisons, and bounded slice expressions
-with length-compatible use. Its main assurance question is how existing interval
-and guard reasoning establishes every index, slice and destination-length check
-while preserving Ada semantics, including mutation and dead-code frontend checks.
+The bounded String increment is implemented and validated on Linux. Its
+[delivery record](docs/bounded-string-characters.md#delivery-assurance-and-validation)
+connects interval and guard reasoning to index, slice and destination-length
+checks while preserving actual bounds, mutation and dead-code frontend rules.
 General dynamic-length indexing, resizing, Unicode processing and general String
-libraries are outside that initial proposal.
+libraries remain outside this fragment.
 
 Boolean arrays reuse bounded array storage and scalar Boolean semantics.
 Functions start with scalar parameters/results, an acyclic call graph and no
@@ -49,30 +48,33 @@ and deferred capacity work retain their scope.
 
 ### Bounded String indexing and character operations
 
-**Authorized, 2026-10-31; proposed support, not yet admitted.**
+**Implemented and validated on Linux, 2026-11-04; closing delivery review pending.
+[PR #307](https://github.com/berkeleynerd/silver/pull/307) remains open.**
 
-[Milestone 16](https://github.com/berkeleynerd/silver/milestone/16) contains one
-coherent work package, [#296](https://github.com/berkeleynerd/silver/issues/296).
-The [authorization](docs/session-memory.md#2026-10-31--bounded-string-indexing-and-character-operations-authorized)
-covers design, implementation, complete native and Lean/source assurance,
-regressions, independent review and feature PR publication. The
-[capability proposal](docs/bounded-string-characters.md) tracks the exact design,
-evidence and remaining work. The feature PR stays open for owner review.
+[Milestone 16](https://github.com/berkeleynerd/silver/milestone/16) contains
+[#296](https://github.com/berkeleynerd/silver/issues/296), authorized on 2026-10-31
+and resumed on 2026-11-03. The [delivery record](docs/bounded-string-characters.md#delivery-assurance-and-validation)
+identifies the governed implementation and complete Linux native proof/audit,
+Lean actual-source/module/axiom assurance, final 578-method regression accounting
+and independent reviews. The original failed and interrupted runs remain recorded.
 
-Develop fixed-bound String indexed reads and element writes, scalar Character
-objects and comparisons, and bounded slices as one increment, motivated by
-Reverse a string, Palindrome detection and character replacement. Establish
-rules for bounds and lengths, including null slices and inherited Ada lower
-bounds, and compose them with current loops, guards, Booleans, snapshots and
-output. Implement the native recognizer and its universal/actual-source proofs
-together, then complete boundary tests, faithful samples and synchronized
-language/catalogue/Rosetta delivery records. Passing samples alone do not
-establish assurance or broader String support.
+The fragment admits fixed-bound String indexed reads and element writes,
+printable-ASCII Character objects and typed comparisons, and bounded slices.
+It preserves actual lower bounds, valid null ranges, assignment sliding,
+snapshots and composition with existing guards, loops and Boolean expressions.
+The source, operator and operand budgets remain unchanged.
 
-Retain the current source/operator/operand budgets and printable-ASCII policy.
-General dynamic-length indexing, resizing, Unicode processing, general String
-libraries, Boolean arrays, callable routines and capacity-limit changes remain
-outside this increment. No separate proof-performance project is selected.
+Rosetta promotes only `bounded-string-characters` for reversal, palindrome
+detection and selective character replacement. The bounds/sliding sample adds
+regression coverage, not another task gain. Broad `characters`, `string-indexing`
+and other general String uses remain separate. Stage issues #11/#12 remain
+Open/Backlog at rendered stages 2/3; #9/#10 remain Done at stage 1. Issue #296
+records the precise feature mapping, so no duplicate stage issue is needed.
+
+Milestone 16 and issues #296/#304/#305/#306 remain open pending owner-authorized
+merge. The feature PR must remain open for owner review. Boolean arrays #297,
+functions #298, sample expansion #300 and deferred capacity/assurance-mode work
+retain their unselected scope.
 
 ### Boolean scalar objects and expressions
 
@@ -883,10 +885,11 @@ sequence.
 | Constant Integer-array iteration | Supported | Forward/reverse element iteration over existing constant anonymous fixed-size Integer arrays, immutable scoped elements and existing body compositions; [delivery assurance and validation](docs/constant-array-iteration.md#delivery-assurance-and-validation). Mutable iteration and general iterators remain separate. | [Loops/Foreach](samples/rosetta_loops_foreach.adb) |
 | Named Integer subtypes and bounded components | Supported | Direct static Integer range subtypes for initialized scalar objects and existing fixed-array components, optional narrower scalar object ranges, and declared component bounds in body reads and foreach elements; [complete Linux assurance and validation](docs/named-integer-subtypes.md#delivery-assurance-and-validation). Broad ranged subtypes and arrays remain separate. | [Sum of squares](samples/rosetta_sum_of_squares.adb), [Sum and product](samples/rosetta_sum_and_product.adb) |
 | Boolean scalar objects and expressions | Supported | Initialized scalar Boolean objects, assignment and eager/short-circuit expressions; no retained scalar predicate facts through flags, no xor inside xor operands; [delivery assurance and validation](docs/boolean-objects.md#delivery-assurance-and-validation). | [Sequence of primes](samples/rosetta_sequence_of_primes_by_trial_division.adb), [Square but not cube](samples/rosetta_square_but_not_cube.adb), [Common list elements](samples/rosetta_common_list_elements.adb) |
+| Bounded String indexing and Character operations | Supported | Printable-ASCII Character values and typed comparisons, fixed-bound String indexed reads/writes and bounded slices, preserving actual/null bounds, sliding and snapshots; [complete Linux assurance and validation](docs/bounded-string-characters.md#delivery-assurance-and-validation). | [Reversal](samples/rosetta_reverse_a_string.adb), [palindromes](samples/rosetta_palindrome_detection.adb), [selective replacement](samples/rosetta_selective_character_replacement.adb) |
 
 The output target covers admitted literals and bounded command-line
 messages; the text `Hello, world!` receives no special treatment. String literals do not imply support for
-additional string-variable forms, arbitrary concatenation, indexing, general arrays, access types, or file
+arbitrary String operations, dynamic-length indexing, general arrays, access types, or file
 handles. Each additional form needs explicit admission and composition rules.
 
 ## Output design and next increments

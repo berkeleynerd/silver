@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is on small integers bounded by subtype ranges and explicit pre-operation guards, and loops are either for loops or while loops in procedures, so no annotation is needed, though the tokenizer and fold carry several loop-carried indexes that need careful guards.
 
-Position 573 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 574 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

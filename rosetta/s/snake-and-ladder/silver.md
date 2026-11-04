@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indices, sums and generator updates are bounded by subtypes and guards placed right before use, and the loops live in procedures so no variants are needed, but the several loop-carried values (positions, generator state) need careful typing.
 
-Position 928 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 929 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

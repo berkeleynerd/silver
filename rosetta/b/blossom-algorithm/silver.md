@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed vertex bounds, ranged subtypes and sentinel guards, and the loops are while loops in procedures, so no annotation is needed; the plausible rating reflects the many loop-carried indices that each need a guard just before use.
 
-Position 843 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 844 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

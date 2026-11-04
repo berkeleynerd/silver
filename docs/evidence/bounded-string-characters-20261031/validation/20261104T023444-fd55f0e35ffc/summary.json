@@ -1,0 +1,72 @@
+{
+  "exported_at": "2026-11-04T03:02:50.465740+00:00",
+  "run_id": "20261104T023444-fd55f0e35ffc",
+  "governed_target": "90e9f4226835c53601050eb163b842d9aadf4444",
+  "managed_terminal": {
+    "duration_seconds": 1623.385343545,
+    "error": "CalledProcessError: Command '['/usr/bin/python3', '-m', 'unittest', 'discover', '-s', 'tests', '-v']' returned non-zero exit status 1.",
+    "event": "finished",
+    "evidence": [
+      {
+        "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261104T023444-fd55f0e35ffc/native.log",
+        "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261104T023444-fd55f0e35ffc/native.log"
+      }
+    ],
+    "failure_keys": [],
+    "monotonic_ns": 33697481243242,
+    "outcome": "failure",
+    "retained_reports": [],
+    "returncode": 1,
+    "run_id": "20261104T023444-fd55f0e35ffc",
+    "utc": "2026-11-04T03:01:49.714851+00:00"
+  },
+  "observed_exec_session": 42740,
+  "observed_session_exit_code": 1,
+  "managed_seconds": 1623.385343545,
+  "unittest_test_seconds": 1621.889,
+  "actual_unique_method_ids": 578,
+  "expected_unique_method_ids": 578,
+  "actual_outcomes": {
+    "ok": 570,
+    "skipped": 7,
+    "ERROR": 1
+  },
+  "unknown_ids": [],
+  "missing_ids": [],
+  "duplicate_ids": {},
+  "actual_skipped_ids": [
+    "test_lean_evidence.LeanNativeAxiomAuditTests.test_actual_audit_accepts_foundations_and_rejects_other_assumptions",
+    "test_lean_evidence.LeanNativeDependencyTests.test_changed_resource_settings_apply_without_discarding_cached_objects",
+    "test_lean_evidence.LeanNativeDependencyTests.test_lake_tracks_embedded_ada_bytes_and_preserves_unchanged_objects",
+    "test_lean_evidence.LeanNativeDependencyTests.test_removed_dependency_fails_closed_without_discarding_unrelated_objects",
+    "test_lean_modules.LeanModuleTests.test_legacy_audits_reject_private_axiom_behind_module_import",
+    "test_lean_modules.LeanModuleTests.test_proof_reuse_and_public_source_invalidation",
+    "test_lean_source.NativeCertificateTests.test_generated_certificates_and_witnesses_remain_kernel_checked"
+  ],
+  "retained_reuse_matches_all_actual_skips": true,
+  "retained_reuse_review_commit": "d3f8e099ed",
+  "first_retained_fixture_run_disposition": "20261031T214130-1e0195247bd5 remains failed; only its five individually passing methods reused under independent approval",
+  "test_file_hashes_verified": 50,
+  "fixture_dependency_paths_verified": 50,
+  "fixture_mapping_sha256": "cd10b45c8f9e09a16745e5482ec4e64c14d552aeaadc9cc317984c053342f9c6",
+  "managed_captured_inputs_reverified": 894,
+  "complete_suite_input_path_set_and_hashes_reverified": true,
+  "native_provenance_still_valid": true,
+  "native_inputs_unchanged": 2582,
+  "matching_binary_sha256": "0de970957e860e021214b9e97b7b9cf546a646a8b584bbc5831b54e4f626163b",
+  "resource_samples": 77,
+  "sampled_max_suite_rss_bytes": 1580343296,
+  "sampled_min_MemAvailable_bytes": 31284174848,
+  "sampled_min_free_disk_bytes": 3617329152,
+  "resource_limits": "20-second samples are not true peak telemetry; two managed workers do not bound application GNATprove -j0 aggregate memory",
+  "native_complete_evidence_run": "20261103T234601-0e070300d2d7",
+  "complete_Lean_source_run": "20261104T022554-32f68afc7380",
+  "complete_Lean_source_evidence_commit": "93a14bbb15",
+  "complete_Lean_source_review_commit": "5325c23dcb",
+  "status_parser_note": "Observer restarted twice: first to resolve an interleaved nested managed-run banner/final standalone ok, then to handle two-line unittest descriptions and subtest failure lines. Earlier progress samples missed the two-line Rosetta ERROR; raw-log scan discovered it, accounting was corrected, and original samples are retained. Actual suite remained uninterrupted.",
+  "actual_failed_method_ids": [
+    "test_rosetta.RosettaRenderTests.test_render_is_identical_across_hash_seeds"
+  ],
+  "remaining": "Lead prepared Rosetta promotion and exactly three fresh test_rosetta methods after promotion; PR remains open",
+  "model_effort": "Inherited selected setting; runtime model/effort confirmation and token/cost unavailable"
+}

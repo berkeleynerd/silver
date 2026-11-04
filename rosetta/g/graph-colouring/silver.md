@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All data is fixed-size with ranged subtypes and for-loop indexes over array ranges, so index, range and overflow checks follow from types, and no loop needs an invariant or variant. The only care is a guard for the colour search finding nothing, which keeps this likely rather than certain.
 
-Position 670 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 671 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

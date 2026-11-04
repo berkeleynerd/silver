@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every operation is small bounded integer arithmetic over an 8-character string with for loops, and all counters are ranged subtypes with explicit guards, so no annotation is needed and invalid arrays get a visible rejection.
 
-Position 791 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 792 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

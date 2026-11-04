@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Remainder by literal 2 and the static loop range -1000 through 1000 fit the delivered interval-integer-division rules, including negative dividends and zero. The external review confirmed admission of this approach. This is a current-language assessment, not a delivered manifest sample or a new proof/build/execution record.
 
-Position 28 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 29 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

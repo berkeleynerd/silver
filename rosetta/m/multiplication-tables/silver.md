@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Loop indexes are statically bounded 1..12, so the product is at most 144 and every overflow, range and index check follows from types, with no loop-carried state.
 
-Position 504 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 505 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

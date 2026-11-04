@@ -1,10 +1,10 @@
 # Bounded String and Character development evidence
 
-This packet retains successful focused Linux observations for
-[#296](https://github.com/berkeleynerd/silver/issues/296). Complete native compiler
-proof/audit passed on the repaired source. Complete Lean/source assurance has also passed;
-final regression coverage and independent delivery review remain outstanding. The
-[capability record](../../bounded-string-characters.md) governs the current scope.
+This packet records complete Linux native and Lean/source assurance and final
+regression coverage for [#296](https://github.com/berkeleynerd/silver/issues/296).
+The [delivery record](../../bounded-string-characters.md#delivery-assurance-and-validation)
+governs current support; closing delivery review is pending. Dated earlier
+records retain their original failed, interrupted and partial scopes.
 
 | Packet | Exact scope |
 | --- | --- |
@@ -19,8 +19,8 @@ The summaries preserve expected failures and the earlier stress wrapper's
 preanalysis failure reference. Native run logs and the managed history remain
 under the repository's shared Git run registry.
 
-These results apply to their recorded inputs and native host. They are neither
-universal assurance nor a completed final compiler/feature checkpoint. The
+The discovery and stress observations apply to their recorded inputs and native
+host. They do not by themselves establish universal assurance or final delivery. The
 [producer account](../../bounded-string-characters-report-capacity.md) keeps the
 source-derived reasoning separate from these finite observations.
 
@@ -79,3 +79,25 @@ The [independent source-integration review](../../reviews/string-source-integrat
 passed at `93a14bbb15`, including exact artifacts, full import/audit membership
 and the earlier scope corrections. Final regression and delivery review remain
 separate.
+
+## Final regression coverage
+
+[Full run `20261104T023444-fd55f0e35ffc`](validation/20261104T023444-fd55f0e35ffc/summary.json)
+remains **failed**: 570 passes, seven expected Lean skips and one Rosetta
+renderer error caused by the missing bounded-construct `ADMISSION` entry. All
+578 IDs were observed exactly once; all 59 manifest samples passed. The packet
+also corrects early progress parsing that missed the error after a docstring.
+
+[Final run `20261104T030336-2d76f7fc2ec7`](validation/20261104T030336-2d76f7fc2ec7/summary.json)
+passes all three Rosetta methods after the table repair and final support/render
+promotion. The [final accounting](validation/final-regression-accounting-20261104/summary.json)
+selects **568 full-suite passes + three fresh Rosetta passes + seven reviewed
+installed-Lean results = 578 unique covered methods**, with no unresolved method.
+All 894 original suite inputs remain unchanged in the native lane. Of 886 shared
+tracked inputs compared with final delivery, only `rosetta/coverage.json` and
+`rosetta/refresh.py` changed; their three consumers passed fresh checks. The
+fixture tests of runner input capture use synthetic Rosetta files. All 890 inputs
+captured for the final Rosetta check were independently matched.
+
+Closing review must confirm this accounting and the synchronized delivery record;
+the earlier source-integration review remains accepted.

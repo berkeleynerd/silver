@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The array length is a static attribute of a constant array of fixed-size strings, and printing it needs only a bounded image conversion, so every check follows from declarations.
 
-Position 75 in the [progression](../../progression.md#stage-4), in stage 4.
+Position 78 in the [progression](../../progression.md#stage-4), in stage 4.
 
 ## Approach
 

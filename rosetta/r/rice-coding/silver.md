@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All values are small and bounded by declared subtypes, the only loop-carried values are a guarded position and counter in a procedure, and no function needs a loop variant, so proofs should discharge without annotations.
 
-Position 597 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 598 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

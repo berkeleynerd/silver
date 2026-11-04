@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program only prints fixed string literals with Put_Line, which today's Silver already supports, so its only proof obligations are trivial initialization and data-flow checks.
 
-Position 36 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 37 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

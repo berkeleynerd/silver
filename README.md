@@ -177,8 +177,10 @@ xor operand may contain xor. The drivers are
 [Square but not cube](samples/rosetta_square_but_not_cube.adb), and
 [Common list elements](samples/rosetta_common_list_elements.adb).
 
-The [bounded String and Character increment](docs/bounded-string-characters.md)
-is under validation in [PR #307](https://github.com/berkeleynerd/silver/pull/307).
+The [bounded String and Character increment](docs/bounded-string-characters.md#delivery-assurance-and-validation)
+is implemented and validated on Linux in
+[PR #307](https://github.com/berkeleynerd/silver/pull/307), which remains open
+for owner review. Closing delivery review is pending.
 It adds indexed reads and element writes on Strings with statically known bounds,
 printable Character objects and comparisons, and bounded slices. Copies retain
 their bounds and values; whole-String assignment preserves destination bounds.
