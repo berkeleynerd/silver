@@ -1,0 +1,44 @@
+[
+  {
+    "original_relative_path": "launch.json",
+    "original_sha256": "b0b2adebd6c9a48400964eff1ead709632d6f9eb293812f653f04eb77e5c6699",
+    "retained_relative_path": "launch.json.gz",
+    "retained_sha256": "f3f9b43a41aa195b083c6ef01fe9e6e38e02c7d0da1e26656413e81e5fdef687"
+  },
+  {
+    "original_relative_path": "terminal.json",
+    "original_sha256": "deff72acee0f119e90aceda85fa64b171994c53cfcab25c15f918d8b051fe7f8",
+    "retained_relative_path": "terminal.json.gz",
+    "retained_sha256": "f09c05c3abca3e0fca1644e6c1184ca0607d953def231f319f96436234e76c7f"
+  },
+  {
+    "original_relative_path": "resource-samples.jsonl",
+    "original_sha256": "aa6ffc6e5a79ee28a3ec78aac0d6a48ad34675a5ee2e86240aa7884f19fd89a5",
+    "retained_relative_path": "resource-samples.jsonl.gz",
+    "retained_sha256": "48b803917666a2b34ee1907cc06ea269ee1e4daea1128fe8e6f03af70d964cf9"
+  },
+  {
+    "original_relative_path": "output-certificate-pass/record.json",
+    "original_sha256": "7c5afc8a3cc1e89d5ef2165300c08880de200c2c63606308d9d3b7d29f938833",
+    "retained_relative_path": "output-certificate-pass/record.json.gz",
+    "retained_sha256": "3af66f63d2901614720626c3495ec33bbed3306c7de546602e3c62ffea02dee6"
+  },
+  {
+    "original_relative_path": "output-certificate-pass/build-prefix.log",
+    "original_sha256": "b4e39f8b275407b76d3b1114bc828f59271db2474753e59ec6d2107c09de3af6",
+    "retained_relative_path": "output-certificate-pass/build-prefix.log.gz",
+    "retained_sha256": "f30ace2a8d134642d271bc9cbb48cd8aec86ef4cd8d4e0407391cf8558c278d2"
+  },
+  {
+    "original_relative_path": "predicate-candidate-pass/record.json",
+    "original_sha256": "2f3d73d6ba6ec416d12f18e99cda3138f57267556a2b49b27a0b38d1f2724205",
+    "retained_relative_path": "predicate-candidate-pass/record.json.gz",
+    "retained_sha256": "50e6160aded6b28472a18b9147d126cc1e5f6746da195405f66c7fe4f86f0722"
+  },
+  {
+    "original_relative_path": "predicate-candidate-pass/build-prefix.log",
+    "original_sha256": "c3eb9869afbb030c6d115765db40f644a2bae57f61261b84137002509d43cb32",
+    "retained_relative_path": "predicate-candidate-pass/build-prefix.log.gz",
+    "retained_sha256": "0bdc68ca81075e856cf914b7c4fb1a82bf6dc513b4260d8c2bdde3b6ea137b32"
+  }
+]

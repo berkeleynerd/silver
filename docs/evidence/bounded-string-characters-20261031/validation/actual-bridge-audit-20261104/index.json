@@ -1,0 +1,44 @@
+{
+  "scope": "Fresh origin-module audit including actual Silver.ComposeSourceChecks and Silver.ComposeSourceBridge plus all imported Silver dependencies; no whole-project claim",
+  "run_id": "20261104T022217-ca81f59945a3",
+  "returncode": 0,
+  "fresh_declarations": 90061,
+  "elapsed_seconds": 4.529723078998359,
+  "changed_inputs": [],
+  "files": [
+    {
+      "original_relative_path": "AuditProbe.lean",
+      "original_sha256": "6ce91bf12cc965665c3a505756960099bcb7c4de2dcb148391f04b8d4997e83f",
+      "retained_relative_path": "AuditProbe.lean.gz",
+      "retained_sha256": "664004c1810dfd315f806baca64c9627e8db5339f2b7a6ebfee2613068773bd6"
+    },
+    {
+      "original_relative_path": "check.log",
+      "original_sha256": "6cf9922f70ebe81ddf991b4c54c6132ae1f78eeaad6e4ab61e7911a99492230a",
+      "retained_relative_path": "check.log.gz",
+      "retained_sha256": "08c39591ef00314d5cca1e09a553ad407e1dd1ae049e53e6b139858f0e45262e"
+    },
+    {
+      "original_relative_path": "check.py",
+      "original_sha256": "9dc9910261f0d174d7ac017859a2bc32aa9ddc44625290c7164418e16737e9f2",
+      "retained_relative_path": "check.py.gz",
+      "retained_sha256": "9a03262d9212a0e2e2e61f269f91c219c97c8a2a501372d96ada70dc53ade623"
+    },
+    {
+      "original_relative_path": "evidence.json",
+      "original_sha256": "87d20647843aa4df283ff1b13440bb247121512c1adea882e70c7c8fb9f5a626",
+      "retained_relative_path": "evidence.json.gz",
+      "retained_sha256": "006ae7c3b10d09c364cd2002b8abac1a23f4d74515a1ae6e98da8e898cb5abed"
+    },
+    {
+      "original_relative_path": "inputs.json",
+      "original_sha256": "50c28354a955bb5113f75d0457db658fb5af241f1cb5a8702ec114655acbab14",
+      "retained_relative_path": "inputs.json.gz",
+      "retained_sha256": "6c9f6428caaddade9dc0a2bea22e38400d97a7cc355a2585b1891efddf80ca9f"
+    }
+  ],
+  "captured_static_dependency_modules": 299,
+  "actual_audited_modules": 300,
+  "meta_dependency_missing_from_static_inventory": "Silver.CertificateWitness",
+  "complete_provenance_closure_run": "20261104T022554-32f68afc7380"
+}

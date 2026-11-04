@@ -1,0 +1,82 @@
+{
+  "status": "Exact scratch module and fresh audit PASS; integration and complete check still pending",
+  "run_id": "20261104T021643-6d9d63ee8cd8",
+  "module_count": 298,
+  "elapsed_seconds": 7.283187072000146,
+  "returncode": 0,
+  "changed_inputs": [],
+  "files": [
+    {
+      "original_relative_path": "AuditProbe.lean",
+      "original_sha256": "3b8310cc98a6db936129dccaf08cea8decfd657edd9aab7c7fbaadacb9f01c8c",
+      "retained_relative_path": "AuditProbe.lean.gz",
+      "retained_sha256": "aedf70cb3e1448822a3e118c6ba8c5dec68485f0839b96600dde4aea617a64a6"
+    },
+    {
+      "original_relative_path": "ComposeSourceBridge.before.lean",
+      "original_sha256": "88b212a9e48fa8653d7762c80eeb61442492617eb7e977922ebe51c9c1caa5be",
+      "retained_relative_path": "ComposeSourceBridge.before.lean.gz",
+      "retained_sha256": "b33a9d47ed627001a8d5b13aedb3fe24299be5a07909d145df2b116021a6ff4a"
+    },
+    {
+      "original_relative_path": "ComposeSourceBridgeProbe.ir",
+      "original_sha256": "cfc46a27e81277675ee8655829f2981ff9157db5dc7babbe24f8ae2285d49a55",
+      "retained_relative_path": "ComposeSourceBridgeProbe.ir.gz",
+      "retained_sha256": "b724feebab78f723c70f9a78b27166adfaa1955f67241b7ace3527568be80d2c"
+    },
+    {
+      "original_relative_path": "ComposeSourceBridgeProbe.ir.sig",
+      "original_sha256": "08ee7ba09037a81d729dd39c4587329496f20a477a2f69e617a3cd0e5a15951e",
+      "retained_relative_path": "ComposeSourceBridgeProbe.ir.sig.gz",
+      "retained_sha256": "064ceb4aa0985b4ea074a4246a25f160bda00aa65a648cd9e709098357a9c79f"
+    },
+    {
+      "original_relative_path": "ComposeSourceBridgeProbe.lean",
+      "original_sha256": "6e64c909565cb5ce60b0fd0ef8512b620512a62b40696b36ebfeef7a869a2e65",
+      "retained_relative_path": "ComposeSourceBridgeProbe.lean.gz",
+      "retained_sha256": "e0dc680b4f8cf0030892867f36bb2d1516c6f01c508df9625690a1da037de97f"
+    },
+    {
+      "original_relative_path": "ComposeSourceBridgeProbe.olean.private",
+      "original_sha256": "e57edaed48f3f026ab01eb2fec1d0e27c90e04ceadda90622d88a6a5302796e6",
+      "retained_relative_path": "ComposeSourceBridgeProbe.olean.private.gz",
+      "retained_sha256": "7a0f53ad65ebfe2d656dc95f1c6d07046986c093f17e7826788cae41336538ae"
+    },
+    {
+      "original_relative_path": "ComposeSourceBridgeProbe.olean.server",
+      "original_sha256": "790dc1de46a586f54f1f144b1e7fb4c0664c5474b39b880e26022290dba7432b",
+      "retained_relative_path": "ComposeSourceBridgeProbe.olean.server.gz",
+      "retained_sha256": "dc206234317b34a1c44a134f326328084276114fe1dd504aeb6aeb15c898abc4"
+    },
+    {
+      "original_relative_path": "check.log",
+      "original_sha256": "4d7dfb1a98d948cb61f8021a5ffbcf55e5cfd297f4c59427e41964fc33cc80c9",
+      "retained_relative_path": "check.log.gz",
+      "retained_sha256": "3237299f3980481baedc991baf17f9947cafa5a9257634af5fdbf36f8715bede"
+    },
+    {
+      "original_relative_path": "check.py",
+      "original_sha256": "eb90e5baae91d19bc8830dad54a11bc39d55f21eb060da9e9fe44ea32e65499d",
+      "retained_relative_path": "check.py.gz",
+      "retained_sha256": "4f6b37ad3daabb871615e5b76f7a887c4265964461e06322bfe2fd63f18a9d7a"
+    },
+    {
+      "original_relative_path": "evidence.json",
+      "original_sha256": "d4d59a087c43d2703478021e16d3ed69fc14622d93fae9b9dde29f44ac91cd5d",
+      "retained_relative_path": "evidence.json.gz",
+      "retained_sha256": "e4f9288afda42fae52c01a059867ad12fc2ee20671fb696cb623c5d1a4c90eb8"
+    },
+    {
+      "original_relative_path": "inputs.json",
+      "original_sha256": "c77cf0db3e0048f3db3bf11d3acce4bda199cb0eca56def11a1148a689a32f5b",
+      "retained_relative_path": "inputs.json.gz",
+      "retained_sha256": "f163831e1964b6149e557a32a3a95054069ba99ddc5bb805ea29786ebfe752ac"
+    },
+    {
+      "original_relative_path": "integration.patch",
+      "original_sha256": "3b2c7e450f90be99832467268ff5ff5e9ede5bd9f1813d7054989d60cb2ddfcf",
+      "retained_relative_path": "integration.patch.gz",
+      "retained_sha256": "1f2d4d2f7a1f1b5d102728c4781dfabaffd60bca0f062f22a2537806ac961539"
+    }
+  ]
+}

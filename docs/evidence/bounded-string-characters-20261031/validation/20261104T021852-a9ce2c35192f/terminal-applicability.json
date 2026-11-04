@@ -1,0 +1,13 @@
+{
+  "governed_input_commit": "f4d1bf10ec",
+  "captured_sources_unchanged": 738,
+  "passed_modules": [
+    "Silver.ComposeSourceBridge",
+    "Silver.PredicateSourceChecks"
+  ],
+  "failed_modules": [
+    "Silver.PredicateInheritedReady"
+  ],
+  "diagnostic_count": 56,
+  "whole_project_audit": "not reached"
+}

@@ -1,0 +1,11 @@
+{
+  "identified_on": "2026-11-04",
+  "cause": "AxiomAudit selects declaration origin modules with prefix Silver. Scratch module names ComposeSourceChecksProbe and ComposeSourceBridgeProbe lacked that prefix. Their exact-module kernel checks passed, but fresh audits covered imported Silver dependencies only, excluding scratch-owned declarations.",
+  "affected_runs": {
+    "20261104T011006-21d49eb8b36b": 61362,
+    "20261104T021643-6d9d63ee8cd8": 90013
+  },
+  "disposition": "Actual Silver.ComposeSourceChecks and Silver.ComposeSourceBridge built successfully after integration. Fresh run20261104T022217-ca81f59945a3 audits both real modules and dependencies:90061 declarations/300actualmodules,4.530s,all5079capturedidentitiesunchanged. Complete whole-project checkpoint remains mandatory. Original records retained.",
+  "current_packet": "../actual-bridge-audit-20261104/index.json",
+  "meta_import_inventory_note": "The state-conversion and actual-bridge scratch inventories captured299/300 audited modules minus the meta-only Silver.CertificateWitness dependency. The fresh audits did inspect that module. Complete run20261104T022554-32f68afc7380 captures and verifies the entire current project, including that module and its artifacts; no bounded static inventory is used as the complete assurance manifest."
+}

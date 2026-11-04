@@ -594,7 +594,8 @@ retained successful objects.
 The checked repair adds only
 `change StringHelperTranslationFor Source.outputBodyTokens` before the existing
 rewrite. An exact scratch copy of the entire module passed run
-`20261104T011006-21d49eb8b36b`, followed by a fresh audit of 61,362 declarations,
+`20261104T011006-21d49eb8b36b`, followed by a fresh audit of 61,362 imported
+dependency declarations (the scratch module itself was outside the audit prefix),
 in 5.864 seconds at 4 GiB. The [packet](evidence/bounded-string-characters-20261031/validation/translation-unfold-20261104/index.json)
 retains the exact one-line patch, source/artifact identities and audit. Theorem
 statements, native source and all other production bytes are unchanged.
@@ -605,3 +606,79 @@ failed wrapper, so its useful expensive work continues with unchanged inputs.
 After applying the checked proof-body repair, complete cached validation and a
 fresh whole-project audit remain required. Native assurance remains applicable
 because its captured inputs are unaffected.
+
+### Source-consumer integration — 2026-11-04
+
+The preceding source-wrapper subsection records the earlier active checkpoint.
+Run `20261103T234536-1d74ad60229a` has now terminated as **failed** after
+8,873.154 managed seconds. The final-source output certificate passed in
+3,530 seconds and `PredicateSourceCandidate` in 2,291 seconds. Its only failed
+modules were the wrapper and `ComposeExamples`, whose seven old positional
+`BindingInfo` constructors omitted the new fields. All 738 captured sources
+remained unchanged; both heavy modules' 32 artifact identities were retained.
+
+Commit `f9a14a33cb` integrates the checked wrapper line and named example
+records. The records preserve their original six field values, identify Strings,
+and give the fixed two-byte snapshots bounds `1 .. 2`. The subsequent complete
+run `20261104T021449-9b50164c6ab4` passed both modules, including the examples
+in 186 seconds, but failed `ComposeSourceBridge` on missing existing state-domain
+conversions. Commit `f4d1bf10ec` repairs only those proof applications with
+`NativeState.base` and the already-proved `ValidState.nativeState`; all theorem
+statements and interpretation domains remain unchanged.
+
+The exact bridge scratch module passed its kernel check. Its 90,013-declaration
+fresh audit, like the earlier 61,362-declaration scratch audit, covered imported
+Silver modules only: both scratch module names lacked the `Silver` prefix used
+by the auditor. This [scope correction](evidence/bounded-string-characters-20261031/validation/translation-unfold-20261104/audit-scope-correction.json)
+preserves the original records. A [fresh audit of the actual built modules](evidence/bounded-string-characters-20261031/validation/actual-bridge-audit-20261104/index.json),
+run `20261104T022217-ca81f59945a3`, includes both repaired modules and all their
+Silver dependencies: **90,061 declarations in 300 modules**, 4.530 seconds,
+with all 5,079 captured identities unchanged and only permitted foundations.
+This closes the bounded audit-scope gap; it is not a whole-project result.
+
+Complete cached run `20261104T021852-a9ce2c35192f` passed the bridge and
+`PredicateSourceChecks` but failed the next consumer, `PredicateInheritedReady`,
+on state-domain forwarding. The bounded repair thread selects GPT-6.1 Sol /
+Extra High and owns a scratch proof only; runtime settings and token/cost data
+are unavailable. It must preserve every theorem header and forward the existing
+String/Character helper witnesses. The failed runs and exact packets are retained
+in the [validation index](evidence/bounded-string-characters-20261031/README.md).
+Native source, pins and generated certificates remain unchanged, so the native
+complete proof remains applicable. Complete source/fresh audit, final regressions
+and closing review remain required.
+
+### Complete Linux source assurance — 2026-11-04
+
+The inherited forwarding repair is integrated at
+`90e9f4226835c53601050eb163b842d9aadf4444`. Its
+[focused packet](evidence/bounded-string-characters-20261031/validation/inherited-state-repair-20261104/index.json)
+retains the exact module, six unchanged theorem headers, 90,451-declaration
+audit across 311 modules, all 6,038 captured identities and both import-setup
+failures. The source-domain and String-bound witnesses are preserved, and the
+eight existing String/Character helper equations are forwarded without changing
+any public theorem statement or interpretation assumption.
+
+The [complete cached source checkpoint](evidence/bounded-string-characters-20261031/validation/20261104T022554-32f68afc7380/summary.json)
+**passed**: all **623 modules**, followed by a fresh audit of **128,840
+declarations** using only `propext`, `Classical.choice` and `Quot.sound`.
+Build time was 16.700 seconds and audit time 4.515 seconds; the managed duration
+was 30.083 seconds, evidence-runner duration 31.354 seconds, and supervisor
+duration 31.537 seconds. These timings cover different recorded boundaries.
+This is an ordinary cached complete check, not a clean build or independent
+`leanchecker` replay. The successful final-source certificates were reused.
+
+The lead independently matched all **738 authoritative inputs, 625 workspace
+inputs, two tools and 3,742 artifacts**, plus the retained 32 identities of the
+heavy output and Predicate candidates. The earlier scratch static dependency
+inventories omitted the meta-only `Silver.CertificateWitness` from their
+identity captures; their audits did include it. This complete checkpoint
+captures and verifies the full module/provenance closure, including that
+module. It also covers every production proof declaration excluded by the
+earlier scratch naming mistake. Original failed and partial records remain
+unchanged.
+
+Native source and scripts still match the successful native checkpoint at
+`119cfa0c73`. The native lane is authorized to synchronize the four later Lean
+files, refresh the exact fixture applicability and run the final 578-method
+suite. Final regression coverage, Rosetta delivery promotion and independent
+closing review remain outstanding; PR #307 stays open.
