@@ -129,10 +129,10 @@ theorem interpreted_equations (calls : Expressions.Calls)
   obtain ⟨imports, predicate, helpers, definitions, contracts, links, equation⟩ :=
     source.booleanDeclaration.source
   intro text valid state arguments ready
-  exact (equation text valid state arguments ready).trans
+  exact (equation text valid state arguments ready.base).trans
     (BooleanDeclarationNative.imports_meaning imports text state arguments
       (BooleanDeclarationNative.Libraries.imports_meaning raw helpers definitions contracts links
-        text valid state arguments ready))
+        text valid state arguments ready.base))
 
 theorem interpreted_step (calls : Expressions.Calls) (source : InterpretedSource calls)
     (text : Source) (valid : Expressions.ValidText text) (form : Form) (token : ShellToken)
@@ -144,17 +144,18 @@ theorem interpreted_step (calls : Expressions.Calls) (source : InterpretedSource
     (Expressions.Context.locals {text,form,token,state}) Expressions.stepBody
     (source.stepLegal text valid form token state native tokenValid context)
   rw [source.step text valid form token state native tokenValid context, normalized]
+  have nativeContext := context.nativeState
   have contextAfter := Names.interpreted_context calls.names equations.names text valid form.hasArguments
-  have argument := interpreted_argument calls equations text valid state context
-  have declarations := interpreted_declarations calls equations text valid state form.hasArguments context
-  have read := (equations.readDeclarations text valid state form.hasArguments context).trans declarations
-  have target := interpreted_target calls equations text valid state false context
-  have targetSame := interpreted_target calls equations text valid state true context
-  have dynamic := interpreted_dynamic calls equations text valid state context
-  have assignment := interpreted_assignmentValue calls equations text valid state context
-  have output := interpreted_output calls equations text valid state context
-  have comparison := interpreted_comparison calls equations text valid state context
-  have capacity := interpreted_capacity calls equations text valid state context
+  have argument := interpreted_argument calls equations text valid state nativeContext
+  have declarations := interpreted_declarations calls equations text valid state form.hasArguments nativeContext
+  have read := (equations.readDeclarations text valid state form.hasArguments nativeContext).trans declarations
+  have target := interpreted_target calls equations text valid state false nativeContext
+  have targetSame := interpreted_target calls equations text valid state true nativeContext
+  have dynamic := interpreted_dynamic calls equations text valid state nativeContext
+  have assignment := interpreted_assignmentValue calls equations text valid state nativeContext
+  have output := interpreted_output calls equations text valid state nativeContext
+  have comparison := interpreted_comparison calls equations text valid state nativeContext
+  have capacity := interpreted_capacity calls equations text valid state nativeContext
   have skipped := interpreted_skip calls equations.toRawHelperEquations text valid state.position context.1.1
   have skipDomain := equations.ranges.skip text valid state.position context.1.1
   rw [skipped] at skipDomain
