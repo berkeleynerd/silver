@@ -633,6 +633,52 @@ is
         and then Text (Position + 2) = Character'Val (39)
       then Position + 3 else 0);
 
+   --  A native conditional fact can override the endpoint interval used by
+   --  admission, even in an unreachable arm. In these source contexts slices
+   --  therefore require Ada-static endpoints. Scan tokens, not identifier or
+   --  literal substrings; the Boolean-chain suffix is deliberately conservative.
+   function Guarded_At
+     (Text : String; Position : Cursor; Limit : Literal_Position;
+      Depth : Natural; Chained, Ending : Boolean) return Boolean
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1 and then Limit <= Text'Last + 1
+         and then Depth <= Max_Source_Length,
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - Position);
+   function Guarded_At
+     (Text : String; Position : Cursor; Limit : Literal_Position;
+      Depth : Natural; Chained, Ending : Boolean) return Boolean is
+      First : constant Literal_Position := Skip_At (Text, Position);
+      After : constant Literal_Position := Name_After (Text, First);
+      Character_After : constant Literal_Position := Character_Literal_After (Text, First);
+      Quoted_After : constant Literal_Position := Literal_At (Text, First).After;
+      Next_Chained : constant Boolean :=
+        Chained or else (After > First
+          and then (Name_Is (Text, First, After, "and")
+            or else Name_Is (Text, First, After, "or")
+            or else Name_Is (Text, First, After, "xor")));
+      Next_Ending : constant Boolean :=
+        After > First and then Name_Is (Text, First, After, "end");
+      After_Punctuation : constant Boolean :=
+        Chained and then (First > Text'Last or else Text (First) /= ';');
+   begin
+      return (if First >= Limit then Depth /= 0 or else Chained
+         elsif Character_After > First then
+           Guarded_At (Text, Character_After, Limit, Depth, Chained, False)
+         elsif Quoted_After > First then
+           Guarded_At (Text, Quoted_After, Limit, Depth, Chained, False)
+         elsif After > First then
+           (if Name_Is (Text, First, After, "if") then
+              (if Ending and then Depth /= 0 then
+                 Guarded_At (Text, After, Limit, Depth - 1, Chained, False)
+               elsif Ending then Guarded_At (Text, After, Limit, 0, Chained, False)
+               elsif Depth = Max_Source_Length then True
+               else Guarded_At (Text, After, Limit, Depth + 1, Chained, False))
+            else Guarded_At (Text, After, Limit, Depth, Next_Chained, Next_Ending))
+         else Guarded_At (Text, First + 1, Limit, Depth,
+           After_Punctuation, False));
+   end Guarded_At;
+
    --  A fixed String prefix is resolved before its suffix is interpreted.
    --  Endpoints use the full bounded Integer grammar, including admitted array
    --  reads; those reads retain their own non-nested subscript restriction.
@@ -697,6 +743,12 @@ is
       Following := Take_Token (Text, High.After, Right_Parenthesis);
       if Following <= Position or else Scalars.Is_Empty (High.Bounds)
         or else Low.Operands + High.Operands >= Max_Expression_Operands
+        --  The pinned native array-equality expansion subtracts the actual
+        --  endpoints in Integer. Keep every inverted span representable too.
+        or else Scalars.Wide (Low.Bounds.Upper) - Scalars.Wide (High.Bounds.Lower)
+          > Scalars.Maximum
+        or else ((not Low.Static or else not High.Static)
+          and then Guarded_At (Text, 1, Position, 0, False, False))
         or else (Low.Bounds.Lower <= High.Bounds.Upper
           and then (Low.Bounds.Lower < Names.Items (Target).First_Index
             or else High.Bounds.Upper > Names.Items (Target).Last_Index))
