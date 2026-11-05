@@ -184,5 +184,8 @@ span-boundary tests. The
 [independent applicability review](reviews/review-argument-proof-regression-applicability-20261105.md)
 establishes that the theorem-local budget change requires no extra unittest
 reruns. It does not establish the still-pending suite outcome or census. Complete
-Lean/source assurance and final delivery review remain outstanding. PR #307
-remains open and unmerged.
+Lean/source check `20261105T112731-2036c05ea810` is running on the frozen
+`3c156a2e09` inputs with one Lake worker, one thread per Lean process and a
+24 GiB per-process memory threshold. All three complete checks retain their
+actual outcomes; no completion is claimed before their audits and final review.
+PR #307 remains open and unmerged.
