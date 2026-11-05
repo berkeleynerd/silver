@@ -46,6 +46,18 @@ and deferred capacity work retain their scope.
 
 ## Current development sequence
 
+### Interim external review response for PR #307
+
+**Authorized, 2026-11-05; repairs and renewed assurance pending.** The
+[interim report](docs/reviews/interim-review-0d30841795-20261105.md) identifies
+five blockers across the String delivery and inherited array/scalar behavior.
+The [owner authorization](docs/session-memory.md#2026-11-05--interim-external-review-repairs-authorized)
+selects a bounded B2 admission design, B1–B5 implementation, focused regressions
+and record corrections, then one stable complete native/Lean/source/regression
+checkpoint and independent review. PR #307 remains open and must not merge on
+the superseded completion assessment. Med-1's remaining structural guards are a
+next-edit follow-up; no new language feature is selected.
+
 ### Bounded String indexing and character operations
 
 **Implemented, validated and reviewed on Linux, 2026-11-04; ready for owner review.
