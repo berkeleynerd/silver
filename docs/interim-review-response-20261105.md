@@ -1,7 +1,8 @@
 # Interim external review response — 2026-11-05
 
-Status: implementation and focused validation in progress. PR #307 is draft,
-open and unmerged. The owner authorized this response in PR #308, merged as
+Status: complete Lean assurance passed; native assurance and closing delivery
+review remain pending. PR #307 is draft, open and unmerged. The owner authorized
+this response in PR #308, merged as
 `200e91a892b852e823494f2eaac7cde48602b123`. The exact
 [interim external report](reviews/interim-review-0d30841795-20261105.md)
 reviews `0d308417955545a225378ed6e31f83733b40e4ce`; its remaining review is
@@ -40,11 +41,11 @@ intentionally excludes them, with separate retained positive controls. The
 external appendix adds 39 admission cases across five files and two methods;
 it does not replace full-build regressions for the blockers.
 
-Complete native proof/audit, matching build, Lean/source/module/axiom assurance,
-regression coverage, resource observations where affected, and independent
-integration review remain outstanding. Do not reuse old totals as results of
-the repaired tree. Existing source and expression limits, proof/report settings,
-and the prior `-gnatdM` correction remain in force.
+Complete native proof/audit and closing integration review remain outstanding.
+The matching build, regression coverage and complete Lean/source/module/axiom
+checkpoint have the current input scopes recorded below. Do not reuse older
+delivery totals as results of the repaired tree. Existing source and expression
+limits, proof/report settings, and the prior `-gnatdM` correction remain in force.
 
 The deleted tmp caches are unavailable. Fresh tool installations are bootstrapped
 at their actual worktree paths. An older surviving root Lean build was copied
@@ -207,3 +208,36 @@ selected GPT-6.1 Sol / High. Runtime settings and token/cost measurements were
 not exposed. Native proof/audit is still active. No complete delivery assurance
 is claimed before the remaining audits and integration review pass; PR #307
 remains open and unmerged.
+
+### Complete Lean checkpoint — 19:37 UTC
+
+The local pin-budget repair passed focused run
+`20261105T170530-55ec63277225`, including a fresh audit. The next complete run,
+`20261105T171116-aab6d635d383`, retained a successful 6,899-second
+`PredicateSourceCandidate` build but failed on four unused simplification
+arguments in `ComposeHelperSourceCandidate`. It remains recorded as failed.
+Commit `ddb183a918` removes only those four arguments from the private
+`string_helper_guarded_at_ordinary` proof. Its theorem statement, source tokens,
+other proofs and warning policy are unchanged.
+
+Complete cached run `20261105T192530-524a4096ef8f` passed on the exact bytes
+subsequently committed as `ddb183a918`: **626 modules and 129,947 declarations**,
+with a separate fresh whole-project audit and only the approved foundations.
+Its build took 677.960 seconds and audit 14.158 seconds. All 741 captured shared
+inputs match the final snapshot. Both expensive source modules' retained object
+contents were reused unchanged. The [final Lean packet](evidence/interim-review-response-20261105/lean-final/README.md)
+retains current evidence, input comparisons, prior failures, the focused result
+and sampled resource observations. This is cached Linux validation, not a clean
+build or independent kernel replay.
+
+The [final regression applicability review](reviews/review-final-regression-applicability-20261105.md)
+establishes coverage of the unchanged 595-ID inventory: 594 original method
+results remain applicable, and the changed CPU-resource method is replaced by
+its passing result in `20261105T132715-c4a22b58c2d9`. The other six focused passes
+are supplementary. The three proof-only edits require no additional unittest
+rerun. Results retain their actual tested worktree and compiler identities;
+this reuse does not claim a new full-suite execution on the integration binary.
+
+Native run `20261105T110725-477d91dbd07d` is still active. Final native assurance
+and closing delivery review remain required before this response is described
+as complete. PR #307 remains draft/open and merge is not authorized.

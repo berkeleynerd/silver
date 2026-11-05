@@ -55,3 +55,13 @@ a proposed sufficient ceiling, not a measured minimum. It leaves the token
 literal, semantic statements and proof obligations unchanged. Focused validation
 of that module and a complete cached build with a fresh audit remain required;
 the failed replacement run is not relabelled successful.
+
+## Later final checkpoint
+
+The declaration-local budget repair and subsequent four-entry helper simp
+cleanup are now validated by a complete cached build and separate fresh
+whole-project audit. See the [final Lean checkpoint](../lean-final/README.md)
+for the exact implemented input identity and retained focused/failed/final
+runs. The interrupted and failed outcomes recorded above remain unchanged;
+the final Lean success does not complete the independently active native proof
+or overall delivery.

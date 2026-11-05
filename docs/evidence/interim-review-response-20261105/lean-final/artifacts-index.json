@@ -1,0 +1,213 @@
+{
+  "scope": "Retained final cached Lean checkpoint, earlier focused success and failed complete build; no new validation run",
+  "artifacts": [
+    {
+      "path": "success-summary.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/tmp/pin-budget-repair-20261105T170452Z/lint-repair/success-summary.json",
+      "original_bytes": 2380,
+      "stored_bytes": 2380,
+      "original_sha256": "1b772000e7aefa133bd9603eb6b1ec0876bf1533f6797caf2f031d826ce7def1",
+      "stored_sha256": "1b772000e7aefa133bd9603eb6b1ec0876bf1533f6797caf2f031d826ce7def1"
+    },
+    {
+      "path": "lean-evidence.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/tmp/pin-budget-repair-20261105T170452Z/lint-repair/lean-evidence.json",
+      "original_bytes": 24041,
+      "stored_bytes": 24041,
+      "original_sha256": "84679c8b050038a685b11a7ce87d9ab4fd359f626623c0d44043f63bbb37d152",
+      "stored_sha256": "84679c8b050038a685b11a7ce87d9ab4fd359f626623c0d44043f63bbb37d152"
+    },
+    {
+      "path": "lean-proof.log.gz",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/tmp/pin-budget-repair-20261105T170452Z/lint-repair/lean-proof.log",
+      "original_bytes": 74099,
+      "stored_bytes": 7135,
+      "original_sha256": "b16537378bcf7d4d0d49615962a8317724f5e11324b009ab8886836c17c8a66f",
+      "stored_sha256": "7514a85e8e00ecd0fe1af6686bf016ca4e3f5311e328846ac99d61894053d59a"
+    },
+    {
+      "path": "events.jsonl.gz",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/tmp/pin-budget-repair-20261105T170452Z/lint-repair/events.jsonl",
+      "original_bytes": 86705,
+      "stored_bytes": 35899,
+      "original_sha256": "e6292ad33c38d870d1923df4dc0f72670902fd416f980d3857b4adf98f086a9e",
+      "stored_sha256": "f967011387580b1e058c339cdcf8c88618a1373af06e22a534a86440a79169db"
+    },
+    {
+      "path": "resources.jsonl.gz",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/tmp/pin-budget-repair-20261105T170452Z/lint-repair/resources.jsonl",
+      "original_bytes": 83491,
+      "stored_bytes": 4327,
+      "original_sha256": "c281f55cc5e129402394a4a337f2a616823ff44f865ecbb7e8565828722b7e8d",
+      "stored_sha256": "8f377b1b1b408fb7e416dc8c2ad90ee0c0deca3dc475ab7ef663f1491b66aa1c"
+    },
+    {
+      "path": "run-metadata.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/tmp/pin-budget-repair-20261105T170452Z/lint-repair/run-metadata.json",
+      "original_bytes": 1395,
+      "stored_bytes": 1395,
+      "original_sha256": "6a893ea90baa371a991d9d5b3202a17b665a7dc1531789ba422402d6c89765c7",
+      "stored_sha256": "6a893ea90baa371a991d9d5b3202a17b665a7dc1531789ba422402d6c89765c7"
+    },
+    {
+      "path": "wrapper-outcome.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/tmp/pin-budget-repair-20261105T170452Z/lint-repair/wrapper-outcome.json",
+      "original_bytes": 168,
+      "stored_bytes": 168,
+      "original_sha256": "bf6cbbd671e02696bb8afb77d4ab9ee904881244d58e4f433021f6b7e4c0aa8d",
+      "stored_sha256": "bf6cbbd671e02696bb8afb77d4ab9ee904881244d58e4f433021f6b7e4c0aa8d"
+    },
+    {
+      "path": "managed-status-final.json.gz",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/tmp/pin-budget-repair-20261105T170452Z/lint-repair/managed-status-final.json",
+      "original_bytes": 31220,
+      "stored_bytes": 8260,
+      "original_sha256": "28810b9b9e88bb2775e8c3d8f888ee94d878247612da29f227be35a0030bb11d",
+      "stored_sha256": "d9c6a581c70667da6936688e7c47740bb0724b3af294a151551fd232e0792b2a"
+    },
+    {
+      "path": "resource-preflight.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/tmp/pin-budget-repair-20261105T170452Z/lint-repair/resource-preflight.json",
+      "original_bytes": 290,
+      "stored_bytes": 290,
+      "original_sha256": "cef8ca8a04a71de0ec4591579c253f5877d0b9e095647cb40b1e27d82e0e0dc2",
+      "stored_sha256": "cef8ca8a04a71de0ec4591579c253f5877d0b9e095647cb40b1e27d82e0e0dc2"
+    },
+    {
+      "path": "retained-artifact-reuse.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/tmp/pin-budget-repair-20261105T170452Z/lint-repair/retained-artifact-reuse.json",
+      "original_bytes": 10851,
+      "stored_bytes": 10851,
+      "original_sha256": "b607c3ec8816ae3e92ddc2423ff9e7e042f5e090853875464fa1f8b7e1f50379",
+      "stored_sha256": "b607c3ec8816ae3e92ddc2423ff9e7e042f5e090853875464fa1f8b7e1f50379"
+    },
+    {
+      "path": "helper-simp.diff",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/tmp/pin-budget-repair-20261105T170452Z/lint-repair/helper-simp.diff",
+      "original_bytes": 529,
+      "stored_bytes": 529,
+      "original_sha256": "97fb5aa403f2d9e712e3592b7b9d916a45b5982990f473cb058b95cd495155ff",
+      "stored_sha256": "97fb5aa403f2d9e712e3592b7b9d916a45b5982990f473cb058b95cd495155ff"
+    },
+    {
+      "path": "helper-source-identities.json.gz",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/tmp/pin-budget-repair-20261105T170452Z/lint-repair/source-identities.json",
+      "original_bytes": 170114,
+      "stored_bytes": 68700,
+      "original_sha256": "879e3a9c5e25a1655c925a1517ed1f9fef2311772672c61488e324cf3a1c3056",
+      "stored_sha256": "106c229b305a0efe452be06595e8a4dcbf8a17709e790b5b74650eb4609a95c8"
+    },
+    {
+      "path": "budget.diff",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/tmp/pin-budget-repair-20261105T170452Z/one-line.diff",
+      "original_bytes": 302,
+      "stored_bytes": 302,
+      "original_sha256": "0cc66e99b161deaccb82ab63123553df7d921f9d942ef6af76adc278f4e38f59",
+      "stored_sha256": "0cc66e99b161deaccb82ab63123553df7d921f9d942ef6af76adc278f4e38f59"
+    },
+    {
+      "path": "budget-source-identities.json.gz",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/tmp/pin-budget-repair-20261105T170452Z/source-identities.json",
+      "original_bytes": 170112,
+      "stored_bytes": 68754,
+      "original_sha256": "6c4e678f2605257bcc0c097d29cf4935537772fce08a8d9fc8aa8de9e5cc7248",
+      "stored_sha256": "ffbc80b811404238593aa8ca8b7fbbc29dfd2b9a4bbaf8fe1cfaa7ff596d4e46"
+    },
+    {
+      "path": "focused-evidence.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/tmp/pin-budget-repair-20261105T170452Z/focused-evidence.json",
+      "original_bytes": 1380,
+      "stored_bytes": 1380,
+      "original_sha256": "14e88b1aa353b07c07376d73bd1d1463c87c9fd7986d44efd3ed617bb6182099",
+      "stored_sha256": "14e88b1aa353b07c07376d73bd1d1463c87c9fd7986d44efd3ed617bb6182099"
+    },
+    {
+      "path": "focused-lean.log.gz",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/tmp/pin-budget-repair-20261105T170452Z/focused-lean.log",
+      "original_bytes": 1118,
+      "stored_bytes": 511,
+      "original_sha256": "0757aefa68e7fe37e905cc8c14335572bccded7d7dbbbff7ac7bb116475d9943",
+      "stored_sha256": "cbded46a8452db4a4997b9e64beb2d3e409c0d0347814c2300530c0359210a77"
+    },
+    {
+      "path": "focused-events.jsonl.gz",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/tmp/pin-budget-repair-20261105T170452Z/focused-events.jsonl",
+      "original_bytes": 87194,
+      "stored_bytes": 35913,
+      "original_sha256": "58fc1f3feb9269564a540c6f0289e18406f760eea3ca97185e0ea9fb3a8a666e",
+      "stored_sha256": "d4b98025a3c0e2bde440689630bb9b19f8a952e99c3aedb9a38c09090a63ff38"
+    },
+    {
+      "path": "focused-wrapper-outcome.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/tmp/pin-budget-repair-20261105T170452Z/wrapper-outcome.json",
+      "original_bytes": 169,
+      "stored_bytes": 169,
+      "original_sha256": "3f6626afb2168e0d5950a1a89afb9156fd8f091bb20e5a78e07f6694fed9b110",
+      "stored_sha256": "3f6626afb2168e0d5950a1a89afb9156fd8f091bb20e5a78e07f6694fed9b110"
+    },
+    {
+      "path": "failed-summary.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/tmp/pin-budget-repair-20261105T170452Z/complete-terminal-summary.json",
+      "original_bytes": 3177,
+      "stored_bytes": 3177,
+      "original_sha256": "019bc0be8c8f0aa25c6d5b055266011de819cd50ec75eca7391c775843272463",
+      "stored_sha256": "019bc0be8c8f0aa25c6d5b055266011de819cd50ec75eca7391c775843272463"
+    },
+    {
+      "path": "failed-build.log.gz",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/tmp/pin-budget-repair-20261105T170452Z/complete-lean-proof.log",
+      "original_bytes": 4025,
+      "stored_bytes": 946,
+      "original_sha256": "ee00728d0c9d8d9f1af4820405123676b667a346ed82a6b9faf61f5cc73e4d39",
+      "stored_sha256": "63eab4c182a8675fe4fb57ba41a3de87a15d16ca34b85f6f5e8b96d861e99203"
+    },
+    {
+      "path": "failed-events.jsonl.gz",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/tmp/pin-budget-repair-20261105T170452Z/complete-events.jsonl",
+      "original_bytes": 85777,
+      "stored_bytes": 35787,
+      "original_sha256": "dc6759c18f39e119073bf554f279a90487999dbc296340da9bfd3e9caaa6e270",
+      "stored_sha256": "b6e71d933601cdcae51847506cd2acd7c4dd69830e759698d94033b20c16b231"
+    },
+    {
+      "path": "failed-resources.jsonl.gz",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/tmp/pin-budget-repair-20261105T170452Z/complete-resources.jsonl",
+      "original_bytes": 1084286,
+      "stored_bytes": 47043,
+      "original_sha256": "a22b84c3c6bf6e4ae391d3b348d5232b77a961516f8e289750120c5017f01359",
+      "stored_sha256": "6c2c5183b4c86fb0a57417bd303f3ca88e5acfe4b553a528decc6898cfec0990"
+    },
+    {
+      "path": "failed-wrapper-outcome.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/tmp/pin-budget-repair-20261105T170452Z/complete-wrapper-outcome.json",
+      "original_bytes": 165,
+      "stored_bytes": 165,
+      "original_sha256": "6fead293bd2f9cf7b259df71a33f5997b761a58b7012f68763934c5acfa8b1c9",
+      "stored_sha256": "6fead293bd2f9cf7b259df71a33f5997b761a58b7012f68763934c5acfa8b1c9"
+    },
+    {
+      "path": "retained-artifacts-before-helper.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/tmp/pin-budget-repair-20261105T170452Z/post-failure-retained-artifacts.json",
+      "original_bytes": 7941,
+      "stored_bytes": 7941,
+      "original_sha256": "ec4d7579c312e65d76ff4ecaa0ba1f8851937233f22f4c52d83f045f627ffc1a",
+      "stored_sha256": "ec4d7579c312e65d76ff4ecaa0ba1f8851937233f22f4c52d83f045f627ffc1a"
+    },
+    {
+      "path": "artifact-metadata-differences.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/tmp/pin-budget-repair-20261105T170452Z/certificate-artifact-metadata-differences.json",
+      "original_bytes": 1679,
+      "stored_bytes": 1679,
+      "original_sha256": "0c08e6b4450803fd7fe7e714535277c87c369bb713e8915aae673388a3a32737",
+      "stored_sha256": "0c08e6b4450803fd7fe7e714535277c87c369bb713e8915aae673388a3a32737"
+    },
+    {
+      "path": "current-input-verification.json",
+      "original": "Derived read-only verification of current checkout and retained run inputs",
+      "original_bytes": 1575,
+      "stored_bytes": 1575,
+      "original_sha256": "48fecf16bb626118a595356ffe2fb4d142e0b0c2a72d5636462fb42d51336f48",
+      "stored_sha256": "48fecf16bb626118a595356ffe2fb4d142e0b0c2a72d5636462fb42d51336f48"
+    }
+  ]
+}

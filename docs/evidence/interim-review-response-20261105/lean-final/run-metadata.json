@@ -1,0 +1,32 @@
+{
+  "run_id": "20261105T192530-524a4096ef8f",
+  "utc": "2026-11-05T19:25:35.152969+00:00",
+  "pid": 383289,
+  "workers": 8,
+  "available_cpus": 12,
+  "fingerprint": "5dede1cbcce748737b12deed3894229fb023b29b2b57930f8de7e5ed5b27c24c",
+  "scope": "complete",
+  "reason": "Complete current-source assurance after four-entry guarded_at simp lint repair for20261105T171116-aab6d635d383; preserve successful OutputBodyCertificate and PredicateSourceCandidate objects",
+  "command": [
+    "/usr/bin/python3",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/scripts/check_lean.py",
+    "--memory-mb",
+    "24576",
+    "--task",
+    "#309-#320 final Lean",
+    "--reason",
+    "Complete current-source assurance after four-entry guarded_at simp lint repair for20261105T171116-aab6d635d383; preserve successful OutputBodyCertificate and PredicateSourceCandidate objects"
+  ],
+  "directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261105T192530-524a4096ef8f",
+  "configuration": {
+    "clean": false,
+    "memory_mb": 24576,
+    "provenance": false,
+    "replay": false,
+    "threads": 12,
+    "workers": 0
+  },
+  "workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/.silver/linux-x86_64/proof",
+  "process_group": 383289,
+  "captured_shared_inputs_match_repair_snapshot": true
+}

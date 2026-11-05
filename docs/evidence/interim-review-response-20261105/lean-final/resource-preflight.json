@@ -1,0 +1,12 @@
+{
+  "utc": "2026-11-05T19:25:11.029316+00:00",
+  "available_cpus": 12,
+  "reserved_workers": 4,
+  "active_runs": [
+    {
+      "run_id": "20261105T110725-477d91dbd07d",
+      "workers": 4,
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair"
+    }
+  ]
+}

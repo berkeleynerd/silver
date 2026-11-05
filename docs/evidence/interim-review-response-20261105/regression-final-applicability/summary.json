@@ -1,0 +1,165 @@
+{
+  "generated_utc": "2026-11-05T19:51:55.166940+00:00",
+  "base_commit": "fb89b3653accef6c08a49f88625144c108ad2432",
+  "final_commit": "ddb183a918c78c8636b94961172dc923e7d88d30",
+  "selected_reviewer_model": "GPT-6 Astra",
+  "selected_reviewer_effort": "Extra High",
+  "runtime_model_effort_and_token_cost": "Not exposed",
+  "full_regression": {
+    "run_id": "20261105T111005-483650d69229",
+    "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-admission-repairs",
+    "captured_inputs": 900,
+    "captured_repository_inputs": 892,
+    "original_live_mismatches": [],
+    "final_vs_governed_commit_mismatches": [],
+    "repository_changes": [
+      {
+        "path": "proof/Silver/ComposeEquations.lean",
+        "captured_sha256": "f2462b54b0e03b063d3e32f4ec70119b8110f000b07982c8822d3599d5fffdf1",
+        "final_sha256": "1c68e535f029804fb1c616ed2819607abd895fb95b48b3ba8a73c5135200ff9f"
+      },
+      {
+        "path": "proof/Silver/ComposeHelperSourceCandidate.lean",
+        "captured_sha256": "4daa74f8c9b2ffe66cedd8b075e59e1bbf4e581109c135bcfec354711318a16c",
+        "final_sha256": "3b8248b88f3974725510f85537252cd4bcfd0dd71455957f033c2263e575ff62"
+      },
+      {
+        "path": "proof/Silver/ReviewedOutputShape.lean",
+        "captured_sha256": "bde9a8dd5331bace842e09d81cbcb86da4a57627ad08b7ba7a2e59520bdc6c65",
+        "final_sha256": "e23863d3f797cdb864835aa0408ce1b0e87344acc1438a851bd9f677132d009d"
+      },
+      {
+        "path": "proof/lakefile.lean",
+        "captured_sha256": "a57a53db5814b1f49b42b9454fd2a977281079274521a1f6a2838522caea04cc",
+        "final_sha256": "fcf4a979765b3cbc986b6fe22073ebda91056457a3e7f32ece975877297a1365"
+      },
+      {
+        "path": "tests/test_lean_evidence.py",
+        "captured_sha256": "c7bd7108f24d9c6e5070697572d187af23ce415fd54ae9fa077df03ea7cfb603",
+        "final_sha256": "d7b96d6b8faa311bbc441eaf70912ea29e632e6a4e58abd2007da28ec4ebe1eb"
+      }
+    ],
+    "prepared_fingerprint": "158e5f4e9db1b464f3e4046f540ff80e221f1c16ab452b966a393e7d29158a45",
+    "finished": {
+      "duration_seconds": 3923.180914739,
+      "event": "finished",
+      "evidence": [
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261105T111005-483650d69229/native.log",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261105T111005-483650d69229/native.log"
+        }
+      ],
+      "failure_keys": [],
+      "monotonic_ns": 13077569572585,
+      "outcome": "success",
+      "retained_reports": [],
+      "returncode": null,
+      "run_id": "20261105T111005-483650d69229",
+      "utc": "2026-11-05T12:15:31.635814+00:00"
+    }
+  },
+  "focused_cpu": {
+    "run_id": "20261105T132715-c4a22b58c2d9",
+    "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-cpu-defaults",
+    "captured_inputs": 893,
+    "captured_repository_inputs": 892,
+    "original_live_mismatches": [],
+    "final_vs_governed_commit_mismatches": [],
+    "repository_changes": [
+      {
+        "path": "proof/Silver/ComposeHelperSourceCandidate.lean",
+        "captured_sha256": "4daa74f8c9b2ffe66cedd8b075e59e1bbf4e581109c135bcfec354711318a16c",
+        "final_sha256": "3b8248b88f3974725510f85537252cd4bcfd0dd71455957f033c2263e575ff62"
+      },
+      {
+        "path": "proof/Silver/ReviewedOutputShape.lean",
+        "captured_sha256": "bde9a8dd5331bace842e09d81cbcb86da4a57627ad08b7ba7a2e59520bdc6c65",
+        "final_sha256": "e23863d3f797cdb864835aa0408ce1b0e87344acc1438a851bd9f677132d009d"
+      }
+    ],
+    "prepared_fingerprint": "caab2f2e41def0262f0049dfec976d0d54aae8bc888adb5a92f308260275ad14",
+    "finished": {
+      "duration_seconds": 63.214829569,
+      "event": "finished",
+      "evidence": [
+        {
+          "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261105T132715-c4a22b58c2d9/native.log",
+          "resolved": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261105T132715-c4a22b58c2d9/native.log"
+        }
+      ],
+      "failure_keys": [],
+      "monotonic_ns": 17447965944973,
+      "outcome": "success",
+      "retained_reports": [],
+      "returncode": null,
+      "run_id": "20261105T132715-c4a22b58c2d9",
+      "utc": "2026-11-05T13:28:22.082335+00:00"
+    }
+  },
+  "inventory": {
+    "files": 53,
+    "local_methods": 581,
+    "runtime_ids": 595,
+    "new_or_removed_ids": [],
+    "changed_methods": [
+      "test_lean_evidence.LeanNativeDependencyTests.test_changed_resource_settings_apply_without_discarding_cached_objects"
+    ],
+    "source_definition_map_sha256": "c798b1f6d8f377aff78ea6d79223e7bed27099b58cdb143d49e5bc59ccef9b60",
+    "reused_original_results": 594,
+    "required_replacement_results": 1,
+    "replacement_id": "test_lean_evidence.LeanNativeDependencyTests.test_changed_resource_settings_apply_without_discarding_cached_objects",
+    "focused_passed_ids": [
+      "test_lean_evidence.LeanCPUSelectionTests.test_affinity_and_process_limits_both_constrain_available_cpus",
+      "test_lean_evidence.LeanCPUSelectionTests.test_python_311_and_non_affinity_platform_fallback",
+      "test_lean_evidence.LeanCPUSelectionTests.test_unavailable_affinity_does_not_prevent_cpu_detection",
+      "test_lean_evidence.LeanCPUSelectionTests.test_unknown_counts_still_allow_one_worker",
+      "test_lean_evidence.LeanNativeDependencyTests.test_changed_resource_settings_apply_without_discarding_cached_objects",
+      "test_platforms.PlatformIsolationTests.test_lean_auto_and_explicit_resources_are_recorded_and_isolated",
+      "test_run_history.RunHistoryTests.test_workers_coordinate_without_blocking_unreserved_commands"
+    ],
+    "uncovered_ids": []
+  },
+  "static_projections": {
+    "production_lean_files": 627,
+    "include_str_counts_equal": true,
+    "legacy_module_markers_equal": true,
+    "all_imports_equal": true,
+    "lake_library_and_dependency_declarations_equal": true,
+    "changed_files_kernel_policy_equal": true,
+    "output_literal_and_other_bytes_equal_after_removing_local_option": true
+  },
+  "installation_configs": [
+    {
+      "path": ".silver/linux-x86_64/generated/silver_build.ads",
+      "original_sha256": "347ed7f5d78ac7543d126a4fca3670cb5e3ab90b3dc882b7207b9c9946cae40f",
+      "integration_sha256": "418f667a3036fe302d044c7b2906fd50d7d2808996c0b31e1afc5ecfa0d0ab9f",
+      "only_installation_root_changed": true
+    },
+    {
+      "path": ".silver/linux-x86_64/generated/silver_image_config.ads",
+      "original_sha256": "fe78b0448a9e7793595f7a84487375f527e8bd9ea4f5aab92ee6d59e10c2cd46",
+      "integration_sha256": "9cef49299ca1b95f7dac5a6516a334c706eaf71f313a2add3a26693406b452cc",
+      "only_installation_root_changed": true
+    }
+  ],
+  "compiler_binaries": {
+    "original": "9073495eaf5c326000fc141a8783efe3764f093129844316f88909cb9591e75c",
+    "integration": "49a10be0567e5de07f56e98886f6796eda1bc7def6262ae2384a6c46eeafd26a",
+    "claim": "Original tested build retained; no integration binary verification claim."
+  },
+  "final_lean": {
+    "run_id": "20261105T192530-524a4096ef8f",
+    "scope": "complete",
+    "mode": "incremental",
+    "axiom_audit": "passed",
+    "modules": 626,
+    "shared_inputs_checked": 741,
+    "shared_input_mismatches": []
+  },
+  "review_disposition": "594 original results plus the changed method's focused pass cover all 595 final IDs. No additional regression rerun required for this exact delta.",
+  "limits": [
+    "Static source/evidence review only; no test, native or Lean run launched.",
+    "Original fingerprints retained, not relabelled as a fresh final full-suite run.",
+    "Final native proof/audit remains lead-owned and was active when review began."
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "completed_at": "2026-11-05T19:37:18.960363+00:00",
+  "run_id": "20261105T192530-524a4096ef8f",
+  "outcome": "success",
+  "platform": "linux-x86_64",
+  "base_commit": "cc3243b726a4f89a4d857b213832f002fdd088a7",
+  "uncommitted_proof_change": "Exact authorized four-entry simp cleanup in ComposeHelperSourceCandidate.lean",
+  "proof_file_sha256": "3b8248b88f3974725510f85537252cd4bcfd0dd71455957f033c2263e575ff62",
+  "patch_sha256": "97fb5aa403f2d9e712e3592b7b9d916a45b5982990f473cb058b95cd495155ff",
+  "build_jobs": 661,
+  "module_count": 626,
+  "declaration_count": 129947,
+  "foundations": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "phases": [
+    {
+      "phase": "build",
+      "started_at": "2026-11-05T19:25:42.446803+00:00",
+      "finished_at": "2026-11-05T19:37:00.406768+00:00",
+      "elapsed_seconds": 677.96,
+      "exit_code": 0
+    },
+    {
+      "phase": "audit",
+      "started_at": "2026-11-05T19:37:02.293587+00:00",
+      "finished_at": "2026-11-05T19:37:16.451096+00:00",
+      "elapsed_seconds": 14.158,
+      "exit_code": 0
+    }
+  ],
+  "runner_elapsed_seconds": 708.151,
+  "wrapper_outcome": {
+    "started_at": "2026-11-05T19:25:30.475197+00:00",
+    "finished_at": "2026-11-05T19:37:19.054004+00:00",
+    "duration_seconds": 708.5788000629982,
+    "returncode": 0
+  },
+  "inputs_digest_sha256": "1b9d4c7420edefb34463a3552e485cd1ecff3179d6f84bb756bbae671f1e7740",
+  "captured_input_count": 741,
+  "captured_inputs_match_before_after_and_evidence": true,
+  "tools_sha256": {
+    ".tools/linux-x86_64/lean/bin/lean": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+    ".tools/linux-x86_64/lean/bin/lake": "6f53827dab18010d6c690d14c8401cacabc1db958edb3552a877ed4cf1dd995d"
+  },
+  "output_literal_sha256": "cefce4aa9d187cfadd3447d74e7cba99f3f0ca0d33c5bfeff9a41eae85642d53",
+  "output_literal_tokens": 50230,
+  "retained_artifact_count": 32,
+  "retained_artifact_content_hashes_unchanged": true,
+  "retained_nonhash_object_mtimes_unchanged": true,
+  "resource_samples": 136,
+  "peak_group_summed_rss_gib": 4.228,
+  "minimum_host_available_gib": 24.212,
+  "guard_events": 0,
+  "retained_certificate_or_predicate_rebuild_samples": 0,
+  "replay_requested": false,
+  "detailed_provenance_requested": false,
+  "runtime_model_effort": "Inherited; runtime identity unavailable",
+  "token_cost_evidence": "Unavailable"
+}

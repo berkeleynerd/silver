@@ -1,0 +1,26 @@
+{
+  "verified_at": "2026-11-05T19:47:10.961877+00:00",
+  "verification": "Read-only re-enumeration using capture_shared_inputs; no Lean, native or test run; no cache mutation",
+  "implementation_commit": "ddb183a918c78c8636b94961172dc923e7d88d30",
+  "run_id": "20261105T192530-524a4096ef8f",
+  "run_base_commit": "cc3243b726a4f89a4d857b213832f002fdd088a7",
+  "shared_input_count": 741,
+  "current_input_paths_and_hashes_equal_run_start_and_repaired_snapshot": true,
+  "inputs_digest_sha256": "1b9d4c7420edefb34463a3552e485cd1ecff3179d6f84bb756bbae671f1e7740",
+  "digest_matches_success_evidence": true,
+  "current_tools_sha256": {
+    ".tools/linux-x86_64/lean/bin/lean": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+    ".tools/linux-x86_64/lean/bin/lake": "6f53827dab18010d6c690d14c8401cacabc1db958edb3552a877ed4cf1dd995d"
+  },
+  "tools_match_success_evidence": true,
+  "proof_file_sha256": "3b8248b88f3974725510f85537252cd4bcfd0dd71455957f033c2263e575ff62",
+  "helper_patch_sha256": "97fb5aa403f2d9e712e3592b7b9d916a45b5982990f473cb058b95cd495155ff",
+  "timings_seconds": {
+    "cached_build_phase": 677.96,
+    "fresh_whole_project_audit_phase": 14.158,
+    "runner_evidence_elapsed": 708.151,
+    "external_wrapper_elapsed": 708.5788000629982,
+    "managed_ledger_started_to_finished": 703.806878932
+  },
+  "timing_note": "Different recorded measurement scopes retained as reported; do not substitute ledger duration for runner or wrapper elapsed. Runner clock starts before managed registration; external wrapper surrounds process invocation."
+}
