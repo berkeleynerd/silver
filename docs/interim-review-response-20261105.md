@@ -60,7 +60,7 @@ rebuild changed dependencies; complete current source assurance is still require
 | --- | --- | --- |
 | Assessment and authorization | Two GPT-6 Astra / Extra High bounded blocker assessments; GPT-6.1 Sol / Extra High lower-finding inventory; lead runtime setting unavailable | Source inspection supports the findings and identifies incomplete candidate dependencies. No execution was repeated in assessment. PR #308 retains authorization/report; issues #309–#320 track work. Token/cost metrics unavailable. |
 | Initial implementation | GPT-6 Astra / Extra High for B1–B3; GPT-6.1 Sol / Extra High for B4 and B5; lead coordinates integration and records | Isolated implementation and focused validation underway. No complete repaired assurance or merge claim. |
-| Model/source integration | GPT-6.1 Sol / Extra High for B3 model development; GPT-6 Astra / Extra High for B1/B2 forwarding and independent integration review; lead runtime setting unavailable | B1/B2 and B3 models, witness forwarding and complete source-check fields integrated. Independent core and integration reviews found no concrete gap. B4 focused native proof exposed one field-name precondition timeout; bounded ghost-proof repair continues with unchanged contracts/settings. Combined model and final complete validation remain pending. Token/cost metrics unavailable. |
+| Model/source integration | GPT-6.1 Sol / Extra High for B3 model development and B4 native repair; GPT-6 Astra / Extra High for B1/B2 forwarding and independent integration review; lead runtime setting unavailable | B1/B2 and B3 models, witness forwarding and complete source-check fields integrated. Independent core and integration reviews found no concrete gap. B4's ghost wrapper and caller passed six and 49 checks after two unsuccessful annotation attempts, with unchanged original contracts/settings. A theorem-local elaboration-budget increase resolved the combined check's argument-proof reduction limit and passed a fresh 14,738-declaration audit. Complete validation remains pending. Token/cost metrics unavailable. |
 
 ## Focused implementation checkpoint
 
@@ -135,9 +135,16 @@ Commit `fc0e6b25ca` connects the guarded scanner and counted-bound helper checks
 to the complete source requirements and refreshes both counted-loop reader calls.
 The [independent integration review](reviews/review-repair-source-integration-fc0e6b25ca.md)
 confirms B3's source/semantic propagation and the three B1/B2 forwarding files.
-The combined `SequenceModel` and `PredicateLoopHelpers` check is running before
-the final source checkpoint. None of these focused results establishes complete
-assurance of the combined tree.
+The combined `SequenceModel` and `PredicateLoopHelpers` check hit the existing
+two-million-heartbeat limit in `ComposeEquations.interpreted_argument`. It was
+intentionally interrupted after retaining useful independent builds, including
+the 487-second `ComposeModelHelperEquations` rebuild. A localized transparency
+experiment also timed out and was discarded. The final one-line adjustment gives
+only `interpreted_argument` three million heartbeats, retaining its statement,
+tactics and the module's default budget. Focused run
+`20261105T111845-bdfa1022fdd4` passed with a fresh audit of 14,738 declarations;
+only the three approved foundations remain. None of these focused results
+establishes complete assurance of the combined tree.
 
 ## B4 native proof diagnostic
 
@@ -147,7 +154,35 @@ The unresolved check is the `Observe_Object_List` name precondition for
 postcondition passed. Repeating the existing ghost `Projection_Field_Names`
 lemma immediately before the call did not resolve it in focused run
 `20261105T104436-664f3661b7c1`. Both attempts remain failed. Their source,
-reports and sessions were preserved before further edits. The next bounded
-experiment is a proved local equality assertion; no contract, required obligation
-or solver budget is relaxed. The final native and complete Lean checkpoints wait
-for this annotation decision so they capture stable source bytes.
+reports and sessions were preserved before further edits. The subsequent local
+equality assertion proved, but the callee precondition still timed out in
+`20261105T104941-4b9cf01df67d`. That attempt also remains failed.
+
+The [final repair](evidence/interim-review-response-20261105/b4/native-followup.md)
+factors the call into a small ghost `Observe_Proof_List` wrapper. It proves the
+original generic name precondition in that smaller context and retains the exact
+instantiated result. The wrapper's six checks passed in
+`20261105T105418-602baad69e0e`; all 49 caller checks, including the unchanged
+final postcondition, passed in `20261105T105517-519789dbcad9`. The
+[independent policy/wrapper review](reviews/review-image-policy-fe74231e42.md)
+found no concrete defect. No original contract, required obligation or solver
+budget changed. This source is integrated at `fb89b3653a`.
+
+## Complete checkpoint in progress
+
+The complete native proof/audit started as `20261105T110725-477d91dbd07d` on
+`fb89b3653a`, using four workers in the isolated `empty-loop-repair` worktree.
+The [session transfer](evidence/interim-review-response-20261105/b4/native-session-transfer.json)
+records the copied exploratory objects and sessions as a cache seed. Forced
+analysis and the final report/coverage/provenance audits remain mandatory.
+
+Build `20261105T110838-67ae26dc9265` passed in the regression worktree. Its full
+suite is running as `20261105T111005-483650d69229` on that same native snapshot.
+The four original B1 source shapes passed admission and compile rejection checks
+in `20261105T105255-ca0268fa60ed`; those controls supplement the independent
+span-boundary tests. The
+[independent applicability review](reviews/review-argument-proof-regression-applicability-20261105.md)
+establishes that the theorem-local budget change requires no extra unittest
+reruns. It does not establish the still-pending suite outcome or census. Complete
+Lean/source assurance and final delivery review remain outstanding. PR #307
+remains open and unmerged.

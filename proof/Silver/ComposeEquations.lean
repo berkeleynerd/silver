@@ -31,6 +31,7 @@ private theorem state_array_initials {text : Source} {state : ParserState}
   simp only [reduceCtorEq, String.reduceEq, ↓reduceIte, ↓reduceDIte, interpreted_subtypeDeclaration calls equations.toRawHelperEquations text valid state arguments stateValid, interpreted_scalarDeclaration calls equations.toRawHelperEquations text valid state arguments stateValid, interpreted_stringDeclaration calls equations.toRawHelperEquations text valid state arguments stateValid, interpreted_arrayDeclaration calls equations.toRawHelperEquations text valid state arguments stateValid, equations.booleanDeclaration text valid state arguments stateValid, interpreted_characterDeclaration calls equations.toRawHelperEquations text valid state arguments stateValid, decide_eq_true_eq]
   rfl
 
+set_option maxHeartbeats 3000000 in
 set_option backward.dsimp.instances true in
 @[simp] theorem interpreted_argument (calls : Calls) (equations : HelperEquations calls (domain := domain))
     (text : Source) (valid : ValidText text) (state : ParserState)

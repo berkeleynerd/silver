@@ -22,13 +22,16 @@ results for the completed B4/B5 development checks and the initial integrated
 build. Failed attempts remain labelled failed in their events and handoffs.
 Compressed files preserve the original bytes; no exploratory unit result is
 represented as a complete compiler audit. B4's initial unit proof finished with
-one unresolved precondition; the response record preserves that failure and its
-focused annotation diagnosis. No completed B4 proof is claimed by this index.
+one unresolved precondition; the index retains that failure, both unsuccessful
+annotation attempts, and the final successful wrapper/caller checks. Their
+[handoff](b4/native-followup.md) distinguishes those results from the pending
+complete compiler proof/audit.
 
 The [B5 handoff](b5/B5-handoff.md), its pinned-source identity audit and the
 [independent review](../../reviews/review-empty-loop-identities-db51e1829e.md)
 record the argument and exact reviewed commit. The [B4 handoff](b4/handoff.md)
-identifies its focused tests and pending proof. Complete source/policy assurance
+identifies its initial focused tests; the follow-up above records the later proof
+repair. Complete source/policy assurance
 on the combined tree remains outstanding.
 
 `stack-observations.tar.gz` and its JSON index retain managed run
@@ -47,3 +50,9 @@ The native checkpoint can reuse the surviving local GNATprove result cache.
 report, session or success manifest came from that seed. Alire lock digests
 match. Ordinary prover task matching, forced complete analysis and the current
 report/coverage/provenance audit remain required.
+
+`b4/native-session-transfer.json` records the completed Image-policy exploratory
+object/session tree copied into the isolated full-native workspace. The copied
+reports are seed material, not completed full-audit evidence. The complete run
+must regenerate and audit current reports. The original failure trees remain in
+the worker's scratch directory; their raw diagnostics are retained in this packet.
