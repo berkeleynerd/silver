@@ -1,0 +1,12 @@
+{
+  "events.jsonl": {
+    "sha256": "f6c1ad94a98fc86d138a26c7af2a7601133926983f106b51f394a3473cd8ccbd",
+    "archive": "events.jsonl.gz",
+    "archive_sha256": "dd7371520d651e1e3802e9290b615292a07d96489ac4ff3e0e395804970f582b"
+  },
+  "native.log": {
+    "sha256": "3c6473aaf64795a5ec622a094cd6d32261799df71ca24a8f1de034e30dccf0b1",
+    "archive": "native.log.gz",
+    "archive_sha256": "06cdd4596e4d676714fdea35c0339a791362e98dec4a814e2cf7d17e1364dde9"
+  }
+}
