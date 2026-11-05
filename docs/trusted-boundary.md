@@ -130,6 +130,14 @@ foreach levels) pass admission, proof-backed compilation and execution at an
 actual 8,192 KiB stack. Each report set passes an independent 66-check audit.
 These observations do not bound all dynamic stack allocations or establish a
 universal stack limit.
+The [2026-11-05 interim-repair observations](evidence/interim-review-response-20261105/README.md)
+retain admission, proof-backed compilation, source identity, report auditing and
+execution of the same 141-level counted and 158-level singleton-foreach fixtures,
+plus a 140-level counted loop with a nonstatic slice at the deepest body. All
+three 4,096-byte sources pass at an actual 8,192 KiB stack on native snapshot
+`5c84335cb5`; the third exercises the added token-context scanner. These are
+input-specific observations, not a universal stack bound or a new frame-size
+measurement.
 Per-level environment-copy redesign remains deferred with #119.
 The external
 [sequencing review](reviews/review-9b99d52.md) observed `Storage_Error` and exit

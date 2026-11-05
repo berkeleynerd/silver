@@ -1,0 +1,13 @@
+{
+  "source": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/proof-cache",
+  "destination": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/proof-cache",
+  "copied_at_utc": "2026-11-05T09:43:30Z",
+  "elapsed_seconds": 195.34312319755554,
+  "bytes": 187372856,
+  "scope": "Existing local solver-result cache only; no native sessions, reports or success manifests copied. Source inputs need not match; ordinary GNATprove task keys determine cache reuse. The complete forced analysis, current report/provenance audit and every obligation remain required.",
+  "top_level_entries": 1,
+  "regular_files_recursive": 149341,
+  "initial_copy_destination": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/.silver/linux-x86_64/proof-cache",
+  "validation_worktree_commit": "5c84335cb5",
+  "relocation": "The completed copied cache was renamed into the idle former B5 worktree, now detached at the native checkpoint, before any native proof used it."
+}

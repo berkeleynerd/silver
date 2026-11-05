@@ -21,12 +21,12 @@ each delivery; the linked issues hold scope and completion criteria.
 | Position | Feature | Motivating Rosetta candidates |
 | --- | --- | --- |
 | Delivered 2026-10-31 | [Boolean scalar objects and expressions #291](https://github.com/berkeleynerd/silver/issues/291), stacked on the named-subtype delivery [#286](https://github.com/berkeleynerd/silver/issues/286) | Sequence of primes by trial division; Square but not cube; Common list elements |
-| Ready for owner review | [Bounded String indexing and character operations #296](https://github.com/berkeleynerd/silver/issues/296) | Reverse a string; Palindrome detection; character replacement |
+| Review repairs in progress | [Bounded String indexing and character operations #296](https://github.com/berkeleynerd/silver/issues/296) | Reverse a string; Palindrome detection; character replacement |
 | Later (1) | [Fixed-size Boolean arrays #297](https://github.com/berkeleynerd/silver/issues/297) | Sieve of Eratosthenes; elementary cellular automata |
 | Later (2) | [Small nonrecursive functions #298](https://github.com/berkeleynerd/silver/issues/298) | Reusable primality tests, GCD and numeric search helpers |
 
-The bounded String increment is implemented and validated on Linux. Its
-[delivery record](docs/bounded-string-characters.md#delivery-assurance-and-validation)
+The bounded String increment is undergoing [interim review repairs](docs/interim-review-response-20261105.md). Its
+[prior delivery record](docs/bounded-string-characters.md#delivery-assurance-and-validation)
 connects interval and guard reasoning to index, slice and destination-length
 checks while preserving actual bounds, mutation and dead-code frontend rules.
 General dynamic-length indexing, resizing, Unicode processing and general String
@@ -60,15 +60,15 @@ next-edit follow-up; no new language feature is selected.
 
 ### Bounded String indexing and character operations
 
-**Implemented, validated and reviewed on Linux, 2026-11-04; ready for owner review.
-[PR #307](https://github.com/berkeleynerd/silver/pull/307) remains open.**
+**Interim review repairs and renewed assurance in progress, 2026-11-05.
+[PR #307](https://github.com/berkeleynerd/silver/pull/307) remains draft and open.**
 
 [Milestone 16](https://github.com/berkeleynerd/silver/milestone/16) contains
 [#296](https://github.com/berkeleynerd/silver/issues/296), authorized on 2026-10-31
 and resumed on 2026-11-03. The [delivery record](docs/bounded-string-characters.md#delivery-assurance-and-validation)
-identifies the governed implementation and complete Linux native proof/audit,
-Lean actual-source/module/axiom assurance, final 578-method regression accounting
-and independent reviews. The [closing review](docs/reviews/string-delivery-closing-20261104.md)
+retains the previous implementation, native/Lean checks, 578-method regression
+accounting and reviews. The [interim response](docs/interim-review-response-20261105.md)
+supersedes that completion claim and records the outstanding repaired checkpoint. The [closing review](docs/reviews/string-delivery-closing-20261104.md)
 passed at `9111fbf88be337214278f185501d2f9de1761442`.
 The original failed and interrupted runs remain recorded.
 

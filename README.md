@@ -178,10 +178,10 @@ xor operand may contain xor. The drivers are
 [Common list elements](samples/rosetta_common_list_elements.adb).
 
 The [bounded String and Character increment](docs/bounded-string-characters.md#delivery-assurance-and-validation)
-is implemented and validated on Linux in
-[PR #307](https://github.com/berkeleynerd/silver/pull/307), which remains open
-for owner review. The [closing delivery review](docs/reviews/string-delivery-closing-20261104.md)
-passed; the feature is ready for owner review.
+is undergoing [interim external-review repairs](docs/interim-review-response-20261105.md)
+in draft [PR #307](https://github.com/berkeleynerd/silver/pull/307).
+The prior closing review and validation remain records of their exact inputs;
+complete assurance of the repaired tree is pending.
 It adds indexed reads and element writes on Strings with statically known bounds,
 printable Character objects and comparisons, and bounded slices. Copies retain
 their bounds and values; whole-String assignment preserves destination bounds.

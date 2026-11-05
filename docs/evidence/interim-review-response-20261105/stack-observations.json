@@ -1,0 +1,191 @@
+{
+  "run": "20261105T094655-8d2e3922acd5",
+  "archive": "stack-observations.tar.gz",
+  "archive_sha256": "ed2acdc6eaf98db9e8f7ecfccf717a14346a7846731a2f15b1e9bfdb6c3e701d",
+  "observations": [
+    {
+      "fixture": "counted",
+      "source_sha256": "9d6ff3adb364f806f08feb491a34993805b526682b497271a42e8f06bb190e5f",
+      "binary_sha256": "49a10be0567e5de07f56e98886f6796eda1bc7def6262ae2384a6c46eeafd26a",
+      "bytes": 4096,
+      "stack_kib": 8192,
+      "phases": [
+        {
+          "name": "check",
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+            "silver-stack-observation",
+            "taskset",
+            "-c",
+            "0,1",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/.silver/linux-x86_64/compiler/bin/silver",
+            "check",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/tmp/review-stack/counted.adb"
+          ],
+          "returncode": 0,
+          "elapsed_seconds": 0.07483914000022196,
+          "output_file": "check.log"
+        },
+        {
+          "name": "compile",
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+            "silver-stack-observation",
+            "taskset",
+            "-c",
+            "0,1",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/.silver/linux-x86_64/compiler/bin/silver",
+            "compile",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/tmp/review-stack/counted.adb"
+          ],
+          "returncode": 0,
+          "elapsed_seconds": 27.30688935099988,
+          "output_file": "compile.log"
+        },
+        {
+          "name": "execute",
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+            "silver-stack-observation",
+            "taskset",
+            "-c",
+            "0,1",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/.silver/linux-x86_64/program-MGyuIP/bin/main"
+          ],
+          "returncode": 0,
+          "elapsed_seconds": 0.011437926000326115,
+          "output_file": "execute.log"
+        }
+      ]
+    },
+    {
+      "fixture": "counted-slice",
+      "source_sha256": "57bce55766285535607830d0829255d1cbf596973dafc7bf356586366a7e8c02",
+      "binary_sha256": "49a10be0567e5de07f56e98886f6796eda1bc7def6262ae2384a6c46eeafd26a",
+      "bytes": 4096,
+      "stack_kib": 8192,
+      "phases": [
+        {
+          "name": "check",
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+            "silver-stack-observation",
+            "taskset",
+            "-c",
+            "0,1",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/.silver/linux-x86_64/compiler/bin/silver",
+            "check",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/tmp/review-stack/counted-slice.adb"
+          ],
+          "returncode": 0,
+          "elapsed_seconds": 0.09480492900001991,
+          "output_file": "check.log"
+        },
+        {
+          "name": "compile",
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+            "silver-stack-observation",
+            "taskset",
+            "-c",
+            "0,1",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/.silver/linux-x86_64/compiler/bin/silver",
+            "compile",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/tmp/review-stack/counted-slice.adb"
+          ],
+          "returncode": 0,
+          "elapsed_seconds": 60.13670563100004,
+          "output_file": "compile.log"
+        },
+        {
+          "name": "execute",
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+            "silver-stack-observation",
+            "taskset",
+            "-c",
+            "0,1",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/.silver/linux-x86_64/program-6BGafv/bin/main"
+          ],
+          "returncode": 0,
+          "elapsed_seconds": 0.01582318300006591,
+          "output_file": "execute.log"
+        }
+      ]
+    },
+    {
+      "fixture": "foreach-singleton",
+      "source_sha256": "ae91c2316e004cfee11062ec96d9df7d36277d5eec01d9efe45d6185879b115a",
+      "binary_sha256": "49a10be0567e5de07f56e98886f6796eda1bc7def6262ae2384a6c46eeafd26a",
+      "bytes": 4096,
+      "stack_kib": 8192,
+      "phases": [
+        {
+          "name": "check",
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+            "silver-stack-observation",
+            "taskset",
+            "-c",
+            "0,1",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/.silver/linux-x86_64/compiler/bin/silver",
+            "check",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/tmp/review-stack/foreach-singleton.adb"
+          ],
+          "returncode": 0,
+          "elapsed_seconds": 0.06464353299998038,
+          "output_file": "check.log"
+        },
+        {
+          "name": "compile",
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+            "silver-stack-observation",
+            "taskset",
+            "-c",
+            "0,1",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/.silver/linux-x86_64/compiler/bin/silver",
+            "compile",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/tmp/review-stack/foreach-singleton.adb"
+          ],
+          "returncode": 0,
+          "elapsed_seconds": 23.987878034999994,
+          "output_file": "compile.log"
+        },
+        {
+          "name": "execute",
+          "command": [
+            "bash",
+            "-c",
+            "ulimit -s 8192 || exit; ulimit -s; exec \"$@\"",
+            "silver-stack-observation",
+            "taskset",
+            "-c",
+            "0,1",
+            "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/.silver/linux-x86_64/program-9Peyni/bin/main"
+          ],
+          "returncode": 0,
+          "elapsed_seconds": 0.014078047999646515,
+          "output_file": "execute.log"
+        }
+      ]
+    }
+  ],
+  "limits": "Three exact inputs, not a universal stack bound. The retained observer uses two-CPU affinity; producer internal worker counts are not capped by that declaration. Current source and build recorded by managed inputs."
+}

@@ -29,3 +29,20 @@ The [B5 handoff](b5/B5-handoff.md), its pinned-source identity audit and the
 record the argument and exact reviewed commit. The [B4 handoff](b4/handoff.md)
 identifies its focused tests and pending proof. Complete source/policy assurance
 on the combined tree remains outstanding.
+
+`stack-observations.tar.gz` and its JSON index retain managed run
+`20261105T094655-8d2e3922acd5`: three 4,096-byte sources passed admission,
+proof-backed compilation and execution at an actual 8,192 KiB stack. The inputs
+are the retained 141-level counted and 158-level singleton-foreach fixtures,
+and a new 140-level counted loop whose innermost output uses a nonstatic slice.
+Each generated source matched its fixture, each five-unit report set passed the
+independent Python audit, and outputs matched. Compile times were 27.307 s,
+23.988 s and 60.137 s respectively. The archive keeps fixtures, scripts, raw
+phase logs, source copies and reports. These observations do not establish a
+universal stack bound.
+
+The native checkpoint can reuse the surviving local GNATprove result cache.
+`native-cache-seed.json` records its actual copy and destination; no prior native
+report, session or success manifest came from that seed. Alire lock digests
+match. Ordinary prover task matching, forced complete analysis and the current
+report/coverage/provenance audit remain required.

@@ -99,3 +99,23 @@ integration. Every run retains its actual input map; none is a final full-suite
 claim. The slice helper native proofs passed in the isolated source worktree:
 49 checks for `Guarded_At`, 24 for `Read_Counted_Bound`, and 34 for `Indexed_At`.
 Matching Lean helper/loop integration remains in progress.
+
+B3's [independent native review](reviews/review-counted-bound-native-6f6723c7e8.md)
+found no concrete defect. All four targeted methods passed on the combined
+compiler in `20261105T094428-7555bb86cd0f` (29.069 s), including both complete
+execution routes and the 140-level admission control at 8 MiB. Three further
+[managed stack observations](evidence/interim-review-response-20261105/README.md)
+passed full proof/build/run and independent report audits at 8 MiB.
+
+The output body token pin and candidate certificate have been refreshed with the
+reviewed native changes; certificate-regeneration parity passed in
+`20261105T095455-cf4de57cfaf0`. Candidate parity is not kernel acceptance. Their
+complete source/semantic checkpoint still waits for the B1/B2 and B3 helper
+equations and integration.
+
+The B1/B2 core proof is integrated as `9037af5d1c` from `58719361ed`. Its
+[independent review](reviews/review-slice-core-proof-58719361ed.md) found no
+concrete defect in the scanner interpretation, endpoint-span or freezing
+arguments. Focused run `20261105T095856-2092056e2e9b` freshly audited 13,419
+declarations; the separate model-witness forwarding remains under check.
+This is core assurance, not the complete actual-source checkpoint.
