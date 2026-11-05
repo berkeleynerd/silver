@@ -1,5 +1,9 @@
 # Complete Boolean Lean/source assurance
 
+> Correction, 2026-11-05 (#315): the retained regression-applicability conclusion
+> missed one affected complete-audit fixture. See the [dated capability
+> correction](../../../boolean-objects.md). The completed Lean/source evidence is unchanged.
+
 Native Linux run `20261031T104817-379c11d51394` passed the complete cached
 project build and fresh module/axiom audit on implementation/proof target
 `8f676fc40975781cdcaa50772d4d95f7e40054a1`. It covered **572 project modules

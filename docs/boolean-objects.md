@@ -453,6 +453,23 @@ the platform fixtures use mocked Lean with dynamic module inventory. The exact
 native/regression snapshot and retained archive remain `91de078ed8`; these
 results required no additional test run for the aggregate import.
 
+**Correction, 2026-11-05 (external review Med-2, #315).** The Audit-only import
+did invalidate one retained result. The
+`LeanModuleTests.test_legacy_audits_reject_private_axiom_behind_module_import`
+fixture copied the real `Audit.lean` without supplying its new
+`ComposeBooleanDeclarationCandidate` import, so the complete-audit subtest failed
+at `8f676fc409` through the reviewed main `1500b902a9` on hosts with installed
+Lean. This was first recorded in failed run `20261031T214130-1e0195247bd5`.
+The Boolean delivery therefore had 46 refreshed plus 521 applicable retained
+passes and one uncovered/failing method, rather than complete 568-ID coverage.
+The native assurance and complete Lean/source audit were unaffected. PR #307's
+`6b6238d323` contains the isolated fixture repair, with passing retained run
+`20261031T215153-7280a74a41c2`; the same hunk is delivered independently on main, with both installed-Lean
+module methods passing in run `20261105T090353-40adf98615fa` (41.284 seconds).
+The [repair evidence](evidence/audit-fixture-repair-20261105/README.md) retains
+the exact input inventory and output. The earlier applicability and completion statements in this record
+remain historical claims and are superseded by this correction.
+
 ## Delivery assurance and validation
 
 Status: implemented and validated on Linux, 2026-10-31. Final implementation/proof
