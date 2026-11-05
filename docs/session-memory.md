@@ -1,5 +1,40 @@
 # Session memory
 
+## 2026-11-05 — Interim external review repairs authorized
+
+The owner instructed **“Please proceed to address these findings”** after the
+assessment of the [interim external review](reviews/interim-review-0d30841795-20261105.md)
+of PR #307 at `0d308417955545a225378ed6e31f83733b40e4ce`. This authorizes
+repairing B1–B5 together, the selected regression and record corrections, complete
+native and Lean/actual-source assurance, independent review and updated publication
+of #307. Keep the feature PR open; merge remains unauthorized.
+
+Use the conservative signed-Integer endpoint-separation restriction for B1.
+Resolve B2 through a bounded prototype of explicit admission rules before the
+expensive source checkpoint; the rule must cover constant-array-derived guards
+as well as contradictory scalar guards. The withdrawn native-only
+`Ignore_Pragma (SPARK_Mode)` workaround is not selected. Prefer the narrow B3
+constant-array loop-bound restriction, exact B4 producer-message alternatives,
+and justified B5 empty-operand arithmetic restrictions. Preserve the existing
+`-gnatdM` correction and all native proof/report requirements. Explicit language
+changes must be synchronized with the catalogue, models, source correspondence,
+tests and purpose statements; no Oracle amendment is authorized.
+
+Include the four regression-gap additions and safety-class/advisory wording
+corrections. Correct the Boolean fixture's historical reuse claim (Med-2), retain
+its existing #307 fix, and publish the isolated fixture repair on main while
+#307 is held. Qualify the Med-1 structural-check claims now; additional guards
+remain a tracked next-edit follow-up, with existing semantic/source review still
+mandatory. Low-5 is folded into the slice regression improvement, not a separate
+historical error. The two information notes and remaining unverified candidates
+authorize no new infrastructure or investigation.
+
+The external report is interim and clears no unexamined scope. Preserve earlier
+failed/successful evidence with its exact inputs. Previously removed tmp worktree
+caches are unavailable; recreate isolated workspaces and bootstrap at their actual
+paths. No later language feature, Rosetta batch #300, capacity work or new
+assurance mode is selected. No harness goal exists; CLI memory is unavailable.
+
 ## 2026-10-31 — Bounded String indexing and character operations authorized
 
 After the completed subtype and Boolean deliveries, the owner asked for the
