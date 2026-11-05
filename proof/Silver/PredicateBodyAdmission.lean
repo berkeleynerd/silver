@@ -4,6 +4,7 @@ public import Silver.PredicateAdmission
 public import Silver.PredicateComposition
 public import Silver.PredicateSourceSyntax
 public import Silver.PredicateFlowWidening
+public import Silver.PredicateCountedBoundModel
 
 @[expose] public section
 
@@ -256,9 +257,9 @@ def loopHeader (text : Source) (context : ParseContext) (scan : BodyScan) : Loop
   let after := loopNameAfter text scan
   let isArray := loopIsArray text scan
   let lower := if isArray then ScalarExpression.invalid else
-    readScalarInFlow text context (loopLowerPosition text scan) scan.facts first after
+    readCountedBound text context (loopLowerPosition text scan) scan.facts first after
   let upper := if isArray then ScalarExpression.invalid else
-    readScalarInFlow text context (fixedAfter text lower.after ".." false) scan.facts first after
+    readCountedBound text context (fixedAfter text lower.after ".." false) scan.facts first after
   let components := (ArrayBindings.binding context.arrayNames (loopArrayTarget text context scan)).componentBounds
   let bounds := if isArray then components else Integer.loopBounds lower.bounds upper.bounds
   let opening := if isArray then

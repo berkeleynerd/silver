@@ -9,6 +9,7 @@ public import Silver.ComposeModelCalls
 public import Silver.ComposeLexical
 public import Silver.ScalarExpressionNativeEquations
 public import Silver.PredicateArrayBodySource
+public import Silver.PredicateCountedBoundSource
 
 @[expose] public section
 namespace Silver.Predicate.LoopNative
@@ -60,8 +61,8 @@ structure Links (imports : Imports) (inherited : Compose.Expressions.Calls)
     FlowSourceBridge.InterpretedReadingNames reading ∧
     FlowReaders.ScalarRefinement
       (FlowReaders.inheritedCalls reading inherited scalars booleans) wrapper ∧
-    ∀ text context position facts first after, ScalarDomain text context position facts first after →
-      imports.readScalar text context position facts first after = wrapper text context position facts first after []
+    CountedBoundNative.Refinement
+      (FlowReaders.inheritedCalls reading inherited scalars booleans) wrapper imports.readScalar
   widen : ∃ operation, FlowSourceBridge.InterpretedWidenInto operation ∧
     ∀ context facts, WidenDomain context facts →
       imports.widen context facts =
@@ -118,10 +119,9 @@ theorem ImportsMeaning.of_inherited {imports : Imports} {inherited : Compose.Exp
     rw [observed]
     exact ArrayBodyNative.linked_target source flow arrays text context position valid
   readScalar text context position facts first after valid := by
-    obtain ⟨reading, wrapper, booleans, readingSource, wrapperSource, observed⟩ := links.readScalar
-    rw [observed text context position facts first after valid]
-    exact FlowReaders.scalar_meaning
-      (FlowReaders.inherited_meaning booleans readingSource source scalarPrimitives scalarEquations) wrapperSource
+    obtain ⟨reading, wrapper, booleans, readingSource, wrapperSource, countedSource⟩ := links.readScalar
+    exact CountedBoundNative.wrapper_meaning
+      (FlowReaders.inherited_meaning booleans readingSource source scalarPrimitives scalarEquations) wrapperSource countedSource
       ⟨text, context, position, facts, first, after, []⟩
       ⟨valid.1.1, valid.1.2.1, valid.1.2.2, valid.2.1,
         by simp [ArrayBindings.ValidInitials, ArrayBindings.maxElements]⟩ valid.2.2
@@ -170,14 +170,13 @@ theorem model_links {domain : Compose.Expressions.StateDomain}
       Compose.Expressions.modelCalls ScalarExpression.Native.modelCalls BooleanBindings.SourceBridge.modelSource
     refine ⟨FlowSourceBridge.readingStorage, FlowReaders.modelScalar calls, BooleanBindings.SourceBridge.modelSource,
       FlowSourceBridge.model_reading_interpreted, FlowReaders.model_scalar_refinement calls, ?_⟩
-    intro text context position facts first after valid
-    exact (FlowReaders.scalar_meaning
+    constructor
+    intro inputs legal mask
+    exact (CountedBoundNative.eval_meaning
       (FlowReaders.inherited_meaning BooleanBindings.SourceBridge.modelSource
         FlowSourceBridge.model_reading_interpreted source ScalarExpression.Native.model_primitives
         ScalarExpression.Native.model_equations)
-      (FlowReaders.model_scalar_refinement calls) {text, context, position, facts, maskFirst := first, maskAfter := after}
-      ⟨valid.1.1, valid.1.2.1, valid.1.2.2, valid.2.1,
-        by simp [ArrayBindings.ValidInitials, ArrayBindings.maxElements]⟩ valid.2.2).symm
+      (FlowReaders.model_scalar_refinement calls) inputs legal mask).symm
   widen := by
     refine ⟨FlowSourceBridge.widenedStorage, FlowSourceBridge.model_widen_interpreted, ?_⟩
     intro context facts valid
