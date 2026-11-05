@@ -82,12 +82,12 @@
       "stored_sha256": "b607c3ec8816ae3e92ddc2423ff9e7e042f5e090853875464fa1f8b7e1f50379"
     },
     {
-      "path": "helper-simp.diff",
+      "path": "helper-simp.diff.gz",
       "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/tmp/pin-budget-repair-20261105T170452Z/lint-repair/helper-simp.diff",
       "original_bytes": 529,
-      "stored_bytes": 529,
+      "stored_bytes": 267,
       "original_sha256": "97fb5aa403f2d9e712e3592b7b9d916a45b5982990f473cb058b95cd495155ff",
-      "stored_sha256": "97fb5aa403f2d9e712e3592b7b9d916a45b5982990f473cb058b95cd495155ff"
+      "stored_sha256": "ee3780a126a2bd264ebeba1a1c74dae07f683c9e6133d4b1332d9ff8fc1edf7f"
     },
     {
       "path": "helper-source-identities.json.gz",

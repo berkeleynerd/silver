@@ -42,7 +42,7 @@ not a measured minimum. The 50,230-token literal remains SHA256
 The [budget identity record](budget-source-identities.json.gz) retains its
 before/after inputs.
 
-The exact [helper patch](helper-simp.diff) removes four unused simp entries
+The exact [helper patch](helper-simp.diff.gz) removes four unused simp entries
 from private `string_helper_guarded_at_ordinary`: `StringNative.Command.list`,
 `List.foldr_cons`, `List.foldr_nil`, and `StringNative.Command.renderElse`.
 The statement, sibling theorems, source/model/axiom inputs and other file bytes
