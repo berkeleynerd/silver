@@ -1,0 +1,228 @@
+[
+  {
+    "source": "samples/shared_bindings.adb",
+    "sha256": "a3ec2def1264fb07b0826a8d3b2e3336931b26c82c089591e35fe292ec19c7f6",
+    "compile_status": 0,
+    "seconds": 5.447,
+    "cases": [
+      {
+        "args": [],
+        "actual": {
+          "stdout": "Before: draft; copied: draft; current: ready\n",
+          "stderr": "",
+          "exit_status": 0
+        },
+        "expected": {
+          "stdout": "Before: draft; copied: draft; current: ready\n",
+          "stderr": "",
+          "exit_status": 0
+        },
+        "passed": true
+      }
+    ],
+    "executable": "/Users/rebecca/src/github.com/berkeleynerd/silver/.silver/macos-aarch64/program-ROvd5x/bin/main"
+  },
+  {
+    "source": "samples/command_line_greeting.adb",
+    "sha256": "bde96907d4d27894bb3d116b482720f800f23a4e582b774672825cc18a949d27",
+    "compile_status": 0,
+    "seconds": 5.261,
+    "cases": [
+      {
+        "args": [],
+        "actual": {
+          "stdout": "Hello, world!\n",
+          "stderr": "",
+          "exit_status": 0
+        },
+        "expected": {
+          "stdout": "Hello, world!\n",
+          "stderr": "",
+          "exit_status": 0
+        },
+        "passed": true
+      },
+      {
+        "args": [
+          "Ada"
+        ],
+        "actual": {
+          "stdout": "Hello, Ada!\n",
+          "stderr": "",
+          "exit_status": 0
+        },
+        "expected": {
+          "stdout": "Hello, Ada!\n",
+          "stderr": "",
+          "exit_status": 0
+        },
+        "passed": true
+      },
+      {
+        "args": [
+          ""
+        ],
+        "actual": {
+          "stdout": "Hello, !\n",
+          "stderr": "",
+          "exit_status": 0
+        },
+        "expected": {
+          "stdout": "Hello, !\n",
+          "stderr": "",
+          "exit_status": 0
+        },
+        "passed": true
+      },
+      {
+        "args": [
+          "one",
+          "two"
+        ],
+        "actual": {
+          "stdout": "",
+          "stderr": "",
+          "exit_status": 1
+        },
+        "expected": {
+          "stdout": "",
+          "stderr": "",
+          "exit_status": 1
+        },
+        "passed": true
+      },
+      {
+        "args": [
+          "one two"
+        ],
+        "actual": {
+          "stdout": "Hello, one two!\n",
+          "stderr": "",
+          "exit_status": 0
+        },
+        "expected": {
+          "stdout": "Hello, one two!\n",
+          "stderr": "",
+          "exit_status": 0
+        },
+        "passed": true
+      }
+    ],
+    "executable": "/Users/rebecca/src/github.com/berkeleynerd/silver/.silver/macos-aarch64/program-VRamsS/bin/main"
+  },
+  {
+    "source": "samples/for_loop_step.adb",
+    "sha256": "dc8f33010a2b0a1bb77afc55a184a1f6b4e73d7bed1ca6e94ab0880c984a7e6c",
+    "compile_status": 0,
+    "seconds": 5.06,
+    "cases": [
+      {
+        "args": [],
+        "actual": {
+          "stdout": " 2\n 4\n 6\n 8\n 10\n",
+          "stderr": "",
+          "exit_status": 0
+        },
+        "expected": {
+          "stdout": " 2\n 4\n 6\n 8\n 10\n",
+          "stderr": "",
+          "exit_status": 0
+        },
+        "passed": true
+      }
+    ],
+    "executable": "/Users/rebecca/src/github.com/berkeleynerd/silver/.silver/macos-aarch64/program-kQ2sJY/bin/main"
+  },
+  {
+    "source": "samples/rosetta_loops_foreach.adb",
+    "sha256": "3abff9476e610fda1fc70ff7c5d8132814fb0e212355219ac4bc5b011b3dac29",
+    "compile_status": 0,
+    "seconds": 5.1,
+    "cases": [
+      {
+        "args": [],
+        "actual": {
+          "stdout": "-1\n 0\n 1\n 2\n 3\n",
+          "stderr": "",
+          "exit_status": 0
+        },
+        "expected": {
+          "stdout": "-1\n 0\n 1\n 2\n 3\n",
+          "stderr": "",
+          "exit_status": 0
+        },
+        "passed": true
+      }
+    ],
+    "executable": "/Users/rebecca/src/github.com/berkeleynerd/silver/.silver/macos-aarch64/program-1YOdng/bin/main"
+  },
+  {
+    "source": "samples/rosetta_sum_of_squares.adb",
+    "sha256": "4ed1a3253d0d6725e3c9f04d3c6730358bf856c6f1a57a6989c5858c833807c7",
+    "compile_status": 0,
+    "seconds": 5.415,
+    "cases": [
+      {
+        "args": [],
+        "actual": {
+          "stdout": " 0\n 133\n",
+          "stderr": "",
+          "exit_status": 0
+        },
+        "expected": {
+          "stdout": " 0\n 133\n",
+          "stderr": "",
+          "exit_status": 0
+        },
+        "passed": true
+      }
+    ],
+    "executable": "/Users/rebecca/src/github.com/berkeleynerd/silver/.silver/macos-aarch64/program-bChsxa/bin/main"
+  },
+  {
+    "source": "samples/rosetta_common_list_elements.adb",
+    "sha256": "bca79951d0d2396e727660b5bbaf1e537ae501a05093edf3eaf9ca66f6302c01",
+    "compile_status": 0,
+    "seconds": 5.007,
+    "cases": [
+      {
+        "args": [],
+        "actual": {
+          "stdout": "[ 3, 9, 6]\n",
+          "stderr": "",
+          "exit_status": 0
+        },
+        "expected": {
+          "stdout": "[ 3, 9, 6]\n",
+          "stderr": "",
+          "exit_status": 0
+        },
+        "passed": true
+      }
+    ],
+    "executable": "/Users/rebecca/src/github.com/berkeleynerd/silver/.silver/macos-aarch64/program-Bp2QQs/bin/main"
+  },
+  {
+    "source": ".silver/macos-aarch64/tutorial-20261105/counter.adb",
+    "sha256": "b22b46f56b5ff94b1401cfb717d6768b332383a60e0cb4c201bec55725e1fc45",
+    "compile_status": 0,
+    "seconds": 5.048,
+    "cases": [
+      {
+        "args": [],
+        "actual": {
+          "stdout": " 1\n 2\n 3\n 3\n 3\n",
+          "stderr": "",
+          "exit_status": 0
+        },
+        "expected": {
+          "stdout": " 1\n 2\n 3\n 3\n 3\n",
+          "stderr": "",
+          "exit_status": 0
+        },
+        "passed": true
+      }
+    ],
+    "executable": "/Users/rebecca/src/github.com/berkeleynerd/silver/.silver/macos-aarch64/program-ue8HpB/bin/main"
+  }
+]

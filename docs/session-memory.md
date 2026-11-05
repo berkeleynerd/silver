@@ -1,5 +1,22 @@
 # Session memory
 
+## 2026-11-05 — Step-by-step tutorial authorized
+
+The owner requested a new working branch and a step-by-step language tutorial,
+including CLI setup and convenience configuration for this specific host.
+`codex/step-by-step-tutorial` starts from the current String development branch
+at `e587e7be`. The [tutorial](tutorial.md) follows the existing specification,
+with the String/Character repair status kept explicit. Host setup and example
+verification are within this documentation task; no language expansion is selected.
+
+The owner will consider adding tutorial maintenance to the Oracle's remit after
+reviewing the document. No Oracle amendment or standing tutorial-maintenance
+requirement is authorized now. This request is retained on the requested working
+branch; no publication or merge is selected. No harness goal exists, and CLI
+memory is unavailable and was not updated. The
+[host verification record](evidence/tutorial-macos-20261105/README.md) retains
+the native setup, example results and independent documentation review.
+
 ## 2026-11-05 — Main audit fixture and Boolean coverage record repaired
 
 The authorized Med-2 correction [#315](https://github.com/berkeleynerd/silver/issues/315)

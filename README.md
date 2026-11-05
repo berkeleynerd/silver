@@ -22,6 +22,9 @@ The root documents provide the main review entry points:
 - [AGENTS.md](AGENTS.md): context and working rules for agent sessions.
 - [RESUME.md](RESUME.md): local recovery guidance and historical handoff records.
 
+Start learning with the [step-by-step tutorial](docs/tutorial.md), including
+native setup and convenient zsh commands for Rebecca's Apple Silicon Mac.
+
 Migration restored local evidence, caches and toolchains into the ignored
 `.silver/` and `.tools/` directories used by development. After verified recovery,
 the temporary non-dot `silver/` and `tools/` archive directories were removed

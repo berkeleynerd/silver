@@ -1,0 +1,7 @@
+{
+  "returncode": 0,
+  "executable": "/Users/rebecca/src/github.com/berkeleynerd/silver/.silver/macos-aarch64/program-WBCAF4/bin/main",
+  "stdout": "Hello\nello\n",
+  "stderr": "",
+  "source_sha256": "a083fafb9a0c503df8aedb09cd82873e71834f37769036cd949118d5f956962f"
+}
