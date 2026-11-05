@@ -1,0 +1,95 @@
+{
+  "artifacts": [
+    {
+      "encoding": "gzip",
+      "original_bytes": 447724,
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261105T110725-477d91dbd07d/events.jsonl",
+      "original_sha256": "7ed4f968e03e5c1238cb755057c16a3b76a60599c9e4cf866d23aa7b16f15628",
+      "stored_bytes": 126699,
+      "stored_path": "events.jsonl.gz",
+      "stored_sha256": "2124298fe3ec0540933a52d4d35bfd0c8c6a1c039b11287fc826f07f3966e6ee"
+    },
+    {
+      "encoding": "gzip",
+      "original_bytes": 1353383,
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261105T110725-477d91dbd07d/native.log",
+      "original_sha256": "c97d0daf8bd2b9d3be56ffc5c6311fbb9e7b569ddeb2bcd3a452dd4221ff0237",
+      "stored_bytes": 84221,
+      "stored_path": "native.log.gz",
+      "stored_sha256": "2030f0cc0146ef25d984e2724dcc4feb52d4a96efb4c926b80fbb16973a746c9"
+    },
+    {
+      "encoding": "gzip",
+      "original_bytes": 457985,
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261105T110725-477d91dbd07d/proof-evidence/proof-inputs.json",
+      "original_sha256": "e69dfd4efd3a48843c3ad89102efe12cc9e31f3b62b972802260f6eee6eac0e5",
+      "stored_bytes": 125894,
+      "stored_path": "proof-inputs.json.gz",
+      "stored_sha256": "881a9876c41bc72ba529fe012633bacc9f2bdce4c070f38d636d72d343f089e8"
+    },
+    {
+      "encoding": "gzip",
+      "original_bytes": 466385,
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261105T110725-477d91dbd07d/proof-evidence/proof-provenance.json",
+      "original_sha256": "b4e347e2b35c2bebc3509bea08588a7bc6da571ee2ae74b5834a1a2a068bf6da",
+      "stored_bytes": 129552,
+      "stored_path": "proof-provenance.json.gz",
+      "stored_sha256": "e9c71b59e7a3d1feefca3ee7ea4fe814d2b4dfc7e97165c113ba4866a3a3c06a"
+    },
+    {
+      "encoding": "identity",
+      "original_bytes": 207305,
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261105T110725-477d91dbd07d/proof-evidence/gnatprove.out",
+      "original_sha256": "65b8eba0fa1cbd958ad5cc6f8ee9e1d98bd0b48b1912b752f08cf67ab37523d6",
+      "stored_bytes": 207305,
+      "stored_path": "gnatprove.out",
+      "stored_sha256": "65b8eba0fa1cbd958ad5cc6f8ee9e1d98bd0b48b1912b752f08cf67ab37523d6"
+    },
+    {
+      "encoding": "gzip",
+      "original_bytes": 46643200,
+      "original_path": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261105T110725-477d91dbd07d/proof-evidence",
+      "original_sha256": "329a429ebd8f80e798dee7cb4cbd113155da988554f93b848aed62b53582539c",
+      "stored_bytes": 2107230,
+      "stored_path": "proof-evidence.tar.gz",
+      "stored_sha256": "1f1faf0351c9878aa1ee83e6956baad91e09ea231600d9a03af9329f130e2aca"
+    },
+    {
+      "encoding": "identity",
+      "original_bytes": 2634,
+      "original_path": null,
+      "original_sha256": "42da841335fa573c62f1aeaf725fef68a75d4667f127eeaf21c7bb09bc0a381a",
+      "stored_bytes": 2634,
+      "stored_path": "summary.json",
+      "stored_sha256": "42da841335fa573c62f1aeaf725fef68a75d4667f127eeaf21c7bb09bc0a381a"
+    },
+    {
+      "encoding": "identity",
+      "original_bytes": 3884,
+      "original_path": null,
+      "original_sha256": "1b7c5d008a8be71494317e4bd404b1bc8e40a55578eefd913dc611922b780894",
+      "stored_bytes": 3884,
+      "stored_path": "current-input-verification.json",
+      "stored_sha256": "1b7c5d008a8be71494317e4bd404b1bc8e40a55578eefd913dc611922b780894"
+    },
+    {
+      "encoding": "identity",
+      "original_bytes": 21803,
+      "original_path": null,
+      "original_sha256": "c39a4e044c498c8cc7d8d1432505b568038f4226631bebe9b4ff6145f1f3ff20",
+      "stored_bytes": 21803,
+      "stored_path": "integration-input-applicability.json",
+      "stored_sha256": "c39a4e044c498c8cc7d8d1432505b568038f4226631bebe9b4ff6145f1f3ff20"
+    },
+    {
+      "encoding": "identity",
+      "original_bytes": 12587,
+      "original_path": null,
+      "original_sha256": "bf79f9be78e7836ed0cd4d80364bddbe3bedf2994555528a82fd1b39f699859c",
+      "stored_bytes": 12587,
+      "stored_path": "archive-members.json",
+      "stored_sha256": "bf79f9be78e7836ed0cd4d80364bddbe3bedf2994555528a82fd1b39f699859c"
+    }
+  ],
+  "schema": 1
+}

@@ -1,11 +1,14 @@
 # Silver language specification
 
-The bounded String indexing, Character and slice additions are under repair
-after the [interim external review](docs/interim-review-response-20261105.md).
-Their [prior delivery record](docs/bounded-string-characters.md#delivery-assurance-and-validation)
-retains the earlier validation, whose completion claim is superseded by the
-reported counterexamples. Complete validation of the repaired tree is pending.
-PR #307 remains draft and open for owner review.
+The bounded String indexing, Character and slice additions have complete
+repaired Linux native and Lean assurance after the
+[interim external review](docs/interim-review-response-20261105.md).
+The [repaired delivery checkpoint](docs/bounded-string-characters.md#repaired-delivery-checkpoint--2026-11-05)
+records current evidence and reviewed regression applicability; the earlier
+delivery retains its historical inputs and failed attempts. The
+[closing delivery review](docs/reviews/review-interim-response-closing-20261105.md)
+passed. PR #307 remains draft and open for owner review; the
+external report remains interim and clears no unexamined scope.
 
 Silver is one evolving language before 1.0. This specification describes the
 predicate, path-sensitive and finite-loop language under the [Oracle](oracle.md),

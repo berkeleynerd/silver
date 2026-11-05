@@ -177,11 +177,13 @@ xor operand may contain xor. The drivers are
 [Square but not cube](samples/rosetta_square_but_not_cube.adb), and
 [Common list elements](samples/rosetta_common_list_elements.adb).
 
-The [bounded String and Character increment](docs/bounded-string-characters.md#delivery-assurance-and-validation)
-is undergoing [interim external-review repairs](docs/interim-review-response-20261105.md)
-in draft [PR #307](https://github.com/berkeleynerd/silver/pull/307).
-The prior closing review and validation remain records of their exact inputs;
-complete assurance of the repaired tree is pending.
+The [bounded String and Character increment](docs/bounded-string-characters.md#repaired-delivery-checkpoint--2026-11-05)
+has complete repaired Linux native and Lean assurance after the
+[interim external-review repairs](docs/interim-review-response-20261105.md).
+The [closing delivery review](docs/reviews/review-interim-response-closing-20261105.md)
+passed; [PR #307](https://github.com/berkeleynerd/silver/pull/307) remains draft/open.
+The response records exact input scopes, reviewed regression reuse and retained
+failed attempts. The external review remains interim; the PR stays open.
 It adds indexed reads and element writes on Strings with statically known bounds,
 printable Character objects and comparisons, and bounded slices. Copies retain
 their bounds and values; whole-String assignment preserves destination bounds.

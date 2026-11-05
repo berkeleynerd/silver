@@ -1,0 +1,151 @@
+{
+  "scope": "Read-only closing review inspection; no native/Lean/test/build run",
+  "reviewer_selected": "GPT-6 Astra / Extra High; runtime identity unavailable",
+  "first_clock_observation": "2026-11-05T19:59:00Z",
+  "pre_native_inspection_at": "2026-11-05T20:03:52.057981+00:00",
+  "host": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "source_commit": "ddb183a918c78c8636b94961172dc923e7d88d30",
+  "initial_record_commit": "d78329ccafd74317f9cd5aa9af290021156ca54a",
+  "lean": {
+    "run_id": "20261105T192530-524a4096ef8f",
+    "mode": "incremental",
+    "clean_build": false,
+    "kernel_recheck": null,
+    "shared_input_paths_and_hashes_match": true,
+    "current_shared_input_count": 741,
+    "inputs_digest_sha256": "1b9d4c7420edefb34463a3552e485cd1ecff3179d6f84bb756bbae671f1e7740",
+    "current_tools_match": true,
+    "module_coverage_exact": true,
+    "module_count": 626,
+    "declaration_count": 129947,
+    "foundations": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "phases": [
+      {
+        "phase": "build",
+        "started_at": "2026-11-05T19:25:42.446803+00:00",
+        "finished_at": "2026-11-05T19:37:00.406768+00:00",
+        "elapsed_seconds": 677.96,
+        "exit_code": 0
+      },
+      {
+        "phase": "audit",
+        "started_at": "2026-11-05T19:37:02.293587+00:00",
+        "finished_at": "2026-11-05T19:37:16.451096+00:00",
+        "elapsed_seconds": 14.158,
+        "exit_code": 0
+      }
+    ],
+    "terminal_outcome": "success",
+    "indexed_artifacts_verified": 26,
+    "retained_failed_complete_outcome": "failure"
+  },
+  "native": {
+    "checked_at": "2026-11-05T20:20:11.196007+00:00",
+    "run_id": "20261105T110725-477d91dbd07d",
+    "scope": "Read-only validate_provenance and audit_sources over original native output; no GNATprove/build/test invocation",
+    "counts": {
+      "units": 76,
+      "entities": 1104,
+      "flow_checks": 1496,
+      "proof_checks": 16000,
+      "limitation_notes": 313,
+      "imported_entities": 18,
+      "trusted_math_notes": 6236,
+      "vendor_spec_entities": 62,
+      "array_initialization_advisories": 6
+    },
+    "mode": "full",
+    "initial_state": {
+      "sessions_present": true,
+      "cache_entries_present": true
+    },
+    "manifest_complete": true,
+    "current_native_inputs_match": 2586,
+    "current_tool_hashes_and_version_records_match": 12,
+    "manifest_report_hashes_match": 78,
+    "archive_members_verified": 80,
+    "indexed_artifacts_verified": 10,
+    "repository_inputs_match_current_and_governed_commit": 143,
+    "integration_exact_matches": 2583,
+    "integration_differing_paths": [
+      ".silver/linux-x86_64/generated/silver_build.ads",
+      ".silver/linux-x86_64/generated/silver_image_config.ads",
+      ".tools/linux-x86_64/alire/settings/settings.toml"
+    ],
+    "generated_ada_prefix_substitution_only": true,
+    "managed_terminal_outcome": "success",
+    "managed_failure_keys": [],
+    "native_phase_returncode": 0,
+    "completed_audit_phase": true,
+    "managed_duration_seconds": 32897.461977192
+  },
+  "final_record_target": {
+    "base_frozen_docs_patch_sha256": "7de1d1dd006f40d091c4c6656d3cbc29ed7f260b47c3f015c8daeae138ff3137",
+    "closing_fact_update_sha256": "61cfed8904e6ad9212dba5ad2954a13e257a3e1a24ee9125ed61ba13a57997ce",
+    "document_hashes": {
+      "README.md": "ce7e7061b08004fc7f1ff0cd1d2a244b49330b0b774d9eea2bee1d5790375f51",
+      "language.md": "56393ecab6edc06ea8387a42fc2981efdc7512a38baffe15b98cab2db2520f57",
+      "roadmap.md": "02128048580dc84245f76096026f3e0f67fb3309e6c6d483689833eb10701772",
+      "docs/interim-review-response-20261105.md": "49eb2d694ae3960ef7b76a40ec8712b9faeac4fc5859379a422416637b015496",
+      "docs/bounded-string-characters.md": "c5375d4b529a943d4e400430785a1cac54bebff9ba0b5dd90867b8552dc9c16f",
+      "docs/session-memory.md": "4876199f9b47e547d2d239debe8d27b915c6110b188926ab26e9fc307504211b",
+      "docs/trusted-boundary.md": "0e9ebe1e084ca843bfef4eb31778bae2e85f05879bbee2d0c8056cfd6ced0186",
+      "docs/evidence/interim-review-response-20261105/README.md": "75f364c5990ba7e4c86d7a5bb659d0097ede9c6eb595fc189987aaa417e59e3f",
+      "docs/evidence/interim-review-response-20261105/regression/README.md": "99beef7ef5746f2e0214c7808ed901ca0d93db226b8532d948c65b3ffe0216e4"
+    },
+    "prospective_pr_payload_sha256": "5aba41f2146a4bbe20d86ccab96c9893a2a29335d0f649b317d7461eaaebe898",
+    "all_document_native_packet_and_pr_payload_hashes_match": true,
+    "source_delta_from_governed_commit": [],
+    "review_local_links_checked": 13,
+    "review_local_links_missing": []
+  },
+  "regression": "Relies on review-final-regression-applicability-20261105.md at ddb183a918: 594 retained results plus one successful changed-method replacement; no duplicate regression review",
+  "token_and_cost_evidence": "Unavailable",
+  "initial_delivery_record_target": {
+    "record_base_commit": "d78329ccafd74317f9cd5aa9af290021156ca54a",
+    "governed_source_commit": "ddb183a918c78c8636b94961172dc923e7d88d30",
+    "docs_patch_sha256": "7de1d1dd006f40d091c4c6656d3cbc29ed7f260b47c3f015c8daeae138ff3137",
+    "document_hashes": {
+      "README.md": "769fdcea0b824c51ccba65f2ab61c63f902c62cda94f49c247db33eb2d463b16",
+      "language.md": "6f2371881f9d849c221879cd000613a8e6f87dfbbb6483cf0fb0ac521d362bfd",
+      "roadmap.md": "5e8b936a15efa58e38e18715de47089b168579ce1ddc1c2c7016ed1f1e89ea2e",
+      "docs/interim-review-response-20261105.md": "eec1e83983c953cc6291a3f14494885fe44a6e2838cdd862674512dce9842efe",
+      "docs/bounded-string-characters.md": "5e9c583db02b399afeab6e59c38234387205b19f3a7e9b1d9dba221231d4b92c",
+      "docs/session-memory.md": "c63a0025ff43394bb36c2ad05d614afd3eab7b358cda87752b9557df01fdbdfb",
+      "docs/trusted-boundary.md": "b04833f3e6ce7c22e0397bce2abc41d54b4b1a61ca4557823c47dec3ea99339b",
+      "docs/evidence/interim-review-response-20261105/README.md": "2b900867d2d2d8a58b78fd1e154a9369ed0076d73027e7ed4243a0cb773ef375",
+      "docs/evidence/interim-review-response-20261105/regression/README.md": "584cd6fdf584dddd64234dfbc92c98f141e8a53101acd11c74e056603fadcf97"
+    },
+    "native_packet_hashes": {
+      "docs/evidence/interim-review-response-20261105/native-final/README.md": "a520767b18a75fa75b736b50bf1c51005156307f2eb3d5828f31e969a91a5a67",
+      "docs/evidence/interim-review-response-20261105/native-final/archive-members.json": "bf79f9be78e7836ed0cd4d80364bddbe3bedf2994555528a82fd1b39f699859c",
+      "docs/evidence/interim-review-response-20261105/native-final/artifacts-index.json": "37b6e5b0dcf70ae440e8fd100be96131d7b13ac3d95e0f6f5a38b5dd2b24e390",
+      "docs/evidence/interim-review-response-20261105/native-final/current-input-verification.json": "1b7c5d008a8be71494317e4bd404b1bc8e40a55578eefd913dc611922b780894",
+      "docs/evidence/interim-review-response-20261105/native-final/events.jsonl.gz": "2124298fe3ec0540933a52d4d35bfd0c8c6a1c039b11287fc826f07f3966e6ee",
+      "docs/evidence/interim-review-response-20261105/native-final/gnatprove.out": "65b8eba0fa1cbd958ad5cc6f8ee9e1d98bd0b48b1912b752f08cf67ab37523d6",
+      "docs/evidence/interim-review-response-20261105/native-final/integration-input-applicability.json": "c39a4e044c498c8cc7d8d1432505b568038f4226631bebe9b4ff6145f1f3ff20",
+      "docs/evidence/interim-review-response-20261105/native-final/native.log.gz": "2030f0cc0146ef25d984e2724dcc4feb52d4a96efb4c926b80fbb16973a746c9",
+      "docs/evidence/interim-review-response-20261105/native-final/proof-evidence.tar.gz": "1f1faf0351c9878aa1ee83e6956baad91e09ea231600d9a03af9329f130e2aca",
+      "docs/evidence/interim-review-response-20261105/native-final/proof-inputs.json.gz": "881a9876c41bc72ba529fe012633bacc9f2bdce4c070f38d636d72d343f089e8",
+      "docs/evidence/interim-review-response-20261105/native-final/proof-provenance.json.gz": "e9c71b59e7a3d1feefca3ee7ea4fe814d2b4dfc7e97165c113ba4866a3a3c06a",
+      "docs/evidence/interim-review-response-20261105/native-final/summary.json": "42da841335fa573c62f1aeaf725fef68a75d4667f127eeaf21c7bb09bc0a381a"
+    },
+    "checks": {
+      "existing_local_links": 772,
+      "missing_local_links": [],
+      "source_delta_from_governed_target": [],
+      "nonlink_grammar_regex_skipped": "[A-Za-z0-9]|_[A-Za-z0-9]"
+    },
+    "closing_review_status": "pending; final fact-only status/link update follows clearance",
+    "review_observation": "Read frozen exact patch and target manifest; final fact-only verdict/link delta reviewed separately"
+  },
+  "review_finished_at_utc": "2026-11-05T20:23:52.141539+00:00",
+  "observed_review_seconds_including_waiting": 1492.141539,
+  "timing_limits": "First sampled clock to final record inspection includes review/report work and waiting on the pre-existing native run; active-work/wait durations were not separately instrumented.",
+  "verdict": "PASS within disclosed closing scope; authorized draft/open PR publication may proceed; merge remains unauthorized",
+  "review_report_sha256": "f55214d3569e661afb8c01fd62140e4bed9f18a7ac54683db16047e98ea1b5a4"
+}

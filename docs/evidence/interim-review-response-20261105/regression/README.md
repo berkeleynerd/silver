@@ -107,5 +107,7 @@ The final source/configuration applicability claim does not assert byte identity
 between its compiler binary and the integration worktree's binary: generated
 configuration differs by installation paths. The review records that distinction
 and the exact repository-input changes. Complete final Lean assurance is retained
-separately in the [final checkpoint](../lean-final/README.md); native verification
-and closing delivery review remain pending.
+separately in the [final checkpoint](../lean-final/README.md), and complete native
+verification passed in the [native final packet](../native-final/README.md).
+The [closing delivery review](../../../reviews/review-interim-response-closing-20261105.md)
+passed, retaining these distinct evidence scopes.

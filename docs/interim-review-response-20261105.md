@@ -1,8 +1,8 @@
 # Interim external review response — 2026-11-05
 
-Status: complete Lean assurance passed; native assurance and closing delivery
-review remain pending. PR #307 is draft, open and unmerged. The owner authorized
-this response in PR #308, merged as
+Status: the selected repairs, complete Linux native and Lean assurance, and
+closing delivery review passed. PR #307 is draft, open and unmerged. The owner
+authorized this response in PR #308, merged as
 `200e91a892b852e823494f2eaac7cde48602b123`. The exact
 [interim external report](reviews/interim-review-0d30841795-20261105.md)
 reviews `0d308417955545a225378ed6e31f83733b40e4ce`; its remaining review is
@@ -41,9 +41,10 @@ intentionally excludes them, with separate retained positive controls. The
 external appendix adds 39 admission cases across five files and two methods;
 it does not replace full-build regressions for the blockers.
 
-Complete native proof/audit and closing integration review remain outstanding.
-The matching build, regression coverage and complete Lean/source/module/axiom
-checkpoint have the current input scopes recorded below. Do not reuse older
+Complete native proof/audit, the matching build, regression coverage and complete
+Lean/source/module/axiom checkpoint have the current input scopes recorded below.
+The [closing integration review](reviews/review-interim-response-closing-20261105.md)
+passed on the exact checkpoint recorded below. Do not reuse older
 delivery totals as results of the repaired tree. Existing source and expression
 limits, proof/report settings, and the prior `-gnatdM` correction remain in force.
 
@@ -57,13 +58,16 @@ rebuild changed dependencies; complete current source assurance is still require
 
 ## Work rounds
 
+Rows preserve the outcome at each round. Current assurance and delivery status
+appear at the top and in the final checkpoint sections below.
+
 | Round | Selected settings | Result and limits |
 | --- | --- | --- |
 | Assessment and authorization | Two GPT-6 Astra / Extra High bounded blocker assessments; GPT-6.1 Sol / Extra High lower-finding inventory; lead runtime setting unavailable | Source inspection supports the findings and identifies incomplete candidate dependencies. No execution was repeated in assessment. PR #308 retains authorization/report; issues #309–#320 track work. Token/cost metrics unavailable. |
 | Initial implementation | GPT-6 Astra / Extra High for B1–B3; GPT-6.1 Sol / Extra High for B4 and B5; lead coordinates integration and records | Isolated implementation and focused validation underway. No complete repaired assurance or merge claim. |
 | Model/source integration | GPT-6.1 Sol / Extra High for B3 model development and B4 native repair; GPT-6 Astra / Extra High for B1/B2 forwarding and independent integration review; lead runtime setting unavailable | B1/B2 and B3 models, witness forwarding and complete source-check fields integrated. Independent core and integration reviews found no concrete gap. B4's ghost wrapper and caller passed six and 49 checks after two unsuccessful annotation attempts, with unchanged original contracts/settings. A theorem-local elaboration-budget increase resolved the combined check's argument-proof reduction limit and passed a fresh 14,738-declaration audit. Complete validation remains pending. Token/cost metrics unavailable. |
 
-## Focused implementation checkpoint
+## Focused implementation history
 
 B5 is integrated as `0e6c00e539` from reviewed worker commit `db51e1829e`.
 The [independent review](reviews/review-empty-loop-identities-db51e1829e.md)
@@ -108,7 +112,14 @@ found no concrete defect. All four targeted methods passed on the combined
 compiler in `20261105T094428-7555bb86cd0f` (29.069 s), including both complete
 execution routes and the 140-level admission control at 8 MiB. Three further
 [managed stack observations](evidence/interim-review-response-20261105/README.md)
-passed full proof/build/run and independent report audits at 8 MiB.
+passed full proof/build/run and independent report audits at 8 MiB, using build
+`5c84335cb5` and its recorded `49a10be0567e` compiler binary (full identity in
+the [stack index](evidence/interim-review-response-20261105/stack-observations.json)). These are retained
+observations of that build, not fresh final-binary measurements. The only later
+native delta is the reviewed ghost/static `Observe_Proof_List` wrapper; the
+recognizer and generated executable behavior are unchanged. The observations
+therefore remain applicable to this repair without establishing a universal
+stack bound.
 
 The output body token pin and candidate certificate have been refreshed with the
 reviewed native changes; certificate-regeneration parity passed in
@@ -169,7 +180,7 @@ final postcondition, passed in `20261105T105517-519789dbcad9`. The
 found no concrete defect. No original contract, required obligation or solver
 budget changed. This source is integrated at `fb89b3653a`.
 
-## Complete checkpoint in progress
+## Complete-checkpoint history
 
 The complete native proof/audit started as `20261105T110725-477d91dbd07d` on
 `fb89b3653a`, using four workers in the isolated `empty-loop-repair` worktree.
@@ -238,6 +249,64 @@ are supplementary. The three proof-only edits require no additional unittest
 rerun. Results retain their actual tested worktree and compiler identities;
 this reuse does not claim a new full-suite execution on the integration binary.
 
-Native run `20261105T110725-477d91dbd07d` is still active. Final native assurance
-and closing delivery review remain required before this response is described
-as complete. PR #307 remains draft/open and merge is not authorized.
+Native run `20261105T110725-477d91dbd07d` subsequently passed its complete
+audits, as recorded below. The closing delivery review subsequently passed. PR #307 remains draft/open and merge is not
+authorized.
+
+### Complete native checkpoint — 20:15 UTC
+
+Full native run `20261105T110725-477d91dbd07d` passed on frozen native snapshot
+`fb89b3653a`: **17,496 checks (16,000 proof and 1,496 flow), 76 units and
+1,104 entities**, with complete strict report, coverage and content-bound
+provenance audits. Native-tool time was 32,881.116 seconds and complete-audit
+time 10.662 seconds; managed duration was 32,897.462 seconds. The
+[final native packet](evidence/interim-review-response-20261105/native-final/README.md)
+retains the effective command, input snapshot, raw reports, terminal events,
+completed provenance and verified artifact/member indexes.
+
+This is full forced all-unit analysis with four workers and retained sessions
+and result-cache work, not cold validation. Read-only retention matched all
+2,586 native input paths/hashes, twelve tool binaries and 78 report hashes to
+their original recorded installation. All 143 native repository inputs match
+the governed repaired source `ddb183a918` and current integration. The two
+generated Ada packages differ from integration only by literal installation
+prefixes; local Alire settings also differ by path prefixes and `last_update`.
+The [applicability record](evidence/interim-review-response-20261105/native-final/integration-input-applicability.json)
+retains those actual differences. Native success remains bound to its tested
+installation; no byte equality of compiler binaries or generated path bindings
+across worktrees is claimed.
+
+Together with the complete cached Lean/fresh audit and reviewed 594+1 regression
+coverage above, this closes the required repaired assurance checkpoints.
+The closing delivery review passed as recorded below. The original failed/interrupted runs
+remain unchanged; the interim external report clears no unexamined scope.
+PR #307 remains draft/open, issues remain In review and milestone 16 remains
+open. Merge is unauthorized.
+
+| Final assurance round | Selected settings | Result and measurements |
+| --- | --- | --- |
+| Proof-budget/helper completion, evidence and regression applicability | GPT-6.1 Sol / Extra High for bounded proof repairs and native retention; GPT-6.1 Sol / High for Lean retention and delivery coordination; GPT-6 Astra / Extra High for final regression applicability and closing review | Complete native and cached Lean/fresh audit passed; independent review accepts 594 retained regression results plus the one changed-method replacement. Closing delivery review passed. Original failures and installation scopes remain explicit. Runtime settings and token/cost measurements are unavailable; recorded run/review times remain in their evidence packets. |
+
+### Closing delivery review
+
+The [independent closing review](reviews/review-interim-response-closing-20261105.md)
+passed on record base `d78329ccaf`, governed source `ddb183a918`, the twelve-file
+native final packet and the exact nine-document delivery patch SHA256
+`7de1d1dd006f40d091c4c6656d3cbc29ed7f260b47c3f015c8daeae138ff3137`.
+The reviewer selected GPT-6 Astra / Extra High and independently rechecked the
+native provenance/source audits and retained evidence identities, the complete
+Lean module/input/tool/artifact scope, prior review dependencies and final
+regression applicability. Runtime identity and token/cost measurements are
+unavailable; the report records observed timing and exact review inputs.
+No new blocker was found within this bounded response/delivery scope. Final
+changes only record the actual closing verdict and update review links/current
+capability anchors; they do not change the governed source or evidence.
+
+B1–B5 and the selected regression/record corrections are complete. Med-2 was
+already merged on main through PR #321. Med-1's remaining explicit structural
+guards stay the tracked next-edit follow-up, with existing semantic/source
+review still mandatory. This clearance does not finish the interim external
+review or clear unexamined scope. PR #307 is ready for owner review and remains
+draft/open; merge is unauthorized. The feature/finding issues and milestone 16
+remain open pending a later owner-authorized merge. No later capability, #300
+sample batch, Oracle amendment or separate #8 experiment adoption is selected.

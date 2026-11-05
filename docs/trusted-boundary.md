@@ -1458,4 +1458,7 @@ severity, provenance and all other structural checks are unchanged. No safety
 check is waived. Each alternative has the same byte length, so the existing
 report-capacity bounds are unchanged. The
 [interim response](interim-review-response-20261105.md) records the repair and
-its pending complete validation.
+its completed repaired Linux native and Lean/source validation, including actual
+input, installation-path and cache scopes. The
+[closing delivery review](reviews/review-interim-response-closing-20261105.md)
+passed.

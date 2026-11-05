@@ -21,12 +21,14 @@ each delivery; the linked issues hold scope and completion criteria.
 | Position | Feature | Motivating Rosetta candidates |
 | --- | --- | --- |
 | Delivered 2026-10-31 | [Boolean scalar objects and expressions #291](https://github.com/berkeleynerd/silver/issues/291), stacked on the named-subtype delivery [#286](https://github.com/berkeleynerd/silver/issues/286) | Sequence of primes by trial division; Square but not cube; Common list elements |
-| Review repairs in progress | [Bounded String indexing and character operations #296](https://github.com/berkeleynerd/silver/issues/296) | Reverse a string; Palindrome detection; character replacement |
+| Ready for owner review | [Bounded String indexing and character operations #296](https://github.com/berkeleynerd/silver/issues/296) | Reverse a string; Palindrome detection; character replacement |
 | Later (1) | [Fixed-size Boolean arrays #297](https://github.com/berkeleynerd/silver/issues/297) | Sieve of Eratosthenes; elementary cellular automata |
 | Later (2) | [Small nonrecursive functions #298](https://github.com/berkeleynerd/silver/issues/298) | Reusable primality tests, GCD and numeric search helpers |
 
-The bounded String increment is undergoing [interim review repairs](docs/interim-review-response-20261105.md). Its
-[prior delivery record](docs/bounded-string-characters.md#delivery-assurance-and-validation)
+The bounded String increment has completed repaired Linux native and Lean
+assurance after the [interim review repairs](docs/interim-review-response-20261105.md).
+The [closing delivery review](docs/reviews/review-interim-response-closing-20261105.md)
+passed. Its [delivery record](docs/bounded-string-characters.md#repaired-delivery-checkpoint--2026-11-05)
 connects interval and guard reasoning to index, slice and destination-length
 checks while preserving actual bounds, mutation and dead-code frontend rules.
 General dynamic-length indexing, resizing, Unicode processing and general String
@@ -48,27 +50,34 @@ and deferred capacity work retain their scope.
 
 ### Interim external review response for PR #307
 
-**Authorized, 2026-11-05; repairs and renewed assurance pending.** The
+**Repairs, complete Linux assurance and closing review passed, 2026-11-05.** The
 [interim report](docs/reviews/interim-review-0d30841795-20261105.md) identifies
 five blockers across the String delivery and inherited array/scalar behavior.
 The [owner authorization](docs/session-memory.md#2026-11-05--interim-external-review-repairs-authorized)
 selects a bounded B2 admission design, B1–B5 implementation, focused regressions
 and record corrections, then one stable complete native/Lean/source/regression
-checkpoint and independent review. PR #307 remains open and must not merge on
-the superseded completion assessment. Med-1's remaining structural guards are a
-next-edit follow-up; no new language feature is selected.
+checkpoint and independent review. Native and cached Lean/source assurance
+have passed; reviewed regression coverage accounts for all 595 test IDs. The
+[closing delivery review](docs/reviews/review-interim-response-closing-20261105.md)
+passed. PR #307 remains draft/open and merge is unauthorized. The external report remains interim and clears no unexamined scope.
+Med-1's remaining structural guards are a next-edit follow-up; no new language
+feature is selected.
 
 ### Bounded String indexing and character operations
 
-**Interim review repairs and renewed assurance in progress, 2026-11-05.
+**Repaired Linux assurance and closing delivery review passed, 2026-11-05.
 [PR #307](https://github.com/berkeleynerd/silver/pull/307) remains draft and open.**
 
 [Milestone 16](https://github.com/berkeleynerd/silver/milestone/16) contains
 [#296](https://github.com/berkeleynerd/silver/issues/296), authorized on 2026-10-31
-and resumed on 2026-11-03. The [delivery record](docs/bounded-string-characters.md#delivery-assurance-and-validation)
+and resumed on 2026-11-03. The
+[historical delivery record](docs/bounded-string-characters.md#delivery-assurance-and-validation)
 retains the previous implementation, native/Lean checks, 578-method regression
 accounting and reviews. The [interim response](docs/interim-review-response-20261105.md)
-supersedes that completion claim and records the outstanding repaired checkpoint. The [closing review](docs/reviews/string-delivery-closing-20261104.md)
+supersedes that completion claim and records the repaired native/Lean checkpoint
+and reviewed 595-ID regression coverage. The
+[repair closing review](docs/reviews/review-interim-response-closing-20261105.md)
+passed; the historical [closing review](docs/reviews/string-delivery-closing-20261104.md)
 passed at `9111fbf88be337214278f185501d2f9de1761442`.
 The original failed and interrupted runs remain recorded.
 
@@ -899,7 +908,7 @@ sequence.
 | Constant Integer-array iteration | Supported | Forward/reverse element iteration over existing constant anonymous fixed-size Integer arrays, immutable scoped elements and existing body compositions; [delivery assurance and validation](docs/constant-array-iteration.md#delivery-assurance-and-validation). Mutable iteration and general iterators remain separate. | [Loops/Foreach](samples/rosetta_loops_foreach.adb) |
 | Named Integer subtypes and bounded components | Supported | Direct static Integer range subtypes for initialized scalar objects and existing fixed-array components, optional narrower scalar object ranges, and declared component bounds in body reads and foreach elements; [complete Linux assurance and validation](docs/named-integer-subtypes.md#delivery-assurance-and-validation). Broad ranged subtypes and arrays remain separate. | [Sum of squares](samples/rosetta_sum_of_squares.adb), [Sum and product](samples/rosetta_sum_and_product.adb) |
 | Boolean scalar objects and expressions | Supported | Initialized scalar Boolean objects, assignment and eager/short-circuit expressions; no retained scalar predicate facts through flags, no xor inside xor operands; [delivery assurance and validation](docs/boolean-objects.md#delivery-assurance-and-validation). | [Sequence of primes](samples/rosetta_sequence_of_primes_by_trial_division.adb), [Square but not cube](samples/rosetta_square_but_not_cube.adb), [Common list elements](samples/rosetta_common_list_elements.adb) |
-| Bounded String indexing and Character operations | Supported | Printable-ASCII Character values and typed comparisons, fixed-bound String indexed reads/writes and bounded slices, preserving actual/null bounds, sliding and snapshots; [complete Linux assurance and validation](docs/bounded-string-characters.md#delivery-assurance-and-validation). | [Reversal](samples/rosetta_reverse_a_string.adb), [palindromes](samples/rosetta_palindrome_detection.adb), [selective replacement](samples/rosetta_selective_character_replacement.adb) |
+| Bounded String indexing and Character operations | Supported | Printable-ASCII Character values and typed comparisons, fixed-bound String indexed reads/writes and bounded slices, preserving actual/null bounds, sliding and snapshots; [complete Linux assurance and validation](docs/bounded-string-characters.md#repaired-delivery-checkpoint--2026-11-05). | [Reversal](samples/rosetta_reverse_a_string.adb), [palindromes](samples/rosetta_palindrome_detection.adb), [selective replacement](samples/rosetta_selective_character_replacement.adb) |
 
 The output target covers admitted literals and bounded command-line
 messages; the text `Hello, world!` receives no special treatment. String literals do not imply support for

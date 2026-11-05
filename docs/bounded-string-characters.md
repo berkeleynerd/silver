@@ -698,10 +698,13 @@ and synchronized delivery records still require the closing review.
 
 ## Delivery assurance and validation
 
-Implemented, validated and reviewed on Linux on 2026-11-04, with
-[PR #307](https://github.com/berkeleynerd/silver/pull/307) open for owner review.
-The dated sections above preserve development history, including failed and
-interrupted attempts. This section records the final delivery state.
+Historical delivery checkpoint, 2026-11-04. The
+[interim external review response](interim-review-response-20261105.md)
+supersedes this checkpoint's completion claim with the reported counterexamples.
+Its evidence retains the exact earlier inputs and outcomes; it does not validate
+the repaired tree. The [dated repair section below](#interim-review-admission-repairs--2026-11-05)
+records the current state. [PR #307](https://github.com/berkeleynerd/silver/pull/307)
+remains draft and open for owner review.
 
 The fragment admits printable-ASCII Character literals, initialized scalar
 objects, assignment and typed comparisons; fixed-bound String indexed reads
@@ -777,4 +780,33 @@ bounds and empty-operand zero-product/unit-divisor identities. Scalar snapshots,
 mutable-array bounds, constant-array iteration and nonempty arithmetic keep
 their existing rules. These are explicit changes to the evolving pre-1.0
 language, reflected in the specification and catalogue. Earlier dated design
-sections describe the prior rules. Complete repaired assurance is still pending.
+sections describe the prior rules. Complete repaired native and Lean assurance
+and closing delivery review passed; the delivery checkpoint below records the
+current evidence.
+
+### Repaired delivery checkpoint — 2026-11-05
+
+The governed repaired source/proof target is `ddb183a918`; later changes are
+records and retained evidence. The native snapshot is `fb89b3653a`. The
+[response record](interim-review-response-20261105.md) maps B1–B5 and the selected
+regression/record findings to their implementation and independent reviews.
+
+| Evidence | Repaired result and scope |
+| --- | --- |
+| [Complete native proof/audit](evidence/interim-review-response-20261105/native-final/README.md) | Full forced run `20261105T110725-477d91dbd07d` passed: 17,496 checks (16,000 proof and 1,496 flow), 76 units and 1,104 entities, with complete strict report/coverage/provenance audits. Retained sessions and result-cache work were reused; this is not cold validation. The 143 native repository inputs match the governed source; tested installation identities and generated absolute-path differences remain explicit. |
+| [Complete Lean/source checkpoint](evidence/interim-review-response-20261105/lean-final/README.md) | Cached complete run `20261105T192530-524a4096ef8f` passed: 626 modules and a separate fresh audit of 129,947 declarations, using only the three approved foundations. All 741 shared inputs match the governed source. This is neither a clean build nor an independent kernel replay. |
+| [Final regression applicability](reviews/review-final-regression-applicability-20261105.md) | All 595 runtime-qualified IDs are covered by 594 retained full-suite results and one passing focused replacement for the changed CPU-resource method. The other six focused passes are supplementary. Tested compiler/worktree identities and generated installation-path differences remain explicit; this is not a new full-suite execution on the integration binary. |
+
+The complete earlier Lean runs remain failed or interrupted as recorded, even
+where they produced reusable successful source-certificate objects. The original
+2026-11-04 delivery and failed regression aggregate retain their historical
+inputs and outcomes. The
+[repair closing review](reviews/review-interim-response-closing-20261105.md)
+passed on record base `d78329ccaf` plus the exact reviewed delivery patch and
+native packet, with final factual review-status/link updates checked separately.
+PR #307 is draft/open; merge is unauthorized. Milestone 16 and the
+feature/finding issues remain open pending an owner-authorized merge. Med-1's
+explicit structural guards remain the selected next-edit follow-up; the external
+report remains interim and clears no unexamined scope. Rosetta support remains
+limited to the existing `bounded-string-characters` identifier and its three
+drivers. No later feature or Oracle amendment is selected.

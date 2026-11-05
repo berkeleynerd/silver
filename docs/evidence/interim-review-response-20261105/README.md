@@ -1,7 +1,12 @@
 # Interim review response evidence
 
 This packet accompanies the [response record](../../interim-review-response-20261105.md).
-Complete assurance of the repaired tree is pending.
+Complete Linux native and Lean/source assurance passed on the recorded repaired
+inputs; the [closing delivery review](../../reviews/review-interim-response-closing-20261105.md)
+passed. The [native final packet](native-final/README.md),
+[Lean final packet](lean-final/README.md) and
+[final regression applicability review](../../reviews/review-final-regression-applicability-20261105.md)
+retain their distinct input, installation and cache scopes.
 
 `root-cache-seed.json.gz` retains actual input, tool and artifact hashes for the
 older root proof workspace used as a cache seed. `cache-seed-index.json` binds
@@ -24,15 +29,15 @@ Compressed files preserve the original bytes; no exploratory unit result is
 represented as a complete compiler audit. B4's initial unit proof finished with
 one unresolved precondition; the index retains that failure, both unsuccessful
 annotation attempts, and the final successful wrapper/caller checks. Their
-[handoff](b4/native-followup.md) distinguishes those results from the pending
-complete compiler proof/audit.
+[handoff](b4/native-followup.md) distinguishes those focused development results
+from the subsequently completed full compiler proof/audit.
 
 The [B5 handoff](b5/B5-handoff.md), its pinned-source identity audit and the
 [independent review](../../reviews/review-empty-loop-identities-db51e1829e.md)
 record the argument and exact reviewed commit. The [B4 handoff](b4/handoff.md)
 identifies its initial focused tests; the follow-up above records the later proof
-repair. Complete source/policy assurance
-on the combined tree remains outstanding.
+repair. The final packets above establish complete source/policy assurance on
+the governed combined tree, retaining those earlier focused results as history.
 
 `stack-observations.tar.gz` and its JSON index retain managed run
 `20261105T094655-8d2e3922acd5`: three 4,096-byte sources passed admission,
@@ -49,10 +54,11 @@ The native checkpoint can reuse the surviving local GNATprove result cache.
 `native-cache-seed.json` records its actual copy and destination; no prior native
 report, session or success manifest came from that seed. Alire lock digests
 match. Ordinary prover task matching, forced complete analysis and the current
-report/coverage/provenance audit remain required.
+report/coverage/provenance audit were required and passed in the final native
+packet; the seed itself supplies no audit result.
 
 `b4/native-session-transfer.json` records the completed Image-policy exploratory
 object/session tree copied into the isolated full-native workspace. The copied
 reports are seed material, not completed full-audit evidence. The complete run
-must regenerate and audit current reports. The original failure trees remain in
-the worker's scratch directory; their raw diagnostics are retained in this packet.
+regenerated and audited current reports, retained in the final native packet.
+The original failure trees remain in the worker's scratch directory; their raw diagnostics are retained in this packet.
