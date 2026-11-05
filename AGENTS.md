@@ -50,9 +50,13 @@ when available and authorized; avoid a fixed vendor or verifier-count rule.
 
 Agent concurrency is separate from native worker and memory allocation. Respect
 actual session slots, workspace leases and host headroom. Use managed runners
-and explicit worker reservations; serialize dense runs when their combined
-requirements exceed available resources. A read-only role instruction is not
-a separate sandbox. Apply the [configuration and reporting guidance](docs/agent-workflow.md)
+and their worker reservations. Start Lean runs with all available CPUs: omit
+`--workers` and `--threads` unless a current resource constraint calls for fewer.
+Scale down as needed and record the reason with that run; do not carry a previous
+run's one-worker or one-thread restriction forward by habit. Serialize dense runs
+when their combined requirements exceed available resources. A read-only role
+instruction is not a separate sandbox. Apply the
+[configuration and reporting guidance](docs/agent-workflow.md)
 and [round monitoring rules](development.md#goal-and-review-bookkeeping).
 Report actual settings; changing saved defaults does not prove a live lead
 model or effort changed.

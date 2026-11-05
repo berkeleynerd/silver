@@ -952,9 +952,14 @@ class LeanNativeDependencyTests(unittest.TestCase):
             prepare_workspace(host, inputs)
             environment = lean_environment(host)
 
-            def build(workers: int, threads: int, memory: int) -> subprocess.CompletedProcess[str]:
-                command = lake_build_command(host.lean / "bin/lake", [
-                    "-K", f"silverThreads={threads}", "-K", f"silverMemoryMb={memory}"])
+            def build(workers: int, threads: int | None,
+                      memory: int | None) -> subprocess.CompletedProcess[str]:
+                settings = []
+                if threads is not None:
+                    settings.extend(["-K", f"silverThreads={threads}"])
+                if memory is not None:
+                    settings.extend(["-K", f"silverMemoryMb={memory}"])
+                command = lake_build_command(host.lean / "bin/lake", settings)
                 command.insert(1, "--verbose")
                 result = subprocess.run(
                     command, cwd=host.proof,
@@ -977,6 +982,16 @@ class LeanNativeDependencyTests(unittest.TestCase):
             changed = build(3, 2, 512)
             self.assertRegex(changed.stdout + changed.stderr, r"\s-j2\s-M512\b")
             self.assertIn("lake workers=3", changed.stdout + changed.stderr)
+            # Returning to automatic settings preserves accepted objects and
+            # removes both overrides from the next actual compiler invocation.
+            before = (artifact.read_bytes(), artifact.stat().st_mtime_ns)
+            build(3, None, None)
+            self.assertEqual((artifact.read_bytes(), artifact.stat().st_mtime_ns), before)
+            (host.proof / "Silver/Audit.lean").write_bytes(
+                audit_source + b"example : 3 + 3 = 6 := rfl\n")
+            automatic = build(3, None, None)
+            self.assertNotRegex(automatic.stdout + automatic.stderr, r"\s-[jM]\d+\b")
+            self.assertIn("lake workers=3", automatic.stdout + automatic.stderr)
 
     def test_lake_tracks_embedded_ada_bytes_and_preserves_unchanged_objects(self) -> None:
         native = native_layout(ROOT)

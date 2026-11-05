@@ -195,10 +195,13 @@ invalidation controls. `--workers N` controls Lake's workers for independent
 modules; its default `0` reserves the available managed worker budget.
 `--threads N` separately controls each Lean build/audit process. Its default `0`
 selects the CPUs available through process affinity and Python's CPU count.
-Explicit counts permit lower settings for CPU quotas, competing workloads or
-memory pressure. Worker
-pools can multiply across modules; these settings are not strict OS-thread caps
-or a promise that every proof uses every core. The
+Start future Lean runs with these automatic defaults, allowing all available
+CPUs. Use explicit lower counts when CPU quotas, competing workloads or observed
+memory pressure require them, and record the reason in the run's `--reason` or
+task record. Reassess that reduction for the next run instead of inheriting a
+one-worker or one-thread setting. Worker pools can multiply across modules;
+these settings are not strict OS-thread caps or a promise that every proof uses
+every core. The
 [concurrency record](docs/lean-concurrency.md) measures the selected settings and
 explains the remaining serial certificate and kernel work. Independent per-file
 source-certificate modules can still build concurrently. The runner re-elaborates

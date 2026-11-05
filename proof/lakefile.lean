@@ -2,11 +2,13 @@ import Lake
 open Lake DSL
 
 package silverProof where
-  -- Source certificates share large literal terms; checking declarations in
-  -- sequence is the memory-safe default. Scheduling changes need not invalidate
-  -- accepted proof terms, unlike semantic options such as warningAsError.
+  -- Use Lean's hardware-concurrency default unless explicitly overridden.
+  -- Scheduling changes need not invalidate accepted proof terms, unlike
+  -- semantic options such as warningAsError.
   moreLeanArgs := #["-DwarningAsError=true"]
-  weakLeanArgs := #["-j" ++ (get_config? silverThreads).getD "1"] ++
+  weakLeanArgs := (match get_config? silverThreads with
+    | some threads => #["-j" ++ threads]
+    | none => #[]) ++
     match get_config? silverMemoryMb with
     | some limit => #["-M" ++ limit]
     | none => #[]

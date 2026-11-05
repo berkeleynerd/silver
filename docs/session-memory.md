@@ -1,5 +1,22 @@
 # Session memory
 
+## 2026-11-05 — Lean uses all available CPUs by default
+
+The owner requested unrestricted allocation of available CPU cores to future
+Lean jobs, scaling down as needed, and directed this change to ride in
+[PR #307](https://github.com/berkeleynerd/silver/pull/307). Use the managed runner's
+automatic worker and thread settings; explicit lower counts remain available
+for a current resource constraint, with the reason recorded for that run.
+Do not inherit one-worker or one-thread settings from previous runs by habit.
+
+The managed runner already implements these automatic defaults. The Lake
+configuration now also leaves Lean's hardware-concurrency default in effect
+when no thread override is supplied. Existing reservations, workspace leases,
+memory controls and required assurance checks remain in force. The active
+verification snapshot remains unchanged; integrate the configuration after its
+run and refresh the complete Lean checkpoint using retained valid objects.
+This instruction does not authorize merging PR #307. No CLI recall was updated.
+
 ## 2026-11-05 — Main audit fixture and Boolean coverage record repaired
 
 The authorized Med-2 correction [#315](https://github.com/berkeleynerd/silver/issues/315)
