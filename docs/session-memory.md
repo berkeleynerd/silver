@@ -17,6 +17,14 @@ verification snapshot remains unchanged; integrate the configuration after its
 run and refresh the complete Lean checkpoint using retained valid objects.
 This instruction does not authorize merging PR #307. No CLI recall was updated.
 
+The owner subsequently instructed stopping the current Lean run and restarting
+with unrestricted cores while monitoring CPU and RAM. Run
+`20261105T112731-2036c05ea810` was cleanly interrupted; its partial objects and
+evidence were preserved. Replacement `20261105T133612-ecc276b25c57` uses automatic
+allocation on the updated configuration. The
+[restart record](evidence/interim-review-response-20261105/lean-cpu-restart/README.md)
+holds actual settings, observations and remaining checks.
+
 ## 2026-11-05 — Main audit fixture and Boolean coverage record repaired
 
 The authorized Med-2 correction [#315](https://github.com/berkeleynerd/silver/issues/315)

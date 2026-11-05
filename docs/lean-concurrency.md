@@ -46,7 +46,9 @@ future Lean runs, scaling down as needed. Omit `--workers` and `--threads` for
 that policy; managed reservations still account for other active runs. Record
 the current reason for an explicit reduction rather than copying a previous
 run's restriction. The lakefile's former one-thread fallback was removed in
-PR #307. The already-running verification retains its captured configuration.
+PR #307. The owner then requested an immediate restart of the active verification;
+the [restart record](evidence/interim-review-response-20261105/lean-cpu-restart/README.md)
+preserves the interrupted result and the replacement run's measurements.
 
 The [focused Linux check](evidence/interim-review-response-20261105/lean-cpu-defaults/summary.json),
 `20261105T132715-c4a22b58c2d9`, passed seven tests without skips in 59.176 seconds

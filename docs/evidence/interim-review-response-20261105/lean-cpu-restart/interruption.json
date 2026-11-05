@@ -1,0 +1,21 @@
+{
+  "prior_run": "20261105T112731-2036c05ea810",
+  "outcome": "interrupted",
+  "reason": "Owner requested immediate restart with automatic available CPU allocation instead of workers=1/threads=1.",
+  "interrupted_at": "2026-11-05T13:35:32.741953+00:00",
+  "duration_seconds": 7677.314713035,
+  "objects_present_before_restart": 252,
+  "object_bytes": 90356088,
+  "files": [
+    {
+      "file": "interrupted-events.jsonl.gz",
+      "sha256": "82504c6e6d561d7c6812e2497fa2e8bc40ea5e90bd5b8a29c931a4ccb2c2bb59",
+      "uncompressed_sha256": "7c8aefb6f9cdb86766a18f477c704f044ac46d1055ef9fb62888590c36f96472"
+    },
+    {
+      "file": "interrupted-lean-proof.log.gz",
+      "sha256": "34fe53d96f66f8b18bb73b808ac28959704bcd63d312a8ddb0d55b3db89f1271",
+      "uncompressed_sha256": "16e4ac4b5683401d2ba86bc1c12824c4410692b26cb1a55d96b02e9a051e72e3"
+    }
+  ]
+}
