@@ -22,6 +22,9 @@ private theorem xor_scanner_checked : XorSourceBridge.Checked SourceShape.bodyTo
   · exact CharacterSourceCandidate.xor_body
   all_goals decide +kernel
 
+private theorem counted_bound_checked : CountedBoundNative.Checked SourceShape.bodyTokens := by
+  constructor <;> decide +kernel
+
 private theorem native_flow_checked : FlowSourceBridge.Checked SourceShape.bodyTokens := by
   constructor <;> decide +kernel
 
@@ -640,6 +643,7 @@ theorem candidate_checked : Checked SourceShape.specTokens SourceShape.bodyToken
   booleanBodies := BooleanBodyNative.SourceChecks.candidate_checked
   scalarBodies := ScalarBodyNative.SourceChecks.candidate_checked
   array_helpers := ArrayBodyNative.SourceChecks.candidate_checked
+  counted_bound := counted_bound_checked
   bodyWrappers := candidate_bodyWrappers
   adapterWrappers := candidate_adapterWrappers
   lemma_joined_flow_spec := candidate_lemma_joined_flow_spec

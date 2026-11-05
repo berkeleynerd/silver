@@ -7,6 +7,7 @@ public import Silver.BooleanBindingsSourceChecks
 public import Silver.PredicateXorSourceBridge
 public import Silver.PredicateScalarBodySource
 public import Silver.PredicateArrayBodySource
+public import Silver.PredicateCountedBoundSource
 public import Silver.PredicateBodyWrappers
 public import Silver.PredicateBodyCandidates
 public import Silver.PredicateLoopCandidate
@@ -320,6 +321,7 @@ structure Checked (specTokens bodyTokens : List String) : Prop where
   booleanBodies : BooleanBodyNative.SourceChecks.Checked bodyTokens
   scalarBodies : ScalarBodyNative.SourceChecks.Checked bodyTokens
   array_helpers : ArrayBodyNative.SourceChecks.Checked bodyTokens
+  counted_bound : CountedBoundNative.Checked bodyTokens
   bodyWrappers : BodyWrappers.Checked bodyTokens
   adapterWrappers : Adapter.Wrappers.Checked bodyTokens
   lemma_joined_flow_spec : procedureHeader "lemma_joined_flow" ";" bodyTokens = some lemma_joined_flow_spec

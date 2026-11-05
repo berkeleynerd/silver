@@ -254,10 +254,33 @@ private theorem string_helper_character_declaration_at_ordinary :
   rfl
 
 
+private theorem string_helper_guarded_at_ordinary :
+    BooleanDeclarationNative.SourceChecks.ordinaryFunction "guarded_at"
+      Output.SourceShape.outputImplementation = some StringNative.guardedBody.render := by
+  simp only [StringNative.guardedBody,
+    StringNative.Body.render,
+    StringNative.Command.list,
+    List.foldr_cons,
+    List.foldr_nil,
+    StringNative.Command.render,
+    StringNative.Command.renderElse]
+  rfl
+
+private theorem string_helper_guarded_at_impl :
+    functionHeader "guarded_at" "is" Output.SourceShape.outputImplementation =
+      some StringNative.SourceChecks.guardedHeader := by
+  decide +kernel
+
+private theorem string_helper_guarded_at_spec :
+    functionHeader "guarded_at" ";" Output.SourceShape.outputImplementation =
+      some StringNative.SourceChecks.guardedContract := by
+  decide +kernel
+
 private theorem string_helper_ordinary_bodies :
     StringNative.SourceChecks.Checked Output.SourceShape.outputImplementation := by
   exact ⟨string_helper_indexed_at_ordinary, string_helper_character_at_ordinary,
-    string_helper_concatenated_last_ordinary, string_helper_character_declaration_at_ordinary⟩
+    string_helper_concatenated_last_ordinary, string_helper_character_declaration_at_ordinary,
+    string_helper_guarded_at_ordinary, string_helper_guarded_at_impl, string_helper_guarded_at_spec⟩
 
 
 private theorem string_helper_fixed_bounds_valid_body :
