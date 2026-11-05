@@ -63,6 +63,10 @@ PROOF_LIMITATION_NOTES = {"contracts-recursive", "numeric-variant"}
 IMAGE_ADVISORY_TEXT = ('references to the "Image" attribute are handled in an imprecise way, '
                        'so nothing will be known about the evaluation of the attribute reference '
                        'apart from a bound on its length [imprecise-image]')
+# The pinned producer renders the attribute using these three unit-casing forms.
+IMAGE_ADVISORY_TEXTS = (IMAGE_ADVISORY_TEXT,
+                        IMAGE_ADVISORY_TEXT.replace('"Image"', '"image"'),
+                        IMAGE_ADVISORY_TEXT.replace('"Image"', '"IMAGE"'))
 # This pinned flow limitation withholds the full-array-initialization inference;
 # it neither assumes initialization nor removes a flow/proof obligation. Keep it
 # separate from proof limitations and application diagnostics, and restrict it to
@@ -490,7 +494,7 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                             and type(record.get("line")) is int and record["line"] > 0
                             and type(record.get("col")) is int and record["col"] > 0
                             and isinstance(record.get("message"), dict)
-                            and record["message"].get("text") == IMAGE_ADVISORY_TEXT
+                            and record["message"].get("text") in IMAGE_ADVISORY_TEXTS
                             and isinstance(record.get("unproved_status"), dict)
                             and record["unproved_status"].get("status") == "unknown"
                             and record.get("check_tree") == {}

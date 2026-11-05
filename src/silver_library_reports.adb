@@ -32,6 +32,8 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    Initialization_Suffix : constant String := "\"" has no effect""";
    Atom_imprecise_image : constant String := "imprecise-image";
    Atom_image_message : constant String := "references to the \""Image\"" attribute are handled in an imprecise way, so nothing will be known about the evaluation of the attribute reference apart from a bound on its length [imprecise-image]";
+   Atom_image_message_lower : constant String := "references to the \""image\"" attribute are handled in an imprecise way, so nothing will be known about the evaluation of the attribute reference apart from a bound on its length [imprecise-image]";
+   Atom_image_message_upper : constant String := "references to the \""IMAGE\"" attribute are handled in an imprecise way, so nothing will be known about the evaluation of the attribute reference apart from a bound on its length [imprecise-image]";
    Atom_array_initialization : constant String := "array-initialization";
    Atom_array_initialization_message : constant String := "initialization of an array in FOR loop is handled imprecisely [array-initialization]";
    Atom_unknown : constant String := "unknown";
@@ -468,6 +470,16 @@ package body Silver_Library_Reports with SPARK_Mode => On is
      (Valid (Text, Item) and then Item.Last - Item.First >= 1
       and then Text (Item.First) = '"' and then Text (Item.Last) = '"'
       and then Text (Item.First + 1 .. Item.Last - 1) = Expected);
+
+   --  The pinned producer follows the defining unit's casing when rendering
+   --  this attribute name. Only these three complete messages are emitted.
+   function Image_Message (Text : String; Item : Span) return Boolean
+     with Pre => Text'First = 1 and then Text'Length <= Max_Report_Length;
+
+   function Image_Message (Text : String; Item : Span) return Boolean is
+     (String_Equal (Text, Item, Atom_image_message)
+      or else String_Equal (Text, Item, Atom_image_message_lower)
+      or else String_Equal (Text, Item, Atom_image_message_upper));
 
    type Member_State is (Broken, Finished, Present);
    type Member is record
@@ -1257,8 +1269,8 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         and then Positive_Number (Text, Field_Spec (Text, Item, JSON_col))
         and then
           ((String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_imprecise_image)
-            and then String_Equal (Text, Field_Spec
-              (Text, Field_Spec (Text, Item, JSON_message), JSON_text), Atom_image_message))
+            and then Image_Message (Text, Field_Spec
+              (Text, Field_Spec (Text, Item, JSON_message), JSON_text)))
            or else
              (String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_array_initialization)
               and then String_Equal (Text, Field_Spec
@@ -1356,8 +1368,8 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         and then Positive_Number (Text, Field (Text, Item, JSON_col))
         and then
           ((String_Equal (Text, Field (Text, Item, JSON_rule), Atom_imprecise_image)
-            and then String_Equal (Text, Field
-              (Text, Field (Text, Item, JSON_message), JSON_text), Atom_image_message))
+            and then Image_Message (Text, Field
+              (Text, Field (Text, Item, JSON_message), JSON_text)))
            or else
              (String_Equal (Text, Field (Text, Item, JSON_rule), Atom_array_initialization)
               and then String_Equal (Text, Field
@@ -1924,6 +1936,13 @@ package body Silver_Library_Reports with SPARK_Mode => On is
           Expected (I)))
      with Ghost => Static;
 
+   function Raw_Image_Message
+     (Text : Raw_Bytes.Sequence; Item : Raw_Scan.Span) return Boolean is
+     (Raw_String_Equal (Text, Item, Atom_image_message)
+      or else Raw_String_Equal (Text, Item, Atom_image_message_lower)
+      or else Raw_String_Equal (Text, Item, Atom_image_message_upper))
+     with Ghost => Static;
+
    function Raw_Merge_Field (Left, Right : Raw_Scan.Span) return Raw_Scan.Span is
      (if Left = Raw_Scan.Malformed or else Right = Raw_Scan.Malformed then Raw_Scan.Malformed
       elsif Left = Raw_Scan.Missing then Right
@@ -2165,8 +2184,8 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         and then Raw_Positive_Number (Text, Raw_Field (Text, Item, JSON_col))
         and then
           ((Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_imprecise_image)
-            and then Raw_String_Equal (Text, Raw_Field
-              (Text, Raw_Field (Text, Item, JSON_message), JSON_text), Atom_image_message))
+            and then Raw_Image_Message (Text, Raw_Field
+              (Text, Raw_Field (Text, Item, JSON_message), JSON_text)))
            or else
              (Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_array_initialization)
               and then Raw_String_Equal (Text, Raw_Field
@@ -3537,6 +3556,12 @@ package body Silver_Library_Reports with SPARK_Mode => On is
          Mixed_String_Congruence
            (Raw, Raw_Field (Raw, Raw_Field (Raw, L, JSON_message), JSON_text),
             Text, Field_Spec (Text, Field_Spec (Text, R, JSON_message), JSON_text), Atom_image_message);
+         Mixed_String_Congruence
+           (Raw, Raw_Field (Raw, Raw_Field (Raw, L, JSON_message), JSON_text),
+            Text, Field_Spec (Text, Field_Spec (Text, R, JSON_message), JSON_text), Atom_image_message_lower);
+         Mixed_String_Congruence
+           (Raw, Raw_Field (Raw, Raw_Field (Raw, L, JSON_message), JSON_text),
+            Text, Field_Spec (Text, Field_Spec (Text, R, JSON_message), JSON_text), Atom_image_message_upper);
          Mixed_String_Congruence
            (Raw, Raw_Field (Raw, Raw_Field (Raw, L, JSON_unproved_status), JSON_status),
             Text, Field_Spec (Text, Field_Spec (Text, R, JSON_unproved_status), JSON_status), Atom_unknown);
