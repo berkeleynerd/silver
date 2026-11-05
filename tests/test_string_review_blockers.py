@@ -6,6 +6,7 @@ import tempfile
 import unittest
 
 from tests import test_shared_bindings as shared
+from tests.test_silver import HOST, invoke
 
 program = shared.program
 output = shared.output
@@ -36,6 +37,91 @@ class StringReviewBlockerTests(unittest.TestCase):
         for bounds in (b'2147483647..2147483646', b'0..(-1)'):
             self.check(program(text, output(b'S(' + bounds + b')')))
         self.check(program(text, output(b'S(2147483647..(-1))')), 2)
+
+    def test_original_extreme_null_slice_failures_are_rejected(self) -> None:
+        # Preserve the reported shells: argument bindings must be first, and
+        # the crash case needs separate declarations and body assignments.
+        # The unguarded span controls above isolate B1 from the B2 restriction.
+        cases = (
+            ('equality_wrong_answer', b'''with Silver_IO;
+procedure Main is
+   pragma SPARK_Mode (On);
+   T : constant String := "xy";
+   A : Integer range 2147483646 .. 2147483647 := 2147483647;
+   B : Integer range -2147483648 .. -2147483647 := -2147483648;
+begin
+   if T (A .. B) = "ab" then
+      Silver_IO.Put_Line ("EQ");
+   else
+      Silver_IO.Put_Line ("NE");
+   end if;
+end Main;
+'''),
+            ('assigned_endpoints_crash', b'''with Silver_IO;
+procedure Main is
+   pragma SPARK_Mode (On);
+   T : constant String := "xy";
+   A : Integer := 0;
+   B : Integer := 0;
+begin
+   A := 2147483647;
+   B := -2147483648;
+   if T (A .. B) = "ab" then
+      Silver_IO.Put_Line ("EQ");
+   else
+      Silver_IO.Put_Line ("NE");
+   end if;
+end Main;
+'''),
+            ('argument_length_check', b'''with Silver_IO;
+with Silver_Arguments;
+procedure Main is
+   pragma SPARK_Mode (On);
+   D : constant String := Silver_Arguments.First_Or_Default ("");
+   T : constant String := "xy";
+   A : Integer range 2147483646 .. 2147483647 := 2147483647;
+   B : Integer range -2147483648 .. -2147483647 := -2147483648;
+   S : String := "abc";
+begin
+   if Silver_Arguments.Input_Is_Valid then
+      if T (A .. B) = "ab" then
+         S := D;
+      end if;
+      Silver_IO.Put_Line (S);
+   else
+      Silver_Arguments.Reject;
+   end if;
+end Main;
+'''),
+            ('invalid_argument_output', b'''with Silver_IO;
+with Silver_Arguments;
+procedure Main is
+   pragma SPARK_Mode (On);
+   Arg : constant String := Silver_Arguments.First_Or_Default ("uvw");
+   T : constant String := "xy";
+   A : Integer range 2147483646 .. 2147483647 := 2147483647;
+   B : Integer range -2147483648 .. -2147483647 := -2147483648;
+begin
+   if T (A .. B) /= "ab" then
+      if Silver_Arguments.Input_Is_Valid then
+         Silver_IO.Put_Line (Arg);
+      else
+         Silver_Arguments.Reject;
+      end if;
+   else
+      Silver_IO.Put_Line ("unexpected");
+   end if;
+end Main;
+'''),
+        )
+        for name, source in cases:
+            with self.subTest(case=name):
+                self.check(source, 2)
+                before = set(HOST.artifacts.glob('program-*'))
+                result = invoke('compile', self.source)
+                self.assertEqual(result.returncode, 2, result.stdout)
+                self.assertEqual(self.source.read_bytes(), source)
+                self.assertEqual(set(HOST.artifacts.glob('program-*')), before)
 
     def test_admission_guarded_nonstatic_slice_endpoints(self) -> None:
         text = b'S:constant String:="abc";'
