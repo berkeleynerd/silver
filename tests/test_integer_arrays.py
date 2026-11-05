@@ -96,12 +96,13 @@ class IntegerArrayTests(unittest.TestCase):
             b'X:=(A(1) * 0);',
             b'if A(1)=A(2) then null;end if;',
             b'if A(1)<0 and then A(2)>=0 then null;end if;',
-            b'for I in A(1)..A(2) loop null;end loop;',
             output(b"Integer'Image(A(1))"),
             b'S:=Integer\'Image((A(1) * 0));',
         ):
             with self.subTest(body=body):
                 self.check(program(declarations, body))
+        # Direct constant-array bounds are an explicit frontend scope restriction.
+        self.check(program(declarations, b'for I in A(1)..A(2) loop null;end loop;'), 2)
         # Body reads use the full component type for both constants and variables.
         for constant in (b'', b'constant '):
             declaration = b'A:' + constant + b'array(1..2)of Integer:=(1,2);'

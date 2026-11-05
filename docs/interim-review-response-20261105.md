@@ -70,7 +70,8 @@ found no concrete implementation defect. The
 the pinned frontend identity argument, 198 rejection sources, retained native
 execution control, 44 focused native checks and eight-module Lean audit.
 The matching handwritten source pin and certificate have since been refreshed;
-their integrated kernel check and complete assurance remain pending.
+the integrated focused source check passed in `20261105T092234-74a1da901d7b`: 15 modules / 3,108 declarations, 375.467 s build and 13.875 s audit.
+Complete combined assurance remains pending.
 
 B4 is integrated as `fe74231e42` from `475f0aa13a`. Its build, eleven report
 methods and two Main-discovery methods (seven complete native routes) pass.
@@ -87,3 +88,14 @@ array metadata out of retained loop frames.
 The earlier #269 completion claim has a dated correction linking the remaining
 class-list work to #320. #315 has a completion comment and board status Done.
 All other response items remain open; PR #307 remains draft.
+
+The B1/B2 native prototype and B3 gate are integrated as `b9181a8a76` and
+`4f3323450d`. The language/catalogue changes explicitly state their purpose and
+retained alternatives. Combined build `20261105T093643-b607ae3babc0` passes.
+Eight combined admission/catalogue/B5 native-control methods pass in
+`20261105T093917-6adad5bc1721` (35.764 s); the nine appendix/catalogue methods
+also passed in `20261105T093209-1f22046ff96c` (4.281 s) before this native
+integration. Every run retains its actual input map; none is a final full-suite
+claim. The slice helper native proofs passed in the isolated source worktree:
+49 checks for `Guarded_At`, 24 for `Read_Counted_Bound`, and 34 for `Indexed_At`.
+Matching Lean helper/loop integration remains in progress.

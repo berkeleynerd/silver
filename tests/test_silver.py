@@ -240,8 +240,17 @@ class SilverIntegrationTests(unittest.TestCase):
         self.assertEqual(constructs["integer_image"]["conditions"]["length_range"], [2, 11])
         loop = constructs["for_loop"]["conditions"]
         self.assertEqual(loop["bound_visibility"],
-                         "initialized Integer objects and array components, and differently named "
-                         "enclosing indexes and elements")
+                         "initialized Integer objects and mutable-array components, and differently named "
+                         "enclosing indexes and elements; direct constant-array component reads excluded")
+        slices = constructs["string_slice"]["conditions"]
+        self.assertEqual(slices["endpoint_separation"],
+                         "b-c <= 2147483647, computed in wide arithmetic before every consumer; "
+                         "avoids signed endpoint subtraction overflow in pinned native equality")
+        self.assertEqual(slices["guarded_endpoints"],
+                         "both endpoints Ada-static inside if/elsif/else regions including conditions, "
+                         "or after any and/or/xor token since the preceding semicolon; tokens in "
+                         "comments and String/Character literals ignored; prevents conditional "
+                         "frontend slice failures")
         self.assertEqual(loop["directions"], ["forward", "reverse"])
         self.assertTrue(loop["index_immutable"])
         self.assertFalse(loop["iteration_enumeration_required"])

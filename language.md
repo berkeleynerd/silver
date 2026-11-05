@@ -551,7 +551,7 @@ capacity is derived from source syntax, not an additional array-length policy.
 
 A visible array component is an Integer atom wherever ordinary scalar
 expressions occur: later initializers, arithmetic, comparisons, Image, assignment
-values and loop bounds. A subscript uses the existing scalar grammar with
+values and, for mutable arrays only, counted-loop bounds. A subscript uses the existing scalar grammar with
 array reads excluded; therefore `A((I + 1))` is permitted when its interval is
 safe, but `A(B(I))` is outside this first fragment. Every inferred subscript
 interval must be nonempty and lie inside the declared index range, including
@@ -600,6 +600,13 @@ for_loop ::= "for" index_name "in" [ "reverse" ]
              scalar_expression ".." scalar_expression "loop"
              statements "end" "loop" ";"
 ```
+
+A counted-loop bound cannot directly read a constant-array component, including
+within a larger arithmetic expression. Mutable-array components, scalar
+snapshots taken in earlier declarations, and constant-array `for ... of` iteration
+remain admitted under their ordinary rules. This conservative Silver scope
+restriction avoids pinned-frontend and proof-translation failures when constant
+component values determine a loop range; it is not an Ada restriction.
 
 Bounds are evaluated once on loop entry. A forward loop visits the inclusive
 range in ascending order; `reverse` visits that same range in descending order.
@@ -741,12 +748,27 @@ read. Its endpoint Integer expressions must each infer a nonempty interval and
 pass their ordinary arithmetic checks. For lower interval `[a,b]`, upper interval
 `[c,d]` and prefix bounds `B .. E`, admission requires either `a > d` (every
 possible slice is null), or `a >= B` and `d <= E` (every potentially nonnull
-slice stays in the prefix). Its length interval is
+slice stays in the prefix). Additionally, `b - c <= 2147483647` must hold,
+calculated in wide arithmetic. This bounds every possible inverted endpoint
+separation so the pinned native equality expansion cannot overflow its signed
+Integer endpoint subtraction. The rule applies before any slice consumer,
+including copies and concatenations; ordinary null slices remain permitted.
+Its length interval is
 `max(0,c-b+1) .. max(0,d-a+1)`, calculated in wide arithmetic. Null slices retain
 the requested inverted bounds, even outside the prefix; they are not rewritten
 to `1 .. 0`. For example, `S (0 .. -1)` is null. Nonnull slices retain their
 requested lower bound. Slices may be grouped, concatenated, compared, output
 and assigned under the ordinary String length rules.
+
+Both slice endpoints must be Ada-static in an `if`, `elsif` or `else` region,
+including the conditions, and after any `and`, `or` or `xor` token since the
+preceding semicolon in the current declaration or statement. Whole tokens count;
+comments and String/Character literal contents do not. Closing `end if` leaves
+its region, and a semicolon resets the Boolean-chain restriction. This uniform
+Silver restriction prevents conditional frontend facts from turning admitted
+nonstatic slice bounds into a native build failure, even in contradictory arms.
+It deliberately also excludes some reachable slices that GNAT accepts. Outside
+these contexts, endpoints may remain nonstatic under the interval rules above.
 
 Concatenation retains a nonnull left operand's lower bound and has the sum of
 the operand lengths. If the left operand is null, the result takes the right

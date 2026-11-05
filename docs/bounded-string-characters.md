@@ -759,3 +759,22 @@ Stage issues #11/#12 remain Open/Backlog at their final rendered positions;
 #296 records the narrow feature mapping. Milestone 16 and the feature issues
 remain open pending owner-authorized merge. No later feature or Oracle change
 is selected. macOS validation remains independent of this Linux delivery.
+
+## Interim-review admission repairs — 2026-11-05
+
+The [response record](interim-review-response-20261105.md) tracks the repair
+checkpoint. Current slice admission adds the wide endpoint-separation bound
+`lower.upper - upper.lower <= 2147483647` before every consumer, preserving
+ordinary null slices while excluding native equality-overflow hazards.
+Inside any conditional region (including its conditions), and after a Boolean
+chain token in a declaration or statement, both slice endpoints must now be
+Ada-static. The token-aware restriction excludes some reachable programs too;
+its purpose is pinned frontend acceptance, not a new Ada semantic rule.
+Straight-line dynamic slices remain admitted under their interval checks.
+
+The same response excludes direct constant-array reads from counted-loop
+bounds and empty-operand zero-product/unit-divisor identities. Scalar snapshots,
+mutable-array bounds, constant-array iteration and nonempty arithmetic keep
+their existing rules. These are explicit changes to the evolving pre-1.0
+language, reflected in the specification and catalogue. Earlier dated design
+sections describe the prior rules. Complete repaired assurance is still pending.

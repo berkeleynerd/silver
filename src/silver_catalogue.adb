@@ -155,7 +155,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""shared_name_environment"": ""String, Character, Integer and Boolean objects, named Integer subtypes and Integer-array declarations; scoped loop indexes and elements may hide them in bodies"",");
       Put_Line ("        ""integer_type_hiding"": ""a String binding named Integer hides the Image type mark in its own initializer and later source"",");
       Put_Line ("        ""initializer_image_length"": ""non-input minimum and maximum must agree; Image captures exact initial values of earlier Integer objects and array components"",");
-      Put_Line ("        ""fixed_initializer_bounds"": ""first and last endpoint intervals must each be singleton; actual slice/copy/concatenation lower bounds retained, including arbitrary null bounds""");
+      Put_Line ("        ""fixed_initializer_bounds"": ""first and last endpoint intervals must each be singleton; actual slice/copy/concatenation lower bounds retained, including null bounds within the slice endpoint-separation limit""");
       Put_Line ("      }");
       Put_Line ("    },");
       Put_Line ("    {");
@@ -345,7 +345,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""shared_name_environment"": ""String, Character, Integer and Boolean objects, named Integer subtypes and Integer-array declarations; scoped loop indexes and elements may hide them in bodies"",");
       Put_Line ("        ""integer_type_hiding"": ""a String binding named Integer hides the Image type mark in its own initializer and later source"",");
       Put_Line ("        ""initializer_image_length"": ""non-input minimum and maximum must agree; Image captures exact initial values of earlier Integer objects and array components"",");
-      Put_Line ("        ""fixed_initializer_bounds"": ""first and last endpoint intervals must each be singleton; actual slice/copy/concatenation lower bounds retained, including arbitrary null bounds""");
+      Put_Line ("        ""fixed_initializer_bounds"": ""first and last endpoint intervals must each be singleton; actual slice/copy/concatenation lower bounds retained, including null bounds within the slice endpoint-separation limit""");
       Put_Line ("      }");
       Put_Line ("    },");
       Put_Line ("    {");
@@ -1157,6 +1157,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("          ""integer_expression""");
       Put_Line ("        ],");
       Put_Line ("        ""bounds_evaluated_once_on_entry"": true,");
+      Put_Line ("        ""constant_array_bound_restriction_purpose"": ""avoid pinned frontend/proof-translation failures from constant component loop ranges; scalar snapshots and constant-array iteration remain admitted"",");
       Put_Line ("        ""bound_flow"": ""infer and capture in entry flow before mutable widening"",");
       Put_Line ("        ""directions"": [");
       Put_Line ("          ""forward"",");
@@ -1171,7 +1172,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""nested"": true,");
       Put_Line ("        ""index_immutable"": true,");
       Put_Line ("        ""index_scope"": ""body only; own name hidden in both bounds, including outer homonyms; restore only the scoped index on exit"",");
-      Put_Line ("        ""bound_visibility"": ""initialized Integer objects and array components, and differently named enclosing indexes and elements"",");
+      Put_Line ("        ""bound_visibility"": ""initialized Integer objects and mutable-array components, and differently named enclosing indexes and elements; direct constant-array component reads excluded"",");
       Put_Line ("        ""identifier_pattern"": ""[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*"",");
       Put_Line ("        ""excluded_names"": [");
       Put_Line ("          ""Silver_IO""");
@@ -1340,6 +1341,8 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""nonempty_endpoint_intervals"": true,");
       Put_Line ("        ""acceptance"": ""for inferred lower [a,b], upper [c,d], prefix B..E: a>d, or a>=B and d<=E"",");
       Put_Line ("        ""null_slice"": ""every slice null when a>d; inverted bounds retained even outside prefix bounds"",");
+      Put_Line ("        ""endpoint_separation"": ""b-c <= 2147483647, computed in wide arithmetic before every consumer; avoids signed endpoint subtraction overflow in pinned native equality"",");
+      Put_Line ("        ""guarded_endpoints"": ""both endpoints Ada-static inside if/elsif/else regions including conditions, or after any and/or/xor token since the preceding semicolon; tokens in comments and String/Character literals ignored; prevents conditional frontend slice failures"",");
       Put_Line ("        ""length_interval"": ""max(0,c-b+1)..max(0,d-a+1), computed with wide arithmetic"",");
       Put_Line ("        ""max_operands"": 64,");
       Put_Line ("        ""operand_accounting"": ""one String prefix plus every leaf of both endpoint expressions"",");

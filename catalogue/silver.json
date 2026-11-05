@@ -117,7 +117,7 @@
         "shared_name_environment": "String, Character, Integer and Boolean objects, named Integer subtypes and Integer-array declarations; scoped loop indexes and elements may hide them in bodies",
         "integer_type_hiding": "a String binding named Integer hides the Image type mark in its own initializer and later source",
         "initializer_image_length": "non-input minimum and maximum must agree; Image captures exact initial values of earlier Integer objects and array components",
-        "fixed_initializer_bounds": "first and last endpoint intervals must each be singleton; actual slice/copy/concatenation lower bounds retained, including arbitrary null bounds"
+        "fixed_initializer_bounds": "first and last endpoint intervals must each be singleton; actual slice/copy/concatenation lower bounds retained, including null bounds within the slice endpoint-separation limit"
       }
     },
     {
@@ -307,7 +307,7 @@
         "shared_name_environment": "String, Character, Integer and Boolean objects, named Integer subtypes and Integer-array declarations; scoped loop indexes and elements may hide them in bodies",
         "integer_type_hiding": "a String binding named Integer hides the Image type mark in its own initializer and later source",
         "initializer_image_length": "non-input minimum and maximum must agree; Image captures exact initial values of earlier Integer objects and array components",
-        "fixed_initializer_bounds": "first and last endpoint intervals must each be singleton; actual slice/copy/concatenation lower bounds retained, including arbitrary null bounds"
+        "fixed_initializer_bounds": "first and last endpoint intervals must each be singleton; actual slice/copy/concatenation lower bounds retained, including null bounds within the slice endpoint-separation limit"
       }
     },
     {
@@ -1119,6 +1119,7 @@
           "integer_expression"
         ],
         "bounds_evaluated_once_on_entry": true,
+        "constant_array_bound_restriction_purpose": "avoid pinned frontend/proof-translation failures from constant component loop ranges; scalar snapshots and constant-array iteration remain admitted",
         "bound_flow": "infer and capture in entry flow before mutable widening",
         "directions": [
           "forward",
@@ -1133,7 +1134,7 @@
         "nested": true,
         "index_immutable": true,
         "index_scope": "body only; own name hidden in both bounds, including outer homonyms; restore only the scoped index on exit",
-        "bound_visibility": "initialized Integer objects and array components, and differently named enclosing indexes and elements",
+        "bound_visibility": "initialized Integer objects and mutable-array components, and differently named enclosing indexes and elements; direct constant-array component reads excluded",
         "identifier_pattern": "[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*",
         "excluded_names": [
           "Silver_IO"
@@ -1302,6 +1303,8 @@
         "nonempty_endpoint_intervals": true,
         "acceptance": "for inferred lower [a,b], upper [c,d], prefix B..E: a>d, or a>=B and d<=E",
         "null_slice": "every slice null when a>d; inverted bounds retained even outside prefix bounds",
+        "endpoint_separation": "b-c <= 2147483647, computed in wide arithmetic before every consumer; avoids signed endpoint subtraction overflow in pinned native equality",
+        "guarded_endpoints": "both endpoints Ada-static inside if/elsif/else regions including conditions, or after any and/or/xor token since the preceding semicolon; tokens in comments and String/Character literals ignored; prevents conditional frontend slice failures",
         "length_interval": "max(0,c-b+1)..max(0,d-a+1), computed with wide arithmetic",
         "max_operands": 64,
         "operand_accounting": "one String prefix plus every leaf of both endpoint expressions",
