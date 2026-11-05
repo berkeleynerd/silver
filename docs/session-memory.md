@@ -21,6 +21,28 @@ Med-2 alone is already merged through PR #321. No later feature, #300 batch,
 Oracle amendment or adoption of the separate #8 experiment is selected. No
 harness goal exists; CLI recall is unavailable and was not updated.
 
+## 2026-11-05 — Bounded parallel line-certificate experiment authorized
+
+The owner agreed to preparing the four-way line-check prototype in an isolated
+worktree while the PR #307 native and Lean checks continue, with matched
+one-worker/four-worker benchmarks queued behind existing worker reservations.
+This selects one bounded experiment under
+[#8](https://github.com/berkeleynerd/silver/issues/8) and
+[milestone 17](https://github.com/berkeleynerd/silver/milestone/17).
+
+Prepare four modules containing unchanged line-certificate declarations and an
+aggregator retaining the existing reconstruction and complete source/token
+equalities. First measure a fixed sample with identical inputs and common cached
+dependencies, forcing the same selected closure in both trials. Keep experimental
+outputs and workspaces separate; do not copy a live cache or change the active
+delivery's captured inputs. Use existing managed worker reservations and record
+CPU, memory, concurrent load, outcomes and limits. The
+[experiment record](lean-line-chunks.md) states scope and acceptance criteria.
+
+Production adoption, a reconstruction representation change, broader proof
+framework work and changes to PR #307's assurance or merge requirements are not
+selected. No Oracle amendment is authorized. No CLI recall was updated.
+
 ## 2026-11-05 — Lean uses all available CPUs by default
 
 The owner requested unrestricted allocation of available CPU cores to future

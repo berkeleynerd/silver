@@ -48,6 +48,20 @@ and deferred capacity work retain their scope.
 
 ## Current development sequence
 
+### Lean line-certificate parallelism experiment
+
+**Authorized, 2026-11-05; isolated experiment, no production optimization claim.**
+
+[Milestone 17](https://github.com/berkeleynerd/silver/milestone/17) contains the
+selected bounded scope of [#8](https://github.com/berkeleynerd/silver/issues/8).
+Prepare the four-module line-certificate prototype alongside the current String
+delivery, then run a matched one-worker/four-worker sample comparison when the
+existing managed worker pool has capacity. Review the result before selecting
+complete-certificate validation or production adoption. The
+[experiment record](docs/lean-line-chunks.md) keeps the workload, unchanged
+assurance requirements, validation scope and remaining decisions explicit.
+This work does not interrupt or replace PR #307's verification.
+
 ### Interim external review response for PR #307
 
 **Repairs, complete Linux assurance and closing review passed, 2026-11-05.** The
