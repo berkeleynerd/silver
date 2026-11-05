@@ -1360,6 +1360,11 @@ theorem indexedBody_legal (calls : Calls) : indexedBody.Legal calls := by
     Command.Legal, guard, anyOf, allOf, List.foldl, Expr.Legal, Function.isLexical]
   simp
 
+theorem guardedBody_legal (calls : Calls) : guardedBody.Legal calls := by
+  simp only [Body.Legal, guardedBody, List.mem_cons, List.not_mem_nil, forall_eq_or_imp]
+  dsimp only [Declaration.Legal, constant, Command.Legal, Expr.Legal, Function.isLexical]
+  simp
+
 theorem characterBody_legal (calls : Calls) : characterBody.Legal calls := by
   simp only [Body.Legal, characterBody, List.mem_cons, List.not_mem_nil, forall_eq_or_imp]
   dsimp only [Declaration.Legal, constant, uninitialized, Command.list, List.foldr,
@@ -1521,6 +1526,12 @@ theorem normalized_rawHelpers {domain : StateDomain} (calls : Calls)
     · apply source.characterLiteral <;> assumption
     · apply Expr.eval_lexical calls meaning
       exact StringNative.characterLiteralBody_legal calls _
+  guardedAt := by
+    intros
+    apply Eq.trans
+    · apply source.guardedAt <;> assumption
+    · apply StringNative.Body.eval_lexical calls meaning
+      exact StringNative.guardedBody_legal calls
   indexed := by
     intros
     apply Eq.trans

@@ -390,6 +390,9 @@ theorem model_helpers (ranges : RangeContracts modelCalls) :
   names := model_definition_names
   fixedBounds := model_definition_fixedBounds
   characterLiteral := model_definition_characterLiteral
+  guardedAt := by
+    intro text _ position limit depth chained ending positive bounded limitBound _
+    exact (model_guarded_denotation text position limit depth chained ending positive bounded limitBound).symm
   indexed := by
     intro text _ position names scalarNames arrays initials elaborating element _ _ _ _ _
     exact (model_indexed_denotation text position names scalarNames arrays initials elaborating element).symm

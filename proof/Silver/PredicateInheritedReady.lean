@@ -69,6 +69,7 @@ theorem model_definitions :
   names := base_definitions.names
   fixedBounds := base_definitions.fixedBounds
   characterLiteral := base_definitions.characterLiteral
+  guardedAt := base_definitions.guardedAt
   indexed := base_definitions.indexed
   characterValue := base_definitions.characterValue
   concatenatedFirst := base_definitions.concatenatedFirst
