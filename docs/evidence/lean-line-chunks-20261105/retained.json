@@ -1,0 +1,127 @@
+{
+  "captured_at": "2026-11-05T17:12:07.086100+00:00",
+  "files": [
+    {
+      "bytes_retained": 2084,
+      "bytes_uncompressed": 2084,
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-line-chunks/.silver/linux-x86_64/line-chunks/pilot-ready/pair.json",
+      "retained": "pair.json",
+      "sha256_retained": "6abded5ae6a9a082a235cbd1b8d0fd6e024073bbfed23c221053ed65afbfcd36",
+      "sha256_uncompressed": "6abded5ae6a9a082a235cbd1b8d0fd6e024073bbfed23c221053ed65afbfcd36"
+    },
+    {
+      "bytes_retained": 15869,
+      "bytes_uncompressed": 81093,
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-line-chunks/.silver/linux-x86_64/line-chunks/pilot-ready/manifest.json",
+      "retained": "manifest.json.gz",
+      "sha256_retained": "6081652ab39592065a3e2f44850410aac4d57d0931ec85c3305ca4d4a97c433e",
+      "sha256_uncompressed": "0f208309224c987c947da9f39a0c69c596c67388c2fe9e3c356561a254d8cf5f"
+    },
+    {
+      "bytes_retained": 2723,
+      "bytes_uncompressed": 2723,
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261105T164133-c09f71599053/line-chunks/common-artifacts.json",
+      "retained": "common-artifacts.json",
+      "sha256_retained": "e7f7ce16d9cd9992a20a98595016690dddbd033d00280a87abdaab2e4fb5fa35",
+      "sha256_uncompressed": "e7f7ce16d9cd9992a20a98595016690dddbd033d00280a87abdaab2e4fb5fa35"
+    },
+    {
+      "bytes_retained": 1450,
+      "bytes_uncompressed": 4233,
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261105T164133-c09f71599053/events.jsonl",
+      "retained": "common/events.jsonl.gz",
+      "sha256_retained": "570cd130f1b3c4a6ce1338a893d47dd3743d02a4924ae4f6b5f6ea142302fa6a",
+      "sha256_uncompressed": "dc06a7e99e1df4e84f157596fedc561ad2f5b85a3c3215e799d4821b4d6389a6"
+    },
+    {
+      "bytes_retained": 324,
+      "bytes_uncompressed": 324,
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261105T164133-c09f71599053/line-chunks/result.json",
+      "retained": "common/result.json",
+      "sha256_retained": "dd76eefc8294195d8d2b1796383063ca6775177654964156e268dc0b79089f9a",
+      "sha256_uncompressed": "dd76eefc8294195d8d2b1796383063ca6775177654964156e268dc0b79089f9a"
+    },
+    {
+      "bytes_retained": 369,
+      "bytes_uncompressed": 369,
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261105T164133-c09f71599053/line-chunks/build.log",
+      "retained": "common/build.log",
+      "sha256_retained": "65f4d716e0e581409712eb4fd6813a3690c24a89ae1bfb5f780bf1c692cbe6c2",
+      "sha256_uncompressed": "65f4d716e0e581409712eb4fd6813a3690c24a89ae1bfb5f780bf1c692cbe6c2"
+    },
+    {
+      "bytes_retained": 649,
+      "bytes_uncompressed": 3388,
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261105T164133-c09f71599053/line-chunks/samples.jsonl",
+      "retained": "common/samples.jsonl.gz",
+      "sha256_retained": "14d5ac13ca4f059f2313fc0d3bb7fb0ab86d38c6c199f2f5da21ef994fda7ba4",
+      "sha256_uncompressed": "c7f71a3c0cc86d631b7327d5f8eb615f1d4c0862175b0a798609ce16d4a1a3d2"
+    },
+    {
+      "bytes_retained": 2688,
+      "bytes_uncompressed": 7007,
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261105T164223-81a2973a395c/events.jsonl",
+      "retained": "workers-1/events.jsonl.gz",
+      "sha256_retained": "e683f2b524062dc9a343b605bcc3a26642d663dc12d6f8cd2d76ae2db2034ee0",
+      "sha256_uncompressed": "30e2636a0b8c65efa486da0b0dc5385c2dcddb31375616adcee6e04aecd5d198"
+    },
+    {
+      "bytes_retained": 335,
+      "bytes_uncompressed": 335,
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261105T164223-81a2973a395c/line-chunks/result.json",
+      "retained": "workers-1/result.json",
+      "sha256_retained": "328cd692d49beb8e8174aeceb62b8de1a5b39cabb0b39b1ed2cace4e7925ee93",
+      "sha256_uncompressed": "328cd692d49beb8e8174aeceb62b8de1a5b39cabb0b39b1ed2cace4e7925ee93"
+    },
+    {
+      "bytes_retained": 285,
+      "bytes_uncompressed": 285,
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261105T164223-81a2973a395c/line-chunks/build.log",
+      "retained": "workers-1/build.log",
+      "sha256_retained": "b0963ce59fc471c49d011607d9afbdb5a83593c5f1cbbd682dfdcac947e057e3",
+      "sha256_uncompressed": "b0963ce59fc471c49d011607d9afbdb5a83593c5f1cbbd682dfdcac947e057e3"
+    },
+    {
+      "bytes_retained": 17866,
+      "bytes_uncompressed": 134887,
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261105T164223-81a2973a395c/line-chunks/samples.jsonl",
+      "retained": "workers-1/samples.jsonl.gz",
+      "sha256_retained": "fbd58a2fe5ec4aaf038c10d2f7ec3ba5e5b3e097462f548c1d8bbe33bafd9d62",
+      "sha256_uncompressed": "4ffd8dd45d76e0a49fcdf19e1c8a07c0781a2ed7af72f60f17472ba3e0a5dcae"
+    },
+    {
+      "bytes_retained": 3053,
+      "bytes_uncompressed": 12536,
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261105T170047-20bc9f578a1a/events.jsonl",
+      "retained": "workers-4/events.jsonl.gz",
+      "sha256_retained": "592c633432e34c30c46088adedf4c87cb2d12a813b97cdfe89a08b295829d222",
+      "sha256_uncompressed": "d2abf46ebae92c2901a70394dfe2ad09354f156c2465c273e9ed39935486798a"
+    },
+    {
+      "bytes_retained": 336,
+      "bytes_uncompressed": 336,
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261105T170047-20bc9f578a1a/line-chunks/result.json",
+      "retained": "workers-4/result.json",
+      "sha256_retained": "1487b501c1ab48b549c70128c48bbf85b68870f3a815df866ad92c36729ec1fb",
+      "sha256_uncompressed": "1487b501c1ab48b549c70128c48bbf85b68870f3a815df866ad92c36729ec1fb"
+    },
+    {
+      "bytes_retained": 285,
+      "bytes_uncompressed": 285,
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261105T170047-20bc9f578a1a/line-chunks/build.log",
+      "retained": "workers-4/build.log",
+      "sha256_retained": "2fb1d5b5056e101c41ae2d129662390bbe83a408a8d74117d2640f39832a8ff6",
+      "sha256_uncompressed": "2fb1d5b5056e101c41ae2d129662390bbe83a408a8d74117d2640f39832a8ff6"
+    },
+    {
+      "bytes_retained": 6838,
+      "bytes_uncompressed": 51711,
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261105T170047-20bc9f578a1a/line-chunks/samples.jsonl",
+      "retained": "workers-4/samples.jsonl.gz",
+      "sha256_retained": "42b36fb8082347d25b9f210a452371abf12d619f3fb4f60a053c81904cb70644",
+      "sha256_uncompressed": "34ee7c49592f9eede4dd4a5a6d81fa220a95c74bb6580e83894aac610a90fc0a"
+    }
+  ],
+  "schema": 1,
+  "shared_records": "Exact duplicate per-phase manifests and common-artifact maps are retained once; summary.json maps each original to its shared retained file."
+}

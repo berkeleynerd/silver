@@ -2,8 +2,11 @@
 
 Authorized on 2026-11-05 under [#8](https://github.com/berkeleynerd/silver/issues/8)
 and [milestone 17](https://github.com/berkeleynerd/silver/milestone/17).
-Status: preparation reviewed; matched sample measurements queued behind delivery
-verification. No benchmark result or production adoption is claimed.
+Status: the matched 512-line sample comparison is complete. Four workers used
+383.054 seconds versus 1,081.519 seconds at one worker, an observed 2.823× wall
+improvement. The complete candidate remains **UNVALIDATED**; production adoption
+is not authorized. [Retained evidence](evidence/lean-line-chunks-20261105/README.md)
+records the comparison and its limits.
 
 The automatic-CPU restart of PR #307 exposed useful parallel work followed by
 a long single-module tail in `OutputBodyCertificate`. At the selected prototype
@@ -122,3 +125,56 @@ commands, source/tool identities, common objects, elapsed/CPU time, sampled
 memory and competing runs. This is one ordered pair: differing host load and
 sample distribution limit extrapolation to the full certificate. The prepared
 full candidate remains unvalidated until a separate complete trial is selected.
+
+### 2026-11-05 — Completed sample comparison
+
+The reviewed harness at `c7c0f175c09f8b27b4783d592121373c0cfa9b42` completed
+both sample trials on native Linux x86_64 with pinned Lean 4.34.1. Common-import
+setup ran first and is excluded from both timed trials. Each trial built the
+four 128-declaration chunk modules and `Silver.OutputBodyLineMicro`, with one
+Lean thread per process and a 4,096 MiB internal allowance per process.
+
+| Phase | Managed run | Timed wall | User + system CPU | Sampled peak group RSS |
+| --- | --- | --- | --- | --- |
+| Common imports | `20261105T164133-c09f71599053` | 27.210 s | 27.614 s | 1.515 GiB |
+| One worker | `20261105T164223-81a2973a395c` | 1,081.519 s | 1,079.354 s | 2.210 GiB |
+| Four workers | `20261105T170047-20bc9f578a1a` | 383.054 s | 1,419.419 s | 4.630 GiB |
+
+All three managed runs finished successfully. The observed wall reduction was
+64.58% (2.823×), while total CPU increased 31.51%. Timed wall covers Lake
+launch/reap; managed durations also include context and identity checks and were
+40.380, 1,094.297 and 399.583 seconds respectively. Aggregate RSS is sampled,
+not an exact peak or a hard memory reservation.
+
+The 25 common compiled-object hashes match after setup and both trials, and
+were checked against the final retained workspace. Each retained phase manifest
+matches the reviewed manifest above. The first trial had no candidate artifacts;
+the second removed 80 candidate artifact files before rebuilding all five
+candidate modules. Current hashes of all 12 recorded inputs, 25 prepared outputs
+and three tool binaries still matched the manifest when the evidence was retained.
+
+Native verification `20261105T110725-477d91dbd07d` overlapped both trials.
+Pin-budget repair `20261105T170530-55ec63277225` joined near the four-worker
+trial's end. Mean sampled one-minute host load was 4.97 during the one-worker
+trial and 9.68 during the four-worker trial; the experiment itself contributes
+to host load. This is one ordered sample pair under changing competing load,
+so neither a causal speedup estimate nor a full-certificate timing or memory
+forecast is established.
+
+The [evidence packet](evidence/lean-line-chunks-20261105/README.md) retains the
+exact pair, reviewed manifest, phase events, results, build logs, common-object
+identities and samples, with verified original and retained-byte digests. The
+recommendation is to stop after this sample comparison and consider a separately
+selected full-certificate trial with capacity planning. No full-certificate
+build, complete source/module/axiom checkpoint, independent kernel replay or
+production integration was performed by this experiment.
+
+Monitoring and evidence preparation selected GPT-6.1 Sol / High. The intended
+result was to retain the completed comparison without disturbing delivery
+verification; the result is the successful sample evidence and bounded next-step
+recommendation above. Review of retained records found no failed phase or
+identity mismatch; changing host load is a material limitation. Runtime-confirmed
+model/effort and token/cost measurements are unavailable. Documentation checks
+verify digests, arithmetic, links and whitespace; no successful Lean trial was
+repeated to prepare this record. The prior reviewer settings and review scope
+recorded above remain unchanged.
