@@ -120,6 +120,10 @@ class IntegerDivisionTests(unittest.TestCase):
     def test_admission_empty_operands_do_not_waive_divisor_or_static_legality(self) -> None:
         for operator in (b'/', b'mod', b'rem'):
             body = b'for I in 2..1 loop if (I ' + operator + b' 1)=0 then null;end if;end loop;'
+            # Keep the original unit-divisor cases as rejection regressions:
+            # pinned GNAT can fold mod/rem by one even in an empty loop.
+            self.check(program(b'', body), 0 if operator == b'/' else 2)
+            body = b'for I in 2..1 loop if (I ' + operator + b' 2)=0 then null;end if;end loop;'
             self.check(program(b'', body))
             body = b'for I in 2..1 loop if (1 ' + operator + b' I)=0 then null;end if;end loop;'
             self.check(program(b'', body))

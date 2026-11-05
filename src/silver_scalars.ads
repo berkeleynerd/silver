@@ -104,8 +104,12 @@ package Silver_Scalars with SPARK_Mode => On is
                          Wide (Left.Lower) * Wide (Right.Upper)),
                 Wide'Max (Wide (Left.Upper) * Wide (Right.Lower),
                          Wide (Left.Upper) * Wide (Right.Upper))));
+   --  The pinned frontend can replace a zero product in an empty loop by
+   --  a literal, making enclosing arithmetic statically illegal.
    function Multiply (Left, Right : Interval) return Check_Result is
-     (if Is_Empty (Left) or else Is_Empty (Right) then Unreachable
+     (if Is_Empty (Left) or else Is_Empty (Right) then
+        (if Contains (Left, 0) or else Contains (Right, 0) then Invalid
+         else Unreachable)
       else Checked (Product_Minimum (Left, Right), Product_Maximum (Left, Right)));
    function Quotient_Minimum (Left, Right : Interval) return Wide is
      (if Right.Lower = 0 or else Right.Upper = 0 then 0
@@ -125,9 +129,12 @@ package Silver_Scalars with SPARK_Mode => On is
      (if Contains (Right, 0) then Invalid
       elsif Is_Empty (Left) or else Is_Empty (Right) then Unreachable
       else Checked (Quotient_Minimum (Left, Right), Quotient_Maximum (Left, Right)));
+   --  Unit divisors likewise allow constant-producing frontend rewrites.
    function Modulo (Left, Right : Interval) return Check_Result is
      (if Contains (Right, 0) then Invalid
-      elsif Is_Empty (Left) or else Is_Empty (Right) then Unreachable
+      elsif Is_Empty (Left) or else Is_Empty (Right) then
+        (if Contains (Right, 1) or else Contains (Right, -1) then Invalid
+         else Unreachable)
       elsif Left.Lower = Left.Upper and then Right.Lower = Right.Upper then
         Checked (Wide (Left.Lower) mod Wide (Right.Lower),
                  Wide (Left.Lower) mod Wide (Right.Lower))
@@ -137,7 +144,9 @@ package Silver_Scalars with SPARK_Mode => On is
      (Wide'Max (abs Wide (Right.Lower), abs Wide (Right.Upper)) - 1);
    function Remainder (Left, Right : Interval) return Check_Result is
      (if Contains (Right, 0) then Invalid
-      elsif Is_Empty (Left) or else Is_Empty (Right) then Unreachable
+      elsif Is_Empty (Left) or else Is_Empty (Right) then
+        (if Contains (Right, 1) or else Contains (Right, -1) then Invalid
+         else Unreachable)
       elsif Left.Lower = Left.Upper and then Right.Lower = Right.Upper then
         Checked (Wide (Left.Lower) rem Wide (Right.Lower),
                  Wide (Left.Lower) rem Wide (Right.Lower))

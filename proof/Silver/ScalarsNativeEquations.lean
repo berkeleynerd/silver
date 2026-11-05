@@ -25,6 +25,9 @@ theorem Function.model_denotation (fn : Function) : Function.interpret Function.
   case checked =>
     simp only [Silver.Integer.checked, Interval.isEmpty, Interval.Bounded, decide_eq_true_eq]
     rfl
+  case multiply =>
+    simp only [multiplyBody, Expr.eval, Context.locals, Function.eval, checkedMultiply,
+      decide_eq_true_eq, Bool.or_eq_true, Int.ofNat_zero]
   case divide left right =>
     simp only [divideBody, Expr.eval, Context.locals, Function.eval, checkedDivide,
       Interval.divide, decide_eq_true_eq, Bool.or_eq_true, Int.ofNat_zero]
@@ -49,7 +52,7 @@ theorem Function.model_denotation (fn : Function) : Function.interpret Function.
         simp only [lowerNonzero, upperNonzero, or_self, ↓reduceIte]
   case modulo =>
     simp only [moduloBody, Expr.eval, Context.locals, Function.eval, checkedModulo,
-      Interval.modulo, Interval.singleton, decide_eq_true_eq, Bool.and_eq_true, Int.ofNat_zero]
+      Interval.modulo, Interval.singleton, decide_eq_true_eq, Bool.and_eq_true, Bool.or_eq_true, Int.ofNat_zero]
     split
     · rfl
     · split
@@ -59,7 +62,7 @@ theorem Function.model_denotation (fn : Function) : Function.interpret Function.
         · split <;> rfl
   case remainder =>
     simp only [remainderBody, Expr.eval, Context.locals, Function.eval, checkedRemainder,
-      Interval.remainder, Interval.singleton, decide_eq_true_eq, Bool.and_eq_true, Int.ofNat_zero]
+      Interval.remainder, Interval.singleton, decide_eq_true_eq, Bool.and_eq_true, Bool.or_eq_true, Int.ofNat_zero]
     split <;> first | rfl | skip
     split <;> first | rfl | skip
     split <;> rfl
@@ -112,7 +115,7 @@ theorem Function.interpret_eq (calls : Calls) (fn : Function)
     | productMaximum =>
         rfl
     | multiply =>
-        simp only [Function.interpret, multiplyBody, Expr.eval, prior .isEmpty (by decide), prior .checked (by decide), prior .productMinimum (by decide), prior .productMaximum (by decide)] <;> rfl
+        simp only [Function.interpret, multiplyBody, Expr.eval, prior .isEmpty (by decide), prior .contains (by decide), prior .checked (by decide), prior .productMinimum (by decide), prior .productMaximum (by decide)] <;> rfl
     | divide =>
         simp only [Function.interpret, divideBody, Expr.eval, prior .contains (by decide),
           prior .isEmpty (by decide), prior .checked (by decide), prior .quotientMinimum (by decide),

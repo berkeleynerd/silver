@@ -244,7 +244,9 @@ def productMinimumBody : Expr .number := .min "wide"
 def productMaximumBody : Expr .number := .max "wide"
   (.max "wide" (.mul (wide (.lower left)) (wide (.lower right))) (.mul (wide (.lower left)) (wide (.upper right))))
   (.max "wide" (.mul (wide (.upper left)) (wide (.lower right))) (.mul (wide (.upper left)) (wide (.upper right))))
-def multiplyBody : Expr .result := .ite (.orElse (ap (f .isEmpty) left) (ap (f .isEmpty) right)) .unreachable
+def multiplyBody : Expr .result := .ite (.orElse (ap (f .isEmpty) left) (ap (f .isEmpty) right))
+  (.group <| .ite (.orElse (app2 (f .contains) left (.number 0)) (app2 (f .contains) right (.number 0)))
+    .invalid .unreachable)
   (app2 (f .checked) (app2 (f .productMinimum) left right) (app2 (f .productMaximum) left right))
 
 def quotientMinimumBody : Expr .number :=
@@ -263,7 +265,9 @@ def divideBody : Expr .result := .ite (app2 (f .contains) right (.number 0)) .in
   (.elsif (.orElse (ap (f .isEmpty) left) (ap (f .isEmpty) right)) .unreachable
     (app2 (f .checked) (app2 (f .quotientMinimum) left right) (app2 (f .quotientMaximum) left right)))
 def moduloBody : Expr .result := .ite (app2 (f .contains) right (.number 0)) .invalid
-  (.elsif (.orElse (ap (f .isEmpty) left) (ap (f .isEmpty) right)) .unreachable
+  (.elsif (.orElse (ap (f .isEmpty) left) (ap (f .isEmpty) right))
+    (.group <| .ite (.orElse (app2 (f .contains) right (.number 1)) (app2 (f .contains) right (.neg (.number 1))))
+      .invalid .unreachable)
     (.elsif (.andThen (.eq (.lower left) (.upper left)) (.eq (.lower right) (.upper right)))
       (app2 (f .checked) (.mod (wide (.lower left)) (wide (.lower right)))
         (.mod (wide (.lower left)) (wide (.lower right))))
@@ -272,7 +276,9 @@ def moduloBody : Expr .result := .ite (app2 (f .contains) right (.number 0)) .in
 def remainderLimitBody : Expr .number :=
   .sub (.max "wide" (.abs (wide (.lower right))) (.abs (wide (.upper right)))) (.number 1)
 def remainderBody : Expr .result := .ite (app2 (f .contains) right (.number 0)) .invalid
-  (.elsif (.orElse (ap (f .isEmpty) left) (ap (f .isEmpty) right)) .unreachable
+  (.elsif (.orElse (ap (f .isEmpty) left) (ap (f .isEmpty) right))
+    (.group <| .ite (.orElse (app2 (f .contains) right (.number 1)) (app2 (f .contains) right (.neg (.number 1))))
+      .invalid .unreachable)
     (.elsif (.andThen (.eq (.lower left) (.upper left)) (.eq (.lower right) (.upper right)))
       (app2 (f .checked) (.rem (wide (.lower left)) (wide (.lower right)))
         (.rem (wide (.lower left)) (wide (.lower right))))

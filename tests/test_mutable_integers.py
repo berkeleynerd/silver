@@ -118,8 +118,8 @@ class MutableIntegerTests(unittest.TestCase):
 
     def test_native_retained_empty_loop_forms(self) -> None:
         # Nonempty assignment RHS intervals remain legal in empty loops.
-        # Existing vacuous Image, String, comparison and inner-bound positions
-        # must still pass the actual frontend and automatic proof pipeline.
+        # Identity-free vacuous Image, String, comparison and inner-bound
+        # positions still pass the actual frontend and automatic proof pipeline.
         declarations = b'A:Integer range 0..9:=7;N:Integer range 0..9:=0;S:String:="x";'
         body = (b'for I in 20..10 loop A:=0;A:=A;'
                 b'if I<0 then null;end if;'
