@@ -103,6 +103,15 @@ the platform fixtures use mocked Lean with dynamic module inventory. The exact
 native/regression snapshot and retained archive remain `91de078ed8`; these
 results required no additional test run for the aggregate import.
 
+**Correction, 2026-11-05 (#315):** the Audit-only import invalidated the retained
+private-axiom fixture result. Final Boolean regression coverage was 46 refreshed
+plus 521 applicable retained passes, with one failing method. The original
+complete-coverage claims above and in the closing review are superseded by the
+[dated capability correction](../../boolean-objects.md).
+The native and complete Lean/source checks retain their original scope. The
+[fixture-only repair](../audit-fixture-repair-20261105/README.md) passes both
+installed-Lean module methods; failed evidence stays failed.
+
 ## Native-validated integration and regression checkpoint — 2026-10-31
 
 The native/source/regression snapshot at this checkpoint was

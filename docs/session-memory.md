@@ -1,5 +1,17 @@
 # Session memory
 
+## 2026-11-05 — Main audit fixture and Boolean coverage record repaired
+
+The authorized Med-2 correction [#315](https://github.com/berkeleynerd/silver/issues/315)
+restores the complete-audit fixture's missing independent Boolean module on main.
+The isolated test hunk already existed in PR #307. Both installed-Lean module
+methods passed in `20261105T090353-40adf98615fa`; the
+[focused evidence](evidence/audit-fixture-repair-20261105/README.md) is retained.
+Dated corrections preserve the original Boolean records while acknowledging
+one inapplicable retained test. Production compiler and proof inputs are unchanged.
+This isolated main repair is within the PR #308 authorization. The five blockers
+and the remaining response continue on #307, whose merge stays unauthorized.
+
 ## 2026-11-05 — Interim external review repairs authorized
 
 The owner instructed **“Please proceed to address these findings”** after the

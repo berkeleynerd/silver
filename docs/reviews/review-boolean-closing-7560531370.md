@@ -1,5 +1,9 @@
 # Boolean closing verification confirmation
 
+> Correction, 2026-11-05 (#315): the retained regression-applicability conclusion
+> missed one affected complete-audit fixture. See the [dated capability
+> correction](../boolean-objects.md). The completed Lean/source evidence is unchanged.
+
 Independent read-only closing confirmation for #291. Exact review target:
 `7560531370904bb677e6a5e7de7aaa441c9faf50` in the integration checkout
 `/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes`.
