@@ -12,7 +12,7 @@ unfinished. Prior completion claims are superseded by the reported counterexampl
 | Finding | Tracking | Selected work |
 | --- | --- | --- |
 | B1 | [#309](https://github.com/berkeleynerd/silver/issues/309) | Restrict maximum slice endpoint inversion to signed-Integer maximum in wide arithmetic; retain ordinary null slices. |
-| B2 | [#310](https://github.com/berkeleynerd/silver/issues/310) | Prototype a conservative source-context restriction with full-build controls, including constant-array-derived guards; settle it before the complete source checkpoint. No native `Ignore_Pragma` workaround. |
+| B2 | [#310](https://github.com/berkeleynerd/silver/issues/310) | Require Ada-static slice endpoints in conditional regions and after Boolean-chain tokens in the current statement. The source-context restriction covers constant-array-derived guards; retain nonstatic endpoints outside those contexts. No native `Ignore_Pragma` workaround. |
 | B3 | [#311](https://github.com/berkeleynerd/silver/issues/311) | Exclude direct constant-array reads from counted-loop bounds, preserving snapshots, mutable-array bounds and constant-array iteration. |
 | B4 | [#312](https://github.com/berkeleynerd/silver/issues/312) | Accept the three exact pinned Image advisory spellings throughout the native and Python policies, retaining every other check. |
 | B5 | [#313](https://github.com/berkeleynerd/silver/issues/313) | Reject the identified empty-operand arithmetic forms that the pinned frontend folds into static failures; preserve mathematical and actual-source assurance. |
@@ -60,6 +60,7 @@ rebuild changed dependencies; complete current source assurance is still require
 | --- | --- | --- |
 | Assessment and authorization | Two GPT-6 Astra / Extra High bounded blocker assessments; GPT-6.1 Sol / Extra High lower-finding inventory; lead runtime setting unavailable | Source inspection supports the findings and identifies incomplete candidate dependencies. No execution was repeated in assessment. PR #308 retains authorization/report; issues #309–#320 track work. Token/cost metrics unavailable. |
 | Initial implementation | GPT-6 Astra / Extra High for B1–B3; GPT-6.1 Sol / Extra High for B4 and B5; lead coordinates integration and records | Isolated implementation and focused validation underway. No complete repaired assurance or merge claim. |
+| Model/source integration | GPT-6.1 Sol / Extra High for B3 model development; GPT-6 Astra / Extra High for B1/B2 forwarding and independent integration review; lead runtime setting unavailable | B1/B2 and B3 models, witness forwarding and complete source-check fields integrated. Independent core and integration reviews found no concrete gap. B4 focused native proof exposed one field-name precondition timeout; bounded ghost-proof repair continues with unchanged contracts/settings. Combined model and final complete validation remain pending. Token/cost metrics unavailable. |
 
 ## Focused implementation checkpoint
 
@@ -75,7 +76,8 @@ Complete combined assurance remains pending.
 
 B4 is integrated as `fe74231e42` from `475f0aa13a`. Its build, eleven report
 methods and two Main-discovery methods (seven complete native routes) pass.
-The focused report-unit proof is still running. Exact `Image`, `image` and
+The focused report-unit proof finished with one unresolved field-name precondition;
+see the diagnostic below. Exact `Image`, `image` and
 `IMAGE` alternatives have equal lengths, preserving the existing capacity
 argument. No other diagnostic or safety-check policy is relaxed.
 
@@ -119,3 +121,33 @@ concrete defect in the scanner interpretation, endpoint-span or freezing
 arguments. Focused run `20261105T095856-2092056e2e9b` freshly audited 13,419
 declarations; the separate model-witness forwarding remains under check.
 This is core assurance, not the complete actual-source checkpoint.
+
+B1/B2 model-witness forwarding is integrated as `1faafc48ba` from `ba1a75fcd4`.
+Focused run `20261105T100155-085373c7fcd3` passed with a fresh audit of 19,894
+declarations, including the model-call and String-denotation modules. B3 core
+proofs are integrated as `5bc059724d` from `f03ca06c3e`; focused run
+`20261105T101659-603264e8ee68` passed with 38,917 audited declarations. Its
+[independent core review](reviews/review-counted-bound-core-f03ca06c3e.md)
+found no concrete defect. The original failed and interrupted development runs
+remain recorded in the managed ledger.
+
+Commit `fc0e6b25ca` connects the guarded scanner and counted-bound helper checks
+to the complete source requirements and refreshes both counted-loop reader calls.
+The [independent integration review](reviews/review-repair-source-integration-fc0e6b25ca.md)
+confirms B3's source/semantic propagation and the three B1/B2 forwarding files.
+The combined `SequenceModel` and `PredicateLoopHelpers` check is running before
+the final source checkpoint. None of these focused results establishes complete
+assurance of the combined tree.
+
+## B4 native proof diagnostic
+
+Run `20261105T090739-d879074d7877` retained 3,201 proved checks out of 3,202.
+The unresolved check is the `Observe_Object_List` name precondition for
+`JSON_proof` in `Mixed_Object`; the casing checks and final correspondence
+postcondition passed. Repeating the existing ghost `Projection_Field_Names`
+lemma immediately before the call did not resolve it in focused run
+`20261105T104436-664f3661b7c1`. Both attempts remain failed. Their source,
+reports and sessions were preserved before further edits. The next bounded
+experiment is a proved local equality assertion; no contract, required obligation
+or solver budget is relaxed. The final native and complete Lean checkpoints wait
+for this annotation decision so they capture stable source bytes.

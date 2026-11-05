@@ -1231,7 +1231,8 @@ the four exact `INEFFECTIVE` messages naming the overwritten ghost outputs
 `Put_Line` (eight exact messages). These flow advisories retain Main location, flow
 provenance and no suppression. Initializers still establish object bounds even when
 their bytes are unused. The warning list additionally permits only the exact producer
-`imprecise-image` advisory, including its full message and producer state; it never
+`imprecise-image` advisory, including its full message with exactly the producer's
+`Image`, `image` or `IMAGE` spelling and its producer state; it never
 discharges or removes a safety check. The [assurance policy](docs/assurance.md)
 specifies its native/SARIF classification. Other warnings in the audited reports
 fail; naming conventions that make GNATprove omit an advisory do not change

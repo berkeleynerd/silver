@@ -102,6 +102,14 @@ maintain all required checks and reject unrelated diagnostics. An empty
 assignment check was suppressed. Neither warnings nor failed checks were
 removed from these reports.
 
+**2026-11-05 producer-casing correction ([#312](https://github.com/berkeleynerd/silver/issues/312)).**
+The observation above used `procedure Main`. The pinned producer spells the
+attribute `image` for `procedure main`, `IMAGE` for `procedure MAIN`, and `Image`
+for the other admitted unit-name casings. The repaired policy accepts exactly
+these three complete messages with the same producer-state checks. The message
+lengths are equal; all other diagnostic and safety-check requirements remain.
+The [interim response](interim-review-response-20261105.md) records validation.
+
 ## Exact generated model
 
 `model-dump/main.gnat-json` preserves a byte copy of the loop assignment's

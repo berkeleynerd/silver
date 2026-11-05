@@ -21,8 +21,9 @@ native or Lean/source checkpoint.
 results for the completed B4/B5 development checks and the initial integrated
 build. Failed attempts remain labelled failed in their events and handoffs.
 Compressed files preserve the original bytes; no exploratory unit result is
-represented as a complete compiler audit. The B4 proof is still running and
-is not included as a completed result.
+represented as a complete compiler audit. B4's initial unit proof finished with
+one unresolved precondition; the response record preserves that failure and its
+focused annotation diagnosis. No completed B4 proof is claimed by this index.
 
 The [B5 handoff](b5/B5-handoff.md), its pinned-source identity audit and the
 [independent review](../../reviews/review-empty-loop-identities-db51e1829e.md)
