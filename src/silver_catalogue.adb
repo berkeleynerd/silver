@@ -997,12 +997,13 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ],");
       Put_Line ("        ""interval_arithmetic"": ""endpoint addition/subtraction/negation, four-corner product and truncating quotient hulls, singleton-exact modulus/remainder and conservative signed magnitude bounds; every intermediate fits Integer"",");
       Put_Line ("        ""divisor_interval"": ""must exclude zero before empty-operand propagation"",");
+      Put_Line ("        ""empty_operand_identities"": ""if either operand interval is empty, reject multiplication when either interval contains zero and mod/rem when the divisor interval contains 1 or -1; divisor-zero rejection comes first; prevents pinned frontend static-fold failures"",");
       Put_Line ("        ""division_overflow"": ""minimum Integer divided by minus one is excluded; mod and rem permit that pair with exact result zero"",");
       Put_Line ("        ""modulo_interval"": ""singleton-exact; otherwise [0, divisor upper - 1] for positive divisors or [divisor lower + 1, 0] for negative divisors"",");
       Put_Line ("        ""remainder_interval"": ""singleton-exact; otherwise dividend-sign bounds clipped by max(abs(divisor endpoints)) - 1"",");
       Put_Line ("        ""correlated_operands_refined"": false,");
       Put_Line ("        ""scalar_guards_refine_intervals"": ""selected scalar_guard_refinement only"",");
-      Put_Line ("        ""empty_index_interval"": ""array subscripts must be nonempty; divisors exclude zero; other index-dependent safety remains vacuous except assignment RHS nonemptiness; invalid static subexpressions stay excluded"",");
+      Put_Line ("        ""empty_index_interval"": ""array subscripts must be nonempty; divisors exclude zero; empty-operand zero-product and unit-divisor identities are excluded; remaining index-dependent arithmetic safety is vacuous except assignment RHS nonemptiness; invalid static subexpressions stay excluded"",");
       Put_Line ("        ""positions"": [");
       Put_Line ("          ""integer_object_initializer"",");
       Put_Line ("          ""static_range_bound"",");

@@ -1,9 +1,11 @@
 # Silver language specification
 
-The bounded String indexing, Character and slice additions are implemented and
-validated on Linux. Their [delivery record](docs/bounded-string-characters.md#delivery-assurance-and-validation)
-records complete native and actual-source assurance, final regression coverage
-and the closing delivery review. PR #307 remains open for owner review.
+The bounded String indexing, Character and slice additions are under repair
+after the [interim external review](docs/interim-review-response-20261105.md).
+Their [prior delivery record](docs/bounded-string-characters.md#delivery-assurance-and-validation)
+retains the earlier validation, whose completion claim is superseded by the
+reported counterexamples. Complete validation of the repaired tree is pending.
+PR #307 remains draft and open for owner review.
 
 Silver is one evolving language before 1.0. This specification describes the
 predicate, path-sensitive and finite-loop language under the [Oracle](oracle.md),
@@ -337,8 +339,14 @@ Division truncates toward zero. `rem` has the dividend's sign or is zero;
 operator, a nonempty divisor interval containing zero is rejected before
 empty-operand propagation. This is a uniform conservative Silver rule even
 when an empty dividend would make execution vacuous, not an Ada restriction.
-With any other empty operand, the result interval is empty. Static illegal
-subexpressions are independently rejected before their enclosing operation.
+If an operand interval is empty, multiplication is rejected when either operand
+interval contains zero, and `mod` or `rem` is rejected when the divisor interval
+contains 1 or -1. The divisor-zero check still comes first. These conservative
+Silver restrictions prevent the pinned frontend from folding an unreachable
+expression to a static value that it rejects in the enclosing context. They
+also exclude some expressions the frontend would accept. Other empty-operand
+results are empty. Static illegal subexpressions are independently rejected
+before their enclosing operation.
 For nonempty operand intervals `[a,b]` and `[c,d]`:
 
 | Operator | Inferred result interval |
@@ -355,8 +363,9 @@ interval rules: no general operand correlation is used, and a safe runtime
 value alone does not establish admission. Selected guards may narrow the incoming
 interval before the operation; the operator rules themselves are unchanged.
 
-An empty index interval makes index-dependent safety vacuous, but never
-permits an out-of-range static subexpression. Integer assignments additionally
+An empty index interval makes remaining index-dependent arithmetic safety
+vacuous only after the zero/unit identity restrictions above. It never permits
+an out-of-range static subexpression. Integer assignments additionally
 require a nonempty RHS interval, including in empty loops and unreachable arms.
 
 Scalar comparisons admit `=`, `/=`, `<`, `<=`, `>` and `>=` between scalar
@@ -1183,8 +1192,8 @@ must cover all admitted names, declarations, copies, argument vectors and paths.
 Literal/static expressions and plain name output may have no Main safety checks.
 Runtime concatenation and constrained scalar initialization/assignment can emit
 range checks; copied dynamic-length assignments can emit length checks; scalar
-arithmetic can emit overflow checks and division/remainder can emit nonzero-divisor
-checks. Every emitted Main
+arithmetic can emit overflow checks, division/remainder can emit nonzero-divisor
+checks, and indexed array/String reads and writes can emit index checks. Every emitted Main
 safety record must be a proved/info `VC_RANGE_CHECK`, `VC_LENGTH_CHECK`,
 `VC_OVERFLOW_CHECK`, `VC_DIVISION_CHECK` or `VC_INDEX_CHECK`, with complete coverage, approved dependencies and no
 suppression. Length checks require the fixed-bound argument; their absence through
@@ -1208,7 +1217,7 @@ membership.
 
 Faithful static evaluation, complete obligation/report generation, completeness
 of the accepted producer shapes and pinned solver completion for the bounded
-range/length/overflow/nonzero-divisor fragment remain explicit
+range/length/index/overflow/nonzero-divisor fragment remain explicit
 [tool premises](docs/trusted-boundary.md#source-identity-and-program-proof-evidence).
 Native examples corroborate them; they do not prove universal assurance.
 Complete selected-library obligations remain mandatory for every output compile.

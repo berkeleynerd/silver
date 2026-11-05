@@ -218,7 +218,7 @@ def LibraryEvidence {Artifact : Type} (tools : Tools Artifact) : Program → Pro
 
 /-- Generic external-tool contracts, without arbitrary-SPARK solver
 completeness. Declaration and executable-body obligations normalize to the
-source-derived range, exact/affine length, scalar arithmetic, Integer Image,
+source-derived range, exact/affine length, index, scalar arithmetic, Integer Image,
 loop and input-validity schemas under the exact refined path context.
 Their endpoint certificates are checked in Lean. Generation may omit or repeat
 schemas; its coverage of every native Bronze/Silver obligation remains a

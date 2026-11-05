@@ -240,7 +240,7 @@ provide setup, evidence auditing and tests. GNATprove verifies the compiler.
 Lean connects the restricted recognizer source to the language model and the
 runtime wrappers to their effect models. Every output shell selects a complete
 application report policy: static, argument, assigned or selected result. Emitted
-Main safety checks must all be proved range, length, scalar overflow or
+Main safety checks must all be proved range, length, index, scalar overflow or
 nonzero-divisor checks under their selected policy. All output forms
 precisely classify initializer advisories; assignment-bearing forms additionally
 classify the exact unused-assignment advisory. All sequence policies classify

@@ -88,6 +88,27 @@ class StringCharacterTests(unittest.TestCase):
         self.check(program(declarations + b'One:String:="x";', b'One:=S(L..L);'), 2)
         self.check(program(declarations, output(b'S(L..1)&H&"x"')))
 
+    def test_admission_slice_boundary_rules(self) -> None:
+        text = b'S:String:="abc";'
+        four = b'S:String:="abcd";'
+        for declarations, body in (
+            (text + b'R:Integer range 3..4:=3;', output(b'S(1..R)')),  # d>E, c<=E
+            (text, output(b'S(9..9)')),  # a=d is potentially nonnull
+            (text + b'L:Integer range 0..5:=1;', output(b'S(L..3)')),  # a<B, b>d
+            (text + b'R:Integer range 0..5:=1;', output(b'S(2..R)')),  # d>E, a>c
+            (text, b'for I in 5..4 loop ' + output(b'S(1..I)') + b'end loop;'),  # empty upper
+            (text, b'for I in 2..1 loop ' + output(b'S(I..1)') + b'end loop;'),  # empty lower
+            (four + b'L:Integer range 1..2:=1;One:String:="x";', b'One:=S(L..1);'),  # min=c-b+1
+            (four + b'R:Integer range 1..2:=1;Two:String:="xy";', b'Two:=S(1..R);'),  # min=c-b+1
+            (four + b'L:Integer range 2..3:=2;R:Integer range 1..2:=1;Z:String:="";',
+             b'Z:=S(L..R);'),  # max=d-a+1
+            (text + b'Z:String:=S(5..4)&"ab";C:Character:=Z(5);', b'null;'),  # null left
+        ):
+            with self.subTest(declarations=declarations, body=body):
+                self.check(program(declarations, body), 2)
+        self.check(program(text + b'Z:String:=S(5..4)&"ab";C:Character:=Z(1);', b'null;'))
+        self.check(program(text + b'Z:String:=""&S(0..(-5));', output(b'Z')))  # null right keeps bounds
+
     def test_admission_names_and_hiding_use_resolved_kinds(self) -> None:
         for declarations, body in (
             (b"Character:Character:='x';", b'null;'),
@@ -97,6 +118,12 @@ class StringCharacterTests(unittest.TestCase):
             (b"True:Character:='x';F:Boolean:=True;", b'null;'),
             (b"C:Character:='x';", b"for C in 1..1 loop C:='y';end loop;"),
             (b'S:String:="x";C:Character:=\'x\';', b'for S in 1..1 loop C:=S(1);end loop;'),
+            (b'Character:String:="x";C:Character:=\'y\';', b'null;'),
+            (b'Character:array(1..1)of Integer:=(1=>1);C:Character:=\'y\';', b'null;'),
+            (b'subtype Character is Integer range 1..2;C:Character:=\'y\';', b'null;'),
+            (b'Character:Boolean:=True;C:Character:=\'y\';', b'null;'),
+            (b"C:Character:='x';D:Character:='y';", b'for C in 1..1 loop D:=C;end loop;'),
+            (b'K:constant String:="x";', b"K(1):='y';"),
         ):
             with self.subTest(declarations=declarations, body=body):
                 self.check(program(declarations, body), 2)

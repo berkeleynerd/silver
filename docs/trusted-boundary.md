@@ -1070,13 +1070,13 @@ Repeated-output advisories are restricted to the exact `INEFFECTIVE` message
 rejected; all provenance and suppression checks also apply to these eight messages.
 
 No-output sequences and static elimination can produce Main alone with or
-without length/range/overflow/division checks or advisories. The checker retains
+without length/range/index/overflow/division checks or advisories. The checker retains
 complete Main coverage, all emitted check requirements and approved dependency references.
 The external producer premise, rather than accepting arbitrary entity omissions,
 justifies this finite set of report shapes. The Python evidence helper applies
 the same policies and cross-checks SARIF records and totals.
 
-Automatic completion relies on faithful and complete range, length, overflow
+Automatic completion relies on faithful and complete range, length, index, overflow
 and nonzero-divisor obligation generation and the accepted entity/advisory/check shapes. Applicable static
 elimination remains a frontend premise, but elimination of every satisfied
 assignment length check is no longer required: emitted length checks need their
@@ -1109,8 +1109,8 @@ seen in compiler audits has not been proved impossible for application runs.
 Such a tool failure prevents publication and is reported as a defect, never as
 nonmembership or successful verification. Prover step limits do not bound
 frontend/flow work, operating-system delays or total elapsed time. The bounded
-composition argument must establish the generated range, exact-length and
-overflow schemas for every permitted declaration, expression, assignment and
+composition argument must establish the generated range, exact-length, index, overflow and
+nonzero-divisor schemas for every permitted declaration, expression, assignment and
 control-flow path, including scalar intermediate intervals, Integer Image length
 and loop bounds, indexes and body composition. It does not prove that the bundled proof portfolio automatically
 discharges every source schema accepted by Lean's endpoint-discharge checker.
@@ -1440,3 +1440,14 @@ and caches. Under the
 Oracle, Linux is primary and native macOS validation is independent and does not
 block completion of the Linux milestone. Historical checkpoint files describe
 their dated baseline, not the current validation state.
+
+## 2026-11-05 Image advisory casing correction
+
+The pinned producer renders the Image attribute name as `Image`, `image` or
+`IMAGE` according to the defining unit's casing. The native and Python Main
+report policies accept those three exact complete messages; the rule, location,
+severity, provenance and all other structural checks are unchanged. No safety
+check is waived. Each alternative has the same byte length, so the existing
+report-capacity bounds are unchanged. The
+[interim response](interim-review-response-20261105.md) records the repair and
+its pending complete validation.

@@ -227,6 +227,11 @@ class SilverIntegrationTests(unittest.TestCase):
         scalar = constructs["integer_expression"]["conditions"]
         self.assertEqual(scalar["binary_operators"], ["+", "-", "*", "/", "mod", "rem"])
         self.assertTrue(scalar["binary_operations_fully_parenthesized"])
+        self.assertEqual(scalar["empty_operand_identities"],
+                         "if either operand interval is empty, reject multiplication when either "
+                         "interval contains zero and mod/rem when the divisor interval contains "
+                         "1 or -1; divisor-zero rejection comes first; prevents pinned frontend "
+                         "static-fold failures")
         self.assertEqual(scalar["scalar_guards_refine_intervals"],
                          "selected scalar_guard_refinement only")
         self.assertIn("integer_image", expression["operand_kinds"])

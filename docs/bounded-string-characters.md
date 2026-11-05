@@ -1,12 +1,14 @@
 # Bounded String indexing and character operations
 
-Status: implemented, validated and reviewed on Linux on 2026-11-04; ready for owner review.
+Status: external-review repairs in progress, 2026-11-05; PR #307 is draft and unmerged.
+The [interim response](interim-review-response-20261105.md) supersedes the earlier
+completion assessment. Prior successful checks remain records of their exact inputs.
 [Milestone 16](https://github.com/berkeleynerd/silver/milestone/16) contains one
 work package, [#296](https://github.com/berkeleynerd/silver/issues/296).
 The [authorization](session-memory.md#2026-10-31--bounded-string-indexing-and-character-operations-authorized)
 covers the complete implementation, assurance, review and feature PR delivery.
 The [delivery assurance and validation](#delivery-assurance-and-validation) section
-records current support. Earlier dated sections preserve development history.
+records the earlier reviewed checkpoint. Earlier dated sections preserve development history.
 PR #307 remains open for owner review.
 
 ## Initial scope

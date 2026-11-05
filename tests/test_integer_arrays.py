@@ -125,6 +125,9 @@ class IntegerArrayTests(unittest.TestCase):
         ):
             with self.subTest(body=body):
                 self.check(program(declarations, body), 2)
+        # Pinned GNAT rejects the empty loop's constant range error (language.md: nonempty RHS).
+        self.check(program(b'subtype S is Integer range 0..9;A:array(1..1)of S:=(1=>0);',
+                           b'for I in 20..19 loop A(1):=I;end loop;'), 2)
 
     def test_admission_mutability_type_and_subscript_boundaries(self) -> None:
         declarations = (b'A:array(1..2)of Integer:=(1,2);'

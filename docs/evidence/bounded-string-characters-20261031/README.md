@@ -1,15 +1,16 @@
 # Bounded String and Character development evidence
 
-This packet records complete Linux native and Lean/source assurance and final
+This packet records the earlier complete Linux native and Lean/source checks and
 regression coverage for [#296](https://github.com/berkeleynerd/silver/issues/296).
 The [delivery record](../../bounded-string-characters.md#delivery-assurance-and-validation)
-governs current support; the [closing delivery review](../../reviews/string-delivery-closing-20261104.md)
+records that checkpoint; the [interim response](../../interim-review-response-20261105.md)
+reopens delivery for the newly found defects. The [closing delivery review](../../reviews/string-delivery-closing-20261104.md)
 passed at `9111fbf88be337214278f185501d2f9de1761442`. Dated earlier
 records retain their original failed, interrupted and partial scopes.
 
 | Packet | Exact scope |
 | --- | --- |
-| [Discovery archive](string-discovery.tar.gz), [index](string-discovery.json) | Run `20261031T162539-96d0ba9159be`: 14 pinned frontend/prover cases, nine build/proof successes and five expected frontend rejections. Includes all printable Character literals, actual/noncanonical/null bounds and dead-code acceptance boundaries. |
+| [Discovery archive](string-discovery.tar.gz), [index](string-discovery.json) | Run `20261031T162539-96d0ba9159be`: 14 pinned frontend/prover cases, nine build/proof successes and five expected frontend rejections. Includes all printable Character literals, actual/noncanonical/null bounds and dead-code indexed-access acceptance boundaries. This discovery packet did not test contradictory-guard slices. |
 | [Stress/driver archive](string-stress.tar.gz), [index](string-stress.json) | Run `20261031T165409-9c2dd4f813bc` at native implementation `9c4afd3c5b`: eight exact cases with admission, application/runtime proof, strict Python/native report audits, build, exact execution and unchanged author-source hashes. Includes the three prepared Rosetta drivers, 4,096-byte dense inputs and 64-leaf boundaries. |
 
 Each gzip-compressed tar contains its original summary and every input/artifact
