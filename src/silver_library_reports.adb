@@ -4137,6 +4137,21 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       null;
    end Projection_Field_Names;
 
+   procedure Observe_Proof_List
+     (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; Text : String; R, RE : Span)
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
+         and then Object_Observation_Agreement (Raw, L, Text, R)
+         and then Mixed_Field (Raw, LE, Text, RE),
+       Post => List_Observation_Agreement
+         (Raw, Raw_Field (Raw, L, JSON_proof), LE,
+          Text, Field_Spec (Text, R, JSON_proof), RE, False)
+   is
+   begin
+      Projection_Field_Names;
+      Observe_Object_List (Raw, L, LE, Text, R, RE, JSON_proof);
+   end Observe_Proof_List;
+
    procedure Mixed_Object
      (Raw : Raw_Bytes.Sequence; L : Raw_Scan.Span; Text : String; R : Span; Kind : Audit_Kind)
      with Ghost => Static, Global => null,
@@ -4183,7 +4198,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       Mixed_Dependencies (Raw, Raw_Field (Raw, L, JSON_assumptions), LE,
                           Text, Field_Spec (Text, R, JSON_assumptions), RE);
       Observe_Object_List (Raw, L, LE, Text, R, RE, JSON_flow);
-      Observe_Object_List (Raw, L, LE, Text, R, RE, JSON_proof);
+      Observe_Proof_List (Raw, L, LE, Text, R, RE);
       Mixed_Empty_Observed (Raw, Raw_Field (Raw, L, JSON_flow), LE, Text, Field_Spec (Text, R, JSON_flow), RE);
       Mixed_Empty_Observed (Raw, Raw_Field (Raw, L, JSON_proof), LE, Text, Field_Spec (Text, R, JSON_proof), RE);
       Mixed_List_Congruence (Raw, Raw_Field (Raw, L, JSON_flow), LE,
