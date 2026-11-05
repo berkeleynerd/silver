@@ -259,11 +259,7 @@ private theorem string_helper_guarded_at_ordinary :
       Output.SourceShape.outputImplementation = some StringNative.guardedBody.render := by
   simp only [StringNative.guardedBody,
     StringNative.Body.render,
-    StringNative.Command.list,
-    List.foldr_cons,
-    List.foldr_nil,
-    StringNative.Command.render,
-    StringNative.Command.renderElse]
+    StringNative.Command.render]
   rfl
 
 private theorem string_helper_guarded_at_impl :
