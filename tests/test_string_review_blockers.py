@@ -71,11 +71,18 @@ class StringReviewBlockerTests(unittest.TestCase):
             self.check(program(declarations + b'F:Boolean:=False;', b'F:=' + relation + b';'), 2)
         # A completed conditional or Boolean statement must not taint later slices.
         for prefix in (b'if K=3 then null;end if;',
+                       b'if K=3 then null;end -- comment between the closing words\nif;',
                        b'if K=3 then if K=3 then null;end if;else null;end if;',
                        b'F:=True and then False;',
                        b'-- if and or xor end if\r\n',
                        output(b'"if and or xor end if"')):
             self.check(program(declarations + b'F:Boolean:=False;', prefix + output(b'S(1..K)')))
+        self.check(program(declarations + b'If_Name:Integer:=0;And_Name:Integer:=0;',
+                           b'If_Name:=And_Name;' + output(b'S(1..K)')))
+        self.check(program(declarations + b'F:Boolean:=K=9 and then ";"=S(1..K);', b'null;'), 2)
+        self.check(program(declarations,
+                           b'if K=9 then ' + output(b'"""end if;"""')
+                           + output(b'S(1..K)') + b'end if;'), 2)
         # Both static endpoints remain usable throughout guarded contexts.
         self.check(program(declarations + b'Last:constant Integer:=2;',
                            b'if K=3 then ' + output(b'S(1..Last)') + b'else '
@@ -104,3 +111,15 @@ class StringReviewBlockerTests(unittest.TestCase):
                 b'F:=K=9 or else S(1..2)="ab";' + output(b'S(1..K)'))
         executable, _ = self.compile(program(declarations, body), 'assigned')
         self.run_program(executable, b'ab\nabc\n')
+
+    def test_native_static_slices_on_nonstatic_prefix_snapshots(self) -> None:
+        # A guard on an initializer endpoint must not change captured prefix bounds.
+        declarations = (b'X:Integer:=3;K:constant Integer:=X;Base:constant String:="abc";'
+                        b'S:constant String:=Base(1..K);')
+        for suffix, name in ((b'', b'S'), (b'T:constant String:=S;', b'T'),
+                             (b'T:constant String:=S&"";', b'T')):
+            with self.subTest(suffix=suffix):
+                body = (b'if K=0 then ' + output(name + b'(1..2)') + b'end if;'
+                        + output(b'"end"'))
+                executable, _ = self.compile(program(declarations + suffix, body), 'assigned')
+                self.run_program(executable, b'end\n')

@@ -2534,6 +2534,47 @@ is
       return Scalar_Expressions.Read_Expression (Text, Position, Overlay, Mask_First, Mask_After, Arrays => Context.Array_Names,
             Initials => Initials, Elaborating => Context.Elaborating);
    end Read_Scalar_In_Flow;
+   --  Counted bounds must not expose constant-component folding to the pinned
+   --  frontend. Keep this scratch metadata outside recursive loop frames.
+   function Read_Counted_Bound
+     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow;
+      Mask_First : Literal_Position; Mask_After : Literal_Position)
+      return Scalar_Expressions.Expression_Result
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_Context (Text, Context) and then Valid_Flow (Context, Facts)
+         and then Position <= Text'Last + 1 and then Valid_Name_State (Text, Mask_First, Mask_After),
+       Post => (Runtime => Read_Counted_Bound'Result.After = 0
+         or else (Read_Counted_Bound'Result.After in Position + 1 .. Text'Last + 1
+           and then Read_Counted_Bound'Result.Operands > 0),
+         Static => (if Read_Counted_Bound'Result.After /= 0 then Read_Counted_Bound'Result =
+           Read_Scalar_In_Flow (Text, Context, Position, Facts, Mask_First, Mask_After)));
+   pragma No_Inline (Read_Counted_Bound);
+   function Read_Counted_Bound
+     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow;
+      Mask_First : Literal_Position; Mask_After : Literal_Position)
+      return Scalar_Expressions.Expression_Result is
+      Overlay : constant Scalar_Expressions.Environment := Reading_Names (Context, Facts);
+      Arrays : Array_Bindings.Metadata := Array_Bindings.Empty_Metadata;
+      Gate : Scalar_Expressions.Expression_Result;
+   begin
+      for Index in 1 .. Context.Array_Names.Count loop
+         pragma Loop_Invariant (Arrays.Count < Index);
+         pragma Loop_Invariant (Array_Bindings.Valid_Metadata (Text, Arrays));
+         pragma Loop_Invariant
+           (if Arrays.Count > 0 then Arrays.Items (Arrays.Count).Offset
+              + Arrays.Items (Arrays.Count).Length <= Context.Array_Names.Items (Index).Offset);
+         if Context.Array_Names.Items (Index).Mutable then
+            Arrays.Count := Arrays.Count + 1;
+            Arrays.Items (Arrays.Count) := Context.Array_Names.Items (Index);
+         end if;
+      end loop;
+      Gate := Scalar_Expressions.Read_Expression
+        (Text, Position, Overlay, Mask_First, Mask_After, Arrays => Arrays,
+         Elaborating => Context.Elaborating);
+      if Gate.After = 0 then return Scalar_Expressions.Invalid; end if;
+      return Read_Scalar_In_Flow (Text, Context, Position, Facts, Mask_First, Mask_After);
+   end Read_Counted_Bound;
    function Read_String_In_Flow
      (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow;
       Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values)
@@ -4580,9 +4621,9 @@ is
             Result.Position := Take_Token (Text, Result.Position, Reverse_Keyword);
          end if;
          --  Ada captures bounds in entry flow before body reads are widened.
-         Low := Read_Scalar_In_Flow (Text, Context, Result.Position, Scan.Facts, First, After);
+         Low := Read_Counted_Bound (Text, Context, Result.Position, Scan.Facts, First, After);
          Result.Position := Take_Token (Text, Low.After, Range_Delimiter);
-         High := Read_Scalar_In_Flow (Text, Context, Result.Position, Scan.Facts, First, After);
+         High := Read_Counted_Bound (Text, Context, Result.Position, Scan.Facts, First, After);
          Result.Position := Take_Token (Text, High.After, Loop_Keyword);
          Index_Bounds :=
            (if Scalars.Is_Empty (Low.Bounds) or else Scalars.Is_Empty (High.Bounds)
