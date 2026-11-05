@@ -113,6 +113,10 @@ structure Context where
   length : Nat := 0
   remaining : Nat := maxExpressionOperands
   following : Nat := 0
+  limit : Nat := 0
+  depth : Nat := 0
+  chained : Bool := false
+  ending : Bool := false
   nextToken : Nat := 1
   names : BindingEnvironment := []
   scalarNames : ScalarExpression.Environment := []
@@ -148,12 +152,14 @@ def Context.locals (ctx : Context) : Locals
   | .number, name => match name with
     | "position" => ctx.position | "first" => ctx.first | "after" => ctx.after
     | "index" => ctx.index | "length" => ctx.length | "remaining" => ctx.remaining
-    | "slot" => ctx.slot | "following" => ctx.following | "next_token" => ctx.nextToken | "capacity" => ctx.capacity | _ => 0
+    | "slot" => ctx.slot | "following" => ctx.following | "next_token" => ctx.nextToken | "capacity" => ctx.capacity
+    | "limit" => ctx.limit | "depth" => ctx.depth | _ => 0
   | .truth, name => match name with
     | "character_element" => ctx.characterElement | "character_object" => ctx.characterObject
     | "is_character" => ctx.isCharacter | "dynamic" => ctx.dynamicSeen
     | "arguments" => ctx.arguments | "mutable" => ctx.mutable
     | "same_target" => ctx.sameTarget | "dynamic_seen" => ctx.dynamicSeen
+    | "chained" => ctx.chained | "ending" => ctx.ending
     | "subtype_hidden" => ctx.subtypeHidden
     | "integer_hidden" => ctx.integerHidden | "elaborating" => ctx.elaborating | _ => false
   | .names, _ => ctx.names
@@ -303,6 +309,10 @@ structure RawHelperEquations (calls : Calls) (evaluator : Calls := lexical calls
   characterLiteral : ∀ text, ValidText text → ∀ position, ValidCursor text position →
     calls.function .characterLiteral text position =
       StringNative.characterLiteralBody.eval evaluator (Context.locals {text,position})
+  guardedAt : ∀ text, ValidText text → ∀ position limit depth chained ending,
+    0 < position → ValidCursor text position → ValidCursor text limit → depth ≤ maxSourceLength →
+    calls.function .guardedAt text position limit depth chained ending =
+      StringNative.guardedBody.eval evaluator (Context.locals {text,position,limit,depth,chained,ending})
   indexed : ∀ text, ValidText text → ∀ position names scalarNames arrays initials elaborating characterElement,
     ValidCursor text position → NativeNames text names → ScalarExpression.ValidEnvironment text scalarNames →
     ArrayBindings.ValidMetadata text arrays → ArrayBindings.ValidInitials initials →

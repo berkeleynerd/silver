@@ -248,6 +248,38 @@ structure IndexedParts where
   following : Nat
   deriving DecidableEq, Repr
 
+/-- Pinned-native context restriction for slice endpoints. Whole tokens are
+scanned; Boolean-chain suffixes conservatively last until the next semicolon.
+The initial domain check only totalizes calls outside the native precondition. -/
+def guardedAt (text : Source) (position limit depth : Nat) (chained ending : Bool) : Bool :=
+  if position = 0 ∨ position > text.length + 1 ∨ limit > text.length + 1 then false else
+  let first := skipAt text position
+  let after := nameAfter text first
+  let characterAfter := characterLiteralAfter text first
+  let quotedAfter := (literalAt text first).after
+  let named (word : String) := Named.nameIs text first after (word.toList.map Char.toNat)
+  let nextChained := chained || (decide (after > first) && (named "and" || named "or" || named "xor"))
+  let nextEnding := decide (after > first) && named "end"
+  let afterPunctuation := chained && (decide (first > text.length) || decide (Cursor.byteAt text first ≠ 59))
+  if first ≥ limit then decide (depth ≠ 0) || chained
+  else if characterAfter > first then guardedAt text characterAfter limit depth chained false
+  else if quotedAfter > first then guardedAt text quotedAfter limit depth chained false
+  else if after > first then
+    if named "if" then
+      if ending && decide (depth ≠ 0) then guardedAt text after limit (depth - 1) chained false
+      else if ending then guardedAt text after limit 0 chained false
+      else if depth = maxSourceLength then true
+      else guardedAt text after limit (depth + 1) chained false
+    else guardedAt text after limit depth nextChained nextEnding
+  else guardedAt text (first + 1) limit depth afterPunctuation false
+termination_by text.length + 1 - position
+decreasing_by
+  all_goals
+    have positive : position ≠ 0 := by omega
+    have skipped := Cursor.triviaPosition_bounds text position (by omega) (by omega)
+    simp +zetaDelta only [skipAt, positive, ↓reduceIte] at *
+    omega
+
 def indexedParts (text : Source) (position : Nat) (names : BindingEnvironment)
     (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Metadata)
     (initials : ArrayBindings.Initials) (elaborating element : Bool) : IndexedParts :=
@@ -277,6 +309,8 @@ def indexedAt (text : Source) (position : Nat) (names : BindingEnvironment)
       parts.lower.operands + 1, .singleton 1, .singleton 1⟩
   else if parts.following ≤ position ∨ parts.upper.bounds.isEmpty = true ∨
       parts.lower.operands + parts.upper.operands ≥ maxExpressionOperands ∨
+      parts.lower.bounds.upper - parts.upper.bounds.lower > Integer.maxValue ∨
+      ((!parts.lower.isStatic || !parts.upper.isStatic) && guardedAt text 1 position 0 false false) = true ∨
       (parts.lower.bounds.lower ≤ parts.upper.bounds.upper ∧
         (parts.lower.bounds.lower < info.firstIndex ∨ info.lastIndex < parts.upper.bounds.upper))
     then invalidValue

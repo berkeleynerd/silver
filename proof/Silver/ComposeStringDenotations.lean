@@ -12,6 +12,17 @@ set_option maxHeartbeats 2000000
 set_option backward.dsimp.instances true
 attribute [local irreducible] ScalarExpression.read
 
+theorem model_guarded_denotation (text : Source) (position limit depth : Nat) (chained ending : Bool)
+    (positive : 0 < position) (bounded : position ≤ text.length + 1) (limitBound : limit ≤ text.length + 1) :
+    guardedBody.eval modelCalls (Context.locals {text,position,limit,depth,chained,ending}) =
+      guardedAt text position limit depth chained ending := by
+  rw [guarded_denotation]
+  simp only [guardedEquation, decide_eq_true_eq]
+  dsimp +instances only [modelCalls]
+  conv => rhs; rw [guardedAt]
+  simp only [show ¬ (position = 0 ∨ position > text.length + 1 ∨ limit > text.length + 1) from by omega,
+    ↓reduceIte]
+
 /-- Interpret every assignment and early return in the complete native index reader. -/
 theorem model_indexed_denotation (text : Source) (position : Nat) (names : BindingEnvironment)
     (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Metadata)

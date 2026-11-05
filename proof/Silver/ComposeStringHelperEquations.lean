@@ -2,6 +2,7 @@ module
 
 public import Silver.ComposeCoreHelperEquations
 public import Silver.ComposeStringEquations
+public import Silver.ComposeGuardedSliceEquations
 public import Silver.ComposeNativeRecordBounds
 public import Silver.ComposeArrayNativeBounds
 public import Silver.ComposeCharacterBounds
@@ -69,7 +70,9 @@ private theorem max_capacity (value : Int) : (max 0 value > (maxSourceLength : I
       rw [interpreted_symbol calls equations text valid low.after ".." bl.1 (by unfold ValidToken; decide),
         equations.scalarRead text valid highStart scalarNames arrays initials elaborating bhs scalarValid arraysValid initialsValid,
         interpreted_symbol calls equations text valid high.after ")" bh.1 (by unfold ValidToken; decide),
-        equations.scalarEmpty high.bounds bh.2]
+        equations.scalarEmpty high.bounds bh.2,
+        interpreted_guarded calls equations text valid 1 position 0 false false (by omega) (by unfold ValidCursor; omega)
+          bound (by unfold maxSourceLength; omega)]
       simp only [indexedAt, indexedParts, Bool.false_eq_true, ↓reduceIte, Bool.or_eq_true,
         Bool.and_eq_true, decide_eq_true_eq, or_assoc, and_assoc,
         StringIndexing.sliceMinimum, StringIndexing.sliceMaximum, StringIndexing.sliceLength,

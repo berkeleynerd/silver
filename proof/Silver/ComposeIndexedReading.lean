@@ -45,6 +45,13 @@ structure IndexedReading (text : Source) (names : BindingEnvironment)
     StringIndexing.sliceMaximum
       (indexedParts text position names scalarNames arrays initials elaborating element).lower.bounds
       (indexedParts text position names scalarNames arrays initials elaborating element).upper.bounds ≤ maxSourceLength
+  nativeSpan : element = false →
+    (indexedParts text position names scalarNames arrays initials elaborating element).lower.bounds.upper -
+      (indexedParts text position names scalarNames arrays initials elaborating element).upper.bounds.lower ≤ Integer.maxValue
+  guardedStatic : element = false →
+    ((!((indexedParts text position names scalarNames arrays initials elaborating element).lower.isStatic) ||
+      !((indexedParts text position names scalarNames arrays initials elaborating element).upper.isStatic)) &&
+      guardedAt text 1 position 0 false false) = false
 
 def indexedValue (parts : IndexedParts) (element : Bool) : ValueResult :=
   if element then
@@ -81,7 +88,8 @@ theorem indexed_complete {text : Source} {names : BindingEnvironment}
       simp [indexedAt, indexedValue, parsed.selected, parsed.targetPositive, parsed.stringTyped,
         parsed.fixed, parsed.unmasked, lowerPositive, parsed.lowerNonempty,
         Nat.not_le.mpr parsed.following, bounds.1, Nat.not_le.mpr bounds.2.1,
-        contained, Nat.not_lt.mpr bounds.2.2.2]
+        contained, Nat.not_lt.mpr bounds.2.2.2, Int.not_lt.mpr (parsed.nativeSpan rfl),
+        parsed.guardedStatic rfl]
 
 theorem indexed_sound {text : Source} {names : BindingEnvironment}
     {scalarNames : ScalarExpression.Environment} {arrays : ArrayBindings.Metadata}
@@ -112,7 +120,7 @@ theorem indexed_sound {text : Source} {names : BindingEnvironment}
           simp only [not_or, Nat.not_le, Int.not_lt] at bounds
           exact ⟨info, lower, .literal 0, ready.1, present', ready.2.1, ready.2.2.1,
             (by omega), source, ready.2.2.2.2.2, bounds.1,
-            fun _ => ⟨bounds.2.1, bounds.2.2⟩, by simp, by simp⟩
+            fun _ => ⟨bounds.2.1, bounds.2.2⟩, by simp, by simp, by simp, by simp⟩
     | false =>
         simp only [Bool.false_eq_true, ↓reduceIte, present', Option.getD_some] at accepted
         split at accepted
@@ -135,8 +143,10 @@ theorem indexed_sound {text : Source} {names : BindingEnvironment}
                 (arrays := arrays) (initials := initials) (elaborating := elaborating) := upperSource
             refine ⟨info, lower, upper, ready.1, present', ready.2.1, ready.2.2.1,
               (by omega), source, ready.2.2.2.2.2, bounds.1, by simp,
-              fun _ => upperSource', fun _ => ⟨bounds.2.1, bounds.2.2.1, ?_, by omega⟩⟩
-            have contained := bounds.2.2.2
+              fun _ => upperSource', fun _ => ⟨bounds.2.1, bounds.2.2.1, ?_, by omega⟩,
+              fun _ => by have span := bounds.2.2.2.1; omega,
+              fun _ => bounds.2.2.2.2.1⟩
+            have contained := bounds.2.2.2.2.2
             omega
 
 theorem indexed_check {text : Source} {names : BindingEnvironment}
@@ -165,6 +175,7 @@ theorem slice_check {text : Source} {names : BindingEnvironment}
       (indexedParts text position names scalarNames arrays initials elaborating false).upper.bounds = true := by
   have metadata := (normal.typed _ _ parsed.selected).2 parsed.fixed
   have bounds := parsed.sliceBounds rfl
+  have nativeSpan := parsed.nativeSpan rfl
   have nonempty := parsed.lowerNonempty
   have upperNonempty := bounds.1
   simp only [Integer.Interval.isEmpty, decide_eq_false_iff_not] at nonempty upperNonempty

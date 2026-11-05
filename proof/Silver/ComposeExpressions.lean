@@ -66,6 +66,7 @@ def Ty.default : (ty : Ty) → ty.meaning
 inductive Function
   | fixedBoundsValid
   | characterLiteral
+  | guardedAt
   | indexed
   | characterValue
   | concatenatedFirst
@@ -125,6 +126,7 @@ inductive Function
 def Function.name : Function → String
   | .fixedBoundsValid => "fixed_bounds_valid"
   | .characterLiteral => "character_literal_after"
+  | .guardedAt => "guarded_at"
   | .indexed => "indexed_at"
   | .characterValue => "character_at"
   | .concatenatedFirst => "concatenated_first"
@@ -205,6 +207,7 @@ def Function.name : Function → String
 @[reducible] def Function.type : Function → Ty
   | .fixedBoundsValid => .arrow .number (.arrow .truth (.arrow .truth (.arrow .integer (.arrow .integer (.arrow .number .truth)))))
   | .characterLiteral => .arrow .source (.arrow .number .number)
+  | .guardedAt => .arrow .source (.arrow .number (.arrow .number (.arrow .number (.arrow .truth (.arrow .truth .truth)))))
   | .indexed => .arrow .source (.arrow .number (.arrow .names (.arrow .scalarNames (.arrow .arrayMetadata (.arrow .arrayInitials (.arrow .truth (.arrow .truth .value)))))))
   | .characterValue => .arrow .source (.arrow .number (.arrow .names (.arrow .scalarNames (.arrow .arrayMetadata (.arrow .arrayInitials (.arrow .truth .value))))))
   | .concatenatedFirst => .arrow .scan (.arrow .value .interval)
@@ -293,6 +296,7 @@ Every recognizer helper is left arbitrary. -/
 def Calls.get (calls : Calls) : (symbol : Function) → symbol.type.meaning
   | .fixedBoundsValid => calls.function .fixedBoundsValid
   | .characterLiteral => calls.function .characterLiteral
+  | .guardedAt => calls.function .guardedAt
   | .indexed => calls.function .indexed
   | .characterValue => calls.function .characterValue
   | .concatenatedFirst => calls.function .concatenatedFirst

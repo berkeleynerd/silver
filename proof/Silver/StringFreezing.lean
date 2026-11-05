@@ -67,6 +67,7 @@ theorem Operand.freezeImages_readable {atom : Operand} {shape : Shape}
         have right := Integer.Expr.infer_sound upperFound scalars
         have safe := StringIndexing.sliceCheck_singletons
           (StringIndexing.sliceCheck_sound checked left.1 right.1)
+          (StringIndexing.sliceCheck_nativeSpan checked left.1 right.1)
         refine ⟨.fixed (StringIndexing.sliceLength (lower.evaluate integers) (upper.evaluate integers)), ?_⟩
         simp only [freezeImages, Value.infer, Value.extraRange, targetFound,
           Character.snapshot_infer (Integer.Expr.safe_value left.2),

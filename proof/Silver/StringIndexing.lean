@@ -56,6 +56,7 @@ outside the prefix are allowed precisely when every represented nonnull
 slice remains contained. Null slices do not have an Ada prefix-index check. -/
 def sliceCheck (base : Int) (length : Nat) (lower upper : Integer.Interval) : Bool :=
   decide (lower.lower ≤ lower.upper ∧ upper.lower ≤ upper.upper ∧
+    lower.upper - upper.lower ≤ Integer.maxValue ∧
     (lower.lower > upper.upper ∨
       (base ≤ lower.lower ∧ upper.upper < base + (length : Int))))
 
@@ -65,12 +66,22 @@ theorem sliceCheck_sound {base : Int} {length : Nat} {lower upper : Integer.Inte
   simp only [sliceCheck, decide_eq_true_eq, Integer.Interval.Contains, sliceValid] at *
   omega
 
+/-- The native equality expansion subtracts requested endpoints in Integer.
+This is a pinned-frontend admission restriction, not an Ada null-slice rule. -/
+theorem sliceCheck_nativeSpan {base : Int} {length : Nat}
+    {lower upper : Integer.Interval} {a b : Int}
+    (checked : sliceCheck base length lower upper = true)
+    (left : lower.Contains a) (right : upper.Contains b) : a - b ≤ Integer.maxValue := by
+  simp only [sliceCheck, decide_eq_true_eq, Integer.Interval.Contains] at *
+  omega
+
 theorem sliceCheck_singletons {base lower upper : Int} {length : Nat}
-    (valid : sliceValid base length lower upper) :
+    (valid : sliceValid base length lower upper)
+    (nativeSpan : lower - upper ≤ Integer.maxValue) :
     sliceCheck base length (Integer.Interval.singleton lower) (Integer.Interval.singleton upper) = true := by
   unfold sliceCheck
   apply decide_eq_true
-  exact ⟨Int.le_refl _, Int.le_refl _, valid⟩
+  exact ⟨Int.le_refl _, Int.le_refl _, nativeSpan, valid⟩
 
 def sliceLength (lower upper : Int) : Nat := (upper - lower + 1).toNat
 

@@ -16,6 +16,7 @@ def modelCalls : Calls where
   function
     | .fixedBoundsValid => fixedBoundsValid
     | .characterLiteral => characterLiteralAfter
+    | .guardedAt => guardedAt
     | .indexed => indexedAt
     | .characterValue => fun text position names scalarNames arrays initials elaborating =>
         characterAt text position names scalarNames arrays initials elaborating

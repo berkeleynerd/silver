@@ -87,6 +87,7 @@ def Declaration.validType : Ty → List String → Bool
   | .interval, name => name == ["scalars", ".", "interval"]
   | .scalarResult, name => name == ["scalar_expressions", ".", "expression_result"]
   | .value, name => name == ["value_result"]
+  | .truth, name => name == ["boolean"]
   | _, _ => false
 
 def Declaration.wellFormed (declaration : Declaration) : Bool :=
@@ -213,6 +214,44 @@ def allOf : List (Expr .truth) → Expr .truth
   | [] => .truth true
   | first :: rest => rest.foldl .andThen first
 
+def guardedBody : Body .truth :=
+  let text : Expr .source := .variable "text"
+  let position : Expr .number := .variable "position"
+  let limit : Expr .number := .variable "limit"
+  let depth : Expr .number := .variable "depth"
+  let chained : Expr .truth := .variable "chained"
+  let ending : Expr .truth := .variable "ending"
+  let first : Expr .number := .variable "first"
+  let after : Expr .number := .variable "after"
+  let characterAfter : Expr .number := .variable "character_after"
+  let quotedAfter : Expr .number := .variable "quoted_after"
+  let named (word : String) := .app (.app (.app (.app (.function .nameIs) text) first) after) (.word word)
+  let recur (p d : Expr .number) (c e : Expr .truth) :=
+    .app (.app (.app (.app (.app (.app (.function .guardedAt) text) p) limit) d) c) e
+  ⟨"guarded_at", [
+    constant .number "first" ["literal_position"] (.app (.app (.function .skip) text) position),
+    constant .number "after" ["literal_position"] (.app (.app (.function .nameAfter) text) first),
+    constant .number "character_after" ["literal_position"] (.app (.app (.function .characterLiteral) text) first),
+    constant .number "quoted_after" ["literal_position"] (.field .valueAfter (.app (.app (.function .literal) text) first)),
+    constant .truth "next_chained" ["boolean"]
+      (.orElse chained (.group <| .andThen (.gt after first)
+        (.group <| .orElse (.orElse (named "and") (named "or")) (named "xor")))),
+    constant .truth "next_ending" ["boolean"] (.andThen (.gt after first) (named "end")),
+    constant .truth "after_punctuation" ["boolean"]
+      (.andThen chained (.group <| .orElse (.gt first (.sourceLast text)) (.ne (.byteAt text first) (.character 59))))],
+    .returned (.group <| .ite (.ge first limit) (.orElse (.ne depth (.number 0)) chained) <|
+      .elsif (.gt characterAfter first) (recur characterAfter depth chained (.truth false)) <|
+      .elsif (.gt quotedAfter first) (recur quotedAfter depth chained (.truth false)) <|
+      .elsif (.gt after first)
+        (.group <| .ite (named "if")
+          (.group <| .ite (.andThen ending (.ne depth (.number 0)))
+            (recur after (.sub depth (.number 1)) chained (.truth false)) <|
+            .elsif ending (recur after (.number 0) chained (.truth false)) <|
+            .elsif (.eq depth .maxLength) (.truth true)
+              (recur after (.add depth (.number 1)) chained (.truth false)))
+          (recur after depth (.variable "next_chained") (.variable "next_ending")))
+        (recur (.add first (.number 1)) depth (.variable "after_punctuation") (.truth false)))⟩
+
 def indexedBody : Body .value :=
   let text : Expr .source := .variable "text"
   let position : Expr .number := .variable "position"
@@ -265,6 +304,10 @@ def indexedBody : Body .value :=
       .assign "following" (take (.field .scalarAfter high) (.symbol ")")),
       guard (anyOf [
         .le following position, .app (.function .scalarEmpty) (bounds high), .ge operands .maxOperands,
+        .integerGt (.integerSub (.wideInteger (upper low)) (.wideInteger (lower high))) .maximumInteger,
+        .group <| .andThen (.group <| .orElse (.not (.field .scalarStatic low)) (.not (.field .scalarStatic high)))
+          (.app (.app (.app (.app (.app (.app (.function .guardedAt) text) (.number 1)) position)
+            (.number 0)) (.truth false)) (.truth false)),
         .group <| .andThen (.integerLe (lower low) (upper high))
           (.group <| .orElse (.integerLt (lower low) (.field .bindingFirstIndex info))
             (.integerGt (upper high) (.field .bindingLastIndex info)))]) .invalidValue,
@@ -364,6 +407,7 @@ abbrev WellFormedTrees : Prop := indexedBody.wellFormed = true ∧ characterBody
   concatenatedLastBody.wellFormed = true ∧ characterDeclarationBody.wellFormed = true ∧
   fixedBoundsBody.wellFormed = true ∧ characterLiteralBody.wellFormed = true ∧
   concatenatedFirstBody.wellFormed = true
+  ∧ guardedBody.wellFormed = true
 
 abbrev WellScopedTrees : Prop :=
   indexedBody.scoped [("text", .source), ("position", .number), ("names", .names),
@@ -378,6 +422,8 @@ abbrev WellScopedTrees : Prop :=
     ("first_index", .integer), ("last_index", .integer), ("slot", .number)] = true ∧
   characterLiteralBody.scoped [("text", .source), ("position", .number)] = true ∧
   concatenatedFirstBody.scoped [("left", .scan), ("right", .value)] = true
+  ∧ guardedBody.scoped [("text", .source), ("position", .number), ("limit", .number),
+    ("depth", .number), ("chained", .truth), ("ending", .truth)] = true
 
 theorem checked_precedence : WellFormedTrees := by decide +kernel
 
@@ -385,11 +431,20 @@ theorem checked_scopes : WellScopedTrees := by decide +kernel
 
 namespace SourceChecks
 
+def guardedHeader : List String := ((Source.lexLine
+  "(Text : String; Position : Cursor; Limit : Literal_Position; Depth : Natural; Chained, Ending : Boolean) return Boolean").getD [])
+
+def guardedContract : List String := guardedHeader ++ ((Source.lexLine
+  "with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Position <= Text'Last + 1 and then Limit <= Text'Last + 1 and then Depth <= Max_Source_Length, Subprogram_Variant => (Decreases => (Text'Last + 1) - Position)").getD [])
+
 abbrev Checked (tokens : List String) : Prop :=
   BooleanDeclarationNative.SourceChecks.ordinaryFunction "indexed_at" tokens = some indexedBody.render ∧
   BooleanDeclarationNative.SourceChecks.ordinaryFunction "character_at" tokens = some characterBody.render ∧
   BooleanDeclarationNative.SourceChecks.ordinaryFunction "concatenated_last" tokens = some concatenatedLastBody.render ∧
   BooleanDeclarationNative.SourceChecks.ordinaryFunction "character_declaration_at" tokens = some characterDeclarationBody.render
+  ∧ BooleanDeclarationNative.SourceChecks.ordinaryFunction "guarded_at" tokens = some guardedBody.render
+  ∧ Silver.SourceBridge.functionHeader "guarded_at" "is" tokens = some guardedHeader
+  ∧ Silver.SourceBridge.functionHeader "guarded_at" ";" tokens = some guardedContract
 
 end SourceChecks
 

@@ -11,6 +11,34 @@ set_option maxRecDepth 10000
 set_option maxHeartbeats 2000000
 set_option backward.dsimp.instances true
 
+def guardedEquation (calls : Calls) (text : Source) (position limit depth : Nat)
+    (chained ending : Bool) : Bool :=
+  let first := calls.function .skip text position
+  let after := calls.function .nameAfter text first
+  let characterAfter := calls.function .characterLiteral text first
+  let quotedAfter := (calls.function .literal text first).after
+  let named (word : String) := calls.function .nameIs text first after word
+  let nextChained := chained || (decide (after > first) && (named "and" || named "or" || named "xor"))
+  let nextEnding := decide (after > first) && named "end"
+  let afterPunctuation := chained && (decide (first > text.length) || decide (Cursor.byteAt text first ≠ 59))
+  if decide (first ≥ limit) then decide (depth ≠ 0) || chained
+  else if decide (characterAfter > first) then calls.function .guardedAt text characterAfter limit depth chained false
+  else if decide (quotedAfter > first) then calls.function .guardedAt text quotedAfter limit depth chained false
+  else if decide (after > first) then
+    if named "if" then
+      if ending && decide (depth ≠ 0) then calls.function .guardedAt text after limit (depth - 1) chained false
+      else if ending then calls.function .guardedAt text after limit 0 chained false
+      else if decide (depth = maxSourceLength) then true
+      else calls.function .guardedAt text after limit (depth + 1) chained false
+    else calls.function .guardedAt text after limit depth nextChained nextEnding
+  else calls.function .guardedAt text (first + 1) limit depth afterPunctuation false
+
+theorem guarded_denotation (calls : Calls) (text : Source) (position limit depth : Nat)
+    (chained ending : Bool) :
+    guardedBody.eval calls (Context.locals {text,position,limit,depth,chained,ending}) =
+      guardedEquation calls text position limit depth chained ending := by
+  rfl
+
 /-- Staged interpretation of the declarations and returns of the native index reader. -/
 def indexedEquation (calls : Calls) (text : Source) (position : Nat) (names : BindingEnvironment)
     (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Metadata)
@@ -36,6 +64,8 @@ def indexedEquation (calls : Calls) (text : Source) (position : Nat) (names : Bi
     let operands := low.operands + high.operands
     if decide (following ≤ position) || calls.function .scalarEmpty high.bounds ||
         decide (operands ≥ maxExpressionOperands) ||
+        decide (low.bounds.upper - high.bounds.lower > Integer.maxValue) ||
+        ((!low.isStatic || !high.isStatic) && calls.function .guardedAt text 1 position 0 false false) ||
         (decide (low.bounds.lower ≤ high.bounds.upper) &&
           (decide (low.bounds.lower < info.firstIndex) || decide (high.bounds.upper > info.lastIndex)))
     then invalidValue
