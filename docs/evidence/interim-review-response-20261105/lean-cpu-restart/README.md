@@ -25,13 +25,33 @@ summed RSS and at least 25.017 GiB host memory available. No pause occurred.
 These are short sampled observations, not whole-run maxima or a speedup claim.
 
 The build reported a compiler heartbeat limit in
-`Silver.ReviewedOutputShape.outputImplementation` (200,000 steps, LCNF compiler).
-Independent jobs continue, preserving useful results. The captured sources stay
-frozen while a bounded diagnosis examines a declaration-local budget adjustment.
-The complete build and fresh audit remain pending; this record claims no
-successful replacement checkpoint.
+`Silver.ReviewedOutputShape.outputImplementation` (200,000 heartbeat units, LCNF compiler).
+Independent jobs continued with captured sources frozen while a bounded
+diagnosis prepared a declaration-local budget adjustment.
 
 Monitoring selected GPT-6.1 Sol / High; bounded budget diagnosis selected
 GPT-6.1 Sol / Extra High. Runtime model/effort and token/cost measurements were
-not independently exposed. Logs and live resource samples remain under the
-feature worktree's `tmp/` and will be retained with the terminal result.
+not independently exposed.
+
+## Terminal result and next check
+
+The replacement run ended **failed** at 16:41:00 UTC after 11,084.185 managed
+seconds (11,076.023 seconds in its build phase). `OutputBodyCertificate` passed
+in 11,061 seconds; its successful objects remain cached. The only module
+failure was `ReviewedOutputShape` at its existing 200,000-heartbeat compiler
+limit. The fresh whole-project axiom/module audit did not run.
+
+The [terminal summary](terminal-summary.json) and
+[artifact index](terminal-artifacts.json) retain the failed build log, ledger
+events and sampled resources. Peak sampled CPU usage was 9.214 cores, peak
+summed process RSS was 24.301 GiB, and minimum host available memory was
+4.657 GiB. No pressure pause occurred. Sampling began after tool launch;
+these are sampled observations, not exact maxima or a controlled speedup
+comparison. The final single-module phase used roughly one core.
+
+The prepared repair gives only `outputImplementation` a finite ten-million
+heartbeat budget, matching the existing source-certificate ceiling. This is
+a proposed sufficient ceiling, not a measured minimum. It leaves the token
+literal, semantic statements and proof obligations unchanged. Focused validation
+of that module and a complete cached build with a fresh audit remain required;
+the failed replacement run is not relabelled successful.

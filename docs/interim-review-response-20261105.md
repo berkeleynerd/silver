@@ -177,15 +177,33 @@ records the copied exploratory objects and sessions as a cache seed. Forced
 analysis and the final report/coverage/provenance audits remain mandatory.
 
 Build `20261105T110838-67ae26dc9265` passed in the regression worktree. Its full
-suite is running as `20261105T111005-483650d69229` on that same native snapshot.
+suite `20261105T111005-483650d69229` passed all 595 test IDs in 3,919.144 seconds
+on that same native snapshot, with no failures or skips. Final accounting must
+also incorporate the seven focused CPU-configuration checks in
+`20261105T132715-c4a22b58c2d9` and subsequent proof-only input applicability.
 The four original B1 source shapes passed admission and compile rejection checks
 in `20261105T105255-ca0268fa60ed`; those controls supplement the independent
 span-boundary tests. The
 [independent applicability review](reviews/review-argument-proof-regression-applicability-20261105.md)
-establishes that the theorem-local budget change requires no extra unittest
-reruns. It does not establish the still-pending suite outcome or census. Complete
-Lean/source check `20261105T112731-2036c05ea810` is running on the frozen
-`3c156a2e09` inputs with one Lake worker, one thread per Lean process and a
-24 GiB per-process memory threshold. All three complete checks retain their
-actual outcomes; no completion is claimed before their audits and final review.
-PR #307 remains open and unmerged.
+establishes that the theorem-local argument budget change requires no extra
+unittest reruns; it does not establish later input applicability. Complete
+Lean/source check `20261105T112731-2036c05ea810` began on the frozen
+`3c156a2e09` inputs with one Lake worker and one thread per process. The owner
+then requested interruption and an automatic-CPU restart on configuration
+`83e8b69983`, preserving successful objects and the 24 GiB per-process threshold.
+
+Replacement `20261105T133612-ecc276b25c57` ended **failed** at 16:41 UTC after
+11,084.185 managed seconds. `OutputBodyCertificate` passed in 11,061 seconds;
+the only module failure was the existing compiler-heartbeat ceiling on
+`ReviewedOutputShape.outputImplementation`. The complete fresh audit did not
+run. The [restart and terminal record](evidence/interim-review-response-20261105/lean-cpu-restart/README.md)
+retains the failure, successful certificate result and resource samples.
+
+The declaration-local repair adds a finite ten-million-heartbeat budget without
+altering its 50,230-token literal or any semantic statement. Focused validation
+and the subsequent complete cached build/fresh audit remain required. Budget
+diagnosis and implementation selected GPT-6.1 Sol / Extra High; monitoring
+selected GPT-6.1 Sol / High. Runtime settings and token/cost measurements were
+not exposed. Native proof/audit is still active. No complete delivery assurance
+is claimed before the remaining audits and integration review pass; PR #307
+remains open and unmerged.
