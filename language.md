@@ -7,8 +7,9 @@ The [repaired delivery checkpoint](docs/bounded-string-characters.md#repaired-de
 records current evidence and reviewed regression applicability; the earlier
 delivery retains its historical inputs and failed attempts. The
 [closing delivery review](docs/reviews/review-interim-response-closing-20261105.md)
-passed. PR #307 remains draft and open for owner review; the
-external report remains interim and clears no unexamined scope.
+passed. The owner authorized delivery through
+[PR #307](https://github.com/berkeleynerd/silver/pull/307) on 2026-11-06;
+the external report remains interim and clears no unexamined scope.
 
 Silver is one evolving language before 1.0. This specification describes the
 predicate, path-sensitive and finite-loop language under the [Oracle](oracle.md),

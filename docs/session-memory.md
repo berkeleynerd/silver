@@ -1,5 +1,24 @@
 # Session memory
 
+## 2026-11-06 — Repaired String merge authorized
+
+After the lead confirmed [PR #307](https://github.com/berkeleynerd/silver/pull/307)
+was clean, mergeable and fully validated, the owner instructed **“Proceed.”**
+This authorizes marking the PR ready, merging the reviewed delivery, and closing
+its completed feature/finding issues and milestone 16. It supersedes the earlier
+draft/open hold. The [delivery checkpoint](bounded-string-characters.md#repaired-delivery-checkpoint--2026-11-05)
+and [closing review](reviews/review-interim-response-closing-20261105.md) retain
+the exact assurance, regression applicability and review scope. The main-branch
+reconciliation and these delivery records change documentation only; governed
+source remains `ddb183a918` and the retained validation stays applicable.
+
+Keep [#314](https://github.com/berkeleynerd/silver/issues/314) open in Backlog,
+outside the completed milestone, for its already-selected next-relevant-edit
+structural guards. The wording correction is delivered; guard implementation is
+not claimed. The external report remains interim. No later feature, #300 batch,
+Oracle amendment or adoption of the separate #8 experiment is selected.
+No harness goal exists; CLI recall is unavailable and was not updated.
+
 ## 2026-11-05 — Repaired String ready for owner review
 
 The owner-authorized [interim review response](interim-review-response-20261105.md)

@@ -21,7 +21,7 @@ each delivery; the linked issues hold scope and completion criteria.
 | Position | Feature | Motivating Rosetta candidates |
 | --- | --- | --- |
 | Delivered 2026-10-31 | [Boolean scalar objects and expressions #291](https://github.com/berkeleynerd/silver/issues/291), stacked on the named-subtype delivery [#286](https://github.com/berkeleynerd/silver/issues/286) | Sequence of primes by trial division; Square but not cube; Common list elements |
-| Ready for owner review | [Bounded String indexing and character operations #296](https://github.com/berkeleynerd/silver/issues/296) | Reverse a string; Palindrome detection; character replacement |
+| Complete 2026-11-06 | [Bounded String indexing and character operations #296](https://github.com/berkeleynerd/silver/issues/296) | Reverse a string; Palindrome detection; character replacement |
 | Later (1) | [Fixed-size Boolean arrays #297](https://github.com/berkeleynerd/silver/issues/297) | Sieve of Eratosthenes; elementary cellular automata |
 | Later (2) | [Small nonrecursive functions #298](https://github.com/berkeleynerd/silver/issues/298) | Reusable primality tests, GCD and numeric search helpers |
 
@@ -73,14 +73,15 @@ and record corrections, then one stable complete native/Lean/source/regression
 checkpoint and independent review. Native and cached Lean/source assurance
 have passed; reviewed regression coverage accounts for all 595 test IDs. The
 [closing delivery review](docs/reviews/review-interim-response-closing-20261105.md)
-passed. PR #307 remains draft/open and merge is unauthorized. The external report remains interim and clears no unexamined scope.
+passed. The owner [authorized merging PR #307 on 2026-11-06](docs/session-memory.md#2026-11-06--repaired-string-merge-authorized).
+The external report remains interim and clears no unexamined scope.
 Med-1's remaining structural guards are a next-edit follow-up; no new language
 feature is selected.
 
 ### Bounded String indexing and character operations
 
-**Repaired Linux assurance and closing delivery review passed, 2026-11-05.
-[PR #307](https://github.com/berkeleynerd/silver/pull/307) remains draft and open.**
+**Complete on Linux through [PR #307](https://github.com/berkeleynerd/silver/pull/307).
+Assurance and closing review passed 2026-11-05; owner-authorized merge 2026-11-06.**
 
 [Milestone 16](https://github.com/berkeleynerd/silver/milestone/16) contains
 [#296](https://github.com/berkeleynerd/silver/issues/296), authorized on 2026-10-31
@@ -108,10 +109,11 @@ and other general String uses remain separate. Stage issues #11/#12 remain
 Open/Backlog at rendered stages 2/3; #9/#10 remain Done at stage 1. Issue #296
 records the precise feature mapping, so no duplicate stage issue is needed.
 
-Milestone 16 and issues #296/#304/#305/#306 remain open pending owner-authorized
-merge. The feature PR must remain open for owner review. Boolean arrays #297,
-functions #298, sample expansion #300 and deferred capacity/assurance-mode work
-retain their unselected scope.
+Milestone 16 covers this completed delivery and its selected review repairs.
+The remaining structural guards in #314 stay an open next-relevant-edit
+follow-up outside this milestone. Boolean arrays #297, functions #298, sample
+expansion #300 and deferred capacity/assurance-mode work retain their unselected
+scope.
 
 ### Boolean scalar objects and expressions
 

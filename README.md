@@ -181,9 +181,11 @@ The [bounded String and Character increment](docs/bounded-string-characters.md#r
 has complete repaired Linux native and Lean assurance after the
 [interim external-review repairs](docs/interim-review-response-20261105.md).
 The [closing delivery review](docs/reviews/review-interim-response-closing-20261105.md)
-passed; [PR #307](https://github.com/berkeleynerd/silver/pull/307) remains draft/open.
+passed; the owner authorized delivery through
+[PR #307](https://github.com/berkeleynerd/silver/pull/307) on 2026-11-06.
 The response records exact input scopes, reviewed regression reuse and retained
-failed attempts. The external review remains interim; the PR stays open.
+failed attempts. The external review remains interim, with the remaining
+structural-guard follow-up tracked separately in #314.
 It adds indexed reads and element writes on Strings with statically known bounds,
 printable Character objects and comparisons, and bounded slices. Copies retain
 their bounds and values; whole-String assignment preserves destination bounds.

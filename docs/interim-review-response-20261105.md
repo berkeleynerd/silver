@@ -1,7 +1,8 @@
 # Interim external review response — 2026-11-05
 
 Status: the selected repairs, complete Linux native and Lean assurance, and
-closing delivery review passed. PR #307 is draft, open and unmerged. The owner
+closing delivery review passed. The owner authorized merging PR #307 on
+2026-11-06, superseding the earlier draft/open hold. The owner
 authorized this response in PR #308, merged as
 `200e91a892b852e823494f2eaac7cde48602b123`. The exact
 [interim external report](reviews/interim-review-0d30841795-20261105.md)
@@ -306,7 +307,9 @@ B1–B5 and the selected regression/record corrections are complete. Med-2 was
 already merged on main through PR #321. Med-1's remaining explicit structural
 guards stay the tracked next-edit follow-up, with existing semantic/source
 review still mandatory. This clearance does not finish the interim external
-review or clear unexamined scope. PR #307 is ready for owner review and remains
-draft/open; merge is unauthorized. The feature/finding issues and milestone 16
-remain open pending a later owner-authorized merge. No later capability, #300
+review or clear unexamined scope. The owner
+[authorized merging PR #307 on 2026-11-06](session-memory.md#2026-11-06--repaired-string-merge-authorized),
+completing the delivered feature/finding scope and milestone 16. Keep #314 open
+in Backlog, outside that completed milestone, for its conditional structural
+guards. No later capability, #300
 sample batch, Oracle amendment or separate #8 experiment adoption is selected.

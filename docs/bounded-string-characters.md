@@ -1,6 +1,7 @@
 # Bounded String indexing and character operations
 
-Status: external-review repairs in progress, 2026-11-05; PR #307 is draft and unmerged.
+Status: complete repaired Linux assurance and closing review passed 2026-11-05;
+delivery through PR #307 was authorized on 2026-11-06.
 The [interim response](interim-review-response-20261105.md) supersedes the earlier
 completion assessment. Prior successful checks remain records of their exact inputs.
 [Milestone 16](https://github.com/berkeleynerd/silver/milestone/16) contains one
@@ -9,7 +10,8 @@ The [authorization](session-memory.md#2026-10-31--bounded-string-indexing-and-ch
 covers the complete implementation, assurance, review and feature PR delivery.
 The [delivery assurance and validation](#delivery-assurance-and-validation) section
 records the earlier reviewed checkpoint. Earlier dated sections preserve development history.
-PR #307 remains open for owner review.
+The [merge authorization](session-memory.md#2026-11-06--repaired-string-merge-authorized)
+supersedes the earlier hold for owner review.
 
 ## Initial scope
 
@@ -804,9 +806,9 @@ inputs and outcomes. The
 [repair closing review](reviews/review-interim-response-closing-20261105.md)
 passed on record base `d78329ccaf` plus the exact reviewed delivery patch and
 native packet, with final factual review-status/link updates checked separately.
-PR #307 is draft/open; merge is unauthorized. Milestone 16 and the
-feature/finding issues remain open pending an owner-authorized merge. Med-1's
-explicit structural guards remain the selected next-edit follow-up; the external
+The owner authorized merging PR #307 on 2026-11-06, completing milestone 16
+and its delivered feature/finding scope. Med-1's explicit structural guards in
+#314 remain an open next-edit follow-up outside the completed milestone; the external
 report remains interim and clears no unexamined scope. Rosetta support remains
 limited to the existing `bounded-string-characters` identifier and its three
 drivers. No later feature or Oracle amendment is selected.
