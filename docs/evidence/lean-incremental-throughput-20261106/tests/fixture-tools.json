@@ -1,0 +1,9 @@
+{
+  "destination_link": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-stable-cache/.tools/linux-x86_64/lean",
+  "policy": "Read-only pinned installation shared with idle four-control; fixture creates its own temporary object workspace; no cache transfer.",
+  "source_installation": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-four-control/.tools/linux-x86_64/lean",
+  "tools_sha256": {
+    "lake": "6f53827dab18010d6c690d14c8401cacabc1db958edb3552a877ed4cf1dd995d",
+    "lean": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550"
+  }
+}

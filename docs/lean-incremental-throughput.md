@@ -166,10 +166,44 @@ digest chooses a generated name and bucket only, never a proof fact. Ordinary
 token edits can change at most two buckets, while inserting an already-present
 line can leave all bucket source files unchanged. The authoritative binding,
 reconstruction and dependent checks must still invalidate when source bytes
-change. Actual proof-object reuse is being checked in the bounded edit fixture;
-no full-workload reuse or final integrated acceptance is claimed yet.
+change.
+
+The real Lean fixture `20261106T145355-acbd4750fe92` passed its no-op check and
+eleven edit cases in 340.850 seconds. Reordering, repeating an existing line,
+deleting a repeated occurrence and adding an empty line retained all eight
+bucket objects. The selected token, insertion, deletion and final-newline edits
+retained seven; the CRLF edit retained six. Checks compare actual `.olean`,
+private and server artifact bytes and timestamps, not names alone. An edited
+authoritative source with a restored timestamp rejected stale candidates;
+regeneration then rebuilt its binding and reconstruction and passed a fresh
+audit. These are bounded fixture observations, not production edit timings.
+
+The [native refresh](evidence/lean-incremental-throughput-20261106/native/README.md)
+passed all 17,496 checks with complete auditing and unchanged native sources.
+Its build was up to date. Both use the original installation and retained
+sessions/cache; the final eight-module runner registration matches their
+captured scripts. Final integrated Lean acceptance is still pending.
 
 Implementation and evidence retention select GPT-6.1 Sol / Extra High; the
 critical comparison and generator review select GPT-6 Astra / Extra High.
 Runtime-confirmed lead settings and token/cost measurements are unavailable.
 The final source/module/axiom checkpoint and closing review remain outstanding.
+
+## Integrated checkpoint — 2026-11-06
+
+Author implementation `dd132ecace` is integrated as `524dbfbd40` on draft
+[PR #330](https://github.com/berkeleynerd/silver/pull/330), stacked on PR #326.
+The [focused test packet](evidence/lean-incremental-throughput-20261106/tests/README.md)
+retains all **90 distinct passing methods** and exact input applicability.
+The [component review](reviews/review-lean-incremental-throughput-20261106.md#stable-content-component-review--1501-utc)
+found no unresolved correctness or scope issue and independently checked the
+implementation/fixture identities.
+
+Complete Lean run `20261106T150342-2526cc1a0ef4` started on those frozen inputs
+at 15:03 UTC, with automatic twelve-worker/twelve-thread settings and the
+previously successful 24,576 MiB per-process reconstruction allowance. It reuses
+the integration workspace's documented parent cache and completed comparison
+objects subject to normal dependency invalidation. The new bucket leaves,
+reconstruction and affected consumers must build, followed by a fresh complete
+module/axiom audit. Its outcome and final closing review remain pending.
+Both implementation PRs remain open; no implementation merge is selected.

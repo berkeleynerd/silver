@@ -1,0 +1,33 @@
+{
+  "actual_test_ids_match_retained_inventory": true,
+  "author_changed_file_hashes_match": 12,
+  "author_commit": "dd132ecacef8da635f8b9ff9b14d8e3cc8cec8f1",
+  "captured_external_inputs": {
+    "/usr/bin/python3.14": "b8d8288faefdd300201f43fcf00f6f539a27218eeed3a3dff5ab10b9c4c99700"
+  },
+  "captured_inputs": 905,
+  "captured_repository_source_paths": 904,
+  "cheap_contemporaneous_complete_managed_manifest": false,
+  "cheap_post_run_relevant_hashes_match_managed_inputs": true,
+  "distinct_executed_methods": 90,
+  "fixture_tool_executable_hashes_match": {
+    "lake": "6f53827dab18010d6c690d14c8401cacabc1db958edb3552a877ed4cf1dd995d",
+    "lean": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550"
+  },
+  "integration_commit": "524dbfbd4084c79f7048b1710dd3a7af76affe59",
+  "limits": [
+    "Cheap tests ran directly; their five relevant source hashes were supplied after completion, not as a contemporaneous complete managed manifest.",
+    "Managed snapshots and final input-stability checks apply to the two terminal managed runs, not retroactively to the direct cheap run.",
+    "Only committed source files, immutable terminal test records and pinned executable bytes were inspected; no active complete-Lean workspace output or cache was read."
+  ],
+  "managed_input_sets_identical": true,
+  "managed_inputs_sha256_digest": "66ba1ebe59cec4dfe0a23331d04b5ee3589ec1f298a1025c7fcaa22183e4e20f",
+  "managed_run_ids": [
+    "20261106T145355-acbd4750fe92",
+    "20261106T145951-7b7c28cabb66"
+  ],
+  "mismatches": [],
+  "repository_sources_match_worker_and_integration_and_both_git_commits": true,
+  "schema": 1,
+  "static_generated_file_hashes_match": 9
+}

@@ -1,0 +1,35 @@
+{
+  "aggregator_exactly_original_with_occurrence_leaf_names_replaced": true,
+  "base_commit": "18e471409e6a03a7ac59d8979e20beca8dc54766",
+  "bucket_counts": [
+    417,
+    379,
+    413,
+    438,
+    410,
+    410,
+    396,
+    415
+  ],
+  "created_utc": "2026-11-06T14:52:00.382570+00:00",
+  "generated_sha256": {
+    "OutputBodyCertificate.lean": "affc9e69d675ba3b91bef352ff3efe60ddd7caf8dd1c5bb2204d4231e9783efb",
+    "OutputBodyLines0.lean": "092cb2a67dede064ec7378a2d68935a2c6fb1664ca58a7fb265b8dea1df83f64",
+    "OutputBodyLines1.lean": "59a265065e42de14d0ae0786c03bba46fb367a091476e0078ba084dd6b9a6b33",
+    "OutputBodyLines2.lean": "9ed1d6ead23941c0abb5116f1f351fc9d53538c0d922610556d444ef25473eab",
+    "OutputBodyLines3.lean": "02aedc29c069a3a518a952c65f48b313ba34049cd6dbd5f6abda4d6b69973627",
+    "OutputBodyLines4.lean": "72df14ef5d76341e14440e8bf7b6b2022cff26f17e7b55856cca5136020c86c2",
+    "OutputBodyLines5.lean": "5c21619b9bccb4f62668035de821b99e4421e6be3124fb2507b3e236838bc211",
+    "OutputBodyLines6.lean": "d659efcf439c308ac61e81366dfe4062c9596b6f9cbbe29f67f0aca52ee55352",
+    "OutputBodyLines7.lean": "8f9ad9f1f9dbead7256bca39623da864fdbcc79e65f3179c26781f6de2574e33"
+  },
+  "line_literals_tokens_proof_bodies_preserved": true,
+  "occurrences": 4915,
+  "other_certificate_files_byte_identical": 27,
+  "runtime_confirmation": "unavailable",
+  "scope": "Generation/static correspondence only; no Lean/native validation",
+  "selected_effort": "Extra High",
+  "selected_model": "GPT-6.1 Sol",
+  "token_cost_measurements": "unavailable",
+  "unique_line_certificates": 3278
+}

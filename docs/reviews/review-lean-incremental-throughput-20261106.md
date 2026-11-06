@@ -1,8 +1,10 @@
 # Incremental Lean throughput review — 2026-11-06
 
 Static preservation and the matched focused measurements support retaining
-eight line chunks. Complete integrated assurance remains pending. The terminal
-assessment below supersedes the initial benchmark-pending status.
+eight line chunks. The subsequent stable-content component review has no
+unresolved finding and its real-object fixture passed. Complete integrated
+assurance remains pending. Later assessments supersede the earlier pending
+statuses below.
 
 ## Initial static boundary — 13:52 UTC
 
@@ -128,3 +130,66 @@ This continuation selected **GPT-6 Astra / Extra High**, without independently
 exposed runtime settings or token/cost measurements. Observed inspection
 interval: **14:45:44–14:47:18 UTC**. No test, proof, build or benchmark was
 launched, and no CLI recall was updated.
+
+## Stable-content component review — 15:01 UTC
+
+No unresolved correctness or scope finding in the frozen #328 implementation
+in `tmp/lean-stable-cache`, based on
+`18e471409e6a03a7ac59d8979e20beca8dc54766`. The reviewed delta comprises the
+generator, nine output-body Lean files and two tests. All 12 file hashes match
+the prepared inputs of successful managed fixture
+`20261106T145355-acbd4750fe92`, fingerprint
+`ed45c92e38b239dbdcd50b469da81a6551c36dcfb660d311d9bd8b637e7012bc`.
+The subsequent identity check binds these same 12 reviewed file hashes to
+author commit `dd132ecacef8da635f8b9ff9b14d8e3cc8cec8f1`. Integration copy
+`524dbfbd4084c79f7048b1710dd3a7af76affe59` has identical `proof/`, `src/`,
+`scripts/` and `tests/` bytes. This mapping adds no duplicate validation run.
+
+Independent extraction from the baseline and candidate confirms **4,915 ordered
+occurrences** reference **3,278 unique exact-text certificates**, in bucket sizes
+**417, 379, 413, 438, 410, 410, 396, 415**. Every baseline literal, token list,
+`correct` proof and `noNewline` proof is preserved under its content name.
+All nine generated hashes match the author's static record. The complete
+aggregator equals baseline after exactly 4,915 single-leaf reference
+substitutions: balanced joins, literal equality witnesses, final statements and
+imports are unchanged. The other 27 source certificates are unchanged.
+
+The full SHA-256 digest selects the name, its first byte selects one of eight
+buckets, and each bucket sorts by digest. Repeated exact text shares a proof;
+every occurrence remains in the reconstruction and flattened token sequence.
+CR bytes remain part of identity, and splitting on LF retains final empty
+entries, including the single entry for empty source. Conflicting texts with
+one digest fail before output publication. Digest identity supplies no new
+proof trust: literal/token/no-newline checks, reconstruction equality and the
+handwritten authoritative-source transport remain the assurance mechanism.
+
+Leaves acquire no source-dependent import or source-wide metadata. Changed
+unique text affects its bucket; occurrence-only edits can preserve every leaf.
+The runner still stages all nine outputs, preserves unchanged bytes/timestamps,
+checks source/workspace stability and performs fresh import/axiom auditing.
+Lake's authoritative binary dependency, including restored-timestamp detection,
+remains in place. The module inventory is unchanged at 638.
+
+The [retained test packet](../evidence/lean-incremental-throughput-20261106/tests/README.md)
+records **90 distinct passing methods**: 63 source/tooling checks in 13.112
+seconds, the real fixture below, and 26 run-history/platform consumers in
+176.948 seconds. The consumers' managed run
+`20261106T145951-7b7c28cabb66` finished successfully in 180.123021 seconds.
+The real Linux fixture passed in **340.850 seconds** (**344.237334 seconds**
+managed), with one reserved worker, explicit `-j1/-M2048` and the pinned Lean
+installation. It exercises no-op plus 11 edits: replacement, append, insertion,
+unique deletion, reorder, repetition, repeated-occurrence deletion, CRLF, final
+newline removal, empty-line addition and empty source. It checks actual
+`.olean`, `.olean.private` and `.olean.server` bytes and timestamps, not merely
+names. Reorder, repetition, repeated-occurrence deletion and empty-line addition
+each retained all eight buckets and **203,096 object bytes**, while binding and
+aggregator changed. A restored-timestamp stale-generation build failed;
+regeneration and fresh eight-leaf audits passed. These bounded fixtures support
+ordinary-edit reuse, not a production timing or complete-source assurance claim.
+
+The final integrated reconstruction/source/module/axiom checkpoint and remaining
+applicable validation still belong to delivery. This reviewer launched no test,
+proof, build or benchmark. Selected setting: **GPT-6 Astra / Extra High**;
+runtime confirmation and token/cost measurements are unavailable. Preliminary
+inspection began at 14:50:16 UTC; the frozen-input review interval was
+**14:56:32–15:01:21 UTC**, including waiting. No CLI recall was updated.

@@ -1,0 +1,47 @@
+{
+  "base_commit": "18e471409e6a03a7ac59d8979e20beca8dc54766",
+  "changed_files_sha256": {
+    "proof/Silver/OutputBodyCertificate.lean": "affc9e69d675ba3b91bef352ff3efe60ddd7caf8dd1c5bb2204d4231e9783efb",
+    "proof/Silver/OutputBodyLines0.lean": "092cb2a67dede064ec7378a2d68935a2c6fb1664ca58a7fb265b8dea1df83f64",
+    "proof/Silver/OutputBodyLines1.lean": "59a265065e42de14d0ae0786c03bba46fb367a091476e0078ba084dd6b9a6b33",
+    "proof/Silver/OutputBodyLines2.lean": "9ed1d6ead23941c0abb5116f1f351fc9d53538c0d922610556d444ef25473eab",
+    "proof/Silver/OutputBodyLines3.lean": "02aedc29c069a3a518a952c65f48b313ba34049cd6dbd5f6abda4d6b69973627",
+    "proof/Silver/OutputBodyLines4.lean": "72df14ef5d76341e14440e8bf7b6b2022cff26f17e7b55856cca5136020c86c2",
+    "proof/Silver/OutputBodyLines5.lean": "5c21619b9bccb4f62668035de821b99e4421e6be3124fb2507b3e236838bc211",
+    "proof/Silver/OutputBodyLines6.lean": "d659efcf439c308ac61e81366dfe4062c9596b6f9cbbe29f67f0aca52ee55352",
+    "proof/Silver/OutputBodyLines7.lean": "8f9ad9f1f9dbead7256bca39623da864fdbcc79e65f3179c26781f6de2574e33",
+    "proof/generate_source_certificate.py": "633655f041976bf2641a69e21ef333bd34ae913559cdc2d5ec572c20a19bece6",
+    "tests/test_lean_modules.py": "cb287c6dc17b7955edeb701775cc04ca4f92ede68a4393d7d77acd6b5ee67657",
+    "tests/test_lean_source.py": "5f77ec7653b6b7bc8807be3d4ef67612812903ffb5612106818253eeaff56b1f"
+  },
+  "implementation_commit": "dd132ecacef8da635f8b9ff9b14d8e3cc8cec8f1",
+  "outstanding": "Parent-owned full production Lean/source/module/axiom checkpoint and independent final review; no whole-feature validation claim here.",
+  "runtime_confirmation": "unavailable",
+  "selected_effort": "Extra High",
+  "selected_model": "GPT-6.1 Sol",
+  "source_snapshot_correspondence": "All twelve changed files match committed blobs and static generated-output hashes; source was frozen through both managed tests.",
+  "static_generation": "stable-content-static-parity.json",
+  "tests": {
+    "cheap_summary": "stable-cheap-test-summary.json",
+    "distinct_ids": 90,
+    "inventory": "stable-test-inventory.json",
+    "managed_runs": [
+      {
+        "immutable_directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T145355-acbd4750fe92",
+        "managed_seconds": 344.237333775,
+        "run_id": "20261106T145355-acbd4750fe92",
+        "test_methods": 1,
+        "test_reported_seconds": 340.85
+      },
+      {
+        "immutable_directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T145951-7b7c28cabb66",
+        "managed_seconds": 180.123020626,
+        "run_id": "20261106T145951-7b7c28cabb66",
+        "test_methods": 26,
+        "test_reported_seconds": 176.948
+      }
+    ]
+  },
+  "token_cost_measurements": "unavailable",
+  "tools": "stable-fixture-tools.json"
+}
