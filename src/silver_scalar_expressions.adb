@@ -170,7 +170,7 @@ package body Silver_Scalar_Expressions with SPARK_Mode => On is
       return Expression_Result is
      (declare Open_After : constant Literal_Position := Symbol (Text, Position, Character'Val (40));
       begin
-        (if Open_After = 0 then Invalid
+        (if Open_After = 0 or else Arrays.Items (Target).Boolean_Elements then Invalid
          else
            (declare Subscript : constant Expression_Result := Read_Expression
               (Text, Open_After, Names, Mask_First, Mask_After);
