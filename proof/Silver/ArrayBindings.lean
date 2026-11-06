@@ -294,6 +294,50 @@ theorem booleanAnalysis_canWrite_scalar (names : Metadata) (scalars : Boolean.An
   simp only [Boolean.Analysis.canWrite, (booleanAnalysis_scalar names scalars bounded).1,
     (booleanAnalysis_scalar names scalars bounded).2]
 
+theorem booleanAnalysis_initialize_scalar (names : Metadata) (scalars : Boolean.Analysis)
+    {index : Nat} (bounded : index ≤ BooleanBindings.maxBindings) (mutable : Bool) :
+    booleanAnalysis names (scalars.initialize index mutable) =
+      (booleanAnalysis names scalars).initialize index mutable := by
+  have atIndex := booleanAnalysis_scalar names (scalars.initialize index mutable) bounded
+  unfold Boolean.Analysis.initialize at atIndex
+  unfold booleanAnalysis Boolean.Analysis.initialize
+  congr 1 <;> funext cell <;> by_cases same : cell = index
+  · subst cell
+    simpa only [booleanAnalysis, ↓reduceIte] using atIndex.1
+  · simp only [same, ↓reduceIte]
+  · subst cell
+    simpa only [booleanAnalysis, ↓reduceIte] using atIndex.2
+  · simp only [same, ↓reduceIte]
+
+theorem booleanAnalysis_append_scalar (names : Metadata) (scalars : BooleanBindings.Environment)
+    (item : BooleanBindings.Binding) (space : scalars.length < BooleanBindings.maxBindings) :
+    booleanAnalysis names (BooleanBindings.analysis (scalars ++ [item])) =
+      (booleanAnalysis names (BooleanBindings.analysis scalars)).initialize
+        (scalars.length + 1) item.mutable := by
+  rw [BooleanBindings.analysis_append]
+  exact booleanAnalysis_initialize_scalar names _ (by omega) item.mutable
+
+theorem booleanAnalysis_append_fresh {names : Metadata} {item : Binding} {scalars : Boolean.Analysis}
+    (kind : item.isBoolean = true)
+    (fresh : ∀ cell, item.booleanDescriptor.ContainsCell cell →
+      (booleanAnalysis names scalars).initialized cell = false) :
+    booleanAnalysis (names ++ [item]) scalars =
+      item.booleanDescriptor.initializeAnalysis (booleanAnalysis names scalars) item.mutable := by
+  have noFind (cell : Nat) (inside : item.booleanDescriptor.ContainsCell cell) :
+      (booleanNames names).find? (fun entry => decide (entry.booleanDescriptor.ContainsCell cell)) = none := by
+    have empty := fresh cell inside
+    simp only [booleanAnalysis, Bool.or_eq_false_iff] at empty
+    apply List.find?_eq_none.mpr
+    intro entry member
+    exact List.any_eq_false.mp empty.1 entry member
+  unfold booleanAnalysis Boolean.ArrayDescriptor.initializeAnalysis
+  rw [booleanNames_append_boolean names kind]
+  congr 1 <;> funext cell <;> by_cases inside : item.booleanDescriptor.ContainsCell cell
+  · simp [List.any_append, inside]
+  · simp [List.any_append, inside]
+  · simp [List.find?_append, noFind cell inside, inside]
+  · simp [List.find?_append, inside]
+
 @[simp] theorem booleanAnalysis_append_integer (names : Metadata) (scalars : Boolean.Analysis)
     {item : Binding} (kind : item.isBoolean = false) :
     booleanAnalysis (names ++ [item]) scalars = booleanAnalysis names scalars := by

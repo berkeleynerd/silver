@@ -111,6 +111,41 @@ def Condition.checkedEvaluate (values : Values) (input : Source) (inputValid : B
         (right.checkedEvaluate values input inputValid integers booleans).map fun b =>
           if unequal then a != b else a == b
 
+/-- A readable, safe condition observes only initialized Boolean identities.
+For indexed reads, checked bounds place the selected address inside the
+initialized descriptor; an unchecked out-of-range address is not assumed safe. -/
+theorem Condition.evaluate_booleans_congr {condition : Condition} {shape : Shape}
+    {hasArguments : Bool} {analysis : Boolean.Analysis} {values : Values}
+    {input : Source} {valid : Bool} {integers : Integer.Store} {first second : Boolean.Store}
+    (readable : condition.Readable hasArguments shape analysis)
+    (safe : condition.Safe shape values input valid integers first)
+    (agree : ∀ cell, analysis.initialized cell = true → first cell = second cell) :
+    condition.evaluate values input valid integers first =
+      condition.evaluate values input valid integers second := by
+  induction condition with
+  | stringCompare | lengthCompare | scalarCompare | characterCompare | inputValid | booleanLiteral => rfl
+  | booleanName index => exact agree index readable
+  | booleanArrayRead array index =>
+      exact agree _ (Boolean.ArrayDescriptor.initialized_address readable safe.2)
+  | parenthesized inner ih => exact ih readable safe
+  | negated inner ih => exact congrArg Bool.not (ih readable safe)
+  | andThen left right ihl ihr =>
+      have leftSame := ihl readable.1 safe.1
+      simp only [evaluate, ← leftSame]
+      split
+      · rename_i reached
+        exact ihr readable.2 (safe.2 reached)
+      · rfl
+  | orElse left right ihl ihr =>
+      have leftSame := ihl readable.1 safe.1
+      simp only [evaluate, ← leftSame]
+      split
+      · rfl
+      · rename_i reached
+        exact ihr readable.2 (safe.2 (Bool.eq_false_iff.mpr reached))
+  | eager operator left right ihl ihr | booleanCompare operator left right ihl ihr =>
+      simp only [evaluate, ihl readable.1 safe.1, ihr readable.2 safe.2]
+
 theorem LengthOperand.evaluate_summary {operand : LengthOperand} {shape : Shape}
     {values : Values} {input : Source} {summary : Summary}
     (state : Fits shape input values) (found : operand.summary shape = some summary) :

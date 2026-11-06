@@ -121,6 +121,11 @@ theorem allCells_iff (array : ArrayDescriptor) (predicate : Nat → Bool) :
       ∀ cell, array.ContainsCell cell → predicate cell = true :=
   Integer.ArrayDescriptor.allCells_iff array.layout predicate
 
+/-- Analysis after allocation records the new cells and their mutability only. -/
+def initializeAnalysis (array : ArrayDescriptor) (before : Analysis) (mutable : Bool) : Analysis :=
+  { initialized := fun cell => if array.ContainsCell cell then true else before.initialized cell
+    mutable := fun cell => if array.ContainsCell cell then mutable else before.mutable cell }
+
 def initialized (array : ArrayDescriptor) (analysis : Analysis) : Bool :=
   array.allCells analysis.initialized
 
