@@ -126,6 +126,19 @@ class BooleanArrayTests(unittest.TestCase):
             b'A:array(0..1)of Boolean:=(Silver_Arguments.Input_Is_Valid,False);',
             b'if A(0) then null;else Silver_Arguments.Reject;end if;'), 2)
 
+    def test_string_character_conditions_in_initializers_and_writes(self) -> None:
+        declarations = (b"S:String:=\"ab\";C:Character:='a';I:Integer range 0..2:=1;"
+                        b'A:array(0..1)of Boolean:=(S(1)=C,S(1..1)="a");')
+        self.check(program(declarations, b"A(0):=S(2)='b';"
+                           b'if I>=1 then A(1):=S(I)=C;end if;'))
+        for condition in (b'S(0)=C', b'S(1..3)="abc"'):
+            with self.subTest(condition=condition):
+                self.check(program(b"S:String:=\"ab\";C:Character:='a';"
+                                   b'A:array(0..1)of Boolean:=(' + condition + b',False);',
+                                   b'null;'), 2)
+                self.check(program(declarations, b'A(0):=' + condition + b';'), 2)
+        self.check(program(declarations, b'A(0):=S(I)=C;'), 2)
+
     def test_index_operand_boundary_counts_the_array_read(self) -> None:
         def addition(count: int) -> bytes:
             expression = b'1'
@@ -140,9 +153,9 @@ class BooleanArrayTests(unittest.TestCase):
                 self.check(program(declarations, b'A(' + index + b'):=False;'), status)
 
     def test_native_snapshots_updates_and_loop_persistence(self) -> None:
-        declarations = (b'Seed:Boolean:=True;A:array(1..2)of Boolean:=(Seed,not Seed);'
+        declarations = (b"Seed:Boolean:=True;S:String:=\"ab\";A:array(1..2)of Boolean:=(Seed and (S(1)='a'),not Seed);"
                         b'B:constant array(1..2)of Boolean:=(A(2),A(1));C:Boolean:=B(2);')
-        body = (b'Seed:=False;A(1):=False;A(2):=A(1);'
+        body = (b"Seed:=False;S:=\"zz\";A(1):=S(2)='a';A(2):=A(1);"
                 b'for I in 1..2 loop A(I):=not A(I);end loop;'
                 b'if A(1) and A(2) and B(2) and not B(1) and C then '
                 b'Silver_IO.Put_Line("snapshots");else Silver_IO.Put_Line("bad");end if;')
