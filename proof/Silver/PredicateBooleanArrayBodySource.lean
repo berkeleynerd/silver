@@ -22,7 +22,7 @@ def assignmentSpec : List String := assignmentImpl ++ expectedTokens
   "with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan), Post => (Runtime => Valid_Body (Text, Context, Boolean_Array_Assignment_Body'Result) and then (Boolean_Array_Assignment_Body'Result.Position = 0 or else Boolean_Array_Assignment_Body'Result.Position > Scan.Position), Static => Boolean_Array_Assignment_Body'Result =" ++ (Compose.Expressions.call "boolean_array_assignment_model" [["text"], ["context"], ["scan"]]) ++ [")"]
 
 structure Checked (tokens : List String) : Prop where
-  precedence : targetBody.wellFormed = true ∧ assignmentBody.wellFormed = true
+  precedence : targetBody.wellFormedRoot = true ∧ assignmentBody.wellFormedRoot = true
   scopes : targetBody.scoped {} = true ∧ assignmentBody.scoped {} = true
   target_body : qualifiedExpressionBody "array_target" tokens = some targetBody.render
   target_spec : functionHeader "array_target" ";" tokens = some targetSpec

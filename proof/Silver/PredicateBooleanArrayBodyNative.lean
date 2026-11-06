@@ -142,10 +142,25 @@ def Expr.render : Expr α → List String
       value.render ++ [";"] ++ body.render
   | .beginValue value => ["begin"] ++ value.render
 
+/-- Selected-component prefixes are names, not arbitrary primaries. -/
+def Expr.prefix : Expr α → Bool
+  | .inputPosition | .scanPosition | .localFirst | .localAfter | .localTarget
+  | .localTargetAfter | .localValue | .skip _ | .nameAfter _ | .scalarLookup _ _
+  | .arrayLookup _ _ | .target _ | .targetAfter _ | .assignment _ | .condition _
+  | .mutable _ | .booleanElements _ | .valueAfter _ | .invalid => true
+  | .zero | .assigned _ | .group _ | .eqNat _ _ | .neNat _ _ | .leNat _ _
+  | .not _ | .orElse _ _ | .choose _ _ _ | .locals _ | .letFirst _ _
+  | .letAfter _ _ | .letTarget _ _ | .letTargetAfter _ _ | .letValue _ _
+  | .beginValue _ => false
+
 def Expr.primary : Expr α → Bool
+  | .inputPosition | .scanPosition | .localFirst | .localAfter | .localTarget
+  | .localTargetAfter | .zero | .localValue | .skip _ | .nameAfter _
+  | .scalarLookup _ _ | .arrayLookup _ _ | .target _ | .targetAfter _
+  | .assignment _ | .condition _ | .mutable _ | .booleanElements _
+  | .valueAfter _ | .invalid | .assigned _ | .group _ => true
   | .eqNat _ _ | .neNat _ _ | .leNat _ _ | .not _ | .orElse _ _ | .choose _ _ _
   | .locals _ | .letFirst _ _ | .letAfter _ _ | .letTarget _ _ | .letTargetAfter _ _ | .letValue _ _ | .beginValue _ => false
-  | _ => true
 
 def Expr.relation : Expr α → Bool
   | .eqNat _ _ | .neNat _ _ | .leNat _ _ | .not _ => true
@@ -154,6 +169,10 @@ def Expr.relation : Expr α → Bool
 def Expr.orHead : Expr α → Bool
   | .orElse _ _ => true
   | value => value.relation
+
+def Expr.expression (value : Expr α) : Bool := value.orHead
+def Expr.isChoice : Expr α → Bool | .choose _ _ _ => true | _ => false
+def Expr.isLocals : Expr α → Bool | .locals _ => true | _ => false
 
 def Expr.isLocal : Expr α → Bool
   | .letFirst _ _ | .letAfter _ _ | .letTarget _ _ | .letTargetAfter _ _ | .letValue _ _ => true
@@ -164,17 +183,25 @@ def Expr.isBegin : Expr α → Bool | .beginValue _ => true | _ => false
 def Expr.wellFormed : Expr α → Bool
   | .inputPosition | .scanPosition | .localFirst | .localAfter | .localTarget | .localTargetAfter | .zero | .localValue | .invalid => true
   | .skip value | .nameAfter value | .target value | .targetAfter value | .assignment value | .condition value | .mutable value | .booleanElements value
-  | .valueAfter value | .assigned value => value.primary && value.wellFormed
-  | .scalarLookup left right | .arrayLookup left right | .eqNat left right | .neNat left right | .leNat left right =>
+  | .assigned value => value.expression && value.wellFormed
+  | .valueAfter value => value.prefix && value.wellFormed
+  | .scalarLookup left right | .arrayLookup left right =>
+      left.expression && right.expression && left.wellFormed && right.wellFormed
+  | .eqNat left right | .neNat left right | .leNat left right =>
       left.primary && right.primary && left.wellFormed && right.wellFormed
   | .not value => value.primary && value.wellFormed
-  | .orElse left right => left.orHead && right.relation && left.wellFormed && right.wellFormed
-  | .choose test yes no => test.orHead && yes.primary && no.primary && test.wellFormed && yes.wellFormed && no.wellFormed
-  | .group value => value.wellFormed
+  | .orElse left right => left.orHead && right.orHead && left.wellFormed && right.wellFormed
+  | .choose test yes no => test.expression && yes.expression && no.expression && test.wellFormed && yes.wellFormed && no.wellFormed
+  | .group value => (value.expression || value.isChoice || value.isLocals) && value.wellFormed
   | .locals value => value.isLocal && value.wellFormed
   | .letFirst value body | .letAfter value body | .letTarget value body | .letTargetAfter value body | .letValue value body =>
-      value.primary && value.wellFormed && (body.isLocal || body.isBegin) && body.wellFormed
-  | .beginValue value => value.primary && value.wellFormed
+      value.expression && value.wellFormed && (body.isLocal || body.isBegin) && body.wellFormed
+  | .beginValue value => value.expression && value.wellFormed
+
+/-- The source extractor supplies the outer expression-function parentheses,
+but not a missing conditional or declaration introducer. -/
+def Expr.wellFormedRoot (value : Expr α) : Bool :=
+  (value.expression || value.isChoice || value.isLocals) && value.wellFormed
 
 structure Scope where
   first : Bool := false
@@ -253,7 +280,37 @@ theorem assignment_denotation (imports : Imports) (target : TargetCall) (text : 
   dsimp only [assignmentBody, Expr.eval, assignmentEquation]
   simp +instances only [Bool.or_eq_true, decide_eq_true_eq, or_assoc]
 
-theorem checked_precedence : targetBody.wellFormed = true ∧ assignmentBody.wellFormed = true := by decide +kernel
+theorem checked_precedence : targetBody.wellFormedRoot = true ∧ assignmentBody.wellFormedRoot = true := by decide +kernel
+
+namespace StructuralControls
+
+def atom : Expr Bool := .eqNat .zero .zero
+
+theorem selected_prefixes :
+    (Expr.valueAfter (.group .localValue)).wellFormed = false ∧
+    (Expr.valueAfter (.group (.choose atom .localValue .localValue))).wellFormed = false ∧
+    (Expr.valueAfter .localValue).wellFormed = true ∧
+    (Expr.valueAfter (.condition .inputPosition)).wellFormed = true := by decide +kernel
+
+theorem declaration_fragments :
+    (Expr.group (.letFirst .zero (.beginValue .zero))).wellFormed = false ∧
+    (Expr.letFirst .zero (.beginValue .zero)).wellFormedRoot = false ∧
+    (Expr.beginValue .zero).wellFormedRoot = false ∧
+    (Expr.locals (.beginValue .zero)).wellFormedRoot = false ∧
+    (Expr.locals (.letFirst .zero (.beginValue .localFirst))).wellFormedRoot = true ∧
+    (Expr.group (.locals (.letFirst .zero (.beginValue .localFirst)))).wellFormedRoot = true := by decide +kernel
+
+theorem precedence_and_children :
+    (Expr.not (.orElse atom atom)).render = (Expr.orElse (.not atom) atom).render ∧
+    (Expr.not (.orElse atom atom)).wellFormed = false ∧
+    (Expr.orElse (.not atom) atom).wellFormed = true ∧
+    (Expr.orElse atom (.orElse atom atom)).wellFormed = true ∧
+    (Expr.orElse (.orElse atom atom) atom).wellFormed = true ∧
+    (Expr.eqNat (.choose atom .zero .zero) .zero).wellFormed = false ∧
+    (Expr.eqNat (.group (.choose atom .zero .zero)) .zero).wellFormed = true ∧
+    (Expr.valueAfter (.condition (.choose atom .zero .zero))).wellFormed = false := by decide +kernel
+
+end StructuralControls
 
 theorem checked_scopes : targetBody.scoped {} = true ∧ assignmentBody.scoped {} = true := by decide +kernel
 
