@@ -200,7 +200,7 @@ checks and authoritative source transport remain unchanged.
 | Run ID | Actual result and retained records |
 | --- | --- |
 | `20261106T212312-4dc45d97ebe4` | Successful focused target `Silver.ComposeBooleanArraySourceCandidate`: 237.105 s build, new leaf 225 s; 11.202 s fresh axiom audit, 79 modules / 12,470 declarations, only `propext`, `Classical.choice`, `Quot.sound`. [Manifest](helper-memory/literal-repair-lean-focused-evidence.json), [log](helper-memory/literal-repair-lean-focused.log). |
-| `20261106T213048-2ad7d6083cbb` | Combined helper plus eight `OutputBodyLines` modules is active at this checkpoint. No successful combined or final authoritative-source result is claimed. |
+| `20261106T213048-2ad7d6083cbb` | Combined helper plus eight `OutputBodyLines` modules passed: 94 modules / 30,296 declarations, 2,856.052 s build / 8.753 s fresh audit, approved three foundations. [Manifest](helper-memory/combined-lean-focused-evidence.json), [log](helper-memory/combined-lean-focused.log), [762-input applicability](helper-memory/combined-input-applicability.json). This still excludes final authoritative-source reconstruction and the complete project audit. |
 
 The successful leaf run was incremental (`clean_build: false`), Linux x86_64,
 Lean 4.34.1, eight workers/eight threads per process, 12 available CPUs and
@@ -232,11 +232,36 @@ reuses the byte-identical success files above.
 
 ## Active native validation and remaining delivery
 
-Complete native run `20261106T201636-d09ed16a345c` is active on the original
+Complete native run `20261106T201636-d09ed16a345c` used the original
 installation with four workers and the canonical retained cache. Its 143
 tracked proof inputs (131 source files, nine Python scripts and three project
-or configuration files) match integration `831f9b348a`. It is separate from
-the proof-only helper repair and has no final audit result yet.
+or configuration files) matched integration `831f9b348a` and remain unchanged
+by the integrated proof-only header repair. It was deliberately interrupted at
+21:50:04 UTC after 5,605.352 s, once the unresolved `VC_ASSERT` at
+`silver_output_profile.adb:2178:32` was identified. Completed sessions, reports,
+cache entries and the exact diagnostic were retained; no full audit success is
+claimed. The earlier focused postcondition at line 2100 passed separately and
+did not prove this preceding assertion.
+
+The native diagnostic concerns `Same_Parser_State` between the executable
+array-declaration result and its model. Fieldwise candidate `d05d2bb379` failed
+run `20261106T215058-ebdafecd6a1b` on equality of their positions. Direct inline
+candidate `af55339df7` was rejected before proof in
+`20261106T220352-f4b0e62d076e`: the pinned tool does not allow that annotation
+with the existing conjunctive postcondition. Separate ghost expansion candidate
+`13026ad590` retained all existing bodies/contracts, but its isolated bridge
+failed in `20261106T221315-d935921d7570`. None of these candidates is integrated.
+The original source is restored for a focused 120-second solver-budget
+experiment, with the same provers, level and memory limit. Its result and the
+required complete native checkpoint are pending. No failed assertion is assumed
+as completed assurance, and no contract or language rule is weakened.
+
+The combined Lean checkpoint above used four Lake workers and eight threads per
+process at 24,576 MiB per process, sharing the 32 GiB host with the native work.
+All eight output line modules and the combined helper built successfully; the
+helper reported 669 s. The complete reconstruction, remaining source candidates
+and whole-project audit remain outstanding. Current governed input bytes are
+`8102cd3898`; later integration commits update documentation only.
 
 Documentation preparation selected GPT-6.1 Sol / High; runtime confirmation and
 token/cost measurements are unavailable. This subthread read the root, source,
