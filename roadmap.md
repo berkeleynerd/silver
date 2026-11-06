@@ -41,7 +41,8 @@ caller-visible mutation. Their detailed design follows the preceding deliveries.
 #296 is [authorized for implementation on 2026-10-31](docs/session-memory.md#2026-10-31--bounded-string-indexing-and-character-operations-authorized).
 #297 is [selected next on 2026-11-06](docs/session-memory.md#2026-11-06--structural-guards-merged-boolean-arrays-selected-next),
 under the owner's instruction to proceed after merging the ready structural
-guards. Keep it Backlog until that authorization reaches main. #298 remains a
+guards. Authorization reached main through PR #333; implementation is in
+progress on draft PR #335. #298 remains a
 **Backlog proposal**. Candidate samples need faithful implementations before
 any coverage gain is claimed. The separate sample-only
 proposal [#300](https://github.com/berkeleynerd/silver/issues/300) retains its
@@ -53,7 +54,7 @@ and deferred capacity work retain their scope.
 
 ### Fixed-size Boolean arrays
 
-**Selected next, 2026-11-06; implementation unstarted.**
+**Implementation integrated on draft PR #335, 2026-11-06; complete validation pending.**
 
 After the ready structural-guard delivery, the owner's instruction to proceed
 selects existing [#297](https://github.com/berkeleynerd/silver/issues/297) from
@@ -62,16 +63,17 @@ the recorded feature queue. The
 distinguishes that ordering inference from the owner's exact words.
 [Milestone 19](https://github.com/berkeleynerd/silver/milestone/19), **Fixed-size
 Boolean arrays**, contains this one cohesive work package; do not create a
-duplicate stage issue. Keep #297 Backlog until authorization reaches main,
-then Ready/claim through the ordinary workflow.
+duplicate stage issue. Authorization reached main as `430d206684` through
+[PR #333](https://github.com/berkeleynerd/silver/pull/333); #297 is In progress.
 
 The [bounded plan](docs/boolean-arrays.md) extends initialized static
 one-dimensional arrays to Boolean components and indexed reads/writes, composed
-with existing Boolean/scalar/index/loop machinery. Settle aggregate admission,
-visibility, cell representation and faithful bounded driver samples before
-implementation commits. Complete native and Lean universal/actual-source
-assurance, boundary/composition regressions, independent review and synchronized
-language/catalogue/sample/Rosetta records before reviewable feature publication.
+with existing Boolean/scalar/index/loop machinery. The integrated candidate uses
+explicit positional/singleton aggregates and typed Boolean storage, with existing
+name resolution and incoming-state snapshots. Independent scoped reviews and
+focused checks are recorded in the capability record. Complete native and Lean
+universal/actual-source assurance, boundary/composition regressions, final review
+and synchronized delivery records remain required before claiming support.
 Sieve of Eratosthenes and elementary cellular automata remain candidate drivers
 until their exact supported forms are established. Broad `arrays` stage #12
 remains Open/Backlog; promote only a precisely assessed delivered fragment.
