@@ -3,6 +3,7 @@ module
 public import Silver.ComposeContracts
 public import Silver.ComposeArrayElaboration
 public import Silver.ComposeStateBounds
+public import Silver.PredicateNativeRanges
 
 @[expose] public section
 
@@ -90,10 +91,26 @@ theorem model_arrayParts_valid (text : Source) (state : ParserState)
   have close := model_fixed_valid text _ ")" false upper.1
   have ofAfter := model_fixed_valid text _ "of" true close
   have typeFirst := model_skip_valid text _ ofAfter
-  have typeAfter := scalarTypeAt_position_valid text state (arrayDeclarationParts text state).typeFirst
-  have components := scalarTypeAt_bounded text state (arrayDeclarationParts text state).typeFirst subtypes
-  have assignment := model_fixed_valid text _ ":=" false typeAfter
-  have position := model_fixed_valid text _ "(" false assignment
+  have typeAfterBound (boolean : Bool) (cursor : Nat) :
+      ValidCursor text ((if boolean then
+        (⟨fixedAfter text cursor "boolean" true, Integer.Interval.full⟩ : ScalarConstraintResult)
+        else scalarTypeAt text state cursor).after) := by
+    split
+    · exact fixedAfter_result_bound text cursor "boolean" true (by decide)
+    · exact scalarTypeAt_position_valid text state cursor
+  have typeAfter : ValidCursor text (arrayDeclarationParts text state).typeAfter :=
+    typeAfterBound _ _
+  have componentBound (boolean : Bool) (cursor : Nat) :
+      (if boolean then
+        (⟨fixedAfter text cursor "boolean" true, Integer.Interval.full⟩ : ScalarConstraintResult)
+        else scalarTypeAt text state cursor).bounds.Bounded := by
+    split
+    · exact Integer.Interval.full_bounded
+    · exact scalarTypeAt_bounded text state cursor subtypes
+  have components : (arrayDeclarationParts text state).componentBounds.Bounded :=
+    componentBound _ _
+  have position : ValidCursor text (arrayDeclarationParts text state).position :=
+    fixedAfter_result_bound text _ "(" false (by decide)
   exact ⟨first, after, lowerStart, lower.1, lower.2, upperStart, upper.1, upper.2,
     typeFirst, typeAfter, components, position⟩
 
@@ -133,6 +150,44 @@ theorem model_arrayValues_valid (text : Source) (source result : ParserState)
           · exact reading.cursorBounds.2.2
         exact model_arrayValues_valid text source (putArrayValue result value.bounds.lower)
           _ length (parsed + 1) componentBounds (context.next remaining bounds.1 nextPosition)
+    · simp only [remaining, ↓reduceDIte]
+      exact ⟨context.positionValid, context.resultValid.2⟩
+termination_by length - parsed
+decreasing_by omega
+
+theorem model_booleanInitializer_bound (text : Source) (valid : ValidText text)
+    (state : ParserState) (position maskFirst maskAfter : Nat)
+    (names : ValidNames text state.names) (bounded : ValidCursor text position) :
+    ValidCursor text (booleanInitializerAfter text state position maskFirst maskAfter) :=
+  Predicate.Native.condition_bound text _ position _ valid names bounded
+
+theorem model_booleanArrayValues_valid (text : Source) (valid : ValidText text) (source result : ParserState)
+    (position length parsed maskFirst maskAfter : Nat)
+    (context : ArrayValuesDomain text source result position length parsed domain) :
+    ValidState text (booleanArrayValuesModel text source result position length parsed maskFirst maskAfter) := by
+  rw [booleanArrayValuesModel]
+  by_cases zero : position = 0
+  · simp only [zero, ↓reduceIte]
+    exact model_invalid_state_valid text
+  · simp only [zero, ↓reduceIte]
+    by_cases remaining : parsed < length
+    · simp only [remaining, ↓reduceDIte]
+      by_cases failed : booleanInitializerAfter text source position maskFirst maskAfter = 0
+      · simp only [failed, ↓reduceIte]
+        exact model_invalid_state_valid text
+      · simp only [failed, ↓reduceIte]
+        have valueBound := model_booleanInitializer_bound text valid source position maskFirst maskAfter
+          context.sourceValid.2.1 context.positionValid
+        have nextPosition : ValidCursor text
+            (if parsed + 1 < length then fixedAfter text
+              (booleanInitializerAfter text source position maskFirst maskAfter) "," false
+             else booleanInitializerAfter text source position maskFirst maskAfter) := by
+          split
+          · exact fixedAfter_result_bound text _ "," false (by decide)
+          · exact valueBound
+        exact model_booleanArrayValues_valid text valid source (putArrayValue result 0)
+          _ length (parsed + 1) maskFirst maskAfter
+          (context.next remaining (by decide +kernel) nextPosition)
     · simp only [remaining, ↓reduceDIte]
       exact ⟨context.positionValid, context.resultValid.2⟩
 termination_by length - parsed

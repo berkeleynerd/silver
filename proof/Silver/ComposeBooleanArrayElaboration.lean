@@ -197,4 +197,17 @@ theorem array_declaration_kinds_disjoint {text arguments state declaration first
       rw [parts, ready.integer] at kind
       contradiction
 
+theorem array_declaration_boolean_analysis {text arguments state declaration final}
+    (reading : ArrayDeclarationAt text arguments state declaration final) :
+    ArrayBindings.booleanAnalysis final.arrayNames.names (BooleanBindings.analysis final.booleanNames) =
+      ArrayBindings.booleanAnalysis state.arrayNames.names (BooleanBindings.analysis state.booleanNames) := by
+  cases reading with
+  | @declaration values parts lower upper position following expressions _ ready _ _ _ _ valuesRead _ _ =>
+      have fields := arrayValues_fields valuesRead
+      have names : values.arrayNames.names = state.arrayNames.names := congrArg (fun s => s.arrayNames.names) fields
+      have booleans : values.booleanNames = state.booleanNames := congrArg (fun s => s.booleanNames) fields
+      change ArrayBindings.booleanAnalysis (values.arrayNames.names ++ [parts.binding state])
+        (BooleanBindings.analysis values.booleanNames) = _
+      rw [names, booleans, ArrayBindings.booleanAnalysis_append_integer _ _ ready.integer]
+
 end Silver.Compose

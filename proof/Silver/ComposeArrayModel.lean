@@ -35,7 +35,7 @@ theorem model_arrayDeclaration_equation (text : Source) (state : ParserState)
   cases executable <;>
     simp only [arrayDeclarationEquation, model_arrayParts_equation] <;>
     dsimp +instances only [modelCalls, spelling, isWord, ShellToken.word, ShellToken.symbol] <;>
-    simp only [arrayDeclarationAt, Bool.decide_or, Bool.or_assoc, ite_self]
+    simp only [arrayDeclarationAt, arrayDeclarationValues, Bool.decide_or, Bool.or_assoc, ite_self]
   all_goals
     generalize arrayDeclarationParts text state = parts
     split
@@ -43,14 +43,14 @@ theorem model_arrayDeclaration_equation (text : Source) (state : ParserState)
     · by_cases single : (parts.upper.bounds.lower - parts.lower.bounds.lower + 1).toNat = 1
       · simp [single, arrayAggregatePosition, Bool.or_eq_true]
         split
-        · simp_all [model_arrayValues_zero, invalidState]
+        · simp_all [model_arrayValues_zero, booleanArrayValuesModel_zero, invalidState]
         · rename_i valid
           simp only [not_or] at valid
           rcases valid with ⟨nonzero, static, nonempty, low, high⟩
           simp_all [addArrayBinding, reject_or]
       · simp [single, arrayAggregatePosition, Bool.or_eq_true]
         by_cases zero : parts.position = 0
-        · simp [zero, model_arrayValues_zero, invalidState]
+        · simp [zero, model_arrayValues_zero, booleanArrayValuesModel_zero, invalidState]
         · simp [zero, addArrayBinding, reject_or]
 
 end Silver.Compose.Expressions
