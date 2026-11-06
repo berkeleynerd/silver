@@ -1798,6 +1798,7 @@ is
                  (Text, Source_State, Next_State, Next_Position, Length, Parsed + 1, Mask_First, Mask_After)))));
 
    Integer_Type_Word : constant String := "integer";
+   Boolean_Type_Word : constant String := "boolean";
    Validity_Call_Word : constant String := "input_is_valid";
 
    function Array_Declaration_Model
@@ -1835,7 +1836,7 @@ is
                 Take_Token (Text, Type_After, Assignment), Left_Parenthesis);
       begin
         (if not New_Name_Allowed (Text, State, First, After, Arguments)
-           or else (if Boolean_Elements then Name_Is (Text, First, After, "boolean")
+           or else (if Boolean_Elements then Name_Is (Text, First, After, Boolean_Type_Word)
                     else Name_Is (Text, First, After, Integer_Type_Word))
            or else Array_After = 0 or else Position = 0
            or else State.Array_Names.Names.Count = Array_Bindings.Max_Bindings
@@ -2129,7 +2130,7 @@ is
                 Take_Token (Text, Type_After, Assignment), Left_Parenthesis);
       begin
         (if not New_Name_Allowed (Text, State, First, After, Arguments)
-           or else (if Boolean_Elements then Name_Is (Text, First, After, "boolean")
+           or else (if Boolean_Elements then Name_Is (Text, First, After, Boolean_Type_Word)
                     else Name_Is (Text, First, After, Integer_Type_Word))
            or else Array_After = 0 or else Position = 0
            or else State.Array_Names.Names.Count = Array_Bindings.Max_Bindings
