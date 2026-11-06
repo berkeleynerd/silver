@@ -1,10 +1,10 @@
 # Source-tree structural guards review — 2026-11-06
 
-No unresolved component finding remains after the selector-prefix repair.
-The integrated guards are ready for the required complete Lean/source/module/
-axiom checkpoint. Focused acceptance does not establish final integrated
-assurance; native applicability and the final evidence record remain pending
-at this review boundary.
+Accepted for the authorized #314 scope: the selector-prefix finding is resolved,
+the complete integrated Lean/source/module/axiom checkpoint passed, and retained
+native evidence applies. No unresolved review finding remains. The closing
+confirmation below binds this verdict to the unchanged reviewed implementation
+and final evidence records.
 
 ## Scope and exact inputs
 
@@ -75,11 +75,16 @@ no changes. This finding is resolved in the reviewed predicate commit.
 
 ## Evidence and limits
 
+At the component-review boundary, complete integrated assurance, native
+applicability and the final evidence record were still pending. The following
+focused results cleared the components; the closing confirmation below resolves
+those remaining checks.
+
 Inspected immutable focused runs finished successfully: predicate
 `20261106T163857-813cf8538291` audited 348 modules/95,856 declarations; Image
 `20261106T163545-5268a6d953e4` audited 47 modules/11,226 declarations. Both use
 only `propext`, `Classical.choice` and `Quot.sound`. They remain partial checks;
-the lead owns complete integrated validation and retention of earlier failures.
+the lead subsequently completed integrated validation and retained earlier failures.
 
 The assurance, response, roadmap and task-record edits retain the interpreted
 source premises and accurately limit coverage. Opaque identifier/type-name
@@ -93,3 +98,44 @@ token/cost measurements are unavailable. Observed interval:
 resolved the prefix-category finding and cleared integrated component review.
 This reviewer launched no Lean, native, build or test job and changed only this
 report. No CLI recall was updated.
+
+## Closing evidence confirmation
+
+This bounded confirmation inspected documentation/evidence commit
+`d7b2f4bd9cab687cb685d0301479b0c4e14de135`, including its retained failure logs.
+Git confirms all governed implementation files remain identical to reviewed
+`92ab046be220177eb850be943791df57d87043dc`; subsequent changes are documentation
+and evidence only. Before this report edit, only unrelated `tmp/` was untracked;
+there were no uncommitted retention inputs.
+
+The [final packet](../evidence/source-tree-structural-guards-20261106/README.md)
+and original terminal records agree. Complete run
+`20261106T164208-1614accb2e5e` passed on Linux x86-64: its fresh audit enumerates
+exactly the current **641 modules** once each and checks **128,705 declarations**
+with only `propext`, `Classical.choice` and `Quot.sound`. Build/audit durations
+are 155.542/9.978 seconds, with 12 workers and 12 threads. All **748** captured
+shared-input hashes independently match current files and governed Git blobs;
+both executable hashes match. Generated certificates are outside that input
+count: all **36** candidate files currently match between shared and validation
+workspaces, and retained run `20261106T164008-c4b3837f4da3` passed all **16**
+source/certificate methods without skips, including regeneration parity and
+real kernel acceptance/rejection fixtures. Its 908 captured input hashes still
+match. This inspection regenerated nothing.
+
+The native archive hash and [applicability record](../evidence/source-tree-structural-guards-20261106/native-applicability.json)
+also match: independently recomputed original native inputs reproduce all
+**2,586 paths/hashes**, all **12** tool hashes match, and the exact **143** tracked
+paths match integration. Retained proof/build evidence therefore remains
+applicable: 17,496 checks and the up-to-date build, without a native rerun.
+All 24 packet artifact hashes match; both failed development runs retain their
+failure outcomes and diagnostic logs.
+
+The final records preserve the interpreted-source and opaque-leaf limitations.
+This is a cached Lean build with a fresh complete audit, not a clean build or
+independent kernel replay; it adds no whole application-suite, macOS or hosted-CI
+result. No new source review, validation job, source edit or publication was
+performed by this reviewer. Selected setting remains **GPT-6 Astra / Extra High**;
+runtime confirmation and token/cost measurements remain unavailable.
+Observed closing interval: **16:49:15–16:53:45 UTC** (4 minutes 30 seconds),
+including coordination and evidence inspection. This round closed the remaining
+evidence-applicability checks without new findings. No CLI recall was updated.
