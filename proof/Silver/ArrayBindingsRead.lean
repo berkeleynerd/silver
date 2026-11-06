@@ -128,4 +128,52 @@ theorem readBounds_correspondence {names : Metadata} {values : Initials} {target
       simp only [Integer.checked, nonempty, Bool.false_eq_true, ↓reduceIte, bounded,
         Integer.accepted, readBounds, hullModel, count]
 
+theorem readBounds_integer_correspondence {names : Metadata} {values : Initials} {target : Nat}
+    (valuesValid : ValidInitials values)
+    (metadata : ∀ entry ∈ names, ValidBinding entry)
+    (ordered : names.Pairwise (fun left right => left.offset + left.length ≤ right.offset))
+    (member : binding names target ∈ names)
+    (itemValid : ValidBinding (binding names target))
+    (kind : (binding names target).isBoolean = false) {indices : Integer.Interval}
+    (inside : contains (binding names target) indices = true) (elaborating : Bool)
+    (scalars : Integer.Ranges) :
+    Integer.arrayReadRange (integerRanges names values elaborating scalars)
+      (binding names target).descriptor indices = some (readBounds names values elaborating target indices) := by
+  have selectedMember : binding names target ∈ integerNames names := mem_integerNames.mpr ⟨member, kind⟩
+  have selectedMetadata := integerNames_validBindings metadata
+  have selectedOrdered := integerNames_ordered ordered
+  have checked : Integer.arrayIndexCheck (binding names target).descriptor indices = true := by
+    rw [← contains_indexCheck itemValid]; exact inside
+  cases elaborating with
+  | false =>
+      exact Integer.arrayReadRange_components checked
+        (body_ranges_components selectedMetadata selectedOrdered selectedMember values scalars) (binding_component_valid itemValid)
+  | true =>
+      have bounds := inside
+      simp only [contains, decide_eq_true_eq] at bounds
+      have positive : 0 < (indices.upper - indices.lower + 1).toNat := by omega
+      have span := arraySpanRange_initials (integerNames names) values scalars
+        ((binding names target).descriptor.address indices.lower)
+        (indices.upper - indices.lower + 1).toNat
+        (by simp only [Binding.descriptor, Integer.ArrayDescriptor.address]; omega)
+        (by
+          intro cell lower upper
+          apply (covers_iff (integerNames names) cell).mpr
+          refine ⟨binding names target, selectedMember, ?_⟩
+          simp only [Integer.ArrayDescriptor.ContainsCell, Binding.descriptor,
+            Integer.ArrayDescriptor.address, Integer.ArrayDescriptor.length] at *
+          omega)
+      have first : (binding names target).descriptor.address indices.lower - scalarLimit =
+          elementSlot (binding names target) indices.lower := by rw [elementSlot_address]; omega
+      have count : elementSlot (binding names target) indices.upper + 1 -
+          elementSlot (binding names target) indices.lower = (indices.upper - indices.lower + 1).toNat := by
+        simp only [elementSlot]; omega
+      rw [first] at span
+      simp only [integerRanges, Integer.arrayReadRange, checked, ↓reduceIte, span, Option.bind_some]
+      have bounded := hullFrom_bounded valuesValid (elementSlot (binding names target) indices.lower)
+        (indices.upper - indices.lower + 1).toNat
+      have nonempty := hullFrom_nonempty values (elementSlot (binding names target) indices.lower) positive
+      simp only [Integer.checked, nonempty, Bool.false_eq_true, ↓reduceIte, bounded,
+        Integer.accepted, readBounds, hullModel, count]
+
 end Silver.ArrayBindings

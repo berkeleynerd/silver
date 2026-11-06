@@ -51,6 +51,22 @@ def integerNames (names : Metadata) : Metadata := names.filter fun item => !item
 
 def booleanNames (names : Metadata) : Metadata := names.filter (·.isBoolean)
 
+@[simp] theorem integerNames_append_boolean (names : Metadata) {item : Binding}
+    (kind : item.isBoolean = true) : integerNames (names ++ [item]) = integerNames names := by
+  simp [integerNames, kind]
+
+@[simp] theorem integerNames_append_integer (names : Metadata) {item : Binding}
+    (kind : item.isBoolean = false) : integerNames (names ++ [item]) = integerNames names ++ [item] := by
+  simp [integerNames, kind]
+
+@[simp] theorem booleanNames_append_integer (names : Metadata) {item : Binding}
+    (kind : item.isBoolean = false) : booleanNames (names ++ [item]) = booleanNames names := by
+  simp [booleanNames, kind]
+
+@[simp] theorem booleanNames_append_boolean (names : Metadata) {item : Binding}
+    (kind : item.isBoolean = true) : booleanNames (names ++ [item]) = booleanNames names ++ [item] := by
+  simp [booleanNames, kind]
+
 def initialValue (values : Initials) (slot : Nat) : Int := values.getD (slot - 1) 0
 
 def putInitial (values : Initials) (slot : Nat) (value : Int) : Initials :=
@@ -132,6 +148,37 @@ def SourceReady (text : Source) (environment : Env) : Prop :=
   ValidEnvironment text environment ∧ environment.values.length = environment.used ∧
     environment.names.Pairwise (fun left right => left.offset + left.length ≤ right.offset) ∧
     InitialsFit environment.names environment.values
+
+@[simp] theorem mem_integerNames {names : Metadata} {item : Binding} :
+    item ∈ integerNames names ↔ item ∈ names ∧ item.isBoolean = false := by
+  simp [integerNames]
+
+@[simp] theorem mem_booleanNames {names : Metadata} {item : Binding} :
+    item ∈ booleanNames names ↔ item ∈ names ∧ item.isBoolean = true := by
+  simp [booleanNames]
+
+theorem integerNames_validBindings {names : Metadata}
+    (valid : ∀ item ∈ names, ValidBinding item) :
+    ∀ item ∈ integerNames names, ValidBinding item := by
+  intro item member
+  exact valid item (mem_integerNames.mp member).1
+
+theorem integerNames_ordered {names : Metadata}
+    (ordered : names.Pairwise (fun left right => left.offset + left.length ≤ right.offset)) :
+    (integerNames names).Pairwise (fun left right => left.offset + left.length ≤ right.offset) := by
+  exact List.Pairwise.filter (fun (item : Binding) => !item.isBoolean) ordered
+
+theorem integerNames_initialsFit {names : Metadata} {values : Initials}
+    (ready : InitialsFit names values) : InitialsFit (integerNames names) values := by
+  intro item member
+  exact ready item (mem_integerNames.mp member).1
+
+theorem integerNames_validMetadata {text : Source} {names : Metadata}
+    (valid : ValidMetadata text names) : ValidMetadata text (integerNames names) := by
+  refine ⟨Nat.le_trans (List.length_filter_le (fun (item : Binding) => !item.isBoolean) names)
+    valid.1, ?_, integerNames_ordered valid.2.2⟩
+  intro item member
+  exact valid.2.1 item (mem_integerNames.mp member).1
 
 def lookupFrom (text : Source) (names : Metadata) (first after : Nat) : Nat → Nat
   | 0 => 0
@@ -240,6 +287,17 @@ theorem booleanAnalysis_scalar (names : Metadata) (scalars : Boolean.Analysis) {
     intro item member
     simp [absent item member]
   simp [booleanAnalysis, noAny, noFind]
+
+theorem booleanAnalysis_canWrite_scalar (names : Metadata) (scalars : Boolean.Analysis) {scalar : Nat}
+    (bounded : scalar ≤ BooleanBindings.maxBindings) :
+    (booleanAnalysis names scalars).canWrite scalar = scalars.canWrite scalar := by
+  simp only [Boolean.Analysis.canWrite, (booleanAnalysis_scalar names scalars bounded).1,
+    (booleanAnalysis_scalar names scalars bounded).2]
+
+@[simp] theorem booleanAnalysis_append_integer (names : Metadata) (scalars : Boolean.Analysis)
+    {item : Binding} (kind : item.isBoolean = false) :
+    booleanAnalysis (names ++ [item]) scalars = booleanAnalysis names scalars := by
+  simp only [booleanAnalysis, booleanNames_append_integer names kind]
 
 theorem booleanAnalysis_initialized {names : Metadata} {item : Binding}
     (member : item ∈ names) (kind : item.isBoolean = true) (scalars : Boolean.Analysis) :
@@ -542,5 +600,57 @@ theorem body_ranges_components {names : Metadata} {item : Binding}
   change ranges names values false scalars (item.descriptor.address index) = some item.componentBounds
   simp only [ranges, covered, ↓reduceIte, Bool.false_eq_true,
     ordered_componentRange valid ordered member atCell]
+
+private theorem ordered_booleanFind {names : Metadata} {item : Binding} {cell : Nat}
+    (valid : ∀ entry ∈ names, ValidBinding entry)
+    (ordered : names.Pairwise (fun left right => left.offset + left.length ≤ right.offset))
+    (member : item ∈ names) (inside : item.booleanDescriptor.ContainsCell cell) :
+    names.find? (fun entry => decide (entry.booleanDescriptor.ContainsCell cell)) = some item := by
+  induction names with
+  | nil => simp at member
+  | cons head tail ih =>
+      have order := List.pairwise_cons.mp ordered
+      rcases List.mem_cons.mp member with same | member
+      · subst item
+        simp only [List.find?_cons, inside, decide_true]
+      · have separate := order.1 item member
+        have headLength := binding_booleanDescriptor_length (valid head (by simp))
+        have absent : ¬ head.booleanDescriptor.ContainsCell cell := by
+          intro contained
+          change head.booleanDescriptor.base ≤ cell ∧
+            cell < head.booleanDescriptor.base + head.booleanDescriptor.length at contained
+          change item.booleanDescriptor.base ≤ cell ∧
+            cell < item.booleanDescriptor.base + item.booleanDescriptor.length at inside
+          rw [headLength] at contained
+          simp only [Binding.booleanDescriptor] at contained inside
+          omega
+        have rest := ih (fun entry found => valid entry (by simp [found])) order.2 member
+        simpa only [List.find?_cons, absent, decide_false, Bool.false_eq_true, ↓reduceIte] using rest
+
+theorem booleanAnalysis_mutability {names : Metadata} {item : Binding} {cell : Nat}
+    (valid : ∀ entry ∈ names, ValidBinding entry)
+    (ordered : names.Pairwise (fun left right => left.offset + left.length ≤ right.offset))
+    (member : item ∈ names) (kind : item.isBoolean = true)
+    (inside : item.booleanDescriptor.ContainsCell cell) (scalars : Boolean.Analysis) :
+    (booleanAnalysis names scalars).mutable cell = item.mutable := by
+  have found := ordered_booleanFind
+    (names := booleanNames names)
+    (fun entry present => valid entry (mem_booleanNames.mp present).1)
+    (List.Pairwise.filter (fun (entry : Binding) => entry.isBoolean) ordered)
+    (mem_booleanNames.mpr ⟨member, kind⟩) inside
+  simp only [booleanAnalysis, found]
+
+theorem booleanAnalysis_writable {names : Metadata} {item : Binding}
+    (valid : ∀ entry ∈ names, ValidBinding entry)
+    (ordered : names.Pairwise (fun left right => left.offset + left.length ≤ right.offset))
+    (member : item ∈ names) (kind : item.isBoolean = true) (writable : item.mutable = true)
+    (scalars : Boolean.Analysis) :
+    item.booleanDescriptor.writable (booleanAnalysis names scalars) = true := by
+  apply (Boolean.ArrayDescriptor.allCells_iff _ _).mpr
+  intro cell inside
+  apply Bool.and_eq_true_iff.mpr
+  refine ⟨?_, (booleanAnalysis_mutability valid ordered member kind inside scalars).trans writable⟩
+  exact (Boolean.ArrayDescriptor.allCells_iff _ _).mp
+    (booleanAnalysis_initialized member kind scalars) cell inside
 
 end Silver.ArrayBindings
