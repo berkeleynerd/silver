@@ -3,6 +3,7 @@ module
 public import Silver.ImageFilesTrace
 public import Silver.ImageModelInitialSource
 public import Silver.ImageFilesSplice
+public import Silver.ImageFilesSpliceGuards
 public import Silver.ImageFilesCapture
 public import Silver.ImageFilesSourceShape
 import all Init.Data.Repr
@@ -59,12 +60,14 @@ theorem splice_expression : Source.imageFilesSpecTokens = specRender := by
 theorem body_context : Source.imageFilesBodyTokens = FilesShape.body := by decide +kernel
 
 /-- Exact authoritative bytes and lexical context, with both loop bodies and
-Spliced_Prefix interpreted by the typed command/expression renderings above. -/
+Spliced_Prefix interpreted by the typed command/expression renderings above,
+and the splice expression's constructor structure checked separately. -/
 structure ActualSource : Prop where
   spec : Source.lex Source.imageFilesSpec = some specRender
   body : Source.lex Source.imageFilesBody = some FilesShape.body
   snapshot : SourceBridge.block "procedure" "snapshot" Source.imageFilesBodyTokens = some snapshotRender
   refine : SourceBridge.block "procedure" "refine" Source.imageFilesBodyTokens = some refineRender
+  splicePrecedence : FilesSplice.expression.wellFormed = true ∧ FilesSplice.expression.logical = true
 
 theorem actual_source : ActualSource := by
   constructor
@@ -72,6 +75,7 @@ theorem actual_source : ActualSource := by
   · rw [Source.imageFilesBodyTokens_correct, body_context]
   · exact snapshot_block
   · exact refine_block
+  · exact FilesSplice.checked_precedence
 
 /-- Full finite executions of either checked native loop determine the scanner
 state from the exact recorded consumed prefix, including failed iterations.

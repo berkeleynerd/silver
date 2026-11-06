@@ -3,12 +3,20 @@ module
 import all Init.Data.Repr
 import all Init.Data.Char.Basic
 public import Silver.ImageModelConsumeNative
+public import Silver.ImageModelScannerGuards
 
 @[expose] public section
 set_option maxRecDepth 100000
 set_option maxHeartbeats 20000000
 namespace Silver.ImageModel.SourceBridge
 open ScannerNative
+
+/-- Structural evidence accompanies the token checks below; the interpreted
+scanner premise and its semantic endpoints are unchanged. -/
+theorem scanner_precedence : currentTrees.all Command.wellFormed = true ∧
+    structuralCommands.wellFormed = true ∧ consumeCommands.wellFormed = true ∧
+    structuralCommands.statement = true ∧ consumeCommands.statement = true :=
+  ScannerNative.checked_precedence
 
 theorem structural_block : block "procedure" "structural" Source.imageModelBodyTokens =
     some structuralRender := by
