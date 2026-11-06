@@ -17,7 +17,7 @@ structure At (text : Source) (names : Environment) (position : Nat)
     (elaborating : Bool := false) : Prop where
   positionBound : position ≤ text.length + 1
   grammar : sourceSyntaxAt text names arrays maskFirst maskAfter allowSign position ⟨result.after, expression⟩
-  inferred : expression.infer (ArrayBindings.ranges arrays initials elaborating (ranges names)) = some result.bounds
+  inferred : expression.infer (ArrayBindings.integerRanges arrays initials elaborating (ranges names)) = some result.bounds
   operands : result.operands = leaves expression
   operandBound : leaves expression ≤ maxOperands
   staticValue : result.isStatic = isStatic names expression
@@ -91,7 +91,7 @@ theorem at_safe {text : Source} {names : Environment} {position maskFirst maskAf
     {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating : Bool}
     {allowSign : Bool} {expression : Integer.Expr} {result : Result} {values : Integer.Store}
     (parsed : At text names position expression result maskFirst maskAfter allowSign arrays initials elaborating)
-    (fits : Integer.Fits (ArrayBindings.ranges arrays initials elaborating (ranges names)) values) :
+    (fits : Integer.Fits (ArrayBindings.integerRanges arrays initials elaborating (ranges names)) values) :
     expression.Safe values ∧ result.bounds.Contains (expression.evaluate values) ∧
       expression.checkedEvaluate values = some (expression.evaluate values) := by
   have safe := expression.infer_sound parsed.inferred fits
@@ -118,10 +118,10 @@ theorem At.noArray_infer_overlay {text : Source} {names : Environment} {position
     (parsed : At text names position expression result maskFirst maskAfter allowSign arrays initials elaborating)
     (absent : expression.hasArray = false) (capacity : names.length ≤ ArrayBindings.scalarLimit)
     (scalars : Integer.Ranges) :
-    expression.infer (ArrayBindings.ranges arrays initials elaborating scalars) = expression.infer scalars := by
+    expression.infer (ArrayBindings.integerRanges arrays initials elaborating scalars) = expression.infer scalars := by
   apply Integer.Expr.infer_readsOnly (parsed.noArray_readsOnly absent)
   intro index inside
-  exact ArrayBindings.ranges_scalar arrays initials elaborating scalars (by omega)
+  exact ArrayBindings.ranges_scalar (ArrayBindings.integerNames arrays) initials elaborating scalars (by omega)
 
 theorem At.noArray_evaluate_overlay {text : Source} {names : Environment} {position maskFirst maskAfter : Nat}
     {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating allowSign : Bool}
@@ -129,10 +129,10 @@ theorem At.noArray_evaluate_overlay {text : Source} {names : Environment} {posit
     (parsed : At text names position expression result maskFirst maskAfter allowSign arrays initials elaborating)
     (absent : expression.hasArray = false) (capacity : names.length ≤ ArrayBindings.scalarLimit)
     (scalars : Integer.Store) :
-    expression.evaluate (ArrayBindings.store arrays initials scalars) = expression.evaluate scalars := by
+    expression.evaluate (ArrayBindings.integerStore arrays initials scalars) = expression.evaluate scalars := by
   apply Integer.Expr.evaluate_readsOnly (parsed.noArray_readsOnly absent)
   intro index inside
-  exact ArrayBindings.store_scalar arrays initials scalars (by omega)
+  exact ArrayBindings.store_scalar (ArrayBindings.integerNames arrays) initials scalars (by omega)
 
 theorem read_arrays_zero {text : Source} {names : Environment} {position maskFirst maskAfter : Nat}
     {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating allowSign : Bool}
@@ -147,7 +147,7 @@ theorem read_arrays_zero {text : Source} {names : Environment} {position maskFir
       split
       · rfl
       · rename_i good
-        cases found : value.expression.infer (ArrayBindings.ranges arrays initials elaborating (ranges names)) with
+        cases found : value.expression.infer (ArrayBindings.integerRanges arrays initials elaborating (ranges names)) with
         | none => rfl
         | some bounds => simp only [ite_eq_right good, found] at zero; omega
 
@@ -168,7 +168,7 @@ theorem read_arrays_has_expression {text : Source} {names : Environment} {positi
     {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {elaborating allowSign : Bool}
     (bound : position ≤ text.length + 1)
     (success : (read text position names maskFirst maskAfter allowSign arrays initials elaborating).after ≠ 0) :
-    ∃ expression, expression.infer (ArrayBindings.ranges arrays initials elaborating (ranges names)) =
+    ∃ expression, expression.infer (ArrayBindings.integerRanges arrays initials elaborating (ranges names)) =
         some (read text position names maskFirst maskAfter allowSign arrays initials elaborating).bounds ∧
       leaves expression = (read text position names maskFirst maskAfter allowSign arrays initials elaborating).operands ∧
       isStatic names expression = (read text position names maskFirst maskAfter allowSign arrays initials elaborating).isStatic := by

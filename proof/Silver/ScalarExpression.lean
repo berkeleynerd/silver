@@ -208,6 +208,7 @@ def arrayAtom (fuel : Nat) (text : Source) (position : Nat) (names : Environment
     let after := nameAfter text first
     let target := ArrayBindings.lookup text arrays first after
     if first = 0 ∨ first > text.length ∨ after = 0 ∨ target = 0 ∨
+        (ArrayBindings.binding arrays target).isBoolean = true ∨
         lookup text names first after ≠ 0 ∨
         Cursor.byteAt text first = 43 ∨ Cursor.byteAt text first = 45 ∨
         (ScalarLiteral.read text first).after ≠ 0 ∨
@@ -253,7 +254,7 @@ def summarizeArrays (names : Environment) (arrays : ArrayBindings.Metadata)
   | none => invalid
   | some value =>
       if value.after = 0 ∨ maxOperands < leaves value.expression then invalid
-      else match value.expression.infer (ArrayBindings.ranges arrays initials elaborating (ranges names)) with
+      else match value.expression.infer (ArrayBindings.integerRanges arrays initials elaborating (ranges names)) with
       | none => invalid
       | some bounds => ⟨value.after, bounds, leaves value.expression, isStatic names value.expression⟩
 
