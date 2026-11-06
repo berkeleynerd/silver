@@ -157,10 +157,30 @@ source-pin parity for output hash `d82f6880924196f6fccc2077ed86b71c6a31683d72b8e
 it explicitly is not a kernel or universal source proof. Source pin agreement
 and the cache inventory cannot substitute for complete correspondence.
 
-The lead reports managed source-policy preflight `20261106T200200-7ef07483368b`
-as ongoing: handwritten policy checks passed so far, while checked-in generated
-output/scalar-body/array-spec certificates need their expected final refresh.
-No successful preflight or final certificate/kernel result is claimed here.
+Managed source-policy preflight `20261106T200200-7ef07483368b` finished failed
+on stale generated output/scalar-body/array-spec certificates. Its separate
+native kernel-control method passed. Commit `4c76637b6c` refreshed the three
+certificates and eight output line modules. Rerun
+`20261106T200420-7eed53372413` passed all 15 source-policy methods, including
+certificate parity, in 7.675 s. This is not complete source correspondence.
+
+The integrated helper run `20261106T200514-093a13a9b4dc` then failed two kernel
+decisions at the shared `all_goals` command in `candidate_boolean_array_helpers`
+at the 24,576 MiB per-process memory threshold. The build took 2,661.426 s;
+`ReviewedOutputShape` built successfully in 191 s, and the failed helper module
+reported 2,463 s. The [failed log](helper-memory/failed-focused.log),
+[events](helper-memory/events.jsonl) and [diagnostic](helper-memory/diagnostic.json)
+are retained. The two failing field identities were not printed by that shared
+command. The next check isolates named Boolean-array fields and bridges the
+long expected-token headers through kernel-checked literal equalities, keeping
+the public statements and authoritative source route unchanged. The source
+candidate remains pending until that repair and the full checkpoint pass.
+
+Complete native run `20261106T201636-d09ed16a345c` is active on the original
+installation with four workers and the canonical retained cache. Its 143
+tracked proof inputs (131 source files, nine Python scripts and three project
+or configuration files) match integration `831f9b348a`. It is separate from
+the proof-only helper repair and has no final audit result yet.
 
 Documentation preparation selected GPT-6.1 Sol / High; runtime confirmation and
 token/cost measurements are unavailable. This subthread read the root, source,
