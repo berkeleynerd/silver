@@ -13,17 +13,17 @@ theorem summarizeArrays_readsOnly {names : Environment} {value : Parsed}
     (reads : value.expression.ReadsOnly (fun index => 0 < index ∧ index ≤ names.length))
     (arrays : ArrayBindings.Metadata) (initials : ArrayBindings.Initials) (elaborating : Bool) :
     summarizeArrays names arrays initials elaborating (some value) = summarize names (some value) := by
-  have same : value.expression.infer (ArrayBindings.ranges arrays initials elaborating (ranges names)) =
+  have same : value.expression.infer (ArrayBindings.integerRanges arrays initials elaborating (ranges names)) =
       value.expression.infer (ranges names) := by
     apply Integer.Expr.infer_readsOnly reads
     intro index inside
-    exact ArrayBindings.ranges_scalar arrays initials elaborating (ranges names) (by omega)
+    exact ArrayBindings.ranges_scalar (ArrayBindings.integerNames arrays) initials elaborating (ranges names) (by omega)
   simp only [summarizeArrays, summarize, same]
 
 theorem summarizeArrays_nil (names : Environment) (initials : ArrayBindings.Initials)
     (elaborating : Bool) (parsed : Option Parsed) :
     summarizeArrays names [] initials elaborating parsed = summarize names parsed := by
-  cases parsed <;> simp only [summarizeArrays, summarize, ArrayBindings.ranges_nil]
+  cases parsed <;> simp only [summarizeArrays, summarize, ArrayBindings.integerRanges, ArrayBindings.integerNames, List.filter_nil, ArrayBindings.ranges_nil]
 
 theorem indexed_summary_correspondence {text : Source} {names : Environment}
     {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {target : Nat}
@@ -32,6 +32,7 @@ theorem indexed_summary_correspondence {text : Source} {names : Environment}
     (initialsValid : ArrayBindings.ValidInitials initials)
     (member : ArrayBindings.binding arrays target ∈ arrays)
     (itemValid : ArrayBindings.ValidBinding (ArrayBindings.binding arrays target))
+    (integerKind : (ArrayBindings.binding arrays target).isBoolean = false)
     (elaborating : Bool) (position afterName : Nat) (index : Parsed)
     (before : position ≤ afterName) (advanced : afterName < index.after)
     (indexBound : index.after ≤ text.length + 1)
@@ -47,11 +48,11 @@ theorem indexed_summary_correspondence {text : Source} {names : Environment}
          else some ⟨symbol text index.after 41,
            .indexed (ArrayBindings.binding arrays target).descriptor index.expression⟩) := by
   have positive : index.after ≠ 0 := by omega
-  have inferredSame : index.expression.infer (ArrayBindings.ranges arrays initials elaborating (ranges names)) =
+  have inferredSame : index.expression.infer (ArrayBindings.integerRanges arrays initials elaborating (ranges names)) =
       index.expression.infer (ranges names) := by
     apply Integer.Expr.infer_readsOnly reads
     intro scalar inside
-    exact ArrayBindings.ranges_scalar arrays initials elaborating (ranges names) (by omega)
+    exact ArrayBindings.ranges_scalar (ArrayBindings.integerNames arrays) initials elaborating (ranges names) (by omega)
   by_cases closed : symbol text index.after 41 = 0
   · simp only [closed, Nat.zero_le, ↓reduceIte, summarizeArrays]
     by_cases rejected : (summarize names (some index)).after = 0
@@ -88,9 +89,9 @@ theorem indexed_summary_correspondence {text : Source} {names : Environment}
                   rw [← ArrayBindings.contains_indexCheck itemValid]; exact inside
                 simp [Integer.arrayReadRange, rejected]
             | true =>
-                rw [ArrayBindings.readBounds_correspondence initialsValid
+                rw [ArrayBindings.readBounds_integer_correspondence initialsValid
                   (fun entry present => (metadata.2.1 entry present).2.2.2)
-                  metadata.2.2 member itemValid inside elaborating]
+                  metadata.2.2 member itemValid integerKind inside elaborating]
                 simp [isStatic, Nat.add_comm]
 
 theorem lookup_after_zero (text : Source) (names : Environment) (first : Nat) :
@@ -109,6 +110,7 @@ theorem arraysAtomStep_dispatch (recurse : Reader) (text : Source) (position : N
         let after := nameAfter text first
         let target := ArrayBindings.lookup text arrays first after
         if first = 0 ∨ first > text.length ∨ after = 0 ∨ target = 0 ∨
+            (ArrayBindings.binding arrays target).isBoolean = true ∨
             lookup text names first after ≠ 0 ∨
             Cursor.byteAt text first = 43 ∨ Cursor.byteAt text first = 45 ∨
             (ScalarLiteral.read text first).after ≠ 0 ∨
@@ -148,7 +150,10 @@ theorem arraysAtomStep_dispatch (recurse : Reader) (text : Source) (position : N
               have b : ¬ text.length < skip text position := by omega
               have c : Cursor.byteAt text (skip text position) ≠ 43 := by omega
               have d : Cursor.byteAt text (skip text position) ≠ 45 := by omega
-              simp [a, b, c, d, noName, number, masked]
+              by_cases boolean : (ArrayBindings.binding arrays (ArrayBindings.lookup text arrays
+                  (skip text position) (nameAfter text (skip text position)))).isBoolean = true
+              · simp [a, b, c, d, noName, number, masked, boolean, arrayAtomStep]
+              · simp [a, b, c, d, noName, number, masked, boolean]
             · simp [noScalar]
 
 theorem arrayAtomStep_correspondence {text : Source} {names : Environment}
@@ -158,6 +163,7 @@ theorem arrayAtomStep_correspondence {text : Source} {names : Environment}
     (initialsValid : ArrayBindings.ValidInitials initials)
     (member : ArrayBindings.binding arrays target ∈ arrays)
     (itemValid : ArrayBindings.ValidBinding (ArrayBindings.binding arrays target))
+    (integerKind : (ArrayBindings.binding arrays target).isBoolean = false)
     (fuel position afterName maskFirst maskAfter : Nat) (elaborating : Bool)
     (before : position ≤ afterName) (afterBound : afterName ≤ text.length + 1) :
     arrayAtomStep (readFuel fuel) text afterName names maskFirst maskAfter target arrays initials elaborating =
@@ -169,6 +175,7 @@ theorem arrayAtomStep_correspondence {text : Source} {names : Environment}
             some ⟨closed, .indexed (ArrayBindings.binding arrays target).descriptor index.expression⟩) := by
   unfold arrayAtomStep
   dsimp only
+  simp only [integerKind, Bool.false_eq_true, or_false]
   split
   · rfl
   · rename_i opened
@@ -179,7 +186,7 @@ theorem arrayAtomStep_correspondence {text : Source} {names : Environment}
     | some index =>
         have bounds := parseFuel_bounds opening.2 parsed
         have reads := syntax_readsOnly (parseFuel_sound opening.2 parsed)
-        exact indexed_summary_correspondence valid.1 metadata initialsValid member itemValid elaborating
+        exact indexed_summary_correspondence valid.1 metadata initialsValid member itemValid integerKind elaborating
           position afterName index before (by omega) bounds.2 reads
 
 theorem arraysAtom_correspondence {text : Source} {names : Environment}
@@ -214,7 +221,10 @@ theorem arraysAtom_correspondence {text : Source} {names : Environment}
         simpa only [nameAfter, firstPositive, ↓reduceIte] using identifier
       have targetPositive : 0 < ArrayBindings.lookup text arrays (skip text position) (nameAfter text (skip text position)) := by omega
       have member := ArrayBindings.Native.binding_mem targetPositive (ArrayBindings.Native.lookup_bound text arrays _ _)
-      exact arrayAtomStep_correspondence valid metadata initialsValid member (metadata.2.1 _ member).2.2.2
+      have integerKind : (ArrayBindings.binding arrays (ArrayBindings.lookup text arrays
+          (skip text position) (nameAfter text (skip text position)))).isBoolean = false :=
+        Bool.eq_false_iff.mpr (fun tag => good (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl tag))))))
+      exact arrayAtomStep_correspondence valid metadata initialsValid member (metadata.2.1 _ member).2.2.2 integerKind
         fuel position _ maskFirst maskAfter elaborating (by omega) namedBounds.2
 
 end Silver.ScalarExpression.Native

@@ -265,7 +265,7 @@ theorem arraysReadStep_congr {text : Source} {names : Environment}
                     split
                     · rfl
                     · rename_i opening
-                      rw [scalarSame _ true (symbol_bounds (nameAfter_cursor_bound text _) opening).2]
+                      rw [scalarSame _ true (symbol_bounds (nameAfter_cursor_bound text _) (not_or.mp opening).1).2]
 
 theorem arrays_read_step {text : Source} {names : Environment}
     (valid : ValidEnvironment text names) {arrays : ArrayBindings.Metadata}

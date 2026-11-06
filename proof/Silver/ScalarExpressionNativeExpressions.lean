@@ -114,12 +114,14 @@ inductive Field : Ty → Ty → Type
   | bindingStatic : Field .binding .truth | resultStatic : Field .result .truth
   | resultOperands : Field .result .number | literalValue : Field .literal .integer
   | count : Field .environment .number
+  | arrayBooleanElements : Field .arrayBinding .truth
 
 def Field.name : Field a b → String
   | .resultAfter | .literalAfter | .bindingAfter => "after" | .bindingFirst => "first"
   | .bindingBounds | .resultBounds | .checkBounds => "bounds" | .checkSafe => "safe"
   | .bindingStatic | .resultStatic => "static" | .resultOperands => "operands"
   | .literalValue => "value" | .count => "count"
+  | .arrayBooleanElements => "boolean_elements"
 
 def Field.get : Field a b → a.meaning → b.meaning
   | .resultAfter, value => value.after | .literalAfter, value => value.after
@@ -129,6 +131,7 @@ def Field.get : Field a b → a.meaning → b.meaning
   | .bindingStatic, value => value.isStatic | .resultStatic, value => value.isStatic
   | .resultOperands, value => value.operands | .literalValue, value => Int.ofNat value.value
   | .count, value => value.length
+  | .arrayBooleanElements, value => value.isBoolean
 
 inductive Expr : Ty → Type
   | number (value : Nat) : Expr .number
@@ -413,7 +416,8 @@ def arrayAtomBody : Expr .result :=
   let target : Expr .number := .variable "target"
   .locals <| .local "open_after" ["literal_position"]
     (apply3 (.function .symbol) text position (.characterVal 40)) <|
-    .group <| .ite (.eq opened (.number 0)) .invalid <|
+    .group <| .ite (.orElse (.eq opened (.number 0))
+      (.field .arrayBooleanElements (.arrayBinding arrays target))) .invalid <|
     .group <| .locals <| .local "subscript" ["expression_result"]
       (apply5 (.function .readExpressionScalar) text opened (.variable "names")
         (.variable "mask_first") (.variable "mask_after")) <|
