@@ -1,0 +1,54 @@
+{
+  "console.log.gz": {
+    "bytes": 7383,
+    "sha256": "7f269125af0c33e4d9d46ca197519c504631af26477ac3e7495ea97a5fc13047",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-parallelism/tmp/integrated-complete/console.log",
+    "uncompressed_bytes": 75594,
+    "uncompressed_sha256": "5b42000fb68430f8d38bd76880510947d0e8ba128207244e240b4edd99cffa5e"
+  },
+  "events.jsonl.gz": {
+    "bytes": 36219,
+    "sha256": "3520fe7663153a189f0bd148515a3e76c7f2291973d42835a223e03896d2deda",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T123115-e73dba359d09/events.jsonl",
+    "uncompressed_bytes": 86941,
+    "uncompressed_sha256": "cfe17a2a91c02f412e1b99d2797c1b291f515059f086a2133a194f5deb6aec7f"
+  },
+  "launch.json": {
+    "bytes": 704,
+    "sha256": "5d7f97a200610ce5afd8ce5fc6e7927a4f9c9f8804895d9452ea8bc1ad4a78ee",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-parallelism/tmp/integrated-complete/launch.json"
+  },
+  "lean-evidence.json.gz": {
+    "bytes": 3885,
+    "sha256": "7414bd814a3d8958839fd0a956ebeace68bf2e42182fb052860d1e266aea17fe",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T123115-e73dba359d09/lean-evidence.json",
+    "uncompressed_bytes": 24344,
+    "uncompressed_sha256": "187bbe8a32087b9b7bba550131fcd2a7b6e9282a303805fe8949f8b60eda68e8"
+  },
+  "lean-proof.log.gz": {
+    "bytes": 7281,
+    "sha256": "c03986a61924f5ba82bc146bee5a5f1027dcb6a9fff2d26484e16644799f9e8e",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T123115-e73dba359d09/lean-proof.log",
+    "uncompressed_bytes": 75331,
+    "uncompressed_sha256": "4bf9f056cbfb93f0e7a67c73377bd6e3fe90c3348e8c49ff0500f9d403318e9a"
+  },
+  "observation.json": {
+    "bytes": 275,
+    "sha256": "5b3dd56c83270c9574c7281ff316a84b22e491ad20968b2507eee7e3cdec1004",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-parallelism/tmp/integrated-complete/observation.json"
+  },
+  "samples.jsonl.gz": {
+    "bytes": 26543,
+    "sha256": "00517124d31f23a9abcf5062bcebad9ef743e957bc9d66b08fcb372f521bf418",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-parallelism/tmp/integrated-complete/samples.jsonl",
+    "uncompressed_bytes": 234929,
+    "uncompressed_sha256": "65b94e71e9be50c898956f860fcba6d5250b5edd7471cd5c27c9a817112e9b1d"
+  },
+  "workspace-inputs-sha256.json.gz": {
+    "bytes": 29217,
+    "sha256": "993a08c8078485c03906426d451148c0964887b399943d79a74c6e2144ec7408",
+    "source": "Independent post-terminal source inspection of the unchanged completed proof workspace; build caches/objects excluded.",
+    "uncompressed_bytes": 68223,
+    "uncompressed_sha256": "c98359eb7a56b0a499ab5c7c1fbc6e850a444ce32fbd14b0dbe4d64f6ffab63a"
+  }
+}

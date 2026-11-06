@@ -50,7 +50,8 @@ and deferred capacity work retain their scope.
 
 ### Lean source parallelism
 
-**Implementation authorized, 2026-11-06; complete validation remains pending.**
+**Implemented and validated on Linux, 2026-11-06; [PR #326](https://github.com/berkeleynerd/silver/pull/326)
+remains open for owner review and merge.**
 
 [Milestone 17](https://github.com/berkeleynerd/silver/milestone/17) carries the
 selected production scope of [#8](https://github.com/berkeleynerd/silver/issues/8),
@@ -68,14 +69,15 @@ selects two work packages:
    checkpoint, applicable native refresh or justified reuse, focused tests and
    independent critical review before proposing an implementation merge.
 
-The two preparation streams may proceed independently; shared integration and
-final validation follow them. The earlier 512-line sample took 18.0 minutes
-with one worker and 6.4 minutes with four; it does not validate the complete
-candidate or predict complete-build speedup. The
-[record](docs/lean-line-chunks.md) preserves exact results and limitations.
-The remaining adoption decision is whether the complete output-certificate
-candidate is useful. No reconstruction redesign, proof-framework expansion,
-language change or #314 guard implementation is selected.
+Both packages are integrated and retained after successful complete validation
+and a useful production trial. The complete line build and reconstruction took
+about 65 minutes, versus a historical 184-minute monolithic build; different run
+conditions prevent a controlled speedup claim. The earlier 512-line sample is
+retained as a separate bounded experiment. The
+[record](docs/lean-line-chunks.md#completed-production-validation--2026-11-06)
+preserves exact results, complete assurance and measurement limits.
+Implementation merge remains the owner's decision. No reconstruction redesign,
+proof-framework expansion, language change or #314 guard implementation is selected.
 
 ### Interim external review response for PR #307
 

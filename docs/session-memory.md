@@ -1,5 +1,22 @@
 # Session memory
 
+## 2026-11-06 — Lean source parallelism validated for review
+
+The two packages authorized below are implemented together in
+[PR #326](https://github.com/berkeleynerd/silver/pull/326), with integrated source
+`3f5d575635106fe9c5ecc039d6111a5a31429e56`. The complete Linux Lean/source audit,
+applicable complete native evidence, focused tooling tests and independent
+component review support the implementation. The
+[delivery record](lean-line-chunks.md#completed-production-validation--2026-11-06)
+holds exact runs, performance observations, failed-trial dispositions and cache
+reuse; those figures are not session rules or whole-build speed guarantees.
+
+Both selected splits are retained. The implementation PR, #8, #323, #324 and
+milestone 17 remain open pending owner review and an explicit merge instruction.
+This completes the authorized implementation/publication scope without selecting
+#314, changing the language/Oracle or expanding the proof framework. No harness
+goal exists, and CLI recall was not updated.
+
 ## 2026-11-06 — Lean source parallelism implementation authorized
 
 The owner accepted the proposed two-part Lean optimization plan and instructed

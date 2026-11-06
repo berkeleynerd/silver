@@ -1,0 +1,16 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--memory-mb",
+    "24576",
+    "--task",
+    "#8 #323 #324 integrated complete validation",
+    "--reason",
+    "Stable integrated source3f5d575635; reuse completed line and predicate leaf checks with recorded idle-workspace transfer, validate output reconstruction and all bridges, then fresh complete module and axiom audit; automatic CPU settings with host otherwise idle and RAM observation"
+  ],
+  "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-parallelism",
+  "process_group": 13274,
+  "started_utc": "2026-11-06T12:31:14.814541+00:00",
+  "purpose": "sample CPU/RAM; pause only this run below 4 GiB MemAvailable"
+}
