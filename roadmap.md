@@ -48,19 +48,34 @@ and deferred capacity work retain their scope.
 
 ## Current development sequence
 
-### Lean line-certificate parallelism experiment
+### Lean source parallelism
 
-**Authorized, 2026-11-05; isolated experiment, no production optimization claim.**
+**Implementation authorized, 2026-11-06; complete validation remains pending.**
 
-[Milestone 17](https://github.com/berkeleynerd/silver/milestone/17) contains the
-selected bounded scope of [#8](https://github.com/berkeleynerd/silver/issues/8).
-Prepare the four-module line-certificate prototype alongside the current String
-delivery, then run a matched one-worker/four-worker sample comparison when the
-existing managed worker pool has capacity. Review the result before selecting
-complete-certificate validation or production adoption. The
-[experiment record](docs/lean-line-chunks.md) keeps the workload, unchanged
-assurance requirements, validation scope and remaining decisions explicit.
-This work does not interrupt or replace PR #307's verification.
+[Milestone 17](https://github.com/berkeleynerd/silver/milestone/17) carries the
+selected production scope of [#8](https://github.com/berkeleynerd/silver/issues/8),
+before the deferred #314 guards. The
+[owner authorization](docs/session-memory.md#2026-11-06--lean-source-parallelism-implementation-authorized)
+selects two work packages:
+
+1. [#323](https://github.com/berkeleynerd/silver/issues/323): complete the
+   four-module `OutputBodyCertificate` trial; integrate generation, runner/module
+   registration and focused tests if useful.
+2. [#324](https://github.com/berkeleynerd/silver/issues/324): split independent
+   `PredicateSourceCandidate` checks into about four leaves, retaining the exact
+   checks, final theorem and actual-source transport.
+3. Integrate the two packages for one shared complete Lean/source/module/axiom
+   checkpoint, applicable native refresh or justified reuse, focused tests and
+   independent critical review before proposing an implementation merge.
+
+The two preparation streams may proceed independently; shared integration and
+final validation follow them. The earlier 512-line sample took 18.0 minutes
+with one worker and 6.4 minutes with four; it does not validate the complete
+candidate or predict complete-build speedup. The
+[record](docs/lean-line-chunks.md) preserves exact results and limitations.
+The remaining adoption decision is whether the complete output-certificate
+candidate is useful. No reconstruction redesign, proof-framework expansion,
+language change or #314 guard implementation is selected.
 
 ### Interim external review response for PR #307
 

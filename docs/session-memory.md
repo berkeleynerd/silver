@@ -1,5 +1,31 @@
 # Session memory
 
+## 2026-11-06 — Lean source parallelism implementation authorized
+
+The owner accepted the proposed two-part Lean optimization plan and instructed
+**“Proceed.”** Before the deferred [#314](https://github.com/berkeleynerd/silver/issues/314)
+guards, complete the four-module `OutputBodyCertificate` trial and integrate its
+generation, runner/module registration and focused tests if useful
+([#323](https://github.com/berkeleynerd/silver/issues/323)); split the independent
+`PredicateSourceCandidate` checks into about four leaves while preserving every
+check, the final theorem and actual-source transport
+([#324](https://github.com/berkeleynerd/silver/issues/324)). These are the selected
+production packages under [#8](https://github.com/berkeleynerd/silver/issues/8)
+and [milestone 17](https://github.com/berkeleynerd/silver/milestone/17).
+
+The [record](lean-line-chunks.md) preserves the completed 512-line sample and its
+limits; the full candidate remains unvalidated at authorization. Integrate both
+packages before one shared complete Lean/source/module/axiom checkpoint, using
+applicable native refresh or justified retained evidence, focused tests and an
+independent critical review. Use managed reservations and automatic CPU settings
+subject to current capacity. No #314 guard edits, language/Oracle changes,
+reconstruction redesign or proof-framework expansion are selected.
+
+This instruction authorizes the routine authorization record on main and
+implementation through reviewable publication. Merge of the implementation
+remains a later owner decision. The [roadmap](../roadmap.md#lean-source-parallelism)
+records package order. No harness goal exists; CLI recall was not updated.
+
 ## 2026-11-06 — Repaired String merge authorized
 
 After the lead confirmed [PR #307](https://github.com/berkeleynerd/silver/pull/307)
