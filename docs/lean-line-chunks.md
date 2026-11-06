@@ -47,6 +47,8 @@ rebuilt five candidate modules and preserved the same 25 common object hashes.
 One ordered pair with changing competing load supports only that sample
 observation. It establishes neither complete-source assurance nor a whole-build
 speedup forecast. The full candidate was unvalidated when that experiment stopped.
+The [retained sample packet](evidence/lean-line-chunks-20261105/README.md)
+is now included on this implementation branch without rerunning the comparison.
 
 ## Historical selected scope — 2026-11-05
 
@@ -109,3 +111,31 @@ result is two bounded issues and a main-branch authorization before claims,
 with production completion still pending. This documentation round ran no
 proofs, builds or tests; source and assurance claims are unchanged. Token/cost
 measurements are unavailable. No CLI recall was updated.
+
+## 2026-11-06 implementation and validation in progress
+
+Certificate integration and predicate decomposition selected GPT-6.1 Sol / Extra
+High in separate worktrees. Independent review selected GPT-6 Astra / Extra High.
+Lead runtime settings and token/cost measurements are unavailable. The intended
+result is the two scoped module splits followed by measured focused checks and
+one stable complete checkpoint; this section claims no completed validation.
+
+The first certificate implementation is `6a2125a52f` (integrated as `c977fb72b0`).
+All five generated files are byte-identical to the prepared full candidate.
+Independent static review confirms unchanged ordered line declarations and the
+unchanged reconstruction/final-theorem suffix. Run
+`20261106T104011-475878966fee` checks all four complete line modules with four
+Lake workers, automatic twelve-thread process settings and a 6 GiB internal
+threshold per process. Four workers match the independent chunk count and leave
+room for a small runner regression. The later reconstruction needs its own
+larger process allowance. Host CPU and summed RSS are sampled; available RAM
+below 4 GiB pauses only the observed run for intervention. These are scheduling
+and observation controls, not new assurance assumptions or hard memory bounds.
+
+All three implementation workspaces were seeded while the source was idle from
+`tmp/string-review-repairs` at `ea04481188`, whose complete Lean checkpoint is
+`20261105T192530-524a4096ef8f`. Copies include the pinned Lean installation and
+the complete proof workspace with Lake metadata and private/server object
+sidecars. Normal runner regeneration and Lake dependency checks determine reuse;
+the copy itself establishes no validation result. The source cache is retained
+unchanged. Each destination keeps its dated `tmp/lean-cache-seed.json` pointer.

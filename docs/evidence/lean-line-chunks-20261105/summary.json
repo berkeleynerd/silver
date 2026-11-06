@@ -1,0 +1,327 @@
+{
+  "comparison": {
+    "cpu_increase_percent": 31.506405468793375,
+    "sampled_peak_group_rss_gib_workers_1": 2.2098350524902344,
+    "sampled_peak_group_rss_gib_workers_4": 4.629692077636719,
+    "total_cpu_seconds_workers_1": 1079.353709,
+    "total_cpu_seconds_workers_4": 1419.419265,
+    "wall_reduction_percent": 64.58183954225576,
+    "wall_speedup": 2.8234103270073927
+  },
+  "implementation_commit": "c7c0f175c09f8b27b4783d592121373c0cfa9b42",
+  "lean_version": "4.34.1",
+  "limitations": [
+    "Single ordered sample pair; no full-certificate extrapolation",
+    "Competing native verification overlapped both trials; pin-budget repair joined near four-worker trial end",
+    "RSS and available RAM are sampled; Lean memory allowance is per process",
+    "No complete source reconstruction, complete audit, independent kernel replay or formal acceptance"
+  ],
+  "measurement": {
+    "chunk_modules": 4,
+    "declarations_per_chunk": 128,
+    "lean_internal_memory_allowance_mib": 4096,
+    "lean_threads_per_process": 1,
+    "sample_declarations": 512
+  },
+  "phases": [
+    {
+      "built_modules": [
+        {
+          "duration": "2.5s",
+          "module": "Silver.CertificateWitness"
+        },
+        {
+          "duration": "3.7s",
+          "module": "Silver.Lexical"
+        },
+        {
+          "duration": "2.7s",
+          "module": "Silver.Admission"
+        },
+        {
+          "duration": "4.7s",
+          "module": "Silver.Cursor"
+        },
+        {
+          "duration": "9.3s",
+          "module": "Silver.SourceLexer"
+        }
+      ],
+      "candidate_artifacts_removed": 0,
+      "common_artifacts_original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261105T164133-c09f71599053/line-chunks/common-artifacts.json",
+      "common_artifacts_sha256": "e7f7ce16d9cd9992a20a98595016690dddbd033d00280a87abdaab2e4fb5fa35",
+      "common_artifacts_shared_retained": "common-artifacts.json",
+      "contexts": [
+        {
+          "event": "trial-context",
+          "measurement_control": "one Lean thread per process; -M is not an aggregate or hard OS cap",
+          "monotonic_ns": 29050248779653,
+          "observation": {
+            "available_bytes": 30034087936,
+            "free_workers": 4,
+            "load_average": [
+              4.046875,
+              4.408203125,
+              4.80419921875
+            ],
+            "monotonic_seconds": 29050.068099901,
+            "other_active_runs": [
+              {
+                "run_id": "20261105T110725-477d91dbd07d",
+                "task": "#309-#320 final native",
+                "workers": 4
+              }
+            ]
+          },
+          "run_id": "20261105T164133-c09f71599053",
+          "stage": "start",
+          "utc": "2026-11-05T16:41:44.415280+00:00"
+        },
+        {
+          "event": "trial-context",
+          "monotonic_ns": 29083618425227,
+          "observation": {
+            "available_bytes": 29697507328,
+            "free_workers": 4,
+            "load_average": [
+              4.81201171875,
+              4.5546875,
+              4.83837890625
+            ],
+            "monotonic_seconds": 29083.484195722,
+            "other_active_runs": [
+              {
+                "run_id": "20261105T110725-477d91dbd07d",
+                "task": "#309-#320 final native",
+                "workers": 4
+              }
+            ]
+          },
+          "run_id": "20261105T164133-c09f71599053",
+          "stage": "end",
+          "utc": "2026-11-05T16:42:17.784918+00:00"
+        }
+      ],
+      "finished_at": "2026-11-05T16:42:17.886102+00:00",
+      "managed_duration_seconds": 40.380095987,
+      "manifest_original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261105T164133-c09f71599053/line-chunks/manifest.json",
+      "manifest_sha256_uncompressed": "0f208309224c987c947da9f39a0c69c596c67388c2fe9e3c356561a254d8cf5f",
+      "manifest_shared_retained": "manifest.json.gz",
+      "outcome": "success",
+      "phase": "common",
+      "run_id": "20261105T164133-c09f71599053",
+      "sample_count": 14,
+      "sampled_load1_max": 4.544921875,
+      "sampled_load1_mean": 4.294852120535714,
+      "sampled_load1_min": 4.04296875,
+      "sampled_max_process_count": 3
+    },
+    {
+      "built_modules": [
+        {
+          "duration": "286s",
+          "module": "Silver.OutputBodyLines3"
+        },
+        {
+          "duration": "267s",
+          "module": "Silver.OutputBodyLines2"
+        },
+        {
+          "duration": "266s",
+          "module": "Silver.OutputBodyLines1"
+        },
+        {
+          "duration": "255s",
+          "module": "Silver.OutputBodyLines0"
+        },
+        {
+          "duration": "2.7s",
+          "module": "Silver.OutputBodyLineMicro"
+        }
+      ],
+      "candidate_artifacts_removed": 0,
+      "common_artifacts_original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261105T164223-81a2973a395c/line-chunks/common-artifacts.json",
+      "common_artifacts_sha256": "e7f7ce16d9cd9992a20a98595016690dddbd033d00280a87abdaab2e4fb5fa35",
+      "common_artifacts_shared_retained": "common-artifacts.json",
+      "contexts": [
+        {
+          "event": "trial-context",
+          "measurement_control": "one Lean thread per process; -M is not an aggregate or hard OS cap",
+          "monotonic_ns": 29098320481582,
+          "observation": {
+            "available_bytes": 29700190208,
+            "free_workers": 7,
+            "load_average": [
+              4.9150390625,
+              4.58642578125,
+              4.845703125
+            ],
+            "monotonic_seconds": 29098.135047454,
+            "other_active_runs": [
+              {
+                "run_id": "20261105T110725-477d91dbd07d",
+                "task": "#309-#320 final native",
+                "workers": 4
+              }
+            ]
+          },
+          "run_id": "20261105T164223-81a2973a395c",
+          "stage": "start",
+          "utc": "2026-11-05T16:42:32.486988+00:00"
+        },
+        {
+          "event": "trial-context",
+          "monotonic_ns": 30186952325328,
+          "observation": {
+            "available_bytes": 28975849472,
+            "free_workers": 7,
+            "load_average": [
+              6.8916015625,
+              5.5595703125,
+              5.08837890625
+            ],
+            "monotonic_seconds": 30186.821596277,
+            "other_active_runs": [
+              {
+                "run_id": "20261105T110725-477d91dbd07d",
+                "task": "#309-#320 final native",
+                "workers": 4
+              }
+            ]
+          },
+          "run_id": "20261105T164223-81a2973a395c",
+          "stage": "end",
+          "utc": "2026-11-05T17:00:41.118830+00:00"
+        }
+      ],
+      "finished_at": "2026-11-05T17:00:41.249655+00:00",
+      "managed_duration_seconds": 1094.296566098,
+      "manifest_original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261105T164223-81a2973a395c/line-chunks/manifest.json",
+      "manifest_sha256_uncompressed": "0f208309224c987c947da9f39a0c69c596c67388c2fe9e3c356561a254d8cf5f",
+      "manifest_shared_retained": "manifest.json.gz",
+      "outcome": "success",
+      "phase": "workers-1",
+      "run_id": "20261105T164223-81a2973a395c",
+      "sample_count": 540,
+      "sampled_load1_max": 7.24658203125,
+      "sampled_load1_mean": 4.965885416666667,
+      "sampled_load1_min": 3.2421875,
+      "sampled_max_process_count": 2
+    },
+    {
+      "built_modules": [
+        {
+          "duration": "317s",
+          "module": "Silver.OutputBodyLines0"
+        },
+        {
+          "duration": "358s",
+          "module": "Silver.OutputBodyLines3"
+        },
+        {
+          "duration": "374s",
+          "module": "Silver.OutputBodyLines2"
+        },
+        {
+          "duration": "377s",
+          "module": "Silver.OutputBodyLines1"
+        },
+        {
+          "duration": "2.9s",
+          "module": "Silver.OutputBodyLineMicro"
+        }
+      ],
+      "candidate_artifacts_removed": 80,
+      "common_artifacts_original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261105T170047-20bc9f578a1a/line-chunks/common-artifacts.json",
+      "common_artifacts_sha256": "e7f7ce16d9cd9992a20a98595016690dddbd033d00280a87abdaab2e4fb5fa35",
+      "common_artifacts_shared_retained": "common-artifacts.json",
+      "contexts": [
+        {
+          "event": "trial-context",
+          "measurement_control": "one Lean thread per process; -M is not an aggregate or hard OS cap",
+          "monotonic_ns": 30204897435223,
+          "observation": {
+            "available_bytes": 28644016128,
+            "free_workers": 4,
+            "load_average": [
+              6.9765625,
+              5.6689453125,
+              5.13525390625
+            ],
+            "monotonic_seconds": 30204.767538024,
+            "other_active_runs": [
+              {
+                "run_id": "20261105T110725-477d91dbd07d",
+                "task": "#309-#320 final native",
+                "workers": 4
+              }
+            ]
+          },
+          "run_id": "20261105T170047-20bc9f578a1a",
+          "stage": "start",
+          "utc": "2026-11-05T17:00:59.063956+00:00"
+        },
+        {
+          "event": "trial-context",
+          "monotonic_ns": 30596998356801,
+          "observation": {
+            "available_bytes": 27374546944,
+            "free_workers": 0,
+            "load_average": [
+              8.4150390625,
+              8.5732421875,
+              6.7578125
+            ],
+            "monotonic_seconds": 30596.858512482,
+            "other_active_runs": [
+              {
+                "run_id": "20261105T110725-477d91dbd07d",
+                "task": "#309-#320 final native",
+                "workers": 4
+              },
+              {
+                "run_id": "20261105T170530-55ec63277225",
+                "task": "#309-#320 pin-budget repair",
+                "workers": 4
+              }
+            ]
+          },
+          "run_id": "20261105T170047-20bc9f578a1a",
+          "stage": "end",
+          "utc": "2026-11-05T17:07:31.164867+00:00"
+        }
+      ],
+      "finished_at": "2026-11-05T17:07:31.267481+00:00",
+      "managed_duration_seconds": 399.582966469,
+      "manifest_original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261105T170047-20bc9f578a1a/line-chunks/manifest.json",
+      "manifest_sha256_uncompressed": "0f208309224c987c947da9f39a0c69c596c67388c2fe9e3c356561a254d8cf5f",
+      "manifest_shared_retained": "manifest.json.gz",
+      "outcome": "success",
+      "phase": "workers-4",
+      "run_id": "20261105T170047-20bc9f578a1a",
+      "sample_count": 190,
+      "sampled_load1_max": 10.9228515625,
+      "sampled_load1_mean": 9.681789679276315,
+      "sampled_load1_min": 6.9765625,
+      "sampled_max_process_count": 5
+    }
+  ],
+  "platform": "linux-x86_64",
+  "prototype_baseline": "617547bd0dd62bb5aa58b2b4833959e7a068dc19",
+  "recommendation": "Stop after sample evidence; consider a separately selected and capacity-planned full-certificate trial. Do not adopt into production.",
+  "record_preparation": {
+    "runtime_confirmed_model_effort": "unavailable",
+    "selected_effort": "High",
+    "selected_model": "GPT-6.1 Sol",
+    "token_cost_measurements": "unavailable"
+  },
+  "status": "Sample comparison complete; full candidate UNVALIDATED; no production adoption authorized",
+  "verification": {
+    "common_compiled_object_count": 25,
+    "current_common_objects_match": true,
+    "current_manifest_inputs_outputs_tools_match": true,
+    "each_trial_built_all_five_candidate_modules": true,
+    "retained_phase_common_identities_equal": true,
+    "retained_phase_manifests_equal_reviewed_manifest": true
+  }
+}
