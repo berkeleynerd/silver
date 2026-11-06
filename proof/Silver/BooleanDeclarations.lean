@@ -81,6 +81,33 @@ def checkBooleanDeclarations (shape : Shape) (analysis : Integer.Analysis) (flow
         checkBooleanDeclarations shape analysis flow
           (before.initialize declaration.target declaration.mutable) rest
 
+theorem booleanDeclarationsAnalysis_append (before : Boolean.Analysis) (first rest : List BooleanDeclaration) :
+    booleanDeclarationsAnalysis before (first ++ rest) =
+      booleanDeclarationsAnalysis (booleanDeclarationsAnalysis before first) rest := by
+  induction first generalizing before with
+  | nil => rfl
+  | cons declaration following ih => exact ih _
+
+theorem booleanDeclarationsWellFormed_append (arguments : Bool) (shape : Shape)
+    (before : Boolean.Analysis) (first rest : List BooleanDeclaration) :
+    BooleanDeclarationsWellFormed arguments shape before (first ++ rest) ↔
+      BooleanDeclarationsWellFormed arguments shape before first ∧
+        BooleanDeclarationsWellFormed arguments shape (booleanDeclarationsAnalysis before first) rest := by
+  induction first generalizing before with
+  | nil => simp [BooleanDeclarationsWellFormed, booleanDeclarationsAnalysis]
+  | cons declaration following ih =>
+      simp only [List.cons_append, BooleanDeclarationsWellFormed, booleanDeclarationsAnalysis, ih, and_assoc]
+
+theorem checkBooleanDeclarations_append (shape : Shape) (analysis : Integer.Analysis) (flow : Flow)
+    (before : Boolean.Analysis) (first rest : List BooleanDeclaration) :
+    checkBooleanDeclarations shape analysis flow before (first ++ rest) =
+      (checkBooleanDeclarations shape analysis flow before first &&
+        checkBooleanDeclarations shape analysis flow (booleanDeclarationsAnalysis before first) rest) := by
+  induction first generalizing before with
+  | nil => rfl
+  | cons declaration following ih =>
+      simp only [List.cons_append, checkBooleanDeclarations, booleanDeclarationsAnalysis, ih, Bool.and_assoc]
+
 def executeBooleanDeclarations (values : Values) (input : Source) (valid : Bool)
     (integers : Integer.Store) : List BooleanDeclaration → Boolean.Store → Boolean.Store
   | [], booleans => booleans
@@ -227,6 +254,35 @@ def snapshotBooleanDeclarations (values : Values) (input : Source) (valid : Bool
       snapshotBooleanDeclarations values input valid integers incoming rest
         (Boolean.put current declaration.target
           (declaration.value.evaluate values input valid integers incoming))
+
+theorem snapshotBooleanDeclarations_preserve (declarations : List BooleanDeclaration)
+    (values : Values) (input : Source) (valid : Bool) (integers : Integer.Store)
+    (incoming current : Boolean.Store) {cell : Nat}
+    (untouched : ∀ declaration ∈ declarations, declaration.target ≠ cell) :
+    snapshotBooleanDeclarations values input valid integers incoming declarations current cell = current cell := by
+  induction declarations generalizing current with
+  | nil => rfl
+  | cons declaration rest ih =>
+      rw [snapshotBooleanDeclarations, ih _ (fun item member => untouched item (by simp [member]))]
+      exact Boolean.put_other _ _ _ _ (Ne.symm (untouched declaration (by simp)))
+
+theorem snapshotBooleanDeclarations_member {declarations : List BooleanDeclaration}
+    {item : BooleanDeclaration} (values : Values) (input : Source) (valid : Bool)
+    (integers : Integer.Store) (incoming current : Boolean.Store)
+    (distinct : declarations.Pairwise (fun left right => left.target ≠ right.target))
+    (member : item ∈ declarations) :
+    snapshotBooleanDeclarations values input valid integers incoming declarations current item.target =
+      item.value.evaluate values input valid integers incoming := by
+  induction declarations generalizing current with
+  | nil => cases member
+  | cons declaration rest ih =>
+      have apart := List.pairwise_cons.mp distinct
+      rcases List.mem_cons.mp member with rfl | member
+      · rw [snapshotBooleanDeclarations, snapshotBooleanDeclarations_preserve]
+        · exact Boolean.put_same ..
+        · intro other present
+          exact Ne.symm (apart.1 other present)
+      · exact ih _ apart.2 member
 
 theorem boolean_declarations_snapshot {declarations : List BooleanDeclaration}
     {before : Boolean.Analysis} {shape : Shape} {arguments : Bool}
@@ -409,5 +465,31 @@ theorem BooleanArrayDeclaration.initializations_snapshot {declaration : BooleanA
     exact checked item.value (initializations_member member).1
   · exact state
   · exact allowed
+
+/-- Each component receives its own incoming-state value. The theorem uses the
+source aggregate's exact position, rather than a Boolean encoding in the shared
+Integer allocation table. -/
+theorem BooleanArrayDeclaration.initializations_value {declaration : BooleanArrayDeclaration}
+    {before : Boolean.Analysis} {shape : Shape} {arguments : Bool}
+    {analysis : Integer.Analysis} {flow : Flow} {values : Values}
+    {input : Source} {valid rejected : Bool} {integers : Integer.Store} {incoming : Boolean.Store}
+    (fresh : ∀ offset, offset < declaration.values.length →
+      before.initialized (declaration.array.base + offset) = false)
+    (readable : ∀ value ∈ declaration.values, value.Readable arguments shape before)
+    (checked : ∀ value ∈ declaration.values, value.checkBounds shape analysis flow before = true)
+    (state : Fits shape input values) (allowed : flow.Allows valid input.length rejected integers)
+    {offset : Nat} (inside : offset < declaration.values.length) :
+    declaration.array.project
+        (executeBooleanDeclarations values input valid integers declaration.initializations incoming)
+        (declaration.array.bounds.lower + offset) =
+      declaration.values[offset].evaluate values input valid integers incoming := by
+  rw [declaration.initializations_snapshot fresh readable checked state allowed]
+  simp only [Boolean.ArrayDescriptor.project, Boolean.ArrayDescriptor.address_offset]
+  apply snapshotBooleanDeclarations_member
+    (item := ⟨declaration.array.base + offset, declaration.mutable, declaration.values[offset]⟩)
+    values input valid integers incoming incoming declaration.initializations_distinct
+  apply List.mem_map.mpr
+  refine ⟨(declaration.values[offset], offset), ?_, rfl⟩
+  exact List.mk_mem_zipIdx_iff_getElem?.mpr (List.getElem?_eq_getElem inside)
 
 end Silver.Predicate

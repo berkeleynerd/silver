@@ -24,13 +24,13 @@ def BooleanDeclarationChecksAt (text : Source) (state : ParserState)
     ConditionAt text (booleanDeclarationContext state (booleanDeclarationParts text state))
       (booleanDeclarationParts text state).valueFirst (booleanDeclarationFacts state)
       raw (booleanDeclarationValue text state) state.arrayNames.values ∧
-    declaration = ⟨decide ((booleanDeclarationParts text state).constantAfter = 0),
+    declaration = ⟨state.booleanNames.length + 1, decide ((booleanDeclarationParts text state).constantAfter = 0),
       raw.freezeIntegers (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values)⟩ ∧
     checks = raw.obligations state.names.shape
       (booleanDeclarationContext state (booleanDeclarationParts text state)).analysis
       ((booleanDeclarationContext state (booleanDeclarationParts text state)).flow
         (booleanDeclarationFacts state) state.arrayNames.values)
-      (BooleanBindings.analysis state.booleanNames)
+      (ArrayBindings.booleanAnalysis state.arrayNames.names (BooleanBindings.analysis state.booleanNames))
 
 theorem boolean_declaration_trace {text arguments state next}
     (textValid : ValidText text) (namesValid : ValidNames text state.names)
@@ -51,6 +51,30 @@ theorem boolean_declaration_checks_unique {text state first second left right}
   cases same
   exact ⟨rfl, rfl⟩
 
+/-- A scalar Boolean declaration initializes precisely its fresh scalar identity,
+leaving the already allocated Boolean array cells in the analysis. -/
+theorem boolean_declaration_analysis {text arguments state next declaration checks}
+    (valid : ValidState text state) (parsed : BooleanDeclarationAt text arguments state next)
+    (trace : BooleanDeclarationChecksAt text state declaration checks) :
+    declaration.target ≠ 0 ∧
+      (ArrayBindings.booleanAnalysis state.arrayNames.names
+        (BooleanBindings.analysis state.booleanNames)).initialized declaration.target = false ∧
+      ArrayBindings.booleanAnalysis next.arrayNames.names (BooleanBindings.analysis next.booleanNames) =
+        (ArrayBindings.booleanAnalysis state.arrayNames.names (BooleanBindings.analysis state.booleanNames)).initialize
+          declaration.target declaration.mutable := by
+  obtain ⟨raw, _, rfl, _⟩ := trace
+  have following := model_boolean_reading_valid valid parsed
+  have bound := following.2.2.2.2.2.2.2.2.1
+  rw [boolean_declaration_bindings parsed] at bound
+  simp only [List.length_append, List.length_singleton] at bound
+  have space : state.booleanNames.length < BooleanBindings.maxBindings := by omega
+  refine ⟨by change state.booleanNames.length + 1 ≠ 0; omega, ?_, ?_⟩
+  · rw [(ArrayBindings.booleanAnalysis_scalar state.arrayNames.names
+      (BooleanBindings.analysis state.booleanNames) (scalar := state.booleanNames.length + 1) (by omega)).1]
+    simp [BooleanBindings.analysis]
+  · rw [(boolean_declaration_preserves parsed).2.2.1, boolean_declaration_bindings parsed]
+    exact ArrayBindings.booleanAnalysis_append_scalar state.arrayNames.names state.booleanNames _ space
+
 theorem boolean_declaration_facts_bounded (state : ParserState) :
     (booleanDeclarationFacts state).path.Bounded := by
   unfold booleanDeclarationFacts
@@ -68,8 +92,9 @@ theorem boolean_declaration_meaning {text state raw}
       raw (booleanDeclarationValue text state) state.arrayNames.values) :
     ConditionMeaning (booleanDeclarationContext state (booleanDeclarationParts text state))
       (booleanDeclarationFacts state) raw (booleanDeclarationValue text state) state.arrayNames.values := by
-  apply condition_valid normal valid.2.1 _ _ (boolean_declaration_facts_bounded state) parsed
+  apply condition_valid normal valid.2.1 _ _ _ (boolean_declaration_facts_bounded state) parsed
   · exact ready.contextReady valid.2.2.2.2.2.1.1
+  · exact ⟨valid.2.2.2.2.2.2.1.1, valid.2.2.2.2.2.2.1.1.2.2⟩
   · exact ScalarMetadata.initial_compatible ..
 
 theorem boolean_declaration_checks_discharge {text state declaration checks}
@@ -78,7 +103,7 @@ theorem boolean_declaration_checks_discharge {text state declaration checks}
     (trace : BooleanDeclarationChecksAt text state declaration checks) :
     Predicate.discharged checks = true := by
   obtain ⟨raw, parsed, _, rfl⟩ := trace
-  rw [Condition.obligations_exact (booleans := BooleanBindings.analysis state.booleanNames)]
+  rw [Condition.obligations_exact (booleans := ArrayBindings.booleanAnalysis state.arrayNames.names (BooleanBindings.analysis state.booleanNames))]
   exact (boolean_declaration_meaning normal valid ready parsed).checked
 
 theorem boolean_declaration_ranges_exact {state : ParserState} {parts : BooleanDeclarationParts}
@@ -86,10 +111,10 @@ theorem boolean_declaration_ranges_exact {state : ParserState} {parts : BooleanD
     ExactScalarRanges ((booleanDeclarationContext state parts).flow
       (booleanDeclarationFacts state) state.arrayNames.values).scalars := by
   intro index bounds found
-  change ArrayBindings.ranges state.arrayNames.names state.arrayNames.values true
+  change ArrayBindings.integerRanges state.arrayNames.names state.arrayNames.values true
     (ActiveFlow.initial state.scalarNames _).model.scalars index = some bounds at found
   rw [ActiveFlow.initial_model] at found
-  unfold ArrayBindings.ranges at found
+  unfold ArrayBindings.integerRanges ArrayBindings.ranges at found
   split at found
   · cases found
     rfl
@@ -103,20 +128,10 @@ theorem boolean_declaration_ranges_fit {state : ParserState} {parts : BooleanDec
     Integer.Fits ((booleanDeclarationContext state parts).flow
       (booleanDeclarationFacts state) state.arrayNames.values).scalars
       (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values) := by
-  change Integer.Fits (ArrayBindings.ranges state.arrayNames.names state.arrayNames.values true
+  change Integer.Fits (ArrayBindings.integerRanges state.arrayNames.names state.arrayNames.values true
     (ActiveFlow.initial state.scalarNames _).model.scalars) _
   rw [ActiveFlow.initial_model]
   exact frozenIntegers_fits static
-
-private theorem readable_initialized {condition : Condition} {shape : Shape} {arguments : Bool}
-    {first second : Boolean.Analysis} (same : first.initialized = second.initialized) :
-    condition.Readable arguments shape first ↔ condition.Readable arguments shape second := by
-  induction condition <;> simp only [Condition.Readable, *]
-
-private theorem checkBounds_initialized {condition : Condition} {shape : Shape} {analysis : Integer.Analysis}
-    {first second : Boolean.Analysis} (same : first.initialized = second.initialized) (flow : Flow) :
-    condition.checkBounds shape analysis flow first = condition.checkBounds shape analysis flow second := by
-  induction condition generalizing flow <;> simp only [Condition.checkBounds, *]
 
 theorem boolean_declaration_frozen_valid {text state declaration checks finalShape}
     (normal : NamesNormal state.names) (valid : ValidState text state)
@@ -126,20 +141,17 @@ theorem boolean_declaration_frozen_valid {text state declaration checks finalSha
     (trace : BooleanDeclarationChecksAt text state declaration checks) :
     declaration.value.Grammatical ∧
       declaration.value.Readable (decide (state.dynamicFirst ≠ 0)) finalShape
-        (booleanInitialAnalysis state.booleanNames.length) ∧
+        (ArrayBindings.booleanAnalysis state.arrayNames.names (BooleanBindings.analysis state.booleanNames)) ∧
       declaration.value.checkBounds finalShape Integer.Analysis.empty
         ⟨(booleanDeclarationFacts state).path, Integer.emptyRanges⟩
-        (booleanInitialAnalysis state.booleanNames.length) = true := by
+        (ArrayBindings.booleanAnalysis state.arrayNames.names (BooleanBindings.analysis state.booleanNames)) = true := by
   obtain ⟨raw, parsed, rfl, _⟩ := trace
   have meaning := boolean_declaration_meaning normal valid ready parsed
   have readable := raw.freezeIntegers_readable (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values) meaning.readable
   have checked := (raw.freezeIntegers_checked (boolean_declaration_ranges_exact static)
     (boolean_declaration_ranges_fit static) meaning.checked).1
-  have names : (BooleanBindings.analysis state.booleanNames).initialized =
-      (booleanInitialAnalysis state.booleanNames.length).initialized := rfl
   refine ⟨raw.freezeIntegers_grammatical _ meaning.grammatical, ?_, ?_⟩
-  · exact (readable_initialized names).mp (Condition.readable_extends extension readable)
-  · rw [← checkBounds_initialized names]
-    exact (Condition.checkBounds_extends extension readable Integer.Analysis.empty _).trans checked
+  · exact Condition.readable_extends extension readable
+  · exact (Condition.checkBounds_extends extension readable Integer.Analysis.empty _).trans checked
 
 end Silver.Compose
