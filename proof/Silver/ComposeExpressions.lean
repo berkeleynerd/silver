@@ -102,6 +102,7 @@ inductive Function
   | stringDeclaration | scalarConstraint | scalarDeclaration | scalarLookup | scalarRead | scalarAppend | scalarEmpty | scalarLiteral | nameIs
   | subtypeLookup | subtypeLookupModel | scalarType | subtypeDeclaration
   | booleanHidesInteger | booleanDeclaration | booleanLookup | arrayLookup | arrayDeclaration | arrayValuesModel | arrayValues | arrayPut | arrayAdd
+  | booleanInitializer | booleanArrayValuesModel | booleanArrayValues
   | argument
   | declarations
   | readDeclarations
@@ -180,6 +181,9 @@ def Function.name : Function → String
   | .booleanLookup => "lookup_boolean"
   | .arrayLookup => "array_bindings.lookup"
   | .arrayDeclaration => "array_declaration_at"
+  | .booleanInitializer => "boolean_initializer_model"
+  | .booleanArrayValuesModel => "boolean_array_values_model"
+  | .booleanArrayValues => "boolean_array_values_at"
   | .arrayValuesModel => "array_values_model"
   | .arrayValues => "array_values_at"
   | .arrayPut => "put_array_value"
@@ -263,9 +267,12 @@ def Function.name : Function → String
   | .arrayDeclaration => .arrow .source (.arrow .state (.arrow .truth .state))
   | .arrayValuesModel | .arrayValues => .arrow .source (.arrow .state (.arrow .state
       (.arrow .number (.arrow .number (.arrow .number (.arrow .interval .state))))))
+  | .booleanInitializer => .arrow .source (.arrow .state (.arrow .number (.arrow .number (.arrow .number .number))))
+  | .booleanArrayValuesModel | .booleanArrayValues => .arrow .source (.arrow .state (.arrow .state
+      (.arrow .number (.arrow .number (.arrow .number (.arrow .number (.arrow .number .state)))))))
   | .arrayPut => .arrow .state (.arrow .integer .state)
   | .arrayAdd => .arrow .source (.arrow .state (.arrow .number (.arrow .number
-      (.arrow .interval (.arrow .number (.arrow .number (.arrow .truth (.arrow .number (.arrow .interval .state)))))))))
+      (.arrow .interval (.arrow .number (.arrow .number (.arrow .truth (.arrow .number (.arrow .interval (.arrow .truth .state))))))))))
   | .argument => .arrow .source (.arrow .state (.state))
   | .declarations => .arrow .source (.arrow .state (.arrow .truth (.state)))
   | .readDeclarations => .arrow .source (.arrow .state (.arrow .truth (.state)))
@@ -352,6 +359,9 @@ def Calls.get (calls : Calls) : (symbol : Function) → symbol.type.meaning
   | .arrayDeclaration => calls.function .arrayDeclaration
   | .arrayValuesModel => calls.function .arrayValuesModel
   | .arrayValues => calls.function .arrayValues
+  | .booleanInitializer => calls.function .booleanInitializer
+  | .booleanArrayValuesModel => calls.function .booleanArrayValuesModel
+  | .booleanArrayValues => calls.function .booleanArrayValues
   | .arrayPut => calls.function .arrayPut
   | .arrayAdd => calls.function .arrayAdd
   | .argument => calls.function .argument
@@ -645,7 +655,7 @@ inductive Expr : Ty → Type
   | stateArray : Expr .state → Expr .arrayEnv → Expr .state
   | statePositionArray : Expr .state → Expr .number → Expr .arrayEnv → Expr .state
   | arrayAppend : Expr .arrayMetadata → Expr .number → Expr .number → Expr .interval →
-      Expr .number → Expr .number → Expr .truth → Expr .interval → Expr .arrayMetadata
+      Expr .number → Expr .number → Expr .truth → Expr .interval → Expr .truth → Expr .arrayMetadata
   | maxScalarBindings : Expr .number
   | fullInterval : Expr .interval
   | emptyInterval : Expr .interval
@@ -872,10 +882,10 @@ def Expr.render : Expr ty → List String
   | .arrayNamesOnly a b => updated a.render [("names", b.render)]
   | .stateArray a b => updated a.render [("array_names", b.render)]
   | .statePositionArray a b c => updated a.render [("position", b.render), ("array_names", c.render)]
-  | .arrayAppend names first after bounds offset length mutable componentBounds =>
+  | .arrayAppend names first after bounds offset length mutable componentBounds isBoolean =>
       let count := names.render ++ [".", "count", "+", "1"]
       let item := ["("] ++ first.render ++ [","] ++ after.render ++ [","] ++ bounds.render ++
-        [","] ++ offset.render ++ [","] ++ length.render ++ [","] ++ mutable.render ++ [","] ++ componentBounds.render ++ [")"]
+        [","] ++ offset.render ++ [","] ++ length.render ++ [","] ++ mutable.render ++ [","] ++ componentBounds.render ++ [","] ++ isBoolean.render ++ [")"]
       aggregate [("count", count), ("items", ["("] ++ names.render ++ [".", "items", "with", "delta"] ++
         count ++ ["=>"] ++ item ++ [")"])]
   | .maxScalarBindings => ["scalar_expressions", ".", "max_bindings"]
@@ -1054,9 +1064,9 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .arrayNamesOnly a b => {a.eval calls locals with names := b.eval calls locals}
   | .stateArray a b => {a.eval calls locals with arrayNames := b.eval calls locals}
   | .statePositionArray a b c => {a.eval calls locals with position := b.eval calls locals, arrayNames := c.eval calls locals}
-  | .arrayAppend a b c d e f g h => a.eval calls locals ++
+  | .arrayAppend a b c d e f g h i => a.eval calls locals ++
       [⟨b.eval calls locals, c.eval calls locals, d.eval calls locals, e.eval calls locals,
-        f.eval calls locals, g.eval calls locals, h.eval calls locals⟩]
+        f.eval calls locals, g.eval calls locals, h.eval calls locals, i.eval calls locals⟩]
   | .maxScalarBindings => ScalarExpression.maxBindings
   | .fullInterval => Integer.Interval.full
   | .emptyInterval => Integer.Interval.empty
@@ -1751,7 +1761,7 @@ def Expr.primary : Expr ty → Bool
   | .word _ | .integerTypeWord | .arrayCount _ | .maxArrayBindings | .maxArrayElements
   | .invalidScalar | .integerNumber _ | .wideInteger _ | .wideNumber _ | .elementCount _
   | .arrayPut _ _ _ | .arrayUsedValues _ _ _ | .arrayNamesOnly _ _ | .stateArray _ _
-  | .statePositionArray _ _ _ | .arrayAppend _ _ _ _ _ _ _ _ | .maxScalarBindings
+  | .statePositionArray _ _ _ | .arrayAppend _ _ _ _ _ _ _ _ _ | .maxScalarBindings
   | .defaultFull _ | .subtypeCount _ | .subtypeItem _ _ | .hiddenFlag _ _ | .operationName _
   | .forOperations _ _ | .subtypeAppend _ _ _ _ _ _ _ | .stateSubtype _ _ _ | .maxSubtypeBindings
   | .fullInterval | .emptyInterval | .interval _ _ | .constraint _ _
@@ -1893,7 +1903,7 @@ def Expr.wellFormed : Expr ty → Bool
   | .arrayNamesOnly a b => a.wellFormed && b.wellFormed
   | .stateArray a b => a.wellFormed && b.wellFormed
   | .statePositionArray a b c => a.wellFormed && b.wellFormed && c.wellFormed
-  | .arrayAppend a b c d e f g h => a.wellFormed && b.wellFormed && c.wellFormed && d.wellFormed && e.wellFormed && f.wellFormed && g.wellFormed && h.wellFormed
+  | .arrayAppend a b c d e f g h i => a.wellFormed && b.wellFormed && c.wellFormed && d.wellFormed && e.wellFormed && f.wellFormed && g.wellFormed && h.wellFormed && i.wellFormed
   | .maxArrayBindings | .maxArrayElements | .invalidScalar | .integerNumber _ => true
   | .word _ | .integerTypeWord | .maxScalarBindings => true
   | .operatorByte x => x.wellFormed && x.simple
@@ -2136,7 +2146,7 @@ def Expr.scoped (scope : Scope) : Expr ty → Bool
   | .arrayNamesOnly a b => a.scoped scope && b.scoped scope
   | .stateArray a b => a.scoped scope && b.scoped scope
   | .statePositionArray a b c => a.scoped scope && b.scoped scope && c.scoped scope
-  | .arrayAppend a b c d e f g h => a.scoped scope && b.scoped scope && c.scoped scope && d.scoped scope && e.scoped scope && f.scoped scope && g.scoped scope && h.scoped scope
+  | .arrayAppend a b c d e f g h i => a.scoped scope && b.scoped scope && c.scoped scope && d.scoped scope && e.scoped scope && f.scoped scope && g.scoped scope && h.scoped scope && i.scoped scope
   | .maxArrayBindings | .maxArrayElements | .invalidScalar | .integerNumber _ => true
   | .word _ | .integerTypeWord | .maxScalarBindings => true
   | .operatorByte x => x.scoped scope
