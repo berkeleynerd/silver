@@ -16,6 +16,7 @@ from pathlib import Path
 # The existing explicit-witness helper checks the same equality in the kernel;
 # preserve smaller certificates so their checked objects remain reusable.
 _RFL_TOKEN_LIMIT = 32_768
+OUTPUT_BODY_LINE_MODULES = tuple(f"OutputBodyLines{index}" for index in range(4))
 
 SOURCE_BINDINGS = (
     ("silver_array_bindings.ads", "arrayBindingsSpec", "arrayBindingsSpecTokens"),
@@ -127,9 +128,10 @@ def validate_source_bytes(source: bytes, filename: str) -> None:
             raise ValueError(f"{filename}: unsupported compiler-source byte 0x{byte:02x} at offset {offset}")
 
 
-def generate(source: str, profile: str, prefix: str) -> list[str]:
+def generate_parts(source: str, profile: str, prefix: str) -> tuple[list[list[str]], list[str]]:
     validate_source_bytes(source.encode("utf-8"), profile)
     output: list[str] = []
+    declarations: list[list[str]] = []
     names: list[str] = []
     all_tokens: list[str] = []
     # split preserves a final empty chunk, hence exact final newline presence.
@@ -139,7 +141,7 @@ def generate(source: str, profile: str, prefix: str) -> list[str]:
         names.append(name)
         tokens = lex_candidate(line)
         all_tokens.extend(tokens)
-        output.extend([
+        declarations.append([
             f"def {name} : LineCertificate where",
             f"  text := {literal(line)}",
             f"  tokens := {tokens_literal(tokens)}",
@@ -201,32 +203,23 @@ def generate(source: str, profile: str, prefix: str) -> list[str]:
         f"  rw [{prefix}_values]",
         "",
     ])
-    return output
+    return declarations, output
 
 
-def main() -> None:
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--output", required=True, type=Path,
-                        help="candidate module in an isolated proof workspace")
-    parser.add_argument("--source", required=True, choices=[entry[0] for entry in SOURCE_BINDINGS],
-                        help="emit one independently checked source certificate module")
-    arguments = parser.parse_args()
-    proof = Path(__file__).resolve().parent
-    repository = proof.parent
-    destination = arguments.output.absolute()
-    if destination.resolve().is_relative_to(proof):
-        parser.error("candidate output must be outside the shared proof source tree")
-    if (destination.parent / "../../src").resolve() != (repository / "src").resolve():
-        parser.error("candidate ../../src must resolve to the authoritative source directory")
-    binding = next(profile for filename, profile, _prefix in SOURCE_BINDINGS
-                   if filename == arguments.source)
-    binding_module = binding[0].upper() + binding[1:] + "Source"
-    output = [
+def generate(source: str, profile: str, prefix: str) -> list[str]:
+    declarations, reconstruction = generate_parts(source, profile, prefix)
+    return [line for declaration in declarations for line in declaration] + reconstruction
+
+
+def module_header(binding_module: str | None = None,
+                  line_modules: tuple[str, ...] = ()) -> list[str]:
+    return [
         "module",
         "",
         "public import Silver.SourceLexer",
         "public meta import Silver.CertificateWitness",
-        f"public import Silver.{binding_module}",
+        *([f"public import Silver.{binding_module}"] if binding_module else []),
+        *(f"public import Silver.{module}" for module in line_modules),
         "",
         "@[expose] public section",
         "",
@@ -241,17 +234,46 @@ def main() -> None:
         "namespace Silver.Source",
         "",
     ]
-    for filename, profile, prefix in SOURCE_BINDINGS:
-        if arguments.source is not None and filename != arguments.source:
-            continue
-        # Read bytes directly: text-mode newline translation would lose CRs.
-        source_bytes = (repository / "src" / filename).read_bytes()
-        validate_source_bytes(source_bytes, filename)
-        source = source_bytes.decode("ascii")
-        output.extend(generate(source, profile, prefix))
-    output.append("end Silver.Source")
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--output", required=True, type=Path,
+                        help="candidate module in an isolated proof workspace; output body also emits "
+                             "four sibling line modules with the same suffixes")
+    parser.add_argument("--source", required=True, choices=[entry[0] for entry in SOURCE_BINDINGS],
+                        help="emit one independently checked source certificate module")
+    arguments = parser.parse_args()
+    proof = Path(__file__).resolve().parent
+    repository = proof.parent
+    destination = arguments.output.absolute()
+    if destination.resolve().is_relative_to(proof):
+        parser.error("candidate output must be outside the shared proof source tree")
+    if (destination.parent / "../../src").resolve() != (repository / "src").resolve():
+        parser.error("candidate ../../src must resolve to the authoritative source directory")
+    filename, binding, prefix = next(entry for entry in SOURCE_BINDINGS
+                                     if entry[0] == arguments.source)
+    binding_module = binding[0].upper() + binding[1:] + "Source"
+    # Read bytes directly: text-mode newline translation would lose CRs.
+    source_bytes = (repository / "src" / filename).read_bytes()
+    validate_source_bytes(source_bytes, filename)
+    declarations, reconstruction = generate_parts(source_bytes.decode("ascii"), binding, prefix)
+    line_modules = OUTPUT_BODY_LINE_MODULES if filename == "silver_output_profile.adb" else ()
+    output = module_header(binding_module, line_modules)
+    if not line_modules:
+        output.extend(line for declaration in declarations for line in declaration)
+    output.extend(reconstruction)
+    outputs = {destination: output}
+    # Only the large output-body certificate is split. Keep declaration order,
+    # names, literals and proof bodies intact; the aggregator reconstructs the
+    # complete authoritative source using the same balanced tree as before.
+    for index, module in enumerate(line_modules):
+        chunk = declarations[len(declarations) * index // 4:len(declarations) * (index + 1) // 4]
+        outputs[destination.with_name(module + "".join(destination.suffixes))] = (
+            module_header() + [line for declaration in chunk for line in declaration])
     destination.parent.mkdir(parents=True, exist_ok=True)
-    destination.write_text("\n".join(output) + "\n", encoding="utf-8")
+    for path, contents in outputs.items():
+        path.write_text("\n".join([*contents, "end Silver.Source"]) + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__":

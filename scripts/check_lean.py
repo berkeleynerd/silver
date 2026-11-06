@@ -33,7 +33,7 @@ else:
     from run_history import ManagedRun
 
 PROOF = ROOT / "proof"
-CANDIDATES = {
+CERTIFICATE_ROOTS = {
     Path("Silver/ArrayBindingsSpecCertificate.lean"): "silver_array_bindings.ads",
     Path("Silver/ArrayBindingsBodyCertificate.lean"): "silver_array_bindings.adb",
     Path("Silver/ImageModelSpecCertificate.lean"): "silver_image_model.ads",
@@ -64,6 +64,9 @@ CANDIDATES = {
     Path("Silver/ArgumentsBodyCertificate.lean"): "silver_arguments.adb",
     Path("Silver/RuntimeSpecCertificate.lean"): "silver_runtime.ads",
 }
+OUTPUT_BODY_LINES = tuple(Path(f"Silver/OutputBodyLines{index}.lean") for index in range(4))
+CANDIDATES = CERTIFICATE_ROOTS | {
+    path: "silver_output_profile.adb" for path in OUTPUT_BODY_LINES}
 
 
 def check_proof_policy(path: Path, contents: bytes) -> None:
@@ -120,6 +123,39 @@ def write_changed(path: Path, contents: bytes) -> None:
     if not path.is_file() or path.read_bytes() != contents:
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(contents)
+
+
+def generate_certificate(host: HostLayout, relative: Path, source_name: str,
+                         *, pass_fds: tuple[int, ...] = ()) -> None:
+    """Regenerate one source and publish all its checked candidate inputs.
+
+    Stage the output-body aggregator and its four line modules together. Read
+    every expected output before publishing any, so a partial generation cannot
+    silently retain a stale chunk. Unchanged bytes keep their useful timestamps.
+    """
+    outputs = (relative, *OUTPUT_BODY_LINES) if relative == Path(
+        "Silver/OutputBodyCertificate.lean") else (relative,)
+    pending = {host.proof / path: (host.proof / path).with_suffix(".lean.pending")
+               for path in outputs}
+    for candidate, generated in pending.items():
+        require_regular_workspace_path(host, candidate)
+        require_regular_workspace_path(host, generated)
+        generated.unlink(missing_ok=True)
+    try:
+        subprocess.run([sys.executable, str(PROOF / "generate_source_certificate.py"),
+                        "--source", source_name, "--output", str(pending[host.proof / relative])],
+                       cwd=ROOT, check=True, pass_fds=pass_fds)
+        contents = {}
+        for candidate, generated in pending.items():
+            require_regular_workspace_path(host, generated)
+            if not generated.is_file():
+                raise RuntimeError(f"candidate generator did not produce a regular certificate file: {generated}")
+            contents[candidate] = generated.read_bytes()
+        for candidate, data in contents.items():
+            write_changed(candidate, data)
+    finally:
+        for generated in pending.values():
+            generated.unlink(missing_ok=True)
 
 
 def require_regular_workspace_path(host: HostLayout, path: Path) -> None:
@@ -478,20 +514,8 @@ def main(arguments: list[str] | None = None) -> None:
         # line and reconstruction of the exact authoritative source bytes.
         # The generator writes beside the final module so its authoritative-source
         # path checks remain valid. Publish only changed bytes to preserve no-op runs.
-        for relative, source_name in CANDIDATES.items():
-            candidate = host.proof / relative
-            generated = candidate.with_suffix(".lean.pending")
-            require_regular_workspace_path(host, generated)
-            require_regular_workspace_path(host, candidate)
-            generated.unlink(missing_ok=True)
-            try:
-                subprocess.run([sys.executable, str(PROOF / "generate_source_certificate.py"),
-                                "--source", source_name, "--output", str(generated)], cwd=ROOT, check=True,
-                                pass_fds=run.pass_fds)
-                require_regular_workspace_path(host, generated)
-                write_changed(candidate, generated.read_bytes())
-            finally:
-                generated.unlink(missing_ok=True)
+        for relative, source_name in CERTIFICATE_ROOTS.items():
+            generate_certificate(host, relative, source_name, pass_fds=run.pass_fds)
         verify_workspace_inputs(host, inputs)
         workspace_sources, workspace_hashes = capture_workspace_inputs(host)
         if workspace_sources.keys() != sources.keys():
