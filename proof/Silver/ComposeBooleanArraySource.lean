@@ -11,14 +11,65 @@ Boolean initializer meaning on the exact state/cursor/mask domain. -/
 namespace Silver.Compose.BooleanArraySource
 open Silver.SourceBridge
 
-def modelSpec : List String := expectedTokens
-  "(Text : String; Source_State, Result_State : Parser_State; Position : Literal_Position; Length, Parsed : Array_Bindings.Element_Count; Mask_First, Mask_After : Literal_Position) return Parser_State with Ghost => Static, Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Valid_State (Text, Source_State) and then Valid_State (Text, Result_State) and then Position <= Text'Last + 1 and then Parsed <= Length and then Valid_Name_State (Text, Mask_First, Mask_After) and then Length <= Array_Bindings.Max_Elements - Source_State.Array_Names.Used and then Result_State.Array_Names.Used = Source_State.Array_Names.Used + Parsed, Post => Valid_State (Text, Boolean_Array_Values_Model'Result) and then (if Boolean_Array_Values_Model'Result.Position /= 0 then Boolean_Array_Values_Model'Result.Position >= Position and then Boolean_Array_Values_Model'Result = (Result_State with delta Position => Boolean_Array_Values_Model'Result.Position, Array_Names => (Result_State.Array_Names with delta Used => Source_State.Array_Names.Used + Length, Values => Boolean_Array_Values_Model'Result.Array_Names.Values)) and then (for all Slot in 1 .. Result_State.Array_Names.Used => Boolean_Array_Values_Model'Result.Array_Names.Values (Slot) = Result_State.Array_Names.Values (Slot))), Subprogram_Variant => (Decreases => Length - Parsed)"
+def modelSpec : List String :=
+  ["(", "text", ":", "string", ";", "source_state", ",", "result_state", ":", "parser_state", ";",
+   "position", ":", "literal_position", ";", "length", ",", "parsed", ":", "array_bindings", ".",
+   "element_count", ";", "mask_first", ",", "mask_after", ":", "literal_position", ")", "return",
+   "parser_state", "with", "ghost", "=>", "static", ",", "global", "=>", "null", ",", "pre", "=>",
+   "text", "'", "first", "=", "1", "and", "then", "text", "'", "length", "in", "1", "..",
+   "max_source_length", "and", "then", "valid_state", "(", "text", ",", "source_state", ")", "and",
+   "then", "valid_state", "(", "text", ",", "result_state", ")", "and", "then", "position", "<=",
+   "text", "'", "last", "+", "1", "and", "then", "parsed", "<=", "length", "and", "then",
+   "valid_name_state", "(", "text", ",", "mask_first", ",", "mask_after", ")", "and", "then",
+   "length", "<=", "array_bindings", ".", "max_elements", "-", "source_state", ".", "array_names",
+   ".", "used", "and", "then", "result_state", ".", "array_names", ".", "used", "=", "source_state",
+   ".", "array_names", ".", "used", "+", "parsed", ",", "post", "=>", "valid_state", "(", "text",
+   ",", "boolean_array_values_model", "'", "result", ")", "and", "then", "(", "if",
+   "boolean_array_values_model", "'", "result", ".", "position", "/=", "0", "then",
+   "boolean_array_values_model", "'", "result", ".", "position", ">=", "position", "and", "then",
+   "boolean_array_values_model", "'", "result", "=", "(", "result_state", "with", "delta",
+   "position", "=>", "boolean_array_values_model", "'", "result", ".", "position", ",",
+   "array_names", "=>", "(", "result_state", ".", "array_names", "with", "delta", "used", "=>",
+   "source_state", ".", "array_names", ".", "used", "+", "length", ",", "values", "=>",
+   "boolean_array_values_model", "'", "result", ".", "array_names", ".", "values", ")", ")", "and",
+   "then", "(", "for", "all", "slot", "in", "1", "..", "result_state", ".", "array_names", ".",
+   "used", "=>", "boolean_array_values_model", "'", "result", ".", "array_names", ".", "values",
+   "(", "slot", ")", "=", "result_state", ".", "array_names", ".", "values", "(", "slot", ")", ")",
+   ")", ",", "subprogram_variant", "=>", "(", "decreases", "=>", "length", "-", "parsed", ")"]
 
 def modelImpl : List String := expectedTokens
   "(Text : String; Source_State, Result_State : Parser_State; Position : Literal_Position; Length, Parsed : Array_Bindings.Element_Count; Mask_First, Mask_After : Literal_Position) return Parser_State"
 
-def executableSpec : List String := expectedTokens
-  "(Text : String; Source_State, Result_State : Parser_State; Position : Literal_Position; Length, Parsed : Array_Bindings.Element_Count; Mask_First, Mask_After : Literal_Position) return Parser_State with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Valid_State (Text, Source_State) and then Valid_State (Text, Result_State) and then Position <= Text'Last + 1 and then Parsed <= Length and then Valid_Name_State (Text, Mask_First, Mask_After) and then Length <= Array_Bindings.Max_Elements - Source_State.Array_Names.Used and then Result_State.Array_Names.Used = Source_State.Array_Names.Used + Parsed, Post => (Runtime => Valid_State (Text, Boolean_Array_Values_At'Result) and then (if Boolean_Array_Values_At'Result.Position /= 0 then Boolean_Array_Values_At'Result.Position >= Position and then Boolean_Array_Values_At'Result = (Result_State with delta Position => Boolean_Array_Values_At'Result.Position, Array_Names => (Result_State.Array_Names with delta Used => Source_State.Array_Names.Used + Length, Values => Boolean_Array_Values_At'Result.Array_Names.Values)) and then (for all Slot in 1 .. Result_State.Array_Names.Used => Boolean_Array_Values_At'Result.Array_Names.Values (Slot) = Result_State.Array_Names.Values (Slot))), Static => Boolean_Array_Values_At'Result = Boolean_Array_Values_Model (Text, Source_State, Result_State, Position, Length, Parsed, Mask_First, Mask_After) and then Same_Parser_State (Boolean_Array_Values_At'Result, Boolean_Array_Values_Model (Text, Source_State, Result_State, Position, Length, Parsed, Mask_First, Mask_After)))"
+def executableSpec : List String :=
+  ["(", "text", ":", "string", ";", "source_state", ",", "result_state", ":", "parser_state", ";",
+   "position", ":", "literal_position", ";", "length", ",", "parsed", ":", "array_bindings", ".",
+   "element_count", ";", "mask_first", ",", "mask_after", ":", "literal_position", ")", "return",
+   "parser_state", "with", "global", "=>", "null", ",", "pre", "=>", "text", "'", "first", "=", "1",
+   "and", "then", "text", "'", "length", "in", "1", "..", "max_source_length", "and", "then",
+   "valid_state", "(", "text", ",", "source_state", ")", "and", "then", "valid_state", "(", "text",
+   ",", "result_state", ")", "and", "then", "position", "<=", "text", "'", "last", "+", "1", "and",
+   "then", "parsed", "<=", "length", "and", "then", "valid_name_state", "(", "text", ",",
+   "mask_first", ",", "mask_after", ")", "and", "then", "length", "<=", "array_bindings", ".",
+   "max_elements", "-", "source_state", ".", "array_names", ".", "used", "and", "then",
+   "result_state", ".", "array_names", ".", "used", "=", "source_state", ".", "array_names", ".",
+   "used", "+", "parsed", ",", "post", "=>", "(", "runtime", "=>", "valid_state", "(", "text", ",",
+   "boolean_array_values_at", "'", "result", ")", "and", "then", "(", "if",
+   "boolean_array_values_at", "'", "result", ".", "position", "/=", "0", "then",
+   "boolean_array_values_at", "'", "result", ".", "position", ">=", "position", "and", "then",
+   "boolean_array_values_at", "'", "result", "=", "(", "result_state", "with", "delta", "position",
+   "=>", "boolean_array_values_at", "'", "result", ".", "position", ",", "array_names", "=>", "(",
+   "result_state", ".", "array_names", "with", "delta", "used", "=>", "source_state", ".",
+   "array_names", ".", "used", "+", "length", ",", "values", "=>", "boolean_array_values_at", "'",
+   "result", ".", "array_names", ".", "values", ")", ")", "and", "then", "(", "for", "all", "slot",
+   "in", "1", "..", "result_state", ".", "array_names", ".", "used", "=>",
+   "boolean_array_values_at", "'", "result", ".", "array_names", ".", "values", "(", "slot", ")",
+   "=", "result_state", ".", "array_names", ".", "values", "(", "slot", ")", ")", ")", ",",
+   "static", "=>", "boolean_array_values_at", "'", "result", "=", "boolean_array_values_model", "(",
+   "text", ",", "source_state", ",", "result_state", ",", "position", ",", "length", ",", "parsed",
+   ",", "mask_first", ",", "mask_after", ")", "and", "then", "same_parser_state", "(",
+   "boolean_array_values_at", "'", "result", ",", "boolean_array_values_model", "(", "text", ",",
+   "source_state", ",", "result_state", ",", "position", ",", "length", ",", "parsed", ",",
+   "mask_first", ",", "mask_after", ")", ")", ")"]
 
 def executableImpl : List String := expectedTokens
   "(Text : String; Source_State, Result_State : Parser_State; Position : Literal_Position; Length, Parsed : Array_Bindings.Element_Count; Mask_First, Mask_After : Literal_Position) return Parser_State"
