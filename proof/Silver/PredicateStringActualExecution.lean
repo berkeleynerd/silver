@@ -47,7 +47,8 @@ mutual
       (values : Values) (item : Statement) (integers : Integer.Store) (booleans : Boolean.Store) : Prop :=
     match item with
     | .simple item => SimpleActualBoundsSafe bounds names values input integers item
-    | .booleanAssign update => update.value.ActualBoundsSafe bounds names values input valid integers booleans
+    | .booleanAssign update | .booleanArrayAssign update =>
+        update.value.ActualBoundsSafe bounds names values input valid integers booleans
     | .scalarAssign _ | .arrayAssign _ | .reject => True
     | .choice condition yes no =>
         condition.ActualBoundsSafe bounds names values input valid integers booleans ∧
@@ -110,7 +111,7 @@ mutual
         | assign update | output update | put update =>
             exact Expression.actualBoundsSafe compatible origin safe
     | scalarAssign | arrayAssign | reject => simp only [Statement.ActualBoundsSafe]
-    | booleanAssign update =>
+    | booleanAssign update | booleanArrayAssign update =>
         simp only [Statement.BoundsOrigin, Statement.ObjectBoundsSafe, Statement.ActualBoundsSafe] at origin safe ⊢
         exact Condition.actualBoundsSafe compatible origin safe
     | choice condition yes no =>

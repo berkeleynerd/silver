@@ -27,7 +27,8 @@ mutual
       (values : Values) (item : Statement) (integers : Integer.Store) (booleans : Boolean.Store) : Prop :=
     match item with
     | .simple item => SimpleObjectBoundsSafe names values input integers item
-    | .booleanAssign update => update.value.ObjectBoundsSafe names values input valid integers booleans
+    | .booleanAssign update | .booleanArrayAssign update =>
+        update.value.ObjectBoundsSafe names values input valid integers booleans
     | .scalarAssign _ | .arrayAssign _ | .reject => True
     | .choice condition yes no =>
         condition.ObjectBoundsSafe names values input valid integers booleans ∧
@@ -157,6 +158,21 @@ mutual
           simp only [Statement.ObjectBoundsSafe]
           apply condition_objectBounds_from_raw_certificates metadata state origin wellFormed.2.2 allowed
             (Bool.and_eq_true_iff.mp good).2
+          intro context summary member
+          exact certificates context summary (List.mem_append_right _ member)
+        · contradiction
+    | booleanArrayAssign update =>
+        simp only [Statement.obligations] at certificates
+        simp only [Statement.BoundsOrigin] at origin
+        simp only [Statement.WellFormed] at wellFormed
+        simp only [Statement.check] at checked
+        split at checked
+        · rename_i good
+          simp only [Statement.ObjectBoundsSafe]
+          have checkedValue : update.value.checkBounds names.shape analysis before booleanAnalysis = true :=
+            (Bool.and_eq_true_iff.mp (Bool.and_eq_true_iff.mp good).2).2
+          apply condition_objectBounds_from_raw_certificates metadata state origin wellFormed.2.2 allowed
+            checkedValue
           intro context summary member
           exact certificates context summary (List.mem_append_right _ member)
         · contradiction
