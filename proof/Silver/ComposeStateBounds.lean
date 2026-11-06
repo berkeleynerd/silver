@@ -3,6 +3,7 @@ module
 public import Silver.ComposeContracts
 public import Silver.ComposeScalarDeclarations
 public import Silver.ComposeArrayElaboration
+public import Silver.ComposeBooleanArrayElaboration
 public import Silver.ComposeBooleanDeclarations
 public import Silver.ComposeObjectDeclarations
 public import Silver.ComposeCharacterBounds
@@ -238,6 +239,21 @@ theorem model_array_reading_valid {text : Source} {state next : ParserState} {ar
       · rw [show _ = state.booleanNames from congrArg (fun s => s.booleanNames) fields]
         exact stateValid.2.2.2.2.2.2.2.2
 
+theorem model_boolean_array_reading_valid {text arguments state next}
+    (stateValid : ValidState text state)
+    (parsed : BooleanArrayDeclarationAt text arguments state next) : ValidState text next := by
+  have arrays := boolean_array_declaration_array_valid parsed stateValid.2.2.2.2.2.2.1
+  have fields := boolean_array_declaration_fields parsed
+  have position : ValidCursor text next.position := by
+    cases parsed with
+    | declaration _ _ _ _ _ _ _ following _ =>
+        rw [following]
+        exact fixedAfter_result_bound text _ ";" false (by decide)
+  rw [fields]
+  exact ⟨position, stateValid.2.1, stateValid.2.2.1, stateValid.2.2.2.1,
+    stateValid.2.2.2.2.1, stateValid.2.2.2.2.2.1, arrays,
+    stateValid.2.2.2.2.2.2.2.1, stateValid.2.2.2.2.2.2.2.2⟩
+
 theorem model_array_declaration_valid (text : Source) (state : ParserState) (arguments : Bool)
     (stateValid : ValidState text state) : ValidState text (arrayDeclarationAt text state arguments) := by
   unfold arrayDeclarationAt
@@ -254,15 +270,22 @@ theorem model_array_declaration_valid (text : Source) (state : ParserState) (arg
           have accepted : (arrayDeclarationAt text state arguments).position ≠ 0 := by
             simp only [arrayDeclarationAt, good, start, positive, advances, Bool.false_eq_true, ↓reduceIte]
             omega
-          obtain ⟨declaration, reading⟩ := array_declaration_sound text state arguments accepted
-          simpa only [arrayDeclarationAt, good, start, positive, advances, Bool.false_eq_true, ↓reduceIte] using
-            model_array_reading_valid stateValid reading
+          have valid : ValidState text (arrayDeclarationAt text state arguments) := by
+            by_cases kind : (arrayDeclarationParts text state).isBoolean = true
+            · exact model_boolean_array_reading_valid stateValid
+                (boolean_array_declaration_sound text state arguments kind accepted)
+            · obtain ⟨declaration, reading⟩ := array_declaration_sound text state arguments
+                (Bool.eq_false_iff.mpr kind) accepted
+              exact model_array_reading_valid stateValid reading
+          simpa only [arrayDeclarationAt, good, start, positive, advances, Bool.false_eq_true, ↓reduceIte] using valid
 
 theorem model_array_declaration_advances (text : Source) (state : ParserState) (arguments : Bool)
     (positive : (arrayDeclarationAt text state arguments).position ≠ 0) :
     state.position < (arrayDeclarationAt text state arguments).position := by
-  obtain ⟨declaration, reading⟩ := array_declaration_sound text state arguments positive
-  exact array_declaration_advances reading
+  by_cases kind : (arrayDeclarationParts text state).isBoolean = true
+  · exact boolean_array_declaration_advances (boolean_array_declaration_sound text state arguments kind positive)
+  · obtain ⟨declaration, reading⟩ := array_declaration_sound text state arguments (Bool.eq_false_iff.mpr kind) positive
+    exact array_declaration_advances reading
 
 theorem model_subtype_reading_valid {text arguments state next}
     (stateValid : ValidState text state)

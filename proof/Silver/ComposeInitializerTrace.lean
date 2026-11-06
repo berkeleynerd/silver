@@ -3,6 +3,7 @@ module
 public import Silver.ComposeDeclarations
 public import Silver.ComposeSubtypeChecks
 public import Silver.ComposeArrayChecks
+public import Silver.ComposeBooleanArrayHeaderChecks
 public import Silver.StringObligations
 
 @[expose] public section
@@ -137,6 +138,16 @@ inductive InitializerChecksAt (text : Source) (arguments : Bool) :
       InitializerChecksAt text arguments middle rest final →
       InitializerChecksAt text arguments state (checks ++ rest) final
 
+  | booleanArray {state middle final : ParserState}
+      {checks rest : List Integer.Obligation} :
+      state.position ≠ 0 → fixedAfter text state.position "begin" true = 0 →
+      (subtypeDeclarationAt text state arguments).position = 0 →
+      (scalarDeclarationAt text state arguments).position = 0 →
+      BooleanArrayDeclarationAt text arguments state middle →
+      BooleanArrayHeaderChecksAt text state checks →
+      InitializerChecksAt text arguments middle rest final →
+      InitializerChecksAt text arguments state (checks ++ rest) final
+
   | subtype {state middle final : ParserState} {checks rest : List Integer.Obligation} :
       state.position ≠ 0 → fixedAfter text state.position "begin" true = 0 →
       SubtypeDeclarationAt text arguments state middle →
@@ -170,6 +181,10 @@ theorem declarations_image_trace {text : Source} {arguments : Bool} {state final
       obtain ⟨checks, trace⟩ := array_declaration_checks_trace first
       obtain ⟨remaining, following⟩ := ih
       exact ⟨checks ++ remaining, .array positive more noSubtype noScalar first trace following⟩
+  | booleanArray positive more noSubtype noScalar first rest ih =>
+      obtain ⟨checks, trace⟩ := boolean_array_header_checks_trace first
+      obtain ⟨remaining, following⟩ := ih
+      exact ⟨checks ++ remaining, .booleanArray positive more noSubtype noScalar first trace following⟩
   | subtype positive more first rest ih =>
       obtain ⟨checks, trace⟩ := subtype_declaration_checks_trace first
       obtain ⟨remaining, following⟩ := ih
@@ -201,6 +216,10 @@ theorem initializer_checks_discharge {text : Source} {arguments : Bool} {state f
       rw [Integer.discharged_append, array_declaration_checks_discharge declaration checks subtypes]
       rw [(array_declaration_preserves declaration).1, array_declaration_subtypes declaration] at ih
       simpa only [Bool.true_and] using ih normal subtypes
+  | booleanArray _ _ _ _ declaration checks _ ih =>
+      rw [Integer.discharged_append, boolean_array_header_checks_discharge checks]
+      rw [(boolean_array_declaration_preserves declaration).1, (boolean_array_declaration_preserves declaration).2.2.2] at ih
+      simpa only [Bool.true_and] using ih normal subtypes
   | subtype _ _ declaration checks _ ih =>
       rw [Integer.discharged_append, subtype_declaration_checks_discharge checks]
       have nextSubtypes := subtype_declaration_valid declaration subtypes
@@ -226,7 +245,7 @@ theorem initializer_trace_unique {text : Source} {arguments : Bool} {state leftS
   | done positive stop =>
       cases second with
       | done => exact ⟨rfl, rfl⟩
-      | string _ more _ _ _ _ _ _ _ | scalar _ more _ _ _ _ | array _ more _ _ _ _ _ | subtype _ more _ _ _ | boolean _ more _ _ _ _ _ => exact False.elim (stop more)
+      | string _ more _ _ _ _ _ _ _ | scalar _ more _ _ _ _ | array _ more _ _ _ _ _ | booleanArray _ more _ _ _ _ _ | subtype _ more _ _ _ | boolean _ more _ _ _ _ _ => exact False.elim (stop more)
   | string positive more noSubtype noScalar noArray noBoolean parsed checks rest ih =>
       cases second with
       | done _ stop => exact False.elim (stop more)
@@ -243,6 +262,10 @@ theorem initializer_trace_unique {text : Source} {arguments : Bool} {state leftS
           have accepted := array_declaration_positive other
           rw [← array_declaration_complete other, noArray] at accepted
           contradiction
+      | booleanArray _ _ _ _ other _ _ =>
+          have accepted := boolean_array_declaration_positive other
+          rw [← boolean_array_declaration_complete other, noArray] at accepted
+          contradiction
       | boolean _ _ _ _ _ other _ =>
           have accepted := boolean_declaration_positive other
           rw [← boolean_declaration_complete other, noBoolean] at accepted
@@ -255,7 +278,7 @@ theorem initializer_trace_unique {text : Source} {arguments : Bool} {state leftS
   | scalar positive more noSubtype parsed checks rest ih =>
       cases second with
       | done _ stop => exact False.elim (stop more)
-      | string _ _ _ noScalar _ _ _ _ _ | array _ _ _ noScalar _ _ _ | boolean _ _ _ noScalar _ _ _ =>
+      | string _ _ _ noScalar _ _ _ _ _ | array _ _ _ noScalar _ _ _ | booleanArray _ _ _ noScalar _ _ _ | boolean _ _ _ noScalar _ _ _ =>
           have accepted := scalar_declaration_positive parsed
           rw [← scalar_declaration_complete parsed, noScalar] at accepted
           contradiction
@@ -291,10 +314,35 @@ theorem initializer_trace_unique {text : Source} {arguments : Bool} {state leftS
           rw [← subtype_declaration_complete other, noSubtype] at accepted
           contradiction
 
+      | booleanArray _ _ _ _ other _ _ => exact False.elim (array_declaration_kinds_disjoint parsed other)
+  | booleanArray positive more noSubtype noScalar parsed checks rest ih =>
+      cases second with
+      | done _ stop => exact False.elim (stop more)
+      | string _ _ _ _ noArray _ _ _ _ | boolean _ _ _ _ noArray _ _ =>
+          have accepted := boolean_array_declaration_positive parsed
+          rw [← boolean_array_declaration_complete parsed, noArray] at accepted
+          contradiction
+      | scalar _ _ _ other _ _ =>
+          have accepted := scalar_declaration_positive other
+          rw [← scalar_declaration_complete other, noScalar] at accepted
+          contradiction
+      | booleanArray _ _ _ _ other otherChecks remaining =>
+          have sameState := boolean_array_declaration_unique parsed other
+          cases sameState
+          have same := boolean_array_header_checks_unique checks otherChecks
+          obtain ⟨rfl, rfl⟩ := ih remaining
+          exact ⟨congrArg (fun initial => initial ++ _) same, rfl⟩
+
+      | subtype _ _ other _ _ =>
+          have accepted := subtype_declaration_positive other
+          rw [← subtype_declaration_complete other, noSubtype] at accepted
+          contradiction
+
+      | array _ _ _ _ other _ _ => exact False.elim (array_declaration_kinds_disjoint other parsed)
   | subtype positive more parsed checks rest ih =>
       cases second with
       | done _ stop => exact False.elim (stop more)
-      | string _ _ noSubtype _ _ _ _ _ _ | scalar _ _ noSubtype _ _ _ | array _ _ noSubtype _ _ _ _ | boolean _ _ noSubtype _ _ _ _ =>
+      | string _ _ noSubtype _ _ _ _ _ _ | scalar _ _ noSubtype _ _ _ | array _ _ noSubtype _ _ _ _ | booleanArray _ _ noSubtype _ _ _ _ | boolean _ _ noSubtype _ _ _ _ =>
           have accepted := subtype_declaration_positive parsed
           rw [← subtype_declaration_complete parsed, noSubtype] at accepted
           contradiction
@@ -319,6 +367,10 @@ theorem initializer_trace_unique {text : Source} {arguments : Bool} {state leftS
       | array _ _ _ _ other _ _ =>
           have accepted := array_declaration_positive other
           rw [← array_declaration_complete other, noArray] at accepted
+          contradiction
+      | booleanArray _ _ _ _ other _ _ =>
+          have accepted := boolean_array_declaration_positive other
+          rw [← boolean_array_declaration_complete other, noArray] at accepted
           contradiction
       | subtype _ _ other _ _ =>
           have accepted := subtype_declaration_positive other

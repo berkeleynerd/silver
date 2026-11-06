@@ -247,6 +247,9 @@ theorem declarations_bounds {text arguments state final declarations input value
   | array _ _ _ _ first _ ih =>
       rw [(array_declaration_preserves first).1, (array_declaration_preserves first).2] at ih
       exact ih count metadata strings static
+  | booleanArray _ _ _ _ first _ ih =>
+      rw [(boolean_array_declaration_preserves first).1, (boolean_array_declaration_preserves first).2.1] at ih
+      exact ih count metadata strings static
   | subtype _ _ first _ ih => cases first; exact ih count metadata strings static
   | boolean _ _ _ _ _ first _ ih => cases first; exact ih count metadata strings static
 
