@@ -11,8 +11,9 @@ output line chunks with adoption if useful, followed by
 identities/cache reuse for ordinary edits. The
 [dated memory](session-memory.md#2026-11-06--incremental-lean-throughput-work-authorized)
 records authority; [roadmap](../roadmap.md#lean-source-parallelism) records order.
-Both issues remain Backlog until authorization is on main, before a claim or
-implementation. This record reports no new benchmark or implementation result.
+At the planning boundary both issues remained Backlog until authorization
+reached main. PR #329 merged as `53ef5685a2`; #327 is now In progress and #328
+is Ready, with its pilot waiting for the comparison disposition below.
 
 The implementation base is the open, reviewed
 [PR #326](https://github.com/berkeleynerd/silver/pull/326), published completion
@@ -121,3 +122,26 @@ ordered requirements and a main-branch authorization record before claims.
 This round prepared that reviewable documentation; it ran no proof, build,
 test or benchmark and changed no governed implementation input. Token/cost
 measurements are unavailable. No CLI recall was updated.
+
+## Eight-chunk preparation and comparison — 2026-11-06
+
+Candidate `ec2c6f474b` is integrated as `0f3076d3da`, stacked on PR #326.
+The [independent static review](reviews/review-lean-incremental-throughput-20261106.md)
+confirms all 4,915 ordered line declarations and the complete reconstruction
+suffix are byte-identical to the four-chunk base; only the partition and four
+required imports differ. Eight chunk sizes are 614, 614, 615, 614, 614, 615,
+614 and 615. Runtime acceptance and adoption remain pending.
+
+Matched control `20261106T134724-a836b1157415` started at 13:47 UTC in the
+isolated `tmp/lean-four-control` workspace. The eight-case integration workspace
+starts from an independent copy of the same idle cache: all 630 common `.olean`
+hashes match, and both cases force the line objects to rebuild. The old unmatched
+measurement is not substituted for this control. Timed cases run sequentially
+with no competing proof/native/test jobs; ordinary code editing and static review
+can overlap. Both select automatic twelve-thread processes, a 6 GiB per-process
+allowance and respectively four/eight Lake workers as the comparison control.
+
+Implementation selected GPT-6.1 Sol / Extra High; critical static review selected
+GPT-6 Astra / Extra High. Lead runtime settings and token/cost measurements are
+unavailable. Static generation, Python syntax and whitespace checks passed;
+tests and production Lean acceptance are not claimed by this preparation round.
