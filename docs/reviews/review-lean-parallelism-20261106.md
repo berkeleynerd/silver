@@ -1,5 +1,14 @@
 # Lean source parallelism review — 2026-11-06
 
+Complete Linux Lean/source/module/axiom validation and the applicable native
+and tooling evidence are confirmed at review target
+`62f21bd215b0c5ea3b6be570c646637ffb07f997`. No unresolved review finding or
+missing required validation remains. Retaining both splits is supported, with
+the descriptive performance limits recorded below; owner merge authorization
+remains separate. The terminal confirmation closes the earlier pending items.
+
+## Initial component-review conclusion — 10:59 UTC
+
 No unresolved correctness finding in the reviewed component inputs. The source
 checks, reconstruction and final correspondence requirements are preserved.
 One resource-scope concern in the first predicate split was repaired before its
@@ -172,3 +181,65 @@ This bounded continuation inspected integration identities and existing evidence
 from 12:14 to 12:18 UTC. Selected reviewer remains GPT-6 Astra / Extra High;
 runtime confirmation and token/cost measurements remain unavailable. No source
 edit, validation process, new benchmark or GitHub write was performed.
+
+## Terminal confirmation — 13:16 UTC
+
+**No unresolved review finding or missing required validation remains for these
+two proof/tooling changes.** This confirmation closes the pending integration
+and validation items recorded above. The fixed review target is
+`62f21bd215b0c5ea3b6be570c646637ffb07f997`; governed implementation inputs remain
+those of `3f5d575635106fe9c5ecc039d6111a5a31429e56`.
+
+The reviewer inspected the immutable ledger/log/evidence for complete run
+`20261106T123115-e73dba359d09` and the
+[retained terminal packet](../evidence/lean-source-parallelism-20261106/integrated-complete/README.md).
+The run passed its build and separate fresh audit on Linux x86-64 with Lean
+4.34.1. Independent comparisons established:
+
+- All 745 captured shared-input hashes and their aggregate digest match current
+  frozen inputs; Lean/Lake executable hashes also match.
+- The actual fresh audit inventory equals all 634 expected project modules,
+  including the eight additions and every baseline module. Its 130,923
+  declarations use only `propext`, `Classical.choice` and `Quot.sound`.
+- All 634 workspace module sources match immutable implementation Git objects;
+  all 32 generated candidates match their retained identities, and the source
+  link still resolves to authoritative `src`. The 636-entry workspace inventory
+  matches current source/build inputs. Indexed packet hashes and retained raw
+  originals agree.
+- All 48 transferred artifact hashes remain unchanged. The complete normal
+  runner checked their dependencies and freshly audited their imported
+  declarations; this remains ordinary trusted-cache validation, without a new
+  compiled-object attestation or independent replay claim.
+
+The log records successful reconstruction, predicate assembly and their actual
+source/correspondence consumers among 18 built modules. Build and fresh audit
+took 2197.453 and 9.366 seconds respectively; runner elapsed time was 2220.833
+seconds. The unchanged-source NativeShape retry had already passed at 24 GiB.
+The earlier 12 GiB failure remains correctly classified as failed.
+
+All 143 tracked native input hashes independently match the integrated source.
+The retained complete native run proved 17,496 checks with its coverage/report/
+provenance audit, and the build passed. The reviewed applicability record
+justifies the 87 distinct focused test methods and identifies the twelve-method
+source-policy rerun as a subset. No additional native refresh or full application
+suite is indicated by this change's unchanged native inputs and scoped tooling
+behavior. The final complete Lean result supplies the integration coverage that
+the earlier focused trials and tooling tests could not establish.
+
+The adoption assessment in `docs/lean-line-chunks.md`, `roadmap.md` and the dated
+session memory is supported. The line-build phase plus Lake-reported
+reconstruction time totals about 65 minutes, against the historical monolithic
+184 minutes, with the already-recorded comparability limitations. The documents
+correctly avoid treating that descriptive comparison as a controlled speedup,
+the final cached 37-minute checkpoint as a fresh package rebuild, or separate
+leaf successes as proof of safe simultaneous heavy builds. Retaining both splits
+is reasonable given the demonstrated complete-line concurrency, independently
+schedulable predicate work and accepted unchanged correspondence chain. Owner
+merge authorization remains separate; #314 and the Oracle are unchanged.
+
+Terminal review ran from the first clock reading at 13:12 UTC through 13:16 UTC.
+Selected reviewer remains GPT-6 Astra / Extra High; runtime model/effort
+confirmation and token/cost measurements are unavailable. This round inspected
+completed evidence and documentation only. It launched no validation, benchmark
+or GitHub write and changed only this review report. Earlier review boundaries
+and failed-run history remain preserved above.
