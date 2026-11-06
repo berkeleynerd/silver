@@ -14,17 +14,20 @@ records authority; [roadmap](../roadmap.md#lean-source-parallelism) records orde
 At the planning boundary both issues remained Backlog until authorization
 reached main. PR #329 merged as `53ef5685a2`. The matched comparison now supports
 eight chunks. Both packages are implemented and have complete integrated Linux
-validation on PR #330; they remain In review, with implementation merge left
-to the owner.
+validation on PR #330; they remain In review pending the now-authorized merge.
+PR #326 has merged, and PR #330 follows under the
+[ordered owner authorization](session-memory.md#2026-11-06--stacked-lean-delivery-merges-authorized).
 
-The implementation base is the open, reviewed
+The implementation base is the reviewed
 [PR #326](https://github.com/berkeleynerd/silver/pull/326), published completion
 head `c062d5253e` and governed source `3f5d575635`. Its
 [completed evidence](https://github.com/berkeleynerd/silver/blob/c062d5253e73ad066bf0309eeee505f51f8b0860/docs/lean-line-chunks.md#completed-production-validation--2026-11-06)
 includes complete Lean/source validation and a critical review. Its descriptive
 historical timing comparison is context, not a matched four/eight measurement.
 New work stacks on that delivery and leaves its frozen inputs untouched.
-Neither its merge nor a later implementation merge is authorized here.
+The planning instruction did not authorize implementation merges; the later
+[ordered authorization](session-memory.md#2026-11-06--stacked-lean-delivery-merges-authorized)
+now covers PR #326 followed by PR #330.
 
 ## Full four-versus-eight comparison
 
@@ -111,10 +114,10 @@ No reconstruction representation changes, subtree split, reflection, broader
 tactic/proof framework, general cache framework or persistent telemetry is
 selected. #314 remains deferred and unchanged. Language, Oracle and required
 assurance remain unchanged. Keep #8 and milestone 17 open for these packages;
-at a later owner-authorized PR #326 merge, keep or reopen #8 through ordinary
-issue bookkeeping despite its earlier `Fixes #8` trailer; do not rewrite the
-reviewed implementation history. Routine planning/publication and planning-PR merge are authorized;
-implementation merge remains a later owner decision.
+keep or reopen #8 through ordinary issue bookkeeping after the PR #326 merge
+despite its earlier `Fixes #8` trailer, until PR #330 reaches main. Do not rewrite
+the reviewed implementation history. The later ordered merge authorization
+supersedes the planning-stage implementation hold.
 
 ## Planning round
 
@@ -227,4 +230,17 @@ objects under normal dependency checks; no new cache transfer was needed.
 The native packet, 90 scoped methods and complete final source/module/axiom
 check together satisfy the two packages' validation requirements. No full
 application-suite, macOS or hosted-CI run is added by this proof/tooling change.
-Both implementation PRs remain open; no implementation merge is selected.
+At this validation checkpoint both implementation PRs remained open and no
+implementation merge had been selected. The subsequent disposition follows.
+
+## Publication reconciliation — 2026-11-06
+
+PR #326 merged as `508692aa8957c319a6baaffd1d0fb5a17afcc8ea`. The owner-authorized
+PR #330 is reconciled against that main revision for the second ordered merge.
+The current implementation remains governed source `524dbfbd40`, published and
+reviewed at `d4fa3571a4619a082a04989cae8caabde7886eeb`. Only this record,
+[session memory](session-memory.md) and [roadmap](../roadmap.md) change during
+reconciliation; source, proof, scripts, tests and retained evidence are unchanged.
+The complete native/Lean validation and focused test applicability above are
+retained, without a new proof or native run. #8 and milestone 17 close after
+all selected packages reach main. No later work package is selected here.

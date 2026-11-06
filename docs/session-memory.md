@@ -1,5 +1,38 @@
 # Session memory
 
+## 2026-11-06 — Initial Lean delivery merged; incremental merge authorized
+
+The owner-authorized [PR #326](https://github.com/berkeleynerd/silver/pull/326)
+merged as `508692aa8957c319a6baaffd1d0fb5a17afcc8ea`, including the reviewed
+documentation reconciliation. The ordered authorization below now selects
+[PR #330](https://github.com/berkeleynerd/silver/pull/330) for merge onto main.
+Its eight stable-content buckets, complete native and Lean/source checkpoint,
+focused regressions and closing review remain those in the
+[delivery record](lean-incremental-throughput.md#integrated-checkpoint--2026-11-06).
+Reconciliation changes documentation only and preserves the validated governed
+inputs. Keep #8 and milestone 17 open until the incremental packages reach main;
+their closeout follows the second merge. No next work package is selected here,
+and no CLI recall entry was updated.
+
+## 2026-11-06 — Stacked Lean delivery merges authorized
+
+After validation and review of the stacked Lean deliveries, the owner instructed
+**“Let's commit the stacked PR and then proceed with the next regularly scheduled
+unit of work.”** This authorizes the reviewed
+[PR #326](https://github.com/berkeleynerd/silver/pull/326) merge followed by
+[PR #330](https://github.com/berkeleynerd/silver/pull/330), together with necessary
+documentation reconciliation and issue/milestone closeout. It supersedes the
+earlier implementation-merge holds for these two deliveries. Retain the exact
+review and validation targets and applicable successful evidence; documentation
+reconciliation does not claim a new native or Lean proof run.
+
+Preserve the [#327/#328 authorization](#2026-11-06--incremental-lean-throughput-work-authorized)
+and the original [#323/#324 delivery record](lean-line-chunks.md#completed-production-validation--2026-11-06).
+The next unit's issue and scope still require selection before implementation;
+this entry does not select #314, #297 or another queued item. No Oracle or
+language change is authorized by this merge instruction. No CLI recall was
+updated.
+
 ## 2026-11-06 — Incremental Lean throughput validated for review
 
 The owner-authorized matched chunk comparison and stable-cache packages
