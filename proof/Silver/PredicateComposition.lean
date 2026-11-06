@@ -44,7 +44,7 @@ def Program.initialValues (program : Program) (arguments : Arguments.Runtime.Arg
   executeDeclarations (program.input arguments) program.declarations emptyValues
 
 def Program.initialIntegers (program : Program) : Integer.Store :=
-  ArrayBindings.store program.arrays.names program.arrays.values
+  ArrayBindings.integerStore program.arrays.names program.arrays.values
     (Integer.executeDeclarations [] program.integerDeclarations).store
 
 def Program.bodyBooleanAnalysis (program : Program) : Boolean.Analysis :=
@@ -55,7 +55,7 @@ def Program.booleanInitialFlow (program : Program) : Flow :=
 
 def Program.initialBooleans (program : Program) (arguments : Arguments.Runtime.Arguments) : Boolean.Store :=
   executeBooleanDeclarations (program.initialValues arguments) (program.input arguments)
-    (program.inputValid arguments) Integer.emptyStore 0 program.booleanDeclarations Boolean.emptyStore
+    (program.inputValid arguments) Integer.emptyStore program.booleanDeclarations Boolean.emptyStore
 
 def Program.bodyBindings (program : Program) : Integer.ObjectBindings :=
   Integer.elaborate [] program.integerDeclarations
@@ -104,9 +104,9 @@ def Program.checkedExecute (program : Program) (arguments : Arguments.Runtime.Ar
 
 def Program.InitializersValid (program : Program) : Prop :=
   DeclarationsValid emptyShape program.declarations program.names.shape ∧
-    BooleanDeclarationsWellFormed program.hasArguments program.names.shape 0 program.booleanDeclarations ∧
+    BooleanDeclarationsWellFormed program.hasArguments program.names.shape {} program.booleanDeclarations ∧
     checkBooleanDeclarations program.names.shape Integer.Analysis.empty program.booleanInitialFlow
-      0 program.booleanDeclarations = true ∧ discharged program.booleanInitializerChecks = true
+      {} program.booleanDeclarations = true ∧ discharged program.booleanInitializerChecks = true
 
 def Program.Valid (program : Program) : Prop :=
   program.InitializersValid ∧
@@ -151,15 +151,15 @@ theorem Program.initial_fits {program : Program} (valid : program.Valid)
 theorem Program.boolean_initializers_safe {program : Program} (valid : program.Valid)
     (arguments : Arguments.Runtime.Arguments) :
     BooleanDeclarationsSafe program.names.shape (program.initialValues arguments) (program.input arguments)
-      (program.inputValid arguments) Integer.emptyStore 0 program.booleanDeclarations Boolean.emptyStore ∧
+      (program.inputValid arguments) Integer.emptyStore program.booleanDeclarations Boolean.emptyStore ∧
     checkedBooleanDeclarations (program.initialValues arguments) (program.input arguments)
-      (program.inputValid arguments) Integer.emptyStore 0 program.booleanDeclarations Boolean.emptyStore =
+      (program.inputValid arguments) Integer.emptyStore program.booleanDeclarations Boolean.emptyStore =
         some (program.initialBooleans arguments) := by
   apply boolean_declarations_sound valid.1.2.1 valid.1.2.2.1 (program.initial_fits valid arguments)
   exact ⟨program.initial_allowed arguments, fun _ _ absent => by cases absent⟩
 
 theorem Program.initial_integers {program : Program} (valid : program.Valid) :
-    program.initialIntegers = ArrayBindings.store program.arrays.names program.arrays.values program.integerConstants.store ∧
+    program.initialIntegers = ArrayBindings.integerStore program.arrays.names program.arrays.values program.integerConstants.store ∧
       Integer.DeclarationsSafe [] program.integerDeclarations ∧ program.integerConstants.Valid := by
   obtain ⟨after, checked, _⟩ := valid.2.2.2.2.2
   have declarations := ((program.checkBody_iff after).mp checked).1
@@ -173,7 +173,8 @@ theorem Program.initial_integer_fits {program : Program} (valid : program.Valid)
   have declarations := ((program.checkBody_iff after).mp checked).1
   have arrays := ((program.checkBody_iff after).mp checked).2.2.1
   rw [initialIntegers, Integer.elaborate_initial_store]
-  exact ArrayBindings.body_ranges_fits program.arrays.names arrays.2
+  exact ArrayBindings.body_ranges_fits (ArrayBindings.integerNames program.arrays.names)
+    (ArrayBindings.integerNames_initialsFit arrays.2)
     (Integer.ObjectBindings.fits (Integer.elaborate_valid declarations))
 
 theorem Program.body_ranges_bounded {program : Program} (valid : program.Valid) :
@@ -314,7 +315,7 @@ def Program.obligations (program : Program) : List Semantics.Obligation :=
   (declarationChecks program).map Compose.Check.toObligation ++
     (integerDeclarationChecks program ++ program.initializerChecks).map scalarObligation ++
     ((program.booleanInitializerChecks ++ booleanDeclarationObligations program.names.shape
-      Integer.Analysis.empty program.booleanInitialFlow 0 program.booleanDeclarations).map Obligation.toObligation) ++
+      Integer.Analysis.empty program.booleanInitialFlow {} program.booleanDeclarations).map Obligation.toObligation) ++
     modeledObligations program.names.shape program.bodyAnalysis program.initialFlow program.statements program.bodyBooleanAnalysis
 
 theorem Program.declaration_checks_valid {program : Program} (valid : program.Valid) :
@@ -345,7 +346,7 @@ theorem Program.scalar_checks_discharge {program : Program} (valid : program.Val
 
 theorem Program.boolean_initializer_checks_discharge {program : Program} (valid : program.Valid) :
     discharged (program.booleanInitializerChecks ++ booleanDeclarationObligations program.names.shape
-      Integer.Analysis.empty program.booleanInitialFlow 0 program.booleanDeclarations) = true := by
+      Integer.Analysis.empty program.booleanInitialFlow {} program.booleanDeclarations) = true := by
   rw [discharged_append, valid.1.2.2.2, boolean_declaration_obligations_exact, valid.1.2.2.1]
   rfl
 

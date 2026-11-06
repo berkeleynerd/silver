@@ -28,10 +28,10 @@ theorem prefix_decoded_valid (form : Form) (events : List Event) (items : List S
     (initializerChecks : List Integer.Obligation) (arrays : ArrayBindings.Env)
     (booleans : List BooleanDeclaration) (booleanChecks : List Obligation)
     (booleanValid : BooleanDeclarationsWellFormed form.hasArguments
-      (Sequence.eventsContext (emptyShape, maxSourceLength) events).1 0 booleans)
+      (Sequence.eventsContext (emptyShape, maxSourceLength) events).1 {} booleans)
     (booleanChecked : checkBooleanDeclarations
       (Sequence.eventsContext (emptyShape, maxSourceLength) events).1 Integer.Analysis.empty
-      ⟨initialFacts form.hasArguments, Integer.emptyRanges⟩ 0 booleans = true)
+      ⟨initialFacts form.hasArguments, Integer.emptyRanges⟩ {} booleans = true)
     (booleanDischarged : discharged booleanChecks = true)
     (arraysValid : ArrayBindings.ValidInitials arrays.values)
     (arraysFit : ArrayBindings.InitialsFit arrays.names arrays.values)
