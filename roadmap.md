@@ -50,34 +50,45 @@ and deferred capacity work retain their scope.
 
 ### Lean source parallelism
 
-**Implemented and validated on Linux, 2026-11-06; [PR #326](https://github.com/berkeleynerd/silver/pull/326)
-remains open for owner review and merge.**
+**Initial splits validated on open PR #326; incremental throughput work
+owner-selected, 2026-11-06.**
 
-[Milestone 17](https://github.com/berkeleynerd/silver/milestone/17) carries the
-selected production scope of [#8](https://github.com/berkeleynerd/silver/issues/8),
-before the deferred #314 guards. The
-[owner authorization](docs/session-memory.md#2026-11-06--lean-source-parallelism-implementation-authorized)
-selects two work packages:
+[Milestone 17](https://github.com/berkeleynerd/silver/milestone/17) and parent
+[#8](https://github.com/berkeleynerd/silver/issues/8) remain open. The four-module
+output certificate [#323](https://github.com/berkeleynerd/silver/issues/323) and
+four-leaf predicate split [#324](https://github.com/berkeleynerd/silver/issues/324)
+are implemented and validated on
+[PR #326](https://github.com/berkeleynerd/silver/pull/326), published head
+`c062d5253e`; implementation merge remains an owner decision. Its
+[completed record](https://github.com/berkeleynerd/silver/blob/c062d5253e73ad066bf0309eeee505f51f8b0860/docs/lean-line-chunks.md#completed-production-validation--2026-11-06)
+retains exact evidence and descriptive performance limits. The original
+[authorization and sample record](docs/lean-line-chunks.md) remains historical
+context on main until that delivery merges.
 
-1. [#323](https://github.com/berkeleynerd/silver/issues/323): complete the
-   four-module `OutputBodyCertificate` trial; integrate generation, runner/module
-   registration and focused tests if useful.
-2. [#324](https://github.com/berkeleynerd/silver/issues/324): split independent
-   `PredicateSourceCandidate` checks into about four leaves, retaining the exact
-   checks, final theorem and actual-source transport.
-3. Integrate the two packages for one shared complete Lean/source/module/axiom
-   checkpoint, applicable native refresh or justified reuse, focused tests and
-   independent critical review before proposing an implementation merge.
+The [new authorization](docs/session-memory.md#2026-11-06--incremental-lean-throughput-work-authorized)
+selects these ordered packages, stacking on PR #326:
 
-Both packages are integrated and retained after successful complete validation
-and a useful production trial. The complete line build and reconstruction took
-about 65 minutes, versus a historical 184-minute monolithic build; different run
-conditions prevent a controlled speedup claim. The earlier 512-line sample is
-retained as a separate bounded experiment. The
-[record](docs/lean-line-chunks.md#completed-production-validation--2026-11-06)
-preserves exact results, complete assurance and measurement limits.
-Implementation merge remains the owner's decision. No reconstruction redesign,
-proof-framework expansion, language change or #314 guard implementation is selected.
+1. [#327](https://github.com/berkeleynerd/silver/issues/327): matched proportional
+   four-versus-eight output line chunks on the same complete 4,915-line workload;
+   integrate eight if useful, otherwise retain four with the result recorded.
+2. [#328](https://github.com/berkeleynerd/silver/issues/328): after that disposition,
+   select stable chunk identities/cache reuse for ordinary edits through a
+   bounded pilot and integrate a useful small design within the existing tools.
+3. Complete the integrated Lean/source/module/axiom checkpoint, native
+   applicability or refresh, focused tests and independent critical review
+   before proposing an implementation merge. A shared final checkpoint may
+   serve both packages when its exact final inputs cover both.
+
+Both new issues stay Backlog until their dated authorization reaches main.
+The [bounded record](docs/lean-incremental-throughput.md) defines comparison
+controls, edit cases and completion criteria. The remaining choices are the
+measured usefulness of eight chunks and the smallest stable-identity design
+supported by the pilot. Preserve the existing reconstruction representation,
+whole-output source/token statements and all proof checks. Automatic CPU/thread
+settings and current host memory policy remain in force; the four/eight-worker
+comparison is an explicit measurement control. Reconstruction/subtree/reflection
+work, general proof/cache frameworks, language/Oracle changes and #314 guards
+remain unselected. #314 stays deferred and unchanged.
 
 ### Interim external review response for PR #307
 
