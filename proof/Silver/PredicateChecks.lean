@@ -99,7 +99,7 @@ def Program.checks (program : Program) : List Check :=
   (declarationChecks program).map Check.declaration ++
     (integerDeclarationChecks program ++ program.initializerChecks).map Check.scalarDeclaration ++
     ((program.booleanInitializerChecks ++ booleanDeclarationObligations program.names.shape
-      Integer.Analysis.empty program.booleanInitialFlow 0 program.booleanDeclarations).map Check.path) ++
+      Integer.Analysis.empty program.booleanInitialFlow {} program.booleanDeclarations).map Check.path) ++
     (statementsObligations program.names.shape program.bodyAnalysis program.initialFlow program.statements program.bodyBooleanAnalysis).map Check.path
 
 theorem Program.declaration_checks_fragment {program : Program} (valid : program.Valid) :

@@ -145,7 +145,7 @@ def Expr.Legal (calls : Calls) (locals : Locals) : Expr ty → Prop
   | .arrayNamesOnly a b => a.Legal calls locals ∧ b.Legal calls locals
   | .stateArray a b => a.Legal calls locals ∧ b.Legal calls locals
   | .statePositionArray a b c => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals
-  | .arrayAppend a b c d e f g h => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals ∧ e.Legal calls locals ∧ f.Legal calls locals ∧ g.Legal calls locals ∧ h.Legal calls locals
+  | .arrayAppend a b c d e f g h i => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals ∧ e.Legal calls locals ∧ f.Legal calls locals ∧ g.Legal calls locals ∧ h.Legal calls locals ∧ i.Legal calls locals
   | .maxArrayBindings | .maxArrayElements | .invalidScalar | .integerNumber _ => True
   | .maxScalarBindings => True
   | .maxOperands  => True
@@ -1177,7 +1177,7 @@ theorem Expr.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning cal
     rw [h2]
     all_goals rfl
 
-  | .arrayAppend a b c d e f g h, legal => by
+  | .arrayAppend a b c d e f g h i, legal => by
     dsimp only [Expr.Legal] at legal
     have h0 := Expr.eval_lexical calls meaning locals a legal.1
     have h1 := Expr.eval_lexical calls meaning locals b legal.2.1
@@ -1186,7 +1186,8 @@ theorem Expr.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning cal
     have h4 := Expr.eval_lexical calls meaning locals e legal.2.2.2.2.1
     have h5 := Expr.eval_lexical calls meaning locals f legal.2.2.2.2.2.1
     have h6 := Expr.eval_lexical calls meaning locals g legal.2.2.2.2.2.2.1
-    have h7 := Expr.eval_lexical calls meaning locals h legal.2.2.2.2.2.2.2
+    have h7 := Expr.eval_lexical calls meaning locals h legal.2.2.2.2.2.2.2.1
+    have h8 := Expr.eval_lexical calls meaning locals i legal.2.2.2.2.2.2.2.2
     dsimp only [Expr.eval, lexical]
     rw [h0]
     rw [h1]
@@ -1194,7 +1195,7 @@ theorem Expr.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning cal
     rw [h3]
     rw [h4]
     rw [h5]
-    rw [h6, h7]
+    rw [h6, h7, h8]
     all_goals rfl
 
   | .maxArrayBindings, _ | .maxArrayElements, _ | .invalidScalar, _ | .integerNumber _, _ => rfl
@@ -1575,10 +1576,10 @@ theorem normalized_rawHelpers {domain : StateDomain} (calls : Calls)
   booleanLookup := source.booleanLookup
   booleanHidesInteger := source.booleanHidesInteger
   arrayAdd := by
-    intro text valid state first after bounds offset length mutable following componentBounds stateValid nameValid bindingValid room allocated ordered ending
-    exact (source.arrayAdd text valid state first after bounds offset length mutable following componentBounds
+    intro text valid state first after bounds offset length mutable following componentBounds isBoolean stateValid nameValid bindingValid room allocated ordered ending
+    exact (source.arrayAdd text valid state first after bounds offset length mutable following componentBounds isBoolean
       stateValid nameValid bindingValid room allocated ordered ending).trans
-        (arrayAdd_eval_lexical calls text state first after bounds offset length mutable following componentBounds).symm
+        (arrayAdd_eval_lexical calls text state first after bounds offset length mutable following componentBounds isBoolean).symm
   arrayPut := by
     intro state value room safe
     exact (source.arrayPut state value room safe).trans (arrayPut_eval_lexical calls state value).symm
@@ -1587,6 +1588,11 @@ theorem normalized_rawHelpers {domain : StateDomain} (calls : Calls)
     exact (source.arrayValuesModel text valid sourceState result position length parsed componentBounds bounded context).trans
       (arrayValues_eval_lexical calls text sourceState result position length parsed componentBounds).symm
   arrayValues := source.arrayValues
+  booleanArrayValuesModel := by
+    intro text valid sourceState result position length parsed maskFirst maskAfter mask context
+    exact (source.booleanArrayValuesModel text valid sourceState result position length parsed maskFirst maskAfter mask context).trans
+      (booleanArrayValues_eval_lexical calls text sourceState result position length parsed maskFirst maskAfter).symm
+  booleanArrayValues := source.booleanArrayValues
   arrayDeclaration := by
     intro text valid state arguments context
     exact (source.arrayDeclaration text valid state arguments context).trans
@@ -1804,6 +1810,7 @@ theorem normalized_helpers {domain : StateDomain} (calls : Calls)
     HelperEquations calls (domain := domain) where
   toRawHelperEquations := normalized_rawHelpers calls meaning source.toRawHelperEquations legal
   booleanDeclaration := source.booleanDeclaration
+  booleanInitializer := source.booleanInitializer
 
 theorem normalized_definitions (calls : Calls)
     (meaning : Compose.Lexical.Meaning calls.primitive)
