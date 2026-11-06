@@ -34,7 +34,7 @@ theorem Condition.actualBoundsSafe {bounds : BoundsStore} {names : Compose.Bindi
       exact ⟨ihl origin.1 safe.1, fun reached => ihr origin.2 (safe.2 reached)⟩
   | eager operator left right ihl ihr | booleanCompare unequal left right ihl ihr =>
       exact ⟨ihl origin.1 safe.1, ihr origin.2 safe.2⟩
-  | lengthCompare | scalarCompare | characterCompare | inputValid | booleanLiteral | booleanName => trivial
+  | lengthCompare | scalarCompare | characterCompare | inputValid | booleanLiteral | booleanName | booleanArrayRead => trivial
 
 def SimpleActualBoundsSafe (bounds : BoundsStore) (names : Compose.BindingEnvironment) (values : Values)
     (input : Source) (integers : Integer.Store) : Sequence.SimpleStatement → Prop
