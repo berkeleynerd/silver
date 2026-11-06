@@ -1,6 +1,8 @@
 """Adversarial compiler-source inputs for the untrusted certificate generator."""
 
+import hashlib
 import importlib.util
+import json
 from pathlib import Path
 import re
 import subprocess
@@ -253,25 +255,104 @@ class CompilerSourcePolicyTests(unittest.TestCase):
                 self.assertEqual((workspace / "proof" / relative).read_bytes(),
                                  (ROOT / "proof" / relative).read_bytes())
 
-    def test_output_body_split_preserves_every_declaration_and_reconstruction(self):
+    def test_output_body_split_preserves_every_line_proof_and_ordered_reconstruction(self):
         source = (ROOT / "src/silver_output_profile.adb").read_bytes().decode("ascii")
         declarations, reconstruction = GENERATOR.generate_parts(
             source, "outputProfileBody", "outputBodyTokens")
-        self.assertEqual(len(declarations), len(source.split("\n")))
+        lines = source.split("\n")
+        self.assertEqual(len(declarations), len(lines))
+        digests = [hashlib.sha256(line.encode("ascii")).hexdigest() for line in lines]
+        expected = {}
+        for digest, declaration in zip(digests, declarations, strict=True):
+            expected[digest] = [f"def outputBodyTokens_line_{digest} : LineCertificate where",
+                                *declaration[1:]]
         header = "\n".join(GENERATOR.module_header()) + "\n"
         recovered = []
         for index, relative in enumerate(OUTPUT_BODY_LINES):
             chunk = (ROOT / "proof" / relative).read_text()
-            expected = declarations[len(declarations) * index // len(OUTPUT_BODY_LINES):
-                                    len(declarations) * (index + 1) // len(OUTPUT_BODY_LINES)]
-            body = "\n".join(line for declaration in expected for line in declaration) + "\n"
+            selected = [declaration for digest, declaration in sorted(expected.items())
+                        if int(digest[:2], 16) % 8 == index]
+            body = "\n".join(line for declaration in selected for line in declaration) + "\n"
             self.assertEqual(chunk, header + body + "end Silver.Source\n")
-            recovered.extend(expected)
-        self.assertEqual(recovered, declarations)
+            recovered.extend(selected)
+        self.assertEqual(len(recovered), len(set(lines)))
+        # Only single-leaf references change. All join literals/witnesses, the
+        # balanced tree and final source/token/lexer statements remain exact.
+        for index, line in enumerate(reconstruction):
+            match = re.fullmatch(r"  ReconstructionCertificate.single outputBodyTokens_line_(\d+)", line)
+            if match:
+                reconstruction[index] = "  ReconstructionCertificate.single outputBodyTokens_line_" + digests[int(match[1])]
         aggregator = (ROOT / "proof/Silver/OutputBodyCertificate.lean").read_text()
         expected_header = GENERATOR.module_header("OutputProfileBodySource", GENERATOR.OUTPUT_BODY_LINE_MODULES)
         self.assertEqual(aggregator, "\n".join([
             *expected_header, *reconstruction, "end Silver.Source", ""]))
+
+    def test_output_body_content_names_preserve_exact_texts_and_every_occurrence(self):
+        for source in ("", "\n", "\n\n", "X;", "X;\n", "X;\r\n",
+                       "X;\r\nX;\nX;\r\n", "X;\nX;\nY;\nX;"):
+            with self.subTest(source=source):
+                chunks, reconstruction = GENERATOR.generate_output_body_parts(
+                    source, "outputProfileBody", "outputBodyTokens")
+                self.assertEqual(len(chunks), 8)
+                texts = {}
+                for bucket, chunk in enumerate(chunks):
+                    names = []
+                    for declaration in chunk:
+                        text = json.loads(declaration[1].removeprefix("  text := "))
+                        digest = hashlib.sha256(text.encode("ascii")).hexdigest()
+                        name = "outputBodyTokens_line_" + digest
+                        self.assertEqual(declaration[0], f"def {name} : LineCertificate where")
+                        self.assertEqual(int(digest[:2], 16) % 8, bucket)
+                        self.assertEqual(declaration[3:5], ["  correct := by decide +kernel",
+                                                           "  noNewline := by decide +kernel"])
+                        self.assertNotIn(name, texts)
+                        texts[name] = text
+                        names.append(name)
+                    self.assertEqual(names, sorted(names))
+                self.assertEqual(set(texts.values()), set(source.split("\n")))
+                occurrences = [line.removeprefix("  ReconstructionCertificate.single ")
+                               for line in reconstruction
+                               if line.startswith("  ReconstructionCertificate.single ")]
+                self.assertEqual([texts[name] for name in occurrences], source.split("\n"))
+                self.assertEqual("\n".join(texts[name] for name in occurrences), source)
+
+    def test_output_body_edit_locality_depends_only_on_unique_exact_texts(self):
+        original = "X0;\nX1;\nX2;\nX0;\n"
+        variants = {
+            "noop": original,
+            "append": original + "Z;\n",
+            "insert_at_old_partition_boundary": original.replace("X2;\n", "Z;\nX2;\n"),
+            "delete_unique": original.replace("X1;\n", ""),
+            "replace": original.replace("X1;", "Y1;"),
+            "reorder": "X2;\nX1;\nX0;\nX0;\n",
+            "repeat": original + "X0;\n",
+            "delete_repeated_occurrence": original.removeprefix("X0;\n"),
+            "crlf": original.replace("X1;\n", "X1;\r\n"),
+            "remove_final_newline": original.removesuffix("\n"),
+            "empty_source": "",
+        }
+        before, _ = GENERATOR.generate_output_body_parts(original, "outputProfileBody", "outputBodyTokens")
+        for label, changed in variants.items():
+            with self.subTest(edit=label):
+                after, reconstruction = GENERATOR.generate_output_body_parts(
+                    changed, "outputProfileBody", "outputBodyTokens")
+                changed_texts = set(original.split("\n")) ^ set(changed.split("\n"))
+                expected = {hashlib.sha256(text.encode("ascii")).digest()[0] % 8
+                            for text in changed_texts}
+                self.assertEqual({index for index, pair in enumerate(zip(before, after, strict=True))
+                                  if pair[0] != pair[1]}, expected)
+                occurrences = [line for line in reconstruction
+                               if line.startswith("  ReconstructionCertificate.single ")]
+                self.assertEqual(len(occurrences), len(changed.split("\n")))
+
+    def test_output_body_conflicting_digest_is_rejected(self):
+        with mock.patch.object(GENERATOR.hashlib, "sha256") as digest:
+            digest.return_value.hexdigest.return_value = "0" * 64
+            # Identical lines share safely; distinct texts must fail before output.
+            chunks, _ = GENERATOR.generate_output_body_parts("X;\nX;", "outputProfileBody", "outputBodyTokens")
+            self.assertEqual(sum(map(len, chunks)), 1)
+            with self.assertRaisesRegex(ValueError, "different source lines"):
+                GENERATOR.generate_output_body_parts("X;\nY;", "outputProfileBody", "outputBodyTokens")
 
     def test_current_compiler_sources_satisfy_byte_policy(self):
         for filename in EMBEDDED:
