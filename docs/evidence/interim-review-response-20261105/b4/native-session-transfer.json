@@ -1,0 +1,10 @@
+{
+  "copied_at_utc": "2026-11-05T11:06:32.246181+00:00",
+  "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/image-case-repair/.silver/linux-x86_64/compiler/obj/explore/image-casing",
+  "destination": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/compiler/obj/review-final",
+  "elapsed_seconds": 2.966422972000146,
+  "regular_files": 572,
+  "file_bytes": 584685084,
+  "source_report_body_sha256": "d4769797028160de4fa9598250e48a103699050654d0d071c4f200c7c2f1392e",
+  "scope": "Completed local exploratory native objects and sessions, including retained reports. These are a cache seed only. The final forced complete run regenerates reports and must pass all obligation, coverage and provenance audits; no transferred report is final evidence."
+}

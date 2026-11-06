@@ -96,12 +96,13 @@ class IntegerArrayTests(unittest.TestCase):
             b'X:=(A(1) * 0);',
             b'if A(1)=A(2) then null;end if;',
             b'if A(1)<0 and then A(2)>=0 then null;end if;',
-            b'for I in A(1)..A(2) loop null;end loop;',
             output(b"Integer'Image(A(1))"),
             b'S:=Integer\'Image((A(1) * 0));',
         ):
             with self.subTest(body=body):
                 self.check(program(declarations, body))
+        # Direct constant-array bounds are an explicit frontend scope restriction.
+        self.check(program(declarations, b'for I in A(1)..A(2) loop null;end loop;'), 2)
         # Body reads use the full component type for both constants and variables.
         for constant in (b'', b'constant '):
             declaration = b'A:' + constant + b'array(1..2)of Integer:=(1,2);'
@@ -125,6 +126,9 @@ class IntegerArrayTests(unittest.TestCase):
         ):
             with self.subTest(body=body):
                 self.check(program(declarations, body), 2)
+        # Pinned GNAT rejects the empty loop's constant range error (language.md: nonempty RHS).
+        self.check(program(b'subtype S is Integer range 0..9;A:array(1..1)of S:=(1=>0);',
+                           b'for I in 20..19 loop A(1):=I;end loop;'), 2)
 
     def test_admission_mutability_type_and_subscript_boundaries(self) -> None:
         declarations = (b'A:array(1..2)of Integer:=(1,2);'

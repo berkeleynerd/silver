@@ -37,6 +37,7 @@ class GreetingTests(unittest.TestCase):
     def test_closed_form_admission(self) -> None:
         canonical = source_for()
         cases = [canonical,
+                 canonical.replace(b'"Hello, "&Name&"!"', b'"Hello, "&Name(1..2)&"!"'),
                  source_for(b'', b'', b'', b'Main', b'mAiN'),
                  source_for(b'"--', b'" & ', b'"', b'Silver_Arguments', b'sILVER_aRGUMENTS'),
                  source_for(b'x', b'y', b'z', b'Name_2_A', b'nAME_2_a'),
@@ -68,7 +69,7 @@ class GreetingTests(unittest.TestCase):
     def test_excluded_neighbour_expressions(self) -> None:
         canonical = source_for()
         expression = b'"Hello, "&Name&"!"'
-        replacements = [b'"Hello, "&Name(1..2)&"!"', b'"Hello, "+Name+"!"',
+        replacements = [b'"Hello, "&Name(0..2)&"!"', b'"Hello, "+Name+"!"',
                         b'"Hello, "&&Name&"!"', b'"Hello, "&Other&"!"']
         cases = [canonical.replace(expression, replacement) for replacement in replacements]
         cases += [source_for(name=name) for name in

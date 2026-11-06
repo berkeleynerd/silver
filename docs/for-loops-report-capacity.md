@@ -102,8 +102,11 @@ or producer versions are admitted.
 ## Warning size charge
 
 The Image warning text is fixed (`P/common/vc_kinds.ads:810–813`);
-`Create_N` substitutes only the fixed Image attribute name
-(`P/utils/errout_wrapper.adb:346–393`). No unresolved message placeholders
+`Create_N` substitutes only the Image attribute name
+(`P/utils/errout_wrapper.adb:346–393`). The
+[2026-11-05 casing correction](for-loops-integers-image.md) identifies exactly
+`Image`, `image` and `IMAGE`; each has five bytes, so the warning-size charge
+is unchanged. No unresolved message placeholders
 remain (`651–668`). The warning leaves entity, proof tree, statistics, trace,
 counterexample, VC location and continuations at empty defaults
 (`errout_wrapper.ads:101–123`, `errout_wrapper.adb:903–916`). File is `main.adb`,

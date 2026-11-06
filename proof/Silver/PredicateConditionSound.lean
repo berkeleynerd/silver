@@ -306,12 +306,20 @@ mutual
                   (comparison_bound text left.after (model_expression_valid (scalarNames := context.readingNames facts) (integerHidden := context.integerHidden text) (arrays := context.arrayNames) (initials := initials) (elaborating := context.elaborating) text textValid position context.names bounded namesValid).1)
                   namesValid).1⟩
             · have noExpression : (readStringInFlow text context position facts initials).after = 0 := by omega
-              have primaryPositive : (readBooleanRelation text context position facts initials).after ≠ 0 := by
-                simpa [readRelation, zero, noNot, noLength, noScalar, noExpression] using accepted
-              have primary := booleanRelation_sound text context position facts textValid namesValid bounded primaryPositive
-              obtain ⟨condition, parsed⟩ := primary.1
-              simp only [readRelation, zero, noNot, noLength, noScalar, noExpression, ne_eq, not_true_eq_false, ↓reduceIte]
-              exact ⟨⟨_, .primary zero noNot noLength noScalar noExpression parsed⟩, primary.2⟩
+              by_cases characterPositive : (characterCondition text context position facts initials).after ≠ 0
+              · obtain ⟨condition, parsed⟩ := characterRelation_sound characterPositive
+                simp only [readRelation, zero, noNot, noLength, noScalar, noExpression,
+                  characterPositive, ne_eq, not_true_eq_false, not_false_eq_true, ↓reduceIte]
+                exact ⟨⟨_, .character zero noNot noLength noScalar noExpression parsed⟩,
+                  characterRelation_after_bounded parsed⟩
+              · have noCharacter : (characterCondition text context position facts initials).after = 0 := by omega
+                have primaryPositive : (readBooleanRelation text context position facts initials).after ≠ 0 := by
+                  simpa [readRelation, zero, noNot, noLength, noScalar, noExpression, noCharacter] using accepted
+                have primary := booleanRelation_sound text context position facts textValid namesValid bounded primaryPositive
+                obtain ⟨condition, parsed⟩ := primary.1
+                simp only [readRelation, zero, noNot, noLength, noScalar, noExpression, noCharacter,
+                  ne_eq, not_true_eq_false, ↓reduceIte]
+                exact ⟨⟨_, .primary zero noNot noLength noScalar noExpression noCharacter parsed⟩, primary.2⟩
   termination_by (remainingAt text position, 4)
   decreasing_by all_goals first | exact Prod.Lex.left _ _ (by assumption) | exact Prod.Lex.right _ (by decide)
 

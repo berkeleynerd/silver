@@ -40,12 +40,12 @@ theorem loopHeader_bound (text : Source) (context : ParseContext) (scan : BodySc
     · exact model_fixed_valid text _ "loop" true (model_name_valid text _)
     · exact Nat.zero_le _
   · have counted : loopIsArray text scan = false := Bool.eq_false_iff.mpr isArray
-    have lower := scalarRead_bound (elaborating := context.elaborating) text (loopLowerPosition text scan) (context.readingNames scan.facts)
-      (loopFirst text scan) (loopNameAfter text scan) context.arrayNames (loopLowerPosition_bound text scan)
+    have lower := readCountedBound_bound text context (loopLowerPosition text scan) scan.facts
+      (loopFirst text scan) (loopNameAfter text scan) (loopLowerPosition_bound text scan)
     have delimiter := model_fixed_valid text _ ".." false lower
-    have upper := scalarRead_bound (elaborating := context.elaborating) text _ (context.readingNames scan.facts)
-      (loopFirst text scan) (loopNameAfter text scan) context.arrayNames delimiter
-    simpa only [loopHeader, readScalarInFlow, counted, Bool.false_eq_true, ↓reduceIte, ValidCursor] using
+    have upper := readCountedBound_bound text context _ scan.facts
+      (loopFirst text scan) (loopNameAfter text scan) delimiter
+    simpa only [loopHeader, counted, Bool.false_eq_true, ↓reduceIte, ValidCursor] using
       model_fixed_valid text _ "loop" true upper
 
 theorem loopHeader_readings {text : Source} {context : ParseContext} {scan : BodyScan}
@@ -58,13 +58,18 @@ theorem loopHeader_readings {text : Source} {context : ParseContext} {scan : Bod
         upper (loopHeader text context scan).upper (loopFirst text scan) (loopNameAfter text scan) := by
   simp only [loopHeader, counted, Bool.false_eq_true, ↓reduceIte] at positive ⊢
   have upperPositive := fixedAfter_nonzero positive
-  have lowerBound := scalarRead_bound (elaborating := context.elaborating) text (loopLowerPosition text scan) (context.readingNames scan.facts)
-    (loopFirst text scan) (loopNameAfter text scan) context.arrayNames (loopLowerPosition_bound text scan)
+  have lowerBound := readCountedBound_bound text context (loopLowerPosition text scan) scan.facts
+    (loopFirst text scan) (loopNameAfter text scan) (loopLowerPosition_bound text scan)
   have delimiter := model_fixed_valid text _ ".." false lowerBound
+  have upperOriginal := readCountedBound_original upperPositive
+  rw [upperOriginal] at upperPositive
   obtain ⟨upper, upperRead⟩ := ScalarExpression.read_sound delimiter upperPositive
   have lowerPositive := fixedAfter_nonzero (Nat.ne_of_gt upperRead.cursorBounds.1)
+  have lowerOriginal := readCountedBound_original lowerPositive
+  rw [lowerOriginal] at lowerPositive
   obtain ⟨lower, lowerRead⟩ := ScalarExpression.read_sound (loopLowerPosition_bound text scan) lowerPositive
-  exact ⟨lower, upper, lowerRead, upperRead⟩
+  exact ⟨lower, upper, by simpa only [lowerOriginal, readScalarInFlow] using lowerRead,
+    by simpa only [upperOriginal, readScalarInFlow] using upperRead⟩
 
 theorem loopHeader_bounds_bounded {text : Source} {context : ParseContext} {scan : BodyScan}
     (arrays : ArrayBindings.ValidMetadata text context.arrayNames)

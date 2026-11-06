@@ -1,0 +1,25 @@
+{
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "gnat_fsf_builds_commit": "0334dd54a2c479faa3dfad47a911373581b11739",
+  "installed_gnat_origin": {
+    "binary": true,
+    "hashes": [
+      "sha256:9f74f58a827a2ad40dd84c72a413e75ea52888e0d8f7e252fba4d26762402703"
+    ],
+    "url": "https://github.com/alire-project/GNAT-FSF-builds/releases/download/gnat-16.1.0-1/gnat-x86_64-linux-16.1.0-1.tar.gz"
+  },
+  "reviewed_sources": [
+    {
+      "path": "sources/gcc/ada/sem_eval.adb",
+      "bytes": 273210,
+      "sha256": "0dfbf5f1bede0b9e011f21649c7f4d34851c6267cd72acebcb53e7a7fb4c7d30",
+      "git_blob_sha1": "0ccd32f13896cf49578ab41f46f840e5ed43d572"
+    },
+    {
+      "path": "sources/gcc/ada/exp_ch4.adb",
+      "bytes": 574199,
+      "sha256": "f18358be377c888d5f7f6e810bce48981b006358858985457c2b35d182fe5669",
+      "git_blob_sha1": "c3d996a97d1de5cd562624bbd0649221e8cf12a2"
+    }
+  ]
+}

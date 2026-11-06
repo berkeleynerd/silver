@@ -2,6 +2,7 @@ module
 
 public import Silver.PredicateHeader
 public import Silver.PredicateScalarGuardMeaning
+public import Silver.ComposeDeclarationContext
 
 @[expose] public section
 
@@ -48,7 +49,7 @@ private theorem declarations_staticFlags {text arguments state final values}
   induction parsed with
   | done => rfl
   | string _ _ _ _ _ _ first _ ih =>
-      cases first
+      rw [declaration_scalarNames first] at ih
       exact ih
   | scalar _ _ _ first _ ih =>
       rw [ih, declaration_staticFlags first]

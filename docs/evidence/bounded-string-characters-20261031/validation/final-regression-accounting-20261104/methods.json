@@ -1,0 +1,2909 @@
+{
+  "test_argument_bounds.ArgumentBoundsTests.test_total_default_normalization": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_arguments.ArgumentTests.test_argument_shell_admission": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_arguments.ArgumentTests.test_boundary_defaults_and_names": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_arguments.ArgumentTests.test_every_argument_outcome": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_boolean_objects.BooleanObjectTests.test_comparison_initializers_arrays_and_argument_fact_composition": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_boolean_objects.BooleanObjectTests.test_eager_rhs_requires_its_own_incoming_safety": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_boolean_objects.BooleanObjectTests.test_homogeneous_chains_and_boolean_equality": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_boolean_objects.BooleanObjectTests.test_initialized_objects_typing_and_assignment": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_boolean_objects.BooleanObjectTests.test_name_hiding_uses_binding_kind_and_declaration_scope": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_boolean_objects.BooleanObjectTests.test_native_boolean_hiding_and_loop_scope_restoration": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_boolean_objects.BooleanObjectTests.test_native_common_elements_no_match_boundary": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_boolean_objects.BooleanObjectTests.test_native_trial_division_empty_inner_loop_boundary": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_boolean_objects.BooleanObjectTests.test_native_truth_tables_and_boolean_snapshots": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_boolean_objects.BooleanObjectTests.test_rosetta_expected_outputs_use_independent_task_oracles": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_boolean_objects.BooleanObjectTests.test_source_and_existing_operator_leaf_limits": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_boolean_objects.BooleanObjectTests.test_stored_flags_do_not_keep_scalar_string_or_validity_relations": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_boolean_objects.BooleanObjectTests.test_xor_operand_spans_ignore_strings_comments_and_identifier_parts": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_branching.BranchingTests.test_admitted_literals_binding_and_layout": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_branching.BranchingTests.test_excluded_declaration_names": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_branching.BranchingTests.test_inner_and_reject_arm_sequences_have_rejected_neighbours": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_branching.BranchingTests.test_native_choice_argument_domain_and_output_failure": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_branching.BranchingTests.test_native_empty_escaped_and_maximum_literals": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_branching.BranchingTests.test_native_maximum_binding": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_branching.BranchingTests.test_rejected_guard_equality_and_branch_neighbours": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_capacity.CapacityEnvelopeTests.test_dense_review_source_is_admitted_and_maximal_credit_report_exceeds_old_limit": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_capacity.CapacityEnvelopeTests.test_dense_static_subtypes_and_mutable_assignments_are_admitted": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_capacity.CapacityEnvelopeTests.test_retained_record_and_whole_report_envelopes": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_command_line_greeting.CommandLineGreetingTests.test_admitted_capacity_binding_and_layout": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_command_line_greeting.CommandLineGreetingTests.test_native_obligations_output_bounds_and_failures": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_command_line_greeting.CommandLineGreetingTests.test_rejected_guard_and_expression_neighbours": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_common_expressions.CommonExpressionsTests.test_assignment_expression_preserves_exact_bounds": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_common_expressions.CommonExpressionsTests.test_common_expression_positions_and_grouping": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_common_expressions.CommonExpressionsTests.test_comparison_expressions_need_string_type_anchor": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_common_expressions.CommonExpressionsTests.test_comparison_operands_have_independent_capacity_checks": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_common_expressions.CommonExpressionsTests.test_concatenation_budget_is_shared_by_every_expression_position": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_common_expressions.CommonExpressionsTests.test_deep_parentheses_and_complete_source_bound": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_common_expressions.CommonExpressionsTests.test_grouping_does_not_reset_operand_work_limit": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_common_expressions.CommonExpressionsTests.test_initializer_bounds_precede_body_guards": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_common_expressions.CommonExpressionsTests.test_native_common_comparison_and_selected_assignment": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_common_expressions.CommonExpressionsTests.test_native_constant_comparisons_preserve_precise_advisories": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_common_expressions.CommonExpressionsTests.test_native_expression_initializers_preserve_snapshots": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_common_expressions.CommonExpressionsTests.test_native_repeated_aliases_and_empty_grouping": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_common_expressions.CommonExpressionsTests.test_repeated_dynamic_values_use_weighted_capacity": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_common_expressions.CommonExpressionsTests.test_sixty_four_dynamic_leaves_retain_byte_capacity": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_common_expressions.CommonExpressionsTests.test_whole_program_concatenation_work_budget": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_composed_results.ComposedResultsTests.test_flat_expressions_in_every_output_position": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_composed_results.ComposedResultsTests.test_generalized_capacity_literals_keep_the_bound": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_composed_results.ComposedResultsTests.test_native_branch_result_rejoins_with_maximal_expression": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_composed_results.ComposedResultsTests.test_native_guarded_expressions_and_branch_outputs": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_composed_results.ComposedResultsTests.test_native_static_shells_and_full_expanded_output": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_composed_results.ComposedResultsTests.test_native_tight_capacity_applies_to_default_and_empty_input": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_composed_results.ComposedResultsTests.test_operand_and_expanded_output_boundaries": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_composed_results.ComposedResultsTests.test_rejected_operand_guard_and_binding_neighbours": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_conditionals.ConditionalTests.test_native_elsif_first_match_optional_paths_and_argument_rejection": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_conditionals.ConditionalTests.test_native_nested_assignments_observe_current_values_and_snapshots": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_conditionals.ConditionalTests.test_nested_conditions_and_elsif_share_expression_limits": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_conditionals.ConditionalTests.test_nested_elsif_and_optional_else_have_rejected_neighbours": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_conditionals.ConditionalTests.test_source_bound_limits_nesting_and_elsif_chains": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_constant_array_iteration.ConstantArrayIterationTests.test_admission_definitely_nonempty_input_and_string_transfer": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_constant_array_iteration.ConstantArrayIterationTests.test_admission_forward_reverse_singleton_and_comments": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_constant_array_iteration.ConstantArrayIterationTests.test_admission_full_integer_entry_range_and_guarded_element_uses": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_constant_array_iteration.ConstantArrayIterationTests.test_admission_hiding_own_specification_and_restored_scope": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_constant_array_iteration.ConstantArrayIterationTests.test_admission_mutables_widen_and_element_facts_do_not_escape": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_constant_array_iteration.ConstantArrayIterationTests.test_admission_nested_loops_and_mutable_array_writes": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_constant_array_iteration.ConstantArrayIterationTests.test_admission_only_bare_visible_constant_integer_arrays": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_constant_array_iteration.ConstantArrayIterationTests.test_admission_source_operator_operand_and_nested_frame_boundaries": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_constant_array_iteration.ConstantArrayIterationTests.test_native_nonempty_reject_transfer": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_constant_array_iteration.ConstantArrayIterationTests.test_native_order_guards_nested_writes_and_original_source": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_copy_values.CopyValuesTests.test_distinct_names_decoded_values_and_layout": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_copy_values.CopyValuesTests.test_literals_and_each_constant_at_every_copy_position": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_copy_values.CopyValuesTests.test_native_copies_advisories_quotes_and_full_output": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_copy_values.CopyValuesTests.test_native_selected_copies_both_branches_dynamic_input_and_empty_values": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_copy_values.CopyValuesTests.test_operand_output_capacity_and_complete_source_bounds": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_copy_values.CopyValuesTests.test_rejected_case_insensitive_collisions_and_excluded_names": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_copy_values.CopyValuesTests.test_rejected_copy_sources_lengths_order_and_extra_statements": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_copy_values.CopyValuesTests.test_shared_binding_lists_and_mutable_copy_sources": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_dev_runs.DevRunTests.test_build_uses_attached_native_worker_flag": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_dev_runs.DevRunTests.test_changed_source_permits_new_full_check_without_reason": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_dev_runs.DevRunTests.test_cold_random_workspace_does_not_evade_success_guard": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_dev_runs.DevRunTests.test_custom_cli_records_declared_inputs_and_actual_workspaces": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_dev_runs.DevRunTests.test_custom_cli_requires_both_input_and_workspace_declarations": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_dev_runs.DevRunTests.test_custom_declared_source_drift_cannot_finish_successfully": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_dev_runs.DevRunTests.test_custom_executable_drift_cannot_finish_successfully": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_dev_runs.DevRunTests.test_custom_executable_symlink_retarget_is_drift_even_with_identical_bytes": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_dev_runs.DevRunTests.test_custom_input_directory_symlink_retarget_is_drift_even_with_identical_bytes": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_dev_runs.DevRunTests.test_custom_input_file_symlink_retarget_is_drift_even_with_identical_bytes": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_dev_runs.DevRunTests.test_equivalent_selectors_share_diagnostic_scope_and_distinct_targets_do_not": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_dev_runs.DevRunTests.test_exploratory_zero_exit_with_unproved_obligation_is_failure": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_dev_runs.DevRunTests.test_extra_declared_input_is_checked_for_standard_exploratory_project": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_dev_runs.DevRunTests.test_full_evidence_survives_a_later_incremental_report_replacement": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_dev_runs.DevRunTests.test_full_success_requires_reason_before_replacing_evidence": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_dev_runs.DevRunTests.test_invalid_preflight_launches_no_proof_and_preserves_prior_reports": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_dev_runs.DevRunTests.test_invoke_retains_failure_stdout_stderr_and_passes_live_lease": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_dev_runs.DevRunTests.test_invoke_without_log_also_passes_live_lease": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_dev_runs.DevRunTests.test_missing_toolchain_lock_is_a_recorded_preflight_failure": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_dev_runs.DevRunTests.test_new_file_in_declared_directory_is_input_drift": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_dev_runs.DevRunTests.test_redirects_and_explicit_executable_require_custom_declarations": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_dev_runs.DevRunTests.test_rosetta_test_dependency_drift_cannot_finish_successfully": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_dev_runs.DevRunTests.test_standard_exploratory_paths_include_outputs_and_external_cache": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_dev_runs.DevRunTests.test_status_and_checkpoint_preserve_task_scope_and_no_proof_launch": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_dev_runs.DevRunTests.test_status_limit_preserves_all_active_runs": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_dev_runs.DevRunTests.test_test_command_captures_only_rosetta_test_dependencies": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ArrayInitializationAdvisoryTests.test_advisory_is_accepted_only_for_main_in_application_audits": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ArrayInitializationAdvisoryTests.test_advisory_is_rejected_for_unreviewed_compiler_units": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ArrayInitializationAdvisoryTests.test_advisory_requires_exact_sarif_classification_and_coverage": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ArrayInitializationAdvisoryTests.test_compiler_advisory_cannot_replace_or_hide_required_work": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ArrayInitializationAdvisoryTests.test_compiler_advisory_requires_exact_native_metadata": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ArrayInitializationAdvisoryTests.test_exact_compiler_advisory_is_separate_from_required_checks": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_analysis_stopped_or_skipped": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_argument_policies_accept_exact_optional_callees": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_assignment_advisory_identifier_pattern_and_schema_bound": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_assignment_advisory_requires_explicit_policy_and_is_not_a_check": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_assignment_output_dependencies_have_approved_references": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_assignment_policy_rejects_consistent_malformed_advisories": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_assignment_policy_rejects_other_diagnostics_and_suppression": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_assignment_sarif_must_match_unsuppressed_advisory": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_binding_advisory_lists_and_exact_unused_assignment_scope": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_captured_arguments_handle_lossy_producer_paths_without_shell_parsing": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_comment_format_effectors_and_qualified_expression_cannot_hide_pragma": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_comparison_advisories_require_exact_rules_messages_and_routes": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_composed_advisories_cannot_reference_callees_or_hide_extra_diagnostics": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_composed_policies_accept_ranges_with_initializer_advisories": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_composed_policy_selection_is_explicit_and_validated": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_composed_ranges_reject_consistently_mutated_checks": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_deleted_diagnostic_is_detected_without_fixed_check_count": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_documented_proof_limitation_is_counted_but_cannot_hide_a_failed_check": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_flow_only_invocation_is_insufficient": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_generated_configuration_requires_current_proof_coverage": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_import_declaration_checks_cannot_be_waived": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_indexed_main_requires_exact_artifact_and_logical_unit_identity": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_later_mode_override_is_rejected": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_length_overflow_division_and_index_policy_rejects_consistent_mutations": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_membership_character_literals_preserve_source_policy": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_missing_owned_entity": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_missing_unit_report": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_nonassignment_bare_sequences_preserve_main_coverage": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_output_call_requires_owned_runtime_and_reviewed_import_reports": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_partial_and_mixed_output_entities_keep_exact_policies": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_real_suppression_schema_is_rejected": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_repeated_output_ghost_advisories_are_exact": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_source_cannot_hide_checks_before_report_generation": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_standalone_report_does_not_treat_path_apostrophe_as_shell_quoting": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_static_assertion_level_is_not_a_suppression": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_success_with_zero_obligations_requires_coverage": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_trusted_external_callee_is_not_owned_coverage": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_trusted_import_allowance_pins_symbols_and_contracts": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_unknown_external_assumption_is_rejected": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_unproved_or_justified_check": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_unsuccessful_invocation_or_suppressed_diagnostic": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.ProofEvidenceTests.test_warning_rejected_but_informational_unrolling_note_allowed": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.VendorProofEvidenceTests.test_exact_big_integer_dependency_and_origin_are_required": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.VendorProofEvidenceTests.test_exact_vendor_premises_are_counted_separately_from_checks": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.VendorProofEvidenceTests.test_image_instance_requires_exact_static_ghost_observations": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.VendorProofEvidenceTests.test_multiple_instances_keep_separate_exact_declaration_origins": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.VendorProofEvidenceTests.test_proof_instance_requires_exact_static_ghost_character_binding": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.VendorProofEvidenceTests.test_signed_conversion_requires_exact_type_and_visible_generic": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.VendorProofEvidenceTests.test_signed_conversion_specs_require_both_exact_vendor_origins": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.VendorProofEvidenceTests.test_unknown_warning_and_changed_vendor_note_are_rejected": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.VendorProofEvidenceTests.test_vendor_note_cannot_replace_flow_or_proof_results": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.VendorProofEvidenceTests.test_vendor_note_requires_exact_sarif_and_diagnostic_coverage": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.VendorProofEvidenceTests.test_vendor_premises_require_source_enabled_compiler_scope": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_evidence.VendorProofEvidenceTests.test_vendor_specs_do_not_exempt_owned_helpers_or_unknown_declarations": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_greeting.GreetingTests.test_closed_form_admission": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_greeting.GreetingTests.test_excluded_neighbour_expressions": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_greeting.GreetingTests.test_native_decoded_output_boundaries_names_and_failure": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_greeting.GreetingTests.test_shared_binding_lists_and_mutable_greeting_operand": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_image_adapter.ImageAdapterTests.test_adapter_failures_are_actionable_and_preserve_snapshots": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_image_adapter.ImageAdapterTests.test_initializer_and_loop_assignment_prove_and_execute_unchanged": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_image_adapter.ImageAdapterTests.test_unchanged_cleanup_retention_and_native_failure": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_image_adapter.ImageAdapterTests.test_wrong_image_width_never_reaches_proof": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_image_model.ImageModelTests.test_full_producer_counter_domain_is_accepted": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_image_model.ImageModelTests.test_ids_outside_producer_domain_are_rejected": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_image_model.ImageModelTests.test_inserted_nodes_are_unique_above_every_producer_id": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_image_reports.ArrayEvidenceTests.test_advisory_is_not_counted_as_a_discharged_check": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_image_reports.ArrayEvidenceTests.test_mutated_advisory_fields_are_rejected": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_image_reports.ArrayEvidenceTests.test_sarif_must_retain_the_exact_producer_classification": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_image_reports.ImageEvidenceTests.test_advisory_is_not_counted_as_a_discharged_check": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_image_reports.ImageEvidenceTests.test_mutated_advisory_fields_are_rejected": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_image_reports.ImageEvidenceTests.test_sarif_must_retain_the_exact_producer_classification": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_image_reports.NativeArrayReportTests.test_exact_advisory_preserves_required_checks_in_all_application_policies": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_image_reports.NativeArrayReportTests.test_mutated_missing_duplicate_and_misplaced_advisories_are_rejected": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_image_reports.NativeArrayReportTests.test_rule_and_message_must_be_the_same_advisory": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_image_reports.NativeImageReportTests.test_exact_advisory_preserves_required_checks_in_all_application_policies": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_image_reports.NativeImageReportTests.test_mutated_missing_duplicate_and_misplaced_advisories_are_rejected": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_image_setup.ImageSetupTests.test_config_and_driver_routing_must_match_original_tool_binding": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_image_setup.ImageSetupTests.test_foreign_host_setup_cannot_write_anything": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_image_setup.ImageSetupTests.test_full_evidence_requires_adapter_configuration_and_all_units": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_image_setup.ImageSetupTests.test_original_support_tool_may_link_inside_native_tools": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_image_setup.ImageSetupTests.test_original_support_tool_must_resolve_inside_native_tools": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_image_setup.ImageSetupTests.test_overlay_cannot_delegate_to_itself_or_hide_replacement_tools": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_image_setup.ImageSetupTests.test_overlay_preserves_vendor_and_selects_compiled_adapter": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_image_setup.ImageSetupTests.test_vendor_change_requires_regenerating_exact_configuration": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_arrays.IntegerArrayTests.test_admission_anonymous_bounds_and_exact_aggregate_shapes": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_arrays.IntegerArrayTests.test_admission_declaration_snapshots_are_exact_and_nonstatic": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_arrays.IntegerArrayTests.test_admission_dense_explicit_initializers_fit_the_source_derived_table": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_arrays.IntegerArrayTests.test_admission_excludes_unselected_types_aggregates_and_bounds": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_arrays.IntegerArrayTests.test_admission_index_guards_use_scalar_flow_and_indices_stay_nonempty": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_arrays.IntegerArrayTests.test_admission_index_leaves_and_program_operators_keep_existing_budgets": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_arrays.IntegerArrayTests.test_admission_mutability_type_and_subscript_boundaries": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_arrays.IntegerArrayTests.test_admission_names_and_scoped_hiding": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_arrays.IntegerArrayTests.test_admission_nested_loops_keep_the_initializer_table_out_of_body_frames": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_arrays.IntegerArrayTests.test_admission_reads_are_scalar_atoms_in_existing_positions": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_arrays.IntegerArrayTests.test_admission_rotation_driver_and_argument_composition": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_arrays.IntegerArrayTests.test_native_rotation_snapshots_and_guarded_index_report": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_division.IntegerDivisionTests.test_admission_division_shares_exactly_the_existing_operator_budget": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_division.IntegerDivisionTests.test_admission_empty_operands_do_not_waive_divisor_or_static_legality": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_division.IntegerDivisionTests.test_admission_every_shared_scalar_expression_position": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_division.IntegerDivisionTests.test_admission_initializers_capture_values_and_staticness_is_preserved": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_division.IntegerDivisionTests.test_admission_modulus_and_remainder_include_interior_extrema": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_division.IntegerDivisionTests.test_admission_nonzero_divisors_and_division_overflow": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_division.IntegerDivisionTests.test_admission_operator_words_are_case_insensitive_whole_tokens": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_division.IntegerDivisionTests.test_admission_quotient_hulls_for_positive_and_negative_divisors": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_division.IntegerDivisionTests.test_admission_singletons_follow_ada_sign_and_truncation_rules": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_division.IntegerDivisionTests.test_native_dynamic_signs_and_minimum_integer": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_division.IntegerDivisionTests.test_native_josephus_and_remainder_interior_values": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_image.IntegerImageTests.test_assignment_requires_both_length_endpoints": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_image.IntegerImageTests.test_empty_image_keeps_static_resource_and_target_checks": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_image.IntegerImageTests.test_image_is_one_string_leaf_with_shared_operator_budget": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_image.IntegerImageTests.test_native_composite_argument_loop": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_image.IntegerImageTests.test_native_extreme_images_and_fixed_width_assignment": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_image.IntegerImageTests.test_predicate_overlap_refines_selected_input_capacity": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_image.IntegerImageTests.test_scalar_expression_and_string_positions": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_image.IntegerImageTests.test_scalar_leaf_boundary_and_loop_image_compositions": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_image.IntegerImageTests.test_type_visibility_and_scalar_visibility": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_loops.IntegerLoopsTests.test_constants_are_initialized_typed_and_immutable": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_loops.IntegerLoopsTests.test_integer_type_visibility_preserves_existing_string_names": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_loops.IntegerLoopsTests.test_loop_arithmetic_uses_guarded_index_ranges": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_loops.IntegerLoopsTests.test_loop_scope_reverse_null_ranges_and_own_bounds": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_loops.IntegerLoopsTests.test_native_string_assignments_and_argument_guards_compose_with_loops": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_loops.IntegerLoopsTests.test_native_triangle_and_reverse_composition": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_loops.IntegerLoopsTests.test_scalar_literals_and_every_intermediate_operation": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_loops.IntegerLoopsTests.test_scoped_indexes_hide_strings_constants_and_unqualified_calls": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_loops.IntegerLoopsTests.test_shared_work_budget_counts_operators_but_not_exponent_signs": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_loops.IntegerLoopsTests.test_shared_work_budget_counts_plus_after_digit_e_identifiers": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_loops.IntegerLoopsTests.test_shared_work_budget_ignores_real_exponents_and_quoted_or_comment_operators": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_integer_loops.IntegerLoopsTests.test_shared_work_budget_is_independent_of_identifier_and_operator_spacing": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanCPUSelectionTests.test_affinity_and_process_limits_both_constrain_available_cpus": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanCPUSelectionTests.test_python_311_and_non_affinity_platform_fallback": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanCPUSelectionTests.test_unavailable_affinity_does_not_prevent_cpu_detection": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanCPUSelectionTests.test_unknown_counts_still_allow_one_worker": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanEvidenceTests.test_changed_tool_invalidates_cache_without_rewriting_sources": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanEvidenceTests.test_complete_environment_inventory": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanEvidenceTests.test_each_generated_certificate_must_be_regular_and_present": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanEvidenceTests.test_focused_environment_checks_requested_modules_and_real_imports": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanEvidenceTests.test_generator_cannot_replace_handwritten_inputs_before_hash_capture": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanEvidenceTests.test_generator_cannot_replace_input_with_same_content_symlink": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanEvidenceTests.test_generator_cannot_replace_parent_directory_with_symlink": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanEvidenceTests.test_optional_checker_identity_does_not_discard_compiler_cache": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanEvidenceTests.test_orphan_module_is_not_covered_by_a_comment_import": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanEvidenceTests.test_removed_module_cannot_survive_as_an_importable_cached_object": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanEvidenceTests.test_unchanged_workspace_preserves_inputs_and_cached_objects": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanEvidenceTests.test_unexpected_loaded_project_module_is_rejected": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanKernelPolicyTests.test_bypass_options_and_unchecked_declaration_apis_are_rejected": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanKernelPolicyTests.test_only_the_exact_existing_audit_guard_is_exempted_once": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanNativeAxiomAuditTests.test_actual_audit_accepts_foundations_and_rejects_other_assumptions": {
+    "result": "pass",
+    "selected_run": "20261031T214130-1e0195247bd5",
+    "source": "reviewed_installed_Lean_fixture",
+    "original_run_returncode": 1,
+    "review": "docs/reviews/string-character-fixture-reuse-20261103.md"
+  },
+  "test_lean_evidence.LeanNativeDependencyTests.test_changed_resource_settings_apply_without_discarding_cached_objects": {
+    "result": "pass",
+    "selected_run": "20261031T214130-1e0195247bd5",
+    "source": "reviewed_installed_Lean_fixture",
+    "original_run_returncode": 1,
+    "review": "docs/reviews/string-character-fixture-reuse-20261103.md"
+  },
+  "test_lean_evidence.LeanNativeDependencyTests.test_lake_tracks_embedded_ada_bytes_and_preserves_unchanged_objects": {
+    "result": "pass",
+    "selected_run": "20261031T214130-1e0195247bd5",
+    "source": "reviewed_installed_Lean_fixture",
+    "original_run_returncode": 1,
+    "review": "docs/reviews/string-character-fixture-reuse-20261103.md"
+  },
+  "test_lean_evidence.LeanNativeDependencyTests.test_removed_dependency_fails_closed_without_discarding_unrelated_objects": {
+    "result": "pass",
+    "selected_run": "20261031T214130-1e0195247bd5",
+    "source": "reviewed_installed_Lean_fixture",
+    "original_run_returncode": 1,
+    "review": "docs/reviews/string-character-fixture-reuse-20261103.md"
+  },
+  "test_lean_evidence.LeanRunnerPhaseTests.test_added_or_deleted_shared_inputs_stop_after_build_with_cache_retained": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanRunnerPhaseTests.test_added_workspace_module_stops_before_fresh_audit": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanRunnerPhaseTests.test_bypass_in_shared_module_or_lakefile_stops_before_workspace_or_lake": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanRunnerPhaseTests.test_cached_bypass_command_is_rejected_after_source_reversion_without_deleting_cache": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanRunnerPhaseTests.test_default_check_cannot_publish_failed_or_incomplete_audit": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanRunnerPhaseTests.test_default_check_rejects_input_drift_after_each_phase": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanRunnerPhaseTests.test_failed_focused_audit_cannot_reuse_its_old_success_or_replace_complete_evidence": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanRunnerPhaseTests.test_focused_check_syncs_targets_and_keeps_complete_evidence_and_unrelated_objects": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanRunnerPhaseTests.test_focused_driver_drift_stops_before_audit": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanRunnerPhaseTests.test_focused_input_drift_stops_before_audit_and_preserves_cache": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanRunnerPhaseTests.test_focused_result_digest_changes_with_protected_input_bytes": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanRunnerPhaseTests.test_generated_candidate_bypass_stops_before_lake": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanRunnerPhaseTests.test_generation_drift_stops_before_lake": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanRunnerPhaseTests.test_input_drift_at_audit_or_kernel_cannot_publish_success": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanRunnerPhaseTests.test_invalid_target_or_focused_replay_does_not_mutate_workspace_or_evidence": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanRunnerPhaseTests.test_missing_fresh_audit_or_incomplete_closure_never_runs_kernel": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanRunnerPhaseTests.test_phase_failure_and_interruption_preserve_partial_log": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanRunnerPhaseTests.test_provenance_collects_detail_without_enabling_replay": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanRunnerPhaseTests.test_replay_and_full_alias_request_kernel_after_fresh_audit": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanRunnerPhaseTests.test_root_target_selects_the_module_instead_of_the_lake_library": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanRunnerPhaseTests.test_routine_and_clean_checks_skip_replay_and_detailed_artifact_collection": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanRunnerPhaseTests.test_shared_candidate_bytes_and_cache_files_are_not_new_proof_inputs": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanRunnerPhaseTests.test_success_records_actual_phase_times_and_current_inventories": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanRunnerPhaseTests.test_tool_or_artifact_drift_stops_before_kernel": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanStreamingTests.test_interrupted_read_kills_and_reaps_the_child": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanStreamingTests.test_partial_lines_and_merged_stderr_are_logged_before_child_exit": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_evidence.LeanTemporaryDirectoryTests.test_fixture_suite_under_symlinked_tmpdir": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_modules.LeanModuleTests.test_legacy_audits_reject_private_axiom_behind_module_import": {
+    "result": "pass",
+    "selected_run": "20261031T215153-7280a74a41c2",
+    "source": "reviewed_installed_Lean_fixture",
+    "original_run_returncode": 0,
+    "review": "docs/reviews/string-character-fixture-reuse-20261103.md"
+  },
+  "test_lean_modules.LeanModuleTests.test_proof_reuse_and_public_source_invalidation": {
+    "result": "pass",
+    "selected_run": "20261031T215153-7280a74a41c2",
+    "source": "reviewed_installed_Lean_fixture",
+    "original_run_returncode": 0,
+    "review": "docs/reviews/string-character-fixture-reuse-20261103.md"
+  },
+  "test_lean_run_history.LeanLeaseChildTests.test_diagnostic_keys_accept_lean_and_lake_errors_but_not_warnings": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_run_history.LeanLeaseChildTests.test_run_logged_passes_a_real_descriptor_to_the_child": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_run_history.LeanRunHistoryTests.test_automatic_workers_use_remaining_budget_without_changing_process_threads": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_run_history.LeanRunHistoryTests.test_conflicting_lease_preserves_workspace_and_prior_evidence": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_run_history.LeanRunHistoryTests.test_failed_preflight_does_not_relabel_an_earlier_log_as_current": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_run_history.LeanRunHistoryTests.test_failed_source_diagnostics_become_repeatable_failure_keys": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_run_history.LeanRunHistoryTests.test_failures_and_interruptions_record_terminal_status_and_retained_output": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_run_history.LeanRunHistoryTests.test_lease_precedes_workspace_changes_and_all_child_launches_inherit_it": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_run_history.LeanRunHistoryTests.test_matching_clean_repeat_needs_reason_before_cache_mutation": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_run_history.LeanRunHistoryTests.test_routine_repeat_executes_fresh_audit_and_preserves_each_success": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_source.CompilerSourcePolicyTests.test_all_bytes_have_the_explicit_compiler_alphabet": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_source.CompilerSourcePolicyTests.test_authoritative_bindings_are_not_generated": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_source.CompilerSourcePolicyTests.test_checked_in_certificates_equal_regeneration": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_source.CompilerSourcePolicyTests.test_compose_candidate_has_no_authoritative_source_dependencies": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_source.CompilerSourcePolicyTests.test_compose_source_checks_retain_authoritative_dependencies": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_source.CompilerSourcePolicyTests.test_current_compiler_sources_satisfy_byte_policy": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_source.CompilerSourcePolicyTests.test_embedded_source_lists_and_lake_dependencies_agree": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_source.CompilerSourcePolicyTests.test_hidden_declarations_fail_before_certificate_generation": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_source.CompilerSourcePolicyTests.test_include_str_is_confined_to_the_source_bindings": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_source.CompilerSourcePolicyTests.test_only_audit_roots_use_legacy_full_imports": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_source.CompilerSourcePolicyTests.test_unsupported_literal_syntax_cannot_hide_declarations": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_lean_source.NativeCertificateTests.test_generated_certificates_and_witnesses_remain_kernel_checked": {
+    "result": "pass",
+    "selected_run": "20261031T214130-1e0195247bd5",
+    "source": "reviewed_installed_Lean_fixture",
+    "original_run_returncode": 1,
+    "review": "docs/reviews/string-character-fixture-reuse-20261103.md"
+  },
+  "test_library_reports.LibraryReportTests.test_application_report_bound_preserves_runtime_domain": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_library_reports.LibraryReportTests.test_argument_and_runtime_entity_locations_are_exact": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_library_reports.LibraryReportTests.test_argument_postcondition_belongs_to_initializer": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_library_reports.LibraryReportTests.test_argument_schemas_and_coverage": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_library_reports.LibraryReportTests.test_assignment_advisory_is_separate_from_required_checks": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_library_reports.LibraryReportTests.test_assignment_output_dependencies_have_approved_references": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_library_reports.LibraryReportTests.test_assignment_rejects_other_diagnostics_and_proof_records": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_library_reports.LibraryReportTests.test_assignment_requires_exact_coverage_and_completed_analysis": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_library_reports.LibraryReportTests.test_assumptions_resolve_only_selected_entities": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_library_reports.LibraryReportTests.test_body_requires_checks_and_both_output_postconditions": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_library_reports.LibraryReportTests.test_both_selected_schemas_and_wrong_kind": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_library_reports.LibraryReportTests.test_comparison_advisories_have_exact_route_and_message_policy": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_library_reports.LibraryReportTests.test_complete_analysis_and_empty_exclusions": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_library_reports.LibraryReportTests.test_composed_mutable_reports_reject_failed_ranges_and_other_advisories": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_library_reports.LibraryReportTests.test_composed_reports_select_entities_and_advisory_permission": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_library_reports.LibraryReportTests.test_duplicate_required_fields_and_bad_delimiters": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_library_reports.LibraryReportTests.test_entity_map_cannot_hide_extra_owned_declarations": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_library_reports.LibraryReportTests.test_entity_numbers_and_order_are_not_pinned": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_library_reports.LibraryReportTests.test_every_record_is_audited": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_library_reports.LibraryReportTests.test_justification_and_suppression_rejected": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_library_reports.LibraryReportTests.test_known_but_unselected_entities_are_rejected": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_library_reports.LibraryReportTests.test_large_main_report_erases_recursive_ghost_models": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_library_reports.LibraryReportTests.test_length_overflow_division_and_index_checks_have_the_same_complete_safety_policy": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_library_reports.LibraryReportTests.test_main_complete_reports_and_optimized_empty_checks": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_library_reports.LibraryReportTests.test_main_entity_preserves_admitted_procedure_casing": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_library_reports.LibraryReportTests.test_main_exact_coverage_dependencies_and_completion": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_library_reports.LibraryReportTests.test_main_failed_records_and_unapproved_obligations": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_library_reports.LibraryReportTests.test_main_only_sequences_preserve_complete_checks_and_dependencies": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_library_reports.LibraryReportTests.test_nested_decoys_do_not_satisfy_fields": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_library_reports.LibraryReportTests.test_non_one_based_application_report_preserves_policy": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_library_reports.LibraryReportTests.test_obligation_count_is_not_pinned": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_library_reports.LibraryReportTests.test_owned_coverage_and_import_exceptions_are_exact": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_library_reports.LibraryReportTests.test_partial_and_mixed_output_entities_keep_exact_policies": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_library_reports.LibraryReportTests.test_query_free_reports_retain_exact_coverage_and_check_requirements": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_library_reports.LibraryReportTests.test_repeated_output_ghost_advisories_are_exact": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_library_reports.LibraryReportTests.test_shared_bindings_advisory_lists_and_assignment_scope": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_main_discovery.MainDiscoveryTests.test_indexed_main_preserves_cr_source_in_all_shells": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_mutable_integers.MutableIntegerTests.test_admission_assignments_preserve_type_and_immutability": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_mutable_integers.MutableIntegerTests.test_admission_body_starts_declared_and_tracks_writes_and_guards": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_mutable_integers.MutableIntegerTests.test_admission_declarations_and_exact_initialization_snapshots": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_mutable_integers.MutableIntegerTests.test_admission_mutable_images_use_declared_widths": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_mutable_integers.MutableIntegerTests.test_admission_range_operators_share_the_source_budget": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_mutable_integers.MutableIntegerTests.test_admission_requires_static_nonempty_constraints_and_legal_names": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_mutable_integers.MutableIntegerTests.test_admission_scalar_guard_composes_with_input_length_facts": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_mutable_integers.MutableIntegerTests.test_empty_interval_assignments_rejected_before_compilation": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_mutable_integers.MutableIntegerTests.test_native_declaration_snapshots_and_mutable_image": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_mutable_integers.MutableIntegerTests.test_native_dense_static_subtypes_and_initializer_advisories": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_mutable_integers.MutableIntegerTests.test_native_driver_and_frozen_loop_bounds": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_mutable_integers.MutableIntegerTests.test_native_retained_empty_loop_forms": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_named_integer_subtypes.NamedIntegerSubtypeTests.test_admission_component_bounds_enable_reads_and_foreach_arithmetic": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_named_integer_subtypes.NamedIntegerSubtypeTests.test_admission_exact_initializer_snapshots_do_not_become_static": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_named_integer_subtypes.NamedIntegerSubtypeTests.test_admission_guards_loop_widening_and_narrow_component_stores": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_named_integer_subtypes.NamedIntegerSubtypeTests.test_admission_initial_values_and_every_store_respect_declared_range": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_named_integer_subtypes.NamedIntegerSubtypeTests.test_admission_rejects_unselected_or_invalid_subtype_declarations": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_named_integer_subtypes.NamedIntegerSubtypeTests.test_admission_retains_expression_and_source_derived_binding_budgets": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_named_integer_subtypes.NamedIntegerSubtypeTests.test_admission_static_bounds_scalar_objects_and_local_narrowing": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_named_integer_subtypes.NamedIntegerSubtypeTests.test_admission_subtype_names_are_metadata_and_share_name_visibility": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_named_integer_subtypes.NamedIntegerSubtypeTests.test_native_contradictory_guards_with_named_scalar_and_component_bounds": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_named_integer_subtypes.NamedIntegerSubtypeTests.test_native_subtype_snapshots_narrow_stores_and_argument_composition": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_named_output.NamedOutputTests.test_excluded_names_and_nearby_forms": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_named_output.NamedOutputTests.test_names_and_declaration_trivia": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_named_output.NamedOutputTests.test_native_empty_escaped_and_boundary_constants": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_named_output.NamedOutputTests.test_shared_binding_lists_and_mutable_named_output": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_names_calls.NamesCallsTests.test_context_order_grouping_and_repetition_preserve_package_requirements": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_names_calls.NamesCallsTests.test_input_objects_hide_operations_but_not_qualified_calls": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_names_calls.NamesCallsTests.test_local_objects_hide_operations_but_not_qualified_calls": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_names_calls.NamesCallsTests.test_named_associations_preserve_actuals_and_formal_names": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_names_calls.NamesCallsTests.test_native_named_calls_and_local_operation_names": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_names_calls.NamesCallsTests.test_native_qualified_initializer_allows_its_own_operation_name": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_names_calls.NamesCallsTests.test_partial_output_uses_the_same_visibility_and_association_rules": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_names_calls.NamesCallsTests.test_unqualified_calls_need_their_own_use_clause": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_names_calls.NamesCallsTests.test_use_does_not_admit_other_library_entities_or_extra_initializers": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_output.LiteralOutputTests.test_empty_escaped_and_maximum_literals_execute": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_output.LiteralOutputTests.test_literal_lexing_and_token_boundaries": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_output.LiteralOutputTests.test_nearby_forms_are_excluded": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_output.LiteralOutputTests.test_output_failure_cannot_report_success": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_output_integrity.OutputIntegrityTests.test_application_report_capacity_accepts_exact_bound_without_truncation": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_output_integrity.OutputIntegrityTests.test_artifact_symlink_does_not_redirect_runtime_source_selection": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_output_integrity.OutputIntegrityTests.test_dense_review_construction_accepts_maximal_credit_report": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_output_integrity.OutputIntegrityTests.test_divergent_installed_source_stops_before_proof": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_output_integrity.OutputIntegrityTests.test_every_library_snapshot_change_during_build_stops_before_publication": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_output_integrity.OutputIntegrityTests.test_every_library_snapshot_change_during_proof_stops_before_build": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_output_integrity.OutputIntegrityTests.test_large_argument_vector_with_eight_mib_stack": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_output_integrity.OutputIntegrityTests.test_large_opaque_proof_trees_preserve_complete_original_reports": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_output_integrity.OutputIntegrityTests.test_malformed_opaque_proof_tree_stops_before_build": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_output_integrity.OutputIntegrityTests.test_missing_application_keeps_ambiguous_runtime_status": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_output_integrity.OutputIntegrityTests.test_missing_runtime_report_stops_before_build": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_output_integrity.OutputIntegrityTests.test_present_but_rejected_runtime_report_stops_before_build": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_output_integrity.OutputIntegrityTests.test_run_abnormal_exit_reports_process_failure": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_output_integrity.OutputIntegrityTests.test_run_forwards_exact_argument_vector": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_output_integrity.OutputIntegrityTests.test_run_preserves_application_exit_status": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_output_integrity.OutputIntegrityTests.test_selected_compiler_accepts_output_source": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_output_integrity.OutputIntegrityTests.test_success_uses_fixed_library_selection_and_runs": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_partial_output.PartialOutputTests.test_native_branches_and_inputs_preserve_each_call_bound": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_partial_output.PartialOutputTests.test_native_empty_put_flushes_without_writing_a_newline": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_partial_output.PartialOutputTests.test_native_mixed_output_preserves_bytes_and_continues_after_failure": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_partial_output.PartialOutputTests.test_partial_calls_keep_expression_and_source_bounds": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_path_refinement.PathRefinementTests.test_affine_lengths_and_alias_bounds_refine_together": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_path_refinement.PathRefinementTests.test_generalized_validity_paths_require_rejection_without_output": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_path_refinement.PathRefinementTests.test_interval_join_and_string_inequality_do_not_invent_exact_length": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_path_refinement.PathRefinementTests.test_joins_assignments_and_initializers_do_not_invent_facts": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_path_refinement.PathRefinementTests.test_native_invalid_input_assignments_use_the_empty_initializer": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_path_refinement.PathRefinementTests.test_native_length_guard_can_establish_validity_without_query": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_path_refinement.PathRefinementTests.test_native_refined_assignments_preserve_snapshots_and_input_domain": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_path_refinement.PathRefinementTests.test_native_reject_returns_and_failure_status_is_sticky": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_path_refinement.PathRefinementTests.test_native_short_circuit_length_branches": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_path_refinement.PathRefinementTests.test_native_static_rhs_floor_preserves_refined_and_unreachable_siblings": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_path_refinement.PathRefinementTests.test_short_circuit_operands_use_only_preceding_facts": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_path_refinement.PathRefinementTests.test_static_targets_bound_all_static_rhs_contributions_even_when_unreachable": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_path_refinement.PathRefinementTests.test_true_and_false_lengths_refine_fixed_assignments": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_path_refinement.PathRefinementTests.test_unreachable_static_assignment_requires_equal_lengths": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_platforms.InstallationEnvironmentTests.test_bootstrap_requires_complete_bounded_runtime_sources": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_platforms.InstallationEnvironmentTests.test_bootstrap_reserves_the_library_evidence_precondition_suffix": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_platforms.InstallationEnvironmentTests.test_generated_tool_command_anchors_and_quotes_installation": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_platforms.InstallationEnvironmentTests.test_symlinked_tmpdir_preserves_platform_setup_and_routing": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_platforms.PlatformIsolationTests.test_cached_build_log_cannot_replace_fresh_lean_audit": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_platforms.PlatformIsolationTests.test_concurrent_different_host_setups_do_not_collide": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_platforms.PlatformIsolationTests.test_development_commands_keep_project_outputs_and_audit_in_native_host": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_platforms.PlatformIsolationTests.test_development_output_overrides_fail_before_invoking_tools": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_platforms.PlatformIsolationTests.test_each_host_setup_preserves_other_hosts_and_shared_inputs": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_platforms.PlatformIsolationTests.test_failed_proof_invalidates_only_its_host_evidence": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_platforms.PlatformIsolationTests.test_foreign_execution_is_rejected_before_side_effects": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_platforms.PlatformIsolationTests.test_lean_auto_and_explicit_resources_are_recorded_and_isolated": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_platforms.PlatformIsolationTests.test_lean_full_and_clean_modes_record_their_actual_checks": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_platforms.PlatformIsolationTests.test_legacy_archives_are_read_only_inputs": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_platforms.PlatformIsolationTests.test_platform_aliases_and_disjoint_paths": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_platforms.PlatformIsolationTests.test_unchanged_context_setup_preserves_generated_file_mtimes": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_predicates.PredicateTests.test_boolean_grouping_and_short_circuit_spelling": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_predicates.PredicateTests.test_bracket_encoded_character_spelling_is_rejected_in_each_position": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_predicates.PredicateTests.test_final_bracket_literals_require_a_separator_before_word_tokens": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_predicates.PredicateTests.test_integer_spellings_values_and_exponent_bounds": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_predicates.PredicateTests.test_native_bracket_literal_siblings_preserve_decoded_bytes": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_predicates.PredicateTests.test_native_literal_meaning_boolean_grouping_and_inequality": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_predicates.PredicateTests.test_predicate_atoms_have_rejected_neighbours": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_predicates.PredicateTests.test_source_bound_literal_spellings_do_not_gain_a_digit_count_limit": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_proof_provenance.ProvenanceTests.test_audited_path_rejects_proof_weakening": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_proof_provenance.ProvenanceTests.test_changed_project_cannot_approve_its_own_suppression_or_source_selection": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_proof_provenance.ProvenanceTests.test_changed_proof_container_project_is_rejected": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_proof_provenance.ProvenanceTests.test_cold_options_require_their_own_output_directory": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_proof_provenance.ProvenanceTests.test_cold_runs_are_unique_and_preserve_warm_and_other_host_state": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_proof_provenance.ProvenanceTests.test_direct_exploratory_gnatprove_requires_separate_outputs_and_cache": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_proof_provenance.ProvenanceTests.test_effective_configuration_and_host_are_checked": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_proof_provenance.ProvenanceTests.test_failed_cold_run_cannot_create_success_or_damage_warm_evidence": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_proof_provenance.ProvenanceTests.test_failed_incremental_run_cannot_keep_old_full_success": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_proof_provenance.ProvenanceTests.test_failed_tool_preflight_preserves_successful_reports": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_proof_provenance.ProvenanceTests.test_full_evidence_requires_forcing_and_native_cache": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_proof_provenance.ProvenanceTests.test_full_mode_routes_through_complete_audit_with_worker_override": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_proof_provenance.ProvenanceTests.test_full_run_regenerates_reports_but_preserves_native_sessions": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_proof_provenance.ProvenanceTests.test_incremental_run_preserves_reports_and_invalidates_only_its_full_evidence": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_proof_provenance.ProvenanceTests.test_invalid_worker_counts_fail_before_proof": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_proof_provenance.ProvenanceTests.test_native_cache_is_stable_across_source_edits_and_changes_with_toolchain": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_proof_provenance.ProvenanceTests.test_new_dependency_or_changed_generated_configuration_is_rejected": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_proof_provenance.ProvenanceTests.test_relative_report_paths_accept_warm_and_cold_evidence": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_proof_provenance.ProvenanceTests.test_report_and_tool_tampering_is_rejected": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_proof_provenance.ProvenanceTests.test_restored_mtime_does_not_hide_input_change": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_proof_provenance.ProvenanceTests.test_sarif_command_must_match_captured_invocation": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_proof_provenance.ProvenanceTests.test_scheduling_can_change_without_weakening_full_evidence": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_proof_provenance.ProvenanceTests.test_symlinked_selected_tool_root_is_accepted": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_proof_provenance.ProvenanceTests.test_tool_links_cannot_escape_selected_tool_root": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_proof_provenance.ProvenanceTests.test_unchanged_content_is_accepted": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_proof_provenance.ProvenanceTests.test_uncompleted_provenance_cannot_be_reused": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_proof_provenance.ProvenanceTests.test_validation_mode_and_initial_state_cannot_be_omitted": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_report_projection.ReportProjectionTests.test_all_json_values_project_only_at_immediate_record_scope": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_report_projection.ReportProjectionTests.test_duplicates_forbidden_fields_and_escaped_key_spelling_survive": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_report_projection.ReportProjectionTests.test_generated_documents_preserve_every_other_value": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_report_projection.ReportProjectionTests.test_malformed_opaque_values_and_truncated_tokens_are_rejected": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_report_projection.ReportProjectionTests.test_nesting_bound_and_long_opaque_reason_do_not_use_report_storage": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_report_projection.ReportProjectionTests.test_other_sections_are_byte_identical": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_report_projection.ReportProjectionTests.test_projection_preserves_native_auditor_decisions": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_report_projection.ReportProjectionTests.test_raw_key_scope_and_surrounding_whitespace_are_preserved": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_rosetta.RosettaRenderTests.test_pending_design_has_no_stage_and_is_not_an_oracle_exclusion": {
+    "result": "pass",
+    "selected_run": "20261104T030336-2d76f7fc2ec7",
+    "source": "fresh_final_rosetta",
+    "superseded_full_suite_result": "ok"
+  },
+  "test_rosetta.RosettaRenderTests.test_render_is_identical_across_hash_seeds": {
+    "result": "pass",
+    "selected_run": "20261104T030336-2d76f7fc2ec7",
+    "source": "fresh_final_rosetta",
+    "superseded_full_suite_result": "ERROR"
+  },
+  "test_rosetta.RosettaRenderTests.test_risk_counts_are_per_sample_and_ties_are_alphabetical": {
+    "result": "pass",
+    "selected_run": "20261104T030336-2d76f7fc2ec7",
+    "source": "fresh_final_rosetta",
+    "superseded_full_suite_result": "ok"
+  },
+  "test_run_history.RunHistoryTests.test_child_keeps_lease_after_parent_is_killed": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_run_history.RunHistoryTests.test_closing_parent_context_does_not_unlock_surviving_child": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_run_history.RunHistoryTests.test_custom_workspace_reports_are_recursive_and_preserve_distinct_paths": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_run_history.RunHistoryTests.test_expensive_success_requires_reason_and_does_not_skip_request": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_run_history.RunHistoryTests.test_explicit_nonzero_and_interruptions_never_become_success": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_run_history.RunHistoryTests.test_final_check_result_ignores_losing_solver_attempts": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_run_history.RunHistoryTests.test_notes_recover_torn_appends_without_losing_original_fragments": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_run_history.RunHistoryTests.test_notes_remain_outside_inputs_and_history_is_host_isolated": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_run_history.RunHistoryTests.test_prepared_identity_enforces_duplicate_guard_and_records_preflight_failure": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_run_history.RunHistoryTests.test_resolved_alias_and_ancestor_paths_contend_between_processes": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_run_history.RunHistoryTests.test_start_is_durable_before_execution_and_failure_is_retained": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_run_history.RunHistoryTests.test_success_and_diagnosis_reset_counts_but_generic_failures_do_not_add_them": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_run_history.RunHistoryTests.test_three_recurrences_need_diagnosis_and_changed_inputs_do_not_hide_them": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_run_history.RunHistoryTests.test_torn_final_success_record_is_not_a_completed_run": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_run_history.RunHistoryTests.test_unchanged_failed_reports_are_retained_but_not_counted_again": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_run_history.RunHistoryTests.test_unrelated_success_does_not_clear_same_scope_failures": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_run_history.RunHistoryTests.test_unresolved_obligations_are_available_before_a_tool_exits_successfully": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_run_history.RunHistoryTests.test_workers_coordinate_without_blocking_unreserved_commands": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_run_history.RunHistoryTests.test_worktrees_share_registry_and_resolved_resource_leases": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_samples.SupportedSampleTests.test_manifest_samples": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_samples.SupportedSampleTests.test_maximum_dynamic_expression": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_scalar_guards.ScalarGuardTests.test_admission_all_comparisons_both_orders_and_outcomes": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_scalar_guards.ScalarGuardTests.test_admission_assignment_replaces_only_written_identity": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_scalar_guards.ScalarGuardTests.test_admission_bare_targets_and_static_thresholds_only": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_scalar_guards.ScalarGuardTests.test_admission_both_operands_checked_before_refinement": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_scalar_guards.ScalarGuardTests.test_admission_branch_joins_elsif_and_omitted_else": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_scalar_guards.ScalarGuardTests.test_admission_contradictions_keep_incoming_and_empty_index": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_scalar_guards.ScalarGuardTests.test_admission_endpoint_guards_and_negation": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_scalar_guards.ScalarGuardTests.test_admission_exact_source_limit_with_active_scalar_counts": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_scalar_guards.ScalarGuardTests.test_admission_image_reads_and_string_writes_use_scalar_flow": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_scalar_guards.ScalarGuardTests.test_admission_input_length_facts_survive_scalar_write": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_scalar_guards.ScalarGuardTests.test_admission_long_boolean_and_statement_tails": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_scalar_guards.ScalarGuardTests.test_admission_loop_bounds_captured_before_widening": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_scalar_guards.ScalarGuardTests.test_admission_loop_mutables_widen_at_entry_and_exit": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_scalar_guards.ScalarGuardTests.test_admission_nonzero_hulls_and_division_sign_arms": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_scalar_guards.ScalarGuardTests.test_admission_outer_index_facts_restored_and_inner_facts_discarded": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_scalar_guards.ScalarGuardTests.test_admission_precise_bounds_reveal_excluded_empty_assignment": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_scalar_guards.ScalarGuardTests.test_admission_refinement_uses_binding_identity": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_scalar_guards.ScalarGuardTests.test_admission_short_circuit_reached_flows": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_scalar_guards.ScalarGuardTests.test_native_complete_100_doors": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_scalar_guards.ScalarGuardTests.test_native_contradictory_guard_forms_and_live_scalar_updates": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_scalar_guards.ScalarGuardTests.test_native_contradictory_guard_preserves_original_source": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_scalar_guards.ScalarGuardTests.test_native_contradictory_guards_compose_with_argument_array_loops": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_scalar_guards.ScalarGuardTests.test_native_guarded_updates_division_and_captured_bounds": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_shared_bindings.SharedBindingsTests.test_alias_occurrences_keep_expression_capacity_limits": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_shared_bindings.SharedBindingsTests.test_arbitrary_ordered_constant_and_mutable_bindings": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_shared_bindings.SharedBindingsTests.test_assignment_respects_mutability_and_fixed_length": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_shared_bindings.SharedBindingsTests.test_bindings_do_not_bypass_name_or_initialization_rules": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_shared_bindings.SharedBindingsTests.test_dense_copy_chain_and_exact_source_bound": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_shared_bindings.SharedBindingsTests.test_native_copy_snapshots_and_unused_assignment": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_shared_bindings.SharedBindingsTests.test_native_dynamic_copies_preserve_argument_domain": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_shared_bindings.SharedBindingsTests.test_native_unused_initializers_without_assignment": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_shared_bindings.SharedBindingsTests.test_static_and_dynamic_snapshots_in_guarded_bodies": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_silver.SilverIntegrationTests.test_accepted_lexical_forms": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_silver.SilverIntegrationTests.test_catalogue_is_json": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_silver.SilverIntegrationTests.test_command_usage_errors": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_silver.SilverIntegrationTests.test_excluded_bytes_including_inside_comments": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_silver.SilverIntegrationTests.test_excluded_constructs_and_boundaries": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_silver.SilverIntegrationTests.test_excluded_source_never_proceeds_to_compilation": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_silver.SilverIntegrationTests.test_file_errors": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_silver.SilverIntegrationTests.test_run_preserves_the_admitted_source": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_silver.SilverIntegrationTests.test_tool_failures_and_source_changes_do_not_report_success": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_statement_sequencing.StatementSequencingTests.test_expression_leaf_limit_in_initializers_assignments_and_comparisons": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_statement_sequencing.StatementSequencingTests.test_former_single_statement_restrictions_are_sequences": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_statement_sequencing.StatementSequencingTests.test_native_argument_sequences_cover_both_paths_and_rejection": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_statement_sequencing.StatementSequencingTests.test_native_assignments_and_outputs_preserve_order_and_snapshots": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_statement_sequencing.StatementSequencingTests.test_native_no_output_sequences_retain_complete_proof_records": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_statement_sequencing.StatementSequencingTests.test_native_output_failure_continues_and_status_stays_failed": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_statement_sequencing.StatementSequencingTests.test_native_source_maximum_outputs_exceed_old_report_capacity": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_statement_sequencing.StatementSequencingTests.test_sequence_boundaries_have_single_edit_neighbours": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_statement_sequencing.StatementSequencingTests.test_statement_rules_have_admitted_and_rejected_neighbours": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_static_proof.StaticProofTests.test_false_static_contract_is_rejected_by_real_gnatprove": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_string_assignment.StringAssignmentTests.test_admitted_decoded_lengths_names_and_layout": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_string_assignment.StringAssignmentTests.test_excluded_declaration_names": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_string_assignment.StringAssignmentTests.test_native_replacement_boundaries_and_output_failure": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_string_assignment.StringAssignmentTests.test_rejected_lengths_bindings_and_compositions": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_string_assignment.StringAssignmentTests.test_shared_binding_lists_self_copy_and_independent_output": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_string_characters.StringCharacterTests.test_admission_all_character_relations_and_boolean_composition": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_string_characters.StringCharacterTests.test_admission_character_literals_copies_and_types": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_string_characters.StringCharacterTests.test_admission_index_bounds_guards_arrays_and_dead_paths": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_string_characters.StringCharacterTests.test_admission_names_and_hiding_use_resolved_kinds": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_string_characters.StringCharacterTests.test_admission_nested_character_and_dense_comparison_boundaries": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_string_characters.StringCharacterTests.test_admission_slices_keep_actual_bounds_and_slide_assignments": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_string_characters.StringCharacterTests.test_admission_source_operator_and_leaf_accounting": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_string_characters.StringCharacterTests.test_native_argument_copy_index_and_invalid_printable_boundary": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_string_characters.StringCharacterTests.test_native_character_snapshots_bounds_nulls_and_sliding": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "test_string_characters.StringCharacterTests.test_native_dynamic_copies_with_noncanonical_null_bounds": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "tests.test_shared_bindings.SharedBindingsTests.test_alias_occurrences_keep_expression_capacity_limits": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "tests.test_shared_bindings.SharedBindingsTests.test_arbitrary_ordered_constant_and_mutable_bindings": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "tests.test_shared_bindings.SharedBindingsTests.test_assignment_respects_mutability_and_fixed_length": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "tests.test_shared_bindings.SharedBindingsTests.test_bindings_do_not_bypass_name_or_initialization_rules": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "tests.test_shared_bindings.SharedBindingsTests.test_dense_copy_chain_and_exact_source_bound": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "tests.test_shared_bindings.SharedBindingsTests.test_native_copy_snapshots_and_unused_assignment": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "tests.test_shared_bindings.SharedBindingsTests.test_native_dynamic_copies_preserve_argument_domain": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "tests.test_shared_bindings.SharedBindingsTests.test_native_unused_initializers_without_assignment": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  },
+  "tests.test_shared_bindings.SharedBindingsTests.test_static_and_dynamic_snapshots_in_guarded_bodies": {
+    "result": "pass",
+    "selected_run": "20261104T023444-fd55f0e35ffc",
+    "source": "applicable_full_suite_method"
+  }
+}

@@ -28,6 +28,7 @@ inductive Condition
   | stringCompare (unequal : Bool) (left right : Expression)
   | lengthCompare (operator : Comparison) (leftBinding : Nat) (right : LengthOperand)
   | scalarCompare (operator : Integer.Comparison) (left right : Integer.Expr)
+  | characterCompare (operator : Comparison) (left right : Character.Expr)
   | inputValid
   | booleanLiteral (value : Bool)
   | booleanName (index : Nat)
@@ -67,7 +68,7 @@ def Condition.isEagerHead (operator : Boolean.Operator) : Condition → Bool
 /-- A chain associates to the left and uses one Boolean operator. Parentheses
 start a fresh condition. Ada's `not` applies to one primary, not a relation. -/
 def Condition.Grammatical : Condition → Prop
-  | .stringCompare _ _ _ | .lengthCompare _ _ _ | .scalarCompare _ _ _ | .inputValid |
+  | .stringCompare _ _ _ | .lengthCompare _ _ _ | .scalarCompare _ _ _ | .characterCompare _ _ _ | .inputValid |
       .booleanLiteral _ | .booleanName _ => True
   | .parenthesized inner => inner.Grammatical
   | .negated inner => inner.isPrimary = true ∧ inner.Grammatical
@@ -99,6 +100,9 @@ def Condition.Readable (hasArguments : Bool) (shape : Shape) (condition : Condit
       right ≠ [] ∧ right.length ≤ maxExpressionOperands
   | .lengthCompare _ left right => (∃ info, shape left = some info) ∧ right.Readable shape
   | .scalarCompare _ _ _ => True
+  | .characterCompare _ left right =>
+      left.Readable shape.fixedLengths ∧ right.Readable shape.fixedLengths ∧
+      left.PrintableLiterals ∧ right.PrintableLiterals
   | .inputValid => hasArguments = true
   | .booleanLiteral _ => True
   | .booleanName index => booleans.initialized index = true

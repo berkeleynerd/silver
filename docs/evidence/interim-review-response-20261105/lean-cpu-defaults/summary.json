@@ -1,0 +1,21 @@
+{
+  "run_id": "20261105T132715-c4a22b58c2d9",
+  "outcome": "success",
+  "duration_seconds": 63.214829569,
+  "tests_passed": 7,
+  "tests_skipped": 0,
+  "native_host": "linux-x86_64",
+  "scope": "Focused CPU-selection, managed worker coordination, platform-routing, and native Lake resource/cache tests; not a complete project proof.",
+  "files": [
+    {
+      "file": "events.jsonl.gz",
+      "sha256": "d5ade87ee09145ac380a72d1b89b6641b73597cb92bca91add677a1ecdd3599e",
+      "uncompressed_sha256": "79e4cf169d0042effe2e063a236d957d7838b19e0b0530556149d7a4113dd742"
+    },
+    {
+      "file": "native.log.gz",
+      "sha256": "44c5335d0d806794c311535d5fed172e2bef6db7af545028155de53edc0feec4",
+      "uncompressed_sha256": "4b5d45d41a0b8a243497a43befdd8d3b7b2b90182a4388ba0870283ec4794558"
+    }
+  ]
+}

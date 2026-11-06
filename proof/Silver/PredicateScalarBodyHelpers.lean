@@ -21,7 +21,7 @@ def LookupDomain (text : Source) (names : ScalarExpression.Environment) (first a
     Expressions.ValidCursor text first ∧ Expressions.ValidCursor text after
 
 def StringLookupDomain (text : Source) (names : BindingEnvironment) (first after : Nat) : Prop :=
-  Expressions.ValidText text ∧ Expressions.ValidNames text names ∧
+  Expressions.ValidText text ∧ Expressions.NativeNames text names ∧
     Expressions.ValidCursor text first ∧ Expressions.ValidCursor text after
 
 def ReadDomain (text : Source) (context : Native.Context) (position : Nat) (facts : ActiveFlow) : Prop :=

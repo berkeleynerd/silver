@@ -2,6 +2,7 @@ module
 
 public import Silver.PredicateStatements
 public import Silver.ComposeObligations
+public import Silver.StringObligations
 
 @[expose] public section
 
@@ -72,35 +73,19 @@ theorem scalar_discharged (checks : List Integer.Obligation) :
     discharged (checks.map Obligation.scalar) = Integer.discharged checks := by
   simp only [discharged, Integer.discharged, List.all_map, Function.comp_def, Obligation.discharge]
 
-def imageObligations (expression : Expression) (ranges : Integer.Ranges) : List Obligation :=
-  expression.flatMap fun atom => match atom with
-    | .image scalar => (scalar.obligations ranges).map Obligation.scalar
-    | _ => []
+def imageObligations (expression : Expression) (ranges : Integer.Ranges) (shape : Shape) : List Obligation :=
+  (expression.imageObligations ranges shape).map Obligation.scalar
 
 theorem image_obligations_discharge {expression : Expression} {shape : Shape}
     {ranges : Integer.Ranges} {summary : LengthSummary}
     (known : expression.inferLength shape ranges = some summary) :
-    discharged (imageObligations expression ranges) = true := by
-  induction expression generalizing summary with
-  | nil => rfl
-  | cons atom rest ih =>
-      simp only [Expression.inferLength, Option.bind_eq_some_iff, Option.map_eq_some_iff] at known
-      obtain ⟨first, atomKnown, remaining, restKnown, _⟩ := known
-      have tail := ih restKnown
-      simp only [imageObligations, List.flatMap_cons, discharged_append]
-      change (discharged _ && discharged (imageObligations rest ranges)) = true
-      rw [tail, Bool.and_true]
-      cases atom with
-      | literal | argument | reference => rfl
-      | image scalar =>
-          simp only [Operand.inferLength, Option.map_eq_some_iff] at atomKnown
-          obtain ⟨bounds, found, _⟩ := atomKnown
-          exact (scalar_discharged _).trans (Integer.Expr.obligations_discharge found)
+    discharged (imageObligations expression ranges shape) = true := by
+  exact (scalar_discharged _).trans (Expression.image_obligations_discharge known)
 
 def Condition.obligations (shape : Shape) (analysis : Integer.Analysis) (condition : Condition) (flow : Flow) (booleans : Boolean.Analysis := {}) : List Obligation :=
   match condition with
   | .stringCompare _ left right =>
-      imageObligations left flow.scalars ++ imageObligations right flow.scalars ++
+      imageObligations left flow.scalars shape ++ imageObligations right flow.scalars shape ++
         match left.inferLength shape flow.scalars, right.inferLength shape flow.scalars with
         | some a, some b => [.stringRange flow.path a, .stringRange flow.path b]
         | _, _ => [.impossible]
@@ -110,6 +95,9 @@ def Condition.obligations (shape : Shape) (analysis : Integer.Analysis) (conditi
       | _, _ => [.impossible]
   | .scalarCompare _ left right =>
       (left.obligations flow.scalars ++ right.obligations flow.scalars).map Obligation.scalar
+  | .characterCompare _ left right =>
+      ((left.obligations shape.fixedLengths flow.scalars) ++
+        (right.obligations shape.fixedLengths flow.scalars)).map Obligation.scalar
   | .inputValid | .booleanLiteral _ => []
   | .booleanName index => if booleans.initialized index then [] else [.impossible]
   | .parenthesized inner | .negated inner => inner.obligations shape analysis flow booleans
@@ -141,6 +129,9 @@ theorem Condition.obligations_exact (condition : Condition) (shape : Shape) (ana
   | scalarCompare operator left right =>
       simp only [obligations, List.map_append, discharged_append, scalar_discharged,
         Integer.Expr.obligations_exact, checkBounds]
+  | characterCompare operator left right =>
+      simp only [obligations, List.map_append, discharged_append, scalar_discharged,
+        Character.Expr.obligations_exact, checkBounds]
   | inputValid | booleanLiteral _ => rfl
   | booleanName index => cases known : booleans.initialized index <;> simp [obligations, checkBounds, known, discharged, Obligation.discharge]
   | parenthesized inner ih => exact ih flow
@@ -153,12 +144,12 @@ def simpleObligations (shape : Shape) (context : Context) (item : Sequence.Simpl
     (ranges : Integer.Ranges := Integer.emptyRanges) : List Obligation :=
   match item with
   | .null => []
-  | .assign update => imageObligations update.value ranges ++
+  | .assign update => imageObligations update.value ranges shape ++
       match shape update.target, update.value.inferLength shape ranges with
       | some ⟨bound, true⟩, some summary => [.stringRange context summary,
           .intervalLength context summary bound.summary]
       | _, _ => [.impossible]
-  | .output expression | .put expression => imageObligations expression ranges ++
+  | .output expression | .put expression => imageObligations expression ranges shape ++
       match expression.inferLength shape ranges with
       | some summary => [.stringRange context summary, .validInput context]
       | none => [.impossible]

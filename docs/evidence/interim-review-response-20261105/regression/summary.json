@@ -1,0 +1,222 @@
+{
+  "scope": "Final regression identity/coverage accounting only for PR #307 authorized interim repair round; no merge authorization.",
+  "selected_reviewer_model": "GPT-6.1 Sol",
+  "selected_reviewer_effort": "Extra High",
+  "runtime_model_and_effort_confirmation": "Not exposed to this subthread; selected settings supplied by lead.",
+  "first_explicit_clock_observation_utc": "2026-11-05T11:58:43+00:00",
+  "inspection_start_utc": null,
+  "inspection_timing_limitation": "Initial read-only inspection preceded the first explicit clock observation. Exact initial start and total inspection elapsed time are unavailable; the observed interval includes waiting for the existing run.",
+  "finalized_utc": "2026-11-05T12:16:23.793795+00:00",
+  "observed_interval_seconds": 1060.793795,
+  "token_and_cost_metrics": null,
+  "platform": {
+    "host": "linux-x86_64",
+    "machine": "codex-silver",
+    "uname": "Linux codex-silver 7.0.14 #1 SMP PREEMPT Wed Oct 28 08:40:56 UTC 2026 x86_64 GNU/Linux",
+    "scope": "Native Linux x86_64; no macOS execution claim."
+  },
+  "run": {
+    "id": "20261105T111005-483650d69229",
+    "worktree": {
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-admission-repairs",
+      "resolved": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-admission-repairs"
+    },
+    "command": [
+      "/usr/bin/python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-v"
+    ],
+    "started_utc": "2026-11-05T11:10:08.454727+00:00",
+    "prepared_utc": "2026-11-05T11:10:08.930793+00:00",
+    "prepared_fingerprint": "158e5f4e9db1b464f3e4046f540ff80e221f1c16ab452b966a393e7d29158a45",
+    "test_phase_started_utc": "2026-11-05T11:10:11.580370+00:00",
+    "test_phase_ended_utc": "2026-11-05T12:15:31.335729+00:00",
+    "finished_utc": "2026-11-05T12:15:31.635814+00:00",
+    "outcome": "success",
+    "managed_duration_seconds": 3923.180914739,
+    "returncode": null,
+    "failure_keys": [],
+    "requested_workers": 4,
+    "managed_workers": 4,
+    "unittest_reported_tests": 595,
+    "unittest_reported_seconds": 3919.144,
+    "unittest_terminal_lines": [
+      {
+        "line": 2870,
+        "text": "Ran 595 tests in 3919.144s"
+      },
+      {
+        "line": 2872,
+        "text": "OK"
+      }
+    ]
+  },
+  "coverage": {
+    "test_files": 53,
+    "locally_defined_methods": 581,
+    "inherited_method_executions": 5,
+    "imported_class_executions": 9,
+    "expected_top_level_executions": 595,
+    "observed_headers": 595,
+    "observed_unique_ids": 595,
+    "missing_ids": [],
+    "unexpected_ids": [],
+    "duplicate_runtime_ids": {},
+    "ambiguous_or_missing_statuses": {},
+    "observed_outcomes": {
+      "ok": 595
+    },
+    "covered_locally_defined_methods": 581,
+    "missing_locally_defined_methods": [],
+    "failed_ids": [],
+    "skipped_ids": [],
+    "unresolved_ids": [],
+    "all_required_methods_covered": true,
+    "applicable_to_frozen_integration": true,
+    "successful_subtest_count": null,
+    "subtest_count_limitation": "Default unittest verbose output does not enumerate successful subtests; top-level counts are not subtest counts. Any failure/skip printed for a subtest remains part of the raw log and parent result.",
+    "sample_manifest_sources": 59,
+    "sample_manifest_application_cases": 115,
+    "nested_platform_fixture_selected_methods": 12,
+    "nested_platform_fixture_result_basis": "The passing InstallationEnvironmentTests.test_symlinked_tmpdir_preserves_platform_setup_and_routing runs PlatformIsolationTests in a subprocess and asserts returncode 0. Its captured child stdout/stderr is not emitted on success. The 12 child methods are not additional top-level census IDs.",
+    "per_discovery_module": {
+      "test_argument_bounds": 1,
+      "test_arguments": 3,
+      "test_boolean_objects": 13,
+      "test_branching": 7,
+      "test_capacity": 3,
+      "test_command_line_greeting": 3,
+      "test_common_expressions": 15,
+      "test_composed_results": 8,
+      "test_conditionals": 5,
+      "test_constant_array_iteration": 10,
+      "test_copy_values": 8,
+      "test_counted_bound_review": 4,
+      "test_dev_runs": 26,
+      "test_empty_loop_folds": 3,
+      "test_evidence": 60,
+      "test_greeting": 4,
+      "test_image_adapter": 4,
+      "test_image_model": 3,
+      "test_image_reports": 11,
+      "test_image_setup": 8,
+      "test_integer_arrays": 12,
+      "test_integer_division": 11,
+      "test_integer_image": 9,
+      "test_integer_loops": 21,
+      "test_lean_evidence": 49,
+      "test_lean_modules": 2,
+      "test_lean_run_history": 10,
+      "test_lean_source": 12,
+      "test_library_reports": 36,
+      "test_main_discovery": 2,
+      "test_mutable_integers": 12,
+      "test_named_integer_subtypes": 10,
+      "test_named_output": 4,
+      "test_names_calls": 9,
+      "test_output": 4,
+      "test_output_integrity": 17,
+      "test_partial_output": 4,
+      "test_path_refinement": 15,
+      "test_platforms": 16,
+      "test_predicates": 8,
+      "test_proof_provenance": 27,
+      "test_report_projection": 8,
+      "test_rosetta": 3,
+      "test_run_history": 19,
+      "test_samples": 2,
+      "test_scalar_guards": 23,
+      "test_shared_bindings": 9,
+      "test_silver": 9,
+      "test_statement_sequencing": 9,
+      "test_static_proof": 1,
+      "test_string_assignment": 5,
+      "test_string_characters": 11,
+      "test_string_review_blockers": 7
+    },
+    "inherited_ids": [
+      "test_image_reports.NativeArrayReportTests.test_exact_advisory_preserves_required_checks_in_all_application_policies",
+      "test_image_reports.NativeArrayReportTests.test_mutated_missing_duplicate_and_misplaced_advisories_are_rejected",
+      "test_image_reports.ArrayEvidenceTests.test_advisory_is_not_counted_as_a_discharged_check",
+      "test_image_reports.ArrayEvidenceTests.test_mutated_advisory_fields_are_rejected",
+      "test_image_reports.ArrayEvidenceTests.test_sarif_must_retain_the_exact_producer_classification"
+    ],
+    "imported_shared_bindings_ids": [
+      "tests.test_shared_bindings.SharedBindingsTests.test_alias_occurrences_keep_expression_capacity_limits",
+      "tests.test_shared_bindings.SharedBindingsTests.test_arbitrary_ordered_constant_and_mutable_bindings",
+      "tests.test_shared_bindings.SharedBindingsTests.test_assignment_respects_mutability_and_fixed_length",
+      "tests.test_shared_bindings.SharedBindingsTests.test_bindings_do_not_bypass_name_or_initialization_rules",
+      "tests.test_shared_bindings.SharedBindingsTests.test_dense_copy_chain_and_exact_source_bound",
+      "tests.test_shared_bindings.SharedBindingsTests.test_native_copy_snapshots_and_unused_assignment",
+      "tests.test_shared_bindings.SharedBindingsTests.test_native_dynamic_copies_preserve_argument_domain",
+      "tests.test_shared_bindings.SharedBindingsTests.test_native_unused_initializers_without_assignment",
+      "tests.test_shared_bindings.SharedBindingsTests.test_static_and_dynamic_snapshots_in_guarded_bodies"
+    ],
+    "duplicate_discovery_explanation": "The nine SharedBindings definitions execute once under test_shared_bindings and once as tests.test_shared_bindings imported into test_integer_loops. These are separate runtime-qualified IDs and duplicate source-method executions; the five Image-derived methods execute under their subclass IDs."
+  },
+  "input_relation": {
+    "suite_commit": "fb89b3653accef6c08a49f88625144c108ad2432",
+    "integration_governed_commit": "3c156a2e09c5bfdd6e676cd690855fb05c6d0f16",
+    "integration_head_at_inspection": "a14aa1f50db313ab9e7891389c1aaac36dd2d7b3",
+    "prepared_utc": "2026-11-05T11:10:08.930793+00:00",
+    "prepared_fingerprint": "158e5f4e9db1b464f3e4046f540ff80e221f1c16ab452b966a393e7d29158a45",
+    "captured_inputs": 900,
+    "captured_input_categories": {
+      ".silver": 7,
+      "alire.toml": 1,
+      "catalogue": 1,
+      "proof": 630,
+      "rosetta": 3,
+      "samples": 60,
+      "scripts": 9,
+      "silver.gpr": 1,
+      "src": 131,
+      "tests": 56,
+      "external_python": 1
+    },
+    "captured_repository_sources": 892,
+    "live_suite_mismatches": [],
+    "suite_capture_vs_frozen_commit_mismatches": [],
+    "integration_source_mismatches": [
+      {
+        "path": "proof/Silver/ComposeEquations.lean",
+        "captured": "f2462b54b0e03b063d3e32f4ec70119b8110f000b07982c8822d3599d5fffdf1",
+        "integration": "1c68e535f029804fb1c616ed2819607abd895fb95b48b3ba8a73c5135200ff9f"
+      }
+    ],
+    "integration_live_vs_governed_commit_mismatches": [],
+    "integration_exact_repository_source_matches": 891,
+    "source_input_map_sha256": "2987835e6d1a8d4697f31dfb0b047bddec6cb375bbb2593bfd475fca7c375cb0",
+    "compiler_build_run": "20261105T110838-67ae26dc9265",
+    "compiler_build_finished": {
+      "duration_seconds": 9.67754038,
+      "failure_keys": [],
+      "outcome": "success",
+      "returncode": null,
+      "utc": "2026-11-05T11:08:51.867485+00:00"
+    },
+    "compiler_build_common_captured_repository_sources": 143,
+    "compiler_build_common_mismatches": [],
+    "compiler_build_missing_native_sources": [],
+    "compiler_input": {
+      ".silver/linux-x86_64/compiler/bin/silver": "9073495eaf5c326000fc141a8783efe3764f093129844316f88909cb9591e75c"
+    },
+    "integration_documentation_diff_paths_count": 36,
+    "integration_governed_diff_name_status_vs_suite": [
+      "M\tproof/Silver/ComposeEquations.lean"
+    ],
+    "applicability_review": "docs/reviews/review-argument-proof-regression-applicability-20261105.md",
+    "reviewed_relation_verified": true,
+    "fresh_final_fingerprint_claimed": false
+  },
+  "limitations": [
+    "This record does not establish complete native proof/audit or complete Lean/source-correspondence success. Those remain separately audited lead-owned obligations.",
+    "This record reuses the original run and its original aggregate fingerprint. It does not relabel the full-suite fingerprint as a fresh run on the changed proof file.",
+    "No tests, proofs, builds or GitHub actions were launched by this census subthread. No commits, merges or publication actions were performed.",
+    "The earlier scratch review-test-inventory.json had594 IDs and omitted test_original_extreme_null_slice_failures_are_rejected. This census independently parses all frozen test modules without importing/executing them."
+  ]
+}

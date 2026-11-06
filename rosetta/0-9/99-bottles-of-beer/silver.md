@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check comes from the loop index's static range 1 .. 99, so X - 1 and the bounded concatenation cannot overflow, and there are no loop-carried values, recursion or functions needing variants.
 
-Position 74 in the [progression](../../progression.md#stage-4), in stage 4.
+Position 77 in the [progression](../../progression.md#stage-4), in stage 4.
 
 ## Approach
 

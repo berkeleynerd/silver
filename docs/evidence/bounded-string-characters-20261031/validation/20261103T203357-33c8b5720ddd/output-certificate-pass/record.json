@@ -1,0 +1,77 @@
+{
+  "utc": "2026-11-03T22:03:44.174612+00:00",
+  "run_id": "20261103T203357-33c8b5720ddd",
+  "status": "OutputBodyCertificate build passed5090s; complete build/freshwholeaudit stillpending",
+  "head_input": "58b0d6ce2babb4bb817df89ffd4392c815d4ff06",
+  "artifacts": {
+    ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/OutputBodyCertificate.olean.server.hash": {
+      "bytes": 16,
+      "sha256": "438e2d5fd5e72799773513ca63560e0732b1821a5f5c1cd38dc1209233313ed9"
+    },
+    ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/OutputBodyCertificate.olean.hash": {
+      "bytes": 16,
+      "sha256": "12640cc7b88395896ec9c0432413b80b16fd73d9bc5d05721176ebb9560fca92"
+    },
+    ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/OutputBodyCertificate.ir.sig.hash": {
+      "bytes": 16,
+      "sha256": "d56466762023789b8ab07dcddc9e95d1dead2c69024fa341c3719f01afd0556c"
+    },
+    ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/OutputBodyCertificate.ir.sig": {
+      "bytes": 176,
+      "sha256": "b6bc056a5be61f8c9c2a595d2147836c0ed84d153dbeea9125a86edd580bb0bd"
+    },
+    ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/OutputBodyCertificate.ilean.hash": {
+      "bytes": 16,
+      "sha256": "97530558991cb867df3c98957ba71cc98d03567ca0c4ae36ac12d628ef62d2f7"
+    },
+    ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/OutputBodyCertificate.olean.private": {
+      "bytes": 162434736,
+      "sha256": "a077b321768c655fc00bab1c1bf1b78a7a7e8b7a413e9fedf1263a39653c019e"
+    },
+    ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/OutputBodyCertificate.ilean": {
+      "bytes": 8067928,
+      "sha256": "85301ed0762b3784c00772774ff16c2f9af529de4d8eef9c7ab866fecb5b0b81"
+    },
+    ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/OutputBodyCertificate.olean.private.hash": {
+      "bytes": 16,
+      "sha256": "b721ce9534abddc2b9bc42c6263ddc0dd895058bff8173fb0fddba2d8ec4c3d5"
+    },
+    ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/OutputBodyCertificate.ir": {
+      "bytes": 25340056,
+      "sha256": "b42cd43c921f5a467f192b52c86021809771bc08eac1aab6a5a83ff90ad1aeed"
+    },
+    ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/OutputBodyCertificate.olean": {
+      "bytes": 19541232,
+      "sha256": "499dd852a5ff31ee624f5dcbcc9a5de53e128d4b20576f7751fe5dbf458b38d1"
+    },
+    ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/OutputBodyCertificate.ir.hash": {
+      "bytes": 16,
+      "sha256": "ac4e9ef6e8f2b73fb806a4f6804933e16de4f6d87703a931b005b3d733f2d202"
+    },
+    ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/OutputBodyCertificate.trace": {
+      "bytes": 2790,
+      "sha256": "c179b42afa1a072a90c341f175a39e61ffb10d6d23864f6f3c094522e3cf2066"
+    },
+    ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/OutputBodyCertificate.olean.server": {
+      "bytes": 3358144,
+      "sha256": "5a703639ce160879218664c2ac3842d112cbdc6e117513e5dbd274902c3cc9ff"
+    },
+    ".silver/linux-x86_64/proof/.lake/build/ir/Silver/OutputBodyCertificate.setup.json": {
+      "bytes": 4078,
+      "sha256": "cfc38efdb0880668d7d3f87dc0193fd6720a8cc3f9cf925d407e5cd0c442a4f3"
+    },
+    ".silver/linux-x86_64/proof/.lake/build/ir/Silver/OutputBodyCertificate.c.hash": {
+      "bytes": 16,
+      "sha256": "12437979bc1f858f0d47b6573b25c12415fa94ffa255c2412456e94309f080d2"
+    },
+    ".silver/linux-x86_64/proof/.lake/build/ir/Silver/OutputBodyCertificate.c": {
+      "bytes": 67368264,
+      "sha256": "8776281fe4149c28d991fec50fe1da96e98eca078a09ca776383b5f39bd7504f"
+    }
+  },
+  "inputs": {
+    "src/silver_output_profile.adb": "757d2ae81671cb54839908cd8139cb3fdd0996be4876d2555f592e93c775e95f",
+    "proof/Silver/OutputBodyCertificate.lean": "5d73f0a725a8dda382e2b14bb66cc7a033328d07a21639ab0213fc20365f2311",
+    "proof/Silver/ReviewedOutputShape.lean": "8c1a150ccff5de0f853f569d4213ccbd812c37c82b79f8bc621e8403806869ea"
+  }
+}

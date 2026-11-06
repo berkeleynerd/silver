@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is bounded by declared coefficient and degree ranges and all loops are for loops over array ranges in procedures, so every check follows from types and guards without annotations.
 
-Position 608 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 609 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

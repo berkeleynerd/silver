@@ -20,7 +20,7 @@ private theorem lengthAt_fits {text context position literal operand result fact
     fitsSummary facts result.value.summary = true := by
   cases parsed with
   | number _ number => exact fitsSummary_fixed (IntegerLiteral.integer_bounds number).2.2
-  | @binding index info name after _ _ found _ _ _ _ =>
+  | @binding index info name after _ _ found _ _ _ _ _ =>
       have nonzero : index ≠ 0 := by intro zero; simp [Bindings.BindingEnvironment.get, zero] at found
       have member : info ∈ context.names := List.mem_of_getElem? (by
         simpa only [Bindings.BindingEnvironment.get, nonzero, ↓reduceIte] using found)
@@ -188,7 +188,13 @@ mutual
           scalarCondition_whenTrue_model base.size compatible left right,
           scalarCondition_whenFalse_model base.size compatible left right⟩, rfl⟩
     | strings _ _ _ _ left right ready _ => exact ⟨string_meaning normal compatible left right ready, rfl⟩
-    | primary _ _ _ _ _ inner => exact booleanRelation_valid normal namesValid base compatible bounded inner
+    | character _ _ _ _ _ inner =>
+        obtain ⟨grammar, readable, checked, yes, no⟩ := characterRelation_meaning normal compatible inner
+        refine ⟨⟨grammar, readable, checked, yes, no⟩, ?_⟩
+        cases inner
+        rfl
+    | primary _ _ _ _ _ _ inner => exact booleanRelation_valid normal namesValid base compatible bounded inner
+
   termination_by (remainingAt text position, 4)
   decreasing_by all_goals first | exact Prod.Lex.left _ _ (by assumption) | exact Prod.Lex.right _ (by decide)
 

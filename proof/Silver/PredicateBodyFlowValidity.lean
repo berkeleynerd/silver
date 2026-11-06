@@ -1,5 +1,7 @@
 module
 
+public import Silver.PredicateStringAssignmentFields
+
 public import Silver.PredicateBodyFlow
 public import Silver.PredicateBodyProperties
 public import Silver.PredicateConditionFlowValidity
@@ -140,10 +142,10 @@ theorem basicRaw_flowReady (text : Source) (context : ParseContext) (scan : Body
       · exact invalidBody_flowReady ready
       · exact ready
   | assignment =>
-      try dsimp only
-      split
-      · exact invalidBody_flowReady ready
-      · exact ready
+      rcases stringAssignment_fields text context scan with failed | fields
+      · rw [failed]
+        exact invalidBody_flowReady ready
+      · simpa only [BodyScan.FlowReady, fields.2.2.1] using ready
 
 theorem basic_flowReady (text : Source) (context : ParseContext) (scan : BodyScan)
     (base : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating)

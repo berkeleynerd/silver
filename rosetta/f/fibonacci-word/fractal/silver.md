@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All data are bounded arrays and subtypes with for loops over known ranges, and the only loop-carried values (word length, turtle position) are protected by explicit guards, so no annotation is needed but the program shape matters. A text-art render meets the display requirement without graphics.
 
-Position 809 in the [progression](../../../progression.md#stage-13), in stage 13.
+Position 810 in the [progression](../../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

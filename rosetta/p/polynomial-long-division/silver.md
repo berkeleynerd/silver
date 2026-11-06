@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from bounded coefficient and index types plus explicit guards, and the while loop is replaced by a for loop in a procedure, so no annotation is needed, though loop-carried coefficient arithmetic needs careful range guards.
 
-Position 820 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 821 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

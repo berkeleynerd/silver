@@ -177,6 +177,22 @@ xor operand may contain xor. The drivers are
 [Square but not cube](samples/rosetta_square_but_not_cube.adb), and
 [Common list elements](samples/rosetta_common_list_elements.adb).
 
+The [bounded String and Character increment](docs/bounded-string-characters.md#repaired-delivery-checkpoint--2026-11-05)
+has complete repaired Linux native and Lean assurance after the
+[interim external-review repairs](docs/interim-review-response-20261105.md).
+The [closing delivery review](docs/reviews/review-interim-response-closing-20261105.md)
+passed; the owner authorized delivery through
+[PR #307](https://github.com/berkeleynerd/silver/pull/307) on 2026-11-06.
+The response records exact input scopes, reviewed regression reuse and retained
+failed attempts. The external review remains interim, with the remaining
+structural-guard follow-up tracked separately in #314.
+It adds indexed reads and element writes on Strings with statically known bounds,
+printable Character objects and comparisons, and bounded slices. Copies retain
+their bounds and values; whole-String assignment preserves destination bounds.
+The drivers cover [reversal](samples/rosetta_reverse_a_string.adb),
+[palindromes](samples/rosetta_palindrome_detection.adb) and
+[selective replacement](samples/rosetta_selective_character_replacement.adb).
+
 The [Find square difference sample](samples/find_square_difference.adb) stores
 the first matching index and prints ` 501` followed by a newline.
 
@@ -228,7 +244,7 @@ provide setup, evidence auditing and tests. GNATprove verifies the compiler.
 Lean connects the restricted recognizer source to the language model and the
 runtime wrappers to their effect models. Every output shell selects a complete
 application report policy: static, argument, assigned or selected result. Emitted
-Main safety checks must all be proved range, length, scalar overflow or
+Main safety checks must all be proved range, length, index, scalar overflow or
 nonzero-divisor checks under their selected policy. All output forms
 precisely classify initializer advisories; assignment-bearing forms additionally
 classify the exact unused-assignment advisory. All sequence policies classify

@@ -29,6 +29,12 @@ def scalar_comparison_at_spec_header : List String :=
 def scalar_comparison_at_impl_header : List String :=
   ["(", "text", ":", "string", ";", "position", ":", "literal_position", ")", "return", "comparison_result"]
 
+def character_condition_spec_header : List String :=
+  (Source.lexLine "(Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow; Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values) return Condition_Result with Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Valid_Context (Text, Context) and then Valid_Flow (Context, Facts) and then Position <= Text'Last + 1, Post => Valid_Condition (Context, Character_Condition'Result) and then (Character_Condition'Result.After = 0 or else Character_Condition'Result.After in Position + 1 .. Text'Last + 1)").getD []
+
+def character_condition_impl_header : List String :=
+  (Source.lexLine "(Text : String; Context : Body_Context; Position : Literal_Position; Facts : Scalar_Flow; Initials : Array_Bindings.Element_Array := Array_Bindings.Empty_Values) return Condition_Result").getD []
+
 def length_at_spec_header : List String :=
   ["(", "text", ":", "string", ";", "context", ":", "body_context", ";", "position", ":", "literal_position", ";", "literal", ":", "boolean", ")", "return", "length_result", "with", "global", "=>", "null", ",", "pre", "=>", "text", "'", "first", "=", "1", "and", "then", "text", "'", "length", "in", "1", "..", "max_source_length", "and", "then", "position", "<=", "text", "'", "last", "+", "1", "and", "then", "valid_context", "(", "text", ",", "context", ")", ",", "post", "=>", "length_at", "'", "result", ".", "after", "=", "0", "or", "else", "length_at", "'", "result", ".", "after", "in", "position", "+", "1", "..", "text", "'", "last", "+", "1"]
 
@@ -173,6 +179,7 @@ structure Checked (tokens : List String) : Prop where
   bound_of_body : qualifiedExpressionBody "bound_of" tokens = some ((boundBody.render.drop 1).dropLast)
   binding_summary_body : qualifiedExpressionBody "binding_summary" tokens = some ((bindingSummaryBody.render.drop 1).dropLast)
   scalar_comparison_at_body : Source.expressionBody "scalar_comparison_at" tokens = some (comparisonBody.render)
+  character_condition_body : Source.expressionBody "character_condition" tokens = some (characterBody.render)
   length_at_body : Source.expressionBody "length_at" tokens = some (lengthBody.render)
   boolean_atom_after_body : Source.expressionBody "boolean_atom_after" tokens = some (booleanAtomBody.render)
   boolean_factor_model_body : Source.expressionBody "boolean_factor_model" tokens = some (booleanFactorBody.render)
@@ -188,6 +195,8 @@ structure Checked (tokens : List String) : Prop where
   binding_summary_impl_header : functionHeader "binding_summary" "is" tokens = some binding_summary_impl_header
   scalar_comparison_at_spec_header : functionHeader "scalar_comparison_at" ";" tokens = some scalar_comparison_at_spec_header
   scalar_comparison_at_impl_header : functionHeader "scalar_comparison_at" "is" tokens = some scalar_comparison_at_impl_header
+  character_condition_spec_header : functionHeader "character_condition" ";" tokens = some character_condition_spec_header
+  character_condition_impl_header : functionHeader "character_condition" "is" tokens = some character_condition_impl_header
   length_at_spec_header : functionHeader "length_at" ";" tokens = some length_at_spec_header
   length_at_impl_header : functionHeader "length_at" "is" tokens = some length_at_impl_header
   boolean_atom_after_spec_header : functionHeader "boolean_atom_after" ";" tokens = some boolean_atom_after_spec_header

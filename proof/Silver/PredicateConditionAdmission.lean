@@ -152,7 +152,8 @@ def lengthAt (text : Source) (context : ParseContext) (position : Nat) (literal 
   let index := lookupName text context.names first after
   let number := IntegerLiteral.read text first
   if literal && decide (number.after ≠ 0) then ⟨number.after, .fixed number.value⟩
-  else if index = 0 ∨ ScalarExpression.lookup text context.scalarNames first after ≠ 0 then ⟨0, .fixed 0⟩
+  else if index = 0 ∨ ((context.names.get index).getD {}).isCharacter = true ∨
+      ScalarExpression.lookup text context.scalarNames first after ≠ 0 then ⟨0, .fixed 0⟩
   else ⟨fixedAfter text (fixedAfter text after "'" false) "length" true,
     ((context.names.get index).getD {}).bound⟩
 
@@ -165,6 +166,16 @@ structure ConditionResult where
 def ConditionResult.count (result : ConditionResult) : Nat := result.whenTrue.count
 
 def invalidCondition (facts : ActiveFlow) : ConditionResult := ⟨0, facts.invalid, facts.invalid⟩
+
+def characterCondition (text : Source) (context : ParseContext) (position : Nat)
+    (facts : ActiveFlow) (initials : ArrayBindings.Initials := []) : ConditionResult :=
+  let overlay := context.readingNames facts
+  let left := characterAt text position context.names overlay context.arrayNames initials context.elaborating
+  let operator := comparisonAt text left.after
+  let right := characterAt text operator.after context.names overlay context.arrayNames initials context.elaborating
+  if left.after = 0 ∨ operator.after = 0 ∨ right.after ≤ position ∨
+      !(left.nonliteralSeen || right.nonliteralSeen) then invalidCondition facts
+  else ⟨right.after, facts, facts⟩
 
 def bareTarget (text : Source) (context : ParseContext) (position after : Nat) : Nat :=
   let first := skipAt text position
@@ -321,7 +332,9 @@ mutual
               let equalFacts := {facts with path := refineLengthOverlap facts.path (summaryOf left) (summaryOf right)}
               ⟨right.after, if operator.operator == .eq then equalFacts else facts,
                 if operator.operator == .eq then facts else equalFacts⟩
-        else readBooleanRelation text context position facts initials
+        else
+          let result := characterCondition text context position facts initials
+          if result.after ≠ 0 then result else readBooleanRelation text context position facts initials
   termination_by remainingAt text position * 7 + 4
   decreasing_by all_goals simp_wf; all_goals try dsimp (config := {zetaDelta := true}) only at *; all_goals omega
 

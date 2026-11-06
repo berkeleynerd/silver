@@ -44,7 +44,8 @@ def ValidContext (text : Source) (context : Context) : Prop :=
     ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating ∧
     ArrayBindings.ValidMetadata text context.arrayNames ∧
     BooleanBindings.ValidEnvironment text context.booleanNames ∧
-    (⟨context.maskFirst, context.maskAfter⟩ : Named.NameState).Valid text
+    (⟨context.maskFirst, context.maskAfter⟩ : Named.NameState).Valid text ∧
+    Compose.NamesBoundsValid context.names
 
 theorem ValidContext.base {text : Source} {context : Context}
     (valid : ValidContext text context) :
@@ -60,7 +61,15 @@ theorem ValidContext.booleans {text : Source} {context : Context}
 
 theorem ValidContext.mask {text : Source} {context : Context}
     (valid : ValidContext text context) :
-    (⟨context.maskFirst, context.maskAfter⟩ : Named.NameState).Valid text := valid.2.2.2.2.2.2
+    (⟨context.maskFirst, context.maskAfter⟩ : Named.NameState).Valid text := valid.2.2.2.2.2.2.1
+
+theorem ValidContext.bounds {text : Source} {context : Context}
+    (valid : ValidContext text context) : Compose.NamesBoundsValid context.names :=
+  valid.2.2.2.2.2.2.2
+
+theorem ValidContext.nativeNames {text : Source} {context : Context}
+    (valid : ValidContext text context) : Compose.Expressions.NativeNames text context.names :=
+  ⟨valid.1, valid.bounds⟩
 
 /-- The native array and interval types contribute the bounded domains; the
 checked Valid_Flow predicate contributes active extent, immutable cells,

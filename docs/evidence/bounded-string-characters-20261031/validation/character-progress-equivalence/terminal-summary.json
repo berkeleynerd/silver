@@ -1,0 +1,99 @@
+{
+  "recorded_utc": "2026-11-03T20:29:27.305607+00:00",
+  "status": "complete bounded proof repair; focused build and fresh audit passed; integration/review/final complete validation remain with lead",
+  "selected_model_effort": "GPT-6 Astra / Extra High, per parent; runtime independently unconfirmed",
+  "token_cost": "unavailable",
+  "run_id": "20261103T202419-5f35a847709a",
+  "focused_targets": [
+    "Silver.ComposeHelperEquations",
+    "Silver.ComposeModelHelperEquations"
+  ],
+  "fresh_audit_declarations": 14821,
+  "actual_audited_modules": 121,
+  "static_nonmeta_closure_count": 119,
+  "actual_embedded_source_modules": [],
+  "native_host": "linux-x86_64",
+  "managed_runs": [
+    {
+      "run_id": "20261103T201225-b49ef563439e",
+      "state": "failure",
+      "duration_seconds": 322.955928019,
+      "failure_keys": [
+        "lean:build:Silver/ComposeStringEquations.lean:153:4:omega could not prove the goal:",
+        "lean:build:Silver/ComposeStringEquations.lean:158:102:unsolved goals",
+        "lean:build:Silver/ComposeStringEquations.lean:160:15:This simp argument is unused:",
+        "lean:build:Silver/ComposeStringEquations.lean:160:35:This simp argument is unused:",
+        "lean:build:Silver/ComposeStringEquations.lean:160:8:This simp argument is unused:",
+        "lean:build:Silver/ComposeStringEquations.lean:171:4:omega could not prove the goal:"
+      ]
+    },
+    {
+      "run_id": "20261103T201803-37d2373532f4",
+      "state": "failure",
+      "duration_seconds": 80.874525855,
+      "failure_keys": [
+        "lean:build:Silver/ComposeStringEquations.lean:153:4:omega could not prove the goal:",
+        "lean:build:Silver/ComposeStringEquations.lean:170:4:omega could not prove the goal:"
+      ]
+    },
+    {
+      "run_id": "20261103T202110-39415c388f3e",
+      "state": "failure",
+      "duration_seconds": 150.841892625,
+      "failure_keys": [
+        "lean:build:Silver/ComposeStringDenotations.lean:69:6:Tactic `rewrite` failed: Did not find an occurrence of the pattern"
+      ]
+    },
+    {
+      "run_id": "20261103T202352-f4d5c35e2d49",
+      "state": "failure",
+      "duration_seconds": 10.219913712,
+      "failure_keys": [
+        "lean:build:Silver/ComposeStringDenotations.lean:70:6:Tactic `rewrite` failed: Did not find an occurrence of the pattern"
+      ]
+    },
+    {
+      "run_id": "20261103T202419-5f35a847709a",
+      "state": "success",
+      "duration_seconds": 250.861477598,
+      "failure_keys": []
+    }
+  ],
+  "successful_build_seconds": 239.022,
+  "successful_audit_seconds": 3.561,
+  "runner_elapsed_seconds": 252.305,
+  "snapshot_to_record_seconds": 1077.635231,
+  "owned_files_sha256": {
+    "proof/Silver/ComposeStringNative.lean": "86c058ed691aab33f07020fc15b6a5ccf4adb12c7c9d95db42f80f08e16f6f6a",
+    "proof/Silver/ComposeStringEquations.lean": "dd687545fe32397555c8a2cdab35a3b408b6ba03934b2205262896d18bb373ed",
+    "proof/Silver/ComposeStringDenotations.lean": "54a648b3a19003c8f7581ceb683a230378c386b7fabe81dada829ca93cae5613",
+    "proof/Silver/ComposeHelperEquations.lean": "0c5a866fb5d4a0510c280a5dd906867ec3e5a1bf485976249740010c63c46256",
+    "proof/Silver/ComposeModelHelperEquations.lean": "8e7072f5ad234f64053af710acff122fca8f40b89718f36c26ffc4052ab91d9c"
+  },
+  "integration_patch_sha256": "fe79a14f4a02b0f6c84c2775c23720d61c80e1a0c16dcfa5bff31d6fcc0c800f",
+  "unowned_changed_files": [],
+  "dependencies_synchronized": [],
+  "cache_or_tool_copies": false,
+  "native_source_scope": {
+    "lane_ada_sha256": "bcd6d9b3ebb814d13cbf9e9651bf10f5e25102030c9d42d879b022411415ed1b",
+    "lead_ada_sha256": "757d2ae81671cb54839908cd8139cb3fdd0996be4876d2555f592e93c775e95f",
+    "note": "Focused source-independent model evidence only; source certificate and final source/pin correspondence belong to lead."
+  },
+  "scoped_artifact_count": 722,
+  "scoped_adjacent_metadata_count": 1206,
+  "remaining": [
+    "Lead integration of exact five-file delta",
+    "Independent bounded repair review",
+    "Complete native and whole-project source-correspondence/axiom checkpoints on integrated final source"
+  ],
+  "commit": "2b8e751883e52466f46c93850d2a2bb5d92de1ca",
+  "git_status_at_handoff": " M proof/Silver/ComposeModelEquations.lean\n M proof/Silver/PredicateNativeSourceChecks.lean\n M proof/Silver/PredicateSourceCandidate.lean\n M proof/Silver/PredicateSourceRequirements.lean\n M proof/Silver/PredicateXorSourceBridge.lean\n M proof/Silver/ReviewedOutputShape.lean\n?? proof/Silver/PredicateCharacterSourceCandidate.lean\n?? tmp/\n",
+  "evidence_sha256": {
+    "successful-run-evidence.json": "0ca3618fd23e1e470ff3ae071623e559620d71371333f4148b64313d5ca6336a",
+    "successful-run.log": "d06951acbbe225d4c86b48889f9dc91486ecde6a5866c920836f8b9bc3d696e1",
+    "actual-audited-modules.txt": "d33893864d3757a65e89179bc197a532be7b305e5c54d69d32f2ae33d2153fe6",
+    "scoped-module-provenance.json": "ef8218ebfdb94b5029f0a89d1f387e0e76edaa40ff9788ef9529ed16f61cf456",
+    "integration.patch": "fe79a14f4a02b0f6c84c2775c23720d61c80e1a0c16dcfa5bff31d6fcc0c800f",
+    "all-managed-runs.json": "8a94be3a47c43e1b84e62dc5ece361b0057f99aabde7213a8648ca1a009c485c"
+  }
+}

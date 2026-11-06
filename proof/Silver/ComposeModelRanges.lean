@@ -1,7 +1,8 @@
 module
 
 public import Silver.ComposeModelCalls
-public import Silver.ComposeStateBounds
+public import Silver.ComposeNativeRecordBounds
+public import Silver.ComposeNativeStateBounds
 
 @[expose] public section
 
@@ -30,63 +31,71 @@ theorem model_ranges : RangeContracts modelCalls where
     exact model_lookup_valid text names first after
   literal := by
     intro text valid position _
-    exact model_literal_valid text valid position
+    exact model_literal_native text valid position
   image := by
     intro text _ position names scalarNames integerHidden arrays initials elaborating _ _ _ _ _
-    exact model_image_valid text position names scalarNames integerHidden arrays initials elaborating
+    exact model_image_native text position names scalarNames integerHidden arrays initials elaborating
   value := by
     intro text valid position names scalarNames integerHidden arrays initials elaborating _ namesValid _ _ _
-    exact model_value_valid (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text valid position names namesValid
+    exact model_value_native (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text valid position names namesValid
   stringDeclaration := by
     intro text valid state arguments stateValid
-    refine ⟨model_string_declaration_valid text valid state arguments stateValid, ?_⟩
+    refine ⟨⟨model_string_declaration_valid text valid state arguments stateValid.valid,
+      model_string_declaration_bounds text valid state arguments stateValid.bounds⟩, ?_⟩
     by_cases zero : (stringDeclarationAt text state arguments).position = 0
     · exact Or.inl zero
-    · exact Or.inr (model_string_declaration_advances text valid state arguments stateValid zero)
+    · exact Or.inr (model_string_declaration_advances text valid state arguments stateValid.valid zero)
   subtypeDeclaration := by
     intro text _ state arguments stateValid
-    refine ⟨model_subtype_declaration_valid text state arguments stateValid, ?_⟩
+    refine ⟨⟨model_subtype_declaration_valid text state arguments stateValid.valid,
+      model_subtype_declaration_bounds text state arguments stateValid.bounds⟩, ?_⟩
     by_cases zero : (subtypeDeclarationAt text state arguments).position = 0
     · exact Or.inl zero
     · exact Or.inr (model_subtype_declaration_advances text state arguments zero)
   scalarType := by
     intro text _ state position stateValid positionValid
     refine ⟨scalarTypeAt_position_valid text state position,
-      scalarTypeAt_bounded text state position stateValid.2.2.2.2.2.2.2.1, ?_⟩
+      scalarTypeAt_bounded text state position stateValid.valid.2.2.2.2.2.2.2.1, ?_⟩
     intro positive
-    exact (scalarTypeAt_sound text state position positive).nonempty stateValid.2.2.2.2.2.2.2.1
+    exact (scalarTypeAt_sound text state position positive).nonempty stateValid.valid.2.2.2.2.2.2.2.1
   scalarDeclaration := by
     intro text _ state arguments stateValid
-    refine ⟨model_scalar_declaration_valid text state arguments stateValid, ?_⟩
+    refine ⟨⟨model_scalar_declaration_valid text state arguments stateValid.valid,
+      model_scalar_declaration_bounds text state arguments stateValid.bounds⟩, ?_⟩
     by_cases zero : (scalarDeclarationAt text state arguments).position = 0
     · exact Or.inl zero
     · exact Or.inr (model_scalar_declaration_advances text state arguments zero)
   arrayDeclaration := by
     intro text _ state arguments stateValid
-    refine ⟨model_array_declaration_valid text state arguments stateValid, ?_⟩
+    refine ⟨⟨model_array_declaration_valid text state arguments stateValid.valid,
+      model_array_declaration_bounds text state arguments stateValid.bounds⟩, ?_⟩
     by_cases zero : (arrayDeclarationAt text state arguments).position = 0
     · exact Or.inl zero
     · exact Or.inr (model_array_declaration_advances text state arguments zero)
   declaration := by
     intro text valid state arguments stateValid
-    refine ⟨model_declaration_valid text valid state arguments stateValid, ?_⟩
+    refine ⟨⟨model_declaration_valid text valid state arguments stateValid.valid,
+      model_declaration_bounds text valid state arguments stateValid.bounds⟩, ?_⟩
     by_cases zero : (declarationAt text state arguments).position = 0
     · exact Or.inl zero
-    · exact Or.inr (model_declaration_advances text valid state arguments stateValid zero)
+    · exact Or.inr (model_declaration_advances text valid state arguments stateValid.valid zero)
   argument := by
     intro text valid state stateValid
-    exact model_argument_valid text valid state stateValid
+    exact ⟨model_argument_valid text valid state stateValid.valid,
+      model_argument_bounds text state stateValid.bounds⟩
   declarations := by
     intro text valid state arguments stateValid
-    exact model_declarations_valid text valid state arguments stateValid
+    exact ⟨model_declarations_valid text valid state arguments stateValid.valid,
+      model_declarations_bounds text valid state arguments stateValid.bounds⟩
   expressionStep := by
     intro text valid names scan scalarNames integerHidden arrays initials elaborating namesValid _ _ _ scanValid
-    exact model_scan_valid (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text valid names scan namesValid scanValid
+    exact model_scan_native (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text valid names scan namesValid scanValid
   expression := by
     intro text valid position names scalarNames integerHidden arrays initials elaborating bound namesValid _ _ _
-    exact model_expression_valid (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text valid position names bound namesValid
+    exact model_expression_native (scalarNames := scalarNames) (integerHidden := integerHidden) (arrays := arrays) (initials := initials) (elaborating := elaborating) text valid position names bound namesValid
   step := by
     intro text valid form token state _ stateValid
-    exact model_step_valid text valid form token state stateValid
+    exact ⟨model_step_valid text valid form token state stateValid.valid,
+      model_step_bounds text valid form token state stateValid.bounds⟩
 
 end Silver.Compose.Expressions

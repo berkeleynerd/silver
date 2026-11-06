@@ -1,0 +1,16 @@
+{
+  "current_full_run": "20261103T234536-1d74ad60229a",
+  "current_run_state": "active with known ComposeSourceChecks proof-wrapper failure; independent heavy modules continue",
+  "historical_run": "20261103T203357-33c8b5720ddd",
+  "historical_state": "interrupted with same module failure present in retained log",
+  "correction": "Earlier last-line monitoring missed the wrapper diagnostic. Full new-log scanning is now active; no completed whole-source assurance was claimed for either run.",
+  "same_error_in_both": true,
+  "line": 64,
+  "production_repair_pending": true,
+  "scope": "One explicit definitional change before existing actual token rewrite; theorem statements and all other production bytes unchanged",
+  "checked_probe_run": "20261104T011006-21d49eb8b36b",
+  "probe_fresh_declarations": 61362,
+  "probe_seconds": 5.863900221997028,
+  "active_governed_inputs_unchanged": true,
+  "dependency_fact": "PredicateSourceCandidate static closure 233 modules excludes failed ComposeSourceChecks; current remaining source builds are useful and inputs stay frozen"
+}

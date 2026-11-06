@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from for-loop indexes over the input's own range and explicit capacity guards before each buffer or table write, with no recursion, no while loops and no annotations needed. The main work is the string-building and indexing library surface, not hard proofs.
 
-Position 599 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 600 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

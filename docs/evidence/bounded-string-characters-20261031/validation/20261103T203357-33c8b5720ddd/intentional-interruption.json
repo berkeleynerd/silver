@@ -1,0 +1,23 @@
+{
+  "utc": "2026-11-03T23:29:59.100508+00:00",
+  "run_id": "20261103T203357-33c8b5720ddd",
+  "signal": "SIGINT",
+  "signaled_processes": [
+    {
+      "pid": 59429,
+      "pgid": 59425,
+      "command": "python3 scripts/check_lean.py --task #296-complete-source-repaired --workers 1 --threads 1 --memory-mb 24576 --provenance --reason Complete native-source correspondence and fresh whole-project audit on integrated Character progress repair58b0d6ce2b after focused14821-declaration semantic audit. Retain ordinary valid objects; earlier24GiB attempt intentionally interrupted for actual native source repair. Coordinate native full suite separately. "
+    },
+    {
+      "pid": 59462,
+      "pgid": 59425,
+      "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.tools/linux-x86_64/lean/bin/lake --rehash --reconfigure -K silverThreads=1 -K silverMemoryMb=24576 build Silver.Audit "
+    },
+    {
+      "pid": 99111,
+      "pgid": 59425,
+      "command": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.tools/linux-x86_64/lean/bin/lean -j1 -M24576 -DwarningAsError=true /home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/proof/Silver/PredicateSourceCandidate.lean -o /home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateSourceCandidate.olean -i /home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateSourceCandidate.ilean -c /home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/proof/.lake/build/ir/Silver/PredicateSourceCandidate.c --setup /home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/proof/.lake/build/ir/Silver/PredicateSourceCandidate.setup.json --json "
+    }
+  ],
+  "reason": "Complete native audit 220251 exposed exactly seven reassociation warnings requiring actual Ada parenthesis edits, matching Expr.group and reviewed token pin repair. Current PredicateSourceCandidate imports the changing reviewed output pin and Compose helper model; this capture cannot establish final-source correspondence. Preserve successful old-source certificate and all completed ordinary objects, logs and input capture. No source equality or memory failure occurred in this run."
+}

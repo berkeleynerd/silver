@@ -67,7 +67,7 @@ structure ImportsMeaning (imports : Imports) : Prop where
     imports.arrayTarget text context position = Predicate.arrayTarget text context.model position
   readScalar : ∀ text context position facts first after, ScalarDomain text context position facts first after →
     imports.readScalar text context position facts first after =
-      readScalarInFlow text context.model position facts first after
+      readCountedBound text context.model position facts first after
   widen : ∀ context facts, WidenDomain context facts →
     imports.widen context facts = ActiveFlow.widen context.scalarNames facts
   isEmpty : ∀ value, value.Bounded → imports.isEmpty value = value.isEmpty

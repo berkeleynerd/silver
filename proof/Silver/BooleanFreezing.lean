@@ -14,6 +14,8 @@ open Bindings Compose
 def Condition.freezeIntegers (integers : Integer.Store) : Condition → Condition
   | .stringCompare unequal left right =>
       .stringCompare unequal (left.freezeImages integers) (right.freezeImages integers)
+  | .characterCompare operator left right =>
+      .characterCompare operator (left.freeze integers) (right.freeze integers)
   | .lengthCompare operator left right => .lengthCompare operator left right
   | .scalarCompare operator left right =>
       .booleanLiteral (operator.evaluate (left.evaluate integers) (right.evaluate integers))
@@ -35,23 +37,30 @@ theorem frozen_expression_evaluate (expression : Expression) (snapshot after : I
   induction expression with
   | nil => rfl
   | cons atom rest ih =>
-      simp only [Expression.freezeImages] at ih
-      cases atom <;> simp only [Expression.freezeImages, List.map_cons, Operand.freezeImages,
-        Expression.evaluate, Value.evaluate, ih]
+      simp only [Expression.freezeImages, List.map_cons, Expression.evaluate,
+        Operand.freezeImages_evaluate_at]
+      exact congrArg (List.append (atom.evaluate values input snapshot)) ih
 
 theorem Condition.freezeIntegers_evaluate (condition : Condition) (snapshot after : Integer.Store)
     (values : Values) (input : Source) (valid : Bool) (booleans : Boolean.Store) :
     (condition.freezeIntegers snapshot).evaluate values input valid after booleans =
       condition.evaluate values input valid snapshot booleans := by
-  induction condition <;> simp only [freezeIntegers, evaluate, frozen_expression_evaluate, *]
+  induction condition <;> simp only [freezeIntegers, evaluate, frozen_expression_evaluate, Character.Expr.freeze_evaluate, *]
 
 theorem frozen_expression_safe {expression : Expression} {snapshot after : Integer.Store}
     {values : Values} {input : Source} (safe : expression.RuntimeSafe values input snapshot) :
     (expression.freezeImages snapshot).RuntimeSafe values input after := by
   refine ⟨?_, ?_⟩
   · intro atom present
-    obtain ⟨original, _, rfl⟩ := List.mem_map.mp present
-    cases original <;> trivial
+    obtain ⟨original, member, rfl⟩ := List.mem_map.mp present
+    have prior := safe.1 original member
+    cases original with
+    | literal | reference | argument | image => trivial
+    | slice target base lower upper =>
+        exact ⟨Integer.Expr.safe_value prior.1, Integer.Expr.safe_value prior.2.1, prior.2.2⟩
+    | character expression => exact Character.Expr.freeze_safe prior after
+    | replace target base index replacement =>
+        exact ⟨Integer.Expr.safe_value prior.1, prior.2.1, Character.Expr.freeze_safe prior.2.2 after⟩
   · simpa only [frozen_expression_evaluate] using safe.2
 
 theorem Condition.freezeIntegers_safe {condition : Condition} {shape : Shape}
@@ -62,6 +71,7 @@ theorem Condition.freezeIntegers_safe {condition : Condition} {shape : Shape}
   | stringCompare unequal left right => exact ⟨frozen_expression_safe safe.1, frozen_expression_safe safe.2⟩
   | lengthCompare | inputValid | booleanLiteral | booleanName => exact safe
   | scalarCompare => trivial
+  | characterCompare => exact ⟨Character.Expr.freeze_safe safe.1 after, Character.Expr.freeze_safe safe.2 after⟩
   | parenthesized inner ih | negated inner ih => exact ih safe
   | andThen left right ihl ihr | orElse left right ihl ihr =>
       refine ⟨ihl safe.1, ?_⟩
@@ -97,7 +107,7 @@ theorem Condition.freezeIntegers_eagerHead (condition : Condition) (snapshot : I
 theorem Condition.freezeIntegers_grammatical {condition : Condition} (snapshot : Integer.Store)
     (grammatical : condition.Grammatical) : (condition.freezeIntegers snapshot).Grammatical := by
   induction condition with
-  | stringCompare | lengthCompare | scalarCompare | inputValid | booleanLiteral | booleanName => trivial
+  | stringCompare | lengthCompare | scalarCompare | characterCompare | inputValid | booleanLiteral | booleanName => trivial
   | parenthesized inner ih => exact ih grammatical
   | negated inner ih => exact ⟨freezeIntegers_primary grammatical.1, ih grammatical.2⟩
   | andThen left right ihl ihr =>
@@ -122,7 +132,10 @@ theorem frozen_expression_readable {expression : Expression} {shape : Shape}
   intro atom present
   obtain ⟨original, member, rfl⟩ := List.mem_map.mp present
   have known := readable original member
-  cases original <;> exact known
+  cases original with
+  | literal | reference | argument | image | slice => exact known
+  | character expression => exact Character.Expr.freeze_readable known snapshot
+  | replace target base index replacement => exact ⟨known.1, Character.Expr.freeze_readable known.2 snapshot⟩
 
 theorem Condition.freezeIntegers_readable {condition : Condition} {hasArguments : Bool}
     {shape : Shape} {booleans : Boolean.Analysis} (snapshot : Integer.Store)
@@ -143,6 +156,11 @@ theorem Condition.freezeIntegers_readable {condition : Condition} {hasArguments 
         apply rightNonempty
         exact List.length_eq_zero_iff.mp (by simpa only [Expression.freezeImages_length, List.length_nil] using congrArg List.length empty)
       · simpa only [Expression.freezeImages_length] using rightBound
+  | characterCompare =>
+      exact ⟨Character.Expr.freeze_readable readable.1 snapshot,
+        Character.Expr.freeze_readable readable.2.1 snapshot,
+        Character.Expr.freeze_literals readable.2.2.1 snapshot,
+        Character.Expr.freeze_literals readable.2.2.2 snapshot⟩
   | lengthCompare | scalarCompare | inputValid | booleanLiteral | booleanName => exact readable
   | parenthesized inner ih | negated inner ih => exact ih readable
   | andThen left right ihl ihr | orElse left right ihl ihr | eager _ left right ihl ihr | booleanCompare _ left right ihl ihr =>

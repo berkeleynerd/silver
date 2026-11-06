@@ -64,6 +64,15 @@ def Ty.default : (ty : Ty) → ty.meaning
   | Ty.arrow _ b => fun _ => b.default
 
 inductive Function
+  | fixedBoundsValid
+  | characterLiteral
+  | guardedAt
+  | indexed
+  | characterValue
+  | concatenatedFirst
+  | concatenatedLast
+  | characterDeclaration
+  | addBindingWithCharacter
   | trivia
   | literalEnd
   | literalLength
@@ -115,6 +124,15 @@ inductive Function
   deriving DecidableEq, Repr
 
 def Function.name : Function → String
+  | .fixedBoundsValid => "fixed_bounds_valid"
+  | .characterLiteral => "character_literal_after"
+  | .guardedAt => "guarded_at"
+  | .indexed => "indexed_at"
+  | .characterValue => "character_at"
+  | .concatenatedFirst => "concatenated_first"
+  | .concatenatedLast => "concatenated_last"
+  | .characterDeclaration => "character_declaration_at"
+  | .addBindingWithCharacter => "add_binding"
   | .trivia => "trivia_end"
   | .literalEnd => "literal_end"
   | .literalLength => "literal_length"
@@ -187,6 +205,15 @@ def Function.name : Function → String
   | .assignment => "has_assignment"
 
 @[reducible] def Function.type : Function → Ty
+  | .fixedBoundsValid => .arrow .number (.arrow .truth (.arrow .truth (.arrow .integer (.arrow .integer (.arrow .number .truth)))))
+  | .characterLiteral => .arrow .source (.arrow .number .number)
+  | .guardedAt => .arrow .source (.arrow .number (.arrow .number (.arrow .number (.arrow .truth (.arrow .truth .truth)))))
+  | .indexed => .arrow .source (.arrow .number (.arrow .names (.arrow .scalarNames (.arrow .arrayMetadata (.arrow .arrayInitials (.arrow .truth (.arrow .truth .value)))))))
+  | .characterValue => .arrow .source (.arrow .number (.arrow .names (.arrow .scalarNames (.arrow .arrayMetadata (.arrow .arrayInitials (.arrow .truth .value))))))
+  | .concatenatedFirst => .arrow .scan (.arrow .value .interval)
+  | .concatenatedLast => .arrow .scan (.arrow .value .interval)
+  | .characterDeclaration => .arrow .source (.arrow .state (.arrow .truth .state))
+  | .addBindingWithCharacter => .arrow .state (.arrow .number (.arrow .number (.arrow .value (.arrow .truth (.arrow .number (.arrow .truth .state))))))
   | .trivia => .arrow .source (.arrow .number (.number))
   | .literalEnd => .arrow .source (.arrow .number (.number))
   | .literalLength => .arrow .source (.arrow .number (.number))
@@ -267,6 +294,15 @@ structure Calls where
 /-- Lexical symbols are projected from the established lexical interface.
 Every recognizer helper is left arbitrary. -/
 def Calls.get (calls : Calls) : (symbol : Function) → symbol.type.meaning
+  | .fixedBoundsValid => calls.function .fixedBoundsValid
+  | .characterLiteral => calls.function .characterLiteral
+  | .guardedAt => calls.function .guardedAt
+  | .indexed => calls.function .indexed
+  | .characterValue => calls.function .characterValue
+  | .concatenatedFirst => calls.function .concatenatedFirst
+  | .concatenatedLast => calls.function .concatenatedLast
+  | .characterDeclaration => calls.function .characterDeclaration
+  | .addBindingWithCharacter => calls.function .addBindingWithCharacter
   | .trivia => calls.primitive.trivia
   | .literalEnd => calls.primitive.literal
   | .literalLength => calls.primitive.length
@@ -339,6 +375,17 @@ def Calls.get (calls : Calls) : (symbol : Function) → symbol.type.meaning
   | .assignment => calls.function .assignment
 
 inductive Field : Ty → Ty → Type
+  | bindingCharacter : Field .binding .truth
+  | bindingFirstIndex : Field .binding .integer
+  | bindingLastIndex : Field .binding .integer
+  | valueOperands : Field .value .number
+  | valueFirstIndex : Field .value .interval
+  | valueLastIndex : Field .value .interval
+  | resultFirstIndex : Field .result .interval
+  | resultLastIndex : Field .result .interval
+  | scanFirstIndex : Field .scan .interval
+  | scanLastIndex : Field .scan .interval
+  | scalarOperands : Field .scalarResult .number
   | scanEmpty : Field .scan .truth
   | scanMinimum : Field .scan .number
   | resultEmpty : Field .result .truth
@@ -397,6 +444,17 @@ inductive Field : Ty → Ty → Type
   | decimalValue : Field .decimal .number
 
 def Field.name : Field a b → String
+  | .bindingCharacter => "is_character"
+  | .bindingFirstIndex => "first_index"
+  | .bindingLastIndex => "last_index"
+  | .valueOperands => "operands"
+  | .valueFirstIndex => "first_index"
+  | .valueLastIndex => "last_index"
+  | .resultFirstIndex => "first_index"
+  | .resultLastIndex => "last_index"
+  | .scanFirstIndex => "first_index"
+  | .scanLastIndex => "last_index"
+  | .scalarOperands => "operands"
   | .scanEmpty => "empty_value"
   | .scanMinimum => "minimum_length"
   | .resultEmpty => "empty_value"
@@ -448,6 +506,17 @@ def Field.name : Field a b → String
   | .decimalValue => "value"
 
 def Field.get : Field a b → a.meaning → b.meaning
+  | .bindingCharacter, value => value.isCharacter
+  | .bindingFirstIndex, value => value.firstIndex
+  | .bindingLastIndex, value => value.lastIndex
+  | .valueOperands, value => value.operands
+  | .valueFirstIndex, value => value.firstIndex
+  | .valueLastIndex, value => value.lastIndex
+  | .resultFirstIndex, value => value.firstIndex
+  | .resultLastIndex, value => value.lastIndex
+  | .scanFirstIndex, value => value.firstIndex
+  | .scanLastIndex, value => value.lastIndex
+  | .scalarOperands, value => value.operands
   | .scanEmpty, value => value.emptyValue
   | .scanMinimum, value => value.minimumLength
   | .resultEmpty, value => value.emptyValue
@@ -501,6 +570,24 @@ def Field.get : Field a b → a.meaning → b.meaning
   | .decimalValue, value => value.value
 
 inductive Expr : Ty → Type
+  | nativeBinding : Expr .number → Expr .number → Expr .number → Expr .number → Expr .truth → Expr .truth → Expr .truth → Expr .integer → Expr .integer → Expr .binding
+  | nativeValue : Expr .number → Expr .number → Expr .number → Expr .number → Expr .truth → Expr .truth → Expr .truth → Expr .number → Expr .number → Expr .interval → Expr .interval → Expr .value
+  | nativeResult : Expr .number → Expr .number → Expr .number → Expr .number → Expr .truth → Expr .truth → Expr .interval → Expr .interval → Expr .result
+  | nativeScan : Expr .number → Expr .number → Expr .number → Expr .number → Expr .number → Expr .number → Expr .truth → Expr .truth → Expr .truth → Expr .truth → Expr .interval → Expr .interval → Expr .scan
+  | nativeScanAtom : Expr .scan → Expr .number → Expr .number → Expr .number → Expr .number → Expr .number → Expr .interval → Expr .interval → Expr .truth → Expr .truth → Expr .scan
+  | valueAfter : Expr .value → Expr .number → Expr .value
+  | integerMul : Expr .integer → Expr .integer → Expr .integer
+  | integerEq : Expr .integer → Expr .integer → Expr .truth
+  | wideMaximum : Expr .integer → Expr .integer → Expr .integer
+  | valueNumber : Expr .number → Expr .integer
+  | valueInteger : Expr .integer → Expr .integer
+  | capacityInteger : Expr .integer → Expr .number
+  | singleton : Expr .integer → Expr .interval
+  | joinInterval : Expr .interval → Expr .interval → Expr .interval
+  | minimumInteger : Expr .integer
+  | maximumInteger : Expr .integer
+  /-- Implicit Integer interpretation of the native Max_Source_Length constant. -/
+  | maximumLength : Expr .integer
   | lexTrivia : Expr .source → Expr .number → Expr .number
   | lexLiteralEnd : Expr .source → Expr .number → Expr .number
   | lexLiteralLength : Expr .source → Expr .number → Expr .number
@@ -564,6 +651,7 @@ inductive Expr : Ty → Type
   | emptyInterval : Expr .interval
   | interval : Expr .integer → Expr .integer → Expr .interval
   | integerNe : Expr .integer → Expr .integer → Expr .truth
+  | integerLe : Expr .integer → Expr .integer → Expr .truth
   | integerLt : Expr .integer → Expr .integer → Expr .truth
   | constraint : Expr .number → Expr .interval → Expr .scalarConstraint
   | scalarBinding : Expr .number → Expr .number → Expr .interval → Expr .truth → Expr .interval → Expr .truth → Expr .scalarBinding
@@ -576,6 +664,7 @@ inductive Expr : Ty → Type
   | ne : Expr .number → Expr .number → Expr .truth
   | boolNe : Expr .truth → Expr .truth → Expr .truth
   | lt : Expr .number → Expr .number → Expr .truth
+  | ge : Expr .number → Expr .number → Expr .truth
   | le : Expr .number → Expr .number → Expr .truth
   | gt : Expr .number → Expr .number → Expr .truth
   | range : Expr .number → Expr .number → Expr .number → Expr .truth
@@ -662,6 +751,7 @@ def tokenName : ShellToken → String
     | "if" => "if_keyword" | "input_is_valid" => "input_is_valid_name" | "then" => "then_keyword"
     | "else" => "else_keyword" | "elsif" => "elsif_keyword" | "reject" => "reject_name" | "&" => "ampersand"
     | "and" => "and_keyword" | "or" => "or_keyword" | "not" => "not_keyword"
+    | "character" => "character_name"
     | "boolean" => "boolean_name" | "true" => "true_name" | "false" => "false_name" | "xor" => "xor_keyword"
     | "/=" => "not_equal" | "<" => "less" | ">" => "greater" | ">=" => "greater_equal" | "'" => "apostrophe" | "length" => "length_name"
     | "<=" => "less_equal" | "null" => "null_keyword" | "integer" => "integer_name"
@@ -684,6 +774,23 @@ def updated (base : List String) (fields : List (String × List String)) : List 
 /-- Application uses a token-list spine so nested typed applications render as
 one ordinary Ada call, without changing the meaning of argument evaluation. -/
 def Expr.render : Expr ty → List String
+  | .nativeBinding a b c d e f isCharacter first last => aggregate [("first",a.render),("after",b.render),("value_first",c.render), ("static_length",d.render),("dynamic",e.render),("mutable",f.render), ("is_character",isCharacter.render),("first_index",first.render),("last_index",last.render)]
+  | .nativeValue a b m c d n e r operands first last => aggregate [("after",a.render),("value_first",b.render), ("minimum_length",m.render),("static_length",c.render),("dynamic_seen",d.render), ("nonliteral_seen",n.render),("empty_value",e.render),("reference",r.render), ("operands",operands.render),("first_index",first.render),("last_index",last.render)]
+  | .nativeResult a m b c d e first last => aggregate [("after",a.render),("minimum_length",m.render), ("static_length",b.render),("dynamic_count",c.render),("named_seen",d.render),("empty_value",e.render), ("first_index",first.render),("last_index",last.render)]
+  | .nativeScan p m l d o depth named need complete empty first last => aggregate [("position",p.render), ("minimum_length",m.render),("static_length",l.render),("dynamic_count",d.render),("operands",o.render), ("depth",depth.render),("named_seen",named.render),("need_operand",need.render), ("complete",complete.render),("empty_value",empty.render),("first_index",first.render),("last_index",last.render)]
+  | .nativeScanAtom s p m l d o first last n e => updated s.render [("position",p.render),("minimum_length",m.render), ("static_length",l.render),("dynamic_count",d.render),("operands",o.render), ("first_index",first.render),("last_index",last.render), ("named_seen",n.render),("empty_value",e.render),("need_operand",["false"])]
+  | .valueAfter localValue after => updated localValue.render [("after",after.render)]
+  | .integerMul left right => left.render ++ ["*"] ++ right.render
+  | .integerEq left right => left.render ++ ["="] ++ right.render
+  | .wideMaximum left right => ["scalars", ".", "wide", "'", "max", "("] ++ left.render ++ [","] ++ right.render ++ [")"]
+  | .valueNumber localValue => ["scalars", ".", "value", "("] ++ localValue.render ++ [")"]
+  | .valueInteger localValue => ["scalars", ".", "value", "("] ++ localValue.render ++ [")"]
+  | .capacityInteger localValue => ["capacity_value", "("] ++ localValue.render ++ [")"]
+  | .singleton localValue => ["scalars", "."] ++ call "singleton" [localValue.render]
+  | .joinInterval left right => ["scalars", "."] ++ call "join" [left.render,right.render]
+  | .minimumInteger => ["scalars", ".", "minimum"]
+  | .maximumInteger => ["scalars", ".", "maximum"]
+  | .maximumLength => ["max_source_length"]
   | .lexTrivia a b => call "trivia_end" [a.render, b.render]
   | .lexLiteralEnd a b => call "literal_end" [a.render, b.render]
   | .lexLiteralLength a b => call "literal_length" [a.render, b.render]
@@ -776,6 +883,7 @@ def Expr.render : Expr ty → List String
   | .emptyInterval => ["scalars", ".", "empty"]
   | .interval a b => ["("] ++ a.render ++ [","] ++ b.render ++ [")"]
   | .integerNe a b => a.render ++ ["/="] ++ b.render
+  | .integerLe a b => a.render ++ ["<="] ++ b.render
   | .integerLt a b => a.render ++ ["<"] ++ b.render
   | .constraint a b => ["("] ++ a.render ++ [","] ++ b.render ++ [")"]
   | .scalarBinding a b c d e f => ["("] ++ a.render ++ [","] ++ b.render ++ [","] ++ c.render ++ [","] ++ d.render ++ [","] ++ e.render ++ [","] ++ f.render ++ [")"]
@@ -789,6 +897,7 @@ def Expr.render : Expr ty → List String
   | .ne x y => x.render ++ ["/="] ++ y.render
   | .boolNe x y => x.render ++ ["/="] ++ y.render
   | .lt x y => x.render ++ ["<"] ++ y.render
+  | .ge x y => x.render ++ [">="] ++ y.render
   | .le x y => x.render ++ ["<="] ++ y.render
   | .gt x y => x.render ++ [">"] ++ y.render
   | .range x a b => x.render ++ ["in"] ++ a.render ++ [".."] ++ b.render
@@ -864,6 +973,23 @@ def firstFlag (text : Source) (member : Source → Form → Bool) (flag : Form �
     (allForms.takeWhile fun previous => previous != form).all (fun previous => !member text previous)
 
 def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
+  | .nativeBinding a b c d e f isCharacter first last => ⟨a.eval calls locals, b.eval calls locals, c.eval calls locals, d.eval calls locals, e.eval calls locals, f.eval calls locals, isCharacter.eval calls locals, first.eval calls locals, last.eval calls locals⟩
+  | .nativeValue a b m c d n e r operands first last => ⟨a.eval calls locals, b.eval calls locals, m.eval calls locals, c.eval calls locals, d.eval calls locals, n.eval calls locals, e.eval calls locals, r.eval calls locals, operands.eval calls locals, first.eval calls locals, last.eval calls locals⟩
+  | .nativeResult a m b c d e first last => ⟨a.eval calls locals, m.eval calls locals, b.eval calls locals, c.eval calls locals, d.eval calls locals, e.eval calls locals, first.eval calls locals, last.eval calls locals⟩
+  | .nativeScan p m l d o depth named need complete empty first last => ⟨p.eval calls locals, m.eval calls locals, l.eval calls locals, d.eval calls locals, o.eval calls locals, depth.eval calls locals, named.eval calls locals, need.eval calls locals, complete.eval calls locals, empty.eval calls locals, first.eval calls locals, last.eval calls locals⟩
+  | .nativeScanAtom s p m l d o first last n e => {(s.eval calls locals) with position := p.eval calls locals, minimumLength := m.eval calls locals, staticLength := l.eval calls locals, dynamicCount := d.eval calls locals, operands := o.eval calls locals, firstIndex := first.eval calls locals, lastIndex := last.eval calls locals, namedSeen := n.eval calls locals, emptyValue := e.eval calls locals, needOperand := false}
+  | .valueAfter localValue after => {(localValue.eval calls locals) with after := after.eval calls locals}
+  | .integerMul left right => left.eval calls locals * right.eval calls locals
+  | .integerEq left right => decide (left.eval calls locals = right.eval calls locals)
+  | .wideMaximum left right => max (left.eval calls locals) (right.eval calls locals)
+  | .valueNumber localValue => Int.ofNat (localValue.eval calls locals)
+  | .valueInteger localValue => localValue.eval calls locals
+  | .capacityInteger localValue => (localValue.eval calls locals).toNat
+  | .singleton localValue => Integer.Interval.singleton (localValue.eval calls locals)
+  | .joinInterval left right => (left.eval calls locals).join (right.eval calls locals)
+  | .minimumInteger => Integer.minValue
+  | .maximumInteger => Integer.maxValue
+  | .maximumLength => maxSourceLength
   | .lexTrivia a b => calls.primitive.trivia (a.eval calls locals) (b.eval calls locals)
   | .lexLiteralEnd a b => calls.primitive.literal (a.eval calls locals) (b.eval calls locals)
   | .lexLiteralLength a b => calls.primitive.length (a.eval calls locals) (b.eval calls locals)
@@ -936,6 +1062,7 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .emptyInterval => Integer.Interval.empty
   | .interval a b => ⟨a.eval calls locals, b.eval calls locals⟩
   | .integerNe a b => decide (a.eval calls locals ≠ b.eval calls locals)
+  | .integerLe a b => decide (a.eval calls locals ≤ b.eval calls locals)
   | .integerLt a b => decide (a.eval calls locals < b.eval calls locals)
   | .constraint a b => ⟨a.eval calls locals, b.eval calls locals⟩
   | .scalarBinding a b c d e f => ⟨a.eval calls locals, b.eval calls locals, c.eval calls locals, d.eval calls locals, e.eval calls locals, f.eval calls locals⟩
@@ -949,6 +1076,7 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .ne x y => decide (x.eval calls locals ≠ y.eval calls locals)
   | .boolNe x y => x.eval calls locals != y.eval calls locals
   | .lt x y => decide (x.eval calls locals < y.eval calls locals)
+  | .ge x y => decide (x.eval calls locals ≥ y.eval calls locals)
   | .le x y => decide (x.eval calls locals ≤ y.eval calls locals)
   | .gt x y => decide (x.eval calls locals > y.eval calls locals)
   | .range x a b => decide (a.eval calls locals ≤ x.eval calls locals ∧ x.eval calls locals ≤ b.eval calls locals)
@@ -973,14 +1101,29 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .initial => initialState | .invalid => invalidState
   | .invalidValue => Compose.invalidValue | .invalidResult => invalidExpression
   | .invalidScan => invalidExpressionState
-  | .binding a b c d e f => ⟨a.eval calls locals,b.eval calls locals,c.eval calls locals,d.eval calls locals,e.eval calls locals,f.eval calls locals⟩
-  | .value a b m c d n e r => ⟨a.eval calls locals,b.eval calls locals,m.eval calls locals,
-      c.eval calls locals,d.eval calls locals,n.eval calls locals,e.eval calls locals,r.eval calls locals⟩
-  | .result a m b c d e => ⟨a.eval calls locals,m.eval calls locals,b.eval calls locals,
-      c.eval calls locals,d.eval calls locals,e.eval calls locals⟩
-  | .scan p m l d o depth named need complete empty => ⟨p.eval calls locals,m.eval calls locals,
-      l.eval calls locals,d.eval calls locals,o.eval calls locals,depth.eval calls locals,named.eval calls locals,
-      need.eval calls locals,complete.eval calls locals,empty.eval calls locals⟩
+  -- These existing constructors specify their original fields; the newly
+  -- introduced Character and String-index fields retain record defaults.
+  -- Their expanded native aggregates require separate renderer integration.
+  | .binding a b c d e f =>
+      { first := a.eval calls locals, after := b.eval calls locals,
+        valueFirst := c.eval calls locals, staticLength := d.eval calls locals,
+        dynamic := e.eval calls locals, mutable := f.eval calls locals }
+  | .value a b m c d n e r =>
+      { after := a.eval calls locals, valueFirst := b.eval calls locals,
+        minimumLength := m.eval calls locals, staticLength := c.eval calls locals,
+        dynamicSeen := d.eval calls locals, nonliteralSeen := n.eval calls locals,
+        emptyValue := e.eval calls locals, reference := r.eval calls locals }
+  | .result a m b c d e =>
+      { after := a.eval calls locals, minimumLength := m.eval calls locals,
+        staticLength := b.eval calls locals, dynamicCount := c.eval calls locals,
+        namedSeen := d.eval calls locals, emptyValue := e.eval calls locals }
+  | .scan p m l d o depth named need complete empty =>
+      { position := p.eval calls locals,
+        minimumLength := m.eval calls locals, staticLength := l.eval calls locals,
+        dynamicCount := d.eval calls locals, operands := o.eval calls locals,
+        depth := depth.eval calls locals, namedSeen := named.eval calls locals,
+        needOperand := need.eval calls locals, complete := complete.eval calls locals,
+        emptyValue := empty.eval calls locals }
   | .scanDepth s p d => {(s.eval calls locals) with position := p.eval calls locals, depth := d.eval calls locals}
   | .scanAtom s p m l d o n e => {(s.eval calls locals) with
       position := p.eval calls locals,
@@ -1021,8 +1164,9 @@ def literalBody : Expr .value :=
   .ite (.andThen (.andThen (.andThen (.ne position (.number 0)) (.le position (.sourceLast text)))
     (.eq (.byteAt text position) (.characterVal (.number 34))))
     (.ne (.lexLiteralEnd text start) (.number 0)))
-    (.value (.lexLiteralEnd text start) start (.lexLiteralLength text start) (.lexLiteralLength text start)
-      (.truth false) (.truth false) (.truth false) (.number 0)) .invalidValue
+    (.nativeValue (.lexLiteralEnd text start) start (.lexLiteralLength text start) (.lexLiteralLength text start)
+      (.truth false) (.truth false) (.truth false) (.number 0) (.number 1)
+      (.singleton (.integerNumber 1)) (.singleton (.valueNumber (.lexLiteralLength text start)))) .invalidValue
 
 def workTailBody : Expr .truth :=
   let text : Expr .source := .variable "text"
@@ -1038,6 +1182,8 @@ def workTailBody : Expr .truth :=
     .local "number" "silver_scalar_literals.literal_result" (.app (.app (.function .scalarLiteral) text) first) <|
     .group <| .ite (.eq first (.number 0)) (.truth false) <|
     .elsif (.gt first (.sourceLast text)) (.truth true) <|
+    .elsif (.ne (.app (.app (.function .characterLiteral) text) first) (.number 0))
+      (recurse (.app (.app (.function .characterLiteral) text) first) remaining) <|
     .elsif (.eq (.byteAt text first) (.characterVal (.number 34)))
       (.andThen (.ne (.field .valueAfter quoted) (.number 0))
         (recurse (.field .valueAfter quoted) remaining)) <|
@@ -1090,11 +1236,14 @@ def imageBody : Expr .value :=
         (.not <| .app (.app (.app (.app (.function .nameIs) text) attributeFirst) attributeAfter) (.word "image")))
         (.le following position))
       .invalidValue
-      (.value following (.number 0)
+      (.nativeValue following (.number 0)
         (.app (.function .imageMinimum) (.field .scalarBounds value))
         (.app (.function .imageMaximum) (.field .scalarBounds value))
         (.truth false) (.truth true)
-        (.app (.function .scalarEmpty) (.field .scalarBounds value)) (.number 0))
+        (.app (.function .scalarEmpty) (.field .scalarBounds value)) (.number 0) (.number 1)
+        (.singleton (.integerNumber 1))
+        (.interval (.valueNumber (.app (.function .imageMinimum) (.field .scalarBounds value)))
+          (.valueNumber (.app (.function .imageMaximum) (.field .scalarBounds value)))))
 
 def valueBody : Expr .value :=
   let text : Expr .source := .variable "text"
@@ -1110,10 +1259,17 @@ def valueBody : Expr .value :=
     .local "after" "literal_position" (.app (.app (.function .nameAfter) text) first) <|
     .local "index" "binding_count" (.app (.app (.app (.app (.function .lookupName) text) names) first) after) <|
     .group <| .ite (.ne (.field .valueAfter quoted) (.number 0)) quoted <|
-    .elsif (.andThen (.ne index (.number 0))
+    .elsif (.andThen (.andThen (.ne index (.number 0)) (.not (.field .bindingCharacter info)))
+      (.ne (.app (.app (.app (.function .takeToken) text) after) (.token (.symbol "("))) (.number 0)))
+      (.app (.app (.app (.app (.app (.app (.app (.app (.function .indexed) text) position) names)
+        (.variable "scalar_names")) (.variable "arrays")) (.variable "initials")) (.variable "elaborating")) (.truth false)) <|
+    .elsif (.andThen (.andThen (.ne index (.number 0)) (.not (.field .bindingCharacter info)))
       (.eq (.app (.app (.app (.app (.function .scalarLookup) text) (.variable "scalar_names")) first) after) (.number 0)))
-      (.value after (.field .bindingValueFirst info) (.field .bindingLength info) (.field .bindingLength info)
-        (.field .bindingDynamic info) (.truth true) (.truth false) index)
+      (.nativeValue after (.field .bindingValueFirst info) (.field .bindingLength info) (.field .bindingLength info)
+        (.field .bindingDynamic info) (.truth true) (.truth false) index (.number 1)
+        (.singleton (.field .bindingFirstIndex info))
+        (.group <| .ite (.field .bindingDynamic info) (.interval (.integerNumber 0) .maximumLength)
+          (.singleton (.field .bindingLastIndex info))))
       (.app (.app (.app (.app (.app (.app (.app (.app (.function .image) text) position) names)
         (.variable "scalar_names")) (.variable "integer_hidden")) (.variable "arrays")) (.variable "initials")) (.variable "elaborating"))
 
@@ -1133,7 +1289,12 @@ def newNameBody : Expr .truth :=
     (.eq (.app (.app (.app (.app (.function .subtypeLookup) text) (.field .stateSubtypeNames state)) first) after) (.number 0))
 
 def addBindingBody : Expr .state :=
-  (.stateBinding (.variable "state") (.variable "following") (.binding (.variable "first") (.variable "after") (.field .valueFirst (.variable "value")) (.field .valueLength (.variable "value")) (.field .valueDynamic (.variable "value")) (.variable "mutable")))
+  .stateBinding (.variable "state") (.variable "following")
+    (.nativeBinding (.variable "first") (.variable "after") (.field .valueFirst (.variable "value"))
+      (.field .valueLength (.variable "value")) (.field .valueDynamic (.variable "value"))
+      (.variable "mutable") (.variable "character_object")
+      (.field .intervalLower (.field .valueFirstIndex (.variable "value")))
+      (.field .intervalLower (.field .valueLastIndex (.variable "value"))))
 
 def stringDeclarationBody : Expr .state :=
   let text : Expr .source := .variable "text"
@@ -1153,16 +1314,27 @@ def stringDeclarationBody : Expr .state :=
       (.orElse (.group (.andThen (.andThen (.ne first (.number 0)) (.gt after first)) (.eq (take first (.word "integer")) after)))
         (.app (.app (.function .booleanHidesInteger) text) (.field .stateBooleanNames state)))) (.field .arrayNames (.field .stateArrayNames state))) (.field .arrayValues (.field .stateArrayNames state))) (.truth true)) <|
     .local "following" "literal_position" (take (.field .resultAfter value) (.symbol ";")) <|
-    .group <| .ite (.orElse (.orElse (.orElse (.orElse (.orElse
+    .group <| .ite (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse
       (.not <| .app (.app (.app (.app (.app (.function .newName) text) state) first) after) (.variable "arguments"))
       (.eq (.variable "following") (.number 0)))
       (.eq (.count (.field .stateNames state)) .maxBindings))
       (.not <| .app (.app (.function .fits) value) .maxLength))
       (.field .resultEmpty value))
-      (.ne (.field .resultMinimum value) (.field .resultLength value))) .invalid
+      (.ne (.field .resultMinimum value) (.field .resultLength value)))
+      (.group <| .andThen (.eq (.field .resultDynamic value) (.number 0))
+        (.group <| .orElse (.orElse (.orElse
+          (.app (.function .scalarEmpty) (.field .resultFirstIndex value))
+          (.app (.function .scalarEmpty) (.field .resultLastIndex value)))
+          (.integerNe (.field .intervalLower (.field .resultFirstIndex value)) (.field .intervalUpper (.field .resultFirstIndex value))))
+          (.integerNe (.field .intervalLower (.field .resultLastIndex value)) (.field .intervalUpper (.field .resultLastIndex value))))))
+      (.not <| .app (.app (.app (.app (.app (.app (.function .fixedBoundsValid)
+        (.field .resultLength value)) (.eq (.field .resultDynamic value) (.number 1))) (.truth false))
+        (.field .intervalLower (.field .resultFirstIndex value)))
+        (.field .intervalLower (.field .resultLastIndex value))) (.add (.count (.field .stateNames state)) (.number 1)))) .invalid
       (.app (.app (.app (.app (.app (.app (.function .addBinding) state) first) after)
-        (.value (.field .resultAfter value) (.number 0) (.field .resultMinimum value) (.field .resultLength value)
-          (.eq (.field .resultDynamic value) (.number 1)) (.field .resultNamed value) (.field .resultEmpty value) (.number 0)))
+        (.nativeValue (.field .resultAfter value) (.number 0) (.field .resultMinimum value) (.field .resultLength value)
+          (.eq (.field .resultDynamic value) (.number 1)) (.field .resultNamed value) (.field .resultEmpty value) (.number 0) (.number 1)
+          (.field .resultFirstIndex value) (.field .resultLastIndex value)))
         (.eq (.variable "constant_after") (.number 0))) (.variable "following"))
 
 def scalarConstraintBody : Expr .scalarConstraint :=
@@ -1321,11 +1493,13 @@ def declarationBody : Expr .state :=
   .locals <| .local "subtype_state" "parser_state" (.app (.app (.app (.function .subtypeDeclaration) text) state) arguments) <| .local "scalar_state" "parser_state" (.app (.app (.app (.function .scalarDeclaration) text) state) arguments) <|
     .local "array_state" "parser_state" (.app (.app (.app (.function .arrayDeclaration) text) state) arguments) <|
     .local "boolean_state" "parser_state" (.app (.app (.app (.function .booleanDeclaration) text) state) arguments) <|
+    .local "character_state" "parser_state" (.app (.app (.app (.function .characterDeclaration) text) state) arguments) <|
     .group <| .ite (.ne (.field .statePosition (.variable "subtype_state")) (.number 0)) (.variable "subtype_state")
       (.elsif (.ne (.field .statePosition scalar) (.number 0)) scalar
       (.elsif (.ne (.field .statePosition array) (.number 0)) array
       (.elsif (.ne (.field .statePosition (.variable "boolean_state")) (.number 0)) (.variable "boolean_state")
-      (.app (.app (.app (.function .stringDeclaration) text) state) arguments))))
+      (.elsif (.ne (.field .statePosition (.variable "character_state")) (.number 0)) (.variable "character_state")
+      (.app (.app (.app (.function .stringDeclaration) text) state) arguments)))))
 
 def callAfterBody : Expr .number :=
   let text : Expr .source := .variable "text"
@@ -1360,7 +1534,8 @@ def argumentBody : Expr .state :=
       (.not <| .app (.app (.app (.app (.app (.function .newName) text) state) first) after) (.truth true))
       (.eq following (.number 0))) (.ne (.count (.field .stateNames state)) (.number 0))) .invalid
       (.stateDynamic (.app (.app (.app (.app (.app (.app (.function .addBinding) state) first) after)
-        (.value following (.number 0) (.number 0) (.number 0) (.truth true) (.truth true) (.truth false) (.number 0))) (.truth false)) following) first after)
+        (.nativeValue following (.number 0) (.number 0) (.number 0) (.truth true) (.truth true) (.truth false) (.number 0) (.number 1)
+          (.singleton (.integerNumber 1)) (.interval (.integerNumber 0) .maximumLength))) (.truth false)) following) first after)
 
 def declarationsBody : Expr .state :=
   (.ite (.eq (.field .statePosition (.variable "state")) (.number 0)) (.invalid) (.elsif (.ne (.app (.app (.app (.function .takeToken) (.variable "text")) (.field .statePosition (.variable "state"))) (.token (.fixed "begin" true))) (.number 0)) (.variable "state") (.elsif (.eq (.field .statePosition (.app (.app (.app (.function .declaration) (.variable "text")) (.variable "state")) (.variable "arguments"))) (.number 0)) (.invalid) (.app (.app (.app (.function .declarations) (.variable "text")) (.app (.app (.app (.function .declaration) (.variable "text")) (.variable "state")) (.variable "arguments"))) (.variable "arguments")))))
@@ -1371,6 +1546,18 @@ def expressionStepBody : Expr .scan :=
   let atom : Expr .value := .variable "atom"
   let take (t : ShellToken) := Expr.app (.app (.app (.function .takeToken) text)
     (.field .scanPosition state)) (.token t)
+  let static : Expr .truth := .andThen
+    (.andThen (.variable "elaborating") (.eq (.field .scanDynamic state) (.number 0)))
+    (.not (.field .valueDynamic atom))
+  let first : Expr .interval := .app (.app (.function .concatenatedFirst) state) atom
+  let last : Expr .interval := .app (.app (.function .concatenatedLast) state) atom
+  let boundsFailure : Expr .truth := .group <| .andThen static
+    (.group <| .orElse (.app (.function .scalarEmpty) first) (.app (.function .scalarEmpty) last))
+  let rejected := Expr.orElse
+    (.orElse (.orElse (.orElse (.eq (.field .valueAfter atom) (.number 0))
+      (.gt (.field .valueOperands atom) (.sub .maxOperands (.field .scanOperands state)))) boundsFailure)
+      (.gt (.field .valueLength atom) (.sub .maxLength (.field .scanLength state))))
+    (.gt (.field .valueMinimum atom) (.sub .maxLength (.field .scanMinimum state)))
   .locals <| .local "open_after" "literal_position" (take (.symbol "(")) <|
     .local "atom" "value_result" (.app (.app (.app (.app (.app (.app (.app (.app (.function .value) text)
       (.field .scanPosition state)) (.variable "names")) (.variable "scalar_names")) (.variable "integer_hidden")) (.variable "arrays")) (.variable "initials")) (.variable "elaborating")) <|
@@ -1381,15 +1568,14 @@ def expressionStepBody : Expr .scan :=
     .elsif (.field .scanNeed state)
       (.group <| .ite (.ne (.variable "open_after") (.number 0))
         (.scanDepth state (.variable "open_after") (.add (.field .scanDepth state) (.number 1))) <|
-        .elsif (.orElse (.orElse (.orElse (.eq (.field .scanOperands state) .maxOperands)
-          (.eq (.field .valueAfter atom) (.number 0)))
-          (.gt (.field .valueLength atom) (.sub .maxLength (.field .scanLength state))))
-          (.gt (.field .valueMinimum atom) (.sub .maxLength (.field .scanMinimum state)))) .invalidScan <|
-        .scanAtom state (.field .valueAfter atom)
+        .elsif rejected .invalidScan <|
+        .nativeScanAtom state (.field .valueAfter atom)
           (.add (.field .scanMinimum state) (.field .valueMinimum atom))
           (.add (.field .scanLength state) (.field .valueLength atom))
           (.add (.field .scanDynamic state) (.group <| .ite (.field .valueDynamic atom) (.number 1) (.number 0)))
-          (.add (.field .scanOperands state) (.number 1))
+          (.add (.field .scanOperands state) (.field .valueOperands atom))
+          (.group <| .ite static first (.singleton (.integerNumber 1)))
+          (.group <| .ite static last (.singleton (.integerNumber 0)))
           (.orElse (.field .scanNamed state) (.field .valueNonliteral atom))
           (.orElse (.field .scanEmpty state) (.field .valueEmpty atom))) <|
     .elsif (.ne (.variable "join_after") (.number 0)) (.scanNeed state (.variable "join_after")) <|
@@ -1400,8 +1586,8 @@ def expressionStepBody : Expr .scan :=
 def tailBody : Expr .result :=
   let state : Expr .scan := .variable "state"
   let next : Expr .scan := .variable "next"
-  let result (s : Expr .scan) := Expr.result (.field .scanPosition s) (.field .scanMinimum s) (.field .scanLength s)
-    (.field .scanDynamic s) (.field .scanNamed s) (.field .scanEmpty s)
+  let result (s : Expr .scan) := Expr.nativeResult (.field .scanPosition s) (.field .scanMinimum s) (.field .scanLength s)
+    (.field .scanDynamic s) (.field .scanNamed s) (.field .scanEmpty s) (.field .scanFirstIndex s) (.field .scanLastIndex s)
   .ite (.eq (.field .scanPosition state) (.number 0)) .invalidResult <|
     .elsif (.field .scanComplete state) (result state) <|
     .group <| .locals <| .local "next" "expression_state"
@@ -1414,8 +1600,9 @@ def tailBody : Expr .result :=
 
 def expressionBody : Expr .result :=
   (.app (.app (.app (.app (.app (.app (.app (.app (.function .tail) (.variable "text")) (.variable "names"))
-    (.scan (.variable "position") (.number 0) (.number 0) (.number 0) (.number 0) (.number 0)
-      (.truth false) (.truth true) (.truth false) (.truth false))) (.variable "scalar_names")) (.variable "integer_hidden")) (.variable "arrays")) (.variable "initials")) (.variable "elaborating"))
+    (.nativeScan (.variable "position") (.number 0) (.number 0) (.number 0) (.number 0) (.number 0)
+      (.truth false) (.truth true) (.truth false) (.truth false)
+      (.singleton (.integerNumber 1)) (.singleton (.integerNumber 0)))) (.variable "scalar_names")) (.variable "integer_hidden")) (.variable "arrays")) (.variable "initials")) (.variable "elaborating"))
 
 def fitsBody : Expr .truth :=
   let value : Expr .result := .variable "value"
@@ -1436,9 +1623,10 @@ def assignmentBody : Expr .state :=
   let target := Expr.item (.field .stateNames state) (.field .stateTarget state)
   .locals <| .local "value" "expression_result"
     (.expressionArrays text (.field .statePosition state) (.field .stateNames state) (.field .stateScalarNames state) (.field .arrayNames (.field .stateArrayNames state)) (.field .arrayValues (.field .stateArrayNames state)) (.truth true)) <|
-    .group <| .ite (.orElse (.orElse (.orElse (.orElse (.orElse
+    .group <| .ite (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse
       (.not <| .app (.app (.function .fits) value) (.field .stateCapacity state))
       (.eq (.field .stateTarget state) (.number 0)))
+      (.field .bindingCharacter target))
       (.field .resultEmpty value))
       (.ne (.field .resultMinimum value) (.field .resultLength value)))
       (.ne (.field .resultLength value) (.field .bindingLength target)))
@@ -1540,6 +1728,20 @@ def Function.isLexical : Function → Bool
 /-- Ada 2022 expression categories. Renderers preserve explicit grouping;
 these checks prevent a flattened tree from changing precedence or association. -/
 def Expr.primary : Expr ty → Bool
+  | .nativeBinding _ _ _ _ _ _ _ _ _ => true
+  | .nativeValue _ _ _ _ _ _ _ _ _ _ _ => true
+  | .nativeResult _ _ _ _ _ _ _ _ => true
+  | .nativeScan _ _ _ _ _ _ _ _ _ _ _ _ => true
+  | .nativeScanAtom _ _ _ _ _ _ _ _ _ _ => true
+  | .valueAfter _ _ => true
+  | .wideMaximum _ _ => true
+  | .valueNumber _ => true
+  | .valueInteger _ => true
+  | .capacityInteger _ => true
+  | .singleton _ => true
+  | .joinInterval _ _ => true
+  | .minimumInteger => true
+  | .maximumInteger | .maximumLength => true
   | .lexTrivia _ _ | .lexLiteralEnd _ _ | .lexLiteralLength _ _ | .lexIdentifier _ _
   | .lexForbidden _ _ _ | .lexForbiddenArgument _ _ _ | .lexEqual _ _ _ _ _
   | .lexDecimal _ _ | .lexTokenAt _ _ _ _ | .lexNormalize _ | .lexAllowed _
@@ -1565,6 +1767,7 @@ def Expr.primary : Expr ty → Bool
   | _ => false
 
 def Expr.term : Expr ty → Bool
+  | .integerMul _ _ => true
   | .mul _ _ | .not _ => true
   | x => x.primary
 
@@ -1573,8 +1776,9 @@ def Expr.simple : Expr ty → Bool
   | x => x.term
 
 def Expr.relation : Expr ty → Bool
-  | .integerNe _ _ | .integerLt _ _ | .integerGt _ _ | .integerGe _ _
-  | .eq _ _ | .ne _ _ | .boolNe _ _ | .lt _ _ | .le _ _ | .gt _ _
+  | .integerEq _ _ => true
+  | .integerNe _ _ | .integerLt _ _ | .integerLe _ _ | .integerGt _ _ | .integerGe _ _
+  | .eq _ _ | .ne _ _ | .boolNe _ _ | .lt _ _ | .le _ _ | .ge _ _ | .gt _ _
   | .operatorByte _ | .range _ _ _ | .tokenEq _ _ => true
   | x => x.simple
 
@@ -1630,6 +1834,22 @@ def Expr.hasFullDefault (value : Expr (.arrow .interval .scalarConstraint)) : Bo
   value.fullDefaultSpine 3
 
 def Expr.wellFormed : Expr ty → Bool
+  | .nativeBinding a b c d e f isCharacter first last => a.wellFormed && b.wellFormed && c.wellFormed && d.wellFormed && e.wellFormed && f.wellFormed && isCharacter.wellFormed && first.wellFormed && last.wellFormed
+  | .nativeValue a b m c d n e r operands first last => a.wellFormed && b.wellFormed && m.wellFormed && c.wellFormed && d.wellFormed && n.wellFormed && e.wellFormed && r.wellFormed && operands.wellFormed && first.wellFormed && last.wellFormed
+  | .nativeResult a m b c d e first last => a.wellFormed && m.wellFormed && b.wellFormed && c.wellFormed && d.wellFormed && e.wellFormed && first.wellFormed && last.wellFormed
+  | .nativeScan p m l d o depth named need complete empty first last => p.wellFormed && m.wellFormed && l.wellFormed && d.wellFormed && o.wellFormed && depth.wellFormed && named.wellFormed && need.wellFormed && complete.wellFormed && empty.wellFormed && first.wellFormed && last.wellFormed
+  | .nativeScanAtom s p m l d o first last n e => s.wellFormed && p.wellFormed && m.wellFormed && l.wellFormed && d.wellFormed && o.wellFormed && first.wellFormed && last.wellFormed && n.wellFormed && e.wellFormed
+  | .valueAfter localValue after => localValue.wellFormed && after.wellFormed
+  | .integerMul left right => left.wellFormed && right.wellFormed && left.primary && right.primary
+  | .integerEq left right => left.wellFormed && right.wellFormed && left.simple && right.simple
+  | .wideMaximum left right => left.wellFormed && right.wellFormed
+  | .valueNumber localValue => localValue.wellFormed
+  | .valueInteger localValue => localValue.wellFormed
+  | .capacityInteger localValue => localValue.wellFormed
+  | .singleton localValue => localValue.wellFormed
+  | .joinInterval left right => left.wellFormed && right.wellFormed
+  | .minimumInteger => true
+  | .maximumInteger | .maximumLength => true
   | .lexTrivia a b => a.wellFormed && b.wellFormed
   | .lexLiteralEnd a b => a.wellFormed && b.wellFormed
   | .lexLiteralLength a b => a.wellFormed && b.wellFormed
@@ -1679,7 +1899,7 @@ def Expr.wellFormed : Expr ty → Bool
   | .operatorByte x => x.wellFormed && x.simple
   | .fullInterval | .emptyInterval => true
   | .interval a b => a.wellFormed && b.wellFormed
-  | .integerNe a b | .integerLt a b => a.wellFormed && b.wellFormed && a.simple && b.simple
+  | .integerNe a b | .integerLt a b | .integerLe a b => a.wellFormed && b.wellFormed && a.simple && b.simple
   | .constraint a b => a.wellFormed && b.wellFormed
   | .scalarBinding a b c d e f => a.wellFormed && b.wellFormed && c.wellFormed && d.wellFormed && e.wellFormed && f.wellFormed
   | .stateScalar a b c => a.wellFormed && b.wellFormed && c.wellFormed
@@ -1692,6 +1912,7 @@ def Expr.wellFormed : Expr ty → Bool
   | .ne x y => x.wellFormed && y.wellFormed && x.simple && y.simple
   | .boolNe x y => x.wellFormed && y.wellFormed && x.simple && y.simple
   | .lt x y => x.wellFormed && y.wellFormed && x.simple && y.simple
+  | .ge x y => x.wellFormed && y.wellFormed && x.simple && y.simple
   | .le x y => x.wellFormed && y.wellFormed && x.simple && y.simple
   | .gt x y => x.wellFormed && y.wellFormed && x.simple && y.simple
   | .range x a b => x.wellFormed && a.wellFormed && b.wellFormed && x.simple && a.simple && b.simple
@@ -1859,6 +2080,22 @@ def Scope.contains (scope : Scope) (name : String) (ty : Ty) : Bool :=
   ((scope.find? (fun item => item.1 == name)).map Prod.snd) == some ty
 
 def Expr.scoped (scope : Scope) : Expr ty → Bool
+  | .nativeBinding a b c d e f isCharacter first last => a.scoped scope && b.scoped scope && c.scoped scope && d.scoped scope && e.scoped scope && f.scoped scope && isCharacter.scoped scope && first.scoped scope && last.scoped scope
+  | .nativeValue a b m c d n e r operands first last => a.scoped scope && b.scoped scope && m.scoped scope && c.scoped scope && d.scoped scope && n.scoped scope && e.scoped scope && r.scoped scope && operands.scoped scope && first.scoped scope && last.scoped scope
+  | .nativeResult a m b c d e first last => a.scoped scope && m.scoped scope && b.scoped scope && c.scoped scope && d.scoped scope && e.scoped scope && first.scoped scope && last.scoped scope
+  | .nativeScan p m l d o depth named need complete empty first last => p.scoped scope && m.scoped scope && l.scoped scope && d.scoped scope && o.scoped scope && depth.scoped scope && named.scoped scope && need.scoped scope && complete.scoped scope && empty.scoped scope && first.scoped scope && last.scoped scope
+  | .nativeScanAtom s p m l d o first last n e => s.scoped scope && p.scoped scope && m.scoped scope && l.scoped scope && d.scoped scope && o.scoped scope && first.scoped scope && last.scoped scope && n.scoped scope && e.scoped scope
+  | .valueAfter localValue after => localValue.scoped scope && after.scoped scope
+  | .integerMul left right => left.scoped scope && right.scoped scope
+  | .integerEq left right => left.scoped scope && right.scoped scope
+  | .wideMaximum left right => left.scoped scope && right.scoped scope
+  | .valueNumber localValue => localValue.scoped scope
+  | .valueInteger localValue => localValue.scoped scope
+  | .capacityInteger localValue => localValue.scoped scope
+  | .singleton localValue => localValue.scoped scope
+  | .joinInterval left right => left.scoped scope && right.scoped scope
+  | .minimumInteger => true
+  | .maximumInteger | .maximumLength => true
   | .lexTrivia a b => a.scoped scope && b.scoped scope
   | .lexLiteralEnd a b => a.scoped scope && b.scoped scope
   | .lexLiteralLength a b => a.scoped scope && b.scoped scope
@@ -1904,7 +2141,7 @@ def Expr.scoped (scope : Scope) : Expr ty → Bool
   | .word _ | .integerTypeWord | .maxScalarBindings => true
   | .operatorByte x => x.scoped scope
   | .fullInterval | .emptyInterval => true
-  | .interval a b | .integerNe a b | .integerLt a b => a.scoped scope && b.scoped scope
+  | .interval a b | .integerNe a b | .integerLt a b | .integerLe a b => a.scoped scope && b.scoped scope
   | .constraint a b => a.scoped scope && b.scoped scope
   | .scalarBinding a b c d e f => a.scoped scope && b.scoped scope && c.scoped scope && d.scoped scope && e.scoped scope && f.scoped scope
   | .stateScalar a b c => a.scoped scope && b.scoped scope && c.scoped scope
@@ -1917,6 +2154,7 @@ def Expr.scoped (scope : Scope) : Expr ty → Bool
   | .ne x y => x.scoped scope && y.scoped scope
   | .boolNe x y => x.scoped scope && y.scoped scope
   | .lt x y => x.scoped scope && y.scoped scope
+  | .ge x y => x.scoped scope && y.scoped scope
   | .le x y => x.scoped scope && y.scoped scope
   | .gt x y => x.scoped scope && y.scoped scope
   | .range x a b => x.scoped scope && a.scoped scope && b.scoped scope
@@ -1984,7 +2222,7 @@ abbrev WellScopedTrees : Prop :=
   imageBody.scoped [("arrays", .arrayMetadata), ("initials", .arrayInitials), ("elaborating", .truth), ("integer_hidden", .truth), ("scalar_names", .scalarNames), ("text", .source), ("position", .number), ("names", .names)] = true ∧
   valueBody.scoped [("arrays", .arrayMetadata), ("initials", .arrayInitials), ("elaborating", .truth), ("integer_hidden", .truth), ("scalar_names", .scalarNames), ("text", .source), ("position", .number), ("names", .names)] = true ∧
   newNameBody.scoped [("text", .source), ("state", .state), ("first", .number), ("after", .number), ("arguments", .truth)] = true ∧
-  addBindingBody.scoped [("state", .state), ("first", .number), ("after", .number), ("value", .value), ("mutable", .truth), ("following", .number)] = true ∧
+  addBindingBody.scoped [("character_object", .truth), ("state", .state), ("first", .number), ("after", .number), ("value", .value), ("mutable", .truth), ("following", .number)] = true ∧
   stringDeclarationBody.scoped [("text", .source), ("state", .state), ("arguments", .truth)] = true ∧
   scalarConstraintBody.scoped [("base_bounds", .interval), ("text", .source), ("position", .number), ("scalar_names", .scalarNames)] = true ∧
   scalarDeclarationBody.scoped [("text", .source), ("state", .state), ("arguments", .truth)] = true ∧

@@ -19,7 +19,7 @@ def TokenDomain (text : Source) (position : Nat) (token : ShellToken) : Prop :=
   Expressions.ValidText text ∧ Expressions.ValidCursor text position ∧ token ∈ basicTokens
 
 def ExpressionDomain (text : Source) (position : Nat) (names : Compose.BindingEnvironment) (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Metadata) (booleans : BooleanBindings.Environment) : Prop :=
-  Expressions.ValidText text ∧ Expressions.ValidCursor text position ∧ Expressions.ValidNames text names ∧
+  Expressions.ValidText text ∧ Expressions.ValidCursor text position ∧ Expressions.NativeNames text names ∧
     ScalarExpression.ValidEnvironment text scalarNames ∧ ArrayBindings.ValidMetadata text arrays ∧
     BooleanBindings.ValidEnvironment text booleans
 
@@ -33,6 +33,12 @@ def BodyTokenDomain (text : Source) (context : Native.Context) (scan : BodyScan)
 def FlowDomain (text : Source) (context : Native.Context) (position : Nat) (facts : ActiveFlow) : Prop :=
   FlowReaders.Legal {text,context,position,facts}
 
+def ValueDomain (text : Source) (position : Nat) (names : Compose.BindingEnvironment)
+    (scalarNames : ScalarExpression.Environment) (arrays : ArrayBindings.Metadata) : Prop :=
+  Expressions.ValidText text ∧ Expressions.ValidCursor text position ∧
+    Expressions.ValidNames text names ∧ NamesBoundsValid names ∧
+    ScalarExpression.ValidEnvironment text scalarNames ∧ ArrayBindings.ValidMetadata text arrays
+
 structure HelperMeaning (primitive : Primitives) : Prop where
   callAfter : ∀ text names position operation scalarNames arrays hidden booleans, ExpressionDomain text position names scalarNames arrays booleans →
     primitive.callAfter text names position operation scalarNames arrays hidden booleans = Compose.callAfter text names position operation scalarNames arrays hidden booleans
@@ -42,6 +48,15 @@ structure HelperMeaning (primitive : Primitives) : Prop where
     primitive.token text position token = tokenAfter text position token
   expression : ∀ text context position facts, FlowDomain text context position facts →
     primitive.expression text context position facts = readStringInFlow text context.model position facts
+  readingNames : ∀ text context facts, FlowDomain text context 0 facts →
+    primitive.readingNames context facts = context.model.readingNames facts
+  character : ∀ text position names scalarNames arrays, ValueDomain text position names scalarNames arrays →
+    primitive.character text position names scalarNames arrays =
+      characterAt text position names scalarNames arrays
+  indexed : ∀ text position names scalarNames arrays initials elaborating characterElement,
+    ValueDomain text position names scalarNames arrays → ArrayBindings.ValidInitials initials →
+    primitive.indexed text position names scalarNames arrays initials elaborating characterElement =
+      indexedAt text position names scalarNames arrays initials elaborating characterElement
   target : ∀ text context position, TargetDomain text context position →
     primitive.target text context position = ScalarBodyNative.stringTargetEval ScalarBodyNative.modelImports text context position
   bodyToken : ∀ text context scan token, BodyTokenDomain text context scan token →
@@ -76,6 +91,14 @@ noncomputable def totalize (primitive : Primitives) : Primitives := by
       primitive.token text position token else tokenAfter text position token
     expression := fun text context position facts => if FlowDomain text context position facts then
       primitive.expression text context position facts else readStringInFlow text context.model position facts
+    readingNames := fun context facts => if ∃ text, FlowDomain text context 0 facts then
+      primitive.readingNames context facts else context.model.readingNames facts
+    character := fun text position names scalarNames arrays => if ValueDomain text position names scalarNames arrays then
+      primitive.character text position names scalarNames arrays else characterAt text position names scalarNames arrays
+    indexed := fun text position names scalarNames arrays initials elaborating characterElement =>
+      if ValueDomain text position names scalarNames arrays ∧ ArrayBindings.ValidInitials initials then
+        primitive.indexed text position names scalarNames arrays initials elaborating characterElement
+      else indexedAt text position names scalarNames arrays initials elaborating characterElement
     target := fun text context position => if TargetDomain text context position then
       primitive.target text context position else ScalarBodyNative.stringTargetEval ScalarBodyNative.modelImports text context position
     bodyToken := fun text context scan token => if BodyTokenDomain text context scan token then
@@ -122,6 +145,26 @@ theorem totalize_equations {primitive : Primitives} (meaning : HelperMeaning pri
     dsimp only [totalize]
     split
     · exact meaning.expression text context position facts ‹_›
+    · rfl
+  readingNames := by
+    funext context facts
+    dsimp only [totalize]
+    split
+    · obtain ⟨text, valid⟩ := ‹∃ text, FlowDomain text context 0 facts›
+      exact meaning.readingNames text context facts valid
+    · rfl
+  character := by
+    funext text position names scalarNames arrays
+    dsimp only [totalize]
+    split
+    · exact meaning.character text position names scalarNames arrays ‹_›
+    · rfl
+  indexed := by
+    funext text position names scalarNames arrays initials elaborating characterElement
+    dsimp only [totalize]
+    split
+    · exact meaning.indexed text position names scalarNames arrays initials elaborating characterElement
+        (And.left ‹_›) (And.right ‹_›)
     · rfl
   target := by
     funext text context position
@@ -194,6 +237,9 @@ theorem model_helper_meaning : HelperMeaning modelPrimitives where
   associationAfter _ _ _ _ _ := rfl
   token _ _ _ _ := rfl
   expression _ _ _ _ _ := rfl
+  readingNames _ _ _ _ := rfl
+  character _ _ _ _ _ _ := rfl
+  indexed _ _ _ _ _ _ _ _ _ _ := rfl
   target _ _ _ _ := rfl
   bodyToken _ _ _ _ _ := rfl
   invalid _ _ := rfl

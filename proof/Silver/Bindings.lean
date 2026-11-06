@@ -3,6 +3,7 @@ module
 public import Silver.ArgumentsRuntime
 public import Silver.IntegerExpressions
 public import Silver.IntegerImage
+public import Silver.CharacterExpressions
 
 @[expose] public section
 
@@ -55,6 +56,9 @@ structure BindingInfo where
   staticLength : Nat := 0
   dynamic : Bool := false
   mutable : Bool := false
+  isCharacter : Bool := false
+  firstIndex : Int := 1
+  lastIndex : Int := 0
   deriving DecidableEq, Repr
 
 def BindingInfo.bound (info : BindingInfo) : Bound :=
@@ -116,11 +120,36 @@ theorem empty_fits (input : Source) : Fits emptyShape input emptyValues := by
   intro index info found
   cases found
 
+def Shape.fixedLengths (shape : Shape) : Character.Lengths := fun index =>
+  (shape index).bind fun info => match info.bound with
+    | .fixed length => some length
+    | .argument => none
+
+theorem fixedLengths_found {shape : Shape} {index length : Nat}
+    (found : shape.fixedLengths index = some length) :
+    ∃ mutable, shape index = some ⟨.fixed length, mutable⟩ := by
+  simp only [Shape.fixedLengths, Option.bind_eq_some_iff] at found
+  obtain ⟨info, present, result⟩ := found
+  cases info with
+  | mk bound mutable =>
+      cases bound with
+      | argument => cases result
+      | fixed count => cases result; exact ⟨mutable, present⟩
+
+theorem fits_fixedLengths {shape : Shape} {input : Source} {values : Values}
+    (fits : Fits shape input values) : Character.Fits shape.fixedLengths values := by
+  intro index length found
+  obtain ⟨mutable, present⟩ := fixedLengths_found found
+  exact fits index _ present
+
 inductive Value
   | literal (bytes : Source)
   | reference (index : Nat)
   | argument
   | image (expression : Integer.Expr)
+  | slice (target : Nat) (baseLower : Int) (lower upper : Integer.Expr)
+  | character (expression : Character.Expr)
+  | replace (target : Nat) (baseLower : Int) (index : Integer.Expr) (replacement : Character.Expr)
   deriving DecidableEq, Repr
 
 def Value.evaluate (values : Values) (input : Source) (value : Value)
@@ -130,6 +159,119 @@ def Value.evaluate (values : Values) (input : Source) (value : Value)
   | .reference index => values index
   | .argument => input
   | .image expression => Integer.Image.bytes (expression.evaluate integers)
+  | .slice target base lower upper =>
+      StringIndexing.slice (values target) base (lower.evaluate integers) (upper.evaluate integers)
+  | .character expression => [expression.evaluate values integers]
+  | .replace target base index replacement =>
+      StringIndexing.replace (values target) base (index.evaluate integers) (replacement.evaluate values integers)
+
+/-- Scalar-dependent operations have a non-input length interval. The captured
+base is joined to actual Ada object bounds by the source metadata invariant. -/
+def Value.extraRange (shape : Shape) (ranges : Integer.Ranges) : Value → Option (Nat × Nat)
+  | .slice target base lower upper => (shape.fixedLengths target).bind fun length =>
+      (lower.infer ranges).bind fun a => (upper.infer ranges).bind fun b =>
+        if StringIndexing.sliceCheck base length a b then
+          some (StringIndexing.sliceMinimum a b, StringIndexing.sliceMaximum a b) else none
+  | .character expression =>
+      if expression.check shape.fixedLengths ranges then some (1, 1) else none
+  | .replace target base index replacement => (shape.fixedLengths target).bind fun length =>
+      (index.infer ranges).bind fun indices =>
+        if StringIndexing.indexCheck base length indices && replacement.check shape.fixedLengths ranges
+        then some (length, length) else none
+  | _ => none
+
+def Value.ChecksSafe (values : Values) (integers : Integer.Store) : Value → Prop
+  | .image expression => expression.Safe integers
+  | .slice target base lower upper => lower.Safe integers ∧ upper.Safe integers ∧
+      StringIndexing.sliceValid base (values target).length (lower.evaluate integers) (upper.evaluate integers)
+  | .character expression => expression.Safe values integers
+  | .replace target base index replacement => index.Safe integers ∧
+      StringIndexing.indexValid base (values target).length (index.evaluate integers) ∧
+      replacement.Safe values integers
+  | _ => True
+
+theorem Value.extraRange_sound {value : Value} {shape : Shape} {ranges : Integer.Ranges}
+    {bounds : Nat × Nat} {values : Values} {input : Source} {integers : Integer.Store}
+    (known : value.extraRange shape ranges = some bounds)
+    (strings : Fits shape input values) (scalars : Integer.Fits ranges integers) :
+    bounds.1 ≤ (value.evaluate values input integers).length ∧
+    (value.evaluate values input integers).length ≤ bounds.2 ∧ value.ChecksSafe values integers := by
+  cases value with
+  | literal | reference | argument | image => cases known
+  | slice target base lower upper =>
+      simp only [extraRange, Option.bind_eq_some_iff] at known
+      obtain ⟨length, targetFound, a, lowerFound, b, upperFound, result⟩ := known
+      split at result
+      · rename_i checked
+        cases result
+        have left := Integer.Expr.infer_sound lowerFound scalars
+        have right := Integer.Expr.infer_sound upperFound scalars
+        have len := (fits_fixedLengths strings target length targetFound).1
+        have safe : StringIndexing.sliceValid base (values target).length
+            (lower.evaluate integers) (upper.evaluate integers) := by
+          rw [len]
+          exact StringIndexing.sliceCheck_sound checked left.1 right.1
+        have interval := StringIndexing.sliceLength_bounds left.1 right.1
+        simpa only [evaluate, ChecksSafe, StringIndexing.slice_length _ safe] using
+          And.intro interval.1 (And.intro interval.2 (And.intro left.2 (And.intro right.2 safe)))
+      · cases result
+  | character expression =>
+      simp only [extraRange] at known
+      split at known
+      · rename_i checked
+        cases known
+        exact ⟨Nat.le_refl _, Nat.le_refl _,
+          Character.Expr.check_safe checked (fits_fixedLengths strings) scalars⟩
+      · cases known
+  | replace target base index replacement =>
+      simp only [extraRange, Option.bind_eq_some_iff] at known
+      obtain ⟨length, targetFound, indices, indexFound, result⟩ := known
+      split at result
+      · rename_i checked
+        simp only [Bool.and_eq_true] at checked
+        cases result
+        have inferred := Integer.Expr.infer_sound indexFound scalars
+        have len := (fits_fixedLengths strings target length targetFound).1
+        have safe : StringIndexing.indexValid base (values target).length (index.evaluate integers) := by
+          rw [len]
+          exact StringIndexing.indexCheck_sound checked.1 inferred.1
+        refine ⟨?_, ?_, inferred.2, safe,
+          Character.Expr.check_safe checked.2 (fits_fixedLengths strings) scalars⟩ <;>
+          simp only [evaluate, StringIndexing.replace_length, len, Nat.le_refl]
+      · cases result
+
+theorem Value.extraRange_printable {value : Value} {shape : Shape} {ranges : Integer.Ranges}
+    {bounds : Nat × Nat} {values : Values} {input : Source}
+    (known : value.extraRange shape ranges = some bounds) (strings : Fits shape input values)
+    (integers : Integer.Store) : Printable (value.evaluate values input integers) := by
+  cases value with
+  | literal | reference | argument | image => cases known
+  | slice target base lower upper =>
+      simp only [extraRange, Option.bind_eq_some_iff] at known
+      obtain ⟨length, targetFound, _⟩ := known
+      intro byte member
+      exact (fits_fixedLengths strings target length targetFound).2 byte
+        (StringIndexing.slice_member member)
+  | character expression =>
+      simp only [extraRange] at known
+      split at known
+      · rename_i checked
+        intro byte member
+        have same : byte = expression.evaluate values integers := by simpa only [evaluate, List.mem_singleton] using member
+        subst byte
+        exact Character.Expr.printable (Character.Expr.check_readable checked)
+          (Character.Expr.check_literals checked) (fits_fixedLengths strings) integers
+      · cases known
+  | replace target base index replacement =>
+      simp only [extraRange, Option.bind_eq_some_iff] at known
+      obtain ⟨length, targetFound, indices, _, result⟩ := known
+      split at result
+      · rename_i checked
+        simp only [Bool.and_eq_true] at checked
+        exact StringIndexing.replace_printable (fits_fixedLengths strings target length targetFound).2
+          (Character.Expr.printable (Character.Expr.check_readable checked.2)
+            (Character.Expr.check_literals checked.2) (fits_fixedLengths strings) integers)
+      · cases result
 
 /-- Exact object-bound inference. Scalar-dependent Image operands use the
 current integer ranges in `Compose.Operand.inferLength`. -/
@@ -138,9 +280,12 @@ def Value.infer (shape : Shape) : Value → Option Bound
   | .reference index => (shape index).map CellInfo.bound
   | .argument => some .argument
   | .image _ => none
+  | value => (value.extraRange shape Integer.emptyRanges).bind fun bounds =>
+      if bounds.1 = bounds.2 then some (.fixed bounds.1) else none
 
 def Value.PrintableLiterals : Value → Prop
   | .literal bytes => Printable bytes
+  | .character expression | .replace _ _ _ expression => expression.PrintableLiterals
   | _ => True
 
 theorem value_length {shape : Shape} {input : Source} {values : Values}
@@ -151,6 +296,16 @@ theorem value_length {shape : Shape} {input : Source} {values : Values}
   | literal bytes => cases inferred; rfl
   | argument => cases inferred; rfl
   | image _ => cases inferred
+  | slice target base lower upper | character | replace =>
+      simp only [Value.infer, Option.bind_eq_some_iff] at inferred
+      obtain ⟨bounds, found, result⟩ := inferred
+      split at result
+      · rename_i exact
+        cases result
+        have known := Value.extraRange_sound found fits (Integer.empty_fits Integer.emptyStore)
+        change _ = bounds.1
+        omega
+      · cases result
   | reference index =>
       simp only [Value.infer, Option.map_eq_some_iff] at inferred
       obtain ⟨info, found, same⟩ := inferred
@@ -165,6 +320,10 @@ theorem value_printable {shape : Shape} {input : Source} {values : Values}
   | literal bytes => exact literals
   | argument => exact inputPrintable
   | image _ => cases inferred
+  | slice | character | replace =>
+      simp only [Value.infer, Option.bind_eq_some_iff] at inferred
+      obtain ⟨bounds, found, _⟩ := inferred
+      exact Value.extraRange_printable found fits Integer.emptyStore
   | reference index =>
       simp only [Value.infer, Option.map_eq_some_iff] at inferred
       obtain ⟨info, found, _⟩ := inferred

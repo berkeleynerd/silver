@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every index and arithmetic check follows from subtype ranges, constant bounds and for loops, and the only loop-carried values (the generator state and win counters) need range types and a guard, with no variants or recursion required.
 
-Position 402 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 405 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

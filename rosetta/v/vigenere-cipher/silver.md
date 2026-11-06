@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from bounded character arithmetic, for-loop indexes, and explicit guards on the output count and key length, so no invariant or variant is needed. Non-letters are discarded as the task specifies, with embedded data and no recursion or heap.
 
-Position 888 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 889 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

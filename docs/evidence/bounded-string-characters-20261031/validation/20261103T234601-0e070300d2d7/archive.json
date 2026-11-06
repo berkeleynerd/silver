@@ -1,0 +1,17 @@
+{
+  "path": "tmp/native-resume-20261103/completed-native/completed-native-evidence.tar.gz",
+  "bytes": 12630979,
+  "sha256": "ed13756d71c73265dda50b54e7ada31ad0f1b093dc09fafc9e902907d9c25f13",
+  "members": 257,
+  "stats": {
+    "units": 76,
+    "entities": 1099,
+    "flow_checks": 1488,
+    "proof_checks": 15916,
+    "limitation_notes": 313,
+    "imported_entities": 18,
+    "trusted_math_notes": 6236,
+    "vendor_spec_entities": 62,
+    "array_initialization_advisories": 5
+  }
+}

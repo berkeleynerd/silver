@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from for-loop ranges, a ranged candidate subtype and nonzero constant divisors, and only a procedure is needed, so no loop-carried value requires an invariant. The fixed search limit is a documented resource bound, and the stretch part is optional.
 
-Position 884 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 885 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

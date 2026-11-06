@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from ranged subtypes, for-loop indexes over array ranges and a count guard, and all loops are for loops that terminate by themselves, so nothing needs an annotation; the work is only missing language surface (arrays, loops, functions, integer division, 'Image, Put).
 
-Position 337 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 340 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

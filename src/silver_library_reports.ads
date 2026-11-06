@@ -67,14 +67,15 @@ package Silver_Library_Reports with SPARK_Mode => On is
      with Global => null,
        Post => (Static => Complete_Runtime_Proof'Result = Runtime_Report_Policy (Report, Kind));
    --  Source membership selects the exact Main/callee entity set. Every emitted
-   --  safety check must be a proved range, length, overflow or nonzero-divisor
+   --  safety check must be a proved range, length, overflow, nonzero-divisor or index
    --  check for Main.
    --  All output forms permit exact ineffective-initialization advisories; assigned and
    --  selected results additionally permit the exact unused-assignment advisory.
    --  All sequence forms permit the exact ineffective/unreachable-statement
    --  advisories from constant-folded comparisons and loops, and four exact unused ghost
    --  output messages from each of Put and Put_Line. The warning list permits
-   --  only the pinned Image advisory, with its exact message and producer state,
+   --  only the pinned Image advisory, with exactly the producer's Image, image
+   --  or IMAGE spelling in its message and the exact producer state,
    --  no entity or justification, empty suppression string and empty proof tree.
    --  Other diagnostics are rejected.
    --  These advisories do not remove safety checks or fixed object bounds.

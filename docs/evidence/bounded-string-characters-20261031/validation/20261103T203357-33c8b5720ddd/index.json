@@ -1,0 +1,25 @@
+{
+  "run_id": "20261103T203357-33c8b5720ddd",
+  "host": "linux-x86_64",
+  "outcome": "interrupted",
+  "duration_seconds": 10560.371515254,
+  "method": "Exact existing managed records, gzip with mtime=0; no validation rerun",
+  "files": [
+    {
+      "original_relative_path": "events.jsonl",
+      "original_bytes": 85462,
+      "original_sha256": "8f032f96ce64a0352290dfcfd7eecb2301fb66dad4817a7a23c5e0bc6db31dd4",
+      "retained_relative_path": "20261103T203357-33c8b5720ddd/events.jsonl.gz",
+      "retained_bytes": 35835,
+      "retained_sha256": "e3c3ab92753fbac6981607dd5743e3a8ca3064f73fbd8bd7520e67bdb949ae2c"
+    },
+    {
+      "original_relative_path": "reports/0/lean-proof.log",
+      "original_bytes": 7042,
+      "original_sha256": "9b10258ee922212b1d1e5da593380f6c15fd65c7f33ffad699faf7307a5eaaec",
+      "retained_relative_path": "20261103T203357-33c8b5720ddd/reports/0/lean-proof.log.gz",
+      "retained_bytes": 1819,
+      "retained_sha256": "2cc8f0bed693ed72e67759633e54843ba0dfea3932c8fee2822b388fff8426c9"
+    }
+  ]
+}

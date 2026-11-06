@@ -130,6 +130,14 @@ foreach levels) pass admission, proof-backed compilation and execution at an
 actual 8,192 KiB stack. Each report set passes an independent 66-check audit.
 These observations do not bound all dynamic stack allocations or establish a
 universal stack limit.
+The [2026-11-05 interim-repair observations](evidence/interim-review-response-20261105/README.md)
+retain admission, proof-backed compilation, source identity, report auditing and
+execution of the same 141-level counted and 158-level singleton-foreach fixtures,
+plus a 140-level counted loop with a nonstatic slice at the deepest body. All
+three 4,096-byte sources pass at an actual 8,192 KiB stack on native snapshot
+`5c84335cb5`; the third exercises the added token-context scanner. These are
+input-specific observations, not a universal stack bound or a new frame-size
+measurement.
 Per-level environment-copy redesign remains deferred with #119.
 The external
 [sequencing review](reviews/review-9b99d52.md) observed `Storage_Error` and exit
@@ -1070,13 +1078,13 @@ Repeated-output advisories are restricted to the exact `INEFFECTIVE` message
 rejected; all provenance and suppression checks also apply to these eight messages.
 
 No-output sequences and static elimination can produce Main alone with or
-without length/range/overflow/division checks or advisories. The checker retains
+without length/range/index/overflow/division checks or advisories. The checker retains
 complete Main coverage, all emitted check requirements and approved dependency references.
 The external producer premise, rather than accepting arbitrary entity omissions,
 justifies this finite set of report shapes. The Python evidence helper applies
 the same policies and cross-checks SARIF records and totals.
 
-Automatic completion relies on faithful and complete range, length, overflow
+Automatic completion relies on faithful and complete range, length, index, overflow
 and nonzero-divisor obligation generation and the accepted entity/advisory/check shapes. Applicable static
 elimination remains a frontend premise, but elimination of every satisfied
 assignment length check is no longer required: emitted length checks need their
@@ -1109,8 +1117,8 @@ seen in compiler audits has not been proved impossible for application runs.
 Such a tool failure prevents publication and is reported as a defect, never as
 nonmembership or successful verification. Prover step limits do not bound
 frontend/flow work, operating-system delays or total elapsed time. The bounded
-composition argument must establish the generated range, exact-length and
-overflow schemas for every permitted declaration, expression, assignment and
+composition argument must establish the generated range, exact-length, index, overflow and
+nonzero-divisor schemas for every permitted declaration, expression, assignment and
 control-flow path, including scalar intermediate intervals, Integer Image length
 and loop bounds, indexes and body composition. It does not prove that the bundled proof portfolio automatically
 discharges every source schema accepted by Lean's endpoint-discharge checker.
@@ -1292,6 +1300,19 @@ models byte values and its SPARK contract establishes canonical lower bounds;
 path-justified fixed-length assignment and conservative branch joins preserve
 initialized bounds. A separate model or matching token-shape pin alone does not
 establish correspondence with the actual recognizer.
+
+The [validated bounded String and Character increment](bounded-string-characters.md#delivery-assurance-and-validation)
+retains this frontend boundary for predefined
+Character ordering, String indexing and slicing, concatenation bounds, and
+assignment sliding. It adds no runtime library or external dependency. Its
+source-derived bounds argument preserves noncanonical and null intervals:
+valid null bounds may differ from metadata while denoting the same empty
+sequence; nonempty indexed or sliced prefixes require equal actual bounds.
+The implementation keeps Character values distinct from one-byte Strings and
+checks the exact native helper domains, bodies, precedence and identifier scope.
+These checked correspondences and complete native proof remain required;
+neither the frontend premise nor finite examples replace them.
+
 GNATprove establishes normalization, bounds and
 the executable `Accepts = Is_Member` refinement. The combined argument does not
 claim a verified arbitrary Ada parser, complete name-resolution semantics, or a
@@ -1427,3 +1448,17 @@ and caches. Under the
 Oracle, Linux is primary and native macOS validation is independent and does not
 block completion of the Linux milestone. Historical checkpoint files describe
 their dated baseline, not the current validation state.
+
+## 2026-11-05 Image advisory casing correction
+
+The pinned producer renders the Image attribute name as `Image`, `image` or
+`IMAGE` according to the defining unit's casing. The native and Python Main
+report policies accept those three exact complete messages; the rule, location,
+severity, provenance and all other structural checks are unchanged. No safety
+check is waived. Each alternative has the same byte length, so the existing
+report-capacity bounds are unchanged. The
+[interim response](interim-review-response-20261105.md) records the repair and
+its completed repaired Linux native and Lean/source validation, including actual
+input, installation-path and cache scopes. The
+[closing delivery review](reviews/review-interim-response-closing-20261105.md)
+passed.

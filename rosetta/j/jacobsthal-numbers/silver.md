@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All required values stay below 2**32, so 64-bit integers suffice and every check follows from fixed array bounds, for-loop indexes and short explicit cap guards. The nonlinear product and the loop-carried recurrence need careful guards, which makes the discharge plausible rather than routine.
 
-Position 919 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 920 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The source uses finite Integer loops and a Boolean flag; divisor bounds exclude zero, including the empty first inner loop. The expected 25 primes through 100 are derived independently by marking composite multiples. Scope and validation status are recorded in docs/boolean-objects.md and the linked assessment record.
 
-Position 33 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 34 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

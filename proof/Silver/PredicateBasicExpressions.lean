@@ -17,6 +17,11 @@ structure Primitives where
   associationAfter : Source → Nat → Bool → Nat
   token : Source → Nat → ShellToken → Nat
   expression : Source → Native.Context → Nat → ActiveFlow → ExpressionResult
+  readingNames : Native.Context → ActiveFlow → ScalarExpression.Environment
+  character : Source → Nat → Compose.BindingEnvironment → ScalarExpression.Environment →
+    ArrayBindings.Metadata → ValueResult
+  indexed : Source → Nat → Compose.BindingEnvironment → ScalarExpression.Environment →
+    ArrayBindings.Metadata → ArrayBindings.Initials → Bool → Bool → ValueResult
   target : Source → Native.Context → Nat → ScalarBodyNative.StringTargetResult
   bodyToken : Source → Native.Context → BodyScan → ShellToken → BodyScan
   invalid : BodyScan → BodyScan
@@ -37,13 +42,14 @@ structure Frame where
   result : BodyScan := scan
   value : ExpressionResult := {}
   target : ScalarBodyNative.StringTargetResult := {}
+  characterValue : ValueResult := {}
 
 def bindingSummary (info : Compose.BindingInfo) : LengthSummary := .ofExact info.bound.summary
 
 inductive Test
   | operation (value : Names.Operation)
   | zeroResult | nonadvancing | present (token : ShellToken) | hasArguments
-  | zeroValue | invalidInput | notFits | zeroTarget | notSameLength | scalarTarget | booleanTarget | arrayTarget
+  | zeroValue | zeroCharacter | characterTarget | invalidInput | notFits | zeroTarget | notSameLength | scalarTarget | booleanTarget | arrayTarget
   | orElse (left right : Test) | andThen (left right : Test)
 
 def Test.eval (primitive : Primitives) (frame : Frame) : Test → Bool
@@ -53,6 +59,8 @@ def Test.eval (primitive : Primitives) (frame : Frame) : Test → Bool
   | .present token => decide (primitive.token frame.text frame.result.position token ≠ 0)
   | .hasArguments => decide (frame.context.dynamicFirst ≠ 0)
   | .zeroValue => decide (frame.value.after = 0)
+  | .zeroCharacter => decide (frame.characterValue.after = 0)
+  | .characterTarget => ((frame.context.names.get frame.result.target).getD {}).isCharacter
   | .invalidInput => frame.result.facts.path.invalidReachable
   | .notFits => !primitive.fits frame.result.facts.path (summaryOf frame.value)
   | .scalarTarget => decide (primitive.scalarTarget frame.text frame.context frame.result.position ≠ 0)
@@ -73,6 +81,8 @@ def Test.render : Test → List String
   | .present token => call "take_token" [["text"], ["result", ".", "position"], [Compose.Expressions.tokenName token]] ++ ["/=", "0"]
   | .hasArguments => ["context", ".", "dynamic_first", "/=", "0"]
   | .zeroValue => ["value", ".", "after", "=", "0"]
+  | .zeroCharacter => ["character_value", ".", "after", "=", "0"]
+  | .characterTarget => ["context", ".", "names", ".", "items", "(", "result", ".", "target", ")", ".", "is_character"]
   | .invalidInput => ["result", ".", "facts", ".", "path", ".", "invalid_reachable"]
   | .notFits => ["not", "length_intervals", "."] ++ call "fits"
       [["result", ".", "facts", ".", "path"], call "summary_of" [["value"]]]
@@ -89,7 +99,7 @@ def Test.render : Test → List String
 inductive Update
   | operation (value : Names.Operation) | association
   | token (token : ShellToken)
-  | valueAfter | statePosition | stateTarget | output | assigned | rejected | scalarAssignment | booleanAssignment | arrayAssignment
+  | valueAfter | characterAfter | statePosition | stateTarget | output | assigned | rejected | scalarAssignment | booleanAssignment | arrayAssignment
 
 def Update.eval (primitive : Primitives) (frame : Frame) : Update → BodyScan
   | .operation value => {frame.result with position := primitive.callAfter frame.text frame.context.names frame.result.position value frame.context.scalarNames frame.context.arrayNames (frame.context.subtypeHiding.get value) frame.context.booleanNames}
@@ -99,6 +109,7 @@ def Update.eval (primitive : Primitives) (frame : Frame) : Update → BodyScan
   | .booleanAssignment => primitive.booleanAssignment frame.text frame.context frame.result
   | .arrayAssignment => primitive.arrayAssignment frame.text frame.context frame.result
   | .valueAfter => {frame.result with position := frame.value.after}
+  | .characterAfter => {frame.result with position := frame.characterValue.after}
   | .statePosition => {frame.result with position := frame.target.after}
   | .stateTarget => {frame.result with target := frame.target.target}
   | .output => {frame.result with output := true}
@@ -114,6 +125,7 @@ def Update.render : Update → List String
   | .booleanAssignment => ["result", ":="] ++ call "boolean_assignment_body" [["text"], ["context"], ["result"]] ++ [";"]
   | .arrayAssignment => ["result", ":="] ++ call "array_assignment_body" [["text"], ["context"], ["result"]] ++ [";"]
   | .valueAfter => ["result", ".", "position", ":=", "value", ".", "after", ";"]
+  | .characterAfter => ["result", ".", "position", ":=", "character_value", ".", "after", ";"]
   | .statePosition => ["result", ".", "position", ":=", "target", ".", "after", ";"]
   | .stateTarget => ["result", ".", "target", ":=", "target", ".", "target", ";"]
   | .output => ["result", ".", "output", ":=", "true", ";"]
@@ -121,7 +133,7 @@ def Update.render : Update → List String
   | .rejected => ["result", ".", "facts", ".", "path", ":=", "paths", "."] ++ call "rejected" [["result", ".", "facts", ".", "path"]] ++ [";"]
 
 inductive Command
-  | nothing | update (value : Update) | expression | target | returnInvalid | returnResult
+  | nothing | update (value : Update) | expression | character | indexed | target | returnInvalid | returnResult
   | sequence (first second : Command) | choose (test : Test) (yes no : Command)
 
 /-- Continuation interpretation of the finite imperative block; return bypasses the continuation. -/
@@ -129,6 +141,13 @@ def Command.eval (primitive : Primitives) (frame : Frame) (next : Frame → Body
   | .nothing => next frame
   | .update value => next {frame with result := value.eval primitive frame}
   | .expression => next {frame with value := primitive.expression frame.text frame.context frame.result.position frame.result.facts}
+  | .character => next {frame with
+      characterValue := primitive.character frame.text frame.result.position
+        frame.context.names (primitive.readingNames frame.context frame.result.facts) frame.context.arrayNames}
+  | .indexed => next {frame with
+      characterValue := primitive.indexed frame.text frame.scan.position
+        frame.context.names (primitive.readingNames frame.context frame.result.facts)
+        frame.context.arrayNames [] false true}
   | .target => next {frame with target := primitive.target frame.text frame.context frame.result.position}
   | .returnInvalid => primitive.invalid frame.scan
   | .returnResult => frame.result
@@ -139,6 +158,13 @@ mutual
   def Command.render : Command → List String
     | .nothing => [] | .update value => value.render
     | .expression => ["value", ":="] ++ call "read_string_in_flow" [["text"], ["context"], ["result", ".", "position"], ["result", ".", "facts"]] ++ [";"]
+    | .character => ["character_value", ":="] ++ call "character_at"
+        [["text"], ["result", ".", "position"], ["context", ".", "names"],
+          call "reading_names" [["context"], ["result", ".", "facts"]], ["context", ".", "array_names"]] ++ [";"]
+    | .indexed => ["character_value", ":="] ++ call "indexed_at"
+        [["text"], ["scan", ".", "position"], ["context", ".", "names"],
+          call "reading_names" [["context"], ["result", ".", "facts"]], ["context", ".", "array_names"],
+          ["array_bindings", ".", "empty_values"], ["false"], ["true"]] ++ [";"]
     | .target => ["target", ":="] ++ call "body_string_target"
         [["text"], ["context"], ["result", ".", "position"]] ++ [";"]
     | .returnInvalid => ["return", "invalid_body", "(", "scan", ")", ";"] | .returnResult => ["return", "result", ";"]
@@ -162,11 +188,20 @@ def putCommands : Command := .list [
   .update (.token (.symbol ")")), .update .output]
 def rejectCommands : Command := .list [
   .update (.operation .reject), .update .rejected]
+def characterCommands : Command := .list [
+  .update (.token (.symbol ":=")), .character,
+  guard .zeroCharacter, .update .characterAfter]
+def elementCommands : Command := .list [
+  .indexed, .update .characterAfter, characterCommands]
+def wholeCommands : Command := .list [
+  .update (.token (.symbol ":=")), .expression,
+  guard (.orElse (.orElse .zeroValue .notFits) .notSameLength), .update .valueAfter]
 def assignmentCommands : Command := .list [
   .target, .update .statePosition, .update .stateTarget,
-  .update (.token (.symbol ":=")), .expression,
-  guard (.orElse (.orElse (.orElse .zeroValue .zeroTarget) .notFits) .notSameLength),
-  .update .valueAfter, .update .assigned]
+  guard .zeroTarget,
+  .choose .characterTarget characterCommands
+    (.choose (.present (.symbol "(")) elementCommands wholeCommands),
+  .update .assigned]
 def dispatchCommands : Command :=
   .choose (.present (.word "null")) (.update (.token (.word "null")))
     (.choose (.operation .output) outputCommands
@@ -180,16 +215,19 @@ def basicCommands : Command := .list [guard .zeroResult, dispatchCommands,
 
 def basicRender : List String :=
   ["result", ":", "body_scan", "(", "scan", ".", "count", ")", ":=", "scan", ";", "value", ":", "expression_result", ";",
-    "target", ":", "string_target_result", ";", "begin"] ++ basicCommands.render ++ ["end", "basic_body", ";"]
+    "target", ":", "string_target_result", ";", "character_value", ":", "value_result", ";", "begin"] ++ basicCommands.render ++ ["end", "basic_body", ";"]
 
 def basicEval (primitive : Primitives) (text : Source) (context : Native.Context) (scan : BodyScan) : BodyScan :=
-  basicCommands.eval primitive ⟨text, context, scan, scan, {}, {}⟩ (fun _ => primitive.invalid scan)
+  basicCommands.eval primitive ⟨text, context, scan, scan, {}, {}, {}⟩ (fun _ => primitive.invalid scan)
 
 def modelPrimitives : Primitives where
   callAfter := fun text names position operation scalarNames arrays hidden booleans => Compose.callAfter text names position operation scalarNames arrays hidden booleans
   associationAfter := Names.associationAfter
   token := tokenAfter
   expression := fun text context position facts => readStringInFlow text context.model position facts
+  readingNames := fun context facts => context.model.readingNames facts
+  character := fun text position names scalarNames arrays => characterAt text position names scalarNames arrays
+  indexed := indexedAt
   target := ScalarBodyNative.stringTargetEval ScalarBodyNative.modelImports
   bodyToken := fun text _ scan token => Predicate.bodyToken text scan token
   invalid := invalidBody

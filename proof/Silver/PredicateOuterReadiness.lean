@@ -3,6 +3,7 @@ module
 public import Silver.PredicateInitialFlowValidity
 public import Silver.ComposeStateBounds
 public import Silver.ComposeScalarDeclarations
+public import Silver.ComposeNativeStateBounds
 
 @[expose] public section
 
@@ -14,19 +15,24 @@ attribute [local irreducible] ScalarExpression.read
 
 namespace OuterReadiness
 
-def ValidState (text : Source) (state : ParserState) : Prop :=
-  Compose.Expressions.ValidState text state ∧ ScalarMetadata.HeaderReady state.scalarNames
+structure ValidState (text : Source) (state : ParserState) : Prop where
+  base : Compose.Expressions.ValidState text state
+  ready : ScalarMetadata.HeaderReady state.scalarNames
+  bounds : NamesBoundsValid state.names
 
 /-- The exact strengthened state domain used by inherited native helpers. -/
 def domain : Compose.Expressions.StateDomain where
   holds := ValidState
   valid := fun _ _ valid => valid.1
   transportScalar := by
-    intro text before after context valid same
-    exact ⟨valid, by rw [same]; exact context.2⟩
+    intro text before after context valid same names
+    exact ⟨valid, by rw [same]; exact context.2, by rw [names]; exact context.bounds⟩
+
+theorem ValidState.nativeState {text : Source} {state : ParserState} (valid : ValidState text state) :
+    Compose.Expressions.NativeState domain text state := ⟨valid, valid.bounds⟩
 
 theorem initial_valid (text : Source) : ValidState text initialState := by
-  refine ⟨?_, ScalarMetadata.headerReady_empty⟩
+  refine ⟨?_, ScalarMetadata.headerReady_empty, namesBoundsValid_empty⟩
   simp [Compose.Expressions.ValidState, Compose.Expressions.ValidCursor, Compose.Expressions.ValidNames,
     Named.NameState.Valid, initialState, maxSourceLength, maxBindings,
     ScalarExpression.ValidEnvironment, ScalarExpression.maxBindings,
@@ -34,7 +40,7 @@ theorem initial_valid (text : Source) : ValidState text initialState := by
     IntegerSubtypes.ValidEnvironment, BooleanBindings.ValidEnvironment, BooleanBindings.maxBindings]
 
 theorem invalid_valid (text : Source) : ValidState text invalidState :=
-  ⟨Compose.Expressions.model_invalid_state_valid text, ScalarMetadata.headerReady_empty⟩
+  ⟨Compose.Expressions.model_invalid_state_valid text, ScalarMetadata.headerReady_empty, namesBoundsValid_empty⟩
 
 theorem subtypeDeclaration_ready (text : Source) (state : ParserState) (arguments : Bool)
     (ready : ScalarMetadata.HeaderReady state.scalarNames) :
@@ -63,6 +69,15 @@ theorem stringDeclaration_ready (text : Source) (state : ParserState) (arguments
     (ready : ScalarMetadata.HeaderReady state.scalarNames) :
     ScalarMetadata.HeaderReady (stringDeclarationAt text state arguments).scalarNames := by
   unfold stringDeclarationAt
+  dsimp only
+  split
+  · exact ScalarMetadata.headerReady_empty
+  · exact ready
+
+theorem characterDeclaration_ready (text : Source) (state : ParserState) (arguments : Bool)
+    (ready : ScalarMetadata.HeaderReady state.scalarNames) :
+    ScalarMetadata.HeaderReady (characterDeclarationAt text state arguments).scalarNames := by
+  unfold characterDeclarationAt
   dsimp only
   split
   · exact ScalarMetadata.headerReady_empty
@@ -111,7 +126,9 @@ theorem declaration_ready (text : Source) (state : ParserState) (arguments : Boo
         exact ready
       · split
         · exact booleanDeclaration_ready text state arguments ready
-        · exact stringDeclaration_ready text state arguments ready
+        · split
+          · exact characterDeclaration_ready text state arguments ready
+          · exact stringDeclaration_ready text state arguments ready
 
 private theorem declarationsLoop_ready (text : Source) (arguments : Bool) (fuel : Nat) (state : ParserState)
     (ready : ScalarMetadata.HeaderReady state.scalarNames) :
@@ -166,7 +183,8 @@ theorem step_valid (text : Source) (tv : Compose.Expressions.ValidText text)
     (form : Compose.Form) (token : ShellToken) (state : ParserState) (valid : ValidState text state) :
     ValidState text (Compose.step text form token state) :=
   ⟨Compose.Expressions.model_step_valid text tv form token state valid.1,
-    step_ready text form token state valid.2⟩
+    step_ready text form token state valid.2,
+    Compose.Expressions.model_step_bounds text tv form token state valid.bounds⟩
 
 end OuterReadiness
 end Silver.Predicate

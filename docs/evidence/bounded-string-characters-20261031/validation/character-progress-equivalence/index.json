@@ -1,0 +1,141 @@
+{
+  "scope": "Focused source-independent guard equivalence; successful20261103T202419-5f35a847709a and retained failed attempts. Does not establish native/source/whole-project assurance.",
+  "host": "linux-x86_64",
+  "integration": "58b0d6ce2babb4bb817df89ffd4392c815d4ff06",
+  "archive": "focused-evidence.tar.gz",
+  "archive_bytes": 1024635,
+  "archive_sha256": "8f57c80071bc6bee12e5fc5a175bbc0b9c9a8a82cf1e9bec122fb734418513df",
+  "method": "Archive exact retained bytes, verify every member; no validation rerun",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 5129,
+      "sha256": "3e05fcd1e3984c8d31fa1b0f899ccf344843a7af259558e629c621efffa384e5"
+    },
+    {
+      "path": "actual-audited-modules.txt",
+      "bytes": 3312,
+      "sha256": "d33893864d3757a65e89179bc197a532be7b305e5c54d69d32f2ae33d2153fe6"
+    },
+    {
+      "path": "all-managed-runs.json",
+      "bytes": 14226,
+      "sha256": "8a94be3a47c43e1b84e62dc5ece361b0057f99aabde7213a8648ca1a009c485c"
+    },
+    {
+      "path": "diagnostic-checkpoint.md",
+      "bytes": 760,
+      "sha256": "7bdb0978db5820276fc166ff159632cdb1fb7364fd230668b44cdcec15cc2739"
+    },
+    {
+      "path": "first-run-failure.log",
+      "bytes": 5960,
+      "sha256": "f7332a59d2cdf01470c1b5e73e85cc81e57cd0ab01499359685df87703c664fe"
+    },
+    {
+      "path": "first-run-status.json",
+      "bytes": 3133,
+      "sha256": "bd1de12e5239f3b1797893a875353df14be9e021faab89e86ca1fef5913711d2"
+    },
+    {
+      "path": "fourth-run-failure.log",
+      "bytes": 25721,
+      "sha256": "c12c9d08080b3a1333537253984658e3cf4ada3ca1394b687b704cdbfc84f46d"
+    },
+    {
+      "path": "fourth-run-status.json",
+      "bytes": 11352,
+      "sha256": "c69b05893a46a7682af6fafff5ff55529b02d49d260e38e1b1cbf1f534b07a3c"
+    },
+    {
+      "path": "input-snapshot.json",
+      "bytes": 2147800,
+      "sha256": "802456fdffc192f45f278163a456768f88605d1b9720ea859a198baaa876a64d"
+    },
+    {
+      "path": "integration.patch",
+      "bytes": 7847,
+      "sha256": "fe79a14f4a02b0f6c84c2775c23720d61c80e1a0c16dcfa5bff31d6fcc0c800f"
+    },
+    {
+      "path": "originals/proof/Silver/ComposeHelperEquations.lean",
+      "bytes": 68826,
+      "sha256": "8ebedd6a0350eb5365dceaa2823b5c54618e9191c9d078cdafbaf5b54b5c5eac"
+    },
+    {
+      "path": "originals/proof/Silver/ComposeModelHelperEquations.lean",
+      "bytes": 30718,
+      "sha256": "323853c9a369c35dbe4530abe3a887f9857ec3472abeac47dc0e77b1def3a88f"
+    },
+    {
+      "path": "originals/proof/Silver/ComposeStringDenotations.lean",
+      "bytes": 4083,
+      "sha256": "6f5da9d5081847973abe8529a406fa0e2e1a9c48e737c3b43b75c08e3aa01bb1"
+    },
+    {
+      "path": "originals/proof/Silver/ComposeStringEquations.lean",
+      "bytes": 7891,
+      "sha256": "5c7f5294685a6d66f120d49e9c27e89a6463c638128eb10a6902846ecaef31bb"
+    },
+    {
+      "path": "originals/proof/Silver/ComposeStringNative.lean",
+      "bytes": 23609,
+      "sha256": "0d2e80513f48e393dfc4696a3a96323d796c3c6d203a1e67b3f6f0710ac9fa97"
+    },
+    {
+      "path": "precheck-correspondence.json",
+      "bytes": 28839,
+      "sha256": "f78198a8fe542a67c3ce80d6bad3a2b2c2a2eba1e0126dacdaabfdac10a03796"
+    },
+    {
+      "path": "precheck-managed-status.json",
+      "bytes": 31011,
+      "sha256": "ae1a1880ad0cc0a288ce67139579ee108350e6c16c84014c03c8a5b6a5b0b840"
+    },
+    {
+      "path": "scoped-module-provenance.json",
+      "bytes": 285816,
+      "sha256": "ef8218ebfdb94b5029f0a89d1f387e0e76edaa40ff9788ef9529ed16f61cf456"
+    },
+    {
+      "path": "second-run-failure.log",
+      "bytes": 2251,
+      "sha256": "670fa6bafa7d8ba167f5964d9798fc5c41a845fcd3819cb17c718eb0393b33e6"
+    },
+    {
+      "path": "second-run-status.json",
+      "bytes": 5901,
+      "sha256": "048823d5147a9492bbbf4de7e4a38635b7bbdf4c8207269a6234912ee5238bb3"
+    },
+    {
+      "path": "successful-run-evidence.json",
+      "bytes": 404085,
+      "sha256": "0ca3618fd23e1e470ff3ae071623e559620d71371333f4148b64313d5ca6336a"
+    },
+    {
+      "path": "successful-run.log",
+      "bytes": 6153,
+      "sha256": "d06951acbbe225d4c86b48889f9dc91486ecde6a5866c920836f8b9bc3d696e1"
+    },
+    {
+      "path": "terminal-summary.json",
+      "bytes": 5145,
+      "sha256": "87f250c198ffc795cad08ba8e2f1eb4b248edae58808367059d2b4ea0d140a6d"
+    },
+    {
+      "path": "third-precheck-managed-status.json",
+      "bytes": 29488,
+      "sha256": "b42deb2c9c661cb0e165326357fc6355fe957417e6ca42cf98a0423d2c2c985a"
+    },
+    {
+      "path": "third-run-failure.log",
+      "bytes": 28862,
+      "sha256": "e5514ccf6e377852f531a5a106f293e14142d9edc74b1c6af4bd766a31b259c3"
+    },
+    {
+      "path": "third-run-status.json",
+      "bytes": 8631,
+      "sha256": "0646ef34f08e3935ae5a372bd387b69f4712cff0f5db4fa0c5fbba72d12ff3e4"
+    }
+  ]
+}

@@ -126,8 +126,11 @@ legality must be checked. Integer assignments additionally require a non-empty
 RHS interval. The pinned frontend checks predictable out-of-range assignments
 inside dead loop bodies under `SPARK_Mode (On)`. This explicit Silver restriction
 rejects all empty RHS intervals, including some dead assignments GNAT accepts;
-it does not depend on frontend range heuristics. Empty intervals retain the
-existing vacuous treatment in other admitted expression positions. No empty-loop
+it does not depend on frontend range heuristics. The 2026-11-05 [interim review repair](interim-review-response-20261105.md)
+also excludes empty-operand multiplication with a possible zero factor and
+empty-operand `mod`/`rem` with a possible unit divisor. The pinned frontend can
+fold these identities to static values that it rejects even in an empty body.
+Other empty arithmetic intervals retain vacuous treatment after these checks. No empty-loop
 rule permits assignment to an immutable index or a hidden outer object.
 
 Existing visibility rules extend across mutable objects and constants. Names

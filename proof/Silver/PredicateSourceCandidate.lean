@@ -1,6 +1,7 @@
 module
 
 public import Silver.PredicateSourceRequirements
+public import Silver.PredicateCharacterSourceCandidate
 import Silver.PredicateScalarBodyCandidate
 import all Init.Data.Repr
 
@@ -17,6 +18,11 @@ private theorem boolean_bindings_checked : BooleanBindings.SourceChecks.Checked 
   constructor <;> decide +kernel
 
 private theorem xor_scanner_checked : XorSourceBridge.Checked SourceShape.bodyTokens := by
+  constructor
+  · exact CharacterSourceCandidate.xor_body
+  all_goals decide +kernel
+
+private theorem counted_bound_checked : CountedBoundNative.Checked SourceShape.bodyTokens := by
   constructor <;> decide +kernel
 
 private theorem native_flow_checked : FlowSourceBridge.Checked SourceShape.bodyTokens := by
@@ -89,17 +95,19 @@ private theorem native_scalar_comparison_at_body : Source.expressionBody "scalar
   simp only [comparisonBody, Expr.render]
   decide +kernel
 
-private theorem native_length_at_body : Source.expressionBody "length_at" SourceShape.bodyTokens = some (lengthBody.render) := by
-  simp only [lengthBody, Expr.render]
-  decide +kernel
+private theorem native_character_condition_body : Source.expressionBody "character_condition" SourceShape.bodyTokens = some (characterBody.render) := CharacterSourceCandidate.character_body
+
+private theorem native_character_condition_spec_header : functionHeader "character_condition" ";" SourceShape.bodyTokens = some character_condition_spec_header := CharacterSourceCandidate.character_spec
+
+private theorem native_character_condition_impl_header : functionHeader "character_condition" "is" SourceShape.bodyTokens = some character_condition_impl_header := CharacterSourceCandidate.character_impl
+
+private theorem native_length_at_body : Source.expressionBody "length_at" SourceShape.bodyTokens = some (lengthBody.render) := CharacterSourceCandidate.length_body
 
 private theorem native_primary_model_body : Source.expressionBody "primary_model" SourceShape.bodyTokens = some (primaryBody.render) := by
   simp only [primaryBody, Expr.render, Expr.declared]
   decide +kernel
 
-private theorem native_relation_model_body : Source.expressionBody "relation_model" SourceShape.bodyTokens = some (relationBody.render) := by
-  simp only [relationBody, Expr.render, Expr.declared]
-  decide +kernel
+private theorem native_relation_model_body : Source.expressionBody "relation_model" SourceShape.bodyTokens = some (relationBody.render) := CharacterSourceCandidate.relation_body
 
 private theorem native_chain_token_body : Source.expressionBody "chain_token" SourceShape.bodyTokens = some (chainTokenBody.render) := by
   simp only [chainTokenBody, Expr.render]
@@ -238,6 +246,7 @@ private theorem native_checked : NativeSourceChecks.Checked SourceShape.bodyToke
   bound_of_body := native_bound_of_body
   binding_summary_body := native_binding_summary_body
   scalar_comparison_at_body := native_scalar_comparison_at_body
+  character_condition_body := native_character_condition_body
   length_at_body := native_length_at_body
   boolean_atom_after_body := native_boolean_atom_after_body
   boolean_atom_after_spec_header := native_boolean_atom_after_spec_header
@@ -259,6 +268,8 @@ private theorem native_checked : NativeSourceChecks.Checked SourceShape.bodyToke
   binding_summary_impl_header := native_binding_summary_impl_header
   scalar_comparison_at_spec_header := native_scalar_comparison_at_spec_header
   scalar_comparison_at_impl_header := native_scalar_comparison_at_impl_header
+  character_condition_spec_header := native_character_condition_spec_header
+  character_condition_impl_header := native_character_condition_impl_header
   length_at_spec_header := native_length_at_spec_header
   length_at_impl_header := native_length_at_impl_header
   primary_model_spec_header := native_primary_model_spec_header
@@ -632,6 +643,7 @@ theorem candidate_checked : Checked SourceShape.specTokens SourceShape.bodyToken
   booleanBodies := BooleanBodyNative.SourceChecks.candidate_checked
   scalarBodies := ScalarBodyNative.SourceChecks.candidate_checked
   array_helpers := ArrayBodyNative.SourceChecks.candidate_checked
+  counted_bound := counted_bound_checked
   bodyWrappers := candidate_bodyWrappers
   adapterWrappers := candidate_adapterWrappers
   lemma_joined_flow_spec := candidate_lemma_joined_flow_spec

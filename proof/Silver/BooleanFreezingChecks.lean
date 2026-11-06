@@ -77,6 +77,61 @@ theorem frozen_operand_inferLength {atom : Operand} {shape : Shape} {ranges : In
         congr <;> omega
       simp only [Operand.freezeImages, Operand.inferLength, Value.infer, Option.map_some,
         Function.comp_def, Bound.summary, same, frozen_image_summary]
+  | character expression =>
+      simp only [Operand.inferLength, Option.map_eq_some_iff] at known
+      obtain ⟨bounds, found, rfl⟩ := known
+      simp only [Value.extraRange] at found
+      split at found
+      · rename_i checked
+        cases found
+        simp only [Operand.freezeImages, Operand.inferLength, Value.extraRange,
+          Character.Expr.freeze_check checked fits after, ↓reduceIte, Option.map_some]
+      · cases found
+  | replace target base index replacement =>
+      simp only [Operand.inferLength, Option.map_eq_some_iff] at known
+      obtain ⟨bounds, found, rfl⟩ := known
+      simp only [Value.extraRange, Option.bind_eq_some_iff] at found
+      obtain ⟨length, targetFound, indices, indexFound, result⟩ := found
+      split at result
+      · rename_i checked
+        simp only [Bool.and_eq_true] at checked
+        cases result
+        have inferred := Integer.Expr.infer_sound indexFound fits
+        have safe := StringIndexing.indexCheck_singleton (StringIndexing.indexCheck_sound checked.1 inferred.1)
+        simp only [Operand.freezeImages, Operand.inferLength, Value.extraRange, targetFound,
+          Character.snapshot_infer (Integer.Expr.safe_value inferred.2), Option.bind_some,
+          Character.Expr.freeze_check checked.2 fits after, safe, Bool.and_self, ↓reduceIte, Option.map_some]
+      · cases result
+  | slice target base lower upper =>
+      simp only [Operand.inferLength, Option.map_eq_some_iff] at known
+      obtain ⟨bounds, found, rfl⟩ := known
+      simp only [Value.extraRange, Option.bind_eq_some_iff] at found
+      obtain ⟨length, targetFound, a, lowerFound, b, upperFound, result⟩ := found
+      split at result
+      · rename_i checked
+        cases result
+        have left := Integer.Expr.infer_sound lowerFound fits
+        have right := Integer.Expr.infer_sound upperFound fits
+        have leftSingle := ScalarExpression.inference_singleton exact lowerFound
+        have rightSingle := ScalarExpression.inference_singleton exact upperFound
+        have leftSame : a = .singleton (lower.evaluate snapshot) := by
+          cases a
+          simp only [Integer.Interval.Contains] at left
+          simp only [] at leftSingle
+          simp only [Integer.Interval.singleton]
+          congr <;> omega
+        have rightSame : b = .singleton (upper.evaluate snapshot) := by
+          cases b
+          simp only [Integer.Interval.Contains] at right
+          simp only [] at rightSingle
+          simp only [Integer.Interval.singleton]
+          congr <;> omega
+        rw [leftSame, rightSame] at checked ⊢
+        simp only [Operand.freezeImages, Operand.inferLength, Value.extraRange, targetFound,
+          Character.snapshot_infer (Integer.Expr.safe_value left.2),
+          Character.snapshot_infer (Integer.Expr.safe_value right.2), Option.bind_some, checked,
+          ↓reduceIte, Option.map_some]
+      · cases result
 
 theorem frozen_expression_inferLength {expression : Expression} {shape : Shape}
     {ranges : Integer.Ranges} {snapshot : Integer.Store} {summary : LengthSummary}
@@ -128,6 +183,11 @@ theorem Condition.freezeIntegers_checked {condition : Condition} {shape : Shape}
       · contradiction
   | lengthCompare operator left right => exact ⟨checked, fun _ => rfl⟩
   | scalarCompare operator left right => exact ⟨rfl, fun _ => rfl⟩
+  | characterCompare operator left right =>
+      simp only [checkBounds, Bool.and_eq_true] at checked
+      exact ⟨by simp only [freezeIntegers, checkBounds, withoutScalars,
+        Character.Expr.freeze_check checked.1 fits Integer.emptyRanges,
+        Character.Expr.freeze_check checked.2 fits Integer.emptyRanges, Bool.and_self], fun _ => rfl⟩
   | inputValid | booleanLiteral _ | booleanName _ => exact ⟨checked, fun _ => rfl⟩
   | parenthesized inner ih => exact ih exact fits checked
   | negated inner ih =>

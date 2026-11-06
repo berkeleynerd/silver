@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All data is embedded and the graph is tiny and fixed, so every index and range check follows from loop ranges over the arrays and a guard on the placed count, and no recursion or while loop is required.
 
-Position 799 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 800 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

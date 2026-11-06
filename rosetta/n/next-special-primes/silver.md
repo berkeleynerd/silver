@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is small bounded integer arithmetic with trial division in a for-loop function, and the only while loop is in the Main procedure with a guard condition that bounds all loop-carried values.
 
-Position 300 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 303 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

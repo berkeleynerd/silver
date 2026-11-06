@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded string and index arithmetic over fixed-length strings, inside procedures so no termination check applies, and every index is guardable by explicit tests. The nested scan loops with several loop-carried positions need careful guard placement, so discharge is plausible rather than routine.
 
-Position 565 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 566 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

@@ -120,6 +120,9 @@ class ScalarGuardTests(unittest.TestCase):
         declarations = b'X:Integer range 0..2:=0;R:Integer range 0..1:=0;'
         self.check(program(declarations, b'if X=0 or else X=1 then R:=X;end if;'))
         self.check(program(declarations, b'if X=0 or else X=2 then R:=X;end if;'), 2)
+        self.check(program(declarations, b'if X/=0 and then X/=1 then null;else R:=X;end if;'))
+        self.check(program(b'X:Integer range 0..1:=0;Y:Integer range 0..1:=0;',
+                           b'if X=0 and then Y=1 then null;else if (1/X)=1 then null;end if;end if;'), 2)
 
     def test_admission_assignment_replaces_only_written_identity(self) -> None:
         declarations = b'X:Integer range 0..9:=0;Y:Integer range 0..9:=0;'

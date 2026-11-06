@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is fixed text output, which today's Silver (String literals and Put_Line) already expresses, and there are no run-time checks to prove.
 
-Position 31 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 32 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

@@ -1,0 +1,30 @@
+{
+  "run_id": "20261105T133612-ecc276b25c57",
+  "scope": "retained failed build and sampled resources; no completed audit",
+  "artifacts": [
+    {
+      "path": "terminal-summary.json",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/tmp/lean-monitor-summary-20261105T133612-ecc276b25c57.json",
+      "original_sha256": "c5bf21a8649fed7013de4224a2c0b71039ace3697ebb69fc319a806ca5687110",
+      "stored_sha256": "c5bf21a8649fed7013de4224a2c0b71039ace3697ebb69fc319a806ca5687110"
+    },
+    {
+      "path": "resource-samples.jsonl.gz",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs/tmp/lean-resources-20261105T133612-ecc276b25c57.jsonl",
+      "original_sha256": "d316b9868de7cf563593f6371af79e870a4337ba56790c34956cd2625464c5cf",
+      "stored_sha256": "8bb9a39c3b5fca0102167b5685c7a0ab1d8dcbb512e9f470c02ab913725df47a"
+    },
+    {
+      "path": "terminal-events.jsonl.gz",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261105T133612-ecc276b25c57/events.jsonl",
+      "original_sha256": "7607ad64ea5c2d7102a515dfbedd8778b54c69a0e4bccab16779bd74049908c9",
+      "stored_sha256": "9b1565d097b14881e022c5b626d207f3f2333a8141d19d5827468027ca532bae"
+    },
+    {
+      "path": "terminal-build.log.gz",
+      "original": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261105T133612-ecc276b25c57/reports/0/lean-proof.log",
+      "original_sha256": "5af1e9899bf2fc1547d6f77a5817e1b663d80400dd3428ac4cadc0b5fceadb26",
+      "stored_sha256": "08a5b17cf8197c853781027a5f70d9f224946e514894ee3f56f851343e508f7b"
+    }
+  ]
+}

@@ -31,6 +31,8 @@ def Condition.evaluate (values : Values) (input : Source) (inputValid : Bool)
       else decide (left.evaluate values input integers = right.evaluate values input integers)
   | .lengthCompare operator left right => operator.evaluate (values left).length (right.evaluate values)
   | .scalarCompare operator left right => operator.evaluate (left.evaluate integers) (right.evaluate integers)
+  | .characterCompare operator left right =>
+      operator.evaluate (left.evaluate values integers) (right.evaluate values integers)
   | .inputValid => inputValid
   | .booleanLiteral value => value
   | .booleanName index => booleans index
@@ -58,6 +60,7 @@ def Condition.Safe (shape : Shape) (values : Values) (input : Source) (inputVali
   | .lengthCompare _ left right =>
       (values left).length ≤ maxSourceLength ∧ right.evaluate values ≤ maxSourceLength
   | .scalarCompare _ left right => left.Safe integers ∧ right.Safe integers
+  | .characterCompare _ left right => left.Safe values integers ∧ right.Safe values integers
   | .inputValid | .booleanLiteral _ | .booleanName _ => True
   | .parenthesized inner | .negated inner => inner.Safe shape values input inputValid integers booleans
   | .andThen left right =>
@@ -84,6 +87,8 @@ def Condition.checkedEvaluate (values : Values) (input : Source) (inputValid : B
       else none
   | .scalarCompare operator left right => (left.checkedEvaluate integers).bind fun a =>
       (right.checkedEvaluate integers).map fun b => operator.evaluate a b
+  | .characterCompare operator left right => (left.checkedEvaluate values integers).bind fun a =>
+      (right.checkedEvaluate values integers).map fun b => operator.evaluate a b
   | .inputValid => some inputValid
   | .booleanLiteral value => some value
   | .booleanName index => some (booleans index)
@@ -128,6 +133,9 @@ theorem Condition.checkedEvaluate_refines {condition : Condition} {shape : Shape
   | scalarCompare operator left right =>
       simp only [checkedEvaluate, Integer.Expr.checkedEvaluate_agrees safe.1,
         Integer.Expr.checkedEvaluate_agrees safe.2, Option.bind_some, Option.map_some, evaluate]
+  | characterCompare operator left right =>
+      simp only [checkedEvaluate, Character.Expr.checkedEvaluate_agrees safe.1,
+        Character.Expr.checkedEvaluate_agrees safe.2, Option.bind_some, Option.map_some, evaluate]
   | inputValid | booleanLiteral _ | booleanName _ => rfl
   | parenthesized inner ih => exact ih safe
   | negated inner ih => simp only [checkedEvaluate, ih safe, Option.map_some, evaluate]

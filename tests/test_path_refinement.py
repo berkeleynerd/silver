@@ -184,6 +184,21 @@ class PathRefinementTests(unittest.TestCase):
                 with self.subTest(body=body):
                     self.check(argument_program(b'', body), expected)
 
+    def test_counted_loop_definiteness_decides_required_rejection(self) -> None:
+        """Only b <= c proves a counted loop runs; otherwise Reject may be skipped."""
+        def source(declarations: bytes, entry: bytes, header: bytes) -> bytes:
+            return argument_program(
+                declarations + b'Work:String:="old";',
+                entry + header + b' loop if ' + VALID + b' then null;else ' + REJECT
+                + b'end if;end loop;if ' + VALID + b' then ' + output(b'Work') + b'end if;')
+        high = (b'N:Integer range 1..2:=1;', b"if Input'Length=0 then N:=2;end if;")
+        low = (b'M:Integer range 0..1:=1;', b"if Input'Length=0 then M:=0;end if;")
+        # Invalid input has length zero, which empties both loops at run time.
+        self.check(source(*high, b'for I in N..1'), 2)
+        self.check(source(*low, b'for I in 1..M'), 2)
+        # b = c still proves at least one iteration.
+        self.check(source(*high, b'for I in N..2'))
+
     def test_native_refined_assignments_preserve_snapshots_and_input_domain(self) -> None:
         declarations = b'Work:String:=Input;Saved:constant String:=Work;Fixed:String:="new";'
         body = (b'if not ' + VALID + b' then ' + REJECT

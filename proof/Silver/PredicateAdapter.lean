@@ -54,7 +54,7 @@ theorem context_valid (text : Source) (scan : ScanResult)
     (valid : OuterReadiness.ValidState text scan.state) : Native.ValidContext text (contextOf scan) :=
   ⟨valid.1.2.1, valid.1.2.2.1, ScalarExpression.bodyEnvironment_valid valid.1.2.2.2.2.2.1,
     (valid.2.baseReady valid.1.2.2.2.2.2.1.1).toContextReady,
-    valid.1.2.2.2.2.2.2.1.1, valid.1.2.2.2.2.2.2.2.2, Or.inl ⟨rfl, rfl⟩⟩
+    valid.1.2.2.2.2.2.2.1.1, valid.1.2.2.2.2.2.2.2.2, Or.inl ⟨rfl, rfl⟩, valid.bounds⟩
 
 theorem initial_flow_valid (text : Source) (scan : ScanResult)
     (valid : OuterReadiness.ValidState text scan.state) :
@@ -105,7 +105,7 @@ theorem model_adapter_valid (text : Source) (tv : Expressions.ValidText text)
       (BodyNative.model_read_valid text tv _ (context_valid text scan sv) _ _ (body_valid text scan sv))
       scan.state.arrayNames sv.1.2.2.2.2.2.2.1
       scan.state.subtypeNames sv.1.2.2.2.2.2.2.2.1,
-      sv.2.bodyEnvironment⟩
+      sv.2.bodyEnvironment, sv.bounds⟩
 
 theorem readStatements_valid (text : Source) (tv : Expressions.ValidText text)
     (scan : ScanResult) (sv : OuterReadiness.ValidState text scan.state) :

@@ -6,6 +6,7 @@ public import Silver.PredicateConditionSound
 public import Silver.PredicateConditionValidity
 public import Silver.ArrayBindingsOrdered
 public import Silver.PredicateFlowInvariant
+public import Silver.PredicateStringAssignmentMeaning
 
 @[expose] public section
 
@@ -59,11 +60,9 @@ inductive BasicPayload (text : Source) (context : ParseContext) (scan : BodyScan
       ConditionAt text context (scalarAssignmentStart text scan) scan.facts condition
         (readCondition text context (scalarAssignmentStart text scan) scan.facts) →
       BasicPayload text context scan (.booleanAssign ⟨booleanTarget text context scan.position, condition⟩)
-  | assignment {expression} : basicKind text context scan = .assignment →
-      TargetReading text (parserState context scan) (assignmentTarget text context scan) false →
-      ExpressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayNames) (scalarNames := context.readingNames scan.facts) text context.names (assignmentStart text context scan).position expression
-        (expressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayNames) text (assignmentStart text context scan).position context.names (context.readingNames scan.facts)) →
-      BasicPayload text context scan (.simple (.assign ⟨(assignmentTarget text context scan).target, expression⟩))
+  | assignment {update} : basicKind text context scan = .assignment →
+      StringAssignmentReading text context scan update →
+      BasicPayload text context scan (.simple (.assign update))
 
 structure BasicAt (text : Source) (context : ParseContext) (scan : BodyScan)
     (item : SourceStatement) (result : BodyScan) : Prop where
@@ -156,16 +155,10 @@ theorem basic_sound {text context scan}
           (Compose.Expressions.model_fixed_valid text _ ":=" false (Compose.Expressions.model_name_valid text _)) positive
         exact ⟨_, ⟨accepted, rfl, .booleanAssignment kind parsed⟩⟩
   | assignment =>
-      simp only [basicRaw, kind] at raw
-      split at raw
-      · exact False.elim (raw rfl)
-      · rename_i good
-        have positive : (expressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayNames) text (assignmentStart text context scan).position context.names (context.readingNames scan.facts)).after ≠ 0 :=
-          fun zero => good (Or.inl zero)
-        have startPositive := Compose.Expressions.model_expression_input_nonzero (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayNames) (scalarNames := context.readingNames scan.facts) text _ context.names positive
-        have targetPositive : (assignmentTarget text context scan).position ≠ 0 := fixedAfter_nonzero startPositive
-        obtain ⟨expression, parsed⟩ := expressionAt_sound (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayNames) (scalarNames := context.readingNames scan.facts) text context.names _ positive
-        exact ⟨_, ⟨accepted, rfl, .assignment kind (target_reading text _ false targetPositive) parsed⟩⟩
+      have positive : (stringAssignmentBody text context scan).position ≠ 0 := by
+        simpa only [basicRaw, kind] using raw
+      obtain ⟨update, source⟩ := stringAssignment_sound positive
+      exact ⟨_, ⟨accepted, rfl, .assignment kind source⟩⟩
 
 private theorem true_of_not_neg {b : Bool} (h : ¬(!b) = true) : b = true := by
   cases b <;> simp_all
@@ -408,39 +401,18 @@ theorem basic_meaning {text context scan item result}
         refine ⟨⟨writable, meaning.grammatical, meaning.readable⟩, ?_⟩
         rw [← factsEq]
         simp only [SourceStatement.lower, Statement.check, writable, meaning.checked, Bool.true_and, ↓reduceIte]
-  | assignment kind target expression =>
-      have ready := expression_reading_ready normal expression
-      rw [rangesEq] at ready
-      obtain ⟨name, info, _, found, _, mutable, _⟩ := target
-      change context.names.get (assignmentTarget text context scan).target = some info at found
-      have targetShape : context.names.shape (assignmentTarget text context scan).target = some ⟨info.bound, true⟩ := by
-        simp only [BindingEnvironment.shape] at found ⊢
-        simp only [found, Option.map_some, BindingInfo.cell, mutable]
-      simp only [basicRaw, kind] at raw resultEq
-      split at raw
-      · exact False.elim (raw rfl)
-      · rename_i good
-        rw [ite_eq_right good] at resultEq
-        have fits : fitsLengthSummary scan.facts.path (summaryOf (expressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayNames) text (assignmentStart text context scan).position context.names (context.readingNames scan.facts))) = true := by
-          apply true_of_not_neg
-          exact fun bad => good (Or.inr (Or.inr (Or.inl bad)))
-        have equal : equalLengthSummary scan.facts.path
-            (summaryOf (expressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayNames) text (assignmentStart text context scan).position context.names (context.readingNames scan.facts))) info.bound.summary = true := by
-          apply true_of_not_neg
-          intro bad
-          apply good
-          right; right; right
-          change (!equalLengthSummary scan.facts.path (summaryOf (expressionAt (integerHidden := context.integerHidden text) (elaborating := context.elaborating) (arrays := context.arrayNames) text (assignmentStart text context scan).position context.names (context.readingNames scan.facts)))
-            ((context.names.get (assignmentTarget text context scan).target).getD {}).bound.summary) = true
-          simpa only [found, Option.getD_some] using bad
-        simp only [SourceStatement.WellFormed, SimpleWellFormed]
-        refine ⟨⟨ready.1, info.bound, targetShape⟩, ?_⟩
-        simp only [summaryOf] at fits equal
-        have factsEq : scan.facts = result.facts := by
-          simpa only [bodyToken_facts] using congrArg BodyScan.facts resultEq
-        rw [← factsEq]
-        simp only [SourceStatement.lower, Statement.check, checkSimple, checkAssignment,
-          targetShape, ready.2, ParseContext.flow_path, fits, equal, Bool.true_and, ↓reduceIte]
+  | assignment kind reading =>
+      have positive : (stringAssignmentBody text context scan).position ≠ 0 := by
+        simpa only [basicRaw, kind] using raw
+      have meaning := stringAssignment_meaning normal compatible nv bodyMode reading positive
+      have factsEq : scan.facts = result.facts := by
+        have fields := congrArg BodyScan.facts resultEq
+        simpa only [basicRaw, kind, bodyToken_facts, stringAssignment_facts positive] using fields
+      simp only [SourceStatement.WellFormed]
+      refine ⟨meaning.1, ?_⟩
+      rw [← factsEq]
+      simp only [SourceStatement.lower, Statement.check, checkSimple, ParseContext.flow_path,
+        meaning.2, ↓reduceIte]
 
 theorem basic_unique {text context scan left right first second}
     (a : BasicAt text context scan left first) (b : BasicAt text context scan right second) :
@@ -482,11 +454,10 @@ theorem basic_unique {text context scan left right first second}
       | booleanAssignment _ other =>
           obtain ⟨rfl, _⟩ := condition_unique reading other
           rfl
-  | assignment kind target reading =>
+  | assignment kind reading =>
       cases b.payload with
       | null other | reject other | output other | scalarAssignment other | arrayAssignment other | booleanAssignment other | put other => simp_all
-      | assignment _ _ other =>
-          obtain ⟨rfl, _⟩ := expressionTail_unique reading other
-          rfl
+      | assignment _ other =>
+          rw [stringAssignment_unique reading other]
 
 end Silver.Predicate

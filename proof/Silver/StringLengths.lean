@@ -93,11 +93,12 @@ theorem LengthSummary.image_contains (bounds : Integer.Interval) (value : Int)
 
 def Operand.inferLength (shape : Shape) (ranges : Integer.Ranges) : Operand → Option LengthSummary
   | .image expression => (expression.infer ranges).map LengthSummary.ofImage
+  | atom@(.slice _ _ _ _) | atom@(.character _) | atom@(.replace _ _ _ _) =>
+      (atom.extraRange shape ranges).map fun bounds => ⟨bounds.1, bounds.2, 0, false⟩
   | atom => (atom.infer shape).map (LengthSummary.ofExact ∘ Bound.summary)
 
-def Operand.ImagesSafe (integers : Integer.Store) : Operand → Prop
-  | .image expression => expression.Safe integers
-  | _ => True
+def Operand.ImagesSafe (integers : Integer.Store) (values : Values) : Operand → Prop :=
+  Value.ChecksSafe values integers
 
 def Expression.inferLength (expression : Expression) (shape : Shape)
     (ranges : Integer.Ranges) : Option LengthSummary :=
@@ -116,14 +117,14 @@ theorem Expression.inferLength_append (left right : Expression) (shape : Shape) 
       cases atom.inferLength shape ranges <;> cases Expression.inferLength rest shape ranges <;>
         cases right.inferLength shape ranges <;> simp [LengthSummary.add_assoc]
 
-def Expression.ImagesSafe (expression : Expression) (integers : Integer.Store) : Prop :=
-  ∀ atom ∈ expression, atom.ImagesSafe integers
+def Expression.ImagesSafe (expression : Expression) (integers : Integer.Store) (values : Values) : Prop :=
+  ∀ atom ∈ expression, atom.ImagesSafe integers values
 
 theorem Operand.inferLength_sound {atom : Operand} {shape : Shape} {ranges : Integer.Ranges}
     {summary : LengthSummary} {values : Values} {input : Source} {integers : Integer.Store}
     (known : atom.inferLength shape ranges = some summary)
     (strings : Fits shape input values) (scalars : Integer.Fits ranges integers) :
-    summary.Contains input.length (atom.evaluate values input integers).length ∧ atom.ImagesSafe integers := by
+    summary.Contains input.length (atom.evaluate values input integers).length ∧ atom.ImagesSafe integers values := by
   cases atom with
   | literal bytes =>
       cases known
@@ -142,13 +143,20 @@ theorem Operand.inferLength_sound {atom : Operand} {shape : Shape} {ranges : Int
       obtain ⟨within, safe⟩ := Integer.Expr.infer_sound found scalars
       refine ⟨?_, safe⟩
       exact LengthSummary.image_contains bounds (expression.evaluate integers) within input.length
+  | slice | character | replace =>
+      simp only [inferLength, Option.map_eq_some_iff] at known
+      obtain ⟨bounds, found, rfl⟩ := known
+      have sound := Value.extraRange_sound found strings scalars
+      refine ⟨?_, sound.2.2⟩
+      simpa only [LengthSummary.Contains, LengthSummary.lower, LengthSummary.upper,
+        Summary.length, Nat.zero_mul, Nat.add_zero, true_and] using And.intro sound.1 sound.2.1
 
 theorem Expression.inferLength_sound {expression : Expression} {shape : Shape}
     {ranges : Integer.Ranges} {summary : LengthSummary} {values : Values} {input : Source}
     {integers : Integer.Store} (known : expression.inferLength shape ranges = some summary)
     (strings : Fits shape input values) (scalars : Integer.Fits ranges integers) :
     summary.Contains input.length (expression.evaluate values input integers).length ∧
-      expression.ImagesSafe integers := by
+      expression.ImagesSafe integers values := by
   induction expression generalizing summary with
   | nil =>
       cases known
@@ -191,6 +199,10 @@ theorem Operand.inferLength_printable {atom : Operand} {shape : Shape} {ranges :
       simp only [inferLength, Value.infer, Option.map_map, Option.map_eq_some_iff] at known
       obtain ⟨info, found, _⟩ := known
       exact (strings index info found).2
+  | slice | character | replace =>
+      simp only [inferLength, Option.map_eq_some_iff] at known
+      obtain ⟨bounds, found, _⟩ := known
+      exact Value.extraRange_printable found strings integers
 
 theorem Expression.inferLength_printable {expression : Expression} {shape : Shape}
     {ranges : Integer.Ranges} {summary : LengthSummary} {values : Values} {input : Source}

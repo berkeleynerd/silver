@@ -1,0 +1,57 @@
+{
+  "registry": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1",
+  "host": "linux-x86_64",
+  "machine": "codex-silver",
+  "runs": [
+    {
+      "run_id": "20261103T203357-33c8b5720ddd",
+      "task": "#296-complete-source-repaired",
+      "kind": "lean",
+      "scope": "complete",
+      "state": "active",
+      "active": true,
+      "workers": 1,
+      "directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261103T203357-33c8b5720ddd",
+      "fingerprint": "2e222a2c8834f6715235762f94090d9ef79d2ae42b0c31d555e61d266b4a6d8e",
+      "command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/scripts/check_lean.py",
+        "--task",
+        "#296-complete-source-repaired",
+        "--workers",
+        "1",
+        "--threads",
+        "1",
+        "--memory-mb",
+        "24576",
+        "--provenance",
+        "--reason",
+        "Complete native-source correspondence and fresh whole-project audit on integrated Character progress repair58b0d6ce2b after focused14821-declaration semantic audit. Retain ordinary valid objects; earlier24GiB attempt intentionally interrupted for actual native source repair. Coordinate native full suite separately."
+      ],
+      "reason": "Complete native-source correspondence and fresh whole-project audit on integrated Character progress repair58b0d6ce2b after focused14821-declaration semantic audit. Retain ordinary valid objects; earlier24GiB attempt intentionally interrupted for actual native source repair. Coordinate native full suite separately.",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes",
+      "resources": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/proof",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/lean-proof.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/lean-evidence.json"
+      ],
+      "started_at": "2026-11-03T20:33:58.862573+00:00",
+      "finished_at": null,
+      "duration_seconds": null,
+      "returncode": null,
+      "error": null,
+      "failure_keys": [],
+      "evidence": [
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/lean-proof.log",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/named-integer-subtypes/.silver/linux-x86_64/lean-evidence.json"
+      ],
+      "retained_report_count": 0
+    }
+  ],
+  "notes": [],
+  "available_cpus": 12,
+  "reserved_workers": 3,
+  "diagnostics_required": [],
+  "total_runs": 1,
+  "omitted_completed_runs": 0
+}

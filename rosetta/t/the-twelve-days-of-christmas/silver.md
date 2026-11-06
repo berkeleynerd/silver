@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over static ranges and every branch is a case over the full subtype range, so no run-time checks depend on loop-carried values and nothing needs an annotation. The task needs only fixed embedded text output, so no guards, recursion, or heap are involved.
 
-Position 780 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 781 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

@@ -1,0 +1,141 @@
+150:    end record;
+151:    Empty_Environment : constant Binding_Environment :=
+152:      (Count => 0, Items => (others => Empty_Binding));
+153: 
+154:    --  Nonempty bounds grow by at most the source byte capacity per
+155:    --  declaration. Arbitrary null bounds remain exact and do not contribute a
+156:    --  nonempty lower bound to concatenation. This derived ceiling is far below
+157:    --  Integer'Last even after one additional body expression.
+158:    function Fixed_Bounds_Valid
+159:      (Length : Capacity_Value; Dynamic, Is_Character : Boolean;
+160:       First_Index, Last_Index : Scalars.Value; Slot : Binding_Index) return Boolean is
+161:      (if Is_Character then
+162:         not Dynamic and then Length = 1 and then First_Index = 1 and then Last_Index = 1
+163:       elsif Dynamic then Length = 0
+164:       elsif Length = 0 then First_Index > Last_Index
+165:       else First_Index >= 1 and then Last_Index >= First_Index
+166:         and then Scalars.Wide (Last_Index) - Scalars.Wide (First_Index) + 1 = Scalars.Wide (Length)
+167:         and then Scalars.Wide (Last_Index) <= Scalars.Wide (Slot) * Scalars.Wide (Max_Source_Length));
+168: 
+169:    --  A:Boolean:=B; consumes thirteen bytes. Boolean metadata is immutable;
+
+637:    --  Endpoints use the full bounded Integer grammar, including admitted array
+638:    --  reads; those reads retain their own non-nested subscript restriction.
+639:    function Indexed_At
+640:      (Text : String; Position : Literal_Position; Names : Binding_Environment;
+641:       Scalar_Names : Scalar_Expressions.Environment;
+642:       Arrays : Array_Bindings.Metadata; Initials : Array_Bindings.Element_Array;
+643:       Elaborating, Character_Element : Boolean) return Value_Result
+644:      with Global => null,
+645:        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+646:          and then Position <= Text'Last + 1 and then Valid_Names (Text, Names)
+647:          and then Scalar_Expressions.Valid_Environment (Text, Scalar_Names)
+648:          and then Array_Bindings.Valid_Metadata (Text, Arrays),
+649:        Post => Indexed_At'Result.Value_First <= Text'Last + 1
+650:          and then Indexed_At'Result.Reference <= Names.Count
+651:          and then (Indexed_At'Result.After = 0
+652:            or else (Indexed_At'Result.After in Position + 1 .. Text'Last + 1
+653:              and then Indexed_At'Result.Operands > 0
+654:              and then (if Character_Element then
+655:                Indexed_At'Result.Minimum_Length = 1
+656:                and then Indexed_At'Result.Static_Length = 1
+657:                and then not Indexed_At'Result.Dynamic_Seen
+658:                and then Indexed_At'Result.First_Index = Scalars.Singleton (1)
+659:                and then Indexed_At'Result.Last_Index = Scalars.Singleton (1))));
+660:    function Indexed_At
+661:      (Text : String; Position : Literal_Position; Names : Binding_Environment;
+662:       Scalar_Names : Scalar_Expressions.Environment;
+663:       Arrays : Array_Bindings.Metadata; Initials : Array_Bindings.Element_Array;
+664:       Elaborating, Character_Element : Boolean) return Value_Result
+665:    is
+666:       First : constant Literal_Position := Skip_At (Text, Position);
+667:       After : constant Literal_Position := Name_After (Text, First);
+668:       Target : constant Binding_Count := Lookup_Name (Text, Names, First, After);
+669:       Low : constant Scalar_Expressions.Expression_Result :=
+670:         Scalar_Expressions.Read_Expression
+671:           (Text, Take_Token (Text, After, Left_Parenthesis), Scalar_Names,
+672:            Arrays => Arrays, Initials => Initials, Elaborating => Elaborating);
+673:       High : Scalar_Expressions.Expression_Result;
+674:       Following : Literal_Position;
+675:       Minimum, Maximum : Scalars.Wide;
+676:    begin
+677:       if Target = 0 or else Names.Items (Target).Is_Character
+678:         or else Names.Items (Target).Dynamic
+679:         or else Scalar_Expressions.Lookup (Text, Scalar_Names, First, After) /= 0
+680:         or else Low.After = 0 or else Scalars.Is_Empty (Low.Bounds)
+681:       then return Invalid_Value; end if;
+682:       if Character_Element then
+683:          Following := Take_Token (Text, Low.After, Right_Parenthesis);
+684:          if Following <= Position or else Low.Operands = Max_Expression_Operands
+685:            or else Low.Bounds.Lower < Names.Items (Target).First_Index
+686:            or else Low.Bounds.Upper > Names.Items (Target).Last_Index
+687:          then return Invalid_Value; end if;
+688:          return (After => Following, Value_First => 0,
+689:            Minimum_Length => 1, Static_Length => 1, Dynamic_Seen => False,
+690:            Nonliteral_Seen => True, Empty_Value => False, Reference => Target,
+691:            Operands => Low.Operands + 1,
+692:            First_Index => Scalars.Singleton (1), Last_Index => Scalars.Singleton (1));
+693:       end if;
+694:       High := Scalar_Expressions.Read_Expression
+695:         (Text, Take_Token (Text, Low.After, Range_Delimiter), Scalar_Names,
+696:          Arrays => Arrays, Initials => Initials, Elaborating => Elaborating);
+697:       Following := Take_Token (Text, High.After, Right_Parenthesis);
+698:       if Following <= Position or else Scalars.Is_Empty (High.Bounds)
+699:         or else Low.Operands + High.Operands >= Max_Expression_Operands
+700:         or else (Low.Bounds.Lower <= High.Bounds.Upper
+701:           and then (Low.Bounds.Lower < Names.Items (Target).First_Index
+702:             or else High.Bounds.Upper > Names.Items (Target).Last_Index))
+703:       then return Invalid_Value; end if;
+704:       Minimum := Scalars.Wide'Max
+705:         (0, Scalars.Wide (High.Bounds.Lower) - Scalars.Wide (Low.Bounds.Upper) + 1);
+706:       Maximum := Scalars.Wide'Max
+707:         (0, Scalars.Wide (High.Bounds.Upper) - Scalars.Wide (Low.Bounds.Lower) + 1);
+708:       if Maximum > Scalars.Wide (Max_Source_Length) then return Invalid_Value; end if;
+709:       return (After => Following, Value_First => 0,
+710:         Minimum_Length => Capacity_Value (Minimum), Static_Length => Capacity_Value (Maximum),
+711:         Dynamic_Seen => False, Nonliteral_Seen => True, Empty_Value => False,
+712:         Reference => Target, Operands => Low.Operands + High.Operands + 1,
+713:         First_Index => Low.Bounds, Last_Index => High.Bounds);
+714:    end Indexed_At;
+715: 
+
+1030:      (State.Position <= Text'Last + 1
+1031:       and then State.Dynamic_Count <= State.Operands
+1032:       and then (State.Position = 0 or else State.Depth < State.Position));
+1033: 
+1034:    function Concatenated_First
+1035:      (Left : Expression_State; Right : Value_Result) return Scalars.Interval is
+1036:      (if Left.Operands = 0
+1037:          or else (Left.Static_Length = 0 and then Left.Dynamic_Count = 0)
+1038:       then Right.First_Index
+1039:       elsif Left.Minimum_Length > 0 then Left.First_Index
+1040:       else Scalars.Join (Left.First_Index, Right.First_Index));
+1041: 
+1042:    function Concatenated_Last
+1043:      (Left : Expression_State; Right : Value_Result) return Scalars.Interval
+1044:    is
+1045:       First : constant Scalars.Interval := Concatenated_First (Left, Right);
+1046:       Minimum : constant Scalars.Wide :=
+1047:         Scalars.Wide (Left.Minimum_Length) + Scalars.Wide (Right.Minimum_Length);
+1048:       Maximum : constant Scalars.Wide :=
+1049:         Scalars.Wide (Left.Static_Length) + Scalars.Wide (Right.Static_Length)
+1050:           + (Scalars.Wide (Left.Dynamic_Count) + (if Right.Dynamic_Seen then 1 else 0))
+1051:             * Scalars.Wide (Max_Source_Length);
+1052:       Low : constant Scalars.Wide := Scalars.Wide (First.Lower) + Minimum - 1;
+1053:       High : constant Scalars.Wide := Scalars.Wide (First.Upper) + Maximum - 1;
+1054:       Result : Scalars.Interval;
+1055:    begin
+1056:       --  Null concatenation returns its right operand, including arbitrary
+1057:       --  null upper bounds. No canonical lower-minus-one normalization applies.
+1058:       if Left.Operands = 0
+1059:         or else (Left.Static_Length = 0 and then Left.Dynamic_Count = 0)
+1060:       then return Right.Last_Index; end if;
+1061:       if Scalars.Is_Empty (First)
+1062:         or else Low < Scalars.Minimum or else Low > Scalars.Maximum
+1063:         or else High < Scalars.Minimum or else High > Scalars.Maximum
+1064:       then return Scalars.Empty; end if;
+1065:       Result := (Scalars.Value (Low), Scalars.Value (High));
+1066:       if Minimum = 0 then Result := Scalars.Join (Result, Right.Last_Index); end if;
+1067:       return Result;
+1068:    end Concatenated_Last;
+1069: 

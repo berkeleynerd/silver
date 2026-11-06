@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is an index or length bound on small ranged counters that an explicit guard before each push, pop or append makes provable, and the while loops live in procedures so no variant is needed.
 
-Position 564 in the [progression](../../../progression.md#stage-10), in stage 10.
+Position 565 in the [progression](../../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

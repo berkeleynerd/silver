@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every loop is a for loop over a range bounded by declared constants, and every index and length is bounded by ranged subtypes, so all checks follow from types and static bounds without invariants. Using a hand-written sort with a callback-style comparison function rather than a library sort keeps it free of generics and while loops.
 
-Position 887 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 888 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

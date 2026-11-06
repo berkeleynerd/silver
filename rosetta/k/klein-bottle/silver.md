@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task only requires drawing an image, which text art satisfies, and replacing floating-point trig with an integer lookup table keeps all arithmetic in bounded integer subtypes with guards on plotting, so no annotation is needed. The risk is only the nonlinear scaled arithmetic and projected index guards, hence plausible rather than likely.
 
-Position 810 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 811 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

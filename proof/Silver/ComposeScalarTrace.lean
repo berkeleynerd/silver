@@ -1,6 +1,7 @@
 module
 
 public import Silver.ComposeDeclarations
+public import Silver.ComposeDeclarationContext
 
 @[expose] public section
 
@@ -83,7 +84,7 @@ theorem scalar_declarations_static {text : Source} {arguments : Bool} {state fin
   induction parsed with
   | done => exact static
   | string _ _ _ _ _ _ first _ ih =>
-      cases first
+      rw [declaration_scalarNames first] at ih
       exact ih static
   | boolean _ _ _ _ _ first _ ih =>
       cases first
@@ -102,7 +103,7 @@ theorem scalar_declarations_source_bounds {text : Source} {arguments : Bool} {st
   induction parsed with
   | done => simp
   | string _ _ _ _ _ _ first _ ih =>
-      cases first
+      rw [declaration_scalarNames first] at ih
       exact ih elaborated
   | boolean _ _ _ _ _ first _ ih =>
       cases first
@@ -124,7 +125,9 @@ theorem scalar_declarations_count_bound {text : Source} {arguments : Bool} {stat
     final.scalarNames.length ≤ ArrayBindings.scalarLimit := by
   induction parsed with
   | done => exact bounded
-  | string _ _ _ _ _ _ first _ ih => cases first; exact ih bounded
+  | string _ _ _ _ _ _ first _ ih =>
+      rw [declaration_scalarNames first] at ih
+      exact ih bounded
   | boolean _ _ _ _ _ first _ ih => cases first; exact ih bounded
   | scalar _ _ _ first _ ih => exact ih (scalar_declaration_count_bound bounded first)
   | array _ _ _ _ first _ ih =>
@@ -139,7 +142,9 @@ theorem scalar_declarations_subtypes_valid {text arguments state final values}
     IntegerSubtypes.ValidEnvironment text final.subtypeNames := by
   induction parsed with
   | done => exact valid
-  | string _ _ _ _ _ _ first _ ih => cases first; exact ih valid
+  | string _ _ _ _ _ _ first _ ih =>
+      rw [declaration_subtypeNames first] at ih
+      exact ih valid
   | boolean _ _ _ _ _ first _ ih => cases first; exact ih valid
   | scalar _ _ _ first _ ih => cases first; exact ih valid
   | subtype _ _ first _ ih => exact ih (subtype_declaration_valid first valid)
@@ -157,7 +162,7 @@ theorem scalar_declarations_checked {text : Source} {arguments : Bool} {state fi
   induction parsed with
   | done => rfl
   | string _ _ _ _ _ _ first _ ih =>
-      cases first
+      rw [declaration_scalarNames first, declaration_subtypeNames first] at ih
       exact ih static bounded subtypes
   | boolean _ _ _ _ _ first _ ih =>
       cases first
@@ -185,7 +190,7 @@ theorem scalar_declarations_objects {text : Source} {arguments : Bool} {state fi
   induction parsed with
   | done => simp [Integer.elaborate]
   | string _ _ _ _ _ _ first _ ih =>
-      cases first
+      rw [declaration_scalarNames first, declaration_subtypeNames first] at ih
       exact ih exact bounded subtypes
   | boolean _ _ _ _ _ first _ ih =>
       cases first
@@ -213,7 +218,7 @@ theorem scalar_declarations_declared_bounds {text : Source} {arguments : Bool} {
   induction parsed with
   | done => exact valid
   | string _ _ _ _ _ _ first _ ih =>
-      cases first
+      rw [declaration_scalarNames first, declaration_subtypeNames first] at ih
       exact ih valid subtypes
   | boolean _ _ _ _ _ first _ ih =>
       cases first

@@ -16,6 +16,15 @@ set_option maxHeartbeats 2000000
 No predicate parser equivalence occurs in this interface. The path operations
 are total mathematical interpretations of the checked native projections. -/
 structure HelperMeaning (calls : Calls) : Prop where
+  readingNames : ∀ text, ValidText text → ∀ context, ValidContext text context →
+    ∀ facts, ValidFlow context facts →
+    calls.readingNames context facts = context.model.readingNames facts
+  characterAt : ∀ text, ValidText text → ∀ position names scalarNames arrays initials elaborating,
+    position ≤ text.length + 1 → NativeNames text names →
+    ScalarExpression.ValidEnvironment text scalarNames → ArrayBindings.ValidMetadata text arrays →
+    ArrayBindings.ValidInitials initials →
+    calls.characterAt text position names scalarNames arrays initials elaborating =
+      Compose.characterAt text position names scalarNames arrays initials elaborating
   xorFree : ∀ text, ValidText text → ∀ first after,
     first ≤ text.length + 1 → after ≤ text.length + 1 →
     calls.xorFree text first after = Predicate.xorFree text first after
@@ -32,7 +41,7 @@ structure HelperMeaning (calls : Calls) : Prop where
     BooleanBindings.ValidEnvironment text names → first ≤ text.length + 1 → after ≤ text.length + 1 →
     calls.booleanLookup text names first after = BooleanBindings.lookup text names first after
   callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames arrays hidden booleans,
-    ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
+    NativeNames text names → ScalarExpression.ValidEnvironment text scalarNames →
     ArrayBindings.ValidMetadata text arrays → BooleanBindings.ValidEnvironment text booleans → position ≤ text.length + 1 →
     calls.callAfter text names position operation scalarNames arrays hidden booleans = Compose.callAfter text names position operation scalarNames arrays hidden booleans
   take : ∀ text, ValidText text → ∀ position token, position ≤ text.length + 1 →
@@ -42,7 +51,7 @@ structure HelperMeaning (calls : Calls) : Prop where
   name : ∀ text, ValidText text → ∀ position, position ≤ text.length + 1 →
     calls.nameAfter text position = Compose.nameAfter text position
   lookup : ∀ text, ValidText text → ∀ names first after,
-    ValidNames text names → first ≤ text.length + 1 → after ≤ text.length + 1 →
+    NativeNames text names → first ≤ text.length + 1 → after ≤ text.length + 1 →
     calls.lookup text names first after = lookupName text names first after
   scalarLookup : ∀ text, ValidText text → ∀ names first after,
     ScalarExpression.ValidEnvironment text names → first ≤ text.length + 1 → after ≤ text.length + 1 →
@@ -67,7 +76,7 @@ structure HelperMeaning (calls : Calls) : Prop where
     calls.invalidCondition facts = Predicate.invalidCondition facts
   integer : ∀ text, ValidText text → ∀ position, position ≤ text.length + 1 →
     calls.integer text position = IntegerLiteral.read text position
-  expression : ∀ text, ValidText text → ∀ position names scalarNames, position ≤ text.length + 1 → ValidNames text names →
+  expression : ∀ text, ValidText text → ∀ position names scalarNames, position ≤ text.length + 1 → NativeNames text names →
     ScalarExpression.ValidEnvironment text scalarNames →
     calls.expression text position names scalarNames = expressionAt text position names scalarNames
   assumeValid : ∀ facts, calls.assumeValid facts = facts.assumeValid
@@ -92,6 +101,11 @@ def workerChainInput (text : Source) (context : Context) (result : ConditionResu
 expression trees, including the direct executable condition wrapper. -/
 structure DefinitionEquations (calls : Calls) : Prop where
   sized : SizedModels calls
+  characterCondition : ∀ text, ValidText text → ∀ context, ValidContext text context → ∀ position,
+    position ≤ text.length + 1 → ∀ facts, ValidFlow context facts →
+    ∀ initials, ArrayBindings.ValidInitials initials →
+    calls.characterCondition text context position facts initials =
+      characterBody.eval calls ({text, context, position, facts, initials} : Inputs).locals
   summary : ∀ value, calls.summary value = summaryBody.eval calls ({value} : Inputs).locals
   bound : ∀ binding, calls.bound binding = boundBody.eval calls ({binding} : Inputs).locals
   bindingSummary : ∀ binding, calls.bindingSummary binding = bindingSummaryBody.eval calls ({binding} : Inputs).locals
@@ -164,6 +178,33 @@ theorem comparison_meaning (text : Source) (tv : ValidText text) (position : Nat
   simp only [helpers.take text tv position _ bounded]
   rfl
 
+theorem character_meaning (text : Source) (tv : ValidText text)
+    (context : Context) (cv : ValidContext text context) (position : Nat) (bounded : position ≤ text.length + 1)
+    (facts : ActiveFlow) (fv : ValidFlow context facts) (initials : ArrayBindings.Initials)
+    (iv : ArrayBindings.ValidInitials initials) :
+    calls.characterCondition text context position facts initials =
+      Predicate.characterCondition text context.model position facts initials := by
+  rw [defs.characterCondition text tv context cv position bounded facts fv initials iv, character_denotation]
+  unfold characterEquation
+  dsimp only
+  rw [helpers.readingNames text tv context cv facts fv]
+  have overlayValid : ScalarExpression.ValidEnvironment text (context.model.readingNames facts) :=
+    ScalarMetadata.readingNames_valid cv.2.2.1 fv.2.compatible.count fv.2.bounded
+  rw [helpers.characterAt text tv position context.names _ context.arrayNames initials context.elaborating
+    bounded cv.nativeNames overlayValid cv.arrays iv]
+  have leftBound : (Compose.characterAt text position context.names (context.model.readingNames facts)
+      context.arrayNames initials context.elaborating).after ≤ text.length + 1 := by
+    by_cases zero : (Compose.characterAt text position context.names (context.model.readingNames facts)
+        context.arrayNames initials context.elaborating).after = 0
+    · simp only [zero]; omega
+    · obtain ⟨expression, parsed⟩ := Compose.character_sound position zero
+      exact Compose.character_after_bounded parsed
+  rw [comparison_meaning helpers defs text tv _ leftBound]
+  have operatorBound := Predicate.comparison_bound text _ leftBound
+  rw [helpers.characterAt text tv _ context.names _ context.arrayNames initials context.elaborating
+    operatorBound cv.nativeNames overlayValid cv.arrays iv]
+  rfl
+
 theorem length_meaning (text : Source) (tv : ValidText text) (context : Context) (cv : ValidContext text context)
     (position : Nat) (literal : Bool) (bounded : position ≤ text.length + 1) :
     calls.length text context position literal = lengthAt text context.model position literal := by
@@ -174,7 +215,7 @@ theorem length_meaning (text : Source) (tv : ValidText text) (context : Context)
   have firstBound := model_skip_valid text position bounded
   rw [helpers.name text tv _ firstBound]
   have afterBound := model_name_valid text (skipAt text position)
-  rw [helpers.lookup text tv context.names _ _ cv.1 firstBound afterBound,
+  rw [helpers.lookup text tv context.names _ _ cv.nativeNames firstBound afterBound,
     helpers.scalarLookup text tv context.scalarNames _ _ cv.2.2.1 firstBound afterBound,
     helpers.integer text tv _ firstBound]
   rw [helpers.take text tv _ .apostrophe afterBound,
@@ -216,7 +257,7 @@ theorem booleanAtom_meaning (text : Source) (tv : ValidText text)
     · simp [ordered]
     · have nameValid : Compose.Expressions.ValidName text (skipAt text position) (nameAfter text (skipAt text position)) :=
         ⟨by omega, by omega, afterBound⟩
-      rw [helpers.lookup text tv context.names _ _ cv.1 firstBound afterBound,
+      rw [helpers.lookup text tv context.names _ _ cv.nativeNames firstBound afterBound,
         helpers.scalarLookup text tv context.scalarNames _ _ cv.2.2.1 firstBound afterBound,
         helpers.arrayLookup text tv context.arrayNames _ _ cv.arrays firstBound afterBound,
         helpers.booleanLookup text tv context.booleanNames _ _ cv.booleans firstBound afterBound,
@@ -252,7 +293,7 @@ theorem primary_normalized (contracts : Contracts calls) (text : Source) (tv : V
         · exact False.elim (zero absent.1)
         · exact present
       rw [helpers.nameIs text tv _ _ _ valid (by decide) (by decide)]
-  rw [masked, helpers.callAfter text tv context.names position .validity context.scalarNames context.arrayNames _ context.booleanNames cv.1 cv.2.2.1 cv.arrays cv.booleans bounded,
+  rw [masked, helpers.callAfter text tv context.names position .validity context.scalarNames context.arrayNames _ context.booleanNames cv.nativeNames cv.2.2.1 cv.arrays cv.booleans bounded,
     helpers.assumeValid, helpers.assumeInvalid]
   simp only [helpers.invalidCondition facts (fv.count_le cv)]
   rfl
@@ -285,6 +326,7 @@ theorem relation_normalized (text : Source) (tv : ValidText text)
   rw [defs.relation text tv context cv position bounded facts fv initials iv, relation_denotation]
   unfold relationEquation
   dsimp only [interpreted]
+  rw [character_meaning helpers defs text tv context cv position bounded facts fv initials iv]
   rw [helpers.take text tv position .notKeyword bounded,
     length_meaning helpers defs text tv context cv position false bounded]
   have lengthBound := Predicate.length_bound text context.model position false bounded
@@ -391,6 +433,8 @@ theorem condition_of_source_equations (contracts : Contracts calls) (text : Sour
 end
 
 theorem model_helper_meaning : HelperMeaning modelCalls where
+  readingNames := by intros; rfl
+  characterAt := by intros; rfl
   xorFree := by intros; rfl
   equalName := by intros; rfl
   nameIs := by intros; rfl
@@ -418,6 +462,9 @@ theorem model_helper_meaning : HelperMeaning modelCalls where
 
 theorem model_definition_equations : DefinitionEquations modelCalls where
   sized := model_sizedModels
+  characterCondition text _ context _ position _ facts _ initials _ := by
+    rw [character_denotation]
+    exact model_character_equation text context position facts initials
   summary value := by rw [summary_denotation]; rfl
   bound binding := by rw [bound_denotation]; rfl
   bindingSummary binding := by rw [bindingSummary_denotation]; rfl

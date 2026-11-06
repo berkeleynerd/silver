@@ -195,7 +195,22 @@ def checkedAdd (left right : Interval) : CheckResult :=
 def checkedSubtract (left right : Interval) : CheckResult :=
   if left.isEmpty || right.isEmpty then ⟨true, Interval.empty⟩ else checked (left.subtract right)
 def checkedMultiply (left right : Interval) : CheckResult :=
-  if left.isEmpty || right.isEmpty then ⟨true, Interval.empty⟩ else checked (left.multiply right)
+  if left.isEmpty || right.isEmpty then
+    if left.Contains 0 ∨ right.Contains 0 then ⟨false, Interval.empty⟩ else ⟨true, Interval.empty⟩
+  else checked (left.multiply right)
+
+/-- The frontend restriction leaves every nonempty product unchanged. -/
+theorem checkedMultiply_nonempty {left right : Interval}
+    (hl : left.isEmpty = false) (hr : right.isEmpty = false) :
+    checkedMultiply left right = checked (left.multiply right) := by
+  simp [checkedMultiply, hl, hr]
+
+/-- A possible zero factor must not turn an empty expression into a literal. -/
+theorem checkedMultiply_empty_zero {left right : Interval}
+    (empty : (left.isEmpty || right.isEmpty) = true)
+    (zero : left.Contains 0 ∨ right.Contains 0) :
+    checkedMultiply left right = ⟨false, Interval.empty⟩ := by
+  simp [checkedMultiply, empty, zero]
 
 theorem checked_bounded (interval : Interval) : (checked interval).bounds.Bounded := by
   simp only [checked]
@@ -261,7 +276,7 @@ theorem checkedSubtract_bounded (left right : Interval) : (checkedSubtract left 
 
 theorem checkedMultiply_bounded (left right : Interval) : (checkedMultiply left right).bounds.Bounded := by
   simp only [checkedMultiply]; split
-  · exact Interval.empty_bounded
+  · split <;> exact Interval.empty_bounded
   · exact checked_bounded _
 
 /-- All native endpoint calculations fit signed 64-bit intermediates. -/

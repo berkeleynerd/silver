@@ -8,6 +8,7 @@ public import Silver.BooleanBindingsSourceBridge
 public import Silver.ComposeLexical
 public import Silver.ComposeModelCalls
 public import Silver.ComposeEquations
+public import Silver.ComposeStringHelperEquations
 public import Silver.IntegerLiteralEquations
 public import Silver.LengthIntervalExpressions
 
@@ -102,6 +103,12 @@ functions; Read_Integer uses its runtime wrapper; path calls use the exact typed
 library bodies. No independent predicate meaning occurs in these links. -/
 structure Links (calls : Native.Calls) (composed : Compose.Expressions.Calls)
     (integer : Source → Nat → IntegerLiteral.Result) : Prop where
+  readingNames : ∃ reading,
+    FlowSourceBridge.InterpretedReadingNames reading ∧
+    ∀ text, ValidText text → ∀ context, ValidContext text context →
+    ∀ facts, ValidFlow context facts →
+    calls.readingNames context facts = FlowReaders.overlay reading context facts
+  characterAt : calls.characterAt = composed.function .characterValue
   xorFree : ∃ source : XorSourceBridge.InterpretedSource, calls.xorFree = source.xorFree
   equalName : ∃ lexical token, Compose.Lexical.InterpretedSource lexical token ∧
     calls.equalName = (Compose.Lexical.primitives lexical token).equal
@@ -117,7 +124,7 @@ structure Links (calls : Native.Calls) (composed : Compose.Expressions.Calls)
   name : ∀ text, ValidText text → ∀ position, position ≤ text.length + 1 →
     calls.nameAfter text position = composed.function .nameAfter text position
   lookup : ∀ text, ValidText text → ∀ names first after,
-    ValidNames text names → first ≤ text.length + 1 → after ≤ text.length + 1 →
+    NativeNames text names → first ≤ text.length + 1 → after ≤ text.length + 1 →
     calls.lookup text names first after = composed.function .lookupName text names first after
   scalarLookup : calls.scalarLookup = composed.function .scalarLookup
   scalarRead : calls.scalarRead = fun text position names => composed.function .scalarRead text position names [] [] false
@@ -125,7 +132,7 @@ structure Links (calls : Native.Calls) (composed : Compose.Expressions.Calls)
   scalarHelpers : ScalarLinks calls composed
   integer : ∀ text, ValidText text → ∀ position, position ≤ text.length + 1 →
     calls.integer text position = integer text position
-  expression : ∀ text, ValidText text → ∀ position names scalarNames, position ≤ text.length + 1 → ValidNames text names →
+  expression : ∀ text, ValidText text → ∀ position names scalarNames, position ≤ text.length + 1 → NativeNames text names →
     ScalarExpression.ValidEnvironment text scalarNames →
     calls.expression text position names scalarNames = composed.function .expression text position names scalarNames false [] [] false
   assumeValid : ∀ facts : Paths,
@@ -158,6 +165,14 @@ theorem helper_meaning (calls : Native.Calls) (composed : Compose.Expressions.Ca
     (refinement : ∀ text, IntegerLiteral.Native.ValidText text → ∀ position, position ≤ text.length + 1 →
       integer text position = literals.model text position)
     (links : Links calls composed integer) : HelperMeaning calls where
+  readingNames text tv context cv facts fv := by
+    obtain ⟨reading, source, observed⟩ := links.readingNames
+    rw [observed text tv context cv facts fv]
+    exact FlowReaders.overlay_meaning source cv fv
+  characterAt text tv position names scalarNames arrays initials elaborating pv nv sv av iv := by
+    rw [links.characterAt]
+    exact Compose.Expressions.interpreted_characterValue composed composedEquations
+      text tv position names scalarNames arrays initials elaborating pv nv sv av iv
   xorFree text tv first after fb ab := by
     obtain ⟨source, observed⟩ := links.xorFree
     rw [observed]
@@ -248,6 +263,11 @@ theorem helper_meaning (calls : Native.Calls) (composed : Compose.Expressions.Ca
 
 /-- The callee wiring itself has a concrete inhabitant. -/
 theorem model_links : Links Native.modelCalls Compose.Expressions.modelCalls IntegerLiteral.read where
+  readingNames := by
+    refine ⟨FlowSourceBridge.readingStorage, FlowSourceBridge.model_reading_interpreted, ?_⟩
+    intro text _ context cv facts fv
+    exact (FlowReaders.overlay_meaning FlowSourceBridge.model_reading_interpreted cv fv).symm
+  characterAt := rfl
   xorFree := ⟨XorSourceBridge.modelSource, rfl⟩
   equalName := ⟨Guarded.Expressions.modelCalls, fixedAt, Compose.Lexical.model_interpreted, rfl⟩
   nameIs := rfl

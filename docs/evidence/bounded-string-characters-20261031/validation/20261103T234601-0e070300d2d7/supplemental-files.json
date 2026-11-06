@@ -1,0 +1,13 @@
+{
+  "scope": "Post-proof three-file model/certificate sync outside native inputs and exact final test/fixture closure comparison; no regression execution claim",
+  "files": {
+    "final-three-sync-and-fixture-check.json": {
+      "bytes": 5527,
+      "sha256": "25f0ed0e1d45d89b11478cde09aadd0e9f9be966b921a4016edb2990b69e35d1"
+    },
+    "final-test-inventory-parenthesized-20261103.json": {
+      "bytes": 64525,
+      "sha256": "f50e649b03dc5bf4757aedeec4f389b219539eddfa89df249b0c7d57f0c3cc02"
+    }
+  }
+}

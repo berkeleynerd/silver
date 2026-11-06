@@ -1,0 +1,25 @@
+{
+  "run_id": "20261103T175811-5ecfadfa25c5",
+  "host": "linux-x86_64",
+  "outcome": "failure",
+  "duration_seconds": 1527.582472094,
+  "method": "Exact existing managed records, gzip with mtime=0; no validation rerun",
+  "files": [
+    {
+      "original_relative_path": "events.jsonl",
+      "original_bytes": 84256,
+      "original_sha256": "0afbf0660de64af378f54429d75048de04f32a43ac56e218074dca6b97bf3c44",
+      "retained_relative_path": "20261103T175811-5ecfadfa25c5/events.jsonl.gz",
+      "retained_bytes": 34915,
+      "retained_sha256": "8006557f66e6e13fe0cc09d13a8c96b782812c2cf37f99b746bf8afb9535bbb7"
+    },
+    {
+      "original_relative_path": "reports/0/lean-focused.log",
+      "original_bytes": 6581,
+      "original_sha256": "dd750688537fdc906c6ef6dfbb8132dc0c9603f370c3a8e6c67b58515f1a0534",
+      "retained_relative_path": "20261103T175811-5ecfadfa25c5/reports/0/lean-focused.log.gz",
+      "retained_bytes": 1438,
+      "retained_sha256": "50e2338b0d508879a9fec2b24a07c41437ec7b5772423434061308434d169cb2"
+    }
+  ]
+}

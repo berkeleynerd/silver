@@ -1,5 +1,45 @@
 # Session memory
 
+## 2026-11-06 — Repaired String merge authorized
+
+After the lead confirmed [PR #307](https://github.com/berkeleynerd/silver/pull/307)
+was clean, mergeable and fully validated, the owner instructed **“Proceed.”**
+This authorizes marking the PR ready, merging the reviewed delivery, and closing
+its completed feature/finding issues and milestone 16. It supersedes the earlier
+draft/open hold. The [delivery checkpoint](bounded-string-characters.md#repaired-delivery-checkpoint--2026-11-05)
+and [closing review](reviews/review-interim-response-closing-20261105.md) retain
+the exact assurance, regression applicability and review scope. The main-branch
+reconciliation and these delivery records change documentation only; governed
+source remains `ddb183a918` and the retained validation stays applicable.
+
+Keep [#314](https://github.com/berkeleynerd/silver/issues/314) open in Backlog,
+outside the completed milestone, for its already-selected next-relevant-edit
+structural guards. The wording correction is delivered; guard implementation is
+not claimed. The external report remains interim. No later feature, #300 batch,
+Oracle amendment or adoption of the separate #8 experiment is selected.
+No harness goal exists; CLI recall is unavailable and was not updated.
+
+## 2026-11-05 — Repaired String ready for owner review
+
+The owner-authorized [interim review response](interim-review-response-20261105.md)
+has complete repaired Linux native and Lean/actual-source assurance on governed
+source `ddb183a918`, together with independently reviewed final regression
+applicability. The [repaired delivery checkpoint](bounded-string-characters.md#repaired-delivery-checkpoint--2026-11-05)
+links exact evidence, installation/cache distinctions and retained failures.
+The [closing delivery review](reviews/review-interim-response-closing-20261105.md)
+passed on the exact recorded delivery target. The external report remains interim
+and clears no unexamined scope. Med-1's explicit structural guards remain a
+tracked next-edit follow-up.
+
+The lead delegated automatic continuation through audited native evidence,
+closing review and updated publication. This remains within the existing
+PR #308 authorization. [PR #307](https://github.com/berkeleynerd/silver/pull/307)
+must stay draft/open for owner review; merge remains unauthorized. Milestone 16
+and the feature/finding issues remain open until an owner-authorized merge;
+Med-2 alone is already merged through PR #321. No later feature, #300 batch,
+Oracle amendment or adoption of the separate #8 experiment is selected. No
+harness goal exists; CLI recall is unavailable and was not updated.
+
 ## 2026-11-05 — Bounded parallel line-certificate experiment authorized
 
 The owner agreed to preparing the four-way line-check prototype in an isolated
@@ -21,6 +61,31 @@ CPU, memory, concurrent load, outcomes and limits. The
 Production adoption, a reconstruction representation change, broader proof
 framework work and changes to PR #307's assurance or merge requirements are not
 selected. No Oracle amendment is authorized. No CLI recall was updated.
+
+## 2026-11-05 — Lean uses all available CPUs by default
+
+The owner requested unrestricted allocation of available CPU cores to future
+Lean jobs, scaling down as needed, and directed this change to ride in
+[PR #307](https://github.com/berkeleynerd/silver/pull/307). Use the managed runner's
+automatic worker and thread settings; explicit lower counts remain available
+for a current resource constraint, with the reason recorded for that run.
+Do not inherit one-worker or one-thread settings from previous runs by habit.
+
+The managed runner already implements these automatic defaults. The Lake
+configuration now also leaves Lean's hardware-concurrency default in effect
+when no thread override is supplied. Existing reservations, workspace leases,
+memory controls and required assurance checks remain in force. The active
+verification snapshot remains unchanged; integrate the configuration after its
+run and refresh the complete Lean checkpoint using retained valid objects.
+This instruction does not authorize merging PR #307. No CLI recall was updated.
+
+The owner subsequently instructed stopping the current Lean run and restarting
+with unrestricted cores while monitoring CPU and RAM. Run
+`20261105T112731-2036c05ea810` was cleanly interrupted; its partial objects and
+evidence were preserved. Replacement `20261105T133612-ecc276b25c57` uses automatic
+allocation on the updated configuration. The
+[restart record](evidence/interim-review-response-20261105/lean-cpu-restart/README.md)
+holds actual settings, observations and remaining checks.
 
 ## 2026-11-05 — Main audit fixture and Boolean coverage record repaired
 
@@ -68,6 +133,40 @@ failed/successful evidence with its exact inputs. Previously removed tmp worktre
 caches are unavailable; recreate isolated workspaces and bootstrap at their actual
 paths. No later language feature, Rosetta batch #300, capacity work or new
 assurance mode is selected. No harness goal exists; CLI memory is unavailable.
+
+## 2026-11-04 — Bounded String ready for owner review
+
+The owner-authorized [bounded String/Character feature #296](https://github.com/berkeleynerd/silver/issues/296)
+has complete Linux native and Lean actual-source assurance and final regression
+coverage. The [delivery record](bounded-string-characters.md#delivery-assurance-and-validation)
+links the governed inputs, exact method accounting, retained failures and
+independent source review. The [closing delivery review](reviews/string-delivery-closing-20261104.md)
+passed at `9111fbf88be337214278f185501d2f9de1761442`. Only the precise
+`bounded-string-characters` Rosetta identifier is promoted for its three drivers.
+
+[PR #307](https://github.com/berkeleynerd/silver/pull/307) remains open for owner
+review, with implementation, validation and independent review complete.
+The existing authorization covers ready-for-review publication; its merge
+remains unauthorized. Milestone 16 and
+issues #296/#304/#305/#306 close only on a later owner-authorized merge. #300,
+#297 and #298 remain unselected. No Oracle amendment, new assurance mode or
+separate performance project is selected. No harness goal exists; CLI memory
+is unavailable and was not updated.
+
+## 2026-11-03 — Bounded String feature resumed
+
+The owner instructed **“Please resume”** for the already authorized
+[bounded String and Character feature #296](https://github.com/berkeleynerd/silver/issues/296).
+Continue its complete implementation, native and Lean actual-source assurance,
+regressions, independent review and synchronized delivery records. The preserved
+work is published in [draft PR #307](https://github.com/berkeleynerd/silver/pull/307)
+while validation continues. The [capability record](bounded-string-characters.md)
+distinguishes interrupted attempts, retained successes and outstanding checks.
+
+The feature PR must remain open for owner review after it is complete. This
+resumption does not authorize its merge or start #300, #297 or #298. No Oracle
+amendment, separate performance project or new assurance mode is selected.
+No harness goal exists; CLI memory is unavailable and was not updated.
 
 ## 2026-10-31 — Bounded String indexing and character operations authorized
 

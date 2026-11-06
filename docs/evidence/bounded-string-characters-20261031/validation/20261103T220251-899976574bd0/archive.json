@@ -1,0 +1,7 @@
+{
+  "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-native/tmp/native-resume-20261103/operator-reassociation-failure/failed-native-core.tar.gz",
+  "bytes": 2466272,
+  "sha256": "42d590209252f5ea55034f101a1ff6d68399449d2bf61859b26362c7f6cdfa15",
+  "members": 234,
+  "state": "failed strict audit; GNATprove all checks proved; no complete assurance/provenance"
+}

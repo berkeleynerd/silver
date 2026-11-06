@@ -1,7 +1,6 @@
 module
 
 public import Silver.PredicateBasicExpressions
-public import Silver.PredicateBodyProperties
 
 @[expose] public section
 
@@ -42,15 +41,29 @@ theorem basicEval_model (text : Source) (context : Native.Context) (scan : BodyS
               by_cases array : arrayTarget text context.model scan.position ≠ 0
               case' neg =>
                 by_cases boolean : booleanTarget text context.model scan.position ≠ 0
+                case' neg =>
+                  by_cases absentTarget : (stringAssignmentTarget text context.model scan).target = 0
+                  case' neg =>
+                    by_cases characterTarget :
+                        ((context.names.get (stringAssignmentTarget text context.model scan).target).getD {}).isCharacter = true
+                    case' neg =>
+                      by_cases elementTarget :
+                        fixedAfter text (stringAssignmentTarget text context.model scan).position "(" false ≠ 0
   all_goals
+    dsimp +instances only [Native.Context.model, stringAssignmentTarget] at *
     dsimp +instances only [basicEval, basicCommands, dispatchCommands, outputCommands, putCommands, rejectCommands,
       assignmentCommands, Command.list, List.foldr_cons, List.foldr_nil, guard,
+      characterCommands, elementCommands, wholeCommands,
       Command.eval, Test.eval, Update.eval, modelPrimitives,
-      basicBody, basicRaw, basicKind, bodyTokens, List.foldl_cons, List.foldl_nil,
+      basicBody, basicRaw, basicKind, stringAssignmentBody, stringAssignmentStart,
+      stringAssignmentKind, stringAssignmentTarget, characterAssignmentPosition, elementTargetRead,
+      bodyTokens, List.foldl_cons, List.foldl_nil,
       bodyToken, tokenAfter, ShellToken.word, ShellToken.symbol, Native.Context.model, bindingSummary]
     simp +instances only [equalLengthIntervals_exact, Bool.or_eq_true, Bool.and_eq_true,
+      ↓reduceIte,
       Bool.not_eq_true', decide_eq_true_eq, or_assoc, *]
-    repeat' first | rfl | (simp_all +instances; done) | split
+    try simp_all +instances
+    repeat' first | rfl | (split <;> simp_all +instances)
 
 
 /-- Calls in the typed block are connected to already checked source primitives.
@@ -60,6 +73,9 @@ structure PrimitiveEquations (primitive : Primitives) : Prop where
   associationAfter : primitive.associationAfter = Names.associationAfter
   token : primitive.token = tokenAfter
   expression : primitive.expression = (fun text context position facts => readStringInFlow text context.model position facts)
+  readingNames : primitive.readingNames = (fun context facts => context.model.readingNames facts)
+  character : primitive.character = (fun text position names scalarNames arrays => characterAt text position names scalarNames arrays)
+  indexed : primitive.indexed = indexedAt
   target : primitive.target = ScalarBodyNative.stringTargetEval ScalarBodyNative.modelImports
   bodyToken : primitive.bodyToken = fun text _ scan token => Predicate.bodyToken text scan token
   invalid : primitive.invalid = invalidBody

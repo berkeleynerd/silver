@@ -1,0 +1,26 @@
+{
+  "run_id": "20261104T030336-2d76f7fc2ec7",
+  "outcome": "success",
+  "methods": [
+    "test_rosetta.RosettaRenderTests.test_pending_design_has_no_stage_and_is_not_an_oracle_exclusion",
+    "test_rosetta.RosettaRenderTests.test_render_is_identical_across_hash_seeds",
+    "test_rosetta.RosettaRenderTests.test_risk_counts_are_per_sample_and_ties_are_alphabetical"
+  ],
+  "managed_seconds": 2.826329,
+  "unittest_seconds": 1.324,
+  "captured_inputs_verified": 890,
+  "files": [
+    {
+      "original_relative_path": "events.jsonl",
+      "original_sha256": "64a013154e03b2ef417dbe9de72822af986ad6449985d202f7a1b3c89ea7d87e",
+      "retained_relative_path": "events.jsonl.gz",
+      "retained_sha256": "162677d003cf6f833a00d80512174153d31f2699f8c4dfa172b126205d627321"
+    },
+    {
+      "original_relative_path": "native.log",
+      "original_sha256": "d9a14dfcb8bf8f1707cab20dc233c3e9276a3b67bfc051a3eeb2e4c2d79ab39a",
+      "retained_relative_path": "native.log.gz",
+      "retained_sha256": "1da335064c15a1e7aa6e71cd194b98d5515e013f2b920ecd80f2d5bd5fa57334"
+    }
+  ]
+}

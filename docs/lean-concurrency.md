@@ -36,10 +36,31 @@ CPU-time quotas or competing workloads; those can require an explicit lower
 worker setting. Lake receives `LEAN_NUM_THREADS` in its subprocess environment
 after ambient Lean/Lake settings have been removed. The explicit `-jN` argument
 separately configures Lean processes. No global environment or tool setting changes.
-The lakefile falls back to one Lean thread when elaborated without
-`silverThreads`. Direct Lake builds in an existing workspace can retain cached
-`silverThreads` and `silverMemoryMb` settings. The runner reconfigures Lake on
-each invocation; use `scripts/check_lean.py` for reliable resource selection.
+The lakefile leaves Lean's hardware-concurrency default in effect when elaborated
+without `silverThreads`. Direct Lake builds in an existing workspace can retain
+cached `silverThreads` and `silverMemoryMb` settings. The runner reconfigures Lake
+on each invocation; use `scripts/check_lean.py` for reliable resource selection.
+
+On 2026-11-05 the owner reaffirmed all available CPUs as the starting point for
+future Lean runs, scaling down as needed. Omit `--workers` and `--threads` for
+that policy; managed reservations still account for other active runs. Record
+the current reason for an explicit reduction rather than copying a previous
+run's restriction. The lakefile's former one-thread fallback was removed in
+PR #307. The owner then requested an immediate restart of the active verification;
+the [restart record](evidence/interim-review-response-20261105/lean-cpu-restart/README.md)
+preserves the interrupted result and the replacement run's measurements.
+
+The [focused Linux check](evidence/interim-review-response-20261105/lean-cpu-defaults/summary.json),
+`20261105T132715-c4a22b58c2d9`, passed seven tests without skips in 59.176 seconds
+(63.215 seconds managed duration). CPU detection, automatic/explicit resource
+selection and worker coordination passed. The installed pinned Lake test also
+confirmed explicit lower settings, removal of those overrides on returning to
+defaults, and preservation of accepted objects. This is configuration validation;
+the final complete Lean checkpoint for PR #307 remains required.
+
+The bounded configuration review selected GPT-6.1 Sol / High and inspected the
+six-file patch against `a14aa1f50d`, with no findings. Runtime model/effort and
+review elapsed/token/cost measurements were not independently captured.
 
 Lean's `-M` threshold checks process RSS periodically in the pinned
 [runtime](https://github.com/leanprover/lean4/blob/5045d0056413266e57c625dcd7c365b10e377c52/src/runtime/memory.cpp#L145).

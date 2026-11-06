@@ -58,7 +58,7 @@ theorem initializer_context_valid (text : Source) (state : ParserState) (argumen
     exact ready.1.1.1
   have name := model_new_name_valid text state _ _ arguments bounds.after allowed
   rcases valid.1 with ⟨_, names, dynamic, _, _, scalars, arrays, _, booleans⟩
-  exact ⟨names, dynamic, scalars, valid.2.contextReady scalars.1, arrays.1, booleans, Or.inr name⟩
+  exact ⟨names, dynamic, scalars, valid.2.contextReady scalars.1, arrays.1, booleans, Or.inr name, valid.bounds⟩
 
 theorem initializer_flow_valid (text : Source) (state : ParserState)
     (valid : OuterReadiness.ValidState text state) (p : BooleanDeclarationParts) :

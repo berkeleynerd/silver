@@ -37,6 +37,15 @@ theorem comparison_correct (source : InterpretedSource tokens calls) (text : Sou
     calls.comparison text position = comparisonAt text position :=
   comparison_meaning source.helpers source.definitions text tv position bounded
 
+theorem character_correct (source : InterpretedSource tokens calls) (text : Source)
+    (tv : ValidText text) (context : Native.Context) (cv : ValidContext text context)
+    (position : Nat) (bounded : position ≤ text.length + 1) (facts : ActiveFlow)
+    (fv : ValidFlow context facts) (initials : ArrayBindings.Initials)
+    (iv : ArrayBindings.ValidInitials initials) :
+    calls.characterCondition text context position facts initials =
+      Predicate.characterCondition text context.model position facts initials :=
+  character_meaning source.helpers source.definitions text tv context cv position bounded facts fv initials iv
+
 theorem length_correct (source : InterpretedSource tokens calls) (text : Source)
     (tv : ValidText text) (context : Native.Context) (cv : ValidContext text context)
     (position : Nat) (literal : Bool) (bounded : position ≤ text.length + 1) :

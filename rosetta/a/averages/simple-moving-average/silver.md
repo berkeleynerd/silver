@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from ranged subtypes, bounded arrays and guards, but the loop-carried window sum and the bounded-buffer decimal formatting require careful shaping because no invariants can be written.
 
-Position 617 in the [progression](../../../progression.md#stage-11), in stage 11.
+Position 618 in the [progression](../../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

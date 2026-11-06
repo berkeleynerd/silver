@@ -1,0 +1,76 @@
+{
+  "audit_counts": {
+    "array_initialization_advisories": 6,
+    "entities": 1104,
+    "flow_checks": 1496,
+    "imported_entities": 18,
+    "limitation_notes": 313,
+    "proof_checks": 16000,
+    "trusted_math_notes": 6236,
+    "units": 76,
+    "vendor_spec_entities": 62
+  },
+  "audit_log_summary": "76 units, 1104 entities, 1496 flow_checks, 16000 proof_checks, 313 limitation_notes, 18 imported_entities, 6236 trusted_math_notes, 62 vendor_spec_entities, 6 array_initialization_advisories",
+  "command": [
+    "gnatprove",
+    "-P",
+    "../../../silver.gpr",
+    "-U",
+    "--mode=all",
+    "--report=all",
+    "--warnings=error",
+    "--checks-as-errors=on",
+    "--level=2",
+    "--prover=cvc5,z3,altergo",
+    "--timeout=30",
+    "-j",
+    "4",
+    "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.silver/linux-x86_64/proof-cache/gnatprove/ea6aba21eca447a9c8473fc1c3ea0300b03a95ce919d8a326f68a67989029329",
+    "-f",
+    "--subdirs=review-final",
+    "-XSILVER_HOST=linux-x86_64"
+  ],
+  "failure_keys": [],
+  "finished_at_utc": "2026-11-05T20:15:45.548860+00:00",
+  "initial_state": {
+    "cache_entries_present": true,
+    "sessions_present": true
+  },
+  "input_verification": "current-input-verification.json",
+  "integration_applicability": "integration-input-applicability.json",
+  "limits": [
+    "Native Linux full proof using existing sessions/result cache; not a cold proof.",
+    "Generated configuration and binary identities retain the original native installation.",
+    "Lean, regression and closing integration review are separate evidence."
+  ],
+  "managed_duration_seconds": 32897.461977192,
+  "mode": "full",
+  "native_host": "linux-x86_64",
+  "outcome": "success",
+  "phases": {
+    "audit": {
+      "duration_seconds": 10.661904402,
+      "end_utc": "2026-11-05T20:15:45.533976+00:00",
+      "start_utc": "2026-11-05T20:15:34.872071+00:00"
+    },
+    "native-tool": {
+      "duration_seconds": 32881.115578664,
+      "end_utc": "2026-11-05T20:15:34.862002+00:00",
+      "start_utc": "2026-11-05T11:07:33.595722+00:00"
+    },
+    "preflight": {
+      "duration_seconds": 4.485211712,
+      "end_utc": "2026-11-05T11:07:32.575118+00:00",
+      "start_utc": "2026-11-05T11:07:28.089911+00:00"
+    }
+  },
+  "proof_report_count": 78,
+  "requested_workers": 4,
+  "returncode": null,
+  "run_id": "20261105T110725-477d91dbd07d",
+  "schema": 1,
+  "source_commit": "fb89b3653accef6c08a49f88625144c108ad2432",
+  "started_at_utc": "2026-11-05T11:07:27.943392+00:00",
+  "workers": 4,
+  "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair"
+}

@@ -1,0 +1,153 @@
+{
+  "scope": "Exact inherited-state forwarding repair, all six theorem headers unchanged; full module and fresh origin-module audit PASS; two import-setup failures retained",
+  "run_id": "20261104T022435-5b01e422a9e5",
+  "integration_commit": "90e9f4226835c53601050eb163b842d9aadf4444",
+  "module_count": 311,
+  "fresh_declarations": 90451,
+  "elapsed_seconds": 6.243,
+  "captured_identities": 6038,
+  "selected_model": "gpt-6.1-sol",
+  "selected_effort": "xhigh",
+  "runtime_model_confirmation": "unavailable",
+  "token_cost": "unavailable",
+  "files": [
+    {
+      "original_relative_path": "AuditProbe.lean",
+      "original_sha256": "826223dcb4b91e8fac36f8acf6a441f663c4ec396f364baf642e2701205c5f14",
+      "retained_relative_path": "AuditProbe.lean.gz",
+      "retained_sha256": "9582dc09003c82aa8382926d881e0fea54beb15cbda8bae00653d17dbf31effa"
+    },
+    {
+      "original_relative_path": "PredicateInheritedReady.before.lean",
+      "original_sha256": "857740bd4627defedf31e6793d828a2824143f3edc37f6de34db4fc2c7cbccae",
+      "retained_relative_path": "PredicateInheritedReady.before.lean.gz",
+      "retained_sha256": "7af80d60fd95c3d0ea23019aa1d5ff13ebe3e57781af09348ec5108ada1f6aeb"
+    },
+    {
+      "original_relative_path": "README.md",
+      "original_sha256": "50395a07ffba9cd1b54546168cafbfae9faa2b2b3830ea9f951ae9d3087e0b45",
+      "retained_relative_path": "README.md.gz",
+      "retained_sha256": "773693b0cc9e83ea1502224be412ecbacdd2ed7a3fefb74e9da6b5aee7e05ee8"
+    },
+    {
+      "original_relative_path": "Silver/PredicateInheritedReady.lean",
+      "original_sha256": "0fa6a9462051a23e5015d2bb6a30b72709961007b021fc1484676d3eb6f9d99f",
+      "retained_relative_path": "Silver/PredicateInheritedReady.lean.gz",
+      "retained_sha256": "c465ba444fb77105e85bb07c8d78ec9e2244f49a339978dcdcf0fc833ada1580"
+    },
+    {
+      "original_relative_path": "after-identities.json",
+      "original_sha256": "3d950b4f35e22c9a06830286f8832dbcea4f0dd66d440f36a244b7fac8d8c813",
+      "retained_relative_path": "after-identities.json.gz",
+      "retained_sha256": "3764a0374a031fabe46094ba25b1ba7e030b280d70d65bb8b53da58a5fe01d89"
+    },
+    {
+      "original_relative_path": "attempt-1-import-setup-failure/after-identities.json",
+      "original_sha256": "a28e97e97bd60e747ca7ae7df8d25883497c93ca1857e23e04ca10a0fe652d05",
+      "retained_relative_path": "attempt-1-import-setup-failure/after-identities.json.gz",
+      "retained_sha256": "ea34b62b5411626dca0e8b9715b0402c9a018332d1d309ff71c606e4ede331f0"
+    },
+    {
+      "original_relative_path": "attempt-1-import-setup-failure/check.log",
+      "original_sha256": "bcbdae2d88695ce2dcf60e56960ed9b6382c05c5e6cb23a91314d07db3385237",
+      "retained_relative_path": "attempt-1-import-setup-failure/check.log.gz",
+      "retained_sha256": "b77905e8b38cb9f5e7240bec51a489847b9471c224224878236aa9e8adbb1191"
+    },
+    {
+      "original_relative_path": "attempt-1-import-setup-failure/check.py",
+      "original_sha256": "8febc8fa56745d00a5e6437a7f89d35fa768112a36eda467a9b4b6e2421c0627",
+      "retained_relative_path": "attempt-1-import-setup-failure/check.py.gz",
+      "retained_sha256": "31e265024a12cb94e4f255dde488139a2d7f1198232db8594cc7c40ba027ed63"
+    },
+    {
+      "original_relative_path": "attempt-1-import-setup-failure/evidence.json",
+      "original_sha256": "5f67b3bd9da748ec5b6b5a4b930e7863e18ed083d029277d411717edd714aa91",
+      "retained_relative_path": "attempt-1-import-setup-failure/evidence.json.gz",
+      "retained_sha256": "7a1455dc924af3032ae1f3daadd8d74ddc84017c916dd2e70dcf3108e2eff28e"
+    },
+    {
+      "original_relative_path": "attempt-1-import-setup-failure/inputs.json",
+      "original_sha256": "de73d0a9f26dfced47fd53fe553ec0b0dfc7c3a92319a896de850c4998335568",
+      "retained_relative_path": "attempt-1-import-setup-failure/inputs.json.gz",
+      "retained_sha256": "71b1ea8b79e2dde2d31e334e8797283e89a5ec09481b154710c0f7d3c8db922e"
+    },
+    {
+      "original_relative_path": "attempt-2-meta-import-setup-failure/after-identities.json",
+      "original_sha256": "c50218231037f1ae1731685de63c94ebda38ae3b8cdf048c5b7384fdc1c4a13b",
+      "retained_relative_path": "attempt-2-meta-import-setup-failure/after-identities.json.gz",
+      "retained_sha256": "055259e2b8370b86a1a10d9777c16f0655a3c64b3e3be67d53800936955c3eb0"
+    },
+    {
+      "original_relative_path": "attempt-2-meta-import-setup-failure/check.log",
+      "original_sha256": "52eb4b0338272cf340495905a18b2f615b1f87cd2c6f878d4e932440c7ffbdfe",
+      "retained_relative_path": "attempt-2-meta-import-setup-failure/check.log.gz",
+      "retained_sha256": "6c408b7ff2391d22d98f2a5bd6a8661d679317fc0f402c2cef076dd95ba5333b"
+    },
+    {
+      "original_relative_path": "attempt-2-meta-import-setup-failure/check.py",
+      "original_sha256": "5d7155326566741bfaea8cb3189296c4dd954d93b54bdcf883672d455f889e63",
+      "retained_relative_path": "attempt-2-meta-import-setup-failure/check.py.gz",
+      "retained_sha256": "94774c7a2a3a9587f04110ac2f28e00bc202ef92088ab94ca497edb7352f674e"
+    },
+    {
+      "original_relative_path": "attempt-2-meta-import-setup-failure/evidence.json",
+      "original_sha256": "902967054ad9ec562c2f5c96cf7b449d95faac498e5b7e67462e7c904d2eed49",
+      "retained_relative_path": "attempt-2-meta-import-setup-failure/evidence.json.gz",
+      "retained_sha256": "ee4b63d6e8d3b2ad2775081fb46c72ec343db666d517e8e307dc5e6599ea7f18"
+    },
+    {
+      "original_relative_path": "attempt-2-meta-import-setup-failure/inputs.json",
+      "original_sha256": "27215392abfbb6fd7ea84287d56348bd4463bf0f21e84f133bd56789ba142353",
+      "retained_relative_path": "attempt-2-meta-import-setup-failure/inputs.json.gz",
+      "retained_sha256": "8be9efec8ed4177276ec51e814dc5de113c41bad0012c1ee44897c240b3211f0"
+    },
+    {
+      "original_relative_path": "check.log",
+      "original_sha256": "b06f1393b041e76a595bbc2b7451344b0914ddf0066e9499a4683afa7ab54288",
+      "retained_relative_path": "check.log.gz",
+      "retained_sha256": "8dcbb3694f4b4b8291e46ccb861eedbced0054bbd198867983ef695e1b966828"
+    },
+    {
+      "original_relative_path": "check.py",
+      "original_sha256": "2c17f8ca27e77e5a9a14243e75d7f86a15331484bf79a4b77439ca2244d2340a",
+      "retained_relative_path": "check.py.gz",
+      "retained_sha256": "1319531252de5e5ebeb8b777023fe19be421a8afe9c1c11618fc3521ee581e1e"
+    },
+    {
+      "original_relative_path": "evidence.json",
+      "original_sha256": "cb8604d4a34d49a2052a565876a44397f1d87f38128666f4c15cae96542977eb",
+      "retained_relative_path": "evidence.json.gz",
+      "retained_sha256": "d1a27a06d6547862ca45b71462cf46edef923379ff7be7186fc833094850e13e"
+    },
+    {
+      "original_relative_path": "handoff.json",
+      "original_sha256": "b54edc31e9a3e444f6dec0f82257436f32f157605b1153684dd4b0de44cacb6b",
+      "retained_relative_path": "handoff.json.gz",
+      "retained_sha256": "74eb8efef9a5a9991f9d16ec2c0c9127b59c2f6955efb6028e6c80d5fd3f2beb"
+    },
+    {
+      "original_relative_path": "inputs.json",
+      "original_sha256": "171499528e79e262936d4e1d8920e78238c60e56710ce085189e62c868f5c862",
+      "retained_relative_path": "inputs.json.gz",
+      "retained_sha256": "b02157c21348de6799d8aa159bc6f47b7cb237d3b4439bbac27cbb92b9b503a5"
+    },
+    {
+      "original_relative_path": "integration.patch",
+      "original_sha256": "941549ddcdee1bd1f791313159ee51250e3df4578e08854f74d69f2872641a97",
+      "retained_relative_path": "integration.patch.gz",
+      "retained_sha256": "90fe3f4f95aacba63b116f17695eb502d43030eda702ae5abc3dd605f14ff1e6"
+    },
+    {
+      "original_relative_path": "prepare.py",
+      "original_sha256": "c7864343e091a05d29f9effb079b21144ff6969f9764276c902f11694c93ad4c",
+      "retained_relative_path": "prepare.py.gz",
+      "retained_sha256": "abcf9ed02f08e5771b0905c4a9240cbe3c06a874e6e50a35c1c89b504c7b8689"
+    },
+    {
+      "original_relative_path": "source-failure.log",
+      "original_sha256": "eeae926d934cd276f9f41035fa8e189f4ecfe52fac3d44cb196b263edc73e20d",
+      "retained_relative_path": "source-failure.log.gz",
+      "retained_sha256": "05e04af35a6baa65d5d361c8402f65d7fd5cd753bb714aa54ca9680e4394b5cb"
+    }
+  ]
+}

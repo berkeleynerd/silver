@@ -1,0 +1,11 @@
+{
+  "captured_source_count": 738,
+  "source_differences": [],
+  "governed_input_commit": "119cfa0c73389d461f8e5bd6de465ed2fee7d368",
+  "completed_module_artifacts_verified": 32,
+  "known_failed_modules": [
+    "Silver.ComposeSourceChecks",
+    "Silver.ComposeExamples"
+  ],
+  "whole_project_audit": "not reached"
+}

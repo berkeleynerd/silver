@@ -45,7 +45,7 @@ def modelImports : Imports where
   equalName := Named.equalName
   arrayTarget := fun text context position => Predicate.arrayTarget text context.model position
   readScalar := fun text context position facts first after =>
-    readScalarInFlow text context.model position facts first after
+    readCountedBound text context.model position facts first after
   widen := fun context facts => ActiveFlow.widen context.scalarNames facts
   isEmpty := Integer.Interval.isEmpty
   normalize := Integer.Interval.normalize
@@ -214,10 +214,10 @@ def Update.eval (read : Reader) (frame : Frame) : Update → Frame
   | .inside => {frame with result := {frame.result with position := fixedAfter frame.text frame.after "in" true}}
   | .iterable => {frame with result := {frame.result with position := fixedAfter frame.text frame.after "of" true}}
   | .reverse => {frame with result := bodyToken frame.text frame.result (.word "reverse")}
-  | .low => {frame with low := (readScalarInFlow frame.text frame.context.model frame.result.position
+  | .low => {frame with low := (readCountedBound frame.text frame.context.model frame.result.position
       frame.scan.facts frame.first frame.after)}
   | .delimiter => {frame with result := {frame.result with position := fixedAfter frame.text frame.low.after ".." false}}
-  | .high => {frame with high := (readScalarInFlow frame.text frame.context.model frame.result.position
+  | .high => {frame with high := (readCountedBound frame.text frame.context.model frame.result.position
       frame.scan.facts frame.first frame.after)}
   | .opening => {frame with result := {frame.result with position := fixedAfter frame.text frame.high.after "loop" true}}
   | .arrayOpening => {frame with result := {frame.result with position := fixedAfter frame.text frame.arrayAfter "loop" true}}
@@ -289,10 +289,10 @@ def Update.render : Update → List String
   | .inside => ["result", ".", "position", ":="] ++ call "take_token" [["text"], ["after"], ["in_keyword"]] ++ [";"]
   | .iterable => ["result", ".", "position", ":="] ++ call "take_token" [["text"], ["after"], ["of_keyword"]] ++ [";"]
   | .reverse => ["result", ".", "position", ":="] ++ call "take_token" [["text"], ["result", ".", "position"], ["reverse_keyword"]] ++ [";"]
-  | .low => ["low", ":="] ++ call "read_scalar_in_flow"
+  | .low => ["low", ":="] ++ call "read_counted_bound"
       [["text"], ["context"], ["result", ".", "position"], ["scan", ".", "facts"], ["first"], ["after"]] ++ [";"]
   | .delimiter => ["result", ".", "position", ":="] ++ call "take_token" [["text"], ["low", ".", "after"], ["range_delimiter"]] ++ [";"]
-  | .high => ["high", ":="] ++ call "read_scalar_in_flow"
+  | .high => ["high", ":="] ++ call "read_counted_bound"
       [["text"], ["context"], ["result", ".", "position"], ["scan", ".", "facts"], ["first"], ["after"]] ++ [";"]
   | .opening => ["result", ".", "position", ":="] ++ call "take_token" [["text"], ["high", ".", "after"], ["loop_keyword"]] ++ [";"]
   | .arrayOpening => ["result", ".", "position", ":="] ++ call "take_token" [["text"], ["array_after"], ["loop_keyword"]] ++ [";"]

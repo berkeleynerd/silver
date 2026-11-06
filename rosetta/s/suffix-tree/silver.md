@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is fixed-size arrays and index arithmetic whose bounds come from ranged subtypes and capacity guards, with no recursion or heap, so no annotation is needed. The loop-carried node and offset values in the insertion and splitting logic need careful guarding, which makes it plausible rather than likely.
 
-Position 744 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 745 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every loop is a for loop over fixed bounds with range-typed table cells, and the only division is guarded by a validated non-zero length, so all checks follow from types and guards without annotations. The embedded dictionary replaces the large word file, a documented resource limit, and a plain edit-distance similarity satisfies the task's "any algorithm" allowance.
 
-Position 672 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 673 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

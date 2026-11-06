@@ -1,0 +1,31 @@
+{
+  "status": "Integrated seven example records; full module build PASS186s in otherwise failed complete run021449; whole audit remains pending",
+  "commit": "f9a14a33cbfde5080236492500c3548eac3abaac",
+  "build_run": "20261104T021449-9b50164c6ab4",
+  "files": [
+    {
+      "original_relative_path": "ComposeExamples.after.lean",
+      "original_sha256": "d1496eb497930b7594c6bdf8983e87dddff8b2cbc48607c389cb89c69e946821",
+      "retained_relative_path": "ComposeExamples.after.lean.gz",
+      "retained_sha256": "97a9b2c42cd8ffb52b4d01bff56e16c3c3c78d592ad5995f1bc7acba6cc44067"
+    },
+    {
+      "original_relative_path": "ComposeExamples.before.lean",
+      "original_sha256": "50d87d25e94fb76b387cc75c4c4bafb1e92190d5696343f4fb795ae34562809f",
+      "retained_relative_path": "ComposeExamples.before.lean.gz",
+      "retained_sha256": "7dbced1057069fbefca8ef935eab0bedcc3d2ce428c30fa0195bb29e8adf5cae"
+    },
+    {
+      "original_relative_path": "integration.patch",
+      "original_sha256": "be887c3e71e878119dad0caec044e15083b155edb910550d27c30699cff61f1f",
+      "retained_relative_path": "integration.patch.gz",
+      "retained_sha256": "94a06a9af92e677a35a345a2cbbf28aab6b7fbd85150da545179953c1283a025"
+    },
+    {
+      "original_relative_path": "proposal.json",
+      "original_sha256": "955bfbe742c2159a9f2f2854843d218abe299ea85c3653ff4199fc70ac674f06",
+      "retained_relative_path": "proposal.json.gz",
+      "retained_sha256": "62e852defccdf9199559a39d0a0472b07da4f57f6d3334085ab8f3fb5fd54c7c"
+    }
+  ]
+}

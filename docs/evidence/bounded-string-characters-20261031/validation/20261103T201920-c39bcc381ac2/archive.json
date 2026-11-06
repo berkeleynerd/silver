@@ -1,0 +1,7 @@
+{
+  "path": "tmp/native-resume-20261103/resource-interruption/partial-native-core.tar.gz",
+  "bytes": 1626951,
+  "sha256": "03c7406e477628573a55d857f0a0076f68f39d14c3b4cd908c7de77930465775",
+  "members": 86,
+  "state": "Intentionally interrupted for actual host resource threshold; neither successful nor failed proof"
+}

@@ -39,6 +39,10 @@ def chainAfterModel (text : Source) (position : Nat) (operator : ChainKind) : Na
   if operator = .noChain then 0 else Predicate.chainAfter text position operator.predicate
 
 def modelCalls : Calls where
+  readingNames := fun context facts => context.model.readingNames facts
+  characterAt := fun text position names scalarNames arrays initials elaborating =>
+    Compose.characterAt text position names scalarNames arrays initials elaborating
+  characterCondition := fun text context position facts initials => Predicate.characterCondition text context.model position facts initials
   xorFree := Predicate.xorFree
   callAfter := fun text names position operation scalarNames arrays hidden booleans => Compose.callAfter text names position operation scalarNames arrays hidden booleans
   equalName := Named.equalName
@@ -109,6 +113,10 @@ theorem remaining_lt {text : Source} {before after : Nat}
 
 theorem model_comparison_equation (text : Source) (position : Nat) :
     modelCalls.comparison text position = comparisonEquation modelCalls text position := by rfl
+
+theorem model_character_equation (text : Source) (context : Context) (position : Nat)
+    (facts : ActiveFlow) (initials : ArrayBindings.Initials) :
+    modelCalls.characterCondition text context position facts initials = characterEquation modelCalls text context position facts initials := rfl
 
 theorem model_length_equation (text : Source) (context : Context) (position : Nat) (literal : Bool) :
     modelCalls.length text context position literal = lengthEquation modelCalls text context position literal := by rfl

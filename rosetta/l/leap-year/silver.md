@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check is a rem by a nonzero literal on a bounded integer inside a for loop with no loop-carried state, so all of them follow from types and static bounds. Only the scalar-image and string-building library operations are new, and the program needs no annotations.
 
-Position 290 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 293 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

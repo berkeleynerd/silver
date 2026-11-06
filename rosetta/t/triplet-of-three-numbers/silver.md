@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indexes and arithmetic are bounded by static ranges and for loops over fixed limits, so no loop invariants or variants are needed and every check discharges from types and one guard. The only new work for Silver is integers, arrays, for loops and integer-to-text output.
 
-Position 761 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 762 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

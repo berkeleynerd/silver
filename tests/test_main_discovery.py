@@ -1,4 +1,4 @@
-"""Known Main discovery must tolerate every admitted comment terminator."""
+"""Native Main discovery preserves source trivia and admitted name casing."""
 from __future__ import annotations
 
 import json
@@ -8,11 +8,48 @@ import subprocess
 import tempfile
 import unittest
 
-from scripts.check_evidence import audit_reports
+from scripts.check_evidence import IMAGE_ADVISORY_TEXT, audit_reports
 from tests.test_silver import HOST, invoke
 
 
 class MainDiscoveryTests(unittest.TestCase):
+    def test_image_advisory_follows_main_unit_casing(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="silver-main-image-casing-") as directory:
+            source = Path(directory) / "author.adb"
+            for name, attribute in (("main", "image"), ("MAIN", "IMAGE")):
+                with self.subTest(name=name):
+                    data = (f"with Silver_IO;\nprocedure {name} is\n"
+                            "   pragma SPARK_Mode (On);\nbegin\n"
+                            "   Silver_IO.Put_Line (Integer'Image (1));\n"
+                            f"end {name};\n").encode("ascii")
+                    source.write_bytes(data)
+                    checked = invoke("check", source)
+                    self.assertEqual(checked.returncode, 0, checked.stdout)
+                    result = invoke("run", source)
+                    self.assertEqual(result.returncode, 0, result.stdout)
+                    self.assertIn("Execution completed successfully.", result.stdout)
+                    match = re.search(r"^Executable: (.+)$", result.stdout, re.MULTILINE)
+                    self.assertIsNotNone(match, result.stdout)
+                    executable = Path(match.group(1))
+                    workspace = executable.parent.parent
+                    self.assertEqual(source.read_bytes(), data)
+                    self.assertEqual((workspace / "main.adb").read_bytes(), data)
+                    reports = workspace / "obj/gnatprove"
+                    stats = audit_reports(
+                        reports, {"main", "silver_io", "silver_output_libc", "silver_arguments", "silver_runtime"},
+                        {"silver_output_libc", "silver_runtime"}, application_kind="static", indexed_main=True)
+                    report = json.loads((reports / "main~1.spark").read_text())
+                    expected = IMAGE_ADVISORY_TEXT.replace('"Image"', f'"{attribute}"')
+                    messages = [record["message"]["text"] for record in report["warn_error"]]
+                    self.assertGreater(len(messages), 0)
+                    self.assertEqual(messages, [expected] * len(messages))
+                    self.assertEqual(stats["image_advisories"], len(messages))
+                    execution = subprocess.run([str(executable)], capture_output=True, timeout=10)
+                    self.assertEqual(execution.returncode, 0, execution.stderr)
+                    self.assertEqual(execution.stdout, b" 1\n")
+                    self.assertEqual(execution.stderr, b"")
+                    # Preserve the proof/build workspaces as native repair evidence.
+
     def test_indexed_main_preserves_cr_source_in_all_shells(self) -> None:
         null = (b"procedure -- note\rMain is\n   pragma SPARK_Mode (On);\n"
                 b"begin\n   null;\nend Main;\n")

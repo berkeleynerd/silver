@@ -1,0 +1,74 @@
+{
+  "changed_inputs": [],
+  "extra_inputs": [],
+  "host": "linux-x86_64",
+  "input_category_counts": {
+    ".silver": 6,
+    ".tools": 2437,
+    "alire.toml": 1,
+    "proof": 1,
+    "scripts": 9,
+    "silver.gpr": 1,
+    "src": 131
+  },
+  "input_count": 2586,
+  "input_map_sha256": "a6f1df4dad2d38f5375dac340a77f61fe7a2321bf7cce212d7a3a031d6b359ca",
+  "matching_inputs": 2586,
+  "missing_inputs": [],
+  "native_head": "fb89b3653accef6c08a49f88625144c108ad2432",
+  "native_worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair",
+  "report_count": 78,
+  "report_hashes_match": true,
+  "retained_reports_match_original_output": true,
+  "tools": {
+    "alr": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.tools/linux-x86_64/alr/bin/alr",
+      "sha256": "2e2b8de009b793ad2aed10096e162649bbcc5b0711e3c21785ebe8a1261c5d64"
+    },
+    "alt-ergo": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/alt-ergo",
+      "sha256": "b21825912f28802662caee0005e4ea761a5087ce8c21f4dae510ae21bcc34189"
+    },
+    "cvc5": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/cvc5",
+      "sha256": "eb2f46a6bc5fb8a3c81b3387fecb0e68ef5ed1a0c0c5908557254ceb8091b232"
+    },
+    "gcc": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gcc",
+      "sha256": "238f4adafcb1425c84da6519068fdfcf33e57e406fc793e2958a9238789900de"
+    },
+    "gnat2why": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnat2why",
+      "sha256": "343682de485bb151e1817615acebab5b185504efdf2b082f1647cd41a14241f1"
+    },
+    "gnatls": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gnatls",
+      "sha256": "cdd3e2c74ca7d1f1e395d25523c3e233b206a880e4064e822f8015044d1715e2"
+    },
+    "gnatprove": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/bin/gnatprove",
+      "sha256": "544e6da2eedc24ce87d9200d44f61e8e789726466e81e68bf8935489d7f5323e"
+    },
+    "gnatwhy3": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+      "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+    },
+    "gprbuild": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.tools/linux-x86_64/alire/toolchains/gprbuild_26.0.1_e3f27f25/bin/gprbuild",
+      "sha256": "aff9fde5ca766d5497da9dec185cb8b96878206a0d02512aa5685e1e56d0a4d3"
+    },
+    "python": {
+      "path": "/usr/bin/python3.14",
+      "sha256": "b8d8288faefdd300201f43fcf00f6f539a27218eeed3a3dff5ab10b9c4c99700"
+    },
+    "why3server": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server",
+      "sha256": "143e182d167d3e290c974770d0b84b5f59cf70bf331de5208a36bd650b386a80"
+    },
+    "z3": {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/z3",
+      "sha256": "44c00197fc576e02775a493dad255a20bb41fa5b4c47378a5f9d090cbc1a25c5"
+    }
+  },
+  "verified_at_utc": "2026-11-05T20:16:45.986610+00:00"
+}

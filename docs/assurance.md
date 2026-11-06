@@ -133,9 +133,10 @@ component interval for its immutable nonstatic element. Scalar guard refinement,
 mutable widening and scoped identity restoration retain their existing rules.
 The endpoint statement gains no owner-supplied assumption or annotation.
 
-Typed subtype lookup/type-mark/declaration trees and the array helper trees must
-pass the same source-token, precedence, scope and interpreted-equation checks
-as the existing constructs. The array metadata and environment predicates now
+Typed subtype lookup/type-mark/declaration trees and the array helper trees
+pass source-token, explicit precedence/scope inventory and interpreted-equation
+checks. The structural inventories apply to the named tree languages; they do
+not establish a uniform guard for every source-tree representation. The array metadata and environment predicates now
 have rendered trees and domain-implies-precondition theorems in
 `ArrayBindingsNativeEquations` and `ArrayBindingsSourceChecks`, tying the
 strengthened mathematical allocation domain to the checked native predicate.
@@ -544,7 +545,14 @@ source checks. `Implementation.Definitions` and `Implementation.correspondence`
 in [PredicateEquations.lean](../proof/Silver/PredicateEquations.lean) compose
 those domain-bounded calls; `Implementation.model_definitions` witnesses that
 interface. `SourceChecks.actualSource` in `PredicateSourceChecks` checks the
-authoritative spec/body tokens, tree precedence and scope.
+authoritative spec/body tokens and the precedence/scope inventories explicitly
+represented in its checked-source record. Scalar-body, scalar-helper and adapter
+trees are token-checked with their structure reviewed semantically; they do not
+yet have separate mechanized precedence predicates. The Image scanner and
+`FilesSplice` trees have the same structural-check limitation outside this
+record. Adding these guards is tracked in [#314](https://github.com/berkeleynerd/silver/issues/314)
+for the next relevant tree edit. Existing token/source checks, applicable
+semantic equations and ordinary correspondence review remain required.
 [PredicateSourceBridge.lean](../proof/Silver/PredicateSourceBridge.lean)'s
 `checked_source` and `actual_source_correspondence` retain explicit
 `InterpretedSource` dependencies. `executable_correspondence` additionally
@@ -946,16 +954,29 @@ another accepted native safety-record class. Path-check refinement preserves the
 exact normalized schema and context; declaration checks retain their shared
 refinement rules.
 Every emitted safety obligation must correspond to the appropriate range,
-length, overflow or nonzero-divisor channel and its scalar, Image, loop or
+length, index, overflow or nonzero-divisor channel and its scalar, Image, loop or
 String/path schema;
 report acceptance is not that correspondence proof.
 
-The arithmetic argument bounds each admitted String value by 4096 bytes and
-accounts for predefined concatenation's range arithmetic. Its conservative
-range bound fits Ada's required minimum `Integer'Last` of 32767. The existing
-`Guarded.RangeObligation` theory decides the uniform bound and covers empty and
-nonempty ranges. Literal/object bounds and the normalized argument result supply
-the inherited lower-bound behavior. No fixed prefix/suffix grammar is required.
+The length argument bounds each admitted String value by 4096 bytes.
+`Guarded.RangeObligation` decides its conservative uniform length bound using
+Ada's required minimum `Integer'Last` of 32767. Actual endpoints of fixed-bound
+slices, copies and concatenations require an additional argument: source-derived
+metadata bounds each nonnull first index by a declaration-count-scaled ceiling,
+and the covered expression length bounds every grouped intermediate. The
+resulting endpoint bound uses the pinned signed-32-bit `Integer'Last` of
+2147483647, rather than 32767. The actual execution store retains null
+endpoints; dynamic metadata may use a different valid null interval. The checked
+repair relates these intervals by null equivalence, without assuming equal
+endpoints for every empty String.
+`Predicate.source_actual_string_bounds_assured` now derives the initialized
+bounds store from the source and connects these facts to the exact source-schema
+inventory, raw initializers, reached body expressions and every loop iteration.
+Both `Current.admitted_assurance` and `Current.every_meaning_assured` expose
+this guarantee. The [#304 semantic review](reviews/string-character-core-20261031.md)
+accepted that connection. The [delivery evidence](bounded-string-characters.md#delivery-assurance-and-validation)
+records the successful complete native and actual-source checkpoints, final
+regression coverage and independent source review.
 
 `Current.all_obligations_discharge` proves terminating mathematical discharge
 for every admitted meaning; `fragment_checks_valid` supplies schema validity.
@@ -973,7 +994,7 @@ faithful completed parsing, obligation generation, completion of proof for every
 source schema accepted by the Lean endpoint-discharge checker, fixed-library
 proof completion, same-source build completion, and preservation and realization
 of modeled execution.
-The generation relation must associate every emitted range, length, overflow or
+The generation relation must associate every emitted range, length, index, overflow or
 nonzero-divisor check with its source schema; that association alone does not establish that the producer
 omitted no required obligation. Faithful and complete GNATprove generation,
 applicable static elimination, accurate diagnostics and the accepted report
@@ -1111,7 +1132,9 @@ waive safety checks. Repeated output permits exactly `"NAME" is set by
 
 The application warning list also permits the pinned `imprecise-image` advisory
 described in the [Image producer record](for-loops-integers-image.md). Its full
-message, warning severity, trivial provenance, Main filename, positive location,
+message is accepted only with the producer's exact `Image`, `image` or `IMAGE`
+attribute spelling; all remaining bytes must match. The warning severity,
+trivial provenance, Main filename, positive location,
 unknown status, absent entity and justification fields, empty suppression string
 and structurally empty proof tree are checked. In SARIF, the matching advisory
 must retain the producer's open/warning classification and exact external

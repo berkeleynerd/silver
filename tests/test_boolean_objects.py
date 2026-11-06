@@ -75,6 +75,15 @@ class BooleanObjectTests(unittest.TestCase):
             (b'Flag:Boolean:=True;', b'for Flag in 1..1 loop Flag:=False;end loop;'),
             (b'Flag:Boolean:=True;', b'for True in 1..1 loop Flag:=True;end loop;'),
             (b'Flag:Boolean:=True;', b'for False in False..1 loop null;end loop;'),
+            (b'subtype True is Integer range 1..2;Flag:Boolean:=True;', b'null;'),
+            (b'subtype False is Integer range 1..2;Flag:Boolean:=False;', b'null;'),
+            (b'True:array(1..1)of Integer:=(1=>1);Flag:Boolean:=True;', b'null;'),
+            (b'Boolean:Integer:=1;Flag:Boolean:=True;', b'null;'),
+            (b'Boolean:array(1..1)of Integer:=(1=>1);Flag:Boolean:=True;', b'null;'),
+            (b'subtype Boolean is Integer range 1..2;Flag:Boolean:=True;', b'null;'),
+            (b'Integer:Boolean:=True;N:Integer:=0;', b'null;'),
+            (b'Integer:Boolean:=True;subtype S is Integer range 1..2;', b'null;'),
+            (b'False:Integer:=0;Flag:Boolean:=not False;', b'null;'),
         )
         for declarations, body in rejected:
             with self.subTest(declarations=declarations, body=body):
@@ -177,6 +186,11 @@ class BooleanObjectTests(unittest.TestCase):
         # Eager composition also discards operand-derived facts on its outcome.
         self.check(program(declarations, b'if D/=0 and True then '
                            + output(b"Integer'Image((1/D))") + b'end if;'), 2)
+        # Neither outcome keeps right-operand facts; each source divides by zero if admitted.
+        for condition in (b'if True or D/=0 then ', b'if Flag and D=0 then null;else '):
+            with self.subTest(condition=condition):
+                self.check(program(declarations, condition + output(b"Integer'Image((1/D))")
+                                   + b'end if;'), 2)
         for operator, status in ((b'and', 2), (b'and then', 0)):
             body = (b'if Silver_Arguments.Input_Is_Valid then Flag:=Input\'Length<=2048 '
                     + operator + b' Input&Input=Input;'
@@ -194,6 +208,14 @@ class BooleanObjectTests(unittest.TestCase):
                      b'if Safe then N:=(1/D);end if;'):
             with self.subTest(body=body):
                 self.check(program(declarations, body), 2)
+        # Boolean equality and assignment keep no RHS facts; each source divides by zero if admitted.
+        for body in (b'if False=(D/=0) then N:=(1/D);end if;',
+                     b'if False=(D=0) then null;else N:=(1/D);end if;',
+                     b'Safe:=D/=0;N:=(1/D);',
+                     b'Safe:=D=0;N:=(1/D);'):
+            with self.subTest(body=body):
+                self.check(program(b'D:Integer range 0..1:=0;N:Integer:=0;Safe:Boolean:=False;',
+                                   body), 2)
         self.check(argument_program(b'Fits:Boolean:=Input\'Length<=3;S:String:="abc";',
                                     b'if Silver_Arguments.Input_Is_Valid and then Fits then '
                                     b'S:=Input;else Silver_Arguments.Reject;end if;'), 2)

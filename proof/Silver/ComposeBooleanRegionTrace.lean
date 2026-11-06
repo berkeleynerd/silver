@@ -1,6 +1,7 @@
 module
 
 public import Silver.ComposeBooleanTrace
+public import Silver.ComposeDeclarationContext
 public import Silver.PredicateOuterReadiness
 
 @[expose] public section
@@ -62,8 +63,7 @@ theorem declarations_boolean_trace {text arguments state final strings}
   induction parsed with
   | done positive stop => exact ⟨[], [], .done positive stop⟩
   | next positive more noSubtype noScalar noArray noBoolean first rest ih =>
-      have nextValid := model_string_declaration_valid _ textValid _ arguments valid
-      rw [declaration_complete first] at nextValid
+      have nextValid := model_object_reading_valid textValid valid first
       obtain ⟨declarations, checks, trace⟩ := ih nextValid
       exact ⟨declarations, checks, .string positive more noSubtype noScalar noArray noBoolean first trace⟩
   | scalar positive more noSubtype first rest ih =>
@@ -114,7 +114,10 @@ theorem boolean_declarations_mutabilities {text arguments state final declaratio
       state.booleanNames.map BooleanBindings.Binding.mutable ++ declarations.map BooleanDeclaration.mutable := by
   induction trace with
   | done => simp
-  | string _ _ _ _ _ _ first _ ih | scalar _ _ _ first _ ih | subtype _ _ first _ ih =>
+  | string _ _ _ _ _ _ first _ ih =>
+      rw [declaration_booleanNames first] at ih
+      exact ih
+  | scalar _ _ _ first _ ih | subtype _ _ first _ ih =>
       cases first
       exact ih
   | array _ _ _ _ first _ ih =>
@@ -172,10 +175,12 @@ theorem boolean_declarations_valid {text arguments state final declarations chec
   | done => exact ⟨trivial, rfl, rfl⟩
   | string _ _ _ _ _ _ first _ ih =>
       have nextNormal := declaration_normal normal first
-      have nextValid := model_string_declaration_valid _ textValid _ arguments valid
-      rw [declaration_complete first] at nextValid
-      cases first
-      exact ih nextNormal nextValid ready static
+      have nextValid := model_object_reading_valid textValid valid first
+      have scalars := declaration_scalarNames first
+      have fields := declaration_context_fields first
+      have following := ih nextNormal nextValid (scalars.symm ▸ ready) (scalars.symm ▸ static)
+      simpa only [fields.2.2.2.1, fields.2.2.2.2.2.2.1, booleanDeclarationFacts,
+        ActiveFlow.initial] using following
   | scalar _ _ _ first _ ih =>
       have nextStatic := scalar_declaration_static static first
       have nextReady := scalar_declaration_header_ready ready first

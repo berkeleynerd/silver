@@ -5,7 +5,7 @@ import copy
 import json
 import unittest
 
-from scripts.check_evidence import (EvidenceError, IMAGE_ADVISORY_TEXT,
+from scripts.check_evidence import (EvidenceError, IMAGE_ADVISORY_TEXT, IMAGE_ADVISORY_TEXTS,
                                     ARRAY_INITIALIZATION_ADVISORY_TEXT, audit_reports)
 from tests import test_evidence as evidence
 from tests import test_library_reports as native
@@ -23,16 +23,23 @@ def array_advisory() -> dict:
 
 
 def mutations(make_advisory=advisory):
+    text = make_advisory()["message"]["text"]
     for key, value in (("rule", "VC_LENGTH_CHECK"), ("severity", "info"),
                        ("how_proved", "prover"), ("file", "other.adb"),
                        ("line", 0), ("col", 0), ("line", True), ("entity", 1),
                        ("check_tree", []), ("check_tree", {"result": "valid"}),
                        ("suppressed", "justified"), ("suppressed", False),
                        ("unproved_status", {"status": "proved"}), ("unproved_status", []),
-                       ("message", {"text": IMAGE_ADVISORY_TEXT + " changed"}), ("message", []),
+                       ("message", {"text": text + " changed"}), ("message", []),
                        ("justification", ""), ("justified", False),
                        ("annot_kind", ""), ("justif_msg", "")):
         yield f"changed {key}={value!r}", dict(make_advisory(), **{key: value})
+    for changed in (None, False, 1, [], {}, text[0].upper() + text[1:], text.upper(), text + " "):
+        yield f"changed message text={changed!r}", dict(make_advisory(), message={"text": changed})
+    if text == IMAGE_ADVISORY_TEXT:
+        for spelling in ("iMaGe", "Imagex", "imagex", "IMAGEX"):
+            changed = text.replace('"Image"', f'"{spelling}"')
+            yield f"unreviewed attribute spelling={spelling}", dict(make_advisory(), message={"text": changed})
     for key in make_advisory():
         value = make_advisory()
         del value[key]
@@ -41,22 +48,24 @@ def mutations(make_advisory=advisory):
 
 class NativeImageReportTests(unittest.TestCase):
     advisory = staticmethod(advisory)
+    advisory_texts = IMAGE_ADVISORY_TEXTS
     setUpClass = classmethod(native.LibraryReportTests.setUpClass.__func__)
     tearDownClass = classmethod(native.LibraryReportTests.tearDownClass.__func__)
     accepts = native.LibraryReportTests.accepts
 
     def test_exact_advisory_preserves_required_checks_in_all_application_policies(self) -> None:
-        for kind in ("static", "main", "assignment", "selected"):
-            data = native.assignment_report(False)
-            data["warn_error"] = [self.advisory(), self.advisory()]
-            data["proof"] = [dict(native.check(), rule="VC_LENGTH_CHECK", file="main.adb")]
-            with self.subTest(kind=kind):
-                self.assertTrue(self.accepts(data, kind=kind))
-                # This probe reads one line; exercise equivalent interior JSON
-                # whitespace without truncating its input at a newline.
-                self.assertTrue(self.accepts(json.dumps(data).replace('{}', '{ \t }'), kind=kind))
-                data["proof"][0]["severity"] = "medium"
-                self.assertFalse(self.accepts(data, kind=kind))
+        for text in self.advisory_texts:
+            for kind in ("static", "main", "assignment", "selected"):
+                data = native.assignment_report(False)
+                data["warn_error"] = [dict(self.advisory(), message={"text": text})] * 2
+                data["proof"] = [dict(native.check(), rule="VC_LENGTH_CHECK", file="main.adb")]
+                with self.subTest(text=text, kind=kind):
+                    self.assertTrue(self.accepts(data, kind=kind))
+                    # This probe reads one line; exercise equivalent interior JSON
+                    # whitespace without truncating its input at a newline.
+                    self.assertTrue(self.accepts(json.dumps(data).replace('{}', '{ \t }'), kind=kind))
+                    data["proof"][0]["severity"] = "medium"
+                    self.assertFalse(self.accepts(data, kind=kind))
 
     def test_mutated_missing_duplicate_and_misplaced_advisories_are_rejected(self) -> None:
         data = native.assignment_report(False)
@@ -81,6 +90,7 @@ class NativeImageReportTests(unittest.TestCase):
 
 class ImageEvidenceTests(unittest.TestCase):
     advisory = staticmethod(advisory)
+    advisory_texts = IMAGE_ADVISORY_TEXTS
     counter = "image_advisories"
     setUp = evidence.ProofEvidenceTests.setUp
     refresh_reports = evidence.ProofEvidenceTests.refresh_reports
@@ -98,10 +108,12 @@ class ImageEvidenceTests(unittest.TestCase):
         (self.path / "gnatprove.sarif").write_text(json.dumps(sarif))
 
     def test_advisory_is_not_counted_as_a_discharged_check(self) -> None:
-        self.prepare()
-        for kind in ("static", "argument", "assigned", "selected"):
-            stats = audit_reports(self.path, {"main"}, application_kind=kind)
-            self.assertEqual((stats["proof_checks"], stats["flow_checks"], stats[self.counter]), (0, 0, 1))
+        for text in self.advisory_texts:
+            self.prepare(dict(self.advisory(), message={"text": text}))
+            for kind in ("static", "argument", "assigned", "selected"):
+                with self.subTest(text=text, kind=kind):
+                    stats = audit_reports(self.path, {"main"}, application_kind=kind)
+                    self.assertEqual((stats["proof_checks"], stats["flow_checks"], stats[self.counter]), (0, 0, 1))
         with self.assertRaises(EvidenceError):
             audit_reports(self.path, {"main"})
         # The warning never permits a failed original safety obligation.
@@ -133,6 +145,7 @@ class ImageEvidenceTests(unittest.TestCase):
 
 class NativeArrayReportTests(NativeImageReportTests):
     advisory = staticmethod(array_advisory)
+    advisory_texts = (ARRAY_INITIALIZATION_ADVISORY_TEXT,)
 
     def test_rule_and_message_must_be_the_same_advisory(self) -> None:
         for rule, message in (("array-initialization", IMAGE_ADVISORY_TEXT),
@@ -144,6 +157,7 @@ class NativeArrayReportTests(NativeImageReportTests):
 
 class ArrayEvidenceTests(ImageEvidenceTests):
     advisory = staticmethod(array_advisory)
+    advisory_texts = (ARRAY_INITIALIZATION_ADVISORY_TEXT,)
     counter = "array_initialization_advisories"
 
 

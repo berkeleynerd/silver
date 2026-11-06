@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is open-ended documentation of quoting constructs, so a straight-line program of literals, constants and bounded concatenation needs only static checks. No loop-carried values, arithmetic on inputs or recursion arise, so proofs should discharge automatically.
 
-Position 438 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 441 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

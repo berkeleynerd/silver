@@ -60,16 +60,20 @@ theorem repeated_dynamic_overflow_at_new_limit :
   decide +kernel
 
 theorem repeated_dynamic_counted :
-    (expressionAt [78, 38, 78] 1 [⟨1, 2, 0, 0, true, false⟩]).dynamicCount = 2 := by decide +kernel
+    (expressionAt [78, 38, 78] 1 [{ first := 1, after := 2, dynamic := true }]).dynamicCount = 2 := by
+  decide +kernel
 
 theorem repeated_dynamic_fits_half_capacity :
-    fits (expressionAt [78, 38, 78] 1 [⟨1, 2, 0, 0, true, false⟩]) 2048 = true := by decide +kernel
+    fits (expressionAt [78, 38, 78] 1 [{ first := 1, after := 2, dynamic := true }]) 2048 = true := by
+  decide +kernel
 
 theorem repeated_dynamic_overflow_rejected :
-    fits (expressionAt [78, 38, 78] 1 [⟨1, 2, 0, 0, true, false⟩]) 2049 = false := by decide +kernel
+    fits (expressionAt [78, 38, 78] 1 [{ first := 1, after := 2, dynamic := true }]) 2049 = false := by
+  decide +kernel
 
 def narrowDefault : Program :=
-  ⟨[argumentDeclaration], [⟨1, 2, 0, 0, true, false⟩], [65], .argument (some 0) [.reference 1]⟩
+  ⟨[argumentDeclaration], [{ first := 1, after := 2, dynamic := true }], [65],
+    .argument (some 0) [.reference 1]⟩
 
 theorem tighter_capacity_rejects_oversized_default : narrowDefault.action [] = .reject := by decide +kernel
 
@@ -111,7 +115,9 @@ theorem ordered_snapshots_admitted : formAccepts snapshotSource .assignment = tr
 
 def snapshotProgram : Program :=
   ⟨[⟨1, true, [.literal [97, 98]]⟩, ⟨2, false, [.reference 1]⟩, ⟨3, true, [.reference 2]⟩],
-    [⟨0, 0, 0, 2, false, true⟩, ⟨0, 0, 0, 2, false, false⟩, ⟨0, 0, 0, 2, false, true⟩], [],
+    [{ staticLength := 2, mutable := true, lastIndex := 2 },
+     { staticLength := 2, lastIndex := 2 },
+     { staticLength := 2, mutable := true, lastIndex := 2 }], [],
     .assignment ⟨1, [.literal [99, 100]]⟩ [.reference 1, .reference 2, .reference 3]⟩
 
 theorem snapshots_keep_initial_values : snapshotProgram.action [] = .output [99, 100, 97, 98, 97, 98] := by

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every operation is a bounded for-loop over small ranges with explicit overflow guards before each multiplication and addition, so checks follow from types and local guards, but several loop-carried accumulators make the program shape matter.
 
-Position 929 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 930 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

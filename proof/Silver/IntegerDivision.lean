@@ -238,13 +238,41 @@ def checkedDivide (left right : Interval) : CheckResult :=
 
 def checkedModulo (left right : Interval) : CheckResult :=
   if right.Contains 0 then ⟨false, Interval.empty⟩
-  else if left.isEmpty || right.isEmpty then ⟨true, Interval.empty⟩
+  else if left.isEmpty || right.isEmpty then
+    if right.Contains 1 ∨ right.Contains (-1) then ⟨false, Interval.empty⟩ else ⟨true, Interval.empty⟩
   else checked (left.modulo right)
 
 def checkedRemainder (left right : Interval) : CheckResult :=
   if right.Contains 0 then ⟨false, Interval.empty⟩
-  else if left.isEmpty || right.isEmpty then ⟨true, Interval.empty⟩
+  else if left.isEmpty || right.isEmpty then
+    if right.Contains 1 ∨ right.Contains (-1) then ⟨false, Interval.empty⟩ else ⟨true, Interval.empty⟩
   else checked (left.remainder right)
+
+/-- Nonempty modulo and remainder retain their mathematical interval checks. -/
+theorem checkedModulo_nonempty {left right : Interval}
+    (hl : left.isEmpty = false) (hr : right.isEmpty = false) :
+    checkedModulo left right =
+      if right.Contains 0 then ⟨false, Interval.empty⟩ else checked (left.modulo right) := by
+  simp [checkedModulo, hl, hr]
+
+theorem checkedRemainder_nonempty {left right : Interval}
+    (hl : left.isEmpty = false) (hr : right.isEmpty = false) :
+    checkedRemainder left right =
+      if right.Contains 0 then ⟨false, Interval.empty⟩ else checked (left.remainder right) := by
+  simp [checkedRemainder, hl, hr]
+
+/-- Unit-divisor folds cannot discard an abstractly empty dividend. -/
+theorem checkedModulo_empty_unit {left right : Interval}
+    (empty : (left.isEmpty || right.isEmpty) = true)
+    (unit : right.Contains 1 ∨ right.Contains (-1)) :
+    checkedModulo left right = ⟨false, Interval.empty⟩ := by
+  simp [checkedModulo, empty, unit]
+
+theorem checkedRemainder_empty_unit {left right : Interval}
+    (empty : (left.isEmpty || right.isEmpty) = true)
+    (unit : right.Contains 1 ∨ right.Contains (-1)) :
+    checkedRemainder left right = ⟨false, Interval.empty⟩ := by
+  simp [checkedRemainder, empty, unit]
 
 theorem checkedDivide_excludes_zero {left right : Interval}
     (safe : (checkedDivide left right).safe = true) : ¬ right.Contains 0 := by
@@ -274,7 +302,7 @@ theorem checkedModulo_bounded (left right : Interval) : (checkedModulo left righ
   split
   · exact Interval.empty_bounded
   · split
-    · exact Interval.empty_bounded
+    · split <;> exact Interval.empty_bounded
     · exact checked_bounded _
 
 theorem checkedRemainder_bounded (left right : Interval) : (checkedRemainder left right).bounds.Bounded := by
@@ -282,7 +310,7 @@ theorem checkedRemainder_bounded (left right : Interval) : (checkedRemainder lef
   split
   · exact Interval.empty_bounded
   · split
-    · exact Interval.empty_bounded
+    · split <;> exact Interval.empty_bounded
     · exact checked_bounded _
 
 theorem checkedDivide_sound {left right : Interval} {a b : Int}

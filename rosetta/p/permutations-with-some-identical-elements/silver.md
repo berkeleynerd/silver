@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks are index bounds on a fixed 6-element array, guarded by loop conditions on small range-typed positions, with no arithmetic that can overflow and no recursion, so the proofs should discharge without annotations.
 
-Position 513 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 514 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 
