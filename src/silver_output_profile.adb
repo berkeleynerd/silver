@@ -1813,10 +1813,12 @@ is
                  Arrays => State.Array_Names.Names, Initials => State.Array_Names.Values, Elaborating => True);
               Type_First : constant Literal_Position := Skip_At (Text, Take_Token (Text,
                 Take_Token (Text, High.After, Right_Parenthesis), Of_Keyword));
-              Boolean_Elements : constant Boolean := Take_Token (Text, Type_First, Boolean_Name) /= 0;
+              Integer_Type : constant Scalar_Constraint_Result := Scalar_Type_At (Text, State, Type_First);
+              Boolean_Elements : constant Boolean := Integer_Type.After = 0
+                and then Take_Token (Text, Type_First, Boolean_Name) /= 0;
               Type_Mark : constant Scalar_Constraint_Result :=
                 (if Boolean_Elements then (Take_Token (Text, Type_First, Boolean_Name), Scalars.Full)
-                 else Scalar_Type_At (Text, State, Type_First));
+                 else Integer_Type);
               Type_After : constant Literal_Position := Type_Mark.After;
               Position : constant Literal_Position := Take_Token (Text,
                 Take_Token (Text, Type_After, Assignment), Left_Parenthesis);
@@ -2105,10 +2107,12 @@ is
                  Arrays => State.Array_Names.Names, Initials => State.Array_Names.Values, Elaborating => True);
               Type_First : constant Literal_Position := Skip_At (Text, Take_Token (Text,
                 Take_Token (Text, High.After, Right_Parenthesis), Of_Keyword));
-              Boolean_Elements : constant Boolean := Take_Token (Text, Type_First, Boolean_Name) /= 0;
+              Integer_Type : constant Scalar_Constraint_Result := Scalar_Type_At (Text, State, Type_First);
+              Boolean_Elements : constant Boolean := Integer_Type.After = 0
+                and then Take_Token (Text, Type_First, Boolean_Name) /= 0;
               Type_Mark : constant Scalar_Constraint_Result :=
                 (if Boolean_Elements then (Take_Token (Text, Type_First, Boolean_Name), Scalars.Full)
-                 else Scalar_Type_At (Text, State, Type_First));
+                 else Integer_Type);
               Type_After : constant Literal_Position := Type_Mark.After;
               Position : constant Literal_Position := Take_Token (Text,
                 Take_Token (Text, Type_After, Assignment), Left_Parenthesis);
