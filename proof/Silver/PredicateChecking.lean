@@ -264,7 +264,7 @@ def Condition.refine (shape : Shape) (analysis : Integer.Analysis) (condition : 
   | .scalarCompare operator left right =>
       {flow with scalars := Integer.refineComparison analysis flow.scalars operator left right truth}
   | .inputValid => {flow with path := if truth then flow.path.assumeValid else flow.path.assumeInvalid}
-  | .characterCompare _ _ _ | .booleanLiteral _ | .booleanName _ | .eager _ _ _ | .booleanCompare _ _ _ => flow
+  | .characterCompare _ _ _ | .booleanLiteral _ | .booleanName _ | .booleanArrayRead _ _ | .eager _ _ _ | .booleanCompare _ _ _ => flow
   | .parenthesized inner => inner.refine shape analysis flow truth
   | .negated inner => inner.refine shape analysis flow (!truth)
   | .andThen left right =>
@@ -298,7 +298,7 @@ theorem Condition.refine_sound {condition : Condition} {shape : Shape} {hasArgum
       cases valid with
       | true => exact (Context.assumeValid_iff _ _ _ _).mpr ⟨allowed.1, rfl⟩
       | false => exact (Context.assumeInvalid_iff _ _ _ _).mpr ⟨allowed.1, rfl⟩
-  | characterCompare | booleanLiteral | booleanName | eager | booleanCompare => exact allowed
+  | characterCompare | booleanLiteral | booleanName | booleanArrayRead | eager | booleanCompare => exact allowed
   | parenthesized inner ih => exact ih readable allowed
   | negated inner ih => simpa only [refine, evaluate, Bool.not_not] using ih readable allowed
   | andThen left right ihl ihr =>
@@ -341,7 +341,7 @@ theorem Condition.refine_refines {shape : Shape} {analysis : Integer.Analysis}
     (refined : flow.scalars.Refines declared) :
     (condition.refine shape analysis flow truth).scalars.Refines declared := by
   induction condition generalizing flow truth with
-  | stringCompare | lengthCompare | characterCompare | inputValid | booleanLiteral | booleanName | eager | booleanCompare => exact refined
+  | stringCompare | lengthCompare | characterCompare | inputValid | booleanLiteral | booleanName | booleanArrayRead | eager | booleanCompare => exact refined
   | scalarCompare => exact Integer.refineComparison_refines refined
   | parenthesized _ ih | negated _ ih => exact ih refined
   | andThen left right ihl ihr | orElse left right ihl ihr =>
@@ -355,7 +355,7 @@ theorem Condition.refine_scalars_bounded {shape : Shape} {analysis : Integer.Ana
     (bounded : flow.scalars.Bounded) :
     (condition.refine shape analysis flow truth).scalars.Bounded := by
   induction condition generalizing flow truth with
-  | stringCompare | lengthCompare | characterCompare | inputValid | booleanLiteral | booleanName | eager | booleanCompare => exact bounded
+  | stringCompare | lengthCompare | characterCompare | inputValid | booleanLiteral | booleanName | booleanArrayRead | eager | booleanCompare => exact bounded
   | scalarCompare => exact Integer.refineComparison_bounded bounded
   | parenthesized _ ih | negated _ ih => exact ih bounded
   | andThen left right ihl ihr | orElse left right ihl ihr =>
@@ -372,7 +372,7 @@ theorem Condition.refine_nonempty {shape : Shape} {analysis : Integer.Analysis}
     ∃ bounds, (condition.refine shape analysis flow truth).scalars index = some bounds ∧
       bounds.isEmpty = false := by
   induction condition generalizing flow truth with
-  | stringCompare | lengthCompare | characterCompare | inputValid | booleanLiteral | booleanName | eager | booleanCompare => exact nonempty
+  | stringCompare | lengthCompare | characterCompare | inputValid | booleanLiteral | booleanName | booleanArrayRead | eager | booleanCompare => exact nonempty
   | scalarCompare => exact Integer.refineComparison_nonempty nonempty
   | parenthesized _ ih | negated _ ih => exact ih nonempty
   | andThen left right ihl ihr | orElse left right ihl ihr =>
@@ -389,7 +389,7 @@ theorem Condition.refine_preserves_fixed {shape : Shape} {analysis : Integer.Ana
     (incoming : flow.scalars index = some bounds) (nonempty : bounds.isEmpty = false) :
     (condition.refine shape analysis flow truth).scalars index = some bounds := by
   induction condition generalizing flow truth with
-  | stringCompare | lengthCompare | characterCompare | inputValid | booleanLiteral | booleanName | eager | booleanCompare => exact incoming
+  | stringCompare | lengthCompare | characterCompare | inputValid | booleanLiteral | booleanName | booleanArrayRead | eager | booleanCompare => exact incoming
   | scalarCompare => exact (Integer.refineComparison_preserves_fixed readonly).trans incoming
   | parenthesized _ ih | negated _ ih => exact ih incoming
   | andThen left right ihl ihr | orElse left right ihl ihr =>
@@ -404,7 +404,7 @@ theorem Condition.refine_preserves_none {shape : Shape} {analysis : Integer.Anal
     (absent : flow.scalars index = none) :
     (condition.refine shape analysis flow truth).scalars index = none := by
   induction condition generalizing flow truth with
-  | stringCompare | lengthCompare | characterCompare | inputValid | booleanLiteral | booleanName | eager | booleanCompare => exact absent
+  | stringCompare | lengthCompare | characterCompare | inputValid | booleanLiteral | booleanName | booleanArrayRead | eager | booleanCompare => exact absent
   | scalarCompare => exact Integer.refineComparison_preserves_none absent
   | parenthesized _ ih | negated _ ih => exact ih absent
   | andThen left right ihl ihr | orElse left right ihl ihr =>
@@ -472,6 +472,8 @@ def Condition.checkBounds (shape : Shape) (analysis : Integer.Analysis) (conditi
       left.check shape.fixedLengths flow.scalars && right.check shape.fixedLengths flow.scalars
   | .inputValid | .booleanLiteral _ => true
   | .booleanName index => booleans.initialized index
+  | .booleanArrayRead array index =>
+      array.initialized booleans && array.checkIndex flow.scalars index
   | .parenthesized inner | .negated inner => inner.checkBounds shape analysis flow booleans
   | .andThen left right =>
       left.checkBounds shape analysis flow booleans &&
@@ -526,6 +528,8 @@ theorem Condition.checkBounds_sound {condition : Condition} {shape : Shape} {has
       exact ⟨Character.Expr.check_safe checked.1 (fits_fixedLengths state) allowed.2,
         Character.Expr.check_safe checked.2 (fits_fixedLengths state) allowed.2⟩
   | inputValid | booleanLiteral _ | booleanName _ => trivial
+  | booleanArrayRead array index =>
+      exact array.checkIndex_sound (Bool.and_eq_true_iff.mp checked).2 allowed.2
   | parenthesized inner ih => exact ih readable allowed checked
   | negated inner ih => exact ih readable allowed checked
   | andThen left right ihl ihr =>

@@ -142,6 +142,22 @@ def checkIndex (array : ArrayDescriptor) (ranges : Integer.Ranges) (index : Inte
   | none => false
   | some indices => Integer.arrayIndexCheck array.layout indices
 
+theorem checkIndex_valid {array : ArrayDescriptor} {ranges : Integer.Ranges} {index : Integer.Expr}
+    (checked : array.checkIndex ranges index = true) : array.Valid := by
+  unfold checkIndex at checked
+  cases found : index.infer ranges with
+  | none => simp [found] at checked
+  | some indices =>
+      simp only [found, Integer.arrayIndexCheck, decide_eq_true_eq] at checked
+      exact checked.1
+
+theorem indexCheck_singleton {array : ArrayDescriptor} {index : Int}
+    (valid : array.Valid) (inside : array.bounds.Contains index) :
+    Integer.arrayIndexCheck array.layout (Integer.Interval.singleton index) = true := by
+  unfold Integer.arrayIndexCheck
+  apply decide_eq_true
+  exact ⟨valid, Int.le_refl _, inside.1, inside.2⟩
+
 def indexObligations (array : ArrayDescriptor) (ranges : Integer.Ranges)
     (index : Integer.Expr) : List Integer.Obligation :=
   index.obligations ranges ++ match index.infer ranges with

@@ -22,6 +22,7 @@ def Condition.freezeIntegers (integers : Integer.Store) : Condition → Conditio
   | .inputValid => .inputValid
   | .booleanLiteral value => .booleanLiteral value
   | .booleanName index => .booleanName index
+  | .booleanArrayRead array index => .booleanArrayRead array (.snapshot (index.evaluate integers))
   | .parenthesized inner => .parenthesized (inner.freezeIntegers integers)
   | .negated inner => .negated (inner.freezeIntegers integers)
   | .andThen left right => .andThen (left.freezeIntegers integers) (right.freezeIntegers integers)
@@ -45,7 +46,8 @@ theorem Condition.freezeIntegers_evaluate (condition : Condition) (snapshot afte
     (values : Values) (input : Source) (valid : Bool) (booleans : Boolean.Store) :
     (condition.freezeIntegers snapshot).evaluate values input valid after booleans =
       condition.evaluate values input valid snapshot booleans := by
-  induction condition <;> simp only [freezeIntegers, evaluate, frozen_expression_evaluate, Character.Expr.freeze_evaluate, *]
+  induction condition <;> simp only [freezeIntegers, evaluate, frozen_expression_evaluate,
+    Character.Expr.freeze_evaluate, Integer.Expr.evaluate, *]
 
 theorem frozen_expression_safe {expression : Expression} {snapshot after : Integer.Store}
     {values : Values} {input : Source} (safe : expression.RuntimeSafe values input snapshot) :
@@ -72,6 +74,7 @@ theorem Condition.freezeIntegers_safe {condition : Condition} {shape : Shape}
   | lengthCompare | inputValid | booleanLiteral | booleanName => exact safe
   | scalarCompare => trivial
   | characterCompare => exact ⟨Character.Expr.freeze_safe safe.1 after, Character.Expr.freeze_safe safe.2 after⟩
+  | booleanArrayRead => exact ⟨Integer.Expr.safe_value safe.1, safe.2⟩
   | parenthesized inner ih | negated inner ih => exact ih safe
   | andThen left right ihl ihr | orElse left right ihl ihr =>
       refine ⟨ihl safe.1, ?_⟩
@@ -107,7 +110,7 @@ theorem Condition.freezeIntegers_eagerHead (condition : Condition) (snapshot : I
 theorem Condition.freezeIntegers_grammatical {condition : Condition} (snapshot : Integer.Store)
     (grammatical : condition.Grammatical) : (condition.freezeIntegers snapshot).Grammatical := by
   induction condition with
-  | stringCompare | lengthCompare | scalarCompare | characterCompare | inputValid | booleanLiteral | booleanName => trivial
+  | stringCompare | lengthCompare | scalarCompare | characterCompare | inputValid | booleanLiteral | booleanName | booleanArrayRead => trivial
   | parenthesized inner ih => exact ih grammatical
   | negated inner ih => exact ⟨freezeIntegers_primary grammatical.1, ih grammatical.2⟩
   | andThen left right ihl ihr =>
@@ -161,7 +164,7 @@ theorem Condition.freezeIntegers_readable {condition : Condition} {hasArguments 
         Character.Expr.freeze_readable readable.2.1 snapshot,
         Character.Expr.freeze_literals readable.2.2.1 snapshot,
         Character.Expr.freeze_literals readable.2.2.2 snapshot⟩
-  | lengthCompare | scalarCompare | inputValid | booleanLiteral | booleanName => exact readable
+  | lengthCompare | scalarCompare | inputValid | booleanLiteral | booleanName | booleanArrayRead => exact readable
   | parenthesized inner ih | negated inner ih => exact ih readable
   | andThen left right ihl ihr | orElse left right ihl ihr | eager _ left right ihl ihr | booleanCompare _ left right ihl ihr =>
       exact ⟨ihl readable.1, ihr readable.2⟩

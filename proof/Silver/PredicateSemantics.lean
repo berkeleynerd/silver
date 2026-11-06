@@ -36,6 +36,7 @@ def Condition.evaluate (values : Values) (input : Source) (inputValid : Bool)
   | .inputValid => inputValid
   | .booleanLiteral value => value
   | .booleanName index => booleans index
+  | .booleanArrayRead array index => array.project booleans (index.evaluate integers)
   | .parenthesized inner => inner.evaluate values input inputValid integers booleans
   | .negated inner => !(inner.evaluate values input inputValid integers booleans)
   | .andThen left right =>
@@ -62,6 +63,7 @@ def Condition.Safe (shape : Shape) (values : Values) (input : Source) (inputVali
   | .scalarCompare _ left right => left.Safe integers ∧ right.Safe integers
   | .characterCompare _ left right => left.Safe values integers ∧ right.Safe values integers
   | .inputValid | .booleanLiteral _ | .booleanName _ => True
+  | .booleanArrayRead array index => index.Safe integers ∧ array.bounds.Contains (index.evaluate integers)
   | .parenthesized inner | .negated inner => inner.Safe shape values input inputValid integers booleans
   | .andThen left right =>
       left.Safe shape values input inputValid integers booleans ∧
@@ -92,6 +94,8 @@ def Condition.checkedEvaluate (values : Values) (input : Source) (inputValid : B
   | .inputValid => some inputValid
   | .booleanLiteral value => some value
   | .booleanName index => some (booleans index)
+  | .booleanArrayRead array index => (index.checkedEvaluate integers).bind fun value =>
+      if array.bounds.Contains value then some (array.project booleans value) else none
   | .parenthesized inner => inner.checkedEvaluate values input inputValid integers booleans
   | .negated inner => (inner.checkedEvaluate values input inputValid integers booleans).map Bool.not
   | .andThen left right => (left.checkedEvaluate values input inputValid integers booleans).bind fun result =>
@@ -137,6 +141,9 @@ theorem Condition.checkedEvaluate_refines {condition : Condition} {shape : Shape
       simp only [checkedEvaluate, Character.Expr.checkedEvaluate_agrees safe.1,
         Character.Expr.checkedEvaluate_agrees safe.2, Option.bind_some, Option.map_some, evaluate]
   | inputValid | booleanLiteral _ | booleanName _ => rfl
+  | booleanArrayRead array index =>
+      simp only [checkedEvaluate, Integer.Expr.checkedEvaluate_agrees safe.1,
+        Option.bind_some, safe.2, ↓reduceIte, evaluate]
   | parenthesized inner ih => exact ih safe
   | negated inner ih => simp only [checkedEvaluate, ih safe, Option.map_some, evaluate]
   | andThen left right ihl ihr =>
