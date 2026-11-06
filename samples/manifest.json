@@ -1963,6 +1963,78 @@
         "stderr": "",
         "exit_status": 0
       }
+    },
+    {
+      "source": "rosetta_sieve_of_eratosthenes.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "boolean_array_object",
+        "boolean_array_read",
+        "boolean_array_assignment",
+        "boolean_expression",
+        "boolean_predicate",
+        "statement_sequence",
+        "for_loop",
+        "integer_expression",
+        "integer_comparison",
+        "scalar_guard_refinement",
+        "string_choice",
+        "integer_image",
+        "expression_output",
+        "named_integer_constant",
+        "named_integer_variable",
+        "integer_range_constraint",
+        "integer_assignment",
+        "scalar_integer_literal",
+        "string_expression"
+      ],
+      "specification": "../language.md#fixed-size-boolean-arrays",
+      "expected": {
+        "stdout": " 2\n 3\n 5\n 7\n 11\n 13\n 17\n 19\n 23\n 29\n 31\n 37\n 41\n 43\n 47\n 53\n 59\n 61\n 67\n 71\n 73\n 79\n 83\n 89\n 97\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    {
+      "source": "rosetta_elementary_cellular_automaton.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "boolean_array_object",
+        "boolean_array_read",
+        "boolean_array_assignment",
+        "boolean_expression",
+        "boolean_predicate",
+        "statement_sequence",
+        "for_loop",
+        "integer_expression",
+        "integer_comparison",
+        "scalar_guard_refinement",
+        "string_choice",
+        "integer_image",
+        "expression_output",
+        "named_integer_constant",
+        "named_integer_subtype",
+        "named_integer_variable",
+        "integer_assignment",
+        "integer_array_object",
+        "integer_array_iteration",
+        "string_literal",
+        "string_concatenation",
+        "literal_output",
+        "scalar_integer_literal",
+        "string_expression",
+        "integer_range_constraint"
+      ],
+      "specification": "../language.md#fixed-size-boolean-arrays",
+      "expected": {
+        "stdout": "Rule 90\n..........#..........\n.........#.#.........\n........#...#........\n.......#.#.#.#.......\n......#.......#......\n.....#.#.....#.#.....\n....#...#...#...#....\n...#.#.#.#.#.#.#.#...\n..#...............#..\n.#.#.............#.#.\n#...#...........#...#\n##.#.#.........#.#.##\n.#....#.......#....#.\n#.#..#.#.....#.#..#.#\n#..##...#...#...##..#\n######.#.#.#.#.######\nRule 30\n..........#..........\n.........###.........\n........##..#........\n.......##.####.......\n......##..#...#......\n.....##.####.###.....\n....##..#....#..#....\n...##.####..######...\n..##..#...###.....#..\n.##.####.##..#...###.\n##..#....#.####.##..#\n..####..##.#....#.###\n###...###..##..##.#..\n#..#.##..###.###..###\n.###.#.###...#..###..\n##...#.#..#.#####..#.\nRule 122\n..........#..........\n.........#.#.........\n........#.#.#........\n.......#.#.#.#.......\n......#.#.#.#.#......\n.....#.#.#.#.#.#.....\n....#.#.#.#.#.#.#....\n...#.#.#.#.#.#.#.#...\n..#.#.#.#.#.#.#.#.#..\n.#.#.#.#.#.#.#.#.#.#.\n#.#.#.#.#.#.#.#.#.#.#\n##.#.#.#.#.#.#.#.#.##\n.##.#.#.#.#.#.#.#.##.\n####.#.#.#.#.#.#.####\n...##.#.#.#.#.#.##...\n..####.#.#.#.#.####..\n",
+        "stderr": "",
+        "exit_status": 0
+      }
     }
   ]
 }
