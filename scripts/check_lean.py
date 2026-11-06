@@ -127,7 +127,7 @@ def write_changed(path: Path, contents: bytes) -> None:
 
 def generate_certificate(host: HostLayout, relative: Path, source_name: str,
                          *, pass_fds: tuple[int, ...] = ()) -> None:
-    """Regenerate one source and publish all its checked candidate inputs.
+    """Regenerate one source and publish all its generated candidate inputs.
 
     Stage the output-body aggregator and its four line modules together. Read
     every expected output before publishing any, so a partial generation cannot

@@ -10,7 +10,7 @@ import unittest
 from unittest import mock
 
 from scripts.bootstrap_lean import lean_environment
-from scripts.check_lean import CANDIDATES
+from scripts.check_lean import CANDIDATES, CERTIFICATE_ROOTS, OUTPUT_BODY_LINES
 from scripts.platforms import native_layout
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -78,10 +78,12 @@ class CompilerSourcePolicyTests(unittest.TestCase):
                          {name: filename for filename, name, _prefix in GENERATOR.SOURCE_BINDINGS}
                          | dict(EXTRA_SOURCE_BINDINGS.values()))
         self.assertEqual(len(GENERATOR.SOURCE_BINDINGS) + len(EXTRA_SOURCE_BINDINGS), len(bindings))
-        self.assertEqual(CANDIDATES, {
+        self.assertEqual(CERTIFICATE_ROOTS, {
             Path("Silver") / f"{module}.lean": filename
             for filename, module in zip(EMBEDDED, CERTIFICATE_MODULES, strict=True)
         })
+        self.assertEqual(CANDIDATES, CERTIFICATE_ROOTS | {
+            path: "silver_output_profile.adb" for path in OUTPUT_BODY_LINES})
 
         lake = (ROOT / "proof/lakefile.lean").read_text()
         inputs = re.findall(
@@ -243,6 +245,28 @@ class CompilerSourcePolicyTests(unittest.TestCase):
                     checked_in = ROOT / "proof" / "Silver" / f"{module}.lean"
                     self.assertTrue(candidate.read_bytes() == checked_in.read_bytes(),
                                     f"{module} differs from regenerated source certificate")
+            for relative in OUTPUT_BODY_LINES:
+                self.assertEqual((workspace / "proof" / relative).read_bytes(),
+                                 (ROOT / "proof" / relative).read_bytes())
+
+    def test_output_body_split_preserves_every_declaration_and_reconstruction(self):
+        source = (ROOT / "src/silver_output_profile.adb").read_bytes().decode("ascii")
+        declarations, reconstruction = GENERATOR.generate_parts(
+            source, "outputProfileBody", "outputBodyTokens")
+        self.assertEqual(len(declarations), len(source.split("\n")))
+        header = "\n".join(GENERATOR.module_header()) + "\n"
+        recovered = []
+        for index, relative in enumerate(OUTPUT_BODY_LINES):
+            chunk = (ROOT / "proof" / relative).read_text()
+            expected = declarations[len(declarations) * index // 4:len(declarations) * (index + 1) // 4]
+            body = "\n".join(line for declaration in expected for line in declaration) + "\n"
+            self.assertEqual(chunk, header + body + "end Silver.Source\n")
+            recovered.extend(expected)
+        self.assertEqual(recovered, declarations)
+        aggregator = (ROOT / "proof/Silver/OutputBodyCertificate.lean").read_text()
+        expected_header = GENERATOR.module_header("OutputProfileBodySource", GENERATOR.OUTPUT_BODY_LINE_MODULES)
+        self.assertEqual(aggregator, "\n".join([
+            *expected_header, *reconstruction, "end Silver.Source", ""]))
 
     def test_current_compiler_sources_satisfy_byte_policy(self):
         for filename in EMBEDDED:

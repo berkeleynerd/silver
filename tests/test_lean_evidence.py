@@ -15,7 +15,8 @@ from unittest import mock
 
 from scripts import check_lean
 from scripts.bootstrap_lean import lean_environment
-from scripts.check_lean import (CANDIDATES, audit_import_closure, lake_build_command,
+from scripts.check_lean import (CANDIDATES, CERTIFICATE_ROOTS, OUTPUT_BODY_LINES,
+                               audit_import_closure, generate_certificate, lake_build_command,
                                prepare_tool_cache, prepare_workspace,
                                verify_workspace_inputs)
 from scripts.platforms import HostLayout, native_layout
@@ -201,6 +202,71 @@ class LeanEvidenceTests(unittest.TestCase):
                 candidate.write_bytes(contents)
         verify_workspace_inputs(host, inputs)
 
+    def test_output_body_generation_stages_all_outputs_and_preserves_unchanged_files(self) -> None:
+        host, _inputs = self.workspace()
+        root = Path("Silver/OutputBodyCertificate.lean")
+        outputs = (root, *OUTPUT_BODY_LINES)
+        generated = {relative: f"-- generated {relative}\n".encode() for relative in outputs}
+
+        def run(command, **_kwargs):
+            self.assertEqual(Path(command[-1]), (host.proof / root).with_suffix(".lean.pending"))
+            for relative, contents in generated.items():
+                (host.proof / relative).with_suffix(".lean.pending").write_bytes(contents)
+
+        def identities():
+            return {relative: ((host.proof / relative).read_bytes(),
+                               (host.proof / relative).stat().st_mtime_ns,
+                               (host.proof / relative).stat().st_ino) for relative in CANDIDATES}
+
+        with mock.patch.object(check_lean.subprocess, "run", side_effect=run):
+            generate_certificate(host, root, "silver_output_profile.adb")
+            before = identities()
+            generate_certificate(host, root, "silver_output_profile.adb")
+            self.assertEqual(identities(), before)
+            generated[OUTPUT_BODY_LINES[2]] += b"-- changed line\n"
+            generate_certificate(host, root, "silver_output_profile.adb")
+        after = identities()
+        self.assertNotEqual(after[OUTPUT_BODY_LINES[2]][0], before[OUTPUT_BODY_LINES[2]][0])
+        self.assertEqual({path: value for path, value in after.items() if path != OUTPUT_BODY_LINES[2]},
+                         {path: value for path, value in before.items() if path != OUTPUT_BODY_LINES[2]})
+        self.assertFalse(list(host.proof.rglob("*.pending")))
+
+    def test_missing_output_body_chunk_does_not_publish_partial_generation(self) -> None:
+        host, _inputs = self.workspace()
+        root = Path("Silver/OutputBodyCertificate.lean")
+        outputs = (root, *OUTPUT_BODY_LINES)
+        before = {relative: (host.proof / relative).read_bytes() for relative in outputs}
+        # A retained pending file must not mask an omitted output this time.
+        (host.proof / OUTPUT_BODY_LINES[-1]).with_suffix(".lean.pending").write_bytes(b"stale")
+
+        def run(_command, **_kwargs):
+            for relative in outputs[:-1]:
+                (host.proof / relative).with_suffix(".lean.pending").write_bytes(b"new")
+
+        with mock.patch.object(check_lean.subprocess, "run", side_effect=run), \
+                self.assertRaisesRegex(RuntimeError, "regular certificate file"):
+            generate_certificate(host, root, "silver_output_profile.adb")
+        self.assertEqual({relative: (host.proof / relative).read_bytes() for relative in outputs}, before)
+        self.assertFalse(list(host.proof.rglob("*.pending")))
+
+    def test_removed_output_body_chunk_cleans_its_cached_artifact_family(self) -> None:
+        host, inputs = self.workspace()
+        removed = OUTPUT_BODY_LINES[-1]
+        artifacts = [host.proof / ".lake/build" / directory / removed.with_suffix(suffix)
+                     for directory, suffix in (("lib/lean", ".olean"),
+                                               ("lib/lean", ".olean.private"),
+                                               ("lib/lean", ".olean.server"),
+                                               ("lib/lean", ".trace"), ("ir", ".c"))]
+        for artifact in artifacts:
+            artifact.parent.mkdir(parents=True, exist_ok=True)
+            artifact.write_bytes(b"retired chunk")
+        candidates = {path: source for path, source in CANDIDATES.items() if path != removed}
+        with mock.patch.object(check_lean, "CANDIDATES", candidates):
+            prepare_workspace(host, inputs)
+        self.assertFalse((host.proof / removed).exists())
+        self.assertFalse(any(path.exists() for path in artifacts))
+        self.assertTrue((host.proof / OUTPUT_BODY_LINES[0]).is_file())
+
     def test_generator_cannot_replace_input_with_same_content_symlink(self) -> None:
         host, inputs = self.workspace()
         destination = host.proof / "Silver/AuthoritativeSource.lean"
@@ -286,9 +352,14 @@ class LeanRunnerPhaseTests(unittest.TestCase):
                 return subprocess.CompletedProcess(command, 0, "4.34.1\n")
             self.assertEqual(command[:2], [sys.executable, str(proof / "generate_source_certificate.py")])
             source = command[command.index("--source") + 1]
-            Path(command[command.index("--output") + 1]).write_text("-- candidate " + source + "\n")
+            destination = Path(command[command.index("--output") + 1])
+            destination.write_text("-- candidate " + source + "\n")
+            if source == "silver_output_profile.adb":
+                for relative in OUTPUT_BODY_LINES:
+                    (host.proof / relative).with_suffix(".lean.pending").write_text(
+                        "-- candidate chunk " + relative.stem + "\n")
             state.generated += 1
-            if state.generated == len(CANDIDATES) and state.after_generation:
+            if state.generated == len(CERTIFICATE_ROOTS) and state.after_generation:
                 state.after_generation(host)
             return subprocess.CompletedProcess(command, 0)
 
