@@ -23,6 +23,29 @@ structure Analysis where
 def Analysis.canWrite (analysis : Analysis) (index : Nat) : Bool :=
   analysis.initialized index && analysis.mutable index
 
+/-- Initialization records only an object's identity and mutability. Its
+Boolean value and the predicate which produced it are not analysis facts. -/
+def Analysis.initialize (analysis : Analysis) (index : Nat) (mutable : Bool) : Analysis :=
+  { initialized := fun observed => if observed = index then true else analysis.initialized observed
+    mutable := fun observed => if observed = index then mutable else analysis.mutable observed }
+
+@[simp] theorem Analysis.initialize_initialized (analysis : Analysis) (index : Nat) (mutable : Bool) :
+    (analysis.initialize index mutable).initialized index = true := by simp [Analysis.initialize]
+
+@[simp] theorem Analysis.initialize_mutable (analysis : Analysis) (index : Nat) (mutable : Bool) :
+    (analysis.initialize index mutable).mutable index = mutable := by simp [Analysis.initialize]
+
+theorem Analysis.initialize_other (analysis : Analysis) (index : Nat) (mutable : Bool)
+    (observed : Nat) (different : observed ≠ index) :
+    (analysis.initialize index mutable).initialized observed = analysis.initialized observed ∧
+      (analysis.initialize index mutable).mutable observed = analysis.mutable observed := by
+  simp [Analysis.initialize, different]
+
+theorem Analysis.initialize_preserves (analysis : Analysis) (index : Nat) (mutable : Bool)
+    (observed : Nat) (ready : analysis.initialized observed = true) :
+    (analysis.initialize index mutable).initialized observed = true := by
+  simp [Analysis.initialize, ready]
+
 inductive Operator
   | and | or | xor
   deriving DecidableEq, Repr
