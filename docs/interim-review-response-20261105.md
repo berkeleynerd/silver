@@ -30,6 +30,10 @@ The unnumbered B2/B4 wording findings accompany those repairs. The two
 information observations require no new machinery. Unverified candidates in the
 unfinished review are not treated as findings or clearance.
 
+The table records this response's original scope. On 2026-11-06 the owner
+selected Med-1's remaining [structural guards](source-tree-structural-guards.md)
+as a separate proof-only follow-up under #314 and milestone 18.
+
 B1 violates native execution meaning, while B2–B5 reject admitted source later
 in the pipeline. Their different symptoms do not change the requirement to
 repair the current language's guarantee. The report's candidate patches and

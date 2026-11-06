@@ -1,0 +1,18 @@
+{
+  "checked_at_utc": "2026-11-06T16:40:52.433927+00:00",
+  "governed_source": "92ab046be220177eb850be943791df57d87043dc",
+  "native_run": "20261106T145116-6582d1e5fcb5",
+  "build_run": "20261106T145251-335323a924fa",
+  "retained_packet": "../lean-incremental-throughput-20261106/native/",
+  "original_native_workspace": "/home/canto/src/github.com/berkeleynerd/silver/tmp/empty-loop-repair",
+  "native_archive_sha256": "c30ed8f875dfc570aba234722212f92ee9d8e1858767dcc6a58f7cd95f991467",
+  "native_input_count": 2586,
+  "native_input_mismatches": [],
+  "tracked_input_count": 143,
+  "tracked_input_mismatches": [],
+  "tracked_path_set_matches": true,
+  "tool_count": 12,
+  "tool_mismatches": [],
+  "applicability": "Only Lean guard modules/source-record wiring and documentation change. Native source, recursive scripts, build/configuration and generated/toolchain inputs retain their exact captured bytes; retained complete native proof/build evidence applies without rerun.",
+  "applies": true
+}

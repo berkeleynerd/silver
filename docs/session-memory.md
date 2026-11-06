@@ -1,5 +1,16 @@
 # Session memory
 
+## 2026-11-06 — Structural guards implemented and validated
+
+The selected #314 follow-up is implemented at governed source `92ab046be2`.
+The [task record](source-tree-structural-guards.md#implementation-and-validation--2026-11-06)
+retains the exact source/review targets, complete Linux Lean checkpoint,
+focused tests, native input applicability and the repaired review finding.
+The work preserves the existing language, source trees and semantic endpoints.
+Implementation is ready for reviewable publication; #314 and milestone 18
+remain open pending the owner's later merge instruction. No next language
+feature is selected by this completion, and no CLI recall entry was updated.
+
 ## 2026-11-06 — Lean deliveries complete; structural guards selected next
 
 The ordered owner-authorized merges are complete:
