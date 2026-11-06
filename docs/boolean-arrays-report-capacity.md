@@ -1,9 +1,10 @@
 # Boolean arrays: producer and report capacity
 
 Draft feature-local account for [#297](https://github.com/berkeleynerd/silver/issues/297),
-2026-11-06. The native subthread inspected the pinned producer routes below;
-independent review, the discovery probes and complete feature assurance remain
-pending. This account extends the
+2026-11-06. The native subthread inspected the pinned producer routes below.
+The [independent capacity review](reviews/review-boolean-arrays-capacity-20261106.md)
+found no blocking finding; discovery probes and complete feature assurance
+remain pending. This account extends the
 [String/Character envelope](bounded-string-characters-report-capacity.md) and
 [Boolean scalar account](evidence/boolean-objects-20261030/producer-review.md).
 It does not change report policy, allocation or the existing producer assumptions.
@@ -52,8 +53,11 @@ can contain comparisons. Their reservation is nevertheless disjoint.
 unchanged, even when a range-check flag is present. There is consequently no
 Boolean component-conversion safety check needing the Integer component's byte
 reservation. Embedded comparisons reserve their own source bytes under the
-existing comparison rule. Integer components still contain no comparisons and
-retain their existing component-conversion allowance.
+existing comparison rule. For nested Boolean equality, reserve the two operator
+bytes when available, or the single operator byte plus one token byte from the
+leftmost leaf of its right operand subtree. Distinct comparison nodes use
+distinct such leaf positions. Integer components still contain no comparisons
+and retain their existing component-conversion allowance.
 
 Indexed reads have their own paired parentheses for their index check; slices,
 declaration/assignment roots and arithmetic operators retain their respective
@@ -96,5 +100,7 @@ the feature's universal and actual-source assurance.
 
 Selected native source-investigation setting: GPT-6.1 Sol / Extra High. The
 integration lead prepared this account from that bounded investigation.
-Independent runtime setting confirmation and token/cost measurements are
-unavailable. A critical independent review is still required before delivery.
+Independent review selected GPT-6 Astra / Extra High and took 293 seconds,
+including its report. Runtime setting confirmation and token/cost measurements
+are unavailable. Its exact input inventory and independent arithmetic are
+retained with the linked review; native producer corroboration remains pending.

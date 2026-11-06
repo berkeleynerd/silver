@@ -1,0 +1,20 @@
+{
+  "S": 4096,
+  "safety_record_count": 5689,
+  "loop_note_count": 21845,
+  "integer_pair_max": [
+    21845,
+    85,
+    257
+  ],
+  "terms": {
+    "safety_records": 11651072,
+    "flow_and_image": 8912896,
+    "names": 8192,
+    "metadata": 65536,
+    "loop_notes": 11184640
+  },
+  "total_bytes": 31822336,
+  "headroom": 1732096,
+  "note_schema_bytes": 430
+}
