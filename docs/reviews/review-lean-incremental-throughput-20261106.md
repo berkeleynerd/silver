@@ -1,10 +1,12 @@
 # Incremental Lean throughput review — 2026-11-06
 
-Static preservation and the matched focused measurements support retaining
-eight line chunks. The subsequent stable-content component review has no
-unresolved finding and its real-object fixture passed. Complete integrated
-assurance remains pending. Later assessments supersede the earlier pending
-statuses below.
+Complete Linux Lean/source/module/axiom acceptance, applicable native proof/build
+evidence and all 90 focused methods are confirmed for governed source
+`524dbfbd4084c79f7048b1710dd3a7af76affe59`. No unresolved review finding or missing
+required validation remains for #327/#328. The eight-chunk and stable-content
+adoption is supported within the measurement limits below; implementation merge
+remains an owner decision. Terminal confirmation supersedes the earlier pending
+statuses, which remain as historical review boundaries.
 
 ## Initial static boundary — 13:52 UTC
 
@@ -193,3 +195,53 @@ proof, build or benchmark. Selected setting: **GPT-6 Astra / Extra High**;
 runtime confirmation and token/cost measurements are unavailable. Preliminary
 inspection began at 14:50:16 UTC; the frozen-input review interval was
 **14:56:32–15:01:21 UTC**, including waiting. No CLI recall was updated.
+
+## Terminal closing confirmation — 16:04 UTC
+
+The [complete integrated packet](../evidence/lean-incremental-throughput-20261106/integrated-complete/README.md)
+confirms successful Linux run `20261106T150342-2526cc1a0ef4`. Its fresh audit
+finished at 16:00:57 UTC, followed by managed terminal success at 16:00:59 UTC.
+Governed source is `524dbfbd4084c79f7048b1710dd3a7af76affe59`; documentation head
+`2f3aaa0de9c986a1d01ea7360c8edbd171d431d2` retains identical `proof/`, `src/`,
+`scripts/` and `tests/`. The previous component review and author/integration
+mapping therefore remain applicable.
+
+Closing inspection independently matched **745 captured shared inputs**, all
+**36 generated candidates**, and **640 shared/workspace source and build-input
+hashes**, plus both Lean/Lake executables and the authoritative-source link.
+The current project inventory, terminal log's actual imports and evidence module
+set agree exactly on **638 modules**. Fresh auditing passed **128,514
+declarations** with only `propext`, `Classical.choice` and `Quot.sound`.
+This discharges the previously pending complete reconstruction and dependent
+source/module/axiom checkpoint under the existing local-cache trust boundary.
+
+The run rebuilt **25 modules**, including every content bucket and the
+aggregator. Lake reported leaf durations of 947–1,092 seconds and aggregator
+reconstruction of 1,962 seconds. Build and audit phases took **3,413.676** and
+**10.601 seconds**; observed wrapper time was **3,438.194 seconds**. Both workers
+and per-process threads selected 12 automatically, with a 24,576 MiB
+per-process allowance. Sampled summed RSS peaked at **23.145 GiB**, minimum host
+available memory was **8.544 GiB**, and the monitor never paused the run.
+Sampling and shared-page limitations remain. This cached production checkpoint
+is not a matched whole-project speedup or an ordinary-edit timing measurement.
+
+The [native packet](../evidence/lean-incremental-throughput-20261106/native/README.md)
+retains successful full proof run `20261106T145116-6582d1e5fcb5`: **17,496 checks**
+and complete coverage/report/provenance auditing, using existing sessions and
+result cache. Build `20261106T145251-335323a924fa` passed with both executables
+up to date. Its applicability record checks 2,586 inputs and 12 tools; this
+closing inspection independently reconfirmed all **143 tracked native input
+hashes** against current integration bytes. The already reviewed **90 focused
+methods**, including actual-object reuse and stale-source rejection, remain
+applicable to the unchanged implementation.
+
+The final capability record, roadmap and evidence-index status/performance
+claims agree with these results. No concrete gap requires another validation
+run. No complete application-suite, independent kernel replay, object
+attestation, macOS or hosted-CI result is implied.
+
+This bounded closing confirmation used the prior component review and terminal
+evidence; it did not repeat the whole code review or launch tests, proofs or
+builds. Selected reviewer: **GPT-6 Astra / Extra High**; runtime confirmation
+and token/cost measurements remain unavailable. Observed inspection interval:
+**16:02:24–16:04:44 UTC**. No CLI recall was updated.

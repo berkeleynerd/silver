@@ -13,8 +13,9 @@ identities/cache reuse for ordinary edits. The
 records authority; [roadmap](../roadmap.md#lean-source-parallelism) records order.
 At the planning boundary both issues remained Backlog until authorization
 reached main. PR #329 merged as `53ef5685a2`. The matched comparison now supports
-eight chunks: #327 is In review pending the shared final checkpoint, and #328
-is In progress with the bounded cache-reuse pilot below.
+eight chunks. Both packages are implemented and have complete integrated Linux
+validation on PR #330; they remain In review, with implementation merge left
+to the owner.
 
 The implementation base is the open, reviewed
 [PR #326](https://github.com/berkeleynerd/silver/pull/326), published completion
@@ -110,7 +111,7 @@ No reconstruction representation changes, subtree split, reflection, broader
 tactic/proof framework, general cache framework or persistent telemetry is
 selected. #314 remains deferred and unchanged. Language, Oracle and required
 assurance remain unchanged. Keep #8 and milestone 17 open for these packages;
-At a later owner-authorized PR #326 merge, keep or reopen #8 through ordinary
+at a later owner-authorized PR #326 merge, keep or reopen #8 through ordinary
 issue bookkeeping despite its earlier `Fixes #8` trailer; do not rewrite the
 reviewed implementation history. Routine planning/publication and planning-PR merge are authorized;
 implementation merge remains a later owner decision.
@@ -159,7 +160,7 @@ with **21.88% more CPU time** and sampled summed RSS rising from 5.20 to
 objects and tools; it is not a whole-project speedup or repeatability estimate.
 No concrete comparability gap warrants repeating the expensive measurement.
 
-The #328 pilot uses eight fixed buckets and names derived from exact physical
+The adopted #328 design uses eight fixed buckets and names derived from exact physical
 line text. Identical text shares a checked line certificate; the existing
 balanced reconstruction still names every occurrence in source order. A SHA-256
 digest chooses a generated name and bucket only, never a proof fact. Ordinary
@@ -182,16 +183,17 @@ The [native refresh](evidence/lean-incremental-throughput-20261106/native/README
 passed all 17,496 checks with complete auditing and unchanged native sources.
 Its build was up to date. Both use the original installation and retained
 sessions/cache; the final eight-module runner registration matches their
-captured scripts. Final integrated Lean acceptance is still pending.
+captured scripts. Complete integrated Lean acceptance is recorded below.
 
 Implementation and evidence retention select GPT-6.1 Sol / Extra High; the
 critical comparison and generator review select GPT-6 Astra / Extra High.
 Runtime-confirmed lead settings and token/cost measurements are unavailable.
-The final source/module/axiom checkpoint and closing review remain outstanding.
+The final source/module/axiom checkpoint passed; closing confirmation is recorded
+in the linked review.
 
 ## Integrated checkpoint — 2026-11-06
 
-Author implementation `dd132ecace` is integrated as `524dbfbd40` on draft
+Author implementation `dd132ecace` is integrated as `524dbfbd40` on
 [PR #330](https://github.com/berkeleynerd/silver/pull/330), stacked on PR #326.
 The [focused test packet](evidence/lean-incremental-throughput-20261106/tests/README.md)
 retains all **90 distinct passing methods** and exact input applicability.
@@ -199,11 +201,30 @@ The [component review](reviews/review-lean-incremental-throughput-20261106.md#st
 found no unresolved correctness or scope issue and independently checked the
 implementation/fixture identities.
 
-Complete Lean run `20261106T150342-2526cc1a0ef4` started on those frozen inputs
-at 15:03 UTC, with automatic twelve-worker/twelve-thread settings and the
-previously successful 24,576 MiB per-process reconstruction allowance. It reuses
-the integration workspace's documented parent cache and completed comparison
-objects subject to normal dependency invalidation. The new bucket leaves,
-reconstruction and affected consumers must build, followed by a fresh complete
-module/axiom audit. Its outcome and final closing review remain pending.
+Complete Lean run `20261106T150342-2526cc1a0ef4` passed on those frozen inputs
+at 16:00 UTC. Its fresh audit covered **638 modules and 128,514 declarations**,
+with exactly `propext`, `Classical.choice` and `Quot.sound`. The
+[final packet](evidence/lean-incremental-throughput-20261106/integrated-complete/README.md)
+matches all 745 captured shared inputs, 36 regenerated candidates and both
+tools to the final implementation. This is a complete cached checkpoint with
+fresh auditing, not a clean build or independent kernel replay.
+
+The build rebuilt 25 modules, including all eight content buckets, reconstruction
+and affected source bridges; other applicable objects remained cached. Lake
+reported leaf durations of 947–1,092 seconds and reconstruction of 1,962 seconds.
+The build phase took 3,413.676 seconds, the fresh audit 10.601 seconds and the
+observed wrapper 3,438.194 seconds (about 57 minutes). These production timings
+do not form another matched four/eight comparison or measure an ordinary edit's
+speedup. Reconstruction remains substantial serial work.
+
+Automatic twelve-worker/twelve-thread settings and the existing 24,576 MiB
+per-process reconstruction allowance were retained. Peak sampled summed RSS was
+23.145 GiB, with minimum host available memory of 8.544 GiB and no pressure
+pause. These samples may double-count shared pages and miss peaks. The final
+workspace reused the documented idle parent cache and completed comparison
+objects under normal dependency checks; no new cache transfer was needed.
+
+The native packet, 90 scoped methods and complete final source/module/axiom
+check together satisfy the two packages' validation requirements. No full
+application-suite, macOS or hosted-CI run is added by this proof/tooling change.
 Both implementation PRs remain open; no implementation merge is selected.

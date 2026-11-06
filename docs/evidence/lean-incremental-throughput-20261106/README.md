@@ -29,7 +29,9 @@ approximately five-second RSS samples may miss peaks and count shared pages.
 Neither run paused for memory pressure.
 
 These focused line results exclude aggregator/reconstruction and whole-project
-cost. Complete final integrated Lean/source/module/axiom assurance, native
-proof/build applicability and applicable regressions remain pending; this
-measurement does not discharge them. Both packets retain immutable terminal
-logs/evidence and observations without compiled objects or cache transfers.
+cost. The separate [complete integrated checkpoint](integrated-complete/README.md)
+passed all 638 modules with fresh auditing after the stable-content change.
+[Native proof/build](native/README.md) and [90 focused test methods](tests/README.md)
+also passed on matching inputs. Each packet retains its actual scope and
+limitations; the comparison alone does not discharge complete assurance.
+No compiled objects or cache transfers are added by evidence retention.

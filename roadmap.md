@@ -50,8 +50,8 @@ and deferred capacity work retain their scope.
 
 ### Lean source parallelism
 
-**Initial splits validated on open PR #326; incremental throughput work
-owner-selected, 2026-11-06.**
+**Initial splits and incremental throughput improvements validated on open
+PRs #326 and #330, 2026-11-06.**
 
 [Milestone 17](https://github.com/berkeleynerd/silver/milestone/17) and parent
 [#8](https://github.com/berkeleynerd/silver/issues/8) remain open. The four-module
@@ -80,14 +80,15 @@ selects these ordered packages, stacking on PR #326:
    serve both packages when its exact final inputs cover both.
 
 Authorization reached main through PR #329 (`53ef5685a2`). The matched
-comparison supports eight chunks; #327 is In review pending final integrated
-assurance, and #328 is In progress with a bounded stable-content cache pilot.
-The [bounded record](docs/lean-incremental-throughput.md) defines comparison
-controls, edit cases, measured result and completion criteria. The pilot must
-establish actual unchanged-object reuse before the selected small design is
-delivered. Preserve the existing reconstruction representation,
-whole-output source/token statements and all proof checks. Automatic CPU/thread
-settings and current host memory policy remain in force; the four/eight-worker
+comparison supports eight chunks, and the stable-content design passed its
+actual-object reuse pilot. Both #327 and #328 are In review on
+[PR #330](https://github.com/berkeleynerd/silver/pull/330), with complete Linux
+Lean/source/module/axiom validation, native proof/build refresh and focused
+regressions passed. The [bounded record](docs/lean-incremental-throughput.md)
+retains evidence, critical review and measurement limits; implementation merge
+remains an owner decision. The existing reconstruction representation,
+whole-output source/token statements and all proof checks are preserved.
+Automatic CPU/thread settings and current host memory policy remain in force; the four/eight-worker
 comparison is an explicit measurement control. Reconstruction/subtree/reflection
 work, general proof/cache frameworks, language/Oracle changes and #314 guards
 remain unselected. #314 stays deferred and unchanged.

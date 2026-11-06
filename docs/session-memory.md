@@ -1,5 +1,33 @@
 # Session memory
 
+## 2026-11-06 — Incremental Lean throughput validated for review
+
+The owner-authorized matched chunk comparison and stable-cache packages
+[#327](https://github.com/berkeleynerd/silver/issues/327) and
+[#328](https://github.com/berkeleynerd/silver/issues/328) are implemented and
+validated on [PR #330](https://github.com/berkeleynerd/silver/pull/330), stacked
+on the still-open [PR #326](https://github.com/berkeleynerd/silver/pull/326).
+The [delivery record](lean-incremental-throughput.md#integrated-checkpoint--2026-11-06)
+retains the matched comparison, demonstrated ordinary-edit object reuse,
+complete Linux native and Lean/source assurance, scoped regressions and exact
+input/cache attribution. The
+[closing confirmation](reviews/review-lean-incremental-throughput-20261106.md)
+found no unresolved finding or missing required validation for these packages.
+
+Eight stable content buckets share proofs for identical physical line text,
+while the existing reconstruction still checks every occurrence in order.
+Reconstruction remains substantial serial work; the measured chunk comparison
+does not establish a whole-project or general edit-speed improvement. The
+language, Oracle, approved foundations and automatic CPU defaults are unchanged.
+No broader proof/cache framework or additional artifact-attestation work was
+introduced.
+
+This completes the selected implementation and reviewable-publication scope.
+Implementation merge remains an owner decision; keep both PRs and milestone 17
+open, with #327/#328 In review. Parent #8 remains open until all its selected
+packages reach main. #314 remains deferred and unchanged. No harness goal
+exists and no CLI recall entry was updated.
+
 ## 2026-11-06 — Incremental Lean throughput work authorized
 
 After the completed four-chunk/predicate implementation and validation on
