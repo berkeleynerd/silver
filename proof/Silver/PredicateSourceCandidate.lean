@@ -44,6 +44,9 @@ private theorem native_checked : NativeSourceChecks.Checked SourceShape.bodyToke
   scalar_comparison_at_body := NativeShapeCandidate.checked.scalar_comparison_at_body
   character_condition_body := NativeShapeCandidate.checked.character_condition_body
   length_at_body := NativeShapeCandidate.checked.length_at_body
+  boolean_array_after_body := NativeShapeCandidate.checked.boolean_array_after_body
+  boolean_array_after_spec_header := NativeShapeCandidate.checked.boolean_array_after_spec_header
+  boolean_array_after_impl_header := NativeShapeCandidate.checked.boolean_array_after_impl_header
   boolean_atom_after_body := NativeShapeCandidate.checked.boolean_atom_after_body
   boolean_atom_after_spec_header := NativeShapeCandidate.checked.boolean_atom_after_spec_header
   boolean_atom_after_impl_header := NativeShapeCandidate.checked.boolean_atom_after_impl_header
@@ -90,6 +93,7 @@ theorem candidate_checked : Checked SourceShape.specTokens SourceShape.bodyToken
   booleanBindings := FlowSourceCandidate.checked.booleanBindings
   xorScanner := FlowSourceCandidate.checked.xorScanner
   booleanBodies := BooleanBodyNative.SourceChecks.candidate_checked
+  booleanArrayBodies := BooleanArrayBodyNative.SourceChecks.candidate_checked
   scalarBodies := ScalarBodyNative.SourceChecks.candidate_checked
   array_helpers := ArrayBodyNative.SourceChecks.candidate_checked
   counted_bound := FlowSourceCandidate.checked.counted_bound

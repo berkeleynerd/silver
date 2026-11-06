@@ -2,6 +2,7 @@ module
 
 public import Silver.PredicateScalarBodySource
 public import Silver.PredicateBooleanBodySource
+public import Silver.PredicateBooleanArrayBodySource
 public import Silver.PredicateArrayBodySource
 public import Silver.PredicateSourceShape
 
@@ -31,3 +32,11 @@ theorem candidate_checked : Checked SourceShape.bodyTokens := by
   constructor <;> decide +kernel
 
 end Silver.Predicate.BooleanBodyNative.SourceChecks
+
+namespace Silver.Predicate.BooleanArrayBodyNative.SourceChecks
+
+/-- Boolean indexed assignment trees and verified runtime refinement contracts. -/
+theorem candidate_checked : Checked SourceShape.bodyTokens := by
+  constructor <;> decide +kernel
+
+end Silver.Predicate.BooleanArrayBodyNative.SourceChecks
