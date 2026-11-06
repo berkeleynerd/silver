@@ -1,5 +1,8 @@
 # Source-tree structural guards
 
+**Implemented and validated on Linux, 2026-11-06; awaiting owner review and
+merge.** The delivery below supersedes the initial planning status.
+
 ## Authorization and scope — 2026-11-06
 
 After the completed Lean optimizations and instruction to proceed with the next
@@ -96,5 +99,88 @@ Routine planning selected GPT-6.1 Sol / High; runtime model/effort metadata and
 token/cost measurements are unavailable. This round records the completed
 performance delivery, the explicit owner selection and one bounded existing
 issue under milestone 18. It changes documentation only and runs no proof,
-build, native test or benchmark. Guard implementation remains unstarted until
-the authorization record is on main. No CLI recall entry was updated.
+build, native test or benchmark. Guard implementation remained unstarted until
+the authorization record reached main. No CLI recall entry was updated.
+
+## Implementation checkpoint — 2026-11-06
+
+Authorization PR #331 reached main as `584e230e310c851b7b74791e9314a8e974dbcb21`.
+The integration branch is `fix/source-tree-structural-guards-20261106`, in
+`tmp/source-tree-structural-guards`. Two bounded implementation workers selected
+GPT-6.1 Sol / Extra High: predicate guards in `tmp/predicate-structural-guards`
+and Image guards in `tmp/image-source-tree-guards`. Independent critical review
+selected GPT-6 Astra / Extra High. These are selected settings; runtime
+confirmation and token/cost measurements are unavailable.
+
+The three idle proof workspaces were seeded from
+`tmp/lean-chunk-reuse/.silver/linux-x86_64/proof`, after successful complete run
+`20261106T150342-2526cc1a0ef4` on governed source `524dbfbd40`. The copy retained
+all Lake metadata and ordinary/private/server object sidecars. The original
+seed's earlier provenance and final 638-module audit are retained in the
+[completed performance evidence](evidence/lean-incremental-throughput-20261106/integrated-complete/README.md).
+Each workspace uses a symlink to that donor's pinned Lean installation, and
+has its own writable proof cache. The normal managed runner still synchronizes
+current sources, resolves dependencies and performs a fresh audit.
+
+Concurrent focused checks reserve six of the host's twelve workers each;
+per-process threads remain automatic. The final integrated run uses automatic
+worker/thread settings. The existing 24 GiB per-process allowance is retained;
+actual aggregate memory and host headroom govern concurrent scheduling.
+At this initial checkpoint, implementation, focused checks, review and complete
+final assurance remained pending; the following delivery closes those checks.
+
+## Implementation and validation — 2026-11-06
+
+Governed source `92ab046be220177eb850be943791df57d87043dc` combines Image
+commit `55d3ea64bc` (integrated as `8b5d89384e`) and predicate commit
+`3e515817c3` (integrated as `92ab046be2`). Exactly three new guard modules and
+three existing source-record files change on the proof side. Existing trees,
+evaluation, rendering, authoritative source bindings, semantic endpoints, Ada
+implementation and admitted language remain byte-identical to the authorized
+baseline.
+
+The predicate inventories check three scalar bodies and their runtime RHS,
+six scalar-helper bodies, five adapter expressions and the adapter function's
+three fields. The scanner inventory covers all 21 named command trees and both
+complete procedure roots. The FilesSplice guard checks the actual expression,
+including numeric and byte-index descendants. The required three
+`CheckedSource` fields, standalone scanner theorem and `FilesSource.ActualSource`
+field carry these proofs. Kernel controls reject the reported token collisions,
+arithmetic misassociation, mixed Boolean chains, malformed nested children and
+invalid expression/prefix categories, while preserving valid same-operator
+Boolean nesting on either side.
+
+The [independent review](reviews/review-source-tree-structural-guards-20261106.md)
+found one defect in the draft: using `primary` at selector/index prefixes also
+accepted parenthesized conditionals and aggregates where Ada requires a name.
+Explicit prefix classifiers and positive/negative controls repair it without
+changing current trees. No component finding remains. Initial focused attempts
+also needed ordinary proof-only repairs for opaque numeral rendering and Lean
+constructor/binder name collisions; both failed runs remain labelled failed.
+
+| Validation | Result |
+| --- | --- |
+| Complete Lean `20261106T164208-1614accb2e5e` | Passed: 641 modules, 128,705 declarations; only `propext`, `Classical.choice`, `Quot.sound`. Cached build 155.542 s, fresh audit 9.978 s, managed duration 175.393 s. 86 modules rebuilt; no clean build or independent replay. |
+| Final source identity | All 748 captured shared inputs match the governed Git commit and final bytes; both Lean tool hashes match. Regenerated certificates passed parity and the complete source checks. |
+| Source/certificate tests `20261106T164008-c4b3837f4da3` | All 16 methods passed, without skips, in 76.685 s. Includes real kernel acceptance/rejection fixtures. |
+| Native applicability | Retained full run `20261106T145116-6582d1e5fcb5` (17,496 checks) and up-to-date build `20261106T145251-335323a924fa` remain applicable: all 2,586 native inputs, 143 tracked inputs/path set and 12 tools match. No native rerun. |
+
+The [evidence packet](evidence/source-tree-structural-guards-20261106/README.md)
+retains terminal run records, logs, focused outcomes, failed attempts and input
+comparisons. Final Lean selected 12 workers and 12 threads per process
+automatically, with the retained 24 GiB per-process allowance. This proof-only
+change leaves compiler, test tooling, fixtures and samples unchanged; the
+proportionate source tests and full Lean checkpoint add no claim to rerun the
+whole application suite, macOS or hosted CI.
+
+Implementation and independent source review completed between approximately
+16:27 and 16:43 UTC; the complete audit finished at 16:45:04 UTC. Selected worker
+and reviewer settings are recorded above and in the review. Lead runtime
+model/effort and all token/cost measurements are unavailable. The review repair
+closed the only consequential draft gap; there was no resource-exhaustion retry
+or semantic/source rewrite. These timings describe this round, not a general
+performance guarantee.
+
+The package is ready for owner review. #314 and milestone 18 remain open until
+the implementation reaches main under a later merge instruction. No later
+language feature is started, and no CLI recall entry was updated.

@@ -546,13 +546,22 @@ in [PredicateEquations.lean](../proof/Silver/PredicateEquations.lean) compose
 those domain-bounded calls; `Implementation.model_definitions` witnesses that
 interface. `SourceChecks.actualSource` in `PredicateSourceChecks` checks the
 authoritative spec/body tokens and the precedence/scope inventories explicitly
-represented in its checked-source record. Scalar-body, scalar-helper and adapter
-trees are token-checked with their structure reviewed semantically; they do not
-yet have separate mechanized precedence predicates. The Image scanner and
-`FilesSplice` trees have the same structural-check limitation outside this
-record. Adding these guards is tracked in [#314](https://github.com/berkeleynerd/silver/issues/314)
-for the next relevant tree edit. Existing token/source checks, applicable
-semantic equations and ordinary correspondence review remain required.
+represented in its checked-source record. Its scalar-body, scalar-helper and
+adapter fields additionally carry the constructor-level precedence and
+association checks in `PredicateStructuralGuards`. They check nested operands
+and accept same-operator Boolean nesting on either side. The Image scanner has
+standalone structural/consume guard theorems beside its source-token checks;
+`FilesSource.ActualSource` carries the `FilesSplice` expression guard, including
+its numeric and byte-index children. The
+[structural-guard record](source-tree-structural-guards.md) documents their
+inventories, negative controls, review and validation.
+
+These guards cover operators represented by the named tree constructors. They
+do not parse opaque token leaves, including the fixed Boolean tests in
+`PredicateLoopNative` and `ImageModelFinishNative`. They strengthen evidence
+behind the interpreted-source premises without removing those premises or
+changing the endpoint statements. Exact token/source checks, applicable semantic
+equations and ordinary correspondence review remain required.
 [PredicateSourceBridge.lean](../proof/Silver/PredicateSourceBridge.lean)'s
 `checked_source` and `actual_source_correspondence` retain explicit
 `InterpretedSource` dependencies. `executable_correspondence` additionally

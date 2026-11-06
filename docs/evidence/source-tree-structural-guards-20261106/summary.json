@@ -1,0 +1,696 @@
+{
+  "retained_at_utc": "2026-11-06T16:45:28.176401+00:00",
+  "governed_source": "92ab046be220177eb850be943791df57d87043dc",
+  "runs": [
+    {
+      "run_id": "20261106T163308-adbc9c2e3e62",
+      "task": "#314-image",
+      "kind": "lean",
+      "scope": [
+        "Silver.ImageFilesSource",
+        "Silver.ImageFilesSpliceGuards",
+        "Silver.ImageModelScannerGuards",
+        "Silver.ImageModelScannerSource"
+      ],
+      "workers": 6,
+      "available_cpus": 12,
+      "started_at": "2026-11-06T16:33:11.445661+00:00",
+      "finished_at": "2026-11-06T16:33:27.828536+00:00",
+      "outcome": "failure",
+      "duration_seconds": 16.382138373,
+      "rebuilt_modules": []
+    },
+    {
+      "run_id": "20261106T163324-255725b4e769",
+      "task": "#314-predicate",
+      "kind": "lean",
+      "scope": [
+        "Silver.PredicateStructuralGuards"
+      ],
+      "workers": 6,
+      "available_cpus": 12,
+      "started_at": "2026-11-06T16:33:27.787317+00:00",
+      "finished_at": "2026-11-06T16:33:44.223215+00:00",
+      "outcome": "failure",
+      "duration_seconds": 16.43616531,
+      "rebuilt_modules": []
+    },
+    {
+      "run_id": "20261106T163401-24404fc023ef",
+      "task": "#314-image",
+      "kind": "lean",
+      "scope": [
+        "Silver.ImageFilesSource",
+        "Silver.ImageFilesSpliceGuards",
+        "Silver.ImageModelScannerGuards",
+        "Silver.ImageModelScannerSource"
+      ],
+      "workers": 6,
+      "available_cpus": 12,
+      "started_at": "2026-11-06T16:34:04.614904+00:00",
+      "finished_at": "2026-11-06T16:34:52.626728+00:00",
+      "outcome": "success",
+      "duration_seconds": 48.011200174,
+      "modules": 47,
+      "phases": [
+        {
+          "phase": "build",
+          "started_at": "2026-11-06T16:34:11.135022+00:00",
+          "finished_at": "2026-11-06T16:34:43.164491+00:00",
+          "elapsed_seconds": 32.03,
+          "exit_code": 0
+        },
+        {
+          "phase": "audit",
+          "started_at": "2026-11-06T16:34:44.328010+00:00",
+          "finished_at": "2026-11-06T16:34:50.343221+00:00",
+          "elapsed_seconds": 6.015,
+          "exit_code": 0
+        }
+      ],
+      "axiom_audit": "passed",
+      "kernel_recheck": null,
+      "declarations": 11226,
+      "rebuilt_modules": [
+        [
+          "Silver.ImageModelScannerGuards",
+          "2.4s"
+        ],
+        [
+          "Silver.ImageModelScannerSource",
+          "7.8s"
+        ],
+        [
+          "Silver.ImageModelScanTrace",
+          "2.1s"
+        ],
+        [
+          "Silver.ImageModelNativeHelpers",
+          "2.1s"
+        ],
+        [
+          "Silver.ImageFilesTrace",
+          "4.7s"
+        ],
+        [
+          "Silver.ImageFilesSource",
+          "7.5s"
+        ]
+      ]
+    },
+    {
+      "run_id": "20261106T163438-399af160ff43",
+      "task": "#314-predicate",
+      "kind": "lean",
+      "scope": [
+        "Silver.PredicateSourceChecks",
+        "Silver.PredicateStructuralGuards"
+      ],
+      "workers": 6,
+      "available_cpus": 12,
+      "started_at": "2026-11-06T16:34:41.259398+00:00",
+      "finished_at": "2026-11-06T16:35:14.394958+00:00",
+      "outcome": "success",
+      "duration_seconds": 33.1343543,
+      "modules": 348,
+      "phases": [
+        {
+          "phase": "build",
+          "started_at": "2026-11-06T16:34:48.771350+00:00",
+          "finished_at": "2026-11-06T16:35:02.099516+00:00",
+          "elapsed_seconds": 13.328,
+          "exit_code": 0
+        },
+        {
+          "phase": "audit",
+          "started_at": "2026-11-06T16:35:03.212677+00:00",
+          "finished_at": "2026-11-06T16:35:12.109864+00:00",
+          "elapsed_seconds": 8.897,
+          "exit_code": 0
+        }
+      ],
+      "axiom_audit": "passed",
+      "kernel_recheck": null,
+      "declarations": 95840,
+      "rebuilt_modules": [
+        [
+          "Silver.PredicateStructuralGuards",
+          "4.7s"
+        ],
+        [
+          "Silver.PredicateSourceChecks",
+          "2.1s"
+        ]
+      ]
+    },
+    {
+      "run_id": "20261106T163545-5268a6d953e4",
+      "task": "#314-image",
+      "kind": "lean",
+      "scope": [
+        "Silver.ImageFilesSource",
+        "Silver.ImageModelScannerSource"
+      ],
+      "workers": 6,
+      "available_cpus": 12,
+      "started_at": "2026-11-06T16:35:48.260941+00:00",
+      "finished_at": "2026-11-06T16:36:33.611958+00:00",
+      "outcome": "success",
+      "duration_seconds": 45.350375758,
+      "modules": 47,
+      "phases": [
+        {
+          "phase": "build",
+          "started_at": "2026-11-06T16:35:54.734592+00:00",
+          "finished_at": "2026-11-06T16:36:23.559194+00:00",
+          "elapsed_seconds": 28.825,
+          "exit_code": 0
+        },
+        {
+          "phase": "audit",
+          "started_at": "2026-11-06T16:36:24.953372+00:00",
+          "finished_at": "2026-11-06T16:36:31.250703+00:00",
+          "elapsed_seconds": 6.297,
+          "exit_code": 0
+        }
+      ],
+      "axiom_audit": "passed",
+      "kernel_recheck": null,
+      "declarations": 11226,
+      "rebuilt_modules": [
+        [
+          "Silver.ImageModelScannerSource",
+          "7.8s"
+        ],
+        [
+          "Silver.ImageModelScanTrace",
+          "2.1s"
+        ],
+        [
+          "Silver.ImageModelNativeHelpers",
+          "2.1s"
+        ],
+        [
+          "Silver.ImageFilesTrace",
+          "4.5s"
+        ],
+        [
+          "Silver.ImageFilesSource",
+          "7.1s"
+        ]
+      ]
+    },
+    {
+      "run_id": "20261106T163619-4f820dc72e97",
+      "task": "#314-predicate",
+      "kind": "lean",
+      "scope": [
+        "Silver.PredicateSourceChecks",
+        "Silver.PredicateStructuralGuards"
+      ],
+      "workers": 6,
+      "available_cpus": 12,
+      "started_at": "2026-11-06T16:36:22.163884+00:00",
+      "finished_at": "2026-11-06T16:36:54.421063+00:00",
+      "outcome": "success",
+      "duration_seconds": 32.256657987,
+      "modules": 348,
+      "phases": [
+        {
+          "phase": "build",
+          "started_at": "2026-11-06T16:36:28.916822+00:00",
+          "finished_at": "2026-11-06T16:36:41.696590+00:00",
+          "elapsed_seconds": 12.78,
+          "exit_code": 0
+        },
+        {
+          "phase": "audit",
+          "started_at": "2026-11-06T16:36:43.629444+00:00",
+          "finished_at": "2026-11-06T16:36:52.369366+00:00",
+          "elapsed_seconds": 8.74,
+          "exit_code": 0
+        }
+      ],
+      "axiom_audit": "passed",
+      "kernel_recheck": null,
+      "declarations": 95844,
+      "rebuilt_modules": [
+        [
+          "Silver.PredicateStructuralGuards",
+          "3.0s"
+        ],
+        [
+          "Silver.PredicateSourceChecks",
+          "2.5s"
+        ]
+      ]
+    },
+    {
+      "run_id": "20261106T163857-813cf8538291",
+      "task": "#314-predicate",
+      "kind": "lean",
+      "scope": [
+        "Silver.PredicateSourceChecks",
+        "Silver.PredicateStructuralGuards"
+      ],
+      "workers": 6,
+      "available_cpus": 12,
+      "started_at": "2026-11-06T16:39:00.940578+00:00",
+      "finished_at": "2026-11-06T16:39:31.448496+00:00",
+      "outcome": "success",
+      "duration_seconds": 30.507285927,
+      "modules": 348,
+      "phases": [
+        {
+          "phase": "build",
+          "started_at": "2026-11-06T16:39:07.233357+00:00",
+          "finished_at": "2026-11-06T16:39:19.218890+00:00",
+          "elapsed_seconds": 11.986,
+          "exit_code": 0
+        },
+        {
+          "phase": "audit",
+          "started_at": "2026-11-06T16:39:20.628480+00:00",
+          "finished_at": "2026-11-06T16:39:29.391104+00:00",
+          "elapsed_seconds": 8.763,
+          "exit_code": 0
+        }
+      ],
+      "axiom_audit": "passed",
+      "kernel_recheck": null,
+      "declarations": 95856,
+      "rebuilt_modules": [
+        [
+          "Silver.PredicateStructuralGuards",
+          "4.3s"
+        ],
+        [
+          "Silver.PredicateSourceChecks",
+          "2.1s"
+        ]
+      ]
+    },
+    {
+      "run_id": "20261106T164008-c4b3837f4da3",
+      "task": "#314-source-tests",
+      "kind": "test",
+      "scope": [
+        "-p",
+        "test_lean_source.py"
+      ],
+      "workers": 12,
+      "available_cpus": 12,
+      "started_at": "2026-11-06T16:40:11.569362+00:00",
+      "finished_at": "2026-11-06T16:41:32.071586+00:00",
+      "outcome": "success",
+      "duration_seconds": 80.502050305,
+      "rebuilt_modules": []
+    },
+    {
+      "run_id": "20261106T164208-1614accb2e5e",
+      "task": "#314-complete",
+      "kind": "lean",
+      "scope": "complete",
+      "workers": 12,
+      "available_cpus": 12,
+      "started_at": "2026-11-06T16:42:11.329609+00:00",
+      "finished_at": "2026-11-06T16:45:06.725103+00:00",
+      "outcome": "success",
+      "duration_seconds": 175.392901057,
+      "modules": 641,
+      "phases": [
+        {
+          "phase": "build",
+          "started_at": "2026-11-06T16:42:17.787623+00:00",
+          "finished_at": "2026-11-06T16:44:53.329383+00:00",
+          "elapsed_seconds": 155.542,
+          "exit_code": 0
+        },
+        {
+          "phase": "audit",
+          "started_at": "2026-11-06T16:44:54.533297+00:00",
+          "finished_at": "2026-11-06T16:45:04.511189+00:00",
+          "elapsed_seconds": 9.978,
+          "exit_code": 0
+        }
+      ],
+      "axiom_audit": "passed",
+      "kernel_recheck": null,
+      "declarations": 128705,
+      "rebuilt_modules": [
+        [
+          "Silver.ImageFilesSpliceGuards",
+          "1.9s"
+        ],
+        [
+          "Silver.ImageModelScannerGuards",
+          "2.9s"
+        ],
+        [
+          "Silver.PredicateStructuralGuards",
+          "4.7s"
+        ],
+        [
+          "Silver.PredicateSourceChecks",
+          "2.4s"
+        ],
+        [
+          "Silver.PredicateSourceBridge",
+          "2.5s"
+        ],
+        [
+          "Silver.ImageModelScannerSource",
+          "7.8s"
+        ],
+        [
+          "Silver.PredicateCorrespondence",
+          "2.6s"
+        ],
+        [
+          "Silver.ImageModelScanTrace",
+          "2.0s"
+        ],
+        [
+          "Silver.ImageModelNativeHelpers",
+          "1.0s"
+        ],
+        [
+          "Silver.ImageModelStringScan",
+          "2.5s"
+        ],
+        [
+          "Silver.ImageFilesTrace",
+          "4.6s"
+        ],
+        [
+          "Silver.ImageModelStringNormalization",
+          "2.5s"
+        ],
+        [
+          "Silver.ImageModelStringEncoding",
+          "2.3s"
+        ],
+        [
+          "Silver.ImageModelStringObservations",
+          "1.9s"
+        ],
+        [
+          "Silver.ImageModelNumberScan",
+          "2.2s"
+        ],
+        [
+          "Silver.ImageFilesSource",
+          "7.2s"
+        ],
+        [
+          "Silver.ImageModelStructuralSteps",
+          "2.4s"
+        ],
+        [
+          "Silver.ImageFilesEndpoint",
+          "2.1s"
+        ],
+        [
+          "Silver.ImageModelQuotedString",
+          "1.0s"
+        ],
+        [
+          "Silver.ImageModelStructuralNesting",
+          "4.6s"
+        ],
+        [
+          "Silver.ImageModelIdRun",
+          "2.3s"
+        ],
+        [
+          "Silver.ImageModelIdNormalization",
+          "2.0s"
+        ],
+        [
+          "Silver.ImageModelTokenScan",
+          "2.3s"
+        ],
+        [
+          "Silver.ImageModelRootScan",
+          "2.8s"
+        ],
+        [
+          "Silver.ImageModelStringResult",
+          "2.6s"
+        ],
+        [
+          "Silver.ImageModelWideString",
+          "2.8s"
+        ],
+        [
+          "Silver.ImageModelMatcherDeath",
+          "8.1s"
+        ],
+        [
+          "Silver.ImageModelJsonSpelling",
+          "2.5s"
+        ],
+        [
+          "Silver.ImageModelJsonNormalization",
+          "2.5s"
+        ],
+        [
+          "Silver.ImageModelWideNormalization",
+          "2.5s"
+        ],
+        [
+          "Silver.ImageModelAtomResult",
+          "2.7s"
+        ],
+        [
+          "Silver.ImageModelJsonSplice",
+          "2.7s"
+        ],
+        [
+          "Silver.ImageModelJsonErasure",
+          "2.6s"
+        ],
+        [
+          "Silver.ImageModelJsonComposition",
+          "2.5s"
+        ],
+        [
+          "Silver.ImageModelJsonDelimiters",
+          "2.1s"
+        ],
+        [
+          "Silver.ImageModelJsonArrays",
+          "2.9s"
+        ],
+        [
+          "Silver.ImageModelJsonBodies",
+          "2.2s"
+        ],
+        [
+          "Silver.ImageModelEmissionLiveness",
+          "1.0s"
+        ],
+        [
+          "Silver.ImageModelJsonSimulation",
+          "3.4s"
+        ],
+        [
+          "Silver.ImageModelJsonCanonical",
+          "3.2s"
+        ],
+        [
+          "Silver.ImageModelJsonFields",
+          "3.8s"
+        ],
+        [
+          "Silver.ImageModelTheorySpelling",
+          "3.1s"
+        ],
+        [
+          "Silver.ImageModelJsonMeaning",
+          "3.7s"
+        ],
+        [
+          "Silver.ImageModelWideQuotedResult",
+          "3.2s"
+        ],
+        [
+          "Silver.ImageModelFieldArrayBody",
+          "4.5s"
+        ],
+        [
+          "Silver.ImageModelWideTheorySpelling",
+          "2.9s"
+        ],
+        [
+          "Silver.ImageModelTheoryFields",
+          "3.7s"
+        ],
+        [
+          "Silver.ImageModelCanonicalRead",
+          "5.9s"
+        ],
+        [
+          "Silver.ImageModelWideSimulation",
+          "6.1s"
+        ],
+        [
+          "Silver.ImageModelExactEmission",
+          "2.6s"
+        ],
+        [
+          "Silver.ImageModelTheoryScan",
+          "2.7s"
+        ],
+        [
+          "Silver.ImageModelTemplateValidity",
+          "10s"
+        ],
+        [
+          "Silver.ImageModelWideFields",
+          "2.7s"
+        ],
+        [
+          "Silver.ImageModelNormalExact",
+          "4.9s"
+        ],
+        [
+          "Silver.ImageModelWideTheoryFields",
+          "2.6s"
+        ],
+        [
+          "Silver.ImageModelWideTheoryScan",
+          "2.0s"
+        ],
+        [
+          "Silver.ImageModelTheorySpan",
+          "2.3s"
+        ],
+        [
+          "Silver.ImageModelSelectedTemplate",
+          "2.8s"
+        ],
+        [
+          "Silver.ImageModelSelectedMeaning",
+          "2.9s"
+        ],
+        [
+          "Silver.ImageModelTheoryOffsets",
+          "3.1s"
+        ],
+        [
+          "Silver.ImageModelProducerSyntax",
+          "3.4s"
+        ],
+        [
+          "Silver.ImageModelCodeUnitSpelling",
+          "3.6s"
+        ],
+        [
+          "Silver.ImageModelDocumentSpan",
+          "2.4s"
+        ],
+        [
+          "Silver.ImageModelTheorySplice",
+          "3.0s"
+        ],
+        [
+          "Silver.ImageModelDocumentTheory",
+          "2.5s"
+        ],
+        [
+          "Silver.ImageModelDocumentSplice",
+          "2.3s"
+        ],
+        [
+          "Silver.ImageModelTheoryCuts",
+          "2.9s"
+        ],
+        [
+          "Silver.ImageModelTheoryRefinement",
+          "2.5s"
+        ],
+        [
+          "Silver.ImageModelDocumentHeader",
+          "3.4s"
+        ],
+        [
+          "Silver.ImageModelDocumentEntries",
+          "2.2s"
+        ],
+        [
+          "Silver.ImageModelDocumentFooter",
+          "2.2s"
+        ],
+        [
+          "Silver.ImageModelDocumentEffects",
+          "2.4s"
+        ],
+        [
+          "Silver.ImageModelTheoryAcceptance",
+          "2.3s"
+        ],
+        [
+          "Silver.ImageModelDocumentSelection",
+          "2.5s"
+        ],
+        [
+          "Silver.ImageModelDocumentScan",
+          "3.3s"
+        ],
+        [
+          "Silver.ImageModelDocumentAllSelected",
+          "2.6s"
+        ],
+        [
+          "Silver.ImageModelDocumentTraceProperties",
+          "2.3s"
+        ],
+        [
+          "Silver.ImageModelConsumerBoundary",
+          "2.3s"
+        ],
+        [
+          "Silver.ImageModelRefinement",
+          "2.6s"
+        ],
+        [
+          "Silver.ImageRefinementEndpoint",
+          "2.2s"
+        ],
+        [
+          "Silver.ImageModelDocumentAcceptance",
+          "3.3s"
+        ],
+        [
+          "Silver.ImageModelDocumentFinish",
+          "2.1s"
+        ],
+        [
+          "Silver.ImageProducerEndpoint",
+          "2.1s"
+        ],
+        [
+          "Silver.ImageConsumerEndpoint",
+          "3.6s"
+        ],
+        [
+          "Silver",
+          "2.3s"
+        ],
+        [
+          "Silver.Audit",
+          "8.6s"
+        ]
+      ]
+    }
+  ],
+  "complete_input_comparison": {
+    "shared_inputs": 748,
+    "sources_match_current_and_git": true,
+    "tools": 2,
+    "tools_match": true,
+    "run_fingerprint": "67806f51f2d0abe57d71a4769729e7b26c23204d4775dfdff38c65a45cdf6f6c"
+  },
+  "limits": "Cached builds and fresh audits; no clean build or independent kernel replay. Failed development runs remain failures. No native proof/build rerun or whole application suite result is claimed."
+}

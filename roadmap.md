@@ -50,16 +50,17 @@ and deferred capacity work retain their scope.
 
 ### Source-tree structural guards
 
-**Selected next after the completed Lean optimizations, 2026-11-06; planning
-record pending main before implementation.**
+**Implemented and validated on Linux, 2026-11-06; awaiting owner review and merge.**
 
 The [dated authorization](docs/session-memory.md#2026-11-06--lean-deliveries-complete-structural-guards-selected-next)
 records the owner's proceed instruction, earlier ordering of Lean optimizations
 before #314, and explicit selection of that existing follow-up.
 [Milestone 18](https://github.com/berkeleynerd/silver/milestone/18) contains one
 cohesive proof-only issue, [#314](https://github.com/berkeleynerd/silver/issues/314).
-Keep it Backlog until authorization reaches main, then move it Ready and claim
-it through the usual issue/board workflow.
+Authorization reached main through PR #331 (`584e230e31`). Governed source
+`92ab046be2` passes the complete 641-module Lean/source/axiom checkpoint and
+16 source/certificate tests, with retained native input applicability and
+independent source review. The issue and milestone remain open until merge.
 
 The [bounded plan](docs/source-tree-structural-guards.md) covers fail-closed
 category, precedence and association guards for `ScalarBodyNative`,
@@ -119,8 +120,9 @@ have passed; reviewed regression coverage accounts for all 595 test IDs. The
 [closing delivery review](docs/reviews/review-interim-response-closing-20261105.md)
 passed. The owner [authorized merging PR #307 on 2026-11-06](docs/session-memory.md#2026-11-06--repaired-string-merge-authorized).
 The external report remains interim and clears no unexamined scope.
-Med-1's remaining structural guards are a next-edit follow-up; no new language
-feature is selected.
+Med-1's remaining structural guards were retained as a separate follow-up and
+are now selected in the structural-guard milestone above. No new language
+feature is selected by this response.
 
 ### Bounded String indexing and character operations
 
@@ -154,8 +156,8 @@ Open/Backlog at rendered stages 2/3; #9/#10 remain Done at stage 1. Issue #296
 records the precise feature mapping, so no duplicate stage issue is needed.
 
 Milestone 16 covers this completed delivery and its selected review repairs.
-The remaining structural guards in #314 stay an open next-relevant-edit
-follow-up outside this milestone. Boolean arrays #297, functions #298, sample
+The remaining structural guards in #314 are tracked separately in milestone 18
+above. Boolean arrays #297, functions #298, sample
 expansion #300 and deferred capacity/assurance-mode work retain their unselected
 scope.
 
