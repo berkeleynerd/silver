@@ -48,56 +48,63 @@ and deferred capacity work retain their scope.
 
 ## Current development sequence
 
+### Source-tree structural guards
+
+**Selected next after the completed Lean optimizations, 2026-11-06; planning
+record pending main before implementation.**
+
+The [dated authorization](docs/session-memory.md#2026-11-06--lean-deliveries-complete-structural-guards-selected-next)
+records the owner's proceed instruction, earlier ordering of Lean optimizations
+before #314, and explicit selection of that existing follow-up.
+[Milestone 18](https://github.com/berkeleynerd/silver/milestone/18) contains one
+cohesive proof-only issue, [#314](https://github.com/berkeleynerd/silver/issues/314).
+Keep it Backlog until authorization reaches main, then move it Ready and claim
+it through the usual issue/board workflow.
+
+The [bounded plan](docs/source-tree-structural-guards.md) covers fail-closed
+category, precedence and association guards for `ScalarBodyNative`,
+`Native.ScalarHelpers`, `Adapter`, Image `ScannerNative` and
+`FilesSplice.Predicate`. Connect the three predicate guards to `CheckedSource`,
+provide the standalone scanner theorem and join the FilesSplice guard to
+`ActualSource`. Preserve current trees, evaluation, rendered tokens, endpoints,
+admission and legitimate same-operator Boolean nesting. Complete kernel-checked
+inventories/negative controls, independent semantic/source review, the final
+complete Lean/source/module/axiom audit, native input applicability or required
+refresh, and proportionate focused tests before reviewable publication.
+
+Opaque fixed token leaves retain their documented limits. No generic framework,
+Ada change, Oracle amendment or new language feature is selected. Implementation
+merge remains a later owner decision; Boolean arrays #297, functions #298 and
+the separate #300 sample batch retain their unselected scope.
+
 ### Lean source parallelism
 
-**Initial splits merged through PR #326; validated incremental throughput
-delivery PR #330 authorized for merge, 2026-11-06.**
+**Complete on Linux, 2026-11-06, through ordered PR #326 and PR #330 merges.**
 
-[Milestone 17](https://github.com/berkeleynerd/silver/milestone/17) and parent
-[#8](https://github.com/berkeleynerd/silver/issues/8) remain open. The four-module
-output certificate [#323](https://github.com/berkeleynerd/silver/issues/323) and
-four-leaf predicate split [#324](https://github.com/berkeleynerd/silver/issues/324)
-are implemented and validated on
-[PR #326](https://github.com/berkeleynerd/silver/pull/326), published head
-`c062d5253e`, and merged as `508692aa8957c319a6baaffd1d0fb5a17afcc8ea`. The
-[ordered owner authorization](docs/session-memory.md#2026-11-06--stacked-lean-delivery-merges-authorized)
-selects PR #330 next. The PR #326
-[completed record](https://github.com/berkeleynerd/silver/blob/c062d5253e73ad066bf0309eeee505f51f8b0860/docs/lean-line-chunks.md#completed-production-validation--2026-11-06)
-retains exact evidence and descriptive performance limits. The original
-[authorization and sample record](docs/lean-line-chunks.md) retains the bounded
-experiment and production delivery history. Both initial splits are retained.
-The complete line build and reconstruction took about 65 minutes, versus a
-historical 184-minute monolithic build; different run conditions prevent a
-controlled speedup claim. The earlier 512-line sample remains a separate bounded
-experiment.
+[PR #326](https://github.com/berkeleynerd/silver/pull/326) merged as
+`508692aa8957c319a6baaffd1d0fb5a17afcc8ea`, delivering the four-module output
+certificate #323 and four-leaf predicate split #324.
+[PR #330](https://github.com/berkeleynerd/silver/pull/330) followed as
+`315906b94fe535eecc4abc3a433b272c3eeacb03`, delivering the matched eight-chunk
+comparison #327 and stable-content cache work #328. Parent #8 and
+[milestone 17](https://github.com/berkeleynerd/silver/milestone/17) are complete.
+The reconciliations preserved validated implementation and evidence inputs.
 
-The [new authorization](docs/session-memory.md#2026-11-06--incremental-lean-throughput-work-authorized)
-selected these ordered packages, originally stacked on PR #326:
+The [initial delivery record](docs/lean-line-chunks.md#completed-production-validation--2026-11-06)
+retains the bounded 512-line experiment and original production history. Its
+roughly 65-minute line/reconstruction result versus a historical 184-minute
+monolith is descriptive, with differing conditions. The
+[throughput delivery record](docs/lean-incremental-throughput.md#merged-delivery--2026-11-06)
+retains the matched four/eight comparison, actual-object reuse pilot, complete
+Linux native and Lean/source/module/axiom checkpoint, focused tests, critical
+review and timing/cache attribution. Eight stable content buckets are retained;
+reconstruction remains substantial serial work. These observations do not
+establish a whole-project or general edit-speed improvement.
 
-1. [#327](https://github.com/berkeleynerd/silver/issues/327): matched proportional
-   four-versus-eight output line chunks on the same complete 4,915-line workload;
-   integrate eight if useful, otherwise retain four with the result recorded.
-2. [#328](https://github.com/berkeleynerd/silver/issues/328): after that disposition,
-   select stable chunk identities/cache reuse for ordinary edits through a
-   bounded pilot and integrate a useful small design within the existing tools.
-3. Complete the integrated Lean/source/module/axiom checkpoint, native
-   applicability or refresh, focused tests and independent critical review
-   before proposing an implementation merge. A shared final checkpoint may
-   serve both packages when its exact final inputs cover both.
-
-Authorization reached main through PR #329 (`53ef5685a2`). The matched
-comparison supports eight chunks, and the stable-content design passed its
-actual-object reuse pilot. Both #327 and #328 are In review on
-[PR #330](https://github.com/berkeleynerd/silver/pull/330), with complete Linux
-Lean/source/module/axiom validation, native proof/build refresh and focused
-regressions passed. The [bounded record](docs/lean-incremental-throughput.md)
-retains evidence, critical review and measurement limits; implementation merge
-is now authorized. The existing reconstruction representation,
-whole-output source/token statements and all proof checks are preserved.
-Automatic CPU/thread settings and current host memory policy remain in force; the four/eight-worker
-comparison is an explicit measurement control. Reconstruction/subtree/reflection
-work, general proof/cache frameworks, language/Oracle changes and #314 guards
-remain unselected. #314 stays deferred and unchanged.
+The current language, Oracle, reconstruction representation, source/token
+statements, required checks and automatic CPU settings are unchanged. The
+completed performance packages do not select a broader proof/cache framework.
+The separately selected #314 follow-up appears above.
 
 ### Interim external review response for PR #307
 
