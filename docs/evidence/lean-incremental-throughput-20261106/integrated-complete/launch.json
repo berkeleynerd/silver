@@ -1,0 +1,16 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--memory-mb",
+    "24576",
+    "--task",
+    "#327 #328 integrated complete validation",
+    "--reason",
+    "Stable integrated source524dbfbd40 preserves all original reconstruction and final source claims;90focusedmethods and critical component review passed. Reuse the documented idle parent/eight comparison cache with normal dependency invalidation, rebuild content buckets/reconstruction/consumers, and freshly audit complete source/module/axiom coverage. Automatic CPU settings;24GiB per-process allowance retains the successful reconstruction budget with host otherwise idle and RAM observation."
+  ],
+  "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-chunk-reuse",
+  "process_group": 28218,
+  "started_utc": "2026-11-06T15:03:42.366827+00:00",
+  "purpose": "sample CPU/RAM; pause only this run below 4 GiB MemAvailable"
+}

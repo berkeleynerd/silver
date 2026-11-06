@@ -50,8 +50,8 @@ and deferred capacity work retain their scope.
 
 ### Lean source parallelism
 
-**Initial splits validated; ordered PR #326/#330 merges owner-authorized,
-2026-11-06.**
+**Initial splits merged through PR #326; validated incremental throughput
+delivery PR #330 authorized for merge, 2026-11-06.**
 
 [Milestone 17](https://github.com/berkeleynerd/silver/milestone/17) and parent
 [#8](https://github.com/berkeleynerd/silver/issues/8) remain open. The four-module
@@ -59,8 +59,9 @@ output certificate [#323](https://github.com/berkeleynerd/silver/issues/323) and
 four-leaf predicate split [#324](https://github.com/berkeleynerd/silver/issues/324)
 are implemented and validated on
 [PR #326](https://github.com/berkeleynerd/silver/pull/326), published head
-`c062d5253e`; the owner now
-[authorizes its merge followed by PR #330](docs/session-memory.md#2026-11-06--stacked-lean-delivery-merges-authorized). Its
+`c062d5253e`, and merged as `508692aa8957c319a6baaffd1d0fb5a17afcc8ea`. The
+[ordered owner authorization](docs/session-memory.md#2026-11-06--stacked-lean-delivery-merges-authorized)
+selects PR #330 next. The PR #326
 [completed record](https://github.com/berkeleynerd/silver/blob/c062d5253e73ad066bf0309eeee505f51f8b0860/docs/lean-line-chunks.md#completed-production-validation--2026-11-06)
 retains exact evidence and descriptive performance limits. The original
 [authorization and sample record](docs/lean-line-chunks.md) retains the bounded
@@ -71,7 +72,7 @@ controlled speedup claim. The earlier 512-line sample remains a separate bounded
 experiment.
 
 The [new authorization](docs/session-memory.md#2026-11-06--incremental-lean-throughput-work-authorized)
-selects these ordered packages, stacking on PR #326:
+selected these ordered packages, originally stacked on PR #326:
 
 1. [#327](https://github.com/berkeleynerd/silver/issues/327): matched proportional
    four-versus-eight output line chunks on the same complete 4,915-line workload;
@@ -84,14 +85,16 @@ selects these ordered packages, stacking on PR #326:
    before proposing an implementation merge. A shared final checkpoint may
    serve both packages when its exact final inputs cover both.
 
-The two issues were authorized by the dated record now on main; their
-implementation is stacked in PR #330, whose merge follows PR #326.
-The [bounded record](docs/lean-incremental-throughput.md) defines comparison
-controls, edit cases and completion criteria. The remaining choices are the
-measured usefulness of eight chunks and the smallest stable-identity design
-supported by the pilot. Preserve the existing reconstruction representation,
-whole-output source/token statements and all proof checks. Automatic CPU/thread
-settings and current host memory policy remain in force; the four/eight-worker
+Authorization reached main through PR #329 (`53ef5685a2`). The matched
+comparison supports eight chunks, and the stable-content design passed its
+actual-object reuse pilot. Both #327 and #328 are In review on
+[PR #330](https://github.com/berkeleynerd/silver/pull/330), with complete Linux
+Lean/source/module/axiom validation, native proof/build refresh and focused
+regressions passed. The [bounded record](docs/lean-incremental-throughput.md)
+retains evidence, critical review and measurement limits; implementation merge
+is now authorized. The existing reconstruction representation,
+whole-output source/token statements and all proof checks are preserved.
+Automatic CPU/thread settings and current host memory policy remain in force; the four/eight-worker
 comparison is an explicit measurement control. Reconstruction/subtree/reflection
 work, general proof/cache frameworks, language/Oracle changes and #314 guards
 remain unselected. #314 stays deferred and unchanged.

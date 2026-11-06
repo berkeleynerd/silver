@@ -1,0 +1,268 @@
+{
+  "audit": {
+    "declarations": 128514,
+    "foundations": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "fresh_complete_audit": true,
+    "kernel_replay": null,
+    "project_modules": 638
+  },
+  "build_and_audit_commands": [
+    [
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-chunk-reuse/.tools/linux-x86_64/lean/bin/lake",
+      "--rehash",
+      "--reconfigure",
+      "-K",
+      "silverThreads=12",
+      "-K",
+      "silverMemoryMb=24576",
+      "build",
+      "Silver.Audit"
+    ],
+    [
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-chunk-reuse/.tools/linux-x86_64/lean/bin/lake",
+      "-K",
+      "silverThreads=12",
+      "-K",
+      "silverMemoryMb=24576",
+      "env",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-chunk-reuse/.tools/linux-x86_64/lean/bin/lean",
+      "-DwarningAsError=true",
+      "-j12",
+      "-M24576",
+      "Silver/Audit.lean"
+    ]
+  ],
+  "cache_provenance": {
+    "policy": "Original idle-workspace parent cache seed, then matched eight-case reuse in this workspace; final content-bucket changes use normal runner dependency invalidation and fresh full audit. No cache transfer by retention.",
+    "preceding_focused_run": "20261106T142121-11c72098823f",
+    "record": "../eight-candidate/lean-cache-seed.json",
+    "sha256": "66ceabcb9b958283a5c8d4d23e1a0a27c0a7a062194ba6199fe2d0927b5dd35e"
+  },
+  "cpu": {
+    "boundary": "Entire managed command tree, including generation, build and audit; not module-only CPU",
+    "child_system_seconds": 674.929818,
+    "child_total_seconds": 10923.936394,
+    "child_user_seconds": 10249.006576,
+    "source": "Before/after resource.getrusage(resource.RUSAGE_CHILDREN) in retained wrapper after reaping command"
+  },
+  "finished_at_utc": "2026-11-06T16:00:59.926776+00:00",
+  "host": "linux-x86_64",
+  "inputs": {
+    "captured_shared_files": 745,
+    "generated_candidates": 36,
+    "independent_verification": "source-input-verification.json",
+    "independently_compared_source_paths": 781,
+    "shared_digest_sha256": "6323f36c83af93663f230548f5fafd730e777b721ce41956e01a7c35df7b0b73"
+  },
+  "launch_checkout_commit": "Not recorded by wrapper; captured inputs independently match governed source_commit.",
+  "lean_version": "4.34.1",
+  "limits": [
+    "Complete current-source Linux checkpoint with existing proof objects; not a clean/cold build or matched speedup experiment.",
+    "No independent leanchecker replay, detailed compiled-object attestation, macOS validation or hosted CI is claimed.",
+    "The accepted full checkpoint, native proof/build and selected 90 methods retain separate scopes; no whole application suite is added.",
+    "Post-terminal retention launches no validation or review."
+  ],
+  "managed_command": [
+    "/usr/bin/python3",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-chunk-reuse/scripts/check_lean.py",
+    "--memory-mb",
+    "24576",
+    "--task",
+    "#327 #328 integrated complete validation",
+    "--reason",
+    "Stable integrated source524dbfbd40 preserves all original reconstruction and final source claims;90focusedmethods and critical component review passed. Reuse the documented idle parent/eight comparison cache with normal dependency invalidation, rebuild content buckets/reconstruction/consumers, and freshly audit complete source/module/axiom coverage. Automatic CPU settings;24GiB per-process allowance retains the successful reconstruction budget with host otherwise idle and RAM observation."
+  ],
+  "mode": "ordinary cached incremental complete build and fresh whole-project import/axiom audit",
+  "observation": {
+    "arithmetic_mean_sampled_cpu_cores": 3.1461511641895394,
+    "limitations": [
+      "Approximately five-second sampling can miss short-lived activity.",
+      "Summed process RSS can double-count shared pages and is not exact peak physical memory.",
+      "Sampled live-process CPU usage differs from reaped command-tree CPU accounting."
+    ],
+    "paused_by_monitor": false,
+    "peak_sampled_cpu_cores": 8.058134500115564,
+    "sample_count": 687,
+    "sampled_min_available_bytes": 9174548480,
+    "sampled_peak_summed_rss_bytes": 24852279296
+  },
+  "original_ledger": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T150342-2526cc1a0ef4/events.jsonl",
+  "original_observation": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-chunk-reuse/tmp/stable-complete",
+  "original_retained_evidence": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T150342-2526cc1a0ef4/lean-evidence.json",
+  "original_retained_log": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T150342-2526cc1a0ef4/lean-proof.log",
+  "outcome": "success",
+  "related_evidence": {
+    "focused_regressions_and_edit_pilot": "../tests/README.md",
+    "four_eight_comparison": "../README.md",
+    "native_proof_and_build": "../native/README.md"
+  },
+  "resources": {
+    "available_cpus": 12,
+    "host_monitor_pause_available_bytes": 4294967296,
+    "lake_workers": 12,
+    "memory_limit_kind": "Lean periodically checked per-process threshold; not an aggregate or OS hard cap",
+    "memory_mb_per_lean_process": 24576,
+    "thread_selection": "automatic; no --threads override",
+    "threads_per_lean_process": 12,
+    "worker_selection": "automatic; no --workers override"
+  },
+  "retained_artifacts": "artifacts-index.json",
+  "retention_checkout_commit": "2f3aaa0de9c986a1d01ea7360c8edbd171d431d2",
+  "retention_round": {
+    "elapsed_boundary": "Successful terminal retention/source/tool hashing only; excludes preparation and waiting.",
+    "elapsed_seconds": 2.2474747029991704,
+    "outcome": "Exact terminal packet and observations retained; all source/tool/module comparisons passed.",
+    "runtime_confirmation": "unavailable",
+    "scope": "No tools/builds/tests/proof checks/cache copies launched.",
+    "selected_effort": "Extra High",
+    "selected_model": "GPT-6.1 Sol",
+    "token_cost_measurements": "unavailable"
+  },
+  "run_id": "20261106T150342-2526cc1a0ef4",
+  "schema": 1,
+  "scope": "complete",
+  "source_commit": "524dbfbd4084c79f7048b1710dd3a7af76affe59",
+  "started_at_utc": "2026-11-06T15:03:45.723225+00:00",
+  "timing": {
+    "external_observation_wall_seconds": 3438.193843690002,
+    "lake_reported_rebuilt_modules": [
+      {
+        "module": "Silver.OutputBodyLines1",
+        "reported_duration": "947s"
+      },
+      {
+        "module": "Silver.OutputBodyLines5",
+        "reported_duration": "986s"
+      },
+      {
+        "module": "Silver.OutputBodyLines2",
+        "reported_duration": "1008s"
+      },
+      {
+        "module": "Silver.OutputBodyLines6",
+        "reported_duration": "1057s"
+      },
+      {
+        "module": "Silver.OutputBodyLines0",
+        "reported_duration": "1069s"
+      },
+      {
+        "module": "Silver.OutputBodyLines3",
+        "reported_duration": "1089s"
+      },
+      {
+        "module": "Silver.OutputBodyLines4",
+        "reported_duration": "1089s"
+      },
+      {
+        "module": "Silver.OutputBodyLines7",
+        "reported_duration": "1092s"
+      },
+      {
+        "module": "Silver.OutputBodyCertificate",
+        "reported_duration": "1962s"
+      },
+      {
+        "module": "Silver.SourceCertificates",
+        "reported_duration": "2.7s"
+      },
+      {
+        "module": "Silver.Source",
+        "reported_duration": "2.5s"
+      },
+      {
+        "module": "Silver.OutputSourceBridge",
+        "reported_duration": "151s"
+      },
+      {
+        "module": "Silver.ComposeSourceChecks",
+        "reported_duration": "2.6s"
+      },
+      {
+        "module": "Silver.NamedSourceBridge",
+        "reported_duration": "28s"
+      },
+      {
+        "module": "Silver.ArgumentsSourceBridge",
+        "reported_duration": "82s"
+      },
+      {
+        "module": "Silver.LexicalSourceBridge",
+        "reported_duration": "56s"
+      },
+      {
+        "module": "Silver.ComposeSourceBridge",
+        "reported_duration": "4.1s"
+      },
+      {
+        "module": "Silver.PredicateSourceChecks",
+        "reported_duration": "2.8s"
+      },
+      {
+        "module": "Silver.PredicateInheritedReady",
+        "reported_duration": "3.3s"
+      },
+      {
+        "module": "Silver.PredicateOuterModel",
+        "reported_duration": "4.2s"
+      },
+      {
+        "module": "Silver.PredicateEquations",
+        "reported_duration": "3.3s"
+      },
+      {
+        "module": "Silver.PredicateSourceBridge",
+        "reported_duration": "2.6s"
+      },
+      {
+        "module": "Silver.PredicateCorrespondence",
+        "reported_duration": "2.7s"
+      },
+      {
+        "module": "Silver",
+        "reported_duration": "2.8s"
+      },
+      {
+        "module": "Silver.Audit",
+        "reported_duration": "11s"
+      }
+    ],
+    "managed_duration_seconds": 3434.203343898,
+    "phases": [
+      {
+        "elapsed_seconds": 3413.676,
+        "exit_code": 0,
+        "finished_at": "2026-11-06T16:00:45.774384+00:00",
+        "phase": "build",
+        "started_at": "2026-11-06T15:03:52.098770+00:00"
+      },
+      {
+        "elapsed_seconds": 10.601,
+        "exit_code": 0,
+        "finished_at": "2026-11-06T16:00:57.596285+00:00",
+        "phase": "audit",
+        "started_at": "2026-11-06T16:00:46.995423+00:00"
+      }
+    ],
+    "runner_elapsed_seconds": 3437.293
+  },
+  "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-chunk-reuse",
+  "wrapper_command": [
+    "python3",
+    "tmp/observe_lean.py",
+    "stable-complete",
+    "python3",
+    "scripts/check_lean.py",
+    "--memory-mb",
+    "24576",
+    "--task",
+    "#327 #328 integrated complete validation",
+    "--reason",
+    "Stable integrated source524dbfbd40 preserves all original reconstruction and final source claims;90focusedmethods and critical component review passed. Reuse the documented idle parent/eight comparison cache with normal dependency invalidation, rebuild content buckets/reconstruction/consumers, and freshly audit complete source/module/axiom coverage. Automatic CPU settings;24GiB per-process allowance retains the successful reconstruction budget with host otherwise idle and RAM observation."
+  ],
+  "wrapper_source_limit": "Launch did not capture wrapper source hash. Post-run bytes match the wrapper retained in the earlier matched eight packet."
+}

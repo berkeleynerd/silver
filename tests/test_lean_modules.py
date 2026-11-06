@@ -1,5 +1,7 @@
 """Native checks of module reuse, source invalidation and legacy audit coverage."""
 
+import hashlib
+import json
 import os
 from pathlib import Path
 import subprocess
@@ -162,9 +164,9 @@ class LeanModuleTests(unittest.TestCase):
                 self.assertIn("SILVER_MODULE Silver.Provider", output)
                 self.assertNotIn("Silver axiom audit passed:", output)
 
-    def test_output_body_chunks_regenerate_and_track_token_and_newline_changes(self) -> None:
+    def test_output_body_chunks_reuse_objects_across_content_and_occurrence_edits(self) -> None:
         source = self.root / "src/silver_output_profile.adb"
-        original = b"X0;\nX1;\nX2;\nX3;\nX4;\nX5;\nX6;\n"
+        original = b"".join(f"X{index};\n".encode() for index in range(16)) + b"X0;\n"
         source.write_bytes(original)
         proof = self.root / "proof"
         proof.mkdir()
@@ -218,35 +220,73 @@ class LeanModuleTests(unittest.TestCase):
         self.assert_success(build())
         self.assertEqual({module: self.objects(module) for module in before_objects}, before_objects)
 
-        # Same line count isolates each changed line module. Both edits use the
-        # production generator/publisher and Lake's authoritative binary input;
-        # restoring mtime must not allow the old source binding to survive.
-        for changed, affected_chunk in ((original.replace(b"X0", b"Y0"), chunks[0]),
-                                        (original.replace(b"X6;\n", b"X6;\r\n"), chunks[3])):
-            with self.subTest(chunk=affected_chunk):
+        variants = {
+            "replace": original.replace(b"X1;", b"Y1;"),
+            "append": original + b"Z;\n",
+            "insert": original.replace(b"X8;\n", b"Z;\nX8;\n"),
+            "delete_unique": original.replace(b"X1;\n", b""),
+            "reorder": b"".join(f"X{index};\n".encode() for index in reversed(range(16))) + b"X0;\n",
+            "repeat": original + b"X0;\n",
+            "delete_repeated_occurrence": original.removeprefix(b"X0;\n"),
+            "crlf": original.replace(b"X6;\n", b"X6;\r\n"),
+            "remove_final_newline": original.removesuffix(b"\n"),
+            "add_empty_line": original + b"\n",
+            "empty_source": b"",
+        }
+        observations = []
+        for label, changed in variants.items():
+            with self.subTest(edit=label):
                 before_objects = {module: self.objects(module) for module in before_objects}
                 before_sources = source_identities()
                 stat = source.stat()
                 source.write_bytes(changed)
                 os.utime(source, ns=(stat.st_atime_ns, stat.st_mtime_ns))
+                # The authoritative binary dependency must reject stale generated
+                # certificates even when the source timestamp is restored.
+                if label == "replace":
+                    stale = build()
+                    self.assertNotEqual(stale.returncode, 0, stale.stdout + stale.stderr)
+                    self.assertIn("OutputBodyCertificate", stale.stdout + stale.stderr)
+                    for module in (*chunks, "Independent"):
+                        self.assertEqual(self.objects(module), before_objects[module], module)
                 regenerate()
                 after_sources = source_identities()
+                changed_texts = set(original.split(b"\n")) ^ set(changed.split(b"\n"))
+                affected_chunks = {chunks[hashlib.sha256(text).digest()[0] % 8]
+                                   for text in changed_texts}
+                self.assertEqual({module for module in chunks
+                                  if after_sources[module][0] != before_sources[module][0]}, affected_chunks)
                 self.assertNotEqual(after_sources[certificate][0], before_sources[certificate][0])
-                self.assertNotEqual(after_sources[affected_chunk][0], before_sources[affected_chunk][0])
                 self.assert_success(build())
                 self.assertNotEqual(self.objects("OutputProfileBodySource")[".olean"][0],
                                     before_objects["OutputProfileBodySource"][".olean"][0])
                 self.assertNotEqual(self.objects(certificate)[".olean"][0],
                                     before_objects[certificate][".olean"][0])
                 for module in (*chunks, "Independent"):
-                    if module != affected_chunk:
+                    if module not in affected_chunks:
                         self.assertEqual(self.objects(module), before_objects[module], module)
                         if module in chunks:
                             self.assertEqual(after_sources[module], before_sources[module], module)
+                    else:
+                        self.assertNotEqual(self.objects(module)[".olean"][0],
+                                            before_objects[module][".olean"][0], module)
                 audit()
+                observations.append({
+                    "edit": label, "source_sha256": hashlib.sha256(changed).hexdigest(),
+                    "occurrences": len(changed.split(b"\n")),
+                    "unique_texts": len(set(changed.split(b"\n"))),
+                    "changed_chunks": sorted(affected_chunks),
+                    "reused_chunks": sorted(set(chunks) - affected_chunks),
+                    "reused_object_bytes": sum(len(contents) for module in set(chunks) - affected_chunks
+                                               for contents, _mtime in before_objects[module].values()),
+                    "chunk_object_sha256": {module: {suffix: hashlib.sha256(contents).hexdigest()
+                                                       for suffix, (contents, _mtime) in self.objects(module).items()}
+                                            for module in chunks},
+                })
                 source.write_bytes(original)
                 regenerate()
                 self.assert_success(build())
+        print("OUTPUT_BODY_CONTENT_REUSE " + json.dumps(observations, sort_keys=True))
 
 
 if __name__ == "__main__":

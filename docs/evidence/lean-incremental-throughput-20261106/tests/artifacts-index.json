@@ -1,0 +1,69 @@
+{
+  "author-handoff.json": {
+    "bytes": 2904,
+    "sha256": "a631bb87c81b216951eb1c85eabf324bdd1896a2f6625a751fe6ff3949b2aad0",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-stable-cache/tmp/stable-final-handoff.json"
+  },
+  "cheap-test-summary.json": {
+    "bytes": 8608,
+    "sha256": "202f0f7285882224061860147befaea4ba0b9f99759d9aa26ea2acb32ca914a0",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-stable-cache/tmp/stable-cheap-test-summary.json"
+  },
+  "cheap-tests.log.gz": {
+    "bytes": 1994,
+    "sha256": "38bd579cdcf6c89c9761a5624f4eb69cfe0e4a4df2d1095c30e3ae9b433394d1",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-stable-cache/tmp/stable-cheap-tests.log",
+    "uncompressed_bytes": 10768,
+    "uncompressed_sha256": "680e9d3e90351eacebff33cf96f62025497305a9e991602ea87f6978c5acd42f"
+  },
+  "consumer-events.jsonl.gz": {
+    "bytes": 44218,
+    "sha256": "48ecaf2d35c65c7a091241e719f418c77296625b464debac7da1831889d47c8d",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T145951-7b7c28cabb66/events.jsonl",
+    "uncompressed_bytes": 162803,
+    "uncompressed_sha256": "930184b0bc4b6643b1a723299209ea52f08acf4fb4f69170c351f1ba2d9bb09b"
+  },
+  "consumer-native.log.gz": {
+    "bytes": 1206,
+    "sha256": "1f3193cbea0d949c9ae6858a55ff075bb6c4c9e2901021186c13d4518bd8d76f",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T145951-7b7c28cabb66/native.log",
+    "uncompressed_bytes": 4979,
+    "uncompressed_sha256": "0708589f5065e0759f2aa4c6c0a67312bec4946072c9e05aece5881d2240f558"
+  },
+  "fixture-object-reuse.json.gz": {
+    "bytes": 3698,
+    "sha256": "51463057baf65b582b8bd7c0d6d5d1fc71f6c096fc658569a3ae12b995d4f974",
+    "source": "Exact OUTPUT_BODY_CONTENT_REUSE JSON parsed from immutable tiny-native.log.gz; only JSON formatting changes",
+    "uncompressed_bytes": 32763,
+    "uncompressed_sha256": "58247ef73cd08da30aa6b2abedcaead4c05755ea4651e6e6ad88a37586c5b69a"
+  },
+  "fixture-tools.json": {
+    "bytes": 575,
+    "sha256": "675af8a23e1865b172833bb3c1892b4aa3554482bb8707a5e062e31a06245caf",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-stable-cache/tmp/stable-fixture-tools.json"
+  },
+  "static-parity.json": {
+    "bytes": 1591,
+    "sha256": "fa05480cd5dcdfff0af7e6b7bb561128d881de4645b54bd9fe8611358764a1fc",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-stable-cache/tmp/stable-content-static-parity.json"
+  },
+  "test-inventory.json": {
+    "bytes": 9764,
+    "sha256": "084acdab548dde414c7218828c235cf5e2e17ed601433548ad812064f5bec1a9",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-stable-cache/tmp/stable-test-inventory.json"
+  },
+  "tiny-events.jsonl.gz": {
+    "bytes": 44305,
+    "sha256": "4c35071d643c90c37683d45f4b366246951f9d234358031a1b3ff077b70f3b1c",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T145355-acbd4750fe92/events.jsonl",
+    "uncompressed_bytes": 163104,
+    "uncompressed_sha256": "e4710cbe9eebbb1568f04c5f650290f4886566a7c11896252c876400bfedf548"
+  },
+  "tiny-native.log.gz": {
+    "bytes": 3792,
+    "sha256": "bf6feef5ba1fc67d4518aeb2ecdd2035d183915a40c61dcd0ac848421fe651e7",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T145355-acbd4750fe92/native.log",
+    "uncompressed_bytes": 28613,
+    "uncompressed_sha256": "cebcc2d33c84551f3fe6566c95a6854410314a1fc8ffc63b8d7522dc0d76fac5"
+  }
+}

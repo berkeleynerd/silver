@@ -9,6 +9,7 @@ the independent modules. Incorrect generation therefore fails kernel checking.
 """
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
 
@@ -16,7 +17,7 @@ from pathlib import Path
 # The existing explicit-witness helper checks the same equality in the kernel;
 # preserve smaller certificates so their checked objects remain reusable.
 _RFL_TOKEN_LIMIT = 32_768
-OUTPUT_BODY_LINE_MODULES = tuple(f"OutputBodyLines{index}" for index in range(4))
+OUTPUT_BODY_LINE_MODULES = tuple(f"OutputBodyLines{index}" for index in range(8))
 
 SOURCE_BINDINGS = (
     ("silver_array_bindings.ads", "arrayBindingsSpec", "arrayBindingsSpecTokens"),
@@ -128,7 +129,8 @@ def validate_source_bytes(source: bytes, filename: str) -> None:
             raise ValueError(f"{filename}: unsupported compiler-source byte 0x{byte:02x} at offset {offset}")
 
 
-def generate_parts(source: str, profile: str, prefix: str) -> tuple[list[list[str]], list[str]]:
+def generate_parts(source: str, profile: str, prefix: str, *,
+                   line_names: list[str] | None = None) -> tuple[list[list[str]], list[str]]:
     validate_source_bytes(source.encode("utf-8"), profile)
     output: list[str] = []
     declarations: list[list[str]] = []
@@ -136,8 +138,10 @@ def generate_parts(source: str, profile: str, prefix: str) -> tuple[list[list[st
     all_tokens: list[str] = []
     # split preserves a final empty chunk, hence exact final newline presence.
     lines = source.split("\n")
+    if line_names is not None and len(line_names) != len(lines):
+        raise ValueError("line names must account for every source occurrence")
     for index, line in enumerate(lines):
-        name = f"{prefix}_line_{index}"
+        name = line_names[index] if line_names is not None else f"{prefix}_line_{index}"
         names.append(name)
         tokens = lex_candidate(line)
         all_tokens.extend(tokens)
@@ -206,6 +210,31 @@ def generate_parts(source: str, profile: str, prefix: str) -> tuple[list[list[st
     return declarations, output
 
 
+def generate_output_body_parts(source: str, profile: str,
+                               prefix: str) -> tuple[list[list[list[str]]], list[str]]:
+    """Share exact line texts in fixed buckets, retaining every ordered occurrence.
+
+    Hashes select names and placement only. Lean still checks every literal,
+    candidate token list, newline condition and reconstruction equality.
+    """
+    validate_source_bytes(source.encode("utf-8"), profile)
+    texts: dict[str, str] = {}
+    digests: list[str] = []
+    for line in source.split("\n"):
+        digest = hashlib.sha256(line.encode("ascii")).hexdigest()
+        if digest in texts and texts[digest] != line:
+            raise ValueError("different source lines have the same SHA256 identifier")
+        texts[digest] = line
+        digests.append(digest)
+    names = [f"{prefix}_line_{digest}" for digest in digests]
+    declarations, reconstruction = generate_parts(source, profile, prefix, line_names=names)
+    unique = dict(zip(digests, declarations, strict=True))
+    chunks: list[list[list[str]]] = [[] for _ in OUTPUT_BODY_LINE_MODULES]
+    for digest, declaration in sorted(unique.items()):
+        chunks[int(digest[:2], 16) % len(chunks)].append(declaration)
+    return chunks, reconstruction
+
+
 def generate(source: str, profile: str, prefix: str) -> list[str]:
     declarations, reconstruction = generate_parts(source, profile, prefix)
     return [line for declaration in declarations for line in declaration] + reconstruction
@@ -240,7 +269,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", required=True, type=Path,
                         help="candidate module in an isolated proof workspace; output body also emits "
-                             "four sibling line modules with the same suffixes")
+                             "eight sibling line modules with the same suffixes")
     parser.add_argument("--source", required=True, choices=[entry[0] for entry in SOURCE_BINDINGS],
                         help="emit one independently checked source certificate module")
     arguments = parser.parse_args()
@@ -257,18 +286,21 @@ def main() -> None:
     # Read bytes directly: text-mode newline translation would lose CRs.
     source_bytes = (repository / "src" / filename).read_bytes()
     validate_source_bytes(source_bytes, filename)
-    declarations, reconstruction = generate_parts(source_bytes.decode("ascii"), binding, prefix)
     line_modules = OUTPUT_BODY_LINE_MODULES if filename == "silver_output_profile.adb" else ()
+    if line_modules:
+        chunks, reconstruction = generate_output_body_parts(source_bytes.decode("ascii"), binding, prefix)
+        declarations = []
+    else:
+        declarations, reconstruction = generate_parts(source_bytes.decode("ascii"), binding, prefix)
+        chunks = []
     output = module_header(binding_module, line_modules)
     if not line_modules:
         output.extend(line for declaration in declarations for line in declaration)
     output.extend(reconstruction)
     outputs = {destination: output}
-    # Only the large output-body certificate is split. Keep declaration order,
-    # names, literals and proof bodies intact; the aggregator reconstructs the
-    # complete authoritative source using the same balanced tree as before.
-    for index, module in enumerate(line_modules):
-        chunk = declarations[len(declarations) * index // 4:len(declarations) * (index + 1) // 4]
+    # Output-body leaves use content identities; occurrence order remains in the
+    # unchanged balanced reconstruction, including repeated and final empty lines.
+    for module, chunk in zip(line_modules, chunks, strict=True):
         outputs[destination.with_name(module + "".join(destination.suffixes))] = (
             module_header() + [line for declaration in chunk for line in declaration])
     destination.parent.mkdir(parents=True, exist_ok=True)

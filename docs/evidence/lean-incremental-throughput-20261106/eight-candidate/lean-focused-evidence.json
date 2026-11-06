@@ -1,0 +1,65 @@
+{
+  "host": "linux-x86_64",
+  "lean_version": "4.34.1",
+  "run_id": "20261106T142121-11c72098823f",
+  "scope": "focused",
+  "targets": [
+    "Silver.OutputBodyLines0",
+    "Silver.OutputBodyLines1",
+    "Silver.OutputBodyLines2",
+    "Silver.OutputBodyLines3",
+    "Silver.OutputBodyLines4",
+    "Silver.OutputBodyLines5",
+    "Silver.OutputBodyLines6",
+    "Silver.OutputBodyLines7"
+  ],
+  "mode": "focused",
+  "clean_build": false,
+  "axiom_audit": "passed",
+  "kernel_recheck": null,
+  "threads_per_process": 12,
+  "lake_workers": 8,
+  "available_cpus": 12,
+  "memory_mb_per_process": 6144,
+  "phases": [
+    {
+      "phase": "build",
+      "started_at": "2026-11-06T14:21:29.825971+00:00",
+      "finished_at": "2026-11-06T14:43:28.419869+00:00",
+      "elapsed_seconds": 1318.594,
+      "exit_code": 0
+    },
+    {
+      "phase": "audit",
+      "started_at": "2026-11-06T14:43:29.560620+00:00",
+      "finished_at": "2026-11-06T14:43:37.215417+00:00",
+      "elapsed_seconds": 7.655,
+      "exit_code": 0
+    }
+  ],
+  "tools_sha256": {
+    ".tools/linux-x86_64/lean/bin/lean": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+    ".tools/linux-x86_64/lean/bin/lake": "6f53827dab18010d6c690d14c8401cacabc1db958edb3552a877ed4cf1dd995d"
+  },
+  "modules": [
+    "Silver.Admission",
+    "Silver.AxiomAudit",
+    "Silver.CertificateWitness",
+    "Silver.Cursor",
+    "Silver.Lexical",
+    "Silver.OutputBodyLines0",
+    "Silver.OutputBodyLines1",
+    "Silver.OutputBodyLines2",
+    "Silver.OutputBodyLines3",
+    "Silver.OutputBodyLines4",
+    "Silver.OutputBodyLines5",
+    "Silver.OutputBodyLines6",
+    "Silver.OutputBodyLines7",
+    "Silver.SourceLexer"
+  ],
+  "elapsed_seconds": 1338.216,
+  "inputs_digest_sha256": "192d70e011e9535761c9fe7c000e8eb0b95d0fd923c53698b5675d9fb111254c",
+  "workspace": ".silver/linux-x86_64/proof",
+  "authoritative_source": "src",
+  "log": ".silver/linux-x86_64/lean-focused.log"
+}

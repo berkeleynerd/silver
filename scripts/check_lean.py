@@ -64,7 +64,7 @@ CERTIFICATE_ROOTS = {
     Path("Silver/ArgumentsBodyCertificate.lean"): "silver_arguments.adb",
     Path("Silver/RuntimeSpecCertificate.lean"): "silver_runtime.ads",
 }
-OUTPUT_BODY_LINES = tuple(Path(f"Silver/OutputBodyLines{index}.lean") for index in range(4))
+OUTPUT_BODY_LINES = tuple(Path(f"Silver/OutputBodyLines{index}.lean") for index in range(8))
 CANDIDATES = CERTIFICATE_ROOTS | {
     path: "silver_output_profile.adb" for path in OUTPUT_BODY_LINES}
 
@@ -129,7 +129,7 @@ def generate_certificate(host: HostLayout, relative: Path, source_name: str,
                          *, pass_fds: tuple[int, ...] = ()) -> None:
     """Regenerate one source and publish all its generated candidate inputs.
 
-    Stage the output-body aggregator and its four line modules together. Read
+    Stage the output-body aggregator and its eight line modules together. Read
     every expected output before publishing any, so a partial generation cannot
     silently retain a stale chunk. Unchanged bytes keep their useful timestamps.
     """

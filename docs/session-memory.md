@@ -1,5 +1,19 @@
 # Session memory
 
+## 2026-11-06 — Initial Lean delivery merged; incremental merge authorized
+
+The owner-authorized [PR #326](https://github.com/berkeleynerd/silver/pull/326)
+merged as `508692aa8957c319a6baaffd1d0fb5a17afcc8ea`, including the reviewed
+documentation reconciliation. The ordered authorization below now selects
+[PR #330](https://github.com/berkeleynerd/silver/pull/330) for merge onto main.
+Its eight stable-content buckets, complete native and Lean/source checkpoint,
+focused regressions and closing review remain those in the
+[delivery record](lean-incremental-throughput.md#integrated-checkpoint--2026-11-06).
+Reconciliation changes documentation only and preserves the validated governed
+inputs. Keep #8 and milestone 17 open until the incremental packages reach main;
+their closeout follows the second merge. No next work package is selected here,
+and no CLI recall entry was updated.
+
 ## 2026-11-06 — Stacked Lean delivery merges authorized
 
 After validation and review of the stacked Lean deliveries, the owner instructed
@@ -18,6 +32,34 @@ The next unit's issue and scope still require selection before implementation;
 this entry does not select #314, #297 or another queued item. No Oracle or
 language change is authorized by this merge instruction. No CLI recall was
 updated.
+
+## 2026-11-06 — Incremental Lean throughput validated for review
+
+The owner-authorized matched chunk comparison and stable-cache packages
+[#327](https://github.com/berkeleynerd/silver/issues/327) and
+[#328](https://github.com/berkeleynerd/silver/issues/328) are implemented and
+validated on [PR #330](https://github.com/berkeleynerd/silver/pull/330), stacked
+on the still-open [PR #326](https://github.com/berkeleynerd/silver/pull/326).
+The [delivery record](lean-incremental-throughput.md#integrated-checkpoint--2026-11-06)
+retains the matched comparison, demonstrated ordinary-edit object reuse,
+complete Linux native and Lean/source assurance, scoped regressions and exact
+input/cache attribution. The
+[closing confirmation](reviews/review-lean-incremental-throughput-20261106.md)
+found no unresolved finding or missing required validation for these packages.
+
+Eight stable content buckets share proofs for identical physical line text,
+while the existing reconstruction still checks every occurrence in order.
+Reconstruction remains substantial serial work; the measured chunk comparison
+does not establish a whole-project or general edit-speed improvement. The
+language, Oracle, approved foundations and automatic CPU defaults are unchanged.
+No broader proof/cache framework or additional artifact-attestation work was
+introduced.
+
+This completes the selected implementation and reviewable-publication scope.
+Implementation merge remains an owner decision; keep both PRs and milestone 17
+open, with #327/#328 In review. Parent #8 remains open until all its selected
+packages reach main. #314 remains deferred and unchanged. No harness goal
+exists and no CLI recall entry was updated.
 
 ## 2026-11-06 — Incremental Lean throughput work authorized
 

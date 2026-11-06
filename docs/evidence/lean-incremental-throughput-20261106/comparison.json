@@ -1,0 +1,64 @@
+{
+  "disposition": {
+    "next": "Continue authorized bounded stable-identity/cache pilot (#328); complete final integrated assurance remains pending.",
+    "reason": "Observed wrapper wall time fell 32.96%, at 21.88% more command-tree CPU and 45.39% higher sampled summed RSS, with ample sampled host headroom and no pressure pause.",
+    "selected_by": "Lead under owner-authorized useful-partition selection",
+    "selected_line_chunks": 8
+  },
+  "eight_run": "20261106T142121-11c72098823f",
+  "four_run": "20261106T134724-a836b1157415",
+  "limitations": [
+    "One four-then-eight ordered pair on one Linux x86-64 host; no repeated/randomized experiment, variance estimate or universal speedup claim.",
+    "Command-tree CPU includes generation/build/audit. Summed RSS can count shared pages; approximately five-second samples can miss peaks.",
+    "No competing proof/native/test jobs reported; cheap source/static work and 8.109-second idle four-evidence retention overlapped. Host/system load was not controlled independently.",
+    "Line-focused build/audit excludes aggregator/reconstruction and whole-project cost; it is not complete final source/kernel/native assurance.",
+    "Post-terminal hashing preserves applicability evidence within the existing trusted local-cache boundary; no new object attestation or independent replay."
+  ],
+  "matched_inputs": {
+    "automatic_threads_per_process": 12,
+    "common_cache_independent_idle_copies": true,
+    "forced_complete_selected_line_closures": true,
+    "lake_workers": [
+      4,
+      8
+    ],
+    "memory_mb_per_process": 6144,
+    "ordered_declarations_byte_identical": true,
+    "ordered_declarations_sha256": "d6a21f1b4ce354336fccccf31040cbef5cac24a3861656b1aaf5c4ed74e985fe",
+    "ordered_line_certificates": 4915,
+    "same_630_common_olean_hashes": true,
+    "same_lean_and_lake_executable_hashes": true,
+    "source_partitions": "Four proportional chunks versus eight proportional chunks; production representation and ordered proof declarations unchanged."
+  },
+  "measurements": {
+    "command_tree_cpu_seconds": {
+      "eight": 8840.193283999999,
+      "eight_change_percent": 21.882791422336222,
+      "eight_minus_four": 1587.1650419999996,
+      "four": 7253.028241999999,
+      "four_over_eight": 0.8204603687939003
+    },
+    "external_wrapper_seconds": {
+      "eight": 1341.952163119,
+      "eight_change_percent": -32.96281973435836,
+      "eight_minus_four": -659.8506540659982,
+      "four": 2001.8028171849983,
+      "four_over_eight": 1.4917095200564796
+    },
+    "lake_build_seconds": {
+      "eight": 1318.594,
+      "eight_change_percent": -33.385906806530286,
+      "eight_minus_four": -660.858,
+      "four": 1979.452,
+      "four_over_eight": 1.501183836723055
+    },
+    "sampled_peak_summed_rss_bytes": {
+      "eight": 8124977152,
+      "eight_change_percent": 45.393076586478166,
+      "eight_minus_four": 2536693760,
+      "four": 5588283392,
+      "four_over_eight": 0.6877906592788903
+    }
+  },
+  "schema": 1
+}

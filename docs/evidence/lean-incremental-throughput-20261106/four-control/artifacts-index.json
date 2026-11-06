@@ -1,0 +1,72 @@
+{
+  "common-olean-after.json.gz": {
+    "bytes": 29127,
+    "sha256": "58b768758bc9d81ecb7d4e18e56a5d4c1c7688a55afbf49782660b8cc2805f86",
+    "source": "Independent post-terminal inspection of idle four-control workspace",
+    "uncompressed_bytes": 73940,
+    "uncompressed_sha256": "56c52360db1dc1bf21a82666d8256ae70578f1cbfd1cf3b7e1129bccc864a89e"
+  },
+  "console.log": {
+    "bytes": 1876,
+    "sha256": "514955bcf50b70db5967257c4b19d917c9acae360b2f556eda916a5f0b35c272",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-four-control/tmp/four-lines/console.log"
+  },
+  "events.jsonl.gz": {
+    "bytes": 36372,
+    "sha256": "daa24d5303048a8653fe3ecc1a943698da0092348ffeff8dfd7bdf9c104bf196",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T134724-a836b1157415/events.jsonl",
+    "uncompressed_bytes": 87600,
+    "uncompressed_sha256": "d743c7c47bcd13348d1b0cb0d7bec31432d87e8f3c7815c4b9037d35c183c038"
+  },
+  "launch.json": {
+    "bytes": 957,
+    "sha256": "d63e304057e78dc4c1da97c89221f69b45bcdacec1b1e302616579c05c52632b",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-four-control/tmp/four-lines/launch.json"
+  },
+  "lean-cache-seed.json": {
+    "bytes": 630,
+    "sha256": "2b2b4785fca0ba479b8188d7822f32568fb3ee36735999daaf014621cabb68ab",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-four-control/tmp/lean-cache-seed.json"
+  },
+  "lean-focused-evidence.json": {
+    "bytes": 1687,
+    "sha256": "ab8e25f1ddcf12cfca26b23dc2fc4d4ebb33a23df30cd07c34ba50914b55c056",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T134724-a836b1157415/lean-focused-evidence.json"
+  },
+  "lean-focused.log": {
+    "bytes": 1599,
+    "sha256": "af58f6981cac31144d93ff5bc9c88a7477ed4acdecef6204bb9bdc18ae16a47c",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T134724-a836b1157415/lean-focused.log"
+  },
+  "measurement-preparation.json.gz": {
+    "bytes": 32630,
+    "sha256": "5a80d678f36804bf246fe76be6d7e86a35e73eef503939d8ab9ee73dadb37d9d",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-four-control/tmp/measurement-preparation.json",
+    "uncompressed_bytes": 86936,
+    "uncompressed_sha256": "14cbef9091afe3335830c547c2a226e5f8ec2c74c66329b02f21bfc76ed4a11b"
+  },
+  "observation.json": {
+    "bytes": 365,
+    "sha256": "ce56c839695ac98066769b5f697dae7dfbd59abc7fe8630a7e0573e2f90dcfee",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-four-control/tmp/four-lines/observation.json"
+  },
+  "observe_lean.py": {
+    "bytes": 3911,
+    "sha256": "625dfddd817f691b7bcd4d7a2d2ac251da639857c5d68af2e6af9b83569e98f1",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-four-control/tmp/observe_lean.py"
+  },
+  "samples.jsonl.gz": {
+    "bytes": 41866,
+    "sha256": "f767585abe820812b53b10350a127022b0d8bed95b3cfd21aca97d6df2f9a17a",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-four-control/tmp/four-lines/samples.jsonl",
+    "uncompressed_bytes": 336988,
+    "uncompressed_sha256": "7995020362312a0470fa6de45ee2e98d201dee232e324337f0566b771f6c19e0"
+  },
+  "workspace-inputs-sha256.json.gz": {
+    "bytes": 29217,
+    "sha256": "993a08c8078485c03906426d451148c0964887b399943d79a74c6e2144ec7408",
+    "source": "Independent post-terminal inspection of idle four-control workspace",
+    "uncompressed_bytes": 68223,
+    "uncompressed_sha256": "c98359eb7a56b0a499ab5c7c1fbc6e850a444ce32fbd14b0dbe4d64f6ffab63a"
+  }
+}

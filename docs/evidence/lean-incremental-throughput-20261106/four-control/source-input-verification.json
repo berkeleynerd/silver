@@ -1,0 +1,29 @@
+{
+  "authoritative_source_link_matches": true,
+  "captured_shared_inputs": 745,
+  "captured_shared_inputs_match_current_and_git": true,
+  "common_olean_count": 630,
+  "common_olean_hash_inventory": "common-olean-after.json.gz",
+  "common_olean_hashes_unchanged_from_preparation": true,
+  "current_governed_git_status": "clean",
+  "generated_candidates": 32,
+  "independently_compared_source_paths": 777,
+  "limits": [
+    "Only the finished four-control cache was read; no compiled objects or active eight-case outputs were copied.",
+    "Source/tool/cache hashing is post-terminal inspection, not a new proof run or object attestation."
+  ],
+  "mismatches": [],
+  "ordered_line_declarations": 4915,
+  "pinned_lean_version": "4.34.1",
+  "project_module_sources": 634,
+  "run_id": "20261106T134724-a836b1157415",
+  "schema": 1,
+  "source_commit": "c062d5253e73ad066bf0309eeee505f51f8b0860",
+  "tool_hashes_match_captured": {
+    ".tools/linux-x86_64/lean/bin/lake": "6f53827dab18010d6c690d14c8401cacabc1db958edb3552a877ed4cf1dd995d",
+    ".tools/linux-x86_64/lean/bin/lean": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550"
+  },
+  "workspace_hash_inventory": "workspace-inputs-sha256.json.gz",
+  "workspace_input_files": 636,
+  "workspace_sources_match_shared_and_git": true
+}

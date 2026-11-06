@@ -1,0 +1,39 @@
+{
+  "build-events.jsonl.gz": {
+    "bytes": 126459,
+    "sha256": "53e9f8235fbd057f4013ac6e844b03f0fa459c311ed2a81c5ea25cd8a4d03761",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T145251-335323a924fa/events.jsonl",
+    "uncompressed_bytes": 445317,
+    "uncompressed_sha256": "beebc8713596aea5391409a5d495dc6b73d99eb69197362f8b8b63dcd672094f"
+  },
+  "build-native.log.gz": {
+    "bytes": 67,
+    "sha256": "ac0828e978b3de1db46a73a044c533834fb1f803222b686b01806d5a805c8b62",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T145251-335323a924fa/native.log",
+    "uncompressed_bytes": 74,
+    "uncompressed_sha256": "78ecb0e42b6d01eb16d8ac863668ef2fbb3a1d8fb04ac9be4fbc82349d053473"
+  },
+  "full-events.jsonl.gz": {
+    "bytes": 126881,
+    "sha256": "dbb786e343017f92065e2c5949488b7195430831eee0a8e0fe3c5f4422a3f936",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T145116-6582d1e5fcb5/events.jsonl",
+    "uncompressed_bytes": 448009,
+    "uncompressed_sha256": "6b9f26b0f02749622f80a8b22d08cf2c15bb6357531b0b9a583368cb6082c352"
+  },
+  "full-native.log.gz": {
+    "bytes": 83834,
+    "sha256": "92808eaed508f0403b2919627b7e9884493aefe44b9fd8ea62636719f406b8a0",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T145116-6582d1e5fcb5/native.log",
+    "uncompressed_bytes": 1353383,
+    "uncompressed_sha256": "8f5f60e15452fe8e323caaa69924e61cd6ef94b4e71a61001a23e6b1559e50d9"
+  },
+  "proof-evidence.tar.gz": {
+    "bytes": 2107253,
+    "member_index": "archive-members.json",
+    "members": 80,
+    "sha256": "c30ed8f875dfc570aba234722212f92ee9d8e1858767dcc6a58f7cd95f991467",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T145116-6582d1e5fcb5/proof-evidence",
+    "uncompressed_bytes": 46643200,
+    "uncompressed_sha256": "901180cec935829f0ec86f9d42da644882bac212c034470953477a8bbe96b49c"
+  }
+}

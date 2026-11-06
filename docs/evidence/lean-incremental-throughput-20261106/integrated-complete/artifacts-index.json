@@ -1,0 +1,59 @@
+{
+  "console.log.gz": {
+    "bytes": 7492,
+    "sha256": "c0adf13310b306f219ea0934706007792f21fb372901005e447e018db2e59966",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-chunk-reuse/tmp/stable-complete/console.log",
+    "uncompressed_bytes": 76369,
+    "uncompressed_sha256": "14c31aa0e80d32a875c9c52e00fb77d484ede235dc91deaf6312c7bd27500170"
+  },
+  "events.jsonl.gz": {
+    "bytes": 36481,
+    "sha256": "a3988d17e8779d87c883e6741d0593ce7d6bcefa18b780bbbcb53011f270bc17",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T150342-2526cc1a0ef4/events.jsonl",
+    "uncompressed_bytes": 87367,
+    "uncompressed_sha256": "cfdb763bb1d69cf4cf44f8f55b34eabbbca58fa810a3ec46a930f7d52646d54f"
+  },
+  "launch.json": {
+    "bytes": 913,
+    "sha256": "fd3051f8beb6c64920f3caa447affe7488256f4a0a84924cb1a87bddb135a00c",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-chunk-reuse/tmp/stable-complete/launch.json"
+  },
+  "lean-evidence.json.gz": {
+    "bytes": 3896,
+    "sha256": "644530ceb10a1a6c44aef12daf91be297dfef5776e79daa393e1785ab004449a",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T150342-2526cc1a0ef4/lean-evidence.json",
+    "uncompressed_bytes": 24469,
+    "uncompressed_sha256": "320a3afdf03f247f56577d9f06e30df621a08d755759ef247478c84cfbc2bff9"
+  },
+  "lean-proof.log.gz": {
+    "bytes": 7391,
+    "sha256": "cef98dfab0763b9d35cb5bfc053e0d7dfbe31e8bf28a18ca2acf2cef3dc7638b",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T150342-2526cc1a0ef4/lean-proof.log",
+    "uncompressed_bytes": 76106,
+    "uncompressed_sha256": "a1fd504753a0a4941382a7d5a0824b7823552f4569e85328673884365ae7b400"
+  },
+  "observation.json": {
+    "bytes": 358,
+    "sha256": "af9d4d619f9dd0992731f58422e9a79d95f36d0e130ab7e214d700d59b60c7bb",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-chunk-reuse/tmp/stable-complete/observation.json"
+  },
+  "observe_lean.py": {
+    "bytes": 3911,
+    "sha256": "625dfddd817f691b7bcd4d7a2d2ac251da639857c5d68af2e6af9b83569e98f1",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-chunk-reuse/tmp/observe_lean.py"
+  },
+  "samples.jsonl.gz": {
+    "bytes": 64202,
+    "sha256": "32433b5f2b7bb16d51bf76f294defc90c1d60915097322696fd5412b7f2e34af",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-chunk-reuse/tmp/stable-complete/samples.jsonl",
+    "uncompressed_bytes": 540325,
+    "uncompressed_sha256": "24e263fb0cab70fcbb7d98ac9ea562f60c6062a69c7cc72f862224ae50cddbfb"
+  },
+  "workspace-inputs-sha256.json.gz": {
+    "bytes": 29389,
+    "sha256": "944f77e5f9d6c8f8f31bc7305898a610c997d776d4f3b018357e16d67a35e97f",
+    "source": "Independent post-terminal inventory of completed frozen proof-workspace sources; no compiled objects",
+    "uncompressed_bytes": 68631,
+    "uncompressed_sha256": "31088351bdb52ff7f17ee4557c2a9cc230b05f6256b724b7e71f60a74009ebf5"
+  }
+}
