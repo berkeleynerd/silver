@@ -22,8 +22,8 @@ each delivery; the linked issues hold scope and completion criteria.
 | --- | --- | --- |
 | Delivered 2026-10-31 | [Boolean scalar objects and expressions #291](https://github.com/berkeleynerd/silver/issues/291), stacked on the named-subtype delivery [#286](https://github.com/berkeleynerd/silver/issues/286) | Sequence of primes by trial division; Square but not cube; Common list elements |
 | Complete 2026-11-06 | [Bounded String indexing and character operations #296](https://github.com/berkeleynerd/silver/issues/296) | Reverse a string; Palindrome detection; character replacement |
-| Later (1) | [Fixed-size Boolean arrays #297](https://github.com/berkeleynerd/silver/issues/297) | Sieve of Eratosthenes; elementary cellular automata |
-| Later (2) | [Small nonrecursive functions #298](https://github.com/berkeleynerd/silver/issues/298) | Reusable primality tests, GCD and numeric search helpers |
+| Selected next 2026-11-06 | [Fixed-size Boolean arrays #297](https://github.com/berkeleynerd/silver/issues/297) | Sieve of Eratosthenes; elementary cellular automata |
+| Later (1) | [Small nonrecursive functions #298](https://github.com/berkeleynerd/silver/issues/298) | Reusable primality tests, GCD and numeric search helpers |
 
 The bounded String increment has completed repaired Linux native and Lean
 assurance after the [interim review repairs](docs/interim-review-response-20261105.md).
@@ -39,8 +39,11 @@ Functions start with scalar parameters/results, an acyclic call graph and no
 caller-visible mutation. Their detailed design follows the preceding deliveries.
 
 #296 is [authorized for implementation on 2026-10-31](docs/session-memory.md#2026-10-31--bounded-string-indexing-and-character-operations-authorized).
-#297 and #298 remain **Backlog proposals**. Candidate samples need faithful
-implementations before any coverage gain is claimed. The separate sample-only
+#297 is [selected next on 2026-11-06](docs/session-memory.md#2026-11-06--structural-guards-merged-boolean-arrays-selected-next),
+under the owner's instruction to proceed after merging the ready structural
+guards. Keep it Backlog until that authorization reaches main. #298 remains a
+**Backlog proposal**. Candidate samples need faithful implementations before
+any coverage gain is claimed. The separate sample-only
 proposal [#300](https://github.com/berkeleynerd/silver/issues/300) retains its
 pending scope and opportunity inventory; it is not part of this feature.
 Existing source and expression budgets, assurance requirements, broad stages
@@ -48,35 +51,55 @@ and deferred capacity work retain their scope.
 
 ## Current development sequence
 
+### Fixed-size Boolean arrays
+
+**Selected next, 2026-11-06; implementation unstarted.**
+
+After the ready structural-guard delivery, the owner's instruction to proceed
+selects existing [#297](https://github.com/berkeleynerd/silver/issues/297) from
+the recorded feature queue. The
+[dated authorization](docs/session-memory.md#2026-11-06--structural-guards-merged-boolean-arrays-selected-next)
+distinguishes that ordering inference from the owner's exact words.
+[Milestone 19](https://github.com/berkeleynerd/silver/milestone/19), **Fixed-size
+Boolean arrays**, contains this one cohesive work package; do not create a
+duplicate stage issue. Keep #297 Backlog until authorization reaches main,
+then Ready/claim through the ordinary workflow.
+
+The [bounded plan](docs/boolean-arrays.md) extends initialized static
+one-dimensional arrays to Boolean components and indexed reads/writes, composed
+with existing Boolean/scalar/index/loop machinery. Settle aggregate admission,
+visibility, cell representation and faithful bounded driver samples before
+implementation commits. Complete native and Lean universal/actual-source
+assurance, boundary/composition regressions, independent review and synchronized
+language/catalogue/sample/Rosetta records before reviewable feature publication.
+Sieve of Eratosthenes and elementary cellular automata remain candidate drivers
+until their exact supported forms are established. Broad `arrays` stage #12
+remains Open/Backlog; promote only a precisely assessed delivered fragment.
+
+The complete-source 4,096-byte limit and existing expression/storage budgets
+remain unchanged. General containers, dynamic/multidimensional arrays, functions
+#298, the separate #300 sample batch, capacity rewrites and Oracle amendments
+remain outside this unit. Implementation merge remains a later owner decision.
+
 ### Source-tree structural guards
 
-**Implemented and validated on Linux, 2026-11-06; awaiting owner review and merge.**
+**Complete on Linux and merged, 2026-11-06, through
+[PR #332](https://github.com/berkeleynerd/silver/pull/332).**
 
-The [dated authorization](docs/session-memory.md#2026-11-06--lean-deliveries-complete-structural-guards-selected-next)
-records the owner's proceed instruction, earlier ordering of Lean optimizations
-before #314, and explicit selection of that existing follow-up.
-[Milestone 18](https://github.com/berkeleynerd/silver/milestone/18) contains one
-cohesive proof-only issue, [#314](https://github.com/berkeleynerd/silver/issues/314).
-Authorization reached main through PR #331 (`584e230e31`). Governed source
-`92ab046be2` passes the complete 641-module Lean/source/axiom checkpoint and
-16 source/certificate tests, with retained native input applicability and
-independent source review. The issue and milestone remain open until merge.
+The [delivery record](docs/source-tree-structural-guards.md#merged-delivery--2026-11-06)
+retains authorization, exact governed source, independent review, complete
+Lean/source/module/axiom audit, focused tests and native evidence applicability.
+Merge `7d17ed20f5fe64b4061867587a00ec5f8873b56a` has exactly the reviewed final
+`b353f926c4` tree. Issue #314 was automatically closed by `Fixes #314` on merge,
+its board status is Done, and milestone 18 is closed. No validation rerun is
+claimed by this closeout.
 
-The [bounded plan](docs/source-tree-structural-guards.md) covers fail-closed
-category, precedence and association guards for `ScalarBodyNative`,
-`Native.ScalarHelpers`, `Adapter`, Image `ScannerNative` and
-`FilesSplice.Predicate`. Connect the three predicate guards to `CheckedSource`,
-provide the standalone scanner theorem and join the FilesSplice guard to
-`ActualSource`. Preserve current trees, evaluation, rendered tokens, endpoints,
-admission and legitimate same-operator Boolean nesting. Complete kernel-checked
-inventories/negative controls, independent semantic/source review, the final
-complete Lean/source/module/axiom audit, native input applicability or required
-refresh, and proportionate focused tests before reviewable publication.
-
-Opaque fixed token leaves retain their documented limits. No generic framework,
-Ada change, Oracle amendment or new language feature is selected. Implementation
-merge remains a later owner decision; Boolean arrays #297, functions #298 and
-the separate #300 sample batch retain their unselected scope.
+The five named source-tree languages now have fail-closed category, precedence
+and association guards with the required source wiring, positive inventories
+and negative controls. Existing trees, evaluation, rendered tokens, semantic
+endpoints, admitted language and legitimate same-operator Boolean nesting are
+preserved. Opaque fixed token leaves and source-interpretation premises retain
+their documented limits. The next selected feature is #297 above.
 
 ### Lean source parallelism
 

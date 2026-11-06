@@ -1,5 +1,41 @@
 # Session memory
 
+## 2026-11-06 — Structural guards merged; Boolean arrays selected next
+
+The owner instructed **“Please merge it if it is ready and proceed to the next
+unit of work.”** The ready [PR #332](https://github.com/berkeleynerd/silver/pull/332)
+merged as `7d17ed20f5fe64b4061867587a00ec5f8873b56a`. Its tree exactly matches
+reviewed final head `b353f926c4`; the
+[closeout](source-tree-structural-guards.md#merged-delivery--2026-11-06)
+retains governed source, review and evidence identities. Issue #314 was
+automatically closed by `Fixes #314` on merge, its board status is Done, and
+milestone 18 is closed. Successful validation was retained without a rerun.
+
+The owner did not name the next issue. With the intervening Lean and structural
+packages complete, the [recorded queue](../roadmap.md#near-term-feature-queue)
+identifies existing [#297](https://github.com/berkeleynerd/silver/issues/297),
+**Fixed-size Boolean arrays**, as the next regular unit. This is the agent's
+application of the proceed instruction to that recorded order, rather than a
+claim that the owner explicitly named #297.
+
+[Milestone 19](https://github.com/berkeleynerd/silver/milestone/19) contains #297
+as one cohesive work package. The [bounded plan](boolean-arrays.md) covers
+initialized statically bounded one-dimensional Boolean arrays, indexed reads
+and writes, existing expression/control-flow compositions, full native and
+Lean universal/actual-source assurance, regressions, faithful Rosetta samples,
+independent review and synchronized delivery records. Resolve exact admission
+and representation questions within this scope. Preserve the 4,096-byte source
+limit, existing expression/storage budgets and Oracle guarantees. No general
+containers, dynamic arrays, capacity rewrite or Oracle amendment is selected.
+
+Routine planning publication and merge, followed by implementation through
+reviewable publication, follow the current proceed instruction. Keep #297
+Backlog until this dated record reaches main, then mark Ready and claim it
+through the ordinary issue/board routine. Implementation has not begun;
+implementation merge remains a later owner decision. Functions #298 and the
+separate #300 sample batch retain their unselected scope. No CLI recall entry
+was updated.
+
 ## 2026-11-06 — Structural guards implemented and validated
 
 The selected #314 follow-up is implemented at governed source `92ab046be2`.
