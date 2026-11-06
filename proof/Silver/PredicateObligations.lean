@@ -100,6 +100,9 @@ def Condition.obligations (shape : Shape) (analysis : Integer.Analysis) (conditi
         (right.obligations shape.fixedLengths flow.scalars)).map Obligation.scalar
   | .inputValid | .booleanLiteral _ => []
   | .booleanName index => if booleans.initialized index then [] else [.impossible]
+  | .booleanArrayRead array index =>
+      (if array.initialized booleans then [] else [.impossible]) ++
+        (array.indexObligations flow.scalars index).map Obligation.scalar
   | .parenthesized inner | .negated inner => inner.obligations shape analysis flow booleans
   | .andThen left right =>
       left.obligations shape analysis flow booleans ++ right.obligations shape analysis (left.refine shape analysis flow true) booleans
@@ -134,6 +137,11 @@ theorem Condition.obligations_exact (condition : Condition) (shape : Shape) (ana
         Character.Expr.obligations_exact, checkBounds]
   | inputValid | booleanLiteral _ => rfl
   | booleanName index => cases known : booleans.initialized index <;> simp [obligations, checkBounds, known, discharged, Obligation.discharge]
+  | booleanArrayRead array index =>
+      simp only [obligations, discharged_append, scalar_discharged,
+        Boolean.ArrayDescriptor.indexObligations_exact, checkBounds]
+      cases ready : array.initialized booleans <;>
+        simp [ready, discharged, Obligation.discharge]
   | parenthesized inner ih => exact ih flow
   | negated inner ih => exact ih flow
   | andThen left right ihl ihr => simp only [obligations, discharged_append, ihl, ihr, checkBounds]
@@ -185,6 +193,10 @@ mutual
     | .arrayAssign update => (update.obligations flow.scalars).map Obligation.scalar
     | .booleanAssign update =>
         (if booleans.canWrite update.target then [] else [.impossible]) ++
+          update.value.obligations shape analysis flow booleans
+    | .booleanArrayAssign update =>
+        (if update.array.writable booleans then [] else [.impossible]) ++
+          (update.array.indexObligations flow.scalars update.index).map Obligation.scalar ++
           update.value.obligations shape analysis flow booleans
     | .reject => []
     | .choice condition yes no => condition.obligations shape analysis flow booleans ++
@@ -246,6 +258,18 @@ mutual
           have both := Bool.and_eq_true_iff.mp good
           simp only [Statement.obligations, both.1, ↓reduceIte, List.nil_append,
             Condition.obligations_exact, both.2]
+        · contradiction
+    | booleanArrayAssign update =>
+        simp only [Statement.check] at checked
+        split at checked
+        · rename_i good
+          have both : update.array.writable booleans = true ∧
+              update.array.checkIndex before.scalars update.index = true ∧
+              update.value.checkBounds shape analysis before booleans = true := by
+            simpa only [BooleanArrayAssignment.check, Bool.and_eq_true] using good
+          simp only [Statement.obligations, both.1, ↓reduceIte, List.nil_append,
+            discharged_append, scalar_discharged, Boolean.ArrayDescriptor.indexObligations_exact,
+            Condition.obligations_exact, both.2.1, both.2.2, Bool.and_self]
         · contradiction
     | reject => simp [Statement.obligations, discharged]
     | choice condition yes no =>
