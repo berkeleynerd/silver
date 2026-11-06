@@ -134,6 +134,51 @@
     "uncompressed_bytes": 215785,
     "uncompressed_sha256": "a67c3c758b37bfd2dcc75efb8cde77cbd6553e7823f9f40b9c8ef758ee300261"
   },
+  "predicate-shape-24g/console.log.gz": {
+    "bytes": 1329,
+    "sha256": "c5bc6b176b43c58e91fcd7911bfc9048c7e9f2022203b92ba9a80bbe02c01e82",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-predicate-split/tmp/predicate-shape-24g/console.log",
+    "uncompressed_bytes": 5760,
+    "uncompressed_sha256": "8f0194173692ba3e685688e5604110489896f3405600512ea013efffe399d0df"
+  },
+  "predicate-shape-24g/events.jsonl.gz": {
+    "bytes": 36229,
+    "sha256": "317c90d71163325f6556ff6ecc017f1a5c9de81a5b6f356aadb068a61f01853d",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T120256-3017b6fb77a5/events.jsonl",
+    "uncompressed_bytes": 87453,
+    "uncompressed_sha256": "a239c88a3c674b0baa3a2948e2edceae074614a78878a5a94d22bbb63dd37e4b"
+  },
+  "predicate-shape-24g/launch.json": {
+    "bytes": 680,
+    "sha256": "120bf4ee9966be7e2978a5f6c5147731e1b8e501c6c43679c6ec733b145a8575",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-predicate-split/tmp/predicate-shape-24g/launch.json"
+  },
+  "predicate-shape-24g/lean-focused-evidence.json.gz": {
+    "bytes": 1360,
+    "sha256": "dc30fb33b15c754670875c51e8bc8e081668d16a8efbddeed9cd4a19613b341e",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T120256-3017b6fb77a5/lean-focused-evidence.json",
+    "uncompressed_bytes": 4985,
+    "uncompressed_sha256": "fdd10f8ea25771d86cea34a92cc2b5d75902205cc339b92a75b251eec079bc3e"
+  },
+  "predicate-shape-24g/lean-focused.log.gz": {
+    "bytes": 1227,
+    "sha256": "38cfd63a403137c861a04fb1845aa8690c15449dcf4276fb760e64a79a9267e7",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T120256-3017b6fb77a5/lean-focused.log",
+    "uncompressed_bytes": 5479,
+    "uncompressed_sha256": "c4485bb6aae4d499fd1440b9ee5fe3ed9e4a1c78f3a6d2805003d5db24061df8"
+  },
+  "predicate-shape-24g/observation.json": {
+    "bytes": 276,
+    "sha256": "afe8f04bcad2aba570df7dd5e6cd92e2bd17c210fde2052d6db92e4d07e775a3",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-predicate-split/tmp/predicate-shape-24g/observation.json"
+  },
+  "predicate-shape-24g/samples.jsonl.gz": {
+    "bytes": 18826,
+    "sha256": "be5d62462cf4b45b5720973c8c0637cf32fff48ddc0765fae517aa3c60b2b83c",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-predicate-split/tmp/predicate-shape-24g/samples.jsonl",
+    "uncompressed_bytes": 174530,
+    "uncompressed_sha256": "317236a1b98bb604c8422b7d070d025ba893500b7033b91a3a6232223a628660"
+  },
   "predicate-shape-failed/console.log.gz": {
     "bytes": 671,
     "sha256": "28ce69f7b4a25947163496b69397d854cd33a2796914b92d54c9887e10fab1b3",

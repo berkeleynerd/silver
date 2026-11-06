@@ -1,6 +1,6 @@
 # Completed focused Lean checks — 2026-11-06
 
-These retained native Linux x86-64 runs have focused partial scopes. Three passed
+These retained native Linux x86-64 runs have focused partial scopes. Four passed
 their selected builds and fresh import/axiom audits; the first NativeShape run
 failed during build. Their captured shared-input inventories form three distinct
 snapshots. None establishes final complete source correspondence.
@@ -13,6 +13,7 @@ and timing boundaries. Original ledgers retain each shared-input hash map.
 | Predicate Helpers and Flow | Passed | 2026.687 s | 2021.865 s | 2002.216 s | 8.116 s |
 | Predicate Body | Passed | 1646.465 s | 1641.304 s | 1623.675 s | 7.098 s |
 | Predicate NativeShape, first run | **Failed** | 1616.128 s | 1608.592 s | 1601.849 s | Not run |
+| Predicate NativeShape, 24 GiB retry | Passed | 1636.033 s | 1630.921 s | 1614.261 s | 6.661 s |
 
 Output run `20261106T104011-475878966fee` used four Lake workers, automatic
 12-thread Lean processes and a 6144 MiB per-process allowance. All four line
@@ -47,10 +48,24 @@ matches `9100bb2fca` and the earlier Helpers/Flow run. The
 record 14,164,336,640 bytes of sampled peak summed RSS. The retained failure log
 comes from that run's immutable `reports/0/` copy.
 
-A 24576 MiB retry was active when retention was requested. Its changing outputs
-and cache are excluded, and no retry outcome is claimed here. The retry reason's
-“condition-model” wording is a typo: the actual failure is `condition_tail`, as
-the raw diagnostic above records. Raw ledger records remain unchanged.
+Retry `20261106T120256-3017b6fb77a5` subsequently **passed** on unchanged
+`9100bb2fca` source, with the same shared-input digest as the failed attempt.
+It selected automatic 12 Lake workers and automatic 12-thread Lean processes,
+with a 24576 MiB per-process allowance. Lake reported 1608 seconds for the module;
+the fresh focused audit covered 19,757 declarations in
+108 loaded project modules. Its
+[finished observations](predicate-shape-24g/observation.json) record
+18,426,343,424 bytes of sampled peak summed RSS and at least 15,772,012,544 bytes
+of host available memory; no monitor pause occurred. The earlier 12288 MiB run
+remains failed. Its worker reservation was one, while this retry selected 12;
+this is not a matched speedup comparison. Complete performance assessment waits
+for the final integrated run.
+
+The retry reason's “condition-model” wording is a typo: the actual earlier
+failure is `condition_tail`, as its raw diagnostic records. Raw ledger records
+remain unchanged. Only terminal-run evidence and finished observations are
+retained here; live caches and the final complete run's changing outputs are
+excluded.
 
 Each retained monitor would pause only its own process group below 4 GiB host
 available memory; none paused. Summed RSS may count shared pages and is not exact
