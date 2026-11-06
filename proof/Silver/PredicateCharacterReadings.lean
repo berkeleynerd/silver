@@ -76,9 +76,9 @@ theorem characterRelation_meaning {text context position facts initials conditio
     (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount facts)
     (parsed : CharacterRelationAt text context position facts initials condition result) :
     condition.Grammatical ∧
-      condition.Readable context.hasArguments context.names.shape (BooleanBindings.analysis context.booleanNames) ∧
+      condition.Readable context.hasArguments context.names.shape (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) ∧
       condition.checkBounds context.names.shape context.analysis (context.flow facts initials)
-        (BooleanBindings.analysis context.booleanNames) = true ∧
+        (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) = true ∧
       context.flow result.whenTrue initials = condition.refine context.names.shape context.analysis (context.flow facts initials) true ∧
       context.flow result.whenFalse initials = condition.refine context.names.shape context.analysis (context.flow facts initials) false := by
   cases parsed with

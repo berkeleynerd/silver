@@ -48,6 +48,41 @@ private theorem length_name {text context position operand result}
   | number impossible _ => contradiction
   | binding => exact ⟨_, rfl⟩
 
+theorem booleanArray_sound {text context position facts}
+    (accepted : booleanArrayAfter text context position facts ≠ 0) :
+    (∃ condition, BooleanArrayAt text context position facts condition
+      (booleanArrayAfter text context position facts)) ∧
+      booleanArrayAfter text context position facts ≤ text.length + 1 := by
+  unfold booleanArrayAfter at accepted ⊢
+  dsimp only at accepted ⊢
+  split <;> (try simp only [*, ↓reduceIte] at accepted)
+  · contradiction
+  · rename_i allowed
+    simp only [not_or] at allowed
+    rcases allowed with ⟨_, _, target, kind, scalar, mask, operands, contains, close⟩
+    have kindTrue : (ArrayBindings.binding context.arrayNames
+        (ArrayBindings.lookup text context.arrayNames (skipAt text position)
+          (nameAfter text (skipAt text position)))).isBoolean = true := by
+      cases found : (ArrayBindings.binding context.arrayNames
+        (ArrayBindings.lookup text context.arrayNames (skipAt text position)
+          (nameAfter text (skipAt text position)))).isBoolean <;> simp_all
+    have indexStart := model_fixed_valid text (nameAfter text (skipAt text position)) "(" false
+      (model_name_valid text (skipAt text position))
+    have indexPositive : (ScalarExpression.read text
+        (fixedAfter text (nameAfter text (skipAt text position)) "(" false)
+        (context.readingNames facts) context.maskFirst context.maskAfter).after ≠ 0 :=
+      (model_fixed_input_nonzero _ _ _ _) (by omega)
+    obtain ⟨index, reading⟩ := ScalarExpression.read_sound indexStart indexPositive
+    have containsTrue : ArrayBindings.contains
+        (ArrayBindings.binding context.arrayNames
+          (ArrayBindings.lookup text context.arrayNames (skipAt text position)
+            (nameAfter text (skipAt text position))))
+        (ScalarExpression.read text (fixedAfter text (nameAfter text (skipAt text position)) "(" false)
+          (context.readingNames facts) context.maskFirst context.maskAfter).bounds = true := by
+      cases found : ArrayBindings.contains _ _ <;> simp_all
+    exact ⟨⟨_, .read target kindTrue (Classical.not_not.mp scalar) mask reading operands containsTrue
+      (by omega)⟩, model_fixed_valid text _ ")" false reading.cursorBounds.2.2⟩
+
 theorem booleanAtom_sound {text context position}
     (accepted : booleanAtomAfter text context position ≠ 0) :
     (∃ condition, BooleanAtomAt text context position condition (booleanAtomAfter text context position)) ∧
@@ -94,7 +129,7 @@ mutual
         · have closed : fixedAfter text (readCondition text context (fixedAfter text position "(" false) facts initials).after ")" false ≠ 0 := by
             intro failed
             simp [readPrimary, zero, opening, advanced, failed, invalidCondition] at accepted
-          have innerPositive := fixedAfter_nonzero closed
+          have innerPositive := (model_fixed_input_nonzero _ _ _ _) closed
           have inner := condition_sound text context (fixedAfter text position "(" false) facts
             textValid namesValid (model_fixed_valid text position _ _ bounded) innerPositive
           obtain ⟨condition, parsed⟩ := inner.1
@@ -104,22 +139,27 @@ mutual
             model_fixed_valid text _ _ _ inner.2⟩
         · simp [readPrimary, zero, opening, advanced, invalidCondition] at accepted
       · have noOpening : fixedAfter text position "(" false = 0 := by omega
-        by_cases atom : booleanAtomAfter text context position ≠ 0
-        · obtain ⟨⟨condition, parsed⟩, bound⟩ := booleanAtom_sound atom
-          simp only [readPrimary, zero, noOpening, atom, ne_eq, not_true_eq_false, not_false_eq_true, ↓reduceIte]
-          exact ⟨⟨condition, .boolean zero noOpening rfl atom parsed⟩, bound⟩
-        · have noAtom : booleanAtomAfter text context position = 0 := by omega
-          have arguments : context.hasArguments = true := by
-            cases arguments : context.hasArguments with
-            | false => simp [readPrimary, zero, noOpening, noAtom, arguments, invalidCondition] at accepted
-            | true => rfl
-          have finalPositive : callAfter text context.names position .validity context.scalarNames context.arrayNames
-              (context.validityHidden text) context.booleanNames ≠ 0 := by
-            intro failed
-            simp [readPrimary, zero, noOpening, noAtom, arguments, failed, invalidCondition] at accepted
-          simp [readPrimary, zero, noOpening, noAtom, arguments, finalPositive]
-          exact ⟨⟨.inputValid, .valid zero noOpening noAtom arguments finalPositive⟩,
-            Names.operationAfter_bound text position .validity _ bounded⟩
+        by_cases array : booleanArrayAfter text context position facts ≠ 0
+        · obtain ⟨⟨condition, parsed⟩, bound⟩ := booleanArray_sound array
+          simp only [readPrimary, zero, noOpening, array, ne_eq, not_true_eq_false, not_false_eq_true, ↓reduceIte]
+          exact ⟨⟨condition, .booleanArray zero noOpening rfl array parsed⟩, bound⟩
+        · have noArray : booleanArrayAfter text context position facts = 0 := by omega
+          by_cases atom : booleanAtomAfter text context position ≠ 0
+          · obtain ⟨⟨condition, parsed⟩, bound⟩ := booleanAtom_sound atom
+            simp only [readPrimary, zero, noOpening, noArray, atom, ne_eq, not_true_eq_false, not_false_eq_true, ↓reduceIte]
+            exact ⟨⟨condition, .boolean zero noOpening noArray rfl atom parsed⟩, bound⟩
+          · have noAtom : booleanAtomAfter text context position = 0 := by omega
+            have arguments : context.hasArguments = true := by
+              cases arguments : context.hasArguments with
+              | false => simp [readPrimary, zero, noOpening, noArray, noAtom, arguments, invalidCondition] at accepted
+              | true => rfl
+            have finalPositive : callAfter text context.names position .validity context.scalarNames context.arrayNames
+                (context.validityHidden text) context.booleanNames ≠ 0 := by
+              intro failed
+              simp [readPrimary, zero, noOpening, noArray, noAtom, arguments, failed, invalidCondition] at accepted
+            simp [readPrimary, zero, noOpening, noArray, noAtom, arguments, finalPositive]
+            exact ⟨⟨.inputValid, .valid zero noOpening noArray noAtom arguments finalPositive⟩,
+              Names.operationAfter_bound text position .validity _ bounded⟩
   termination_by (remainingAt text position, 1)
   decreasing_by all_goals exact Prod.Lex.left _ _ (by assumption)
 

@@ -248,7 +248,8 @@ def booleanArrayAfter (text : Source) (context : ParseContext) (position : Nat)
   let subscript := ScalarExpression.read text (fixedAfter text after "(" false)
     (context.readingNames facts) context.maskFirst context.maskAfter
   let close := fixedAfter text subscript.after ")" false
-  if target = 0 ∨ (ArrayBindings.binding context.arrayNames target).isBoolean = false ∨
+  if first = 0 ∨ after ≤ first ∨ target = 0 ∨
+      (ArrayBindings.binding context.arrayNames target).isBoolean = false ∨
       ScalarExpression.lookup text context.scalarNames first after ≠ 0 ∨
       (context.maskFirst ≠ 0 ∧ Named.equalName text context.maskFirst context.maskAfter first after = true) ∨
       subscript.operands = ScalarExpression.maxOperands ∨

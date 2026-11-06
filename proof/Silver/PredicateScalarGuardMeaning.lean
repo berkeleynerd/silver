@@ -114,7 +114,7 @@ theorem syntax_bareTarget {text : Source} {context : ParseContext} {facts : Acti
             rw [← lookup]
             exact ScalarExpression.lookup_bound ..
           simp only [bareTarget, last, lookup, nonzeroIndex, ne_eq, not_false_eq_true, true_and,
-            guardTarget, ParseContext.analysis, ArrayFlow.analysis,
+            guardTarget, ParseContext.analysis, ArrayFlow.analysis, ArrayBindings.integerRefinability,
             ArrayBindings.refinability_scalar _ _ (Nat.le_trans bounded size),
             ScalarMetadata.analysis, ScalarMetadata.refinable,
             show 0 < index ∧ index ≤ context.scalarNames.length from ⟨by omega, bounded⟩,
@@ -264,7 +264,7 @@ theorem guardCandidate_target (context : ParseContext) (left right : Integer.Exp
   rename_i index
   by_cases refinable : context.analysis.refinable index = true
   · have positive : 0 < index := by
-      change ArrayBindings.refinability context.arrayNames
+      change ArrayBindings.refinability (ArrayBindings.integerNames context.arrayNames)
         (ScalarMetadata.refinable context.scalarNames context.declarationCount) index = true at refinable
       unfold ArrayBindings.refinability at refinable
       split at refinable
@@ -279,7 +279,7 @@ theorem guardTarget_bound (context : ParseContext) (expression : Integer.Expr) :
   cases expression <;> simp only [guardTarget] <;> try omega
   split
   · rename_i refinable
-    change ArrayBindings.refinability context.arrayNames
+    change ArrayBindings.refinability (ArrayBindings.integerNames context.arrayNames)
       (ScalarMetadata.refinable context.scalarNames context.declarationCount) _ = true at refinable
     unfold ArrayBindings.refinability at refinable
     split at refinable
@@ -338,7 +338,7 @@ theorem scalarCondition_outcome_model {text : Source} {context : ParseContext} {
     · simp only [ite_eq_right chooseLeft, ite_eq_left chooseRight]
       rfl
     · simp only [chooseLeft, chooseRight, ↓reduceIte, Integer.Ranges.refineName,
-        ParseContext.flow,
+        ParseContext.flow, ArrayBindings.integerRanges,
         ArrayBindings.ranges_scalar _ _ _ _ (show 0 ≤ ArrayBindings.scalarLimit by decide),
         ActiveFlow.model, ActiveFlow.ranges, ↓reduceIte]
 
