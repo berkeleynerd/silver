@@ -85,6 +85,8 @@ theorem model_definitions :
   booleanLookup := base_definitions.booleanLookup
   booleanHidesInteger := base_definitions.booleanHidesInteger
   booleanDeclaration text tv state arguments sv := base_definitions.booleanDeclaration text tv state arguments ⟨sv.valid, sv.bounds⟩
+  booleanInitializer text tv state position first after sv bounded mask :=
+    base_definitions.booleanInitializer text tv state position first after ⟨sv.valid, sv.bounds⟩ bounded mask
   scalarLiteral := base_definitions.scalarLiteral
   scalarAppend := base_definitions.scalarAppend
   scalarEmpty := base_definitions.scalarEmpty
@@ -119,13 +121,17 @@ theorem model_definitions :
   scalarDeclaration text tv state arguments sv :=
     base_definitions.scalarDeclaration text tv state arguments ⟨sv.valid, sv.bounds⟩
   arrayPut := base_definitions.arrayPut
-  arrayAdd text tv state first after bounds offset length mutable following componentBounds sv nv bv room extent ordered cursor :=
-    base_definitions.arrayAdd text tv state first after bounds offset length mutable following componentBounds
+  arrayAdd text tv state first after bounds offset length mutable following componentBounds isBoolean sv nv bv room extent ordered cursor :=
+    base_definitions.arrayAdd text tv state first after bounds offset length mutable following componentBounds isBoolean
       ⟨sv.valid, sv.bounds⟩ nv bv room extent ordered cursor
   arrayValuesModel text tv source result position length parsed componentBounds bounded valid :=
     base_definitions.arrayValuesModel text tv source result position length parsed componentBounds bounded (base_array_domain valid)
   arrayValues text tv source result position length parsed componentBounds bounded valid :=
     base_definitions.arrayValues text tv source result position length parsed componentBounds bounded (base_array_domain valid)
+  booleanArrayValuesModel text tv source result position length parsed first after mask valid :=
+    base_definitions.booleanArrayValuesModel text tv source result position length parsed first after mask (base_array_domain valid)
+  booleanArrayValues text tv source result position length parsed first after mask valid :=
+    base_definitions.booleanArrayValues text tv source result position length parsed first after mask (base_array_domain valid)
   arrayDeclaration text tv state arguments sv :=
     base_definitions.arrayDeclaration text tv state arguments ⟨sv.valid, sv.bounds⟩
   declaration text tv state arguments sv :=
@@ -228,6 +234,13 @@ theorem model_interpreted :
       Compose.BooleanDeclarationNative.Libraries.model_links, ?_⟩
     intro text valid state arguments ready
     exact (Compose.BooleanDeclarationNative.model_meaning text state arguments).symm
+  booleanInitializer := by
+    refine { source := ?_ }
+    refine ⟨Compose.BooleanInitializerNative.modelImports, Native.modelCalls,
+      Native.model_helper_meaning, Native.model_definition_equations, Native.model_contracts,
+      Compose.BooleanInitializerNative.Libraries.model_links, ?_⟩
+    intro text valid state position first after ready bounded mask
+    exact (Compose.BooleanInitializerNative.model_meaning ⟨text, state, position, first, after⟩).symm
   legal := model_legal
   step text tv form token state _ tokenValid sv :=
     (Compose.Expressions.model_definitions Compose.Expressions.model_ranges).step
