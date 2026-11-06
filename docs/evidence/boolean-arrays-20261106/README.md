@@ -13,8 +13,9 @@ The local managed registry is
 `.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/`; each run has
 `runs/<run-id>/events.jsonl`. Successful Lean runs retain their own
 `lean-focused-evidence.json` and `lean-focused.log`; failed runs retain logs
-under `reports/0/lean-focused.log`. These local records have not been copied
-into this checked-in packet by this documentation task.
+under `reports/0/lean-focused.log`. The helper-memory failure/success records
+linked below are copied into this packet; other local records remain at their
+original managed paths.
 
 ## Ordinary cache reuse and transfers
 
@@ -175,6 +176,61 @@ command. The next check isolates named Boolean-array fields and bridges the
 long expected-token headers through kernel-checked literal equalities, keeping
 the public statements and authoritative source route unchanged. The source
 candidate remains pending until that repair and the full checkpoint pass.
+
+## Helper-memory repair and scoped review
+
+Named-field isolation commit `f060bdd5628361bf9d2247c63a41781699a4bd32`
+retained the public helper statement and delegated its complete requirements to
+`BooleanArraySource.candidate_checked`. Run `20261106T205410-9ce5cebd89e1`
+then failed after a 1,548.251 s build: named `model_spec_tokens` and
+`executable_spec_tokens` old-header lexer bridges exhausted the 24,576 MiB
+per-process kernel threshold; `body_source` also failed with reduction stuck at
+`Nat.repr` before the required representation import. The
+[named-field failed log](helper-memory/failed-named-field-check.log) is retained.
+This was a failed diagnostic, not successful assurance.
+
+Final repair `8102cd38980ef112bbeed69d8e082d9626f96bc9` replaces only the
+`BooleanArraySource.modelSpec` and `executableSpec` data right-hand sides with
+exact 247/289-token literals, removes the expensive old-string lexer bridges,
+and restores `import all Init.Data.Repr` in the candidate leaf. It follows the
+existing direct-literal precedent `24452b335af757f6a0b5986288a42d3b47a92078`.
+Native source, semantic definitions, all six `Checked` fields, actual-source
+checks and authoritative source transport remain unchanged.
+
+| Run ID | Actual result and retained records |
+| --- | --- |
+| `20261106T212312-4dc45d97ebe4` | Successful focused target `Silver.ComposeBooleanArraySourceCandidate`: 237.105 s build, new leaf 225 s; 11.202 s fresh axiom audit, 79 modules / 12,470 declarations, only `propext`, `Classical.choice`, `Quot.sound`. [Manifest](helper-memory/literal-repair-lean-focused-evidence.json), [log](helper-memory/literal-repair-lean-focused.log). |
+| `20261106T213048-2ad7d6083cbb` | Combined helper plus eight `OutputBodyLines` modules is active at this checkpoint. No successful combined or final authoritative-source result is claimed. |
+
+The successful leaf run was incremental (`clean_build: false`), Linux x86_64,
+Lean 4.34.1, eight workers/eight threads per process, 12 available CPUs and
+24,576 MiB per process. It has no independent kernel replay or peak-memory
+measurement. The retained manifest reports 269.963 s managed elapsed time;
+phase timings are not whole-team elapsed time. Its import scope does not include
+the combined helper or final authoritative-source endpoints.
+
+The [independent repair review](../../reviews/review-boolean-array-header-memory-20261106.md)
+found no scoped finding. Its target is exactly `8102cd3898`, including named
+isolation `f060bdd562`, with original requirements compared against
+`d3aafa4bafd6d94179eb74d883102f953b09afd7`. The reviewer inspected the immutable
+successful ledger and confirmed all 762 captured input hashes match the target
+workspace; this capture count is distinct from the 79-module audit scope.
+[Input inventory](helper-memory/helper-memory-inputs.json) retains exact inspected
+source/evidence hashes. Independent restricted-ASCII header extraction confirms
+that both literals equal the original expected strings and complete native
+specification headers, and that all six `Checked` fields remain byte-identical:
+[comparison](helper-memory/helper-memory-header-equality.json),
+[extraction script](helper-memory/check_header_literals.py). This extraction
+supplements the kernel checks and is not itself a source proof. The review
+reuses the byte-identical success files above.
+
+| Round | Selected settings and intended result | Result, review disposition and available measurements |
+| --- | --- | --- |
+| Named isolation and literal repair | Bounded implementation: GPT-6.1 Sol / Extra High; identify the failing fields while preserving all requirements | Failed named bridge run retained; exact literal repair passed the focused leaf. Lean phase timings are above; model token/cost measurements and independent runtime setting confirmation are unavailable. |
+| Independent critical review | GPT-6 Astra / Extra High, selected launch/handoff confirmed; challenge requirement preservation, exact tokens and evidence applicability | No scoped finding. First measured UTC 21:30:49 to closing 21:33:09 gives a 140 s lower bound; initial diff retrieval preceded that interval. Runtime settings and token/cost measurements unavailable. No proof/build/test/application run launched by the reviewer. |
+| Evidence checkpoint documentation | GPT-6.1 Sol / High, selected launch; preserve failed and successful evidence plus the scoped review | Retained the packet and review, corrected local links and recorded active combined/native work without a completion claim. Only cheap documentation checks; no source/proof/cache edits. Runtime confirmation and token/cost measurements unavailable. |
+
+## Active native validation and remaining delivery
 
 Complete native run `20261106T201636-d09ed16a345c` is active on the original
 installation with four workers and the canonical retained cache. Its 143

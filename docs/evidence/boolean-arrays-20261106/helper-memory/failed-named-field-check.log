@@ -1,0 +1,33 @@
+Lean phase build started at 2026-11-06T20:54:26.550113+00:00
++ /home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.tools/linux-x86_64/lean/bin/lake --rehash --reconfigure -K silverThreads=8 -K silverMemoryMb=24576 build +Silver.ComposeBooleanArraySourceCandidate +Silver.AxiomAudit
+✖ [80/80] Building Silver.ComposeBooleanArraySourceCandidate (1539s)
+trace: .> LEAN_PATH=/home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/proof/.lake/build/lib/lean /home/canto/src/github.com/berkeleynerd/silver/tmp/lean-chunk-reuse/.tools/linux-x86_64/lean/bin/lean -j8 -M24576 -DwarningAsError=true /home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/proof/Silver/ComposeBooleanArraySourceCandidate.lean -o /home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/ComposeBooleanArraySourceCandidate.olean -i /home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/ComposeBooleanArraySourceCandidate.ilean -c /home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/proof/.lake/build/ir/Silver/ComposeBooleanArraySourceCandidate.c --setup /home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays/.silver/linux-x86_64/proof/.lake/build/ir/Silver/ComposeBooleanArraySourceCandidate.setup.json --json
+error: Silver/ComposeBooleanArraySourceCandidate.lean:45:2: Tactic `decide` failed. The elaborator is able to reduce the `Decidable` instance, but the kernel fails with:
+
+  (kernel) excessive memory consumption detected
+error: Silver/ComposeBooleanArraySourceCandidate.lean:84:2: Tactic `decide` failed. The elaborator is able to reduce the `Decidable` instance, but the kernel fails with:
+
+  (kernel) excessive memory consumption detected
+error: Silver/ComposeBooleanArraySourceCandidate.lean:98:2: Tactic `decide` failed for proposition
+  expressionDeclaration "boolean_array_values_model" Output.SourceShape.outputImplementation =
+    some (Expressions.booleanArrayValuesModelBody.render, [])
+because its `Decidable` instance
+  (expressionDeclaration "boolean_array_values_model" Output.SourceShape.outputImplementation).instDecidableEq
+    (some (Expressions.booleanArrayValuesModelBody.render, []))
+did not reduce to `isTrue` or `isFalse`.
+
+Reduction got stuck at the `Decidable` instance
+  match (Nat.repr 0).1.1.toList with
+  | [] => isFalse ⋯
+  | b :: bs =>
+    match decEq (UInt8.ofNat '0'.val.toNat) b with
+    | isTrue hab =>
+      match [].hasDecEq bs with
+      | isTrue habs => isTrue ⋯
+      | isFalse nabs => isFalse ⋯
+    | isFalse nab => isFalse ⋯
+Some required targets logged failures:
+- Silver.ComposeBooleanArraySourceCandidate
+error: build failed
+
+Lean phase build finished at 2026-11-06T21:20:14.801462+00:00; elapsed 1548.251s; exit 1
