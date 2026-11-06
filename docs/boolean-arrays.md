@@ -46,6 +46,8 @@ feature assurance checkpoint pass; no Rosetta gain is claimed yet.
 
 | 2026-11-06 capacity review and helper integration | Capacity reviewer: GPT-6 Astra / Extra High; existing implementation subthreads | Independent 293 s producer/capacity review found no blocker and retained the 31,822,336-byte envelope. Native equality proof repair `25e6fe06a3` isolates existing logical-to-Ada equality in a Static lemma without changing runtime behavior. Initializer libraries and region trace built in run `20261106T190942-1022caa80b98`; that run remains failed on array-equation rewriting. Header analysis and downstream equations are still being integrated. |
 
+| 2026-11-06 semantic review and endpoint integration | Semantic reviewer: GPT-6 Astra / Extra High; String trace repair subthread: GPT-6.1 Sol / Extra High | Independent 350.6 s draft review found no additional central snapshot/domain defect and identified outstanding header/String trace integration plus two mechanical proof migrations. The latter were repaired in `f7e224ce64`; focused run `20261106T192233-4a921a21291a` passed 23,089 audited declarations (43.088 s build / 8.786 s audit). Body/write prerequisite `92b62c772b` passed a separate 14,750-declaration audit and is integrated. Header and per-component actual String/Character trace checks remain in progress. |
+
 Token/cost measurements and independent runtime confirmation of the selected
 subthread settings are unavailable. Complete native/build/Lean/regression
 checkpoints, independent critical review, publication and delivery records
@@ -153,3 +155,21 @@ documentation, performs link/consistency and whitespace checks, and runs no
 native proof, Lean build or application test. Exact design assessment is a
 separate bounded subthread; no new language capability or assurance result is
 claimed here. No CLI recall entry was updated.
+
+## Interim review disposition — 2026-11-06
+
+The [capacity review](reviews/review-boolean-arrays-capacity-20261106.md)
+found no blocking issue under the inherited producer premises. The separate
+[semantic review](reviews/review-boolean-arrays-semantics-20261106.md) inspected
+the live initialization/snapshot/domain argument. Its remaining integration
+items are tracked here until the final stable checkpoint:
+
+- Combined scalar/array header analysis: draft integrated; focused check pending.
+- Per-component raw/actual String and Character initializer checks: dedicated
+  repair in progress; array declarations cannot simply be skipped.
+- Lexical traversal and empty Boolean analysis migrations: repaired and covered
+  by the focused run above.
+
+These scoped reviews do not claim complete feature approval. Native repair
+checks, source certificates, complete universal/source audit, regressions and
+closing integration review remain required.
