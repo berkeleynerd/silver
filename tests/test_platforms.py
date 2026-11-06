@@ -232,7 +232,7 @@ def setup_worker(root: Path, key: str, concurrent: bool = False,
             # The real native Python generator must write the isolated output.
             assert Path(args[1]) == root / "proof/generate_source_certificate.py"
             source = args[args.index("--source") + 1]
-            candidates = {name: path for path, name in check_lean.CANDIDATES.items()}
+            candidates = {name: path for path, name in check_lean.CERTIFICATE_ROOTS.items()}
             assert source in candidates
             assert args[2:] == ["--source", source, "--output",
                                str((host.proof / candidates[source]).with_suffix(".lean.pending"))]
@@ -455,7 +455,7 @@ class PlatformIsolationTests(unittest.TestCase):
                 self.assertEqual(len(routing["downloads"]), 2)
                 generation = [command for command in routing["commands"]
                               if Path(command[0]) == Path(sys.executable)]
-                self.assertEqual(len(generation), len(check_lean.CANDIDATES))
+                self.assertEqual(len(generation), len(check_lean.CERTIFICATE_ROOTS))
                 self.assertEqual({command[command.index("--source") + 1] for command in generation},
                                  set(check_lean.CANDIDATES.values()))
                 self.assertIn(key, (host.generated / "silver_build.ads").read_text())

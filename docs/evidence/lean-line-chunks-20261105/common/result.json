@@ -1,0 +1,9 @@
+{
+  "cpu_scope": "RUSAGE_CHILDREN deltas; no other child tools inside interval; aggregate RSS is sampled",
+  "returncode": 0,
+  "sampled_min_available_bytes": 29591146496,
+  "sampled_peak_group_rss_bytes": 1626509312,
+  "system_cpu_seconds": 10.281808,
+  "user_cpu_seconds": 17.331913,
+  "wall_seconds": 27.20974334100174
+}

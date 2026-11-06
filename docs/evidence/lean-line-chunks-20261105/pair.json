@@ -1,0 +1,45 @@
+{
+  "limitations": "single ordered pair; host load may vary; no complete audit, fresh kernel replay, or formal acceptance",
+  "phases": [
+    {
+      "cpu_scope": "RUSAGE_CHILDREN deltas; no other child tools inside interval; aggregate RSS is sampled",
+      "evidence": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261105T164133-c09f71599053/line-chunks",
+      "phase": "common",
+      "returncode": 0,
+      "run_id": "20261105T164133-c09f71599053",
+      "sampled_min_available_bytes": 29591146496,
+      "sampled_peak_group_rss_bytes": 1626509312,
+      "system_cpu_seconds": 10.281808,
+      "user_cpu_seconds": 17.331913,
+      "wall_seconds": 27.20974334100174,
+      "workers": 4
+    },
+    {
+      "cpu_scope": "RUSAGE_CHILDREN deltas; no other child tools inside interval; aggregate RSS is sampled",
+      "evidence": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261105T164223-81a2973a395c/line-chunks",
+      "phase": "workers-1",
+      "returncode": 0,
+      "run_id": "20261105T164223-81a2973a395c",
+      "sampled_min_available_bytes": 28246503424,
+      "sampled_peak_group_rss_bytes": 2372792320,
+      "system_cpu_seconds": 75.10662599999999,
+      "user_cpu_seconds": 1004.247083,
+      "wall_seconds": 1081.5192864349992,
+      "workers": 1
+    },
+    {
+      "cpu_scope": "RUSAGE_CHILDREN deltas; no other child tools inside interval; aggregate RSS is sampled",
+      "evidence": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261105T170047-20bc9f578a1a/line-chunks",
+      "phase": "workers-4",
+      "returncode": 0,
+      "run_id": "20261105T170047-20bc9f578a1a",
+      "sampled_min_available_bytes": 26428645376,
+      "sampled_peak_group_rss_bytes": 4971094016,
+      "system_cpu_seconds": 121.10587199999999,
+      "user_cpu_seconds": 1298.313393,
+      "wall_seconds": 383.05423625099866,
+      "workers": 4
+    }
+  ],
+  "status": "microbench only; full candidate remains UNVALIDATED"
+}

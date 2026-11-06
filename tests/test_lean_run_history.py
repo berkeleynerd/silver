@@ -47,7 +47,7 @@ class LeanRunHistoryTests(unittest.TestCase):
         with mock.patch.object(check_lean, "prepare_workspace", side_effect=prepare_locked), \
                 mock.patch.object(check_lean.subprocess, "run", side_effect=run_inherited):
             self.invoke(["--task", "#39"])
-        self.assertEqual(len(inherited), 1 + len(check_lean.CANDIDATES))
+        self.assertEqual(len(inherited), 1 + len(check_lean.CERTIFICATE_ROOTS))
         self.assertTrue(all(inherited))
         run = self.runs(state)[0]
         self.assertEqual(run["state"], "success")

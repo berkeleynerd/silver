@@ -1,0 +1,286 @@
+{
+  "utc": "2026-11-06T12:31:05.737197+00:00",
+  "source_worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-predicate-split",
+  "source_commit": "9100bb2fcaafaaa94c7da4c5ff9d3a1361e1cf2d",
+  "destination_worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-parallelism",
+  "destination_commit": "8b3177ed0d0fb0e8bb5416c8ef682b16eb83b9fb",
+  "source_runs": [
+    "20261106T105828-7df2e454a509",
+    "20261106T120256-3017b6fb77a5"
+  ],
+  "both_workspaces_idle": true,
+  "policy": "Copy completed matching-source object families including private/server sidecars. Normal managed runner dependency and source checks still determine reuse.",
+  "initial_cache_seed": {
+    "copied_at_utc": "2026-11-06T10:38:25.774091+00:00",
+    "source_worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/string-review-repairs",
+    "source_commit": "ea044811882f009f7cb88ae6991d12667d44a6ed",
+    "source_complete_lean_run": "20261105T192530-524a4096ef8f",
+    "destination": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-parallelism",
+    "copied": [
+      ".tools/linux-x86_64/lean (pinned immutable toolchain)",
+      ".silver/linux-x86_64/proof (complete source, objects, private/server sidecars and Lake metadata)"
+    ],
+    "source_was_idle": true,
+    "reuse_policy": "Normal managed runner synchronizes sources, regenerates candidates and Lake checks dependencies; copy is not validation."
+  },
+  "modules": [
+    {
+      "name": "PredicateNativeHelpersCandidate",
+      "source_sha256": "02da429c419824ac9a5430c30ca8ca6d9affaf3b6fe75c9143352504810d61e1"
+    },
+    {
+      "name": "PredicateFlowSourceCandidate",
+      "source_sha256": "2abc5eb61253e4d592d8f5298f01c0efd93a829a03f9ee5c14a94695134907da"
+    },
+    {
+      "name": "PredicateNativeShapeCandidate",
+      "source_sha256": "75c2ce5d4c94012cad4e26c3bd532b047833fd0b0308bc5ab85655a292e9e34d"
+    }
+  ],
+  "files": [
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/ir/Silver/PredicateNativeHelpersCandidate.c",
+      "bytes": 4376,
+      "sha256": "c4a17315e43acf9eb3e4bbb236387a9e6e0178e06f14062a12e3b80621d5ab79"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/ir/Silver/PredicateNativeHelpersCandidate.c.hash",
+      "bytes": 16,
+      "sha256": "ea951dbcf09aad879964ba2fb7fe1bd96a678743e7109c6022bc244461ad7c61"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/ir/Silver/PredicateNativeHelpersCandidate.setup.json",
+      "bytes": 69300,
+      "sha256": "ea9bf0bfa1eccc1332842f7fd98e56c14d337df31fa7374455a996e7ab38461d"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateNativeHelpersCandidate.ilean",
+      "bytes": 4338,
+      "sha256": "99d44847e0373df19e75c7fb503bb0d203668ae8d78e3842945c54efdfdf55aa"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateNativeHelpersCandidate.ilean.hash",
+      "bytes": 16,
+      "sha256": "b4624f51d50ced816fd1949ed9fcd6f483815459354ec6449dd7b7565791d497"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateNativeHelpersCandidate.ir",
+      "bytes": 1864,
+      "sha256": "ed32c7dfcb97cdb08c387d9316b263d7217ea88fcfed1c3832980f0e65c70f13"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateNativeHelpersCandidate.ir.hash",
+      "bytes": 16,
+      "sha256": "b77c7af7821448f3af83a9ff4e5af5b9cffd76eba33cea9eec4bbc370ad9ec87"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateNativeHelpersCandidate.ir.sig",
+      "bytes": 176,
+      "sha256": "413fe165ffac8358f5b8343ce2b4663001082f1e90cd7c948c7b4e44d83442e1"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateNativeHelpersCandidate.ir.sig.hash",
+      "bytes": 16,
+      "sha256": "f226717672265614b557f8ef1de5e049d104bb4406df396934d2586420f5b404"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateNativeHelpersCandidate.olean",
+      "bytes": 12472,
+      "sha256": "a6580e2ee1e13bdb3eef11de4a5d90833a01d84649811d0a69c0f0000a6b6f87"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateNativeHelpersCandidate.olean.hash",
+      "bytes": 16,
+      "sha256": "f4d60d7e649df24a93abab3b2d4ef4e570e4e3d00d5a65afbda11debc7083521"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateNativeHelpersCandidate.olean.private",
+      "bytes": 34336,
+      "sha256": "be3f05fdd06ebfad87c569c6b1548ed58df81b118f398b59f126f91f47db8f81"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateNativeHelpersCandidate.olean.private.hash",
+      "bytes": 16,
+      "sha256": "6287752f5ad76833635968abbb1342947faabc155d100c63ad9f5a1c199e8ece"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateNativeHelpersCandidate.olean.server",
+      "bytes": 3240,
+      "sha256": "7fdf828dc15804cfd12fd8594dfe57a84c6be3fd5cc3ed1d43260be3f46a0d87"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateNativeHelpersCandidate.olean.server.hash",
+      "bytes": 16,
+      "sha256": "62e567ee1a47640e500db447bb2925ca84bfb4205d63a62d6f50be0b74e58816"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateNativeHelpersCandidate.trace",
+      "bytes": 2883,
+      "sha256": "7a566e32753b634afca9c1b6518a563dac84e910d234e1a453211537ce738525"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/ir/Silver/PredicateFlowSourceCandidate.c",
+      "bytes": 5432,
+      "sha256": "79150d7507d331e6a6a5bc1b6b52894766254fa2dc91110efd60a1d293445a1b"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/ir/Silver/PredicateFlowSourceCandidate.c.hash",
+      "bytes": 16,
+      "sha256": "fd310c41e289334f5b978a857b3ffd1cd63e06f1a3322f723a3f6ce8f7f0e734"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/ir/Silver/PredicateFlowSourceCandidate.setup.json",
+      "bytes": 76417,
+      "sha256": "1af51c765aa16cc7fa161e2904ff5da096bf0d8c3db8fa40a05d2bfd24811cfa"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateFlowSourceCandidate.ilean",
+      "bytes": 8734,
+      "sha256": "102d115baef0aac53133b8664b05dee5eb94d0f2dbbd428db1d090ea593b7f5b"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateFlowSourceCandidate.ilean.hash",
+      "bytes": 16,
+      "sha256": "d818433f27e4452af2dfcfd47077872e1fa4617fdf6d2c3e56b48d12e8a7145a"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateFlowSourceCandidate.ir",
+      "bytes": 2136,
+      "sha256": "e576570fe1abbe804c4014301eacb1687b451f5d8505924236b537b2e5ded66b"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateFlowSourceCandidate.ir.hash",
+      "bytes": 16,
+      "sha256": "0daf8c51e58178648be8182b4a4c8d0a9bbb3db3d4aca30eb2ad1c1ac5c901ca"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateFlowSourceCandidate.ir.sig",
+      "bytes": 176,
+      "sha256": "4492c2d1116c520903737fccccb782a4d096c2d56c1b6112ba608cc730b6a900"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateFlowSourceCandidate.ir.sig.hash",
+      "bytes": 16,
+      "sha256": "c96199d0c324cadb6c63b7270d8fa775df1067ea115a77dcf27af5d572513ae5"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateFlowSourceCandidate.olean",
+      "bytes": 16624,
+      "sha256": "ff7cc5be0d2330a9ed4b69580f040ef2443f9ecb96e0a666f0e458d919e5b3d1"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateFlowSourceCandidate.olean.hash",
+      "bytes": 16,
+      "sha256": "c20260e3e4c13d5aaf0c97dc2319a9bf8b99f970a01a68411ffc3c538773d449"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateFlowSourceCandidate.olean.private",
+      "bytes": 42536,
+      "sha256": "31d7dd52fe331262fe4ff05b3574544b4953db6bc29f0c263e3e9062003d04db"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateFlowSourceCandidate.olean.private.hash",
+      "bytes": 16,
+      "sha256": "faa21286539f1a5776553a807542cc1627c031f46838a663559babe1d662a530"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateFlowSourceCandidate.olean.server",
+      "bytes": 4648,
+      "sha256": "e081e07f1e95f10cf5ca9d0b4e08076d45930a3be2e0ebe24a0f0d45b73ecfe7"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateFlowSourceCandidate.olean.server.hash",
+      "bytes": 16,
+      "sha256": "25c5bf6a4a40e061ae3c9027620d6d39022365c0cfd64fd10b1bc76b71407603"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateFlowSourceCandidate.trace",
+      "bytes": 3239,
+      "sha256": "4608d9d9aa8fab620ace4551c33dcfa8b3d442e3a0de9814e19ee6cfd1d6b7d6"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/ir/Silver/PredicateNativeShapeCandidate.c",
+      "bytes": 6740,
+      "sha256": "89c8cf917d74a47b8a81a04bc154fe039a525ef8691b7d7b35589f5acf43aed2"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/ir/Silver/PredicateNativeShapeCandidate.c.hash",
+      "bytes": 16,
+      "sha256": "fa0578084069dccf35929b7f8d7923359c364347056d6e4ea1531f510e015893"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/ir/Silver/PredicateNativeShapeCandidate.setup.json",
+      "bytes": 72128,
+      "sha256": "e24135abba3e5ea2dc3c22d029f44a5f89d5753351b6638d54dc254a21f74460"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateNativeShapeCandidate.ilean",
+      "bytes": 129968,
+      "sha256": "c888306cbe77ae68e704cfc2e6612ac3a79fd6673b066f0f150e9a7d3ad91b8c"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateNativeShapeCandidate.ilean.hash",
+      "bytes": 16,
+      "sha256": "fb5d71809271df2c5af1dba43bf0126178f27971194627706486fce81a9e34f5"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateNativeShapeCandidate.ir",
+      "bytes": 5416,
+      "sha256": "03942bdb175c3374085da61913b46331d502f349ad9e5a7df4c480a829fc3062"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateNativeShapeCandidate.ir.hash",
+      "bytes": 16,
+      "sha256": "8e32a9a0da446107c72e2282a5957e4d5928969b8171cc98bac611cedb484917"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateNativeShapeCandidate.ir.sig",
+      "bytes": 176,
+      "sha256": "109868d8962739da956e952fd19ed21f6fca753e3cc19a9b8b31a7c97806f784"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateNativeShapeCandidate.ir.sig.hash",
+      "bytes": 16,
+      "sha256": "658f7427059732873b137745b4bc5555c62fdaf3d100ff5e8b211f44b427eb41"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateNativeShapeCandidate.olean",
+      "bytes": 251880,
+      "sha256": "2299e9b7b8be1a229a8e866ca7e4682ea85ec8030aebdd3b9d0ddfae0ee88c58"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateNativeShapeCandidate.olean.hash",
+      "bytes": 16,
+      "sha256": "ac7d2f5de77b9b328abdfc30f6d622cc7824a7c9fb3ef0ce1ea2cf7a0af22e69"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateNativeShapeCandidate.olean.private",
+      "bytes": 158144,
+      "sha256": "c7049dc14b78f45f80b289ea5476108a8df326b87337c27e9dc3ade675a1d080"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateNativeShapeCandidate.olean.private.hash",
+      "bytes": 16,
+      "sha256": "bd056dea933d417f1562c7a795aefde75de1877391f44dbead8407e07d46cc0b"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateNativeShapeCandidate.olean.server",
+      "bytes": 30560,
+      "sha256": "c598171d8456094a90b1cc8fcea79585958c7664e020b28199664787d5b317fb"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateNativeShapeCandidate.olean.server.hash",
+      "bytes": 16,
+      "sha256": "82518e30f25de8d84856ed8315d47509cb8c67f282f4ea421dc0b704d96dc176"
+    },
+    {
+      "path": ".silver/linux-x86_64/proof/.lake/build/lib/lean/Silver/PredicateNativeShapeCandidate.trace",
+      "bytes": 2732,
+      "sha256": "605ae691295fd7ac81675d92a3ced6ff060a85614510c4029ec180359664abea"
+    }
+  ],
+  "tool_hashes": {
+    "lean": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+    "lake": "6f53827dab18010d6c690d14c8401cacabc1db958edb3552a877ed4cf1dd995d"
+  }
+}

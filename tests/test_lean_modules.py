@@ -5,7 +5,9 @@ from pathlib import Path
 import subprocess
 import tempfile
 import unittest
+from unittest import mock
 
+from scripts import check_lean
 from scripts.bootstrap_lean import lean_environment
 from scripts.check_lean import prepare_workspace
 from scripts.platforms import HostLayout, native_layout
@@ -159,6 +161,92 @@ class LeanModuleTests(unittest.TestCase):
                 self.assertIn("OutsideSilver.hidden", output)
                 self.assertIn("SILVER_MODULE Silver.Provider", output)
                 self.assertNotIn("Silver axiom audit passed:", output)
+
+    def test_output_body_chunks_regenerate_and_track_token_and_newline_changes(self) -> None:
+        source = self.root / "src/silver_output_profile.adb"
+        original = b"X0;\nX1;\nX2;\nX3;\nX4;\nX5;\nX6;\n"
+        source.write_bytes(original)
+        proof = self.root / "proof"
+        proof.mkdir()
+        (proof / "generate_source_certificate.py").write_bytes(
+            (ROOT / "proof/generate_source_certificate.py").read_bytes())
+        inputs = {proof / name: (ROOT / "proof" / name).read_bytes()
+                  for name in ("lakefile.lean", "lean-toolchain", *(
+                      f"Silver/{module}.lean" for module in (
+                          "Lexical", "Admission", "Cursor", "SourceLexer", "CertificateWitness",
+                          "OutputProfileBodySource", "AxiomAudit")))}
+        inputs[proof / "Silver/Independent.lean"] = (
+            b"module\npublic theorem Silver.independent : True := True.intro\n")
+        prepare_workspace(self.host, inputs)
+        certificate = "OutputBodyCertificate"
+        chunks = [path.stem for path in check_lean.OUTPUT_BODY_LINES]
+        targets = ("Silver." + certificate, "Silver.Independent", "Silver.AxiomAudit")
+
+        def build():
+            return self.lake("--rehash", "--reconfigure", "-K", "silverThreads=1",
+                             "-K", "silverMemoryMb=2048", "build", *("+" + target for target in targets))
+
+        def regenerate():
+            with mock.patch.object(check_lean, "ROOT", self.root), \
+                    mock.patch.object(check_lean, "PROOF", proof):
+                check_lean.generate_certificate(self.host, Path("Silver") / f"{certificate}.lean",
+                                                source.name)
+
+        def source_identities():
+            return {module: ((self.host.proof / f"Silver/{module}.lean").read_bytes(),
+                             (self.host.proof / f"Silver/{module}.lean").stat().st_mtime_ns)
+                    for module in (certificate, *chunks)}
+
+        def audit():
+            driver = self.host.proof / ".lake/output-body-audit.lean"
+            driver.write_text("import Silver.OutputBodyCertificate\nimport Silver.AxiomAudit\n\n#silver_audit\n")
+            result = self.lake("env", str(self.host.lean / "bin/lean"), "-j1", "-M2048",
+                               "-DwarningAsError=true", str(driver))
+            self.assert_success(result)
+            self.assertIn("Silver axiom audit passed:", result.stdout)
+            for module in chunks:
+                self.assertIn("SILVER_MODULE Silver." + module, result.stdout)
+
+        regenerate()
+        self.assert_success(build())
+        audit()
+        before_sources = source_identities()
+        before_objects = {module: self.objects(module)
+                          for module in (certificate, *chunks, "OutputProfileBodySource", "Independent")}
+        regenerate()
+        self.assertEqual(source_identities(), before_sources)
+        self.assert_success(build())
+        self.assertEqual({module: self.objects(module) for module in before_objects}, before_objects)
+
+        # Same line count isolates each changed line module. Both edits use the
+        # production generator/publisher and Lake's authoritative binary input;
+        # restoring mtime must not allow the old source binding to survive.
+        for changed, affected_chunk in ((original.replace(b"X0", b"Y0"), chunks[0]),
+                                        (original.replace(b"X6;\n", b"X6;\r\n"), chunks[3])):
+            with self.subTest(chunk=affected_chunk):
+                before_objects = {module: self.objects(module) for module in before_objects}
+                before_sources = source_identities()
+                stat = source.stat()
+                source.write_bytes(changed)
+                os.utime(source, ns=(stat.st_atime_ns, stat.st_mtime_ns))
+                regenerate()
+                after_sources = source_identities()
+                self.assertNotEqual(after_sources[certificate][0], before_sources[certificate][0])
+                self.assertNotEqual(after_sources[affected_chunk][0], before_sources[affected_chunk][0])
+                self.assert_success(build())
+                self.assertNotEqual(self.objects("OutputProfileBodySource")[".olean"][0],
+                                    before_objects["OutputProfileBodySource"][".olean"][0])
+                self.assertNotEqual(self.objects(certificate)[".olean"][0],
+                                    before_objects[certificate][".olean"][0])
+                for module in (*chunks, "Independent"):
+                    if module != affected_chunk:
+                        self.assertEqual(self.objects(module), before_objects[module], module)
+                        if module in chunks:
+                            self.assertEqual(after_sources[module], before_sources[module], module)
+                audit()
+                source.write_bytes(original)
+                regenerate()
+                self.assert_success(build())
 
 
 if __name__ == "__main__":

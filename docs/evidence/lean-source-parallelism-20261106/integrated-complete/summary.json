@@ -1,0 +1,228 @@
+{
+  "audit": {
+    "declarations": 130923,
+    "foundations": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "fresh_complete_audit": true,
+    "kernel_replay": null,
+    "project_modules": 634
+  },
+  "build_and_audit_commands": [
+    [
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-parallelism/.tools/linux-x86_64/lean/bin/lake",
+      "--rehash",
+      "--reconfigure",
+      "-K",
+      "silverThreads=12",
+      "-K",
+      "silverMemoryMb=24576",
+      "build",
+      "Silver.Audit"
+    ],
+    [
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-parallelism/.tools/linux-x86_64/lean/bin/lake",
+      "-K",
+      "silverThreads=12",
+      "-K",
+      "silverMemoryMb=24576",
+      "env",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-parallelism/.tools/linux-x86_64/lean/bin/lean",
+      "-DwarningAsError=true",
+      "-j12",
+      "-M24576",
+      "Silver/Audit.lean"
+    ]
+  ],
+  "completed_object_transfer": {
+    "files": 48,
+    "modules": 3,
+    "policy": "Previously completed matching-source object families were copied between idle workspaces; this complete normal runner check independently resolved dependencies and freshly audited all project modules.",
+    "record": "../object-transfer.json",
+    "sha256": "cc4532788c79f4033b61406b9772aced2542dbd6fb74d51f3d30d10f8f6c6db5"
+  },
+  "documentation_commit_during_run": "d451d3c42cc7e2dc1bf883b1ba153da996d9676b",
+  "finished_at_utc": "2026-11-06T13:08:15.909297+00:00",
+  "host": "linux-x86_64",
+  "inputs": {
+    "captured_shared_files": 745,
+    "generated_candidates": 32,
+    "independent_verification": "source-input-verification.json",
+    "independently_compared_source_paths": 777,
+    "shared_digest_sha256": "05e6248d62767c5e4a12efaf90fe54f1c12c6a6e756aaf2d54c7e2b05ad816ed"
+  },
+  "lean_version": "4.34.1",
+  "limits": [
+    "Complete current-source Linux checkpoint using existing proof objects; not a clean/cold build or a matched speedup benchmark.",
+    "No independent leanchecker replay, macOS validation or hosted CI run was selected.",
+    "Historical leaf/native/test packets and transferred object records are linked rather than duplicated.",
+    "Retaining and comparing completed evidence adds no validation or review run."
+  ],
+  "managed_command": [
+    "/usr/bin/python3",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-parallelism/scripts/check_lean.py",
+    "--memory-mb",
+    "24576",
+    "--task",
+    "#8 #323 #324 integrated complete validation",
+    "--reason",
+    "Stable integrated source3f5d575635; reuse completed line and predicate leaf checks with recorded idle-workspace transfer, validate output reconstruction and all bridges, then fresh complete module and axiom audit; automatic CPU settings with host otherwise idle and RAM observation"
+  ],
+  "mode": "ordinary cached incremental build with fresh whole-project import/axiom audit",
+  "observation": {
+    "arithmetic_mean_sampled_cpu_cores": 1.070022937426262,
+    "limitations": [
+      "Sampled summed RSS can count shared pages and is not exact peak physical memory.",
+      "CPU samples describe interval usage of sampled live processes; no exact total CPU seconds are reported.",
+      "Sampling is approximately every five seconds and may miss short-lived activity."
+    ],
+    "paused_by_monitor": false,
+    "peak_sampled_cpu_cores": 2.98053753399532,
+    "sample_count": 444,
+    "sampled_min_available_bytes": 9268830208,
+    "sampled_peak_summed_rss_bytes": 24827617280
+  },
+  "observation_command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--memory-mb",
+    "24576",
+    "--task",
+    "#8 #323 #324 integrated complete validation",
+    "--reason",
+    "Stable integrated source3f5d575635; reuse completed line and predicate leaf checks with recorded idle-workspace transfer, validate output reconstruction and all bridges, then fresh complete module and axiom audit; automatic CPU settings with host otherwise idle and RAM observation"
+  ],
+  "original_ledger": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T123115-e73dba359d09/events.jsonl",
+  "original_observation": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-parallelism/tmp/integrated-complete",
+  "original_retained_evidence": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T123115-e73dba359d09/lean-evidence.json",
+  "original_retained_log": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T123115-e73dba359d09/lean-proof.log",
+  "outcome": "success",
+  "related_evidence": {
+    "focused_leaves": "../lean-focused/README.md",
+    "native_proof_and_build": "../native/README.md",
+    "scoped_tests": "../tests/README.md"
+  },
+  "resources": {
+    "available_cpus": 12,
+    "host_monitor_pause_available_bytes": 4294967296,
+    "lake_workers": 12,
+    "memory_limit_kind": "Lean periodically checked per-process threshold, not an aggregate or OS hard cap",
+    "memory_mb_per_lean_process": 24576,
+    "requested_workers": null,
+    "thread_selection": "automatic; no --threads override",
+    "threads_per_lean_process": 12,
+    "worker_selection": "automatic; no --workers override"
+  },
+  "retained_artifacts": "artifacts-index.json",
+  "retention_checkout_commit": "d451d3c42cc7e2dc1bf883b1ba153da996d9676b",
+  "retention_worker": {
+    "runtime_confirmation": "unavailable",
+    "selected_effort": "Extra High",
+    "selected_model": "GPT-6.1 Sol",
+    "token_cost_measurements": "unavailable"
+  },
+  "run_id": "20261106T123115-e73dba359d09",
+  "schema": 1,
+  "scope": "complete",
+  "snapshot_start_commit": "8b3177ed0d0fb0e8bb5416c8ef682b16eb83b9fb",
+  "source_commit": "3f5d575635106fe9c5ecc039d6111a5a31429e56",
+  "started_at_utc": "2026-11-06T12:31:18.386360+00:00",
+  "timing": {
+    "external_observation_wall_seconds": 2221.6622921649996,
+    "lake_reported_rebuilt_modules": [
+      {
+        "module": "Silver.PredicateSourceCandidate",
+        "reported_duration": "2.7s"
+      },
+      {
+        "module": "Silver.OutputBodyCertificate",
+        "reported_duration": "1872s"
+      },
+      {
+        "module": "Silver.SourceCertificates",
+        "reported_duration": "2.5s"
+      },
+      {
+        "module": "Silver.Source",
+        "reported_duration": "2.3s"
+      },
+      {
+        "module": "Silver.OutputSourceBridge",
+        "reported_duration": "137s"
+      },
+      {
+        "module": "Silver.ComposeSourceChecks",
+        "reported_duration": "2.3s"
+      },
+      {
+        "module": "Silver.NamedSourceBridge",
+        "reported_duration": "25s"
+      },
+      {
+        "module": "Silver.ArgumentsSourceBridge",
+        "reported_duration": "75s"
+      },
+      {
+        "module": "Silver.LexicalSourceBridge",
+        "reported_duration": "50s"
+      },
+      {
+        "module": "Silver.ComposeSourceBridge",
+        "reported_duration": "3.5s"
+      },
+      {
+        "module": "Silver.PredicateSourceChecks",
+        "reported_duration": "2.3s"
+      },
+      {
+        "module": "Silver.PredicateInheritedReady",
+        "reported_duration": "2.8s"
+      },
+      {
+        "module": "Silver.PredicateOuterModel",
+        "reported_duration": "3.8s"
+      },
+      {
+        "module": "Silver.PredicateEquations",
+        "reported_duration": "2.8s"
+      },
+      {
+        "module": "Silver.PredicateSourceBridge",
+        "reported_duration": "2.6s"
+      },
+      {
+        "module": "Silver.PredicateCorrespondence",
+        "reported_duration": "2.6s"
+      },
+      {
+        "module": "Silver",
+        "reported_duration": "2.1s"
+      },
+      {
+        "module": "Silver.Audit",
+        "reported_duration": "9.0s"
+      }
+    ],
+    "managed_duration_seconds": 2217.522700083,
+    "phases": [
+      {
+        "elapsed_seconds": 2197.453,
+        "exit_code": 0,
+        "finished_at": "2026-11-06T13:08:02.403716+00:00",
+        "phase": "build",
+        "started_at": "2026-11-06T12:31:24.950936+00:00"
+      },
+      {
+        "elapsed_seconds": 9.366,
+        "exit_code": 0,
+        "finished_at": "2026-11-06T13:08:13.191618+00:00",
+        "phase": "audit",
+        "started_at": "2026-11-06T13:08:03.825930+00:00"
+      }
+    ],
+    "runner_elapsed_seconds": 2220.833
+  },
+  "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-parallelism"
+}

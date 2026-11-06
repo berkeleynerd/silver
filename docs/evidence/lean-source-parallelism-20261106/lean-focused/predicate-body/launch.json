@@ -1,0 +1,20 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--target",
+    "Silver.PredicateBodySourceCandidate",
+    "--workers",
+    "1",
+    "--memory-mb",
+    "12288",
+    "--task",
+    "#324 body leaf trial",
+    "--reason",
+    "One body leaf overlaps one flow/helper leaf in a separate leased workspace; two 12 GiB process allowances fit the 31 GiB host while complete output reconstruction waits; automatic process threads retained"
+  ],
+  "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-parallelism",
+  "process_group": 9918,
+  "started_utc": "2026-11-06T11:19:48.182148+00:00",
+  "purpose": "sample CPU/RAM; pause only this run below 4 GiB MemAvailable"
+}

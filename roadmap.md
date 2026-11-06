@@ -50,8 +50,8 @@ and deferred capacity work retain their scope.
 
 ### Lean source parallelism
 
-**Initial splits validated on open PR #326; incremental throughput work
-owner-selected, 2026-11-06.**
+**Initial splits validated; ordered PR #326/#330 merges owner-authorized,
+2026-11-06.**
 
 [Milestone 17](https://github.com/berkeleynerd/silver/milestone/17) and parent
 [#8](https://github.com/berkeleynerd/silver/issues/8) remain open. The four-module
@@ -59,11 +59,16 @@ output certificate [#323](https://github.com/berkeleynerd/silver/issues/323) and
 four-leaf predicate split [#324](https://github.com/berkeleynerd/silver/issues/324)
 are implemented and validated on
 [PR #326](https://github.com/berkeleynerd/silver/pull/326), published head
-`c062d5253e`; implementation merge remains an owner decision. Its
+`c062d5253e`; the owner now
+[authorizes its merge followed by PR #330](docs/session-memory.md#2026-11-06--stacked-lean-delivery-merges-authorized). Its
 [completed record](https://github.com/berkeleynerd/silver/blob/c062d5253e73ad066bf0309eeee505f51f8b0860/docs/lean-line-chunks.md#completed-production-validation--2026-11-06)
 retains exact evidence and descriptive performance limits. The original
-[authorization and sample record](docs/lean-line-chunks.md) remains historical
-context on main until that delivery merges.
+[authorization and sample record](docs/lean-line-chunks.md) retains the bounded
+experiment and production delivery history. Both initial splits are retained.
+The complete line build and reconstruction took about 65 minutes, versus a
+historical 184-minute monolithic build; different run conditions prevent a
+controlled speedup claim. The earlier 512-line sample remains a separate bounded
+experiment.
 
 The [new authorization](docs/session-memory.md#2026-11-06--incremental-lean-throughput-work-authorized)
 selects these ordered packages, stacking on PR #326:
@@ -79,7 +84,8 @@ selects these ordered packages, stacking on PR #326:
    before proposing an implementation merge. A shared final checkpoint may
    serve both packages when its exact final inputs cover both.
 
-Both new issues stay Backlog until their dated authorization reaches main.
+The two issues were authorized by the dated record now on main; their
+implementation is stacked in PR #330, whose merge follows PR #326.
 The [bounded record](docs/lean-incremental-throughput.md) defines comparison
 controls, edit cases and completion criteria. The remaining choices are the
 measured usefulness of eight chunks and the smallest stable-identity design

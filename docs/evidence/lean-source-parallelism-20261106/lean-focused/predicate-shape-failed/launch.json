@@ -1,0 +1,20 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--target",
+    "Silver.PredicateNativeShapeCandidate",
+    "--workers",
+    "1",
+    "--memory-mb",
+    "12288",
+    "--task",
+    "#324 native shape leaf trial",
+    "--reason",
+    "One shape leaf overlaps the independent body leaf; two 12 GiB process allowances fit this host, automatic process threads retained, completed helper and flow objects reused later"
+  ],
+  "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-predicate-split",
+  "process_group": 10548,
+  "started_utc": "2026-11-06T11:34:32.006327+00:00",
+  "purpose": "sample CPU/RAM; pause only this run below 4 GiB MemAvailable"
+}

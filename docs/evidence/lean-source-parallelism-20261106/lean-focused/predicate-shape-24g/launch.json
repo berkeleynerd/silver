@@ -1,0 +1,18 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--target",
+    "Silver.PredicateNativeShapeCandidate",
+    "--memory-mb",
+    "24576",
+    "--task",
+    "#324 native shape memory repair",
+    "--reason",
+    "The12GiB trial failed at the unchanged native condition-model spec-header equality; restore the prior24GiB allowance with the host otherwise idle, preserve all successful modules and automatic CPU settings"
+  ],
+  "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-predicate-split",
+  "process_group": 11652,
+  "started_utc": "2026-11-06T12:02:56.645470+00:00",
+  "purpose": "sample CPU/RAM; pause only this run below 4 GiB MemAvailable"
+}

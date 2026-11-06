@@ -1,0 +1,37 @@
+{
+  "build-events.jsonl.gz": {
+    "bytes": 126441,
+    "sha256": "ecdc922864b6b90df2834a9886f4a17c86f389a70bc42b0551214fb4a59726d0",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T105138-972096333176/events.jsonl",
+    "uncompressed_bytes": 445275,
+    "uncompressed_sha256": "9ee7b2ac9d98bc2fab2299e5b8db814b46797fdff78d4b42efe3848a6b1cd39d"
+  },
+  "build-native.log.gz": {
+    "bytes": 174,
+    "sha256": "1a5c0fe8f762a3e0e5f642212b8558a540f43040f86050b58c9a91dbfbedbc41",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T105138-972096333176/native.log",
+    "uncompressed_bytes": 391,
+    "uncompressed_sha256": "28b53608e692fadf14fe8453e73ad1a1a5155b601a1343dfa7ac7b8270f8b787"
+  },
+  "full-events.jsonl.gz": {
+    "bytes": 126828,
+    "sha256": "30566143256725733f1cdf37eb3714a3b6598e724021eb2ce754762c19bc8ce4",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T104927-7539b94e8f7c/events.jsonl",
+    "uncompressed_bytes": 447911,
+    "uncompressed_sha256": "1f668b3fb14bb4527d8df6dd1ca55a7789a6ef9e8bd24163184af0e7d1065a6e"
+  },
+  "full-native.log.gz": {
+    "bytes": 83851,
+    "sha256": "8c34aa016a4743340d9dbce3c1bd9fdbd328a9f36057ace2d45c3603e3349e00",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T104927-7539b94e8f7c/native.log",
+    "uncompressed_bytes": 1353383,
+    "uncompressed_sha256": "767fb54b6e85d8d1dfae7fa4745070687064aa123720cc37e8bd81716842b15e"
+  },
+  "proof-evidence.tar.gz": {
+    "bytes": 2107739,
+    "member_index": "archive-members.json",
+    "members": 80,
+    "sha256": "074453fe6755b94efa8e4998d1ac6abc93067c77e3f91584f043d3898d57eef4",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T104927-7539b94e8f7c/proof-evidence"
+  }
+}

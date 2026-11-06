@@ -1,5 +1,24 @@
 # Session memory
 
+## 2026-11-06 — Stacked Lean delivery merges authorized
+
+After validation and review of the stacked Lean deliveries, the owner instructed
+**“Let's commit the stacked PR and then proceed with the next regularly scheduled
+unit of work.”** This authorizes the reviewed
+[PR #326](https://github.com/berkeleynerd/silver/pull/326) merge followed by
+[PR #330](https://github.com/berkeleynerd/silver/pull/330), together with necessary
+documentation reconciliation and issue/milestone closeout. It supersedes the
+earlier implementation-merge holds for these two deliveries. Retain the exact
+review and validation targets and applicable successful evidence; documentation
+reconciliation does not claim a new native or Lean proof run.
+
+Preserve the [#327/#328 authorization](#2026-11-06--incremental-lean-throughput-work-authorized)
+and the original [#323/#324 delivery record](lean-line-chunks.md#completed-production-validation--2026-11-06).
+The next unit's issue and scope still require selection before implementation;
+this entry does not select #314, #297 or another queued item. No Oracle or
+language change is authorized by this merge instruction. No CLI recall was
+updated.
+
 ## 2026-11-06 — Incremental Lean throughput work authorized
 
 After the completed four-chunk/predicate implementation and validation on
@@ -38,6 +57,23 @@ framework work, #314 guards and language/Oracle changes remain outside scope.
 This instruction authorizes routine planning records and their publication and
 planning-PR merge, plus scoped implementation through reviewable publication.
 Implementation merge remains a later owner decision. No CLI recall was updated.
+
+## 2026-11-06 — Lean source parallelism validated for review
+
+The two packages authorized below are implemented together in
+[PR #326](https://github.com/berkeleynerd/silver/pull/326), with integrated source
+`3f5d575635106fe9c5ecc039d6111a5a31429e56`. The complete Linux Lean/source audit,
+applicable complete native evidence, focused tooling tests and independent
+component review support the implementation. The
+[delivery record](lean-line-chunks.md#completed-production-validation--2026-11-06)
+holds exact runs, performance observations, failed-trial dispositions and cache
+reuse; those figures are not session rules or whole-build speed guarantees.
+
+Both selected splits are retained. The implementation PR, #8, #323, #324 and
+milestone 17 remain open pending owner review and an explicit merge instruction.
+This completes the authorized implementation/publication scope without selecting
+#314, changing the language/Oracle or expanding the proof framework. No harness
+goal exists, and CLI recall was not updated.
 
 ## 2026-11-06 — Lean source parallelism implementation authorized
 

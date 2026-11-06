@@ -1,0 +1,8 @@
+{
+  "returncode": 0,
+  "wall_seconds": 2026.6872669470004,
+  "sampled_peak_summed_rss_bytes": 13814587392,
+  "sampled_min_available_bytes": 13898342400,
+  "paused_by_monitor": false,
+  "limitation": "sampled summed RSS can count shared pages; this is not exact peak memory"
+}
