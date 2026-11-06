@@ -19,11 +19,15 @@ structure Checked : Prop where
   scalarHelpers : Native.ScalarHelpers.Checked SourceShape.bodyTokens
   workers : Native.Workers.Checked SourceShape.bodyTokens
 
-/-- Each original source decision is checked here once. -/
+private theorem native_scalarHelpers_checked : Native.ScalarHelpers.Checked SourceShape.bodyTokens := by
+  constructor <;> decide +kernel
+
+private theorem native_workers_checked : Native.Workers.Checked SourceShape.bodyTokens := by
+  constructor <;> decide +kernel
+
+/-- Assemble the independently checked private source proofs. -/
 theorem checked : Checked where
-  scalarHelpers := by
-    constructor <;> decide +kernel
-  workers := by
-    constructor <;> decide +kernel
+  scalarHelpers := native_scalarHelpers_checked
+  workers := native_workers_checked
 
 end Silver.Predicate.SourceChecks.NativeHelpersCandidate

@@ -24,19 +24,29 @@ structure Checked : Prop where
   flow : FlowSourceBridge.Checked SourceShape.bodyTokens
   readers : FlowReaders.Checked SourceShape.bodyTokens
 
-/-- Each original source decision is checked here once. -/
+private theorem boolean_bindings_checked : BooleanBindings.SourceChecks.Checked SourceShape.bodyTokens := by
+  constructor <;> decide +kernel
+
+private theorem xor_scanner_checked : XorSourceBridge.Checked SourceShape.bodyTokens := by
+  constructor
+  · exact CharacterSourceCandidate.xor_body
+  all_goals decide +kernel
+
+private theorem counted_bound_checked : CountedBoundNative.Checked SourceShape.bodyTokens := by
+  constructor <;> decide +kernel
+
+private theorem native_flow_checked : FlowSourceBridge.Checked SourceShape.bodyTokens := by
+  constructor <;> decide +kernel
+
+private theorem native_readers_checked : FlowReaders.Checked SourceShape.bodyTokens := by
+  constructor <;> decide +kernel
+
+/-- Assemble the independently checked private source proofs. -/
 theorem checked : Checked where
-  booleanBindings := by
-    constructor <;> decide +kernel
-  xorScanner := by
-    constructor
-    · exact CharacterSourceCandidate.xor_body
-    all_goals decide +kernel
-  counted_bound := by
-    constructor <;> decide +kernel
-  flow := by
-    constructor <;> decide +kernel
-  readers := by
-    constructor <;> decide +kernel
+  booleanBindings := boolean_bindings_checked
+  xorScanner := xor_scanner_checked
+  counted_bound := counted_bound_checked
+  flow := native_flow_checked
+  readers := native_readers_checked
 
 end Silver.Predicate.SourceChecks.FlowSourceCandidate
