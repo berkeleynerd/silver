@@ -164,7 +164,7 @@ def arrayDeclarationBody (executable : Bool) : Expr .state :=
   let conditions : List (Expr .truth) :=
     [.not (.app (.app (.app (.app (.app (.function .newName) text) state) first) after) arguments),
      .group <| .ite isBoolean
-       (.app (.app (.app (.app (.function .nameIs) text) first) after) (.word "boolean"))
+       (.app (.app (.app (.app (.function .nameIs) text) first) after) .booleanTypeWord)
        (.app (.app (.app (.app (.function .nameIs) text) first) after) .integerTypeWord),
      .eq (.variable "array_after") (.number 0), .eq position (.number 0),
      .eq (.arrayCount (arrayStateNames state)) .maxArrayBindings,

@@ -636,6 +636,7 @@ inductive Expr : Ty → Type
   | scalarCount : Expr .scalarNames → Expr .number
   | word (value : String) : Expr .spelling
   | integerTypeWord : Expr .spelling
+  | booleanTypeWord : Expr .spelling
   | operatorByte : Expr .number → Expr .truth
   | arrayCount : Expr .arrayMetadata → Expr .number
   | maxArrayBindings : Expr .number
@@ -864,6 +865,7 @@ def Expr.render : Expr ty → List String
   | .scalarCount x => x.render ++ [".", "count"]
   | .word spellingValue => ["\"" ++ spellingValue ++ "\""]
   | .integerTypeWord => ["integer_type_word"]
+  | .booleanTypeWord => ["boolean_type_word"]
   | .operatorByte x => x.render ++ ["in", "'&'", "|", "'+'", "|", "'-'", "|", "'*'", "|", "'/'"]
   | .arrayCount a => a.render ++ [".", "count"]
   | .maxArrayBindings => ["array_bindings", ".", "max_bindings"]
@@ -1046,6 +1048,7 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .scalarCount x => (x.eval calls locals).length
   | .word spellingValue => spellingValue
   | .integerTypeWord => "integer"
+  | .booleanTypeWord => "boolean"
   | .operatorByte x => decide (x.eval calls locals ∈ [38, 43, 45, 42, 47])
   | .arrayCount a => (a.eval calls locals).length
   | .maxArrayBindings => ArrayBindings.maxBindings
@@ -1758,7 +1761,7 @@ def Expr.primary : Expr ty → Bool
   | .operation _ | .number _ | .character _ | .truth _ | .variable _ | .function _
   | .app _ _ | .defaultFalse _ | .scalarReadDefault _ _ _ | .scalarReadArrays _ _ _ _ _ _
   | .expressionArrays _ _ _ _ _ _ _ | .field _ _ | .count _ | .scalarCount _
-  | .word _ | .integerTypeWord | .arrayCount _ | .maxArrayBindings | .maxArrayElements
+  | .word _ | .integerTypeWord | .booleanTypeWord | .arrayCount _ | .maxArrayBindings | .maxArrayElements
   | .invalidScalar | .integerNumber _ | .wideInteger _ | .wideNumber _ | .elementCount _
   | .arrayPut _ _ _ | .arrayUsedValues _ _ _ | .arrayNamesOnly _ _ | .stateArray _ _
   | .statePositionArray _ _ _ | .arrayAppend _ _ _ _ _ _ _ _ _ | .maxScalarBindings
@@ -1905,7 +1908,7 @@ def Expr.wellFormed : Expr ty → Bool
   | .statePositionArray a b c => a.wellFormed && b.wellFormed && c.wellFormed
   | .arrayAppend a b c d e f g h i => a.wellFormed && b.wellFormed && c.wellFormed && d.wellFormed && e.wellFormed && f.wellFormed && g.wellFormed && h.wellFormed && i.wellFormed
   | .maxArrayBindings | .maxArrayElements | .invalidScalar | .integerNumber _ => true
-  | .word _ | .integerTypeWord | .maxScalarBindings => true
+  | .word _ | .integerTypeWord | .booleanTypeWord | .maxScalarBindings => true
   | .operatorByte x => x.wellFormed && x.simple
   | .fullInterval | .emptyInterval => true
   | .interval a b => a.wellFormed && b.wellFormed
@@ -2148,7 +2151,7 @@ def Expr.scoped (scope : Scope) : Expr ty → Bool
   | .statePositionArray a b c => a.scoped scope && b.scoped scope && c.scoped scope
   | .arrayAppend a b c d e f g h i => a.scoped scope && b.scoped scope && c.scoped scope && d.scoped scope && e.scoped scope && f.scoped scope && g.scoped scope && h.scoped scope && i.scoped scope
   | .maxArrayBindings | .maxArrayElements | .invalidScalar | .integerNumber _ => true
-  | .word _ | .integerTypeWord | .maxScalarBindings => true
+  | .word _ | .integerTypeWord | .booleanTypeWord | .maxScalarBindings => true
   | .operatorByte x => x.scoped scope
   | .fullInterval | .emptyInterval => true
   | .interval a b | .integerNe a b | .integerLt a b | .integerLe a b => a.scoped scope && b.scoped scope
