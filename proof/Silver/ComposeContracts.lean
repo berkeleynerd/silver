@@ -211,10 +211,11 @@ def arrayPutLocals (state : ParserState) (value : Int) : Locals :=
 
 def arrayAddLocals (text : Source) (state : ParserState) (first after : Nat)
     (bounds : Integer.Interval) (offset length : Nat) (mutable : Bool) (following : Nat)
-    (componentBounds : Integer.Interval) : Locals :=
+    (componentBounds : Integer.Interval) (isBoolean : Bool := false) : Locals :=
   ((Context.locals {text,state,first,after,length,mutable,following}).set .interval "bounds" bounds)
     |>.set .number "offset" offset
     |>.set .interval "component_bounds" componentBounds
+    |>.set .truth "boolean_elements" isBoolean
 
 /-- Source state and result accumulator are separate native arguments. -/
 def arrayValuesLocals (text : Source) (source result : ParserState)
@@ -222,6 +223,13 @@ def arrayValuesLocals (text : Source) (source result : ParserState)
   ((Context.locals {text,position,length}).set .state "source_state" source).set .state "result_state" result
     |>.set .number "parsed" parsed
     |>.set .interval "component_bounds" componentBounds
+
+def booleanArrayValuesLocals (text : Source) (source result : ParserState)
+    (position length parsed maskFirst maskAfter : Nat) : Locals :=
+  ((Context.locals {text,position,length}).set .state "source_state" source).set .state "result_state" result
+    |>.set .number "parsed" parsed
+    |>.set .number "mask_first" maskFirst
+    |>.set .number "mask_after" maskAfter
 
 /-- Consequences of the native subtype declarations and proved routine contracts.
 Only result bounds/state preservation occur here, never admission correctness. -/
@@ -456,14 +464,14 @@ structure RawHelperEquations (calls : Calls) (evaluator : Calls := lexical calls
   scalarDeclaration : ∀ text, ValidText text → ∀ state arguments,
     NativeState domain text state → calls.function .scalarDeclaration text state arguments =
       scalarDeclarationBody.eval evaluator (Context.locals {text,state,arguments})
-  arrayAdd : ∀ text, ValidText text → ∀ state first after bounds offset length mutable following componentBounds,
+  arrayAdd : ∀ text, ValidText text → ∀ state first after bounds offset length mutable following componentBounds isBoolean,
     NativeState domain text state → ValidName text first after →
-    ArrayBindings.ValidBinding ⟨first, after, bounds, offset, length, mutable, componentBounds⟩ →
+    ArrayBindings.ValidBinding ⟨first, after, bounds, offset, length, mutable, componentBounds, isBoolean⟩ →
     state.arrayNames.names.length < ArrayBindings.maxBindings →
     offset + length ≤ state.arrayNames.used → ArrayAddDomain state.arrayNames.names offset →
     ValidCursor text following →
-    calls.function .arrayAdd text state first after bounds offset length mutable following componentBounds =
-      arrayAddBody.eval evaluator (arrayAddLocals text state first after bounds offset length mutable following componentBounds)
+    calls.function .arrayAdd text state first after bounds offset length mutable following componentBounds isBoolean =
+      arrayAddBody.eval evaluator (arrayAddLocals text state first after bounds offset length mutable following componentBounds isBoolean)
   arrayPut : ∀ state value, state.arrayNames.used < ArrayBindings.maxElements →
     Integer.InRange value →
     calls.function .arrayPut state value = arrayPutBody.eval evaluator (arrayPutLocals state value)
@@ -475,6 +483,17 @@ structure RawHelperEquations (calls : Calls) (evaluator : Calls := lexical calls
     componentBounds.Bounded → ArrayValuesDomain text source result position length parsed domain →
     calls.function .arrayValues text source result position length parsed componentBounds =
       calls.function .arrayValuesModel text source result position length parsed componentBounds
+  booleanArrayValuesModel : ∀ text, ValidText text → ∀ source result position length parsed maskFirst maskAfter,
+    (⟨maskFirst, maskAfter⟩ : NameState).Valid text →
+    ArrayValuesDomain text source result position length parsed domain →
+    calls.function .booleanArrayValuesModel text source result position length parsed maskFirst maskAfter =
+      booleanArrayValuesModelBody.eval evaluator
+        (booleanArrayValuesLocals text source result position length parsed maskFirst maskAfter)
+  booleanArrayValues : ∀ text, ValidText text → ∀ source result position length parsed maskFirst maskAfter,
+    (⟨maskFirst, maskAfter⟩ : NameState).Valid text →
+    ArrayValuesDomain text source result position length parsed domain →
+    calls.function .booleanArrayValues text source result position length parsed maskFirst maskAfter =
+      calls.function .booleanArrayValuesModel text source result position length parsed maskFirst maskAfter
   arrayDeclaration : ∀ text, ValidText text → ∀ state arguments,
     NativeState domain text state →
     calls.function .arrayDeclaration text state arguments =
@@ -542,6 +561,13 @@ from its typed native body and the interpreted condition reader; it is not a
 primitive assumption of the actual-source bridge. -/
 structure HelperEquations (calls : Calls) (evaluator : Calls := lexical calls)
     (domain : StateDomain := .basic) : Prop extends RawHelperEquations calls evaluator domain where
+  /-- Derived from the checked initializer body and the condition interpreter,
+  on precisely the source helper's state, cursor and masked-name domain. -/
+  booleanInitializer : ∀ text, ValidText text → ∀ state position maskFirst maskAfter,
+    NativeState domain text state → ValidCursor text position →
+    (⟨maskFirst, maskAfter⟩ : NameState).Valid text →
+    calls.function .booleanInitializer text state position maskFirst maskAfter =
+      booleanInitializerAfter text state position maskFirst maskAfter
   /-- Discharged by the downstream Boolean-declaration source bridge, which
   interprets the native condition reader on the full initializer domain. -/
   booleanDeclaration : ∀ text, ValidText text → ∀ state arguments,
