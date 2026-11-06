@@ -1,0 +1,193 @@
+{
+  "build_and_audit_commands": [
+    [
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-four-control/.tools/linux-x86_64/lean/bin/lake",
+      "--rehash",
+      "--reconfigure",
+      "-K",
+      "silverThreads=12",
+      "-K",
+      "silverMemoryMb=6144",
+      "build",
+      "+Silver.OutputBodyLines0",
+      "+Silver.OutputBodyLines1",
+      "+Silver.OutputBodyLines2",
+      "+Silver.OutputBodyLines3",
+      "+Silver.AxiomAudit"
+    ],
+    [
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-four-control/.tools/linux-x86_64/lean/bin/lake",
+      "-K",
+      "silverThreads=12",
+      "-K",
+      "silverMemoryMb=6144",
+      "env",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-four-control/.tools/linux-x86_64/lean/bin/lean",
+      "-DwarningAsError=true",
+      "-j12",
+      "-M6144",
+      ".lake/silver-focused-audit.lean"
+    ]
+  ],
+  "cache_preparation": {
+    "common_olean_count": 630,
+    "common_olean_hashes_unchanged": true,
+    "policy": "Independent idle cache copy; force complete selected line object families, preserve common imports; normal runner dependency checks",
+    "record": "measurement-preparation.json.gz",
+    "seed_record": "lean-cache-seed.json",
+    "selected_line_artifact_family_files_removed": 64
+  },
+  "competing_work": "No competing proof jobs were reported by the lead. Cheap eight-candidate source generation/static inspection occurred in a separate worktree; four-control inputs remained frozen.",
+  "cpu": {
+    "boundary": "Entire reaped command tree, including runner, generation, build and audit; not line-module CPU alone",
+    "child_system_seconds": 407.662273,
+    "child_total_seconds": 7253.028241999999,
+    "child_user_seconds": 6845.3659689999995,
+    "source": "Post-command minus pre-command resource.getrusage(resource.RUSAGE_CHILDREN) in retained observe_lean.py"
+  },
+  "deduplicated": false,
+  "finished_at_utc": "2026-11-06T14:20:44.479083+00:00",
+  "foundations": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "fresh_audit_declarations": 19232,
+  "fresh_audit_modules": 10,
+  "host": "linux-x86_64",
+  "lean_version": "4.34.1",
+  "limits": [
+    "Focused line proof workload only; excludes aggregator/reconstruction and whole-project rebuild.",
+    "No whole-project source-correspondence, independent kernel replay, macOS or hosted-CI claim.",
+    "No performance comparison or adoption disposition is claimed before the eight case finishes.",
+    "The retained wrapper source was inspected after the run; the launch record did not capture its source hash."
+  ],
+  "line_certificates": 4915,
+  "line_chunks": 4,
+  "managed_command": [
+    "/usr/bin/python3",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-four-control/scripts/check_lean.py",
+    "--target",
+    "Silver.OutputBodyLines0",
+    "--target",
+    "Silver.OutputBodyLines1",
+    "--target",
+    "Silver.OutputBodyLines2",
+    "--target",
+    "Silver.OutputBodyLines3",
+    "--workers",
+    "4",
+    "--memory-mb",
+    "6144",
+    "--task",
+    "#327 matched four-chunk control",
+    "--reason",
+    "Owner-authorized matched four/eight complete4915line measurement; prior successful four-chunk run overlapped predicate work, so repeat only line closure from recorded idle cache copy with no competing proof jobs; four workers are the comparison control, automatic twelve process threads and6144MiB match the planned eight-chunk case"
+  ],
+  "memory_observation": {
+    "limitations": [
+      "Approximately five-second samples may miss short-lived activity.",
+      "Summed process RSS can double-count shared pages and is not exact physical peak."
+    ],
+    "paused_by_monitor": false,
+    "sampled_min_host_available_bytes": 29645819904,
+    "sampled_peak_summed_rss_bytes": 5588283392,
+    "samples": 400
+  },
+  "mode": "Focused complete four-line-module measurement with reused common imports and fresh focused axiom audit",
+  "original_ledger_directory": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T134724-a836b1157415",
+  "original_observation_directory": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-four-control/tmp/four-lines",
+  "outcome": "success",
+  "resources": {
+    "available_cpus": 12,
+    "host_available_pause_threshold_bytes": 4294967296,
+    "lake_workers": 4,
+    "memory_limit_kind": "Lean periodically checked per-process threshold; not an aggregate or OS hard cap",
+    "memory_mb_per_lean_process": 6144,
+    "thread_selection": "automatic; no --threads override",
+    "threads_per_lean_process": 12,
+    "workers_selection": "explicit matched control"
+  },
+  "retention": {
+    "elapsed_seconds": 8.109167806000187,
+    "overlap": "Post-terminal retention of the idle four-control workspace overlaps the root-owned eight-case measurement.",
+    "runtime_model_confirmation": "unavailable",
+    "scope": "Evidence retention and post-terminal source/tool/630-object hashing only; no tests/proofs/builds/cache transfers",
+    "selected_effort": "Extra High",
+    "selected_model": "GPT-6.1 Sol",
+    "token_cost_measurements": "unavailable"
+  },
+  "run_id": "20261106T134724-a836b1157415",
+  "schema": 1,
+  "source_commit": "c062d5253e73ad066bf0309eeee505f51f8b0860",
+  "source_input_verification": "source-input-verification.json",
+  "started_at_utc": "2026-11-06T13:47:27.506707+00:00",
+  "targets": [
+    "Silver.OutputBodyLines0",
+    "Silver.OutputBodyLines1",
+    "Silver.OutputBodyLines2",
+    "Silver.OutputBodyLines3"
+  ],
+  "timing": {
+    "external_wrapper_seconds": 2001.8028171849983,
+    "lake_formatted_module_durations": [
+      {
+        "duration": "1531s",
+        "module": "Silver.OutputBodyLines0"
+      },
+      {
+        "duration": "1814s",
+        "module": "Silver.OutputBodyLines1"
+      },
+      {
+        "duration": "1913s",
+        "module": "Silver.OutputBodyLines2"
+      },
+      {
+        "duration": "1972s",
+        "module": "Silver.OutputBodyLines3"
+      }
+    ],
+    "managed_seconds": 1996.972411683,
+    "phases": [
+      {
+        "elapsed_seconds": 1979.452,
+        "exit_code": 0,
+        "finished_at": "2026-11-06T14:20:33.432768+00:00",
+        "phase": "build",
+        "started_at": "2026-11-06T13:47:33.980527+00:00"
+      },
+      {
+        "elapsed_seconds": 7.757,
+        "exit_code": 0,
+        "finished_at": "2026-11-06T14:20:42.429995+00:00",
+        "phase": "audit",
+        "started_at": "2026-11-06T14:20:34.673112+00:00"
+      }
+    ],
+    "runner_reported_seconds": 1999.863
+  },
+  "wrapper_command": [
+    "python3",
+    "tmp/observe_lean.py",
+    "four-lines",
+    "python3",
+    "scripts/check_lean.py",
+    "--target",
+    "Silver.OutputBodyLines0",
+    "--target",
+    "Silver.OutputBodyLines1",
+    "--target",
+    "Silver.OutputBodyLines2",
+    "--target",
+    "Silver.OutputBodyLines3",
+    "--workers",
+    "4",
+    "--memory-mb",
+    "6144",
+    "--task",
+    "#327 matched four-chunk control",
+    "--reason",
+    "Owner-authorized matched four/eight complete4915line measurement; prior successful four-chunk run overlapped predicate work, so repeat only line closure from recorded idle cache copy with no competing proof jobs; four workers are the comparison control, automatic twelve process threads and6144MiB match the planned eight-chunk case"
+  ]
+}

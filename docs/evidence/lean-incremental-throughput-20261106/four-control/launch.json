@@ -1,0 +1,26 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--target",
+    "Silver.OutputBodyLines0",
+    "--target",
+    "Silver.OutputBodyLines1",
+    "--target",
+    "Silver.OutputBodyLines2",
+    "--target",
+    "Silver.OutputBodyLines3",
+    "--workers",
+    "4",
+    "--memory-mb",
+    "6144",
+    "--task",
+    "#327 matched four-chunk control",
+    "--reason",
+    "Owner-authorized matched four/eight complete4915line measurement; prior successful four-chunk run overlapped predicate work, so repeat only line closure from recorded idle cache copy with no competing proof jobs; four workers are the comparison control, automatic twelve process threads and6144MiB match the planned eight-chunk case"
+  ],
+  "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-four-control",
+  "process_group": 18847,
+  "started_utc": "2026-11-06T13:47:24.373930+00:00",
+  "purpose": "sample CPU/RAM; pause only this run below 4 GiB MemAvailable"
+}

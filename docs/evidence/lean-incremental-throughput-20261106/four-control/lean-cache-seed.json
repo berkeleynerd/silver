@@ -1,0 +1,13 @@
+{
+  "utc": "2026-11-06T13:40:51.307645+00:00",
+  "source_worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-parallelism",
+  "source_commit": "c062d5253e73ad066bf0309eeee505f51f8b0860",
+  "source_complete_lean_run": "20261106T123115-e73dba359d09",
+  "destination": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-four-control",
+  "copied": [
+    ".tools/linux-x86_64/lean",
+    ".silver/linux-x86_64/proof"
+  ],
+  "source_and_destination_idle": true,
+  "policy": "Independent copies including private/server sidecars; normal runner synchronizes sources and checks dependencies. Copy is not validation."
+}
