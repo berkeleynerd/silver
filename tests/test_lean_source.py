@@ -82,6 +82,10 @@ class CompilerSourcePolicyTests(unittest.TestCase):
             Path("Silver") / f"{module}.lean": filename
             for filename, module in zip(EMBEDDED, CERTIFICATE_MODULES, strict=True)
         })
+        self.assertEqual(OUTPUT_BODY_LINES, tuple(
+            Path(f"Silver/OutputBodyLines{index}.lean") for index in range(8)))
+        self.assertEqual(GENERATOR.OUTPUT_BODY_LINE_MODULES,
+                         tuple(path.stem for path in OUTPUT_BODY_LINES))
         self.assertEqual(CANDIDATES, CERTIFICATE_ROOTS | {
             path: "silver_output_profile.adb" for path in OUTPUT_BODY_LINES})
 
@@ -258,7 +262,8 @@ class CompilerSourcePolicyTests(unittest.TestCase):
         recovered = []
         for index, relative in enumerate(OUTPUT_BODY_LINES):
             chunk = (ROOT / "proof" / relative).read_text()
-            expected = declarations[len(declarations) * index // 4:len(declarations) * (index + 1) // 4]
+            expected = declarations[len(declarations) * index // len(OUTPUT_BODY_LINES):
+                                    len(declarations) * (index + 1) // len(OUTPUT_BODY_LINES)]
             body = "\n".join(line for declaration in expected for line in declaration) + "\n"
             self.assertEqual(chunk, header + body + "end Silver.Source\n")
             recovered.extend(expected)

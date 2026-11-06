@@ -222,7 +222,7 @@ class LeanModuleTests(unittest.TestCase):
         # production generator/publisher and Lake's authoritative binary input;
         # restoring mtime must not allow the old source binding to survive.
         for changed, affected_chunk in ((original.replace(b"X0", b"Y0"), chunks[0]),
-                                        (original.replace(b"X6;\n", b"X6;\r\n"), chunks[3])):
+                                        (original.replace(b"X6;\n", b"X6;\r\n"), chunks[6])):
             with self.subTest(chunk=affected_chunk):
                 before_objects = {module: self.objects(module) for module in before_objects}
                 before_sources = source_identities()

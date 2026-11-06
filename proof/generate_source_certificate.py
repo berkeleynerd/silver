@@ -16,7 +16,7 @@ from pathlib import Path
 # The existing explicit-witness helper checks the same equality in the kernel;
 # preserve smaller certificates so their checked objects remain reusable.
 _RFL_TOKEN_LIMIT = 32_768
-OUTPUT_BODY_LINE_MODULES = tuple(f"OutputBodyLines{index}" for index in range(4))
+OUTPUT_BODY_LINE_MODULES = tuple(f"OutputBodyLines{index}" for index in range(8))
 
 SOURCE_BINDINGS = (
     ("silver_array_bindings.ads", "arrayBindingsSpec", "arrayBindingsSpecTokens"),
@@ -240,7 +240,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", required=True, type=Path,
                         help="candidate module in an isolated proof workspace; output body also emits "
-                             "four sibling line modules with the same suffixes")
+                             "eight sibling line modules with the same suffixes")
     parser.add_argument("--source", required=True, choices=[entry[0] for entry in SOURCE_BINDINGS],
                         help="emit one independently checked source certificate module")
     arguments = parser.parse_args()
@@ -268,7 +268,8 @@ def main() -> None:
     # names, literals and proof bodies intact; the aggregator reconstructs the
     # complete authoritative source using the same balanced tree as before.
     for index, module in enumerate(line_modules):
-        chunk = declarations[len(declarations) * index // 4:len(declarations) * (index + 1) // 4]
+        chunk = declarations[len(declarations) * index // len(line_modules):
+                             len(declarations) * (index + 1) // len(line_modules)]
         outputs[destination.with_name(module + "".join(destination.suffixes))] = (
             module_header() + [line for declaration in chunk for line in declaration])
     destination.parent.mkdir(parents=True, exist_ok=True)
