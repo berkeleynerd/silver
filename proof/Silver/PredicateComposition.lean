@@ -64,7 +64,7 @@ def Program.bodyRanges (program : Program) : Integer.Ranges :=
   ArrayFlow.ranges program.arrays.names program.bodyBindings.ranges
 
 def Program.bodyMutability (program : Program) : Integer.Mutability :=
-  ArrayBindings.mutability program.arrays.names program.bodyBindings.mutability
+  ArrayBindings.integerMutability program.arrays.names program.bodyBindings.mutability
 
 def Program.bodyAnalysis (program : Program) : Integer.Analysis :=
   ArrayFlow.analysis program.arrays.names (Integer.Analysis.ofDeclarations program.integerDeclarations)
