@@ -50,6 +50,9 @@ theorem basicEval_model (text : Source) (context : Native.Context) (scan : BodyS
                       by_cases elementTarget :
                         fixedAfter text (stringAssignmentTarget text context.model scan).position "(" false ≠ 0
   all_goals
+    by_cases booleanArray : (ArrayBindings.binding context.arrayNames
+      (arrayTarget text context.model scan.position)).isBoolean = true
+  all_goals
     dsimp +instances only [Native.Context.model, stringAssignmentTarget] at *
     dsimp +instances only [basicEval, basicCommands, dispatchCommands, outputCommands, putCommands, rejectCommands,
       assignmentCommands, Command.list, List.foldr_cons, List.foldr_nil, guard,
@@ -85,6 +88,7 @@ structure PrimitiveEquations (primitive : Primitives) : Prop where
   booleanAssignment : primitive.booleanAssignment = fun text context scan => booleanAssignmentBody text context.model scan
   arrayTarget : primitive.arrayTarget = fun text context position => Predicate.arrayTarget text context.model position
   arrayAssignment : primitive.arrayAssignment = fun text context scan => arrayAssignmentBody text context.model scan
+  booleanArrayAssignment : primitive.booleanArrayAssignment = fun text context scan => booleanArrayAssignmentBody text context.model scan
   fits : primitive.fits = fitsLengthSummary
   sameLength : primitive.sameLength = equalLengthIntervals
   reject : primitive.reject = PathFacts.Context.reject

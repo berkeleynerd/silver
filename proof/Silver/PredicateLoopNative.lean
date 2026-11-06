@@ -84,7 +84,8 @@ def Test.eval (frame : Frame) : Test → Bool
   | .array => decide (fixedAfter frame.text frame.after "of" true ≠ 0)
   | .invalidArray => decide (frame.arrayFirst = 0 ∨ frame.arrayAfter ≤ frame.arrayFirst) ||
       Named.equalName frame.text frame.first frame.after frame.arrayFirst frame.arrayAfter ||
-      decide (frame.arrayTarget = 0) || (ArrayBindings.binding frame.context.arrayNames frame.arrayTarget).mutable
+      decide (frame.arrayTarget = 0) || (ArrayBindings.binding frame.context.arrayNames frame.arrayTarget).mutable ||
+      (ArrayBindings.binding frame.context.arrayNames frame.arrayTarget).isBoolean
   | .reverse => decide (fixedAfter frame.text frame.result.position "reverse" true ≠ 0)
   | .nonadvancing => decide (frame.result.position ≤ frame.scan.position)
   | .innerNonadvancing => decide (frame.innerScan.position ≤ frame.scan.position)
@@ -101,7 +102,8 @@ def Test.evalWith (imports : Imports) (frame : Frame) : Test → Bool
   | .array => decide (imports.token frame.text frame.after (.word "of") ≠ 0)
   | .invalidArray => decide (frame.arrayFirst = 0 ∨ frame.arrayAfter ≤ frame.arrayFirst) ||
       imports.equalName frame.text frame.first frame.after frame.arrayFirst frame.arrayAfter ||
-      decide (frame.arrayTarget = 0) || (ArrayBindings.binding frame.context.arrayNames frame.arrayTarget).mutable
+      decide (frame.arrayTarget = 0) || (ArrayBindings.binding frame.context.arrayNames frame.arrayTarget).mutable ||
+      (ArrayBindings.binding frame.context.arrayNames frame.arrayTarget).isBoolean
   | .reverse => decide (imports.token frame.text frame.result.position (.word "reverse") ≠ 0)
   | .nonadvancing => decide (frame.result.position ≤ frame.scan.position)
   | .innerNonadvancing => decide (frame.innerScan.position ≤ frame.scan.position)
@@ -123,7 +125,8 @@ def Test.render : Test → List String
   | .array => call "take_token" [["text"], ["after"], ["of_keyword"]] ++ ["/=", "0"]
   | .invalidArray => ["array_first", "=", "0", "or", "else", "array_after", "<=", "array_first", "or", "else"] ++
       call "equal_name" [["text"], ["first"], ["after"], ["array_first"], ["array_after"]] ++
-      ["or", "else", "target", "=", "0", "or", "else", "context", ".", "array_names", ".", "items", "(", "target", ")", ".", "mutable"]
+      ["or", "else", "target", "=", "0", "or", "else", "context", ".", "array_names", ".", "items", "(", "target", ")", ".", "mutable"] ++
+      ["or", "else", "context", ".", "array_names", ".", "items", "(", "target", ")", ".", "boolean_elements"]
   | .reverse => call "take_token" [["text"], ["result", ".", "position"], ["reverse_keyword"]] ++ ["/=", "0"]
   | .nonadvancing => ["result", ".", "position", "<=", "scan", ".", "position"]
   | .innerNonadvancing => ["inner_scan", ".", "position", "<=", "scan", ".", "position"]
@@ -573,11 +576,11 @@ private def countedFrame (text : Source) (context : Native.Context) (scan : Body
     bounds := header.bounds
     definite := Integer.loopDefinite header.lower.bounds header.upper.bounds}
 
-private theorem invalid_array_guard (first after target : Nat) (equal mutable : Bool) :
-    (decide (first = 0 ∨ after ≤ first) || equal || decide (target = 0) || mutable) =
-      !(decide (first ≠ 0 ∧ first < after ∧ target ≠ 0) && !mutable && !equal) := by
+private theorem invalid_array_guard (first after target : Nat) (equal mutable boolean : Bool) :
+    (decide (first = 0 ∨ after ≤ first) || equal || decide (target = 0) || mutable || boolean) =
+      !(decide (first ≠ 0 ∧ first < after ∧ target ≠ 0) && !mutable && !equal && !boolean) := by
   apply Bool.eq_iff_iff.mpr
-  cases equal <;> cases mutable <;>
+  cases equal <;> cases mutable <;> cases boolean <;>
     simp [Bool.or_eq_true, decide_eq_true_eq, decide_eq_false_iff_not] <;> omega
 
 private def iteratorFrame (text : Source) (context : Native.Context) (scan : BodyScan) : Frame :=
@@ -603,6 +606,7 @@ private theorem iterator_invalid (text : Source) (context : Native.Context) (sca
     (Named.equalName text (loopFirst text scan) (loopNameAfter text scan)
       (skipAt text (loopLowerPosition text scan)) (nameAfter text (skipAt text (loopLowerPosition text scan))))
     (ArrayBindings.binding context.arrayNames (loopArrayTarget text context.model scan)).mutable
+    (ArrayBindings.binding context.arrayNames (loopArrayTarget text context.model scan)).isBoolean
 
 private theorem array_eval (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan)
     (next : Frame → BodyScan) (iterable : loopIsArray text scan = true) :

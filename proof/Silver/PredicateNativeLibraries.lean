@@ -5,6 +5,7 @@ public import Silver.PredicateFlowReaderLibraries
 public import Silver.PredicateNativeScalarHelpers
 public import Silver.PredicateXorSourceBridge
 public import Silver.BooleanBindingsSourceBridge
+public import Silver.ArrayBindingsSourceBridge
 public import Silver.ComposeLexical
 public import Silver.ComposeModelCalls
 public import Silver.ComposeEquations
@@ -114,6 +115,11 @@ structure Links (calls : Native.Calls) (composed : Compose.Expressions.Calls)
     calls.equalName = (Compose.Lexical.primitives lexical token).equal
   nameIs : calls.nameIs = composed.function .nameIs
   arrayLookup : calls.arrayLookup = composed.function .arrayLookup
+  arrayContains : ∃ arrays, ArrayBindings.SourceBridge.InterpretedSource arrays ∧
+    calls.arrayContains = arrays.contains
+  scalarIndex : ∃ scalars, ScalarExpression.Native.Primitives scalars ∧ ScalarExpression.Native.Equations scalars ∧
+    calls.scalarIndex = fun text position names first after =>
+      scalars.readExpression text position names first after true
   booleanLookup : ∃ source : BooleanBindings.SourceBridge.InterpretedSource,
     calls.booleanLookup = source.lookup
   callAfter : calls.callAfter = composed.function .callAfter
@@ -189,6 +195,17 @@ theorem helper_meaning (calls : Native.Calls) (composed : Compose.Expressions.Ca
   arrayLookup text tv names first after nv fb ab := by
     rw [links.arrayLookup]
     exact composedEquations.arrayLookup text tv names first after nv fb ab
+  arrayContains item indices itemType indexType := by
+    obtain ⟨arrays, source, observed⟩ := links.arrayContains
+    rw [observed]
+    exact ArrayBindings.SourceBridge.interpreted_contains arrays source item indices itemType indexType
+  scalarIndex text tv position names first after pv nv mask := by
+    obtain ⟨scalars, primitives, definitions, observed⟩ := links.scalarIndex
+    rw [observed]
+    exact ScalarExpression.Native.interpreted_readExpression_arrays scalars primitives definitions
+      text tv position names first after true [] [] false pv nv mask
+      (by simp [ArrayBindings.ValidMetadata, ArrayBindings.maxBindings])
+      (by simp [ArrayBindings.ValidInitials, ArrayBindings.maxElements])
   booleanLookup text tv names first after nv fb ab := by
     obtain ⟨source, observed⟩ := links.booleanLookup
     rw [observed]
@@ -272,6 +289,9 @@ theorem model_links : Links Native.modelCalls Compose.Expressions.modelCalls Int
   equalName := ⟨Guarded.Expressions.modelCalls, fixedAt, Compose.Lexical.model_interpreted, rfl⟩
   nameIs := rfl
   arrayLookup := rfl
+  arrayContains := ⟨ArrayBindings.Native.modelCalls, ArrayBindings.SourceBridge.model_interpreted, rfl⟩
+  scalarIndex := ⟨ScalarExpression.Native.modelCalls, ScalarExpression.Native.model_primitives,
+    ScalarExpression.Native.model_equations, rfl⟩
   booleanLookup := ⟨BooleanBindings.SourceBridge.modelSource, rfl⟩
   callAfter := rfl
   take text _ position token _ := by cases token <;> rfl

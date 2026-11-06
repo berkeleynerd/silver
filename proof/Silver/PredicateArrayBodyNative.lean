@@ -69,6 +69,7 @@ inductive Expr : Type → Type 1
   | readValue (position : Expr Nat) : Expr ScalarExpression.Result
   | binding (target : Expr Nat) : Expr ArrayBindings.Binding
   | mutable (item : Expr ArrayBindings.Binding) : Expr Bool
+  | booleanElements (item : Expr ArrayBindings.Binding) : Expr Bool
   | componentBounds (item : Expr ArrayBindings.Binding) : Expr Integer.Interval
   | lower (bounds : Expr Integer.Interval) : Expr Int
   | upper (bounds : Expr Integer.Interval) : Expr Int
@@ -119,6 +120,7 @@ def Expr.eval (imports : Imports) (target : TargetCall) (frame : Frame) : Expr �
   | .readValue position => imports.readValue frame.text frame.context (position.eval imports target frame) frame.scan.facts
   | .binding index => ArrayBindings.binding frame.context.arrayNames (index.eval imports target frame)
   | .mutable item => (item.eval imports target frame).mutable
+  | .booleanElements item => (item.eval imports target frame).isBoolean
   | .componentBounds item => (item.eval imports target frame).componentBounds
   | .lower bounds => (bounds.eval imports target frame).lower
   | .upper bounds => (bounds.eval imports target frame).upper
@@ -171,6 +173,7 @@ def Expr.render : Expr α → List String
   | .readValue position => call "read_scalar_in_flow" [["text"], ["context"], position.render, ["scan", ".", "facts"]]
   | .binding index => ["context", ".", "array_names", ".", "items", "("] ++ index.render ++ [")"]
   | .mutable item => item.render ++ [".", "mutable"]
+  | .booleanElements item => item.render ++ [".", "boolean_elements"]
   | .componentBounds item => item.render ++ [".", "component_bounds"]
   | .lower bounds => bounds.render ++ [".", "lower"]
   | .upper bounds => bounds.render ++ [".", "upper"]
@@ -212,8 +215,9 @@ def assignmentBody : Expr BodyScan :=
   .letSubscript (.readIndex (.token .localAfter (.symbol "("))) <|
   .letValue (.readValue (.token (.token (.resultAfter .localSubscript) (.symbol ")")) (.symbol ":="))) <|
   .beginValue <| .guardReturn
-    (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse
+    (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse
       (.eqNat .localTarget .zero) (.not (.mutable (.binding .localTarget))))
+      (.booleanElements (.binding .localTarget)))
       (.not (.contains (.binding .localTarget) (.resultBounds .localSubscript))))
       (.eqNat (.operands .localSubscript) .maxOperands))
       (.leNat (.resultAfter .localValue) .scanPosition)) (.isEmpty (.resultBounds .localValue)))
@@ -229,7 +233,7 @@ def Expr.primary : Expr α → Bool
   | .inputPosition | .scanPosition | .localFirst | .localAfter | .localTarget
   | .zero | .maxOperands | .localSubscript | .localValue | .skip _ | .nameAfter _
   | .scalarLookup _ _ | .arrayLookup _ _ | .arrayTarget _ | .token _ _
-  | .readIndex _ | .readValue _ | .binding _ | .mutable _ | .resultAfter _
+  | .readIndex _ | .readValue _ | .binding _ | .mutable _ | .booleanElements _ | .resultAfter _
   | .componentBounds _ | .lower _ | .upper _
   | .operands _ | .resultBounds _ | .contains _ _ | .isEmpty _
   | .invalid | .assigned _ | .group _ => true
@@ -270,7 +274,7 @@ def Expr.wellFormed : Expr α → Bool
       value.expression && value.wellFormed
   | .scalarLookup a b | .arrayLookup a b | .contains a b =>
       a.expression && b.expression && a.wellFormed && b.wellFormed
-  | .mutable value | .componentBounds value | .lower value | .upper value
+  | .mutable value | .booleanElements value | .componentBounds value | .lower value | .upper value
   | .resultAfter value | .operands value | .resultBounds value =>
       value.primary && value.wellFormed
   | .isEmpty value => value.expression && value.wellFormed
