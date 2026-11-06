@@ -238,6 +238,24 @@ def chainJoin (left right : ConditionResult) (operator : ChainKind) (incoming : 
   | .shortOr => ⟨right.after, left.whenTrue.join right.whenTrue, right.whenFalse⟩
   | _ => ⟨right.after, incoming, incoming⟩
 
+/-- Boolean component reads use the scalar-only index grammar and preserve both
+outcome flows. Reserved Integer initial-value slots carry no Boolean meaning. -/
+def booleanArrayAfter (text : Source) (context : ParseContext) (position : Nat)
+    (facts : ActiveFlow) : Nat :=
+  let first := skipAt text position
+  let after := nameAfter text first
+  let target := ArrayBindings.lookup text context.arrayNames first after
+  let subscript := ScalarExpression.read text (fixedAfter text after "(" false)
+    (context.readingNames facts) context.maskFirst context.maskAfter
+  let close := fixedAfter text subscript.after ")" false
+  if target = 0 ∨ (ArrayBindings.binding context.arrayNames target).isBoolean = false ∨
+      ScalarExpression.lookup text context.scalarNames first after ≠ 0 ∨
+      (context.maskFirst ≠ 0 ∧ Named.equalName text context.maskFirst context.maskAfter first after = true) ∨
+      subscript.operands = ScalarExpression.maxOperands ∨
+      ArrayBindings.contains (ArrayBindings.binding context.arrayNames target) subscript.bounds = false ∨
+      close ≤ position
+  then 0 else close
+
 def booleanAtomAfter (text : Source) (context : ParseContext) (position : Nat) : Nat :=
   let first := skipAt text position
   let after := nameAfter text first
@@ -262,6 +280,8 @@ mutual
         let close := fixedAfter text result.after ")" false
         if close = 0 then invalidCondition facts else {result with after := close}
       else invalidCondition facts
+    else if booleanArrayAfter text context position facts ≠ 0 then
+      ⟨booleanArrayAfter text context position facts, facts, facts⟩
     else if booleanAtomAfter text context position ≠ 0 then
       ⟨booleanAtomAfter text context position, facts, facts⟩
     else if !context.hasArguments then invalidCondition facts
