@@ -2115,6 +2115,12 @@ def outputBodyTokens_line_c8c7782582b3d955979c2ccb9f4d39b5dfd3e36bec8b51581b2bbc
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_c8cd4e2ccb4280dcfac968b9a1427d820aa61578632626cab3bdb6597cbb000a : LineCertificate where
+  text := "   Boolean_Type_Word : constant String := \"boolean\";"
+  tokens := ["boolean_type_word", ":", "constant", "string", ":=", "\"boolean\"", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_c8ce1bc07e5a41fc0131a3ca69f896770f3ca3e2ed71aa43fea83366a24d6be6 : LineCertificate where
   text := "                and then Included (Result.Values (Done),"
   tokens := ["and", "then", "included", "(", "result", ".", "values", "(", "done", ")", ","]

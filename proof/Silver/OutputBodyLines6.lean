@@ -123,12 +123,6 @@ def outputBodyTokens_line_0ef372d92bd3fac1f3ebe30c65a79f827926ca265cce87ae6cf5cd
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputBodyTokens_line_0ef8d6276232422e0e03b3a5e53ea3cce89f7e7653952a3488396d649974c5d7 : LineCertificate where
-  text := "           or else (if Boolean_Elements then Name_Is (Text, First, After, \"boolean\")"
-  tokens := ["or", "else", "(", "if", "boolean_elements", "then", "name_is", "(", "text", ",", "first", ",", "after", ",", "\"boolean\"", ")"]
-  correct := by decide +kernel
-  noNewline := by decide +kernel
-
 def outputBodyTokens_line_160385155e4cd9bb713089fcc7985eca9e07f9bddf9081d69aaf547f1446c012 : LineCertificate where
   text := "       Post => (Static => Skip_At'Result <= Text'Last + 1"
   tokens := ["post", "=>", "(", "static", "=>", "skip_at", "'", "result", "<=", "text", "'", "last", "+", "1"]

@@ -1185,6 +1185,12 @@ def outputBodyTokens_line_79e0c28044a5ff3c8916cbe9f61fa9477e37d7fcbf8b27f4975dbc
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def outputBodyTokens_line_810f5b2ecc126416a97606d04e5583bf82e930876e850b09e22e146e348b815f : LineCertificate where
+  text := "           or else (if Boolean_Elements then Name_Is (Text, First, After, Boolean_Type_Word)"
+  tokens := ["or", "else", "(", "if", "boolean_elements", "then", "name_is", "(", "text", ",", "first", ",", "after", ",", "boolean_type_word", ")"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def outputBodyTokens_line_8117f4a4e22b8b48bb9137f9b01ae575e5099bc4ddcc69537e8dbb4d0962be1f : LineCertificate where
   text := "         for Index in Result.Facts.Values'Range loop"
   tokens := ["for", "index", "in", "result", ".", "facts", ".", "values", "'", "range", "loop"]
