@@ -189,7 +189,7 @@ trailing underscore. The 74 Ada 2022 reserved words, `String` and `Silver_IO` ar
 excluded ignoring ASCII case. In an argument-bearing shell, `Silver_Arguments` is
 also excluded for **every** declaration. Names in the ordered declaration region must
 be distinct ignoring ASCII case across String, Character, Integer and Boolean objects, named
-Integer subtypes and Integer-array declarations. Loop indexes and elements
+Integer subtypes and Integer/Boolean-array declarations. Loop indexes and elements
 have the scoped hiding rules below. `Main` is legal; `Silver_Arguments` remains legal
 in the static shell. Every reference matches the entire declared identifier ignoring
 ASCII case. There is no additional identifier-length limit beyond the complete source
@@ -208,7 +208,7 @@ declaration ::= name ":" [ "constant" ] "String" ":=" expression ";"
                 ":=" scalar_expression ";"
               | "subtype" name "is" "Integer" "range"
                 static_scalar_expression ".." static_scalar_expression ";"
-              | integer_array_declaration
+              | integer_array_declaration | boolean_array_declaration
 integer_subtype_mark ::= "Integer" | earlier_named_integer_subtype
 ```
 
@@ -217,7 +217,7 @@ a String initializer may read or slice earlier String constants or mutable objec
 use Integer Image; an Integer initializer may read earlier initialized Integer
 constants or mutable objects, including earlier initialized array components.
 A Boolean initializer uses the condition grammar below and may read earlier
-initialized Boolean objects and existing Integer, String, Character, length and validity
+initialized Boolean objects or Boolean-array components and existing Integer, String, Character, length and validity
 predicates. A Character initializer reads earlier Character objects or indexed
 fixed-bound Strings, or uses a printable Character literal. Forward, cyclic and self-initializer references are excluded. Each String
 initializer evaluates its literals, earlier names, slices, images and concatenations
@@ -415,7 +415,7 @@ components when a String object later hides the predefined Integer mark.
 
 Every Boolean object has the predefined type `Boolean`, an initializer, and
 optional `constant`. There are no Boolean subtype declarations, range constraints,
-arrays, Image operations or enumeration loops. A Boolean value is admitted in a
+Image operations or enumeration loops. Fixed-size arrays of Boolean use the rules below. A Boolean value is admitted in a
 Boolean initializer, Boolean assignment RHS or existing condition position;
 output and Integer/String expressions retain their own types.
 
@@ -439,7 +439,7 @@ copy. Assignment requires a visible mutable Boolean target and Boolean RHS,
 and changes only that target's value. Constants and Integer loop binders cannot
 be Boolean assignment targets, even in an empty loop or unreachable arm.
 
-A Boolean literal or stored Boolean name contributes the incoming scalar and
+A Boolean literal, stored Boolean name or Boolean-array component contributes the incoming scalar and
 String/input facts unchanged to both outcomes. It retains no relationship with
 the predicate that computed its value. Consequently, saving `D /= 0` in a flag
 does not justify later division under that flag, even before a later write to D.
@@ -597,6 +597,58 @@ binder's name is unavailable in its own bounds or iterable specification. Whole-
 comparison, slices, concatenation and attributes are not admitted; copying
 components explicitly through checked reads and writes is permitted.
 
+### Fixed-size Boolean arrays
+
+```text
+boolean_array_declaration ::= name ":" [ "constant" ] "array" "("
+                              static_scalar_expression ".." static_scalar_expression
+                              ")" "of" "Boolean" ":=" boolean_array_aggregate ";"
+boolean_array_aggregate ::= "(" condition "," condition { "," condition } ")"
+                          | "(" static_scalar_expression "=>" condition ")"
+```
+
+Bounds are an Ada-static, nonempty Integer range. A positional aggregate has
+exactly one Boolean expression for each element, in ascending index order; the
+named form is admitted only for a singleton array, with its exact static index.
+All expressions read the same incoming declaration store before the new array
+becomes visible. Earlier initialized Boolean objects and array components may
+supply values, alongside the existing condition forms. Each value is stored
+independently; later writes to a source object do not change these snapshots.
+
+The component mark must resolve to predefined `Boolean`. An earlier named
+Integer subtype named `Boolean` instead selects the Integer-array rules. A
+Boolean array cannot itself be named `Boolean`. Other predefined names and
+operations follow the existing declaration and loop hiding rules, including
+hiding in the new object's own initializer. Integer and Boolean arrays share
+the existing source-derived descriptor and component-storage limits.
+
+A Boolean indexed read is `A(scalar_index_expression)` and may appear in any
+Boolean initializer, Boolean assignment RHS or condition. Its index contains
+no array read, has a nonempty inferred Integer interval and lies wholly within
+A's declared bounds. The index rule applies in unreachable arms and empty
+loops as well: the pinned frontend can reject statically invalid subscripts
+there, and Silver uses one conservative rule for all such paths. The prefix
+plus the index's operands must fit the 64-operand limit; subscript arithmetic
+shares the existing 63-operator budget. No new whole-condition operand limit
+is imposed.
+
+An indexed write is `A(scalar_index_expression) := condition;`. A must be a
+visible mutable Boolean array; the index and RHS read the incoming state. The
+write replaces exactly the selected Boolean cell and preserves all other
+values, array bounds and existing scalar and String/input facts. Writes carry
+across iterations of existing loops. Reading a stored component never recovers
+facts about the condition that produced it; for example, a stored `N /= 0`
+does not justify division by N. Checking each initializer and RHS still follows
+the ordinary eager and short-circuit condition rules.
+
+This fragment deliberately excludes `others`, general named associations,
+parentheses around a whole aggregate, Boolean range constraints, Boolean
+array iteration and whole-array assignment, comparison, copying, slices,
+concatenation or attributes. These are Silver scope limits for explicit bounded
+initialization and component operations, not Ada restrictions. Boolean values
+cannot be used as Integer, Character or String expressions. Existing Integer
+array iteration and counted loops can contain Boolean component reads/writes.
+
 ### Scoped finite for loops
 
 ```text
@@ -625,7 +677,7 @@ The index is immutable and disappears on loop exit. Declarations stay in the
 single outer declaration region; `exit`, `while`, unconstrained loops and
 explicit iteration steps are excluded.
 
-Indexes may hide a String, an Integer object, an Integer array, an enclosing index, an enclosing
+Indexes may hide a String, an Integer or Boolean object, an Integer or Boolean array, an enclosing index, an enclosing
 element or a use-visible operation. The index's own name is hidden in both bounds: an inner
 `for I in 1 .. I` cannot use the outer `I`. Differently named enclosing indexes and elements
 remain available, as in `for J in 1 .. I`. Sequential loops may reuse names.
@@ -848,6 +900,8 @@ basic_statement  ::= "null" ";"
                    | mutable_boolean_name ":=" condition ";"
                    | mutable_integer_array_name "(" scalar_index_expression ")"
                      ":=" scalar_expression ";"
+                   | mutable_boolean_array_name "(" scalar_index_expression ")"
+                     ":=" condition ";"
                    | output_name "(" [ "Item" "=>" ] expression ")" ";"
 string_choice    ::= "if" condition "then" statements
                      { "elsif" condition "then" statements }
@@ -972,6 +1026,7 @@ relation         ::= expression ( "=" | "/=" ) expression
 boolean_factor   ::= primary | "not" primary
 primary          ::= validity_name
                    | visible_boolean_name | visible_boolean_literal
+                   | visible_boolean_array_name "(" scalar_index_expression ")"
                    | "(" condition ")"
 comparison       ::= "=" | "/=" | "<" | "<=" | ">" | ">="
 length_operand   ::= integer_literal | name "'" "Length"
@@ -1130,6 +1185,7 @@ The catalogue uses these construct identifiers:
 | `scalar_integer_literal`, `named_integer_constant`, `named_integer_variable`, `integer_range_constraint`, `integer_expression`, `integer_assignment` | Scalar numerals, initialized Integer objects, optional static object constraints, checked interval arithmetic and range-preserving assignments. |
 | `named_integer_subtype` | Direct Integer subtype declarations with nonempty static ranges, scalar object subtype marks and bounded fixed-array component marks. |
 | `integer_array_object`, `integer_array_read`, `integer_array_assignment` | Explicitly initialized anonymous fixed-size Integer arrays, nonempty interval-checked subscripts and component-preserving indexed assignment. |
+| `boolean_array_object`, `boolean_array_read`, `boolean_array_assignment` | Explicitly initialized fixed-size Boolean arrays, typed indexed reads and mutable cell writes; stored flags retain no scalar or String/input facts. |
 | `integer_array_iteration` | Forward/reverse iteration over constant Integer arrays, with immutable nonstatic elements, declared component entry bounds and existing guard/statement compositions. |
 | `named_boolean_constant`, `named_boolean_variable`, `boolean_assignment`, `boolean_expression`, `boolean_comparison` | Initialized scalar Boolean objects, snapshot copies, assignment, logical expressions and Boolean equality/inequality under the visibility, evaluation and xor restrictions above; stored flags retain no scalar or String/input facts. |
 | `integer_comparison`, `scalar_guard_refinement`, `integer_image`, `for_loop` | Bare mutable/index/element names against static thresholds, current read intervals with assignment replacement and branch hulls, standard decimal Image and scoped finite loops with captured bounds and mutable widening. |
@@ -1142,7 +1198,7 @@ The catalogue uses these construct identifiers:
 
 Everything else is excluded, including derived scalar types, subtype alias chains, conversions,
 other loop forms,
-Boolean arrays and Boolean operations outside the specified fragment,
+Boolean operations outside the specified fragment,
 additional declaration regions, resizable strings, other array
 operations, access types and file handles.
 The catalogue's token arrays are informative skeletons, including qualified,

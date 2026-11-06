@@ -1,9 +1,54 @@
 # Fixed-size Boolean arrays
 
-**Selected next on 2026-11-06; implementation unstarted.**
+**Implementation in progress on 2026-11-06; assurance and delivery pending.**
 [Milestone 19](https://github.com/berkeleynerd/silver/milestone/19) contains the
 existing [#297](https://github.com/berkeleynerd/silver/issues/297) as one cohesive
-work package. This planning record admits no new source forms.
+work package. Complete validation is required before this candidate is supported.
+
+## Implementation decisions — 2026-11-06
+
+The initial native candidate extends the shared array metadata with a component
+kind flag. Integer and Boolean arrays share the existing descriptor and cell
+budgets. Boolean initialization reserves cells in the parser's existing table;
+the stored placeholder integers are bookkeeping, not the Boolean execution
+model. The semantic model retains the raw Boolean initializers, exact values,
+incoming-state aggregate evaluation and subsequent indexed updates.
+
+The selected grammar uses explicit positional aggregates for multiple elements
+and the existing static singleton association rule for one element. There is no
+`others` shorthand or Boolean element iteration. Index expressions keep the
+existing scalar-only array-index grammar and nonempty contained interval rule,
+including dead arms and empty loops. Reading a Boolean cell preserves incoming
+flow facts for both outcomes, just as reading a stored scalar flag does.
+
+Resolve an existing named Integer subtype before the predefined Boolean type
+mark. In particular, `subtype Boolean is Integer range 0 .. 1` followed by an
+array of that subtype remains an Integer array. A draft that classified the
+spelling before resolving the subtype was corrected during implementation;
+regression coverage must distinguish this case from a hidden predefined mark.
+
+The candidate driver programs are a bounded sieve through 100 and elementary
+cellular automata for rules 90, 30 and 122. Scratch feasibility checks fit them
+within the source budget and independently calculate their expected outputs.
+Sample-only commit `4c45aa0cbb` retains both programs and independent expected outputs. They remain candidates until admission, native execution and the complete
+feature assurance checkpoint pass; no Rosetta gain is claimed yet.
+
+## Implementation rounds
+
+| Round | Selected settings | Intended outcome and result |
+| --- | --- | --- |
+| 2026-11-06 initial implementation | Native, semantics and source subthreads: GPT-6.1 Sol / Extra High; lead runtime setting not independently confirmed | Native candidate `260add4683` builds. Review of component-name resolution found the subtype-spelling regression, repaired in `913716ec8b`. Source/model integration remains pending. |
+| 2026-11-06 shared semantic foundation | GPT-6.1 Sol / Extra High | `6f0a99541c` adds typed array metadata projections and Boolean cell semantics. Focused run `20261106T174643-4d3ab3f8f38d` passes 21 audited modules / 2,349 declarations with the approved foundations (10.373 s build, 6.870 s audit). This is partial validation. |
+| 2026-11-06 proof-loop adjustment | Existing implementation subthreads; coordinated CPU reservations | The uncached exploratory parser run `20261106T174113-7f175d61085a` was interrupted after spending its work on unchanged legacy helpers. Its failed predecessor and partial results remain retained. Continued native iteration uses the original `review-final` sessions/cache on the repaired source. No full native assurance is claimed by these focused/incremental runs. |
+| 2026-11-06 typed integration | Existing native, semantic and source subthreads: GPT-6.1 Sol / Extra High; lead runtime setting not independently confirmed | Integrated typed Integer projections, Boolean indexed conditions, aggregate snapshots, declaration readings and raw bound checks. Focused semantic run `20261106T182220-6d9e0a5f8f8f` passes 40 modules / 5,516 declarations; focused condition run `20261106T182828-812595b7b7ce` passes 84 modules / 9,722 declarations. Declaration modules built in later partial runs; the complete source/endpoint checkpoint remains outstanding. |
+| 2026-11-06 native-domain repairs | Same implementation subthreads | Native proof diagnosed the missing explicit name-cursor guard in `Boolean_Array_After`; `b4d8a331dc` adds the existing parser guard pattern without changing declared admission. The active earlier snapshot remains retained, and the repair still needs verification. Source integration also found the model omitted the native rejection of Boolean element iteration; repair is in progress. The producer account preserves the existing 31,822,336-byte report envelope by separating Boolean comparisons from Integer component-conversion reservations; independent review remains pending. |
+
+| 2026-11-06 source and declaration traces | Existing implementation subthreads; root initially 4 workers, then root/semantic 2+2 alongside native/source 4+4 | Native condition correspondence `26c3bdb3cb` passed focused run `20261106T185405-587bfd498383` (16,158 declarations; 13.744 s build, 8.214 s audit). Raw Boolean array trace `247996f9b3` passed `20261106T185635-e94a490c92fe` (131 modules / 17,386 declarations). Region trace `3a5f8361fb` passed `20261106T190506-21a2155d83a1` (144 modules / 17,704 declarations; 12.982 s build, 14.370 s audit). Root initializer interpretation and model-helper witnesses built in a separate 620.474 s partial run that failed the array-equation target; that run is not a successful audit. |
+
+Token/cost measurements and independent runtime confirmation of the selected
+subthread settings are unavailable. Complete native/build/Lean/regression
+checkpoints, independent critical review, publication and delivery records
+remain outstanding.
 
 ## Authorization and bounded scope
 

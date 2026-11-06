@@ -33,7 +33,6 @@ class BooleanObjectTests(unittest.TestCase):
                             b'A:Boolean:="x";', b'A:Integer:=True;',
                             b'A:String:=False;', b'A:Boolean range False..True:=True;',
                             b'subtype Flag is Boolean;',
-                            b'A:array(1..2)of Boolean:=(True,False);',
                             b'A:Boolean:=True;a:String:="x";'):
             with self.subTest(declaration=declaration):
                 self.check(program(declaration, b'null;'), 2)
