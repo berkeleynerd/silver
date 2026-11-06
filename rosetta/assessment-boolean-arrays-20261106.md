@@ -58,3 +58,23 @@ assurance, review the task mapping, add only `fixed-boolean-arrays` to supported
 constructs, update the current assessor description and both task summaries,
 render the progression and reconcile the affected stage issue fields. Broad
 arrays #12 remains open. The separate sample-expansion package #300 is unchanged.
+
+## Delivery preparation — 2026-11-06
+
+The authoring subthread selected GPT-6.1 Sol / High and compared the cached task
+texts, the two exact driver sources at `d3aafa4baf`, their manifest expectations,
+and the Boolean-array language rules. This is source and metadata preparation,
+not independent critical review. Runtime confirmation of model/effort and
+whole-round elapsed/token/cost measurements are unavailable. No native, Lean or
+test execution was performed in this subthread.
+
+The prepared coverage records retain the original revision, assessment date,
+rubric, tier, model and effort. Their separate current review metadata identifies
+this bounded mapping and its pending validation. Only the two selected task
+surfaces, approaches, sizes, risks and output descriptions change. The automaton
+uses `Put` directly and constant Integer-array iteration, so its old procedures,
+String-indexing and broad Character requirements do not describe this source.
+The exact future identifier is `fixed-boolean-arrays`; it is registered with the
+assessor and renderer but is not yet in `supported`. Broad `arrays`, `booleans`
+and their other task assessments remain unchanged. Generated pages have not
+been rendered from these prepared records.

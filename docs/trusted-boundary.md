@@ -241,6 +241,22 @@ delivery checkpoint records complete Linux native and Lean/actual-source assuran
 the reviewed ghost equality repairs and regression applicability. The repairs add
 no trusted assumption or unchecked obligation path.
 
+## Fixed-size Boolean-array boundary
+
+The [Boolean-array candidate](boolean-arrays.md) retains the pinned Ada/SPARK,
+frontend, Why3/solver, runtime-import and report-policy premises. Components use
+predefined Boolean meaning. Static nonempty bounds, exact explicit aggregate
+cardinality and nonempty contained Integer index intervals establish the same
+shape and index requirements as the existing fixed-array fragment. Stored flags
+supply no predicate relations. No new trusted operation or assumption is added.
+
+The capacity review recorded in the capability record retains the
+31,822,336-byte Main envelope within the existing 32 MiB allocation, separating
+Boolean comparison routes from Integer component-conversion reservations.
+Native producer observations and the complete resulting-language checkpoint
+remain pending. Existing dated frame and stack observations above retain their
+original input/build scope; they do not measure the Boolean-array candidate.
+
 ## Scalar guard refinement boundary
 
 The [guard delivery](scalar-guard-refinement.md#delivery-assurance-and-validation)

@@ -20004,35 +20004,46 @@
    "effects": [
     {
      "effect": "console-output",
-     "explanation": "Each generation is printed as a line of '.' and '#' characters with Put_Line."
+     "explanation": "Prints each generation as a row of #/. using Put and Put_Line, with Integer'Image rule headers."
     }
    ],
    "surface": [
-    "integers",
-    "integer-division",
-    "ranged-subtypes",
-    "booleans",
-    "characters",
-    "arrays",
-    "string-indexing",
-    "for-loops",
-    "procedures"
+    "immutable-integers",
+    "bounded-mutable-integers",
+    "named-integer-subtypes",
+    "interval-integer-division",
+    "integer-for-loops",
+    "integer-image",
+    "scalar-guard-refinement",
+    "constant-integer-array-iteration",
+    "fixed-integer-arrays",
+    "fixed-boolean-arrays",
+    "put"
    ],
    "outlook": "likely",
    "risks": [
     {
      "obligation": "index",
-     "explanation": "Wraparound neighbors are computed with explicit if guards (index 0 maps to Width-1, index Width-1 maps to 0) and the rule table is indexed by a value built from Booleans that is statically within 0..7."
+     "explanation": "With I in 0..20, positive Width=21 and ordinary modulo bounds, both wrapped neighbor indexes stay in 0..20. Guarded Pattern updates retain 0..7 for the rule table."
     },
     {
      "obligation": "range",
-     "explanation": "The rule number is a subtype 0..255 and the remaining-bits variable keeps that subtype under repeated division by 2, so no loop invariant is needed."
+     "explanation": "Rule_Number retains 0..255 through nonnegative division by 2; Pattern assignment uses declared containment and bare-name refinement after each reached assignment."
     }
    ],
-   "size": 70,
-   "approach": "A procedure Show takes a Rule subtype 0..255 and decodes it into a Boolean array of 8 entries by repeated mod 2 and /2 in a for loop. The state is a fixed-width Boolean array (Width a constant of 21) with a single central cell set, and each of a fixed number of generations (a for loop) writes a new array using if-guarded left and right neighbor indexes, then renders the state into a fixed-length String buffer by indexed Character assignment and prints it. The main procedure calls Show for rules 90, 30 and 122 with literal header lines.",
-   "summary": "Every index and arithmetic operation is bounded by static array ranges, a 0..255 subtype and for loops, so the checks discharge from types and local guards without any annotation. The only new surface is arrays, for loops, string indexing and procedures, and the fixed width and generation count are documented resource limits.",
-   "confidence": "high"
+   "size": 61,
+   "approach": "Use samples/rosetta_elementary_cellular_automaton.adb: iterate constant Integer rule values 90, 30 and 122; decode each rule into eight Boolean cells by repeated / 2 and mod 2; reset a width-21 state to one central active cell; display 16 generations. For each new generation compute 4 * left + 2 * current + right using wrapping modulo neighbors, write a separate Boolean Next_State, then copy components into State. Print #/. directly with Put, without a String buffer or user routine. Static declarations configure rule values, width and arbitrary initial contents within source/storage bounds.",
+   "summary": "The prepared program implements all 256 local transition rules by their eight decoded bits, reads a separate unchanged generation and wraps both edges, as the cached task requires. Width, initial state and rule choices are static source configuration within Silver's budgets; the demonstration selects width 21, 16 rows and rules 90, 30 and 122. Independent expected rows use neighborhood bit shifts. Native execution and complete resulting-language assurance remain pending; the [mapping record](../../assessment-boolean-arrays-20261106.md) records the bounded interpretation and historical provenance.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-11-06",
+    "record": "assessment-boolean-arrays-20261106.md",
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setting_evidence": "Selected setting; runtime model/effort not independently exposed",
+    "method": "Author source/task reconciliation against cached revisions and prepared samples at d3aafa4baf; static metadata preparation only, no native/Lean/test execution; not independent critical review",
+    "validation_status": "Native driver executions and complete resulting-language assurance pending"
+   }
   },
   "Elementary cellular automaton/Infinite length": {
    "revision": 412101,
@@ -62612,29 +62623,38 @@
     }
    ],
    "surface": [
-    "integers",
-    "integer-division",
-    "ranged-subtypes",
-    "booleans",
-    "arrays",
-    "for-loops",
-    "scalar-image"
+    "immutable-integers",
+    "bounded-mutable-integers",
+    "interval-integer-division",
+    "integer-for-loops",
+    "integer-image",
+    "scalar-guard-refinement",
+    "fixed-boolean-arrays"
    ],
    "outlook": "likely",
    "risks": [
     {
      "obligation": "overflow",
-     "explanation": "The product K * Base in the inner loop is nonlinear, but K is bounded by Limit / Base so the product stays at most Limit, which provers handle with division reasoning and small subtype ranges."
+     "explanation": "The product is evaluated in the admitted static operand intervals: Base in 2..10 and K in 2..50 keep Multiple in 4..500."
     },
     {
      "obligation": "index",
-     "explanation": "Indexing Prime (K * Base) needs K * Base within 2 .. Limit, which follows from the for-loop bounds Base .. Limit / Base and Base >= 2."
+     "explanation": "The explicit bare-name guard Multiple <= Limit refines the declared 4..500 interval to 4..100 for Prime (Multiple), including within the nested loops."
     }
    ],
-   "size": 30,
-   "approach": "Embed a fixed Limit constant (for example 100) and an array Prime of Boolean indexed 2 .. Limit, all initialised True by an aggregate. An outer for loop runs Base over 2 .. a constant square-root bound; if Prime (Base), an inner for loop runs K over Base .. Limit / Base and marks Prime (K * Base) False, then a final for loop prints each index still True with Put_Line of its Integer'Image.",
-   "summary": "All loops are for loops over static or computed ranges, so no loop-carried value needs an invariant, and the only nontrivial checks are the index and overflow of K * Base, which the Limit / Base loop bound makes dischargeable. The fixed limit is an allowed documented resource bound.",
-   "confidence": "high"
+   "size": 33,
+   "approach": "Use samples/rosetta_sieve_of_eratosthenes.adb: explicitly initialize flags for 2 through 100, scan Base from 2 through 10, and for each surviving base cross out K * Base for K from Base through Limit / Base. Store the product in Multiple and guard Multiple <= Limit before the indexed write. Print every final surviving index with Integer'Image. No wheel, precomputed prime list or user subroutine is used.",
+   "summary": "The prepared bounded sieve follows the cached task's marking algorithm, using only its allowed square-root and prime-square optimizations. K <= Limit / Base makes the Multiple guard true for every reached product, so it omits no required crossing. Expected output is independently derived by trial division. Native execution and complete resulting-language assurance remain pending; the [mapping record](../../assessment-boolean-arrays-20261106.md) separates this source reconciliation from delivery.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-11-06",
+    "record": "assessment-boolean-arrays-20261106.md",
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "setting_evidence": "Selected setting; runtime model/effort not independently exposed",
+    "method": "Author source/task reconciliation against cached revisions and prepared samples at d3aafa4baf; static metadata preparation only, no native/Lean/test execution; not independent critical review",
+    "validation_status": "Native driver executions and complete resulting-language assurance pending"
+   }
   },
   "Sieve of Pritchard": {
    "revision": 414468,
