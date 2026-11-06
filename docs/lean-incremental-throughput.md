@@ -12,8 +12,9 @@ identities/cache reuse for ordinary edits. The
 [dated memory](session-memory.md#2026-11-06--incremental-lean-throughput-work-authorized)
 records authority; [roadmap](../roadmap.md#lean-source-parallelism) records order.
 At the planning boundary both issues remained Backlog until authorization
-reached main. PR #329 merged as `53ef5685a2`; #327 is now In progress and #328
-is Ready, with its pilot waiting for the comparison disposition below.
+reached main. PR #329 merged as `53ef5685a2`. The matched comparison now supports
+eight chunks: #327 is In review pending the shared final checkpoint, and #328
+is In progress with the bounded cache-reuse pilot below.
 
 The implementation base is the open, reviewed
 [PR #326](https://github.com/berkeleynerd/silver/pull/326), published completion
@@ -130,7 +131,8 @@ The [independent static review](reviews/review-lean-incremental-throughput-20261
 confirms all 4,915 ordered line declarations and the complete reconstruction
 suffix are byte-identical to the four-chunk base; only the partition and four
 required imports differ. Eight chunk sizes are 614, 614, 615, 614, 614, 615,
-614 and 615. Runtime acceptance and adoption remain pending.
+614 and 615. Runtime acceptance and adoption were pending at this preparation
+boundary; the terminal disposition follows below.
 
 Matched control `20261106T134724-a836b1157415` started at 13:47 UTC in the
 isolated `tmp/lean-four-control` workspace. The eight-case integration workspace
@@ -145,3 +147,29 @@ Implementation selected GPT-6.1 Sol / Extra High; critical static review selecte
 GPT-6 Astra / Extra High. Lead runtime settings and token/cost measurements are
 unavailable. Static generation, Python syntax and whitespace checks passed;
 tests and production Lean acceptance are not claimed by this preparation round.
+
+## Matched result and cache design — 2026-11-06
+
+Retain eight output line modules. Both full line-workload trials passed, and
+the [independent assessment](reviews/review-lean-incremental-throughput-20261106.md#matched-measurement-and-adoption-assessment--1447-utc)
+supports adoption. The [retained comparison](evidence/lean-incremental-throughput-20261106/README.md)
+records 2,001.803 versus 1,341.952 seconds of wrapper elapsed time: **32.96% less**,
+with **21.88% more CPU time** and sampled summed RSS rising from 5.20 to
+7.57 GiB. This is one sequential pair on the same host, with identical common
+objects and tools; it is not a whole-project speedup or repeatability estimate.
+No concrete comparability gap warrants repeating the expensive measurement.
+
+The #328 pilot uses eight fixed buckets and names derived from exact physical
+line text. Identical text shares a checked line certificate; the existing
+balanced reconstruction still names every occurrence in source order. A SHA-256
+digest chooses a generated name and bucket only, never a proof fact. Ordinary
+token edits can change at most two buckets, while inserting an already-present
+line can leave all bucket source files unchanged. The authoritative binding,
+reconstruction and dependent checks must still invalidate when source bytes
+change. Actual proof-object reuse is being checked in the bounded edit fixture;
+no full-workload reuse or final integrated acceptance is claimed yet.
+
+Implementation and evidence retention select GPT-6.1 Sol / Extra High; the
+critical comparison and generator review select GPT-6 Astra / Extra High.
+Runtime-confirmed lead settings and token/cost measurements are unavailable.
+The final source/module/axiom checkpoint and closing review remain outstanding.

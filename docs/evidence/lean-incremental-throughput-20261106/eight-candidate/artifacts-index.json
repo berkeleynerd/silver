@@ -1,0 +1,72 @@
+{
+  "common-olean-after.json.gz": {
+    "bytes": 29127,
+    "sha256": "58b768758bc9d81ecb7d4e18e56a5d4c1c7688a55afbf49782660b8cc2805f86",
+    "source": "Independent post-terminal inspection of frozen eight-case integration workspace",
+    "uncompressed_bytes": 73940,
+    "uncompressed_sha256": "56c52360db1dc1bf21a82666d8256ae70578f1cbfd1cf3b7e1129bccc864a89e"
+  },
+  "console.log": {
+    "bytes": 2323,
+    "sha256": "b31a452da10d2331a3c8bb7c4dea94879814c91de19a68e94d2b02092c4121c2",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-chunk-reuse/tmp/eight-lines/console.log"
+  },
+  "events.jsonl.gz": {
+    "bytes": 36372,
+    "sha256": "a912e17f62054ff3e58781ce6c277ac414694789a63211ab430e7d04eddbabea",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T142121-11c72098823f/events.jsonl",
+    "uncompressed_bytes": 87933,
+    "uncompressed_sha256": "0f88b34d7153d6f45515fff52c7e5aa8430b48c793b058914aa376ca0c0299a7"
+  },
+  "launch.json": {
+    "bytes": 1089,
+    "sha256": "746cb4ff70f84183fb4d85f6c896171977dfdc6e0bfb6ac751a7be30f7689185",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-chunk-reuse/tmp/eight-lines/launch.json"
+  },
+  "lean-cache-seed.json": {
+    "bytes": 629,
+    "sha256": "66ceabcb9b958283a5c8d4d23e1a0a27c0a7a062194ba6199fe2d0927b5dd35e",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-chunk-reuse/tmp/lean-cache-seed.json"
+  },
+  "lean-focused-evidence.json": {
+    "bytes": 1935,
+    "sha256": "4c7bb599b59e9b189a89621a6c258bde6c160b384a0752b26934a4b82f4c689a",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T142121-11c72098823f/lean-focused-evidence.json"
+  },
+  "lean-focused.log": {
+    "bytes": 2047,
+    "sha256": "6aaf0312683af6f273d5e91dd75ec820b0711f09a9c141db73cfc882f9521804",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T142121-11c72098823f/lean-focused.log"
+  },
+  "measurement-preparation.json.gz": {
+    "bytes": 32638,
+    "sha256": "304a2ac23f129eadb7fc8452afc339f58b376fa792fe77bd90804d7513a4ff6d",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-chunk-reuse/tmp/measurement-preparation.json",
+    "uncompressed_bytes": 86961,
+    "uncompressed_sha256": "f44cce5484164a2e5b4419feac837a4a5ddb25cf7308171bdba5d0fc32235155"
+  },
+  "observation.json": {
+    "bytes": 353,
+    "sha256": "9f5b406697c98212514a94d4c538baf706137a78ce62c6884f9bb9083d1295f8",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-chunk-reuse/tmp/eight-lines/observation.json"
+  },
+  "observe_lean.py": {
+    "bytes": 3911,
+    "sha256": "625dfddd817f691b7bcd4d7a2d2ac251da639857c5d68af2e6af9b83569e98f1",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-chunk-reuse/tmp/observe_lean.py"
+  },
+  "samples.jsonl.gz": {
+    "bytes": 40322,
+    "sha256": "f86c785b05b71ff6cdc0780d921020a4cad5f4f091c53ef921f55153f3cba249",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-chunk-reuse/tmp/eight-lines/samples.jsonl",
+    "uncompressed_bytes": 322337,
+    "uncompressed_sha256": "99b993a7b3fb04e87a21b4d8dba97a89dc3bd5acb9d82095566140934a935a13"
+  },
+  "workspace-inputs-sha256.json.gz": {
+    "bytes": 29379,
+    "sha256": "b304cef1084a73bdd31efc0a5a8ac8f333364ea791398d106d40e68b529e84a1",
+    "source": "Independent post-terminal inspection of frozen eight-case integration workspace",
+    "uncompressed_bytes": 68631,
+    "uncompressed_sha256": "496cc3df0c61d9b123d04a46f80673979bb75cd89af398d20b6f2d61ed855c18"
+  }
+}

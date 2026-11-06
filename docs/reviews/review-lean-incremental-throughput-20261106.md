@@ -1,5 +1,11 @@
 # Incremental Lean throughput review — 2026-11-06
 
+Static preservation and the matched focused measurements support retaining
+eight line chunks. Complete integrated assurance remains pending. The terminal
+assessment below supersedes the initial benchmark-pending status.
+
+## Initial static boundary — 13:52 UTC
+
 No material static finding remains in the eight-chunk candidate for
 [#327](https://github.com/berkeleynerd/silver/issues/327). It is ready for the
 planned matched benchmark. Runtime acceptance, performance usefulness and final
@@ -66,3 +72,59 @@ Selected reviewer: **GPT-6 Astra / Extra High**; runtime settings were not
 independently exposed. Observed clock interval: **13:49:03–13:52:35 UTC**, after
 initial reads, including coordination; this is not active-compute time.
 Token/cost measurements are unavailable. No CLI recall was updated.
+
+## Matched measurement and adoption assessment — 14:47 UTC
+
+Both focused runs finished successfully: four-chunk
+`20261106T134724-a836b1157415` at baseline `c062d5253e`, and eight-chunk
+`20261106T142121-11c72098823f` with reviewed governed bytes `0f3076d3da`
+(`ec2c6f474b`). Review inputs were the retained
+[four-control packet](../evidence/lean-incremental-throughput-20261106/four-control/README.md)
+and the eight-run immutable ledger, terminal log/evidence and observations,
+now retained in the
+[eight-candidate packet](../evidence/lean-incremental-throughput-20261106/eight-candidate/summary.json).
+The retained [comparison](../evidence/lean-incremental-throughput-20261106/comparison.json)
+agrees with the independently recalculated metrics and controls below.
+
+| Observed boundary | Four chunks | Eight chunks |
+| --- | ---: | ---: |
+| External wrapper wall seconds | 2001.802817 | 1341.952163 |
+| Lake build seconds | 1979.452 | 1318.594 |
+| Reaped command-tree user + system CPU seconds | 7253.028242 | 8840.193284 |
+| Sampled peak summed RSS, GiB | 5.204494 | 7.566975 |
+
+Independent recalculation gives **32.96% less wrapper wall time**, **33.39% less
+build wall time**, **21.88% more CPU time** and **45.39% higher sampled peak RSS**.
+CPU covers generation, build and audit, not only the line proofs. Approximately
+five-second RSS samples may miss peaks and count shared pages more than once.
+
+The records agree on Linux x86-64 host `codex-silver`, Lean 4.34.1 and executable
+hashes, 12 available CPUs, automatically selected 12 threads per process and
+6144 MiB per-process allowance. Four versus eight Lake workers is the intended
+comparison control. All **630 initial common-object hashes** match exactly.
+Both workspaces independently copied the same idle completed parent cache;
+selected line object families were removed, and logs show all four/eight leaves
+rebuilt. The 745 captured shared inputs differ only in the reviewed generator
+and runner. The earlier static review establishes the same 4,915 declaration
+texts and order. Fresh focused audits passed over all selected leaves and six
+common modules with the existing three foundations.
+
+The runs were sequential. The lead reports no competing proof jobs; cheap
+generation/editing/static inspection and idle-workspace evidence retention and
+hashing overlap are disclosed. Both monitors remained unpaused, with sampled
+host available memory never below 27.0 GiB. The retained observation wrappers
+are byte-identical; their source hashes were not captured at launch.
+
+This single sequential pair supports the lead's eight-chunk adoption for the
+measured workload and observed host headroom. The roughly eleven-minute wall
+saving is useful despite the CPU/memory tradeoff. No identified missing control
+warrants another expensive comparison. There is no repeatability estimate,
+randomized-order result or measured aggregator/reconstruction/whole-project
+speedup. Final combined reconstruction/source/module/axiom validation and
+applicable regressions remain required. The lead reports #328 active in a
+separate worktree; no #328 implementation is reviewed here.
+
+This continuation selected **GPT-6 Astra / Extra High**, without independently
+exposed runtime settings or token/cost measurements. Observed inspection
+interval: **14:45:44–14:47:18 UTC**. No test, proof, build or benchmark was
+launched, and no CLI recall was updated.

@@ -79,11 +79,13 @@ selects these ordered packages, stacking on PR #326:
    before proposing an implementation merge. A shared final checkpoint may
    serve both packages when its exact final inputs cover both.
 
-Both new issues stay Backlog until their dated authorization reaches main.
+Authorization reached main through PR #329 (`53ef5685a2`). The matched
+comparison supports eight chunks; #327 is In review pending final integrated
+assurance, and #328 is In progress with a bounded stable-content cache pilot.
 The [bounded record](docs/lean-incremental-throughput.md) defines comparison
-controls, edit cases and completion criteria. The remaining choices are the
-measured usefulness of eight chunks and the smallest stable-identity design
-supported by the pilot. Preserve the existing reconstruction representation,
+controls, edit cases, measured result and completion criteria. The pilot must
+establish actual unchanged-object reuse before the selected small design is
+delivered. Preserve the existing reconstruction representation,
 whole-output source/token statements and all proof checks. Automatic CPU/thread
 settings and current host memory policy remain in force; the four/eight-worker
 comparison is an explicit measurement control. Reconstruction/subtree/reflection
