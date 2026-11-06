@@ -13,6 +13,20 @@
     "uncompressed_bytes": 551,
     "uncompressed_sha256": "2e31091be1721526e181be82ba0cb5bd618b6df5b53e5ffcd1ead0031371dcb1"
   },
+  "source-policy-rerun-events.jsonl.gz": {
+    "bytes": 44129,
+    "sha256": "2a0cd6d797cbbd09ad2cf2750cf00f89c42860ba3a518221c72e4ae14d83e742",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T112137-dccd83f67d55/events.jsonl",
+    "uncompressed_bytes": 171915,
+    "uncompressed_sha256": "7d37c2dda04af62e5467c559d78e86218f60f63cad91923950a7701010cca413"
+  },
+  "source-policy-rerun-native.log.gz": {
+    "bytes": 475,
+    "sha256": "1a28b0a8d007415a52a8fa55c7eb7195f054fee55b18b81be647d247e4a28587",
+    "source": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T112137-dccd83f67d55/native.log",
+    "uncompressed_bytes": 2043,
+    "uncompressed_sha256": "bdfa88b853766e18394df01517b5f36a750d8a13e5a82b743c3bcd93283f5289"
+  },
   "tiny-failed-events.jsonl.gz": {
     "bytes": 43883,
     "sha256": "eb95a99b31e38d542f575ba93a3b98a4f7cc36ac75e8d104d767dd52aaab5a2f",

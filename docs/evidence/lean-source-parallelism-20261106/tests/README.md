@@ -9,6 +9,13 @@ Native Linux x86-64 results:
 | Mocked platform routing with real Python generation | 16 passed | 226.792 s |
 | Real tiny split-certificate generation/module fixture | 1 passed | 115.994 s |
 
+Managed source-policy/parity rerun `20261106T112137-dccd83f67d55` passed all
+12 selected methods in 7.253 seconds (10.464 seconds managed) with one reserved
+worker. Its `4f7de6594b` source, scripts, proof and test trees are byte-equal to
+integration `3f5d575635`. These 12 methods are a rerun subset of the original
+70, so they add no distinct test count. A preceding workspace-lease refusal
+launched no tests and is not recorded as a failed test outcome.
+
 [Summary](summary.json) records exact commands and scope. The first two commands
 ran directly: their logs are retained, but no contemporaneous complete managed
 input manifest was collected. The platform tools are mocked; its printed proof

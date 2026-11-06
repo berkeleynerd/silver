@@ -1,0 +1,22 @@
+{
+  "command": [
+    "python3",
+    "scripts/check_lean.py",
+    "--target",
+    "Silver.PredicateNativeHelpersCandidate",
+    "--target",
+    "Silver.PredicateFlowSourceCandidate",
+    "--workers",
+    "1",
+    "--memory-mb",
+    "12288",
+    "--task",
+    "#324 helpers and flow trial",
+    "--reason",
+    "One predicate leaf at a time overlaps four certificate chunks whose observed summed RSS remains about 4 GiB; historical complete predicate RSS 11.5 GiB informs 12 GiB per-process allowance; automatic threads and host monitor retained"
+  ],
+  "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-predicate-split",
+  "process_group": 9351,
+  "started_utc": "2026-11-06T10:58:28.079709+00:00",
+  "purpose": "sample CPU/RAM; pause only this run below 4 GiB MemAvailable"
+}

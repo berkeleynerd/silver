@@ -1,0 +1,340 @@
+{
+  "captured_source_inventory_comparison": {
+    "differing_entries": [
+      {
+        "output_lines_sha256": null,
+        "path": "proof/Silver/PredicateBodySourceCandidate.lean",
+        "predicate_helpers_flow_sha256": "c69eb31017e40ce2195dd44388878525b14108c78fadb2d16977168d5b2bd682"
+      },
+      {
+        "output_lines_sha256": null,
+        "path": "proof/Silver/PredicateFlowSourceCandidate.lean",
+        "predicate_helpers_flow_sha256": "2abc5eb61253e4d592d8f5298f01c0efd93a829a03f9ee5c14a94695134907da"
+      },
+      {
+        "output_lines_sha256": null,
+        "path": "proof/Silver/PredicateNativeHelpersCandidate.lean",
+        "predicate_helpers_flow_sha256": "02da429c419824ac9a5430c30ca8ca6d9affaf3b6fe75c9143352504810d61e1"
+      },
+      {
+        "output_lines_sha256": null,
+        "path": "proof/Silver/PredicateNativeShapeCandidate.lean",
+        "predicate_helpers_flow_sha256": "75c2ce5d4c94012cad4e26c3bd532b047833fd0b0308bc5ab85655a292e9e34d"
+      },
+      {
+        "output_lines_sha256": "42642e02a7b9d928082d3af37ff42d02d219007d510ed60b6320ada323a40aa9",
+        "path": "proof/Silver/PredicateSourceCandidate.lean",
+        "predicate_helpers_flow_sha256": "e709ed2d1eb9de09ddf2f012cadbfdc3c2f5da37a3208e7ac9564bd9a5ec4bd0"
+      },
+      {
+        "output_lines_sha256": "97e9b466c785f02829363ae9e481354d34003c6c1b1e446e24a95291cf98f152",
+        "path": "proof/generate_source_certificate.py",
+        "predicate_helpers_flow_sha256": "52f4ee2dca6ffe39218118143c20e072bba7bb49d1bf49009bd2a6886fc0e50b"
+      },
+      {
+        "output_lines_sha256": "ccc6fe844a3d0d4c35dd92a0d7dced6a3a8c7070444dee5b56e6eaa871267070",
+        "path": "scripts/check_lean.py",
+        "predicate_helpers_flow_sha256": "2be81a041d04fe7fbffbd1de1ebbbd3c44b0a1d886a90cef240a262351076650"
+      }
+    ],
+    "exact_snapshots_differ": true,
+    "meaning": "These are each runner-captured shared input hashes, retained in its ledger. Generated workspace candidates are verified by the runner but full workspace/provenance inventories were not selected. They are not a substitute for the final complete source-correspondence check."
+  },
+  "host": "linux-x86_64",
+  "limits": [
+    "Both runs are focused checks with fresh selected-import audits, not complete-project/source-correspondence validation.",
+    "Their original shared input snapshots differ and must not be combined into one final-input proof claim.",
+    "No cold build, independent leanchecker replay or matched baseline speedup experiment is claimed.",
+    "Observed wrapper time, checker elapsed time, managed duration, build/audit duration and rounded Lake module times have different boundaries.",
+    "Memory observations are sampled summed RSS; CPU samples do not establish exact total CPU time.",
+    "This retention task reused completed evidence and did not launch validation or change source."
+  ],
+  "retained_artifacts": "artifacts-index.json",
+  "runs": {
+    "output-lines": {
+      "build_and_audit_commands": [
+        [
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-parallelism/.tools/linux-x86_64/lean/bin/lake",
+          "--rehash",
+          "--reconfigure",
+          "-K",
+          "silverThreads=12",
+          "-K",
+          "silverMemoryMb=6144",
+          "build",
+          "+Silver.OutputBodyLines0",
+          "+Silver.OutputBodyLines1",
+          "+Silver.OutputBodyLines2",
+          "+Silver.OutputBodyLines3",
+          "+Silver.AxiomAudit"
+        ],
+        [
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-parallelism/.tools/linux-x86_64/lean/bin/lake",
+          "-K",
+          "silverThreads=12",
+          "-K",
+          "silverMemoryMb=6144",
+          "env",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-parallelism/.tools/linux-x86_64/lean/bin/lean",
+          "-DwarningAsError=true",
+          "-j12",
+          "-M6144",
+          ".lake/silver-focused-audit.lean"
+        ]
+      ],
+      "captured_shared_input_count": 741,
+      "captured_shared_inputs_digest_sha256": "498b1f0347ecf6532a12ed27a2a45e84a4e32585cfea3fda7670f750fd07e575",
+      "finished_at_utc": "2026-11-06T11:14:47.142984+00:00",
+      "fresh_audit": {
+        "declarations": 19232,
+        "foundations": "[propext, Classical.choice, Quot.sound]",
+        "kernel_replay": null,
+        "loaded_project_modules": 10,
+        "whole_project": false
+      },
+      "host": "linux-x86_64",
+      "lean_version": "4.34.1",
+      "managed_command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-parallelism/scripts/check_lean.py",
+        "--target",
+        "Silver.OutputBodyLines0",
+        "--target",
+        "Silver.OutputBodyLines1",
+        "--target",
+        "Silver.OutputBodyLines2",
+        "--target",
+        "Silver.OutputBodyLines3",
+        "--workers",
+        "4",
+        "--memory-mb",
+        "6144",
+        "--task",
+        "#323 full certificate lines",
+        "--reason",
+        "Four independent line chunks reserve four workers; automatic process threads retained; 6 GiB per process and host monitor preserve room for focused runner tests"
+      ],
+      "observation": {
+        "arithmetic_mean_sampled_cpu_cores": 3.594544227384388,
+        "limitations": [
+          "Sampled summed RSS can count shared pages and is not exact peak physical memory.",
+          "CPU core samples are interval observations of sampled live processes, not exact CPU-time accounting; no exact total CPU seconds are reported.",
+          "Sampling is approximately every five seconds; short-lived activity may be missed."
+        ],
+        "paused_by_monitor": false,
+        "peak_sampled_cpu_cores": 4.081455727600197,
+        "sample_count": 415,
+        "sampled_min_available_bytes": 23722336256,
+        "sampled_peak_summed_rss_bytes": 5624885248
+      },
+      "observation_command": [
+        "python3",
+        "scripts/check_lean.py",
+        "--target",
+        "Silver.OutputBodyLines0",
+        "--target",
+        "Silver.OutputBodyLines1",
+        "--target",
+        "Silver.OutputBodyLines2",
+        "--target",
+        "Silver.OutputBodyLines3",
+        "--workers",
+        "4",
+        "--memory-mb",
+        "6144",
+        "--task",
+        "#323 full certificate lines",
+        "--reason",
+        "Four independent line chunks reserve four workers; automatic process threads retained; 6 GiB per process and host monitor preserve room for focused runner tests"
+      ],
+      "original_ledger": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T104011-475878966fee/events.jsonl",
+      "original_observation": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-parallelism/tmp/output-lines",
+      "original_retained_log": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T104011-475878966fee/lean-focused.log",
+      "outcome": "success",
+      "resources": {
+        "available_cpus": 12,
+        "host_monitor_pause_available_bytes": 4294967296,
+        "lake_workers": 4,
+        "memory_limit_kind": "Lean periodically checked per-process threshold, not an aggregate or OS hard cap",
+        "memory_mb_per_lean_process": 6144,
+        "requested_workers": 4,
+        "thread_selection": "automatic; no --threads override",
+        "threads_per_lean_process": 12
+      },
+      "retained_directory": "output-lines",
+      "run_id": "20261106T104011-475878966fee",
+      "scope": "focused partial validation",
+      "started_at_utc": "2026-11-06T10:40:13.906770+00:00",
+      "targets": [
+        "Silver.OutputBodyLines0",
+        "Silver.OutputBodyLines1",
+        "Silver.OutputBodyLines2",
+        "Silver.OutputBodyLines3"
+      ],
+      "timing": {
+        "external_observation_wall_seconds": 2076.993246205,
+        "lake_module_reported_rounded_seconds": {
+          "Silver.OutputBodyLines0": 1591,
+          "Silver.OutputBodyLines1": 1869,
+          "Silver.OutputBodyLines2": 1970,
+          "Silver.OutputBodyLines3": 2048
+        },
+        "managed_duration_seconds": 2073.235959681,
+        "phases": [
+          {
+            "elapsed_seconds": 2055.42,
+            "exit_code": 0,
+            "finished_at": "2026-11-06T11:14:36.038486+00:00",
+            "phase": "build",
+            "started_at": "2026-11-06T10:40:20.618986+00:00"
+          },
+          {
+            "elapsed_seconds": 7.639,
+            "exit_code": 0,
+            "finished_at": "2026-11-06T11:14:44.789495+00:00",
+            "phase": "audit",
+            "started_at": "2026-11-06T11:14:37.150743+00:00"
+          }
+        ],
+        "runner_elapsed_seconds": 2075.763
+      },
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-parallelism"
+    },
+    "predicate-helpers-flow": {
+      "build_and_audit_commands": [
+        [
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-predicate-split/.tools/linux-x86_64/lean/bin/lake",
+          "--rehash",
+          "--reconfigure",
+          "-K",
+          "silverThreads=12",
+          "-K",
+          "silverMemoryMb=12288",
+          "build",
+          "+Silver.PredicateNativeHelpersCandidate",
+          "+Silver.PredicateFlowSourceCandidate",
+          "+Silver.AxiomAudit"
+        ],
+        [
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-predicate-split/.tools/linux-x86_64/lean/bin/lake",
+          "-K",
+          "silverThreads=12",
+          "-K",
+          "silverMemoryMb=12288",
+          "env",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-predicate-split/.tools/linux-x86_64/lean/bin/lean",
+          "-DwarningAsError=true",
+          "-j12",
+          "-M12288",
+          ".lake/silver-focused-audit.lean"
+        ]
+      ],
+      "captured_shared_input_count": 745,
+      "captured_shared_inputs_digest_sha256": "a1f4a9cd0731ba6e9049bdac57cc24bb0d7a6cf798579d9f70e415a5c8826c62",
+      "finished_at_utc": "2026-11-06T11:32:13.634496+00:00",
+      "fresh_audit": {
+        "declarations": 20272,
+        "foundations": "[propext, Classical.choice, Quot.sound]",
+        "kernel_replay": null,
+        "loaded_project_modules": 115,
+        "whole_project": false
+      },
+      "host": "linux-x86_64",
+      "lean_version": "4.34.1",
+      "managed_command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-predicate-split/scripts/check_lean.py",
+        "--target",
+        "Silver.PredicateNativeHelpersCandidate",
+        "--target",
+        "Silver.PredicateFlowSourceCandidate",
+        "--workers",
+        "1",
+        "--memory-mb",
+        "12288",
+        "--task",
+        "#324 helpers and flow trial",
+        "--reason",
+        "One predicate leaf at a time overlaps four certificate chunks whose observed summed RSS remains about 4 GiB; historical complete predicate RSS 11.5 GiB informs 12 GiB per-process allowance; automatic threads and host monitor retained"
+      ],
+      "observation": {
+        "arithmetic_mean_sampled_cpu_cores": 0.9837962331915693,
+        "limitations": [
+          "Sampled summed RSS can count shared pages and is not exact peak physical memory.",
+          "CPU core samples are interval observations of sampled live processes, not exact CPU-time accounting; no exact total CPU seconds are reported.",
+          "Sampling is approximately every five seconds; short-lived activity may be missed."
+        ],
+        "paused_by_monitor": false,
+        "peak_sampled_cpu_cores": 1.0052874383906363,
+        "sample_count": 405,
+        "sampled_min_available_bytes": 13898342400,
+        "sampled_peak_summed_rss_bytes": 13814587392
+      },
+      "observation_command": [
+        "python3",
+        "scripts/check_lean.py",
+        "--target",
+        "Silver.PredicateNativeHelpersCandidate",
+        "--target",
+        "Silver.PredicateFlowSourceCandidate",
+        "--workers",
+        "1",
+        "--memory-mb",
+        "12288",
+        "--task",
+        "#324 helpers and flow trial",
+        "--reason",
+        "One predicate leaf at a time overlaps four certificate chunks whose observed summed RSS remains about 4 GiB; historical complete predicate RSS 11.5 GiB informs 12 GiB per-process allowance; automatic threads and host monitor retained"
+      ],
+      "original_ledger": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T105828-7df2e454a509/events.jsonl",
+      "original_observation": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-predicate-split/tmp/predicate-helpers-flow",
+      "original_retained_log": "/home/canto/src/github.com/berkeleynerd/silver/.git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261106T105828-7df2e454a509/lean-focused.log",
+      "outcome": "success",
+      "resources": {
+        "available_cpus": 12,
+        "host_monitor_pause_available_bytes": 4294967296,
+        "lake_workers": 1,
+        "memory_limit_kind": "Lean periodically checked per-process threshold, not an aggregate or OS hard cap",
+        "memory_mb_per_lean_process": 12288,
+        "requested_workers": 1,
+        "thread_selection": "automatic; no --threads override",
+        "threads_per_lean_process": 12
+      },
+      "retained_directory": "predicate-helpers-flow",
+      "run_id": "20261106T105828-7df2e454a509",
+      "scope": "focused partial validation",
+      "started_at_utc": "2026-11-06T10:58:31.770042+00:00",
+      "targets": [
+        "Silver.PredicateNativeHelpersCandidate",
+        "Silver.PredicateFlowSourceCandidate"
+      ],
+      "timing": {
+        "external_observation_wall_seconds": 2026.6872669470004,
+        "lake_module_reported_rounded_seconds": {
+          "Silver.PredicateFlowSourceCandidate": 1040,
+          "Silver.PredicateNativeHelpersCandidate": 951
+        },
+        "managed_duration_seconds": 2021.864678102,
+        "phases": [
+          {
+            "elapsed_seconds": 2002.216,
+            "exit_code": 0,
+            "finished_at": "2026-11-06T11:32:01.909045+00:00",
+            "phase": "build",
+            "started_at": "2026-11-06T10:58:39.693495+00:00"
+          },
+          {
+            "elapsed_seconds": 8.116,
+            "exit_code": 0,
+            "finished_at": "2026-11-06T11:32:11.416125+00:00",
+            "phase": "audit",
+            "started_at": "2026-11-06T11:32:03.299976+00:00"
+          }
+        ],
+        "runner_elapsed_seconds": 2025.242
+      },
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/lean-predicate-split"
+    }
+  },
+  "schema": 1
+}
