@@ -1,0 +1,9 @@
+{
+  "run_id": "20261106T225857-e507df7ab57e",
+  "outcome": "success",
+  "managed_seconds": 98.101158877,
+  "tests": 16,
+  "unittest_seconds": 93.985,
+  "implementation": "1b7140d90b",
+  "scope": "All source policy tests, generated certificate parity and native Lean kernel rejection controls; not complete project assurance."
+}
