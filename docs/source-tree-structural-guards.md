@@ -1,7 +1,8 @@
 # Source-tree structural guards
 
-**Implemented and validated on Linux, 2026-11-06; awaiting owner review and
-merge.** The delivery below supersedes the initial planning status.
+**Complete on Linux and merged, 2026-11-06, through
+[PR #332](https://github.com/berkeleynerd/silver/pull/332).** The delivery and
+merge closeout below supersede the initial planning status.
 
 ## Authorization and scope — 2026-11-06
 
@@ -181,6 +182,27 @@ closed the only consequential draft gap; there was no resource-exhaustion retry
 or semantic/source rewrite. These timings describe this round, not a general
 performance guarantee.
 
-The package is ready for owner review. #314 and milestone 18 remain open until
-the implementation reaches main under a later merge instruction. No later
-language feature is started, and no CLI recall entry was updated.
+At this validation checkpoint the package was ready for owner review, with
+#314 and milestone 18 awaiting merge. The following closeout supersedes that
+checkpoint status. No CLI recall entry was updated.
+
+## Merged delivery — 2026-11-06
+
+The owner instructed **“Please merge it if it is ready and proceed to the next
+unit of work.”** PR #332 merged as
+`7d17ed20f5fe64b4061867587a00ec5f8873b56a`, from reviewed final head
+`b353f926c4`. Both Git trees are exactly
+`96496d401e7f3f2ce50c527790295e4021c0fe66`; the merge preserves the validated
+implementation, review and evidence bytes. The governed implementation remains
+`92ab046be220177eb850be943791df57d87043dc`.
+
+Issue #314 was automatically closed by `Fixes #314` on merge, its board status
+is Done, and milestone 18 is closed. The complete Lean/source/module/axiom audit,
+source tests and retained native input applicability remain the successful
+results above; this closeout reruns no proof, build or test. Opaque-leaf and
+interpretation-premise limits remain unchanged.
+
+The next regular feature is the queued [Boolean-array package](boolean-arrays.md)
+#297, selected from the recorded order under the proceed instruction. Its dated
+authorization must reach main before implementation is claimed. Functions #298,
+the separate #300 sample batch and capacity work remain unselected.
