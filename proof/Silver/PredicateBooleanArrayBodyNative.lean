@@ -284,7 +284,7 @@ theorem checked_precedence : targetBody.wellFormedRoot = true ∧ assignmentBody
 
 namespace StructuralControls
 
-def atom : Expr Bool := .eqNat .zero .zero
+def atom : Expr Bool := .booleanElements .localTarget
 
 theorem selected_prefixes :
     (Expr.valueAfter (.group .localValue)).wellFormed = false ∧
