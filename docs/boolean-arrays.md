@@ -43,10 +43,10 @@ feature assurance checkpoint pass; no Rosetta gain is claimed yet.
 | 2026-11-06 typed integration | Existing native, semantic and source subthreads: GPT-6.1 Sol / Extra High; lead runtime setting not independently confirmed | Integrated typed Integer projections, Boolean indexed conditions, aggregate snapshots, declaration readings and raw bound checks. Focused semantic run `20261106T182220-6d9e0a5f8f8f` passes 40 modules / 5,516 declarations; focused condition run `20261106T182828-812595b7b7ce` passes 84 modules / 9,722 declarations. Declaration modules built in later partial runs; the complete source/endpoint checkpoint remains outstanding. |
 | 2026-11-06 native-domain repairs | Same implementation subthreads | Native proof diagnosed the missing explicit name-cursor guard in `Boolean_Array_After`; `b4d8a331dc` adds the existing parser guard pattern without changing declared admission. The active earlier snapshot remains retained, and the repair still needs verification. Source integration also found the model omitted the native rejection of Boolean element iteration; repair is in progress. The producer account preserves the existing 31,822,336-byte report envelope by separating Boolean comparisons from Integer component-conversion reservations; independent review remains pending. |
 | 2026-11-06 source and declaration traces | Existing implementation subthreads; root initially 4 workers, then root/semantic 2+2 alongside native/source 4+4 | Native condition correspondence `26c3bdb3cb` passed focused run `20261106T185405-587bfd498383` (16,158 declarations; 13.744 s build, 8.214 s audit). Raw Boolean array trace `247996f9b3` passed `20261106T185635-e94a490c92fe` (131 modules / 17,386 declarations). Region trace `3a5f8361fb` passed `20261106T190506-21a2155d83a1` (144 modules / 17,704 declarations; 12.982 s build, 14.370 s audit). Root initializer interpretation and model-helper witnesses built in a separate 620.474 s partial run that failed the array-equation target; that run is not a successful audit. |
-
 | 2026-11-06 capacity review and helper integration | Capacity reviewer: GPT-6 Astra / Extra High; existing implementation subthreads | Independent 293 s producer/capacity review found no blocker and retained the 31,822,336-byte envelope. Native equality proof repair `25e6fe06a3` isolates existing logical-to-Ada equality in a Static lemma without changing runtime behavior. Initializer libraries and region trace built in run `20261106T190942-1022caa80b98`; that run remains failed on array-equation rewriting. Header analysis and downstream equations are still being integrated. |
-
 | 2026-11-06 semantic review and endpoint integration | Semantic reviewer: GPT-6 Astra / Extra High; String trace repair subthread: GPT-6.1 Sol / Extra High | Independent 350.6 s draft review found no additional central snapshot/domain defect and identified outstanding header/String trace integration plus two mechanical proof migrations. The latter were repaired in `f7e224ce64`; focused run `20261106T192233-4a921a21291a` passed 23,089 audited declarations (43.088 s build / 8.786 s audit). Body/write prerequisite `92b62c772b` passed a separate 14,750-declaration audit and is integrated. Header and per-component actual String/Character trace checks remain in progress. |
+| 2026-11-06 header, source and String integration | Existing implementation subthreads; documentation preparation: GPT-6.1 Sol / High | Header and retained Sequence model run `20261106T193157-2fea6bcc3959` passed 29,129 declarations (536.943 s build / 10.230 s audit). Source/library run `20261106T194029-667da8c0974e` passed 46,619 declarations. String actual-assurance run `20261106T194718-c5f570887ac0` passed 203 modules / 21,418 declarations (53.174 s build / 7.724 s audit), preserving the endpoint statements and incoming-state component traces. Source pins and helper/authoritative wiring are integrated through `d3aafa4baf`; full source checking remains pending. Documentation preparation `06a901f47a` makes no supported or rendered delivery claim. |
+| 2026-11-06 integration review and structural repair | Independent reviewer: GPT-6 Astra / Extra High; lead setting not independently confirmed | Review of `d3aafa4baf` found one medium structural-guard defect, #334, and no additional inspected admission/body/domain defect. `1da1698ac2` adds explicit prefix, grouping and root categories; `4ab30d865a` corrects the new control's relation/primary mix-up. Independent re-review cleared the repair. Focused run `20261106T195837-5846f84d4aa8` passed 18,432 declarations (18.493 s build / 7.524 s audit). This checks the guard and source-record type, not final authoritative extraction. |
 
 Token/cost measurements and independent runtime confirmation of the selected
 subthread settings are unavailable. Complete native/build/Lean/regression
@@ -164,11 +164,22 @@ found no blocking issue under the inherited producer premises. The separate
 the live initialization/snapshot/domain argument. Its remaining integration
 items are tracked here until the final stable checkpoint:
 
-- Combined scalar/array header analysis: draft integrated; focused check pending.
-- Per-component raw/actual String and Character initializer checks: dedicated
-  repair in progress; array declarations cannot simply be skipped.
+- Combined scalar/array header analysis: integrated and focused-checked with
+  the retained Sequence model in run `20261106T193157-2fea6bcc3959`.
+- Per-component raw/actual String and Character initializer checks: integrated
+  through the unchanged actual-assurance endpoint and focused-checked in run
+  `20261106T194718-c5f570887ac0`.
 - Lexical traversal and empty Boolean analysis migrations: repaired and covered
   by the focused run above.
+
+The [integration review](reviews/review-boolean-arrays-integration-20261106.md)
+then found the new body tree's missing prefix/root categories. Finding
+[#334](https://github.com/berkeleynerd/silver/issues/334) is repaired at
+`4ab30d865a`, independently re-reviewed and focused kernel-checked. It remains
+open for the complete final source checkpoint and delivery to main. The repair
+does not change native renderings, evaluations, concrete trees or admitted
+programs. The first repair check remains failed: its positive test mistakenly
+used a relation as a primary operand of `not`; the corrected control passed.
 
 These scoped reviews do not claim complete feature approval. Native repair
 checks, source certificates, complete universal/source audit, regressions and

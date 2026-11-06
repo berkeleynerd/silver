@@ -1,0 +1,31 @@
+{
+  "commit": "4ab30d865a7fb4e51a3f1ae880ba4a12d2743f99",
+  "captured_utc": "2026-11-06T19:59:15.266442+00:00",
+  "files": [
+    {
+      "path": "proof/Silver/PredicateBooleanArrayBodyNative.lean",
+      "bytes": 21853,
+      "sha256": "8436ff57a7d6245b0086c8e8c9df4b062fd89690477a0589571239149c1c984e",
+      "live_matches_commit": true
+    },
+    {
+      "path": "proof/Silver/PredicateBooleanArrayBodySource.lean",
+      "bytes": 3011,
+      "sha256": "63b6db1aa0ab729afde3829c5e7a560afc9f8db95eb80ece2b618005b8373ab3",
+      "live_matches_commit": true
+    }
+  ],
+  "scope": "Read-only repair review; exact commit diff confirms only structural predicates, Checked root field and controls changed. No Lean run.",
+  "native_source_unchanged_from_initial_review": true,
+  "all_changed_paths_since_initial_review": [
+    "README.md",
+    "docs/assurance.md",
+    "docs/trusted-boundary.md",
+    "proof/Silver/PredicateBooleanArrayBodyNative.lean",
+    "proof/Silver/PredicateBooleanArrayBodySource.lean",
+    "rosetta/assess.js",
+    "rosetta/assessment-boolean-arrays-20261106.md",
+    "rosetta/coverage.json",
+    "rosetta/refresh.py"
+  ]
+}
