@@ -1,5 +1,9 @@
 # Incremental Lean throughput
 
+**Delivered through PR #330 on 2026-11-06.** The
+[merged delivery](#merged-delivery--2026-11-06) supersedes earlier open/hold
+statuses below; historical checkpoints retain their original scope.
+
 ## Authorization and order — 2026-11-06
 
 The owner instructed **“Proceed”** with two ordered packages under
@@ -244,3 +248,21 @@ reconciliation; source, proof, scripts, tests and retained evidence are unchange
 The complete native/Lean validation and focused test applicability above are
 retained, without a new proof or native run. #8 and milestone 17 close after
 all selected packages reach main. No later work package is selected here.
+
+
+## Merged delivery — 2026-11-06
+
+The owner-authorized ordered delivery is complete: PR #326 merged as
+`508692aa8957c319a6baaffd1d0fb5a17afcc8ea`, followed by PR #330 as
+`315906b94fe535eecc4abc3a433b272c3eeacb03`. The latter merge has the exact tree
+of reconciliation `36ff1a181bc01c160a14d40658f1d6c673769bd3`; its only changes
+from reviewed publication `d4fa3571a4619a082a04989cae8caabde7886eeb` were the
+three documented records. Governed inputs remain `524dbfbd40`; retained native,
+Lean/source/module/axiom, scoped regression and critical-review evidence remains
+applicable. Reconciliation reviews passed without new proof/native runs.
+
+The selected packages #323/#324/#327/#328, parent #8 and milestone 17 are
+complete. The bounded comparison and edit pilot retain the measurement limits
+above. The [next structural-guard plan](source-tree-structural-guards.md) is a
+separate #314 package explicitly selected by the owner; this delivery
+itself makes no claim to add those guards. No CLI recall entry was updated.

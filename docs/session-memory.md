@@ -1,5 +1,41 @@
 # Session memory
 
+## 2026-11-06 — Lean deliveries complete; structural guards selected next
+
+The ordered owner-authorized merges are complete:
+[PR #326](https://github.com/berkeleynerd/silver/pull/326) merged as
+`508692aa8957c319a6baaffd1d0fb5a17afcc8ea`, followed by
+[PR #330](https://github.com/berkeleynerd/silver/pull/330) as
+`315906b94fe535eecc4abc3a433b272c3eeacb03`. Their reconciliations preserved
+validated implementation and evidence inputs. The
+[throughput delivery record](lean-incremental-throughput.md#merged-delivery--2026-11-06)
+retains complete assurance, review targets and the limits of the performance
+measurements.
+
+The owner's current instruction is **“Let's commit the stacked PR and then
+proceed with the next regularly scheduled unit of work.”** The earlier ordering
+was **“Let's implement our lean optimizations before we address 314.”** With the
+optimizations delivered, the owner explicitly selected **“#314 structural guards
+(recommended from our earlier order)”**. This authorizes the existing
+[#314](https://github.com/berkeleynerd/silver/issues/314) structural-guard
+follow-up as the next unit.
+
+[Milestone 18](https://github.com/berkeleynerd/silver/milestone/18), **Source-tree
+structural guards**, contains this one cohesive proof-only work package. The
+[bounded plan](source-tree-structural-guards.md) specifies the five tree languages,
+checked-source/scanner/Files wiring, positive inventories and negative controls,
+semantic/source review and complete final assurance. Preserve current trees,
+evaluations, rendered tokens, endpoints and Silver admission. No Oracle
+amendment, Ada change, generic framework or new language feature is selected.
+#297/#298 and the separate #300 batch retain their unselected scope.
+
+Routine planning publication and merge, followed by implementation through
+reviewable publication, follow the current proceed instruction. Keep #314
+Backlog until this dated record reaches main; then mark it Ready and claim the
+work through the usual issue/board routine. Implementation merge remains a
+later owner decision. Guard implementation has not begun. No CLI recall entry
+was updated.
+
 ## 2026-11-06 — Initial Lean delivery merged; incremental merge authorized
 
 The owner-authorized [PR #326](https://github.com/berkeleynerd/silver/pull/326)
