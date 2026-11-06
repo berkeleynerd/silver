@@ -1,0 +1,61 @@
+{
+  "reason": "Parent-directed stop: actual Z3 higher-memory behavior unestablished because prior cachedOOM response is reused; exactSMT and historical project repair establish superior minimal shared Boolean_Type_Word experiment. No terminal4096 proof result or success claimed.",
+  "timestamp": "2026-11-06T22:46:05.378199+00:00",
+  "session_id": 180634,
+  "processes": [
+    {
+      "pid": 180634,
+      "pgid": 180634
+    },
+    {
+      "pid": 180659,
+      "pgid": 180634
+    },
+    {
+      "pid": 180662,
+      "pgid": 180634
+    },
+    {
+      "pid": 180688,
+      "pgid": 180634
+    },
+    {
+      "pid": 180689,
+      "pgid": 180634
+    },
+    {
+      "pid": 180699,
+      "pgid": 180634
+    },
+    {
+      "pid": 180700,
+      "pgid": 180634
+    },
+    {
+      "pid": 180701,
+      "pgid": 180634
+    },
+    {
+      "pid": 180702,
+      "pgid": 180634
+    },
+    {
+      "pid": 180705,
+      "pgid": 180705
+    },
+    {
+      "pid": 180706,
+      "pgid": 180705
+    },
+    {
+      "pid": 180711,
+      "pgid": 180711
+    },
+    {
+      "pid": 180712,
+      "pgid": 180711
+    }
+  ],
+  "cached_z3_oom_original": "tmp/boolean-array-producer/repair-cache/c320e66fccb005a4018697e227850e902cd3b4d2",
+  "cache_mtime": 1794004138.9055946
+}

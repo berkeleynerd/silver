@@ -1,0 +1,186 @@
+Lean phase build started at 2026-11-06T22:51:24.605040+00:00
++ /home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays-fixed-word/.tools/linux-x86_64/lean/bin/lake --rehash --reconfigure -K silverThreads=12 -K silverMemoryMb=12288 build +Silver.ComposeArrayEquations +Silver.ComposeEvaluation +Silver.AxiomAudit
+info: silverProof: no previous manifest, creating one from scratch
+info: toolchain not updated; already up-to-date
+✔ [130/152] Built Silver.AxiomAudit (6.2s)
+✔ [131/152] Built Silver.ComposeExpressions (40s)
+✔ [132/152] Built Silver.ComposeLexical (3.1s)
+✔ [133/152] Built Silver.ComposeStringNative (11s)
+✔ [134/152] Built Silver.ComposeArrayExpressions (13s)
+✔ [135/152] Built Silver.ComposeContracts (4.0s)
+✔ [136/152] Built Silver.ComposeModelCalls (5.0s)
+✔ [137/152] Built Silver.ComposeStringPrimitiveEquations (8.8s)
+✔ [138/152] Built Silver.ComposeNativeValueBounds (14s)
+✔ [139/152] Built Silver.ComposeCoreHelperEquations (8.1s)
+✔ [140/152] Built Silver.ComposeNativeRecordBounds (4.4s)
+✔ [141/152] Built Silver.ComposeArrayDenotations (18s)
+✔ [142/152] Built Silver.ComposeStateBounds (35s)
+✔ [143/152] Built Silver.ComposeArrayNativeBounds (18s)
+✔ [144/152] Built Silver.ComposeArrayModel (13s)
+✔ [145/152] Built Silver.ComposeEvaluation (52s)
+✔ [146/152] Built Silver.ComposeStringEquations (122s)
+✔ [147/152] Built Silver.ComposeGuardedSliceEquations (11s)
+✔ [148/152] Built Silver.ComposeStringHelperEquations (3.2s)
+✔ [149/152] Built Silver.ComposeStringDeclarationEquation (211s)
+✔ [150/152] Built Silver.ComposeScalarDenotations (226s)
+✔ [151/152] Built Silver.ComposeHelperEquations (32s)
+✔ [152/152] Built Silver.ComposeArrayEquations (11s)
+Build completed successfully (152 jobs).
+
+Lean phase build finished at 2026-11-06T22:56:59.239675+00:00; elapsed 334.635s; exit 0
+Lean phase audit started at 2026-11-06T22:57:00.422813+00:00
++ /home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays-fixed-word/.tools/linux-x86_64/lean/bin/lake -K silverThreads=12 -K silverMemoryMb=12288 env /home/canto/src/github.com/berkeleynerd/silver/tmp/boolean-arrays-fixed-word/.tools/linux-x86_64/lean/bin/lean -DwarningAsError=true -j12 -M12288 .lake/silver-focused-audit.lean
+SILVER_MODULE Silver.Lexical
+SILVER_MODULE Silver.Admission
+SILVER_MODULE Silver.OutputLiteral
+SILVER_MODULE Silver.Cursor
+SILVER_MODULE Silver.OutputAdmission
+SILVER_MODULE Silver.NamedIdentifier
+SILVER_MODULE Silver.NamedAdmission
+SILVER_MODULE Silver.ArgumentsAdmission
+SILVER_MODULE Silver.GuardedDecimal
+SILVER_MODULE Silver.OutputRuntime
+SILVER_MODULE Silver.ArgumentsRuntime
+SILVER_MODULE Silver.IntegerIntervals
+SILVER_MODULE Silver.IntegerDivision
+SILVER_MODULE Silver.ArrayLayout
+SILVER_MODULE Silver.IntegerExpressions
+SILVER_MODULE Silver.IntegerImage
+SILVER_MODULE Silver.StringIndexing
+SILVER_MODULE Silver.CharacterExpressions
+SILVER_MODULE Silver.Bindings
+SILVER_MODULE Silver.ComposeExpression
+SILVER_MODULE Silver.Names
+SILVER_MODULE Silver.ScalarLiteral
+SILVER_MODULE Silver.IntegerDeclarations
+SILVER_MODULE Silver.IntegerMutable
+SILVER_MODULE Silver.IntegerChecks
+SILVER_MODULE Silver.IntegerArraySnapshots
+SILVER_MODULE Silver.IntegerArrays
+SILVER_MODULE Silver.BooleanModel
+SILVER_MODULE Silver.BooleanArrays
+SILVER_MODULE Silver.BooleanBindings
+SILVER_MODULE Silver.ArrayBindings
+SILVER_MODULE Silver.ScalarExpression
+SILVER_MODULE Silver.ScalarExpressionBounds
+SILVER_MODULE Silver.ScalarExpressionGrammar
+SILVER_MODULE Silver.ScalarExpressionRecognition
+SILVER_MODULE Silver.ScalarArrayExpressionGrammar
+SILVER_MODULE Silver.ScalarArrayExpressionRecognition
+SILVER_MODULE Silver.ScalarExpressionEnvironment
+SILVER_MODULE Silver.ScalarExpressionAdmission
+SILVER_MODULE Silver.StringLengths
+SILVER_MODULE Silver.IntegerSubtypeBindings
+SILVER_MODULE Silver.ComposeAtomAdmission
+SILVER_MODULE Silver.ComposeAtomReading
+SILVER_MODULE Silver.ComposeIndexedReading
+SILVER_MODULE Silver.ComposeCharacterReading
+SILVER_MODULE Silver.StringExecution
+SILVER_MODULE Silver.ComposeAtoms
+SILVER_MODULE Silver.StringObjectBounds
+SILVER_MODULE Silver.ComposeBindingBounds
+SILVER_MODULE Silver.PathFacts
+SILVER_MODULE Silver.IntegerComparisons
+SILVER_MODULE Silver.PredicateSyntax
+SILVER_MODULE Silver.PredicateSemantics
+SILVER_MODULE Silver.StringLengthRefinement
+SILVER_MODULE Silver.ScalarFlow
+SILVER_MODULE Silver.PredicateChecking
+SILVER_MODULE Silver.IntegerLiteral
+SILVER_MODULE Silver.PredicateFlowStorage
+SILVER_MODULE Silver.PredicateFlowOverlay
+SILVER_MODULE Silver.PredicateFlowOperations
+SILVER_MODULE Silver.PredicateFlowInvariant
+SILVER_MODULE Silver.PredicateFlowWidening
+SILVER_MODULE Silver.PredicateArrayFlow
+SILVER_MODULE Silver.PredicateXorAdmission
+SILVER_MODULE Silver.PredicateConditionAdmission
+SILVER_MODULE Silver.ComposeAdmission
+SILVER_MODULE Silver.Expressions
+SILVER_MODULE Silver.NamesExpressions
+SILVER_MODULE Silver.NamesEquations
+SILVER_MODULE Silver.ComposeExpressions
+SILVER_MODULE Silver.ComposeBooleanDeclarationNative
+SILVER_MODULE Silver.SourceLexer
+SILVER_MODULE Silver.SourceDeclarations
+SILVER_MODULE Silver.ComposeBooleanDeclarationSource
+SILVER_MODULE Silver.ComposeStringNative
+SILVER_MODULE Silver.ComposeArrayExpressions
+SILVER_MODULE Silver.ComposeBounds
+SILVER_MODULE Silver.ComposeContracts
+SILVER_MODULE Silver.ComposeStringPrimitiveEquations
+SILVER_MODULE Silver.ComposeCoreHelperEquations
+SILVER_MODULE Silver.ScalarExpressionConstants
+SILVER_MODULE Silver.ComposeSubtypeDeclarations
+SILVER_MODULE Silver.ComposeSemantics
+SILVER_MODULE Silver.StringFreezing
+SILVER_MODULE Silver.ComposeFrozenSemantics
+SILVER_MODULE Silver.ComposeScalarDeclarations
+SILVER_MODULE Silver.ComposeArrayDeclarations
+SILVER_MODULE Silver.ComposeArrayElaboration
+SILVER_MODULE Silver.ComposeBooleanArrayDeclarations
+SILVER_MODULE Silver.ComposeBooleanArrayElaboration
+SILVER_MODULE Silver.ComposeBooleanDeclarations
+SILVER_MODULE Silver.ComposeStringDeclarations
+SILVER_MODULE Silver.ComposeCharacterProperties
+SILVER_MODULE Silver.ComposeCharacterDeclarations
+SILVER_MODULE Silver.ComposeObjectDeclarations
+SILVER_MODULE Silver.ComposeCharacterBounds
+SILVER_MODULE Silver.ComposeStateBounds
+SILVER_MODULE Silver.ComposeStringEquations
+SILVER_MODULE Silver.ComposeGuardedSliceEquations
+SILVER_MODULE Silver.ComposeNativeValueBounds
+SILVER_MODULE Silver.ComposeNativeRecordBounds
+SILVER_MODULE Silver.PredicateReadings
+SILVER_MODULE Silver.PathBounds
+SILVER_MODULE Silver.PredicateCharacterReadings
+SILVER_MODULE Silver.PredicateConditionReadings
+SILVER_MODULE Silver.PredicateConditionSound
+SILVER_MODULE Silver.PredicateConditionBounds
+SILVER_MODULE Silver.PredicateNativeRanges
+SILVER_MODULE Silver.ComposeArrayNativeBounds
+SILVER_MODULE Silver.ComposeStringHelperEquations
+SILVER_MODULE Silver.ComposeStringDeclarationEquation
+SILVER_MODULE Silver.ComposeScalarDenotations
+SILVER_MODULE Silver.ComposeModelCalls
+SILVER_MODULE Silver.CertificateWitness
+SILVER_MODULE Silver.ComposeArrayDenotations
+SILVER_MODULE Silver.ComposeArrayModel
+SILVER_MODULE Silver.NamedSemantics
+SILVER_MODULE Silver.NamedDisjoint
+SILVER_MODULE Silver.ComposeNameBridge
+SILVER_MODULE Silver.ArrayBindingsRead
+SILVER_MODULE Silver.ArrayBindingsNativeExpressions
+SILVER_MODULE Silver.ArrayBindingsNativeEquations
+SILVER_MODULE Silver.ScalarExpressionNativeModel
+SILVER_MODULE Silver.ScalarExpressionNativeAlgebra
+SILVER_MODULE Silver.ScalarExpressionNativeRecursion
+SILVER_MODULE Silver.ScalarExpressionNativeTypes
+SILVER_MODULE Silver.ComposeHelperEquations
+SILVER_MODULE Silver.ComposeArrayEquations
+SILVER_MODULE Silver.GuardedAdmission
+SILVER_MODULE Silver.Uniqueness
+SILVER_MODULE Silver.OutputEquations
+SILVER_MODULE Silver.NamedEquations
+SILVER_MODULE Silver.ConcatAdmission
+SILVER_MODULE Silver.ConcatEquations
+SILVER_MODULE Silver.ArgumentsEquations
+SILVER_MODULE Silver.GuardedEquations
+SILVER_MODULE Silver.RecursiveBridge
+SILVER_MODULE Silver.OutputExpressions
+SILVER_MODULE Silver.NamedExpressions
+SILVER_MODULE Silver.ConcatExpressions
+SILVER_MODULE Silver.ArgumentsExpressions
+SILVER_MODULE Silver.AssignmentAdmission
+SILVER_MODULE Silver.AssignmentEquations
+SILVER_MODULE Silver.AssignmentExpressions
+SILVER_MODULE Silver.BranchingAdmission
+SILVER_MODULE Silver.BranchingEquations
+SILVER_MODULE Silver.BranchingExpressions
+SILVER_MODULE Silver.GuardedExpressions
+SILVER_MODULE Silver.ComposeLexical
+SILVER_MODULE Silver.ComposeEvaluation
+SILVER_MODULE Silver.AxiomAudit
+Silver axiom audit passed: 21354 declarations; foundations: [propext, Classical.choice, Quot.sound]
+
+Lean phase audit finished at 2026-11-06T22:57:08.781921+00:00; elapsed 8.359s; exit 0

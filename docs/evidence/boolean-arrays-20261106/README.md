@@ -251,17 +251,19 @@ candidate `af55339df7` was rejected before proof in
 with the existing conjunctive postcondition. Separate ghost expansion candidate
 `13026ad590` retained all existing bodies/contracts, but its isolated bridge
 failed in `20261106T221315-d935921d7570`. None of these candidates is integrated.
-The original source is restored for a focused 120-second solver-budget
-experiment, with the same provers, level and memory limit. Its result and the
-required complete native checkpoint are pending. No failed assertion is assumed
-as completed assurance, and no contract or language rule is weakened.
+The original-source 120-second solver-budget experiment subsequently failed;
+the higher-memory trial was interrupted after a cached Z3 out-of-memory result
+made that comparison inconclusive. The bounded repair and its focused evidence
+are recorded below. No failed assertion is assumed as completed assurance, and
+no contract or language rule is weakened.
 
 The combined Lean checkpoint above used four Lake workers and eight threads per
 process at 24,576 MiB per process, sharing the 32 GiB host with the native work.
 All eight output line modules and the combined helper built successfully; the
 helper reported 669 s. The complete reconstruction, remaining source candidates
-and whole-project audit remain outstanding. Current governed input bytes are
-`8102cd3898`; later integration commits update documentation only.
+and whole-project audit remain outstanding. That combined run's governed inputs
+are `8102cd3898`; the later shared type-word repair changes its source inputs as
+recorded below.
 
 Documentation preparation selected GPT-6.1 Sol / High; runtime confirmation and
 token/cost measurements are unavailable. This subthread read the root, source,
@@ -269,3 +271,33 @@ semantic and String checkpoint files, the native handoff, the transfer inventory
 and existing managed events/evidence/logs. It ran no native, Lean or test command
 and changed no proof/cache inputs. The conditional delivery-edit handoff is
 preserved locally at `tmp/boolean-arrays/tmp/DELIVERY-FINALIZATION-20261106.md`.
+
+## Shared Boolean type-word repair
+
+Independent inspection of the exact native obligation identified distinct
+solver arrays for the model's and executable's identical `"boolean"` literals.
+Native repair `b47bee6f2b`, integrated as `a1cc4a53df`, introduces one shared
+constant and replaces those two uses. All existing contracts, the original
+logical equality assertion and its equality bridge remain. The corresponding
+Lean constructor and checked constant declaration are integrated as
+`27fcd2e77b`; pin/certificate refresh `1b7140d90b` completes the source update.
+The [independent review](../../reviews/review-boolean-array-type-word-20261106.md)
+found no required correction and independently reproduced the pin and generated
+certificates. This is reviewed preparation, not complete source assurance.
+
+| Check | Result and scope |
+| --- | --- |
+| Native `20261106T224718-9374c3fb5301` | The original assertion at line 2179 passed under the ordinary 30-second/1000-MiB settings; three focused checks, 45.328 s. [Result](shared-type-word/focused-assertion-result.json). Broader native/model checks and complete audit remain required. |
+| Lean `20261106T225112-b305e0e70621` | `ComposeArrayEquations` and `ComposeEvaluation` passed: 151 modules / 21,354 declarations, 334.635 s build and 8.359 s fresh audit, exactly the approved foundations. [Manifest](shared-type-word/lean-focused-evidence.json), [log](shared-type-word/lean-focused.log). This source-independent run captured the earlier Ada bytes; it does not establish correspondence to the new constant. |
+| Cache transfer | From the idle successful focused workspace into the idle integration workspace: 23 rebuilt module families, 360 artifact files, 81 copied and 279 already identical. All 151 audited module sources matched integration; complete private/server/hash/trace families were retained without rewriting traces. [Inventory](shared-type-word/cache-import-fixed-word.json). Lake dependency checking and the complete fresh audit remain mandatory. |
+
+The [mechanical refresh](shared-type-word/refresh.json) changes only line buckets
+0, 1 and 6, their reconstruction and the complete output pin (53,290 to 53,297
+tokens). The native body hash is
+`1686b0b61da8c684ce185995621fb08bc5a6932893d2cc859a82ced9922ce4e8`.
+The [failed 120-second trial](shared-type-word/original-assertion-timeout120-memory1000.json)
+and [interrupted higher-memory trial](shared-type-word/original-assertion-timeout120-memory4096-interruption.json)
+retain their actual outcomes. Implementation selected GPT-6.1 Sol / Extra High;
+critical review selected GPT-6 Astra / Extra High. Runtime confirmation and
+token/cost measurements are unavailable. Complete integrated assurance,
+regressions and delivery still remain pending.
