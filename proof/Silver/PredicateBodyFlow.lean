@@ -44,6 +44,10 @@ theorem basicRaw_count (text : Source) (context : ParseContext) (scan : BodyScan
       unfold booleanAssignmentBody
       dsimp only
       split <;> rfl
+  | booleanArrayAssignment =>
+      unfold booleanArrayAssignmentBody
+      dsimp only
+      split <;> rfl
   | arrayAssignment =>
       unfold arrayAssignmentBody
       dsimp only

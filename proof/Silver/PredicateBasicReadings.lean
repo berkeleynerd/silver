@@ -56,6 +56,19 @@ inductive BasicPayload (text : Source) (context : ParseContext) (scan : BodyScan
       BasicPayload text context scan (.arrayAssign
         ⟨(ArrayBindings.binding context.arrayNames (arrayTarget text context scan.position)).descriptor,
           index, expression⟩)
+  | booleanArrayAssignment {index condition} : basicKind text context scan = .booleanArrayAssignment →
+      BooleanArrayAt text context scan.position scan.facts
+        (.booleanArrayRead (ArrayBindings.binding context.arrayNames
+          (arrayTarget text context scan.position)).booleanDescriptor index)
+        (booleanArrayAfter text context scan.position scan.facts) →
+      ConditionAt text context
+        (fixedAfter text (booleanArrayAfter text context scan.position scan.facts) ":=" false)
+        scan.facts condition
+        (readCondition text context
+          (fixedAfter text (booleanArrayAfter text context scan.position scan.facts) ":=" false) scan.facts) →
+      BasicPayload text context scan (.booleanArrayAssign
+        ⟨(ArrayBindings.binding context.arrayNames (arrayTarget text context scan.position)).booleanDescriptor,
+          index, condition⟩)
   | booleanAssignment {condition} : basicKind text context scan = .booleanAssignment →
       ConditionAt text context (scalarAssignmentStart text scan) scan.facts condition
         (readCondition text context (scalarAssignmentStart text scan) scan.facts) →
@@ -135,7 +148,7 @@ theorem basic_sound {text context scan}
       · rename_i good
         have positive : (readScalarInFlow text context (arrayValueStart text context scan) scan.facts).after ≠ 0 := by
           intro zero
-          exact good (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl (by omega))))))
+          exact good (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl (by omega)))))))
         obtain ⟨expression, parsed⟩ := ScalarExpression.read_sound
           (arrayValueStart_bound text context scan) positive
         have indexPositive : (arrayIndex text context scan).after ≠ 0 :=
@@ -143,6 +156,29 @@ theorem basic_sound {text context scan}
         obtain ⟨index, indexed⟩ := ScalarExpression.read_sound
           (Compose.Expressions.model_fixed_valid text _ "(" false (Compose.Expressions.model_name_valid text _)) indexPositive
         exact ⟨_, ⟨accepted, rfl, .arrayAssignment kind indexed parsed⟩⟩
+  | booleanArrayAssignment =>
+      simp only [basicRaw, kind, booleanArrayAssignmentBody] at raw
+      split at raw
+      · exact False.elim (raw rfl)
+      · rename_i good
+        have targetPositive : booleanArrayAfter text context scan.position scan.facts ≠ 0 :=
+          fun zero => good (Or.inr (Or.inr (Or.inr (Or.inl zero))))
+        obtain ⟨⟨atom, indexed⟩, targetBound⟩ := booleanArray_sound targetPositive
+        have positive : (readCondition text context
+            (fixedAfter text (booleanArrayAfter text context scan.position scan.facts) ":=" false)
+            scan.facts).after ≠ 0 := by
+          intro zero
+          exact good (Or.inr (Or.inr (Or.inr (Or.inr (by omega)))))
+        obtain ⟨⟨condition, parsed⟩, _⟩ := condition_sound text context _ _ tv nv
+          (Compose.Expressions.model_fixed_valid text _ ":=" false targetBound) positive
+        obtain ⟨index, shape, scalar⟩ := booleanArrayAt_shape indexed
+        cases shape
+        have targetEq : arrayTarget text context scan.position =
+            ArrayBindings.lookup text context.arrayNames (skipAt text scan.position)
+              (nameAfter text (skipAt text scan.position)) := by
+          simp [arrayTarget, scalar]
+        rw [← targetEq] at indexed
+        exact ⟨_, ⟨accepted, rfl, .booleanArrayAssignment kind indexed parsed⟩⟩
   | booleanAssignment =>
       simp only [basicRaw, kind, booleanAssignmentBody] at raw
       split at raw
@@ -167,13 +203,14 @@ theorem basic_meaning {text context scan item result}
     (normal : NamesNormal context.names)
     (base : ScalarMetadata.BaseReady context.scalarNames context.declarationCount)
     (arraysReady : context.ArraysReady text)
+    (booleansBound : context.booleanNames.length ≤ BooleanBindings.maxBindings)
     (compatible : ScalarMetadata.OverlayCompatible context.scalarNames context.declarationCount scan.facts)
     (nv : Compose.Expressions.ValidNames text context.names)
     (bounded : scan.facts.path.Bounded) (bodyMode : context.elaborating = false)
     (parsed : BasicAt text context scan item result) :
-    item.WellFormed context.hasArguments context.names.shape (BooleanBindings.analysis context.booleanNames) ∧
+    item.WellFormed context.hasArguments context.names.shape (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) ∧
       item.lower.check context.names.shape context.analysis (context.flow scan.facts)
-        (BooleanBindings.analysis context.booleanNames) = some (context.flow result.facts) := by
+        (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)) = some (context.flow result.facts) := by
   have rangesEq := context.reading_ranges compatible
   have success : (basicBody text context scan).position ≠ 0 := parsed.equation ▸ parsed.positive
   have raw := basic_raw_positive success
@@ -188,17 +225,11 @@ theorem basic_meaning {text context scan item result}
       simpa only [bodyToken_facts] using factsEq
   | reject kind =>
       have arguments : context.hasArguments = true := by
-        unfold basicKind at kind
-        split at kind <;> try contradiction
-        split at kind <;> try contradiction
-        split at kind <;> try contradiction
-        split at kind
-        · rename_i h
-          simp only [Bool.and_eq_true] at h
-          exact h.1
-        · split at kind <;> try contradiction
-          split at kind <;> try contradiction
-          split at kind <;> contradiction
+        cases arguments : context.hasArguments with
+        | true => rfl
+        | false =>
+            simp only [basicKind, arguments, Bool.false_and, Bool.false_eq_true, ↓reduceIte] at kind
+            repeat' (first | contradiction | split at kind)
       simp only [SourceStatement.WellFormed]
       refine ⟨arguments, ?_⟩
       simp only [basicRaw, kind] at resultEq
@@ -293,8 +324,9 @@ theorem basic_meaning {text context scan item result}
         change _ = some (ArrayFlow.flow context.arrayNames (scan.facts.replace _ _))
         rw [ArrayFlow.flow_replace _ _ _ _ (Nat.pos_of_ne_zero nonzero)
           (by rw [compatible.count]; exact targetBound) (Nat.le_trans targetBound base.size)]
+        simp only [ArrayBindings.integerRanges] at inferred
         simp only [SourceStatement.lower, Statement.check, Integer.Assignment.check,
-          Integer.Assignment.after, ParseContext.analysis, ArrayFlow.analysis,
+          Integer.Assignment.after, ParseContext.analysis, ArrayFlow.analysis, ArrayBindings.integerMutability, ArrayBindings.integerRanges,
           ArrayBindings.mutability_scalar _ _ (Nat.le_trans targetBound base.size),
           ArrayBindings.ranges_scalar _ _ _ _ (Nat.le_trans targetBound base.size), ScalarMetadata.analysis,
           ScalarExpression.mutability, ScalarExpression.ranges,
@@ -322,15 +354,20 @@ theorem basic_meaning {text context scan item result}
         have contained : ArrayBindings.contains
             (ArrayBindings.binding context.arrayNames (arrayTarget text context scan.position))
             (arrayIndex text context scan).bounds = true :=
-          true_of_not_neg (fun bad => good (Or.inr (Or.inr (Or.inl bad))))
+          true_of_not_neg (fun bad => good (Or.inr (Or.inr (Or.inr (Or.inl bad)))))
+        have integerKind : (ArrayBindings.binding context.arrayNames (arrayTarget text context scan.position)).isBoolean = false :=
+          Bool.eq_false_iff.mpr (fun bad => good (Or.inr (Or.inr (Or.inl bad))))
+        have selected := ArrayBindings.mem_integerNames.mpr ⟨member, integerKind⟩
+        have metadata := ArrayBindings.integerNames_validBindings (fun entry found => (arraysReady.1.2.1 entry found).2.2.2)
+        have ordered := ArrayBindings.integerNames_ordered arraysReady.2
         have notEmpty : (readScalarInFlow text context (arrayValueStart text context scan) scan.facts).bounds.isEmpty = false :=
-          Bool.eq_false_iff.mpr (fun bad => good (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl bad)))))))
+          Bool.eq_false_iff.mpr (fun bad => good (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl bad))))))))
         have included : (readScalarInFlow text context (arrayValueStart text context scan) scan.facts).bounds.included
             (ArrayBindings.binding context.arrayNames (arrayTarget text context scan.position)).componentBounds = true := by
           have constraints := good
           simp only [not_or, Bool.not_eq_true', Int.not_lt] at constraints
           simp only [Integer.Interval.included, notEmpty, Bool.false_or, decide_eq_true_eq]
-          exact ⟨constraints.2.2.2.2.2.2.1, constraints.2.2.2.2.2.2.2⟩
+          exact ⟨constraints.2.2.2.2.2.2.2.1, constraints.2.2.2.2.2.2.2.2⟩
         change (readScalarInFlow text context (arrayValueStart text context scan) scan.facts).bounds.included
           (ArrayBindings.binding context.arrayNames (arrayTarget text context scan.position)).descriptor.componentBounds = true at included
         have checkedIndex : Integer.arrayIndexCheck
@@ -340,7 +377,7 @@ theorem basic_meaning {text context scan item result}
           exact decide_eq_true (And.intro (ArrayBindings.binding_descriptor_valid valid) contained)
         have indexInference := indexed.inferred
         change index.infer (ScalarExpression.ranges (context.readingNames scan.facts)) = _ at indexInference
-        have overlay : index.infer (ArrayBindings.ranges context.arrayNames [] context.elaborating
+        have overlay : index.infer (ArrayBindings.integerRanges context.arrayNames [] context.elaborating
             (ScalarExpression.ranges (context.readingNames scan.facts))) =
             index.infer (ScalarExpression.ranges (context.readingNames scan.facts)) := by
           apply Integer.Expr.infer_readsOnly (ScalarExpression.syntax_readsOnly indexed.grammar)
@@ -355,17 +392,16 @@ theorem basic_meaning {text context scan item result}
         rw [rangesEq] at inferred
         have fullFlow : (ArrayBindings.binding context.arrayNames (arrayTarget text context scan.position)).descriptor.componentRanges
             (context.flow scan.facts).scalars = true :=
-          by simpa only [ParseContext.flow, bodyMode] using
+          by simpa only [ParseContext.flow, bodyMode, ArrayBindings.integerRanges] using
             (Integer.ArrayDescriptor.componentRanges_iff _ _).mpr (ArrayBindings.body_ranges_components
-            (fun entry found => (arraysReady.1.2.1 entry found).2.2.2) arraysReady.2 member [] _)
+            metadata ordered selected [] _)
         have fullDeclared : (ArrayBindings.binding context.arrayNames (arrayTarget text context scan.position)).descriptor.componentRanges
             context.analysis.declared = true :=
           (Integer.ArrayDescriptor.componentRanges_iff _ _).mpr (ArrayBindings.body_ranges_components
-            (fun entry found => (arraysReady.1.2.1 entry found).2.2.2) arraysReady.2 member [] _)
+            metadata ordered selected [] _)
         have writable : (ArrayBindings.binding context.arrayNames (arrayTarget text context scan.position)).descriptor.allCells
             context.analysis.mutable = true :=
-          ArrayBindings.ordered_allCells (fun entry found => (arraysReady.1.2.1 entry found).2.2.2)
-            arraysReady.2 member mutable _
+          ArrayBindings.ordered_allCells metadata ordered selected mutable _
         have factsEq : scan.facts = result.facts := by
           simpa only [bodyToken_facts] using congrArg BodyScan.facts resultEq
         refine ⟨by simp only [SourceStatement.WellFormed], ?_⟩
@@ -373,6 +409,44 @@ theorem basic_meaning {text context scan item result}
         simp only [SourceStatement.lower, Statement.check, checkArrayAssignment, Integer.ArrayAssignment.check,
           fullFlow, fullDeclared, writable, indexInferred, inferred, checkedIndex, notEmpty, included,
           Bool.not_false, Bool.and_self, ↓reduceIte]
+  | @booleanArrayAssignment index value kind indexed reading =>
+      simp only [basicRaw, kind, booleanArrayAssignmentBody] at raw resultEq
+      split at raw
+      · exact False.elim (raw rfl)
+      · rename_i good
+        rw [ite_eq_right good] at resultEq
+        have nonzero : arrayTarget text context scan.position ≠ 0 := fun bad => good (Or.inl bad)
+        have targetBound : arrayTarget text context scan.position ≤ context.arrayNames.length := by
+          unfold arrayTarget
+          dsimp only
+          split
+          · exact Nat.zero_le _
+          · exact ArrayBindings.Native.lookup_bound ..
+        have member := ArrayBindings.Native.binding_mem (Nat.pos_of_ne_zero nonzero) targetBound
+        have tag : (ArrayBindings.binding context.arrayNames (arrayTarget text context scan.position)).isBoolean = true :=
+          true_of_not_neg (fun bad => good (Or.inr (Or.inl bad)))
+        have mutable : (ArrayBindings.binding context.arrayNames (arrayTarget text context scan.position)).mutable = true :=
+          true_of_not_neg (fun bad => good (Or.inr (Or.inr (Or.inl bad))))
+        have writable := ArrayBindings.booleanAnalysis_writable
+          (fun item found => (arraysReady.1.2.1 item found).2.2.2) arraysReady.2 member tag mutable
+          (BooleanBindings.analysis context.booleanNames)
+        have contextReady : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating := by
+          rw [bodyMode]
+          exact base.toContextReady
+        have targetMeaning := booleanArray_reading_meaning (initials := []) contextReady arraysReady compatible indexed
+        have valueMeaning := condition_valid normal nv contextReady arraysReady compatible bounded reading
+        have checkedIndex : (ArrayBindings.binding context.arrayNames
+            (arrayTarget text context scan.position)).booleanDescriptor.checkIndex
+            (context.flow scan.facts).scalars index = true :=
+          (Bool.and_eq_true_iff.mp targetMeaning.checked).2
+        have factsEq : scan.facts = result.facts := by
+          simpa only [bodyToken_facts] using congrArg BodyScan.facts resultEq
+        refine ⟨?_, ?_⟩
+        · simp only [SourceStatement.WellFormed]
+          exact ⟨writable, valueMeaning.grammatical, valueMeaning.readable⟩
+        · rw [← factsEq]
+          simp only [SourceStatement.lower, Statement.check, BooleanArrayAssignment.check,
+            writable, checkedIndex, valueMeaning.checked, Bool.and_self, ↓reduceIte]
   | booleanAssignment kind condition =>
       simp only [basicRaw, kind, booleanAssignmentBody] at raw resultEq
       split at raw
@@ -388,13 +462,17 @@ theorem basic_meaning {text context scan item result}
           · exact BooleanBindings.lookup_bound ..
         have mutable : (BooleanBindings.binding context.booleanNames (booleanTarget text context scan.position)).mutable = true :=
           true_of_not_neg (fun bad => good (Or.inr (Or.inl bad)))
-        have writable : (BooleanBindings.analysis context.booleanNames).canWrite (booleanTarget text context scan.position) = true := by
-          simp only [Boolean.Analysis.canWrite, BooleanBindings.analysis, Nat.pos_of_ne_zero nonzero,
-            targetBound, and_self, decide_true, Bool.true_and, mutable]
+        have scalar := ArrayBindings.booleanAnalysis_scalar context.arrayNames
+          (BooleanBindings.analysis context.booleanNames) (Nat.le_trans targetBound booleansBound)
+        have writable : (ArrayBindings.booleanAnalysis context.arrayNames (BooleanBindings.analysis context.booleanNames)).canWrite (booleanTarget text context scan.position) = true := by
+          unfold Boolean.Analysis.canWrite
+          rw [scalar.1, scalar.2]
+          simp only [BooleanBindings.analysis, Nat.pos_of_ne_zero nonzero, targetBound,
+            and_self, decide_true, Bool.true_and, mutable]
         have contextReady : ScalarMetadata.ContextReady context.scalarNames context.declarationCount context.elaborating := by
           rw [bodyMode]
           exact base.toContextReady
-        have meaning := condition_valid normal nv contextReady compatible bounded condition
+        have meaning := condition_valid normal nv contextReady arraysReady compatible bounded condition
         have factsEq : scan.facts = result.facts := by
           simpa only [bodyToken_facts] using congrArg BodyScan.facts resultEq
         simp only [SourceStatement.WellFormed]
@@ -425,38 +503,48 @@ theorem basic_unique {text context scan left right first second}
       cases b.payload <;> simp_all
   | output kind reading =>
       cases b.payload with
-      | null other | reject other | assignment other | scalarAssignment other | arrayAssignment other | booleanAssignment other | put other => simp_all
+      | null other | reject other | assignment other | scalarAssignment other | arrayAssignment other | booleanAssignment other | booleanArrayAssignment other | put other => simp_all
       | output _ other =>
           obtain ⟨rfl, _⟩ := expressionTail_unique reading other
           rfl
   | put kind reading =>
       cases b.payload with
-      | null other | reject other | assignment other | scalarAssignment other | arrayAssignment other | booleanAssignment other | output other => simp_all
+      | null other | reject other | assignment other | scalarAssignment other | arrayAssignment other | booleanAssignment other | booleanArrayAssignment other | output other => simp_all
       | put _ other =>
           obtain ⟨rfl, _⟩ := expressionTail_unique reading other
           rfl
   | scalarAssignment kind reading =>
       cases b.payload with
-      | null other | reject other | output other | put other | arrayAssignment other | booleanAssignment other | assignment other => simp_all
+      | null other | reject other | output other | put other | arrayAssignment other | booleanAssignment other | booleanArrayAssignment other | assignment other => simp_all
       | scalarAssignment _ other =>
           obtain ⟨rfl, _⟩ := ScalarExpression.at_unique reading other
           rfl
   | arrayAssignment kind indexed reading =>
       cases b.payload with
-      | null other | reject other | output other | put other | scalarAssignment other | assignment other | booleanAssignment other => simp_all
+      | null other | reject other | output other | put other | scalarAssignment other | assignment other | booleanAssignment other | booleanArrayAssignment other => simp_all
       | arrayAssignment _ otherIndex other =>
           obtain ⟨rfl, _⟩ := ScalarExpression.at_unique indexed otherIndex
           obtain ⟨rfl, _⟩ := ScalarExpression.at_unique reading other
           rfl
+  | booleanArrayAssignment kind indexed reading =>
+      cases b.payload with
+      | null other | reject other | output other | put other | scalarAssignment other
+      | arrayAssignment other | assignment other | booleanAssignment other => simp_all
+      | booleanArrayAssignment _ otherIndex other =>
+          have indexEq := booleanArray_unique indexed otherIndex
+          injection indexEq with _ sameIndex
+          cases sameIndex
+          obtain rfl := condition_unique reading other
+          rfl
   | booleanAssignment kind reading =>
       cases b.payload with
-      | null other | reject other | output other | put other | scalarAssignment other | arrayAssignment other | assignment other => simp_all
+      | null other | reject other | output other | put other | scalarAssignment other | arrayAssignment other | assignment other | booleanArrayAssignment other => simp_all
       | booleanAssignment _ other =>
           obtain ⟨rfl, _⟩ := condition_unique reading other
           rfl
   | assignment kind reading =>
       cases b.payload with
-      | null other | reject other | output other | scalarAssignment other | arrayAssignment other | booleanAssignment other | put other => simp_all
+      | null other | reject other | output other | scalarAssignment other | arrayAssignment other | booleanAssignment other | booleanArrayAssignment other | put other => simp_all
       | assignment _ other =>
           rw [stringAssignment_unique reading other]
 

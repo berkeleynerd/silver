@@ -63,6 +63,18 @@ inductive BooleanArrayAt (text : Source) (context : ParseContext) (position : Na
         (.booleanArrayRead (ArrayBindings.binding context.arrayNames (ArrayBindings.lookup text context.arrayNames (skipAt text position) (nameAfter text (skipAt text position)))).booleanDescriptor index)
         (fixedAfter text subscript.after ")" false)
 
+/-- The indexed atom's descriptor and scalar namespace exclusion are retained
+without eliminating a source-dependent end cursor. -/
+theorem booleanArrayAt_shape {text context position facts condition finish}
+    (reading : BooleanArrayAt text context position facts condition finish) :
+    ∃ index, condition = .booleanArrayRead (ArrayBindings.binding context.arrayNames
+      (ArrayBindings.lookup text context.arrayNames (skipAt text position)
+        (nameAfter text (skipAt text position)))).booleanDescriptor index ∧
+      ScalarExpression.lookup text context.scalarNames (skipAt text position)
+        (nameAfter text (skipAt text position)) = 0 := by
+  cases reading with
+  | read target tag scalar mask reading operands inside advance => exact ⟨_, rfl, scalar⟩
+
 mutual
   inductive PrimaryAtCore (text : Source) (context : ParseContext) (initials : ArrayBindings.Initials) :
       Nat → ActiveFlow → Condition → ConditionResult → Prop

@@ -122,6 +122,17 @@ theorem basicRaw_bound (text : Source) (context : ParseContext) (scan : BodyScan
       · exact Nat.zero_le _
       · exact condition_bound text context _ scan.facts textValid namesValid
           (model_fixed_valid text _ ":=" false (model_name_valid text _))
+  | booleanArrayAssignment =>
+      unfold booleanArrayAssignmentBody
+      dsimp only
+      split
+      · exact Nat.zero_le _
+      · exact condition_bound text context _ scan.facts textValid namesValid
+          (model_fixed_valid text _ ":=" false (by
+            by_cases zero : booleanArrayAfter text context scan.position scan.facts = 0
+            · simp only [zero]
+              exact Nat.zero_le _
+            · exact (booleanArray_sound zero).2))
   | arrayAssignment =>
       unfold arrayAssignmentBody
       dsimp only
