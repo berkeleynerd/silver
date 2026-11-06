@@ -24,7 +24,7 @@ inductive DeclarationChecksAt (text : Source) (arguments : Bool) (state : Parser
       declaration.initializer = raw.freezeImages
         (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values) →
       DeclarationChecksAt text arguments state declaration
-        (raw.imageObligations (ArrayBindings.ranges state.arrayNames.names state.arrayNames.values true
+        (raw.imageObligations (ArrayBindings.integerRanges state.arrayNames.names state.arrayNames.values true
           (ScalarExpression.ranges state.scalarNames)) state.names.shape)
   | character {raw result} :
       (characterDeclarationAt text state arguments).position ≠ 0 →
@@ -34,7 +34,7 @@ inductive DeclarationChecksAt (text : Source) (arguments : Bool) (state : Parser
         (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values) →
       DeclarationChecksAt text arguments state declaration
         (Expression.imageObligations [Value.character raw]
-          (ArrayBindings.ranges state.arrayNames.names state.arrayNames.values true
+          (ArrayBindings.integerRanges state.arrayNames.names state.arrayNames.values true
             (ScalarExpression.ranges state.scalarNames)) state.names.shape)
 
 theorem declaration_image_trace {text : Source} {arguments : Bool} {state next : ParserState}
@@ -83,7 +83,7 @@ def ScalarDeclarationChecksAt (text : Source) (state : ParserState) (declaration
       (arrays := state.arrayNames.names) (initials := state.arrayNames.values) (elaborating := true) ∧
     declaration.value = raw.freezeArrays
       (frozenIntegers state.scalarNames state.arrayNames.names state.arrayNames.values) ∧
-    checks = raw.obligations (ArrayBindings.ranges state.arrayNames.names state.arrayNames.values true
+    checks = raw.obligations (ArrayBindings.integerRanges state.arrayNames.names state.arrayNames.values true
       (ScalarExpression.ranges state.scalarNames))
 
 theorem scalar_declaration_checks_trace {text arguments state next declaration}

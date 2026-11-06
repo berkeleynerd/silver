@@ -98,7 +98,7 @@ theorem grouped_source_bounds {text : Source} {names : BindingEnvironment}
     (textBound : text.length ≤ maxSourceLength) (inputBound : input.length ≤ maxSourceLength)
     (namesBound : names.length ≤ maxBindings) (metadata : NamesBoundsValid names)
     (strings : Fits names.shape input values)
-    (scalars : Integer.Fits (ArrayBindings.ranges arrays initials elaborating (ScalarExpression.ranges scalarNames)) integers)
+    (scalars : Integer.Fits (ArrayBindings.integerRanges arrays initials elaborating (ScalarExpression.ranges scalarNames)) integers)
     (sources : SourceAtoms text names scalarNames integerHidden arrays initials elaborating grouped.flatten)
     (bounded : (grouped.evaluate values input integers).length ≤ maxSourceLength) :
     (grouped.objectBounds names input integers).Valid ∧
@@ -145,7 +145,7 @@ theorem expressionAt_grouped_objectBounds {text : Source} {names : BindingEnviro
     (parsed : ExpressionAt (scalarNames := scalarNames) (integerHidden := integerHidden)
       (arrays := arrays) (initials := initials) (elaborating := elaborating) text names position expression result)
     (fitsResult : fits result capacity = true) (strings : Fits names.shape input values)
-    (scalars : Integer.Fits (ArrayBindings.ranges arrays initials elaborating (ScalarExpression.ranges scalarNames)) integers)
+    (scalars : Integer.Fits (ArrayBindings.integerRanges arrays initials elaborating (ScalarExpression.ranges scalarNames)) integers)
     (inputBound : input.length ≤ capacity) (ordered : grouped.flatten = expression) :
     grouped.BoundsSafe names input integers ∧
       (expression.objectBounds names input integers).Valid ∧

@@ -95,7 +95,7 @@ actual Ada initializer bounds, including arbitrary inverted null bounds. -/
 theorem string_initializer_bounds {text names scalarNames integerHidden arrays initials}
     {position expression result slot} {integers : Integer.Store}
     (input : Source) (normal : NamesNormal names)
-    (scalars : Integer.Fits (ArrayBindings.ranges arrays initials true (ScalarExpression.ranges scalarNames)) integers)
+    (scalars : Integer.Fits (ArrayBindings.integerRanges arrays initials true (ScalarExpression.ranges scalarNames)) integers)
     (parsed : ExpressionAt text names position expression result scalarNames integerHidden arrays initials true)
     (checked : fixedDeclarationBounds result slot = true) (fixed : result.dynamicCount = 0) :
     expression.objectBounds names input integers = ⟨result.firstIndex.lower, result.lastIndex.lower⟩ := by

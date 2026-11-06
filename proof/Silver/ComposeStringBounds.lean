@@ -26,7 +26,7 @@ theorem emission_objectBounds {text : Source} {names : BindingEnvironment}
     {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials} {state : ExpressionState}
     {emitted : Expression} {bounds : Bounds} {integers : Integer.Store}
     (input : Source) (normal : NamesNormal names)
-    (scalars : Integer.Fits (ArrayBindings.ranges arrays initials true (ScalarExpression.ranges scalarNames)) integers)
+    (scalars : Integer.Fits (ArrayBindings.integerRanges arrays initials true (ScalarExpression.ranges scalarNames)) integers)
     (positive : state.position ≠ 0) (unfinished : state.complete = false)
     (accepted : (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden)
       (arrays := arrays) (initials := initials) (elaborating := true) text names state).position ≠ 0)
@@ -92,7 +92,7 @@ theorem expressionTail_objectBounds {text : Source} {names : BindingEnvironment}
     {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials}
     {state : ExpressionState} {expression : Expression} {result : ExpressionResult}
     {bounds : Bounds} {integers : Integer.Store} (input : Source) (normal : NamesNormal names)
-    (scalars : Integer.Fits (ArrayBindings.ranges arrays initials true (ScalarExpression.ranges scalarNames)) integers)
+    (scalars : Integer.Fits (ArrayBindings.integerRanges arrays initials true (ScalarExpression.ranges scalarNames)) integers)
     (bounded : state.operands ≤ maxExpressionOperands)
     (before : state.ContainsBounds bounds)
     (parsed : ExpressionTailAt (scalarNames := scalarNames) (integerHidden := integerHidden)
@@ -121,7 +121,7 @@ theorem expressionAt_objectBounds {text : Source} {names : BindingEnvironment}
     {arrays : ArrayBindings.Metadata} {initials : ArrayBindings.Initials}
     {position : Nat} {expression : Expression} {result : ExpressionResult} {integers : Integer.Store}
     (input : Source) (normal : NamesNormal names)
-    (scalars : Integer.Fits (ArrayBindings.ranges arrays initials true (ScalarExpression.ranges scalarNames)) integers)
+    (scalars : Integer.Fits (ArrayBindings.integerRanges arrays initials true (ScalarExpression.ranges scalarNames)) integers)
     (parsed : ExpressionAt (scalarNames := scalarNames) (integerHidden := integerHidden)
       (arrays := arrays) (initials := initials) (elaborating := true) text names position expression result)
     (fixed : result.dynamicCount = 0) : result.ContainsBounds (expression.objectBounds names input integers) :=
